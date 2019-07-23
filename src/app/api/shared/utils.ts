@@ -127,9 +127,9 @@ export const clauseListToString = (clauses: QueryClause[]) => {
 export const clauseToString = (clause: QueryClause) => {
     switch (clause.parameterType) {
         case ParameterType.capabilityModelId:
-            return `HAS_CAPABILITYMODEL(${escapeValue(clause.value)})`;
+            return toPnPClause('HAS_CAPABILITYMODEL', clause.value);
         case ParameterType.interfaceId:
-            return `HAS_INTERFACE(${escapeValue(clause.value)})`;
+                return toPnPClause('HAS_INTERFACE', clause.value);
         default:
             return clauseItemToString(clause.parameterType, clause.operation, clause.value);
     }
@@ -146,4 +146,15 @@ export const escapeValue = (value: string) => {
         return `'${value}'`;
     }
     return value;
+};
+
+export const toPnPClause = (pnpFunctionName: string, value: string): string => {
+    const urnVersionRegEx = new RegExp(/:[0-9]+$/);
+    if (urnVersionRegEx.test(value)) {
+        const urnVersion = urnVersionRegEx.exec(value)[0].replace(':', '');
+        const urnName = value.replace(urnVersionRegEx, '');
+
+        return `${pnpFunctionName}(${escapeValue(urnName)}, ${urnVersion})`;
+    }
+    return `${pnpFunctionName}(${escapeValue(value)})`;
 };
