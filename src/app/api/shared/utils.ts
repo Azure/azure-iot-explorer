@@ -129,7 +129,7 @@ export const clauseToString = (clause: QueryClause) => {
         case ParameterType.capabilityModelId:
             return toPnPClause('HAS_CAPABILITYMODEL', clause.value);
         case ParameterType.interfaceId:
-                return toPnPClause('HAS_INTERFACE', clause.value);
+            return toPnPClause('HAS_INTERFACE', clause.value);
         default:
             return clauseItemToString(clause.parameterType, clause.operation, clause.value);
     }
