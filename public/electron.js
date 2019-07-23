@@ -82,8 +82,8 @@ function createMenu() {
 }
 
 // prevent multiple instances in Electron
-const gotTheLock = app.requestSingleInstanceLock();
-if (!gotTheLock) {
+const lock = app.requestSingleInstanceLock();
+if (!lock) {
     app.quit();
 }
 else {
