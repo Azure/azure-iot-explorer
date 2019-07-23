@@ -85,7 +85,7 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
     }
 
     public shouldComponentUpdate(nextProps: DeviceListDataProps & DeviceListDispatchProps & RouteComponentProps, nextState: DeviceListState): boolean {
-        return JSON.stringify(this.props.devices) !== JSON.stringify(nextProps.devices) || this.state !== nextState;
+        return JSON.stringify(this.props.devices) !== JSON.stringify(nextProps.devices) || this.state !== nextState; // TODO: Write an array comparison instead of using stringify
     }
 
     private readonly setQuery = (query: DeviceQuery) => {
