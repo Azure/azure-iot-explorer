@@ -33,11 +33,6 @@ function createWindow() {
 	})
 }
 
-app.on('ready', () => {
-    createWindow()
-    createMenu()
-})
-
 function createMenu() {
     const template = [
         // { role: 'fileMenu' }
@@ -84,6 +79,25 @@ function createMenu() {
 
     const menu = Menu.buildFromTemplate(template)
     Menu.setApplicationMenu(menu)
+}
+
+// prevent multiple instances in Electron
+const gotTheLock = app.requestSingleInstanceLock();
+if (!gotTheLock) {
+    app.quit();
+}
+else {
+    app.on('second-instance', () => {
+        // If user tries to run a second instance, would focus on current window
+        if (mainWindow) {
+            if (mainWindow.isMinimized()) mainWindow.restore()
+            mainWindow.focus()
+        }
+    })
+    app.on('ready', () => {
+        createWindow();
+        createMenu();
+    })
 }
 
 app.on('window-all-closed', () => {
