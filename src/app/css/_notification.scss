@@ -1,0 +1,91 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+@import 'variables';
+.new-notifications::after {
+    content: '';
+    position: absolute;
+    top: 7.5px;
+    right: 106px;
+    width: 10px;
+    height: 10px;
+    color: transparent;
+    border-radius: 50%;
+    text-align: center;
+    background: $blue;
+}
+
+.notification-list-divider {
+    height: 0px;
+    border: 0;
+    border-top: 1px solid $grey-border
+}
+
+.notification-list-header {
+    margin-left: 40px;
+    margin-right: 40px;
+    .commands {
+        text-align: right;
+    }
+}
+
+.notification-list-entry {
+    display: flex;
+    width: 250px;
+    margin-top: 10px;
+    margin-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+    .success {
+        color: $successText;
+    }
+
+    .error {
+        color: $errorText;
+    }
+
+    .warning {
+        color: $warningText;
+    }
+
+    .info {
+        color: $infoText;
+    }
+
+    .body {
+        width: 225px;
+        padding-left: 10px;
+        text-overflow: ellipsis;
+
+        .title {
+            font-weight: 550;
+            text-overflow: ellipsis;
+            color: $medium-gray;
+            padding-bottom: 7px;
+        }
+
+        .message {
+            padding-bottom: 7px;
+            color: $textColor;
+            text-overflow: ellipsis;
+            word-wrap:break-word;
+        }
+        .time {
+            color: $textColor
+        }
+    }
+}
+
+.notification-toast-body {
+    word-break: break-word;
+}
+.Toastify__toast-container {
+    margin-top:25px;
+}
+
+.notification-toast-progress-bar {
+    background: $light-medium-gray !important;
+    height: 2px;
+}

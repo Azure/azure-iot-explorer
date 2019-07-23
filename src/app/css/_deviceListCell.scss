@@ -1,0 +1,37 @@
+@import 'variables';
+@import 'mixins';
+
+.device-list-cell-container {
+    display: grid;
+    grid-template-columns: 2% auto;
+    column-gap: 5px;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+
+.device-list-cell-container-content {
+    grid-column-start: 2;
+    font-size: 12px;
+
+    .device-list-cell-item {
+        padding: 0px 23px;
+        border: 0;
+        border-right: 1px solid $light-medium-gray;
+    }
+
+    .first {
+        padding-left: 0px;
+    }
+
+    .last {
+        padding-right: 0px;
+        border: 0;
+    }
+
+    .no-border {
+        border: 0;
+    }
+
+    .data {
+        font-weight: bold;
+    }
+}

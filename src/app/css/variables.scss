@@ -1,0 +1,39 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+// Palette
+$black: #000000;
+$red: #e81123;
+$white: rgb(255, 255, 255);
+$blue: rgb(0, 120, 212);
+$link-blue: #0065D9;
+$skyblue: #5bbde1;
+$gray: rgb(206, 206, 206);
+$light-gray: #f4f4f4;
+$light-medium-gray: #a6a6a6;
+$dark-gray: #333333;
+$opaque-blocking: #cccccc;
+$medium-gray: #666666;
+$grey-border: #D9D9D9;
+
+// semantic styles
+$blocking: rgba(0,0,0,0.2);
+$navBarBorderColor: rgb(231, 231, 231);
+$successText: #7fba00;
+$errorText: #e00b1c;
+$errorBorder: #a80000;
+$warningText: #A50606;
+$infoText: #0058ad;
+$textColor: $medium-gray;
+$textfield-border: $light-gray;
+$textfield-disabled-font: rgb(51, 51, 51);
+$textfield-disabled-background: $light-gray;
+$textSize: 14px;
+$navSelected: rgb(244, 244, 244);
+$cell-gray: #f8f9f9;
+$list-column-header-color: #666666;
+
+// sizing constants
+$mastheadHeight: 40px;
+$screenSize: 800px;

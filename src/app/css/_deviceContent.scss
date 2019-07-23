@@ -1,0 +1,131 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+@import 'variables';
+@import 'mixins';
+
+$nav-collapsed-width: 40px;
+$nav-width: 20%;
+
+.device-content {
+    display: inline-block;
+    width: 100%;
+
+    .device-content-nav-bar.collapsed {
+        width:$nav-collapsed-width;
+
+        .nav-links {
+            display:none;
+        }
+    }
+    .device-content-nav-bar {
+        overflow-y: auto;
+        @include nav-bar;
+        display: flex;
+        flex-Direction: column;
+        width: $nav-width;
+        height: calc(100vh - 140px);
+        float: left;
+        .nav-links {
+            margin-left: 10px;
+        }
+        .nav-bar-item {
+            @include top-nav-item;
+            text-align: left;
+        }
+        .selected-nav-bar-item {
+            @include selected-nav-item
+        }    
+        border: {
+            right: {
+                width: 1px;
+                style: solid;
+                color: $navBarBorderColor;
+            }
+            bottom: none;
+        }
+    }
+    .device-content-detail {
+        margin: 0;
+        margin-left: $nav-width;
+        .form-group {
+            .fieldChildren {
+                display: flex;
+                flex-Direction: row;
+                width: 100%;
+                .ms-ComboBox-container {
+                    flex: 1;
+                }
+                .ms-DatePicker {
+                    flex: 1;
+                }
+                .form-control {
+                    flex: 1;
+                }
+                .form-control {
+                    height: 26px;
+                    padding: 1px 12px 1px 12px;
+                }
+                .form-control:disabled {
+                    border: none;
+                    color: rgb(166, 166, 166);
+                    background-color: rgb(244, 244, 244);
+                    height: 32px;
+                }
+            }
+        }
+        .each-property {
+            margin-bottom: 10px;
+        } 
+        .ms-CommandBar {
+            background: $white;
+            border-bottom: 1px solid $light-gray;
+            .ms-Button--commandBar {
+                background: $white;
+            }
+        }
+        h3 {
+            font-size: 20px;
+            padding-left: 26px;
+        }
+    }
+    .device-content-detail.collapsed {
+        margin-left: $nav-collapsed-width;
+    }
+
+    .device-property {
+        margin-bottom: 50px;
+        .commandBar {
+            @include commandBar;
+            .syncBlock {
+                padding-left: 30px;
+                margin-top: -10px;
+                .labelFont {
+                    font-weight: bold;
+                }
+            }
+        }
+
+        .ms-Overlay {
+            background-color: $blocking;
+        }
+    }
+
+    .device-command {
+        margin: 0px 0px 50px 3px;
+        .commandBar {
+            @include commandBar;
+            .commandTypeBlock {
+                padding-left: 30px;
+                .labelFont {
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}
+
+.ms-Shimmer-container {
+    margin-top: 20px;
+ }

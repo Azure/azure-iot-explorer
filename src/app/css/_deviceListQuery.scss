@@ -1,0 +1,155 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+@import 'variables';
+@import 'mixins';
+
+.deviceList-query {
+    width: calc(100vw - 24px);
+    padding-left: 24px;
+    overflow: auto;
+    word-wrap: break-word;
+    display: inline-block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    .deviceId-search {
+        float: left;
+        height: 32px;
+        border: {
+            width: 1px;
+            style: solid;
+            color: $gray;
+            right: none;
+            radius: 2px;
+            radius: 2px;
+        }
+        .search-box {
+            float: left;
+            width: calc(33vw - 45px);
+
+        }
+        .search-button {
+            padding-top: 1px;
+            max-width: 32px;
+            background-color: $blue;
+            color: $white;
+            padding-bottom: 1px;
+        }
+        .search-button:disabled {
+            background-color: $gray;
+        }
+    }
+    .clauses {
+        width: calc(67vw - 24px);
+        float: right;
+        .search-pill {
+            float:left;
+            padding: {
+                top: 0px;
+                bottom: 0px;
+                left: 4px;
+                right: 4px;
+            }
+            margin: {
+                left: 3px;
+                bottom: 3px;
+                right: 3px;
+                top: 0px;
+            }
+            line-height: 26px;
+            height: 32px;
+            border: {
+                width: 1px;
+                style: solid;
+                color: $gray;
+                radius: 16px;
+            }
+            .parameter-type {
+                float: left;
+                max-width: 170px;
+                line-height: 20px;
+                font-size: 10px;
+
+            }
+            .operation-type {
+                float: left;
+                max-width: 60px;
+                line-height: 20px;
+                font-size: 12px;
+            }
+            .clause-value {
+                float: left;
+                max-width: 150px;
+                line-height: 20px;
+                font-size: 10px;
+            }
+            .remove-pill {
+                width: 8px;
+                height: 26px;
+                float: right;
+            }
+        }
+        .search-pill:hover {
+            border-color: $blue;
+        }
+        .search-pill.error {
+            border-color: $red;
+        }
+        .search-pill.active {
+            padding-left: 10px;
+            padding-top: 3px;
+            padding-bottom: 1px;
+            padding-right: 6px;
+            min-width: 400px;
+            border-color: $blue;
+            max-height: 27px;
+            .ms-Button-icon {
+                font-size: 10px;
+            }
+            .ms-ComboBox-container {
+                height: 24px;
+                .ms-ComboBox {
+                    height: 24px;
+                    .ms-ComboBox-input{
+                        height: 20px;
+                    }
+                }
+            }
+            .ms-TextField {
+                height: 26px;
+                line-height: 24px;
+                .ms-TextField-fieldGroup {
+                    height: 24px;
+                }
+            }
+            .ms-Dropdown {
+                height: 24px;
+                .ms-Dropdown-title {
+                    height: 24px;
+                    vertical-align: top;
+                    line-height: 24px;
+                }
+                .ms-Dropdown-caretDownWrapper {
+                    height: 26px;
+                    line-height: 24px;
+                }
+            }
+        }
+        .search-pill.no-operator {
+            .parameter-type {
+                float: left;
+                max-width: 190px;
+                line-height: 20px;
+                font-size: 10px;
+            }
+            .clause-value {
+                float: left;
+                max-width: 190px;
+                line-height: 20px;
+                font-size: 10px;
+            }
+        }
+    }
+}

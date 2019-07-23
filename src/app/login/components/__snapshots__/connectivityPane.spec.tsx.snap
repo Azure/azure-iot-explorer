@@ -1,0 +1,445 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`login/components/connectivityPane matches snapshot 1`] = `
+<div
+  className="connectivity-pane"
+  role="main"
+>
+  <div
+    className="main"
+    role="dialog"
+  >
+    <h1 />
+    <div
+      className="connection-string"
+    >
+      <CopyableMaskField
+        allowMask={true}
+        error=""
+        onTextChange={[Function]}
+        readOnly={false}
+        required={true}
+        t={
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                "connectivityPane.header",
+              ],
+              Array [
+                "connectivityPane.connectionStringTextBox.label",
+              ],
+              Array [
+                "connectivityPane.connectionStringTextBox.label",
+              ],
+              Array [
+                "connectivityPane.connectionStringCheckbox.ariaLabel",
+              ],
+              Array [
+                "connectivityPane.connectionStringCheckbox.tooltip",
+              ],
+              Array [
+                "connectivityPane.connectionStringCheckbox.label",
+              ],
+              Array [
+                "connectivityPane.notes",
+              ],
+              Array [
+                "connectivityPane.saveButton.label",
+              ],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+            ],
+          }
+        }
+        value=""
+      />
+    </div>
+    <div
+      className="remember-connection-string"
+    >
+      <StyledCheckboxBase
+        onChange={[Function]}
+      />
+      <Component />
+    </div>
+    <div
+      className="notes"
+    >
+      <Text />
+    </div>
+    <div
+      className="connection-button"
+    >
+      <CustomizedPrimaryButton
+        disabled={true}
+        onClick={[Function]}
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`login/components/connectivityPane matches snapshot for empty connection string 1`] = `
+<div
+  className="connectivity-pane"
+  role="main"
+>
+  <div
+    className="main"
+    role="dialog"
+  >
+    <h1 />
+    <div
+      className="connection-string"
+    >
+      <CopyableMaskField
+        allowMask={true}
+        error=""
+        onTextChange={[Function]}
+        readOnly={false}
+        required={true}
+        t={
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                "connectivityPane.header",
+              ],
+              Array [
+                "connectivityPane.connectionStringTextBox.label",
+              ],
+              Array [
+                "connectivityPane.connectionStringTextBox.label",
+              ],
+              Array [
+                "connectivityPane.connectionStringCheckbox.ariaLabel",
+              ],
+              Array [
+                "connectivityPane.connectionStringCheckbox.tooltip",
+              ],
+              Array [
+                "connectivityPane.connectionStringCheckbox.label",
+              ],
+              Array [
+                "connectivityPane.notes",
+              ],
+              Array [
+                "connectivityPane.saveButton.label",
+              ],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+            ],
+          }
+        }
+        value="invalid connection string"
+      />
+    </div>
+    <div
+      className="remember-connection-string"
+    >
+      <StyledCheckboxBase
+        onChange={[Function]}
+      />
+      <Component />
+    </div>
+    <div
+      className="notes"
+    >
+      <Text />
+    </div>
+    <div
+      className="connection-button"
+    >
+      <CustomizedPrimaryButton
+        disabled={false}
+        onClick={[Function]}
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`login/components/connectivityPane matches snapshot for invalid connection string 1`] = `
+<div
+  className="connectivity-pane"
+  role="main"
+>
+  <div
+    className="main"
+    role="dialog"
+  >
+    <h1 />
+    <div
+      className="connection-string"
+    >
+      <CopyableMaskField
+        allowMask={true}
+        error=""
+        onTextChange={[Function]}
+        readOnly={false}
+        required={true}
+        t={
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                "connectivityPane.header",
+              ],
+              Array [
+                "connectivityPane.connectionStringTextBox.label",
+              ],
+              Array [
+                "connectivityPane.connectionStringTextBox.label",
+              ],
+              Array [
+                "connectivityPane.connectionStringCheckbox.ariaLabel",
+              ],
+              Array [
+                "connectivityPane.connectionStringCheckbox.tooltip",
+              ],
+              Array [
+                "connectivityPane.connectionStringCheckbox.label",
+              ],
+              Array [
+                "connectivityPane.notes",
+              ],
+              Array [
+                "connectivityPane.saveButton.label",
+              ],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+            ],
+          }
+        }
+        value=""
+      />
+    </div>
+    <div
+      className="remember-connection-string"
+    >
+      <StyledCheckboxBase
+        onChange={[Function]}
+      />
+      <Component />
+    </div>
+    <div
+      className="notes"
+    >
+      <Text />
+    </div>
+    <div
+      className="connection-button"
+    >
+      <CustomizedPrimaryButton
+        disabled={true}
+        onClick={[Function]}
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`login/components/connectivityPane matches snapshot for valid connection string 1`] = `
+<div
+  className="connectivity-pane"
+  role="main"
+>
+  <div
+    className="main"
+    role="dialog"
+  >
+    <h1 />
+    <div
+      className="connection-string"
+    >
+      <CopyableMaskField
+        allowMask={true}
+        error=""
+        onTextChange={[Function]}
+        readOnly={false}
+        required={true}
+        t={
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                "connectivityPane.header",
+              ],
+              Array [
+                "connectivityPane.connectionStringTextBox.label",
+              ],
+              Array [
+                "connectivityPane.connectionStringTextBox.label",
+              ],
+              Array [
+                "connectivityPane.connectionStringCheckbox.ariaLabel",
+              ],
+              Array [
+                "connectivityPane.connectionStringCheckbox.tooltip",
+              ],
+              Array [
+                "connectivityPane.connectionStringCheckbox.label",
+              ],
+              Array [
+                "connectivityPane.notes",
+              ],
+              Array [
+                "connectivityPane.saveButton.label",
+              ],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+            ],
+          }
+        }
+        value=""
+      />
+    </div>
+    <div
+      className="remember-connection-string"
+    >
+      <StyledCheckboxBase
+        onChange={[Function]}
+      />
+      <Component />
+    </div>
+    <div
+      className="notes"
+    >
+      <Text />
+    </div>
+    <div
+      className="connection-button"
+    >
+      <CustomizedPrimaryButton
+        disabled={true}
+        onClick={[Function]}
+      />
+    </div>
+  </div>
+</div>
+`;

@@ -1,0 +1,517 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/GroupedList render GroupedList matches snapshot 1`] = `
+<div
+  className="grouped-list"
+>
+  <div>
+    <div
+      className="grouped-list-header"
+      style={
+        Object {
+          "alignItems": "center",
+          "columnGap": "5px",
+          "display": "grid",
+          "gridTemplateColumns": "2% 10% 10% auto",
+        }
+      }
+    >
+      <Component
+        key="0"
+        style={
+          Object {
+            "color": "#666666",
+            "fontSize": 12,
+            "gridColumnStart": 2,
+          }
+        }
+        tooltipText="Text"
+      >
+        Name
+      </Component>
+      <Component
+        key="1"
+        style={
+          Object {
+            "color": "#666666",
+            "fontSize": 12,
+            "gridColumnStart": 3,
+          }
+        }
+        tooltipText="Text"
+      >
+        Body
+      </Component>
+    </div>
+    <div
+      className="grouped-list-header-border"
+    />
+  </div>
+  <StyledMarqueeSelectionBase
+    isEnabled={true}
+    selection={
+      Selection {
+        "_anchoredIndex": 0,
+        "_canSelectItem": [Function],
+        "_changeEventSuppressionCount": 0,
+        "_exemptedCount": 0,
+        "_exemptedIndices": Object {},
+        "_getKey": [Function],
+        "_isModal": false,
+        "_items": Array [
+          Object {
+            "count": 1,
+            "data": Object {
+              "Body": "World",
+              "Name": "Hello",
+            },
+            "isCollapsed": true,
+            "key": "Hello0",
+            "name": "Hello",
+            "startIndex": 0,
+          },
+          Object {
+            "count": 1,
+            "data": Object {
+              "Body": "World1",
+              "Name": "Hello1",
+            },
+            "isCollapsed": true,
+            "key": "Hello11",
+            "name": "Hello1",
+            "startIndex": 1,
+          },
+        ],
+        "_keyToIndexMap": Object {
+          "Hello0": 0,
+          "Hello11": 1,
+        },
+        "_onSelectionChanged": [Function],
+        "_selectedItems": null,
+        "_unselectableCount": 0,
+        "_unselectableIndices": Object {
+          "0": false,
+          "1": false,
+        },
+        "mode": 2,
+      }
+    }
+  >
+    <SelectionZone
+      isMultiSelectEnabled={true}
+      isSelectedOnFocus={true}
+      selection={
+        Selection {
+          "_anchoredIndex": 0,
+          "_canSelectItem": [Function],
+          "_changeEventSuppressionCount": 0,
+          "_exemptedCount": 0,
+          "_exemptedIndices": Object {},
+          "_getKey": [Function],
+          "_isModal": false,
+          "_items": Array [
+            Object {
+              "count": 1,
+              "data": Object {
+                "Body": "World",
+                "Name": "Hello",
+              },
+              "isCollapsed": true,
+              "key": "Hello0",
+              "name": "Hello",
+              "startIndex": 0,
+            },
+            Object {
+              "count": 1,
+              "data": Object {
+                "Body": "World1",
+                "Name": "Hello1",
+              },
+              "isCollapsed": true,
+              "key": "Hello11",
+              "name": "Hello1",
+              "startIndex": 1,
+            },
+          ],
+          "_keyToIndexMap": Object {
+            "Hello0": 0,
+            "Hello11": 1,
+          },
+          "_onSelectionChanged": [Function],
+          "_selectedItems": null,
+          "_unselectableCount": 0,
+          "_unselectableIndices": Object {
+            "0": false,
+            "1": false,
+          },
+          "mode": 2,
+        }
+      }
+      selectionMode={2}
+    >
+      <StyledGroupedListBase
+        groupProps={
+          Object {
+            "onRenderHeader": [Function],
+          }
+        }
+        groups={
+          Array [
+            Object {
+              "count": 1,
+              "data": Object {
+                "Body": "World",
+                "Name": "Hello",
+              },
+              "isCollapsed": true,
+              "key": "Hello0",
+              "name": "Hello",
+              "startIndex": 0,
+            },
+            Object {
+              "count": 1,
+              "data": Object {
+                "Body": "World1",
+                "Name": "Hello1",
+              },
+              "isCollapsed": true,
+              "key": "Hello11",
+              "name": "Hello1",
+              "startIndex": 1,
+            },
+          ]
+        }
+        items={
+          Array [
+            Object {
+              "Body": "World",
+              "Name": "Hello",
+            },
+            Object {
+              "Body": "World1",
+              "Name": "Hello1",
+            },
+          ]
+        }
+        onRenderCell={[Function]}
+        selection={
+          Selection {
+            "_anchoredIndex": 0,
+            "_canSelectItem": [Function],
+            "_changeEventSuppressionCount": 0,
+            "_exemptedCount": 0,
+            "_exemptedIndices": Object {},
+            "_getKey": [Function],
+            "_isModal": false,
+            "_items": Array [
+              Object {
+                "count": 1,
+                "data": Object {
+                  "Body": "World",
+                  "Name": "Hello",
+                },
+                "isCollapsed": true,
+                "key": "Hello0",
+                "name": "Hello",
+                "startIndex": 0,
+              },
+              Object {
+                "count": 1,
+                "data": Object {
+                  "Body": "World1",
+                  "Name": "Hello1",
+                },
+                "isCollapsed": true,
+                "key": "Hello11",
+                "name": "Hello1",
+                "startIndex": 1,
+              },
+            ],
+            "_keyToIndexMap": Object {
+              "Hello0": 0,
+              "Hello11": 1,
+            },
+            "_onSelectionChanged": [Function],
+            "_selectedItems": null,
+            "_unselectableCount": 0,
+            "_unselectableIndices": Object {
+              "0": false,
+              "1": false,
+            },
+            "mode": 2,
+          }
+        }
+        selectionMode={2}
+      />
+    </SelectionZone>
+  </StyledMarqueeSelectionBase>
+</div>
+`;
+
+exports[`components/GroupedList render GroupedList matches snapshot when in a loading state 1`] = `
+<div
+  className="grouped-list"
+>
+  <div>
+    <div
+      className="grouped-list-header"
+      style={
+        Object {
+          "alignItems": "center",
+          "columnGap": "5px",
+          "display": "grid",
+          "gridTemplateColumns": "2% 10% 10% auto",
+        }
+      }
+    >
+      <Component
+        key="0"
+        style={
+          Object {
+            "color": "#666666",
+            "fontSize": 12,
+            "gridColumnStart": 2,
+          }
+        }
+        tooltipText="Text"
+      >
+        Name
+      </Component>
+      <Component
+        key="1"
+        style={
+          Object {
+            "color": "#666666",
+            "fontSize": 12,
+            "gridColumnStart": 3,
+          }
+        }
+        tooltipText="Text"
+      >
+        Body
+      </Component>
+    </div>
+    <div
+      className="grouped-list-header-border"
+    />
+  </div>
+  <div>
+    <StyledShimmerBase
+      key="0"
+      shimmerElements={
+        Array [
+          Object {
+            "height": 20,
+            "type": 1,
+          },
+        ]
+      }
+    />
+    <StyledShimmerBase
+      key="1"
+      shimmerElements={
+        Array [
+          Object {
+            "height": 20,
+            "type": 1,
+          },
+        ]
+      }
+    />
+    <StyledShimmerBase
+      key="2"
+      shimmerElements={
+        Array [
+          Object {
+            "height": 20,
+            "type": 1,
+          },
+        ]
+      }
+    />
+    <StyledShimmerBase
+      key="3"
+      shimmerElements={
+        Array [
+          Object {
+            "height": 20,
+            "type": 1,
+          },
+        ]
+      }
+    />
+    <StyledShimmerBase
+      key="4"
+      shimmerElements={
+        Array [
+          Object {
+            "height": 20,
+            "type": 1,
+          },
+        ]
+      }
+    />
+    <StyledShimmerBase
+      key="5"
+      shimmerElements={
+        Array [
+          Object {
+            "height": 20,
+            "type": 1,
+          },
+        ]
+      }
+    />
+    <StyledShimmerBase
+      key="6"
+      shimmerElements={
+        Array [
+          Object {
+            "height": 20,
+            "type": 1,
+          },
+        ]
+      }
+    />
+    <StyledShimmerBase
+      key="7"
+      shimmerElements={
+        Array [
+          Object {
+            "height": 20,
+            "type": 1,
+          },
+        ]
+      }
+    />
+    <StyledShimmerBase
+      key="8"
+      shimmerElements={
+        Array [
+          Object {
+            "height": 20,
+            "type": 1,
+          },
+        ]
+      }
+    />
+    <StyledShimmerBase
+      key="9"
+      shimmerElements={
+        Array [
+          Object {
+            "height": 20,
+            "type": 1,
+          },
+        ]
+      }
+    />
+  </div>
+</div>
+`;
+
+exports[`components/GroupedList render GroupedList matches snapshot when no items 1`] = `
+<div
+  className="grouped-list"
+>
+  <div>
+    <div
+      className="grouped-list-header"
+      style={
+        Object {
+          "alignItems": "center",
+          "columnGap": "5px",
+          "display": "grid",
+          "gridTemplateColumns": "2% 10% 10% auto",
+        }
+      }
+    >
+      <Component
+        key="0"
+        style={
+          Object {
+            "color": "#666666",
+            "fontSize": 12,
+            "gridColumnStart": 2,
+          }
+        }
+        tooltipText="Text"
+      >
+        Name
+      </Component>
+      <Component
+        key="1"
+        style={
+          Object {
+            "color": "#666666",
+            "fontSize": 12,
+            "gridColumnStart": 3,
+          }
+        }
+        tooltipText="Text"
+      >
+        Body
+      </Component>
+    </div>
+    <div
+      className="grouped-list-header-border"
+    />
+  </div>
+  <h3>
+    No Items
+  </h3>
+</div>
+`;
+
+exports[`components/GroupedList render GroupedList matches snapshot with undefined items 1`] = `
+<div
+  className="grouped-list"
+>
+  <div>
+    <div
+      className="grouped-list-header"
+      style={
+        Object {
+          "alignItems": "center",
+          "columnGap": "5px",
+          "display": "grid",
+          "gridTemplateColumns": "2% 10% 10% auto",
+        }
+      }
+    >
+      <Component
+        key="0"
+        style={
+          Object {
+            "color": "#666666",
+            "fontSize": 12,
+            "gridColumnStart": 2,
+          }
+        }
+        tooltipText="Text"
+      >
+        Name
+      </Component>
+      <Component
+        key="1"
+        style={
+          Object {
+            "color": "#666666",
+            "fontSize": 12,
+            "gridColumnStart": 3,
+          }
+        }
+        tooltipText="Text"
+      >
+        Body
+      </Component>
+    </div>
+    <div
+      className="grouped-list-header-border"
+    />
+  </div>
+  <h3>
+    No Items
+  </h3>
+</div>
+`;

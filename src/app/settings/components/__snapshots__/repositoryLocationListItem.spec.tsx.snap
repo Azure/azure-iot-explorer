@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/settings/repositoryLocationListItem matches snapshot 1`] = `
+<div
+  className="item"
+>
+  <div
+    className="numbering"
+  >
+    1
+  </div>
+  <div
+    className="location-item"
+    role="listitem"
+  >
+    <div
+      className="item-details"
+    >
+      <CopyableMaskField
+        allowMask={true}
+        onTextChange={[Function]}
+        readOnly={false}
+        required={true}
+        t={
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                "settings.modelDefinitions.repositoryTypes.private.textBoxLabel",
+              ],
+              Array [
+                "settings.modelDefinitions.repositoryTypes.private.textBoxLabel",
+              ],
+              Array [
+                "settings.cancel",
+              ],
+              Array [
+                "settings.cancel",
+              ],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+            ],
+          }
+        }
+        value=""
+      />
+    </div>
+    <CustomizedIconButton
+      className="remove-button"
+      iconProps={
+        Object {
+          "iconName": "cancel",
+        }
+      }
+      onClick={[Function]}
+    />
+  </div>
+</div>
+`;

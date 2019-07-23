@@ -1,0 +1,57 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+ @import 'variables';
+
+.copyableMaskField {
+    margin-bottom: 5px;
+    .labelSection {
+        text-overflow: ellipsis;
+    }
+    .copySection {
+        margin-right: 5px;
+    }
+    .controlSection {
+        display: flex;
+    }
+    .borderedSection {
+        display: flex;
+        flex-grow: 1;
+        border-width: 1px;
+        border-style: solid;
+        border-color: $textfield-border;
+        margin-right: 5px;
+
+        & > input {
+            border: none;
+            &:hover {
+                border: none;
+            }
+            &:focus {
+                border:none;
+            };
+            padding-left: 12px;
+            padding-right: 12px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            font-size: $textSize;
+            width: 100%;
+            text-overflow: ellipsis;
+            background-color: transparent;
+        }
+    }
+
+    .readOnly {
+        background-color: $textfield-disabled-background;
+    }
+
+    .error {
+        border-color: $errorBorder;
+    }
+
+    .errorSection {
+        color: $errorText;
+        font-size: $textSize;
+    }
+}

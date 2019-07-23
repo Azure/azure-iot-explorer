@@ -1,0 +1,209 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/devices/addDevice matches snapshot 1`] = `
+<div
+  className="view add-device"
+>
+  <div
+    className="view-header"
+  >
+    <Route
+      component={[Function]}
+    />
+  </div>
+  <div
+    className="edit-content view-scroll"
+  >
+    <div
+      className="form"
+    >
+      <CopyableMaskField
+        allowMask={false}
+        error=""
+        onTextChange={[Function]}
+        readOnly={false}
+        required={true}
+        t={
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                "deviceIdentity.deviceID",
+              ],
+              Array [
+                "deviceIdentity.deviceID",
+              ],
+              Array [
+                "deviceIdentity.deviceIDTooltip",
+              ],
+              Array [
+                "deviceIdentity.authenticationType.text",
+              ],
+              Array [
+                "deviceIdentity.authenticationType.symmetricKey.type",
+              ],
+              Array [
+                "deviceIdentity.authenticationType.selfSigned.type",
+              ],
+              Array [
+                "deviceIdentity.authenticationType.ca.type",
+              ],
+              Array [
+                "deviceIdentity.authenticationType.symmetricKey.autoGenerate",
+              ],
+              Array [
+                "deviceIdentity.hubConnectivity.tooltip",
+              ],
+              Array [
+                "deviceIdentity.hubConnectivity.label",
+              ],
+              Array [
+                "deviceIdentity.hubConnectivity.label",
+              ],
+              Array [
+                "deviceIdentity.hubConnectivity.enable",
+              ],
+              Array [
+                "deviceIdentity.hubConnectivity.disable",
+              ],
+              Array [
+                "deviceLists.commands.save",
+              ],
+              Array [
+                "deviceLists.commands.save",
+              ],
+              Array [
+                "deviceLists.commands.close",
+              ],
+              Array [
+                "deviceLists.commands.close",
+              ],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+            ],
+          }
+        }
+      />
+      <div
+        className="authentication"
+      >
+        <StyledChoiceGroupBase
+          onChange={[Function]}
+          options={
+            Array [
+              Object {
+                "key": "sas",
+                "text": undefined,
+              },
+              Object {
+                "key": "selfSigned",
+                "text": undefined,
+              },
+              Object {
+                "key": "certificateAuthority",
+                "text": undefined,
+              },
+            ]
+          }
+          required={true}
+          selectedKey="sas"
+        />
+        <StyledCheckboxBase
+          checked={true}
+          className="autoGenerateButton"
+          onChange={[Function]}
+        />
+      </div>
+      <div
+        className="connectivity"
+      >
+        <Component />
+        <StyledToggleBase
+          checked={true}
+          onChange={[Function]}
+        />
+      </div>
+      <div
+        className="button-groups"
+      >
+        <CustomizedPrimaryButton
+          className="submit-button"
+          disabled={true}
+          onClick={[Function]}
+        />
+        <CustomizedDefaultButton
+          className="submit-button"
+          onClick={[Function]}
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;

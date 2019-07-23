@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/devices/DeviceList matches snapshot 1`] = `
+<DeviceListComponent
+  connectionString="connectionString"
+  deleteDevices={[MockFunction]}
+  deviceListSyncStatus={1}
+  devices={
+    Array [
+      Object {
+        "authenticationType": "sas",
+        "cloudToDeviceMessageCount": "0",
+        "deviceId": "testDeviceId",
+        "lastActivityTime": "0001-01-01T00:00:00Z",
+        "status": "Enabled",
+        "statusUpdatedTime": "0001-01-01T00:00:00Z",
+      },
+    ]
+  }
+  listDevices={[MockFunction]}
+  t={[MockFunction]}
+/>
+`;

@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/shared/labelWithTooltip matches snapshot when not tooltip specified 1`] = `
+<div
+  className="labelWithTooltip"
+>
+  <StyledLabelBase>
+    labelText
+  </StyledLabelBase>
+</div>
+`;
+
+exports[`components/shared/labelWithTooltip matches snapshot when tooltip specified 1`] = `
+<div
+  className="labelWithTooltip"
+>
+  <StyledLabelBase
+    tooltipText="calloutText"
+  >
+    labelText
+  </StyledLabelBase>
+  <StyledTooltipHostBase
+    calloutProps={
+      Object {
+        "gapSpace": 0,
+        "target": "#iconbutton1",
+      }
+    }
+    content="calloutText"
+    directionalHint={12}
+    id="tooltip2"
+  >
+    <CustomizedIconButton
+      aria-labelledby="tooltip2"
+      ariaLabel="Info"
+      iconProps={
+        Object {
+          "iconName": "Info",
+        }
+      }
+      id="iconbutton1"
+    />
+  </StyledTooltipHostBase>
+</div>
+`;

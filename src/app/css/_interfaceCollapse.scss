@@ -1,0 +1,19 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+@import 'variables';
+
+.collapse {
+    flex-direction: row;
+    display: flex;
+    background-color: $navSelected;
+    padding: 1px;
+    .label {
+        color: $blue;
+    }
+    .button {
+        margin-right: 5px;
+        color: $blue;
+    }
+}

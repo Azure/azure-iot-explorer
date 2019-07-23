@@ -1,0 +1,12 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+@import 'variables';
+
+.ms-MessageBar {
+    width: calc(100% - 2px);
+    .ms-Button{
+        background: $white;
+    }
+}

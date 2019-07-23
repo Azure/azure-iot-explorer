@@ -1,0 +1,255 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+@import 'variables';
+
+@mixin column-item-padding {
+    margin-top: 10px;
+    padding-left: 26px;
+}
+
+@mixin column-name-lg {
+    float: left;
+    width: 45%;
+}
+
+@mixin column-value-lg {
+    float: left;
+    width: 45%;
+}
+
+@mixin column-name-sm {
+    float: left;
+    width: 30%;
+}
+
+@mixin column-schema-sm {
+    width: 15%;
+    float: left;
+}
+
+@mixin column-unit-sm {
+    width: 15%;
+    float: left;
+}
+
+@mixin column-xs {
+    float: left;
+    width: 15%;
+}
+
+@mixin default-button {
+    background: $white;
+    color: $blue;
+    padding: 0;
+}
+
+@mixin validation-error {
+    padding-top: 10px;
+    color: $red;
+    font-size: 16px;
+}
+
+.pnp-detail-list {
+    padding-top: 20px;
+    .list-header {
+        font-weight: bold;
+        padding-bottom: 10px;
+        border-bottom: 3px solid $gray;
+        .column-name-xl {
+            padding-left: 26px;
+        }
+        .column-name {
+            @include column-name-lg;
+            padding-left: 26px;
+        }
+        .column-value {
+            width: 45%;
+        }
+        .column-toggle {
+            @include default-button;
+            float: right;
+            top: -8px;
+        }
+        .column-name-sm {
+            @include column-name-sm;
+            padding-left: 26px;
+        }
+        .column-schema-sm {
+            @include column-schema-sm;
+        }
+        .column-unit-sm {
+            @include column-unit-sm;
+        }
+        .column-value-sm {
+            width: 50%;
+        }
+        .column-timestamp-xs {
+            @include column-xs;
+            padding-left: 26px;
+        }
+        .column-name-xs {
+            @include column-xs;
+        }
+    }
+}
+
+.list-content{
+    width: calc(100% - 2px);
+    .list-item {
+        .item-oneline {
+            overflow: auto;
+            width: 100%;
+            border-bottom: 1px solid $light-gray;
+            .column-name {
+                @include column-name-sm;
+                @include column-item-padding;
+            }
+            .column-schema {
+                @include column-schema-sm;
+                @include column-item-padding;
+            }
+            .column-unit {
+                @include column-unit-sm;
+                @include column-item-padding;
+            }
+            .column-value-text {
+                float: left;
+                max-width: 35%;
+                @include column-item-padding;
+                .column-value-button {
+                    @include default-button;
+                    float: left;
+                    margin: 10px 0 5px 5px;
+                }
+                .value-validation-error {
+                    @include validation-error;
+                }
+            }
+            .column-timestamp-xs {
+                @include column-xs;
+                @include column-item-padding;
+            }
+            .column-name-xs {
+                @include column-xs;
+                @include column-item-padding;
+            }
+        }
+
+        .item-summary {
+            overflow: auto;
+            width: 100%;
+            .column-name {
+                @include column-name-lg;
+                @include column-item-padding;
+            }
+            .column-value-text {
+                @include column-value-lg;
+                @include column-item-padding;
+                .column-value-button {
+                    @include default-button;
+                }
+                .value-validation-error {
+                    @include validation-error;
+                }
+            }
+            .column-toggle {
+                padding-right: 2%;
+                float: right;
+                margin-top: 10px;
+            }
+        }
+
+        .item-summary-uncollapsed {
+            background: $light-gray;
+        }
+
+        .item-detail {
+            border-bottom: 1px solid $light-gray;
+            width: 100%;
+            float: left;
+        }
+
+        .item-detail-uncollapsed {
+            box-sizing: border-box;
+            padding: 0 10px 10px 18px;
+            background: $light-gray;
+            border-bottom: 1px solid $gray;
+
+            .schema-info-section {
+                padding-left: 8px;
+            }
+
+            .value-section {
+                padding: 20px 0 0 7px;
+            }
+
+            .submit-button {
+                margin-top: 10px;
+            }
+        }
+
+        .close-dialog-icon{
+            float: right;
+        }
+
+        dialog {
+            background-color: $white;
+            padding: 10px;
+            width: 50%;
+            position: fixed;
+            top: 0;
+            float: right;
+            height: 100%;
+            left: 49%;
+            border: none;
+            box-shadow: 0px 0px 50px $gray;
+            overflow-y: auto;
+            margin-top: 40px;
+
+            .panel-title {
+                margin-bottom: 40px;
+                padding-bottom: 20px;
+                h1 {
+                    padding-top: 10px;
+                    margin: 0px;
+                    font-size: 18px;
+                }
+            }
+        }
+    }
+}
+
+.pnp-interface-info {
+    padding: 0 25px;
+    .source {
+        float:left;
+        .no-source-error {
+            color: $red;
+        }
+    }
+    .configure-button {
+        @include default-button;
+        padding-bottom: 3px;
+    }
+    .interface-definition
+    {
+        padding-top: 20px;
+        overflow-y: auto;
+    }
+}
+
+.ms-Panel-main {
+    margin-top: 43px;
+}
+
+.scrollable-lg {
+    height: calc(100vh - 300px);
+    overflow-y: auto;
+}
+
+.scrollable-sm {
+    height: calc(100vh - 350px);
+    overflow-y: auto;
+}

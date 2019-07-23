@@ -1,0 +1,71 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+@import 'variables';
+
+@mixin nav-bar {
+    min-height: 50px;
+    @media screen and (min-width: $screenSize) {
+        border: {
+            bottom: {
+                width: 1px;
+                style: solid;
+                color: $navBarBorderColor;
+            }
+        }
+    }
+}
+
+@mixin nav-item($selected-class: 'selected-nav-bar-item', $hover-color: $light-gray) {
+    height: 50px;
+    display: inline-block;
+    color: black;
+    text-decoration: none;
+    line-height: 50px;
+
+    &:hover:not(.#{$selected-class}) {
+        background-color: $hover-color;
+    }
+}
+
+@mixin top-nav-item($selected-class: 'selected-nav-bar-item', $hover-color: $light-gray, $hover-border-color: $gray) {
+    @include nav-item($selected-class, $hover-color);
+    min-width: 100px;
+    text-align: center;
+    padding: {
+        left: 10px;
+        right: 10px;
+    }
+
+    &:hover:not(.#{$selected-class}) {
+        color: $blue;
+        font: {
+            weight: bold;
+        }
+    }
+}
+
+@mixin selected-nav-item {
+    font-weight: bold;
+    color: $blue;
+    border: {
+        bottom: {
+            style: solid;
+            color: $blue;
+            width: 2px;
+        }
+    }
+}
+
+@mixin form-control-readonly {
+    border-width: 0px;
+    color: $textfield-disabled-font;
+    background-color: $light-gray;
+    cursor: not-allowed;
+}
+
+@mixin commandBar {
+    display: flex;
+    height: 40px;
+}

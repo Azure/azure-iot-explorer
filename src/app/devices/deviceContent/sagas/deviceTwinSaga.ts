@@ -1,0 +1,76 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+import { call, put, select } from 'redux-saga/effects';
+import { Action } from 'typescript-fsa';
+import { fetchDeviceTwin, updateDeviceTwin } from '../../../api/services/devicesService';
+import { addNotificationAction } from '../../../notifications/actions';
+import { NotificationType } from '../../../api/models/notification';
+import { ResourceKeys } from '../../../../localization/resourceKeys';
+import { getConnectionStringSelector } from '../../../login/selectors';
+import { getTwinAction, UpdateTwinActionParameters, updateTwinAction } from '../actions';
+import { UpdateDeviceTwinParameters } from '../../../api/parameters/deviceParameters';
+
+export function* getDeviceTwinSaga(action: Action<string>) {
+    try {
+        const parameters = {
+            connectionString: yield select(getConnectionStringSelector),
+            deviceId: action.payload,
+        };
+
+        const twin = yield call(fetchDeviceTwin, parameters);
+
+        yield put(getTwinAction.done({params: action.payload, result: twin}));
+    } catch (error) {
+        yield put(addNotificationAction.started({
+            text: {
+                translationKey: ResourceKeys.notifications.getDeviceTwinOnError,
+                translationOptions: {
+                    deviceId: action.payload,
+                    error,
+                },
+            },
+            type: NotificationType.error
+          }));
+
+        yield put(getTwinAction.failed({params: action.payload, error}));
+    }
+}
+
+export function* updateDeviceTwinSaga(action: Action<UpdateTwinActionParameters>) {
+    try {
+        const parameters: UpdateDeviceTwinParameters = {
+            connectionString: yield select(getConnectionStringSelector),
+            deviceId: action.payload.deviceId,
+            deviceTwin: action.payload.twin,
+        };
+
+        const twin = yield call(updateDeviceTwin, parameters);
+
+        yield put(addNotificationAction.started({
+            text: {
+                translationKey: ResourceKeys.notifications.updateDeviceTwinOnSuccess,
+                translationOptions: {
+                    deviceId: action.payload.deviceId
+                },
+            },
+            type: NotificationType.success
+          }));
+
+        yield put(updateTwinAction.done({params: action.payload, result: twin}));
+    } catch (error) {
+        yield put(addNotificationAction.started({
+            text: {
+                translationKey: ResourceKeys.notifications.updateDeviceTwinOnError,
+                translationOptions: {
+                    deviceId: action.payload.deviceId,
+                    error,
+                },
+            },
+            type: NotificationType.error
+          }));
+
+        yield put(updateTwinAction.failed({params: action.payload, error}));
+    }
+}

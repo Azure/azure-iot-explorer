@@ -1,0 +1,165 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/devices/DeviceQueryClause matches snapshot 1`] = `
+<section
+  className="search-pill active"
+  key="query-0"
+>
+  <CustomizedComboBox
+    allowFreeform={false}
+    autoComplete="on"
+    buttonIconProps={
+      Object {
+        "iconName": "ChevronDown",
+      }
+    }
+    className="parameter-type"
+    onChange={[Function]}
+    options={
+      Array [
+        Object {
+          "key": "dcm",
+          "text": undefined,
+        },
+        Object {
+          "key": "interface",
+          "text": undefined,
+        },
+        Object {
+          "key": "status",
+          "text": undefined,
+        },
+        Object {
+          "key": "lastActivityTime",
+          "text": undefined,
+        },
+        Object {
+          "key": "statusUpdateTime",
+          "text": undefined,
+        },
+      ]
+    }
+  />
+  <CustomizedComboBox
+    allowFreeform={false}
+    autoComplete="on"
+    buttonIconProps={
+      Object {
+        "iconName": "ChevronDown",
+      }
+    }
+    className="operation-type"
+    onChange={[Function]}
+    options={
+      Array [
+        Object {
+          "key": "=",
+          "text": "=",
+        },
+        Object {
+          "key": "!=",
+          "text": "!=",
+        },
+        Object {
+          "key": "<",
+          "text": "<",
+        },
+        Object {
+          "key": "<=",
+          "text": "<=",
+        },
+        Object {
+          "key": ">",
+          "text": ">",
+        },
+        Object {
+          "key": ">=",
+          "text": ">=",
+        },
+        Object {
+          "key": "<>",
+          "text": "<>",
+        },
+      ]
+    }
+    value="="
+  />
+  <StyledTextFieldBase
+    className="clause-value"
+    onChange={[Function]}
+    required={true}
+    value="enabled"
+  />
+  <CustomizedIconButton
+    className="remove-pill"
+    data={0}
+    iconProps={
+      Object {
+        "iconName": "Clear",
+      }
+    }
+    onClick={[Function]}
+    type="button"
+  />
+</section>
+`;
+
+exports[`components/devices/DeviceQueryClause matches snapshot without operation 1`] = `
+<section
+  className="search-pill active no-operator"
+  key="query-0"
+>
+  <CustomizedComboBox
+    allowFreeform={false}
+    autoComplete="on"
+    buttonIconProps={
+      Object {
+        "iconName": "ChevronDown",
+      }
+    }
+    className="parameter-type"
+    onChange={[Function]}
+    options={
+      Array [
+        Object {
+          "key": "dcm",
+          "text": undefined,
+        },
+        Object {
+          "key": "interface",
+          "text": undefined,
+        },
+        Object {
+          "key": "status",
+          "text": undefined,
+        },
+        Object {
+          "key": "lastActivityTime",
+          "text": undefined,
+        },
+        Object {
+          "key": "statusUpdateTime",
+          "text": undefined,
+        },
+      ]
+    }
+  />
+  <StyledTextFieldBase
+    className="clause-value"
+    onChange={[Function]}
+    required={true}
+    value="enabled"
+  />
+  <CustomizedIconButton
+    className="remove-pill"
+    data={0}
+    iconProps={
+      Object {
+        "iconName": "Clear",
+      }
+    }
+    onClick={[Function]}
+    type="button"
+  />
+</section>
+`;

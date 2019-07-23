@@ -1,0 +1,206 @@
+{
+  "name": "pnp-device-explorer",
+  "version": "0.9.1",
+  "description": "This project welcomes contributions and suggestions.  Most contributions require you to agree to a\r Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us\r the rights to use your contribution. For details, visit https://cla.microsoft.com.",
+  "main": "public/electron.js",
+  "build": {
+    "appId": "com.microsoft.azure.iot.pnp.ui",
+    "productName": "Azure IoT explorer",
+    "files": [
+      "dist/**/*",
+      "node_modules/**/*",
+      "package.json",
+      "public/electron.js",
+      "src/server/server.js"
+    ],
+    "directories": {
+      "buildResources": "icon"
+    },
+    "linux": {
+      "category": "Utility",
+      "target": [
+        "snap",
+        "AppImage",
+        "tar.gz",
+        "tar.lz",
+        "tar.xz"
+      ]
+    },
+    "mac": {
+      "type": "distribution",
+      "icon": "icon/icon.icns"
+    },
+    "nsis": {
+      "createDesktopShortcut": "always"
+    },
+    "dmg": {
+      "internetEnabled": true
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "portable",
+        "msi"
+      ]
+    },
+    "publish": null
+  },
+  "scripts": {
+    "build": "npm run localization && npm run server:compile && webpack --mode production",
+    "clean": "IF EXIST .\\dist RMDIR /Q /S .\\dist",
+    "clean:linux": "rm --recursive -f ./dist",
+    "localization": "tsc ./scripts/composeLocalizationKeys.ts --skipLibCheck && node ./scripts/composeLocalizationKeys.js",
+    "docker": "docker pull electronuserland/electron-builder && docker run --rm -ti --mount source=$(pwd),target=/project,type=bind electronuserland/electron-builder:latest",
+    "electron": "electron .",
+    "package:win": "npm run clean && npm install && npm rebuild node-sass && npm run build && electron-builder -w",
+    "package:linux": "npm run clean:linux && npm install && npm rebuild node-sass && npm run build && electron-builder -l",
+    "package:mac": "npm install && npm rebuild node-sass && npm run build && electron-builder -m",
+    "server:compile": "tsc ./src/server/server.ts --skipLibCheck --lib es2015 --inlineSourceMap",
+    "start": "concurrently \"npm run start:web\" \"npm run start:server\"",
+    "start:server": "npm run server:compile && nodemon --inspect ./src/server/server.js",
+    "start:web": "npm run localization && webpack-dev-server --mode development --hot --open --port 3000 --host 127.0.0.1",
+    "test": "npm run localization && jest --coverage",
+    "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand -i --watch",
+    "test:updateSnapshot": "jest --updateSnapshot",
+    "test:watch": "jest --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Azure/azure-iot-pnp-template-management.git"
+  },
+  "author": "Microsoft <iotupx@microsoft.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Azure/azure-iot-pnp-template-management/issues"
+  },
+  "homepage": "https://github.com/Azure/azure-iot-pnp-template-management#readme",
+  "dependencies": {
+    "@azure/event-hubs": "1.0.7",
+    "@types/core-js": "2.5.0",
+    "body-parser": "1.18.3",
+    "core-js": "3.0.0",
+    "cors": "2.8.5",
+    "express": "4.16.4",
+    "i18next": "11.10.1",
+    "immutable": "4.0.0-rc.12",
+    "jsonschema": "1.2.4",
+    "moment": "2.24.0",
+    "monaco-editor": "0.15.1",
+    "office-ui-fabric-react": "6.157.0",
+    "react": "16.8.6",
+    "react-collapsible": "2.3.2",
+    "react-dom": "16.8.6",
+    "react-i18next": "8.1.0",
+    "react-infinite-scroller": "1.2.2",
+    "react-json-view": "1.19.1",
+    "react-jsonschema-form": "1.3.0",
+    "react-monaco-editor": "0.25.1",
+    "react-redux": "5.0.7",
+    "react-router-dom": "4.3.1",
+    "react-smooth-dnd": "0.11.0",
+    "react-toastify": "4.4.0",
+    "redux": "4.0.1",
+    "redux-logger": "3.0.6",
+    "redux-saga": "0.16.2",
+    "request": "2.88.0",
+    "reselect": "4.0.0",
+    "typescript-fsa": "3.0.0-beta-2",
+    "typescript-fsa-reducers": "1.0.0"
+  },
+  "devDependencies": {
+    "@types/async-lock": "1.1.0",
+    "@types/cors": "2.8.4",
+    "@types/enzyme": "3.1.14",
+    "@types/enzyme-adapter-react-16": "1.0.3",
+    "@types/express": "4.16.0",
+    "@types/i18next": "8.4.4",
+    "@types/jest": "24.0.15",
+    "@types/jest-plugin-context": "2.9.0",
+    "@types/react": "16.8.20",
+    "@types/react-dom": "16.8.4",
+    "@types/react-i18next": "7.8.3",
+    "@types/react-infinite-scroller": "1.0.8",
+    "@types/react-jsonschema-form": "1.0.10",
+    "@types/react-redux": "6.0.9",
+    "@types/react-router-dom": "4.3.1",
+    "@types/react-toastify": "4.0.1",
+    "@types/redux-logger": "3.0.7",
+    "@types/request": "2.48.1",
+    "@types/webpack": "4.4.22",
+    "awesome-typescript-loader": "5.2.1",
+    "concurrently": "4.1.0",
+    "css-loader": "1.0.0",
+    "electron": "3.0.10",
+    "electron-builder": "20.40.1",
+    "enzyme": "3.7.0",
+    "enzyme-adapter-react-16": "1.6.0",
+    "enzyme-to-json": "3.3.4",
+    "file-loader": "2.0.0",
+    "html-webpack-plugin": "3.2.0",
+    "jest": "24.8.0",
+    "jest-plugin-context": "2.9.0",
+    "jest-trx-results-processor": "0.0.7",
+    "monaco-editor-webpack-plugin": "1.7.0",
+    "node-sass": "4.12.0",
+    "nodemon": "1.18.7",
+    "sass-loader": "7.1.0",
+    "source-map-loader": "0.2.4",
+    "style-loader": "0.23.1",
+    "ts-jest": "24.0.2",
+    "tslint": "5.11.0",
+    "tslint-loader": "3.5.4",
+    "tslint-origin-ordered-imports-rule": "1.1.2",
+    "tslint-react": "3.6.0",
+    "typescript": "3.4.5",
+    "webpack": "4.20.2",
+    "webpack-bundle-analyzer": "3.3.2",
+    "webpack-cli": "3.1.2",
+    "webpack-dev-server": "3.1.14",
+    "webpack-shell-plugin": "0.5.0"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx}"
+    ],
+    "testEnvironment": "jsdom",
+    "coverageReporters": [
+      "html",
+      "cobertura"
+    ],
+    "setupFiles": [
+      "jest-plugin-context/setup",
+      "./jestSetup.ts"
+    ],
+    "transform": {
+      "^.+\\.(js|jsx|ts|tsx)$": "ts-jest"
+    },
+    "testRegex": "(\\.|/)(spec)\\.(tsx?)$",
+    "moduleNameMapper": {
+      "^office-ui-fabric-react/lib": "<rootDir>/node_modules/office-ui-fabric-react/lib-commonjs",
+      "^.+\\.(scss)$": "<rootDir>/scss-stub.js"
+    },
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "jsx",
+      "ts",
+      "tsx"
+    ],
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
+    "testURL": "http://localhost?trustedAuthority=https://localhost",
+    "testResultsProcessor": "./jestTrxProcessor.ts",
+    "globals": {
+      "__DEV__": true,
+      "frameSignature": "portalEnvironmentFrameSignature",
+      "ts-jest": {
+        "tsConfig": "./tsconfig-jest.json",
+        "diagnostics": false
+      }
+    },
+    "preset": "ts-jest/presets/js-with-ts",
+    "testMatch": null
+  }
+}

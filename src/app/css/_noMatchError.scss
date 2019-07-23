@@ -1,0 +1,16 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+.no-match-error {
+    position: relative;
+    top: 300px;
+
+    .no-match-error-description {
+        text-align: center;
+    }
+
+    .no-match-error-button {
+        text-align: center;
+    }
+}

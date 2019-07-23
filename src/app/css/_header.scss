@@ -1,0 +1,32 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+@import 'variables';
+
+.header {
+    display: grid;
+    grid-template-areas: 'title search notifications settings questions';
+    grid-template-columns: 1fr 150px 100px;
+    background-color: $dark-gray;
+    color: white;
+    line-height: 20px;
+    width: 100%;
+    h1 {
+        font-size: 16px;
+        line-height: 22px;
+        grid-area: title;
+        padding-left: 10px;
+        margin-right: 10px;
+    }
+    .ms-Button {
+        background: transparent;
+        color:$white;
+        padding-top: 10px;
+    }
+    .active {
+        background: {
+            color:  $medium-gray;
+        }
+    }
+}

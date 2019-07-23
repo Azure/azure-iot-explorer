@@ -1,0 +1,276 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CopyableMaskField snapshots it matches snapshot when allowMask = false 1`] = `
+<div
+  className="copyableMaskField"
+>
+  <div
+    className="labelSection"
+  >
+    <Component
+      htmlFor="copyableMaskField1"
+    >
+      label1
+    </Component>
+  </div>
+  <div
+    className="controlSection"
+  >
+    <div
+      className="borderedSection  readOnly"
+    >
+      <input
+        aria-label="ariaLabel1"
+        className="input"
+        id="copyableMaskField1"
+        onChange={[Function]}
+        readOnly={true}
+        type="text"
+        value="value1"
+      />
+      <input
+        className="input"
+        readOnly={true}
+        style={
+          Object {
+            "left": "-9000px",
+            "position": "absolute",
+            "top": "-9000px",
+          }
+        }
+        tabIndex={-1}
+        value="value1"
+      />
+    </div>
+    <div
+      className="copySection"
+    >
+      <CustomizedIconButton
+        ariaLabel="common.copyableMaskField.copy.ariaLabel"
+        iconProps={
+          Object {
+            "iconName": "copy",
+          }
+        }
+        onClick={[Function]}
+        title="common.copyableMaskField.copy.label"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`CopyableMaskField snapshots it matches snapshot when allowMask = true 1`] = `
+<div
+  className="copyableMaskField"
+>
+  <div
+    className="labelSection"
+  >
+    <Component
+      htmlFor="copyableMaskField2"
+    >
+      label1
+    </Component>
+  </div>
+  <div
+    className="controlSection"
+  >
+    <div
+      className="borderedSection  readOnly"
+    >
+      <input
+        aria-label="ariaLabel1"
+        className="input"
+        id="copyableMaskField2"
+        onChange={[Function]}
+        readOnly={true}
+        type="password"
+        value="value1"
+      />
+      <input
+        className="input"
+        readOnly={true}
+        style={
+          Object {
+            "left": "-9000px",
+            "position": "absolute",
+            "top": "-9000px",
+          }
+        }
+        tabIndex={-1}
+        value="value1"
+      />
+      <CustomizedIconButton
+        ariaLabel="common.copyableMaskField.toggleMask.ariaLabel"
+        iconProps={
+          Object {
+            "iconName": "RedEye",
+          }
+        }
+        onClick={[Function]}
+        title="common.copyableMaskField.toggleMask.label"
+      />
+    </div>
+    <div
+      className="copySection"
+    >
+      <CustomizedIconButton
+        ariaLabel="common.copyableMaskField.copy.ariaLabel"
+        iconProps={
+          Object {
+            "iconName": "copy",
+          }
+        }
+        onClick={[Function]}
+        title="common.copyableMaskField.copy.label"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`CopyableMaskField snapshots it matches snapshot when allowMask = true 2`] = `
+<div
+  className="copyableMaskField"
+>
+  <div
+    className="labelSection"
+  >
+    <Component
+      htmlFor="copyableMaskField3"
+    >
+      label1
+    </Component>
+  </div>
+  <div
+    className="controlSection"
+  >
+    <div
+      className="borderedSection  readOnly"
+    >
+      <input
+        aria-label="ariaLabel1"
+        className="input"
+        id="copyableMaskField3"
+        onChange={[Function]}
+        readOnly={true}
+        type="password"
+        value="value1"
+      />
+      <input
+        className="input"
+        readOnly={true}
+        style={
+          Object {
+            "left": "-9000px",
+            "position": "absolute",
+            "top": "-9000px",
+          }
+        }
+        tabIndex={-1}
+        value="value1"
+      />
+      <CustomizedIconButton
+        ariaLabel="common.copyableMaskField.toggleMask.ariaLabel"
+        iconProps={
+          Object {
+            "iconName": "RedEye",
+          }
+        }
+        onClick={[Function]}
+        title="common.copyableMaskField.toggleMask.label"
+      />
+    </div>
+    <div
+      className="copySection"
+    >
+      <CustomizedIconButton
+        ariaLabel="common.copyableMaskField.copy.ariaLabel"
+        iconProps={
+          Object {
+            "iconName": "copy",
+          }
+        }
+        onClick={[Function]}
+        title="common.copyableMaskField.copy.label"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`CopyableMaskField snapshots it matches snapshot when error message specified 1`] = `
+<div
+  className="copyableMaskField"
+>
+  <div
+    className="labelSection"
+  >
+    <Component
+      htmlFor="copyableMaskField4"
+    >
+      label1
+    </Component>
+  </div>
+  <div
+    className="controlSection"
+  >
+    <div
+      className="borderedSection error readOnly"
+    >
+      <input
+        aria-label="ariaLabel1"
+        className="input"
+        id="copyableMaskField4"
+        onChange={[Function]}
+        readOnly={true}
+        type="password"
+        value="value1"
+      />
+      <input
+        className="input"
+        readOnly={true}
+        style={
+          Object {
+            "left": "-9000px",
+            "position": "absolute",
+            "top": "-9000px",
+          }
+        }
+        tabIndex={-1}
+        value="value1"
+      />
+      <CustomizedIconButton
+        ariaLabel="common.copyableMaskField.toggleMask.ariaLabel"
+        iconProps={
+          Object {
+            "iconName": "RedEye",
+          }
+        }
+        onClick={[Function]}
+        title="common.copyableMaskField.toggleMask.label"
+      />
+    </div>
+    <div
+      className="copySection"
+    >
+      <CustomizedIconButton
+        ariaLabel="common.copyableMaskField.copy.ariaLabel"
+        iconProps={
+          Object {
+            "iconName": "copy",
+          }
+        }
+        onClick={[Function]}
+        title="common.copyableMaskField.copy.label"
+      />
+    </div>
+  </div>
+  <div
+    className="errorSection"
+  >
+    error
+  </div>
+</div>
+`;

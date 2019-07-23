@@ -1,0 +1,28 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+
+@import 'variables';
+
+.device-events {
+    .device-events-container {
+        .events-loader {
+            padding: 0 25px;
+            .ms-Spinner {
+                float: left;
+                padding-right: 5px;
+            }
+        }
+        .device-events-content {
+            border-top: 1px solid $light-gray;
+            padding: 0 25px;
+        }
+    }
+
+    .scrollable {
+        overflow: auto;
+        margin-top: 10px;
+        height: calc(100vh - 250px);
+    }
+}

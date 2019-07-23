@@ -1,0 +1,106 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+@import 'variables';
+
+.settingsPane {
+    header.panel-header {
+        h2 {
+            height: 28px;
+            font: {
+                size: 20px;
+            }
+            line-height: 24px;
+        }
+    }
+
+    h3[role="heading"] {
+        font: {
+            size: 14px;
+        }
+        line-height: 20px;
+        color: #212121;
+    }
+
+    .helptext {
+        font-size: 12px;
+        line-height: 19px;
+        text-decoration-line: underline;
+        color: #666666;
+    }
+    .remember-connection-string {
+        .ms-Checkbox {
+            float: left;
+            padding-top: 7px;
+        }
+    }
+    .location-list {
+        .item {
+            display: grid;
+            grid-template-columns: 40px 1fr;
+            grid-template-areas: "numbering item";
+            .numbering {
+                font-size: 32px;
+                line-height: 37px;
+                color: #A6A6A6;
+                margin-top: 10px;
+                margin-right: 33px;
+                grid-area: numbering;
+            }
+
+            .location-item {
+                grid-area: item;
+                position: relative;
+                list-style: none;
+                margin-bottom: 8px;
+                margin-top: 8px;
+                border: 1px solid $navBarBorderColor;
+                border-radius: 2px;
+                box-shadow: 0px 4px 4px $blocking;
+
+                padding: {
+                    bottom: 14px;
+                    left: 22px;
+                    top: 14px;
+                    right: 12px;
+                }
+                .remove-button {
+                    height: 16px;
+                    width: 16px;
+                    position: absolute;
+                    right: 12px;
+                    top: 15px;
+                }
+                .connection-string {
+                    width: 70%;
+                    max-width: 325px;
+                }
+            }
+        }
+    }
+    .faq {
+        padding: {
+            left: 0px;
+        }
+        .faq-item {
+            list-style-type: none;
+        }
+    }
+
+    .settings-footer {
+        .footer-buttons {
+            h3[role="heading"] {
+                font-weight: normal;
+            }
+            button[type="submit"] {
+                margin-right: 18px;
+            }    
+        }
+        padding: {
+            left: 32px;
+            bottom: 40px;
+        }
+        margin-bottom: 30px;
+    }
+}

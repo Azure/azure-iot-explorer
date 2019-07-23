@@ -1,0 +1,38 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+@import 'variables';
+@import 'mixins';
+
+.top-nav-bar {
+    position: relative;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    background-color: white;
+    z-index: 10;
+    @include nav-bar;
+    .nav-bar-item {
+        @include top-nav-item;
+    }
+    .selected-nav-bar-item {
+        @include selected-nav-item;
+    }
+    .ms-Dropdown-container {
+        @media screen and (min-width: $screenSize) {
+            width: 200px;
+            float: right;
+            height: 50px;
+            .nav-bar-language-dropdown {
+                margin: 8px 8px;
+            }
+            .ms-Dropdown-items {
+                width: 200px;
+            }
+        }
+        @media screen and (max-width: $screenSize) {
+            display: none;
+        }
+    }
+}

@@ -1,0 +1,67 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+@import 'variables';
+
+.view {
+    width: 100%;
+    display: grid;
+    height: calc(100vh - #{$mastheadHeight});
+    grid-template-rows: auto auto 1fr;
+    grid-template-columns: 1fr;
+    display: -ms-grid;
+    -ms-grid-columns: 1fr;
+    -ms-grid-rows: auto auto 1fr;
+    row-gap: 0;
+}
+
+.view-header {
+    min-height: 90px;
+    width: 100%;
+    grid-row: 1;
+    grid-column: 1;
+    -ms-grid-row: 1;
+    -ms-grid-column: 1;
+}
+
+.view-command {
+    min-height: 40px;
+    width: 100%;
+    grid-row: 2;
+    grid-column: 1;
+    -ms-grid-row: 2;
+    -ms-grid-column: 1;
+}
+
+.view-content {
+    grid-row: 3;
+    grid-column: 1;
+    -ms-grid-row: 3;
+    -ms-grid-column: 1;
+    border-top: 1px $light-gray solid;
+}
+
+.edit {
+    width: 100%;
+    display: grid;
+    height: calc(100vh - #{$mastheadHeight});
+    grid-template-rows: auto 1fr;
+    grid-template-columns: 1fr;
+    display: -ms-grid;
+    -ms-grid-columns: 1fr;
+    -ms-grid-rows: auto 1fr;
+    row-gap: 0;
+}
+
+.edit-content {
+    grid-row: 2;
+    grid-column: 1;
+    -ms-grid-row: 2;
+    -ms-grid-column: 1;
+    border-top: 1px $light-gray solid;
+}
+
+.view-scroll {
+    overflow: auto;
+}

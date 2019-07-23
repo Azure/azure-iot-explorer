@@ -1,0 +1,47 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+@import 'variables';
+@import 'mixins';
+
+.connectivity-pane {
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 100vh;
+    background-color: $opaque-blocking;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .main {
+        background: #ffffff;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        padding-left: 50px;
+        padding-right: 50px;
+        width: 650px;
+
+        .remember-connection-string {
+            .ms-Checkbox {
+                float: left;
+                padding-top: 7px;
+            }
+        }
+
+        .notes {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .connection-button {
+            display: flex;
+            flex-direction: row-reverse;
+            width: 100%;
+            padding-top: 50px;
+        }
+    }
+}

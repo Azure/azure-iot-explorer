@@ -1,0 +1,211 @@
+{
+    "defaultSeverity": "error",
+	"rulesDirectory": [
+        "node_modules/tslint-origin-ordered-imports-rule/dist"
+    ],
+    "linterOptions": {
+        "exclude": [
+            "autorest"
+        ]
+    },
+    "extends": ["tslint:latest", "tslint-react"],
+    "rules": {
+        "adjacent-overload-signatures": true,
+        "align": [
+            true,
+            "parameters",
+            "arguments",
+            "statements"
+        ],
+        "array-type": [
+            true,
+            "array-simple"
+        ],
+        "arrow-parens": [true, "ban-single-arg-parens"],
+        "arrow-return-shorthand": true,
+        "ban": false,
+        "ban-types": [
+            true,
+            ["Object", "Avoid using the `Object` type. Did you mean `object`?"],
+            ["Function", "Avoid using the `Function` type. Prefer a specific function type, like `() => void`."],
+            ["Boolean", "Avoid using the `Boolean` type. Did you mean `boolean`?"],
+            ["Number", "Avoid using the `Number` type. Did you mean `number`?"],
+            ["String", "Avoid using the `String` type. Did you mean `string`?"],
+            ["Symbol", "Avoid using the `Symbol` type. Did you mean `symbol`?"]
+        ],
+        "ban-comma-operator": true,
+        "callable-types": true,
+        "class-name": true,
+        "comment-format": [
+            true,
+            "check-space",
+			{"ignore-words": ["TODO", "HACK"]}
+        ],
+        "curly": true,
+        "cyclomatic-complexity": [true, 5],
+        "eofline": true,
+        "file-name-casing": [true, "camel-case"],
+        "forin": true,
+        "import-spacing": true,
+        "indent":  [
+            true,
+            "spaces",
+			4
+        ],
+        "interface-name": [ true, "never-prefix" ],
+        "interface-over-type-literal": true,
+        "jsdoc-format": true,
+        "jsx-alignment": true,
+        "jsx-boolean-value": [true, "always"],
+        "jsx-curly-spacing": [true, "never"],
+        "jsx-equals-spacing": [true, "never"],
+        "jsx-key": true,
+        "jsx-no-bind": true,
+        "jsx-no-lambda": true,
+        "jsx-no-multiline-js": false,
+        "jsx-no-string-ref": true,
+        "jsx-self-close": true,
+        "jsx-wrap-multiline": true,
+        "label-position": true,
+        "max-classes-per-file": [true, 1],
+        "max-line-length": [ true, 400 ],
+        "member-access": true,
+        "member-ordering": [
+            true,
+            {
+            "order": [
+                "public-before-private",
+                "static-before-instance",
+                "variables-before-functions"
+            ]
+            }
+        ],
+        "new-parens": true,
+        "no-angle-bracket-type-assertion": true,
+        "no-any": true,
+        "no-arg": true,
+        "no-bitwise": true,
+        "no-conditional-assignment": true,
+        "no-consecutive-blank-lines": true,
+        "no-console": true,
+        "no-construct": true,
+        "no-debugger": true,
+        "no-duplicate-imports": true,
+        "no-duplicate-super": true,
+        "no-duplicate-switch-case": true,
+        "no-duplicate-variable": true,
+        "no-empty": true,
+        "no-empty-interface": true,
+        "no-eval": true,
+		"no-implicit-dependencies": [
+            true,
+            [
+                "jest",
+                "enzyme"
+            ]
+        ],
+        "no-internal-module": true,
+        "no-invalid-template-strings": true,
+        "no-invalid-this": true,
+		"no-for-in-array": true,
+        "no-magic-numbers": true,
+        "no-misused-new": true,
+		"no-namespace": true,
+        "no-null-keyword": false,
+        "no-object-literal-type-assertion": true,
+        "no-parameter-reassignment": true,
+        "no-parameter-properties": false,
+        "no-reference": true,
+        "no-reference-import": true,
+        "no-return-await": true,
+        "no-shadowed-variable": true,
+        "no-sparse-arrays": true,
+        "no-string-literal": true,
+        "no-string-throw": true,
+        "no-submodule-imports": [true,
+            "office-ui-fabric-react",
+            "redux-saga/effects",
+            "redux-devtools-extension",
+            "react-toastify"
+        ],
+        "no-switch-case-fall-through": true,
+        "no-this-assignment": true,
+        "no-trailing-whitespace": true,
+        "no-unnecessary-initializer": true,
+        "no-unsafe-finally": true,
+        "no-unused-expression": true,
+        "no-use-before-declare": false,
+        "no-var-keyword": true,
+        "no-var-requires": true,
+        "number-literal-format": true,
+        "object-literal-key-quotes": [true, "consistent-as-needed"],
+        "object-literal-shorthand": true,
+        "object-literal-sort-keys": true,
+        "one-line": true,
+        "one-variable-per-declaration": [true, "ignore-for-loop"],
+        "only-arrow-functions": true,
+        "ordered-imports": false,
+        "origin-ordered-imports": [true, "no-blank-line"],
+        "prefer-conditional-expression": true,
+        "prefer-const": true,
+        "prefer-for-of": true,
+        "prefer-object-spread": true,
+        "prefer-readonly": true,
+        "prefer-switch": [true, {"min-cases": 4}],
+        "promise-function-async": true,
+        "quotemark": [ true, "single", "jsx-double" ],
+        "radix": true,
+        "semicolon": [ true, "always" ],
+        "space-before-function-paren": [
+            true,
+            {
+                "anonymous": "never",
+                "asyncArrow": "always",
+                "constructor": "never",
+                "method": "never",
+                "named": "never"
+            }
+        ],
+        "space-within-parens": false,
+        "switch-default": true,
+        "trailing-comma": [ false ],
+        "triple-equals": true,
+        "typedef": [
+            true,
+            "parameter",
+            "property-declaration"
+        ],
+        "typedef-whitespace": [
+            true,
+            {
+            "call-signature": "nospace",
+            "index-signature": "nospace",
+            "parameter": "nospace",
+            "property-declaration": "nospace",
+            "variable-declaration": "nospace"
+            }
+        ],
+        "typeof-compare": false, // deprecated in TSLint 5.9.0
+        "unified-signatures": true,
+        "use-isnan": true,
+        "variable-name": [
+            true,
+            "ban-keywords",
+            "check-format",
+            "allow-pascal-case"
+        ],
+        "whitespace": [
+            true,
+            "check-branch",
+            "check-decl",
+            "check-module",
+            "check-operator",
+            "check-separator",
+            "check-type",
+            "check-typecast",
+			"check-rest-spread",
+			"check-type-operator",
+			"check-preblock"
+        ]
+    }
+}

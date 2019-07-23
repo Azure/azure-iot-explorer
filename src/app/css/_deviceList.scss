@@ -1,0 +1,44 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+@import 'variables';
+@import 'mixins';
+
+.deviceId-label {
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.status-label {
+    font-size: 14px;
+}
+
+.pnp-icon {
+    width: 17px;
+    vertical-align: middle;
+    margin-right: 6px;
+}
+.delete-dialog {
+    .ms-Dialog-main {
+        min-width: 35vw;
+        max-width: 356px;
+        min-height: 30vh;
+        max-height: 392px;
+    }
+    .ms-Overlay {
+        background-color: $blocking;
+    }
+    ul.deleting-devices {
+        list-style: none;
+        min-height: 14vh;
+        max-height: 185px;
+        overflow: auto;
+        padding-left: 0px;
+        margin: {
+            top: 0px;
+            bottom: 0px;
+        }
+    }
+}

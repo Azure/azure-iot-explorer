@@ -1,0 +1,26 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+.arrayField {
+    flex: 1;
+    .content {
+        display: flex;
+        flex-Direction: row;
+    }
+    .children {
+        padding-left: 30px;
+        .childContainer {
+            display: flex;
+            flex-Direction: row;
+            width: 100%;
+            .child {
+                flex: 1;
+                margin-Right: 10px;
+            }
+        }
+        .addChildButton {
+            margin-Top: 2px;
+        }
+    }
+}

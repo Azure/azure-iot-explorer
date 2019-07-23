@@ -1,0 +1,244 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/shared/breadcrumb matches snapshot #/ 1`] = `
+<StyledBreadcrumbBase
+  className="device-content-breadcrumb"
+  items={
+    Array [
+      Object {
+        "key": "Hub",
+        "text": "breadcrumb.hub",
+      },
+      Object {
+        "href": "#/devices",
+        "key": "Devices",
+        "text": "breadcrumb.devices",
+      },
+      Object {
+        "key": "#",
+        "text": undefined,
+      },
+    ]
+  }
+/>
+`;
+
+exports[`components/shared/breadcrumb matches snapshot #/devices.../device1 1`] = `
+<StyledBreadcrumbBase
+  className="device-content-breadcrumb"
+  items={
+    Array [
+      Object {
+        "key": "Hub",
+        "text": "breadcrumb.hub",
+      },
+      Object {
+        "href": "#/devices",
+        "key": "Devices",
+        "text": "breadcrumb.devices",
+      },
+      Object {
+        "href": "#/devices/detail/identity/?id=device1",
+        "key": "device_device1",
+        "text": "device1",
+      },
+      Object {
+        "key": "identity",
+        "text": "deviceContent.navBar.identity",
+      },
+    ]
+  }
+/>
+`;
+
+exports[`components/shared/breadcrumb matches snapshot #/devices.../device1 missing interface 1`] = `
+<StyledBreadcrumbBase
+  className="device-content-breadcrumb"
+  items={
+    Array [
+      Object {
+        "key": "Hub",
+        "text": "breadcrumb.hub",
+      },
+      Object {
+        "href": "#/devices",
+        "key": "Devices",
+        "text": "breadcrumb.devices",
+      },
+      Object {
+        "href": "#/devices/detail/identity/?id=device1",
+        "key": "device_device1",
+        "text": "device1",
+      },
+      Object {
+        "key": "properties",
+        "text": "deviceContent.navBar.properties",
+      },
+    ]
+  }
+/>
+`;
+
+exports[`components/shared/breadcrumb matches snapshot #/devices.../device1 with interface 1`] = `
+<StyledBreadcrumbBase
+  className="device-content-breadcrumb"
+  items={
+    Array [
+      Object {
+        "key": "Hub",
+        "text": "breadcrumb.hub",
+      },
+      Object {
+        "href": "#/devices",
+        "key": "Devices",
+        "text": "breadcrumb.devices",
+      },
+      Object {
+        "href": "#/devices/detail/identity/?id=device1",
+        "key": "device_device1",
+        "text": "device1",
+      },
+      Object {
+        "href": "#/devices/detail/digitalTwins/interfaces/?id=device1&interfaceId=urn:some:interface:name:1",
+        "key": "device_device1_urn:some:interface:name:1",
+        "text": "urn:some:interface:name:1",
+      },
+      Object {
+        "key": "properties",
+        "text": "deviceContent.navBar.properties",
+      },
+    ]
+  }
+/>
+`;
+
+exports[`components/shared/breadcrumb matches snapshot #/devices.../device1 with interface and missing deviceId 1`] = `
+<StyledBreadcrumbBase
+  className="device-content-breadcrumb"
+  items={
+    Array [
+      Object {
+        "key": "Hub",
+        "text": "breadcrumb.hub",
+      },
+      Object {
+        "href": "#/devices",
+        "key": "Devices",
+        "text": "breadcrumb.devices",
+      },
+      Object {
+        "href": "detail",
+        "key": "detail",
+        "text": undefined,
+      },
+      Object {
+        "key": "properties",
+        "text": "deviceContent.navBar.properties",
+      },
+    ]
+  }
+/>
+`;
+
+exports[`components/shared/breadcrumb matches snapshot #/devices.../device1 with malformed interface 1`] = `
+<StyledBreadcrumbBase
+  className="device-content-breadcrumb"
+  items={
+    Array [
+      Object {
+        "key": "Hub",
+        "text": "breadcrumb.hub",
+      },
+      Object {
+        "href": "#/devices",
+        "key": "Devices",
+        "text": "breadcrumb.devices",
+      },
+      Object {
+        "href": "#/devices/detail/identity/?id=device1",
+        "key": "device_device1",
+        "text": "device1",
+      },
+      Object {
+        "key": "properties",
+        "text": "deviceContent.navBar.properties",
+      },
+    ]
+  }
+/>
+`;
+
+exports[`components/shared/breadcrumb matches snapshot #/devices/ 1`] = `
+<StyledBreadcrumbBase
+  className="device-content-breadcrumb"
+  items={
+    Array [
+      Object {
+        "key": "Hub",
+        "text": "breadcrumb.hub",
+      },
+      Object {
+        "href": "#/devices",
+        "key": "Devices",
+        "text": "breadcrumb.devices",
+      },
+    ]
+  }
+/>
+`;
+
+exports[`components/shared/breadcrumb matches snapshot with malformed #/devices.../device1 1`] = `
+<StyledBreadcrumbBase
+  className="device-content-breadcrumb"
+  items={
+    Array [
+      Object {
+        "key": "Hub",
+        "text": "breadcrumb.hub",
+      },
+      Object {
+        "href": "#/devices",
+        "key": "Devices",
+        "text": "breadcrumb.devices",
+      },
+      Object {
+        "href": "details",
+        "key": "details",
+        "text": undefined,
+      },
+      Object {
+        "key": "identity",
+        "text": "deviceContent.navBar.identity",
+      },
+    ]
+  }
+/>
+`;
+
+exports[`components/shared/breadcrumb matches snapshot with missing #/devices.../device1 1`] = `
+<StyledBreadcrumbBase
+  className="device-content-breadcrumb"
+  items={
+    Array [
+      Object {
+        "key": "Hub",
+        "text": "breadcrumb.hub",
+      },
+      Object {
+        "href": "#/devices",
+        "key": "Devices",
+        "text": "breadcrumb.devices",
+      },
+      Object {
+        "href": "details",
+        "key": "details",
+        "text": undefined,
+      },
+      Object {
+        "key": "identity",
+        "text": "deviceContent.navBar.identity",
+      },
+    ]
+  }
+/>
+`;

@@ -1,0 +1,201 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/devices/deviceContentNav matches snapshot when there device is not pnp 1`] = `
+<div
+  className="view-scroll"
+>
+  <div
+    role="navigation"
+  >
+    <StyledNavBase
+      groups={
+        Array [
+          Object {
+            "links": Array [
+              Object {
+                "key": "identity",
+                "name": undefined,
+                "url": "#/devices/detail/identity/?id=test",
+              },
+              Object {
+                "key": "twin",
+                "name": undefined,
+                "url": "#/devices/detail/twin/?id=test",
+              },
+              Object {
+                "key": "events",
+                "name": undefined,
+                "url": "#/devices/detail/events/?id=test",
+              },
+            ],
+            "name": undefined,
+          },
+        ]
+      }
+      onRenderGroupHeader={[Function]}
+    />
+  </div>
+</div>
+`;
+
+exports[`components/devices/deviceContentNav matches snapshot when there is no interface selected 1`] = `
+<div
+  className="view-scroll"
+>
+  <div
+    role="navigation"
+  >
+    <StyledNavBase
+      groups={
+        Array [
+          Object {
+            "links": Array [
+              Object {
+                "key": "identity",
+                "name": undefined,
+                "url": "#/devices/detail/identity/?id=test",
+              },
+              Object {
+                "key": "twin",
+                "name": undefined,
+                "url": "#/devices/detail/twin/?id=test",
+              },
+              Object {
+                "key": "events",
+                "name": undefined,
+                "url": "#/devices/detail/events/?id=test",
+              },
+            ],
+            "name": undefined,
+          },
+          Object {
+            "links": Array [
+              Object {
+                "isExpanded": undefined,
+                "links": Array [
+                  Object {
+                    "name": undefined,
+                    "onClick": [Function],
+                    "parentId": "urn:azureiot:com:DeviceInformation:1",
+                    "url": "#/devices/detail/digitalTwins/interfaces/?id=test&interfaceId=urn:azureiot:com:DeviceInformation:1",
+                  },
+                  Object {
+                    "name": undefined,
+                    "onClick": [Function],
+                    "parentId": "urn:azureiot:com:DeviceInformation:1",
+                    "url": "#/devices/detail/digitalTwins/settings/?id=test&interfaceId=urn:azureiot:com:DeviceInformation:1",
+                  },
+                  Object {
+                    "name": undefined,
+                    "onClick": [Function],
+                    "parentId": "urn:azureiot:com:DeviceInformation:1",
+                    "url": "#/devices/detail/digitalTwins/properties/?id=test&interfaceId=urn:azureiot:com:DeviceInformation:1",
+                  },
+                  Object {
+                    "name": undefined,
+                    "onClick": [Function],
+                    "parentId": "urn:azureiot:com:DeviceInformation:1",
+                    "url": "#/devices/detail/digitalTwins/commands/?id=test&interfaceId=urn:azureiot:com:DeviceInformation:1",
+                  },
+                  Object {
+                    "name": undefined,
+                    "onClick": [Function],
+                    "parentId": "urn:azureiot:com:DeviceInformation:1",
+                    "url": "#/devices/detail/digitalTwins/events/?id=test&interfaceId=urn:azureiot:com:DeviceInformation:1",
+                  },
+                ],
+                "name": "urn:azureiot:com:DeviceInformation:1",
+                "onClick": [Function],
+                "url": "",
+              },
+            ],
+            "name": undefined,
+          },
+        ]
+      }
+      onRenderGroupHeader={[Function]}
+    />
+  </div>
+</div>
+`;
+
+exports[`components/devices/deviceContentNav redirects snapshot when there is a interface selected 1`] = `
+<div
+  className="view-scroll"
+>
+  <div
+    role="navigation"
+  >
+    <StyledNavBase
+      groups={
+        Array [
+          Object {
+            "links": Array [
+              Object {
+                "key": "identity",
+                "name": undefined,
+                "url": "#/devices/detail/identity/?id=test",
+              },
+              Object {
+                "key": "twin",
+                "name": undefined,
+                "url": "#/devices/detail/twin/?id=test",
+              },
+              Object {
+                "key": "events",
+                "name": undefined,
+                "url": "#/devices/detail/events/?id=test",
+              },
+            ],
+            "name": undefined,
+          },
+          Object {
+            "links": Array [
+              Object {
+                "isExpanded": true,
+                "links": Array [
+                  Object {
+                    "name": undefined,
+                    "onClick": [Function],
+                    "parentId": "urn:azureiot:com:DeviceInformation:1",
+                    "url": "#/devices/detail/digitalTwins/interfaces/?id=test&interfaceId=urn:azureiot:com:DeviceInformation:1",
+                  },
+                  Object {
+                    "name": undefined,
+                    "onClick": [Function],
+                    "parentId": "urn:azureiot:com:DeviceInformation:1",
+                    "url": "#/devices/detail/digitalTwins/settings/?id=test&interfaceId=urn:azureiot:com:DeviceInformation:1",
+                  },
+                  Object {
+                    "name": undefined,
+                    "onClick": [Function],
+                    "parentId": "urn:azureiot:com:DeviceInformation:1",
+                    "url": "#/devices/detail/digitalTwins/properties/?id=test&interfaceId=urn:azureiot:com:DeviceInformation:1",
+                  },
+                  Object {
+                    "name": undefined,
+                    "onClick": [Function],
+                    "parentId": "urn:azureiot:com:DeviceInformation:1",
+                    "url": "#/devices/detail/digitalTwins/commands/?id=test&interfaceId=urn:azureiot:com:DeviceInformation:1",
+                  },
+                  Object {
+                    "name": undefined,
+                    "onClick": [Function],
+                    "parentId": "urn:azureiot:com:DeviceInformation:1",
+                    "url": "#/devices/detail/digitalTwins/events/?id=test&interfaceId=urn:azureiot:com:DeviceInformation:1",
+                  },
+                ],
+                "name": "urn:azureiot:com:DeviceInformation:1",
+                "onClick": [Function],
+                "url": "",
+              },
+            ],
+            "name": undefined,
+          },
+        ]
+      }
+      onRenderGroupHeader={[Function]}
+    />
+  </div>
+</div>
+`;

@@ -1,0 +1,464 @@
+{
+    "common": {
+        "close": "Close",
+        "learnMore": "Learn more",
+        "loading": "Loading...",
+        "copyableMaskField": {
+            "toggleMask": {
+                "label": "Toggle Mask",
+                "ariaLabel": "Toggle mask"
+            },
+            "copy": {
+                "label": "Copy Contents",
+                "ariaLabel": "Copy contents"
+            }
+        }
+    },
+    "header": {
+        "applicationName": "Azure IoT explorer",
+        "search": {
+            "watermark": "Find on page"
+        },
+        "notifications": {
+            "hide":"Hide notifications",
+            "show": "Notifications",
+            "dismiss": "dismiss all",
+            "panel": {
+                "title": "Notifications",
+                "noNotifications": "No new notifications for this session"
+            }
+        },
+        "questions": {
+            "launch": "Open ???"
+        },
+        "settings": {
+            "launch": "Settings"
+        }
+    },
+    "settings": {
+        "headerText": "Settings",
+        "configuration": {
+            "headerText": "App configurations",
+            "connectionString": {
+                "label": "IoT Hub connection string",
+                "sublabel": "Where do I get this?"
+            }
+        },
+        "modelDefinitions": {
+            "add": "New",
+            "headerText": "We will look for your model definition in the following order:",
+            "helpText": "Drag and drop to order or disable.",
+            "repositoryTypes": {
+                "public": {
+                    "label":"Public repository",
+                    "infoText": ""
+                },
+                "private": {
+                    "label":"Organization repository",
+                    "infoText": "",
+                    "textBoxLabel": "Organization repository connection string"
+                },
+                "device": {
+                    "label":"On the connected device",
+                    "infoText": ""
+                }
+            }
+        },
+        "questions": {
+            "headerText": "FAQs:",
+            "questions":{
+                "companyRepo": {
+                    "text":"What is the Organization repository and how do I get the connection string?",
+                    "link": "https://aka.ms"
+                },
+                "publicRepo": {
+                    "text": "Why is it preferred to connect to the public repository?",
+                    "link": "https://aka.ms"
+                }
+            }
+        },
+        "footerText": "You can return to Settings to update at any time",
+        "save": "Connect",
+        "cancel": "Cancel"
+    },
+    "breadcrumb": {
+        "hub": "Hub {{hubName}}",
+        "devices": "Devices",
+        "addDevice": "Create a device"
+    },
+    "deviceContent": {
+        "start": "Select a device to start",
+        "navBar": {
+            "identity": "Device Identity",
+            "twin": "Device Twin",
+            "properties": "Properties (non-writable)",
+            "settings": "Properties (writable)",
+            "commands": "Commands",
+            "interfaces": "Interface",
+            "events": "Telemetry",
+            "eventsPerInterface": "Telemetry",
+            "methods": "Device Methods",
+            "pnp": "DIGITAL TWIN",
+            "nonpnp": "DEVICE",
+            "add": "Create device identity",
+            "collapse": "Collapse",
+            "expand": "Expand"
+        },
+        "value": "Value"
+    },
+    "connectivityPane": {
+        "header": "App configurations",
+        "connectionStringTextBox": {
+            "label": "IoT Hub connection string",
+            "errorMessages": {
+                "required": "Connection string is required",
+                "invalid": "Invalid connection string"
+            },
+            "subLabel": "Where do I get this?"
+        },
+        "connectionStringCheckbox": {
+            "label": "Remember my connection string",
+            "ariaLabel": "check box for remember my connection string",
+            "tooltip": "The connection string will be stored in the browser local storage"
+        },
+        "notes": "We will look for your model definition first in the Public repository and then will look to other locations. To change or update this, go to Settings at any time.",
+        "saveButton": {
+            "label": "Connect"
+        }
+    },
+    "deviceIdentity": {
+        "headerText": "{{deviceId}} identity information",
+        "deviceID": "Device ID",
+        "deviceIDTooltip": "Device identity used for device authentication and access control",
+        "authenticationType": {
+            "text": "Authentication type",
+            "symmetricKey": {
+                "autoGenerate": "Auto-generate keys",
+                "type": "Symmetric key",
+                "primaryKey": "Primary key",
+                "secondaryKey": "Secondary key",
+                "primaryConnectionString": "Primary connection string",
+                "primaryConnectionStringTooltip": "The primary symmetric shared access key stored in base64 format",
+                "secondaryConnectionString": "Secondary connection string",
+                "secondaryConnectionStringTooltip": "The secondary symmetric shared access key stored in base64 format",
+                "generatePrimaryKey": "Generate primary key",
+                "generateSecondaryKey": "Generate secondary key"
+            },
+            "ca": {
+                "type": "X.509 CA signed",
+                "text": "This device is being authenticated through a CA Certificate."
+            },
+            "selfSigned": {
+                "type": "X.509 self-signed",
+                "text": "This device is being authenticated using an X.509 certificate.",
+                "primaryThumbprint": "Primary thumbprint",
+                "primaryThumbprintTooltip": "The primary X.509 thumbprint representing the SHA-1 or SHA-256 hash of the X.509 certificate. Thumbprint values other than 40 hex characters for SHA-1 and 64 hex characters for SHA-256 are not accepted.",
+                "secondaryThumbprint": "Second thumbprint",
+                "secondaryThumbprintTooltip": "The secondary X.509 thumbprint representing the SHA-1 or SHA-256 hash of the X.509 certificate. Thumbprint values other than 40 hex characters for SHA-1 and 64 hex characters for SHA-256 are not accepted."
+            }
+        },
+        "hubConnectivity": {
+            "label": "Connect this device to an IoT hub",
+            "tooltip": "Enable or Disable the device interaction with the IoT Hub",
+            "enable": "Enable",
+            "enabled": "Enabled",
+            "disable": "Disable",
+            "disabled": "Disabled"
+        },
+        "commands": {
+            "save": "Save",
+            "manageKeys": {
+                "label": "Manage keys",
+                "ariaLabel": "Manage keys for device"
+            },
+            "regeneratePrimary": {
+                "ariaLabel": "Regenerate primary key",
+                "label": "Regenerate primary key"
+            },
+            "regenerateSecondary": {
+                "ariaLabel": "Regenerate secondary key",
+                "label": "Regenerate secondary key"
+            },
+            "swapKeys": {
+                "ariaLabel": "Swap keys",
+                "label": "Swap keys"
+            }
+        },
+        "validation": {
+            "invalidDeviceId": "Invalid characters in device ID",
+            "invalidKey": "Invalid key",
+            "invalidThumbprint": "Invalid thumbprint"
+        }
+    },
+    "deviceLists": {
+        "loadingDevice": "Loading devices",
+        "noDevice": "No devices",
+        "noData": "None",
+        "columns": {
+            "deviceId": {
+                "label": "Device ID",
+                "infoText": "Device identity used for device authentication and access control"
+            },
+            "status": {
+                "label": "Status",
+                "infoText": "The current status of the device"
+            },
+            "lastActivityTime": "Last activity",
+            "statusUpdatedTime":"Last status update",
+            "cloudToDeviceMessageCount": "Cloud to device message count",
+            "authenticationType": "Authentication type",
+            "isEdgeDevice": "Edge device",
+            "isPnpDevice": "IoT Plug and Play device",
+            "interfaces": "Interfaces"
+        },
+        "commands": {
+            "add": "New",
+            "close": "Cancel",
+            "delete": {
+                "buttonText": "Delete",
+                "confirmationDialog": {
+                    "title": "Delete from IoT Hub?",
+                    "subText": "Review carefully. Deleting this device will also remove it from your IoT hub and may have consequences for other using the same Hub or device code.",
+                    "confirm" : "Delete",
+                    "cancel": "Cancel"
+                }
+            },
+            "refresh": "Refresh",
+            "save": "Create"
+        },
+        "query": {
+            "deviceId": {
+                "placeholder": "Query by Device ID...",
+                "ariaLabel": "Query by Device ID",
+                "searchButton": {
+                    "title": "Search",
+                    "ariaLabel": "Execute Search by device id and no additional clauses"
+                }
+            },
+            "searchPills": {
+                "add": {
+                    "title": "Add query parameter",
+                    "ariaLabel": "Add query parameter",
+                    "text": "Add query parameter"
+                },
+                "search": {
+                    "title": "Search",
+                    "ariaLabel": "Execute search with specified clauses and without device Id.",
+                    "text": "Search"
+                },
+                "clause": {
+                    "parameterType": {
+                        "title":"Parameter type",
+                        "ariaLabel": "Type of query clause",
+                        "items": {
+                            "capabilityModelId":"Capability model ID",
+                            "interfaceId": "Interface ID",
+                            "propertyValue": "Property value",
+                            "status": "Status",
+                            "lastActivityTime": "Last activity time",
+                            "statusUpdateTime": "Status update time"
+                        }
+                    },
+                    "operationType": {
+                        "title": "Operation type",
+                        "ariaLabel": "Choose a comparison type for this clause"
+                    },
+                    "value": {
+                        "placeholder": "Enter value...",
+                        "ariaLabel": "Enter a value for this clause",
+                        "title": "Enter value..."
+                    },
+                    "remove": {
+                        "title": "Remove",
+                        "ariaLabel": "Remove this clause"
+                    }
+                }
+            }
+        }
+    },
+    "deviceTwin": {
+        "notFound": "No device twin data found",
+        "headerText": "Device twin",
+        "command" : {
+            "refresh": "Refresh",
+            "save": "Update"
+        }
+    },
+    "deviceProperties": {
+        "command" : {
+            "refresh": "Refresh",
+            "openReportedValuePanel": "Click to view value"
+        },
+        "headerText": "Non-writable properties",
+        "noProperty": "No properties",
+        "columns": {
+            "name": "Name (Display Name)",
+            "value": "Value",
+            "schema": "Schema",
+            "unit": "Unit",
+            "error": "value does not match schema"
+        }
+    },
+    "deviceSettings": {
+        "previewPayloadButtonText": "Preview payload",
+        "command" : {
+            "refresh": "Refresh",
+            "submit": "Update writable property",
+            "openReportedValuePanel": "Click to view reported",
+            "openDesiredValuePanel": "Click to edit",
+            "expandAll": "Expand all",
+            "expand": "Expand",
+            "collapseAll": "Collapse all",
+            "collapse": "Collapse"
+        },
+        "headerText": "Writable properties",
+        "noSetting": "No settings",
+        "syncStatus": {
+            "label": "Sync status : {{status}}",
+            "synced": "synced",
+            "syncing": "syncing",
+            "failed": "failed"
+        },
+        "desiredState": {
+            "success": "Success",
+            "synching": "Synching...",
+            "error": "Error",
+            "unknown": "Status Code: {{code}}"
+        },
+        "columns": {
+            "name": "Name (Display Name)",
+            "reportedValue": "Reported Property (Status)",
+            "error": "value does not match schema"
+        },
+        "details": {
+            "description": "Description",
+            "schema": "Schema",
+            "unit": "Unit"
+        },
+        "panel": {
+            "title": "Reported properties:"
+        }
+    },
+    "deviceCommands": {
+        "command" : {
+            "refresh": "Refresh",
+            "submit": "Send command",
+            "expandAll": "Expand all",
+            "expand": "Expand",
+            "collapseAll": "Collapse all",
+            "collapse": "Collapse"
+        },
+        "headerText": "Commands",
+        "noCommands": "No commands",
+        "columns": {
+            "name": "Name (Display Name)",
+            "info": "Info"
+        },
+        "details": {
+            "description": "Description",
+            "schema": "Request schema",
+            "type": "Command type"
+        }
+    },
+    "deviceInterfaces": {
+        "command" : {
+            "refresh": "Refresh",
+            "configure": "Configure"
+        },
+        "columns": {
+            "source": "Source",
+            "noSource": "Failed to get interface definition",
+            "displayName": "Name",
+            "description": "Description"
+        },
+        "headerText": "Interface ID {{interfaceId}}",
+        "noInterfaces": "No interfaces"
+    },
+    "deviceEvents": {
+        "command" : {
+            "refresh": "Refresh",
+            "clearEvents": "Clear events",
+            "showSystemProperties": "Show system properties"
+        },
+        "headerText": "Telemetry",
+        "interfaceDropDown": {
+            "label": "Select interface to filter telemetry",
+            "placeHolder": "Select interface"
+        },
+        "infiniteScroll": {
+            "loading": "Receiving events..."
+        },
+        "event": {
+            "body": "Body: ",
+            "enqueuedTime": "Enqueued time: ",
+            "properties": "Properties: "
+        },
+        "columns": {
+            "displayName": "Name",
+            "timestamp": "Enqueue time",
+            "schema": "Schema",
+            "unit": "Unit",
+            "value": "Value",
+            "error": {
+                "key": {
+                    "label": "value does not match schema",
+                    "errorContent": "key is not {{keyName}}"
+                },
+                "value": {
+                    "label": "value does not match schema"
+                }
+            }
+        }
+    },
+    "deviceMethods": {
+        "methodName": "Method name",
+        "connectionTimeout": "Connection timeout",
+        "methodTimeout": "Method timeout",
+        "invokeMethodButtonText": "Invoke Method"
+    },
+    "noMatchError": {
+        "title": "404 - Not found",
+        "description": "The page you are looking is unavailable.",
+        "goHome" : "GO TO HOMEPAGE"
+    },
+    "notifications": {
+        "savedToIotHubConnectionString": "Successfully saved connection string for IoT hub {{hostName}}",
+        "getDeviceIdentityOnError": "Failed to get device {{deviceId}}'s identity: {{error}}",
+        "getDeviceListOnError": "Failed to retrieve device list: {{error}}",
+        "getDeviceTwinOnError": "Failed to get device {{deviceId}}'s twin: {{error}}",
+        "getDigitalTwinInterfacePropertiesOnError": "Failed to get properties of digital twin interfaces on device {{deviceId}}: {{error}}",
+        "getInterfaceModelOnError": "Failed to get interface model definition {{interfaceId}}",
+        "updateDeviceTwinOnError": "Failed to update device twin on device {{deviceId}}: {{error}}",
+        "updateDeviceTwinOnSuccess": "Successfully updated device twin on device {{deviceId}}.",
+        "invokeDigitalTwinCommandOnError": "Failed to invoke digital twin command '{{commandName}}' for interface '{{interfaceName}}' on device '{{deviceId}}': {{error}}",
+        "invokeDigitalTwinCommandOnSuccess": "Successfully invoked digital twin command '{{commandName}}' for interface '{{interfaceName}}' on device '{{deviceId}}': {{response}}",
+        "invokingDigitalTwinCommand": "Trying to invoke digital twin command '{{commandName}}' for interface '{{interfaceName}}' on device '{{deviceId}}' with no payload",
+        "invokingDigitalTwinCommandWithPayload": "Trying to invoke digital twin command '{{commandName}}' for interface '{{interfaceName}}' on device '{{deviceId}}' with payload {{payload}}",
+        "invokeMethodOnError": "Failed to invoke method on device {{deviceId}}: {{error}}",
+        "invokeMethodOnSuccess": "Successfully invoked method '{{methodName}}' on device '{{deviceId}}' with response {{response}}",
+        "invokingMethod": "Trying to invoke method '{{methodName}}' on device '{{deviceId}}' with no payload",
+        "invokingMethodWithPayload": "Trying to invoke method '{{methodName}}' on device '{{deviceId}}' with payload {{payload}}",
+        "interfaceSchemaNotSupported": "Property schema '{{schema}}' is not yet supported in UI forms. Please use the JSON editor below to view and update value",
+        "deleteDeviceOnSucceed": "Successfully deleted {{count}} device(s)",
+        "deleteDeviceOnError": "Failed to delete {{count}} device(s): {{error}}",
+        "addDeviceOnSucceed": "Successfully added device {{deviceId}}",
+        "addDeviceOnError": "Failed to add device {{deviceId}}: {{error}}",
+        "updateDeviceOnSucceed": "Successfully updated device {{deviceId}}",
+        "updateDeviceOnError": "Failed to update device {{deviceId}}: {{error}}",
+        "patchDigitalTwinInterfacePropertiesOnError": "Failed to update desired properties of digital twin interfaces on device {{deviceId}}: {{error}}",
+        "patchDigitalTwinInterfacePropertiesOnSuccess": "Successfully updated desired properties of digital twin interfaces on device {{deviceId}}."
+    },
+    "errorBoundary": {
+        "text": "Something went wrong"
+    },
+    "template": {
+        "array":{
+            "add": "Add an entry",
+            "remove": "Remove current entry"
+        },
+        "collapse": {
+            "open": "Open for more information",
+            "close": "Collapse"
+        }
+    }
+}

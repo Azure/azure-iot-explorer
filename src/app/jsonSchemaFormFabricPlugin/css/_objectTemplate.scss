@@ -1,0 +1,18 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+@import '../../css/variables.scss';
+
+.objectField {
+    flex: 1;
+    .content {
+        display: flex;
+        flex-Direction: row;
+    }
+
+    .element{
+        padding-left: 10px;
+        border-left: 1px solid $gray;
+    }
+}
