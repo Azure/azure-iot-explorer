@@ -54,9 +54,9 @@ interface DeviceEventsState {
 export default class DeviceEventsPerInterfaceComponent extends React.Component<DeviceEventsDataProps & DeviceEventsDispatchProps & RouteComponentProps, DeviceEventsState> {
     // tslint:disable-next-line:no-any
     private timerID: any;
+    private isComponentMounted: boolean;
     constructor(props: DeviceEventsDataProps & DeviceEventsDispatchProps & RouteComponentProps) {
         super(props);
-
         this.state = {
             events: [],
             hasMore: true
@@ -65,6 +65,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
 
     public componentWillUnmount() {
         clearInterval(this.timerID);
+        this.isComponentMounted = false;
       }
 
     public render(): JSX.Element {
@@ -110,6 +111,14 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
 
     public componentDidMount() {
         this.props.setInterfaceId(getInterfaceIdFromQueryString(this.props));
+        this.isComponentMounted = true;
+    }
+
+    public componentWillReceiveProps(newProps: DeviceEventsDataProps & DeviceEventsDispatchProps & RouteComponentProps) {
+        const newInterfaceId = getInterfaceIdFromQueryString(newProps);
+        if (newInterfaceId !== getInterfaceIdFromQueryString(this.props)) {
+            this.setState({events: []});
+        }
     }
 
     private readonly renderInfiniteScroll = (context: LocalizationContextInterface) => {
@@ -213,7 +222,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
             );
         }
 
-        if (getNumberOfMapsInSchema(schema) > 0) {
+        if (!schema || getNumberOfMapsInSchema(schema) > 0) {
             // if schema has map type, skip using json validator to validate telemetry
             return;
         }
@@ -237,21 +246,21 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
 
     private readonly renderLoader = (context: LocalizationContextInterface): JSX.Element => {
         return (
-            <>
-            <div key="loading" className="events-loader">
-                <Spinner/>
-                <h4>{context.t(ResourceKeys.deviceEvents.infiniteScroll.loading)}</h4>
-            </div>
-            <div className="pnp-detail-list">
-                <div className="list-header">
-                    <span className="column-timestamp-xs">{context.t(ResourceKeys.deviceEvents.columns.timestamp)}</span>
-                    <span className="column-name-xs">{context.t(ResourceKeys.deviceEvents.columns.displayName)}</span>
-                    <span className="column-schema-sm">{context.t(ResourceKeys.deviceEvents.columns.schema)}</span>
-                    <span className="column-unit-sm">{context.t(ResourceKeys.deviceEvents.columns.unit)}</span>
-                    <span className="column-value-sm">{context.t(ResourceKeys.deviceEvents.columns.value)}</span>
+            <div key="custom-loader">
+                <div className="events-loader">
+                    <Spinner/>
+                    <h4>{context.t(ResourceKeys.deviceEvents.infiniteScroll.loading)}</h4>
+                </div>
+                <div className="pnp-detail-list">
+                    <div className="list-header">
+                        <span className="column-timestamp-xs">{context.t(ResourceKeys.deviceEvents.columns.timestamp)}</span>
+                        <span className="column-name-xs">{context.t(ResourceKeys.deviceEvents.columns.displayName)}</span>
+                        <span className="column-schema-sm">{context.t(ResourceKeys.deviceEvents.columns.schema)}</span>
+                        <span className="column-unit-sm">{context.t(ResourceKeys.deviceEvents.columns.unit)}</span>
+                        <span className="column-value-sm">{context.t(ResourceKeys.deviceEvents.columns.value)}</span>
+                    </div>
                 </div>
             </div>
-            </>
         );
     }
 
@@ -273,10 +282,12 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
                                 .filter(result => result && result.systemProperties &&
                                         result.systemProperties[TELEMETRY_INTERFACE_ID_PROP] === getInterfaceIdFromQueryString(this.props))
                                 .reverse().map((message: Message) => message);
-                        this.setState({
-                            events: [...messages, ...this.state.events],
-                            loading: false,
-                            startTime: new Date()});
+                        if (this.isComponentMounted) {
+                            this.setState({
+                                events: [...messages, ...this.state.events],
+                                loading: false,
+                                startTime: new Date()});
+                        }
                     });
                 },
                 LOADING_LOCK);

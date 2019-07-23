@@ -19,10 +19,3 @@ export const getDeviceTwinStateSelector = (state: StateType): SynchronizationSta
     state.deviceContentState.deviceTwin &&
     state.deviceContentState.deviceTwin.deviceTwinSynchronizationStatus;
 };
-
-export const getReportedPropertiesSelector = (state: StateType) => {
-    const deviceTwin = getDeviceTwinSelector(state);
-    return deviceTwin &&
-    deviceTwin.properties &&
-    deviceTwin.properties.reported as any; // tslint:disable-line:no-any
-};
