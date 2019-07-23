@@ -8,7 +8,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { TranslationFunction } from 'i18next';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
-
+import '../../css/_breadcrumb.scss';
 export interface BreadCrumbProps {
     hubName: string;
 }
