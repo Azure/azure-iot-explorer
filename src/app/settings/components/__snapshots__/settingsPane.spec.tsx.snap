@@ -3253,6 +3253,9 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                                   "settings.modelDefinitions.repositoryTypes.public.label",
                                                 ],
                                                 Array [
+                                                  "settings.modelDefinitions.repositoryTypes.device.label",
+                                                ],
+                                                Array [
                                                   "settings.modelDefinitions.add",
                                                 ],
                                                 Array [
@@ -3355,6 +3358,10 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                                 Object {
                                                   "type": "return",
                                                   "value": "settings.modelDefinitions.repositoryTypes.public.label",
+                                                },
+                                                Object {
+                                                  "type": "return",
+                                                  "value": "settings.modelDefinitions.repositoryTypes.device.label",
                                                 },
                                                 Object {
                                                   "type": "return",
@@ -9278,6 +9285,12 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                                       "onClick": [Function],
                                                       "text": "settings.modelDefinitions.repositoryTypes.public.label",
                                                     },
+                                                    Object {
+                                                      "disabled": false,
+                                                      "key": "DEVICE",
+                                                      "onClick": [Function],
+                                                      "text": "settings.modelDefinitions.repositoryTypes.device.label",
+                                                    },
                                                   ],
                                                 }
                                               }
@@ -9304,6 +9317,12 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                                         "key": "PUBLIC",
                                                         "onClick": [Function],
                                                         "text": "settings.modelDefinitions.repositoryTypes.public.label",
+                                                      },
+                                                      Object {
+                                                        "disabled": false,
+                                                        "key": "DEVICE",
+                                                        "onClick": [Function],
+                                                        "text": "settings.modelDefinitions.repositoryTypes.device.label",
                                                       },
                                                     ],
                                                   }
@@ -9567,6 +9586,12 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                                           "key": "PUBLIC",
                                                           "onClick": [Function],
                                                           "text": "settings.modelDefinitions.repositoryTypes.public.label",
+                                                        },
+                                                        Object {
+                                                          "disabled": false,
+                                                          "key": "DEVICE",
+                                                          "onClick": [Function],
+                                                          "text": "settings.modelDefinitions.repositoryTypes.device.label",
                                                         },
                                                       ],
                                                     }
@@ -16469,6 +16494,9 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                   "settings.modelDefinitions.repositoryTypes.public.label",
                                                 ],
                                                 Array [
+                                                  "settings.modelDefinitions.repositoryTypes.device.label",
+                                                ],
+                                                Array [
                                                   "settings.modelDefinitions.add",
                                                 ],
                                                 Array [
@@ -16595,6 +16623,10 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                 Object {
                                                   "type": "return",
                                                   "value": "settings.modelDefinitions.repositoryTypes.public.label",
+                                                },
+                                                Object {
+                                                  "type": "return",
+                                                  "value": "settings.modelDefinitions.repositoryTypes.device.label",
                                                 },
                                                 Object {
                                                   "type": "return",
@@ -22632,6 +22664,9 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                                       "settings.modelDefinitions.repositoryTypes.public.label",
                                                                     ],
                                                                     Array [
+                                                                      "settings.modelDefinitions.repositoryTypes.device.label",
+                                                                    ],
+                                                                    Array [
                                                                       "settings.modelDefinitions.add",
                                                                     ],
                                                                     Array [
@@ -22758,6 +22793,10 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                                     Object {
                                                                       "type": "return",
                                                                       "value": "settings.modelDefinitions.repositoryTypes.public.label",
+                                                                    },
+                                                                    Object {
+                                                                      "type": "return",
+                                                                      "value": "settings.modelDefinitions.repositoryTypes.device.label",
                                                                     },
                                                                     Object {
                                                                       "type": "return",
@@ -26326,6 +26365,12 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                       "onClick": [Function],
                                                       "text": "settings.modelDefinitions.repositoryTypes.public.label",
                                                     },
+                                                    Object {
+                                                      "disabled": false,
+                                                      "key": "DEVICE",
+                                                      "onClick": [Function],
+                                                      "text": "settings.modelDefinitions.repositoryTypes.device.label",
+                                                    },
                                                   ],
                                                 }
                                               }
@@ -26352,6 +26397,12 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                         "key": "PUBLIC",
                                                         "onClick": [Function],
                                                         "text": "settings.modelDefinitions.repositoryTypes.public.label",
+                                                      },
+                                                      Object {
+                                                        "disabled": false,
+                                                        "key": "DEVICE",
+                                                        "onClick": [Function],
+                                                        "text": "settings.modelDefinitions.repositoryTypes.device.label",
                                                       },
                                                     ],
                                                   }
@@ -26615,6 +26666,12 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                           "key": "PUBLIC",
                                                           "onClick": [Function],
                                                           "text": "settings.modelDefinitions.repositoryTypes.public.label",
+                                                        },
+                                                        Object {
+                                                          "disabled": false,
+                                                          "key": "DEVICE",
+                                                          "onClick": [Function],
+                                                          "text": "settings.modelDefinitions.repositoryTypes.device.label",
                                                         },
                                                       ],
                                                     }

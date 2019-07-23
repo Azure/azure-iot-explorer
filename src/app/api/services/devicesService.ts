@@ -16,7 +16,7 @@ import { FetchDeviceTwinParameters,
     FetchDigitalTwinInterfacePropertiesParameters,
     InvokeDigitalTwinInterfaceCommandParameters,
     PatchDigitalTwinInterfacePropertiesParameters } from '../parameters/deviceParameters';
-import { CONTROLLER_API_ENDPOINT, DATAPLANE, EVENTHUB, DIGITAL_TWIN_API_VERSION } from '../../constants/apiConstants';
+import { CONTROLLER_API_ENDPOINT, DATAPLANE, EVENTHUB, DIGITAL_TWIN_API_VERSION, DataPlaneStatusCode } from '../../constants/apiConstants';
 import { HTTP_OPERATION_TYPES } from '../constants';
 import { buildQueryString, getConnectionInfoFromConnectionString, generateSasToken } from '../shared/utils';
 import { CONNECTION_TIMEOUT_IN_SECONDS, RESPONSE_TIME_IN_SECONDS } from '../../constants/devices';
@@ -91,7 +91,18 @@ const dataPlaneConnectionHelper = (parameters: DataPlaneParameters) => {
 
 // tslint:disable-next-line:cyclomatic-complexity
 const dataPlaneResponseHelper = async (response: Response) => {
+    const dataPlaneResponse = await response;
     const result = await response.json();
+
+    // success case
+    if (DataPlaneStatusCode.SuccessLowerBound <= dataPlaneResponse.status && dataPlaneResponse.status <= DataPlaneStatusCode.SuccessUpperBound) {
+        return result;
+    }
+
+    // error case
+    if (!result) {
+        throw new Error();
+    }
     if (result.ExceptionMessage && result.Message) {
         throw new Error(`${result.Message}: ${result.ExceptionMessage}`);
     }
@@ -99,7 +110,7 @@ const dataPlaneResponseHelper = async (response: Response) => {
         throw new Error(!!result.ExceptionMessage ? result.ExceptionMessage : result.Message);
     }
 
-    return result;
+    throw new Error(result);
 };
 
 export const fetchDeviceTwin = async (parameters: FetchDeviceTwinParameters): Promise<Twin> => {

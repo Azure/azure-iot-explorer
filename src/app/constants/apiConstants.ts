@@ -31,3 +31,8 @@ export const HEADERS = {
     PUBLISHER_NAME: 'x-ms-model-publisher-name',
     REQUEST_ID: 'x-ms-request-id',
 };
+
+export enum DataPlaneStatusCode{
+    SuccessLowerBound = 200,
+    SuccessUpperBound = 299
+}

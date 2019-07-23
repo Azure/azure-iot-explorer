@@ -2266,6 +2266,9 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
                               "settings.modelDefinitions.repositoryTypes.public.label",
                             ],
                             Array [
+                              "settings.modelDefinitions.repositoryTypes.device.label",
+                            ],
+                            Array [
                               "settings.modelDefinitions.add",
                             ],
                             Array [
@@ -2319,6 +2322,10 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
                             Object {
                               "type": "return",
                               "value": "settings.modelDefinitions.repositoryTypes.public.label",
+                            },
+                            Object {
+                              "type": "return",
+                              "value": "settings.modelDefinitions.repositoryTypes.device.label",
                             },
                             Object {
                               "type": "return",
@@ -5875,6 +5882,12 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
               "onClick": [Function],
               "text": "settings.modelDefinitions.repositoryTypes.public.label",
             },
+            Object {
+              "disabled": true,
+              "key": "DEVICE",
+              "onClick": [Function],
+              "text": "settings.modelDefinitions.repositoryTypes.device.label",
+            },
           ],
         }
       }
@@ -5901,6 +5914,12 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
                 "key": "PUBLIC",
                 "onClick": [Function],
                 "text": "settings.modelDefinitions.repositoryTypes.public.label",
+              },
+              Object {
+                "disabled": true,
+                "key": "DEVICE",
+                "onClick": [Function],
+                "text": "settings.modelDefinitions.repositoryTypes.device.label",
               },
             ],
           }
@@ -6164,6 +6183,12 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
                   "key": "PUBLIC",
                   "onClick": [Function],
                   "text": "settings.modelDefinitions.repositoryTypes.public.label",
+                },
+                Object {
+                  "disabled": true,
+                  "key": "DEVICE",
+                  "onClick": [Function],
+                  "text": "settings.modelDefinitions.repositoryTypes.device.label",
                 },
               ],
             }
@@ -7215,6 +7240,12 @@ exports[`components/settings/repositoryLocationList matches snapshot with no ite
               "onClick": [Function],
               "text": "settings.modelDefinitions.repositoryTypes.public.label",
             },
+            Object {
+              "disabled": true,
+              "key": "DEVICE",
+              "onClick": [Function],
+              "text": "settings.modelDefinitions.repositoryTypes.device.label",
+            },
           ],
         }
       }
@@ -7241,6 +7272,12 @@ exports[`components/settings/repositoryLocationList matches snapshot with no ite
                 "key": "PUBLIC",
                 "onClick": [Function],
                 "text": "settings.modelDefinitions.repositoryTypes.public.label",
+              },
+              Object {
+                "disabled": true,
+                "key": "DEVICE",
+                "onClick": [Function],
+                "text": "settings.modelDefinitions.repositoryTypes.device.label",
               },
             ],
           }
@@ -7504,6 +7541,12 @@ exports[`components/settings/repositoryLocationList matches snapshot with no ite
                   "key": "PUBLIC",
                   "onClick": [Function],
                   "text": "settings.modelDefinitions.repositoryTypes.public.label",
+                },
+                Object {
+                  "disabled": true,
+                  "key": "DEVICE",
+                  "onClick": [Function],
+                  "text": "settings.modelDefinitions.repositoryTypes.device.label",
                 },
               ],
             }
@@ -9656,6 +9699,12 @@ exports[`components/settings/repositoryLocationList matches snapshot with public
               "onClick": [Function],
               "text": "settings.modelDefinitions.repositoryTypes.public.label",
             },
+            Object {
+              "disabled": false,
+              "key": "DEVICE",
+              "onClick": [Function],
+              "text": "settings.modelDefinitions.repositoryTypes.device.label",
+            },
           ],
         }
       }
@@ -9682,6 +9731,12 @@ exports[`components/settings/repositoryLocationList matches snapshot with public
                 "key": "PUBLIC",
                 "onClick": [Function],
                 "text": "settings.modelDefinitions.repositoryTypes.public.label",
+              },
+              Object {
+                "disabled": false,
+                "key": "DEVICE",
+                "onClick": [Function],
+                "text": "settings.modelDefinitions.repositoryTypes.device.label",
               },
             ],
           }
@@ -9945,6 +10000,12 @@ exports[`components/settings/repositoryLocationList matches snapshot with public
                   "key": "PUBLIC",
                   "onClick": [Function],
                   "text": "settings.modelDefinitions.repositoryTypes.public.label",
+                },
+                Object {
+                  "disabled": false,
+                  "key": "DEVICE",
+                  "onClick": [Function],
+                  "text": "settings.modelDefinitions.repositoryTypes.device.label",
                 },
               ],
             }
