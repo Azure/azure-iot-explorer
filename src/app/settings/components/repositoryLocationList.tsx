@@ -63,13 +63,12 @@ export default class RepositoryLocationList extends React.Component<RepositoryLo
                             onClick: () => this.onAddRepositoryType(REPOSITORY_LOCATION_TYPE.Public),
                             text: context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.public.label)
                         },
-                        // uncomment the following code once we can test getting model definition from devices
-                        // {
-                        //     disabled: !items || items.some(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Device),
-                        //     key: REPOSITORY_LOCATION_TYPE.Device,
-                        //     onClick: () => this.onAddRepositoryType(REPOSITORY_LOCATION_TYPE.Device),
-                        //     text: context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.device.label),
-                        // }
+                        {
+                            disabled: !items || items.some(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Device),
+                            key: REPOSITORY_LOCATION_TYPE.Device,
+                            onClick: () => this.onAddRepositoryType(REPOSITORY_LOCATION_TYPE.Device),
+                            text: context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.device.label),
+                        }
                     ];
                     return(
                         <div className="location-list">

@@ -17,6 +17,7 @@ const NOT_FOUND = 400;
 const SERVER_PORT = 8081;
 const SERVER_WAIT = 3000; // how long we'll let the call for eventHub messages run in non-socket
 const app = express();
+const DEVICE_STATUS_HEADER = 'x-ms-command-statuscode';
 
 // should not import from app
 const IOTHUB_CONNECTION_DEVICE_ID = 'iothub-connection-device-id';
@@ -60,7 +61,13 @@ app.post('/api/DataPlane', (req: express.Request, res: express.Response) => {
                 uri: `https://${req.body.hostName}/${encodeURIComponent(req.body.path)}${queryString}`,
             },
             (err, httpRes, body) => {
-                res.send(httpRes && httpRes.body);
+                if (httpRes.headers && httpRes.headers[DEVICE_STATUS_HEADER]) { // handles happy failure cases when error code is returned as a header
+                    // tslint:disable-next-line:radix
+                    res.status(parseInt(httpRes.headers[DEVICE_STATUS_HEADER] as string)).send(body);
+                }
+                else {
+                    res.status(httpRes.statusCode).send(body);
+                }
             });
         }
     }
