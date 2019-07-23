@@ -37,7 +37,7 @@ export interface DeviceContentDispatchProps {
     getDigitalTwinInterfaceProperties: (deviceId: string) => void;
 }
 
-export class DeviceContentComponent extends React.Component<DeviceContentProps & DeviceContentDispatchProps, DeviceContentState> {
+export class DeviceContentComponent extends React.PureComponent<DeviceContentProps & DeviceContentDispatchProps, DeviceContentState> {
     constructor(props: DeviceContentProps & DeviceContentDispatchProps) {
         super(props);
         this.state = {
