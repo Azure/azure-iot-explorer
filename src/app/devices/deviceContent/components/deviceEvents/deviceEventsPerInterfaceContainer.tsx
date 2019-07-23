@@ -10,7 +10,6 @@ import { StateType } from '../../../../shared/redux/state';
 import DeviceEventsPerInterfaceComponent, { DeviceEventsDataProps, DeviceEventsDispatchProps } from './deviceEventsPerInterface';
 import { getConnectionStringSelector } from '../../../../login/selectors';
 import { getDeviceTelemetrySelector } from './selectors';
-import { getDeviceTwinStateSelector } from '../deviceTwin/selectors';
 import { getModelDefinitionSyncStatusSelector } from '../../selectors';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { setInterfaceIdAction, getModelDefinitionAction } from '../../actions';
@@ -18,8 +17,7 @@ import { setInterfaceIdAction, getModelDefinitionAction } from '../../actions';
 const mapStateToProps = (state: StateType): DeviceEventsDataProps => {
     return {
         connectionString: getConnectionStringSelector(state),
-        isLoading: getDeviceTwinStateSelector(state) === SynchronizationStatus.working ||
-            getModelDefinitionSyncStatusSelector(state) === SynchronizationStatus.working,
+        isLoading: getModelDefinitionSyncStatusSelector(state) === SynchronizationStatus.working,
         telemetrySchema: getDeviceTelemetrySelector(state)
     };
 };

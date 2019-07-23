@@ -50,6 +50,13 @@ export const getDigitalTwinInterfacePropertiesWrapperSelector = (state: StateTyp
         state.deviceContentState.digitalTwinInterfaceProperties;
 };
 
+export const getDigitalTwinInterfacePropertiesStateSelector = createSelector(
+    getDigitalTwinInterfacePropertiesWrapperSelector,
+    properties => {
+        return properties && properties.digitalTwinInterfacePropertiesSyncStatus;
+    }
+);
+
 export const getDigitalTwinInterfacePropertiesSelector = (state: StateInterface): DigitalTwinInterfaces => {
     return state &&
         state.deviceContentState &&

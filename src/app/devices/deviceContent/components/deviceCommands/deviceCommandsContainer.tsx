@@ -10,14 +10,12 @@ import { StateType } from '../../../../shared/redux/state';
 import DeviceCommands, { DeviceCommandDispatchProps, DeviceCommandsProps } from './deviceCommands';
 import { getDeviceCommandPairs } from './selectors';
 import { invokeDigitalTwinInterfaceCommandAction, setInterfaceIdAction, InvokeDigitalTwinInterfaceCommandActionParameters, getModelDefinitionAction } from '../../actions';
-import { getDeviceTwinStateSelector } from '../deviceTwin/selectors';
 import { getModelDefinitionSyncStatusSelector, getInterfaceNameSelector } from '../../selectors';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 
 const mapStateToProps = (state: StateType): DeviceCommandsProps => {
     return {
-        isLoading: getDeviceTwinStateSelector(state) === SynchronizationStatus.working ||
-            getModelDefinitionSyncStatusSelector(state) === SynchronizationStatus.working,
+        isLoading: getModelDefinitionSyncStatusSelector(state) === SynchronizationStatus.working,
         ...getDeviceCommandPairs(state),
         interfaceName: getInterfaceNameSelector(state)
     };

@@ -34,6 +34,7 @@ interface DeviceEventsState {
 export default class DeviceEventsComponent extends React.Component<DeviceEventsDataProps & RouteComponentProps, DeviceEventsState> {
     // tslint:disable-next-line:no-any
     private timerID: any;
+    private isComponentMounted: boolean;
     constructor(props: DeviceEventsDataProps & RouteComponentProps) {
         super(props);
 
@@ -46,7 +47,8 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
 
     public componentWillUnmount() {
         clearInterval(this.timerID);
-      }
+        this.isComponentMounted = false;
+    }
 
     public render(): JSX.Element {
         return (
@@ -85,6 +87,10 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
         );
     }
 
+    public componentDidMount() {
+        this.isComponentMounted = true;
+    }
+
     private readonly renderInfiniteScroll = (context: LocalizationContextInterface) => {
         const { hasMore } = this.state;
         return (
@@ -98,12 +104,12 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
                 role="feed"
                 isReverse={true}
             >
-            {this.renderEvents(context)}
+            {this.renderEvents()}
             </InfiniteScroll>
         );
     }
 
-    private readonly renderEvents = (context: LocalizationContextInterface) => {
+    private readonly renderEvents = () => {
         const { events } = this.state;
 
         return events && events.map((event: Message, index) => {
@@ -141,11 +147,13 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
                     })
                     .then(results => {
                         const messages = results && results.reverse().map((message: Message) => message);
-                        this.setState({
-                            events: [...messages, ...this.state.events],
-                            loading: false,
-                            startTime: new Date()
-                        });
+                        if (this.isComponentMounted) {
+                            this.setState({
+                                events: [...messages, ...this.state.events],
+                                loading: false,
+                                startTime: new Date()
+                            });
+                        }
                     });
                 },
                 LOADING_LOCK);
