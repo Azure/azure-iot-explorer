@@ -20,6 +20,7 @@ import { ParsedJsonSchema } from '../../../../api/models/interfaceJsonParserOutp
 import { TelemetryContent } from '../../../../api/models/modelDefinition';
 import { getInterfaceIdFromQueryString, getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
+import { getNumberOfMapsInSchema } from '../../../../shared/utils/twinAndJsonSchemaDataConverter';
 import '../../../../css/_deviceEvents.scss';
 
 const JSON_SPACES = 2;
@@ -198,7 +199,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
         }
 
         const validator = new Validator();
-        if (Object.keys(event.body) && Object.keys(event.body)[0] !== key) {
+        if (Object.keys(event.body) && Object.keys(event.body)[0] !== key) { // validate telemetry's property name
             return(
                 <div className="column-value-text">
                     <Label aria-label={context.t(ResourceKeys.deviceEvents.columns.value)}>
@@ -212,7 +213,11 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
             );
         }
 
-        const result = validator.validate(event.body[key], schema);
+        if (getNumberOfMapsInSchema(schema) > 0) {
+            // if schema has map type, skip using json validator to validate telemetry
+            return;
+        }
+        const result = validator.validate(event.body[key], schema);  // validate telemetry's property value
         return(
             <div className="column-value-text">
                 <Label aria-label={context.t(ResourceKeys.deviceEvents.columns.value)}>
