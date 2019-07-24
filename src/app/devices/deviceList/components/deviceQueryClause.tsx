@@ -75,14 +75,15 @@ export default class DeviceQueryClause extends React.PureComponent<DeviceQueryCl
                 return ParameterType.capabilityModelId;
             case ParameterType.interfaceId.toLowerCase():
                 return ParameterType.interfaceId;
-            case ParameterType.lastActivityTime.toLowerCase():
+                case ParameterType.status.toLowerCase():
+                    return ParameterType.status;
+/*            case ParameterType.lastActivityTime.toLowerCase():
                 return ParameterType.lastActivityTime;
-            /*case ParameterType.propertyValue.toLowerCase():
-                return ParameterType.propertyValue;*/
-            case ParameterType.status.toLowerCase():
-                return ParameterType.status;
+            case ParameterType.propertyValue.toLowerCase():
+                return ParameterType.propertyValue;
             case ParameterType.statusUpdateTime.toLowerCase():
                 return ParameterType.statusUpdateTime;
+*/
             default:
                 throw new Error(`ParameterType does not include '${key}'.`);
         }
@@ -108,16 +109,16 @@ export default class DeviceQueryClause extends React.PureComponent<DeviceQueryCl
         switch (key.toLowerCase()) {
             case OperationType.equals.toLowerCase():
                 return OperationType.equals;
-            case OperationType.greaterThan.toLowerCase():
-                return OperationType.greaterThan;
-            case OperationType.greaterThanEquals.toLowerCase():
-                return OperationType.greaterThanEquals;
-            case OperationType.inequal.toLowerCase():
-                return OperationType.inequal;
-            case OperationType.lessThan.toLowerCase():
-                return OperationType.lessThan;
-            case OperationType.lessThanEquals.toLowerCase():
-                return OperationType.lessThanEquals;
+            // case OperationType.greaterThan.toLowerCase():
+            //     return OperationType.greaterThan;
+            // case OperationType.greaterThanEquals.toLowerCase():
+            //     return OperationType.greaterThanEquals;
+            // case OperationType.inequal.toLowerCase():
+            //     return OperationType.inequal;
+            // case OperationType.lessThan.toLowerCase():
+            //     return OperationType.lessThan;
+            // case OperationType.lessThanEquals.toLowerCase():
+            //     return OperationType.lessThanEquals;
             case OperationType.notEquals.toLowerCase():
                 return OperationType.notEquals;
             default:
@@ -132,14 +133,15 @@ export default class DeviceQueryClause extends React.PureComponent<DeviceQueryCl
                 return t(ResourceKeys.deviceLists.query.searchPills.clause.parameterType.items.capabilityModelId);
             case ParameterType.interfaceId:
                 return t(ResourceKeys.deviceLists.query.searchPills.clause.parameterType.items.interfaceId);
-            case ParameterType.lastActivityTime:
-                return t(ResourceKeys.deviceLists.query.searchPills.clause.parameterType.items.lastActivityTime);
-            /*            case ParameterType.propertyValue:
-                            return t(ResourceKeys.deviceLists.query.searchPills.clause.parameterType.items.propertyValue); */
-            case ParameterType.status:
-                return t(ResourceKeys.deviceLists.query.searchPills.clause.parameterType.items.status);
+                case ParameterType.status:
+                    return t(ResourceKeys.deviceLists.query.searchPills.clause.parameterType.items.status);
+/*              case ParameterType.lastActivityTime:
+                    return t(ResourceKeys.deviceLists.query.searchPills.clause.parameterType.items.lastActivityTime);
+                case ParameterType.propertyValue:
+                    return t(ResourceKeys.deviceLists.query.searchPills.clause.parameterType.items.propertyValue);
             case ParameterType.statusUpdateTime:
                 return t(ResourceKeys.deviceLists.query.searchPills.clause.parameterType.items.statusUpdateTime);
+*/
             default:
                 return '';
         }

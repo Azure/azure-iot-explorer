@@ -19,16 +19,16 @@ export enum ParameterType {
     interfaceId = 'interface',
 //    propertyValue = 'properties.reported',
     status = 'status',
-    lastActivityTime = 'lastActivityTime',
-    statusUpdateTime = 'statusUpdateTime'
+//    lastActivityTime = 'lastActivityTime',
+//    statusUpdateTime = 'statusUpdateTime'
 }
 
 export enum OperationType {
     equals = '=',
     notEquals = '!=',
-    lessThan = '<',
-    lessThanEquals = '<=',
-    greaterThan = '>',
-    greaterThanEquals = '>=',
-    inequal = '<>'
+    // lessThan = '<',
+    // lessThanEquals = '<=',
+    // greaterThan = '>',
+    // greaterThanEquals = '>=',
+    // inequal = '<>'
 }
