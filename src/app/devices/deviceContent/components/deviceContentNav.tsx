@@ -39,14 +39,14 @@ export default class DeviceContentNavComponent extends React.Component<DeviceCon
         this.state = {expandedInterfaceMap};
     }
 
-    public shouldComponentUpdate(nextProps: DeviceContentNavDataProps & DeviceContentNavDispatchProps, nextState: DeviceContentNavState) {
+    /*public shouldComponentUpdate(nextProps: DeviceContentNavDataProps & DeviceContentNavDispatchProps, nextState: DeviceContentNavState) {
         return  nextProps.deviceId !== this.props.deviceId ||
                 nextProps.interfaceIds !== this.props.interfaceIds ||
                 nextProps.isLoading !== this.props.isLoading ||
                 nextProps.isPnPDevice !== this.props.isPnPDevice ||
                 nextProps.selectedInterface !== this.props.selectedInterface ||
                 nextState !== this.state; // tslint:disable-line:cyclomatic-complexity
-    }
+    }*/
 
     public render(): JSX.Element {
 
