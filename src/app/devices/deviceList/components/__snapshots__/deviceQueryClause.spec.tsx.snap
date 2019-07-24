@@ -29,14 +29,6 @@ exports[`components/devices/DeviceQueryClause matches snapshot 1`] = `
           "key": "status",
           "text": undefined,
         },
-        Object {
-          "key": "lastActivityTime",
-          "text": undefined,
-        },
-        Object {
-          "key": "statusUpdateTime",
-          "text": undefined,
-        },
       ]
     }
   />
@@ -59,26 +51,6 @@ exports[`components/devices/DeviceQueryClause matches snapshot 1`] = `
         Object {
           "key": "!=",
           "text": "!=",
-        },
-        Object {
-          "key": "<",
-          "text": "<",
-        },
-        Object {
-          "key": "<=",
-          "text": "<=",
-        },
-        Object {
-          "key": ">",
-          "text": ">",
-        },
-        Object {
-          "key": ">=",
-          "text": ">=",
-        },
-        Object {
-          "key": "<>",
-          "text": "<>",
         },
       ]
     }
@@ -131,14 +103,6 @@ exports[`components/devices/DeviceQueryClause matches snapshot without operation
         },
         Object {
           "key": "status",
-          "text": undefined,
-        },
-        Object {
-          "key": "lastActivityTime",
-          "text": undefined,
-        },
-        Object {
-          "key": "statusUpdateTime",
           "text": undefined,
         },
       ]

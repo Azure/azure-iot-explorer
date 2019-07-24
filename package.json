@@ -1,6 +1,6 @@
 {
-  "name": "pnp-device-explorer",
-  "version": "0.9.1",
+  "name": "azure-iot-explorer",
+  "version": "0.9.0",
   "description": "This project welcomes contributions and suggestions.  Most contributions require you to agree to a\r Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us\r the rights to use your contribution. For details, visit https://cla.microsoft.com.",
   "main": "public/electron.js",
   "build": {
@@ -19,27 +19,18 @@
     "linux": {
       "category": "Utility",
       "target": [
-        "snap",
-        "AppImage",
-        "tar.gz",
-        "tar.lz",
-        "tar.xz"
+        "deb"
       ]
     },
     "mac": {
       "type": "distribution",
       "icon": "icon/icon.icns"
     },
-    "nsis": {
-      "createDesktopShortcut": "always"
-    },
     "dmg": {
       "internetEnabled": true
     },
     "win": {
       "target": [
-        "nsis",
-        "portable",
         "msi"
       ]
     },
