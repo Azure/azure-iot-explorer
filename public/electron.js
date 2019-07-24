@@ -23,14 +23,6 @@ function createWindow() {
     }
 
     mainWindow.on('closed', () => mainWindow = null);
-    // Enable refresh shortcut
-    const globalShortcut = electron.globalShortcut;
-    globalShortcut.register('f5', function() {
-		mainWindow.reload()
-	})
-	globalShortcut.register('CommandOrControl+R', function() {
-		mainWindow.reload()
-	})
 }
 
 function createMenu() {
