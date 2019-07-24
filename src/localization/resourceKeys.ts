@@ -441,13 +441,9 @@ export class ResourceKeys {
       questions : {
          headerText : "settings.questions.headerText",
          questions : {
-            companyRepo : {
-               link : "settings.questions.questions.companyRepo.link",
-               text : "settings.questions.questions.companyRepo.text",
-            },
-            publicRepo : {
-               link : "settings.questions.questions.publicRepo.link",
-               text : "settings.questions.questions.publicRepo.text",
+            documentation : {
+               link : "settings.questions.questions.documentation.link",
+               text : "settings.questions.questions.documentation.text",
             },
          },
       },
