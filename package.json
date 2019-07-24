@@ -19,27 +19,18 @@
     "linux": {
       "category": "Utility",
       "target": [
-        "snap",
-        "AppImage",
-        "tar.gz",
-        "tar.lz",
-        "tar.xz"
+        "deb"
       ]
     },
     "mac": {
       "type": "distribution",
       "icon": "icon/icon.icns"
     },
-    "nsis": {
-      "createDesktopShortcut": "always"
-    },
     "dmg": {
       "internetEnabled": true
     },
     "win": {
       "target": [
-        "nsis",
-        "portable",
         "msi"
       ]
     },
