@@ -200,7 +200,7 @@
             position: fixed;
             top: 0;
             float: right;
-            height: calc(100% - 40px);
+            height: calc(100% - #{$mastheadHeight});
             left: 49%;
             border: none;
             box-shadow: 0px 0px 50px $gray;
