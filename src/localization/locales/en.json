@@ -65,15 +65,11 @@
             }
         },
         "questions": {
-            "headerText": "FAQs:",
+            "headerText": "Help:",
             "questions":{
-                "companyRepo": {
-                    "text":"What is the Organization repository and how do I get the connection string?",
-                    "link": "https://aka.ms"
-                },
-                "publicRepo": {
-                    "text": "Why is it preferred to connect to the public repository?",
-                    "link": "https://aka.ms"
+                "documentation": {
+                    "text":"IoT Plug and Play Documentation",
+                    "link": "https://aka.ms/azure-iot-explorer-documentation"
                 }
             }
         },

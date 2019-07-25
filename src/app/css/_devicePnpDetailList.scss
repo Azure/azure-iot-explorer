@@ -121,7 +121,6 @@
                 .column-value-button {
                     @include default-button;
                     float: left;
-                    margin: 10px 0 5px 5px;
                 }
                 .value-validation-error {
                     @include validation-error;
@@ -201,12 +200,12 @@
             position: fixed;
             top: 0;
             float: right;
-            height: 100%;
+            height: calc(100% - #{$mastheadHeight});
             left: 49%;
             border: none;
             box-shadow: 0px 0px 50px $gray;
             overflow-y: auto;
-            margin-top: 40px;
+            margin-top: $mastheadHeight;
 
             .panel-title {
                 margin-bottom: 40px;

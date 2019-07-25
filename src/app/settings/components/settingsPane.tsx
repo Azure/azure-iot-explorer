@@ -207,16 +207,9 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
                         <ul className="faq">
                             <li className="faq-item">
                                 <Link
-                                    href={context.t(ResourceKeys.settings.questions.questions.companyRepo.link)}
+                                    href={context.t(ResourceKeys.settings.questions.questions.documentation.link)}
                                     target="_blank"
-                                >{context.t(ResourceKeys.settings.questions.questions.companyRepo.text)}
-                                </Link>
-                            </li>
-                            <li className="faq-item">
-                                <Link
-                                    href={context.t(ResourceKeys.settings.questions.questions.publicRepo.link)}
-                                    target="_blank"
-                                >{context.t(ResourceKeys.settings.questions.questions.publicRepo.text)}
+                                >{context.t(ResourceKeys.settings.questions.questions.documentation.text)}
                                 </Link>
                             </li>
                         </ul>
