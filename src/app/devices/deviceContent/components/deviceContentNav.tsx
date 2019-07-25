@@ -39,14 +39,14 @@ export default class DeviceContentNavComponent extends React.Component<DeviceCon
         this.state = {expandedInterfaceMap};
     }
 
-    /*public shouldComponentUpdate(nextProps: DeviceContentNavDataProps & DeviceContentNavDispatchProps, nextState: DeviceContentNavState) {
+    public shouldComponentUpdate(nextProps: DeviceContentNavDataProps & DeviceContentNavDispatchProps, nextState: DeviceContentNavState) {
         return  nextProps.deviceId !== this.props.deviceId ||
                 nextProps.interfaceIds !== this.props.interfaceIds ||
                 nextProps.isLoading !== this.props.isLoading ||
                 nextProps.isPnPDevice !== this.props.isPnPDevice ||
                 nextProps.selectedInterface !== this.props.selectedInterface ||
                 nextState !== this.state; // tslint:disable-line:cyclomatic-complexity
-    }*/
+    }
 
     public render(): JSX.Element {
 
@@ -80,6 +80,7 @@ export default class DeviceContentNavComponent extends React.Component<DeviceCon
         const pnpNavGroupsLinks = isPnPDevice && interfaceIds && interfaceIds.map((id: string) => ({
             isExpanded: this.state.expandedInterfaceMap.get(id),
             links: NAV_LINK_ITEMS_PNP.map((nav: string): INavLink => ({
+                key: `${id}-${nav}`,
                 name: context.t((ResourceKeys.deviceContent.navBar as any)[nav]), // tslint:disable-line:no-any
                 onClick: this.onNestedChildLinkClick,
                 parentId: id,
