@@ -6,7 +6,7 @@ import * as React from 'react';
 import { TooltipHost, DirectionalHint } from 'office-ui-fabric-react/lib/Tooltip';
 import { Label, ILabelProps } from 'office-ui-fabric-react/lib/Label';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
-import { getId } from 'office-ui-fabric-react/lib/utilities';
+import { getId } from 'office-ui-fabric-react';
 import { INFO } from '../../constants/iconNames';
 import '../../css/_labelWithTooltip.scss';
 
