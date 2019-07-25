@@ -54,9 +54,9 @@
                     "infoText": ""
                 },
                 "private": {
-                    "label":"Organization repository",
+                    "label":"Company repository",
                     "infoText": "",
-                    "textBoxLabel": "Organization repository connection string"
+                    "textBoxLabel": "Company model repository connection string"
                 },
                 "device": {
                     "label":"On the connected device",
