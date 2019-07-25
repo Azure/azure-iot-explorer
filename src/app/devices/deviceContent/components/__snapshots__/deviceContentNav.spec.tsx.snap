@@ -74,30 +74,35 @@ exports[`components/devices/deviceContentNav matches snapshot when there is no i
                 "isExpanded": undefined,
                 "links": Array [
                   Object {
+                    "key": "urn:azureiot:com:DeviceInformation:1-interfaces",
                     "name": undefined,
                     "onClick": [Function],
                     "parentId": "urn:azureiot:com:DeviceInformation:1",
                     "url": "#/devices/detail/digitalTwins/interfaces/?id=test&interfaceId=urn:azureiot:com:DeviceInformation:1",
                   },
                   Object {
+                    "key": "urn:azureiot:com:DeviceInformation:1-settings",
                     "name": undefined,
                     "onClick": [Function],
                     "parentId": "urn:azureiot:com:DeviceInformation:1",
                     "url": "#/devices/detail/digitalTwins/settings/?id=test&interfaceId=urn:azureiot:com:DeviceInformation:1",
                   },
                   Object {
+                    "key": "urn:azureiot:com:DeviceInformation:1-properties",
                     "name": undefined,
                     "onClick": [Function],
                     "parentId": "urn:azureiot:com:DeviceInformation:1",
                     "url": "#/devices/detail/digitalTwins/properties/?id=test&interfaceId=urn:azureiot:com:DeviceInformation:1",
                   },
                   Object {
+                    "key": "urn:azureiot:com:DeviceInformation:1-commands",
                     "name": undefined,
                     "onClick": [Function],
                     "parentId": "urn:azureiot:com:DeviceInformation:1",
                     "url": "#/devices/detail/digitalTwins/commands/?id=test&interfaceId=urn:azureiot:com:DeviceInformation:1",
                   },
                   Object {
+                    "key": "urn:azureiot:com:DeviceInformation:1-events",
                     "name": undefined,
                     "onClick": [Function],
                     "parentId": "urn:azureiot:com:DeviceInformation:1",
@@ -155,30 +160,35 @@ exports[`components/devices/deviceContentNav redirects snapshot when there is a 
                 "isExpanded": true,
                 "links": Array [
                   Object {
+                    "key": "urn:azureiot:com:DeviceInformation:1-interfaces",
                     "name": undefined,
                     "onClick": [Function],
                     "parentId": "urn:azureiot:com:DeviceInformation:1",
                     "url": "#/devices/detail/digitalTwins/interfaces/?id=test&interfaceId=urn:azureiot:com:DeviceInformation:1",
                   },
                   Object {
+                    "key": "urn:azureiot:com:DeviceInformation:1-settings",
                     "name": undefined,
                     "onClick": [Function],
                     "parentId": "urn:azureiot:com:DeviceInformation:1",
                     "url": "#/devices/detail/digitalTwins/settings/?id=test&interfaceId=urn:azureiot:com:DeviceInformation:1",
                   },
                   Object {
+                    "key": "urn:azureiot:com:DeviceInformation:1-properties",
                     "name": undefined,
                     "onClick": [Function],
                     "parentId": "urn:azureiot:com:DeviceInformation:1",
                     "url": "#/devices/detail/digitalTwins/properties/?id=test&interfaceId=urn:azureiot:com:DeviceInformation:1",
                   },
                   Object {
+                    "key": "urn:azureiot:com:DeviceInformation:1-commands",
                     "name": undefined,
                     "onClick": [Function],
                     "parentId": "urn:azureiot:com:DeviceInformation:1",
                     "url": "#/devices/detail/digitalTwins/commands/?id=test&interfaceId=urn:azureiot:com:DeviceInformation:1",
                   },
                   Object {
+                    "key": "urn:azureiot:com:DeviceInformation:1-events",
                     "name": undefined,
                     "onClick": [Function],
                     "parentId": "urn:azureiot:com:DeviceInformation:1",
