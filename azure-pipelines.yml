@@ -1,0 +1,43 @@
+trigger:
+- master
+
+jobs:
+  - job: build
+    strategy:
+      matrix:
+
+        linux:
+          imageName: 'ubuntu-16.04'
+          build_script: 'package:linux'
+          package_name: 'Linux'
+
+        mac:
+          imageName: 'macos-10.13'
+          build_script: 'package:mac'
+          package_name: 'MacOS'
+
+        windows:
+          imageName: 'vs2017-win2016'
+          build_script: 'package:win'
+          package_name: 'Windows'
+
+    pool:
+      vmImage: $(imageName)
+
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '12.x'
+
+    - script: 'npm run $(build_script)'
+
+    - task: CopyFiles@2
+      inputs:
+        SourceFolder: '$(Build.SourcesDirectory)/'
+        Contents: '.artifactignore'
+        TargetFolder: '$(Build.SourcesDirectory)/dist/'
+
+    - task: PublishPipelineArtifact@1
+      inputs:
+        targetPath: '$(Build.SourcesDirectory)/dist/'
+        artifact: '$(package_name)'
