@@ -62,48 +62,26 @@ export function* invokeDigitalTwinInterfaceCommandSaga(action: Action<InvokeDigi
 }
 
 // tslint:disable-next-line: no-any
-export const generateCommandPayload = (propertyKey: string, commandPayload: any) => {
-    const payload = {};
-    // tslint:disable-next-line: no-any
-    (payload as any)[propertyKey] = commandPayload;
-    return payload;
+export const generateCommandPayload = (commandPayload: any) => {
+    return commandPayload || null;
 };
 
 function* notifyMethodInvoked(toastId: number, action: Action<InvokeDigitalTwinInterfaceCommandActionParameters>) {
     if (action.payload) {
-        if ( action.payload.propertyKey) {
-            const commandPayload = generateCommandPayload(action.payload.propertyKey, action.payload.commandPayload);
-            yield put(addNotificationAction.started({
-                id: toastId,
-                text: {
-                    translationKey: ResourceKeys.notifications.invokingDigitalTwinCommandWithPayload,
-                    translationOptions: {
-                        commandName: action.payload.commandName,
-                        deviceId: action.payload.digitalTwinId,
-                        interfaceName: yield select(getInterfaceNameSelector),
-                        payload: JSON.stringify(commandPayload),
-                    },
+        const commandPayload = generateCommandPayload(action.payload.commandPayload);
+        yield put(addNotificationAction.started({
+            id: toastId,
+            text: {
+                translationKey: ResourceKeys.notifications.invokingDigitalTwinCommandWithPayload,
+                translationOptions: {
+                    commandName: action.payload.commandName,
+                    deviceId: action.payload.digitalTwinId,
+                    interfaceName: yield select(getInterfaceNameSelector),
+                    payload: JSON.stringify(commandPayload),
                 },
-                type: NotificationType.info,
-            }));
-            return commandPayload;
-        }
-        else
-        {
-            yield put(addNotificationAction.started({
-                id: toastId,
-                text: {
-                    translationKey: ResourceKeys.notifications.invokingDigitalTwinCommand,
-                    translationOptions: {
-                        commandName: action.payload.commandName,
-                        deviceId: action.payload.digitalTwinId,
-                        interfaceName: yield select(getInterfaceNameSelector)
-                    },
-                },
-                type: NotificationType.info,
-            }));
-
-            return;
-        }
+            },
+            type: NotificationType.info,
+        }));
+        return commandPayload;
     }
 }

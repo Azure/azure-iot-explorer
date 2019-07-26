@@ -72,7 +72,7 @@ export default class DeviceCommandsPerInterfacePerCommand
                     {this.props.commandModelDefinition.request ? this.createForm() :
                         <PrimaryButton
                             className="submit-button"
-                            onClick={this.onSubmit({})}
+                            onClick={this.onSubmit(null)}
                             text={context.t(ResourceKeys.deviceCommands.command.submit)}
                             iconProps={{ iconName: SUBMIT }}
                         />
@@ -98,7 +98,7 @@ export default class DeviceCommandsPerInterfacePerCommand
     }
 
     private readonly craftCommandPayload = (interfaceName: string, propertyKey: string, payload: object) => {
-      return generateCommandPayload(propertyKey, payload);
+      return generateCommandPayload(payload);
     }
 
     private readonly renderCommandSchemaInformation = (context: LocalizationContextInterface) => {
