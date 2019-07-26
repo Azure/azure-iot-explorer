@@ -169,7 +169,8 @@
     "testRegex": "(\\.|/)(spec)\\.(tsx?)$",
     "moduleNameMapper": {
       "^office-ui-fabric-react/lib": "<rootDir>/node_modules/office-ui-fabric-react/lib-commonjs",
-      "^.+\\.(scss)$": "<rootDir>/scss-stub.js"
+      "^.+\\.(scss)$": "<rootDir>/scss-stub.js",
+      "monaco-editor": "<rootDir>/node_modules/react-monaco-editor"
     },
     "moduleFileExtensions": [
       "js",
