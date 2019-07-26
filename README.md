@@ -1,5 +1,6 @@
 
 # Azure IoT Plug and Play (PnP) Device Explorer
+[![Build Status](https://dev.azure.com/azure/azure-iot-explorer/_apis/build/status/Azure.azure-iot-explorer?branchName=master)](https://dev.azure.com/azure/azure-iot-explorer/_build/latest?definitionId=31&branchName=master)
 
 ## Table of Contents
 - [Overview](#overview)
