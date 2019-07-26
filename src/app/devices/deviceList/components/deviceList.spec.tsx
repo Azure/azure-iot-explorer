@@ -14,9 +14,12 @@ const devices = [
         authenticationType: 'sas',
         cloudToDeviceMessageCount: '0',
         deviceId: 'testDeviceId',
+        deviceSummarySynchronizationStatus: SynchronizationStatus.fetched,
+        interfaceIds: [],
+        isPnpDevice: true,
         lastActivityTime: '0001-01-01T00:00:00Z',
         status: 'Enabled',
-        statusUpdatedTime: '0001-01-01T00:00:00Z',
+        statusUpdatedTime: '0001-01-01T00:00:00Z'
     }
 ];
 

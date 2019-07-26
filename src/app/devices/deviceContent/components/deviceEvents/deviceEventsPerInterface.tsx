@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Validator } from 'jsonschema';
+import { Validator, ValidatorResult } from 'jsonschema';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { Label } from 'office-ui-fabric-react/lib/Label';
 import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
@@ -222,22 +222,23 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
             );
         }
 
-        if (!schema || getNumberOfMapsInSchema(schema) > 0) {
-            // if schema has map type, skip using json validator to validate telemetry
-            return;
+        let result: ValidatorResult;
+        if (schema && getNumberOfMapsInSchema(schema) <= 0) {
+            // only validate telemetry if schema doesn't contain map type
+            result = validator.validate(event.body[key], schema);  // validate telemetry's property value
         }
-        const result = validator.validate(event.body[key], schema);  // validate telemetry's property value
+
         return(
             <div className="column-value-text">
                 <Label aria-label={context.t(ResourceKeys.deviceEvents.columns.value)}>
                     {JSON.stringify(event.body, undefined, JSON_SPACES)}
                     {result && result.errors && result.errors.length !== 0 &&
                         <section className="value-validation-error" aria-label={context.t(ResourceKeys.deviceEvents.columns.error.value.label)}>
-                        <span>{context.t(ResourceKeys.deviceEvents.columns.error.value.label)}</span>
-                        {result.errors.map((element, index) =>
-                            <li key={index}>{element.message}</li>
-                        )}
-                    </section>
+                            <span>{context.t(ResourceKeys.deviceEvents.columns.error.value.label)}</span>
+                            {result.errors.map((element, index) =>
+                                <li key={index}>{element.message}</li>
+                            )}
+                        </section>
                     }
                 </Label>
             </div>
