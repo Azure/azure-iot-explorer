@@ -87,7 +87,6 @@ export default class DeviceContentNavComponent extends React.Component<DeviceCon
                 url: `#/devices/detail/digitalTwins/${nav}/?id=${encodeURIComponent(deviceId)}&interfaceId=${id}`
             })),
             name: id,
-            onClick: this.onChildLinkExpand,
             url: ''
         }));
 
@@ -106,6 +105,7 @@ export default class DeviceContentNavComponent extends React.Component<DeviceCon
         return (
             <div role="navigation">
                 <Nav
+                    onLinkExpandClick={this.onChildLinkExpand}
                     onRenderGroupHeader={this.onRenderGroupHeader}
                     groups={groups}
                 />
