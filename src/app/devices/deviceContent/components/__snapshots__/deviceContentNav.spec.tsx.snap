@@ -32,6 +32,7 @@ exports[`components/devices/deviceContentNav matches snapshot when there device 
           },
         ]
       }
+      onLinkExpandClick={[Function]}
       onRenderGroupHeader={[Function]}
     />
   </div>
@@ -110,7 +111,6 @@ exports[`components/devices/deviceContentNav matches snapshot when there is no i
                   },
                 ],
                 "name": "urn:azureiot:com:DeviceInformation:1",
-                "onClick": [Function],
                 "url": "",
               },
             ],
@@ -118,6 +118,7 @@ exports[`components/devices/deviceContentNav matches snapshot when there is no i
           },
         ]
       }
+      onLinkExpandClick={[Function]}
       onRenderGroupHeader={[Function]}
     />
   </div>
@@ -196,7 +197,6 @@ exports[`components/devices/deviceContentNav redirects snapshot when there is a 
                   },
                 ],
                 "name": "urn:azureiot:com:DeviceInformation:1",
-                "onClick": [Function],
                 "url": "",
               },
             ],
@@ -204,6 +204,7 @@ exports[`components/devices/deviceContentNav redirects snapshot when there is a 
           },
         ]
       }
+      onLinkExpandClick={[Function]}
       onRenderGroupHeader={[Function]}
     />
   </div>
