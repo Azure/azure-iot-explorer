@@ -34,4 +34,10 @@
     .data {
         font-weight: bold;
     }
+
+    .icon {
+        grid-area: icon;
+        height: 15px;
+        width: 15px;
+    }
 }

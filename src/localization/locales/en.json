@@ -154,7 +154,7 @@
             }
         },
         "hubConnectivity": {
-            "label": "Connect this device to an IoT hub",
+            "label": "Connect this device to IoT hub",
             "tooltip": "Enable or Disable the device interaction with the IoT Hub",
             "enable": "Enable",
             "enabled": "Enabled",
