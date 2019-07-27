@@ -15,7 +15,7 @@ import LabelWithTooltip from '../../shared/components/labelWithTooltip';
 import { SetConnectionStringActionParameter } from '../actions';
 import '../../css/_connectivityPane.scss';
 
-export interface ConnectivityPaneDisptachProps {
+export interface ConnectivityPaneDispatchProps {
     saveConnectionInfo: (connectionStringSetting: SetConnectionStringActionParameter) => void;
 }
 
@@ -30,8 +30,8 @@ export interface ConnectivityState {
     rememberConnectionString: boolean;
 }
 
-export default class ConnectivityPane extends React.Component<RouteComponentProps & ConnectivityPaneDataProps & ConnectivityPaneDisptachProps, ConnectivityState> {
-    constructor(props: RouteComponentProps & ConnectivityPaneDataProps & ConnectivityPaneDisptachProps) {
+export default class ConnectivityPane extends React.Component<RouteComponentProps & ConnectivityPaneDataProps & ConnectivityPaneDispatchProps, ConnectivityState> {
+    constructor(props: RouteComponentProps & ConnectivityPaneDataProps & ConnectivityPaneDispatchProps) {
         super(props);
         this.state = {
             connectionString: this.props.connectionString,

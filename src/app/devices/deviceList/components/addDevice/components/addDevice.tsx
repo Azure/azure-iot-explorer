@@ -17,12 +17,16 @@ import { validateKey, validateThumbprint, validateDeviceId } from '../../../../.
 import LabelWithTooltip from '../../../../../shared/components/labelWithTooltip';
 import BreadcrumbContainer from '../../../../../shared/components/breadcrumbContainer';
 import { CopyableMaskField } from '../../../../../shared/components/copyableMaskField';
+import { SynchronizationStatus } from '../../../../../api/models/synchronizationStatus';
 import '../../../../../css/_addDevice.scss';
 import '../../../../../css/_layouts.scss';
 
 export interface AddDeviceActionProps {
     handleSave: (deviceIdentity: DeviceIdentity) => void;
-    listDevices: () => void;
+}
+
+export interface AddDeviceDataProps {
+    deviceListSyncStatus: SynchronizationStatus;
 }
 
 export interface AddDeviceState {
@@ -42,18 +46,18 @@ export interface AddDeviceState {
     secondaryThumbprintError?: string;
 }
 
-export default class AddDevice extends React.Component<AddDeviceActionProps & RouteComponentProps, AddDeviceState> {
-    constructor(props: AddDeviceActionProps & RouteComponentProps) {
+export default class AddDevice extends React.Component<AddDeviceActionProps & AddDeviceDataProps & RouteComponentProps, AddDeviceState> {
+    constructor(props: AddDeviceActionProps & AddDeviceDataProps & RouteComponentProps) {
         super(props);
 
         this.state = {
             authenticationType: DeviceAuthenticationType.SymmetricKey,
             autoGenerateKeys: true,
-            deviceId: undefined,
-            primaryKey: undefined,
-            primaryThumbprint: undefined,
-            secondaryKey: undefined,
-            secondaryThumbprint: undefined,
+            deviceId: '',
+            primaryKey: '',
+            primaryThumbprint: '',
+            secondaryKey: '',
+            secondaryThumbprint: '',
             status: DeviceStatus.Enabled
         };
     }
@@ -81,8 +85,10 @@ export default class AddDevice extends React.Component<AddDeviceActionProps & Ro
         );
     }
 
-    public componentDidMount() {
-        this.props.listDevices();
+    public componentWillReceiveProps(newProps: AddDeviceActionProps & AddDeviceDataProps & RouteComponentProps) {
+        if (newProps.deviceListSyncStatus === SynchronizationStatus.upserted) { // only when device has been added successfully would navigate to list view
+            this.props.history.push(`/devices`);
+        }
     }
 
     private readonly showDeviceId = (context: LocalizationContextInterface) => {
@@ -385,7 +391,6 @@ export default class AddDevice extends React.Component<AddDeviceActionProps & Ro
 
     private readonly handleSave = () => {
         this.props.handleSave(this.getDeviceIdentity());
-        this.props.history.push(`/devices`);
     }
 
     private readonly handleCancel = () => {
