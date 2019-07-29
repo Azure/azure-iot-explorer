@@ -27,6 +27,7 @@ registerIcons({
 //tslint: enable
 
 export interface DeviceListCellProps {
+    itemIndex: number | string;
     connectionString: string;
     device: DeviceSummary;
 }
@@ -49,17 +50,17 @@ export class DeviceListCell extends React.Component<DeviceListCellProps, DeviceL
     }
 
     public render() {
-        const { device } = this.props;
+        const { itemIndex, device } = this.props;
 
         return (
             <LocalizationContextConsumer>
                 {(context: LocalizationContextInterface) => (
                     !this.state.isLoading ?
-                    <div className="device-list-cell-container">
+                    <div className="device-list-cell-container" data-selection-index={itemIndex}>
                         {this.renderCellDeviceInfo(device, context)}
                         {this.state.interfaceIds.length !== 0 && this.renderCellInterfaceInfo(context)}
                     </div>:
-                    <div className="device-list-cell-container">
+                    <div className="device-list-cell-container" data-selection-index={itemIndex}>
                         {this.renderLoadingInfo(context)}
                     </div>
                 )}

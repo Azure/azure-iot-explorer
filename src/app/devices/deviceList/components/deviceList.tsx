@@ -126,6 +126,7 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
                 <DeviceListCell
                     connectionString={this.props.connectionString}
                     device={item}
+                    itemIndex={itemIndex}
                 />
             );
         };

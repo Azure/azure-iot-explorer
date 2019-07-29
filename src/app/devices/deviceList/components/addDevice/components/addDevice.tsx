@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { RouteComponentProps, Route } from 'react-router-dom';
-import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react';
+import { PrimaryButton, DefaultButton, Overlay } from 'office-ui-fabric-react';
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/ChoiceGroup';
 import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
@@ -79,6 +79,7 @@ export default class AddDevice extends React.Component<AddDeviceActionProps & Ad
                                 {this.showCommands(context)}
                             </div>
                         </div>
+                        {this.props.deviceListSyncStatus === SynchronizationStatus.updating && <Overlay/>}
                     </div>
                 )}
             </LocalizationContextConsumer>
