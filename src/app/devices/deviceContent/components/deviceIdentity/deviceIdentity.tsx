@@ -2,7 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import React from 'react';
+import * as React from 'react';
 import { Label, Shimmer, Toggle, Overlay } from 'office-ui-fabric-react';
 import { RouteComponentProps } from 'react-router-dom';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
