@@ -6,30 +6,23 @@ import * as React from 'react';
 import { Redirect, RouteComponentProps, withRouter, NavLink, Route } from 'react-router-dom';
 import { Label } from 'office-ui-fabric-react/lib/Label';
 import { Dialog, DialogFooter, DialogType } from 'office-ui-fabric-react/lib/Dialog';
-import { IColumn } from 'office-ui-fabric-react/lib/DetailsList';
-import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/Button';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import GroupedListWrapper from '../../../shared/components/groupedList';
-import { DEVICE_LIST_COLUMN_WIDTH, DEVICE_LIST_WIDE_COLUMN_WIDTH } from '../../../constants/devices';
-import { CHECK } from '../../../constants/iconNames';
-import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import { DeviceSummary } from '../../../api/models/deviceSummary';
 import DeviceQuery from '../../../api/models/deviceQuery';
 import DeviceListCommandBar from './deviceListCommandBar';
-import { DeviceAuthenticationType } from '../../../api/models/deviceAuthenticationType';
-import { DeviceStatus } from '../../../api/models/deviceStatus';
 import BreadcrumbContainer from '../../../shared/components/breadcrumbContainer';
 import DeviceListQuery from './deviceListQuery';
+import { DeviceListCell } from './deviceListCell';
 import '../../../css/_deviceList.scss';
 import '../../../css/_layouts.scss';
-import DeviceListCellContainer from './deviceListCellContainer';
 
 export interface DeviceListDataProps {
     connectionString: string;
     devices?: DeviceSummary[];
-    deviceListSyncStatus: SynchronizationStatus;
+    isFetching: boolean;
     query?: DeviceQuery;
 }
 
@@ -40,7 +33,7 @@ export interface DeviceListDispatchProps {
 
 interface DeviceListState {
     selectedDeviceIds: string[];
-    showDeleteConfirmation?: boolean;
+    showDeleteConfirmation: boolean;
     query: DeviceQuery;
 }
 
@@ -51,6 +44,7 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
         this.state = {
             query: props.query || { clauses: [], deviceId: '' },
             selectedDeviceIds: [],
+            showDeleteConfirmation: false
         };
     }
 
@@ -76,16 +70,12 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
                                 setQuery={this.setQuery}
                             />
                             {this.showDeviceList(context)}
-                            {this.deleteConfirmationDialog(context)}
+                            {this.state.showDeleteConfirmation && this.deleteConfirmationDialog(context)}
                         </div>
                     </div>
                 )}
             </LocalizationContextConsumer>
         );
-    }
-
-    public shouldComponentUpdate(nextProps: DeviceListDataProps & DeviceListDispatchProps & RouteComponentProps, nextState: DeviceListState): boolean {
-        return JSON.stringify(this.props.devices) !== JSON.stringify(nextProps.devices) || this.state !== nextState; // TODO: Write an array comparison instead of using stringify
     }
 
     private readonly setQuery = (query: DeviceQuery) => {
@@ -105,8 +95,8 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
     private readonly showCommandBar = () => {
         return (
             <DeviceListCommandBar
-                disableAdd={this.props.deviceListSyncStatus === SynchronizationStatus.working}
-                disableRefresh={this.props.deviceListSyncStatus === SynchronizationStatus.working}
+                disableAdd={this.props.isFetching}
+                disableRefresh={this.props.isFetching}
                 disableDelete={this.state.selectedDeviceIds.length === 0}
                 handleAdd={this.handleAdd}
                 handleRefresh={this.refresh}
@@ -133,8 +123,9 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
 
         const renderCell = (nestingDepth: number, item: DeviceSummary, itemIndex: number) => {
             return (
-                <DeviceListCellContainer
-                    deviceId={item.deviceId}
+                <DeviceListCell
+                    connectionString={this.props.connectionString}
+                    device={item}
                     itemIndex={itemIndex}
                 />
             );
@@ -144,7 +135,7 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
             <GroupedListWrapper
                 items={this.props.devices}
                 nameKey="deviceId"
-                isLoading={this.props.deviceListSyncStatus === SynchronizationStatus.working}
+                isLoading={this.props.isFetching}
                 noItemsMessage={context.t(ResourceKeys.deviceLists.noDevice)}
                 onRenderCell={renderCell}
                 onSelectionChanged={this.onRowSelection}
@@ -155,11 +146,9 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
                         onRenderColumn: (group, key) => {
                             const path = this.props.location.pathname.replace(/\/devices\/.*/, '/devices');
                             return (
-                                <div>
-                                    <NavLink key={key} className={'deviceId-label'} to={`${path}/detail/identity/?id=${encodeURIComponent(group.name)}`}>
-                                        {group.name}
-                                    </NavLink>
-                                </div>
+                                <NavLink key={key} className={'deviceId-label'} to={`${path}/detail/identity/?id=${encodeURIComponent(group.name)}`}>
+                                    {group.name}
+                                </NavLink>
                             );
                         },
                         widthPercentage: 30
@@ -238,108 +227,8 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
         });
     }
 
-    private readonly getColumns = (): IColumn[] => {
-        return [
-            this.getColumnProps('deviceId', this.onDeviceIdColumnRender),
-            this.getColumnProps('isEdgeDevice', this.onIsEdgeDeviceColumnRender),
-            this.getColumnProps('isPnpDevice', this.onIsPnpDeviceColumnRender),
-            this.getColumnProps('status', this.onStatusColumnRender),
-            this.getColumnProps('lastActivityTime', this.onLastActivityColumnRender, DEVICE_LIST_WIDE_COLUMN_WIDTH),
-            this.getColumnProps('statusUpdatedTime', this.onStatusUpdatedTimeColumnRender, DEVICE_LIST_WIDE_COLUMN_WIDTH),
-            this.getColumnProps('cloudToDeviceMessageCount', this.onC2DMessageCountColumnRender),
-            this.getColumnProps('authenticationType', this.onAuthTypeColumnRender)
-        ];
-    }
-
     private readonly onRowSelection = (devices: DeviceSummary[]) => {
         this.setState({ selectedDeviceIds: devices.map(device => device.deviceId) });
-    }
-
-    private readonly getColumnProps = (key: string, onRender: any, columnWidth?: number): IColumn => { // tslint:disable-line:no-any
-        return {
-            isResizable: true,
-            key,
-            maxWidth: columnWidth || DEVICE_LIST_COLUMN_WIDTH,
-            minWidth: 50,
-            name: (ResourceKeys.deviceLists.columns as any)[key], // tslint:disable-line:no-any
-            onRender
-        };
-    }
-
-    private readonly onDeviceIdColumnRender = (item: DeviceSummary) => {
-        const path = this.props.location.pathname.replace(/\/devices\/.*/, '/devices');
-        return (
-            <NavLink to={`${path}/detail/identity/?id=${encodeURIComponent(item.deviceId)}`}>
-                {item.deviceId}
-            </NavLink>
-        );
-    }
-
-    private readonly onIsEdgeDeviceColumnRender = (item: DeviceSummary) => {
-        return item.isEdgeDevice && <Icon iconName={CHECK} />;
-    }
-
-    private readonly onIsPnpDeviceColumnRender = (item: DeviceSummary) => {
-        return item.isPnpDevice && <Icon iconName={CHECK} />;
-    }
-
-    private readonly onStatusColumnRender = (item: DeviceSummary) => {
-        let status: string;
-        switch (item.status && item.status.toLowerCase()) {
-            case DeviceStatus.Enabled.toLowerCase():
-                status = ResourceKeys.deviceIdentity.hubConnectivity.enabled;
-                break;
-            case DeviceStatus.Disabled.toLowerCase():
-                status = ResourceKeys.deviceIdentity.hubConnectivity.disabled;
-                break;
-            default:
-                status = undefined;
-                break;
-        }
-
-        return (
-            <LocalizationContextConsumer>
-                {(context: LocalizationContextInterface) => (
-                    <span >{status && context.t(status)}</span>
-                )}
-            </LocalizationContextConsumer>);
-    }
-
-    private readonly onLastActivityColumnRender = (item: DeviceSummary) => {
-        return <span>{item.lastActivityTime}</span>;
-    }
-
-    private readonly onStatusUpdatedTimeColumnRender = (item: DeviceSummary) => {
-        return <span>{item.statusUpdatedTime}</span>;
-    }
-
-    private readonly onC2DMessageCountColumnRender = (item: DeviceSummary) => {
-        return <span >{item.cloudToDeviceMessageCount}</span>;
-    }
-
-    private readonly onAuthTypeColumnRender = (item: DeviceSummary) => {
-        let authentication: string;
-        switch (item.authenticationType && item.authenticationType.toLowerCase()) {
-            case DeviceAuthenticationType.CACertificate.toLowerCase():
-                authentication = ResourceKeys.deviceIdentity.authenticationType.ca.type;
-                break;
-            case DeviceAuthenticationType.SelfSigned.toLowerCase():
-                authentication = ResourceKeys.deviceIdentity.authenticationType.selfSigned.type;
-                break;
-            case DeviceAuthenticationType.SymmetricKey.toLowerCase():
-                authentication = ResourceKeys.deviceIdentity.authenticationType.symmetricKey.type;
-                break;
-            default:
-                authentication = undefined;
-                break;
-        }
-
-        return (
-            <LocalizationContextConsumer>
-                {(context: LocalizationContextInterface) => (
-                    <span >{authentication && context.t(authentication)}</span>
-                )}
-            </LocalizationContextConsumer>);
     }
 }
 

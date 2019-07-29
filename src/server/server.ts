@@ -61,12 +61,17 @@ app.post('/api/DataPlane', (req: express.Request, res: express.Response) => {
                 uri: `https://${req.body.hostName}/${encodeURIComponent(req.body.path)}${queryString}`,
             },
             (err, httpRes, body) => {
-                if (httpRes.headers && httpRes.headers[DEVICE_STATUS_HEADER]) { // handles happy failure cases when error code is returned as a header
-                    // tslint:disable-next-line:radix
-                    res.status(parseInt(httpRes.headers[DEVICE_STATUS_HEADER] as string)).send(body);
+                if (httpRes) {
+                    if (httpRes.headers && httpRes.headers[DEVICE_STATUS_HEADER]) { // handles happy failure cases when error code is returned as a header
+                        // tslint:disable-next-line:radix
+                        res.status(parseInt(httpRes.headers[DEVICE_STATUS_HEADER] as string)).send(body);
+                    }
+                    else {
+                        res.status(httpRes.statusCode).send(body);
+                    }
                 }
                 else {
-                    res.status(httpRes.statusCode).send(body);
+                    res.send(body);
                 }
             });
         }

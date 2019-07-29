@@ -91,10 +91,6 @@ export default class GroupedListWrapper<T> extends React.Component<GroupedListPr
 
     }
 
-    public shouldComponentUpdate(nextProps: GroupedListProps<T>): boolean {
-        return JSON.stringify(this.props.items) !== JSON.stringify(nextProps.items); // TODO: Write an array comparison instead of using stringify
-    }
-
     public static getDerivedStateFromProps<T>(props: GroupedListProps<T>, state: GroupedListState): Partial<GroupedListState> | null {
         if (typeof props.items !== 'undefined' && typeof props.nameKey !== 'undefined') {
             const groups = GroupedListWrapper.createGroups(props);
@@ -121,7 +117,7 @@ export default class GroupedListWrapper<T> extends React.Component<GroupedListPr
 
     private static createGroups<T>(props: GroupedListProps<T>) {
         return (props.items && props.items.map((item, index): IGroup => {
-            const itemName: string = item[props.nameKey].toString();
+            const itemName: string = item[props.nameKey] && item[props.nameKey].toString();
 
             return {
                 count: 1,

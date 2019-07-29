@@ -7,21 +7,19 @@ import { shallow } from 'enzyme';
 import * as React from 'react';
 import DeviceListComponent from './deviceList';
 import { testWithLocalizationContext } from '../../../shared/utils/testHelpers';
-import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
+import { DeviceSummary } from '../../../api/models/deviceSummary';
 
-const devices = [
+const devices: DeviceSummary[] = [
     {
         authenticationType: 'sas',
         cloudToDeviceMessageCount: '0',
         deviceId: 'testDeviceId',
-        deviceSummarySynchronizationStatus: SynchronizationStatus.fetched,
-        interfaceIds: [],
-        isPnpDevice: true,
         lastActivityTime: '0001-01-01T00:00:00Z',
         status: 'Enabled',
         statusUpdatedTime: '0001-01-01T00:00:00Z'
     }
 ];
+jest.mock('./deviceListCell', () => <></>);
 
 describe('components/devices/DeviceList', () => {
     it('matches snapshot', () => {
@@ -31,7 +29,7 @@ describe('components/devices/DeviceList', () => {
             devices={devices}
             listDevices={jest.fn()}
             deleteDevices={jest.fn()}
-            deviceListSyncStatus={SynchronizationStatus.fetched}
+            isFetching={false}
         />);
 
         expect(wrapper).toMatchSnapshot();
@@ -44,7 +42,7 @@ describe('components/devices/DeviceList', () => {
             devices={[]}
             listDevices={jest.fn()}
             deleteDevices={jest.fn()}
-            deviceListSyncStatus={SynchronizationStatus.fetched}
+            isFetching={false}
         />);
         const child = shallow(wrapper.props().children());
 

@@ -66,18 +66,22 @@ export const getDigitalTwinInterfacePropertiesSelector = (state: StateInterface)
 
 export const getDigitalTwinInterfaceNameAndIdsSelector = createSelector(
     getDigitalTwinInterfacePropertiesSelector,
-    // tslint:disable-next-line:cyclomatic-complexity
     properties => {
-        return properties &&
-            properties.interfaces &&
-            properties.interfaces[modelDiscoveryInterfaceName] &&
-            properties.interfaces[modelDiscoveryInterfaceName].properties &&
-            properties.interfaces[modelDiscoveryInterfaceName].properties.modelInformation &&
-            properties.interfaces[modelDiscoveryInterfaceName].properties.modelInformation.reported &&
-            properties.interfaces[modelDiscoveryInterfaceName].properties.modelInformation.reported.value &&
-            properties.interfaces[modelDiscoveryInterfaceName].properties.modelInformation.reported.value.interfaces;
+        return getReportedInterfacesFromDigitalTwin(properties);
     }
 );
+
+// tslint:disable-next-line:cyclomatic-complexity
+export const getReportedInterfacesFromDigitalTwin = (properties: DigitalTwinInterfaces) => {
+    return properties &&
+        properties.interfaces &&
+        properties.interfaces[modelDiscoveryInterfaceName] &&
+        properties.interfaces[modelDiscoveryInterfaceName].properties &&
+        properties.interfaces[modelDiscoveryInterfaceName].properties.modelInformation &&
+        properties.interfaces[modelDiscoveryInterfaceName].properties.modelInformation.reported &&
+        properties.interfaces[modelDiscoveryInterfaceName].properties.modelInformation.reported.value &&
+        properties.interfaces[modelDiscoveryInterfaceName].properties.modelInformation.reported.value.interfaces;
+};
 
 const getDigitalTwinInterfaceIdToNameMapSelector = createSelector(
     getDigitalTwinInterfaceNameAndIdsSelector,

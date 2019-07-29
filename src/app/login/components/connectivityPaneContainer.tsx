@@ -6,7 +6,7 @@ import { AnyAction } from 'typescript-fsa';
 import { Dispatch, compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import ConnectivityPane, { ConnectivityPaneDataProps, ConnectivityPaneDisptachProps } from './connectivityPane';
+import ConnectivityPane, { ConnectivityPaneDataProps, ConnectivityPaneDispatchProps } from './connectivityPane';
 import { StateType } from '../../shared/redux/state';
 import { getConnectionStringSelector, getRememberConnectionStringValueSelector } from '../selectors';
 import { clearDevicesAction } from '../../devices/deviceList/actions';
@@ -20,7 +20,7 @@ const mapStateToProps = (state: StateType): ConnectivityPaneDataProps => {
     };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): ConnectivityPaneDisptachProps => {
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): ConnectivityPaneDispatchProps => {
     return {
         saveConnectionInfo: (connectionStringSetting: SetConnectionStringActionParameter) => {
             dispatch(setConnectionStringAction(connectionStringSetting));

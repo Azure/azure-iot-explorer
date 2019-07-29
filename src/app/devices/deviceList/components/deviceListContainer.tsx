@@ -8,15 +8,15 @@ import DeviceListComponent, { DeviceListDispatchProps } from './deviceList';
 import { StateType } from '../../../shared/redux/state';
 import { getConnectionStringSelector } from '../../../login/selectors';
 import { listDevicesAction, deleteDevicesAction } from '../actions';
-import { getDeviceSummaryListWrapper, deviceSummaryListWrapperNoPNPSelector } from '../selectors';
+import { getDeviceSummaryListStatus, deviceSummaryListWrapperNoPNPSelector } from '../selectors';
 import DeviceQuery from '../../../api/models/deviceQuery';
+import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 
 const mapStateToProps = (state: StateType) => {
-    const deviceSummaryListWrapper = getDeviceSummaryListWrapper(state);
     return {
         connectionString: getConnectionStringSelector(state),
-        deviceListSyncStatus: deviceSummaryListWrapper && deviceSummaryListWrapper.get('deviceListSynchronizationStatus'),
-        devices: deviceSummaryListWrapperNoPNPSelector(state)
+        devices: deviceSummaryListWrapperNoPNPSelector(state),
+        isFetching: getDeviceSummaryListStatus(state) === SynchronizationStatus.working
     };
 };
 
