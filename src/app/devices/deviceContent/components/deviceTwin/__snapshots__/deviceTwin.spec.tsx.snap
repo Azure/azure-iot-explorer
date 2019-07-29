@@ -1,0 +1,100 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`devices/components/deviceTwin snapshot matches snapshot 1`] = `
+<Fragment>
+  <StyledCommandBarBase
+    className="command"
+    items={
+      Array [
+        Object {
+          "ariaLabel": "deviceTwin.command.refresh",
+          "iconProps": Object {
+            "iconName": "Refresh",
+          },
+          "key": "Refresh",
+          "name": "deviceTwin.command.refresh",
+          "onClick": [Function],
+        },
+      ]
+    }
+  />
+  <h3>
+    deviceTwin.headerText
+  </h3>
+  <article
+    className="interface-definition device-detail"
+  />
+</Fragment>
+`;
+
+exports[`devices/components/deviceTwin snapshot matches snapshot while loading twin 1`] = `
+<Fragment>
+  <StyledCommandBarBase
+    className="command"
+    items={
+      Array [
+        Object {
+          "ariaLabel": "deviceTwin.command.refresh",
+          "iconProps": Object {
+            "iconName": "Refresh",
+          },
+          "key": "Refresh",
+          "name": "deviceTwin.command.refresh",
+          "onClick": [Function],
+        },
+      ]
+    }
+  />
+  <h3>
+    deviceTwin.headerText
+  </h3>
+  <article
+    className="interface-definition device-detail"
+  />
+</Fragment>
+`;
+
+exports[`devices/components/deviceTwin snapshot matches snapshot with twin 1`] = `
+<Fragment>
+  <StyledCommandBarBase
+    className="command"
+    items={
+      Array [
+        Object {
+          "ariaLabel": "deviceTwin.command.refresh",
+          "iconProps": Object {
+            "iconName": "Refresh",
+          },
+          "key": "Refresh",
+          "name": "deviceTwin.command.refresh",
+          "onClick": [Function],
+        },
+      ]
+    }
+  />
+  <h3>
+    deviceTwin.headerText
+  </h3>
+  <article
+    className="interface-definition device-detail"
+  >
+    <MonacoEditor
+      defaultValue=""
+      editorDidMount={[Function]}
+      editorWillMount={[Function]}
+      height="calc(100vh - 400px)"
+      language="json"
+      onChange={[Function]}
+      options={
+        Object {
+          "automaticLayout": true,
+          "readOnly": true,
+        }
+      }
+      theme={null}
+      value="{}"
+      width="100%"
+    />
+  </article>
+</Fragment>
+`;
