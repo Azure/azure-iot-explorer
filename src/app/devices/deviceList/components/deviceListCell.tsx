@@ -37,7 +37,7 @@ export interface DeviceListCellState {
     interfaceIds: string[];
 }
 
-export class DeviceListCell extends React.Component<DeviceListCellProps, DeviceListCellState> {
+export class DeviceListCell extends React.PureComponent<DeviceListCellProps, DeviceListCellState> {
 
     private isComponentMounted: boolean;
     constructor(props: DeviceListCellProps) {

@@ -146,11 +146,9 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
                         onRenderColumn: (group, key) => {
                             const path = this.props.location.pathname.replace(/\/devices\/.*/, '/devices');
                             return (
-                                <div>
-                                    <NavLink key={key} className={'deviceId-label'} to={`${path}/detail/identity/?id=${encodeURIComponent(group.name)}`}>
-                                        {group.name}
-                                    </NavLink>
-                                </div>
+                                <NavLink key={key} className={'deviceId-label'} to={`${path}/detail/identity/?id=${encodeURIComponent(group.name)}`}>
+                                    {group.name}
+                                </NavLink>
                             );
                         },
                         widthPercentage: 30
