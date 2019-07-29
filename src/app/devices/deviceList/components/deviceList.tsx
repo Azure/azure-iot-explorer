@@ -45,6 +45,8 @@ interface DeviceListState {
 }
 
 class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceListDispatchProps & RouteComponentProps, DeviceListState> {
+    private forceListUpdate = true;
+
     constructor(props: DeviceListDataProps & DeviceListDispatchProps & RouteComponentProps) {
         super(props);
 
@@ -85,7 +87,10 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
     }
 
     public shouldComponentUpdate(nextProps: DeviceListDataProps & DeviceListDispatchProps & RouteComponentProps, nextState: DeviceListState): boolean {
-        return JSON.stringify(this.props.devices) !== JSON.stringify(nextProps.devices) || this.state !== nextState; // TODO: Write an array comparison instead of using stringify
+        this.forceListUpdate = this.props.connectionString !== nextProps.connectionString ||
+            this.props.deviceListSyncStatus !== nextProps.deviceListSyncStatus ||
+            this.state !== nextState;
+        return this.forceListUpdate;
     }
 
     private readonly setQuery = (query: DeviceQuery) => {
@@ -148,6 +153,7 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
                 noItemsMessage={context.t(ResourceKeys.deviceLists.noDevice)}
                 onRenderCell={renderCell}
                 onSelectionChanged={this.onRowSelection}
+                forceUpdate={this.forceListUpdate}
                 columnInfo={[
                     {
                         infoText: context.t(ResourceKeys.deviceLists.columns.deviceId.infoText),

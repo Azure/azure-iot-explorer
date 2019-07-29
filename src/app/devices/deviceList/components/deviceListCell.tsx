@@ -69,7 +69,7 @@ export class DeviceListCell extends React.PureComponent<DeviceListCellProps> {
     private readonly renderLoadingInfo = (context: LocalizationContextInterface) => {
         return (
             <div className="device-list-cell-container-content">
-                <span className="device-list-cell-item first">{`${context.t(ResourceKeys.common.loading)}: `}</span>
+                <span className="device-list-cell-item first no-border">{`${context.t(ResourceKeys.common.loading)}`}</span>
             </div>
         );
     }

@@ -23,6 +23,13 @@ export const getDeviceSummaryWrapper = (state: StateType, deviceId: string): Dev
     return mapDevice.toJS() as DeviceSummary;
 };
 
+export const deviceSummaryListWrapperSelector = createSelector(
+    getDeviceSummaryListWrapper,
+    deviceList => {
+        return deviceList && deviceList.deviceList ? deviceList.deviceList.toJS() : [];
+    }
+);
+
 export const deviceSummaryListWrapperNoPNPSelector = createSelector(
     getDeviceSummaryListWrapper,
     deviceList => {

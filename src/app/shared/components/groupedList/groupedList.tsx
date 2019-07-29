@@ -22,6 +22,7 @@ export interface GroupedListProps<T> {
     nameKey: keyof T;
     noItemsMessage: string;
     columnInfo?: GroupedListColumn[];
+    forceUpdate?: boolean;
     onRenderCell: (nestingDepth?: number, item?: T, index?: number) => React.ReactNode;
     onSelectionChanged?: (selectedItems: T[]) => void;
 }
@@ -91,8 +92,11 @@ export default class GroupedListWrapper<T> extends React.Component<GroupedListPr
 
     }
 
-    public shouldComponentUpdate(nextProps: GroupedListProps<T>): boolean {
-        return JSON.stringify(this.props.items) !== JSON.stringify(nextProps.items); // TODO: Write an array comparison instead of using stringify
+    public shouldComponentUpdate(nextProps: GroupedListProps<T>, nextState: GroupedListState): boolean {
+        if (typeof nextProps.forceUpdate !== 'undefined') {
+            return nextProps.forceUpdate;
+        }
+        return true;
     }
 
     public static getDerivedStateFromProps<T>(props: GroupedListProps<T>, state: GroupedListState): Partial<GroupedListState> | null {
