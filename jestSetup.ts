@@ -13,3 +13,8 @@ setIconOptions({
 
 Enzyme.configure({ adapter: new Adapter() });
 document.execCommand = jest.fn(); // copyableMaskField
+
+// fix for smooth-dnd invocation error in test
+Object.defineProperty(global, 'Node', {
+  value: {firstElementChild: jest.fn()}
+});
