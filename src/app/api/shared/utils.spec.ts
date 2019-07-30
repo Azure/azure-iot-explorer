@@ -26,7 +26,7 @@ describe('utils', () => {
                 clauses: [],
                 deviceId: 'device1',
             }
-        )).toEqual(`${LIST_PLUG_AND_PLAY_DEVICES} WHERE (deviceId = 'device1')`);
+        )).toEqual(`${LIST_PLUG_AND_PLAY_DEVICES} WHERE STARTSWITH(devices.deviceId, 'device1')`);
         expect(utils.buildQueryString(
             {
                 clauses: [],
@@ -58,7 +58,7 @@ describe('utils', () => {
                 clauses: [],
                 deviceId: 'device1',
             }
-        )).toEqual(`WHERE (deviceId = 'device1')`);
+        )).toEqual(`WHERE STARTSWITH(devices.deviceId, 'device1')`);
         expect(utils.queryToString(
             {
                 clauses: [],
