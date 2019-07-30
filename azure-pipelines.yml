@@ -20,6 +20,9 @@ jobs:
     - script: 'npm test'
       displayName: Test
 
+    - task: ms.vss-governance-buildtask.governance-build-task-component-detection.ComponentGovernanceComponentDetection@0
+      displayName: 'Component Detection'
+
   - job: package
     dependsOn: 'build'
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'), eq(variables['Build.Reason'], 'Manual'))
@@ -50,9 +53,6 @@ jobs:
         versionSpec: '12.x'
 
     - script: 'npm run $(build_script)'
-
-    - task: ms.vss-governance-buildtask.governance-build-task-component-detection.ComponentGovernanceComponentDetection@0
-      displayName: 'Component Detection'
 
     - task: NuGetCommand@2
       displayName: Install ESRPClient
