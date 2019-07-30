@@ -110,12 +110,13 @@ export const buildQueryString = (query: DeviceQuery) => {
         LIST_PLUG_AND_PLAY_DEVICES;
 };
 
-// tslint:disable-next-line:cyclomatic-complexity
 export const queryToString = (query: DeviceQuery) => {
-    const deviceIdQuery =  query.deviceId && `deviceId = '${query.deviceId}'` || '';
+    if (query.deviceId) {
+        return `WHERE STARTSWITH(devices.deviceId, '${query.deviceId}')`;
+    }
     const clauseQuery = clauseListToString(query.clauses.filter(clause => !!clause.parameterType));
-    if ('' !== deviceIdQuery || '' !== clauseQuery) {
-        return `WHERE (${deviceIdQuery || clauseQuery })`;
+    if ('' !== clauseQuery) {
+        return `WHERE (${clauseQuery })`;
     }
     return '';
 };
