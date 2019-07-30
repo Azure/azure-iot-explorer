@@ -51,6 +51,9 @@ jobs:
 
     - script: 'npm run $(build_script)'
 
+    - task: ms.vss-governance-buildtask.governance-build-task-component-detection.ComponentGovernanceComponentDetection@0
+      displayName: 'Component Detection'
+
     - task: NuGetCommand@2
       displayName: Install ESRPClient
       inputs:
