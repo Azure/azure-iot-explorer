@@ -1,0 +1,80 @@
+trigger: none
+
+variables:
+- group: ESRP
+
+jobs:
+  - job: build_and_test
+    pool:
+      vmImage: 'ubuntu-16.04'
+    steps:
+    - template: ./build-and-test-template.yml
+
+  - job: package
+    dependsOn: 'build_and_test'
+    strategy:
+      matrix:
+
+        # linux:
+        #   imageName: 'ubuntu-16.04'
+        #   build_script: 'package:linux'
+        #   package_name: 'Linux'
+
+        # mac:
+        #   imageName: 'macos-10.13'
+        #   build_script: 'package:mac'
+        #   package_name: 'MacOS'
+
+        windows:
+          imageName: 'vs2017-win2016'
+          build_script: 'package:win'
+          package_name: 'Windows'
+
+    pool:
+      vmImage: $(imageName)
+
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '12.x'
+
+    - script: 'npm run $(build_script)'
+
+    - task: NuGetCommand@2
+      displayName: Install ESRPClient
+      inputs:
+        restoreSolution: '$(Build.SourcesDirectory)/pipelines/ESRPClient/packages.config'
+        feedsToUse: config
+        nugetConfigPath: '$(Build.SourcesDirectory)/pipelines/ESRPClient/NuGet.config'
+        externalFeedCredentials: 'Nuget'
+        restoreDirectory: packages
+
+    - task: DownloadSecureFile@1
+      name: AuthCert
+      inputs:
+        secureFile: 'AuthCert.pfx'
+
+    - task: DownloadSecureFile@1
+      name: ESRPCert
+      inputs:
+        secureFile: 'ESRPCert.pfx'
+
+    - powershell: |
+        $ErrorActionPreference = "Stop"
+        $(Build.SourcesDirectory)/pipelines/import-esrp-auth-cert.ps1 -AuthCertFilePath $(AuthCert.secureFilePath) -AuthCertKey '$(ESRPAuthKey)' -CertFilePath $(ESRPCert.secureFilePath) -CertKey '$(ESRPKey)'
+      displayName: Import Certificates
+
+    - powershell: |
+        $ErrorActionPreference = "Stop"
+        $(Build.SourcesDirectory)/pipelines/sign.ps1 -ESRPClientId $(ESRPClientId) -ClientPath "$(Build.SourcesDirectory)\pipelines\ESRPClient\packages\Microsoft.EsrpClient.1.2.10\tools\" -Path $(Build.SourcesDirectory)/dist/ -Ext .msi
+      displayName: Request code sign
+    - task: CopyFiles@2
+      inputs:
+        SourceFolder: '$(Build.SourcesDirectory)/'
+        Contents: '.artifactignore'
+        TargetFolder: '$(Build.SourcesDirectory)/dist/'
+
+    - task: PublishPipelineArtifact@1
+      inputs:
+        targetPath: '$(Build.SourcesDirectory)/dist/'
+        artifact: '$(package_name)'  

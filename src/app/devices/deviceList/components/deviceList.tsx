@@ -66,6 +66,7 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
                         </div>
                         <div className="view-content view-scroll">
                             <DeviceListQuery
+                                executeQuery={this.executeQuery}
                                 query={this.state.query}
                                 setQuery={this.setQuery}
                             />
@@ -78,14 +79,14 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
         );
     }
 
+    private readonly executeQuery = () => {
+        this.props.listDevices(this.state.query);
+    }
+
     private readonly setQuery = (query: DeviceQuery) => {
-        this.setState(
-            {
-                query
-            },
-            () => {
-                this.props.listDevices(query);
-            });
+        this.setState({
+            query
+        });
     }
 
     public componentDidMount() {

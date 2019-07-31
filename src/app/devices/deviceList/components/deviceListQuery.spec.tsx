@@ -12,6 +12,7 @@ describe('components/devices/DeviceListQuery', () => {
     it('matches snapshot for deviceId', () => {
         const wrapper = testWithLocalizationContext(
             <DeviceListQuery
+                executeQuery={jest.fn()}
                 query={{ deviceId: 'device1', clauses: [] }}
                 setQuery={jest.fn()}
             />
@@ -22,6 +23,7 @@ describe('components/devices/DeviceListQuery', () => {
     it('matches snapshot for clauses', () => {
         const wrapper = testWithLocalizationContext(
             <DeviceListQuery
+                executeQuery={jest.fn()}
                 query={{
                     clauses: [
                         {

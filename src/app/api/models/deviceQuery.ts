@@ -12,6 +12,7 @@ export interface QueryClause {
     parameterType?: ParameterType;
     operation?: OperationType;
     value?: string;
+    isError?: boolean;
 }
 
 export enum ParameterType {
