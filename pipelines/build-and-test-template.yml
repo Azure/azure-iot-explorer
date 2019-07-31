@@ -1,0 +1,17 @@
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '12.x'
+
+- script: 'npm install'
+  displayName: Install dependencies
+- script: 'npm run build'
+  displayName: Build source
+- script: 'npm test'
+  displayName: Run tests
+
+# - task: PublishCodeCoverageResults@1
+#   inputs:
+#     codeCoverageTool: 'Cobertura'
+#     summaryFileLocation: $(Build.SourcesDirectory)/coverage/cobertura-coverage.xml
+#     reportDirectory: $(Build.SourcesDirectory)/coverage
