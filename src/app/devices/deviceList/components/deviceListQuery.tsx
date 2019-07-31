@@ -16,17 +16,10 @@ export interface DeviceListQueryProps {
 }
 export interface DeviceListQueryActions {
     setQuery: (query?: DeviceQuery) => void;
+    executeQuery: () => void;
 }
 
-interface QueryClauseWithError extends QueryClause {
-    isError: boolean;
-}
-export interface DeviceListQueryState {
-    deviceId?: string;
-    clauses?: QueryClauseWithError[];
-}
-
-export default class DeviceListQuery extends React.Component<DeviceListQueryProps & DeviceListQueryActions, DeviceListQueryState> {
+export default class DeviceListQuery extends React.Component<DeviceListQueryProps & DeviceListQueryActions> {
     constructor(props: DeviceListQueryProps & DeviceListQueryActions) {
         super(props);
 
@@ -38,64 +31,53 @@ export default class DeviceListQuery extends React.Component<DeviceListQueryProp
         };
     }
     private readonly removePill = (index: number) => {
-        const clauses = [...this.state.clauses];
+        const clauses = [...this.props.query.clauses];
         clauses.splice(index, 1);
-        this.setState(
+        this.props.setQuery(
             {
                 clauses,
                 deviceId: ''
             }
         );
     }
-    private readonly setClause = (index: number, clause: QueryClauseWithError) => {
-        const clauses = [...this.state.clauses];
+    private readonly setClause = (index: number, clause: QueryClause) => {
+        const clauses = [...this.props.query.clauses];
         clauses[index] = clause;
-        this.setState(
+        this.props.setQuery(
             {
-                clauses
+                clauses,
+                deviceId: ''
             }
         );
     }
 
-    private readonly onDeviceIdSubmit = () => {
-        this.props.setQuery({
-            clauses: [],
-            deviceId: this.state.deviceId || '',
-            nextLink: '',
-        });
-    }
     private readonly onSetDeviceId = (e: unknown, deviceId: string) => {
-        this.setState({
+        this.props.setQuery({
             clauses: [],
             deviceId
         });
     }
 
     private readonly onAddClause = () => {
-        this.setState({
-            clauses: [...this.state.clauses, {
+        this.props.setQuery({
+            clauses: [...this.props.query.clauses, {
                 isError: true
             }],
             deviceId: ''
         });
     }
     private readonly onExecuteQuery = () => {
-        const { clauses, deviceId } = this.state;
-        this.props.setQuery({
-            clauses,
-            deviceId,
-            nextLink: ''
-        });
+        this.props.executeQuery();
     }
 
     private readonly onDeviceIdKeyUp = (arg: {key: string}) => {
         if (arg && 'Enter' === arg.key) {
-            return this.onDeviceIdSubmit();
+            return this.props.executeQuery();
         }
     }
 
     public render(): JSX.Element {
-        const { clauses, deviceId } = this.state;
+        const { clauses, deviceId } = this.props.query;
         return (
             <LocalizationContextConsumer>
                 {(context: LocalizationContextInterface) => (
@@ -116,7 +98,7 @@ export default class DeviceListQuery extends React.Component<DeviceListQueryProp
                                 className="search-button"
                                 iconProps={{ iconName: 'Forward' }}
                                 type="submit"
-                                onClick={this.onDeviceIdSubmit}
+                                onClick={this.onExecuteQuery}
                                 title={context.t(ResourceKeys.deviceLists.query.deviceId.searchButton.title)}
                                 ariaLabel={context.t(ResourceKeys.deviceLists.query.deviceId.searchButton.ariaLabel)}
                                 disabled={!!clauses && clauses.length > 0}
