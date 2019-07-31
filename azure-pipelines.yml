@@ -10,7 +10,7 @@ jobs:
 
     - task: ComponentGovernanceComponentDetection@0
       inputs:
-      scanType: 'Register'
-      verbosity: 'Verbose'
-      alertWarningLevel: 'High'
-      failOnAlert: true
+        scanType: 'Register'
+        verbosity: 'Verbose'
+        alertWarningLevel: 'High'
+        failOnAlert: true
