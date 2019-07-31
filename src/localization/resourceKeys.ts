@@ -43,8 +43,12 @@ export class ResourceKeys {
    };
    public static deviceCommands = {
       columns : {
-         info : "deviceCommands.columns.info",
          name : "deviceCommands.columns.name",
+         schema : {
+            request : "deviceCommands.columns.schema.request",
+            response : "deviceCommands.columns.schema.response",
+         },
+         type : "deviceCommands.columns.type",
       },
       command : {
          collapse : "deviceCommands.command.collapse",
@@ -53,11 +57,6 @@ export class ResourceKeys {
          expandAll : "deviceCommands.command.expandAll",
          refresh : "deviceCommands.command.refresh",
          submit : "deviceCommands.command.submit",
-      },
-      details : {
-         description : "deviceCommands.details.description",
-         schema : "deviceCommands.details.schema",
-         type : "deviceCommands.details.type",
       },
       headerText : "deviceCommands.headerText",
       noCommands : "deviceCommands.noCommands",
@@ -308,6 +307,8 @@ export class ResourceKeys {
          error : "deviceSettings.columns.error",
          name : "deviceSettings.columns.name",
          reportedValue : "deviceSettings.columns.reportedValue",
+         schema : "deviceSettings.columns.schema",
+         unit : "deviceSettings.columns.unit",
       },
       command : {
          collapse : "deviceSettings.command.collapse",
@@ -324,11 +325,6 @@ export class ResourceKeys {
          success : "deviceSettings.desiredState.success",
          synching : "deviceSettings.desiredState.synching",
          unknown : "deviceSettings.desiredState.unknown",
-      },
-      details : {
-         description : "deviceSettings.details.description",
-         schema : "deviceSettings.details.schema",
-         unit : "deviceSettings.details.unit",
       },
       headerText : "deviceSettings.headerText",
       noSetting : "deviceSettings.noSetting",

@@ -152,7 +152,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
 
             return (
                 <article className="list-item" role="listitem" key={index}>
-                    <section className="item-oneline">
+                    <section className="item-summary">
                         {this.renderTimestamp(event, context)}
                         {this.renderEventName(telemetryModelDefinition, context)}
                         {this.renderEventSchema(telemetryModelDefinition, context)}
@@ -166,7 +166,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
 
     private readonly renderTimestamp = (event: Message, context: LocalizationContextInterface) => {
         return(
-            <Label className="column-timestamp-xs" aria-label={context.t(ResourceKeys.deviceEvents.columns.timestamp)}>
+            <Label className="column-timestamp-sm" aria-label={context.t(ResourceKeys.deviceEvents.columns.timestamp)}>
                 {parseDateTimeString(event.enqueuedTime)}
             </Label>
         );
@@ -174,7 +174,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
 
     private readonly renderEventName = (telemetryModelDefinition: TelemetryContent, context: LocalizationContextInterface) => {
         return(
-            <Label className="column-name-xs" aria-label={context.t(ResourceKeys.deviceEvents.columns.displayName)}>
+            <Label className="column-name-sm" aria-label={context.t(ResourceKeys.deviceEvents.columns.displayName)}>
                 {telemetryModelDefinition ?
                     `${telemetryModelDefinition.name} (${telemetryModelDefinition.displayName ? telemetryModelDefinition.displayName : '--'}) ` : '--'}
             </Label>
@@ -183,7 +183,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
 
     private readonly renderEventSchema = (telemetryModelDefinition: TelemetryContent, context: LocalizationContextInterface) => {
         return(
-            <Label className="column-schema" aria-label={context.t(ResourceKeys.deviceEvents.columns.schema)}>
+            <Label className="column-schema-sm" aria-label={context.t(ResourceKeys.deviceEvents.columns.schema)}>
                 {telemetryModelDefinition ?
                     (typeof telemetryModelDefinition.schema === 'string' ?
                     telemetryModelDefinition.schema :
@@ -196,7 +196,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
         return(
             <Label className="column-unit" aria-label={context.t(ResourceKeys.deviceEvents.columns.unit)}>
                 {telemetryModelDefinition ?
-                    telemetryModelDefinition.unit || telemetryModelDefinition.displayUnit : '--'}
+                    telemetryModelDefinition.unit || telemetryModelDefinition.displayUnit || '--' : '--'}
             </Label>
         );
     }
@@ -254,11 +254,11 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
                 </div>
                 <div className="pnp-detail-list">
                     <div className="list-header">
-                        <span className="column-timestamp-xs">{context.t(ResourceKeys.deviceEvents.columns.timestamp)}</span>
-                        <span className="column-name-xs">{context.t(ResourceKeys.deviceEvents.columns.displayName)}</span>
+                        <span className="column-timestamp-sm">{context.t(ResourceKeys.deviceEvents.columns.timestamp)}</span>
+                        <span className="column-name-sm">{context.t(ResourceKeys.deviceEvents.columns.displayName)}</span>
                         <span className="column-schema-sm">{context.t(ResourceKeys.deviceEvents.columns.schema)}</span>
-                        <span className="column-unit-sm">{context.t(ResourceKeys.deviceEvents.columns.unit)}</span>
-                        <span className="column-value-sm">{context.t(ResourceKeys.deviceEvents.columns.value)}</span>
+                        <span className="column-unit">{context.t(ResourceKeys.deviceEvents.columns.unit)}</span>
+                        <span className="column-value">{context.t(ResourceKeys.deviceEvents.columns.value)}</span>
                     </div>
                 </div>
             </div>

@@ -39,7 +39,7 @@ export default class DevicePropertiesPerInterfacePerProperty
             <article className="list-item" role="listitem">
                 <LocalizationContextConsumer>
                     {(context: LocalizationContextInterface) => (
-                        <section className="item-oneline">
+                        <section className="item-summary">
                             {this.renderPropertyName(context)}
                             {this.renderPropertySchema(context)}
                             {this.renderPropertyUnit(context)}
@@ -54,8 +54,11 @@ export default class DevicePropertiesPerInterfacePerProperty
 
     private readonly renderPropertyName = (context: LocalizationContextInterface) => {
         const ariaLabel = context.t(ResourceKeys.deviceProperties.columns.name);
-        const displayName = this.props.propertyModelDefinition.displayName;
-        return <Label aria-label={ariaLabel} className="column-name">{this.props.propertyModelDefinition.name} ({displayName ? displayName : '--'})</Label>;
+        let displayName = this.props.propertyModelDefinition.displayName;
+        displayName = displayName ? displayName : '--';
+        let description = this.props.propertyModelDefinition.description;
+        description = description ? description : '--';
+        return <Label aria-label={ariaLabel} className="column-name">{this.props.propertyModelDefinition.name} ({displayName} / {description})</Label>;
     }
 
     private readonly renderPropertySchema = (context: LocalizationContextInterface) => {
@@ -64,7 +67,7 @@ export default class DevicePropertiesPerInterfacePerProperty
         const schemaType = typeof propertyModelDefinition.schema === 'string' ?
             propertyModelDefinition.schema :
             propertyModelDefinition.schema['@type'];
-        return <Label aria-label={ariaLabel} className="column-schema">{schemaType}</Label>;
+        return <Label aria-label={ariaLabel} className="column-schema-sm">{schemaType}</Label>;
     }
 
     private readonly renderPropertyUnit = (context: LocalizationContextInterface) => {

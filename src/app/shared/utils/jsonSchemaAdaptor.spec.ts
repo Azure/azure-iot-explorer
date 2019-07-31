@@ -80,7 +80,7 @@ describe('parse interface model definition to Json schema', () => {
 		};
         /* tslint:enable */
         const interfacePropertyInJsonSchema = {
-            description: 'Model Information/Providing model and optional interfaces information on a digital twin.',
+            description: 'Model Information / Providing model and optional interfaces information on a digital twin.',
             properties:  {
                 interfaces:  {
                     additionalProperties: true,
@@ -155,7 +155,7 @@ describe('parse interface model definition to Json schema', () => {
                 description: 'This command will begin blinking the LED for given time interval.',
                 name: 'blink',
                 requestSchema: {
-                    description: 'blink interval/blinking the LED for given time interval',
+                    description: 'blink interval / blinking the LED for given time interval',
                     title: 'blinkRequest',
                     type: 'number'
                 },
@@ -186,7 +186,7 @@ describe('parse interface model definition to Json schema', () => {
 
         const interfaceTelemetryInJsonSchema =
             {
-                description: 'Temperature/Current temperature on the device ( Unit: Units/Temperature/fahrenheit )',
+                description: 'Temperature / Current temperature on the device ( Unit: Units/Temperature/fahrenheit )',
                 title: 'temp',
                 type: 'number'
             };

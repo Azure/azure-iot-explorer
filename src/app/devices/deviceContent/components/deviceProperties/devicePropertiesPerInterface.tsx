@@ -31,10 +31,10 @@ export default class DevicePropertiesPerInterface
                 {(context: LocalizationContextInterface) => (
                     <div className="pnp-detail-list">
                         <div className="list-header">
-                            <span className="column-name-sm">{context.t(ResourceKeys.deviceProperties.columns.name)}</span>
+                            <span className="column-name">{context.t(ResourceKeys.deviceProperties.columns.name)}</span>
                             <span className="column-schema-sm">{context.t(ResourceKeys.deviceProperties.columns.schema)}</span>
-                            <span className="column-unit-sm">{context.t(ResourceKeys.deviceProperties.columns.unit)}</span>
-                            <span className="column-value-sm">{context.t(ResourceKeys.deviceProperties.columns.value)}</span>
+                            <span className="column-unit">{context.t(ResourceKeys.deviceProperties.columns.unit)}</span>
+                            <span className="column-value">{context.t(ResourceKeys.deviceProperties.columns.value)}</span>
                         </div>
                         <section role="list" className="list-content scrollable-lg">
                             {properties}

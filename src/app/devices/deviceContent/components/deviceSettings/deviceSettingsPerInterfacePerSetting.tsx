@@ -17,9 +17,8 @@ import DataForm from '../shared/dataForm';
 import { RenderSimplyTypeValue } from '../shared/simpleReportedSection';
 import { RenderDesiredState } from '../shared/desiredStateStatus';
 import { PatchDigitalTwinInterfacePropertiesActionParameters } from '../../actions';
-import { Reported } from '../../../../api/models/digitalTwinModels';
-import '../../../../css/_deviceSettings.scss';
 import { generateInterfacePropertiesPayload } from '../../sagas/digitalTwinInterfacePropertySaga';
+import '../../../../css/_deviceSettings.scss';
 
 export interface DeviceSettingDataProps extends TwinWithSchema {
     collapsed: boolean;
@@ -35,7 +34,7 @@ export interface DeviceSettingDispatchProps {
 
 export interface TwinWithSchema {
     desiredTwin: any; // tslint:disable-line: no-any
-    reportedTwin: Reported; // tslint:disable-line: no-any
+    reportedTwin: any; // tslint:disable-line: no-any
 
     settingModelDefinition: PropertyContent;
     settingSchema: ParsedJsonSchema;
@@ -63,7 +62,7 @@ export default class DeviceSettingsPerInterfacePerSetting
                     {(context: LocalizationContextInterface) => (
                         <>
                             {this.createCollapsedSummary(context)}
-                            {this.createUncollapsedCard(context)}
+                            {this.createUncollapsedCard()}
                             {this.state.showReportedValuePanel && <Overlay/>}
                             {this.state.showReportedValuePanel && this.createReportedValuePanel()}
                         </>
@@ -83,6 +82,8 @@ export default class DeviceSettingsPerInterfacePerSetting
         return (
             <header className={this.props.collapsed ? 'item-summary' : 'item-summary item-summary-uncollapsed'} onClick={this.handleToggleCollapse}>
                 {this.renderPropertyName(context)}
+                {this.renderPropertySchema(context)}
+                {this.renderPropertyUnit(context)}
                 {this.renderPropertyReportedValue(context)}
                 <IconButton
                     title={context.t(this.props.collapsed ? ResourceKeys.deviceSettings.command.expand : ResourceKeys.deviceSettings.command.collapse)}
@@ -95,8 +96,26 @@ export default class DeviceSettingsPerInterfacePerSetting
 
     private readonly renderPropertyName = (context: LocalizationContextInterface) => {
         const ariaLabel = context.t(ResourceKeys.deviceSettings.columns.name);
-        const displayName = this.props.settingModelDefinition.displayName;
-        return <Label aria-label={ariaLabel} className="column-name">{this.props.settingModelDefinition.name} ({displayName ? displayName : '--'})</Label>;
+        let displayName = this.props.settingModelDefinition.displayName;
+        displayName = displayName ? displayName : '--';
+        let description = this.props.settingModelDefinition.description;
+        description = description ? description : '--';
+        return <Label aria-label={ariaLabel} className="column-name">{this.props.settingModelDefinition.name} ({displayName} / {description})</Label>;
+    }
+
+    private readonly renderPropertySchema = (context: LocalizationContextInterface) => {
+        const ariaLabel = context.t(ResourceKeys.deviceProperties.columns.schema);
+        const { settingModelDefinition } = this.props;
+        const schemaType = typeof settingModelDefinition.schema === 'string' ?
+            settingModelDefinition.schema :
+            settingModelDefinition.schema['@type'];
+        return <Label aria-label={ariaLabel} className="column-schema-sm">{schemaType}</Label>;
+    }
+
+    private readonly renderPropertyUnit = (context: LocalizationContextInterface) => {
+        const ariaLabel = context.t(ResourceKeys.deviceProperties.columns.unit);
+        const unit = this.props.settingModelDefinition.unit;
+        return <Label aria-label={ariaLabel} className="column-unit">{unit ? unit : '--'}</Label>;
     }
 
     private readonly renderPropertyReportedValue = (context: LocalizationContextInterface) => {
@@ -132,30 +151,10 @@ export default class DeviceSettingsPerInterfacePerSetting
         );
     }
 
-    private readonly createUncollapsedCard = (context: LocalizationContextInterface) => {
+    private readonly createUncollapsedCard = () => {
         return (
             <section className={this.props.collapsed ? 'item-detail' : 'item-detail item-detail-uncollapsed'}>
-                {!this.props.collapsed &&
-                <>
-                    {this.renderPropertySchemaInformation(context)}
-                    {this.createForm()}
-                </>
-                }
-            </section>
-        );
-    }
-
-    private readonly renderPropertySchemaInformation = (context: LocalizationContextInterface) => {
-        const { settingModelDefinition } = this.props;
-        return (
-            <section className="schema-info-section">
-                <Label>
-                    {context.t(ResourceKeys.deviceSettings.details.description)}: {settingModelDefinition.description ? settingModelDefinition.description : '--'}
-                </Label>
-                <Label>{context.t(ResourceKeys.deviceSettings.details.schema)}: {this.getSettingSchema()}</Label>
-                <Label>
-                    {context.t(ResourceKeys.deviceSettings.details.unit)}: {settingModelDefinition.displayUnit ? settingModelDefinition.displayUnit : '--'}
-                </Label>
+                {!this.props.collapsed && this.createForm()}
             </section>
         );
     }

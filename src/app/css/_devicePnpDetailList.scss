@@ -9,32 +9,27 @@
     padding-left: 26px;
 }
 
-@mixin column-name-lg {
+@mixin column-name {
     float: left;
-    width: 45%;
-}
-
-@mixin column-value-lg {
-    float: left;
-    width: 45%;
-}
-
-@mixin column-name-sm {
-    float: left;
-    width: 30%;
+    width: 35%;
 }
 
 @mixin column-schema-sm {
+    width: 10%;
+    float: left;
+}
+
+@mixin column-schema {
     width: 15%;
     float: left;
 }
 
-@mixin column-unit-sm {
-    width: 15%;
+@mixin column-unit {
+    width: 10%;
     float: left;
 }
 
-@mixin column-xs {
+@mixin column-sm {
     float: left;
     width: 15%;
 }
@@ -57,40 +52,36 @@
         font-weight: bold;
         padding-bottom: 10px;
         border-bottom: 3px solid $gray;
-        .column-name-xl {
-            padding-left: 26px;
+        .column-name-sm {
+            @include column-sm;
         }
         .column-name {
-            @include column-name-lg;
+            @include column-name;
             padding-left: 26px;
         }
+        .column-schema {
+            @include column-schema;
+        }
+        .column-schema-sm {
+            @include column-schema-sm;
+        }
+        .column-unit {
+            @include column-unit;
+        }
         .column-value {
-            width: 45%;
+            max-width: 40%;
+        }
+        .column-type {
+            max-width: 30%;
+        }
+        .column-timestamp-sm {
+            @include column-sm;
+            padding-left: 26px;
         }
         .column-toggle {
             @include default-button;
             float: right;
             top: -8px;
-        }
-        .column-name-sm {
-            @include column-name-sm;
-            padding-left: 26px;
-        }
-        .column-schema-sm {
-            @include column-schema-sm;
-        }
-        .column-unit-sm {
-            @include column-unit-sm;
-        }
-        .column-value-sm {
-            width: 50%;
-        }
-        .column-timestamp-xs {
-            @include column-xs;
-            padding-left: 26px;
-        }
-        .column-name-xs {
-            @include column-xs;
         }
     }
 }
@@ -98,25 +89,38 @@
 .list-content{
     width: calc(100% - 2px);
     .list-item {
-        .item-oneline {
+        .item-summary {
             overflow: auto;
             width: 100%;
             border-bottom: 1px solid $light-gray;
             .column-name {
-                @include column-name-sm;
+                @include column-name;
+                @include column-item-padding;
+            }
+            .column-name-sm {
+                @include column-sm;
                 @include column-item-padding;
             }
             .column-schema {
+                @include column-schema;
+                @include column-item-padding;
+            }
+            .column-schema-sm {
                 @include column-schema-sm;
                 @include column-item-padding;
             }
             .column-unit {
-                @include column-unit-sm;
+                @include column-unit;
+                @include column-item-padding;
+            }
+            .column-type {
+                float: left;
+                max-width: 30%;
                 @include column-item-padding;
             }
             .column-value-text {
                 float: left;
-                max-width: 35%;
+                max-width: 40%;
                 @include column-item-padding;
                 .column-value-button {
                     @include default-button;
@@ -126,32 +130,9 @@
                     @include validation-error;
                 }
             }
-            .column-timestamp-xs {
-                @include column-xs;
+            .column-timestamp-sm {
+                @include column-sm;
                 @include column-item-padding;
-            }
-            .column-name-xs {
-                @include column-xs;
-                @include column-item-padding;
-            }
-        }
-
-        .item-summary {
-            overflow: auto;
-            width: 100%;
-            .column-name {
-                @include column-name-lg;
-                @include column-item-padding;
-            }
-            .column-value-text {
-                @include column-value-lg;
-                @include column-item-padding;
-                .column-value-button {
-                    @include default-button;
-                }
-                .value-validation-error {
-                    @include validation-error;
-                }
             }
             .column-toggle {
                 padding-right: 2%;
@@ -175,10 +156,6 @@
             padding: 0 10px 10px 18px;
             background: $light-gray;
             border-bottom: 1px solid $gray;
-
-            .schema-info-section {
-                padding-left: 8px;
-            }
 
             .value-section {
                 padding: 20px 0 0 7px;
