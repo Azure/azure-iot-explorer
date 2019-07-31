@@ -77,7 +77,7 @@ describe('getDeviceCommandPairs', () => {
         const telemetrySchemas = [
             {
                 parsedSchema: {
-                    description: 'Temperature/Current temperature on the device ( Unit: Units/Temperature/fahrenheit )',
+                    description: 'Temperature / Current temperature on the device ( Unit: Units/Temperature/fahrenheit )',
                     title: 'temp',
                     type: 'number'
                 },

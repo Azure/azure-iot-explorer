@@ -33,10 +33,10 @@ export default class DeviceCommandsPerInterface
         const { commandSchemas } = this.props;
         const collapseMap = new Map();
         for (let index = 0; index < commandSchemas.length; index ++) {
-            collapseMap.set(index, true);
+            collapseMap.set(index, false);
         }
         this.state = {
-            allCollapsed: true,
+            allCollapsed: false,
             collapseMap
         };
     }
@@ -60,7 +60,10 @@ export default class DeviceCommandsPerInterface
                 {(context: LocalizationContextInterface) => (
                     <div className="pnp-detail-list">
                         <div className="list-header">
-                            <span className="column-name-xl">{context.t(ResourceKeys.deviceCommands.columns.name)}</span>
+                            <span className="column-name">{context.t(ResourceKeys.deviceCommands.columns.name)}</span>
+                            <span className="column-schema">{context.t(ResourceKeys.deviceCommands.columns.schema.request)}</span>
+                            <span className="column-schema">{context.t(ResourceKeys.deviceCommands.columns.schema.response)}</span>
+                            <span className="column-type">{context.t(ResourceKeys.deviceCommands.columns.type)}</span>
                             <DefaultButton
                                 className="column-toggle"
                                 onClick={this.onToggleCollapseAll}

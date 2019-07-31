@@ -34,10 +34,10 @@ export default class DeviceSettingsPerInterface
         const { twinWithSchema } = this.props;
         const collapseMap = new Map();
         for (let index = 0; index < twinWithSchema.length; index ++) {
-            collapseMap.set(index, true);
+            collapseMap.set(index, false);
         }
         this.state = {
-            allCollapsed: true,
+            allCollapsed: false,
             collapseMap
         };
     }
@@ -61,6 +61,8 @@ export default class DeviceSettingsPerInterface
                     <div className="pnp-detail-list">
                         <div className="list-header">
                             <span className="column-name">{context.t(ResourceKeys.deviceSettings.columns.name)}</span>
+                            <span className="column-schema-sm">{context.t(ResourceKeys.deviceSettings.columns.schema)}</span>
+                            <span className="column-unit">{context.t(ResourceKeys.deviceSettings.columns.unit)}</span>
                             <span className="column-value">{context.t(ResourceKeys.deviceSettings.columns.reportedValue)}</span>
                             <DefaultButton
                                 className="column-toggle"

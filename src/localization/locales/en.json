@@ -288,7 +288,7 @@
         "headerText": "Non-writable properties",
         "noProperty": "No properties",
         "columns": {
-            "name": "Name (Display Name)",
+            "name": "Name (Display Name / Description)",
             "value": "Value",
             "schema": "Schema",
             "unit": "Unit",
@@ -322,14 +322,11 @@
             "unknown": "Status Code: {{code}}"
         },
         "columns": {
-            "name": "Name (Display Name)",
+            "name": "Name (Display Name / Description)",
+            "schema": "Schema",
+            "unit": "Unit",
             "reportedValue": "Reported Property (Status)",
             "error": "value does not match schema"
-        },
-        "details": {
-            "description": "Description",
-            "schema": "Schema",
-            "unit": "Unit"
         },
         "panel": {
             "title": "Reported properties:"
@@ -347,12 +344,11 @@
         "headerText": "Commands",
         "noCommands": "No commands",
         "columns": {
-            "name": "Name (Display Name)",
-            "info": "Info"
-        },
-        "details": {
-            "description": "Description",
-            "schema": "Request schema",
+            "name": "Name (Display Name / Description)",
+            "schema": {
+                "request": "Request schema",
+                "response": "Response schema"
+            },
             "type": "Command type"
         }
     },

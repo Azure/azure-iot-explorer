@@ -54,6 +54,9 @@ export default class DeviceCommandsPerInterfacePerCommand
         return (
             <header className={this.props.collapsed ? 'item-summary' : 'item-summary item-summary-uncollapsed'} onClick={this.handleToggleCollapse}>
                 {this.renderCommandName(context)}
+                {this.renderRequestSchema(context)}
+                {this.renderRequestSchema(context)}
+                {this.renderCommandType(context)}
                 <IconButton
                     title={context.t(this.props.collapsed ? ResourceKeys.deviceCommands.command.expand : ResourceKeys.deviceCommands.command.collapse)}
                     className="column-toggle"
@@ -68,14 +71,15 @@ export default class DeviceCommandsPerInterfacePerCommand
             <section className={this.props.collapsed ? 'item-detail' : 'item-detail item-detail-uncollapsed'}>
                 {!this.props.collapsed &&
                 <>
-                    {this.renderCommandSchemaInformation(context)}
                     {this.props.commandModelDefinition.request ? this.createForm() :
-                        <PrimaryButton
-                            className="submit-button"
-                            onClick={this.onSubmit(null)}
-                            text={context.t(ResourceKeys.deviceCommands.command.submit)}
-                            iconProps={{ iconName: SUBMIT }}
-                        />
+                        <div className="value-section">
+                            <PrimaryButton
+                                className="submit-button"
+                                onClick={this.onSubmit(null)}
+                                text={context.t(ResourceKeys.deviceCommands.command.submit)}
+                                iconProps={{ iconName: SUBMIT }}
+                            />
+                        </div>
                     }
                 </>
                 }
@@ -101,21 +105,6 @@ export default class DeviceCommandsPerInterfacePerCommand
       return generateCommandPayload(payload);
     }
 
-    private readonly renderCommandSchemaInformation = (context: LocalizationContextInterface) => {
-        const { commandModelDefinition } = this.props;
-        return (
-            <section className="schema-info-section">
-                <Label>
-                    {context.t(ResourceKeys.deviceCommands.details.description)}: {commandModelDefinition.description ? commandModelDefinition.description : '--'}
-                </Label>
-                <Label>{context.t(ResourceKeys.deviceCommands.details.schema)}: {this.getRequestSchema()}</Label>
-                <Label>
-                    {context.t(ResourceKeys.deviceCommands.details.type)}: {commandModelDefinition.commandType ? commandModelDefinition.commandType : '--'}
-                </Label>
-            </section>
-        );
-    }
-
     private readonly getRequestSchema = () => {
         const { commandModelDefinition } = this.props;
         const schema = commandModelDefinition.request;
@@ -131,8 +120,22 @@ export default class DeviceCommandsPerInterfacePerCommand
 
     private readonly renderCommandName = (context: LocalizationContextInterface) => {
         const ariaLabel = context.t(ResourceKeys.deviceCommands.columns.name);
-        const displayName = this.props.commandModelDefinition.displayName;
-        return <Label aria-label={ariaLabel} className="column-name">{this.props.commandModelDefinition.name} ({displayName ? displayName : '--'})</Label>;
+        let displayName = this.props.commandModelDefinition.displayName;
+        displayName = displayName ? displayName : '--';
+        let description = this.props.commandModelDefinition.description;
+        description = description ? description : '--';
+        return <Label aria-label={ariaLabel} className="column-name">{this.props.commandModelDefinition.name} ({displayName} / {description})</Label>;
+    }
+
+    private readonly renderRequestSchema = (context: LocalizationContextInterface) => {
+        const ariaLabel = context.t(ResourceKeys.deviceCommands.columns.type);
+        return <Label aria-label={ariaLabel} className="column-schema">{this.getRequestSchema()}</Label>;
+    }
+
+    private readonly renderCommandType = (context: LocalizationContextInterface) => {
+        const ariaLabel = context.t(ResourceKeys.deviceCommands.columns.schema.request);
+        const { commandModelDefinition } = this.props;
+        return <Label aria-label={ariaLabel} className="column-type">{commandModelDefinition.commandType ? commandModelDefinition.commandType : '--'}</Label>;
     }
 
     private readonly onSubmit = (data: any) => () => { // tslint:disable-line:no-any
