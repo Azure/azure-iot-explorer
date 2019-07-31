@@ -1,5 +1,4 @@
-pr:
-- master
+trigger: none
 
 jobs:
   - job: Verify_Build_and_Test
