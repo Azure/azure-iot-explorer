@@ -58,7 +58,7 @@ export class DeviceContentComponent extends React.PureComponent<DeviceContentPro
                     <div className="view-content view-scroll">
                         <div className="device-content">
                             {this.props.deviceId &&
-                                    <div className={'device-content-nav-bar' + (!this.state.appMenuVisible ? ' collapsed' : '')} role="tablist">
+                                    <div className={'device-content-nav-bar' + (!this.state.appMenuVisible ? ' collapsed' : '')}>
                                         <nav>
                                             <div className="navToggle">
                                                 <IconButton

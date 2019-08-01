@@ -67,7 +67,6 @@ export class NotificationList extends React.Component<NotificationListProps, Not
                                 }
                             }
                             onClick={this.onToggleDisplay}
-                            role="toggle"
                             text={context.t(ResourceKeys.header.notifications.show)}
                             ariaLabel={context.t(showList ?
                                 ResourceKeys.header.notifications.hide :

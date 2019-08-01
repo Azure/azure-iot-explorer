@@ -29,6 +29,7 @@ exports[`CopyableMaskField snapshots it matches snapshot when allowMask = false 
         value="value1"
       />
       <input
+        aria-label="ariaLabel1"
         className="input"
         readOnly={true}
         style={
@@ -89,6 +90,7 @@ exports[`CopyableMaskField snapshots it matches snapshot when allowMask = true 1
         value="value1"
       />
       <input
+        aria-label="ariaLabel1"
         className="input"
         readOnly={true}
         style={
@@ -159,6 +161,7 @@ exports[`CopyableMaskField snapshots it matches snapshot when allowMask = true 2
         value="value1"
       />
       <input
+        aria-label="ariaLabel1"
         className="input"
         readOnly={true}
         style={
@@ -229,6 +232,7 @@ exports[`CopyableMaskField snapshots it matches snapshot when error message spec
         value="value1"
       />
       <input
+        aria-label="ariaLabel1"
         className="input"
         readOnly={true}
         style={

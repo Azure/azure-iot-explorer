@@ -60,6 +60,7 @@ export class CopyableMaskField extends React.Component<CopyableMaskFieldProps, C
                             onChange={this.onChange}
                         />
                         <input
+                            aria-label={ariaLabel}
                             style={{ position: 'absolute', left: '-9000px', top: '-9000px'}}
                             tabIndex={-1}
                             ref={this.myRef}
