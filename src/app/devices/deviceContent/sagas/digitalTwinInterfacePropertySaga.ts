@@ -26,17 +26,6 @@ export function* getDigitalTwinInterfacePropertySaga(action: Action<string>) {
 
         yield put(getDigitalTwinInterfacePropertiesAction.done({params: action.payload, result: digitalTwinInterfaceProperties}));
     } catch (error) {
-        yield put(addNotificationAction.started({
-            text: {
-                translationKey: ResourceKeys.notifications.getDigitalTwinInterfacePropertiesOnError,
-                translationOptions: {
-                    deviceId: action.payload,
-                    error,
-                },
-            },
-            type: NotificationType.error
-          }));
-
         yield put(getDigitalTwinInterfacePropertiesAction.failed({params: action.payload, error}));
     }
 }

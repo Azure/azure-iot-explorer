@@ -23,7 +23,7 @@ const generateTwinSchemaAndInterfaceTuple = (state: StateType, model: ModelDefin
             const property = generateDigitalTwinForSpecificProperty(state, setting);
             return {
                 desiredTwin: property && property.desired && property.desired.value,
-                reportedTwin: property && property.reported && property.reported,
+                reportedTwin: property && property.reported,
                 settingModelDefinition: setting,
                 settingSchema: parseInterfacePropertyToJsonSchema(setting),
                 syncStatus: undefined // todo
