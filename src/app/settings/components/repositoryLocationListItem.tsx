@@ -61,13 +61,13 @@ export default class RepositoryLocationListItem extends React.Component<Reposito
                                 />
                             }
                         </div>
-                        <IconButton
+                        {item.repositoryLocationType !== REPOSITORY_LOCATION_TYPE.Public && <IconButton
                             className="remove-button"
                             iconProps={{ iconName: 'cancel' }}
                             title={context.t(ResourceKeys.settings.cancel)}
                             ariaLabel={context.t(ResourceKeys.settings.cancel)}
                             onClick={this.onRemove}
-                        />
+                        />}
                     </div>
                 </div>
             )}

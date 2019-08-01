@@ -63,1061 +63,6 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
                   >
                     settings.modelDefinitions.repositoryTypes.public.label
                   </div>
-                  <CustomizedIconButton
-                    ariaLabel="settings.cancel"
-                    className="remove-button"
-                    iconProps={
-                      Object {
-                        "iconName": "cancel",
-                      }
-                    }
-                    onClick={[Function]}
-                    title="settings.cancel"
-                  >
-                    <IconButton
-                      ariaLabel="settings.cancel"
-                      className="remove-button"
-                      iconProps={
-                        Object {
-                          "iconName": "cancel",
-                        }
-                      }
-                      onClick={[Function]}
-                      styles={Object {}}
-                      theme={
-                        Object {
-                          "disableGlobalClassNames": false,
-                          "effects": Object {
-                            "elevation16": "0 0 5px 0 rgba(0,0,0,.4)",
-                            "elevation4": "0 0 5px 0 rgba(0,0,0,.4)",
-                            "elevation64": "0 0 5px 0 rgba(0,0,0,.4)",
-                            "elevation8": "0 0 5px 0 rgba(0,0,0,.4)",
-                            "roundedCorner2": "0px",
-                          },
-                          "fonts": Object {
-                            "large": Object {
-                              "MozOsxFontSmoothing": "grayscale",
-                              "WebkitFontSmoothing": "antialiased",
-                              "fontFamily": "'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                              "fontSize": "17px",
-                              "fontWeight": 300,
-                            },
-                            "medium": Object {
-                              "MozOsxFontSmoothing": "grayscale",
-                              "WebkitFontSmoothing": "antialiased",
-                              "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                              "fontSize": "14px",
-                              "fontWeight": 400,
-                            },
-                            "mediumPlus": Object {
-                              "MozOsxFontSmoothing": "grayscale",
-                              "WebkitFontSmoothing": "antialiased",
-                              "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                              "fontSize": "15px",
-                              "fontWeight": 400,
-                            },
-                            "mega": Object {
-                              "MozOsxFontSmoothing": "grayscale",
-                              "WebkitFontSmoothing": "antialiased",
-                              "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                              "fontSize": "72px",
-                              "fontWeight": 100,
-                            },
-                            "small": Object {
-                              "MozOsxFontSmoothing": "grayscale",
-                              "WebkitFontSmoothing": "antialiased",
-                              "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                              "fontSize": "12px",
-                              "fontWeight": 400,
-                            },
-                            "smallPlus": Object {
-                              "MozOsxFontSmoothing": "grayscale",
-                              "WebkitFontSmoothing": "antialiased",
-                              "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                              "fontSize": "13px",
-                              "fontWeight": 400,
-                            },
-                            "superLarge": Object {
-                              "MozOsxFontSmoothing": "grayscale",
-                              "WebkitFontSmoothing": "antialiased",
-                              "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                              "fontSize": "42px",
-                              "fontWeight": 100,
-                            },
-                            "tiny": Object {
-                              "MozOsxFontSmoothing": "grayscale",
-                              "WebkitFontSmoothing": "antialiased",
-                              "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                              "fontSize": "10px",
-                              "fontWeight": 600,
-                            },
-                            "xLarge": Object {
-                              "MozOsxFontSmoothing": "grayscale",
-                              "WebkitFontSmoothing": "antialiased",
-                              "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                              "fontSize": "21px",
-                              "fontWeight": 100,
-                            },
-                            "xSmall": Object {
-                              "MozOsxFontSmoothing": "grayscale",
-                              "WebkitFontSmoothing": "antialiased",
-                              "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                              "fontSize": "11px",
-                              "fontWeight": 400,
-                            },
-                            "xxLarge": Object {
-                              "MozOsxFontSmoothing": "grayscale",
-                              "WebkitFontSmoothing": "antialiased",
-                              "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                              "fontSize": "28px",
-                              "fontWeight": 100,
-                            },
-                          },
-                          "isInverted": false,
-                          "palette": Object {
-                            "accent": "#0078d4",
-                            "black": "#000000",
-                            "blackTranslucent40": "rgba(0,0,0,.4)",
-                            "blue": "#0078d4",
-                            "blueDark": "#002050",
-                            "blueLight": "#00bcf2",
-                            "blueMid": "#00188f",
-                            "green": "#107c10",
-                            "greenDark": "#004b1c",
-                            "greenLight": "#bad80a",
-                            "magenta": "#b4009e",
-                            "magentaDark": "#5c005c",
-                            "magentaLight": "#e3008c",
-                            "neutralDark": "#212121",
-                            "neutralLight": "#eaeaea",
-                            "neutralLighter": "#f4f4f4",
-                            "neutralLighterAlt": "#f8f8f8",
-                            "neutralPrimary": "#333333",
-                            "neutralPrimaryAlt": "#3c3c3c",
-                            "neutralQuaternary": "#d0d0d0",
-                            "neutralQuaternaryAlt": "#dadada",
-                            "neutralSecondary": "#666666",
-                            "neutralSecondaryAlt": "#767676",
-                            "neutralTertiary": "#a6a6a6",
-                            "neutralTertiaryAlt": "#c8c8c8",
-                            "orange": "#d83b01",
-                            "orangeLight": "#ea4300",
-                            "orangeLighter": "#ff8c00",
-                            "purple": "#5c2d91",
-                            "purpleDark": "#32145a",
-                            "purpleLight": "#b4a0ff",
-                            "red": "#e81123",
-                            "redDark": "#a80000",
-                            "teal": "#008272",
-                            "tealDark": "#004b50",
-                            "tealLight": "#00b294",
-                            "themeDark": "#005a9e",
-                            "themeDarkAlt": "#106ebe",
-                            "themeDarker": "#004578",
-                            "themeLight": "#c7e0f4",
-                            "themeLighter": "#deecf9",
-                            "themeLighterAlt": "#eff6fc",
-                            "themePrimary": "#0078d4",
-                            "themeSecondary": "#2b88d8",
-                            "themeTertiary": "#71afe5",
-                            "white": "#ffffff",
-                            "whiteTranslucent40": "rgba(255,255,255,.4)",
-                            "yellow": "#ffb900",
-                            "yellowDark": "#d29200",
-                            "yellowLight": "#fff100",
-                          },
-                          "semanticColors": Object {
-                            "accentButtonBackground": "#0078d4",
-                            "accentButtonText": "#ffffff",
-                            "actionLink": "#333333",
-                            "actionLinkHovered": "#212121",
-                            "blockingBackground": "rgba(234, 67, 0, .2)",
-                            "bodyBackground": "#ffffff",
-                            "bodyDivider": "#eaeaea",
-                            "bodyFrameBackground": "#ffffff",
-                            "bodyFrameDivider": "#eaeaea",
-                            "bodyStandoutBackground": "#f8f8f8",
-                            "bodySubtext": "#666666",
-                            "bodyText": "#333333",
-                            "bodyTextChecked": "#000000",
-                            "buttonBackground": "#f4f4f4",
-                            "buttonBackgroundChecked": "#c8c8c8",
-                            "buttonBackgroundCheckedHovered": "#eaeaea",
-                            "buttonBackgroundDisabled": "#f4f4f4",
-                            "buttonBackgroundHovered": "#eaeaea",
-                            "buttonBackgroundPressed": "#eaeaea",
-                            "buttonBorder": "transparent",
-                            "buttonBorderDisabled": "transparent",
-                            "buttonText": "#333333",
-                            "buttonTextChecked": "#212121",
-                            "buttonTextCheckedHovered": "#000000",
-                            "buttonTextDisabled": "#a6a6a6",
-                            "buttonTextHovered": "#212121",
-                            "buttonTextPressed": "#212121",
-                            "defaultStateBackground": "#f8f8f8",
-                            "disabledBackground": "#f4f4f4",
-                            "disabledBodySubtext": "#c8c8c8",
-                            "disabledBodyText": "#a6a6a6",
-                            "disabledSubtext": "#d0d0d0",
-                            "disabledText": "#a6a6a6",
-                            "errorBackground": "rgba(232, 17, 35, .2)",
-                            "errorText": "#a80000",
-                            "focusBorder": "#666666",
-                            "inputBackground": "#ffffff",
-                            "inputBackgroundChecked": "#0078d4",
-                            "inputBackgroundCheckedHovered": "#106ebe",
-                            "inputBorder": "#a6a6a6",
-                            "inputBorderHovered": "#333333",
-                            "inputFocusBorderAlt": "#0078d4",
-                            "inputForegroundChecked": "#ffffff",
-                            "inputPlaceholderText": "#666666",
-                            "inputText": "#333333",
-                            "inputTextHovered": "#212121",
-                            "link": "#0078d4",
-                            "linkHovered": "#004578",
-                            "listBackground": "#ffffff",
-                            "listHeaderBackgroundHovered": "#f4f4f4",
-                            "listHeaderBackgroundPressed": "#eaeaea",
-                            "listItemBackgroundChecked": "#eaeaea",
-                            "listItemBackgroundCheckedHovered": "#dadada",
-                            "listItemBackgroundHovered": "#f4f4f4",
-                            "listText": "#333333",
-                            "listTextColor": "#333333",
-                            "menuBackground": "#ffffff",
-                            "menuDivider": "#c8c8c8",
-                            "menuHeader": "#0078d4",
-                            "menuIcon": "#0078d4",
-                            "menuItemBackgroundChecked": "#eaeaea",
-                            "menuItemBackgroundHovered": "#f4f4f4",
-                            "menuItemBackgroundPressed": "#eaeaea",
-                            "menuItemText": "#333333",
-                            "menuItemTextHovered": "#212121",
-                            "primaryButtonBackground": "#0078d4",
-                            "primaryButtonBackgroundDisabled": "#f4f4f4",
-                            "primaryButtonBackgroundHovered": "#106ebe",
-                            "primaryButtonBackgroundPressed": "#005a9e",
-                            "primaryButtonBorder": "transparent",
-                            "primaryButtonText": "#ffffff",
-                            "primaryButtonTextDisabled": "#d0d0d0",
-                            "primaryButtonTextHovered": "#ffffff",
-                            "primaryButtonTextPressed": "#ffffff",
-                            "smallInputBorder": "#666666",
-                            "successBackground": "rgba(186, 216, 10, .2)",
-                            "variantBorder": "#eaeaea",
-                            "variantBorderHovered": "#a6a6a6",
-                            "warningBackground": "rgba(255, 185, 0, .2)",
-                            "warningHighlight": "#ffb900",
-                            "warningText": "#333333",
-                          },
-                          "spacing": Object {
-                            "l1": "20px",
-                            "l2": "32px",
-                            "m": "16px",
-                            "s1": "8px",
-                            "s2": "4px",
-                          },
-                        }
-                      }
-                      title="settings.cancel"
-                    >
-                      <BaseButton
-                        ariaLabel="settings.cancel"
-                        baseClassName="ms-Button"
-                        className="remove-button"
-                        iconProps={
-                          Object {
-                            "iconName": "cancel",
-                          }
-                        }
-                        onClick={[Function]}
-                        onRenderDescription={[Function]}
-                        onRenderText={[Function]}
-                        split={false}
-                        styles={
-                          Object {
-                            "flexContainer": Object {
-                              "alignItems": "center",
-                              "display": "flex",
-                              "flexWrap": "nowrap",
-                              "height": "100%",
-                              "justifyContent": "center",
-                            },
-                            "icon": Object {
-                              "flexShrink": 0,
-                              "fontSize": "16px",
-                              "height": "16px",
-                              "lineHeight": "16px",
-                              "margin": "0 4px",
-                              "textAlign": "center",
-                              "verticalAlign": "middle",
-                            },
-                            "iconDisabled": Object {
-                              "color": "#a6a6a6",
-                            },
-                            "label": Object {
-                              "lineHeight": "100%",
-                              "margin": "0 4px",
-                            },
-                            "menuIcon": Array [
-                              Object {
-                                "flexShrink": 0,
-                                "fontSize": "16px",
-                                "height": "16px",
-                                "lineHeight": "16px",
-                                "margin": "0 4px",
-                                "textAlign": "center",
-                                "verticalAlign": "middle",
-                              },
-                              Object {
-                                "fontSize": "12px",
-                              },
-                            ],
-                            "menuIconDisabled": Object {
-                              "color": "#a6a6a6",
-                            },
-                            "root": Array [
-                              Object {
-                                "outline": "transparent",
-                                "position": "relative",
-                                "selectors": Object {
-                                  ".ms-Fabric--isFocusVisible &:focus:after": Object {
-                                    "border": "1px solid #ffffff",
-                                    "bottom": 0,
-                                    "content": "\\"\\"",
-                                    "left": 0,
-                                    "outline": "1px solid #666666",
-                                    "position": "absolute",
-                                    "right": 0,
-                                    "selectors": Object {
-                                      "@media screen and (-ms-high-contrast: active)": Object {
-                                        "border": "none",
-                                        "bottom": -2,
-                                        "left": -2,
-                                        "outlineColor": "ButtonText",
-                                        "right": -2,
-                                        "top": -2,
-                                      },
-                                    },
-                                    "top": 0,
-                                    "zIndex": 1,
-                                  },
-                                  "::-moz-focus-inner": Object {
-                                    "border": "0",
-                                  },
-                                },
-                              },
-                              Object {
-                                "MozOsxFontSmoothing": "grayscale",
-                                "WebkitFontSmoothing": "antialiased",
-                                "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                "fontSize": "14px",
-                                "fontWeight": 400,
-                              },
-                              Object {
-                                "border": "1px solid transparent",
-                                "borderRadius": 0,
-                                "boxSizing": "border-box",
-                                "cursor": "pointer",
-                                "display": "inline-block",
-                                "padding": "0 16px",
-                                "selectors": Object {
-                                  ":active > *": Object {
-                                    "left": 0,
-                                    "position": "relative",
-                                    "top": 0,
-                                  },
-                                },
-                                "textAlign": "center",
-                                "textDecoration": "none",
-                                "userSelect": "none",
-                                "verticalAlign": "top",
-                              },
-                              Object {
-                                "backgroundColor": "transparent",
-                                "border": "none",
-                                "color": "#333333",
-                                "height": "32px",
-                                "padding": "0 4px",
-                                "width": "32px",
-                              },
-                            ],
-                            "rootChecked": Object {
-                              "backgroundColor": "#c8c8c8",
-                            },
-                            "rootCheckedHovered": Object {
-                              "backgroundColor": "#eaeaea",
-                            },
-                            "rootDisabled": Array [
-                              Object {
-                                "outline": "transparent",
-                                "position": "relative",
-                                "selectors": Object {
-                                  ".ms-Fabric--isFocusVisible &:focus:after": Object {
-                                    "border": "1px solid #ffffff",
-                                    "bottom": 0,
-                                    "content": "\\"\\"",
-                                    "left": 0,
-                                    "outline": "1px solid #666666",
-                                    "position": "absolute",
-                                    "right": 0,
-                                    "selectors": Object {
-                                      "@media screen and (-ms-high-contrast: active)": Object {
-                                        "border": "none",
-                                        "bottom": -2,
-                                        "left": -2,
-                                        "outlineColor": "ButtonText",
-                                        "right": -2,
-                                        "top": -2,
-                                      },
-                                    },
-                                    "top": 0,
-                                    "zIndex": 1,
-                                  },
-                                  "::-moz-focus-inner": Object {
-                                    "border": "0",
-                                  },
-                                },
-                              },
-                              Object {
-                                "backgroundColor": "#f4f4f4",
-                                "color": "#a6a6a6",
-                                "cursor": "default",
-                                "pointerEvents": "none",
-                                "selectors": Object {
-                                  ":focus": Object {
-                                    "outline": 0,
-                                  },
-                                  ":hover": Object {
-                                    "outline": 0,
-                                  },
-                                  "@media screen and (-ms-high-contrast: active)": Object {
-                                    "bordercolor": "grayText",
-                                    "color": "grayText",
-                                  },
-                                },
-                              },
-                              Object {
-                                "color": "#a6a6a6",
-                              },
-                            ],
-                            "rootExpanded": Object {
-                              "color": "#0078d4",
-                            },
-                            "rootHovered": Object {
-                              "color": "#212121",
-                              "selectors": Object {
-                                "@media screen and (-ms-high-contrast: active)": Object {
-                                  "borderColor": "Highlight",
-                                  "color": "Highlight",
-                                },
-                              },
-                            },
-                            "rootPressed": Object {
-                              "color": "#0078d4",
-                            },
-                            "screenReaderText": Object {
-                              "border": 0,
-                              "height": 1,
-                              "margin": -1,
-                              "overflow": "hidden",
-                              "padding": 0,
-                              "position": "absolute",
-                              "width": 1,
-                            },
-                            "splitButtonContainer": Array [
-                              Object {
-                                "outline": "transparent",
-                                "position": "relative",
-                                "selectors": Object {
-                                  ".ms-Fabric--isFocusVisible &:focus:after": Object {
-                                    "border": "1px solid #ffffff",
-                                    "bottom": 1,
-                                    "content": "\\"\\"",
-                                    "left": 1,
-                                    "outline": "1px solid #666666",
-                                    "position": "absolute",
-                                    "right": 1,
-                                    "selectors": Object {
-                                      "@media screen and (-ms-high-contrast: active)": Object {
-                                        "border": "none",
-                                        "bottom": -2,
-                                        "left": -2,
-                                        "right": -2,
-                                        "top": -2,
-                                      },
-                                    },
-                                    "top": 1,
-                                    "zIndex": 1,
-                                  },
-                                  "::-moz-focus-inner": Object {
-                                    "border": "0",
-                                  },
-                                },
-                              },
-                              Object {
-                                "display": "inline-flex",
-                              },
-                            ],
-                            "splitButtonContainerDisabled": Object {
-                              "border": "none",
-                              "outline": "none",
-                            },
-                            "splitButtonContainerFocused": Object {
-                              "outline": "none!important",
-                            },
-                            "splitButtonDivider": Object {
-                              "bottom": 8,
-                              "position": "absolute",
-                              "right": 31,
-                              "top": 8,
-                              "width": 1,
-                            },
-                            "splitButtonFlexContainer": Object {
-                              "alignItems": "center",
-                              "display": "flex",
-                              "flexWrap": "nowrap",
-                              "height": "100%",
-                              "justifyContent": "center",
-                            },
-                            "splitButtonMenuButton": Object {
-                              "border": 0,
-                              "borderRadius": 0,
-                              "boxSizing": "border-box",
-                              "cursor": "pointer",
-                              "display": "inline-block",
-                              "height": "auto",
-                              "marginLeft": -1,
-                              "outline": "transparent",
-                              "padding": 6,
-                              "textAlign": "center",
-                              "textDecoration": "none",
-                              "userSelect": "none",
-                              "verticalAlign": "top",
-                              "width": 32,
-                            },
-                            "splitButtonMenuButtonDisabled": Object {
-                              "pointerEvents": "none",
-                              "selectors": Object {
-                                ":hover": Object {
-                                  "cursor": "default",
-                                },
-                              },
-                            },
-                            "textContainer": Object {
-                              "flexGrow": 1,
-                            },
-                          }
-                        }
-                        theme={
-                          Object {
-                            "disableGlobalClassNames": false,
-                            "effects": Object {
-                              "elevation16": "0 0 5px 0 rgba(0,0,0,.4)",
-                              "elevation4": "0 0 5px 0 rgba(0,0,0,.4)",
-                              "elevation64": "0 0 5px 0 rgba(0,0,0,.4)",
-                              "elevation8": "0 0 5px 0 rgba(0,0,0,.4)",
-                              "roundedCorner2": "0px",
-                            },
-                            "fonts": Object {
-                              "large": Object {
-                                "MozOsxFontSmoothing": "grayscale",
-                                "WebkitFontSmoothing": "antialiased",
-                                "fontFamily": "'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                "fontSize": "17px",
-                                "fontWeight": 300,
-                              },
-                              "medium": Object {
-                                "MozOsxFontSmoothing": "grayscale",
-                                "WebkitFontSmoothing": "antialiased",
-                                "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                "fontSize": "14px",
-                                "fontWeight": 400,
-                              },
-                              "mediumPlus": Object {
-                                "MozOsxFontSmoothing": "grayscale",
-                                "WebkitFontSmoothing": "antialiased",
-                                "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                "fontSize": "15px",
-                                "fontWeight": 400,
-                              },
-                              "mega": Object {
-                                "MozOsxFontSmoothing": "grayscale",
-                                "WebkitFontSmoothing": "antialiased",
-                                "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                "fontSize": "72px",
-                                "fontWeight": 100,
-                              },
-                              "small": Object {
-                                "MozOsxFontSmoothing": "grayscale",
-                                "WebkitFontSmoothing": "antialiased",
-                                "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                "fontSize": "12px",
-                                "fontWeight": 400,
-                              },
-                              "smallPlus": Object {
-                                "MozOsxFontSmoothing": "grayscale",
-                                "WebkitFontSmoothing": "antialiased",
-                                "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                "fontSize": "13px",
-                                "fontWeight": 400,
-                              },
-                              "superLarge": Object {
-                                "MozOsxFontSmoothing": "grayscale",
-                                "WebkitFontSmoothing": "antialiased",
-                                "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                "fontSize": "42px",
-                                "fontWeight": 100,
-                              },
-                              "tiny": Object {
-                                "MozOsxFontSmoothing": "grayscale",
-                                "WebkitFontSmoothing": "antialiased",
-                                "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                "fontSize": "10px",
-                                "fontWeight": 600,
-                              },
-                              "xLarge": Object {
-                                "MozOsxFontSmoothing": "grayscale",
-                                "WebkitFontSmoothing": "antialiased",
-                                "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                "fontSize": "21px",
-                                "fontWeight": 100,
-                              },
-                              "xSmall": Object {
-                                "MozOsxFontSmoothing": "grayscale",
-                                "WebkitFontSmoothing": "antialiased",
-                                "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                "fontSize": "11px",
-                                "fontWeight": 400,
-                              },
-                              "xxLarge": Object {
-                                "MozOsxFontSmoothing": "grayscale",
-                                "WebkitFontSmoothing": "antialiased",
-                                "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                "fontSize": "28px",
-                                "fontWeight": 100,
-                              },
-                            },
-                            "isInverted": false,
-                            "palette": Object {
-                              "accent": "#0078d4",
-                              "black": "#000000",
-                              "blackTranslucent40": "rgba(0,0,0,.4)",
-                              "blue": "#0078d4",
-                              "blueDark": "#002050",
-                              "blueLight": "#00bcf2",
-                              "blueMid": "#00188f",
-                              "green": "#107c10",
-                              "greenDark": "#004b1c",
-                              "greenLight": "#bad80a",
-                              "magenta": "#b4009e",
-                              "magentaDark": "#5c005c",
-                              "magentaLight": "#e3008c",
-                              "neutralDark": "#212121",
-                              "neutralLight": "#eaeaea",
-                              "neutralLighter": "#f4f4f4",
-                              "neutralLighterAlt": "#f8f8f8",
-                              "neutralPrimary": "#333333",
-                              "neutralPrimaryAlt": "#3c3c3c",
-                              "neutralQuaternary": "#d0d0d0",
-                              "neutralQuaternaryAlt": "#dadada",
-                              "neutralSecondary": "#666666",
-                              "neutralSecondaryAlt": "#767676",
-                              "neutralTertiary": "#a6a6a6",
-                              "neutralTertiaryAlt": "#c8c8c8",
-                              "orange": "#d83b01",
-                              "orangeLight": "#ea4300",
-                              "orangeLighter": "#ff8c00",
-                              "purple": "#5c2d91",
-                              "purpleDark": "#32145a",
-                              "purpleLight": "#b4a0ff",
-                              "red": "#e81123",
-                              "redDark": "#a80000",
-                              "teal": "#008272",
-                              "tealDark": "#004b50",
-                              "tealLight": "#00b294",
-                              "themeDark": "#005a9e",
-                              "themeDarkAlt": "#106ebe",
-                              "themeDarker": "#004578",
-                              "themeLight": "#c7e0f4",
-                              "themeLighter": "#deecf9",
-                              "themeLighterAlt": "#eff6fc",
-                              "themePrimary": "#0078d4",
-                              "themeSecondary": "#2b88d8",
-                              "themeTertiary": "#71afe5",
-                              "white": "#ffffff",
-                              "whiteTranslucent40": "rgba(255,255,255,.4)",
-                              "yellow": "#ffb900",
-                              "yellowDark": "#d29200",
-                              "yellowLight": "#fff100",
-                            },
-                            "semanticColors": Object {
-                              "accentButtonBackground": "#0078d4",
-                              "accentButtonText": "#ffffff",
-                              "actionLink": "#333333",
-                              "actionLinkHovered": "#212121",
-                              "blockingBackground": "rgba(234, 67, 0, .2)",
-                              "bodyBackground": "#ffffff",
-                              "bodyDivider": "#eaeaea",
-                              "bodyFrameBackground": "#ffffff",
-                              "bodyFrameDivider": "#eaeaea",
-                              "bodyStandoutBackground": "#f8f8f8",
-                              "bodySubtext": "#666666",
-                              "bodyText": "#333333",
-                              "bodyTextChecked": "#000000",
-                              "buttonBackground": "#f4f4f4",
-                              "buttonBackgroundChecked": "#c8c8c8",
-                              "buttonBackgroundCheckedHovered": "#eaeaea",
-                              "buttonBackgroundDisabled": "#f4f4f4",
-                              "buttonBackgroundHovered": "#eaeaea",
-                              "buttonBackgroundPressed": "#eaeaea",
-                              "buttonBorder": "transparent",
-                              "buttonBorderDisabled": "transparent",
-                              "buttonText": "#333333",
-                              "buttonTextChecked": "#212121",
-                              "buttonTextCheckedHovered": "#000000",
-                              "buttonTextDisabled": "#a6a6a6",
-                              "buttonTextHovered": "#212121",
-                              "buttonTextPressed": "#212121",
-                              "defaultStateBackground": "#f8f8f8",
-                              "disabledBackground": "#f4f4f4",
-                              "disabledBodySubtext": "#c8c8c8",
-                              "disabledBodyText": "#a6a6a6",
-                              "disabledSubtext": "#d0d0d0",
-                              "disabledText": "#a6a6a6",
-                              "errorBackground": "rgba(232, 17, 35, .2)",
-                              "errorText": "#a80000",
-                              "focusBorder": "#666666",
-                              "inputBackground": "#ffffff",
-                              "inputBackgroundChecked": "#0078d4",
-                              "inputBackgroundCheckedHovered": "#106ebe",
-                              "inputBorder": "#a6a6a6",
-                              "inputBorderHovered": "#333333",
-                              "inputFocusBorderAlt": "#0078d4",
-                              "inputForegroundChecked": "#ffffff",
-                              "inputPlaceholderText": "#666666",
-                              "inputText": "#333333",
-                              "inputTextHovered": "#212121",
-                              "link": "#0078d4",
-                              "linkHovered": "#004578",
-                              "listBackground": "#ffffff",
-                              "listHeaderBackgroundHovered": "#f4f4f4",
-                              "listHeaderBackgroundPressed": "#eaeaea",
-                              "listItemBackgroundChecked": "#eaeaea",
-                              "listItemBackgroundCheckedHovered": "#dadada",
-                              "listItemBackgroundHovered": "#f4f4f4",
-                              "listText": "#333333",
-                              "listTextColor": "#333333",
-                              "menuBackground": "#ffffff",
-                              "menuDivider": "#c8c8c8",
-                              "menuHeader": "#0078d4",
-                              "menuIcon": "#0078d4",
-                              "menuItemBackgroundChecked": "#eaeaea",
-                              "menuItemBackgroundHovered": "#f4f4f4",
-                              "menuItemBackgroundPressed": "#eaeaea",
-                              "menuItemText": "#333333",
-                              "menuItemTextHovered": "#212121",
-                              "primaryButtonBackground": "#0078d4",
-                              "primaryButtonBackgroundDisabled": "#f4f4f4",
-                              "primaryButtonBackgroundHovered": "#106ebe",
-                              "primaryButtonBackgroundPressed": "#005a9e",
-                              "primaryButtonBorder": "transparent",
-                              "primaryButtonText": "#ffffff",
-                              "primaryButtonTextDisabled": "#d0d0d0",
-                              "primaryButtonTextHovered": "#ffffff",
-                              "primaryButtonTextPressed": "#ffffff",
-                              "smallInputBorder": "#666666",
-                              "successBackground": "rgba(186, 216, 10, .2)",
-                              "variantBorder": "#eaeaea",
-                              "variantBorderHovered": "#a6a6a6",
-                              "warningBackground": "rgba(255, 185, 0, .2)",
-                              "warningHighlight": "#ffb900",
-                              "warningText": "#333333",
-                            },
-                            "spacing": Object {
-                              "l1": "20px",
-                              "l2": "32px",
-                              "m": "16px",
-                              "s1": "8px",
-                              "s2": "4px",
-                            },
-                          }
-                        }
-                        title="settings.cancel"
-                        variantClassName="ms-Button--icon"
-                      >
-                        <KeytipData>
-                          <button
-                            aria-label="settings.cancel"
-                            className="ms-Button ms-Button--icon remove-button root-57"
-                            data-is-focusable={true}
-                            onClick={[Function]}
-                            onKeyDown={[Function]}
-                            onKeyPress={[Function]}
-                            onKeyUp={[Function]}
-                            onMouseDown={[Function]}
-                            onMouseUp={[Function]}
-                            title="settings.cancel"
-                            type="button"
-                          >
-                            <div
-                              className="ms-Button-flexContainer flexContainer-58"
-                            >
-                              <StyledIconBase
-                                className="ms-Button-icon icon-60"
-                                iconName="cancel"
-                              >
-                                <IconBase
-                                  className="ms-Button-icon icon-60"
-                                  iconName="cancel"
-                                  styles={[Function]}
-                                  theme={
-                                    Object {
-                                      "disableGlobalClassNames": false,
-                                      "effects": Object {
-                                        "elevation16": "0 0 5px 0 rgba(0,0,0,.4)",
-                                        "elevation4": "0 0 5px 0 rgba(0,0,0,.4)",
-                                        "elevation64": "0 0 5px 0 rgba(0,0,0,.4)",
-                                        "elevation8": "0 0 5px 0 rgba(0,0,0,.4)",
-                                        "roundedCorner2": "0px",
-                                      },
-                                      "fonts": Object {
-                                        "large": Object {
-                                          "MozOsxFontSmoothing": "grayscale",
-                                          "WebkitFontSmoothing": "antialiased",
-                                          "fontFamily": "'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                          "fontSize": "17px",
-                                          "fontWeight": 300,
-                                        },
-                                        "medium": Object {
-                                          "MozOsxFontSmoothing": "grayscale",
-                                          "WebkitFontSmoothing": "antialiased",
-                                          "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                          "fontSize": "14px",
-                                          "fontWeight": 400,
-                                        },
-                                        "mediumPlus": Object {
-                                          "MozOsxFontSmoothing": "grayscale",
-                                          "WebkitFontSmoothing": "antialiased",
-                                          "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                          "fontSize": "15px",
-                                          "fontWeight": 400,
-                                        },
-                                        "mega": Object {
-                                          "MozOsxFontSmoothing": "grayscale",
-                                          "WebkitFontSmoothing": "antialiased",
-                                          "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                          "fontSize": "72px",
-                                          "fontWeight": 100,
-                                        },
-                                        "small": Object {
-                                          "MozOsxFontSmoothing": "grayscale",
-                                          "WebkitFontSmoothing": "antialiased",
-                                          "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                          "fontSize": "12px",
-                                          "fontWeight": 400,
-                                        },
-                                        "smallPlus": Object {
-                                          "MozOsxFontSmoothing": "grayscale",
-                                          "WebkitFontSmoothing": "antialiased",
-                                          "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                          "fontSize": "13px",
-                                          "fontWeight": 400,
-                                        },
-                                        "superLarge": Object {
-                                          "MozOsxFontSmoothing": "grayscale",
-                                          "WebkitFontSmoothing": "antialiased",
-                                          "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                          "fontSize": "42px",
-                                          "fontWeight": 100,
-                                        },
-                                        "tiny": Object {
-                                          "MozOsxFontSmoothing": "grayscale",
-                                          "WebkitFontSmoothing": "antialiased",
-                                          "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                          "fontSize": "10px",
-                                          "fontWeight": 600,
-                                        },
-                                        "xLarge": Object {
-                                          "MozOsxFontSmoothing": "grayscale",
-                                          "WebkitFontSmoothing": "antialiased",
-                                          "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                          "fontSize": "21px",
-                                          "fontWeight": 100,
-                                        },
-                                        "xSmall": Object {
-                                          "MozOsxFontSmoothing": "grayscale",
-                                          "WebkitFontSmoothing": "antialiased",
-                                          "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                          "fontSize": "11px",
-                                          "fontWeight": 400,
-                                        },
-                                        "xxLarge": Object {
-                                          "MozOsxFontSmoothing": "grayscale",
-                                          "WebkitFontSmoothing": "antialiased",
-                                          "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                          "fontSize": "28px",
-                                          "fontWeight": 100,
-                                        },
-                                      },
-                                      "isInverted": false,
-                                      "palette": Object {
-                                        "accent": "#0078d4",
-                                        "black": "#000000",
-                                        "blackTranslucent40": "rgba(0,0,0,.4)",
-                                        "blue": "#0078d4",
-                                        "blueDark": "#002050",
-                                        "blueLight": "#00bcf2",
-                                        "blueMid": "#00188f",
-                                        "green": "#107c10",
-                                        "greenDark": "#004b1c",
-                                        "greenLight": "#bad80a",
-                                        "magenta": "#b4009e",
-                                        "magentaDark": "#5c005c",
-                                        "magentaLight": "#e3008c",
-                                        "neutralDark": "#212121",
-                                        "neutralLight": "#eaeaea",
-                                        "neutralLighter": "#f4f4f4",
-                                        "neutralLighterAlt": "#f8f8f8",
-                                        "neutralPrimary": "#333333",
-                                        "neutralPrimaryAlt": "#3c3c3c",
-                                        "neutralQuaternary": "#d0d0d0",
-                                        "neutralQuaternaryAlt": "#dadada",
-                                        "neutralSecondary": "#666666",
-                                        "neutralSecondaryAlt": "#767676",
-                                        "neutralTertiary": "#a6a6a6",
-                                        "neutralTertiaryAlt": "#c8c8c8",
-                                        "orange": "#d83b01",
-                                        "orangeLight": "#ea4300",
-                                        "orangeLighter": "#ff8c00",
-                                        "purple": "#5c2d91",
-                                        "purpleDark": "#32145a",
-                                        "purpleLight": "#b4a0ff",
-                                        "red": "#e81123",
-                                        "redDark": "#a80000",
-                                        "teal": "#008272",
-                                        "tealDark": "#004b50",
-                                        "tealLight": "#00b294",
-                                        "themeDark": "#005a9e",
-                                        "themeDarkAlt": "#106ebe",
-                                        "themeDarker": "#004578",
-                                        "themeLight": "#c7e0f4",
-                                        "themeLighter": "#deecf9",
-                                        "themeLighterAlt": "#eff6fc",
-                                        "themePrimary": "#0078d4",
-                                        "themeSecondary": "#2b88d8",
-                                        "themeTertiary": "#71afe5",
-                                        "white": "#ffffff",
-                                        "whiteTranslucent40": "rgba(255,255,255,.4)",
-                                        "yellow": "#ffb900",
-                                        "yellowDark": "#d29200",
-                                        "yellowLight": "#fff100",
-                                      },
-                                      "semanticColors": Object {
-                                        "accentButtonBackground": "#0078d4",
-                                        "accentButtonText": "#ffffff",
-                                        "actionLink": "#333333",
-                                        "actionLinkHovered": "#212121",
-                                        "blockingBackground": "rgba(234, 67, 0, .2)",
-                                        "bodyBackground": "#ffffff",
-                                        "bodyDivider": "#eaeaea",
-                                        "bodyFrameBackground": "#ffffff",
-                                        "bodyFrameDivider": "#eaeaea",
-                                        "bodyStandoutBackground": "#f8f8f8",
-                                        "bodySubtext": "#666666",
-                                        "bodyText": "#333333",
-                                        "bodyTextChecked": "#000000",
-                                        "buttonBackground": "#f4f4f4",
-                                        "buttonBackgroundChecked": "#c8c8c8",
-                                        "buttonBackgroundCheckedHovered": "#eaeaea",
-                                        "buttonBackgroundDisabled": "#f4f4f4",
-                                        "buttonBackgroundHovered": "#eaeaea",
-                                        "buttonBackgroundPressed": "#eaeaea",
-                                        "buttonBorder": "transparent",
-                                        "buttonBorderDisabled": "transparent",
-                                        "buttonText": "#333333",
-                                        "buttonTextChecked": "#212121",
-                                        "buttonTextCheckedHovered": "#000000",
-                                        "buttonTextDisabled": "#a6a6a6",
-                                        "buttonTextHovered": "#212121",
-                                        "buttonTextPressed": "#212121",
-                                        "defaultStateBackground": "#f8f8f8",
-                                        "disabledBackground": "#f4f4f4",
-                                        "disabledBodySubtext": "#c8c8c8",
-                                        "disabledBodyText": "#a6a6a6",
-                                        "disabledSubtext": "#d0d0d0",
-                                        "disabledText": "#a6a6a6",
-                                        "errorBackground": "rgba(232, 17, 35, .2)",
-                                        "errorText": "#a80000",
-                                        "focusBorder": "#666666",
-                                        "inputBackground": "#ffffff",
-                                        "inputBackgroundChecked": "#0078d4",
-                                        "inputBackgroundCheckedHovered": "#106ebe",
-                                        "inputBorder": "#a6a6a6",
-                                        "inputBorderHovered": "#333333",
-                                        "inputFocusBorderAlt": "#0078d4",
-                                        "inputForegroundChecked": "#ffffff",
-                                        "inputPlaceholderText": "#666666",
-                                        "inputText": "#333333",
-                                        "inputTextHovered": "#212121",
-                                        "link": "#0078d4",
-                                        "linkHovered": "#004578",
-                                        "listBackground": "#ffffff",
-                                        "listHeaderBackgroundHovered": "#f4f4f4",
-                                        "listHeaderBackgroundPressed": "#eaeaea",
-                                        "listItemBackgroundChecked": "#eaeaea",
-                                        "listItemBackgroundCheckedHovered": "#dadada",
-                                        "listItemBackgroundHovered": "#f4f4f4",
-                                        "listText": "#333333",
-                                        "listTextColor": "#333333",
-                                        "menuBackground": "#ffffff",
-                                        "menuDivider": "#c8c8c8",
-                                        "menuHeader": "#0078d4",
-                                        "menuIcon": "#0078d4",
-                                        "menuItemBackgroundChecked": "#eaeaea",
-                                        "menuItemBackgroundHovered": "#f4f4f4",
-                                        "menuItemBackgroundPressed": "#eaeaea",
-                                        "menuItemText": "#333333",
-                                        "menuItemTextHovered": "#212121",
-                                        "primaryButtonBackground": "#0078d4",
-                                        "primaryButtonBackgroundDisabled": "#f4f4f4",
-                                        "primaryButtonBackgroundHovered": "#106ebe",
-                                        "primaryButtonBackgroundPressed": "#005a9e",
-                                        "primaryButtonBorder": "transparent",
-                                        "primaryButtonText": "#ffffff",
-                                        "primaryButtonTextDisabled": "#d0d0d0",
-                                        "primaryButtonTextHovered": "#ffffff",
-                                        "primaryButtonTextPressed": "#ffffff",
-                                        "smallInputBorder": "#666666",
-                                        "successBackground": "rgba(186, 216, 10, .2)",
-                                        "variantBorder": "#eaeaea",
-                                        "variantBorderHovered": "#a6a6a6",
-                                        "warningBackground": "rgba(255, 185, 0, .2)",
-                                        "warningHighlight": "#ffb900",
-                                        "warningText": "#333333",
-                                      },
-                                      "spacing": Object {
-                                        "l1": "20px",
-                                        "l2": "32px",
-                                        "m": "16px",
-                                        "s1": "8px",
-                                        "s2": "4px",
-                                      },
-                                    }
-                                  }
-                                >
-                                  <i
-                                    className="ms-Button-icon icon-62"
-                                    data-icon-name="cancel"
-                                    role="presentation"
-                                  />
-                                </IconBase>
-                              </StyledIconBase>
-                            </div>
-                          </button>
-                        </KeytipData>
-                      </BaseButton>
-                    </IconButton>
-                  </CustomizedIconButton>
                 </div>
               </div>
             </RepositoryLocationListItem>
@@ -1942,7 +887,7 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
                         <KeytipData>
                           <button
                             aria-label="settings.cancel"
-                            className="ms-Button ms-Button--icon remove-button root-57"
+                            className="ms-Button ms-Button--icon remove-button root-62"
                             data-is-focusable={true}
                             onClick={[Function]}
                             onKeyDown={[Function]}
@@ -1954,14 +899,14 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
                             type="button"
                           >
                             <div
-                              className="ms-Button-flexContainer flexContainer-58"
+                              className="ms-Button-flexContainer flexContainer-63"
                             >
                               <StyledIconBase
-                                className="ms-Button-icon icon-60"
+                                className="ms-Button-icon icon-65"
                                 iconName="cancel"
                               >
                                 <IconBase
-                                  className="ms-Button-icon icon-60"
+                                  className="ms-Button-icon icon-65"
                                   iconName="cancel"
                                   styles={[Function]}
                                   theme={
@@ -2200,7 +1145,7 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
                                   }
                                 >
                                   <i
-                                    className="ms-Button-icon icon-62"
+                                    className="ms-Button-icon icon-67"
                                     data-icon-name="cancel"
                                     role="presentation"
                                   />
@@ -2275,12 +1220,6 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
                               "settings.modelDefinitions.repositoryTypes.public.label",
                             ],
                             Array [
-                              "settings.cancel",
-                            ],
-                            Array [
-                              "settings.cancel",
-                            ],
-                            Array [
                               "settings.modelDefinitions.repositoryTypes.device.label",
                             ],
                             Array [
@@ -2337,14 +1276,6 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
                             },
                             Object {
                               "type": "return",
-                              "value": "settings.cancel",
-                            },
-                            Object {
-                              "type": "return",
-                              "value": "settings.cancel",
-                            },
-                            Object {
-                              "type": "return",
                               "value": "settings.modelDefinitions.repositoryTypes.device.label",
                             },
                             Object {
@@ -2398,18 +1329,18 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
                           className="labelSection"
                         >
                           <Component
-                            htmlFor="copyableMaskField16"
+                            htmlFor="copyableMaskField10"
                             required={true}
                           >
                             <div
                               className="labelWithTooltip"
                             >
                               <StyledLabelBase
-                                htmlFor="copyableMaskField16"
+                                htmlFor="copyableMaskField10"
                                 required={true}
                               >
                                 <LabelBase
-                                  htmlFor="copyableMaskField16"
+                                  htmlFor="copyableMaskField10"
                                   required={true}
                                   styles={[Function]}
                                   theme={
@@ -2649,7 +1580,7 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
                                 >
                                   <label
                                     className="ms-Label root-68"
-                                    htmlFor="copyableMaskField16"
+                                    htmlFor="copyableMaskField10"
                                     required={true}
                                   >
                                     settings.modelDefinitions.repositoryTypes.private.textBoxLabel
@@ -2668,7 +1599,7 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
                             <input
                               aria-label="settings.modelDefinitions.repositoryTypes.private.textBoxLabel"
                               className="input"
-                              id="copyableMaskField16"
+                              id="copyableMaskField10"
                               onChange={[Function]}
                               readOnly={false}
                               type="password"
@@ -3467,7 +2398,7 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
                                   <KeytipData>
                                     <button
                                       aria-label="common.copyableMaskField.toggleMask.ariaLabel"
-                                      className="ms-Button ms-Button--icon root-57"
+                                      className="ms-Button ms-Button--icon root-62"
                                       data-is-focusable={true}
                                       onClick={[Function]}
                                       onKeyDown={[Function]}
@@ -3479,14 +2410,14 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
                                       type="button"
                                     >
                                       <div
-                                        className="ms-Button-flexContainer flexContainer-58"
+                                        className="ms-Button-flexContainer flexContainer-63"
                                       >
                                         <StyledIconBase
-                                          className="ms-Button-icon icon-60"
+                                          className="ms-Button-icon icon-65"
                                           iconName="RedEye"
                                         >
                                           <IconBase
-                                            className="ms-Button-icon icon-60"
+                                            className="ms-Button-icon icon-65"
                                             iconName="RedEye"
                                             styles={[Function]}
                                             theme={
@@ -3725,7 +2656,7 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
                                             }
                                           >
                                             <i
-                                              className="ms-Button-icon icon-62"
+                                              className="ms-Button-icon icon-67"
                                               data-icon-name="RedEye"
                                               role="presentation"
                                             />
@@ -4523,7 +3454,7 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
                                   <KeytipData>
                                     <button
                                       aria-label="common.copyableMaskField.copy.ariaLabel"
-                                      className="ms-Button ms-Button--icon root-57"
+                                      className="ms-Button ms-Button--icon root-62"
                                       data-is-focusable={true}
                                       onClick={[Function]}
                                       onKeyDown={[Function]}
@@ -4535,14 +3466,14 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
                                       type="button"
                                     >
                                       <div
-                                        className="ms-Button-flexContainer flexContainer-58"
+                                        className="ms-Button-flexContainer flexContainer-63"
                                       >
                                         <StyledIconBase
-                                          className="ms-Button-icon icon-60"
+                                          className="ms-Button-icon icon-65"
                                           iconName="copy"
                                         >
                                           <IconBase
-                                            className="ms-Button-icon icon-60"
+                                            className="ms-Button-icon icon-65"
                                             iconName="copy"
                                             styles={[Function]}
                                             theme={
@@ -4781,7 +3712,7 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
                                             }
                                           >
                                             <i
-                                              className="ms-Button-icon icon-62"
+                                              className="ms-Button-icon icon-67"
                                               data-icon-name="copy"
                                               role="presentation"
                                             />
@@ -5583,7 +4514,7 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
                         <KeytipData>
                           <button
                             aria-label="settings.cancel"
-                            className="ms-Button ms-Button--icon remove-button root-57"
+                            className="ms-Button ms-Button--icon remove-button root-62"
                             data-is-focusable={true}
                             onClick={[Function]}
                             onKeyDown={[Function]}
@@ -5595,14 +4526,14 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
                             type="button"
                           >
                             <div
-                              className="ms-Button-flexContainer flexContainer-58"
+                              className="ms-Button-flexContainer flexContainer-63"
                             >
                               <StyledIconBase
-                                className="ms-Button-icon icon-60"
+                                className="ms-Button-icon icon-65"
                                 iconName="cancel"
                               >
                                 <IconBase
-                                  className="ms-Button-icon icon-60"
+                                  className="ms-Button-icon icon-65"
                                   iconName="cancel"
                                   styles={[Function]}
                                   theme={
@@ -5841,7 +4772,7 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
                                   }
                                 >
                                   <i
-                                    className="ms-Button-icon icon-62"
+                                    className="ms-Button-icon icon-67"
                                     data-icon-name="cancel"
                                     role="presentation"
                                   />
@@ -6934,8 +5865,8 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
                 >
                   <div
                     className="ms-Button-label label-51"
-                    id="id__28"
-                    key="id__28"
+                    id="id__22"
+                    key="id__22"
                   >
                     settings.modelDefinitions.add
                   </div>
@@ -8615,1061 +7546,6 @@ exports[`components/settings/repositoryLocationList matches snapshot with public
                   >
                     settings.modelDefinitions.repositoryTypes.public.label
                   </div>
-                  <CustomizedIconButton
-                    ariaLabel="settings.cancel"
-                    className="remove-button"
-                    iconProps={
-                      Object {
-                        "iconName": "cancel",
-                      }
-                    }
-                    onClick={[Function]}
-                    title="settings.cancel"
-                  >
-                    <IconButton
-                      ariaLabel="settings.cancel"
-                      className="remove-button"
-                      iconProps={
-                        Object {
-                          "iconName": "cancel",
-                        }
-                      }
-                      onClick={[Function]}
-                      styles={Object {}}
-                      theme={
-                        Object {
-                          "disableGlobalClassNames": false,
-                          "effects": Object {
-                            "elevation16": "0 0 5px 0 rgba(0,0,0,.4)",
-                            "elevation4": "0 0 5px 0 rgba(0,0,0,.4)",
-                            "elevation64": "0 0 5px 0 rgba(0,0,0,.4)",
-                            "elevation8": "0 0 5px 0 rgba(0,0,0,.4)",
-                            "roundedCorner2": "0px",
-                          },
-                          "fonts": Object {
-                            "large": Object {
-                              "MozOsxFontSmoothing": "grayscale",
-                              "WebkitFontSmoothing": "antialiased",
-                              "fontFamily": "'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                              "fontSize": "17px",
-                              "fontWeight": 300,
-                            },
-                            "medium": Object {
-                              "MozOsxFontSmoothing": "grayscale",
-                              "WebkitFontSmoothing": "antialiased",
-                              "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                              "fontSize": "14px",
-                              "fontWeight": 400,
-                            },
-                            "mediumPlus": Object {
-                              "MozOsxFontSmoothing": "grayscale",
-                              "WebkitFontSmoothing": "antialiased",
-                              "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                              "fontSize": "15px",
-                              "fontWeight": 400,
-                            },
-                            "mega": Object {
-                              "MozOsxFontSmoothing": "grayscale",
-                              "WebkitFontSmoothing": "antialiased",
-                              "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                              "fontSize": "72px",
-                              "fontWeight": 100,
-                            },
-                            "small": Object {
-                              "MozOsxFontSmoothing": "grayscale",
-                              "WebkitFontSmoothing": "antialiased",
-                              "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                              "fontSize": "12px",
-                              "fontWeight": 400,
-                            },
-                            "smallPlus": Object {
-                              "MozOsxFontSmoothing": "grayscale",
-                              "WebkitFontSmoothing": "antialiased",
-                              "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                              "fontSize": "13px",
-                              "fontWeight": 400,
-                            },
-                            "superLarge": Object {
-                              "MozOsxFontSmoothing": "grayscale",
-                              "WebkitFontSmoothing": "antialiased",
-                              "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                              "fontSize": "42px",
-                              "fontWeight": 100,
-                            },
-                            "tiny": Object {
-                              "MozOsxFontSmoothing": "grayscale",
-                              "WebkitFontSmoothing": "antialiased",
-                              "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                              "fontSize": "10px",
-                              "fontWeight": 600,
-                            },
-                            "xLarge": Object {
-                              "MozOsxFontSmoothing": "grayscale",
-                              "WebkitFontSmoothing": "antialiased",
-                              "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                              "fontSize": "21px",
-                              "fontWeight": 100,
-                            },
-                            "xSmall": Object {
-                              "MozOsxFontSmoothing": "grayscale",
-                              "WebkitFontSmoothing": "antialiased",
-                              "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                              "fontSize": "11px",
-                              "fontWeight": 400,
-                            },
-                            "xxLarge": Object {
-                              "MozOsxFontSmoothing": "grayscale",
-                              "WebkitFontSmoothing": "antialiased",
-                              "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                              "fontSize": "28px",
-                              "fontWeight": 100,
-                            },
-                          },
-                          "isInverted": false,
-                          "palette": Object {
-                            "accent": "#0078d4",
-                            "black": "#000000",
-                            "blackTranslucent40": "rgba(0,0,0,.4)",
-                            "blue": "#0078d4",
-                            "blueDark": "#002050",
-                            "blueLight": "#00bcf2",
-                            "blueMid": "#00188f",
-                            "green": "#107c10",
-                            "greenDark": "#004b1c",
-                            "greenLight": "#bad80a",
-                            "magenta": "#b4009e",
-                            "magentaDark": "#5c005c",
-                            "magentaLight": "#e3008c",
-                            "neutralDark": "#212121",
-                            "neutralLight": "#eaeaea",
-                            "neutralLighter": "#f4f4f4",
-                            "neutralLighterAlt": "#f8f8f8",
-                            "neutralPrimary": "#333333",
-                            "neutralPrimaryAlt": "#3c3c3c",
-                            "neutralQuaternary": "#d0d0d0",
-                            "neutralQuaternaryAlt": "#dadada",
-                            "neutralSecondary": "#666666",
-                            "neutralSecondaryAlt": "#767676",
-                            "neutralTertiary": "#a6a6a6",
-                            "neutralTertiaryAlt": "#c8c8c8",
-                            "orange": "#d83b01",
-                            "orangeLight": "#ea4300",
-                            "orangeLighter": "#ff8c00",
-                            "purple": "#5c2d91",
-                            "purpleDark": "#32145a",
-                            "purpleLight": "#b4a0ff",
-                            "red": "#e81123",
-                            "redDark": "#a80000",
-                            "teal": "#008272",
-                            "tealDark": "#004b50",
-                            "tealLight": "#00b294",
-                            "themeDark": "#005a9e",
-                            "themeDarkAlt": "#106ebe",
-                            "themeDarker": "#004578",
-                            "themeLight": "#c7e0f4",
-                            "themeLighter": "#deecf9",
-                            "themeLighterAlt": "#eff6fc",
-                            "themePrimary": "#0078d4",
-                            "themeSecondary": "#2b88d8",
-                            "themeTertiary": "#71afe5",
-                            "white": "#ffffff",
-                            "whiteTranslucent40": "rgba(255,255,255,.4)",
-                            "yellow": "#ffb900",
-                            "yellowDark": "#d29200",
-                            "yellowLight": "#fff100",
-                          },
-                          "semanticColors": Object {
-                            "accentButtonBackground": "#0078d4",
-                            "accentButtonText": "#ffffff",
-                            "actionLink": "#333333",
-                            "actionLinkHovered": "#212121",
-                            "blockingBackground": "rgba(234, 67, 0, .2)",
-                            "bodyBackground": "#ffffff",
-                            "bodyDivider": "#eaeaea",
-                            "bodyFrameBackground": "#ffffff",
-                            "bodyFrameDivider": "#eaeaea",
-                            "bodyStandoutBackground": "#f8f8f8",
-                            "bodySubtext": "#666666",
-                            "bodyText": "#333333",
-                            "bodyTextChecked": "#000000",
-                            "buttonBackground": "#f4f4f4",
-                            "buttonBackgroundChecked": "#c8c8c8",
-                            "buttonBackgroundCheckedHovered": "#eaeaea",
-                            "buttonBackgroundDisabled": "#f4f4f4",
-                            "buttonBackgroundHovered": "#eaeaea",
-                            "buttonBackgroundPressed": "#eaeaea",
-                            "buttonBorder": "transparent",
-                            "buttonBorderDisabled": "transparent",
-                            "buttonText": "#333333",
-                            "buttonTextChecked": "#212121",
-                            "buttonTextCheckedHovered": "#000000",
-                            "buttonTextDisabled": "#a6a6a6",
-                            "buttonTextHovered": "#212121",
-                            "buttonTextPressed": "#212121",
-                            "defaultStateBackground": "#f8f8f8",
-                            "disabledBackground": "#f4f4f4",
-                            "disabledBodySubtext": "#c8c8c8",
-                            "disabledBodyText": "#a6a6a6",
-                            "disabledSubtext": "#d0d0d0",
-                            "disabledText": "#a6a6a6",
-                            "errorBackground": "rgba(232, 17, 35, .2)",
-                            "errorText": "#a80000",
-                            "focusBorder": "#666666",
-                            "inputBackground": "#ffffff",
-                            "inputBackgroundChecked": "#0078d4",
-                            "inputBackgroundCheckedHovered": "#106ebe",
-                            "inputBorder": "#a6a6a6",
-                            "inputBorderHovered": "#333333",
-                            "inputFocusBorderAlt": "#0078d4",
-                            "inputForegroundChecked": "#ffffff",
-                            "inputPlaceholderText": "#666666",
-                            "inputText": "#333333",
-                            "inputTextHovered": "#212121",
-                            "link": "#0078d4",
-                            "linkHovered": "#004578",
-                            "listBackground": "#ffffff",
-                            "listHeaderBackgroundHovered": "#f4f4f4",
-                            "listHeaderBackgroundPressed": "#eaeaea",
-                            "listItemBackgroundChecked": "#eaeaea",
-                            "listItemBackgroundCheckedHovered": "#dadada",
-                            "listItemBackgroundHovered": "#f4f4f4",
-                            "listText": "#333333",
-                            "listTextColor": "#333333",
-                            "menuBackground": "#ffffff",
-                            "menuDivider": "#c8c8c8",
-                            "menuHeader": "#0078d4",
-                            "menuIcon": "#0078d4",
-                            "menuItemBackgroundChecked": "#eaeaea",
-                            "menuItemBackgroundHovered": "#f4f4f4",
-                            "menuItemBackgroundPressed": "#eaeaea",
-                            "menuItemText": "#333333",
-                            "menuItemTextHovered": "#212121",
-                            "primaryButtonBackground": "#0078d4",
-                            "primaryButtonBackgroundDisabled": "#f4f4f4",
-                            "primaryButtonBackgroundHovered": "#106ebe",
-                            "primaryButtonBackgroundPressed": "#005a9e",
-                            "primaryButtonBorder": "transparent",
-                            "primaryButtonText": "#ffffff",
-                            "primaryButtonTextDisabled": "#d0d0d0",
-                            "primaryButtonTextHovered": "#ffffff",
-                            "primaryButtonTextPressed": "#ffffff",
-                            "smallInputBorder": "#666666",
-                            "successBackground": "rgba(186, 216, 10, .2)",
-                            "variantBorder": "#eaeaea",
-                            "variantBorderHovered": "#a6a6a6",
-                            "warningBackground": "rgba(255, 185, 0, .2)",
-                            "warningHighlight": "#ffb900",
-                            "warningText": "#333333",
-                          },
-                          "spacing": Object {
-                            "l1": "20px",
-                            "l2": "32px",
-                            "m": "16px",
-                            "s1": "8px",
-                            "s2": "4px",
-                          },
-                        }
-                      }
-                      title="settings.cancel"
-                    >
-                      <BaseButton
-                        ariaLabel="settings.cancel"
-                        baseClassName="ms-Button"
-                        className="remove-button"
-                        iconProps={
-                          Object {
-                            "iconName": "cancel",
-                          }
-                        }
-                        onClick={[Function]}
-                        onRenderDescription={[Function]}
-                        onRenderText={[Function]}
-                        split={false}
-                        styles={
-                          Object {
-                            "flexContainer": Object {
-                              "alignItems": "center",
-                              "display": "flex",
-                              "flexWrap": "nowrap",
-                              "height": "100%",
-                              "justifyContent": "center",
-                            },
-                            "icon": Object {
-                              "flexShrink": 0,
-                              "fontSize": "16px",
-                              "height": "16px",
-                              "lineHeight": "16px",
-                              "margin": "0 4px",
-                              "textAlign": "center",
-                              "verticalAlign": "middle",
-                            },
-                            "iconDisabled": Object {
-                              "color": "#a6a6a6",
-                            },
-                            "label": Object {
-                              "lineHeight": "100%",
-                              "margin": "0 4px",
-                            },
-                            "menuIcon": Array [
-                              Object {
-                                "flexShrink": 0,
-                                "fontSize": "16px",
-                                "height": "16px",
-                                "lineHeight": "16px",
-                                "margin": "0 4px",
-                                "textAlign": "center",
-                                "verticalAlign": "middle",
-                              },
-                              Object {
-                                "fontSize": "12px",
-                              },
-                            ],
-                            "menuIconDisabled": Object {
-                              "color": "#a6a6a6",
-                            },
-                            "root": Array [
-                              Object {
-                                "outline": "transparent",
-                                "position": "relative",
-                                "selectors": Object {
-                                  ".ms-Fabric--isFocusVisible &:focus:after": Object {
-                                    "border": "1px solid #ffffff",
-                                    "bottom": 0,
-                                    "content": "\\"\\"",
-                                    "left": 0,
-                                    "outline": "1px solid #666666",
-                                    "position": "absolute",
-                                    "right": 0,
-                                    "selectors": Object {
-                                      "@media screen and (-ms-high-contrast: active)": Object {
-                                        "border": "none",
-                                        "bottom": -2,
-                                        "left": -2,
-                                        "outlineColor": "ButtonText",
-                                        "right": -2,
-                                        "top": -2,
-                                      },
-                                    },
-                                    "top": 0,
-                                    "zIndex": 1,
-                                  },
-                                  "::-moz-focus-inner": Object {
-                                    "border": "0",
-                                  },
-                                },
-                              },
-                              Object {
-                                "MozOsxFontSmoothing": "grayscale",
-                                "WebkitFontSmoothing": "antialiased",
-                                "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                "fontSize": "14px",
-                                "fontWeight": 400,
-                              },
-                              Object {
-                                "border": "1px solid transparent",
-                                "borderRadius": 0,
-                                "boxSizing": "border-box",
-                                "cursor": "pointer",
-                                "display": "inline-block",
-                                "padding": "0 16px",
-                                "selectors": Object {
-                                  ":active > *": Object {
-                                    "left": 0,
-                                    "position": "relative",
-                                    "top": 0,
-                                  },
-                                },
-                                "textAlign": "center",
-                                "textDecoration": "none",
-                                "userSelect": "none",
-                                "verticalAlign": "top",
-                              },
-                              Object {
-                                "backgroundColor": "transparent",
-                                "border": "none",
-                                "color": "#333333",
-                                "height": "32px",
-                                "padding": "0 4px",
-                                "width": "32px",
-                              },
-                            ],
-                            "rootChecked": Object {
-                              "backgroundColor": "#c8c8c8",
-                            },
-                            "rootCheckedHovered": Object {
-                              "backgroundColor": "#eaeaea",
-                            },
-                            "rootDisabled": Array [
-                              Object {
-                                "outline": "transparent",
-                                "position": "relative",
-                                "selectors": Object {
-                                  ".ms-Fabric--isFocusVisible &:focus:after": Object {
-                                    "border": "1px solid #ffffff",
-                                    "bottom": 0,
-                                    "content": "\\"\\"",
-                                    "left": 0,
-                                    "outline": "1px solid #666666",
-                                    "position": "absolute",
-                                    "right": 0,
-                                    "selectors": Object {
-                                      "@media screen and (-ms-high-contrast: active)": Object {
-                                        "border": "none",
-                                        "bottom": -2,
-                                        "left": -2,
-                                        "outlineColor": "ButtonText",
-                                        "right": -2,
-                                        "top": -2,
-                                      },
-                                    },
-                                    "top": 0,
-                                    "zIndex": 1,
-                                  },
-                                  "::-moz-focus-inner": Object {
-                                    "border": "0",
-                                  },
-                                },
-                              },
-                              Object {
-                                "backgroundColor": "#f4f4f4",
-                                "color": "#a6a6a6",
-                                "cursor": "default",
-                                "pointerEvents": "none",
-                                "selectors": Object {
-                                  ":focus": Object {
-                                    "outline": 0,
-                                  },
-                                  ":hover": Object {
-                                    "outline": 0,
-                                  },
-                                  "@media screen and (-ms-high-contrast: active)": Object {
-                                    "bordercolor": "grayText",
-                                    "color": "grayText",
-                                  },
-                                },
-                              },
-                              Object {
-                                "color": "#a6a6a6",
-                              },
-                            ],
-                            "rootExpanded": Object {
-                              "color": "#0078d4",
-                            },
-                            "rootHovered": Object {
-                              "color": "#212121",
-                              "selectors": Object {
-                                "@media screen and (-ms-high-contrast: active)": Object {
-                                  "borderColor": "Highlight",
-                                  "color": "Highlight",
-                                },
-                              },
-                            },
-                            "rootPressed": Object {
-                              "color": "#0078d4",
-                            },
-                            "screenReaderText": Object {
-                              "border": 0,
-                              "height": 1,
-                              "margin": -1,
-                              "overflow": "hidden",
-                              "padding": 0,
-                              "position": "absolute",
-                              "width": 1,
-                            },
-                            "splitButtonContainer": Array [
-                              Object {
-                                "outline": "transparent",
-                                "position": "relative",
-                                "selectors": Object {
-                                  ".ms-Fabric--isFocusVisible &:focus:after": Object {
-                                    "border": "1px solid #ffffff",
-                                    "bottom": 1,
-                                    "content": "\\"\\"",
-                                    "left": 1,
-                                    "outline": "1px solid #666666",
-                                    "position": "absolute",
-                                    "right": 1,
-                                    "selectors": Object {
-                                      "@media screen and (-ms-high-contrast: active)": Object {
-                                        "border": "none",
-                                        "bottom": -2,
-                                        "left": -2,
-                                        "right": -2,
-                                        "top": -2,
-                                      },
-                                    },
-                                    "top": 1,
-                                    "zIndex": 1,
-                                  },
-                                  "::-moz-focus-inner": Object {
-                                    "border": "0",
-                                  },
-                                },
-                              },
-                              Object {
-                                "display": "inline-flex",
-                              },
-                            ],
-                            "splitButtonContainerDisabled": Object {
-                              "border": "none",
-                              "outline": "none",
-                            },
-                            "splitButtonContainerFocused": Object {
-                              "outline": "none!important",
-                            },
-                            "splitButtonDivider": Object {
-                              "bottom": 8,
-                              "position": "absolute",
-                              "right": 31,
-                              "top": 8,
-                              "width": 1,
-                            },
-                            "splitButtonFlexContainer": Object {
-                              "alignItems": "center",
-                              "display": "flex",
-                              "flexWrap": "nowrap",
-                              "height": "100%",
-                              "justifyContent": "center",
-                            },
-                            "splitButtonMenuButton": Object {
-                              "border": 0,
-                              "borderRadius": 0,
-                              "boxSizing": "border-box",
-                              "cursor": "pointer",
-                              "display": "inline-block",
-                              "height": "auto",
-                              "marginLeft": -1,
-                              "outline": "transparent",
-                              "padding": 6,
-                              "textAlign": "center",
-                              "textDecoration": "none",
-                              "userSelect": "none",
-                              "verticalAlign": "top",
-                              "width": 32,
-                            },
-                            "splitButtonMenuButtonDisabled": Object {
-                              "pointerEvents": "none",
-                              "selectors": Object {
-                                ":hover": Object {
-                                  "cursor": "default",
-                                },
-                              },
-                            },
-                            "textContainer": Object {
-                              "flexGrow": 1,
-                            },
-                          }
-                        }
-                        theme={
-                          Object {
-                            "disableGlobalClassNames": false,
-                            "effects": Object {
-                              "elevation16": "0 0 5px 0 rgba(0,0,0,.4)",
-                              "elevation4": "0 0 5px 0 rgba(0,0,0,.4)",
-                              "elevation64": "0 0 5px 0 rgba(0,0,0,.4)",
-                              "elevation8": "0 0 5px 0 rgba(0,0,0,.4)",
-                              "roundedCorner2": "0px",
-                            },
-                            "fonts": Object {
-                              "large": Object {
-                                "MozOsxFontSmoothing": "grayscale",
-                                "WebkitFontSmoothing": "antialiased",
-                                "fontFamily": "'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                "fontSize": "17px",
-                                "fontWeight": 300,
-                              },
-                              "medium": Object {
-                                "MozOsxFontSmoothing": "grayscale",
-                                "WebkitFontSmoothing": "antialiased",
-                                "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                "fontSize": "14px",
-                                "fontWeight": 400,
-                              },
-                              "mediumPlus": Object {
-                                "MozOsxFontSmoothing": "grayscale",
-                                "WebkitFontSmoothing": "antialiased",
-                                "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                "fontSize": "15px",
-                                "fontWeight": 400,
-                              },
-                              "mega": Object {
-                                "MozOsxFontSmoothing": "grayscale",
-                                "WebkitFontSmoothing": "antialiased",
-                                "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                "fontSize": "72px",
-                                "fontWeight": 100,
-                              },
-                              "small": Object {
-                                "MozOsxFontSmoothing": "grayscale",
-                                "WebkitFontSmoothing": "antialiased",
-                                "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                "fontSize": "12px",
-                                "fontWeight": 400,
-                              },
-                              "smallPlus": Object {
-                                "MozOsxFontSmoothing": "grayscale",
-                                "WebkitFontSmoothing": "antialiased",
-                                "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                "fontSize": "13px",
-                                "fontWeight": 400,
-                              },
-                              "superLarge": Object {
-                                "MozOsxFontSmoothing": "grayscale",
-                                "WebkitFontSmoothing": "antialiased",
-                                "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                "fontSize": "42px",
-                                "fontWeight": 100,
-                              },
-                              "tiny": Object {
-                                "MozOsxFontSmoothing": "grayscale",
-                                "WebkitFontSmoothing": "antialiased",
-                                "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                "fontSize": "10px",
-                                "fontWeight": 600,
-                              },
-                              "xLarge": Object {
-                                "MozOsxFontSmoothing": "grayscale",
-                                "WebkitFontSmoothing": "antialiased",
-                                "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                "fontSize": "21px",
-                                "fontWeight": 100,
-                              },
-                              "xSmall": Object {
-                                "MozOsxFontSmoothing": "grayscale",
-                                "WebkitFontSmoothing": "antialiased",
-                                "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                "fontSize": "11px",
-                                "fontWeight": 400,
-                              },
-                              "xxLarge": Object {
-                                "MozOsxFontSmoothing": "grayscale",
-                                "WebkitFontSmoothing": "antialiased",
-                                "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                "fontSize": "28px",
-                                "fontWeight": 100,
-                              },
-                            },
-                            "isInverted": false,
-                            "palette": Object {
-                              "accent": "#0078d4",
-                              "black": "#000000",
-                              "blackTranslucent40": "rgba(0,0,0,.4)",
-                              "blue": "#0078d4",
-                              "blueDark": "#002050",
-                              "blueLight": "#00bcf2",
-                              "blueMid": "#00188f",
-                              "green": "#107c10",
-                              "greenDark": "#004b1c",
-                              "greenLight": "#bad80a",
-                              "magenta": "#b4009e",
-                              "magentaDark": "#5c005c",
-                              "magentaLight": "#e3008c",
-                              "neutralDark": "#212121",
-                              "neutralLight": "#eaeaea",
-                              "neutralLighter": "#f4f4f4",
-                              "neutralLighterAlt": "#f8f8f8",
-                              "neutralPrimary": "#333333",
-                              "neutralPrimaryAlt": "#3c3c3c",
-                              "neutralQuaternary": "#d0d0d0",
-                              "neutralQuaternaryAlt": "#dadada",
-                              "neutralSecondary": "#666666",
-                              "neutralSecondaryAlt": "#767676",
-                              "neutralTertiary": "#a6a6a6",
-                              "neutralTertiaryAlt": "#c8c8c8",
-                              "orange": "#d83b01",
-                              "orangeLight": "#ea4300",
-                              "orangeLighter": "#ff8c00",
-                              "purple": "#5c2d91",
-                              "purpleDark": "#32145a",
-                              "purpleLight": "#b4a0ff",
-                              "red": "#e81123",
-                              "redDark": "#a80000",
-                              "teal": "#008272",
-                              "tealDark": "#004b50",
-                              "tealLight": "#00b294",
-                              "themeDark": "#005a9e",
-                              "themeDarkAlt": "#106ebe",
-                              "themeDarker": "#004578",
-                              "themeLight": "#c7e0f4",
-                              "themeLighter": "#deecf9",
-                              "themeLighterAlt": "#eff6fc",
-                              "themePrimary": "#0078d4",
-                              "themeSecondary": "#2b88d8",
-                              "themeTertiary": "#71afe5",
-                              "white": "#ffffff",
-                              "whiteTranslucent40": "rgba(255,255,255,.4)",
-                              "yellow": "#ffb900",
-                              "yellowDark": "#d29200",
-                              "yellowLight": "#fff100",
-                            },
-                            "semanticColors": Object {
-                              "accentButtonBackground": "#0078d4",
-                              "accentButtonText": "#ffffff",
-                              "actionLink": "#333333",
-                              "actionLinkHovered": "#212121",
-                              "blockingBackground": "rgba(234, 67, 0, .2)",
-                              "bodyBackground": "#ffffff",
-                              "bodyDivider": "#eaeaea",
-                              "bodyFrameBackground": "#ffffff",
-                              "bodyFrameDivider": "#eaeaea",
-                              "bodyStandoutBackground": "#f8f8f8",
-                              "bodySubtext": "#666666",
-                              "bodyText": "#333333",
-                              "bodyTextChecked": "#000000",
-                              "buttonBackground": "#f4f4f4",
-                              "buttonBackgroundChecked": "#c8c8c8",
-                              "buttonBackgroundCheckedHovered": "#eaeaea",
-                              "buttonBackgroundDisabled": "#f4f4f4",
-                              "buttonBackgroundHovered": "#eaeaea",
-                              "buttonBackgroundPressed": "#eaeaea",
-                              "buttonBorder": "transparent",
-                              "buttonBorderDisabled": "transparent",
-                              "buttonText": "#333333",
-                              "buttonTextChecked": "#212121",
-                              "buttonTextCheckedHovered": "#000000",
-                              "buttonTextDisabled": "#a6a6a6",
-                              "buttonTextHovered": "#212121",
-                              "buttonTextPressed": "#212121",
-                              "defaultStateBackground": "#f8f8f8",
-                              "disabledBackground": "#f4f4f4",
-                              "disabledBodySubtext": "#c8c8c8",
-                              "disabledBodyText": "#a6a6a6",
-                              "disabledSubtext": "#d0d0d0",
-                              "disabledText": "#a6a6a6",
-                              "errorBackground": "rgba(232, 17, 35, .2)",
-                              "errorText": "#a80000",
-                              "focusBorder": "#666666",
-                              "inputBackground": "#ffffff",
-                              "inputBackgroundChecked": "#0078d4",
-                              "inputBackgroundCheckedHovered": "#106ebe",
-                              "inputBorder": "#a6a6a6",
-                              "inputBorderHovered": "#333333",
-                              "inputFocusBorderAlt": "#0078d4",
-                              "inputForegroundChecked": "#ffffff",
-                              "inputPlaceholderText": "#666666",
-                              "inputText": "#333333",
-                              "inputTextHovered": "#212121",
-                              "link": "#0078d4",
-                              "linkHovered": "#004578",
-                              "listBackground": "#ffffff",
-                              "listHeaderBackgroundHovered": "#f4f4f4",
-                              "listHeaderBackgroundPressed": "#eaeaea",
-                              "listItemBackgroundChecked": "#eaeaea",
-                              "listItemBackgroundCheckedHovered": "#dadada",
-                              "listItemBackgroundHovered": "#f4f4f4",
-                              "listText": "#333333",
-                              "listTextColor": "#333333",
-                              "menuBackground": "#ffffff",
-                              "menuDivider": "#c8c8c8",
-                              "menuHeader": "#0078d4",
-                              "menuIcon": "#0078d4",
-                              "menuItemBackgroundChecked": "#eaeaea",
-                              "menuItemBackgroundHovered": "#f4f4f4",
-                              "menuItemBackgroundPressed": "#eaeaea",
-                              "menuItemText": "#333333",
-                              "menuItemTextHovered": "#212121",
-                              "primaryButtonBackground": "#0078d4",
-                              "primaryButtonBackgroundDisabled": "#f4f4f4",
-                              "primaryButtonBackgroundHovered": "#106ebe",
-                              "primaryButtonBackgroundPressed": "#005a9e",
-                              "primaryButtonBorder": "transparent",
-                              "primaryButtonText": "#ffffff",
-                              "primaryButtonTextDisabled": "#d0d0d0",
-                              "primaryButtonTextHovered": "#ffffff",
-                              "primaryButtonTextPressed": "#ffffff",
-                              "smallInputBorder": "#666666",
-                              "successBackground": "rgba(186, 216, 10, .2)",
-                              "variantBorder": "#eaeaea",
-                              "variantBorderHovered": "#a6a6a6",
-                              "warningBackground": "rgba(255, 185, 0, .2)",
-                              "warningHighlight": "#ffb900",
-                              "warningText": "#333333",
-                            },
-                            "spacing": Object {
-                              "l1": "20px",
-                              "l2": "32px",
-                              "m": "16px",
-                              "s1": "8px",
-                              "s2": "4px",
-                            },
-                          }
-                        }
-                        title="settings.cancel"
-                        variantClassName="ms-Button--icon"
-                      >
-                        <KeytipData>
-                          <button
-                            aria-label="settings.cancel"
-                            className="ms-Button ms-Button--icon remove-button root-57"
-                            data-is-focusable={true}
-                            onClick={[Function]}
-                            onKeyDown={[Function]}
-                            onKeyPress={[Function]}
-                            onKeyUp={[Function]}
-                            onMouseDown={[Function]}
-                            onMouseUp={[Function]}
-                            title="settings.cancel"
-                            type="button"
-                          >
-                            <div
-                              className="ms-Button-flexContainer flexContainer-58"
-                            >
-                              <StyledIconBase
-                                className="ms-Button-icon icon-60"
-                                iconName="cancel"
-                              >
-                                <IconBase
-                                  className="ms-Button-icon icon-60"
-                                  iconName="cancel"
-                                  styles={[Function]}
-                                  theme={
-                                    Object {
-                                      "disableGlobalClassNames": false,
-                                      "effects": Object {
-                                        "elevation16": "0 0 5px 0 rgba(0,0,0,.4)",
-                                        "elevation4": "0 0 5px 0 rgba(0,0,0,.4)",
-                                        "elevation64": "0 0 5px 0 rgba(0,0,0,.4)",
-                                        "elevation8": "0 0 5px 0 rgba(0,0,0,.4)",
-                                        "roundedCorner2": "0px",
-                                      },
-                                      "fonts": Object {
-                                        "large": Object {
-                                          "MozOsxFontSmoothing": "grayscale",
-                                          "WebkitFontSmoothing": "antialiased",
-                                          "fontFamily": "'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                          "fontSize": "17px",
-                                          "fontWeight": 300,
-                                        },
-                                        "medium": Object {
-                                          "MozOsxFontSmoothing": "grayscale",
-                                          "WebkitFontSmoothing": "antialiased",
-                                          "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                          "fontSize": "14px",
-                                          "fontWeight": 400,
-                                        },
-                                        "mediumPlus": Object {
-                                          "MozOsxFontSmoothing": "grayscale",
-                                          "WebkitFontSmoothing": "antialiased",
-                                          "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                          "fontSize": "15px",
-                                          "fontWeight": 400,
-                                        },
-                                        "mega": Object {
-                                          "MozOsxFontSmoothing": "grayscale",
-                                          "WebkitFontSmoothing": "antialiased",
-                                          "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                          "fontSize": "72px",
-                                          "fontWeight": 100,
-                                        },
-                                        "small": Object {
-                                          "MozOsxFontSmoothing": "grayscale",
-                                          "WebkitFontSmoothing": "antialiased",
-                                          "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                          "fontSize": "12px",
-                                          "fontWeight": 400,
-                                        },
-                                        "smallPlus": Object {
-                                          "MozOsxFontSmoothing": "grayscale",
-                                          "WebkitFontSmoothing": "antialiased",
-                                          "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                          "fontSize": "13px",
-                                          "fontWeight": 400,
-                                        },
-                                        "superLarge": Object {
-                                          "MozOsxFontSmoothing": "grayscale",
-                                          "WebkitFontSmoothing": "antialiased",
-                                          "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                          "fontSize": "42px",
-                                          "fontWeight": 100,
-                                        },
-                                        "tiny": Object {
-                                          "MozOsxFontSmoothing": "grayscale",
-                                          "WebkitFontSmoothing": "antialiased",
-                                          "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                          "fontSize": "10px",
-                                          "fontWeight": 600,
-                                        },
-                                        "xLarge": Object {
-                                          "MozOsxFontSmoothing": "grayscale",
-                                          "WebkitFontSmoothing": "antialiased",
-                                          "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                          "fontSize": "21px",
-                                          "fontWeight": 100,
-                                        },
-                                        "xSmall": Object {
-                                          "MozOsxFontSmoothing": "grayscale",
-                                          "WebkitFontSmoothing": "antialiased",
-                                          "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                          "fontSize": "11px",
-                                          "fontWeight": 400,
-                                        },
-                                        "xxLarge": Object {
-                                          "MozOsxFontSmoothing": "grayscale",
-                                          "WebkitFontSmoothing": "antialiased",
-                                          "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                                          "fontSize": "28px",
-                                          "fontWeight": 100,
-                                        },
-                                      },
-                                      "isInverted": false,
-                                      "palette": Object {
-                                        "accent": "#0078d4",
-                                        "black": "#000000",
-                                        "blackTranslucent40": "rgba(0,0,0,.4)",
-                                        "blue": "#0078d4",
-                                        "blueDark": "#002050",
-                                        "blueLight": "#00bcf2",
-                                        "blueMid": "#00188f",
-                                        "green": "#107c10",
-                                        "greenDark": "#004b1c",
-                                        "greenLight": "#bad80a",
-                                        "magenta": "#b4009e",
-                                        "magentaDark": "#5c005c",
-                                        "magentaLight": "#e3008c",
-                                        "neutralDark": "#212121",
-                                        "neutralLight": "#eaeaea",
-                                        "neutralLighter": "#f4f4f4",
-                                        "neutralLighterAlt": "#f8f8f8",
-                                        "neutralPrimary": "#333333",
-                                        "neutralPrimaryAlt": "#3c3c3c",
-                                        "neutralQuaternary": "#d0d0d0",
-                                        "neutralQuaternaryAlt": "#dadada",
-                                        "neutralSecondary": "#666666",
-                                        "neutralSecondaryAlt": "#767676",
-                                        "neutralTertiary": "#a6a6a6",
-                                        "neutralTertiaryAlt": "#c8c8c8",
-                                        "orange": "#d83b01",
-                                        "orangeLight": "#ea4300",
-                                        "orangeLighter": "#ff8c00",
-                                        "purple": "#5c2d91",
-                                        "purpleDark": "#32145a",
-                                        "purpleLight": "#b4a0ff",
-                                        "red": "#e81123",
-                                        "redDark": "#a80000",
-                                        "teal": "#008272",
-                                        "tealDark": "#004b50",
-                                        "tealLight": "#00b294",
-                                        "themeDark": "#005a9e",
-                                        "themeDarkAlt": "#106ebe",
-                                        "themeDarker": "#004578",
-                                        "themeLight": "#c7e0f4",
-                                        "themeLighter": "#deecf9",
-                                        "themeLighterAlt": "#eff6fc",
-                                        "themePrimary": "#0078d4",
-                                        "themeSecondary": "#2b88d8",
-                                        "themeTertiary": "#71afe5",
-                                        "white": "#ffffff",
-                                        "whiteTranslucent40": "rgba(255,255,255,.4)",
-                                        "yellow": "#ffb900",
-                                        "yellowDark": "#d29200",
-                                        "yellowLight": "#fff100",
-                                      },
-                                      "semanticColors": Object {
-                                        "accentButtonBackground": "#0078d4",
-                                        "accentButtonText": "#ffffff",
-                                        "actionLink": "#333333",
-                                        "actionLinkHovered": "#212121",
-                                        "blockingBackground": "rgba(234, 67, 0, .2)",
-                                        "bodyBackground": "#ffffff",
-                                        "bodyDivider": "#eaeaea",
-                                        "bodyFrameBackground": "#ffffff",
-                                        "bodyFrameDivider": "#eaeaea",
-                                        "bodyStandoutBackground": "#f8f8f8",
-                                        "bodySubtext": "#666666",
-                                        "bodyText": "#333333",
-                                        "bodyTextChecked": "#000000",
-                                        "buttonBackground": "#f4f4f4",
-                                        "buttonBackgroundChecked": "#c8c8c8",
-                                        "buttonBackgroundCheckedHovered": "#eaeaea",
-                                        "buttonBackgroundDisabled": "#f4f4f4",
-                                        "buttonBackgroundHovered": "#eaeaea",
-                                        "buttonBackgroundPressed": "#eaeaea",
-                                        "buttonBorder": "transparent",
-                                        "buttonBorderDisabled": "transparent",
-                                        "buttonText": "#333333",
-                                        "buttonTextChecked": "#212121",
-                                        "buttonTextCheckedHovered": "#000000",
-                                        "buttonTextDisabled": "#a6a6a6",
-                                        "buttonTextHovered": "#212121",
-                                        "buttonTextPressed": "#212121",
-                                        "defaultStateBackground": "#f8f8f8",
-                                        "disabledBackground": "#f4f4f4",
-                                        "disabledBodySubtext": "#c8c8c8",
-                                        "disabledBodyText": "#a6a6a6",
-                                        "disabledSubtext": "#d0d0d0",
-                                        "disabledText": "#a6a6a6",
-                                        "errorBackground": "rgba(232, 17, 35, .2)",
-                                        "errorText": "#a80000",
-                                        "focusBorder": "#666666",
-                                        "inputBackground": "#ffffff",
-                                        "inputBackgroundChecked": "#0078d4",
-                                        "inputBackgroundCheckedHovered": "#106ebe",
-                                        "inputBorder": "#a6a6a6",
-                                        "inputBorderHovered": "#333333",
-                                        "inputFocusBorderAlt": "#0078d4",
-                                        "inputForegroundChecked": "#ffffff",
-                                        "inputPlaceholderText": "#666666",
-                                        "inputText": "#333333",
-                                        "inputTextHovered": "#212121",
-                                        "link": "#0078d4",
-                                        "linkHovered": "#004578",
-                                        "listBackground": "#ffffff",
-                                        "listHeaderBackgroundHovered": "#f4f4f4",
-                                        "listHeaderBackgroundPressed": "#eaeaea",
-                                        "listItemBackgroundChecked": "#eaeaea",
-                                        "listItemBackgroundCheckedHovered": "#dadada",
-                                        "listItemBackgroundHovered": "#f4f4f4",
-                                        "listText": "#333333",
-                                        "listTextColor": "#333333",
-                                        "menuBackground": "#ffffff",
-                                        "menuDivider": "#c8c8c8",
-                                        "menuHeader": "#0078d4",
-                                        "menuIcon": "#0078d4",
-                                        "menuItemBackgroundChecked": "#eaeaea",
-                                        "menuItemBackgroundHovered": "#f4f4f4",
-                                        "menuItemBackgroundPressed": "#eaeaea",
-                                        "menuItemText": "#333333",
-                                        "menuItemTextHovered": "#212121",
-                                        "primaryButtonBackground": "#0078d4",
-                                        "primaryButtonBackgroundDisabled": "#f4f4f4",
-                                        "primaryButtonBackgroundHovered": "#106ebe",
-                                        "primaryButtonBackgroundPressed": "#005a9e",
-                                        "primaryButtonBorder": "transparent",
-                                        "primaryButtonText": "#ffffff",
-                                        "primaryButtonTextDisabled": "#d0d0d0",
-                                        "primaryButtonTextHovered": "#ffffff",
-                                        "primaryButtonTextPressed": "#ffffff",
-                                        "smallInputBorder": "#666666",
-                                        "successBackground": "rgba(186, 216, 10, .2)",
-                                        "variantBorder": "#eaeaea",
-                                        "variantBorderHovered": "#a6a6a6",
-                                        "warningBackground": "rgba(255, 185, 0, .2)",
-                                        "warningHighlight": "#ffb900",
-                                        "warningText": "#333333",
-                                      },
-                                      "spacing": Object {
-                                        "l1": "20px",
-                                        "l2": "32px",
-                                        "m": "16px",
-                                        "s1": "8px",
-                                        "s2": "4px",
-                                      },
-                                    }
-                                  }
-                                >
-                                  <i
-                                    className="ms-Button-icon icon-62"
-                                    data-icon-name="cancel"
-                                    role="presentation"
-                                  />
-                                </IconBase>
-                              </StyledIconBase>
-                            </div>
-                          </button>
-                        </KeytipData>
-                      </BaseButton>
-                    </IconButton>
-                  </CustomizedIconButton>
                 </div>
               </div>
             </RepositoryLocationListItem>
@@ -10481,7 +8357,7 @@ exports[`components/settings/repositoryLocationList matches snapshot with public
               aria-expanded={false}
               aria-haspopup={true}
               aria-owns={null}
-              className="ms-Button ms-Button--action ms-Button--command root-63"
+              className="ms-Button ms-Button--action ms-Button--command root-57"
               data-is-focusable={true}
               onClick={[Function]}
               onKeyDown={[Function]}
@@ -10495,11 +8371,11 @@ exports[`components/settings/repositoryLocationList matches snapshot with public
                 className="ms-Button-flexContainer flexContainer-48"
               >
                 <StyledIconBase
-                  className="ms-Button-icon icon-64"
+                  className="ms-Button-icon icon-58"
                   iconName="Add"
                 >
                   <IconBase
-                    className="ms-Button-icon icon-64"
+                    className="ms-Button-icon icon-58"
                     iconName="Add"
                     styles={[Function]}
                     theme={
@@ -10738,7 +8614,7 @@ exports[`components/settings/repositoryLocationList matches snapshot with public
                     }
                   >
                     <i
-                      className="ms-Button-icon icon-66"
+                      className="ms-Button-icon icon-60"
                       data-icon-name="Add"
                       role="presentation"
                     />
@@ -10749,18 +8625,18 @@ exports[`components/settings/repositoryLocationList matches snapshot with public
                 >
                   <div
                     className="ms-Button-label label-51"
-                    id="id__7"
-                    key="id__7"
+                    id="id__4"
+                    key="id__4"
                   >
                     settings.modelDefinitions.add
                   </div>
                 </div>
                 <StyledIconBase
-                  className="ms-Button-menuIcon menuIcon-65"
+                  className="ms-Button-menuIcon menuIcon-59"
                   iconName="ChevronDown"
                 >
                   <IconBase
-                    className="ms-Button-menuIcon menuIcon-65"
+                    className="ms-Button-menuIcon menuIcon-59"
                     iconName="ChevronDown"
                     styles={[Function]}
                     theme={
@@ -10999,7 +8875,7 @@ exports[`components/settings/repositoryLocationList matches snapshot with public
                     }
                   >
                     <i
-                      className="ms-Button-menuIcon menuIcon-67"
+                      className="ms-Button-menuIcon menuIcon-61"
                       data-icon-name="ChevronDown"
                       role="presentation"
                     />
