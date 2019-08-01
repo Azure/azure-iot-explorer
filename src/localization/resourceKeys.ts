@@ -408,6 +408,7 @@ export class ResourceKeys {
       configuration : {
          connectionString : {
             label : "settings.configuration.connectionString.label",
+            link : "settings.configuration.connectionString.link",
             sublabel : "settings.configuration.connectionString.sublabel",
          },
          headerText : "settings.configuration.headerText",

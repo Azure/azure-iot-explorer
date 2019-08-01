@@ -105,3 +105,23 @@
         margin-bottom: 30px;
     }
 }
+.callout-wrapper {
+    max-width: 300px;
+    min-width: 250px;
+    .content {
+        margin: {
+            top: 5px;
+            bottom: 3px;
+            right: 5px;
+            left: 5px;
+        }
+        min-height: 20px;
+    }
+    .footer {
+        margin: {
+            bottom: 3px;
+            left: 5px;
+        }
+        width: 100%;
+    }
+}

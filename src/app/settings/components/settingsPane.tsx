@@ -82,7 +82,19 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
                             error={this.state.error && context.t(this.state.error)}
                             ariaLabel={context.t(ResourceKeys.connectivityPane.connectionStringTextBox.label)}
                             label={context.t(ResourceKeys.connectivityPane.connectionStringTextBox.label)}
-                            labelCallout={context.t(ResourceKeys.settings.configuration.connectionString.sublabel)}
+                            calloutContent={(<div className="callout-wrapper">
+                            <div className="content">
+                                {context.t(ResourceKeys.settings.configuration.connectionString.sublabel)}
+                            </div>
+                            <div className="footer">
+                                <Link
+                                    href={context.t(ResourceKeys.settings.configuration.connectionString.link)}
+                                    target="_blank"
+                                >
+                                    {context.t(ResourceKeys.settings.configuration.connectionString.link)}
+                                </Link>
+                            </div>
+                        </div>)}
                             value={this.state.hubConnectionString}
                             allowMask={true}
                             readOnly={false}
