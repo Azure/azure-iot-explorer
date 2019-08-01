@@ -186,6 +186,7 @@
     "testResultsProcessor": "./jestTrxProcessor.ts",
     "globals": {
       "__DEV__": true,
+      "_CONTROLLER_ENDPOINT": "_CONTROLLER_ENDPOINT",
       "frameSignature": "portalEnvironmentFrameSignature",
       "ts-jest": {
         "tsConfig": "./tsconfig-jest.json",

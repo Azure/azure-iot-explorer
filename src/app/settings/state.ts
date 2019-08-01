@@ -43,7 +43,7 @@ export const applicationStateInitial =
             },
         repositoryLocations: localStorage.getItem(REPO_LOCATIONS) ?
             localStorage.getItem(REPO_LOCATIONS).split(',').map(location => location as REPOSITORY_LOCATION_TYPE) :
-            [REPOSITORY_LOCATION_TYPE.Public],
+            [REPOSITORY_LOCATION_TYPE.Public, REPOSITORY_LOCATION_TYPE.Device],
         showSettings: false,
     });
 

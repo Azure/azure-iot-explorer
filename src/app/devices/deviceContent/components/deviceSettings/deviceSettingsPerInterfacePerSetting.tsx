@@ -18,6 +18,7 @@ import { RenderSimplyTypeValue } from '../shared/simpleReportedSection';
 import { RenderDesiredState } from '../shared/desiredStateStatus';
 import { PatchDigitalTwinInterfacePropertiesActionParameters } from '../../actions';
 import { generateInterfacePropertiesPayload } from '../../sagas/digitalTwinInterfacePropertySaga';
+import { Reported } from '../../../../api/models/digitalTwinModels';
 import '../../../../css/_deviceSettings.scss';
 
 export interface DeviceSettingDataProps extends TwinWithSchema {
@@ -34,7 +35,7 @@ export interface DeviceSettingDispatchProps {
 
 export interface TwinWithSchema {
     desiredTwin: any; // tslint:disable-line: no-any
-    reportedTwin: any; // tslint:disable-line: no-any
+    reportedTwin: Reported;
 
     settingModelDefinition: PropertyContent;
     settingSchema: ParsedJsonSchema;
@@ -142,9 +143,9 @@ export default class DeviceSettingsPerInterfacePerSetting
                         }
                     </Stack.Item>
                     {reportedTwin && reportedTwin.desiredState &&
-                    <Stack.Item align="end">
-                        {RenderDesiredState(reportedTwin.desiredState)}
-                    </Stack.Item>
+                        <Stack.Item align="end">
+                            {RenderDesiredState(reportedTwin.desiredState)}
+                        </Stack.Item>
                     }
                 </Stack>
             </div>
@@ -211,6 +212,7 @@ export default class DeviceSettingsPerInterfacePerSetting
     private readonly createSettingsPayload = (interfaceName: string, propertyKey: string, patchData: object) => {
         return generateInterfacePropertiesPayload(interfaceName, propertyKey, patchData);
     }
+
     private readonly onSubmit = (twin: any) => () => { // tslint:disable-line:no-any
         this.props.patchDigitalTwinInterfaceProperties({
             digitalTwinId: this.props.deviceId,

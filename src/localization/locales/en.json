@@ -117,7 +117,7 @@
             "ariaLabel": "check box for remember my connection string",
             "tooltip": "The connection string will be stored in the browser local storage"
         },
-        "notes": "We will look for your model definition first in the Public repository and then will look to other locations. To change or update this, go to Settings at any time.",
+        "notes": "For Plug and Play devices, we will look for your model definition first in the Public repository and then on connected device. To enable more model definition sources, go to Settings at any time.",
         "saveButton": {
             "label": "Connect"
         }
