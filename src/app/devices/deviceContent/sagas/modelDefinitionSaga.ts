@@ -70,7 +70,7 @@ function *getModelDefinitionFromPrivateRepo(action: Action<GetModelDefinitionAct
     const repoConnectionStringInfo = getRepoConnectionInfoFromConnectionString(location.connectionString);
     const parameters: FetchModelParameters = {
         id: action.payload.interfaceId,
-        repoServiceEndpoint: repoConnectionStringInfo.hostName,
+        repoServiceHostName: repoConnectionStringInfo.hostName,
         repositoryId: repoConnectionStringInfo.repositoryId,
         token: yield call(getRepoTokenSaga, location.repositoryLocationType)
     };
@@ -80,7 +80,7 @@ function *getModelDefinitionFromPrivateRepo(action: Action<GetModelDefinitionAct
 function *getModelDefinitionFromPublicRepo(action: Action<GetModelDefinitionActionParameters>, location: RepositoryLocationSettings) {
     const parameters: FetchModelParameters = {
         id: action.payload.interfaceId,
-        repoServiceEndpoint: yield select(getPublicRepositoryHostName),
+        repoServiceHostName: yield select(getPublicRepositoryHostName),
         token: yield call(getRepoTokenSaga, location.repositoryLocationType)
     };
     return yield call(fetchModelDefinition, parameters);

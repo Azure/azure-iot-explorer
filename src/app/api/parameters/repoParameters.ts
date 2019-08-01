@@ -5,7 +5,7 @@
 import { MetaModelType } from '../models/metamodelMetadata';
 
 export interface RepoParametersBase {
-    repoServiceEndpoint: string;
+    repoServiceHostName: string;
     repositoryId?: string;
 }
 

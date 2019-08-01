@@ -19,7 +19,7 @@ export const fetchModel = async (parameters: FetchModelParameters): Promise<PnPM
     const apiVersionQuerySTring = `?${API_VERSION}${DIGITAL_TWIN_API_VERSION}`;
     const queryString = `${apiVersionQuerySTring}${expandQueryString}${repositoryQueryString}`;
     const modelIdentifier = encodeURIComponent(parameters.id);
-    const resourceUrl = `${parameters.repoServiceEndpoint}/models/${modelIdentifier}${queryString}`;
+    const resourceUrl = `https://${parameters.repoServiceHostName}/models/${modelIdentifier}${queryString}`;
 
     const controllerRequest: RequestInitWithUri = {
         headers: {
