@@ -41,7 +41,8 @@
             "headerText": "App configurations",
             "connectionString": {
                 "label": "IoT Hub connection string",
-                "sublabel": "Where do I get this?"
+                "sublabel": "Where do I get this?",
+                "link": "https://aka.ms/iot-connection-strings"
             }
         },
         "modelDefinitions": {

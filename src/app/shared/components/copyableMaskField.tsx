@@ -8,10 +8,12 @@ import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import { getId } from 'office-ui-fabric-react/lib/Utilities';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import LabelWithTooltip from './labelWithTooltip';
+import LabelWithRichCallout from './labelWithRichCallout';
 import '../../css/_copyableMaskField.scss';
 
 export interface CopyableMaskFieldProps {
     ariaLabel: string;
+    calloutContent?: JSX.Element;
     label: string;
     labelCallout?: string;
     error?: string;
@@ -39,13 +41,13 @@ export class CopyableMaskField extends React.Component<CopyableMaskFieldProps, C
     }
     // tslint:disable-next-line:cyclomatic-complexity
     public render(): JSX.Element {
-        const { ariaLabel, error, label, labelCallout, value, allowMask, t, readOnly, required } = this.props;
+        const { ariaLabel, calloutContent, error, label, labelCallout, value, allowMask, t, readOnly, required } = this.props;
         const { hideContents } = this.state;
 
         return (
             <div className="copyableMaskField">
                 <div className="labelSection">
-                    <LabelWithTooltip tooltipText={labelCallout} htmlFor={this.labelIdentifier} required={required}>{label}</LabelWithTooltip>
+                    {this.renderLabelSection()}
                 </div>
 
                 <div className="controlSection">
@@ -95,6 +97,15 @@ export class CopyableMaskField extends React.Component<CopyableMaskFieldProps, C
             </div>
         );
     }
+    private readonly renderLabelSection = () => {
+        const { calloutContent, label, labelCallout, required } = this.props;
+        if (calloutContent) {
+            return (<LabelWithRichCallout calloutContent={calloutContent} htmlFor={this.labelIdentifier} required={required}>{label}</LabelWithRichCallout>);
+        }
+
+        return(<LabelWithTooltip tooltipText={labelCallout} htmlFor={this.labelIdentifier} required={required}>{label}</LabelWithTooltip>);
+    }
+
     public onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const text = event.target.value;
         this.setState({
