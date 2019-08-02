@@ -71,11 +71,11 @@ export default class DataForm extends React.Component<DataFormDataProps & DataFo
     private readonly renderDialog = (context: LocalizationContextInterface) => {
         return (
             <Dialog
-                className="delete-dialog"
                 hidden={!this.state.showPayloadDialog}
                 onDismiss={this.hidePayloadDialog}
                 modalProps={{
-                    isBlocking: false,
+                    className: 'delete-dialog',
+                    isBlocking: false
                 }}
             >
                 <Editor

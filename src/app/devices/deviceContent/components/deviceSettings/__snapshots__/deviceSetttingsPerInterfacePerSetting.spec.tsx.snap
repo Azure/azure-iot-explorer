@@ -9267,20 +9267,20 @@ exports[`components/devices/deviceContentNav matches snapshot when there is a wr
           </Form>
         </ErrorBoundary>
         <StyledWithResponsiveMode
-          className="delete-dialog"
           hidden={true}
           modalProps={
             Object {
+              "className": "delete-dialog",
               "isBlocking": false,
             }
           }
           onDismiss={[Function]}
         >
           <WithResponsiveMode
-            className="delete-dialog"
             hidden={true}
             modalProps={
               Object {
+                "className": "delete-dialog",
                 "isBlocking": false,
               }
             }
@@ -9522,10 +9522,10 @@ exports[`components/devices/deviceContentNav matches snapshot when there is a wr
             }
           >
             <DialogBase
-              className="delete-dialog"
               hidden={true}
               modalProps={
                 Object {
+                  "className": "delete-dialog",
                   "isBlocking": false,
                 }
               }

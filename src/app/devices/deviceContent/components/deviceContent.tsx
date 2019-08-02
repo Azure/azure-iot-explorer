@@ -14,9 +14,9 @@ import BreadcrumbContainer from '../../../shared/components/breadcrumbContainer'
 import DigitalTwinsContentContainer from './digitalTwinContentContainer';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../shared/contexts/localizationContext';
+import { NAV_OPEN, NAV_CLOSED } from '../../../constants/iconNames';
 import '../../../css/_deviceContent.scss';
 import '../../../css/_layouts.scss';
-import { NAV_OPEN, NAV_CLOSED } from '../../../constants/iconNames';
 
 interface DeviceContentState {
     appMenuVisible: boolean;
@@ -44,48 +44,26 @@ export class DeviceContentComponent extends React.PureComponent<DeviceContentPro
             appMenuVisible: true
         };
     }
-     // tslint:disable: cyclomatic-complexity
+
     public render(): JSX.Element {
         return (
             <LocalizationContextConsumer>
             {(context: LocalizationContextInterface) => (
-            <div className="edit">
-                <div className="view-header">
-                    <Route component={BreadcrumbContainer} />
-                </div>
-
-                {this.props.deviceId &&
-                    <div className="view-content view-scroll">
-                        <div className="device-content">
-                            {this.props.deviceId &&
-                                    <div className={'device-content-nav-bar' + (!this.state.appMenuVisible ? ' collapsed' : '')}>
-                                        <nav>
-                                            <div className="navToggle">
-                                                <IconButton
-                                                    tabIndex={0}
-                                                    iconProps={{ iconName: this.state.appMenuVisible ? NAV_OPEN : NAV_CLOSED }}
-                                                    title={this.state.appMenuVisible ? context.t(ResourceKeys.deviceContent.navBar.collapse) : context.t(ResourceKeys.deviceContent.navBar.expand)}
-                                                    ariaLabel={this.state.appMenuVisible ? context.t(ResourceKeys.deviceContent.navBar.collapse) : context.t(ResourceKeys.deviceContent.navBar.expand)}
-                                                    onClick={this.collapseToggle}
-                                                />
-                                            </div>
-                                            <div className="nav-links">
-                                                {!this.props.isLoading && this.createNavLinks()}
-                                            </div>
-                                        </nav>
-                                    </div>
-                            }
-                            <div className={'device-content-detail' + (!this.state.appMenuVisible ? ' collapsed' : '')}>
-                                <Route path="/devices/detail/identity/" component={DeviceIdentityContainer} />
-                                <Route path="/devices/detail/twin/" component={DeviceTwinContainer} />
-                                <Route path="/devices/detail/events/" component={DeviceEventsContainer}/>
-                                <Route path="/devices/detail/methods/" component={DeviceMethodsContainer} />
-                                <Route path="/devices/detail/digitalTwins/" component={DigitalTwinsContentContainer} />
+                <div className="edit">
+                    <div className="view-header">
+                        <Route component={BreadcrumbContainer} />
+                    </div>
+                    {this.props.deviceId &&
+                        <div className="view-content view-scroll">
+                            <div className="device-content">
+                                <>
+                                    {this.renderNav(context)}
+                                    {this.renderDeviceContentDetail()}
+                                </>
                             </div>
                         </div>
-                    </div>
-                }
-            </div>
+                    }
+                </div>
             )}
             </LocalizationContextConsumer>
         );
@@ -93,6 +71,39 @@ export class DeviceContentComponent extends React.PureComponent<DeviceContentPro
 
     public componentDidMount() {
         this.props.getDigitalTwinInterfaceProperties(this.props.deviceId);
+    }
+
+    private readonly renderNav = (context: LocalizationContextInterface) => {
+        return (
+            <div className={'device-content-nav-bar' + (!this.state.appMenuVisible ? ' collapsed' : '')}>
+                <nav>
+                    <div className="navToggle">
+                        <IconButton
+                            tabIndex={0}
+                            iconProps={{ iconName: this.state.appMenuVisible ? NAV_OPEN : NAV_CLOSED }}
+                            title={this.state.appMenuVisible ? context.t(ResourceKeys.deviceContent.navBar.collapse) : context.t(ResourceKeys.deviceContent.navBar.expand)}
+                            ariaLabel={this.state.appMenuVisible ? context.t(ResourceKeys.deviceContent.navBar.collapse) : context.t(ResourceKeys.deviceContent.navBar.expand)}
+                            onClick={this.collapseToggle}
+                        />
+                    </div>
+                    <div className="nav-links">
+                        {this.createNavLinks()}
+                    </div>
+                </nav>
+            </div>
+        );
+    }
+
+    private readonly renderDeviceContentDetail = () => {
+        return (
+            <div className={'device-content-detail' + (!this.state.appMenuVisible ? ' collapsed' : '')}>
+                <Route path="/devices/detail/identity/" component={DeviceIdentityContainer} />
+                <Route path="/devices/detail/twin/" component={DeviceTwinContainer} />
+                <Route path="/devices/detail/events/" component={DeviceEventsContainer}/>
+                <Route path="/devices/detail/methods/" component={DeviceMethodsContainer} />
+                <Route path="/devices/detail/digitalTwins/" component={DigitalTwinsContentContainer} />
+            </div>
+        );
     }
 
     private readonly collapseToggle = () => {
