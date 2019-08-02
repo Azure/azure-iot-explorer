@@ -199,6 +199,7 @@ export default class DeviceIdentityInformation
         return (
             <Toggle
                 checked={this.state.identity && this.state.identity.status === DeviceStatus.Enabled}
+                ariaLabel={context.t(ResourceKeys.deviceIdentity.hubConnectivity.label)}
                 label={context.t(ResourceKeys.deviceIdentity.hubConnectivity.label)}
                 onText={context.t(ResourceKeys.deviceIdentity.hubConnectivity.enable)}
                 offText={context.t(ResourceKeys.deviceIdentity.hubConnectivity.disable)}

@@ -1605,6 +1605,7 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
                               type="password"
                             />
                             <input
+                              aria-label="settings.modelDefinitions.repositoryTypes.private.textBoxLabel"
                               className="input"
                               readOnly={true}
                               style={

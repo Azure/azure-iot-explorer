@@ -1179,6 +1179,7 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                             value=""
                                           />
                                           <input
+                                            aria-label="connectivityPane.connectionStringTextBox.label"
                                             class="input"
                                             readonly=""
                                             style="position: absolute; left: -9000px; top: -9000px;"
@@ -6276,6 +6277,7 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                                   type="password"
                                                 />
                                                 <input
+                                                  aria-label="connectivityPane.connectionStringTextBox.label"
                                                   className="input"
                                                   readOnly={true}
                                                   style={
@@ -15309,6 +15311,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                             value=""
                                           />
                                           <input
+                                            aria-label="connectivityPane.connectionStringTextBox.label"
                                             class="input"
                                             readonly=""
                                             style="position: absolute; left: -9000px; top: -9000px;"
@@ -20462,6 +20465,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                   type="password"
                                                 />
                                                 <input
+                                                  aria-label="connectivityPane.connectionStringTextBox.label"
                                                   className="input"
                                                   readOnly={true}
                                                   style={
@@ -25313,6 +25317,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                                       type="password"
                                                                     />
                                                                     <input
+                                                                      aria-label="settings.modelDefinitions.repositoryTypes.private.textBoxLabel"
                                                                       className="input"
                                                                       readOnly={true}
                                                                       style={
