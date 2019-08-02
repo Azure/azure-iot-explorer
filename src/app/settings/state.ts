@@ -6,7 +6,7 @@ import { Record } from 'immutable';
 import { IM } from '../shared/types/types';
 import { REPOSITORY_LOCATION_TYPE } from '../constants/repositoryLocationTypes';
 import { PRIVATE_REPO_CONNECTION_STRING_NAME, REPO_LOCATIONS } from '../constants/browserStorage';
-import { MILLISECONDS_IN_MINUTE, PUBLIC_REPO_ENDPOINT } from '../constants/shared';
+import { MILLISECONDS_IN_MINUTE, PUBLIC_REPO_HOSTNAME } from '../constants/shared';
 export const OFFSET_IN_MINUTES = 15;
 
 export interface RepositoryLocationSettings {
@@ -39,7 +39,7 @@ export const applicationStateInitial =
             privateRepoToken: ''
             },
         publicRepositorySettings: {
-            publicRepoHostName: PUBLIC_REPO_ENDPOINT
+            publicRepoHostName: PUBLIC_REPO_HOSTNAME
             },
         repositoryLocations: localStorage.getItem(REPO_LOCATIONS) ?
             localStorage.getItem(REPO_LOCATIONS).split(',').map(location => location as REPOSITORY_LOCATION_TYPE) :

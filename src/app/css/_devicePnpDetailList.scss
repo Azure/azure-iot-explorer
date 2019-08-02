@@ -120,7 +120,7 @@
             }
             .column-value-text {
                 float: left;
-                max-width: 40%;
+                max-width: calc(40% - 26px);
                 @include column-item-padding;
                 .column-value-button {
                     @include default-button;

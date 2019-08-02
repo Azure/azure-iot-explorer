@@ -16,4 +16,4 @@ export enum DesiredStateStatus{
 }
 
 export const MILLISECONDS_IN_MINUTE = 60000;
-export const PUBLIC_REPO_ENDPOINT = 'https://repo.azureiotrepository.com';
+export const PUBLIC_REPO_HOSTNAME = 'repo.azureiotrepository.com';

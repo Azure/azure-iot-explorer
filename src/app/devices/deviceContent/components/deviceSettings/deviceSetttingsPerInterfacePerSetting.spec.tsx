@@ -4,17 +4,20 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import { Label, Stack, DefaultButton } from 'office-ui-fabric-react';
+import { Label, Stack, DefaultButton, IconButton } from 'office-ui-fabric-react';
 import DeviceSettingsPerInterfacePerSetting, { DeviceSettingDataProps, DeviceSettingDispatchProps } from './deviceSettingsPerInterfacePerSetting';
 import { mountWithLocalization } from '../../../../shared/utils/testHelpers';
 import { SYNC_STATUS } from '../../../../constants/shared';
 import { PropertyContent } from '../../../../api/models/modelDefinition';
 import { ParsedJsonSchema } from '../../../../api/models/interfaceJsonParserOutput';
+import DataForm from '../shared/dataForm';
+import { GroupedList } from '../../../../constants/iconNames';
 
 describe('components/devices/deviceContentNav', () => {
     const name = 'state';
     const description = 'The state of the device. Two states online/offline are available.';
     const displayName = 'Device State';
+    const handleCollapseToggle = jest.fn();
     let schema = 'boolean';
     let twinValue: any = true;  // tslint:disable-line:no-any
 
@@ -34,7 +37,7 @@ describe('components/devices/deviceContentNav', () => {
     };
 
     const deviceSettingDispatchProps: DeviceSettingDispatchProps = {
-        handleCollapseToggle: jest.fn(),
+        handleCollapseToggle,
         patchDigitalTwinInterfaceProperties: jest.fn()
     };
 
@@ -91,6 +94,7 @@ describe('components/devices/deviceContentNav', () => {
         propertySchema.type = schema;
         deviceSettingDataProps = {
             ...deviceSettingDataProps,
+            collapsed: false,
             desiredTwin: twinValue,
             reportedTwin: {
                 desiredState: {
@@ -126,10 +130,20 @@ describe('components/devices/deviceContentNav', () => {
         expect(unitLabel.props().children).toEqual('--');
         expect((unitLabel.props().className)).toEqual('column-unit');
 
-        const complexValueButton = wrapper.find(DefaultButton);
+        const complexValueButton = wrapper.find(DefaultButton).first();
         expect(complexValueButton.props().className).toEqual('column-value-button');
 
         const reportedStatus = wrapper.find(Stack);
         expect(reportedStatus.props().children[1]).toBeDefined();
+
+        const form = wrapper.find(DataForm);
+        expect(form.props().formData).toEqual(twinValue);
+
+        const toggleButton = wrapper.find(IconButton).at(1);
+        expect(toggleButton.props().iconProps).toEqual({iconName: GroupedList.OPEN});
+
+        const header = wrapper.find('header');
+        header.props().onClick(null);
+        expect(handleCollapseToggle).toBeCalled();
     });
 });
