@@ -9,7 +9,7 @@ import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 import DevicePropertiesPerInterfacePerProperty from './devicePropertiesPerInterfacePerProperty';
 import { mountWithLocalization } from '../../../../shared/utils/testHelpers';
 
-describe('components/devices/deviceContentNav', () => {
+describe('components/devices/devicePropertiesPerInterfacePerProperty', () => {
 
     const name = 'state';
     const description = 'The state of the device. Two states online/offline are available.';

@@ -11,7 +11,7 @@ import { SYNC_STATUS } from '../../../../constants/shared';
 import { PropertyContent } from '../../../../api/models/modelDefinition';
 import { ParsedJsonSchema } from '../../../../api/models/interfaceJsonParserOutput';
 
-describe('components/devices/deviceContentNav', () => {
+describe('components/devices/deviceSettingsPerInterfacePerSetting', () => {
     const name = 'state';
     const description = 'The state of the device. Two states online/offline are available.';
     const displayName = 'Device State';

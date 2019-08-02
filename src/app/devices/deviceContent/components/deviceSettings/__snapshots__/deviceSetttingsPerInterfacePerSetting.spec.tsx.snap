@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/devices/deviceContentNav matches snapshot when there is a writable property of complex type with sync status 1`] = `
+exports[`components/devices/deviceSettingsPerInterfacePerSetting matches snapshot when there is a writable property of complex type with sync status 1`] = `
 <DeviceSettingsPerInterfacePerSetting
   collapsed={true}
   desiredTwin={
@@ -4596,7 +4596,7 @@ exports[`components/devices/deviceContentNav matches snapshot when there is a wr
 </DeviceSettingsPerInterfacePerSetting>
 `;
 
-exports[`components/devices/deviceContentNav matches snapshot when there is a writable property of simple type without sync status 1`] = `
+exports[`components/devices/deviceSettingsPerInterfacePerSetting matches snapshot when there is a writable property of simple type without sync status 1`] = `
 <DeviceSettingsPerInterfacePerSetting
   collapsed={true}
   desiredTwin={true}
