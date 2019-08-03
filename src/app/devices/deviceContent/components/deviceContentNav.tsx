@@ -40,32 +40,19 @@ export default class DeviceContentNavComponent extends React.Component<DeviceCon
 
     public render(): JSX.Element {
 
-        if (this.props.isLoading) {
-            return (
-                <LocalizationContextConsumer>
-                    {(context: LocalizationContextInterface) => (
-                        <div className="view-scroll">
-                            {this.createNavLinks(context, false)}
-                        </div>
-                    )}
-                </LocalizationContextConsumer>
-            );
-        }
-
-        const isPnP = this.props.isPnPDevice;
         return (
             <LocalizationContextConsumer>
                 {(context: LocalizationContextInterface) => (
                     <div className="view-scroll">
-                        {this.createNavLinks(context, isPnP)}
+                        {this.createNavLinks(context)}
                     </div>
                 )}
             </LocalizationContextConsumer>
         );
     }
 
-    private readonly createNavLinks = (context: LocalizationContextInterface, isPnPDevice: boolean) => {
-        const { deviceId, interfaceIds } = this.props;
+    private readonly createNavLinks = (context: LocalizationContextInterface) => {
+        const { deviceId, interfaceIds, isPnPDevice } = this.props;
 
         const nonPnpNavLinks = NAV_LINK_ITEMS_NONPNP.map((nav: string) => ({
             key: nav,
