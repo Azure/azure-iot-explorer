@@ -4,11 +4,12 @@ variables:
 - group: ESRP
 
 jobs:
+
   - job: build_and_test
     pool:
       vmImage: 'ubuntu-16.04'
     steps:
-    - template: ./build-and-test-template.yml
+    - template: .\build-and-test-template.yml
 
   - job: package
     dependsOn: 'build_and_test'
@@ -20,15 +21,17 @@ jobs:
         #   build_script: 'package:linux'
         #   package_name: 'Linux'
 
-        # mac:
-        #   imageName: 'macos-10.13'
-        #   build_script: 'package:mac'
-        #   package_name: 'MacOS'
+        mac:
+          imageName: 'macos-10.13'
+          build_script: 'package:mac'
+          package_name: 'MacOS'
+          ext: 'dmg'
 
         windows:
           imageName: 'vs2017-win2016'
           build_script: 'package:win'
           package_name: 'Windows'
+          ext: 'msi'
 
     pool:
       vmImage: $(imageName)
@@ -39,6 +42,30 @@ jobs:
         versionSpec: '12.x'
 
     - script: 'npm run $(build_script)'
+      displayName: 'Package $(package_name)'
+
+    - task: CopyFiles@2
+      displayName: 'ArtifactIgnore'
+      inputs:
+        SourceFolder: '$(Build.SourcesDirectory)/'
+        Contents: '.artifactignore'
+        TargetFolder: '$(Build.SourcesDirectory)/dist/'
+
+    - publish: $(Build.SourcesDirectory)/dist/
+      displayName: 'Staging artifact for signing'
+
+  - job: sign
+    dependsOn: package
+    continueOnError: true  # Remove when MacOS codesigning is approved
+    pool:
+      vmImage: 'vs2017-win2016'
+    steps:
+
+    - task: DownloadPipelineArtifact@2
+      displayName: 'Stage artifacts for signing'
+      inputs:
+        buildType: 'current'
+        targetPath: '$(Pipeline.Workspace)/staging'
 
     - task: NuGetCommand@2
       displayName: Install ESRPClient
@@ -66,15 +93,11 @@ jobs:
 
     - powershell: |
         $ErrorActionPreference = "Stop"
-        $(Build.SourcesDirectory)/pipelines/sign.ps1 -ESRPClientId $(ESRPClientId) -ClientPath "$(Build.SourcesDirectory)\pipelines\ESRPClient\packages\Microsoft.EsrpClient.1.2.10\tools\" -Path $(Build.SourcesDirectory)/dist/ -Ext .msi
+        $(Build.SourcesDirectory)/pipelines/sign.ps1 -ESRPClientId $(ESRPClientId) -ClientPath "$(Build.SourcesDirectory)\pipelines\ESRPClient\packages\Microsoft.EsrpClient.1.2.10\tools\" -Path "$(Pipeline.Workspace)/staging"
       displayName: Request code sign
-    - task: CopyFiles@2
-      inputs:
-        SourceFolder: '$(Build.SourcesDirectory)/'
-        Contents: '.artifactignore'
-        TargetFolder: '$(Build.SourcesDirectory)/dist/'
-
+    
     - task: PublishPipelineArtifact@1
+      condition: always() # Remove when MacOS codesigning is approved
+      displayName: 'Publish signed artifacts'
       inputs:
-        targetPath: '$(Build.SourcesDirectory)/dist/'
-        artifact: '$(package_name)'  
+        targetPath: '$(Pipeline.Workspace)/staging'
