@@ -8,16 +8,18 @@
     display: grid;
     grid-template-areas: 'title search notifications settings questions';
     grid-template-columns: 1fr 150px 100px;
-    background-color: $dark-gray;
+    background-color: rgb(26,26,31);
     color: white;
     line-height: 20px;
     width: 100%;
-    h1 {
-        font-size: 16px;
-        line-height: 22px;
+    height: 45px;
+    .title {
         grid-area: title;
-        padding-left: 10px;
-        margin-right: 10px;
+        margin-top: 10px;
+        margin-left: 5px;
+        font-size: 18px;
+        color: white;
+        font-weight: 600;
     }
     .ms-Button {
         background: transparent;

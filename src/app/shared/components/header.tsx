@@ -34,7 +34,7 @@ export default class Header extends React.PureComponent<HeaderProps & HeaderActi
             <LocalizationContextConsumer>
                 {(context: LocalizationContextInterface) => (
                     <header className="header">
-                        <h1 className="title">{context.t(ResourceKeys.header.applicationName)}</h1>
+                        <div className="title">{context.t(ResourceKeys.header.applicationName)}</div>
                         <div><NotificationListContainer /></div>
                         <DefaultButton
                             className={settingsVisible ? 'settings-visible' : ''}
