@@ -44,4 +44,43 @@ describe('components/devices/deviceCommandsPerInterfacePerCommand', () => {
     it('matches snapshot for simple command uncollapsed', () => {
         expect(getComponent({collapsed: false})).toMatchSnapshot();
     });
+    it('matches snapshot for command with displayName', () => {
+        const comp = getComponent({commandModelDefinition: {
+            '@type': 'Command',
+            'displayName': 'Command Number 1',
+            'name': 'command1',
+        }});
+
+        expect(comp).toMatchSnapshot();
+    });
+
+    it('matches snapshot for command with description', () => {
+        const comp = getComponent({commandModelDefinition: {
+            '@type': 'Command',
+            'description': 'Command description for testing',
+            'name': 'command1',
+        }});
+
+        expect(comp).toMatchSnapshot();
+    });
+    it('matches snapshot for command with displayName and description', () => {
+        const comp = getComponent({commandModelDefinition: {
+            '@type': 'Command',
+            'description': 'Command description for testing',
+            'displayName': 'Command Number 1',
+            'name': 'command1',
+        }});
+
+        expect(comp).toMatchSnapshot();
+    });
+
+    it('matches snapshot for command with commandType', () => {
+        const comp = getComponent({commandModelDefinition: {
+            '@type': 'Command',
+            'commandType': 'testing',
+            'name': 'command1',
+        }});
+
+        expect(comp).toMatchSnapshot();
+    });
 });
