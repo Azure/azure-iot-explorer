@@ -8,7 +8,7 @@
     display: grid;
     grid-template-areas: 'title search notifications settings questions';
     grid-template-columns: 1fr 150px 100px;
-    background-color: rgb(26,26,31);
+    background-color: $dark-gray;
     color: white;
     line-height: 20px;
     width: 100%;
