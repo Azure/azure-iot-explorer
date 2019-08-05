@@ -56,7 +56,6 @@ jobs:
 
   - job: sign
     dependsOn: package
-    continueOnError: true  # Remove when MacOS codesigning is approved
     pool:
       vmImage: 'vs2017-win2016'
     steps:
@@ -96,8 +95,16 @@ jobs:
         $(Build.SourcesDirectory)/pipelines/sign.ps1 -ESRPClientId $(ESRPClientId) -ClientPath "$(Build.SourcesDirectory)\pipelines\ESRPClient\packages\Microsoft.EsrpClient.1.2.10\tools\" -Path "$(Pipeline.Workspace)/staging"
       displayName: Request code sign
     
+    - task: CopyFiles@2
+      displayName: 'Flatten signed artifact files for publish'
+      inputs:
+        SourceFolder: '$(Pipeline.Workspace)/staging'
+        Contents: '**'
+        FlattenFolders: true
+        TargetFolder: '$(Build.SourcesDirectory)/release/'
+
     - task: PublishPipelineArtifact@1
       condition: always() # Remove when MacOS codesigning is approved
       displayName: 'Publish signed artifacts'
       inputs:
-        targetPath: '$(Pipeline.Workspace)/staging'
+        targetPath: '$(Pipeline.Workspace)/release'
