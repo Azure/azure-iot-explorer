@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { Validator, ValidatorResult } from 'jsonschema';
-import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
+import { CommandBar, ICommandBarItemProps } from 'office-ui-fabric-react/lib/CommandBar';
 import { Label } from 'office-ui-fabric-react/lib/Label';
 import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
 import InfiniteScroll from 'react-infinite-scroller';
@@ -91,34 +91,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
                     <div className="device-events" key="device-events">
                         { this.props.telemetrySchema && <CommandBar
                             className="command"
-                            items={[
-                                {
-                                    ariaLabel: this.state.monitoringData ? context.t(ResourceKeys.deviceEvents.command.stop) : context.t(ResourceKeys.deviceEvents.command.start),
-                                    disabled: this.state.synchronizationStatus === SynchronizationStatus.updating,
-                                    iconProps: {
-                                        iconName: this.state.monitoringData ? STOP : START
-                                    },
-                                    key: this.state.monitoringData ? STOP : START,
-                                    name: this.state.monitoringData ? context.t(ResourceKeys.deviceEvents.command.stop) : context.t(ResourceKeys.deviceEvents.command.start),
-                                    onClick: this.onToggleStart
-                                },
-                                {
-                                    ariaLabel: context.t(ResourceKeys.deviceEvents.command.refresh),
-                                    disabled: this.state.synchronizationStatus === SynchronizationStatus.updating,
-                                    iconProps: {iconName: REFRESH},
-                                    key: REFRESH,
-                                    name: context.t(ResourceKeys.deviceEvents.command.refresh),
-                                    onClick: this.handleRefresh
-                                },
-                                {
-                                    ariaLabel: context.t(ResourceKeys.deviceEvents.command.clearEvents),
-                                    disabled: this.state.events.length === 0 || this.state.synchronizationStatus === SynchronizationStatus.updating,
-                                    iconProps: {iconName: CLEAR},
-                                    key: CLEAR,
-                                    name: context.t(ResourceKeys.deviceEvents.command.clearEvents),
-                                    onClick: this.onClearData
-                                }
-                            ]}
+                            items={this.createCommandBarItems(context)}
                         />}
                         <h3>{context.t(ResourceKeys.deviceEvents.headerText)}</h3>
                         <TextField
@@ -134,9 +107,52 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
                             this.props.telemetrySchema.length !== 0 && this.renderInfiniteScroll(context) :
                             <InterfaceNotFoundMessageBoxContainer/>}
                     </div>
-                ) /* tslint:disable-line:cyclomatic-complexity*/}
+                )}
             </LocalizationContextConsumer>
         );
+    }
+
+    private createCommandBarItems = (context: LocalizationContextInterface): ICommandBarItemProps[] => {
+        return [
+            this.createStartMonitoringCommandItem(context),
+            this.createRefreshCommandItem(context),
+            this.createClearCommandItem(context)
+        ];
+    }
+
+    private createClearCommandItem = (context: LocalizationContextInterface): ICommandBarItemProps => {
+        return {
+            ariaLabel: context.t(ResourceKeys.deviceEvents.command.clearEvents),
+            disabled: this.state.events.length === 0 || this.state.synchronizationStatus === SynchronizationStatus.updating,
+            iconProps: {iconName: CLEAR},
+            key: CLEAR,
+            name: context.t(ResourceKeys.deviceEvents.command.clearEvents),
+            onClick: this.onClearData
+        };
+    }
+
+    private createRefreshCommandItem = (context: LocalizationContextInterface): ICommandBarItemProps => {
+        return {
+            ariaLabel: context.t(ResourceKeys.deviceEvents.command.refresh),
+            disabled: this.state.synchronizationStatus === SynchronizationStatus.updating,
+            iconProps: {iconName: REFRESH},
+            key: REFRESH,
+            name: context.t(ResourceKeys.deviceEvents.command.refresh),
+            onClick: this.handleRefresh
+        };
+    }
+
+    private createStartMonitoringCommandItem = (context: LocalizationContextInterface): ICommandBarItemProps => {
+        return {
+            ariaLabel: this.state.monitoringData ? context.t(ResourceKeys.deviceEvents.command.stop) : context.t(ResourceKeys.deviceEvents.command.start),
+            disabled: this.state.synchronizationStatus === SynchronizationStatus.updating,
+            iconProps: {
+                iconName: this.state.monitoringData ? STOP : START
+            },
+            key: this.state.monitoringData ? STOP : START,
+            name: this.state.monitoringData ? context.t(ResourceKeys.deviceEvents.command.stop) : context.t(ResourceKeys.deviceEvents.command.start),
+            onClick: this.onToggleStart
+        };
     }
 
     private consumerGroupChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {

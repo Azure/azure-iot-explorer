@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
+import { CommandBar, ICommandBarItemProps } from 'office-ui-fabric-react/lib/CommandBar';
 import InfiniteScroll from 'react-infinite-scroller';
 import { Spinner } from 'office-ui-fabric-react/lib/Spinner';
 import { TextField, ITextFieldProps } from 'office-ui-fabric-react/lib/TextField';
@@ -67,38 +67,7 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
                     <div className="device-events" key="device-events">
                         <CommandBar
                             className="command"
-                            items={[
-                                {
-                                    ariaLabel: this.state.monitoringData ? context.t(ResourceKeys.deviceEvents.command.stop) : context.t(ResourceKeys.deviceEvents.command.start),
-                                    disabled: this.state.synchronizationStatus === SynchronizationStatus.updating,
-                                    iconProps: {
-                                        iconName: this.state.monitoringData ? STOP : START
-                                    },
-                                    key: this.state.monitoringData ? STOP : START,
-                                    name: this.state.monitoringData ? context.t(ResourceKeys.deviceEvents.command.stop) : context.t(ResourceKeys.deviceEvents.command.start),
-                                    onClick: this.onToggleStart
-                                },
-                                {
-                                    ariaLabel: context.t(ResourceKeys.deviceEvents.command.clearEvents),
-                                    disabled: this.state.events.length === 0 || this.state.synchronizationStatus === SynchronizationStatus.updating,
-                                    iconProps: {
-                                        iconName: CLEAR
-                                    },
-                                    key: CLEAR,
-                                    name: context.t(ResourceKeys.deviceEvents.command.clearEvents),
-                                    onClick: this.onClearData
-                                },
-                                {
-                                    ariaLabel: context.t(ResourceKeys.deviceEvents.command.showSystemProperties),
-                                    disabled: this.state.synchronizationStatus === SynchronizationStatus.updating,
-                                    iconProps: {
-                                        iconName: this.state.showSystemProperties ? CHECKED_CHECKBOX : EMPTY_CHECKBOX
-                                    },
-                                    key: CHECKED_CHECKBOX,
-                                    name: context.t(ResourceKeys.deviceEvents.command.showSystemProperties),
-                                    onClick: this.onShowSystemProperties
-                                }
-                            ]}
+                            items={this.createCommandBarItems(context)}
                         />
                         <h3>{context.t(ResourceKeys.deviceEvents.headerText)}</h3>
                         <TextField
@@ -112,9 +81,56 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
                         />
                         {this.renderInfiniteScroll(context)}
                     </div>
-                ) /* tslint:disable-line:cyclomatic-complexity*/}
+                )}
             </LocalizationContextConsumer>
         );
+    }
+
+    private createCommandBarItems = (context: LocalizationContextInterface): ICommandBarItemProps[] => {
+        return [
+            this.createStartMonitoringCommandItem(context),
+            this.createClearCommandItem(context),
+            this.createSystemPropertiesCommandItem(context)
+        ];
+    }
+
+    private createClearCommandItem = (context: LocalizationContextInterface): ICommandBarItemProps => {
+        return {
+            ariaLabel: context.t(ResourceKeys.deviceEvents.command.clearEvents),
+            disabled: this.state.events.length === 0 || this.state.synchronizationStatus === SynchronizationStatus.updating,
+            iconProps: {
+                iconName: CLEAR
+            },
+            key: CLEAR,
+            name: context.t(ResourceKeys.deviceEvents.command.clearEvents),
+            onClick: this.onClearData
+        };
+    }
+
+    private createSystemPropertiesCommandItem = (context: LocalizationContextInterface): ICommandBarItemProps => {
+        return {
+            ariaLabel: context.t(ResourceKeys.deviceEvents.command.showSystemProperties),
+            disabled: this.state.synchronizationStatus === SynchronizationStatus.updating,
+            iconProps: {
+                iconName: this.state.showSystemProperties ? CHECKED_CHECKBOX : EMPTY_CHECKBOX
+            },
+            key: CHECKED_CHECKBOX,
+            name: context.t(ResourceKeys.deviceEvents.command.showSystemProperties),
+            onClick: this.onShowSystemProperties
+        };
+    }
+
+    private createStartMonitoringCommandItem = (context: LocalizationContextInterface): ICommandBarItemProps => {
+        return {
+            ariaLabel: this.state.monitoringData ? context.t(ResourceKeys.deviceEvents.command.stop) : context.t(ResourceKeys.deviceEvents.command.start),
+            disabled: this.state.synchronizationStatus === SynchronizationStatus.updating,
+            iconProps: {
+                iconName: this.state.monitoringData ? STOP : START
+            },
+            key: this.state.monitoringData ? STOP : START,
+            name: this.state.monitoringData ? context.t(ResourceKeys.deviceEvents.command.stop) : context.t(ResourceKeys.deviceEvents.command.start),
+            onClick: this.onToggleStart
+        };
     }
 
     private consumerGroupChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
