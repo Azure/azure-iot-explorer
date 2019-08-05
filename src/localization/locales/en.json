@@ -371,7 +371,13 @@
         "command" : {
             "refresh": "Refresh",
             "clearEvents": "Clear events",
-            "showSystemProperties": "Show system properties"
+            "showSystemProperties": "Show system properties",
+            "start": "Start",
+            "stop": "Stop"
+        },
+        "consumerGroups": {
+            "label": "Consumer Group",
+            "tooltip": "Consumer groups are used by applications to pull data from the IoT Hub. To change the current consumer group, stop monitoring telemetry."
         },
         "headerText": "Telemetry",
         "interfaceDropDown": {

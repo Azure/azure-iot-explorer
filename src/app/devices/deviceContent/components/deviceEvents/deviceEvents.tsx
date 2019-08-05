@@ -3,17 +3,21 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
+import { CommandBar, ICommandBarItemProps } from 'office-ui-fabric-react/lib/CommandBar';
 import InfiniteScroll from 'react-infinite-scroller';
 import { Spinner } from 'office-ui-fabric-react/lib/Spinner';
+import { TextField, ITextFieldProps } from 'office-ui-fabric-react/lib/TextField';
 import { RouteComponentProps } from 'react-router-dom';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
-import { monitorEvents } from '../../../../api/services/devicesService';
+import { monitorEvents, stopMonitoringEvents } from '../../../../api/services/devicesService';
 import { Message } from '../../../../api/models/messages';
 import { parseDateTimeString } from '../../../../api/dataTransforms/transformHelper';
-import { CLEAR, CHECKED_CHECKBOX, EMPTY_CHECKBOX } from '../../../../constants/iconNames';
+import { CLEAR, CHECKED_CHECKBOX, EMPTY_CHECKBOX, START, STOP } from '../../../../constants/iconNames';
 import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
+import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
+import LabelWithTooltip from '../../../../shared/components/labelWithTooltip';
+import { DEFAULT_CONSUMER_GROUP } from '../../../../constants/apiConstants';
 import '../../../../css/_deviceEvents.scss';
 
 const JSON_SPACES = 2;
@@ -29,6 +33,9 @@ interface DeviceEventsState {
     startTime?: Date; // todo: add a datetime picker
     loading?: boolean;
     showSystemProperties: boolean;
+    synchronizationStatus: SynchronizationStatus;
+    consumerGroup: string;
+    monitoringData: boolean;
 }
 
 export default class DeviceEventsComponent extends React.Component<DeviceEventsDataProps & RouteComponentProps, DeviceEventsState> {
@@ -39,14 +46,17 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
         super(props);
 
         this.state = {
+            consumerGroup: DEFAULT_CONSUMER_GROUP,
             events: [],
             hasMore: true,
-            showSystemProperties: false
+            monitoringData: true,
+            showSystemProperties: false,
+            synchronizationStatus: SynchronizationStatus.initialized,
         };
     }
 
     public componentWillUnmount() {
-        clearInterval(this.timerID);
+        this.stopMonitoring();
         this.isComponentMounted = false;
     }
 
@@ -57,34 +67,121 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
                     <div className="device-events" key="device-events">
                         <CommandBar
                             className="command"
-                            items={[
-                                {
-                                    ariaLabel: context.t(ResourceKeys.deviceEvents.command.clearEvents),
-                                    disabled: this.state.events.length === 0,
-                                    iconProps: {
-                                        iconName: CLEAR
-                                    },
-                                    key: CLEAR,
-                                    name: context.t(ResourceKeys.deviceEvents.command.clearEvents),
-                                    onClick: this.onClearData
-                                },
-                                {
-                                    ariaLabel: context.t(ResourceKeys.deviceEvents.command.showSystemProperties),
-                                    iconProps: {
-                                        iconName: this.state.showSystemProperties ? CHECKED_CHECKBOX : EMPTY_CHECKBOX
-                                    },
-                                    key: CHECKED_CHECKBOX,
-                                    name: context.t(ResourceKeys.deviceEvents.command.showSystemProperties),
-                                    onClick: this.onShowSystemProperties
-                                }
-                            ]}
+                            items={this.createCommandBarItems(context)}
                         />
                         <h3>{context.t(ResourceKeys.deviceEvents.headerText)}</h3>
+                        <TextField
+                            className={'consumer-group-text-field'}
+                            onRenderLabel={this.renderConsumerGroupLabel}
+                            label={context.t(ResourceKeys.deviceEvents.consumerGroups.label)}
+                            underlined={true}
+                            value={this.state.consumerGroup}
+                            disabled={this.state.monitoringData}
+                            onChange={this.consumerGroupChange}
+                        />
                         {this.renderInfiniteScroll(context)}
                     </div>
                 )}
             </LocalizationContextConsumer>
         );
+    }
+
+    private createCommandBarItems = (context: LocalizationContextInterface): ICommandBarItemProps[] => {
+        return [
+            this.createStartMonitoringCommandItem(context),
+            this.createClearCommandItem(context),
+            this.createSystemPropertiesCommandItem(context)
+        ];
+    }
+
+    private createClearCommandItem = (context: LocalizationContextInterface): ICommandBarItemProps => {
+        return {
+            ariaLabel: context.t(ResourceKeys.deviceEvents.command.clearEvents),
+            disabled: this.state.events.length === 0 || this.state.synchronizationStatus === SynchronizationStatus.updating,
+            iconProps: {
+                iconName: CLEAR
+            },
+            key: CLEAR,
+            name: context.t(ResourceKeys.deviceEvents.command.clearEvents),
+            onClick: this.onClearData
+        };
+    }
+
+    private createSystemPropertiesCommandItem = (context: LocalizationContextInterface): ICommandBarItemProps => {
+        return {
+            ariaLabel: context.t(ResourceKeys.deviceEvents.command.showSystemProperties),
+            disabled: this.state.synchronizationStatus === SynchronizationStatus.updating,
+            iconProps: {
+                iconName: this.state.showSystemProperties ? CHECKED_CHECKBOX : EMPTY_CHECKBOX
+            },
+            key: CHECKED_CHECKBOX,
+            name: context.t(ResourceKeys.deviceEvents.command.showSystemProperties),
+            onClick: this.onShowSystemProperties
+        };
+    }
+
+    private createStartMonitoringCommandItem = (context: LocalizationContextInterface): ICommandBarItemProps => {
+        return {
+            ariaLabel: this.state.monitoringData ? context.t(ResourceKeys.deviceEvents.command.stop) : context.t(ResourceKeys.deviceEvents.command.start),
+            disabled: this.state.synchronizationStatus === SynchronizationStatus.updating,
+            iconProps: {
+                iconName: this.state.monitoringData ? STOP : START
+            },
+            key: this.state.monitoringData ? STOP : START,
+            name: this.state.monitoringData ? context.t(ResourceKeys.deviceEvents.command.stop) : context.t(ResourceKeys.deviceEvents.command.start),
+            onClick: this.onToggleStart
+        };
+    }
+
+    private consumerGroupChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
+        if (!!newValue) {
+            this.setState({
+                consumerGroup: newValue
+            });
+        }
+    }
+
+    private renderConsumerGroupLabel = (props: ITextFieldProps) => {
+        return (
+            <LocalizationContextConsumer>
+                {(context: LocalizationContextInterface) => (
+                    <LabelWithTooltip
+                        className={'consumer-group-label'}
+                        tooltipText={context.t(ResourceKeys.deviceEvents.consumerGroups.tooltip)}
+                    >
+                        {props.label}
+                    </LabelWithTooltip>
+                )}
+            </LocalizationContextConsumer>
+        );
+    }
+
+    private stopMonitoring = () => {
+        clearTimeout(this.timerID);
+        return stopMonitoringEvents();
+    }
+
+    private onToggleStart = () => {
+        const monitoringState = this.state.monitoringData;
+
+        if (monitoringState) {
+            this.stopMonitoring().then(() => {
+                this.setState({
+                    monitoringData: false,
+                    synchronizationStatus: SynchronizationStatus.fetched
+                });
+            });
+            this.setState({
+                hasMore: false,
+                synchronizationStatus: SynchronizationStatus.updating
+            });
+        } else {
+            this.setState({
+                hasMore: true,
+                loading: false,
+                monitoringData: true
+            });
+        }
     }
 
     public componentDidMount() {
@@ -132,14 +229,15 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
     }
 
     private readonly fetchData = () => {
-        const { loading } = this.state;
-        if (!loading) {
+        const { loading, monitoringData } = this.state;
+        if (!loading && monitoringData) {
             this.setState({
                 loading: true,
             });
             this.timerID = setTimeout(
                 () => {
                     monitorEvents({
+                        consumerGroup: this.state.consumerGroup,
                         deviceId: getDeviceIdFromQueryString(this.props),
                         fetchSystemProperties: this.state.showSystemProperties,
                         hubConnectionString: this.props.connectionString,

@@ -25,4 +25,17 @@
         margin-top: 10px;
         height: calc(100vh - 250px);
     }
+
+    .consumer-group-label {
+        font-weight: 600;
+        font-size: 14px;
+        color: $black;
+    }
+
+    .consumer-group-text-field {
+        display: grid;
+        padding-left: 26px;
+        color: $black;
+        width: 500px;
+    }
 }

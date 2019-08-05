@@ -41,6 +41,7 @@ export interface MonitorEventsParameters {
     startTime?: Date;
     hubConnectionString: string;
     fetchSystemProperties?: boolean;
+    consumerGroup: string;
 }
 
 export interface DeleteDevicesParameters extends DataPlaneParameters {

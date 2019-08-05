@@ -19,6 +19,10 @@ export const MODEL_ID = 'modelId=';
 export const API_VERSION = 'api-version=';
 export const AND = '&';
 
+// event hub controller
+export const MONITOR = '/monitor';
+export const STOP = '/stop';
+
 // digital twin api version
 export const DIGITAL_TWIN_API_VERSION = '2019-07-01-preview';
 
@@ -36,3 +40,5 @@ export enum DataPlaneStatusCode{
     SuccessLowerBound = 200,
     SuccessUpperBound = 299
 }
+
+export const DEFAULT_CONSUMER_GROUP = '$Default';

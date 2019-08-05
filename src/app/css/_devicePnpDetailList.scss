@@ -48,6 +48,9 @@
 
 .pnp-detail-list {
     padding-top: 20px;
+    position: sticky;
+    top: 0;
+    background-color: $white;
     .list-header {
         font-weight: bold;
         padding-bottom: 10px;
