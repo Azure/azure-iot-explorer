@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
+import { DefaultButton, Overlay } from 'office-ui-fabric-react';
 import DeviceSettingPerInterfacePerSetting, { TwinWithSchema } from './deviceSettingsPerInterfacePerSetting';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
@@ -24,6 +24,7 @@ export interface DeviceSettingDispatchProps {
 export interface DeviceSettingState {
     collapseMap: Map<number, boolean>;
     allCollapsed: boolean;
+    showOverlay: boolean;
 }
 
 export default class DeviceSettingsPerInterface
@@ -38,7 +39,8 @@ export default class DeviceSettingsPerInterface
         }
         this.state = {
             allCollapsed: false,
-            collapseMap
+            collapseMap,
+            showOverlay: false
         };
     }
 
@@ -52,6 +54,7 @@ export default class DeviceSettingsPerInterface
                 {...this.props}
                 collapsed={this.state.collapseMap.get(index)}
                 handleCollapseToggle={this.handleCollapseToggle(index)}
+                handleOverlayToggle={this.handleOverlayToggle}
             />
         ));
 
@@ -76,6 +79,7 @@ export default class DeviceSettingsPerInterface
                         <section role="list" className="list-content scrollable-lg">
                             {settings}
                         </section>
+                        {this.state.showOverlay && <Overlay/>}
                     </div>
                 )}
             </LocalizationContextConsumer>
@@ -95,5 +99,9 @@ export default class DeviceSettingsPerInterface
         const collapseMap = this.state.collapseMap;
         collapseMap.set(index, !collapseMap.get(index));
         this.setState({collapseMap});
+    }
+
+    private readonly handleOverlayToggle = () => {
+        this.setState({showOverlay: !this.state.showOverlay});
     }
 }
