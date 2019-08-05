@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/devices/deviceContentNav matches snapshot when there is a non-writable property of complex type 1`] = `
+exports[`components/devices/devicePropertiesPerInterfacePerProperty matches snapshot when there is a non-writable property of complex type 1`] = `
 <DevicePropertiesPerInterfacePerProperty
   propertyModelDefinition={
     Object {
@@ -1665,7 +1665,7 @@ exports[`components/devices/deviceContentNav matches snapshot when there is a no
 </DevicePropertiesPerInterfacePerProperty>
 `;
 
-exports[`components/devices/deviceContentNav matches snapshot when there is a non-writable property of simple type 1`] = `
+exports[`components/devices/devicePropertiesPerInterfacePerProperty matches snapshot when there is a non-writable property of simple type 1`] = `
 <DevicePropertiesPerInterfacePerProperty
   propertyModelDefinition={
     Object {

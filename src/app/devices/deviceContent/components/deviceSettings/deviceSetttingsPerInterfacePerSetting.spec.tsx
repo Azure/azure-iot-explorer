@@ -13,7 +13,7 @@ import { ParsedJsonSchema } from '../../../../api/models/interfaceJsonParserOutp
 import DataForm from '../shared/dataForm';
 import { GroupedList } from '../../../../constants/iconNames';
 
-describe('components/devices/deviceContentNav', () => {
+describe('components/devices/deviceSettingsPerInterfacePerSetting', () => {
     const name = 'state';
     const description = 'The state of the device. Two states online/offline are available.';
     const displayName = 'Device State';

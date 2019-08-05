@@ -11,7 +11,7 @@ import { SynchronizationStatus } from '../../../../api/models/synchronizationSta
 import { REPOSITORY_LOCATION_TYPE } from '../../../../constants/repositoryLocationTypes';
 import { LocalizationContextProvider } from '../../../../shared/contexts/localizationContext';
 
-describe('components/devices/deviceContentNav', () => {
+describe('components/devices/deviceInterfaces', () => {
 
     const getRouterProps = (pathname: string, search?: string) => {
         const location: any = { // tslint:disable-line:no-any
