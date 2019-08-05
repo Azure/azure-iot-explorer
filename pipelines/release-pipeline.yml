@@ -97,14 +97,29 @@ jobs:
     
     - task: CopyFiles@2
       displayName: 'Flatten signed artifact files for publish'
+      condition: always() # Remove when MacOS codesigning is approved
       inputs:
         SourceFolder: '$(Pipeline.Workspace)/staging'
         Contents: '**'
         FlattenFolders: true
-        TargetFolder: '$(Build.SourcesDirectory)/release/'
+        TargetFolder: '$(Pipeline.Workspace)/release/'
 
     - task: PublishPipelineArtifact@1
       condition: always() # Remove when MacOS codesigning is approved
       displayName: 'Publish signed artifacts'
       inputs:
-        targetPath: '$(Pipeline.Workspace)/release'
+        targetPath: '$(Pipeline.Workspace)/release/'
+    
+    - task: GitHubRelease@0
+      condition: always() # Remove when MacOS codesigning is approved
+      inputs:
+        gitHubConnection: 'Github'
+        repositoryName: '$(Build.Repository.Name)'
+        action: 'create'
+        target: '$(Build.SourceVersion)'
+        tagSource: 'auto'
+        assets: '$(Pipeline.Workspace)/release/*'
+        assetUploadMode: 'replace'
+        addChangeLog: true
+        compareWith: 'lastRelease'
+        isDraft: true
