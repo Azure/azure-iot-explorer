@@ -99,7 +99,7 @@ export default class ComplexReportedFormPanel extends React.Component<ReportedFo
     private readonly createJsonEditor = (context: LocalizationContextInterface) => {
         return (
             <form>
-                <Label>{context.t(ResourceKeys.notifications.interfaceSchemaNotSupported)}</Label>
+                <Label>{context.t(ResourceKeys.deviceProperties.editor.label, {schema: this.getSettingSchema()})}</Label>
                 <Editor
                     language="json"
                     options={{
@@ -111,5 +111,12 @@ export default class ComplexReportedFormPanel extends React.Component<ReportedFo
                 />
             </form>
         );
+    }
+
+    private readonly getSettingSchema = () => {
+        const { modelDefinition } = this.props;
+        return typeof modelDefinition.schema === 'string' ?
+            modelDefinition.schema :
+            modelDefinition.schema['@type'];
     }
 }

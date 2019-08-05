@@ -79,12 +79,12 @@ const parseInterfacePropertyHelper = (property:  PropertyContent): ParsedJsonSch
                 };
             case 'time': // todo: no widget for 'time' type
             case 'duration': // todo: no widget for 'duration' type
-            case 'string':
-                return {
-                    description: getDescription(property),
-                    title: property.name,
-                    type: 'string'
-                };
+            // case 'string':
+            //     return {
+            //         description: getDescription(property),
+            //         title: property.name,
+            //         type: 'string'
+            //     };
             default:
                 throw new InterfaceSchemaNotSupportedException();
         }

@@ -299,6 +299,9 @@ export class ResourceKeys {
          openReportedValuePanel : "deviceProperties.command.openReportedValuePanel",
          refresh : "deviceProperties.command.refresh",
       },
+      editor : {
+         label : "deviceProperties.editor.label",
+      },
       headerText : "deviceProperties.headerText",
       noProperty : "deviceProperties.noProperty",
    };

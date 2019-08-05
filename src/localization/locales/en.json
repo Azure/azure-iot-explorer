@@ -294,6 +294,9 @@
             "schema": "Schema",
             "unit": "Unit",
             "error": "value does not match schema"
+        },
+        "editor": {
+            "label": "Property schema '{{schema}}' is not yet supported in UI forms. Please use the JSON editor below to view reported value"
         }
     },
     "deviceSettings": {
@@ -330,7 +333,7 @@
             "error": "value does not match schema"
         },
         "panel": {
-            "title": "Reported properties:"
+            "title": "Reported value"
         }
     },
     "deviceCommands": {
