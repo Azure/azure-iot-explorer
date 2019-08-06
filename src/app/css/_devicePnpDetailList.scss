@@ -48,7 +48,6 @@
 
 .pnp-detail-list {
     padding-top: 20px;
-    position: sticky;
     top: 0;
     background-color: $white;
     .list-header {
@@ -230,6 +229,6 @@
 }
 
 .scrollable-sm {
-    height: calc(100vh - 350px);
+    height: calc(100vh - 392px);
     overflow-y: auto;
 }

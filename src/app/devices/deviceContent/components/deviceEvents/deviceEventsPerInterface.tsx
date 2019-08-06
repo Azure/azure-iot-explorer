@@ -231,7 +231,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
                 role="feed"
                 isReverse={true}
             >
-            <section role="list" className="list-content scrollable-sm">
+            <section role="list" className="list-content">
                 {this.renderEvents(context)}
             </section>
             </InfiniteScroll>
@@ -252,6 +252,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
                         <span className="column-value">{context.t(ResourceKeys.deviceEvents.columns.value)}</span>
                     </div>
                 </div>
+                <div className="scrollable-sm">
                 {
                     events && events.map((event: Message, index) => {
                         const matchingSchema = this.props.telemetrySchema.filter(schema => schema.telemetryModelDefinition.name ===
@@ -272,6 +273,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
                         );
                     })
                 }
+                </div>
             </div>
         );
     }
