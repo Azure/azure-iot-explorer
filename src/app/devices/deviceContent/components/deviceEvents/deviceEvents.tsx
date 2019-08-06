@@ -48,8 +48,8 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
         this.state = {
             consumerGroup: DEFAULT_CONSUMER_GROUP,
             events: [],
-            hasMore: true,
-            monitoringData: true,
+            hasMore: false,
+            monitoringData: false,
             showSystemProperties: false,
             synchronizationStatus: SynchronizationStatus.initialized,
         };
