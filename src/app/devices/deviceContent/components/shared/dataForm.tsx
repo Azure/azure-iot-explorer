@@ -75,7 +75,7 @@ export default class DataForm extends React.Component<DataFormDataProps & DataFo
                 onDismiss={this.hidePayloadDialog}
                 modalProps={{
                     className: 'delete-dialog',
-                    isBlocking: false,
+                    isBlocking: false
                 }}
             >
                 <Editor

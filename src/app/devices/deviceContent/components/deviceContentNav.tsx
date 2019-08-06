@@ -3,7 +3,6 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
 import { Nav, INavLink, INavLinkGroup } from 'office-ui-fabric-react/lib/Nav';
 import { Label } from 'office-ui-fabric-react';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../shared/contexts/localizationContext';
@@ -26,8 +25,8 @@ interface DeviceContentNavState {
     expandedInterfaceMap: Map<string, boolean>;
 }
 
-const NAV_LINK_ITEMS_PNP = ['interfaces', 'settings', 'properties', 'commands', 'events'];
-const NAV_LINK_ITEMS_NONPNP = ['identity', 'twin', 'events'];
+export const NAV_LINK_ITEMS_PNP = ['interfaces', 'settings', 'properties', 'commands', 'events'];
+export const NAV_LINK_ITEMS_NONPNP = ['identity', 'twin', 'events'];
 
 export default class DeviceContentNavComponent extends React.Component<DeviceContentNavDataProps & DeviceContentNavDispatchProps, DeviceContentNavState> {
     constructor(props: DeviceContentNavDataProps & DeviceContentNavDispatchProps) {
@@ -39,29 +38,13 @@ export default class DeviceContentNavComponent extends React.Component<DeviceCon
         this.state = {expandedInterfaceMap};
     }
 
-    public shouldComponentUpdate(nextProps: DeviceContentNavDataProps & DeviceContentNavDispatchProps, nextState: DeviceContentNavState) {
-        return  nextProps.deviceId !== this.props.deviceId ||
-                nextProps.interfaceIds !== this.props.interfaceIds ||
-                nextProps.isLoading !== this.props.isLoading ||
-                nextProps.isPnPDevice !== this.props.isPnPDevice ||
-                nextProps.selectedInterface !== this.props.selectedInterface ||
-                nextState !== this.state; // tslint:disable-line:cyclomatic-complexity
-    }
-
     public render(): JSX.Element {
-
-        if (this.props.isLoading) {
-            return (
-                <Shimmer/>
-            );
-        }
 
         return (
             <LocalizationContextConsumer>
                 {(context: LocalizationContextInterface) => (
                     <div className="view-scroll">
                         {this.createNavLinks(context)}
-
                     </div>
                 )}
             </LocalizationContextConsumer>
@@ -69,7 +52,7 @@ export default class DeviceContentNavComponent extends React.Component<DeviceCon
     }
 
     private readonly createNavLinks = (context: LocalizationContextInterface) => {
-        const { deviceId, isPnPDevice, interfaceIds } = this.props;
+        const { deviceId, interfaceIds, isPnPDevice } = this.props;
 
         const nonPnpNavLinks = NAV_LINK_ITEMS_NONPNP.map((nav: string) => ({
             key: nav,
