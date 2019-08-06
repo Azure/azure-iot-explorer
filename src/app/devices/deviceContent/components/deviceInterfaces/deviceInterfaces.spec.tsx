@@ -105,8 +105,7 @@ describe('components/devices/deviceInterfaces', () => {
                     isLoading: false,
                     modelDefinitionWithSource: {
                         modelDefinition,
-                        modelDefinitionSynchronizationStatus: SynchronizationStatus.failed,
-                        source: REPOSITORY_LOCATION_TYPE.None
+                        modelDefinitionSynchronizationStatus: SynchronizationStatus.failed
                     }
                 })}
             </LocalizationContextProvider>
@@ -121,8 +120,7 @@ describe('components/devices/deviceInterfaces', () => {
                 {getComponent({
                     isLoading: false,
                     modelDefinitionWithSource: {
-                        modelDefinitionSynchronizationStatus: SynchronizationStatus.failed,
-                        source: REPOSITORY_LOCATION_TYPE.None
+                        modelDefinitionSynchronizationStatus: SynchronizationStatus.failed
                     }
                 })}
             </LocalizationContextProvider>

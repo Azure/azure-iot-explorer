@@ -87,10 +87,8 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
     private readonly renderInterfaceInfoDetail = (context: LocalizationContextInterface) => {
         const { modelDefinitionWithSource } = this.props;
         const source = this.getModelDefinitionSourceText(context);
-        const displayName = modelDefinitionWithSource.modelDefinition && modelDefinitionWithSource.modelDefinition.displayName ?
-            modelDefinitionWithSource.modelDefinition.displayName : '--';
-        const description = modelDefinitionWithSource.modelDefinition && modelDefinitionWithSource.modelDefinition.description ?
-            modelDefinitionWithSource.modelDefinition.description : '--';
+        const displayName = modelDefinitionWithSource.modelDefinition && modelDefinitionWithSource.modelDefinition.displayName || '--';
+        const description = modelDefinitionWithSource.modelDefinition && modelDefinitionWithSource.modelDefinition.description || '--';
         return (
             <>
                 <Label className="source"> {context.t(ResourceKeys.deviceInterfaces.columns.source)}: {source}</Label>

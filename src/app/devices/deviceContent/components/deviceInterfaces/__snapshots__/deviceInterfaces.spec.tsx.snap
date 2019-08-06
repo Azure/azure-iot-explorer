@@ -25,7 +25,7 @@ exports[`components/devices/deviceInterfaces show Shimmer when status is working
   modelDefinitionWithSource={
     Object {
       "modelDefinitionSynchronizationStatus": 4,
-      "source": "None",
+      "source": undefined,
     }
   }
   refresh={[MockFunction]}
@@ -920,7 +920,6 @@ exports[`components/devices/deviceInterfaces show interface information when sta
           "displayName": "Digital Twin",
         },
         "modelDefinitionSynchronizationStatus": 5,
-        "source": "None",
       }
     }
     refresh={[MockFunction]}
@@ -976,7 +975,6 @@ exports[`components/devices/deviceInterfaces show interface information when sta
     modelDefinitionWithSource={
       Object {
         "modelDefinitionSynchronizationStatus": 5,
-        "source": "None",
       }
     }
     refresh={[MockFunction]}

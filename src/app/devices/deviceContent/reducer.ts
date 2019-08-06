@@ -25,7 +25,6 @@ import { DeviceIdentity } from '../../api/models/deviceIdentity';
 import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
 import { InvokeMethodParameters } from '../../api/parameters/deviceParameters';
 import { DigitalTwinInterfaces } from '../../api/models/digitalTwinModels';
-import { REPOSITORY_LOCATION_TYPE } from './../../constants/repositoryLocationTypes';
 
 const reducer = reducerWithInitialState<DeviceContentStateType>(deviceContentStateInitial())
     //#region DeviceIdentity-related actions
@@ -128,8 +127,7 @@ const reducer = reducerWithInitialState<DeviceContentStateType>(deviceContentSta
     .case(getModelDefinitionAction.started, (state: DeviceContentStateType) => {
         return state.merge({
             modelDefinitionWithSource: {
-                modelDefinitionSynchronizationStatus: SynchronizationStatus.working,
-                source: REPOSITORY_LOCATION_TYPE.None
+                modelDefinitionSynchronizationStatus: SynchronizationStatus.working
             }
         });
     })
@@ -146,8 +144,7 @@ const reducer = reducerWithInitialState<DeviceContentStateType>(deviceContentSta
         return state.merge({
             modelDefinitionWithSource: {
                 modelDefinition: null,
-                modelDefinitionSynchronizationStatus: SynchronizationStatus.failed,
-                source: REPOSITORY_LOCATION_TYPE.None
+                modelDefinitionSynchronizationStatus: SynchronizationStatus.failed
             }
         });
     })
