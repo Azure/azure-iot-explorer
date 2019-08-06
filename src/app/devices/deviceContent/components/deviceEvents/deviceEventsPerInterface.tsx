@@ -98,6 +98,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
                             className={'consumer-group-text-field'}
                             onRenderLabel={this.renderConsumerGroupLabel}
                             label={context.t(ResourceKeys.deviceEvents.consumerGroups.label)}
+                            ariaLabel={context.t(ResourceKeys.deviceEvents.consumerGroups.label)}
                             underlined={true}
                             value={this.state.consumerGroup}
                             disabled={this.state.monitoringData}
@@ -228,10 +229,9 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
                 loadMore={this.fetchData}
                 hasMore={hasMore}
                 loader={this.renderLoader(context)}
-                role="feed"
                 isReverse={true}
             >
-            <section role="list" className="list-content">
+            <section className="list-content">
                 {this.renderEvents(context)}
             </section>
             </InfiniteScroll>
@@ -254,24 +254,29 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
                 </div>
                 <div className="scrollable-sm">
                 {
-                    events && events.map((event: Message, index) => {
-                        const matchingSchema = this.props.telemetrySchema.filter(schema => schema.telemetryModelDefinition.name ===
-                            event.properties[TELEMETRY_SCHEMA_PROP]);
-                        const telemetryModelDefinition =  matchingSchema && matchingSchema.length !== 0 && matchingSchema[0].telemetryModelDefinition;
-                        const parsedSchema = matchingSchema && matchingSchema.length !== 0 && matchingSchema[0].parsedSchema;
+                    events && events.length > 0 &&
+                    <section role="feed">
+                    {
+                        events.map((event: Message, index) => {
+                            const matchingSchema = this.props.telemetrySchema.filter(schema => schema.telemetryModelDefinition.name ===
+                                event.properties[TELEMETRY_SCHEMA_PROP]);
+                            const telemetryModelDefinition =  matchingSchema && matchingSchema.length !== 0 && matchingSchema[0].telemetryModelDefinition;
+                            const parsedSchema = matchingSchema && matchingSchema.length !== 0 && matchingSchema[0].parsedSchema;
 
-                        return (
-                            <article className="list-item" role="listitem" key={index}>
-                                <section className="item-summary">
-                                    {this.renderTimestamp(event, context)}
-                                    {this.renderEventName(telemetryModelDefinition, context)}
-                                    {this.renderEventSchema(telemetryModelDefinition, context)}
-                                    {this.renderEventUnit(telemetryModelDefinition, context)}
-                                    {this.renderMessageBody(event, context, event.properties[TELEMETRY_SCHEMA_PROP], parsedSchema)}
-                                </section>
-                            </article>
-                        );
-                    })
+                            return (
+                                <article className="list-item" role="article" key={index}>
+                                    <section className="item-summary">
+                                        {this.renderTimestamp(event, context)}
+                                        {this.renderEventName(telemetryModelDefinition, context)}
+                                        {this.renderEventSchema(telemetryModelDefinition, context)}
+                                        {this.renderEventUnit(telemetryModelDefinition, context)}
+                                        {this.renderMessageBody(event, context, event.properties[TELEMETRY_SCHEMA_PROP], parsedSchema)}
+                                    </section>
+                                </article>
+                            );
+                        })
+                    }
+                    </section>
                 }
                 </div>
             </div>
@@ -329,7 +334,9 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
                         {JSON.stringify(event.body, undefined, JSON_SPACES)}
                         <section className="value-validation-error" aria-label={context.t(ResourceKeys.deviceEvents.columns.error.key.label)}>
                             <span>{context.t(ResourceKeys.deviceEvents.columns.error.key.label)}</span>
-                            <li key={key}>{context.t(ResourceKeys.deviceEvents.columns.error.key.errorContent, {keyName: key})}</li>
+                            <ul>
+                                <li key={key}>{context.t(ResourceKeys.deviceEvents.columns.error.key.errorContent, {keyName: key})}</li>
+                            </ul>
                         </section>
                     </Label>
                 </div>
@@ -349,9 +356,11 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
                     {result && result.errors && result.errors.length !== 0 &&
                         <section className="value-validation-error" aria-label={context.t(ResourceKeys.deviceEvents.columns.error.value.label)}>
                             <span>{context.t(ResourceKeys.deviceEvents.columns.error.value.label)}</span>
+                            <ul>
                             {result.errors.map((element, index) =>
                                 <li key={index}>{element.message}</li>
                             )}
+                            </ul>
                         </section>
                     }
                 </Label>

@@ -74,6 +74,7 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
                             className={'consumer-group-text-field'}
                             onRenderLabel={this.renderConsumerGroupLabel}
                             label={context.t(ResourceKeys.deviceEvents.consumerGroups.label)}
+                            ariaLabel={context.t(ResourceKeys.deviceEvents.consumerGroups.label)}
                             underlined={true}
                             value={this.state.consumerGroup}
                             disabled={this.state.monitoringData}
