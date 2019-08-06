@@ -7,9 +7,9 @@ import * as React from 'react';
 import { Shimmer } from 'office-ui-fabric-react';
 import DeviceInterfaces, { DeviceInterfaceProps, DeviceInterfaceDispatchProps } from './deviceInterfaces';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
-import { REPOSITORY_LOCATION_TYPE } from '../../../../constants/repositoryLocationTypes';
 import { LocalizationContextProvider } from '../../../../shared/contexts/localizationContext';
 import { mountWithLocalization } from '../../../../shared/utils/testHelpers';
+import { REPOSITORY_LOCATION_TYPE } from '../../../../constants/repositoryLocationTypes';
 
 describe('components/devices/deviceInterfaces', () => {
 
@@ -32,7 +32,7 @@ describe('components/devices/deviceInterfaces', () => {
 
     const dataProps: DeviceInterfaceProps = {
         isLoading: true,
-        modelDefinitionWithSource: {modelDefinitionSynchronizationStatus: SynchronizationStatus.working, source: REPOSITORY_LOCATION_TYPE.None},
+        modelDefinitionWithSource: {modelDefinitionSynchronizationStatus: SynchronizationStatus.working},
     };
 
     const dispatchProps: DeviceInterfaceDispatchProps = {
@@ -104,7 +104,6 @@ describe('components/devices/deviceInterfaces', () => {
                 {getComponent({
                     isLoading: false,
                     modelDefinitionWithSource: {
-                        modelDefinition,
                         modelDefinitionSynchronizationStatus: SynchronizationStatus.failed
                     }
                 })}
@@ -120,7 +119,9 @@ describe('components/devices/deviceInterfaces', () => {
                 {getComponent({
                     isLoading: false,
                     modelDefinitionWithSource: {
-                        modelDefinitionSynchronizationStatus: SynchronizationStatus.failed
+                        modelDefinition,
+                        modelDefinitionSynchronizationStatus: SynchronizationStatus.fetched,
+                        source: REPOSITORY_LOCATION_TYPE.Public
                     }
                 })}
             </LocalizationContextProvider>

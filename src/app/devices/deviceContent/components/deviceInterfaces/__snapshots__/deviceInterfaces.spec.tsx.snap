@@ -25,7 +25,6 @@ exports[`components/devices/deviceInterfaces show Shimmer when status is working
   modelDefinitionWithSource={
     Object {
       "modelDefinitionSynchronizationStatus": 4,
-      "source": undefined,
     }
   }
   refresh={[MockFunction]}
@@ -882,43 +881,6 @@ exports[`components/devices/deviceInterfaces show interface information when sta
     }
     modelDefinitionWithSource={
       Object {
-        "modelDefinition": Object {
-          "@context": "http://azureiot.com/v1/contexts/Interface.json",
-          "@id": "urn:azureiot:ModelDiscovery:DigitalTwin:1",
-          "@type": "Interface",
-          "contents": Array [
-            Object {
-              "@type": "Property",
-              "description": "Providing model and optional interfaces information on a digital twin.",
-              "displayName": "Model Information",
-              "name": "modelInformation",
-              "schema": Object {
-                "@type": "Object",
-                "fields": Array [
-                  Object {
-                    "name": "modelId",
-                    "schema": "string",
-                  },
-                  Object {
-                    "name": "interfaces",
-                    "schema": Object {
-                      "@type": "Map",
-                      "mapKey": Object {
-                        "name": "name",
-                        "schema": "string",
-                      },
-                      "mapValue": Object {
-                        "name": "schema",
-                        "schema": "string",
-                      },
-                    },
-                  },
-                ],
-              },
-            },
-          ],
-          "displayName": "Digital Twin",
-        },
         "modelDefinitionSynchronizationStatus": 5,
       }
     }
@@ -974,7 +936,45 @@ exports[`components/devices/deviceInterfaces show interface information when sta
     }
     modelDefinitionWithSource={
       Object {
-        "modelDefinitionSynchronizationStatus": 5,
+        "modelDefinition": Object {
+          "@context": "http://azureiot.com/v1/contexts/Interface.json",
+          "@id": "urn:azureiot:ModelDiscovery:DigitalTwin:1",
+          "@type": "Interface",
+          "contents": Array [
+            Object {
+              "@type": "Property",
+              "description": "Providing model and optional interfaces information on a digital twin.",
+              "displayName": "Model Information",
+              "name": "modelInformation",
+              "schema": Object {
+                "@type": "Object",
+                "fields": Array [
+                  Object {
+                    "name": "modelId",
+                    "schema": "string",
+                  },
+                  Object {
+                    "name": "interfaces",
+                    "schema": Object {
+                      "@type": "Map",
+                      "mapKey": Object {
+                        "name": "name",
+                        "schema": "string",
+                      },
+                      "mapValue": Object {
+                        "name": "schema",
+                        "schema": "string",
+                      },
+                    },
+                  },
+                ],
+              },
+            },
+          ],
+          "displayName": "Digital Twin",
+        },
+        "modelDefinitionSynchronizationStatus": 1,
+        "source": "PUBLIC",
       }
     }
     refresh={[MockFunction]}
