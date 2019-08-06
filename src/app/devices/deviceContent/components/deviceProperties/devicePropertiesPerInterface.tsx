@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { Overlay } from 'office-ui-fabric-react';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import DevicePropertiesPerInterfacePerProperty, { TwinWithSchema } from './devicePropertiesPerInterfacePerProperty';
@@ -11,10 +12,18 @@ export interface DevicePropertiesDataProps {
     twinAndSchema: TwinWithSchema[];
 }
 
+export interface DevicePropertiesState {
+    showOverlay: boolean;
+}
+
 export default class DevicePropertiesPerInterface
-    extends React.Component<DevicePropertiesDataProps, {}> {
+    extends React.Component<DevicePropertiesDataProps, DevicePropertiesState> {
     constructor(props: DevicePropertiesDataProps) {
         super(props);
+
+        this.state = {
+            showOverlay: false
+        };
     }
 
     public render(): JSX.Element {
@@ -24,6 +33,7 @@ export default class DevicePropertiesPerInterface
                 <DevicePropertiesPerInterfacePerProperty
                     key={indexInner}
                     {...item}
+                    handleOverlayToggle={this.handleOverlayToggle}
                 />
             ));
         return (
@@ -39,9 +49,14 @@ export default class DevicePropertiesPerInterface
                         <section role="list" className="list-content scrollable-lg">
                             {properties}
                         </section>
+                        {this.state.showOverlay && <Overlay/>}
                     </div>
                 )}
             </LocalizationContextConsumer>
         );
+    }
+
+    private readonly handleOverlayToggle = () => {
+        this.setState({showOverlay: !this.state.showOverlay});
     }
 }
