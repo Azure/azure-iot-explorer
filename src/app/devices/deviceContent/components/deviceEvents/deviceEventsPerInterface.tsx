@@ -67,8 +67,8 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
         this.state = {
             consumerGroup: DEFAULT_CONSUMER_GROUP,
             events: [],
-            hasMore: true,
-            monitoringData: true,
+            hasMore: false,
+            monitoringData: false,
             synchronizationStatus: SynchronizationStatus.initialized
         };
     }
