@@ -19,7 +19,6 @@ const mapStateToProps = (state: StateType): DeviceInterfaceProps => {
         isLoading: getModelDefinitionSyncStatusSelector(state) === SynchronizationStatus.working ||
             modelSyncStatus === SynchronizationStatus.working,
         modelDefinitionWithSource: getModelDefinitionWithSourceSelector(state),
-        modelSyncStatus
     };
 };
 

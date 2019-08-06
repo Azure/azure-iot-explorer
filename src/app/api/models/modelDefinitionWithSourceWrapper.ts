@@ -9,7 +9,7 @@ import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationType
 
 export interface ModelDefinitionWithSourceWrapper {
     modelDefinition?: ModelDefinition;
-    source?: REPOSITORY_LOCATION_TYPE;
+    source: REPOSITORY_LOCATION_TYPE;
     modelDefinitionSynchronizationStatus: SynchronizationStatus;
     error?: ErrorResponse;
 }
