@@ -10,12 +10,11 @@ import { LocalizationContextConsumer, LocalizationContextInterface } from '../..
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getInterfaceIdFromQueryString, getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { ModelDefinitionWithSourceWrapper } from '../../../../api/models/modelDefinitionWithSourceWrapper';
-import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
+import { REPOSITORY_LOCATION_TYPE } from '../../../../constants/repositoryLocationTypes';
 import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
 import { REFRESH } from '../../../../constants/iconNames';
 
 export interface DeviceInterfaceProps {
-    modelSyncStatus: SynchronizationStatus;
     modelDefinitionWithSource: ModelDefinitionWithSourceWrapper;
     isLoading: boolean;
 }
@@ -86,12 +85,10 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
     }
 
     private readonly renderInterfaceInfoDetail = (context: LocalizationContextInterface) => {
-        const { modelSyncStatus, modelDefinitionWithSource } = this.props;
-        const source = modelDefinitionWithSource ? modelDefinitionWithSource.source : (
-            modelSyncStatus !== SynchronizationStatus.failed ?
-            <span className="no-source-error">{context.t(ResourceKeys.deviceInterfaces.columns.noSource)}</span> : '--');
-        const displayName = modelDefinitionWithSource.modelDefinition ? modelDefinitionWithSource.modelDefinition.displayName : '--';
-        const description = modelDefinitionWithSource.modelDefinition ? modelDefinitionWithSource.modelDefinition.description : '--';
+        const { modelDefinitionWithSource } = this.props;
+        const source = this.getModelDefinitionSourceText(context);
+        const displayName = modelDefinitionWithSource.modelDefinition && modelDefinitionWithSource.modelDefinition.displayName || '--';
+        const description = modelDefinitionWithSource.modelDefinition && modelDefinitionWithSource.modelDefinition.description || '--';
         return (
             <>
                 <Label className="source"> {context.t(ResourceKeys.deviceInterfaces.columns.source)}: {source}</Label>
@@ -105,6 +102,24 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
                 <Label> {context.t(ResourceKeys.deviceInterfaces.columns.description)}: {description}</Label>
             </>
         );
+    }
+
+    private readonly getModelDefinitionSourceText = (context: LocalizationContextInterface) => {
+        const { modelDefinitionWithSource } = this.props;
+        if (!modelDefinitionWithSource) {
+            return '--';
+        }
+
+        switch (modelDefinitionWithSource.source) {
+            case REPOSITORY_LOCATION_TYPE.Public:
+                return context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.public.label);
+            case REPOSITORY_LOCATION_TYPE.Private:
+                return context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.private.label);
+            case REPOSITORY_LOCATION_TYPE.Device:
+                return context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.device.label);
+            default:
+                return '--';
+        }
     }
 
     private readonly handleConfigure = () => {

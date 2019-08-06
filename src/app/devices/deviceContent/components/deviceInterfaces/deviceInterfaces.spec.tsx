@@ -4,16 +4,16 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import { shallow } from 'enzyme';
 import { Shimmer } from 'office-ui-fabric-react';
-import DeviceInterfaces from './deviceInterfaces';
+import DeviceInterfaces, { DeviceInterfaceProps, DeviceInterfaceDispatchProps } from './deviceInterfaces';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
-import { REPOSITORY_LOCATION_TYPE } from '../../../../constants/repositoryLocationTypes';
 import { LocalizationContextProvider } from '../../../../shared/contexts/localizationContext';
+import { mountWithLocalization } from '../../../../shared/utils/testHelpers';
+import { REPOSITORY_LOCATION_TYPE } from '../../../../constants/repositoryLocationTypes';
 
 describe('components/devices/deviceInterfaces', () => {
 
-    const getRouterProps = (pathname: string, search?: string) => {
+    const getRouterProps = (pathname?: string, search?: string) => {
         const location: any = { // tslint:disable-line:no-any
             pathname,
             search
@@ -28,6 +28,27 @@ describe('components/devices/deviceInterfaces', () => {
             }
         };
         return routerProps;
+    };
+
+    const dataProps: DeviceInterfaceProps = {
+        isLoading: true,
+        modelDefinitionWithSource: {modelDefinitionSynchronizationStatus: SynchronizationStatus.working},
+    };
+
+    const dispatchProps: DeviceInterfaceDispatchProps = {
+        refresh: jest.fn(),
+        setInterfaceId: jest.fn(),
+        settingsVisibleToggle: jest.fn()
+    };
+
+    const getComponent = (overrides = {}) => {
+        const props = {
+            ...dataProps,
+            ...dispatchProps,
+            ...getRouterProps(),
+            ...overrides,
+        };
+        return <DeviceInterfaces {...props} />;
     };
 
     /* tslint:disable */
@@ -71,17 +92,8 @@ describe('components/devices/deviceInterfaces', () => {
     /* tslint:enable */
 
     it('show Shimmer when status is working', () => {
-        const wrapper = shallow(
-            <DeviceInterfaces
-                modelSyncStatus={SynchronizationStatus.working}
-                modelDefinitionWithSource={{modelDefinitionSynchronizationStatus: SynchronizationStatus.working}}
-                isLoading={true}
-                setInterfaceId={jest.fn()}
-                settingsVisibleToggle={jest.fn()}
-                refresh={jest.fn()}
-                {...getRouterProps('#/devices/detail/digitalTwins/interfaces/', 'id=device1&interfaceId=urn:some:interface:name:1')}
-            />
-        );
+        const wrapper = mountWithLocalization(getComponent());
+        expect(wrapper).toMatchSnapshot();
         expect(wrapper.find(Shimmer)).toHaveLength(1);
     });
 
@@ -89,15 +101,12 @@ describe('components/devices/deviceInterfaces', () => {
 
         const wrapper = (
             <LocalizationContextProvider value={{t: jest.fn((value: string) => value)}}>
-                <DeviceInterfaces
-                    modelSyncStatus={SynchronizationStatus.failed}
-                    modelDefinitionWithSource={{modelDefinitionSynchronizationStatus: SynchronizationStatus.failed}}
-                    isLoading={false}
-                    setInterfaceId={jest.fn()}
-                    settingsVisibleToggle={jest.fn()}
-                    refresh={jest.fn()}
-                    {...getRouterProps('#/devices/detail/digitalTwins/interfaces/', 'id=device1&interfaceId=urn:some:interface:name:1')}
-                />
+                {getComponent({
+                    isLoading: false,
+                    modelDefinitionWithSource: {
+                        modelDefinitionSynchronizationStatus: SynchronizationStatus.failed
+                    }
+                })}
             </LocalizationContextProvider>
         );
         expect(wrapper).toMatchSnapshot();
@@ -107,15 +116,14 @@ describe('components/devices/deviceInterfaces', () => {
 
         const wrapper = (
             <LocalizationContextProvider value={{t: jest.fn((value: string) => value)}}>
-                <DeviceInterfaces
-                    modelSyncStatus={SynchronizationStatus.fetched}
-                    modelDefinitionWithSource={{modelDefinition, modelDefinitionSynchronizationStatus: SynchronizationStatus.fetched, source: REPOSITORY_LOCATION_TYPE.Public}}
-                    isLoading={false}
-                    setInterfaceId={jest.fn()}
-                    settingsVisibleToggle={jest.fn()}
-                    refresh={jest.fn()}
-                    {...getRouterProps('#/devices/detail/digitalTwins/interfaces/', 'id=device1&interfaceId=urn:some:interface:name:1')}
-                />
+                {getComponent({
+                    isLoading: false,
+                    modelDefinitionWithSource: {
+                        modelDefinition,
+                        modelDefinitionSynchronizationStatus: SynchronizationStatus.fetched,
+                        source: REPOSITORY_LOCATION_TYPE.Public
+                    }
+                })}
             </LocalizationContextProvider>
         );
         expect(wrapper).toMatchSnapshot();
