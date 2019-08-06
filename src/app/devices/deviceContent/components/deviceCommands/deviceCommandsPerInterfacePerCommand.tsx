@@ -101,7 +101,7 @@ export default class DeviceCommandsPerInterfacePerCommand
         );
     }
 
-    private readonly craftCommandPayload = (interfaceName: string, propertyKey: string, payload: object) => {
+    private readonly craftCommandPayload = (payload: object) => {
       return generateCommandPayload(payload);
     }
 

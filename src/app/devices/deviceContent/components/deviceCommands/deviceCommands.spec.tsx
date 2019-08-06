@@ -5,10 +5,8 @@
 import 'jest';
 import * as React from 'react';
 import DeviceCommands, { DeviceCommandDispatchProps , DeviceCommandsProps } from './deviceCommands';
-import InterfaceNotFoundMessageBar from '../shared/interfaceNotFoundMessageBar';
 import DeviceCommandsPerInterface from './deviceCommandsPerInterface';
 import { mountWithLocalization } from '../../../../shared/utils/testHelpers';
-
 
 describe('components/devices/deviceCommandsPerInterfacePerCommand', () => {
     const deviceCommandsProps: DeviceCommandsProps = {

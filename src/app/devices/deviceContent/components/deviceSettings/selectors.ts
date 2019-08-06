@@ -4,18 +4,18 @@
  **********************************************************/
 import { ModelDefinition } from './../../../../api/models/modelDefinition';
 import { PropertyContent, ContentType } from '../../../../api/models/modelDefinition';
-import { StateType } from '../../../../shared/redux/state';
+import { StateInterface } from '../../../../shared/redux/state';
 import { parseInterfacePropertyToJsonSchema } from '../../../../shared/utils/jsonSchemaAdaptor';
 import { getModelDefinitionSelector, getInterfaceNameSelector } from '../../selectors';
 import { DeviceInterfaceWithSchema } from './deviceSettings';
 import { generateDigitalTwinForSpecificProperty } from './../deviceProperties/selectors';
 
-export const getDeviceSettingTupleSelector = (state: StateType) => {
+export const getDeviceSettingTupleSelector = (state: StateInterface) => {
     const modelDefinition = getModelDefinitionSelector(state);
     return modelDefinition && generateTwinSchemaAndInterfaceTuple(state, modelDefinition);
 };
 
-const generateTwinSchemaAndInterfaceTuple = (state: StateType, model: ModelDefinition): DeviceInterfaceWithSchema => {
+const generateTwinSchemaAndInterfaceTuple = (state: StateInterface, model: ModelDefinition): DeviceInterfaceWithSchema => {
     const writableProperties = model && model.contents && model.contents.filter((item: PropertyContent) => filterProperties(item)) as PropertyContent[];
 
     const settings = writableProperties && writableProperties
@@ -25,8 +25,7 @@ const generateTwinSchemaAndInterfaceTuple = (state: StateType, model: ModelDefin
                 desiredTwin: property && property.desired && property.desired.value,
                 reportedTwin: property && property.reported,
                 settingModelDefinition: setting,
-                settingSchema: parseInterfacePropertyToJsonSchema(setting),
-                syncStatus: undefined // todo
+                settingSchema: parseInterfacePropertyToJsonSchema(setting)
             };
         });
 

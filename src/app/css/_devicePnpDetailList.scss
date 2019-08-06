@@ -186,6 +186,7 @@
             box-shadow: 0px 0px 50px $gray;
             overflow-y: auto;
             margin-top: $mastheadHeight;
+            z-index: 1;
 
             .panel-title {
                 margin-bottom: 40px;
