@@ -40,15 +40,15 @@
         "configuration": {
             "headerText": "App configurations",
             "connectionString": {
-                "label": "IoT Hub connection string",
+                "label": "IoT hub connection string",
                 "sublabel": "Where do I get this?",
                 "link": "https://aka.ms/iot-connection-strings"
             }
         },
         "modelDefinitions": {
             "add": "New",
-            "headerText": "We will look for your model definition in the following order:",
-            "helpText": "Drag and drop to order or disable.",
+            "headerText": "We'll look for your model definition in the following locations (in order):",
+            "helpText": "Drag and drop to change the order.",
             "repositoryTypes": {
                 "public": {
                     "label":"Public repository",
@@ -69,12 +69,12 @@
             "headerText": "Help:",
             "questions":{
                 "documentation": {
-                    "text":"IoT Plug and Play Documentation",
+                    "text":"IoT Plug and Play documentation",
                     "link": "https://aka.ms/azure-iot-explorer-documentation"
                 }
             }
         },
-        "footerText": "You can return to Settings to update at any time",
+        "footerText": "You can come back to Settings and make changes later.",
         "save": "Connect",
         "cancel": "Cancel"
     },
@@ -86,8 +86,8 @@
     "deviceContent": {
         "start": "Select a device to start",
         "navBar": {
-            "identity": "Device Identity",
-            "twin": "Device Twin",
+            "identity": "Device identity",
+            "twin": "Device twin",
             "properties": "Properties (non-writable)",
             "settings": "Properties (writable)",
             "commands": "Commands",
@@ -106,7 +106,7 @@
     "connectivityPane": {
         "header": "App configurations",
         "connectionStringTextBox": {
-            "label": "IoT Hub connection string",
+            "label": "IoT hub connection string",
             "errorMessages": {
                 "required": "Connection string is required",
                 "invalid": "Invalid connection string"
@@ -118,7 +118,7 @@
             "ariaLabel": "check box for remember my connection string",
             "tooltip": "The connection string will be stored in the browser local storage"
         },
-        "notes": "For Plug and Play devices, we will look for your model definition first in the Public repository and then on connected device. To enable more model definition sources, go to Settings at any time.",
+        "notes": "For Plug and Play devices, we'll look for your model definition in the public repository first, and then we’ll search your connected devices. To change how and where we search, open Settings.",
         "saveButton": {
             "label": "Connect"
         }
@@ -150,7 +150,7 @@
                 "text": "This device is being authenticated using an X.509 certificate.",
                 "primaryThumbprint": "Primary thumbprint",
                 "primaryThumbprintTooltip": "The primary X.509 thumbprint representing the SHA-1 or SHA-256 hash of the X.509 certificate. Thumbprint values other than 40 hex characters for SHA-1 and 64 hex characters for SHA-256 are not accepted.",
-                "secondaryThumbprint": "Second thumbprint",
+                "secondaryThumbprint": "Secondary thumbprint",
                 "secondaryThumbprintTooltip": "The secondary X.509 thumbprint representing the SHA-1 or SHA-256 hash of the X.509 certificate. Thumbprint values other than 40 hex characters for SHA-1 and 64 hex characters for SHA-256 are not accepted."
             }
         },
@@ -225,8 +225,8 @@
         },
         "query": {
             "deviceId": {
-                "placeholder": "Query by Device ID...",
-                "ariaLabel": "Query by Device ID",
+                "placeholder": "Query by device ID...",
+                "ariaLabel": "Query by device ID",
                 "searchButton": {
                     "title": "Search",
                     "ariaLabel": "Execute Search by device id and no additional clauses"
@@ -294,6 +294,9 @@
             "schema": "Schema",
             "unit": "Unit",
             "error": "value does not match schema"
+        },
+        "editor": {
+            "label": "Property schema '{{schema}}' is not yet supported in UI forms. Please use the JSON editor below to view reported value"
         }
     },
     "deviceSettings": {
@@ -330,7 +333,7 @@
             "error": "value does not match schema"
         },
         "panel": {
-            "title": "Reported properties:"
+            "title": "Reported value"
         }
     },
     "deviceCommands": {
@@ -371,7 +374,13 @@
         "command" : {
             "refresh": "Refresh",
             "clearEvents": "Clear events",
-            "showSystemProperties": "Show system properties"
+            "showSystemProperties": "Show system properties",
+            "start": "Start",
+            "stop": "Stop"
+        },
+        "consumerGroups": {
+            "label": "Consumer Group",
+            "tooltip": "Consumer groups are used by applications to pull data from the IoT Hub. To change the current consumer group, stop monitoring telemetry."
         },
         "headerText": "Telemetry",
         "interfaceDropDown": {

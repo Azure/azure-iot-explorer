@@ -27,16 +27,6 @@ $nav-width: 20%;
         width: $nav-width;
         height: calc(100vh - 140px);
         float: left;
-        .nav-links {
-            margin-left: 10px;
-        }
-        .nav-bar-item {
-            @include top-nav-item;
-            text-align: left;
-        }
-        .selected-nav-bar-item {
-            @include selected-nav-item
-        }    
         border: {
             right: {
                 width: 1px;
@@ -88,6 +78,10 @@ $nav-width: 20%;
         h3 {
             font-size: 20px;
             padding-left: 26px;
+        }
+        button {
+            padding-left: 26px;
+            font-size: 12px;
         }
     }
     .device-content-detail.collapsed {

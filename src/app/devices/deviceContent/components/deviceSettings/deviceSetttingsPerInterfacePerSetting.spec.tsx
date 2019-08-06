@@ -7,13 +7,12 @@ import * as React from 'react';
 import { Label, Stack, DefaultButton, IconButton } from 'office-ui-fabric-react';
 import DeviceSettingsPerInterfacePerSetting, { DeviceSettingDataProps, DeviceSettingDispatchProps } from './deviceSettingsPerInterfacePerSetting';
 import { mountWithLocalization } from '../../../../shared/utils/testHelpers';
-import { SYNC_STATUS } from '../../../../constants/shared';
 import { PropertyContent } from '../../../../api/models/modelDefinition';
 import { ParsedJsonSchema } from '../../../../api/models/interfaceJsonParserOutput';
 import DataForm from '../shared/dataForm';
 import { GroupedList } from '../../../../constants/iconNames';
 
-describe('components/devices/deviceContentNav', () => {
+describe('components/devices/deviceSettingsPerInterfacePerSetting', () => {
     const name = 'state';
     const description = 'The state of the device. Two states online/offline are available.';
     const displayName = 'Device State';
@@ -38,6 +37,7 @@ describe('components/devices/deviceContentNav', () => {
 
     const deviceSettingDispatchProps: DeviceSettingDispatchProps = {
         handleCollapseToggle,
+        handleOverlayToggle: jest.fn(),
         patchDigitalTwinInterfaceProperties: jest.fn()
     };
 
@@ -49,8 +49,7 @@ describe('components/devices/deviceContentNav', () => {
         interfaceName: 'interfaceId',
         reportedTwin: {value: twinValue},
         settingModelDefinition: propertyModelDefinition,
-        settingSchema: propertySchema,
-        syncStatus: SYNC_STATUS.None};
+        settingSchema: propertySchema};
 
     it('matches snapshot when there is a writable property of simple type without sync status', () => {
         const props = {
@@ -104,8 +103,7 @@ describe('components/devices/deviceContentNav', () => {
                 value: twinValue,
             },
             settingModelDefinition: propertyModelDefinition,
-            settingSchema: propertySchema,
-            syncStatus: SYNC_STATUS.Synced
+            settingSchema: propertySchema
         };
 
         const props = {

@@ -30,7 +30,7 @@ export interface DataFormDataProps {
 
 export interface DataFormActionProps {
     handleSave: (twin: any) => () => void; // tslint:disable-line:no-any
-    craftPayload: (interfaceName: string, propertyKey: string, payload: object) => object;
+    craftPayload: (payload: object) => object;
 }
 
 export interface DataFormState {
@@ -162,7 +162,7 @@ export default class DataForm extends React.Component<DataFormDataProps & DataFo
         this.state.stringifiedFormData && JSON.parse(this.state.stringifiedFormData) :
         dataToTwinConverter(this.state.formData, this.props.settingSchema, this.state.originalFormData).twin;
         this.setState({
-            payloadPreviewData: this.props.craftPayload(this.props.interfaceName, this.props.settingSchema.title, payload || null),
+            payloadPreviewData: this.props.craftPayload(payload || null),
             showPayloadDialog: true
         });
     }

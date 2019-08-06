@@ -13,12 +13,6 @@
     background-color: white;
     z-index: 10;
     @include nav-bar;
-    .nav-bar-item {
-        @include top-nav-item;
-    }
-    .selected-nav-bar-item {
-        @include selected-nav-item;
-    }
     .ms-Dropdown-container {
         @media screen and (min-width: $screenSize) {
             width: 200px;

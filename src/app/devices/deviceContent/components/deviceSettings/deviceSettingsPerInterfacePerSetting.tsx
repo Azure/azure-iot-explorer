@@ -3,9 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Label, Stack } from 'office-ui-fabric-react';
-import { IconButton, DefaultButton } from 'office-ui-fabric-react/lib/Button';
-import { Overlay } from 'office-ui-fabric-react/lib/Overlay';
+import { Label, Stack, IconButton, DefaultButton } from 'office-ui-fabric-react';
 import { ParsedJsonSchema } from '../../../../api/models/interfaceJsonParserOutput';
 import { SYNC_STATUS } from '../../../../constants/shared';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
@@ -30,6 +28,7 @@ export interface DeviceSettingDataProps extends TwinWithSchema {
 
 export interface DeviceSettingDispatchProps {
     handleCollapseToggle: () => void;
+    handleOverlayToggle: () => void;
     patchDigitalTwinInterfaceProperties: (parameters: PatchDigitalTwinInterfacePropertiesActionParameters) => void;
 }
 
@@ -39,7 +38,6 @@ export interface TwinWithSchema {
 
     settingModelDefinition: PropertyContent;
     settingSchema: ParsedJsonSchema;
-    syncStatus: SYNC_STATUS;
 }
 
 interface DeviceSettingState {
@@ -64,8 +62,7 @@ export default class DeviceSettingsPerInterfacePerSetting
                         <>
                             {this.createCollapsedSummary(context)}
                             {this.createUncollapsedCard()}
-                            {this.state.showReportedValuePanel && <Overlay/>}
-                            {this.state.showReportedValuePanel && this.createReportedValuePanel()}
+                            {this.createReportedValuePanel()}
                         </>
                     )}
                 </LocalizationContextConsumer>
@@ -81,7 +78,7 @@ export default class DeviceSettingsPerInterfacePerSetting
 
     private readonly createCollapsedSummary = (context: LocalizationContextInterface) => {
         return (
-            <header className={this.props.collapsed ? 'item-summary' : 'item-summary item-summary-uncollapsed'} onClick={this.handleToggleCollapse}>
+            <header className={this.props.collapsed ? 'item-summary' : 'item-summary item-summary-uncollapsed'} onClick={this.props.handleCollapseToggle}>
                 {this.renderPropertyName(context)}
                 {this.renderPropertySchema(context)}
                 {this.renderPropertyUnit(context)}
@@ -171,29 +168,26 @@ export default class DeviceSettingsPerInterfacePerSetting
         const { reportedTwin, settingModelDefinition : modelDefinition, settingSchema : schema } = this.props;
         return (
             <div role="dialog">
-                {this.state.showReportedValuePanel &&
-                    <ComplexReportedFormPanel
-                        schema={schema}
-                        modelDefinition={modelDefinition}
-                        showPanel={this.state.showReportedValuePanel}
-                        formData={reportedTwin}
-                        handleDismiss={this.handleDismissViewReportedPanel}
-                    />}
+                <ComplexReportedFormPanel
+                    schema={schema}
+                    modelDefinition={modelDefinition}
+                    showPanel={this.state.showReportedValuePanel}
+                    formData={reportedTwin}
+                    handleDismiss={this.handleDismissViewReportedPanel}
+                />
             </div>
         );
     }
 
     private readonly onViewReportedValue = () => {
         this.setState({showReportedValuePanel: true});
-        this.handleToggleCollapse();
+        this.props.handleOverlayToggle();
+        this.props.handleCollapseToggle();
     }
 
     private readonly handleDismissViewReportedPanel = () => {
         this.setState({showReportedValuePanel: false});
-    }
-
-    private readonly handleToggleCollapse = () => {
-        this.props.handleCollapseToggle();
+        this.props.handleOverlayToggle();
     }
 
     private readonly createForm = () => {
@@ -209,8 +203,8 @@ export default class DeviceSettingsPerInterfacePerSetting
             />
         );
     }
-    private readonly createSettingsPayload = (interfaceName: string, propertyKey: string, patchData: object) => {
-        return generateInterfacePropertiesPayload(interfaceName, propertyKey, patchData);
+    private readonly createSettingsPayload = (patchData: object) => {
+        return generateInterfacePropertiesPayload(this.props.interfaceName, this.props.settingModelDefinition.name, patchData);
     }
 
     private readonly onSubmit = (twin: any) => () => { // tslint:disable-line:no-any

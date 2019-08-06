@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/devices/deviceContentNav show interface information when status is failed 1`] = `
+exports[`components/devices/deviceInterfaces show interface information when status is failed 1`] = `
 <Context.Provider
   value={
     Object {
@@ -42,7 +42,7 @@ exports[`components/devices/deviceContentNav show interface information when sta
 </Context.Provider>
 `;
 
-exports[`components/devices/deviceContentNav show interface information when status is fetched 1`] = `
+exports[`components/devices/deviceInterfaces show interface information when status is fetched 1`] = `
 <Context.Provider
   value={
     Object {

@@ -102,6 +102,12 @@ export class ResourceKeys {
          clearEvents : "deviceEvents.command.clearEvents",
          refresh : "deviceEvents.command.refresh",
          showSystemProperties : "deviceEvents.command.showSystemProperties",
+         start : "deviceEvents.command.start",
+         stop : "deviceEvents.command.stop",
+      },
+      consumerGroups : {
+         label : "deviceEvents.consumerGroups.label",
+         tooltip : "deviceEvents.consumerGroups.tooltip",
       },
       event : {
          body : "deviceEvents.event.body",
@@ -298,6 +304,9 @@ export class ResourceKeys {
       command : {
          openReportedValuePanel : "deviceProperties.command.openReportedValuePanel",
          refresh : "deviceProperties.command.refresh",
+      },
+      editor : {
+         label : "deviceProperties.editor.label",
       },
       headerText : "deviceProperties.headerText",
       noProperty : "deviceProperties.noProperty",

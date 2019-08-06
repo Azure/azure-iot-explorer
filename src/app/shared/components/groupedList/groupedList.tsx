@@ -189,7 +189,8 @@ export default class GroupedListWrapper<T> extends React.Component<GroupedListPr
                     />
                     {renderColumns}
                     <IconButton
-                        id={'collapse'}
+                        id={`collapse_${props.group.key}`}
+                        className="collapse"
                         iconProps={{
                             iconName: props.group.isCollapsed ? GroupedListIconNames.OPEN : GroupedListIconNames.CLOSE,
                         }}

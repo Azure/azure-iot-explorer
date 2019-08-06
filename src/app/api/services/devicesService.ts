@@ -16,7 +16,7 @@ import { FetchDeviceTwinParameters,
     FetchDigitalTwinInterfacePropertiesParameters,
     InvokeDigitalTwinInterfaceCommandParameters,
     PatchDigitalTwinInterfacePropertiesParameters } from '../parameters/deviceParameters';
-import { CONTROLLER_API_ENDPOINT, DATAPLANE, EVENTHUB, DIGITAL_TWIN_API_VERSION, DataPlaneStatusCode } from '../../constants/apiConstants';
+import { CONTROLLER_API_ENDPOINT, DATAPLANE, EVENTHUB, DIGITAL_TWIN_API_VERSION, DataPlaneStatusCode, MONITOR, STOP } from '../../constants/apiConstants';
 import { HTTP_OPERATION_TYPES } from '../constants';
 import { buildQueryString, getConnectionInfoFromConnectionString, generateSasToken } from '../shared/utils';
 import { CONNECTION_TIMEOUT_IN_SECONDS, RESPONSE_TIME_IN_SECONDS } from '../../constants/devices';
@@ -29,6 +29,8 @@ import { transformDevice, transformDeviceIdentity } from '../dataTransforms/devi
 
 const DATAPLANE_CONTROLLER_ENDPOINT = `${CONTROLLER_API_ENDPOINT}${DATAPLANE}`;
 const EVENTHUB_CONTROLLER_ENDPOINT = `${CONTROLLER_API_ENDPOINT}${EVENTHUB}`;
+const EVENTHUB_MONITOR_ENDPOINT = `${EVENTHUB_CONTROLLER_ENDPOINT}${MONITOR}`;
+const EVENTHUB_STOP_ENDPOINT = `${EVENTHUB_CONTROLLER_ENDPOINT}${STOP}`;
 
 export interface DataPlaneRequest {
     apiVersion?: string;
@@ -393,13 +395,22 @@ export const monitorEvents = async (parameters: MonitorEventsParameters): Promis
 
         const requestParameters = {
             connectionString: parameters.hubConnectionString,
+            consumerGroup: parameters.consumerGroup,
             deviceId: parameters.deviceId,
             fetchSystemProperties: parameters.fetchSystemProperties,
             startTime: parameters.startTime && parameters.startTime.toISOString()
         };
 
-        const response = await request(EVENTHUB_CONTROLLER_ENDPOINT, requestParameters);
+        const response = await request(EVENTHUB_MONITOR_ENDPOINT, requestParameters);
         return await response.json() as Message[];
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const stopMonitoringEvents = async (): Promise<void> => {
+    try {
+        const response = await request(EVENTHUB_STOP_ENDPOINT, {});
     } catch (error) {
         throw error;
     }
