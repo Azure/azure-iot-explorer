@@ -4,7 +4,7 @@
  **********************************************************/
 import { DeviceSummary } from '../models/deviceSummary';
 import { parseDateTimeString } from './transformHelper';
-import { Device } from '../models/device';
+import { Device, DataPlaneResponse } from '../models/device';
 import { DeviceIdentity } from '../models/deviceIdentity';
 
 export const transformDevice = (device: Device): DeviceSummary => {

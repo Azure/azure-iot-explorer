@@ -16,6 +16,7 @@ import DeviceListCommandBar from './deviceListCommandBar';
 import BreadcrumbContainer from '../../../shared/components/breadcrumbContainer';
 import DeviceListQuery from './deviceListQuery';
 import { DeviceListCell } from './deviceListCell';
+import ListPagingFooter from './listPagingFooter';
 import '../../../css/_deviceList.scss';
 import '../../../css/_layouts.scss';
 
@@ -42,7 +43,7 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
         super(props);
 
         this.state = {
-            query: props.query || { clauses: [], deviceId: '' },
+            query: props.query || { clauses: [], continuationTokens: [], currentPageIndex: 0, deviceId: '' },
             selectedDeviceIds: [],
             showDeleteConfirmation: false
         };
@@ -111,8 +112,9 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
             {
                 query: {
                     clauses: [],
+                    continuationTokens: [],
+                    currentPageIndex: 0,
                     deviceId: '',
-                    nextLink: ''
                 }
             },
             () => {
@@ -131,8 +133,10 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
                 />
             );
         };
+        debugger; //tslint:disable-line
 
         return (
+            <>
             <GroupedListWrapper
                 items={this.props.devices}
                 nameKey="deviceId"
@@ -171,7 +175,23 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
                     }
                 ]}
             />
+            <ListPagingFooter
+                continuationTokens={this.props.query && this.props.query.continuationTokens}
+                currentPageIndex={this.props.query && this.props.query.currentPageIndex}
+                fetchPage={this.fetchPage}
+            />
+            </>
         );
+    }
+
+    private readonly fetchPage = (pageNumber: number) => {
+        const { query } = this.props;
+        return this.props.listDevices({
+            clauses: query.clauses,
+            continuationTokens: query.continuationTokens,
+            currentPageIndex: pageNumber,
+            deviceId: query.deviceId
+        });
     }
 
     private readonly deleteConfirmationDialog = (context: LocalizationContextInterface) => {

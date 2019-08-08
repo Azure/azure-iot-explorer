@@ -48,7 +48,8 @@ app.post('/api/DataPlane', (req: express.Request, res: express.Response) => {
             const headers = {
                 'Accept': 'application/json',
                 'Authorization': req.body.sharedAccessSignature,
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                ...req.body.headers
             };
             if (req.body.etag) {
                 // tslint:disable-next-line:no-any
@@ -71,11 +72,17 @@ app.post('/api/DataPlane', (req: express.Request, res: express.Response) => {
                         res.status(parseInt(httpRes.headers[DEVICE_STATUS_HEADER] as string)).send(body);
                     }
                     else {
-                        res.status(httpRes.statusCode).send(body);
+                        res.status(httpRes.statusCode).send({
+                            body: JSON.parse(body),
+                            headers: httpRes.headers
+                        });
                     }
                 }
                 else {
-                    res.send(body);
+                    res.send({
+                        body: JSON.parse(body),
+                        headers: null
+                    });
                 }
             });
         }

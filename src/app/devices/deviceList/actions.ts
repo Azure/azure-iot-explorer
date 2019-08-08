@@ -9,10 +9,11 @@ import { DeviceSummary } from '../../api/models/deviceSummary';
 import { BulkRegistryOperationResult } from '../../api/models/bulkRegistryOperationResult';
 import { DeviceIdentity } from '../../api/models/deviceIdentity';
 import DeviceQuery from '../../api/models/deviceQuery';
+import { DataPlaneResponse, Device } from '../../api/models/device';
 
 const deviceListCreator = actionCreatorFactory(actionPrefixes.DEVICELISTS);
 const clearDevicesAction = deviceListCreator<void>(actionTypes.CLEAR_DEVICES);
-const listDevicesAction = deviceListCreator.async<DeviceQuery, DeviceSummary[]>(actionTypes.LIST_DEVICES);
+const listDevicesAction = deviceListCreator.async<DeviceQuery, DataPlaneResponse<Device[]>>(actionTypes.LIST_DEVICES);
 const deleteDevicesAction = deviceListCreator.async<string[], BulkRegistryOperationResult>(actionTypes.DELETE_DEVICES);
 const addDeviceAction = deviceListCreator.async<DeviceIdentity, DeviceSummary>(actionTypes.ADD_DEVICE);
 
