@@ -32,33 +32,27 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
     }
 
     public render(): JSX.Element {
-        if (this.props.isLoading) {
-            return (
-                <Shimmer/>
-            );
-        }
         return (
-            <>
-                <LocalizationContextConsumer>
-                    {(context: LocalizationContextInterface) => (
-                        <>
-                            <CommandBar
-                                className="command"
-                                items={[
-                                    {
-                                        ariaLabel: context.t(ResourceKeys.deviceInterfaces.command.refresh),
-                                        iconProps: {iconName: REFRESH},
-                                        key: REFRESH,
-                                        name: context.t(ResourceKeys.deviceProperties.command.refresh),
-                                        onClick: this.handleRefresh
-                                    }
-                                ]}
-                            />
-                            {this.renderInterfaceInfo(context)}
-                        </>
-                    )}
-                </LocalizationContextConsumer>
-            </>
+            <LocalizationContextConsumer>
+                {(context: LocalizationContextInterface) => (
+                    this.props.isLoading ? <Shimmer/> :
+                    <>
+                        <CommandBar
+                            className="command"
+                            items={[
+                                {
+                                    ariaLabel: context.t(ResourceKeys.deviceInterfaces.command.refresh),
+                                    iconProps: {iconName: REFRESH},
+                                    key: REFRESH,
+                                    name: context.t(ResourceKeys.deviceProperties.command.refresh),
+                                    onClick: this.handleRefresh
+                                }
+                            ]}
+                        />
+                        {this.renderInterfaceInfo(context)}
+                    </>
+                )}
+            </LocalizationContextConsumer>
         );
     }
 
@@ -106,9 +100,6 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
 
     private readonly getModelDefinitionSourceText = (context: LocalizationContextInterface) => {
         const { modelDefinitionWithSource } = this.props;
-        if (!modelDefinitionWithSource) {
-            return '--';
-        }
 
         switch (modelDefinitionWithSource.source) {
             case REPOSITORY_LOCATION_TYPE.Public:

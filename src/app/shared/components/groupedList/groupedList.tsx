@@ -4,6 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { GroupedList, IGroup, IGroupDividerProps } from 'office-ui-fabric-react/lib/GroupedList';
+import { IListProps } from 'office-ui-fabric-react/lib/List';
 import { Shimmer, ShimmerElementType } from 'office-ui-fabric-react/lib/Shimmer';
 import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
 import { IconButton, BaseButton, Button } from 'office-ui-fabric-react/lib/Button';
@@ -81,6 +82,7 @@ export default class GroupedListWrapper<T> extends React.Component<GroupedListPr
                                     onRenderCell={this.onRenderCell}
                                     selection={selection}
                                     selectionMode={selectionMode}
+                                    onShouldVirtualize={this.onShouldVirtualize}
                                 />
                             </SelectionZone>
                         </MarqueeSelection>
@@ -89,6 +91,10 @@ export default class GroupedListWrapper<T> extends React.Component<GroupedListPr
             </div>
         );
 
+    }
+
+    private onShouldVirtualize = (props: IListProps): boolean => {
+        return false;
     }
 
     public static getDerivedStateFromProps<T>(props: GroupedListProps<T>, state: GroupedListState): Partial<GroupedListState> | null {
