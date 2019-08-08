@@ -35,7 +35,7 @@ export default class RepositoryLocationListItem extends React.Component<Reposito
         return (
             <LocalizationContextConsumer>
                 {(context: LocalizationContextInterface) => (
-                <div className="item">
+                <div className="item" role="list">
                     <div className="numbering">
                         {index + 1}
                     </div>

@@ -19,20 +19,20 @@ describe('getDigitalTwinInterfacePropertiesSelector', () => {
     const digitalTwinInterfaceProperties = {
         interfaces: {
             urn_azureiot_ModelDiscovery_DigitalTwin: {
-              name: 'urn_azureiot_ModelDiscovery_DigitalTwin',
-              properties: {
-                modelInformation: {
-                  reported: {
-                    value: {
-                      modelId: 'urn:azureiot:testdevicecapabilitymodel:1',
-                      interfaces: {
-                        environmentalSensor: interfaceId,
-                        urn_azureiot_ModelDiscovery_DigitalTwin: 'urn:azureiot:ModelDiscovery:DigitalTwin:1'
-                      }
+                name: 'urn_azureiot_ModelDiscovery_DigitalTwin',
+                properties: {
+                    modelInformation: {
+                        reported: {
+                            value: {
+                                modelId: 'urn:azureiot:testdevicecapabilitymodel:1',
+                                interfaces: {
+                                    environmentalSensor: interfaceId,
+                                    urn_azureiot_ModelDiscovery_DigitalTwin: 'urn:azureiot:ModelDiscovery:DigitalTwin:1'
+                                }
+                            }
+                        }
                     }
-                  }
                 }
-              }
             },
             environmentalSensor: {
                 name: interfaceName,
@@ -40,8 +40,8 @@ describe('getDigitalTwinInterfacePropertiesSelector', () => {
                     brightness: {
                         desired: {
                             value: 123
-                          },
-                          reported: {
+                        },
+                        reported: {
                             desiredState: {
                               code: 200,
                               description: 'Brightness updated',

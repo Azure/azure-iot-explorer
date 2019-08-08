@@ -36,6 +36,7 @@ describe('components/devices/devicePropertiesPerInterfacePerProperty', () => {
                 propertyModelDefinition={propertyModelDefinition}
                 propertySchema={propertySchema}
                 reportedTwin={true}
+                handleOverlayToggle={jest.fn()}
             />
         );
 
@@ -79,11 +80,13 @@ describe('components/devices/devicePropertiesPerInterfacePerProperty', () => {
             type: schema
         };
 
+        const handleOverlayToggle = jest.fn();
         const wrapper = mountWithLocalization(
             <DevicePropertiesPerInterfacePerProperty
                 propertyModelDefinition={propertyModelDefinition}
                 propertySchema={propertySchema}
                 reportedTwin={reportedTwin}
+                handleOverlayToggle={handleOverlayToggle}
             />
         );
 
@@ -103,5 +106,7 @@ describe('components/devices/devicePropertiesPerInterfacePerProperty', () => {
 
         const complexValueButton = wrapper.find(DefaultButton);
         expect(complexValueButton.props().className).toEqual('column-value-button');
+        complexValueButton.props().onClick(null);
+        expect(handleOverlayToggle).toBeCalled();
     });
 });

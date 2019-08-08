@@ -6,7 +6,7 @@ import 'jest';
 import { Record } from 'immutable';
 import { ModelDefinition, PropertyContent } from '../../../../api/models/modelDefinition';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
-import { generateDigitalTwinForSpecificProperty, generateReportedTwin } from './selectors';
+import { generateDigitalTwinForSpecificProperty, generateReportedTwin, getDevicePropertyTupleSelector } from './selectors';
 import { getInitialState } from '../../../../api/shared/testHelper';
 
 describe('getDigitalTwinInterfacePropertiesSelector', () => {
@@ -23,7 +23,6 @@ describe('getDigitalTwinInterfacePropertiesSelector', () => {
                             "value": {
                                 "modelId": "urn:contoso:com:dcm:2",
                                 "interfaces": {
-                                    "environmentalsensor": "urn:contoso:com:environmentalsensor:2",
                                     "urn_azureiot_ModelDiscovery_ModelInformation": "urn:azureiot:ModelDiscovery:ModelInformation:1",
                                     "urn_azureiot_ModelDiscovery_DigitalTwin": interfaceId
                                 }
@@ -85,7 +84,7 @@ describe('getDigitalTwinInterfacePropertiesSelector', () => {
         interfaceIdSelected: interfaceId,
         invokeMethodResponse: '',
         modelDefinitionWithSource: {
-            modelDefinition: null,
+            modelDefinition,
             modelDefinitionSynchronizationStatus: SynchronizationStatus.fetched,
             source: null
         }
@@ -99,5 +98,13 @@ describe('getDigitalTwinInterfacePropertiesSelector', () => {
     it('returns interface properties', () => {
         expect(generateReportedTwin(state, modelDefinition.contents[0] as PropertyContent))
             .toEqual(digitalTwinInterfaceProperties.interfaces.urn_azureiot_ModelDiscovery_DigitalTwin.properties.modelInformation.reported.value);
+    });
+
+    it('returns interface properties tuple', () => {
+        const result = getDevicePropertyTupleSelector(state);
+        expect(result[0].propertyModelDefinition).toEqual(modelDefinition.contents[0]);
+        expect(result[0].reportedTwin).toEqual(digitalTwinInterfaceProperties.interfaces.urn_azureiot_ModelDiscovery_DigitalTwin.properties.modelInformation.reported.value);
+        expect(result[0].propertySchema.description).toEqual(`${modelDefinition.contents[0].displayName} / ${modelDefinition.contents[0].description}`);
+        expect(result[0].propertySchema.title).toEqual(modelDefinition.contents[0].name);
     });
 });

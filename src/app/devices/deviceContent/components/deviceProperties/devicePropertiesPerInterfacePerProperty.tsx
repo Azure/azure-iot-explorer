@@ -12,12 +12,16 @@ import { PropertyContent } from '../../../../api/models/modelDefinition';
 import ComplexReportedFormPanel from '../shared/complexReportedFormPanel';
 import { RenderSimplyTypeValue } from '../shared/simpleReportedSection';
 
-export type TwinWithSchema = DevicePropertyProps;
+export type TwinWithSchema = DevicePropertyDataProps;
 
-export interface DevicePropertyProps {
+export interface DevicePropertyDataProps {
     propertyModelDefinition: PropertyContent;
     propertySchema: ParsedJsonSchema;
     reportedTwin: any; // tslint:disable-line:no-any
+}
+
+export interface DevicePropertyDispatchProps {
+    handleOverlayToggle: () => void;
 }
 
 interface DevicePropertyState {
@@ -25,8 +29,8 @@ interface DevicePropertyState {
 }
 
 export default class DevicePropertiesPerInterfacePerProperty
-    extends React.Component<DevicePropertyProps, DevicePropertyState> {
-    constructor(props: DevicePropertyProps) {
+    extends React.Component<DevicePropertyDataProps & DevicePropertyDispatchProps, DevicePropertyState> {
+    constructor(props: DevicePropertyDataProps & DevicePropertyDispatchProps) {
         super(props);
 
         this.state = {
@@ -44,7 +48,7 @@ export default class DevicePropertiesPerInterfacePerProperty
                             {this.renderPropertySchema(context)}
                             {this.renderPropertyUnit(context)}
                             {this.renderPropertyReportedValue(context)}
-                            {this.state.showReportedValuePanel && this.createReportedValuePanel()}
+                            {this.createReportedValuePanel()}
                         </section>
                     )}
                 </LocalizationContextConsumer>
@@ -101,6 +105,7 @@ export default class DevicePropertiesPerInterfacePerProperty
 
     private readonly onViewReportedValue = () => {
         this.setState({showReportedValuePanel: true});
+        this.props.handleOverlayToggle();
     }
 
     private readonly isSchemaSimpleType = () => {
@@ -127,5 +132,6 @@ export default class DevicePropertiesPerInterfacePerProperty
 
     private readonly handleDismissViewReportedPanel = () => {
         this.setState({showReportedValuePanel: false});
+        this.props.handleOverlayToggle();
     }
 }

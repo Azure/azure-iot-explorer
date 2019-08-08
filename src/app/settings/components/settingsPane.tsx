@@ -76,7 +76,7 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
                         <h2>{context.t(ResourceKeys.settings.headerText)}</h2>
                     </header>
                     <section aria-label={context.t(ResourceKeys.settings.configuration.headerText)}>
-                        <h3 role="heading">{context.t(ResourceKeys.settings.configuration.headerText)}</h3>
+                        <h3 role="heading" aria-level={1}>{context.t(ResourceKeys.settings.configuration.headerText)}</h3>
                         <CopyableMaskField
                             t={context.t}
                             error={this.state.error && context.t(this.state.error)}
@@ -114,7 +114,7 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
                         </LabelWithTooltip>
                     </div>
                     <section aria-label={context.t(ResourceKeys.settings.modelDefinitions.headerText)}>
-                        <h3 role="heading">{context.t(ResourceKeys.settings.modelDefinitions.headerText)}</h3>
+                        <h3 role="heading" aria-level={1}>{context.t(ResourceKeys.settings.modelDefinitions.headerText)}</h3>
                         <span className="helptext">{context.t(ResourceKeys.settings.modelDefinitions.helpText)}</span>
                         <RepositoryLocationList
                             items={this.state.repositoryLocations}
@@ -215,7 +215,7 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
             {(context: LocalizationContextInterface) => (
                 <footer className="settings-footer">
                     <section aria-label={context.t(ResourceKeys.settings.questions.headerText)}>
-                        <h3 role="heading">{context.t(ResourceKeys.settings.questions.headerText)}</h3>
+                        <h3 role="heading" aria-level={1}>{context.t(ResourceKeys.settings.questions.headerText)}</h3>
                         <ul className="faq">
                             <li className="faq-item">
                                 <Link
@@ -227,7 +227,7 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
                         </ul>
                     </section>
                     <section className="footer-buttons">
-                        <h3 role="heading">{context.t(ResourceKeys.settings.footerText)}</h3>
+                        <h3 role="heading" aria-level={1}>{context.t(ResourceKeys.settings.footerText)}</h3>
                         <PrimaryButton
                             type="submit"
                             disabled={this.disableSaveButton()}
