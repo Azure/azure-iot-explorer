@@ -52,6 +52,10 @@ describe('top level map converter', () => {
         expect(result.formData).toEqual(formDataWithTopLevelMap);
     });
 
+    it('json form data to twin return as-is if not provided',  () => {
+        expect(dataToTwinConverter(null, null).twin).toEqual(null);
+    });
+
     it('json form data to twin transforms successfully',  () => {
         expect(dataToTwinConverter(formDataWithTopLevelMap, settingWithTopLevelMap).twin).toEqual(twinWithTopLevelMap);
     });

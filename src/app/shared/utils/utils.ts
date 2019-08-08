@@ -22,6 +22,13 @@ export const randomValueGenerator = (byteArray: Uint8Array) => {
     crypto.getRandomValues(byteArray);
 };
 
+export const testRandomValueGenerator = (byteArray: Uint8Array) => {
+    const defaultValue: number = 1;
+    for (let i = 0; i < byteArray.length; i++) {
+        byteArray[i] = defaultValue;
+    }
+};
+
 export const validateKey = (key: string): boolean => {
     const pattern = new RegExp('^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$');
     return pattern.test(key);

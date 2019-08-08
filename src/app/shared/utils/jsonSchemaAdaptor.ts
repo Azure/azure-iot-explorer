@@ -203,6 +203,6 @@ const getDisplayName = (schema: PropertyContent | CommandContent | Schema): stri
 const getDisplayUnit = (schema: PropertyContent | CommandContent): string => {
     const unit = typeof schema.unit === 'string' && schema.unit;
     return schema.displayUnit && unit ?
-    `${schema.displayUnit}/${unit}` :
+    `${schema.displayUnit} / ${unit}` :
      schema.displayUnit || unit || '';
 };

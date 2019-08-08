@@ -3421,7 +3421,7 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                             <div
                                               className="labelSection"
                                             >
-                                              <LabelWithToolTip
+                                              <LabelWithRichCallout
                                                 calloutContent={
                                                   <div
                                                     className="callout-wrapper"
@@ -6260,7 +6260,7 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                                     </StyledCustomizedLayer>
                                                   </Callout>
                                                 </div>
-                                              </LabelWithToolTip>
+                                              </LabelWithRichCallout>
                                             </div>
                                             <div
                                               className="controlSection"
@@ -17609,7 +17609,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                             <div
                                               className="labelSection"
                                             >
-                                              <LabelWithToolTip
+                                              <LabelWithRichCallout
                                                 calloutContent={
                                                   <div
                                                     className="callout-wrapper"
@@ -20448,7 +20448,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                     </StyledCustomizedLayer>
                                                   </Callout>
                                                 </div>
-                                              </LabelWithToolTip>
+                                              </LabelWithRichCallout>
                                             </div>
                                             <div
                                               className="controlSection"

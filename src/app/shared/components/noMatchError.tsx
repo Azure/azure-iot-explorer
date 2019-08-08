@@ -2,13 +2,13 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import React, { Component } from 'react';
+import * as React from 'react';
 import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import '../../css/_noMatchError.scss';
 
-export default class NoMatchError extends Component {
+export default class NoMatchError extends React.Component<{}, {}> {
     public render() {
       return (
           <div className="no-match-error">
