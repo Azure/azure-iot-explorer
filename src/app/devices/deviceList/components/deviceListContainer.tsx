@@ -4,19 +4,20 @@
  **********************************************************/
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import DeviceListComponent, { DeviceListDispatchProps } from './deviceList';
+import DeviceListComponent, { DeviceListDispatchProps, DeviceListDataProps } from './deviceList';
 import { StateType } from '../../../shared/redux/state';
 import { getConnectionStringSelector } from '../../../login/selectors';
 import { listDevicesAction, deleteDevicesAction } from '../actions';
-import { getDeviceSummaryListStatus, deviceSummaryListWrapperNoPNPSelector } from '../selectors';
+import { getDeviceSummaryListStatus, deviceQuerySelector, deviceSummaryListWrapperNoPNPSelector } from '../selectors';
 import DeviceQuery from '../../../api/models/deviceQuery';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 
-const mapStateToProps = (state: StateType) => {
+const mapStateToProps = (state: StateType): DeviceListDataProps => {
     return {
         connectionString: getConnectionStringSelector(state),
         devices: deviceSummaryListWrapperNoPNPSelector(state),
-        isFetching: getDeviceSummaryListStatus(state) === SynchronizationStatus.working
+        isFetching: getDeviceSummaryListStatus(state) === SynchronizationStatus.working,
+        query: deviceQuerySelector(state),
     };
 };
 

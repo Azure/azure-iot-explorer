@@ -36,6 +36,8 @@ export default class DeviceListQuery extends React.Component<DeviceListQueryProp
         this.props.setQuery(
             {
                 clauses,
+                continuationTokens: [],
+                currentPageIndex: 0,
                 deviceId: ''
             }
         );
@@ -46,6 +48,8 @@ export default class DeviceListQuery extends React.Component<DeviceListQueryProp
         this.props.setQuery(
             {
                 clauses,
+                continuationTokens: [],
+                currentPageIndex: 0,
                 deviceId: ''
             }
         );
@@ -54,6 +58,8 @@ export default class DeviceListQuery extends React.Component<DeviceListQueryProp
     private readonly onSetDeviceId = (e: unknown, deviceId: string) => {
         this.props.setQuery({
             clauses: [],
+            continuationTokens: [],
+            currentPageIndex: 0,
             deviceId
         });
     }
@@ -63,6 +69,8 @@ export default class DeviceListQuery extends React.Component<DeviceListQueryProp
             clauses: [...this.props.query.clauses, {
                 isError: true
             }],
+            continuationTokens: [],
+            currentPageIndex: 0,
             deviceId: ''
         });
     }
