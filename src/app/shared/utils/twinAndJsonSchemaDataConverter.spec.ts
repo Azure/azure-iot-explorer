@@ -39,24 +39,24 @@ describe('top level map converter', () => {
     const pathsInSetting = [{keyName: 'telemetryName', path: ['MapValStringValue'], valueName: 'telemetryConfig'}];
     const numberOfPathExpected = 1;
 
-    it('number of path towards map type matches', () => {
+    it('matches the number of path towards map type', () => {
         expect(getNumberOfMapsInSchema(settingWithTopLevelMap)).toBe(numberOfPathExpected);
     });
 
-    it('find the right path towards map type',  () => {
+    it('finds the right path towards map type',  () => {
         expect(findPathsTowardsMapType(settingWithTopLevelMap, [], numberOfPathExpected)).toEqual(pathsInSetting);
     });
 
-    it('json twin to form data transforms successfully',  () => {
+    it('transforms json twin to form data successfully',  () => {
         const result = twinToFormDataConverter(twinWithTopLevelMap, settingWithTopLevelMap);
         expect(result.formData).toEqual(formDataWithTopLevelMap);
     });
 
-    it('json form data to twin return as-is if not provided',  () => {
+    it('returns null if not provided',  () => {
         expect(dataToTwinConverter(null, null).twin).toEqual(null);
     });
 
-    it('json form data to twin transforms successfully',  () => {
+    it('transforms json form data to twin successfully',  () => {
         expect(dataToTwinConverter(formDataWithTopLevelMap, settingWithTopLevelMap).twin).toEqual(twinWithTopLevelMap);
     });
 
@@ -69,12 +69,12 @@ describe('top level map converter', () => {
         ]
     };
 
-    it('json form data to twin transforms would return undefined form data if form data has no correponding path',  () => {
+    it('transforms json form data to twin and would return undefined form data if form data has no corresponding path',  () => {
         expect(dataToTwinConverter(formDataWithNoMatchingPath, settingWithTopLevelMap).twin).toEqual(undefined);
     });
 });
 
-describe('map in object converter', () => {
+describe('nested map type converter', () => {
     const settingSchemaWithMapInObject = {
         properties: {
             commands: {
@@ -144,20 +144,20 @@ describe('map in object converter', () => {
         {keyName: 'telemetryName', path: ['interfaceConfig', 'telemetry'], valueName: 'telemetryConfig'}];
     const numberOfPathExpected = 2;
 
-    it('number of path towards map type matches', () => {
+    it('matches the number of path towards map type', () => {
         expect(getNumberOfMapsInSchema(settingSchemaWithMapInObject)).toBe(numberOfPathExpected);
     });
 
-    it('find the right path towards map type',  () => {
+    it('finds the right path towards map type',  () => {
         expect(findPathsTowardsMapType(settingSchemaWithMapInObject, [], numberOfPathExpected)).toEqual(pathsInSetting);
     });
 
-    it('json twin to form data transforms successfully',  () => {
+    it('transforms json twin to form data successfully',  () => {
         const result = twinToFormDataConverter(twinWithMapInObject, settingSchemaWithMapInObject);
         expect(result.formData).toEqual(formDataWithMapInObject);
     });
 
-    it('json form data to twin transforms successfully',  () => {
+    it('transforms json form data to twin successfully',  () => {
         expect(dataToTwinConverter(formDataWithMapInObject, settingSchemaWithMapInObject).twin).toEqual(twinWithMapInObject);
     });
 
@@ -171,7 +171,7 @@ describe('map in object converter', () => {
         }
     };
 
-    it('json form data to twin transforms would leave form data intact if form data has no correponding path',  () => {
+    it('transforms json form data to twin and would leave form data intact if form data has no corresponding path',  () => {
         expect(dataToTwinConverter(formDataWithNoMatchingPath, settingSchemaWithMapInObject).twin).toEqual(formDataWithNoMatchingPath);
     });
 
@@ -185,7 +185,7 @@ describe('map in object converter', () => {
         }
     };
 
-    it('json twin to form data transforms would leave twin intact if form data has no correponding path',  () => {
+    it('transforms json twin to form data and would leave twin intact if form data has no corresponding path',  () => {
         expect(twinToFormDataConverter(twinWithNoMatchingPath, settingSchemaWithMapInObject).formData).toEqual(twinWithNoMatchingPath);
     });
 });
@@ -238,7 +238,7 @@ describe('map in map converter', () => {
 
     const numberOfPathExpected = 2;
 
-    it('number of path towards map type matches', () => {
+    it('matches the number of path towards map type', () => {
         expect(getNumberOfMapsInSchema(settingSchemaWithMapInMap)).toBe(numberOfPathExpected);
     });
 

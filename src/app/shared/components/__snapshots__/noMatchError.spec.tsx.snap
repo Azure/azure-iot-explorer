@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`shared/components/noMatchError matches snapshot 1`] = `
-<NoMatchError>
+<Component>
   <div
     className="no-match-error"
   >
@@ -1387,5 +1387,5 @@ exports[`shared/components/noMatchError matches snapshot 1`] = `
       </CustomizedPrimaryButton>
     </div>
   </div>
-</NoMatchError>
+</Component>
 `;

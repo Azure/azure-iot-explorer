@@ -1,11 +1,18 @@
 import 'jest';
-import { generateKey, testRandomValueGenerator, validateKey, validateThumbprint, validateDeviceId } from './utils';
+import { generateKey, validateKey, validateThumbprint, validateDeviceId } from './utils';
 
 describe('utils', () => {
     // tslint:disable-next-line:no-any
     const localWindow = window as any;
     localWindow.crypto = {
       getRandomValues: jest.fn()
+    };
+
+    const testRandomValueGenerator = (byteArray: Uint8Array) => {
+        const defaultValue: number = 1;
+        for (let i = 0; i < byteArray.length; i++) {
+            byteArray[i] = defaultValue;
+        }
     };
 
     describe('generateKey', () => {
