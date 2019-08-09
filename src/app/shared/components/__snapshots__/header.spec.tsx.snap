@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`shared/components/header matches snapshot when settings is not visible 1`] = `
+<header
+  className="header"
+>
+  <div
+    className="title"
+  />
+  <div>
+    <Connect(NotificationList) />
+  </div>
+  <CustomizedDefaultButton
+    className=""
+    iconProps={
+      Object {
+        "iconName": "PlugConnected",
+      }
+    }
+    id="settings"
+    onClick={[Function]}
+  />
+</header>
+`;
+
+exports[`shared/components/header matches snapshot when settings is visible 1`] = `
+<header
+  className="header"
+>
+  <div
+    className="title"
+  />
+  <div>
+    <Connect(NotificationList) />
+  </div>
+  <CustomizedDefaultButton
+    className="settings-visible"
+    iconProps={
+      Object {
+        "iconName": "PlugDisconnected",
+      }
+    }
+    id="settings"
+    onClick={[Function]}
+  />
+</header>
+`;

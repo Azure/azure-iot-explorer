@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/shared/labelWithRichCallout matches snapshot when tooltip specified 1`] = `
+<div
+  className="labelWithTooltip"
+>
+  <StyledLabelBase
+    calloutContent={<React.Fragment />}
+  >
+    labelText
+  </StyledLabelBase>
+  <CustomizedIconButton
+    iconProps={
+      Object {
+        "iconName": "Info",
+      }
+    }
+    id="iconbutton1"
+    onMouseOver={[Function]}
+  />
+  <Callout
+    directionalHint={12}
+    gapSpace={0}
+    hidden={true}
+    onDismiss={[Function]}
+    role="alertdialog"
+    setInitialFocus={true}
+    target="#iconbutton1"
+  />
+</div>
+`;

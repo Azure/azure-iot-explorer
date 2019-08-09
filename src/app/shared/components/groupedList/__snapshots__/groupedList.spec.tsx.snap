@@ -194,6 +194,7 @@ exports[`components/GroupedList render GroupedList matches snapshot 1`] = `
           ]
         }
         onRenderCell={[Function]}
+        onShouldVirtualize={[Function]}
         selection={
           Selection {
             "_anchoredIndex": 0,
