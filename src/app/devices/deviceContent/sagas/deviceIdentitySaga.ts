@@ -18,7 +18,6 @@ export function* getDeviceIdentitySaga(action: Action<string>) {
             connectionString: yield select(getConnectionStringSelector),
             deviceId: action.payload,
         };
-
         const devieIdentity = yield call(fetchDevice, parameters);
         yield put(getDeviceIdentityAction.done({params: action.payload, result: devieIdentity}));
     } catch (error) {

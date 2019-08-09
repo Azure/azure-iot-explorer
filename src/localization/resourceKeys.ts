@@ -237,6 +237,9 @@ export class ResourceKeys {
       loadingDevice : "deviceLists.loadingDevice",
       noData : "deviceLists.noData",
       noDevice : "deviceLists.noDevice",
+      paging : {
+         pages : "deviceLists.paging.pages",
+      },
       query : {
          deviceId : {
             ariaLabel : "deviceLists.query.deviceId.ariaLabel",

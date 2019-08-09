@@ -16,7 +16,7 @@ import DeviceListCommandBar from './deviceListCommandBar';
 import BreadcrumbContainer from '../../../shared/components/breadcrumbContainer';
 import DeviceListQuery from './deviceListQuery';
 import { DeviceListCell } from './deviceListCell';
-import ListPagingFooter from './listPagingFooter';
+import ListPaging from './listPaging';
 import '../../../css/_deviceList.scss';
 import '../../../css/_layouts.scss';
 
@@ -118,7 +118,12 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
                 }
             },
             () => {
-                this.props.listDevices(this.props.query);
+                this.props.listDevices({
+                    clauses: [],
+                    continuationTokens: [],
+                    currentPageIndex: 0,
+                    deviceId: '',
+                });
             });
     }
 
@@ -133,10 +138,14 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
                 />
             );
         };
-        debugger; //tslint:disable-line
 
         return (
             <>
+            <ListPaging
+                continuationTokens={this.props.query && this.props.query.continuationTokens}
+                currentPageIndex={this.props.query && this.props.query.currentPageIndex}
+                fetchPage={this.fetchPage}
+            />
             <GroupedListWrapper
                 items={this.props.devices}
                 nameKey="deviceId"
@@ -174,11 +183,6 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
                         widthPercentage: 20
                     }
                 ]}
-            />
-            <ListPagingFooter
-                continuationTokens={this.props.query && this.props.query.continuationTokens}
-                currentPageIndex={this.props.query && this.props.query.currentPageIndex}
-                fetchPage={this.fetchPage}
             />
             </>
         );

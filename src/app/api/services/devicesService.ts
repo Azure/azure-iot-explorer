@@ -117,7 +117,7 @@ const dataPlaneResponseHelper = async (response: Response) => {
     throw new Error(result);
 };
 
-export const fetchDeviceTwin = async (parameters: FetchDeviceTwinParameters): Promise<DataPlaneResponse<Twin>> => {
+export const fetchDeviceTwin = async (parameters: FetchDeviceTwinParameters): Promise<Twin> => {
     try {
         if (!parameters.deviceId) {
             return;
@@ -163,7 +163,7 @@ export const fetchDigitalTwinInterfaceProperties = async (parameters: FetchDigit
 };
 
 // tslint:disable-next-line:no-any
-export const invokeDigitalTwinInterfaceCommand = async (parameters: InvokeDigitalTwinInterfaceCommandParameters): Promise<DataPlaneResponse<any>> => {
+export const invokeDigitalTwinInterfaceCommand = async (parameters: InvokeDigitalTwinInterfaceCommandParameters): Promise<any> => {
     try {
         if (!parameters.digitalTwinId) {
             return;
@@ -185,13 +185,13 @@ export const invokeDigitalTwinInterfaceCommand = async (parameters: InvokeDigita
 
         const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
         const result = await dataPlaneResponseHelper(response);
-        return result;
+        return result.body;
     } catch (error) {
         throw error;
     }
 };
 
-export const patchDigitalTwinInterfaceProperties = async (parameters: PatchDigitalTwinInterfacePropertiesParameters): Promise<DataPlaneResponse<DigitalTwinInterfaces>> => {
+export const patchDigitalTwinInterfaceProperties = async (parameters: PatchDigitalTwinInterfacePropertiesParameters): Promise<DigitalTwinInterfaces> => {
     try {
         if (!parameters.digitalTwinId) {
             return;
@@ -209,13 +209,13 @@ export const patchDigitalTwinInterfaceProperties = async (parameters: PatchDigit
 
         const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
         const result = await dataPlaneResponseHelper(response);
-        return result as DataPlaneResponse<DigitalTwinInterfaces>;
+        return (result as DataPlaneResponse<DigitalTwinInterfaces>).body;
     } catch (error) {
         throw error;
     }
 };
 
-export const updateDeviceTwin = async (parameters: UpdateDeviceTwinParameters): Promise<DataPlaneResponse<Twin>> => {
+export const updateDeviceTwin = async (parameters: UpdateDeviceTwinParameters): Promise<Twin> => {
     try {
         if (!parameters.deviceId) {
             return;
@@ -232,13 +232,13 @@ export const updateDeviceTwin = async (parameters: UpdateDeviceTwinParameters): 
 
         const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
         const result = await dataPlaneResponseHelper(response);
-        return result as DataPlaneResponse<Twin>;
+        return (result as DataPlaneResponse<Twin>).body;
     } catch (error) {
         throw error;
     }
 };
 
-export const invokeDeviceMethod = async (parameters: InvokeMethodParameters): Promise<DataPlaneResponse<CloudToDeviceMethodResult>> => {
+export const invokeDeviceMethod = async (parameters: InvokeMethodParameters): Promise<CloudToDeviceMethodResult> => {
     try {
         if (!parameters.deviceId) {
             return;
@@ -260,7 +260,7 @@ export const invokeDeviceMethod = async (parameters: InvokeMethodParameters): Pr
 
         const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
         const result = await dataPlaneResponseHelper(response);
-        return result as DataPlaneResponse<CloudToDeviceMethodResult>;
+        return (result as DataPlaneResponse<CloudToDeviceMethodResult>).body;
     } catch (error) {
         throw error;
     }
@@ -313,7 +313,7 @@ export const updateDevice = async (parameters: UpdateDeviceParameters): Promise<
     }
 };
 
-export const fetchDevice = async (parameters: FetchDeviceParameters): Promise<DataPlaneResponse<DeviceIdentity>> => {
+export const fetchDevice = async (parameters: FetchDeviceParameters): Promise<DeviceIdentity> => {
     try {
         if (!parameters.deviceId) {
             return;
@@ -329,7 +329,7 @@ export const fetchDevice = async (parameters: FetchDeviceParameters): Promise<Da
 
         const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
         const result = await dataPlaneResponseHelper(response);
-        return result as DataPlaneResponse<DeviceIdentity>;
+        return (result as DataPlaneResponse<DeviceIdentity>).body;
     } catch (error) {
         throw error;
     }
