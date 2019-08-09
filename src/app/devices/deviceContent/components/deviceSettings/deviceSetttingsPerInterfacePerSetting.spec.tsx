@@ -35,9 +35,10 @@ describe('components/devices/deviceSettingsPerInterfacePerSetting', () => {
         type: schema
     };
 
+    const handleOverlayToggle = jest.fn();
     const deviceSettingDispatchProps: DeviceSettingDispatchProps = {
         handleCollapseToggle,
-        handleOverlayToggle: jest.fn(),
+        handleOverlayToggle,
         patchDigitalTwinInterfaceProperties: jest.fn()
     };
 
@@ -130,6 +131,8 @@ describe('components/devices/deviceSettingsPerInterfacePerSetting', () => {
 
         const complexValueButton = wrapper.find(DefaultButton).first();
         expect(complexValueButton.props().className).toEqual('column-value-button');
+        complexValueButton.props().onClick(null);
+        expect(handleOverlayToggle).toBeCalled();
 
         const reportedStatus = wrapper.find(Stack);
         expect(reportedStatus.props().children[1]).toBeDefined();

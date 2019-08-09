@@ -10,8 +10,14 @@ function Create-TmpJson($Obj) {
 	ConvertTo-Json -Depth 100 $Obj | Out-File -Encoding UTF8 $FileName
 	return $FileName
 }
+# List files in directory
+Get-ChildItem $Path -Recurse -Depth 2
 
-$FileToSign = Get-ChildItem $Path | where {$_.extension -eq $Ext} | Select-Object -first 1 | % {$_.FullName}
+$windows = Get-ChildItem $Path -Recurse -Depth 2 | where {$_.extension -eq '.msi'} | Select-Object -first 1 | % {$_.FullName}
+$mac = Get-ChildItem $Path -Recurse -Depth 2 | where {$_.extension -eq '.dmg'} | Select-Object -first 1 | % {$_.FullName}
+
+Write-Host "Windows: $windows"
+Write-Host "Mac: $mac"
 
 $Auth = Create-TmpJson @{
 	Version = "1.0.0"
@@ -33,7 +39,7 @@ $Policy = Create-TmpJson @{
 	Version = "1.0.0"
 }
 
-$Input = Create-TmpJson @{
+$signingInput = Create-TmpJson @{
 	Version = "1.0.0"
 	SignBatches = @(
 		@{
@@ -41,7 +47,7 @@ $Input = Create-TmpJson @{
 			SignRequestFiles = @(
 				@{
 					CustomerCorrelationId = $env:ESRPClientId
-					SourceLocation = $FileToSign
+					SourceLocation = "$windows"
 				}
 			)
 			SigningInfo = @{
@@ -70,9 +76,29 @@ $Input = Create-TmpJson @{
 					}
 				)
 			}
+		},
+		@{
+			SourceLocationType = "UNC"
+			SignRequestFiles = @(
+				@{
+					CustomerCorrelationId = $env:ESRPClientId
+					SourceLocation = "$mac"
+				}
+			)
+			SigningInfo = @{
+				Operations = @(
+					@{
+						KeyCode = "CP-401337-Apple"
+						OperationCode = "MacAppDeveloperSign"
+						Parameters = @{}
+						ToolName = "sign"
+						ToolVersion = "1.0"
+					}
+				)
+			}
 		}
 	)
 }
-
 $Output = [System.IO.Path]::GetTempFileName()
-& "$ClientPath\ESRPClient.exe" Sign -a $Auth -p $Policy -i $Input -o $Output
+& "$ClientPath\ESRPClient.exe" Sign -a $Auth -p $Policy -i $signingInput -o $Output
+

@@ -2,6 +2,7 @@
 
 exports[`components/devices/devicePropertiesPerInterfacePerProperty matches snapshot when there is a non-writable property of complex type 1`] = `
 <DevicePropertiesPerInterfacePerProperty
+  handleOverlayToggle={[MockFunction]}
   propertyModelDefinition={
     Object {
       "@type": "Property",
@@ -1660,6 +1661,9 @@ exports[`components/devices/devicePropertiesPerInterfacePerProperty matches snap
           </DefaultButton>
         </CustomizedDefaultButton>
       </div>
+      <div
+        role="dialog"
+      />
     </section>
   </article>
 </DevicePropertiesPerInterfacePerProperty>
@@ -1667,6 +1671,7 @@ exports[`components/devices/devicePropertiesPerInterfacePerProperty matches snap
 
 exports[`components/devices/devicePropertiesPerInterfacePerProperty matches snapshot when there is a non-writable property of simple type 1`] = `
 <DevicePropertiesPerInterfacePerProperty
+  handleOverlayToggle={[MockFunction]}
   propertyModelDefinition={
     Object {
       "@type": "Property",
@@ -2701,6 +2706,9 @@ exports[`components/devices/devicePropertiesPerInterfacePerProperty matches snap
           </LabelBase>
         </StyledLabelBase>
       </div>
+      <div
+        role="dialog"
+      />
     </section>
   </article>
 </DevicePropertiesPerInterfacePerProperty>

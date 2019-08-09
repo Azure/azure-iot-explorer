@@ -22,9 +22,11 @@ const renderSchemaErrors = (errors: ValidationError[], errorLabel: string) => {
     return (
         <section className="value-validation-error" aria-label={errorLabel}>
             <span>{errorLabel}</span>
+            <ul>
             {errors.map((element, index) =>
                 <li key={index}>{element.message}</li>
             )}
+            </ul>
         </section>
     );
 };

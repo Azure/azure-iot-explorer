@@ -1125,6 +1125,7 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                     aria-label="settings.configuration.headerText"
                                   >
                                     <h3
+                                      aria-level="1"
                                       role="heading"
                                     >
                                       settings.configuration.headerText
@@ -1290,6 +1291,7 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                     aria-label="settings.modelDefinitions.headerText"
                                   >
                                     <h3
+                                      aria-level="1"
                                       role="heading"
                                     >
                                       settings.modelDefinitions.headerText
@@ -1348,6 +1350,7 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                   aria-label="settings.questions.headerText"
                                 >
                                   <h3
+                                    aria-level="1"
                                     role="heading"
                                   >
                                     settings.questions.headerText
@@ -1372,6 +1375,7 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                   class="footer-buttons"
                                 >
                                   <h3
+                                    aria-level="1"
                                     role="heading"
                                   >
                                     settings.footerText
@@ -3172,6 +3176,7 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                         aria-label="settings.configuration.headerText"
                                       >
                                         <h3
+                                          aria-level={1}
                                           role="heading"
                                         >
                                           settings.configuration.headerText
@@ -3421,7 +3426,7 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                             <div
                                               className="labelSection"
                                             >
-                                              <LabelWithToolTip
+                                              <LabelWithRichCallout
                                                 calloutContent={
                                                   <div
                                                     className="callout-wrapper"
@@ -6260,7 +6265,7 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                                     </StyledCustomizedLayer>
                                                   </Callout>
                                                 </div>
-                                              </LabelWithToolTip>
+                                              </LabelWithRichCallout>
                                             </div>
                                             <div
                                               className="controlSection"
@@ -10506,6 +10511,7 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                         aria-label="settings.modelDefinitions.headerText"
                                       >
                                         <h3
+                                          aria-level={1}
                                           role="heading"
                                         >
                                           settings.modelDefinitions.headerText
@@ -11878,6 +11884,7 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                       aria-label="settings.questions.headerText"
                                     >
                                       <h3
+                                        aria-level={1}
                                         role="heading"
                                       >
                                         settings.questions.headerText
@@ -12150,6 +12157,7 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                       className="footer-buttons"
                                     >
                                       <h3
+                                        aria-level={1}
                                         role="heading"
                                       >
                                         settings.footerText
@@ -15257,6 +15265,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                     aria-label="settings.configuration.headerText"
                                   >
                                     <h3
+                                      aria-level="1"
                                       role="heading"
                                     >
                                       settings.configuration.headerText
@@ -15422,6 +15431,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                     aria-label="settings.modelDefinitions.headerText"
                                   >
                                     <h3
+                                      aria-level="1"
                                       role="heading"
                                     >
                                       settings.modelDefinitions.headerText
@@ -15480,6 +15490,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                   aria-label="settings.questions.headerText"
                                 >
                                   <h3
+                                    aria-level="1"
                                     role="heading"
                                   >
                                     settings.questions.headerText
@@ -15504,6 +15515,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                   class="footer-buttons"
                                 >
                                   <h3
+                                    aria-level="1"
                                     role="heading"
                                   >
                                     settings.footerText
@@ -17304,6 +17316,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                         aria-label="settings.configuration.headerText"
                                       >
                                         <h3
+                                          aria-level={1}
                                           role="heading"
                                         >
                                           settings.configuration.headerText
@@ -17609,7 +17622,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                             <div
                                               className="labelSection"
                                             >
-                                              <LabelWithToolTip
+                                              <LabelWithRichCallout
                                                 calloutContent={
                                                   <div
                                                     className="callout-wrapper"
@@ -20448,7 +20461,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                     </StyledCustomizedLayer>
                                                   </Callout>
                                                 </div>
-                                              </LabelWithToolTip>
+                                              </LabelWithRichCallout>
                                             </div>
                                             <div
                                               className="controlSection"
@@ -24694,6 +24707,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                         aria-label="settings.modelDefinitions.headerText"
                                       >
                                         <h3
+                                          aria-level={1}
                                           role="heading"
                                         >
                                           settings.modelDefinitions.headerText
@@ -24746,6 +24760,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                     >
                                                       <div
                                                         className="item"
+                                                        role="list"
                                                       >
                                                         <div
                                                           className="numbering"
@@ -29850,6 +29865,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                       aria-label="settings.questions.headerText"
                                     >
                                       <h3
+                                        aria-level={1}
                                         role="heading"
                                       >
                                         settings.questions.headerText
@@ -30122,6 +30138,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                       className="footer-buttons"
                                     >
                                       <h3
+                                        aria-level={1}
                                         role="heading"
                                       >
                                         settings.footerText

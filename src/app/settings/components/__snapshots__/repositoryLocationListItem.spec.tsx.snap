@@ -3,6 +3,7 @@
 exports[`components/settings/repositoryLocationListItem matches snapshot 1`] = `
 <div
   className="item"
+  role="list"
 >
   <div
     className="numbering"

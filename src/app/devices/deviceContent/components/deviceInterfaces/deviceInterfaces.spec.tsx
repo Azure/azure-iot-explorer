@@ -4,11 +4,10 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import { Shimmer } from 'office-ui-fabric-react';
+import { Shimmer, DefaultButton, CommandBar } from 'office-ui-fabric-react';
 import DeviceInterfaces, { DeviceInterfaceProps, DeviceInterfaceDispatchProps } from './deviceInterfaces';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
-import { LocalizationContextProvider } from '../../../../shared/contexts/localizationContext';
-import { mountWithLocalization } from '../../../../shared/utils/testHelpers';
+import { testWithLocalizationContext } from '../../../../shared/utils/testHelpers';
 import { REPOSITORY_LOCATION_TYPE } from '../../../../constants/repositoryLocationTypes';
 
 describe('components/devices/deviceInterfaces', () => {
@@ -35,10 +34,12 @@ describe('components/devices/deviceInterfaces', () => {
         modelDefinitionWithSource: {modelDefinitionSynchronizationStatus: SynchronizationStatus.working},
     };
 
+    const settingsVisibleToggle = jest.fn();
+    const refresh = jest.fn();
     const dispatchProps: DeviceInterfaceDispatchProps = {
-        refresh: jest.fn(),
+        refresh,
         setInterfaceId: jest.fn(),
-        settingsVisibleToggle: jest.fn()
+        settingsVisibleToggle
     };
 
     const getComponent = (overrides = {}) => {
@@ -48,14 +49,13 @@ describe('components/devices/deviceInterfaces', () => {
             ...getRouterProps(),
             ...overrides,
         };
-        return <DeviceInterfaces {...props} />;
+        return testWithLocalizationContext(<DeviceInterfaces {...props} />);
     };
 
     /* tslint:disable */
     const modelDefinition = {
         "@id": "urn:azureiot:ModelDiscovery:DigitalTwin:1",
         "@type": "Interface",
-        "displayName": "Digital Twin",
         "contents": [
             {
                 "@type": "Property",
@@ -92,40 +92,65 @@ describe('components/devices/deviceInterfaces', () => {
     /* tslint:enable */
 
     it('show Shimmer when status is working', () => {
-        const wrapper = mountWithLocalization(getComponent());
+        const wrapper = getComponent();
         expect(wrapper).toMatchSnapshot();
         expect(wrapper.find(Shimmer)).toHaveLength(1);
     });
 
     it('show interface information when status is failed', () => {
-
-        const wrapper = (
-            <LocalizationContextProvider value={{t: jest.fn((value: string) => value)}}>
-                {getComponent({
-                    isLoading: false,
-                    modelDefinitionWithSource: {
-                        modelDefinitionSynchronizationStatus: SynchronizationStatus.failed
-                    }
-                })}
-            </LocalizationContextProvider>
-        );
+        const wrapper = getComponent({
+            isLoading: false,
+            modelDefinitionWithSource: {
+                modelDefinitionSynchronizationStatus: SynchronizationStatus.failed
+            }
+        });
         expect(wrapper).toMatchSnapshot();
     });
 
     it('show interface information when status is fetched', () => {
+        let wrapper = getComponent({
+            isLoading: false,
+            modelDefinitionWithSource: {
+                modelDefinition,
+                modelDefinitionSynchronizationStatus: SynchronizationStatus.fetched,
+                source: REPOSITORY_LOCATION_TYPE.Public
+            }
+        });
+        expect(wrapper).toMatchSnapshot();
+        expect(wrapper.find(DefaultButton).props().onClick(null));
+        expect(settingsVisibleToggle).toBeCalled();
+        const command = wrapper.find(CommandBar);
+        command.props().items[0].onClick(null);
+        expect(refresh).toBeCalled();
 
-        const wrapper = (
-            <LocalizationContextProvider value={{t: jest.fn((value: string) => value)}}>
-                {getComponent({
-                    isLoading: false,
-                    modelDefinitionWithSource: {
-                        modelDefinition,
-                        modelDefinitionSynchronizationStatus: SynchronizationStatus.fetched,
-                        source: REPOSITORY_LOCATION_TYPE.Public
-                    }
-                })}
-            </LocalizationContextProvider>
-        );
+        wrapper = getComponent({
+            isLoading: false,
+            modelDefinitionWithSource: {
+                modelDefinition,
+                modelDefinitionSynchronizationStatus: SynchronizationStatus.fetched,
+                source: REPOSITORY_LOCATION_TYPE.Private
+            }
+        });
+        expect(wrapper).toMatchSnapshot();
+
+        wrapper = getComponent({
+            isLoading: false,
+            modelDefinitionWithSource: {
+                modelDefinition,
+                modelDefinitionSynchronizationStatus: SynchronizationStatus.fetched,
+                source: REPOSITORY_LOCATION_TYPE.Device
+            }
+        });
+        expect(wrapper).toMatchSnapshot();
+
+        wrapper = getComponent({
+            isLoading: false,
+            modelDefinitionWithSource: {
+                modelDefinition,
+                modelDefinitionSynchronizationStatus: SynchronizationStatus.fetched,
+                source: undefined
+            }
+        });
         expect(wrapper).toMatchSnapshot();
     });
 });

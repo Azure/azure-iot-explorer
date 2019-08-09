@@ -48,6 +48,7 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
             >
               <div
                 className="item"
+                role="list"
               >
                 <div
                   className="numbering"
@@ -87,6 +88,7 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
             >
               <div
                 className="item"
+                role="list"
               >
                 <div
                   className="numbering"
@@ -1181,6 +1183,7 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
             >
               <div
                 className="item"
+                role="list"
               >
                 <div
                   className="numbering"
@@ -7532,6 +7535,7 @@ exports[`components/settings/repositoryLocationList matches snapshot with public
             >
               <div
                 className="item"
+                role="list"
               >
                 <div
                   className="numbering"
