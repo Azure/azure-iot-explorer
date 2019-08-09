@@ -138,6 +138,7 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
                 />
             );
         };
+        debugger; //tslint:disable-line
 
         return (
             <>

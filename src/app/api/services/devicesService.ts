@@ -117,7 +117,7 @@ const dataPlaneResponseHelper = async (response: Response) => {
     throw new Error(result);
 };
 
-export const fetchDeviceTwin = async (parameters: FetchDeviceTwinParameters): Promise<Twin> => {
+export const fetchDeviceTwin = async (parameters: FetchDeviceTwinParameters): Promise<DataPlaneResponse<Twin>> => {
     try {
         if (!parameters.deviceId) {
             return;
@@ -163,7 +163,7 @@ export const fetchDigitalTwinInterfaceProperties = async (parameters: FetchDigit
 };
 
 // tslint:disable-next-line:no-any
-export const invokeDigitalTwinInterfaceCommand = async (parameters: InvokeDigitalTwinInterfaceCommandParameters): Promise<any> => {
+export const invokeDigitalTwinInterfaceCommand = async (parameters: InvokeDigitalTwinInterfaceCommandParameters): Promise<DataPlaneResponse<any>> => {
     try {
         if (!parameters.digitalTwinId) {
             return;
@@ -191,7 +191,7 @@ export const invokeDigitalTwinInterfaceCommand = async (parameters: InvokeDigita
     }
 };
 
-export const patchDigitalTwinInterfaceProperties = async (parameters: PatchDigitalTwinInterfacePropertiesParameters): Promise<DigitalTwinInterfaces> => {
+export const patchDigitalTwinInterfaceProperties = async (parameters: PatchDigitalTwinInterfacePropertiesParameters): Promise<DataPlaneResponse<DigitalTwinInterfaces>> => {
     try {
         if (!parameters.digitalTwinId) {
             return;
@@ -215,7 +215,7 @@ export const patchDigitalTwinInterfaceProperties = async (parameters: PatchDigit
     }
 };
 
-export const updateDeviceTwin = async (parameters: UpdateDeviceTwinParameters): Promise<Twin> => {
+export const updateDeviceTwin = async (parameters: UpdateDeviceTwinParameters): Promise<DataPlaneResponse<Twin>> => {
     try {
         if (!parameters.deviceId) {
             return;
@@ -238,7 +238,7 @@ export const updateDeviceTwin = async (parameters: UpdateDeviceTwinParameters): 
     }
 };
 
-export const invokeDeviceMethod = async (parameters: InvokeMethodParameters): Promise<CloudToDeviceMethodResult> => {
+export const invokeDeviceMethod = async (parameters: InvokeMethodParameters): Promise<DataPlaneResponse<CloudToDeviceMethodResult>> => {
     try {
         if (!parameters.deviceId) {
             return;
@@ -313,7 +313,7 @@ export const updateDevice = async (parameters: UpdateDeviceParameters): Promise<
     }
 };
 
-export const fetchDevice = async (parameters: FetchDeviceParameters): Promise<DeviceIdentity> => {
+export const fetchDevice = async (parameters: FetchDeviceParameters): Promise<DataPlaneResponse<DeviceIdentity>> => {
     try {
         if (!parameters.deviceId) {
             return;
