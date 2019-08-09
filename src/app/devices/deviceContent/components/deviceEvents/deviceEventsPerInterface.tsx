@@ -30,12 +30,13 @@ import { DEFAULT_CONSUMER_GROUP } from '../../../../constants/apiConstants';
 const JSON_SPACES = 2;
 const LOADING_LOCK = 50;
 const TELEMETRY_SCHEMA_PROP = MESSAGE_PROPERTIES.IOTHUB_MESSAGE_SCHEMA;
-const TELEMETRY_INTERFACE_ID_PROP = MESSAGE_SYSTEM_PROPERTIES.IOTHUB_INTERFACE_ID;
+const TELEMETRY_INTERFACE_NAME_PROP = MESSAGE_SYSTEM_PROPERTIES.IOTHUB_INTERFACE_NAME;
 
 export interface DeviceEventsDataProps {
     connectionString: string;
     isLoading: boolean;
     telemetrySchema: TelemetrySchema[];
+    interfaceName: string;
 }
 
 export interface DeviceEventsDispatchProps {
@@ -387,7 +388,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
                     .then((results: Message[]) => {
                         const messages = results && results
                                 .filter(result => result && result.systemProperties &&
-                                        result.systemProperties[TELEMETRY_INTERFACE_ID_PROP] === getInterfaceIdFromQueryString(this.props))
+                                        result.systemProperties[TELEMETRY_INTERFACE_NAME_PROP] === this.props.interfaceName)
                                 .reverse().map((message: Message) => message);
                         if (this.isComponentMounted) {
                             this.setState({
