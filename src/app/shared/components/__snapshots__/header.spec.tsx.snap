@@ -6,11 +6,14 @@ exports[`shared/components/header matches snapshot when settings is not visible 
 >
   <div
     className="title"
-  />
+  >
+    header.applicationName
+  </div>
   <div>
     <Connect(NotificationList) />
   </div>
   <CustomizedDefaultButton
+    ariaLabel="header.settings.launch"
     className=""
     iconProps={
       Object {
@@ -19,6 +22,7 @@ exports[`shared/components/header matches snapshot when settings is not visible 
     }
     id="settings"
     onClick={[Function]}
+    text="header.settings.launch"
   />
 </header>
 `;
@@ -29,11 +33,14 @@ exports[`shared/components/header matches snapshot when settings is visible 1`] 
 >
   <div
     className="title"
-  />
+  >
+    header.applicationName
+  </div>
   <div>
     <Connect(NotificationList) />
   </div>
   <CustomizedDefaultButton
+    ariaLabel="header.settings.launch"
     className="settings-visible"
     iconProps={
       Object {
@@ -42,6 +49,7 @@ exports[`shared/components/header matches snapshot when settings is visible 1`] 
     }
     id="settings"
     onClick={[Function]}
+    text="header.settings.launch"
   />
 </header>
 `;

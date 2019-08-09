@@ -152,7 +152,15 @@
   "jest": {
     "collectCoverage": true,
     "collectCoverageFrom": [
-      "src/**/*.{ts,tsx}"
+      "src/**/*.{ts,tsx}",
+      "!src/**/*Container.{ts,tsx}",
+      "!src/app/shared/redux/store.ts",
+      "!src/app/shared/redux/reducer.ts",
+      "!src/app/shared/redux/store/configureStore.ts",
+      "!src/index.tsx",
+      "!src/localization/resources.ts",
+      "!src/app/jsonSchemaFormFabricPlugin/widgets/*.tsx",
+      "!src/app/jsonSchemaFormFabricPlugin/fields/*.tsx"
     ],
     "testEnvironment": "jsdom",
     "coverageReporters": [
