@@ -46,6 +46,7 @@ exports[`components/devices/deviceEvents matches snapshot 1`] = `
     deviceEvents.headerText
   </h3>
   <StyledTextFieldBase
+    ariaLabel="deviceEvents.consumerGroups.label"
     className="consumer-group-text-field"
     disabled={false}
     label="deviceEvents.consumerGroups.label"

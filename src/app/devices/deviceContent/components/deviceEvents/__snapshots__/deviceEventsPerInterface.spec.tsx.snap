@@ -851,6 +851,7 @@ exports[`components/devices/deviceEvents matches snapshot while state is loading
     deviceEvents.headerText
   </h3>
   <StyledTextFieldBase
+    ariaLabel="deviceEvents.consumerGroups.label"
     className="consumer-group-text-field"
     disabled={false}
     label="deviceEvents.consumerGroups.label"
@@ -878,11 +879,9 @@ exports[`components/devices/deviceEvents matches snapshot while state is loading
       </div>
     }
     pageStart={0}
-    role="feed"
   >
     <section
       className="list-content"
-      role="list"
     >
       <div>
         <div
