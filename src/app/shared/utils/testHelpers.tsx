@@ -11,7 +11,7 @@ export const testWithLocalizationContext = (Target: JSX.Element, enzymeWrapper: 
     const outerWrapper = shallow(Target);
     const Children = outerWrapper.props().children;
 
-    return enzymeWrapper(<Children t={jest.fn()}/>);
+    return enzymeWrapper(<Children t={jest.fn((value: string) => value)}/>);
 };
 
 export const testWithLocalizationContextAndErrorBoundary = (Target: JSX.Element, enzymeWrapper: any = shallow) => { // tslint:disable-line:no-any

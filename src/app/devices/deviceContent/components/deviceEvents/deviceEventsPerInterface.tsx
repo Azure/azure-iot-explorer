@@ -4,12 +4,8 @@
  **********************************************************/
 import * as React from 'react';
 import { Validator, ValidatorResult } from 'jsonschema';
-import { CommandBar, ICommandBarItemProps } from 'office-ui-fabric-react/lib/CommandBar';
-import { Label } from 'office-ui-fabric-react/lib/Label';
-import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
+import { CommandBar, ICommandBarItemProps, Label, Shimmer, Spinner, TextField, ITextFieldProps } from 'office-ui-fabric-react';
 import InfiniteScroll from 'react-infinite-scroller';
-import { Spinner } from 'office-ui-fabric-react/lib/Spinner';
-import { TextField, ITextFieldProps } from 'office-ui-fabric-react/lib/TextField';
 import { RouteComponentProps } from 'react-router-dom';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
@@ -76,7 +72,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
     public componentWillUnmount() {
         this.stopMonitoring();
         this.isComponentMounted = false;
-      }
+    }
 
     public render(): JSX.Element {
         if (this.props.isLoading) {
@@ -214,7 +210,11 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
     public componentWillReceiveProps(newProps: DeviceEventsDataProps & DeviceEventsDispatchProps & RouteComponentProps) {
         const newInterfaceId = getInterfaceIdFromQueryString(newProps);
         if (newInterfaceId !== getInterfaceIdFromQueryString(this.props)) {
-            this.setState({events: []});
+            this.setState({
+                events: [],
+                hasMore: false,
+                monitoringData: false
+            });
         }
     }
 
