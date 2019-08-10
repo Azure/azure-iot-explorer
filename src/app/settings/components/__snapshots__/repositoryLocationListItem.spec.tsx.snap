@@ -19,6 +19,8 @@ exports[`components/settings/repositoryLocationListItem matches snapshot 1`] = `
     >
       <CopyableMaskField
         allowMask={true}
+        ariaLabel="settings.modelDefinitions.repositoryTypes.private.textBoxLabel"
+        label="settings.modelDefinitions.repositoryTypes.private.textBoxLabel"
         onTextChange={[Function]}
         readOnly={false}
         required={true}
@@ -41,19 +43,19 @@ exports[`components/settings/repositoryLocationListItem matches snapshot 1`] = `
             "results": Array [
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "settings.modelDefinitions.repositoryTypes.private.textBoxLabel",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "settings.modelDefinitions.repositoryTypes.private.textBoxLabel",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "settings.cancel",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "settings.cancel",
               },
             ],
           }
@@ -62,6 +64,7 @@ exports[`components/settings/repositoryLocationListItem matches snapshot 1`] = `
       />
     </div>
     <CustomizedIconButton
+      ariaLabel="settings.cancel"
       className="remove-button"
       iconProps={
         Object {
@@ -69,6 +72,7 @@ exports[`components/settings/repositoryLocationListItem matches snapshot 1`] = `
         }
       }
       onClick={[Function]}
+      title="settings.cancel"
     />
   </div>
 </div>

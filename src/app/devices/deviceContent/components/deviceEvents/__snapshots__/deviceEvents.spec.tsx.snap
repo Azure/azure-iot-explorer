@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/devices/deviceEvents matches snapshot 1`] = `
+<div
+  className="device-events"
+  key="device-events"
+>
+  <StyledCommandBarBase
+    className="command"
+    items={
+      Array [
+        Object {
+          "ariaLabel": "deviceEvents.command.start",
+          "disabled": false,
+          "iconProps": Object {
+            "iconName": "Play",
+          },
+          "key": "Play",
+          "name": "deviceEvents.command.start",
+          "onClick": [Function],
+        },
+        Object {
+          "ariaLabel": "deviceEvents.command.clearEvents",
+          "disabled": true,
+          "iconProps": Object {
+            "iconName": "Clear",
+          },
+          "key": "Clear",
+          "name": "deviceEvents.command.clearEvents",
+          "onClick": [Function],
+        },
+        Object {
+          "ariaLabel": "deviceEvents.command.showSystemProperties",
+          "disabled": false,
+          "iconProps": Object {
+            "iconName": "Checkbox",
+          },
+          "key": "CheckboxComposite",
+          "name": "deviceEvents.command.showSystemProperties",
+          "onClick": [Function],
+        },
+      ]
+    }
+  />
+  <h3>
+    deviceEvents.headerText
+  </h3>
+  <StyledTextFieldBase
+    ariaLabel="deviceEvents.consumerGroups.label"
+    className="consumer-group-text-field"
+    disabled={false}
+    label="deviceEvents.consumerGroups.label"
+    onChange={[Function]}
+    onRenderLabel={[Function]}
+    underlined={true}
+    value="$Default"
+  />
+  <Component
+    className="device-events-container scrollable"
+    hasMore={false}
+    isReverse={true}
+    key="scroll"
+    loadMore={[Function]}
+    loader={
+      <div
+        className="events-loader"
+      >
+        <StyledSpinnerBase />
+        <h4>
+          deviceEvents.infiniteScroll.loading
+        </h4>
+      </div>
+    }
+    pageStart={0}
+    role="feed"
+  />
+</div>
+`;

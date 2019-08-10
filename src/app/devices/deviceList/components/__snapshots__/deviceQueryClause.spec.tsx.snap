@@ -7,6 +7,7 @@ exports[`components/devices/DeviceQueryClause matches snapshot 1`] = `
 >
   <CustomizedComboBox
     allowFreeform={false}
+    ariaLabel="deviceLists.query.searchPills.clause.parameterType.ariaLabel"
     autoComplete="on"
     buttonIconProps={
       Object {
@@ -19,21 +20,24 @@ exports[`components/devices/DeviceQueryClause matches snapshot 1`] = `
       Array [
         Object {
           "key": "dcm",
-          "text": undefined,
+          "text": "deviceLists.query.searchPills.clause.parameterType.items.capabilityModelId",
         },
         Object {
           "key": "interface",
-          "text": undefined,
+          "text": "deviceLists.query.searchPills.clause.parameterType.items.interfaceId",
         },
         Object {
           "key": "status",
-          "text": undefined,
+          "text": "deviceLists.query.searchPills.clause.parameterType.items.status",
         },
       ]
     }
+    text="deviceLists.query.searchPills.clause.parameterType.items.status"
+    title="deviceLists.query.searchPills.clause.parameterType.title"
   />
   <CustomizedComboBox
     allowFreeform={false}
+    ariaLabel="deviceLists.query.searchPills.clause.operationType.ariaLabel"
     autoComplete="on"
     buttonIconProps={
       Object {
@@ -54,15 +58,20 @@ exports[`components/devices/DeviceQueryClause matches snapshot 1`] = `
         },
       ]
     }
+    title="deviceLists.query.searchPills.clause.operationType.title"
     value="="
   />
   <StyledTextFieldBase
+    ariaLabel="deviceLists.query.searchPills.clause.value.ariaLabel"
     className="clause-value"
     onChange={[Function]}
+    placeholder="deviceLists.query.searchPills.clause.value.placeholder"
     required={true}
+    title="deviceLists.query.searchPills.clause.value.title"
     value="enabled"
   />
   <CustomizedIconButton
+    ariaLabel="deviceLists.query.searchPills.clause.remove.ariaLabel"
     className="remove-pill"
     data={0}
     iconProps={
@@ -71,6 +80,7 @@ exports[`components/devices/DeviceQueryClause matches snapshot 1`] = `
       }
     }
     onClick={[Function]}
+    title="deviceLists.query.searchPills.clause.remove.title"
     type="button"
   />
 </section>
@@ -83,6 +93,7 @@ exports[`components/devices/DeviceQueryClause matches snapshot without operation
 >
   <CustomizedComboBox
     allowFreeform={false}
+    ariaLabel="deviceLists.query.searchPills.clause.parameterType.ariaLabel"
     autoComplete="on"
     buttonIconProps={
       Object {
@@ -95,26 +106,32 @@ exports[`components/devices/DeviceQueryClause matches snapshot without operation
       Array [
         Object {
           "key": "dcm",
-          "text": undefined,
+          "text": "deviceLists.query.searchPills.clause.parameterType.items.capabilityModelId",
         },
         Object {
           "key": "interface",
-          "text": undefined,
+          "text": "deviceLists.query.searchPills.clause.parameterType.items.interfaceId",
         },
         Object {
           "key": "status",
-          "text": undefined,
+          "text": "deviceLists.query.searchPills.clause.parameterType.items.status",
         },
       ]
     }
+    text="deviceLists.query.searchPills.clause.parameterType.items.capabilityModelId"
+    title="deviceLists.query.searchPills.clause.parameterType.title"
   />
   <StyledTextFieldBase
+    ariaLabel="deviceLists.query.searchPills.clause.value.ariaLabel"
     className="clause-value"
     onChange={[Function]}
+    placeholder="deviceLists.query.searchPills.clause.value.placeholder"
     required={true}
+    title="deviceLists.query.searchPills.clause.value.title"
     value="enabled"
   />
   <CustomizedIconButton
+    ariaLabel="deviceLists.query.searchPills.clause.remove.ariaLabel"
     className="remove-pill"
     data={0}
     iconProps={
@@ -123,6 +140,7 @@ exports[`components/devices/DeviceQueryClause matches snapshot without operation
       }
     }
     onClick={[Function]}
+    title="deviceLists.query.searchPills.clause.remove.title"
     type="button"
   />
 </section>
