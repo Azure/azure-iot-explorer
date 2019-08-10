@@ -11,7 +11,7 @@ export interface DeviceIdentity {
     statusReason: string;
     authentication: AuthenticationCredentials;
     capabilities: DeviceCapabilities;
-    cloudToDeviceMessageCount: string;
+    cloudToDeviceMessageCount: number;
     deviceScope?: string;
 }
 

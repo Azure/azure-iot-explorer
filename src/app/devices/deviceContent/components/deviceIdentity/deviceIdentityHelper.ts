@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import { DeviceIdentity } from '../../../../api/models/deviceIdentity';
-import { parseConnectionString } from '../../../../shared/utils/hubConnectionStringHelper';
+import { getConnectionInfoFromConnectionString } from '../../../../api/shared/utils';
 import { DeviceAuthenticationType } from '../../../../api/models/deviceAuthenticationType';
 
 // tslint:disable-next-line:cyclomatic-complexity
@@ -28,8 +28,7 @@ export const getDeviceAuthenticationType = (identity: DeviceIdentity): DeviceAut
 };
 
 export const generateConnectionString = (connectionString: string, deviceId: string, key: string): string => {
-    const connectionObject = parseConnectionString(connectionString);
-    const { HostName } = connectionObject;
-    return HostName && deviceId && key ?
-        `HostName=${HostName};DeviceId=${deviceId};SharedAccessKey=${key}` : '';
+    const connectionObject = getConnectionInfoFromConnectionString(connectionString);
+    return connectionObject.hostName && deviceId && key ?
+        `HostName=${connectionObject.hostName};DeviceId=${deviceId};SharedAccessKey=${key}` : '';
 };

@@ -10,7 +10,6 @@ export interface Device {
     CloudToDeviceMessageCount: string;
     AuthenticationType: string;
     IotEdge: boolean;
-    '__iot:interfaces'?: {};
 }
 
 export interface Twin {
