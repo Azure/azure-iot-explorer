@@ -49,6 +49,7 @@ export default class ListPagingComponent extends React.Component<ListPagingDataP
 
         return (
             <li
+                key={`page_${index}`}
                 role="listitem"
                 className={index === this.props.currentPageIndex ? 'selected' : ''}
             >
