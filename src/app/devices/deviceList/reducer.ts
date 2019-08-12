@@ -32,7 +32,7 @@ const reducer = reducerWithInitialState<DeviceListStateType>(deviceListStateInit
         const continuationTokens = (state.deviceQuery.continuationTokens && [...state.deviceQuery.continuationTokens]) || [];
         const currentPageIndex = payload && payload.params && payload.params.currentPageIndex;
 
-        if (payload.result && payload.result.headers) {
+        if (payload.result.headers) {
             // tslint:disable-next-line: no-any
             const newToken = (payload.result.headers as any)[HEADERS.CONTINUATION_TOKEN] || '';
             if ('' !== newToken) {
