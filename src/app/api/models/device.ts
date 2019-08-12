@@ -7,6 +7,7 @@ export interface DataPlaneResponse<T> {
     body: T;
     headers: unknown;
 }
+
 export interface Device {
     DeviceId: string;
     Status: string;

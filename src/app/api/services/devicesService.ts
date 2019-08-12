@@ -16,7 +16,7 @@ import { FetchDeviceTwinParameters,
     FetchDigitalTwinInterfacePropertiesParameters,
     InvokeDigitalTwinInterfaceCommandParameters,
     PatchDigitalTwinInterfacePropertiesParameters } from '../parameters/deviceParameters';
-import { CONTROLLER_API_ENDPOINT, DATAPLANE, EVENTHUB, DIGITAL_TWIN_API_VERSION, DataPlaneStatusCode, MONITOR, STOP } from '../../constants/apiConstants';
+import { CONTROLLER_API_ENDPOINT, DATAPLANE, EVENTHUB, DIGITAL_TWIN_API_VERSION, DataPlaneStatusCode, MONITOR, STOP, HEADERS } from '../../constants/apiConstants';
 import { HTTP_OPERATION_TYPES } from '../constants';
 import { buildQueryString, getConnectionInfoFromConnectionString, generateSasToken } from '../shared/utils';
 import { CONNECTION_TIMEOUT_IN_SECONDS, RESPONSE_TIME_IN_SECONDS } from '../../constants/devices';
@@ -351,10 +351,10 @@ export const fetchDevices = async (parameters: FetchDevicesParameters): Promise<
             sharedAccessSignature: connectionInformation.sasToken,
         };
 
-        (dataPlaneRequest.headers as any)['x-ms-max-item-count'] = PAGE_SIZE; // tslint:disable-line
+        (dataPlaneRequest.headers as any)[HEADERS.PAGE_SIZE] = PAGE_SIZE; // tslint:disable-line
 
         if (parameters.query && parameters.query.currentPageIndex > 0 && parameters.query.continuationTokens && parameters.query.continuationTokens.length >= parameters.query.currentPageIndex) {
-            (dataPlaneRequest.headers as any)['x-ms-continuation'] = parameters.query.continuationTokens[parameters.query.currentPageIndex]; // tslint:disable-line: no-any
+            (dataPlaneRequest.headers as any)[HEADERS.CONTINUATION_TOKEN] = parameters.query.continuationTokens[parameters.query.currentPageIndex]; // tslint:disable-line: no-any
         }
         const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
         const result = await dataPlaneResponseHelper(response);

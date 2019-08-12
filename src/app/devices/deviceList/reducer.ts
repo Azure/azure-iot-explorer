@@ -13,6 +13,7 @@ import DeviceQuery from '../../api/models/deviceQuery';
 import { BulkRegistryOperationResult } from '../../api/models/bulkRegistryOperationResult';
 import { DataPlaneResponse, Device } from '../../api/models/device';
 import { transformDevice } from '../../api/dataTransforms/deviceSummaryTransform';
+import { HEADERS } from '../../constants/apiConstants';
 
 const reducer = reducerWithInitialState<DeviceListStateType>(deviceListStateInitial())
     .case(listDevicesAction.started, (state: DeviceListStateType, payload: DeviceQuery) => {
@@ -33,7 +34,7 @@ const reducer = reducerWithInitialState<DeviceListStateType>(deviceListStateInit
 
         if (payload.result && payload.result.headers) {
             // tslint:disable-next-line: no-any
-            const newToken = (payload.result.headers as any)['x-ms-continuation'] || '';
+            const newToken = (payload.result.headers as any)[HEADERS.CONTINUATION_TOKEN] || '';
             if ('' !== newToken) {
                 if (continuationTokens.length === 0) {
                     // add the first page item
