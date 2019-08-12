@@ -5,7 +5,6 @@
 import * as React from 'react';
 import { Label, Stack, IconButton, DefaultButton } from 'office-ui-fabric-react';
 import { ParsedJsonSchema } from '../../../../api/models/interfaceJsonParserOutput';
-import { SYNC_STATUS } from '../../../../constants/shared';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { InterfaceDetailCard } from '../../../../constants/iconNames';
@@ -168,13 +167,15 @@ export default class DeviceSettingsPerInterfacePerSetting
         const { reportedTwin, settingModelDefinition : modelDefinition, settingSchema : schema } = this.props;
         return (
             <div role="dialog">
-                <ComplexReportedFormPanel
-                    schema={schema}
-                    modelDefinition={modelDefinition}
-                    showPanel={this.state.showReportedValuePanel}
-                    formData={reportedTwin}
-                    handleDismiss={this.handleDismissViewReportedPanel}
-                />
+                {this.state.showReportedValuePanel &&
+                    <ComplexReportedFormPanel
+                        schema={schema}
+                        modelDefinition={modelDefinition}
+                        showPanel={this.state.showReportedValuePanel}
+                        formData={reportedTwin}
+                        handleDismiss={this.handleDismissViewReportedPanel}
+                    />
+                }
             </div>
         );
     }
