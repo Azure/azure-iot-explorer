@@ -5,7 +5,6 @@
 import { DeviceSummary } from '../models/deviceSummary';
 import { parseDateTimeString } from './transformHelper';
 import { Device } from '../models/device';
-import { DeviceIdentity } from '../models/deviceIdentity';
 
 export const transformDevice = (device: Device): DeviceSummary => {
     return {
@@ -15,16 +14,5 @@ export const transformDevice = (device: Device): DeviceSummary => {
         lastActivityTime: parseDateTimeString(device.LastActivityTime),
         status: device.Status,
         statusUpdatedTime: parseDateTimeString(device.StatusUpdatedTime)
-    };
-};
-
-export const transformDeviceIdentity = (device: DeviceIdentity): DeviceSummary => {
-    return {
-        authenticationType: device.authentication.type,
-        cloudToDeviceMessageCount: device.cloudToDeviceMessageCount.toString(),
-        deviceId: device.deviceId,
-        lastActivityTime: parseDateTimeString(device.lastActivityTime),
-        status: device.status,
-        statusUpdatedTime: parseDateTimeString(device.statusUpdatedTime)
     };
 };
