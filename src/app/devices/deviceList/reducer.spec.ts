@@ -11,6 +11,7 @@ import { DeviceListStateInterface, deviceListStateInitial } from './state';
 import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
 import { DeviceSummary } from '../../api/models/deviceSummary';
 import { DeviceSummaryListWrapper } from '../../api/models/deviceSummaryListWrapper';
+import { Device, DataPlaneResponse } from '../../api/models/device';
 
 describe('deviceListStateReducer', () => {
     const deviceId = 'testDeviceId';
@@ -18,9 +19,18 @@ describe('deviceListStateReducer', () => {
         authenticationType: 'sas',
         cloudToDeviceMessageCount: '0',
         deviceId,
-        lastActivityTime: 'Thu Apr 25 2019 16:48:19 GMT-0700 (Pacific Daylight Time)',
+        lastActivityTime: null,
         status: 'Enabled',
-        statusUpdatedTime: 'Thu Apr 25 2019 16:48:19 GMT-0700 (Pacific Daylight Time)',
+        statusUpdatedTime: null,
+    };
+    const deviceObject: Device = {
+        AuthenticationType: 'sas',
+        CloudToDeviceMessageCount: '0',
+        DeviceId: deviceId,
+        IotEdge: false,
+        LastActivityTime: null,
+        Status: 'Enabled',
+        StatusUpdatedTime: null,
     };
 
     it (`handles ${LIST_DEVICES}/ACTION_START action`, () => {
@@ -30,12 +40,19 @@ describe('deviceListStateReducer', () => {
         expect(reducer(deviceListStateInitial(), action).devices.deviceListSynchronizationStatus).toEqual(SynchronizationStatus.working);
     });
 
-    it (`handles ${LIST_DEVICES}/ACTION_DONE action`, () => {
+    it(`handles ${LIST_DEVICES}/ACTION_DONE action`, () => {
         const deviceSummaryMap = new Map<string, DeviceSummary>();
         deviceSummaryMap.set(deviceId, deviceSummary);
-        const action = listDevicesAction.done({params: undefined, result: [deviceSummary]});
-        expect(reducer(deviceListStateInitial(), action).devices.deviceList).toEqual(fromJS(deviceSummaryMap));
-        expect(reducer(deviceListStateInitial(), action).devices.deviceListSynchronizationStatus).toEqual(SynchronizationStatus.fetched);
+        const result: DataPlaneResponse<Device[]> = {
+            body: [deviceObject],
+            headers: {'x-ms-continuation': 'abc123'}
+        };
+
+        const action = listDevicesAction.done({params: undefined, result});
+        const reduced = reducer(deviceListStateInitial(), action);
+        expect(reduced.devices.deviceList).toEqual(fromJS(deviceSummaryMap));
+        expect(reduced.devices.deviceListSynchronizationStatus).toEqual(SynchronizationStatus.fetched);
+        expect(reduced.deviceQuery.continuationTokens).toEqual(['', 'abc123']);
     });
 
     it (`handles ${LIST_DEVICES}/ACTION_FAIL action`, () => {
