@@ -25,7 +25,7 @@ import { Twin, Device } from '../models/device';
 import { DeviceIdentity } from '../models/deviceIdentity';
 import { DeviceSummary } from '../models/deviceSummary';
 import { DigitalTwinInterfaces } from '../models/digitalTwinModels';
-import { transformDevice, transformDeviceIdentity } from '../dataTransforms/deviceSummaryTransform';
+import { transformDevice } from '../dataTransforms/deviceSummaryTransform';
 
 const DATAPLANE_CONTROLLER_ENDPOINT = `${CONTROLLER_API_ENDPOINT}${DATAPLANE}`;
 const EVENTHUB_CONTROLLER_ENDPOINT = `${CONTROLLER_API_ENDPOINT}${EVENTHUB}`;
@@ -264,7 +264,7 @@ export const invokeDeviceMethod = async (parameters: InvokeMethodParameters): Pr
     }
 };
 
-export const addDevice = async (parameters: AddDeviceParameters): Promise<DeviceSummary> => {
+export const addDevice = async (parameters: AddDeviceParameters): Promise<DeviceIdentity> => {
     try {
         if (!parameters.deviceIdentity) {
             return;
@@ -280,8 +280,7 @@ export const addDevice = async (parameters: AddDeviceParameters): Promise<Device
         };
 
         const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
-        const result = await dataPlaneResponseHelper(response);
-        return transformDeviceIdentity(result as DeviceIdentity);
+        return await dataPlaneResponseHelper(response);
     } catch (error) {
         throw error;
     }

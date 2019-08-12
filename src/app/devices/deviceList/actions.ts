@@ -14,7 +14,7 @@ const deviceListCreator = actionCreatorFactory(actionPrefixes.DEVICELISTS);
 const clearDevicesAction = deviceListCreator<void>(actionTypes.CLEAR_DEVICES);
 const listDevicesAction = deviceListCreator.async<DeviceQuery, DeviceSummary[]>(actionTypes.LIST_DEVICES);
 const deleteDevicesAction = deviceListCreator.async<string[], BulkRegistryOperationResult>(actionTypes.DELETE_DEVICES);
-const addDeviceAction = deviceListCreator.async<DeviceIdentity, DeviceSummary>(actionTypes.ADD_DEVICE);
+const addDeviceAction = deviceListCreator.async<DeviceIdentity, DeviceIdentity>(actionTypes.ADD_DEVICE);
 
 export {
     addDeviceAction,

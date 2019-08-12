@@ -160,7 +160,7 @@
       "!src/app/shared/redux/store.ts",
       "!src/app/shared/redux/reducer.ts",
       "!src/app/shared/redux/store/configureStore.ts",
-      "!src/app/shared/utils/exceptions/*.tsx",
+      "!src/app/shared/utils/exceptions/*.ts",
       "!src/index.tsx",
       "!src/localization/resources.ts"
     ],

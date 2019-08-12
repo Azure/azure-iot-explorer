@@ -47,7 +47,7 @@ const reducer = reducerWithInitialState<DeviceListStateType>(deviceListStateInit
             })
         });
     })
-    .case(addDeviceAction.done, (state: DeviceListStateType, payload: {params: DeviceIdentity} & {result: DeviceSummary}) => {
+    .case(addDeviceAction.done, (state: DeviceListStateType, payload: {params: DeviceIdentity} & {result: DeviceIdentity}) => {
         return state.merge({
             devices: state.devices.merge({
                 deviceListSynchronizationStatus: SynchronizationStatus.upserted
