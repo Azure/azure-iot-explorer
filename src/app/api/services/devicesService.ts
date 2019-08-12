@@ -16,26 +16,28 @@ import { FetchDeviceTwinParameters,
     FetchDigitalTwinInterfacePropertiesParameters,
     InvokeDigitalTwinInterfaceCommandParameters,
     PatchDigitalTwinInterfacePropertiesParameters } from '../parameters/deviceParameters';
-import { CONTROLLER_API_ENDPOINT, DATAPLANE, EVENTHUB, DIGITAL_TWIN_API_VERSION, DataPlaneStatusCode, MONITOR, STOP } from '../../constants/apiConstants';
+import { CONTROLLER_API_ENDPOINT, DATAPLANE, EVENTHUB, DIGITAL_TWIN_API_VERSION, DataPlaneStatusCode, MONITOR, STOP, HEADERS } from '../../constants/apiConstants';
 import { HTTP_OPERATION_TYPES } from '../constants';
 import { buildQueryString, getConnectionInfoFromConnectionString, generateSasToken } from '../shared/utils';
 import { CONNECTION_TIMEOUT_IN_SECONDS, RESPONSE_TIME_IN_SECONDS } from '../../constants/devices';
 import { Message } from '../models/messages';
-import { Twin, Device } from '../models/device';
+import { Twin, Device, DataPlaneResponse } from '../models/device';
 import { DeviceIdentity } from '../models/deviceIdentity';
 import { DeviceSummary } from '../models/deviceSummary';
 import { DigitalTwinInterfaces } from '../models/digitalTwinModels';
-import { transformDevice, transformDeviceIdentity } from '../dataTransforms/deviceSummaryTransform';
+import { transformDeviceIdentity } from '../dataTransforms/deviceSummaryTransform';
 
 const DATAPLANE_CONTROLLER_ENDPOINT = `${CONTROLLER_API_ENDPOINT}${DATAPLANE}`;
 const EVENTHUB_CONTROLLER_ENDPOINT = `${CONTROLLER_API_ENDPOINT}${EVENTHUB}`;
 const EVENTHUB_MONITOR_ENDPOINT = `${EVENTHUB_CONTROLLER_ENDPOINT}${MONITOR}`;
 const EVENTHUB_STOP_ENDPOINT = `${EVENTHUB_CONTROLLER_ENDPOINT}${STOP}`;
+const PAGE_SIZE = 20;
 
 export interface DataPlaneRequest {
     apiVersion?: string;
     body?: string;
     etag?: string;
+    headers?: unknown;
     hostName: string;
     httpMethod: string;
     path: string;
@@ -131,7 +133,7 @@ export const fetchDeviceTwin = async (parameters: FetchDeviceTwinParameters): Pr
 
         const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
         const result = await dataPlaneResponseHelper(response);
-        return result as Twin;
+        return result.body;
     } catch (error) {
         throw error;
     }
@@ -154,7 +156,7 @@ export const fetchDigitalTwinInterfaceProperties = async (parameters: FetchDigit
 
         const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
         const result = await dataPlaneResponseHelper(response);
-        return result as DigitalTwinInterfaces;
+        return result.body;
     } catch (error) {
         throw error;
     }
@@ -183,7 +185,7 @@ export const invokeDigitalTwinInterfaceCommand = async (parameters: InvokeDigita
 
         const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
         const result = await dataPlaneResponseHelper(response);
-        return result;
+        return result.body;
     } catch (error) {
         throw error;
     }
@@ -207,7 +209,7 @@ export const patchDigitalTwinInterfaceProperties = async (parameters: PatchDigit
 
         const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
         const result = await dataPlaneResponseHelper(response);
-        return result as DigitalTwinInterfaces;
+        return result.body;
     } catch (error) {
         throw error;
     }
@@ -230,7 +232,7 @@ export const updateDeviceTwin = async (parameters: UpdateDeviceTwinParameters): 
 
         const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
         const result = await dataPlaneResponseHelper(response);
-        return result as Twin;
+        return result.body;
     } catch (error) {
         throw error;
     }
@@ -258,7 +260,7 @@ export const invokeDeviceMethod = async (parameters: InvokeMethodParameters): Pr
 
         const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
         const result = await dataPlaneResponseHelper(response);
-        return result as CloudToDeviceMethodResult;
+        return result.body;
     } catch (error) {
         throw error;
     }
@@ -281,7 +283,7 @@ export const addDevice = async (parameters: AddDeviceParameters): Promise<Device
 
         const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
         const result = await dataPlaneResponseHelper(response);
-        return transformDeviceIdentity(result as DeviceIdentity);
+        return transformDeviceIdentity(result.body);
     } catch (error) {
         throw error;
     }
@@ -305,7 +307,7 @@ export const updateDevice = async (parameters: UpdateDeviceParameters): Promise<
 
         const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
         const result = await dataPlaneResponseHelper(response);
-        return result as DeviceIdentity;
+        return result.body;
     } catch (error) {
         throw error;
     }
@@ -327,13 +329,14 @@ export const fetchDevice = async (parameters: FetchDeviceParameters): Promise<De
 
         const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
         const result = await dataPlaneResponseHelper(response);
-        return result as DeviceIdentity;
+        return result.body;
     } catch (error) {
         throw error;
     }
 };
 
-export const fetchDevices = async (parameters: FetchDevicesParameters): Promise<DeviceSummary[]> => {
+// tslint:disable-next-line: cyclomatic-complexity
+export const fetchDevices = async (parameters: FetchDevicesParameters): Promise<DataPlaneResponse<Device[]>> => {
     try {
         const connectionInformation = dataPlaneConnectionHelper(parameters);
         const queryString = buildQueryString(parameters.query);
@@ -342,15 +345,22 @@ export const fetchDevices = async (parameters: FetchDevicesParameters): Promise<
             body: JSON.stringify({
                 query: queryString,
             }),
+            headers: {} as any, // tslint:disable-line: no-any
             hostName: connectionInformation.connectionInfo.hostName,
             httpMethod: HTTP_OPERATION_TYPES.Post,
             path: 'devices/query',
             sharedAccessSignature: connectionInformation.sasToken,
         };
 
+        (dataPlaneRequest.headers as any)[HEADERS.PAGE_SIZE] = PAGE_SIZE; // tslint:disable-line: no-any
+
+        if (parameters.query && parameters.query.currentPageIndex > 0 && parameters.query.continuationTokens && parameters.query.continuationTokens.length >= parameters.query.currentPageIndex) {
+            (dataPlaneRequest.headers as any)[HEADERS.CONTINUATION_TOKEN] = parameters.query.continuationTokens[parameters.query.currentPageIndex]; // tslint:disable-line: no-any
+        }
+
         const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
         const result = await dataPlaneResponseHelper(response);
-        return result.map((device: Device) => transformDevice(device));
+        return result;
     } catch (error) {
         throw error;
     }
@@ -381,7 +391,7 @@ export const deleteDevices = async (parameters: DeleteDevicesParameters) => {
 
         const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
         const result = await dataPlaneResponseHelper(response);
-        return result as BulkRegistryOperationResult[];
+        return result.body;
     } catch (error) {
         throw error;
     }

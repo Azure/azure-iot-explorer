@@ -11,6 +11,9 @@ import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
 import { DeviceIdentity } from '../../api/models/deviceIdentity';
 import DeviceQuery from '../../api/models/deviceQuery';
 import { BulkRegistryOperationResult } from '../../api/models/bulkRegistryOperationResult';
+import { DataPlaneResponse, Device } from '../../api/models/device';
+import { transformDevice } from '../../api/dataTransforms/deviceSummaryTransform';
+import { HEADERS } from '../../constants/apiConstants';
 
 const reducer = reducerWithInitialState<DeviceListStateType>(deviceListStateInitial())
     .case(listDevicesAction.started, (state: DeviceListStateType, payload: DeviceQuery) => {
@@ -21,15 +24,36 @@ const reducer = reducerWithInitialState<DeviceListStateType>(deviceListStateInit
             })
         });
     })
-    .case(listDevicesAction.done, (state: DeviceListStateType, payload: {params: DeviceQuery} & {result: DeviceSummary[]}) => {
+    // tslint:disable-next-line: cyclomatic-complexity
+    .case(listDevicesAction.done, (state: DeviceListStateType, payload: {params: DeviceQuery} & {result: DataPlaneResponse<Device[]>}) => {
         const deviceList = new Map<string, DeviceSummary>();
-        payload.result.forEach(item => deviceList.set(item.deviceId, item));
+        const devices = payload.result.body || [];
+        devices.forEach(item => deviceList.set(item.DeviceId, transformDevice(item)));
+        const continuationTokens = (state.deviceQuery.continuationTokens && [...state.deviceQuery.continuationTokens]) || [];
+        const currentPageIndex = payload && payload.params && payload.params.currentPageIndex;
+
+        if (payload.result.headers) {
+            // tslint:disable-next-line: no-any
+            const newToken = (payload.result.headers as any)[HEADERS.CONTINUATION_TOKEN] || '';
+            if ('' !== newToken) {
+                if (continuationTokens.length === 0) {
+                    // add the first page item
+                    continuationTokens.push('');
+                }
+                if (!continuationTokens.some(x => x === newToken)) {
+                    continuationTokens.push(newToken);
+                }
+            }
+        }
         return state.merge({
-            deviceQuery: {...payload.params},
             devices: state.devices.merge({
                 deviceList: fromJS(deviceList),
                 deviceListSynchronizationStatus: SynchronizationStatus.fetched
             })
+        }).set('deviceQuery', {
+            ...payload.params,
+            continuationTokens,
+            currentPageIndex
         });
     })
     .case(listDevicesAction.failed, (state: DeviceListStateType) => {
@@ -52,6 +76,11 @@ const reducer = reducerWithInitialState<DeviceListStateType>(deviceListStateInit
             devices: state.devices.merge({
                 deviceListSynchronizationStatus: SynchronizationStatus.upserted
             })
+        }).set('deviceQuery', {
+            clauses: [],
+            continuationTokens: [],
+            currentPageIndex: 0,
+            deviceId: '',
         });
     })
     .case(addDeviceAction.failed, (state: DeviceListStateType) => {
@@ -75,6 +104,11 @@ const reducer = reducerWithInitialState<DeviceListStateType>(deviceListStateInit
             devices: state.devices.merge({
                 deviceListSynchronizationStatus: SynchronizationStatus.deleted
             })
+        }).set('deviceQuery', {
+            clauses: [],
+            continuationTokens: [],
+            currentPageIndex: 0,
+            deviceId: '',
         });
     })
     .case(deleteDevicesAction.failed, (state: DeviceListStateType) => {
@@ -90,6 +124,11 @@ const reducer = reducerWithInitialState<DeviceListStateType>(deviceListStateInit
                 deviceList: ImmutableMap<string, DeviceSummary>(),
                 deviceListSynchronizationStatus: SynchronizationStatus.deleted
             })
+        }).set('deviceQuery', {
+            clauses: [],
+            continuationTokens: [],
+            currentPageIndex: 0,
+            deviceId: ''
         });
     });
 export default reducer;

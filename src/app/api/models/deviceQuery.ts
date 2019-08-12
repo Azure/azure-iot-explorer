@@ -5,7 +5,8 @@
 export default interface DeviceQuery {
     deviceId: string;
     clauses: QueryClause[];
-    nextLink?: string;
+    continuationTokens: string[];
+    currentPageIndex: number;
 }
 
 export interface QueryClause {
