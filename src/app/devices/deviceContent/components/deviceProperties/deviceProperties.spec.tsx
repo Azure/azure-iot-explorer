@@ -6,7 +6,7 @@ import 'jest';
 import * as React from 'react';
 import { Shimmer } from 'office-ui-fabric-react';
 import DeviceProperties, { DevicePropertiesDataProps , DevicePropertiesDispatchProps } from './deviceProperties';
-import DevicePropertiesPerInterface from './DevicePropertiesPerInterface';
+import DevicePropertiesPerInterface from './devicePropertiesPerInterface';
 import { TwinWithSchema } from './devicePropertiesPerInterfacePerProperty';
 import { mountWithLocalization } from '../../../../shared/utils/testHelpers';
 
