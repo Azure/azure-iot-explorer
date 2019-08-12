@@ -10,11 +10,11 @@ describe('parse interface model definition to Json schema', () => {
         /* tslint:disable */
         const interfacePropertyDefinition: PropertyContent =
             {
-                "@type": "Property",
-                "name": "fwVersion",
-                "displayName": "Firmware version",
-                "schema": "string",
-                "comment": "Version of the firmware on your device. Ex. 1.3.45"
+                '@type': 'Property',
+                'name': 'fwVersion',
+                'displayName': 'Firmware version',
+                'schema': 'string',
+                'comment': 'Version of the firmware on your device. Ex. 1.3.45'
             }
         /* tslint:enable */
 
@@ -30,12 +30,12 @@ describe('parse interface model definition to Json schema', () => {
     it('simple property can be converted to json schema format with displayUnit', () => {
         /* tslint:disable */
         const interfacePropertyDefinition = {
-            "@type": "Property",
-            "name": "totalStorage",
-            "displayName": "Total storage",
-            "schema": "double",
-            "displayUnit": "MB",
-            "comment": "Total available storage on the device in MB. Ex. 2048 MB."
+            '@type': 'Property',
+            'name': 'totalStorage',
+            'displayName': 'Total storage',
+            'schema': 'double',
+            'displayUnit': 'MB',
+            'comment': 'Total available storage on the device in MB. Ex. 2048 MB.'
         };
         /* tslint:enable */
         const interfacePropertyInJsonSchema =
@@ -47,31 +47,105 @@ describe('parse interface model definition to Json schema', () => {
         expect(parseInterfacePropertyToJsonSchema(interfacePropertyDefinition)).toEqual(interfacePropertyInJsonSchema);
     });
 
+    it('simple property can be converted to json schema format with displayUnit and unit', () => {
+        /* tslint:disable */
+        const interfacePropertyDefinition = {
+            '@type': 'Property',
+            'name': 'totalStorage',
+            'displayName': 'Total storage',
+            'schema': 'boolean',
+            'unit': 'megabytes',
+            'displayUnit': 'MB',
+            'comment': 'Total available storage on the device in MB. Ex. 2048 MB.'
+        };
+        /* tslint:enable */
+        const interfacePropertyInJsonSchema =
+            {
+                default: false,
+                description: 'Total storage ( Unit: MB / megabytes )',
+                title: 'totalStorage',
+                type: 'boolean'
+            };
+        expect(parseInterfacePropertyToJsonSchema(interfacePropertyDefinition)).toEqual(interfacePropertyInJsonSchema);
+    });
+
+    it('a few more simple property can be converted to json schema format with corresponding type', () => {
+        /* tslint:disable */
+        const interfacePropertyDefinition = {
+            '@type': 'Property',
+            'name': 'testProperty',
+            'schema': 'date'
+        };
+        /* tslint:enable */
+        expect(parseInterfacePropertyToJsonSchema(interfacePropertyDefinition).type).toEqual('string');
+        expect(parseInterfacePropertyToJsonSchema(interfacePropertyDefinition).format).toEqual('date');
+
+        interfacePropertyDefinition.schema = 'datetime';
+        expect(parseInterfacePropertyToJsonSchema(interfacePropertyDefinition).type).toEqual('string');
+        expect(parseInterfacePropertyToJsonSchema(interfacePropertyDefinition).format).toEqual('date-time');
+
+        interfacePropertyDefinition.schema = 'integer';
+        expect(parseInterfacePropertyToJsonSchema(interfacePropertyDefinition).type).toEqual('integer');
+
+        interfacePropertyDefinition.schema = 'time';
+        expect(parseInterfacePropertyToJsonSchema(interfacePropertyDefinition).type).toEqual('string');
+
+        interfacePropertyDefinition.schema = 'duration';
+        expect(parseInterfacePropertyToJsonSchema(interfacePropertyDefinition).type).toEqual('string');
+
+        interfacePropertyDefinition['@type'] = 'Enum';
+        /* tslint:disable */
+        (interfacePropertyDefinition as any).schema = {
+            '@type': 'Enum',
+            'enumValues': [
+                {
+                    name: 'offline',
+                    displayName: 'Offline',
+                    enumValue: 1
+                },
+                {
+                    name: 'online',
+                    displayName: 'Online',
+                    enumValue: 2
+                }
+            ]
+        }
+        /* tslint:enable */
+        expect(parseInterfacePropertyToJsonSchema(interfacePropertyDefinition)).toEqual({
+            description: '',
+            // tslint:disable-next-line:no-magic-numbers
+            enum: [1, 2],
+            enumNames : ['offline', 'online'],
+            title: 'testProperty',
+            type: 'number',
+        });
+    });
+
     it('complex property can be converted to json schema format', () => {
         /* tslint:disable */
         const interfacePropertyDefinition = {
-			"@type": "Property",
-			"name": "modelInformation",
-			"displayName": "Model Information",
-			"description": "Providing model and optional interfaces information on a digital twin.",
-			"schema": {
-				"@type": "Object",
-				"fields": [
+			'@type': 'Property',
+			'name': 'modelInformation',
+			'displayName': 'Model Information',
+			'description': 'Providing model and optional interfaces information on a digital twin.',
+			'schema': {
+				'@type': 'Object',
+				'fields': [
 					{
-						"name": "modelId",
-						"schema": "string"
+						'name': 'modelId',
+						'schema': 'string'
 					},
 					{
-						"name": "interfaces",
-						"schema": {
-							"@type": "Map",
-							"mapKey": {
-								"name": "name",
-								"schema": "string"
+						'name': 'interfaces',
+						'schema': {
+							'@type': 'Map',
+							'mapKey': {
+								'name': 'name',
+								'schema': 'string'
 							},
-							"mapValue": {
-								"name": "schema",
-								"schema": "string"
+							'mapValue': {
+								'name': 'schema',
+								'schema': 'string'
 							}
 						}
 					}
@@ -122,9 +196,9 @@ describe('parse interface model definition to Json schema', () => {
         /* tslint:disable */
         const interfacePropertyDefinition: PropertyContent =
             {
-                "@type": "Property",
-                "name": "accelerometer1",
-                "schema": "urn:example:acceleration:1"
+                '@type': 'Property',
+                'name': 'accelerometer1',
+                'schema': 'urn:example:acceleration:1'
             }
         /* tslint:enable */
 
@@ -134,20 +208,20 @@ describe('parse interface model definition to Json schema', () => {
     it('simple command with displayName in request can be converted to json schema format', () => {
         /* tslint:disable */
         const interfaceCommandDefinition: CommandContent = {
-            "@type": "Command",
-            "name": "blink",
-            "displayName": "This command will begin blinking the LED for given time interval.",
-            "request": {
-                "name": "blinkRequest",
-                "displayName": "blink interval",
-                "description": "blinking the LED for given time interval",
-				"schema": "long"
+            '@type': 'Command',
+            'name': 'blink',
+            'displayName': 'This command will begin blinking the LED for given time interval.',
+            'request': {
+                'name': 'blinkRequest',
+                'displayName': 'blink interval',
+                'description': 'blinking the LED for given time interval',
+				'schema': 'long'
 			},
-			"response": {
-				"name": "blinkResponse",
-				"schema": "string"
+			'response': {
+				'name': 'blinkResponse',
+				'schema': 'string'
 			},
-			"commandType": "synchronous"
+			'commandType': 'synchronous'
         };
         /* tslint:enable */
         const interfaceCommandInJsonSchema =
@@ -172,15 +246,15 @@ describe('parse interface model definition to Json schema', () => {
         /* tslint:disable */
         const interfaceTelemetryDefinition: TelemetryContent =
         {
-			"@type": [
-				"Telemetry",
-				"SemanticType/Temperature"
+			'@type': [
+				'Telemetry',
+				'SemanticType/Temperature'
 			],
-			"description": "Current temperature on the device",
-			"displayName": "Temperature",
-			"name": "temp",
-			"schema": "double",
-			"unit": "Units/Temperature/fahrenheit"
+			'description': 'Current temperature on the device',
+			'displayName': 'Temperature',
+			'name': 'temp',
+			'schema': 'double',
+			'unit': 'Units/Temperature/fahrenheit'
 		}
         /* tslint:enable */
 

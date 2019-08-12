@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { getId, Callout, Link, Label, ILabelProps, IconButton, DirectionalHint } from 'office-ui-fabric-react';
+import { getId, Callout, Label, ILabelProps, IconButton, DirectionalHint } from 'office-ui-fabric-react';
 import { INFO } from '../../constants/iconNames';
 import '../../css/_labelWithTooltip.scss';
 
@@ -16,7 +16,7 @@ export interface LabelWithRichCalloutState{
     showCallout: boolean;
 }
 
-export default class LabelWithToolTip extends React.PureComponent<LabelWithRichCalloutProps, LabelWithRichCalloutState> {
+export default class LabelWithRichCallout extends React.PureComponent<LabelWithRichCalloutProps, LabelWithRichCalloutState> {
     constructor(props: LabelWithRichCalloutProps) {
         super(props);
         this.state = {

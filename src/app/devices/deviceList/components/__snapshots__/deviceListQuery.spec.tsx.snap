@@ -9,6 +9,7 @@ exports[`components/devices/DeviceListQuery matches snapshot for clauses 1`] = `
     className="deviceId-search"
   >
     <StyledTextFieldBase
+      ariaLabel="deviceLists.query.deviceId.ariaLabel"
       borderless={true}
       className="search-box"
       iconProps={
@@ -18,10 +19,12 @@ exports[`components/devices/DeviceListQuery matches snapshot for clauses 1`] = `
       }
       onChange={[Function]}
       onKeyUp={[Function]}
+      placeholder="deviceLists.query.deviceId.placeholder"
       role="searchbox"
       value=""
     />
     <CustomizedIconButton
+      ariaLabel="deviceLists.query.deviceId.searchButton.ariaLabel"
       className="search-button"
       disabled={true}
       iconProps={
@@ -30,6 +33,7 @@ exports[`components/devices/DeviceListQuery matches snapshot for clauses 1`] = `
         }
       }
       onClick={[Function]}
+      title="deviceLists.query.deviceId.searchButton.title"
       type="submit"
     />
   </div>
@@ -46,10 +50,15 @@ exports[`components/devices/DeviceListQuery matches snapshot for clauses 1`] = `
       value="enabled"
     />
     <CustomizedPrimaryButton
+      ariaLabel="deviceLists.query.searchPills.search.ariaLabel"
       className="search-pill"
       onClick={[Function]}
-    />
+      title="deviceLists.query.searchPills.search.title"
+    >
+      deviceLists.query.searchPills.search.text
+    </CustomizedPrimaryButton>
     <CustomizedActionButton
+      ariaLabel="deviceLists.query.searchPills.add.ariaLabel"
       className="search-pill"
       iconProps={
         Object {
@@ -57,8 +66,11 @@ exports[`components/devices/DeviceListQuery matches snapshot for clauses 1`] = `
         }
       }
       onClick={[Function]}
+      title="deviceLists.query.searchPills.add.title"
       type="button"
-    />
+    >
+      deviceLists.query.searchPills.add.text
+    </CustomizedActionButton>
   </div>
 </section>
 `;
@@ -72,6 +84,7 @@ exports[`components/devices/DeviceListQuery matches snapshot for deviceId 1`] = 
     className="deviceId-search"
   >
     <StyledTextFieldBase
+      ariaLabel="deviceLists.query.deviceId.ariaLabel"
       borderless={true}
       className="search-box"
       iconProps={
@@ -81,10 +94,12 @@ exports[`components/devices/DeviceListQuery matches snapshot for deviceId 1`] = 
       }
       onChange={[Function]}
       onKeyUp={[Function]}
+      placeholder="deviceLists.query.deviceId.placeholder"
       role="searchbox"
       value="device1"
     />
     <CustomizedIconButton
+      ariaLabel="deviceLists.query.deviceId.searchButton.ariaLabel"
       className="search-button"
       disabled={false}
       iconProps={
@@ -93,6 +108,7 @@ exports[`components/devices/DeviceListQuery matches snapshot for deviceId 1`] = 
         }
       }
       onClick={[Function]}
+      title="deviceLists.query.deviceId.searchButton.title"
       type="submit"
     />
   </div>
@@ -100,6 +116,7 @@ exports[`components/devices/DeviceListQuery matches snapshot for deviceId 1`] = 
     className="clauses"
   >
     <CustomizedActionButton
+      ariaLabel="deviceLists.query.searchPills.add.ariaLabel"
       className="search-pill"
       iconProps={
         Object {
@@ -107,8 +124,11 @@ exports[`components/devices/DeviceListQuery matches snapshot for deviceId 1`] = 
         }
       }
       onClick={[Function]}
+      title="deviceLists.query.searchPills.add.title"
       type="button"
-    />
+    >
+      deviceLists.query.searchPills.add.text
+    </CustomizedActionButton>
   </div>
 </section>
 `;

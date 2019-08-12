@@ -19,7 +19,10 @@ exports[`components/devices/addDevice matches snapshot 1`] = `
     >
       <CopyableMaskField
         allowMask={false}
+        ariaLabel="deviceIdentity.deviceID"
         error=""
+        label="deviceIdentity.deviceID"
+        labelCallout="deviceIdentity.deviceIDTooltip"
         onTextChange={[Function]}
         readOnly={false}
         required={true}
@@ -81,71 +84,71 @@ exports[`components/devices/addDevice matches snapshot 1`] = `
             "results": Array [
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "deviceIdentity.deviceID",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "deviceIdentity.deviceID",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "deviceIdentity.deviceIDTooltip",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "deviceIdentity.authenticationType.text",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "deviceIdentity.authenticationType.symmetricKey.type",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "deviceIdentity.authenticationType.selfSigned.type",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "deviceIdentity.authenticationType.ca.type",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "deviceIdentity.authenticationType.symmetricKey.autoGenerate",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "deviceIdentity.hubConnectivity.tooltip",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "deviceIdentity.hubConnectivity.label",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "deviceIdentity.hubConnectivity.label",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "deviceIdentity.hubConnectivity.enable",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "deviceIdentity.hubConnectivity.disable",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "deviceLists.commands.save",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "deviceLists.commands.save",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "deviceLists.commands.close",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "deviceLists.commands.close",
               },
             ],
           }
@@ -156,20 +159,21 @@ exports[`components/devices/addDevice matches snapshot 1`] = `
         className="authentication"
       >
         <StyledChoiceGroupBase
+          label="deviceIdentity.authenticationType.text"
           onChange={[Function]}
           options={
             Array [
               Object {
                 "key": "sas",
-                "text": undefined,
+                "text": "deviceIdentity.authenticationType.symmetricKey.type",
               },
               Object {
                 "key": "selfSigned",
-                "text": undefined,
+                "text": "deviceIdentity.authenticationType.selfSigned.type",
               },
               Object {
                 "key": "certificateAuthority",
-                "text": undefined,
+                "text": "deviceIdentity.authenticationType.ca.type",
               },
             ]
           }
@@ -179,29 +183,41 @@ exports[`components/devices/addDevice matches snapshot 1`] = `
         <StyledCheckboxBase
           checked={true}
           className="autoGenerateButton"
+          label="deviceIdentity.authenticationType.symmetricKey.autoGenerate"
           onChange={[Function]}
         />
       </div>
       <div
         className="connectivity"
       >
-        <Component />
+        <Component
+          tooltipText="deviceIdentity.hubConnectivity.tooltip"
+        >
+          deviceIdentity.hubConnectivity.label
+        </Component>
         <StyledToggleBase
+          ariaLabel="deviceIdentity.hubConnectivity.label"
           checked={true}
+          offText="deviceIdentity.hubConnectivity.disable"
           onChange={[Function]}
+          onText="deviceIdentity.hubConnectivity.enable"
         />
       </div>
       <div
         className="button-groups"
       >
         <CustomizedPrimaryButton
+          ariaDescription="deviceLists.commands.save"
           className="submit-button"
           disabled={true}
           onClick={[Function]}
+          text="deviceLists.commands.save"
         />
         <CustomizedDefaultButton
+          ariaDescription="deviceLists.commands.close"
           className="submit-button"
           onClick={[Function]}
+          text="deviceLists.commands.close"
         />
       </div>
     </div>

@@ -9,18 +9,20 @@ exports[`components/devices/deviceInterfaces show interface information when sta
     items={
       Array [
         Object {
-          "ariaLabel": undefined,
+          "ariaLabel": "deviceInterfaces.command.refresh",
           "iconProps": Object {
             "iconName": "Refresh",
           },
           "key": "Refresh",
-          "name": undefined,
+          "name": "deviceProperties.command.refresh",
           "onClick": [Function],
         },
       ]
     }
   />
-  <h3 />
+  <h3>
+    deviceInterfaces.headerText
+  </h3>
   <Connect(InterfaceNotFoundMessageBox) />
 </Fragment>
 `;
@@ -32,18 +34,20 @@ exports[`components/devices/deviceInterfaces show interface information when sta
     items={
       Array [
         Object {
-          "ariaLabel": undefined,
+          "ariaLabel": "deviceInterfaces.command.refresh",
           "iconProps": Object {
             "iconName": "Refresh",
           },
           "key": "Refresh",
-          "name": undefined,
+          "name": "deviceProperties.command.refresh",
           "onClick": [Function],
         },
       ]
     }
   />
-  <h3 />
+  <h3>
+    deviceInterfaces.headerText
+  </h3>
   <section
     className="pnp-interface-info"
   >
@@ -51,19 +55,25 @@ exports[`components/devices/deviceInterfaces show interface information when sta
       className="source"
     >
        
+      deviceInterfaces.columns.source
       : 
+      settings.modelDefinitions.repositoryTypes.public.label
     </StyledLabelBase>
     <CustomizedDefaultButton
       className="configure-button"
       onClick={[Function]}
-    />
+    >
+      deviceInterfaces.command.configure
+    </CustomizedDefaultButton>
     <StyledLabelBase>
        
+      deviceInterfaces.columns.displayName
       : 
       --
     </StyledLabelBase>
     <StyledLabelBase>
        
+      deviceInterfaces.columns.description
       : 
       --
     </StyledLabelBase>
@@ -134,18 +144,20 @@ exports[`components/devices/deviceInterfaces show interface information when sta
     items={
       Array [
         Object {
-          "ariaLabel": undefined,
+          "ariaLabel": "deviceInterfaces.command.refresh",
           "iconProps": Object {
             "iconName": "Refresh",
           },
           "key": "Refresh",
-          "name": undefined,
+          "name": "deviceProperties.command.refresh",
           "onClick": [Function],
         },
       ]
     }
   />
-  <h3 />
+  <h3>
+    deviceInterfaces.headerText
+  </h3>
   <section
     className="pnp-interface-info"
   >
@@ -153,19 +165,25 @@ exports[`components/devices/deviceInterfaces show interface information when sta
       className="source"
     >
        
+      deviceInterfaces.columns.source
       : 
+      settings.modelDefinitions.repositoryTypes.private.label
     </StyledLabelBase>
     <CustomizedDefaultButton
       className="configure-button"
       onClick={[Function]}
-    />
+    >
+      deviceInterfaces.command.configure
+    </CustomizedDefaultButton>
     <StyledLabelBase>
        
+      deviceInterfaces.columns.displayName
       : 
       --
     </StyledLabelBase>
     <StyledLabelBase>
        
+      deviceInterfaces.columns.description
       : 
       --
     </StyledLabelBase>
@@ -236,18 +254,20 @@ exports[`components/devices/deviceInterfaces show interface information when sta
     items={
       Array [
         Object {
-          "ariaLabel": undefined,
+          "ariaLabel": "deviceInterfaces.command.refresh",
           "iconProps": Object {
             "iconName": "Refresh",
           },
           "key": "Refresh",
-          "name": undefined,
+          "name": "deviceProperties.command.refresh",
           "onClick": [Function],
         },
       ]
     }
   />
-  <h3 />
+  <h3>
+    deviceInterfaces.headerText
+  </h3>
   <section
     className="pnp-interface-info"
   >
@@ -255,19 +275,25 @@ exports[`components/devices/deviceInterfaces show interface information when sta
       className="source"
     >
        
+      deviceInterfaces.columns.source
       : 
+      settings.modelDefinitions.repositoryTypes.device.label
     </StyledLabelBase>
     <CustomizedDefaultButton
       className="configure-button"
       onClick={[Function]}
-    />
+    >
+      deviceInterfaces.command.configure
+    </CustomizedDefaultButton>
     <StyledLabelBase>
        
+      deviceInterfaces.columns.displayName
       : 
       --
     </StyledLabelBase>
     <StyledLabelBase>
        
+      deviceInterfaces.columns.description
       : 
       --
     </StyledLabelBase>
@@ -338,18 +364,20 @@ exports[`components/devices/deviceInterfaces show interface information when sta
     items={
       Array [
         Object {
-          "ariaLabel": undefined,
+          "ariaLabel": "deviceInterfaces.command.refresh",
           "iconProps": Object {
             "iconName": "Refresh",
           },
           "key": "Refresh",
-          "name": undefined,
+          "name": "deviceProperties.command.refresh",
           "onClick": [Function],
         },
       ]
     }
   />
-  <h3 />
+  <h3>
+    deviceInterfaces.headerText
+  </h3>
   <section
     className="pnp-interface-info"
   >
@@ -357,20 +385,25 @@ exports[`components/devices/deviceInterfaces show interface information when sta
       className="source"
     >
        
+      deviceInterfaces.columns.source
       : 
       --
     </StyledLabelBase>
     <CustomizedDefaultButton
       className="configure-button"
       onClick={[Function]}
-    />
+    >
+      deviceInterfaces.command.configure
+    </CustomizedDefaultButton>
     <StyledLabelBase>
        
+      deviceInterfaces.columns.displayName
       : 
       --
     </StyledLabelBase>
     <StyledLabelBase>
        
+      deviceInterfaces.columns.description
       : 
       --
     </StyledLabelBase>

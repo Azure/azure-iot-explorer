@@ -4,16 +4,16 @@
  **********************************************************/
 import { SynchronizationStatus } from './../../../../api/models/synchronizationStatus';
 import { Twin } from './../../../../api/models/device';
-import { StateType } from '../../../../shared/redux/state';
+import { StateInterface } from '../../../../shared/redux/state';
 
-export const getDeviceTwinSelector = (state: StateType): Twin => {
+export const getDeviceTwinSelector = (state: StateInterface): Twin => {
     return state &&
     state.deviceContentState &&
     state.deviceContentState.deviceTwin &&
     state.deviceContentState.deviceTwin.deviceTwin;
 };
 
-export const getDeviceTwinStateSelector = (state: StateType): SynchronizationStatus => {
+export const getDeviceTwinStateSelector = (state: StateInterface): SynchronizationStatus => {
     return state &&
     state.deviceContentState &&
     state.deviceContentState.deviceTwin &&

@@ -216,7 +216,11 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
     public componentWillReceiveProps(newProps: DeviceEventsDataProps & DeviceEventsDispatchProps & RouteComponentProps) {
         const newInterfaceId = getInterfaceIdFromQueryString(newProps);
         if (newInterfaceId !== getInterfaceIdFromQueryString(this.props)) {
-            this.setState({events: []});
+            this.setState({
+                events: [],
+                hasMore: false,
+                monitoringData: false
+            });
         }
     }
 

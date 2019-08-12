@@ -9,13 +9,17 @@ exports[`login/components/connectivityPane matches snapshot 1`] = `
     className="main"
     role="dialog"
   >
-    <h1 />
+    <h1>
+      connectivityPane.header
+    </h1>
     <div
       className="connection-string"
     >
       <CopyableMaskField
         allowMask={true}
+        ariaLabel="connectivityPane.connectionStringTextBox.label"
         error=""
+        label="connectivityPane.connectionStringTextBox.label"
         onTextChange={[Function]}
         readOnly={false}
         required={true}
@@ -50,35 +54,35 @@ exports[`login/components/connectivityPane matches snapshot 1`] = `
             "results": Array [
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "connectivityPane.header",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "connectivityPane.connectionStringTextBox.label",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "connectivityPane.connectionStringTextBox.label",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "connectivityPane.connectionStringCheckbox.ariaLabel",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "connectivityPane.connectionStringCheckbox.tooltip",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "connectivityPane.connectionStringCheckbox.label",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "connectivityPane.notes",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "connectivityPane.saveButton.label",
               },
             ],
           }
@@ -90,14 +94,21 @@ exports[`login/components/connectivityPane matches snapshot 1`] = `
       className="remember-connection-string"
     >
       <StyledCheckboxBase
+        ariaLabel="connectivityPane.connectionStringCheckbox.ariaLabel"
         onChange={[Function]}
       />
-      <Component />
+      <Component
+        tooltipText="connectivityPane.connectionStringCheckbox.tooltip"
+      >
+        connectivityPane.connectionStringCheckbox.label
+      </Component>
     </div>
     <div
       className="notes"
     >
-      <Text />
+      <Text>
+        connectivityPane.notes
+      </Text>
     </div>
     <div
       className="connection-button"
@@ -105,7 +116,9 @@ exports[`login/components/connectivityPane matches snapshot 1`] = `
       <CustomizedPrimaryButton
         disabled={true}
         onClick={[Function]}
-      />
+      >
+        connectivityPane.saveButton.label
+      </CustomizedPrimaryButton>
     </div>
   </div>
 </div>
@@ -120,13 +133,17 @@ exports[`login/components/connectivityPane matches snapshot for empty connection
     className="main"
     role="dialog"
   >
-    <h1 />
+    <h1>
+      connectivityPane.header
+    </h1>
     <div
       className="connection-string"
     >
       <CopyableMaskField
         allowMask={true}
+        ariaLabel="connectivityPane.connectionStringTextBox.label"
         error=""
+        label="connectivityPane.connectionStringTextBox.label"
         onTextChange={[Function]}
         readOnly={false}
         required={true}
@@ -161,35 +178,35 @@ exports[`login/components/connectivityPane matches snapshot for empty connection
             "results": Array [
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "connectivityPane.header",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "connectivityPane.connectionStringTextBox.label",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "connectivityPane.connectionStringTextBox.label",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "connectivityPane.connectionStringCheckbox.ariaLabel",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "connectivityPane.connectionStringCheckbox.tooltip",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "connectivityPane.connectionStringCheckbox.label",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "connectivityPane.notes",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "connectivityPane.saveButton.label",
               },
             ],
           }
@@ -201,14 +218,21 @@ exports[`login/components/connectivityPane matches snapshot for empty connection
       className="remember-connection-string"
     >
       <StyledCheckboxBase
+        ariaLabel="connectivityPane.connectionStringCheckbox.ariaLabel"
         onChange={[Function]}
       />
-      <Component />
+      <Component
+        tooltipText="connectivityPane.connectionStringCheckbox.tooltip"
+      >
+        connectivityPane.connectionStringCheckbox.label
+      </Component>
     </div>
     <div
       className="notes"
     >
-      <Text />
+      <Text>
+        connectivityPane.notes
+      </Text>
     </div>
     <div
       className="connection-button"
@@ -216,7 +240,9 @@ exports[`login/components/connectivityPane matches snapshot for empty connection
       <CustomizedPrimaryButton
         disabled={false}
         onClick={[Function]}
-      />
+      >
+        connectivityPane.saveButton.label
+      </CustomizedPrimaryButton>
     </div>
   </div>
 </div>
@@ -231,13 +257,17 @@ exports[`login/components/connectivityPane matches snapshot for invalid connecti
     className="main"
     role="dialog"
   >
-    <h1 />
+    <h1>
+      connectivityPane.header
+    </h1>
     <div
       className="connection-string"
     >
       <CopyableMaskField
         allowMask={true}
+        ariaLabel="connectivityPane.connectionStringTextBox.label"
         error=""
+        label="connectivityPane.connectionStringTextBox.label"
         onTextChange={[Function]}
         readOnly={false}
         required={true}
@@ -272,35 +302,35 @@ exports[`login/components/connectivityPane matches snapshot for invalid connecti
             "results": Array [
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "connectivityPane.header",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "connectivityPane.connectionStringTextBox.label",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "connectivityPane.connectionStringTextBox.label",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "connectivityPane.connectionStringCheckbox.ariaLabel",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "connectivityPane.connectionStringCheckbox.tooltip",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "connectivityPane.connectionStringCheckbox.label",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "connectivityPane.notes",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "connectivityPane.saveButton.label",
               },
             ],
           }
@@ -312,14 +342,21 @@ exports[`login/components/connectivityPane matches snapshot for invalid connecti
       className="remember-connection-string"
     >
       <StyledCheckboxBase
+        ariaLabel="connectivityPane.connectionStringCheckbox.ariaLabel"
         onChange={[Function]}
       />
-      <Component />
+      <Component
+        tooltipText="connectivityPane.connectionStringCheckbox.tooltip"
+      >
+        connectivityPane.connectionStringCheckbox.label
+      </Component>
     </div>
     <div
       className="notes"
     >
-      <Text />
+      <Text>
+        connectivityPane.notes
+      </Text>
     </div>
     <div
       className="connection-button"
@@ -327,7 +364,9 @@ exports[`login/components/connectivityPane matches snapshot for invalid connecti
       <CustomizedPrimaryButton
         disabled={true}
         onClick={[Function]}
-      />
+      >
+        connectivityPane.saveButton.label
+      </CustomizedPrimaryButton>
     </div>
   </div>
 </div>
@@ -342,13 +381,17 @@ exports[`login/components/connectivityPane matches snapshot for valid connection
     className="main"
     role="dialog"
   >
-    <h1 />
+    <h1>
+      connectivityPane.header
+    </h1>
     <div
       className="connection-string"
     >
       <CopyableMaskField
         allowMask={true}
+        ariaLabel="connectivityPane.connectionStringTextBox.label"
         error=""
+        label="connectivityPane.connectionStringTextBox.label"
         onTextChange={[Function]}
         readOnly={false}
         required={true}
@@ -383,35 +426,35 @@ exports[`login/components/connectivityPane matches snapshot for valid connection
             "results": Array [
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "connectivityPane.header",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "connectivityPane.connectionStringTextBox.label",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "connectivityPane.connectionStringTextBox.label",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "connectivityPane.connectionStringCheckbox.ariaLabel",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "connectivityPane.connectionStringCheckbox.tooltip",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "connectivityPane.connectionStringCheckbox.label",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "connectivityPane.notes",
               },
               Object {
                 "type": "return",
-                "value": undefined,
+                "value": "connectivityPane.saveButton.label",
               },
             ],
           }
@@ -423,14 +466,21 @@ exports[`login/components/connectivityPane matches snapshot for valid connection
       className="remember-connection-string"
     >
       <StyledCheckboxBase
+        ariaLabel="connectivityPane.connectionStringCheckbox.ariaLabel"
         onChange={[Function]}
       />
-      <Component />
+      <Component
+        tooltipText="connectivityPane.connectionStringCheckbox.tooltip"
+      >
+        connectivityPane.connectionStringCheckbox.label
+      </Component>
     </div>
     <div
       className="notes"
     >
-      <Text />
+      <Text>
+        connectivityPane.notes
+      </Text>
     </div>
     <div
       className="connection-button"
@@ -438,7 +488,9 @@ exports[`login/components/connectivityPane matches snapshot for valid connection
       <CustomizedPrimaryButton
         disabled={true}
         onClick={[Function]}
-      />
+      >
+        connectivityPane.saveButton.label
+      </CustomizedPrimaryButton>
     </div>
   </div>
 </div>
