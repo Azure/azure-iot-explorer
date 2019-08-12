@@ -104,7 +104,7 @@ const dataPlaneResponseHelper = async (response: Response) => {
     }
 
     // error case
-    if (!result || !result) {
+    if (!result) {
         throw new Error();
     }
     if (result.ExceptionMessage && result.Message) {
@@ -117,7 +117,7 @@ const dataPlaneResponseHelper = async (response: Response) => {
     throw new Error(result);
 };
 
-export const fetchDeviceTwin = async (parameters: FetchDeviceTwinParameters): Promise<DataPlaneResponse<Twin>> => {
+export const fetchDeviceTwin = async (parameters: FetchDeviceTwinParameters): Promise<Twin> => {
     try {
         if (!parameters.deviceId) {
             return;
@@ -163,7 +163,7 @@ export const fetchDigitalTwinInterfaceProperties = async (parameters: FetchDigit
 };
 
 // tslint:disable-next-line:no-any
-export const invokeDigitalTwinInterfaceCommand = async (parameters: InvokeDigitalTwinInterfaceCommandParameters): Promise<DataPlaneResponse<any>> => {
+export const invokeDigitalTwinInterfaceCommand = async (parameters: InvokeDigitalTwinInterfaceCommandParameters): Promise<any> => {
     try {
         if (!parameters.digitalTwinId) {
             return;
@@ -209,7 +209,7 @@ export const patchDigitalTwinInterfaceProperties = async (parameters: PatchDigit
 
         const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
         const result = await dataPlaneResponseHelper(response);
-        return (result as DataPlaneResponse<DigitalTwinInterfaces>).body;
+        return result.body;
     } catch (error) {
         throw error;
     }
@@ -232,7 +232,7 @@ export const updateDeviceTwin = async (parameters: UpdateDeviceTwinParameters): 
 
         const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
         const result = await dataPlaneResponseHelper(response);
-        return (result as DataPlaneResponse<Twin>).body;
+        return result.body;
     } catch (error) {
         throw error;
     }
@@ -260,7 +260,7 @@ export const invokeDeviceMethod = async (parameters: InvokeMethodParameters): Pr
 
         const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
         const result = await dataPlaneResponseHelper(response);
-        return (result as DataPlaneResponse<CloudToDeviceMethodResult>).body;
+        return result.body;
     } catch (error) {
         throw error;
     }
@@ -329,13 +329,13 @@ export const fetchDevice = async (parameters: FetchDeviceParameters): Promise<De
 
         const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
         const result = await dataPlaneResponseHelper(response);
-        return (result as DataPlaneResponse<DeviceIdentity>).body;
+        return result.body;
     } catch (error) {
         throw error;
     }
 };
 
-export const fetchDevices = async (parameters: FetchDevicesParameters): Promise<DataPlaneResponse<Device>> => {
+export const fetchDevices = async (parameters: FetchDevicesParameters): Promise<DataPlaneResponse<Device[]>> => {
     try {
         const connectionInformation = dataPlaneConnectionHelper(parameters);
         const queryString = buildQueryString(parameters.query);
@@ -358,7 +358,7 @@ export const fetchDevices = async (parameters: FetchDevicesParameters): Promise<
         }
         const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
         const result = await dataPlaneResponseHelper(response);
-        return result as DataPlaneResponse<Device>;
+        return result as DataPlaneResponse<Device[]>;
     } catch (error) {
         throw error;
     }
@@ -389,7 +389,7 @@ export const deleteDevices = async (parameters: DeleteDevicesParameters) => {
 
         const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
         const result = await dataPlaneResponseHelper(response);
-        return result as DataPlaneResponse<BulkRegistryOperationResult[]>;
+        return result;
     } catch (error) {
         throw error;
     }
