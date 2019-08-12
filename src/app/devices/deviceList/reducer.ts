@@ -75,6 +75,11 @@ const reducer = reducerWithInitialState<DeviceListStateType>(deviceListStateInit
             devices: state.devices.merge({
                 deviceListSynchronizationStatus: SynchronizationStatus.upserted
             })
+        }).set('deviceQuery', {
+            clauses: [],
+            continuationTokens: [],
+            currentPageIndex: 0,
+            deviceId: '',
         });
     })
     .case(addDeviceAction.failed, (state: DeviceListStateType) => {
@@ -98,6 +103,11 @@ const reducer = reducerWithInitialState<DeviceListStateType>(deviceListStateInit
             devices: state.devices.merge({
                 deviceListSynchronizationStatus: SynchronizationStatus.deleted
             })
+        }).set('deviceQuery', {
+            clauses: [],
+            continuationTokens: [],
+            currentPageIndex: 0,
+            deviceId: '',
         });
     })
     .case(deleteDevicesAction.failed, (state: DeviceListStateType) => {
@@ -113,6 +123,11 @@ const reducer = reducerWithInitialState<DeviceListStateType>(deviceListStateInit
                 deviceList: ImmutableMap<string, DeviceSummary>(),
                 deviceListSynchronizationStatus: SynchronizationStatus.deleted
             })
+        }).set('deviceQuery', {
+            clauses: [],
+            continuationTokens: [],
+            currentPageIndex: 0,
+            deviceId: ''
         });
     });
 export default reducer;
