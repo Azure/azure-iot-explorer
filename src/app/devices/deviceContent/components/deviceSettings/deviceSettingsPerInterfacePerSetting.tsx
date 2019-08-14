@@ -166,8 +166,10 @@ export default class DeviceSettingsPerInterfacePerSetting
     private readonly createReportedValuePanel = () => {
         const { reportedTwin, settingModelDefinition : modelDefinition, settingSchema : schema } = this.props;
         return (
-            <div role="dialog">
-                {this.state.showReportedValuePanel &&
+            <>
+            {
+                this.state.showReportedValuePanel &&
+                <div role="dialog">
                     <ComplexReportedFormPanel
                         schema={schema}
                         modelDefinition={modelDefinition}
@@ -175,8 +177,9 @@ export default class DeviceSettingsPerInterfacePerSetting
                         formData={reportedTwin}
                         handleDismiss={this.handleDismissViewReportedPanel}
                     />
-                }
-            </div>
+                </div>
+            }
+            </>
         );
     }
 

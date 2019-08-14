@@ -10277,9 +10277,6 @@ exports[`components/devices/deviceSettingsPerInterfacePerSetting matches snapsho
         </StyledWithResponsiveMode>
       </DataForm>
     </section>
-    <div
-      role="dialog"
-    />
   </article>
 </DeviceSettingsPerInterfacePerSetting>
 `;
@@ -12404,9 +12401,6 @@ exports[`components/devices/deviceSettingsPerInterfacePerSetting matches snapsho
     </header>
     <section
       className="item-detail"
-    />
-    <div
-      role="dialog"
     />
   </article>
 </DeviceSettingsPerInterfacePerSetting>

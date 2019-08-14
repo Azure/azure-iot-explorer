@@ -9925,9 +9925,6 @@ exports[`components/devices/deviceSettings matches snapshot with one twinWithSch
               </StyledWithResponsiveMode>
             </DataForm>
           </section>
-          <div
-            role="dialog"
-          />
         </article>
       </DeviceSettingsPerInterfacePerSetting>
     </section>
@@ -19817,9 +19814,6 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
               </StyledWithResponsiveMode>
             </DataForm>
           </section>
-          <div
-            role="dialog"
-          />
         </article>
       </DeviceSettingsPerInterfacePerSetting>
     </section>
@@ -22874,9 +22868,6 @@ exports[`components/devices/deviceSettingsPerInterface toggles collapsed 1`] = `
           </header>
           <section
             className="item-detail"
-          />
-          <div
-            role="dialog"
           />
         </article>
       </DeviceSettingsPerInterfacePerSetting>

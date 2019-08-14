@@ -9925,9 +9925,6 @@ exports[`components/devices/deviceSettings matches snapshot with one twinWithSch
               </StyledWithResponsiveMode>
             </DataForm>
           </section>
-          <div
-            role="dialog"
-          />
         </article>
       </DeviceSettingsPerInterfacePerSetting>
     </section>
