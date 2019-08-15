@@ -96,7 +96,7 @@ function *getModelDefinitionFromDevice(action: Action<GetModelDefinitionActionPa
         connectionString: yield select(getConnectionStringSelector),
         digitalTwinId: action.payload.digitalTwinId,
         interfaceName: modelDefinitionInterfaceName,
-        payload: {id: action.payload.interfaceId}
+        payload: action.payload.interfaceId
     });
 }
 
