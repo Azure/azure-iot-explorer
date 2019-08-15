@@ -13,6 +13,11 @@ export interface Device {
     '__iot:interfaces'?: {};
 }
 
+export interface DataPlaneResponse<T> {
+    body: T;
+    headers: unknown;
+}
+
 export interface Twin {
     deviceId: string;
     etag: string;

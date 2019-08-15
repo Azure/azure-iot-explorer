@@ -188,6 +188,9 @@
         }
     },
     "deviceLists": {
+        "paging": {
+            "pages": "Pages:"
+        },
         "loadingDevice": "Loading devices",
         "noDevice": "No devices",
         "noData": "None",

@@ -17,8 +17,9 @@ export interface DeviceListStateInterface {
 export const deviceListStateInitial = Record<DeviceListStateInterface>({
     deviceQuery: {
         clauses: [],
+        continuationTokens: [],
+        currentPageIndex: 0,
         deviceId: '',
-        nextLink: ''
     },
     devices: Record({
         deviceList: Map<string, DeviceSummary>(),

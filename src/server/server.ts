@@ -48,7 +48,8 @@ app.post('/api/DataPlane', (req: express.Request, res: express.Response) => {
             const headers = {
                 'Accept': 'application/json',
                 'Authorization': req.body.sharedAccessSignature,
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                ...req.body.headers
             };
             if (req.body.etag) {
                 // tslint:disable-next-line:no-any
@@ -68,14 +69,17 @@ app.post('/api/DataPlane', (req: express.Request, res: express.Response) => {
                 if (httpRes) {
                     if (httpRes.headers && httpRes.headers[DEVICE_STATUS_HEADER]) { // handles happy failure cases when error code is returned as a header
                         // tslint:disable-next-line:radix
-                        res.status(parseInt(httpRes.headers[DEVICE_STATUS_HEADER] as string)).send(body);
+                        res.status(parseInt(httpRes.headers[DEVICE_STATUS_HEADER] as string)).send({body: JSON.parse(body)});
                     }
                     else {
-                        res.status(httpRes.statusCode).send(body);
+                        res.status(httpRes.statusCode).send({
+                            body: JSON.parse(body),
+                            headers: httpRes.headers
+                        });
                     }
                 }
                 else {
-                    res.send(body);
+                    res.send({body: JSON.parse(body)});
                 }
             });
         }

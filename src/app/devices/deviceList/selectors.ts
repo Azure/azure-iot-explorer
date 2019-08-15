@@ -6,6 +6,7 @@ import { createSelector } from 'reselect';
 import { StateInterface } from '../../shared/redux/state';
 import { DeviceSummaryListWrapper } from '../../api/models/deviceSummaryListWrapper';
 import { DeviceSummary } from '../../api/models/deviceSummary';
+import DeviceQuery from '../../api/models/deviceQuery';
 
 const getDeviceSummaryListSelector = (state: StateInterface): DeviceSummaryListWrapper => {
     return state &&
@@ -34,3 +35,7 @@ export const deviceSummaryListWrapperNoPNPSelector = createSelector(
         return Array.from(deviceListWrapper && deviceListWrapper.deviceList && deviceListWrapper.deviceList.values()) || [];
     }
 );
+
+export const deviceQuerySelector = (state: StateInterface): DeviceQuery => {
+    return state && state.deviceListState && state.deviceListState.deviceQuery;
+};

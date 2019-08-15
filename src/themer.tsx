@@ -25,8 +25,6 @@ export default class Themer extends React.Component<{}, ThemeState> {
             officeTheme: THEME_LIGHT,
             theme: Theme.light
         };
-
-        this.registerThemeChange();
     }
 
     public render(): JSX.Element {
@@ -43,14 +41,5 @@ export default class Themer extends React.Component<{}, ThemeState> {
                 </Fabric>
             </Customizer>
         );
-    }
-
-    private registerThemeChange() {
-        const theme: IPartialTheme = THEME_DARK; // TODO: allow changing theme and storing theme setting in redux store
-
-        this.setState({
-            officeTheme: theme,
-            theme: Theme.dark
-        });
     }
 }

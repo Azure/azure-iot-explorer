@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/devices/listPaging matches snapshot on different page 1`] = `
+<section
+  className="grid-paging"
+  role="navigation"
+>
+  <span
+    className="pages"
+  >
+    deviceLists.paging.pages
+  </span>
+  <ul
+    role="list"
+  >
+    <li
+      className=""
+      key="page_0"
+      role="listitem"
+    >
+      <StyledLinkBase
+        onClick={[Function]}
+      >
+        1
+      </StyledLinkBase>
+    </li>
+    <li
+      className="selected"
+      key="page_1"
+      role="listitem"
+    >
+      <span>
+        2
+      </span>
+    </li>
+    <li
+      className=""
+      key="page_2"
+      role="listitem"
+    >
+      <StyledLinkBase
+        onClick={[Function]}
+      >
+        »
+      </StyledLinkBase>
+    </li>
+  </ul>
+</section>
+`;
+
+exports[`components/devices/listPaging matches snapshot with continuation tokens 1`] = `
+<section
+  className="grid-paging"
+  role="navigation"
+>
+  <span
+    className="pages"
+  >
+    deviceLists.paging.pages
+  </span>
+  <ul
+    role="list"
+  >
+    <li
+      className="selected"
+      key="page_0"
+      role="listitem"
+    >
+      <span>
+        1
+      </span>
+    </li>
+    <li
+      className=""
+      key="page_1"
+      role="listitem"
+    >
+      <StyledLinkBase
+        onClick={[Function]}
+      >
+        »
+      </StyledLinkBase>
+    </li>
+  </ul>
+</section>
+`;
+
+exports[`components/devices/listPaging renders nothing with empty continuationTokens 1`] = `<Fragment />`;
