@@ -64,7 +64,7 @@ export interface InvokeDigitalTwinInterfaceCommandParameters extends DataPlanePa
     interfaceName: string;
     commandName: string;
     connectTimeoutInSeconds?: number;
-    payload?: object;
+    payload?: any; // tslint:disable-line:no-any
     responseTimeoutInSeconds?: number;
 }
 
