@@ -12,6 +12,7 @@ import { EventHubClient, EventPosition, delay, EventHubRuntimeInformation, Recei
 const API_VERSION = '2018-06-30';
 const BAD_REQUEST = 400;
 const SUCCESS = 200;
+const MULTIPLE_CHOICES = 300;
 const SERVER_ERROR = 500;
 const NOT_FOUND = 400;
 const SERVER_PORT = 8081;
@@ -72,16 +73,20 @@ app.post('/api/DataPlane', (req: express.Request, res: express.Response) => {
                         res.status(parseInt(httpRes.headers[DEVICE_STATUS_HEADER] as string)).send({body: JSON.parse(body)});
                     }
                     else {
-                        res.status(httpRes.statusCode).send({
-                            body: JSON.parse(body),
-                            headers: httpRes.headers
-                        });
+                        if (httpRes.statusCode >= SUCCESS && httpRes.statusCode < MULTIPLE_CHOICES) {
+                            res.status(httpRes.statusCode).send({
+                                body: JSON.parse(body),
+                                headers: httpRes.headers
+                            });
+                        } else {
+                            res.status(httpRes.statusCode).send(JSON.parse(body));
+                        }
                     }
                 }
                 else {
                     res.send({body: JSON.parse(body)});
                 }
-            });
+            }); // tslint:disable-line:cyclomatic-complexity
         }
     }
     catch (error) {
