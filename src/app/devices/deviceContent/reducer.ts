@@ -25,6 +25,7 @@ import { DeviceIdentity } from '../../api/models/deviceIdentity';
 import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
 import { InvokeMethodParameters } from '../../api/parameters/deviceParameters';
 import { DigitalTwinInterfaces } from '../../api/models/digitalTwinModels';
+import { transformModelDefinition } from './../../api/dataTransforms/modelDefinitionTransform';
 
 const reducer = reducerWithInitialState<DeviceContentStateType>(deviceContentStateInitial())
     //#region DeviceIdentity-related actions
@@ -134,7 +135,7 @@ const reducer = reducerWithInitialState<DeviceContentStateType>(deviceContentSta
     .case(getModelDefinitionAction.done, (state: DeviceContentStateType, payload: {params: GetModelDefinitionActionParameters} & {result: ModelDefinitionActionResult}) => {
         return state.merge({
             modelDefinitionWithSource: {
-                modelDefinition: payload.result.modelDefinition,
+                modelDefinition: transformModelDefinition(payload.result.modelDefinition),
                 modelDefinitionSynchronizationStatus: SynchronizationStatus.fetched,
                 source: payload.result.source
             }

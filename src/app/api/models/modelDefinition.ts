@@ -6,10 +6,10 @@ export interface ModelDefinition {
     '@context': string;
     '@id': string;
     '@type': string;
-    comment?: string;
+    comment?: string | object;
     contents: Array<PropertyContent | CommandContent | TelemetryContent>;
-    description?: string;
-    displayName?: string;
+    description?: string | object;
+    displayName?: string | object;
 }
 
 export interface PropertyContent extends ContentBase {
@@ -31,9 +31,9 @@ interface ContentBase {
     '@type': string | string[];
     name: string;
 
-    comment?: string;
-    description?: string;
-    displayName?: string;
+    comment?: string | object;
+    description?: string | object;
+    displayName?: string | object;
     displayUnit?: string;
     unit?: any; // tslint:disable-line:no-any
 }
@@ -41,8 +41,8 @@ interface ContentBase {
 export interface Schema {
     name: string;
     schema: string | EnumSchema | ObjectSchema | MapSchema;
-    displayName?: string;
-    description?: string;
+    displayName?: string | object;
+    description?: string | object;
 }
 
 export interface EnumSchema {

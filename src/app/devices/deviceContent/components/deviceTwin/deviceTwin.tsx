@@ -127,7 +127,7 @@ export default class DeviceTwin
                 { twin &&
                     <Editor
                         language="json"
-                        height="calc(100vh - 400px)"
+                        height="calc(100vh - 300px)"
                         value={twin}
                         options={{
                             automaticLayout: true,

@@ -13,6 +13,7 @@ import { CommandContent } from '../../../../api/models/modelDefinition';
 import DataForm from '../shared/dataForm';
 import { InvokeDigitalTwinInterfaceCommandActionParameters } from '../../actions';
 import { generateCommandPayload } from '../../sagas/digitalTwinInterfaceCommandSaga';
+import ErrorBoundary from '../../../errorBoundary';
 
 export interface DeviceCommandDataProps extends CommandSchema {
     collapsed: boolean;
@@ -38,10 +39,10 @@ export default class DeviceCommandsPerInterfacePerCommand
             <article className="list-item" role="listitem">
                 <LocalizationContextConsumer >
                     {(context: LocalizationContextInterface) => (
-                        <>
+                        <ErrorBoundary error={context.t(ResourceKeys.errorBoundary.text)}>
                             {this.createCollapsedSummary(context)}
                             {this.createUncollapsedCard(context)}
-                        </>
+                        </ErrorBoundary>
                     )}
                 </LocalizationContextConsumer>
             </article>

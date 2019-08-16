@@ -86,7 +86,16 @@ describe('deviceContentStateReducer', () => {
 
         it (`handles ${FETCH_MODEL_DEFINITION}/ACTION_DONE action`, () => {
             const action = getModelDefinitionAction.done({params: {digitalTwinId: 'testDevice', interfaceId: 'urn:azureiot:ModelDiscovery:ModelInformation:1'}, result: {modelDefinition, source: REPOSITORY_LOCATION_TYPE.Public }});
-            expect(reducer(deviceContentStateInitial(), action).modelDefinitionWithSource).toEqual(modelDefinitionWithSource);
+            const modelDefinitionTransformed = {
+                ...modelDefinition,
+                description: '',
+                displayName: modelDefinition.displayName
+            };
+            expect(reducer(deviceContentStateInitial(), action).modelDefinitionWithSource).toEqual({
+                modelDefinition: modelDefinitionTransformed,
+                modelDefinitionSynchronizationStatus: SynchronizationStatus.fetched,
+                source: REPOSITORY_LOCATION_TYPE.Public
+            });
         });
 
         it (`handles ${FETCH_MODEL_DEFINITION}/ACTION_FAILED action`, () => {

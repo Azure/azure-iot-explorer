@@ -13,6 +13,7 @@ import { ModelDefinitionWithSourceWrapper } from '../../../../api/models/modelDe
 import { REPOSITORY_LOCATION_TYPE } from '../../../../constants/repositoryLocationTypes';
 import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
 import { REFRESH } from '../../../../constants/iconNames';
+import ErrorBoundary from '../../../errorBoundary';
 
 export interface DeviceInterfaceProps {
     modelDefinitionWithSource: ModelDefinitionWithSourceWrapper;
@@ -68,10 +69,12 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
                     interfaceId: getInterfaceIdFromQueryString(this.props)
                 })}</h3>
                 {modelDefinitionWithSource && modelDefinitionWithSource.modelDefinition ?
-                    <section className="pnp-interface-info">
-                        {this.renderInterfaceInfoDetail(context)}
-                        {this.renderInterfaceViewer()}
-                    </section> :
+                    <ErrorBoundary error={context.t(ResourceKeys.errorBoundary.text)}>
+                        <section className="pnp-interface-info">
+                            {this.renderInterfaceInfoDetail(context)}
+                            {this.renderInterfaceViewer()}
+                        </section>
+                    </ErrorBoundary> :
                     <InterfaceNotFoundMessageBoxContainer/>
                 }
             </>

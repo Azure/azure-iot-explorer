@@ -48,53 +48,56 @@ exports[`components/devices/deviceInterfaces show interface information when sta
   <h3>
     deviceInterfaces.headerText
   </h3>
-  <section
-    className="pnp-interface-info"
+  <ErrorBoundary
+    error="errorBoundary.text"
   >
-    <StyledLabelBase
-      className="source"
+    <section
+      className="pnp-interface-info"
     >
-       
-      deviceInterfaces.columns.source
-      : 
-      settings.modelDefinitions.repositoryTypes.public.label
-    </StyledLabelBase>
-    <CustomizedDefaultButton
-      className="configure-button"
-      onClick={[Function]}
-    >
-      deviceInterfaces.command.configure
-    </CustomizedDefaultButton>
-    <StyledLabelBase>
-       
-      deviceInterfaces.columns.displayName
-      : 
-      --
-    </StyledLabelBase>
-    <StyledLabelBase>
-       
-      deviceInterfaces.columns.description
-      : 
-      --
-    </StyledLabelBase>
-    <article
-      className="interface-definition"
-    >
-      <MonacoEditor
-        defaultValue=""
-        editorDidMount={[Function]}
-        editorWillMount={[Function]}
-        height="calc(100vh - 400px)"
-        language="json"
-        onChange={[Function]}
-        options={
-          Object {
-            "automaticLayout": true,
-            "readOnly": true,
+      <StyledLabelBase
+        className="source"
+      >
+         
+        deviceInterfaces.columns.source
+        : 
+        settings.modelDefinitions.repositoryTypes.public.label
+      </StyledLabelBase>
+      <CustomizedDefaultButton
+        className="configure-button"
+        onClick={[Function]}
+      >
+        deviceInterfaces.command.configure
+      </CustomizedDefaultButton>
+      <StyledLabelBase>
+         
+        deviceInterfaces.columns.displayName
+        : 
+        --
+      </StyledLabelBase>
+      <StyledLabelBase>
+         
+        deviceInterfaces.columns.description
+        : 
+        --
+      </StyledLabelBase>
+      <article
+        className="interface-definition"
+      >
+        <MonacoEditor
+          defaultValue=""
+          editorDidMount={[Function]}
+          editorWillMount={[Function]}
+          height="calc(100vh - 400px)"
+          language="json"
+          onChange={[Function]}
+          options={
+            Object {
+              "automaticLayout": true,
+              "readOnly": true,
+            }
           }
-        }
-        theme={null}
-        value="{
+          theme={null}
+          value="{
 	\\"@id\\": \\"urn:azureiot:ModelDiscovery:DigitalTwin:1\\",
 	\\"@type\\": \\"Interface\\",
 	\\"contents\\": [
@@ -130,10 +133,11 @@ exports[`components/devices/deviceInterfaces show interface information when sta
 	],
 	\\"@context\\": \\"http://azureiot.com/v1/contexts/Interface.json\\"
 }"
-        width="100%"
-      />
-    </article>
-  </section>
+          width="100%"
+        />
+      </article>
+    </section>
+  </ErrorBoundary>
 </Fragment>
 `;
 
@@ -158,53 +162,56 @@ exports[`components/devices/deviceInterfaces show interface information when sta
   <h3>
     deviceInterfaces.headerText
   </h3>
-  <section
-    className="pnp-interface-info"
+  <ErrorBoundary
+    error="errorBoundary.text"
   >
-    <StyledLabelBase
-      className="source"
+    <section
+      className="pnp-interface-info"
     >
-       
-      deviceInterfaces.columns.source
-      : 
-      settings.modelDefinitions.repositoryTypes.private.label
-    </StyledLabelBase>
-    <CustomizedDefaultButton
-      className="configure-button"
-      onClick={[Function]}
-    >
-      deviceInterfaces.command.configure
-    </CustomizedDefaultButton>
-    <StyledLabelBase>
-       
-      deviceInterfaces.columns.displayName
-      : 
-      --
-    </StyledLabelBase>
-    <StyledLabelBase>
-       
-      deviceInterfaces.columns.description
-      : 
-      --
-    </StyledLabelBase>
-    <article
-      className="interface-definition"
-    >
-      <MonacoEditor
-        defaultValue=""
-        editorDidMount={[Function]}
-        editorWillMount={[Function]}
-        height="calc(100vh - 400px)"
-        language="json"
-        onChange={[Function]}
-        options={
-          Object {
-            "automaticLayout": true,
-            "readOnly": true,
+      <StyledLabelBase
+        className="source"
+      >
+         
+        deviceInterfaces.columns.source
+        : 
+        settings.modelDefinitions.repositoryTypes.private.label
+      </StyledLabelBase>
+      <CustomizedDefaultButton
+        className="configure-button"
+        onClick={[Function]}
+      >
+        deviceInterfaces.command.configure
+      </CustomizedDefaultButton>
+      <StyledLabelBase>
+         
+        deviceInterfaces.columns.displayName
+        : 
+        --
+      </StyledLabelBase>
+      <StyledLabelBase>
+         
+        deviceInterfaces.columns.description
+        : 
+        --
+      </StyledLabelBase>
+      <article
+        className="interface-definition"
+      >
+        <MonacoEditor
+          defaultValue=""
+          editorDidMount={[Function]}
+          editorWillMount={[Function]}
+          height="calc(100vh - 400px)"
+          language="json"
+          onChange={[Function]}
+          options={
+            Object {
+              "automaticLayout": true,
+              "readOnly": true,
+            }
           }
-        }
-        theme={null}
-        value="{
+          theme={null}
+          value="{
 	\\"@id\\": \\"urn:azureiot:ModelDiscovery:DigitalTwin:1\\",
 	\\"@type\\": \\"Interface\\",
 	\\"contents\\": [
@@ -240,10 +247,11 @@ exports[`components/devices/deviceInterfaces show interface information when sta
 	],
 	\\"@context\\": \\"http://azureiot.com/v1/contexts/Interface.json\\"
 }"
-        width="100%"
-      />
-    </article>
-  </section>
+          width="100%"
+        />
+      </article>
+    </section>
+  </ErrorBoundary>
 </Fragment>
 `;
 
@@ -268,53 +276,56 @@ exports[`components/devices/deviceInterfaces show interface information when sta
   <h3>
     deviceInterfaces.headerText
   </h3>
-  <section
-    className="pnp-interface-info"
+  <ErrorBoundary
+    error="errorBoundary.text"
   >
-    <StyledLabelBase
-      className="source"
+    <section
+      className="pnp-interface-info"
     >
-       
-      deviceInterfaces.columns.source
-      : 
-      settings.modelDefinitions.repositoryTypes.device.label
-    </StyledLabelBase>
-    <CustomizedDefaultButton
-      className="configure-button"
-      onClick={[Function]}
-    >
-      deviceInterfaces.command.configure
-    </CustomizedDefaultButton>
-    <StyledLabelBase>
-       
-      deviceInterfaces.columns.displayName
-      : 
-      --
-    </StyledLabelBase>
-    <StyledLabelBase>
-       
-      deviceInterfaces.columns.description
-      : 
-      --
-    </StyledLabelBase>
-    <article
-      className="interface-definition"
-    >
-      <MonacoEditor
-        defaultValue=""
-        editorDidMount={[Function]}
-        editorWillMount={[Function]}
-        height="calc(100vh - 400px)"
-        language="json"
-        onChange={[Function]}
-        options={
-          Object {
-            "automaticLayout": true,
-            "readOnly": true,
+      <StyledLabelBase
+        className="source"
+      >
+         
+        deviceInterfaces.columns.source
+        : 
+        settings.modelDefinitions.repositoryTypes.device.label
+      </StyledLabelBase>
+      <CustomizedDefaultButton
+        className="configure-button"
+        onClick={[Function]}
+      >
+        deviceInterfaces.command.configure
+      </CustomizedDefaultButton>
+      <StyledLabelBase>
+         
+        deviceInterfaces.columns.displayName
+        : 
+        --
+      </StyledLabelBase>
+      <StyledLabelBase>
+         
+        deviceInterfaces.columns.description
+        : 
+        --
+      </StyledLabelBase>
+      <article
+        className="interface-definition"
+      >
+        <MonacoEditor
+          defaultValue=""
+          editorDidMount={[Function]}
+          editorWillMount={[Function]}
+          height="calc(100vh - 400px)"
+          language="json"
+          onChange={[Function]}
+          options={
+            Object {
+              "automaticLayout": true,
+              "readOnly": true,
+            }
           }
-        }
-        theme={null}
-        value="{
+          theme={null}
+          value="{
 	\\"@id\\": \\"urn:azureiot:ModelDiscovery:DigitalTwin:1\\",
 	\\"@type\\": \\"Interface\\",
 	\\"contents\\": [
@@ -350,10 +361,11 @@ exports[`components/devices/deviceInterfaces show interface information when sta
 	],
 	\\"@context\\": \\"http://azureiot.com/v1/contexts/Interface.json\\"
 }"
-        width="100%"
-      />
-    </article>
-  </section>
+          width="100%"
+        />
+      </article>
+    </section>
+  </ErrorBoundary>
 </Fragment>
 `;
 
@@ -378,53 +390,56 @@ exports[`components/devices/deviceInterfaces show interface information when sta
   <h3>
     deviceInterfaces.headerText
   </h3>
-  <section
-    className="pnp-interface-info"
+  <ErrorBoundary
+    error="errorBoundary.text"
   >
-    <StyledLabelBase
-      className="source"
+    <section
+      className="pnp-interface-info"
     >
-       
-      deviceInterfaces.columns.source
-      : 
-      --
-    </StyledLabelBase>
-    <CustomizedDefaultButton
-      className="configure-button"
-      onClick={[Function]}
-    >
-      deviceInterfaces.command.configure
-    </CustomizedDefaultButton>
-    <StyledLabelBase>
-       
-      deviceInterfaces.columns.displayName
-      : 
-      --
-    </StyledLabelBase>
-    <StyledLabelBase>
-       
-      deviceInterfaces.columns.description
-      : 
-      --
-    </StyledLabelBase>
-    <article
-      className="interface-definition"
-    >
-      <MonacoEditor
-        defaultValue=""
-        editorDidMount={[Function]}
-        editorWillMount={[Function]}
-        height="calc(100vh - 400px)"
-        language="json"
-        onChange={[Function]}
-        options={
-          Object {
-            "automaticLayout": true,
-            "readOnly": true,
+      <StyledLabelBase
+        className="source"
+      >
+         
+        deviceInterfaces.columns.source
+        : 
+        --
+      </StyledLabelBase>
+      <CustomizedDefaultButton
+        className="configure-button"
+        onClick={[Function]}
+      >
+        deviceInterfaces.command.configure
+      </CustomizedDefaultButton>
+      <StyledLabelBase>
+         
+        deviceInterfaces.columns.displayName
+        : 
+        --
+      </StyledLabelBase>
+      <StyledLabelBase>
+         
+        deviceInterfaces.columns.description
+        : 
+        --
+      </StyledLabelBase>
+      <article
+        className="interface-definition"
+      >
+        <MonacoEditor
+          defaultValue=""
+          editorDidMount={[Function]}
+          editorWillMount={[Function]}
+          height="calc(100vh - 400px)"
+          language="json"
+          onChange={[Function]}
+          options={
+            Object {
+              "automaticLayout": true,
+              "readOnly": true,
+            }
           }
-        }
-        theme={null}
-        value="{
+          theme={null}
+          value="{
 	\\"@id\\": \\"urn:azureiot:ModelDiscovery:DigitalTwin:1\\",
 	\\"@type\\": \\"Interface\\",
 	\\"contents\\": [
@@ -460,9 +475,10 @@ exports[`components/devices/deviceInterfaces show interface information when sta
 	],
 	\\"@context\\": \\"http://azureiot.com/v1/contexts/Interface.json\\"
 }"
-        width="100%"
-      />
-    </article>
-  </section>
+          width="100%"
+        />
+      </article>
+    </section>
+  </ErrorBoundary>
 </Fragment>
 `;
