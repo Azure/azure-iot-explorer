@@ -24,8 +24,9 @@ import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMes
 import { getNumberOfMapsInSchema } from '../../../../shared/utils/twinAndJsonSchemaDataConverter';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import LabelWithTooltip from '../../../../shared/components/labelWithTooltip';
-import '../../../../css/_deviceEvents.scss';
 import { DEFAULT_CONSUMER_GROUP } from '../../../../constants/apiConstants';
+import ErrorBoundary from '../../../errorBoundary';
+import '../../../../css/_deviceEvents.scss';
 
 const JSON_SPACES = 2;
 const LOADING_LOCK = 50;
@@ -271,11 +272,13 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
                             return (
                                 <article className="list-item" role="article" key={index}>
                                     <section className="item-summary">
-                                        {this.renderTimestamp(event, context)}
-                                        {this.renderEventName(telemetryModelDefinition, context)}
-                                        {this.renderEventSchema(telemetryModelDefinition, context)}
-                                        {this.renderEventUnit(telemetryModelDefinition, context)}
-                                        {this.renderMessageBody(event, context, event.properties[TELEMETRY_SCHEMA_PROP], parsedSchema)}
+                                        <ErrorBoundary error={context.t(ResourceKeys.errorBoundary.text)}>
+                                            {this.renderTimestamp(event, context)}
+                                            {this.renderEventName(telemetryModelDefinition, context)}
+                                            {this.renderEventSchema(telemetryModelDefinition, context)}
+                                            {this.renderEventUnit(telemetryModelDefinition, context)}
+                                            {this.renderMessageBody(event, context, event.properties[TELEMETRY_SCHEMA_PROP], parsedSchema)}
+                                        </ErrorBoundary>
                                     </section>
                                 </article>
                             );

@@ -11,6 +11,7 @@ import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { PropertyContent } from '../../../../api/models/modelDefinition';
 import ComplexReportedFormPanel from '../shared/complexReportedFormPanel';
 import { RenderSimplyTypeValue } from '../shared/simpleReportedSection';
+import ErrorBoundary from '../../../errorBoundary';
 
 export type TwinWithSchema = DevicePropertyDataProps;
 
@@ -44,11 +45,13 @@ export default class DevicePropertiesPerInterfacePerProperty
                 <LocalizationContextConsumer>
                     {(context: LocalizationContextInterface) => (
                         <section className="item-summary">
-                            {this.renderPropertyName(context)}
-                            {this.renderPropertySchema(context)}
-                            {this.renderPropertyUnit(context)}
-                            {this.renderPropertyReportedValue(context)}
-                            {this.createReportedValuePanel()}
+                            <ErrorBoundary error={context.t(ResourceKeys.errorBoundary.text)}>
+                                {this.renderPropertyName(context)}
+                                {this.renderPropertySchema(context)}
+                                {this.renderPropertyUnit(context)}
+                                {this.renderPropertyReportedValue(context)}
+                                {this.createReportedValuePanel()}
+                            </ErrorBoundary>
                         </section>
                     )}
                 </LocalizationContextConsumer>

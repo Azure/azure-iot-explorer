@@ -16,6 +16,7 @@ import { RenderDesiredState } from '../shared/desiredStateStatus';
 import { PatchDigitalTwinInterfacePropertiesActionParameters } from '../../actions';
 import { generateInterfacePropertiesPayload } from '../../sagas/digitalTwinInterfacePropertySaga';
 import { Reported } from '../../../../api/models/digitalTwinModels';
+import ErrorBoundary from '../../../errorBoundary';
 import '../../../../css/_deviceSettings.scss';
 
 export interface DeviceSettingDataProps extends TwinWithSchema {
@@ -58,11 +59,11 @@ export default class DeviceSettingsPerInterfacePerSetting
             <article className="list-item" role="listitem">
                 <LocalizationContextConsumer>
                     {(context: LocalizationContextInterface) => (
-                        <>
+                        <ErrorBoundary error={context.t(ResourceKeys.errorBoundary.text)}>
                             {this.createCollapsedSummary(context)}
                             {this.createUncollapsedCard()}
                             {this.createReportedValuePanel()}
-                        </>
+                        </ErrorBoundary>
                     )}
                 </LocalizationContextConsumer>
             </article>

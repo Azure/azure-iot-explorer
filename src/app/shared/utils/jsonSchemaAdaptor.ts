@@ -196,7 +196,7 @@ const getDescription = (property: PropertyContent): string => {
 const getDisplayName = (schema: PropertyContent | CommandContent | Schema): string => {
     return schema.displayName && schema.description ?
     `${schema.displayName} / ${schema.description}` :
-     schema.description || schema.displayName || '';
+     (schema.description || schema.displayName || '') as string;
 };
 
 // tslint:disable-next-line:cyclomatic-complexity
