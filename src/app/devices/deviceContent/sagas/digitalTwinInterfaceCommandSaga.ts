@@ -66,7 +66,7 @@ export const generateCommandPayload = (commandPayload: any) => {
     return commandPayload || null;
 };
 
-function* notifyMethodInvoked(toastId: number, action: Action<InvokeDigitalTwinInterfaceCommandActionParameters>) {
+export function* notifyMethodInvoked(toastId: number, action: Action<InvokeDigitalTwinInterfaceCommandActionParameters>) {
     if (action.payload) {
         const commandPayload = generateCommandPayload(action.payload.commandPayload);
         yield put(addNotificationAction.started({

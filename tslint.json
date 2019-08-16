@@ -101,7 +101,8 @@
             true,
             [
                 "jest",
-                "enzyme"
+                "enzyme",
+                "jest-plugin-context"
             ]
         ],
         "no-internal-module": true,
@@ -125,6 +126,7 @@
         "no-submodule-imports": [true,
             "office-ui-fabric-react",
             "redux-saga/effects",
+            "redux-saga/utils",
             "redux-devtools-extension",
             "react-toastify"
         ],

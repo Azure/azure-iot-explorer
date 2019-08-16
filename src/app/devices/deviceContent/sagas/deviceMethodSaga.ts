@@ -56,7 +56,7 @@ export function* invokeDeviceMethodSaga(action: Action<InvokeMethodParameters>) 
     }
 }
 
-function* notifyMethodInvoked(toastId: number, action: Action<InvokeMethodParameters>) {
+export function* notifyMethodInvoked(toastId: number, action: Action<InvokeMethodParameters>) {
     if (action.payload) {
         if ( action.payload.payload !== undefined) { // payload could be boolean value false
             yield put(addNotificationAction.started({
