@@ -6549,7 +6549,7 @@ exports[`components/devices/deviceCommandsPerInterfacePerCommand matches snapsho
     </div>
     <section
       className="list-content scrollable-lg"
-      role="list"
+      role="main"
     />
   </div>
 </DeviceCommandsPerInterface>

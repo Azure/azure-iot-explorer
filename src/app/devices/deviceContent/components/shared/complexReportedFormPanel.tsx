@@ -16,6 +16,7 @@ import { twinToFormDataConverter } from '../../../../shared/utils/twinAndJsonSch
 import { CLOSE } from '../../../../constants/iconNames';
 import { PropertyContent } from '../../../../api/models/modelDefinition';
 import ErrorBoundary from '../../../errorBoundary';
+import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 
 export interface ReportedFormDataProps {
     showPanel: boolean;
@@ -64,7 +65,7 @@ export default class ComplexReportedFormPanel extends React.Component<ReportedFo
     }
 
     private readonly createTitle = (context: LocalizationContextInterface) => {
-        const displayName = this.props.modelDefinition.displayName;
+        const displayName = getLocalizedData(this.props.modelDefinition.displayName);
         return (
             <div className="panel-title">
                 <h1>{context.t(ResourceKeys.deviceSettings.panel.title)}</h1>

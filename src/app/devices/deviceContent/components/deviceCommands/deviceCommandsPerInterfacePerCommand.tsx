@@ -14,6 +14,7 @@ import DataForm from '../shared/dataForm';
 import { InvokeDigitalTwinInterfaceCommandActionParameters } from '../../actions';
 import { generateCommandPayload } from '../../sagas/digitalTwinInterfaceCommandSaga';
 import ErrorBoundary from '../../../errorBoundary';
+import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 
 export interface DeviceCommandDataProps extends CommandSchema {
     collapsed: boolean;
@@ -123,9 +124,9 @@ export default class DeviceCommandsPerInterfacePerCommand
 
     private readonly renderCommandName = (context: LocalizationContextInterface) => {
         const ariaLabel = context.t(ResourceKeys.deviceCommands.columns.name);
-        let displayName = this.props.commandModelDefinition.displayName;
+        let displayName = getLocalizedData(this.props.commandModelDefinition.displayName);
         displayName = displayName ? displayName : '--';
-        let description = this.props.commandModelDefinition.description;
+        let description = getLocalizedData(this.props.commandModelDefinition.description);
         description = description ? description : '--';
         return <Label aria-label={ariaLabel} className="column-name">{this.props.commandModelDefinition.name} ({displayName} / {description})</Label>;
     }

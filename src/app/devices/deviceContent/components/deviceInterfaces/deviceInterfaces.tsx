@@ -14,6 +14,7 @@ import { REPOSITORY_LOCATION_TYPE } from '../../../../constants/repositoryLocati
 import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
 import { REFRESH } from '../../../../constants/iconNames';
 import ErrorBoundary from '../../../errorBoundary';
+import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 
 export interface DeviceInterfaceProps {
     modelDefinitionWithSource: ModelDefinitionWithSourceWrapper;
@@ -84,8 +85,8 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
     private readonly renderInterfaceInfoDetail = (context: LocalizationContextInterface) => {
         const { modelDefinitionWithSource } = this.props;
         const source = this.getModelDefinitionSourceText(context);
-        const displayName = modelDefinitionWithSource.modelDefinition && modelDefinitionWithSource.modelDefinition.displayName || '--';
-        const description = modelDefinitionWithSource.modelDefinition && modelDefinitionWithSource.modelDefinition.description || '--';
+        const displayName = modelDefinitionWithSource.modelDefinition && getLocalizedData(modelDefinitionWithSource.modelDefinition.displayName) || '--';
+        const description = modelDefinitionWithSource.modelDefinition && getLocalizedData(modelDefinitionWithSource.modelDefinition.description) || '--';
         return (
             <>
                 <Label className="source"> {context.t(ResourceKeys.deviceInterfaces.columns.source)}: {source}</Label>

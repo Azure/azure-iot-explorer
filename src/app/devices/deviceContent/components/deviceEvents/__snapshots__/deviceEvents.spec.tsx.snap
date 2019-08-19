@@ -72,7 +72,7 @@ exports[`components/devices/deviceEvents matches snapshot 1`] = `
       </div>
     }
     pageStart={0}
-    role="feed"
+    role=""
   />
 </div>
 `;

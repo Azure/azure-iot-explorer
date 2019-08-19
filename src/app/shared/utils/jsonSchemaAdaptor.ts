@@ -5,6 +5,7 @@
 import { PropertyContent, CommandContent, EnumSchema, ObjectSchema, MapSchema, ContentType, TelemetryContent, Schema } from '../../api/models/modelDefinition';
 import { ParsedCommandSchema, ParsedJsonSchema } from '../../api/models/interfaceJsonParserOutput';
 import { InterfaceSchemaNotSupportedException } from './exceptions/interfaceSchemaNotSupportedException';
+import { getLocalizedData } from '../../api/dataTransforms/modelDefinitionTransform';
 
 export const parseInterfacePropertyToJsonSchema = (property: PropertyContent): ParsedJsonSchema => {
     try {
@@ -194,15 +195,18 @@ const getDescription = (property: PropertyContent): string => {
 };
 
 const getDisplayName = (schema: PropertyContent | CommandContent | Schema): string => {
-    return schema.displayName && schema.description ?
-    `${schema.displayName} / ${schema.description}` :
-     (schema.description || schema.displayName || '') as string;
+    const displayName = getLocalizedData(schema.displayName);
+    const description = getLocalizedData(schema.description);
+    return displayName && description ?
+    `${displayName} / ${description}` :
+     (description || displayName || '') as string;
 };
 
 // tslint:disable-next-line:cyclomatic-complexity
 const getDisplayUnit = (schema: PropertyContent | CommandContent): string => {
-    const unit = typeof schema.unit === 'string' && schema.unit;
-    return schema.displayUnit && unit ?
-    `${schema.displayUnit} / ${unit}` :
-     schema.displayUnit || unit || '';
+    const unit = getLocalizedData(schema.unit);
+    const displayUnit = getLocalizedData(schema.displayUnit);
+    return unit && displayUnit ?
+    `${unit} / ${displayUnit}` :
+     (unit || displayUnit || '') as string;
 };

@@ -4052,6 +4052,7 @@ exports[`components/devices/deviceSettings matches snapshot with one twinWithSch
                     liveValidate={true}
                     noHtml5Validate={false}
                     noValidate={false}
+                    omitExtraData={false}
                     onChange={[Function]}
                     safeRenderCompletion={false}
                     schema={
@@ -4106,6 +4107,7 @@ exports[`components/devices/deviceSettings matches snapshot with one twinWithSch
                               "ArrayField": [Function],
                               "BooleanField": [Function],
                               "DescriptionField": [Function],
+                              "NullField": [Function],
                               "NumberField": [Function],
                               "ObjectField": [Function],
                               "OneOfField": [Function],
@@ -4171,6 +4173,7 @@ exports[`components/devices/deviceSettings matches snapshot with one twinWithSch
                               "ArrayField": [Function],
                               "BooleanField": [Function],
                               "DescriptionField": [Function],
+                              "NullField": [Function],
                               "NumberField": [Function],
                               "ObjectField": [Function],
                               "OneOfField": [Function],
@@ -5795,6 +5798,7 @@ exports[`components/devices/deviceSettings matches snapshot with one twinWithSch
                                       "ArrayField": [Function],
                                       "BooleanField": [Function],
                                       "DescriptionField": [Function],
+                                      "NullField": [Function],
                                       "NumberField": [Function],
                                       "ObjectField": [Function],
                                       "OneOfField": [Function],
@@ -5869,6 +5873,7 @@ exports[`components/devices/deviceSettings matches snapshot with one twinWithSch
                                         "ArrayField": [Function],
                                         "BooleanField": [Function],
                                         "DescriptionField": [Function],
+                                        "NullField": [Function],
                                         "NumberField": [Function],
                                         "ObjectField": [Function],
                                         "OneOfField": [Function],
@@ -5946,6 +5951,7 @@ exports[`components/devices/deviceSettings matches snapshot with one twinWithSch
                                           "ArrayField": [Function],
                                           "BooleanField": [Function],
                                           "DescriptionField": [Function],
+                                          "NullField": [Function],
                                           "NumberField": [Function],
                                           "ObjectField": [Function],
                                           "OneOfField": [Function],
@@ -6016,6 +6022,7 @@ exports[`components/devices/deviceSettings matches snapshot with one twinWithSch
                                             "ArrayField": [Function],
                                             "BooleanField": [Function],
                                             "DescriptionField": [Function],
+                                            "NullField": [Function],
                                             "NumberField": [Function],
                                             "ObjectField": [Function],
                                             "OneOfField": [Function],
@@ -6086,6 +6093,7 @@ exports[`components/devices/deviceSettings matches snapshot with one twinWithSch
                                               "ArrayField": [Function],
                                               "BooleanField": [Function],
                                               "DescriptionField": [Function],
+                                              "NullField": [Function],
                                               "NumberField": [Function],
                                               "ObjectField": [Function],
                                               "OneOfField": [Function],
@@ -6153,9 +6161,7 @@ exports[`components/devices/deviceSettings matches snapshot with one twinWithSch
                             <div
                               className="errors"
                             >
-                              <ErrorList>
-                                <div />
-                              </ErrorList>
+                              <ErrorList />
                             </div>
                           </div>
                         </Component>
@@ -10859,7 +10865,7 @@ exports[`components/devices/deviceSettings matches snapshot without twinWithSche
     </div>
     <section
       className="list-content scrollable-lg"
-      role="list"
+      role="main"
     />
   </div>
 </DeviceSettingsPerInterface>
@@ -13945,6 +13951,7 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
                     liveValidate={true}
                     noHtml5Validate={false}
                     noValidate={false}
+                    omitExtraData={false}
                     onChange={[Function]}
                     safeRenderCompletion={false}
                     schema={
@@ -13999,6 +14006,7 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
                               "ArrayField": [Function],
                               "BooleanField": [Function],
                               "DescriptionField": [Function],
+                              "NullField": [Function],
                               "NumberField": [Function],
                               "ObjectField": [Function],
                               "OneOfField": [Function],
@@ -14064,6 +14072,7 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
                               "ArrayField": [Function],
                               "BooleanField": [Function],
                               "DescriptionField": [Function],
+                              "NullField": [Function],
                               "NumberField": [Function],
                               "ObjectField": [Function],
                               "OneOfField": [Function],
@@ -15688,6 +15697,7 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
                                       "ArrayField": [Function],
                                       "BooleanField": [Function],
                                       "DescriptionField": [Function],
+                                      "NullField": [Function],
                                       "NumberField": [Function],
                                       "ObjectField": [Function],
                                       "OneOfField": [Function],
@@ -15762,6 +15772,7 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
                                         "ArrayField": [Function],
                                         "BooleanField": [Function],
                                         "DescriptionField": [Function],
+                                        "NullField": [Function],
                                         "NumberField": [Function],
                                         "ObjectField": [Function],
                                         "OneOfField": [Function],
@@ -15839,6 +15850,7 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
                                           "ArrayField": [Function],
                                           "BooleanField": [Function],
                                           "DescriptionField": [Function],
+                                          "NullField": [Function],
                                           "NumberField": [Function],
                                           "ObjectField": [Function],
                                           "OneOfField": [Function],
@@ -15909,6 +15921,7 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
                                             "ArrayField": [Function],
                                             "BooleanField": [Function],
                                             "DescriptionField": [Function],
+                                            "NullField": [Function],
                                             "NumberField": [Function],
                                             "ObjectField": [Function],
                                             "OneOfField": [Function],
@@ -15979,6 +15992,7 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
                                               "ArrayField": [Function],
                                               "BooleanField": [Function],
                                               "DescriptionField": [Function],
+                                              "NullField": [Function],
                                               "NumberField": [Function],
                                               "ObjectField": [Function],
                                               "OneOfField": [Function],
@@ -16046,9 +16060,7 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
                             <div
                               className="errors"
                             >
-                              <ErrorList>
-                                <div />
-                              </ErrorList>
+                              <ErrorList />
                             </div>
                           </div>
                         </Component>
