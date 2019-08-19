@@ -66,7 +66,7 @@ export default class AddDevice extends React.Component<AddDeviceActionProps & Ad
         return (
             <LocalizationContextConsumer>
                 {(context: LocalizationContextInterface) => (
-                     <div className="view add-device">
+                     <form onSubmit={this.handleSave} className="view add-device">
                         <div className="view-header">
                             <Route component={BreadcrumbContainer} />
                         </div>
@@ -80,7 +80,7 @@ export default class AddDevice extends React.Component<AddDeviceActionProps & Ad
                             </div>
                         </div>
                         {this.props.deviceListSyncStatus === SynchronizationStatus.updating && <Overlay/>}
-                    </div>
+                    </form>
                 )}
             </LocalizationContextConsumer>
         );
@@ -247,10 +247,10 @@ export default class AddDevice extends React.Component<AddDeviceActionProps & Ad
             <div className="button-groups">
                 <PrimaryButton
                     className="submit-button"
-                    onClick={this.handleSave}
                     disabled={this.disableSaveButton()}
                     text={context.t(ResourceKeys.deviceLists.commands.save)}
                     ariaDescription={context.t(ResourceKeys.deviceLists.commands.save)}
+                    type={'submit'}
                 />
                 <DefaultButton
                     className="submit-button"
@@ -390,7 +390,9 @@ export default class AddDevice extends React.Component<AddDeviceActionProps & Ad
         return validateThumbprint(value) ? '' : ResourceKeys.deviceIdentity.validation.invalidThumbprint;
     }
 
-    private readonly handleSave = () => {
+    private readonly handleSave = (event: React.FormEvent<HTMLFormElement>) => {
+        // Prevent page regresh
+        event.preventDefault();
         this.props.handleSave(this.getDeviceIdentity());
     }
 

@@ -57,14 +57,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Azure/azure-iot-pnp-template-management.git"
+    "url": "git+https://github.com/Azure/azure-iot-explorer.git"
   },
   "author": "Microsoft <iotupx@microsoft.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Azure/azure-iot-pnp-template-management/issues"
+    "url": "https://github.com/Azure/azure-iot-explorer/issues"
   },
-  "homepage": "https://github.com/Azure/azure-iot-pnp-template-management#readme",
+  "homepage": "https://github.com/Azure/azure-iot-explorer#readme",
   "dependencies": {
     "@azure/event-hubs": "1.0.7",
     "@types/core-js": "2.5.0",
