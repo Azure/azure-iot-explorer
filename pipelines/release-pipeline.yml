@@ -11,38 +11,41 @@ jobs:
     steps:
     - template: .\build-and-test-template.yml
 
-  - job: package
+  - job: packageWindows
     dependsOn: 'build_and_test'
-    strategy:
-      matrix:
-
-        # linux:
-        #   imageName: 'ubuntu-16.04'
-        #   build_script: 'package:linux'
-        #   package_name: 'Linux'
-
-        mac:
-          imageName: 'macos-10.13'
-          build_script: 'package:mac'
-          package_name: 'MacOS'
-          ext: 'dmg'
-
-        windows:
-          imageName: 'vs2017-win2016'
-          build_script: 'package:win'
-          package_name: 'Windows'
-          ext: 'msi'
 
     pool:
-      vmImage: $(imageName)
+      vmImage: 'vs2017-win2016'
 
     steps:
     - task: NodeTool@0
       inputs:
         versionSpec: '12.x'
+        
+    - template: '.\build-windows.yml'
 
-    - script: 'npm run $(build_script)'
-      displayName: 'Package $(package_name)'
+    - task: CopyFiles@2
+      displayName: 'ArtifactIgnore'
+      inputs:
+        SourceFolder: '$(Build.SourcesDirectory)/'
+        Contents: '.artifactignore'
+        TargetFolder: '$(Build.SourcesDirectory)/dist/'
+
+    - publish: $(Build.SourcesDirectory)/dist/
+      displayName: 'Staging artifact for signing'
+
+  - job: packageMac
+    dependsOn: 'build_and_test'
+
+    pool:
+      vmImage: 'macos-10.13'
+
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '12.x'
+        
+    - template: '.\build-mac.yml'
 
     - task: CopyFiles@2
       displayName: 'ArtifactIgnore'
@@ -55,40 +58,19 @@ jobs:
       displayName: 'Staging artifact for signing'
 
   - job: sign
-    dependsOn: package
+    dependsOn:
+    - packageWindows
+    - packageMac
     pool:
       vmImage: 'vs2017-win2016'
     steps:
+    - template: .\sign-prep-template.yml
 
     - task: DownloadPipelineArtifact@2
       displayName: 'Stage artifacts for signing'
       inputs:
         buildType: 'current'
         targetPath: '$(Pipeline.Workspace)/staging'
-
-    - task: NuGetCommand@2
-      displayName: Install ESRPClient
-      inputs:
-        restoreSolution: '$(Build.SourcesDirectory)/pipelines/ESRPClient/packages.config'
-        feedsToUse: config
-        nugetConfigPath: '$(Build.SourcesDirectory)/pipelines/ESRPClient/NuGet.config'
-        externalFeedCredentials: 'Nuget'
-        restoreDirectory: packages
-
-    - task: DownloadSecureFile@1
-      name: AuthCert
-      inputs:
-        secureFile: 'AuthCert.pfx'
-
-    - task: DownloadSecureFile@1
-      name: ESRPCert
-      inputs:
-        secureFile: 'ESRPCert.pfx'
-
-    - powershell: |
-        $ErrorActionPreference = "Stop"
-        $(Build.SourcesDirectory)/pipelines/import-esrp-auth-cert.ps1 -AuthCertFilePath $(AuthCert.secureFilePath) -AuthCertKey '$(ESRPAuthKey)' -CertFilePath $(ESRPCert.secureFilePath) -CertKey '$(ESRPKey)'
-      displayName: Import Certificates
 
     - powershell: |
         $ErrorActionPreference = "Stop"
@@ -97,7 +79,6 @@ jobs:
     
     - task: CopyFiles@2
       displayName: 'Flatten signed artifact files for publish'
-      condition: always() # Remove when MacOS codesigning is approved
       inputs:
         SourceFolder: '$(Pipeline.Workspace)/staging'
         Contents: '**'
@@ -105,13 +86,11 @@ jobs:
         TargetFolder: '$(Pipeline.Workspace)/release/'
 
     - task: PublishPipelineArtifact@1
-      condition: always() # Remove when MacOS codesigning is approved
       displayName: 'Publish signed artifacts'
       inputs:
         targetPath: '$(Pipeline.Workspace)/release/'
     
     - task: GitHubRelease@0
-      condition: always() # Remove when MacOS codesigning is approved
       inputs:
         gitHubConnection: 'Github'
         repositoryName: '$(Build.Repository.Name)'

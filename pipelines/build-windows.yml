@@ -1,0 +1,18 @@
+steps:
+- script: 'npm install'
+  displayName: 'Install packages'
+
+- script: 'npm run build'
+  displayName: 'Build source'
+
+- script: 'npm run pack:win'
+  displayName: 'Pre-package for electron'
+
+- template: '.\sign-prep-template.yml'
+- powershell: |
+        $ErrorActionPreference = "Stop"
+        $(Build.SourcesDirectory)/pipelines/sign-exe.ps1 -ESRPClientId $(ESRPClientId) -ClientPath "$(Build.SourcesDirectory)\pipelines\ESRPClient\packages\Microsoft.EsrpClient.1.2.10\tools\" -Path "$(Build.SourcesDirectory)/dist/win-unpacked/"
+  displayName: Request code sign of exe
+
+- script: 'npm run dist:win'
+  displayName: 'Build MSI'

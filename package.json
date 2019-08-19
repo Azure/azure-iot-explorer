@@ -38,6 +38,8 @@
   },
   "scripts": {
     "build": "npm run localization && npm run server:compile && webpack --mode production",
+    "pack:win": "electron-builder --dir",
+    "dist:win": "electron-builder -w --prepackaged ./dist/win-unpacked",
     "clean": "IF EXIST .\\dist RMDIR /Q /S .\\dist",
     "clean:linux": "rm --recursive -f ./dist",
     "localization": "tsc ./scripts/composeLocalizationKeys.ts --skipLibCheck && node ./scripts/composeLocalizationKeys.js",
