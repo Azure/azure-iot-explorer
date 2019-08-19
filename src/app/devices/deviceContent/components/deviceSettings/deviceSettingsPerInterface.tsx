@@ -76,7 +76,7 @@ export default class DeviceSettingsPerInterface
                                     context.t(ResourceKeys.deviceSettings.command.collapseAll)}
                             </DefaultButton>
                         </div>
-                        <section role="list" className="list-content scrollable-lg">
+                        <section role={twinWithSchema && twinWithSchema.length === 0 ? 'main' : 'list'} className="list-content scrollable-lg">
                             {settings}
                         </section>
                         {this.state.showOverlay && <Overlay/>}

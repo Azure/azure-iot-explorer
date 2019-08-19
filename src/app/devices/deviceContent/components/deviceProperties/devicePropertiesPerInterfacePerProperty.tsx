@@ -12,6 +12,7 @@ import { PropertyContent } from '../../../../api/models/modelDefinition';
 import ComplexReportedFormPanel from '../shared/complexReportedFormPanel';
 import { RenderSimplyTypeValue } from '../shared/simpleReportedSection';
 import ErrorBoundary from '../../../errorBoundary';
+import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 
 export type TwinWithSchema = DevicePropertyDataProps;
 
@@ -61,9 +62,9 @@ export default class DevicePropertiesPerInterfacePerProperty
 
     private readonly renderPropertyName = (context: LocalizationContextInterface) => {
         const ariaLabel = context.t(ResourceKeys.deviceProperties.columns.name);
-        let displayName = this.props.propertyModelDefinition.displayName;
+        let displayName = getLocalizedData(this.props.propertyModelDefinition.displayName);
         displayName = displayName ? displayName : '--';
-        let description = this.props.propertyModelDefinition.description;
+        let description = getLocalizedData(this.props.propertyModelDefinition.description);
         description = description ? description : '--';
         return <Label aria-label={ariaLabel} className="column-name">{this.props.propertyModelDefinition.name} ({displayName} / {description})</Label>;
     }

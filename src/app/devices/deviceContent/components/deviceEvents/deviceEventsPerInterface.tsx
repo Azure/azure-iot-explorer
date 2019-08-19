@@ -26,6 +26,7 @@ import { SynchronizationStatus } from '../../../../api/models/synchronizationSta
 import LabelWithTooltip from '../../../../shared/components/labelWithTooltip';
 import { DEFAULT_CONSUMER_GROUP } from '../../../../constants/apiConstants';
 import ErrorBoundary from '../../../errorBoundary';
+import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 import '../../../../css/_deviceEvents.scss';
 
 const JSON_SPACES = 2;
@@ -300,10 +301,11 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
     }
 
     private readonly renderEventName = (telemetryModelDefinition: TelemetryContent, context: LocalizationContextInterface) => {
+        const displayName = getLocalizedData(telemetryModelDefinition.displayName);
         return(
             <Label className="column-name-sm" aria-label={context.t(ResourceKeys.deviceEvents.columns.displayName)}>
                 {telemetryModelDefinition ?
-                    `${telemetryModelDefinition.name} (${telemetryModelDefinition.displayName ? telemetryModelDefinition.displayName : '--'}) ` : '--'}
+                    `${telemetryModelDefinition.name} (${displayName ? displayName : '--'}) ` : '--'}
             </Label>
         );
     }
@@ -320,10 +322,11 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
     }
 
     private readonly renderEventUnit = (telemetryModelDefinition: TelemetryContent, context: LocalizationContextInterface) => {
+        const displayUnit = getLocalizedData(telemetryModelDefinition.displayUnit);
         return(
             <Label className="column-unit" aria-label={context.t(ResourceKeys.deviceEvents.columns.unit)}>
                 {telemetryModelDefinition ?
-                    telemetryModelDefinition.unit || telemetryModelDefinition.displayUnit || '--' : '--'}
+                    telemetryModelDefinition.unit || displayUnit || '--' : '--'}
             </Label>
         );
     }

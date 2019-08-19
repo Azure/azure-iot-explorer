@@ -914,7 +914,7 @@ exports[`components/devices/deviceProperties matches snapshot with one twinWithS
     </div>
     <section
       className="list-content scrollable-lg"
-      role="list"
+      role="main"
     />
   </div>
 </DevicePropertiesPerInterface>
@@ -953,7 +953,7 @@ exports[`components/devices/deviceProperties matches snapshot without twinWithSc
     </div>
     <section
       className="list-content scrollable-lg"
-      role="list"
+      role="main"
     />
   </div>
 </DevicePropertiesPerInterface>

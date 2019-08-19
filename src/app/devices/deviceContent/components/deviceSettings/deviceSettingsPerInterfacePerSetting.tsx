@@ -17,6 +17,7 @@ import { PatchDigitalTwinInterfacePropertiesActionParameters } from '../../actio
 import { generateInterfacePropertiesPayload } from '../../sagas/digitalTwinInterfacePropertySaga';
 import { Reported } from '../../../../api/models/digitalTwinModels';
 import ErrorBoundary from '../../../errorBoundary';
+import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 import '../../../../css/_deviceSettings.scss';
 
 export interface DeviceSettingDataProps extends TwinWithSchema {
@@ -94,9 +95,9 @@ export default class DeviceSettingsPerInterfacePerSetting
 
     private readonly renderPropertyName = (context: LocalizationContextInterface) => {
         const ariaLabel = context.t(ResourceKeys.deviceSettings.columns.name);
-        let displayName = this.props.settingModelDefinition.displayName;
+        let displayName = getLocalizedData(this.props.settingModelDefinition.displayName);
         displayName = displayName ? displayName : '--';
-        let description = this.props.settingModelDefinition.description;
+        let description = getLocalizedData(this.props.settingModelDefinition.description);
         description = description ? description : '--';
         return <Label aria-label={ariaLabel} className="column-name">{this.props.settingModelDefinition.name} ({displayName} / {description})</Label>;
     }

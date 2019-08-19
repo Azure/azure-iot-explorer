@@ -46,7 +46,7 @@ export default class DevicePropertiesPerInterface
                             <span className="column-unit">{context.t(ResourceKeys.deviceProperties.columns.unit)}</span>
                             <span className="column-value">{context.t(ResourceKeys.deviceProperties.columns.value)}</span>
                         </div>
-                        <section role="list" className="list-content scrollable-lg">
+                        <section role={twinAndSchema && twinAndSchema.length === 0 ? 'main' : 'list'} className="list-content scrollable-lg">
                             {properties}
                         </section>
                         {this.state.showOverlay && <Overlay/>}

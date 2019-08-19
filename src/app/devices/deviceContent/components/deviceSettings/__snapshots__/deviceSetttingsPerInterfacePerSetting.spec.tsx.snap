@@ -4633,6 +4633,7 @@ exports[`components/devices/deviceSettingsPerInterfacePerSetting matches snapsho
               liveValidate={true}
               noHtml5Validate={false}
               noValidate={false}
+              omitExtraData={false}
               onChange={[Function]}
               safeRenderCompletion={false}
               schema={
@@ -4702,6 +4703,7 @@ exports[`components/devices/deviceSettingsPerInterfacePerSetting matches snapsho
                         "ArrayField": [Function],
                         "BooleanField": [Function],
                         "DescriptionField": [Function],
+                        "NullField": [Function],
                         "NumberField": [Function],
                         "ObjectField": [Function],
                         "OneOfField": [Function],
@@ -4768,6 +4770,7 @@ exports[`components/devices/deviceSettingsPerInterfacePerSetting matches snapsho
                         "ArrayField": [Function],
                         "BooleanField": [Function],
                         "DescriptionField": [Function],
+                        "NullField": [Function],
                         "NumberField": [Function],
                         "ObjectField": [Function],
                         "OneOfField": [Function],
@@ -6407,6 +6410,7 @@ exports[`components/devices/deviceSettingsPerInterfacePerSetting matches snapsho
                                 "ArrayField": [Function],
                                 "BooleanField": [Function],
                                 "DescriptionField": [Function],
+                                "NullField": [Function],
                                 "NumberField": [Function],
                                 "ObjectField": [Function],
                                 "OneOfField": [Function],
@@ -6505,9 +6509,7 @@ exports[`components/devices/deviceSettingsPerInterfacePerSetting matches snapsho
                       <div
                         className="errors"
                       >
-                        <ErrorList>
-                          <div />
-                        </ErrorList>
+                        <ErrorList />
                       </div>
                     </div>
                   </Component>

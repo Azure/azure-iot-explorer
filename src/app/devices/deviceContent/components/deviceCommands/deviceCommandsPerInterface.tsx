@@ -73,7 +73,7 @@ export default class DeviceCommandsPerInterface
                                     context.t(ResourceKeys.deviceCommands.command.collapseAll)}
                             </DefaultButton>
                         </div>
-                        <section role="list" className="list-content scrollable-lg">
+                        <section role={commandSchemas && commandSchemas.length === 0 ? 'main' : 'list'} className="list-content scrollable-lg">
                             {commands}
                         </section>
                     </div>

@@ -62,7 +62,7 @@ describe('parse interface model definition to Json schema', () => {
         const interfacePropertyInJsonSchema =
             {
                 default: false,
-                description: 'Total storage ( Unit: MB / megabytes )',
+                description: 'Total storage ( Unit: megabytes / MB )',
                 title: 'totalStorage',
                 type: 'boolean'
             };

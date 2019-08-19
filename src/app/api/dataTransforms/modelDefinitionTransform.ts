@@ -13,7 +13,7 @@ export const transformModelDefinition = (model: ModelDefinition): ModelDefinitio
 };
 
 // tslint:disable-next-line:cyclomatic-complexity
-const getLocalizedData = (data: string | object) => {
+export const getLocalizedData = (data: string | object) => {
     if (typeof(data) === 'string')
     {
         return data;

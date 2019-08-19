@@ -199,7 +199,7 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
                 loadMore={this.fetchData}
                 hasMore={hasMore}
                 loader={this.renderLoader(context)}
-                role="feed"
+                role={this.state.events && this.state.events.length === 0 ? '' : 'feed'}
                 isReverse={true}
             >
             {this.renderEvents()}
