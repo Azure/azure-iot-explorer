@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/devices/deviceEvents matches snapshot 1`] = `
+<Fragment>
+  <Redirect
+    push={false}
+    to="/"
+  />
+</Fragment>
+`;
+
+exports[`components/devices/deviceEvents matches snapshot 2`] = `
+<Fragment>
+  <withRouter(Connect(SettingsPane)) />
+  <main
+    role="main"
+  >
+    <Route
+      component={[Function]}
+      exact={true}
+      path="/devices/"
+    />
+    <Route
+      component={[Function]}
+      exact={true}
+      path="/devices/add"
+    />
+    <Route
+      component={[Function]}
+      path="/devices/detail/"
+    />
+  </main>
+</Fragment>
+`;

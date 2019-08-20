@@ -11,17 +11,10 @@ import { RepoConnectionSettings } from '../services/digitalTwinsModelService';
 const MILLISECONDS_PER_SECOND = 1000;
 const SECONDS_PER_MINUTE = 60;
 
-export const parseConnectionString = (connectionString: string) => {
-    const connectionObject: any = {}; // tslint:disable-line: no-any
-
-    connectionString.split(';')
-    .forEach((segment: string) => {
-        const keyValue = segment.split('=');
-        connectionObject[keyValue[0]] = keyValue[1];
-    });
-
-    return connectionObject;
-};
+export const enum PnPQueryPrefix {
+    HAS_CAPABILITY_MODEL = 'HAS_CAPABILITYMODEL',
+    HAS_INTERFACE = 'HAS_INTERFACE'
+}
 
 export const generateSasToken = (resourceUri: string, sharedAccessKeyName: string, sharedAccessKey: string) => {
     const encodedUri = encodeURIComponent(resourceUri);
@@ -128,9 +121,9 @@ export const clauseListToString = (clauses: QueryClause[]) => {
 export const clauseToString = (clause: QueryClause) => {
     switch (clause.parameterType) {
         case ParameterType.capabilityModelId:
-            return toPnPClause('HAS_CAPABILITYMODEL', clause.value);
+            return toPnPClause(PnPQueryPrefix.HAS_CAPABILITY_MODEL, clause.value);
         case ParameterType.interfaceId:
-            return toPnPClause('HAS_INTERFACE', clause.value);
+            return toPnPClause(PnPQueryPrefix.HAS_INTERFACE, clause.value);
         default:
             return clauseItemToString(clause.parameterType, clause.operation, clause.value);
     }

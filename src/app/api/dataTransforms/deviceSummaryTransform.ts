@@ -21,7 +21,7 @@ export const transformDevice = (device: Device): DeviceSummary => {
 export const transformDeviceIdentity = (device: DeviceIdentity): DeviceSummary => {
     return {
         authenticationType: device.authentication.type,
-        cloudToDeviceMessageCount: device.cloudToDeviceMessageCount,
+        cloudToDeviceMessageCount: device.cloudToDeviceMessageCount.toString(),
         deviceId: device.deviceId,
         lastActivityTime: parseDateTimeString(device.lastActivityTime),
         status: device.status,

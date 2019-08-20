@@ -55,9 +55,12 @@ exports[`components/devices/deviceEvents matches snapshot 1`] = `
     underlined={true}
     value="$Default"
   />
-  <Component
+  <InfiniteScroll
     className="device-events-container scrollable"
+    element="div"
+    getScrollParent={null}
     hasMore={false}
+    initialLoad={true}
     isReverse={true}
     key="scroll"
     loadMore={[Function]}
@@ -72,7 +75,11 @@ exports[`components/devices/deviceEvents matches snapshot 1`] = `
       </div>
     }
     pageStart={0}
+    ref={null}
     role=""
+    threshold={250}
+    useCapture={false}
+    useWindow={true}
   />
 </div>
 `;

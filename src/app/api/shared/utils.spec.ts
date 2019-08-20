@@ -122,4 +122,40 @@ describe('utils', () => {
         expect(utils.escapeValue('enabled')).toEqual(`'enabled'`);
         expect(utils.escapeValue(`o'really`)).toEqual(`'o'really'`);
     });
+
+    it('coverts pnp query clauses', () => {
+        expect(utils.toPnPClause(utils.PnPQueryPrefix.HAS_CAPABILITY_MODEL, 'urn:contoso:com:EnvironmentalSensor:1')).toEqual(
+            `HAS_CAPABILITYMODEL('urn:contoso:com:EnvironmentalSensor', 1)`
+        );
+        expect(utils.toPnPClause(utils.PnPQueryPrefix.HAS_INTERFACE, 'urn:contoso:com:EnvironmentalSensor')).toEqual(
+            `HAS_INTERFACE('urn:contoso:com:EnvironmentalSensor')`
+        );
+    });
+
+    it('gets connectionObject from hub connection string', () => {
+        const connectionObject = utils.getConnectionInfoFromConnectionString('HostName=test.azure-devices-int.net;SharedAccessKeyName=iothubowner;SharedAccessKey=key');
+        expect(connectionObject.hostName = 'test.azure-devices-int.net');
+        expect(connectionObject.sharedAccessKeyName = 'iothubowner');
+        expect(connectionObject.sharedAccessKey = 'key');
+    });
+
+    it('gets connectionObject from repo connection string', () => {
+        const connectionObject = utils.getRepoConnectionInfoFromConnectionString('HostName=test.azureiotrepository.com;RepositoryId=123;SharedAccessKeyName=456;SharedAccessKey=key');
+        expect(connectionObject.hostName = 'test.azureiotrepository.com');
+        expect(connectionObject.repositoryId = '123');
+        expect(connectionObject.sharedAccessKeyName = '456');
+        expect(connectionObject.sharedAccessKey = 'key');
+    });
+
+    it('generates hub sas token ', () => {
+        const token = utils.generateSasToken('test.azureiotrepository.com', 'iothubowner', 'key');
+        const regex = new RegExp(/^SharedAccessSignature sr=test\.azureiotrepository\.com&sig=.*&se=.*&skn=iothubowner$/);
+        expect(regex.test(token)).toBeTruthy();
+    });
+
+    it('generates repo sas token ', () => {
+        const token = utils.generatePnpSasToken('123', 'test.azureiotrepository.com', '456', 'key');
+        const regex = new RegExp(/^SharedAccessSignature sr=test\.azureiotrepository\.com&sig=.*&se=.*&rid=123$/);
+        expect(regex.test(token)).toBeTruthy();
+    });
 });

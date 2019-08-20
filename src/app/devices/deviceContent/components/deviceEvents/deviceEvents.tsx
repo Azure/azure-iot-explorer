@@ -4,7 +4,6 @@
  **********************************************************/
 import * as React from 'react';
 import { CommandBar, ICommandBarItemProps } from 'office-ui-fabric-react/lib/CommandBar';
-import InfiniteScroll from 'react-infinite-scroller';
 import { Spinner } from 'office-ui-fabric-react/lib/Spinner';
 import { TextField, ITextFieldProps } from 'office-ui-fabric-react/lib/TextField';
 import { RouteComponentProps } from 'react-router-dom';
@@ -191,6 +190,7 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
 
     private readonly renderInfiniteScroll = (context: LocalizationContextInterface) => {
         const { hasMore } = this.state;
+        const InfiniteScroll = require('react-infinite-scroller'); // https://github.com/CassetteRocks/react-infinite-scroller/issues/110
         return (
             <InfiniteScroll
                 key="scroll"

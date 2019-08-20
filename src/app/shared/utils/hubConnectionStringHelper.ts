@@ -3,28 +3,17 @@
  * Licensed under the MIT License
  **********************************************************/
 import { ResourceKeys } from '../../../localization/resourceKeys';
+import { getConnectionInfoFromConnectionString } from './../../api/shared/utils';
 
-export const parseConnectionString = (value: string): any => { // tslint:disable-line:no-any
-    const connectionObject: any = {}; // tslint:disable-line:no-any
-
-    value.split(';')
-    .forEach((segment: string) => {
-        const keyValue = segment.split('=');
-        connectionObject[keyValue[0]] = keyValue[1];
-    });
-
-    return connectionObject;
-};
 export const validateConnectionString = (value: string): string => {
     if (!value) {
         return ResourceKeys.connectivityPane.connectionStringTextBox.errorMessages.required;
     }
 
-    const connectionObject = parseConnectionString(value);
+    const connectionObject = getConnectionInfoFromConnectionString(value);
+    const { hostName, sharedAccessKey, sharedAccessKeyName } = connectionObject;
 
-    const { HostName, SharedAccessKey, SharedAccessKeyName } = connectionObject;
-
-    if (HostName && SharedAccessKeyName && SharedAccessKey) {
+    if (hostName && sharedAccessKeyName && sharedAccessKey) {
         return;
     }
 

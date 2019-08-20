@@ -2,7 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import moment from 'moment';
+import * as moment from 'moment';
 
 export const parseDateTimeString = (dateTimeString: string): string => {
 
@@ -18,5 +18,5 @@ export const parseDateTimeString = (dateTimeString: string): string => {
         return null;
     }
 
-    return moment(dateTimeString).format('h:mm A, MMMM DD, YYYY');
+    return moment.utc(dateTimeString).format('h:mm A, MMMM DD, YYYY');
 };
