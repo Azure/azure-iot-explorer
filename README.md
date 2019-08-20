@@ -12,33 +12,22 @@
 This application provides users an easy and visualized way to interact with Azure IoT devices.
 
 1. Go to the releases tab, download the installer corresponding to your platform and install.
-2. Fill in IoT Hub connection string and that's it.
+1. Fill in IoT Hub connection string and that's it.
+
+![image](https://user-images.githubusercontent.com/5489222/61984482-6af89f80-afb9-11e9-8b2f-d6905301d9a9.png)
 
 ## Development Setup
 
 ### Setup
+1. Open a Node capable command prompt
 1. git clone https://github.com/Azure/azure-iot-explorer.git
-2. run `npm install`
-3. run `npm start`. This step may take a while, and it would automatically open a new tab in the default browser.
-3. (optional) stop step 3, run `npm run build` and then run `npm run electron` will start the electron app locally
+1. run `npm install`
+1. run `npm start`. A new tab in your default browser will be opened automatically and site would be running locally
+1. (optional) stop step 3, run `npm run build` and then run `npm run electron`. The electron app would start locally using the bits generated in the dist folder
 
-### Package
-#### Windows
-Run `npm run package:win` this will create a executable installation, an msi installation, and a stand-alone executable in the dist dirctory based on the version number in the package.json file.
-
-#### Linux
-Run `npm run package:linux` this will create snap and AppImage installations as well as tar.gz, tar.lz, and tar.xz formats. Changes to `build.linux.target` array entries can be used to only build specific output types.
-
-#### Macintosh
-Run `npm run package:mac` this will create dmg installations suitable for Macintosh OSX as well as mountable application.
-
-#### Linux on Windows via Docker
-Ensure your Docker environment is set up appropriately. Run `npm run docker` to pull and launch the electronland/electron-builder image and launch the current working directory as `/`. Some environments require `$(pwd)` to be replaced with the actual host directory. You can make the change as needed in package.json.
-
-Once the electron-builder environment is loaded, run `npm run package:linux` to create the Linux installations as you would in a full Linux environment.
+If you'd like to package the app yourself, please refer to [FAQ](https://github.com/Azure/azure-iot-explorer/wiki/FAQ)
 
 ## Contributing
-
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
 Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
