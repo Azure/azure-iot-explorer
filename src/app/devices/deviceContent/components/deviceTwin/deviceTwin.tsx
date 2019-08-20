@@ -12,12 +12,13 @@ import { LocalizationContextConsumer, LocalizationContextInterface } from '../..
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { UpdateTwinActionParameters } from '../../actions';
-import { REFRESH } from '../../../../constants/iconNames';
+import { REFRESH, SAVE } from '../../../../constants/iconNames';
+import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import '../../../../css/_deviceDetail.scss';
 
 export interface DeviceTwinDataProps {
     twin: Twin;
-    isLoading: boolean;
+    twinState: SynchronizationStatus;
 }
 
 export interface DeviceTwinDispatchProps {
@@ -28,6 +29,7 @@ export interface DeviceTwinDispatchProps {
 export interface DeviceTwinState {
     twin: string;
     isDirty: boolean;
+    isTwinValid: boolean;
 }
 
 export default class DeviceTwin
@@ -37,6 +39,7 @@ export default class DeviceTwin
 
         this.state = {
             isDirty: false,
+            isTwinValid: true,
             twin: JSON.stringify(this.props.twin, null, '\t')
         };
     }
@@ -62,7 +65,7 @@ export default class DeviceTwin
     }
 
     public static getDerivedStateFromProps(props: DeviceTwinDataProps & DeviceTwinDispatchProps & RouteComponentProps, state: DeviceTwinState): Partial<DeviceTwinState> | null {
-        if (props.twin) {
+        if (props.twin && props.twinState !== SynchronizationStatus.working && props.twinState !== SynchronizationStatus.updating) {
             if (!state.isDirty) {
                 return {
                     twin: JSON.stringify(props.twin, null, '\t')
@@ -84,14 +87,14 @@ export default class DeviceTwin
                         name: context.t(ResourceKeys.deviceTwin.command.refresh),
                         onClick: this.handleRefresh
                     },
-                    // todo: twin updates
-                    // {
-                    //     ariaLabel: context.t(ResourceKeys.deviceTwin.command.save),
-                    //     iconProps: {iconName: SAVE},
-                    //     key: SAVE,
-                    //     name: context.t(ResourceKeys.deviceTwin.command.save),
-                    //     onClick: this.handleSave
-                    // }
+                    {
+                        ariaLabel: context.t(ResourceKeys.deviceTwin.command.save),
+                        disabled: !this.state.isDirty || !this.state.isTwinValid,
+                        iconProps: {iconName: SAVE},
+                        key: SAVE,
+                        name: context.t(ResourceKeys.deviceTwin.command.save),
+                        onClick: this.handleSave
+                    }
                 ]}
             />
         );
@@ -106,7 +109,8 @@ export default class DeviceTwin
 
     private readonly handleSave = () => {
         this.setState({
-            isDirty: false
+            isDirty: false,
+            isTwinValid: true
         });
         this.props.updateDeviceTwin({
             deviceId: getDeviceIdFromQueryString(this.props),
@@ -115,7 +119,7 @@ export default class DeviceTwin
     }
 
     private readonly renderTwinViewer = () => {
-        if (this.props.isLoading) {
+        if (this.props.twinState === SynchronizationStatus.working) {
             return (
                 <Shimmer className="device-detail"/>
             );
@@ -131,7 +135,7 @@ export default class DeviceTwin
                         value={twin}
                         options={{
                             automaticLayout: true,
-                            readOnly: true // todo: twin updates
+                            readOnly: false
                         }}
                         onChange={this.onChange}
                     />
@@ -141,8 +145,16 @@ export default class DeviceTwin
     }
 
     private readonly onChange = (data: string) => {
+        let isTwinValid = true;
+        try {
+            JSON.parse(data);
+        }
+        catch  {
+            isTwinValid = false;
+        }
         this.setState({
             isDirty: true,
+            isTwinValid,
             twin: data
         });
     }

@@ -9,12 +9,11 @@ import { StateType } from '../../../../shared/redux/state';
 import DeviceTwin, { DeviceTwinDataProps, DeviceTwinDispatchProps } from './deviceTwin';
 import { getDeviceTwinSelector, getDeviceTwinStateSelector } from './selectors';
 import { getTwinAction, updateTwinAction, UpdateTwinActionParameters } from '../../actions';
-import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 
 const mapStateToProps = (state: StateType): DeviceTwinDataProps => {
     return {
-        isLoading: getDeviceTwinStateSelector(state) === SynchronizationStatus.working,
-        twin: getDeviceTwinSelector(state)
+        twin: getDeviceTwinSelector(state),
+        twinState : getDeviceTwinStateSelector(state)
     };
 };
 
