@@ -81,18 +81,12 @@ describe('deviceContentStateReducer', () => {
         it (`handles ${FETCH_MODEL_DEFINITION}/ACTION_START action`, () => {
             const action = getModelDefinitionAction.started({digitalTwinId: 'testDevice', interfaceId: 'urn:azureiot:ModelDiscovery:ModelInformation:1'});
             expect(reducer(deviceContentStateInitial(), action).modelDefinitionWithSource.modelDefinitionSynchronizationStatus).toEqual(SynchronizationStatus.working);
-            expect(reducer(deviceContentStateInitial(), action).modelDefinitionWithSource.source).toEqual(REPOSITORY_LOCATION_TYPE.None);
         });
 
         it (`handles ${FETCH_MODEL_DEFINITION}/ACTION_DONE action`, () => {
             const action = getModelDefinitionAction.done({params: {digitalTwinId: 'testDevice', interfaceId: 'urn:azureiot:ModelDiscovery:ModelInformation:1'}, result: {modelDefinition, source: REPOSITORY_LOCATION_TYPE.Public }});
-            const modelDefinitionTransformed = {
-                ...modelDefinition,
-                description: '',
-                displayName: modelDefinition.displayName
-            };
             expect(reducer(deviceContentStateInitial(), action).modelDefinitionWithSource).toEqual({
-                modelDefinition: modelDefinitionTransformed,
+                modelDefinition,
                 modelDefinitionSynchronizationStatus: SynchronizationStatus.fetched,
                 source: REPOSITORY_LOCATION_TYPE.Public
             });
@@ -101,7 +95,6 @@ describe('deviceContentStateReducer', () => {
         it (`handles ${FETCH_MODEL_DEFINITION}/ACTION_FAILED action`, () => {
             const action = getModelDefinitionAction.failed({error: -1, params: {digitalTwinId: 'testDevice', interfaceId: 'urn:azureiot:ModelDiscovery:ModelInformation:1'}});
             expect(reducer(deviceContentStateInitial(), action).modelDefinitionWithSource.modelDefinitionSynchronizationStatus).toEqual(SynchronizationStatus.failed);
-            expect(reducer(deviceContentStateInitial(), action).modelDefinitionWithSource.source).toEqual(REPOSITORY_LOCATION_TYPE.None);
         });
 
         it (`handles ${CLEAR_MODEL_DEFINITIONS} action`, () => {
@@ -171,7 +164,7 @@ describe('deviceContentStateReducer', () => {
 
         /* tslint:disable */
         const deviceIdentity: DeviceIdentity = {
-            cloudToDeviceMessageCount: '0',
+            cloudToDeviceMessageCount: 0,
             deviceId,
             etag: 'AAAAAAAAAAk=',
             status: 'enabled',
@@ -218,7 +211,7 @@ describe('deviceContentStateReducer', () => {
                 deviceIdentitySynchronizationStatus: SynchronizationStatus.fetched
             }
         });
-        deviceIdentity.cloudToDeviceMessageCount = '1';
+        deviceIdentity.cloudToDeviceMessageCount = 1;
 
         it (`handles ${UPDATE_DEVICE_IDENTITY}/ACTION_START action`, () => {
             const action = updateDeviceIdentityAction.started(deviceIdentity);
