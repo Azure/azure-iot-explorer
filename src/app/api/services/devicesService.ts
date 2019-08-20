@@ -2,7 +2,6 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { BulkRegistryOperationResult } from './../models/bulkRegistryOperationResult';
 import { FetchDeviceTwinParameters,
     UpdateDeviceTwinParameters,
     InvokeMethodParameters,
@@ -23,9 +22,7 @@ import { CONNECTION_TIMEOUT_IN_SECONDS, RESPONSE_TIME_IN_SECONDS } from '../../c
 import { Message } from '../models/messages';
 import { Twin, Device, DataPlaneResponse } from '../models/device';
 import { DeviceIdentity } from '../models/deviceIdentity';
-import { DeviceSummary } from '../models/deviceSummary';
 import { DigitalTwinInterfaces } from '../models/digitalTwinModels';
-import { transformDeviceIdentity } from '../dataTransforms/deviceSummaryTransform';
 
 const DATAPLANE_CONTROLLER_ENDPOINT = `${CONTROLLER_API_ENDPOINT}${DATAPLANE}`;
 const EVENTHUB_CONTROLLER_ENDPOINT = `${CONTROLLER_API_ENDPOINT}${EVENTHUB}`;
@@ -266,7 +263,7 @@ export const invokeDeviceMethod = async (parameters: InvokeMethodParameters): Pr
     }
 };
 
-export const addDevice = async (parameters: AddDeviceParameters): Promise<DeviceSummary> => {
+export const addDevice = async (parameters: AddDeviceParameters): Promise<DeviceIdentity> => {
     try {
         if (!parameters.deviceIdentity) {
             return;
@@ -283,7 +280,7 @@ export const addDevice = async (parameters: AddDeviceParameters): Promise<Device
 
         const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
         const result = await dataPlaneResponseHelper(response);
-        return transformDeviceIdentity(result.body);
+        return result.body;
     } catch (error) {
         throw error;
     }

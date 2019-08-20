@@ -1,3 +1,7 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
 import 'jest';
 import { generateKey, validateKey, validateThumbprint, validateDeviceId } from './utils';
 
