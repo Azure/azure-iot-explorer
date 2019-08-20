@@ -1,8 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`components/devices/addDevice matches snapshot 1`] = `
-<div
+<form
   className="view add-device"
+  onSubmit={[Function]}
 >
   <div
     className="view-header"
@@ -210,8 +211,8 @@ exports[`components/devices/addDevice matches snapshot 1`] = `
           ariaDescription="deviceLists.commands.save"
           className="submit-button"
           disabled={true}
-          onClick={[Function]}
           text="deviceLists.commands.save"
+          type="submit"
         />
         <CustomizedDefaultButton
           ariaDescription="deviceLists.commands.close"
@@ -222,5 +223,5 @@ exports[`components/devices/addDevice matches snapshot 1`] = `
       </div>
     </div>
   </div>
-</div>
+</form>
 `;
