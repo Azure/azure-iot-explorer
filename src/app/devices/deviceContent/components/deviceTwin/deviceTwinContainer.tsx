@@ -8,19 +8,19 @@ import { connect } from 'react-redux';
 import { StateType } from '../../../../shared/redux/state';
 import DeviceTwin, { DeviceTwinDataProps, DeviceTwinDispatchProps } from './deviceTwin';
 import { getDeviceTwinSelector, getDeviceTwinStateSelector } from './selectors';
-import { getTwinAction, updateTwinAction, UpdateTwinActionParameters } from '../../actions';
-import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
+import { getTwinAction, updateTwinAction, UpdateTwinActionParameters, getDigitalTwinInterfacePropertiesAction } from '../../actions';
 
 const mapStateToProps = (state: StateType): DeviceTwinDataProps => {
     return {
-        isLoading: getDeviceTwinStateSelector(state) === SynchronizationStatus.working,
-        twin: getDeviceTwinSelector(state)
+        twin: getDeviceTwinSelector(state),
+        twinState : getDeviceTwinStateSelector(state)
     };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch): DeviceTwinDispatchProps => {
     return {
         getDeviceTwin: (deviceId: string) => dispatch(getTwinAction.started(deviceId)),
+        refreshDigitalTwin: (deviceId: string) => dispatch(getDigitalTwinInterfacePropertiesAction.started(deviceId)),
         updateDeviceTwin: (parameters: UpdateTwinActionParameters) => dispatch(updateTwinAction.started(parameters))
     };
 };

@@ -281,7 +281,7 @@
         "headerText": "Device twin",
         "command" : {
             "refresh": "Refresh",
-            "save": "Update"
+            "save": "Save"
         }
     },
     "deviceProperties": {
