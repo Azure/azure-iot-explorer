@@ -8,18 +8,18 @@ export class ResourceKeys {
    };
    public static common = {
       close : "common.close",
-      copyableMaskField : {
-         copy : {
-            ariaLabel : "common.copyableMaskField.copy.ariaLabel",
-            label : "common.copyableMaskField.copy.label",
-         },
-         toggleMask : {
-            ariaLabel : "common.copyableMaskField.toggleMask.ariaLabel",
-            label : "common.copyableMaskField.toggleMask.label",
-         },
-      },
       learnMore : "common.learnMore",
       loading : "common.loading",
+      maskedCopyableTextField : {
+         copy : {
+            ariaLabel : "common.maskedCopyableTextField.copy.ariaLabel",
+            label : "common.maskedCopyableTextField.copy.label",
+         },
+         toggleMask : {
+            ariaLabel : "common.maskedCopyableTextField.toggleMask.ariaLabel",
+            label : "common.maskedCopyableTextField.toggleMask.label",
+         },
+      },
    };
    public static connectivityPane = {
       connectionStringCheckbox : {

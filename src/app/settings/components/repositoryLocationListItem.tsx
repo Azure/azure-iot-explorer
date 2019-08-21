@@ -7,7 +7,7 @@ import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
 import { LocalizationContextInterface, LocalizationContextConsumer } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
-import { CopyableMaskField } from '../../shared/components/copyableMaskField';
+import { MaskedCopyableTextField } from '../../shared/components/maskedCopyableTextField';
 import { RepositoryLocationSettings } from '../state';
 
 export interface RepositoryLocationListItemProps {
@@ -49,7 +49,7 @@ export default class RepositoryLocationListItem extends React.Component<Reposito
                             {item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Device
                                 && context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.device.label)}
                             {item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Private &&
-                                <CopyableMaskField
+                                <MaskedCopyableTextField
                                     t={context.t}
                                     ariaLabel={context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.private.textBoxLabel)}
                                     label={context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.private.textBoxLabel)}

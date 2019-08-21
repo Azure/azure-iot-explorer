@@ -12,7 +12,7 @@ setIconOptions({
 });
 
 Enzyme.configure({ adapter: new Adapter() });
-document.execCommand = jest.fn(); // copyableMaskField
+document.execCommand = jest.fn(); // maskedCopyableTextField
 
 // fix for smooth-dnd invocation error in test
 Object.defineProperty(global, 'Node', {

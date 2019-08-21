@@ -3,7 +3,7 @@
         "close": "Close",
         "learnMore": "Learn more",
         "loading": "Loading...",
-        "copyableMaskField": {
+        "maskedCopyableTextField": {
             "toggleMask": {
                 "label": "Toggle Mask",
                 "ariaLabel": "Toggle mask"

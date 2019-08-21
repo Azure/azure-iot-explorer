@@ -1197,7 +1197,7 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
                   <div
                     className="item-details"
                   >
-                    <CopyableMaskField
+                    <MaskedCopyableTextField
                       allowMask={true}
                       ariaLabel="settings.modelDefinitions.repositoryTypes.private.textBoxLabel"
                       label="settings.modelDefinitions.repositoryTypes.private.textBoxLabel"
@@ -1244,16 +1244,16 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
                               "settings.cancel",
                             ],
                             Array [
-                              "common.copyableMaskField.toggleMask.label",
+                              "common.maskedCopyableTextField.toggleMask.label",
                             ],
                             Array [
-                              "common.copyableMaskField.toggleMask.ariaLabel",
+                              "common.maskedCopyableTextField.toggleMask.ariaLabel",
                             ],
                             Array [
-                              "common.copyableMaskField.copy.label",
+                              "common.maskedCopyableTextField.copy.label",
                             ],
                             Array [
-                              "common.copyableMaskField.copy.ariaLabel",
+                              "common.maskedCopyableTextField.copy.ariaLabel",
                             ],
                           ],
                           "results": Array [
@@ -1307,43 +1307,43 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
                             },
                             Object {
                               "type": "return",
-                              "value": "common.copyableMaskField.toggleMask.label",
+                              "value": "common.maskedCopyableTextField.toggleMask.label",
                             },
                             Object {
                               "type": "return",
-                              "value": "common.copyableMaskField.toggleMask.ariaLabel",
+                              "value": "common.maskedCopyableTextField.toggleMask.ariaLabel",
                             },
                             Object {
                               "type": "return",
-                              "value": "common.copyableMaskField.copy.label",
+                              "value": "common.maskedCopyableTextField.copy.label",
                             },
                             Object {
                               "type": "return",
-                              "value": "common.copyableMaskField.copy.ariaLabel",
+                              "value": "common.maskedCopyableTextField.copy.ariaLabel",
                             },
                           ],
                         }
                       }
                     >
                       <div
-                        className="copyableMaskField"
+                        className="maskedCopyableTextField"
                       >
                         <div
                           className="labelSection"
                         >
                           <Component
-                            htmlFor="copyableMaskField10"
+                            htmlFor="maskedCopyableTextField10"
                             required={true}
                           >
                             <div
                               className="labelWithTooltip"
                             >
                               <StyledLabelBase
-                                htmlFor="copyableMaskField10"
+                                htmlFor="maskedCopyableTextField10"
                                 required={true}
                               >
                                 <LabelBase
-                                  htmlFor="copyableMaskField10"
+                                  htmlFor="maskedCopyableTextField10"
                                   required={true}
                                   styles={[Function]}
                                   theme={
@@ -1583,7 +1583,7 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
                                 >
                                   <label
                                     className="ms-Label root-68"
-                                    htmlFor="copyableMaskField10"
+                                    htmlFor="maskedCopyableTextField10"
                                     required={true}
                                   >
                                     settings.modelDefinitions.repositoryTypes.private.textBoxLabel
@@ -1602,7 +1602,7 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
                             <input
                               aria-label="settings.modelDefinitions.repositoryTypes.private.textBoxLabel"
                               className="input"
-                              id="copyableMaskField10"
+                              id="maskedCopyableTextField10"
                               onChange={[Function]}
                               readOnly={false}
                               type="password"
@@ -1621,17 +1621,17 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
                               tabIndex={-1}
                             />
                             <CustomizedIconButton
-                              ariaLabel="common.copyableMaskField.toggleMask.ariaLabel"
+                              ariaLabel="common.maskedCopyableTextField.toggleMask.ariaLabel"
                               iconProps={
                                 Object {
                                   "iconName": "RedEye",
                                 }
                               }
                               onClick={[Function]}
-                              title="common.copyableMaskField.toggleMask.label"
+                              title="common.maskedCopyableTextField.toggleMask.label"
                             >
                               <IconButton
-                                ariaLabel="common.copyableMaskField.toggleMask.ariaLabel"
+                                ariaLabel="common.maskedCopyableTextField.toggleMask.ariaLabel"
                                 iconProps={
                                   Object {
                                     "iconName": "RedEye",
@@ -1873,10 +1873,10 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
                                     },
                                   }
                                 }
-                                title="common.copyableMaskField.toggleMask.label"
+                                title="common.maskedCopyableTextField.toggleMask.label"
                               >
                                 <BaseButton
-                                  ariaLabel="common.copyableMaskField.toggleMask.ariaLabel"
+                                  ariaLabel="common.maskedCopyableTextField.toggleMask.ariaLabel"
                                   baseClassName="ms-Button"
                                   iconProps={
                                     Object {
@@ -2396,12 +2396,12 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
                                       },
                                     }
                                   }
-                                  title="common.copyableMaskField.toggleMask.label"
+                                  title="common.maskedCopyableTextField.toggleMask.label"
                                   variantClassName="ms-Button--icon"
                                 >
                                   <KeytipData>
                                     <button
-                                      aria-label="common.copyableMaskField.toggleMask.ariaLabel"
+                                      aria-label="common.maskedCopyableTextField.toggleMask.ariaLabel"
                                       className="ms-Button ms-Button--icon root-62"
                                       data-is-focusable={true}
                                       onClick={[Function]}
@@ -2410,7 +2410,7 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
                                       onKeyUp={[Function]}
                                       onMouseDown={[Function]}
                                       onMouseUp={[Function]}
-                                      title="common.copyableMaskField.toggleMask.label"
+                                      title="common.maskedCopyableTextField.toggleMask.label"
                                       type="button"
                                     >
                                       <div
@@ -2677,17 +2677,17 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
                             className="copySection"
                           >
                             <CustomizedIconButton
-                              ariaLabel="common.copyableMaskField.copy.ariaLabel"
+                              ariaLabel="common.maskedCopyableTextField.copy.ariaLabel"
                               iconProps={
                                 Object {
                                   "iconName": "copy",
                                 }
                               }
                               onClick={[Function]}
-                              title="common.copyableMaskField.copy.label"
+                              title="common.maskedCopyableTextField.copy.label"
                             >
                               <IconButton
-                                ariaLabel="common.copyableMaskField.copy.ariaLabel"
+                                ariaLabel="common.maskedCopyableTextField.copy.ariaLabel"
                                 iconProps={
                                   Object {
                                     "iconName": "copy",
@@ -2929,10 +2929,10 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
                                     },
                                   }
                                 }
-                                title="common.copyableMaskField.copy.label"
+                                title="common.maskedCopyableTextField.copy.label"
                               >
                                 <BaseButton
-                                  ariaLabel="common.copyableMaskField.copy.ariaLabel"
+                                  ariaLabel="common.maskedCopyableTextField.copy.ariaLabel"
                                   baseClassName="ms-Button"
                                   iconProps={
                                     Object {
@@ -3452,12 +3452,12 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
                                       },
                                     }
                                   }
-                                  title="common.copyableMaskField.copy.label"
+                                  title="common.maskedCopyableTextField.copy.label"
                                   variantClassName="ms-Button--icon"
                                 >
                                   <KeytipData>
                                     <button
-                                      aria-label="common.copyableMaskField.copy.ariaLabel"
+                                      aria-label="common.maskedCopyableTextField.copy.ariaLabel"
                                       className="ms-Button ms-Button--icon root-62"
                                       data-is-focusable={true}
                                       onClick={[Function]}
@@ -3466,7 +3466,7 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
                                       onKeyUp={[Function]}
                                       onMouseDown={[Function]}
                                       onMouseUp={[Function]}
-                                      title="common.copyableMaskField.copy.label"
+                                      title="common.maskedCopyableTextField.copy.label"
                                       type="button"
                                     >
                                       <div
@@ -3731,7 +3731,7 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
                           </div>
                         </div>
                       </div>
-                    </CopyableMaskField>
+                    </MaskedCopyableTextField>
                   </div>
                   <CustomizedIconButton
                     ariaLabel="settings.cancel"

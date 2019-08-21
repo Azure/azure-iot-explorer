@@ -18,7 +18,7 @@ exports[`components/devices/addDevice matches snapshot 1`] = `
     <div
       className="form"
     >
-      <CopyableMaskField
+      <MaskedCopyableTextField
         allowMask={false}
         ariaLabel="deviceIdentity.deviceID"
         error=""

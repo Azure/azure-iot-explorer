@@ -16,7 +16,7 @@ import { generateKey } from '../../../../shared/utils/utils';
 import { DeviceIdentityWrapper } from '../../../../api/models/deviceIdentityWrapper';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
-import { CopyableMaskField } from '../../../../shared/components/copyableMaskField';
+import { MaskedCopyableTextField } from '../../../../shared/components/maskedCopyableTextField';
 import '../../../../css/_deviceDetail.scss';
 
 export interface DeviceIdentityDispatchProps {
@@ -121,7 +121,7 @@ export default class DeviceIdentityInformation
                 { this.props.identityWrapper.deviceIdentitySynchronizationStatus === SynchronizationStatus.working ?
                     <Shimmer/> :
                     <>
-                        <CopyableMaskField
+                        <MaskedCopyableTextField
                             ariaLabel={context.t(ResourceKeys.deviceIdentity.deviceID)}
                             label={context.t(ResourceKeys.deviceIdentity.deviceID)}
                             value={this.state.identity && this.state.identity.deviceId}
@@ -151,7 +151,7 @@ export default class DeviceIdentityInformation
             case DeviceAuthenticationType.SymmetricKey:
                 return (
                     <>
-                        <CopyableMaskField
+                        <MaskedCopyableTextField
                             ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryKey)}
                             label={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryKey)}
                             value={this.state.identity.authentication.symmetricKey.primaryKey}
@@ -161,7 +161,7 @@ export default class DeviceIdentityInformation
                             onTextChange={this.changePrimaryKey}
                         />
 
-                        <CopyableMaskField
+                        <MaskedCopyableTextField
                             ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryKey)}
                             label={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryKey)}
                             value={this.state.identity.authentication.symmetricKey.secondaryKey}
@@ -171,7 +171,7 @@ export default class DeviceIdentityInformation
                             onTextChange={this.changeSecondaryKey}
                         />
 
-                        <CopyableMaskField
+                        <MaskedCopyableTextField
                             ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionString)}
                             label={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionString)}
                             value={generateConnectionString(connectionString, identity.deviceId, identity.authentication.symmetricKey.primaryKey)}
@@ -180,7 +180,7 @@ export default class DeviceIdentityInformation
                             readOnly={true}
                         />
 
-                        <CopyableMaskField
+                        <MaskedCopyableTextField
                             ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString)}
                             label={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString)}
                             value={generateConnectionString(connectionString, identity.deviceId, identity.authentication.symmetricKey.secondaryKey)}
