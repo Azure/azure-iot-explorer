@@ -10,7 +10,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { validateConnectionString } from '../../shared/utils/hubConnectionStringHelper';
-import { CopyableMaskField } from '../../shared/components/copyableMaskField';
+import { MaskedCopyableTextField } from '../../shared/components/maskedCopyableTextField';
 import LabelWithTooltip from '../../shared/components/labelWithTooltip';
 import { SetConnectionStringActionParameter } from '../actions';
 import '../../css/_connectivityPane.scss';
@@ -54,7 +54,7 @@ export default class ConnectivityPane extends React.Component<RouteComponentProp
                             </h1>
 
                             <div className="connection-string">
-                                <CopyableMaskField
+                                <MaskedCopyableTextField
                                     ariaLabel={context.t(ResourceKeys.connectivityPane.connectionStringTextBox.label)}
                                     label={context.t(ResourceKeys.connectivityPane.connectionStringTextBox.label)}
                                     error={!!error ? context.t(error) : ''}

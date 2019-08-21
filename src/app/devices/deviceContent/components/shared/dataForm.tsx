@@ -91,7 +91,7 @@ export default class DataForm extends React.Component<DataFormDataProps & DataFo
                 <DialogFooter>
                     <PrimaryButton
                         onClick={this.copyPayload}
-                        text={context.t(ResourceKeys.common.copyableMaskField.copy.label)}
+                        text={context.t(ResourceKeys.common.maskedCopyableTextField.copy.label)}
                     />
                 </DialogFooter>
             </Dialog>

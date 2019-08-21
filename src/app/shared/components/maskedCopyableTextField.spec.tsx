@@ -6,13 +6,13 @@ import * as React from 'react';
 import 'jest';
 import { shallow, mount } from 'enzyme';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
-import { CopyableMaskField, CopyableMaskFieldState } from './copyableMaskField';
+import { MaskedCopyableTextField, MaskedCopyableTextFieldState } from './maskedCopyableTextField';
 
-describe('CopyableMaskField', () => {
+describe('MaskedCopyableTextField', () => {
     describe('snapshots', () => {
         it('it matches snapshot when allowMask = false', () => {
             expect(shallow(
-                <CopyableMaskField
+                <MaskedCopyableTextField
                     allowMask={false}
                     ariaLabel="ariaLabel1"
                     label="label1"
@@ -26,7 +26,7 @@ describe('CopyableMaskField', () => {
 
         it('it matches snapshot when allowMask = true', () => {
             expect(shallow(
-                <CopyableMaskField
+                <MaskedCopyableTextField
                     allowMask={true}
                     ariaLabel="ariaLabel1"
                     label="label1"
@@ -40,7 +40,7 @@ describe('CopyableMaskField', () => {
 
         it('it matches snapshot when allowMask = true', () => {
             expect(shallow(
-                <CopyableMaskField
+                <MaskedCopyableTextField
                     allowMask={true}
                     ariaLabel="ariaLabel1"
                     label="label1"
@@ -54,7 +54,7 @@ describe('CopyableMaskField', () => {
 
         it('it matches snapshot when error message specified', () => {
             expect(shallow(
-                <CopyableMaskField
+                <MaskedCopyableTextField
                     allowMask={true}
                     ariaLabel="ariaLabel1"
                     error="error"
@@ -71,7 +71,7 @@ describe('CopyableMaskField', () => {
     describe('toggleDisplay', () => {
         it('toggles display on toggleDisplay click', () => {
             const wrapper = mount(
-                <CopyableMaskField
+                <MaskedCopyableTextField
                     allowMask={true}
                     ariaLabel="ariaLabel1"
                     label="label1"
@@ -84,7 +84,7 @@ describe('CopyableMaskField', () => {
             const showButton = wrapper.find(IconButton).first();
             showButton.props().onClick(undefined);
 
-            const state = wrapper.state() as CopyableMaskFieldState;
+            const state = wrapper.state() as MaskedCopyableTextFieldState;
             expect(state.hideContents).toEqual(false);
         });
     });
@@ -92,7 +92,7 @@ describe('CopyableMaskField', () => {
     describe('copyToClipboard', () => {
         it('executes copyToClipboard', async () => {
             const wrapper = mount(
-                <CopyableMaskField
+                <MaskedCopyableTextField
                     allowMask={false}
                     ariaLabel="ariaLabel1"
                     label="label1"
@@ -113,7 +113,7 @@ describe('CopyableMaskField', () => {
         it('call onTextChange prop', () => {
             const onTextChange = jest.fn();
             const wrapper = mount(
-                <CopyableMaskField
+                <MaskedCopyableTextField
                     allowMask={false}
                     ariaLabel="ariaLabel1"
                     label="label1"

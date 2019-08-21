@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CopyableMaskField snapshots it matches snapshot when allowMask = false 1`] = `
+exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = false 1`] = `
 <div
-  className="copyableMaskField"
+  className="maskedCopyableTextField"
 >
   <div
     className="labelSection"
   >
     <Component
-      htmlFor="copyableMaskField1"
+      htmlFor="maskedCopyableTextField1"
     >
       label1
     </Component>
@@ -22,7 +22,7 @@ exports[`CopyableMaskField snapshots it matches snapshot when allowMask = false 
       <input
         aria-label="ariaLabel1"
         className="input"
-        id="copyableMaskField1"
+        id="maskedCopyableTextField1"
         onChange={[Function]}
         readOnly={true}
         type="text"
@@ -47,29 +47,29 @@ exports[`CopyableMaskField snapshots it matches snapshot when allowMask = false 
       className="copySection"
     >
       <CustomizedIconButton
-        ariaLabel="common.copyableMaskField.copy.ariaLabel"
+        ariaLabel="common.maskedCopyableTextField.copy.ariaLabel"
         iconProps={
           Object {
             "iconName": "copy",
           }
         }
         onClick={[Function]}
-        title="common.copyableMaskField.copy.label"
+        title="common.maskedCopyableTextField.copy.label"
       />
     </div>
   </div>
 </div>
 `;
 
-exports[`CopyableMaskField snapshots it matches snapshot when allowMask = true 1`] = `
+exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = true 1`] = `
 <div
-  className="copyableMaskField"
+  className="maskedCopyableTextField"
 >
   <div
     className="labelSection"
   >
     <Component
-      htmlFor="copyableMaskField2"
+      htmlFor="maskedCopyableTextField2"
     >
       label1
     </Component>
@@ -83,7 +83,7 @@ exports[`CopyableMaskField snapshots it matches snapshot when allowMask = true 1
       <input
         aria-label="ariaLabel1"
         className="input"
-        id="copyableMaskField2"
+        id="maskedCopyableTextField2"
         onChange={[Function]}
         readOnly={true}
         type="password"
@@ -104,43 +104,43 @@ exports[`CopyableMaskField snapshots it matches snapshot when allowMask = true 1
         value="value1"
       />
       <CustomizedIconButton
-        ariaLabel="common.copyableMaskField.toggleMask.ariaLabel"
+        ariaLabel="common.maskedCopyableTextField.toggleMask.ariaLabel"
         iconProps={
           Object {
             "iconName": "RedEye",
           }
         }
         onClick={[Function]}
-        title="common.copyableMaskField.toggleMask.label"
+        title="common.maskedCopyableTextField.toggleMask.label"
       />
     </div>
     <div
       className="copySection"
     >
       <CustomizedIconButton
-        ariaLabel="common.copyableMaskField.copy.ariaLabel"
+        ariaLabel="common.maskedCopyableTextField.copy.ariaLabel"
         iconProps={
           Object {
             "iconName": "copy",
           }
         }
         onClick={[Function]}
-        title="common.copyableMaskField.copy.label"
+        title="common.maskedCopyableTextField.copy.label"
       />
     </div>
   </div>
 </div>
 `;
 
-exports[`CopyableMaskField snapshots it matches snapshot when allowMask = true 2`] = `
+exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = true 2`] = `
 <div
-  className="copyableMaskField"
+  className="maskedCopyableTextField"
 >
   <div
     className="labelSection"
   >
     <Component
-      htmlFor="copyableMaskField3"
+      htmlFor="maskedCopyableTextField3"
     >
       label1
     </Component>
@@ -154,7 +154,7 @@ exports[`CopyableMaskField snapshots it matches snapshot when allowMask = true 2
       <input
         aria-label="ariaLabel1"
         className="input"
-        id="copyableMaskField3"
+        id="maskedCopyableTextField3"
         onChange={[Function]}
         readOnly={true}
         type="password"
@@ -175,43 +175,43 @@ exports[`CopyableMaskField snapshots it matches snapshot when allowMask = true 2
         value="value1"
       />
       <CustomizedIconButton
-        ariaLabel="common.copyableMaskField.toggleMask.ariaLabel"
+        ariaLabel="common.maskedCopyableTextField.toggleMask.ariaLabel"
         iconProps={
           Object {
             "iconName": "RedEye",
           }
         }
         onClick={[Function]}
-        title="common.copyableMaskField.toggleMask.label"
+        title="common.maskedCopyableTextField.toggleMask.label"
       />
     </div>
     <div
       className="copySection"
     >
       <CustomizedIconButton
-        ariaLabel="common.copyableMaskField.copy.ariaLabel"
+        ariaLabel="common.maskedCopyableTextField.copy.ariaLabel"
         iconProps={
           Object {
             "iconName": "copy",
           }
         }
         onClick={[Function]}
-        title="common.copyableMaskField.copy.label"
+        title="common.maskedCopyableTextField.copy.label"
       />
     </div>
   </div>
 </div>
 `;
 
-exports[`CopyableMaskField snapshots it matches snapshot when error message specified 1`] = `
+exports[`MaskedCopyableTextField snapshots it matches snapshot when error message specified 1`] = `
 <div
-  className="copyableMaskField"
+  className="maskedCopyableTextField"
 >
   <div
     className="labelSection"
   >
     <Component
-      htmlFor="copyableMaskField4"
+      htmlFor="maskedCopyableTextField4"
     >
       label1
     </Component>
@@ -225,7 +225,7 @@ exports[`CopyableMaskField snapshots it matches snapshot when error message spec
       <input
         aria-label="ariaLabel1"
         className="input"
-        id="copyableMaskField4"
+        id="maskedCopyableTextField4"
         onChange={[Function]}
         readOnly={true}
         type="password"
@@ -246,28 +246,28 @@ exports[`CopyableMaskField snapshots it matches snapshot when error message spec
         value="value1"
       />
       <CustomizedIconButton
-        ariaLabel="common.copyableMaskField.toggleMask.ariaLabel"
+        ariaLabel="common.maskedCopyableTextField.toggleMask.ariaLabel"
         iconProps={
           Object {
             "iconName": "RedEye",
           }
         }
         onClick={[Function]}
-        title="common.copyableMaskField.toggleMask.label"
+        title="common.maskedCopyableTextField.toggleMask.label"
       />
     </div>
     <div
       className="copySection"
     >
       <CustomizedIconButton
-        ariaLabel="common.copyableMaskField.copy.ariaLabel"
+        ariaLabel="common.maskedCopyableTextField.copy.ariaLabel"
         iconProps={
           Object {
             "iconName": "copy",
           }
         }
         onClick={[Function]}
-        title="common.copyableMaskField.copy.label"
+        title="common.maskedCopyableTextField.copy.label"
       />
     </div>
   </div>

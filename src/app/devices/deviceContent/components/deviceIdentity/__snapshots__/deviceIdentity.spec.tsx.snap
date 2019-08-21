@@ -18,7 +18,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with CA aut
   <div
     className="device-detail"
   >
-    <CopyableMaskField
+    <MaskedCopyableTextField
       allowMask={false}
       ariaLabel="deviceIdentity.deviceID"
       label="deviceIdentity.deviceID"
@@ -106,7 +106,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with SelfSi
   <div
     className="device-detail"
   >
-    <CopyableMaskField
+    <MaskedCopyableTextField
       allowMask={false}
       ariaLabel="deviceIdentity.deviceID"
       label="deviceIdentity.deviceID"
@@ -197,7 +197,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
   <div
     className="device-detail"
   >
-    <CopyableMaskField
+    <MaskedCopyableTextField
       allowMask={false}
       ariaLabel="deviceIdentity.deviceID"
       label="deviceIdentity.deviceID"
@@ -310,7 +310,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
       }
       value="device1"
     />
-    <CopyableMaskField
+    <MaskedCopyableTextField
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.primaryKey"
       label="deviceIdentity.authenticationType.symmetricKey.primaryKey"
@@ -424,7 +424,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
       }
       value="key"
     />
-    <CopyableMaskField
+    <MaskedCopyableTextField
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.secondaryKey"
       label="deviceIdentity.authenticationType.symmetricKey.secondaryKey"
@@ -537,7 +537,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
         }
       }
     />
-    <CopyableMaskField
+    <MaskedCopyableTextField
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.primaryConnectionString"
       label="deviceIdentity.authenticationType.symmetricKey.primaryConnectionString"
@@ -650,7 +650,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
       }
       value="HostName=test-string.azure-devices.net;DeviceId=device1;SharedAccessKey=key"
     />
-    <CopyableMaskField
+    <MaskedCopyableTextField
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString"
       label="deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString"
@@ -788,7 +788,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
   <div
     className="device-detail"
   >
-    <CopyableMaskField
+    <MaskedCopyableTextField
       allowMask={false}
       ariaLabel="deviceIdentity.deviceID"
       label="deviceIdentity.deviceID"
@@ -900,7 +900,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
         }
       }
     />
-    <CopyableMaskField
+    <MaskedCopyableTextField
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.primaryKey"
       label="deviceIdentity.authenticationType.symmetricKey.primaryKey"
@@ -1014,7 +1014,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
       }
       value="key"
     />
-    <CopyableMaskField
+    <MaskedCopyableTextField
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.secondaryKey"
       label="deviceIdentity.authenticationType.symmetricKey.secondaryKey"
@@ -1127,7 +1127,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
         }
       }
     />
-    <CopyableMaskField
+    <MaskedCopyableTextField
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.primaryConnectionString"
       label="deviceIdentity.authenticationType.symmetricKey.primaryConnectionString"
@@ -1240,7 +1240,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
       }
       value=""
     />
-    <CopyableMaskField
+    <MaskedCopyableTextField
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString"
       label="deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString"
@@ -1393,7 +1393,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with auth t
   <div
     className="device-detail"
   >
-    <CopyableMaskField
+    <MaskedCopyableTextField
       allowMask={false}
       ariaLabel="deviceIdentity.deviceID"
       label="deviceIdentity.deviceID"
@@ -1472,7 +1472,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with identi
   <div
     className="device-detail"
   >
-    <CopyableMaskField
+    <MaskedCopyableTextField
       allowMask={false}
       ariaLabel="deviceIdentity.deviceID"
       label="deviceIdentity.deviceID"

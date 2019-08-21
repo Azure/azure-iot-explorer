@@ -26,30 +26,3 @@ exports[`shared/components/header matches snapshot when settings is not visible 
   />
 </header>
 `;
-
-exports[`shared/components/header matches snapshot when settings is visible 1`] = `
-<header
-  className="header"
->
-  <div
-    className="title"
-  >
-    header.applicationName
-  </div>
-  <div>
-    <Connect(NotificationList) />
-  </div>
-  <CustomizedDefaultButton
-    ariaLabel="header.settings.launch"
-    className="settings-visible"
-    iconProps={
-      Object {
-        "iconName": "PlugDisconnected",
-      }
-    }
-    id="settings"
-    onClick={[Function]}
-    text="header.settings.launch"
-  />
-</header>
-`;
