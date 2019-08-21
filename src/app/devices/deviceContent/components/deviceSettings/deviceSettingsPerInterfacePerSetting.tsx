@@ -141,7 +141,7 @@ export default class DeviceSettingsPerInterfacePerSetting
                         }
                     </Stack.Item>
                     {reportedTwin && reportedTwin.desiredState &&
-                        <Stack.Item align="end">
+                        <Stack.Item align="start">
                             {RenderDesiredState(reportedTwin.desiredState)}
                         </Stack.Item>
                     }

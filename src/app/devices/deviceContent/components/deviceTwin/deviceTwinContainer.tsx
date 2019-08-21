@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { StateType } from '../../../../shared/redux/state';
 import DeviceTwin, { DeviceTwinDataProps, DeviceTwinDispatchProps } from './deviceTwin';
 import { getDeviceTwinSelector, getDeviceTwinStateSelector } from './selectors';
-import { getTwinAction, updateTwinAction, UpdateTwinActionParameters } from '../../actions';
+import { getTwinAction, updateTwinAction, UpdateTwinActionParameters, getDigitalTwinInterfacePropertiesAction } from '../../actions';
 
 const mapStateToProps = (state: StateType): DeviceTwinDataProps => {
     return {
@@ -20,6 +20,7 @@ const mapStateToProps = (state: StateType): DeviceTwinDataProps => {
 const mapDispatchToProps = (dispatch: Dispatch): DeviceTwinDispatchProps => {
     return {
         getDeviceTwin: (deviceId: string) => dispatch(getTwinAction.started(deviceId)),
+        refreshDigitalTwin: (deviceId: string) => dispatch(getDigitalTwinInterfacePropertiesAction.started(deviceId)),
         updateDeviceTwin: (parameters: UpdateTwinActionParameters) => dispatch(updateTwinAction.started(parameters))
     };
 };
