@@ -15,16 +15,6 @@ exports[`devices/components/deviceTwin snapshot matches snapshot 1`] = `
           "name": "deviceTwin.command.refresh",
           "onClick": [Function],
         },
-        Object {
-          "ariaLabel": "deviceTwin.command.save",
-          "disabled": true,
-          "iconProps": Object {
-            "iconName": "Save",
-          },
-          "key": "Save",
-          "name": "deviceTwin.command.save",
-          "onClick": [Function],
-        },
       ]
     }
   />
@@ -50,16 +40,6 @@ exports[`devices/components/deviceTwin snapshot matches snapshot while loading t
           },
           "key": "Refresh",
           "name": "deviceTwin.command.refresh",
-          "onClick": [Function],
-        },
-        Object {
-          "ariaLabel": "deviceTwin.command.save",
-          "disabled": true,
-          "iconProps": Object {
-            "iconName": "Save",
-          },
-          "key": "Save",
-          "name": "deviceTwin.command.save",
           "onClick": [Function],
         },
       ]
@@ -89,16 +69,6 @@ exports[`devices/components/deviceTwin snapshot matches snapshot with twin 1`] =
           "name": "deviceTwin.command.refresh",
           "onClick": [Function],
         },
-        Object {
-          "ariaLabel": "deviceTwin.command.save",
-          "disabled": true,
-          "iconProps": Object {
-            "iconName": "Save",
-          },
-          "key": "Save",
-          "name": "deviceTwin.command.save",
-          "onClick": [Function],
-        },
       ]
     }
   />
@@ -118,7 +88,7 @@ exports[`devices/components/deviceTwin snapshot matches snapshot with twin 1`] =
       options={
         Object {
           "automaticLayout": true,
-          "readOnly": false,
+          "readOnly": true,
         }
       }
       theme={null}
