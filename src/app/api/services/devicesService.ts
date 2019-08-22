@@ -122,7 +122,7 @@ export const fetchDeviceTwin = async (parameters: FetchDeviceTwinParameters): Pr
 
         const connectionInformation = dataPlaneConnectionHelper(parameters);
         const dataPlaneRequest: DataPlaneRequest = {
-            // apiVersion: DIGITAL_TWIN_API_VERSION, // todo: api version not enabled in all regions yet
+            apiVersion: DIGITAL_TWIN_API_VERSION,
             hostName: connectionInformation.connectionInfo.hostName,
             httpMethod: HTTP_OPERATION_TYPES.Get,
             path: `twins/${parameters.deviceId}`,
@@ -221,7 +221,7 @@ export const updateDeviceTwin = async (parameters: UpdateDeviceTwinParameters): 
 
         const connectionInformation = dataPlaneConnectionHelper(parameters);
         const dataPlaneRequest: DataPlaneRequest = {
-            // apiVersion: DIGITAL_TWIN_API_VERSION, // todo: api version not enabled in all regions yet
+            apiVersion: DIGITAL_TWIN_API_VERSION,
             body: JSON.stringify(parameters.deviceTwin),
             hostName: connectionInformation.connectionInfo.hostName,
             httpMethod: HTTP_OPERATION_TYPES.Patch,

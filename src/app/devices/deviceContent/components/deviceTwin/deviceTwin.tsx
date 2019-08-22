@@ -102,14 +102,14 @@ export default class DeviceTwin
                         name: context.t(ResourceKeys.deviceTwin.command.refresh),
                         onClick: this.handleRefresh
                     },
-                    // {
-                    //     ariaLabel: context.t(ResourceKeys.deviceTwin.command.save),
-                    //     disabled: !this.state.isDirty || !this.state.isTwinValid,
-                    //     iconProps: {iconName: SAVE},
-                    //     key: SAVE,
-                    //     name: context.t(ResourceKeys.deviceTwin.command.save),
-                    //     onClick: this.handleSave
-                    // }
+                    {
+                        ariaLabel: context.t(ResourceKeys.deviceTwin.command.save),
+                        disabled: !this.state.isDirty || !this.state.isTwinValid,
+                        iconProps: {iconName: SAVE},
+                        key: SAVE,
+                        name: context.t(ResourceKeys.deviceTwin.command.save),
+                        onClick: this.handleSave
+                    }
                 ]}
             />
         );
@@ -152,7 +152,7 @@ export default class DeviceTwin
                         value={twin}
                         options={{
                             automaticLayout: true,
-                            readOnly: true // false
+                            readOnly: false
                         }}
                         onChange={this.onChange}
                     />
