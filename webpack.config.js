@@ -4,10 +4,9 @@
  **********************************************************/
 const path = require( 'path');
 const HtmlWebpackPlugin = require( 'html-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const WebpackShellPlugin = require('webpack-shell-plugin');
 const DefinePlugin = require('webpack').DefinePlugin;
 const MonacoPlugin = require('monaco-editor-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 let indexConfig = {
     entry: {
@@ -59,6 +58,7 @@ let indexConfig = {
         ]
     },
     optimization: {
+        minimizer: [new TerserPlugin()],
         splitChunks: {
             cacheGroups: {
                 vendor: {
