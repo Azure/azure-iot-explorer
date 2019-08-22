@@ -1701,12 +1701,12 @@ exports[`components/devices/deviceSettingsPerInterfacePerSetting matches snapsho
                 </div>
               </StackItem>
               <StackItem
-                align="end"
+                align="start"
                 key=".0:$.1"
                 shrink={true}
               >
                 <div
-                  className="ms-StackItem css-61"
+                  className="ms-StackItem css-49"
                 >
                   <Component
                     tooltipText="Updating"
@@ -2205,7 +2205,7 @@ exports[`components/devices/deviceSettingsPerInterfacePerSetting matches snapsho
                                   }
                                 >
                                   <i
-                                    className="status-icon root-62"
+                                    className="status-icon root-61"
                                     data-icon-name="SyncOccurence"
                                     role="presentation"
                                   />
@@ -2475,7 +2475,7 @@ exports[`components/devices/deviceSettingsPerInterfacePerSetting matches snapsho
                           }
                         >
                           <div
-                            className="ms-TooltipHost root-63"
+                            className="ms-TooltipHost root-62"
                             onBlurCapture={[Function]}
                             onFocusCapture={[Function]}
                             onMouseEnter={[Function]}
@@ -5316,7 +5316,7 @@ exports[`components/devices/deviceSettingsPerInterfacePerSetting matches snapsho
                             }
                           >
                             <div
-                              className="ms-TooltipHost root-63"
+                              className="ms-TooltipHost root-62"
                               onBlurCapture={[Function]}
                               onFocusCapture={[Function]}
                               onMouseEnter={[Function]}
@@ -7869,7 +7869,7 @@ exports[`components/devices/deviceSettingsPerInterfacePerSetting matches snapsho
                         >
                           <KeytipData>
                             <button
-                              className="ms-Button ms-Button--primary submit-button root-64"
+                              className="ms-Button ms-Button--primary submit-button root-63"
                               data-is-focusable={true}
                               onClick={[Function]}
                               onKeyDown={[Function]}
@@ -9773,8 +9773,8 @@ exports[`components/devices/deviceSettingsPerInterfacePerSetting matches snapsho
                 }
               >
                 <StyledWithResponsiveMode
-                  className="ms-Dialog delete-dialog root-65"
-                  containerClassName="main-66"
+                  className="ms-Dialog delete-dialog root-64"
+                  containerClassName="main-65"
                   isBlocking={false}
                   isDarkOverlay={false}
                   isOpen={false}
@@ -9784,8 +9784,8 @@ exports[`components/devices/deviceSettingsPerInterfacePerSetting matches snapsho
                   topOffsetFixed={false}
                 >
                   <WithResponsiveMode
-                    className="ms-Dialog delete-dialog root-65"
-                    containerClassName="main-66"
+                    className="ms-Dialog delete-dialog root-64"
+                    containerClassName="main-65"
                     isBlocking={false}
                     isDarkOverlay={false}
                     isOpen={false}
@@ -10030,8 +10030,8 @@ exports[`components/devices/deviceSettingsPerInterfacePerSetting matches snapsho
                     topOffsetFixed={false}
                   >
                     <ModalBase
-                      className="ms-Dialog delete-dialog root-65"
-                      containerClassName="main-66"
+                      className="ms-Dialog delete-dialog root-64"
+                      containerClassName="main-65"
                       isBlocking={false}
                       isDarkOverlay={false}
                       isOpen={false}

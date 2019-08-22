@@ -12,22 +12,26 @@ import { LocalizationContextConsumer, LocalizationContextInterface } from '../..
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { UpdateTwinActionParameters } from '../../actions';
-import { REFRESH } from '../../../../constants/iconNames';
+import { REFRESH, SAVE } from '../../../../constants/iconNames';
+import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import '../../../../css/_deviceDetail.scss';
 
 export interface DeviceTwinDataProps {
     twin: Twin;
-    isLoading: boolean;
+    twinState: SynchronizationStatus;
 }
 
 export interface DeviceTwinDispatchProps {
     getDeviceTwin: (deviceId: string) => void;
     updateDeviceTwin: (parameters: UpdateTwinActionParameters) => void;
+    refreshDigitalTwin: (deviceId: string) => void;
 }
 
 export interface DeviceTwinState {
     twin: string;
     isDirty: boolean;
+    isTwinValid: boolean;
+    needsRefresh: boolean;
 }
 
 export default class DeviceTwin
@@ -37,6 +41,8 @@ export default class DeviceTwin
 
         this.state = {
             isDirty: false,
+            isTwinValid: true,
+            needsRefresh: false,
             twin: JSON.stringify(this.props.twin, null, '\t')
         };
     }
@@ -61,12 +67,24 @@ export default class DeviceTwin
         this.props.getDeviceTwin(getDeviceIdFromQueryString(this.props));
     }
 
-    public static getDerivedStateFromProps(props: DeviceTwinDataProps & DeviceTwinDispatchProps & RouteComponentProps, state: DeviceTwinState): Partial<DeviceTwinState> | null {
-        if (props.twin) {
+    // tslint:disable-next-line:cyclomatic-complexity
+    public static getDerivedStateFromProps(props: DeviceTwinDataProps & DeviceTwinDispatchProps & RouteComponentProps, state: DeviceTwinState): Partial<DeviceTwinState> | null
+    {
+        if (props.twin && props.twinState !== SynchronizationStatus.working && props.twinState !== SynchronizationStatus.updating) {
             if (!state.isDirty) {
-                return {
-                    twin: JSON.stringify(props.twin, null, '\t')
-                };
+                if (state.needsRefresh && props.twinState === SynchronizationStatus.upserted) {
+                    // after device twin has been updated, refresh digital twin
+                    props.refreshDigitalTwin(getDeviceIdFromQueryString(props));
+                    return {
+                        needsRefresh: false,
+                        twin: JSON.stringify(props.twin, null, '\t')
+                    };
+                }
+                else {
+                    return {
+                        twin: JSON.stringify(props.twin, null, '\t')
+                    };
+                }
             }
         }
         return null;
@@ -84,14 +102,14 @@ export default class DeviceTwin
                         name: context.t(ResourceKeys.deviceTwin.command.refresh),
                         onClick: this.handleRefresh
                     },
-                    // todo: twin updates
-                    // {
-                    //     ariaLabel: context.t(ResourceKeys.deviceTwin.command.save),
-                    //     iconProps: {iconName: SAVE},
-                    //     key: SAVE,
-                    //     name: context.t(ResourceKeys.deviceTwin.command.save),
-                    //     onClick: this.handleSave
-                    // }
+                    {
+                        ariaLabel: context.t(ResourceKeys.deviceTwin.command.save),
+                        disabled: !this.state.isDirty || !this.state.isTwinValid,
+                        iconProps: {iconName: SAVE},
+                        key: SAVE,
+                        name: context.t(ResourceKeys.deviceTwin.command.save),
+                        onClick: this.handleSave
+                    }
                 ]}
             />
         );
@@ -99,14 +117,17 @@ export default class DeviceTwin
 
     private readonly handleRefresh = () => {
         this.setState({
-            isDirty: false
+            isDirty: false,
+            needsRefresh: false
         });
         this.props.getDeviceTwin(getDeviceIdFromQueryString(this.props));
     }
 
     private readonly handleSave = () => {
         this.setState({
-            isDirty: false
+            isDirty: false,
+            isTwinValid: true,
+            needsRefresh: true
         });
         this.props.updateDeviceTwin({
             deviceId: getDeviceIdFromQueryString(this.props),
@@ -115,7 +136,7 @@ export default class DeviceTwin
     }
 
     private readonly renderTwinViewer = () => {
-        if (this.props.isLoading) {
+        if (this.props.twinState === SynchronizationStatus.working) {
             return (
                 <Shimmer className="device-detail"/>
             );
@@ -131,7 +152,7 @@ export default class DeviceTwin
                         value={twin}
                         options={{
                             automaticLayout: true,
-                            readOnly: true // todo: twin updates
+                            readOnly: false
                         }}
                         onChange={this.onChange}
                     />
@@ -141,8 +162,16 @@ export default class DeviceTwin
     }
 
     private readonly onChange = (data: string) => {
+        let isTwinValid = true;
+        try {
+            JSON.parse(data);
+        }
+        catch  {
+            isTwinValid = false;
+        }
         this.setState({
             isDirty: true,
+            isTwinValid,
             twin: data
         });
     }

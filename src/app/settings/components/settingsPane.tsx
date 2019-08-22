@@ -13,7 +13,7 @@ import { ResourceKeys } from '../../../localization/resourceKeys';
 import { validateConnectionString } from '../../shared/utils/hubConnectionStringHelper';
 import RepositoryLocationList from './repositoryLocationList';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
-import { CopyableMaskField } from '../../shared/components/copyableMaskField';
+import { MaskedCopyableTextField } from '../../shared/components/maskedCopyableTextField';
 import LabelWithTooltip from '../../shared/components/labelWithTooltip';
 import '../../css/_settingsPane.scss';
 
@@ -77,7 +77,7 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
                     </header>
                     <section aria-label={context.t(ResourceKeys.settings.configuration.headerText)}>
                         <h3 role="heading" aria-level={1}>{context.t(ResourceKeys.settings.configuration.headerText)}</h3>
-                        <CopyableMaskField
+                        <MaskedCopyableTextField
                             t={context.t}
                             error={this.state.error && context.t(this.state.error)}
                             ariaLabel={context.t(ResourceKeys.connectivityPane.connectionStringTextBox.label)}

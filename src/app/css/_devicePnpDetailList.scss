@@ -42,7 +42,7 @@
 
 @mixin validation-error {
     padding-top: 10px;
-    color: $red;
+    color: $errorText;
     font-size: 16px;
 }
 
@@ -204,7 +204,7 @@
     .source {
         float:left;
         .no-source-error {
-            color: $red;
+            color: $errorText;
         }
     }
     .configure-button {

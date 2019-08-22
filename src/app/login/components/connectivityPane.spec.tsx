@@ -5,7 +5,7 @@
 import 'jest';
 import * as React from 'react';
 import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
-import { CopyableMaskField  } from '../../shared/components/copyableMaskField';
+import { MaskedCopyableTextField  } from '../../shared/components/maskedCopyableTextField';
 import { testWithLocalizationContext } from '../../shared/utils/testHelpers';
 import ConnectivityPane from './connectivityPane';
 
@@ -38,7 +38,7 @@ describe('login/components/connectivityPane', () => {
                 saveConnectionInfo={saveConnectionInfo}
             />
         );
-        const input = wrapper.find(CopyableMaskField);
+        const input = wrapper.find(MaskedCopyableTextField);
         input.props().onTextChange('invalid connection string');
 
         expect(wrapper).toMatchSnapshot();
@@ -52,7 +52,7 @@ describe('login/components/connectivityPane', () => {
                 saveConnectionInfo={saveConnectionInfo}
             />
         );
-        const input = wrapper.find(CopyableMaskField);
+        const input = wrapper.find(MaskedCopyableTextField);
         input.props().onTextChange('');
 
         expect(wrapper).toMatchSnapshot();
@@ -66,7 +66,7 @@ describe('login/components/connectivityPane', () => {
                 saveConnectionInfo={saveConnectionInfo}
             />
         );
-        const input = wrapper.find(CopyableMaskField);
+        const input = wrapper.find(MaskedCopyableTextField);
         input.props().onTextChange('HostName=a;SharedAccessKey=b;SharedAccessKeyName=c;');
 
         expect(wrapper).toMatchSnapshot();

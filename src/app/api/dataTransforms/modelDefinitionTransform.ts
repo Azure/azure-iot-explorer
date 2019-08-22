@@ -2,16 +2,6 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { ModelDefinition } from './../models/modelDefinition';
-
-export const transformModelDefinition = (model: ModelDefinition): ModelDefinition => {
-    return {
-        ...model,
-        description: getLocalizedData(model.description),
-        displayName: getLocalizedData(model.displayName)
-    };
-};
-
 // tslint:disable-next-line:cyclomatic-complexity
 export const getLocalizedData = (data: string | object) => {
     if (typeof(data) === 'string')

@@ -76,7 +76,7 @@ exports[`components/devices/deviceEvents matches snapshot 1`] = `
     }
     pageStart={0}
     ref={null}
-    role=""
+    role="main"
     threshold={250}
     useCapture={false}
     useWindow={true}

@@ -15,7 +15,7 @@ exports[`login/components/connectivityPane matches snapshot 1`] = `
     <div
       className="connection-string"
     >
-      <CopyableMaskField
+      <MaskedCopyableTextField
         allowMask={true}
         ariaLabel="connectivityPane.connectionStringTextBox.label"
         error=""
@@ -139,7 +139,7 @@ exports[`login/components/connectivityPane matches snapshot for empty connection
     <div
       className="connection-string"
     >
-      <CopyableMaskField
+      <MaskedCopyableTextField
         allowMask={true}
         ariaLabel="connectivityPane.connectionStringTextBox.label"
         error=""
@@ -263,7 +263,7 @@ exports[`login/components/connectivityPane matches snapshot for invalid connecti
     <div
       className="connection-string"
     >
-      <CopyableMaskField
+      <MaskedCopyableTextField
         allowMask={true}
         ariaLabel="connectivityPane.connectionStringTextBox.label"
         error=""
@@ -387,7 +387,7 @@ exports[`login/components/connectivityPane matches snapshot for valid connection
     <div
       className="connection-string"
     >
-      <CopyableMaskField
+      <MaskedCopyableTextField
         allowMask={true}
         ariaLabel="connectivityPane.connectionStringTextBox.label"
         error=""
