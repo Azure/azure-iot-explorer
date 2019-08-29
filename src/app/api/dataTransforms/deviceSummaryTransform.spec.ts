@@ -25,7 +25,7 @@ describe('utils', () => {
                 authenticationType: 'Sas',
                 cloudToDeviceMessageCount: '0',
                 deviceId: 'test',
-                lastActivityTime: '10:01 AM, July 18, 2019',
+                lastActivityTime: '3:01:20 AM, July 18, 2019',
                 status: 'Enabled',
                 statusUpdatedTime: null,
             };
