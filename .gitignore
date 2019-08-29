@@ -344,7 +344,7 @@ scripts/composeLocalizationKeys.js
 jest-test-results.trx
 
 # server.js ( auto-generated from server.ts )
-src/server/server.js
+src/server/*.js
 
 # js files compiles in the app directore used by server.ts
 src/app/**/*.js

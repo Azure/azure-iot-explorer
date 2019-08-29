@@ -8,17 +8,15 @@ import cors = require('cors');
 import request = require('request');
 
 import { EventHubClient, EventPosition, delay, EventHubRuntimeInformation, ReceiveHandler } from '@azure/event-hubs';
+import { generateDataPlaneRequestBody, generateDataPlaneResponse } from './dataPlaneHelper';
 
-const API_VERSION = '2018-06-30';
 const BAD_REQUEST = 400;
 const SUCCESS = 200;
-const MULTIPLE_CHOICES = 300;
 const SERVER_ERROR = 500;
 const NOT_FOUND = 400;
 const SERVER_PORT = 8081;
 const SERVER_WAIT = 3000; // how long we'll let the call for eventHub messages run in non-socket
 const app = express();
-const DEVICE_STATUS_HEADER = 'x-ms-command-statuscode';
 let client: EventHubClient = null;
 const receivers: ReceiveHandler[] = []; // tslint:disable-line: no-any
 let connectionString: string = '';
@@ -39,54 +37,17 @@ app.use(cors({
     origin: 'http://127.0.0.1:3000',
 }));
 
-// tslint:disable-next-line:cyclomatic-complexity
 app.post('/api/DataPlane', (req: express.Request, res: express.Response) => {
     try {
         if (!req.body) {
             res.status(BAD_REQUEST).send();
         }
         else {
-            const headers = {
-                'Accept': 'application/json',
-                'Authorization': req.body.sharedAccessSignature,
-                'Content-Type': 'application/json',
-                ...req.body.headers
-            };
-            if (req.body.etag) {
-                // tslint:disable-next-line:no-any
-                (headers as any)['If-Match'] = `"${req.body.etag}"`;
-            }
-
-            const apiVersion = req.body.apiVersion || API_VERSION;
-            const queryString = req.body.queryString ? `?${req.body.queryString}&api-version=${apiVersion}` : `?api-version=${apiVersion}`;
             request(
-            {
-                body: req.body.body,
-                headers,
-                method: req.body.httpMethod.toUpperCase(),
-                uri: `https://${req.body.hostName}/${encodeURIComponent(req.body.path)}${queryString}`,
-            },
+            generateDataPlaneRequestBody(req),
             (err, httpRes, body) => {
-                if (httpRes) {
-                    if (httpRes.headers && httpRes.headers[DEVICE_STATUS_HEADER]) { // handles happy failure cases when error code is returned as a header
-                        // tslint:disable-next-line:radix
-                        res.status(parseInt(httpRes.headers[DEVICE_STATUS_HEADER] as string)).send({body: JSON.parse(body)});
-                    }
-                    else {
-                        if (httpRes.statusCode >= SUCCESS && httpRes.statusCode < MULTIPLE_CHOICES) {
-                            res.status(httpRes.statusCode).send({
-                                body: JSON.parse(body),
-                                headers: httpRes.headers
-                            });
-                        } else {
-                            res.status(httpRes.statusCode).send(JSON.parse(body));
-                        }
-                    }
-                }
-                else {
-                    res.send({body: JSON.parse(body)});
-                }
-            }); // tslint:disable-line:cyclomatic-complexity
+                generateDataPlaneResponse(httpRes, body, res);
+            });
         }
     }
     catch (error) {
