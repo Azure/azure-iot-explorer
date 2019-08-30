@@ -18,5 +18,5 @@ export const parseDateTimeString = (dateTimeString: string): string => {
         return null;
     }
 
-    return moment.utc(dateTimeString).format('h:mm A, MMMM DD, YYYY');
+    return moment.utc(dateTimeString).local().format('h:mm:ss A, MMMM DD, YYYY');
 };

@@ -8,7 +8,6 @@ import { Device } from '../models/device';
 import { DeviceSummary } from '../models/deviceSummary';
 
 describe('utils', () => {
-
     describe('transformDevice', () => {
         it('transforms Device to DeviceSummary', () => {
             const device: Device = {
@@ -25,11 +24,19 @@ describe('utils', () => {
                 authenticationType: 'Sas',
                 cloudToDeviceMessageCount: '0',
                 deviceId: 'test',
-                lastActivityTime: '10:01 AM, July 18, 2019',
+                lastActivityTime: '3:01:20 AM, July 18, 2019',
                 status: 'Enabled',
                 statusUpdatedTime: null,
             };
-            expect(transformDevice(device)).toEqual(deviceSummary);
+
+            const transformedDevice = transformDevice(device);
+            expect(transformedDevice.authenticationType).toEqual(deviceSummary.authenticationType);
+            expect(transformedDevice.cloudToDeviceMessageCount).toEqual(deviceSummary.cloudToDeviceMessageCount);
+            expect(transformedDevice.deviceId).toEqual(deviceSummary.deviceId);
+            const isLocalTime = new RegExp(/\d+:\d+:\d+ [AP]M, July 18, 2019/);
+            expect(transformedDevice.lastActivityTime.match(isLocalTime)).toBeTruthy();
+            expect(transformedDevice.status).toEqual(deviceSummary.status);
+            expect(transformedDevice.statusUpdatedTime).toEqual(deviceSummary.statusUpdatedTime);
         });
     });
 });
