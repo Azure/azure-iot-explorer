@@ -3,7 +3,7 @@ const electron = require('electron');
 const app = electron.app;
 const Menu = electron.Menu;
 const BrowserWindow = electron.BrowserWindow;
-const server = require('../src/server/server.js');
+const server = require('../dist/server/server.js');
 const path = require('path');
 const url = require('url');
 
