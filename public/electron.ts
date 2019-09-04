@@ -1,32 +1,39 @@
+import * as electron from 'electron';
+import * as path from 'path';
+import * as url from 'url';
+import '../dist/server/server';
 
-const electron = require('electron');
 const app = electron.app;
 const Menu = electron.Menu;
 const BrowserWindow = electron.BrowserWindow;
-const server = require('../dist/server/server.js');
-const path = require('path');
-const url = require('url');
 
-let mainWindow;
+let mainWindow: electron.BrowserWindow;
 
-function createWindow() {
-    mainWindow = new BrowserWindow({width: 1200, height: 900});
+const createWindow = () => {
+
+    mainWindow = new BrowserWindow({
+        height: 900,
+        width: 1200
+    });
+
     const startUrl = process.env.ELECTRON_START_URL || url.format({
         pathname: path.join(__dirname, '/../dist/index.html'),
         protocol: 'file:',
         slashes: true
     });
+
     mainWindow.loadURL(startUrl);
+
     // Open the DevTools.
     if (process.env.ELECTRON_START_URL) {
         mainWindow.webContents.openDevTools();
     }
 
     mainWindow.on('closed', () => mainWindow = null);
-}
+};
 
-function createMenu() {
-    const template = [
+const createMenu = () => {
+    const template: electron.MenuItemConstructorOptions[] = [
         // { role: 'fileMenu' }
         {
             label: 'File',
@@ -66,12 +73,26 @@ function createMenu() {
                 { role: 'minimize' },
                 { role: 'close' }
             ]
+        },
+        {
+            label: 'Help',
+            submenu: [
+                {
+                    accelerator: 'CommandOrControl+Shift+I',
+                    click: (menuItem: electron.MenuItem, browserWindow: electron.BrowserWindow, event: electron.Event) => {
+                        browserWindow.webContents.toggleDevTools();
+                    },
+                    label: 'Toggle Developer Tools'
+                },
+                { type: 'separator' },
+                { role: 'about'}
+            ]
         }
-    ]
+    ];
 
-    const menu = Menu.buildFromTemplate(template)
-    Menu.setApplicationMenu(menu)
-}
+    const menu = Menu.buildFromTemplate(template);
+    Menu.setApplicationMenu(menu);
+};
 
 // prevent multiple instances in Electron
 const lock = app.requestSingleInstanceLock();
@@ -82,14 +103,16 @@ else {
     app.on('second-instance', () => {
         // If user tries to run a second instance, would focus on current window
         if (mainWindow) {
-            if (mainWindow.isMinimized()) mainWindow.restore()
-            mainWindow.focus()
+            if (mainWindow.isMinimized()) {
+                mainWindow.restore();
+            }
+            mainWindow.focus();
         }
-    })
+    });
     app.on('ready', () => {
         createWindow();
         createMenu();
-    })
+    });
 }
 
 app.on('window-all-closed', () => {

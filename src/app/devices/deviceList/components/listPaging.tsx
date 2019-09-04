@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Link } from 'office-ui-fabric-react';
+import { Link } from 'office-ui-fabric-react/lib/Link';
 import '../../../css/_deviceListPaging.scss';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../localization/resourceKeys';

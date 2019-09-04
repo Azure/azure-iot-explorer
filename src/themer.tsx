@@ -3,8 +3,9 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Fabric, Customizer, createTheme } from 'office-ui-fabric-react';
-import { IPartialTheme } from 'office-ui-fabric-react/lib/Styling';
+import { Fabric } from 'office-ui-fabric-react/lib/Fabric';
+import { Customizer } from 'office-ui-fabric-react/lib/Utilities';
+import { IPartialTheme, createTheme } from 'office-ui-fabric-react/lib/Styling';
 import { SCOPED_SETTINGS, THEME_DARK, THEME_LIGHT } from './app/constants/themes';
 
 export enum Theme {

@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import React, { Component } from 'react';
-import { Label } from 'office-ui-fabric-react';
+import { Label } from 'office-ui-fabric-react/lib/Label';
 
 interface ErrorBoundaryProps {
     error: string;

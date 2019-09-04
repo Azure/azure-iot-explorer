@@ -4,7 +4,7 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import { Shimmer } from 'office-ui-fabric-react';
+import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
 import DeviceProperties, { DevicePropertiesDataProps , DevicePropertiesDispatchProps } from './deviceProperties';
 import DevicePropertiesPerInterface from './devicePropertiesPerInterface';
 import { TwinWithSchema } from './devicePropertiesPerInterfacePerProperty';

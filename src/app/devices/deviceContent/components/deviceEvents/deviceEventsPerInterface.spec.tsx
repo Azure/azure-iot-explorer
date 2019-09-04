@@ -4,7 +4,7 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import { Shimmer } from 'office-ui-fabric-react';
+import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
 import DeviceEventsPerInterfaceComponent, { DeviceEventsDataProps, DeviceEventsDispatchProps, TelemetrySchema } from './deviceEventsPerInterface';
 import { mountWithLocalization, testWithLocalizationContext } from '../../../../shared/utils/testHelpers';
 

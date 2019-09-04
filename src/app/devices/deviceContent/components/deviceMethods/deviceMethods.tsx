@@ -7,12 +7,15 @@ import { RouteComponentProps } from 'react-router-dom';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
 import { Slider, SliderBase } from 'office-ui-fabric-react/lib/Slider';
-import Editor from 'react-monaco-editor';
+import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 import { DeviceIdentityWrapper } from '../../../../api/models/deviceIdentityWrapper';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { InvokeMethodParameters } from '../../../../api/parameters/deviceParameters';
 import '../../../../css/_deviceDetail.scss';
+
+const EditorPromise = import('react-monaco-editor');
+const Editor = React.lazy(() => EditorPromise);
 
 const SLIDER_MAX = 300;
 const SLIDER_MIN = 0;
@@ -97,15 +100,19 @@ export default class DeviceMethods extends React.Component<DeviceMethodsProps & 
     private readonly renderMethodsResultSection = (context: LocalizationContextInterface) => {
         const { invokeMethodResponse } = this.props;
         return (
-            <Editor
-                language="json"
-                height="30vh"
-                value={invokeMethodResponse}
-                options={{
-                    automaticLayout: true,
-                    readOnly: true
-                }}
-            />
+            <div className="monaco-editor">
+                <React.Suspense fallback={<Spinner title={'loading'} size={SpinnerSize.large} />}>
+                    <Editor
+                        language="json"
+                        height="30vh"
+                        value={invokeMethodResponse}
+                        options={{
+                            automaticLayout: true,
+                            readOnly: true
+                        }}
+                    />
+                </React.Suspense>
+            </div>
         );
     }
 
@@ -125,15 +132,19 @@ export default class DeviceMethods extends React.Component<DeviceMethodsProps & 
                     onChange={this.onMethodNameChange}
                 />
                 <br/>
-                <Editor
-                    language="json"
-                    options={{
-                        automaticLayout: true
-                    }}
-                    height="30vh"
-                    value={payload}
-                    onChange={this.onEditorChange}
-                />
+                <div className="monaco-editor">
+                    <React.Suspense fallback={<Spinner title={'loading'} size={SpinnerSize.large} />}>
+                        <Editor
+                            language="json"
+                            options={{
+                                automaticLayout: true
+                            }}
+                            height="30vh"
+                            value={payload}
+                            onChange={this.onEditorChange}
+                        />
+                    </React.Suspense>
+                </div>
                 <Slider
                     label={context.t(ResourceKeys.deviceMethods.connectionTimeout)}
                     min={0}

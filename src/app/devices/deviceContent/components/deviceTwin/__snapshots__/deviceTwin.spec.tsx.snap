@@ -108,23 +108,31 @@ exports[`devices/components/deviceTwin snapshot matches snapshot with twin 1`] =
   <article
     className="interface-definition device-detail"
   >
-    <MonacoEditor
-      defaultValue=""
-      editorDidMount={[Function]}
-      editorWillMount={[Function]}
-      height="calc(100vh - 300px)"
-      language="json"
-      onChange={[Function]}
-      options={
-        Object {
-          "automaticLayout": true,
-          "readOnly": false,
+    <div
+      className="monaco-editor"
+    >
+      <React.Suspense
+        fallback={
+          <StyledSpinnerBase
+            size={3}
+            title="loading"
+          />
         }
-      }
-      theme={null}
-      value="{}"
-      width="100%"
-    />
+      >
+        <React.Lazy
+          height="calc(100vh - 300px)"
+          language="json"
+          onChange={[Function]}
+          options={
+            Object {
+              "automaticLayout": true,
+              "readOnly": false,
+            }
+          }
+          value="{}"
+        />
+      </React.Suspense>
+    </div>
   </article>
 </Fragment>
 `;

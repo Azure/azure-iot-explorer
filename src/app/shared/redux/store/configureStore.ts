@@ -18,10 +18,13 @@ export default () => {
         return s.toJS();
     };
 
-    const logger = createLogger({stateTransformer});
+    if (process.env.NODE_ENV === 'development') {
+        const logger = createLogger({stateTransformer});
+        middlewares.push(logger);
+    }
 
     const sagaMiddleware = createSagaMiddleware();
-    middlewares.push(logger, sagaMiddleware);
+    middlewares.push(sagaMiddleware);
 
     // tslint:disable-next-line:no-any
     const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

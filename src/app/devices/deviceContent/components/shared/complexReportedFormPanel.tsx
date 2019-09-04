@@ -3,9 +3,10 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Label, IconButton } from 'office-ui-fabric-react';
+import { Label } from 'office-ui-fabric-react/lib/Label';
+import { IconButton } from 'office-ui-fabric-react/lib/Button';
+import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 import Form from 'react-jsonschema-form';
-import Editor from 'react-monaco-editor';
 import { fabricWidgets, fabricFields } from '../../../../jsonSchemaFormFabricPlugin';
 import { ObjectTemplate } from '../../../../jsonSchemaFormFabricPlugin/fields/objectTemplate';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
@@ -17,6 +18,9 @@ import { CLOSE } from '../../../../constants/iconNames';
 import { PropertyContent } from '../../../../api/models/modelDefinition';
 import ErrorBoundary from '../../../errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
+
+const EditorPromise = import('react-monaco-editor');
+const Editor = React.lazy(() => EditorPromise);
 
 export interface ReportedFormDataProps {
     showPanel: boolean;
@@ -101,15 +105,19 @@ export default class ComplexReportedFormPanel extends React.Component<ReportedFo
         return (
             <form>
                 <Label>{context.t(ResourceKeys.deviceProperties.editor.label, {schema: this.getSettingSchema()})}</Label>
-                <Editor
-                    language="json"
-                    options={{
-                        automaticLayout: true,
-                        readOnly: true
-                    }}
-                    height="80vh"
-                    value={JSON.stringify(this.state.formData, null, '\t')}
-                />
+                <div className="monaco-editor">
+                    <React.Suspense fallback={<Spinner title={'loading'} size={SpinnerSize.large} />}>
+                        <Editor
+                            language="json"
+                            options={{
+                                automaticLayout: true,
+                                readOnly: true
+                            }}
+                            height="80vh"
+                            value={JSON.stringify(this.state.formData, null, '\t')}
+                        />
+                    </React.Suspense>
+                </div>
             </form>
         );
     }

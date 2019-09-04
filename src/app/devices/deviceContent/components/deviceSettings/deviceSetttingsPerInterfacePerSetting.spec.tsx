@@ -4,7 +4,9 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import { Label, Stack, DefaultButton, IconButton } from 'office-ui-fabric-react';
+import { Stack } from 'office-ui-fabric-react/lib/Stack';
+import { DefaultButton, IconButton } from 'office-ui-fabric-react/lib/Button';
+import { Label } from 'office-ui-fabric-react/lib/Label';
 import DeviceSettingsPerInterfacePerSetting, { DeviceSettingDataProps, DeviceSettingDispatchProps } from './deviceSettingsPerInterfacePerSetting';
 import { mountWithLocalization } from '../../../../shared/utils/testHelpers';
 import { PropertyContent } from '../../../../api/models/modelDefinition';

@@ -2,7 +2,10 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { DirectionalHint, IconButton, Label, TooltipHost } from 'office-ui-fabric-react';
+import { DirectionalHint } from 'office-ui-fabric-react/lib/ContextualMenu';
+import { IconButton } from 'office-ui-fabric-react/lib/Button';
+import { Label } from 'office-ui-fabric-react/lib/Label';
+import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip';
 import * as React from 'react';
 import { FieldTemplateProps } from 'react-jsonschema-form';
 import { INFO } from '../../constants/iconNames';

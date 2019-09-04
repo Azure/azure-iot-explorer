@@ -83,21 +83,27 @@ exports[`components/devices/deviceInterfaces show interface information when sta
       <article
         className="interface-definition"
       >
-        <MonacoEditor
-          defaultValue=""
-          editorDidMount={[Function]}
-          editorWillMount={[Function]}
-          height="calc(100vh - 400px)"
-          language="json"
-          onChange={[Function]}
-          options={
-            Object {
-              "automaticLayout": true,
-              "readOnly": true,
+        <div
+          className="monaco-editor"
+        >
+          <React.Suspense
+            fallback={
+              <StyledSpinnerBase
+                size={3}
+                title="loading"
+              />
             }
-          }
-          theme={null}
-          value="{
+          >
+            <React.Lazy
+              height="calc(100vh - 400px)"
+              language="json"
+              options={
+                Object {
+                  "automaticLayout": true,
+                  "readOnly": true,
+                }
+              }
+              value="{
 	\\"@id\\": \\"urn:azureiot:ModelDiscovery:DigitalTwin:1\\",
 	\\"@type\\": \\"Interface\\",
 	\\"contents\\": [
@@ -133,8 +139,9 @@ exports[`components/devices/deviceInterfaces show interface information when sta
 	],
 	\\"@context\\": \\"http://azureiot.com/v1/contexts/Interface.json\\"
 }"
-          width="100%"
-        />
+            />
+          </React.Suspense>
+        </div>
       </article>
     </section>
   </ErrorBoundary>
@@ -197,21 +204,27 @@ exports[`components/devices/deviceInterfaces show interface information when sta
       <article
         className="interface-definition"
       >
-        <MonacoEditor
-          defaultValue=""
-          editorDidMount={[Function]}
-          editorWillMount={[Function]}
-          height="calc(100vh - 400px)"
-          language="json"
-          onChange={[Function]}
-          options={
-            Object {
-              "automaticLayout": true,
-              "readOnly": true,
+        <div
+          className="monaco-editor"
+        >
+          <React.Suspense
+            fallback={
+              <StyledSpinnerBase
+                size={3}
+                title="loading"
+              />
             }
-          }
-          theme={null}
-          value="{
+          >
+            <React.Lazy
+              height="calc(100vh - 400px)"
+              language="json"
+              options={
+                Object {
+                  "automaticLayout": true,
+                  "readOnly": true,
+                }
+              }
+              value="{
 	\\"@id\\": \\"urn:azureiot:ModelDiscovery:DigitalTwin:1\\",
 	\\"@type\\": \\"Interface\\",
 	\\"contents\\": [
@@ -247,8 +260,9 @@ exports[`components/devices/deviceInterfaces show interface information when sta
 	],
 	\\"@context\\": \\"http://azureiot.com/v1/contexts/Interface.json\\"
 }"
-          width="100%"
-        />
+            />
+          </React.Suspense>
+        </div>
       </article>
     </section>
   </ErrorBoundary>
@@ -311,21 +325,27 @@ exports[`components/devices/deviceInterfaces show interface information when sta
       <article
         className="interface-definition"
       >
-        <MonacoEditor
-          defaultValue=""
-          editorDidMount={[Function]}
-          editorWillMount={[Function]}
-          height="calc(100vh - 400px)"
-          language="json"
-          onChange={[Function]}
-          options={
-            Object {
-              "automaticLayout": true,
-              "readOnly": true,
+        <div
+          className="monaco-editor"
+        >
+          <React.Suspense
+            fallback={
+              <StyledSpinnerBase
+                size={3}
+                title="loading"
+              />
             }
-          }
-          theme={null}
-          value="{
+          >
+            <React.Lazy
+              height="calc(100vh - 400px)"
+              language="json"
+              options={
+                Object {
+                  "automaticLayout": true,
+                  "readOnly": true,
+                }
+              }
+              value="{
 	\\"@id\\": \\"urn:azureiot:ModelDiscovery:DigitalTwin:1\\",
 	\\"@type\\": \\"Interface\\",
 	\\"contents\\": [
@@ -361,8 +381,9 @@ exports[`components/devices/deviceInterfaces show interface information when sta
 	],
 	\\"@context\\": \\"http://azureiot.com/v1/contexts/Interface.json\\"
 }"
-          width="100%"
-        />
+            />
+          </React.Suspense>
+        </div>
       </article>
     </section>
   </ErrorBoundary>
@@ -425,21 +446,27 @@ exports[`components/devices/deviceInterfaces show interface information when sta
       <article
         className="interface-definition"
       >
-        <MonacoEditor
-          defaultValue=""
-          editorDidMount={[Function]}
-          editorWillMount={[Function]}
-          height="calc(100vh - 400px)"
-          language="json"
-          onChange={[Function]}
-          options={
-            Object {
-              "automaticLayout": true,
-              "readOnly": true,
+        <div
+          className="monaco-editor"
+        >
+          <React.Suspense
+            fallback={
+              <StyledSpinnerBase
+                size={3}
+                title="loading"
+              />
             }
-          }
-          theme={null}
-          value="{
+          >
+            <React.Lazy
+              height="calc(100vh - 400px)"
+              language="json"
+              options={
+                Object {
+                  "automaticLayout": true,
+                  "readOnly": true,
+                }
+              }
+              value="{
 	\\"@id\\": \\"urn:azureiot:ModelDiscovery:DigitalTwin:1\\",
 	\\"@type\\": \\"Interface\\",
 	\\"contents\\": [
@@ -475,8 +502,9 @@ exports[`components/devices/deviceInterfaces show interface information when sta
 	],
 	\\"@context\\": \\"http://azureiot.com/v1/contexts/Interface.json\\"
 }"
-          width="100%"
-        />
+            />
+          </React.Suspense>
+        </div>
       </article>
     </section>
   </ErrorBoundary>

@@ -4,7 +4,9 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import { Shimmer, DefaultButton, CommandBar } from 'office-ui-fabric-react';
+import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
+import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
+import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import DeviceInterfaces, { DeviceInterfaceProps, DeviceInterfaceDispatchProps } from './deviceInterfaces';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { testWithLocalizationContext } from '../../../../shared/utils/testHelpers';

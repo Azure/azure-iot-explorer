@@ -5,7 +5,8 @@
 import 'jest';
 import { shallow } from 'enzyme';
 import * as React from 'react';
-import { Callout, IconButton } from 'office-ui-fabric-react';
+import { Callout } from 'office-ui-fabric-react/lib/Callout';
+import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import LabelWithRichCallout, { LabelWithRichCalloutState } from './labelWithRichCallout';
 
 describe('components/shared/labelWithRichCallout', () => {

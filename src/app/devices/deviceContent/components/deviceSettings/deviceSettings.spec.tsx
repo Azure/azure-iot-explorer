@@ -4,7 +4,7 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import { Shimmer } from 'office-ui-fabric-react';
+import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
 import DeviceSettings, { DeviceSettingDispatchProps , DeviceSettingsProps } from './deviceSettings';
 import DeviceSettingsPerInterface from './deviceSettingsPerInterface';
 import { mountWithLocalization } from '../../../../shared/utils/testHelpers';
