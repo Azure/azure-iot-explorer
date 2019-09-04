@@ -2,14 +2,10 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import {
-    DefaultButton,
-    DirectionalHint,
-    IconButton,
-    PrimaryButton,
-    TooltipHost,
-    Label
-} from 'office-ui-fabric-react';
+import { DirectionalHint } from 'office-ui-fabric-react/lib/ContextualMenu';
+import { IconButton } from 'office-ui-fabric-react/lib/Button';
+import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip';
+import { Label } from 'office-ui-fabric-react/lib/Label';
 import * as React from 'react';
 import { ArrayFieldTemplateProps } from 'react-jsonschema-form';
 import Collapsible from 'react-collapsible';

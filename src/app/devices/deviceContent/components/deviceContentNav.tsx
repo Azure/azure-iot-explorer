@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { Nav, INavLink, INavLinkGroup } from 'office-ui-fabric-react/lib/Nav';
-import { Label } from 'office-ui-fabric-react';
+import { Label } from 'office-ui-fabric-react/lib/Label';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import '../../../css/_deviceContentNav.scss';
@@ -26,7 +26,7 @@ interface DeviceContentNavState {
 }
 
 export const NAV_LINK_ITEMS_PNP = ['interfaces', 'settings', 'properties', 'commands', 'events'];
-export const NAV_LINK_ITEMS_NONPNP = ['identity', 'twin', 'events'];
+export const NAV_LINK_ITEMS_NONPNP = ['identity', 'twin', 'events', 'methods'];
 
 export default class DeviceContentNavComponent extends React.Component<DeviceContentNavDataProps & DeviceContentNavDispatchProps, DeviceContentNavState> {
     constructor(props: DeviceContentNavDataProps & DeviceContentNavDispatchProps) {

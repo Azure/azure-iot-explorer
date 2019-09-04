@@ -3,9 +3,10 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { PrimaryButton, Dialog, DialogFooter, DefaultButton } from 'office-ui-fabric-react';
+import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/Button';
+import { Dialog, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
+import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 import Form from 'react-jsonschema-form';
-import Editor from 'react-monaco-editor';
 import { fabricWidgets, fabricFields } from '../../../../jsonSchemaFormFabricPlugin';
 import { ObjectTemplate } from '../../../../jsonSchemaFormFabricPlugin/fields/objectTemplate';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
@@ -18,7 +19,9 @@ import ErrorBoundary from '../../../../devices/errorBoundary';
 import LabelWithTooltip from '../../../../shared/components/labelWithTooltip';
 import '../../../../css/_dataForm.scss';
 
-const payloadRef = React.createRef<Editor>();
+const EditorPromise = import('react-monaco-editor');
+const Editor = React.lazy(() => EditorPromise);
+const payloadRef = React.createRef<any>(); // tslint:disable-line:no-any
 
 export interface DataFormDataProps {
     formData: any;  // tslint:disable-line:no-any
@@ -78,16 +81,20 @@ export default class DataForm extends React.Component<DataFormDataProps & DataFo
                     isBlocking: false
                 }}
             >
-                <Editor
-                    language="json"
-                    ref={payloadRef}
-                    options={{
-                        automaticLayout: true,
-                        readOnly: true,
-                    }}
-                    height="275px"
-                    value={JSON.stringify(this.state.payloadPreviewData, null, '\t')}
-                />
+                <div className="monaco-editor">
+                    <React.Suspense fallback={<Spinner title={'loading'} size={SpinnerSize.large} />}>
+                        <Editor
+                            language="json"
+                            ref={payloadRef}
+                            options={{
+                                automaticLayout: true,
+                                readOnly: true,
+                            }}
+                            height="275px"
+                            value={JSON.stringify(this.state.payloadPreviewData, null, '\t')}
+                        />
+                    </React.Suspense>
+                </div>
                 <DialogFooter>
                     <PrimaryButton
                         onClick={this.copyPayload}
@@ -134,16 +141,20 @@ export default class DataForm extends React.Component<DataFormDataProps & DataFo
                 >
                     {context.t(ResourceKeys.deviceContent.value)}
                 </LabelWithTooltip>
-                <Editor
-                    language="json"
-                    options={{
-                        automaticLayout: true,
-                        readOnly: false
-                    }}
-                    height="30vh"
-                    value={this.state.stringifiedFormData}
-                    onChange={this.onChangeEditor}
-                />
+                <div className="monaco-editor">
+                    <React.Suspense fallback={<Spinner title={'loading'} size={SpinnerSize.large} />}>
+                        <Editor
+                            language="json"
+                            options={{
+                                automaticLayout: true,
+                                readOnly: false
+                            }}
+                            height="30vh"
+                            value={this.state.stringifiedFormData}
+                            onChange={this.onChangeEditor}
+                        />
+                    </React.Suspense>
+                </div>
                 {this.createActionButtons(context)}
             </form>
         );

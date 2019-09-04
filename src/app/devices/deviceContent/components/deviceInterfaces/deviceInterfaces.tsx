@@ -3,8 +3,11 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import Editor from 'react-monaco-editor';
-import { Shimmer, CommandBar, Label, DefaultButton } from 'office-ui-fabric-react';
+import { Label } from 'office-ui-fabric-react/lib/Label';
+import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
+import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
+import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
+import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 import { RouteComponentProps } from 'react-router-dom';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
@@ -15,6 +18,9 @@ import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMes
 import { REFRESH } from '../../../../constants/iconNames';
 import ErrorBoundary from '../../../errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
+
+const EditorPromise = import('react-monaco-editor');
+const Editor = React.lazy(() => EditorPromise);
 
 export interface DeviceInterfaceProps {
     modelDefinitionWithSource: ModelDefinitionWithSourceWrapper;
@@ -126,15 +132,19 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
         return (
             <article className="interface-definition" >
                 { modelDefinition &&
-                    <Editor
-                        language="json"
-                        height="calc(100vh - 400px)"
-                        value={JSON.stringify(modelDefinition, null, '\t')}
-                        options={{
-                            automaticLayout: true,
-                            readOnly: true
-                        }}
-                    />
+                    <div className="monaco-editor">
+                        <React.Suspense fallback={<Spinner title={'loading'} size={SpinnerSize.large} />}>
+                            <Editor
+                                language="json"
+                                height="calc(100vh - 400px)"
+                                value={JSON.stringify(modelDefinition, null, '\t')}
+                                options={{
+                                    automaticLayout: true,
+                                    readOnly: true
+                                }}
+                            />
+                        </React.Suspense>
+                    </div>
                 }
             </article>
         );

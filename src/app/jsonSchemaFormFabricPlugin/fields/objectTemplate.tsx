@@ -4,7 +4,9 @@
  **********************************************************/
 import * as React from 'react';
 import { ObjectFieldTemplateProps } from 'react-jsonschema-form';
-import { IconButton, TooltipHost, DirectionalHint, Label } from 'office-ui-fabric-react';
+import { IconButton } from 'office-ui-fabric-react/lib/Button';
+import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip';
+import { DirectionalHint } from 'office-ui-fabric-react/lib/ContextualMenu';
 import { INFO } from '../../constants/iconNames';
 import '../css/_objectTemplate.scss';
 

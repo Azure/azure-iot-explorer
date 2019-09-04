@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Icon, registerIcons } from 'office-ui-fabric-react';
+import { Icon } from 'office-ui-fabric-react/lib/Icon';
+import { registerIcons } from 'office-ui-fabric-react/lib/Styling';
 import { DeviceSummary } from '../../../api/models/deviceSummary';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../localization/resourceKeys';

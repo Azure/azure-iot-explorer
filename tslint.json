@@ -102,7 +102,17 @@
             [
                 "jest",
                 "enzyme",
-                "jest-plugin-context"
+                "jest-plugin-context",
+                "electron",
+                "webpack",
+                "webpack-merge",
+                "html-webpack-plugin",
+                "webpack-bundle-analyzer",
+                "webpack-shell-plugin",
+                "monaco-editor-webpack-plugin",
+                "mini-css-extract-plugin",
+                "optimize-css-assets-webpack-plugin",
+                "terser-webpack-plugin"
             ]
         ],
         "no-internal-module": true,

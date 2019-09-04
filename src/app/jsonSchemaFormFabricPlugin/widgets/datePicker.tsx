@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import { utc } from 'moment';
-import { DatePicker, IDatePickerProps } from 'office-ui-fabric-react';
+import { DatePicker, IDatePickerProps } from 'office-ui-fabric-react/lib/DatePicker';
 import * as React from 'react';
 import { WidgetProps } from 'react-jsonschema-form';
 

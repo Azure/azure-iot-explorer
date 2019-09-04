@@ -4,7 +4,8 @@
  **********************************************************/
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Shimmer, CommandBar } from 'office-ui-fabric-react';
+import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
+import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { TwinWithSchema } from './devicePropertiesPerInterfacePerProperty';

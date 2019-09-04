@@ -3,7 +3,10 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Label, Shimmer, Toggle, Overlay } from 'office-ui-fabric-react';
+import { Label } from 'office-ui-fabric-react/lib/Label';
+import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
+import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
+import { Overlay } from 'office-ui-fabric-react/lib/Overlay';
 import { RouteComponentProps } from 'react-router-dom';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';

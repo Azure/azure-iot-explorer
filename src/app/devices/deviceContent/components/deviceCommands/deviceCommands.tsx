@@ -3,7 +3,8 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Shimmer, CommandBar } from 'office-ui-fabric-react';
+import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
+import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { RouteComponentProps } from 'react-router-dom';
 import DeviceCommandPerInterface from './deviceCommandsPerInterface';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
