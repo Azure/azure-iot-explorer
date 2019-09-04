@@ -26,7 +26,7 @@ interface DeviceContentNavState {
 }
 
 export const NAV_LINK_ITEMS_PNP = ['interfaces', 'settings', 'properties', 'commands', 'events'];
-export const NAV_LINK_ITEMS_NONPNP = ['identity', 'twin', 'events', 'methods'];
+export const NAV_LINK_ITEMS_NONPNP = ['identity', 'twin', 'events'];
 
 export default class DeviceContentNavComponent extends React.Component<DeviceContentNavDataProps & DeviceContentNavDispatchProps, DeviceContentNavState> {
     constructor(props: DeviceContentNavDataProps & DeviceContentNavDispatchProps) {

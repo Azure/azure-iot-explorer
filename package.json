@@ -129,7 +129,7 @@
     "electron-builder": "20.40.1",
     "enzyme": "3.7.0",
     "enzyme-adapter-react-16": "1.6.0",
-    "enzyme-to-json": "3.3.4",
+    "enzyme-to-json": "3.3.5",
     "file-loader": "2.0.0",
     "html-webpack-plugin": "3.2.0",
     "jest": "24.8.0",
