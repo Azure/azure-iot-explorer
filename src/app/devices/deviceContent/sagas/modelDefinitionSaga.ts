@@ -66,7 +66,7 @@ export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionP
     }
 }
 
-function *getModelDefinitionFromPrivateRepo(action: Action<GetModelDefinitionActionParameters>, location: RepositoryLocationSettings) {
+export function *getModelDefinitionFromPrivateRepo(action: Action<GetModelDefinitionActionParameters>, location: RepositoryLocationSettings) {
     const repoConnectionStringInfo = getRepoConnectionInfoFromConnectionString(location.connectionString);
     const parameters: FetchModelParameters = {
         id: action.payload.interfaceId,
@@ -77,7 +77,7 @@ function *getModelDefinitionFromPrivateRepo(action: Action<GetModelDefinitionAct
     return yield call(fetchModelDefinition, parameters);
 }
 
-function *getModelDefinitionFromPublicRepo(action: Action<GetModelDefinitionActionParameters>, location: RepositoryLocationSettings) {
+export function *getModelDefinitionFromPublicRepo(action: Action<GetModelDefinitionActionParameters>, location: RepositoryLocationSettings) {
     const parameters: FetchModelParameters = {
         id: action.payload.interfaceId,
         repoServiceHostName: yield select(getPublicRepositoryHostName),
@@ -86,7 +86,7 @@ function *getModelDefinitionFromPublicRepo(action: Action<GetModelDefinitionActi
     return yield call(fetchModelDefinition, parameters);
 }
 
-function *getModelDefinitionFromDevice(action: Action<GetModelDefinitionActionParameters>) {
+export function *getModelDefinitionFromDevice(action: Action<GetModelDefinitionActionParameters>) {
     const interfaceIds: string[] = yield select(getDigitalTwinInterfaceIdsSelector);
     if (interfaceIds.filter(id => id === modelDefinitionInterfaceId).length === 0) {
         throw new InterfaceNotImplementedException();
@@ -100,7 +100,7 @@ function *getModelDefinitionFromDevice(action: Action<GetModelDefinitionActionPa
     });
 }
 
-function *getModelDefinition(action: Action<GetModelDefinitionActionParameters>, location: RepositoryLocationSettings) {
+export function *getModelDefinition(action: Action<GetModelDefinitionActionParameters>, location: RepositoryLocationSettings) {
     if (location.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Private) {
         return yield call(getModelDefinitionFromPrivateRepo, action, location);
     }
