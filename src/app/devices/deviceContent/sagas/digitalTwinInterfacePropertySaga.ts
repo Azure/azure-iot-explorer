@@ -67,7 +67,8 @@ export function* patchDigitalTwinInterfacePropertiesSaga(action: Action<PatchDig
     }
 }
 
-export const generateInterfacePropertiesPayload = (interfaceName: string, propertyKey: string, patchData: object) => {
+// tslint:disable-next-line:no-any
+export const generateInterfacePropertiesPayload = (interfaceName: string, propertyKey: string, patchData: any) => {
     const propertyValue: { [propertyName: string]: Property } = {};
     propertyValue[propertyKey] = {
         desired: {
@@ -86,7 +87,7 @@ export const generateInterfacePropertiesPayload = (interfaceName: string, proper
     return result;
 };
 
-function* generatePatchDigitalTwinInterfacePropertiesPayload(interfacePatchData: PatchDigitalTwinInterfacePropertiesActionParameters) {
+export function* generatePatchDigitalTwinInterfacePropertiesPayload(interfacePatchData: PatchDigitalTwinInterfacePropertiesActionParameters) {
     const interfaceName = yield select(getInterfaceNameSelector);
     return generateInterfacePropertiesPayload(interfaceName, interfacePatchData.propertyKey, interfacePatchData.interfacesPatchData);
 }
