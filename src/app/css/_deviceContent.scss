@@ -21,7 +21,6 @@ $nav-width: 20%;
     }
     .device-content-nav-bar {
         overflow-y: auto;
-        @include nav-bar;
         display: flex;
         flex-Direction: column;
         width: $nav-width;

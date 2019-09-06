@@ -81,27 +81,19 @@ export interface RepoConnectionSettings {
     repositoryId?: string;
 }
 
-const CONTROLLER_ENDPOINT = `${CONTROLLER_API_ENDPOINT}${MODELREPO}`;
-const CONTROLLER_PASSTHROUGH = true;
+export const CONTROLLER_ENDPOINT = `${CONTROLLER_API_ENDPOINT}${MODELREPO}`;
 const request = async (requestInit: RequestInitWithUri) => {
-    if (CONTROLLER_PASSTHROUGH) {
-        return fetch(
-            CONTROLLER_ENDPOINT,
-            {
-                body: JSON.stringify(requestInit),
-                cache: 'no-cache',
-                credentials: 'include',
-                headers: new Headers({
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }),
-                method: HTTP_OPERATION_TYPES.Post
-            }
-        );
-    } else {
-        return fetch(
-            requestInit.uri,
-            requestInit
-        );
-    }
+    return fetch(
+        CONTROLLER_ENDPOINT,
+        {
+            body: JSON.stringify(requestInit),
+            cache: 'no-cache',
+            credentials: 'include',
+            headers: new Headers({
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }),
+            method: HTTP_OPERATION_TYPES.Post
+        }
+    );
 };

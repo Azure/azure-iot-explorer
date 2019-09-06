@@ -4,19 +4,6 @@
  **********************************************************/
 @import 'variables';
 
-@mixin nav-bar {
-    min-height: 50px;
-    @media screen and (min-width: $screenSize) {
-        border: {
-            bottom: {
-                width: 1px;
-                style: solid;
-                color: $navBarBorderColor;
-            }
-        }
-    }
-}
-
 @mixin form-control-readonly {
     border-width: 0px;
     color: $textfield-disabled-font;
