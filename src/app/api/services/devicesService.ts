@@ -24,10 +24,10 @@ import { Twin, Device, DataPlaneResponse } from '../models/device';
 import { DeviceIdentity } from '../models/deviceIdentity';
 import { DigitalTwinInterfaces } from '../models/digitalTwinModels';
 
-const DATAPLANE_CONTROLLER_ENDPOINT = `${CONTROLLER_API_ENDPOINT}${DATAPLANE}`;
+export const DATAPLANE_CONTROLLER_ENDPOINT = `${CONTROLLER_API_ENDPOINT}${DATAPLANE}`;
 const EVENTHUB_CONTROLLER_ENDPOINT = `${CONTROLLER_API_ENDPOINT}${EVENTHUB}`;
-const EVENTHUB_MONITOR_ENDPOINT = `${EVENTHUB_CONTROLLER_ENDPOINT}${MONITOR}`;
-const EVENTHUB_STOP_ENDPOINT = `${EVENTHUB_CONTROLLER_ENDPOINT}${STOP}`;
+export const EVENTHUB_MONITOR_ENDPOINT = `${EVENTHUB_CONTROLLER_ENDPOINT}${MONITOR}`;
+export const EVENTHUB_STOP_ENDPOINT = `${EVENTHUB_CONTROLLER_ENDPOINT}${STOP}`;
 const PAGE_SIZE = 20;
 
 export interface DataPlaneRequest {
@@ -54,7 +54,7 @@ export interface CloudToDeviceMethodResult {
 }
 
 // We can do something more sophisticated with agents and a factory
-const request = async (endpoint: string, parameters: any) => { // tslint:disable-line
+export const request = async (endpoint: string, parameters: any) => { // tslint:disable-line
     return fetch(
         endpoint,
         {
@@ -71,7 +71,7 @@ const request = async (endpoint: string, parameters: any) => { // tslint:disable
     );
 };
 
-const dataPlaneConnectionHelper = (parameters: DataPlaneParameters) => {
+export const dataPlaneConnectionHelper = (parameters: DataPlaneParameters) => {
     if (!parameters || !parameters.connectionString) {
         return;
     }
@@ -101,17 +101,13 @@ const dataPlaneResponseHelper = async (response: Response) => {
     }
 
     // error case
-    if (!result) {
-        throw new Error();
-    }
-    if (result.ExceptionMessage && result.Message) {
-        throw new Error(`${result.Message}: ${result.ExceptionMessage}`);
-    }
-    else if (!!result.ExceptionMessage || result.Message) {
-        throw new Error(!!result.ExceptionMessage ? result.ExceptionMessage : result.Message);
+    if (result && result.body) {
+        if (result.body.Message || result.body.ExceptionMessage) {
+            throw new Error(result.body.Message || result.body.ExceptionMessage);
+        }
     }
 
-    throw new Error(result);
+    throw new Error();
 };
 
 export const fetchDeviceTwin = async (parameters: FetchDeviceTwinParameters): Promise<Twin> => {
@@ -383,7 +379,7 @@ export const deleteDevices = async (parameters: DeleteDevicesParameters) => {
         const dataPlaneRequest: DataPlaneRequest = {
             body: JSON.stringify(deviceDeletionInstructions),
             hostName: connectionInfo.connectionInfo.hostName,
-            httpMethod: 'post',
+            httpMethod: HTTP_OPERATION_TYPES.Post,
             path: `devices`,
             sharedAccessSignature: connectionInfo.sasToken,
         };
@@ -419,7 +415,7 @@ export const monitorEvents = async (parameters: MonitorEventsParameters): Promis
 
 export const stopMonitoringEvents = async (): Promise<void> => {
     try {
-        const response = await request(EVENTHUB_STOP_ENDPOINT, {});
+        await request(EVENTHUB_STOP_ENDPOINT, {});
     } catch (error) {
         throw error;
     }

@@ -6,6 +6,9 @@ import { setIconOptions } from "office-ui-fabric-react/lib/Styling";
 import * as Enzyme from "enzyme";
 import * as Adapter from "enzyme-adapter-react-16";
 
+global['Headers'] = () => {};
+window.parent.fetch = jest.fn();
+
 // suppress icon warnings.
 setIconOptions({
   disableWarnings: true,
