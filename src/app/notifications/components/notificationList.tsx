@@ -79,6 +79,7 @@ export class NotificationList extends React.Component<NotificationListProps, Not
                             isBlocking={true}
                             onRenderHeader={this.onRenderHeader}
                             onDismiss={this.onCloseDisplay}
+                            closeButtonAriaLabel={context.t(ResourceKeys.common.close)}
                         >
                             <div>
                                 {notifications.length === 0 &&
