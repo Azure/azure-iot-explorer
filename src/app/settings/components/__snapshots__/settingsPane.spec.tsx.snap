@@ -26,6 +26,7 @@ exports[`components/settings/settingsPane matches snapshot is not open 1`] = `
 >
   <StyledPanelBase
     className="settingsPane"
+    closeButtonAriaLabel="common.close"
     isFooterAtBottom={true}
     isOpen={false}
     onDismiss={[Function]}
@@ -35,6 +36,7 @@ exports[`components/settings/settingsPane matches snapshot is not open 1`] = `
   >
     <PanelBase
       className="settingsPane"
+      closeButtonAriaLabel="common.close"
       hasCloseButton={true}
       isBlocking={true}
       isFooterAtBottom={true}
@@ -310,6 +312,7 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
 >
   <StyledPanelBase
     className="settingsPane"
+    closeButtonAriaLabel="common.close"
     isFooterAtBottom={true}
     isOpen={true}
     onDismiss={[Function]}
@@ -319,6 +322,7 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
   >
     <PanelBase
       className="settingsPane"
+      closeButtonAriaLabel="common.close"
       hasCloseButton={true}
       isBlocking={true}
       isFooterAtBottom={true}
@@ -1087,6 +1091,7 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                 class="ms-Panel-navigation navigation-54"
                               >
                                 <button
+                                  aria-label="common.close"
                                   class="ms-Button ms-Button--icon ms-Panel-closeButton ms-PanelAction-close closeButton-67"
                                   data-is-focusable="true"
                                   data-is-visible="true"
@@ -2067,6 +2072,7 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                     className="ms-Panel-navigation navigation-54"
                                   >
                                     <CustomizedIconButton
+                                      ariaLabel="common.close"
                                       className="ms-Panel-closeButton ms-PanelAction-close closeButton-55"
                                       data-is-visible={true}
                                       iconProps={
@@ -2090,6 +2096,7 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                       }
                                     >
                                       <IconButton
+                                        ariaLabel="common.close"
                                         className="ms-Panel-closeButton ms-PanelAction-close closeButton-55"
                                         data-is-visible={true}
                                         iconProps={
@@ -2347,6 +2354,7 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                         }
                                       >
                                         <BaseButton
+                                          ariaLabel="common.close"
                                           baseClassName="ms-Button"
                                           className="ms-Panel-closeButton ms-PanelAction-close closeButton-55"
                                           data-is-visible={true}
@@ -2883,6 +2891,7 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                         >
                                           <KeytipData>
                                             <button
+                                              aria-label="common.close"
                                               className="ms-Button ms-Button--icon ms-Panel-closeButton ms-PanelAction-close closeButton-67"
                                               data-is-focusable={true}
                                               data-is-visible={true}
@@ -3212,6 +3221,9 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                             [MockFunction] {
                                               "calls": Array [
                                                 Array [
+                                                  "common.close",
+                                                ],
+                                                Array [
                                                   "settings.headerText",
                                                 ],
                                                 Array [
@@ -3300,6 +3312,10 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                                 ],
                                               ],
                                               "results": Array [
+                                                Object {
+                                                  "type": "return",
+                                                  "value": "common.close",
+                                                },
                                                 Object {
                                                   "type": "return",
                                                   "value": "settings.headerText",
@@ -14450,6 +14466,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
 >
   <StyledPanelBase
     className="settingsPane"
+    closeButtonAriaLabel="common.close"
     isFooterAtBottom={true}
     isOpen={true}
     onDismiss={[Function]}
@@ -14459,6 +14476,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
   >
     <PanelBase
       className="settingsPane"
+      closeButtonAriaLabel="common.close"
       hasCloseButton={true}
       isBlocking={true}
       isFooterAtBottom={true}
@@ -15227,6 +15245,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                 class="ms-Panel-navigation navigation-54"
                               >
                                 <button
+                                  aria-label="common.close"
                                   class="ms-Button ms-Button--icon ms-Panel-closeButton ms-PanelAction-close closeButton-67"
                                   data-is-focusable="true"
                                   data-is-visible="true"
@@ -16207,6 +16226,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                     className="ms-Panel-navigation navigation-54"
                                   >
                                     <CustomizedIconButton
+                                      ariaLabel="common.close"
                                       className="ms-Panel-closeButton ms-PanelAction-close closeButton-55"
                                       data-is-visible={true}
                                       iconProps={
@@ -16230,6 +16250,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                       }
                                     >
                                       <IconButton
+                                        ariaLabel="common.close"
                                         className="ms-Panel-closeButton ms-PanelAction-close closeButton-55"
                                         data-is-visible={true}
                                         iconProps={
@@ -16487,6 +16508,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                         }
                                       >
                                         <BaseButton
+                                          ariaLabel="common.close"
                                           baseClassName="ms-Button"
                                           className="ms-Panel-closeButton ms-PanelAction-close closeButton-55"
                                           data-is-visible={true}
@@ -17023,6 +17045,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                         >
                                           <KeytipData>
                                             <button
+                                              aria-label="common.close"
                                               className="ms-Button ms-Button--icon ms-Panel-closeButton ms-PanelAction-close closeButton-67"
                                               data-is-focusable={true}
                                               data-is-visible={true}
@@ -17352,6 +17375,9 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                             [MockFunction] {
                                               "calls": Array [
                                                 Array [
+                                                  "common.close",
+                                                ],
+                                                Array [
                                                   "settings.headerText",
                                                 ],
                                                 Array [
@@ -17464,6 +17490,10 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                 ],
                                               ],
                                               "results": Array [
+                                                Object {
+                                                  "type": "return",
+                                                  "value": "common.close",
+                                                },
                                                 Object {
                                                   "type": "return",
                                                   "value": "settings.headerText",
@@ -24785,6 +24815,9 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                                 [MockFunction] {
                                                                   "calls": Array [
                                                                     Array [
+                                                                      "common.close",
+                                                                    ],
+                                                                    Array [
                                                                       "settings.headerText",
                                                                     ],
                                                                     Array [
@@ -24897,6 +24930,10 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                                     ],
                                                                   ],
                                                                   "results": Array [
+                                                                    Object {
+                                                                      "type": "return",
+                                                                      "value": "common.close",
+                                                                    },
                                                                     Object {
                                                                       "type": "return",
                                                                       "value": "settings.headerText",

@@ -71,9 +71,7 @@ describe('getRepoTokenSaga in private repo', () => {
             };
         expect(getRepoStateExpiredTimeStampClone.next(mockState).done).toEqual(false); // cannot test value because timestamp generated could be different
 
-        expect(getRepoStateExpiredTimeStampClone.next()).toEqual({
-            done: true,
-            value: token
-        });
+        expect(getRepoStateExpiredTimeStampClone.next().done).toEqual(true);
+        expect(getRepoStateExpiredTimeStampClone.next().token).not.toEqual('token');
     });
 });

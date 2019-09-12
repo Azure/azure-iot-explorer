@@ -16,6 +16,7 @@ import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationType
 import { MaskedCopyableTextField } from '../../shared/components/maskedCopyableTextField';
 import LabelWithTooltip from '../../shared/components/labelWithTooltip';
 import '../../css/_settingsPane.scss';
+import { ConfirmationDialog } from './confirmationDialog';
 
 export interface SettingsPaneProps extends Settings {
     isOpen: boolean;
@@ -41,6 +42,7 @@ export interface Settings {
 interface SettingsPaneState extends Settings{
     error?: string;
     isDirty: boolean;
+    showConfirmationDialog: boolean;
 }
 
 export default class SettingsPane extends React.Component<SettingsPaneProps & SettingsPaneActions & RouteComponentProps, SettingsPaneState> {
@@ -56,6 +58,7 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
             isDirty: false,
             rememberConnectionString: props.rememberConnectionString,
             repositoryLocations,
+            showConfirmationDialog: false
         };
     }
 
@@ -63,71 +66,86 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
         return (
             <LocalizationContextConsumer>
                 {(context: LocalizationContextInterface) => (
-                <Panel
-                    className="settingsPane"
-                    role="dialog"
-                    isOpen={this.props.isOpen}
-                    onDismiss={this.closePane}
-                    type={PanelType.medium}
-                    isFooterAtBottom={true}
-                    onRenderFooter={this.settingsFooter}
-                >
-                    <header className="panel-header">
-                        <h2>{context.t(ResourceKeys.settings.headerText)}</h2>
-                    </header>
-                    <section aria-label={context.t(ResourceKeys.settings.configuration.headerText)}>
-                        <h3 role="heading" aria-level={1}>{context.t(ResourceKeys.settings.configuration.headerText)}</h3>
-                        <MaskedCopyableTextField
-                            t={context.t}
-                            error={this.state.error && context.t(this.state.error)}
-                            ariaLabel={context.t(ResourceKeys.connectivityPane.connectionStringTextBox.label)}
-                            label={context.t(ResourceKeys.connectivityPane.connectionStringTextBox.label)}
-                            calloutContent={(<div className="callout-wrapper">
-                            <div className="content">
-                                {context.t(ResourceKeys.settings.configuration.connectionString.sublabel)}
-                            </div>
-                            <div className="footer">
-                                <Link
-                                    href={context.t(ResourceKeys.settings.configuration.connectionString.link)}
-                                    target="_blank"
-                                >
-                                    {context.t(ResourceKeys.settings.configuration.connectionString.link)}
-                                </Link>
-                            </div>
-                        </div>)}
-                            value={this.state.hubConnectionString}
-                            allowMask={true}
-                            readOnly={false}
-                            onTextChange={this.onConnectionStringChanged}
-                        />
-                    </section>
-                    <div className="remember-connection-string">
-                        <Checkbox
-                            ariaLabel={context.t(ResourceKeys.connectivityPane.connectionStringCheckbox.ariaLabel)}
-                            onChange={this.onCheckboxChange}
-                            checked={this.state.rememberConnectionString}
-                        />
-                        <LabelWithTooltip
-                            tooltipText={context.t(ResourceKeys.connectivityPane.connectionStringCheckbox.tooltip)}
-                        >
-                            {context.t(ResourceKeys.connectivityPane.connectionStringCheckbox.label)}
-                        </LabelWithTooltip>
-                    </div>
-                    <section aria-label={context.t(ResourceKeys.settings.modelDefinitions.headerText)}>
-                        <h3 role="heading" aria-level={1}>{context.t(ResourceKeys.settings.modelDefinitions.headerText)}</h3>
-                        <span className="helptext">{context.t(ResourceKeys.settings.modelDefinitions.helpText)}</span>
-                        <RepositoryLocationList
-                            items={this.state.repositoryLocations}
-                            onAddListItem={this.onAddListItem}
-                            onMoveItem={this.onMoveRepositoryLocation}
-                            onPrivateRepositoryConnectionStringChanged={this.onPrivateRepositoryConnectionStringChanged}
-                            onRemoveListItem={this.onRemoveListItem}
-                        />
-                    </section>
-                </Panel>
-            )}
+                    <Panel
+                        className="settingsPane"
+                        role="dialog"
+                        isOpen={this.props.isOpen}
+                        onDismiss={this.dismissPane}
+                        type={PanelType.medium}
+                        isFooterAtBottom={true}
+                        onRenderFooter={this.settingsFooter}
+                        closeButtonAriaLabel={context.t(ResourceKeys.common.close)}
+                    >
+                        <header className="panel-header">
+                            <h2>{context.t(ResourceKeys.settings.headerText)}</h2>
+                        </header>
+                        <section aria-label={context.t(ResourceKeys.settings.configuration.headerText)}>
+                            <h3 role="heading" aria-level={1}>{context.t(ResourceKeys.settings.configuration.headerText)}</h3>
+                            <MaskedCopyableTextField
+                                t={context.t}
+                                error={this.state.error && context.t(this.state.error)}
+                                ariaLabel={context.t(ResourceKeys.connectivityPane.connectionStringTextBox.label)}
+                                label={context.t(ResourceKeys.connectivityPane.connectionStringTextBox.label)}
+                                calloutContent={(<div className="callout-wrapper">
+                                <div className="content">
+                                    {context.t(ResourceKeys.settings.configuration.connectionString.sublabel)}
+                                </div>
+                                <div className="footer">
+                                    <Link
+                                        href={context.t(ResourceKeys.settings.configuration.connectionString.link)}
+                                        target="_blank"
+                                    >
+                                        {context.t(ResourceKeys.settings.configuration.connectionString.link)}
+                                    </Link>
+                                </div>
+                            </div>)}
+                                value={this.state.hubConnectionString}
+                                allowMask={true}
+                                readOnly={false}
+                                onTextChange={this.onConnectionStringChanged}
+                            />
+                        </section>
+                        <div className="remember-connection-string">
+                            <Checkbox
+                                ariaLabel={context.t(ResourceKeys.connectivityPane.connectionStringCheckbox.ariaLabel)}
+                                onChange={this.onCheckboxChange}
+                                checked={this.state.rememberConnectionString}
+                            />
+                            <LabelWithTooltip
+                                tooltipText={context.t(ResourceKeys.connectivityPane.connectionStringCheckbox.tooltip)}
+                            >
+                                {context.t(ResourceKeys.connectivityPane.connectionStringCheckbox.label)}
+                            </LabelWithTooltip>
+                        </div>
+                        <section aria-label={context.t(ResourceKeys.settings.modelDefinitions.headerText)}>
+                            <h3 role="heading" aria-level={1}>{context.t(ResourceKeys.settings.modelDefinitions.headerText)}</h3>
+                            <span className="helptext">{context.t(ResourceKeys.settings.modelDefinitions.helpText)}</span>
+                            <RepositoryLocationList
+                                items={this.state.repositoryLocations}
+                                onAddListItem={this.onAddListItem}
+                                onMoveItem={this.onMoveRepositoryLocation}
+                                onPrivateRepositoryConnectionStringChanged={this.onPrivateRepositoryConnectionStringChanged}
+                                onRemoveListItem={this.onRemoveListItem}
+                            />
+                        </section>
+                        {this.renderConfirmationDialog(context)}
+                    </Panel>
+                )}
             </LocalizationContextConsumer>
         );
+    }
+
+    private readonly renderConfirmationDialog = (context: LocalizationContextInterface) => {
+        if (this.state.isDirty && this.state.showConfirmationDialog) {
+            return (
+                <ConfirmationDialog
+                    t={context.t}
+                    messageKey={ResourceKeys.settings.confirmationMessage}
+                    onYes={this.onDialogConfirmCancel}
+                    onNo={this.closeDialog}
+                />
+            );
+        }
     }
 
     private readonly onAddListItem = (type: REPOSITORY_LOCATION_TYPE) => {
@@ -177,21 +195,48 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
         });
     }
 
-    private readonly closePane = () => {
+    private readonly dismissPane = () => {
         if (this.state.isDirty) {
-            this.setState({
-                error: '',
-                hubConnectionString: this.props.hubConnectionString,
-                isDirty: false,
-                repositoryLocations: [...(this.props.repositoryLocations && this.props.repositoryLocations.map(value => {
-                    return {
-                        connectionString: value.connectionString,
-                        repositoryLocationType: value.repositoryLocationType
-                    };
-                }))]
-            });
+            this.revertState();
         }
         this.props.onSettingsVisibleChanged(false);
+    }
+
+    private readonly closePane = () => {
+        if (this.state.isDirty) {
+            this.showDialog();
+        }
+        else {
+            this.props.onSettingsVisibleChanged(false);
+        }
+    }
+
+    private readonly onDialogConfirmCancel = (): void => {
+        this.revertState();
+        this.props.onSettingsVisibleChanged(false);
+    }
+
+    private readonly revertState = (): void => {
+        this.setState({
+            error: '',
+            hubConnectionString: this.props.hubConnectionString,
+            isDirty: false,
+            repositoryLocations: [...(this.props.repositoryLocations && this.props.repositoryLocations.map(value => {
+                return {
+                    connectionString: value.connectionString,
+                    repositoryLocationType: value.repositoryLocationType
+                };
+            }))],
+            showConfirmationDialog: false
+        });
+    }
+
+    private readonly showDialog = (): void => {
+        this.setState({ showConfirmationDialog: true });
+    }
+
+    private readonly closeDialog = (): void => {
+        this.setState({ showConfirmationDialog: false });
     }
 
     private readonly saveSettings = () => {

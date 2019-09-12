@@ -8,6 +8,11 @@ export class ResourceKeys {
    };
    public static common = {
       close : "common.close",
+      confirmationDialog : {
+         no : "common.confirmationDialog.no",
+         title : "common.confirmationDialog.title",
+         yes : "common.confirmationDialog.yes",
+      },
       learnMore : "common.learnMore",
       loading : "common.loading",
       maskedCopyableTextField : {
@@ -425,6 +430,7 @@ export class ResourceKeys {
          },
          headerText : "settings.configuration.headerText",
       },
+      confirmationMessage : "settings.confirmationMessage",
       footerText : "settings.footerText",
       headerText : "settings.headerText",
       modelDefinitions : {

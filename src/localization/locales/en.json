@@ -12,6 +12,11 @@
                 "label": "Copy Contents",
                 "ariaLabel": "Copy contents"
             }
+        },
+        "confirmationDialog": {
+            "title": "Confirmation",
+            "yes": "Yes",
+            "no": "No"
         }
     },
     "header": {
@@ -75,8 +80,9 @@
             }
         },
         "footerText": "You can come back to Settings and make changes later.",
-        "save": "Connect",
-        "cancel": "Cancel"
+        "save": "Save and Connect",
+        "cancel": "Close",
+        "confirmationMessage": "Are you sure you want to close without saving?"
     },
     "breadcrumb": {
         "hub": "Hub {{hubName}}",
