@@ -1,6 +1,6 @@
 {
   "name": "azure-iot-explorer",
-  "version": "0.10.3",
+  "version": "0.10.4",
   "description": "This project welcomes contributions and suggestions.  Most contributions require you to agree to a\r Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us\r the rights to use your contribution. For details, visit https://cla.microsoft.com.",
   "main": "public/electron.js",
   "build": {
@@ -98,7 +98,8 @@
     "request": "2.88.0",
     "reselect": "4.0.0",
     "typescript-fsa": "3.0.0-beta-2",
-    "typescript-fsa-reducers": "1.0.0"
+    "typescript-fsa-reducers": "1.0.0",
+    "update-electron-app": "1.5.0"
   },
   "devDependencies": {
     "@types/async-lock": "1.1.0",

@@ -2,6 +2,8 @@ import * as electron from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 import '../dist/server/server';
+// tslint:disable-next-line:no-var-requires
+require('update-electron-app')();
 
 const app = electron.app;
 const Menu = electron.Menu;
