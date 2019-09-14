@@ -41,8 +41,10 @@ export default class DeviceCommandsPerInterfacePerCommand
                 <LocalizationContextConsumer >
                     {(context: LocalizationContextInterface) => (
                         <ErrorBoundary error={context.t(ResourceKeys.errorBoundary.text)}>
+                            <div className="ms-Grid-row">
                             {this.createCollapsedSummary(context)}
                             {this.createUncollapsedCard(context)}
+                            </div>
                         </ErrorBoundary>
                     )}
                 </LocalizationContextConsumer>
@@ -59,11 +61,7 @@ export default class DeviceCommandsPerInterfacePerCommand
                 {this.renderCommandSchema(context, true)}
                 {this.renderCommandSchema(context, false)}
                 {this.renderCommandType(context)}
-                <IconButton
-                    title={context.t(this.props.collapsed ? ResourceKeys.deviceCommands.command.expand : ResourceKeys.deviceCommands.command.collapse)}
-                    className="column-toggle"
-                    iconProps={{iconName: this.props.collapsed ? InterfaceDetailCard.OPEN : InterfaceDetailCard.CLOSE}}
-                />
+                {this.renderCollapseButton(context)}
             </header>
         );
     }
@@ -128,18 +126,28 @@ export default class DeviceCommandsPerInterfacePerCommand
         displayName = displayName ? displayName : '--';
         let description = getLocalizedData(this.props.commandModelDefinition.description);
         description = description ? description : '--';
-        return <Label aria-label={ariaLabel} className="column-name">{this.props.commandModelDefinition.name} ({displayName} / {description})</Label>;
+        return <div className="ms-Grid-col ms-u-sm3"><Label aria-label={ariaLabel}>{this.props.commandModelDefinition.name} ({displayName} / {description})</Label></div>;
     }
 
     private readonly renderCommandSchema = (context: LocalizationContextInterface, isRequest: boolean) => {
         const ariaLabel = context.t(ResourceKeys.deviceCommands.columns.type);
-        return <Label aria-label={ariaLabel} className="column-schema">{this.getCommandSchema(isRequest)}</Label>;
+        return <div className="ms-Grid-col ms-u-sm3"><Label aria-label={ariaLabel}>{this.getCommandSchema(isRequest)}</Label></div>;
     }
 
     private readonly renderCommandType = (context: LocalizationContextInterface) => {
         const ariaLabel = context.t(ResourceKeys.deviceCommands.columns.schema.request);
         const { commandModelDefinition } = this.props;
-        return <Label aria-label={ariaLabel} className="column-type">{commandModelDefinition.commandType ? commandModelDefinition.commandType : '--'}</Label>;
+        return <div className="ms-Grid-col ms-u-sm2"><Label aria-label={ariaLabel}>{commandModelDefinition.commandType ? commandModelDefinition.commandType : '--'}</Label></div>;
+    }
+
+    private readonly renderCollapseButton = (context: LocalizationContextInterface) => {
+        return (
+        <div className="ms-Grid-col ms-u-sm1">
+            <IconButton
+                title={context.t(this.props.collapsed ? ResourceKeys.deviceCommands.command.expand : ResourceKeys.deviceCommands.command.collapse)}
+                iconProps={{iconName: this.props.collapsed ? InterfaceDetailCard.OPEN : InterfaceDetailCard.CLOSE}}
+            />
+        </div>);
     }
 
     private readonly onSubmit = (data: any) => () => { // tslint:disable-line:no-any

@@ -890,43 +890,42 @@ exports[`components/devices/deviceEvents matches snapshot while state is loading
     <section
       className="list-content"
     >
-      <div>
+      <div
+        className="scrollable-sm"
+      >
         <div
-          className="pnp-detail-list"
+          className="pnp-detail-list ms-Grid"
         >
           <div
-            className="list-header"
+            className="list-header list-header-uncollapsible ms-Grid-row"
           >
             <span
-              className="column-timestamp-sm"
+              className="ms-Grid-col ms-u-sm2"
             >
               deviceEvents.columns.timestamp
             </span>
             <span
-              className="column-name-sm"
+              className="ms-Grid-col ms-u-sm2"
             >
               deviceEvents.columns.displayName
             </span>
             <span
-              className="column-schema-sm"
+              className="ms-Grid-col ms-u-sm2"
             >
               deviceEvents.columns.schema
             </span>
             <span
-              className="column-unit"
+              className="ms-Grid-col ms-u-sm2"
             >
               deviceEvents.columns.unit
             </span>
             <span
-              className="column-value"
+              className="ms-Grid-col ms-u-sm4"
             >
               deviceEvents.columns.value
             </span>
           </div>
         </div>
-        <div
-          className="scrollable-sm"
-        />
       </div>
     </section>
   </InfiniteScroll>

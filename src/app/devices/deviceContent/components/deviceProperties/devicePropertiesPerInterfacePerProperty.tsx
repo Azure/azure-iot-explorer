@@ -66,7 +66,7 @@ export default class DevicePropertiesPerInterfacePerProperty
         displayName = displayName ? displayName : '--';
         let description = getLocalizedData(this.props.propertyModelDefinition.description);
         description = description ? description : '--';
-        return <Label aria-label={ariaLabel} className="column-name">{this.props.propertyModelDefinition.name} ({displayName} / {description})</Label>;
+        return <div className="ms-Grid-col ms-u-sm3"><Label aria-label={ariaLabel}>{this.props.propertyModelDefinition.name} ({displayName} / {description})</Label></div>;
     }
 
     private readonly renderPropertySchema = (context: LocalizationContextInterface) => {
@@ -75,19 +75,19 @@ export default class DevicePropertiesPerInterfacePerProperty
         const schemaType = typeof propertyModelDefinition.schema === 'string' ?
             propertyModelDefinition.schema :
             propertyModelDefinition.schema['@type'];
-        return <Label aria-label={ariaLabel} className="column-schema-sm">{schemaType}</Label>;
+        return <div className="ms-Grid-col ms-u-sm3"><Label aria-label={ariaLabel}>{schemaType}</Label></div>;
     }
 
     private readonly renderPropertyUnit = (context: LocalizationContextInterface) => {
         const ariaLabel = context.t(ResourceKeys.deviceProperties.columns.unit);
         const unit = this.props.propertyModelDefinition.unit;
-        return <Label aria-label={ariaLabel} className="column-unit">{unit ? unit : '--'}</Label>;
+        return <div className="ms-Grid-col ms-u-sm3"><Label aria-label={ariaLabel}>{unit ? unit : '--'}</Label></div>;
     }
 
     private readonly renderPropertyReportedValue = (context: LocalizationContextInterface) => {
         const ariaLabel = context.t(ResourceKeys.deviceProperties.columns.value);
         return (
-            <div className="column-value-text" aria-label={ariaLabel}>
+            <div className="column-value-text ms-Grid-col ms-u-sm3" aria-label={ariaLabel}>
                 {this.props.reportedTwin ?
                     (this.isSchemaSimpleType() ?
                         RenderSimplyTypeValue(

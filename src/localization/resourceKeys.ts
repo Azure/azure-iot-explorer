@@ -324,6 +324,7 @@ export class ResourceKeys {
          error : "deviceSettings.columns.error",
          name : "deviceSettings.columns.name",
          reportedValue : "deviceSettings.columns.reportedValue",
+         reportedValueTooltip : "deviceSettings.columns.reportedValueTooltip",
          schema : "deviceSettings.columns.schema",
          unit : "deviceSettings.columns.unit",
       },

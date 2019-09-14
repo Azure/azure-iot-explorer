@@ -47,7 +47,7 @@ describe('components/devices/deviceCommandsPerInterfacePerCommand', () => {
     it('toggles collapsed', () => {
         const wrapper = getComponent();
         expect((wrapper.state() as DeviceCommandState).allCollapsed).toBeFalsy();
-        const button = wrapper.find(DefaultButton).first();
+        const button = wrapper.find(IconButton).first();
         button.simulate('click');
         wrapper.update();
         expect((wrapper.state() as DeviceCommandState).allCollapsed).toBeTruthy();
@@ -58,7 +58,7 @@ describe('components/devices/deviceCommandsPerInterfacePerCommand', () => {
         const wrapper = getComponent();
         let collapsed = (wrapper.state() as DeviceCommandState).collapseMap.get(0);
         expect(collapsed).toBeFalsy();
-        const button = wrapper.find(IconButton).first();
+        const button = wrapper.find(IconButton).at(1);
         button.simulate('click');
         wrapper.update();
         collapsed = (wrapper.state() as DeviceCommandState).collapseMap.get(0);

@@ -4,36 +4,6 @@
  **********************************************************/
 @import 'variables';
 
-@mixin column-item-padding {
-    margin-top: 10px;
-    padding-left: 26px;
-}
-
-@mixin column-name {
-    float: left;
-    width: 35%;
-}
-
-@mixin column-schema-sm {
-    width: 10%;
-    float: left;
-}
-
-@mixin column-schema {
-    width: 15%;
-    float: left;
-}
-
-@mixin column-unit {
-    width: 10%;
-    float: left;
-}
-
-@mixin column-sm {
-    float: left;
-    width: 15%;
-}
-
 @mixin default-button {
     background: $white;
     color: $blue;
@@ -43,7 +13,7 @@
 @mixin validation-error {
     padding-top: 10px;
     color: $errorText;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .pnp-detail-list {
@@ -52,39 +22,22 @@
     background-color: $white;
     .list-header {
         font-weight: bold;
-        padding-bottom: 10px;
-        border-bottom: 3px solid $gray;
-        .column-name-sm {
-            @include column-sm;
-        }
-        .column-name {
-            @include column-name;
-            padding-left: 26px;
-        }
-        .column-schema {
-            @include column-schema;
-        }
-        .column-schema-sm {
-            @include column-schema-sm;
-        }
-        .column-unit {
-            @include column-unit;
-        }
-        .column-value {
-            max-width: 40%;
-        }
-        .column-type {
-            max-width: 30%;
-        }
-        .column-timestamp-sm {
-            @include column-sm;
-            padding-left: 26px;
-        }
+        border-bottom: 1px solid $gray;
+        padding-bottom: 5px;
         .column-toggle {
             @include default-button;
-            float: right;
-            top: -8px;
+            top: -5px;
         }
+        .reported-value {
+            margin-top: -8px;
+        }
+        .collapse-button {
+            margin-top: -5px;
+        }
+    }
+
+    .list-header-uncollapsible {
+        padding-bottom: 13px;
     }
 }
 
@@ -95,51 +48,19 @@
             overflow: auto;
             width: 100%;
             border-bottom: 1px solid $light-gray;
-            .column-name {
-                @include column-name;
-                @include column-item-padding;
-            }
-            .column-name-sm {
-                @include column-sm;
-                @include column-item-padding;
-            }
-            .column-schema {
-                @include column-schema;
-                @include column-item-padding;
-            }
-            .column-schema-sm {
-                @include column-schema-sm;
-                @include column-item-padding;
-            }
-            .column-unit {
-                @include column-unit;
-                @include column-item-padding;
-            }
-            .column-type {
-                float: left;
-                max-width: 30%;
-                @include column-item-padding;
-            }
             .column-value-text {
-                float: left;
-                max-width: calc(40% - 26px);
-                @include column-item-padding;
                 .column-value-button {
                     @include default-button;
-                    float: left;
                 }
                 .value-validation-error {
                     @include validation-error;
                 }
             }
-            .column-timestamp-sm {
-                @include column-sm;
-                @include column-item-padding;
-            }
             .column-toggle {
                 padding-right: 2%;
                 float: right;
-                margin-top: 10px;
+                margin-top: 5px;
+                padding-left: 20%;
             }
         }
 
@@ -160,7 +81,7 @@
             border-bottom: 1px solid $gray;
 
             .value-section {
-                padding: 20px 0 0 7px;
+                padding-top: 20px;
             }
 
             .submit-button {
@@ -179,7 +100,7 @@
             top: 0;
             padding: 15px;
             height: calc(100% - #{$mastheadHeight});
-            left: calc(50% - 30px);
+            left: 50%;
             border: none;
             box-shadow: 0px 0px 50px $gray;
             overflow: auto;
@@ -214,7 +135,6 @@
     .interface-definition
     {
         padding-top: 20px;
-        overflow-y: auto;
     }
 }
 
