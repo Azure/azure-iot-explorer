@@ -43,6 +43,7 @@ export const raiseNotificationToast = (notification: Notification) => {
     const options: ToastOptions = {
         bodyClassName: 'notification-toast-body',
         closeButton: <CloseButton />,
+        pauseOnHover: true,
         position: toast.POSITION.TOP_RIGHT,
         progressClassName: `notification-toast-progress-bar`,
         toastId: notification.id,
