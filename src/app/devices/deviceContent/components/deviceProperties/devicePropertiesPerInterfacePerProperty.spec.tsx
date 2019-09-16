@@ -55,7 +55,7 @@ describe('components/devices/devicePropertiesPerInterfacePerProperty', () => {
         expect(valueLabel.props().children).toEqual('true');
     });
 
-    it('matches snapshot when there is a non-writable property of complex type', () => {
+    it('renders button to open complex details when there is a non-writable property of complex type', () => {
         const schema = 'Object';
         const reportedTwin = {
             test: 'value'
@@ -86,8 +86,6 @@ describe('components/devices/devicePropertiesPerInterfacePerProperty', () => {
                 handleOverlayToggle={handleOverlayToggle}
             />
         );
-
-        expect(wrapper).toMatchSnapshot();
 
         const nameLabel = wrapper.find(Label).first();
         expect((nameLabel.props().children as any).join('')).toEqual(`${name} (${displayName} / ${description})`);  // tslint:disable-line:no-any

@@ -50,11 +50,7 @@ describe('components/devices/deviceCommandsPerInterfacePerCommand', () => {
     it('matches snapshot while loading', () => {
         expect(getComponent()).toMatchSnapshot();
     });
-    it('matches snapshot with empty commandSchemas', () => {
-        const component = getComponent({ isLoading: false});
-        const deviceCommandPerInterface = component.find(DeviceCommandsPerInterface).first();
-        expect(deviceCommandPerInterface).toMatchSnapshot();
-    });
+
     it('matches snapshot with a commandSchema', () => {
         const component = getComponent({
             commandSchemas: [

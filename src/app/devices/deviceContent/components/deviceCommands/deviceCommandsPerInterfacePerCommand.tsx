@@ -42,8 +42,8 @@ export default class DeviceCommandsPerInterfacePerCommand
                     {(context: LocalizationContextInterface) => (
                         <ErrorBoundary error={context.t(ResourceKeys.errorBoundary.text)}>
                             <div className="ms-Grid-row">
-                            {this.createCollapsedSummary(context)}
-                            {this.createUncollapsedCard(context)}
+                                {this.createCollapsedSummary(context)}
+                                {this.createUncollapsedCard(context)}
                             </div>
                         </ErrorBoundary>
                     )}

@@ -45,8 +45,6 @@ describe('components/devices/deviceSettingsPerInterface', () => {
         button.simulate('click');
         wrapper.update();
         expect((wrapper.state() as DeviceSettingState).allCollapsed).toBeTruthy();
-        expect(wrapper).toMatchSnapshot();
-
     });
 
     it('executes handle toggle from child', () => {
