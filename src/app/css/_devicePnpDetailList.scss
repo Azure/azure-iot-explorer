@@ -100,7 +100,7 @@
             top: 0;
             padding: 15px;
             height: calc(100% - #{$mastheadHeight});
-            left: 50%;
+            left: calc(50% - 30px);
             border: none;
             box-shadow: 0px 0px 50px $gray;
             overflow: auto;
