@@ -9,6 +9,7 @@ export const LIST_PLUG_AND_PLAY_DEVICES = `
     statusUpdatedTime as StatusUpdatedTime,
     authenticationType as AuthenticationType,
     cloudToDeviceMessageCount as CloudToDeviceMessageCount,
+    connectionState as ConnectionState,
     capabilities.iotEdge as IotEdge
     FROM devices`;
 export const DEVICE_TWIN_QUERY_STRING = ' SELECT * FROM devices WHERE deviceId = {deviceId}';

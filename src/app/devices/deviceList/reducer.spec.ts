@@ -4,7 +4,6 @@
  **********************************************************/
 import 'jest';
 import { Record, Map as ImmutableMap, fromJS } from 'immutable';
-import { LIST_DEVICES, CLEAR_DEVICES, ADD_DEVICE, DELETE_DEVICES } from '../../constants/actionTypes';
 import { clearDevicesAction, listDevicesAction, addDeviceAction, deleteDevicesAction } from './actions';
 import reducer from './reducer';
 import { DeviceListStateInterface, deviceListStateInitial } from './state';
@@ -18,7 +17,9 @@ describe('deviceListStateReducer', () => {
     const deviceSummary: DeviceSummary = {
         authenticationType: 'sas',
         cloudToDeviceMessageCount: '0',
+        connectionState: 'Connected',
         deviceId,
+        iotEdge: false,
         lastActivityTime: null,
         status: 'Enabled',
         statusUpdatedTime: null,
@@ -26,6 +27,7 @@ describe('deviceListStateReducer', () => {
     const deviceObject: Device = {
         AuthenticationType: 'sas',
         CloudToDeviceMessageCount: '0',
+        ConnectionState: 'Connected',
         DeviceId: deviceId,
         IotEdge: false,
         LastActivityTime: null,
@@ -102,7 +104,7 @@ describe('deviceListStateReducer', () => {
     });
 
     it(`handles ADD_DEVICE/ACTION_DONE action`, () => {
-        const action = addDeviceAction.done({ params: undefined, result: deviceSummary });
+        const action = addDeviceAction.done({ params: undefined, result: undefined });
         expect(reducer(deviceListStateInitial(), action).devices.deviceListSynchronizationStatus).toEqual(SynchronizationStatus.upserted);
     });
 

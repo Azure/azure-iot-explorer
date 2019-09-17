@@ -209,11 +209,16 @@
                 "label": "Status",
                 "infoText": "The current status of the device"
             },
-            "lastActivityTime": "Last activity",
-            "statusUpdatedTime":"Last status update",
+            "connection": "Connection state",
+            "lastActivityTime": "Last activity time",
+            "statusUpdatedTime":"Last status update time",
             "cloudToDeviceMessageCount": "Cloud to device message count",
             "authenticationType": "Authentication type",
-            "isEdgeDevice": "Edge device",
+            "isEdgeDevice": {
+                "label": "Edge device",
+                "yes": "Is Edge device",
+                "no": "Is not Edge device"
+            },
             "isPnpDevice": "IoT Plug and Play device",
             "interfaces": "Interfaces"
         },

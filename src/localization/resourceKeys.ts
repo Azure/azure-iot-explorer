@@ -210,12 +210,17 @@ export class ResourceKeys {
       columns : {
          authenticationType : "deviceLists.columns.authenticationType",
          cloudToDeviceMessageCount : "deviceLists.columns.cloudToDeviceMessageCount",
+         connection : "deviceLists.columns.connection",
          deviceId : {
             infoText : "deviceLists.columns.deviceId.infoText",
             label : "deviceLists.columns.deviceId.label",
          },
          interfaces : "deviceLists.columns.interfaces",
-         isEdgeDevice : "deviceLists.columns.isEdgeDevice",
+         isEdgeDevice : {
+            label : "deviceLists.columns.isEdgeDevice.label",
+            no : "deviceLists.columns.isEdgeDevice.no",
+            yes : "deviceLists.columns.isEdgeDevice.yes",
+         },
          isPnpDevice : "deviceLists.columns.isPnpDevice",
          lastActivityTime : "deviceLists.columns.lastActivityTime",
          status : {

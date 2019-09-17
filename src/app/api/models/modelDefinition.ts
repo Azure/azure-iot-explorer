@@ -47,7 +47,7 @@ export interface Schema {
 
 export interface EnumSchema {
     '@type': string;
-    enumValues: Array<{ displayName: string, name: string, enumValue: number}>;
+    enumValues: Array<{ displayName: string | object, name: string, enumValue: number}>;
 }
 
 export interface ObjectSchema {

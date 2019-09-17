@@ -10,6 +10,7 @@ export interface Device {
     CloudToDeviceMessageCount: string;
     AuthenticationType: string;
     IotEdge: boolean;
+    ConnectionState: string;
 }
 
 export interface DataPlaneResponse<T> {

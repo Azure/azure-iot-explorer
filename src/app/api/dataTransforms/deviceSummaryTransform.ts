@@ -10,7 +10,9 @@ export const transformDevice = (device: Device): DeviceSummary => {
     return {
         authenticationType: device.AuthenticationType,
         cloudToDeviceMessageCount: device.CloudToDeviceMessageCount,
+        connectionState: device.ConnectionState,
         deviceId: device.DeviceId,
+        iotEdge: device.IotEdge,
         lastActivityTime: parseDateTimeString(device.LastActivityTime),
         status: device.Status,
         statusUpdatedTime: parseDateTimeString(device.StatusUpdatedTime)
