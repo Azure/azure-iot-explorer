@@ -165,7 +165,7 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
                                 </NavLink>
                             );
                         },
-                        widthPercentage: 30
+                        widthPercentage: 20
                     },
                     {
                         infoText: context.t(ResourceKeys.deviceLists.columns.status.infoText),
@@ -174,13 +174,64 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
                             return (
                                 <Label
                                     key={key}
-                                    className={'status-label'}
                                 >
                                     {(group.data as DeviceSummary).status}
                                 </Label>
                             );
                         },
-                        widthPercentage: 20
+                        widthPercentage: 10
+                    },
+                    {
+                        name: context.t(ResourceKeys.deviceLists.columns.connection),
+                        onRenderColumn: (group, key) => {
+                            return (
+                                <Label
+                                    key={key}
+                                >
+                                    {(group.data as DeviceSummary).connectionState}
+                                </Label>
+                            );
+                        },
+                        widthPercentage: 10
+                    },
+                    {
+                        name: context.t(ResourceKeys.deviceLists.columns.authenticationType),
+                        onRenderColumn: (group, key) => {
+                            return (
+                                <Label
+                                    key={key}
+                                >
+                                    {(group.data as DeviceSummary).authenticationType}
+                                </Label>
+                            );
+                        },
+                        widthPercentage: 10
+                    },
+                    {
+                        name: context.t(ResourceKeys.deviceLists.columns.lastActivityTime),
+                        onRenderColumn: (group, key) => {
+                            return (
+                                <Label
+                                    key={key}
+                                >
+                                    {(group.data as DeviceSummary).lastActivityTime || '--'}
+                                </Label>
+                            );
+                        },
+                        widthPercentage: 15
+                    },
+                    {
+                        name: context.t(ResourceKeys.deviceLists.columns.statusUpdatedTime),
+                        onRenderColumn: (group, key) => {
+                            return (
+                                <Label
+                                    key={key}
+                                >
+                                    {(group.data as DeviceSummary).statusUpdatedTime || '--'}
+                                </Label>
+                            );
+                        },
+                        widthPercentage: 15
                     }
                 ]}
             />

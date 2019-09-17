@@ -106,7 +106,7 @@ export class DeviceListCell extends React.PureComponent<DeviceListCellProps, Dev
         return (
             <div className="device-list-cell-container-content">
                 <span className="device-list-cell-item first">{`${context.t(ResourceKeys.deviceLists.columns.lastActivityTime)}: `}<span className="data">{device.lastActivityTime || context.t(ResourceKeys.deviceLists.noData)}</span></span>
-                <span className={`device-list-cell-item ${this.state.interfaceIds.length === 0 && 'last'}`}>{`${context.t(ResourceKeys.deviceLists.columns.statusUpdatedTime)}: `}<span className="data">{device.statusUpdatedTime || context.t(ResourceKeys.deviceLists.noData)}</span></span>
+                <span className={`device-list-cell-item ${this.state.interfaceIds.length !== 0 ? '' : 'last'}`}>{`${context.t(ResourceKeys.deviceLists.columns.statusUpdatedTime)}: `}<span className="data">{device.statusUpdatedTime || context.t(ResourceKeys.deviceLists.noData)}</span></span>
                 {this.state.interfaceIds.length !== 0 &&
                     <span className="device-list-cell-item last">
                         <Icon

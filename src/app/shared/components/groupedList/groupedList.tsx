@@ -29,7 +29,7 @@ export interface GroupedListProps<T> {
 
 export interface GroupedListColumn {
     name: string;
-    infoText: string;
+    infoText?: string;
     widthPercentage: number;
     onRenderColumn: (group: IGroup, key?: string | number) => JSX.Element;
 }

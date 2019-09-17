@@ -9,4 +9,6 @@ export interface DeviceSummary {
     statusUpdatedTime: string;
     cloudToDeviceMessageCount: string;
     authenticationType: string;
+    connectionState: string;
+    iotEdge: boolean;
 }
