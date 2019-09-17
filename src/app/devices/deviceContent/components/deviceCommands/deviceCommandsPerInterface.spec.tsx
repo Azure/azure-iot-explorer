@@ -44,21 +44,21 @@ describe('components/devices/deviceCommandsPerInterfacePerCommand', () => {
     it('matches snapshot', () => {
         expect(getComponent()).toMatchSnapshot();
     });
+
     it('toggles collapsed', () => {
         const wrapper = getComponent();
         expect((wrapper.state() as DeviceCommandState).allCollapsed).toBeFalsy();
-        const button = wrapper.find(DefaultButton).first();
+        const button = wrapper.find(IconButton).first();
         button.simulate('click');
         wrapper.update();
         expect((wrapper.state() as DeviceCommandState).allCollapsed).toBeTruthy();
-        expect(wrapper).toMatchSnapshot();
-
     });
+
     it('executes handle toggle from child', () => {
         const wrapper = getComponent();
         let collapsed = (wrapper.state() as DeviceCommandState).collapseMap.get(0);
         expect(collapsed).toBeFalsy();
-        const button = wrapper.find(IconButton).first();
+        const button = wrapper.find(IconButton).at(1);
         button.simulate('click');
         wrapper.update();
         collapsed = (wrapper.state() as DeviceCommandState).collapseMap.get(0);

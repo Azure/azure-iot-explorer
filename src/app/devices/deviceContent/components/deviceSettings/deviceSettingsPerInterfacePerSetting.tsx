@@ -63,9 +63,11 @@ export default class DeviceSettingsPerInterfacePerSetting
                 <LocalizationContextConsumer>
                     {(context: LocalizationContextInterface) => (
                         <ErrorBoundary error={context.t(ResourceKeys.errorBoundary.text)}>
-                            {this.createCollapsedSummary(context)}
-                            {this.createUncollapsedCard()}
-                            {this.createReportedValuePanel()}
+                            <div className="ms-Grid-row">
+                                {this.createCollapsedSummary(context)}
+                                {this.createUncollapsedCard()}
+                                {this.createReportedValuePanel()}
+                            </div>
                         </ErrorBoundary>
                     )}
                 </LocalizationContextConsumer>
@@ -86,11 +88,7 @@ export default class DeviceSettingsPerInterfacePerSetting
                 {this.renderPropertySchema(context)}
                 {this.renderPropertyUnit(context)}
                 {this.renderPropertyReportedValue(context)}
-                <IconButton
-                    title={context.t(this.props.collapsed ? ResourceKeys.deviceSettings.command.expand : ResourceKeys.deviceSettings.command.collapse)}
-                    className="column-toggle"
-                    iconProps={{iconName: this.props.collapsed ? InterfaceDetailCard.OPEN : InterfaceDetailCard.CLOSE}}
-                />
+                {this.renderCollapseButton(context)}
             </header>
         );
     }
@@ -101,7 +99,7 @@ export default class DeviceSettingsPerInterfacePerSetting
         displayName = displayName ? displayName : '--';
         let description = getLocalizedData(this.props.settingModelDefinition.description);
         description = description ? description : '--';
-        return <Label aria-label={ariaLabel} className="column-name">{this.props.settingModelDefinition.name} ({displayName} / {description})</Label>;
+        return <div className="ms-Grid-col ms-u-sm3"><Label aria-label={ariaLabel}>{this.props.settingModelDefinition.name} ({displayName} / {description})</Label></div>;
     }
 
     private readonly renderPropertySchema = (context: LocalizationContextInterface) => {
@@ -110,20 +108,20 @@ export default class DeviceSettingsPerInterfacePerSetting
         const schemaType = typeof settingModelDefinition.schema === 'string' ?
             settingModelDefinition.schema :
             settingModelDefinition.schema['@type'];
-        return <Label aria-label={ariaLabel} className="column-schema-sm">{schemaType}</Label>;
+        return <div className="ms-Grid-col ms-u-sm2"><Label aria-label={ariaLabel}>{schemaType}</Label></div>;
     }
 
     private readonly renderPropertyUnit = (context: LocalizationContextInterface) => {
         const ariaLabel = context.t(ResourceKeys.deviceProperties.columns.unit);
         const unit = this.props.settingModelDefinition.unit;
-        return <Label aria-label={ariaLabel} className="column-unit">{unit ? unit : '--'}</Label>;
+        return <div className="ms-Grid-col ms-u-sm2"><Label aria-label={ariaLabel}>{unit ? unit : '--'}</Label></div>;
     }
 
     private readonly renderPropertyReportedValue = (context: LocalizationContextInterface) => {
         const { reportedTwin } = this.props;
         const ariaLabel = context.t(ResourceKeys.deviceSettings.columns.reportedValue);
         return (
-            <div className="column-value-text" aria-label={ariaLabel}>
+            <div className="column-value-text ms-Grid-col ms-u-sm4" aria-label={ariaLabel}>
                 <Stack horizontal={true} gap={'25px'}>
                     <Stack.Item align="start" className="reported-property">
                         {reportedTwin ?
@@ -150,6 +148,16 @@ export default class DeviceSettingsPerInterfacePerSetting
                 </Stack>
             </div>
         );
+    }
+
+    private readonly renderCollapseButton = (context: LocalizationContextInterface) => {
+        return (
+        <div className="ms-Grid-col ms-u-sm1">
+            <IconButton
+                title={context.t(this.props.collapsed ? ResourceKeys.deviceSettings.command.expand : ResourceKeys.deviceSettings.command.collapse)}
+                iconProps={{iconName: this.props.collapsed ? InterfaceDetailCard.OPEN : InterfaceDetailCard.CLOSE}}
+            />
+        </div>);
     }
 
     private readonly createUncollapsedCard = () => {

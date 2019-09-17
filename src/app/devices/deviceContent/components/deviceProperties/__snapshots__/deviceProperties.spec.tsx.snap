@@ -886,73 +886,34 @@ exports[`components/devices/deviceProperties matches snapshot with one twinWithS
   twinAndSchema={Array []}
 >
   <div
-    className="pnp-detail-list"
+    className="pnp-detail-list scrollable-lg ms-Grid"
   >
     <div
-      className="list-header"
+      className="list-header list-header-uncollapsible ms-Grid-row"
     >
       <span
-        className="column-name"
+        className="ms-Grid-col ms-u-sm3"
       >
         deviceProperties.columns.name
       </span>
       <span
-        className="column-schema-sm"
+        className="ms-Grid-col ms-u-sm3"
       >
         deviceProperties.columns.schema
       </span>
       <span
-        className="column-unit"
+        className="ms-Grid-col ms-u-sm3"
       >
         deviceProperties.columns.unit
       </span>
       <span
-        className="column-value"
+        className="ms-Grid-col ms-u-sm3"
       >
         deviceProperties.columns.value
       </span>
     </div>
     <section
-      className="list-content scrollable-lg"
-      role="main"
-    />
-  </div>
-</DevicePropertiesPerInterface>
-`;
-
-exports[`components/devices/deviceProperties matches snapshot without twinWithSchema 1`] = `
-<DevicePropertiesPerInterface
-  twinAndSchema={Array []}
->
-  <div
-    className="pnp-detail-list"
-  >
-    <div
-      className="list-header"
-    >
-      <span
-        className="column-name"
-      >
-        deviceProperties.columns.name
-      </span>
-      <span
-        className="column-schema-sm"
-      >
-        deviceProperties.columns.schema
-      </span>
-      <span
-        className="column-unit"
-      >
-        deviceProperties.columns.unit
-      </span>
-      <span
-        className="column-value"
-      >
-        deviceProperties.columns.value
-      </span>
-    </div>
-    <section
-      className="list-content scrollable-lg"
+      className="list-content"
       role="main"
     />
   </div>

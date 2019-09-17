@@ -338,7 +338,8 @@
             "name": "Name (Display Name / Description)",
             "schema": "Schema",
             "unit": "Unit",
-            "reportedValue": "Reported Property (Status)",
+            "reportedValue": "Reported Value (Status)",
+            "reportedValueTooltip": "Reported value is updated asynchronously. Please click 'Refresh' button on the top to get latest value manually",
             "error": "value does not match schema"
         },
         "panel": {

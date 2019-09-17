@@ -44,21 +44,18 @@ describe('components/devices/devicePropertiesPerInterfacePerProperty', () => {
 
         const nameLabel = wrapper.find(Label).first();
         expect((nameLabel.props().children as any).join('')).toEqual(`${name} (${displayName} / ${description})`);  // tslint:disable-line:no-any
-        expect(nameLabel.props().className).toEqual('column-name');
 
         const schemaLabel = wrapper.find(Label).at(1);
         expect(schemaLabel.props().children).toEqual(schema);
-        expect((schemaLabel.props().className)).toEqual('column-schema-sm');
 
         const unitLabel = wrapper.find(Label).at(2); // tslint:disable-line:no-magic-numbers
         expect(unitLabel.props().children).toEqual('--');
-        expect((unitLabel.props().className)).toEqual('column-unit');
 
         const valueLabel = wrapper.find(Label).at(3); // tslint:disable-line:no-magic-numbers
         expect(valueLabel.props().children).toEqual('true');
     });
 
-    it('matches snapshot when there is a non-writable property of complex type', () => {
+    it('renders button to open complex details when there is a non-writable property of complex type', () => {
         const schema = 'Object';
         const reportedTwin = {
             test: 'value'
@@ -90,19 +87,14 @@ describe('components/devices/devicePropertiesPerInterfacePerProperty', () => {
             />
         );
 
-        expect(wrapper).toMatchSnapshot();
-
         const nameLabel = wrapper.find(Label).first();
         expect((nameLabel.props().children as any).join('')).toEqual(`${name} (${displayName} / ${description})`);  // tslint:disable-line:no-any
-        expect(nameLabel.props().className).toEqual('column-name');
 
         const schemaLabel = wrapper.find(Label).at(1);
         expect(schemaLabel.props().children).toEqual(schema);
-        expect((schemaLabel.props().className)).toEqual('column-schema-sm');
 
         const unitLabel = wrapper.find(Label).at(2); // tslint:disable-line:no-magic-numbers
         expect(unitLabel.props().children).toEqual('--');
-        expect((unitLabel.props().className)).toEqual('column-unit');
 
         const complexValueButton = wrapper.find(DefaultButton);
         expect(complexValueButton.props().className).toEqual('column-value-button');

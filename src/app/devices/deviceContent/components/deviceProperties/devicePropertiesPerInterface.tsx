@@ -39,14 +39,14 @@ export default class DevicePropertiesPerInterface
         return (
             <LocalizationContextConsumer>
                 {(context: LocalizationContextInterface) => (
-                    <div className="pnp-detail-list">
-                        <div className="list-header">
-                            <span className="column-name">{context.t(ResourceKeys.deviceProperties.columns.name)}</span>
-                            <span className="column-schema-sm">{context.t(ResourceKeys.deviceProperties.columns.schema)}</span>
-                            <span className="column-unit">{context.t(ResourceKeys.deviceProperties.columns.unit)}</span>
-                            <span className="column-value">{context.t(ResourceKeys.deviceProperties.columns.value)}</span>
+                    <div className="pnp-detail-list scrollable-lg ms-Grid">
+                        <div className="list-header list-header-uncollapsible ms-Grid-row">
+                            <span className="ms-Grid-col ms-u-sm3">{context.t(ResourceKeys.deviceProperties.columns.name)}</span>
+                            <span className="ms-Grid-col ms-u-sm3">{context.t(ResourceKeys.deviceProperties.columns.schema)}</span>
+                            <span className="ms-Grid-col ms-u-sm3">{context.t(ResourceKeys.deviceProperties.columns.unit)}</span>
+                            <span className="ms-Grid-col ms-u-sm3">{context.t(ResourceKeys.deviceProperties.columns.value)}</span>
                         </div>
-                        <section role={twinAndSchema && twinAndSchema.length === 0 ? 'main' : 'list'} className="list-content scrollable-lg">
+                        <section role={twinAndSchema && twinAndSchema.length === 0 ? 'main' : 'list'} className="list-content">
                             {properties}
                         </section>
                         {this.state.showOverlay && <Overlay/>}

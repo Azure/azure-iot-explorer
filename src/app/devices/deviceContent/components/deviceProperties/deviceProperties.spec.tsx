@@ -70,12 +70,6 @@ describe('components/devices/deviceProperties', () => {
         expect(wrapper.find(Shimmer)).toBeDefined();
     });
 
-    it('matches snapshot without twinWithSchema', () => {
-        const wrapper = getComponent({ isLoading: false});
-        const devicePropertyPerInterface = wrapper.find(DevicePropertiesPerInterface).first();
-        expect(devicePropertyPerInterface).toMatchSnapshot();
-    });
-
     it('matches snapshot with one twinWithSchema', () => {
         const component = getComponent({
             isLoading: false,

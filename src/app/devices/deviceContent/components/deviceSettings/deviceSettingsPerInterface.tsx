@@ -3,12 +3,14 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
+import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import { Overlay } from 'office-ui-fabric-react/lib/Overlay';
+import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip';
 import DeviceSettingPerInterfacePerSetting, { TwinWithSchema } from './deviceSettingsPerInterfacePerSetting';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { PatchDigitalTwinInterfacePropertiesActionParameters } from '../../actions';
+import { INFO, InterfaceDetailCard } from '../../../../constants/iconNames';
 import '../../../../css/_devicePnpDetailList.scss';
 
 export interface DeviceSettingDataProps {
@@ -62,28 +64,48 @@ export default class DeviceSettingsPerInterface
         return (
             <LocalizationContextConsumer>
                 {(context: LocalizationContextInterface) => (
-                    <div className="pnp-detail-list">
-                        <div className="list-header">
-                            <span className="column-name">{context.t(ResourceKeys.deviceSettings.columns.name)}</span>
-                            <span className="column-schema-sm">{context.t(ResourceKeys.deviceSettings.columns.schema)}</span>
-                            <span className="column-unit">{context.t(ResourceKeys.deviceSettings.columns.unit)}</span>
-                            <span className="column-value">{context.t(ResourceKeys.deviceSettings.columns.reportedValue)}</span>
-                            <DefaultButton
-                                className="column-toggle"
-                                onClick={this.onToggleCollapseAll}
-                            >
-                                {this.state.allCollapsed ?
-                                    context.t(ResourceKeys.deviceSettings.command.expandAll) :
-                                    context.t(ResourceKeys.deviceSettings.command.collapseAll)}
-                            </DefaultButton>
+                    <div className="pnp-detail-list scrollable-lg ms-Grid">
+                        <div className="list-header ms-Grid-row">
+                            <span className="ms-Grid-col ms-u-sm3">{context.t(ResourceKeys.deviceSettings.columns.name)}</span>
+                            <span className="ms-Grid-col ms-u-sm2">{context.t(ResourceKeys.deviceSettings.columns.schema)}</span>
+                            <span className="ms-Grid-col ms-u-sm2">{context.t(ResourceKeys.deviceSettings.columns.unit)}</span>
+                            <span className="ms-Grid-col ms-u-sm4 reported-value">
+                                {context.t(ResourceKeys.deviceSettings.columns.reportedValue)}
+                                <TooltipHost
+                                    content={context.t(ResourceKeys.deviceSettings.columns.reportedValueTooltip)}
+                                    calloutProps={{ gapSpace: 0 }}
+                                    styles={{ root: { display: 'inline-flex'} }}
+                                >
+                                    <IconButton
+                                        iconProps={{ iconName: INFO }}
+                                        ariaLabel={INFO}
+                                    />
+                                </TooltipHost>
+                            </span>
+                            {this.renderCollapseAllButton(context)}
                         </div>
-                        <section role={twinWithSchema && twinWithSchema.length === 0 ? 'main' : 'list'} className="list-content scrollable-lg">
+                        <section role={twinWithSchema && twinWithSchema.length === 0 ? 'main' : 'list'} className="list-content">
                             {settings}
                         </section>
                         {this.state.showOverlay && <Overlay/>}
                     </div>
                 )}
             </LocalizationContextConsumer>
+        );
+    }
+
+    private readonly renderCollapseAllButton = (context: LocalizationContextInterface) => {
+        return (
+            <div className="ms-Grid-col ms-u-sm1 collapse-button">
+                <IconButton
+                    iconProps={{iconName: this.state.allCollapsed ? InterfaceDetailCard.OPEN : InterfaceDetailCard.CLOSE}}
+                    ariaLabel={this.state.allCollapsed ?
+                        context.t(ResourceKeys.deviceSettings.command.expandAll) :
+                        context.t(ResourceKeys.deviceSettings.command.collapseAll)}
+                    onClick={this.onToggleCollapseAll}
+                    title={context.t(this.state.allCollapsed ? ResourceKeys.deviceSettings.command.expandAll : ResourceKeys.deviceSettings.command.collapseAll)}
+                />
+            </div>
         );
     }
 

@@ -249,17 +249,16 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
         const { events } = this.state;
 
         return (
-            <div>
-                <div className="pnp-detail-list">
-                    <div className="list-header">
-                        <span className="column-timestamp-sm">{context.t(ResourceKeys.deviceEvents.columns.timestamp)}</span>
-                        <span className="column-name-sm">{context.t(ResourceKeys.deviceEvents.columns.displayName)}</span>
-                        <span className="column-schema-sm">{context.t(ResourceKeys.deviceEvents.columns.schema)}</span>
-                        <span className="column-unit">{context.t(ResourceKeys.deviceEvents.columns.unit)}</span>
-                        <span className="column-value">{context.t(ResourceKeys.deviceEvents.columns.value)}</span>
+            <div className="scrollable-sm">
+                <div className="pnp-detail-list ms-Grid">
+                    <div className="list-header list-header-uncollapsible ms-Grid-row">
+                        <span className="ms-Grid-col ms-u-sm2">{context.t(ResourceKeys.deviceEvents.columns.timestamp)}</span>
+                        <span className="ms-Grid-col ms-u-sm2">{context.t(ResourceKeys.deviceEvents.columns.displayName)}</span>
+                        <span className="ms-Grid-col ms-u-sm2">{context.t(ResourceKeys.deviceEvents.columns.schema)}</span>
+                        <span className="ms-Grid-col ms-u-sm2">{context.t(ResourceKeys.deviceEvents.columns.unit)}</span>
+                        <span className="ms-Grid-col ms-u-sm4">{context.t(ResourceKeys.deviceEvents.columns.value)}</span>
                     </div>
                 </div>
-                <div className="scrollable-sm">
                 {
                     events && events.length > 0 &&
                     <section role="feed">
@@ -287,47 +286,54 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
                     }
                     </section>
                 }
-                </div>
             </div>
         );
     }
 
     private readonly renderTimestamp = (event: Message, context: LocalizationContextInterface) => {
         return(
-            <Label className="column-timestamp-sm" aria-label={context.t(ResourceKeys.deviceEvents.columns.timestamp)}>
-                {parseDateTimeString(event.enqueuedTime)}
-            </Label>
+            <div className="ms-Grid-col ms-u-sm2">
+                <Label aria-label={context.t(ResourceKeys.deviceEvents.columns.timestamp)}>
+                    {parseDateTimeString(event.enqueuedTime)}
+                </Label>
+            </div>
         );
     }
 
     private readonly renderEventName = (telemetryModelDefinition: TelemetryContent, context: LocalizationContextInterface) => {
         const displayName = getLocalizedData(telemetryModelDefinition.displayName);
         return(
-            <Label className="column-name-sm" aria-label={context.t(ResourceKeys.deviceEvents.columns.displayName)}>
-                {telemetryModelDefinition ?
-                    `${telemetryModelDefinition.name} (${displayName ? displayName : '--'}) ` : '--'}
-            </Label>
+            <div className="ms-Grid-col ms-u-sm2">
+                <Label aria-label={context.t(ResourceKeys.deviceEvents.columns.displayName)}>
+                    {telemetryModelDefinition ?
+                        `${telemetryModelDefinition.name} (${displayName ? displayName : '--'}) ` : '--'}
+                </Label>
+            </div>
         );
     }
 
     private readonly renderEventSchema = (telemetryModelDefinition: TelemetryContent, context: LocalizationContextInterface) => {
         return(
-            <Label className="column-schema-sm" aria-label={context.t(ResourceKeys.deviceEvents.columns.schema)}>
-                {telemetryModelDefinition ?
-                    (typeof telemetryModelDefinition.schema === 'string' ?
-                    telemetryModelDefinition.schema :
-                    telemetryModelDefinition.schema['@type']) : '--'}
-            </Label>
+            <div className="ms-Grid-col ms-u-sm2">
+                <Label aria-label={context.t(ResourceKeys.deviceEvents.columns.schema)}>
+                    {telemetryModelDefinition ?
+                        (typeof telemetryModelDefinition.schema === 'string' ?
+                        telemetryModelDefinition.schema :
+                        telemetryModelDefinition.schema['@type']) : '--'}
+                </Label>
+            </div>
         );
     }
 
     private readonly renderEventUnit = (telemetryModelDefinition: TelemetryContent, context: LocalizationContextInterface) => {
         const displayUnit = getLocalizedData(telemetryModelDefinition.displayUnit);
         return(
-            <Label className="column-unit" aria-label={context.t(ResourceKeys.deviceEvents.columns.unit)}>
-                {telemetryModelDefinition ?
-                    telemetryModelDefinition.unit || displayUnit || '--' : '--'}
-            </Label>
+            <div className="ms-Grid-col ms-u-sm2">
+                <Label aria-label={context.t(ResourceKeys.deviceEvents.columns.unit)}>
+                    {telemetryModelDefinition ?
+                        telemetryModelDefinition.unit || displayUnit || '--' : '--'}
+                </Label>
+            </div>
         );
     }
 
@@ -340,7 +346,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
         const validator = new Validator();
         if (Object.keys(event.body) && Object.keys(event.body)[0] !== key) { // validate telemetry's property name
             return(
-                <div className="column-value-text">
+                <div className="column-value-text ms-Grid-col ms-u-sm4">
                     <Label aria-label={context.t(ResourceKeys.deviceEvents.columns.value)}>
                         {JSON.stringify(event.body, undefined, JSON_SPACES)}
                         <section className="value-validation-error" aria-label={context.t(ResourceKeys.deviceEvents.columns.error.key.label)}>
@@ -361,7 +367,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
         }
 
         return(
-            <div className="column-value-text">
+            <div className="column-value-text ms-Grid-col s4">
                 <Label aria-label={context.t(ResourceKeys.deviceEvents.columns.value)}>
                     {JSON.stringify(event.body, undefined, JSON_SPACES)}
                     {result && result.errors && result.errors.length !== 0 &&

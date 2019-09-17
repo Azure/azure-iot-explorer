@@ -14,7 +14,7 @@ import BreadcrumbContainer from '../../../shared/components/breadcrumbContainer'
 import DigitalTwinsContentContainer from './digitalTwinContentContainer';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../shared/contexts/localizationContext';
-import { NAV_OPEN, NAV_CLOSED } from '../../../constants/iconNames';
+import { NAV } from '../../../constants/iconNames';
 import '../../../css/_deviceContent.scss';
 import '../../../css/_layouts.scss';
 
@@ -80,7 +80,7 @@ export class DeviceContentComponent extends React.PureComponent<DeviceContentPro
                     <div className="navToggle">
                         <IconButton
                             tabIndex={0}
-                            iconProps={{ iconName: this.state.appMenuVisible ? NAV_OPEN : NAV_CLOSED }}
+                            iconProps={{ iconName: NAV }}
                             title={this.state.appMenuVisible ? context.t(ResourceKeys.deviceContent.navBar.collapse) : context.t(ResourceKeys.deviceContent.navBar.expand)}
                             ariaLabel={this.state.appMenuVisible ? context.t(ResourceKeys.deviceContent.navBar.collapse) : context.t(ResourceKeys.deviceContent.navBar.expand)}
                             onClick={this.collapseToggle}
