@@ -6,8 +6,7 @@ import 'jest';
 import * as React from 'react';
 import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
 import DeviceSettings, { DeviceSettingDispatchProps , DeviceSettingsProps } from './deviceSettings';
-import DeviceSettingsPerInterface from './deviceSettingsPerInterface';
-import { mountWithLocalization } from '../../../../shared/utils/testHelpers';
+import { mountWithLocalization, testSnapshot } from '../../../../shared/utils/testHelpers';
 import { TwinWithSchema } from './deviceSettingsPerInterfacePerSetting';
 export const twinWithSchema: TwinWithSchema = {
     desiredTwin: 123,
@@ -63,13 +62,11 @@ describe('components/devices/deviceSettings', () => {
             ...overrides
         };
 
-        return mountWithLocalization(
-            <DeviceSettings {...props} />, true, [pathname]
-        );
+        return <DeviceSettings {...props} />;
     };
 
     it('matches snapshot while loading', () => {
-        const wrapper = getComponent();
+        const wrapper = mountWithLocalization(getComponent(), true, [pathname]);
         expect(wrapper).toMatchSnapshot();
         expect(wrapper.find(Shimmer)).toBeDefined();
     });
@@ -78,7 +75,6 @@ describe('components/devices/deviceSettings', () => {
         const component = getComponent({
             isLoading: false,
             twinWithSchema: [twinWithSchema]});
-        const deviceSettingPerInterface = component.find(DeviceSettingsPerInterface).first();
-        expect(deviceSettingPerInterface).toMatchSnapshot();
+        testSnapshot(component);
     });
 });
