@@ -6526,6 +6526,7 @@ exports[`components/devices/deviceSettingsPerInterfacePerSetting matches snapsho
                   </SchemaField>
                   <CustomizedPrimaryButton
                     className="submit-button"
+                    disabled={false}
                     iconProps={
                       Object {
                         "iconName": "CloudUpload",
@@ -6536,6 +6537,7 @@ exports[`components/devices/deviceSettingsPerInterfacePerSetting matches snapsho
                   >
                     <PrimaryButton
                       className="submit-button"
+                      disabled={false}
                       iconProps={
                         Object {
                           "iconName": "CloudUpload",
@@ -6781,6 +6783,7 @@ exports[`components/devices/deviceSettingsPerInterfacePerSetting matches snapsho
                     >
                       <CustomizedDefaultButton
                         className="submit-button"
+                        disabled={false}
                         iconProps={
                           Object {
                             "iconName": "CloudUpload",
@@ -7028,6 +7031,7 @@ exports[`components/devices/deviceSettingsPerInterfacePerSetting matches snapsho
                       >
                         <DefaultButton
                           className="submit-button"
+                          disabled={false}
                           iconProps={
                             Object {
                               "iconName": "CloudUpload",
@@ -7276,6 +7280,7 @@ exports[`components/devices/deviceSettingsPerInterfacePerSetting matches snapsho
                           <BaseButton
                             baseClassName="ms-Button"
                             className="submit-button"
+                            disabled={false}
                             iconProps={
                               Object {
                                 "iconName": "CloudUpload",
@@ -7877,7 +7882,9 @@ exports[`components/devices/deviceSettingsPerInterfacePerSetting matches snapsho
                             }
                             variantClassName="ms-Button--primary"
                           >
-                            <KeytipData>
+                            <KeytipData
+                              disabled={false}
+                            >
                               <button
                                 className="ms-Button ms-Button--primary submit-button root-63"
                                 data-is-focusable={true}
@@ -8163,6 +8170,7 @@ exports[`components/devices/deviceSettingsPerInterfacePerSetting matches snapsho
                   </CustomizedPrimaryButton>
                   <CustomizedDefaultButton
                     className="preview-payload-button"
+                    disabled={false}
                     iconProps={
                       Object {
                         "iconName": "Code",
@@ -8173,6 +8181,7 @@ exports[`components/devices/deviceSettingsPerInterfacePerSetting matches snapsho
                   >
                     <DefaultButton
                       className="preview-payload-button"
+                      disabled={false}
                       iconProps={
                         Object {
                           "iconName": "Code",
@@ -8419,6 +8428,7 @@ exports[`components/devices/deviceSettingsPerInterfacePerSetting matches snapsho
                       <BaseButton
                         baseClassName="ms-Button"
                         className="preview-payload-button"
+                        disabled={false}
                         iconProps={
                           Object {
                             "iconName": "Code",
@@ -8996,7 +9006,9 @@ exports[`components/devices/deviceSettingsPerInterfacePerSetting matches snapsho
                         }
                         variantClassName="ms-Button--default"
                       >
-                        <KeytipData>
+                        <KeytipData
+                          disabled={false}
+                        >
                           <button
                             className="ms-Button ms-Button--default preview-payload-button root-59"
                             data-is-focusable={true}

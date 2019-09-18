@@ -190,9 +190,18 @@ export default class DataForm extends React.Component<DataFormDataProps & DataFo
     }
 
     private readonly createActionButtons = (context: LocalizationContextInterface) => {
-        const payload = (this.state.parseMapTypeError || !this.props.settingSchema) ?
-            this.state.stringifiedFormData && JSON.parse(this.state.stringifiedFormData) :
+        let payload;
+        let buttonDisabled = false;
+
+        try {
+            payload = (this.state.parseMapTypeError || !this.props.settingSchema) ?
+            (this.state.stringifiedFormData && JSON.parse(this.state.stringifiedFormData)) :
             dataToTwinConverter(this.state.formData, this.props.settingSchema, this.state.originalFormData).twin;
+        } catch (e) {
+            payload = null;
+            buttonDisabled = true;
+        }
+
         return (
             <>
                 <PrimaryButton
@@ -200,12 +209,14 @@ export default class DataForm extends React.Component<DataFormDataProps & DataFo
                     onClick={this.props.handleSave(payload)}
                     text={context.t(this.props.buttonText)}
                     iconProps={{ iconName: SUBMIT }}
+                    disabled={buttonDisabled}
                 />
                 <DefaultButton
                     className="preview-payload-button"
                     onClick={this.createPayloadPreview}
                     text={context.t(ResourceKeys.deviceSettings.previewPayloadButtonText)}
                     iconProps={{ iconName: CODE }}
+                    disabled={buttonDisabled}
                 />
             </>
         );

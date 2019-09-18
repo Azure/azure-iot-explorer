@@ -6,7 +6,7 @@ import 'jest';
 import * as React from 'react';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import DeviceSettingsPerInterface, { DeviceSettingDataProps, DeviceSettingDispatchProps, DeviceSettingState } from './deviceSettingsPerInterface';
-import { mountWithLocalization } from '../../../../shared/utils/testHelpers';
+import { mountWithLocalization, testSnapshot } from '../../../../shared/utils/testHelpers';
 import { twinWithSchema } from './deviceSettings.spec';
 
 describe('components/devices/deviceSettingsPerInterface', () => {
@@ -29,17 +29,15 @@ describe('components/devices/deviceSettingsPerInterface', () => {
             ...overrides
         };
 
-        return mountWithLocalization(
-            <DeviceSettingsPerInterface {...props} />
-        );
+        return <DeviceSettingsPerInterface {...props} />;
     };
 
     it('matches snapshot', () => {
-        expect(getComponent()).toMatchSnapshot();
+        testSnapshot(getComponent());
     });
 
     it('toggles collapsed', () => {
-        const wrapper = getComponent();
+        const wrapper = mountWithLocalization(getComponent());
         expect((wrapper.state() as DeviceSettingState).allCollapsed).toBeFalsy();
         const button = wrapper.find(IconButton).at(1);
         button.simulate('click');
@@ -48,7 +46,7 @@ describe('components/devices/deviceSettingsPerInterface', () => {
     });
 
     it('executes handle toggle from child', () => {
-        const wrapper = getComponent();
+        const wrapper = mountWithLocalization(getComponent());
         let collapsed = (wrapper.state() as DeviceSettingState).collapseMap.get(0);
         expect(collapsed).toBeFalsy();
         // tslint:disable-next-line:no-magic-numbers

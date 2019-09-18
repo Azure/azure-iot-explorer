@@ -971,3 +971,61 @@ exports[`components/devices/deviceSettings matches snapshot with one twinWithSch
   />
 </Fragment>
 `;
+
+exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
+<div
+  className="pnp-detail-list scrollable-lg ms-Grid"
+>
+  <div
+    className="list-header list-header-uncollapsible ms-Grid-row"
+  >
+    <span
+      className="ms-Grid-col ms-u-sm3"
+    >
+      deviceProperties.columns.name
+    </span>
+    <span
+      className="ms-Grid-col ms-u-sm3"
+    >
+      deviceProperties.columns.schema
+    </span>
+    <span
+      className="ms-Grid-col ms-u-sm3"
+    >
+      deviceProperties.columns.unit
+    </span>
+    <span
+      className="ms-Grid-col ms-u-sm3"
+    >
+      deviceProperties.columns.value
+    </span>
+  </div>
+  <section
+    className="list-content"
+    role="list"
+  >
+    <DevicePropertiesPerInterfacePerProperty
+      handleOverlayToggle={[Function]}
+      key="0"
+      propertyModelDefinition={
+        Object {
+          "@type": "Property",
+          "description": "The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)",
+          "displayName": "Brightness Level",
+          "name": "brightness",
+          "schema": "long",
+          "writable": true,
+        }
+      }
+      propertySchema={
+        Object {
+          "description": "Brightness Level / The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)",
+          "title": "brightness",
+          "type": "number",
+        }
+      }
+      reportedTwin={null}
+    />
+  </section>
+</div>
+`;
