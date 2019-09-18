@@ -20,11 +20,12 @@ export interface DeviceListQueryActions {
 }
 
 export default class DeviceListQuery extends React.Component<DeviceListQueryProps & DeviceListQueryActions> {
+    // tslint:disable-next-line:cyclomatic-complexity
     constructor(props: DeviceListQueryProps & DeviceListQueryActions) {
         super(props);
 
         this.state = {
-            clauses: (props.query && props.query.clauses.map(clause => {
+            clauses: (props.query && props.query.clauses && props.query.clauses.map(clause => {
                 return { ...clause, isError: false };
             })) || [],
             deviceId: (props.query && props.query.deviceId) || '',
