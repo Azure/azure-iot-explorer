@@ -972,7 +972,7 @@ exports[`components/devices/deviceSettings matches snapshot with one twinWithSch
 </Fragment>
 `;
 
-exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
+exports[`devicePropertiesPerInterface matches snapshot 1`] = `
 <div
   className="pnp-detail-list scrollable-lg ms-Grid"
 >

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`complexReportedFormPanel matches snapshot with simple type 1`] = `
+exports[`dataForm matches snapshot with simple type 1`] = `
 <Fragment>
   <ErrorBoundary
     error="errorBoundary.text"
@@ -107,7 +107,7 @@ exports[`complexReportedFormPanel matches snapshot with simple type 1`] = `
 </Fragment>
 `;
 
-exports[`complexReportedFormPanel matches snapshot with unsupported type 1`] = `
+exports[`dataForm matches snapshot with unsupported type 1`] = `
 <Fragment>
   <form
     className="json-editor"
