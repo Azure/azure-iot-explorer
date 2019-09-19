@@ -242,10 +242,10 @@ export const invokeDeviceMethod = async (parameters: InvokeMethodParameters): Pr
         const connectionInfo = dataPlaneConnectionHelper(parameters);
         const dataPlaneRequest: DataPlaneRequest = {
             body: JSON.stringify({
-                connectTimeoutInSeconds: parameters.connectTimeoutInSeconds || CONNECTION_TIMEOUT_IN_SECONDS,
+                connectTimeoutInSeconds: parameters.connectTimeoutInSeconds,
                 methodName: parameters.methodName,
                 payload: parameters.payload,
-                responseTimeInSeconds: parameters.responseTimeoutInSeconds || RESPONSE_TIME_IN_SECONDS,
+                responseTimeInSeconds: parameters.responseTimeoutInSeconds,
             }),
             hostName: connectionInfo.connectionInfo.hostName,
             httpMethod: HTTP_OPERATION_TYPES.Post,

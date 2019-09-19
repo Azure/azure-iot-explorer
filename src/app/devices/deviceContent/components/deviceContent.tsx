@@ -15,6 +15,7 @@ import DigitalTwinsContentContainer from './digitalTwinContentContainer';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../shared/contexts/localizationContext';
 import { NAV } from '../../../constants/iconNames';
+import { ROUTE_PARTS } from '../../../constants/routes';
 import '../../../css/_deviceContent.scss';
 import '../../../css/_layouts.scss';
 
@@ -97,11 +98,11 @@ export class DeviceContentComponent extends React.PureComponent<DeviceContentPro
     private readonly renderDeviceContentDetail = () => {
         return (
             <div className={'device-content-detail' + (!this.state.appMenuVisible ? ' collapsed' : '')}>
-                <Route path="/devices/detail/identity/" component={DeviceIdentityContainer} />
-                <Route path="/devices/detail/twin/" component={DeviceTwinContainer} />
-                <Route path="/devices/detail/events/" component={DeviceEventsContainer}/>
-                <Route path="/devices/detail/methods/" component={DeviceMethodsContainer} />
-                <Route path="/devices/detail/digitalTwins/" component={DigitalTwinsContentContainer} />
+                <Route path={`/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DETAIL}/${ROUTE_PARTS.IDENTITY}/`} component={DeviceIdentityContainer} />
+                <Route path={`/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DETAIL}/${ROUTE_PARTS.TWIN}/`} component={DeviceTwinContainer} />
+                <Route path={`/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DETAIL}/${ROUTE_PARTS.EVENTS}/`} component={DeviceEventsContainer}/>
+                <Route path={`/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DETAIL}/${ROUTE_PARTS.METHODS}/`} component={DeviceMethodsContainer} />
+                <Route path={`/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DETAIL}/${ROUTE_PARTS.DIGITAL_TWINS}/`} component={DigitalTwinsContentContainer} />
             </div>
         );
     }

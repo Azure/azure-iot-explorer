@@ -302,9 +302,16 @@ export class ResourceKeys {
    };
    public static deviceMethods = {
       connectionTimeout : "deviceMethods.connectionTimeout",
+      connectionTimeoutTooltip : "deviceMethods.connectionTimeoutTooltip",
+      headerText : "deviceMethods.headerText",
       invokeMethodButtonText : "deviceMethods.invokeMethodButtonText",
       methodName : "deviceMethods.methodName",
-      methodTimeout : "deviceMethods.methodTimeout",
+      methodNamePlaceHolder : "deviceMethods.methodNamePlaceHolder",
+      payload : "deviceMethods.payload",
+      payloadTooltip : "deviceMethods.payloadTooltip",
+      responseTimeout : "deviceMethods.responseTimeout",
+      responseTimeoutTooltip : "deviceMethods.responseTimeoutTooltip",
+      result : "deviceMethods.result",
    };
    public static deviceProperties = {
       columns : {

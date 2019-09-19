@@ -521,7 +521,8 @@ describe('deviceTwinService', () => {
             connectionString,
             deviceId: undefined,
             methodName: 'methodName',
-            payload: {foo: 'bar'}
+            payload: {foo: 'bar'},
+            responseTimeoutInSeconds : 10,
         };
         it ('returns if deviceId is not specified', () => {
             expect(DevicesService.invokeDeviceMethod(parameters)).toEqual(emptyPromise);
@@ -541,7 +542,7 @@ describe('deviceTwinService', () => {
                     connectTimeoutInSeconds: parameters.connectTimeoutInSeconds,
                     methodName: parameters.methodName,
                     payload: parameters.payload,
-                    responseTimeInSeconds: RESPONSE_TIME_IN_SECONDS,
+                    responseTimeInSeconds: parameters.responseTimeoutInSeconds,
                 }),
                 hostName: connectionInformation.connectionInfo.hostName,
                 httpMethod: HTTP_OPERATION_TYPES.Post,

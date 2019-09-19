@@ -5,33 +5,36 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
-import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
+import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { Slider, SliderBase } from 'office-ui-fabric-react/lib/Slider';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 import { DeviceIdentityWrapper } from '../../../../api/models/deviceIdentityWrapper';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { InvokeMethodParameters } from '../../../../api/parameters/deviceParameters';
+import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
+import { REFRESH } from '../../../../constants/iconNames';
+import LabelWithTooltip from '../../../../shared/components/labelWithTooltip';
 import '../../../../css/_deviceDetail.scss';
 
 const EditorPromise = import('react-monaco-editor');
 const Editor = React.lazy(() => EditorPromise);
 
 const SLIDER_MAX = 300;
-const SLIDER_MIN = 0;
 
 export interface DeviceMethodInvokeProperties {
     connectionTimeout: number;
     methodName: string;
-    methodTimeout: number;
+    responseTimeout: number;
     payload: string;
 }
 
 export interface DeviceMethodsProps {
-    deviceIdentity: DeviceIdentityWrapper;
+    deviceIdentityWrapper: DeviceIdentityWrapper;
     connectionString: string;
     invokeMethodResponse: string;
     onInvokeMethodClick: (properties: InvokeMethodParameters) => void;
+    getDeviceIdentity: (deviceId: string) => void;
 }
 
 export type DeviceMethodsState = DeviceMethodInvokeProperties;
@@ -45,119 +48,160 @@ export default class DeviceMethods extends React.Component<DeviceMethodsProps & 
         this.state = {
             connectionTimeout: 0,
             methodName: '',
-            methodTimeout: 0,
-            payload: ''
+            payload: '',
+            responseTimeout: 0
         };
     }
 
     public render(): JSX.Element {
-        const { deviceIdentity } = this.props;
-
         return (
             <LocalizationContextConsumer>
                 {(context: LocalizationContextInterface) => (
-                    <div className="device-detail">
-                        {deviceIdentity && deviceIdentity.deviceIdentity && this.renderMethodsPayloadSection(context)}
-                        <PrimaryButton onClick={this.onInvokeMethodClick} disabled={!this.formReady()}>
-                            {context.t(ResourceKeys.deviceMethods.invokeMethodButtonText)}
-                        </PrimaryButton>
-                        <hr />
-                        {this.renderMethodsResultSection(context)}
-                    </div>
+                    <>
+                        {this.showCommandBar(context)}
+                        <h3>{context.t(ResourceKeys.deviceMethods.headerText)}</h3>
+                        <div className="device-detail">
+                            {this.renderMethodsName(context)}
+                            {this.renderMethodsPayloadSection(context)}
+                            {/* {this.renderMethodsResultSection(context)} // todo: store update, response needs to be associated with deviceId*/}
+                        </div>
+                    </>
                 )}
             </LocalizationContextConsumer>
         );
     }
 
+    public componentDidMount() {
+        this.props.getDeviceIdentity(getDeviceIdFromQueryString(this.props));
+    }
+
+    private readonly showCommandBar = (context: LocalizationContextInterface) => {
+        return (
+            <CommandBar
+                className="command"
+                items={[
+                    {
+                        ariaLabel: context.t(ResourceKeys.deviceMethods.invokeMethodButtonText),
+                        disabled: !this.formReady(),
+                        iconProps: {iconName: REFRESH},
+                        key: REFRESH,
+                        name: context.t(ResourceKeys.deviceMethods.invokeMethodButtonText),
+                        onClick: this.onInvokeMethodClick
+                    }
+                ]}
+            />
+        );
+    }
+
     private readonly formReady = (): boolean => {
         const { methodName, payload } = this.state;
+        return this.props.deviceIdentityWrapper && this.props.deviceIdentityWrapper.deviceIdentity && !!methodName && (!payload || this.isValidJson(payload));
+    }
 
-        return !!methodName;
+    private isValidJson = (content: string) => {
+        try {
+            JSON.parse(content);
+            return true;
+        } catch {
+            return false;
+        }
     }
 
     private readonly onInvokeMethodClick = () => {
-        const { connectionTimeout, methodName, methodTimeout, payload } = this.state;
-        const { connectionString, deviceIdentity } = this.props;
-
-        let parsedPayload;
-
-        try {
-            parsedPayload = JSON.parse(payload) || {};
-        } catch (e) {
-            parsedPayload = {};
-        }
+        const { connectionTimeout, methodName, responseTimeout, payload } = this.state;
+        const { connectionString } = this.props;
 
         this.props.onInvokeMethodClick({
             connectTimeoutInSeconds: connectionTimeout,
             connectionString,
-            deviceId: deviceIdentity.deviceIdentity.deviceId,
+            deviceId: getDeviceIdFromQueryString(this.props),
             methodName,
-            payload: parsedPayload,
-            responseTimeoutInSeconds: methodTimeout
+            payload: payload ? JSON.parse(payload) : {},
+            responseTimeoutInSeconds: responseTimeout
         });
     }
 
-    private readonly renderMethodsResultSection = (context: LocalizationContextInterface) => {
-        const { invokeMethodResponse } = this.props;
+    // private readonly renderMethodsResultSection = (context: LocalizationContextInterface) => {
+    //     const { invokeMethodResponse } = this.props;
+    //     return (
+    //         <div className="result-section">
+    //             <Label aria-label={context.t(ResourceKeys.deviceMethods.result)}>{context.t(ResourceKeys.deviceMethods.result)}</Label>
+    //             <div className="direct-method-monaco-editor">
+    //                 <React.Suspense fallback={<Spinner title={'loading'} size={SpinnerSize.large} />}>
+    //                     <Editor
+    //                         language="json"
+    //                         height="25vh"
+    //                         value={invokeMethodResponse}
+    //                         options={{
+    //                             automaticLayout: true,
+    //                             readOnly: true
+    //                         }}
+    //                     />
+    //                 </React.Suspense>
+    //             </div>
+    //         </div>
+    //     );
+    // }
+
+    private readonly renderMethodsName = (context: LocalizationContextInterface) => {
         return (
-            <div className="monaco-editor">
-                <React.Suspense fallback={<Spinner title={'loading'} size={SpinnerSize.large} />}>
-                    <Editor
-                        language="json"
-                        height="30vh"
-                        value={invokeMethodResponse}
-                        options={{
-                            automaticLayout: true,
-                            readOnly: true
-                        }}
-                    />
-                </React.Suspense>
-            </div>
+                <TextField
+                    label={context.t(ResourceKeys.deviceMethods.methodName)}
+                    ariaLabel={context.t(ResourceKeys.deviceMethods.methodName)}
+                    value={this.state.methodName}
+                    onChange={this.onMethodNameChange}
+                    required={true}
+                    placeholder={context.t(ResourceKeys.deviceMethods.methodNamePlaceHolder)}
+                />
         );
     }
 
     private readonly renderMethodsPayloadSection = (context: LocalizationContextInterface) => {
-        const { connectionTimeout, methodName, methodTimeout, payload } = this.state;
+        const { connectionTimeout, responseTimeout, payload } = this.state;
 
         return (
-            <div>
-                <TextField
-                    label={context.t(ResourceKeys.deviceIdentity.deviceID)}
-                    disabled={true}
-                    defaultValue={this.props.deviceIdentity.deviceIdentity.deviceId}
-                />
-                <TextField
-                    label={context.t(ResourceKeys.deviceMethods.methodName)}
-                    value={methodName}
-                    onChange={this.onMethodNameChange}
-                />
-                <br/>
-                <div className="monaco-editor">
+            <div className="method-payload">
+                <LabelWithTooltip
+                    tooltipText={context.t(ResourceKeys.deviceMethods.payloadTooltip)}
+                >
+                    {context.t(ResourceKeys.deviceMethods.payload)}
+                </LabelWithTooltip>
+                <div className="direct-method-monaco-editor">
                     <React.Suspense fallback={<Spinner title={'loading'} size={SpinnerSize.large} />}>
                         <Editor
                             language="json"
                             options={{
                                 automaticLayout: true
                             }}
-                            height="30vh"
+                            height="25vh"
                             value={payload}
                             onChange={this.onEditorChange}
                         />
                     </React.Suspense>
                 </div>
+                <LabelWithTooltip
+                    tooltipText={context.t(ResourceKeys.deviceMethods.connectionTimeoutTooltip)}
+                >
+                    {context.t(ResourceKeys.deviceMethods.connectionTimeout)}
+                </LabelWithTooltip>
                 <Slider
-                    label={context.t(ResourceKeys.deviceMethods.connectionTimeout)}
+                    ariaLabel={context.t(ResourceKeys.deviceMethods.connectionTimeout)}
                     min={0}
                     max={SLIDER_MAX}
                     ref={this.connectionSliderRef}
                     value={connectionTimeout}
                     onChange={this.onConnectionTimeoutChange}
                 />
+                <LabelWithTooltip
+                    tooltipText={context.t(ResourceKeys.deviceMethods.responseTimeoutTooltip)}
+                >
+                    {context.t(ResourceKeys.deviceMethods.responseTimeout)}
+                </LabelWithTooltip>
                 <Slider
-                    label={context.t(ResourceKeys.deviceMethods.methodTimeout)}
+                    ariaLabel={context.t(ResourceKeys.deviceMethods.responseTimeout)}
                     min={connectionTimeout}
                     max={SLIDER_MAX}
-                    value={methodTimeout}
+                    value={responseTimeout}
                     onChange={this.onMethodTimeoutChange}
                 />
             </div>
@@ -178,7 +222,7 @@ export default class DeviceMethods extends React.Component<DeviceMethodsProps & 
 
     private readonly onMethodTimeoutChange = (value: number) => {
         this.setState({
-            methodTimeout: value
+            responseTimeout: value
         });
     }
 

@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`deviceMethods matches snapshot 1`] = `
+<Fragment>
+  <StyledCommandBarBase
+    className="command"
+    items={
+      Array [
+        Object {
+          "ariaLabel": "deviceMethods.invokeMethodButtonText",
+          "disabled": true,
+          "iconProps": Object {
+            "iconName": "Refresh",
+          },
+          "key": "Refresh",
+          "name": "deviceMethods.invokeMethodButtonText",
+          "onClick": [Function],
+        },
+      ]
+    }
+  />
+  <h3>
+    deviceMethods.headerText
+  </h3>
+  <div
+    className="device-detail"
+  >
+    <StyledTextFieldBase
+      ariaLabel="deviceMethods.methodName"
+      label="deviceMethods.methodName"
+      onChange={[Function]}
+      placeholder="deviceMethods.methodNamePlaceHolder"
+      required={true}
+      value=""
+    />
+    <div
+      className="method-payload"
+    >
+      <Component
+        tooltipText="deviceMethods.payloadTooltip"
+      >
+        deviceMethods.payload
+      </Component>
+      <div
+        className="direct-method-monaco-editor"
+      >
+        <React.Suspense
+          fallback={
+            <StyledSpinnerBase
+              size={3}
+              title="loading"
+            />
+          }
+        >
+          <React.Lazy
+            height="25vh"
+            language="json"
+            onChange={[Function]}
+            options={
+              Object {
+                "automaticLayout": true,
+              }
+            }
+            value=""
+          />
+        </React.Suspense>
+      </div>
+      <Component
+        tooltipText="deviceMethods.connectionTimeoutTooltip"
+      >
+        deviceMethods.connectionTimeout
+      </Component>
+      <StyledSliderBase
+        ariaLabel="deviceMethods.connectionTimeout"
+        max={300}
+        min={0}
+        onChange={[Function]}
+        value={0}
+      />
+      <Component
+        tooltipText="deviceMethods.responseTimeoutTooltip"
+      >
+        deviceMethods.responseTimeout
+      </Component>
+      <StyledSliderBase
+        ariaLabel="deviceMethods.responseTimeout"
+        max={300}
+        min={0}
+        onChange={[Function]}
+        value={0}
+      />
+    </div>
+  </div>
+</Fragment>
+`;
