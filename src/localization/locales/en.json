@@ -427,7 +427,7 @@
             }
         }
     },
-    "deviceMethods": {
+    "directMethod": {
         "headerText": "Direct method",
         "methodName": "Method name",
         "methodNamePlaceHolder": "The name of the Direct method to invoke on this device",

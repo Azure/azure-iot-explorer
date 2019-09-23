@@ -6,19 +6,19 @@ import 'jest';
 import { cloneableGenerator, SagaIteratorClone } from 'redux-saga/utils';
 import { call, put } from 'redux-saga/effects';
 import * as DevicesService from '../../../api/services/devicesService';
-import { invokeDeviceMethodSaga, notifyMethodInvoked } from './deviceMethodSaga';
-import { invokeDeviceMethodAction } from '../actions';
+import { invokeDirectMethodSaga, notifyMethodInvoked } from './directMethodSaga';
+import { invokeDirectMethodAction } from '../actions';
 import { InvokeMethodParameters } from '../../../api/parameters/deviceParameters';
 import { addNotificationAction } from '../../../notifications/actions';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { NotificationType } from '../../../api/models/notification';
 
-describe('deviceMethodSaga', () => {
-    let invokeDeviceMethodSagaGenerator: SagaIteratorClone;
+describe('directMethodSaga', () => {
+    let invokeDirectMethodSagaGenerator: SagaIteratorClone;
     let notifyMethodInvokedGenerator: SagaIteratorClone;
     let notifyMethodInvokedGeneratorNoPayload: SagaIteratorClone;
 
-    const mockInvokeDeviceMethod = jest.spyOn(DevicesService, 'invokeDeviceMethod').mockImplementation(parameters => {
+    const mockInvokeDirectMethod = jest.spyOn(DevicesService, 'invokeDirectMethod').mockImplementation(parameters => {
         return null;
     });
 
@@ -50,12 +50,12 @@ describe('deviceMethodSaga', () => {
     invokeMethodParametersNoPayload.payload = undefined;
 
     beforeAll(() => {
-        invokeDeviceMethodSagaGenerator = cloneableGenerator(invokeDeviceMethodSaga)(invokeDeviceMethodAction.started(invokeMethodParameters));
+        invokeDirectMethodSagaGenerator = cloneableGenerator(invokeDirectMethodSaga)(invokeDirectMethodAction.started(invokeMethodParameters));
     });
 
     beforeEach(() => {
-        notifyMethodInvokedGenerator = cloneableGenerator(notifyMethodInvoked)(randomNumber, invokeDeviceMethodAction.started(invokeMethodParameters));
-        notifyMethodInvokedGeneratorNoPayload = cloneableGenerator(notifyMethodInvoked)(randomNumber, invokeDeviceMethodAction.started(invokeMethodParametersNoPayload));
+        notifyMethodInvokedGenerator = cloneableGenerator(notifyMethodInvoked)(randomNumber, invokeDirectMethodAction.started(invokeMethodParameters));
+        notifyMethodInvokedGeneratorNoPayload = cloneableGenerator(notifyMethodInvoked)(randomNumber, invokeDirectMethodAction.started(invokeMethodParametersNoPayload));
     });
 
     describe('notifyMethodInvoked', () => {
@@ -99,21 +99,21 @@ describe('deviceMethodSaga', () => {
         });
     });
 
-    describe('invokeDeviceMethodSaga', () => {
+    describe('invokeDirectMethodSaga', () => {
 
         it('notifies that the method is being invoked', () => {
-            expect(invokeDeviceMethodSagaGenerator.next(randomNumber)).toEqual({
+            expect(invokeDirectMethodSagaGenerator.next(randomNumber)).toEqual({
                 done: false,
-                value: call(notifyMethodInvoked, randomNumber, invokeDeviceMethodAction.started(invokeMethodParameters))
+                value: call(notifyMethodInvoked, randomNumber, invokeDirectMethodAction.started(invokeMethodParameters))
             });
         });
 
         it('successfully invokes the method', () => {
-            const success = invokeDeviceMethodSagaGenerator.clone();
+            const success = invokeDirectMethodSagaGenerator.clone();
 
             expect(success.next(payload)).toEqual({
                 done: false,
-                value: call(mockInvokeDeviceMethod, invokeMethodParameters)
+                value: call(mockInvokeDirectMethod, invokeMethodParameters)
             });
 
             const response = 'hello';
@@ -136,7 +136,7 @@ describe('deviceMethodSaga', () => {
 
             expect(success.next()).toEqual({
                 done: false,
-                value: put(invokeDeviceMethodAction.done({
+                value: put(invokeDirectMethodAction.done({
                     params: invokeMethodParameters,
                     result: response
                 }))
@@ -144,7 +144,7 @@ describe('deviceMethodSaga', () => {
         });
 
         it('fails', () => {
-            const failed = invokeDeviceMethodSagaGenerator.clone();
+            const failed = invokeDirectMethodSagaGenerator.clone();
             const error = { code: -1 };
 
             expect(failed.throw(error)).toEqual({
@@ -164,7 +164,7 @@ describe('deviceMethodSaga', () => {
 
             expect(failed.next(error)).toEqual({
                 done: false,
-                value: put(invokeDeviceMethodAction.failed({
+                value: put(invokeDirectMethodAction.failed({
                     error,
                     params: invokeMethodParameters
                 }))

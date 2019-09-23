@@ -1,35 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`deviceMethods matches snapshot 1`] = `
+exports[`directMethod matches snapshot 1`] = `
 <Fragment>
   <StyledCommandBarBase
     className="command"
     items={
       Array [
         Object {
-          "ariaLabel": "deviceMethods.invokeMethodButtonText",
+          "ariaLabel": "directMethod.invokeMethodButtonText",
           "disabled": true,
           "iconProps": Object {
-            "iconName": "Refresh",
+            "iconName": "Remote",
           },
-          "key": "Refresh",
-          "name": "deviceMethods.invokeMethodButtonText",
+          "key": "Remote",
+          "name": "directMethod.invokeMethodButtonText",
           "onClick": [Function],
         },
       ]
     }
   />
   <h3>
-    deviceMethods.headerText
+    directMethod.headerText
   </h3>
   <div
     className="device-detail"
   >
     <StyledTextFieldBase
-      ariaLabel="deviceMethods.methodName"
-      label="deviceMethods.methodName"
+      ariaLabel="directMethod.methodName"
+      label="directMethod.methodName"
       onChange={[Function]}
-      placeholder="deviceMethods.methodNamePlaceHolder"
+      placeholder="directMethod.methodNamePlaceHolder"
       required={true}
       value=""
     />
@@ -37,9 +37,9 @@ exports[`deviceMethods matches snapshot 1`] = `
       className="method-payload"
     >
       <Component
-        tooltipText="deviceMethods.payloadTooltip"
+        tooltipText="directMethod.payloadTooltip"
       >
-        deviceMethods.payload
+        directMethod.payload
       </Component>
       <div
         className="direct-method-monaco-editor"
@@ -66,24 +66,24 @@ exports[`deviceMethods matches snapshot 1`] = `
         </React.Suspense>
       </div>
       <Component
-        tooltipText="deviceMethods.connectionTimeoutTooltip"
+        tooltipText="directMethod.connectionTimeoutTooltip"
       >
-        deviceMethods.connectionTimeout
+        directMethod.connectionTimeout
       </Component>
       <StyledSliderBase
-        ariaLabel="deviceMethods.connectionTimeout"
+        ariaLabel="directMethod.connectionTimeout"
         max={300}
         min={0}
         onChange={[Function]}
         value={0}
       />
       <Component
-        tooltipText="deviceMethods.responseTimeoutTooltip"
+        tooltipText="directMethod.responseTimeoutTooltip"
       >
-        deviceMethods.responseTimeout
+        directMethod.responseTimeout
       </Component>
       <StyledSliderBase
-        ariaLabel="deviceMethods.responseTimeout"
+        ariaLabel="directMethod.responseTimeout"
         max={300}
         min={0}
         onChange={[Function]}

@@ -300,19 +300,6 @@ export class ResourceKeys {
          },
       },
    };
-   public static deviceMethods = {
-      connectionTimeout : "deviceMethods.connectionTimeout",
-      connectionTimeoutTooltip : "deviceMethods.connectionTimeoutTooltip",
-      headerText : "deviceMethods.headerText",
-      invokeMethodButtonText : "deviceMethods.invokeMethodButtonText",
-      methodName : "deviceMethods.methodName",
-      methodNamePlaceHolder : "deviceMethods.methodNamePlaceHolder",
-      payload : "deviceMethods.payload",
-      payloadTooltip : "deviceMethods.payloadTooltip",
-      responseTimeout : "deviceMethods.responseTimeout",
-      responseTimeoutTooltip : "deviceMethods.responseTimeoutTooltip",
-      result : "deviceMethods.result",
-   };
    public static deviceProperties = {
       columns : {
          error : "deviceProperties.columns.error",
@@ -376,6 +363,19 @@ export class ResourceKeys {
       },
       headerText : "deviceTwin.headerText",
       notFound : "deviceTwin.notFound",
+   };
+   public static directMethod = {
+      connectionTimeout : "directMethod.connectionTimeout",
+      connectionTimeoutTooltip : "directMethod.connectionTimeoutTooltip",
+      headerText : "directMethod.headerText",
+      invokeMethodButtonText : "directMethod.invokeMethodButtonText",
+      methodName : "directMethod.methodName",
+      methodNamePlaceHolder : "directMethod.methodNamePlaceHolder",
+      payload : "directMethod.payload",
+      payloadTooltip : "directMethod.payloadTooltip",
+      responseTimeout : "directMethod.responseTimeout",
+      responseTimeoutTooltip : "directMethod.responseTimeoutTooltip",
+      result : "directMethod.result",
    };
    public static errorBoundary = {
       text : "errorBoundary.text",

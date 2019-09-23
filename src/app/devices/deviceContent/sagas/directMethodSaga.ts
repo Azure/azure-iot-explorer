@@ -4,19 +4,19 @@
  **********************************************************/
 import { call, put } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
-import { invokeDeviceMethodAction } from '../actions';
-import { invokeDeviceMethod } from '../../../api/services/devicesService';
+import { invokeDirectMethodAction } from '../actions';
+import { invokeDirectMethod } from '../../../api/services/devicesService';
 import { addNotificationAction } from '../../../notifications/actions';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { InvokeMethodParameters } from '../../../api/parameters/deviceParameters';
 
-export function* invokeDeviceMethodSaga(action: Action<InvokeMethodParameters>) {
+export function* invokeDirectMethodSaga(action: Action<InvokeMethodParameters>) {
     const toastId: number = Math.random();
 
     try {
         const payload = yield call(notifyMethodInvoked, toastId, action);
-        const response = yield call(invokeDeviceMethod, {
+        const response = yield call(invokeDirectMethod, {
             connectTimeoutInSeconds: action.payload.connectTimeoutInSeconds,
             connectionString: action.payload.connectionString,
             deviceId: action.payload.deviceId,
@@ -38,7 +38,7 @@ export function* invokeDeviceMethodSaga(action: Action<InvokeMethodParameters>) 
             type: NotificationType.success
         }));
 
-        yield put(invokeDeviceMethodAction.done({params: action.payload, result: response}));
+        yield put(invokeDirectMethodAction.done({params: action.payload, result: response}));
     } catch (error) {
         yield put(addNotificationAction.started({
             id: toastId,
@@ -52,7 +52,7 @@ export function* invokeDeviceMethodSaga(action: Action<InvokeMethodParameters>) 
             type: NotificationType.error
         }));
 
-        yield put(invokeDeviceMethodAction.failed({params: action.payload, error}));
+        yield put(invokeDirectMethodAction.failed({params: action.payload, error}));
     }
 }
 

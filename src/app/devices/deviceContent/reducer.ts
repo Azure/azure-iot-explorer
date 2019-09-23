@@ -9,7 +9,6 @@ import {
     getDeviceIdentityAction,
     getDigitalTwinInterfacePropertiesAction,
     getTwinAction,
-    invokeDeviceMethodAction,
     getModelDefinitionAction,
     setInterfaceIdAction,
     updateTwinAction,
@@ -23,7 +22,6 @@ import {
 import { Twin } from '../../api/models/device';
 import { DeviceIdentity } from '../../api/models/deviceIdentity';
 import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
-import { InvokeMethodParameters } from '../../api/parameters/deviceParameters';
 import { DigitalTwinInterfaces } from '../../api/models/digitalTwinModels';
 
 const reducer = reducerWithInitialState<DeviceContentStateType>(deviceContentStateInitial())

@@ -5,24 +5,23 @@
 import { compose, Dispatch } from 'redux';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import DeviceMethods, { DeviceMethodsProps } from './deviceMethods';
+import DirectMethod, { DirectMethodProps } from './directMethod';
 import { StateType } from '../../../../shared/redux/state';
-import { getDeviceIdentityWrapperSelector } from '../../selectors';
 import { NonFunctionProperties, FunctionProperties } from '../../../../shared/types/types';
 import { getConnectionStringSelector } from '../../../../login/selectors';
 import { InvokeMethodParameters } from '../../../../api/parameters/deviceParameters';
-import { invokeDeviceMethodAction, getDeviceIdentityAction } from '../../actions';
+import { invokeDirectMethodAction } from '../../actions';
 
-const mapStateToProps = (state: StateType): NonFunctionProperties<DeviceMethodsProps> => {
+const mapStateToProps = (state: StateType): NonFunctionProperties<DirectMethodProps> => {
     return {
         connectionString: getConnectionStringSelector(state)
     };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): FunctionProperties<DeviceMethodsProps> => {
+const mapDispatchToProps = (dispatch: Dispatch): FunctionProperties<DirectMethodProps> => {
     return {
-        onInvokeMethodClick: (parameters: InvokeMethodParameters) => dispatch(invokeDeviceMethodAction.started(parameters))
+        onInvokeMethodClick: (parameters: InvokeMethodParameters) => dispatch(invokeDirectMethodAction.started(parameters))
     };
 };
 
-export default compose(withRouter, connect(mapStateToProps, mapDispatchToProps))(DeviceMethods);
+export default compose(withRouter, connect(mapStateToProps, mapDispatchToProps))(DirectMethod);

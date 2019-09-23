@@ -48,7 +48,7 @@ export interface IoTHubConnectionSettings {
     sharedAccessKeyName?: string;
 }
 
-export interface CloudToDeviceMethodResult {
+export interface DirectMethodResult {
     payload: object;
     status: number;
 }
@@ -233,7 +233,7 @@ export const updateDeviceTwin = async (parameters: UpdateDeviceTwinParameters): 
     }
 };
 
-export const invokeDeviceMethod = async (parameters: InvokeMethodParameters): Promise<CloudToDeviceMethodResult> => {
+export const invokeDirectMethod = async (parameters: InvokeMethodParameters): Promise<DirectMethodResult> => {
     try {
         if (!parameters.deviceId) {
             return;

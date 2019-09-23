@@ -4,27 +4,12 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import DeviceMethods, { DeviceMethodsProps } from './deviceMethods';
+import DirectMethod, { DirectMethodProps } from './directMethod';
 import { testSnapshot } from '../../../../shared/utils/testHelpers';
 
-describe('deviceMethods', () => {
-    const deviceMethodProps: DeviceMethodsProps = {
+describe('directMethod', () => {
+    const directMethodProps: DirectMethodProps = {
         connectionString: 'testString',
-        deviceIdentityWrapper: {
-            deviceIdentity: {
-                authentication: {symmetricKey: {primaryKey: null, secondaryKey: null}, type: 'sas', x509Thumbprint: null},
-                capabilities: {iotEdge: false},
-                cloudToDeviceMessageCount: null,
-                deviceId: 'deviceId',
-                etag: null,
-                lastActivityTime: null,
-                status: 'enabled',
-                statusReason: null,
-                statusUpdatedTime: null
-            },
-            deviceIdentitySynchronizationStatus: undefined
-        },
-        getDeviceIdentity: jest.fn(),
         onInvokeMethodClick: jest.fn()
     };
 
@@ -38,12 +23,12 @@ describe('deviceMethods', () => {
 
     const getComponent = (overrides = {}) => {
         const props = {
-            ...deviceMethodProps,
+            ...directMethodProps,
             ...routerprops,
             ...overrides
         };
 
-        return <DeviceMethods {...props} />;
+        return <DirectMethod {...props} />;
     };
 
     it('matches snapshot', () => {

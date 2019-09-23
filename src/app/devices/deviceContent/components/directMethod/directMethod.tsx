@@ -12,7 +12,7 @@ import { LocalizationContextConsumer, LocalizationContextInterface } from '../..
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { InvokeMethodParameters } from '../../../../api/parameters/deviceParameters';
 import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
-import { REFRESH } from '../../../../constants/iconNames';
+import { DIRECT_METHOD } from '../../../../constants/iconNames';
 import LabelWithTooltip from '../../../../shared/components/labelWithTooltip';
 import '../../../../css/_deviceDetail.scss';
 
@@ -21,25 +21,23 @@ const Editor = React.lazy(() => EditorPromise);
 
 const SLIDER_MAX = 300;
 
-export interface DeviceMethodInvokeProperties {
+export interface DirectMethodState {
     connectionTimeout: number;
     methodName: string;
     responseTimeout: number;
     payload: string;
 }
 
-export interface DeviceMethodsProps {
+export interface DirectMethodProps {
     connectionString: string;
     onInvokeMethodClick: (properties: InvokeMethodParameters) => void;
 }
 
-export type DeviceMethodsState = DeviceMethodInvokeProperties;
-
-export default class DeviceMethods extends React.Component<DeviceMethodsProps & RouteComponentProps, DeviceMethodsState> {
+export default class DirectMethod extends React.Component<DirectMethodProps & RouteComponentProps, DirectMethodState> {
 
     private connectionSliderRef: React.Ref<SliderBase>;
 
-    constructor(props: DeviceMethodsProps & RouteComponentProps) {
+    constructor(props: DirectMethodProps & RouteComponentProps) {
         super(props);
         this.state = {
             connectionTimeout: 0,
@@ -55,7 +53,7 @@ export default class DeviceMethods extends React.Component<DeviceMethodsProps & 
                 {(context: LocalizationContextInterface) => (
                     <>
                         {this.showCommandBar(context)}
-                        <h3>{context.t(ResourceKeys.deviceMethods.headerText)}</h3>
+                        <h3>{context.t(ResourceKeys.directMethod.headerText)}</h3>
                         <div className="device-detail">
                             {this.renderMethodsName(context)}
                             {this.renderMethodsPayloadSection(context)}
@@ -72,11 +70,11 @@ export default class DeviceMethods extends React.Component<DeviceMethodsProps & 
                 className="command"
                 items={[
                     {
-                        ariaLabel: context.t(ResourceKeys.deviceMethods.invokeMethodButtonText),
+                        ariaLabel: context.t(ResourceKeys.directMethod.invokeMethodButtonText),
                         disabled: !this.formReady(),
-                        iconProps: {iconName: REFRESH},
-                        key: REFRESH,
-                        name: context.t(ResourceKeys.deviceMethods.invokeMethodButtonText),
+                        iconProps: {iconName: DIRECT_METHOD},
+                        key: DIRECT_METHOD,
+                        name: context.t(ResourceKeys.directMethod.invokeMethodButtonText),
                         onClick: this.onInvokeMethodClick
                     }
                 ]}
@@ -115,12 +113,12 @@ export default class DeviceMethods extends React.Component<DeviceMethodsProps & 
     private readonly renderMethodsName = (context: LocalizationContextInterface) => {
         return (
                 <TextField
-                    label={context.t(ResourceKeys.deviceMethods.methodName)}
-                    ariaLabel={context.t(ResourceKeys.deviceMethods.methodName)}
+                    label={context.t(ResourceKeys.directMethod.methodName)}
+                    ariaLabel={context.t(ResourceKeys.directMethod.methodName)}
                     value={this.state.methodName}
                     onChange={this.onMethodNameChange}
                     required={true}
-                    placeholder={context.t(ResourceKeys.deviceMethods.methodNamePlaceHolder)}
+                    placeholder={context.t(ResourceKeys.directMethod.methodNamePlaceHolder)}
                 />
         );
     }
@@ -131,9 +129,9 @@ export default class DeviceMethods extends React.Component<DeviceMethodsProps & 
         return (
             <div className="method-payload">
                 <LabelWithTooltip
-                    tooltipText={context.t(ResourceKeys.deviceMethods.payloadTooltip)}
+                    tooltipText={context.t(ResourceKeys.directMethod.payloadTooltip)}
                 >
-                    {context.t(ResourceKeys.deviceMethods.payload)}
+                    {context.t(ResourceKeys.directMethod.payload)}
                 </LabelWithTooltip>
                 <div className="direct-method-monaco-editor">
                     <React.Suspense fallback={<Spinner title={'loading'} size={SpinnerSize.large} />}>
@@ -149,12 +147,12 @@ export default class DeviceMethods extends React.Component<DeviceMethodsProps & 
                     </React.Suspense>
                 </div>
                 <LabelWithTooltip
-                    tooltipText={context.t(ResourceKeys.deviceMethods.connectionTimeoutTooltip)}
+                    tooltipText={context.t(ResourceKeys.directMethod.connectionTimeoutTooltip)}
                 >
-                    {context.t(ResourceKeys.deviceMethods.connectionTimeout)}
+                    {context.t(ResourceKeys.directMethod.connectionTimeout)}
                 </LabelWithTooltip>
                 <Slider
-                    ariaLabel={context.t(ResourceKeys.deviceMethods.connectionTimeout)}
+                    ariaLabel={context.t(ResourceKeys.directMethod.connectionTimeout)}
                     min={0}
                     max={SLIDER_MAX}
                     ref={this.connectionSliderRef}
@@ -162,12 +160,12 @@ export default class DeviceMethods extends React.Component<DeviceMethodsProps & 
                     onChange={this.onConnectionTimeoutChange}
                 />
                 <LabelWithTooltip
-                    tooltipText={context.t(ResourceKeys.deviceMethods.responseTimeoutTooltip)}
+                    tooltipText={context.t(ResourceKeys.directMethod.responseTimeoutTooltip)}
                 >
-                    {context.t(ResourceKeys.deviceMethods.responseTimeout)}
+                    {context.t(ResourceKeys.directMethod.responseTimeout)}
                 </LabelWithTooltip>
                 <Slider
-                    ariaLabel={context.t(ResourceKeys.deviceMethods.responseTimeout)}
+                    ariaLabel={context.t(ResourceKeys.directMethod.responseTimeout)}
                     min={connectionTimeout}
                     max={SLIDER_MAX}
                     value={responseTimeout}

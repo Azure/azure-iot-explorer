@@ -8,7 +8,7 @@ import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import DeviceIdentityContainer from './deviceIdentity/deviceIdentityContainer';
 import DeviceTwinContainer from './deviceTwin/deviceTwinContainer';
 import DeviceEventsContainer from './deviceEvents/deviceEventsContainer';
-import DeviceMethodsContainer from './deviceMethods/deviceMethodsContainer';
+import DirectMethodContainer from './directMethod/directMethodContainer';
 import DeviceContentNavComponent from './deviceContentNav';
 import BreadcrumbContainer from '../../../shared/components/breadcrumbContainer';
 import DigitalTwinsContentContainer from './digitalTwinContentContainer';
@@ -101,7 +101,7 @@ export class DeviceContentComponent extends React.PureComponent<DeviceContentPro
                 <Route path={`/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DETAIL}/${ROUTE_PARTS.IDENTITY}/`} component={DeviceIdentityContainer} />
                 <Route path={`/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DETAIL}/${ROUTE_PARTS.TWIN}/`} component={DeviceTwinContainer} />
                 <Route path={`/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DETAIL}/${ROUTE_PARTS.EVENTS}/`} component={DeviceEventsContainer}/>
-                <Route path={`/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DETAIL}/${ROUTE_PARTS.METHODS}/`} component={DeviceMethodsContainer} />
+                <Route path={`/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DETAIL}/${ROUTE_PARTS.METHODS}/`} component={DirectMethodContainer} />
                 <Route path={`/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DETAIL}/${ROUTE_PARTS.DIGITAL_TWINS}/`} component={DigitalTwinsContentContainer} />
             </div>
         );
