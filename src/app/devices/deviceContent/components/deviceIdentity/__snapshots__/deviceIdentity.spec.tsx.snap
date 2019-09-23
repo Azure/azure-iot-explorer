@@ -36,6 +36,12 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with CA aut
               "deviceIdentity.authenticationType.ca.text",
             ],
             Array [
+              "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+            ],
+            Array [
               "deviceIdentity.hubConnectivity.label",
             ],
             Array [
@@ -63,6 +69,14 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with CA aut
             },
             Object {
               "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+            },
+            Object {
+              "type": "return",
               "value": "deviceIdentity.hubConnectivity.label",
             },
             Object {
@@ -84,6 +98,84 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with CA aut
     <StyledLabelBase>
       deviceIdentity.authenticationType.ca.text
     </StyledLabelBase>
+    <MaskedCopyableTextField
+      allowMask={true}
+      ariaLabel="deviceIdentity.authenticationType.symmetricKey.primaryConnectionString"
+      label="deviceIdentity.authenticationType.symmetricKey.primaryConnectionString"
+      readOnly={true}
+      t={
+        [MockFunction] {
+          "calls": Array [
+            Array [
+              "deviceIdentity.deviceID",
+            ],
+            Array [
+              "deviceIdentity.deviceID",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.ca.text",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.label",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.label",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.enable",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.disable",
+            ],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.deviceID",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.deviceID",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.ca.text",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.enable",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.disable",
+            },
+          ],
+        }
+      }
+      value=""
+    />
     <br />
     <StyledToggleBase
       ariaLabel="deviceIdentity.hubConnectivity.label"
@@ -124,6 +216,12 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with SelfSi
               "deviceIdentity.authenticationType.selfSigned.text",
             ],
             Array [
+              "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+            ],
+            Array [
               "deviceIdentity.hubConnectivity.label",
             ],
             Array [
@@ -151,6 +249,14 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with SelfSi
             },
             Object {
               "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+            },
+            Object {
+              "type": "return",
               "value": "deviceIdentity.hubConnectivity.label",
             },
             Object {
@@ -172,6 +278,84 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with SelfSi
     <StyledLabelBase>
       deviceIdentity.authenticationType.selfSigned.text
     </StyledLabelBase>
+    <MaskedCopyableTextField
+      allowMask={true}
+      ariaLabel="deviceIdentity.authenticationType.symmetricKey.primaryConnectionString"
+      label="deviceIdentity.authenticationType.symmetricKey.primaryConnectionString"
+      readOnly={true}
+      t={
+        [MockFunction] {
+          "calls": Array [
+            Array [
+              "deviceIdentity.deviceID",
+            ],
+            Array [
+              "deviceIdentity.deviceID",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.selfSigned.text",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.label",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.label",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.enable",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.disable",
+            ],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.deviceID",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.deviceID",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.selfSigned.text",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.enable",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.disable",
+            },
+          ],
+        }
+      }
+      value=""
+    />
     <br />
     <StyledToggleBase
       ariaLabel="deviceIdentity.hubConnectivity.label"

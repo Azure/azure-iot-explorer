@@ -27,6 +27,12 @@ export const getDeviceAuthenticationType = (identity: DeviceIdentity): DeviceAut
     }
 };
 
+export const generateX509ConnectionString = (connectionString: string, deviceId: string): string => {
+    const connectionObject = getConnectionInfoFromConnectionString(connectionString);
+    return connectionObject.hostName && deviceId ?
+        `HostName=${connectionObject.hostName};DeviceId=${deviceId};x509=true` : '';
+};
+
 export const generateConnectionString = (connectionString: string, deviceId: string, key: string): string => {
     const connectionObject = getConnectionInfoFromConnectionString(connectionString);
     return connectionObject.hostName && deviceId && key ?
