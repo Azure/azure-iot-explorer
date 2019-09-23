@@ -23,14 +23,14 @@ exports[`components/devices/deviceContentNav matches snapshot when there device 
                 "url": "#/devices/detail/twin/?id=test",
               },
               Object {
-                "key": "methods",
-                "name": "deviceContent.navBar.methods",
-                "url": "#/devices/detail/methods/?id=test",
-              },
-              Object {
                 "key": "events",
                 "name": "deviceContent.navBar.events",
                 "url": "#/devices/detail/events/?id=test",
+              },
+              Object {
+                "key": "methods",
+                "name": "deviceContent.navBar.methods",
+                "url": "#/devices/detail/methods/?id=test",
               },
             ],
             "name": "deviceContent.navBar.nonpnp",

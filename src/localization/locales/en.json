@@ -100,7 +100,7 @@
             "interfaces": "Interface",
             "events": "Telemetry",
             "eventsPerInterface": "Telemetry",
-            "methods": "Direct Methods",
+            "methods": "Direct Method",
             "pnp": "DIGITAL TWIN",
             "nonpnp": "DEVICE",
             "add": "Create device identity",
@@ -428,7 +428,7 @@
         }
     },
     "deviceMethods": {
-        "headerText": "Direct Methods",
+        "headerText": "Direct Method",
         "methodName": "Method name",
         "methodNamePlaceHolder": "The name of the Direct Method to invoke on this device",
         "connectionTimeout": "Connection timeout in seconds",

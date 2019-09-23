@@ -8,7 +8,6 @@ import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { Slider, SliderBase } from 'office-ui-fabric-react/lib/Slider';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
-import { DeviceIdentityWrapper } from '../../../../api/models/deviceIdentityWrapper';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { InvokeMethodParameters } from '../../../../api/parameters/deviceParameters';
@@ -30,11 +29,8 @@ export interface DeviceMethodInvokeProperties {
 }
 
 export interface DeviceMethodsProps {
-    deviceIdentityWrapper: DeviceIdentityWrapper;
     connectionString: string;
-    invokeMethodResponse: string;
     onInvokeMethodClick: (properties: InvokeMethodParameters) => void;
-    getDeviceIdentity: (deviceId: string) => void;
 }
 
 export type DeviceMethodsState = DeviceMethodInvokeProperties;
@@ -63,16 +59,11 @@ export default class DeviceMethods extends React.Component<DeviceMethodsProps & 
                         <div className="device-detail">
                             {this.renderMethodsName(context)}
                             {this.renderMethodsPayloadSection(context)}
-                            {/* {this.renderMethodsResultSection(context)} // todo: store update, response needs to be associated with deviceId*/}
                         </div>
                     </>
                 )}
             </LocalizationContextConsumer>
         );
-    }
-
-    public componentDidMount() {
-        this.props.getDeviceIdentity(getDeviceIdFromQueryString(this.props));
     }
 
     private readonly showCommandBar = (context: LocalizationContextInterface) => {
@@ -95,7 +86,7 @@ export default class DeviceMethods extends React.Component<DeviceMethodsProps & 
 
     private readonly formReady = (): boolean => {
         const { methodName, payload } = this.state;
-        return this.props.deviceIdentityWrapper && this.props.deviceIdentityWrapper.deviceIdentity && !!methodName && (!payload || this.isValidJson(payload));
+        return !!methodName && (!payload || this.isValidJson(payload));
     }
 
     private isValidJson = (content: string) => {
@@ -120,28 +111,6 @@ export default class DeviceMethods extends React.Component<DeviceMethodsProps & 
             responseTimeoutInSeconds: responseTimeout
         });
     }
-
-    // private readonly renderMethodsResultSection = (context: LocalizationContextInterface) => {
-    //     const { invokeMethodResponse } = this.props;
-    //     return (
-    //         <div className="result-section">
-    //             <Label aria-label={context.t(ResourceKeys.deviceMethods.result)}>{context.t(ResourceKeys.deviceMethods.result)}</Label>
-    //             <div className="direct-method-monaco-editor">
-    //                 <React.Suspense fallback={<Spinner title={'loading'} size={SpinnerSize.large} />}>
-    //                     <Editor
-    //                         language="json"
-    //                         height="25vh"
-    //                         value={invokeMethodResponse}
-    //                         options={{
-    //                             automaticLayout: true,
-    //                             readOnly: true
-    //                         }}
-    //                     />
-    //                 </React.Suspense>
-    //             </div>
-    //         </div>
-    //     );
-    // }
 
     private readonly renderMethodsName = (context: LocalizationContextInterface) => {
         return (

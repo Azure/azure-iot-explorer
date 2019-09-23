@@ -103,7 +103,6 @@ describe('deviceContentStateReducer', () => {
                 deviceTwin: undefined,
                 digitalTwinInterfaceProperties: undefined,
                 interfaceIdSelected: '',
-                invokeMethodResponse: '',
                 modelDefinitionWithSource,
             });
             const action = clearModelDefinitionsAction();

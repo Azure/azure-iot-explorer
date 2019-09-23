@@ -25,7 +25,6 @@ describe('deviceMethods', () => {
             deviceIdentitySynchronizationStatus: undefined
         },
         getDeviceIdentity: jest.fn(),
-        invokeMethodResponse: 'response',
         onInvokeMethodClick: jest.fn()
     };
 

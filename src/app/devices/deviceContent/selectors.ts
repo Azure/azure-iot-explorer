@@ -38,12 +38,6 @@ export const getDeviceIdentityWrapperSelector = (state: StateType): DeviceIdenti
         state.deviceContentState.deviceIdentity;
 };
 
-export const getInvokeMethodResponseSelector = (state: StateType): string => {
-    return state &&
-        state.deviceContentState &&
-        state.deviceContentState.invokeMethodResponse;
-};
-
 export const getDigitalTwinInterfacePropertiesWrapperSelector = (state: StateType): DigitalTwinInterfacePropertiesWrapper => {
     return state &&
         state.deviceContentState &&

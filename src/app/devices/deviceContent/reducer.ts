@@ -205,12 +205,6 @@ const reducer = reducerWithInitialState<DeviceContentStateType>(deviceContentSta
                 digitalTwinInterfacePropertiesSyncStatus: SynchronizationStatus.failed
             }
         });
-    })
-    //#endregion
-    .case(invokeDeviceMethodAction.done, (state: DeviceContentStateType, payload: {params: InvokeMethodParameters} & {result: string}) => {
-        return state.deviceIdentity.deviceIdentity.deviceId === payload.params.deviceId ? state.merge({invokeMethodResponse: payload.result}) : state;
-    })
-    .case(invokeDeviceMethodAction.failed, (state: DeviceContentStateType, payload: {params: InvokeMethodParameters} & {error: Error}) => { // tslint:disable-line
-        return state.deviceIdentity.deviceIdentity.deviceId === payload.params.deviceId ? state.merge({invokeMethodResponse: payload.error.message}) : state;
     });
+    //#endregion
 export default reducer;
