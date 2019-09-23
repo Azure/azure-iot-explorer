@@ -56,9 +56,7 @@ export default class DeviceTwin
                 {(context: LocalizationContextInterface) => (
                     <>
                         {this.showCommandBar(context)}
-                        <h3>{context.t(ResourceKeys.deviceTwin.headerText, {
-                            deviceId: getDeviceIdFromQueryString(this.props)
-                        })}</h3>
+                        <h3>{context.t(ResourceKeys.deviceTwin.headerText)}</h3>
                         {this.renderTwinViewer()}
                     </>
             )}

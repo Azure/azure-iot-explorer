@@ -48,7 +48,7 @@ export interface IoTHubConnectionSettings {
     sharedAccessKeyName?: string;
 }
 
-export interface CloudToDeviceMethodResult {
+export interface DirectMethodResult {
     payload: object;
     status: number;
 }
@@ -233,7 +233,7 @@ export const updateDeviceTwin = async (parameters: UpdateDeviceTwinParameters): 
     }
 };
 
-export const invokeDeviceMethod = async (parameters: InvokeMethodParameters): Promise<CloudToDeviceMethodResult> => {
+export const invokeDirectMethod = async (parameters: InvokeMethodParameters): Promise<DirectMethodResult> => {
     try {
         if (!parameters.deviceId) {
             return;
@@ -242,10 +242,10 @@ export const invokeDeviceMethod = async (parameters: InvokeMethodParameters): Pr
         const connectionInfo = dataPlaneConnectionHelper(parameters);
         const dataPlaneRequest: DataPlaneRequest = {
             body: JSON.stringify({
-                connectTimeoutInSeconds: parameters.connectTimeoutInSeconds || CONNECTION_TIMEOUT_IN_SECONDS,
+                connectTimeoutInSeconds: parameters.connectTimeoutInSeconds,
                 methodName: parameters.methodName,
                 payload: parameters.payload,
-                responseTimeInSeconds: parameters.responseTimeoutInSeconds || RESPONSE_TIME_IN_SECONDS,
+                responseTimeInSeconds: parameters.responseTimeoutInSeconds,
             }),
             hostName: connectionInfo.connectionInfo.hostName,
             httpMethod: HTTP_OPERATION_TYPES.Post,

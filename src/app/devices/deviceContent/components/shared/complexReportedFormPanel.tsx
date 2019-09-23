@@ -113,7 +113,7 @@ export default class ComplexReportedFormPanel extends React.Component<ReportedFo
                                 automaticLayout: true,
                                 readOnly: true
                             }}
-                            height="80vh"
+                            height="70vh"
                             value={JSON.stringify(this.state.formData, null, '\t')}
                         />
                     </React.Suspense>

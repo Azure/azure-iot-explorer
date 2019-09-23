@@ -19,6 +19,7 @@ export const STOP = 'Stop';
 export const SUBMIT = 'CloudUpload';
 export const SYNCH = 'SyncOccurence';
 export const WARNING = 'Warning';
+export const DIRECT_METHOD = 'Remote';
 export enum GroupedList {
     OPEN = 'ChevronUp',
     CLOSE = 'ChevronDown'

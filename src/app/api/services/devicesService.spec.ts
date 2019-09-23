@@ -515,22 +515,23 @@ describe('deviceTwinService', () => {
         });
     });
 
-    context('invokeDeviceMethod', () => {
+    context('invokeDirectMethod', () => {
         const parameters = {
             connectTimeoutInSeconds: 10,
             connectionString,
             deviceId: undefined,
             methodName: 'methodName',
-            payload: {foo: 'bar'}
+            payload: {foo: 'bar'},
+            responseTimeoutInSeconds : 10,
         };
         it ('returns if deviceId is not specified', () => {
-            expect(DevicesService.invokeDeviceMethod(parameters)).toEqual(emptyPromise);
+            expect(DevicesService.invokeDirectMethod(parameters)).toEqual(emptyPromise);
         });
 
         it('calls fetch with specified parameters', () => {
             jest.spyOn(DevicesService, 'dataPlaneConnectionHelper').mockReturnValue({
                 connectionInfo: getConnectionInfoFromConnectionString(parameters.connectionString), sasToken});
-            DevicesService.invokeDeviceMethod({
+            DevicesService.invokeDirectMethod({
                 ...parameters,
                 deviceId
             });
@@ -541,7 +542,7 @@ describe('deviceTwinService', () => {
                     connectTimeoutInSeconds: parameters.connectTimeoutInSeconds,
                     methodName: parameters.methodName,
                     payload: parameters.payload,
-                    responseTimeInSeconds: RESPONSE_TIME_IN_SECONDS,
+                    responseTimeInSeconds: parameters.responseTimeoutInSeconds,
                 }),
                 hostName: connectionInformation.connectionInfo.hostName,
                 httpMethod: HTTP_OPERATION_TYPES.Post,
@@ -576,7 +577,7 @@ describe('deviceTwinService', () => {
             // tslint:enable
             jest.spyOn(window, 'fetch').mockResolvedValue(response);
 
-            const result = await DevicesService.invokeDeviceMethod({
+            const result = await DevicesService.invokeDirectMethod({
                 ...parameters,
                 deviceId
             });
@@ -595,7 +596,7 @@ describe('deviceTwinService', () => {
             // tslint:enable
             jest.spyOn(window, 'fetch').mockResolvedValue(response);
 
-            await expect(DevicesService.invokeDeviceMethod({
+            await expect(DevicesService.invokeDirectMethod({
                 ...parameters,
                 deviceId
             })).rejects.toThrow(new Error());

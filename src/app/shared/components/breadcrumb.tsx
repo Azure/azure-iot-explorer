@@ -8,10 +8,13 @@ import { RouteComponentProps } from 'react-router-dom';
 import { TranslationFunction } from 'i18next';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
+import { ROUTE_PARTS, ROUTE_PARAMS } from '../../constants/routes';
 import '../../css/_breadcrumb.scss';
+
 export interface BreadCrumbProps {
     hubName: string;
 }
+
 export default class BreadcrumbComponent extends React.Component<BreadCrumbProps & RouteComponentProps>{
     constructor(props: BreadCrumbProps & RouteComponentProps) {
         super(props);
@@ -29,6 +32,7 @@ export default class BreadcrumbComponent extends React.Component<BreadCrumbProps
             </LocalizationContextConsumer>
         );
     }
+
     private readonly getShortHubName = (hostName: string) => {
         return hostName && hostName.replace(/\..*/, '');
     }
@@ -38,7 +42,7 @@ export default class BreadcrumbComponent extends React.Component<BreadCrumbProps
         const { pathname, search } = location;
         const items: Array<{ text: string, key: string, href?: string }> = [
             { text: t(ResourceKeys.breadcrumb.hub, {hubName: this.getShortHubName(hubName)}), key: 'Hub'},
-            { text: t(ResourceKeys.breadcrumb.devices), key: 'Devices', href: '#/devices' },
+            { text: t(ResourceKeys.breadcrumb.devices), key: 'Devices', href: `#/${ROUTE_PARTS.DEVICES}` },
         ];
 
         const frags = pathname && pathname.replace(/(#\/)?devices\//, '').split('/').filter(frag => '' !== frag);
@@ -69,24 +73,34 @@ export default class BreadcrumbComponent extends React.Component<BreadCrumbProps
         });
         return items;
     }
+
     private readonly getDeviceIdFromSearch = (search: string) => {
-        return new URLSearchParams(search).get('id');
+        return new URLSearchParams(search).get(ROUTE_PARAMS.DEVICE_ID);
     }
 
     private readonly getDeviceFrag = (search: string) => {
         const deviceId = this.getDeviceIdFromSearch(search);
         if (deviceId) {
-            return { text: deviceId, key: `device_${deviceId}`, href: `#/devices/detail/identity/?id=${deviceId}` };
+            return {
+                href: `#/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DETAIL}/${ROUTE_PARTS.IDENTITY}/?${ROUTE_PARAMS.DEVICE_ID}=${deviceId}`,
+                key: `device_${deviceId}`,
+                text: deviceId
+            };
         }
         return null;
     }
+
     public readonly getInterfaceFrag = (search: string) => {
         const deviceId = this.getDeviceIdFromSearch(search);
         // can't have a device interface without a device
         if (deviceId) {
-            const interfaceId = new URLSearchParams(search).get('interfaceId');
+            const interfaceId = new URLSearchParams(search).get(ROUTE_PARAMS.INTERFACE_ID);
             if (interfaceId && '' !== interfaceId) {
-                return { text: interfaceId, key: `device_${deviceId}_${interfaceId}`, href: `#/devices/detail/digitalTwins/interfaces/?id=${deviceId}&interfaceId=${interfaceId}` };
+                return {
+                    href: `#/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DETAIL}/${ROUTE_PARTS.DIGITAL_TWINS}/${ROUTE_PARTS.INTERFACES}/?${ROUTE_PARAMS.DEVICE_ID}=${deviceId}&${ROUTE_PARAMS.INTERFACE_ID}=${interfaceId}`,
+                    key: `device_${deviceId}_${interfaceId}`,
+                    text: interfaceId
+                };
             }
         }
         return null;

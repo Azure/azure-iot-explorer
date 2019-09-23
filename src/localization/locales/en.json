@@ -100,7 +100,7 @@
             "interfaces": "Interface",
             "events": "Telemetry",
             "eventsPerInterface": "Telemetry",
-            "methods": "Device Methods",
+            "methods": "Direct method",
             "pnp": "DIGITAL TWIN",
             "nonpnp": "DEVICE",
             "add": "Create device identity",
@@ -427,11 +427,18 @@
             }
         }
     },
-    "deviceMethods": {
+    "directMethod": {
+        "headerText": "Direct method",
         "methodName": "Method name",
-        "connectionTimeout": "Connection timeout",
-        "methodTimeout": "Method timeout",
-        "invokeMethodButtonText": "Invoke Method"
+        "methodNamePlaceHolder": "The name of the Direct method to invoke on this device",
+        "connectionTimeout": "Connection timeout in seconds",
+        "connectionTimeoutTooltip": "Number of seconds to wait until a connection is successfully made.",
+        "responseTimeout": "Response timeout in seconds",
+        "responseTimeoutTooltip": "Number of seconds to wait until a result is received from the Direct method.",
+        "invokeMethodButtonText": "Invoke method",
+        "payload" : "Payload",
+        "payloadTooltip" : "The payload for the Direct method to invoke on this device which needs to be in JSON format",
+        "result" : "Result"
     },
     "noMatchError": {
         "title": "404 - Not found",

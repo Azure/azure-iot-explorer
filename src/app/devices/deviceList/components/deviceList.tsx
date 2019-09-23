@@ -17,6 +17,7 @@ import BreadcrumbContainer from '../../../shared/components/breadcrumbContainer'
 import DeviceListQuery from './deviceListQuery';
 import { DeviceListCell } from './deviceListCell';
 import ListPaging from './listPaging';
+import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
 import '../../../css/_deviceList.scss';
 import '../../../css/_layouts.scss';
 
@@ -158,9 +159,9 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
                         infoText: context.t(ResourceKeys.deviceLists.columns.deviceId.infoText),
                         name: context.t(ResourceKeys.deviceLists.columns.deviceId.label),
                         onRenderColumn: (group, key) => {
-                            const path = this.props.location.pathname.replace(/\/devices\/.*/, '/devices');
+                            const path = this.props.location.pathname.replace(/\/devices\/.*/, `/${ROUTE_PARTS.DEVICES}`);
                             return (
-                                <NavLink key={key} className={'deviceId-label'} to={`${path}/detail/identity/?id=${encodeURIComponent(group.name)}`}>
+                                <NavLink key={key} className={'deviceId-label'} to={`${path}/${ROUTE_PARTS.DETAIL}/${ROUTE_PARTS.IDENTITY}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(group.name)}`}>
                                     {group.name}
                                 </NavLink>
                             );
@@ -292,8 +293,8 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
     }
 
     private readonly handleAdd = () => {
-        const path = this.props.location.pathname.replace(/\/devices\/.*/, '/devices');
-        this.props.history.push(`${path}/add`);
+        const path = this.props.location.pathname.replace(/\/devices\/.*/, `/${ROUTE_PARTS.DEVICES}`);
+        this.props.history.push(`${path}/${ROUTE_PARTS.ADD}`);
     }
 
     private readonly handleDelete = () => {

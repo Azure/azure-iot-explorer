@@ -6,7 +6,7 @@ import 'jest';
 import * as React from 'react';
 import { Nav } from 'office-ui-fabric-react/lib/Nav';
 import DeviceContentNavComponent, { NAV_LINK_ITEMS_NONPNP, NAV_LINK_ITEMS_PNP } from './deviceContentNav';
-import { mountWithLocalization } from '../../../shared/utils/testHelpers';
+import { mountWithLocalization, testSnapshot } from '../../../shared/utils/testHelpers';
 
 describe('components/devices/deviceContentNav', () => {
 
@@ -25,9 +25,8 @@ describe('components/devices/deviceContentNav', () => {
     };
 
     it('matches snapshot when there device is not pnp', () => {
+        testSnapshot(getComponent());
         const wrapper = mountWithLocalization(getComponent());
-
-        expect(wrapper).toMatchSnapshot();
         const navigation = wrapper.find(Nav);
         expect(navigation.props().groups[0].links.length).toEqual(NAV_LINK_ITEMS_NONPNP.length);
     });
@@ -39,7 +38,7 @@ describe('components/devices/deviceContentNav', () => {
         expect(navigation.props().groups[0].links.length).toEqual(NAV_LINK_ITEMS_NONPNP.length);
     });
 
-    it('matches snapshot when there device is pnp', () => {
+    it('show non-pnp nav and pnp nav when device is pnp', () => {
         const interfaceId = 'urn:azureiot:com:DeviceInformation:1';
         const interfaceIds = [interfaceId];
         const wrapper = mountWithLocalization(getComponent({isPnPDevice: true, interfaceIds}));

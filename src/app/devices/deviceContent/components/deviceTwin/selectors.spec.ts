@@ -42,7 +42,6 @@ describe('./selectors', () => {
         },
         digitalTwinInterfaceProperties: null,
         interfaceIdSelected: '',
-        invokeMethodResponse: '',
         modelDefinitionWithSource: null
     })();
 

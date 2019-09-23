@@ -42,7 +42,6 @@ describe('getDigitalTwinInterfacePropertiesSelector', () => {
             digitalTwinInterfacePropertiesSyncStatus: SynchronizationStatus.fetched
         },
         interfaceIdSelected: 'urn:contoso:com:environmentalsensor:2',
-        invokeMethodResponse: '',
         modelDefinitionWithSource: null
     })();
 
