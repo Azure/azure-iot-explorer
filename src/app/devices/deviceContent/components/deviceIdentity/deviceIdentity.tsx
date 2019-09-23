@@ -11,7 +11,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { DeviceIdentity } from '../../../../api/models/deviceIdentity';
-import { getDeviceAuthenticationType, generateConnectionString } from './deviceIdentityHelper';
+import { getDeviceAuthenticationType, generateConnectionString, generateX509ConnectionString } from './deviceIdentityHelper';
 import DeviceIdentityCommandBar from './deviceIdentityCommandBar';
 import { DeviceAuthenticationType } from '../../../../api/models/deviceAuthenticationType';
 import { DeviceStatus } from '../../../../api/models/deviceStatus';
@@ -148,9 +148,33 @@ export default class DeviceIdentityInformation
         const authType = getDeviceAuthenticationType(identity);
         switch (authType) {
             case DeviceAuthenticationType.SelfSigned:
-                return (<Label>{context.t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.text)}</Label>);
+                return (
+                    <>
+                        <Label>{context.t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.text)}</Label>
+                        <MaskedCopyableTextField
+                            ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionString)}
+                            label={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionString)}
+                            value={generateX509ConnectionString(connectionString, identity.deviceId)}
+                            allowMask={true}
+                            t={context.t}
+                            readOnly={true}
+                        />
+                    </>
+                );
             case DeviceAuthenticationType.CACertificate:
-                return (<Label>{context.t(ResourceKeys.deviceIdentity.authenticationType.ca.text)}</Label>);
+                return (
+                    <>
+                        <Label>{context.t(ResourceKeys.deviceIdentity.authenticationType.ca.text)}</Label>
+                        <MaskedCopyableTextField
+                            ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionString)}
+                            label={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionString)}
+                            value={generateX509ConnectionString(connectionString, identity.deviceId)}
+                            allowMask={true}
+                            t={context.t}
+                            readOnly={true}
+                        />
+                    </>
+                );
             case DeviceAuthenticationType.SymmetricKey:
                 return (
                     <>
