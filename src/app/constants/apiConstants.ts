@@ -9,6 +9,7 @@ export const CONTROLLER_API_ENDPOINT = (`${_CONTROLLER_ENDPOINT}/api`).replace(/
 export const DATAPLANE = '/DataPlane';
 export const EVENTHUB = '/EventHub';
 export const MODELREPO = '/ModelRepo';
+export const CLOUD_TO_DEVICE = '/CloudToDevice';
 
 // model repo .net controller
 export const INTERFACE_ID = '?interfaceId=';

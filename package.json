@@ -70,6 +70,8 @@
   "dependencies": {
     "@azure/event-hubs": "1.0.7",
     "@types/core-js": "2.5.0",
+    "azure-iot-common": "1.10.3",
+    "azure-iothub": "1.8.1",
     "body-parser": "1.18.3",
     "core-js": "3.0.0",
     "cors": "2.8.5",

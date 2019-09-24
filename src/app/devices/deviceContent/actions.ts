@@ -6,7 +6,7 @@ import actionCreatorFactory from 'typescript-fsa';
 import * as actionPrefixes from '../../constants/actionPrefixes';
 import * as actionTypes from '../../constants/actionTypes';
 import { ModelDefinition } from '../../api/models/modelDefinition';
-import { InvokeMethodParameters } from '../../api/parameters/deviceParameters';
+import { InvokeMethodParameters, CloudToDeviceMessageParameters } from '../../api/parameters/deviceParameters';
 import { Twin } from '../../api/models/device';
 import { DeviceIdentity } from '../../api/models/deviceIdentity';
 import { DigitalTwinInterfaces } from './../../api/models/digitalTwinModels';
@@ -14,6 +14,7 @@ import { REPOSITORY_LOCATION_TYPE } from './../../constants/repositoryLocationTy
 
 const deviceContentCreator = actionCreatorFactory(actionPrefixes.DEVICECONTENT);
 const clearModelDefinitionsAction = deviceContentCreator(actionTypes.CLEAR_MODEL_DEFINITIONS);
+const cloudToDeviceMessageAction = deviceContentCreator.async<CloudToDeviceMessageParameters, string>(actionTypes.CLOUD_TO_DEVICE_MESSAGE);
 const getDeviceIdentityAction = deviceContentCreator.async<string, DeviceIdentity> (actionTypes.GET_DEVICE_IDENTITY);
 const getDigitalTwinInterfacePropertiesAction = deviceContentCreator.async<string, DigitalTwinInterfaces>(actionTypes.GET_DIGITAL_TWIN_INTERFACE_PROPERTIES);
 const getTwinAction = deviceContentCreator.async<string, Twin>(actionTypes.GET_TWIN);
@@ -27,6 +28,7 @@ const updateTwinAction = deviceContentCreator.async<UpdateTwinActionParameters, 
 
 export {
     clearModelDefinitionsAction,
+    cloudToDeviceMessageAction,
     getDeviceIdentityAction,
     getDigitalTwinInterfacePropertiesAction,
     getTwinAction,

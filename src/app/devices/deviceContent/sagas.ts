@@ -9,7 +9,9 @@ import { invokeDirectMethodSaga } from './sagas/directMethodSaga';
 import { invokeDigitalTwinInterfaceCommandSaga } from './sagas/digitalTwinInterfaceCommandSaga';
 import { getDeviceIdentitySaga, updateDeviceIdentitySaga } from './sagas/deviceIdentitySaga';
 import { getDigitalTwinInterfacePropertySaga, patchDigitalTwinInterfacePropertiesSaga } from './sagas/digitalTwinInterfacePropertySaga';
+import { cloudToDeviceMessageSaga } from './sagas/cloudToDeviceMessageSaga';
 import {
+    cloudToDeviceMessageAction,
     getDeviceIdentityAction,
     getDigitalTwinInterfacePropertiesAction,
     getTwinAction,
@@ -22,6 +24,7 @@ import {
     } from './actions';
 
 export default [
+    takeEvery(cloudToDeviceMessageAction.started.type, cloudToDeviceMessageSaga),
     takeLatest(getDeviceIdentityAction.started.type, getDeviceIdentitySaga),
     takeLatest(getDigitalTwinInterfacePropertiesAction.started.type, getDigitalTwinInterfacePropertySaga),
     takeLatest(getModelDefinitionAction.started.type, getModelDefinitionSaga),

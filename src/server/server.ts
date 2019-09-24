@@ -6,7 +6,8 @@ import express = require('express');
 import bodyParser = require('body-parser');
 import cors = require('cors');
 import request = require('request');
-
+import { Client as HubClient } from 'azure-iothub';
+import { Message as CloudToDeviceMessage } from 'azure-iot-common';
 import { EventHubClient, EventPosition, delay, EventHubRuntimeInformation, ReceiveHandler } from '@azure/event-hubs';
 import { generateDataPlaneRequestBody, generateDataPlaneResponse } from './dataPlaneHelper';
 
@@ -47,6 +48,40 @@ app.post('/api/DataPlane', (req: express.Request, res: express.Response) => {
             generateDataPlaneRequestBody(req),
             (err, httpRes, body) => {
                 generateDataPlaneResponse(httpRes, body, res);
+            });
+        }
+    }
+    catch (error) {
+        res.status(SERVER_ERROR).send(error);
+    }
+});
+
+app.post('/api/CloudToDevice', (req: express.Request, res: express.Response) => {
+    try {
+        if (!req.body) {
+            res.status(BAD_REQUEST).send();
+        }
+        else {
+            const hubClient = HubClient.fromConnectionString(req.body.connectionString);
+            // tslint:disable-next-line:cyclomatic-complexity
+            hubClient.open(() => {
+                const message = new CloudToDeviceMessage(req.body.body);
+                // add properties to message
+                if (req.body.properties && req.body.properties.length !== 0) {
+                    for (const property of req.body.properties) {
+                        if (property.key && property.value) {
+                            message.properties.add(property.key, property.value);
+                        }
+                    }
+                }
+                hubClient.send(req.body.deviceId, message,  (err, result) => {
+                    if (err) {
+                        res.status(SERVER_ERROR).send(err);
+                    } else {
+                        res.status(SUCCESS).send(result);
+                    }
+                    hubClient.close();
+                });
             });
         }
     }

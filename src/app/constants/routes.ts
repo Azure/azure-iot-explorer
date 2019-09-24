@@ -5,6 +5,7 @@
 export enum ROUTE_PARTS {
     ADD = 'add',
     COMMANDS = 'commands',
+    CLOUD_TO_DEVICE_MESSAGE = 'cloudToDeviceMessage',
     DETAIL = 'detail',
     DEVICES = 'devices',
     DIGITAL_TWINS = 'digitalTwins',

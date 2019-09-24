@@ -16,3 +16,27 @@
     border: 1px solid $grey-border;
     margin-bottom: 15px;
 }
+
+.cloud-to-device-message-monaco-editor {
+    border: 1px solid $grey-border;
+    margin-bottom: 15px;
+}
+
+.properties-section {
+    margin-top: 20px;
+    padding-bottom: 20px;
+    border: 1px solid $grey-border;
+    .properties-section-icon {
+        float: left;
+        margin-left: -5px;
+    }
+    .properties-section-command-bar {
+        .ms-CommandBar {
+            border-bottom: 0px !important;
+        }
+
+        .ms-OverflowSet-item{
+            padding-left: 25px;
+        }
+    }
+}

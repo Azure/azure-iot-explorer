@@ -14,8 +14,9 @@ import { FetchDeviceTwinParameters,
     UpdateDeviceParameters,
     FetchDigitalTwinInterfacePropertiesParameters,
     InvokeDigitalTwinInterfaceCommandParameters,
-    PatchDigitalTwinInterfacePropertiesParameters } from '../parameters/deviceParameters';
-import { CONTROLLER_API_ENDPOINT, DATAPLANE, EVENTHUB, DIGITAL_TWIN_API_VERSION, DataPlaneStatusCode, MONITOR, STOP, HEADERS } from '../../constants/apiConstants';
+    PatchDigitalTwinInterfacePropertiesParameters,
+    CloudToDeviceMessageParameters } from '../parameters/deviceParameters';
+import { CONTROLLER_API_ENDPOINT, DATAPLANE, EVENTHUB, DIGITAL_TWIN_API_VERSION, DataPlaneStatusCode, MONITOR, STOP, HEADERS, CLOUD_TO_DEVICE } from '../../constants/apiConstants';
 import { HTTP_OPERATION_TYPES } from '../constants';
 import { buildQueryString, getConnectionInfoFromConnectionString, generateSasToken } from '../shared/utils';
 import { CONNECTION_TIMEOUT_IN_SECONDS, RESPONSE_TIME_IN_SECONDS } from '../../constants/devices';
@@ -105,6 +106,11 @@ const dataPlaneResponseHelper = async (response: Response) => {
         if (result.body.Message || result.body.ExceptionMessage) {
             throw new Error(result.body.Message || result.body.ExceptionMessage);
         }
+    }
+
+    // error case
+    if (result && result.message) {
+        throw new Error(result.message);
     }
 
     throw new Error();
@@ -256,6 +262,22 @@ export const invokeDirectMethod = async (parameters: InvokeMethodParameters): Pr
         const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
         const result = await dataPlaneResponseHelper(response);
         return result.body;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const cloudToDeviceMessage = async (parameters: CloudToDeviceMessageParameters) => {
+    try {
+        if (!parameters.deviceId) {
+            return;
+        }
+
+        const cloudToDeviceRequest = {
+            ...parameters
+        };
+        const response = await request(`${CONTROLLER_API_ENDPOINT}${CLOUD_TO_DEVICE}`, cloudToDeviceRequest);
+        await dataPlaneResponseHelper(response);
     } catch (error) {
         throw error;
     }
