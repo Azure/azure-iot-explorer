@@ -32,6 +32,11 @@ exports[`components/devices/deviceContentNav matches snapshot when there device 
                 "name": "deviceContent.navBar.methods",
                 "url": "#/devices/detail/methods/?id=test",
               },
+              Object {
+                "key": "cloudToDeviceMessage",
+                "name": "deviceContent.navBar.cloudToDeviceMessage",
+                "url": "#/devices/detail/cloudToDeviceMessage/?id=test",
+              },
             ],
             "name": "deviceContent.navBar.nonpnp",
           },

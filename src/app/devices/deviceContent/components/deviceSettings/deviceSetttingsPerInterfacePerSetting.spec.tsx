@@ -12,7 +12,7 @@ import { mountWithLocalization } from '../../../../shared/utils/testHelpers';
 import { PropertyContent } from '../../../../api/models/modelDefinition';
 import { ParsedJsonSchema } from '../../../../api/models/interfaceJsonParserOutput';
 import DataForm from '../shared/dataForm';
-import { GroupedList } from '../../../../constants/iconNames';
+import { InterfaceDetailCard } from '../../../../constants/iconNames';
 
 describe('components/devices/deviceSettingsPerInterfacePerSetting', () => {
     const name = 'state';
@@ -137,7 +137,7 @@ describe('components/devices/deviceSettingsPerInterfacePerSetting', () => {
         expect(form.props().formData).toEqual(twinValue);
 
         const toggleButton = wrapper.find(IconButton).at(1);
-        expect(toggleButton.props().iconProps).toEqual({iconName: GroupedList.OPEN});
+        expect(toggleButton.props().iconProps).toEqual({iconName: InterfaceDetailCard.CLOSE});
 
         const header = wrapper.find('header');
         header.props().onClick(null);

@@ -5,7 +5,7 @@
 import 'jest';
 import * as DevicesService from './devicesService';
 import { HTTP_OPERATION_TYPES } from '../constants';
-import { DIGITAL_TWIN_API_VERSION } from '../../constants/apiConstants';
+import { DIGITAL_TWIN_API_VERSION, CONTROLLER_API_ENDPOINT, CLOUD_TO_DEVICE } from '../../constants/apiConstants';
 import { CONNECTION_TIMEOUT_IN_SECONDS, RESPONSE_TIME_IN_SECONDS } from '../../constants/devices';
 import { Twin } from '../models/device';
 import { DeviceIdentity } from './../models/deviceIdentity';
@@ -562,7 +562,7 @@ describe('deviceTwinService', () => {
             expect(fetch).toBeCalledWith(DevicesService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
         });
 
-        it('invokes patchDigitalTwinInterfaceProperties when response is 200', async () => {
+        it('invokes invokeDirectMethod when response is 200', async () => {
             // tslint:disable
             const responseBody = {description: 'invoked'};
             const response = {
@@ -600,6 +600,71 @@ describe('deviceTwinService', () => {
                 ...parameters,
                 deviceId
             })).rejects.toThrow(new Error());
+        });
+    });
+
+    context('cloudToDeviceMessage', () => {
+        const parameters = {
+            body: '',
+            connectionString,
+            deviceId: undefined,
+            properties: undefined
+        };
+        it ('returns if deviceId is not specified', () => {
+            expect(DevicesService.cloudToDeviceMessage(parameters)).toEqual(emptyPromise);
+        });
+
+        it('calls fetch with specified parameters', async () => {
+            // tslint:disable
+            const responseBody = {description: 'invoked'};
+            const response = {
+                json: () => {
+                    return {
+                        body: responseBody,
+                        headers:{}
+                        }
+                    },
+                status: 200
+            } as any;
+            // tslint:enable
+            jest.spyOn(window, 'fetch').mockResolvedValue(response);
+
+            await DevicesService.cloudToDeviceMessage({
+                ...parameters,
+                deviceId
+            });
+            expect(fetch).toBeCalledWith(`${CONTROLLER_API_ENDPOINT}${CLOUD_TO_DEVICE}`, {
+                body: JSON.stringify({
+                    ...parameters,
+                    deviceId
+                }),
+                cache: 'no-cache',
+                credentials: 'include',
+                headers: new Headers({
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                }),
+                method: HTTP_OPERATION_TYPES.Post,
+                mode: 'cors',
+            });
+        });
+
+        it('throws Error when response status is 409', async () => {
+            // tslint:disable
+            const response = {
+                json: () => {return {
+                    message: 'error',
+                    headers:{}
+                    }},
+                status: 409
+            } as any;
+            // tslint:enable
+            jest.spyOn(window, 'fetch').mockResolvedValue(response);
+
+            await expect(DevicesService.cloudToDeviceMessage({
+                ...parameters,
+                deviceId
+            })).rejects.toThrow(new Error('error'));
         });
     });
 

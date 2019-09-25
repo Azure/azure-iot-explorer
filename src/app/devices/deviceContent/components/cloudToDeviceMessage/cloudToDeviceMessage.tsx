@@ -6,7 +6,6 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
-import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import { DetailsList, IColumn } from 'office-ui-fabric-react/lib/DetailsList';
@@ -22,9 +21,6 @@ import LabelWithTooltip from '../../../../shared/components/labelWithTooltip';
 import { CloudToDeviceMessageParameters } from '../../../../api/parameters/deviceParameters';
 import '../../../../css/_deviceDetail.scss';
 
-const EditorPromise = import('react-monaco-editor');
-const Editor = React.lazy(() => EditorPromise);
-
 interface PropertyItem {
     isSystemProperty: boolean;
     index: number;
@@ -32,7 +28,7 @@ interface PropertyItem {
     value: string;
 }
 
-const systemPropertyKeyNames = ['message-id', 'correlation-id', 'content-type', 'content-encoding'];
+export const systemPropertyKeyNames = ['message-id', 'correlation-id', 'content-type', 'content-encoding'];
 
 export interface CloudToDeviceMessageState {
     addTimestamp: boolean;
@@ -101,8 +97,7 @@ export default class CloudToDeviceMessage extends React.Component<CloudToDeviceM
     }
 
     private readonly renderMessageBodySection = (context: LocalizationContextInterface) => {
-        const { body } = this.state;
-
+        const textFieldRows = 5;
         return (
             <>
                 <LabelWithTooltip
@@ -110,17 +105,8 @@ export default class CloudToDeviceMessage extends React.Component<CloudToDeviceM
                 >
                     {context.t(ResourceKeys.cloudToDeviceMessage.body)}
                 </LabelWithTooltip>
-                <div className="cloud-to-device-message-monaco-editor">
-                    <React.Suspense fallback={<Spinner title={'loading'} size={SpinnerSize.large} />}>
-                        <Editor
-                            options={{
-                                automaticLayout: true
-                            }}
-                            height="25vh"
-                            value={body}
-                            onChange={this.onEditorChange}
-                        />
-                    </React.Suspense>
+                <div className="cloud-to-device-message-text-field">
+                    <TextField className="cloud-to-device-message-text-field" multiline={true} rows={textFieldRows} onChange={this.onTextFieldChange}/>
                 </div>
                 <Checkbox
                     label={context.t(ResourceKeys.cloudToDeviceMessage.addTimestamp)}
@@ -301,9 +287,9 @@ export default class CloudToDeviceMessage extends React.Component<CloudToDeviceM
         this.setState({properties: updatedProperties});
     }
 
-    private readonly onEditorChange = (value: string) => {
+    private readonly onTextFieldChange = (ev: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newText: string) => {
         this.setState({
-            body: value
+            body: newText
         });
     }
 

@@ -4,9 +4,11 @@
  **********************************************************/
 @import 'variables';
 
-.ms-MessageBar {
-    width: calc(100% - 2px);
-    .ms-Button{
-        background: $white;
+.message-bar {
+    .ms-MessageBar {
+        width: calc(100% - 2px);
+        .ms-Button{
+            background: $white;
+        }
     }
 }
