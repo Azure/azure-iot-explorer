@@ -269,10 +269,6 @@ export const invokeDirectMethod = async (parameters: InvokeMethodParameters): Pr
 
 export const cloudToDeviceMessage = async (parameters: CloudToDeviceMessageParameters) => {
     try {
-        if (!parameters.deviceId) {
-            return;
-        }
-
         const cloudToDeviceRequest = {
             ...parameters
         };

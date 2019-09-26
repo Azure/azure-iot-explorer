@@ -142,7 +142,11 @@ export default class CloudToDeviceMessage extends React.Component<CloudToDeviceM
     private readonly renderPropertiesList = (context: LocalizationContextInterface) => {
         const columns: IColumn[] = [
             {
-                isResizable: true, key: context.t(ResourceKeys.cloudToDeviceMessage.properties.key), maxWidth: 200, minWidth: 150, name: context.t(ResourceKeys.cloudToDeviceMessage.properties.key),
+                isResizable: true,
+                key: context.t(ResourceKeys.cloudToDeviceMessage.properties.key),
+                maxWidth: 200,
+                minWidth: 150,
+                name: context.t(ResourceKeys.cloudToDeviceMessage.properties.key),
                 onRender: (item: PropertyItem ) => {
                 if (item.isSystemProperty) {
                     return (
@@ -164,7 +168,11 @@ export default class CloudToDeviceMessage extends React.Component<CloudToDeviceM
                 }
             },
             {
-                isResizable: true, key: context.t(ResourceKeys.cloudToDeviceMessage.properties.value), maxWidth: 200, minWidth: 150, name: context.t(ResourceKeys.cloudToDeviceMessage.properties.value),
+                isResizable: true,
+                key: context.t(ResourceKeys.cloudToDeviceMessage.properties.value),
+                maxWidth: 200,
+                minWidth: 150,
+                name: context.t(ResourceKeys.cloudToDeviceMessage.properties.value),
                 onRender: (item: PropertyItem ) => {
                 return (
                     <TextField

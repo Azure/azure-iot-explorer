@@ -610,9 +610,6 @@ describe('deviceTwinService', () => {
             deviceId: undefined,
             properties: undefined
         };
-        it ('returns if deviceId is not specified', () => {
-            expect(DevicesService.cloudToDeviceMessage(parameters)).toEqual(emptyPromise);
-        });
 
         it('calls fetch with specified parameters', async () => {
             // tslint:disable
