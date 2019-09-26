@@ -313,20 +313,17 @@ export default class CloudToDeviceMessage extends React.Component<CloudToDeviceM
         });
     }
 
-    // tslint:disable-next-line:cyclomatic-complexity
     private readonly onSendMessageClick = () => {
-        const properties = [];
-        for (const property of this.state.properties) {
-            if (property.keyName && property.value) {
-                properties.push({key: property.keyName, value: property.value});
-            }
-        }
+        const properties = this.state.properties
+            .filter(property => property.keyName && property.value)
+            .map(property => ({key: property.keyName, value: property.value}));
+        const timeStamp = new Date().toLocaleString();
 
         this.props.onSendCloudToDeviceMessage({
-            body: this.state.addTimestamp && this.state.body ? `${new Date().toLocaleString()} - ${this.state.body}` : this.state.addTimestamp && new Date().toLocaleString() || this.state.body,
+            body: this.state.addTimestamp && this.state.body ? `${timeStamp} - ${this.state.body}` : (this.state.addTimestamp ? timeStamp : this.state.body),
             connectionString: this.props.connectionString,
             deviceId: getDeviceIdFromQueryString(this.props),
-            properties: properties === [] ? undefined : properties
+            properties
         });
     }
 }

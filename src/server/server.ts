@@ -63,17 +63,9 @@ app.post('/api/CloudToDevice', (req: express.Request, res: express.Response) => 
         }
         else {
             const hubClient = HubClient.fromConnectionString(req.body.connectionString);
-            // tslint:disable-next-line:cyclomatic-complexity
             hubClient.open(() => {
                 const message = new CloudToDeviceMessage(req.body.body);
-                // add properties to message
-                if (req.body.properties && req.body.properties.length !== 0) {
-                    for (const property of req.body.properties) {
-                        if (property.key && property.value) {
-                            message.properties.add(property.key, property.value);
-                        }
-                    }
-                }
+                addPropertiesToCloudToDeviceMessage(message, req.body.properties);
                 hubClient.send(req.body.deviceId, message,  (err, result) => {
                     if (err) {
                         res.status(SERVER_ERROR).send(err);
@@ -89,6 +81,13 @@ app.post('/api/CloudToDevice', (req: express.Request, res: express.Response) => 
         res.status(SERVER_ERROR).send(error);
     }
 });
+
+const addPropertiesToCloudToDeviceMessage = (message: CloudToDeviceMessage, properties: Array<{key: string, value: string}>) => {
+    const filteredProperties = properties && properties.length > 0 && properties.filter((property: {key: string, value: string}) => property.key && property.value);
+    for (const property of filteredProperties) {
+        message.properties.add(property.key, property.value);
+    }
+};
 
 app.post('/api/EventHub/monitor', (req, res) => {
     try {
