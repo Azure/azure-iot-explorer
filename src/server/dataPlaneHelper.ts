@@ -4,11 +4,11 @@
  **********************************************************/
 import express = require('express');
 import request = require('request');
-import { SERVER_ERROR } from './server';
 export const API_VERSION = '2018-06-30';
 const DEVICE_STATUS_HEADER = 'x-ms-command-statuscode';
 const MULTIPLE_CHOICES = 300;
 const SUCCESS = 200;
+const SERVER_ERROR = 500;
 
 export const generateDataPlaneRequestBody = (req: express.Request) => {
     const headers = {

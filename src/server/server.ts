@@ -11,7 +11,7 @@ import { Message as CloudToDeviceMessage } from 'azure-iot-common';
 import { EventHubClient, EventPosition, delay, EventHubRuntimeInformation, ReceiveHandler } from '@azure/event-hubs';
 import { generateDataPlaneRequestBody, generateDataPlaneResponse } from './dataPlaneHelper';
 
-export const SERVER_ERROR = 500;
+const SERVER_ERROR = 500;
 const BAD_REQUEST = 400;
 const SUCCESS = 200;
 const NOT_FOUND = 400;
