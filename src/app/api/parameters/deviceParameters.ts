@@ -27,6 +27,12 @@ export interface InvokeMethodParameters extends DataPlaneParameters {
     responseTimeoutInSeconds: number;
 }
 
+export interface CloudToDeviceMessageParameters extends DataPlaneParameters {
+    deviceId: string;
+    body: string;
+    properties?: Array<{key: string, value: string}>;
+}
+
 export interface FetchDeviceParameters extends DataPlaneParameters {
     deviceId: string;
 }

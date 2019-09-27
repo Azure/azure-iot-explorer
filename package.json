@@ -52,7 +52,7 @@
     "start": "concurrently \"npm run start:web\" \"npm run start:server\"",
     "start:server": "npm run server:compile && nodemon --inspect ./dist/server/server.js",
     "start:web": "npm run localization && npm run webpack:compile && webpack-dev-server --config webpack.dev.js --mode development --hot --open --port 3000 --host 127.0.0.1",
-    "test": "npm run localization && jest --coverage",
+    "test": "npm run localization && jest --coverage --detectOpenHandles",
     "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand -i --watch",
     "test:updateSnapshot": "jest --updateSnapshot",
     "test:watch": "jest --watch"
@@ -70,6 +70,8 @@
   "dependencies": {
     "@azure/event-hubs": "1.0.7",
     "@types/core-js": "2.5.0",
+    "azure-iot-common": "1.10.3",
+    "azure-iothub": "1.8.1",
     "body-parser": "1.18.3",
     "core-js": "3.0.0",
     "cors": "2.8.5",

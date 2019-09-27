@@ -101,6 +101,7 @@
             "events": "Telemetry",
             "eventsPerInterface": "Telemetry",
             "methods": "Direct method",
+            "cloudToDeviceMessage": "Cloud-to-device message",
             "pnp": "DIGITAL TWIN",
             "nonpnp": "DEVICE",
             "add": "Create device identity",
@@ -440,6 +441,32 @@
         "payloadTooltip" : "The payload for the Direct method to invoke on this device which needs to be in JSON format",
         "result" : "Result"
     },
+    "cloudToDeviceMessage": {
+        "headerText": "Cloud-to-device message",
+        "sendMessageButtonText": "Send message to device",
+        "body" : "Message body",
+        "bodyTooltip" : "The body of the message to send to the device.",
+        "addTimestamp": "Add timestamp to message body",
+        "properties": {
+            "customProperties": "Properties",
+            "systemProperties": "System properties",
+            "collapse": {
+                "open": "Open to edit properties",
+                "close": "Collapse"
+            },
+            "key": "Key",
+            "keyDup": "Key must be unique",
+            "value": "Value",
+            "addCustomProperty": "Add custom property",
+            "addSystemProperty": "Add system property",
+            "delete": "Delete",
+            "tooltip": "The properties of the message to be sent to this device.",
+            "toggleSelectionColumnAriaLabel": "Toggle selection",
+            "selectAllCheckboxAriaLabel": "Toggle selection for all",
+            "rowCheckBoxAriaLabel": "Row checkbox"
+        },
+        "output" : "Output"
+    },
     "noMatchError": {
         "title": "404 - Not found",
         "description": "The page you are looking is unavailable.",
@@ -470,7 +497,10 @@
         "updateDeviceOnSucceed": "Successfully updated device {{deviceId}}",
         "updateDeviceOnError": "Failed to update device {{deviceId}}: {{error}}",
         "patchDigitalTwinInterfacePropertiesOnError": "Failed to update desired properties of digital twin interfaces on device {{deviceId}}: {{error}}",
-        "patchDigitalTwinInterfacePropertiesOnSuccess": "Successfully updated desired properties of digital twin interfaces on device {{deviceId}}."
+        "patchDigitalTwinInterfacePropertiesOnSuccess": "Successfully updated desired properties of digital twin interfaces on device {{deviceId}}.",
+        "cloudToDeviceMessageOnError": "Failed to send message to device {{deviceId}}: {{error}}",
+        "cloudToDeviceMessageOnSuccess": "Successfully send message '{{message}}' to device '{{deviceId}}'",
+        "sendingCloudToDeviceMessage": "Trying to send message '{{message}}' to device '{{deviceId}}'"
     },
     "errorBoundary": {
         "text": "Something went wrong"
