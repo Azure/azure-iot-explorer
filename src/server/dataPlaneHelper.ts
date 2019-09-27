@@ -4,6 +4,7 @@
  **********************************************************/
 import express = require('express');
 import request = require('request');
+import { SERVER_ERROR } from './server';
 export const API_VERSION = '2018-06-30';
 const DEVICE_STATUS_HEADER = 'x-ms-command-statuscode';
 const MULTIPLE_CHOICES = 300;
@@ -38,30 +39,38 @@ export const generateDataPlaneResponse = (httpRes: request.Response, body: any, 
 
 // tslint:disable-next-line:cyclomatic-complexity
 export const processDataPlaneResponse = (httpRes: request.Response, body: any): {body: {body: any, headers?: any}, statusCode?: number} => { // tslint:disable-line:no-any
-    if (httpRes) {
-        if (httpRes.headers && httpRes.headers[DEVICE_STATUS_HEADER]) { // handles happy failure cases when error code is returned as a header
-            return {
-                body: {body: JSON.parse(body)},
-                statusCode: parseInt(httpRes.headers[DEVICE_STATUS_HEADER] as string) // tslint:disable-line:radix
-            };
-        }
-        else {
-            if (httpRes.statusCode >= SUCCESS && httpRes.statusCode < MULTIPLE_CHOICES) {
-                return {
-                    body: {body: JSON.parse(body), headers: httpRes.headers},
-                    statusCode: httpRes.statusCode
-                };
-            } else {
+    try {
+        if (httpRes) {
+            if (httpRes.headers && httpRes.headers[DEVICE_STATUS_HEADER]) { // handles happy failure cases when error code is returned as a header
                 return {
                     body: {body: JSON.parse(body)},
-                    statusCode: httpRes.statusCode
+                    statusCode: parseInt(httpRes.headers[DEVICE_STATUS_HEADER] as string) // tslint:disable-line:radix
                 };
             }
+            else {
+                if (httpRes.statusCode >= SUCCESS && httpRes.statusCode < MULTIPLE_CHOICES) {
+                    return {
+                        body: {body: JSON.parse(body), headers: httpRes.headers},
+                        statusCode: httpRes.statusCode
+                    };
+                } else {
+                    return {
+                        body: {body: JSON.parse(body)},
+                        statusCode: httpRes.statusCode
+                    };
+                }
+            }
+        }
+        else {
+            return {
+                body: {body: JSON.parse(body)}
+            };
         }
     }
-    else {
+    catch {
         return {
-            body: {body: JSON.parse(body)}
+            body: undefined,
+            statusCode: SERVER_ERROR
         };
     }
 };

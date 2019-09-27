@@ -9,7 +9,7 @@ import { cloudToDeviceMessage } from '../../../api/services/devicesService';
 import { addNotificationAction } from '../../../notifications/actions';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
-import {  CloudToDeviceMessageParameters } from '../../../api/parameters/deviceParameters';
+import { CloudToDeviceMessageParameters } from '../../../api/parameters/deviceParameters';
 
 export function* cloudToDeviceMessageSaga(action: Action<CloudToDeviceMessageParameters>) {
     const toastId: number = Math.random();
