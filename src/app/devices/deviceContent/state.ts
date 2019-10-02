@@ -15,7 +15,6 @@ export interface DeviceContentStateInterface {
     digitalTwinInterfaceProperties: DigitalTwinInterfacePropertiesWrapper;
     interfaceIdSelected: string;
     modelDefinitionWithSource: ModelDefinitionWithSourceWrapper;
-    invokeMethodResponse: string; // TODO: Replace with better response handling
 }
 
 export const deviceContentStateInitial = Record<DeviceContentStateInterface>({
@@ -23,7 +22,6 @@ export const deviceContentStateInitial = Record<DeviceContentStateInterface>({
     deviceTwin: null,
     digitalTwinInterfaceProperties: null,
     interfaceIdSelected: '',
-    invokeMethodResponse: '',
     modelDefinitionWithSource: null,
 });
 

@@ -51,7 +51,7 @@ describe('digitalTwinsModelService', () => {
             expect(fetch).toBeCalledWith(DigitalTwinsModelService.CONTROLLER_ENDPOINT, fetchModelParameters);
         });
 
-        it('returns model when response is 200', async () => {
+        it('returns model when response is 200', async done => {
             // tslint:disable
             const model = {
                 '@id': 'urn:azureiot:Client:SDKInformation:1',
@@ -100,9 +100,10 @@ describe('digitalTwinsModelService', () => {
                 publisherId: '',
                 publisherName: ''
             });
+            done();
         });
 
-        it('throws Error when response is not OK', async () => {
+        it('throws Error when response is not OK', async done => {
             // tslint:disable
             const response = {
                 ok: false,
@@ -112,6 +113,7 @@ describe('digitalTwinsModelService', () => {
             jest.spyOn(window, 'fetch').mockResolvedValue(response);
 
             await expect(DigitalTwinsModelService.fetchModel(parameters)).rejects.toThrow(new Error('Not found'));
+            done();
         });
     });
 });

@@ -5,15 +5,17 @@
 import { takeEvery, takeLatest } from 'redux-saga/effects';
 import { getModelDefinitionSaga } from './sagas/modelDefinitionSaga';
 import { getDeviceTwinSaga, updateDeviceTwinSaga } from './sagas/deviceTwinSaga';
-import { invokeDeviceMethodSaga } from './sagas/deviceMethodSaga';
+import { invokeDirectMethodSaga } from './sagas/directMethodSaga';
 import { invokeDigitalTwinInterfaceCommandSaga } from './sagas/digitalTwinInterfaceCommandSaga';
 import { getDeviceIdentitySaga, updateDeviceIdentitySaga } from './sagas/deviceIdentitySaga';
 import { getDigitalTwinInterfacePropertySaga, patchDigitalTwinInterfacePropertiesSaga } from './sagas/digitalTwinInterfacePropertySaga';
+import { cloudToDeviceMessageSaga } from './sagas/cloudToDeviceMessageSaga';
 import {
+    cloudToDeviceMessageAction,
     getDeviceIdentityAction,
     getDigitalTwinInterfacePropertiesAction,
     getTwinAction,
-    invokeDeviceMethodAction,
+    invokeDirectMethodAction,
     invokeDigitalTwinInterfaceCommandAction,
     getModelDefinitionAction,
     patchDigitalTwinInterfacePropertiesAction,
@@ -22,11 +24,12 @@ import {
     } from './actions';
 
 export default [
+    takeEvery(cloudToDeviceMessageAction.started.type, cloudToDeviceMessageSaga),
     takeLatest(getDeviceIdentityAction.started.type, getDeviceIdentitySaga),
     takeLatest(getDigitalTwinInterfacePropertiesAction.started.type, getDigitalTwinInterfacePropertySaga),
     takeLatest(getModelDefinitionAction.started.type, getModelDefinitionSaga),
     takeLatest(getTwinAction.started.type, getDeviceTwinSaga),
-    takeEvery(invokeDeviceMethodAction.started.type, invokeDeviceMethodSaga),
+    takeEvery(invokeDirectMethodAction.started.type, invokeDirectMethodSaga),
     takeEvery(invokeDigitalTwinInterfaceCommandAction.started.type, invokeDigitalTwinInterfaceCommandSaga),
     takeEvery(patchDigitalTwinInterfacePropertiesAction.started.type, patchDigitalTwinInterfacePropertiesSaga),
     takeEvery(updateTwinAction.started.type, updateDeviceTwinSaga),

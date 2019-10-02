@@ -6,6 +6,32 @@ export class ResourceKeys {
       devices : "breadcrumb.devices",
       hub : "breadcrumb.hub",
    };
+   public static cloudToDeviceMessage = {
+      addTimestamp : "cloudToDeviceMessage.addTimestamp",
+      body : "cloudToDeviceMessage.body",
+      bodyTooltip : "cloudToDeviceMessage.bodyTooltip",
+      headerText : "cloudToDeviceMessage.headerText",
+      output : "cloudToDeviceMessage.output",
+      properties : {
+         addCustomProperty : "cloudToDeviceMessage.properties.addCustomProperty",
+         addSystemProperty : "cloudToDeviceMessage.properties.addSystemProperty",
+         collapse : {
+            close : "cloudToDeviceMessage.properties.collapse.close",
+            open : "cloudToDeviceMessage.properties.collapse.open",
+         },
+         customProperties : "cloudToDeviceMessage.properties.customProperties",
+         delete : "cloudToDeviceMessage.properties.delete",
+         key : "cloudToDeviceMessage.properties.key",
+         keyDup : "cloudToDeviceMessage.properties.keyDup",
+         rowCheckBoxAriaLabel : "cloudToDeviceMessage.properties.rowCheckBoxAriaLabel",
+         selectAllCheckboxAriaLabel : "cloudToDeviceMessage.properties.selectAllCheckboxAriaLabel",
+         systemProperties : "cloudToDeviceMessage.properties.systemProperties",
+         toggleSelectionColumnAriaLabel : "cloudToDeviceMessage.properties.toggleSelectionColumnAriaLabel",
+         tooltip : "cloudToDeviceMessage.properties.tooltip",
+         value : "cloudToDeviceMessage.properties.value",
+      },
+      sendMessageButtonText : "cloudToDeviceMessage.sendMessageButtonText",
+   };
    public static common = {
       close : "common.close",
       confirmationDialog : {
@@ -69,6 +95,7 @@ export class ResourceKeys {
    public static deviceContent = {
       navBar : {
          add : "deviceContent.navBar.add",
+         cloudToDeviceMessage : "deviceContent.navBar.cloudToDeviceMessage",
          collapse : "deviceContent.navBar.collapse",
          commands : "deviceContent.navBar.commands",
          events : "deviceContent.navBar.events",
@@ -300,12 +327,6 @@ export class ResourceKeys {
          },
       },
    };
-   public static deviceMethods = {
-      connectionTimeout : "deviceMethods.connectionTimeout",
-      invokeMethodButtonText : "deviceMethods.invokeMethodButtonText",
-      methodName : "deviceMethods.methodName",
-      methodTimeout : "deviceMethods.methodTimeout",
-   };
    public static deviceProperties = {
       columns : {
          error : "deviceProperties.columns.error",
@@ -370,6 +391,19 @@ export class ResourceKeys {
       headerText : "deviceTwin.headerText",
       notFound : "deviceTwin.notFound",
    };
+   public static directMethod = {
+      connectionTimeout : "directMethod.connectionTimeout",
+      connectionTimeoutTooltip : "directMethod.connectionTimeoutTooltip",
+      headerText : "directMethod.headerText",
+      invokeMethodButtonText : "directMethod.invokeMethodButtonText",
+      methodName : "directMethod.methodName",
+      methodNamePlaceHolder : "directMethod.methodNamePlaceHolder",
+      payload : "directMethod.payload",
+      payloadTooltip : "directMethod.payloadTooltip",
+      responseTimeout : "directMethod.responseTimeout",
+      responseTimeoutTooltip : "directMethod.responseTimeoutTooltip",
+      result : "directMethod.result",
+   };
    public static errorBoundary = {
       text : "errorBoundary.text",
    };
@@ -402,6 +436,8 @@ export class ResourceKeys {
    public static notifications = {
       addDeviceOnError : "notifications.addDeviceOnError",
       addDeviceOnSucceed : "notifications.addDeviceOnSucceed",
+      cloudToDeviceMessageOnError : "notifications.cloudToDeviceMessageOnError",
+      cloudToDeviceMessageOnSuccess : "notifications.cloudToDeviceMessageOnSuccess",
       deleteDeviceOnError : "notifications.deleteDeviceOnError",
       deleteDeviceOnSucceed : "notifications.deleteDeviceOnSucceed",
       getDeviceIdentityOnError : "notifications.getDeviceIdentityOnError",
@@ -421,6 +457,7 @@ export class ResourceKeys {
       patchDigitalTwinInterfacePropertiesOnError : "notifications.patchDigitalTwinInterfacePropertiesOnError",
       patchDigitalTwinInterfacePropertiesOnSuccess : "notifications.patchDigitalTwinInterfacePropertiesOnSuccess",
       savedToIotHubConnectionString : "notifications.savedToIotHubConnectionString",
+      sendingCloudToDeviceMessage : "notifications.sendingCloudToDeviceMessage",
       updateDeviceOnError : "notifications.updateDeviceOnError",
       updateDeviceOnSucceed : "notifications.updateDeviceOnSucceed",
       updateDeviceTwinOnError : "notifications.updateDeviceTwinOnError",

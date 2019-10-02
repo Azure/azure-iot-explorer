@@ -7,6 +7,7 @@ import { Nav, INavLink, INavLinkGroup } from 'office-ui-fabric-react/lib/Nav';
 import { Label } from 'office-ui-fabric-react/lib/Label';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
+import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
 import '../../../css/_deviceContentNav.scss';
 
 export interface DeviceContentNavDataProps {
@@ -25,8 +26,8 @@ interface DeviceContentNavState {
     expandedInterfaceMap: Map<string, boolean>;
 }
 
-export const NAV_LINK_ITEMS_PNP = ['interfaces', 'settings', 'properties', 'commands', 'events'];
-export const NAV_LINK_ITEMS_NONPNP = ['identity', 'twin', 'events'];
+export const NAV_LINK_ITEMS_PNP = [ROUTE_PARTS.INTERFACES, ROUTE_PARTS.SETTINGS, ROUTE_PARTS.PROPERTIES, ROUTE_PARTS.COMMANDS, ROUTE_PARTS.EVENTS];
+export const NAV_LINK_ITEMS_NONPNP = [ROUTE_PARTS.IDENTITY, ROUTE_PARTS.TWIN, ROUTE_PARTS.EVENTS, ROUTE_PARTS.METHODS, ROUTE_PARTS.CLOUD_TO_DEVICE_MESSAGE];
 
 export default class DeviceContentNavComponent extends React.Component<DeviceContentNavDataProps & DeviceContentNavDispatchProps, DeviceContentNavState> {
     constructor(props: DeviceContentNavDataProps & DeviceContentNavDispatchProps) {
@@ -57,7 +58,7 @@ export default class DeviceContentNavComponent extends React.Component<DeviceCon
         const nonPnpNavLinks = NAV_LINK_ITEMS_NONPNP.map((nav: string) => ({
             key: nav,
             name: context.t((ResourceKeys.deviceContent.navBar as any)[nav]), // tslint:disable-line:no-any
-            url: `#/devices/detail/${nav}/?id=${encodeURIComponent(deviceId)}`
+            url: `#/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DETAIL}/${nav}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`
         }));
 
         const pnpNavGroupsLinks = isPnPDevice && interfaceIds && interfaceIds.map((id: string) => ({
@@ -67,7 +68,7 @@ export default class DeviceContentNavComponent extends React.Component<DeviceCon
                 name: context.t((ResourceKeys.deviceContent.navBar as any)[nav]), // tslint:disable-line:no-any
                 onClick: this.onNestedChildLinkClick,
                 parentId: id,
-                url: `#/devices/detail/digitalTwins/${nav}/?id=${encodeURIComponent(deviceId)}&interfaceId=${id}`
+                url: `#/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DETAIL}/${ROUTE_PARTS.DIGITAL_TWINS}/${nav}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}&${ROUTE_PARAMS.INTERFACE_ID}=${id}`
             })),
             name: id,
             url: ''

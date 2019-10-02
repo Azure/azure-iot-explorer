@@ -20,11 +20,17 @@ export interface UpdateDeviceTwinParameters extends FetchDeviceTwinParameters {
 }
 
 export interface InvokeMethodParameters extends DataPlaneParameters {
-    connectTimeoutInSeconds?: number;
+    connectTimeoutInSeconds: number;
     deviceId: string;
     methodName: string;
     payload?: object;
-    responseTimeoutInSeconds?: number;
+    responseTimeoutInSeconds: number;
+}
+
+export interface CloudToDeviceMessageParameters extends DataPlaneParameters {
+    deviceId: string;
+    body: string;
+    properties?: Array<{key: string, value: string}>;
 }
 
 export interface FetchDeviceParameters extends DataPlaneParameters {

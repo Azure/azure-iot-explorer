@@ -19,20 +19,20 @@ export default class InterfaceNotFoundMessageBox extends React.Component<Interfa
         return (
             <LocalizationContextConsumer>
                 {(context: LocalizationContextInterface) => (
-                    <>
-                    <MessageBar
-                        messageBarType={MessageBarType.error}
-                        actions={
-                            <MessageBarButton
-                                className="configure-button"
-                                onClick={this.handleConfigure}
-                            >
-                                    {context.t(ResourceKeys.deviceInterfaces.command.configure)}
-                            </MessageBarButton>}
-                    >
-                        {context.t(ResourceKeys.notifications.getInterfaceModelOnError)}
-                    </MessageBar>
-                    </>
+                    <div className="message-bar">
+                        <MessageBar
+                            messageBarType={MessageBarType.error}
+                            actions={
+                                <MessageBarButton
+                                    className="configure-button"
+                                    onClick={this.handleConfigure}
+                                >
+                                        {context.t(ResourceKeys.deviceInterfaces.command.configure)}
+                                </MessageBarButton>}
+                        >
+                            {context.t(ResourceKeys.notifications.getInterfaceModelOnError)}
+                        </MessageBar>
+                    </div>
                 )}
             </LocalizationContextConsumer>
         );

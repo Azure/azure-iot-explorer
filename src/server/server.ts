@@ -6,13 +6,14 @@ import express = require('express');
 import bodyParser = require('body-parser');
 import cors = require('cors');
 import request = require('request');
-
+import { Client as HubClient } from 'azure-iothub';
+import { Message as CloudToDeviceMessage } from 'azure-iot-common';
 import { EventHubClient, EventPosition, delay, EventHubRuntimeInformation, ReceiveHandler } from '@azure/event-hubs';
 import { generateDataPlaneRequestBody, generateDataPlaneResponse } from './dataPlaneHelper';
 
+const SERVER_ERROR = 500;
 const BAD_REQUEST = 400;
 const SUCCESS = 200;
-const SERVER_ERROR = 500;
 const NOT_FOUND = 400;
 const SERVER_PORT = 8081;
 const SERVER_WAIT = 3000; // how long we'll let the call for eventHub messages run in non-socket
@@ -54,6 +55,39 @@ app.post('/api/DataPlane', (req: express.Request, res: express.Response) => {
         res.status(SERVER_ERROR).send(error);
     }
 });
+
+app.post('/api/CloudToDevice', (req: express.Request, res: express.Response) => {
+    try {
+        if (!req.body) {
+            res.status(BAD_REQUEST).send();
+        }
+        else {
+            const hubClient = HubClient.fromConnectionString(req.body.connectionString);
+            hubClient.open(() => {
+                const message = new CloudToDeviceMessage(req.body.body);
+                addPropertiesToCloudToDeviceMessage(message, req.body.properties);
+                hubClient.send(req.body.deviceId, message,  (err, result) => {
+                    if (err) {
+                        res.status(SERVER_ERROR).send(err);
+                    } else {
+                        res.status(SUCCESS).send(result);
+                    }
+                    hubClient.close();
+                });
+            });
+        }
+    }
+    catch (error) {
+        res.status(SERVER_ERROR).send(error);
+    }
+});
+
+const addPropertiesToCloudToDeviceMessage = (message: CloudToDeviceMessage, properties: Array<{key: string, value: string}>) => {
+    const filteredProperties = properties && properties.length > 0 && properties.filter((property: {key: string, value: string}) => property.key && property.value);
+    for (const property of filteredProperties) {
+        message.properties.add(property.key, property.value);
+    }
+};
 
 app.post('/api/EventHub/monitor', (req, res) => {
     try {

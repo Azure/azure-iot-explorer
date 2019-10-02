@@ -5,6 +5,8 @@
 export const ACCEPT = 'Accept';
 export const CHECK = 'SkypeCheck';
 export const CHECKED_CHECKBOX = 'CheckboxComposite';
+export const CIRCLE_ADD = 'CircleAddition';
+export const CIRCLE_ADD_SOLID = 'CircleAdditionSolid';
 export const CLEAR = 'Clear';
 export const CLOSE = 'ChromeClose';
 export const CODE = 'Code';
@@ -19,9 +21,13 @@ export const STOP = 'Stop';
 export const SUBMIT = 'CloudUpload';
 export const SYNCH = 'SyncOccurence';
 export const WARNING = 'Warning';
+export const DIRECT_METHOD = 'Remote';
+export const CLOUD_TO_DEVICE_MESSAGE = 'Mail';
+export const ITEM = 'LocationDot';
+
 export enum GroupedList {
-    OPEN = 'ChevronUp',
-    CLOSE = 'ChevronDown'
+    OPEN = 'ChevronDown',
+    CLOSE = 'ChevronUp'
 }
 
 export enum Accordion {

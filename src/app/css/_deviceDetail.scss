@@ -2,6 +2,40 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
+ @import 'variables';
+
 .device-detail {
     padding: 20px;
+}
+
+.method-payload{
+    padding-top: 10px;
+}
+
+.direct-method-monaco-editor {
+    border: 1px solid $grey-border;
+    margin-bottom: 15px;
+}
+
+.cloud-to-device-message-text-field {
+    margin-bottom: 15px;
+}
+
+.properties-section {
+    margin-top: 20px;
+    padding-bottom: 20px;
+    border: 1px solid $grey-border;
+    .properties-section-icon {
+        float: left;
+        margin-left: -5px;
+    }
+    .properties-section-command-bar {
+        .ms-CommandBar {
+            border-bottom: 0px !important;
+        }
+
+        .ms-OverflowSet-item{
+            padding-left: 25px;
+        }
+    }
 }

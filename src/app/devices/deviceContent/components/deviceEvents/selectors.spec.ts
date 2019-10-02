@@ -66,7 +66,6 @@ describe('getDeviceCommandPairs', () => {
                 digitalTwinInterfacePropertiesSyncStatus: SynchronizationStatus.fetched
             },
             interfaceIdSelected: interfaceId,
-            invokeMethodResponse: '',
             modelDefinitionWithSource: {
                 modelDefinition,
                 modelDefinitionSynchronizationStatus: SynchronizationStatus.fetched,
