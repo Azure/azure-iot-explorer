@@ -8,7 +8,7 @@ import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
-import CloudToDeviceMessage, { CloudToDeviceMessageProps, CloudToDeviceMessageState, systemPropertyKeyNames } from './cloudToDeviceMessage';
+import CloudToDeviceMessage, { CloudToDeviceMessageProps, CloudToDeviceMessageState, systemPropertyKeyNameMappings } from './cloudToDeviceMessage';
 import { testSnapshot, mountWithLocalization } from '../../../../shared/utils/testHelpers';
 
 describe('cloudToDeviceMessage', () => {
@@ -86,13 +86,13 @@ describe('cloudToDeviceMessage', () => {
 
     it('disables system property button when all the system properties keys have been added', () => {
         const wrapper = mountWithLocalization(getComponent());
-        const properties = systemPropertyKeyNames.map(keyName => ({
-            index: 0, isSystemProperty: false, keyName, value: 'value'
+        const properties = systemPropertyKeyNameMappings.map(keyNameMapping => ({
+            index: 0, isSystemProperty: false, keyName: keyNameMapping.keyName, value: 'value'
         }));
         wrapper.setState({properties});
         wrapper.update();
         const commandBar = wrapper.find(CommandBar).get(1);
-        expect(commandBar.props.items[1].subMenuProps.items.length).toEqual(systemPropertyKeyNames.length);
+        expect(commandBar.props.items[1].subMenuProps.items.length).toEqual(systemPropertyKeyNameMappings.length);
         for (const item of commandBar.props.items[1].subMenuProps.items) {
             expect(item.disabled).toBeTruthy();
         }

@@ -70,6 +70,7 @@
   "dependencies": {
     "@azure/event-hubs": "1.0.7",
     "@types/core-js": "2.5.0",
+    "@types/uuid": "3.4.5",
     "azure-iot-common": "1.10.3",
     "azure-iothub": "1.8.1",
     "body-parser": "1.18.3",
@@ -100,7 +101,8 @@
     "request": "2.88.0",
     "reselect": "4.0.0",
     "typescript-fsa": "3.0.0-beta-2",
-    "typescript-fsa-reducers": "1.0.0"
+    "typescript-fsa-reducers": "1.0.0",
+    "uuid": "3.3.3"
   },
   "devDependencies": {
     "@types/async-lock": "1.1.0",
