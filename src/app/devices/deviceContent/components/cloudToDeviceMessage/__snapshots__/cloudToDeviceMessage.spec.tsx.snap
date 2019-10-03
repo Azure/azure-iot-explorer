@@ -91,7 +91,7 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
                     "iconProps": Object {
                       "iconName": "LocationDot",
                     },
-                    "key": "message-id",
+                    "key": "$.mid",
                     "name": "message-id",
                     "onClick": [Function],
                   },
@@ -100,7 +100,7 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
                     "iconProps": Object {
                       "iconName": "LocationDot",
                     },
-                    "key": "correlation-id",
+                    "key": "$.cid",
                     "name": "correlation-id",
                     "onClick": [Function],
                   },
@@ -109,7 +109,7 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
                     "iconProps": Object {
                       "iconName": "LocationDot",
                     },
-                    "key": "content-type",
+                    "key": "$.ct",
                     "name": "content-type",
                     "onClick": [Function],
                   },
@@ -118,7 +118,7 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
                     "iconProps": Object {
                       "iconName": "LocationDot",
                     },
-                    "key": "content-encoding",
+                    "key": "$.ce",
                     "name": "content-encoding",
                     "onClick": [Function],
                   },
