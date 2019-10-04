@@ -107,7 +107,7 @@ export const queryToString = (query: DeviceQuery) => {
     if (query.deviceId) {
         return `WHERE STARTSWITH(devices.deviceId, '${query.deviceId}')`;
     }
-    const clauseQuery = clauseListToString(query.clauses.filter(clause => !!clause.parameterType));
+    const clauseQuery = clauseListToString(query.clauses && query.clauses.filter(clause => !!clause.parameterType));
     if ('' !== clauseQuery) {
         return `WHERE (${clauseQuery })`;
     }
