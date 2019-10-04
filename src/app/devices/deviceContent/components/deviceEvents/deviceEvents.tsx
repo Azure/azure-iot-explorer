@@ -194,7 +194,7 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
         return (
             <InfiniteScroll
                 key="scroll"
-                className="device-events-container scrollable"
+                className="device-events-container"
                 pageStart={0}
                 loadMore={this.fetchData}
                 hasMore={hasMore}
@@ -210,14 +210,21 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
     private readonly renderEvents = () => {
         const { events } = this.state;
 
-        return events && events.map((event: Message, index) => {
-            return (
-                <article key={index} className="device-events-content">
-                    {<h5>{parseDateTimeString(event.enqueuedTime)}:</h5>}
-                    <pre>{JSON.stringify(event, undefined, JSON_SPACES)}</pre>
-                </article>
-            );
-        });
+        return (
+            <div className="scrollable">
+            {
+                events && events.map((event: Message, index) => {
+                    return (
+
+                        <article key={index} className="device-events-content">
+                            {<h5>{parseDateTimeString(event.enqueuedTime)}:</h5>}
+                            <pre>{JSON.stringify(event, undefined, JSON_SPACES)}</pre>
+                        </article>
+                    );
+                })
+            }
+            </div>
+        );
     }
 
     private readonly renderLoader = (context: LocalizationContextInterface): JSX.Element => {
