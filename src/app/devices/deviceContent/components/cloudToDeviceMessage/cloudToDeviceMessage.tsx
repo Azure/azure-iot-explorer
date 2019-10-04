@@ -13,6 +13,7 @@ import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
 import { ISelection, Selection } from 'office-ui-fabric-react/lib/Selection';
 import { Label } from 'office-ui-fabric-react/lib/Label';
 import { IContextualMenuItem } from 'office-ui-fabric-react/lib/ContextualMenu';
+import { v4 as uuid } from 'uuid';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
@@ -28,7 +29,12 @@ interface PropertyItem {
     value: string;
 }
 
-export const systemPropertyKeyNames = ['message-id', 'correlation-id', 'content-type', 'content-encoding'];
+const messageIdKeyName = '$.mid';
+export const systemPropertyKeyNameMappings: Array<{keyName: string, displayName: string}> = [
+    {keyName: messageIdKeyName, displayName: 'message-id'},
+    {keyName: '$.cid', displayName: 'correlation-id'},
+    {keyName: '$.ct', displayName: 'content-type'},
+    {keyName: '$.ce', displayName: 'content-encoding'}];
 
 export interface CloudToDeviceMessageState {
     addTimestamp: boolean;
@@ -184,15 +190,15 @@ export default class CloudToDeviceMessage extends React.Component<CloudToDeviceM
             },
         ];
 
-        const systemPropertySubMenuProps: IContextualMenuItem[] = systemPropertyKeyNames.map(keyName =>
+        const systemPropertySubMenuProps: IContextualMenuItem[] = systemPropertyKeyNameMappings.map(keyNameMap =>
             ({
-                disabled: this.state.properties.some(property => property.keyName === keyName),
+                disabled: this.state.properties.some(property => property.keyName === keyNameMap.keyName),
                 iconProps: {
                     iconName: ITEM
                 },
-                key: keyName,
-                name: keyName,
-                onClick: this.handleAddSystemProperty(keyName),
+                key: keyNameMap.keyName,
+                name: keyNameMap.displayName,
+                onClick: this.handleAddSystemProperty(keyNameMap.keyName),
             })
         );
 
@@ -317,8 +323,13 @@ export default class CloudToDeviceMessage extends React.Component<CloudToDeviceM
         const properties = this.state.properties
             .filter(property => property.keyName && property.value)
             .map(property => ({key: property.keyName, value: property.value}));
-        const timeStamp = new Date().toLocaleString();
 
+        if (!properties.some(property => property.key === messageIdKeyName)) {
+            // populate a random message id
+            properties.push({key: messageIdKeyName, value: uuid()});
+        }
+
+        const timeStamp = new Date().toLocaleString();
         this.props.onSendCloudToDeviceMessage({
             body: this.state.addTimestamp && this.state.body ? `${timeStamp} - ${this.state.body}` : (this.state.addTimestamp ? timeStamp : this.state.body),
             connectionString: this.props.connectionString,
