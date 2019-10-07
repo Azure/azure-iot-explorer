@@ -56,7 +56,7 @@ exports[`components/devices/deviceEvents matches snapshot 1`] = `
     value="$Default"
   />
   <InfiniteScroll
-    className="device-events-container scrollable"
+    className="device-events-container"
     element="div"
     getScrollParent={null}
     hasMore={false}
@@ -80,6 +80,10 @@ exports[`components/devices/deviceEvents matches snapshot 1`] = `
     threshold={250}
     useCapture={false}
     useWindow={true}
-  />
+  >
+    <div
+      className="scrollable"
+    />
+  </InfiniteScroll>
 </div>
 `;
