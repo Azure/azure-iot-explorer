@@ -4,6 +4,7 @@
  **********************************************************/
 @import 'variables';
 @import 'mixins';
+@import 'themes';
 
 $nav-collapsed-width: 40px;
 $nav-width: 20%;
@@ -26,13 +27,15 @@ $nav-width: 20%;
         width: $nav-width;
         height: calc(100vh - 140px);
         float: left;
-        border: {
-            right: {
-                width: 1px;
-                style: solid;
-                color: $navBarBorderColor;
+        @include themify($themes) {
+                border: {
+                right: {
+                    width: 1px;
+                    style: solid;
+                    color: themed('navBarBorderColor');
+                }
+                bottom: none;
             }
-            bottom: none;
         }
     }
     .device-content-detail {
@@ -58,8 +61,11 @@ $nav-width: 20%;
                 }
                 .form-control:disabled {
                     border: none;
-                    color: rgb(166, 166, 166);
-                    background-color: rgb(244, 244, 244);
+                    @include themify($themes) {
+                        color: themed('formControlDisabledColor');
+                        background-color: themed('formControlDisabledBackground')
+                    }
+                    
                     height: 32px;
                 }
             }
@@ -68,10 +74,12 @@ $nav-width: 20%;
             margin-bottom: 10px;
         } 
         .ms-CommandBar {
-            background: $white;
-            border-bottom: 1px solid $light-gray;
-            .ms-Button--commandBar {
-                background: $white;
+            @include themify($themes) {
+                background: themed('backgroundColor');
+                border-bottom: 1px solid themed('borderColor');
+                .ms-Button--commandBar {
+                    background: themed('backgroundColor');
+                }
             }
         }
         h3 {
@@ -98,7 +106,9 @@ $nav-width: 20%;
         }
 
         .ms-Overlay {
-            background-color: $blocking;
+            @include themify($themes) {
+                background-color: themed('blockingColor');
+            }
         }
     }
 

@@ -154,6 +154,7 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
             "_selectedItems": null,
             "_unselectableCount": 0,
             "_unselectableIndices": Object {},
+            "count": 0,
             "mode": 2,
           }
         }
@@ -207,6 +208,7 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
               "_selectedItems": null,
               "_unselectableCount": 0,
               "_unselectableIndices": Object {},
+              "count": 0,
               "mode": 2,
             }
           }

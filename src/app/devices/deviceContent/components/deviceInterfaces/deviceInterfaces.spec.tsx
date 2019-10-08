@@ -5,7 +5,7 @@
 import 'jest';
 import * as React from 'react';
 import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
-import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
+import { ActionButton } from 'office-ui-fabric-react/lib/Button';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import DeviceInterfaces, { DeviceInterfaceProps, DeviceInterfaceDispatchProps } from './deviceInterfaces';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
@@ -119,7 +119,7 @@ describe('components/devices/deviceInterfaces', () => {
             }
         });
         expect(wrapper).toMatchSnapshot();
-        expect(wrapper.find(DefaultButton).props().onClick(null));
+        expect(wrapper.find(ActionButton).props().onClick(null));
         expect(settingsVisibleToggle).toBeCalled();
         const command = wrapper.find(CommandBar);
         command.props().items[0].onClick(null);

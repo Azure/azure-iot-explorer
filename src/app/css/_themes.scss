@@ -1,0 +1,105 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+ @import 'palette';
+
+ $themes: (
+  light: (
+    backgroundColor: #ffffff,
+    buttonBackgroundColor: #161616,
+    buttonColor: $blue,
+    borderColor: $gray,
+    hoverColor: rgba(85, 179, 255, .10),
+    textColor: #161616,
+    textFieldBackgroundColorInactive: rgba(128, 128, 128, 0.1),
+    contrastBorder: $light-medium-gray,
+    iconInText: #636363,
+    summaryBackground: $light-gray,
+    searchButtonColor: #ffffff,
+    searchButtonBackground: $blue,
+    searchButtonDisabled: $gray,
+    searchBorderActiveColor: $blue,
+    searchBorderHoverColor: $blue,
+    searchBorderErrorColor: $errorBorder,
+    errorText: $errorText,
+    errorBorder: $errorBorder,
+    navBarBorderColor: $navBarBorderColor,
+    blockingColor: $blockingColor,
+    notificationBackground: $blue,
+    notificationSuccessColor: $successText,
+    notificationErrorColor: $errorText,
+    notificationWarningColor: $warningText,
+    notificationInfoColor: $infoText,
+    notificationTextColor: #161616,
+    notificationProgressBackground: $light-medium-gray !important,
+    maskedCopyableBorderColor: $textfield-border,
+    maskedCopyableReadonlyBackground: $textfield-disabled-background,
+    linkColor: $link-blue,
+    cellBackGround: $cell-gray,
+    selectedBorder: $selected-border,
+    boxShadowColor: $blockingColor,
+    formControlDisabledBackgroud: rgb(244,244,244),
+    formControlDisabledColor: rgb(166,166,166),
+    opaqueBlocking: $opaque-blocking,
+    numbering: #A6A6A6,
+  ),
+  dark: (
+    backgroundColor: #1e1e1e,
+    buttonBackgroundColor: #ffffff,
+    buttonColor: $blue,
+    borderColor: $light-gray,
+    hoverColor: rgba(128, 128, 128, .15),
+    textColor: #ffffff,
+    textFieldBackgroundColorInactive: rgba(128, 128, 128, 0.1),
+    contrastBorder:$gray,
+    iconInText: #acacac,
+    summaryBackground: $light-gray,
+    searchButtonColor: #ffffff,
+    searchButtonBackground: $blue,
+    searchButtonDisabledBackground: $gray,
+    searchBorderActiveColor: $blue,
+    searchBorderHoverColor: $blue,
+    searchBorderErrorColor: $errorBorder,
+    errorText: $errorText,
+    errorBorder: $errorBorder,
+    navBarBorderColor: $navBarBorderColor,
+    blockingColor: $blockingColor,
+    notificationBackground: $blue,
+    notificationSuccessColor: $successText,
+    notificationErrorColor: $errorText,
+    notificationWarningColor: $warningText,
+    notificationInfoColor: $infoText,
+    notificationTextColor: #ffffff,
+    notificationProgressBackground: $light-medium-gray !important,
+    maskedCopyableBorderColor: $textfield-border,
+    maskedCopyableReadonlyBackground: $textfield-disabled-background,
+    linkColor: $link-blue,
+    cellBackground: $dark-gray,
+    selectedBorder: $selected-border,
+    boxShadowColor: $blockingColor,
+    formControlDisabledColor: rgb(244,244,244),
+    formControlDisabledBackGround: rgb(166,166,166),
+    opaqueBlocking: $dark-gray,
+    numbering: #A6A6A6
+  ),
+);
+
+@mixin themify($themes: $themes) {
+    @each $theme, $map in $themes {
+      .theme-#{$theme} & {
+        $theme-map: () !global;
+        @each $key, $submap in $map {
+          $value: map-get(map-get($themes, $theme), '#{$key}');
+          $theme-map: map-merge($theme-map, ($key: $value)) !global;
+        }
+
+        @content;
+        $theme-map: null !global;
+    }
+  }
+}
+
+@function themed($key) {
+  @return map-get($theme-map, $key);
+}

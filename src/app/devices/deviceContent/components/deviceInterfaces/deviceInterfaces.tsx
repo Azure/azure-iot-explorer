@@ -5,7 +5,7 @@
 import * as React from 'react';
 import { Label } from 'office-ui-fabric-react/lib/Label';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
-import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
+import { ActionButton } from 'office-ui-fabric-react/lib/Button';
 import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 import { RouteComponentProps } from 'react-router-dom';
@@ -96,12 +96,12 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
         return (
             <>
                 <Label className="source"> {context.t(ResourceKeys.deviceInterfaces.columns.source)}: {source}</Label>
-                <DefaultButton
+                <ActionButton
                     className="configure-button"
                     onClick={this.handleConfigure}
                 >
                         {context.t(ResourceKeys.deviceInterfaces.command.configure)}
-                </DefaultButton>
+                </ActionButton>
                 <Label> {context.t(ResourceKeys.deviceInterfaces.columns.displayName)}: {displayName}</Label>
                 <Label> {context.t(ResourceKeys.deviceInterfaces.columns.description)}: {description}</Label>
             </>
@@ -142,6 +142,7 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
                                     automaticLayout: true,
                                     readOnly: true
                                 }}
+                                theme="vs-dark"
                             />
                         </React.Suspense>
                     </div>

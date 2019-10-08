@@ -506,6 +506,12 @@ export class ResourceKeys {
          },
       },
       save : "settings.save",
+      theme : {
+         darkTheme : "settings.theme.darkTheme",
+         headerText : "settings.theme.headerText",
+         label : "settings.theme.label",
+         lightTheme : "settings.theme.lightTheme",
+      },
    };
    public static template = {
       array : {

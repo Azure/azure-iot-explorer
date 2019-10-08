@@ -82,7 +82,13 @@
         "footerText": "You can come back to Settings and make changes later.",
         "save": "Save and Connect",
         "cancel": "Close",
-        "confirmationMessage": "Are you sure you want to close without saving?"
+        "confirmationMessage": "Are you sure you want to close without saving?",
+        "theme": {
+            "headerText": "Application theme",
+            "label": "Theme",
+            "darkTheme": "Dark",
+            "lightTheme": "Light"
+        }
     },
     "breadcrumb": {
         "hub": "Hub {{hubName}}",

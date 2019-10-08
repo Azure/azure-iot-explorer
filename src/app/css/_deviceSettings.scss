@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 @import 'variables';
+@import 'themes';
 .status-success {
     color: $successText;
 }
@@ -13,7 +14,9 @@
     color: $infoText;
 }
 .status-unknown {
-    color: $black;
+    @include themify($themes) {
+        color: themed('textColor');
+    }
 }
 .status-icon {
     font-size: 16px !important;

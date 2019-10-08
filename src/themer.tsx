@@ -23,8 +23,8 @@ export default class Themer extends React.Component<{}, ThemeState> {
     public constructor(props: {}) {
         super(props);
         this.state = {
-            officeTheme: THEME_LIGHT,
-            theme: Theme.light
+            officeTheme: THEME_DARK,
+            theme: Theme.dark
         };
     }
 

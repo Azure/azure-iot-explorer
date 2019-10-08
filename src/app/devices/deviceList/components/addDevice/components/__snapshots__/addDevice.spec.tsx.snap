@@ -214,7 +214,7 @@ exports[`components/devices/addDevice matches snapshot 1`] = `
           text="deviceLists.commands.save"
           type="submit"
         />
-        <CustomizedDefaultButton
+        <CustomizedActionButton
           ariaDescription="deviceLists.commands.close"
           className="submit-button"
           onClick={[Function]}

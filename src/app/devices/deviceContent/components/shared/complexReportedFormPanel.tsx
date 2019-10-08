@@ -115,6 +115,7 @@ export default class ComplexReportedFormPanel extends React.Component<ReportedFo
                             }}
                             height="70vh"
                             value={JSON.stringify(this.state.formData, null, '\t')}
+                            theme="vs-dark"
                         />
                     </React.Suspense>
                 </div>

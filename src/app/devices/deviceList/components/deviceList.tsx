@@ -6,7 +6,7 @@ import * as React from 'react';
 import { Redirect, RouteComponentProps, withRouter, NavLink, Route } from 'react-router-dom';
 import { Label } from 'office-ui-fabric-react/lib/Label';
 import { Dialog, DialogFooter, DialogType } from 'office-ui-fabric-react/lib/Dialog';
-import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/Button';
+import { PrimaryButton, ActionButton } from 'office-ui-fabric-react/lib/Button';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import GroupedListWrapper from '../../../shared/components/groupedList';
@@ -273,7 +273,7 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
                     </ul>
                     <DialogFooter>
                         <PrimaryButton onClick={this.handleDelete} text={context.t(ResourceKeys.deviceLists.commands.delete.confirmationDialog.confirm)} />
-                        <DefaultButton onClick={this.closeDeleteDialog} text={context.t(ResourceKeys.deviceLists.commands.delete.confirmationDialog.cancel)} />
+                        <ActionButton onClick={this.closeDeleteDialog} text={context.t(ResourceKeys.deviceLists.commands.delete.confirmationDialog.cancel)} />
                     </DialogFooter>
                 </Dialog>
             </div>

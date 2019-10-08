@@ -4,12 +4,14 @@
  **********************************************************/
 @import 'variables';
 @import 'mixins';
+@import 'themes';
 
 .grouped-list {
     margin: 0px 24px;
 
     .ms-GroupedList-group {
         &:hover {
+            // this needs to be themed
             box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.16), 0px 4px 8px rgba(0, 0, 0, 0.12);
         }
     }
@@ -17,15 +19,21 @@
 
 .grouped-list-group-header {
     border: 0;
-    border-top: 1px solid $gray;
+    @include themify($themes) {
+        border-top: 1px solid themed('contrastBorder');
+    }
 
     .expanded {
-        background-color: $cell-gray;
+        @include themify($themes) {
+            background: themed('cellBackground');
+        }
     }
 }
 
 .grouped-list-header-border {
-    border-top: 1px solid $gray;
+    @include themify($themes) {
+        border-top: 1px solid themed('borderColor');
+    }
     left: 0;
     right: 0;
 }
@@ -35,7 +43,9 @@
 }
 
 .grouped-list-group-cell {
-    background-color: $cell-gray;
+    @include themify($themes) {
+        background: themed('cellBackground');
+    }
 }
 
 .grouped-list-group-content {
@@ -47,23 +57,10 @@
         font-size: 12px;
     }
 
-    a:link {
+    a:link, a:visited, a:hover, a:active {
         text-decoration: none;
-        color: $link-blue;
-    }
-
-    a:visited {
-        text-decoration: none;
-        color: $link-blue;
-    }
-
-    a:hover {
-        text-decoration: none;
-        color: $link-blue;
-    }
-
-    a:active {
-        text-decoration: none;
-        color: $link-blue;
+        @include themify($themes) {
+            color: themed('linkColor');
+        }
     }
 }

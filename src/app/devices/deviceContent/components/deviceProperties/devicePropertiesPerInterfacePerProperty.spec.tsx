@@ -5,7 +5,7 @@
 import 'jest';
 import * as React from 'react';
 import { Label } from 'office-ui-fabric-react/lib/Label';
-import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
+import { ActionButton } from 'office-ui-fabric-react/lib/Button';
 import DevicePropertiesPerInterfacePerProperty from './devicePropertiesPerInterfacePerProperty';
 import { mountWithLocalization } from '../../../../shared/utils/testHelpers';
 
@@ -96,7 +96,7 @@ describe('components/devices/devicePropertiesPerInterfacePerProperty', () => {
         const unitLabel = wrapper.find(Label).at(2); // tslint:disable-line:no-magic-numbers
         expect(unitLabel.props().children).toEqual('--');
 
-        const complexValueButton = wrapper.find(DefaultButton);
+        const complexValueButton = wrapper.find(ActionButton);
         expect(complexValueButton.props().className).toEqual('column-value-button');
         complexValueButton.props().onClick(null);
         expect(handleOverlayToggle).toBeCalled();

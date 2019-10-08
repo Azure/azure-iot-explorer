@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
  @import 'variables';
+ @import 'themes';
 
 .maskedCopyableTextField {
     margin-bottom: 5px;
@@ -20,10 +21,16 @@
         flex-grow: 1;
         border-width: 1px;
         border-style: solid;
-        border-color: $textfield-border;
+        @include themify($themes) {
+            border-color: themed('maskedCopyableBorderColor');
+        }
         margin-right: 5px;
 
         & > input {
+            @include themify($themes) {
+                color: themed('textColor');
+
+            }
             border: none;
             &:hover {
                 border: none;
@@ -43,15 +50,21 @@
     }
 
     .readOnly {
-        background-color: $textfield-disabled-background;
+        @include themify($themes) {
+            background-color: themed('maskedCopyableReadonlyBackground');
+        }
     }
 
     .error {
-        border-color: $errorBorder;
+        @include themify($themes) {
+            border-color: themed('errorBorder');
+        }
     }
 
     .errorSection {
-        color: $errorText;
+        @include themify($themes) {
+            color: themed('errorText');
+        }
         font-size: $textSize;
     }
 }

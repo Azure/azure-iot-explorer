@@ -126,23 +126,23 @@ export default class DeviceCommandsPerInterfacePerCommand
         displayName = displayName ? displayName : '--';
         let description = getLocalizedData(this.props.commandModelDefinition.description);
         description = description ? description : '--';
-        return <div className="ms-Grid-col ms-u-sm3"><Label aria-label={ariaLabel}>{this.props.commandModelDefinition.name} ({displayName} / {description})</Label></div>;
+        return <div className="ms-Grid-col ms-sm3"><Label aria-label={ariaLabel}>{this.props.commandModelDefinition.name} ({displayName} / {description})</Label></div>;
     }
 
     private readonly renderCommandSchema = (context: LocalizationContextInterface, isRequest: boolean) => {
         const ariaLabel = context.t(ResourceKeys.deviceCommands.columns.type);
-        return <div className="ms-Grid-col ms-u-sm3"><Label aria-label={ariaLabel}>{this.getCommandSchema(isRequest)}</Label></div>;
+        return <div className="ms-Grid-col ms-sm3"><Label aria-label={ariaLabel}>{this.getCommandSchema(isRequest)}</Label></div>;
     }
 
     private readonly renderCommandType = (context: LocalizationContextInterface) => {
         const ariaLabel = context.t(ResourceKeys.deviceCommands.columns.schema.request);
         const { commandModelDefinition } = this.props;
-        return <div className="ms-Grid-col ms-u-sm2"><Label aria-label={ariaLabel}>{commandModelDefinition.commandType ? commandModelDefinition.commandType : '--'}</Label></div>;
+        return <div className="ms-Grid-col ms-sm2"><Label aria-label={ariaLabel}>{commandModelDefinition.commandType ? commandModelDefinition.commandType : '--'}</Label></div>;
     }
 
     private readonly renderCollapseButton = (context: LocalizationContextInterface) => {
         return (
-        <div className="ms-Grid-col ms-u-sm1">
+        <div className="ms-Grid-col ms-sm1">
             <IconButton
                 title={context.t(this.props.collapsed ? ResourceKeys.deviceCommands.command.expand : ResourceKeys.deviceCommands.command.collapse)}
                 iconProps={{iconName: this.props.collapsed ? InterfaceDetailCard.OPEN : InterfaceDetailCard.CLOSE}}

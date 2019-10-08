@@ -14,18 +14,23 @@ import { getConnectionStringSelector, getRememberConnectionStringValueSelector }
 import { setConnectionStringAction } from '../../login/actions';
 import { listDevicesAction } from '../../devices/deviceList/actions';
 import DeviceQuery from '../../api/models/deviceQuery';
+import { Theme } from '../../../themer';
 
 const mapStateToProps = (state: StateType): SettingsPaneProps => {
     return {
+        darkTheme: Theme.light,
         hubConnectionString: getConnectionStringSelector(state),
         isOpen: getSettingsVisibleSelector(state),
         rememberConnectionString: getRememberConnectionStringValueSelector(state),
-        repositoryLocations: getRepositoryLocationSettingsSelector(state),
+        repositoryLocations: getRepositoryLocationSettingsSelector(state)
     };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): SettingsPaneActions => {
     return {
+        onSetTheme: (theme: Theme) => {
+            return; // todo: set the theme
+        },
         onSettingsSave: (payload: Settings) => {
             dispatch(setConnectionStringAction({
                 connectionString: payload.hubConnectionString,

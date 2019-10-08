@@ -158,6 +158,7 @@ export default class DeviceTwin
                                     readOnly: false
                                 }}
                                 onChange={this.onChange}
+                                theme="vs-dark"
                             />
                         </React.Suspense>
                     </div>

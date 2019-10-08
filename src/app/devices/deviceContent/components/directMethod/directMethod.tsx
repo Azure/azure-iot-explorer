@@ -143,6 +143,7 @@ export default class DirectMethod extends React.Component<DirectMethodProps & Ro
                             height="25vh"
                             value={payload}
                             onChange={this.onEditorChange}
+                            theme="vs-dark"
                         />
                     </React.Suspense>
                 </div>

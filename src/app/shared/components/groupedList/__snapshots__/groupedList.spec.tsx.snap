@@ -93,12 +93,12 @@ exports[`components/GroupedList render GroupedList matches snapshot 1`] = `
           "0": false,
           "1": false,
         },
+        "count": 0,
         "mode": 2,
       }
     }
   >
     <SelectionZone
-      isMultiSelectEnabled={true}
       isSelectedOnFocus={true}
       selection={
         Selection {
@@ -144,6 +144,7 @@ exports[`components/GroupedList render GroupedList matches snapshot 1`] = `
             "0": false,
             "1": false,
           },
+          "count": 0,
           "mode": 2,
         }
       }
@@ -239,6 +240,7 @@ exports[`components/GroupedList render GroupedList matches snapshot 1`] = `
               "0": false,
               "1": false,
             },
+            "count": 0,
             "mode": 2,
           }
         }

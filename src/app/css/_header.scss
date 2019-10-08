@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 @import 'variables';
+@import 'themes';
 
 .header {
     display: grid;
@@ -23,7 +24,7 @@
     }
     .ms-Button {
         background: transparent;
-        color:$white;
+        color: white;
         height: 100%;
     }
     .active {

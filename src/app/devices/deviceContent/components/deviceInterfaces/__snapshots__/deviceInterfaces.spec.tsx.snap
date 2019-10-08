@@ -62,12 +62,12 @@ exports[`components/devices/deviceInterfaces show interface information when sta
         : 
         settings.modelDefinitions.repositoryTypes.public.label
       </StyledLabelBase>
-      <CustomizedDefaultButton
+      <CustomizedActionButton
         className="configure-button"
         onClick={[Function]}
       >
         deviceInterfaces.command.configure
-      </CustomizedDefaultButton>
+      </CustomizedActionButton>
       <StyledLabelBase>
          
         deviceInterfaces.columns.displayName
@@ -183,12 +183,12 @@ exports[`components/devices/deviceInterfaces show interface information when sta
         : 
         settings.modelDefinitions.repositoryTypes.private.label
       </StyledLabelBase>
-      <CustomizedDefaultButton
+      <CustomizedActionButton
         className="configure-button"
         onClick={[Function]}
       >
         deviceInterfaces.command.configure
-      </CustomizedDefaultButton>
+      </CustomizedActionButton>
       <StyledLabelBase>
          
         deviceInterfaces.columns.displayName
@@ -304,12 +304,12 @@ exports[`components/devices/deviceInterfaces show interface information when sta
         : 
         settings.modelDefinitions.repositoryTypes.device.label
       </StyledLabelBase>
-      <CustomizedDefaultButton
+      <CustomizedActionButton
         className="configure-button"
         onClick={[Function]}
       >
         deviceInterfaces.command.configure
-      </CustomizedDefaultButton>
+      </CustomizedActionButton>
       <StyledLabelBase>
          
         deviceInterfaces.columns.displayName
@@ -425,12 +425,12 @@ exports[`components/devices/deviceInterfaces show interface information when sta
         : 
         --
       </StyledLabelBase>
-      <CustomizedDefaultButton
+      <CustomizedActionButton
         className="configure-button"
         onClick={[Function]}
       >
         deviceInterfaces.command.configure
-      </CustomizedDefaultButton>
+      </CustomizedActionButton>
       <StyledLabelBase>
          
         deviceInterfaces.columns.displayName

@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/Button';
+import { PrimaryButton, ActionButton } from 'office-ui-fabric-react/lib/Button';
 import { Dialog, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 import Form from 'react-jsonschema-form';
@@ -92,6 +92,7 @@ export default class DataForm extends React.Component<DataFormDataProps & DataFo
                             }}
                             height="275px"
                             value={JSON.stringify(this.state.payloadPreviewData, null, '\t')}
+                            theme="vs-dark"
                         />
                     </React.Suspense>
                 </div>
@@ -152,6 +153,7 @@ export default class DataForm extends React.Component<DataFormDataProps & DataFo
                             height="30vh"
                             value={this.state.stringifiedFormData}
                             onChange={this.onChangeEditor}
+                            theme="vs-dark"
                         />
                     </React.Suspense>
                 </div>
@@ -211,7 +213,7 @@ export default class DataForm extends React.Component<DataFormDataProps & DataFo
                     iconProps={{ iconName: SUBMIT }}
                     disabled={buttonDisabled}
                 />
-                <DefaultButton
+                <ActionButton
                     className="preview-payload-button"
                     onClick={this.createPayloadPreview}
                     text={context.t(ResourceKeys.deviceSettings.previewPayloadButtonText)}

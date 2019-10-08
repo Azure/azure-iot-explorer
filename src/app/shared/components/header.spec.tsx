@@ -4,7 +4,7 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
+import { ActionButton } from 'office-ui-fabric-react/lib/Button';
 import Header from './header';
 import { testWithLocalizationContext } from '../utils/testHelpers';
 
@@ -24,7 +24,7 @@ describe('shared/components/header', () => {
         const component = getComponent();
         expect(component).toMatchSnapshot();
 
-        const settingButton = component.find(DefaultButton).first();
+        const settingButton = component.find(ActionButton).first();
         expect(settingButton.props().className).toEqual('');
         settingButton.props().onClick();
         expect(onSettingsVisibilityChanged).toBeCalled();
@@ -34,7 +34,7 @@ describe('shared/components/header', () => {
         const component = getComponent({settingsVisible: true});
         // expect(component).toMatchSnapshot();
 
-        const settingButton = component.find(DefaultButton).first();
+        const settingButton = component.find(ActionButton).first();
         expect(settingButton.props().className).toEqual('settings-visible');
         settingButton.props().onClick();
         expect(onSettingsVisibilityChanged).toBeCalled();

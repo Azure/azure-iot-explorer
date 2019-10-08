@@ -2,8 +2,9 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
- @import '../../../node_modules//office-ui-fabric-core/dist/css/fabric.min.css';
- @import 'variables';
+@import '../../../node_modules//office-ui-fabric-core/dist/css/fabric.min.css';
+@import 'variables';
+@import 'themes';
 
 .app {
     font-family: "Segoe UI" !important;
@@ -16,6 +17,10 @@
     display: -ms-grid;
     -ms-grid-columns: 1fr;
     -ms-grid-rows: 40px 1fr;
+    @include themify($themes) {
+        color: themed('textColor');
+        background: themed('backgroundColor');
+    }
 
     .header {
         grid-row: 1;
@@ -28,6 +33,16 @@
         grid-column: 1;
         -ms-grid-row: 2;
         -ms-grid-column: 1;
+    }
+    .ms-Label {
+        @include themify($themes) {
+            color: themed('textColor');
+        }
+    }
+    .ms-Fabric {
+        @include themify($themes) {
+            color: themed('primary');
+        }
     }
 }
 
