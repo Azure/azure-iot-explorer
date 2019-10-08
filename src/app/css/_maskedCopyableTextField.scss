@@ -23,6 +23,8 @@
         border-style: solid;
         @include themify($themes) {
             border-color: themed('maskedCopyableColor');
+            color: themed('maskedCopyableColor');
+            background-color: themed('maskedCopyableBackground');
         }
         margin-right: 5px;
 
@@ -45,9 +47,6 @@
             width: 100%;
             text-overflow: ellipsis;
             background-color: transparent;
-        }
-        @include themify($themes) {
-            background-color: themed('maskedCopyableBackground');
         }
     }
 

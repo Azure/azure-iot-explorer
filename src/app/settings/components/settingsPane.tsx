@@ -7,7 +7,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel';
 import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
 import { Link } from 'office-ui-fabric-react/lib/Link';
-import { PrimaryButton, ActionButton } from 'office-ui-fabric-react/lib/Button';
+import { PrimaryButton, ActionButton, DefaultButton } from 'office-ui-fabric-react/lib/Button';
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
@@ -296,7 +296,7 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
                             text={context.t(ResourceKeys.settings.save)}
                             onClick={this.saveSettings}
                         />
-                        <ActionButton
+                        <DefaultButton
                             type="reset"
                             text={context.t(ResourceKeys.settings.cancel)}
                             onClick={this.closePane}
