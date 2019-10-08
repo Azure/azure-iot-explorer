@@ -129,6 +129,7 @@ exports[`devices/components/deviceTwin snapshot matches snapshot with twin 1`] =
               "readOnly": false,
             }
           }
+          theme="vs-dark"
           value="{}"
         />
       </React.Suspense>

@@ -14,17 +14,18 @@ export enum Theme {
 }
 
 interface ThemeState {
-    theme: Theme;
     officeTheme: IPartialTheme;
 }
+interface ThemeProps {
+    theme: Theme;
+}
 
-export default class Themer extends React.Component<{}, ThemeState> {
+export default class Themer extends React.Component<ThemeProps, ThemeState> {
 
-    public constructor(props: {}) {
+    public constructor(props: ThemeProps) {
         super(props);
         this.state = {
-            officeTheme: THEME_DARK,
-            theme: Theme.dark
+            officeTheme: this.props.theme === Theme.dark ? THEME_DARK : THEME_LIGHT,
         };
     }
 
@@ -34,13 +35,17 @@ export default class Themer extends React.Component<{}, ThemeState> {
         return (
             <Customizer settings={{ theme: { ...currentTheme }}} scopedSettings={{...SCOPED_SETTINGS}}>
                 <Fabric>
-                    <div className={this.state.theme === Theme.dark ? 'theme-dark' : 'theme-light'}>
-                        <div className="app">
-                            {this.props.children}
-                        </div>
+                    <div className={this.props.theme === Theme.dark ? 'theme-dark' : 'theme-light'}>
+                        {this.props.children}
                     </div>
                 </Fabric>
             </Customizer>
         );
+    }
+
+    public componentWillReceiveProps(newProps: ThemeProps) {
+        return this.setState({
+            officeTheme: newProps.theme === Theme.dark ? THEME_DARK : THEME_LIGHT,
+        });
     }
 }

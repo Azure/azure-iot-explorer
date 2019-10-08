@@ -1447,6 +1447,44 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                       </button>
                                     </div>
                                   </section>
+                                  <section
+                                    aria-label="settings.theme.headerText"
+                                  >
+                                    <h3
+                                      aria-level="1"
+                                      role="heading"
+                                    >
+                                      settings.theme.headerText
+                                    </h3>
+                                    <div
+                                      class="ms-Toggle is-enabled root-92"
+                                    >
+                                      <div
+                                        class="ms-Toggle-innerContainer container-94"
+                                      >
+                                        <button
+                                          aria-checked="false"
+                                          aria-labelledby="Toggle26-stateText"
+                                          class="ms-Toggle-background pill-95"
+                                          data-is-focusable="true"
+                                          id="Toggle26"
+                                          role="switch"
+                                          type="button"
+                                        >
+                                          <div
+                                            class="ms-Toggle-thumb thumb-96"
+                                          />
+                                        </button>
+                                        <label
+                                          class="ms-Label ms-Toggle-stateText text-98"
+                                          for="Toggle26"
+                                          id="Toggle26-stateText"
+                                        >
+                                          settings.theme.lightTheme
+                                        </label>
+                                      </div>
+                                    </div>
+                                  </section>
                                 </div>
                               </div>
                               <footer
@@ -1468,7 +1506,7 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                       class="faq-item"
                                     >
                                       <a
-                                        class="ms-Link root-92"
+                                        class="ms-Link root-99"
                                         href="settings.questions.questions.documentation.link"
                                         target="_blank"
                                       >
@@ -1488,7 +1526,7 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                   </h3>
                                   <button
                                     aria-disabled="true"
-                                    class="ms-Button ms-Button--primary is-disabled root-93"
+                                    class="ms-Button ms-Button--primary is-disabled root-100"
                                     data-is-focusable="false"
                                     disabled=""
                                     type="submit"
@@ -1501,8 +1539,8 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                         class="ms-Button-textContainer textContainer-71"
                                       >
                                         <span
-                                          class="ms-Button-label label-95"
-                                          id="id__26"
+                                          class="ms-Button-label label-102"
+                                          id="id__27"
                                         >
                                           settings.save
                                         </span>
@@ -1523,7 +1561,7 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                       >
                                         <span
                                           class="ms-Button-label label-73"
-                                          id="id__29"
+                                          id="id__30"
                                         >
                                           settings.cancel
                                         </span>
@@ -3329,6 +3367,18 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                                   "settings.modelDefinitions.helpText",
                                                 ],
                                                 Array [
+                                                  "settings.theme.headerText",
+                                                ],
+                                                Array [
+                                                  "settings.theme.headerText",
+                                                ],
+                                                Array [
+                                                  "settings.theme.darkTheme",
+                                                ],
+                                                Array [
+                                                  "settings.theme.lightTheme",
+                                                ],
+                                                Array [
                                                   "common.maskedCopyableTextField.toggleMask.label",
                                                 ],
                                                 Array [
@@ -3434,6 +3484,22 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                                 Object {
                                                   "type": "return",
                                                   "value": "settings.modelDefinitions.helpText",
+                                                },
+                                                Object {
+                                                  "type": "return",
+                                                  "value": "settings.theme.headerText",
+                                                },
+                                                Object {
+                                                  "type": "return",
+                                                  "value": "settings.theme.headerText",
+                                                },
+                                                Object {
+                                                  "type": "return",
+                                                  "value": "settings.theme.darkTheme",
+                                                },
+                                                Object {
+                                                  "type": "return",
+                                                  "value": "settings.theme.lightTheme",
                                                 },
                                                 Object {
                                                   "type": "return",
@@ -5353,24 +5419,24 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                                                     class="ms-Fabric ms-Layer-content content-67"
                                                                   >
                                                                     <div
-                                                                      class="ms-Callout-container container-97"
+                                                                      class="ms-Callout-container container-104"
                                                                       style="visibility: hidden;"
                                                                     >
                                                                       <div
-                                                                        class="ms-Callout root-98"
+                                                                        class="ms-Callout root-105"
                                                                         hidden=""
                                                                         style="opacity: 0; filter: opacity(0);"
                                                                         tabindex="-1"
                                                                       >
                                                                         <div
-                                                                          class="ms-Callout-beak beak-99"
+                                                                          class="ms-Callout-beak beak-106"
                                                                           style="left: 0px; top: 0px;"
                                                                         />
                                                                         <div
-                                                                          class="ms-Callout-beakCurtain beakCurtain-100"
+                                                                          class="ms-Callout-beakCurtain beakCurtain-107"
                                                                         />
                                                                         <div
-                                                                          class="ms-Callout-main calloutMain-101"
+                                                                          class="ms-Callout-main calloutMain-108"
                                                                           role="alertdialog"
                                                                           style="outline: none; max-height: 752px;"
                                                                         >
@@ -5386,7 +5452,7 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                                                               class="footer"
                                                                             >
                                                                               <a
-                                                                                class="ms-Link root-92"
+                                                                                class="ms-Link root-99"
                                                                                 href="settings.configuration.connectionString.link"
                                                                                 target="_blank"
                                                                               >
@@ -6029,7 +6095,7 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                                                         }
                                                                       >
                                                                         <div
-                                                                          className="ms-Callout-container container-97"
+                                                                          className="ms-Callout-container container-104"
                                                                           style={
                                                                             Object {
                                                                               "visibility": "hidden",
@@ -6037,7 +6103,7 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                                                           }
                                                                         >
                                                                           <div
-                                                                            className="ms-Callout root-98"
+                                                                            className="ms-Callout root-105"
                                                                             hidden={true}
                                                                             style={
                                                                               Object {
@@ -6048,7 +6114,7 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                                                             tabIndex={-1}
                                                                           >
                                                                             <div
-                                                                              className="ms-Callout-beak beak-99"
+                                                                              className="ms-Callout-beak beak-106"
                                                                               style={
                                                                                 Object {
                                                                                   "left": 0,
@@ -6057,10 +6123,10 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                                                               }
                                                                             />
                                                                             <div
-                                                                              className="ms-Callout-beakCurtain beakCurtain-100"
+                                                                              className="ms-Callout-beakCurtain beakCurtain-107"
                                                                             />
                                                                             <Popup
-                                                                              className="ms-Callout-main calloutMain-101"
+                                                                              className="ms-Callout-main calloutMain-108"
                                                                               onDismiss={[Function]}
                                                                               onMouseDown={[Function]}
                                                                               onMouseUp={[Function]}
@@ -6073,7 +6139,7 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                                                               }
                                                                             >
                                                                               <div
-                                                                                className="ms-Callout-main calloutMain-101"
+                                                                                className="ms-Callout-main calloutMain-108"
                                                                                 onKeyDown={[Function]}
                                                                                 onMouseDown={[Function]}
                                                                                 onMouseUp={[Function]}
@@ -6364,7 +6430,7 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                                                                       >
                                                                                         <KeytipData>
                                                                                           <a
-                                                                                            className="ms-Link root-92"
+                                                                                            className="ms-Link root-99"
                                                                                             href="settings.configuration.connectionString.link"
                                                                                             onClick={[Function]}
                                                                                             target="_blank"
@@ -11400,6 +11466,589 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                           </div>
                                         </RepositoryLocationList>
                                       </section>
+                                      <section
+                                        aria-label="settings.theme.headerText"
+                                      >
+                                        <h3
+                                          aria-level={1}
+                                          role="heading"
+                                        >
+                                          settings.theme.headerText
+                                        </h3>
+                                        <StyledToggleBase
+                                          checked={false}
+                                          offText="settings.theme.lightTheme"
+                                          onChange={[Function]}
+                                          onText="settings.theme.darkTheme"
+                                        >
+                                          <ToggleBase
+                                            checked={false}
+                                            offText="settings.theme.lightTheme"
+                                            onChange={[Function]}
+                                            onText="settings.theme.darkTheme"
+                                            styles={[Function]}
+                                            theme={
+                                              Object {
+                                                "disableGlobalClassNames": false,
+                                                "effects": Object {
+                                                  "elevation16": "0 6.4px 14.4px 0 rgba(0, 0, 0, 0.132), 0 1.2px 3.6px 0 rgba(0, 0, 0, 0.108)",
+                                                  "elevation4": "0 1.6px 3.6px 0 rgba(0, 0, 0, 0.132), 0 0.3px 0.9px 0 rgba(0, 0, 0, 0.108)",
+                                                  "elevation64": "0 25.6px 57.6px 0 rgba(0, 0, 0, 0.22), 0 4.8px 14.4px 0 rgba(0, 0, 0, 0.18)",
+                                                  "elevation8": "0 3.2px 7.2px 0 rgba(0, 0, 0, 0.132), 0 0.6px 1.8px 0 rgba(0, 0, 0, 0.108)",
+                                                  "roundedCorner2": "2px",
+                                                },
+                                                "fonts": Object {
+                                                  "large": Object {
+                                                    "MozOsxFontSmoothing": "grayscale",
+                                                    "WebkitFontSmoothing": "antialiased",
+                                                    "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                    "fontSize": "18px",
+                                                    "fontWeight": 400,
+                                                  },
+                                                  "medium": Object {
+                                                    "MozOsxFontSmoothing": "grayscale",
+                                                    "WebkitFontSmoothing": "antialiased",
+                                                    "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                    "fontSize": "14px",
+                                                    "fontWeight": 400,
+                                                  },
+                                                  "mediumPlus": Object {
+                                                    "MozOsxFontSmoothing": "grayscale",
+                                                    "WebkitFontSmoothing": "antialiased",
+                                                    "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                    "fontSize": "16px",
+                                                    "fontWeight": 400,
+                                                  },
+                                                  "mega": Object {
+                                                    "MozOsxFontSmoothing": "grayscale",
+                                                    "WebkitFontSmoothing": "antialiased",
+                                                    "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                    "fontSize": "68px",
+                                                    "fontWeight": 600,
+                                                  },
+                                                  "small": Object {
+                                                    "MozOsxFontSmoothing": "grayscale",
+                                                    "WebkitFontSmoothing": "antialiased",
+                                                    "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                    "fontSize": "12px",
+                                                    "fontWeight": 400,
+                                                  },
+                                                  "smallPlus": Object {
+                                                    "MozOsxFontSmoothing": "grayscale",
+                                                    "WebkitFontSmoothing": "antialiased",
+                                                    "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                    "fontSize": "12px",
+                                                    "fontWeight": 400,
+                                                  },
+                                                  "superLarge": Object {
+                                                    "MozOsxFontSmoothing": "grayscale",
+                                                    "WebkitFontSmoothing": "antialiased",
+                                                    "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                    "fontSize": "42px",
+                                                    "fontWeight": 600,
+                                                  },
+                                                  "tiny": Object {
+                                                    "MozOsxFontSmoothing": "grayscale",
+                                                    "WebkitFontSmoothing": "antialiased",
+                                                    "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                    "fontSize": "10px",
+                                                    "fontWeight": 400,
+                                                  },
+                                                  "xLarge": Object {
+                                                    "MozOsxFontSmoothing": "grayscale",
+                                                    "WebkitFontSmoothing": "antialiased",
+                                                    "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                    "fontSize": "20px",
+                                                    "fontWeight": 600,
+                                                  },
+                                                  "xLargePlus": Object {
+                                                    "MozOsxFontSmoothing": "grayscale",
+                                                    "WebkitFontSmoothing": "antialiased",
+                                                    "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                    "fontSize": "24px",
+                                                    "fontWeight": 600,
+                                                  },
+                                                  "xSmall": Object {
+                                                    "MozOsxFontSmoothing": "grayscale",
+                                                    "WebkitFontSmoothing": "antialiased",
+                                                    "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                    "fontSize": "10px",
+                                                    "fontWeight": 400,
+                                                  },
+                                                  "xxLarge": Object {
+                                                    "MozOsxFontSmoothing": "grayscale",
+                                                    "WebkitFontSmoothing": "antialiased",
+                                                    "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                    "fontSize": "28px",
+                                                    "fontWeight": 600,
+                                                  },
+                                                  "xxLargePlus": Object {
+                                                    "MozOsxFontSmoothing": "grayscale",
+                                                    "WebkitFontSmoothing": "antialiased",
+                                                    "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                    "fontSize": "32px",
+                                                    "fontWeight": 600,
+                                                  },
+                                                },
+                                                "isInverted": false,
+                                                "palette": Object {
+                                                  "accent": "#0078d4",
+                                                  "black": "#000000",
+                                                  "blackTranslucent40": "rgba(0,0,0,.4)",
+                                                  "blue": "#0078d4",
+                                                  "blueDark": "#002050",
+                                                  "blueLight": "#00bcf2",
+                                                  "blueMid": "#00188f",
+                                                  "green": "#107c10",
+                                                  "greenDark": "#004b1c",
+                                                  "greenLight": "#bad80a",
+                                                  "magenta": "#b4009e",
+                                                  "magentaDark": "#5c005c",
+                                                  "magentaLight": "#e3008c",
+                                                  "neutralDark": "#201f1e",
+                                                  "neutralLight": "#edebe9",
+                                                  "neutralLighter": "#f3f2f1",
+                                                  "neutralLighterAlt": "#faf9f8",
+                                                  "neutralPrimary": "#323130",
+                                                  "neutralPrimaryAlt": "#3b3a39",
+                                                  "neutralQuaternary": "#d2d0ce",
+                                                  "neutralQuaternaryAlt": "#e1dfdd",
+                                                  "neutralSecondary": "#605e5c",
+                                                  "neutralSecondaryAlt": "#8a8886",
+                                                  "neutralTertiary": "#a19f9d",
+                                                  "neutralTertiaryAlt": "#c8c6c4",
+                                                  "orange": "#d83b01",
+                                                  "orangeLight": "#ea4300",
+                                                  "orangeLighter": "#ff8c00",
+                                                  "purple": "#5c2d91",
+                                                  "purpleDark": "#32145a",
+                                                  "purpleLight": "#b4a0ff",
+                                                  "red": "#e81123",
+                                                  "redDark": "#a4262c",
+                                                  "teal": "#008272",
+                                                  "tealDark": "#004b50",
+                                                  "tealLight": "#00b294",
+                                                  "themeDark": "#005a9e",
+                                                  "themeDarkAlt": "#106ebe",
+                                                  "themeDarker": "#004578",
+                                                  "themeLight": "#c7e0f4",
+                                                  "themeLighter": "#deecf9",
+                                                  "themeLighterAlt": "#eff6fc",
+                                                  "themePrimary": "#0078d4",
+                                                  "themeSecondary": "#2b88d8",
+                                                  "themeTertiary": "#71afe5",
+                                                  "white": "#ffffff",
+                                                  "whiteTranslucent40": "rgba(255,255,255,.4)",
+                                                  "yellow": "#ffb900",
+                                                  "yellowDark": "#d29200",
+                                                  "yellowLight": "#fff100",
+                                                },
+                                                "semanticColors": Object {
+                                                  "accentButtonBackground": "#0078d4",
+                                                  "accentButtonText": "#ffffff",
+                                                  "actionLink": "#323130",
+                                                  "actionLinkHovered": "#201f1e",
+                                                  "blockingBackground": "rgba(250, 65, 0, .2)",
+                                                  "bodyBackground": "#ffffff",
+                                                  "bodyBackgroundChecked": "#edebe9",
+                                                  "bodyBackgroundHovered": "#f3f2f1",
+                                                  "bodyDivider": "#edebe9",
+                                                  "bodyFrameBackground": "#ffffff",
+                                                  "bodyFrameDivider": "#edebe9",
+                                                  "bodyStandoutBackground": "#faf9f8",
+                                                  "bodySubtext": "#605e5c",
+                                                  "bodyText": "#323130",
+                                                  "bodyTextChecked": "#000000",
+                                                  "buttonBackground": "#ffffff",
+                                                  "buttonBackgroundChecked": "#c8c6c4",
+                                                  "buttonBackgroundCheckedHovered": "#edebe9",
+                                                  "buttonBackgroundDisabled": "#f3f2f1",
+                                                  "buttonBackgroundHovered": "#f3f2f1",
+                                                  "buttonBackgroundPressed": "#edebe9",
+                                                  "buttonBorder": "#8a8886",
+                                                  "buttonBorderDisabled": "#f3f2f1",
+                                                  "buttonText": "#323130",
+                                                  "buttonTextChecked": "#201f1e",
+                                                  "buttonTextCheckedHovered": "#000000",
+                                                  "buttonTextDisabled": "#a19f9d",
+                                                  "buttonTextHovered": "#201f1e",
+                                                  "buttonTextPressed": "#201f1e",
+                                                  "defaultStateBackground": "#faf9f8",
+                                                  "disabledBackground": "#f3f2f1",
+                                                  "disabledBodySubtext": "#c8c6c4",
+                                                  "disabledBodyText": "#a19f9d",
+                                                  "disabledBorder": "#c8c6c4",
+                                                  "disabledSubtext": "#d2d0ce",
+                                                  "disabledText": "#a19f9d",
+                                                  "errorBackground": "rgba(245, 135, 145, .2)",
+                                                  "errorText": "#a4262c",
+                                                  "focusBorder": "#605e5c",
+                                                  "inputBackground": "#ffffff",
+                                                  "inputBackgroundChecked": "#0078d4",
+                                                  "inputBackgroundCheckedHovered": "#005a9e",
+                                                  "inputBorder": "#8a8886",
+                                                  "inputBorderHovered": "#323130",
+                                                  "inputFocusBorderAlt": "#0078d4",
+                                                  "inputForegroundChecked": "#ffffff",
+                                                  "inputIcon": "#0078d4",
+                                                  "inputIconDisabled": "#a19f9d",
+                                                  "inputIconHovered": "#005a9e",
+                                                  "inputPlaceholderBackgroundChecked": "#deecf9",
+                                                  "inputPlaceholderText": "#605e5c",
+                                                  "inputText": "#323130",
+                                                  "inputTextHovered": "#201f1e",
+                                                  "link": "#0078d4",
+                                                  "linkHovered": "#004578",
+                                                  "listBackground": "#ffffff",
+                                                  "listHeaderBackgroundHovered": "#f3f2f1",
+                                                  "listHeaderBackgroundPressed": "#edebe9",
+                                                  "listItemBackgroundChecked": "#edebe9",
+                                                  "listItemBackgroundCheckedHovered": "#e1dfdd",
+                                                  "listItemBackgroundHovered": "#f3f2f1",
+                                                  "listText": "#323130",
+                                                  "listTextColor": "#323130",
+                                                  "menuBackground": "#ffffff",
+                                                  "menuDivider": "#c8c6c4",
+                                                  "menuHeader": "#0078d4",
+                                                  "menuIcon": "#0078d4",
+                                                  "menuItemBackgroundChecked": "#edebe9",
+                                                  "menuItemBackgroundHovered": "#f3f2f1",
+                                                  "menuItemBackgroundPressed": "#edebe9",
+                                                  "menuItemText": "#323130",
+                                                  "menuItemTextHovered": "#201f1e",
+                                                  "primaryButtonBackground": "#0078d4",
+                                                  "primaryButtonBackgroundDisabled": "#f3f2f1",
+                                                  "primaryButtonBackgroundHovered": "#106ebe",
+                                                  "primaryButtonBackgroundPressed": "#005a9e",
+                                                  "primaryButtonBorder": "transparent",
+                                                  "primaryButtonText": "#ffffff",
+                                                  "primaryButtonTextDisabled": "#d2d0ce",
+                                                  "primaryButtonTextHovered": "#ffffff",
+                                                  "primaryButtonTextPressed": "#ffffff",
+                                                  "smallInputBorder": "#605e5c",
+                                                  "successBackground": "rgba(95, 210, 85, .2)",
+                                                  "successText": "#107C10",
+                                                  "variantBorder": "#edebe9",
+                                                  "variantBorderHovered": "#a19f9d",
+                                                  "warningBackground": "rgba(255, 200, 10, .2)",
+                                                  "warningHighlight": "#ffb900",
+                                                  "warningText": "#333333",
+                                                },
+                                                "spacing": Object {
+                                                  "l1": "20px",
+                                                  "l2": "32px",
+                                                  "m": "16px",
+                                                  "s1": "8px",
+                                                  "s2": "4px",
+                                                },
+                                              }
+                                            }
+                                          >
+                                            <div
+                                              className="ms-Toggle is-enabled root-92"
+                                            >
+                                              <div
+                                                className="ms-Toggle-innerContainer container-94"
+                                              >
+                                                <KeytipData>
+                                                  <button
+                                                    aria-checked={false}
+                                                    aria-labelledby="Toggle26-stateText"
+                                                    checked={false}
+                                                    className="ms-Toggle-background pill-95"
+                                                    data-is-focusable={true}
+                                                    id="Toggle26"
+                                                    onChange={[Function]}
+                                                    onClick={[Function]}
+                                                    role="switch"
+                                                    type="button"
+                                                  >
+                                                    <div
+                                                      className="ms-Toggle-thumb thumb-96"
+                                                    />
+                                                  </button>
+                                                </KeytipData>
+                                                <StyledLabelBase
+                                                  className="ms-Toggle-stateText text-97"
+                                                  htmlFor="Toggle26"
+                                                  id="Toggle26-stateText"
+                                                >
+                                                  <LabelBase
+                                                    className="ms-Toggle-stateText text-97"
+                                                    htmlFor="Toggle26"
+                                                    id="Toggle26-stateText"
+                                                    styles={[Function]}
+                                                    theme={
+                                                      Object {
+                                                        "disableGlobalClassNames": false,
+                                                        "effects": Object {
+                                                          "elevation16": "0 6.4px 14.4px 0 rgba(0, 0, 0, 0.132), 0 1.2px 3.6px 0 rgba(0, 0, 0, 0.108)",
+                                                          "elevation4": "0 1.6px 3.6px 0 rgba(0, 0, 0, 0.132), 0 0.3px 0.9px 0 rgba(0, 0, 0, 0.108)",
+                                                          "elevation64": "0 25.6px 57.6px 0 rgba(0, 0, 0, 0.22), 0 4.8px 14.4px 0 rgba(0, 0, 0, 0.18)",
+                                                          "elevation8": "0 3.2px 7.2px 0 rgba(0, 0, 0, 0.132), 0 0.6px 1.8px 0 rgba(0, 0, 0, 0.108)",
+                                                          "roundedCorner2": "2px",
+                                                        },
+                                                        "fonts": Object {
+                                                          "large": Object {
+                                                            "MozOsxFontSmoothing": "grayscale",
+                                                            "WebkitFontSmoothing": "antialiased",
+                                                            "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                            "fontSize": "18px",
+                                                            "fontWeight": 400,
+                                                          },
+                                                          "medium": Object {
+                                                            "MozOsxFontSmoothing": "grayscale",
+                                                            "WebkitFontSmoothing": "antialiased",
+                                                            "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                            "fontSize": "14px",
+                                                            "fontWeight": 400,
+                                                          },
+                                                          "mediumPlus": Object {
+                                                            "MozOsxFontSmoothing": "grayscale",
+                                                            "WebkitFontSmoothing": "antialiased",
+                                                            "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                            "fontSize": "16px",
+                                                            "fontWeight": 400,
+                                                          },
+                                                          "mega": Object {
+                                                            "MozOsxFontSmoothing": "grayscale",
+                                                            "WebkitFontSmoothing": "antialiased",
+                                                            "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                            "fontSize": "68px",
+                                                            "fontWeight": 600,
+                                                          },
+                                                          "small": Object {
+                                                            "MozOsxFontSmoothing": "grayscale",
+                                                            "WebkitFontSmoothing": "antialiased",
+                                                            "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                            "fontSize": "12px",
+                                                            "fontWeight": 400,
+                                                          },
+                                                          "smallPlus": Object {
+                                                            "MozOsxFontSmoothing": "grayscale",
+                                                            "WebkitFontSmoothing": "antialiased",
+                                                            "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                            "fontSize": "12px",
+                                                            "fontWeight": 400,
+                                                          },
+                                                          "superLarge": Object {
+                                                            "MozOsxFontSmoothing": "grayscale",
+                                                            "WebkitFontSmoothing": "antialiased",
+                                                            "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                            "fontSize": "42px",
+                                                            "fontWeight": 600,
+                                                          },
+                                                          "tiny": Object {
+                                                            "MozOsxFontSmoothing": "grayscale",
+                                                            "WebkitFontSmoothing": "antialiased",
+                                                            "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                            "fontSize": "10px",
+                                                            "fontWeight": 400,
+                                                          },
+                                                          "xLarge": Object {
+                                                            "MozOsxFontSmoothing": "grayscale",
+                                                            "WebkitFontSmoothing": "antialiased",
+                                                            "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                            "fontSize": "20px",
+                                                            "fontWeight": 600,
+                                                          },
+                                                          "xLargePlus": Object {
+                                                            "MozOsxFontSmoothing": "grayscale",
+                                                            "WebkitFontSmoothing": "antialiased",
+                                                            "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                            "fontSize": "24px",
+                                                            "fontWeight": 600,
+                                                          },
+                                                          "xSmall": Object {
+                                                            "MozOsxFontSmoothing": "grayscale",
+                                                            "WebkitFontSmoothing": "antialiased",
+                                                            "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                            "fontSize": "10px",
+                                                            "fontWeight": 400,
+                                                          },
+                                                          "xxLarge": Object {
+                                                            "MozOsxFontSmoothing": "grayscale",
+                                                            "WebkitFontSmoothing": "antialiased",
+                                                            "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                            "fontSize": "28px",
+                                                            "fontWeight": 600,
+                                                          },
+                                                          "xxLargePlus": Object {
+                                                            "MozOsxFontSmoothing": "grayscale",
+                                                            "WebkitFontSmoothing": "antialiased",
+                                                            "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                            "fontSize": "32px",
+                                                            "fontWeight": 600,
+                                                          },
+                                                        },
+                                                        "isInverted": false,
+                                                        "palette": Object {
+                                                          "accent": "#0078d4",
+                                                          "black": "#000000",
+                                                          "blackTranslucent40": "rgba(0,0,0,.4)",
+                                                          "blue": "#0078d4",
+                                                          "blueDark": "#002050",
+                                                          "blueLight": "#00bcf2",
+                                                          "blueMid": "#00188f",
+                                                          "green": "#107c10",
+                                                          "greenDark": "#004b1c",
+                                                          "greenLight": "#bad80a",
+                                                          "magenta": "#b4009e",
+                                                          "magentaDark": "#5c005c",
+                                                          "magentaLight": "#e3008c",
+                                                          "neutralDark": "#201f1e",
+                                                          "neutralLight": "#edebe9",
+                                                          "neutralLighter": "#f3f2f1",
+                                                          "neutralLighterAlt": "#faf9f8",
+                                                          "neutralPrimary": "#323130",
+                                                          "neutralPrimaryAlt": "#3b3a39",
+                                                          "neutralQuaternary": "#d2d0ce",
+                                                          "neutralQuaternaryAlt": "#e1dfdd",
+                                                          "neutralSecondary": "#605e5c",
+                                                          "neutralSecondaryAlt": "#8a8886",
+                                                          "neutralTertiary": "#a19f9d",
+                                                          "neutralTertiaryAlt": "#c8c6c4",
+                                                          "orange": "#d83b01",
+                                                          "orangeLight": "#ea4300",
+                                                          "orangeLighter": "#ff8c00",
+                                                          "purple": "#5c2d91",
+                                                          "purpleDark": "#32145a",
+                                                          "purpleLight": "#b4a0ff",
+                                                          "red": "#e81123",
+                                                          "redDark": "#a4262c",
+                                                          "teal": "#008272",
+                                                          "tealDark": "#004b50",
+                                                          "tealLight": "#00b294",
+                                                          "themeDark": "#005a9e",
+                                                          "themeDarkAlt": "#106ebe",
+                                                          "themeDarker": "#004578",
+                                                          "themeLight": "#c7e0f4",
+                                                          "themeLighter": "#deecf9",
+                                                          "themeLighterAlt": "#eff6fc",
+                                                          "themePrimary": "#0078d4",
+                                                          "themeSecondary": "#2b88d8",
+                                                          "themeTertiary": "#71afe5",
+                                                          "white": "#ffffff",
+                                                          "whiteTranslucent40": "rgba(255,255,255,.4)",
+                                                          "yellow": "#ffb900",
+                                                          "yellowDark": "#d29200",
+                                                          "yellowLight": "#fff100",
+                                                        },
+                                                        "semanticColors": Object {
+                                                          "accentButtonBackground": "#0078d4",
+                                                          "accentButtonText": "#ffffff",
+                                                          "actionLink": "#323130",
+                                                          "actionLinkHovered": "#201f1e",
+                                                          "blockingBackground": "rgba(250, 65, 0, .2)",
+                                                          "bodyBackground": "#ffffff",
+                                                          "bodyBackgroundChecked": "#edebe9",
+                                                          "bodyBackgroundHovered": "#f3f2f1",
+                                                          "bodyDivider": "#edebe9",
+                                                          "bodyFrameBackground": "#ffffff",
+                                                          "bodyFrameDivider": "#edebe9",
+                                                          "bodyStandoutBackground": "#faf9f8",
+                                                          "bodySubtext": "#605e5c",
+                                                          "bodyText": "#323130",
+                                                          "bodyTextChecked": "#000000",
+                                                          "buttonBackground": "#ffffff",
+                                                          "buttonBackgroundChecked": "#c8c6c4",
+                                                          "buttonBackgroundCheckedHovered": "#edebe9",
+                                                          "buttonBackgroundDisabled": "#f3f2f1",
+                                                          "buttonBackgroundHovered": "#f3f2f1",
+                                                          "buttonBackgroundPressed": "#edebe9",
+                                                          "buttonBorder": "#8a8886",
+                                                          "buttonBorderDisabled": "#f3f2f1",
+                                                          "buttonText": "#323130",
+                                                          "buttonTextChecked": "#201f1e",
+                                                          "buttonTextCheckedHovered": "#000000",
+                                                          "buttonTextDisabled": "#a19f9d",
+                                                          "buttonTextHovered": "#201f1e",
+                                                          "buttonTextPressed": "#201f1e",
+                                                          "defaultStateBackground": "#faf9f8",
+                                                          "disabledBackground": "#f3f2f1",
+                                                          "disabledBodySubtext": "#c8c6c4",
+                                                          "disabledBodyText": "#a19f9d",
+                                                          "disabledBorder": "#c8c6c4",
+                                                          "disabledSubtext": "#d2d0ce",
+                                                          "disabledText": "#a19f9d",
+                                                          "errorBackground": "rgba(245, 135, 145, .2)",
+                                                          "errorText": "#a4262c",
+                                                          "focusBorder": "#605e5c",
+                                                          "inputBackground": "#ffffff",
+                                                          "inputBackgroundChecked": "#0078d4",
+                                                          "inputBackgroundCheckedHovered": "#005a9e",
+                                                          "inputBorder": "#8a8886",
+                                                          "inputBorderHovered": "#323130",
+                                                          "inputFocusBorderAlt": "#0078d4",
+                                                          "inputForegroundChecked": "#ffffff",
+                                                          "inputIcon": "#0078d4",
+                                                          "inputIconDisabled": "#a19f9d",
+                                                          "inputIconHovered": "#005a9e",
+                                                          "inputPlaceholderBackgroundChecked": "#deecf9",
+                                                          "inputPlaceholderText": "#605e5c",
+                                                          "inputText": "#323130",
+                                                          "inputTextHovered": "#201f1e",
+                                                          "link": "#0078d4",
+                                                          "linkHovered": "#004578",
+                                                          "listBackground": "#ffffff",
+                                                          "listHeaderBackgroundHovered": "#f3f2f1",
+                                                          "listHeaderBackgroundPressed": "#edebe9",
+                                                          "listItemBackgroundChecked": "#edebe9",
+                                                          "listItemBackgroundCheckedHovered": "#e1dfdd",
+                                                          "listItemBackgroundHovered": "#f3f2f1",
+                                                          "listText": "#323130",
+                                                          "listTextColor": "#323130",
+                                                          "menuBackground": "#ffffff",
+                                                          "menuDivider": "#c8c6c4",
+                                                          "menuHeader": "#0078d4",
+                                                          "menuIcon": "#0078d4",
+                                                          "menuItemBackgroundChecked": "#edebe9",
+                                                          "menuItemBackgroundHovered": "#f3f2f1",
+                                                          "menuItemBackgroundPressed": "#edebe9",
+                                                          "menuItemText": "#323130",
+                                                          "menuItemTextHovered": "#201f1e",
+                                                          "primaryButtonBackground": "#0078d4",
+                                                          "primaryButtonBackgroundDisabled": "#f3f2f1",
+                                                          "primaryButtonBackgroundHovered": "#106ebe",
+                                                          "primaryButtonBackgroundPressed": "#005a9e",
+                                                          "primaryButtonBorder": "transparent",
+                                                          "primaryButtonText": "#ffffff",
+                                                          "primaryButtonTextDisabled": "#d2d0ce",
+                                                          "primaryButtonTextHovered": "#ffffff",
+                                                          "primaryButtonTextPressed": "#ffffff",
+                                                          "smallInputBorder": "#605e5c",
+                                                          "successBackground": "rgba(95, 210, 85, .2)",
+                                                          "successText": "#107C10",
+                                                          "variantBorder": "#edebe9",
+                                                          "variantBorderHovered": "#a19f9d",
+                                                          "warningBackground": "rgba(255, 200, 10, .2)",
+                                                          "warningHighlight": "#ffb900",
+                                                          "warningText": "#333333",
+                                                        },
+                                                        "spacing": Object {
+                                                          "l1": "20px",
+                                                          "l2": "32px",
+                                                          "m": "16px",
+                                                          "s1": "8px",
+                                                          "s2": "4px",
+                                                        },
+                                                      }
+                                                    }
+                                                  >
+                                                    <label
+                                                      className="ms-Label ms-Toggle-stateText text-98"
+                                                      htmlFor="Toggle26"
+                                                      id="Toggle26-stateText"
+                                                    >
+                                                      settings.theme.lightTheme
+                                                    </label>
+                                                  </LabelBase>
+                                                </StyledLabelBase>
+                                              </div>
+                                            </div>
+                                          </ToggleBase>
+                                        </StyledToggleBase>
+                                      </section>
                                     </div>
                                   </div>
                                   <footer
@@ -11687,7 +12336,7 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                             >
                                               <KeytipData>
                                                 <a
-                                                  className="ms-Link root-92"
+                                                  className="ms-Link root-99"
                                                   href="settings.questions.questions.documentation.link"
                                                   onClick={[Function]}
                                                   target="_blank"
@@ -13267,7 +13916,7 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                               >
                                                 <button
                                                   aria-disabled={true}
-                                                  className="ms-Button ms-Button--primary is-disabled root-93"
+                                                  className="ms-Button ms-Button--primary is-disabled root-100"
                                                   data-is-focusable={false}
                                                   disabled={true}
                                                   onClick={[Function]}
@@ -13286,9 +13935,9 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                                       className="ms-Button-textContainer textContainer-71"
                                                     >
                                                       <span
-                                                        className="ms-Button-label label-95"
-                                                        id="id__26"
-                                                        key="id__26"
+                                                        className="ms-Button-label label-102"
+                                                        id="id__27"
+                                                        key="id__27"
                                                       >
                                                         settings.save
                                                       </span>
@@ -14080,8 +14729,8 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                                 >
                                                   <span
                                                     className="ms-Button-label label-73"
-                                                    id="id__29"
-                                                    key="id__29"
+                                                    id="id__30"
+                                                    key="id__30"
                                                   >
                                                     settings.cancel
                                                   </span>
@@ -15056,14 +15705,14 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                         >
                                           <label
                                             class="ms-Label root-77"
-                                            for="maskedCopyableTextField36"
+                                            for="maskedCopyableTextField37"
                                           >
                                             connectivityPane.connectionStringTextBox.label
                                           </label>
                                           <button
                                             class="ms-Button ms-Button--icon root-78"
                                             data-is-focusable="true"
-                                            id="iconbutton37"
+                                            id="iconbutton38"
                                             type="button"
                                           >
                                             <span
@@ -15092,7 +15741,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                           <input
                                             aria-label="connectivityPane.connectionStringTextBox.label"
                                             class="input"
-                                            id="maskedCopyableTextField36"
+                                            id="maskedCopyableTextField37"
                                             type="password"
                                             value=""
                                           />
@@ -15160,12 +15809,12 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                         aria-checked="false"
                                         aria-label="connectivityPane.connectionStringCheckbox.ariaLabel"
                                         class="input-80"
-                                        id="checkbox-47"
+                                        id="checkbox-48"
                                         type="checkbox"
                                       />
                                       <label
                                         class="ms-Checkbox-label label-81"
-                                        for="checkbox-47"
+                                        for="checkbox-48"
                                       >
                                         <div
                                           class="ms-Checkbox-checkbox checkbox-82"
@@ -15193,7 +15842,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                           aria-label="Info"
                                           class="ms-Button ms-Button--icon root-78"
                                           data-is-focusable="true"
-                                          id="iconbutton48"
+                                          id="iconbutton49"
                                           type="button"
                                         >
                                           <span
@@ -15253,7 +15902,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                           >
                                             <span
                                               class="ms-Button-label label-73"
-                                              id="id__65"
+                                              id="id__66"
                                             >
                                               settings.modelDefinitions.add
                                             </span>
@@ -15266,6 +15915,44 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                           />
                                         </span>
                                       </button>
+                                    </div>
+                                  </section>
+                                  <section
+                                    aria-label="settings.theme.headerText"
+                                  >
+                                    <h3
+                                      aria-level="1"
+                                      role="heading"
+                                    >
+                                      settings.theme.headerText
+                                    </h3>
+                                    <div
+                                      class="ms-Toggle is-enabled root-92"
+                                    >
+                                      <div
+                                        class="ms-Toggle-innerContainer container-94"
+                                      >
+                                        <button
+                                          aria-checked="false"
+                                          aria-labelledby="Toggle69-stateText"
+                                          class="ms-Toggle-background pill-95"
+                                          data-is-focusable="true"
+                                          id="Toggle69"
+                                          role="switch"
+                                          type="button"
+                                        >
+                                          <div
+                                            class="ms-Toggle-thumb thumb-96"
+                                          />
+                                        </button>
+                                        <label
+                                          class="ms-Label ms-Toggle-stateText text-98"
+                                          for="Toggle69"
+                                          id="Toggle69-stateText"
+                                        >
+                                          settings.theme.lightTheme
+                                        </label>
+                                      </div>
                                     </div>
                                   </section>
                                 </div>
@@ -15289,7 +15976,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                       class="faq-item"
                                     >
                                       <a
-                                        class="ms-Link root-92"
+                                        class="ms-Link root-99"
                                         href="settings.questions.questions.documentation.link"
                                         target="_blank"
                                       >
@@ -15309,7 +15996,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                   </h3>
                                   <button
                                     aria-disabled="true"
-                                    class="ms-Button ms-Button--primary is-disabled root-93"
+                                    class="ms-Button ms-Button--primary is-disabled root-100"
                                     data-is-focusable="false"
                                     disabled=""
                                     type="submit"
@@ -15322,8 +16009,8 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                         class="ms-Button-textContainer textContainer-71"
                                       >
                                         <span
-                                          class="ms-Button-label label-95"
-                                          id="id__68"
+                                          class="ms-Button-label label-102"
+                                          id="id__70"
                                         >
                                           settings.save
                                         </span>
@@ -15344,7 +16031,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                       >
                                         <span
                                           class="ms-Button-label label-73"
-                                          id="id__71"
+                                          id="id__73"
                                         >
                                           settings.cancel
                                         </span>
@@ -17150,6 +17837,18 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                   "settings.modelDefinitions.helpText",
                                                 ],
                                                 Array [
+                                                  "settings.theme.headerText",
+                                                ],
+                                                Array [
+                                                  "settings.theme.headerText",
+                                                ],
+                                                Array [
+                                                  "settings.theme.darkTheme",
+                                                ],
+                                                Array [
+                                                  "settings.theme.lightTheme",
+                                                ],
+                                                Array [
                                                   "common.maskedCopyableTextField.toggleMask.label",
                                                 ],
                                                 Array [
@@ -17282,6 +17981,22 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                 },
                                                 Object {
                                                   "type": "return",
+                                                  "value": "settings.theme.headerText",
+                                                },
+                                                Object {
+                                                  "type": "return",
+                                                  "value": "settings.theme.headerText",
+                                                },
+                                                Object {
+                                                  "type": "return",
+                                                  "value": "settings.theme.darkTheme",
+                                                },
+                                                Object {
+                                                  "type": "return",
+                                                  "value": "settings.theme.lightTheme",
+                                                },
+                                                Object {
+                                                  "type": "return",
                                                   "value": "common.maskedCopyableTextField.toggleMask.label",
                                                 },
                                                 Object {
@@ -17404,7 +18119,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                     </div>
                                                   </div>
                                                 }
-                                                htmlFor="maskedCopyableTextField36"
+                                                htmlFor="maskedCopyableTextField37"
                                               >
                                                 <div
                                                   className="labelWithTooltip"
@@ -17431,7 +18146,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                         </div>
                                                       </div>
                                                     }
-                                                    htmlFor="maskedCopyableTextField36"
+                                                    htmlFor="maskedCopyableTextField37"
                                                   >
                                                     <LabelBase
                                                       calloutContent={
@@ -17455,7 +18170,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                           </div>
                                                         </div>
                                                       }
-                                                      htmlFor="maskedCopyableTextField36"
+                                                      htmlFor="maskedCopyableTextField37"
                                                       styles={[Function]}
                                                       theme={
                                                         Object {
@@ -17716,7 +18431,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                     >
                                                       <label
                                                         className="ms-Label root-77"
-                                                        htmlFor="maskedCopyableTextField36"
+                                                        htmlFor="maskedCopyableTextField37"
                                                       >
                                                         connectivityPane.connectionStringTextBox.label
                                                       </label>
@@ -17728,7 +18443,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                         "iconName": "Info",
                                                       }
                                                     }
-                                                    id="iconbutton37"
+                                                    id="iconbutton38"
                                                     onMouseOver={[Function]}
                                                   >
                                                     <IconButton
@@ -17737,7 +18452,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                           "iconName": "Info",
                                                         }
                                                       }
-                                                      id="iconbutton37"
+                                                      id="iconbutton38"
                                                       onMouseOver={[Function]}
                                                       theme={
                                                         Object {
@@ -18003,7 +18718,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                             "iconName": "Info",
                                                           }
                                                         }
-                                                        id="iconbutton37"
+                                                        id="iconbutton38"
                                                         onMouseOver={[Function]}
                                                         onRenderDescription={[Function]}
                                                         onRenderText={[Function]}
@@ -18655,7 +19370,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                         <button
                                                           className="ms-Button ms-Button--icon root-78"
                                                           data-is-focusable={true}
-                                                          id="iconbutton37"
+                                                          id="iconbutton38"
                                                           onClick={[Function]}
                                                           onKeyDown={[Function]}
                                                           onKeyPress={[Function]}
@@ -18692,7 +19407,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                     onDismiss={[Function]}
                                                     role="alertdialog"
                                                     setInitialFocus={true}
-                                                    target="#iconbutton37"
+                                                    target="#iconbutton38"
                                                   >
                                                     <StyledCustomizedLayer>
                                                       <CustomizedLayer
@@ -19230,24 +19945,24 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                                     class="ms-Fabric ms-Layer-content content-67"
                                                                   >
                                                                     <div
-                                                                      class="ms-Callout-container container-97"
+                                                                      class="ms-Callout-container container-104"
                                                                       style="visibility: hidden;"
                                                                     >
                                                                       <div
-                                                                        class="ms-Callout root-98"
+                                                                        class="ms-Callout root-105"
                                                                         hidden=""
                                                                         style="opacity: 0; filter: opacity(0);"
                                                                         tabindex="-1"
                                                                       >
                                                                         <div
-                                                                          class="ms-Callout-beak beak-99"
+                                                                          class="ms-Callout-beak beak-106"
                                                                           style="left: 0px; top: 0px;"
                                                                         />
                                                                         <div
-                                                                          class="ms-Callout-beakCurtain beakCurtain-100"
+                                                                          class="ms-Callout-beakCurtain beakCurtain-107"
                                                                         />
                                                                         <div
-                                                                          class="ms-Callout-main calloutMain-101"
+                                                                          class="ms-Callout-main calloutMain-108"
                                                                           role="alertdialog"
                                                                           style="outline: none; max-height: 752px;"
                                                                         >
@@ -19263,7 +19978,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                                               class="footer"
                                                                             >
                                                                               <a
-                                                                                class="ms-Link root-92"
+                                                                                class="ms-Link root-99"
                                                                                 href="settings.configuration.connectionString.link"
                                                                                 target="_blank"
                                                                               >
@@ -19631,7 +20346,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                                       onDismiss={[Function]}
                                                                       role="alertdialog"
                                                                       setInitialFocus={true}
-                                                                      target="#iconbutton37"
+                                                                      target="#iconbutton38"
                                                                     >
                                                                       <CalloutContentBase
                                                                         beakWidth={16}
@@ -19647,7 +20362,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                                         role="alertdialog"
                                                                         setInitialFocus={true}
                                                                         styles={[Function]}
-                                                                        target="#iconbutton37"
+                                                                        target="#iconbutton38"
                                                                         theme={
                                                                           Object {
                                                                             "disableGlobalClassNames": false,
@@ -19906,7 +20621,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                                         }
                                                                       >
                                                                         <div
-                                                                          className="ms-Callout-container container-97"
+                                                                          className="ms-Callout-container container-104"
                                                                           style={
                                                                             Object {
                                                                               "visibility": "hidden",
@@ -19914,7 +20629,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                                           }
                                                                         >
                                                                           <div
-                                                                            className="ms-Callout root-98"
+                                                                            className="ms-Callout root-105"
                                                                             hidden={true}
                                                                             style={
                                                                               Object {
@@ -19925,7 +20640,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                                             tabIndex={-1}
                                                                           >
                                                                             <div
-                                                                              className="ms-Callout-beak beak-99"
+                                                                              className="ms-Callout-beak beak-106"
                                                                               style={
                                                                                 Object {
                                                                                   "left": 0,
@@ -19934,10 +20649,10 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                                               }
                                                                             />
                                                                             <div
-                                                                              className="ms-Callout-beakCurtain beakCurtain-100"
+                                                                              className="ms-Callout-beakCurtain beakCurtain-107"
                                                                             />
                                                                             <Popup
-                                                                              className="ms-Callout-main calloutMain-101"
+                                                                              className="ms-Callout-main calloutMain-108"
                                                                               onDismiss={[Function]}
                                                                               onMouseDown={[Function]}
                                                                               onMouseUp={[Function]}
@@ -19950,7 +20665,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                                               }
                                                                             >
                                                                               <div
-                                                                                className="ms-Callout-main calloutMain-101"
+                                                                                className="ms-Callout-main calloutMain-108"
                                                                                 onKeyDown={[Function]}
                                                                                 onMouseDown={[Function]}
                                                                                 onMouseUp={[Function]}
@@ -20241,7 +20956,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                                                       >
                                                                                         <KeytipData>
                                                                                           <a
-                                                                                            className="ms-Link root-92"
+                                                                                            className="ms-Link root-99"
                                                                                             href="settings.configuration.connectionString.link"
                                                                                             onClick={[Function]}
                                                                                             target="_blank"
@@ -20280,7 +20995,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                 <input
                                                   aria-label="connectivityPane.connectionStringTextBox.label"
                                                   className="input"
-                                                  id="maskedCopyableTextField36"
+                                                  id="maskedCopyableTextField37"
                                                   onChange={[Function]}
                                                   readOnly={false}
                                                   type="password"
@@ -22516,7 +23231,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                   aria-checked="false"
                                                   aria-label="connectivityPane.connectionStringCheckbox.ariaLabel"
                                                   className="input-80"
-                                                  id="checkbox-47"
+                                                  id="checkbox-48"
                                                   onBlur={[Function]}
                                                   onChange={[Function]}
                                                   onFocus={[Function]}
@@ -22524,7 +23239,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                 />
                                                 <label
                                                   className="ms-Checkbox-label label-81"
-                                                  htmlFor="checkbox-47"
+                                                  htmlFor="checkbox-48"
                                                 >
                                                   <div
                                                     className="ms-Checkbox-checkbox checkbox-82"
@@ -23087,24 +23802,24 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                               calloutProps={
                                                 Object {
                                                   "gapSpace": 0,
-                                                  "target": "#iconbutton48",
+                                                  "target": "#iconbutton49",
                                                 }
                                               }
                                               content="connectivityPane.connectionStringCheckbox.tooltip"
                                               directionalHint={12}
-                                              id="tooltip49"
+                                              id="tooltip50"
                                             >
                                               <TooltipHostBase
                                                 calloutProps={
                                                   Object {
                                                     "gapSpace": 0,
-                                                    "target": "#iconbutton48",
+                                                    "target": "#iconbutton49",
                                                   }
                                                 }
                                                 content="connectivityPane.connectionStringCheckbox.tooltip"
                                                 delay={1}
                                                 directionalHint={12}
-                                                id="tooltip49"
+                                                id="tooltip50"
                                                 styles={[Function]}
                                                 theme={
                                                   Object {
@@ -23372,24 +24087,24 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                   onMouseLeave={[Function]}
                                                 >
                                                   <CustomizedIconButton
-                                                    aria-labelledby="tooltip49"
+                                                    aria-labelledby="tooltip50"
                                                     ariaLabel="Info"
                                                     iconProps={
                                                       Object {
                                                         "iconName": "Info",
                                                       }
                                                     }
-                                                    id="iconbutton48"
+                                                    id="iconbutton49"
                                                   >
                                                     <IconButton
-                                                      aria-labelledby="tooltip49"
+                                                      aria-labelledby="tooltip50"
                                                       ariaLabel="Info"
                                                       iconProps={
                                                         Object {
                                                           "iconName": "Info",
                                                         }
                                                       }
-                                                      id="iconbutton48"
+                                                      id="iconbutton49"
                                                       theme={
                                                         Object {
                                                           "disableGlobalClassNames": false,
@@ -23648,7 +24363,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                       }
                                                     >
                                                       <BaseButton
-                                                        aria-labelledby="tooltip49"
+                                                        aria-labelledby="tooltip50"
                                                         ariaLabel="Info"
                                                         baseClassName="ms-Button"
                                                         iconProps={
@@ -23656,7 +24371,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                             "iconName": "Info",
                                                           }
                                                         }
-                                                        id="iconbutton48"
+                                                        id="iconbutton49"
                                                         onRenderDescription={[Function]}
                                                         onRenderText={[Function]}
                                                         split={false}
@@ -24308,7 +25023,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                           aria-label="Info"
                                                           className="ms-Button ms-Button--icon root-78"
                                                           data-is-focusable={true}
-                                                          id="iconbutton48"
+                                                          id="iconbutton49"
                                                           onClick={[Function]}
                                                           onKeyDown={[Function]}
                                                           onKeyPress={[Function]}
@@ -24470,6 +25185,18 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                                       "settings.modelDefinitions.helpText",
                                                                     ],
                                                                     Array [
+                                                                      "settings.theme.headerText",
+                                                                    ],
+                                                                    Array [
+                                                                      "settings.theme.headerText",
+                                                                    ],
+                                                                    Array [
+                                                                      "settings.theme.darkTheme",
+                                                                    ],
+                                                                    Array [
+                                                                      "settings.theme.lightTheme",
+                                                                    ],
+                                                                    Array [
                                                                       "common.maskedCopyableTextField.toggleMask.label",
                                                                     ],
                                                                     Array [
@@ -24602,6 +25329,22 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                                     },
                                                                     Object {
                                                                       "type": "return",
+                                                                      "value": "settings.theme.headerText",
+                                                                    },
+                                                                    Object {
+                                                                      "type": "return",
+                                                                      "value": "settings.theme.headerText",
+                                                                    },
+                                                                    Object {
+                                                                      "type": "return",
+                                                                      "value": "settings.theme.darkTheme",
+                                                                    },
+                                                                    Object {
+                                                                      "type": "return",
+                                                                      "value": "settings.theme.lightTheme",
+                                                                    },
+                                                                    Object {
+                                                                      "type": "return",
                                                                       "value": "common.maskedCopyableTextField.toggleMask.label",
                                                                     },
                                                                     Object {
@@ -24703,18 +25446,18 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                                   className="labelSection"
                                                                 >
                                                                   <Component
-                                                                    htmlFor="maskedCopyableTextField53"
+                                                                    htmlFor="maskedCopyableTextField54"
                                                                     required={true}
                                                                   >
                                                                     <div
                                                                       className="labelWithTooltip"
                                                                     >
                                                                       <StyledLabelBase
-                                                                        htmlFor="maskedCopyableTextField53"
+                                                                        htmlFor="maskedCopyableTextField54"
                                                                         required={true}
                                                                       >
                                                                         <LabelBase
-                                                                          htmlFor="maskedCopyableTextField53"
+                                                                          htmlFor="maskedCopyableTextField54"
                                                                           required={true}
                                                                           styles={[Function]}
                                                                           theme={
@@ -24975,8 +25718,8 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                                           }
                                                                         >
                                                                           <label
-                                                                            className="ms-Label root-102"
-                                                                            htmlFor="maskedCopyableTextField53"
+                                                                            className="ms-Label root-109"
+                                                                            htmlFor="maskedCopyableTextField54"
                                                                           >
                                                                             settings.modelDefinitions.repositoryTypes.private.textBoxLabel
                                                                           </label>
@@ -24994,7 +25737,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                                     <input
                                                                       aria-label="settings.modelDefinitions.repositoryTypes.private.textBoxLabel"
                                                                       className="input"
-                                                                      id="maskedCopyableTextField53"
+                                                                      id="maskedCopyableTextField54"
                                                                       onChange={[Function]}
                                                                       readOnly={false}
                                                                       type="password"
@@ -28807,8 +29550,8 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                       >
                                                         <span
                                                           className="ms-Button-label label-73"
-                                                          id="id__65"
-                                                          key="id__65"
+                                                          id="id__66"
+                                                          key="id__66"
                                                         >
                                                           settings.modelDefinitions.add
                                                         </span>
@@ -28831,6 +29574,589 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                             </CustomizedActionButton>
                                           </div>
                                         </RepositoryLocationList>
+                                      </section>
+                                      <section
+                                        aria-label="settings.theme.headerText"
+                                      >
+                                        <h3
+                                          aria-level={1}
+                                          role="heading"
+                                        >
+                                          settings.theme.headerText
+                                        </h3>
+                                        <StyledToggleBase
+                                          checked={false}
+                                          offText="settings.theme.lightTheme"
+                                          onChange={[Function]}
+                                          onText="settings.theme.darkTheme"
+                                        >
+                                          <ToggleBase
+                                            checked={false}
+                                            offText="settings.theme.lightTheme"
+                                            onChange={[Function]}
+                                            onText="settings.theme.darkTheme"
+                                            styles={[Function]}
+                                            theme={
+                                              Object {
+                                                "disableGlobalClassNames": false,
+                                                "effects": Object {
+                                                  "elevation16": "0 6.4px 14.4px 0 rgba(0, 0, 0, 0.132), 0 1.2px 3.6px 0 rgba(0, 0, 0, 0.108)",
+                                                  "elevation4": "0 1.6px 3.6px 0 rgba(0, 0, 0, 0.132), 0 0.3px 0.9px 0 rgba(0, 0, 0, 0.108)",
+                                                  "elevation64": "0 25.6px 57.6px 0 rgba(0, 0, 0, 0.22), 0 4.8px 14.4px 0 rgba(0, 0, 0, 0.18)",
+                                                  "elevation8": "0 3.2px 7.2px 0 rgba(0, 0, 0, 0.132), 0 0.6px 1.8px 0 rgba(0, 0, 0, 0.108)",
+                                                  "roundedCorner2": "2px",
+                                                },
+                                                "fonts": Object {
+                                                  "large": Object {
+                                                    "MozOsxFontSmoothing": "grayscale",
+                                                    "WebkitFontSmoothing": "antialiased",
+                                                    "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                    "fontSize": "18px",
+                                                    "fontWeight": 400,
+                                                  },
+                                                  "medium": Object {
+                                                    "MozOsxFontSmoothing": "grayscale",
+                                                    "WebkitFontSmoothing": "antialiased",
+                                                    "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                    "fontSize": "14px",
+                                                    "fontWeight": 400,
+                                                  },
+                                                  "mediumPlus": Object {
+                                                    "MozOsxFontSmoothing": "grayscale",
+                                                    "WebkitFontSmoothing": "antialiased",
+                                                    "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                    "fontSize": "16px",
+                                                    "fontWeight": 400,
+                                                  },
+                                                  "mega": Object {
+                                                    "MozOsxFontSmoothing": "grayscale",
+                                                    "WebkitFontSmoothing": "antialiased",
+                                                    "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                    "fontSize": "68px",
+                                                    "fontWeight": 600,
+                                                  },
+                                                  "small": Object {
+                                                    "MozOsxFontSmoothing": "grayscale",
+                                                    "WebkitFontSmoothing": "antialiased",
+                                                    "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                    "fontSize": "12px",
+                                                    "fontWeight": 400,
+                                                  },
+                                                  "smallPlus": Object {
+                                                    "MozOsxFontSmoothing": "grayscale",
+                                                    "WebkitFontSmoothing": "antialiased",
+                                                    "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                    "fontSize": "12px",
+                                                    "fontWeight": 400,
+                                                  },
+                                                  "superLarge": Object {
+                                                    "MozOsxFontSmoothing": "grayscale",
+                                                    "WebkitFontSmoothing": "antialiased",
+                                                    "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                    "fontSize": "42px",
+                                                    "fontWeight": 600,
+                                                  },
+                                                  "tiny": Object {
+                                                    "MozOsxFontSmoothing": "grayscale",
+                                                    "WebkitFontSmoothing": "antialiased",
+                                                    "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                    "fontSize": "10px",
+                                                    "fontWeight": 400,
+                                                  },
+                                                  "xLarge": Object {
+                                                    "MozOsxFontSmoothing": "grayscale",
+                                                    "WebkitFontSmoothing": "antialiased",
+                                                    "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                    "fontSize": "20px",
+                                                    "fontWeight": 600,
+                                                  },
+                                                  "xLargePlus": Object {
+                                                    "MozOsxFontSmoothing": "grayscale",
+                                                    "WebkitFontSmoothing": "antialiased",
+                                                    "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                    "fontSize": "24px",
+                                                    "fontWeight": 600,
+                                                  },
+                                                  "xSmall": Object {
+                                                    "MozOsxFontSmoothing": "grayscale",
+                                                    "WebkitFontSmoothing": "antialiased",
+                                                    "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                    "fontSize": "10px",
+                                                    "fontWeight": 400,
+                                                  },
+                                                  "xxLarge": Object {
+                                                    "MozOsxFontSmoothing": "grayscale",
+                                                    "WebkitFontSmoothing": "antialiased",
+                                                    "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                    "fontSize": "28px",
+                                                    "fontWeight": 600,
+                                                  },
+                                                  "xxLargePlus": Object {
+                                                    "MozOsxFontSmoothing": "grayscale",
+                                                    "WebkitFontSmoothing": "antialiased",
+                                                    "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                    "fontSize": "32px",
+                                                    "fontWeight": 600,
+                                                  },
+                                                },
+                                                "isInverted": false,
+                                                "palette": Object {
+                                                  "accent": "#0078d4",
+                                                  "black": "#000000",
+                                                  "blackTranslucent40": "rgba(0,0,0,.4)",
+                                                  "blue": "#0078d4",
+                                                  "blueDark": "#002050",
+                                                  "blueLight": "#00bcf2",
+                                                  "blueMid": "#00188f",
+                                                  "green": "#107c10",
+                                                  "greenDark": "#004b1c",
+                                                  "greenLight": "#bad80a",
+                                                  "magenta": "#b4009e",
+                                                  "magentaDark": "#5c005c",
+                                                  "magentaLight": "#e3008c",
+                                                  "neutralDark": "#201f1e",
+                                                  "neutralLight": "#edebe9",
+                                                  "neutralLighter": "#f3f2f1",
+                                                  "neutralLighterAlt": "#faf9f8",
+                                                  "neutralPrimary": "#323130",
+                                                  "neutralPrimaryAlt": "#3b3a39",
+                                                  "neutralQuaternary": "#d2d0ce",
+                                                  "neutralQuaternaryAlt": "#e1dfdd",
+                                                  "neutralSecondary": "#605e5c",
+                                                  "neutralSecondaryAlt": "#8a8886",
+                                                  "neutralTertiary": "#a19f9d",
+                                                  "neutralTertiaryAlt": "#c8c6c4",
+                                                  "orange": "#d83b01",
+                                                  "orangeLight": "#ea4300",
+                                                  "orangeLighter": "#ff8c00",
+                                                  "purple": "#5c2d91",
+                                                  "purpleDark": "#32145a",
+                                                  "purpleLight": "#b4a0ff",
+                                                  "red": "#e81123",
+                                                  "redDark": "#a4262c",
+                                                  "teal": "#008272",
+                                                  "tealDark": "#004b50",
+                                                  "tealLight": "#00b294",
+                                                  "themeDark": "#005a9e",
+                                                  "themeDarkAlt": "#106ebe",
+                                                  "themeDarker": "#004578",
+                                                  "themeLight": "#c7e0f4",
+                                                  "themeLighter": "#deecf9",
+                                                  "themeLighterAlt": "#eff6fc",
+                                                  "themePrimary": "#0078d4",
+                                                  "themeSecondary": "#2b88d8",
+                                                  "themeTertiary": "#71afe5",
+                                                  "white": "#ffffff",
+                                                  "whiteTranslucent40": "rgba(255,255,255,.4)",
+                                                  "yellow": "#ffb900",
+                                                  "yellowDark": "#d29200",
+                                                  "yellowLight": "#fff100",
+                                                },
+                                                "semanticColors": Object {
+                                                  "accentButtonBackground": "#0078d4",
+                                                  "accentButtonText": "#ffffff",
+                                                  "actionLink": "#323130",
+                                                  "actionLinkHovered": "#201f1e",
+                                                  "blockingBackground": "rgba(250, 65, 0, .2)",
+                                                  "bodyBackground": "#ffffff",
+                                                  "bodyBackgroundChecked": "#edebe9",
+                                                  "bodyBackgroundHovered": "#f3f2f1",
+                                                  "bodyDivider": "#edebe9",
+                                                  "bodyFrameBackground": "#ffffff",
+                                                  "bodyFrameDivider": "#edebe9",
+                                                  "bodyStandoutBackground": "#faf9f8",
+                                                  "bodySubtext": "#605e5c",
+                                                  "bodyText": "#323130",
+                                                  "bodyTextChecked": "#000000",
+                                                  "buttonBackground": "#ffffff",
+                                                  "buttonBackgroundChecked": "#c8c6c4",
+                                                  "buttonBackgroundCheckedHovered": "#edebe9",
+                                                  "buttonBackgroundDisabled": "#f3f2f1",
+                                                  "buttonBackgroundHovered": "#f3f2f1",
+                                                  "buttonBackgroundPressed": "#edebe9",
+                                                  "buttonBorder": "#8a8886",
+                                                  "buttonBorderDisabled": "#f3f2f1",
+                                                  "buttonText": "#323130",
+                                                  "buttonTextChecked": "#201f1e",
+                                                  "buttonTextCheckedHovered": "#000000",
+                                                  "buttonTextDisabled": "#a19f9d",
+                                                  "buttonTextHovered": "#201f1e",
+                                                  "buttonTextPressed": "#201f1e",
+                                                  "defaultStateBackground": "#faf9f8",
+                                                  "disabledBackground": "#f3f2f1",
+                                                  "disabledBodySubtext": "#c8c6c4",
+                                                  "disabledBodyText": "#a19f9d",
+                                                  "disabledBorder": "#c8c6c4",
+                                                  "disabledSubtext": "#d2d0ce",
+                                                  "disabledText": "#a19f9d",
+                                                  "errorBackground": "rgba(245, 135, 145, .2)",
+                                                  "errorText": "#a4262c",
+                                                  "focusBorder": "#605e5c",
+                                                  "inputBackground": "#ffffff",
+                                                  "inputBackgroundChecked": "#0078d4",
+                                                  "inputBackgroundCheckedHovered": "#005a9e",
+                                                  "inputBorder": "#8a8886",
+                                                  "inputBorderHovered": "#323130",
+                                                  "inputFocusBorderAlt": "#0078d4",
+                                                  "inputForegroundChecked": "#ffffff",
+                                                  "inputIcon": "#0078d4",
+                                                  "inputIconDisabled": "#a19f9d",
+                                                  "inputIconHovered": "#005a9e",
+                                                  "inputPlaceholderBackgroundChecked": "#deecf9",
+                                                  "inputPlaceholderText": "#605e5c",
+                                                  "inputText": "#323130",
+                                                  "inputTextHovered": "#201f1e",
+                                                  "link": "#0078d4",
+                                                  "linkHovered": "#004578",
+                                                  "listBackground": "#ffffff",
+                                                  "listHeaderBackgroundHovered": "#f3f2f1",
+                                                  "listHeaderBackgroundPressed": "#edebe9",
+                                                  "listItemBackgroundChecked": "#edebe9",
+                                                  "listItemBackgroundCheckedHovered": "#e1dfdd",
+                                                  "listItemBackgroundHovered": "#f3f2f1",
+                                                  "listText": "#323130",
+                                                  "listTextColor": "#323130",
+                                                  "menuBackground": "#ffffff",
+                                                  "menuDivider": "#c8c6c4",
+                                                  "menuHeader": "#0078d4",
+                                                  "menuIcon": "#0078d4",
+                                                  "menuItemBackgroundChecked": "#edebe9",
+                                                  "menuItemBackgroundHovered": "#f3f2f1",
+                                                  "menuItemBackgroundPressed": "#edebe9",
+                                                  "menuItemText": "#323130",
+                                                  "menuItemTextHovered": "#201f1e",
+                                                  "primaryButtonBackground": "#0078d4",
+                                                  "primaryButtonBackgroundDisabled": "#f3f2f1",
+                                                  "primaryButtonBackgroundHovered": "#106ebe",
+                                                  "primaryButtonBackgroundPressed": "#005a9e",
+                                                  "primaryButtonBorder": "transparent",
+                                                  "primaryButtonText": "#ffffff",
+                                                  "primaryButtonTextDisabled": "#d2d0ce",
+                                                  "primaryButtonTextHovered": "#ffffff",
+                                                  "primaryButtonTextPressed": "#ffffff",
+                                                  "smallInputBorder": "#605e5c",
+                                                  "successBackground": "rgba(95, 210, 85, .2)",
+                                                  "successText": "#107C10",
+                                                  "variantBorder": "#edebe9",
+                                                  "variantBorderHovered": "#a19f9d",
+                                                  "warningBackground": "rgba(255, 200, 10, .2)",
+                                                  "warningHighlight": "#ffb900",
+                                                  "warningText": "#333333",
+                                                },
+                                                "spacing": Object {
+                                                  "l1": "20px",
+                                                  "l2": "32px",
+                                                  "m": "16px",
+                                                  "s1": "8px",
+                                                  "s2": "4px",
+                                                },
+                                              }
+                                            }
+                                          >
+                                            <div
+                                              className="ms-Toggle is-enabled root-92"
+                                            >
+                                              <div
+                                                className="ms-Toggle-innerContainer container-94"
+                                              >
+                                                <KeytipData>
+                                                  <button
+                                                    aria-checked={false}
+                                                    aria-labelledby="Toggle69-stateText"
+                                                    checked={false}
+                                                    className="ms-Toggle-background pill-95"
+                                                    data-is-focusable={true}
+                                                    id="Toggle69"
+                                                    onChange={[Function]}
+                                                    onClick={[Function]}
+                                                    role="switch"
+                                                    type="button"
+                                                  >
+                                                    <div
+                                                      className="ms-Toggle-thumb thumb-96"
+                                                    />
+                                                  </button>
+                                                </KeytipData>
+                                                <StyledLabelBase
+                                                  className="ms-Toggle-stateText text-97"
+                                                  htmlFor="Toggle69"
+                                                  id="Toggle69-stateText"
+                                                >
+                                                  <LabelBase
+                                                    className="ms-Toggle-stateText text-97"
+                                                    htmlFor="Toggle69"
+                                                    id="Toggle69-stateText"
+                                                    styles={[Function]}
+                                                    theme={
+                                                      Object {
+                                                        "disableGlobalClassNames": false,
+                                                        "effects": Object {
+                                                          "elevation16": "0 6.4px 14.4px 0 rgba(0, 0, 0, 0.132), 0 1.2px 3.6px 0 rgba(0, 0, 0, 0.108)",
+                                                          "elevation4": "0 1.6px 3.6px 0 rgba(0, 0, 0, 0.132), 0 0.3px 0.9px 0 rgba(0, 0, 0, 0.108)",
+                                                          "elevation64": "0 25.6px 57.6px 0 rgba(0, 0, 0, 0.22), 0 4.8px 14.4px 0 rgba(0, 0, 0, 0.18)",
+                                                          "elevation8": "0 3.2px 7.2px 0 rgba(0, 0, 0, 0.132), 0 0.6px 1.8px 0 rgba(0, 0, 0, 0.108)",
+                                                          "roundedCorner2": "2px",
+                                                        },
+                                                        "fonts": Object {
+                                                          "large": Object {
+                                                            "MozOsxFontSmoothing": "grayscale",
+                                                            "WebkitFontSmoothing": "antialiased",
+                                                            "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                            "fontSize": "18px",
+                                                            "fontWeight": 400,
+                                                          },
+                                                          "medium": Object {
+                                                            "MozOsxFontSmoothing": "grayscale",
+                                                            "WebkitFontSmoothing": "antialiased",
+                                                            "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                            "fontSize": "14px",
+                                                            "fontWeight": 400,
+                                                          },
+                                                          "mediumPlus": Object {
+                                                            "MozOsxFontSmoothing": "grayscale",
+                                                            "WebkitFontSmoothing": "antialiased",
+                                                            "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                            "fontSize": "16px",
+                                                            "fontWeight": 400,
+                                                          },
+                                                          "mega": Object {
+                                                            "MozOsxFontSmoothing": "grayscale",
+                                                            "WebkitFontSmoothing": "antialiased",
+                                                            "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                            "fontSize": "68px",
+                                                            "fontWeight": 600,
+                                                          },
+                                                          "small": Object {
+                                                            "MozOsxFontSmoothing": "grayscale",
+                                                            "WebkitFontSmoothing": "antialiased",
+                                                            "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                            "fontSize": "12px",
+                                                            "fontWeight": 400,
+                                                          },
+                                                          "smallPlus": Object {
+                                                            "MozOsxFontSmoothing": "grayscale",
+                                                            "WebkitFontSmoothing": "antialiased",
+                                                            "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                            "fontSize": "12px",
+                                                            "fontWeight": 400,
+                                                          },
+                                                          "superLarge": Object {
+                                                            "MozOsxFontSmoothing": "grayscale",
+                                                            "WebkitFontSmoothing": "antialiased",
+                                                            "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                            "fontSize": "42px",
+                                                            "fontWeight": 600,
+                                                          },
+                                                          "tiny": Object {
+                                                            "MozOsxFontSmoothing": "grayscale",
+                                                            "WebkitFontSmoothing": "antialiased",
+                                                            "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                            "fontSize": "10px",
+                                                            "fontWeight": 400,
+                                                          },
+                                                          "xLarge": Object {
+                                                            "MozOsxFontSmoothing": "grayscale",
+                                                            "WebkitFontSmoothing": "antialiased",
+                                                            "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                            "fontSize": "20px",
+                                                            "fontWeight": 600,
+                                                          },
+                                                          "xLargePlus": Object {
+                                                            "MozOsxFontSmoothing": "grayscale",
+                                                            "WebkitFontSmoothing": "antialiased",
+                                                            "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                            "fontSize": "24px",
+                                                            "fontWeight": 600,
+                                                          },
+                                                          "xSmall": Object {
+                                                            "MozOsxFontSmoothing": "grayscale",
+                                                            "WebkitFontSmoothing": "antialiased",
+                                                            "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                            "fontSize": "10px",
+                                                            "fontWeight": 400,
+                                                          },
+                                                          "xxLarge": Object {
+                                                            "MozOsxFontSmoothing": "grayscale",
+                                                            "WebkitFontSmoothing": "antialiased",
+                                                            "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                            "fontSize": "28px",
+                                                            "fontWeight": 600,
+                                                          },
+                                                          "xxLargePlus": Object {
+                                                            "MozOsxFontSmoothing": "grayscale",
+                                                            "WebkitFontSmoothing": "antialiased",
+                                                            "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                                                            "fontSize": "32px",
+                                                            "fontWeight": 600,
+                                                          },
+                                                        },
+                                                        "isInverted": false,
+                                                        "palette": Object {
+                                                          "accent": "#0078d4",
+                                                          "black": "#000000",
+                                                          "blackTranslucent40": "rgba(0,0,0,.4)",
+                                                          "blue": "#0078d4",
+                                                          "blueDark": "#002050",
+                                                          "blueLight": "#00bcf2",
+                                                          "blueMid": "#00188f",
+                                                          "green": "#107c10",
+                                                          "greenDark": "#004b1c",
+                                                          "greenLight": "#bad80a",
+                                                          "magenta": "#b4009e",
+                                                          "magentaDark": "#5c005c",
+                                                          "magentaLight": "#e3008c",
+                                                          "neutralDark": "#201f1e",
+                                                          "neutralLight": "#edebe9",
+                                                          "neutralLighter": "#f3f2f1",
+                                                          "neutralLighterAlt": "#faf9f8",
+                                                          "neutralPrimary": "#323130",
+                                                          "neutralPrimaryAlt": "#3b3a39",
+                                                          "neutralQuaternary": "#d2d0ce",
+                                                          "neutralQuaternaryAlt": "#e1dfdd",
+                                                          "neutralSecondary": "#605e5c",
+                                                          "neutralSecondaryAlt": "#8a8886",
+                                                          "neutralTertiary": "#a19f9d",
+                                                          "neutralTertiaryAlt": "#c8c6c4",
+                                                          "orange": "#d83b01",
+                                                          "orangeLight": "#ea4300",
+                                                          "orangeLighter": "#ff8c00",
+                                                          "purple": "#5c2d91",
+                                                          "purpleDark": "#32145a",
+                                                          "purpleLight": "#b4a0ff",
+                                                          "red": "#e81123",
+                                                          "redDark": "#a4262c",
+                                                          "teal": "#008272",
+                                                          "tealDark": "#004b50",
+                                                          "tealLight": "#00b294",
+                                                          "themeDark": "#005a9e",
+                                                          "themeDarkAlt": "#106ebe",
+                                                          "themeDarker": "#004578",
+                                                          "themeLight": "#c7e0f4",
+                                                          "themeLighter": "#deecf9",
+                                                          "themeLighterAlt": "#eff6fc",
+                                                          "themePrimary": "#0078d4",
+                                                          "themeSecondary": "#2b88d8",
+                                                          "themeTertiary": "#71afe5",
+                                                          "white": "#ffffff",
+                                                          "whiteTranslucent40": "rgba(255,255,255,.4)",
+                                                          "yellow": "#ffb900",
+                                                          "yellowDark": "#d29200",
+                                                          "yellowLight": "#fff100",
+                                                        },
+                                                        "semanticColors": Object {
+                                                          "accentButtonBackground": "#0078d4",
+                                                          "accentButtonText": "#ffffff",
+                                                          "actionLink": "#323130",
+                                                          "actionLinkHovered": "#201f1e",
+                                                          "blockingBackground": "rgba(250, 65, 0, .2)",
+                                                          "bodyBackground": "#ffffff",
+                                                          "bodyBackgroundChecked": "#edebe9",
+                                                          "bodyBackgroundHovered": "#f3f2f1",
+                                                          "bodyDivider": "#edebe9",
+                                                          "bodyFrameBackground": "#ffffff",
+                                                          "bodyFrameDivider": "#edebe9",
+                                                          "bodyStandoutBackground": "#faf9f8",
+                                                          "bodySubtext": "#605e5c",
+                                                          "bodyText": "#323130",
+                                                          "bodyTextChecked": "#000000",
+                                                          "buttonBackground": "#ffffff",
+                                                          "buttonBackgroundChecked": "#c8c6c4",
+                                                          "buttonBackgroundCheckedHovered": "#edebe9",
+                                                          "buttonBackgroundDisabled": "#f3f2f1",
+                                                          "buttonBackgroundHovered": "#f3f2f1",
+                                                          "buttonBackgroundPressed": "#edebe9",
+                                                          "buttonBorder": "#8a8886",
+                                                          "buttonBorderDisabled": "#f3f2f1",
+                                                          "buttonText": "#323130",
+                                                          "buttonTextChecked": "#201f1e",
+                                                          "buttonTextCheckedHovered": "#000000",
+                                                          "buttonTextDisabled": "#a19f9d",
+                                                          "buttonTextHovered": "#201f1e",
+                                                          "buttonTextPressed": "#201f1e",
+                                                          "defaultStateBackground": "#faf9f8",
+                                                          "disabledBackground": "#f3f2f1",
+                                                          "disabledBodySubtext": "#c8c6c4",
+                                                          "disabledBodyText": "#a19f9d",
+                                                          "disabledBorder": "#c8c6c4",
+                                                          "disabledSubtext": "#d2d0ce",
+                                                          "disabledText": "#a19f9d",
+                                                          "errorBackground": "rgba(245, 135, 145, .2)",
+                                                          "errorText": "#a4262c",
+                                                          "focusBorder": "#605e5c",
+                                                          "inputBackground": "#ffffff",
+                                                          "inputBackgroundChecked": "#0078d4",
+                                                          "inputBackgroundCheckedHovered": "#005a9e",
+                                                          "inputBorder": "#8a8886",
+                                                          "inputBorderHovered": "#323130",
+                                                          "inputFocusBorderAlt": "#0078d4",
+                                                          "inputForegroundChecked": "#ffffff",
+                                                          "inputIcon": "#0078d4",
+                                                          "inputIconDisabled": "#a19f9d",
+                                                          "inputIconHovered": "#005a9e",
+                                                          "inputPlaceholderBackgroundChecked": "#deecf9",
+                                                          "inputPlaceholderText": "#605e5c",
+                                                          "inputText": "#323130",
+                                                          "inputTextHovered": "#201f1e",
+                                                          "link": "#0078d4",
+                                                          "linkHovered": "#004578",
+                                                          "listBackground": "#ffffff",
+                                                          "listHeaderBackgroundHovered": "#f3f2f1",
+                                                          "listHeaderBackgroundPressed": "#edebe9",
+                                                          "listItemBackgroundChecked": "#edebe9",
+                                                          "listItemBackgroundCheckedHovered": "#e1dfdd",
+                                                          "listItemBackgroundHovered": "#f3f2f1",
+                                                          "listText": "#323130",
+                                                          "listTextColor": "#323130",
+                                                          "menuBackground": "#ffffff",
+                                                          "menuDivider": "#c8c6c4",
+                                                          "menuHeader": "#0078d4",
+                                                          "menuIcon": "#0078d4",
+                                                          "menuItemBackgroundChecked": "#edebe9",
+                                                          "menuItemBackgroundHovered": "#f3f2f1",
+                                                          "menuItemBackgroundPressed": "#edebe9",
+                                                          "menuItemText": "#323130",
+                                                          "menuItemTextHovered": "#201f1e",
+                                                          "primaryButtonBackground": "#0078d4",
+                                                          "primaryButtonBackgroundDisabled": "#f3f2f1",
+                                                          "primaryButtonBackgroundHovered": "#106ebe",
+                                                          "primaryButtonBackgroundPressed": "#005a9e",
+                                                          "primaryButtonBorder": "transparent",
+                                                          "primaryButtonText": "#ffffff",
+                                                          "primaryButtonTextDisabled": "#d2d0ce",
+                                                          "primaryButtonTextHovered": "#ffffff",
+                                                          "primaryButtonTextPressed": "#ffffff",
+                                                          "smallInputBorder": "#605e5c",
+                                                          "successBackground": "rgba(95, 210, 85, .2)",
+                                                          "successText": "#107C10",
+                                                          "variantBorder": "#edebe9",
+                                                          "variantBorderHovered": "#a19f9d",
+                                                          "warningBackground": "rgba(255, 200, 10, .2)",
+                                                          "warningHighlight": "#ffb900",
+                                                          "warningText": "#333333",
+                                                        },
+                                                        "spacing": Object {
+                                                          "l1": "20px",
+                                                          "l2": "32px",
+                                                          "m": "16px",
+                                                          "s1": "8px",
+                                                          "s2": "4px",
+                                                        },
+                                                      }
+                                                    }
+                                                  >
+                                                    <label
+                                                      className="ms-Label ms-Toggle-stateText text-98"
+                                                      htmlFor="Toggle69"
+                                                      id="Toggle69-stateText"
+                                                    >
+                                                      settings.theme.lightTheme
+                                                    </label>
+                                                  </LabelBase>
+                                                </StyledLabelBase>
+                                              </div>
+                                            </div>
+                                          </ToggleBase>
+                                        </StyledToggleBase>
                                       </section>
                                     </div>
                                   </div>
@@ -29119,7 +30445,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                             >
                                               <KeytipData>
                                                 <a
-                                                  className="ms-Link root-92"
+                                                  className="ms-Link root-99"
                                                   href="settings.questions.questions.documentation.link"
                                                   onClick={[Function]}
                                                   target="_blank"
@@ -30699,7 +32025,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                               >
                                                 <button
                                                   aria-disabled={true}
-                                                  className="ms-Button ms-Button--primary is-disabled root-93"
+                                                  className="ms-Button ms-Button--primary is-disabled root-100"
                                                   data-is-focusable={false}
                                                   disabled={true}
                                                   onClick={[Function]}
@@ -30718,9 +32044,9 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                       className="ms-Button-textContainer textContainer-71"
                                                     >
                                                       <span
-                                                        className="ms-Button-label label-95"
-                                                        id="id__68"
-                                                        key="id__68"
+                                                        className="ms-Button-label label-102"
+                                                        id="id__70"
+                                                        key="id__70"
                                                       >
                                                         settings.save
                                                       </span>
@@ -31512,8 +32838,8 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                 >
                                                   <span
                                                     className="ms-Button-label label-73"
-                                                    id="id__71"
-                                                    key="id__71"
+                                                    id="id__73"
+                                                    key="id__73"
                                                   >
                                                     settings.cancel
                                                   </span>

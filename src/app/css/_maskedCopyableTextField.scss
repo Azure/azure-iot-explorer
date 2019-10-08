@@ -22,14 +22,13 @@
         border-width: 1px;
         border-style: solid;
         @include themify($themes) {
-            border-color: themed('maskedCopyableBorderColor');
+            border-color: themed('maskedCopyableColor');
         }
         margin-right: 5px;
 
         & > input {
             @include themify($themes) {
-                color: themed('textColor');
-
+                color: themed('maskedCopyableColor');
             }
             border: none;
             &:hover {
@@ -46,6 +45,9 @@
             width: 100%;
             text-overflow: ellipsis;
             background-color: transparent;
+        }
+        @include themify($themes) {
+            background-color: themed('maskedCopyableBackground');
         }
     }
 

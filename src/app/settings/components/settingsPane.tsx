@@ -22,7 +22,7 @@ import { Theme } from '../../../themer';
 
 export interface SettingsPaneProps extends Settings {
     isOpen: boolean;
-    darkTheme: Theme;
+    theme: Theme;
 }
 
 export interface SettingsPaneActions {
@@ -138,7 +138,7 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
                                 onText={context.t(ResourceKeys.settings.theme.darkTheme)}
                                 offText={context.t(ResourceKeys.settings.theme.lightTheme)}
                                 onChange={this.setTheme}
-                                checked={this.props.darkTheme === Theme.dark}
+                                checked={this.props.theme === Theme.dark}
                             />
                         </section>
                         {this.renderConfirmationDialog(context)}

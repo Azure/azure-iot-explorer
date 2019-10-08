@@ -27,7 +27,7 @@ export const THEME_DARK: IPartialTheme =  {
         themePrimary: '#4ba6d8',
         themeSecondary: '#4393bf',
         themeTertiary: '#2e6482',
-        white: '#000000',
+        white: '#000000', // button text and command bar background
     }
 };
 

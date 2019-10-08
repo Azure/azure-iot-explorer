@@ -103,6 +103,7 @@ exports[`components/devices/deviceInterfaces show interface information when sta
                   "readOnly": true,
                 }
               }
+              theme="vs-dark"
               value="{
 	\\"@id\\": \\"urn:azureiot:ModelDiscovery:DigitalTwin:1\\",
 	\\"@type\\": \\"Interface\\",
@@ -224,6 +225,7 @@ exports[`components/devices/deviceInterfaces show interface information when sta
                   "readOnly": true,
                 }
               }
+              theme="vs-dark"
               value="{
 	\\"@id\\": \\"urn:azureiot:ModelDiscovery:DigitalTwin:1\\",
 	\\"@type\\": \\"Interface\\",
@@ -345,6 +347,7 @@ exports[`components/devices/deviceInterfaces show interface information when sta
                   "readOnly": true,
                 }
               }
+              theme="vs-dark"
               value="{
 	\\"@id\\": \\"urn:azureiot:ModelDiscovery:DigitalTwin:1\\",
 	\\"@type\\": \\"Interface\\",
@@ -466,6 +469,7 @@ exports[`components/devices/deviceInterfaces show interface information when sta
                   "readOnly": true,
                 }
               }
+              theme="vs-dark"
               value="{
 	\\"@id\\": \\"urn:azureiot:ModelDiscovery:DigitalTwin:1\\",
 	\\"@type\\": \\"Interface\\",

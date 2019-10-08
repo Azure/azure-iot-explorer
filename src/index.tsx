@@ -10,8 +10,8 @@ import { Provider } from 'react-redux';
 import { initializeIcons } from 'office-ui-fabric-react/lib/Icons';
 import Themer from './themer';
 import resources from './localization/resources';
-import App from './app/shared/components/application';
 import configureStore from './app/shared/redux/store/configureStore';
+import App from './app/shared/components/application';
 
 const defaultLanguage = 'en';
 const fallbackLanguage = 'en';
@@ -33,7 +33,7 @@ const store = configureStore();
 const ViewHolder =  () => (
     <I18nextProvider i18n={i18next}>
         <Provider store={store}>
-            <Themer>
+            <Themer theme={store.getState().applicationState.get('theme')}>
                 <App />
             </Themer>
         </Provider>

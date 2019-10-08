@@ -34,16 +34,6 @@
         -ms-grid-row: 2;
         -ms-grid-column: 1;
     }
-    .ms-Label {
-        @include themify($themes) {
-            color: themed('textColor');
-        }
-    }
-    .ms-Fabric {
-        @include themify($themes) {
-            color: themed('primary');
-        }
-    }
 }
 
 body {
