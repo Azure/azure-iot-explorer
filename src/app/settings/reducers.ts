@@ -3,13 +3,14 @@
  * Licensed under the MIT License
  **********************************************************/
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
-import { setSettingsVisibilityAction, setSettingsRepositoryLocationsAction, updateRepoTokenAction } from './actions';
+import { setSettingsVisibilityAction, setSettingsRepositoryLocationsAction, updateRepoTokenAction, setApplicationTheme } from './actions';
 import { applicationStateInitial, ApplicationStateType, OFFSET_IN_MINUTES, PrivateRepositorySettings } from './state';
 import { REPO_LOCATIONS, REMEMBER_CONNECTION_STRING } from '../constants/browserStorage';
 import { REPOSITORY_LOCATION_TYPE } from './../constants/repositoryLocationTypes';
 import { PRIVATE_REPO_CONNECTION_STRING_NAME } from './../constants/browserStorage';
 import { RepositorySettings } from './components/settingsPane';
 import { MILLISECONDS_IN_MINUTE } from '../constants/shared';
+import { Theme } from '../../themer';
 
 const reducer = reducerWithInitialState<ApplicationStateType>(applicationStateInitial())
     .case(setSettingsVisibilityAction, (state: ApplicationStateType, payload: boolean) => {
@@ -53,5 +54,13 @@ const reducer = reducerWithInitialState<ApplicationStateType>(applicationStateIn
                 repositoryLocations: locations,
             });
         }
+    })
+    .case(setApplicationTheme, (state: ApplicationStateType, payload: Theme) => {
+        const body = document.getElementsByTagName('body').item(0);
+        body.classList.remove(`theme-${payload === Theme.dark ? Theme.light : Theme.dark}`); // remove existing theme
+        body.classList.add('theme-' + payload);
+        return state.merge({
+            theme: payload
+        });
     });
 export default reducer;

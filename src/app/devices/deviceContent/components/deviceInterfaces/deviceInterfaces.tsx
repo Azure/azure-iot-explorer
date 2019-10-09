@@ -5,7 +5,7 @@
 import * as React from 'react';
 import { Label } from 'office-ui-fabric-react/lib/Label';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
-import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
+import { ActionButton } from 'office-ui-fabric-react/lib/Button';
 import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 import { RouteComponentProps } from 'react-router-dom';
@@ -18,6 +18,7 @@ import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMes
 import { REFRESH } from '../../../../constants/iconNames';
 import ErrorBoundary from '../../../errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
+import { Theme } from '../../../../../themer';
 
 const EditorPromise = import('react-monaco-editor');
 const Editor = React.lazy(() => EditorPromise);
@@ -25,6 +26,7 @@ const Editor = React.lazy(() => EditorPromise);
 export interface DeviceInterfaceProps {
     modelDefinitionWithSource: ModelDefinitionWithSourceWrapper;
     isLoading: boolean;
+    theme: Theme;
 }
 
 export interface DeviceInterfaceDispatchProps {
@@ -96,12 +98,12 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
         return (
             <>
                 <Label className="source"> {context.t(ResourceKeys.deviceInterfaces.columns.source)}: {source}</Label>
-                <DefaultButton
+                <ActionButton
                     className="configure-button"
                     onClick={this.handleConfigure}
                 >
                         {context.t(ResourceKeys.deviceInterfaces.command.configure)}
-                </DefaultButton>
+                </ActionButton>
                 <Label> {context.t(ResourceKeys.deviceInterfaces.columns.displayName)}: {displayName}</Label>
                 <Label> {context.t(ResourceKeys.deviceInterfaces.columns.description)}: {description}</Label>
             </>
@@ -142,6 +144,7 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
                                     automaticLayout: true,
                                     readOnly: true
                                 }}
+                                theme={this.props.theme === Theme.light ? 'vs-light' : 'vs-dark'}
                             />
                         </React.Suspense>
                     </div>

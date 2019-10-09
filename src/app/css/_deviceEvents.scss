@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 
-@import 'variables';
+@import 'themes';
 
 .device-events {
     .device-events-container {
@@ -15,7 +15,9 @@
             }
         }
         .device-events-content {
-            border-top: 1px solid $light-gray;
+            @include themify($themes) {
+                border-top: 1px solid themed('contrastBorder');
+            }
             padding: 0 25px;
         }
     }
@@ -29,13 +31,17 @@
     .consumer-group-label {
         font-weight: 600;
         font-size: 14px;
-        color: $black;
+        @include themify($themes) {
+            color: themed('textColor');
+        }
     }
 
     .consumer-group-text-field {
         display: grid;
         padding-left: 26px;
-        color: $black;
+        @include themify($themes) {
+            color: themed('textColor');
+        }
         width: 500px;
     }
 }

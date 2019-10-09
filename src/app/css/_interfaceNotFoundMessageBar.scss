@@ -3,12 +3,15 @@
  * Licensed under the MIT License
  **********************************************************/
 @import 'variables';
+@import 'themes';
 
 .message-bar {
     .ms-MessageBar {
         width: calc(100% - 2px);
-        .ms-Button{
-            background: $white;
+        .ms-Button {
+            @include themify($themes) {
+                color: themed('backgroundColor');
+            }
         }
     }
 }

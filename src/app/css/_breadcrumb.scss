@@ -2,10 +2,12 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
- @import 'variables';
+ @import 'themes';
 
 .device-content-breadcrumb {
     .ms-Breadcrumb-itemLink {
-        color: $link-blue;
+        @include themify($themes) {
+            color: themed('linkColor');
+        }
     }
 }

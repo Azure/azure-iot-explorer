@@ -1,4 +1,8 @@
-@import 'variables';
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+@import 'themes';
 @import 'mixins';
 
 .device-list-cell-container {
@@ -15,20 +19,22 @@
     .device-list-cell-item {
         padding: 0px 23px;
         border: 0;
-        border-right: 1px solid $light-medium-gray;
+        @include themify($themes) {
+            border-right: 1px solid themed('contrastBorder');
+        }
     }
 
     .first {
         padding-left: 0px;
     }
 
-    .last {
+    .device-list-cell-item.last {
         padding-right: 0px;
-        border: 0;
+        border: none;
     }
 
-    .no-border {
-        border: 0;
+    .device-list-cell-item.no-border {
+        border: none;
     }
 
     .data {

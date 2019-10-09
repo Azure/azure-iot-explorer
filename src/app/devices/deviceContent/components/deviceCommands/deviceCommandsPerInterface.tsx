@@ -10,11 +10,13 @@ import { LocalizationContextConsumer, LocalizationContextInterface } from '../..
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { InterfaceDetailCard } from '../../../../constants/iconNames';
 import '../../../../css/_devicePnpDetailList.scss';
+import { Theme } from '../../../../..//themer';
 
 export interface DeviceCommandDataProps {
     commandSchemas: CommandSchema[];
     deviceId: string;
     interfaceName: string;
+    theme: Theme;
 }
 
 export interface DeviceCommandDispatchProps {
@@ -61,10 +63,10 @@ export default class DeviceCommandsPerInterface
                 {(context: LocalizationContextInterface) => (
                     <div className="pnp-detail-list scrollable-lg ms-Grid">
                             <div className="list-header ms-Grid-row">
-                                <span className="ms-Grid-col ms-u-sm3">{context.t(ResourceKeys.deviceCommands.columns.name)}</span>
-                                <span className="ms-Grid-col ms-u-sm3">{context.t(ResourceKeys.deviceCommands.columns.schema.request)}</span>
-                                <span className="ms-Grid-col ms-u-sm3">{context.t(ResourceKeys.deviceCommands.columns.schema.response)}</span>
-                                <span className="ms-Grid-col ms-u-sm2">{context.t(ResourceKeys.deviceCommands.columns.type)}</span>
+                                <span className="ms-Grid-col ms-sm3">{context.t(ResourceKeys.deviceCommands.columns.name)}</span>
+                                <span className="ms-Grid-col ms-sm3">{context.t(ResourceKeys.deviceCommands.columns.schema.request)}</span>
+                                <span className="ms-Grid-col ms-sm3">{context.t(ResourceKeys.deviceCommands.columns.schema.response)}</span>
+                                <span className="ms-Grid-col ms-sm2">{context.t(ResourceKeys.deviceCommands.columns.type)}</span>
                                 {this.renderCollapseAllButton(context)}
                             </div>
                         <section role={commandSchemas && commandSchemas.length === 0 ? 'main' : 'list'} className="list-content">
@@ -78,7 +80,7 @@ export default class DeviceCommandsPerInterface
 
     private readonly renderCollapseAllButton = (context: LocalizationContextInterface) => {
         return (
-            <div className="ms-Grid-col ms-u-sm1 collapse-button">
+            <div className="ms-Grid-col ms-sm1 collapse-button">
                 <IconButton
                     iconProps={{iconName: this.state.allCollapsed ? InterfaceDetailCard.OPEN : InterfaceDetailCard.CLOSE}}
                     ariaLabel={this.state.allCollapsed ?

@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/Button';
+import { PrimaryButton, ActionButton } from 'office-ui-fabric-react/lib/Button';
 import { Dialog, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 import Form from 'react-jsonschema-form';
@@ -18,6 +18,7 @@ import { dataToTwinConverter, twinToFormDataConverter } from '../../../../shared
 import ErrorBoundary from '../../../../devices/errorBoundary';
 import LabelWithTooltip from '../../../../shared/components/labelWithTooltip';
 import '../../../../css/_dataForm.scss';
+import { Theme } from '../../../../../themer';
 
 const EditorPromise = import('react-monaco-editor');
 const Editor = React.lazy(() => EditorPromise);
@@ -29,6 +30,7 @@ export interface DataFormDataProps {
     settingSchema: ParsedJsonSchema;
     buttonText: string;
     schema: string; // the schema as defined in model definition
+    theme: Theme;
 }
 
 export interface DataFormActionProps {
@@ -92,6 +94,7 @@ export default class DataForm extends React.Component<DataFormDataProps & DataFo
                             }}
                             height="275px"
                             value={JSON.stringify(this.state.payloadPreviewData, null, '\t')}
+                            theme={this.props.theme === Theme.light ? 'vs-light' : 'vs-dark'}
                         />
                     </React.Suspense>
                 </div>
@@ -152,6 +155,7 @@ export default class DataForm extends React.Component<DataFormDataProps & DataFo
                             height="30vh"
                             value={this.state.stringifiedFormData}
                             onChange={this.onChangeEditor}
+                            theme={this.props.theme === Theme.light ? 'vs-light' : 'vs-dark'}
                         />
                     </React.Suspense>
                 </div>
@@ -211,7 +215,7 @@ export default class DataForm extends React.Component<DataFormDataProps & DataFo
                     iconProps={{ iconName: SUBMIT }}
                     disabled={buttonDisabled}
                 />
-                <DefaultButton
+                <ActionButton
                     className="preview-payload-button"
                     onClick={this.createPayloadPreview}
                     text={context.t(ResourceKeys.deviceSettings.previewPayloadButtonText)}

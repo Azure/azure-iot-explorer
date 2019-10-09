@@ -15,6 +15,7 @@ import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryString
 import { DIRECT_METHOD } from '../../../../constants/iconNames';
 import LabelWithTooltip from '../../../../shared/components/labelWithTooltip';
 import '../../../../css/_deviceDetail.scss';
+import { Theme } from '../../../../../themer';
 
 const EditorPromise = import('react-monaco-editor');
 const Editor = React.lazy(() => EditorPromise);
@@ -31,6 +32,7 @@ export interface DirectMethodState {
 export interface DirectMethodProps {
     connectionString: string;
     onInvokeMethodClick: (properties: InvokeMethodParameters) => void;
+    theme: Theme;
 }
 
 export default class DirectMethod extends React.Component<DirectMethodProps & RouteComponentProps, DirectMethodState> {
@@ -143,6 +145,7 @@ export default class DirectMethod extends React.Component<DirectMethodProps & Ro
                             height="25vh"
                             value={payload}
                             onChange={this.onEditorChange}
+                            theme={this.props.theme === Theme.light ? 'vs-light' : 'vs-dark'}
                         />
                     </React.Suspense>
                 </div>

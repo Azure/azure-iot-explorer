@@ -6,39 +6,30 @@ import * as React from 'react';
 import { Fabric } from 'office-ui-fabric-react/lib/Fabric';
 import { Customizer } from 'office-ui-fabric-react/lib/Utilities';
 import { IPartialTheme, createTheme } from 'office-ui-fabric-react/lib/Styling';
-import { SCOPED_SETTINGS, THEME_DARK, THEME_LIGHT } from './app/constants/themes';
+import { SCOPED_SETTINGS } from './app/constants/themes';
 
 export enum Theme {
     light = 'light',
     dark = 'dark',
 }
-
-interface ThemeState {
-    theme: Theme;
+interface ThemeProps {
     officeTheme: IPartialTheme;
+    theme: Theme;
 }
 
-export default class Themer extends React.Component<{}, ThemeState> {
+export default class Themer extends React.Component<ThemeProps> {
 
-    public constructor(props: {}) {
+    public constructor(props: ThemeProps) {
         super(props);
-        this.state = {
-            officeTheme: THEME_LIGHT,
-            theme: Theme.light
-        };
     }
 
     public render(): JSX.Element {
-        const currentTheme = createTheme(this.state.officeTheme);
+        const currentTheme = createTheme(this.props.officeTheme);
 
         return (
             <Customizer settings={{ theme: { ...currentTheme }}} scopedSettings={{...SCOPED_SETTINGS}}>
                 <Fabric>
-                    <div className={this.state.theme === Theme.dark ? 'theme-dark' : 'theme-light'}>
-                        <div className="app">
-                            {this.props.children}
-                        </div>
-                    </div>
+                    {this.props.children}
                 </Fabric>
             </Customizer>
         );

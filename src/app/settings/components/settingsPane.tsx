@@ -7,7 +7,8 @@ import { RouteComponentProps } from 'react-router-dom';
 import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel';
 import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
 import { Link } from 'office-ui-fabric-react/lib/Link';
-import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/Button';
+import { PrimaryButton, ActionButton, DefaultButton } from 'office-ui-fabric-react/lib/Button';
+import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { validateConnectionString } from '../../shared/utils/hubConnectionStringHelper';
@@ -17,12 +18,15 @@ import { MaskedCopyableTextField } from '../../shared/components/maskedCopyableT
 import LabelWithTooltip from '../../shared/components/labelWithTooltip';
 import '../../css/_settingsPane.scss';
 import { ConfirmationDialog } from './confirmationDialog';
+import { Theme } from '../../../themer';
 
 export interface SettingsPaneProps extends Settings {
     isOpen: boolean;
+    theme: Theme;
 }
 
 export interface SettingsPaneActions {
+    onSetTheme: (theme: Theme) => void;
     onSettingsVisibleChanged: (visible: boolean) => void;
     onSettingsSave: (payload: Settings) => void;
     refreshDevices: () => void;
@@ -128,11 +132,24 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
                                 onRemoveListItem={this.onRemoveListItem}
                             />
                         </section>
+                        <section aria-label={context.t(ResourceKeys.settings.theme.headerText)}>
+                            <h3 role="heading" aria-level={1}>{context.t(ResourceKeys.settings.theme.headerText)}</h3>
+                            <Toggle
+                                onText={context.t(ResourceKeys.settings.theme.darkTheme)}
+                                offText={context.t(ResourceKeys.settings.theme.lightTheme)}
+                                onChange={this.setTheme}
+                                checked={this.props.theme === Theme.dark}
+                            />
+                        </section>
                         {this.renderConfirmationDialog(context)}
                     </Panel>
                 )}
             </LocalizationContextConsumer>
         );
+    }
+
+    private readonly setTheme = (ev: React.MouseEvent<HTMLElement>, darkTheme: boolean) => {
+        this.props.onSetTheme(darkTheme ? Theme.dark : Theme.light);
     }
 
     private readonly renderConfirmationDialog = (context: LocalizationContextInterface) => {

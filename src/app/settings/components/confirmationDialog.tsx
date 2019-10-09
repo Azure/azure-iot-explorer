@@ -5,7 +5,7 @@
 import * as React from 'react';
 import { TranslationFunction } from 'i18next';
 import Dialog, { DialogType, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
-import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/Button';
+import { PrimaryButton, ActionButton } from 'office-ui-fabric-react/lib/Button';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 
 export interface ConfirmationDialogProps {
@@ -31,7 +31,7 @@ export const ConfirmationDialog: React.SFC<ConfirmationDialogProps> = (props: Co
         >
           <DialogFooter>
             <PrimaryButton onClick={props.onYes} text={props.t(ResourceKeys.common.confirmationDialog.yes)}/>
-            <DefaultButton onClick={props.onNo} text={props.t(ResourceKeys.common.confirmationDialog.no)} />
+            <ActionButton onClick={props.onNo} text={props.t(ResourceKeys.common.confirmationDialog.no)} />
           </DialogFooter>
         </Dialog>
     );

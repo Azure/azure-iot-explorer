@@ -149,7 +149,7 @@ export default class GroupedListWrapper<T> extends React.Component<GroupedListPr
         const { selection } = this.state;
         const columns = columnInfo || [];
 
-        const toggleCollapse = (event: Event | React.MouseEvent<HTMLDivElement | HTMLAnchorElement | HTMLButtonElement | BaseButton | Button>): void => {
+        const toggleCollapse = (event: Event | React.MouseEvent<HTMLDivElement | HTMLAnchorElement | HTMLButtonElement | BaseButton | Button | HTMLSpanElement>): void => {
             props.onToggleCollapse!(props.group!);
 
             (event as Event).cancelBubble = true; // tslint:disable-line

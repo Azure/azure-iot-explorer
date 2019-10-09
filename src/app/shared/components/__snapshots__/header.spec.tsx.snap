@@ -12,7 +12,7 @@ exports[`shared/components/header matches snapshot when settings is not visible 
   <div>
     <Connect(NotificationList) />
   </div>
-  <CustomizedDefaultButton
+  <CustomizedActionButton
     ariaLabel="header.settings.launch"
     className=""
     iconProps={

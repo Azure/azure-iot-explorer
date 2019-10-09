@@ -51,7 +51,7 @@ exports[`dataForm matches snapshot with simple type 1`] = `
         }
         text="text"
       />
-      <CustomizedDefaultButton
+      <CustomizedActionButton
         className="preview-payload-button"
         disabled={false}
         iconProps={
@@ -94,6 +94,7 @@ exports[`dataForm matches snapshot with simple type 1`] = `
               "readOnly": true,
             }
           }
+          theme="vs-dark"
         />
       </React.Suspense>
     </div>
@@ -138,6 +139,7 @@ exports[`dataForm matches snapshot with unsupported type 1`] = `
               "readOnly": false,
             }
           }
+          theme="vs-dark"
           value="123"
         />
       </React.Suspense>
@@ -152,7 +154,7 @@ exports[`dataForm matches snapshot with unsupported type 1`] = `
       }
       text="text"
     />
-    <CustomizedDefaultButton
+    <CustomizedActionButton
       className="preview-payload-button"
       disabled={false}
       iconProps={
@@ -194,6 +196,7 @@ exports[`dataForm matches snapshot with unsupported type 1`] = `
               "readOnly": true,
             }
           }
+          theme="vs-dark"
         />
       </React.Suspense>
     </div>

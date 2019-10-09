@@ -45,6 +45,7 @@ exports[`components/devices/DeviceQueryClause matches snapshot 1`] = `
       }
     }
     className="operation-type"
+    defaultSelectedKey="="
     onChange={[Function]}
     options={
       Array [
@@ -59,7 +60,6 @@ exports[`components/devices/DeviceQueryClause matches snapshot 1`] = `
       ]
     }
     title="deviceLists.query.searchPills.clause.operationType.title"
-    value="="
   />
   <StyledTextFieldBase
     ariaLabel="deviceLists.query.searchPills.clause.value.ariaLabel"

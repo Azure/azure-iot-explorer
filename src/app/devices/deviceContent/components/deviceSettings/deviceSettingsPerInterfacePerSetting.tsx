@@ -5,7 +5,7 @@
 import * as React from 'react';
 import { Label } from 'office-ui-fabric-react/lib/Label';
 import { Stack } from 'office-ui-fabric-react/lib/Stack';
-import { DefaultButton, IconButton } from 'office-ui-fabric-react/lib/Button';
+import { ActionButton, IconButton } from 'office-ui-fabric-react/lib/Button';
 import { ParsedJsonSchema } from '../../../../api/models/interfaceJsonParserOutput';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
@@ -21,12 +21,14 @@ import { Reported } from '../../../../api/models/digitalTwinModels';
 import ErrorBoundary from '../../../errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 import '../../../../css/_deviceSettings.scss';
+import { Theme } from '../../../../../themer';
 
 export interface DeviceSettingDataProps extends TwinWithSchema {
     collapsed: boolean;
     deviceId: string;
     interfaceId: string;
     interfaceName: string;
+    theme: Theme;
 }
 
 export interface DeviceSettingDispatchProps {
@@ -99,7 +101,7 @@ export default class DeviceSettingsPerInterfacePerSetting
         displayName = displayName ? displayName : '--';
         let description = getLocalizedData(this.props.settingModelDefinition.description);
         description = description ? description : '--';
-        return <div className="ms-Grid-col ms-u-sm3"><Label aria-label={ariaLabel}>{this.props.settingModelDefinition.name} ({displayName} / {description})</Label></div>;
+        return <div className="ms-Grid-col ms-sm3"><Label aria-label={ariaLabel}>{this.props.settingModelDefinition.name} ({displayName} / {description})</Label></div>;
     }
 
     private readonly renderPropertySchema = (context: LocalizationContextInterface) => {
@@ -108,20 +110,20 @@ export default class DeviceSettingsPerInterfacePerSetting
         const schemaType = typeof settingModelDefinition.schema === 'string' ?
             settingModelDefinition.schema :
             settingModelDefinition.schema['@type'];
-        return <div className="ms-Grid-col ms-u-sm2"><Label aria-label={ariaLabel}>{schemaType}</Label></div>;
+        return <div className="ms-Grid-col ms-sm2"><Label aria-label={ariaLabel}>{schemaType}</Label></div>;
     }
 
     private readonly renderPropertyUnit = (context: LocalizationContextInterface) => {
         const ariaLabel = context.t(ResourceKeys.deviceProperties.columns.unit);
         const unit = this.props.settingModelDefinition.unit;
-        return <div className="ms-Grid-col ms-u-sm2"><Label aria-label={ariaLabel}>{unit ? unit : '--'}</Label></div>;
+        return <div className="ms-Grid-col ms-sm2"><Label aria-label={ariaLabel}>{unit ? unit : '--'}</Label></div>;
     }
 
     private readonly renderPropertyReportedValue = (context: LocalizationContextInterface) => {
         const { reportedTwin } = this.props;
         const ariaLabel = context.t(ResourceKeys.deviceSettings.columns.reportedValue);
         return (
-            <div className="column-value-text ms-Grid-col ms-u-sm4" aria-label={ariaLabel}>
+            <div className="column-value-text ms-Grid-col ms-sm4" aria-label={ariaLabel}>
                 <Stack horizontal={true} gap={'25px'}>
                     <Stack.Item align="start" className="reported-property">
                         {reportedTwin ?
@@ -130,13 +132,13 @@ export default class DeviceSettingsPerInterfacePerSetting
                                     reportedTwin.value,
                                     this.props.settingSchema,
                                     context.t(ResourceKeys.deviceSettings.columns.error)) :
-                                <DefaultButton
+                                <ActionButton
                                     className="column-value-button"
                                     ariaDescription={context.t(ResourceKeys.deviceSettings.command.openReportedValuePanel)}
                                     onClick={this.onViewReportedValue}
                                 >
                                     {context.t(ResourceKeys.deviceSettings.command.openReportedValuePanel)}
-                                </DefaultButton>
+                                </ActionButton>
                             ) : <Label>--</Label>
                         }
                     </Stack.Item>
@@ -152,7 +154,7 @@ export default class DeviceSettingsPerInterfacePerSetting
 
     private readonly renderCollapseButton = (context: LocalizationContextInterface) => {
         return (
-        <div className="ms-Grid-col ms-u-sm1">
+        <div className="ms-Grid-col ms-sm1">
             <IconButton
                 title={context.t(this.props.collapsed ? ResourceKeys.deviceSettings.command.expand : ResourceKeys.deviceSettings.command.collapse)}
                 iconProps={{iconName: this.props.collapsed ? InterfaceDetailCard.OPEN : InterfaceDetailCard.CLOSE}}
@@ -188,6 +190,7 @@ export default class DeviceSettingsPerInterfacePerSetting
                         showPanel={this.state.showReportedValuePanel}
                         formData={reportedTwin}
                         handleDismiss={this.handleDismissViewReportedPanel}
+                        theme={this.props.theme}
                     />
                 </div>
             }
@@ -216,6 +219,7 @@ export default class DeviceSettingsPerInterfacePerSetting
                 craftPayload={this.createSettingsPayload}
                 interfaceName={this.props.interfaceName}
                 schema={this.getSettingSchema()}
+                theme={this.props.theme}
             />
         );
     }

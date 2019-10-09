@@ -2,7 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-@import 'variables';
+@import 'themes';
 @import 'mixins';
 
 .connectivity-pane {
@@ -12,13 +12,17 @@
     left: 0;
     right: 0;
     height: 100vh;
-    background-color: $opaque-blocking;
+    @include themify($themes) {
+        background: themed('opaqueBlocking');
+    }
     display: flex;
     align-items: center;
     justify-content: center;
 
     .main {
-        background: #ffffff;
+        @include themify($themes) {
+            background: themed('backgroundColor');
+        }
         padding-top: 20px;
         padding-bottom: 20px;
         padding-left: 50px;

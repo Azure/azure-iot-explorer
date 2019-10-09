@@ -8,10 +8,10 @@ import * as ReactDOM from 'react-dom';
 import { I18nextProvider } from 'react-i18next';
 import { Provider } from 'react-redux';
 import { initializeIcons } from 'office-ui-fabric-react/lib/Icons';
-import Themer from './themer';
+import Themer from './themerContainer';
 import resources from './localization/resources';
-import App from './app/shared/components/application';
 import configureStore from './app/shared/redux/store/configureStore';
+import App from './app/shared/components/application';
 
 const defaultLanguage = 'en';
 const fallbackLanguage = 'en';

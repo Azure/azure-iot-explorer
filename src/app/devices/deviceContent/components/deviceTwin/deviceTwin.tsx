@@ -15,6 +15,7 @@ import { UpdateTwinActionParameters } from '../../actions';
 import { REFRESH, SAVE } from '../../../../constants/iconNames';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import '../../../../css/_deviceDetail.scss';
+import { Theme } from '../../../../../themer';
 
 const EditorPromise = import('react-monaco-editor');
 const Editor = React.lazy(() => EditorPromise);
@@ -22,6 +23,7 @@ const Editor = React.lazy(() => EditorPromise);
 export interface DeviceTwinDataProps {
     twin: Twin;
     twinState: SynchronizationStatus;
+    theme: Theme;
 }
 
 export interface DeviceTwinDispatchProps {
@@ -158,6 +160,7 @@ export default class DeviceTwin
                                     readOnly: false
                                 }}
                                 onChange={this.onChange}
+                                theme={this.props.theme === Theme.light ? 'vs-light' : 'vs-dark'}
                             />
                         </React.Suspense>
                     </div>

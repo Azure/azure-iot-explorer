@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
+import { ActionButton } from 'office-ui-fabric-react/lib/Button';
 import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel';
 import { Link } from 'office-ui-fabric-react/lib/Link';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../shared/contexts/localizationContext';
@@ -58,7 +58,7 @@ export class NotificationList extends React.Component<NotificationListProps, Not
             <LocalizationContextConsumer>
                 {(context: LocalizationContextInterface) => (
                     <>
-                        <DefaultButton
+                        <ActionButton
                             id="notifications"
                             iconProps={
                                 {

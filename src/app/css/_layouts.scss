@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 @import 'variables';
+@import 'themes';
 
 .view {
     width: 100%;
@@ -17,7 +18,7 @@
 }
 
 .view-header {
-    min-height: 90px;
+    min-height: 60px;
     width: 100%;
     grid-row: 1;
     grid-column: 1;
@@ -39,7 +40,9 @@
     grid-column: 1;
     -ms-grid-row: 3;
     -ms-grid-column: 1;
-    border-top: 1px $light-gray solid;
+    @include themify($themes) {
+        border-top: 1px solid themed('viewContentBorderColor');
+    }
 }
 
 .edit {
@@ -59,7 +62,9 @@
     grid-column: 1;
     -ms-grid-row: 2;
     -ms-grid-column: 1;
-    border-top: 1px $light-gray solid;
+    @include themify($themes) {
+        border-top: 1px solid themed('editContentBorderColor');
+    }
 }
 
 .view-scroll {

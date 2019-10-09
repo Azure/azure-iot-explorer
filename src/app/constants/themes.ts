@@ -7,18 +7,18 @@ import { IPartialTheme } from 'office-ui-fabric-react/lib/Styling';
 export const THEME_DARK: IPartialTheme =  {
     palette: {
         black: '#f8f8f8',
-        neutralDark: '#fAfAfA',
+        neutralDark: '#fAfAfA', // action button text on hover
         neutralLight: '#252525',
-        neutralLighter: '#151515',
+        neutralLighter: '#605e5c', // disabled button
         neutralLighterAlt: '#0b0b0b',
-        neutralPrimary: '#ffffff',
+        neutralPrimary: '#ffffff', // used in button text
         neutralPrimaryAlt: '#dadada',
         neutralQuaternary: '#373737',
         neutralQuaternaryAlt: '#2f2f2f',
-        neutralSecondary: '#d0d0d0',
+        neutralSecondary: '#d0d0d0', // watermarks and non-linking breadcrumb
         neutralTertiary: '#c8c8c8',
-        neutralTertiaryAlt: '#595959',
-        themeDark: '#72bbe2',
+        neutralTertiaryAlt: '#595959', // disabled buttons
+        themeDark: '#72bbe2', // buttons being clicked
         themeDarkAlt: '#5cafdd',
         themeDarker: '#95ccea',
         themeLight: '#173241',
@@ -27,7 +27,7 @@ export const THEME_DARK: IPartialTheme =  {
         themePrimary: '#4ba6d8',
         themeSecondary: '#4393bf',
         themeTertiary: '#2e6482',
-        white: '#000000',
+        white: '#000000', // button text and command bar background
     }
 };
 

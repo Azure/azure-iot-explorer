@@ -22,7 +22,7 @@ exports[`confirmationDialog matches snapshot 1`] = `
       onClick={[MockFunction]}
       text="common.confirmationDialog.yes"
     />
-    <CustomizedDefaultButton
+    <CustomizedActionButton
       onClick={[MockFunction]}
       text="common.confirmationDialog.no"
     />
