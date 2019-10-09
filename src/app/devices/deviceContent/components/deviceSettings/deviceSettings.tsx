@@ -14,9 +14,11 @@ import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString } from '../..
 import { PatchDigitalTwinInterfacePropertiesActionParameters } from '../../actions';
 import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
 import { REFRESH } from '../../../../constants/iconNames';
+import { Theme } from '../../../../../themer';
 
 export interface DeviceSettingsProps extends DeviceInterfaceWithSchema{
     isLoading: boolean;
+    theme: Theme;
 }
 
 export interface DeviceInterfaceWithSchema {

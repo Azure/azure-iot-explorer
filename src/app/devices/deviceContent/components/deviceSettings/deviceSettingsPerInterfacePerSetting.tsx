@@ -21,12 +21,14 @@ import { Reported } from '../../../../api/models/digitalTwinModels';
 import ErrorBoundary from '../../../errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 import '../../../../css/_deviceSettings.scss';
+import { Theme } from '../../../../../themer';
 
 export interface DeviceSettingDataProps extends TwinWithSchema {
     collapsed: boolean;
     deviceId: string;
     interfaceId: string;
     interfaceName: string;
+    theme: Theme;
 }
 
 export interface DeviceSettingDispatchProps {
@@ -188,6 +190,7 @@ export default class DeviceSettingsPerInterfacePerSetting
                         showPanel={this.state.showReportedValuePanel}
                         formData={reportedTwin}
                         handleDismiss={this.handleDismissViewReportedPanel}
+                        theme={this.props.theme}
                     />
                 </div>
             }
@@ -216,6 +219,7 @@ export default class DeviceSettingsPerInterfacePerSetting
                 craftPayload={this.createSettingsPayload}
                 interfaceName={this.props.interfaceName}
                 schema={this.getSettingSchema()}
+                theme={this.props.theme}
             />
         );
     }

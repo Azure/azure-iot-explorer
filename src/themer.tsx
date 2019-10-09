@@ -29,9 +29,7 @@ export default class Themer extends React.Component<ThemeProps> {
         return (
             <Customizer settings={{ theme: { ...currentTheme }}} scopedSettings={{...SCOPED_SETTINGS}}>
                 <Fabric>
-                    <div className={this.props.theme === Theme.dark ? 'theme-dark' : 'theme-light'}>
-                        {this.props.children}
-                    </div>
+                    {this.props.children}
                 </Fabric>
             </Customizer>
         );

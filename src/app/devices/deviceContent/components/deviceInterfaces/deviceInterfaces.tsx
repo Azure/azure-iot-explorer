@@ -18,6 +18,7 @@ import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMes
 import { REFRESH } from '../../../../constants/iconNames';
 import ErrorBoundary from '../../../errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
+import { Theme } from '../../../../../themer';
 
 const EditorPromise = import('react-monaco-editor');
 const Editor = React.lazy(() => EditorPromise);
@@ -25,6 +26,7 @@ const Editor = React.lazy(() => EditorPromise);
 export interface DeviceInterfaceProps {
     modelDefinitionWithSource: ModelDefinitionWithSourceWrapper;
     isLoading: boolean;
+    theme: Theme;
 }
 
 export interface DeviceInterfaceDispatchProps {
@@ -142,7 +144,7 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
                                     automaticLayout: true,
                                     readOnly: true
                                 }}
-                                theme="vs-dark"
+                                theme={this.props.theme === Theme.light ? 'vs-light' : 'vs-dark'}
                             />
                         </React.Suspense>
                     </div>

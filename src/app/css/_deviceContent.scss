@@ -60,12 +60,7 @@ $nav-width: 20%;
                     padding: 1px 12px 1px 12px;
                 }
                 .form-control:disabled {
-                    border: none;
-                    @include themify($themes) {
-                        color: themed('formControlDisabledColor');
-                        background-color: themed('formControlDisabledBackground')
-                    }
-                    
+                    border: none;                    
                     height: 32px;
                 }
             }

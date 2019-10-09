@@ -13,6 +13,7 @@ import ComplexReportedFormPanel from '../shared/complexReportedFormPanel';
 import { RenderSimplyTypeValue } from '../shared/simpleReportedSection';
 import ErrorBoundary from '../../../errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
+import { Theme } from '../../../../../themer';
 
 export type TwinWithSchema = DevicePropertyDataProps;
 
@@ -20,6 +21,7 @@ export interface DevicePropertyDataProps {
     propertyModelDefinition: PropertyContent;
     propertySchema: ParsedJsonSchema;
     reportedTwin: any; // tslint:disable-line:no-any
+    theme: Theme;
 }
 
 export interface DevicePropertyDispatchProps {
@@ -129,6 +131,7 @@ export default class DevicePropertiesPerInterfacePerProperty
                         handleDismiss={this.handleDismissViewReportedPanel}
                         schema={schema}
                         modelDefinition={modelDefinition}
+                        theme={this.props.theme}
                     />}
             </div>
         );

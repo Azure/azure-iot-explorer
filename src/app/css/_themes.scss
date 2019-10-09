@@ -33,7 +33,7 @@
     notificationInfoColor: $infoText,
     notificationTextColor: #161616,
     notificationProgressBackground: $light-medium-gray !important,
-    maskedCopyableColor: $textfield-border,
+    maskedCopyableColor: #161616,
     maskedCopyableBackground: #ffffff,
     maskedCopyableReadonlyBackground: $textfield-disabled-background,
     linkColor: $link-blue,
@@ -44,6 +44,8 @@
     formControlDisabledColor: rgb(166,166,166),
     opaqueBlocking: $opaque-blocking,
     numbering: #A6A6A6,
+    shadow: 0px 4px 4px rgba(0, 0, 0, 0.2),
+    calloutShadow: 0px 6.4px 14.4px 0px rgba(0, 0, 0, 0.133),
   ),
   dark: (
     backgroundColor: $dark-gray,
@@ -80,10 +82,12 @@
     cellBackground: $dark-gray,
     selectedBorder: $selected-border,
     boxShadowColor: $blockingColor,
-    formControlDisabledColor: rgb(244,244,244),
-    formControlDisabledBackGround: rgb(166,166,166),
+    formControlDisabledColor: $light-medium-gray,
+    formControlDisabledBackGround: #1a1a1f,
     opaqueBlocking: $dark-gray,
-    numbering: #A6A6A6
+    numbering: #A6A6A6,
+    shadow: -1px 3px 6px 2px rgba(128, 128, 128, 0.6),
+    calloutShadow: 0px 3px 10px 5px rgba(128, 128, 128, 0.5),
   ),
 );
 

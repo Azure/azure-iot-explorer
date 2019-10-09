@@ -139,6 +139,9 @@
                     padding-top: 10px;
                     margin: 0px;
                     font-size: 18px;
+                    @include themify($themes) {
+                        color: themed('textColor');
+                    }
                 }
             }
         }

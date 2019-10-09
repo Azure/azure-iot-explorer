@@ -39,3 +39,17 @@
 body {
     margin: 0;
 }
+
+.ms-Fabric {
+    @include themify($themes) {
+        color: themed('textColor');
+        background: themed('backgroundColor');
+    }
+    .ms-Callout-container{
+        .ms-Callout {
+            @include themify($themes) {
+                box-shadow: themed('calloutShadow');
+            }
+        }
+    }
+}

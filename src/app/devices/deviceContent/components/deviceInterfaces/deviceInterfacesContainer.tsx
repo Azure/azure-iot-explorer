@@ -12,6 +12,7 @@ import DeviceInterfaces, { DeviceInterfaceProps, DeviceInterfaceDispatchProps } 
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { setInterfaceIdAction, getModelDefinitionAction } from '../../actions';
 import { setSettingsVisibilityAction } from '../../../../settings/actions';
+import { getApplicationThemeSelector } from '../../../../settings/selectors';
 
 const mapStateToProps = (state: StateType): DeviceInterfaceProps => {
     const modelSyncStatus = getModelDefinitionSyncStatusSelector(state);
@@ -19,6 +20,7 @@ const mapStateToProps = (state: StateType): DeviceInterfaceProps => {
         isLoading: getModelDefinitionSyncStatusSelector(state) === SynchronizationStatus.working ||
             modelSyncStatus === SynchronizationStatus.working,
         modelDefinitionWithSource: getModelDefinitionWithSourceSelector(state),
+        theme: getApplicationThemeSelector(state)
     };
 };
 

@@ -22,7 +22,6 @@
         border: {
             width: 1px;
             style: solid;
-            right: none;
             radius: 2px;
             radius: 2px;
         }
@@ -38,7 +37,7 @@
             @include themify($themes) {
                 border: {
                     left: 1px solid themed('borderColor');
-                    right: 1px solid themed('borderColor');
+                    right: none;
                 }
             }
         }

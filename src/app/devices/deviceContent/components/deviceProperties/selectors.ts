@@ -8,6 +8,7 @@ import { StateInterface } from '../../../../shared/redux/state';
 import { parseInterfacePropertyToJsonSchema } from '../../../../shared/utils/jsonSchemaAdaptor';
 import { TwinWithSchema } from './devicePropertiesPerInterfacePerProperty';
 import { getModelDefinitionSelector, getDigitalTwinInterfacePropertiesSelector, getInterfaceIdSelector, getInterfaceNameSelector } from '../../selectors';
+import { getApplicationThemeSelector } from '../../../../settings/selectors';
 
 export const getDevicePropertyTupleSelector = (state: StateInterface): TwinWithSchema[] => {
     const modelDefinition = getModelDefinitionSelector(state);
@@ -20,7 +21,8 @@ const getDevicePropertyProps = (state: StateInterface, model: ModelDefinition): 
     return nonWritableProperties && nonWritableProperties.map(property => ({
         propertyModelDefinition: property,
         propertySchema: parseInterfacePropertyToJsonSchema(property),
-        reportedTwin: generateReportedTwin(state, property)
+        reportedTwin: generateReportedTwin(state, property),
+        theme: state && state.applicationState && state.applicationState.theme
     }));
 };
 

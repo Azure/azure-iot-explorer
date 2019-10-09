@@ -10,11 +10,13 @@ import { LocalizationContextConsumer, LocalizationContextInterface } from '../..
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { InterfaceDetailCard } from '../../../../constants/iconNames';
 import '../../../../css/_devicePnpDetailList.scss';
+import { Theme } from '../../../../..//themer';
 
 export interface DeviceCommandDataProps {
     commandSchemas: CommandSchema[];
     deviceId: string;
     interfaceName: string;
+    theme: Theme;
 }
 
 export interface DeviceCommandDispatchProps {

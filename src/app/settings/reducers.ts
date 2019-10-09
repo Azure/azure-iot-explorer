@@ -56,6 +56,9 @@ const reducer = reducerWithInitialState<ApplicationStateType>(applicationStateIn
         }
     })
     .case(setApplicationTheme, (state: ApplicationStateType, payload: Theme) => {
+        const body = document.getElementsByTagName('body').item(0);
+        body.classList.remove(`theme-${payload === Theme.dark ? Theme.light : Theme.dark}`); // remove existing theme
+        body.classList.add('theme-' + payload);
         return state.merge({
             theme: payload
         });

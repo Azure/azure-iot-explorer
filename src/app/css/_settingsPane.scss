@@ -56,8 +56,8 @@
                         style: solid;
                         color: themed('navBarBorderColor');
                     }
+                    box-shadow: themed('shadow');
                 }
-                box-shadow: -2px 3px 8px;
                 grid-area: item;
                 position: relative;
                 list-style: none;
