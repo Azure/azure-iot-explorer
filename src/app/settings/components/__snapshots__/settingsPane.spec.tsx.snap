@@ -1548,19 +1548,19 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                     </span>
                                   </button>
                                   <button
-                                    class="ms-Button ms-Button--action ms-Button--command root-87"
+                                    class="ms-Button ms-Button--default root-104"
                                     data-is-focusable="true"
                                     type="reset"
                                   >
                                     <span
-                                      class="ms-Button-flexContainer flexContainer-88"
+                                      class="ms-Button-flexContainer flexContainer-70"
                                       data-automationid="splitbuttonprimary"
                                     >
                                       <span
-                                        class="ms-Button-textContainer textContainer-89"
+                                        class="ms-Button-textContainer textContainer-71"
                                       >
                                         <span
-                                          class="ms-Button-label label-73"
+                                          class="ms-Button-label label-102"
                                           id="id__30"
                                         >
                                           settings.cancel
@@ -5419,24 +5419,24 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                                                     class="ms-Fabric ms-Layer-content content-67"
                                                                   >
                                                                     <div
-                                                                      class="ms-Callout-container container-104"
+                                                                      class="ms-Callout-container container-105"
                                                                       style="visibility: hidden;"
                                                                     >
                                                                       <div
-                                                                        class="ms-Callout root-105"
+                                                                        class="ms-Callout root-106"
                                                                         hidden=""
                                                                         style="opacity: 0; filter: opacity(0);"
                                                                         tabindex="-1"
                                                                       >
                                                                         <div
-                                                                          class="ms-Callout-beak beak-106"
+                                                                          class="ms-Callout-beak beak-107"
                                                                           style="left: 0px; top: 0px;"
                                                                         />
                                                                         <div
-                                                                          class="ms-Callout-beakCurtain beakCurtain-107"
+                                                                          class="ms-Callout-beakCurtain beakCurtain-108"
                                                                         />
                                                                         <div
-                                                                          class="ms-Callout-main calloutMain-108"
+                                                                          class="ms-Callout-main calloutMain-109"
                                                                           role="alertdialog"
                                                                           style="outline: none; max-height: 752px;"
                                                                         >
@@ -6095,7 +6095,7 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                                                         }
                                                                       >
                                                                         <div
-                                                                          className="ms-Callout-container container-104"
+                                                                          className="ms-Callout-container container-105"
                                                                           style={
                                                                             Object {
                                                                               "visibility": "hidden",
@@ -6103,7 +6103,7 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                                                           }
                                                                         >
                                                                           <div
-                                                                            className="ms-Callout root-105"
+                                                                            className="ms-Callout root-106"
                                                                             hidden={true}
                                                                             style={
                                                                               Object {
@@ -6114,7 +6114,7 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                                                             tabIndex={-1}
                                                                           >
                                                                             <div
-                                                                              className="ms-Callout-beak beak-106"
+                                                                              className="ms-Callout-beak beak-107"
                                                                               style={
                                                                                 Object {
                                                                                   "left": 0,
@@ -6123,10 +6123,10 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                                                               }
                                                                             />
                                                                             <div
-                                                                              className="ms-Callout-beakCurtain beakCurtain-107"
+                                                                              className="ms-Callout-beakCurtain beakCurtain-108"
                                                                             />
                                                                             <Popup
-                                                                              className="ms-Callout-main calloutMain-108"
+                                                                              className="ms-Callout-main calloutMain-109"
                                                                               onDismiss={[Function]}
                                                                               onMouseDown={[Function]}
                                                                               onMouseUp={[Function]}
@@ -6139,7 +6139,7 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                                                               }
                                                                             >
                                                                               <div
-                                                                                className="ms-Callout-main calloutMain-108"
+                                                                                className="ms-Callout-main calloutMain-109"
                                                                                 onKeyDown={[Function]}
                                                                                 onMouseDown={[Function]}
                                                                                 onMouseUp={[Function]}
@@ -13949,12 +13949,12 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                           </CustomizedDefaultButton>
                                         </PrimaryButton>
                                       </CustomizedPrimaryButton>
-                                      <CustomizedActionButton
+                                      <CustomizedDefaultButton
                                         onClick={[Function]}
                                         text="settings.cancel"
                                         type="reset"
                                       >
-                                        <ActionButton
+                                        <DefaultButton
                                           onClick={[Function]}
                                           text="settings.cancel"
                                           theme={
@@ -14225,68 +14225,44 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                                 "description": Object {
                                                   "display": "block",
                                                 },
-                                                "flexContainer": Array [
-                                                  Object {
-                                                    "alignItems": "center",
-                                                    "display": "flex",
-                                                    "flexWrap": "nowrap",
-                                                    "height": "100%",
-                                                    "justifyContent": "center",
-                                                  },
-                                                  Object {
-                                                    "justifyContent": "flex-start",
-                                                  },
-                                                ],
-                                                "icon": Array [
-                                                  Object {
-                                                    "flexShrink": 0,
-                                                    "fontSize": "16px",
-                                                    "height": "16px",
-                                                    "lineHeight": "16px",
-                                                    "margin": "0 4px",
-                                                    "textAlign": "center",
-                                                    "verticalAlign": "middle",
-                                                  },
-                                                  Object {
-                                                    "color": "#106ebe",
-                                                  },
-                                                ],
-                                                "iconChecked": Object {
-                                                  "color": "#004578",
+                                                "flexContainer": Object {
+                                                  "alignItems": "center",
+                                                  "display": "flex",
+                                                  "flexWrap": "nowrap",
+                                                  "height": "100%",
+                                                  "justifyContent": "center",
                                                 },
-                                                "iconDisabled": Array [
-                                                  Object {
-                                                    "color": "#a19f9d",
-                                                  },
-                                                  Object {
-                                                    "color": "inherit",
-                                                  },
-                                                ],
-                                                "iconHovered": Object {
-                                                  "color": "#0078d4",
-                                                },
-                                                "iconPressed": Object {
-                                                  "color": "#004578",
-                                                },
-                                                "label": Object {
-                                                  "display": "block",
-                                                  "lineHeight": "100%",
+                                                "icon": Object {
+                                                  "flexShrink": 0,
+                                                  "fontSize": "16px",
+                                                  "height": "16px",
+                                                  "lineHeight": "16px",
                                                   "margin": "0 4px",
+                                                  "textAlign": "center",
+                                                  "verticalAlign": "middle",
                                                 },
-                                                "menuIcon": Array [
+                                                "iconDisabled": Object {
+                                                  "color": "#a19f9d",
+                                                },
+                                                "label": Array [
                                                   Object {
-                                                    "flexShrink": 0,
-                                                    "fontSize": "12px",
-                                                    "height": "16px",
-                                                    "lineHeight": "16px",
+                                                    "display": "block",
+                                                    "lineHeight": "100%",
                                                     "margin": "0 4px",
-                                                    "textAlign": "center",
-                                                    "verticalAlign": "middle",
                                                   },
                                                   Object {
-                                                    "color": "#605e5c",
+                                                    "fontWeight": 600,
                                                   },
                                                 ],
+                                                "menuIcon": Object {
+                                                  "flexShrink": 0,
+                                                  "fontSize": "12px",
+                                                  "height": "16px",
+                                                  "lineHeight": "16px",
+                                                  "margin": "0 4px",
+                                                  "textAlign": "center",
+                                                  "verticalAlign": "middle",
+                                                },
                                                 "menuIconDisabled": Object {
                                                   "color": "#a19f9d",
                                                 },
@@ -14348,14 +14324,20 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                                     "verticalAlign": "top",
                                                   },
                                                   Object {
-                                                    "backgroundColor": "transparent",
-                                                    "border": "1px solid transparent",
+                                                    "height": "32px",
+                                                    "minWidth": "80px",
+                                                  },
+                                                  Object {
+                                                    "backgroundColor": "#ffffff",
                                                     "color": "#323130",
-                                                    "height": "40px",
-                                                    "padding": "0 4px",
                                                   },
                                                 ],
                                                 "rootChecked": Object {
+                                                  "backgroundColor": "#edebe9",
+                                                  "color": "#201f1e",
+                                                },
+                                                "rootCheckedHovered": Object {
+                                                  "backgroundColor": "#edebe9",
                                                   "color": "#000000",
                                                 },
                                                 "rootDisabled": Array [
@@ -14409,16 +14391,22 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                                     },
                                                   },
                                                   Object {
-                                                    "backgroundColor": "transparent",
-                                                    "borderColor": "transparent",
-                                                    "color": "#a19f9d",
+                                                    "selectors": Object {
+                                                      "@media screen and (-ms-high-contrast: active)": Object {
+                                                        "backgroundColor": "Window",
+                                                        "borderColor": "GrayText",
+                                                        "color": "GrayText",
+                                                      },
+                                                    },
                                                   },
                                                 ],
                                                 "rootExpanded": Object {
-                                                  "color": "#0078d4",
+                                                  "backgroundColor": "#edebe9",
+                                                  "color": "#201f1e",
                                                 },
                                                 "rootHovered": Object {
-                                                  "color": "#0078d4",
+                                                  "backgroundColor": "#f3f2f1",
+                                                  "color": "#201f1e",
                                                   "selectors": Object {
                                                     "@media screen and (-ms-high-contrast: active)": Object {
                                                       "borderColor": "Highlight",
@@ -14427,7 +14415,8 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                                   },
                                                 },
                                                 "rootPressed": Object {
-                                                  "color": "#000000",
+                                                  "backgroundColor": "#edebe9",
+                                                  "color": "#201f1e",
                                                 },
                                                 "screenReaderText": Object {
                                                   "border": 0,
@@ -14438,15 +14427,264 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                                   "position": "absolute",
                                                   "width": 1,
                                                 },
-                                                "textContainer": Array [
+                                                "splitButtonContainer": Array [
                                                   Object {
-                                                    "display": "block",
-                                                    "flexGrow": 1,
+                                                    "selectors": Object {
+                                                      "@media screen and (-ms-high-contrast: active)": Object {
+                                                        "border": "none",
+                                                      },
+                                                    },
                                                   },
                                                   Object {
-                                                    "flexGrow": 0,
+                                                    "outline": "transparent",
+                                                    "position": "relative",
+                                                    "selectors": Object {
+                                                      ".ms-Fabric--isFocusVisible &:focus:after": Object {
+                                                        "border": "1px solid #ffffff",
+                                                        "bottom": 3,
+                                                        "content": "\\"\\"",
+                                                        "left": 3,
+                                                        "outline": "1px solid #605e5c",
+                                                        "position": "absolute",
+                                                        "right": 3,
+                                                        "selectors": Object {
+                                                          "@media screen and (-ms-high-contrast: active)": Object {
+                                                            "border": "none",
+                                                            "bottom": -2,
+                                                            "left": -2,
+                                                            "right": -2,
+                                                            "top": -2,
+                                                          },
+                                                        },
+                                                        "top": 3,
+                                                        "zIndex": 1,
+                                                      },
+                                                      "::-moz-focus-inner": Object {
+                                                        "border": "0",
+                                                      },
+                                                    },
+                                                  },
+                                                  Object {
+                                                    "display": "inline-flex",
+                                                    "selectors": Object {
+                                                      ".ms-Button--default": Object {
+                                                        "borderBottomRightRadius": "0",
+                                                        "borderRight": "none",
+                                                        "borderTopRightRadius": "0",
+                                                      },
+                                                      ".ms-Button--primary": Object {
+                                                        "border": "none",
+                                                        "borderBottomRightRadius": "0",
+                                                        "borderTopRightRadius": "0",
+                                                        "selectors": Object {
+                                                          "@media screen and (-ms-high-contrast: active)": Object {
+                                                            "MsHighContrastAdjust": "none",
+                                                            "backgroundColor": "WindowText",
+                                                            "color": "Window",
+                                                          },
+                                                        },
+                                                      },
+                                                      ".ms-Button--primary + .ms-Button": Object {
+                                                        "border": "none",
+                                                      },
+                                                    },
                                                   },
                                                 ],
+                                                "splitButtonContainerChecked": Object {
+                                                  "selectors": Object {
+                                                    ".ms-Button--primary": Object {
+                                                      "selectors": Object {
+                                                        "@media screen and (-ms-high-contrast: active)": Object {
+                                                          "MsHighContrastAdjust": "none",
+                                                          "backgroundColor": "WindowText",
+                                                          "color": "Window",
+                                                        },
+                                                      },
+                                                    },
+                                                  },
+                                                },
+                                                "splitButtonContainerCheckedHovered": Object {
+                                                  "selectors": Object {
+                                                    ".ms-Button--primary": Object {
+                                                      "selectors": Object {
+                                                        "@media screen and (-ms-high-contrast: active)": Object {
+                                                          "MsHighContrastAdjust": "none",
+                                                          "backgroundColor": "WindowText",
+                                                          "color": "Window",
+                                                        },
+                                                      },
+                                                    },
+                                                  },
+                                                },
+                                                "splitButtonContainerDisabled": Object {
+                                                  "border": "none",
+                                                  "outline": "none",
+                                                  "selectors": Object {
+                                                    "@media screen and (-ms-high-contrast: active)": Object {
+                                                      "backgroundColor": "Window",
+                                                      "borderColor": "GrayText",
+                                                      "color": "GrayText",
+                                                    },
+                                                  },
+                                                },
+                                                "splitButtonContainerFocused": Object {
+                                                  "outline": "none!important",
+                                                },
+                                                "splitButtonContainerHovered": Object {
+                                                  "selectors": Object {
+                                                    ".ms-Button--primary": Object {
+                                                      "selectors": Object {
+                                                        "@media screen and (-ms-high-contrast: active)": Object {
+                                                          "backgroundColor": "Highlight",
+                                                          "color": "Window",
+                                                        },
+                                                      },
+                                                    },
+                                                    ".ms-Button.is-disabled": Object {
+                                                      "selectors": Object {
+                                                        "@media screen and (-ms-high-contrast: active)": Object {
+                                                          "backgroundColor": "Window",
+                                                          "borderColor": "GrayText",
+                                                          "color": "GrayText",
+                                                        },
+                                                      },
+                                                    },
+                                                  },
+                                                },
+                                                "splitButtonDivider": Object {
+                                                  "backgroundColor": "#c8c6c4",
+                                                  "bottom": 8,
+                                                  "position": "absolute",
+                                                  "right": 31,
+                                                  "selectors": Object {
+                                                    "@media screen and (-ms-high-contrast: active)": Object {
+                                                      "backgroundColor": "WindowText",
+                                                    },
+                                                  },
+                                                  "top": 8,
+                                                  "width": 1,
+                                                },
+                                                "splitButtonDividerDisabled": Array [
+                                                  Object {
+                                                    "backgroundColor": "#c8c6c4",
+                                                  },
+                                                  Object {
+                                                    "bottom": 8,
+                                                    "position": "absolute",
+                                                    "right": 31,
+                                                    "selectors": Object {
+                                                      "@media screen and (-ms-high-contrast: active)": Object {
+                                                        "backgroundColor": "GrayText",
+                                                      },
+                                                    },
+                                                    "top": 8,
+                                                    "width": 1,
+                                                  },
+                                                ],
+                                                "splitButtonFlexContainer": Object {
+                                                  "alignItems": "center",
+                                                  "display": "flex",
+                                                  "flexWrap": "nowrap",
+                                                  "height": "100%",
+                                                  "justifyContent": "center",
+                                                },
+                                                "splitButtonMenuButton": Array [
+                                                  Object {
+                                                    "backgroundColor": "transparent",
+                                                    "color": "#ffffff",
+                                                    "selectors": Object {
+                                                      ":hover": Object {
+                                                        "backgroundColor": "#edebe9",
+                                                        "selectors": Object {
+                                                          "@media screen and (-ms-high-contrast: active)": Object {
+                                                            "color": "Highlight",
+                                                          },
+                                                        },
+                                                      },
+                                                    },
+                                                  },
+                                                  Object {
+                                                    "border": "1px solid #8a8886",
+                                                    "borderBottomRightRadius": "2px",
+                                                    "borderLeft": "none",
+                                                    "borderRadius": 0,
+                                                    "borderTopRightRadius": "2px",
+                                                    "boxSizing": "border-box",
+                                                    "cursor": "pointer",
+                                                    "display": "inline-block",
+                                                    "height": "auto",
+                                                    "marginBottom": 0,
+                                                    "marginLeft": -1,
+                                                    "marginRight": 0,
+                                                    "marginTop": 0,
+                                                    "outline": "transparent",
+                                                    "padding": 6,
+                                                    "textAlign": "center",
+                                                    "textDecoration": "none",
+                                                    "userSelect": "none",
+                                                    "verticalAlign": "top",
+                                                    "width": 32,
+                                                  },
+                                                ],
+                                                "splitButtonMenuButtonChecked": Object {
+                                                  "backgroundColor": "#e1dfdd",
+                                                  "selectors": Object {
+                                                    ":hover": Object {
+                                                      "backgroundColor": "#e1dfdd",
+                                                    },
+                                                  },
+                                                },
+                                                "splitButtonMenuButtonDisabled": Array [
+                                                  Object {
+                                                    "backgroundColor": "#f3f2f1",
+                                                    "selectors": Object {
+                                                      ":hover": Object {
+                                                        "backgroundColor": "#f3f2f1",
+                                                      },
+                                                    },
+                                                  },
+                                                  Object {
+                                                    "border": "none",
+                                                    "pointerEvents": "none",
+                                                    "selectors": Object {
+                                                      ".ms-Button--primary": Object {
+                                                        "selectors": Object {
+                                                          "@media screen and (-ms-high-contrast: active)": Object {
+                                                            "backgroundColor": "Window",
+                                                            "borderColor": "GrayText",
+                                                            "color": "GrayText",
+                                                          },
+                                                        },
+                                                      },
+                                                      ":hover": Object {
+                                                        "cursor": "default",
+                                                      },
+                                                      "@media screen and (-ms-high-contrast: active)": Object {
+                                                        "backgroundColor": "Window",
+                                                        "border": "1px solid GrayText",
+                                                        "color": "GrayText",
+                                                      },
+                                                    },
+                                                  },
+                                                ],
+                                                "splitButtonMenuButtonExpanded": Object {
+                                                  "backgroundColor": "#e1dfdd",
+                                                  "selectors": Object {
+                                                    ":hover": Object {
+                                                      "backgroundColor": "#e1dfdd",
+                                                    },
+                                                  },
+                                                },
+                                                "splitButtonMenuIcon": Object {
+                                                  "color": "#323130",
+                                                },
+                                                "splitButtonMenuIconDisabled": Object {
+                                                  "color": "#a19f9d",
+                                                },
+                                                "textContainer": Object {
+                                                  "display": "block",
+                                                  "flexGrow": 1,
+                                                },
                                               }
                                             }
                                             text="settings.cancel"
@@ -14707,10 +14945,10 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                               }
                                             }
                                             type="reset"
-                                            variantClassName="ms-Button--action ms-Button--command"
+                                            variantClassName="ms-Button--default"
                                           >
                                             <button
-                                              className="ms-Button ms-Button--action ms-Button--command root-87"
+                                              className="ms-Button ms-Button--default root-104"
                                               data-is-focusable={true}
                                               onClick={[Function]}
                                               onKeyDown={[Function]}
@@ -14721,14 +14959,14 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                               type="reset"
                                             >
                                               <span
-                                                className="ms-Button-flexContainer flexContainer-88"
+                                                className="ms-Button-flexContainer flexContainer-70"
                                                 data-automationid="splitbuttonprimary"
                                               >
                                                 <span
-                                                  className="ms-Button-textContainer textContainer-89"
+                                                  className="ms-Button-textContainer textContainer-71"
                                                 >
                                                   <span
-                                                    className="ms-Button-label label-73"
+                                                    className="ms-Button-label label-102"
                                                     id="id__30"
                                                     key="id__30"
                                                   >
@@ -14738,8 +14976,8 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                               </span>
                                             </button>
                                           </BaseButton>
-                                        </ActionButton>
-                                      </CustomizedActionButton>
+                                        </DefaultButton>
+                                      </CustomizedDefaultButton>
                                     </section>
                                   </footer>
                                 </div>
@@ -16018,19 +16256,19 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                     </span>
                                   </button>
                                   <button
-                                    class="ms-Button ms-Button--action ms-Button--command root-87"
+                                    class="ms-Button ms-Button--default root-104"
                                     data-is-focusable="true"
                                     type="reset"
                                   >
                                     <span
-                                      class="ms-Button-flexContainer flexContainer-88"
+                                      class="ms-Button-flexContainer flexContainer-70"
                                       data-automationid="splitbuttonprimary"
                                     >
                                       <span
-                                        class="ms-Button-textContainer textContainer-89"
+                                        class="ms-Button-textContainer textContainer-71"
                                       >
                                         <span
-                                          class="ms-Button-label label-73"
+                                          class="ms-Button-label label-102"
                                           id="id__73"
                                         >
                                           settings.cancel
@@ -19945,24 +20183,24 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                                     class="ms-Fabric ms-Layer-content content-67"
                                                                   >
                                                                     <div
-                                                                      class="ms-Callout-container container-104"
+                                                                      class="ms-Callout-container container-105"
                                                                       style="visibility: hidden;"
                                                                     >
                                                                       <div
-                                                                        class="ms-Callout root-105"
+                                                                        class="ms-Callout root-106"
                                                                         hidden=""
                                                                         style="opacity: 0; filter: opacity(0);"
                                                                         tabindex="-1"
                                                                       >
                                                                         <div
-                                                                          class="ms-Callout-beak beak-106"
+                                                                          class="ms-Callout-beak beak-107"
                                                                           style="left: 0px; top: 0px;"
                                                                         />
                                                                         <div
-                                                                          class="ms-Callout-beakCurtain beakCurtain-107"
+                                                                          class="ms-Callout-beakCurtain beakCurtain-108"
                                                                         />
                                                                         <div
-                                                                          class="ms-Callout-main calloutMain-108"
+                                                                          class="ms-Callout-main calloutMain-109"
                                                                           role="alertdialog"
                                                                           style="outline: none; max-height: 752px;"
                                                                         >
@@ -20621,7 +20859,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                                         }
                                                                       >
                                                                         <div
-                                                                          className="ms-Callout-container container-104"
+                                                                          className="ms-Callout-container container-105"
                                                                           style={
                                                                             Object {
                                                                               "visibility": "hidden",
@@ -20629,7 +20867,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                                           }
                                                                         >
                                                                           <div
-                                                                            className="ms-Callout root-105"
+                                                                            className="ms-Callout root-106"
                                                                             hidden={true}
                                                                             style={
                                                                               Object {
@@ -20640,7 +20878,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                                             tabIndex={-1}
                                                                           >
                                                                             <div
-                                                                              className="ms-Callout-beak beak-106"
+                                                                              className="ms-Callout-beak beak-107"
                                                                               style={
                                                                                 Object {
                                                                                   "left": 0,
@@ -20649,10 +20887,10 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                                               }
                                                                             />
                                                                             <div
-                                                                              className="ms-Callout-beakCurtain beakCurtain-107"
+                                                                              className="ms-Callout-beakCurtain beakCurtain-108"
                                                                             />
                                                                             <Popup
-                                                                              className="ms-Callout-main calloutMain-108"
+                                                                              className="ms-Callout-main calloutMain-109"
                                                                               onDismiss={[Function]}
                                                                               onMouseDown={[Function]}
                                                                               onMouseUp={[Function]}
@@ -20665,7 +20903,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                                               }
                                                                             >
                                                                               <div
-                                                                                className="ms-Callout-main calloutMain-108"
+                                                                                className="ms-Callout-main calloutMain-109"
                                                                                 onKeyDown={[Function]}
                                                                                 onMouseDown={[Function]}
                                                                                 onMouseUp={[Function]}
@@ -25718,7 +25956,7 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                                           }
                                                                         >
                                                                           <label
-                                                                            className="ms-Label root-109"
+                                                                            className="ms-Label root-110"
                                                                             htmlFor="maskedCopyableTextField54"
                                                                           >
                                                                             settings.modelDefinitions.repositoryTypes.private.textBoxLabel
@@ -32058,12 +32296,12 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                           </CustomizedDefaultButton>
                                         </PrimaryButton>
                                       </CustomizedPrimaryButton>
-                                      <CustomizedActionButton
+                                      <CustomizedDefaultButton
                                         onClick={[Function]}
                                         text="settings.cancel"
                                         type="reset"
                                       >
-                                        <ActionButton
+                                        <DefaultButton
                                           onClick={[Function]}
                                           text="settings.cancel"
                                           theme={
@@ -32334,68 +32572,44 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                 "description": Object {
                                                   "display": "block",
                                                 },
-                                                "flexContainer": Array [
-                                                  Object {
-                                                    "alignItems": "center",
-                                                    "display": "flex",
-                                                    "flexWrap": "nowrap",
-                                                    "height": "100%",
-                                                    "justifyContent": "center",
-                                                  },
-                                                  Object {
-                                                    "justifyContent": "flex-start",
-                                                  },
-                                                ],
-                                                "icon": Array [
-                                                  Object {
-                                                    "flexShrink": 0,
-                                                    "fontSize": "16px",
-                                                    "height": "16px",
-                                                    "lineHeight": "16px",
-                                                    "margin": "0 4px",
-                                                    "textAlign": "center",
-                                                    "verticalAlign": "middle",
-                                                  },
-                                                  Object {
-                                                    "color": "#106ebe",
-                                                  },
-                                                ],
-                                                "iconChecked": Object {
-                                                  "color": "#004578",
+                                                "flexContainer": Object {
+                                                  "alignItems": "center",
+                                                  "display": "flex",
+                                                  "flexWrap": "nowrap",
+                                                  "height": "100%",
+                                                  "justifyContent": "center",
                                                 },
-                                                "iconDisabled": Array [
-                                                  Object {
-                                                    "color": "#a19f9d",
-                                                  },
-                                                  Object {
-                                                    "color": "inherit",
-                                                  },
-                                                ],
-                                                "iconHovered": Object {
-                                                  "color": "#0078d4",
-                                                },
-                                                "iconPressed": Object {
-                                                  "color": "#004578",
-                                                },
-                                                "label": Object {
-                                                  "display": "block",
-                                                  "lineHeight": "100%",
+                                                "icon": Object {
+                                                  "flexShrink": 0,
+                                                  "fontSize": "16px",
+                                                  "height": "16px",
+                                                  "lineHeight": "16px",
                                                   "margin": "0 4px",
+                                                  "textAlign": "center",
+                                                  "verticalAlign": "middle",
                                                 },
-                                                "menuIcon": Array [
+                                                "iconDisabled": Object {
+                                                  "color": "#a19f9d",
+                                                },
+                                                "label": Array [
                                                   Object {
-                                                    "flexShrink": 0,
-                                                    "fontSize": "12px",
-                                                    "height": "16px",
-                                                    "lineHeight": "16px",
+                                                    "display": "block",
+                                                    "lineHeight": "100%",
                                                     "margin": "0 4px",
-                                                    "textAlign": "center",
-                                                    "verticalAlign": "middle",
                                                   },
                                                   Object {
-                                                    "color": "#605e5c",
+                                                    "fontWeight": 600,
                                                   },
                                                 ],
+                                                "menuIcon": Object {
+                                                  "flexShrink": 0,
+                                                  "fontSize": "12px",
+                                                  "height": "16px",
+                                                  "lineHeight": "16px",
+                                                  "margin": "0 4px",
+                                                  "textAlign": "center",
+                                                  "verticalAlign": "middle",
+                                                },
                                                 "menuIconDisabled": Object {
                                                   "color": "#a19f9d",
                                                 },
@@ -32457,14 +32671,20 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                     "verticalAlign": "top",
                                                   },
                                                   Object {
-                                                    "backgroundColor": "transparent",
-                                                    "border": "1px solid transparent",
+                                                    "height": "32px",
+                                                    "minWidth": "80px",
+                                                  },
+                                                  Object {
+                                                    "backgroundColor": "#ffffff",
                                                     "color": "#323130",
-                                                    "height": "40px",
-                                                    "padding": "0 4px",
                                                   },
                                                 ],
                                                 "rootChecked": Object {
+                                                  "backgroundColor": "#edebe9",
+                                                  "color": "#201f1e",
+                                                },
+                                                "rootCheckedHovered": Object {
+                                                  "backgroundColor": "#edebe9",
                                                   "color": "#000000",
                                                 },
                                                 "rootDisabled": Array [
@@ -32518,16 +32738,22 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                     },
                                                   },
                                                   Object {
-                                                    "backgroundColor": "transparent",
-                                                    "borderColor": "transparent",
-                                                    "color": "#a19f9d",
+                                                    "selectors": Object {
+                                                      "@media screen and (-ms-high-contrast: active)": Object {
+                                                        "backgroundColor": "Window",
+                                                        "borderColor": "GrayText",
+                                                        "color": "GrayText",
+                                                      },
+                                                    },
                                                   },
                                                 ],
                                                 "rootExpanded": Object {
-                                                  "color": "#0078d4",
+                                                  "backgroundColor": "#edebe9",
+                                                  "color": "#201f1e",
                                                 },
                                                 "rootHovered": Object {
-                                                  "color": "#0078d4",
+                                                  "backgroundColor": "#f3f2f1",
+                                                  "color": "#201f1e",
                                                   "selectors": Object {
                                                     "@media screen and (-ms-high-contrast: active)": Object {
                                                       "borderColor": "Highlight",
@@ -32536,7 +32762,8 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                   },
                                                 },
                                                 "rootPressed": Object {
-                                                  "color": "#000000",
+                                                  "backgroundColor": "#edebe9",
+                                                  "color": "#201f1e",
                                                 },
                                                 "screenReaderText": Object {
                                                   "border": 0,
@@ -32547,15 +32774,264 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                   "position": "absolute",
                                                   "width": 1,
                                                 },
-                                                "textContainer": Array [
+                                                "splitButtonContainer": Array [
                                                   Object {
-                                                    "display": "block",
-                                                    "flexGrow": 1,
+                                                    "selectors": Object {
+                                                      "@media screen and (-ms-high-contrast: active)": Object {
+                                                        "border": "none",
+                                                      },
+                                                    },
                                                   },
                                                   Object {
-                                                    "flexGrow": 0,
+                                                    "outline": "transparent",
+                                                    "position": "relative",
+                                                    "selectors": Object {
+                                                      ".ms-Fabric--isFocusVisible &:focus:after": Object {
+                                                        "border": "1px solid #ffffff",
+                                                        "bottom": 3,
+                                                        "content": "\\"\\"",
+                                                        "left": 3,
+                                                        "outline": "1px solid #605e5c",
+                                                        "position": "absolute",
+                                                        "right": 3,
+                                                        "selectors": Object {
+                                                          "@media screen and (-ms-high-contrast: active)": Object {
+                                                            "border": "none",
+                                                            "bottom": -2,
+                                                            "left": -2,
+                                                            "right": -2,
+                                                            "top": -2,
+                                                          },
+                                                        },
+                                                        "top": 3,
+                                                        "zIndex": 1,
+                                                      },
+                                                      "::-moz-focus-inner": Object {
+                                                        "border": "0",
+                                                      },
+                                                    },
+                                                  },
+                                                  Object {
+                                                    "display": "inline-flex",
+                                                    "selectors": Object {
+                                                      ".ms-Button--default": Object {
+                                                        "borderBottomRightRadius": "0",
+                                                        "borderRight": "none",
+                                                        "borderTopRightRadius": "0",
+                                                      },
+                                                      ".ms-Button--primary": Object {
+                                                        "border": "none",
+                                                        "borderBottomRightRadius": "0",
+                                                        "borderTopRightRadius": "0",
+                                                        "selectors": Object {
+                                                          "@media screen and (-ms-high-contrast: active)": Object {
+                                                            "MsHighContrastAdjust": "none",
+                                                            "backgroundColor": "WindowText",
+                                                            "color": "Window",
+                                                          },
+                                                        },
+                                                      },
+                                                      ".ms-Button--primary + .ms-Button": Object {
+                                                        "border": "none",
+                                                      },
+                                                    },
                                                   },
                                                 ],
+                                                "splitButtonContainerChecked": Object {
+                                                  "selectors": Object {
+                                                    ".ms-Button--primary": Object {
+                                                      "selectors": Object {
+                                                        "@media screen and (-ms-high-contrast: active)": Object {
+                                                          "MsHighContrastAdjust": "none",
+                                                          "backgroundColor": "WindowText",
+                                                          "color": "Window",
+                                                        },
+                                                      },
+                                                    },
+                                                  },
+                                                },
+                                                "splitButtonContainerCheckedHovered": Object {
+                                                  "selectors": Object {
+                                                    ".ms-Button--primary": Object {
+                                                      "selectors": Object {
+                                                        "@media screen and (-ms-high-contrast: active)": Object {
+                                                          "MsHighContrastAdjust": "none",
+                                                          "backgroundColor": "WindowText",
+                                                          "color": "Window",
+                                                        },
+                                                      },
+                                                    },
+                                                  },
+                                                },
+                                                "splitButtonContainerDisabled": Object {
+                                                  "border": "none",
+                                                  "outline": "none",
+                                                  "selectors": Object {
+                                                    "@media screen and (-ms-high-contrast: active)": Object {
+                                                      "backgroundColor": "Window",
+                                                      "borderColor": "GrayText",
+                                                      "color": "GrayText",
+                                                    },
+                                                  },
+                                                },
+                                                "splitButtonContainerFocused": Object {
+                                                  "outline": "none!important",
+                                                },
+                                                "splitButtonContainerHovered": Object {
+                                                  "selectors": Object {
+                                                    ".ms-Button--primary": Object {
+                                                      "selectors": Object {
+                                                        "@media screen and (-ms-high-contrast: active)": Object {
+                                                          "backgroundColor": "Highlight",
+                                                          "color": "Window",
+                                                        },
+                                                      },
+                                                    },
+                                                    ".ms-Button.is-disabled": Object {
+                                                      "selectors": Object {
+                                                        "@media screen and (-ms-high-contrast: active)": Object {
+                                                          "backgroundColor": "Window",
+                                                          "borderColor": "GrayText",
+                                                          "color": "GrayText",
+                                                        },
+                                                      },
+                                                    },
+                                                  },
+                                                },
+                                                "splitButtonDivider": Object {
+                                                  "backgroundColor": "#c8c6c4",
+                                                  "bottom": 8,
+                                                  "position": "absolute",
+                                                  "right": 31,
+                                                  "selectors": Object {
+                                                    "@media screen and (-ms-high-contrast: active)": Object {
+                                                      "backgroundColor": "WindowText",
+                                                    },
+                                                  },
+                                                  "top": 8,
+                                                  "width": 1,
+                                                },
+                                                "splitButtonDividerDisabled": Array [
+                                                  Object {
+                                                    "backgroundColor": "#c8c6c4",
+                                                  },
+                                                  Object {
+                                                    "bottom": 8,
+                                                    "position": "absolute",
+                                                    "right": 31,
+                                                    "selectors": Object {
+                                                      "@media screen and (-ms-high-contrast: active)": Object {
+                                                        "backgroundColor": "GrayText",
+                                                      },
+                                                    },
+                                                    "top": 8,
+                                                    "width": 1,
+                                                  },
+                                                ],
+                                                "splitButtonFlexContainer": Object {
+                                                  "alignItems": "center",
+                                                  "display": "flex",
+                                                  "flexWrap": "nowrap",
+                                                  "height": "100%",
+                                                  "justifyContent": "center",
+                                                },
+                                                "splitButtonMenuButton": Array [
+                                                  Object {
+                                                    "backgroundColor": "transparent",
+                                                    "color": "#ffffff",
+                                                    "selectors": Object {
+                                                      ":hover": Object {
+                                                        "backgroundColor": "#edebe9",
+                                                        "selectors": Object {
+                                                          "@media screen and (-ms-high-contrast: active)": Object {
+                                                            "color": "Highlight",
+                                                          },
+                                                        },
+                                                      },
+                                                    },
+                                                  },
+                                                  Object {
+                                                    "border": "1px solid #8a8886",
+                                                    "borderBottomRightRadius": "2px",
+                                                    "borderLeft": "none",
+                                                    "borderRadius": 0,
+                                                    "borderTopRightRadius": "2px",
+                                                    "boxSizing": "border-box",
+                                                    "cursor": "pointer",
+                                                    "display": "inline-block",
+                                                    "height": "auto",
+                                                    "marginBottom": 0,
+                                                    "marginLeft": -1,
+                                                    "marginRight": 0,
+                                                    "marginTop": 0,
+                                                    "outline": "transparent",
+                                                    "padding": 6,
+                                                    "textAlign": "center",
+                                                    "textDecoration": "none",
+                                                    "userSelect": "none",
+                                                    "verticalAlign": "top",
+                                                    "width": 32,
+                                                  },
+                                                ],
+                                                "splitButtonMenuButtonChecked": Object {
+                                                  "backgroundColor": "#e1dfdd",
+                                                  "selectors": Object {
+                                                    ":hover": Object {
+                                                      "backgroundColor": "#e1dfdd",
+                                                    },
+                                                  },
+                                                },
+                                                "splitButtonMenuButtonDisabled": Array [
+                                                  Object {
+                                                    "backgroundColor": "#f3f2f1",
+                                                    "selectors": Object {
+                                                      ":hover": Object {
+                                                        "backgroundColor": "#f3f2f1",
+                                                      },
+                                                    },
+                                                  },
+                                                  Object {
+                                                    "border": "none",
+                                                    "pointerEvents": "none",
+                                                    "selectors": Object {
+                                                      ".ms-Button--primary": Object {
+                                                        "selectors": Object {
+                                                          "@media screen and (-ms-high-contrast: active)": Object {
+                                                            "backgroundColor": "Window",
+                                                            "borderColor": "GrayText",
+                                                            "color": "GrayText",
+                                                          },
+                                                        },
+                                                      },
+                                                      ":hover": Object {
+                                                        "cursor": "default",
+                                                      },
+                                                      "@media screen and (-ms-high-contrast: active)": Object {
+                                                        "backgroundColor": "Window",
+                                                        "border": "1px solid GrayText",
+                                                        "color": "GrayText",
+                                                      },
+                                                    },
+                                                  },
+                                                ],
+                                                "splitButtonMenuButtonExpanded": Object {
+                                                  "backgroundColor": "#e1dfdd",
+                                                  "selectors": Object {
+                                                    ":hover": Object {
+                                                      "backgroundColor": "#e1dfdd",
+                                                    },
+                                                  },
+                                                },
+                                                "splitButtonMenuIcon": Object {
+                                                  "color": "#323130",
+                                                },
+                                                "splitButtonMenuIconDisabled": Object {
+                                                  "color": "#a19f9d",
+                                                },
+                                                "textContainer": Object {
+                                                  "display": "block",
+                                                  "flexGrow": 1,
+                                                },
                                               }
                                             }
                                             text="settings.cancel"
@@ -32816,10 +33292,10 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                               }
                                             }
                                             type="reset"
-                                            variantClassName="ms-Button--action ms-Button--command"
+                                            variantClassName="ms-Button--default"
                                           >
                                             <button
-                                              className="ms-Button ms-Button--action ms-Button--command root-87"
+                                              className="ms-Button ms-Button--default root-104"
                                               data-is-focusable={true}
                                               onClick={[Function]}
                                               onKeyDown={[Function]}
@@ -32830,14 +33306,14 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                               type="reset"
                                             >
                                               <span
-                                                className="ms-Button-flexContainer flexContainer-88"
+                                                className="ms-Button-flexContainer flexContainer-70"
                                                 data-automationid="splitbuttonprimary"
                                               >
                                                 <span
-                                                  className="ms-Button-textContainer textContainer-89"
+                                                  className="ms-Button-textContainer textContainer-71"
                                                 >
                                                   <span
-                                                    className="ms-Button-label label-73"
+                                                    className="ms-Button-label label-102"
                                                     id="id__73"
                                                     key="id__73"
                                                   >
@@ -32847,8 +33323,8 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                               </span>
                                             </button>
                                           </BaseButton>
-                                        </ActionButton>
-                                      </CustomizedActionButton>
+                                        </DefaultButton>
+                                      </CustomizedDefaultButton>
                                     </section>
                                   </footer>
                                 </div>
