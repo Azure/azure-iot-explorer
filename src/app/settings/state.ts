@@ -47,7 +47,7 @@ export const applicationStateInitial =
             localStorage.getItem(REPO_LOCATIONS).split(',').map(location => location as REPOSITORY_LOCATION_TYPE) :
             [REPOSITORY_LOCATION_TYPE.Public, REPOSITORY_LOCATION_TYPE.Device],
         showSettings: false,
-        theme: Theme.dark
+        theme: Theme.light
     });
 
 export type ApplicationStateType = IM<ApplicationStateInterface>;

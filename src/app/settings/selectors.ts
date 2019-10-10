@@ -30,5 +30,5 @@ export const getPublicRepositoryHostName = (state: StateType) => {
 };
 
 export const getApplicationThemeSelector = (state: StateType) => {
-    return state && state.applicationState && state.applicationState.theme || Theme.dark;
+    return state && state.applicationState && state.applicationState.theme || Theme.light;
 };
