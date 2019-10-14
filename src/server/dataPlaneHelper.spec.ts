@@ -8,7 +8,7 @@ import { generateDataPlaneRequestBody, API_VERSION, processDataPlaneResponse } f
 describe('server', () => {
     const hostName = 'testHub.private.azure-devices-int.net';
     it('generates data plane request with API version and query string specified in body', () => {
-        const queryString = 'connectTimeoutInSeconds=20&responseTimeInSeconds=20';
+        const queryString = 'connectTimeoutInSeconds=20&responseTimeoutInSeconds=20';
         const req = {
             body: {
                 apiVersion: '2019-07-01-preview',

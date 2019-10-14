@@ -231,6 +231,7 @@ export class ResourceKeys {
          refresh : "deviceInterfaces.command.refresh",
       },
       headerText : "deviceInterfaces.headerText",
+      interfaceNotFound : "deviceInterfaces.interfaceNotFound",
       noInterfaces : "deviceInterfaces.noInterfaces",
    };
    public static deviceLists = {

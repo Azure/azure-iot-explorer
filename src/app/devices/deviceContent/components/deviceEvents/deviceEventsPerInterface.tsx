@@ -91,21 +91,22 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
             <LocalizationContextConsumer>
                 {(context: LocalizationContextInterface) => (
                     <div className="device-events" key="device-events">
-                        { this.props.telemetrySchema && <CommandBar
+                        <CommandBar
                             className="command"
                             items={this.createCommandBarItems(context)}
-                        />}
-                        <h3>{context.t(ResourceKeys.deviceEvents.headerText)}</h3>
-                        <TextField
-                            className={'consumer-group-text-field'}
-                            onRenderLabel={this.renderConsumerGroupLabel}
-                            label={context.t(ResourceKeys.deviceEvents.consumerGroups.label)}
-                            ariaLabel={context.t(ResourceKeys.deviceEvents.consumerGroups.label)}
-                            underlined={true}
-                            value={this.state.consumerGroup}
-                            disabled={this.state.monitoringData}
-                            onChange={this.consumerGroupChange}
                         />
+                        <h3>{context.t(ResourceKeys.deviceEvents.headerText)}</h3>
+                        {this.props.telemetrySchema &&
+                            <TextField
+                                className={'consumer-group-text-field'}
+                                onRenderLabel={this.renderConsumerGroupLabel}
+                                label={context.t(ResourceKeys.deviceEvents.consumerGroups.label)}
+                                ariaLabel={context.t(ResourceKeys.deviceEvents.consumerGroups.label)}
+                                underlined={true}
+                                value={this.state.consumerGroup}
+                                disabled={this.state.monitoringData}
+                                onChange={this.consumerGroupChange}
+                            />}
                         {this.props.telemetrySchema  ?
                             this.props.telemetrySchema.length !== 0 && this.renderInfiniteScroll(context) :
                             <InterfaceNotFoundMessageBoxContainer/>}
@@ -146,14 +147,17 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
     }
 
     private createStartMonitoringCommandItem = (context: LocalizationContextInterface): ICommandBarItemProps => {
+        const name = this.state.monitoringData ? context.t(ResourceKeys.deviceEvents.command.stop) : context.t(ResourceKeys.deviceEvents.command.start);
+        const disabled = !this.props.telemetrySchema || this.state.synchronizationStatus === SynchronizationStatus.updating;
+        const iconName = this.state.monitoringData ? STOP : START;
         return {
-            ariaLabel: this.state.monitoringData ? context.t(ResourceKeys.deviceEvents.command.stop) : context.t(ResourceKeys.deviceEvents.command.start),
-            disabled: this.state.synchronizationStatus === SynchronizationStatus.updating,
+            ariaLabel: name,
+            disabled,
             iconProps: {
-                iconName: this.state.monitoringData ? STOP : START
+                iconName
             },
-            key: this.state.monitoringData ? STOP : START,
-            name: this.state.monitoringData ? context.t(ResourceKeys.deviceEvents.command.stop) : context.t(ResourceKeys.deviceEvents.command.start),
+            key: iconName,
+            name,
             onClick: this.onToggleStart
         };
     }

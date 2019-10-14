@@ -273,7 +273,7 @@ describe('deviceTwinService', () => {
             });
 
             const connectionInformation = mockDataPlaneConnectionHelper({connectionString});
-            const queryString = `connectTimeoutInSeconds=${CONNECTION_TIMEOUT_IN_SECONDS}&responseTimeInSeconds=${RESPONSE_TIME_IN_SECONDS}`;
+            const queryString = `connectTimeoutInSeconds=${CONNECTION_TIMEOUT_IN_SECONDS}&responseTimeoutInSeconds=${RESPONSE_TIME_IN_SECONDS}`;
             const dataPlaneRequest: DevicesService.DataPlaneRequest = {
                 apiVersion: DIGITAL_TWIN_API_VERSION,
                 body: JSON.stringify(parameters.payload),
@@ -552,7 +552,7 @@ describe('deviceTwinService', () => {
                     connectTimeoutInSeconds: parameters.connectTimeoutInSeconds,
                     methodName: parameters.methodName,
                     payload: parameters.payload,
-                    responseTimeInSeconds: parameters.responseTimeoutInSeconds,
+                    responseTimeoutInSeconds: parameters.responseTimeoutInSeconds,
                 }),
                 hostName: connectionInformation.connectionInfo.hostName,
                 httpMethod: HTTP_OPERATION_TYPES.Post,
