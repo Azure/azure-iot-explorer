@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`directMethod matches snapshot 1`] = `
+exports[`directMethod matches snapshot for dark theme 1`] = `
 <Fragment>
   <StyledCommandBarBase
     className="command"
@@ -62,6 +62,101 @@ exports[`directMethod matches snapshot 1`] = `
               }
             }
             theme="vs-dark"
+            value=""
+          />
+        </React.Suspense>
+      </div>
+      <Component
+        tooltipText="directMethod.connectionTimeoutTooltip"
+      >
+        directMethod.connectionTimeout
+      </Component>
+      <StyledSliderBase
+        ariaLabel="directMethod.connectionTimeout"
+        max={300}
+        min={0}
+        onChange={[Function]}
+        value={0}
+      />
+      <Component
+        tooltipText="directMethod.responseTimeoutTooltip"
+      >
+        directMethod.responseTimeout
+      </Component>
+      <StyledSliderBase
+        ariaLabel="directMethod.responseTimeout"
+        max={300}
+        min={0}
+        onChange={[Function]}
+        value={0}
+      />
+    </div>
+  </div>
+</Fragment>
+`;
+
+exports[`directMethod matches snapshot for light theme 1`] = `
+<Fragment>
+  <StyledCommandBarBase
+    className="command"
+    items={
+      Array [
+        Object {
+          "ariaLabel": "directMethod.invokeMethodButtonText",
+          "disabled": true,
+          "iconProps": Object {
+            "iconName": "Remote",
+          },
+          "key": "Remote",
+          "name": "directMethod.invokeMethodButtonText",
+          "onClick": [Function],
+        },
+      ]
+    }
+  />
+  <h3>
+    directMethod.headerText
+  </h3>
+  <div
+    className="device-detail"
+  >
+    <StyledTextFieldBase
+      ariaLabel="directMethod.methodName"
+      label="directMethod.methodName"
+      onChange={[Function]}
+      placeholder="directMethod.methodNamePlaceHolder"
+      required={true}
+      value=""
+    />
+    <div
+      className="method-payload"
+    >
+      <Component
+        tooltipText="directMethod.payloadTooltip"
+      >
+        directMethod.payload
+      </Component>
+      <div
+        className="direct-method-monaco-editor"
+      >
+        <React.Suspense
+          fallback={
+            <StyledSpinnerBase
+              size={3}
+              title="loading"
+            />
+          }
+        >
+          <React.Lazy
+            height="25vh"
+            language="json"
+            onChange={[Function]}
+            options={
+              Object {
+                "automaticLayout": true,
+              }
+            }
+            theme="vs-light"
             value=""
           />
         </React.Suspense>

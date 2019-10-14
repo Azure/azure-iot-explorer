@@ -11,7 +11,11 @@
     <title>Azure IoT explorer</title>
     <link rel="icon" href="icon/icon.ico">
 </head>
-<body class="theme-light">
+<body>
     <div id="device-explorer"></div>
 </body>
+<script type="text/javascript">
+    var theme = localStorage.getItem('THEME_SELECTION');
+    document.body.classList.add('theme-' + theme);
+</script>
 </html>

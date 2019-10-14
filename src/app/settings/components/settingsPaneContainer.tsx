@@ -14,7 +14,6 @@ import { getConnectionStringSelector, getRememberConnectionStringValueSelector }
 import { setConnectionStringAction } from '../../login/actions';
 import { listDevicesAction } from '../../devices/deviceList/actions';
 import DeviceQuery from '../../api/models/deviceQuery';
-import { Theme } from '../../../themer';
 
 const mapStateToProps = (state: StateType): SettingsPaneProps => {
     return {
@@ -28,14 +27,12 @@ const mapStateToProps = (state: StateType): SettingsPaneProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): SettingsPaneActions => {
     return {
-        onSetTheme: (payload: Theme) => {
-            dispatch(setApplicationTheme(payload));
-        },
         onSettingsSave: (payload: Settings) => {
             dispatch(setConnectionStringAction({
                 connectionString: payload.hubConnectionString,
                 rememberConnectionString: payload.rememberConnectionString
             }));
+            dispatch(setApplicationTheme(payload.theme));
             dispatch(setSettingsRepositoryLocationsAction(payload.repositoryLocations));
         },
         onSettingsVisibleChanged: (visible: boolean) => {

@@ -22,11 +22,9 @@ import { Theme } from '../../../themer';
 
 export interface SettingsPaneProps extends Settings {
     isOpen: boolean;
-    theme: Theme;
 }
 
 export interface SettingsPaneActions {
-    onSetTheme: (theme: Theme) => void;
     onSettingsVisibleChanged: (visible: boolean) => void;
     onSettingsSave: (payload: Settings) => void;
     refreshDevices: () => void;
@@ -41,6 +39,7 @@ export interface Settings {
     hubConnectionString: string;
     rememberConnectionString: boolean;
     repositoryLocations?: RepositorySettings[];
+    theme: Theme;
 }
 
 interface SettingsPaneState extends Settings{
@@ -62,7 +61,8 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
             isDirty: false,
             rememberConnectionString: props.rememberConnectionString,
             repositoryLocations,
-            showConfirmationDialog: false
+            showConfirmationDialog: false,
+            theme: props.theme
         };
     }
 
@@ -138,7 +138,7 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
                                 onText={context.t(ResourceKeys.settings.theme.darkTheme)}
                                 offText={context.t(ResourceKeys.settings.theme.lightTheme)}
                                 onChange={this.setTheme}
-                                checked={this.props.theme === Theme.dark}
+                                checked={this.state.theme === Theme.dark}
                             />
                         </section>
                         {this.renderConfirmationDialog(context)}
@@ -149,7 +149,10 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
     }
 
     private readonly setTheme = (ev: React.MouseEvent<HTMLElement>, darkTheme: boolean) => {
-        this.props.onSetTheme(darkTheme ? Theme.dark : Theme.light);
+        this.setState({
+            isDirty: true,
+            theme: darkTheme ? Theme.dark : Theme.light
+        });
     }
 
     private readonly renderConfirmationDialog = (context: LocalizationContextInterface) => {

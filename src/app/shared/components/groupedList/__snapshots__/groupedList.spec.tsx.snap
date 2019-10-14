@@ -20,7 +20,6 @@ exports[`components/GroupedList render GroupedList matches snapshot 1`] = `
         key="0"
         style={
           Object {
-            "color": "#666666",
             "fontSize": 12,
             "gridColumnStart": 2,
           }
@@ -33,7 +32,6 @@ exports[`components/GroupedList render GroupedList matches snapshot 1`] = `
         key="1"
         style={
           Object {
-            "color": "#666666",
             "fontSize": 12,
             "gridColumnStart": 3,
           }
@@ -271,7 +269,6 @@ exports[`components/GroupedList render GroupedList matches snapshot when in a lo
         key="0"
         style={
           Object {
-            "color": "#666666",
             "fontSize": 12,
             "gridColumnStart": 2,
           }
@@ -284,7 +281,6 @@ exports[`components/GroupedList render GroupedList matches snapshot when in a lo
         key="1"
         style={
           Object {
-            "color": "#666666",
             "fontSize": 12,
             "gridColumnStart": 3,
           }
@@ -433,7 +429,6 @@ exports[`components/GroupedList render GroupedList matches snapshot when no item
         key="0"
         style={
           Object {
-            "color": "#666666",
             "fontSize": 12,
             "gridColumnStart": 2,
           }
@@ -446,7 +441,6 @@ exports[`components/GroupedList render GroupedList matches snapshot when no item
         key="1"
         style={
           Object {
-            "color": "#666666",
             "fontSize": 12,
             "gridColumnStart": 3,
           }
@@ -486,7 +480,6 @@ exports[`components/GroupedList render GroupedList matches snapshot with undefin
         key="0"
         style={
           Object {
-            "color": "#666666",
             "fontSize": 12,
             "gridColumnStart": 2,
           }
@@ -499,7 +492,6 @@ exports[`components/GroupedList render GroupedList matches snapshot with undefin
         key="1"
         style={
           Object {
-            "color": "#666666",
             "fontSize": 12,
             "gridColumnStart": 3,
           }

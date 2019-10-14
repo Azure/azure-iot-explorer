@@ -6,11 +6,13 @@ import 'jest';
 import * as React from 'react';
 import DirectMethod, { DirectMethodProps } from './directMethod';
 import { testSnapshot } from '../../../../shared/utils/testHelpers';
+import { Theme } from '../../../../../themer';
 
 describe('directMethod', () => {
     const directMethodProps: DirectMethodProps = {
         connectionString: 'testString',
-        onInvokeMethodClick: jest.fn()
+        onInvokeMethodClick: jest.fn(),
+        theme: Theme.light
     };
 
     const routerprops: any = { // tslint:disable-line:no-any
@@ -31,10 +33,21 @@ describe('directMethod', () => {
         return <DirectMethod {...props} />;
     };
 
-    it('matches snapshot', () => {
+    it('matches snapshot for light theme', () => {
         const component = getComponent({
             settingSchema: undefined
         });
         testSnapshot(component);
+    });
+    it('matches snapshot for dark theme', () => {
+        const props = {
+            ...{
+                connectionString: 'testString',
+                onInvokeMethodClick: jest.fn(),
+                theme: Theme.dark
+            },
+            ...routerprops,
+        };
+        testSnapshot(<DirectMethod {...props} />);
     });
 });

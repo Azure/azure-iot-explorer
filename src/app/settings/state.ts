@@ -5,7 +5,7 @@
 import { Record } from 'immutable';
 import { IM } from '../shared/types/types';
 import { REPOSITORY_LOCATION_TYPE } from '../constants/repositoryLocationTypes';
-import { PRIVATE_REPO_CONNECTION_STRING_NAME, REPO_LOCATIONS } from '../constants/browserStorage';
+import { PRIVATE_REPO_CONNECTION_STRING_NAME, REPO_LOCATIONS, THEME_SELECTION } from '../constants/browserStorage';
 import { MILLISECONDS_IN_MINUTE, PUBLIC_REPO_HOSTNAME } from '../constants/shared';
 import { Theme } from '../../themer';
 export const OFFSET_IN_MINUTES = 15;
@@ -47,7 +47,7 @@ export const applicationStateInitial =
             localStorage.getItem(REPO_LOCATIONS).split(',').map(location => location as REPOSITORY_LOCATION_TYPE) :
             [REPOSITORY_LOCATION_TYPE.Public, REPOSITORY_LOCATION_TYPE.Device],
         showSettings: false,
-        theme: Theme.dark
+        theme:  localStorage.getItem(THEME_SELECTION) === Theme.dark ? Theme.dark : Theme.light
     });
 
 export type ApplicationStateType = IM<ApplicationStateInterface>;
