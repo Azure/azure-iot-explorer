@@ -171,8 +171,8 @@ export const invokeDigitalTwinInterfaceCommand = async (parameters: InvokeDigita
 
         const connectionInformation = dataPlaneConnectionHelper(parameters);
         const connectTimeoutInSeconds = parameters.connectTimeoutInSeconds || CONNECTION_TIMEOUT_IN_SECONDS;
-        const responseTimeInSeconds = parameters.responseTimeoutInSeconds || RESPONSE_TIME_IN_SECONDS;
-        const queryString = `connectTimeoutInSeconds=${connectTimeoutInSeconds}&responseTimeInSeconds=${responseTimeInSeconds}`;
+        const responseTimeoutInSeconds = parameters.responseTimeoutInSeconds || RESPONSE_TIME_IN_SECONDS;
+        const queryString = `connectTimeoutInSeconds=${connectTimeoutInSeconds}&responseTimeoutInSeconds=${responseTimeoutInSeconds}`;
         const dataPlaneRequest: DataPlaneRequest = {
             apiVersion: DIGITAL_TWIN_API_VERSION,
             body: JSON.stringify(parameters.payload),
@@ -251,7 +251,7 @@ export const invokeDirectMethod = async (parameters: InvokeMethodParameters): Pr
                 connectTimeoutInSeconds: parameters.connectTimeoutInSeconds,
                 methodName: parameters.methodName,
                 payload: parameters.payload,
-                responseTimeInSeconds: parameters.responseTimeoutInSeconds,
+                responseTimeoutInSeconds: parameters.responseTimeoutInSeconds,
             }),
             hostName: connectionInfo.connectionInfo.hostName,
             httpMethod: HTTP_OPERATION_TYPES.Post,

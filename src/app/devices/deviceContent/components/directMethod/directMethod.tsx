@@ -183,7 +183,8 @@ export default class DirectMethod extends React.Component<DirectMethodProps & Ro
 
     private readonly onConnectionTimeoutChange = (value: number) => {
         this.setState({
-            connectionTimeout: value
+            connectionTimeout: value,
+            responseTimeout: Math.max(this.state.responseTimeout, value)
         });
     }
 
