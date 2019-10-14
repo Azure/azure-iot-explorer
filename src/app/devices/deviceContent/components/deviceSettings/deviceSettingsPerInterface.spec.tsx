@@ -5,6 +5,7 @@
 import 'jest';
 import * as React from 'react';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
+import { Overlay } from 'office-ui-fabric-react/lib/Overlay';
 import DeviceSettingsPerInterface, { DeviceSettingDataProps, DeviceSettingDispatchProps, DeviceSettingState } from './deviceSettingsPerInterface';
 import { mountWithLocalization, testSnapshot } from '../../../../shared/utils/testHelpers';
 import { twinWithSchema } from './deviceSettings.spec';
@@ -55,5 +56,13 @@ describe('components/devices/deviceSettingsPerInterface', () => {
         wrapper.update();
         collapsed = (wrapper.state() as DeviceSettingState).collapseMap.get(0);
         expect(collapsed).toBeTruthy();
+    });
+
+    it('shows overlay', () => {
+        const wrapper = mountWithLocalization(getComponent());
+        expect((wrapper.state() as DeviceSettingState).showOverlay).toBeFalsy();
+        wrapper.setState({showOverlay: true});
+        wrapper.update();
+        expect(wrapper.find(Overlay)).toBeDefined();
     });
 });

@@ -31,45 +31,8 @@ exports[`devices/components/deviceTwin snapshot matches snapshot 1`] = `
   <h3>
     deviceTwin.headerText
   </h3>
-  <article
-    className="interface-definition device-detail"
-  />
-</Fragment>
-`;
-
-exports[`devices/components/deviceTwin snapshot matches snapshot while loading twin 1`] = `
-<Fragment>
-  <StyledCommandBarBase
-    className="command"
-    items={
-      Array [
-        Object {
-          "ariaLabel": "deviceTwin.command.refresh",
-          "iconProps": Object {
-            "iconName": "Refresh",
-          },
-          "key": "Refresh",
-          "name": "deviceTwin.command.refresh",
-          "onClick": [Function],
-        },
-        Object {
-          "ariaLabel": "deviceTwin.command.save",
-          "disabled": true,
-          "iconProps": Object {
-            "iconName": "Save",
-          },
-          "key": "Save",
-          "name": "deviceTwin.command.save",
-          "onClick": [Function],
-        },
-      ]
-    }
-  />
-  <h3>
-    deviceTwin.headerText
-  </h3>
-  <article
-    className="interface-definition device-detail"
+  <StyledShimmerBase
+    className="device-detail"
   />
 </Fragment>
 `;

@@ -4,10 +4,8 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import { mount } from 'enzyme';
 import SettingsPane from './settingsPane';
-import { testWithLocalizationContext } from '../../shared/utils/testHelpers';
-import { LocalizationContextProvider } from '../../shared/contexts/localizationContext';
+import { testSnapshot } from '../../shared/utils/testHelpers';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
 
 describe('components/settings/settingsPane', () => {
@@ -27,8 +25,7 @@ describe('components/settings/settingsPane', () => {
     };
 
     it('matches snapshot is not open', () => {
-        const wrapper = (
-            <LocalizationContextProvider value={{t: jest.fn((value: string) => value)}}>
+        const component = (
             <SettingsPane
                 {...routerprops}
                 isOpen={false}
@@ -36,14 +33,12 @@ describe('components/settings/settingsPane', () => {
                 onSettingsVisibleChanged={jest.fn()}
                 repositoryLocations={null}
             />
-        </LocalizationContextProvider>
         );
-        expect(mount(wrapper)).toMatchSnapshot();
+        testSnapshot(component);
     });
 
     it('matches snapshot open', () => {
-        const wrapper = (
-            <LocalizationContextProvider value={{t: jest.fn((value: string) => value)}}>
+        const component = (
             <SettingsPane
                 {...routerprops}
                 isOpen={true}
@@ -51,14 +46,12 @@ describe('components/settings/settingsPane', () => {
                 onSettingsVisibleChanged={jest.fn()}
                 repositoryLocations={null}
             />
-        </LocalizationContextProvider>
         );
-        expect(mount(wrapper)).toMatchSnapshot();
+        testSnapshot(component);
     });
 
     it('matches snapshot with repositoryLocations', () => {
-        const wrapper = (
-            <LocalizationContextProvider value={{t: jest.fn((value: string) => value)}}>
+        const component = (
             <SettingsPane
                 {...routerprops}
                 isOpen={true}
@@ -66,8 +59,7 @@ describe('components/settings/settingsPane', () => {
                 onSettingsVisibleChanged={jest.fn()}
                 repositoryLocations={[{repositoryLocationType: REPOSITORY_LOCATION_TYPE.Private}]}
             />
-        </LocalizationContextProvider>
         );
-        expect(mount(wrapper)).toMatchSnapshot();
+        testSnapshot(component);
     });
 });

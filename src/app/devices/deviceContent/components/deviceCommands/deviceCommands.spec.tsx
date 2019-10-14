@@ -4,9 +4,11 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
+import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
+import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import DeviceCommands, { DeviceCommandDispatchProps , DeviceCommandsProps } from './deviceCommands';
-import DeviceCommandsPerInterface from './deviceCommandsPerInterface';
-import { mountWithLocalization } from '../../../../shared/utils/testHelpers';
+import { testSnapshot, mountWithLocalization } from '../../../../shared/utils/testHelpers';
+import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
 
 describe('components/devices/deviceCommandsPerInterfacePerCommand', () => {
     const deviceCommandsProps: DeviceCommandsProps = {
@@ -15,9 +17,10 @@ describe('components/devices/deviceCommandsPerInterfacePerCommand', () => {
         isLoading: true,
     };
 
+    const refreshMock = jest.fn();
     const deviceCommandsDispatchProps: DeviceCommandDispatchProps = {
         invokeDigitalTwinInterfaceCommand: jest.fn(),
-        refresh: jest.fn(),
+        refresh: refreshMock,
         setInterfaceId: jest.fn()
     };
 
@@ -42,13 +45,22 @@ describe('components/devices/deviceCommandsPerInterfacePerCommand', () => {
             ...overrides
         };
 
-        return mountWithLocalization(
-            <DeviceCommands {...props} />, true, [pathname]
+        return (
+            <DeviceCommands {...props} />
         );
     };
 
-    it('matches snapshot while loading', () => {
-        expect(getComponent()).toMatchSnapshot();
+    it('shows Shimmer while loading', () => {
+        const wrapper = mountWithLocalization(
+            getComponent(), false, true, [pathname]
+        );
+        expect(wrapper.find(Shimmer)).toBeDefined();
+    });
+
+    it('matches snapshot while interface cannot be found', () => {
+        testSnapshot(getComponent({isLoading: false, commandSchemas: undefined}));
+        const wrapper = mountWithLocalization(getComponent(), true);
+        expect(wrapper.find(InterfaceNotFoundMessageBoxContainer)).toBeDefined();
     });
 
     it('matches snapshot with a commandSchema', () => {
@@ -66,7 +78,14 @@ describe('components/devices/deviceCommandsPerInterfacePerCommand', () => {
                 }
             ],
             isLoading: false});
-        const deviceCommandPerInterface = component.find(DeviceCommandsPerInterface).first();
-        expect(deviceCommandPerInterface).toMatchSnapshot();
+        testSnapshot(component);
+    });
+
+    it('dispatch action when refresh button is clicked', () => {
+        const wrapper = mountWithLocalization(getComponent({isLoading: false}));
+        const commandBar = wrapper.find(CommandBar).first();
+        commandBar.props().items[0].onClick(null);
+        wrapper.update();
+        expect(refreshMock).toBeCalled();
     });
 });

@@ -12,9 +12,10 @@ import CloudToDeviceMessage, { CloudToDeviceMessageProps, CloudToDeviceMessageSt
 import { testSnapshot, mountWithLocalization } from '../../../../shared/utils/testHelpers';
 
 describe('cloudToDeviceMessage', () => {
+    const mockSendCloudToDeviceMessage = jest.fn();
     const cloudToDeviceMessageProps: CloudToDeviceMessageProps = {
         connectionString: 'testString',
-        onSendCloudToDeviceMessage: jest.fn()
+        onSendCloudToDeviceMessage: mockSendCloudToDeviceMessage
     };
 
     const routerprops: any = { // tslint:disable-line:no-any
@@ -96,5 +97,14 @@ describe('cloudToDeviceMessage', () => {
         for (const item of commandBar.props.items[1].subMenuProps.items) {
             expect(item.disabled).toBeTruthy();
         }
+    });
+
+    it('dispatch action when send button is clicked', () => {
+        const wrapper = mountWithLocalization(getComponent());
+        const commandBar = wrapper.find(CommandBar).first();
+        commandBar.props().items[0].onClick(null);
+        wrapper.setState({properties: [{keyName: 'foo', value: 'bar'}]});
+        wrapper.update();
+        expect(mockSendCloudToDeviceMessage).toBeCalled();
     });
 });

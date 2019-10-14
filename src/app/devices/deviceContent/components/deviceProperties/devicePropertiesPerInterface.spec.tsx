@@ -4,8 +4,9 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import DevicePropertiesPerInterface, { DevicePropertiesDataProps } from './devicePropertiesPerInterface';
-import { testSnapshot } from '../../../../shared/utils/testHelpers';
+import { Overlay } from 'office-ui-fabric-react/lib/Overlay';
+import DevicePropertiesPerInterface, { DevicePropertiesDataProps, DevicePropertiesState } from './devicePropertiesPerInterface';
+import { testSnapshot, mountWithLocalization } from '../../../../shared/utils/testHelpers';
 import { twinWithSchema } from '../deviceSettings/deviceSettings.spec';
 
 describe('devicePropertiesPerInterface', () => {
@@ -29,5 +30,13 @@ describe('devicePropertiesPerInterface', () => {
 
     it('matches snapshot', () => {
         testSnapshot(getComponent());
+    });
+
+    it('shows overlay', () => {
+        const wrapper = mountWithLocalization(getComponent());
+        expect((wrapper.state() as DevicePropertiesState).showOverlay).toBeFalsy();
+        wrapper.setState({showOverlay: true});
+        wrapper.update();
+        expect(wrapper.find(Overlay)).toBeDefined();
     });
 });

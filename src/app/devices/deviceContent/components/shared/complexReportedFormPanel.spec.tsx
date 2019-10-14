@@ -5,7 +5,7 @@
 import 'jest';
 import * as React from 'react';
 import ComplexReportedFormPanel, { ReportedFormDataProps , ReportedFormActionProps } from './complexReportedFormPanel';
-import { mountWithLocalization } from '../../../../shared/utils/testHelpers';
+import { testSnapshot } from '../../../../shared/utils/testHelpers';
 
 describe('complexReportedFormPanel', () => {
     const formData = 123;
@@ -40,13 +40,10 @@ describe('complexReportedFormPanel', () => {
             ...overrides
         };
 
-        return mountWithLocalization(
-            <ComplexReportedFormPanel {...props} />
-        );
+        return (<ComplexReportedFormPanel {...props} />);
     };
 
     it('matches snapshot without twinWithSchema', () => {
-        const wrapper = getComponent();
-        expect(wrapper).toMatchSnapshot();
+        testSnapshot(getComponent());
     });
 });

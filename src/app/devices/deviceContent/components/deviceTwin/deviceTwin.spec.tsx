@@ -4,8 +4,9 @@
  **********************************************************/
 import * as React from 'react';
 import 'jest';
-import DeviceTwin from './deviceTwin';
+import DeviceTwin, { DeviceTwinDataProps, DeviceTwinDispatchProps } from './deviceTwin';
 import { testSnapshot } from '../../../../shared/utils/testHelpers';
+import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 
 const pathname = `/`;
 
@@ -19,18 +20,25 @@ const routerprops: any = { // tslint:disable-line:no-any
     location,
     match: {}
 };
-const dispatchProps = {
-    getDeviceTwin: jest.fn(),
-    updateDeviceTwin: jest.fn(),
+
+const deviceContentProps: DeviceTwinDataProps = {
+    twin: undefined,
+    twinState: SynchronizationStatus.working
+};
+
+const mockGetDeviceTwin = jest.fn();
+const deviceContentDispatchProps: DeviceTwinDispatchProps = {
+    getDeviceTwin: mockGetDeviceTwin,
+    refreshDigitalTwin: jest.fn(),
+    updateDeviceTwin: jest.fn()
 };
 
 const getComponent = (overrides = {}) => {
-    const connectionString = 'HostName=test-string.azure-devices.net;SharedAccessKeyName=owner;SharedAccessKey=fakeKey=';
     const props = {
-        connectionString,
+        ...deviceContentProps,
+        ...deviceContentDispatchProps,
         ...routerprops,
-        ...overrides,
-        ...dispatchProps
+        ...overrides
     };
     return <DeviceTwin {...props} />;
 };
@@ -40,14 +48,26 @@ describe('devices/components/deviceTwin', () => {
         it('matches snapshot', () => {
             testSnapshot(getComponent());
         });
-        it('matches snapshot while loading twin', () => {
-            testSnapshot(getComponent({
-                isloading: true
-            }));
-        });
+
         it('matches snapshot with twin', () => {
             testSnapshot(getComponent({
-                twin: {}
+                twin: {
+                    deviceId: 'testId',
+                    // tslint:disable-next-line:object-literal-sort-keys
+                    deviceEtag: '',
+                    etag: 'AAAAAAAAAAE=',
+                    status: 'enabled',
+                    statusUpdateTime: '0001-01-01T00:00:00Z',
+                    connectionState: 'Disconnected',
+                    lastActivityTime: '0001-01-01T00:00:00Z',
+                    cloudToDeviceMessageCount: 0,
+                    authenticationType: 'sas',
+                    x509Thumbprint: {primaryThumbprint: null, secondaryThumbprint: null},
+                    properties: {},
+                    capabilities: {iotEdge: false},
+                    version: 1
+                },
+                twinState: SynchronizationStatus.fetched
             }));
         });
     });
