@@ -3,16 +3,15 @@
  * Licensed under the MIT License
  **********************************************************/
 import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
-import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
+import { IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
 import { Text } from 'office-ui-fabric-react/lib/Text';
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { validateConnectionString } from '../../shared/utils/hubConnectionStringHelper';
-import { MaskedCopyableTextField } from '../../shared/components/maskedCopyableTextField';
-import LabelWithTooltip from '../../shared/components/labelWithTooltip';
 import { SetConnectionStringActionParameter } from '../actions';
+import HubConnectionStringSection from './hubConnectionStringSection';
 import '../../css/_connectivityPane.scss';
 
 export interface ConnectivityPaneDispatchProps {
@@ -21,6 +20,7 @@ export interface ConnectivityPaneDispatchProps {
 
 export interface ConnectivityPaneDataProps {
     connectionString: string;
+    connectionStringList: string[];
     rememberConnectionString: boolean;
 }
 
@@ -41,7 +41,7 @@ export default class ConnectivityPane extends React.Component<RouteComponentProp
     }
 
     public render(): JSX.Element {
-        const { connectionString, error } = this.state;
+        const { connectionString, error, rememberConnectionString } = this.state;
 
         return (
             <LocalizationContextConsumer>
@@ -52,44 +52,24 @@ export default class ConnectivityPane extends React.Component<RouteComponentProp
                             <h1>
                                 {context.t(ResourceKeys.connectivityPane.header)}
                             </h1>
-
-                            <div className="connection-string">
-                                <MaskedCopyableTextField
-                                    ariaLabel={context.t(ResourceKeys.connectivityPane.connectionStringTextBox.label)}
-                                    label={context.t(ResourceKeys.connectivityPane.connectionStringTextBox.label)}
-                                    error={!!error ? context.t(error) : ''}
-                                    value={connectionString}
-                                    allowMask={true}
-                                    onTextChange={this.onConnectionStringChanged}
-                                    readOnly={false}
-                                    required={true}
-                                    t={context.t}
-                                />
-                            </div>
-
-                            <div className="remember-connection-string">
-                                <Checkbox
-                                    ariaLabel={context.t(ResourceKeys.connectivityPane.connectionStringCheckbox.ariaLabel)}
-                                    onChange={this.onCheckboxChange}
-                                    checked={this.state.rememberConnectionString}
-                                />
-                                <LabelWithTooltip
-                                    tooltipText={context.t(ResourceKeys.connectivityPane.connectionStringCheckbox.tooltip)}
-                                >
-                                    {context.t(ResourceKeys.connectivityPane.connectionStringCheckbox.label)}
-                                </LabelWithTooltip>
-                            </div>
-
+                            <HubConnectionStringSection
+                                connectionString={connectionString}
+                                connectionStringList={this.props.connectionStringList}
+                                rememberConnectionString={rememberConnectionString}
+                                error={error && context.t(error)}
+                                onConnectionStringChangedFromTextField={this.onConnectionStringChanged}
+                                onConnectionStringChangedFromDropdown={this.onConnectionStringChangedFromDropdown}
+                                onCheckboxChange={this.onCheckboxChange}
+                            />
                             <div className="notes">
                                 <Text>
                                     {context.t(ResourceKeys.connectivityPane.notes)}
                                 </Text>
                             </div>
-
                             <div className="connection-button">
                                 <PrimaryButton
                                     onClick={this.onSaveConnectionInfoClick}
-                                    disabled={!this.state.connectionString || !!error}
+                                    disabled={!connectionString || !!error}
                                 >
                                     {context.t(ResourceKeys.connectivityPane.saveButton.label)}
                                 </PrimaryButton>
@@ -107,6 +87,12 @@ export default class ConnectivityPane extends React.Component<RouteComponentProp
         this.setState({
             connectionString,
             error,
+        });
+    }
+
+    private readonly onConnectionStringChangedFromDropdown = (event: React.FormEvent<HTMLDivElement>, item: IDropdownOption) => {
+        this.setState({
+            connectionString: item.key.toString()
         });
     }
 

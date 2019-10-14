@@ -11,6 +11,7 @@ export const CIRCLE_ADD_SOLID = 'CircleAdditionSolid';
 export const CLEAR = 'Clear';
 export const CLOSE = 'ChromeClose';
 export const CODE = 'Code';
+export const COPY = 'Copy';
 export const EMPTY_CHECKBOX = 'Checkbox';
 export const INFO = 'Info';
 export const NAV = 'GlobalNavButton';

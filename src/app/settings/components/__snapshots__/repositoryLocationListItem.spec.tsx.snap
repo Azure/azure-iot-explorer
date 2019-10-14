@@ -22,6 +22,7 @@ exports[`components/settings/repositoryLocationListItem matches snapshot 1`] = `
         ariaLabel="settings.modelDefinitions.repositoryTypes.private.textBoxLabel"
         label="settings.modelDefinitions.repositoryTypes.private.textBoxLabel"
         onTextChange={[Function]}
+        placeholder="settings.modelDefinitions.repositoryTypes.private.placeholder"
         readOnly={false}
         required={true}
         t={
@@ -32,6 +33,9 @@ exports[`components/settings/repositoryLocationListItem matches snapshot 1`] = `
               ],
               Array [
                 "settings.modelDefinitions.repositoryTypes.private.textBoxLabel",
+              ],
+              Array [
+                "settings.modelDefinitions.repositoryTypes.private.placeholder",
               ],
               Array [
                 "settings.cancel",
@@ -48,6 +52,10 @@ exports[`components/settings/repositoryLocationListItem matches snapshot 1`] = `
               Object {
                 "type": "return",
                 "value": "settings.modelDefinitions.repositoryTypes.private.textBoxLabel",
+              },
+              Object {
+                "type": "return",
+                "value": "settings.modelDefinitions.repositoryTypes.private.placeholder",
               },
               Object {
                 "type": "return",
