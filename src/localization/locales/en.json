@@ -384,7 +384,8 @@
             "description": "Description"
         },
         "headerText": "Interface ID {{interfaceId}}",
-        "noInterfaces": "No interfaces"
+        "noInterfaces": "No interfaces",
+        "interfaceNotFound": "We are not able to retrieve interface model definition. Please click 'Configure' button below to see how we resolve model definition."
     },
     "deviceEvents": {
         "command" : {

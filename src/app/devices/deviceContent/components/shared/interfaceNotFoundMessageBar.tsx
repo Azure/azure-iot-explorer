@@ -27,10 +27,10 @@ export default class InterfaceNotFoundMessageBox extends React.Component<Interfa
                                     className="configure-button"
                                     onClick={this.handleConfigure}
                                 >
-                                        {context.t(ResourceKeys.deviceInterfaces.command.configure)}
+                                    {context.t(ResourceKeys.deviceInterfaces.command.configure)}
                                 </MessageBarButton>}
                         >
-                            {context.t(ResourceKeys.notifications.getInterfaceModelOnError)}
+                            {context.t(ResourceKeys.deviceInterfaces.interfaceNotFound)}
                         </MessageBar>
                     </div>
                 )}
