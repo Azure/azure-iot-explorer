@@ -82,6 +82,7 @@
             @include themify($themes) {
                 background-color: themed('summaryBackground');
             }
+            border-bottom: none;
         }
 
         .item-detail {
