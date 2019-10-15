@@ -5,13 +5,19 @@
 @import 'variables';
 @import 'themes';
 .status-success {
-    color: $successText;
+    @include themify($themes) {
+        color: themed('successText');
+    }
 }
 .status-error {
-    color: $errorText;
+    @include themify($themes) {
+        color: themed('errorText');
+    }
 }
 .status-synching {
-    color: $infoText;
+    @include themify($themes) {
+        color: themed('infoText');
+    }
 }
 .status-unknown {
     @include themify($themes) {
