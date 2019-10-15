@@ -1563,7 +1563,9 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
   <div
     className="device-detail"
   >
-    <StyledShimmerBase />
+    <StyledShimmerBase
+      className="fixed-shimmer"
+    />
   </div>
 </Fragment>
 `;

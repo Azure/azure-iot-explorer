@@ -83,7 +83,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
     public render(): JSX.Element {
         if (this.props.isLoading) {
             return (
-                <Shimmer/>
+                <Shimmer className="fixed-shimmer" />
             );
         }
 

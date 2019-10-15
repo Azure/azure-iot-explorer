@@ -1,8 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`components/devices/deviceEvents matches snapshot while state is loading 1`] = `
-<StyledShimmerBase>
+<StyledShimmerBase
+  className="fixed-shimmer"
+>
   <ShimmerBase
+    className="fixed-shimmer"
     isDataLoaded={false}
     styles={[Function]}
     theme={
@@ -263,7 +266,7 @@ exports[`components/devices/deviceEvents matches snapshot while state is loading
     }
   >
     <div
-      className="ms-Shimmer-container root-49"
+      className="ms-Shimmer-container fixed-shimmer root-49"
     >
       <div
         className="ms-Shimmer-shimmerWrapper shimmerWrapper-50"

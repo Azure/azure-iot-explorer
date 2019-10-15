@@ -76,8 +76,11 @@ exports[`components/devices/deviceCommandsPerInterfacePerCommand matches snapsho
         }
       }
     >
-      <StyledShimmerBase>
+      <StyledShimmerBase
+        className="fixed-shimmer"
+      >
         <ShimmerBase
+          className="fixed-shimmer"
           isDataLoaded={false}
           styles={[Function]}
           theme={
@@ -338,7 +341,7 @@ exports[`components/devices/deviceCommandsPerInterfacePerCommand matches snapsho
           }
         >
           <div
-            className="ms-Shimmer-container root-49"
+            className="ms-Shimmer-container fixed-shimmer root-49"
           >
             <div
               className="ms-Shimmer-shimmerWrapper shimmerWrapper-50"

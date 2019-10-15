@@ -6,9 +6,9 @@
 @import 'variables';
 
 @mixin default-button {
+    margin-top: 3px;
+    padding-top: 0px;
     @include themify($themes) {
-        margin-top: 3px;
-        padding-top: 0px;
         color: themed('buttonColor');
     }
     padding: 0;
@@ -160,7 +160,8 @@
     }
     .configure-button {
         @include default-button;
-        padding-bottom: 3px;
+        padding-bottom: 8px;
+        margin-top: 0px !important;
     }
     .interface-definition
     {

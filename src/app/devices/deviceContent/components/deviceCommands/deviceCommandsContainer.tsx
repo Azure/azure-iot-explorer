@@ -12,14 +12,12 @@ import { getDeviceCommandPairs } from './selectors';
 import { invokeDigitalTwinInterfaceCommandAction, setInterfaceIdAction, InvokeDigitalTwinInterfaceCommandActionParameters, getModelDefinitionAction } from '../../actions';
 import { getModelDefinitionSyncStatusSelector, getInterfaceNameSelector } from '../../selectors';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
-import { getApplicationThemeSelector } from '../../../../settings/selectors';
 
 const mapStateToProps = (state: StateType): DeviceCommandsProps => {
     return {
         isLoading: getModelDefinitionSyncStatusSelector(state) === SynchronizationStatus.working,
         ...getDeviceCommandPairs(state),
         interfaceName: getInterfaceNameSelector(state),
-        theme: getApplicationThemeSelector(state)
     };
 };
 

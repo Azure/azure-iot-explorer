@@ -11,12 +11,10 @@ import { NonFunctionProperties, FunctionProperties } from '../../../../shared/ty
 import { getConnectionStringSelector } from '../../../../login/selectors';
 import { InvokeMethodParameters } from '../../../../api/parameters/deviceParameters';
 import { invokeDirectMethodAction } from '../../actions';
-import { getApplicationThemeSelector } from '../../../../settings/selectors';
 
 const mapStateToProps = (state: StateType): NonFunctionProperties<DirectMethodProps> => {
     return {
         connectionString: getConnectionStringSelector(state),
-        theme: getApplicationThemeSelector(state)
     };
 };
 

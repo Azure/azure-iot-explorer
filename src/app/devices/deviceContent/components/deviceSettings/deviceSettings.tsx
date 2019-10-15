@@ -14,11 +14,9 @@ import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString } from '../..
 import { PatchDigitalTwinInterfacePropertiesActionParameters } from '../../actions';
 import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
 import { REFRESH } from '../../../../constants/iconNames';
-import { Theme } from '../../../../../themer';
 
 export interface DeviceSettingsProps extends DeviceInterfaceWithSchema{
     isLoading: boolean;
-    theme: Theme;
 }
 
 export interface DeviceInterfaceWithSchema {
@@ -42,7 +40,7 @@ export default class DeviceSettings
     public render(): JSX.Element {
         if (this.props.isLoading) {
             return (
-                <Shimmer/>
+                <Shimmer className="fixed-shimmer" />
             );
         }
 

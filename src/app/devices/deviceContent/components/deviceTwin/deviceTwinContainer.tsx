@@ -9,11 +9,9 @@ import { StateType } from '../../../../shared/redux/state';
 import DeviceTwin, { DeviceTwinDataProps, DeviceTwinDispatchProps } from './deviceTwin';
 import { getDeviceTwinSelector, getDeviceTwinStateSelector } from './selectors';
 import { getTwinAction, updateTwinAction, UpdateTwinActionParameters, getDigitalTwinInterfacePropertiesAction } from '../../actions';
-import { getApplicationThemeSelector } from '../../../../settings/selectors';
 
 const mapStateToProps = (state: StateType): DeviceTwinDataProps => {
     return {
-        theme: getApplicationThemeSelector(state),
         twin: getDeviceTwinSelector(state),
         twinState : getDeviceTwinStateSelector(state),
     };

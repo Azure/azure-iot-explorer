@@ -15,13 +15,11 @@ import { InvokeDigitalTwinInterfaceCommandActionParameters } from '../../actions
 import { generateCommandPayload } from '../../sagas/digitalTwinInterfaceCommandSaga';
 import ErrorBoundary from '../../../errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
-import { Theme } from '../../../../../themer';
 
 export interface DeviceCommandDataProps extends CommandSchema {
     collapsed: boolean;
     deviceId: string;
     interfaceName: string;
-    theme: Theme;
 }
 
 export interface DeviceCommandDispatchProps {
@@ -99,7 +97,6 @@ export default class DeviceCommandsPerInterfacePerCommand
                 handleSave={this.onSubmit}
                 craftPayload={this.craftCommandPayload}
                 schema={this.getCommandSchema(true)}
-                theme={this.props.theme}
             />
         );
     }

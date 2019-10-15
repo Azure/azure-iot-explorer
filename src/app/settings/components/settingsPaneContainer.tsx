@@ -8,8 +8,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { StateType } from '../../shared/redux/state';
 import SettingsPane, { SettingsPaneActions, SettingsPaneProps, Settings } from './settingsPane';
-import { setSettingsVisibilityAction, setSettingsRepositoryLocationsAction, setApplicationTheme } from '../actions';
-import { getSettingsVisibleSelector, getRepositoryLocationSettingsSelector, getApplicationThemeSelector } from '../selectors';
+import { setSettingsVisibilityAction, setSettingsRepositoryLocationsAction } from '../actions';
+import { getSettingsVisibleSelector, getRepositoryLocationSettingsSelector } from '../selectors';
 import { getConnectionStringSelector, getRememberConnectionStringValueSelector } from '../../login/selectors';
 import { setConnectionStringAction } from '../../login/actions';
 import { listDevicesAction } from '../../devices/deviceList/actions';
@@ -20,8 +20,7 @@ const mapStateToProps = (state: StateType): SettingsPaneProps => {
         hubConnectionString: getConnectionStringSelector(state),
         isOpen: getSettingsVisibleSelector(state),
         rememberConnectionString: getRememberConnectionStringValueSelector(state),
-        repositoryLocations: getRepositoryLocationSettingsSelector(state),
-        theme: getApplicationThemeSelector(state)
+        repositoryLocations: getRepositoryLocationSettingsSelector(state)
     };
 };
 
@@ -32,7 +31,6 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): SettingsPaneActions 
                 connectionString: payload.hubConnectionString,
                 rememberConnectionString: payload.rememberConnectionString
             }));
-            dispatch(setApplicationTheme(payload.theme));
             dispatch(setSettingsRepositoryLocationsAction(payload.repositoryLocations));
         },
         onSettingsVisibleChanged: (visible: boolean) => {

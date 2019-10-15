@@ -4,7 +4,6 @@
  **********************************************************/
 import { StateType } from '../shared/redux/state';
 import { REPOSITORY_LOCATION_TYPE } from '../constants/repositoryLocationTypes';
-import { Theme } from '../../themer';
 
 export const getSettingsVisibleSelector = (state: StateType) => {
     return state && state.applicationState && state.applicationState.showSettings;
@@ -27,8 +26,4 @@ export const getPrivateRepositorySettingsSelector = (state: StateType) => {
 
 export const getPublicRepositoryHostName = (state: StateType) => {
     return state && state.applicationState && state.applicationState.publicRepositorySettings && state.applicationState.publicRepositorySettings.publicRepoHostName;
-};
-
-export const getApplicationThemeSelector = (state: StateType) => {
-    return state && state.applicationState && state.applicationState.theme || Theme.dark;
 };

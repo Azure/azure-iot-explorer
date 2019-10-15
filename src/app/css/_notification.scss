@@ -72,7 +72,7 @@
         width: 225px;
         padding-left: 10px;
         text-overflow: ellipsis;
-
+        
         .title {
             font-weight: 550;
             text-overflow: ellipsis;
@@ -103,6 +103,11 @@
 }
 .Toastify__toast-container {
     margin-top:25px;
+}
+.toast-notification {
+    @include themify($themes) {
+        background-color: themed('notificationBackgroundColor');
+    }
 }
 
 .notification-toast-progress-bar {

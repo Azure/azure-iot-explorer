@@ -3418,10 +3418,10 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                                   "settings.footerText",
                                                 ],
                                                 Array [
-                                                  "settings.save",
+                                                  "settings.cancel",
                                                 ],
                                                 Array [
-                                                  "settings.cancel",
+                                                  "settings.save",
                                                 ],
                                               ],
                                               "results": Array [
@@ -3555,11 +3555,11 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
                                                 },
                                                 Object {
                                                   "type": "return",
-                                                  "value": "settings.save",
+                                                  "value": "settings.cancel",
                                                 },
                                                 Object {
                                                   "type": "return",
-                                                  "value": "settings.cancel",
+                                                  "value": "settings.save",
                                                 },
                                               ],
                                             }
@@ -18150,10 +18150,10 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                   "settings.footerText",
                                                 ],
                                                 Array [
-                                                  "settings.save",
+                                                  "settings.cancel",
                                                 ],
                                                 Array [
-                                                  "settings.cancel",
+                                                  "settings.save",
                                                 ],
                                               ],
                                               "results": Array [
@@ -18319,11 +18319,11 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                 },
                                                 Object {
                                                   "type": "return",
-                                                  "value": "settings.save",
+                                                  "value": "settings.cancel",
                                                 },
                                                 Object {
                                                   "type": "return",
-                                                  "value": "settings.cancel",
+                                                  "value": "settings.save",
                                                 },
                                               ],
                                             }
@@ -25498,10 +25498,10 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                                       "settings.footerText",
                                                                     ],
                                                                     Array [
-                                                                      "settings.save",
+                                                                      "settings.cancel",
                                                                     ],
                                                                     Array [
-                                                                      "settings.cancel",
+                                                                      "settings.save",
                                                                     ],
                                                                   ],
                                                                   "results": Array [
@@ -25667,11 +25667,11 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
                                                                     },
                                                                     Object {
                                                                       "type": "return",
-                                                                      "value": "settings.save",
+                                                                      "value": "settings.cancel",
                                                                     },
                                                                     Object {
                                                                       "type": "return",
-                                                                      "value": "settings.cancel",
+                                                                      "value": "settings.save",
                                                                     },
                                                                   ],
                                                                 }

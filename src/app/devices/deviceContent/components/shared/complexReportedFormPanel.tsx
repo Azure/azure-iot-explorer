@@ -18,7 +18,7 @@ import { CLOSE } from '../../../../constants/iconNames';
 import { PropertyContent } from '../../../../api/models/modelDefinition';
 import ErrorBoundary from '../../../errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
-import { Theme } from '../../../../../themer';
+import { ThemeContextConsumer, ThemeContextInterface } from '../../../../shared/contexts/themeContext';
 
 const EditorPromise = import('react-monaco-editor');
 const Editor = React.lazy(() => EditorPromise);
@@ -28,7 +28,6 @@ export interface ReportedFormDataProps {
     formData: any; // tslint:disable-line:no-any
     schema: ParsedJsonSchema;
     modelDefinition: PropertyContent;
-    theme: Theme;
 }
 
 export interface ReportedFormActionProps {
@@ -109,16 +108,20 @@ export default class ComplexReportedFormPanel extends React.Component<ReportedFo
                 <Label>{context.t(ResourceKeys.deviceProperties.editor.label, {schema: this.getSettingSchema()})}</Label>
                 <div className="monaco-editor">
                     <React.Suspense fallback={<Spinner title={'loading'} size={SpinnerSize.large} />}>
-                        <Editor
-                            language="json"
-                            options={{
-                                automaticLayout: true,
-                                readOnly: true
-                            }}
-                            height="70vh"
-                            value={JSON.stringify(this.state.formData, null, '\t')}
-                            theme={this.props.theme === Theme.light ? 'vs-light' : 'vs-dark'}
-                        />
+                        <ThemeContextConsumer>
+                            {(themeContext: ThemeContextInterface) => (
+                                <Editor
+                                    language="json"
+                                    options={{
+                                        automaticLayout: true,
+                                        readOnly: true
+                                    }}
+                                    height="70vh"
+                                    value={JSON.stringify(this.state.formData, null, '\t')}
+                                    theme={themeContext.monacoTheme}
+                                />
+                            )}
+                        </ThemeContextConsumer>
                     </React.Suspense>
                 </div>
             </form>

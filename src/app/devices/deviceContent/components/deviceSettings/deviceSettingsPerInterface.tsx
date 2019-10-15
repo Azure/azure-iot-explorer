@@ -12,14 +12,12 @@ import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { PatchDigitalTwinInterfacePropertiesActionParameters } from '../../actions';
 import { INFO, InterfaceDetailCard } from '../../../../constants/iconNames';
 import '../../../../css/_devicePnpDetailList.scss';
-import { Theme } from '../../../../..//themer';
 
 export interface DeviceSettingDataProps {
     deviceId: string;
     interfaceId: string;
     interfaceName: string;
     twinWithSchema: TwinWithSchema[];
-    theme: Theme;
 }
 
 export interface DeviceSettingDispatchProps {

@@ -18,7 +18,7 @@ import { MaskedCopyableTextField } from '../../shared/components/maskedCopyableT
 import LabelWithTooltip from '../../shared/components/labelWithTooltip';
 import '../../css/_settingsPane.scss';
 import { ConfirmationDialog } from './confirmationDialog';
-import { Theme } from '../../../themer';
+import { ThemeContextConsumer, ThemeContextInterface, Theme, ThemeContext } from '../../shared/contexts/themeContext';
 
 export interface SettingsPaneProps extends Settings {
     isOpen: boolean;
@@ -39,11 +39,11 @@ export interface Settings {
     hubConnectionString: string;
     rememberConnectionString: boolean;
     repositoryLocations?: RepositorySettings[];
-    theme: Theme;
 }
 
 interface SettingsPaneState extends Settings{
     error?: string;
+    isDarkTheme: boolean;
     isDirty: boolean;
     showConfirmationDialog: boolean;
 }
@@ -58,11 +58,11 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
             }) : [];
         this.state = {
             hubConnectionString: props.hubConnectionString,
+            isDarkTheme: document.body.classList.contains('theme-dark'),
             isDirty: false,
             rememberConnectionString: props.rememberConnectionString,
             repositoryLocations,
             showConfirmationDialog: false,
-            theme: props.theme
         };
     }
 
@@ -138,7 +138,7 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
                                 onText={context.t(ResourceKeys.settings.theme.darkTheme)}
                                 offText={context.t(ResourceKeys.settings.theme.lightTheme)}
                                 onChange={this.setTheme}
-                                checked={this.state.theme === Theme.dark}
+                                checked={this.state.isDarkTheme}
                             />
                         </section>
                         {this.renderConfirmationDialog(context)}
@@ -148,10 +148,10 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
         );
     }
 
-    private readonly setTheme = (ev: React.MouseEvent<HTMLElement>, darkTheme: boolean) => {
+    private readonly setTheme = (ev: React.MouseEvent<HTMLElement>, isDarkTheme: boolean) => {
         this.setState({
+            isDarkTheme,
             isDirty: true,
-            theme: darkTheme ? Theme.dark : Theme.light
         });
     }
 
@@ -293,12 +293,21 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
                     </section>
                     <section className="footer-buttons">
                         <h3 role="heading" aria-level={1}>{context.t(ResourceKeys.settings.footerText)}</h3>
-                        <PrimaryButton
-                            type="submit"
-                            disabled={this.disableSaveButton()}
-                            text={context.t(ResourceKeys.settings.save)}
-                            onClick={this.saveSettings}
-                        />
+                        <ThemeContextConsumer>
+                            {(themeContext: ThemeContextInterface) => (
+                                <PrimaryButton
+                                    type="submit"
+                                    disabled={this.disableSaveButton()}
+                                    text={context.t(ResourceKeys.settings.save)}
+                                    // tslint:disable-next-line: jsx-no-lambda
+                                    onClick={() => {
+                                        themeContext.updateTheme(this.state.isDarkTheme);
+                                        this.saveSettings();
+                                    }
+                                    }
+                                />
+                            )}
+                        </ThemeContextConsumer>
                         <DefaultButton
                             type="reset"
                             text={context.t(ResourceKeys.settings.cancel)}

@@ -40,6 +40,10 @@ body {
     margin: 0;
 }
 
+.fixed-shimmer {
+    overflow-y: hidden;
+}
+
 .ms-Fabric {
     @include themify($themes) {
         color: themed('textColor');

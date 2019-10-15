@@ -12,14 +12,12 @@ import { setInterfaceIdAction, patchDigitalTwinInterfacePropertiesAction, PatchD
 import { getDeviceSettingTupleSelector } from './selectors';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { getModelDefinitionSyncStatusSelector, getDigitalTwinInterfacePropertiesStateSelector } from '../../selectors';
-import { getApplicationThemeSelector } from '../../../../settings/selectors';
 
 const mapStateToProps = (state: StateType): DeviceSettingsProps => {
     return {
         isLoading: getDigitalTwinInterfacePropertiesStateSelector(state) === SynchronizationStatus.working ||
             getModelDefinitionSyncStatusSelector(state) === SynchronizationStatus.working,
         ...getDeviceSettingTupleSelector(state),
-        theme: getApplicationThemeSelector(state)
     };
 };
 

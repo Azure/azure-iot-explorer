@@ -32,8 +32,11 @@
             bottom: 10px;
         }
         li {
-            color: black;
-            background-color: $gray;
+            button {
+                @include themify($themes) {
+                    color: themed('pagerButtonColor');
+                }
+            }
             margin: {
                 left: 1px;
                 right: 1px;
@@ -57,6 +60,7 @@
                     top-left-radius: 3px;
                     top-right-radius: 3px;
                 };
+                background-color: themed('pagerColor');
             } 
             font: {
                 size: 18px;
@@ -68,8 +72,9 @@
             @include themify($themes) {
                 border-color: themed('selectedBorder');
                 box-shadow: 0px 2px 2px themed('boxShadowColor');
+                background-color: themed('pagerColorSelected');
+                color: themed('pagerTextColor');
             }
-            background-color: $light-gray;
             border-color: $selected-border;
         }
     }

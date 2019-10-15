@@ -18,7 +18,7 @@ import { dataToTwinConverter, twinToFormDataConverter } from '../../../../shared
 import ErrorBoundary from '../../../../devices/errorBoundary';
 import LabelWithTooltip from '../../../../shared/components/labelWithTooltip';
 import '../../../../css/_dataForm.scss';
-import { Theme } from '../../../../../themer';
+import { ThemeContextConsumer, ThemeContextInterface } from '../../../../shared/contexts/themeContext';
 
 const EditorPromise = import('react-monaco-editor');
 const Editor = React.lazy(() => EditorPromise);
@@ -30,7 +30,6 @@ export interface DataFormDataProps {
     settingSchema: ParsedJsonSchema;
     buttonText: string;
     schema: string; // the schema as defined in model definition
-    theme: Theme;
 }
 
 export interface DataFormActionProps {
@@ -85,17 +84,21 @@ export default class DataForm extends React.Component<DataFormDataProps & DataFo
             >
                 <div className="monaco-editor">
                     <React.Suspense fallback={<Spinner title={'loading'} size={SpinnerSize.large} />}>
-                        <Editor
-                            language="json"
-                            ref={payloadRef}
-                            options={{
-                                automaticLayout: true,
-                                readOnly: true,
-                            }}
-                            height="275px"
-                            value={JSON.stringify(this.state.payloadPreviewData, null, '\t')}
-                            theme={this.props.theme === Theme.light ? 'vs-light' : 'vs-dark'}
-                        />
+                        <ThemeContextConsumer>
+                            {(themeContext: ThemeContextInterface) => (
+                                <Editor
+                                    language="json"
+                                    ref={payloadRef}
+                                    options={{
+                                        automaticLayout: true,
+                                        readOnly: true,
+                                    }}
+                                    height="275px"
+                                    value={JSON.stringify(this.state.payloadPreviewData, null, '\t')}
+                                    theme={themeContext.monacoTheme}
+                                />
+                            )}
+                        </ThemeContextConsumer>
                     </React.Suspense>
                 </div>
                 <DialogFooter>
@@ -146,17 +149,21 @@ export default class DataForm extends React.Component<DataFormDataProps & DataFo
                 </LabelWithTooltip>
                 <div className="monaco-editor">
                     <React.Suspense fallback={<Spinner title={'loading'} size={SpinnerSize.large} />}>
-                        <Editor
-                            language="json"
-                            options={{
-                                automaticLayout: true,
-                                readOnly: false
-                            }}
-                            height="30vh"
-                            value={this.state.stringifiedFormData}
-                            onChange={this.onChangeEditor}
-                            theme={this.props.theme === Theme.light ? 'vs-light' : 'vs-dark'}
-                        />
+                        <ThemeContextConsumer>
+                            {(themeContext: ThemeContextInterface) => (
+                                <Editor
+                                    language="json"
+                                    options={{
+                                        automaticLayout: true,
+                                        readOnly: false
+                                    }}
+                                    height="30vh"
+                                    value={this.state.stringifiedFormData}
+                                    onChange={this.onChangeEditor}
+                                    theme={themeContext.monacoTheme}
+                                />
+                            )}
+                        </ThemeContextConsumer>
                     </React.Suspense>
                 </div>
                 {this.createActionButtons(context)}

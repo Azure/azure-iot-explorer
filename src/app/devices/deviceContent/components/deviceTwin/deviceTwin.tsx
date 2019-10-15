@@ -15,7 +15,7 @@ import { UpdateTwinActionParameters } from '../../actions';
 import { REFRESH, SAVE } from '../../../../constants/iconNames';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import '../../../../css/_deviceDetail.scss';
-import { Theme } from '../../../../../themer';
+import { ThemeContextConsumer, ThemeContextInterface } from '../../../../shared/contexts/themeContext';
 
 const EditorPromise = import('react-monaco-editor');
 const Editor = React.lazy(() => EditorPromise);
@@ -23,7 +23,6 @@ const Editor = React.lazy(() => EditorPromise);
 export interface DeviceTwinDataProps {
     twin: Twin;
     twinState: SynchronizationStatus;
-    theme: Theme;
 }
 
 export interface DeviceTwinDispatchProps {
@@ -151,17 +150,21 @@ export default class DeviceTwin
                 { twin &&
                     <div className="monaco-editor">
                         <React.Suspense fallback={<Spinner title={'loading'} size={SpinnerSize.large} />}>
-                            <Editor
-                                language="json"
-                                height="calc(100vh - 300px)"
-                                value={twin}
-                                options={{
-                                    automaticLayout: true,
-                                    readOnly: false
-                                }}
-                                onChange={this.onChange}
-                                theme={this.props.theme === Theme.light ? 'vs-light' : 'vs-dark'}
-                            />
+                            <ThemeContextConsumer>
+                                {(themeContext: ThemeContextInterface) => (
+                                    <Editor
+                                        language="json"
+                                        height="calc(100vh - 300px)"
+                                        value={twin}
+                                        options={{
+                                            automaticLayout: true,
+                                            readOnly: false
+                                        }}
+                                        onChange={this.onChange}
+                                        theme={themeContext.monacoTheme}
+                                    />
+                                )}
+                            </ThemeContextConsumer>
                         </React.Suspense>
                     </div>
                 }

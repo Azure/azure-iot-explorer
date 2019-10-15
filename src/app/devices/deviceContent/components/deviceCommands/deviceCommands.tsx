@@ -14,11 +14,9 @@ import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString } from '../..
 import { CommandSchema } from './deviceCommandsPerInterfacePerCommand';
 import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
 import { REFRESH } from '../../../../constants/iconNames';
-import { Theme } from '../../../../../themer';
 
 export interface DeviceCommandsProps extends DeviceInterfaceWithSchema{
     isLoading: boolean;
-    theme: Theme;
 }
 
 export interface DeviceInterfaceWithSchema {
@@ -41,7 +39,7 @@ export default class DeviceCommands
     public render(): JSX.Element {
         if (this.props.isLoading) {
             return (
-                <Shimmer/>
+                <Shimmer className="fixed-shimmer" />
             );
         }
 

@@ -85,17 +85,9 @@ exports[`dataForm matches snapshot with simple type 1`] = `
           />
         }
       >
-        <React.Lazy
-          height="275px"
-          language="json"
-          options={
-            Object {
-              "automaticLayout": true,
-              "readOnly": true,
-            }
-          }
-          theme="vs-dark"
-        />
+        <ContextConsumer>
+          <Component />
+        </ContextConsumer>
       </React.Suspense>
     </div>
     <StyledDialogFooterBase>
@@ -129,19 +121,9 @@ exports[`dataForm matches snapshot with unsupported type 1`] = `
           />
         }
       >
-        <React.Lazy
-          height="30vh"
-          language="json"
-          onChange={[Function]}
-          options={
-            Object {
-              "automaticLayout": true,
-              "readOnly": false,
-            }
-          }
-          theme="vs-dark"
-          value="123"
-        />
+        <ContextConsumer>
+          <Component />
+        </ContextConsumer>
       </React.Suspense>
     </div>
     <CustomizedPrimaryButton
@@ -187,17 +169,9 @@ exports[`dataForm matches snapshot with unsupported type 1`] = `
           />
         }
       >
-        <React.Lazy
-          height="275px"
-          language="json"
-          options={
-            Object {
-              "automaticLayout": true,
-              "readOnly": true,
-            }
-          }
-          theme="vs-dark"
-        />
+        <ContextConsumer>
+          <Component />
+        </ContextConsumer>
       </React.Suspense>
     </div>
     <StyledDialogFooterBase>
