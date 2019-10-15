@@ -51,6 +51,8 @@
     pagerColor: $gray,
     pagerColorSelected: $light-gray,
     pagerButtonColor: $blue,
+    successText: $successText,
+    infoText: #52ABFF
   ),
   dark: (
     backgroundColor: $dark-gray,
@@ -62,14 +64,14 @@
     textFieldBackgroundColorInactive: rgba(128, 128, 128, 0.1),
     contrastBorder:$gray,
     iconInText: #acacac,
-    summaryBackground: $light-gray,
+    summaryBackground: $dark-gray,
     searchButtonColor: #ffffff,
     searchButtonBackground: $blue,
     searchButtonDisabledBackground: $gray,
     searchBorderActiveColor: $blue,
     searchBorderHoverColor: $blue,
     searchBorderErrorColor: $errorBorder,
-    errorText: $errorText,
+    errorText: #F9808A,
     errorBorder: $errorBorder,
     navBarBorderColor: $navBarBorderColor,
     blockingColor: $blockingColor,
@@ -98,6 +100,8 @@
     pagerColor: $blue,
     pagerColorSelected: #ffffff,
     pagerButtonColor: black,
+    successText: #1AC11A,
+    infoText: rgb(75, 166, 216)
   ),
 );
 
