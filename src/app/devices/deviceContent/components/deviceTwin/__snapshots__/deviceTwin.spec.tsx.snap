@@ -119,18 +119,9 @@ exports[`devices/components/deviceTwin snapshot matches snapshot with twin 1`] =
           />
         }
       >
-        <React.Lazy
-          height="calc(100vh - 300px)"
-          language="json"
-          onChange={[Function]}
-          options={
-            Object {
-              "automaticLayout": true,
-              "readOnly": false,
-            }
-          }
-          value="{}"
-        />
+        <ContextConsumer>
+          <Component />
+        </ContextConsumer>
       </React.Suspense>
     </div>
   </article>

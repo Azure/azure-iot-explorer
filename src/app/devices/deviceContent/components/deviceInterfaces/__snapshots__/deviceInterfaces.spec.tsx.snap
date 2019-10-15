@@ -1,6 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/devices/deviceInterfaces show Shimmer when status is working 1`] = `<StyledShimmerBase />`;
+exports[`components/devices/deviceInterfaces show Shimmer when status is working 1`] = `
+<StyledShimmerBase
+  className="fixed-shimmer"
+/>
+`;
 
 exports[`components/devices/deviceInterfaces show interface information when status is failed 1`] = `
 <Fragment>
@@ -62,12 +66,12 @@ exports[`components/devices/deviceInterfaces show interface information when sta
         : 
         settings.modelDefinitions.repositoryTypes.public.label
       </StyledLabelBase>
-      <CustomizedDefaultButton
+      <CustomizedActionButton
         className="configure-button"
         onClick={[Function]}
       >
         deviceInterfaces.command.configure
-      </CustomizedDefaultButton>
+      </CustomizedActionButton>
       <StyledLabelBase>
          
         deviceInterfaces.columns.displayName
@@ -94,52 +98,9 @@ exports[`components/devices/deviceInterfaces show interface information when sta
               />
             }
           >
-            <React.Lazy
-              height="calc(100vh - 400px)"
-              language="json"
-              options={
-                Object {
-                  "automaticLayout": true,
-                  "readOnly": true,
-                }
-              }
-              value="{
-	\\"@id\\": \\"urn:azureiot:ModelDiscovery:DigitalTwin:1\\",
-	\\"@type\\": \\"Interface\\",
-	\\"contents\\": [
-		{
-			\\"@type\\": \\"Property\\",
-			\\"name\\": \\"modelInformation\\",
-			\\"displayName\\": \\"Model Information\\",
-			\\"description\\": \\"Providing model and optional interfaces information on a digital twin.\\",
-			\\"schema\\": {
-				\\"@type\\": \\"Object\\",
-				\\"fields\\": [
-					{
-						\\"name\\": \\"modelId\\",
-						\\"schema\\": \\"string\\"
-					},
-					{
-						\\"name\\": \\"interfaces\\",
-						\\"schema\\": {
-							\\"@type\\": \\"Map\\",
-							\\"mapKey\\": {
-								\\"name\\": \\"name\\",
-								\\"schema\\": \\"string\\"
-							},
-							\\"mapValue\\": {
-								\\"name\\": \\"schema\\",
-								\\"schema\\": \\"string\\"
-							}
-						}
-					}
-				]
-			}
-		}
-	],
-	\\"@context\\": \\"http://azureiot.com/v1/contexts/Interface.json\\"
-}"
-            />
+            <ContextConsumer>
+              <Component />
+            </ContextConsumer>
           </React.Suspense>
         </div>
       </article>
@@ -183,12 +144,12 @@ exports[`components/devices/deviceInterfaces show interface information when sta
         : 
         settings.modelDefinitions.repositoryTypes.private.label
       </StyledLabelBase>
-      <CustomizedDefaultButton
+      <CustomizedActionButton
         className="configure-button"
         onClick={[Function]}
       >
         deviceInterfaces.command.configure
-      </CustomizedDefaultButton>
+      </CustomizedActionButton>
       <StyledLabelBase>
          
         deviceInterfaces.columns.displayName
@@ -215,52 +176,9 @@ exports[`components/devices/deviceInterfaces show interface information when sta
               />
             }
           >
-            <React.Lazy
-              height="calc(100vh - 400px)"
-              language="json"
-              options={
-                Object {
-                  "automaticLayout": true,
-                  "readOnly": true,
-                }
-              }
-              value="{
-	\\"@id\\": \\"urn:azureiot:ModelDiscovery:DigitalTwin:1\\",
-	\\"@type\\": \\"Interface\\",
-	\\"contents\\": [
-		{
-			\\"@type\\": \\"Property\\",
-			\\"name\\": \\"modelInformation\\",
-			\\"displayName\\": \\"Model Information\\",
-			\\"description\\": \\"Providing model and optional interfaces information on a digital twin.\\",
-			\\"schema\\": {
-				\\"@type\\": \\"Object\\",
-				\\"fields\\": [
-					{
-						\\"name\\": \\"modelId\\",
-						\\"schema\\": \\"string\\"
-					},
-					{
-						\\"name\\": \\"interfaces\\",
-						\\"schema\\": {
-							\\"@type\\": \\"Map\\",
-							\\"mapKey\\": {
-								\\"name\\": \\"name\\",
-								\\"schema\\": \\"string\\"
-							},
-							\\"mapValue\\": {
-								\\"name\\": \\"schema\\",
-								\\"schema\\": \\"string\\"
-							}
-						}
-					}
-				]
-			}
-		}
-	],
-	\\"@context\\": \\"http://azureiot.com/v1/contexts/Interface.json\\"
-}"
-            />
+            <ContextConsumer>
+              <Component />
+            </ContextConsumer>
           </React.Suspense>
         </div>
       </article>
@@ -304,12 +222,12 @@ exports[`components/devices/deviceInterfaces show interface information when sta
         : 
         settings.modelDefinitions.repositoryTypes.device.label
       </StyledLabelBase>
-      <CustomizedDefaultButton
+      <CustomizedActionButton
         className="configure-button"
         onClick={[Function]}
       >
         deviceInterfaces.command.configure
-      </CustomizedDefaultButton>
+      </CustomizedActionButton>
       <StyledLabelBase>
          
         deviceInterfaces.columns.displayName
@@ -336,52 +254,9 @@ exports[`components/devices/deviceInterfaces show interface information when sta
               />
             }
           >
-            <React.Lazy
-              height="calc(100vh - 400px)"
-              language="json"
-              options={
-                Object {
-                  "automaticLayout": true,
-                  "readOnly": true,
-                }
-              }
-              value="{
-	\\"@id\\": \\"urn:azureiot:ModelDiscovery:DigitalTwin:1\\",
-	\\"@type\\": \\"Interface\\",
-	\\"contents\\": [
-		{
-			\\"@type\\": \\"Property\\",
-			\\"name\\": \\"modelInformation\\",
-			\\"displayName\\": \\"Model Information\\",
-			\\"description\\": \\"Providing model and optional interfaces information on a digital twin.\\",
-			\\"schema\\": {
-				\\"@type\\": \\"Object\\",
-				\\"fields\\": [
-					{
-						\\"name\\": \\"modelId\\",
-						\\"schema\\": \\"string\\"
-					},
-					{
-						\\"name\\": \\"interfaces\\",
-						\\"schema\\": {
-							\\"@type\\": \\"Map\\",
-							\\"mapKey\\": {
-								\\"name\\": \\"name\\",
-								\\"schema\\": \\"string\\"
-							},
-							\\"mapValue\\": {
-								\\"name\\": \\"schema\\",
-								\\"schema\\": \\"string\\"
-							}
-						}
-					}
-				]
-			}
-		}
-	],
-	\\"@context\\": \\"http://azureiot.com/v1/contexts/Interface.json\\"
-}"
-            />
+            <ContextConsumer>
+              <Component />
+            </ContextConsumer>
           </React.Suspense>
         </div>
       </article>
@@ -425,12 +300,12 @@ exports[`components/devices/deviceInterfaces show interface information when sta
         : 
         --
       </StyledLabelBase>
-      <CustomizedDefaultButton
+      <CustomizedActionButton
         className="configure-button"
         onClick={[Function]}
       >
         deviceInterfaces.command.configure
-      </CustomizedDefaultButton>
+      </CustomizedActionButton>
       <StyledLabelBase>
          
         deviceInterfaces.columns.displayName
@@ -457,52 +332,9 @@ exports[`components/devices/deviceInterfaces show interface information when sta
               />
             }
           >
-            <React.Lazy
-              height="calc(100vh - 400px)"
-              language="json"
-              options={
-                Object {
-                  "automaticLayout": true,
-                  "readOnly": true,
-                }
-              }
-              value="{
-	\\"@id\\": \\"urn:azureiot:ModelDiscovery:DigitalTwin:1\\",
-	\\"@type\\": \\"Interface\\",
-	\\"contents\\": [
-		{
-			\\"@type\\": \\"Property\\",
-			\\"name\\": \\"modelInformation\\",
-			\\"displayName\\": \\"Model Information\\",
-			\\"description\\": \\"Providing model and optional interfaces information on a digital twin.\\",
-			\\"schema\\": {
-				\\"@type\\": \\"Object\\",
-				\\"fields\\": [
-					{
-						\\"name\\": \\"modelId\\",
-						\\"schema\\": \\"string\\"
-					},
-					{
-						\\"name\\": \\"interfaces\\",
-						\\"schema\\": {
-							\\"@type\\": \\"Map\\",
-							\\"mapKey\\": {
-								\\"name\\": \\"name\\",
-								\\"schema\\": \\"string\\"
-							},
-							\\"mapValue\\": {
-								\\"name\\": \\"schema\\",
-								\\"schema\\": \\"string\\"
-							}
-						}
-					}
-				]
-			}
-		}
-	],
-	\\"@context\\": \\"http://azureiot.com/v1/contexts/Interface.json\\"
-}"
-            />
+            <ContextConsumer>
+              <Component />
+            </ContextConsumer>
           </React.Suspense>
         </div>
       </article>

@@ -10,7 +10,7 @@ import { testSnapshot } from '../../../../shared/utils/testHelpers';
 describe('directMethod', () => {
     const directMethodProps: DirectMethodProps = {
         connectionString: 'testString',
-        onInvokeMethodClick: jest.fn()
+        onInvokeMethodClick: jest.fn(),
     };
 
     const routerprops: any = { // tslint:disable-line:no-any

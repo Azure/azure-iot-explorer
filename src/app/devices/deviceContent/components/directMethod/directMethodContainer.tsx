@@ -14,7 +14,7 @@ import { invokeDirectMethodAction } from '../../actions';
 
 const mapStateToProps = (state: StateType): NonFunctionProperties<DirectMethodProps> => {
     return {
-        connectionString: getConnectionStringSelector(state)
+        connectionString: getConnectionStringSelector(state),
     };
 };
 

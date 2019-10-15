@@ -2,7 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-@import '../../css/variables.scss';
+@import '../../css/themes';
 
 .objectField {
     flex: 1;
@@ -13,6 +13,8 @@
 
     .element{
         padding-left: 10px;
-        border-left: 1px solid $gray;
+        @include themify($themes) {
+            border-left: 1px solid themed('borderColor');
+        }
     }
 }

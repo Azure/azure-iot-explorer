@@ -52,17 +52,9 @@ exports[`directMethod matches snapshot 1`] = `
             />
           }
         >
-          <React.Lazy
-            height="25vh"
-            language="json"
-            onChange={[Function]}
-            options={
-              Object {
-                "automaticLayout": true,
-              }
-            }
-            value=""
-          />
+          <ContextConsumer>
+            <Component />
+          </ContextConsumer>
         </React.Suspense>
       </div>
       <Component

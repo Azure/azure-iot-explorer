@@ -2,7 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-@import 'variables';
+@import 'themes';
 
 .settingsPane {
     header.panel-header {
@@ -20,14 +20,12 @@
             size: 14px;
         }
         line-height: 20px;
-        color: #212121;
     }
 
     .helptext {
         font-size: 12px;
         line-height: 19px;
         text-decoration-line: underline;
-        color: #666666;
     }
     .remember-connection-string {
         .ms-Checkbox {
@@ -41,23 +39,32 @@
             grid-template-columns: 40px 1fr;
             grid-template-areas: "numbering item";
             .numbering {
+                @include themify($themes) {
+                    color: themed('numbering') !important;
+                }
                 font-size: 32px;
                 line-height: 37px;
-                color: #A6A6A6;
                 margin-top: 10px;
                 margin-right: 33px;
                 grid-area: numbering;
             }
 
             .location-item {
+                @include themify($themes) {
+                    border: {
+                        width: 1px;
+                        style: solid;
+                        color: themed('navBarBorderColor');
+                    }
+                    box-shadow: themed('shadow');
+                }
                 grid-area: item;
                 position: relative;
                 list-style: none;
                 margin-bottom: 8px;
                 margin-top: 8px;
-                border: 1px solid $navBarBorderColor;
+                
                 border-radius: 2px;
-                box-shadow: 0px 4px 4px $blocking;
 
                 padding: {
                     bottom: 14px;

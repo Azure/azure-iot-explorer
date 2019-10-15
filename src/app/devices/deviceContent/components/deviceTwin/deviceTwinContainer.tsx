@@ -13,7 +13,7 @@ import { getTwinAction, updateTwinAction, UpdateTwinActionParameters, getDigital
 const mapStateToProps = (state: StateType): DeviceTwinDataProps => {
     return {
         twin: getDeviceTwinSelector(state),
-        twinState : getDeviceTwinStateSelector(state)
+        twinState : getDeviceTwinStateSelector(state),
     };
 };
 

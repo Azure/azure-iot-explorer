@@ -2,7 +2,8 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-@import 'variables';
+@import 'themes';
+
 .new-notifications::after {
     content: '';
     position: absolute;
@@ -14,12 +15,17 @@
     border-radius: 50%;
     text-align: center;
     background: $blue;
+    @include themify($themes) {
+        background: themed('notificationBackground');
+    }
 }
 
 .notification-list-divider {
     height: 0px;
     border: 0;
-    border-top: 1px solid $grey-border
+    @include themify($themes) {
+        border-top: 1px solid themed('notificationBorderColor');
+    }
 }
 
 .notification-list-header {
@@ -39,41 +45,55 @@
     padding-bottom: 5px;
 
     .success {
-        color: $successText;
+        @include themify($themes) {
+            color: themed('notificationSuccessColor');
+        }
     }
 
     .error {
-        color: $errorText;
+        @include themify($themes) {
+            color: themed('notificationErrorColor');
+        }
     }
 
     .warning {
-        color: $warningText;
+        @include themify($themes) {
+            color: themed('notificationWarningColor');
+        }
     }
 
     .info {
-        color: $infoText;
+        @include themify($themes) {
+            color: themed('notificationInfoColor');
+        }
     }
 
     .body {
         width: 225px;
         padding-left: 10px;
         text-overflow: ellipsis;
-
+        
         .title {
             font-weight: 550;
             text-overflow: ellipsis;
-            color: $medium-gray;
+            @include themify($themes) {
+                color: themed('notificationTextColor');
+            }
             padding-bottom: 7px;
         }
 
         .message {
             padding-bottom: 7px;
-            color: $textColor;
+            @include themify($themes) {
+                color: themed('notificationTextColor');
+            }
             text-overflow: ellipsis;
             word-wrap:break-word;
         }
         .time {
-            color: $textColor
+            @include themify($themes) {
+                color: themed('notificationTextColor');
+            }
         }
     }
 }
@@ -84,8 +104,15 @@
 .Toastify__toast-container {
     margin-top:25px;
 }
+.toast-notification {
+    @include themify($themes) {
+        background-color: themed('notificationBackgroundColor');
+    }
+}
 
 .notification-toast-progress-bar {
-    background: $light-medium-gray !important;
+    @include themify($themes) {
+        background: themed('notificationProgressBackground');
+    }
     height: 2px;
 }

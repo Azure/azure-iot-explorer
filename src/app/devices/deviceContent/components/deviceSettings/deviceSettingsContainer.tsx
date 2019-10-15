@@ -17,7 +17,7 @@ const mapStateToProps = (state: StateType): DeviceSettingsProps => {
     return {
         isLoading: getDigitalTwinInterfacePropertiesStateSelector(state) === SynchronizationStatus.working ||
             getModelDefinitionSyncStatusSelector(state) === SynchronizationStatus.working,
-        ...getDeviceSettingTupleSelector(state)
+        ...getDeviceSettingTupleSelector(state),
     };
 };
 

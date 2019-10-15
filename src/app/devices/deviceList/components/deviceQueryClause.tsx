@@ -172,7 +172,7 @@ export default class DeviceQueryClause extends React.PureComponent<DeviceQueryCl
                                 // tslint:disable-next-line: no-any
                                 options={Object.keys(OperationType).map(operationType => ({ key: (OperationType as any)[operationType], text: (OperationType as any)[operationType] }))}
                                 onChange={this.onOperationChange}
-                                value={this.props.operation}
+                                defaultSelectedKey={this.props.operation}
                                 title={context.t(ResourceKeys.deviceLists.query.searchPills.clause.operationType.title)}
                                 ariaLabel={context.t(ResourceKeys.deviceLists.query.searchPills.clause.operationType.ariaLabel)}
                             />

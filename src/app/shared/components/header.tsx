@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
+import { ActionButton } from 'office-ui-fabric-react/lib/Button';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { Heading } from '../../constants/iconNames';
@@ -36,7 +36,7 @@ export default class Header extends React.PureComponent<HeaderProps & HeaderActi
                     <header className="header">
                         <div className="title">{context.t(ResourceKeys.header.applicationName)}</div>
                         <div><NotificationListContainer /></div>
-                        <DefaultButton
+                        <ActionButton
                             className={settingsVisible ? 'settings-visible' : ''}
                             id="settings"
                             iconProps={{iconName: settingsVisible ? Heading.SETTINGS_OPEN : Heading.SETTINGS_CLOSED}}

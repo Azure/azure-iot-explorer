@@ -66,10 +66,10 @@ export default class DeviceSettingsPerInterface
                 {(context: LocalizationContextInterface) => (
                     <div className="pnp-detail-list scrollable-lg ms-Grid">
                         <div className="list-header ms-Grid-row">
-                            <span className="ms-Grid-col ms-u-sm3">{context.t(ResourceKeys.deviceSettings.columns.name)}</span>
-                            <span className="ms-Grid-col ms-u-sm2">{context.t(ResourceKeys.deviceSettings.columns.schema)}</span>
-                            <span className="ms-Grid-col ms-u-sm2">{context.t(ResourceKeys.deviceSettings.columns.unit)}</span>
-                            <span className="ms-Grid-col ms-u-sm4 reported-value">
+                            <span className="ms-Grid-col ms-sm3">{context.t(ResourceKeys.deviceSettings.columns.name)}</span>
+                            <span className="ms-Grid-col ms-sm2">{context.t(ResourceKeys.deviceSettings.columns.schema)}</span>
+                            <span className="ms-Grid-col ms-sm2">{context.t(ResourceKeys.deviceSettings.columns.unit)}</span>
+                            <span className="ms-Grid-col ms-sm4 reported-value">
                                 {context.t(ResourceKeys.deviceSettings.columns.reportedValue)}
                                 <TooltipHost
                                     content={context.t(ResourceKeys.deviceSettings.columns.reportedValueTooltip)}
@@ -96,7 +96,7 @@ export default class DeviceSettingsPerInterface
 
     private readonly renderCollapseAllButton = (context: LocalizationContextInterface) => {
         return (
-            <div className="ms-Grid-col ms-u-sm1 collapse-button">
+            <div className="ms-Grid-col ms-sm1 collapse-button">
                 <IconButton
                     iconProps={{iconName: this.state.allCollapsed ? InterfaceDetailCard.OPEN : InterfaceDetailCard.CLOSE}}
                     ariaLabel={this.state.allCollapsed ?

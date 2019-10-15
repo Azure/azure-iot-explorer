@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { RouteComponentProps, Route } from 'react-router-dom';
-import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/Button';
+import { PrimaryButton, ActionButton } from 'office-ui-fabric-react/lib/Button';
 import { Overlay } from 'office-ui-fabric-react/lib/Overlay';
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/ChoiceGroup';
@@ -264,7 +264,7 @@ export default class AddDevice extends React.Component<AddDeviceActionProps & Ad
                     ariaDescription={context.t(ResourceKeys.deviceLists.commands.save)}
                     type={'submit'}
                 />
-                <DefaultButton
+                <ActionButton
                     className="submit-button"
                     onClick={this.handleCancel}
                     text={context.t(ResourceKeys.deviceLists.commands.close)}

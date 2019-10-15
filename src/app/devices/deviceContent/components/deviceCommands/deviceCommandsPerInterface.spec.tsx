@@ -4,7 +4,7 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import { DefaultButton, IconButton } from 'office-ui-fabric-react/lib/Button';
+import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import DeviceCommandsPerInterface, { DeviceCommandDataProps, DeviceCommandDispatchProps, DeviceCommandState } from './deviceCommandsPerInterface';
 import { mountWithLocalization } from '../../../../shared/utils/testHelpers';
 

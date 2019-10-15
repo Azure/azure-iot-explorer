@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/Button';
+import { PrimaryButton, ActionButton } from 'office-ui-fabric-react/lib/Button';
 import { Dialog, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 import Form from 'react-jsonschema-form';
@@ -18,6 +18,7 @@ import { dataToTwinConverter, twinToFormDataConverter } from '../../../../shared
 import ErrorBoundary from '../../../../devices/errorBoundary';
 import LabelWithTooltip from '../../../../shared/components/labelWithTooltip';
 import '../../../../css/_dataForm.scss';
+import { ThemeContextConsumer, ThemeContextInterface } from '../../../../shared/contexts/themeContext';
 
 const EditorPromise = import('react-monaco-editor');
 const Editor = React.lazy(() => EditorPromise);
@@ -83,16 +84,21 @@ export default class DataForm extends React.Component<DataFormDataProps & DataFo
             >
                 <div className="monaco-editor">
                     <React.Suspense fallback={<Spinner title={'loading'} size={SpinnerSize.large} />}>
-                        <Editor
-                            language="json"
-                            ref={payloadRef}
-                            options={{
-                                automaticLayout: true,
-                                readOnly: true,
-                            }}
-                            height="275px"
-                            value={JSON.stringify(this.state.payloadPreviewData, null, '\t')}
-                        />
+                        <ThemeContextConsumer>
+                            {(themeContext: ThemeContextInterface) => (
+                                <Editor
+                                    language="json"
+                                    ref={payloadRef}
+                                    options={{
+                                        automaticLayout: true,
+                                        readOnly: true,
+                                    }}
+                                    height="275px"
+                                    value={JSON.stringify(this.state.payloadPreviewData, null, '\t')}
+                                    theme={themeContext.monacoTheme}
+                                />
+                            )}
+                        </ThemeContextConsumer>
                     </React.Suspense>
                 </div>
                 <DialogFooter>
@@ -143,16 +149,21 @@ export default class DataForm extends React.Component<DataFormDataProps & DataFo
                 </LabelWithTooltip>
                 <div className="monaco-editor">
                     <React.Suspense fallback={<Spinner title={'loading'} size={SpinnerSize.large} />}>
-                        <Editor
-                            language="json"
-                            options={{
-                                automaticLayout: true,
-                                readOnly: false
-                            }}
-                            height="30vh"
-                            value={this.state.stringifiedFormData}
-                            onChange={this.onChangeEditor}
-                        />
+                        <ThemeContextConsumer>
+                            {(themeContext: ThemeContextInterface) => (
+                                <Editor
+                                    language="json"
+                                    options={{
+                                        automaticLayout: true,
+                                        readOnly: false
+                                    }}
+                                    height="30vh"
+                                    value={this.state.stringifiedFormData}
+                                    onChange={this.onChangeEditor}
+                                    theme={themeContext.monacoTheme}
+                                />
+                            )}
+                        </ThemeContextConsumer>
                     </React.Suspense>
                 </div>
                 {this.createActionButtons(context)}
@@ -211,7 +222,7 @@ export default class DataForm extends React.Component<DataFormDataProps & DataFo
                     iconProps={{ iconName: SUBMIT }}
                     disabled={buttonDisabled}
                 />
-                <DefaultButton
+                <ActionButton
                     className="preview-payload-button"
                     onClick={this.createPayloadPreview}
                     text={context.t(ResourceKeys.deviceSettings.previewPayloadButtonText)}

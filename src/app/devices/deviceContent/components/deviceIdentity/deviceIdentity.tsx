@@ -122,7 +122,7 @@ export default class DeviceIdentityInformation
         return (
             <div className="device-detail">
                 { this.props.identityWrapper.deviceIdentitySynchronizationStatus === SynchronizationStatus.working ?
-                    <Shimmer/> :
+                    <Shimmer className="fixed-shimmer" /> :
                     <>
                         <MaskedCopyableTextField
                             ariaLabel={context.t(ResourceKeys.deviceIdentity.deviceID)}

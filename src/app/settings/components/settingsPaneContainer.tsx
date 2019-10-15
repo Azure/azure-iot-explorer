@@ -20,7 +20,7 @@ const mapStateToProps = (state: StateType): SettingsPaneProps => {
         hubConnectionString: getConnectionStringSelector(state),
         isOpen: getSettingsVisibleSelector(state),
         rememberConnectionString: getRememberConnectionStringValueSelector(state),
-        repositoryLocations: getRepositoryLocationSettingsSelector(state),
+        repositoryLocations: getRepositoryLocationSettingsSelector(state)
     };
 };
 

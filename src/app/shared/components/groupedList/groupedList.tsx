@@ -12,7 +12,7 @@ import { ISelection, SelectionMode, Selection, SelectionZone } from 'office-ui-f
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
 import LabelWithTooltip from '../labelWithTooltip';
 import { GroupedList as GroupedListIconNames } from '../../../constants/iconNames';
-import { CHECKBOX_WIDTH_PERCENTAGE, GRID_STYLE_CONSTANTS, CHECKBOX_WIDTH_PIXELS, LABEL_COLOR, LABEL_FONT_SIZE, SHIMMER_HEIGHT } from './groupedListStyleConstants';
+import { CHECKBOX_WIDTH_PERCENTAGE, GRID_STYLE_CONSTANTS, CHECKBOX_WIDTH_PIXELS, LABEL_FONT_SIZE, SHIMMER_HEIGHT } from './groupedListStyleConstants';
 import '../../../css/_groupedList.scss';
 
 const SHIMMER_COUNT = 10;
@@ -149,7 +149,7 @@ export default class GroupedListWrapper<T> extends React.Component<GroupedListPr
         const { selection } = this.state;
         const columns = columnInfo || [];
 
-        const toggleCollapse = (event: Event | React.MouseEvent<HTMLDivElement | HTMLAnchorElement | HTMLButtonElement | BaseButton | Button>): void => {
+        const toggleCollapse = (event: Event | React.MouseEvent<HTMLDivElement | HTMLAnchorElement | HTMLButtonElement | BaseButton | Button | HTMLSpanElement>): void => {
             props.onToggleCollapse!(props.group!);
 
             (event as Event).cancelBubble = true; // tslint:disable-line
@@ -223,7 +223,6 @@ export default class GroupedListWrapper<T> extends React.Component<GroupedListPr
                             <LabelWithTooltip
                                 key={index}
                                 style={{
-                                    color: LABEL_COLOR,
                                     fontSize: LABEL_FONT_SIZE,
                                     gridColumnStart: index + columnOffset
                                 }}

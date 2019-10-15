@@ -2,7 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
- @import 'variables';
+ @import 'themes';
 
 .device-detail {
     padding: 20px;
@@ -13,7 +13,9 @@
 }
 
 .direct-method-monaco-editor {
-    border: 1px solid $grey-border;
+    @include themify($themes) {
+        border: 1px solid themed('borderColor')
+    }
     margin-bottom: 15px;
 }
 
@@ -24,7 +26,9 @@
 .properties-section {
     margin-top: 20px;
     padding-bottom: 20px;
-    border: 1px solid $grey-border;
+    @include themify($themes) {
+        border: 1px solid themed('borderColor')
+    }
     .properties-section-icon {
         float: left;
         margin-left: -5px;

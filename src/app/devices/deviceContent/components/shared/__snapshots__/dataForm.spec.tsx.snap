@@ -51,7 +51,7 @@ exports[`dataForm matches snapshot with simple type 1`] = `
         }
         text="text"
       />
-      <CustomizedDefaultButton
+      <CustomizedActionButton
         className="preview-payload-button"
         disabled={false}
         iconProps={
@@ -85,16 +85,9 @@ exports[`dataForm matches snapshot with simple type 1`] = `
           />
         }
       >
-        <React.Lazy
-          height="275px"
-          language="json"
-          options={
-            Object {
-              "automaticLayout": true,
-              "readOnly": true,
-            }
-          }
-        />
+        <ContextConsumer>
+          <Component />
+        </ContextConsumer>
       </React.Suspense>
     </div>
     <StyledDialogFooterBase>
@@ -128,18 +121,9 @@ exports[`dataForm matches snapshot with unsupported type 1`] = `
           />
         }
       >
-        <React.Lazy
-          height="30vh"
-          language="json"
-          onChange={[Function]}
-          options={
-            Object {
-              "automaticLayout": true,
-              "readOnly": false,
-            }
-          }
-          value="123"
-        />
+        <ContextConsumer>
+          <Component />
+        </ContextConsumer>
       </React.Suspense>
     </div>
     <CustomizedPrimaryButton
@@ -152,7 +136,7 @@ exports[`dataForm matches snapshot with unsupported type 1`] = `
       }
       text="text"
     />
-    <CustomizedDefaultButton
+    <CustomizedActionButton
       className="preview-payload-button"
       disabled={false}
       iconProps={
@@ -185,16 +169,9 @@ exports[`dataForm matches snapshot with unsupported type 1`] = `
           />
         }
       >
-        <React.Lazy
-          height="275px"
-          language="json"
-          options={
-            Object {
-              "automaticLayout": true,
-              "readOnly": true,
-            }
-          }
-        />
+        <ContextConsumer>
+          <Component />
+        </ContextConsumer>
       </React.Suspense>
     </div>
     <StyledDialogFooterBase>

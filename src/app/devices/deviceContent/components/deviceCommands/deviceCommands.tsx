@@ -39,7 +39,7 @@ export default class DeviceCommands
     public render(): JSX.Element {
         if (this.props.isLoading) {
             return (
-                <Shimmer/>
+                <Shimmer className="fixed-shimmer" />
             );
         }
 

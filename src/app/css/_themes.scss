@@ -1,0 +1,121 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+ @import 'palette';
+
+ $themes: (
+  light: (
+    backgroundColor: #ffffff,
+    buttonBackgroundColor: #161616,
+    buttonColor: $blue,
+    borderColor: $gray,
+    hoverColor: rgba(85, 179, 255, .10),
+    textColor: #161616,
+    textFieldBackgroundColorInactive: rgba(128, 128, 128, 0.1),
+    contrastBorder: $light-medium-gray,
+    iconInText: #636363,
+    summaryBackground: $light-gray,
+    searchButtonColor: #ffffff,
+    searchButtonBackground: $blue,
+    searchButtonDisabled: $gray,
+    searchBorderActiveColor: $blue,
+    searchBorderHoverColor: $blue,
+    searchBorderErrorColor: $errorBorder,
+    errorText: $errorText,
+    errorBorder: $errorBorder,
+    navBarBorderColor: $navBarBorderColor,
+    blockingColor: $blockingColor,
+    notificationBackground: $blue,
+    notificationSuccessColor: $successText,
+    notificationErrorColor: $errorText,
+    notificationWarningColor: $warningText,
+    notificationInfoColor: $infoText,
+    notificationTextColor: #161616,
+    notificationProgressBackground: $light-medium-gray !important,
+    notificationBackgroundColor: #ffffff,
+    maskedCopyableColor: #161616,
+    maskedCopyableBackground: #ffffff,
+    maskedCopyableReadonlyBackground: $textfield-disabled-background,
+    linkColor: $link-blue,
+    cellBackGround: $cell-gray,
+    selectedBorder: $selected-border,
+    boxShadowColor: $blockingColor,
+    formControlDisabledBackgroud: rgb(244,244,244),
+    formControlDisabledColor: rgb(166,166,166),
+    opaqueBlocking: $opaque-blocking,
+    numbering: #A6A6A6,
+    shadow: 0px 4px 4px rgba(0, 0, 0, 0.2),
+    calloutShadow: 0px 6.4px 14.4px 0px rgba(0, 0, 0, 0.133),
+    pagerTextColor: black,
+    pagerColor: $gray,
+    pagerColorSelected: $light-gray,
+    pagerButtonColor: $blue,
+  ),
+  dark: (
+    backgroundColor: $dark-gray,
+    buttonBackgroundColor: #ffffff,
+    buttonColor: rgb(75, 166, 216),
+    borderColor: $light-gray,
+    hoverColor: rgba(128, 128, 128, .15),
+    textColor: #ffffff,
+    textFieldBackgroundColorInactive: rgba(128, 128, 128, 0.1),
+    contrastBorder:$gray,
+    iconInText: #acacac,
+    summaryBackground: $light-gray,
+    searchButtonColor: #ffffff,
+    searchButtonBackground: $blue,
+    searchButtonDisabledBackground: $gray,
+    searchBorderActiveColor: $blue,
+    searchBorderHoverColor: $blue,
+    searchBorderErrorColor: $errorBorder,
+    errorText: $errorText,
+    errorBorder: $errorBorder,
+    navBarBorderColor: $navBarBorderColor,
+    blockingColor: $blockingColor,
+    notificationBackground: $blue,
+    notificationSuccessColor: $successText,
+    notificationErrorColor: $errorText,
+    notificationWarningColor: $warningText,
+    notificationInfoColor: $infoText,
+    notificationTextColor: #ffffff,
+    notificationBackgroundColor: $dark-gray,
+    notificationProgressBackground: $light-medium-gray !important,
+    maskedCopyableColor: #ffffff,
+    maskedCopyableReadonlyBackground: $medium-gray,
+    maskedCopyableBackground: $dark-gray,
+    linkColor: rgb(75, 166, 216),
+    cellBackground: $dark-gray,
+    selectedBorder: $selected-border,
+    boxShadowColor: $blockingColor,
+    formControlDisabledColor: $light-medium-gray,
+    formControlDisabledBackGround: #1a1a1f,
+    opaqueBlocking: $dark-gray,
+    numbering: #A6A6A6,
+    shadow: -1px 3px 6px 2px rgba(128, 128, 128, 0.6),
+    calloutShadow: 0px 3px 10px 5px rgba(128, 128, 128, 0.5),
+    pagerTextColor: black,
+    pagerColor: $blue,
+    pagerColorSelected: #ffffff,
+    pagerButtonColor: black,
+  ),
+);
+
+@mixin themify($themes: $themes) {
+    @each $theme, $map in $themes {
+      .theme-#{$theme} & {
+        $theme-map: () !global;
+        @each $key, $submap in $map {
+          $value: map-get(map-get($themes, $theme), '#{$key}');
+          $theme-map: map-merge($theme-map, ($key: $value)) !global;
+        }
+
+        @content;
+        $theme-map: null !global;
+    }
+  }
+}
+
+@function themed($key) {
+  @return map-get($theme-map, $key);
+}

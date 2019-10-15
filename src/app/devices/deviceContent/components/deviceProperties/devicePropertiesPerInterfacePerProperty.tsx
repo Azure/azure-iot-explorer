@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { Label } from 'office-ui-fabric-react/lib/Label';
-import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
+import { ActionButton } from 'office-ui-fabric-react/lib/Button';
 import { ParsedJsonSchema } from '../../../../api/models/interfaceJsonParserOutput';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
@@ -66,7 +66,7 @@ export default class DevicePropertiesPerInterfacePerProperty
         displayName = displayName ? displayName : '--';
         let description = getLocalizedData(this.props.propertyModelDefinition.description);
         description = description ? description : '--';
-        return <div className="ms-Grid-col ms-u-sm3"><Label aria-label={ariaLabel}>{this.props.propertyModelDefinition.name} ({displayName} / {description})</Label></div>;
+        return <div className="ms-Grid-col ms-sm3"><Label aria-label={ariaLabel}>{this.props.propertyModelDefinition.name} ({displayName} / {description})</Label></div>;
     }
 
     private readonly renderPropertySchema = (context: LocalizationContextInterface) => {
@@ -75,32 +75,32 @@ export default class DevicePropertiesPerInterfacePerProperty
         const schemaType = typeof propertyModelDefinition.schema === 'string' ?
             propertyModelDefinition.schema :
             propertyModelDefinition.schema['@type'];
-        return <div className="ms-Grid-col ms-u-sm3"><Label aria-label={ariaLabel}>{schemaType}</Label></div>;
+        return <div className="ms-Grid-col ms-sm3"><Label aria-label={ariaLabel}>{schemaType}</Label></div>;
     }
 
     private readonly renderPropertyUnit = (context: LocalizationContextInterface) => {
         const ariaLabel = context.t(ResourceKeys.deviceProperties.columns.unit);
         const unit = this.props.propertyModelDefinition.unit;
-        return <div className="ms-Grid-col ms-u-sm3"><Label aria-label={ariaLabel}>{unit ? unit : '--'}</Label></div>;
+        return <div className="ms-Grid-col ms-sm3"><Label aria-label={ariaLabel}>{unit ? unit : '--'}</Label></div>;
     }
 
     private readonly renderPropertyReportedValue = (context: LocalizationContextInterface) => {
         const ariaLabel = context.t(ResourceKeys.deviceProperties.columns.value);
         return (
-            <div className="column-value-text ms-Grid-col ms-u-sm3" aria-label={ariaLabel}>
+            <div className="column-value-text ms-Grid-col ms-sm3" aria-label={ariaLabel}>
                 {this.props.reportedTwin ?
                     (this.isSchemaSimpleType() ?
                         RenderSimplyTypeValue(
                             this.props.reportedTwin,
                             this.props.propertySchema,
                             context.t(ResourceKeys.deviceProperties.columns.error)) :
-                        <DefaultButton
+                        <ActionButton
                             className="column-value-button"
                             ariaDescription={context.t(ResourceKeys.deviceProperties.command.openReportedValuePanel)}
                             onClick={this.onViewReportedValue}
                         >
                             {context.t(ResourceKeys.deviceProperties.command.openReportedValuePanel)}
-                        </DefaultButton>
+                        </ActionButton>
                     ) : <Label>--</Label>
                 }
             </div>

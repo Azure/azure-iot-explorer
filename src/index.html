@@ -14,4 +14,8 @@
 <body>
     <div id="device-explorer"></div>
 </body>
+<script type="text/javascript">
+    var theme = localStorage.getItem('THEME_SELECTION');
+    document.body.classList.add('theme-' + (theme || 'light'));
+</script>
 </html>

@@ -18,6 +18,7 @@ import { CLOSE } from '../../../../constants/iconNames';
 import { PropertyContent } from '../../../../api/models/modelDefinition';
 import ErrorBoundary from '../../../errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
+import { ThemeContextConsumer, ThemeContextInterface } from '../../../../shared/contexts/themeContext';
 
 const EditorPromise = import('react-monaco-editor');
 const Editor = React.lazy(() => EditorPromise);
@@ -107,15 +108,20 @@ export default class ComplexReportedFormPanel extends React.Component<ReportedFo
                 <Label>{context.t(ResourceKeys.deviceProperties.editor.label, {schema: this.getSettingSchema()})}</Label>
                 <div className="monaco-editor">
                     <React.Suspense fallback={<Spinner title={'loading'} size={SpinnerSize.large} />}>
-                        <Editor
-                            language="json"
-                            options={{
-                                automaticLayout: true,
-                                readOnly: true
-                            }}
-                            height="70vh"
-                            value={JSON.stringify(this.state.formData, null, '\t')}
-                        />
+                        <ThemeContextConsumer>
+                            {(themeContext: ThemeContextInterface) => (
+                                <Editor
+                                    language="json"
+                                    options={{
+                                        automaticLayout: true,
+                                        readOnly: true
+                                    }}
+                                    height="70vh"
+                                    value={JSON.stringify(this.state.formData, null, '\t')}
+                                    theme={themeContext.monacoTheme}
+                                />
+                            )}
+                        </ThemeContextConsumer>
                     </React.Suspense>
                 </div>
             </form>

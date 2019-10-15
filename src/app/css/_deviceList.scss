@@ -2,7 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-@import 'variables';
+@import 'themes';
 @import 'mixins';
 
 .deviceId-label {
@@ -23,7 +23,9 @@
         max-height: 392px;
     }
     .ms-Overlay {
-        background-color: $blocking;
+        @include themify($themes) {
+            background-color: themed('blockingColor')
+        }
     }
     ul.deleting-devices {
         list-style: none;

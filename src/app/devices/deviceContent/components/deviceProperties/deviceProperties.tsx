@@ -33,7 +33,7 @@ export default class DeviceProperties
     public render(): JSX.Element {
         if (this.props.isLoading) {
             return (
-                <Shimmer/>
+                <Shimmer className="fixed-shimmer" />
             );
         }
 

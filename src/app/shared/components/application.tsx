@@ -30,7 +30,10 @@ const app = (localizationContext: any) => {
                             <Route path="/devices" component={DeviceLayout}/>
                             <Route component={NoMatchError}/>
                         </Switch>
-                        <ToastContainer autoClose={NOTIFICATION_AUTO_CLOSE}/>
+                        <ToastContainer
+                            autoClose={NOTIFICATION_AUTO_CLOSE}
+                            toastClassName="toast-notification"
+                        />
                     </div>
                 </div>
             </HashRouter>

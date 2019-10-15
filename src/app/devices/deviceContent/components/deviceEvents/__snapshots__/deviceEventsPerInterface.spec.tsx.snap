@@ -1,27 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`components/devices/deviceEvents matches snapshot while state is loading 1`] = `
-<StyledShimmerBase>
+<StyledShimmerBase
+  className="fixed-shimmer"
+>
   <ShimmerBase
+    className="fixed-shimmer"
     isDataLoaded={false}
     styles={[Function]}
     theme={
       Object {
         "disableGlobalClassNames": false,
         "effects": Object {
-          "elevation16": "0 0 5px 0 rgba(0,0,0,.4)",
-          "elevation4": "0 0 5px 0 rgba(0,0,0,.4)",
-          "elevation64": "0 0 5px 0 rgba(0,0,0,.4)",
-          "elevation8": "0 0 5px 0 rgba(0,0,0,.4)",
-          "roundedCorner2": "0px",
+          "elevation16": "0 6.4px 14.4px 0 rgba(0, 0, 0, 0.132), 0 1.2px 3.6px 0 rgba(0, 0, 0, 0.108)",
+          "elevation4": "0 1.6px 3.6px 0 rgba(0, 0, 0, 0.132), 0 0.3px 0.9px 0 rgba(0, 0, 0, 0.108)",
+          "elevation64": "0 25.6px 57.6px 0 rgba(0, 0, 0, 0.22), 0 4.8px 14.4px 0 rgba(0, 0, 0, 0.18)",
+          "elevation8": "0 3.2px 7.2px 0 rgba(0, 0, 0, 0.132), 0 0.6px 1.8px 0 rgba(0, 0, 0, 0.108)",
+          "roundedCorner2": "2px",
         },
         "fonts": Object {
           "large": Object {
             "MozOsxFontSmoothing": "grayscale",
             "WebkitFontSmoothing": "antialiased",
-            "fontFamily": "'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-            "fontSize": "17px",
-            "fontWeight": 300,
+            "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+            "fontSize": "18px",
+            "fontWeight": 400,
           },
           "medium": Object {
             "MozOsxFontSmoothing": "grayscale",
@@ -34,15 +37,15 @@ exports[`components/devices/deviceEvents matches snapshot while state is loading
             "MozOsxFontSmoothing": "grayscale",
             "WebkitFontSmoothing": "antialiased",
             "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-            "fontSize": "15px",
+            "fontSize": "16px",
             "fontWeight": 400,
           },
           "mega": Object {
             "MozOsxFontSmoothing": "grayscale",
             "WebkitFontSmoothing": "antialiased",
             "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-            "fontSize": "72px",
-            "fontWeight": 100,
+            "fontSize": "68px",
+            "fontWeight": 600,
           },
           "small": Object {
             "MozOsxFontSmoothing": "grayscale",
@@ -55,7 +58,7 @@ exports[`components/devices/deviceEvents matches snapshot while state is loading
             "MozOsxFontSmoothing": "grayscale",
             "WebkitFontSmoothing": "antialiased",
             "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-            "fontSize": "13px",
+            "fontSize": "12px",
             "fontWeight": 400,
           },
           "superLarge": Object {
@@ -63,27 +66,34 @@ exports[`components/devices/deviceEvents matches snapshot while state is loading
             "WebkitFontSmoothing": "antialiased",
             "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
             "fontSize": "42px",
-            "fontWeight": 100,
+            "fontWeight": 600,
           },
           "tiny": Object {
             "MozOsxFontSmoothing": "grayscale",
             "WebkitFontSmoothing": "antialiased",
             "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
             "fontSize": "10px",
-            "fontWeight": 600,
+            "fontWeight": 400,
           },
           "xLarge": Object {
             "MozOsxFontSmoothing": "grayscale",
             "WebkitFontSmoothing": "antialiased",
             "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-            "fontSize": "21px",
-            "fontWeight": 100,
+            "fontSize": "20px",
+            "fontWeight": 600,
+          },
+          "xLargePlus": Object {
+            "MozOsxFontSmoothing": "grayscale",
+            "WebkitFontSmoothing": "antialiased",
+            "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+            "fontSize": "24px",
+            "fontWeight": 600,
           },
           "xSmall": Object {
             "MozOsxFontSmoothing": "grayscale",
             "WebkitFontSmoothing": "antialiased",
             "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-            "fontSize": "11px",
+            "fontSize": "10px",
             "fontWeight": 400,
           },
           "xxLarge": Object {
@@ -91,7 +101,14 @@ exports[`components/devices/deviceEvents matches snapshot while state is loading
             "WebkitFontSmoothing": "antialiased",
             "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
             "fontSize": "28px",
-            "fontWeight": 100,
+            "fontWeight": 600,
+          },
+          "xxLargePlus": Object {
+            "MozOsxFontSmoothing": "grayscale",
+            "WebkitFontSmoothing": "antialiased",
+            "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+            "fontSize": "32px",
+            "fontWeight": 600,
           },
         },
         "isInverted": false,
@@ -109,18 +126,18 @@ exports[`components/devices/deviceEvents matches snapshot while state is loading
           "magenta": "#b4009e",
           "magentaDark": "#5c005c",
           "magentaLight": "#e3008c",
-          "neutralDark": "#212121",
-          "neutralLight": "#eaeaea",
-          "neutralLighter": "#f4f4f4",
-          "neutralLighterAlt": "#f8f8f8",
-          "neutralPrimary": "#333333",
-          "neutralPrimaryAlt": "#3c3c3c",
-          "neutralQuaternary": "#d0d0d0",
-          "neutralQuaternaryAlt": "#dadada",
-          "neutralSecondary": "#666666",
-          "neutralSecondaryAlt": "#767676",
-          "neutralTertiary": "#a6a6a6",
-          "neutralTertiaryAlt": "#c8c8c8",
+          "neutralDark": "#201f1e",
+          "neutralLight": "#edebe9",
+          "neutralLighter": "#f3f2f1",
+          "neutralLighterAlt": "#faf9f8",
+          "neutralPrimary": "#323130",
+          "neutralPrimaryAlt": "#3b3a39",
+          "neutralQuaternary": "#d2d0ce",
+          "neutralQuaternaryAlt": "#e1dfdd",
+          "neutralSecondary": "#605e5c",
+          "neutralSecondaryAlt": "#8a8886",
+          "neutralTertiary": "#a19f9d",
+          "neutralTertiaryAlt": "#c8c6c4",
           "orange": "#d83b01",
           "orangeLight": "#ea4300",
           "orangeLighter": "#ff8c00",
@@ -128,7 +145,7 @@ exports[`components/devices/deviceEvents matches snapshot while state is loading
           "purpleDark": "#32145a",
           "purpleLight": "#b4a0ff",
           "red": "#e81123",
-          "redDark": "#a80000",
+          "redDark": "#a4262c",
           "teal": "#008272",
           "tealDark": "#004b50",
           "tealLight": "#00b294",
@@ -150,83 +167,91 @@ exports[`components/devices/deviceEvents matches snapshot while state is loading
         "semanticColors": Object {
           "accentButtonBackground": "#0078d4",
           "accentButtonText": "#ffffff",
-          "actionLink": "#333333",
-          "actionLinkHovered": "#212121",
-          "blockingBackground": "rgba(234, 67, 0, .2)",
+          "actionLink": "#323130",
+          "actionLinkHovered": "#201f1e",
+          "blockingBackground": "rgba(250, 65, 0, .2)",
           "bodyBackground": "#ffffff",
-          "bodyDivider": "#eaeaea",
+          "bodyBackgroundChecked": "#edebe9",
+          "bodyBackgroundHovered": "#f3f2f1",
+          "bodyDivider": "#edebe9",
           "bodyFrameBackground": "#ffffff",
-          "bodyFrameDivider": "#eaeaea",
-          "bodyStandoutBackground": "#f8f8f8",
-          "bodySubtext": "#666666",
-          "bodyText": "#333333",
+          "bodyFrameDivider": "#edebe9",
+          "bodyStandoutBackground": "#faf9f8",
+          "bodySubtext": "#605e5c",
+          "bodyText": "#323130",
           "bodyTextChecked": "#000000",
-          "buttonBackground": "#f4f4f4",
-          "buttonBackgroundChecked": "#c8c8c8",
-          "buttonBackgroundCheckedHovered": "#eaeaea",
-          "buttonBackgroundDisabled": "#f4f4f4",
-          "buttonBackgroundHovered": "#eaeaea",
-          "buttonBackgroundPressed": "#eaeaea",
-          "buttonBorder": "transparent",
-          "buttonBorderDisabled": "transparent",
-          "buttonText": "#333333",
-          "buttonTextChecked": "#212121",
+          "buttonBackground": "#ffffff",
+          "buttonBackgroundChecked": "#c8c6c4",
+          "buttonBackgroundCheckedHovered": "#edebe9",
+          "buttonBackgroundDisabled": "#f3f2f1",
+          "buttonBackgroundHovered": "#f3f2f1",
+          "buttonBackgroundPressed": "#edebe9",
+          "buttonBorder": "#8a8886",
+          "buttonBorderDisabled": "#f3f2f1",
+          "buttonText": "#323130",
+          "buttonTextChecked": "#201f1e",
           "buttonTextCheckedHovered": "#000000",
-          "buttonTextDisabled": "#a6a6a6",
-          "buttonTextHovered": "#212121",
-          "buttonTextPressed": "#212121",
-          "defaultStateBackground": "#f8f8f8",
-          "disabledBackground": "#f4f4f4",
-          "disabledBodySubtext": "#c8c8c8",
-          "disabledBodyText": "#a6a6a6",
-          "disabledSubtext": "#d0d0d0",
-          "disabledText": "#a6a6a6",
-          "errorBackground": "rgba(232, 17, 35, .2)",
-          "errorText": "#a80000",
-          "focusBorder": "#666666",
+          "buttonTextDisabled": "#a19f9d",
+          "buttonTextHovered": "#201f1e",
+          "buttonTextPressed": "#201f1e",
+          "defaultStateBackground": "#faf9f8",
+          "disabledBackground": "#f3f2f1",
+          "disabledBodySubtext": "#c8c6c4",
+          "disabledBodyText": "#a19f9d",
+          "disabledBorder": "#c8c6c4",
+          "disabledSubtext": "#d2d0ce",
+          "disabledText": "#a19f9d",
+          "errorBackground": "rgba(245, 135, 145, .2)",
+          "errorText": "#a4262c",
+          "focusBorder": "#605e5c",
           "inputBackground": "#ffffff",
           "inputBackgroundChecked": "#0078d4",
-          "inputBackgroundCheckedHovered": "#106ebe",
-          "inputBorder": "#a6a6a6",
-          "inputBorderHovered": "#333333",
+          "inputBackgroundCheckedHovered": "#005a9e",
+          "inputBorder": "#8a8886",
+          "inputBorderHovered": "#323130",
           "inputFocusBorderAlt": "#0078d4",
           "inputForegroundChecked": "#ffffff",
-          "inputPlaceholderText": "#666666",
-          "inputText": "#333333",
-          "inputTextHovered": "#212121",
+          "inputIcon": "#0078d4",
+          "inputIconDisabled": "#a19f9d",
+          "inputIconHovered": "#005a9e",
+          "inputPlaceholderBackgroundChecked": "#deecf9",
+          "inputPlaceholderText": "#605e5c",
+          "inputText": "#323130",
+          "inputTextHovered": "#201f1e",
           "link": "#0078d4",
           "linkHovered": "#004578",
           "listBackground": "#ffffff",
-          "listHeaderBackgroundHovered": "#f4f4f4",
-          "listHeaderBackgroundPressed": "#eaeaea",
-          "listItemBackgroundChecked": "#eaeaea",
-          "listItemBackgroundCheckedHovered": "#dadada",
-          "listItemBackgroundHovered": "#f4f4f4",
-          "listText": "#333333",
-          "listTextColor": "#333333",
+          "listHeaderBackgroundHovered": "#f3f2f1",
+          "listHeaderBackgroundPressed": "#edebe9",
+          "listItemBackgroundChecked": "#edebe9",
+          "listItemBackgroundCheckedHovered": "#e1dfdd",
+          "listItemBackgroundHovered": "#f3f2f1",
+          "listText": "#323130",
+          "listTextColor": "#323130",
           "menuBackground": "#ffffff",
-          "menuDivider": "#c8c8c8",
+          "menuDivider": "#c8c6c4",
           "menuHeader": "#0078d4",
           "menuIcon": "#0078d4",
-          "menuItemBackgroundChecked": "#eaeaea",
-          "menuItemBackgroundHovered": "#f4f4f4",
-          "menuItemBackgroundPressed": "#eaeaea",
-          "menuItemText": "#333333",
-          "menuItemTextHovered": "#212121",
+          "menuItemBackgroundChecked": "#edebe9",
+          "menuItemBackgroundHovered": "#f3f2f1",
+          "menuItemBackgroundPressed": "#edebe9",
+          "menuItemText": "#323130",
+          "menuItemTextHovered": "#201f1e",
           "primaryButtonBackground": "#0078d4",
-          "primaryButtonBackgroundDisabled": "#f4f4f4",
+          "primaryButtonBackgroundDisabled": "#f3f2f1",
           "primaryButtonBackgroundHovered": "#106ebe",
           "primaryButtonBackgroundPressed": "#005a9e",
           "primaryButtonBorder": "transparent",
           "primaryButtonText": "#ffffff",
-          "primaryButtonTextDisabled": "#d0d0d0",
+          "primaryButtonTextDisabled": "#d2d0ce",
           "primaryButtonTextHovered": "#ffffff",
           "primaryButtonTextPressed": "#ffffff",
-          "smallInputBorder": "#666666",
-          "successBackground": "rgba(186, 216, 10, .2)",
-          "variantBorder": "#eaeaea",
-          "variantBorderHovered": "#a6a6a6",
-          "warningBackground": "rgba(255, 185, 0, .2)",
+          "smallInputBorder": "#605e5c",
+          "successBackground": "rgba(95, 210, 85, .2)",
+          "successText": "#107C10",
+          "variantBorder": "#edebe9",
+          "variantBorderHovered": "#a19f9d",
+          "warningBackground": "rgba(255, 200, 10, .2)",
           "warningHighlight": "#ffb900",
           "warningText": "#333333",
         },
@@ -241,37 +266,39 @@ exports[`components/devices/deviceEvents matches snapshot while state is loading
     }
   >
     <div
-      className="ms-Shimmer-container root-47"
+      className="ms-Shimmer-container fixed-shimmer root-49"
     >
       <div
-        className="ms-Shimmer-shimmerWrapper shimmerWrapper-48"
+        className="ms-Shimmer-shimmerWrapper shimmerWrapper-50"
         style={
           Object {
             "width": "100%",
           }
         }
       >
-        <StyledShimmerElementsGroupBase>
-          <ShimmerElementsGroupBase
-            flexWrap={false}
+        <div
+          className="ms-Shimmer-shimmerGradient shimmerGradient-51"
+        />
+        <Styled>
+          <Component
             styles={[Function]}
             theme={
               Object {
                 "disableGlobalClassNames": false,
                 "effects": Object {
-                  "elevation16": "0 0 5px 0 rgba(0,0,0,.4)",
-                  "elevation4": "0 0 5px 0 rgba(0,0,0,.4)",
-                  "elevation64": "0 0 5px 0 rgba(0,0,0,.4)",
-                  "elevation8": "0 0 5px 0 rgba(0,0,0,.4)",
-                  "roundedCorner2": "0px",
+                  "elevation16": "0 6.4px 14.4px 0 rgba(0, 0, 0, 0.132), 0 1.2px 3.6px 0 rgba(0, 0, 0, 0.108)",
+                  "elevation4": "0 1.6px 3.6px 0 rgba(0, 0, 0, 0.132), 0 0.3px 0.9px 0 rgba(0, 0, 0, 0.108)",
+                  "elevation64": "0 25.6px 57.6px 0 rgba(0, 0, 0, 0.22), 0 4.8px 14.4px 0 rgba(0, 0, 0, 0.18)",
+                  "elevation8": "0 3.2px 7.2px 0 rgba(0, 0, 0, 0.132), 0 0.6px 1.8px 0 rgba(0, 0, 0, 0.108)",
+                  "roundedCorner2": "2px",
                 },
                 "fonts": Object {
                   "large": Object {
                     "MozOsxFontSmoothing": "grayscale",
                     "WebkitFontSmoothing": "antialiased",
-                    "fontFamily": "'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                    "fontSize": "17px",
-                    "fontWeight": 300,
+                    "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                    "fontSize": "18px",
+                    "fontWeight": 400,
                   },
                   "medium": Object {
                     "MozOsxFontSmoothing": "grayscale",
@@ -284,15 +311,15 @@ exports[`components/devices/deviceEvents matches snapshot while state is loading
                     "MozOsxFontSmoothing": "grayscale",
                     "WebkitFontSmoothing": "antialiased",
                     "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                    "fontSize": "15px",
+                    "fontSize": "16px",
                     "fontWeight": 400,
                   },
                   "mega": Object {
                     "MozOsxFontSmoothing": "grayscale",
                     "WebkitFontSmoothing": "antialiased",
                     "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                    "fontSize": "72px",
-                    "fontWeight": 100,
+                    "fontSize": "68px",
+                    "fontWeight": 600,
                   },
                   "small": Object {
                     "MozOsxFontSmoothing": "grayscale",
@@ -305,7 +332,7 @@ exports[`components/devices/deviceEvents matches snapshot while state is loading
                     "MozOsxFontSmoothing": "grayscale",
                     "WebkitFontSmoothing": "antialiased",
                     "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                    "fontSize": "13px",
+                    "fontSize": "12px",
                     "fontWeight": 400,
                   },
                   "superLarge": Object {
@@ -313,27 +340,34 @@ exports[`components/devices/deviceEvents matches snapshot while state is loading
                     "WebkitFontSmoothing": "antialiased",
                     "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
                     "fontSize": "42px",
-                    "fontWeight": 100,
+                    "fontWeight": 600,
                   },
                   "tiny": Object {
                     "MozOsxFontSmoothing": "grayscale",
                     "WebkitFontSmoothing": "antialiased",
                     "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
                     "fontSize": "10px",
-                    "fontWeight": 600,
+                    "fontWeight": 400,
                   },
                   "xLarge": Object {
                     "MozOsxFontSmoothing": "grayscale",
                     "WebkitFontSmoothing": "antialiased",
                     "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                    "fontSize": "21px",
-                    "fontWeight": 100,
+                    "fontSize": "20px",
+                    "fontWeight": 600,
+                  },
+                  "xLargePlus": Object {
+                    "MozOsxFontSmoothing": "grayscale",
+                    "WebkitFontSmoothing": "antialiased",
+                    "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                    "fontSize": "24px",
+                    "fontWeight": 600,
                   },
                   "xSmall": Object {
                     "MozOsxFontSmoothing": "grayscale",
                     "WebkitFontSmoothing": "antialiased",
                     "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                    "fontSize": "11px",
+                    "fontSize": "10px",
                     "fontWeight": 400,
                   },
                   "xxLarge": Object {
@@ -341,7 +375,14 @@ exports[`components/devices/deviceEvents matches snapshot while state is loading
                     "WebkitFontSmoothing": "antialiased",
                     "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
                     "fontSize": "28px",
-                    "fontWeight": 100,
+                    "fontWeight": 600,
+                  },
+                  "xxLargePlus": Object {
+                    "MozOsxFontSmoothing": "grayscale",
+                    "WebkitFontSmoothing": "antialiased",
+                    "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                    "fontSize": "32px",
+                    "fontWeight": 600,
                   },
                 },
                 "isInverted": false,
@@ -359,18 +400,18 @@ exports[`components/devices/deviceEvents matches snapshot while state is loading
                   "magenta": "#b4009e",
                   "magentaDark": "#5c005c",
                   "magentaLight": "#e3008c",
-                  "neutralDark": "#212121",
-                  "neutralLight": "#eaeaea",
-                  "neutralLighter": "#f4f4f4",
-                  "neutralLighterAlt": "#f8f8f8",
-                  "neutralPrimary": "#333333",
-                  "neutralPrimaryAlt": "#3c3c3c",
-                  "neutralQuaternary": "#d0d0d0",
-                  "neutralQuaternaryAlt": "#dadada",
-                  "neutralSecondary": "#666666",
-                  "neutralSecondaryAlt": "#767676",
-                  "neutralTertiary": "#a6a6a6",
-                  "neutralTertiaryAlt": "#c8c8c8",
+                  "neutralDark": "#201f1e",
+                  "neutralLight": "#edebe9",
+                  "neutralLighter": "#f3f2f1",
+                  "neutralLighterAlt": "#faf9f8",
+                  "neutralPrimary": "#323130",
+                  "neutralPrimaryAlt": "#3b3a39",
+                  "neutralQuaternary": "#d2d0ce",
+                  "neutralQuaternaryAlt": "#e1dfdd",
+                  "neutralSecondary": "#605e5c",
+                  "neutralSecondaryAlt": "#8a8886",
+                  "neutralTertiary": "#a19f9d",
+                  "neutralTertiaryAlt": "#c8c6c4",
                   "orange": "#d83b01",
                   "orangeLight": "#ea4300",
                   "orangeLighter": "#ff8c00",
@@ -378,7 +419,7 @@ exports[`components/devices/deviceEvents matches snapshot while state is loading
                   "purpleDark": "#32145a",
                   "purpleLight": "#b4a0ff",
                   "red": "#e81123",
-                  "redDark": "#a80000",
+                  "redDark": "#a4262c",
                   "teal": "#008272",
                   "tealDark": "#004b50",
                   "tealLight": "#00b294",
@@ -400,83 +441,91 @@ exports[`components/devices/deviceEvents matches snapshot while state is loading
                 "semanticColors": Object {
                   "accentButtonBackground": "#0078d4",
                   "accentButtonText": "#ffffff",
-                  "actionLink": "#333333",
-                  "actionLinkHovered": "#212121",
-                  "blockingBackground": "rgba(234, 67, 0, .2)",
+                  "actionLink": "#323130",
+                  "actionLinkHovered": "#201f1e",
+                  "blockingBackground": "rgba(250, 65, 0, .2)",
                   "bodyBackground": "#ffffff",
-                  "bodyDivider": "#eaeaea",
+                  "bodyBackgroundChecked": "#edebe9",
+                  "bodyBackgroundHovered": "#f3f2f1",
+                  "bodyDivider": "#edebe9",
                   "bodyFrameBackground": "#ffffff",
-                  "bodyFrameDivider": "#eaeaea",
-                  "bodyStandoutBackground": "#f8f8f8",
-                  "bodySubtext": "#666666",
-                  "bodyText": "#333333",
+                  "bodyFrameDivider": "#edebe9",
+                  "bodyStandoutBackground": "#faf9f8",
+                  "bodySubtext": "#605e5c",
+                  "bodyText": "#323130",
                   "bodyTextChecked": "#000000",
-                  "buttonBackground": "#f4f4f4",
-                  "buttonBackgroundChecked": "#c8c8c8",
-                  "buttonBackgroundCheckedHovered": "#eaeaea",
-                  "buttonBackgroundDisabled": "#f4f4f4",
-                  "buttonBackgroundHovered": "#eaeaea",
-                  "buttonBackgroundPressed": "#eaeaea",
-                  "buttonBorder": "transparent",
-                  "buttonBorderDisabled": "transparent",
-                  "buttonText": "#333333",
-                  "buttonTextChecked": "#212121",
+                  "buttonBackground": "#ffffff",
+                  "buttonBackgroundChecked": "#c8c6c4",
+                  "buttonBackgroundCheckedHovered": "#edebe9",
+                  "buttonBackgroundDisabled": "#f3f2f1",
+                  "buttonBackgroundHovered": "#f3f2f1",
+                  "buttonBackgroundPressed": "#edebe9",
+                  "buttonBorder": "#8a8886",
+                  "buttonBorderDisabled": "#f3f2f1",
+                  "buttonText": "#323130",
+                  "buttonTextChecked": "#201f1e",
                   "buttonTextCheckedHovered": "#000000",
-                  "buttonTextDisabled": "#a6a6a6",
-                  "buttonTextHovered": "#212121",
-                  "buttonTextPressed": "#212121",
-                  "defaultStateBackground": "#f8f8f8",
-                  "disabledBackground": "#f4f4f4",
-                  "disabledBodySubtext": "#c8c8c8",
-                  "disabledBodyText": "#a6a6a6",
-                  "disabledSubtext": "#d0d0d0",
-                  "disabledText": "#a6a6a6",
-                  "errorBackground": "rgba(232, 17, 35, .2)",
-                  "errorText": "#a80000",
-                  "focusBorder": "#666666",
+                  "buttonTextDisabled": "#a19f9d",
+                  "buttonTextHovered": "#201f1e",
+                  "buttonTextPressed": "#201f1e",
+                  "defaultStateBackground": "#faf9f8",
+                  "disabledBackground": "#f3f2f1",
+                  "disabledBodySubtext": "#c8c6c4",
+                  "disabledBodyText": "#a19f9d",
+                  "disabledBorder": "#c8c6c4",
+                  "disabledSubtext": "#d2d0ce",
+                  "disabledText": "#a19f9d",
+                  "errorBackground": "rgba(245, 135, 145, .2)",
+                  "errorText": "#a4262c",
+                  "focusBorder": "#605e5c",
                   "inputBackground": "#ffffff",
                   "inputBackgroundChecked": "#0078d4",
-                  "inputBackgroundCheckedHovered": "#106ebe",
-                  "inputBorder": "#a6a6a6",
-                  "inputBorderHovered": "#333333",
+                  "inputBackgroundCheckedHovered": "#005a9e",
+                  "inputBorder": "#8a8886",
+                  "inputBorderHovered": "#323130",
                   "inputFocusBorderAlt": "#0078d4",
                   "inputForegroundChecked": "#ffffff",
-                  "inputPlaceholderText": "#666666",
-                  "inputText": "#333333",
-                  "inputTextHovered": "#212121",
+                  "inputIcon": "#0078d4",
+                  "inputIconDisabled": "#a19f9d",
+                  "inputIconHovered": "#005a9e",
+                  "inputPlaceholderBackgroundChecked": "#deecf9",
+                  "inputPlaceholderText": "#605e5c",
+                  "inputText": "#323130",
+                  "inputTextHovered": "#201f1e",
                   "link": "#0078d4",
                   "linkHovered": "#004578",
                   "listBackground": "#ffffff",
-                  "listHeaderBackgroundHovered": "#f4f4f4",
-                  "listHeaderBackgroundPressed": "#eaeaea",
-                  "listItemBackgroundChecked": "#eaeaea",
-                  "listItemBackgroundCheckedHovered": "#dadada",
-                  "listItemBackgroundHovered": "#f4f4f4",
-                  "listText": "#333333",
-                  "listTextColor": "#333333",
+                  "listHeaderBackgroundHovered": "#f3f2f1",
+                  "listHeaderBackgroundPressed": "#edebe9",
+                  "listItemBackgroundChecked": "#edebe9",
+                  "listItemBackgroundCheckedHovered": "#e1dfdd",
+                  "listItemBackgroundHovered": "#f3f2f1",
+                  "listText": "#323130",
+                  "listTextColor": "#323130",
                   "menuBackground": "#ffffff",
-                  "menuDivider": "#c8c8c8",
+                  "menuDivider": "#c8c6c4",
                   "menuHeader": "#0078d4",
                   "menuIcon": "#0078d4",
-                  "menuItemBackgroundChecked": "#eaeaea",
-                  "menuItemBackgroundHovered": "#f4f4f4",
-                  "menuItemBackgroundPressed": "#eaeaea",
-                  "menuItemText": "#333333",
-                  "menuItemTextHovered": "#212121",
+                  "menuItemBackgroundChecked": "#edebe9",
+                  "menuItemBackgroundHovered": "#f3f2f1",
+                  "menuItemBackgroundPressed": "#edebe9",
+                  "menuItemText": "#323130",
+                  "menuItemTextHovered": "#201f1e",
                   "primaryButtonBackground": "#0078d4",
-                  "primaryButtonBackgroundDisabled": "#f4f4f4",
+                  "primaryButtonBackgroundDisabled": "#f3f2f1",
                   "primaryButtonBackgroundHovered": "#106ebe",
                   "primaryButtonBackgroundPressed": "#005a9e",
                   "primaryButtonBorder": "transparent",
                   "primaryButtonText": "#ffffff",
-                  "primaryButtonTextDisabled": "#d0d0d0",
+                  "primaryButtonTextDisabled": "#d2d0ce",
                   "primaryButtonTextHovered": "#ffffff",
                   "primaryButtonTextPressed": "#ffffff",
-                  "smallInputBorder": "#666666",
-                  "successBackground": "rgba(186, 216, 10, .2)",
-                  "variantBorder": "#eaeaea",
-                  "variantBorderHovered": "#a6a6a6",
-                  "warningBackground": "rgba(255, 185, 0, .2)",
+                  "smallInputBorder": "#605e5c",
+                  "successBackground": "rgba(95, 210, 85, .2)",
+                  "successText": "#107C10",
+                  "variantBorder": "#edebe9",
+                  "variantBorderHovered": "#a19f9d",
+                  "warningBackground": "rgba(255, 200, 10, .2)",
                   "warningHighlight": "#ffb900",
                   "warningText": "#333333",
                 },
@@ -491,45 +540,36 @@ exports[`components/devices/deviceEvents matches snapshot while state is loading
             }
           >
             <div
-              className="ms-ShimmerElementsGroup-root root-51"
+              className="ms-ShimmerElementsGroup-root root-54"
               style={
                 Object {
                   "width": "auto",
                 }
               }
             >
-              <StyledShimmerLineBase
+              <Styled
                 height={16}
-                styles={
-                  Object {
-                    "root": Array [
-                      Object {
-                        "borderWidth": "0px",
-                      },
-                    ],
-                  }
-                }
               >
-                <ShimmerLineBase
+                <Component
                   height={16}
                   styles={[Function]}
                   theme={
                     Object {
                       "disableGlobalClassNames": false,
                       "effects": Object {
-                        "elevation16": "0 0 5px 0 rgba(0,0,0,.4)",
-                        "elevation4": "0 0 5px 0 rgba(0,0,0,.4)",
-                        "elevation64": "0 0 5px 0 rgba(0,0,0,.4)",
-                        "elevation8": "0 0 5px 0 rgba(0,0,0,.4)",
-                        "roundedCorner2": "0px",
+                        "elevation16": "0 6.4px 14.4px 0 rgba(0, 0, 0, 0.132), 0 1.2px 3.6px 0 rgba(0, 0, 0, 0.108)",
+                        "elevation4": "0 1.6px 3.6px 0 rgba(0, 0, 0, 0.132), 0 0.3px 0.9px 0 rgba(0, 0, 0, 0.108)",
+                        "elevation64": "0 25.6px 57.6px 0 rgba(0, 0, 0, 0.22), 0 4.8px 14.4px 0 rgba(0, 0, 0, 0.18)",
+                        "elevation8": "0 3.2px 7.2px 0 rgba(0, 0, 0, 0.132), 0 0.6px 1.8px 0 rgba(0, 0, 0, 0.108)",
+                        "roundedCorner2": "2px",
                       },
                       "fonts": Object {
                         "large": Object {
                           "MozOsxFontSmoothing": "grayscale",
                           "WebkitFontSmoothing": "antialiased",
-                          "fontFamily": "'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                          "fontSize": "17px",
-                          "fontWeight": 300,
+                          "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                          "fontSize": "18px",
+                          "fontWeight": 400,
                         },
                         "medium": Object {
                           "MozOsxFontSmoothing": "grayscale",
@@ -542,15 +582,15 @@ exports[`components/devices/deviceEvents matches snapshot while state is loading
                           "MozOsxFontSmoothing": "grayscale",
                           "WebkitFontSmoothing": "antialiased",
                           "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                          "fontSize": "15px",
+                          "fontSize": "16px",
                           "fontWeight": 400,
                         },
                         "mega": Object {
                           "MozOsxFontSmoothing": "grayscale",
                           "WebkitFontSmoothing": "antialiased",
                           "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                          "fontSize": "72px",
-                          "fontWeight": 100,
+                          "fontSize": "68px",
+                          "fontWeight": 600,
                         },
                         "small": Object {
                           "MozOsxFontSmoothing": "grayscale",
@@ -563,7 +603,7 @@ exports[`components/devices/deviceEvents matches snapshot while state is loading
                           "MozOsxFontSmoothing": "grayscale",
                           "WebkitFontSmoothing": "antialiased",
                           "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                          "fontSize": "13px",
+                          "fontSize": "12px",
                           "fontWeight": 400,
                         },
                         "superLarge": Object {
@@ -571,27 +611,34 @@ exports[`components/devices/deviceEvents matches snapshot while state is loading
                           "WebkitFontSmoothing": "antialiased",
                           "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
                           "fontSize": "42px",
-                          "fontWeight": 100,
+                          "fontWeight": 600,
                         },
                         "tiny": Object {
                           "MozOsxFontSmoothing": "grayscale",
                           "WebkitFontSmoothing": "antialiased",
                           "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
                           "fontSize": "10px",
-                          "fontWeight": 600,
+                          "fontWeight": 400,
                         },
                         "xLarge": Object {
                           "MozOsxFontSmoothing": "grayscale",
                           "WebkitFontSmoothing": "antialiased",
                           "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                          "fontSize": "21px",
-                          "fontWeight": 100,
+                          "fontSize": "20px",
+                          "fontWeight": 600,
+                        },
+                        "xLargePlus": Object {
+                          "MozOsxFontSmoothing": "grayscale",
+                          "WebkitFontSmoothing": "antialiased",
+                          "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                          "fontSize": "24px",
+                          "fontWeight": 600,
                         },
                         "xSmall": Object {
                           "MozOsxFontSmoothing": "grayscale",
                           "WebkitFontSmoothing": "antialiased",
                           "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
-                          "fontSize": "11px",
+                          "fontSize": "10px",
                           "fontWeight": 400,
                         },
                         "xxLarge": Object {
@@ -599,7 +646,14 @@ exports[`components/devices/deviceEvents matches snapshot while state is loading
                           "WebkitFontSmoothing": "antialiased",
                           "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
                           "fontSize": "28px",
-                          "fontWeight": 100,
+                          "fontWeight": 600,
+                        },
+                        "xxLargePlus": Object {
+                          "MozOsxFontSmoothing": "grayscale",
+                          "WebkitFontSmoothing": "antialiased",
+                          "fontFamily": "'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif",
+                          "fontSize": "32px",
+                          "fontWeight": 600,
                         },
                       },
                       "isInverted": false,
@@ -617,18 +671,18 @@ exports[`components/devices/deviceEvents matches snapshot while state is loading
                         "magenta": "#b4009e",
                         "magentaDark": "#5c005c",
                         "magentaLight": "#e3008c",
-                        "neutralDark": "#212121",
-                        "neutralLight": "#eaeaea",
-                        "neutralLighter": "#f4f4f4",
-                        "neutralLighterAlt": "#f8f8f8",
-                        "neutralPrimary": "#333333",
-                        "neutralPrimaryAlt": "#3c3c3c",
-                        "neutralQuaternary": "#d0d0d0",
-                        "neutralQuaternaryAlt": "#dadada",
-                        "neutralSecondary": "#666666",
-                        "neutralSecondaryAlt": "#767676",
-                        "neutralTertiary": "#a6a6a6",
-                        "neutralTertiaryAlt": "#c8c8c8",
+                        "neutralDark": "#201f1e",
+                        "neutralLight": "#edebe9",
+                        "neutralLighter": "#f3f2f1",
+                        "neutralLighterAlt": "#faf9f8",
+                        "neutralPrimary": "#323130",
+                        "neutralPrimaryAlt": "#3b3a39",
+                        "neutralQuaternary": "#d2d0ce",
+                        "neutralQuaternaryAlt": "#e1dfdd",
+                        "neutralSecondary": "#605e5c",
+                        "neutralSecondaryAlt": "#8a8886",
+                        "neutralTertiary": "#a19f9d",
+                        "neutralTertiaryAlt": "#c8c6c4",
                         "orange": "#d83b01",
                         "orangeLight": "#ea4300",
                         "orangeLighter": "#ff8c00",
@@ -636,7 +690,7 @@ exports[`components/devices/deviceEvents matches snapshot while state is loading
                         "purpleDark": "#32145a",
                         "purpleLight": "#b4a0ff",
                         "red": "#e81123",
-                        "redDark": "#a80000",
+                        "redDark": "#a4262c",
                         "teal": "#008272",
                         "tealDark": "#004b50",
                         "tealLight": "#00b294",
@@ -658,83 +712,91 @@ exports[`components/devices/deviceEvents matches snapshot while state is loading
                       "semanticColors": Object {
                         "accentButtonBackground": "#0078d4",
                         "accentButtonText": "#ffffff",
-                        "actionLink": "#333333",
-                        "actionLinkHovered": "#212121",
-                        "blockingBackground": "rgba(234, 67, 0, .2)",
+                        "actionLink": "#323130",
+                        "actionLinkHovered": "#201f1e",
+                        "blockingBackground": "rgba(250, 65, 0, .2)",
                         "bodyBackground": "#ffffff",
-                        "bodyDivider": "#eaeaea",
+                        "bodyBackgroundChecked": "#edebe9",
+                        "bodyBackgroundHovered": "#f3f2f1",
+                        "bodyDivider": "#edebe9",
                         "bodyFrameBackground": "#ffffff",
-                        "bodyFrameDivider": "#eaeaea",
-                        "bodyStandoutBackground": "#f8f8f8",
-                        "bodySubtext": "#666666",
-                        "bodyText": "#333333",
+                        "bodyFrameDivider": "#edebe9",
+                        "bodyStandoutBackground": "#faf9f8",
+                        "bodySubtext": "#605e5c",
+                        "bodyText": "#323130",
                         "bodyTextChecked": "#000000",
-                        "buttonBackground": "#f4f4f4",
-                        "buttonBackgroundChecked": "#c8c8c8",
-                        "buttonBackgroundCheckedHovered": "#eaeaea",
-                        "buttonBackgroundDisabled": "#f4f4f4",
-                        "buttonBackgroundHovered": "#eaeaea",
-                        "buttonBackgroundPressed": "#eaeaea",
-                        "buttonBorder": "transparent",
-                        "buttonBorderDisabled": "transparent",
-                        "buttonText": "#333333",
-                        "buttonTextChecked": "#212121",
+                        "buttonBackground": "#ffffff",
+                        "buttonBackgroundChecked": "#c8c6c4",
+                        "buttonBackgroundCheckedHovered": "#edebe9",
+                        "buttonBackgroundDisabled": "#f3f2f1",
+                        "buttonBackgroundHovered": "#f3f2f1",
+                        "buttonBackgroundPressed": "#edebe9",
+                        "buttonBorder": "#8a8886",
+                        "buttonBorderDisabled": "#f3f2f1",
+                        "buttonText": "#323130",
+                        "buttonTextChecked": "#201f1e",
                         "buttonTextCheckedHovered": "#000000",
-                        "buttonTextDisabled": "#a6a6a6",
-                        "buttonTextHovered": "#212121",
-                        "buttonTextPressed": "#212121",
-                        "defaultStateBackground": "#f8f8f8",
-                        "disabledBackground": "#f4f4f4",
-                        "disabledBodySubtext": "#c8c8c8",
-                        "disabledBodyText": "#a6a6a6",
-                        "disabledSubtext": "#d0d0d0",
-                        "disabledText": "#a6a6a6",
-                        "errorBackground": "rgba(232, 17, 35, .2)",
-                        "errorText": "#a80000",
-                        "focusBorder": "#666666",
+                        "buttonTextDisabled": "#a19f9d",
+                        "buttonTextHovered": "#201f1e",
+                        "buttonTextPressed": "#201f1e",
+                        "defaultStateBackground": "#faf9f8",
+                        "disabledBackground": "#f3f2f1",
+                        "disabledBodySubtext": "#c8c6c4",
+                        "disabledBodyText": "#a19f9d",
+                        "disabledBorder": "#c8c6c4",
+                        "disabledSubtext": "#d2d0ce",
+                        "disabledText": "#a19f9d",
+                        "errorBackground": "rgba(245, 135, 145, .2)",
+                        "errorText": "#a4262c",
+                        "focusBorder": "#605e5c",
                         "inputBackground": "#ffffff",
                         "inputBackgroundChecked": "#0078d4",
-                        "inputBackgroundCheckedHovered": "#106ebe",
-                        "inputBorder": "#a6a6a6",
-                        "inputBorderHovered": "#333333",
+                        "inputBackgroundCheckedHovered": "#005a9e",
+                        "inputBorder": "#8a8886",
+                        "inputBorderHovered": "#323130",
                         "inputFocusBorderAlt": "#0078d4",
                         "inputForegroundChecked": "#ffffff",
-                        "inputPlaceholderText": "#666666",
-                        "inputText": "#333333",
-                        "inputTextHovered": "#212121",
+                        "inputIcon": "#0078d4",
+                        "inputIconDisabled": "#a19f9d",
+                        "inputIconHovered": "#005a9e",
+                        "inputPlaceholderBackgroundChecked": "#deecf9",
+                        "inputPlaceholderText": "#605e5c",
+                        "inputText": "#323130",
+                        "inputTextHovered": "#201f1e",
                         "link": "#0078d4",
                         "linkHovered": "#004578",
                         "listBackground": "#ffffff",
-                        "listHeaderBackgroundHovered": "#f4f4f4",
-                        "listHeaderBackgroundPressed": "#eaeaea",
-                        "listItemBackgroundChecked": "#eaeaea",
-                        "listItemBackgroundCheckedHovered": "#dadada",
-                        "listItemBackgroundHovered": "#f4f4f4",
-                        "listText": "#333333",
-                        "listTextColor": "#333333",
+                        "listHeaderBackgroundHovered": "#f3f2f1",
+                        "listHeaderBackgroundPressed": "#edebe9",
+                        "listItemBackgroundChecked": "#edebe9",
+                        "listItemBackgroundCheckedHovered": "#e1dfdd",
+                        "listItemBackgroundHovered": "#f3f2f1",
+                        "listText": "#323130",
+                        "listTextColor": "#323130",
                         "menuBackground": "#ffffff",
-                        "menuDivider": "#c8c8c8",
+                        "menuDivider": "#c8c6c4",
                         "menuHeader": "#0078d4",
                         "menuIcon": "#0078d4",
-                        "menuItemBackgroundChecked": "#eaeaea",
-                        "menuItemBackgroundHovered": "#f4f4f4",
-                        "menuItemBackgroundPressed": "#eaeaea",
-                        "menuItemText": "#333333",
-                        "menuItemTextHovered": "#212121",
+                        "menuItemBackgroundChecked": "#edebe9",
+                        "menuItemBackgroundHovered": "#f3f2f1",
+                        "menuItemBackgroundPressed": "#edebe9",
+                        "menuItemText": "#323130",
+                        "menuItemTextHovered": "#201f1e",
                         "primaryButtonBackground": "#0078d4",
-                        "primaryButtonBackgroundDisabled": "#f4f4f4",
+                        "primaryButtonBackgroundDisabled": "#f3f2f1",
                         "primaryButtonBackgroundHovered": "#106ebe",
                         "primaryButtonBackgroundPressed": "#005a9e",
                         "primaryButtonBorder": "transparent",
                         "primaryButtonText": "#ffffff",
-                        "primaryButtonTextDisabled": "#d0d0d0",
+                        "primaryButtonTextDisabled": "#d2d0ce",
                         "primaryButtonTextHovered": "#ffffff",
                         "primaryButtonTextPressed": "#ffffff",
-                        "smallInputBorder": "#666666",
-                        "successBackground": "rgba(186, 216, 10, .2)",
-                        "variantBorder": "#eaeaea",
-                        "variantBorderHovered": "#a6a6a6",
-                        "warningBackground": "rgba(255, 185, 0, .2)",
+                        "smallInputBorder": "#605e5c",
+                        "successBackground": "rgba(95, 210, 85, .2)",
+                        "successText": "#107C10",
+                        "variantBorder": "#edebe9",
+                        "variantBorderHovered": "#a19f9d",
+                        "warningBackground": "rgba(255, 200, 10, .2)",
                         "warningHighlight": "#ffb900",
                         "warningText": "#333333",
                       },
@@ -749,7 +811,7 @@ exports[`components/devices/deviceEvents matches snapshot while state is loading
                   }
                 >
                   <div
-                    className="ms-ShimmerLine-root root-52"
+                    className="ms-ShimmerLine-root root-55"
                     style={
                       Object {
                         "minWidth": "auto",
@@ -758,7 +820,7 @@ exports[`components/devices/deviceEvents matches snapshot while state is loading
                     }
                   >
                     <svg
-                      className="ms-ShimmerLine-topLeftCorner topLeftCorner-53"
+                      className="ms-ShimmerLine-topLeftCorner topLeftCorner-56"
                       height="2"
                       width="2"
                     >
@@ -767,7 +829,7 @@ exports[`components/devices/deviceEvents matches snapshot while state is loading
                       />
                     </svg>
                     <svg
-                      className="ms-ShimmerLine-topRightCorner topRightCorner-54"
+                      className="ms-ShimmerLine-topRightCorner topRightCorner-57"
                       height="2"
                       width="2"
                     >
@@ -776,7 +838,7 @@ exports[`components/devices/deviceEvents matches snapshot while state is loading
                       />
                     </svg>
                     <svg
-                      className="ms-ShimmerLine-bottomRightCorner bottomRightCorner-55"
+                      className="ms-ShimmerLine-bottomRightCorner bottomRightCorner-58"
                       height="2"
                       width="2"
                     >
@@ -785,7 +847,7 @@ exports[`components/devices/deviceEvents matches snapshot while state is loading
                       />
                     </svg>
                     <svg
-                      className="ms-ShimmerLine-bottomLeftCorner bottomLeftCorner-56"
+                      className="ms-ShimmerLine-bottomLeftCorner bottomLeftCorner-59"
                       height="2"
                       width="2"
                     >
@@ -794,11 +856,11 @@ exports[`components/devices/deviceEvents matches snapshot while state is loading
                       />
                     </svg>
                   </div>
-                </ShimmerLineBase>
-              </StyledShimmerLineBase>
+                </Component>
+              </Styled>
             </div>
-          </ShimmerElementsGroupBase>
-        </StyledShimmerElementsGroupBase>
+          </Component>
+        </Styled>
       </div>
     </div>
   </ShimmerBase>
@@ -900,27 +962,27 @@ exports[`components/devices/deviceEvents matches snapshot while state is loading
             className="list-header list-header-uncollapsible ms-Grid-row"
           >
             <span
-              className="ms-Grid-col ms-u-sm2"
+              className="ms-Grid-col ms-sm2"
             >
               deviceEvents.columns.timestamp
             </span>
             <span
-              className="ms-Grid-col ms-u-sm2"
+              className="ms-Grid-col ms-sm2"
             >
               deviceEvents.columns.displayName
             </span>
             <span
-              className="ms-Grid-col ms-u-sm2"
+              className="ms-Grid-col ms-sm2"
             >
               deviceEvents.columns.schema
             </span>
             <span
-              className="ms-Grid-col ms-u-sm2"
+              className="ms-Grid-col ms-sm2"
             >
               deviceEvents.columns.unit
             </span>
             <span
-              className="ms-Grid-col ms-u-sm4"
+              className="ms-Grid-col ms-sm4"
             >
               deviceEvents.columns.value
             </span>

@@ -2,8 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-@import 'variables';
-@import 'mixins';
+@import 'themes';
 
 .deviceList-query {
     width: calc(100vw - 24px);
@@ -15,13 +14,14 @@
     margin-bottom: 10px;
 
     .deviceId-search {
+        @include themify($themes) {
+            border-color: themed('searchBorderColor');
+        }
         float: left;
         height: 32px;
         border: {
             width: 1px;
             style: solid;
-            color: $gray;
-            right: none;
             radius: 2px;
             radius: 2px;
         }
@@ -33,18 +33,27 @@
         .search-button {
             padding-top: 1px;
             max-width: 32px;
-            background-color: $blue;
-            color: $white;
             padding-bottom: 1px;
+            @include themify($themes) {
+                border: {
+                    left: 1px solid themed('borderColor');
+                    right: none;
+                }
+            }
         }
         .search-button:disabled {
-            background-color: $gray;
+            @include themify($themes) {
+                background-color: themed('searchButtonDisabledBackground');
+            }
         }
     }
     .clauses {
         width: calc(67vw - 24px);
         float: right;
         .search-pill {
+            @include themify($themes) {
+                border-color: themed('searchBorderColor');
+            }
             float:left;
             padding: {
                 top: 0px;
@@ -63,7 +72,6 @@
             border: {
                 width: 1px;
                 style: solid;
-                color: $gray;
                 radius: 16px;
             }
             .parameter-type {
@@ -92,18 +100,24 @@
             }
         }
         .search-pill:hover {
-            border-color: $blue;
+            @include themify($themes) {
+                border-color: themed('searchBorderHoverColor');
+            }
         }
         .search-pill.error {
-            border-color: $errorBorder;
+            @include themify($themes) {
+                border-color: themed('searchBorderErrorColor');
+            }
         }
         .search-pill.active {
+            @include themify($themes) {
+                border-color: themed('searchBorderActiveColor');
+            }
             padding-left: 10px;
             padding-top: 3px;
             padding-bottom: 1px;
             padding-right: 6px;
             min-width: 400px;
-            border-color: $blue;
             max-height: 27px;
             .ms-Button-icon {
                 font-size: 10px;

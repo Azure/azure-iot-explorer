@@ -2,27 +2,38 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
+@import 'themes';
 @import 'variables';
 
 @mixin default-button {
-    background: $white;
-    color: $blue;
+    margin-top: 3px;
+    padding-top: 0px;
+    @include themify($themes) {
+        color: themed('buttonColor');
+    }
     padding: 0;
 }
 
 @mixin validation-error {
+    @include themify($themes) {
+        color: themed('errorText');
+    }
     padding-top: 10px;
-    color: $errorText;
     font-size: 14px;
 }
 
 .pnp-detail-list {
     padding-top: 20px;
     top: 0;
-    background-color: $white;
+    @include themify($themes) {
+        background-color: themed('backgroundColor');
+    }
     .list-header {
         font-weight: bold;
-        border-bottom: 1px solid $gray;
+        border-bottom: 1px solid;
+        @include themify($themes) {
+            border-bottom-color: themed('borderColor');
+        }
         padding-bottom: 5px;
         .column-toggle {
             @include default-button;
@@ -47,7 +58,10 @@
         .item-summary {
             overflow: auto;
             width: 100%;
-            border-bottom: 1px solid $light-gray;
+            border-bottom: 1px solid;
+            @include themify($themes) {
+                border-bottom-color: themed('borderColor');
+            }
             .column-value-text {
                 .column-value-button {
                     @include default-button;
@@ -65,11 +79,15 @@
         }
 
         .item-summary-uncollapsed {
-            background: $light-gray;
+            @include themify($themes) {
+                background-color: themed('summaryBackground');
+            }
         }
 
         .item-detail {
-            border-bottom: 1px solid $light-gray;
+            @include themify($themes) {
+                border-bottom-color: 1px solid themed('itemDetailBottomBorderColor');
+            }
             width: 100%;
             float: left;
         }
@@ -77,8 +95,13 @@
         .item-detail-uncollapsed {
             box-sizing: border-box;
             padding: 0 10px 10px 18px;
-            background: $light-gray;
-            border-bottom: 1px solid $gray;
+            @include themify($themes) {
+                background-color: themed('summaryBackground');
+            }
+            border-bottom: 1px solid;
+            @include themify($themes) {
+                border-bottom-color: themed('borderColor');
+            }
 
             .value-section {
                 padding-top: 20px;
@@ -94,7 +117,10 @@
         }
 
         dialog {
-            background-color: $white;
+            @include themify($themes) {
+                background-color: themed('backgroundColor');
+                box-shadow: 0px 0px 50px themed('boxShadowColor');
+            }
             width: 50%;
             position: fixed;
             top: 0;
@@ -102,7 +128,6 @@
             height: calc(100% - #{$mastheadHeight});
             left: calc(50% - 30px);
             border: none;
-            box-shadow: 0px 0px 50px $gray;
             overflow: auto;
             margin-top: $mastheadHeight;
             z-index: 1;
@@ -114,6 +139,9 @@
                     padding-top: 10px;
                     margin: 0px;
                     font-size: 18px;
+                    @include themify($themes) {
+                        color: themed('textColor');
+                    }
                 }
             }
         }
@@ -125,12 +153,15 @@
     .source {
         float:left;
         .no-source-error {
-            color: $errorText;
+            @include themify($themes) {
+                color: themed('errorText');
+            }
         }
     }
     .configure-button {
         @include default-button;
-        padding-bottom: 3px;
+        padding-bottom: 8px;
+        margin-top: 0px !important;
     }
     .interface-definition
     {
@@ -139,7 +170,7 @@
 }
 
 .ms-Panel-main {
-    margin-top: 43px;
+    margin-top: 45px;
 }
 
 .scrollable-lg {

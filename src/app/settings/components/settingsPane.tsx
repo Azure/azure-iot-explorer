@@ -7,7 +7,8 @@ import { RouteComponentProps } from 'react-router-dom';
 import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel';
 import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
 import { Link } from 'office-ui-fabric-react/lib/Link';
-import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/Button';
+import { PrimaryButton, ActionButton, DefaultButton } from 'office-ui-fabric-react/lib/Button';
+import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { validateConnectionString } from '../../shared/utils/hubConnectionStringHelper';
@@ -17,6 +18,7 @@ import { MaskedCopyableTextField } from '../../shared/components/maskedCopyableT
 import LabelWithTooltip from '../../shared/components/labelWithTooltip';
 import '../../css/_settingsPane.scss';
 import { ConfirmationDialog } from './confirmationDialog';
+import { ThemeContextConsumer, ThemeContextInterface, Theme, ThemeContext } from '../../shared/contexts/themeContext';
 
 export interface SettingsPaneProps extends Settings {
     isOpen: boolean;
@@ -41,6 +43,7 @@ export interface Settings {
 
 interface SettingsPaneState extends Settings{
     error?: string;
+    isDarkTheme: boolean;
     isDirty: boolean;
     showConfirmationDialog: boolean;
 }
@@ -55,10 +58,11 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
             }) : [];
         this.state = {
             hubConnectionString: props.hubConnectionString,
+            isDarkTheme: document.body.classList.contains('theme-dark'),
             isDirty: false,
             rememberConnectionString: props.rememberConnectionString,
             repositoryLocations,
-            showConfirmationDialog: false
+            showConfirmationDialog: false,
         };
     }
 
@@ -128,11 +132,27 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
                                 onRemoveListItem={this.onRemoveListItem}
                             />
                         </section>
+                        <section aria-label={context.t(ResourceKeys.settings.theme.headerText)}>
+                            <h3 role="heading" aria-level={1}>{context.t(ResourceKeys.settings.theme.headerText)}</h3>
+                            <Toggle
+                                onText={context.t(ResourceKeys.settings.theme.darkTheme)}
+                                offText={context.t(ResourceKeys.settings.theme.lightTheme)}
+                                onChange={this.setTheme}
+                                checked={this.state.isDarkTheme}
+                            />
+                        </section>
                         {this.renderConfirmationDialog(context)}
                     </Panel>
                 )}
             </LocalizationContextConsumer>
         );
+    }
+
+    private readonly setTheme = (ev: React.MouseEvent<HTMLElement>, isDarkTheme: boolean) => {
+        this.setState({
+            isDarkTheme,
+            isDirty: true,
+        });
     }
 
     private readonly renderConfirmationDialog = (context: LocalizationContextInterface) => {
@@ -273,12 +293,21 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
                     </section>
                     <section className="footer-buttons">
                         <h3 role="heading" aria-level={1}>{context.t(ResourceKeys.settings.footerText)}</h3>
-                        <PrimaryButton
-                            type="submit"
-                            disabled={this.disableSaveButton()}
-                            text={context.t(ResourceKeys.settings.save)}
-                            onClick={this.saveSettings}
-                        />
+                        <ThemeContextConsumer>
+                            {(themeContext: ThemeContextInterface) => (
+                                <PrimaryButton
+                                    type="submit"
+                                    disabled={this.disableSaveButton()}
+                                    text={context.t(ResourceKeys.settings.save)}
+                                    // tslint:disable-next-line: jsx-no-lambda
+                                    onClick={() => {
+                                        themeContext.updateTheme(this.state.isDarkTheme);
+                                        this.saveSettings();
+                                    }
+                                    }
+                                />
+                            )}
+                        </ThemeContextConsumer>
                         <DefaultButton
                             type="reset"
                             text={context.t(ResourceKeys.settings.cancel)}
