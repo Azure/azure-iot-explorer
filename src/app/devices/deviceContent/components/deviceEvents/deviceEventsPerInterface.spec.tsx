@@ -95,7 +95,6 @@ describe('components/devices/deviceEventsPerInterface', () => {
         wrapper.setState({events});
         wrapper.update();
         const errorBoundary = wrapper.find(ErrorBoundary);
-        expect(errorBoundary.children().first().props().children.props.children).toEqual('2:44:58 PM, October 14, 2019');
         expect(errorBoundary.children().at(1).props().children.props.children).toEqual('humid (Temperature)');
         expect(errorBoundary.children().at(2).props().children.props.children).toEqual('double'); // tslint:disable-line:no-magic-numbers
         expect(errorBoundary.children().at(3).props().children.props.children).toEqual('--'); // tslint:disable-line:no-magic-numbers
@@ -117,7 +116,6 @@ describe('components/devices/deviceEventsPerInterface', () => {
         wrapper.setState({events});
         wrapper.update();
         const errorBoundary = wrapper.find(ErrorBoundary);
-        expect(errorBoundary.children().first().props().children.props.children).toEqual('2:44:58 PM, October 14, 2019');
         expect(errorBoundary.children().at(1).props().children.props.children).toEqual('humid (Temperature)');
         expect(errorBoundary.children().at(2).props().children.props.children).toEqual('double'); // tslint:disable-line:no-magic-numbers
         expect(errorBoundary.children().at(3).props().children.props.children).toEqual('--'); // tslint:disable-line:no-magic-numbers
