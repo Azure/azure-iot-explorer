@@ -7,7 +7,6 @@ import 'jest';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import DeviceTwin, { DeviceTwinDataProps, DeviceTwinDispatchProps } from './deviceTwin';
 import { testSnapshot, mountWithLocalization } from '../../../../shared/utils/testHelpers';
-
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 
 const pathname = `/`;
@@ -24,7 +23,6 @@ const routerprops: any = { // tslint:disable-line:no-any
 };
 
 const devicTwinDataProps: DeviceTwinDataProps = {
-
     twin: undefined,
     twinState: SynchronizationStatus.working
 };
