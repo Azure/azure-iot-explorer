@@ -8,9 +8,10 @@ import DirectMethod, { DirectMethodProps } from './directMethod';
 import { testSnapshot } from '../../../../shared/utils/testHelpers';
 
 describe('directMethod', () => {
+    const mockInvokeMethodClick = jest.fn();
     const directMethodProps: DirectMethodProps = {
         connectionString: 'testString',
-        onInvokeMethodClick: jest.fn(),
+        onInvokeMethodClick: mockInvokeMethodClick
     };
 
     const routerprops: any = { // tslint:disable-line:no-any
@@ -32,9 +33,6 @@ describe('directMethod', () => {
     };
 
     it('matches snapshot', () => {
-        const component = getComponent({
-            settingSchema: undefined
-        });
-        testSnapshot(component);
+        testSnapshot(getComponent());
     });
 });

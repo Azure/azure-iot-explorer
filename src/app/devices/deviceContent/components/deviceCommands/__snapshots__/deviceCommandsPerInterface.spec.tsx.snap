@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/devices/deviceCommandsPerInterfacePerCommand matches snapshot 1`] = `
+exports[`components/devices/deviceCommandsPerInterface matches snapshot 1`] = `
 <div
   className="pnp-detail-list scrollable-lg ms-Grid"
 >

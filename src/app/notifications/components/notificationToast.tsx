@@ -9,6 +9,7 @@ import { LocalizationContextConsumer, LocalizationContextInterface } from '../..
 import { NotificationListEntry } from '../../notifications/components/notificationListEntry';
 import { Notification } from '../../api/models/notification';
 import { ResourceKeys } from '../../../localization/resourceKeys';
+import { CANCEL } from '../../constants/iconNames';
 import '../../css/_notification.scss';
 
 export interface CloseButtonProps {
@@ -22,7 +23,7 @@ export const CloseButton = (props: CloseButtonProps): JSX.Element => {
             {(context: LocalizationContextInterface) => (
                 <IconButton
                     iconProps={{
-                        iconName: 'Cancel'
+                        iconName: CANCEL
                     }}
                     label={context.t(ResourceKeys.common.close)}
                     ariaLabel={context.t(ResourceKeys.common.close)}

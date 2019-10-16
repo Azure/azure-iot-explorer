@@ -4,8 +4,9 @@
  **********************************************************/
 import * as React from 'react';
 import 'jest';
+import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import DeviceTwin, { DeviceTwinDataProps, DeviceTwinDispatchProps } from './deviceTwin';
-import { testSnapshot } from '../../../../shared/utils/testHelpers';
+import { testSnapshot, mountWithLocalization } from '../../../../shared/utils/testHelpers';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 
 const pathname = `/`;
@@ -21,22 +22,23 @@ const routerprops: any = { // tslint:disable-line:no-any
     match: {}
 };
 
-const deviceContentProps: DeviceTwinDataProps = {
+const devicTwinDataProps: DeviceTwinDataProps = {
     twin: undefined,
     twinState: SynchronizationStatus.working
 };
 
 const mockGetDeviceTwin = jest.fn();
-const deviceContentDispatchProps: DeviceTwinDispatchProps = {
+const mockUpdateDeviceTwin = jest.fn();
+const deviceTwinDispatchProps: DeviceTwinDispatchProps = {
     getDeviceTwin: mockGetDeviceTwin,
     refreshDigitalTwin: jest.fn(),
-    updateDeviceTwin: jest.fn()
+    updateDeviceTwin: mockUpdateDeviceTwin
 };
 
 const getComponent = (overrides = {}) => {
     const props = {
-        ...deviceContentProps,
-        ...deviceContentDispatchProps,
+        ...devicTwinDataProps,
+        ...deviceTwinDispatchProps,
         ...routerprops,
         ...overrides
     };
@@ -69,6 +71,22 @@ describe('devices/components/deviceTwin', () => {
                 },
                 twinState: SynchronizationStatus.fetched
             }));
+        });
+
+        it('calls refresh and save', () => {
+            const wrapper = mountWithLocalization(getComponent());
+            let commandBar = wrapper.find(CommandBar).first();
+            commandBar.props().items[0].onClick(null);
+            expect(mockGetDeviceTwin).toBeCalled();
+
+            const deviceTwin = wrapper.find(DeviceTwin);
+            deviceTwin.setState({isDirty: true, twin: 123});
+            wrapper.update();
+
+            commandBar = wrapper.find(CommandBar).first();
+            commandBar.props().items[1].onClick(null);
+            wrapper.update();
+            expect(mockUpdateDeviceTwin).toBeCalled();
         });
     });
 });

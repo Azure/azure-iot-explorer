@@ -8,7 +8,7 @@ import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import DeviceCommandsPerInterface, { DeviceCommandDataProps, DeviceCommandDispatchProps, DeviceCommandState } from './deviceCommandsPerInterface';
 import { mountWithLocalization, testSnapshot } from '../../../../shared/utils/testHelpers';
 
-describe('components/devices/deviceCommandsPerInterfacePerCommand', () => {
+describe('components/devices/deviceCommandsPerInterface', () => {
     const deviceCommandsDispatchProps: DeviceCommandDispatchProps = {
         invokeDigitalTwinInterfaceCommand: jest.fn()
     };

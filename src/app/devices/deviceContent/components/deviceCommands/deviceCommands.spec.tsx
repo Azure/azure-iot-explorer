@@ -10,7 +10,7 @@ import DeviceCommands, { DeviceCommandDispatchProps , DeviceCommandsProps } from
 import { testSnapshot, mountWithLocalization } from '../../../../shared/utils/testHelpers';
 import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
 
-describe('components/devices/deviceCommandsPerInterfacePerCommand', () => {
+describe('components/devices/deviceCommands', () => {
     const deviceCommandsProps: DeviceCommandsProps = {
         commandSchemas: [],
         interfaceName: 'interface1',

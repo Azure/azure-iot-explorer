@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/devices/deviceCommandsPerInterfacePerCommand matches snapshot while interface cannot be found 1`] = `
+exports[`components/devices/deviceCommands matches snapshot while interface cannot be found 1`] = `
 <Fragment>
   <StyledCommandBarBase
     className="command"
@@ -25,7 +25,7 @@ exports[`components/devices/deviceCommandsPerInterfacePerCommand matches snapsho
 </Fragment>
 `;
 
-exports[`components/devices/deviceCommandsPerInterfacePerCommand matches snapshot with a commandSchema 1`] = `
+exports[`components/devices/deviceCommands matches snapshot with a commandSchema 1`] = `
 <Fragment>
   <StyledCommandBarBase
     className="command"

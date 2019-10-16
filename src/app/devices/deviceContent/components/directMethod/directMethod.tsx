@@ -14,11 +14,10 @@ import { InvokeMethodParameters } from '../../../../api/parameters/deviceParamet
 import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { DIRECT_METHOD } from '../../../../constants/iconNames';
 import LabelWithTooltip from '../../../../shared/components/labelWithTooltip';
-import '../../../../css/_deviceDetail.scss';
 import { ThemeContextConsumer, ThemeContextInterface } from '../../../../shared/contexts/themeContext';
-
 const EditorPromise = import('react-monaco-editor');
 const Editor = React.lazy(() => EditorPromise);
+import '../../../../css/_deviceDetail.scss';
 
 const SLIDER_MAX = 300;
 
@@ -146,6 +145,7 @@ export default class DirectMethod extends React.Component<DirectMethodProps & Ro
                                     height="25vh"
                                     value={payload}
                                     onChange={this.onEditorChange}
+                                    theme={themeContext.monacoTheme}
                                 />
                             )}
                         </ThemeContextConsumer>
