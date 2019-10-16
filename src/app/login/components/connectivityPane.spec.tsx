@@ -6,7 +6,8 @@ import 'jest';
 import * as React from 'react';
 import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
 import { testSnapshot, mountWithLocalization } from '../../shared/utils/testHelpers';
-import ConnectivityPane, { ConnectivityPaneDataProps, ConnectivityPaneDispatchProps } from './connectivityPane';
+import ConnectivityPane, { ConnectivityPaneDataProps, ConnectivityPaneDispatchProps, ConnectivityState } from './connectivityPane';
+import HubConnectionStringSection from './hubConnectionStringSection';
 
 describe('login/components/connectivityPane', () => {
     const routerprops: any = { // tslint:disable-line:no-any
@@ -56,5 +57,23 @@ describe('login/components/connectivityPane', () => {
                 rememberConnectionString: true
             });
         expect(routerprops.history.push).toBeCalledWith('/devices');
+    });
+
+    it('changes state when connection string changes', () => {
+        const wrapper = mountWithLocalization(getComponent());
+        let hubConnectionStringSection = wrapper.find(HubConnectionStringSection);
+        hubConnectionStringSection.props().onConnectionStringChangedFromTextField('newConnectionString1');
+        wrapper.update();
+        expect((wrapper.state() as ConnectivityState).connectionString).toEqual('newConnectionString1');
+
+        hubConnectionStringSection = wrapper.find(HubConnectionStringSection);
+        hubConnectionStringSection.props().onConnectionStringChangedFromDropdown(null, {key: 'newConnectionString2'} as any); // tslint:disable-line:no-any
+        wrapper.update();
+        expect((wrapper.state() as ConnectivityState).connectionString).toEqual('newConnectionString2');
+
+        hubConnectionStringSection = wrapper.find(HubConnectionStringSection);
+        hubConnectionStringSection.props().onCheckboxChange(null, false);
+        wrapper.update();
+        expect((wrapper.state() as ConnectivityState).rememberConnectionString).toEqual(false);
     });
 });

@@ -18,11 +18,14 @@ import { COPY } from '../../constants/iconNames';
 import '../../css/_connectivityPane.scss';
 
 export const addNewConnectionStringKey = 'Add';
-export interface HubConnectionStringSectionProps {
+export interface HubConnectionStringSectionDataProps {
     connectionString: string;
     connectionStringList: string[];
     rememberConnectionString: boolean;
     error: string;
+}
+
+export interface HubConnectionStringSectionActionProps {
     onConnectionStringChangedFromTextField: (connectionString: string) => void;
     onConnectionStringChangedFromDropdown: (event: React.FormEvent<HTMLDivElement>, item: IDropdownOption) => void;
     onCheckboxChange: (ev: React.FormEvent<HTMLElement>, isChecked: boolean) => void;
@@ -33,8 +36,8 @@ export interface HubConnectionStringSectionState {
     showAddNewConnectionStringTextField: boolean;
 }
 
-export default class HubConnectionStringSection extends React.Component<HubConnectionStringSectionProps, HubConnectionStringSectionState> {
-    constructor(props: HubConnectionStringSectionProps) {
+export default class HubConnectionStringSection extends React.Component<HubConnectionStringSectionDataProps & HubConnectionStringSectionActionProps, HubConnectionStringSectionState> {
+    constructor(props: HubConnectionStringSectionDataProps & HubConnectionStringSectionActionProps) {
         super(props);
 
         this.state = {
