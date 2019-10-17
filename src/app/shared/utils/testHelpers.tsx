@@ -5,7 +5,9 @@
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import { LocalizationContextProvider } from '../contexts/localizationContext';
+import configureStore from '../../../app/shared/redux/store/configureStore';
 
 export const testWithLocalizationContext = (Target: JSX.Element, enzymeWrapper: any = shallow) => { // tslint:disable-line:no-any
     const outerWrapper = shallow(Target);
@@ -27,14 +29,23 @@ export const testSnapshot = (Target: JSX.Element) => {
     expect(shallow(<Children t={jest.fn((value: string) => value)}/>)).toMatchSnapshot();
 };
 
-export const mountWithLocalization = (Target: JSX.Element, useMemoryRouter: boolean = false, routerInitialEntries = ['/']) => {
-    const wrapper = (
+export const mountWithLocalization = (Target: JSX.Element, connectToStore: boolean = false, useMemoryRouter: boolean = false, routerInitialEntries = ['/']) => {
+    let wrapper = (
         <LocalizationContextProvider value={{t: jest.fn((value: string) => value)}}>
             {Target}
         </LocalizationContextProvider>
     );
+
+    if (connectToStore) {
+        wrapper = (
+            <Provider store={configureStore()}>
+                {wrapper}
+            </Provider>
+        );
+    }
+
     if ( useMemoryRouter ) {
-        return mount(
+        wrapper = (
             <MemoryRouter initialEntries={routerInitialEntries} keyLength={0}>
                 {wrapper}
             </MemoryRouter>

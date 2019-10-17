@@ -9,6 +9,7 @@ import { LocalizationContextInterface, LocalizationContextConsumer } from '../..
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { MaskedCopyableTextField } from '../../shared/components/maskedCopyableTextField';
 import { RepositoryLocationSettings } from '../state';
+import { CANCEL } from '../../constants/iconNames';
 
 export interface RepositoryLocationListItemProps {
     index: number;
@@ -63,7 +64,7 @@ export default class RepositoryLocationListItem extends React.Component<Reposito
                         </div>
                         {item.repositoryLocationType !== REPOSITORY_LOCATION_TYPE.Public && <IconButton
                             className="remove-button"
-                            iconProps={{ iconName: 'cancel' }}
+                            iconProps={{ iconName: CANCEL }}
                             title={context.t(ResourceKeys.settings.cancel)}
                             ariaLabel={context.t(ResourceKeys.settings.cancel)}
                             onClick={this.onRemove}

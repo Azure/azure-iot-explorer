@@ -6,9 +6,9 @@ import 'jest';
 import * as React from 'react';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import DeviceCommandsPerInterface, { DeviceCommandDataProps, DeviceCommandDispatchProps, DeviceCommandState } from './deviceCommandsPerInterface';
-import { mountWithLocalization } from '../../../../shared/utils/testHelpers';
+import { mountWithLocalization, testSnapshot } from '../../../../shared/utils/testHelpers';
 
-describe('components/devices/deviceCommandsPerInterfacePerCommand', () => {
+describe('components/devices/deviceCommandsPerInterface', () => {
     const deviceCommandsDispatchProps: DeviceCommandDispatchProps = {
         invokeDigitalTwinInterfaceCommand: jest.fn()
     };
@@ -36,17 +36,17 @@ describe('components/devices/deviceCommandsPerInterfacePerCommand', () => {
             ...overrides
         };
 
-        return mountWithLocalization(
+        return (
             <DeviceCommandsPerInterface {...props} />
         );
     };
 
     it('matches snapshot', () => {
-        expect(getComponent()).toMatchSnapshot();
+        testSnapshot(getComponent());
     });
 
     it('toggles collapsed', () => {
-        const wrapper = getComponent();
+        const wrapper = mountWithLocalization(getComponent());
         expect((wrapper.state() as DeviceCommandState).allCollapsed).toBeFalsy();
         const button = wrapper.find(IconButton).first();
         button.simulate('click');
@@ -55,7 +55,7 @@ describe('components/devices/deviceCommandsPerInterfacePerCommand', () => {
     });
 
     it('executes handle toggle from child', () => {
-        const wrapper = getComponent();
+        const wrapper = mountWithLocalization(getComponent());
         let collapsed = (wrapper.state() as DeviceCommandState).collapseMap.get(0);
         expect(collapsed).toBeFalsy();
         const button = wrapper.find(IconButton).at(1);

@@ -26,7 +26,7 @@ export interface DeviceEventsDataProps {
     connectionString: string;
 }
 
-interface DeviceEventsState {
+export interface DeviceEventsState {
     events: Message[];
     hasMore: boolean;
     startTime?: Date; // todo: add a datetime picker

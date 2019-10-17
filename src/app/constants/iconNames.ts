@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 export const ACCEPT = 'Accept';
+export const CANCEL = 'Cancel';
 export const CHECK = 'SkypeCheck';
 export const CHECKED_CHECKBOX = 'CheckboxComposite';
 export const CIRCLE_ADD = 'CircleAddition';
