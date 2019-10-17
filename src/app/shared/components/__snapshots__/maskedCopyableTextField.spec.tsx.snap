@@ -29,14 +29,15 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
         value="value1"
       />
       <input
-        aria-label="ariaLabel1"
+        aria-hidden={true}
         className="input"
         readOnly={true}
         style={
           Object {
-            "left": "-9000px",
+            "height": "1px",
+            "opacity": 0,
             "position": "absolute",
-            "top": "-9000px",
+            "width": "1px",
           }
         }
         tabIndex={-1}
@@ -90,14 +91,15 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
         value="value1"
       />
       <input
-        aria-label="ariaLabel1"
+        aria-hidden={true}
         className="input"
         readOnly={true}
         style={
           Object {
-            "left": "-9000px",
+            "height": "1px",
+            "opacity": 0,
             "position": "absolute",
-            "top": "-9000px",
+            "width": "1px",
           }
         }
         tabIndex={-1}
@@ -161,14 +163,15 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
         value="value1"
       />
       <input
-        aria-label="ariaLabel1"
+        aria-hidden={true}
         className="input"
         readOnly={true}
         style={
           Object {
-            "left": "-9000px",
+            "height": "1px",
+            "opacity": 0,
             "position": "absolute",
-            "top": "-9000px",
+            "width": "1px",
           }
         }
         tabIndex={-1}
@@ -232,14 +235,15 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when error messag
         value="value1"
       />
       <input
-        aria-label="ariaLabel1"
+        aria-hidden={true}
         className="input"
         readOnly={true}
         style={
           Object {
-            "left": "-9000px",
+            "height": "1px",
+            "opacity": 0,
             "position": "absolute",
-            "top": "-9000px",
+            "width": "1px",
           }
         }
         tabIndex={-1}

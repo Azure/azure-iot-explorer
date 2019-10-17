@@ -66,8 +66,8 @@ export class MaskedCopyableTextField extends React.Component<MaskedCopyableTextF
                             placeholder={placeholder}
                         />
                         <input
-                            aria-label={ariaLabel}
-                            style={{ position: 'absolute', left: '-9000px', top: '-9000px'}}
+                            aria-hidden={true}
+                            style={{ position: 'absolute', opacity: 0, height: '1px', width: '1px'}}
                             tabIndex={-1}
                             ref={this.hiddenInputRef}
                             value={value}

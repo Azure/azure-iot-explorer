@@ -98,7 +98,7 @@ export default class HubConnectionStringSection extends React.Component<HubConne
                     </Stack.Item>
                 </Stack>
                 <input
-                    aria-label={t(ResourceKeys.connectivityPane.dropDown.copyButton)}
+                    aria-hidden={true}
                     className="hidden"
                     tabIndex={-1}
                     ref={this.hiddenInputRef}
