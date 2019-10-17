@@ -24,6 +24,7 @@ import { Message } from '../models/messages';
 import { Twin, Device, DataPlaneResponse } from '../models/device';
 import { DeviceIdentity } from '../models/deviceIdentity';
 import { DigitalTwinInterfaces } from '../models/digitalTwinModels';
+import { parseEventHubMessage } from './eventHubMessageHelper';
 
 export const DATAPLANE_CONTROLLER_ENDPOINT = `${CONTROLLER_API_ENDPOINT}${DATAPLANE}`;
 const EVENTHUB_CONTROLLER_ENDPOINT = `${CONTROLLER_API_ENDPOINT}${EVENTHUB}`;
@@ -425,7 +426,8 @@ export const monitorEvents = async (parameters: MonitorEventsParameters): Promis
         };
 
         const response = await request(EVENTHUB_MONITOR_ENDPOINT, requestParameters);
-        return await response.json() as Message[];
+        const messages = await response.json() as Message[];
+        return  messages.map(message => parseEventHubMessage(message));
     } catch (error) {
         throw error;
     }
