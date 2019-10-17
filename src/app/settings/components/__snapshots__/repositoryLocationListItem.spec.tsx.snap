@@ -24,7 +24,7 @@ exports[`components/settings/repositoryLocationListItem matches snapshot for dev
       className="remove-button"
       iconProps={
         Object {
-          "iconName": "cancel",
+          "iconName": "Cancel",
         }
       }
       onClick={[Function]}
