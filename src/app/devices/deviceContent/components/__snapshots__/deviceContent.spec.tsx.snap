@@ -1,0 +1,113 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`deviceContent matches snapshot 1`] = `
+<div
+  className="edit"
+>
+  <div
+    className="view-header"
+  >
+    <Route
+      component={[Function]}
+    />
+  </div>
+  <div
+    className="view-content view-scroll"
+  >
+    <div
+      className="device-content"
+    >
+      <div
+        className="device-content-nav-bar"
+      >
+        <nav>
+          <div
+            className="navToggle"
+          >
+            <CustomizedIconButton
+              ariaLabel="deviceContent.navBar.collapse"
+              iconProps={
+                Object {
+                  "iconName": "GlobalNavButton",
+                }
+              }
+              onClick={[Function]}
+              tabIndex={0}
+              title="deviceContent.navBar.collapse"
+            />
+          </div>
+          <div
+            className="nav-links"
+          >
+            <DeviceContentNavComponent
+              deviceId="testDevice"
+              getDigitalTwinInterfaceProperties={
+                [MockFunction] {
+                  "calls": Array [
+                    Array [
+                      "testDevice",
+                    ],
+                  ],
+                  "results": Array [
+                    Object {
+                      "type": "return",
+                      "value": undefined,
+                    },
+                  ],
+                }
+              }
+              history={
+                Object {
+                  "location": Object {
+                    "pathname": "/#/devices/detail/?id=testDevice&testInterfaceId",
+                  },
+                }
+              }
+              interfaceId="testInterfaceId"
+              interfaceIds={Array []}
+              isLoading={false}
+              isPnPDevice={true}
+              location={
+                Object {
+                  "pathname": "/#/devices/detail/?id=testDevice&testInterfaceId",
+                }
+              }
+              match={Object {}}
+              selectedInterface="testInterfaceId"
+              setInterfaceId={[MockFunction]}
+            />
+          </div>
+        </nav>
+      </div>
+      <div
+        className="device-content-detail"
+      >
+        <Route
+          component={[Function]}
+          path="/devices/detail/identity/"
+        />
+        <Route
+          component={[Function]}
+          path="/devices/detail/twin/"
+        />
+        <Route
+          component={[Function]}
+          path="/devices/detail/events/"
+        />
+        <Route
+          component={[Function]}
+          path="/devices/detail/methods/"
+        />
+        <Route
+          component={[Function]}
+          path="/devices/detail/cloudToDeviceMessage/"
+        />
+        <Route
+          component={[Function]}
+          path="/devices/detail/digitalTwins/"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;

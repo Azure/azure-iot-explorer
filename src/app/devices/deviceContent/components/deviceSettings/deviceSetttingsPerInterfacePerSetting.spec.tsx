@@ -54,7 +54,7 @@ describe('components/devices/deviceSettingsPerInterfacePerSetting', () => {
         settingModelDefinition: propertyModelDefinition,
         settingSchema: propertySchema};
 
-    it('matches snapshot when there is a writable property of simple type without sync status', () => {
+    it('renders when there is a writable property of simple type without sync status', () => {
         const props = {
             ...deviceSettingDataProps,
             ...deviceSettingDispatchProps
@@ -63,7 +63,6 @@ describe('components/devices/deviceSettingsPerInterfacePerSetting', () => {
         const wrapper = mountWithLocalization(
             <DeviceSettingsPerInterfacePerSetting {...props}/>
         );
-        expect(wrapper).toMatchSnapshot();
 
         const nameLabel = wrapper.find(Label).first();
         expect((nameLabel.props().children as any).join('')).toEqual(`${name} (${displayName} / ${description})`);  // tslint:disable-line:no-any
@@ -81,7 +80,7 @@ describe('components/devices/deviceSettingsPerInterfacePerSetting', () => {
         expect(reportedStatus.props().children[1]).toBeUndefined();
     });
 
-    it('matches snapshot when there is a writable property of complex type with sync status', () => {
+    it('renders when there is a writable property of complex type with sync status', () => {
         schema = 'Object';
         twinValue = {
             test: 'value'
@@ -114,7 +113,6 @@ describe('components/devices/deviceSettingsPerInterfacePerSetting', () => {
         const wrapper = mountWithLocalization(
             <DeviceSettingsPerInterfacePerSetting {...props}/>
         );
-        expect(wrapper).toMatchSnapshot();
 
         const nameLabel = wrapper.find(Label).first();
         expect((nameLabel.props().children as any).join('')).toEqual(`${name} (${displayName} / ${description})`);  // tslint:disable-line:no-any

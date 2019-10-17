@@ -9,15 +9,30 @@ exports[`components/devices/DeviceList matches snapshot 1`] = `
       Object {
         "authenticationType": "sas",
         "cloudToDeviceMessageCount": "0",
+        "connectionState": "connected",
         "deviceId": "testDeviceId",
+        "iotEdge": false,
         "lastActivityTime": "0001-01-01T00:00:00Z",
         "status": "Enabled",
         "statusUpdatedTime": "0001-01-01T00:00:00Z",
       },
     ]
   }
+  history={
+    Object {
+      "location": Object {
+        "pathname": "/",
+      },
+    }
+  }
   isFetching={false}
   listDevices={[MockFunction]}
+  location={
+    Object {
+      "pathname": "/",
+    }
+  }
+  match={Object {}}
   t={[MockFunction]}
 />
 `;

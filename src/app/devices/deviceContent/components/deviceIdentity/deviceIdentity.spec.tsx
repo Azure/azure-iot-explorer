@@ -4,8 +4,10 @@
  **********************************************************/
 import * as React from 'react';
 import 'jest';
+import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
+import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 import DeviceIdentity from './deviceIdentity';
-import { testSnapshot } from '../../../../shared/utils/testHelpers';
+import { testSnapshot, mountWithLocalization } from '../../../../shared/utils/testHelpers';
 import { DeviceAuthenticationType } from '../../../../api/models/deviceAuthenticationType';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 
@@ -21,9 +23,11 @@ const routerprops: any = { // tslint:disable-line:no-any
     location,
     match: {}
 };
+
+const mockUpdateDevice = jest.fn();
 const dispatchProps = {
     getDeviceIdentity: jest.fn(),
-    updateDeviceIdentity: jest.fn(),
+    updateDeviceIdentity: mockUpdateDevice
 };
 
 const getComponent = (overrides = {}) => {
@@ -42,11 +46,13 @@ describe('devices/components/deviceIdentity', () => {
         it('matches snapshot', () => {
             testSnapshot(getComponent());
         });
+
         it('matches snapshot with identity wrapper', () => {
             testSnapshot(getComponent({
                 identityWrapper: {}
             }));
         });
+
         it('matches snapshot with auth type of None', () => {
             testSnapshot(getComponent({
                 identityWrapper: {
@@ -59,6 +65,7 @@ describe('devices/components/deviceIdentity', () => {
                 }
             }));
         });
+
         it('matches snapshot with SymmetricKey auth type', () => {
             testSnapshot(getComponent({
                 identityWrapper: {
@@ -74,6 +81,7 @@ describe('devices/components/deviceIdentity', () => {
                 }
             }));
         });
+
         it('matches snapshot with SelfSigned auth type', () => {
             testSnapshot(getComponent({
                 identityWrapper: {
@@ -85,6 +93,7 @@ describe('devices/components/deviceIdentity', () => {
                 }
             }));
         });
+
         it('matches snapshot with CA auth type', () => {
             testSnapshot(getComponent({
                 identityWrapper: {
@@ -96,6 +105,7 @@ describe('devices/components/deviceIdentity', () => {
                 }
             }));
         });
+
         it('matches snapshot with Synchronization Status of working', () => {
             testSnapshot(getComponent({
                 identityWrapper: {
@@ -111,6 +121,7 @@ describe('devices/components/deviceIdentity', () => {
                 }
             }));
         });
+
         it('matches snapshot with Synchronization Status of updating', () => {
             testSnapshot(getComponent({
                 identityWrapper: {
@@ -125,6 +136,28 @@ describe('devices/components/deviceIdentity', () => {
                     deviceIdentitySynchronizationStatus: SynchronizationStatus.updating,
                 }
             }));
+        });
+
+        it('calls save', () => {
+            const wrapper = mountWithLocalization(getComponent({
+                identityWrapper: {
+                    deviceIdentity: {
+                        authentication: {
+                            symmetricKey: {
+                                primaryKey: 'key'
+                            },
+                            type: DeviceAuthenticationType.SymmetricKey
+                        },
+                        deviceId: 'device1'
+                    }
+                }
+            }));
+            wrapper.find(Toggle).first().instance().props.onChange({ target: null}, false);
+            wrapper.update();
+
+            const commandBar = wrapper.find(CommandBar).first();
+            commandBar.props().items[0].onClick(null);
+            expect(mockUpdateDevice).toBeCalled();
         });
     });
 });

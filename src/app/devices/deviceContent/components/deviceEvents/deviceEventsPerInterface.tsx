@@ -50,7 +50,7 @@ export interface TelemetrySchema {
     telemetryModelDefinition: TelemetryContent;
 }
 
-interface DeviceEventsState {
+export interface DeviceEventsState {
     consumerGroup: string;
     events: Message[];
     hasMore: boolean;
@@ -310,7 +310,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
             <div className="ms-Grid-col ms-sm2">
                 <Label aria-label={context.t(ResourceKeys.deviceEvents.columns.displayName)}>
                     {telemetryModelDefinition ?
-                        `${telemetryModelDefinition.name} (${displayName ? displayName : '--'}) ` : '--'}
+                        `${telemetryModelDefinition.name} (${displayName ? displayName : '--'})` : '--'}
                 </Label>
             </div>
         );

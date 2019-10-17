@@ -15,7 +15,7 @@ describe('components/devices/devicePropertiesPerInterfacePerProperty', () => {
     const description = 'The state of the device. Two states online/offline are available.';
     const displayName = 'Device State';
 
-    it('matches snapshot when there is a non-writable property of simple type', () => {
+    it('renders when there is a non-writable property of simple type', () => {
         const schema = 'boolean';
         const propertyModelDefinition = {
             '@type': 'Property',
@@ -39,8 +39,6 @@ describe('components/devices/devicePropertiesPerInterfacePerProperty', () => {
                 handleOverlayToggle={jest.fn()}
             />
         );
-
-        expect(wrapper).toMatchSnapshot();
 
         const nameLabel = wrapper.find(Label).first();
         expect((nameLabel.props().children as any).join('')).toEqual(`${name} (${displayName} / ${description})`);  // tslint:disable-line:no-any
