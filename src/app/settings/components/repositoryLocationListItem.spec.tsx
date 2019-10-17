@@ -10,13 +10,41 @@ import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationType
 
 describe('components/settings/repositoryLocationListItem', () => {
 
-    it('matches snapshot', () => {
+    it('matches snapshot for private', () => {
         const wrapper = testWithLocalizationContext(
             <RepositoryLocationListItem
                 index={0}
                 item={{
                     connectionString: '',
                     repositoryLocationType: REPOSITORY_LOCATION_TYPE.Private,
+                }}
+                moveCard={jest.fn()}
+                onPrivateRepositoryConnectionStringChanged={jest.fn()}
+                onRemoveListItem={jest.fn()}
+            />
+        );
+        expect(wrapper).toMatchSnapshot();
+    });
+    it('matches snapshot for public', () => {
+        const wrapper = testWithLocalizationContext(
+            <RepositoryLocationListItem
+                index={0}
+                item={{
+                    repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public,
+                }}
+                moveCard={jest.fn()}
+                onPrivateRepositoryConnectionStringChanged={jest.fn()}
+                onRemoveListItem={jest.fn()}
+            />
+        );
+        expect(wrapper).toMatchSnapshot();
+    });
+    it('matches snapshot for device', () => {
+        const wrapper = testWithLocalizationContext(
+            <RepositoryLocationListItem
+                index={0}
+                item={{
+                    repositoryLocationType: REPOSITORY_LOCATION_TYPE.Device,
                 }}
                 moveCard={jest.fn()}
                 onPrivateRepositoryConnectionStringChanged={jest.fn()}

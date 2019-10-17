@@ -1,6 +1,40 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/settings/repositoryLocationListItem matches snapshot 1`] = `
+exports[`components/settings/repositoryLocationListItem matches snapshot for device 1`] = `
+<div
+  className="item"
+  role="list"
+>
+  <div
+    className="numbering"
+  >
+    1
+  </div>
+  <div
+    className="location-item"
+    role="listitem"
+  >
+    <div
+      className="item-details"
+    >
+      settings.modelDefinitions.repositoryTypes.device.label
+    </div>
+    <CustomizedIconButton
+      ariaLabel="settings.cancel"
+      className="remove-button"
+      iconProps={
+        Object {
+          "iconName": "Cancel",
+        }
+      }
+      onClick={[Function]}
+      title="settings.cancel"
+    />
+  </div>
+</div>
+`;
+
+exports[`components/settings/repositoryLocationListItem matches snapshot for private 1`] = `
 <div
   className="item"
   role="list"
@@ -74,6 +108,29 @@ exports[`components/settings/repositoryLocationListItem matches snapshot 1`] = `
       onClick={[Function]}
       title="settings.cancel"
     />
+  </div>
+</div>
+`;
+
+exports[`components/settings/repositoryLocationListItem matches snapshot for public 1`] = `
+<div
+  className="item"
+  role="list"
+>
+  <div
+    className="numbering"
+  >
+    1
+  </div>
+  <div
+    className="location-item"
+    role="listitem"
+  >
+    <div
+      className="item-details"
+    >
+      settings.modelDefinitions.repositoryTypes.public.label
+    </div>
   </div>
 </div>
 `;
