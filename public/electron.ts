@@ -85,7 +85,17 @@ const createMenu = () => {
                     label: 'Toggle Developer Tools'
                 },
                 { type: 'separator' },
-                { role: 'about'}
+                {
+                    click: () => {
+                        const version = electron.app.getVersion();
+                        if (!!version) {
+                        electron.shell.openExternal(`https://github.com/Azure/azure-iot-explorer/releases/tag/v${version}`);
+                        } else {
+                                electron.shell.openExternal(`https://github.com/Azure/azure-iot-explorer/releases`);
+                        }
+                    },
+                    role: 'about'
+                }
             ]
         }
     ];
