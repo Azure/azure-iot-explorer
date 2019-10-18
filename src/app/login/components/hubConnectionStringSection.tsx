@@ -77,7 +77,7 @@ export default class HubConnectionStringSection extends React.Component<HubConne
         });
         return (
             <>
-                <Stack horizontal={true} gap={'5px'}>
+                <Stack horizontal={true}>
                     <Stack.Item align="start" className="connection-string-dropDown">
                         <Dropdown
                             label={t(ResourceKeys.connectivityPane.connectionStringTextBox.label)}
