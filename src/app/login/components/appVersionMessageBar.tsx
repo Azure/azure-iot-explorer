@@ -5,10 +5,10 @@
 import * as React from 'react';
 import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
 import { Link } from 'office-ui-fabric-react/lib/Link';
-import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../shared/contexts/localizationContext';
-import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { fetchLatestReleaseTagName, latestReleaseUrlPath } from '../../../api/services/githubService';
-import * as packageJson from '../../../../../package.json';
+import { LocalizationContextConsumer, LocalizationContextInterface } from '../../shared/contexts/localizationContext';
+import { ResourceKeys } from '../../../localization/resourceKeys';
+import { fetchLatestReleaseTagName, latestReleaseUrlPath } from '../../api/services/githubService';
+import * as packageJson from '../../../../package.json';
 import { isNewReleaseVersionHigher } from './appVersionHelper';
 
 interface AppVersionMessageBarState {
@@ -46,7 +46,6 @@ export default class AppVersionMessageBar extends React.Component<{}, AppVersion
         (
             <MessageBar
                 messageBarType={MessageBarType.info}
-                onDismiss={this.dismissMessageBar}
             >
                 {context.t(ResourceKeys.deviceLists.messageBar.message, {version: this.state.latestReleaseVersion})}
                 <Link href={latestReleaseUrlPath} target="_blank">
@@ -54,9 +53,5 @@ export default class AppVersionMessageBar extends React.Component<{}, AppVersion
                 </Link>
             </MessageBar>
         ) : <></>;
-    }
-
-    private readonly dismissMessageBar = () => {
-        this.setState({latestReleaseVersion: undefined});
     }
 }

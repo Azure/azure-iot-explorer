@@ -12,6 +12,7 @@ import { ResourceKeys } from '../../../localization/resourceKeys';
 import { validateConnectionString } from '../../shared/utils/hubConnectionStringHelper';
 import { SetConnectionStringActionParameter } from '../actions';
 import HubConnectionStringSection from './hubConnectionStringSection';
+import AppVersionMessageBar from './appVersionMessageBar';
 import '../../css/_connectivityPane.scss';
 
 export interface ConnectivityPaneDispatchProps {
@@ -52,6 +53,7 @@ export default class ConnectivityPane extends React.Component<RouteComponentProp
                             <h1>
                                 {context.t(ResourceKeys.connectivityPane.header)}
                             </h1>
+
                             <HubConnectionStringSection
                                 connectionString={connectionString}
                                 connectionStringList={this.props.connectionStringList}
@@ -74,6 +76,7 @@ export default class ConnectivityPane extends React.Component<RouteComponentProp
                                     {context.t(ResourceKeys.connectivityPane.saveButton.label)}
                                 </PrimaryButton>
                             </div>
+                            <AppVersionMessageBar/>
                         </div>
                     </div>
                 )}

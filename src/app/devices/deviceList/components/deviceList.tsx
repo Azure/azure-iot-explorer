@@ -18,7 +18,6 @@ import DeviceListQuery from './deviceListQuery';
 import { DeviceListCell } from './deviceListCell';
 import ListPaging from './listPaging';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
-import AppVersionMessageBar from './appVersionMessageBar';
 import '../../../css/_deviceList.scss';
 import '../../../css/_layouts.scss';
 
@@ -61,7 +60,6 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
                 {(context: LocalizationContextInterface) => (
                     <div className="view">
                         <div className="view-header">
-                            <AppVersionMessageBar/>
                             <Route component={BreadcrumbContainer} />
                         </div>
                         <div className="view-command">

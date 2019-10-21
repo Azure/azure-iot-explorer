@@ -8,8 +8,8 @@ import { MessageBar } from 'office-ui-fabric-react/lib/MessageBar';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import AppVersionMessageBar from './appVersionMessageBar';
 import * as AppVersionHelper from './appVersionHelper';
-import { mountWithLocalization } from '../../../shared/utils/testHelpers';
-import { latestReleaseUrlPath } from '../../../api/services/githubService';
+import { mountWithLocalization } from '../../shared/utils/testHelpers';
+import { latestReleaseUrlPath } from '../../api/services/githubService';
 
 jest.mock('semver');
 describe('components/devices/appVersionMessageBar', () => {
@@ -27,15 +27,8 @@ describe('components/devices/appVersionMessageBar', () => {
         messageBarComponent.setState({latestReleaseVersion: 'v100.0.0'});
         wrapper.update();
 
-        let messageBar = wrapper.find(MessageBar);
+        const messageBar = wrapper.find(MessageBar);
         expect(messageBar.props().children[0]).toEqual('deviceLists.messageBar.message');
         expect(messageBar.props().children[1].props.href).toEqual(latestReleaseUrlPath);
-
-        const dismissButton = messageBar.find(IconButton);
-        dismissButton.props().onClick(null);
-        wrapper.update();
-
-        messageBar = wrapper.find(MessageBar);
-        expect(MessageBar.length === 0);
     });
 });

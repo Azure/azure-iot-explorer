@@ -42,6 +42,7 @@ exports[`login/components/connectivityPane matches snapshot 1`] = `
         connectivityPane.saveButton.label
       </CustomizedPrimaryButton>
     </div>
+    <AppVersionMessageBar />
   </div>
 </div>
 `;

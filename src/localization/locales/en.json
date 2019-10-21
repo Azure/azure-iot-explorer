@@ -299,7 +299,7 @@
             }
         },
         "messageBar": {
-            "message": "{{version}} has been release.",
+            "message": "{{version}} has been released.",
             "link": "Please click here to download."
         }
     },
