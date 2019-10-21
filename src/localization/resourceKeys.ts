@@ -277,6 +277,10 @@ export class ResourceKeys {
          save : "deviceLists.commands.save",
       },
       loadingDevice : "deviceLists.loadingDevice",
+      messageBar : {
+         link : "deviceLists.messageBar.link",
+         message : "deviceLists.messageBar.message",
+      },
       noData : "deviceLists.noData",
       noDevice : "deviceLists.noDevice",
       paging : {
