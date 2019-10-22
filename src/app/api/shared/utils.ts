@@ -150,5 +150,5 @@ export const toPnPClause = (pnpFunctionName: string, value: string): string => {
 
         return `${pnpFunctionName}(${escapeValue(urnName)}, ${urnVersion})`;
     }
-    return `${pnpFunctionName}(${escapeValue(value)})`;
+    return `${pnpFunctionName}('${value}')`; // when provided value is not urn with version, pass it in as string
 };
