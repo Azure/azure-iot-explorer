@@ -34,11 +34,14 @@ export default class AppVersionMessageBar extends React.Component<{}, AppVersion
     }
 
     private readonly hasNewerRelease = () => {
-        if (!this.state || !this.state.latestReleaseVersion) { return false; }
-        const latestVersion = this.state.latestReleaseVersion;
-        const versionTagPrefix = 'v';
-        const semanticVersion = latestVersion.startsWith(versionTagPrefix) ? latestVersion.split(versionTagPrefix)[1] : latestVersion;
-        return isNewReleaseVersionHigher(semanticVersion, packageJson.version);
+        try {
+            if (!this.state || !this.state.latestReleaseVersion) { return false; }
+            const semanticVersion = this.state.latestReleaseVersion.replace(/^v/, '');
+            return isNewReleaseVersionHigher(semanticVersion, packageJson.version);
+        }
+        catch {
+            return false;
+        }
     }
 
     private readonly renderMessageBar = (context: LocalizationContextInterface) => {
