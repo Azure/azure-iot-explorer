@@ -58,7 +58,6 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
         return (
             <LocalizationContextConsumer>
                 {(context: LocalizationContextInterface) => (
-
                     <div className="view">
                         <div className="view-header">
                             <Route component={BreadcrumbContainer} />

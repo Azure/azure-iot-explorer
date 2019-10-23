@@ -45,7 +45,10 @@
             display: flex;
             flex-direction: row-reverse;
             width: 100%;
-            padding-top: 50px;
+            padding: {
+                top: 50px;
+                bottom: 20px;
+            }
         }
     }
 }

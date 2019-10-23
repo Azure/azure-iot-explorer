@@ -10,7 +10,7 @@
         width: calc(100% - 2px);
         .ms-Button {
             @include themify($themes) {
-                color: themed('backgroundColor');
+                color: themed('textColor');
             }
         }
     }

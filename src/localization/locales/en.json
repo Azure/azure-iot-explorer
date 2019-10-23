@@ -297,6 +297,10 @@
                     }
                 }
             }
+        },
+        "messageBar": {
+            "message": "{{version}} has been released.",
+            "link": "Please click here to download."
         }
     },
     "deviceTwin": {
