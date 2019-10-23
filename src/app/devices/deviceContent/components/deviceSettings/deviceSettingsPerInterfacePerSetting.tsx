@@ -122,7 +122,7 @@ export default class DeviceSettingsPerInterfacePerSetting
         const ariaLabel = context.t(ResourceKeys.deviceSettings.columns.reportedValue);
         return (
             <div className="column-value-text ms-Grid-col ms-sm4" aria-label={ariaLabel}>
-                <Stack horizontal={true} gap={'25px'}>
+                <Stack horizontal={true}>
                     <Stack.Item align="start" className="reported-property">
                         {reportedTwin ?
                             (this.isSchemaSimpleType() ?

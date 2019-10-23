@@ -5,9 +5,9 @@
 import 'jest';
 import * as React from 'react';
 import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
-import { MaskedCopyableTextField  } from '../../shared/components/maskedCopyableTextField';
-import { testWithLocalizationContext } from '../../shared/utils/testHelpers';
-import ConnectivityPane from './connectivityPane';
+import { testSnapshot, mountWithLocalization } from '../../shared/utils/testHelpers';
+import ConnectivityPane, { ConnectivityPaneDataProps, ConnectivityPaneDispatchProps, ConnectivityState } from './connectivityPane';
+import HubConnectionStringSection from './hubConnectionStringSection';
 
 describe('login/components/connectivityPane', () => {
     const routerprops: any = { // tslint:disable-line:no-any
@@ -18,76 +18,62 @@ describe('login/components/connectivityPane', () => {
         location,
     };
 
+    const connectivityPaneDataProps: ConnectivityPaneDataProps = {
+        connectionString: 'testConnectionString',
+        connectionStringList: ['testConnectionString'],
+        rememberConnectionString: true
+    };
+
+    const mockSaveConnectionInfo = jest.fn();
+    const connectivityPaneDispatchProps: ConnectivityPaneDispatchProps = {
+        saveConnectionInfo: mockSaveConnectionInfo
+    };
+
+    const getComponent = (overrides = {}) => {
+        const props = {
+            ...connectivityPaneDataProps,
+            ...connectivityPaneDispatchProps,
+            ...routerprops,
+            ...overrides
+        };
+
+        return (
+            <ConnectivityPane {...props} />
+        );
+    };
+
     it('matches snapshot', () => {
-        const saveConnectionInfo = jest.fn();
-        const wrapper = testWithLocalizationContext(
-            <ConnectivityPane
-                {...routerprops}
-                connectionString=""
-                saveConnectionInfo={saveConnectionInfo}
-            />
-        );
-        expect(wrapper).toMatchSnapshot();
+        testSnapshot(getComponent());
     });
-    it('matches snapshot for invalid connection string', () => {
-        const saveConnectionInfo = jest.fn();
-        const wrapper = testWithLocalizationContext(
-            <ConnectivityPane
-                {...routerprops}
-                connectionString=""
-                saveConnectionInfo={saveConnectionInfo}
-            />
-        );
-        const input = wrapper.find(MaskedCopyableTextField);
-        input.props().onTextChange('invalid connection string');
 
-        expect(wrapper).toMatchSnapshot();
-    });
-    it('matches snapshot for empty connection string', () => {
-        const saveConnectionInfo = jest.fn();
-        const wrapper = testWithLocalizationContext(
-            <ConnectivityPane
-                {...routerprops}
-                connectionString="invalid connection string"
-                saveConnectionInfo={saveConnectionInfo}
-            />
-        );
-        const input = wrapper.find(MaskedCopyableTextField);
-        input.props().onTextChange('');
-
-        expect(wrapper).toMatchSnapshot();
-    });
-    it('matches snapshot for valid connection string', () => {
-        const saveConnectionInfo = jest.fn();
-        const wrapper = testWithLocalizationContext(
-            <ConnectivityPane
-                {...routerprops}
-                connectionString=""
-                saveConnectionInfo={saveConnectionInfo}
-            />
-        );
-        const input = wrapper.find(MaskedCopyableTextField);
-        input.props().onTextChange('HostName=a;SharedAccessKey=b;SharedAccessKeyName=c;');
-
-        expect(wrapper).toMatchSnapshot();
-    });
     it('calls saveConnectionInfo on button click', () => {
-        const saveConnectionInfo = jest.fn();
-        const wrapper = testWithLocalizationContext(
-            <ConnectivityPane
-                {...routerprops}
-                connectionString="HostName=a;SharedAccessKey=b;SharedAccessKeyName=c;"
-                saveConnectionInfo={saveConnectionInfo}
-            />
-        );
+        const wrapper = mountWithLocalization(getComponent());
         const button = wrapper.find(PrimaryButton);
         button.props().onClick(null);
-        expect(saveConnectionInfo).toBeCalledWith(
+        expect(mockSaveConnectionInfo).toBeCalledWith(
             {
-                connectionString: 'HostName=a;SharedAccessKey=b;SharedAccessKeyName=c;',
+                connectionString: 'testConnectionString',
                 error: '',
-                rememberConnectionString: undefined
+                rememberConnectionString: true
             });
         expect(routerprops.history.push).toBeCalledWith('/devices');
+    });
+
+    it('changes state when connection string changes', () => {
+        const wrapper = mountWithLocalization(getComponent());
+        let hubConnectionStringSection = wrapper.find(HubConnectionStringSection);
+        hubConnectionStringSection.props().onConnectionStringChangedFromTextField('newConnectionString1');
+        wrapper.update();
+        expect((wrapper.state() as ConnectivityState).connectionString).toEqual('newConnectionString1');
+
+        hubConnectionStringSection = wrapper.find(HubConnectionStringSection);
+        hubConnectionStringSection.props().onConnectionStringChangedFromDropdown(null, {key: 'newConnectionString2'} as any); // tslint:disable-line:no-any
+        wrapper.update();
+        expect((wrapper.state() as ConnectivityState).connectionString).toEqual('newConnectionString2');
+
+        hubConnectionStringSection = wrapper.find(HubConnectionStringSection);
+        hubConnectionStringSection.props().onCheckboxChange(null, false);
+        wrapper.update();
+        expect((wrapper.state() as ConnectivityState).rememberConnectionString).toEqual(false);
     });
 });

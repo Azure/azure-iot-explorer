@@ -59,6 +59,7 @@ export default class RepositoryLocationListItem extends React.Component<Reposito
                                     readOnly={false}
                                     required={true}
                                     onTextChange={this.onConnectionStringChanged}
+                                    placeholder={context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.private.placeholder)}
                                 />
                             }
                         </div>

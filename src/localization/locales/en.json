@@ -62,7 +62,8 @@
                 "private": {
                     "label":"Company repository",
                     "infoText": "",
-                    "textBoxLabel": "Company model repository connection string"
+                    "textBoxLabel": "Company model repository connection string",
+                    "placeholder": "Please fill in this required field in order to proceed"
                 },
                 "device": {
                     "label":"On the connected device",
@@ -129,11 +130,15 @@
         "connectionStringCheckbox": {
             "label": "Remember my connection string",
             "ariaLabel": "check box for remember my connection string",
-            "tooltip": "The connection string will be stored in the browser local storage"
+            "tooltip": "The connection string will be stored in the browser local storage. (We will remember up to 5 hub connection strings)"
         },
         "notes": "For Plug and Play devices, we'll look for your model definition in the public repository first, and then we’ll search your connected devices. To change how and where we search, open Settings.",
         "saveButton": {
             "label": "Connect"
+        },
+        "dropDown": {
+            "newEntry": "(New) Add a IoT hub connection string",
+            "copyButton": "Copy connection string to clipboard"
         }
     },
     "deviceIdentity": {

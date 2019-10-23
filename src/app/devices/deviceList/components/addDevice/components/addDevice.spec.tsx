@@ -6,7 +6,7 @@ import 'jest';
 import * as React from 'react';
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
-import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
+import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/Button';
 import AddDeviceComponent, { AddDeviceDataProps, AddDeviceActionProps, AddDeviceState } from './addDevice';
 import { testSnapshot, mountWithLocalization } from '../../../../../shared/utils/testHelpers';
 import { MaskedCopyableTextField } from '../../../../../shared/components/maskedCopyableTextField';
@@ -118,5 +118,9 @@ describe('components/devices/addDevice', () => {
         expect(addDeviceState.status).toEqual(DeviceStatus.Disabled);
         const saveButton = addDevice.find(PrimaryButton).first();
         expect(saveButton.props().disabled).toBeFalsy();
+
+        const form = addDevice.find('form');
+        form.simulate('submit');
+        expect(mockSaveDevice).toBeCalled();
     });
 });

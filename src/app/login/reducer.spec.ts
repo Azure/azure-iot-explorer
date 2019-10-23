@@ -7,7 +7,7 @@ import { SET_CONNECTION_STRING } from '../constants/actionTypes';
 import { connectionStateInitial } from './state';
 import connectionStateReducer from './reducer';
 import { setConnectionStringAction } from './actions';
-import { REMEMBER_CONNECTION_STRING, CONNECTION_STRING_NAME } from '../constants/browserStorage';
+import { REMEMBER_CONNECTION_STRING, CONNECTION_STRING_NAME_LIST } from '../constants/browserStorage';
 
 describe('connectionStateReducers', () => {
     it (`handles ${SET_CONNECTION_STRING} action and remembers the connection string`, () => {
@@ -20,7 +20,7 @@ describe('connectionStateReducers', () => {
         expect(connectionStateReducer(connectionStateInitial(), action).connectionString).toEqual(connectionString);
         expect(connectionStateReducer(connectionStateInitial(), action).rememberConnectionString).toEqual(true);
         expect(localStorage.getItem(REMEMBER_CONNECTION_STRING)).toEqual('true');
-        expect(localStorage.getItem(CONNECTION_STRING_NAME)).toEqual(connectionString);
+        expect(localStorage.getItem(CONNECTION_STRING_NAME_LIST)).toEqual(connectionString);
     });
 
     it (`handles ${SET_CONNECTION_STRING} action and won't remember the connection string`, () => {
@@ -33,6 +33,6 @@ describe('connectionStateReducers', () => {
         expect(connectionStateReducer(connectionStateInitial(), action).connectionString).toEqual(connectionString);
         expect(connectionStateReducer(connectionStateInitial(), action).rememberConnectionString).toEqual(false);
         expect(localStorage.getItem(REMEMBER_CONNECTION_STRING)).toEqual('false');
-        expect(localStorage.getItem(CONNECTION_STRING_NAME)).toEqual('');
+        expect(localStorage.getItem(CONNECTION_STRING_NAME_LIST)).toEqual('');
     });
 });

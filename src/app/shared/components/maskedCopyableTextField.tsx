@@ -23,6 +23,7 @@ export interface MaskedCopyableTextFieldProps {
     readOnly: boolean;
     required?: boolean;
     onTextChange?(text: string): void;
+    placeholder?: string;
 }
 
 export interface MaskedCopyableTextFieldState {
@@ -42,7 +43,7 @@ export class MaskedCopyableTextField extends React.Component<MaskedCopyableTextF
     }
     // tslint:disable-next-line:cyclomatic-complexity
     public render(): JSX.Element {
-        const { ariaLabel, calloutContent, error, label, labelCallout, value, allowMask, t, readOnly, required } = this.props;
+        const { ariaLabel, error, value, allowMask, t, readOnly, placeholder } = this.props;
         const { hideContents } = this.state;
 
         return (
@@ -60,12 +61,13 @@ export class MaskedCopyableTextField extends React.Component<MaskedCopyableTextF
                             value={value}
                             type={(allowMask && hideContents) ? 'password' : 'text'}
                             className="input"
-                            readOnly={this.props.readOnly}
+                            readOnly={readOnly}
                             onChange={this.onChange}
+                            placeholder={placeholder}
                         />
                         <input
-                            aria-label={ariaLabel}
-                            style={{ position: 'absolute', left: '-9000px', top: '-9000px'}}
+                            aria-hidden={true}
+                            style={{ position: 'absolute', opacity: 0, height: '1px', width: '1px'}}
                             tabIndex={-1}
                             ref={this.hiddenInputRef}
                             value={value}
