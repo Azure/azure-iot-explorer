@@ -5,23 +5,23 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel';
-import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
+import { IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
 import { Link } from 'office-ui-fabric-react/lib/Link';
-import { PrimaryButton, ActionButton, DefaultButton } from 'office-ui-fabric-react/lib/Button';
+import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/Button';
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { validateConnectionString } from '../../shared/utils/hubConnectionStringHelper';
 import RepositoryLocationList from './repositoryLocationList';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
-import { MaskedCopyableTextField } from '../../shared/components/maskedCopyableTextField';
-import LabelWithTooltip from '../../shared/components/labelWithTooltip';
-import '../../css/_settingsPane.scss';
 import { ConfirmationDialog } from './confirmationDialog';
-import { ThemeContextConsumer, ThemeContextInterface, Theme, ThemeContext } from '../../shared/contexts/themeContext';
+import { ThemeContextConsumer, ThemeContextInterface } from '../../shared/contexts/themeContext';
+import HubConnectionStringSection from '../../login/components/hubConnectionStringSection';
+import '../../css/_settingsPane.scss';
 
 export interface SettingsPaneProps extends Settings {
     isOpen: boolean;
+    connectionStringList: string[];
 }
 
 export interface SettingsPaneActions {
@@ -85,42 +85,16 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
                         </header>
                         <section aria-label={context.t(ResourceKeys.settings.configuration.headerText)}>
                             <h3 role="heading" aria-level={1}>{context.t(ResourceKeys.settings.configuration.headerText)}</h3>
-                            <MaskedCopyableTextField
-                                t={context.t}
+                            <HubConnectionStringSection
+                                connectionString={this.state.hubConnectionString}
+                                connectionStringList={this.props.connectionStringList}
+                                rememberConnectionString={this.state.rememberConnectionString}
                                 error={this.state.error && context.t(this.state.error)}
-                                ariaLabel={context.t(ResourceKeys.connectivityPane.connectionStringTextBox.label)}
-                                label={context.t(ResourceKeys.connectivityPane.connectionStringTextBox.label)}
-                                calloutContent={(<div className="callout-wrapper">
-                                <div className="content">
-                                    {context.t(ResourceKeys.settings.configuration.connectionString.sublabel)}
-                                </div>
-                                <div className="footer">
-                                    <Link
-                                        href={context.t(ResourceKeys.settings.configuration.connectionString.link)}
-                                        target="_blank"
-                                    >
-                                        {context.t(ResourceKeys.settings.configuration.connectionString.link)}
-                                    </Link>
-                                </div>
-                            </div>)}
-                                value={this.state.hubConnectionString}
-                                allowMask={true}
-                                readOnly={false}
-                                onTextChange={this.onConnectionStringChanged}
+                                onConnectionStringChangedFromTextField={this.onConnectionStringChangedFromTextField}
+                                onConnectionStringChangedFromDropdown={this.onConnectionStringChangedFromDropdown}
+                                onCheckboxChange={this.onCheckboxChange}
                             />
                         </section>
-                        <div className="remember-connection-string">
-                            <Checkbox
-                                ariaLabel={context.t(ResourceKeys.connectivityPane.connectionStringCheckbox.ariaLabel)}
-                                onChange={this.onCheckboxChange}
-                                checked={this.state.rememberConnectionString}
-                            />
-                            <LabelWithTooltip
-                                tooltipText={context.t(ResourceKeys.connectivityPane.connectionStringCheckbox.tooltip)}
-                            >
-                                {context.t(ResourceKeys.connectivityPane.connectionStringCheckbox.label)}
-                            </LabelWithTooltip>
-                        </div>
                         <section aria-label={context.t(ResourceKeys.settings.modelDefinitions.headerText)}>
                             <h3 role="heading" aria-level={1}>{context.t(ResourceKeys.settings.modelDefinitions.headerText)}</h3>
                             <span className="helptext">{context.t(ResourceKeys.settings.modelDefinitions.helpText)}</span>
@@ -207,10 +181,17 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
         });
     }
 
-    private readonly onConnectionStringChanged = (hubConnectionString: string)  => {
+    private readonly onConnectionStringChangedFromTextField = (hubConnectionString: string)  => {
         this.setState({
             error: validateConnectionString(hubConnectionString),
             hubConnectionString,
+            isDirty: true
+        });
+    }
+
+    private readonly onConnectionStringChangedFromDropdown = (event: React.FormEvent<HTMLDivElement>, item: IDropdownOption) => {
+        this.setState({
+            hubConnectionString: item.key.toString(),
             isDirty: true
         });
     }

@@ -1,6 +1,6 @@
 {
   "name": "azure-iot-explorer",
-  "version": "0.10.6",
+  "version": "0.10.7",
   "description": "This project welcomes contributions and suggestions.  Most contributions require you to agree to a\r Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us\r the rights to use your contribution. For details, visit https://cla.microsoft.com.",
   "main": "public/electron.js",
   "build": {
@@ -70,6 +70,7 @@
   "dependencies": {
     "@azure/event-hubs": "1.0.7",
     "@types/core-js": "2.5.0",
+    "@types/semver": "6.0.2",
     "@types/uuid": "3.4.5",
     "azure-iot-common": "1.10.3",
     "azure-iothub": "1.8.1",
@@ -100,6 +101,7 @@
     "redux-saga": "0.16.2",
     "request": "2.88.0",
     "reselect": "4.0.0",
+    "semver": "6.3.0",
     "typescript-fsa": "3.0.0-beta-2",
     "typescript-fsa-reducers": "1.0.0",
     "uuid": "3.3.3"

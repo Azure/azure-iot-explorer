@@ -66,6 +66,10 @@ export class ResourceKeys {
          label : "connectivityPane.connectionStringTextBox.label",
          subLabel : "connectivityPane.connectionStringTextBox.subLabel",
       },
+      dropDown : {
+         copyButton : "connectivityPane.dropDown.copyButton",
+         newEntry : "connectivityPane.dropDown.newEntry",
+      },
       header : "connectivityPane.header",
       notes : "connectivityPane.notes",
       saveButton : {
@@ -273,6 +277,10 @@ export class ResourceKeys {
          save : "deviceLists.commands.save",
       },
       loadingDevice : "deviceLists.loadingDevice",
+      messageBar : {
+         link : "deviceLists.messageBar.link",
+         message : "deviceLists.messageBar.message",
+      },
       noData : "deviceLists.noData",
       noDevice : "deviceLists.noDevice",
       paging : {
@@ -489,6 +497,7 @@ export class ResourceKeys {
             private : {
                infoText : "settings.modelDefinitions.repositoryTypes.private.infoText",
                label : "settings.modelDefinitions.repositoryTypes.private.label",
+               placeholder : "settings.modelDefinitions.repositoryTypes.private.placeholder",
                textBoxLabel : "settings.modelDefinitions.repositoryTypes.private.textBoxLabel",
             },
             public : {

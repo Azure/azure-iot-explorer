@@ -5,7 +5,7 @@
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { setSettingsVisibilityAction, setSettingsRepositoryLocationsAction, updateRepoTokenAction } from './actions';
 import { applicationStateInitial, ApplicationStateType, OFFSET_IN_MINUTES, PrivateRepositorySettings } from './state';
-import { REPO_LOCATIONS, REMEMBER_CONNECTION_STRING, THEME_SELECTION } from '../constants/browserStorage';
+import { REPO_LOCATIONS, REMEMBER_CONNECTION_STRING } from '../constants/browserStorage';
 import { REPOSITORY_LOCATION_TYPE } from './../constants/repositoryLocationTypes';
 import { PRIVATE_REPO_CONNECTION_STRING_NAME } from './../constants/browserStorage';
 import { RepositorySettings } from './components/settingsPane';

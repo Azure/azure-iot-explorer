@@ -18,18 +18,24 @@ describe('utils', () => {
                         value: 'enabled'
                     }
                 ],
+                continuationTokens: [],
+                currentPageIndex: 1,
                 deviceId: '',
             }
         )).toEqual(`${LIST_PLUG_AND_PLAY_DEVICES} WHERE (HAS_CAPABILITYMODEL('enabled'))`);
         expect(utils.buildQueryString(
             {
                 clauses: [],
+                continuationTokens: [],
+                currentPageIndex: 1,
                 deviceId: 'device1',
             }
         )).toEqual(`${LIST_PLUG_AND_PLAY_DEVICES} WHERE STARTSWITH(devices.deviceId, 'device1')`);
         expect(utils.buildQueryString(
             {
                 clauses: [],
+                continuationTokens: [],
+                currentPageIndex: 1,
                 deviceId: '',
             }
         )).toEqual(LIST_PLUG_AND_PLAY_DEVICES + ' ');
@@ -50,18 +56,24 @@ describe('utils', () => {
                     {
                     }
                 ],
+                continuationTokens: [],
+                currentPageIndex: 1,
                 deviceId: '',
             }
         )).toEqual(`WHERE (HAS_CAPABILITYMODEL('enabled'))`);
         expect(utils.queryToString(
             {
                 clauses: [],
+                continuationTokens: [],
+                currentPageIndex: 1,
                 deviceId: 'device1',
             }
         )).toEqual(`WHERE STARTSWITH(devices.deviceId, 'device1')`);
         expect(utils.queryToString(
             {
                 clauses: [],
+                continuationTokens: [],
+                currentPageIndex: 1,
                 deviceId: '',
             }
         )).toEqual('');

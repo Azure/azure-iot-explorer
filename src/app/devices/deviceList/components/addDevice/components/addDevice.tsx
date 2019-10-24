@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { RouteComponentProps, Route } from 'react-router-dom';
-import { PrimaryButton, ActionButton } from 'office-ui-fabric-react/lib/Button';
+import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/Button';
 import { Overlay } from 'office-ui-fabric-react/lib/Overlay';
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/ChoiceGroup';
@@ -19,6 +19,7 @@ import LabelWithTooltip from '../../../../../shared/components/labelWithTooltip'
 import BreadcrumbContainer from '../../../../../shared/components/breadcrumbContainer';
 import { MaskedCopyableTextField } from '../../../../../shared/components/maskedCopyableTextField';
 import { SynchronizationStatus } from '../../../../../api/models/synchronizationStatus';
+import { ROUTE_PARTS } from '../../../../../constants/routes';
 import '../../../../../css/_addDevice.scss';
 import '../../../../../css/_layouts.scss';
 
@@ -264,7 +265,7 @@ export default class AddDevice extends React.Component<AddDeviceActionProps & Ad
                     ariaDescription={context.t(ResourceKeys.deviceLists.commands.save)}
                     type={'submit'}
                 />
-                <ActionButton
+                <DefaultButton
                     className="submit-button"
                     onClick={this.handleCancel}
                     text={context.t(ResourceKeys.deviceLists.commands.close)}
@@ -403,12 +404,12 @@ export default class AddDevice extends React.Component<AddDeviceActionProps & Ad
     }
 
     private readonly handleSave = (event: React.FormEvent<HTMLFormElement>) => {
-        // Prevent page regresh
+        // Prevent page refresh
         event.preventDefault();
         this.props.handleSave(this.getDeviceIdentity());
     }
 
     private readonly handleCancel = () => {
-        this.props.history.push(`/devices`);
+        this.props.history.push(`/${ROUTE_PARTS.DEVICES}`);
     }
 }
