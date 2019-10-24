@@ -16,7 +16,7 @@ import { setConnectionStringAction, SetConnectionStringActionParameter } from '.
 const mapStateToProps = (state: StateType): ConnectivityPaneDataProps => {
     return {
         connectionString: getConnectionStringSelector(state),
-        connectionStringList: getConnectionStringListSelector(),
+        connectionStringList: getConnectionStringListSelector(state),
         rememberConnectionString: getRememberConnectionStringValueSelector(state),
     };
 };

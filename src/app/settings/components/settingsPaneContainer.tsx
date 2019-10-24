@@ -17,7 +17,7 @@ import DeviceQuery from '../../api/models/deviceQuery';
 
 const mapStateToProps = (state: StateType): SettingsPaneProps => {
     return {
-        connectionStringList: getConnectionStringListSelector(),
+        connectionStringList: getConnectionStringListSelector(state),
         hubConnectionString: getConnectionStringSelector(state),
         isOpen: getSettingsVisibleSelector(state),
         rememberConnectionString: getRememberConnectionStringValueSelector(state),
