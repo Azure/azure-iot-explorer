@@ -492,6 +492,7 @@
         "savedToIotHubConnectionString": "Successfully saved connection string for IoT hub {{hostName}}",
         "getDeviceIdentityOnError": "Failed to get device {{deviceId}}'s identity: {{error}}",
         "getDeviceListOnError": "Failed to retrieve device list: {{error}}",
+        "getDeviceListGenericErrorHelp": "Failed to retrieve device list. Please double check if you have entered the correct IoT hub connection string",
         "getDeviceTwinOnError": "Failed to get device {{deviceId}}'s twin: {{error}}",
         "getDigitalTwinInterfacePropertiesOnError": "Failed to get properties of digital twin interfaces on device {{deviceId}}: {{error}}",
         "getInterfaceModelOnError": "Failed to get interface model definition {{interfaceId}}",

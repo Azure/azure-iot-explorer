@@ -95,7 +95,14 @@ export const dataPlaneConnectionHelper = (parameters: DataPlaneParameters) => {
 // tslint:disable-next-line:cyclomatic-complexity
 const dataPlaneResponseHelper = async (response: Response) => {
     const dataPlaneResponse = await response;
-    const result = await response.json();
+
+    let result;
+    try {
+        result = await response.json();
+    }
+    catch {
+        throw new Error();
+    }
 
     // success case
     if (DataPlaneStatusCode.SuccessLowerBound <= dataPlaneResponse.status && dataPlaneResponse.status <= DataPlaneStatusCode.SuccessUpperBound) {

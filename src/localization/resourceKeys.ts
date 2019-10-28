@@ -450,6 +450,7 @@ export class ResourceKeys {
       deleteDeviceOnError : "notifications.deleteDeviceOnError",
       deleteDeviceOnSucceed : "notifications.deleteDeviceOnSucceed",
       getDeviceIdentityOnError : "notifications.getDeviceIdentityOnError",
+      getDeviceListGenericErrorHelp : "notifications.getDeviceListGenericErrorHelp",
       getDeviceListOnError : "notifications.getDeviceListOnError",
       getDeviceTwinOnError : "notifications.getDeviceTwinOnError",
       getDigitalTwinInterfacePropertiesOnError : "notifications.getDigitalTwinInterfacePropertiesOnError",
