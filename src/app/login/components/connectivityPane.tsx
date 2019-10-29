@@ -9,7 +9,7 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
-import { validateConnectionString } from '../../shared/utils/hubConnectionStringHelper';
+import { generateConnectionStringValidationError } from '../../shared/utils/hubConnectionStringHelper';
 import { SetConnectionStringActionParameter } from '../actions';
 import HubConnectionStringSection from './hubConnectionStringSection';
 import AppVersionMessageBar from './appVersionMessageBar';
@@ -86,7 +86,7 @@ export default class ConnectivityPane extends React.Component<RouteComponentProp
     }
 
     private readonly onConnectionStringChanged = (connectionString: string)  => {
-        const error = validateConnectionString(connectionString);
+        const error = generateConnectionStringValidationError(connectionString);
         this.setState({
             connectionString,
             error,

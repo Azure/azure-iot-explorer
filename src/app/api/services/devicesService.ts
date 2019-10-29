@@ -434,7 +434,7 @@ export const monitorEvents = async (parameters: MonitorEventsParameters): Promis
 
         const response = await request(EVENTHUB_MONITOR_ENDPOINT, requestParameters);
         const messages = await response.json() as Message[];
-        return  messages.map(message => parseEventHubMessage(message));
+        return  messages && messages.map(message => parseEventHubMessage(message));
     } catch (error) {
         throw error;
     }

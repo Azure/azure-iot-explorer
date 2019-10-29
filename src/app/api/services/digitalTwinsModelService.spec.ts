@@ -17,41 +17,7 @@ describe('digitalTwinsModelService', () => {
             token: 'SharedAccessSignature sr=canary-repo.azureiotrepository.com&sig=123&rid=repositoryId'
         };
 
-        it('calls fetch with specified parameters', () => {
-            DigitalTwinsModelService.fetchModel(parameters);
-
-            const expandQueryString = parameters.expand ? `&expand=true` : ``;
-            const repositoryQueryString = parameters.repositoryId ? `&repositoryId=${parameters.repositoryId}` : '';
-            const apiVersionQuerySTring = `?${API_VERSION}${DIGITAL_TWIN_API_VERSION}`;
-            const queryString = `${apiVersionQuerySTring}${expandQueryString}${repositoryQueryString}`;
-            const modelIdentifier = encodeURIComponent(parameters.id);
-            const resourceUrl = `https://${parameters.repoServiceHostName}/models/${modelIdentifier}${queryString}`;
-
-            const controllerRequest = {
-                headers: {
-                    'Accept': 'application/json',
-                    'Authorization': parameters.token || '',
-                    'Content-Type': 'application/json'
-                },
-                method: HTTP_OPERATION_TYPES.Get,
-                uri: resourceUrl
-            };
-
-            const fetchModelParameters = {
-                body: JSON.stringify(controllerRequest),
-                cache: 'no-cache',
-                credentials: 'include',
-                headers: new Headers({
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }),
-                method: HTTP_OPERATION_TYPES.Post
-            };
-
-            expect(fetch).toBeCalledWith(DigitalTwinsModelService.CONTROLLER_ENDPOINT, fetchModelParameters);
-        });
-
-        it('returns model when response is 200', async done => {
+        it('calls fetch with specified parameters and returns model when response is 200', async () => {
             // tslint:disable
             const model = {
                 '@id': 'urn:azureiot:Client:SDKInformation:1',
@@ -91,6 +57,36 @@ describe('digitalTwinsModelService', () => {
             jest.spyOn(window, 'fetch').mockResolvedValue(response);
 
             const result = await DigitalTwinsModelService.fetchModel(parameters);
+
+            const expandQueryString = parameters.expand ? `&expand=true` : ``;
+            const repositoryQueryString = parameters.repositoryId ? `&repositoryId=${parameters.repositoryId}` : '';
+            const apiVersionQuerySTring = `?${API_VERSION}${DIGITAL_TWIN_API_VERSION}`;
+            const queryString = `${apiVersionQuerySTring}${expandQueryString}${repositoryQueryString}`;
+            const modelIdentifier = encodeURIComponent(parameters.id);
+            const resourceUrl = `https://${parameters.repoServiceHostName}/models/${modelIdentifier}${queryString}`;
+
+            const controllerRequest = {
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': parameters.token || '',
+                    'Content-Type': 'application/json'
+                },
+                method: HTTP_OPERATION_TYPES.Get,
+                uri: resourceUrl
+            };
+
+            const fetchModelParameters = {
+                body: JSON.stringify(controllerRequest),
+                cache: 'no-cache',
+                credentials: 'include',
+                headers: new Headers({
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }),
+                method: HTTP_OPERATION_TYPES.Post
+            };
+
+            expect(fetch).toBeCalledWith(DigitalTwinsModelService.CONTROLLER_ENDPOINT, fetchModelParameters);
             expect(result).toEqual({
                 createdOn: '',
                 etag: '',
@@ -100,7 +96,6 @@ describe('digitalTwinsModelService', () => {
                 publisherId: '',
                 publisherName: ''
             });
-            done();
         });
 
         it('throws Error when response is not OK', async done => {
