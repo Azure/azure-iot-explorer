@@ -95,7 +95,14 @@ export const dataPlaneConnectionHelper = (parameters: DataPlaneParameters) => {
 // tslint:disable-next-line:cyclomatic-complexity
 const dataPlaneResponseHelper = async (response: Response) => {
     const dataPlaneResponse = await response;
-    const result = await response.json();
+
+    let result;
+    try {
+        result = await response.json();
+    }
+    catch {
+        throw new Error();
+    }
 
     // success case
     if (DataPlaneStatusCode.SuccessLowerBound <= dataPlaneResponse.status && dataPlaneResponse.status <= DataPlaneStatusCode.SuccessUpperBound) {
@@ -427,7 +434,7 @@ export const monitorEvents = async (parameters: MonitorEventsParameters): Promis
 
         const response = await request(EVENTHUB_MONITOR_ENDPOINT, requestParameters);
         const messages = await response.json() as Message[];
-        return  messages.map(message => parseEventHubMessage(message));
+        return  messages && messages.map(message => parseEventHubMessage(message));
     } catch (error) {
         throw error;
     }

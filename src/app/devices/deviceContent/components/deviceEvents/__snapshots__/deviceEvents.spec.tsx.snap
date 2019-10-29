@@ -82,7 +82,7 @@ exports[`components/devices/deviceEvents matches snapshot 1`] = `
     useWindow={true}
   >
     <div
-      className="scrollable"
+      className="scrollable-sm"
     />
   </InfiniteScroll>
 </div>

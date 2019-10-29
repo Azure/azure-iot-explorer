@@ -211,7 +211,7 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
         const { events } = this.state;
 
         return (
-            <div className="scrollable">
+            <div className="scrollable-sm">
             {
                 events && events.map((event: Message, index) => {
                     return (
