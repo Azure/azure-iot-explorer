@@ -123,7 +123,6 @@ exports[`deviceContent matches snapshot 1`] = `
           component={[Function]}
           path="/devices/detail/moduleIdentity/"
         />
-          //todo
         <Route
           component={[Function]}
           path="/devices/detail/digitalTwins/"

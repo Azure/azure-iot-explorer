@@ -3,7 +3,6 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { RouteComponentProps } from 'react-router-dom';
 import DeviceCommandPerInterface from './deviceCommandsPerInterface';
@@ -14,6 +13,7 @@ import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString } from '../..
 import { CommandSchema } from './deviceCommandsPerInterfacePerCommand';
 import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
 import { REFRESH } from '../../../../constants/iconNames';
+import { RenderMultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
 
 export interface DeviceCommandsProps extends DeviceInterfaceWithSchema{
     isLoading: boolean;
@@ -39,7 +39,7 @@ export default class DeviceCommands
     public render(): JSX.Element {
         if (this.props.isLoading) {
             return (
-                <Shimmer className="fixed-shimmer" />
+                RenderMultiLineShimmer('fixed-shimmer')
             );
         }
 

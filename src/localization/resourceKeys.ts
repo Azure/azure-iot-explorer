@@ -438,6 +438,17 @@ export class ResourceKeys {
          launch : "header.settings.launch",
       },
    };
+   public static moduleIdentity = {
+      columns : {
+         connectionState : "moduleIdentity.columns.connectionState",
+         connectionStateLastUpdated : "moduleIdentity.columns.connectionStateLastUpdated",
+         lastActivityTime : "moduleIdentity.columns.lastActivityTime",
+         moduleId : "moduleIdentity.columns.moduleId",
+      },
+      errorFetching : "moduleIdentity.errorFetching",
+      headerText : "moduleIdentity.headerText",
+      noModules : "moduleIdentity.noModules",
+   };
    public static noMatchError = {
       description : "noMatchError.description",
       goHome : "noMatchError.goHome",

@@ -4,7 +4,6 @@
  **********************************************************/
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 import { Twin } from '../../../../api/models/device';
@@ -14,8 +13,8 @@ import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryString
 import { UpdateTwinActionParameters } from '../../actions';
 import { REFRESH, SAVE } from '../../../../constants/iconNames';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
-import '../../../../css/_deviceDetail.scss';
 import { ThemeContextConsumer, ThemeContextInterface } from '../../../../shared/contexts/themeContext';
+import { RenderMultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
 
 const EditorPromise = import('react-monaco-editor');
 const Editor = React.lazy(() => EditorPromise);
@@ -140,7 +139,7 @@ export default class DeviceTwin
     private readonly renderTwinViewer = () => {
         if (this.props.twinState === SynchronizationStatus.working) {
             return (
-                <Shimmer className="device-detail"/>
+                RenderMultiLineShimmer('device-detail')
             );
         }
 

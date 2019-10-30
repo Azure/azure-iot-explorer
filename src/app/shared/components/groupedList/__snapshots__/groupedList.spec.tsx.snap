@@ -294,7 +294,9 @@ exports[`components/GroupedList render GroupedList matches snapshot when in a lo
       className="grouped-list-header-border"
     />
   </div>
-  <div>
+  <div
+    className=""
+  >
     <StyledShimmerBase
       key="0"
       shimmerElements={
@@ -305,6 +307,12 @@ exports[`components/GroupedList render GroupedList matches snapshot when in a lo
           },
         ]
       }
+      style={
+        Object {
+          "marginBottom": 10,
+        }
+      }
+      width="95%"
     />
     <StyledShimmerBase
       key="1"
@@ -316,6 +324,12 @@ exports[`components/GroupedList render GroupedList matches snapshot when in a lo
           },
         ]
       }
+      style={
+        Object {
+          "marginBottom": 10,
+        }
+      }
+      width="95%"
     />
     <StyledShimmerBase
       key="2"
@@ -327,6 +341,12 @@ exports[`components/GroupedList render GroupedList matches snapshot when in a lo
           },
         ]
       }
+      style={
+        Object {
+          "marginBottom": 10,
+        }
+      }
+      width="95%"
     />
     <StyledShimmerBase
       key="3"
@@ -338,6 +358,12 @@ exports[`components/GroupedList render GroupedList matches snapshot when in a lo
           },
         ]
       }
+      style={
+        Object {
+          "marginBottom": 10,
+        }
+      }
+      width="95%"
     />
     <StyledShimmerBase
       key="4"
@@ -349,6 +375,12 @@ exports[`components/GroupedList render GroupedList matches snapshot when in a lo
           },
         ]
       }
+      style={
+        Object {
+          "marginBottom": 10,
+        }
+      }
+      width="95%"
     />
     <StyledShimmerBase
       key="5"
@@ -360,6 +392,12 @@ exports[`components/GroupedList render GroupedList matches snapshot when in a lo
           },
         ]
       }
+      style={
+        Object {
+          "marginBottom": 10,
+        }
+      }
+      width="95%"
     />
     <StyledShimmerBase
       key="6"
@@ -371,6 +409,12 @@ exports[`components/GroupedList render GroupedList matches snapshot when in a lo
           },
         ]
       }
+      style={
+        Object {
+          "marginBottom": 10,
+        }
+      }
+      width="95%"
     />
     <StyledShimmerBase
       key="7"
@@ -382,6 +426,12 @@ exports[`components/GroupedList render GroupedList matches snapshot when in a lo
           },
         ]
       }
+      style={
+        Object {
+          "marginBottom": 10,
+        }
+      }
+      width="95%"
     />
     <StyledShimmerBase
       key="8"
@@ -393,6 +443,12 @@ exports[`components/GroupedList render GroupedList matches snapshot when in a lo
           },
         ]
       }
+      style={
+        Object {
+          "marginBottom": 10,
+        }
+      }
+      width="95%"
     />
     <StyledShimmerBase
       key="9"
@@ -404,6 +460,12 @@ exports[`components/GroupedList render GroupedList matches snapshot when in a lo
           },
         ]
       }
+      style={
+        Object {
+          "marginBottom": 10,
+        }
+      }
+      width="95%"
     />
   </div>
 </div>

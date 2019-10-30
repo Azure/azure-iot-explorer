@@ -4,7 +4,6 @@
  **********************************************************/
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
@@ -13,6 +12,7 @@ import { getInterfaceIdFromQueryString, getDeviceIdFromQueryString } from '../..
 import DevicePropertiesPerInterface from './devicePropertiesPerInterface';
 import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
 import { REFRESH } from '../../../../constants/iconNames';
+import { RenderMultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
 
 export interface DevicePropertiesDataProps {
     twinAndSchema: TwinWithSchema[];
@@ -33,7 +33,7 @@ export default class DeviceProperties
     public render(): JSX.Element {
         if (this.props.isLoading) {
             return (
-                <Shimmer className="fixed-shimmer" />
+                RenderMultiLineShimmer('fixed-shimmer')
             );
         }
 

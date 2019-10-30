@@ -5,12 +5,12 @@
 import * as React from 'react';
 import { Route } from 'react-router-dom';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
-import { Shimmer } from 'office-ui-fabric-react/lib/components/Shimmer';
 import DeviceIdentityContainer from './deviceIdentity/deviceIdentityContainer';
 import DeviceTwinContainer from './deviceTwin/deviceTwinContainer';
 import DeviceEventsContainer from './deviceEvents/deviceEventsContainer';
 import DirectMethodContainer from './directMethod/directMethodContainer';
 import CloudToDeviceMessageContainer from './cloudToDeviceMessage/cloudToDeviceMessageContainer';
+import ModuleIdentityContainer from './moduleIdentity/moduleIdentityContainer';
 import DeviceContentNavComponent from './deviceContentNav';
 import BreadcrumbContainer from '../../../shared/components/breadcrumbContainer';
 import DigitalTwinsContentContainer from './digitalTwinContentContainer';
@@ -20,6 +20,7 @@ import { NAV } from '../../../constants/iconNames';
 import { ROUTE_PARTS } from '../../../constants/routes';
 import { DeviceIdentityWrapper } from '../../../api/models/deviceIdentityWrapper';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
+import { RenderMultiLineShimmer } from '../../../shared/components/multiLineShimmer';
 import '../../../css/_deviceContent.scss';
 import '../../../css/_layouts.scss';
 
@@ -110,7 +111,7 @@ export class DeviceContentComponent extends React.PureComponent<DeviceContentPro
                 <Route path={`/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DETAIL}/${ROUTE_PARTS.EVENTS}/`} component={DeviceEventsContainer}/>
                 <Route path={`/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DETAIL}/${ROUTE_PARTS.METHODS}/`} component={DirectMethodContainer} />
                 <Route path={`/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DETAIL}/${ROUTE_PARTS.CLOUD_TO_DEVICE_MESSAGE}/`} component={CloudToDeviceMessageContainer} />
-                <Route path={`/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DETAIL}/${ROUTE_PARTS.MODULE_IDENTITY}/`} component={CloudToDeviceMessageContainer} />
+                <Route path={`/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DETAIL}/${ROUTE_PARTS.MODULE_IDENTITY}/`} component={ModuleIdentityContainer} />
                 <Route path={`/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DETAIL}/${ROUTE_PARTS.DIGITAL_TWINS}/`} component={DigitalTwinsContentContainer} />
             </div>
         );
@@ -125,7 +126,7 @@ export class DeviceContentComponent extends React.PureComponent<DeviceContentPro
     private readonly createNavLinks = () => {
         return (
             this.props.identityWrapper && this.props.identityWrapper.deviceIdentitySynchronizationStatus === SynchronizationStatus.working ?
-                <Shimmer className="fixed-shimmer" /> :
+                RenderMultiLineShimmer('fixed-shimmer') :
                 (
                     <DeviceContentNavComponent
                         {...this.props}

@@ -104,6 +104,7 @@ describe('deviceContentStateReducer', () => {
                 digitalTwinInterfaceProperties: undefined,
                 interfaceIdSelected: '',
                 modelDefinitionWithSource,
+                moduleIdentityList: undefined
             });
             const action = clearModelDefinitionsAction();
             expect(reducer(initialState(), action).modelDefinitionWithSource).toEqual(null);

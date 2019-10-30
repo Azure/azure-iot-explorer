@@ -96,7 +96,8 @@ describe('components/devices/deviceInterfaces', () => {
     it('show Shimmer when status is working', () => {
         const wrapper = getComponent();
         expect(wrapper).toMatchSnapshot();
-        expect(wrapper.find(Shimmer)).toHaveLength(1);
+        // tslint:disable-next-line:no-magic-numbers
+        expect(wrapper.find(Shimmer)).toHaveLength(3);
     });
 
     it('show interface information when status is failed', () => {

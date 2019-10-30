@@ -484,6 +484,17 @@
         },
         "output" : "Output"
     },
+    "moduleIdentity": {
+        "headerText": "Module Identities",
+        "columns": {
+            "moduleId": "Module Id",
+            "connectionState": "Connection state",
+            "connectionStateLastUpdated": "Connection state last updated time",
+            "lastActivityTime": "Last activity time"
+        },
+        "noModules": "There are no module identities for this device.",
+        "errorFetching": "An error prevented this information from being loaded."
+    },
     "noMatchError": {
         "title": "404 - Not found",
         "description": "The page you are looking is unavailable.",
