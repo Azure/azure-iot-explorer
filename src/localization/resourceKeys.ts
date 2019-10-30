@@ -108,6 +108,7 @@ export class ResourceKeys {
          identity : "deviceContent.navBar.identity",
          interfaces : "deviceContent.navBar.interfaces",
          methods : "deviceContent.navBar.methods",
+         moduleIdentity : "deviceContent.navBar.moduleIdentity",
          nonpnp : "deviceContent.navBar.nonpnp",
          pnp : "deviceContent.navBar.pnp",
          properties : "deviceContent.navBar.properties",

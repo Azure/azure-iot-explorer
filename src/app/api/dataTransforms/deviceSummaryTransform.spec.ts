@@ -13,6 +13,7 @@ describe('utils', () => {
             const device: Device = {
                 AuthenticationType: 'Sas',
                 CloudToDeviceMessageCount: '0',
+                ConnectionState: 'Disconnected',
                 DeviceId: 'test',
                 IotEdge: false,
                 LastActivityTime: '2019-07-18T10:01:20.0568390Z',
@@ -23,7 +24,9 @@ describe('utils', () => {
             const deviceSummary: DeviceSummary = {
                 authenticationType: 'Sas',
                 cloudToDeviceMessageCount: '0',
+                connectionState: 'Disconnected',
                 deviceId: 'test',
+                iotEdge: false,
                 lastActivityTime: '3:01:20 AM, July 18, 2019',
                 status: 'Enabled',
                 statusUpdatedTime: null,
@@ -32,8 +35,10 @@ describe('utils', () => {
             const transformedDevice = transformDevice(device);
             expect(transformedDevice.authenticationType).toEqual(deviceSummary.authenticationType);
             expect(transformedDevice.cloudToDeviceMessageCount).toEqual(deviceSummary.cloudToDeviceMessageCount);
+            expect(transformedDevice.connectionState).toEqual(deviceSummary.connectionState);
             expect(transformedDevice.deviceId).toEqual(deviceSummary.deviceId);
             const isLocalTime = new RegExp(/\d+:\d+:\d+ [AP]M, July 18, 2019/);
+            expect(transformedDevice.iotEdge).toBeFalsy();
             expect(transformedDevice.lastActivityTime.match(isLocalTime)).toBeTruthy();
             expect(transformedDevice.status).toEqual(deviceSummary.status);
             expect(transformedDevice.statusUpdatedTime).toEqual(deviceSummary.statusUpdatedTime);

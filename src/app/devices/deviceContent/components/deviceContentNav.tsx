@@ -16,6 +16,7 @@ export interface DeviceContentNavDataProps {
     isLoading: boolean;
     isPnPDevice: boolean;
     selectedInterface: string;
+    isEdgeDevice: boolean;
 }
 
 export interface DeviceContentNavDispatchProps {
@@ -28,6 +29,7 @@ interface DeviceContentNavState {
 
 export const NAV_LINK_ITEMS_PNP = [ROUTE_PARTS.INTERFACES, ROUTE_PARTS.SETTINGS, ROUTE_PARTS.PROPERTIES, ROUTE_PARTS.COMMANDS, ROUTE_PARTS.EVENTS];
 export const NAV_LINK_ITEMS_NONPNP = [ROUTE_PARTS.IDENTITY, ROUTE_PARTS.TWIN, ROUTE_PARTS.EVENTS, ROUTE_PARTS.METHODS, ROUTE_PARTS.CLOUD_TO_DEVICE_MESSAGE];
+export const NAV_LINK_ITEMS_NONPNP_NONEDGE = [ROUTE_PARTS.IDENTITY, ROUTE_PARTS.TWIN, ROUTE_PARTS.EVENTS, ROUTE_PARTS.METHODS, ROUTE_PARTS.CLOUD_TO_DEVICE_MESSAGE, ROUTE_PARTS.MODULE_IDENTITY];
 
 export default class DeviceContentNavComponent extends React.Component<DeviceContentNavDataProps & DeviceContentNavDispatchProps, DeviceContentNavState> {
     constructor(props: DeviceContentNavDataProps & DeviceContentNavDispatchProps) {
@@ -53,9 +55,10 @@ export default class DeviceContentNavComponent extends React.Component<DeviceCon
     }
 
     private readonly createNavLinks = (context: LocalizationContextInterface) => {
-        const { deviceId, interfaceIds, isPnPDevice } = this.props;
+        const { deviceId, interfaceIds, isPnPDevice, isEdgeDevice } = this.props;
 
-        const nonPnpNavLinks = NAV_LINK_ITEMS_NONPNP.map((nav: string) => ({
+        const navItems = isEdgeDevice ? NAV_LINK_ITEMS_NONPNP : NAV_LINK_ITEMS_NONPNP_NONEDGE;
+        const nonPnpNavLinks = navItems.map((nav: string) => ({
             key: nav,
             name: context.t((ResourceKeys.deviceContent.navBar as any)[nav]), // tslint:disable-line:no-any
             url: `#/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DETAIL}/${nav}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`

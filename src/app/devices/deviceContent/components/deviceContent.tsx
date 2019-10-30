@@ -5,6 +5,7 @@
 import * as React from 'react';
 import { Route } from 'react-router-dom';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
+import { Shimmer } from 'office-ui-fabric-react/lib/components/Shimmer';
 import DeviceIdentityContainer from './deviceIdentity/deviceIdentityContainer';
 import DeviceTwinContainer from './deviceTwin/deviceTwinContainer';
 import DeviceEventsContainer from './deviceEvents/deviceEventsContainer';
@@ -17,6 +18,8 @@ import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../shared/contexts/localizationContext';
 import { NAV } from '../../../constants/iconNames';
 import { ROUTE_PARTS } from '../../../constants/routes';
+import { DeviceIdentityWrapper } from '../../../api/models/deviceIdentityWrapper';
+import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import '../../../css/_deviceContent.scss';
 import '../../../css/_layouts.scss';
 
@@ -27,6 +30,7 @@ export interface DeviceContentDataProps {
     interfaceIds: string[];
     isLoading: boolean;
     isPnPDevice: boolean;
+    identityWrapper: DeviceIdentityWrapper;
 }
 
 export interface DeviceContentProps extends DeviceContentDataProps {
@@ -37,6 +41,7 @@ export interface DeviceContentProps extends DeviceContentDataProps {
 export interface DeviceContentDispatchProps {
     setInterfaceId: (interfaceId: string) => void;
     getDigitalTwinInterfaceProperties: (deviceId: string) => void;
+    getDeviceIdentity: (deviceId: string) => void;
 }
 
 export class DeviceContentComponent extends React.PureComponent<DeviceContentProps & DeviceContentDispatchProps, DeviceContentState> {
@@ -73,6 +78,7 @@ export class DeviceContentComponent extends React.PureComponent<DeviceContentPro
 
     public componentDidMount() {
         this.props.getDigitalTwinInterfaceProperties(this.props.deviceId);
+        this.props.getDeviceIdentity(this.props.deviceId);
     }
 
     private readonly renderNav = (context: LocalizationContextInterface) => {
@@ -104,6 +110,7 @@ export class DeviceContentComponent extends React.PureComponent<DeviceContentPro
                 <Route path={`/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DETAIL}/${ROUTE_PARTS.EVENTS}/`} component={DeviceEventsContainer}/>
                 <Route path={`/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DETAIL}/${ROUTE_PARTS.METHODS}/`} component={DirectMethodContainer} />
                 <Route path={`/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DETAIL}/${ROUTE_PARTS.CLOUD_TO_DEVICE_MESSAGE}/`} component={CloudToDeviceMessageContainer} />
+                <Route path={`/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DETAIL}/${ROUTE_PARTS.MODULE_IDENTITY}/`} component={CloudToDeviceMessageContainer} />
                 <Route path={`/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DETAIL}/${ROUTE_PARTS.DIGITAL_TWINS}/`} component={DigitalTwinsContentContainer} />
             </div>
         );
@@ -117,9 +124,15 @@ export class DeviceContentComponent extends React.PureComponent<DeviceContentPro
 
     private readonly createNavLinks = () => {
         return (
-            <DeviceContentNavComponent
-                {...this.props}
-                selectedInterface={this.props.interfaceId}
-            />);
+            this.props.identityWrapper && this.props.identityWrapper.deviceIdentitySynchronizationStatus === SynchronizationStatus.working ?
+                <Shimmer className="fixed-shimmer" /> :
+                (
+                    <DeviceContentNavComponent
+                        {...this.props}
+                        isEdgeDevice={this.props.identityWrapper && this.props.identityWrapper.deviceIdentity && this.props.identityWrapper.deviceIdentity.capabilities.iotEdge}
+                        selectedInterface={this.props.interfaceId}
+                    />
+                )
+        );
     }
 }

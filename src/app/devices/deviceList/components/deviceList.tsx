@@ -4,6 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { Redirect, RouteComponentProps, withRouter, NavLink, Route } from 'react-router-dom';
+import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import { Label } from 'office-ui-fabric-react/lib/Label';
 import { Dialog, DialogFooter, DialogType } from 'office-ui-fabric-react/lib/Dialog';
 import { PrimaryButton, ActionButton } from 'office-ui-fabric-react/lib/Button';
@@ -18,6 +19,7 @@ import DeviceListQuery from './deviceListQuery';
 import { DeviceListCell } from './deviceListCell';
 import ListPaging from './listPaging';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
+import { CHECK } from '../../../constants/iconNames';
 import '../../../css/_deviceList.scss';
 import '../../../css/_layouts.scss';
 
@@ -65,7 +67,7 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
                         <div className="view-command">
                             {this.showCommandBar()}
                         </div>
-                        <div className="view-content view-scroll">
+                        <div className="view-content view-scroll-vertical">
                             <DeviceListQuery
                                 executeQuery={this.executeQuery}
                                 query={this.state.query}
@@ -232,6 +234,21 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
                             );
                         },
                         widthPercentage: 15
+                    },
+                    {
+                        name: context.t(ResourceKeys.deviceLists.columns.isEdgeDevice.label),
+                        onRenderColumn: (group, key) => {
+                            const isEdge = (group.data as DeviceSummary).iotEdge;
+                            return (
+                                <Icon
+                                    key={key}
+                                    iconName={isEdge && CHECK}
+                                    ariaLabel={isEdge ?
+                                        context.t(ResourceKeys.deviceLists.columns.isEdgeDevice.yes) : context.t(ResourceKeys.deviceLists.columns.isEdgeDevice.no)}
+                                />
+                            );
+                        },
+                        widthPercentage: 5
                     }
                 ]}
             />

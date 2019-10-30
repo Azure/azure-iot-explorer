@@ -9,7 +9,7 @@ import { testSnapshot } from '../../../shared/utils/testHelpers';
 
 describe('deviceContent', () => {
 
-    const pathname = `/#/devices/detail/?id=testDevice&testInterfaceId`;
+    const pathname = `/#/devices/detail/?id=testDevice`;
 
     const location: any = { // tslint:disable-line:no-any
         pathname
@@ -23,6 +23,7 @@ describe('deviceContent', () => {
     };
     const deviceContentProps: DeviceContentProps = {
         deviceId: 'testDevice',
+        identityWrapper: null,
         interfaceId: 'testInterfaceId',
         interfaceIds: [],
         isLoading: false,
@@ -30,6 +31,7 @@ describe('deviceContent', () => {
     };
 
     const deviceContentDispatchProps: DeviceContentDispatchProps = {
+        getDeviceIdentity: jest.fn(),
         getDigitalTwinInterfaceProperties: jest.fn(),
         setInterfaceId: jest.fn()
     };

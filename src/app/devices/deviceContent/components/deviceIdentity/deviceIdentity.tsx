@@ -18,13 +18,11 @@ import { DeviceStatus } from '../../../../api/models/deviceStatus';
 import { generateKey } from '../../../../shared/utils/utils';
 import { DeviceIdentityWrapper } from '../../../../api/models/deviceIdentityWrapper';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
-import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { MaskedCopyableTextField } from '../../../../shared/components/maskedCopyableTextField';
 import '../../../../css/_deviceDetail.scss';
 
 export interface DeviceIdentityDispatchProps {
     updateDeviceIdentity: (deviceIdentity: DeviceIdentity) => void;
-    getDeviceIdentity: (deviceId: string) => void;
 }
 
 export interface DeviceIdentityDataProps {
@@ -62,10 +60,6 @@ export default class DeviceIdentityInformation
                 )}
             </LocalizationContextConsumer>
         );
-    }
-
-    public componentDidMount() {
-        this.props.getDeviceIdentity(getDeviceIdFromQueryString(this.props));
     }
 
     // tslint:disable-next-line:cyclomatic-complexity

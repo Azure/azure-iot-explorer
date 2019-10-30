@@ -113,7 +113,8 @@
             "nonpnp": "DEVICE",
             "add": "Create device identity",
             "collapse": "Collapse",
-            "expand": "Expand"
+            "expand": "Expand",
+            "moduleIdentity": "Module identity"
         },
         "value": "Value"
     },
