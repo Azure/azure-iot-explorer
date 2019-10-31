@@ -51,9 +51,9 @@
             }
         },
         "modelDefinitions": {
-            "add": "New",
-            "headerText": "We'll look for your model definition in the following locations (in order):",
-            "helpText": "Drag and drop to change the order.",
+            "add": "Add module definition source",
+            "headerText": "Plug and Play configurations",
+            "helpText": "We'll look for your model definition in the following order. Please drag and drop to change it.",
             "repositoryTypes": {
                 "public": {
                     "label":"Public repository",
@@ -133,7 +133,7 @@
             "ariaLabel": "check box for remember my connection string",
             "tooltip": "The connection string will be stored in the browser local storage. (We will remember up to 5 hub connection strings)"
         },
-        "notes": "For Plug and Play devices, we'll look for your model definition in the public repository first, and then we’ll search your connected devices. To change how and where we search, open Settings.",
+        "notes": "You can open Settings to change application configurations anytime.",
         "saveButton": {
             "label": "Connect"
         },
@@ -486,6 +486,9 @@
     },
     "moduleIdentity": {
         "headerText": "Module Identities",
+        "command" : {
+            "refresh": "Refresh"
+        },
         "columns": {
             "moduleId": "Module Id",
             "connectionState": "Connection state",
@@ -507,6 +510,7 @@
         "getDeviceListGenericErrorHelp": "Failed to retrieve device list. It is possibly due an invalid IoT hub connection string",
         "getDeviceTwinOnError": "Failed to get device {{deviceId}}'s twin: {{error}}",
         "getDigitalTwinInterfacePropertiesOnError": "Failed to get properties of digital twin interfaces on device {{deviceId}}: {{error}}",
+        "getModuleIdentitiesOnError": "Failed to get module identities of device {{deviceId}}: {{error}}",
         "getInterfaceModelOnError": "Failed to get interface model definition {{interfaceId}}",
         "updateDeviceTwinOnError": "Failed to update device twin on device {{deviceId}}: {{error}}",
         "updateDeviceTwinOnSuccess": "Successfully updated device twin on device {{deviceId}}.",

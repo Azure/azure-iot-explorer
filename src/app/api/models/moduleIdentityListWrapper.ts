@@ -6,6 +6,6 @@ import { ModuleIdentity } from './moduleIdentity';
 import { SynchronizationStatus } from './synchronizationStatus';
 
 export interface ModuleIdentityListWrapper {
-    moduleIdentities: ModuleIdentity[];
+    moduleIdentities?: ModuleIdentity[];
     synchronizationStatus: SynchronizationStatus;
 }

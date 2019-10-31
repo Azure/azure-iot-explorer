@@ -16,10 +16,10 @@ exports[`components/devices/deviceInterfaces show Shimmer when status is working
     }
     style={
       Object {
-        "marginBottom": 10,
+        "paddingLeft": 10,
+        "paddingRight": 10,
       }
     }
-    width="95%"
   />
   <StyledShimmerBase
     key="1"
@@ -33,10 +33,10 @@ exports[`components/devices/deviceInterfaces show Shimmer when status is working
     }
     style={
       Object {
-        "marginBottom": 10,
+        "paddingLeft": 10,
+        "paddingRight": 10,
       }
     }
-    width="95%"
   />
   <StyledShimmerBase
     key="2"
@@ -50,10 +50,10 @@ exports[`components/devices/deviceInterfaces show Shimmer when status is working
     }
     style={
       Object {
-        "marginBottom": 10,
+        "paddingLeft": 10,
+        "paddingRight": 10,
       }
     }
-    width="95%"
   />
 </div>
 `;

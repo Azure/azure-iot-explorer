@@ -445,6 +445,9 @@ export class ResourceKeys {
          lastActivityTime : "moduleIdentity.columns.lastActivityTime",
          moduleId : "moduleIdentity.columns.moduleId",
       },
+      command : {
+         refresh : "moduleIdentity.command.refresh",
+      },
       errorFetching : "moduleIdentity.errorFetching",
       headerText : "moduleIdentity.headerText",
       noModules : "moduleIdentity.noModules",
@@ -467,6 +470,7 @@ export class ResourceKeys {
       getDeviceTwinOnError : "notifications.getDeviceTwinOnError",
       getDigitalTwinInterfacePropertiesOnError : "notifications.getDigitalTwinInterfacePropertiesOnError",
       getInterfaceModelOnError : "notifications.getInterfaceModelOnError",
+      getModuleIdentitiesOnError : "notifications.getModuleIdentitiesOnError",
       interfaceSchemaNotSupported : "notifications.interfaceSchemaNotSupported",
       invokeDigitalTwinCommandOnError : "notifications.invokeDigitalTwinCommandOnError",
       invokeDigitalTwinCommandOnSuccess : "notifications.invokeDigitalTwinCommandOnSuccess",

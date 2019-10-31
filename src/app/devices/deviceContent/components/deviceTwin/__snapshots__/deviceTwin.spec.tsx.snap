@@ -46,10 +46,10 @@ exports[`devices/components/deviceTwin snapshot matches snapshot 1`] = `
       }
       style={
         Object {
-          "marginBottom": 10,
+          "paddingLeft": 10,
+          "paddingRight": 10,
         }
       }
-      width="95%"
     />
     <StyledShimmerBase
       key="1"
@@ -63,10 +63,10 @@ exports[`devices/components/deviceTwin snapshot matches snapshot 1`] = `
       }
       style={
         Object {
-          "marginBottom": 10,
+          "paddingLeft": 10,
+          "paddingRight": 10,
         }
       }
-      width="95%"
     />
     <StyledShimmerBase
       key="2"
@@ -80,10 +80,10 @@ exports[`devices/components/deviceTwin snapshot matches snapshot 1`] = `
       }
       style={
         Object {
-          "marginBottom": 10,
+          "paddingLeft": 10,
+          "paddingRight": 10,
         }
       }
-      width="95%"
     />
   </div>
 </Fragment>

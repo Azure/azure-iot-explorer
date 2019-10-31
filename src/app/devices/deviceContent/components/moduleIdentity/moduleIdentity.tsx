@@ -11,20 +11,21 @@ import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { REFRESH } from '../../../../constants/iconNames';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
-import { ModuleIdentityListWrapper } from '../../../../api/models/moduleIdentityListWrapper';
 import { parseDateTimeString } from '../../../../api/dataTransforms/transformHelper';
+import { ModuleIdentity } from '../../../../api/models/moduleIdentity';
 import { RenderMultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
 import '../../../../css/_deviceDetail.scss';
 
 export interface ModuleIdentityDataProps {
-    moduleIdentityListWrapper: ModuleIdentityListWrapper;
+    moduleIdentityList: ModuleIdentity[];
+    synchronizationStatus: SynchronizationStatus;
 }
 
 export interface ModuleIdentityDispatchProps {
     getModuleIdentities: (deviceId: string) => void;
 }
 
-export default class ModuleIdentity
+export default class ModuleIdentityComponent
     extends React.Component<ModuleIdentityDataProps & ModuleIdentityDispatchProps & RouteComponentProps> {
 
     public render(): JSX.Element {
@@ -33,8 +34,8 @@ export default class ModuleIdentity
                 {(context: LocalizationContextInterface) => (
                     <>
                         {this.showCommandBar(context)}
-                        <h3>{context.t(ResourceKeys.deviceTwin.headerText)}</h3>
-                        {this.renderTwinViewer()}
+                        <h3>{context.t(ResourceKeys.moduleIdentity.headerText)}</h3>
+                        {this.renderGrid(context)}
                     </>
             )}
             </LocalizationContextConsumer>
@@ -51,10 +52,10 @@ export default class ModuleIdentity
                 className="command"
                 items={[
                     {
-                        ariaLabel: context.t(ResourceKeys.deviceTwin.command.refresh),
+                        ariaLabel: context.t(ResourceKeys.moduleIdentity.command.refresh),
                         iconProps: {iconName: REFRESH},
                         key: REFRESH,
-                        name: context.t(ResourceKeys.deviceTwin.command.refresh),
+                        name: context.t(ResourceKeys.moduleIdentity.command.refresh),
                         onClick: this.handleRefresh
                     }
                 ]}
@@ -66,40 +67,21 @@ export default class ModuleIdentity
         this.props.getModuleIdentities(getDeviceIdFromQueryString(this.props));
     }
 
-    // tslint:disable
-    private readonly renderTwinViewer = () => {
-        const { moduleIdentityListWrapper } = this.props;
+    private readonly renderGrid = (context: LocalizationContextInterface) => {
+        const { moduleIdentityList, synchronizationStatus } = this.props;
         return (
-            <LocalizationContextConsumer>
-                {(context: LocalizationContextInterface) => (
-                    <div className="device-detail">
-                        <DetailsList
-                            columns={this.getColumns(context)}
-                            items={moduleIdentityListWrapper ? moduleIdentityListWrapper.moduleIdentities : []}
-                            selectionMode={SelectionMode.none}
-                        />
+            <div className="device-detail">
+                <DetailsList
+                    columns={this.getColumns(context)}
+                    items={moduleIdentityList}
+                    selectionMode={SelectionMode.none}
+                />
 
-                        {(
-                            moduleIdentityListWrapper &&
-                            moduleIdentityListWrapper.synchronizationStatus === SynchronizationStatus.working) &&
-                            RenderMultiLineShimmer()
-                        }
-
-                        {(
-                            moduleIdentityListWrapper &&
-                            moduleIdentityListWrapper.synchronizationStatus === SynchronizationStatus.fetched &&
-                            moduleIdentityListWrapper.moduleIdentities.length === 0) &&
-                            <div>{context.t(ResourceKeys.deviceTwin.command.refresh)}</div>
-                        }
-
-                        {(
-                            moduleIdentityListWrapper &&
-                            moduleIdentityListWrapper.synchronizationStatus === SynchronizationStatus.failed) &&
-                                <div>{context.t(ResourceKeys.deviceTwin.command.refresh)}</div>
-                    }
-                    </div>
-                )}
-            </LocalizationContextConsumer>);
+                {synchronizationStatus === SynchronizationStatus.working && RenderMultiLineShimmer()}
+                {synchronizationStatus === SynchronizationStatus.fetched && moduleIdentityList.length === 0 && context.t(ResourceKeys.moduleIdentity.noModules)}
+                {synchronizationStatus === SynchronizationStatus.failed && context.t(ResourceKeys.moduleIdentity.errorFetching)}
+            </div>
+        );
     }
 
     private getColumns(localizationContext: LocalizationContextInterface): IColumn[] {
@@ -131,7 +113,7 @@ export default class ModuleIdentity
                 maxWidth: 250,
                 minWidth: 150,
                 name: t(ResourceKeys.moduleIdentity.columns.connectionStateLastUpdated),
-                onRender: item => parseDateTimeString(item.connectionStateUpdatedTime)
+                onRender: item => parseDateTimeString(item.connectionStateUpdatedTime) || '--'
             },
             {
                 ariaLabel: t(ResourceKeys.moduleIdentity.columns.lastActivityTime),
@@ -140,7 +122,7 @@ export default class ModuleIdentity
                 maxWidth: 250,
                 minWidth: 150,
                 name: t(ResourceKeys.moduleIdentity.columns.lastActivityTime),
-                onRender: item => parseDateTimeString(item.lastActivityTime)
+                onRender: item => parseDateTimeString(item.lastActivityTime) || '--'
             }];
 
         return columns;

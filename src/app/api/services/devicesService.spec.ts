@@ -945,4 +945,54 @@ describe('deviceTwinService', () => {
             expect(fetch).toBeCalledWith(DevicesService.EVENTHUB_STOP_ENDPOINT, serviceRequestParams);
         });
     });
+
+    context('fetchModuleIdentities', () => {
+        const parameters = {
+                connectionString,
+                deviceId
+        };
+
+        it('calls fetch with specified parameters and returns moduleIdentities when response is 200', async () => {
+            jest.spyOn(DevicesService, 'dataPlaneConnectionHelper').mockReturnValue({
+                connectionInfo: getConnectionInfoFromConnectionString(parameters.connectionString), sasToken});
+
+            // tslint:disable
+            const response = {
+                json: () => {return {
+                    body: deviceIdentity
+                    }},
+                status: 200
+            } as any;
+            // tslint:enable
+            jest.spyOn(window, 'fetch').mockResolvedValue(response);
+
+            const connectionInformation = mockDataPlaneConnectionHelper({connectionString});
+            const dataPlaneRequest: DevicesService.DataPlaneRequest = {
+                hostName: connectionInformation.connectionInfo.hostName,
+                httpMethod: HTTP_OPERATION_TYPES.Get,
+                path: `devices/${deviceId}/modules`,
+                sharedAccessSignature: connectionInformation.sasToken
+            };
+
+            const result = await DevicesService.fetchModuleIdentities(parameters);
+
+            const serviceRequestParams = {
+                body: JSON.stringify(dataPlaneRequest),
+                cache: 'no-cache',
+                credentials: 'include',
+                headers,
+                method: HTTP_OPERATION_TYPES.Post,
+                mode: 'cors',
+            };
+
+            expect(fetch).toBeCalledWith(DevicesService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
+            expect(result).toEqual(deviceIdentity);
+        });
+
+        it('throws Error when promise rejects', async done => {
+            window.fetch = jest.fn().mockRejectedValueOnce(new Error('Not found'));
+            await expect(DevicesService.fetchModuleIdentities(parameters)).rejects.toThrowError('Not found');
+            done();
+        });
+    });
 });

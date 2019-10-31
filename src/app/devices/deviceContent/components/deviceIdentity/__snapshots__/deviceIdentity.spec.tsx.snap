@@ -1578,10 +1578,10 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
         }
         style={
           Object {
-            "marginBottom": 10,
+            "paddingLeft": 10,
+            "paddingRight": 10,
           }
         }
-        width="95%"
       />
       <StyledShimmerBase
         key="1"
@@ -1595,10 +1595,10 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
         }
         style={
           Object {
-            "marginBottom": 10,
+            "paddingLeft": 10,
+            "paddingRight": 10,
           }
         }
-        width="95%"
       />
       <StyledShimmerBase
         key="2"
@@ -1612,10 +1612,10 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
         }
         style={
           Object {
-            "marginBottom": 10,
+            "paddingLeft": 10,
+            "paddingRight": 10,
           }
         }
-        width="95%"
       />
     </div>
   </div>

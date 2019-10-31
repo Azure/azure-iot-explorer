@@ -6,21 +6,22 @@ import { compose, Dispatch } from 'redux';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { StateType } from '../../../../shared/redux/state';
-import ModuleIdentity, { ModuleIdentityDataProps, ModuleIdentityDispatchProps } from './moduleIdentity';
-import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
+import ModuleIdentityComponent, { ModuleIdentityDataProps, ModuleIdentityDispatchProps } from './moduleIdentity';
+import { getModuleIdentitiesAction } from '../../actions';
+import { getModuleIdentityListWrapperSelector } from '../../selectors';
 
 const mapStateToProps = (state: StateType): ModuleIdentityDataProps => {
+    const moduleIdentityListWrapper = getModuleIdentityListWrapperSelector(state);
     return {
-        // tslint:disable-next-line:no-any
-        moduleIdentityListWrapper: {moduleIdentities: [], synchronizationStatus: SynchronizationStatus.working} as any
+        moduleIdentityList: moduleIdentityListWrapper && moduleIdentityListWrapper.moduleIdentities || [],
+        synchronizationStatus: moduleIdentityListWrapper && moduleIdentityListWrapper.synchronizationStatus
     };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch): ModuleIdentityDispatchProps => {
     return {
-        // tslint:disable-next-line:no-empty
-        getModuleIdentities: (deviceId: string) => { } // dispatch(getTwinAction.started(deviceId)),
+        getModuleIdentities: (deviceId: string) => dispatch(getModuleIdentitiesAction.started(deviceId)),
     };
 };
 
-export default compose(withRouter, connect(mapStateToProps, mapDispatchToProps))(ModuleIdentity);
+export default compose(withRouter, connect(mapStateToProps, mapDispatchToProps))(ModuleIdentityComponent);

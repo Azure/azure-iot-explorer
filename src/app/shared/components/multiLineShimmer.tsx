@@ -13,8 +13,7 @@ export const RenderMultiLineShimmer = (className?: string, shimmerCount: number 
         shimmers.push(
             <Shimmer
                 key={i}
-                style={{marginBottom: 10}}
-                width="95%"
+                style={{paddingLeft: 10, paddingRight: 10}}
                 shimmerElements={[
                     { type: ShimmerElementType.line, height: SHIMMER_HEIGHT }
                 ]}
