@@ -6,7 +6,6 @@ import * as React from 'react';
 import { Label } from 'office-ui-fabric-react/lib/Label';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { ActionButton } from 'office-ui-fabric-react/lib/Button';
-import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 import { RouteComponentProps } from 'react-router-dom';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
@@ -19,6 +18,7 @@ import { REFRESH } from '../../../../constants/iconNames';
 import ErrorBoundary from '../../../errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 import { ThemeContextInterface, ThemeContextConsumer } from '../../../../shared/contexts/themeContext';
+import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
 
 const EditorPromise = import('react-monaco-editor');
 const Editor = React.lazy(() => EditorPromise);
@@ -44,7 +44,7 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
         return (
             <LocalizationContextConsumer>
                 {(context: LocalizationContextInterface) => (
-                    this.props.isLoading ? <Shimmer className="fixed-shimmer" /> :
+                    this.props.isLoading ? <MultiLineShimmer/> :
                     <>
                         <CommandBar
                             className="command"

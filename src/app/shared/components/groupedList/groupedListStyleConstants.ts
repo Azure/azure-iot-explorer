@@ -12,4 +12,3 @@ export enum GRID_STYLE_CONSTANTS {
 export const LABEL_FONT_SIZE = 12;
 export const CHECKBOX_WIDTH_PIXELS = 14;
 export const CHECKBOX_WIDTH_PERCENTAGE = 2;
-export const SHIMMER_HEIGHT = 20;

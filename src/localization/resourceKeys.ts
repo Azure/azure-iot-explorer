@@ -108,6 +108,7 @@ export class ResourceKeys {
          identity : "deviceContent.navBar.identity",
          interfaces : "deviceContent.navBar.interfaces",
          methods : "deviceContent.navBar.methods",
+         moduleIdentity : "deviceContent.navBar.moduleIdentity",
          nonpnp : "deviceContent.navBar.nonpnp",
          pnp : "deviceContent.navBar.pnp",
          properties : "deviceContent.navBar.properties",
@@ -437,6 +438,20 @@ export class ResourceKeys {
          launch : "header.settings.launch",
       },
    };
+   public static moduleIdentity = {
+      columns : {
+         connectionState : "moduleIdentity.columns.connectionState",
+         connectionStateLastUpdated : "moduleIdentity.columns.connectionStateLastUpdated",
+         lastActivityTime : "moduleIdentity.columns.lastActivityTime",
+         moduleId : "moduleIdentity.columns.moduleId",
+      },
+      command : {
+         refresh : "moduleIdentity.command.refresh",
+      },
+      errorFetching : "moduleIdentity.errorFetching",
+      headerText : "moduleIdentity.headerText",
+      noModules : "moduleIdentity.noModules",
+   };
    public static noMatchError = {
       description : "noMatchError.description",
       goHome : "noMatchError.goHome",
@@ -455,6 +470,7 @@ export class ResourceKeys {
       getDeviceTwinOnError : "notifications.getDeviceTwinOnError",
       getDigitalTwinInterfacePropertiesOnError : "notifications.getDigitalTwinInterfacePropertiesOnError",
       getInterfaceModelOnError : "notifications.getInterfaceModelOnError",
+      getModuleIdentitiesOnError : "notifications.getModuleIdentitiesOnError",
       interfaceSchemaNotSupported : "notifications.interfaceSchemaNotSupported",
       invokeDigitalTwinCommandOnError : "notifications.invokeDigitalTwinCommandOnError",
       invokeDigitalTwinCommandOnSuccess : "notifications.invokeDigitalTwinCommandOnSuccess",

@@ -6,7 +6,6 @@ import * as React from 'react';
 import { Validator, ValidatorResult } from 'jsonschema';
 import { CommandBar, ICommandBarItemProps } from 'office-ui-fabric-react/lib/CommandBar';
 import { Label } from 'office-ui-fabric-react/lib/Label';
-import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
 import { Spinner } from 'office-ui-fabric-react/lib/Spinner';
 import { TextField, ITextFieldProps } from 'office-ui-fabric-react/lib/TextField';
 import { RouteComponentProps } from 'react-router-dom';
@@ -26,6 +25,7 @@ import LabelWithTooltip from '../../../../shared/components/labelWithTooltip';
 import { DEFAULT_CONSUMER_GROUP } from '../../../../constants/apiConstants';
 import ErrorBoundary from '../../../errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
+import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
 import '../../../../css/_deviceEvents.scss';
 
 const JSON_SPACES = 2;
@@ -82,9 +82,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
 
     public render(): JSX.Element {
         if (this.props.isLoading) {
-            return (
-                <Shimmer className="fixed-shimmer" />
-            );
+            return <MultiLineShimmer/>;
         }
 
         return (

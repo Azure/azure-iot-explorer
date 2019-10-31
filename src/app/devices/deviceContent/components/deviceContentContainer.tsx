@@ -7,13 +7,14 @@ import { connect } from 'react-redux';
 import { AnyAction } from 'typescript-fsa';
 import { DeviceContentComponent, DeviceContentDispatchProps, DeviceContentDataProps } from './deviceContent';
 import { StateType } from '../../../shared/redux/state';
-import { getIsDevicePnpSelector, getDigitalTwinInterfaceIdsSelector, getDigitalTwinInterfacePropertiesWrapperSelector } from '../selectors';
-import { setInterfaceIdAction, getDigitalTwinInterfacePropertiesAction } from '../actions';
+import { getIsDevicePnpSelector, getDigitalTwinInterfaceIdsSelector, getDigitalTwinInterfacePropertiesWrapperSelector, getDeviceIdentityWrapperSelector } from '../selectors';
+import { setInterfaceIdAction, getDigitalTwinInterfacePropertiesAction, getDeviceIdentityAction } from '../actions';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 
 const mapStateToProps = (state: StateType): DeviceContentDataProps => {
     const digitalTwinInterfacesWrapper = getDigitalTwinInterfacePropertiesWrapperSelector(state);
     return {
+        identityWrapper: getDeviceIdentityWrapperSelector(state),
         interfaceIds: getDigitalTwinInterfaceIdsSelector(state),
         isLoading: digitalTwinInterfacesWrapper &&
             digitalTwinInterfacesWrapper.digitalTwinInterfacePropertiesSyncStatus === SynchronizationStatus.working,
@@ -23,6 +24,7 @@ const mapStateToProps = (state: StateType): DeviceContentDataProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DeviceContentDispatchProps => {
     return {
+        getDeviceIdentity: (deviceId: string) => dispatch(getDeviceIdentityAction.started(deviceId)),
         getDigitalTwinInterfaceProperties: (deviceId: string) => dispatch(getDigitalTwinInterfacePropertiesAction.started(deviceId)),
         setInterfaceId: (interfaceId: string) => dispatch(setInterfaceIdAction(interfaceId))
     };

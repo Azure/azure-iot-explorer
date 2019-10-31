@@ -10,7 +10,7 @@ import DeviceIdentityInformation, { DeviceIdentityDataProps, DeviceIdentityDispa
 import { getDeviceIdentityWrapperSelector } from '../../selectors';
 import { getConnectionStringSelector } from '../../../../login/selectors';
 import { DeviceIdentity } from '../../../../api/models/deviceIdentity';
-import { updateDeviceIdentityAction, getDeviceIdentityAction } from '../../actions';
+import { updateDeviceIdentityAction } from '../../actions';
 
 const mapStateToProps = (state: StateType): DeviceIdentityDataProps => {
     return {
@@ -21,7 +21,6 @@ const mapStateToProps = (state: StateType): DeviceIdentityDataProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch): DeviceIdentityDispatchProps => {
     return {
-        getDeviceIdentity: (deviceId: string) => dispatch(getDeviceIdentityAction.started(deviceId)),
         updateDeviceIdentity: (deviceIdentity: DeviceIdentity) => dispatch(updateDeviceIdentityAction.started(deviceIdentity)),
     };
 };

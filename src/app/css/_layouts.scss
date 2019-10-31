@@ -70,3 +70,8 @@
 .view-scroll {
     overflow: auto;
 }
+
+.view-scroll-vertical {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
