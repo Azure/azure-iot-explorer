@@ -25,7 +25,7 @@ import LabelWithTooltip from '../../../../shared/components/labelWithTooltip';
 import { DEFAULT_CONSUMER_GROUP } from '../../../../constants/apiConstants';
 import ErrorBoundary from '../../../errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
-import RenderMultiLineShimmer from '../../../../shared/components/multiLineShimmer';
+import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
 import '../../../../css/_deviceEvents.scss';
 
 const JSON_SPACES = 2;
@@ -82,7 +82,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
 
     public render(): JSX.Element {
         if (this.props.isLoading) {
-            return <RenderMultiLineShimmer/>;
+            return <MultiLineShimmer/>;
         }
 
         return (

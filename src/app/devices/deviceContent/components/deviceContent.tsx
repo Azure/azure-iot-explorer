@@ -20,7 +20,7 @@ import { NAV } from '../../../constants/iconNames';
 import { ROUTE_PARTS } from '../../../constants/routes';
 import { DeviceIdentityWrapper } from '../../../api/models/deviceIdentityWrapper';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
-import RenderMultiLineShimmer from '../../../shared/components/multiLineShimmer';
+import MultiLineShimmer from '../../../shared/components/multiLineShimmer';
 import '../../../css/_deviceContent.scss';
 import '../../../css/_layouts.scss';
 
@@ -126,7 +126,7 @@ export class DeviceContentComponent extends React.PureComponent<DeviceContentPro
     private readonly createNavLinks = () => {
         return (
             this.props.identityWrapper && this.props.identityWrapper.deviceIdentitySynchronizationStatus === SynchronizationStatus.working ?
-                <RenderMultiLineShimmer/> :
+                <MultiLineShimmer/> :
                 (
                     <DeviceContentNavComponent
                         {...this.props}

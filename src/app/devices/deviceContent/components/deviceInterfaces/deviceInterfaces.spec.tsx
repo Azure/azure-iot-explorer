@@ -4,14 +4,12 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
 import { ActionButton } from 'office-ui-fabric-react/lib/Button';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import DeviceInterfaces, { DeviceInterfaceProps, DeviceInterfaceDispatchProps } from './deviceInterfaces';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
-import { testWithLocalizationContext, mountWithLocalization } from '../../../../shared/utils/testHelpers';
+import { testWithLocalizationContext } from '../../../../shared/utils/testHelpers';
 import { REPOSITORY_LOCATION_TYPE } from '../../../../constants/repositoryLocationTypes';
-import RenderMultiLineShimmer from '../../../../shared/components/multiLineShimmer';
 
 describe('components/devices/deviceInterfaces', () => {
 

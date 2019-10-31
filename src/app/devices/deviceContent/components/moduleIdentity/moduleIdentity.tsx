@@ -13,7 +13,7 @@ import { REFRESH } from '../../../../constants/iconNames';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { parseDateTimeString } from '../../../../api/dataTransforms/transformHelper';
 import { ModuleIdentity } from '../../../../api/models/moduleIdentity';
-import RenderMultiLineShimmer from '../../../../shared/components/multiLineShimmer';
+import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
 import '../../../../css/_deviceDetail.scss';
 
 export interface ModuleIdentityDataProps {
@@ -77,7 +77,7 @@ export default class ModuleIdentityComponent
                     selectionMode={SelectionMode.none}
                 />
 
-                {synchronizationStatus === SynchronizationStatus.working && <RenderMultiLineShimmer/>}
+                {synchronizationStatus === SynchronizationStatus.working && <MultiLineShimmer/>}
                 {synchronizationStatus === SynchronizationStatus.fetched && moduleIdentityList.length === 0 && context.t(ResourceKeys.moduleIdentity.noModules)}
                 {synchronizationStatus === SynchronizationStatus.failed && context.t(ResourceKeys.moduleIdentity.errorFetching)}
             </div>

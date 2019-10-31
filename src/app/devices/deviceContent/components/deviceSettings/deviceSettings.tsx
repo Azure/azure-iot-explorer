@@ -13,7 +13,7 @@ import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString } from '../..
 import { PatchDigitalTwinInterfacePropertiesActionParameters } from '../../actions';
 import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
 import { REFRESH } from '../../../../constants/iconNames';
-import RenderMultiLineShimmer from '../../../../shared/components/multiLineShimmer';
+import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
 
 export interface DeviceSettingsProps extends DeviceInterfaceWithSchema{
     isLoading: boolean;
@@ -40,7 +40,7 @@ export default class DeviceSettings
     public render(): JSX.Element {
         if (this.props.isLoading) {
             return (
-                <RenderMultiLineShimmer/>
+                <MultiLineShimmer/>
             );
         }
 
