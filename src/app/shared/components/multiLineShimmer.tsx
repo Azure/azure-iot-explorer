@@ -7,7 +7,15 @@ import { Shimmer, ShimmerElementType } from 'office-ui-fabric-react/lib/Shimmer'
 
 const SHIMMER_HEIGHT = 20;
 const SHIMMER_COUNT = 3;
-export const RenderMultiLineShimmer = (className?: string, shimmerCount: number = SHIMMER_COUNT) => {
+
+export interface MultiLineShimmerProps {
+    className?: string ;
+    shimmerCount?: number;
+}
+
+export default (props: MultiLineShimmerProps) => {
+    const shimmerCount = props.shimmerCount || SHIMMER_COUNT;
+    const className = props.className || 'fixed-shimmer';
     const shimmers = [];
     for (let i = 0; i < shimmerCount; i++) {
         shimmers.push(

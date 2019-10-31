@@ -1563,61 +1563,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
   <div
     className="device-detail"
   >
-    <div
-      className="fixed-shimmer"
-    >
-      <StyledShimmerBase
-        key="0"
-        shimmerElements={
-          Array [
-            Object {
-              "height": 20,
-              "type": 1,
-            },
-          ]
-        }
-        style={
-          Object {
-            "paddingLeft": 10,
-            "paddingRight": 10,
-          }
-        }
-      />
-      <StyledShimmerBase
-        key="1"
-        shimmerElements={
-          Array [
-            Object {
-              "height": 20,
-              "type": 1,
-            },
-          ]
-        }
-        style={
-          Object {
-            "paddingLeft": 10,
-            "paddingRight": 10,
-          }
-        }
-      />
-      <StyledShimmerBase
-        key="2"
-        shimmerElements={
-          Array [
-            Object {
-              "height": 20,
-              "type": 1,
-            },
-          ]
-        }
-        style={
-          Object {
-            "paddingLeft": 10,
-            "paddingRight": 10,
-          }
-        }
-      />
-    </div>
+    <Component />
   </div>
 </Fragment>
 `;

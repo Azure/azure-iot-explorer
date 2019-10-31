@@ -9,8 +9,9 @@ import { ActionButton } from 'office-ui-fabric-react/lib/Button';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import DeviceInterfaces, { DeviceInterfaceProps, DeviceInterfaceDispatchProps } from './deviceInterfaces';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
-import { testWithLocalizationContext } from '../../../../shared/utils/testHelpers';
+import { testWithLocalizationContext, mountWithLocalization } from '../../../../shared/utils/testHelpers';
 import { REPOSITORY_LOCATION_TYPE } from '../../../../constants/repositoryLocationTypes';
+import RenderMultiLineShimmer from '../../../../shared/components/multiLineShimmer';
 
 describe('components/devices/deviceInterfaces', () => {
 
@@ -93,25 +94,23 @@ describe('components/devices/deviceInterfaces', () => {
     };
     /* tslint:enable */
 
-    it('show Shimmer when status is working', () => {
-        const wrapper = getComponent();
-        expect(wrapper).toMatchSnapshot();
-        // tslint:disable-next-line:no-magic-numbers
-        expect(wrapper.find(Shimmer)).toHaveLength(3);
+    it('shows Shimmer when status is working', () => {
+        const component = getComponent();
+        expect(component).toMatchSnapshot();
     });
 
-    it('show interface information when status is failed', () => {
-        const wrapper = getComponent({
+    it('shows interface information when status is failed', () => {
+        const component = getComponent({
             isLoading: false,
             modelDefinitionWithSource: {
                 modelDefinitionSynchronizationStatus: SynchronizationStatus.failed
             }
         });
-        expect(wrapper).toMatchSnapshot();
+        expect(component).toMatchSnapshot();
     });
 
-    it('show interface information when status is fetched', () => {
-        let wrapper = getComponent({
+    it('shows interface information when status is fetched', () => {
+        let component = getComponent({
             isLoading: false,
             modelDefinitionWithSource: {
                 modelDefinition,
@@ -119,14 +118,14 @@ describe('components/devices/deviceInterfaces', () => {
                 source: REPOSITORY_LOCATION_TYPE.Public
             }
         });
-        expect(wrapper).toMatchSnapshot();
-        expect(wrapper.find(ActionButton).props().onClick(null));
+        expect(component).toMatchSnapshot();
+        expect(component.find(ActionButton).props().onClick(null));
         expect(settingsVisibleToggle).toBeCalled();
-        const command = wrapper.find(CommandBar);
+        const command = component.find(CommandBar);
         command.props().items[0].onClick(null);
         expect(refresh).toBeCalled();
 
-        wrapper = getComponent({
+        component = getComponent({
             isLoading: false,
             modelDefinitionWithSource: {
                 modelDefinition,
@@ -134,9 +133,9 @@ describe('components/devices/deviceInterfaces', () => {
                 source: REPOSITORY_LOCATION_TYPE.Private
             }
         });
-        expect(wrapper).toMatchSnapshot();
+        expect(component).toMatchSnapshot();
 
-        wrapper = getComponent({
+        component = getComponent({
             isLoading: false,
             modelDefinitionWithSource: {
                 modelDefinition,
@@ -144,9 +143,9 @@ describe('components/devices/deviceInterfaces', () => {
                 source: REPOSITORY_LOCATION_TYPE.Device
             }
         });
-        expect(wrapper).toMatchSnapshot();
+        expect(component).toMatchSnapshot();
 
-        wrapper = getComponent({
+        component = getComponent({
             isLoading: false,
             modelDefinitionWithSource: {
                 modelDefinition,
@@ -154,6 +153,6 @@ describe('components/devices/deviceInterfaces', () => {
                 source: undefined
             }
         });
-        expect(wrapper).toMatchSnapshot();
+        expect(component).toMatchSnapshot();
     });
 });

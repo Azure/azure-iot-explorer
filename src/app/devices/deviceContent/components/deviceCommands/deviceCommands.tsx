@@ -13,7 +13,7 @@ import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString } from '../..
 import { CommandSchema } from './deviceCommandsPerInterfacePerCommand';
 import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
 import { REFRESH } from '../../../../constants/iconNames';
-import { RenderMultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
+import RenderMultiLineShimmer from '../../../../shared/components/multiLineShimmer';
 
 export interface DeviceCommandsProps extends DeviceInterfaceWithSchema{
     isLoading: boolean;
@@ -39,7 +39,7 @@ export default class DeviceCommands
     public render(): JSX.Element {
         if (this.props.isLoading) {
             return (
-                RenderMultiLineShimmer('fixed-shimmer')
+                <RenderMultiLineShimmer/>
             );
         }
 

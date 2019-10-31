@@ -12,7 +12,7 @@ import { getInterfaceIdFromQueryString, getDeviceIdFromQueryString } from '../..
 import DevicePropertiesPerInterface from './devicePropertiesPerInterface';
 import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
 import { REFRESH } from '../../../../constants/iconNames';
-import { RenderMultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
+import RenderMultiLineShimmer from '../../../../shared/components/multiLineShimmer';
 
 export interface DevicePropertiesDataProps {
     twinAndSchema: TwinWithSchema[];
@@ -32,9 +32,7 @@ export default class DeviceProperties
 
     public render(): JSX.Element {
         if (this.props.isLoading) {
-            return (
-                RenderMultiLineShimmer('fixed-shimmer')
-            );
+            return  <RenderMultiLineShimmer/>;
         }
 
         return (

@@ -12,7 +12,7 @@ import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
 import LabelWithTooltip from '../labelWithTooltip';
 import { GroupedList as GroupedListIconNames } from '../../../constants/iconNames';
 import { CHECKBOX_WIDTH_PERCENTAGE, GRID_STYLE_CONSTANTS, CHECKBOX_WIDTH_PIXELS, LABEL_FONT_SIZE } from './groupedListStyleConstants';
-import { RenderMultiLineShimmer } from '../multiLineShimmer';
+import RenderMultiLineShimmer from '../multiLineShimmer';
 import '../../../css/_groupedList.scss';
 
 const SHIMMER_COUNT = 10;
@@ -59,9 +59,9 @@ export default class GroupedListWrapper<T> extends React.Component<GroupedListPr
         return (
             <div className="grouped-list">
                 {this.renderListHeader(columnInfo)}
-                {!!isLoading ? (
-                        RenderMultiLineShimmer('', SHIMMER_COUNT)
-                    ) : !items || items.length === 0 ? (
+                {!!isLoading ?
+                    <RenderMultiLineShimmer shimmerCount={SHIMMER_COUNT}/>
+                    : !items || items.length === 0 ? (
                         <h3>{noItemsMessage}</h3>
                     ) : (
                         <MarqueeSelection selection={selection} isEnabled={selection.mode === SelectionMode.multiple}>

@@ -14,7 +14,7 @@ import { UpdateTwinActionParameters } from '../../actions';
 import { REFRESH, SAVE } from '../../../../constants/iconNames';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { ThemeContextConsumer, ThemeContextInterface } from '../../../../shared/contexts/themeContext';
-import { RenderMultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
+import RenderMultiLineShimmer from '../../../../shared/components/multiLineShimmer';
 
 const EditorPromise = import('react-monaco-editor');
 const Editor = React.lazy(() => EditorPromise);
@@ -138,9 +138,7 @@ export default class DeviceTwin
 
     private readonly renderTwinViewer = () => {
         if (this.props.twinState === SynchronizationStatus.working) {
-            return (
-                RenderMultiLineShimmer('device-detail')
-            );
+            return <RenderMultiLineShimmer className="device-detail"/>;
         }
 
         const twin = this.state.twin;

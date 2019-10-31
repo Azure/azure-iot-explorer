@@ -18,7 +18,7 @@ import { generateKey } from '../../../../shared/utils/utils';
 import { DeviceIdentityWrapper } from '../../../../api/models/deviceIdentityWrapper';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { MaskedCopyableTextField } from '../../../../shared/components/maskedCopyableTextField';
-import { RenderMultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
+import RenderMultiLineShimmer from '../../../../shared/components/multiLineShimmer';
 import '../../../../css/_deviceDetail.scss';
 
 export interface DeviceIdentityDispatchProps {
@@ -116,7 +116,7 @@ export default class DeviceIdentityInformation
         return (
             <div className="device-detail">
                 { this.props.identityWrapper.deviceIdentitySynchronizationStatus === SynchronizationStatus.working ?
-                    RenderMultiLineShimmer('fixed-shimmer') :
+                    <RenderMultiLineShimmer/> :
                     <>
                         <MaskedCopyableTextField
                             ariaLabel={context.t(ResourceKeys.deviceIdentity.deviceID)}

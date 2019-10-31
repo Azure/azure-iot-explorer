@@ -31,61 +31,9 @@ exports[`devices/components/deviceTwin snapshot matches snapshot 1`] = `
   <h3>
     deviceTwin.headerText
   </h3>
-  <div
+  <Component
     className="device-detail"
-  >
-    <StyledShimmerBase
-      key="0"
-      shimmerElements={
-        Array [
-          Object {
-            "height": 20,
-            "type": 1,
-          },
-        ]
-      }
-      style={
-        Object {
-          "paddingLeft": 10,
-          "paddingRight": 10,
-        }
-      }
-    />
-    <StyledShimmerBase
-      key="1"
-      shimmerElements={
-        Array [
-          Object {
-            "height": 20,
-            "type": 1,
-          },
-        ]
-      }
-      style={
-        Object {
-          "paddingLeft": 10,
-          "paddingRight": 10,
-        }
-      }
-    />
-    <StyledShimmerBase
-      key="2"
-      shimmerElements={
-        Array [
-          Object {
-            "height": 20,
-            "type": 1,
-          },
-        ]
-      }
-      style={
-        Object {
-          "paddingLeft": 10,
-          "paddingRight": 10,
-        }
-      }
-    />
-  </div>
+  />
 </Fragment>
 `;
 

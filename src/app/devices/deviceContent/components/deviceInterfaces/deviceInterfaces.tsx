@@ -18,7 +18,7 @@ import { REFRESH } from '../../../../constants/iconNames';
 import ErrorBoundary from '../../../errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 import { ThemeContextInterface, ThemeContextConsumer } from '../../../../shared/contexts/themeContext';
-import { RenderMultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
+import RenderMultiLineShimmer from '../../../../shared/components/multiLineShimmer';
 
 const EditorPromise = import('react-monaco-editor');
 const Editor = React.lazy(() => EditorPromise);
@@ -44,7 +44,7 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
         return (
             <LocalizationContextConsumer>
                 {(context: LocalizationContextInterface) => (
-                    this.props.isLoading ? RenderMultiLineShimmer('fixed-shimmer') :
+                    this.props.isLoading ? <RenderMultiLineShimmer/> :
                     <>
                         <CommandBar
                             className="command"
