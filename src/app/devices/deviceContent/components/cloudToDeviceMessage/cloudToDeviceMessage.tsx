@@ -7,7 +7,6 @@ import { RouteComponentProps } from 'react-router-dom';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
-import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import { DetailsList, IColumn } from 'office-ui-fabric-react/lib/DetailsList';
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
 import { ISelection, Selection } from 'office-ui-fabric-react/lib/Selection';
@@ -20,6 +19,7 @@ import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryString
 import { CLOUD_TO_DEVICE_MESSAGE, GroupedList, ArrayOperation, ITEM, CIRCLE_ADD, CIRCLE_ADD_SOLID } from '../../../../constants/iconNames';
 import LabelWithTooltip from '../../../../shared/components/labelWithTooltip';
 import { CloudToDeviceMessageParameters } from '../../../../api/parameters/deviceParameters';
+import CollapsibleSection from '../../../../shared/components/collapsibleSection';
 import '../../../../css/_deviceDetail.scss';
 
 interface PropertyItem {
@@ -39,7 +39,6 @@ export const systemPropertyKeyNameMappings: Array<{keyName: string, displayName:
 export interface CloudToDeviceMessageState {
     addTimestamp: boolean;
     body: string;
-    propertiesSectionCollapsed: boolean;
     properties: PropertyItem[];
     selectedIndices: Set<number>;
     selection: ISelection;
@@ -48,6 +47,7 @@ export interface CloudToDeviceMessageState {
 export interface CloudToDeviceMessageProps {
     connectionString: string;
     onSendCloudToDeviceMessage: (parameters: CloudToDeviceMessageParameters) => void;
+    propertiesSectionExpanded?: boolean;
 }
 
 export default class CloudToDeviceMessage extends React.Component<CloudToDeviceMessageProps & RouteComponentProps, CloudToDeviceMessageState> {
@@ -58,7 +58,6 @@ export default class CloudToDeviceMessage extends React.Component<CloudToDeviceM
             addTimestamp: false,
             body: '',
             properties: [{index: 0, keyName: '', isSystemProperty: false, value: ''}],
-            propertiesSectionCollapsed: false,
             selectedIndices: new Set(),
             selection: new Selection({ onSelectionChanged: this.onSelectionChanged })
         };
@@ -124,24 +123,16 @@ export default class CloudToDeviceMessage extends React.Component<CloudToDeviceM
     }
 
     private readonly renderPropertiesSection = (context: LocalizationContextInterface) => {
+        const { propertiesSectionExpanded } = this.props;
+
         return (
-            <div className="properties-section">
-                <IconButton
-                    className="properties-section-icon"
-                    iconProps={{iconName: this.state.propertiesSectionCollapsed ? GroupedList.OPEN : GroupedList.CLOSE}}
-                    ariaLabel={this.state.propertiesSectionCollapsed ?
-                        context.t(ResourceKeys.cloudToDeviceMessage.properties.collapse.open) :
-                        context.t(ResourceKeys.cloudToDeviceMessage.properties.collapse.close)}
-                    onClick={this.toggleCollapse}
-                    title={context.t(this.state.propertiesSectionCollapsed ? ResourceKeys.cloudToDeviceMessage.properties.collapse.open : ResourceKeys.cloudToDeviceMessage.properties.collapse.close)}
-                />
-                <LabelWithTooltip
-                    tooltipText={context.t(ResourceKeys.cloudToDeviceMessage.properties.tooltip)}
-                >
-                    {context.t(ResourceKeys.cloudToDeviceMessage.properties.customProperties)}
-                </LabelWithTooltip>
-                {!this.state.propertiesSectionCollapsed && this.renderPropertiesList(context)}
-            </div>
+            <CollapsibleSection
+                expanded={!!propertiesSectionExpanded}
+                label={context.t(ResourceKeys.cloudToDeviceMessage.properties.customProperties)}
+                tooltipText={context.t(ResourceKeys.cloudToDeviceMessage.properties.tooltip)}
+            >
+                {this.renderPropertiesList(context)}
+            </CollapsibleSection>
         );
     }
 
@@ -310,12 +301,6 @@ export default class CloudToDeviceMessage extends React.Component<CloudToDeviceM
     private readonly onCheckboxChange = (ev?: React.FormEvent<HTMLElement | HTMLInputElement>, checked?: boolean) => {
         this.setState({
             addTimestamp: checked
-        });
-    }
-
-    private readonly toggleCollapse = () => {
-        this.setState({
-            propertiesSectionCollapsed: !this.state.propertiesSectionCollapsed
         });
     }
 

@@ -45,25 +45,11 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
       label="cloudToDeviceMessage.addTimestamp"
       onChange={[Function]}
     />
-    <div
-      className="properties-section"
+    <CollapsibleSection
+      expanded={false}
+      label="cloudToDeviceMessage.properties.customProperties"
+      tooltipText="cloudToDeviceMessage.properties.tooltip"
     >
-      <CustomizedIconButton
-        ariaLabel="cloudToDeviceMessage.properties.collapse.close"
-        className="properties-section-icon"
-        iconProps={
-          Object {
-            "iconName": "ChevronUp",
-          }
-        }
-        onClick={[Function]}
-        title="cloudToDeviceMessage.properties.collapse.close"
-      />
-      <Component
-        tooltipText="cloudToDeviceMessage.properties.tooltip"
-      >
-        cloudToDeviceMessage.properties.customProperties
-      </Component>
       <StyledCommandBarBase
         className="properties-section-command-bar"
         items={
@@ -214,7 +200,7 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
           }
         />
       </StyledMarqueeSelectionBase>
-    </div>
+    </CollapsibleSection>
   </div>
 </Fragment>
 `;

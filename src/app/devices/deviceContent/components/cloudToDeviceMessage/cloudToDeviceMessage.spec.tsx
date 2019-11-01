@@ -4,7 +4,6 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
@@ -43,14 +42,6 @@ describe('cloudToDeviceMessage', () => {
         testSnapshot(component);
     });
 
-    it('toggles properties section', () => {
-        const wrapper = mountWithLocalization(getComponent());
-        const button = wrapper.find(IconButton).at(1);
-        button.simulate('click');
-        wrapper.update();
-        expect((wrapper.state() as CloudToDeviceMessageState).propertiesSectionCollapsed).toBeTruthy();
-    });
-
     it('sets message body', () => {
         const wrapper = mountWithLocalization(getComponent());
         const bodyTextField = wrapper.find(TextField).first();
@@ -68,7 +59,9 @@ describe('cloudToDeviceMessage', () => {
     });
 
     it('adds custom properties', () => {
-        const wrapper = mountWithLocalization(getComponent());
+        const wrapper = mountWithLocalization(getComponent({
+            propertiesSectionExpanded: true
+        }));
         const commandBar = wrapper.find(CommandBar).at(1);
         // click the add custom property, which would add an entry to the editable grid
         commandBar.props().items[0].onClick(null);
@@ -86,7 +79,9 @@ describe('cloudToDeviceMessage', () => {
     });
 
     it('disables system property button when all the system properties keys have been added', () => {
-        const wrapper = mountWithLocalization(getComponent());
+        const wrapper = mountWithLocalization(getComponent({
+            propertiesSectionExpanded: true
+        }));
         const properties = systemPropertyKeyNameMappings.map(keyNameMapping => ({
             index: 0, isSystemProperty: false, keyName: keyNameMapping.keyName, value: 'value'
         }));

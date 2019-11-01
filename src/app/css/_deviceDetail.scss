@@ -23,23 +23,16 @@
     margin-bottom: 15px;
 }
 
-.properties-section {
-    margin-top: 20px;
-    padding-bottom: 20px;
-    @include themify($themes) {
-        border: 1px solid themed('borderColor')
+.properties-section-command-bar {
+    .ms-CommandBar {
+        border-bottom: 0px !important;
     }
-    .properties-section-icon {
-        float: left;
-        margin-left: -5px;
-    }
-    .properties-section-command-bar {
-        .ms-CommandBar {
-            border-bottom: 0px !important;
-        }
 
-        .ms-OverflowSet-item{
-            padding-left: 25px;
-        }
+    .ms-OverflowSet-item{
+        padding-left: 25px;
     }
+}
+
+.sas-token-section {
+    margin: 0px 10px;
 }

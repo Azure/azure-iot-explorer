@@ -1,0 +1,17 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+ @import 'themes';
+ 
+ .collapsible-section {
+    margin-top: 20px;
+    padding-bottom: 20px;
+    @include themify($themes) {
+        border: 1px solid themed('borderColor')
+    }
+    .collapsible-section-icon {
+        float: left;
+        margin-left: -5px;
+    }
+}

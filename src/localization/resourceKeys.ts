@@ -15,10 +15,6 @@ export class ResourceKeys {
       properties : {
          addCustomProperty : "cloudToDeviceMessage.properties.addCustomProperty",
          addSystemProperty : "cloudToDeviceMessage.properties.addSystemProperty",
-         collapse : {
-            close : "cloudToDeviceMessage.properties.collapse.close",
-            open : "cloudToDeviceMessage.properties.collapse.open",
-         },
          customProperties : "cloudToDeviceMessage.properties.customProperties",
          delete : "cloudToDeviceMessage.properties.delete",
          key : "cloudToDeviceMessage.properties.key",
@@ -31,6 +27,10 @@ export class ResourceKeys {
          value : "cloudToDeviceMessage.properties.value",
       },
       sendMessageButtonText : "cloudToDeviceMessage.sendMessageButtonText",
+   };
+   public static collapsibleSection = {
+      close : "collapsibleSection.close",
+      open : "collapsibleSection.open",
    };
    public static common = {
       close : "common.close",
@@ -165,6 +165,20 @@ export class ResourceKeys {
          ca : {
             text : "deviceIdentity.authenticationType.ca.text",
             type : "deviceIdentity.authenticationType.ca.type",
+         },
+         sasToken : {
+            expiration : "deviceIdentity.authenticationType.sasToken.expiration",
+            generateButton : {
+               text : "deviceIdentity.authenticationType.sasToken.generateButton.text",
+               title : "deviceIdentity.authenticationType.sasToken.generateButton.title",
+            },
+            label : "deviceIdentity.authenticationType.sasToken.label",
+            symmetricKey : "deviceIdentity.authenticationType.sasToken.symmetricKey",
+            textField : {
+               ariaLabel : "deviceIdentity.authenticationType.sasToken.textField.ariaLabel",
+               label : "deviceIdentity.authenticationType.sasToken.textField.label",
+            },
+            toolTip : "deviceIdentity.authenticationType.sasToken.toolTip",
          },
          selfSigned : {
             primaryThumbprint : "deviceIdentity.authenticationType.selfSigned.primaryThumbprint",
