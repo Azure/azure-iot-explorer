@@ -4,7 +4,6 @@
  **********************************************************/
 import * as React from 'react';
 import { Label } from 'office-ui-fabric-react/lib/Label';
-import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 import { Overlay } from 'office-ui-fabric-react/lib/Overlay';
 import { RouteComponentProps } from 'react-router-dom';
@@ -18,13 +17,12 @@ import { DeviceStatus } from '../../../../api/models/deviceStatus';
 import { generateKey } from '../../../../shared/utils/utils';
 import { DeviceIdentityWrapper } from '../../../../api/models/deviceIdentityWrapper';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
-import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { MaskedCopyableTextField } from '../../../../shared/components/maskedCopyableTextField';
+import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
 import '../../../../css/_deviceDetail.scss';
 
 export interface DeviceIdentityDispatchProps {
     updateDeviceIdentity: (deviceIdentity: DeviceIdentity) => void;
-    getDeviceIdentity: (deviceId: string) => void;
 }
 
 export interface DeviceIdentityDataProps {
@@ -62,10 +60,6 @@ export default class DeviceIdentityInformation
                 )}
             </LocalizationContextConsumer>
         );
-    }
-
-    public componentDidMount() {
-        this.props.getDeviceIdentity(getDeviceIdFromQueryString(this.props));
     }
 
     // tslint:disable-next-line:cyclomatic-complexity
@@ -122,7 +116,7 @@ export default class DeviceIdentityInformation
         return (
             <div className="device-detail">
                 { this.props.identityWrapper.deviceIdentitySynchronizationStatus === SynchronizationStatus.working ?
-                    <Shimmer className="fixed-shimmer" /> :
+                    <MultiLineShimmer/> :
                     <>
                         <MaskedCopyableTextField
                             ariaLabel={context.t(ResourceKeys.deviceIdentity.deviceID)}

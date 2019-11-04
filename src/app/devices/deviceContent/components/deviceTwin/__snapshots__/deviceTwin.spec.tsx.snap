@@ -31,7 +31,7 @@ exports[`devices/components/deviceTwin snapshot matches snapshot 1`] = `
   <h3>
     deviceTwin.headerText
   </h3>
-  <StyledShimmerBase
+  <Component
     className="device-detail"
   />
 </Fragment>

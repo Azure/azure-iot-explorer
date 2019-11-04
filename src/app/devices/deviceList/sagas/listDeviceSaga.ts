@@ -21,13 +21,17 @@ export function* listDevicesSaga(action: Action<DeviceQuery>) {
         const response = yield call(fetchDevices, parameters);
         yield put(listDevicesAction.done({params: action.payload, result: response}));
     } catch (error) {
+        const text = error && error.message ? {
+            translationKey: ResourceKeys.notifications.getDeviceListOnError,
+            translationOptions: {
+              error: error.message,
+          },
+        } :
+        {
+            translationKey: ResourceKeys.notifications.getDeviceListGenericErrorHelp
+        };
         yield put(addNotificationAction.started({
-            text: {
-                translationKey: ResourceKeys.notifications.getDeviceListOnError,
-                translationOptions: {
-                  error,
-              },
-            },
+            text,
             type: NotificationType.error,
         }));
 

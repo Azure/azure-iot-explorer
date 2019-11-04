@@ -4,7 +4,6 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
 import { ActionButton } from 'office-ui-fabric-react/lib/Button';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import DeviceInterfaces, { DeviceInterfaceProps, DeviceInterfaceDispatchProps } from './deviceInterfaces';
@@ -93,24 +92,23 @@ describe('components/devices/deviceInterfaces', () => {
     };
     /* tslint:enable */
 
-    it('show Shimmer when status is working', () => {
-        const wrapper = getComponent();
-        expect(wrapper).toMatchSnapshot();
-        expect(wrapper.find(Shimmer)).toHaveLength(1);
+    it('shows Shimmer when status is working', () => {
+        const component = getComponent();
+        expect(component).toMatchSnapshot();
     });
 
-    it('show interface information when status is failed', () => {
-        const wrapper = getComponent({
+    it('shows interface information when status is failed', () => {
+        const component = getComponent({
             isLoading: false,
             modelDefinitionWithSource: {
                 modelDefinitionSynchronizationStatus: SynchronizationStatus.failed
             }
         });
-        expect(wrapper).toMatchSnapshot();
+        expect(component).toMatchSnapshot();
     });
 
-    it('show interface information when status is fetched', () => {
-        let wrapper = getComponent({
+    it('shows interface information when status is fetched', () => {
+        let component = getComponent({
             isLoading: false,
             modelDefinitionWithSource: {
                 modelDefinition,
@@ -118,14 +116,14 @@ describe('components/devices/deviceInterfaces', () => {
                 source: REPOSITORY_LOCATION_TYPE.Public
             }
         });
-        expect(wrapper).toMatchSnapshot();
-        expect(wrapper.find(ActionButton).props().onClick(null));
+        expect(component).toMatchSnapshot();
+        expect(component.find(ActionButton).props().onClick(null));
         expect(settingsVisibleToggle).toBeCalled();
-        const command = wrapper.find(CommandBar);
+        const command = component.find(CommandBar);
         command.props().items[0].onClick(null);
         expect(refresh).toBeCalled();
 
-        wrapper = getComponent({
+        component = getComponent({
             isLoading: false,
             modelDefinitionWithSource: {
                 modelDefinition,
@@ -133,9 +131,9 @@ describe('components/devices/deviceInterfaces', () => {
                 source: REPOSITORY_LOCATION_TYPE.Private
             }
         });
-        expect(wrapper).toMatchSnapshot();
+        expect(component).toMatchSnapshot();
 
-        wrapper = getComponent({
+        component = getComponent({
             isLoading: false,
             modelDefinitionWithSource: {
                 modelDefinition,
@@ -143,9 +141,9 @@ describe('components/devices/deviceInterfaces', () => {
                 source: REPOSITORY_LOCATION_TYPE.Device
             }
         });
-        expect(wrapper).toMatchSnapshot();
+        expect(component).toMatchSnapshot();
 
-        wrapper = getComponent({
+        component = getComponent({
             isLoading: false,
             modelDefinitionWithSource: {
                 modelDefinition,
@@ -153,6 +151,6 @@ describe('components/devices/deviceInterfaces', () => {
                 source: undefined
             }
         });
-        expect(wrapper).toMatchSnapshot();
+        expect(component).toMatchSnapshot();
     });
 });

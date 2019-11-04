@@ -11,7 +11,9 @@ import { GET_TWIN,
     FETCH_MODEL_DEFINITION,
     GET_DIGITAL_TWIN_INTERFACE_PROPERTIES,
     PATCH_DIGITAL_TWIN_INTERFACE_PROPERTIES,
-    UPDATE_DEVICE_IDENTITY
+    UPDATE_DEVICE_IDENTITY,
+    SET_INTERFACE_ID,
+    GET_MODULE_IDENTITIES
   } from '../../constants/actionTypes';
 import { getTwinAction,
     getModelDefinitionAction,
@@ -20,7 +22,8 @@ import { getTwinAction,
     getDigitalTwinInterfacePropertiesAction,
     patchDigitalTwinInterfacePropertiesAction,
     updateDeviceIdentityAction,
-    setInterfaceIdAction } from './actions';
+    setInterfaceIdAction,
+    getModuleIdentitiesAction } from './actions';
 import reducer from './reducer';
 import { deviceContentStateInitial, DeviceContentStateInterface } from './state';
 import { ModelDefinition } from '../../api/models/ModelDefinition';
@@ -28,7 +31,7 @@ import { DeviceIdentity } from '../../api/models/deviceIdentity';
 import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
 import { DigitalTwinInterfaces } from '../../api/models/digitalTwinModels';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
-import { SET_INTERFACE_ID } from './../../constants/actionTypes';
+import { ModuleIdentity } from '../../api/models/moduleIdentity';
 
 describe('deviceContentStateReducer', () => {
     const deviceId = 'testDeviceId';
@@ -104,6 +107,7 @@ describe('deviceContentStateReducer', () => {
                 digitalTwinInterfaceProperties: undefined,
                 interfaceIdSelected: '',
                 modelDefinitionWithSource,
+                moduleIdentityList: undefined
             });
             const action = clearModelDefinitionsAction();
             expect(reducer(initialState(), action).modelDefinitionWithSource).toEqual(null);
@@ -175,8 +179,8 @@ describe('deviceContentStateReducer', () => {
             },
             authentication:{
                 symmetricKey:{
-                    primaryKey: 'f0wK7Pzk8aFLIRQRpoP9qSKPg6jI5xqXf93gH3cnNp4=',
-                    secondaryKey: 'e3DUjGr3PlzN/OWl8YbPtRDO2mT6RBySaTfB1uyu/Dk='
+                    primaryKey: null,
+                    secondaryKey: null
                 },
                 x509Thumbprint:{
                 primaryThumbprint:null,
@@ -325,6 +329,31 @@ describe('deviceContentStateReducer', () => {
                 propertyKey: 'myProperty'
             }});
             expect(reducer(initialState, action).digitalTwinInterfaceProperties.digitalTwinInterfacePropertiesSyncStatus).toEqual(SynchronizationStatus.failed);
+        });
+    });
+
+    describe('moduleIdentities scenarios', () => {
+        const moduleIdentity: ModuleIdentity = {
+            authentication: null,
+            deviceId: 'testDevice',
+            moduleId: 'testModule'
+        };
+
+        it (`handles ${GET_MODULE_IDENTITIES}/ACTION_START action`, () => {
+            const action = getModuleIdentitiesAction.started(deviceId);
+            expect(reducer(deviceContentStateInitial(), action).moduleIdentityList.synchronizationStatus).toEqual(SynchronizationStatus.working);
+        });
+
+        it (`handles ${GET_MODULE_IDENTITIES}/ACTION_DONE action`, () => {
+            const action = getModuleIdentitiesAction.done({params: deviceId, result: [moduleIdentity]});
+            expect(reducer(deviceContentStateInitial(), action).moduleIdentityList).toEqual({
+                moduleIdentities: [moduleIdentity],
+                synchronizationStatus: SynchronizationStatus.fetched});
+        });
+
+        it (`handles ${GET_MODULE_IDENTITIES}/ACTION_FAILED action`, () => {
+            const action = getModuleIdentitiesAction.failed({error: -1, params: deviceId});
+            expect(reducer(deviceContentStateInitial(), action).moduleIdentityList.synchronizationStatus).toEqual(SynchronizationStatus.failed);
         });
     });
 });

@@ -13,6 +13,7 @@ export enum ROUTE_PARTS {
     IDENTITY = 'identity',
     INTERFACES = 'interfaces',
     METHODS = 'methods',
+    MODULE_IDENTITY = 'moduleIdentity',
     PROPERTIES = 'properties',
     SETTINGS = 'settings',
     TWIN = 'twin'

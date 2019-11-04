@@ -5,7 +5,7 @@
 import 'jest';
 import * as React from 'react';
 import { Nav } from 'office-ui-fabric-react/lib/Nav';
-import DeviceContentNavComponent, { NAV_LINK_ITEMS_NONPNP, NAV_LINK_ITEMS_PNP } from './deviceContentNav';
+import DeviceContentNavComponent, { NAV_LINK_ITEMS_NONPNP, NAV_LINK_ITEMS_PNP, NAV_LINK_ITEMS_NONPNP_NONEDGE } from './deviceContentNav';
 import { mountWithLocalization, testSnapshot } from '../../../shared/utils/testHelpers';
 
 describe('components/devices/deviceContentNav', () => {
@@ -15,6 +15,7 @@ describe('components/devices/deviceContentNav', () => {
         const props = {
             deviceId: 'test',
             interfaceIds: [],
+            isEdgeDevice: true,
             isLoading: false,
             isPnPDevice: false,
             selectedInterface: '',
@@ -36,6 +37,13 @@ describe('components/devices/deviceContentNav', () => {
 
         const navigation = wrapper.find(Nav);
         expect(navigation.props().groups[0].links.length).toEqual(NAV_LINK_ITEMS_NONPNP.length);
+    });
+
+    it('shows non-pnp non-edge nav if device is not edge', () => {
+        const wrapper = mountWithLocalization(getComponent({isEdgeDevice: false}));
+
+        const navigation = wrapper.find(Nav);
+        expect(navigation.props().groups[0].links.length).toEqual(NAV_LINK_ITEMS_NONPNP_NONEDGE.length);
     });
 
     it('show non-pnp nav and pnp nav when device is pnp', () => {

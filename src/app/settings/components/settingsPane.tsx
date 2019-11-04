@@ -11,7 +11,7 @@ import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/Button'
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
-import { validateConnectionString } from '../../shared/utils/hubConnectionStringHelper';
+import { generateConnectionStringValidationError } from '../../shared/utils/hubConnectionStringHelper';
 import RepositoryLocationList from './repositoryLocationList';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
 import { ConfirmationDialog } from './confirmationDialog';
@@ -183,7 +183,7 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
 
     private readonly onConnectionStringChangedFromTextField = (hubConnectionString: string)  => {
         this.setState({
-            error: validateConnectionString(hubConnectionString),
+            error: generateConnectionStringValidationError(hubConnectionString),
             hubConnectionString,
             isDirty: true
         });

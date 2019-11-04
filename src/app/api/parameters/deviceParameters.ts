@@ -78,3 +78,7 @@ export interface PatchDigitalTwinInterfacePropertiesParameters extends DataPlane
     digitalTwinId: string; // Format of digitalTwinId is DeviceId[~ModuleId]. ModuleId is optional.
     payload: DigitalTwinInterfaces;
 }
+
+export interface FetchModuleIdentitiesParameters extends DataPlaneParameters {
+    deviceId: string;
+}

@@ -41,6 +41,21 @@ exports[`deviceContent matches snapshot 1`] = `
           >
             <DeviceContentNavComponent
               deviceId="testDevice"
+              getDeviceIdentity={
+                [MockFunction] {
+                  "calls": Array [
+                    Array [
+                      "testDevice",
+                    ],
+                  ],
+                  "results": Array [
+                    Object {
+                      "type": "return",
+                      "value": undefined,
+                    },
+                  ],
+                }
+              }
               getDigitalTwinInterfaceProperties={
                 [MockFunction] {
                   "calls": Array [
@@ -59,17 +74,19 @@ exports[`deviceContent matches snapshot 1`] = `
               history={
                 Object {
                   "location": Object {
-                    "pathname": "/#/devices/detail/?id=testDevice&testInterfaceId",
+                    "pathname": "/#/devices/detail/?id=testDevice",
                   },
                 }
               }
+              identityWrapper={null}
               interfaceId="testInterfaceId"
               interfaceIds={Array []}
+              isEdgeDevice={null}
               isLoading={false}
               isPnPDevice={true}
               location={
                 Object {
-                  "pathname": "/#/devices/detail/?id=testDevice&testInterfaceId",
+                  "pathname": "/#/devices/detail/?id=testDevice",
                 }
               }
               match={Object {}}
@@ -101,6 +118,10 @@ exports[`deviceContent matches snapshot 1`] = `
         <Route
           component={[Function]}
           path="/devices/detail/cloudToDeviceMessage/"
+        />
+        <Route
+          component={[Function]}
+          path="/devices/detail/moduleIdentity/"
         />
         <Route
           component={[Function]}

@@ -15,7 +15,8 @@ import { FetchDeviceTwinParameters,
     FetchDigitalTwinInterfacePropertiesParameters,
     InvokeDigitalTwinInterfaceCommandParameters,
     PatchDigitalTwinInterfacePropertiesParameters,
-    CloudToDeviceMessageParameters } from '../parameters/deviceParameters';
+    CloudToDeviceMessageParameters,
+    FetchModuleIdentitiesParameters } from '../parameters/deviceParameters';
 import { CONTROLLER_API_ENDPOINT, DATAPLANE, EVENTHUB, DIGITAL_TWIN_API_VERSION, DataPlaneStatusCode, MONITOR, STOP, HEADERS, CLOUD_TO_DEVICE } from '../../constants/apiConstants';
 import { HTTP_OPERATION_TYPES } from '../constants';
 import { buildQueryString, getConnectionInfoFromConnectionString, generateSasToken } from '../shared/utils';
@@ -24,6 +25,7 @@ import { Message } from '../models/messages';
 import { Twin, Device, DataPlaneResponse } from '../models/device';
 import { DeviceIdentity } from '../models/deviceIdentity';
 import { DigitalTwinInterfaces } from '../models/digitalTwinModels';
+import { ModuleIdentity } from './../models/moduleIdentity';
 import { parseEventHubMessage } from './eventHubMessageHelper';
 
 export const DATAPLANE_CONTROLLER_ENDPOINT = `${CONTROLLER_API_ENDPOINT}${DATAPLANE}`;
@@ -95,7 +97,14 @@ export const dataPlaneConnectionHelper = (parameters: DataPlaneParameters) => {
 // tslint:disable-next-line:cyclomatic-complexity
 const dataPlaneResponseHelper = async (response: Response) => {
     const dataPlaneResponse = await response;
-    const result = await response.json();
+
+    let result;
+    try {
+        result = await response.json();
+    }
+    catch {
+        throw new Error();
+    }
 
     // success case
     if (DataPlaneStatusCode.SuccessLowerBound <= dataPlaneResponse.status && dataPlaneResponse.status <= DataPlaneStatusCode.SuccessUpperBound) {
@@ -427,7 +436,7 @@ export const monitorEvents = async (parameters: MonitorEventsParameters): Promis
 
         const response = await request(EVENTHUB_MONITOR_ENDPOINT, requestParameters);
         const messages = await response.json() as Message[];
-        return  messages.map(message => parseEventHubMessage(message));
+        return  messages && messages.map(message => parseEventHubMessage(message));
     } catch (error) {
         throw error;
     }
@@ -436,6 +445,25 @@ export const monitorEvents = async (parameters: MonitorEventsParameters): Promis
 export const stopMonitoringEvents = async (): Promise<void> => {
     try {
         await request(EVENTHUB_STOP_ENDPOINT, {});
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const fetchModuleIdentities = async (parameters: FetchModuleIdentitiesParameters): Promise<DataPlaneResponse<ModuleIdentity[]>> => {
+    try {
+        const connectionInformation = dataPlaneConnectionHelper(parameters);
+
+        const dataPlaneRequest: DataPlaneRequest = {
+            hostName: connectionInformation.connectionInfo.hostName,
+            httpMethod: HTTP_OPERATION_TYPES.Get,
+            path: `devices/${parameters.deviceId}/modules`,
+            sharedAccessSignature: connectionInformation.sasToken,
+        };
+
+        const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
+        const result = await dataPlaneResponseHelper(response);
+        return result.body;
     } catch (error) {
         throw error;
     }

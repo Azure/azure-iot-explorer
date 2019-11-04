@@ -5,14 +5,14 @@
 import * as React from 'react';
 import { GroupedList, IGroup, IGroupDividerProps } from 'office-ui-fabric-react/lib/GroupedList';
 import { IListProps } from 'office-ui-fabric-react/lib/List';
-import { Shimmer, ShimmerElementType } from 'office-ui-fabric-react/lib/Shimmer';
 import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
 import { IconButton, BaseButton, Button } from 'office-ui-fabric-react/lib/Button';
 import { ISelection, SelectionMode, Selection, SelectionZone } from 'office-ui-fabric-react/lib/Selection';
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
 import LabelWithTooltip from '../labelWithTooltip';
 import { GroupedList as GroupedListIconNames } from '../../../constants/iconNames';
-import { CHECKBOX_WIDTH_PERCENTAGE, GRID_STYLE_CONSTANTS, CHECKBOX_WIDTH_PIXELS, LABEL_FONT_SIZE, SHIMMER_HEIGHT } from './groupedListStyleConstants';
+import { CHECKBOX_WIDTH_PERCENTAGE, GRID_STYLE_CONSTANTS, CHECKBOX_WIDTH_PIXELS, LABEL_FONT_SIZE } from './groupedListStyleConstants';
+import MultiLineShimmer from '../multiLineShimmer';
 import '../../../css/_groupedList.scss';
 
 const SHIMMER_COUNT = 10;
@@ -56,19 +56,12 @@ export default class GroupedListWrapper<T> extends React.Component<GroupedListPr
         const { columnInfo, items, isLoading, noItemsMessage } = this.props;
         const { selection, selectionMode } = this.state;
 
-        const shimmer = [];
-        for (let index = 0; index < SHIMMER_COUNT; index++) {
-            shimmer.push(this.getShimmer(index));
-        }
-
         return (
             <div className="grouped-list">
                 {this.renderListHeader(columnInfo)}
-                {!!isLoading ? (
-                        <div>
-                            {shimmer}
-                        </div>
-                    ) : !items || items.length === 0 ? (
+                {!!isLoading ?
+                    <MultiLineShimmer shimmerCount={SHIMMER_COUNT}/>
+                    : !items || items.length === 0 ? (
                         <h3>{noItemsMessage}</h3>
                     ) : (
                         <MarqueeSelection selection={selection} isEnabled={selection.mode === SelectionMode.multiple}>
@@ -261,16 +254,4 @@ export default class GroupedListWrapper<T> extends React.Component<GroupedListPr
             gridTemplateColumns: columnString
         };
     }
-
-    private readonly getShimmer = (key: string | number) => {
-        return (
-            <Shimmer
-                shimmerElements={[
-                    { type: ShimmerElementType.line, height: SHIMMER_HEIGHT }
-                ]}
-                key={key}
-            />
-        );
-    }
-
 }

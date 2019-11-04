@@ -24,7 +24,7 @@ describe('listDeviceSaga', () => {
             {
             authentication: null,
             capabilities: null,
-            cloudToDeviceMessageCount: '',
+            cloudToDeviceMessageCount: 0,
             deviceId,
             etag: 'etag',
             lastActivityTime: '',
@@ -78,14 +78,14 @@ describe('listDeviceSaga', () => {
 
     it('fails on error', () => {
         const failure = listDevicesSagaGenerator.clone();
-        const error = { code: -1 };
+        const error = { message: 'failed' };
         expect(failure.throw(error)).toEqual({
             done: false,
             value: put(addNotificationAction.started({
                 text: {
                     translationKey: ResourceKeys.notifications.getDeviceListOnError,
                     translationOptions: {
-                      error,
+                      error: error.message,
                   },
                 },
                 type: NotificationType.error,
