@@ -117,6 +117,13 @@ export default class CloudToDeviceMessage extends React.Component<CloudToDeviceM
                     label={context.t(ResourceKeys.cloudToDeviceMessage.addTimestamp)}
                     ariaLabel={context.t(ResourceKeys.cloudToDeviceMessage.addTimestamp)}
                     onChange={this.onCheckboxChange}
+                    styles={
+                        {
+                            root: {
+                                marginBottom: 20
+                            }
+                        }
+                    }
                 />
             </>
         );

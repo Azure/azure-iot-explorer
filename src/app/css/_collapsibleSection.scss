@@ -5,7 +5,6 @@
  @import 'themes';
  
  .collapsible-section {
-    margin-top: 20px;
     padding-bottom: 20px;
     @include themify($themes) {
         border: 1px solid themed('borderColor')

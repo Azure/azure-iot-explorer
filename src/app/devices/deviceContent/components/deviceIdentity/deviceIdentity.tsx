@@ -141,8 +141,8 @@ export default class DeviceIdentityInformation
                         />
                         {this.renderDeviceAuthProperties(context)}
                         <br/>
-                        {this.renderHubRelatedInformation(context)}
                         {authType === DeviceAuthenticationType.SymmetricKey && this.renderSasTokenSection(context)}
+                        {this.renderHubRelatedInformation(context)}
                     </>
                 }
                 {this.props.identityWrapper.deviceIdentitySynchronizationStatus === SynchronizationStatus.updating && <Overlay/>}
