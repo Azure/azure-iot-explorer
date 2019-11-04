@@ -179,8 +179,8 @@ describe('deviceContentStateReducer', () => {
             },
             authentication:{
                 symmetricKey:{
-                    primaryKey: 'f0wK7Pzk8aFLIRQRpoP9qSKPg6jI5xqXf93gH3cnNp4=',
-                    secondaryKey: 'e3DUjGr3PlzN/OWl8YbPtRDO2mT6RBySaTfB1uyu/Dk='
+                    primaryKey: null,
+                    secondaryKey: null
                 },
                 x509Thumbprint:{
                 primaryThumbprint:null,
