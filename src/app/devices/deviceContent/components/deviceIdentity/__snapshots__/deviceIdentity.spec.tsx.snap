@@ -420,18 +420,6 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
               "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
             ],
             Array [
-              "deviceIdentity.hubConnectivity.label",
-            ],
-            Array [
-              "deviceIdentity.hubConnectivity.label",
-            ],
-            Array [
-              "deviceIdentity.hubConnectivity.enable",
-            ],
-            Array [
-              "deviceIdentity.hubConnectivity.disable",
-            ],
-            Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryKey",
             ],
             Array [
@@ -460,6 +448,18 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
             ],
             Array [
               "deviceIdentity.authenticationType.sasToken.generateButton.text",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.label",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.label",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.enable",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.disable",
             ],
           ],
           "results": Array [
@@ -505,22 +505,6 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
             },
             Object {
               "type": "return",
-              "value": "deviceIdentity.hubConnectivity.label",
-            },
-            Object {
-              "type": "return",
-              "value": "deviceIdentity.hubConnectivity.label",
-            },
-            Object {
-              "type": "return",
-              "value": "deviceIdentity.hubConnectivity.enable",
-            },
-            Object {
-              "type": "return",
-              "value": "deviceIdentity.hubConnectivity.disable",
-            },
-            Object {
-              "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
             },
             Object {
@@ -558,6 +542,22 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.sasToken.generateButton.text",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.enable",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.disable",
             },
           ],
         }
@@ -604,18 +604,6 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
               "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
             ],
             Array [
-              "deviceIdentity.hubConnectivity.label",
-            ],
-            Array [
-              "deviceIdentity.hubConnectivity.label",
-            ],
-            Array [
-              "deviceIdentity.hubConnectivity.enable",
-            ],
-            Array [
-              "deviceIdentity.hubConnectivity.disable",
-            ],
-            Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryKey",
             ],
             Array [
@@ -644,6 +632,18 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
             ],
             Array [
               "deviceIdentity.authenticationType.sasToken.generateButton.text",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.label",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.label",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.enable",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.disable",
             ],
           ],
           "results": Array [
@@ -689,22 +689,6 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
             },
             Object {
               "type": "return",
-              "value": "deviceIdentity.hubConnectivity.label",
-            },
-            Object {
-              "type": "return",
-              "value": "deviceIdentity.hubConnectivity.label",
-            },
-            Object {
-              "type": "return",
-              "value": "deviceIdentity.hubConnectivity.enable",
-            },
-            Object {
-              "type": "return",
-              "value": "deviceIdentity.hubConnectivity.disable",
-            },
-            Object {
-              "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
             },
             Object {
@@ -742,6 +726,22 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.sasToken.generateButton.text",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.enable",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.disable",
             },
           ],
         }
@@ -788,18 +788,6 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
               "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
             ],
             Array [
-              "deviceIdentity.hubConnectivity.label",
-            ],
-            Array [
-              "deviceIdentity.hubConnectivity.label",
-            ],
-            Array [
-              "deviceIdentity.hubConnectivity.enable",
-            ],
-            Array [
-              "deviceIdentity.hubConnectivity.disable",
-            ],
-            Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryKey",
             ],
             Array [
@@ -828,6 +816,18 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
             ],
             Array [
               "deviceIdentity.authenticationType.sasToken.generateButton.text",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.label",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.label",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.enable",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.disable",
             ],
           ],
           "results": Array [
@@ -873,22 +873,6 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
             },
             Object {
               "type": "return",
-              "value": "deviceIdentity.hubConnectivity.label",
-            },
-            Object {
-              "type": "return",
-              "value": "deviceIdentity.hubConnectivity.label",
-            },
-            Object {
-              "type": "return",
-              "value": "deviceIdentity.hubConnectivity.enable",
-            },
-            Object {
-              "type": "return",
-              "value": "deviceIdentity.hubConnectivity.disable",
-            },
-            Object {
-              "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
             },
             Object {
@@ -926,6 +910,22 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.sasToken.generateButton.text",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.enable",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.disable",
             },
           ],
         }
@@ -970,18 +970,6 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
               "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
             ],
             Array [
-              "deviceIdentity.hubConnectivity.label",
-            ],
-            Array [
-              "deviceIdentity.hubConnectivity.label",
-            ],
-            Array [
-              "deviceIdentity.hubConnectivity.enable",
-            ],
-            Array [
-              "deviceIdentity.hubConnectivity.disable",
-            ],
-            Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryKey",
             ],
             Array [
@@ -1010,6 +998,18 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
             ],
             Array [
               "deviceIdentity.authenticationType.sasToken.generateButton.text",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.label",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.label",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.enable",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.disable",
             ],
           ],
           "results": Array [
@@ -1055,22 +1055,6 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
             },
             Object {
               "type": "return",
-              "value": "deviceIdentity.hubConnectivity.label",
-            },
-            Object {
-              "type": "return",
-              "value": "deviceIdentity.hubConnectivity.label",
-            },
-            Object {
-              "type": "return",
-              "value": "deviceIdentity.hubConnectivity.enable",
-            },
-            Object {
-              "type": "return",
-              "value": "deviceIdentity.hubConnectivity.disable",
-            },
-            Object {
-              "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
             },
             Object {
@@ -1108,6 +1092,22 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.sasToken.generateButton.text",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.enable",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.disable",
             },
           ],
         }
@@ -1153,18 +1153,6 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
               "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
             ],
             Array [
-              "deviceIdentity.hubConnectivity.label",
-            ],
-            Array [
-              "deviceIdentity.hubConnectivity.label",
-            ],
-            Array [
-              "deviceIdentity.hubConnectivity.enable",
-            ],
-            Array [
-              "deviceIdentity.hubConnectivity.disable",
-            ],
-            Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryKey",
             ],
             Array [
@@ -1193,6 +1181,18 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
             ],
             Array [
               "deviceIdentity.authenticationType.sasToken.generateButton.text",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.label",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.label",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.enable",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.disable",
             ],
           ],
           "results": Array [
@@ -1238,22 +1238,6 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
             },
             Object {
               "type": "return",
-              "value": "deviceIdentity.hubConnectivity.label",
-            },
-            Object {
-              "type": "return",
-              "value": "deviceIdentity.hubConnectivity.label",
-            },
-            Object {
-              "type": "return",
-              "value": "deviceIdentity.hubConnectivity.enable",
-            },
-            Object {
-              "type": "return",
-              "value": "deviceIdentity.hubConnectivity.disable",
-            },
-            Object {
-              "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
             },
             Object {
@@ -1292,20 +1276,28 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
               "type": "return",
               "value": "deviceIdentity.authenticationType.sasToken.generateButton.text",
             },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.enable",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.disable",
+            },
           ],
         }
       }
       value=""
     />
     <br />
-    <StyledToggleBase
-      ariaLabel="deviceIdentity.hubConnectivity.label"
-      checked={false}
-      label="deviceIdentity.hubConnectivity.label"
-      offText="deviceIdentity.hubConnectivity.disable"
-      onChange={[Function]}
-      onText="deviceIdentity.hubConnectivity.enable"
-    />
     <CollapsibleSection
       expanded={false}
       label="deviceIdentity.authenticationType.sasToken.label"
@@ -1404,18 +1396,6 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
                   "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
                 ],
                 Array [
-                  "deviceIdentity.hubConnectivity.label",
-                ],
-                Array [
-                  "deviceIdentity.hubConnectivity.label",
-                ],
-                Array [
-                  "deviceIdentity.hubConnectivity.enable",
-                ],
-                Array [
-                  "deviceIdentity.hubConnectivity.disable",
-                ],
-                Array [
                   "deviceIdentity.authenticationType.symmetricKey.primaryKey",
                 ],
                 Array [
@@ -1444,6 +1424,18 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
                 ],
                 Array [
                   "deviceIdentity.authenticationType.sasToken.generateButton.text",
+                ],
+                Array [
+                  "deviceIdentity.hubConnectivity.label",
+                ],
+                Array [
+                  "deviceIdentity.hubConnectivity.label",
+                ],
+                Array [
+                  "deviceIdentity.hubConnectivity.enable",
+                ],
+                Array [
+                  "deviceIdentity.hubConnectivity.disable",
                 ],
               ],
               "results": Array [
@@ -1489,22 +1481,6 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
                 },
                 Object {
                   "type": "return",
-                  "value": "deviceIdentity.hubConnectivity.label",
-                },
-                Object {
-                  "type": "return",
-                  "value": "deviceIdentity.hubConnectivity.label",
-                },
-                Object {
-                  "type": "return",
-                  "value": "deviceIdentity.hubConnectivity.enable",
-                },
-                Object {
-                  "type": "return",
-                  "value": "deviceIdentity.hubConnectivity.disable",
-                },
-                Object {
-                  "type": "return",
                   "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
                 },
                 Object {
@@ -1543,6 +1519,22 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
                   "type": "return",
                   "value": "deviceIdentity.authenticationType.sasToken.generateButton.text",
                 },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.hubConnectivity.label",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.hubConnectivity.label",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.hubConnectivity.enable",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.hubConnectivity.disable",
+                },
               ],
             }
           }
@@ -1564,6 +1556,14 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
         />
       </div>
     </CollapsibleSection>
+    <StyledToggleBase
+      ariaLabel="deviceIdentity.hubConnectivity.label"
+      checked={false}
+      label="deviceIdentity.hubConnectivity.label"
+      offText="deviceIdentity.hubConnectivity.disable"
+      onChange={[Function]}
+      onText="deviceIdentity.hubConnectivity.enable"
+    />
   </div>
 </Fragment>
 `;
@@ -1619,18 +1619,6 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
               "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
             ],
             Array [
-              "deviceIdentity.hubConnectivity.label",
-            ],
-            Array [
-              "deviceIdentity.hubConnectivity.label",
-            ],
-            Array [
-              "deviceIdentity.hubConnectivity.enable",
-            ],
-            Array [
-              "deviceIdentity.hubConnectivity.disable",
-            ],
-            Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryKey",
             ],
             Array [
@@ -1659,6 +1647,18 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
             ],
             Array [
               "deviceIdentity.authenticationType.sasToken.generateButton.text",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.label",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.label",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.enable",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.disable",
             ],
           ],
           "results": Array [
@@ -1704,22 +1704,6 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
             },
             Object {
               "type": "return",
-              "value": "deviceIdentity.hubConnectivity.label",
-            },
-            Object {
-              "type": "return",
-              "value": "deviceIdentity.hubConnectivity.label",
-            },
-            Object {
-              "type": "return",
-              "value": "deviceIdentity.hubConnectivity.enable",
-            },
-            Object {
-              "type": "return",
-              "value": "deviceIdentity.hubConnectivity.disable",
-            },
-            Object {
-              "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
             },
             Object {
@@ -1757,6 +1741,22 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.sasToken.generateButton.text",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.enable",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.disable",
             },
           ],
         }
@@ -1802,18 +1802,6 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
               "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
             ],
             Array [
-              "deviceIdentity.hubConnectivity.label",
-            ],
-            Array [
-              "deviceIdentity.hubConnectivity.label",
-            ],
-            Array [
-              "deviceIdentity.hubConnectivity.enable",
-            ],
-            Array [
-              "deviceIdentity.hubConnectivity.disable",
-            ],
-            Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryKey",
             ],
             Array [
@@ -1842,6 +1830,18 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
             ],
             Array [
               "deviceIdentity.authenticationType.sasToken.generateButton.text",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.label",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.label",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.enable",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.disable",
             ],
           ],
           "results": Array [
@@ -1887,22 +1887,6 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
             },
             Object {
               "type": "return",
-              "value": "deviceIdentity.hubConnectivity.label",
-            },
-            Object {
-              "type": "return",
-              "value": "deviceIdentity.hubConnectivity.label",
-            },
-            Object {
-              "type": "return",
-              "value": "deviceIdentity.hubConnectivity.enable",
-            },
-            Object {
-              "type": "return",
-              "value": "deviceIdentity.hubConnectivity.disable",
-            },
-            Object {
-              "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
             },
             Object {
@@ -1940,6 +1924,22 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.sasToken.generateButton.text",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.enable",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.disable",
             },
           ],
         }
@@ -1986,18 +1986,6 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
               "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
             ],
             Array [
-              "deviceIdentity.hubConnectivity.label",
-            ],
-            Array [
-              "deviceIdentity.hubConnectivity.label",
-            ],
-            Array [
-              "deviceIdentity.hubConnectivity.enable",
-            ],
-            Array [
-              "deviceIdentity.hubConnectivity.disable",
-            ],
-            Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryKey",
             ],
             Array [
@@ -2026,6 +2014,18 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
             ],
             Array [
               "deviceIdentity.authenticationType.sasToken.generateButton.text",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.label",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.label",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.enable",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.disable",
             ],
           ],
           "results": Array [
@@ -2071,22 +2071,6 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
             },
             Object {
               "type": "return",
-              "value": "deviceIdentity.hubConnectivity.label",
-            },
-            Object {
-              "type": "return",
-              "value": "deviceIdentity.hubConnectivity.label",
-            },
-            Object {
-              "type": "return",
-              "value": "deviceIdentity.hubConnectivity.enable",
-            },
-            Object {
-              "type": "return",
-              "value": "deviceIdentity.hubConnectivity.disable",
-            },
-            Object {
-              "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
             },
             Object {
@@ -2124,6 +2108,22 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.sasToken.generateButton.text",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.enable",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.disable",
             },
           ],
         }
@@ -2168,18 +2168,6 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
               "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
             ],
             Array [
-              "deviceIdentity.hubConnectivity.label",
-            ],
-            Array [
-              "deviceIdentity.hubConnectivity.label",
-            ],
-            Array [
-              "deviceIdentity.hubConnectivity.enable",
-            ],
-            Array [
-              "deviceIdentity.hubConnectivity.disable",
-            ],
-            Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryKey",
             ],
             Array [
@@ -2208,6 +2196,18 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
             ],
             Array [
               "deviceIdentity.authenticationType.sasToken.generateButton.text",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.label",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.label",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.enable",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.disable",
             ],
           ],
           "results": Array [
@@ -2253,22 +2253,6 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
             },
             Object {
               "type": "return",
-              "value": "deviceIdentity.hubConnectivity.label",
-            },
-            Object {
-              "type": "return",
-              "value": "deviceIdentity.hubConnectivity.label",
-            },
-            Object {
-              "type": "return",
-              "value": "deviceIdentity.hubConnectivity.enable",
-            },
-            Object {
-              "type": "return",
-              "value": "deviceIdentity.hubConnectivity.disable",
-            },
-            Object {
-              "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
             },
             Object {
@@ -2306,6 +2290,22 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.sasToken.generateButton.text",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.enable",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.disable",
             },
           ],
         }
@@ -2351,18 +2351,6 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
               "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
             ],
             Array [
-              "deviceIdentity.hubConnectivity.label",
-            ],
-            Array [
-              "deviceIdentity.hubConnectivity.label",
-            ],
-            Array [
-              "deviceIdentity.hubConnectivity.enable",
-            ],
-            Array [
-              "deviceIdentity.hubConnectivity.disable",
-            ],
-            Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryKey",
             ],
             Array [
@@ -2391,6 +2379,18 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
             ],
             Array [
               "deviceIdentity.authenticationType.sasToken.generateButton.text",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.label",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.label",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.enable",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.disable",
             ],
           ],
           "results": Array [
@@ -2436,22 +2436,6 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
             },
             Object {
               "type": "return",
-              "value": "deviceIdentity.hubConnectivity.label",
-            },
-            Object {
-              "type": "return",
-              "value": "deviceIdentity.hubConnectivity.label",
-            },
-            Object {
-              "type": "return",
-              "value": "deviceIdentity.hubConnectivity.enable",
-            },
-            Object {
-              "type": "return",
-              "value": "deviceIdentity.hubConnectivity.disable",
-            },
-            Object {
-              "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
             },
             Object {
@@ -2490,20 +2474,28 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
               "type": "return",
               "value": "deviceIdentity.authenticationType.sasToken.generateButton.text",
             },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.enable",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.disable",
+            },
           ],
         }
       }
       value=""
     />
     <br />
-    <StyledToggleBase
-      ariaLabel="deviceIdentity.hubConnectivity.label"
-      checked={false}
-      label="deviceIdentity.hubConnectivity.label"
-      offText="deviceIdentity.hubConnectivity.disable"
-      onChange={[Function]}
-      onText="deviceIdentity.hubConnectivity.enable"
-    />
     <CollapsibleSection
       expanded={false}
       label="deviceIdentity.authenticationType.sasToken.label"
@@ -2602,18 +2594,6 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
                   "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
                 ],
                 Array [
-                  "deviceIdentity.hubConnectivity.label",
-                ],
-                Array [
-                  "deviceIdentity.hubConnectivity.label",
-                ],
-                Array [
-                  "deviceIdentity.hubConnectivity.enable",
-                ],
-                Array [
-                  "deviceIdentity.hubConnectivity.disable",
-                ],
-                Array [
                   "deviceIdentity.authenticationType.symmetricKey.primaryKey",
                 ],
                 Array [
@@ -2642,6 +2622,18 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
                 ],
                 Array [
                   "deviceIdentity.authenticationType.sasToken.generateButton.text",
+                ],
+                Array [
+                  "deviceIdentity.hubConnectivity.label",
+                ],
+                Array [
+                  "deviceIdentity.hubConnectivity.label",
+                ],
+                Array [
+                  "deviceIdentity.hubConnectivity.enable",
+                ],
+                Array [
+                  "deviceIdentity.hubConnectivity.disable",
                 ],
               ],
               "results": Array [
@@ -2687,22 +2679,6 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
                 },
                 Object {
                   "type": "return",
-                  "value": "deviceIdentity.hubConnectivity.label",
-                },
-                Object {
-                  "type": "return",
-                  "value": "deviceIdentity.hubConnectivity.label",
-                },
-                Object {
-                  "type": "return",
-                  "value": "deviceIdentity.hubConnectivity.enable",
-                },
-                Object {
-                  "type": "return",
-                  "value": "deviceIdentity.hubConnectivity.disable",
-                },
-                Object {
-                  "type": "return",
                   "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
                 },
                 Object {
@@ -2741,6 +2717,22 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
                   "type": "return",
                   "value": "deviceIdentity.authenticationType.sasToken.generateButton.text",
                 },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.hubConnectivity.label",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.hubConnectivity.label",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.hubConnectivity.enable",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.hubConnectivity.disable",
+                },
               ],
             }
           }
@@ -2762,6 +2754,14 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
         />
       </div>
     </CollapsibleSection>
+    <StyledToggleBase
+      ariaLabel="deviceIdentity.hubConnectivity.label"
+      checked={false}
+      label="deviceIdentity.hubConnectivity.label"
+      offText="deviceIdentity.hubConnectivity.disable"
+      onChange={[Function]}
+      onText="deviceIdentity.hubConnectivity.enable"
+    />
     <StyledOverlayBase />
   </div>
 </Fragment>
