@@ -11,7 +11,7 @@ export const THEME_DARK: IPartialTheme =  {
         neutralLight: '#252525',
         neutralLighter: '#605e5c', // disabled button
         neutralLighterAlt: '#0b0b0b',
-        neutralPrimary: '#ffffff', // used in button text
+        neutralPrimary: '#cccccc', // used in button text
         neutralPrimaryAlt: '#dadada',
         neutralQuaternary: '#373737',
         neutralQuaternaryAlt: '#2f2f2f',
