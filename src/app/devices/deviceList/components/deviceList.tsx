@@ -86,10 +86,22 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
         this.props.listDevices(this.state.query);
     }
 
-    private readonly setQuery = (query: DeviceQuery) => {
-        this.setState({
-            query
-        });
+    private readonly setQuery = (query: DeviceQuery, executeQuery: boolean) => {
+        if (executeQuery) {
+            this.setState(
+                {query},
+                () => { // setState is async, after it's done, fetch devices
+                    this.props.listDevices({
+                        clauses: query.clauses,
+                        continuationTokens: query.continuationTokens,
+                        currentPageIndex: 0,
+                        deviceId: query.deviceId
+                    });
+                });
+        }
+        else {
+            this.setState({query});
+        }
     }
 
     public componentDidMount() {

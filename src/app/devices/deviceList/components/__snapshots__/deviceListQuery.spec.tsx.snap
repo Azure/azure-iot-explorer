@@ -12,16 +12,20 @@ exports[`components/devices/DeviceListQuery matches snapshot for clauses 1`] = `
       ariaLabel="deviceLists.query.deviceId.ariaLabel"
       borderless={true}
       className="search-box"
+      componentRef={
+        Object {
+          "current": null,
+        }
+      }
+      disabled={true}
       iconProps={
         Object {
           "iconName": "Search",
         }
       }
-      onChange={[Function]}
       onKeyUp={[Function]}
       placeholder="deviceLists.query.deviceId.placeholder"
       role="searchbox"
-      value=""
     />
     <CustomizedIconButton
       ariaLabel="deviceLists.query.deviceId.searchButton.ariaLabel"
@@ -52,7 +56,7 @@ exports[`components/devices/DeviceListQuery matches snapshot for clauses 1`] = `
     <CustomizedPrimaryButton
       ariaLabel="deviceLists.query.searchPills.search.ariaLabel"
       className="search-pill"
-      onClick={[Function]}
+      onClick={[MockFunction]}
       title="deviceLists.query.searchPills.search.title"
     >
       deviceLists.query.searchPills.search.text
@@ -87,16 +91,20 @@ exports[`components/devices/DeviceListQuery matches snapshot for deviceId 1`] = 
       ariaLabel="deviceLists.query.deviceId.ariaLabel"
       borderless={true}
       className="search-box"
+      componentRef={
+        Object {
+          "current": null,
+        }
+      }
+      disabled={false}
       iconProps={
         Object {
           "iconName": "Search",
         }
       }
-      onChange={[Function]}
       onKeyUp={[Function]}
       placeholder="deviceLists.query.deviceId.placeholder"
       role="searchbox"
-      value="device1"
     />
     <CustomizedIconButton
       ariaLabel="deviceLists.query.deviceId.searchButton.ariaLabel"

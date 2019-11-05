@@ -130,6 +130,9 @@ export const clauseToString = (clause: QueryClause) => {
 };
 
 export const clauseItemToString = (fieldName: string, operation: OperationType, value: unknown) => {
+    if (!fieldName || !operation || !value) {
+        return;
+    }
     return `${fieldName} ${operation} ${escapeValue(value as string)}`;
 };
 
