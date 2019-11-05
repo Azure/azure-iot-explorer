@@ -52,7 +52,8 @@
     pagerColorSelected: $light-gray,
     pagerButtonColor: $blue,
     successText: $successText,
-    infoText: #52ABFF
+    infoText: #52ABFF,
+    inputComponentBackgroundColor: #ffffff
   ),
   dark: (
     backgroundColor: $dark-gray,
@@ -101,7 +102,8 @@
     pagerColorSelected: #ffffff,
     pagerButtonColor: black,
     successText: #1AC11A,
-    infoText: rgb(75, 166, 216)
+    infoText: rgb(75, 166, 216),
+    inputComponentBackgroundColor: $dark-gray
   ),
 );
 

@@ -25,6 +25,7 @@ import { MaskedCopyableTextField } from '../../../../shared/components/maskedCop
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
 import '../../../../css/_deviceDetail.scss';
 import CollapsibleSection from '../../../../shared/components/collapsibleSection';
+import { SAS_EXPIRES_MINUTES } from '../../../../constants/devices';
 
 export interface DeviceIdentityDispatchProps {
     updateDeviceIdentity: (deviceIdentity: DeviceIdentity) => void;
@@ -36,6 +37,7 @@ export interface DeviceIdentityDataProps {
 }
 
 export interface DeviceIdentityState {
+    defaultExpiration: number;
     identity: DeviceIdentity;
     isDirty: boolean;
     requestMade: boolean;
@@ -50,6 +52,7 @@ export default class DeviceIdentityInformation
         super(props);
 
         this.state = {
+            defaultExpiration: SAS_EXPIRES_MINUTES,
             identity: this.props.identityWrapper && this.props.identityWrapper.deviceIdentity,
             isDirty: false,
             requestMade: false,
@@ -181,7 +184,7 @@ export default class DeviceIdentityInformation
     }
 
     private readonly renderSasTokenSection = (context: LocalizationContextInterface) => {
-        const { identity, sasTokenSelectedKey } = this.state;
+        const { defaultExpiration, identity, sasTokenSelectedKey, sasTokenExpiration } = this.state;
         const options: IDropdownOption[] = [
             {
                 key: identity.authentication.symmetricKey.primaryKey,
@@ -203,29 +206,20 @@ export default class DeviceIdentityInformation
             >
                 <div className="sas-token-section">
                     <Dropdown
+                        className={'sas-token-key-field'}
                         label={context.t(ResourceKeys.deviceIdentity.authenticationType.sasToken.symmetricKey)}
                         selectedKey={sasTokenSelectedKey || undefined}
                         options={options}
-                        styles={{
-                            dropdown: {
-                                marginBottom: 5,
-                                width: 300
-                            }
-                        }}
                         onChange={this.onSelectedKeyChanged}
                     />
                     <SpinButton
+                        className={'sas-token-expiration-field'}
                         label={context.t(ResourceKeys.deviceIdentity.authenticationType.sasToken.expiration)}
                         labelPosition={position}
                         min={0}
                         max={Number.MAX_SAFE_INTEGER}
                         onBlur={this.onExpirationChanged}
-                        styles={{
-                            root: {
-                                marginBottom: 5,
-                                width: 300
-                            }
-                        }}
+                        defaultValue={`${defaultExpiration}`}
                     />
                     <MaskedCopyableTextField
                         ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.sasToken.textField.ariaLabel)}
@@ -236,16 +230,11 @@ export default class DeviceIdentityInformation
                         readOnly={true}
                     />
                     <PrimaryButton
+                        className={'sas-token-generate-button'}
                         title={context.t(ResourceKeys.deviceIdentity.authenticationType.sasToken.generateButton.title)}
                         text={context.t(ResourceKeys.deviceIdentity.authenticationType.sasToken.generateButton.text)}
                         onClick={this.onGenerateSASClicked}
                         disabled={sasTokenSelectedKey === ''}
-                        styles={{
-                            root: {
-                                marginBottom: 5,
-                                marginTop: 5
-                            }
-                        }}
                     />
                 </div>
             </CollapsibleSection>

@@ -35,4 +35,31 @@
 
 .sas-token-section {
     margin: 0px 10px;
+
+    .ms-Dropdown-title {
+        @include themify($themes){
+            background-color: themed('inputComponentBackgroundColor');
+        }
+    }
+    
+    .ms-spinButton-input {
+        @include themify($themes) {
+            background-color: themed('inputComponentBackgroundColor')
+        }
+    }
+
+    .sas-token-generate-button {
+        margin-bottom: 5px;
+        margin-top: 5px;
+    }
+
+    .sas-token-key-field {
+        margin-bottom: 5px;
+        width: 300px;
+    }
+
+    .sas-token-expiration-field {
+        margin-bottom: 5px;
+        width: 300px;
+    }
 }

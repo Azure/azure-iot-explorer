@@ -1307,6 +1307,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
         className="sas-token-section"
       >
         <StyledWithResponsiveMode
+          className="sas-token-key-field"
           label="deviceIdentity.authenticationType.sasToken.symmetricKey"
           onChange={[Function]}
           options={
@@ -1321,21 +1322,15 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
               },
             ]
           }
-          styles={
-            Object {
-              "dropdown": Object {
-                "marginBottom": 5,
-                "width": 300,
-              },
-            }
-          }
         />
         <CustomizedSpinButton
+          className="sas-token-expiration-field"
           decrementButtonIcon={
             Object {
               "iconName": "ChevronDownSmall",
             }
           }
+          defaultValue="5"
           disabled={false}
           incrementButtonIcon={
             Object {
@@ -1348,14 +1343,6 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
           min={0}
           onBlur={[Function]}
           step={1}
-          styles={
-            Object {
-              "root": Object {
-                "marginBottom": 5,
-                "width": 300,
-              },
-            }
-          }
         />
         <MaskedCopyableTextField
           allowMask={true}
@@ -1541,16 +1528,9 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
           value=""
         />
         <CustomizedPrimaryButton
+          className="sas-token-generate-button"
           disabled={true}
           onClick={[Function]}
-          styles={
-            Object {
-              "root": Object {
-                "marginBottom": 5,
-                "marginTop": 5,
-              },
-            }
-          }
           text="deviceIdentity.authenticationType.sasToken.generateButton.text"
           title="deviceIdentity.authenticationType.sasToken.generateButton.title"
         />
@@ -2505,6 +2485,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
         className="sas-token-section"
       >
         <StyledWithResponsiveMode
+          className="sas-token-key-field"
           label="deviceIdentity.authenticationType.sasToken.symmetricKey"
           onChange={[Function]}
           options={
@@ -2519,21 +2500,15 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
               },
             ]
           }
-          styles={
-            Object {
-              "dropdown": Object {
-                "marginBottom": 5,
-                "width": 300,
-              },
-            }
-          }
         />
         <CustomizedSpinButton
+          className="sas-token-expiration-field"
           decrementButtonIcon={
             Object {
               "iconName": "ChevronDownSmall",
             }
           }
+          defaultValue="5"
           disabled={false}
           incrementButtonIcon={
             Object {
@@ -2546,14 +2521,6 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
           min={0}
           onBlur={[Function]}
           step={1}
-          styles={
-            Object {
-              "root": Object {
-                "marginBottom": 5,
-                "width": 300,
-              },
-            }
-          }
         />
         <MaskedCopyableTextField
           allowMask={true}
@@ -2739,16 +2706,9 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
           value=""
         />
         <CustomizedPrimaryButton
+          className="sas-token-generate-button"
           disabled={true}
           onClick={[Function]}
-          styles={
-            Object {
-              "root": Object {
-                "marginBottom": 5,
-                "marginTop": 5,
-              },
-            }
-          }
           text="deviceIdentity.authenticationType.sasToken.generateButton.text"
           title="deviceIdentity.authenticationType.sasToken.generateButton.title"
         />
