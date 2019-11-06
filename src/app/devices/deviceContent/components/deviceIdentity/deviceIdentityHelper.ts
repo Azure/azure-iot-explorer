@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import { DeviceIdentity } from '../../../../api/models/deviceIdentity';
-import { getConnectionInfoFromConnectionString } from '../../../../api/shared/utils';
+import { getConnectionInfoFromConnectionString, generateSasToken } from '../../../../api/shared/utils';
 import { DeviceAuthenticationType } from '../../../../api/models/deviceAuthenticationType';
 
 // tslint:disable-next-line:cyclomatic-complexity
@@ -37,4 +37,20 @@ export const generateConnectionString = (connectionString: string, deviceId: str
     const connectionObject = getConnectionInfoFromConnectionString(connectionString);
     return connectionObject.hostName && deviceId && key ?
         `HostName=${connectionObject.hostName};DeviceId=${deviceId};SharedAccessKey=${key}` : '';
+};
+
+export const generateSASTokenConnectionString = (connectionString: string, deviceId: string, expiration: number, key: string): string => {
+    const connectionObject = getConnectionInfoFromConnectionString(connectionString);
+
+    const resourceUri = connectionObject.hostName && deviceId ?
+        `${connectionObject.hostName}/devices/${deviceId}` : '';
+
+    const sasToken = generateSasToken({
+        expiration,
+        key,
+        resourceUri
+    });
+
+    return connectionObject.hostName && sasToken ?
+        `HostName=${connectionObject.hostName};DeviceId=${deviceId};SharedAccessSignature=${sasToken}` : '';
 };

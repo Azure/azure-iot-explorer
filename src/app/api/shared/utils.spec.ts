@@ -160,7 +160,11 @@ describe('utils', () => {
     });
 
     it('generates hub sas token ', () => {
-        const token = utils.generateSasToken('test.azureiotrepository.com', 'iothubowner', 'key');
+        const token = utils.generateSasToken({
+            key: 'key',
+            keyName: 'iothubowner',
+            resourceUri: 'test.azureiotrepository.com'
+        });
         const regex = new RegExp(/^SharedAccessSignature sr=test\.azureiotrepository\.com&sig=.*&se=.*&skn=iothubowner$/);
         expect(regex.test(token)).toBeTruthy();
     });

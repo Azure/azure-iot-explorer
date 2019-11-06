@@ -5,7 +5,7 @@ exports[`devices/components/deviceIdentityCommandBar snapshot matches snapshot 1
   items={
     Array [
       Object {
-        "ariaLabel": "deviceLists.commands.add",
+        "ariaLabel": "deviceLists.commands.save",
         "disabled": undefined,
         "iconProps": Object {
           "iconName": "Save",
@@ -67,7 +67,7 @@ exports[`devices/components/deviceIdentityCommandBar snapshot matches snapshot w
   items={
     Array [
       Object {
-        "ariaLabel": "deviceLists.commands.add",
+        "ariaLabel": "deviceLists.commands.save",
         "disabled": true,
         "iconProps": Object {
           "iconName": "Save",

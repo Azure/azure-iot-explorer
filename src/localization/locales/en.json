@@ -19,6 +19,10 @@
             "no": "No"
         }
     },
+    "collapsibleSection": {
+        "open": "Open",
+        "close": "Collapse"
+    },
     "header": {
         "applicationName": "Azure IoT explorer",
         "search": {
@@ -171,6 +175,20 @@
                 "primaryThumbprintTooltip": "The primary X.509 thumbprint representing the SHA-1 or SHA-256 hash of the X.509 certificate. Thumbprint values other than 40 hex characters for SHA-1 and 64 hex characters for SHA-256 are not accepted.",
                 "secondaryThumbprint": "Secondary thumbprint",
                 "secondaryThumbprintTooltip": "The secondary X.509 thumbprint representing the SHA-1 or SHA-256 hash of the X.509 certificate. Thumbprint values other than 40 hex characters for SHA-1 and 64 hex characters for SHA-256 are not accepted."
+            },
+            "sasToken": {
+                "label": "Connection string with SAS token",
+                "toolTip": "Generate a connection string using a SAS token",
+                "symmetricKey": "Symmetric key",
+                "expiration": "Expiration (minutes)",
+                "textField": {
+                    "label": "SAS token connection string",
+                    "ariaLabel": "SAS token connection string"
+                },
+                "generateButton": {
+                    "title": "Generate",
+                    "text": "Generate"
+                }
             }
         },
         "hubConnectivity": {
@@ -467,10 +485,6 @@
         "properties": {
             "customProperties": "Properties",
             "systemProperties": "System properties",
-            "collapse": {
-                "open": "Open to edit properties",
-                "close": "Collapse"
-            },
             "key": "Key",
             "keyDup": "Key must be unique",
             "value": "Value",

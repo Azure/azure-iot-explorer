@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
+import { CommandBar, ICommandBarItemProps } from 'office-ui-fabric-react/lib/CommandBar';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { SAVE } from '../../../../constants/iconNames';
@@ -38,9 +38,9 @@ export default class DeviceIdentityCommandBar extends React.Component<DeviceIden
         const { onRegeneratePrimaryKey, onRegenerateSecondaryKey, onSwapKeys } = this.props;
         const allowKeyManagement: boolean = !!onRegeneratePrimaryKey || !!onRegenerateSecondaryKey || !!onSwapKeys;
 
-        const items = [
+        const items: ICommandBarItemProps[] = [
             {
-                ariaLabel: context.t(ResourceKeys.deviceLists.commands.add),
+                ariaLabel: context.t(ResourceKeys.deviceLists.commands.save),
                 disabled: this.props.disableSave,
                 iconProps: {
                     iconName: SAVE
@@ -91,7 +91,7 @@ export default class DeviceIdentityCommandBar extends React.Component<DeviceIden
                         }
                     ]
                 }
-            },
+            }
         ];
 
         return (

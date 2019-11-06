@@ -86,7 +86,11 @@ export const dataPlaneConnectionHelper = (parameters: DataPlaneParameters) => {
     }
 
     const fullHostName = `${connectionInfo.hostName}/devices/query`;
-    const sasToken = generateSasToken(fullHostName, connectionInfo.sharedAccessKeyName, connectionInfo.sharedAccessKey);
+    const sasToken = generateSasToken({
+        key: connectionInfo.sharedAccessKey,
+        keyName: connectionInfo.sharedAccessKeyName,
+        resourceUri: fullHostName
+    });
 
     return {
         connectionInfo,

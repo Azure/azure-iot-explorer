@@ -16,18 +16,42 @@ export const enum PnPQueryPrefix {
     HAS_INTERFACE = 'HAS_INTERFACE'
 }
 
-export const generateSasToken = (resourceUri: string, sharedAccessKeyName: string, sharedAccessKey: string) => {
-    const encodedUri = encodeURIComponent(resourceUri);
+export interface GenerateSasTokenParameters {
+    /**
+     * URI prefix (by segment) of the endpoints that can be accessed with this token, starting with host name of the IoT hub (no protocol). For example, myHub.azure-devices.net/devices/device1
+     */
+    resourceUri: string;
 
-    const expires = Math.ceil((Date.now() / MILLISECONDS_PER_SECOND) + SAS_EXPIRES_MINUTES * SECONDS_PER_MINUTE);
-    const toSign = encodedUri + '\n' + expires;
+    /**
+     * The key to use for the token.
+     */
+    key: string;
 
-    const hmac = createHmac('sha256', new Buffer(sharedAccessKey, 'base64'));
-    hmac.update(toSign);
-    const base64UriEncoded = encodeURIComponent(hmac.digest('base64'));
+    /**
+     * Expiration time in minutes. Defaults to 5.
+     */
+    expiration?: number;
 
-    const token = `SharedAccessSignature sr=${encodedUri}&sig=${base64UriEncoded}&se=${expires}&skn=${sharedAccessKeyName}`;
+    /**
+     * The name of the key being used. Omit if the token refers to device-registry credentials.
+     */
+    keyName?: string;
+}
 
+export const generateSasToken = (parameters: GenerateSasTokenParameters) => {
+    let token = null;
+    if (!!parameters.resourceUri && !!parameters.key) {
+        const encodedUri = encodeURIComponent(parameters.resourceUri);
+
+        const expires = Math.ceil((Date.now() / MILLISECONDS_PER_SECOND) + (parameters.expiration || SAS_EXPIRES_MINUTES) * SECONDS_PER_MINUTE);
+        const toSign = encodedUri + '\n' + expires;
+
+        const hmac = createHmac('sha256', new Buffer(parameters.key, 'base64'));
+        hmac.update(toSign);
+        const base64UriEncoded = encodeURIComponent(hmac.digest('base64'));
+
+        token = `SharedAccessSignature sr=${encodedUri}&sig=${base64UriEncoded}&se=${expires}${parameters.keyName ? '&skn=' + parameters.keyName : ''}`;
+    }
     return token;
 };
 

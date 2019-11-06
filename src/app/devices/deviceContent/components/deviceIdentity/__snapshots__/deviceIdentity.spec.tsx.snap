@@ -420,6 +420,36 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
               "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
             ],
             Array [
+              "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.label",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.toolTip",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.symmetricKey",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.expiration",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.textField.ariaLabel",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.textField.label",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.generateButton.title",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.generateButton.text",
+            ],
+            Array [
               "deviceIdentity.hubConnectivity.label",
             ],
             Array [
@@ -472,6 +502,46 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.toolTip",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.symmetricKey",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.expiration",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.textField.ariaLabel",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.textField.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.generateButton.title",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.generateButton.text",
             },
             Object {
               "type": "return",
@@ -534,6 +604,36 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
               "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
             ],
             Array [
+              "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.label",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.toolTip",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.symmetricKey",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.expiration",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.textField.ariaLabel",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.textField.label",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.generateButton.title",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.generateButton.text",
+            ],
+            Array [
               "deviceIdentity.hubConnectivity.label",
             ],
             Array [
@@ -586,6 +686,46 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.toolTip",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.symmetricKey",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.expiration",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.textField.ariaLabel",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.textField.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.generateButton.title",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.generateButton.text",
             },
             Object {
               "type": "return",
@@ -648,6 +788,36 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
               "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
             ],
             Array [
+              "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.label",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.toolTip",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.symmetricKey",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.expiration",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.textField.ariaLabel",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.textField.label",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.generateButton.title",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.generateButton.text",
+            ],
+            Array [
               "deviceIdentity.hubConnectivity.label",
             ],
             Array [
@@ -700,6 +870,46 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.toolTip",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.symmetricKey",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.expiration",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.textField.ariaLabel",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.textField.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.generateButton.title",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.generateButton.text",
             },
             Object {
               "type": "return",
@@ -760,6 +970,36 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
               "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
             ],
             Array [
+              "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.label",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.toolTip",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.symmetricKey",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.expiration",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.textField.ariaLabel",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.textField.label",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.generateButton.title",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.generateButton.text",
+            ],
+            Array [
               "deviceIdentity.hubConnectivity.label",
             ],
             Array [
@@ -812,6 +1052,46 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.toolTip",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.symmetricKey",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.expiration",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.textField.ariaLabel",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.textField.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.generateButton.title",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.generateButton.text",
             },
             Object {
               "type": "return",
@@ -873,6 +1153,36 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
               "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
             ],
             Array [
+              "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.label",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.toolTip",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.symmetricKey",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.expiration",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.textField.ariaLabel",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.textField.label",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.generateButton.title",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.generateButton.text",
+            ],
+            Array [
               "deviceIdentity.hubConnectivity.label",
             ],
             Array [
@@ -928,6 +1238,46 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
             },
             Object {
               "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.toolTip",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.symmetricKey",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.expiration",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.textField.ariaLabel",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.textField.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.generateButton.title",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.generateButton.text",
+            },
+            Object {
+              "type": "return",
               "value": "deviceIdentity.hubConnectivity.label",
             },
             Object {
@@ -948,6 +1298,246 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
       value=""
     />
     <br />
+    <CollapsibleSection
+      expanded={false}
+      label="deviceIdentity.authenticationType.sasToken.label"
+      tooltipText="deviceIdentity.authenticationType.sasToken.toolTip"
+    >
+      <div
+        className="sas-token-section"
+      >
+        <StyledWithResponsiveMode
+          className="sas-token-key-field"
+          label="deviceIdentity.authenticationType.sasToken.symmetricKey"
+          onChange={[Function]}
+          options={
+            Array [
+              Object {
+                "key": "key",
+                "text": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+              },
+              Object {
+                "key": undefined,
+                "text": "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
+              },
+            ]
+          }
+        />
+        <CustomizedSpinButton
+          className="sas-token-expiration-field"
+          decrementButtonIcon={
+            Object {
+              "iconName": "ChevronDownSmall",
+            }
+          }
+          disabled={false}
+          incrementButtonIcon={
+            Object {
+              "iconName": "ChevronUpSmall",
+            }
+          }
+          label="deviceIdentity.authenticationType.sasToken.expiration"
+          labelPosition={0}
+          max={9007199254740991}
+          min={0}
+          onBlur={[Function]}
+          onDecrement={[Function]}
+          onIncrement={[Function]}
+          step={1}
+          value="5"
+        />
+        <MaskedCopyableTextField
+          allowMask={true}
+          ariaLabel="deviceIdentity.authenticationType.sasToken.textField.ariaLabel"
+          label="deviceIdentity.authenticationType.sasToken.textField.label"
+          readOnly={true}
+          t={
+            [MockFunction] {
+              "calls": Array [
+                Array [
+                  "deviceIdentity.deviceID",
+                ],
+                Array [
+                  "deviceIdentity.deviceID",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.sasToken.label",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.sasToken.toolTip",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.sasToken.symmetricKey",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.sasToken.expiration",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.sasToken.textField.ariaLabel",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.sasToken.textField.label",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.sasToken.generateButton.title",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.sasToken.generateButton.text",
+                ],
+                Array [
+                  "deviceIdentity.hubConnectivity.label",
+                ],
+                Array [
+                  "deviceIdentity.hubConnectivity.label",
+                ],
+                Array [
+                  "deviceIdentity.hubConnectivity.enable",
+                ],
+                Array [
+                  "deviceIdentity.hubConnectivity.disable",
+                ],
+              ],
+              "results": Array [
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.deviceID",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.deviceID",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.sasToken.label",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.sasToken.toolTip",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.sasToken.symmetricKey",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.sasToken.expiration",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.sasToken.textField.ariaLabel",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.sasToken.textField.label",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.sasToken.generateButton.title",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.sasToken.generateButton.text",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.hubConnectivity.label",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.hubConnectivity.label",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.hubConnectivity.enable",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.hubConnectivity.disable",
+                },
+              ],
+            }
+          }
+          value=""
+        />
+        <CustomizedPrimaryButton
+          className="sas-token-generate-button"
+          disabled={true}
+          onClick={[Function]}
+          text="deviceIdentity.authenticationType.sasToken.generateButton.text"
+          title="deviceIdentity.authenticationType.sasToken.generateButton.title"
+        />
+      </div>
+    </CollapsibleSection>
     <StyledToggleBase
       ariaLabel="deviceIdentity.hubConnectivity.label"
       checked={false}
@@ -1011,6 +1601,36 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
               "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
             ],
             Array [
+              "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.label",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.toolTip",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.symmetricKey",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.expiration",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.textField.ariaLabel",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.textField.label",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.generateButton.title",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.generateButton.text",
+            ],
+            Array [
               "deviceIdentity.hubConnectivity.label",
             ],
             Array [
@@ -1063,6 +1683,46 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.toolTip",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.symmetricKey",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.expiration",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.textField.ariaLabel",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.textField.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.generateButton.title",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.generateButton.text",
             },
             Object {
               "type": "return",
@@ -1124,6 +1784,36 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
               "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
             ],
             Array [
+              "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.label",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.toolTip",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.symmetricKey",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.expiration",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.textField.ariaLabel",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.textField.label",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.generateButton.title",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.generateButton.text",
+            ],
+            Array [
               "deviceIdentity.hubConnectivity.label",
             ],
             Array [
@@ -1176,6 +1866,46 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.toolTip",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.symmetricKey",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.expiration",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.textField.ariaLabel",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.textField.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.generateButton.title",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.generateButton.text",
             },
             Object {
               "type": "return",
@@ -1238,6 +1968,36 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
               "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
             ],
             Array [
+              "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.label",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.toolTip",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.symmetricKey",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.expiration",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.textField.ariaLabel",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.textField.label",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.generateButton.title",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.generateButton.text",
+            ],
+            Array [
               "deviceIdentity.hubConnectivity.label",
             ],
             Array [
@@ -1290,6 +2050,46 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.toolTip",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.symmetricKey",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.expiration",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.textField.ariaLabel",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.textField.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.generateButton.title",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.generateButton.text",
             },
             Object {
               "type": "return",
@@ -1350,6 +2150,36 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
               "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
             ],
             Array [
+              "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.label",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.toolTip",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.symmetricKey",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.expiration",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.textField.ariaLabel",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.textField.label",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.generateButton.title",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.generateButton.text",
+            ],
+            Array [
               "deviceIdentity.hubConnectivity.label",
             ],
             Array [
@@ -1402,6 +2232,46 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.toolTip",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.symmetricKey",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.expiration",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.textField.ariaLabel",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.textField.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.generateButton.title",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.generateButton.text",
             },
             Object {
               "type": "return",
@@ -1463,6 +2333,36 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
               "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
             ],
             Array [
+              "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.label",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.toolTip",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.symmetricKey",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.expiration",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.textField.ariaLabel",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.textField.label",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.generateButton.title",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.sasToken.generateButton.text",
+            ],
+            Array [
               "deviceIdentity.hubConnectivity.label",
             ],
             Array [
@@ -1518,6 +2418,46 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
             },
             Object {
               "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.toolTip",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.symmetricKey",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.expiration",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.textField.ariaLabel",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.textField.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.generateButton.title",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.sasToken.generateButton.text",
+            },
+            Object {
+              "type": "return",
               "value": "deviceIdentity.hubConnectivity.label",
             },
             Object {
@@ -1538,6 +2478,246 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
       value=""
     />
     <br />
+    <CollapsibleSection
+      expanded={false}
+      label="deviceIdentity.authenticationType.sasToken.label"
+      tooltipText="deviceIdentity.authenticationType.sasToken.toolTip"
+    >
+      <div
+        className="sas-token-section"
+      >
+        <StyledWithResponsiveMode
+          className="sas-token-key-field"
+          label="deviceIdentity.authenticationType.sasToken.symmetricKey"
+          onChange={[Function]}
+          options={
+            Array [
+              Object {
+                "key": "key",
+                "text": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+              },
+              Object {
+                "key": undefined,
+                "text": "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
+              },
+            ]
+          }
+        />
+        <CustomizedSpinButton
+          className="sas-token-expiration-field"
+          decrementButtonIcon={
+            Object {
+              "iconName": "ChevronDownSmall",
+            }
+          }
+          disabled={false}
+          incrementButtonIcon={
+            Object {
+              "iconName": "ChevronUpSmall",
+            }
+          }
+          label="deviceIdentity.authenticationType.sasToken.expiration"
+          labelPosition={0}
+          max={9007199254740991}
+          min={0}
+          onBlur={[Function]}
+          onDecrement={[Function]}
+          onIncrement={[Function]}
+          step={1}
+          value="5"
+        />
+        <MaskedCopyableTextField
+          allowMask={true}
+          ariaLabel="deviceIdentity.authenticationType.sasToken.textField.ariaLabel"
+          label="deviceIdentity.authenticationType.sasToken.textField.label"
+          readOnly={true}
+          t={
+            [MockFunction] {
+              "calls": Array [
+                Array [
+                  "deviceIdentity.deviceID",
+                ],
+                Array [
+                  "deviceIdentity.deviceID",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.sasToken.label",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.sasToken.toolTip",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.sasToken.symmetricKey",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.sasToken.expiration",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.sasToken.textField.ariaLabel",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.sasToken.textField.label",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.sasToken.generateButton.title",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.sasToken.generateButton.text",
+                ],
+                Array [
+                  "deviceIdentity.hubConnectivity.label",
+                ],
+                Array [
+                  "deviceIdentity.hubConnectivity.label",
+                ],
+                Array [
+                  "deviceIdentity.hubConnectivity.enable",
+                ],
+                Array [
+                  "deviceIdentity.hubConnectivity.disable",
+                ],
+              ],
+              "results": Array [
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.deviceID",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.deviceID",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.sasToken.label",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.sasToken.toolTip",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.sasToken.symmetricKey",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.sasToken.expiration",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.sasToken.textField.ariaLabel",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.sasToken.textField.label",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.sasToken.generateButton.title",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.sasToken.generateButton.text",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.hubConnectivity.label",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.hubConnectivity.label",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.hubConnectivity.enable",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.hubConnectivity.disable",
+                },
+              ],
+            }
+          }
+          value=""
+        />
+        <CustomizedPrimaryButton
+          className="sas-token-generate-button"
+          disabled={true}
+          onClick={[Function]}
+          text="deviceIdentity.authenticationType.sasToken.generateButton.text"
+          title="deviceIdentity.authenticationType.sasToken.generateButton.title"
+        />
+      </div>
+    </CollapsibleSection>
     <StyledToggleBase
       ariaLabel="deviceIdentity.hubConnectivity.label"
       checked={false}
