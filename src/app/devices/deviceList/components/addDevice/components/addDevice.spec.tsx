@@ -6,7 +6,7 @@ import 'jest';
 import * as React from 'react';
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
-import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/Button';
+import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
 import AddDeviceComponent, { AddDeviceDataProps, AddDeviceActionProps, AddDeviceState } from './addDevice';
 import { testSnapshot, mountWithLocalization } from '../../../../../shared/utils/testHelpers';
 import { MaskedCopyableTextField } from '../../../../../shared/components/maskedCopyableTextField';

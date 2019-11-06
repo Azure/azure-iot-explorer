@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { TextField, ITextField } from 'office-ui-fabric-react/lib/TextField';
+import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { ActionButton, IconButton, PrimaryButton } from 'office-ui-fabric-react/lib/Button';
 import DeviceQueryClause from './deviceQueryClause';
 import DeviceQuery, { QueryClause } from '../../../api/models/deviceQuery';
@@ -12,49 +12,49 @@ import { LocalizationContextConsumer, LocalizationContextInterface } from '../..
 import '../../../css/_deviceListQuery.scss';
 
 export interface DeviceListQueryProps {
-    query: DeviceQuery;
+    refresh: number;
+    setQueryAndExecute: (query: DeviceQuery, executeQuery?: boolean) => void;
 }
 
-export interface DeviceListQueryActions {
-    setQuery: (query: DeviceQuery, executeQuery?: boolean) => void;
-    executeQuery: () => void;
+export interface DeviceListQueryState {
+    clauses: QueryClause[];
+    deviceId: string;
 }
 
-export default class DeviceListQuery extends React.Component<DeviceListQueryProps & DeviceListQueryActions> {
-    private textFieldRef = React.createRef<ITextField>();
+export default class DeviceListQuery extends React.Component<DeviceListQueryProps, DeviceListQueryState> {
+    constructor(props: DeviceListQueryProps) {
+        super(props);
+        this.state = {
+            clauses: [],
+            deviceId: ''
+        };
+    }
 
     private readonly removePill = (index: number) => {
-        const clauses = [...this.props.query.clauses];
+        const clauses = [...this.state.clauses];
         clauses.splice(index, 1);
-        this.props.setQuery(
+        this.setState(
             {
-                clauses,
-                continuationTokens: [],
-                currentPageIndex: 0,
-                deviceId: ''
+                clauses
             }
         );
     }
+
     private readonly setClause = (index: number, clause: QueryClause) => {
-        const clauses = [...this.props.query.clauses];
+        const clauses = [...this.state.clauses];
         clauses[index] = clause;
-        this.props.setQuery(
+        this.setState(
             {
-                clauses,
-                continuationTokens: [],
-                currentPageIndex: 0,
-                deviceId: ''
+                clauses
             }
         );
     }
 
     private readonly onAddClause = () => {
-        this.props.setQuery({
-            clauses: [...this.props.query.clauses, {
+        this.setState({
+            clauses: [...this.state.clauses, {
                 isError: true
             }],
-            continuationTokens: [],
-            currentPageIndex: 0,
             deviceId: ''
         });
     }
@@ -65,20 +65,37 @@ export default class DeviceListQuery extends React.Component<DeviceListQueryProp
         }
     }
 
+    private readonly onSetDeviceId = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
+        this.setState({
+            clauses: [],
+            deviceId: newValue
+        });
+    }
+
     private readonly setQueryFromSearchBoxAndExecute = () => {
-        this.props.setQuery(
+        this.props.setQueryAndExecute(
             {
                 clauses: [],
                 continuationTokens: [],
                 currentPageIndex: 0,
-                deviceId: this.textFieldRef.current.value
-            },
-            true
+                deviceId: this.state.deviceId
+            }
+        );
+    }
+
+    private readonly setQueryFromQueryPillsAndExecute = () => {
+        this.props.setQueryAndExecute(
+            {
+                clauses: this.state.clauses,
+                continuationTokens: [],
+                currentPageIndex: 0,
+                deviceId: ''
+            }
         );
     }
 
     private readonly renderIdSearch = (context: LocalizationContextInterface) => {
-        const { clauses } = this.props.query;
+        const { clauses, deviceId } = this.state;
         return (
             <div className="deviceId-search">
                 <TextField
@@ -89,8 +106,8 @@ export default class DeviceListQuery extends React.Component<DeviceListQueryProp
                     iconProps={{ iconName: 'Search' }}
                     role="searchbox"
                     onKeyUp={this.onDeviceIdKeyUp}
-                    componentRef={this.textFieldRef}
-                    disabled={clauses && clauses.length !== 0}
+                    value={deviceId}
+                    onChange={this.onSetDeviceId}
                 />
                 <IconButton
                     className="search-button"
@@ -106,7 +123,7 @@ export default class DeviceListQuery extends React.Component<DeviceListQueryProp
     }
 
     private readonly renderClauses = (context: LocalizationContextInterface) => {
-        const { clauses } = this.props.query;
+        const { clauses } = this.state;
         return (
             <div className="clauses">
                 {(clauses || []).map((clause, index) => <DeviceQueryClause
@@ -120,7 +137,7 @@ export default class DeviceListQuery extends React.Component<DeviceListQueryProp
                 />)}
                 {clauses && clauses.length > 0 && <PrimaryButton
                     className="search-pill"
-                    onClick={this.props.executeQuery}
+                    onClick={this.setQueryFromQueryPillsAndExecute}
                     title={context.t(ResourceKeys.deviceLists.query.searchPills.search.title)}
                     ariaLabel={context.t(ResourceKeys.deviceLists.query.searchPills.search.ariaLabel)}
                 >
@@ -151,5 +168,14 @@ export default class DeviceListQuery extends React.Component<DeviceListQueryProp
                 )}
             </LocalizationContextConsumer>
         );
+    }
+
+    public componentDidUpdate(preProps: DeviceListQueryProps) {
+        if (preProps.refresh > 0 && preProps.refresh !== this.props.refresh) {
+            this.setState({
+                clauses: [],
+                deviceId: ''
+            });
+        }
     }
 }

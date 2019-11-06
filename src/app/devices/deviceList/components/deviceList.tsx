@@ -38,7 +38,7 @@ export interface DeviceListDispatchProps {
 interface DeviceListState {
     selectedDeviceIds: string[];
     showDeleteConfirmation: boolean;
-    query: DeviceQuery;
+    refreshQuery: number;
 }
 
 class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceListDispatchProps & RouteComponentProps, DeviceListState> {
@@ -46,7 +46,7 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
         super(props);
 
         this.state = {
-            query: props.query || { clauses: [], deviceId: '', continuationTokens: [], currentPageIndex: 0 },
+            refreshQuery: 0,
             selectedDeviceIds: [],
             showDeleteConfirmation: false
         };
@@ -69,9 +69,8 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
                         </div>
                         <div className="view-content view-scroll-vertical">
                             <DeviceListQuery
-                                executeQuery={this.executeQuery}
-                                query={this.state.query}
-                                setQuery={this.setQuery}
+                                refresh={this.state.refreshQuery}
+                                setQueryAndExecute={this.setQueryAndExecute}
                             />
                             {this.showDeviceList(context)}
                             {this.state.showDeleteConfirmation && this.deleteConfirmationDialog(context)}
@@ -82,26 +81,13 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
         );
     }
 
-    private readonly executeQuery = () => {
-        this.props.listDevices(this.state.query);
-    }
-
-    private readonly setQuery = (query: DeviceQuery, executeQuery: boolean) => {
-        if (executeQuery) {
-            this.setState(
-                {query},
-                () => { // setState is async, after it's done, fetch devices
-                    this.props.listDevices({
-                        clauses: query.clauses,
-                        continuationTokens: query.continuationTokens,
-                        currentPageIndex: 0,
-                        deviceId: query.deviceId
-                    });
-                });
-        }
-        else {
-            this.setState({query});
-        }
+    private readonly setQueryAndExecute = (query: DeviceQuery) => {
+        this.props.listDevices({
+            clauses: query.clauses,
+            continuationTokens: query.continuationTokens,
+            currentPageIndex: 0,
+            deviceId: query.deviceId
+        });
     }
 
     public componentDidMount() {
@@ -122,23 +108,13 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
     }
 
     private readonly refresh = () => {
-        this.setState(
-            {
-                query: {
-                    clauses: [],
-                    continuationTokens: [],
-                    currentPageIndex: 0,
-                    deviceId: '',
-                }
-            },
-            () => {
-                this.props.listDevices({
-                    clauses: [],
-                    continuationTokens: [],
-                    currentPageIndex: 0,
-                    deviceId: ''
-                });
-            });
+        this.props.listDevices({
+            clauses: [],
+            continuationTokens: [],
+            currentPageIndex: 0,
+            deviceId: ''
+        });
+        this.setState({refreshQuery: this.state.refreshQuery + 1});
     }
 
     private readonly showDeviceList = (context: LocalizationContextInterface) => {

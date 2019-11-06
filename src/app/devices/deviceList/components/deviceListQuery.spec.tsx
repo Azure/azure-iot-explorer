@@ -4,39 +4,56 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import DeviceListQuery from './deviceListQuery';
-import { testWithLocalizationContext } from '../../../shared/utils/testHelpers';
-import { ParameterType, OperationType } from '../../../api/models/deviceQuery';
+import { ActionButton, IconButton, PrimaryButton } from 'office-ui-fabric-react/lib/Button';
+import { TextField } from 'office-ui-fabric-react/lib/TextField';
+import DeviceListQuery, { DeviceListQueryProps, DeviceListQueryState } from './deviceListQuery';
+import { testSnapshot, mountWithLocalization } from '../../../shared/utils/testHelpers';
+import DeviceQueryClause from './deviceQueryClause';
 
 describe('components/devices/DeviceListQuery', () => {
-    it('matches snapshot for deviceId', () => {
-        const wrapper = testWithLocalizationContext(
+    const mockSetQueryAndExecute = jest.fn();
+    const deviceListQueryProps: DeviceListQueryProps = {
+        refresh: 0,
+        setQueryAndExecute: mockSetQueryAndExecute
+    };
+
+    const getComponent = (overrides = {}) => {
+        const props = {
+            ...deviceListQueryProps,
+            ...overrides
+        };
+
+        return (
             <DeviceListQuery
-                executeQuery={jest.fn()}
-                query={{ deviceId: 'device1', clauses: [] }}
-                setQuery={jest.fn()}
+                {...props}
             />
         );
+    };
 
-        expect(wrapper).toMatchSnapshot();
+    it('matches snapshot', () => {
+        testSnapshot(getComponent());
     });
-    it('matches snapshot for clauses', () => {
-        const wrapper = testWithLocalizationContext(
-            <DeviceListQuery
-                executeQuery={jest.fn()}
-                query={{
-                    clauses: [
-                        {
-                            operation: OperationType.equals,
-                            parameterType: ParameterType.status,
-                            value: 'enabled'
-                        }],
-                    deviceId: '',
-                }}
-                setQuery={jest.fn()}
-            />
-        );
 
-        expect(wrapper).toMatchSnapshot();
+    it('sets device id', () => {
+        const wrapper = mountWithLocalization(getComponent());
+        const textField = wrapper.find(TextField).first();
+        textField.instance().props.onChange({ target: null}, 'testDevice');
+        wrapper.update();
+
+        const deviceListQueryState = wrapper.state() as DeviceListQueryState;
+        expect(deviceListQueryState.deviceId).toEqual('testDevice');
+        wrapper.find(IconButton).first().props().onClick(null);
+        expect(mockSetQueryAndExecute).toBeCalled();
+    });
+
+    it('adds query pills and execute query', () => {
+        const wrapper = mountWithLocalization(getComponent());
+        wrapper.find(ActionButton).first().props().onClick(null);
+        wrapper.update();
+        expect(wrapper.find(DeviceQueryClause)).toHaveLength(1);
+        expect(wrapper.find(PrimaryButton)).toBeDefined();
+
+        wrapper.find(PrimaryButton).first().props().onClick(null);
+        expect(mockSetQueryAndExecute).toBeCalled();
     });
 });
