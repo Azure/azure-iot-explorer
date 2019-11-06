@@ -1330,7 +1330,6 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
               "iconName": "ChevronDownSmall",
             }
           }
-          defaultValue="5"
           disabled={false}
           incrementButtonIcon={
             Object {
@@ -1342,7 +1341,10 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
           max={9007199254740991}
           min={0}
           onBlur={[Function]}
+          onDecrement={[Function]}
+          onIncrement={[Function]}
           step={1}
+          value="5"
         />
         <MaskedCopyableTextField
           allowMask={true}
@@ -2508,7 +2510,6 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
               "iconName": "ChevronDownSmall",
             }
           }
-          defaultValue="5"
           disabled={false}
           incrementButtonIcon={
             Object {
@@ -2520,7 +2521,10 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
           max={9007199254740991}
           min={0}
           onBlur={[Function]}
+          onDecrement={[Function]}
+          onIncrement={[Function]}
           step={1}
+          value="5"
         />
         <MaskedCopyableTextField
           allowMask={true}
