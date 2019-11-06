@@ -773,7 +773,7 @@ describe('deviceTwinService', () => {
                 body: JSON.stringify({
                     query: queryString,
                 }),
-                headers: {'x-ms-max-item-count': 20, 'x-ms-continuation': '123'},
+                headers: {'x-ms-max-item-count': 100, 'x-ms-continuation': '123'},
                 hostName: connectionInformation.connectionInfo.hostName,
                 httpMethod: HTTP_OPERATION_TYPES.Post,
                 path: 'devices/query',

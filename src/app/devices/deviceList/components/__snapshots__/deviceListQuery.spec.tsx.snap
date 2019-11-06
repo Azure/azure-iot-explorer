@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/devices/DeviceListQuery matches snapshot for clauses 1`] = `
+exports[`components/devices/DeviceListQuery matches snapshot 1`] = `
 <section
   className="deviceList-query"
   role="search"
@@ -22,81 +22,6 @@ exports[`components/devices/DeviceListQuery matches snapshot for clauses 1`] = `
       placeholder="deviceLists.query.deviceId.placeholder"
       role="searchbox"
       value=""
-    />
-    <CustomizedIconButton
-      ariaLabel="deviceLists.query.deviceId.searchButton.ariaLabel"
-      className="search-button"
-      disabled={true}
-      iconProps={
-        Object {
-          "iconName": "Forward",
-        }
-      }
-      onClick={[Function]}
-      title="deviceLists.query.deviceId.searchButton.title"
-      type="submit"
-    />
-  </div>
-  <div
-    className="clauses"
-  >
-    <DeviceQueryClause
-      index={0}
-      key="query_clause:0"
-      operation="="
-      parameterType="status"
-      removeClause={[Function]}
-      setClause={[Function]}
-      value="enabled"
-    />
-    <CustomizedPrimaryButton
-      ariaLabel="deviceLists.query.searchPills.search.ariaLabel"
-      className="search-pill"
-      onClick={[Function]}
-      title="deviceLists.query.searchPills.search.title"
-    >
-      deviceLists.query.searchPills.search.text
-    </CustomizedPrimaryButton>
-    <CustomizedActionButton
-      ariaLabel="deviceLists.query.searchPills.add.ariaLabel"
-      className="search-pill"
-      iconProps={
-        Object {
-          "iconName": "Filter",
-        }
-      }
-      onClick={[Function]}
-      title="deviceLists.query.searchPills.add.title"
-      type="button"
-    >
-      deviceLists.query.searchPills.add.text
-    </CustomizedActionButton>
-  </div>
-</section>
-`;
-
-exports[`components/devices/DeviceListQuery matches snapshot for deviceId 1`] = `
-<section
-  className="deviceList-query"
-  role="search"
->
-  <div
-    className="deviceId-search"
-  >
-    <StyledTextFieldBase
-      ariaLabel="deviceLists.query.deviceId.ariaLabel"
-      borderless={true}
-      className="search-box"
-      iconProps={
-        Object {
-          "iconName": "Search",
-        }
-      }
-      onChange={[Function]}
-      onKeyUp={[Function]}
-      placeholder="deviceLists.query.deviceId.placeholder"
-      role="searchbox"
-      value="device1"
     />
     <CustomizedIconButton
       ariaLabel="deviceLists.query.deviceId.searchButton.ariaLabel"
