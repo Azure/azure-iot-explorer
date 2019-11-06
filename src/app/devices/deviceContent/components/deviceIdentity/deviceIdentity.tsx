@@ -37,7 +37,6 @@ export interface DeviceIdentityDataProps {
 }
 
 export interface DeviceIdentityState {
-    defaultExpiration: number;
     identity: DeviceIdentity;
     isDirty: boolean;
     requestMade: boolean;
@@ -52,12 +51,11 @@ export default class DeviceIdentityInformation
         super(props);
 
         this.state = {
-            defaultExpiration: SAS_EXPIRES_MINUTES,
             identity: this.props.identityWrapper && this.props.identityWrapper.deviceIdentity,
             isDirty: false,
             requestMade: false,
             sasTokenConnectionString: '',
-            sasTokenExpiration: 0,
+            sasTokenExpiration: SAS_EXPIRES_MINUTES,
             sasTokenSelectedKey: ''
         };
     }
@@ -154,10 +152,29 @@ export default class DeviceIdentityInformation
     }
 
     private readonly onExpirationChanged = (event: React.FocusEvent<HTMLInputElement>) => {
-        const value = +event.target.value;
+        const numValue = +event.target.value;
+        const sasTokenExpiration = !!numValue && numValue >= 0 && numValue <= Number.MAX_SAFE_INTEGER ? numValue : 0;
 
         this.setState({
-            sasTokenExpiration: value
+            sasTokenExpiration
+        });
+    }
+
+    private readonly onExpirationIncrement = (value: string) => {
+        const numValue = (+value);
+
+        const sasTokenExpiration = numValue < Number.MAX_SAFE_INTEGER ? numValue + 1 : Number.MAX_SAFE_INTEGER;
+        this.setState({
+            sasTokenExpiration
+        });
+    }
+
+    private readonly onExpirationDecrement = (value: string) => {
+        const numValue = (+value);
+
+        const sasTokenExpiration = numValue > 0 ? numValue - 1 : 0;
+        this.setState({
+            sasTokenExpiration
         });
     }
 
@@ -184,7 +201,7 @@ export default class DeviceIdentityInformation
     }
 
     private readonly renderSasTokenSection = (context: LocalizationContextInterface) => {
-        const { defaultExpiration, identity, sasTokenSelectedKey, sasTokenExpiration } = this.state;
+        const { identity, sasTokenSelectedKey, sasTokenExpiration } = this.state;
         const options: IDropdownOption[] = [
             {
                 key: identity.authentication.symmetricKey.primaryKey,
@@ -219,7 +236,9 @@ export default class DeviceIdentityInformation
                         min={0}
                         max={Number.MAX_SAFE_INTEGER}
                         onBlur={this.onExpirationChanged}
-                        defaultValue={`${defaultExpiration}`}
+                        onIncrement={this.onExpirationIncrement}
+                        onDecrement={this.onExpirationDecrement}
+                        value={`${sasTokenExpiration}`}
                     />
                     <MaskedCopyableTextField
                         ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.sasToken.textField.ariaLabel)}
