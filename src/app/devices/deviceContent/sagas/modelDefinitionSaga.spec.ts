@@ -10,7 +10,7 @@ import * as DevicesService from '../../../api/services/devicesService';
 import { addNotificationAction } from '../../../notifications/actions';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { getModelDefinitionAction } from '../actions';
+import { getModelDefinitionAction, getDigitalTwinInterfacePropertiesAction } from '../actions';
 import { getRepositoryLocationSettingsSelector, getPublicRepositoryHostName } from '../../../settings/selectors';
 import { REPOSITORY_LOCATION_TYPE } from '../../../constants/repositoryLocationTypes';
 import { getDigitalTwinInterfaceIdsSelector } from '../selectors';
@@ -28,6 +28,7 @@ describe('modelDefinitionSaga', () => {
         interfaceId
     };
     const action = getModelDefinitionAction.started(params);
+    const connectionString = 'connection_string';
 
     describe('getModelDefinitionSaga', () => {
         let getModelDefinitionSagaGenerator: SagaIteratorClone;
@@ -142,6 +143,32 @@ describe('modelDefinitionSaga', () => {
 
     describe('getModelDefinitionFromDevice ', () => {
         const getModelDefinitionFromDeviceGenerator = cloneableGenerator(getModelDefinitionFromDevice)(action);
+        const mockFetchDigitalTwinInterfaceProperties = jest.spyOn(DevicesService, 'fetchDigitalTwinInterfaceProperties').mockImplementationOnce(parameters => {
+            return null;
+        });
+
+        expect(getModelDefinitionFromDeviceGenerator.next()).toEqual({
+            done: false,
+            value: select(getConnectionStringSelector)
+        });
+
+        expect(getModelDefinitionFromDeviceGenerator.next(connectionString)).toEqual({
+            done: false,
+            value: call(mockFetchDigitalTwinInterfaceProperties, {
+                connectionString,
+                digitalTwinId
+            })
+        });
+
+        const response = {};
+        expect(getModelDefinitionFromDeviceGenerator.next(response)).toEqual({
+            done: false,
+            value: put(getDigitalTwinInterfacePropertiesAction.done({
+                params: digitalTwinId,
+                result: response
+            }))
+        });
+
         expect(getModelDefinitionFromDeviceGenerator.next()).toEqual({
             done: false,
             value: select(getDigitalTwinInterfaceIdsSelector)
