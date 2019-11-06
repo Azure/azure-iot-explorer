@@ -8,18 +8,19 @@ import { fetchModelDefinition } from '../../../api/services/digitalTwinsModelSer
 import { addNotificationAction } from '../../../notifications/actions';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { getModelDefinitionAction, GetModelDefinitionActionParameters } from '../actions';
+import { getModelDefinitionAction, GetModelDefinitionActionParameters, getDigitalTwinInterfacePropertiesAction } from '../actions';
 import { FetchModelParameters } from '../../../api/parameters/repoParameters';
 import { getRepoTokenSaga } from '../../../settings/sagas/getRepoTokenSaga';
 import { getRepositoryLocationSettingsSelector, getPublicRepositoryHostName } from '../../../settings/selectors';
 import { RepositoryLocationSettings } from '../../../settings/state';
 import { REPOSITORY_LOCATION_TYPE } from './../../../constants/repositoryLocationTypes';
 import { getRepoConnectionInfoFromConnectionString } from '../../../api/shared/utils';
-import { invokeDigitalTwinInterfaceCommand } from '../../../api/services/devicesService';
+import { invokeDigitalTwinInterfaceCommand, fetchDigitalTwinInterfaceProperties } from '../../../api/services/devicesService';
 import { getConnectionStringSelector } from '../../../login/selectors';
 import { getDigitalTwinInterfaceIdsSelector } from '../selectors';
 import { InterfaceNotImplementedException } from './../../../shared/utils/exceptions/interfaceNotImplementedException';
 import { modelDefinitionInterfaceId, modelDefinitionInterfaceName, modelDefinitionCommandName } from '../../../constants/modelDefinitionConstants';
+import { FetchDigitalTwinInterfacePropertiesParameters } from '../../../api/parameters/deviceParameters';
 
 export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionParameters>) {
     try {
@@ -87,10 +88,27 @@ export function *getModelDefinitionFromPublicRepo(action: Action<GetModelDefinit
 }
 
 export function *getModelDefinitionFromDevice(action: Action<GetModelDefinitionActionParameters>) {
+    // dispatch getDigitalTwinInterfacePropertiesAction to make sure it is done before selecting interfaces from the store
+    try {
+        const parameters: FetchDigitalTwinInterfacePropertiesParameters = {
+            connectionString: yield select(getConnectionStringSelector),
+            digitalTwinId: action.payload.digitalTwinId,
+        };
+
+        const digitalTwinInterfaceProperties = yield call(fetchDigitalTwinInterfaceProperties, parameters);
+
+        yield put(getDigitalTwinInterfacePropertiesAction.done({params: action.payload.digitalTwinId, result: digitalTwinInterfaceProperties}));
+    } catch (error) {
+        yield put(getDigitalTwinInterfacePropertiesAction.failed({params: action.payload.digitalTwinId, error}));
+    }
+
+    // then check if device has implemented ${modelDefinitionInterfaceId} interface.
     const interfaceIds: string[] = yield select(getDigitalTwinInterfaceIdsSelector);
     if (interfaceIds.filter(id => id === modelDefinitionInterfaceId).length === 0) {
         throw new InterfaceNotImplementedException();
     }
+
+    // if interface is implemented, invoke command on device
     return yield call(invokeDigitalTwinInterfaceCommand, {
         commandName: modelDefinitionCommandName,
         connectionString: yield select(getConnectionStringSelector),
