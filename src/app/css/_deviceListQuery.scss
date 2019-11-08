@@ -76,14 +76,13 @@
             }
             .parameter-type {
                 float: left;
-                max-width: 170px;
+                width: 170px;
                 line-height: 20px;
                 font-size: 10px;
-
             }
             .operation-type {
                 float: left;
-                max-width: 60px;
+                width: 60px;
                 line-height: 20px;
                 font-size: 12px;
             }
@@ -91,10 +90,11 @@
                 float: left;
                 max-width: 150px;
                 line-height: 20px;
-                font-size: 10px;
+                font-size: 12px;
             }
             .remove-pill {
-                width: 8px;
+                margin-left: 10px;
+                width: 35px;
                 height: 26px;
                 float: right;
             }
@@ -110,23 +110,19 @@
             }
         }
         .search-pill.active {
-            @include themify($themes) {
-                border-color: themed('searchBorderActiveColor');
-            }
             padding-left: 10px;
-            padding-top: 3px;
-            padding-bottom: 1px;
-            padding-right: 6px;
-            min-width: 400px;
+            padding-top: 5px;
+            padding-bottom: 2px;
+            min-width: 380px;
             max-height: 27px;
             .ms-Button-icon {
-                font-size: 10px;
+                font-size: 15px;
             }
-            .ms-ComboBox-container {
+            .ms-Dropdown-container {
                 height: 24px;
-                .ms-ComboBox {
+                .ms-Dropdown {
                     height: 24px;
-                    .ms-ComboBox-input{
+                    .ms-Dropdown-input{
                         height: 20px;
                     }
                 }

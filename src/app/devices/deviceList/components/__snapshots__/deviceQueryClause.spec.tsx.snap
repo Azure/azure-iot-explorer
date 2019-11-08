@@ -5,16 +5,14 @@ exports[`components/devices/DeviceQueryClause matches snapshot 1`] = `
   className="search-pill active"
   key="query-0"
 >
-  <CustomizedComboBox
-    allowFreeform={false}
+  <StyledWithResponsiveMode
     ariaLabel="deviceLists.query.searchPills.clause.parameterType.ariaLabel"
-    autoComplete="on"
-    buttonIconProps={
+    className="parameter-type"
+    componentRef={
       Object {
-        "iconName": "ChevronDown",
+        "current": null,
       }
     }
-    className="parameter-type"
     onChange={[Function]}
     options={
       Array [
@@ -32,18 +30,10 @@ exports[`components/devices/DeviceQueryClause matches snapshot 1`] = `
         },
       ]
     }
-    text="deviceLists.query.searchPills.clause.parameterType.items.status"
     title="deviceLists.query.searchPills.clause.parameterType.title"
   />
-  <CustomizedComboBox
-    allowFreeform={false}
+  <StyledWithResponsiveMode
     ariaLabel="deviceLists.query.searchPills.clause.operationType.ariaLabel"
-    autoComplete="on"
-    buttonIconProps={
-      Object {
-        "iconName": "ChevronDown",
-      }
-    }
     className="operation-type"
     defaultSelectedKey="="
     onChange={[Function]}
@@ -91,16 +81,14 @@ exports[`components/devices/DeviceQueryClause matches snapshot without operation
   className="search-pill active no-operator"
   key="query-0"
 >
-  <CustomizedComboBox
-    allowFreeform={false}
+  <StyledWithResponsiveMode
     ariaLabel="deviceLists.query.searchPills.clause.parameterType.ariaLabel"
-    autoComplete="on"
-    buttonIconProps={
+    className="parameter-type"
+    componentRef={
       Object {
-        "iconName": "ChevronDown",
+        "current": null,
       }
     }
-    className="parameter-type"
     onChange={[Function]}
     options={
       Array [
@@ -118,7 +106,6 @@ exports[`components/devices/DeviceQueryClause matches snapshot without operation
         },
       ]
     }
-    text="deviceLists.query.searchPills.clause.parameterType.items.capabilityModelId"
     title="deviceLists.query.searchPills.clause.parameterType.title"
   />
   <StyledTextFieldBase

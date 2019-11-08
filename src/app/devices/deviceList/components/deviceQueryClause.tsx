@@ -3,13 +3,13 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { ComboBox } from 'office-ui-fabric-react/lib/ComboBox';
+import { Dropdown, IDropdown } from 'office-ui-fabric-react/lib/Dropdown';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
-import '../../../css/_deviceListQuery.scss';
 import { QueryClause, ParameterType, OperationType } from '../../../api/models/deviceQuery';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../shared/contexts/localizationContext';
+import '../../../css/_deviceListQuery.scss';
 
 export interface DeviceQueryClauseProps extends QueryClause {
     index: number;
@@ -20,15 +20,15 @@ export interface DeviceQueryClauseActions {
 }
 
 export default class DeviceQueryClause extends React.PureComponent<DeviceQueryClauseProps & DeviceQueryClauseActions> {
-    constructor(props: DeviceQueryClauseProps & DeviceQueryClauseActions) {
-        super(props);
-    }
+    private readonly parameterTypeRef = React.createRef<IDropdown>();
+
     private readonly isError = (props: QueryClause) => {
         return (
             (!props.operation && this.shouldShowOperator(props.parameterType)) ||
             !props.parameterType ||
             (!props.value || '' === props.value));
     }
+
     private readonly remove = () => {
         this.props.removeClause(this.props.index);
     }
@@ -65,7 +65,7 @@ export default class DeviceQueryClause extends React.PureComponent<DeviceQueryCl
     }
 
     private readonly shouldShowOperator = (parameterType: ParameterType) => {
-        return ParameterType.capabilityModelId !== parameterType && ParameterType.interfaceId !== parameterType;
+        return parameterType && ParameterType.capabilityModelId !== parameterType && ParameterType.interfaceId !== parameterType;
     }
 
     // tslint:disable-next-line:cyclomatic-complexity
@@ -147,6 +147,14 @@ export default class DeviceQueryClause extends React.PureComponent<DeviceQueryCl
         }
     }
 
+    public componentDidMount() {
+        // set focus to parameter type dropdown
+        const node = this.parameterTypeRef.current;
+        if (!!node) {
+            node.focus();
+        }
+    }
+
     public render(): JSX.Element {
         const isError = this.isError(this.props);
         return (
@@ -156,18 +164,20 @@ export default class DeviceQueryClause extends React.PureComponent<DeviceQueryCl
                         key={`query-${this.props.index}`}
                         className={`search-pill active${isError ? ' error' : ''}${this.shouldShowOperator(this.props.parameterType) ? '' : ' no-operator'}`}
                     >
-                        <ComboBox
+                        <Dropdown
                             className="parameter-type"
-                            autoComplete="on"
-                            // tslint:disable-next-line: no-any
-                            options={Object.keys(ParameterType).map(parameterType => ({ key: (ParameterType as any)[parameterType], text: this.getParameterTypeString((ParameterType as any)[parameterType], context.t) }))}
+                            options={Object.keys(ParameterType).map(
+                                parameterType => ({
+                                    key: (ParameterType as any)[parameterType], // tslint:disable-line: no-any
+                                    text: this.getParameterTypeString((ParameterType as any)[parameterType], context.t)// tslint:disable-line: no-any
+                                }))}
                             onChange={this.onTypeChange}
-                            text={this.getParameterTypeString(this.props.parameterType, context.t)}
                             title={context.t(ResourceKeys.deviceLists.query.searchPills.clause.parameterType.title)}
                             ariaLabel={context.t(ResourceKeys.deviceLists.query.searchPills.clause.parameterType.ariaLabel)}
+                            componentRef={this.parameterTypeRef}
                         />
                         {
-                            this.shouldShowOperator(this.props.parameterType) && <ComboBox
+                            this.shouldShowOperator(this.props.parameterType) && <Dropdown
                                 className="operation-type"
                                 // tslint:disable-next-line: no-any
                                 options={Object.keys(OperationType).map(operationType => ({ key: (OperationType as any)[operationType], text: (OperationType as any)[operationType] }))}
