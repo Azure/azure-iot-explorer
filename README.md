@@ -1,31 +1,64 @@
 
 # Azure IoT Plug and Play (PnP) Device Explorer
+
 [![Build Status](https://dev.azure.com/azure/azure-iot-explorer/_apis/build/status/Azure%20IoT%20Explorer%20CI%20Pipeline?branchName=master)](https://dev.azure.com/azure/azure-iot-explorer/_build/latest?definitionId=31&branchName=master)
 
 ## Table of Contents
-- [Overview](#overview)
-- [Development Setup](#development-setup)
+
+- [Getting Azure IoT explorer](#getting-azure-iot-explorer)
+- [Features](#features)
 - [Contributing](#contributing)
 
-## Overview
+## Getting Azure IoT explorer
 
-This application provides users an easy and visualized way to interact with Azure IoT devices.
+You can either download a pre-built version or build it yourself.
 
-1. Go to the releases tab, download the installer corresponding to your platform and install.
-1. Fill in IoT Hub connection string and that's it.
+### Download a pre-built version
 
-![image](https://user-images.githubusercontent.com/5489222/61984482-6af89f80-afb9-11e9-8b2f-d6905301d9a9.png)
+Go to the [Releases](https://github.com/Azure/azure-iot-explorer/releases) tab, download the installer corresponding to your platform and install.
 
-## Development Setup
+### Run it locally and build it yourself
 
-### Setup
 1. Open a Node capable command prompt
-1. git clone https://github.com/Azure/azure-iot-explorer.git
-1. run `npm install`
-1. run `npm start`. A new tab in your default browser will be opened automatically and site would be running locally
-1. (optional) stop step 3, run `npm run build` and then run `npm run electron`. The electron app would start locally using the bits generated in the dist folder
+1. Clone the repo: `git clone https://github.com/Azure/azure-iot-explorer.git`
+1. Run: `npm install`
+1. Run: `npm start`
+    - A new tab in your default browser will be opened automatically pointing to the locally running site.
+1. [optional] Stop step 4 then run: `npm run build` and then run: `npm run electron`.
+    - The electron app will spin up using the bits generated in the dist folder.
 
-If you'd like to package the app yourself, please refer to [FAQ](https://github.com/Azure/azure-iot-explorer/wiki/FAQ)
+If you'd like to package the app yourself, please refer to the [FAQ](https://github.com/Azure/azure-iot-explorer/wiki/FAQ).
+
+## Features
+
+### Configure an IoT Hub connection
+
+- After opening the application, add the connection string for your IoT Hub, then click **Connect**.
+
+<img src="doc/screenshots/login.PNG" alt="login" height="250"/>
+
+### Manage devices
+
+- Click **New** to create a new device.
+- Select device(s) and click **Delete** to delete device(s). Multiple devices can be selected by clicking while dragging the mouse.
+- Devices can by queried by typing the first few characters of a device name in the query box.
+
+<img src="doc/screenshots/manage_devices.PNG" alt="manage_devices" height="300"/>
+
+- Click on the device name to see the device details and interact with the device.
+
+<img src="doc/screenshots/device_details.PNG" alt="device_details" height="340"/>
+
+### Manage Plug and Play devices
+
+- Open the **Settings** panel to configure how PnP Model definitions can be resolved. For more information on PnP devices, please visit [Microsoft Docs](https://docs.microsoft.com/en-us/azure/iot-pnp/overview-iot-plug-and-play).
+
+<img src="doc/screenshots/settings.PNG" alt="settings" height="800"/>
+
+- Go to the device details page by clicking the name of a PnP device.
+- Interfaces implemented by the PnP device would be populated under the DIGITAL TWIN section of the left navigation bar. Open interface, properties, commands or telemetry to start interacting with the PnP device.
+
+<img src="doc/screenshots/pnp_device_details.PNG" alt="pnp_device_details" height="400"/>
 
 ## Contributing
 
