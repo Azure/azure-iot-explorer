@@ -35,6 +35,8 @@ export class MaskedCopyableTextField extends React.Component<MaskedCopyableTextF
     private hiddenInputRef = React.createRef<HTMLInputElement>();
     private visibleInputRef = React.createRef<HTMLInputElement>();
     private labelIdentifier = getId('maskedCopyableTextField');
+    private toggleMaskButtonTooltipHostId = getId('toggleMaskButtonTooltipHost');
+    private copyButtonTooltipHostId = getId('copyButtonTooltipHost');
 
     constructor(props: MaskedCopyableTextFieldProps) {
         super(props);
@@ -77,10 +79,13 @@ export class MaskedCopyableTextField extends React.Component<MaskedCopyableTextF
                         />
 
                         {allowMask &&
-                            <TooltipHost content={t(ResourceKeys.common.maskedCopyableTextField.toggleMask.label)}>
+                            <TooltipHost
+                                content={t(ResourceKeys.common.maskedCopyableTextField.toggleMask.label)}
+                                id={this.toggleMaskButtonTooltipHostId}
+                            >
                                 <IconButton
                                     iconProps={hideContents ? { iconName: 'RedEye' } : { iconName: 'Hide' }}
-                                    ariaLabel={t(ResourceKeys.common.maskedCopyableTextField.toggleMask.ariaLabel)}
+                                    aria-labelledby={this.toggleMaskButtonTooltipHostId}
                                     onClick={this.toggleDisplay}
                                 />
                             </TooltipHost>
@@ -88,10 +93,13 @@ export class MaskedCopyableTextField extends React.Component<MaskedCopyableTextF
                     </div>
 
                     <div className="copySection">
-                        <TooltipHost  content={t(ResourceKeys.common.maskedCopyableTextField.copy.label)}>
+                        <TooltipHost
+                            content={t(ResourceKeys.common.maskedCopyableTextField.copy.label)}
+                            id={this.copyButtonTooltipHostId}
+                        >
                             <IconButton
                                 iconProps={{ iconName: 'copy' }}
-                                ariaLabel={t(ResourceKeys.common.maskedCopyableTextField.copy.ariaLabel)}
+                                aria-labelledby={this.copyButtonTooltipHostId}
                                 onClick={this.copyToClipboard}
                             />
                         </TooltipHost>

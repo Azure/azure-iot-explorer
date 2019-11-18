@@ -40,7 +40,6 @@ export default (props: LabelWithTooltipProps) => {
                 >
                     <IconButton
                         iconProps={{ iconName: INFO }}
-                        ariaLabel={INFO}
                         aria-labelledby={hostId}
                         id={buttonId}
                     />

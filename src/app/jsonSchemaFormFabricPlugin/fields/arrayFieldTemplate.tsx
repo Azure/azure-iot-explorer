@@ -2,11 +2,12 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
+import * as React from 'react';
 import { DirectionalHint } from 'office-ui-fabric-react/lib/ContextualMenu';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip';
 import { Label } from 'office-ui-fabric-react/lib/Label';
-import * as React from 'react';
+import { getId } from 'office-ui-fabric-react/lib/Utilities';
 import { ArrayFieldTemplateProps } from 'react-jsonschema-form';
 import Collapsible from 'react-collapsible';
 import { INFO, Accordion, ArrayOperation } from '../../constants/iconNames';
@@ -54,6 +55,7 @@ export const ArrayFieldTemplate = (props: ArrayFieldTemplateProps) => {
 };
 
 const generateTriggerContent = (props: ArrayFieldTemplateProps, open: boolean) => {
+    const hostId = getId('hostId');
     return (
         <>
         <div className="content">
@@ -71,12 +73,13 @@ const generateTriggerContent = (props: ArrayFieldTemplateProps, open: boolean) =
                 {props.uiSchema[uiDescriptionKey] && (
                     <TooltipHost
                         content={props.uiSchema[uiDescriptionKey]}
-                        id={props.uiSchema[uiDescriptionKey]}
+                        id={hostId}
                         calloutProps={{ gapSpace: 0 }}
                         directionalHint={DirectionalHint.rightCenter}
                     >
                         <IconButton
                             iconProps={{ iconName: INFO }}
+                            aria-labelledby={hostId}
                         />
                     </TooltipHost>
                 )}

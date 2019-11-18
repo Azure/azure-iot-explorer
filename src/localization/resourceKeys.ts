@@ -43,11 +43,9 @@ export class ResourceKeys {
       loading : "common.loading",
       maskedCopyableTextField : {
          copy : {
-            ariaLabel : "common.maskedCopyableTextField.copy.ariaLabel",
             label : "common.maskedCopyableTextField.copy.label",
          },
          toggleMask : {
-            ariaLabel : "common.maskedCopyableTextField.toggleMask.ariaLabel",
             label : "common.maskedCopyableTextField.toggleMask.label",
          },
       },

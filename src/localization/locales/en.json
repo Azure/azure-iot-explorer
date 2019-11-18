@@ -5,12 +5,10 @@
         "loading": "Loading...",
         "maskedCopyableTextField": {
             "toggleMask": {
-                "label": "Toggle Mask",
-                "ariaLabel": "Toggle mask"
+                "label": "Toggle Mask"
             },
             "copy": {
-                "label": "Copy Contents",
-                "ariaLabel": "Copy contents"
+                "label": "Copy Contents"
             }
         },
         "confirmationDialog": {

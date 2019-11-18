@@ -9,6 +9,8 @@ import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import { Dropdown, IDropdownOption, IDropdown } from 'office-ui-fabric-react/lib/Dropdown';
 import { Link } from 'office-ui-fabric-react/lib/Link';
 import { Stack } from 'office-ui-fabric-react';
+import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip';
+import { getId } from 'office-ui-fabric-react/lib/Utilities';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { MaskedCopyableTextField } from '../../shared/components/maskedCopyableTextField';
@@ -48,6 +50,7 @@ export default class HubConnectionStringSection extends React.Component<HubConne
 
     private hiddenInputRef = React.createRef<HTMLInputElement>();
     private dropDownRef = React.createRef<IDropdown>();
+    private copyButtonTooltipHostId = getId('copyButtonTooltipHost');
 
     public render(): JSX.Element {
         return (
@@ -89,12 +92,16 @@ export default class HubConnectionStringSection extends React.Component<HubConne
                         />
                         </Stack.Item>
                     <Stack.Item align="end">
-                        <IconButton
-                            iconProps={{ iconName: COPY }}
-                            title={t(ResourceKeys.connectivityPane.dropDown.copyButton)}
-                            ariaLabel={t(ResourceKeys.connectivityPane.dropDown.copyButton)}
-                            onClick={this.copyToClipboard}
-                        />
+                        <TooltipHost
+                            content={t(ResourceKeys.connectivityPane.dropDown.copyButton)}
+                            id={this.copyButtonTooltipHostId}
+                        >
+                            <IconButton
+                                iconProps={{ iconName: COPY }}
+                                aria-labelledby={this.copyButtonTooltipHostId}
+                                onClick={this.copyToClipboard}
+                            />
+                        </TooltipHost>
                     </Stack.Item>
                 </Stack>
                 <input
