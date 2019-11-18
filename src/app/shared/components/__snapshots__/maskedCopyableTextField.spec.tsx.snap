@@ -47,166 +47,26 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
     <div
       className="copySection"
     >
-      <CustomizedIconButton
-        ariaLabel="common.maskedCopyableTextField.copy.ariaLabel"
-        iconProps={
-          Object {
-            "iconName": "copy",
+      <StyledTooltipHostBase
+        content="common.maskedCopyableTextField.copy.label"
+        id="copyButtonTooltipHost3"
+      >
+        <CustomizedIconButton
+          aria-labelledby="copyButtonTooltipHost3"
+          iconProps={
+            Object {
+              "iconName": "copy",
+            }
           }
-        }
-        onClick={[Function]}
-        title="common.maskedCopyableTextField.copy.label"
-      />
+          onClick={[Function]}
+        />
+      </StyledTooltipHostBase>
     </div>
   </div>
 </div>
 `;
 
 exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = true 1`] = `
-<div
-  className="maskedCopyableTextField"
->
-  <div
-    className="labelSection"
-  >
-    <Component
-      htmlFor="maskedCopyableTextField2"
-    >
-      label1
-    </Component>
-  </div>
-  <div
-    className="controlSection"
-  >
-    <div
-      className="borderedSection  readOnly"
-    >
-      <input
-        aria-label="ariaLabel1"
-        className="input"
-        id="maskedCopyableTextField2"
-        onChange={[Function]}
-        readOnly={true}
-        type="password"
-        value="value1"
-      />
-      <input
-        aria-hidden={true}
-        className="input"
-        readOnly={true}
-        style={
-          Object {
-            "height": "1px",
-            "opacity": 0,
-            "position": "absolute",
-            "width": "1px",
-          }
-        }
-        tabIndex={-1}
-        value="value1"
-      />
-      <CustomizedIconButton
-        ariaLabel="common.maskedCopyableTextField.toggleMask.ariaLabel"
-        iconProps={
-          Object {
-            "iconName": "RedEye",
-          }
-        }
-        onClick={[Function]}
-        title="common.maskedCopyableTextField.toggleMask.label"
-      />
-    </div>
-    <div
-      className="copySection"
-    >
-      <CustomizedIconButton
-        ariaLabel="common.maskedCopyableTextField.copy.ariaLabel"
-        iconProps={
-          Object {
-            "iconName": "copy",
-          }
-        }
-        onClick={[Function]}
-        title="common.maskedCopyableTextField.copy.label"
-      />
-    </div>
-  </div>
-</div>
-`;
-
-exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = true 2`] = `
-<div
-  className="maskedCopyableTextField"
->
-  <div
-    className="labelSection"
-  >
-    <Component
-      htmlFor="maskedCopyableTextField3"
-    >
-      label1
-    </Component>
-  </div>
-  <div
-    className="controlSection"
-  >
-    <div
-      className="borderedSection  readOnly"
-    >
-      <input
-        aria-label="ariaLabel1"
-        className="input"
-        id="maskedCopyableTextField3"
-        onChange={[Function]}
-        readOnly={true}
-        type="password"
-        value="value1"
-      />
-      <input
-        aria-hidden={true}
-        className="input"
-        readOnly={true}
-        style={
-          Object {
-            "height": "1px",
-            "opacity": 0,
-            "position": "absolute",
-            "width": "1px",
-          }
-        }
-        tabIndex={-1}
-        value="value1"
-      />
-      <CustomizedIconButton
-        ariaLabel="common.maskedCopyableTextField.toggleMask.ariaLabel"
-        iconProps={
-          Object {
-            "iconName": "RedEye",
-          }
-        }
-        onClick={[Function]}
-        title="common.maskedCopyableTextField.toggleMask.label"
-      />
-    </div>
-    <div
-      className="copySection"
-    >
-      <CustomizedIconButton
-        ariaLabel="common.maskedCopyableTextField.copy.ariaLabel"
-        iconProps={
-          Object {
-            "iconName": "copy",
-          }
-        }
-        onClick={[Function]}
-        title="common.maskedCopyableTextField.copy.label"
-      />
-    </div>
-  </div>
-</div>
-`;
-
-exports[`MaskedCopyableTextField snapshots it matches snapshot when error message specified 1`] = `
 <div
   className="maskedCopyableTextField"
 >
@@ -223,7 +83,7 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when error messag
     className="controlSection"
   >
     <div
-      className="borderedSection error readOnly"
+      className="borderedSection  readOnly"
     >
       <input
         aria-label="ariaLabel1"
@@ -249,30 +109,198 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when error messag
         tabIndex={-1}
         value="value1"
       />
-      <CustomizedIconButton
-        ariaLabel="common.maskedCopyableTextField.toggleMask.ariaLabel"
-        iconProps={
-          Object {
-            "iconName": "RedEye",
+      <StyledTooltipHostBase
+        content="common.maskedCopyableTextField.toggleMask.label"
+        id="toggleMaskButtonTooltipHost5"
+      >
+        <CustomizedIconButton
+          aria-labelledby="toggleMaskButtonTooltipHost5"
+          iconProps={
+            Object {
+              "iconName": "RedEye",
+            }
           }
-        }
-        onClick={[Function]}
-        title="common.maskedCopyableTextField.toggleMask.label"
-      />
+          onClick={[Function]}
+        />
+      </StyledTooltipHostBase>
     </div>
     <div
       className="copySection"
     >
-      <CustomizedIconButton
-        ariaLabel="common.maskedCopyableTextField.copy.ariaLabel"
-        iconProps={
+      <StyledTooltipHostBase
+        content="common.maskedCopyableTextField.copy.label"
+        id="copyButtonTooltipHost6"
+      >
+        <CustomizedIconButton
+          aria-labelledby="copyButtonTooltipHost6"
+          iconProps={
+            Object {
+              "iconName": "copy",
+            }
+          }
+          onClick={[Function]}
+        />
+      </StyledTooltipHostBase>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = true 2`] = `
+<div
+  className="maskedCopyableTextField"
+>
+  <div
+    className="labelSection"
+  >
+    <Component
+      htmlFor="maskedCopyableTextField7"
+    >
+      label1
+    </Component>
+  </div>
+  <div
+    className="controlSection"
+  >
+    <div
+      className="borderedSection  readOnly"
+    >
+      <input
+        aria-label="ariaLabel1"
+        className="input"
+        id="maskedCopyableTextField7"
+        onChange={[Function]}
+        readOnly={true}
+        type="password"
+        value="value1"
+      />
+      <input
+        aria-hidden={true}
+        className="input"
+        readOnly={true}
+        style={
           Object {
-            "iconName": "copy",
+            "height": "1px",
+            "opacity": 0,
+            "position": "absolute",
+            "width": "1px",
           }
         }
-        onClick={[Function]}
-        title="common.maskedCopyableTextField.copy.label"
+        tabIndex={-1}
+        value="value1"
       />
+      <StyledTooltipHostBase
+        content="common.maskedCopyableTextField.toggleMask.label"
+        id="toggleMaskButtonTooltipHost8"
+      >
+        <CustomizedIconButton
+          aria-labelledby="toggleMaskButtonTooltipHost8"
+          iconProps={
+            Object {
+              "iconName": "RedEye",
+            }
+          }
+          onClick={[Function]}
+        />
+      </StyledTooltipHostBase>
+    </div>
+    <div
+      className="copySection"
+    >
+      <StyledTooltipHostBase
+        content="common.maskedCopyableTextField.copy.label"
+        id="copyButtonTooltipHost9"
+      >
+        <CustomizedIconButton
+          aria-labelledby="copyButtonTooltipHost9"
+          iconProps={
+            Object {
+              "iconName": "copy",
+            }
+          }
+          onClick={[Function]}
+        />
+      </StyledTooltipHostBase>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`MaskedCopyableTextField snapshots it matches snapshot when error message specified 1`] = `
+<div
+  className="maskedCopyableTextField"
+>
+  <div
+    className="labelSection"
+  >
+    <Component
+      htmlFor="maskedCopyableTextField10"
+    >
+      label1
+    </Component>
+  </div>
+  <div
+    className="controlSection"
+  >
+    <div
+      className="borderedSection error readOnly"
+    >
+      <input
+        aria-label="ariaLabel1"
+        className="input"
+        id="maskedCopyableTextField10"
+        onChange={[Function]}
+        readOnly={true}
+        type="password"
+        value="value1"
+      />
+      <input
+        aria-hidden={true}
+        className="input"
+        readOnly={true}
+        style={
+          Object {
+            "height": "1px",
+            "opacity": 0,
+            "position": "absolute",
+            "width": "1px",
+          }
+        }
+        tabIndex={-1}
+        value="value1"
+      />
+      <StyledTooltipHostBase
+        content="common.maskedCopyableTextField.toggleMask.label"
+        id="toggleMaskButtonTooltipHost11"
+      >
+        <CustomizedIconButton
+          aria-labelledby="toggleMaskButtonTooltipHost11"
+          iconProps={
+            Object {
+              "iconName": "RedEye",
+            }
+          }
+          onClick={[Function]}
+        />
+      </StyledTooltipHostBase>
+    </div>
+    <div
+      className="copySection"
+    >
+      <StyledTooltipHostBase
+        content="common.maskedCopyableTextField.copy.label"
+        id="copyButtonTooltipHost12"
+      >
+        <CustomizedIconButton
+          aria-labelledby="copyButtonTooltipHost12"
+          iconProps={
+            Object {
+              "iconName": "copy",
+            }
+          }
+          onClick={[Function]}
+        />
+      </StyledTooltipHostBase>
     </div>
   </div>
   <div

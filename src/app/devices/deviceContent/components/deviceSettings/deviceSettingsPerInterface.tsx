@@ -6,6 +6,7 @@ import * as React from 'react';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import { Overlay } from 'office-ui-fabric-react/lib/Overlay';
 import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip';
+import { getId } from 'office-ui-fabric-react/lib/Utilities';
 import DeviceSettingPerInterfacePerSetting, { TwinWithSchema } from './deviceSettingsPerInterfacePerSetting';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
@@ -47,6 +48,8 @@ export default class DeviceSettingsPerInterface
         };
     }
 
+    private tooltipHostId = getId('tooltipHost');
+
     public render(): JSX.Element {
         const { twinWithSchema} = this.props;
 
@@ -75,10 +78,11 @@ export default class DeviceSettingsPerInterface
                                     content={context.t(ResourceKeys.deviceSettings.columns.reportedValueTooltip)}
                                     calloutProps={{ gapSpace: 0 }}
                                     styles={{ root: { display: 'inline-flex'} }}
+                                    id={this.tooltipHostId}
                                 >
                                     <IconButton
                                         iconProps={{ iconName: INFO }}
-                                        ariaLabel={INFO}
+                                        aria-labelledby={this.tooltipHostId}
                                     />
                                 </TooltipHost>
                             </span>

@@ -2,11 +2,11 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
+import * as React from 'react';
 import { DirectionalHint } from 'office-ui-fabric-react/lib/ContextualMenu';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import { Label } from 'office-ui-fabric-react/lib/Label';
 import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip';
-import * as React from 'react';
 import { FieldTemplateProps } from 'react-jsonschema-form';
 import { INFO } from '../../constants/iconNames';
 import '../css/_fieldTemplate.scss';
@@ -33,12 +33,13 @@ export const FieldTemplate = (props: FieldTemplateProps) => {
                 {displayLabel && description && description.props.description && (
                     <TooltipHost
                         content={description.props.description}
-                        id={description.props.description}
+                        id={id}
                         calloutProps={{ gapSpace: 0 }}
                         directionalHint={DirectionalHint.rightCenter}
                     >
                         <IconButton
                             iconProps={{ iconName: INFO }}
+                            aria-labelledby={id}
                         />
                     </TooltipHost>
                     )}

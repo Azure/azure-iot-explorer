@@ -6,6 +6,7 @@ import * as React from 'react';
 import { TranslationFunction } from 'i18next';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import { getId } from 'office-ui-fabric-react/lib/Utilities';
+import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import LabelWithTooltip from './labelWithTooltip';
 import LabelWithRichCallout from './labelWithRichCallout';
@@ -32,8 +33,10 @@ export interface MaskedCopyableTextFieldState {
 
 export class MaskedCopyableTextField extends React.Component<MaskedCopyableTextFieldProps, MaskedCopyableTextFieldState> {
     private hiddenInputRef = React.createRef<HTMLInputElement>();
-    private visibileInputRef = React.createRef<HTMLInputElement>();
+    private visibleInputRef = React.createRef<HTMLInputElement>();
     private labelIdentifier = getId('maskedCopyableTextField');
+    private toggleMaskButtonTooltipHostId = getId('toggleMaskButtonTooltipHost');
+    private copyButtonTooltipHostId = getId('copyButtonTooltipHost');
 
     constructor(props: MaskedCopyableTextFieldProps) {
         super(props);
@@ -57,7 +60,7 @@ export class MaskedCopyableTextField extends React.Component<MaskedCopyableTextF
                         <input
                             aria-label={ariaLabel}
                             id={this.labelIdentifier}
-                            ref={this.visibileInputRef}
+                            ref={this.visibleInputRef}
                             value={value}
                             type={(allowMask && hideContents) ? 'password' : 'text'}
                             className="input"
@@ -76,22 +79,30 @@ export class MaskedCopyableTextField extends React.Component<MaskedCopyableTextF
                         />
 
                         {allowMask &&
-                            <IconButton
-                                iconProps={hideContents ? { iconName: 'RedEye' } : { iconName: 'Hide' }}
-                                title={t(ResourceKeys.common.maskedCopyableTextField.toggleMask.label)}
-                                ariaLabel={t(ResourceKeys.common.maskedCopyableTextField.toggleMask.ariaLabel)}
-                                onClick={this.toggleDisplay}
-                            />
+                            <TooltipHost
+                                content={t(ResourceKeys.common.maskedCopyableTextField.toggleMask.label)}
+                                id={this.toggleMaskButtonTooltipHostId}
+                            >
+                                <IconButton
+                                    iconProps={hideContents ? { iconName: 'RedEye' } : { iconName: 'Hide' }}
+                                    aria-labelledby={this.toggleMaskButtonTooltipHostId}
+                                    onClick={this.toggleDisplay}
+                                />
+                            </TooltipHost>
                         }
                     </div>
 
                     <div className="copySection">
-                        <IconButton
-                            iconProps={{ iconName: 'copy' }}
-                            title={t(ResourceKeys.common.maskedCopyableTextField.copy.label)}
-                            ariaLabel={t(ResourceKeys.common.maskedCopyableTextField.copy.ariaLabel)}
-                            onClick={this.copyToClipboard}
-                        />
+                        <TooltipHost
+                            content={t(ResourceKeys.common.maskedCopyableTextField.copy.label)}
+                            id={this.copyButtonTooltipHostId}
+                        >
+                            <IconButton
+                                iconProps={{ iconName: 'copy' }}
+                                aria-labelledby={this.copyButtonTooltipHostId}
+                                onClick={this.copyToClipboard}
+                            />
+                        </TooltipHost>
                     </div>
                 </div>
 
@@ -137,7 +148,7 @@ export class MaskedCopyableTextField extends React.Component<MaskedCopyableTextF
     }
 
     public focus = () => {
-        const node = this.visibileInputRef.current;
+        const node = this.visibleInputRef.current;
         if (node) {
             node.focus();
         }

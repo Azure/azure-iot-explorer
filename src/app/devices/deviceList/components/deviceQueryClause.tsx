@@ -147,6 +147,17 @@ export default class DeviceQueryClause extends React.PureComponent<DeviceQueryCl
         }
     }
 
+    private readonly getAriaLabelValueOfOperationType = (key: string, t: (value: string) => string) => {
+        switch (key.toLowerCase()) {
+            case OperationType.equals.toLowerCase():
+                return t(ResourceKeys.deviceLists.query.searchPills.clause.operationType.options.equal);
+            case OperationType.notEquals.toLowerCase():
+                return t(ResourceKeys.deviceLists.query.searchPills.clause.operationType.options.notEqual);
+            default:
+                return '';
+        }
+    }
+
     public componentDidMount() {
         // set focus to parameter type dropdown
         const node = this.parameterTypeRef.current;
@@ -179,8 +190,12 @@ export default class DeviceQueryClause extends React.PureComponent<DeviceQueryCl
                         {
                             this.shouldShowOperator(this.props.parameterType) && <Dropdown
                                 className="operation-type"
-                                // tslint:disable-next-line: no-any
-                                options={Object.keys(OperationType).map(operationType => ({ key: (OperationType as any)[operationType], text: (OperationType as any)[operationType] }))}
+                                options={Object.keys(OperationType).map
+                                    (operationType => ({
+                                        ariaLabel: this.getAriaLabelValueOfOperationType((OperationType as any)[operationType], context.t), // tslint:disable-line: no-any
+                                        key: (OperationType as any)[operationType], // tslint:disable-line: no-any
+                                        text: (OperationType as any)[operationType] // tslint:disable-line: no-any
+                                    }))}
                                 onChange={this.onOperationChange}
                                 defaultSelectedKey={this.props.operation}
                                 title={context.t(ResourceKeys.deviceLists.query.searchPills.clause.operationType.title)}

@@ -43,11 +43,9 @@ export class ResourceKeys {
       loading : "common.loading",
       maskedCopyableTextField : {
          copy : {
-            ariaLabel : "common.maskedCopyableTextField.copy.ariaLabel",
             label : "common.maskedCopyableTextField.copy.label",
          },
          toggleMask : {
-            ariaLabel : "common.maskedCopyableTextField.toggleMask.ariaLabel",
             label : "common.maskedCopyableTextField.toggleMask.label",
          },
       },
@@ -319,6 +317,10 @@ export class ResourceKeys {
             clause : {
                operationType : {
                   ariaLabel : "deviceLists.query.searchPills.clause.operationType.ariaLabel",
+                  options : {
+                     equal : "deviceLists.query.searchPills.clause.operationType.options.equal",
+                     notEqual : "deviceLists.query.searchPills.clause.operationType.options.notEqual",
+                  },
                   title : "deviceLists.query.searchPills.clause.operationType.title",
                },
                parameterType : {

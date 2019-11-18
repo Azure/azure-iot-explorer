@@ -40,10 +40,12 @@ exports[`components/devices/DeviceQueryClause matches snapshot 1`] = `
     options={
       Array [
         Object {
+          "ariaLabel": "deviceLists.query.searchPills.clause.operationType.options.equal",
           "key": "=",
           "text": "=",
         },
         Object {
+          "ariaLabel": "deviceLists.query.searchPills.clause.operationType.options.notEqual",
           "key": "!=",
           "text": "!=",
         },

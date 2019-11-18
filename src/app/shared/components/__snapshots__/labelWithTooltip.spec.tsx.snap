@@ -32,7 +32,6 @@ exports[`components/shared/labelWithTooltip matches snapshot when tooltip specif
   >
     <CustomizedIconButton
       aria-labelledby="tooltip2"
-      ariaLabel="Info"
       iconProps={
         Object {
           "iconName": "Info",

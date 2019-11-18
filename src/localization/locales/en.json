@@ -5,12 +5,10 @@
         "loading": "Loading...",
         "maskedCopyableTextField": {
             "toggleMask": {
-                "label": "Toggle Mask",
-                "ariaLabel": "Toggle mask"
+                "label": "Toggle Mask"
             },
             "copy": {
-                "label": "Copy Contents",
-                "ariaLabel": "Copy contents"
+                "label": "Copy Contents"
             }
         },
         "confirmationDialog": {
@@ -303,7 +301,11 @@
                     },
                     "operationType": {
                         "title": "Operation type",
-                        "ariaLabel": "Choose a comparison type for this clause"
+                        "ariaLabel": "Choose a comparison type for this clause",
+                        "options": {
+                            "equal": "equal",
+                            "notEqual": "not equal"
+                        }
                     },
                     "value": {
                         "placeholder": "Enter value...",
