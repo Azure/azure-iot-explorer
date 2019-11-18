@@ -57,12 +57,10 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
             Object {
               "iconName": "copy",
             }
-
           }
-        }
-        onClick={[Function]}
-        title="common.maskedCopyableTextField.copy.label"
-      />
+          onClick={[Function]}
+        />
+      </StyledTooltipHostBase>
     </div>
   </div>
 </div>
@@ -111,13 +109,6 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
         tabIndex={-1}
         value="value1"
       />
-<<<<<<< HEAD
-      <CustomizedIconButton
-        ariaLabel="common.maskedCopyableTextField.toggleMask.ariaLabel"
-        iconProps={
-          Object {
-            "iconName": "RedEye",
-=======
       <StyledTooltipHostBase
         content="common.maskedCopyableTextField.toggleMask.label"
         id="toggleMaskButtonTooltipHost5"
@@ -128,23 +119,14 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
             Object {
               "iconName": "RedEye",
             }
->>>>>>> use ids in all tooltiphost
           }
-        }
-        onClick={[Function]}
-        title="common.maskedCopyableTextField.toggleMask.label"
-      />
+          onClick={[Function]}
+        />
+      </StyledTooltipHostBase>
     </div>
     <div
       className="copySection"
     >
-<<<<<<< HEAD
-      <CustomizedIconButton
-        ariaLabel="common.maskedCopyableTextField.copy.ariaLabel"
-        iconProps={
-          Object {
-            "iconName": "copy",
-=======
       <StyledTooltipHostBase
         content="common.maskedCopyableTextField.copy.label"
         id="copyButtonTooltipHost6"
@@ -155,12 +137,10 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
             Object {
               "iconName": "copy",
             }
->>>>>>> use ids in all tooltiphost
           }
-        }
-        onClick={[Function]}
-        title="common.maskedCopyableTextField.copy.label"
-      />
+          onClick={[Function]}
+        />
+      </StyledTooltipHostBase>
     </div>
   </div>
 </div>
@@ -209,13 +189,6 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
         tabIndex={-1}
         value="value1"
       />
-<<<<<<< HEAD
-      <CustomizedIconButton
-        ariaLabel="common.maskedCopyableTextField.toggleMask.ariaLabel"
-        iconProps={
-          Object {
-            "iconName": "RedEye",
-=======
       <StyledTooltipHostBase
         content="common.maskedCopyableTextField.toggleMask.label"
         id="toggleMaskButtonTooltipHost8"
@@ -226,23 +199,14 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
             Object {
               "iconName": "RedEye",
             }
->>>>>>> use ids in all tooltiphost
           }
-        }
-        onClick={[Function]}
-        title="common.maskedCopyableTextField.toggleMask.label"
-      />
+          onClick={[Function]}
+        />
+      </StyledTooltipHostBase>
     </div>
     <div
       className="copySection"
     >
-<<<<<<< HEAD
-      <CustomizedIconButton
-        ariaLabel="common.maskedCopyableTextField.copy.ariaLabel"
-        iconProps={
-          Object {
-            "iconName": "copy",
-=======
       <StyledTooltipHostBase
         content="common.maskedCopyableTextField.copy.label"
         id="copyButtonTooltipHost9"
@@ -253,12 +217,10 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
             Object {
               "iconName": "copy",
             }
->>>>>>> use ids in all tooltiphost
           }
-        }
-        onClick={[Function]}
-        title="common.maskedCopyableTextField.copy.label"
-      />
+          onClick={[Function]}
+        />
+      </StyledTooltipHostBase>
     </div>
   </div>
 </div>
@@ -307,13 +269,6 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when error messag
         tabIndex={-1}
         value="value1"
       />
-<<<<<<< HEAD
-      <CustomizedIconButton
-        ariaLabel="common.maskedCopyableTextField.toggleMask.ariaLabel"
-        iconProps={
-          Object {
-            "iconName": "RedEye",
-=======
       <StyledTooltipHostBase
         content="common.maskedCopyableTextField.toggleMask.label"
         id="toggleMaskButtonTooltipHost11"
@@ -324,23 +279,14 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when error messag
             Object {
               "iconName": "RedEye",
             }
->>>>>>> use ids in all tooltiphost
           }
-        }
-        onClick={[Function]}
-        title="common.maskedCopyableTextField.toggleMask.label"
-      />
+          onClick={[Function]}
+        />
+      </StyledTooltipHostBase>
     </div>
     <div
       className="copySection"
     >
-<<<<<<< HEAD
-      <CustomizedIconButton
-        ariaLabel="common.maskedCopyableTextField.copy.ariaLabel"
-        iconProps={
-          Object {
-            "iconName": "copy",
-=======
       <StyledTooltipHostBase
         content="common.maskedCopyableTextField.copy.label"
         id="copyButtonTooltipHost12"
@@ -351,12 +297,10 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when error messag
             Object {
               "iconName": "copy",
             }
->>>>>>> use ids in all tooltiphost
           }
-        }
-        onClick={[Function]}
-        title="common.maskedCopyableTextField.copy.label"
-      />
+          onClick={[Function]}
+        />
+      </StyledTooltipHostBase>
     </div>
   </div>
   <div
