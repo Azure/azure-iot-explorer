@@ -20,7 +20,7 @@ describe('components/shared/labelWithRichCallout', () => {
             </LabelWithRichCallout>
         );
         expect(wrapper).toMatchSnapshot();
-        wrapper.find(IconButton).props().onMouseOver(null);
+        wrapper.find(IconButton).props().onClick(null);
         expect((wrapper.state() as LabelWithRichCalloutState).showCallout).toBeTruthy();
         wrapper.find(Callout).props().onDismiss(null);
         expect((wrapper.state() as LabelWithRichCalloutState).showCallout).toBeFalsy();

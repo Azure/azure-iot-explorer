@@ -258,7 +258,7 @@
                 "buttonText": "Delete",
                 "confirmationDialog": {
                     "title": "Delete from IoT Hub?",
-                    "subText": "Review carefully. Deleting this device will also remove it from your IoT hub and may have consequences for other using the same Hub or device code.",
+                    "subText": "Review carefully. You are about to remove the following device(s) from your IoT hub and may have consequences for others using the same Hub or device(s).",
                     "confirm" : "Delete",
                     "cancel": "Cancel"
                 }

@@ -20,6 +20,7 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
       className="borderedSection  readOnly"
     >
       <input
+        aria-invalid={false}
         aria-label="ariaLabel1"
         className="input"
         id="maskedCopyableTextField1"
@@ -86,6 +87,7 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
       className="borderedSection  readOnly"
     >
       <input
+        aria-invalid={false}
         aria-label="ariaLabel1"
         className="input"
         id="maskedCopyableTextField4"
@@ -166,6 +168,7 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
       className="borderedSection  readOnly"
     >
       <input
+        aria-invalid={false}
         aria-label="ariaLabel1"
         className="input"
         id="maskedCopyableTextField7"
@@ -246,6 +249,7 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when error messag
       className="borderedSection error readOnly"
     >
       <input
+        aria-invalid={true}
         aria-label="ariaLabel1"
         className="input"
         id="maskedCopyableTextField10"

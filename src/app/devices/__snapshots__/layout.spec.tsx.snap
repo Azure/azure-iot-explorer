@@ -11,24 +11,33 @@ exports[`components/devices/deviceEvents matches snapshot 1`] = `
 
 exports[`components/devices/deviceEvents matches snapshot 2`] = `
 <Fragment>
-  <withRouter(Connect(SettingsPane)) />
-  <main
-    role="main"
+  <div
+    className="app"
   >
-    <Route
-      component={[Function]}
-      exact={true}
-      path="/devices/"
-    />
-    <Route
-      component={[Function]}
-      exact={true}
-      path="/devices/add"
-    />
-    <Route
-      component={[Function]}
-      path="/devices/detail/"
-    />
-  </main>
+    <Connect(Header) />
+    <div
+      className="content"
+    >
+      <withRouter(Connect(SettingsPane)) />
+      <main
+        role="main"
+      >
+        <Route
+          component={[Function]}
+          exact={true}
+          path="/devices/"
+        />
+        <Route
+          component={[Function]}
+          exact={true}
+          path="/devices/add"
+        />
+        <Route
+          component={[Function]}
+          path="/devices/detail/"
+        />
+      </main>
+    </div>
+  </div>
 </Fragment>
 `;

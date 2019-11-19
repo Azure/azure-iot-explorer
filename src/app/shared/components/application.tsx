@@ -10,7 +10,6 @@ import { ToastContainer } from 'react-toastify';
 import DeviceLayout from '../../devices/layoutContainer';
 import NoMatchError from './noMatchError';
 import { LocalizationContextProvider } from '../contexts/localizationContext';
-import HeaderContainer from './headerContainer';
 import connectivityPaneContainer from '../../login/components/connectivityPaneContainer';
 import '../../css/_app.scss';
 
@@ -22,9 +21,7 @@ const app = (localizationContext: any) => {
     return (
         <LocalizationContextProvider value={localizationContext}>
             <HashRouter>
-                <div className="app">
-                    <HeaderContainer />
-                    <div className="content">
+                <>
                         <Switch>
                             <Route exact={true} path="/" component={connectivityPaneContainer}/>
                             <Route path="/devices" component={DeviceLayout}/>
@@ -34,8 +31,7 @@ const app = (localizationContext: any) => {
                             autoClose={NOTIFICATION_AUTO_CLOSE}
                             toastClassName="toast-notification"
                         />
-                    </div>
-                </div>
+                </>
             </HashRouter>
         </LocalizationContextProvider>
     );

@@ -16,7 +16,7 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
       }
     }
     id="iconbutton1"
-    onMouseOver={[Function]}
+    onClick={[Function]}
   />
   <Callout
     directionalHint={12}
