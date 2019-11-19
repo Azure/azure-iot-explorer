@@ -67,6 +67,8 @@ export class MaskedCopyableTextField extends React.Component<MaskedCopyableTextF
                             readOnly={readOnly}
                             onChange={this.onChange}
                             placeholder={placeholder}
+                            required={this.props.required}
+                            aria-invalid={!!error}
                         />
                         <input
                             aria-hidden={true}

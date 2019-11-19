@@ -55,7 +55,7 @@ export default class LabelWithRichCallout extends React.PureComponent<LabelWithR
                         <IconButton
                             iconProps={{ iconName: INFO }}
                             id={buttonId}
-                            onMouseOver={this.setVisibility}
+                            onClick={this.setVisibility}
                         />
                         <Callout
                             role="alertdialog"

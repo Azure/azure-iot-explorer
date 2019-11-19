@@ -9,6 +9,7 @@ import DeviceListContainer from './deviceList/components/deviceListContainer';
 import AddDeviceContainer from './deviceList/components/addDevice/components/addDeviceContainer';
 import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString } from '../shared/utils/queryStringHelper';
 import SettingsPaneContainer from '../settings/components/settingsPaneContainer';
+import HeaderContainer from '../shared/components/headerContainer';
 import { ROUTE_PARTS } from '../constants/routes';
 
 export interface LayoutDataProps {
@@ -24,14 +25,17 @@ export class DeviceLayout extends React.Component<LayoutDataProps> {
         return (
             <>
                 {this.props.hubConnectionString ?
-                    <>
+                    <div className="app">
+                        <HeaderContainer />
+                        <div className="content">
                         <SettingsPaneContainer />
                         <main role="main">
                             <Route exact={true} path={`/${ROUTE_PARTS.DEVICES}/`} component={DeviceListContainer}/>
                             <Route exact={true} path={`/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.ADD}`} component={AddDeviceContainer} />
                             <Route path={`/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DETAIL}/`} component={this.renderDeviceContent}/>
                         </main>
-                    </> : <Redirect to="/" />
+                        </div>
+                    </div> : <Redirect to="/" />
                 }
             </>
         );
