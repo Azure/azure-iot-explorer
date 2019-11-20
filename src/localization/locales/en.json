@@ -132,7 +132,7 @@
         },
         "connectionStringCheckbox": {
             "label": "Remember my connection string",
-            "ariaLabel": "check box for remember my connection string",
+            "ariaLabel": "Remember my connection string",
             "tooltip": "The connection string will be stored in the browser local storage. (We will remember up to 5 hub connection strings)"
         },
         "notes": "You can open Settings to change application configurations anytime.",
