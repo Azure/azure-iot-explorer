@@ -89,7 +89,7 @@ export class NotificationList extends React.Component<NotificationListProps, Not
                                 {notifications.map((notification, index) => {
                                         return (
                                             <div key={index}>
-                                                <NotificationListEntry notification={notification} />
+                                                <NotificationListEntry notification={notification} showAnnoucement={false} />
                                                 <hr className="notification-list-divider" />
                                             </div>);
                                     })

@@ -127,7 +127,7 @@ export default class HubConnectionStringSection extends React.Component<HubConne
                     value={this.state.newConnectionString}
                     allowMask={true}
                     onTextChange={this.onConnectionStringChangedFromTextField}
-                    readOnly={false}
+                    disabled={false}
                     required={true}
                     t={t}
                     calloutContent={(

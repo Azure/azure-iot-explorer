@@ -138,7 +138,7 @@ export default class DeviceIdentityInformation
                             value={this.state.identity && this.state.identity.deviceId}
                             allowMask={false}
                             t={context.t}
-                            readOnly={true}
+                            disabled={true}
                         />
                         {this.renderDeviceAuthProperties(context)}
                         <br/>
@@ -228,6 +228,7 @@ export default class DeviceIdentityInformation
                         selectedKey={sasTokenSelectedKey || undefined}
                         options={options}
                         onChange={this.onSelectedKeyChanged}
+                        required={true}
                     />
                     <SpinButton
                         className={'sas-token-expiration-field'}
@@ -246,7 +247,7 @@ export default class DeviceIdentityInformation
                         value={this.state.sasTokenConnectionString}
                         allowMask={true}
                         t={context.t}
-                        readOnly={true}
+                        disabled={true}
                     />
                     <PrimaryButton
                         className={'sas-token-generate-button'}
@@ -275,7 +276,7 @@ export default class DeviceIdentityInformation
                             value={generateX509ConnectionString(connectionString, identity.deviceId)}
                             allowMask={true}
                             t={context.t}
-                            readOnly={true}
+                            disabled={true}
                         />
                     </>
                 );
@@ -289,7 +290,7 @@ export default class DeviceIdentityInformation
                             value={generateX509ConnectionString(connectionString, identity.deviceId)}
                             allowMask={true}
                             t={context.t}
-                            readOnly={true}
+                            disabled={true}
                         />
                     </>
                 );
@@ -302,7 +303,7 @@ export default class DeviceIdentityInformation
                             value={this.state.identity.authentication.symmetricKey.primaryKey}
                             allowMask={true}
                             t={context.t}
-                            readOnly={false}
+                            disabled={false}
                             onTextChange={this.changePrimaryKey}
                         />
 
@@ -312,7 +313,7 @@ export default class DeviceIdentityInformation
                             value={this.state.identity.authentication.symmetricKey.secondaryKey}
                             allowMask={true}
                             t={context.t}
-                            readOnly={false}
+                            disabled={false}
                             onTextChange={this.changeSecondaryKey}
                         />
 
@@ -322,7 +323,7 @@ export default class DeviceIdentityInformation
                             value={generateConnectionString(connectionString, identity.deviceId, identity.authentication.symmetricKey.primaryKey)}
                             allowMask={true}
                             t={context.t}
-                            readOnly={true}
+                            disabled={true}
                         />
 
                         <MaskedCopyableTextField
@@ -331,7 +332,7 @@ export default class DeviceIdentityInformation
                             value={generateConnectionString(connectionString, identity.deviceId, identity.authentication.symmetricKey.secondaryKey)}
                             allowMask={true}
                             t={context.t}
-                            readOnly={true}
+                            disabled={true}
                         />
                     </>
                 );

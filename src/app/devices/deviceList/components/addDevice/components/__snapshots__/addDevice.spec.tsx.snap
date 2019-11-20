@@ -21,11 +21,11 @@ exports[`components/devices/addDevice matches snapshot 1`] = `
       <MaskedCopyableTextField
         allowMask={false}
         ariaLabel="deviceIdentity.deviceID"
+        disabled={false}
         error=""
         label="deviceIdentity.deviceID"
         labelCallout="deviceIdentity.deviceIDTooltip"
         onTextChange={[Function]}
-        readOnly={false}
         required={true}
         t={
           [MockFunction] {

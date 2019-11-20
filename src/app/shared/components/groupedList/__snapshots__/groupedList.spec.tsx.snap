@@ -348,6 +348,9 @@ exports[`components/GroupedList render GroupedList matches snapshot when no item
   <h3>
     No Items
   </h3>
+  <StyledAnnouncedBase
+    message="No Items"
+  />
 </div>
 `;
 
@@ -399,5 +402,8 @@ exports[`components/GroupedList render GroupedList matches snapshot with undefin
   <h3>
     No Items
   </h3>
+  <StyledAnnouncedBase
+    message="No Items"
+  />
 </div>
 `;

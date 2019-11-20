@@ -56,7 +56,7 @@ export default class RepositoryLocationListItem extends React.Component<Reposito
                                     label={context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.private.textBoxLabel)}
                                     value={item.connectionString}
                                     allowMask={true}
-                                    readOnly={false}
+                                    disabled={false}
                                     required={true}
                                     onTextChange={this.onConnectionStringChanged}
                                     placeholder={context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.private.placeholder)}

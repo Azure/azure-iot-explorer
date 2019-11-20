@@ -17,7 +17,7 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
     className="controlSection"
   >
     <div
-      className="borderedSection  readOnly"
+      className="borderedSection  "
     >
       <input
         aria-invalid={false}
@@ -25,7 +25,6 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
         className="input"
         id="maskedCopyableTextField1"
         onChange={[Function]}
-        readOnly={true}
         type="text"
         value="value1"
       />
@@ -54,6 +53,11 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
       >
         <CustomizedIconButton
           aria-labelledby="copyButtonTooltipHost3"
+          componentRef={
+            Object {
+              "current": null,
+            }
+          }
           iconProps={
             Object {
               "iconName": "copy",
@@ -84,7 +88,7 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
     className="controlSection"
   >
     <div
-      className="borderedSection  readOnly"
+      className="borderedSection  "
     >
       <input
         aria-invalid={false}
@@ -92,7 +96,6 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
         className="input"
         id="maskedCopyableTextField4"
         onChange={[Function]}
-        readOnly={true}
         type="password"
         value="value1"
       />
@@ -135,6 +138,11 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
       >
         <CustomizedIconButton
           aria-labelledby="copyButtonTooltipHost6"
+          componentRef={
+            Object {
+              "current": null,
+            }
+          }
           iconProps={
             Object {
               "iconName": "copy",
@@ -165,7 +173,7 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
     className="controlSection"
   >
     <div
-      className="borderedSection  readOnly"
+      className="borderedSection  "
     >
       <input
         aria-invalid={false}
@@ -173,7 +181,6 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
         className="input"
         id="maskedCopyableTextField7"
         onChange={[Function]}
-        readOnly={true}
         type="password"
         value="value1"
       />
@@ -216,6 +223,11 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
       >
         <CustomizedIconButton
           aria-labelledby="copyButtonTooltipHost9"
+          componentRef={
+            Object {
+              "current": null,
+            }
+          }
           iconProps={
             Object {
               "iconName": "copy",
@@ -246,7 +258,7 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when error messag
     className="controlSection"
   >
     <div
-      className="borderedSection error readOnly"
+      className="borderedSection error "
     >
       <input
         aria-invalid={true}
@@ -254,7 +266,6 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when error messag
         className="input"
         id="maskedCopyableTextField10"
         onChange={[Function]}
-        readOnly={true}
         type="password"
         value="value1"
       />
@@ -297,6 +308,11 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when error messag
       >
         <CustomizedIconButton
           aria-labelledby="copyButtonTooltipHost12"
+          componentRef={
+            Object {
+              "current": null,
+            }
+          }
           iconProps={
             Object {
               "iconName": "copy",

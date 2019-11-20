@@ -26,10 +26,10 @@ exports[`login/components/connectivityPane matches snapshot 1`] = `
         </div>
       </div>
     }
+    disabled={false}
     error=""
     label="connectivityPane.connectionStringTextBox.label"
     onTextChange={[Function]}
-    readOnly={false}
     required={true}
     t={
       [MockFunction] {

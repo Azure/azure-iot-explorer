@@ -21,8 +21,8 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with CA aut
     <MaskedCopyableTextField
       allowMask={false}
       ariaLabel="deviceIdentity.deviceID"
+      disabled={true}
       label="deviceIdentity.deviceID"
-      readOnly={true}
       t={
         [MockFunction] {
           "calls": Array [
@@ -101,8 +101,8 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with CA aut
     <MaskedCopyableTextField
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.primaryConnectionString"
+      disabled={true}
       label="deviceIdentity.authenticationType.symmetricKey.primaryConnectionString"
-      readOnly={true}
       t={
         [MockFunction] {
           "calls": Array [
@@ -201,8 +201,8 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with SelfSi
     <MaskedCopyableTextField
       allowMask={false}
       ariaLabel="deviceIdentity.deviceID"
+      disabled={true}
       label="deviceIdentity.deviceID"
-      readOnly={true}
       t={
         [MockFunction] {
           "calls": Array [
@@ -281,8 +281,8 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with SelfSi
     <MaskedCopyableTextField
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.primaryConnectionString"
+      disabled={true}
       label="deviceIdentity.authenticationType.symmetricKey.primaryConnectionString"
-      readOnly={true}
       t={
         [MockFunction] {
           "calls": Array [
@@ -384,8 +384,8 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
     <MaskedCopyableTextField
       allowMask={false}
       ariaLabel="deviceIdentity.deviceID"
+      disabled={true}
       label="deviceIdentity.deviceID"
-      readOnly={true}
       t={
         [MockFunction] {
           "calls": Array [
@@ -567,9 +567,9 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
     <MaskedCopyableTextField
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.primaryKey"
+      disabled={false}
       label="deviceIdentity.authenticationType.symmetricKey.primaryKey"
       onTextChange={[Function]}
-      readOnly={false}
       t={
         [MockFunction] {
           "calls": Array [
@@ -751,9 +751,9 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
     <MaskedCopyableTextField
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.secondaryKey"
+      disabled={false}
       label="deviceIdentity.authenticationType.symmetricKey.secondaryKey"
       onTextChange={[Function]}
-      readOnly={false}
       t={
         [MockFunction] {
           "calls": Array [
@@ -934,8 +934,8 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
     <MaskedCopyableTextField
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.primaryConnectionString"
+      disabled={true}
       label="deviceIdentity.authenticationType.symmetricKey.primaryConnectionString"
-      readOnly={true}
       t={
         [MockFunction] {
           "calls": Array [
@@ -1117,8 +1117,8 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
     <MaskedCopyableTextField
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString"
+      disabled={true}
       label="deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString"
-      readOnly={true}
       t={
         [MockFunction] {
           "calls": Array [
@@ -1322,6 +1322,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
               },
             ]
           }
+          required={true}
         />
         <CustomizedSpinButton
           className="sas-token-expiration-field"
@@ -1349,8 +1350,8 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
         <MaskedCopyableTextField
           allowMask={true}
           ariaLabel="deviceIdentity.authenticationType.sasToken.textField.ariaLabel"
+          disabled={true}
           label="deviceIdentity.authenticationType.sasToken.textField.label"
-          readOnly={true}
           t={
             [MockFunction] {
               "calls": Array [
@@ -1565,8 +1566,8 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
     <MaskedCopyableTextField
       allowMask={false}
       ariaLabel="deviceIdentity.deviceID"
+      disabled={true}
       label="deviceIdentity.deviceID"
-      readOnly={true}
       t={
         [MockFunction] {
           "calls": Array [
@@ -1747,9 +1748,9 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
     <MaskedCopyableTextField
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.primaryKey"
+      disabled={false}
       label="deviceIdentity.authenticationType.symmetricKey.primaryKey"
       onTextChange={[Function]}
-      readOnly={false}
       t={
         [MockFunction] {
           "calls": Array [
@@ -1931,9 +1932,9 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
     <MaskedCopyableTextField
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.secondaryKey"
+      disabled={false}
       label="deviceIdentity.authenticationType.symmetricKey.secondaryKey"
       onTextChange={[Function]}
-      readOnly={false}
       t={
         [MockFunction] {
           "calls": Array [
@@ -2114,8 +2115,8 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
     <MaskedCopyableTextField
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.primaryConnectionString"
+      disabled={true}
       label="deviceIdentity.authenticationType.symmetricKey.primaryConnectionString"
-      readOnly={true}
       t={
         [MockFunction] {
           "calls": Array [
@@ -2297,8 +2298,8 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
     <MaskedCopyableTextField
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString"
+      disabled={true}
       label="deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString"
-      readOnly={true}
       t={
         [MockFunction] {
           "calls": Array [
@@ -2502,6 +2503,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
               },
             ]
           }
+          required={true}
         />
         <CustomizedSpinButton
           className="sas-token-expiration-field"
@@ -2529,8 +2531,8 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
         <MaskedCopyableTextField
           allowMask={true}
           ariaLabel="deviceIdentity.authenticationType.sasToken.textField.ariaLabel"
+          disabled={true}
           label="deviceIdentity.authenticationType.sasToken.textField.label"
-          readOnly={true}
           t={
             [MockFunction] {
               "calls": Array [
@@ -2760,8 +2762,8 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with auth t
     <MaskedCopyableTextField
       allowMask={false}
       ariaLabel="deviceIdentity.deviceID"
+      disabled={true}
       label="deviceIdentity.deviceID"
-      readOnly={true}
       t={
         [MockFunction] {
           "calls": Array [
@@ -2839,8 +2841,8 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with identi
     <MaskedCopyableTextField
       allowMask={false}
       ariaLabel="deviceIdentity.deviceID"
+      disabled={true}
       label="deviceIdentity.deviceID"
-      readOnly={true}
       t={
         [MockFunction] {
           "calls": Array [

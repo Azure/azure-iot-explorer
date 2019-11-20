@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { TranslationFunction } from 'i18next';
-import { IconButton } from 'office-ui-fabric-react/lib/Button';
+import { IconButton, IButton } from 'office-ui-fabric-react/lib/Button';
 import { getId } from 'office-ui-fabric-react/lib/Utilities';
 import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip';
 import { ResourceKeys } from '../../../localization/resourceKeys';
@@ -21,7 +21,7 @@ export interface MaskedCopyableTextFieldProps {
     value: string;
     allowMask: boolean;
     t: TranslationFunction;
-    readOnly: boolean;
+    disabled: boolean;
     required?: boolean;
     onTextChange?(text: string): void;
     placeholder?: string;
@@ -34,6 +34,7 @@ export interface MaskedCopyableTextFieldState {
 export class MaskedCopyableTextField extends React.Component<MaskedCopyableTextFieldProps, MaskedCopyableTextFieldState> {
     private hiddenInputRef = React.createRef<HTMLInputElement>();
     private visibleInputRef = React.createRef<HTMLInputElement>();
+    private copyButtonRef = React.createRef<IButton>();
     private labelIdentifier = getId('maskedCopyableTextField');
     private toggleMaskButtonTooltipHostId = getId('toggleMaskButtonTooltipHost');
     private copyButtonTooltipHostId = getId('copyButtonTooltipHost');
@@ -46,7 +47,7 @@ export class MaskedCopyableTextField extends React.Component<MaskedCopyableTextF
     }
     // tslint:disable-next-line:cyclomatic-complexity
     public render(): JSX.Element {
-        const { ariaLabel, error, value, allowMask, t, readOnly, placeholder } = this.props;
+        const { ariaLabel, error, value, allowMask, t, disabled, placeholder } = this.props;
         const { hideContents } = this.state;
 
         return (
@@ -56,7 +57,7 @@ export class MaskedCopyableTextField extends React.Component<MaskedCopyableTextF
                 </div>
 
                 <div className="controlSection">
-                    <div className={`borderedSection ${error ? 'error' : ''} ${readOnly ? 'readOnly' : ''}`}>
+                    <div className={`borderedSection ${error ? 'error' : ''} ${disabled ? 'disabled' : ''}`}>
                         <input
                             aria-label={ariaLabel}
                             id={this.labelIdentifier}
@@ -64,7 +65,7 @@ export class MaskedCopyableTextField extends React.Component<MaskedCopyableTextF
                             value={value}
                             type={(allowMask && hideContents) ? 'password' : 'text'}
                             className="input"
-                            readOnly={readOnly}
+                            disabled={disabled}
                             onChange={this.onChange}
                             placeholder={placeholder}
                             required={this.props.required}
@@ -103,6 +104,7 @@ export class MaskedCopyableTextField extends React.Component<MaskedCopyableTextF
                                 iconProps={{ iconName: 'copy' }}
                                 aria-labelledby={this.copyButtonTooltipHostId}
                                 onClick={this.copyToClipboard}
+                                componentRef={this.copyButtonRef}
                             />
                         </TooltipHost>
                     </div>
@@ -115,6 +117,7 @@ export class MaskedCopyableTextField extends React.Component<MaskedCopyableTextF
             </div>
         );
     }
+
     private readonly renderLabelSection = () => {
         const { calloutContent, label, labelCallout, required } = this.props;
         if (calloutContent) {
@@ -146,6 +149,11 @@ export class MaskedCopyableTextField extends React.Component<MaskedCopyableTextF
         if (node) {
             node.select();
             document.execCommand('copy');
+
+            const copyButtonNode = this.copyButtonRef.current;
+            if (copyButtonNode) {
+                copyButtonNode.focus();
+            }
         }
     }
 

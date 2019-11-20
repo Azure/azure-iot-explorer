@@ -5,12 +5,14 @@
 import * as React from 'react';
 import * as moment from 'moment';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
+import { Announced } from 'office-ui-fabric-react/lib/Announced';
 import { Notification, NotificationType } from '../../api/models/notification';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../shared/contexts/localizationContext';
 import '../../css/_notification.scss';
 
 export interface NotificationListEntryProps {
     notification: Notification;
+    showAnnoucement: boolean;
 }
 
 export const NotificationListEntry: React.SFC<NotificationListEntryProps> = (props: NotificationListEntryProps) => {
@@ -22,6 +24,7 @@ export const NotificationListEntry: React.SFC<NotificationListEntryProps> = (pro
         <LocalizationContextConsumer>
             {(context: LocalizationContextInterface) => (
                 <div className="notification-list-entry">
+                    {props.showAnnoucement && <Announced message={context.t(notification.text.translationKey, notification.text.translationOptions)}/>}
                     <div className={iconColor}>
                         <Icon style={{fontSize: 18}} iconName={iconName} />
                     </div>

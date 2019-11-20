@@ -115,7 +115,7 @@ export default class AddDevice extends React.Component<AddDeviceActionProps & Ad
                 onTextChange={this.changeDeviceId}
                 allowMask={false}
                 t={context.t}
-                readOnly={false}
+                disabled={false}
                 error={!!this.state.deviceIdError ? context.t(this.state.deviceIdError) : ''}
                 labelCallout={context.t(ResourceKeys.deviceIdentity.deviceIDTooltip)}
             />
@@ -160,7 +160,7 @@ export default class AddDevice extends React.Component<AddDeviceActionProps & Ad
                     onTextChange={this.changePrimaryKey}
                     allowMask={true}
                     t={context.t}
-                    readOnly={false}
+                    disabled={false}
                     error={!!this.state.primaryKeyError ? context.t(this.state.primaryKeyError) : ''}
                     labelCallout={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionStringTooltip)}
                 />
@@ -172,7 +172,7 @@ export default class AddDevice extends React.Component<AddDeviceActionProps & Ad
                     onTextChange={this.changeSecondaryKey}
                     allowMask={true}
                     t={context.t}
-                    readOnly={false}
+                    disabled={false}
                     error={!!this.state.secondaryKeyError ? context.t(this.state.secondaryKeyError) : ''}
                     labelCallout={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryConnectionStringTooltip)}
                 />
@@ -191,7 +191,7 @@ export default class AddDevice extends React.Component<AddDeviceActionProps & Ad
                     onTextChange={this.changePrimaryThumbprint}
                     allowMask={true}
                     t={context.t}
-                    readOnly={false}
+                    disabled={false}
                     error={!!this.state.primaryThumbprintError ? context.t(this.state.primaryThumbprintError) : ''}
                     labelCallout={context.t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.primaryThumbprintTooltip)}
                 />
@@ -203,7 +203,7 @@ export default class AddDevice extends React.Component<AddDeviceActionProps & Ad
                     onTextChange={this.changeSecondaryThumbprint}
                     allowMask={true}
                     t={context.t}
-                    readOnly={false}
+                    disabled={false}
                     error={!!this.state.secondaryThumbprintError ? context.t(this.state.secondaryThumbprintError) : ''}
                     labelCallout={context.t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip)}
                 />
