@@ -36,14 +36,14 @@ const createMenu = () => {
     const template: electron.MenuItemConstructorOptions[] = [
         // { role: 'fileMenu' }
         {
-            label: 'File',
+            label: '&File',
             submenu: [
                 process.platform === 'darwin' ? { role: 'close' } : { role: 'quit' }
             ]
         },
         // { role: 'editMenu' }
         {
-            label: 'Edit',
+            label: '&Edit',
             submenu: [
                 { role: 'undo' },
                 { role: 'redo' },
@@ -56,7 +56,7 @@ const createMenu = () => {
         },
         // { role: 'viewMenu' }
         {
-            label: 'View',
+            label: '&View',
             submenu: [
                 { role: 'reload' },
                 { type: 'separator' },
@@ -68,14 +68,14 @@ const createMenu = () => {
         },
         // { role: 'windowMenu' }
         {
-            label: 'Window',
+            label: '&Window',
             submenu: [
                 { role: 'minimize' },
                 { role: 'close' }
             ]
         },
         {
-            label: 'Help',
+            label: '&Help',
             submenu: [
                 {
                     accelerator: 'CommandOrControl+Shift+I',
