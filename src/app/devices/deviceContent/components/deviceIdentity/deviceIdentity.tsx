@@ -21,7 +21,7 @@ import { DeviceStatus } from '../../../../api/models/deviceStatus';
 import { generateKey } from '../../../../shared/utils/utils';
 import { DeviceIdentityWrapper } from '../../../../api/models/deviceIdentityWrapper';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
-import { MaskedCopyableTextField } from '../../../../shared/components/maskedCopyableTextField';
+import MaskedCopyableTextFieldContainer from '../../../../shared/components/maskedCopyableTextFieldContainer';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
 import '../../../../css/_deviceDetail.scss';
 import CollapsibleSection from '../../../../shared/components/collapsibleSection';
@@ -132,13 +132,13 @@ export default class DeviceIdentityInformation
                 { this.props.identityWrapper.deviceIdentitySynchronizationStatus === SynchronizationStatus.working ?
                     <MultiLineShimmer/> :
                     <>
-                        <MaskedCopyableTextField
+                        <MaskedCopyableTextFieldContainer
                             ariaLabel={context.t(ResourceKeys.deviceIdentity.deviceID)}
                             label={context.t(ResourceKeys.deviceIdentity.deviceID)}
                             value={this.state.identity && this.state.identity.deviceId}
                             allowMask={false}
                             t={context.t}
-                            disabled={true}
+                            readOnly={true}
                         />
                         {this.renderDeviceAuthProperties(context)}
                         <br/>
@@ -241,13 +241,13 @@ export default class DeviceIdentityInformation
                         onDecrement={this.onExpirationDecrement}
                         value={`${sasTokenExpiration}`}
                     />
-                    <MaskedCopyableTextField
+                    <MaskedCopyableTextFieldContainer
                         ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.sasToken.textField.ariaLabel)}
                         label={context.t(ResourceKeys.deviceIdentity.authenticationType.sasToken.textField.label)}
                         value={this.state.sasTokenConnectionString}
                         allowMask={true}
                         t={context.t}
-                        disabled={true}
+                        readOnly={true}
                     />
                     <PrimaryButton
                         className={'sas-token-generate-button'}
@@ -270,13 +270,13 @@ export default class DeviceIdentityInformation
                 return (
                     <>
                         <Label>{context.t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.text)}</Label>
-                        <MaskedCopyableTextField
+                        <MaskedCopyableTextFieldContainer
                             ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionString)}
                             label={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionString)}
                             value={generateX509ConnectionString(connectionString, identity.deviceId)}
                             allowMask={true}
                             t={context.t}
-                            disabled={true}
+                            readOnly={true}
                         />
                     </>
                 );
@@ -284,55 +284,55 @@ export default class DeviceIdentityInformation
                 return (
                     <>
                         <Label>{context.t(ResourceKeys.deviceIdentity.authenticationType.ca.text)}</Label>
-                        <MaskedCopyableTextField
+                        <MaskedCopyableTextFieldContainer
                             ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionString)}
                             label={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionString)}
                             value={generateX509ConnectionString(connectionString, identity.deviceId)}
                             allowMask={true}
                             t={context.t}
-                            disabled={true}
+                            readOnly={true}
                         />
                     </>
                 );
             case DeviceAuthenticationType.SymmetricKey:
                 return (
                     <>
-                        <MaskedCopyableTextField
+                        <MaskedCopyableTextFieldContainer
                             ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryKey)}
                             label={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryKey)}
                             value={this.state.identity.authentication.symmetricKey.primaryKey}
                             allowMask={true}
                             t={context.t}
-                            disabled={false}
+                            readOnly={false}
                             onTextChange={this.changePrimaryKey}
                         />
 
-                        <MaskedCopyableTextField
+                        <MaskedCopyableTextFieldContainer
                             ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryKey)}
                             label={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryKey)}
                             value={this.state.identity.authentication.symmetricKey.secondaryKey}
                             allowMask={true}
                             t={context.t}
-                            disabled={false}
+                            readOnly={false}
                             onTextChange={this.changeSecondaryKey}
                         />
 
-                        <MaskedCopyableTextField
+                        <MaskedCopyableTextFieldContainer
                             ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionString)}
                             label={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionString)}
                             value={generateConnectionString(connectionString, identity.deviceId, identity.authentication.symmetricKey.primaryKey)}
                             allowMask={true}
                             t={context.t}
-                            disabled={true}
+                            readOnly={true}
                         />
 
-                        <MaskedCopyableTextField
+                        <MaskedCopyableTextFieldContainer
                             ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString)}
                             label={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString)}
                             value={generateConnectionString(connectionString, identity.deviceId, identity.authentication.symmetricKey.secondaryKey)}
                             allowMask={true}
                             t={context.t}
-                            disabled={true}
+                            readOnly={true}
                         />
                     </>
                 );

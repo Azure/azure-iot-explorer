@@ -17,7 +17,7 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
     className="controlSection"
   >
     <div
-      className="borderedSection  "
+      className="borderedSection  readOnly"
     >
       <input
         aria-invalid={false}
@@ -25,6 +25,7 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
         className="input"
         id="maskedCopyableTextField1"
         onChange={[Function]}
+        readOnly={true}
         type="text"
         value="value1"
       />
@@ -88,7 +89,7 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
     className="controlSection"
   >
     <div
-      className="borderedSection  "
+      className="borderedSection  readOnly"
     >
       <input
         aria-invalid={false}
@@ -96,6 +97,7 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
         className="input"
         id="maskedCopyableTextField4"
         onChange={[Function]}
+        readOnly={true}
         type="password"
         value="value1"
       />
@@ -115,7 +117,7 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
         value="value1"
       />
       <StyledTooltipHostBase
-        content="common.maskedCopyableTextField.toggleMask.label"
+        content="common.maskedCopyableTextField.toggleMask.label.show"
         id="toggleMaskButtonTooltipHost5"
       >
         <CustomizedIconButton
@@ -173,7 +175,7 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
     className="controlSection"
   >
     <div
-      className="borderedSection  "
+      className="borderedSection  readOnly"
     >
       <input
         aria-invalid={false}
@@ -181,6 +183,7 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
         className="input"
         id="maskedCopyableTextField7"
         onChange={[Function]}
+        readOnly={true}
         type="password"
         value="value1"
       />
@@ -200,7 +203,7 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
         value="value1"
       />
       <StyledTooltipHostBase
-        content="common.maskedCopyableTextField.toggleMask.label"
+        content="common.maskedCopyableTextField.toggleMask.label.show"
         id="toggleMaskButtonTooltipHost8"
       >
         <CustomizedIconButton
@@ -258,7 +261,7 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when error messag
     className="controlSection"
   >
     <div
-      className="borderedSection error "
+      className="borderedSection error readOnly"
     >
       <input
         aria-invalid={true}
@@ -266,6 +269,7 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when error messag
         className="input"
         id="maskedCopyableTextField10"
         onChange={[Function]}
+        readOnly={true}
         type="password"
         value="value1"
       />
@@ -285,7 +289,7 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when error messag
         value="value1"
       />
       <StyledTooltipHostBase
-        content="common.maskedCopyableTextField.toggleMask.label"
+        content="common.maskedCopyableTextField.toggleMask.label.show"
         id="toggleMaskButtonTooltipHost11"
       >
         <CustomizedIconButton

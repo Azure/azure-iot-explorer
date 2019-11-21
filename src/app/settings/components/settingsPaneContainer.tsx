@@ -14,6 +14,8 @@ import { getConnectionStringSelector, getRememberConnectionStringValueSelector, 
 import { setConnectionStringAction } from '../../login/actions';
 import { listDevicesAction } from '../../devices/deviceList/actions';
 import DeviceQuery from '../../api/models/deviceQuery';
+import { addNotificationAction } from '../../notifications/actions';
+import { Notification } from '../../api/models/notification';
 
 const mapStateToProps = (state: StateType): SettingsPaneProps => {
     return {
@@ -27,6 +29,7 @@ const mapStateToProps = (state: StateType): SettingsPaneProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): SettingsPaneActions => {
     return {
+        addNotification: (notification: Notification) => dispatch(addNotificationAction.started(notification)),
         onSettingsSave: (payload: Settings) => {
             dispatch(setConnectionStringAction({
                 connectionString: payload.hubConnectionString,

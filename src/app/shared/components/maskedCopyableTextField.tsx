@@ -10,6 +10,7 @@ import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import LabelWithTooltip from './labelWithTooltip';
 import LabelWithRichCallout from './labelWithRichCallout';
+import { Notification, NotificationType } from '../../api/models/notification';
 import '../../css/_maskedCopyableTextField.scss';
 
 export interface MaskedCopyableTextFieldProps {
@@ -21,17 +22,22 @@ export interface MaskedCopyableTextFieldProps {
     value: string;
     allowMask: boolean;
     t: TranslationFunction;
-    disabled: boolean;
+    readOnly: boolean;
     required?: boolean;
     onTextChange?(text: string): void;
     placeholder?: string;
+    setFocus?: boolean;
+}
+
+export interface MaskedCopyableTextFieldActionProps {
+    addNotification: (notification: Notification) => void;
 }
 
 export interface MaskedCopyableTextFieldState {
     hideContents: boolean;
 }
 
-export class MaskedCopyableTextField extends React.Component<MaskedCopyableTextFieldProps, MaskedCopyableTextFieldState> {
+export class MaskedCopyableTextField extends React.Component<MaskedCopyableTextFieldProps & MaskedCopyableTextFieldActionProps, MaskedCopyableTextFieldState> {
     private hiddenInputRef = React.createRef<HTMLInputElement>();
     private visibleInputRef = React.createRef<HTMLInputElement>();
     private copyButtonRef = React.createRef<IButton>();
@@ -39,7 +45,7 @@ export class MaskedCopyableTextField extends React.Component<MaskedCopyableTextF
     private toggleMaskButtonTooltipHostId = getId('toggleMaskButtonTooltipHost');
     private copyButtonTooltipHostId = getId('copyButtonTooltipHost');
 
-    constructor(props: MaskedCopyableTextFieldProps) {
+    constructor(props: MaskedCopyableTextFieldProps & MaskedCopyableTextFieldActionProps) {
         super(props);
         this.state = {
             hideContents: props.allowMask
@@ -47,7 +53,7 @@ export class MaskedCopyableTextField extends React.Component<MaskedCopyableTextF
     }
     // tslint:disable-next-line:cyclomatic-complexity
     public render(): JSX.Element {
-        const { ariaLabel, error, value, allowMask, t, disabled, placeholder } = this.props;
+        const { ariaLabel, error, value, allowMask, t, readOnly, placeholder } = this.props;
         const { hideContents } = this.state;
 
         return (
@@ -57,7 +63,7 @@ export class MaskedCopyableTextField extends React.Component<MaskedCopyableTextF
                 </div>
 
                 <div className="controlSection">
-                    <div className={`borderedSection ${error ? 'error' : ''} ${disabled ? 'disabled' : ''}`}>
+                    <div className={`borderedSection ${error ? 'error' : ''} ${readOnly ? 'readOnly' : ''}`}>
                         <input
                             aria-label={ariaLabel}
                             id={this.labelIdentifier}
@@ -65,7 +71,7 @@ export class MaskedCopyableTextField extends React.Component<MaskedCopyableTextF
                             value={value}
                             type={(allowMask && hideContents) ? 'password' : 'text'}
                             className="input"
-                            disabled={disabled}
+                            readOnly={readOnly}
                             onChange={this.onChange}
                             placeholder={placeholder}
                             required={this.props.required}
@@ -83,7 +89,9 @@ export class MaskedCopyableTextField extends React.Component<MaskedCopyableTextF
 
                         {allowMask &&
                             <TooltipHost
-                                content={t(ResourceKeys.common.maskedCopyableTextField.toggleMask.label)}
+                                content={hideContents ?
+                                    t(ResourceKeys.common.maskedCopyableTextField.toggleMask.label.show) :
+                                    t(ResourceKeys.common.maskedCopyableTextField.toggleMask.label.hide)}
                                 id={this.toggleMaskButtonTooltipHostId}
                             >
                                 <IconButton
@@ -139,7 +147,7 @@ export class MaskedCopyableTextField extends React.Component<MaskedCopyableTextF
     }
 
     public toggleDisplay = () => {
-            this.setState({
+        this.setState({
             hideContents: !this.state.hideContents
         });
     }
@@ -150,17 +158,28 @@ export class MaskedCopyableTextField extends React.Component<MaskedCopyableTextF
             node.select();
             document.execCommand('copy');
 
+            // set focus back to copy button
             const copyButtonNode = this.copyButtonRef.current;
             if (copyButtonNode) {
                 copyButtonNode.focus();
             }
+
+            // add notification
+            this.props.addNotification({
+                text: {
+                    translationKey: ResourceKeys.notifications.copiedToClipboard
+                },
+                type: NotificationType.info
+            });
         }
     }
 
-    public focus = () => {
-        const node = this.visibleInputRef.current;
-        if (node) {
-            node.focus();
+    public componentDidMount() {
+        if (this.props.setFocus) {
+            const node = this.visibleInputRef.current;
+            if (node) {
+                node.focus();
+            }
         }
     }
 }

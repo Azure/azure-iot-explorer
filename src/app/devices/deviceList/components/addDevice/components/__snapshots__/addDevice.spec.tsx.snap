@@ -18,15 +18,16 @@ exports[`components/devices/addDevice matches snapshot 1`] = `
     <div
       className="form"
     >
-      <MaskedCopyableTextField
+      <Connect(MaskedCopyableTextField)
         allowMask={false}
         ariaLabel="deviceIdentity.deviceID"
-        disabled={false}
         error=""
         label="deviceIdentity.deviceID"
         labelCallout="deviceIdentity.deviceIDTooltip"
         onTextChange={[Function]}
+        readOnly={false}
         required={true}
+        setFocus={true}
         t={
           [MockFunction] {
             "calls": Array [

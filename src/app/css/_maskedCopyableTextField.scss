@@ -50,7 +50,7 @@
         }
     }
 
-    .disabled {
+    .readOnly {
         @include themify($themes) {
             background-color: themed('maskedCopyableReadonlyBackground');
         }

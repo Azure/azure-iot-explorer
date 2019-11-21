@@ -5,18 +5,19 @@
 import * as React from 'react';
 import { TranslationFunction } from 'i18next';
 import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
-import { IconButton } from 'office-ui-fabric-react/lib/Button';
-import { Dropdown, IDropdownOption, IDropdown } from 'office-ui-fabric-react/lib/Dropdown';
+import { IconButton, IButton } from 'office-ui-fabric-react/lib/Button';
+import { Dropdown, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
 import { Link } from 'office-ui-fabric-react/lib/Link';
 import { Stack } from 'office-ui-fabric-react';
 import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip';
 import { getId } from 'office-ui-fabric-react/lib/Utilities';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
-import { MaskedCopyableTextField } from '../../shared/components/maskedCopyableTextField';
+import MaskedCopyableTextFieldContainer from '../../shared/components/maskedCopyableTextFieldContainer';
 import LabelWithTooltip from '../../shared/components/labelWithTooltip';
 import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
 import { COPY } from '../../constants/iconNames';
+import { Notification, NotificationType } from '../../api/models/notification';
 import '../../css/_connectivityPane.scss';
 
 export const addNewConnectionStringKey = 'Add';
@@ -31,6 +32,7 @@ export interface HubConnectionStringSectionActionProps {
     onConnectionStringChangedFromTextField: (connectionString: string) => void;
     onConnectionStringChangedFromDropdown: (event: React.FormEvent<HTMLDivElement>, item: IDropdownOption) => void;
     onCheckboxChange: (ev: React.FormEvent<HTMLElement>, isChecked: boolean) => void;
+    addNotification: (notification: Notification) => void;
 }
 
 export interface HubConnectionStringSectionState {
@@ -49,7 +51,7 @@ export default class HubConnectionStringSection extends React.Component<HubConne
     }
 
     private hiddenInputRef = React.createRef<HTMLInputElement>();
-    private dropDownRef = React.createRef<IDropdown>();
+    private copyButtonRef = React.createRef<IButton>();
     private copyButtonTooltipHostId = getId('copyButtonTooltipHost');
 
     public render(): JSX.Element {
@@ -88,7 +90,6 @@ export default class HubConnectionStringSection extends React.Component<HubConne
                             defaultSelectedKey={this.props.connectionString}
                             onChange={this.onConnectionStringChangedFromDropdown}
                             options={options}
-                            componentRef={this.dropDownRef}
                         />
                         </Stack.Item>
                     <Stack.Item align="end">
@@ -100,6 +101,7 @@ export default class HubConnectionStringSection extends React.Component<HubConne
                                 iconProps={{ iconName: COPY }}
                                 aria-labelledby={this.copyButtonTooltipHostId}
                                 onClick={this.copyToClipboard}
+                                componentRef={this.copyButtonRef}
                             />
                         </TooltipHost>
                     </Stack.Item>
@@ -120,14 +122,15 @@ export default class HubConnectionStringSection extends React.Component<HubConne
         const { error } = this.props;
         return (
             <>
-                <MaskedCopyableTextField
+                <MaskedCopyableTextFieldContainer
+                    setFocus={true}
                     ariaLabel={t(ResourceKeys.connectivityPane.connectionStringTextBox.label)}
                     label={t(ResourceKeys.connectivityPane.connectionStringTextBox.label)}
                     error={error}
                     value={this.state.newConnectionString}
                     allowMask={true}
                     onTextChange={this.onConnectionStringChangedFromTextField}
-                    disabled={false}
+                    readOnly={false}
                     required={true}
                     t={t}
                     calloutContent={(
@@ -184,7 +187,20 @@ export default class HubConnectionStringSection extends React.Component<HubConne
         if (node) {
             node.select();
             document.execCommand('copy');
-            this.dropDownRef.current.focus();
+
+            // set focus back to copy button
+            const copyButtonNode = this.copyButtonRef.current;
+            if (copyButtonNode) {
+                copyButtonNode.focus();
+            }
+
+            // add notification
+            this.props.addNotification({
+                text: {
+                    translationKey: ResourceKeys.notifications.copiedToClipboard
+                },
+                type: NotificationType.info
+            });
         }
     }
 }

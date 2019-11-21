@@ -139,19 +139,22 @@ describe('devices/components/deviceIdentity', () => {
         });
 
         it('calls save', () => {
-            const wrapper = mountWithLocalization(getComponent({
-                identityWrapper: {
-                    deviceIdentity: {
-                        authentication: {
-                            symmetricKey: {
-                                primaryKey: 'key'
+            const wrapper = mountWithLocalization(
+                getComponent({
+                    identityWrapper: {
+                        deviceIdentity: {
+                            authentication: {
+                                symmetricKey: {
+                                    primaryKey: 'key'
+                                },
+                                type: DeviceAuthenticationType.SymmetricKey
                             },
-                            type: DeviceAuthenticationType.SymmetricKey
-                        },
-                        deviceId: 'device1'
+                            deviceId: 'device1'
+                        }
                     }
-                }
-            }));
+                }),
+                true
+            );
             wrapper.find(Toggle).first().instance().props.onChange({ target: null}, false);
             wrapper.update();
 

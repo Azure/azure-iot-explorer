@@ -51,13 +51,13 @@ exports[`components/settings/repositoryLocationListItem matches snapshot for pri
     <div
       className="item-details"
     >
-      <MaskedCopyableTextField
+      <Connect(MaskedCopyableTextField)
         allowMask={true}
         ariaLabel="settings.modelDefinitions.repositoryTypes.private.textBoxLabel"
-        disabled={false}
         label="settings.modelDefinitions.repositoryTypes.private.textBoxLabel"
         onTextChange={[Function]}
         placeholder="settings.modelDefinitions.repositoryTypes.private.placeholder"
+        readOnly={false}
         required={true}
         t={
           [MockFunction] {

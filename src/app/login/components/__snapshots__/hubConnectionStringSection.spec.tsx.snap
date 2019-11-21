@@ -2,7 +2,7 @@
 
 exports[`login/components/connectivityPane matches snapshot 1`] = `
 <Fragment>
-  <MaskedCopyableTextField
+  <Connect(MaskedCopyableTextField)
     allowMask={true}
     ariaLabel="connectivityPane.connectionStringTextBox.label"
     calloutContent={
@@ -26,11 +26,12 @@ exports[`login/components/connectivityPane matches snapshot 1`] = `
         </div>
       </div>
     }
-    disabled={false}
     error=""
     label="connectivityPane.connectionStringTextBox.label"
     onTextChange={[Function]}
+    readOnly={false}
     required={true}
+    setFocus={true}
     t={
       [MockFunction] {
         "calls": Array [

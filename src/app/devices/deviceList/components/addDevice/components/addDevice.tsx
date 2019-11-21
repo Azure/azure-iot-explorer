@@ -17,7 +17,7 @@ import { DeviceStatus } from '../../../../../api/models/deviceStatus';
 import { validateKey, validateThumbprint, validateDeviceId } from '../../../../../shared/utils/utils';
 import LabelWithTooltip from '../../../../../shared/components/labelWithTooltip';
 import BreadcrumbContainer from '../../../../../shared/components/breadcrumbContainer';
-import { MaskedCopyableTextField } from '../../../../../shared/components/maskedCopyableTextField';
+import MaskedCopyableTextFieldContainer from '../../../../../shared/components/maskedCopyableTextFieldContainer';
 import { SynchronizationStatus } from '../../../../../api/models/synchronizationStatus';
 import { ROUTE_PARTS } from '../../../../../constants/routes';
 import '../../../../../css/_addDevice.scss';
@@ -49,8 +49,6 @@ export interface AddDeviceState {
 }
 
 export default class AddDevice extends React.Component<AddDeviceActionProps & AddDeviceDataProps & RouteComponentProps, AddDeviceState> {
-
-    private readonly deviceIdFieldRef = React.createRef<MaskedCopyableTextField>();
 
     constructor(props: AddDeviceActionProps & AddDeviceDataProps & RouteComponentProps) {
         super(props);
@@ -97,17 +95,9 @@ export default class AddDevice extends React.Component<AddDeviceActionProps & Ad
         }
     }
 
-    public componentDidMount() {
-        const node = this.deviceIdFieldRef.current;
-        if (!!node) {
-            node.focus();
-        }
-    }
-
     private readonly showDeviceId = (context: LocalizationContextInterface) => {
         return (
-            <MaskedCopyableTextField
-                ref={this.deviceIdFieldRef}
+            <MaskedCopyableTextFieldContainer
                 ariaLabel={context.t(ResourceKeys.deviceIdentity.deviceID)}
                 label={context.t(ResourceKeys.deviceIdentity.deviceID)}
                 value={this.state.deviceId}
@@ -115,9 +105,10 @@ export default class AddDevice extends React.Component<AddDeviceActionProps & Ad
                 onTextChange={this.changeDeviceId}
                 allowMask={false}
                 t={context.t}
-                disabled={false}
+                readOnly={false}
                 error={!!this.state.deviceIdError ? context.t(this.state.deviceIdError) : ''}
                 labelCallout={context.t(ResourceKeys.deviceIdentity.deviceIDTooltip)}
+                setFocus={true}
             />
         );
     }
@@ -152,7 +143,7 @@ export default class AddDevice extends React.Component<AddDeviceActionProps & Ad
     private readonly renderSymmetricKeySection = (context: LocalizationContextInterface) => {
         return (
             <>
-                <MaskedCopyableTextField
+                <MaskedCopyableTextFieldContainer
                     ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryKey)}
                     label={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryKey)}
                     value={this.state.primaryKey}
@@ -160,11 +151,11 @@ export default class AddDevice extends React.Component<AddDeviceActionProps & Ad
                     onTextChange={this.changePrimaryKey}
                     allowMask={true}
                     t={context.t}
-                    disabled={false}
+                    readOnly={false}
                     error={!!this.state.primaryKeyError ? context.t(this.state.primaryKeyError) : ''}
                     labelCallout={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionStringTooltip)}
                 />
-                <MaskedCopyableTextField
+                <MaskedCopyableTextFieldContainer
                     ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryKey)}
                     label={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryKey)}
                     value={this.state.secondaryKey}
@@ -172,7 +163,7 @@ export default class AddDevice extends React.Component<AddDeviceActionProps & Ad
                     onTextChange={this.changeSecondaryKey}
                     allowMask={true}
                     t={context.t}
-                    disabled={false}
+                    readOnly={false}
                     error={!!this.state.secondaryKeyError ? context.t(this.state.secondaryKeyError) : ''}
                     labelCallout={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryConnectionStringTooltip)}
                 />
@@ -183,7 +174,7 @@ export default class AddDevice extends React.Component<AddDeviceActionProps & Ad
     private readonly renderSelfSignedSection = (context: LocalizationContextInterface) => {
         return (
             <>
-                <MaskedCopyableTextField
+                <MaskedCopyableTextFieldContainer
                     ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.primaryThumbprint)}
                     label={context.t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.primaryThumbprint)}
                     value={this.state.primaryThumbprint}
@@ -191,11 +182,11 @@ export default class AddDevice extends React.Component<AddDeviceActionProps & Ad
                     onTextChange={this.changePrimaryThumbprint}
                     allowMask={true}
                     t={context.t}
-                    disabled={false}
+                    readOnly={false}
                     error={!!this.state.primaryThumbprintError ? context.t(this.state.primaryThumbprintError) : ''}
                     labelCallout={context.t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.primaryThumbprintTooltip)}
                 />
-                <MaskedCopyableTextField
+                <MaskedCopyableTextFieldContainer
                     ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.secondaryThumbprint)}
                     label={context.t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.secondaryThumbprint)}
                     value={this.state.secondaryThumbprint}
@@ -203,7 +194,7 @@ export default class AddDevice extends React.Component<AddDeviceActionProps & Ad
                     onTextChange={this.changeSecondaryThumbprint}
                     allowMask={true}
                     t={context.t}
-                    disabled={false}
+                    readOnly={false}
                     error={!!this.state.secondaryThumbprintError ? context.t(this.state.secondaryThumbprintError) : ''}
                     labelCallout={context.t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip)}
                 />
