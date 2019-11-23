@@ -9,11 +9,12 @@ import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
-import { REFRESH } from '../../../../constants/iconNames';
+import { REFRESH, ArrayOperation } from '../../../../constants/iconNames';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { parseDateTimeString } from '../../../../api/dataTransforms/transformHelper';
 import { ModuleIdentity } from '../../../../api/models/moduleIdentity';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
+import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../../constants/routes';
 import '../../../../css/_deviceDetail.scss';
 
 export interface ModuleIdentityDataProps {
@@ -52,6 +53,13 @@ export default class ModuleIdentityComponent
                 className="command"
                 items={[
                     {
+                        ariaLabel: context.t(ResourceKeys.moduleIdentity.command.add),
+                        iconProps: {iconName: ArrayOperation.ADD},
+                        key: ArrayOperation.ADD,
+                        name: context.t(ResourceKeys.moduleIdentity.command.add),
+                        onClick: this.handleAdd
+                    },
+                    {
                         ariaLabel: context.t(ResourceKeys.moduleIdentity.command.refresh),
                         iconProps: {iconName: REFRESH},
                         key: REFRESH,
@@ -61,6 +69,12 @@ export default class ModuleIdentityComponent
                 ]}
             />
         );
+    }
+
+    private readonly handleAdd = () => {
+        const path = this.props.location.pathname.replace(/\/moduleIdentity\/.*/, `/${ROUTE_PARTS.ADD_MODULE_IDENTITY}`);
+        const deviceId = getDeviceIdFromQueryString(this.props);
+        this.props.history.push(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
     }
 
     private readonly handleRefresh = () => {

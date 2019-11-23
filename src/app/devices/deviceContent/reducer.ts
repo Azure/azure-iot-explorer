@@ -18,7 +18,8 @@ import {
     PatchDigitalTwinInterfacePropertiesActionParameters,
     ModelDefinitionActionResult,
     GetModelDefinitionActionParameters,
-    getModuleIdentitiesAction
+    getModuleIdentitiesAction,
+    addModuleIdentityAction
 } from './actions';
 import { Twin } from '../../api/models/device';
 import { DeviceIdentity } from '../../api/models/deviceIdentity';
@@ -224,6 +225,27 @@ const reducer = reducerWithInitialState<DeviceContentStateType>(deviceContentSta
         });
     })
     .case(getModuleIdentitiesAction.failed, (state: DeviceContentStateType) => {
+        return state.merge({
+            moduleIdentityList: {
+                synchronizationStatus: SynchronizationStatus.failed
+            }
+        });
+    })
+    .case(addModuleIdentityAction.started, (state: DeviceContentStateType) => {
+        return state.merge({
+            moduleIdentityList: {
+                synchronizationStatus: SynchronizationStatus.working
+            }
+        });
+    })
+    .case(addModuleIdentityAction.done, (state: DeviceContentStateType) => {
+        return state.merge({
+            moduleIdentityList: {
+                synchronizationStatus: SynchronizationStatus.upserted
+            }
+        });
+    })
+    .case(addModuleIdentityAction.failed, (state: DeviceContentStateType) => {
         return state.merge({
             moduleIdentityList: {
                 synchronizationStatus: SynchronizationStatus.failed

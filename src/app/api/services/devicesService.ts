@@ -16,7 +16,8 @@ import { FetchDeviceTwinParameters,
     InvokeDigitalTwinInterfaceCommandParameters,
     PatchDigitalTwinInterfacePropertiesParameters,
     CloudToDeviceMessageParameters,
-    FetchModuleIdentitiesParameters } from '../parameters/deviceParameters';
+    FetchModuleIdentitiesParameters,
+    AddModuleIdentityParameters } from '../parameters/deviceParameters';
 import { CONTROLLER_API_ENDPOINT, DATAPLANE, EVENTHUB, DIGITAL_TWIN_API_VERSION, DataPlaneStatusCode, MONITOR, STOP, HEADERS, CLOUD_TO_DEVICE } from '../../constants/apiConstants';
 import { HTTP_OPERATION_TYPES } from '../constants';
 import { buildQueryString, getConnectionInfoFromConnectionString, generateSasToken } from '../shared/utils';
@@ -463,6 +464,26 @@ export const fetchModuleIdentities = async (parameters: FetchModuleIdentitiesPar
             hostName: connectionInformation.connectionInfo.hostName,
             httpMethod: HTTP_OPERATION_TYPES.Get,
             path: `devices/${parameters.deviceId}/modules`,
+            sharedAccessSignature: connectionInformation.sasToken,
+        };
+
+        const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
+        const result = await dataPlaneResponseHelper(response);
+        return result.body;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const addModuleIdentity = async (parameters: AddModuleIdentityParameters): Promise<DataPlaneResponse<ModuleIdentity[]>> => {
+    try {
+        const connectionInformation = dataPlaneConnectionHelper(parameters);
+
+        const dataPlaneRequest: DataPlaneRequest = {
+            body: JSON.stringify(parameters.moduleIdentity),
+            hostName: connectionInformation.connectionInfo.hostName,
+            httpMethod: HTTP_OPERATION_TYPES.Put,
+            path: `devices/${parameters.moduleIdentity.deviceId}/modules/${parameters.moduleIdentity.moduleId}`,
             sharedAccessSignature: connectionInformation.sasToken,
         };
 
