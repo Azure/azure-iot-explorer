@@ -26,6 +26,7 @@ describe('login/components/connectivityPane', () => {
     };
 
     const connectivityStringSectionActionProps: HubConnectionStringSectionActionProps = {
+        addNotification: jest.fn(),
         onCheckboxChange: jest.fn(),
         onConnectionStringChangedFromDropdown: jest.fn(),
         onConnectionStringChangedFromTextField: jest.fn()
@@ -48,19 +49,12 @@ describe('login/components/connectivityPane', () => {
         testSnapshot(getComponent());
     });
 
-    it('adds new connection string', () => {
-        const wrapper = mountWithLocalization(getComponent());
-        const textField = wrapper.find(MaskedCopyableTextField);
-        textField.props().onTextChange('newConnectionString1');
-        wrapper.update();
-        expect((wrapper.state() as HubConnectionStringSectionState).newConnectionString).toEqual('newConnectionString1');
-    });
-
-    it('renders add new connection string field when selecting \'Add\' from the dropdown', () => {
-        const wrapper = mountWithLocalization(getComponent({connectionStringList: ['connectionString']}));
+    it('renders MaskedCopyableTextField when selecting \'Add\' from the dropdown', () => {
+        const wrapper = mountWithLocalization(getComponent({connectionStringList: ['connectionString']}), true);
         const dropDown = wrapper.find(Dropdown);
         dropDown.props().onChange(null, {key: 'Add'} as any); // tslint:disable-line:no-any
         wrapper.update();
-        expect((wrapper.state() as HubConnectionStringSectionState).showAddNewConnectionStringTextField).toBeTruthy();
+        const textField = wrapper.find(MaskedCopyableTextField);
+        expect(textField.length).toEqual(1);
     });
 });

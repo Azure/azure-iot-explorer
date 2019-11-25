@@ -13,6 +13,7 @@ exports[`login/components/connectivityPane matches snapshot 1`] = `
       connectivityPane.header
     </h1>
     <HubConnectionStringSection
+      addNotification={[MockFunction]}
       connectionString="testConnectionString"
       connectionStringList={
         Array [

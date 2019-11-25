@@ -5,7 +5,10 @@
         "loading": "Loading...",
         "maskedCopyableTextField": {
             "toggleMask": {
-                "label": "Toggle Mask"
+                "label": {
+                    "show": "Show content",
+                    "hide": "Hide content"
+                }
             },
             "copy": {
                 "label": "Copy Contents"
@@ -549,7 +552,8 @@
         "patchDigitalTwinInterfacePropertiesOnSuccess": "Successfully updated desired properties of digital twin interfaces on device {{deviceId}}.",
         "cloudToDeviceMessageOnError": "Failed to send message to device {{deviceId}}: {{error}}",
         "cloudToDeviceMessageOnSuccess": "Successfully send message '{{message}}' to device '{{deviceId}}'",
-        "sendingCloudToDeviceMessage": "Trying to send message '{{message}}' to device '{{deviceId}}'"
+        "sendingCloudToDeviceMessage": "Trying to send message '{{message}}' to device '{{deviceId}}'",
+        "copiedToClipboard": "Content copied to clipboard"
     },
     "errorBoundary": {
         "text": "Something went wrong"

@@ -20,6 +20,7 @@ describe('MaskedCopyableTextField', () => {
                     t={jest.fn((value: string) => value)}
                     onTextChange={jest.fn()}
                     readOnly={true}
+                    addNotification={jest.fn()}
                 />
             )).toMatchSnapshot();
         });
@@ -34,6 +35,7 @@ describe('MaskedCopyableTextField', () => {
                     t={jest.fn((value: string) => value)}
                     onTextChange={jest.fn()}
                     readOnly={true}
+                    addNotification={jest.fn()}
                 />
             )).toMatchSnapshot();
         });
@@ -48,6 +50,7 @@ describe('MaskedCopyableTextField', () => {
                     t={jest.fn((value: string) => value)}
                     onTextChange={jest.fn()}
                     readOnly={true}
+                    addNotification={jest.fn()}
                 />
             )).toMatchSnapshot();
         });
@@ -63,6 +66,7 @@ describe('MaskedCopyableTextField', () => {
                     t={jest.fn((value: string) => value)}
                     onTextChange={jest.fn()}
                     readOnly={true}
+                    addNotification={jest.fn()}
                 />
             )).toMatchSnapshot();
         });
@@ -79,6 +83,7 @@ describe('MaskedCopyableTextField', () => {
                     t={jest.fn((value: string) => value)}
                     onTextChange={jest.fn()}
                     readOnly={true}
+                    addNotification={jest.fn()}
                 />);
 
             const showButton = wrapper.find(IconButton).first();
@@ -100,6 +105,7 @@ describe('MaskedCopyableTextField', () => {
                     t={jest.fn((value: string) => value)}
                     onTextChange={jest.fn()}
                     readOnly={true}
+                    addNotification={jest.fn()}
                 />);
 
             const clipboardButton = wrapper.find(IconButton).first();
@@ -122,6 +128,7 @@ describe('MaskedCopyableTextField', () => {
                     t={jest.fn((value: string) => value)}
                     onTextChange={onTextChange}
                     readOnly={true}
+                    addNotification={jest.fn()}
                 />);
 
             const input = wrapper.find('input').first();

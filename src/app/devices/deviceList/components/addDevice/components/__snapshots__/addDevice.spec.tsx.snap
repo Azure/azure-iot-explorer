@@ -18,7 +18,7 @@ exports[`components/devices/addDevice matches snapshot 1`] = `
     <div
       className="form"
     >
-      <MaskedCopyableTextField
+      <Connect(MaskedCopyableTextField)
         allowMask={false}
         ariaLabel="deviceIdentity.deviceID"
         error=""
@@ -27,6 +27,7 @@ exports[`components/devices/addDevice matches snapshot 1`] = `
         onTextChange={[Function]}
         readOnly={false}
         required={true}
+        setFocus={true}
         t={
           [MockFunction] {
             "calls": Array [

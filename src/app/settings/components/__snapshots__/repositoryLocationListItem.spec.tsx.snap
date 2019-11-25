@@ -51,7 +51,7 @@ exports[`components/settings/repositoryLocationListItem matches snapshot for pri
     <div
       className="item-details"
     >
-      <MaskedCopyableTextField
+      <Connect(MaskedCopyableTextField)
         allowMask={true}
         ariaLabel="settings.modelDefinitions.repositoryTypes.private.textBoxLabel"
         label="settings.modelDefinitions.repositoryTypes.private.textBoxLabel"

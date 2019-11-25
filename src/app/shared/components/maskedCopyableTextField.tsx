@@ -4,12 +4,13 @@
  **********************************************************/
 import * as React from 'react';
 import { TranslationFunction } from 'i18next';
-import { IconButton } from 'office-ui-fabric-react/lib/Button';
+import { IconButton, IButton } from 'office-ui-fabric-react/lib/Button';
 import { getId } from 'office-ui-fabric-react/lib/Utilities';
 import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import LabelWithTooltip from './labelWithTooltip';
 import LabelWithRichCallout from './labelWithRichCallout';
+import { Notification, NotificationType } from '../../api/models/notification';
 import '../../css/_maskedCopyableTextField.scss';
 
 export interface MaskedCopyableTextFieldProps {
@@ -25,20 +26,26 @@ export interface MaskedCopyableTextFieldProps {
     required?: boolean;
     onTextChange?(text: string): void;
     placeholder?: string;
+    setFocus?: boolean;
+}
+
+export interface MaskedCopyableTextFieldActionProps {
+    addNotification: (notification: Notification) => void;
 }
 
 export interface MaskedCopyableTextFieldState {
     hideContents: boolean;
 }
 
-export class MaskedCopyableTextField extends React.Component<MaskedCopyableTextFieldProps, MaskedCopyableTextFieldState> {
+export class MaskedCopyableTextField extends React.Component<MaskedCopyableTextFieldProps & MaskedCopyableTextFieldActionProps, MaskedCopyableTextFieldState> {
     private hiddenInputRef = React.createRef<HTMLInputElement>();
     private visibleInputRef = React.createRef<HTMLInputElement>();
+    private copyButtonRef = React.createRef<IButton>();
     private labelIdentifier = getId('maskedCopyableTextField');
     private toggleMaskButtonTooltipHostId = getId('toggleMaskButtonTooltipHost');
     private copyButtonTooltipHostId = getId('copyButtonTooltipHost');
 
-    constructor(props: MaskedCopyableTextFieldProps) {
+    constructor(props: MaskedCopyableTextFieldProps & MaskedCopyableTextFieldActionProps) {
         super(props);
         this.state = {
             hideContents: props.allowMask
@@ -82,7 +89,9 @@ export class MaskedCopyableTextField extends React.Component<MaskedCopyableTextF
 
                         {allowMask &&
                             <TooltipHost
-                                content={t(ResourceKeys.common.maskedCopyableTextField.toggleMask.label)}
+                                content={hideContents ?
+                                    t(ResourceKeys.common.maskedCopyableTextField.toggleMask.label.show) :
+                                    t(ResourceKeys.common.maskedCopyableTextField.toggleMask.label.hide)}
                                 id={this.toggleMaskButtonTooltipHostId}
                             >
                                 <IconButton
@@ -103,6 +112,7 @@ export class MaskedCopyableTextField extends React.Component<MaskedCopyableTextF
                                 iconProps={{ iconName: 'copy' }}
                                 aria-labelledby={this.copyButtonTooltipHostId}
                                 onClick={this.copyToClipboard}
+                                componentRef={this.copyButtonRef}
                             />
                         </TooltipHost>
                     </div>
@@ -115,6 +125,7 @@ export class MaskedCopyableTextField extends React.Component<MaskedCopyableTextF
             </div>
         );
     }
+
     private readonly renderLabelSection = () => {
         const { calloutContent, label, labelCallout, required } = this.props;
         if (calloutContent) {
@@ -136,7 +147,7 @@ export class MaskedCopyableTextField extends React.Component<MaskedCopyableTextF
     }
 
     public toggleDisplay = () => {
-            this.setState({
+        this.setState({
             hideContents: !this.state.hideContents
         });
     }
@@ -146,13 +157,29 @@ export class MaskedCopyableTextField extends React.Component<MaskedCopyableTextF
         if (node) {
             node.select();
             document.execCommand('copy');
+
+            // set focus back to copy button
+            const copyButtonNode = this.copyButtonRef.current;
+            if (copyButtonNode) {
+                copyButtonNode.focus();
+            }
+
+            // add notification
+            this.props.addNotification({
+                text: {
+                    translationKey: ResourceKeys.notifications.copiedToClipboard
+                },
+                type: NotificationType.info
+            });
         }
     }
 
-    public focus = () => {
-        const node = this.visibleInputRef.current;
-        if (node) {
-            node.focus();
+    public componentDidMount() {
+        if (this.props.setFocus) {
+            const node = this.visibleInputRef.current;
+            if (node) {
+                node.focus();
+            }
         }
     }
 }

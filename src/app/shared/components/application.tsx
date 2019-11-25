@@ -22,15 +22,15 @@ const app = (localizationContext: any) => {
         <LocalizationContextProvider value={localizationContext}>
             <HashRouter>
                 <>
-                        <Switch>
-                            <Route exact={true} path="/" component={connectivityPaneContainer}/>
-                            <Route path="/devices" component={DeviceLayout}/>
-                            <Route component={NoMatchError}/>
-                        </Switch>
-                        <ToastContainer
-                            autoClose={NOTIFICATION_AUTO_CLOSE}
-                            toastClassName="toast-notification"
-                        />
+                    <Switch>
+                        <Route exact={true} path="/" component={connectivityPaneContainer}/>
+                        <Route path="/devices" component={DeviceLayout}/>
+                        <Route component={NoMatchError}/>
+                    </Switch>
+                    <ToastContainer
+                        autoClose={NOTIFICATION_AUTO_CLOSE}
+                        toastClassName="toast-notification"
+                    />
                 </>
             </HashRouter>
         </LocalizationContextProvider>
