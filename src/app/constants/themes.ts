@@ -22,7 +22,7 @@ export const THEME_DARK: IPartialTheme =  {
         themeDarkAlt: '#5cafdd',
         themeDarker: '#95ccea',
         themeLight: '#173241',
-        themeLighter: '#0c1b23',
+        themeLighter: '#3FF23F',
         themeLighterAlt: '#030709',
         themePrimary: '#4ba6d8',
         themeSecondary: '#4393bf',
@@ -41,6 +41,60 @@ export const THEME_LIGHT: IPartialTheme =  {
         neutralPrimary: '#333',
         neutralPrimaryAlt: '#4b4b4b',
         neutralQuaternary: '#d0d0d0',
+        neutralQuaternaryAlt: '#dadada',
+        neutralSecondary: '#737373',
+        neutralTertiary: '#c2c2c2',
+        neutralTertiaryAlt: '#c8c8c8',
+        themeDark: '#005a9e',
+        themeDarkAlt: '#106ebe',
+        themeDarker: '#004578',
+        themeLight: '#c7e0f4',
+        themeLighter: '#deecf9',
+        themeLighterAlt: '#eff6fc',
+        themePrimary: '#0074CC',
+        themeSecondary: '#2b88d8',
+        themeTertiary: '#71afe5',
+        white: '#fff',
+      }
+};
+
+export const THEME_DARK_HC: IPartialTheme = {
+    palette: {
+        black: '#FFFFFF',
+        neutralDark: '#fAfAfA', // action button text on hover
+        neutralLight: '#252525',
+        neutralLighter: '#605e5c', // disabled button
+        neutralLighterAlt: '#0b0b0b',
+        neutralPrimary: '#ffffff', // used in button text
+        neutralPrimaryAlt: '#dadada',
+        neutralQuaternary: '#373737',
+        neutralQuaternaryAlt: '#2f2f2f',
+        neutralSecondary: '#d0d0d0', // watermarks and non-linking breadcrumb
+        neutralTertiary: '#c8c8c8',
+        neutralTertiaryAlt: '#3FF23F', // disabled buttons
+        themeDark: '#1AEBFF', // buttons being clicked
+        themeDarkAlt: '#5cafdd',
+        themeDarker: '#95ccea',
+        themeLight: '#173241',
+        themeLighter: '#0c1b23',
+        themeLighterAlt: '#030709',
+        themePrimary: '#1AEBFF',
+        themeSecondary: '#4393bf',
+        themeTertiary: '#2e6482',
+        white: '#000000', // button text and command bar background
+    }
+};
+
+export const THEME_LIGHT_HC: IPartialTheme = {
+    palette: {
+        black: '#000000',
+        neutralDark: '#000000',
+        neutralLight: '#eaeaea',
+        neutralLighter: '#fafafa',
+        neutralLighterAlt: '#ffffff',
+        neutralPrimary: '#000000',
+        neutralPrimaryAlt: '#4b4b4b',
+        neutralQuaternary: 'pink',
         neutralQuaternaryAlt: '#dadada',
         neutralSecondary: '#737373',
         neutralTertiary: '#c2c2c2',

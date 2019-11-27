@@ -32,3 +32,25 @@ $textSize: 14px;
 $navSelected: rgb(244, 244, 244);
 $cell-gray: #f8f9f9;
 $list-column-header-color: #666666;
+
+//high contrast black
+$contrast-black-button-background: rgb(26,235,255);
+$contrast-black-button-text: white;
+$contrast-black-text: white;
+$contrast-black-selected-text: black;
+$contrast-black-selected-background: rgb(26,235,255);
+$contrast-black-disabled-text: rgb(63, 242, 63);
+$contrast-black-hyperlink:  rgb(255, 255, 0);
+$contrast-black-background: black;
+$contrast-black-border: rgb(26, 235, 255);
+
+//high contrast white
+$contrast-white-button-background: rgb(26,235,255);
+$contrast-white-button-text: black;
+$contrast-white-text: black;
+$contrast-white-selected-text: white;
+$contrast-white-selected-background: #37006E;
+$contrast-white-disabled-text: rgb(96, 0, 0);
+$contrast-white-hyperlink:  rgb(0, 0, 159);
+$contrast-white-background: white;
+$contrast-white-border: rgb(55, 0, 110);

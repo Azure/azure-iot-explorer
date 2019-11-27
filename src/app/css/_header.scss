@@ -9,8 +9,6 @@
     display: grid;
     grid-template-areas: 'title search notifications settings questions';
     grid-template-columns: 1fr 150px 100px;
-    background-color: $dark-gray;
-    color: white;
     line-height: 20px;
     width: 100%;
     height: 45px;
@@ -19,29 +17,23 @@
         margin-top: 10px;
         margin-left: 5px;
         font-size: 18px;
-        color: white;
         font-weight: 600;
     }
     .ms-Button {
         background: transparent;
-        color: white;
         height: 100%;
     }
-    .active {
-        background: {
-            color:  $medium-gray;
-        }
-    }
-}
-
-.theme-dark {
-    .header {
-        color: #cccccc;
+    @include themify($themes) {
+        color: themed('headerTitleColor');
+        background-color: themed('headerBackgroundColor');
         .title {
-            color: #cccccc;
+            color: themed('headerTitleColor');
         }
         .ms-Button {
-            color: #cccccc;
+            color: themed('headerButtonColor');
+        }
+        .active {
+            background-color: themed('headerActiveBackgroundColor');
         }
     }
 }
