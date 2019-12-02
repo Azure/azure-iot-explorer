@@ -38,19 +38,19 @@ $contrast-black-button-background: rgb(26,235,255);
 $contrast-black-button-text: white;
 $contrast-black-text: white;
 $contrast-black-selected-text: black;
-$contrast-black-selected-background: rgb(26,235,255);
-$contrast-black-disabled-text: rgb(63, 242, 63);
-$contrast-black-hyperlink:  rgb(255, 255, 0);
+$contrast-black-selected-background: #1AEBFF;
+$contrast-black-disabled-text: #3FF23F;
+$contrast-black-hyperlink:  #FFFF00;
 $contrast-black-background: black;
-$contrast-black-border: rgb(26, 235, 255);
+$contrast-black-border: #1AEBFF;
 
 //high contrast white
-$contrast-white-button-background: rgb(26,235,255);
+$contrast-white-button-background: white;
 $contrast-white-button-text: black;
 $contrast-white-text: black;
 $contrast-white-selected-text: white;
 $contrast-white-selected-background: #37006E;
-$contrast-white-disabled-text: rgb(96, 0, 0);
-$contrast-white-hyperlink:  rgb(0, 0, 159);
+$contrast-white-disabled-text: #600000;
+$contrast-white-hyperlink:  #00009F;
 $contrast-white-background: white;
-$contrast-white-border: rgb(55, 0, 110);
+$contrast-white-border: #37006E;

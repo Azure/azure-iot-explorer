@@ -6,7 +6,7 @@ import { IPartialTheme } from 'office-ui-fabric-react/lib/Styling';
 
 export const THEME_DARK: IPartialTheme =  {
     palette: {
-        black: '#f8f8f8',
+        black: '#f8f8f8', // primary text color
         neutralDark: '#fAfAfA', // action button text on hover
         neutralLight: '#252525',
         neutralLighter: '#605e5c', // disabled button
@@ -17,14 +17,14 @@ export const THEME_DARK: IPartialTheme =  {
         neutralQuaternaryAlt: '#2f2f2f',
         neutralSecondary: '#d0d0d0', // watermarks and non-linking breadcrumb
         neutralTertiary: '#c8c8c8',
-        neutralTertiaryAlt: '#595959', // disabled buttons
+        neutralTertiaryAlt: '#595959', // disabled buttons, unselected slider portion
         themeDark: '#72bbe2', // buttons being clicked
-        themeDarkAlt: '#5cafdd',
+        themeDarkAlt: '#5cafdd', // default button on hover
         themeDarker: '#95ccea',
         themeLight: '#173241',
-        themeLighter: '#3FF23F',
+        themeLighter: '#0c1b23', // slider unselected on hover
         themeLighterAlt: '#030709',
-        themePrimary: '#4ba6d8',
+        themePrimary: '#4ba6d8', // command bar button icons, slider selected portion
         themeSecondary: '#4393bf',
         themeTertiary: '#2e6482',
         white: '#000000', // button text and command bar background
@@ -33,34 +33,34 @@ export const THEME_DARK: IPartialTheme =  {
 
 export const THEME_LIGHT: IPartialTheme =  {
     palette: {
-        black: '#1d1d1d',
-        neutralDark: '#272727',
+        black: '#1d1d1d', // primary text color
+        neutralDark: '#272727', // action button text on hover
         neutralLight: '#eaeaea',
-        neutralLighter: '#fafafa',
+        neutralLighter: '#fafafa', // disabled button
         neutralLighterAlt: '#f8f8f8',
-        neutralPrimary: '#333',
+        neutralPrimary: '#333333', // used in button text
         neutralPrimaryAlt: '#4b4b4b',
         neutralQuaternary: '#d0d0d0',
         neutralQuaternaryAlt: '#dadada',
-        neutralSecondary: '#737373',
+        neutralSecondary: '#737373', // watermarks and non-linking breadcrumbs
         neutralTertiary: '#c2c2c2',
-        neutralTertiaryAlt: '#c8c8c8',
-        themeDark: '#005a9e',
-        themeDarkAlt: '#106ebe',
+        neutralTertiaryAlt: '#c8c8c8', // disabled buttons, unselected slider portion
+        themeDark: '#005a9e', // buttons being clicked
+        themeDarkAlt: '#106ebe', // default button on hover
         themeDarker: '#004578',
         themeLight: '#c7e0f4',
-        themeLighter: '#deecf9',
+        themeLighter: '#deecf9', // slider unselected on hover
         themeLighterAlt: '#eff6fc',
-        themePrimary: '#0074CC',
+        themePrimary: '#0074CC', // command bar button icons, slider selected portion
         themeSecondary: '#2b88d8',
         themeTertiary: '#71afe5',
-        white: '#fff',
+        white: '#ffffff', // button text and command bar background
       }
 };
 
 export const THEME_DARK_HC: IPartialTheme = {
     palette: {
-        black: '#FFFFFF',
+        black: '#FFFFFF', // primary text color
         neutralDark: '#fAfAfA', // action button text on hover
         neutralLight: '#252525',
         neutralLighter: '#605e5c', // disabled button
@@ -69,16 +69,16 @@ export const THEME_DARK_HC: IPartialTheme = {
         neutralPrimaryAlt: '#dadada',
         neutralQuaternary: '#373737',
         neutralQuaternaryAlt: '#2f2f2f',
-        neutralSecondary: '#d0d0d0', // watermarks and non-linking breadcrumb
+        neutralSecondary: '#ffffff', // watermarks and non-linking breadcrumb
         neutralTertiary: '#c8c8c8',
-        neutralTertiaryAlt: '#3FF23F', // disabled buttons
+        neutralTertiaryAlt: '#3FF23F', // disabled buttons, unselected slider portion
         themeDark: '#1AEBFF', // buttons being clicked
-        themeDarkAlt: '#5cafdd',
+        themeDarkAlt: '#1AEBFF', // default button on hover
         themeDarker: '#95ccea',
         themeLight: '#173241',
-        themeLighter: '#0c1b23',
+        themeLighter: '#3FF23F',  // slider unselected on hover
         themeLighterAlt: '#030709',
-        themePrimary: '#1AEBFF',
+        themePrimary: '#1AEBFF', // command bar button icons, slider selected portion
         themeSecondary: '#4393bf',
         themeTertiary: '#2e6482',
         white: '#000000', // button text and command bar background
@@ -87,29 +87,29 @@ export const THEME_DARK_HC: IPartialTheme = {
 
 export const THEME_LIGHT_HC: IPartialTheme = {
     palette: {
-        black: '#000000',
-        neutralDark: '#000000',
+        black: '#000000', // primary text color
+        neutralDark: '#272727', // action button text on hover
         neutralLight: '#eaeaea',
-        neutralLighter: '#fafafa',
-        neutralLighterAlt: '#ffffff',
-        neutralPrimary: '#000000',
+        neutralLighter: '#fafafa', // disabled button
+        neutralLighterAlt: '#f8f8f8',
+        neutralPrimary: '#000000', // used in button text
         neutralPrimaryAlt: '#4b4b4b',
-        neutralQuaternary: 'pink',
+        neutralQuaternary: '#d0d0d0',
         neutralQuaternaryAlt: '#dadada',
-        neutralSecondary: '#737373',
+        neutralSecondary: '#000000', // watermarks and non-linking breadcrumbs
         neutralTertiary: '#c2c2c2',
-        neutralTertiaryAlt: '#c8c8c8',
-        themeDark: '#005a9e',
-        themeDarkAlt: '#106ebe',
+        neutralTertiaryAlt: '#000000', // disabled buttons, unselected slider portion
+        themeDark: '#000000', // buttons being clicked
+        themeDarkAlt: '#000000', // default button on hover
         themeDarker: '#004578',
         themeLight: '#c7e0f4',
-        themeLighter: '#deecf9',
+        themeLighter: '#000000', // slider unselected on hover
         themeLighterAlt: '#eff6fc',
-        themePrimary: '#0074CC',
+        themePrimary: '#000000', // command bar button icons, slider selected portion
         themeSecondary: '#2b88d8',
         themeTertiary: '#71afe5',
-        white: '#fff',
-      }
+        white: '#ffffff', // button text and command bar background
+    }
 };
 
 export const SCOPED_SETTINGS = {
