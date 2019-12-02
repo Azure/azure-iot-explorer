@@ -40,7 +40,7 @@ export default class DeviceIdentityCommandBar extends React.Component<DeviceIden
 
         const items: ICommandBarItemProps[] = [
             {
-                ariaLabel: context.t(ResourceKeys.deviceLists.commands.save),
+                ariaLabel: context.t(ResourceKeys.deviceIdentity.commands.save),
                 disabled: this.props.disableSave,
                 iconProps: {
                     iconName: SAVE
