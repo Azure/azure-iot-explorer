@@ -21,7 +21,7 @@ import { DeviceStatus } from '../../../../api/models/deviceStatus';
 import { generateKey } from '../../../../shared/utils/utils';
 import { DeviceIdentityWrapper } from '../../../../api/models/deviceIdentityWrapper';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
-import { MaskedCopyableTextField } from '../../../../shared/components/maskedCopyableTextField';
+import MaskedCopyableTextFieldContainer from '../../../../shared/components/maskedCopyableTextFieldContainer';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
 import '../../../../css/_deviceDetail.scss';
 import CollapsibleSection from '../../../../shared/components/collapsibleSection';
@@ -132,7 +132,7 @@ export default class DeviceIdentityInformation
                 { this.props.identityWrapper.deviceIdentitySynchronizationStatus === SynchronizationStatus.working ?
                     <MultiLineShimmer/> :
                     <>
-                        <MaskedCopyableTextField
+                        <MaskedCopyableTextFieldContainer
                             ariaLabel={context.t(ResourceKeys.deviceIdentity.deviceID)}
                             label={context.t(ResourceKeys.deviceIdentity.deviceID)}
                             value={this.state.identity && this.state.identity.deviceId}
@@ -228,6 +228,7 @@ export default class DeviceIdentityInformation
                         selectedKey={sasTokenSelectedKey || undefined}
                         options={options}
                         onChange={this.onSelectedKeyChanged}
+                        required={true}
                     />
                     <SpinButton
                         className={'sas-token-expiration-field'}
@@ -240,7 +241,7 @@ export default class DeviceIdentityInformation
                         onDecrement={this.onExpirationDecrement}
                         value={`${sasTokenExpiration}`}
                     />
-                    <MaskedCopyableTextField
+                    <MaskedCopyableTextFieldContainer
                         ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.sasToken.textField.ariaLabel)}
                         label={context.t(ResourceKeys.deviceIdentity.authenticationType.sasToken.textField.label)}
                         value={this.state.sasTokenConnectionString}
@@ -269,7 +270,7 @@ export default class DeviceIdentityInformation
                 return (
                     <>
                         <Label>{context.t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.text)}</Label>
-                        <MaskedCopyableTextField
+                        <MaskedCopyableTextFieldContainer
                             ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionString)}
                             label={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionString)}
                             value={generateX509ConnectionString(connectionString, identity.deviceId)}
@@ -283,7 +284,7 @@ export default class DeviceIdentityInformation
                 return (
                     <>
                         <Label>{context.t(ResourceKeys.deviceIdentity.authenticationType.ca.text)}</Label>
-                        <MaskedCopyableTextField
+                        <MaskedCopyableTextFieldContainer
                             ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionString)}
                             label={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionString)}
                             value={generateX509ConnectionString(connectionString, identity.deviceId)}
@@ -296,7 +297,7 @@ export default class DeviceIdentityInformation
             case DeviceAuthenticationType.SymmetricKey:
                 return (
                     <>
-                        <MaskedCopyableTextField
+                        <MaskedCopyableTextFieldContainer
                             ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryKey)}
                             label={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryKey)}
                             value={this.state.identity.authentication.symmetricKey.primaryKey}
@@ -306,7 +307,7 @@ export default class DeviceIdentityInformation
                             onTextChange={this.changePrimaryKey}
                         />
 
-                        <MaskedCopyableTextField
+                        <MaskedCopyableTextFieldContainer
                             ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryKey)}
                             label={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryKey)}
                             value={this.state.identity.authentication.symmetricKey.secondaryKey}
@@ -316,7 +317,7 @@ export default class DeviceIdentityInformation
                             onTextChange={this.changeSecondaryKey}
                         />
 
-                        <MaskedCopyableTextField
+                        <MaskedCopyableTextFieldContainer
                             ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionString)}
                             label={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionString)}
                             value={generateConnectionString(connectionString, identity.deviceId, identity.authentication.symmetricKey.primaryKey)}
@@ -325,7 +326,7 @@ export default class DeviceIdentityInformation
                             readOnly={true}
                         />
 
-                        <MaskedCopyableTextField
+                        <MaskedCopyableTextFieldContainer
                             ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString)}
                             label={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString)}
                             value={generateConnectionString(connectionString, identity.deviceId, identity.authentication.symmetricKey.secondaryKey)}

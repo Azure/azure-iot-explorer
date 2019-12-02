@@ -13,10 +13,12 @@ import { generateConnectionStringValidationError } from '../../shared/utils/hubC
 import { SetConnectionStringActionParameter } from '../actions';
 import HubConnectionStringSection from './hubConnectionStringSection';
 import AppVersionMessageBar from './appVersionMessageBar';
+import { Notification } from '../../api/models/notification';
 import '../../css/_connectivityPane.scss';
 
 export interface ConnectivityPaneDispatchProps {
     saveConnectionInfo: (connectionStringSetting: SetConnectionStringActionParameter) => void;
+    addNotification: (notification: Notification) => void;
 }
 
 export interface ConnectivityPaneDataProps {
@@ -55,6 +57,7 @@ export default class ConnectivityPane extends React.Component<RouteComponentProp
                             </h1>
 
                             <HubConnectionStringSection
+                                addNotification={this.props.addNotification}
                                 connectionString={connectionString}
                                 connectionStringList={this.props.connectionStringList}
                                 rememberConnectionString={rememberConnectionString}

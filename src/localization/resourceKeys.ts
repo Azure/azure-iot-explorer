@@ -46,7 +46,10 @@ export class ResourceKeys {
             label : "common.maskedCopyableTextField.copy.label",
          },
          toggleMask : {
-            label : "common.maskedCopyableTextField.toggleMask.label",
+            label : {
+               hide : "common.maskedCopyableTextField.toggleMask.label.hide",
+               show : "common.maskedCopyableTextField.toggleMask.label.show",
+            },
          },
       },
    };
@@ -478,6 +481,7 @@ export class ResourceKeys {
       addDeviceOnSucceed : "notifications.addDeviceOnSucceed",
       cloudToDeviceMessageOnError : "notifications.cloudToDeviceMessageOnError",
       cloudToDeviceMessageOnSuccess : "notifications.cloudToDeviceMessageOnSuccess",
+      copiedToClipboard : "notifications.copiedToClipboard",
       deleteDeviceOnError : "notifications.deleteDeviceOnError",
       deleteDeviceOnSucceed : "notifications.deleteDeviceOnSucceed",
       getDeviceIdentityOnError : "notifications.getDeviceIdentityOnError",

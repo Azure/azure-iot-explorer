@@ -54,6 +54,11 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
       >
         <CustomizedIconButton
           aria-labelledby="copyButtonTooltipHost3"
+          componentRef={
+            Object {
+              "current": null,
+            }
+          }
           iconProps={
             Object {
               "iconName": "copy",
@@ -112,7 +117,7 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
         value="value1"
       />
       <StyledTooltipHostBase
-        content="common.maskedCopyableTextField.toggleMask.label"
+        content="common.maskedCopyableTextField.toggleMask.label.show"
         id="toggleMaskButtonTooltipHost5"
       >
         <CustomizedIconButton
@@ -135,6 +140,11 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
       >
         <CustomizedIconButton
           aria-labelledby="copyButtonTooltipHost6"
+          componentRef={
+            Object {
+              "current": null,
+            }
+          }
           iconProps={
             Object {
               "iconName": "copy",
@@ -193,7 +203,7 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
         value="value1"
       />
       <StyledTooltipHostBase
-        content="common.maskedCopyableTextField.toggleMask.label"
+        content="common.maskedCopyableTextField.toggleMask.label.show"
         id="toggleMaskButtonTooltipHost8"
       >
         <CustomizedIconButton
@@ -216,6 +226,11 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
       >
         <CustomizedIconButton
           aria-labelledby="copyButtonTooltipHost9"
+          componentRef={
+            Object {
+              "current": null,
+            }
+          }
           iconProps={
             Object {
               "iconName": "copy",
@@ -274,7 +289,7 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when error messag
         value="value1"
       />
       <StyledTooltipHostBase
-        content="common.maskedCopyableTextField.toggleMask.label"
+        content="common.maskedCopyableTextField.toggleMask.label.show"
         id="toggleMaskButtonTooltipHost11"
       >
         <CustomizedIconButton
@@ -297,6 +312,11 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when error messag
       >
         <CustomizedIconButton
           aria-labelledby="copyButtonTooltipHost12"
+          componentRef={
+            Object {
+              "current": null,
+            }
+          }
           iconProps={
             Object {
               "iconName": "copy",

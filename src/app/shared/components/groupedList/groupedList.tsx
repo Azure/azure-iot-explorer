@@ -9,6 +9,7 @@ import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
 import { IconButton, BaseButton, Button } from 'office-ui-fabric-react/lib/Button';
 import { ISelection, SelectionMode, Selection, SelectionZone } from 'office-ui-fabric-react/lib/Selection';
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
+import { Announced } from 'office-ui-fabric-react/lib/Announced';
 import LabelWithTooltip from '../labelWithTooltip';
 import { GroupedList as GroupedListIconNames } from '../../../constants/iconNames';
 import { CHECKBOX_WIDTH_PERCENTAGE, GRID_STYLE_CONSTANTS, CHECKBOX_WIDTH_PIXELS, LABEL_FONT_SIZE } from './groupedListStyleConstants';
@@ -62,7 +63,12 @@ export default class GroupedListWrapper<T> extends React.Component<GroupedListPr
                 {!!isLoading ?
                     <MultiLineShimmer shimmerCount={SHIMMER_COUNT}/>
                     : !items || items.length === 0 ? (
-                        <h3>{noItemsMessage}</h3>
+                        <>
+                            <h3>{noItemsMessage}</h3>
+                            <Announced
+                                message={noItemsMessage}
+                            />
+                        </>
                     ) : (
                         <MarqueeSelection selection={selection} isEnabled={selection.mode === SelectionMode.multiple}>
                             <SelectionZone selection={selection}>

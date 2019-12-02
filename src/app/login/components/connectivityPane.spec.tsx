@@ -26,6 +26,7 @@ describe('login/components/connectivityPane', () => {
 
     const mockSaveConnectionInfo = jest.fn();
     const connectivityPaneDispatchProps: ConnectivityPaneDispatchProps = {
+        addNotification: jest.fn(),
         saveConnectionInfo: mockSaveConnectionInfo
     };
 

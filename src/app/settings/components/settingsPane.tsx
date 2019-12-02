@@ -17,7 +17,8 @@ import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationType
 import { ConfirmationDialog } from './confirmationDialog';
 import { ThemeContextConsumer, ThemeContextInterface, Theme } from '../../shared/contexts/themeContext';
 import HubConnectionStringSection from '../../login/components/hubConnectionStringSection';
-import { THEME_SELECTION, HIGH_CONTRAST } from '../../constants/browserStorage';
+import { THEME_SELECTION } from '../../constants/browserStorage';
+import { Notification } from '../../api/models/notification';
 import '../../css/_settingsPane.scss';
 
 export interface SettingsPaneProps extends Settings {
@@ -29,6 +30,7 @@ export interface SettingsPaneActions {
     onSettingsVisibleChanged: (visible: boolean) => void;
     onSettingsSave: (payload: Settings) => void;
     refreshDevices: () => void;
+    addNotification: (notification: Notification) => void;
 }
 
 export interface RepositorySettings {
@@ -88,6 +90,7 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
                         <section aria-label={context.t(ResourceKeys.settings.configuration.headerText)}>
                             <h3 role="heading" aria-level={1}>{context.t(ResourceKeys.settings.configuration.headerText)}</h3>
                             <HubConnectionStringSection
+                                addNotification={this.props.addNotification}
                                 connectionString={this.state.hubConnectionString}
                                 connectionStringList={this.props.connectionStringList}
                                 rememberConnectionString={this.state.rememberConnectionString}
@@ -198,7 +201,8 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
         });
     }
 
-    private readonly dismissPane = () => {
+    private readonly dismissPane = (event?: React.SyntheticEvent<HTMLElement, Event>) => {
+        event.preventDefault();
         if (this.state.isDirty) {
             this.revertState();
         }

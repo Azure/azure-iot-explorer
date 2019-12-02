@@ -36,7 +36,7 @@ export const CloseButton = (props: CloseButtonProps): JSX.Element => {
 };
 
 const fetchComponent = (notification: Notification) => {
-    return <NotificationListEntry notification={notification} />;
+    return <NotificationListEntry notification={notification} showAnnoucement={true}/>;
 };
 
 export const raiseNotificationToast = (notification: Notification) => {

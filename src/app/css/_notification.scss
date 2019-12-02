@@ -101,9 +101,12 @@
 .notification-toast-body {
     word-break: break-word;
 }
+
 .Toastify__toast-container {
     margin-top:25px;
+    z-index: 10000000 !important;
 }
+
 .toast-notification {
     @include themify($themes) {
         background-color: themed('notificationBackgroundColor');

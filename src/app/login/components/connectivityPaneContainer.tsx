@@ -12,6 +12,8 @@ import { getConnectionStringSelector, getRememberConnectionStringValueSelector, 
 import { clearDevicesAction } from '../../devices/deviceList/actions';
 import { clearModelDefinitionsAction } from '../../devices/deviceContent/actions';
 import { setConnectionStringAction, SetConnectionStringActionParameter } from '../actions';
+import { addNotificationAction } from '../../notifications/actions';
+import { Notification } from '../../api/models/notification';
 
 const mapStateToProps = (state: StateType): ConnectivityPaneDataProps => {
     return {
@@ -23,6 +25,7 @@ const mapStateToProps = (state: StateType): ConnectivityPaneDataProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): ConnectivityPaneDispatchProps => {
     return {
+        addNotification: (notification: Notification) => dispatch(addNotificationAction.started(notification)),
         saveConnectionInfo: (connectionStringSetting: SetConnectionStringActionParameter) => {
             dispatch(setConnectionStringAction(connectionStringSetting));
             dispatch(clearDevicesAction());
