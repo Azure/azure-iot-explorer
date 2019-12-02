@@ -47,9 +47,8 @@ export default class Themer extends React.Component<{}, ThemerState> {
                 theme = Theme.light;
             }
         }
-        console.log(theme); //tslint:disable-line
+
         this.state = this.getThemeState(theme);
-        console.log(this.state.fabricTheme); //tslint:disable-line
         this.setBodyClass(theme);
     }
 
