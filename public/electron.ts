@@ -22,7 +22,22 @@ const createWindow = () => {
         slashes: true
     });
 
-    mainWindow.loadURL(startUrl);
+    const setHighContrast = () => {
+        const highContrast = electron.nativeTheme.shouldUseHighContrastColors;
+        if (highContrast) {
+            mainWindow.webContents.executeJavaScript(`if (localStorage.getItem("HIGH_CONTRAST") != "true") { localStorage.setItem("HIGH_CONTRAST", true); location.reload();}`);
+        } else {
+            mainWindow.webContents.executeJavaScript('if (localStorage.getItem("HIGH_CONTRAST") != "false") { localStorage.setItem("HIGH_CONTRAST", false); location.reload();}');
+        }
+    };
+
+    mainWindow.loadURL(startUrl).then(() => {
+        setHighContrast();
+    });
+
+    electron.nativeTheme.on('updated', () => {
+        setHighContrast();
+    });
 
     // Open the DevTools.
     if (process.env.ELECTRON_START_URL) {
@@ -60,8 +75,8 @@ const createMenu = () => {
             submenu: [
                 { role: 'reload' },
                 { type: 'separator' },
-                { role: 'zoomin' },
-                { role: 'zoomout' },
+                { role: 'zoomIn' },
+                { role: 'zoomOut' },
                 { type: 'separator' },
                 { role: 'togglefullscreen' }
             ]

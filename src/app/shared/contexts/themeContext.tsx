@@ -8,10 +8,13 @@ import { IPartialTheme } from 'office-ui-fabric-react/lib/Styling';
 export enum Theme {
     light = 'light',
     dark = 'dark',
+    highContrastBlack = 'highContrastBlack',
+    highContrastWhite = 'highContrastWhite'
 }
 export enum MonacoTheme {
     light = 'vs-light',
     dark = 'vs-dark',
+    hc_black = 'hc-black'
 }
 
 export interface ThemeContextInterface {

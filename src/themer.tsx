@@ -6,9 +6,9 @@ import * as React from 'react';
 import { Fabric } from 'office-ui-fabric-react/lib/Fabric';
 import { Customizer } from 'office-ui-fabric-react/lib/Utilities';
 import { IPartialTheme, createTheme } from 'office-ui-fabric-react/lib/Styling';
-import { SCOPED_SETTINGS, THEME_DARK, THEME_LIGHT } from './app/constants/themes';
+import { SCOPED_SETTINGS, THEME_DARK, THEME_LIGHT, THEME_DARK_HC, THEME_LIGHT_HC } from './app/constants/themes';
 import { Theme, MonacoTheme, ThemeContextProvider } from './app/shared/contexts/themeContext';
-import { THEME_SELECTION } from './app/constants/browserStorage';
+import { THEME_SELECTION, HIGH_CONTRAST } from './app/constants/browserStorage';
 
 interface ThemerState {
     theme: Theme;
@@ -20,15 +20,64 @@ export default class Themer extends React.Component<{}, ThemerState> {
     // tslint:disable-next-line: cyclomatic-complexity
     public constructor(props: {}) {
         super(props);
-        let theme = localStorage.getItem(THEME_SELECTION);
-        if (!theme) {
-            theme = document.body.classList.contains('theme-dark') ? Theme.dark : Theme.light;
+        let theme: Theme = localStorage.getItem(THEME_SELECTION) as Theme;
+        const isHighContrast = localStorage.getItem(HIGH_CONTRAST) === 'true';
+
+        if (theme) {
+            // standardize theme based on high-contrast setting
+            if (isHighContrast) {
+                if (theme === Theme.dark) {
+                    theme = Theme.highContrastBlack;
+                }
+                if (theme === Theme.light) {
+                    theme = Theme.highContrastWhite;
+                }
+            } else {
+                if (theme === Theme.highContrastBlack) {
+                    theme = Theme.dark;
+                }
+                if (theme === Theme.highContrastWhite) {
+                    theme = Theme.light;
+                }
+            }
+        } else {
+            if (isHighContrast) {
+                theme = Theme.highContrastWhite;
+            } else {
+                theme = Theme.light;
+            }
         }
-        this.state = {
-            fabricTheme: theme === Theme.dark ? THEME_DARK : THEME_LIGHT,
-            monacoTheme: theme === Theme.dark ? MonacoTheme.dark : MonacoTheme.light,
-            theme: theme === Theme.dark ? Theme.dark : Theme.light
+
+        this.state = this.getThemeState(theme);
+        this.setBodyClass(theme);
+    }
+
+    public getThemeState = (theme: Theme) => {
+        // tslint:disable-next-line: no-any
+        const themes = {} as any;
+        themes[Theme.dark] = {
+            fabricTheme: THEME_DARK,
+            monacoTheme: MonacoTheme.dark,
+            theme: Theme.dark
         };
+        themes[Theme.highContrastBlack] = {
+            fabricTheme: THEME_DARK_HC,
+            monacoTheme: MonacoTheme.hc_black,
+            theme: Theme.highContrastBlack
+        };
+
+        themes[Theme.highContrastWhite] = {
+            fabricTheme: THEME_LIGHT_HC,
+            monacoTheme: MonacoTheme.hc_black,
+            theme: Theme.highContrastWhite
+        };
+        themes[Theme.light] = {
+            fabricTheme: THEME_LIGHT,
+            monacoTheme: MonacoTheme.light,
+            theme: Theme.light
+        };
+
+        return themes[theme];
     }
 
     public render(): JSX.Element {
@@ -45,16 +94,19 @@ export default class Themer extends React.Component<{}, ThemerState> {
         );
     }
 
-    // tslint:disable-next-line: no-any
+    public selectTheme = (isDarkMode: boolean, isHighContrast: boolean) => {
+        return isDarkMode && isHighContrast ?
+            Theme.highContrastBlack :
+            isHighContrast ? Theme.highContrastWhite :
+            isDarkMode ? Theme.dark : Theme.light;
+    }
+
     public updateThemeHandler = (isDarkMode: boolean) => {
-        const theme = isDarkMode ? Theme.dark : Theme.light;
+        const isHighContrast = localStorage.getItem(HIGH_CONTRAST) === 'true';
+        const theme = this.selectTheme(isDarkMode, isHighContrast);
         this.setBodyClass(theme);
         this.setState(
-            {
-                fabricTheme: theme === Theme.dark ? THEME_DARK : THEME_LIGHT,
-                monacoTheme: theme === Theme.dark ? MonacoTheme.dark : MonacoTheme.light,
-                theme
-            },
+            this.getThemeState(theme),
             () => {
                 localStorage.setItem(THEME_SELECTION, theme);
             }
@@ -62,7 +114,11 @@ export default class Themer extends React.Component<{}, ThemerState> {
     }
 
     private readonly setBodyClass = (theme: Theme) => {
-        document.body.classList.remove(`theme-${theme === Theme.dark ? Theme.light : Theme.dark}`);
+        for (const removedTheme in Theme) {
+            if (theme !== removedTheme) {
+                document.body.classList.remove(`theme-${removedTheme}`);
+            }
+        }
         if (!document.body.classList.contains(`theme-${theme}`)) {
             document.body.classList.add(`theme-${theme}`);
         }

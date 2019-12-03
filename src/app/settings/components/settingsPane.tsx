@@ -15,8 +15,9 @@ import { generateConnectionStringValidationError } from '../../shared/utils/hubC
 import RepositoryLocationList from './repositoryLocationList';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
 import { ConfirmationDialog } from './confirmationDialog';
-import { ThemeContextConsumer, ThemeContextInterface } from '../../shared/contexts/themeContext';
+import { ThemeContextConsumer, ThemeContextInterface, Theme } from '../../shared/contexts/themeContext';
 import HubConnectionStringSection from '../../login/components/hubConnectionStringSection';
+import { THEME_SELECTION } from '../../constants/browserStorage';
 import { Notification } from '../../api/models/notification';
 import '../../css/_settingsPane.scss';
 
@@ -58,9 +59,10 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
                 connectionString: value.connectionString,
                 repositoryLocationType: value.repositoryLocationType};
             }) : [];
+        const theme = localStorage.getItem(THEME_SELECTION);
         this.state = {
             hubConnectionString: props.hubConnectionString,
-            isDarkTheme: document.body.classList.contains('theme-dark'),
+            isDarkTheme: Theme.dark === theme || Theme.highContrastBlack === theme,
             isDirty: false,
             rememberConnectionString: props.rememberConnectionString,
             repositoryLocations,
