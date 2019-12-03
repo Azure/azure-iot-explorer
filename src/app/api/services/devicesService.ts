@@ -424,6 +424,7 @@ export const deleteDevices = async (parameters: DeleteDevicesParameters) => {
     }
 };
 
+// tslint:disable-next-line:cyclomatic-complexity
 export const monitorEvents = async (parameters: MonitorEventsParameters): Promise<Message[]> => {
     try {
         if (!parameters.hubConnectionString) {
@@ -440,7 +441,7 @@ export const monitorEvents = async (parameters: MonitorEventsParameters): Promis
 
         const response = await request(EVENTHUB_MONITOR_ENDPOINT, requestParameters);
         const messages = await response.json() as Message[];
-        return  messages && messages.map(message => parseEventHubMessage(message));
+        return  messages && messages.length !== 0 && messages.map(message => parseEventHubMessage(message)) || [];
     } catch (error) {
         throw error;
     }

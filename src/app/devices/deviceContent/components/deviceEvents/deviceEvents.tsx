@@ -6,6 +6,7 @@ import * as React from 'react';
 import { CommandBar, ICommandBarItemProps } from 'office-ui-fabric-react/lib/CommandBar';
 import { Spinner } from 'office-ui-fabric-react/lib/Spinner';
 import { TextField, ITextFieldProps } from 'office-ui-fabric-react/lib/TextField';
+import { Announced } from 'office-ui-fabric-react/lib/Announced';
 import { RouteComponentProps } from 'react-router-dom';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
@@ -31,6 +32,7 @@ export interface DeviceEventsState {
     hasMore: boolean;
     startTime?: Date; // todo: add a datetime picker
     loading?: boolean;
+    loadingAnnounced?: JSX.Element;
     showSystemProperties: boolean;
     synchronizationStatus: SynchronizationStatus;
     consumerGroup: string;
@@ -80,6 +82,7 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
                             onChange={this.consumerGroupChange}
                         />
                         {this.renderInfiniteScroll(context)}
+                        {this.state.loadingAnnounced}
                     </div>
                 )}
             </LocalizationContextConsumer>
@@ -179,6 +182,7 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
             this.setState({
                 hasMore: true,
                 loading: false,
+                loadingAnnounced: undefined,
                 monitoringData: true
             });
         }
@@ -196,7 +200,7 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
                 key="scroll"
                 className="device-events-container"
                 pageStart={0}
-                loadMore={this.fetchData}
+                loadMore={this.fetchData(context)}
                 hasMore={hasMore}
                 loader={this.renderLoader(context)}
                 role={this.state.events && this.state.events.length === 0 ? 'main' : 'feed'}
@@ -215,7 +219,6 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
             {
                 events && events.map((event: Message, index) => {
                     return (
-
                         <article key={index} className="device-events-content">
                             {<h5>{parseDateTimeString(event.enqueuedTime)}:</h5>}
                             <pre>{JSON.stringify(event, undefined, JSON_SPACES)}</pre>
@@ -236,11 +239,12 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
         );
     }
 
-    private readonly fetchData = () => {
+    private readonly fetchData = (context: LocalizationContextInterface) => () => {
         const { loading, monitoringData } = this.state;
         if (!loading && monitoringData) {
             this.setState({
                 loading: true,
+                loadingAnnounced: <Announced message={context.t(ResourceKeys.deviceEvents.infiniteScroll.loading)}/>
             });
             this.timerID = setTimeout(
                 () => {
