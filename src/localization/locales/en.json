@@ -117,8 +117,8 @@
             "pnp": "DIGITAL TWIN",
             "nonpnp": "DEVICE",
             "add": "Create device identity",
-            "collapse": "Collapse",
-            "expand": "Expand",
+            "collapse": "Collapse navigation menu",
+            "expand": "Expand navigation menu",
             "moduleIdentity": "Module identity"
         },
         "value": "Value"
