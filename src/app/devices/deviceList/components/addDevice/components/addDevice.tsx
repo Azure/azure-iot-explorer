@@ -4,11 +4,11 @@
  **********************************************************/
 import * as React from 'react';
 import { RouteComponentProps, Route } from 'react-router-dom';
-import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/Button';
 import { Overlay } from 'office-ui-fabric-react/lib/Overlay';
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/ChoiceGroup';
 import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
+import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../../localization/resourceKeys';
 import { DeviceAuthenticationType } from '../../../../../api/models/deviceAuthenticationType';
@@ -22,6 +22,7 @@ import { SynchronizationStatus } from '../../../../../api/models/synchronization
 import { ROUTE_PARTS } from '../../../../../constants/routes';
 import '../../../../../css/_addDevice.scss';
 import '../../../../../css/_layouts.scss';
+import { SAVE, CANCEL } from '../../../../../constants/iconNames';
 
 export interface AddDeviceActionProps {
     handleSave: (deviceIdentity: DeviceIdentity) => void;
@@ -73,13 +74,14 @@ export default class AddDevice extends React.Component<AddDeviceActionProps & Ad
                         <div className="view-header">
                             <Route component={BreadcrumbContainer} />
                         </div>
-
+                        <div className="view-command">
+                            {this.showCommandBar(context)}
+                        </div>
                         <div className="edit-content view-scroll">
                             <div className="form">
                                 {this.showDeviceId(context)}
                                 {this.showAuthentication(context)}
                                 {this.showConnectivity(context)}
-                                {this.showCommands(context)}
                             </div>
                         </div>
                         {this.props.deviceListSyncStatus === SynchronizationStatus.updating && <Overlay/>}
@@ -246,23 +248,32 @@ export default class AddDevice extends React.Component<AddDeviceActionProps & Ad
         );
     }
 
-    private readonly showCommands = (context: LocalizationContextInterface) => {
+    private readonly showCommandBar = (context: LocalizationContextInterface) => {
         return (
-            <div className="button-groups">
-                <PrimaryButton
-                    className="submit-button"
-                    disabled={this.disableSaveButton()}
-                    text={context.t(ResourceKeys.deviceLists.commands.save)}
-                    ariaDescription={context.t(ResourceKeys.deviceLists.commands.save)}
-                    type={'submit'}
-                />
-                <DefaultButton
-                    className="submit-button"
-                    onClick={this.handleCancel}
-                    text={context.t(ResourceKeys.deviceLists.commands.close)}
-                    ariaDescription={context.t(ResourceKeys.deviceLists.commands.close)}
-                />
-            </div>
+            <CommandBar
+                items={[
+                    {
+                        ariaLabel: context.t(ResourceKeys.deviceLists.commands.save),
+                        disabled: this.disableSaveButton(),
+                        iconProps: {
+                            iconName: SAVE
+                        },
+                        key: SAVE,
+                        name: context.t(ResourceKeys.deviceLists.commands.save),
+                        type: 'submit'
+                    },
+                    {
+                        ariaLabel: context.t(ResourceKeys.deviceLists.commands.close),
+                        disabled: false,
+                        iconProps: {
+                            iconName: CANCEL
+                        },
+                        key: CANCEL,
+                        name: context.t(ResourceKeys.deviceLists.commands.close),
+                        onClick: this.handleCancel
+                    },
+                ]}
+            />
         );
     }
 
