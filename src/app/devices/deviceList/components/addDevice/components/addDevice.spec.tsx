@@ -6,7 +6,7 @@ import 'jest';
 import * as React from 'react';
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
-import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
+import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import AddDeviceComponent, { AddDeviceDataProps, AddDeviceActionProps, AddDeviceState } from './addDevice';
 import { testSnapshot, mountWithLocalization } from '../../../../../shared/utils/testHelpers';
 import { MaskedCopyableTextField } from '../../../../../shared/components/maskedCopyableTextField';
@@ -116,8 +116,9 @@ describe('components/devices/addDevice', () => {
         const addDeviceState = addDevice.state() as AddDeviceState;
         expect(addDeviceState.deviceId).toEqual('test-device');
         expect(addDeviceState.status).toEqual(DeviceStatus.Disabled);
-        const saveButton = addDevice.find(PrimaryButton).first();
-        expect(saveButton.props().disabled).toBeFalsy();
+        const commandBar = wrapper.find(CommandBar).first();
+        const saveButton = commandBar.props().items[0];
+        expect(saveButton.disabled).toBeFalsy();
 
         const form = addDevice.find('form');
         form.simulate('submit');

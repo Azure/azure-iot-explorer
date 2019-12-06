@@ -8,6 +8,7 @@ import { CommandBar, ICommandBarItemProps } from 'office-ui-fabric-react/lib/Com
 import { Label } from 'office-ui-fabric-react/lib/Label';
 import { Spinner } from 'office-ui-fabric-react/lib/Spinner';
 import { TextField, ITextFieldProps } from 'office-ui-fabric-react/lib/TextField';
+import { Announced } from 'office-ui-fabric-react/lib/Announced';
 import { RouteComponentProps } from 'react-router-dom';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
@@ -56,6 +57,7 @@ export interface DeviceEventsState {
     hasMore: boolean;
     startTime?: Date; // todo: add a datetime picker
     loading?: boolean;
+    loadingAnnounced?: JSX.Element;
     synchronizationStatus: SynchronizationStatus;
     monitoringData: boolean;
 }
@@ -107,7 +109,9 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
                             />}
                         {this.props.telemetrySchema  ?
                             this.props.telemetrySchema.length !== 0 && this.renderInfiniteScroll(context) :
-                            <InterfaceNotFoundMessageBoxContainer/>}
+                            <InterfaceNotFoundMessageBoxContainer/>
+                        }
+                        {this.state.loadingAnnounced}
                     </div>
                 )}
             </LocalizationContextConsumer>
@@ -206,6 +210,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
             this.setState({
                 hasMore: true,
                 loading: false,
+                loadingAnnounced: undefined,
                 monitoringData: true
             });
         }
@@ -235,7 +240,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
                 key="scroll"
                 className="device-events-container"
                 pageStart={0}
-                loadMore={this.fetchData}
+                loadMore={this.fetchData(context)}
                 hasMore={hasMore}
                 loader={this.renderLoader(context)}
                 isReverse={true}
@@ -398,11 +403,12 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
         );
     }
 
-    private readonly fetchData = () => {
+    private readonly fetchData = (context: LocalizationContextInterface) => () => {
         const { loading, monitoringData } = this.state;
         if (!loading && monitoringData) {
             this.setState({
                 loading: true,
+                loadingAnnounced: <Announced message={context.t(ResourceKeys.deviceEvents.infiniteScroll.loading)}/>
             });
             this.timerID = setTimeout(
                 () => {
