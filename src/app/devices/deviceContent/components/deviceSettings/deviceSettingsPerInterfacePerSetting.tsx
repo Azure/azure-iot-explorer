@@ -124,21 +124,7 @@ export default class DeviceSettingsPerInterfacePerSetting
             <div className="column-value-text ms-Grid-col ms-sm4" aria-label={ariaLabel}>
                 <Stack horizontal={true}>
                     <Stack.Item align="start" className="reported-property">
-                        {reportedTwin ?
-                            (this.isSchemaSimpleType() ?
-                                RenderSimplyTypeValue(
-                                    reportedTwin.value,
-                                    this.props.settingSchema,
-                                    context.t(ResourceKeys.deviceSettings.columns.error)) :
-                                <ActionButton
-                                    className="column-value-button"
-                                    ariaDescription={context.t(ResourceKeys.deviceSettings.command.openReportedValuePanel)}
-                                    onClick={this.onViewReportedValue}
-                                >
-                                    {context.t(ResourceKeys.deviceSettings.command.openReportedValuePanel)}
-                                </ActionButton>
-                            ) : <Label>--</Label>
-                        }
+                        {this.renderReportedValue(context)}
                     </Stack.Item>
                     {reportedTwin && reportedTwin.desiredState &&
                         <Stack.Item align="start">
@@ -147,6 +133,29 @@ export default class DeviceSettingsPerInterfacePerSetting
                     }
                 </Stack>
             </div>
+        );
+    }
+
+    private readonly renderReportedValue = (context: LocalizationContextInterface) => {
+        const { reportedTwin } = this.props;
+        return (
+            <>
+                {reportedTwin || typeof reportedTwin === 'boolean' ?
+                    (this.isSchemaSimpleType() ?
+                        RenderSimplyTypeValue(
+                            reportedTwin.value,
+                            this.props.settingSchema,
+                            context.t(ResourceKeys.deviceSettings.columns.error)) :
+                        <ActionButton
+                            className="column-value-button"
+                            ariaDescription={context.t(ResourceKeys.deviceSettings.command.openReportedValuePanel)}
+                            onClick={this.onViewReportedValue}
+                        >
+                            {context.t(ResourceKeys.deviceSettings.command.openReportedValuePanel)}
+                        </ActionButton>
+                    ) : <Label>--</Label>
+                }
+            </>
         );
     }
 

@@ -3,17 +3,32 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { DetailsList, DetailsListLayoutMode, IColumn, CheckboxVisibility } from 'office-ui-fabric-react/lib/DetailsList';
+import { Label } from 'office-ui-fabric-react/lib/Label';
 import { Overlay } from 'office-ui-fabric-react/lib/Overlay';
+import { ActionButton } from 'office-ui-fabric-react/lib/Button';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
-import DevicePropertiesPerInterfacePerProperty, { TwinWithSchema } from './devicePropertiesPerInterfacePerProperty';
+import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
+import ComplexReportedFormPanel from '../shared/complexReportedFormPanel';
+import { RenderSimplyTypeValue } from '../shared/simpleReportedSection';
+import { PropertyContent } from '../../../../api/models/modelDefinition';
+import { ParsedJsonSchema } from '../../../../api/models/interfaceJsonParserOutput';
 
 export interface DevicePropertiesDataProps {
     twinAndSchema: TwinWithSchema[];
 }
 
+export interface TwinWithSchema {
+    propertyModelDefinition: PropertyContent;
+    propertySchema: ParsedJsonSchema;
+    reportedTwin: any; // tslint:disable-line:no-any
+}
+
 export interface DevicePropertiesState {
     showOverlay: boolean;
+    showReportedValuePanel: boolean;
+    selectedItem?: TwinWithSchema;
 }
 
 export default class DevicePropertiesPerInterface
@@ -22,41 +37,145 @@ export default class DevicePropertiesPerInterface
         super(props);
 
         this.state = {
-            showOverlay: false
+            showOverlay: false,
+            showReportedValuePanel: false
         };
     }
 
     public render(): JSX.Element {
 
-        const { twinAndSchema } = this.props;
-        const properties = twinAndSchema && twinAndSchema.map((item, indexInner) => (
-                <DevicePropertiesPerInterfacePerProperty
-                    key={indexInner}
-                    {...item}
-                    handleOverlayToggle={this.handleOverlayToggle}
-                />
-            ));
         return (
             <LocalizationContextConsumer>
                 {(context: LocalizationContextInterface) => (
                     <div className="pnp-detail-list scrollable-lg ms-Grid">
-                        <div className="list-header list-header-uncollapsible ms-Grid-row">
-                            <span className="ms-Grid-col ms-sm3">{context.t(ResourceKeys.deviceProperties.columns.name)}</span>
-                            <span className="ms-Grid-col ms-sm3">{context.t(ResourceKeys.deviceProperties.columns.schema)}</span>
-                            <span className="ms-Grid-col ms-sm3">{context.t(ResourceKeys.deviceProperties.columns.unit)}</span>
-                            <span className="ms-Grid-col ms-sm3">{context.t(ResourceKeys.deviceProperties.columns.value)}</span>
+                        <div className="non-writable-properties">
+                            <DetailsList
+                                checkboxVisibility={CheckboxVisibility.hidden}
+                                onRenderItemColumn={this.renderItemColumn(context)}
+                                items={this.props.twinAndSchema}
+                                columns={this.getColumns(context)}
+                                layoutMode={DetailsListLayoutMode.justified}
+                            />
+                            {this.state.showOverlay && <Overlay/>}
+                            {this.createReportedValuePanel()}
                         </div>
-                        <section role={twinAndSchema && twinAndSchema.length === 0 ? 'main' : 'list'} className="list-content">
-                            {properties}
-                        </section>
-                        {this.state.showOverlay && <Overlay/>}
                     </div>
                 )}
             </LocalizationContextConsumer>
         );
     }
 
-    private readonly handleOverlayToggle = () => {
-        this.setState({showOverlay: !this.state.showOverlay});
+    private readonly getColumns = (context: LocalizationContextInterface): IColumn[] => {
+        return [
+            { key: 'name', name: context.t(ResourceKeys.deviceProperties.columns.name), fieldName: 'name', minWidth: 100, isResizable: true, isMultiline: true },
+            { key: 'schema', name: context.t(ResourceKeys.deviceProperties.columns.schema), fieldName: 'schema', minWidth: 100, isResizable: true },
+            { key: 'unit', name: context.t(ResourceKeys.deviceProperties.columns.unit), fieldName: 'unit', minWidth: 100, isResizable: true },
+            { key: 'value', name: context.t(ResourceKeys.deviceProperties.columns.value), fieldName: 'value', minWidth: 150, isResizable: true }
+        ];
+    }
+
+    private readonly renderItemColumn = (context: LocalizationContextInterface) => (item: TwinWithSchema, index: number, column: IColumn) => {
+        switch (column.key) {
+            case 'name':
+                return this.renderPropertyName(context, item);
+            case 'schema':
+                return this.renderPropertySchema(context, item);
+            case 'unit':
+                return this.renderPropertyUnit(context, item);
+            case 'value':
+                return this.renderPropertyReportedValue(context, item);
+            default:
+                return;
+        }
+    }
+
+    private readonly renderPropertyName = (context: LocalizationContextInterface, item: TwinWithSchema) => {
+        const ariaLabel = context.t(ResourceKeys.deviceProperties.columns.name);
+        let displayName = getLocalizedData(item.propertyModelDefinition.displayName);
+        displayName = displayName ? displayName : '--';
+        let description = getLocalizedData(item.propertyModelDefinition.description);
+        description = description ? description : '--';
+        return <Label aria-label={ariaLabel}>{item.propertyModelDefinition.name} ({displayName} / {description})</Label>;
+    }
+
+    private readonly renderPropertySchema = (context: LocalizationContextInterface, item: TwinWithSchema) => {
+        const ariaLabel = context.t(ResourceKeys.deviceProperties.columns.schema);
+        const propertyModelDefinition = item.propertyModelDefinition;
+        const schemaType = typeof propertyModelDefinition.schema === 'string' ?
+            propertyModelDefinition.schema :
+            propertyModelDefinition.schema['@type'];
+        return <Label aria-label={ariaLabel}>{schemaType}</Label>;
+    }
+
+    private readonly renderPropertyUnit = (context: LocalizationContextInterface, item: TwinWithSchema) => {
+        const ariaLabel = context.t(ResourceKeys.deviceProperties.columns.unit);
+        const unit = item.propertyModelDefinition.unit;
+        return <Label aria-label={ariaLabel}>{unit ? unit : '--'}</Label>;
+    }
+
+    private readonly renderPropertyReportedValue = (context: LocalizationContextInterface, item: TwinWithSchema) => {
+        if (!item) {
+            return;
+        }
+        const ariaLabel = context.t(ResourceKeys.deviceProperties.columns.value);
+        return (
+            <div aria-label={ariaLabel}>
+                {item.reportedTwin || typeof item.reportedTwin === 'boolean' ?
+                    (this.isSchemaSimpleType(item) ?
+                        RenderSimplyTypeValue(
+                            item.reportedTwin,
+                            item.propertySchema,
+                            context.t(ResourceKeys.deviceProperties.columns.error)) :
+                        <ActionButton
+                            className="column-value-button"
+                            ariaDescription={context.t(ResourceKeys.deviceProperties.command.openReportedValuePanel)}
+                            onClick={this.onViewReportedValue(item)}
+                        >
+                            {context.t(ResourceKeys.deviceProperties.command.openReportedValuePanel)}
+                        </ActionButton>
+                    ) : <Label>--</Label>
+                }
+            </div>
+        );
+    }
+
+    private readonly onViewReportedValue = (item: TwinWithSchema) => () => {
+        this.setState({
+            selectedItem: item,
+            showOverlay: true,
+            showReportedValuePanel: true,
+        });
+    }
+
+    private readonly isSchemaSimpleType = (item: TwinWithSchema) => {
+        return item.propertySchema &&
+            (typeof item.propertyModelDefinition.schema === 'string' ||
+            item.propertyModelDefinition.schema['@type'].toLowerCase() === 'enum');
+    }
+
+    private readonly createReportedValuePanel = () => {
+        if (!this.state.selectedItem) {
+            return;
+        }
+        const { reportedTwin, propertyModelDefinition : modelDefinition, propertySchema : schema } = this.state.selectedItem;
+        return (
+            <div role="dialog">
+                {this.state.showReportedValuePanel &&
+                    <ComplexReportedFormPanel
+                        showPanel={this.state.showReportedValuePanel}
+                        formData={reportedTwin}
+                        handleDismiss={this.removeOverlay}
+                        schema={schema}
+                        modelDefinition={modelDefinition}
+                    />}
+            </div>
+        );
+    }
+
+    private readonly removeOverlay = () => {
+        this.setState({
+            selectedItem: undefined,
+            showOverlay: false
+        });
     }
 }

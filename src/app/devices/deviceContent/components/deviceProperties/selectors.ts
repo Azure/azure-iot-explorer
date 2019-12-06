@@ -6,7 +6,7 @@ import { createSelector } from 'reselect';
 import { ModelDefinition, PropertyContent, ContentType } from '../../../../api/models/modelDefinition';
 import { StateInterface } from '../../../../shared/redux/state';
 import { parseInterfacePropertyToJsonSchema } from '../../../../shared/utils/jsonSchemaAdaptor';
-import { TwinWithSchema } from './devicePropertiesPerInterfacePerProperty';
+import { TwinWithSchema } from './devicePropertiesPerInterface';
 import { getModelDefinitionSelector, getDigitalTwinInterfacePropertiesSelector, getInterfaceIdSelector, getInterfaceNameSelector } from '../../selectors';
 
 export const getDevicePropertyTupleSelector = (state: StateInterface): TwinWithSchema[] => {

@@ -132,55 +132,66 @@ exports[`devicePropertiesPerInterface matches snapshot 1`] = `
   className="pnp-detail-list scrollable-lg ms-Grid"
 >
   <div
-    className="list-header list-header-uncollapsible ms-Grid-row"
+    className="non-writable-properties"
   >
-    <span
-      className="ms-Grid-col ms-sm3"
-    >
-      deviceProperties.columns.name
-    </span>
-    <span
-      className="ms-Grid-col ms-sm3"
-    >
-      deviceProperties.columns.schema
-    </span>
-    <span
-      className="ms-Grid-col ms-sm3"
-    >
-      deviceProperties.columns.unit
-    </span>
-    <span
-      className="ms-Grid-col ms-sm3"
-    >
-      deviceProperties.columns.value
-    </span>
-  </div>
-  <section
-    className="list-content"
-    role="list"
-  >
-    <DevicePropertiesPerInterfacePerProperty
-      handleOverlayToggle={[Function]}
-      key="0"
-      propertyModelDefinition={
-        Object {
-          "@type": "Property",
-          "description": "The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)",
-          "displayName": "Brightness Level",
-          "name": "brightness",
-          "schema": "long",
-          "writable": true,
-        }
+    <StyledWithViewportComponent
+      checkboxVisibility={2}
+      columns={
+        Array [
+          Object {
+            "fieldName": "name",
+            "isMultiline": true,
+            "isResizable": true,
+            "key": "name",
+            "minWidth": 100,
+            "name": "deviceProperties.columns.name",
+          },
+          Object {
+            "fieldName": "schema",
+            "isResizable": true,
+            "key": "schema",
+            "minWidth": 100,
+            "name": "deviceProperties.columns.schema",
+          },
+          Object {
+            "fieldName": "unit",
+            "isResizable": true,
+            "key": "unit",
+            "minWidth": 100,
+            "name": "deviceProperties.columns.unit",
+          },
+          Object {
+            "fieldName": "value",
+            "isResizable": true,
+            "key": "value",
+            "minWidth": 150,
+            "name": "deviceProperties.columns.value",
+          },
+        ]
       }
-      propertySchema={
-        Object {
-          "description": "Brightness Level / The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)",
-          "title": "brightness",
-          "type": "number",
-        }
+      items={
+        Array [
+          Object {
+            "propertyModelDefinition": Object {
+              "@type": "Property",
+              "description": "The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)",
+              "displayName": "Brightness Level",
+              "name": "brightness",
+              "schema": "long",
+              "writable": true,
+            },
+            "propertySchema": Object {
+              "description": "Brightness Level / The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)",
+              "title": "brightness",
+              "type": "number",
+            },
+            "reportedTwin": null,
+          },
+        ]
       }
-      reportedTwin={null}
+      layoutMode={1}
+      onRenderItemColumn={[Function]}
     />
-  </section>
+  </div>
 </div>
 `;
