@@ -159,7 +159,6 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
                 </div>
             </>
         );
-        // todo announce no result
     }
 
     private readonly showPaging = () => {
