@@ -58,9 +58,9 @@
 }
 
 .edit-content {
-    grid-row: 2;
+    grid-row: 3;
     grid-column: 1;
-    -ms-grid-row: 2;
+    -ms-grid-row: 3;
     -ms-grid-column: 1;
     @include themify($themes) {
         border-top: 1px solid themed('editContentBorderColor');
