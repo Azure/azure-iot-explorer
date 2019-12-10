@@ -8,18 +8,21 @@ import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import { Label } from 'office-ui-fabric-react/lib/Label';
 import { Dialog, DialogFooter, DialogType } from 'office-ui-fabric-react/lib/Dialog';
 import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/Button';
+import { DetailsList, DetailsListLayoutMode, IColumn, Selection } from 'office-ui-fabric-react/lib/DetailsList';
+import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
+import { Announced } from 'office-ui-fabric-react/lib/Announced';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
-import GroupedListWrapper from '../../../shared/components/groupedList';
 import { DeviceSummary } from '../../../api/models/deviceSummary';
 import DeviceQuery from '../../../api/models/deviceQuery';
 import DeviceListCommandBar from './deviceListCommandBar';
 import BreadcrumbContainer from '../../../shared/components/breadcrumbContainer';
 import DeviceListQuery from './deviceListQuery';
-import { DeviceListCell } from './deviceListCell';
 import ListPaging from './listPaging';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
 import { CHECK } from '../../../constants/iconNames';
+import MultiLineShimmer from '../../../shared/components/multiLineShimmer';
+import { LARGE_COLUMN_WIDTH, EXTRA_SMALL_COLUMN_WIDTH, SMALL_COLUMN_WIDTH, MEDIUM_COLUMN_WIDTH } from '../../../constants/columnWidth';
 import '../../../css/_deviceList.scss';
 import '../../../css/_layouts.scss';
 
@@ -41,6 +44,7 @@ interface DeviceListState {
     refreshQuery: number;
 }
 
+const SHIMMER_COUNT = 10;
 class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceListDispatchProps & RouteComponentProps, DeviceListState> {
     constructor(props: DeviceListDataProps & DeviceListDispatchProps & RouteComponentProps) {
         super(props);
@@ -50,7 +54,17 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
             selectedDeviceIds: [],
             showDeleteConfirmation: false
         };
+
+        this.selection = new Selection({
+            onSelectionChanged: () => {
+                this.setState({
+                    selectedDeviceIds: this.selection.getSelection() && this.selection.getSelection().map(selection => (selection as DeviceSummary).deviceId)
+                });
+            }
+          });
     }
+
+    private selection: Selection;
 
     public render() {
         if (!this.props.connectionString) {
@@ -118,130 +132,127 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
     }
 
     private readonly showDeviceList = (context: LocalizationContextInterface) => {
-
-        const renderCell = (nestingDepth: number, item: DeviceSummary, itemIndex: number) => {
-            return (
-                <DeviceListCell
-                    connectionString={this.props.connectionString}
-                    device={item}
-                    itemIndex={itemIndex}
-                />
-            );
-        };
-
         return (
             <>
+                {this.showPaging()}
+                <div className="list-detail">
+                    {this.props.isFetching ?
+                        <MultiLineShimmer shimmerCount={SHIMMER_COUNT}/> :
+                        (this.props.devices && this.props.devices.length !== 0 ?
+                            <MarqueeSelection selection={this.selection}>
+                                <DetailsList
+                                    onRenderItemColumn={this.renderItemColumn(context)}
+                                    items={!this.props.isFetching && this.props.devices}
+                                    columns={this.getColumns(context)}
+                                    layoutMode={DetailsListLayoutMode.justified}
+                                    selection={this.selection}
+                                />
+                            </MarqueeSelection> :
+                            <>
+                                <h3>{context.t(ResourceKeys.deviceLists.noDevice)}</h3>
+                                <Announced
+                                    message={context.t(ResourceKeys.deviceLists.noDevice)}
+                                />
+                            </>
+                        )
+                    }
+                </div>
+            </>
+        );
+    }
+
+    private readonly showPaging = () => {
+        return (
             <ListPaging
                 continuationTokens={this.props.query && this.props.query.continuationTokens}
                 currentPageIndex={this.props.query && this.props.query.currentPageIndex}
                 fetchPage={this.fetchPage}
             />
-            <GroupedListWrapper
-                items={this.props.devices}
-                nameKey="deviceId"
-                isLoading={this.props.isFetching}
-                noItemsMessage={context.t(ResourceKeys.deviceLists.noDevice)}
-                onRenderCell={renderCell}
-                onSelectionChanged={this.onRowSelection}
-                columnInfo={[
-                    {
-                        infoText: context.t(ResourceKeys.deviceLists.columns.deviceId.infoText),
-                        name: context.t(ResourceKeys.deviceLists.columns.deviceId.label),
-                        onRenderColumn: (group, key) => {
-                            const path = this.props.location.pathname.replace(/\/devices\/.*/, `/${ROUTE_PARTS.DEVICES}`);
-                            return (
-                                <NavLink key={key} className={'deviceId-label'} to={`${path}/${ROUTE_PARTS.DETAIL}/${ROUTE_PARTS.IDENTITY}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(group.name)}`}>
-                                    {group.name}
-                                </NavLink>
-                            );
-                        },
-                        widthPercentage: 20
-                    },
-                    {
-                        infoText: context.t(ResourceKeys.deviceLists.columns.status.infoText),
-                        name: context.t(ResourceKeys.deviceLists.columns.status.label),
-                        onRenderColumn: (group, key) => {
-                            return (
-                                <Label
-                                    key={key}
-                                >
-                                    {(group.data as DeviceSummary).status}
-                                </Label>
-                            );
-                        },
-                        widthPercentage: 10
-                    },
-                    {
-                        name: context.t(ResourceKeys.deviceLists.columns.connection),
-                        onRenderColumn: (group, key) => {
-                            return (
-                                <Label
-                                    key={key}
-                                >
-                                    {(group.data as DeviceSummary).connectionState}
-                                </Label>
-                            );
-                        },
-                        widthPercentage: 10
-                    },
-                    {
-                        name: context.t(ResourceKeys.deviceLists.columns.authenticationType),
-                        onRenderColumn: (group, key) => {
-                            return (
-                                <Label
-                                    key={key}
-                                >
-                                    {(group.data as DeviceSummary).authenticationType}
-                                </Label>
-                            );
-                        },
-                        widthPercentage: 10
-                    },
-                    {
-                        name: context.t(ResourceKeys.deviceLists.columns.lastActivityTime),
-                        onRenderColumn: (group, key) => {
-                            return (
-                                <Label
-                                    key={key}
-                                >
-                                    {(group.data as DeviceSummary).lastActivityTime || '--'}
-                                </Label>
-                            );
-                        },
-                        widthPercentage: 15
-                    },
-                    {
-                        name: context.t(ResourceKeys.deviceLists.columns.statusUpdatedTime),
-                        onRenderColumn: (group, key) => {
-                            return (
-                                <Label
-                                    key={key}
-                                >
-                                    {(group.data as DeviceSummary).statusUpdatedTime || '--'}
-                                </Label>
-                            );
-                        },
-                        widthPercentage: 15
-                    },
-                    {
-                        name: context.t(ResourceKeys.deviceLists.columns.isEdgeDevice.label),
-                        onRenderColumn: (group, key) => {
-                            const isEdge = (group.data as DeviceSummary).iotEdge;
-                            return (
-                                <Icon
-                                    key={key}
-                                    iconName={isEdge && CHECK}
-                                    ariaLabel={isEdge ?
-                                        context.t(ResourceKeys.deviceLists.columns.isEdgeDevice.yes) : context.t(ResourceKeys.deviceLists.columns.isEdgeDevice.no)}
-                                />
-                            );
-                        },
-                        widthPercentage: 5
-                    }
-                ]}
-            />
-            </>
         );
+    }
+
+    private readonly getColumns = (context: LocalizationContextInterface): IColumn[] => {
+        return [
+            { fieldName: 'id', isMultiline: true, isResizable: true, key: 'id',
+                maxWidth: LARGE_COLUMN_WIDTH, minWidth: 100, name: context.t(ResourceKeys.deviceLists.columns.deviceId.label) },
+            { fieldName: 'status', isResizable: true, key: 'status',
+                maxWidth: EXTRA_SMALL_COLUMN_WIDTH, minWidth: 100, name: context.t(ResourceKeys.deviceLists.columns.status.label)},
+            { fieldName: 'connection', isResizable: true, key: 'connection',
+                maxWidth: SMALL_COLUMN_WIDTH, minWidth: 100, name: context.t(ResourceKeys.deviceLists.columns.connection) },
+            { fieldName: 'authenticationType',  isMultiline: true, isResizable: true, key: 'authenticationType',
+                maxWidth: SMALL_COLUMN_WIDTH,  minWidth: 100, name: context.t(ResourceKeys.deviceLists.columns.authenticationType)},
+            { fieldName: 'lastActivityTime', isMultiline: true, isResizable: true, key: 'lastActivityTime',
+                maxWidth: MEDIUM_COLUMN_WIDTH, minWidth: 100, name: context.t(ResourceKeys.deviceLists.columns.lastActivityTime)},
+            { fieldName: 'statusUpdatedTime', isMultiline: true, isResizable: true, key: 'statusUpdatedTime',
+                maxWidth: MEDIUM_COLUMN_WIDTH, minWidth: 100, name: context.t(ResourceKeys.deviceLists.columns.statusUpdatedTime)},
+            {  fieldName: 'edge', isResizable: true, key: 'edge',
+                minWidth: 100, name: context.t(ResourceKeys.deviceLists.columns.isEdgeDevice.label)},
+        ];
+    }
+
+    // tslint:disable-next-line:cyclomatic-complexity
+    private readonly renderItemColumn = (context: LocalizationContextInterface) => (item: DeviceSummary, index: number, column: IColumn) => {
+        switch (column.key) {
+            case 'id':
+                const path = this.props.location.pathname.replace(/\/devices\/.*/, `/${ROUTE_PARTS.DEVICES}`);
+                return (
+                    <NavLink key={column.key} to={`${path}/${ROUTE_PARTS.DETAIL}/${ROUTE_PARTS.IDENTITY}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(item.deviceId)}`}>
+                        {item.deviceId}
+                    </NavLink>
+                );
+            case 'status':
+                return (
+                    <Label
+                        key={column.key}
+                    >
+                        {item.status}
+                    </Label>
+                );
+            case 'connection':
+                return (
+                    <Label
+                        key={column.key}
+                    >
+                        {item.connectionState}
+                    </Label>
+                );
+            case 'authenticationType':
+                return (
+                    <Label
+                        key={column.key}
+                    >
+                        {item.authenticationType}
+                    </Label>
+                );
+            case 'lastActivityTime':
+                return (
+                    <Label
+                        key={column.key}
+                    >
+                        {item.lastActivityTime || '--'}
+                    </Label>
+                );
+            case 'statusUpdatedTime':
+                return (
+                    <Label
+                        key={column.key}
+                    >
+                        {item.statusUpdatedTime || '--'}
+                    </Label>
+                );
+            case 'edge':
+                const isEdge = item.iotEdge;
+                return (
+                    <Icon
+                        key={column.key}
+                        iconName={isEdge && CHECK}
+                        ariaLabel={isEdge ?
+                            context.t(ResourceKeys.deviceLists.columns.isEdgeDevice.yes) : context.t(ResourceKeys.deviceLists.columns.isEdgeDevice.no)}
+                    />
+                );
+            default:
+                return;
+        }
     }
 
     private readonly fetchPage = (pageNumber: number) => {
@@ -306,10 +317,6 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
         this.setState({
             showDeleteConfirmation: false
         });
-    }
-
-    private readonly onRowSelection = (devices: DeviceSummary[]) => {
-        this.setState({ selectedDeviceIds: devices.map(device => device.deviceId) });
     }
 }
 

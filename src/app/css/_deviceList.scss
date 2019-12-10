@@ -39,3 +39,24 @@
         }
     }
 }
+
+.list-detail {
+    .ms-DetailsHeader {
+        @include themify($themes) {
+            background: themed('cellBackground') !important;
+        }
+    }
+
+    .ms-DetailsRow-cell {
+        @include themify($themes) {
+            background: themed('cellBackground') !important;
+        }
+    }
+
+    a:link, a:visited, a:hover, a:active {
+        text-decoration: none;
+        @include themify($themes) {
+            color: themed('linkColor');
+        }
+    }
+}

@@ -14,6 +14,7 @@ import ComplexReportedFormPanel from '../shared/complexReportedFormPanel';
 import { RenderSimplyTypeValue } from '../shared/simpleReportedSection';
 import { PropertyContent } from '../../../../api/models/modelDefinition';
 import { ParsedJsonSchema } from '../../../../api/models/interfaceJsonParserOutput';
+import { SMALL_COLUMN_WIDTH, EXTRA_LARGE_COLUMN_WIDTH } from '../../../../constants/columnWidth';
 
 export interface DevicePropertiesDataProps {
     twinAndSchema: TwinWithSchema[];
@@ -67,9 +68,9 @@ export default class DevicePropertiesPerInterface
 
     private readonly getColumns = (context: LocalizationContextInterface): IColumn[] => {
         return [
-            { key: 'name', name: context.t(ResourceKeys.deviceProperties.columns.name), fieldName: 'name', minWidth: 100, isResizable: true, isMultiline: true },
-            { key: 'schema', name: context.t(ResourceKeys.deviceProperties.columns.schema), fieldName: 'schema', minWidth: 100, isResizable: true },
-            { key: 'unit', name: context.t(ResourceKeys.deviceProperties.columns.unit), fieldName: 'unit', minWidth: 100, isResizable: true },
+            { key: 'name', name: context.t(ResourceKeys.deviceProperties.columns.name), fieldName: 'name', minWidth: 100, maxWidth: EXTRA_LARGE_COLUMN_WIDTH, isResizable: true, isMultiline: true },
+            { key: 'schema', name: context.t(ResourceKeys.deviceProperties.columns.schema), fieldName: 'schema', minWidth: 100, maxWidth: SMALL_COLUMN_WIDTH, isResizable: true },
+            { key: 'unit', name: context.t(ResourceKeys.deviceProperties.columns.unit), fieldName: 'unit', minWidth: 100, maxWidth: SMALL_COLUMN_WIDTH, isResizable: true },
             { key: 'value', name: context.t(ResourceKeys.deviceProperties.columns.value), fieldName: 'value', minWidth: 150, isResizable: true }
         ];
     }
