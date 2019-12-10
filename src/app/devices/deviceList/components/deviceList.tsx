@@ -117,7 +117,7 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
                 handleAdd={this.handleAdd}
                 handleRefresh={this.refresh}
                 handleDelete={this.deleteConfirmation}
-            /> // todo handle delete
+            />
         );
     }
 
@@ -187,7 +187,7 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
             { fieldName: 'statusUpdatedTime', isMultiline: true, isResizable: true, key: 'statusUpdatedTime',
                 maxWidth: MEDIUM_COLUMN_WIDTH, minWidth: 100, name: context.t(ResourceKeys.deviceLists.columns.statusUpdatedTime)},
             {  fieldName: 'edge', isResizable: true, key: 'edge',
-                maxWidth: EXTRA_SMALL_COLUMN_WIDTH, minWidth: 100, name: context.t(ResourceKeys.deviceLists.columns.isEdgeDevice.label)},
+                minWidth: 100, name: context.t(ResourceKeys.deviceLists.columns.isEdgeDevice.label)},
         ];
     }
 

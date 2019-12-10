@@ -2,3 +2,4 @@ export const MEDIUM_COLUMN_WIDTH = 300;
 export const SMALL_COLUMN_WIDTH = 200;
 export const EXTRA_SMALL_COLUMN_WIDTH = 100;
 export const LARGE_COLUMN_WIDTH = 400;
+export const EXTRA_LARGE_COLUMN_WIDTH = 500;
