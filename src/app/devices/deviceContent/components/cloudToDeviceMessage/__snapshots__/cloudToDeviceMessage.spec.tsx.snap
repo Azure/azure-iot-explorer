@@ -53,8 +53,8 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
       }
     />
     <CollapsibleSection
-      expanded={false}
-      label="cloudToDeviceMessage.properties.customProperties"
+      expanded={true}
+      label="cloudToDeviceMessage.properties.label"
       tooltipText="cloudToDeviceMessage.properties.tooltip"
     >
       <StyledCommandBarBase
@@ -84,36 +84,70 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
                     "iconProps": Object {
                       "iconName": "LocationDot",
                     },
-                    "key": "$.mid",
-                    "name": "message-id",
+                    "key": "ack",
+                    "name": "cloudToDeviceMessage.properties.systemProperties.ack.displayName",
                     "onClick": [Function],
+                    "secondaryText": "cloudToDeviceMessage.properties.systemProperties.ack.description",
                   },
                   Object {
                     "disabled": false,
                     "iconProps": Object {
                       "iconName": "LocationDot",
                     },
-                    "key": "$.cid",
-                    "name": "correlation-id",
+                    "key": "contentType",
+                    "name": "cloudToDeviceMessage.properties.systemProperties.contentType.displayName",
                     "onClick": [Function],
+                    "secondaryText": "cloudToDeviceMessage.properties.systemProperties.contentType.description",
                   },
                   Object {
                     "disabled": false,
                     "iconProps": Object {
                       "iconName": "LocationDot",
                     },
-                    "key": "$.ct",
-                    "name": "content-type",
+                    "key": "contentEncoding",
+                    "name": "cloudToDeviceMessage.properties.systemProperties.contentEncoding.displayName",
                     "onClick": [Function],
+                    "secondaryText": "cloudToDeviceMessage.properties.systemProperties.contentEncoding.description",
                   },
                   Object {
                     "disabled": false,
                     "iconProps": Object {
                       "iconName": "LocationDot",
                     },
-                    "key": "$.ce",
-                    "name": "content-encoding",
+                    "key": "correlationId",
+                    "name": "cloudToDeviceMessage.properties.systemProperties.correlationId.displayName",
                     "onClick": [Function],
+                    "secondaryText": "cloudToDeviceMessage.properties.systemProperties.correlationId.description",
+                  },
+                  Object {
+                    "disabled": false,
+                    "iconProps": Object {
+                      "iconName": "LocationDot",
+                    },
+                    "key": "expiryTimeUtc",
+                    "name": "cloudToDeviceMessage.properties.systemProperties.expiryTimeUtc.displayName",
+                    "onClick": [Function],
+                    "secondaryText": "cloudToDeviceMessage.properties.systemProperties.expiryTimeUtc.description",
+                  },
+                  Object {
+                    "disabled": false,
+                    "iconProps": Object {
+                      "iconName": "LocationDot",
+                    },
+                    "key": "lockToken",
+                    "name": "cloudToDeviceMessage.properties.systemProperties.lockToken.displayName",
+                    "onClick": [Function],
+                    "secondaryText": "cloudToDeviceMessage.properties.systemProperties.lockToken.description",
+                  },
+                  Object {
+                    "disabled": false,
+                    "iconProps": Object {
+                      "iconName": "LocationDot",
+                    },
+                    "key": "messageId",
+                    "name": "cloudToDeviceMessage.properties.systemProperties.messageId.displayName",
+                    "onClick": [Function],
+                    "secondaryText": "cloudToDeviceMessage.properties.systemProperties.messageId.description",
                   },
                 ],
               },
@@ -160,19 +194,16 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
             Array [
               Object {
                 "isResizable": true,
-                "key": "cloudToDeviceMessage.properties.key",
-                "maxWidth": 200,
+                "key": "key",
+                "maxWidth": 300,
                 "minWidth": 150,
                 "name": "cloudToDeviceMessage.properties.key",
-                "onRender": [Function],
               },
               Object {
                 "isResizable": true,
-                "key": "cloudToDeviceMessage.properties.value",
-                "maxWidth": 200,
+                "key": "value",
                 "minWidth": 150,
                 "name": "cloudToDeviceMessage.properties.value",
-                "onRender": [Function],
               },
             ]
           }
@@ -186,6 +217,7 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
               },
             ]
           }
+          onRenderItemColumn={[Function]}
           selection={
             Selection {
               "_anchoredIndex": 0,

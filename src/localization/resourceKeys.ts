@@ -15,13 +15,49 @@ export class ResourceKeys {
       properties : {
          addCustomProperty : "cloudToDeviceMessage.properties.addCustomProperty",
          addSystemProperty : "cloudToDeviceMessage.properties.addSystemProperty",
-         customProperties : "cloudToDeviceMessage.properties.customProperties",
          delete : "cloudToDeviceMessage.properties.delete",
          key : "cloudToDeviceMessage.properties.key",
          keyDup : "cloudToDeviceMessage.properties.keyDup",
+         label : "cloudToDeviceMessage.properties.label",
          rowCheckBoxAriaLabel : "cloudToDeviceMessage.properties.rowCheckBoxAriaLabel",
          selectAllCheckboxAriaLabel : "cloudToDeviceMessage.properties.selectAllCheckboxAriaLabel",
-         systemProperties : "cloudToDeviceMessage.properties.systemProperties",
+         systemProperties : {
+            ack : {
+               description : "cloudToDeviceMessage.properties.systemProperties.ack.description",
+               displayName : "cloudToDeviceMessage.properties.systemProperties.ack.displayName",
+               full : "cloudToDeviceMessage.properties.systemProperties.ack.full",
+               negative : "cloudToDeviceMessage.properties.systemProperties.ack.negative",
+               positive : "cloudToDeviceMessage.properties.systemProperties.ack.positive",
+            },
+            contentEncoding : {
+               description : "cloudToDeviceMessage.properties.systemProperties.contentEncoding.description",
+               displayName : "cloudToDeviceMessage.properties.systemProperties.contentEncoding.displayName",
+               utf16 : "cloudToDeviceMessage.properties.systemProperties.contentEncoding.utf16",
+               utf32 : "cloudToDeviceMessage.properties.systemProperties.contentEncoding.utf32",
+               utf8 : "cloudToDeviceMessage.properties.systemProperties.contentEncoding.utf8",
+            },
+            contentType : {
+               description : "cloudToDeviceMessage.properties.systemProperties.contentType.description",
+               displayName : "cloudToDeviceMessage.properties.systemProperties.contentType.displayName",
+            },
+            correlationId : {
+               description : "cloudToDeviceMessage.properties.systemProperties.correlationId.description",
+               displayName : "cloudToDeviceMessage.properties.systemProperties.correlationId.displayName",
+            },
+            expiryTimeUtc : {
+               description : "cloudToDeviceMessage.properties.systemProperties.expiryTimeUtc.description",
+               displayName : "cloudToDeviceMessage.properties.systemProperties.expiryTimeUtc.displayName",
+               error : "cloudToDeviceMessage.properties.systemProperties.expiryTimeUtc.error",
+            },
+            lockToken : {
+               description : "cloudToDeviceMessage.properties.systemProperties.lockToken.description",
+               displayName : "cloudToDeviceMessage.properties.systemProperties.lockToken.displayName",
+            },
+            messageId : {
+               description : "cloudToDeviceMessage.properties.systemProperties.messageId.description",
+               displayName : "cloudToDeviceMessage.properties.systemProperties.messageId.displayName",
+            },
+         },
          toggleSelectionColumnAriaLabel : "cloudToDeviceMessage.properties.toggleSelectionColumnAriaLabel",
          tooltip : "cloudToDeviceMessage.properties.tooltip",
          value : "cloudToDeviceMessage.properties.value",

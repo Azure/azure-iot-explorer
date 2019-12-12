@@ -82,10 +82,45 @@ app.post('/api/CloudToDevice', (req: express.Request, res: express.Response) => 
     }
 });
 
-const addPropertiesToCloudToDeviceMessage = (message: CloudToDeviceMessage, properties: Array<{key: string, value: string}>) => {
-    const filteredProperties = properties && properties.length > 0 && properties.filter((property: {key: string, value: string}) => property.key && property.value);
-    for (const property of filteredProperties) {
-        message.properties.add(property.key, property.value);
+// tslint:disable-next-line:cyclomatic-complexity
+const addPropertiesToCloudToDeviceMessage = (message: CloudToDeviceMessage, properties: Array<{key: string, value: string, isSystemProperty: boolean}>) => {
+    if (!properties || properties.length === 0) {
+        return;
+    }
+    for (const property of properties) {
+        if (property.isSystemProperty) {
+            switch (property.key) {
+                case 'ack':
+                    message.ack = property.value;
+                    break;
+                case 'contentType':
+                    // tslint:disable-next-line:no-any
+                    message.contentType = property.value as any;
+                    break;
+                case 'correlationId':
+                    message.correlationId = property.value;
+                    break;
+                case 'contentEncoding':
+                    message.correlationId = property.value;
+                    break;
+                case 'expiryTimeUtc':
+                    // tslint:disable-next-line:radix
+                    message.expiryTimeUtc = parseInt(property.value);
+                    break;
+                case 'messageId':
+                    message.messageId = property.value;
+                    break;
+                case 'lockToken':
+                    message.lockToken = property.value;
+                    break;
+                default:
+                    message.properties.add(property.key, property.value);
+                    break;
+            }
+        }
+        else {
+            message.properties.add(property.key, property.value);
+        }
     }
 };
 
