@@ -488,8 +488,44 @@
         "bodyTooltip" : "The body of the message to send to the device.",
         "addTimestamp": "Add timestamp to message body",
         "properties": {
-            "customProperties": "Properties",
-            "systemProperties": "System properties",
+            "label": "Properties",
+            "systemProperties": {
+                "ack": {
+                    "displayName": "ack",
+                    "description": "Type of the feedback requested.",
+                    "full": "Full (IoT Hub generates a feedback message in either case)",
+                    "positive": "Positive (If the c2d message reaches the Completed state, IoT Hub generates a feedback message)",
+                    "negative": "Negative (If the c2d message reaches the Dead lettered state, IoT Hub generates a feedback message)"
+                },
+                "contentType": {
+                    "displayName": "content-type",
+                    "description": "The content type associated with the message body."
+                },
+                "contentEncoding": {
+                    "displayName": "content-encoding",
+                    "description": "The content encoding associated with the message body.",
+                    "utf8": "utf-8",
+                    "utf16": "utf-16",
+                    "utf32": "utf-32"
+                },
+                "correlationId": {
+                    "displayName": "correlation-id",
+                    "description": "The correlation Id associated with the message."
+                },
+                "expiryTimeUtc": {
+                    "displayName": "expiry-time-utc",
+                    "description": "Expiry time in UTC in milliseconds since unix epoch.",
+                    "error": "Expiry time must be an integer and greater than now"
+                },
+                "lockToken": {
+                    "displayName": "lock-token",
+                    "description": "Used to Abandon, Reject or Accept the message."
+                },
+                "messageId": {
+                    "displayName": "message-id",
+                    "description": "The message Id. If no message Id is provided a UUID will be generated."
+                }
+            },
             "key": "Key",
             "keyDup": "Key must be unique",
             "value": "Value",

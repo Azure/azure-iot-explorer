@@ -7,6 +7,7 @@ import * as React from 'react';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
+import { Dropdown } from 'office-ui-fabric-react/lib/Dropdown';
 import CloudToDeviceMessage, { CloudToDeviceMessageProps, CloudToDeviceMessageState, systemPropertyKeyNameMappings } from './cloudToDeviceMessage';
 import { testSnapshot, mountWithLocalization } from '../../../../shared/utils/testHelpers';
 
@@ -59,14 +60,35 @@ describe('cloudToDeviceMessage', () => {
     });
 
     it('adds custom properties', () => {
-        const wrapper = mountWithLocalization(getComponent({
-            propertiesSectionExpanded: true
-        }));
+        const wrapper = mountWithLocalization(getComponent());
         const commandBar = wrapper.find(CommandBar).at(1);
         // click the add custom property, which would add an entry to the editable grid
         commandBar.props().items[0].onClick(null);
+
         wrapper.update();
         expect((wrapper.state() as CloudToDeviceMessageState).properties.length).toEqual(2); // tslint:disable-line:no-magic-numbers
+
+        const keyInput = wrapper.find(TextField).at(1);
+        keyInput.instance().props.onChange({ target: null}, 'foo');
+        const valueInput = wrapper.find(TextField).at(2); // tslint:disable-line:no-magic-numbers
+        valueInput.instance().props.onChange({ target: null}, 'bar');
+
+        wrapper.update();
+        expect((wrapper.state() as CloudToDeviceMessageState).properties.some(property => property.keyName === 'foo' && !property.isSystemProperty && property.value === 'bar')).toEqual(true);
+    });
+
+    it('adds system properties', () => {
+        const wrapper = mountWithLocalization(getComponent());
+        const commandBar = wrapper.find(CommandBar).at(1);
+        // click the add system property, which would add an entry to the editable grid
+        commandBar.props().items[1].subMenuProps.items[0].onClick();
+
+        wrapper.update();
+        expect((wrapper.state() as CloudToDeviceMessageState).properties.length).toEqual(2); // tslint:disable-line:no-magic-numbers
+        const ackDropDown = wrapper.find(Dropdown).first();
+        ackDropDown.props().onChange(null, {key: 'full'} as any); // tslint:disable-line:no-any
+        wrapper.update();
+        expect((wrapper.state() as CloudToDeviceMessageState).properties.some(property => property.keyName === 'ack' && property.isSystemProperty && property.value === 'full')).toEqual(true);
     });
 
     it('disables send message button where there is duplicate keys', () => {
@@ -79,9 +101,7 @@ describe('cloudToDeviceMessage', () => {
     });
 
     it('disables system property button when all the system properties keys have been added', () => {
-        const wrapper = mountWithLocalization(getComponent({
-            propertiesSectionExpanded: true
-        }));
+        const wrapper = mountWithLocalization(getComponent());
         const properties = systemPropertyKeyNameMappings.map(keyNameMapping => ({
             index: 0, isSystemProperty: false, keyName: keyNameMapping.keyName, value: 'value'
         }));

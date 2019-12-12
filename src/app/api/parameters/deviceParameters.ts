@@ -30,7 +30,7 @@ export interface InvokeMethodParameters extends DataPlaneParameters {
 export interface CloudToDeviceMessageParameters extends DataPlaneParameters {
     deviceId: string;
     body: string;
-    properties?: Array<{key: string, value: string}>;
+    properties?: Array<{key: string, value: string, isSystemProperty: boolean}>;
 }
 
 export interface FetchDeviceParameters extends DataPlaneParameters {
