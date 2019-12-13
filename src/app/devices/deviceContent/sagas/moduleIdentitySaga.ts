@@ -46,7 +46,7 @@ export function* addModuleIdentitySaga(action: Action<ModuleIdentity>) {
             moduleIdentity: action.payload,
         };
 
-        const moduleIdentities = yield call(addModuleIdentity, parameters);
+        const moduleIdentity = yield call(addModuleIdentity, parameters);
 
         yield put(addNotificationAction.started({
             text: {
@@ -58,7 +58,7 @@ export function* addModuleIdentitySaga(action: Action<ModuleIdentity>) {
             type: NotificationType.success
         }));
 
-        yield put(addModuleIdentityAction.done({params: action.payload, result: moduleIdentities}));
+        yield put(addModuleIdentityAction.done({params: action.payload, result: moduleIdentity}));
     } catch (error) {
         yield put(addNotificationAction.started({
             text: {

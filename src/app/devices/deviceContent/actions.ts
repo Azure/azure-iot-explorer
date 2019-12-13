@@ -29,7 +29,7 @@ const updateTwinAction = deviceContentCreator.async<UpdateTwinActionParameters, 
 
 const moduleIdentityCreator = actionCreatorFactory(actionPrefixes.MODULEIDENTITY);
 const getModuleIdentitiesAction = moduleIdentityCreator.async<string, ModuleIdentity[]>(actionTypes.GET_MODULE_IDENTITIES);
-const addModuleIdentityAction = moduleIdentityCreator.async<ModuleIdentity, ModuleIdentity[]>(actionTypes.ADD_MODULE_IDENTITY);
+const addModuleIdentityAction = moduleIdentityCreator.async<ModuleIdentity, ModuleIdentity>(actionTypes.ADD_MODULE_IDENTITY);
 
 export {
     addModuleIdentityAction,

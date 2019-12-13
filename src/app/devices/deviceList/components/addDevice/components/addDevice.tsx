@@ -222,7 +222,7 @@ export default class AddDevice extends React.Component<AddDeviceActionProps & Ad
                     </>
                 }
                 {this.state.authenticationType === DeviceAuthenticationType.SelfSigned &&
-                this.renderSelfSignedSection(context)
+                    this.renderSelfSignedSection(context)
                 }
             </div>
         );

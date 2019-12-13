@@ -475,7 +475,7 @@ export const fetchModuleIdentities = async (parameters: FetchModuleIdentitiesPar
     }
 };
 
-export const addModuleIdentity = async (parameters: AddModuleIdentityParameters): Promise<DataPlaneResponse<ModuleIdentity[]>> => {
+export const addModuleIdentity = async (parameters: AddModuleIdentityParameters): Promise<DataPlaneResponse<ModuleIdentity>> => {
     try {
         const connectionInformation = dataPlaneConnectionHelper(parameters);
 
