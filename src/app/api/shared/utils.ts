@@ -148,6 +148,10 @@ export const clauseToString = (clause: QueryClause) => {
             return toPnPClause(PnPQueryPrefix.HAS_CAPABILITY_MODEL, clause.value);
         case ParameterType.interfaceId:
             return toPnPClause(PnPQueryPrefix.HAS_INTERFACE, clause.value);
+        case ParameterType.edge:
+            return toEdgeClause(clause.parameterType, clause.value);
+        case ParameterType.status:
+            return toDeviceStatusClause(clause.parameterType, clause.value);
         default:
             return clauseItemToString(clause.parameterType, clause.operation, clause.value);
     }
@@ -178,4 +182,12 @@ export const toPnPClause = (pnpFunctionName: string, value: string): string => {
         return `${pnpFunctionName}(${escapeValue(urnName)}, ${urnVersion})`;
     }
     return `${pnpFunctionName}('${value}')`; // when provided value is not urn with version, pass it in as string
+};
+
+export const toEdgeClause = (edgeFunctionName: string, value: string): string => {
+    return `${edgeFunctionName}=${value === 'true' ? true : false}`;
+};
+
+export const toDeviceStatusClause = (edgeFunctionName: string, value: string): string => {
+    return `${edgeFunctionName}='${value}'`;
 };

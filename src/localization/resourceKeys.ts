@@ -366,6 +366,7 @@ export class ResourceKeys {
                   ariaLabel : "deviceLists.query.searchPills.clause.parameterType.ariaLabel",
                   items : {
                      capabilityModelId : "deviceLists.query.searchPills.clause.parameterType.items.capabilityModelId",
+                     edge : "deviceLists.query.searchPills.clause.parameterType.items.edge",
                      interfaceId : "deviceLists.query.searchPills.clause.parameterType.items.interfaceId",
                      lastActivityTime : "deviceLists.query.searchPills.clause.parameterType.items.lastActivityTime",
                      propertyValue : "deviceLists.query.searchPills.clause.parameterType.items.propertyValue",
@@ -380,6 +381,14 @@ export class ResourceKeys {
                },
                value : {
                   ariaLabel : "deviceLists.query.searchPills.clause.value.ariaLabel",
+                  deviceCapability : {
+                     edge : "deviceLists.query.searchPills.clause.value.deviceCapability.edge",
+                     nonEdge : "deviceLists.query.searchPills.clause.value.deviceCapability.nonEdge",
+                  },
+                  deviceStatus : {
+                     disabled : "deviceLists.query.searchPills.clause.value.deviceStatus.disabled",
+                     enabled : "deviceLists.query.searchPills.clause.value.deviceStatus.enabled",
+                  },
                   placeholder : "deviceLists.query.searchPills.clause.value.placeholder",
                   title : "deviceLists.query.searchPills.clause.value.title",
                },
@@ -523,6 +532,7 @@ export class ResourceKeys {
       getDeviceIdentityOnError : "notifications.getDeviceIdentityOnError",
       getDeviceListGenericErrorHelp : "notifications.getDeviceListGenericErrorHelp",
       getDeviceListOnError : "notifications.getDeviceListOnError",
+      getDeviceListQueryGenericErrorHelp : "notifications.getDeviceListQueryGenericErrorHelp",
       getDeviceTwinOnError : "notifications.getDeviceTwinOnError",
       getDigitalTwinInterfacePropertiesOnError : "notifications.getDigitalTwinInterfacePropertiesOnError",
       getInterfaceModelOnError : "notifications.getInterfaceModelOnError",

@@ -17,20 +17,25 @@ export interface QueryClause {
 }
 
 export enum ParameterType {
+    // non pnp
+    edge = 'capabilities.iotEdge',
+    status = 'status',
+    // pnp
     capabilityModelId = 'dcm',
     interfaceId = 'interface',
-//    propertyValue = 'properties.reported',
-    status = 'status',
-//    lastActivityTime = 'lastActivityTime',
-//    statusUpdateTime = 'statusUpdateTime'
 }
 
 export enum OperationType {
-    equals = '=',
-    notEquals = '!=',
-    // lessThan = '<',
-    // lessThanEquals = '<=',
-    // greaterThan = '>',
-    // greaterThanEquals = '>=',
-    // inequal = '<>'
+    equal = '=',
+    notEqual = '!=',
+}
+
+export enum DeviceCapability {
+    edge = 'true',
+    nonEdge = 'false'
+}
+
+export enum DeviceStatus {
+    enabled = 'enabled',
+    disabled = 'disabled'
 }

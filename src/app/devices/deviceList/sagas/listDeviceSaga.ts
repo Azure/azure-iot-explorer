@@ -28,7 +28,7 @@ export function* listDevicesSaga(action: Action<DeviceQuery>) {
           },
         } :
         {
-            translationKey: ResourceKeys.notifications.getDeviceListGenericErrorHelp
+            translationKey: action.payload.clauses ? ResourceKeys.notifications.getDeviceListQueryGenericErrorHelp : ResourceKeys.notifications.getDeviceListGenericErrorHelp
         };
         yield put(addNotificationAction.started({
             text,

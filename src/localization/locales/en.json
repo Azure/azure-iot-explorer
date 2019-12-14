@@ -299,7 +299,8 @@
                             "propertyValue": "Property value",
                             "status": "Status",
                             "lastActivityTime": "Last activity time",
-                            "statusUpdateTime": "Status update time"
+                            "statusUpdateTime": "Status update time",
+                            "edge":"Edge"
                         }
                     },
                     "operationType": {
@@ -313,7 +314,15 @@
                     "value": {
                         "placeholder": "Enter value...",
                         "ariaLabel": "Enter a value for this clause",
-                        "title": "Enter value..."
+                        "title": "Enter value...",
+                        "deviceCapability": {
+                            "edge": "true",
+                            "nonEdge": "false"
+                        },
+                        "deviceStatus": {
+                            "enabled": "Enabled",
+                            "disabled": "Disabled"
+                        }
                     },
                     "remove": {
                         "title": "Remove",
@@ -562,6 +571,7 @@
         "savedToIotHubConnectionString": "Successfully saved connection string for IoT hub {{hostName}}",
         "getDeviceIdentityOnError": "Failed to get device {{deviceId}}'s identity: {{error}}",
         "getDeviceListOnError": "Failed to retrieve device list: {{error}}",
+        "getDeviceListQueryGenericErrorHelp": "Failed to retrieve device list. It is possibly due to an invalid query value",
         "getDeviceListGenericErrorHelp": "Failed to retrieve device list. It is possibly due to an invalid IoT hub connection string",
         "getDeviceTwinOnError": "Failed to get device {{deviceId}}'s twin: {{error}}",
         "getDigitalTwinInterfacePropertiesOnError": "Failed to get properties of digital twin interfaces on device {{deviceId}}: {{error}}",

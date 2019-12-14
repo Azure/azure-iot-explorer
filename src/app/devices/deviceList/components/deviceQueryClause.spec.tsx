@@ -20,7 +20,7 @@ describe('components/devices/DeviceQueryClause', () => {
     it('matches snapshot', () => {
         const wrapper = testWithLocalizationContext(
             <DeviceQueryClause
-                operation={OperationType.equals}
+                operation={OperationType.equal}
                 parameterType={ParameterType.status}
                 value="enabled"
                 index={0}
@@ -31,11 +31,26 @@ describe('components/devices/DeviceQueryClause', () => {
 
         expect(wrapper).toMatchSnapshot();
     });
+
     it('matches snapshot without operation', () => {
         const wrapper = testWithLocalizationContext(
             <DeviceQueryClause
                 parameterType={ParameterType.capabilityModelId}
                 value="enabled"
+                index={0}
+                removeClause={jest.fn()}
+                setClause={jest.fn()}
+            />
+        );
+
+        expect(wrapper).toMatchSnapshot();
+    });
+
+    it('matches snapshot without operation', () => {
+        const wrapper = testWithLocalizationContext(
+            <DeviceQueryClause
+                parameterType={ParameterType.edge}
+                value="true"
                 index={0}
                 removeClause={jest.fn()}
                 setClause={jest.fn()}
