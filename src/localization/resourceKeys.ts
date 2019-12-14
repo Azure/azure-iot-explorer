@@ -357,8 +357,8 @@ export class ResourceKeys {
                operationType : {
                   ariaLabel : "deviceLists.query.searchPills.clause.operationType.ariaLabel",
                   options : {
-                     equal : "deviceLists.query.searchPills.clause.operationType.options.equal",
-                     notEqual : "deviceLists.query.searchPills.clause.operationType.options.notEqual",
+                     equals : "deviceLists.query.searchPills.clause.operationType.options.equals",
+                     notEquals : "deviceLists.query.searchPills.clause.operationType.options.notEquals",
                   },
                   title : "deviceLists.query.searchPills.clause.operationType.title",
                },

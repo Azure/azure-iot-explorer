@@ -13,7 +13,7 @@ describe('utils', () => {
             {
                 clauses: [
                     {
-                        operation: OperationType.equal,
+                        operation: OperationType.equals,
                         parameterType: ParameterType.capabilityModelId,
                         value: 'enabled'
                     }
@@ -77,7 +77,7 @@ describe('utils', () => {
             {
                 clauses: [
                     {
-                        operation: OperationType.equal,
+                        operation: OperationType.equals,
                         parameterType: ParameterType.capabilityModelId,
                         value: 'enabled'
                     },
@@ -111,12 +111,12 @@ describe('utils', () => {
         expect(utils.clauseListToString(null)).toEqual('');
         expect(utils.clauseListToString([
             {
-                operation: OperationType.equal,
+                operation: OperationType.equals,
                 parameterType: ParameterType.status,
                 value: 'enabled'
             },
             {
-                operation: OperationType.equal,
+                operation: OperationType.equals,
                 parameterType: ParameterType.status,
                 value: 'disabled'
             }
@@ -124,7 +124,7 @@ describe('utils', () => {
 
         expect(utils.clauseListToString([
             {
-                operation: OperationType.equal,
+                operation: OperationType.equals,
                 parameterType: ParameterType.capabilityModelId,
                 value: 'enabled'
             }
@@ -132,7 +132,7 @@ describe('utils', () => {
 
         expect(utils.clauseListToString([
             {
-                operation: OperationType.equal,
+                operation: OperationType.equals,
                 parameterType: ParameterType.interfaceId,
                 value: 'enabled'
             }
@@ -140,8 +140,8 @@ describe('utils', () => {
     });
 
     it('creates clause item as string', () => {
-        expect(utils.clauseItemToString('foo', OperationType.equal, 'bar')).toEqual(`foo = 'bar'`);
-        expect(utils.clauseItemToString('foo', OperationType.notEqual, 'bar')).toEqual(`foo != 'bar'`);
+        expect(utils.clauseItemToString('foo', OperationType.equals, 'bar')).toEqual(`foo = 'bar'`);
+        expect(utils.clauseItemToString('foo', OperationType.notEquals, 'bar')).toEqual(`foo != 'bar'`);
     });
 
     it('handles escaping strings appropriately', () => {

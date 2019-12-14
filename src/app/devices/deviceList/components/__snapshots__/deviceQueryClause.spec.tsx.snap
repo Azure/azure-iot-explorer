@@ -17,20 +17,20 @@ exports[`components/devices/DeviceQueryClause matches snapshot 1`] = `
     options={
       Array [
         Object {
-          "key": "dcm",
-          "text": "deviceLists.query.searchPills.clause.parameterType.items.capabilityModelId",
-        },
-        Object {
           "key": "capabilities.iotEdge",
           "text": "deviceLists.query.searchPills.clause.parameterType.items.edge",
         },
         Object {
-          "key": "interface",
-          "text": "deviceLists.query.searchPills.clause.parameterType.items.interfaceId",
-        },
-        Object {
           "key": "status",
           "text": "deviceLists.query.searchPills.clause.parameterType.items.status",
+        },
+        Object {
+          "key": "dcm",
+          "text": "deviceLists.query.searchPills.clause.parameterType.items.capabilityModelId",
+        },
+        Object {
+          "key": "interface",
+          "text": "deviceLists.query.searchPills.clause.parameterType.items.interfaceId",
         },
       ]
     }
@@ -88,20 +88,20 @@ exports[`components/devices/DeviceQueryClause matches snapshot without operation
     options={
       Array [
         Object {
-          "key": "dcm",
-          "text": "deviceLists.query.searchPills.clause.parameterType.items.capabilityModelId",
-        },
-        Object {
           "key": "capabilities.iotEdge",
           "text": "deviceLists.query.searchPills.clause.parameterType.items.edge",
         },
         Object {
-          "key": "interface",
-          "text": "deviceLists.query.searchPills.clause.parameterType.items.interfaceId",
-        },
-        Object {
           "key": "status",
           "text": "deviceLists.query.searchPills.clause.parameterType.items.status",
+        },
+        Object {
+          "key": "dcm",
+          "text": "deviceLists.query.searchPills.clause.parameterType.items.capabilityModelId",
+        },
+        Object {
+          "key": "interface",
+          "text": "deviceLists.query.searchPills.clause.parameterType.items.interfaceId",
         },
       ]
     }
@@ -148,20 +148,20 @@ exports[`components/devices/DeviceQueryClause matches snapshot without operation
     options={
       Array [
         Object {
-          "key": "dcm",
-          "text": "deviceLists.query.searchPills.clause.parameterType.items.capabilityModelId",
-        },
-        Object {
           "key": "capabilities.iotEdge",
           "text": "deviceLists.query.searchPills.clause.parameterType.items.edge",
         },
         Object {
-          "key": "interface",
-          "text": "deviceLists.query.searchPills.clause.parameterType.items.interfaceId",
-        },
-        Object {
           "key": "status",
           "text": "deviceLists.query.searchPills.clause.parameterType.items.status",
+        },
+        Object {
+          "key": "dcm",
+          "text": "deviceLists.query.searchPills.clause.parameterType.items.capabilityModelId",
+        },
+        Object {
+          "key": "interface",
+          "text": "deviceLists.query.searchPills.clause.parameterType.items.interfaceId",
         },
       ]
     }

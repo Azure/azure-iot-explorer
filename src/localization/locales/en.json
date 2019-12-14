@@ -307,8 +307,8 @@
                         "title": "Operation type",
                         "ariaLabel": "Choose a comparison type for this clause",
                         "options": {
-                            "equal": "equal",
-                            "notEqual": "not equal"
+                            "equals": "equals",
+                            "notEquals": "not equal"
                         }
                     },
                     "value": {
@@ -316,8 +316,8 @@
                         "ariaLabel": "Enter a value for this clause",
                         "title": "Enter value...",
                         "deviceCapability": {
-                            "edge": "true",
-                            "nonEdge": "false"
+                            "edge": "is Edge device",
+                            "nonEdge": "is not Edge device"
                         },
                         "deviceStatus": {
                             "enabled": "Enabled",

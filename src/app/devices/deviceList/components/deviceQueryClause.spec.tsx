@@ -20,7 +20,7 @@ describe('components/devices/DeviceQueryClause', () => {
     it('matches snapshot', () => {
         const wrapper = testWithLocalizationContext(
             <DeviceQueryClause
-                operation={OperationType.equal}
+                operation={OperationType.equals}
                 parameterType={ParameterType.status}
                 value="enabled"
                 index={0}

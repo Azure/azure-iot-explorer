@@ -26,8 +26,8 @@ export enum ParameterType {
 }
 
 export enum OperationType {
-    equal = '=',
-    notEqual = '!=',
+    equals = '=',
+    notEquals = '!=',
 }
 
 export enum DeviceCapability {
