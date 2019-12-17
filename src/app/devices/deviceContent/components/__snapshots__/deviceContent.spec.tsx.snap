@@ -101,31 +101,31 @@ exports[`deviceContent matches snapshot 1`] = `
       >
         <Route
           component={[Function]}
-          path="/devices/detail/identity/"
+          path="undefined/identity/"
         />
         <Route
           component={[Function]}
-          path="/devices/detail/twin/"
+          path="undefined/twin/"
         />
         <Route
           component={[Function]}
-          path="/devices/detail/events/"
+          path="undefined/events/"
         />
         <Route
           component={[Function]}
-          path="/devices/detail/methods/"
+          path="undefined/methods/"
         />
         <Route
           component={[Function]}
-          path="/devices/detail/cloudToDeviceMessage/"
+          path="undefined/cloudToDeviceMessage/"
         />
         <Route
           component={[Function]}
-          path="/devices/detail/moduleIdentity/"
+          path="undefined/moduleIdentity/"
         />
         <Route
           component={[Function]}
-          path="/devices/detail/digitalTwins/"
+          path="undefined/digitalTwins/"
         />
       </div>
     </div>

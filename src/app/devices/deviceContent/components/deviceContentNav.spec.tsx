@@ -5,23 +5,39 @@
 import 'jest';
 import * as React from 'react';
 import { Nav } from 'office-ui-fabric-react/lib/Nav';
-import DeviceContentNavComponent, { NAV_LINK_ITEMS_NONPNP, NAV_LINK_ITEMS_PNP, NAV_LINK_ITEMS_NONPNP_NONEDGE } from './deviceContentNav';
+import DeviceContentNavComponent, { DeviceContentNavDataProps, DeviceContentNavDispatchProps, NAV_LINK_ITEMS_NONPNP, NAV_LINK_ITEMS_PNP, NAV_LINK_ITEMS_NONPNP_NONEDGE } from './deviceContentNav';
 import { mountWithLocalization, testSnapshot } from '../../../shared/utils/testHelpers';
 
 describe('components/devices/deviceContentNav', () => {
 
     const setInterfaceId = jest.fn();
     const getComponent = (overrides = {}) => {
-        const props = {
+        const routeProps = {
+            history: jest.fn() as any, // tslint:disable-line:no-any
+            location: jest.fn() as any, // tslint:disable-line:no-any
+            match: jest.fn() as any, // tslint:disable-line:no-any
+        };
+
+        const navDataProps: DeviceContentNavDataProps = {
             deviceId: 'test',
             interfaceIds: [],
             isEdgeDevice: true,
             isLoading: false,
             isPnPDevice: false,
             selectedInterface: '',
-            setInterfaceId,
-            ...overrides
         };
+
+        const navDispatchProps: DeviceContentNavDispatchProps = {
+            setInterfaceId
+        };
+
+        const props = {
+            ...navDispatchProps,
+            ...navDataProps,
+            ...routeProps
+            ...overrides,
+        };
+
         return <DeviceContentNavComponent {...props} />;
     };
 
