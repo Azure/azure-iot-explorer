@@ -105,11 +105,11 @@ exports[`deviceContent matches snapshot 1`] = `
         />
         <Route
           component={[Function]}
-          path="undefined/detail/twin/"
+          path="undefined/twin/"
         />
         <Route
           component={[Function]}
-          path="undefined/detail/events/"
+          path="undefined/events/"
         />
         <Route
           component={[Function]}

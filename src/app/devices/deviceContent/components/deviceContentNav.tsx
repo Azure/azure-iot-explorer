@@ -74,7 +74,7 @@ export default class DeviceContentNavComponent extends React.Component<DeviceCon
                 name: context.t((ResourceKeys.deviceContent.navBar as any)[nav]), // tslint:disable-line:no-any
                 onClick: this.onNestedChildLinkClick,
                 parentId: id,
-                url: `#${url}/${nav}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}&${ROUTE_PARAMS.INTERFACE_ID}=${id}`
+                url: `#${url}/${ROUTE_PARTS.DIGITAL_TWINS}/${nav}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}&${ROUTE_PARAMS.INTERFACE_ID}=${id}`
             })),
             name: id,
             url: ''

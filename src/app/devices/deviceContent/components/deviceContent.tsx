@@ -108,8 +108,8 @@ export class DeviceContentComponent extends React.PureComponent<DeviceContentPro
         return (
             <div className={'device-content-detail' + (!this.state.appMenuVisible ? ' collapsed' : '')}>
                 <Route path={`${url}/${ROUTE_PARTS.IDENTITY}/`} component={DeviceIdentityContainer} />
-                <Route path={`${url}/${ROUTE_PARTS.DETAIL}/${ROUTE_PARTS.TWIN}/`} component={DeviceTwinContainer} />
-                <Route path={`${url}/${ROUTE_PARTS.DETAIL}/${ROUTE_PARTS.EVENTS}/`} component={DeviceEventsContainer}/>
+                <Route path={`${url}/${ROUTE_PARTS.TWIN}/`} component={DeviceTwinContainer} />
+                <Route path={`${url}/${ROUTE_PARTS.EVENTS}/`} component={DeviceEventsContainer}/>
                 <Route path={`${url}/${ROUTE_PARTS.METHODS}/`} component={DirectMethodContainer} />
                 <Route path={`${url}/${ROUTE_PARTS.CLOUD_TO_DEVICE_MESSAGE}/`} component={CloudToDeviceMessageContainer} />
                 <Route path={`${url}/${ROUTE_PARTS.MODULE_IDENTITY}/`} component={ModuleIdentityContainer} />
