@@ -159,6 +159,9 @@
                 max-width: 190px;
                 line-height: 20px;
                 font-size: 10px;
+                .ms-Dropdown {
+                    min-width: 140px;
+                }
             }
         }
     }

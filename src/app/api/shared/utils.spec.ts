@@ -4,7 +4,7 @@
  **********************************************************/
 import 'jest';
 import * as utils from './utils';
-import { ParameterType, OperationType } from '../models/deviceQuery';
+import { ParameterType, OperationType, DeviceCapability, DeviceStatus } from '../models/deviceQuery';
 import { LIST_PLUG_AND_PLAY_DEVICES } from '../../constants/devices';
 
 describe('utils', () => {
@@ -42,6 +42,34 @@ describe('utils', () => {
         expect(utils.buildQueryString(
             null
         )).toEqual(LIST_PLUG_AND_PLAY_DEVICES);
+        expect(utils.buildQueryString(
+            {
+                clauses: [
+                    {
+                        operation: undefined,
+                        parameterType: ParameterType.edge,
+                        value: DeviceCapability.edge
+                    }
+                ],
+                continuationTokens: [],
+                currentPageIndex: 1,
+                deviceId: '',
+            }
+        )).toEqual(`${LIST_PLUG_AND_PLAY_DEVICES} WHERE (${ParameterType.edge}=true)`);
+        expect(utils.buildQueryString(
+            {
+                clauses: [
+                    {
+                        operation: undefined,
+                        parameterType: ParameterType.status,
+                        value: DeviceStatus.enabled
+                    }
+                ],
+                continuationTokens: [],
+                currentPageIndex: 1,
+                deviceId: '',
+            }
+        )).toEqual(`${LIST_PLUG_AND_PLAY_DEVICES} WHERE (${ParameterType.status}='enabled')`);
     });
 
     it('converts query object to string', () => {
@@ -86,20 +114,13 @@ describe('utils', () => {
                 operation: OperationType.equals,
                 parameterType: ParameterType.status,
                 value: 'enabled'
-            }
-        ])).toEqual(`status = 'enabled'`);
-        expect(utils.clauseListToString([
-            {
-                operation: OperationType.equals,
-                parameterType: ParameterType.status,
-                value: 'enabled'
             },
             {
                 operation: OperationType.equals,
                 parameterType: ParameterType.status,
                 value: 'disabled'
             }
-        ])).toEqual(`status = 'enabled' AND status = 'disabled'`);
+        ])).toEqual(`status='enabled' AND status='disabled'`);
 
         expect(utils.clauseListToString([
             {
@@ -120,11 +141,6 @@ describe('utils', () => {
 
     it('creates clause item as string', () => {
         expect(utils.clauseItemToString('foo', OperationType.equals, 'bar')).toEqual(`foo = 'bar'`);
-        // expect(utils.clauseItemToString('foo', OperationType.greaterThan, 'bar')).toEqual(`foo > 'bar'`);
-        // expect(utils.clauseItemToString('foo', OperationType.greaterThanEquals, 'bar')).toEqual(`foo >= 'bar'`);
-        // expect(utils.clauseItemToString('foo', OperationType.inequal, 'bar')).toEqual(`foo <> 'bar'`);
-        // expect(utils.clauseItemToString('foo', OperationType.lessThan, 'bar')).toEqual(`foo < 'bar'`);
-        // expect(utils.clauseItemToString('foo', OperationType.lessThanEquals, 'bar')).toEqual(`foo <= 'bar'`);
         expect(utils.clauseItemToString('foo', OperationType.notEquals, 'bar')).toEqual(`foo != 'bar'`);
     });
 
