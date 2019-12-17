@@ -7,6 +7,7 @@ import { TranslationFunction } from 'i18next';
 import { IconButton, IButton } from 'office-ui-fabric-react/lib/Button';
 import { getId } from 'office-ui-fabric-react/lib/Utilities';
 import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip';
+import { Announced } from 'office-ui-fabric-react/lib/Announced';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import LabelWithTooltip from './labelWithTooltip';
 import LabelWithRichCallout from './labelWithRichCallout';
@@ -75,7 +76,6 @@ export class MaskedCopyableTextField extends React.Component<MaskedCopyableTextF
                             onChange={this.onChange}
                             placeholder={placeholder}
                             required={this.props.required}
-                            aria-invalid={!!error}
                         />
                         <input
                             aria-hidden={true}
@@ -119,7 +119,10 @@ export class MaskedCopyableTextField extends React.Component<MaskedCopyableTextF
                 </div>
 
                 {error &&
-                    <div className="errorSection">{error}</div>
+                    <>
+                        <div className="errorSection" aria-live={'assertive'}>{error}</div>
+                        <Announced message={error}/>
+                    </>
                 }
 
             </div>
