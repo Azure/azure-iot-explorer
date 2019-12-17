@@ -32,8 +32,9 @@ export const NAV_LINK_ITEMS_PNP = [ROUTE_PARTS.INTERFACES, ROUTE_PARTS.SETTINGS,
 export const NAV_LINK_ITEMS_NONPNP = [ROUTE_PARTS.IDENTITY, ROUTE_PARTS.TWIN, ROUTE_PARTS.EVENTS, ROUTE_PARTS.METHODS, ROUTE_PARTS.CLOUD_TO_DEVICE_MESSAGE];
 export const NAV_LINK_ITEMS_NONPNP_NONEDGE = [ROUTE_PARTS.IDENTITY, ROUTE_PARTS.TWIN, ROUTE_PARTS.EVENTS, ROUTE_PARTS.METHODS, ROUTE_PARTS.CLOUD_TO_DEVICE_MESSAGE, ROUTE_PARTS.MODULE_IDENTITY];
 
-export default class DeviceContentNavComponent extends React.Component<DeviceContentNavDataProps & DeviceContentNavDispatchProps & RouteComponentProps, DeviceContentNavState> {
-    constructor(props: DeviceContentNavDataProps & DeviceContentNavDispatchProps & RouteComponentProps) {
+export type DeviceContentNavProps = DeviceContentNavDataProps & DeviceContentNavDispatchProps & RouteComponentProps;
+export default class DeviceContentNavComponent extends React.Component<DeviceContentNavProps, DeviceContentNavState> {
+    constructor(props: DeviceContentNavProps) {
         super(props);
         const expandedInterfaceMap = new Map();
         if (this.props.selectedInterface) {

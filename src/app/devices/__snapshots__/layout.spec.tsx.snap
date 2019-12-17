@@ -25,16 +25,16 @@ exports[`components/devices/deviceEvents matches snapshot 2`] = `
         <Route
           component={[Function]}
           exact={true}
-          path="/devices/"
+          path="undefined"
         />
         <Route
           component={[Function]}
           exact={true}
-          path="/devices/add"
+          path="undefined/add"
         />
         <Route
           component={[Function]}
-          path="/devices/detail/"
+          path="undefined/detail/"
         />
       </main>
     </div>
