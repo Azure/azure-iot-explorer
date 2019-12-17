@@ -14,13 +14,16 @@ describe('components/devices/deviceContentNav', () => {
     const getComponent = (overrides = {}) => {
         const props = {
             deviceId: 'test',
+            history: jest.fn() as any, // tslint:disable-line:no-any
             interfaceIds: [],
             isEdgeDevice: true,
             isLoading: false,
             isPnPDevice: false,
+            location: jest.fn() as any, // tslint:disable-line:no-any
+            match: jest.fn() as any, // tslint:disable-line:no-any
             selectedInterface: '',
             setInterfaceId,
-            ...overrides
+            ...overrides,
         };
         return <DeviceContentNavComponent {...props} />;
     };

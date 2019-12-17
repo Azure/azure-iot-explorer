@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, RouteComponentProps } from 'react-router-dom';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import DeviceIdentityContainer from './deviceIdentity/deviceIdentityContainer';
 import DeviceTwinContainer from './deviceTwin/deviceTwinContainer';
@@ -28,15 +28,12 @@ interface DeviceContentState {
     appMenuVisible: boolean;
 }
 export interface DeviceContentDataProps {
+    deviceId: string;
+    interfaceId: string;
     interfaceIds: string[];
     isLoading: boolean;
     isPnPDevice: boolean;
     identityWrapper: DeviceIdentityWrapper;
-}
-
-export interface DeviceContentProps extends DeviceContentDataProps {
-    deviceId: string;
-    interfaceId: string;
 }
 
 export interface DeviceContentDispatchProps {
@@ -45,8 +42,10 @@ export interface DeviceContentDispatchProps {
     getDeviceIdentity: (deviceId: string) => void;
 }
 
-export class DeviceContentComponent extends React.PureComponent<DeviceContentProps & DeviceContentDispatchProps, DeviceContentState> {
-    constructor(props: DeviceContentProps & DeviceContentDispatchProps) {
+export type DeviceContentProps = DeviceContentDataProps & DeviceContentDispatchProps & RouteComponentProps;
+
+export class DeviceContentComponent extends React.PureComponent<DeviceContentProps, DeviceContentState> {
+    constructor(props: DeviceContentProps) {
         super(props);
         this.state = {
             appMenuVisible: true
@@ -104,15 +103,17 @@ export class DeviceContentComponent extends React.PureComponent<DeviceContentPro
     }
 
     private readonly renderDeviceContentDetail = () => {
+        const url = this.props.match.url;
+
         return (
             <div className={'device-content-detail' + (!this.state.appMenuVisible ? ' collapsed' : '')}>
-                <Route path={`/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DETAIL}/${ROUTE_PARTS.IDENTITY}/`} component={DeviceIdentityContainer} />
-                <Route path={`/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DETAIL}/${ROUTE_PARTS.TWIN}/`} component={DeviceTwinContainer} />
-                <Route path={`/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DETAIL}/${ROUTE_PARTS.EVENTS}/`} component={DeviceEventsContainer}/>
-                <Route path={`/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DETAIL}/${ROUTE_PARTS.METHODS}/`} component={DirectMethodContainer} />
-                <Route path={`/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DETAIL}/${ROUTE_PARTS.CLOUD_TO_DEVICE_MESSAGE}/`} component={CloudToDeviceMessageContainer} />
-                <Route path={`/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DETAIL}/${ROUTE_PARTS.MODULE_IDENTITY}/`} component={ModuleIdentityContainer} />
-                <Route path={`/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DETAIL}/${ROUTE_PARTS.DIGITAL_TWINS}/`} component={DigitalTwinsContentContainer} />
+                <Route path={`${url}/${ROUTE_PARTS.IDENTITY}/`} component={DeviceIdentityContainer} />
+                <Route path={`${url}/${ROUTE_PARTS.TWIN}/`} component={DeviceTwinContainer} />
+                <Route path={`${url}/${ROUTE_PARTS.EVENTS}/`} component={DeviceEventsContainer}/>
+                <Route path={`${url}/${ROUTE_PARTS.METHODS}/`} component={DirectMethodContainer} />
+                <Route path={`${url}/${ROUTE_PARTS.CLOUD_TO_DEVICE_MESSAGE}/`} component={CloudToDeviceMessageContainer} />
+                <Route path={`${url}/${ROUTE_PARTS.MODULE_IDENTITY}/`} component={ModuleIdentityContainer} />
+                <Route path={`${url}/${ROUTE_PARTS.DIGITAL_TWINS}/`} component={DigitalTwinsContentContainer} />
             </div>
         );
     }
