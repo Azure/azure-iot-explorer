@@ -1,3 +1,4 @@
+import { addModuleIdentity } from './devicesService';
 /***********************************************************
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
@@ -11,8 +12,10 @@ import { Twin } from '../models/device';
 import { DeviceIdentity } from './../models/deviceIdentity';
 import { buildQueryString, getConnectionInfoFromConnectionString } from '../shared/utils';
 import { DataPlaneParameters } from '../parameters/deviceParameters';
+import { ModuleIdentity } from '../models/moduleIdentity';
 
 const deviceId = 'deviceId';
+const moduleId = 'moduleId';
 const connectionString = 'HostName=test-string.azure-devices.net;SharedAccessKeyName=owner;SharedAccessKey=fakeKey=';
 const interfaceName = 'interfaceName';
 const headers = new Headers({
@@ -47,6 +50,14 @@ const deviceIdentity: DeviceIdentity = {
         statusReason: null,
         statusUpdatedTime: null
     };
+const moduleIdentity: ModuleIdentity = {
+    authentication: {symmetricKey: {primaryKey: null, secondaryKey: null}, type: 'sas', x509Thumbprint: null},
+    cloudToDeviceMessageCount: null,
+    deviceId,
+    moduleId,
+    etag: null,
+    lastActivityTime: null
+};
 // tslint:enable
 const sasToken = 'testSasToken';
 const mockDataPlaneConnectionHelper = (parameters: DataPlaneParameters) => {
@@ -992,6 +1003,57 @@ describe('deviceTwinService', () => {
         it('throws Error when promise rejects', async done => {
             window.fetch = jest.fn().mockRejectedValueOnce(new Error('Not found'));
             await expect(DevicesService.fetchModuleIdentities(parameters)).rejects.toThrowError('Not found');
+            done();
+        });
+    });
+
+    context('addModuleIdentity', () => {
+        const parameters = {
+                connectionString,
+                moduleIdentity
+        };
+
+        it('calls fetch with specified parameters and returns moduleIdentity when response is 200', async () => {
+            jest.spyOn(DevicesService, 'dataPlaneConnectionHelper').mockReturnValue({
+                connectionInfo: getConnectionInfoFromConnectionString(parameters.connectionString), sasToken});
+
+            // tslint:disable
+            const response = {
+                json: () => {return {
+                    body: moduleIdentity
+                    }},
+                status: 200
+            } as any;
+            // tslint:enable
+            jest.spyOn(window, 'fetch').mockResolvedValue(response);
+
+            const connectionInformation = mockDataPlaneConnectionHelper({connectionString});
+            const dataPlaneRequest: DevicesService.DataPlaneRequest = {
+                body: JSON.stringify(parameters.moduleIdentity),
+                hostName: connectionInformation.connectionInfo.hostName,
+                httpMethod: HTTP_OPERATION_TYPES.Put,
+                path: `devices/${deviceId}/modules/${moduleIdentity.moduleId}`,
+                sharedAccessSignature: connectionInformation.sasToken
+            };
+
+            const result = await DevicesService.addModuleIdentity(parameters);
+
+            const serviceRequestParams = {
+                body: JSON.stringify(dataPlaneRequest),
+                cache: 'no-cache',
+                credentials: 'include',
+                headers,
+                method: HTTP_OPERATION_TYPES.Post,
+                mode: 'cors',
+            };
+
+            expect(fetch).toBeCalledWith(DevicesService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
+            expect(result).toEqual(moduleIdentity);
+        });
+
+        it('throws Error when promise rejects', async done => {
+            window.fetch = jest.fn().mockRejectedValueOnce(new Error('Not found'));
+            await expect(DevicesService.addModuleIdentity(parameters)).rejects.toThrowError('Not found');
             done();
         });
     });
