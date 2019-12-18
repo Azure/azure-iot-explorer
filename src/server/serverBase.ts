@@ -4,6 +4,8 @@
  **********************************************************/
 import express = require('express');
 import request = require('request');
+import bodyParser = require('body-parser');
+import cors = require('cors');
 import { Client as HubClient } from 'azure-iothub';
 import { Message as CloudToDeviceMessage } from 'azure-iot-common';
 import { EventHubClient, EventPosition, delay, EventHubRuntimeInformation, ReceiveHandler } from '@azure/event-hubs';
@@ -28,8 +30,32 @@ interface Message {
     systemProperties?: {[key: string]: string};
 }
 
-export const dataPlaneUri = '/api/DataPlane';
-export const handleDataPlanePostRequest = (req: express.Request, res: express.Response) => {
+export default class ServerBase {
+    private port: number;
+    constructor(port: number) {
+        this.port = port;
+    }
+
+    public init() {
+        const app = express();
+        app.use(bodyParser.json());
+        app.use(cors({
+            credentials: true,
+            origin: 'http://127.0.0.1:3000',
+        }));
+
+        app.post(dataPlaneUri, handleDataPlanePostRequest);
+        app.post(cloudToDeviceUri, handleCloudToDevicePostRequest);
+        app.post(eventHubMonitorUri, handleEventHubMonitorPostRequest);
+        app.post(eventHubStopUri, handleEventHubStopPostRequest);
+        app.post(modelRepoUri, handleModelRepoPostRequest);
+
+        app.listen(this.port);
+    }
+}
+
+const dataPlaneUri = '/api/DataPlane';
+const handleDataPlanePostRequest = (req: express.Request, res: express.Response) => {
     try {
         if (!req.body) {
             res.status(BAD_REQUEST).send();
@@ -47,8 +73,8 @@ export const handleDataPlanePostRequest = (req: express.Request, res: express.Re
     }
 };
 
-export const cloudToDeviceUri = '/api/CloudToDevice';
-export const handleCloudToDevicePostRequest = (req: express.Request, res: express.Response) => {
+const cloudToDeviceUri = '/api/CloudToDevice';
+const handleCloudToDevicePostRequest = (req: express.Request, res: express.Response) => {
     try {
         if (!req.body) {
             res.status(BAD_REQUEST).send();
@@ -74,8 +100,8 @@ export const handleCloudToDevicePostRequest = (req: express.Request, res: expres
     }
 };
 
-export const eventHubMonitorUri = '/api/EventHub/monitor';
-export const handleEventHubMonitorPostRequest = (req: express.Request, res: express.Response) => {
+const eventHubMonitorUri = '/api/EventHub/monitor';
+const handleEventHubMonitorPostRequest = (req: express.Request, res: express.Response) => {
     try {
         if (!req.body) {
             res.status(BAD_REQUEST).send();
@@ -93,8 +119,8 @@ export const handleEventHubMonitorPostRequest = (req: express.Request, res: expr
     }
 };
 
-export const eventHubStopUri = '/api/EventHub/stop';
-export const handleEventHubStopPostRequest = (req: express.Request, res: express.Response) => {
+const eventHubStopUri = '/api/EventHub/stop';
+const handleEventHubStopPostRequest = (req: express.Request, res: express.Response) => {
     try {
         if (!req.body) {
             res.status(BAD_REQUEST).send();
@@ -111,8 +137,8 @@ export const handleEventHubStopPostRequest = (req: express.Request, res: express
     }
 };
 
-export const modelRepoUri = '/api/ModelRepo';
-export const handleModelRepoPostRequest = (req: express.Request, res: express.Response) => {
+const modelRepoUri = '/api/ModelRepo';
+const handleModelRepoPostRequest = (req: express.Request, res: express.Response) => {
     try {
         if (!req.body) {
             res.status(BAD_REQUEST).send();
