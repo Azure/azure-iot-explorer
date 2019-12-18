@@ -14,6 +14,7 @@ import { SetConnectionStringActionParameter } from '../actions';
 import HubConnectionStringSection from './hubConnectionStringSection';
 import AppVersionMessageBar from './appVersionMessageBar';
 import { Notification } from '../../api/models/notification';
+import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
 import '../../css/_connectivityPane.scss';
 
 export interface ConnectivityPaneDispatchProps {
@@ -104,7 +105,8 @@ export default class ConnectivityPane extends React.Component<RouteComponentProp
 
     private readonly onSaveConnectionInfoClick = (): void => {
         this.props.saveConnectionInfo({...this.state});
-        this.props.history.push('/myResource/devices');
+        const { hostName } = getConnectionInfoFromConnectionString(this.state.connectionString);
+        this.props.history.push(`/${hostName}/devices`);
     }
 
     private readonly onCheckboxChange = (ev: React.FormEvent<HTMLElement>, isChecked: boolean) => {

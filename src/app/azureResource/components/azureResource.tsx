@@ -35,9 +35,9 @@ export const AzureResource: React.FC<AzureResource> = props => {
             <div className="content">
                 <SettingsPaneContainer />
                 <main role="main">
+                    <Route path={`${url}/${ROUTE_PARTS.DETAIL}/`} component={DeviceContentContainer}/>
                     <Route exact={true} path={`${url}/${ROUTE_PARTS.DEVICES}`} component={DeviceListContainer}/>
                     <Route exact={true} path={`${url}/${ROUTE_PARTS.ADD}`} component={AddDeviceContainer} />
-                    <Route path={`${url}/${ROUTE_PARTS.DETAIL}/`} component={DeviceContentContainer}/>
                 </main>
             </div>
         </div>
