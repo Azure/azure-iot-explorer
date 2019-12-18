@@ -7,7 +7,7 @@ import * as React from 'react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import { withNamespaces } from 'react-i18next';
 import { ToastContainer } from 'react-toastify';
-import DeviceLayout from '../../devices/layoutContainer';
+import { AzureResource } from '../../azureResource/components/azureResource';
 import NoMatchError from './noMatchError';
 import { LocalizationContextProvider } from '../contexts/localizationContext';
 import connectivityPaneContainer from '../../login/components/connectivityPaneContainer';
@@ -24,7 +24,7 @@ const app = (localizationContext: any) => {
                 <>
                     <Switch>
                         <Route exact={true} path="/" component={connectivityPaneContainer}/>
-                        <Route path="/devices" component={DeviceLayout}/>
+                        <Route path="/:hostName" component={AzureResource}/>
                         <Route component={NoMatchError}/>
                     </Switch>
                     <ToastContainer

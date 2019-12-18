@@ -104,7 +104,7 @@ export default class ConnectivityPane extends React.Component<RouteComponentProp
 
     private readonly onSaveConnectionInfoClick = (): void => {
         this.props.saveConnectionInfo({...this.state});
-        this.props.history.push('/devices');
+        this.props.history.push('/myResource/devices');
     }
 
     private readonly onCheckboxChange = (ev: React.FormEvent<HTMLElement>, isChecked: boolean) => {

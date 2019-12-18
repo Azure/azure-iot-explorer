@@ -39,3 +39,4 @@ export const UPDATE_REPO_TOKEN = 'UPDATE_REPO_TOKEN';
 export const CLEAR = 'CLEAR';
 export const ADD  = 'ADD';
 export const READ = 'READ';
+export const SET = 'SET';
