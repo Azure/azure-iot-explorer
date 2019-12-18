@@ -69,7 +69,7 @@ describe('devices/components/moduleIdentity', () => {
         it('calls refresh', () => {
             const wrapper = mountWithLocalization(getComponent());
             const commandBar = wrapper.find(CommandBar).first();
-            commandBar.props().items[0].onClick(null);
+            commandBar.props().items[1].onClick(null);
             expect(mockGetModuleIdentities).toBeCalled();
         });
     });

@@ -181,8 +181,6 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
                 maxWidth: SMALL_COLUMN_WIDTH, minWidth: 100, name: context.t(ResourceKeys.deviceLists.columns.connection) },
             { fieldName: 'authenticationType',  isMultiline: true, isResizable: true, key: 'authenticationType',
                 maxWidth: SMALL_COLUMN_WIDTH,  minWidth: 100, name: context.t(ResourceKeys.deviceLists.columns.authenticationType)},
-            { fieldName: 'lastActivityTime', isMultiline: true, isResizable: true, key: 'lastActivityTime',
-                maxWidth: MEDIUM_COLUMN_WIDTH, minWidth: 100, name: context.t(ResourceKeys.deviceLists.columns.lastActivityTime)},
             { fieldName: 'statusUpdatedTime', isMultiline: true, isResizable: true, key: 'statusUpdatedTime',
                 maxWidth: MEDIUM_COLUMN_WIDTH, minWidth: 100, name: context.t(ResourceKeys.deviceLists.columns.statusUpdatedTime)},
             {  fieldName: 'edge', isResizable: true, key: 'edge',
@@ -222,14 +220,6 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
                         key={column.key}
                     >
                         {item.authenticationType}
-                    </Label>
-                );
-            case 'lastActivityTime':
-                return (
-                    <Label
-                        key={column.key}
-                    >
-                        {item.lastActivityTime || '--'}
                     </Label>
                 );
             case 'statusUpdatedTime':

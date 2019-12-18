@@ -7,3 +7,4 @@ export const DEVICECONTENT = 'DEVICE_CONTENT';
 export const LOGIN = 'LOGIN';
 export const APPLICATION = 'APPLICATION';
 export const NOTIFICATIONS = 'NOTIFICATIONS';
+export const MODULEIDENTITY = 'MODULE_IDENTITY';

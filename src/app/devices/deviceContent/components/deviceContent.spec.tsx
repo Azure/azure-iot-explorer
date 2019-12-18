@@ -4,7 +4,7 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import { DeviceContentComponent, DeviceContentDispatchProps, DeviceContentProps } from './deviceContent';
+import { DeviceContentComponent, DeviceContentDispatchProps, DeviceContentDataProps } from './deviceContent';
 import { testSnapshot } from '../../../shared/utils/testHelpers';
 
 describe('deviceContent', () => {
@@ -21,7 +21,7 @@ describe('deviceContent', () => {
         location,
         match: {}
     };
-    const deviceContentProps: DeviceContentProps = {
+    const deviceContentDataProps: DeviceContentDataProps = {
         deviceId: 'testDevice',
         identityWrapper: null,
         interfaceId: 'testInterfaceId',
@@ -38,7 +38,7 @@ describe('deviceContent', () => {
 
     const getComponent = (overrides = {}) => {
         const props = {
-            ...deviceContentProps,
+            ...deviceContentDataProps,
             ...deviceContentDispatchProps,
             ...routerprops,
             ...overrides

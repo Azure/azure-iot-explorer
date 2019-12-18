@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 import { Nav, INavLink, INavLinkGroup } from 'office-ui-fabric-react/lib/Nav';
 import { Label } from 'office-ui-fabric-react/lib/Label';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../shared/contexts/localizationContext';
@@ -31,8 +32,9 @@ export const NAV_LINK_ITEMS_PNP = [ROUTE_PARTS.INTERFACES, ROUTE_PARTS.SETTINGS,
 export const NAV_LINK_ITEMS_NONPNP = [ROUTE_PARTS.IDENTITY, ROUTE_PARTS.TWIN, ROUTE_PARTS.EVENTS, ROUTE_PARTS.METHODS, ROUTE_PARTS.CLOUD_TO_DEVICE_MESSAGE];
 export const NAV_LINK_ITEMS_NONPNP_NONEDGE = [ROUTE_PARTS.IDENTITY, ROUTE_PARTS.TWIN, ROUTE_PARTS.EVENTS, ROUTE_PARTS.METHODS, ROUTE_PARTS.CLOUD_TO_DEVICE_MESSAGE, ROUTE_PARTS.MODULE_IDENTITY];
 
-export default class DeviceContentNavComponent extends React.Component<DeviceContentNavDataProps & DeviceContentNavDispatchProps, DeviceContentNavState> {
-    constructor(props: DeviceContentNavDataProps & DeviceContentNavDispatchProps) {
+export type DeviceContentNavProps = DeviceContentNavDataProps & DeviceContentNavDispatchProps & RouteComponentProps;
+export default class DeviceContentNavComponent extends React.Component<DeviceContentNavProps, DeviceContentNavState> {
+    constructor(props: DeviceContentNavProps) {
         super(props);
         const expandedInterfaceMap = new Map();
         if (this.props.selectedInterface) {
@@ -56,12 +58,13 @@ export default class DeviceContentNavComponent extends React.Component<DeviceCon
 
     private readonly createNavLinks = (context: LocalizationContextInterface) => {
         const { deviceId, interfaceIds, isPnPDevice, isEdgeDevice } = this.props;
+        const url = this.props.match.url;
 
         const navItems = isEdgeDevice ? NAV_LINK_ITEMS_NONPNP : NAV_LINK_ITEMS_NONPNP_NONEDGE;
         const nonPnpNavLinks = navItems.map((nav: string) => ({
             key: nav,
             name: context.t((ResourceKeys.deviceContent.navBar as any)[nav]), // tslint:disable-line:no-any
-            url: `#/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DETAIL}/${nav}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`
+            url: `#${url}/${nav}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`
         }));
 
         const pnpNavGroupsLinks = isPnPDevice && interfaceIds && interfaceIds.map((id: string) => ({
@@ -71,7 +74,7 @@ export default class DeviceContentNavComponent extends React.Component<DeviceCon
                 name: context.t((ResourceKeys.deviceContent.navBar as any)[nav]), // tslint:disable-line:no-any
                 onClick: this.onNestedChildLinkClick,
                 parentId: id,
-                url: `#/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DETAIL}/${ROUTE_PARTS.DIGITAL_TWINS}/${nav}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}&${ROUTE_PARAMS.INTERFACE_ID}=${id}`
+                url: `#${url}/${ROUTE_PARTS.DIGITAL_TWINS}/${nav}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}&${ROUTE_PARAMS.INTERFACE_ID}=${id}`
             })),
             name: id,
             url: ''

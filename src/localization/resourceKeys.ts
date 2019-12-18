@@ -136,6 +136,7 @@ export class ResourceKeys {
    public static deviceContent = {
       navBar : {
          add : "deviceContent.navBar.add",
+         addModuleIdentity : "deviceContent.navBar.addModuleIdentity",
          cloudToDeviceMessage : "deviceContent.navBar.cloudToDeviceMessage",
          collapse : "deviceContent.navBar.collapse",
          commands : "deviceContent.navBar.commands",
@@ -503,6 +504,34 @@ export class ResourceKeys {
       },
    };
    public static moduleIdentity = {
+      addModuleHeaderText : "moduleIdentity.addModuleHeaderText",
+      authenticationType : {
+         ca : {
+            text : "moduleIdentity.authenticationType.ca.text",
+            type : "moduleIdentity.authenticationType.ca.type",
+         },
+         selfSigned : {
+            primaryThumbprint : "moduleIdentity.authenticationType.selfSigned.primaryThumbprint",
+            primaryThumbprintTooltip : "moduleIdentity.authenticationType.selfSigned.primaryThumbprintTooltip",
+            secondaryThumbprint : "moduleIdentity.authenticationType.selfSigned.secondaryThumbprint",
+            secondaryThumbprintTooltip : "moduleIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip",
+            text : "moduleIdentity.authenticationType.selfSigned.text",
+            type : "moduleIdentity.authenticationType.selfSigned.type",
+         },
+         symmetricKey : {
+            autoGenerate : "moduleIdentity.authenticationType.symmetricKey.autoGenerate",
+            generatePrimaryKey : "moduleIdentity.authenticationType.symmetricKey.generatePrimaryKey",
+            generateSecondaryKey : "moduleIdentity.authenticationType.symmetricKey.generateSecondaryKey",
+            primaryConnectionString : "moduleIdentity.authenticationType.symmetricKey.primaryConnectionString",
+            primaryConnectionStringTooltip : "moduleIdentity.authenticationType.symmetricKey.primaryConnectionStringTooltip",
+            primaryKey : "moduleIdentity.authenticationType.symmetricKey.primaryKey",
+            secondaryConnectionString : "moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+            secondaryConnectionStringTooltip : "moduleIdentity.authenticationType.symmetricKey.secondaryConnectionStringTooltip",
+            secondaryKey : "moduleIdentity.authenticationType.symmetricKey.secondaryKey",
+            type : "moduleIdentity.authenticationType.symmetricKey.type",
+         },
+         text : "moduleIdentity.authenticationType.text",
+      },
       columns : {
          connectionState : "moduleIdentity.columns.connectionState",
          connectionStateLastUpdated : "moduleIdentity.columns.connectionStateLastUpdated",
@@ -510,11 +539,21 @@ export class ResourceKeys {
          moduleId : "moduleIdentity.columns.moduleId",
       },
       command : {
+         add : "moduleIdentity.command.add",
+         cancel : "moduleIdentity.command.cancel",
          refresh : "moduleIdentity.command.refresh",
+         save : "moduleIdentity.command.save",
       },
       errorFetching : "moduleIdentity.errorFetching",
       headerText : "moduleIdentity.headerText",
+      moduleId : "moduleIdentity.moduleId",
+      moduleIdTooltip : "moduleIdentity.moduleIdTooltip",
       noModules : "moduleIdentity.noModules",
+      validation : {
+         invalidKey : "moduleIdentity.validation.invalidKey",
+         invalidModuleIdentityName : "moduleIdentity.validation.invalidModuleIdentityName",
+         invalidThumbprint : "moduleIdentity.validation.invalidThumbprint",
+      },
    };
    public static noMatchError = {
       description : "noMatchError.description",
@@ -524,6 +563,8 @@ export class ResourceKeys {
    public static notifications = {
       addDeviceOnError : "notifications.addDeviceOnError",
       addDeviceOnSucceed : "notifications.addDeviceOnSucceed",
+      addModuleIdentityOnError : "notifications.addModuleIdentityOnError",
+      addModuleIdentityOnSucceed : "notifications.addModuleIdentityOnSucceed",
       cloudToDeviceMessageOnError : "notifications.cloudToDeviceMessageOnError",
       cloudToDeviceMessageOnSuccess : "notifications.cloudToDeviceMessageOnSuccess",
       copiedToClipboard : "notifications.copiedToClipboard",

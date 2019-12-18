@@ -1,0 +1,371 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`devices/components/addModuleIdentity snapshot matches snapshot when add finishes 1`] = `
+<Fragment>
+  <StyledCommandBarBase
+    className="command"
+    items={
+      Array [
+        Object {
+          "ariaLabel": "moduleIdentity.command.save",
+          "disabled": true,
+          "iconProps": Object {
+            "iconName": "Save",
+          },
+          "key": "Save",
+          "name": "moduleIdentity.command.save",
+          "onClick": [Function],
+        },
+        Object {
+          "ariaLabel": "moduleIdentity.command.cancel",
+          "iconProps": Object {
+            "iconName": "Cancel",
+          },
+          "key": "Cancel",
+          "name": "moduleIdentity.command.cancel",
+          "onClick": [Function],
+        },
+      ]
+    }
+  />
+  <h3>
+    moduleIdentity.addModuleHeaderText
+  </h3>
+  <div
+    className="device-detail"
+  >
+    <div
+      className="module-identity"
+    >
+      <Connect(MaskedCopyableTextField)
+        allowMask={false}
+        ariaLabel="moduleIdentity.moduleId"
+        error=""
+        label="moduleIdentity.moduleId"
+        labelCallout="moduleIdentity.moduleIdTooltip"
+        onTextChange={[Function]}
+        readOnly={false}
+        required={true}
+        setFocus={true}
+        t={
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                "moduleIdentity.command.save",
+              ],
+              Array [
+                "moduleIdentity.command.save",
+              ],
+              Array [
+                "moduleIdentity.command.cancel",
+              ],
+              Array [
+                "moduleIdentity.command.cancel",
+              ],
+              Array [
+                "moduleIdentity.addModuleHeaderText",
+              ],
+              Array [
+                "moduleIdentity.moduleId",
+              ],
+              Array [
+                "moduleIdentity.moduleId",
+              ],
+              Array [
+                "moduleIdentity.moduleIdTooltip",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.text",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.type",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.selfSigned.type",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.ca.type",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.autoGenerate",
+              ],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.command.save",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.command.save",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.command.cancel",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.command.cancel",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.addModuleHeaderText",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleId",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleId",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleIdTooltip",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.text",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.type",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.selfSigned.type",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.ca.type",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.autoGenerate",
+              },
+            ],
+          }
+        }
+        value=""
+      />
+      <div
+        className="authentication"
+      >
+        <StyledChoiceGroupBase
+          label="moduleIdentity.authenticationType.text"
+          onChange={[Function]}
+          options={
+            Array [
+              Object {
+                "key": "sas",
+                "text": "moduleIdentity.authenticationType.symmetricKey.type",
+              },
+              Object {
+                "key": "selfSigned",
+                "text": "moduleIdentity.authenticationType.selfSigned.type",
+              },
+              Object {
+                "key": "certificateAuthority",
+                "text": "moduleIdentity.authenticationType.ca.type",
+              },
+            ]
+          }
+          required={true}
+          selectedKey="sas"
+        />
+        <StyledCheckboxBase
+          checked={true}
+          className="autoGenerateButton"
+          label="moduleIdentity.authenticationType.symmetricKey.autoGenerate"
+          onChange={[Function]}
+        />
+      </div>
+    </div>
+  </div>
+</Fragment>
+`;
+
+exports[`devices/components/addModuleIdentity snapshot matches snapshot while loading 1`] = `
+<Fragment>
+  <StyledCommandBarBase
+    className="command"
+    items={
+      Array [
+        Object {
+          "ariaLabel": "moduleIdentity.command.save",
+          "disabled": true,
+          "iconProps": Object {
+            "iconName": "Save",
+          },
+          "key": "Save",
+          "name": "moduleIdentity.command.save",
+          "onClick": [Function],
+        },
+        Object {
+          "ariaLabel": "moduleIdentity.command.cancel",
+          "iconProps": Object {
+            "iconName": "Cancel",
+          },
+          "key": "Cancel",
+          "name": "moduleIdentity.command.cancel",
+          "onClick": [Function],
+        },
+      ]
+    }
+  />
+  <h3>
+    moduleIdentity.addModuleHeaderText
+  </h3>
+  <div
+    className="device-detail"
+  >
+    <div
+      className="module-identity"
+    >
+      <Connect(MaskedCopyableTextField)
+        allowMask={false}
+        ariaLabel="moduleIdentity.moduleId"
+        error=""
+        label="moduleIdentity.moduleId"
+        labelCallout="moduleIdentity.moduleIdTooltip"
+        onTextChange={[Function]}
+        readOnly={false}
+        required={true}
+        setFocus={true}
+        t={
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                "moduleIdentity.command.save",
+              ],
+              Array [
+                "moduleIdentity.command.save",
+              ],
+              Array [
+                "moduleIdentity.command.cancel",
+              ],
+              Array [
+                "moduleIdentity.command.cancel",
+              ],
+              Array [
+                "moduleIdentity.addModuleHeaderText",
+              ],
+              Array [
+                "moduleIdentity.moduleId",
+              ],
+              Array [
+                "moduleIdentity.moduleId",
+              ],
+              Array [
+                "moduleIdentity.moduleIdTooltip",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.text",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.type",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.selfSigned.type",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.ca.type",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.autoGenerate",
+              ],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.command.save",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.command.save",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.command.cancel",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.command.cancel",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.addModuleHeaderText",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleId",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleId",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleIdTooltip",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.text",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.type",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.selfSigned.type",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.ca.type",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.autoGenerate",
+              },
+            ],
+          }
+        }
+        value=""
+      />
+      <div
+        className="authentication"
+      >
+        <StyledChoiceGroupBase
+          label="moduleIdentity.authenticationType.text"
+          onChange={[Function]}
+          options={
+            Array [
+              Object {
+                "key": "sas",
+                "text": "moduleIdentity.authenticationType.symmetricKey.type",
+              },
+              Object {
+                "key": "selfSigned",
+                "text": "moduleIdentity.authenticationType.selfSigned.type",
+              },
+              Object {
+                "key": "certificateAuthority",
+                "text": "moduleIdentity.authenticationType.ca.type",
+              },
+            ]
+          }
+          required={true}
+          selectedKey="sas"
+        />
+        <StyledCheckboxBase
+          checked={true}
+          className="autoGenerateButton"
+          label="moduleIdentity.authenticationType.symmetricKey.autoGenerate"
+          onChange={[Function]}
+        />
+      </div>
+    </div>
+  </div>
+</Fragment>
+`;
