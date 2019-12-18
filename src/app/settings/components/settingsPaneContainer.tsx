@@ -11,7 +11,7 @@ import SettingsPane, { SettingsPaneActions, SettingsPaneProps, Settings } from '
 import { setSettingsVisibilityAction, setSettingsRepositoryLocationsAction } from '../actions';
 import { getSettingsVisibleSelector, getRepositoryLocationSettingsSelector } from '../selectors';
 import { getConnectionStringSelector, getRememberConnectionStringValueSelector, getConnectionStringListSelector } from '../../login/selectors';
-import { setConnectionStringAction } from '../../login/actions';
+import { setConnectionStringAction, logoutAction } from '../../login/actions';
 import { listDevicesAction } from '../../devices/deviceList/actions';
 import DeviceQuery from '../../api/models/deviceQuery';
 import { addNotificationAction } from '../../notifications/actions';
@@ -30,6 +30,9 @@ const mapStateToProps = (state: StateType): SettingsPaneProps => {
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): SettingsPaneActions => {
     return {
         addNotification: (notification: Notification) => dispatch(addNotificationAction.started(notification)),
+        onLogout: () => {
+            dispatch(logoutAction());
+        },
         onSettingsSave: (payload: Settings) => {
             dispatch(setConnectionStringAction({
                 connectionString: payload.hubConnectionString,

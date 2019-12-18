@@ -568,6 +568,7 @@ export class ResourceKeys {
       confirmationMessage : "settings.confirmationMessage",
       footerText : "settings.footerText",
       headerText : "settings.headerText",
+      logout : "settings.logout",
       modelDefinitions : {
          add : "settings.modelDefinitions.add",
          headerText : "settings.modelDefinitions.headerText",

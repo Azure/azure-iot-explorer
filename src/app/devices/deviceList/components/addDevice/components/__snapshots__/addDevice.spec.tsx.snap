@@ -13,36 +13,6 @@ exports[`components/devices/addDevice matches snapshot 1`] = `
     />
   </div>
   <div
-    className="view-command"
-  >
-    <StyledCommandBarBase
-      items={
-        Array [
-          Object {
-            "ariaLabel": "deviceLists.commands.save",
-            "disabled": true,
-            "iconProps": Object {
-              "iconName": "Save",
-            },
-            "key": "Save",
-            "name": "deviceLists.commands.save",
-            "type": "submit",
-          },
-          Object {
-            "ariaLabel": "deviceLists.commands.close",
-            "disabled": false,
-            "iconProps": Object {
-              "iconName": "Cancel",
-            },
-            "key": "Cancel",
-            "name": "deviceLists.commands.close",
-            "onClick": [Function],
-          },
-        ]
-      }
-    />
-  </div>
-  <div
     className="edit-content view-scroll"
   >
     <div
@@ -61,18 +31,6 @@ exports[`components/devices/addDevice matches snapshot 1`] = `
         t={
           [MockFunction] {
             "calls": Array [
-              Array [
-                "deviceLists.commands.save",
-              ],
-              Array [
-                "deviceLists.commands.save",
-              ],
-              Array [
-                "deviceLists.commands.close",
-              ],
-              Array [
-                "deviceLists.commands.close",
-              ],
               Array [
                 "deviceIdentity.deviceID",
               ],
@@ -112,24 +70,20 @@ exports[`components/devices/addDevice matches snapshot 1`] = `
               Array [
                 "deviceIdentity.hubConnectivity.disable",
               ],
+              Array [
+                "deviceLists.commands.save",
+              ],
+              Array [
+                "deviceLists.commands.save",
+              ],
+              Array [
+                "deviceLists.commands.close",
+              ],
+              Array [
+                "deviceLists.commands.close",
+              ],
             ],
             "results": Array [
-              Object {
-                "type": "return",
-                "value": "deviceLists.commands.save",
-              },
-              Object {
-                "type": "return",
-                "value": "deviceLists.commands.save",
-              },
-              Object {
-                "type": "return",
-                "value": "deviceLists.commands.close",
-              },
-              Object {
-                "type": "return",
-                "value": "deviceLists.commands.close",
-              },
               Object {
                 "type": "return",
                 "value": "deviceIdentity.deviceID",
@@ -182,6 +136,22 @@ exports[`components/devices/addDevice matches snapshot 1`] = `
                 "type": "return",
                 "value": "deviceIdentity.hubConnectivity.disable",
               },
+              Object {
+                "type": "return",
+                "value": "deviceLists.commands.save",
+              },
+              Object {
+                "type": "return",
+                "value": "deviceLists.commands.save",
+              },
+              Object {
+                "type": "return",
+                "value": "deviceLists.commands.close",
+              },
+              Object {
+                "type": "return",
+                "value": "deviceLists.commands.close",
+              },
             ],
           }
         }
@@ -233,6 +203,23 @@ exports[`components/devices/addDevice matches snapshot 1`] = `
           offText="deviceIdentity.hubConnectivity.disable"
           onChange={[Function]}
           onText="deviceIdentity.hubConnectivity.enable"
+        />
+      </div>
+      <div
+        className="button-groups"
+      >
+        <CustomizedPrimaryButton
+          ariaDescription="deviceLists.commands.save"
+          className="submit-button"
+          disabled={true}
+          text="deviceLists.commands.save"
+          type="submit"
+        />
+        <CustomizedDefaultButton
+          ariaDescription="deviceLists.commands.close"
+          className="submit-button"
+          onClick={[Function]}
+          text="deviceLists.commands.close"
         />
       </div>
     </div>

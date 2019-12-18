@@ -31,6 +31,7 @@ export interface SettingsPaneActions {
     onSettingsSave: (payload: Settings) => void;
     refreshDevices: () => void;
     addNotification: (notification: Notification) => void;
+    onLogout: () => void;
 }
 
 export interface RepositorySettings {
@@ -260,6 +261,11 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
             this.props.history.push('/devices');
         }
     }
+    private readonly logout = () => {
+        this.props.onSettingsVisibleChanged(false);
+        this.props.onLogout();
+        this.props.history.push('/');
+    }
 
     private readonly settingsFooter = () => {
         return (
@@ -299,6 +305,11 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
                             type="reset"
                             text={context.t(ResourceKeys.settings.cancel)}
                             onClick={this.closePane}
+                        />
+                        <DefaultButton
+                            type="logout"
+                            text={context.t(ResourceKeys.settings.logout)}
+                            onClick={this.logout}
                         />
                     </section>
                 </footer>

@@ -4,10 +4,12 @@
  **********************************************************/
 import actionCreatorFactory from 'typescript-fsa';
 import * as actionPrefixes from '../constants/actionPrefixes';
-import * as actionTypes from '../constants/actionTypes';
+import { LOG_OUT, SET_CONNECTION_STRING } from '../constants/actionTypes';
 
 const loginCreator = actionCreatorFactory(actionPrefixes.LOGIN);
-export const setConnectionStringAction = loginCreator<SetConnectionStringActionParameter>(actionTypes.SET_CONNECTION_STRING);
+export const setConnectionStringAction = loginCreator<SetConnectionStringActionParameter>(SET_CONNECTION_STRING);
+
+export const logoutAction = loginCreator<void>(LOG_OUT);
 
 export interface SetConnectionStringActionParameter {
     connectionString: string;
