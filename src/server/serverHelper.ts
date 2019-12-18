@@ -3,8 +3,6 @@
  * Licensed under the MIT License
  **********************************************************/
 import express = require('express');
-import bodyParser = require('body-parser');
-import cors = require('cors');
 import request = require('request');
 import { Client as HubClient } from 'azure-iothub';
 import { Message as CloudToDeviceMessage } from 'azure-iot-common';
@@ -15,16 +13,14 @@ const SERVER_ERROR = 500;
 const BAD_REQUEST = 400;
 const SUCCESS = 200;
 const NOT_FOUND = 400;
-const SERVER_PORT = 8081;
 const SERVER_WAIT = 3000; // how long we'll let the call for eventHub messages run in non-socket
-const app = express();
+const receivers: ReceiveHandler[] = [];
+const IOTHUB_CONNECTION_DEVICE_ID = 'iothub-connection-device-id';
+
 let client: EventHubClient = null;
-const receivers: ReceiveHandler[] = []; // tslint:disable-line: no-any
 let connectionString: string = '';
 let eventHubClientStopping = false;
 
-// should not import from app
-const IOTHUB_CONNECTION_DEVICE_ID = 'iothub-connection-device-id';
 interface Message {
     body: any; // tslint:disable-line:no-any
     enqueuedTime: string;
@@ -32,13 +28,8 @@ interface Message {
     systemProperties?: {[key: string]: string};
 }
 
-app.use(bodyParser.json());
-app.use(cors({
-    credentials: true,
-    origin: 'http://127.0.0.1:3000',
-}));
-
-app.post('/api/DataPlane', (req: express.Request, res: express.Response) => {
+export const dataPlaneUri = '/api/DataPlane';
+export const handleDataPlanePostRequest = (req: express.Request, res: express.Response) => {
     try {
         if (!req.body) {
             res.status(BAD_REQUEST).send();
@@ -54,9 +45,10 @@ app.post('/api/DataPlane', (req: express.Request, res: express.Response) => {
     catch (error) {
         res.status(SERVER_ERROR).send(error);
     }
-});
+};
 
-app.post('/api/CloudToDevice', (req: express.Request, res: express.Response) => {
+export const cloudToDeviceUri = '/api/CloudToDevice';
+export const handleCloudToDevicePostRequest = (req: express.Request, res: express.Response) => {
     try {
         if (!req.body) {
             res.status(BAD_REQUEST).send();
@@ -80,7 +72,70 @@ app.post('/api/CloudToDevice', (req: express.Request, res: express.Response) => 
     catch (error) {
         res.status(SERVER_ERROR).send(error);
     }
-});
+};
+
+export const eventHubMonitorUri = '/api/EventHub/monitor';
+export const handleEventHubMonitorPostRequest = (req: express.Request, res: express.Response) => {
+    try {
+        if (!req.body) {
+            res.status(BAD_REQUEST).send();
+        }
+
+        if (!eventHubClientStopping) {
+            eventHubProvider(res, req.body).then(result => {
+                res.status(SUCCESS).send(result);
+            });
+        } else {
+            res.status(NOT_FOUND).send('Client currently stopping');
+        }
+    } catch (error) {
+        res.status(SERVER_ERROR).send(error);
+    }
+};
+
+export const eventHubStopUri = '/api/EventHub/stop';
+export const handleEventHubStopPostRequest = (req: express.Request, res: express.Response) => {
+    try {
+        if (!req.body) {
+            res.status(BAD_REQUEST).send();
+        }
+
+        eventHubClientStopping = true;
+        stopClient().then(() => {
+            eventHubClientStopping = false;
+            res.status(SUCCESS).send();
+        });
+    } catch (error) {
+        eventHubClientStopping = false;
+        res.status(SERVER_ERROR).send(error);
+    }
+};
+
+export const modelRepoUri = '/api/ModelRepo';
+export const handleModelRepoPostRequest = (req: express.Request, res: express.Response) => {
+    try {
+        if (!req.body) {
+            res.status(BAD_REQUEST).send();
+        }
+        const controllerRequest = req.body;
+        request(
+        {
+            body: controllerRequest.body || null,
+            headers: controllerRequest.headers || null,
+            method: controllerRequest.method || 'GET',
+            uri: controllerRequest.uri
+        },
+        (err, httpsres, body) => {
+            if (!!err) {
+                res.status(SERVER_ERROR).send(err);
+            } else {
+                res.status((httpsres && httpsres.statusCode) || SUCCESS).send((httpsres && httpsres.body) || {}); //tslint:disable-line
+            }
+        });
+    } catch (error) {
+        res.status(SERVER_ERROR).send(error);
+    }
+};
 
 // tslint:disable-next-line:cyclomatic-complexity
 const addPropertiesToCloudToDeviceMessage = (message: CloudToDeviceMessage, properties: Array<{key: string, value: string, isSystemProperty: boolean}>) => {
@@ -124,68 +179,8 @@ const addPropertiesToCloudToDeviceMessage = (message: CloudToDeviceMessage, prop
     }
 };
 
-app.post('/api/EventHub/monitor', (req, res) => {
-    try {
-        if (!req.body) {
-            res.status(BAD_REQUEST).send();
-        }
-
-        if (!eventHubClientStopping) {
-            eventHubProvider(res, req.body).then(result => {
-                res.status(SUCCESS).send(result);
-            });
-        } else {
-            res.status(NOT_FOUND).send('Client currently stopping');
-        }
-    } catch (error) {
-        res.status(SERVER_ERROR).send(error);
-    }
-});
-
-app.post('/api/EventHub/stop', (req, res) => {
-    try {
-        if (!req.body) {
-            res.status(BAD_REQUEST).send();
-        }
-
-        eventHubClientStopping = true;
-        stopClient().then(() => {
-            eventHubClientStopping = false;
-            res.status(SUCCESS).send();
-        });
-    } catch (error) {
-        eventHubClientStopping = false;
-        res.status(SERVER_ERROR).send(error);
-    }
-});
-
-app.post('/api/ModelRepo', (req, res) => {
-    try {
-        if (!req.body) {
-            res.status(BAD_REQUEST).send();
-        }
-        const controllerRequest = req.body;
-        request(
-        {
-            body: controllerRequest.body || null,
-            headers: controllerRequest.headers || null,
-            method: controllerRequest.method || 'GET',
-            uri: controllerRequest.uri
-        },
-        (err, httpsres, body) => {
-            if (!!err) {
-                res.status(SERVER_ERROR).send(err);
-            } else {
-                res.status((httpsres && httpsres.statusCode) || SUCCESS).send((httpsres && httpsres.body) || {}); //tslint:disable-line
-            }
-        });
-    } catch (error) {
-        res.status(SERVER_ERROR).send(error);
-    }
-});
-
-// tslint:disable-next-line: no-any
-const eventHubProvider = async (res: any, body: any) =>  {
+// tslint:disable-next-line:cyclomatic-complexity
+const eventHubProvider = async (res: any, body: any) =>  { // tslint:disable-line: no-any
     try {
         if (!eventHubClientStopping) {
             if (!client || connectionString !== body.connectionString) {
@@ -211,7 +206,7 @@ const eventHubProvider = async (res: any, body: any) =>  {
     } catch (error) {
         res.status(SERVER_ERROR).send(error);
     }
-}; // tslint:disable-line:cyclomatic-complexity
+};
 
 const stopReceivers = async () => {
     return Promise.all(
@@ -292,5 +287,3 @@ const handleMessages = async (deviceId: string, eventHubClient: EventHubClient, 
 
     return messages;
 };
-
-app.listen(SERVER_PORT);
