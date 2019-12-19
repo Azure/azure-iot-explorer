@@ -86,7 +86,7 @@ exports[`components/devices/deviceInterfaces shows interface information when st
         <div
           className="monaco-editor"
         >
-          <React.Suspense
+          <Suspense
             fallback={
               <StyledSpinnerBase
                 size={3}
@@ -97,7 +97,7 @@ exports[`components/devices/deviceInterfaces shows interface information when st
             <ContextConsumer>
               <Component />
             </ContextConsumer>
-          </React.Suspense>
+          </Suspense>
         </div>
       </article>
     </section>
@@ -164,7 +164,7 @@ exports[`components/devices/deviceInterfaces shows interface information when st
         <div
           className="monaco-editor"
         >
-          <React.Suspense
+          <Suspense
             fallback={
               <StyledSpinnerBase
                 size={3}
@@ -175,7 +175,7 @@ exports[`components/devices/deviceInterfaces shows interface information when st
             <ContextConsumer>
               <Component />
             </ContextConsumer>
-          </React.Suspense>
+          </Suspense>
         </div>
       </article>
     </section>
@@ -242,7 +242,7 @@ exports[`components/devices/deviceInterfaces shows interface information when st
         <div
           className="monaco-editor"
         >
-          <React.Suspense
+          <Suspense
             fallback={
               <StyledSpinnerBase
                 size={3}
@@ -253,7 +253,7 @@ exports[`components/devices/deviceInterfaces shows interface information when st
             <ContextConsumer>
               <Component />
             </ContextConsumer>
-          </React.Suspense>
+          </Suspense>
         </div>
       </article>
     </section>
@@ -320,7 +320,7 @@ exports[`components/devices/deviceInterfaces shows interface information when st
         <div
           className="monaco-editor"
         >
-          <React.Suspense
+          <Suspense
             fallback={
               <StyledSpinnerBase
                 size={3}
@@ -331,7 +331,7 @@ exports[`components/devices/deviceInterfaces shows interface information when st
             <ContextConsumer>
               <Component />
             </ContextConsumer>
-          </React.Suspense>
+          </Suspense>
         </div>
       </article>
     </section>

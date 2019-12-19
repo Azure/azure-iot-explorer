@@ -23,7 +23,15 @@ exports[`components/devices/deviceEvents matches snapshot 2`] = `
         role="main"
       >
         <Route
-          component={[Function]}
+          component={
+            Object {
+              "$$typeof": Symbol(react.memo),
+              "WrappedComponent": [Function],
+              "compare": null,
+              "displayName": "Connect(withRouter(DeviceListComponent))",
+              "type": [Function],
+            }
+          }
           exact={true}
           path="undefined"
         />

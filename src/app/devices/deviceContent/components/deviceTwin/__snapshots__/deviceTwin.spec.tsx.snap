@@ -74,7 +74,7 @@ exports[`devices/components/deviceTwin snapshot matches snapshot with twin 1`] =
     <div
       className="monaco-editor"
     >
-      <React.Suspense
+      <Suspense
         fallback={
           <StyledSpinnerBase
             size={3}
@@ -85,7 +85,7 @@ exports[`devices/components/deviceTwin snapshot matches snapshot with twin 1`] =
         <ContextConsumer>
           <Component />
         </ContextConsumer>
-      </React.Suspense>
+      </Suspense>
     </div>
   </article>
 </Fragment>
