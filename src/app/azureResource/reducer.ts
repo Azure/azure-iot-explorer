@@ -10,7 +10,7 @@ import { AzureResource } from './models/azureResource';
 
 const reducer = reducerWithInitialState<AzureResourceState>(azureResourceStateInitial())
     .case(setActiveAzureResourceAction, (state: AzureResourceState, payload: AzureResource) => {
-        state.currentAzureResource = payload;
+        state.activeAzureResource = payload;
         return state;
     });
 

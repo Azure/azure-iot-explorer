@@ -15,9 +15,9 @@ export type AzureResourceViewProps = RouteComponentProps;
 
 export const AzureResourceView: React.FC<AzureResourceViewProps> = props => {
     const url = props.match.url;
-    const dispatch = useDispatch();
     const hostName = (props.match.params as { hostName: string}).hostName;
-    const currentAzureResource = useSelector((state: StateInterface) => state.azureResourceState.currentAzureResource);
+    const currentAzureResource = useSelector((state: StateInterface) => state.azureResourceState.activeAzureResource);
+    const dispatch = useDispatch();
 
     React.useEffect(() => {
         if (currentAzureResource && currentAzureResource.hostName === hostName) {
