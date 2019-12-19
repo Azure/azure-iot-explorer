@@ -4,11 +4,8 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import { Route, RouteComponentProps, Redirect } from 'react-router-dom';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import { DeviceLayout } from './layout';
-
-import { testSnapshot } from '../shared/utils/testHelpers';
 
 describe('components/devices/deviceEvents', () => {
 
