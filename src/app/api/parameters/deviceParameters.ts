@@ -87,3 +87,8 @@ export interface FetchModuleIdentitiesParameters extends DataPlaneParameters {
 export interface AddModuleIdentityParameters extends DataPlaneParameters {
     moduleIdentity: ModuleIdentity;
 }
+
+export interface ModuleIdentityTwinParameters extends DataPlaneParameters {
+    moduleId: string;
+    deviceId: string;
+}

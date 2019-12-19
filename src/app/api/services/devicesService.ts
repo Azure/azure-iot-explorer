@@ -17,7 +17,9 @@ import { FetchDeviceTwinParameters,
     PatchDigitalTwinInterfacePropertiesParameters,
     CloudToDeviceMessageParameters,
     FetchModuleIdentitiesParameters,
-    AddModuleIdentityParameters } from '../parameters/deviceParameters';
+    AddModuleIdentityParameters,
+    ModuleIdentityTwinParameters
+} from '../parameters/deviceParameters';
 import { CONTROLLER_API_ENDPOINT, DATAPLANE, EVENTHUB, DIGITAL_TWIN_API_VERSION, DataPlaneStatusCode, MONITOR, STOP, HEADERS, CLOUD_TO_DEVICE } from '../../constants/apiConstants';
 import { HTTP_OPERATION_TYPES } from '../constants';
 import { buildQueryString, getConnectionInfoFromConnectionString, generateSasToken } from '../shared/utils';
@@ -26,7 +28,7 @@ import { Message } from '../models/messages';
 import { Twin, Device, DataPlaneResponse } from '../models/device';
 import { DeviceIdentity } from '../models/deviceIdentity';
 import { DigitalTwinInterfaces } from '../models/digitalTwinModels';
-import { ModuleIdentity } from './../models/moduleIdentity';
+import { ModuleIdentity, ModuleTwin } from './../models/moduleIdentity';
 import { parseEventHubMessage } from './eventHubMessageHelper';
 
 export const DATAPLANE_CONTROLLER_ENDPOINT = `${CONTROLLER_API_ENDPOINT}${DATAPLANE}`;
@@ -484,6 +486,25 @@ export const addModuleIdentity = async (parameters: AddModuleIdentityParameters)
             hostName: connectionInformation.connectionInfo.hostName,
             httpMethod: HTTP_OPERATION_TYPES.Put,
             path: `devices/${parameters.moduleIdentity.deviceId}/modules/${parameters.moduleIdentity.moduleId}`,
+            sharedAccessSignature: connectionInformation.sasToken,
+        };
+
+        const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
+        const result = await dataPlaneResponseHelper(response);
+        return result.body;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const fetchModuleIdentityTwin = async (parameters: ModuleIdentityTwinParameters): Promise<DataPlaneResponse<ModuleTwin>> => {
+    try {
+        const connectionInformation = dataPlaneConnectionHelper(parameters);
+
+        const dataPlaneRequest: DataPlaneRequest = {
+            hostName: connectionInformation.connectionInfo.hostName,
+            httpMethod: HTTP_OPERATION_TYPES.Get,
+            path: `twins/${parameters.deviceId}/modules/${parameters.moduleId}`,
             sharedAccessSignature: connectionInformation.sasToken,
         };
 

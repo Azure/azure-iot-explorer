@@ -21,6 +21,7 @@ export enum ROUTE_PARTS {
 }
 
 export enum ROUTE_PARAMS {
-    DEVICE_ID = 'id',
+    DEVICE_ID = 'deviceId',
     INTERFACE_ID = 'interfaceId',
+    MODULE_ID = 'moduleId'
 }

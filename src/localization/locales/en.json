@@ -557,8 +557,8 @@
         "output" : "Output"
     },
     "moduleIdentity": {
-        "headerText": "Module Identities",
-        "addModuleHeaderText": "Add Module Identity",
+        "headerText": "Module identities",
+        "addModuleHeaderText": "Add module identity",
         "command" : {
             "add": "Add",
             "refresh": "Refresh",
@@ -606,6 +606,14 @@
             "invalidModuleIdentityName": "Invalid characters in module identity name",
             "invalidKey": "Invalid key",
             "invalidThumbprint": "Invalid thumbprint"
+        },
+        "detail" : {
+            "headerText": "Module identity detail",
+            "command" : {
+                "back": "Back",
+                "refresh": "Refresh"
+            },
+            "twin": "Module identity twin"
         }
     },
     "noMatchError": {

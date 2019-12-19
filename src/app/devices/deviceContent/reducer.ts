@@ -19,13 +19,15 @@ import {
     ModelDefinitionActionResult,
     GetModelDefinitionActionParameters,
     getModuleIdentitiesAction,
-    addModuleIdentityAction
+    addModuleIdentityAction,
+    getModuleIdentityTwinAction,
+    GetModuleIdentityTwinActionParameters
 } from './actions';
 import { Twin } from '../../api/models/device';
 import { DeviceIdentity } from '../../api/models/deviceIdentity';
 import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
 import { DigitalTwinInterfaces } from '../../api/models/digitalTwinModels';
-import { ModuleIdentity } from './../../api/models/moduleIdentity';
+import { ModuleIdentity, ModuleTwin } from './../../api/models/moduleIdentity';
 
 const reducer = reducerWithInitialState<DeviceContentStateType>(deviceContentStateInitial())
     //#region DeviceIdentity-related actions
@@ -248,6 +250,28 @@ const reducer = reducerWithInitialState<DeviceContentStateType>(deviceContentSta
     .case(addModuleIdentityAction.failed, (state: DeviceContentStateType) => {
         return state.merge({
             moduleIdentityList: {
+                synchronizationStatus: SynchronizationStatus.failed
+            }
+        });
+    })
+    .case(getModuleIdentityTwinAction.started, (state: DeviceContentStateType) => {
+        return state.merge({
+            moduleIdentityTwin: {
+                synchronizationStatus: SynchronizationStatus.working
+            }
+        });
+    })
+    .case(getModuleIdentityTwinAction.done, (state: DeviceContentStateType, payload: {params: GetModuleIdentityTwinActionParameters} & {result: ModuleTwin}) => {
+        return state.merge({
+            moduleIdentityTwin: {
+                moduleIdentityTwin: payload.result,
+                synchronizationStatus: SynchronizationStatus.fetched
+            }
+        });
+    })
+    .case(getModuleIdentityTwinAction.failed, (state: DeviceContentStateType) => {
+        return state.merge({
+            moduleIdentityTwin: {
                 synchronizationStatus: SynchronizationStatus.failed
             }
         });

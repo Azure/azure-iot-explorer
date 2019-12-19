@@ -1,16 +1,15 @@
-
 /***********************************************************
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
 import { call, put, select } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
-import { fetchModuleIdentities, addModuleIdentity } from '../../../api/services/devicesService';
+import { fetchModuleIdentities, addModuleIdentity, fetchModuleIdentityTwin } from '../../../api/services/devicesService';
 import { addNotificationAction } from '../../../notifications/actions';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getConnectionStringSelector } from '../../../login/selectors';
-import { getModuleIdentitiesAction, addModuleIdentityAction } from '../actions';
+import { getModuleIdentitiesAction, addModuleIdentityAction, GetModuleIdentityTwinActionParameters, getModuleIdentityTwinAction } from '../actions';
 import { ModuleIdentity } from './../../../api/models/moduleIdentity';
 
 export function* getModuleIdentitiesSaga(action: Action<string>) {
@@ -72,5 +71,32 @@ export function* addModuleIdentitySaga(action: Action<ModuleIdentity>) {
           }));
 
         yield put(addModuleIdentityAction.failed({params: action.payload, error}));
+    }
+}
+
+export function* getModuleIdentityTwinSaga(action: Action<GetModuleIdentityTwinActionParameters>) {
+    try {
+        const parameters = {
+            connectionString: yield select(getConnectionStringSelector),
+            deviceId: action.payload.deviceId,
+            moduleId: action.payload.moduleId
+        };
+
+        const moduleIdentityTwin = yield call(fetchModuleIdentityTwin, parameters);
+
+        yield put(getModuleIdentityTwinAction.done({params: action.payload, result: moduleIdentityTwin}));
+    } catch (error) {
+        yield put(addNotificationAction.started({
+            text: {
+                translationKey: ResourceKeys.notifications.getModuleIdentitiesOnError, // todo
+                translationOptions: {
+                    deviceId: action.payload,
+                    error,
+                },
+            },
+            type: NotificationType.error
+          }));
+
+        yield put(getModuleIdentityTwinAction.failed({params: action.payload, error}));
     }
 }

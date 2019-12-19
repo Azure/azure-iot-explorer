@@ -552,6 +552,14 @@ export class ResourceKeys {
          refresh : "moduleIdentity.command.refresh",
          save : "moduleIdentity.command.save",
       },
+      detail : {
+         command : {
+            back : "moduleIdentity.detail.command.back",
+            refresh : "moduleIdentity.detail.command.refresh",
+         },
+         headerText : "moduleIdentity.detail.headerText",
+         twin : "moduleIdentity.detail.twin",
+      },
       errorFetching : "moduleIdentity.errorFetching",
       headerText : "moduleIdentity.headerText",
       moduleId : "moduleIdentity.moduleId",
