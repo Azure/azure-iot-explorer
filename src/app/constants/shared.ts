@@ -19,6 +19,9 @@ export const MILLISECONDS_IN_MINUTE = 60000;
 export const PUBLIC_REPO_HOSTNAME = 'repo.azureiotrepository.com';
 
 export enum AppEnvironment {
-    Electron = 'electron',
-    Hosted = 'hosted'
+    ProdElectron = 'prodElectron',
+    ProdHosted = 'ProdHosted',
+
+    DevelopmentElectron = 'developmentElectron',
+    DevelopmentHosted = 'developmentHosted'
 }

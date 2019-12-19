@@ -18,7 +18,8 @@ import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryString
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import LabelWithTooltip from '../../../../shared/components/labelWithTooltip';
 import { DEFAULT_CONSUMER_GROUP } from '../../../../constants/apiConstants';
-import { AppEnvironment, MILLISECONDS_IN_MINUTE } from '../../../../constants/shared';
+import { MILLISECONDS_IN_MINUTE } from '../../../../constants/shared';
+import { isAppInElectron } from '../../../../api/shared/utils';
 import '../../../../css/_deviceEvents.scss';
 
 const JSON_SPACES = 2;
@@ -126,7 +127,7 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
     }
 
     private createStartMonitoringCommandItem = (context: LocalizationContextInterface): ICommandBarItemProps => {
-        if (process.env.NODE_ENV === AppEnvironment.Electron) {
+        if (isAppInElectron()) {
             const label = this.state.monitoringData ? context.t(ResourceKeys.deviceEvents.command.stop) : context.t(ResourceKeys.deviceEvents.command.start);
             const icon = this.state.monitoringData ? STOP : START;
             return {
@@ -302,7 +303,7 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
     }
 
     private readonly stopMonitoringIfNecessary = () => {
-        if (process.env.NODE_ENV === AppEnvironment.Electron) {
+        if (isAppInElectron()) {
             return;
         }
         else {

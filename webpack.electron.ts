@@ -35,9 +35,6 @@ const config: webpack.Configuration = merge(common, {
 
     plugins: [
         // new BundleAnalyzerPlugin(),
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify('production')
-        }),
         new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
             // all options are optional
@@ -57,7 +54,7 @@ const config: webpack.Configuration = merge(common, {
             _CONTROLLER_ENDPOINT: '\'http://127.0.0.1:8081/\''
         }),
         new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify('electron') // change 'hosted' to 'electron' to develop electron code path locally
+            'process.env.NODE_ENV': JSON.stringify('prodElectron')
         }),
     ]
 });
