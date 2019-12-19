@@ -4,79 +4,91 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import Themer from './themer';
 import { THEME_SELECTION, HIGH_CONTRAST } from './app/constants/browserStorage';
+import { Theme, MonacoTheme } from './app/shared/contexts/themeContext';
+import { THEME_LIGHT, THEME_DARK, THEME_LIGHT_HC, THEME_DARK_HC } from './app/constants/themes';
 
 describe('themer', () => {
-    it('matches snapshot', () => {
+    it('initializes to light theme when nothing in storage', () => {
         localStorage.removeItem(THEME_SELECTION);
         localStorage.removeItem(HIGH_CONTRAST);
-        const component = (
-            <Themer />
-        );
-        expect(mount(component)).toMatchSnapshot();
+        const component = shallow(<Themer />);
+        expect(component.state('theme')).toEqual(Theme.light);
+        expect(component.state('fabricTheme')).toEqual(THEME_LIGHT);
+        expect(component.state('monacoTheme')).toEqual(MonacoTheme.light);
     });
-    it('matches snapshot with high contrast', () => {
+    it('initializes to highContrastWhite when only high contrast is in storage', () => {
         localStorage.removeItem(THEME_SELECTION);
         localStorage.setItem(HIGH_CONTRAST, 'true');
-        const component = (
-            <Themer />
-        );
-        expect(mount(component)).toMatchSnapshot();
+        const component = shallow(<Themer />);
+        expect(component.state('theme')).toEqual(Theme.highContrastWhite);
+        expect(component.state('fabricTheme')).toEqual(THEME_LIGHT_HC);
+        expect(component.state('monacoTheme')).toEqual(MonacoTheme.hc_black);
     });
-
-    it('matches snapshot with theme set to dark', () => {
-        localStorage.setItem(THEME_SELECTION, 'dark');
-        localStorage.removeItem(HIGH_CONTRAST);
-        const component = (
-            <Themer />
-        );
-        expect(mount(component)).toMatchSnapshot();
-    });
-
-    it('matches snapshot with theme set to light', () => {
+    it('initializes to light theme', () => {
         localStorage.setItem(THEME_SELECTION, 'light');
         localStorage.removeItem(HIGH_CONTRAST);
-        const component = (
-            <Themer />
-        );
-        expect(mount(component)).toMatchSnapshot();
+        const component = shallow(<Themer />);
+        expect(component.state('theme')).toEqual(Theme.light);
+        expect(component.state('fabricTheme')).toEqual(THEME_LIGHT);
+        expect(component.state('monacoTheme')).toEqual(MonacoTheme.light);
     });
-
-    it('matches snapshot with theme set to highContrastBlack without high contrast', () => {
-        localStorage.setItem(THEME_SELECTION, 'highContrastBlack');
+    it('initializes to dark theme', () => {
+        localStorage.setItem(THEME_SELECTION, 'dark');
         localStorage.removeItem(HIGH_CONTRAST);
-        const component = (
-            <Themer />
-        );
-        expect(mount(component)).toMatchSnapshot();
+        const component = shallow(<Themer />);
+        expect(component.state('theme')).toEqual(Theme.dark);
+        expect(component.state('fabricTheme')).toEqual(THEME_DARK);
+        expect(component.state('monacoTheme')).toEqual(MonacoTheme.dark);
     });
-
-    it('matches snapshot with theme set to highContrastWhite without high contrast', () => {
+    it('initializes to high contrast white theme', () => {
         localStorage.setItem(THEME_SELECTION, 'highContrastWhite');
-        localStorage.removeItem(HIGH_CONTRAST);
-        const component = (
-            <Themer />
-        );
-        expect(mount(component)).toMatchSnapshot();
-    });
-
-    it('matches snapshot with theme set to dark and high contrast', () => {
-        localStorage.setItem(THEME_SELECTION, 'dark');
         localStorage.setItem(HIGH_CONTRAST, 'true');
-        const component = (
-            <Themer />
-        );
-        expect(mount(component)).toMatchSnapshot();
+        const component = shallow(<Themer />);
+        expect(component.state('theme')).toEqual(Theme.highContrastWhite);
+        expect(component.state('fabricTheme')).toEqual(THEME_LIGHT_HC);
+        expect(component.state('monacoTheme')).toEqual(MonacoTheme.hc_black);
     });
-
-    it('matches snapshot with theme set to light and high contrast', () => {
+    it('initializes to high contrast black theme', () => {
+        localStorage.setItem(THEME_SELECTION, 'highContrastBlack');
+        localStorage.setItem(HIGH_CONTRAST, 'true');
+        const component = shallow(<Themer />);
+        expect(component.state('theme')).toEqual(Theme.highContrastBlack);
+        expect(component.state('fabricTheme')).toEqual(THEME_DARK_HC);
+        expect(component.state('monacoTheme')).toEqual(MonacoTheme.hc_black);
+    });
+    it('initializes to high contrast white theme when light and high contrast', () => {
         localStorage.setItem(THEME_SELECTION, 'light');
         localStorage.setItem(HIGH_CONTRAST, 'true');
-        const component = (
-            <Themer />
-        );
-        expect(mount(component)).toMatchSnapshot();
+        const component = shallow(<Themer />);
+        expect(component.state('theme')).toEqual(Theme.highContrastWhite);
+        expect(component.state('fabricTheme')).toEqual(THEME_LIGHT_HC);
+        expect(component.state('monacoTheme')).toEqual(MonacoTheme.hc_black);
+    });
+    it('initializes to high contrast black theme when dark and high contrast', () => {
+        localStorage.setItem(THEME_SELECTION, 'dark');
+        localStorage.setItem(HIGH_CONTRAST, 'true');
+        const component = shallow(<Themer />);
+        expect(component.state('theme')).toEqual(Theme.highContrastBlack);
+        expect(component.state('fabricTheme')).toEqual(THEME_DARK_HC);
+        expect(component.state('monacoTheme')).toEqual(MonacoTheme.hc_black);
+    });
+    it('reverts highContrastWhite to light theme when high contrast is false', () => {
+        localStorage.setItem(THEME_SELECTION, 'highContrastWhite');
+        localStorage.setItem(HIGH_CONTRAST, 'false');
+        const component = shallow(<Themer />);
+        expect(component.state('theme')).toEqual(Theme.light);
+        expect(component.state('fabricTheme')).toEqual(THEME_LIGHT);
+        expect(component.state('monacoTheme')).toEqual(MonacoTheme.light);
+    });
+    it('reverts highContrastBlack to dark theme when high contrast is false', () => {
+        localStorage.setItem(THEME_SELECTION, 'highContrastBlack');
+        localStorage.setItem(HIGH_CONTRAST, 'false');
+        const component = shallow(<Themer />);
+        expect(component.state('theme')).toEqual(Theme.dark);
+        expect(component.state('fabricTheme')).toEqual(THEME_DARK);
+        expect(component.state('monacoTheme')).toEqual(MonacoTheme.dark);
     });
 });
