@@ -9,6 +9,7 @@ import { connectionStringsStateInitial, ConnectionStringsStateInterface } from '
 const reducer = reducerWithInitialState<ConnectionStringsStateInterface>(connectionStringsStateInitial())
     .case(addConnectionStringAction, (state: ConnectionStringsStateInterface, payload: string) => {
         const updatedState = {...state};
+        updatedState.connectionStrings = updatedState.connectionStrings.filter(s => s !== payload);
         updatedState.connectionStrings.push(payload);
         return updatedState;
     })
