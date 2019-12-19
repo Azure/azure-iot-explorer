@@ -10,15 +10,15 @@ import { RouteComponentProps } from 'react-router-dom';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { generateConnectionStringValidationError } from '../../shared/utils/hubConnectionStringHelper';
-import { SetConnectionStringActionParameter } from '../actions';
 import HubConnectionStringSection from './hubConnectionStringSection';
 import AppVersionMessageBar from './appVersionMessageBar';
 import { Notification } from '../../api/models/notification';
 import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
+import { SetActiveAzureResourceByConnectionStringActionParameters } from '../../azureResource/actions';
 import '../../css/_connectivityPane.scss';
 
 export interface ConnectivityPaneDispatchProps {
-    saveConnectionInfo: (connectionStringSetting: SetConnectionStringActionParameter) => void;
+    setActiveAzureResource: (parameters: SetActiveAzureResourceByConnectionStringActionParameters) => void;
     addNotification: (notification: Notification) => void;
 }
 
@@ -85,7 +85,6 @@ export default class ConnectivityPane extends React.Component<RouteComponentProp
                     </div>
                 )}
             </LocalizationContextConsumer>
-
         );
     }
 
@@ -104,9 +103,13 @@ export default class ConnectivityPane extends React.Component<RouteComponentProp
     }
 
     private readonly onSaveConnectionInfoClick = (): void => {
-        this.props.saveConnectionInfo({...this.state});
         const { hostName } = getConnectionInfoFromConnectionString(this.state.connectionString);
-        this.props.history.push(`/${hostName}/devices`);
+        this.props.setActiveAzureResource({
+            connectionString: this.state.connectionString,
+            hostName,
+            persistConnectionString: this.state.rememberConnectionString
+        });
+        this.props.history.push(`/iot/${hostName}/devices`);
     }
 
     private readonly onCheckboxChange = (ev: React.FormEvent<HTMLElement>, isChecked: boolean) => {

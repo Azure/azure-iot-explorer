@@ -8,5 +8,4 @@ export interface AzureResourceIdentifier {
     resouceGroupName: string;
     subscriptionId: string;
     location: string;
-    type: string;
 }

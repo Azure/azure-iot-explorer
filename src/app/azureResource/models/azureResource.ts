@@ -3,17 +3,15 @@
  * Licensed under the MIT License
  **********************************************************/
 
-// import { AzureResourceType } from './azureResourceType';
-// import { AccessVerificationState } from './accessVerificationState';
-// import { AzureResourceIdentifier } from './azureResourceIdentifier';
-// import { SharedAccessSignatureAuthorizationRule } from './sharedAccessSignatureAuthorizationRule';
+import { AccessVerificationState } from './accessVerificationState';
+import { AzureResourceIdentifier } from './azureResourceIdentifier';
+import { SharedAccessSignatureAuthorizationRule } from './sharedAccessSignatureAuthorizationRule';
 
 export interface AzureResource {
-    // accessVerificationState?: AccessVerificationState;
-    // azureResourceType: AzureResourceType;
-    // identifier: AzureResourceIdentifier;
+    accessVerificationState: AccessVerificationState;
+    azureResourceIdentifier?: AzureResourceIdentifier;
     hostName: string;
-    // sharedAccessSignatureAuthorizationRules?: SharedAccessSignatureAuthorizationRule[];
-    // sharedAccessSignatureAuthorizationRulesLastFetched?: string;
-    connectionString: string;
+    sharedAccessSignatureAuthorizationRules?: SharedAccessSignatureAuthorizationRule[];
+    sharedAccessSignatureAuthorizationRulesLastFetched?: string;
+    connectionString?: string;
 }

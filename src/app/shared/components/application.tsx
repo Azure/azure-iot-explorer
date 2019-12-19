@@ -7,8 +7,7 @@ import * as React from 'react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import { withNamespaces } from 'react-i18next';
 import { ToastContainer } from 'react-toastify';
-import { AzureResource } from '../../azureResource/components/azureResource';
-import LayoutContainer from '../../devices/layoutContainer';
+import { AzureResourceView } from '../../azureResource/components/azureResourceView';
 import NoMatchError from './noMatchError';
 import { LocalizationContextProvider } from '../contexts/localizationContext';
 import connectivityPaneContainer from '../../login/components/connectivityPaneContainer';
@@ -25,9 +24,9 @@ const app = (localizationContext: any) => {
                 <>
                     <Switch>
                         <Route exact={true} path="/" component={connectivityPaneContainer}/>
-                        <Route path="/:hostName" component={AzureResource}/>
-                        <Route path="/devices" component={LayoutContainer}/>
+                        <Route path="/iot/:hostName" component={AzureResourceView}/>
                         <Route component={NoMatchError}/>
+
                     </Switch>
                     <ToastContainer
                         autoClose={NOTIFICATION_AUTO_CLOSE}

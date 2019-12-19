@@ -4,7 +4,7 @@
  **********************************************************/
 
 export enum AccessVerificationState {
-    Checking,
+    Verifying,
     Authorized,
     Unauthorized,
     Failed

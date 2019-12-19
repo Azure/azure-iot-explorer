@@ -36,7 +36,8 @@ export const SET_REPOSITORY_LOCATIONS = 'SET_REPOSITORY_LOCATIONS';
 export const UPDATE_REPO_TOKEN = 'UPDATE_REPO_TOKEN';
 
 // common
-export const CLEAR = 'CLEAR';
 export const ADD  = 'ADD';
+export const CLEAR = 'CLEAR';
+export const DELETE = 'DELETE';
 export const READ = 'READ';
 export const SET = 'SET';
