@@ -56,6 +56,9 @@ const config: webpack.Configuration = merge(common, {
         new webpack.DefinePlugin({
             _CONTROLLER_ENDPOINT: '\'http://127.0.0.1:8081/\''
         }),
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify('electron') // change 'hosted' to 'electron' to develop electron code path locally
+        }),
     ]
 });
 

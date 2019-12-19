@@ -34,7 +34,14 @@ describe('components/devices/deviceEvents', () => {
         return (<DeviceEventsComponent {...props} />);
     };
 
-    it('matches snapshot', () => {
+    it('matches snapshot in electron', () => {
+        process.env = {...process.env, NODE_ENV: 'electron'};
+        const wrapper = getComponent();
+        testSnapshot(wrapper);
+    });
+
+    it('matches snapshot in hosted environment', () => {
+        process.env = {...process.env, NODE_ENV: 'hosted'};
         const wrapper = getComponent();
         testSnapshot(wrapper);
     });

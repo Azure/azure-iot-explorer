@@ -43,6 +43,9 @@ const config: webpack.Configuration = merge(common, {
         new webpack.DefinePlugin({
             _CONTROLLER_ENDPOINT: '\'http://127.0.0.1:8082/\''
         }),
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify('hosted') // change 'hosted' to 'electron' to develop in electron environment
+        })
     ],
 
     devServer: {

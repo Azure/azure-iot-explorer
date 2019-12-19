@@ -77,7 +77,13 @@ describe('components/devices/deviceEventsPerInterface', () => {
         expect(wrapper.find(InterfaceNotFoundMessageBoxContainer)).toBeDefined();
     });
 
-    it('matches snapshot while interface definition is retrieved', () => {
+    it('matches snapshot while interface definition is retrieved in electron', () => {
+        process.env = {...process.env, NODE_ENV: 'electron'};
+        testSnapshot(getComponent({isLoading: false, telemetrySchema}));
+    });
+
+    it('matches snapshot while interface definition is retrieved in hosted environment', () => {
+        process.env = {...process.env, NODE_ENV: 'hosted'};
         testSnapshot(getComponent({isLoading: false, telemetrySchema}));
     });
 

@@ -10,8 +10,57 @@ exports[`components/devices/deviceEventsPerInterface matches snapshot while inte
     items={
       Array [
         Object {
-          "ariaLabel": "deviceEvents.command.start",
+          "ariaLabel": "deviceEvents.command.fetch",
+          "disabled": false,
+          "iconProps": Object {
+            "iconName": "Play",
+          },
+          "key": "Play",
+          "name": "deviceEvents.command.fetch",
+          "onClick": [Function],
+        },
+        Object {
+          "ariaLabel": "deviceEvents.command.refresh",
+          "disabled": false,
+          "iconProps": Object {
+            "iconName": "Refresh",
+          },
+          "key": "Refresh",
+          "name": "deviceEvents.command.refresh",
+          "onClick": [Function],
+        },
+        Object {
+          "ariaLabel": "deviceEvents.command.clearEvents",
           "disabled": true,
+          "iconProps": Object {
+            "iconName": "Clear",
+          },
+          "key": "Clear",
+          "name": "deviceEvents.command.clearEvents",
+          "onClick": [Function],
+        },
+      ]
+    }
+  />
+  <h3>
+    deviceEvents.headerText
+  </h3>
+  <Connect(InterfaceNotFoundMessageBox) />
+</div>
+`;
+
+exports[`components/devices/deviceEventsPerInterface matches snapshot while interface definition is retrieved in electron 1`] = `
+<div
+  className="device-events"
+  key="device-events"
+>
+  <StyledCommandBarBase
+    className="command"
+    items={
+      Array [
+        Object {
+          "ariaLabel": "deviceEvents.command.start",
+          "disabled": false,
           "iconProps": Object {
             "iconName": "Play",
           },
@@ -45,11 +94,89 @@ exports[`components/devices/deviceEventsPerInterface matches snapshot while inte
   <h3>
     deviceEvents.headerText
   </h3>
-  <Connect(InterfaceNotFoundMessageBox) />
+  <StyledTextFieldBase
+    ariaLabel="deviceEvents.consumerGroups.label"
+    className="consumer-group-text-field"
+    disabled={false}
+    label="deviceEvents.consumerGroups.label"
+    onChange={[Function]}
+    onRenderLabel={[Function]}
+    underlined={true}
+    value="$Default"
+  />
+  <InfiniteScroll
+    className="device-events-container"
+    element="div"
+    getScrollParent={null}
+    hasMore={false}
+    initialLoad={true}
+    isReverse={true}
+    key="scroll"
+    loadMore={[Function]}
+    loader={
+      <div>
+        <div
+          className="events-loader"
+        >
+          <StyledSpinnerBase />
+          <h4>
+            deviceEvents.infiniteScroll.loading
+          </h4>
+        </div>
+      </div>
+    }
+    pageStart={0}
+    ref={null}
+    threshold={250}
+    useCapture={false}
+    useWindow={true}
+  >
+    <section
+      className="list-content"
+    >
+      <div
+        className="scrollable-sm"
+      >
+        <div
+          className="pnp-detail-list ms-Grid"
+        >
+          <div
+            className="list-header list-header-uncollapsible ms-Grid-row"
+          >
+            <span
+              className="ms-Grid-col ms-sm2"
+            >
+              deviceEvents.columns.timestamp
+            </span>
+            <span
+              className="ms-Grid-col ms-sm2"
+            >
+              deviceEvents.columns.displayName
+            </span>
+            <span
+              className="ms-Grid-col ms-sm2"
+            >
+              deviceEvents.columns.schema
+            </span>
+            <span
+              className="ms-Grid-col ms-sm2"
+            >
+              deviceEvents.columns.unit
+            </span>
+            <span
+              className="ms-Grid-col ms-sm4"
+            >
+              deviceEvents.columns.value
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </InfiniteScroll>
 </div>
 `;
 
-exports[`components/devices/deviceEventsPerInterface matches snapshot while interface definition is retrieved 1`] = `
+exports[`components/devices/deviceEventsPerInterface matches snapshot while interface definition is retrieved in hosted environment 1`] = `
 <div
   className="device-events"
   key="device-events"
@@ -59,13 +186,13 @@ exports[`components/devices/deviceEventsPerInterface matches snapshot while inte
     items={
       Array [
         Object {
-          "ariaLabel": "deviceEvents.command.start",
+          "ariaLabel": "deviceEvents.command.fetch",
           "disabled": false,
           "iconProps": Object {
             "iconName": "Play",
           },
           "key": "Play",
-          "name": "deviceEvents.command.start",
+          "name": "deviceEvents.command.fetch",
           "onClick": [Function],
         },
         Object {
