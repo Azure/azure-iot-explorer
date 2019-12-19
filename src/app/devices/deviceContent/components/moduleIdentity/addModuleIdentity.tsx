@@ -260,7 +260,7 @@ export default class AddModuleIdentityComponent
     }
 
     private readonly navigateToModuleList = () => {
-        const path = this.props.location.pathname.replace(/\/addModuleIdentity\/.*/, `/${ROUTE_PARTS.MODULE_IDENTITY}`);
+        const path = this.props.match.url.replace(/\/add\/.*/, ``);
         const deviceId = getDeviceIdFromQueryString(this.props);
         this.props.history.push(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
     }

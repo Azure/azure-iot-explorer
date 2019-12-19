@@ -4,7 +4,6 @@
  **********************************************************/
 export enum ROUTE_PARTS {
     ADD = 'add',
-    ADD_MODULE_IDENTITY = 'addModuleIdentity',
     COMMANDS = 'commands',
     CLOUD_TO_DEVICE_MESSAGE = 'cloudToDeviceMessage',
     DETAIL = 'detail',

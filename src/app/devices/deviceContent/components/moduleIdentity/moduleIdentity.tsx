@@ -72,7 +72,7 @@ export default class ModuleIdentityComponent
     }
 
     private readonly handleAdd = () => {
-        const path = this.props.location.pathname.replace(/\/moduleIdentity\/.*/, `/${ROUTE_PARTS.ADD_MODULE_IDENTITY}`);
+        const path = this.props.match.url.concat(ROUTE_PARTS.ADD);
         const deviceId = getDeviceIdFromQueryString(this.props);
         this.props.history.push(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
     }
