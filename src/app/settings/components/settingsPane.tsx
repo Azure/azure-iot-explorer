@@ -5,13 +5,11 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel';
-import { IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
 import { Link } from 'office-ui-fabric-react/lib/Link';
 import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/Button';
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
-import { generateConnectionStringValidationError } from '../../shared/utils/hubConnectionStringHelper';
 import RepositoryLocationList from './repositoryLocationList';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
 import { ConfirmationDialog } from './confirmationDialog';
@@ -23,7 +21,6 @@ import '../../css/_settingsPane.scss';
 
 export interface SettingsPaneProps extends Settings {
     isOpen: boolean;
-    connectionStringList: string[];
 }
 
 export interface SettingsPaneActions {
@@ -40,7 +37,7 @@ export interface RepositorySettings {
 
 export interface Settings {
     hubConnectionString: string;
-    rememberConnectionString: boolean;
+    connectionStringList: string[];
     repositoryLocations?: RepositorySettings[];
 }
 
@@ -61,10 +58,10 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
             }) : [];
         const theme = localStorage.getItem(THEME_SELECTION);
         this.state = {
+            connectionStringList: props.connectionStringList,
             hubConnectionString: props.hubConnectionString,
             isDarkTheme: Theme.dark === theme || Theme.highContrastBlack === theme,
             isDirty: false,
-            rememberConnectionString: props.rememberConnectionString,
             repositoryLocations,
             showConfirmationDialog: false,
         };
@@ -93,11 +90,7 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
                                 addNotification={this.props.addNotification}
                                 connectionString={this.state.hubConnectionString}
                                 connectionStringList={this.props.connectionStringList}
-                                rememberConnectionString={this.state.rememberConnectionString}
-                                error={this.state.error && context.t(this.state.error)}
-                                onConnectionStringChangedFromTextField={this.onConnectionStringChangedFromTextField}
-                                onConnectionStringChangedFromDropdown={this.onConnectionStringChangedFromDropdown}
-                                onCheckboxChange={this.onCheckboxChange}
+                                onSaveConnectionString={this.onSaveConnectionString}
                             />
                         </section>
                         <section aria-label={context.t(ResourceKeys.settings.modelDefinitions.headerText)}>
@@ -186,17 +179,11 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
         });
     }
 
-    private readonly onConnectionStringChangedFromTextField = (hubConnectionString: string)  => {
+    private readonly onSaveConnectionString = (hubConnectionString: string, connectionStringList: string[], error?: string) => {
         this.setState({
-            error: generateConnectionStringValidationError(hubConnectionString),
+            connectionStringList,
+            error,
             hubConnectionString,
-            isDirty: true
-        });
-    }
-
-    private readonly onConnectionStringChangedFromDropdown = (event: React.FormEvent<HTMLDivElement>, item: IDropdownOption) => {
-        this.setState({
-            hubConnectionString: item.key.toString(),
             isDirty: true
         });
     }
@@ -305,13 +292,6 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
             )}
             </LocalizationContextConsumer>
         );
-    }
-
-    private readonly onCheckboxChange = (ev: React.FormEvent<HTMLElement>, isChecked: boolean) => {
-        this.setState({
-            isDirty: true,
-            rememberConnectionString: isChecked,
-        });
     }
 
     private readonly disableSaveButton = () => {

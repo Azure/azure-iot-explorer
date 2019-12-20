@@ -9,12 +9,7 @@ export const getConnectionStringSelector = (state: StateInterface) => {
     return state && state.connectionState && state.connectionState.connectionString;
 };
 
-export const getRememberConnectionStringValueSelector = (state: StateInterface) => {
-    return state && state.connectionState && state.connectionState.rememberConnectionString;
-};
-
-export const getConnectionStringListSelector = (state: StateInterface) => {
-    return getRememberConnectionStringValueSelector(state) ?
-        localStorage.getItem(CONNECTION_STRING_NAME_LIST) && localStorage.getItem(CONNECTION_STRING_NAME_LIST).split(',') :
-        (getConnectionStringSelector(state) ? [getConnectionStringSelector(state)] : undefined); // if connection string is not saved in local storage, check if one connection string is saved in state
+export const getConnectionStringListSelector = () => {
+    const list = localStorage.getItem(CONNECTION_STRING_NAME_LIST);
+    return (list && list.split(',')) || [];
 };

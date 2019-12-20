@@ -3,7 +3,6 @@
  * Licensed under the MIT License
  **********************************************************/
 import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
-import { IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
 import { Text } from 'office-ui-fabric-react/lib/Text';
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
@@ -24,13 +23,12 @@ export interface ConnectivityPaneDispatchProps {
 export interface ConnectivityPaneDataProps {
     connectionString: string;
     connectionStringList: string[];
-    rememberConnectionString: boolean;
 }
 
 export interface ConnectivityState {
     connectionString: string;
+    connectionStringList: string[];
     error: string;
-    rememberConnectionString: boolean;
 }
 
 export default class ConnectivityPane extends React.Component<RouteComponentProps & ConnectivityPaneDataProps & ConnectivityPaneDispatchProps, ConnectivityState> {
@@ -38,13 +36,13 @@ export default class ConnectivityPane extends React.Component<RouteComponentProp
         super(props);
         this.state = {
             connectionString: this.props.connectionString,
-            error: '',
-            rememberConnectionString: this.props.rememberConnectionString
+            connectionStringList: this.props.connectionStringList,
+            error: ''
         };
     }
 
     public render(): JSX.Element {
-        const { connectionString, error, rememberConnectionString } = this.state;
+        const { error } = this.state;
 
         return (
             <LocalizationContextConsumer>
@@ -58,13 +56,9 @@ export default class ConnectivityPane extends React.Component<RouteComponentProp
 
                             <HubConnectionStringSection
                                 addNotification={this.props.addNotification}
-                                connectionString={connectionString}
-                                connectionStringList={this.props.connectionStringList}
-                                rememberConnectionString={rememberConnectionString}
-                                error={error && context.t(error)}
-                                onConnectionStringChangedFromTextField={this.onConnectionStringChanged}
-                                onConnectionStringChangedFromDropdown={this.onConnectionStringChangedFromDropdown}
-                                onCheckboxChange={this.onCheckboxChange}
+                                connectionString={this.state.connectionString}
+                                connectionStringList={this.state.connectionStringList}
+                                onSaveConnectionString={this.onSaveConnectionString}
                             />
                             <div className="notes">
                                 <Text>
@@ -74,7 +68,7 @@ export default class ConnectivityPane extends React.Component<RouteComponentProp
                             <div className="connection-button">
                                 <PrimaryButton
                                     onClick={this.onSaveConnectionInfoClick}
-                                    disabled={!connectionString || !!error}
+                                    disabled={!this.state.connectionString || !!error}
                                 >
                                     {context.t(ResourceKeys.connectivityPane.saveButton.label)}
                                 </PrimaryButton>
@@ -88,28 +82,16 @@ export default class ConnectivityPane extends React.Component<RouteComponentProp
         );
     }
 
-    private readonly onConnectionStringChanged = (connectionString: string)  => {
-        const error = generateConnectionStringValidationError(connectionString);
+    private readonly onSaveConnectionString = (connectionString: string, connectionStringList: string[]) => {
         this.setState({
             connectionString,
-            error,
-        });
-    }
-
-    private readonly onConnectionStringChangedFromDropdown = (event: React.FormEvent<HTMLDivElement>, item: IDropdownOption) => {
-        this.setState({
-            connectionString: item.key.toString()
+            connectionStringList,
+            error: generateConnectionStringValidationError(connectionString)
         });
     }
 
     private readonly onSaveConnectionInfoClick = (): void => {
         this.props.saveConnectionInfo({...this.state});
         this.props.history.push('/devices');
-    }
-
-    private readonly onCheckboxChange = (ev: React.FormEvent<HTMLElement>, isChecked: boolean) => {
-        this.setState({
-            rememberConnectionString: isChecked,
-        });
     }
 }

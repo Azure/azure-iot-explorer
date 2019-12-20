@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import ConnectivityPane, { ConnectivityPaneDataProps, ConnectivityPaneDispatchProps } from './connectivityPane';
 import { StateType } from '../../shared/redux/state';
-import { getConnectionStringSelector, getRememberConnectionStringValueSelector, getConnectionStringListSelector } from '../selectors';
+import { getConnectionStringSelector, getConnectionStringListSelector } from '../selectors';
 import { clearDevicesAction } from '../../devices/deviceList/actions';
 import { clearModelDefinitionsAction } from '../../devices/deviceContent/actions';
 import { setConnectionStringAction, SetConnectionStringActionParameter } from '../actions';
@@ -18,8 +18,7 @@ import { Notification } from '../../api/models/notification';
 const mapStateToProps = (state: StateType): ConnectivityPaneDataProps => {
     return {
         connectionString: getConnectionStringSelector(state),
-        connectionStringList: getConnectionStringListSelector(state),
-        rememberConnectionString: getRememberConnectionStringValueSelector(state),
+        connectionStringList: getConnectionStringListSelector(),
     };
 };
 
