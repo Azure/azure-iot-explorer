@@ -1,7 +1,7 @@
 import * as electron from 'electron';
 import * as path from 'path';
 import * as url from 'url';
-import '../dist/server/server';
+import '../dist/server/serverElectron';
 
 const app = electron.app;
 const Menu = electron.Menu;

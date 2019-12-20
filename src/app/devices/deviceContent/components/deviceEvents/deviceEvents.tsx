@@ -18,6 +18,8 @@ import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryString
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import LabelWithTooltip from '../../../../shared/components/labelWithTooltip';
 import { DEFAULT_CONSUMER_GROUP } from '../../../../constants/apiConstants';
+import { MILLISECONDS_IN_MINUTE } from '../../../../constants/shared';
+import { isAppInElectron } from '../../../../api/shared/utils';
 import '../../../../css/_deviceEvents.scss';
 
 const JSON_SPACES = 2;
@@ -30,7 +32,7 @@ export interface DeviceEventsDataProps {
 export interface DeviceEventsState {
     events: Message[];
     hasMore: boolean;
-    startTime?: Date; // todo: add a datetime picker
+    startTime: Date; // todo: add a datetime picker
     loading?: boolean;
     loadingAnnounced?: JSX.Element;
     showSystemProperties: boolean;
@@ -52,6 +54,7 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
             hasMore: false,
             monitoringData: false,
             showSystemProperties: false,
+            startTime: new Date(new Date().getTime() - MILLISECONDS_IN_MINUTE), // set start time to one minute ago
             synchronizationStatus: SynchronizationStatus.initialized,
         };
     }
@@ -124,16 +127,32 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
     }
 
     private createStartMonitoringCommandItem = (context: LocalizationContextInterface): ICommandBarItemProps => {
-        return {
-            ariaLabel: this.state.monitoringData ? context.t(ResourceKeys.deviceEvents.command.stop) : context.t(ResourceKeys.deviceEvents.command.start),
-            disabled: this.state.synchronizationStatus === SynchronizationStatus.updating,
-            iconProps: {
-                iconName: this.state.monitoringData ? STOP : START
-            },
-            key: this.state.monitoringData ? STOP : START,
-            name: this.state.monitoringData ? context.t(ResourceKeys.deviceEvents.command.stop) : context.t(ResourceKeys.deviceEvents.command.start),
-            onClick: this.onToggleStart
-        };
+        if (isAppInElectron()) {
+            const label = this.state.monitoringData ? context.t(ResourceKeys.deviceEvents.command.stop) : context.t(ResourceKeys.deviceEvents.command.start);
+            const icon = this.state.monitoringData ? STOP : START;
+            return {
+                ariaLabel: label,
+                disabled: this.state.synchronizationStatus === SynchronizationStatus.updating,
+                iconProps: {
+                    iconName: icon
+                },
+                key: icon,
+                name: label,
+                onClick: this.onToggleStart
+            };
+        }
+        else {
+            return {
+                ariaLabel: context.t(ResourceKeys.deviceEvents.command.fetch),
+                disabled: this.state.synchronizationStatus === SynchronizationStatus.updating || this.state.monitoringData,
+                iconProps: {
+                    iconName: START
+                },
+                key: START,
+                name: context.t(ResourceKeys.deviceEvents.command.fetch),
+                onClick: this.onToggleStart
+            };
+        }
     }
 
     private consumerGroupChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
@@ -263,6 +282,7 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
                                 loading: false,
                                 startTime: new Date()
                             });
+                            this.stopMonitoringIfNecessary();
                         }
                     });
                 },
@@ -280,5 +300,20 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
         this.setState({
             showSystemProperties: !this.state.showSystemProperties
         });
+    }
+
+    private readonly stopMonitoringIfNecessary = () => {
+        if (isAppInElectron()) {
+            return;
+        }
+        else {
+            this.stopMonitoring().then(() => {
+                this.setState({
+                    hasMore: false,
+                    monitoringData: false,
+                    synchronizationStatus: SynchronizationStatus.fetched
+                });
+            });
+        }
     }
 }

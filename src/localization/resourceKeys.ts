@@ -175,6 +175,7 @@ export class ResourceKeys {
       },
       command : {
          clearEvents : "deviceEvents.command.clearEvents",
+         fetch : "deviceEvents.command.fetch",
          refresh : "deviceEvents.command.refresh",
          showSystemProperties : "deviceEvents.command.showSystemProperties",
          start : "deviceEvents.command.start",

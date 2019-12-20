@@ -9,6 +9,7 @@ import { fromJS } from 'immutable';
 import reducer from '../reducer';
 import rootSaga from '../../../devices/saga';
 import { StateInterface } from '../state';
+import { isAppInDevelopmentMode } from './../../../api/shared/utils';
 
 export default () => {
     const middlewares = [];
@@ -18,7 +19,7 @@ export default () => {
         return s.toJS();
     };
 
-    if (process.env.NODE_ENV === 'development') {
+    if (isAppInDevelopmentMode()) {
         const logger = createLogger({stateTransformer});
         middlewares.push(logger);
     }

@@ -442,7 +442,8 @@
             "clearEvents": "Clear events",
             "showSystemProperties": "Show system properties",
             "start": "Start",
-            "stop": "Stop"
+            "stop": "Stop",
+            "fetch": "Retrieve events"
         },
         "consumerGroups": {
             "label": "Consumer Group",

@@ -2,11 +2,8 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import BundleAnalyzerPlugin from 'webpack-bundle-analyzer';
-import WebpackShellPlugin from 'webpack-shell-plugin';
 import * as webpack from 'webpack';
 import * as merge from 'webpack-merge';
-import * as path from 'path';
 import common from './configs/webpack.common';
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // tslint:disable-line: no-var-requires
 
@@ -43,6 +40,12 @@ const config: webpack.Configuration = merge(common, {
             filename: '[name].css',
             ignoreOrder: false, // Enable to remove warnings about conflicting order
         }),
+        new webpack.DefinePlugin({
+            _CONTROLLER_ENDPOINT: '\'http://127.0.0.1:8082/\''
+        }),
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify('developmentHosted') // change 'developmentHosted' to 'developmentElectron' to develop in electron environment
+        })
     ],
 
     devServer: {
