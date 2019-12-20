@@ -1,3 +1,7 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, RouteComponentProps, Redirect } from 'react-router-dom';
