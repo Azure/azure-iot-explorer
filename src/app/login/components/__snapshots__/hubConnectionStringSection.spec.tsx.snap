@@ -2,115 +2,30 @@
 
 exports[`login/components/connectivityPane matches snapshot 1`] = `
 <Fragment>
-  <Connect(MaskedCopyableTextField)
-    allowMask={true}
-    ariaLabel="connectivityPane.connectionStringTextBox.label"
-    calloutContent={
-      <div
-        className="callout-wrapper"
-      >
-        <div
-          className="content"
-        >
-          settings.configuration.connectionString.sublabel
-        </div>
-        <div
-          className="footer"
-        >
-          <StyledLinkBase
-            href="settings.configuration.connectionString.link"
-            target="_blank"
-          >
-            settings.configuration.connectionString.link
-          </StyledLinkBase>
-        </div>
-      </div>
-    }
-    error=""
-    label="connectivityPane.connectionStringTextBox.label"
-    onTextChange={[Function]}
-    readOnly={false}
-    required={true}
-    setFocus={true}
-    t={
-      [MockFunction] {
-        "calls": Array [
-          Array [
-            "connectivityPane.connectionStringTextBox.label",
-          ],
-          Array [
-            "connectivityPane.connectionStringTextBox.label",
-          ],
-          Array [
-            "settings.configuration.connectionString.sublabel",
-          ],
-          Array [
-            "settings.configuration.connectionString.link",
-          ],
-          Array [
-            "settings.configuration.connectionString.link",
-          ],
-          Array [
-            "connectivityPane.connectionStringCheckbox.ariaLabel",
-          ],
-          Array [
-            "connectivityPane.connectionStringCheckbox.tooltip",
-          ],
-          Array [
-            "connectivityPane.connectionStringCheckbox.label",
-          ],
-        ],
-        "results": Array [
-          Object {
-            "type": "return",
-            "value": "connectivityPane.connectionStringTextBox.label",
-          },
-          Object {
-            "type": "return",
-            "value": "connectivityPane.connectionStringTextBox.label",
-          },
-          Object {
-            "type": "return",
-            "value": "settings.configuration.connectionString.sublabel",
-          },
-          Object {
-            "type": "return",
-            "value": "settings.configuration.connectionString.link",
-          },
-          Object {
-            "type": "return",
-            "value": "settings.configuration.connectionString.link",
-          },
-          Object {
-            "type": "return",
-            "value": "connectivityPane.connectionStringCheckbox.ariaLabel",
-          },
-          Object {
-            "type": "return",
-            "value": "connectivityPane.connectionStringCheckbox.tooltip",
-          },
-          Object {
-            "type": "return",
-            "value": "connectivityPane.connectionStringCheckbox.label",
-          },
-        ],
+  <CustomizedComboBox
+    allowFreeform={true}
+    ariaLabel="connectivityPane.connectionStringComboBox.ariaLabel"
+    autoComplete="on"
+    buttonIconProps={
+      Object {
+        "iconName": "ChevronDown",
       }
     }
+    className="connection-string-dropDown"
+    errorMessage="connectivityPane.connectionStringComboBox.errorMessages.required"
+    label="connectivityPane.connectionStringComboBox.label"
+    onChange={[Function]}
+    onRenderOption={[Function]}
+    options={Array []}
+    selectedKey=""
+    text="Select a saved connection string or paste a new connection string here"
+  />
+  <input
+    aria-hidden={true}
+    className="hidden"
+    readOnly={true}
+    tabIndex={-1}
     value=""
   />
-  <div
-    className="remember-connection-string"
-  >
-    <StyledCheckboxBase
-      ariaLabel="connectivityPane.connectionStringCheckbox.ariaLabel"
-      checked={true}
-      onChange={[MockFunction]}
-    />
-    <Component
-      tooltipText="connectivityPane.connectionStringCheckbox.tooltip"
-    >
-      connectivityPane.connectionStringCheckbox.label
-    </Component>
-  </div>
 </Fragment>
 `;

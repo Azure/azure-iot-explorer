@@ -7,14 +7,14 @@ import { getConnectionInfoFromConnectionString, getRepoConnectionInfoFromConnect
 
 export const generateConnectionStringValidationError  = (value: string): string => {
     if (!value) {
-        return ResourceKeys.connectivityPane.connectionStringTextBox.errorMessages.required;
+        return ResourceKeys.connectivityPane.connectionStringComboBox.errorMessages.required;
     }
 
     if (isRepoConnectionString(value)) {
-        return ResourceKeys.connectivityPane.connectionStringTextBox.errorMessages.invalid;
+        return ResourceKeys.connectivityPane.connectionStringComboBox.errorMessages.invalid;
     }
 
-    return isHubConnectionString(value) ? null : ResourceKeys.connectivityPane.connectionStringTextBox.errorMessages.invalid;
+    return isHubConnectionString(value) ? null : ResourceKeys.connectivityPane.connectionStringComboBox.errorMessages.invalid;
 };
 
 const isRepoConnectionString = (value: string) => {

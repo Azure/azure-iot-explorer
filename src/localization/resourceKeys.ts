@@ -95,13 +95,14 @@ export class ResourceKeys {
          label : "connectivityPane.connectionStringCheckbox.label",
          tooltip : "connectivityPane.connectionStringCheckbox.tooltip",
       },
-      connectionStringTextBox : {
+      connectionStringComboBox : {
+         ariaLabel : "connectivityPane.connectionStringComboBox.ariaLabel",
          errorMessages : {
-            invalid : "connectivityPane.connectionStringTextBox.errorMessages.invalid",
-            required : "connectivityPane.connectionStringTextBox.errorMessages.required",
+            invalid : "connectivityPane.connectionStringComboBox.errorMessages.invalid",
+            required : "connectivityPane.connectionStringComboBox.errorMessages.required",
          },
-         label : "connectivityPane.connectionStringTextBox.label",
-         subLabel : "connectivityPane.connectionStringTextBox.subLabel",
+         label : "connectivityPane.connectionStringComboBox.label",
+         subLabel : "connectivityPane.connectionStringComboBox.subLabel",
       },
       dropDown : {
          copyButton : "connectivityPane.dropDown.copyButton",
