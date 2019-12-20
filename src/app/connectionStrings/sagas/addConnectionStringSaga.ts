@@ -1,3 +1,7 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
 import { call } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
 import { CONNECTION_STRING_NAME_LIST, CONNECTION_STRING_LIST_MAX_LENGTH } from '../../constants/browserStorage';

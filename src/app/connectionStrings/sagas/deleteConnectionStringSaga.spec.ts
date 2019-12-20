@@ -1,3 +1,7 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
 import { call } from 'redux-saga/effects';
 import { cloneableGenerator } from 'redux-saga/utils';
 import { deleteConnectionStringAction } from '../actions';

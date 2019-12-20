@@ -2,7 +2,6 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-
 import { Action } from 'typescript-fsa';
 import { put } from 'redux-saga/effects';
 import { AzureResource } from '../models/azureResource';

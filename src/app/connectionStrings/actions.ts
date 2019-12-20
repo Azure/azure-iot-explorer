@@ -2,7 +2,6 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-
 import actionCreatorFactory from 'typescript-fsa';
 import { ADD, DELETE } from '../constants/actionTypes';
 

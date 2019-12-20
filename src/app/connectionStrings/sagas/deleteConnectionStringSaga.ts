@@ -1,3 +1,7 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
 import { call } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
 import { getConnectionStrings, setConnectionStrings } from './addConnectionStringSaga';
