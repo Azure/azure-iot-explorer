@@ -7,7 +7,7 @@ import { StateInterface } from '../../shared/redux/state';
 import { AzureResource } from '../models/azureResource';
 
 export function* getActiveAzureResourceConnectionStringSaga() {
-    const activeAzureResource: AzureResource = yield select((state: StateInterface) => state.azureResourceState.activeAzureResource)
+    const activeAzureResource: AzureResource = yield select((state: StateInterface) => state.azureResourceState.activeAzureResource);
 
     if (!activeAzureResource) {
         return '';
