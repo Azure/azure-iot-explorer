@@ -442,7 +442,7 @@
             "showSystemProperties": "Show system properties",
             "start": "Start",
             "stop": "Stop",
-            "fetch": "Fetch"
+            "fetch": "Retrieve events"
         },
         "consumerGroups": {
             "label": "Consumer Group",
