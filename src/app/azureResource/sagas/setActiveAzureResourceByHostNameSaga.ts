@@ -9,34 +9,33 @@ import { AccessVerificationState } from '../models/accessVerificationState';
 
 export function* setActiveAzureResourceByHostNameSaga(action: Action<SetActiveAzureResourceByHostNameActionParameters>) {
     const { hostName } = action.payload;
+
+    // until msal implemented -- no manual change of host name alone is authorized
+    // todo select against connections strings to retrieve one placed in stored.
     yield put(setActiveAzureResourceAction({
-        accessVerificationState: AccessVerificationState.Verifying,
+        accessVerificationState: AccessVerificationState.Unauthorized,
         hostName
     }));
 
-    try {
-        // if no account (waiting on msal)
-        if (true) {
-            // todo select against connections strings to retrieve one placed in stored.
-            yield put(setActiveAzureResourceAction({
-                accessVerificationState: AccessVerificationState.Unauthorized,
-                hostName
-            }));
-
-            return;
-        }
-
-        // todo auth check
-        //
-        // 1. search subscriptions
-        // 2. get resource
-        // 3. get shared access policies
-        // 4. update azure resource
-
-    } catch (e) {
-        yield put(setActiveAzureResourceAction({
-            accessVerificationState: AccessVerificationState.Failed,
-            hostName
-        }));
-    }
+    // try {
+    //     yield call(getAccount);
+    //     if (!account) {
+    //         yield put(setActiveAzureResourceAction({
+    //             accessVerificationState: AccessVerificationState.Unauthorized,
+    //             hostName
+    //         }));
+    //     } else {
+    //     // todo auth check
+    //     //
+    //     // 1. search subscriptions
+    //     // 2. get resource
+    //     // 3. get shared access policies
+    //     // 4. update azure resource
+    //     }
+    // } catch (e) {
+    //     yield put(setActiveAzureResourceAction({
+    //         accessVerificationState: AccessVerificationState.Failed,
+    //         hostName
+    //     }));
+    // }
 }
