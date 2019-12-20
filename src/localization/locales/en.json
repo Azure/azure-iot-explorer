@@ -1,4 +1,11 @@
 {
+    "azureResource": {
+        "access": {
+            "unauthorized": "You do not have access to this resource",
+            "failed": "Unable to verify access to this resource",
+            "verifying": "Verifying access to this resource"
+        }
+    },
     "common": {
         "close": "Close",
         "learnMore": "Learn more",

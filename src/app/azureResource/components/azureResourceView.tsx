@@ -10,12 +10,15 @@ import HeaderContainer from '../../shared/components/headerContainer';
 import { ROUTE_PARTS } from '../../constants/routes';
 import { setActiveAzureResourceByHostNameAction } from '../actions';
 import { AccessVerificationState } from '../models/accessVerificationState';
+import { useLocalizationContext } from '../../shared/contexts/localizationContext';
+import { ResourceKeys } from '../../../localization/resourceKeys';
 
 export type AzureResourceViewProps = RouteComponentProps;
 
 export const AzureResourceView: React.FC<AzureResourceViewProps> = props => {
     const url = props.match.url;
     const hostName = (props.match.params as { hostName: string}).hostName;
+    const { t } = useLocalizationContext();
     const currentAzureResource = useSelector((state: StateInterface) => state.azureResourceState.activeAzureResource);
     const dispatch = useDispatch();
 
@@ -27,22 +30,21 @@ export const AzureResourceView: React.FC<AzureResourceViewProps> = props => {
         dispatch(setActiveAzureResourceByHostNameAction({ hostName }));
     }, [url]); // tslint:disable-line:align
 
-    // tslint:disable-next-line:cyclomatic-complexity
     const renderContents = (): JSX.Element => {
-        if (!currentAzureResource || currentAzureResource.hostName !== hostName) {
-            return (<div />);
+        if (!currentAzureResource) {
+            return (<></>);
         }
 
         if (currentAzureResource.accessVerificationState === AccessVerificationState.Verifying) {
-            return (<div>Verifying Access</div>);
+            return (<div className="view">{t(ResourceKeys.azureResource.access.verifying)}</div>);
         }
 
         if (currentAzureResource.accessVerificationState === AccessVerificationState.Unauthorized) {
-            return (<div>you are not authorized</div>);
+            return (<div className="view">{t(ResourceKeys.azureResource.access.unauthorized)}</div>);
         }
 
         if (currentAzureResource.accessVerificationState === AccessVerificationState.Failed) {
-            return (<div>Unable to determine authorization</div>);
+            return (<div className="view">{t(ResourceKeys.azureResource.access.failed)}</div>);
         }
 
         return (
