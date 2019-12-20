@@ -17,7 +17,7 @@ export function* getActiveAzureResourceConnectionStringSaga() {
         return activeAzureResource.connectionString;
     }
 
-    // todo implement account lookup once msal implemented.
+    // todo implement sas lookup once msal implemented.
 
     return '';
 }

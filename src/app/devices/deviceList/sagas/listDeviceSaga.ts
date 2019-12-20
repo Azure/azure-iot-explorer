@@ -3,8 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import { Action } from 'typescript-fsa';
-import { call, put, select } from 'redux-saga/effects';
-// import { getConnectionStringSelector } from '../../../login/selectors';
+import { call, put } from 'redux-saga/effects';
 import { addNotificationAction } from '../../../notifications/actions';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
