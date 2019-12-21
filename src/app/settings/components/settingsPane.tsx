@@ -19,6 +19,8 @@ import { ThemeContextConsumer, ThemeContextInterface, Theme } from '../../shared
 import HubConnectionStringSection from '../../login/components/hubConnectionStringSection';
 import { THEME_SELECTION } from '../../constants/browserStorage';
 import { Notification } from '../../api/models/notification';
+import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
+import { ROUTE_PARTS } from '../../constants/routes';
 import '../../css/_settingsPane.scss';
 
 export interface SettingsPaneProps extends Settings {
@@ -253,11 +255,13 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
         });
         this.props.onSettingsVisibleChanged(false);
 
-        if (this.props.location.pathname === '/devices') {
+        const { hostName } = getConnectionInfoFromConnectionString(this.state.hubConnectionString);
+        const targetPath = `/${ROUTE_PARTS.RESOURCE}/${hostName}/${ROUTE_PARTS.DEVICES}`;
+        if (this.props.location.pathname === targetPath) {
             this.props.refreshDevices();
         }
         else {
-            this.props.history.push('/devices');
+            this.props.history.push(targetPath);
         }
     }
 

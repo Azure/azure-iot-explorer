@@ -15,6 +15,7 @@ import AppVersionMessageBar from './appVersionMessageBar';
 import { Notification } from '../../api/models/notification';
 import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
 import { SetActiveAzureResourceByConnectionStringActionParameters } from '../../azureResource/actions';
+import { ROUTE_PARTS } from '../../constants/routes';
 import '../../css/_connectivityPane.scss';
 
 export interface ConnectivityPaneDispatchProps {
@@ -109,7 +110,7 @@ export default class ConnectivityPane extends React.Component<RouteComponentProp
             hostName,
             persistConnectionString: this.state.rememberConnectionString
         });
-        this.props.history.push(`/iot/${hostName}/devices`);
+        this.props.history.push(`${ROUTE_PARTS.RESOURCE}/${hostName}/${ROUTE_PARTS.DEVICES}`);
     }
 
     private readonly onCheckboxChange = (ev: React.FormEvent<HTMLElement>, isChecked: boolean) => {
