@@ -90,11 +90,6 @@ export class ResourceKeys {
       },
    };
    public static connectivityPane = {
-      connectionStringCheckbox : {
-         ariaLabel : "connectivityPane.connectionStringCheckbox.ariaLabel",
-         label : "connectivityPane.connectionStringCheckbox.label",
-         tooltip : "connectivityPane.connectionStringCheckbox.tooltip",
-      },
       connectionStringComboBox : {
          ariaLabel : "connectivityPane.connectionStringComboBox.ariaLabel",
          errorMessages : {

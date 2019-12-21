@@ -8,7 +8,6 @@ import { IconButton, IButton } from 'office-ui-fabric-react/lib/Button';
 import { ComboBox, IComboBoxOption, IComboBox } from 'office-ui-fabric-react/lib/ComboBox';
 import { Stack } from 'office-ui-fabric-react';
 import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip';
-import { getId } from 'office-ui-fabric-react/lib/Utilities';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
@@ -48,7 +47,8 @@ export default class HubConnectionStringSection extends React.Component<HubConne
 
     private readonly onRenderConnectionString = (item: IComboBoxOption): JSX.Element => {
         const removeClick = () => {
-            this.props.onSaveConnectionString('', this.props.connectionStringList.filter(x => x !== item.key), '');
+            const connections = this.props.connectionStringList.filter(x => x !== item.key as string);
+            this.props.onSaveConnectionString('', connections, '');
         };
         const info = getConnectionInfoFromConnectionString(item.key as string);
         const ariaLabelRemove = `Remove connection to host: ${info.hostName}`;
@@ -56,10 +56,10 @@ export default class HubConnectionStringSection extends React.Component<HubConne
             <LocalizationContextConsumer>
                 {(context: LocalizationContextInterface) => (
                     <Stack horizontal={true}>
-                        <Stack.Item align="start">
-                            {item.text}
+                        <Stack.Item align="stretch">
+                            <span className="connection-info">{item.text}</span>
                         </Stack.Item>
-                        <Stack.Item align="start">
+                        <Stack.Item align="end">
                             <TooltipHost
                                 content={ariaLabelRemove}
                             >
@@ -71,7 +71,7 @@ export default class HubConnectionStringSection extends React.Component<HubConne
                                 />
                             </TooltipHost>
                         </Stack.Item>
-                        <Stack.Item align="start">
+                        <Stack.Item align="end">
                             <TooltipHost
                                 content={context.t(ResourceKeys.connectivityPane.dropDown.copyButton)}
                             >
