@@ -40,15 +40,15 @@ export const AzureResourceView: React.FC<AzureResourceViewProps> = props => {
         }
 
         if (activeAzureResource.accessVerificationState === AccessVerificationState.Verifying) {
-            return (<div className="view">{t(ResourceKeys.azureResource.access.verifying)}</div>);
+            return (<div>{t(ResourceKeys.azureResource.access.verifying)}</div>);
         }
 
         if (activeAzureResource.accessVerificationState === AccessVerificationState.Unauthorized) {
-            return (<div className="view">{t(ResourceKeys.azureResource.access.unauthorized)}</div>);
+            return (<div>{t(ResourceKeys.azureResource.access.unauthorized)}</div>);
         }
 
         if (activeAzureResource.accessVerificationState === AccessVerificationState.Failed) {
-            return (<div className="view">{t(ResourceKeys.azureResource.access.failed)}</div>);
+            return (<div>{t(ResourceKeys.azureResource.access.failed)}</div>);
         }
 
         return (
