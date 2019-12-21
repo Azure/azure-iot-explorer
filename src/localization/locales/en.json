@@ -126,7 +126,8 @@
             "add": "Create device identity",
             "collapse": "Collapse navigation menu",
             "expand": "Expand navigation menu",
-            "moduleIdentity": "Module identity"
+            "moduleIdentity": "Module identity",
+            "addModuleIdentity": "Add module identity"
         },
         "value": "Value"
     },
@@ -448,7 +449,8 @@
             "clearEvents": "Clear events",
             "showSystemProperties": "Show system properties",
             "start": "Start",
-            "stop": "Stop"
+            "stop": "Stop",
+            "fetch": "Retrieve events"
         },
         "consumerGroups": {
             "label": "Consumer Group",
@@ -557,8 +559,12 @@
     },
     "moduleIdentity": {
         "headerText": "Module Identities",
+        "addModuleHeaderText": "Add Module Identity",
         "command" : {
-            "refresh": "Refresh"
+            "add": "Add",
+            "refresh": "Refresh",
+            "cancel": "Cancel",
+            "save": "Create"
         },
         "columns": {
             "moduleId": "Module Id",
@@ -567,7 +573,41 @@
             "lastActivityTime": "Last activity time"
         },
         "noModules": "There are no module identities for this device.",
-        "errorFetching": "An error prevented this information from being loaded."
+        "errorFetching": "An error prevented this information from being loaded.",
+        "moduleId": "Module identity name",
+        "moduleIdTooltip": "Module identity name used for authentication and access control.",
+        "authenticationType": {
+            "text": "Authentication type",
+            "symmetricKey": {
+                "autoGenerate": "Auto-generate keys",
+                "type": "Symmetric key",
+                "primaryKey": "Primary key",
+                "secondaryKey": "Secondary key",
+                "primaryConnectionString": "Primary connection string",
+                "primaryConnectionStringTooltip": "The primary symmetric shared access key stored in base64 format",
+                "secondaryConnectionString": "Secondary connection string",
+                "secondaryConnectionStringTooltip": "The secondary symmetric shared access key stored in base64 format",
+                "generatePrimaryKey": "Generate primary key",
+                "generateSecondaryKey": "Generate secondary key"
+            },
+            "ca": {
+                "type": "X.509 CA signed",
+                "text": "This device is being authenticated through a CA Certificate."
+            },
+            "selfSigned": {
+                "type": "X.509 self-signed",
+                "text": "This device is being authenticated using an X.509 certificate.",
+                "primaryThumbprint": "Primary thumbprint",
+                "primaryThumbprintTooltip": "The primary X.509 thumbprint representing the SHA-1 or SHA-256 hash of the X.509 certificate. Thumbprint values other than 40 hex characters for SHA-1 and 64 hex characters for SHA-256 are not accepted.",
+                "secondaryThumbprint": "Secondary thumbprint",
+                "secondaryThumbprintTooltip": "The secondary X.509 thumbprint representing the SHA-1 or SHA-256 hash of the X.509 certificate. Thumbprint values other than 40 hex characters for SHA-1 and 64 hex characters for SHA-256 are not accepted."
+            }
+        },
+        "validation": {
+            "invalidModuleIdentityName": "Invalid characters in module identity name",
+            "invalidKey": "Invalid key",
+            "invalidThumbprint": "Invalid thumbprint"
+        }
     },
     "noMatchError": {
         "title": "404 - Not found",
@@ -606,7 +646,10 @@
         "cloudToDeviceMessageOnError": "Failed to send message to device {{deviceId}}: {{error}}",
         "cloudToDeviceMessageOnSuccess": "Successfully send message '{{message}}' to device '{{deviceId}}'",
         "sendingCloudToDeviceMessage": "Trying to send message '{{message}}' to device '{{deviceId}}'",
-        "copiedToClipboard": "Content copied to clipboard"
+        "copiedToClipboard": "Content copied to clipboard",
+        "addModuleIdentityOnSucceed": "Successfully added module identity {{moduleId}}",
+        "addModuleIdentityOnError": "Failed to add  module identity {{moduleId}}: {{error}}"
+
     },
     "errorBoundary": {
         "text": "Something went wrong"

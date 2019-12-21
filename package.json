@@ -1,7 +1,7 @@
 {
   "name": "azure-iot-explorer",
   "version": "0.10.11",
-  "description": "This project welcomes contributions and suggestions.  Most contributions require you to agree to a\r Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us\r the rights to use your contribution. For details, visit https://cla.microsoft.com.",
+  "description": "This project welcomes contributions and suggestions. Most contributions require you to agree to a\r Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us\r the rights to use your contribution. For details, visit https://cla.microsoft.com.",
   "main": "public/electron.js",
   "build": {
     "appId": "com.microsoft.azure.iot.pnp.ui",
@@ -35,7 +35,7 @@
     "publish": null
   },
   "scripts": {
-    "build": "npm run localization && npm run webpack:compile && npm run server:compile && npm run electron:compile && webpack --mode production --config webpack.prod.js",
+    "build": "npm run localization && npm run webpack:compile && npm run server:compile && npm run electron:compile && webpack --mode production --config webpack.electron.js",
     "pack:win": "electron-builder --dir",
     "dist:win": "electron-builder -w --prepackaged ./dist/win-unpacked",
     "clean": "IF EXIST .\\dist RMDIR /Q /S .\\dist",
@@ -47,10 +47,10 @@
     "package:win": "npm run clean && npm install && npm rebuild node-sass && npm run build && electron-builder -w",
     "package:linux": "npm run clean:linux && npm install && npm rebuild node-sass && npm run build && electron-builder -l",
     "package:mac": "npm install && npm rebuild node-sass && npm run build && electron-builder -m",
-    "webpack:compile": "tsc --target es6 --module CommonJS --moduleResolution node ./configs/webpack.common.ts webpack.prod.ts webpack.dev.ts",
-    "server:compile": "tsc ./src/server/server.ts --skipLibCheck --lib es2015 --inlineSourceMap --outDir ./dist/server/",
+    "webpack:compile": "tsc --target es6 --module CommonJS --moduleResolution node ./configs/webpack.common.ts webpack.electron.ts webpack.dev.ts",
+    "server:compile": "tsc ./src/server/serverElectron.ts ./src/server/serverLocal.ts --skipLibCheck --lib es2015 --inlineSourceMap --outDir ./dist/server/",
     "start": "concurrently \"npm run start:web\" \"npm run start:server\"",
-    "start:server": "npm run server:compile && nodemon --inspect ./dist/server/server.js",
+    "start:server": "npm run server:compile && nodemon --inspect ./dist/server/serverLocal.js",
     "start:web": "npm run localization && npm run webpack:compile && webpack-dev-server --config webpack.dev.js --mode development --hot --open --port 3000 --host 127.0.0.1",
     "test": "npm run localization && jest --coverage --detectOpenHandles",
     "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand -i --watch",

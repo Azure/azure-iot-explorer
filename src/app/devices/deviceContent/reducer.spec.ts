@@ -13,7 +13,8 @@ import { GET_TWIN,
     PATCH_DIGITAL_TWIN_INTERFACE_PROPERTIES,
     UPDATE_DEVICE_IDENTITY,
     SET_INTERFACE_ID,
-    GET_MODULE_IDENTITIES
+    GET_MODULE_IDENTITIES,
+    ADD_MODULE_IDENTITY
   } from '../../constants/actionTypes';
 import { getTwinAction,
     getModelDefinitionAction,
@@ -23,7 +24,9 @@ import { getTwinAction,
     patchDigitalTwinInterfacePropertiesAction,
     updateDeviceIdentityAction,
     setInterfaceIdAction,
-    getModuleIdentitiesAction } from './actions';
+    getModuleIdentitiesAction,
+    addModuleIdentityAction
+} from './actions';
 import reducer from './reducer';
 import { deviceContentStateInitial, DeviceContentStateInterface } from './state';
 import { ModelDefinition } from '../../api/models/ModelDefinition';
@@ -353,6 +356,22 @@ describe('deviceContentStateReducer', () => {
 
         it (`handles ${GET_MODULE_IDENTITIES}/ACTION_FAILED action`, () => {
             const action = getModuleIdentitiesAction.failed({error: -1, params: deviceId});
+            expect(reducer(deviceContentStateInitial(), action).moduleIdentityList.synchronizationStatus).toEqual(SynchronizationStatus.failed);
+        });
+
+        it (`handles ${ADD_MODULE_IDENTITY}/ACTION_START action`, () => {
+            const action = addModuleIdentityAction.started(moduleIdentity);
+            expect(reducer(deviceContentStateInitial(), action).moduleIdentityList.synchronizationStatus).toEqual(SynchronizationStatus.working);
+        });
+
+        it (`handles ${ADD_MODULE_IDENTITY}/ACTION_DONE action`, () => {
+            const action = addModuleIdentityAction.done({params: moduleIdentity, result: [moduleIdentity]});
+            expect(reducer(deviceContentStateInitial(), action).moduleIdentityList).toEqual({
+                synchronizationStatus: SynchronizationStatus.upserted});
+        });
+
+        it (`handles ${ADD_MODULE_IDENTITY}/ACTION_FAILED action`, () => {
+            const action = addModuleIdentityAction.failed({error: -1, params: moduleIdentity});
             expect(reducer(deviceContentStateInitial(), action).moduleIdentityList.synchronizationStatus).toEqual(SynchronizationStatus.failed);
         });
     });

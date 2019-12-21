@@ -20,7 +20,6 @@ const getDeviceIdentityAction = deviceContentCreator.async<string, DeviceIdentit
 const getDigitalTwinInterfacePropertiesAction = deviceContentCreator.async<string, DigitalTwinInterfaces>(actionTypes.GET_DIGITAL_TWIN_INTERFACE_PROPERTIES);
 const getTwinAction = deviceContentCreator.async<string, Twin>(actionTypes.GET_TWIN);
 const getModelDefinitionAction = deviceContentCreator.async<GetModelDefinitionActionParameters, ModelDefinitionActionResult>(actionTypes.FETCH_MODEL_DEFINITION);
-const getModuleIdentitiesAction = deviceContentCreator.async<string, ModuleIdentity[]>(actionTypes.GET_MODULE_IDENTITIES);
 const invokeDirectMethodAction = deviceContentCreator.async<InvokeMethodParameters, string>(actionTypes.INVOKE_DEVICE_METHOD);
 const invokeDigitalTwinInterfaceCommandAction = deviceContentCreator.async<InvokeDigitalTwinInterfaceCommandActionParameters, string>(actionTypes.INVOKE_DIGITAL_TWIN_INTERFACE_COMMAND);
 const patchDigitalTwinInterfacePropertiesAction = deviceContentCreator.async<PatchDigitalTwinInterfacePropertiesActionParameters, DigitalTwinInterfaces>(actionTypes.PATCH_DIGITAL_TWIN_INTERFACE_PROPERTIES);
@@ -28,7 +27,12 @@ const setInterfaceIdAction = deviceContentCreator<string>(actionTypes.SET_INTERF
 const updateDeviceIdentityAction = deviceContentCreator.async<DeviceIdentity, DeviceIdentity> (actionTypes.UPDATE_DEVICE_IDENTITY);
 const updateTwinAction = deviceContentCreator.async<UpdateTwinActionParameters, Twin>(actionTypes.UPDATE_TWIN);
 
+const moduleIdentityCreator = actionCreatorFactory(actionPrefixes.MODULEIDENTITY);
+const getModuleIdentitiesAction = moduleIdentityCreator.async<string, ModuleIdentity[]>(actionTypes.GET_MODULE_IDENTITIES);
+const addModuleIdentityAction = moduleIdentityCreator.async<ModuleIdentity, ModuleIdentity>(actionTypes.ADD_MODULE_IDENTITY);
+
 export {
+    addModuleIdentityAction,
     clearModelDefinitionsAction,
     cloudToDeviceMessageAction,
     getDeviceIdentityAction,

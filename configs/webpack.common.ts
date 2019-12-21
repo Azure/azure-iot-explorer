@@ -54,10 +54,6 @@ const config: webpack.Configuration = {
                 template: path.resolve(__dirname, '..', 'src', 'index.html')
         }),
         // new BundleAnalyzerPlugin(),
-        // This can be split out into two webpack configs each defining its own controller endpoint
-        new webpack.DefinePlugin({
-            _CONTROLLER_ENDPOINT: '\'http://127.0.0.1:8081/\''
-        }),
         new MonacoWebpackPlugin({
             features: [
                 'accessibilityHelp',

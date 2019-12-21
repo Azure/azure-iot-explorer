@@ -7,6 +7,7 @@ import { IoTHubConnectionSettings } from '../services/devicesService';
 import { LIST_PLUG_AND_PLAY_DEVICES, SAS_EXPIRES_MINUTES } from '../../constants/devices';
 import DeviceQuery, { QueryClause, ParameterType, OperationType } from '../models/deviceQuery';
 import { RepoConnectionSettings } from '../services/digitalTwinsModelService';
+import { AppEnvironment } from '../../constants/shared';
 
 const MILLISECONDS_PER_SECOND = 1000;
 const SECONDS_PER_MINUTE = 60;
@@ -190,4 +191,12 @@ export const toEdgeClause = (edgeFunctionName: string, value: string): string =>
 
 export const toDeviceStatusClause = (edgeFunctionName: string, value: string): string => {
     return `${edgeFunctionName}='${value}'`;
+};
+
+export const isAppInElectron = () => {
+    return process.env.NODE_ENV === AppEnvironment.DevelopmentElectron || process.env.NODE_ENV === AppEnvironment.ProdElectron;
+};
+
+export const isAppInDevelopmentMode = () => {
+    return process.env.NODE_ENV === AppEnvironment.DevelopmentElectron || process.env.NODE_ENV === AppEnvironment.DevelopmentHosted;
 };

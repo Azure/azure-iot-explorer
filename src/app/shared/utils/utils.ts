@@ -36,3 +36,8 @@ export const validateDeviceId = (key: string): boolean => {
     const pattern = new RegExp('^[A-Za-z0-9-:.+%_#*?!(),=@;$\']{0,128}$');
     return pattern.test(key);
 };
+
+export const validateModuleIdentityName = (key: string): boolean => {
+    const pattern = new RegExp('^[A-Za-z0-9-:.+%_#*?!(),=@;$\']{0,128}$');
+    return pattern.test(key);
+};

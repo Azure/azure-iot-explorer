@@ -91,8 +91,8 @@ export default class AddDevice extends React.Component<AddDeviceActionProps & Ad
         );
     }
 
-    public componentWillReceiveProps(newProps: AddDeviceActionProps & AddDeviceDataProps & RouteComponentProps) {
-        if (newProps.deviceListSyncStatus === SynchronizationStatus.upserted) { // only when device has been added successfully would navigate to list view
+    public componentDidUpdate(oldProps: AddDeviceActionProps & AddDeviceDataProps & RouteComponentProps) {
+        if (oldProps.deviceListSyncStatus === SynchronizationStatus.upserted) { // only when device has been added successfully would navigate to list view
             this.props.history.push(`/devices`);
         }
     }
@@ -222,7 +222,7 @@ export default class AddDevice extends React.Component<AddDeviceActionProps & Ad
                     </>
                 }
                 {this.state.authenticationType === DeviceAuthenticationType.SelfSigned &&
-                   this.renderSelfSignedSection(context)
+                    this.renderSelfSignedSection(context)
                 }
             </div>
         );
