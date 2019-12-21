@@ -39,6 +39,28 @@ exports[`AzureResourceView matches snapshot when current resource is authorized 
 </div>
 `;
 
+exports[`AzureResourceView matches snapshot when current resource is failed 1`] = `
+<div
+  className="app"
+>
+  <Connect(Header) />
+  <div
+    className="content"
+  >
+    <withRouter(Connect(SettingsPane)) />
+    <main
+      role="main"
+    >
+      <div
+        className="view"
+      >
+        azureResource.access.failed
+      </div>
+    </main>
+  </div>
+</div>
+`;
+
 exports[`AzureResourceView matches snapshot when current resource is unauthorized 1`] = `
 <div
   className="app"

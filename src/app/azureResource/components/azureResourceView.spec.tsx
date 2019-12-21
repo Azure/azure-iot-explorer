@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { AzureResourceView } from './azureResourceView';
 import { AccessVerificationState } from '../models/accessVerificationState';
 
@@ -73,5 +73,33 @@ describe('AzureResourceView', () => {
                 setActiveAzureResourceByHostName={jest.fn()}
             />
         )).toMatchSnapshot();
+    });
+
+    it('calls setActiveAzureResourceByHostName when hostName changes', () => {
+        jest.spyOn(React, 'useEffect').mockImplementation(f => f());
+        const setActiveAzureResourceByHostName = jest.fn();
+        const wrapper = shallow(
+            <AzureResourceView
+                activeAzureResource={{
+                    accessVerificationState: AccessVerificationState.Unauthorized,
+                    hostName: 'hostName'
+                }}
+                currentHostName="hostName"
+                currentUrl="url"
+                setActiveAzureResourceByHostName={setActiveAzureResourceByHostName}
+            />
+        );
+
+        wrapper.setProps({
+            activeAzureResource: {
+                accessVerificationState: AccessVerificationState.Unauthorized,
+                hostName: 'hostName'
+            },
+            currentHostName: 'newHostName',
+            currentUrl: 'url',
+            setActiveAzureResourceByHostName
+        });
+
+        expect(setActiveAzureResourceByHostName).toHaveBeenCalledWith('newHostName');
     });
 });

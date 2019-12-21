@@ -16,7 +16,8 @@ export enum ROUTE_PARTS {
     MODULE_IDENTITY = 'moduleIdentity',
     PROPERTIES = 'properties',
     SETTINGS = 'settings',
-    TWIN = 'twin'
+    TWIN = 'twin',
+    RESOURCE = 'iot'
 }
 
 export enum ROUTE_PARAMS {
