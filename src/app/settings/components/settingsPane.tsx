@@ -257,13 +257,11 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
 
         const { hostName } = getConnectionInfoFromConnectionString(this.state.hubConnectionString);
         const targetPath = `/${ROUTE_PARTS.RESOURCE}/${hostName}/${ROUTE_PARTS.DEVICES}`;
-        if (this.props.location.pathname === targetPath) {
-            this.props.refreshDevices();
-        }
-        else {
+        if (this.props.location.pathname !== targetPath) {
             this.props.history.push(targetPath);
-            this.props.refreshDevices();
         }
+
+        this.props.refreshDevices();
     }
 
     private readonly settingsFooter = () => {
