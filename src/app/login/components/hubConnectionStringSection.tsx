@@ -47,7 +47,7 @@ export default class HubConnectionStringSection extends React.Component<HubConne
 
     private readonly getComboBoxOptionText = (item: string) => {
         const info = getConnectionInfoFromConnectionString(item);
-        return `HostName:${info.hostName}; SharedAccessKeyName:${info.sharedAccessKeyName}`;
+        return `HostName=${info.hostName}; SharedAccessKeyName=${info.sharedAccessKeyName}`;
     }
     private readonly getComboBoxOption = (item: string, t: TranslationFunction) => {
         const info = getConnectionInfoFromConnectionString(item);

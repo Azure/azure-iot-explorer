@@ -22,7 +22,7 @@ exports[`login/components/connectivityPane matches snapshot 1`] = `
       onChange={[Function]}
       options={Array []}
       selectedKey=""
-      text="Select a saved connection string or paste a new connection string here"
+      text="connectivityPane.connectionStringComboBox.prompt"
       useComboBoxAsMenuWidth={true}
     />
     <input
@@ -38,10 +38,10 @@ exports[`login/components/connectivityPane matches snapshot 1`] = `
     className="connection-string-button"
   >
     <StyledTooltipHostBase
-      content="Remove connection to host: undefined"
+      content="connectivityPane.connectionStringComboBox.ariaLabelRemove"
     >
       <CustomizedIconButton
-        ariaLabel="Remove connection to host: undefined"
+        ariaLabel="connectivityPane.connectionStringComboBox.ariaLabelRemove"
         disabled={true}
         iconProps={
           Object {
