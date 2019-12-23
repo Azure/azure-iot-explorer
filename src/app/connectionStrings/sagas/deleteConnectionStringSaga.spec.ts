@@ -65,7 +65,7 @@ describe('deleteConnectionStringSaga', () => {
         });
 
         it('finishes', () => {
-            expect(addConnectionStringSagaGenerator.next()).toEqual({
+            expect(deleteConnectionStringSagaGenerator.next()).toEqual({
                 done: true,
             });
         });

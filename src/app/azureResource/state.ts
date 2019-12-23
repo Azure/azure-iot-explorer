@@ -5,11 +5,9 @@
 import { AzureResource } from './models/azureResource';
 
 export interface AzureResourceStateInterface {
-    activeAzureResource: AzureResource | undefined;
+    activeAzureResource?: AzureResource;
 }
 
 export const azureResourceStateInitial = (): AzureResourceStateInterface => {
-    return {
-        activeAzureResource: undefined
-    };
+    return {};
 };
