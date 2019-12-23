@@ -33,32 +33,32 @@ describe('deleteConnectionStringSaga', () => {
     });
 
     describe('removing listed connection string', () => {
-        const addConnectionStringSagaGenerator = cloneableGenerator(deleteConnectionStringSaga)(deleteConnectionStringAction('connectionString1'));
+        const deleteConnectionStringSagaGenerator = cloneableGenerator(deleteConnectionStringSaga)(deleteConnectionStringAction('connectionString1'));
         it('returns call effect to get connection strings', () => {
-            expect(addConnectionStringSagaGenerator.next()).toEqual({
+            expect(deleteConnectionStringSagaGenerator.next()).toEqual({
                 done: false,
                 value: call(getConnectionStrings)
             });
         });
 
         it('returns call effect to set connection strings', () => {
-            expect(addConnectionStringSagaGenerator.next('connectionString1')).toEqual({
+            expect(deleteConnectionStringSagaGenerator.next('connectionString1')).toEqual({
                 done: false,
                 value: call(setConnectionStrings, '')
             });
         });
 
         it('finishes', () => {
-            expect(addConnectionStringSagaGenerator.next()).toEqual({
+            expect(deleteConnectionStringSagaGenerator.next()).toEqual({
                 done: true,
             });
         });
     });
 
     describe('performing no set action when no value retrieved', () => {
-        const addConnectionStringSagaGenerator = cloneableGenerator(deleteConnectionStringSaga)(deleteConnectionStringAction('connectionString1'));
+        const deleteConnectionStringSagaGenerator = cloneableGenerator(deleteConnectionStringSaga)(deleteConnectionStringAction('connectionString1'));
         it('returns call effect to get connection strings', () => {
-            expect(addConnectionStringSagaGenerator.next()).toEqual({
+            expect(deleteConnectionStringSagaGenerator.next()).toEqual({
                 done: false,
                 value: call(getConnectionStrings)
             });

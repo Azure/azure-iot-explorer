@@ -12,7 +12,7 @@ describe('AzureResourceViewContainer', () => {
         jest.spyOn(Redux, 'useSelector').mockImplementation(() => 'active azure resource');
         jest.spyOn(Redux, 'useDispatch').mockImplementation(jest.fn());
 
-        const routerprops: AzureResourceViewContainerProps = { // tslint:disable-line:no-any
+        const routerprops: AzureResourceViewContainerProps = {
             history: jest.fn() as any, // tslint:disable-line:no-any
             location: jest.fn() as any, // tslint:disable-line:no-any
             match: {

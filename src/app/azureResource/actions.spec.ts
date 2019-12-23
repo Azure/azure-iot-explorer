@@ -39,7 +39,7 @@ describe('setActiveAzureResourceByConnectionStringAction', () => {
 });
 
 describe('setActiveAzureResourceByHostNameAction', () => {
-    it('returns AZURE_RESOURCES/SET_CONNECTION action object', () => {
+    it('returns AZURE_RESOURCES/SET_HOST action object', () => {
         const parameters: SetActiveAzureResourceByHostNameActionParameters = {
             hostName: 'hostName'
         };
