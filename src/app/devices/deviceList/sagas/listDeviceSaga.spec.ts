@@ -4,12 +4,12 @@
  **********************************************************/
 import 'jest';
 import { SagaIteratorClone, cloneableGenerator } from 'redux-saga/utils';
-import { select, call, put } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
 import { listDevicesSaga } from './listDeviceSaga';
 import DeviceQuery from '../../../api/models/deviceQuery';
 import * as DevicesService from '../../../api/services/devicesService';
 import { listDevicesAction } from '../actions';
-import { getConnectionStringSelector } from '../../../login/selectors';
+import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { DeviceIdentity } from '../../../api/models/deviceIdentity';
 import { addNotificationAction } from '../../../notifications/actions';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
@@ -51,7 +51,7 @@ describe('listDeviceSaga', () => {
     it('fetches the connection string', () => {
         expect(listDevicesSagaGenerator.next()).toEqual({
             done: false,
-            value: select(getConnectionStringSelector)
+            value: call(getActiveAzureResourceConnectionStringSaga)
         });
     });
 

@@ -23,10 +23,10 @@ describe('login/components/connectivityPane', () => {
         connectionStringList: ['testConnectionString']
     };
 
-    const mockSaveConnectionInfo = jest.fn();
+    const mockSetActiveAzureResource = jest.fn();
     const connectivityPaneDispatchProps: ConnectivityPaneDispatchProps = {
         addNotification: jest.fn(),
-        saveConnectionInfo: mockSaveConnectionInfo
+        setActiveAzureResource: mockSetActiveAzureResource
     };
 
     const getComponent = (overrides = {}) => {
@@ -44,6 +44,19 @@ describe('login/components/connectivityPane', () => {
 
     it('matches snapshot', () => {
         testSnapshot(getComponent());
+    });
+
+    it('calls saveConnectionInfo on button click', () => {
+        const wrapper = mountWithLocalization(getComponent());
+        const button = wrapper.find(PrimaryButton);
+        button.props().onClick(null);
+        expect(mockSetActiveAzureResource).toBeCalledWith(
+            {
+                connectionString: 'testConnectionString',
+                hostName: undefined,
+                persistConnectionString: true
+            });
+        expect(routerprops.history.push).toBeCalledWith('resources/undefined/devices');
     });
 
     it('changes state when connection string changes', () => {

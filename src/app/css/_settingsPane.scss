@@ -101,8 +101,13 @@
                 margin-right: 18px;
             }
         }
-        padding: 32px;
-        margin-bottom: 30px;
+        padding: {
+            left: 32px;
+            bottom: 32px;
+            right: 32px;
+            top: 0px;
+        }
+        margin-bottom: 0px;
     }
 }
 .callout-wrapper {

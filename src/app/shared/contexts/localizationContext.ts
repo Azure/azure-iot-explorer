@@ -9,8 +9,9 @@ interface LocalizationContextInterface {
     t: TranslationFunction;
 }
 
-const LocalizationContext = React.createContext({});
+const LocalizationContext = React.createContext<LocalizationContextInterface>({t: key => key});
 const LocalizationContextProvider = LocalizationContext.Provider;
 const LocalizationContextConsumer = LocalizationContext.Consumer;
+const useLocalizationContext = () => React.useContext(LocalizationContext);
 
-export { LocalizationContext, LocalizationContextConsumer, LocalizationContextProvider, LocalizationContextInterface };
+export { LocalizationContext, LocalizationContextConsumer, LocalizationContextProvider, LocalizationContextInterface, useLocalizationContext };

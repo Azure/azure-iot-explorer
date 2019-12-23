@@ -21,3 +21,7 @@ document.execCommand = jest.fn(); // maskedCopyableTextField
 Object.defineProperty(global, 'Node', {
   value: {firstElementChild: jest.fn()}
 });
+
+jest.mock('i18next', () => ({
+  t: (key: string) => key
+}));

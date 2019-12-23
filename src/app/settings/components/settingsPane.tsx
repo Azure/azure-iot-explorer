@@ -17,6 +17,8 @@ import { ThemeContextConsumer, ThemeContextInterface, Theme } from '../../shared
 import HubConnectionStringSection from '../../login/components/hubConnectionStringSection';
 import { THEME_SELECTION } from '../../constants/browserStorage';
 import { Notification } from '../../api/models/notification';
+import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
+import { ROUTE_PARTS } from '../../constants/routes';
 import '../../css/_settingsPane.scss';
 
 export interface SettingsPaneProps extends Settings {
@@ -89,7 +91,7 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
                             <HubConnectionStringSection
                                 addNotification={this.props.addNotification}
                                 connectionString={this.state.hubConnectionString}
-                                connectionStringList={this.props.connectionStringList}
+                                connectionStringList={this.state.connectionStringList}
                                 onSaveConnectionString={this.onSaveConnectionString}
                             />
                         </section>
@@ -180,6 +182,7 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
     }
 
     private readonly onSaveConnectionString = (hubConnectionString: string, connectionStringList: string[], error?: string) => {
+        console.log(connectionStringList); //tslint:disable-line
         this.setState({
             connectionStringList,
             error,
@@ -240,12 +243,13 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
         });
         this.props.onSettingsVisibleChanged(false);
 
-        if (this.props.location.pathname === '/devices') {
-            this.props.refreshDevices();
+        const { hostName } = getConnectionInfoFromConnectionString(this.state.hubConnectionString);
+        const targetPath = `/${ROUTE_PARTS.RESOURCE}/${hostName}/${ROUTE_PARTS.DEVICES}`;
+        if (this.props.location.pathname !== targetPath) {
+            this.props.history.push(targetPath);
         }
-        else {
-            this.props.history.push('/devices');
-        }
+
+        this.props.refreshDevices();
     }
 
     private readonly settingsFooter = () => {

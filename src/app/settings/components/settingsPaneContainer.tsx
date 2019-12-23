@@ -12,6 +12,8 @@ import { setSettingsVisibilityAction, setSettingsRepositoryLocationsAction } fro
 import { getSettingsVisibleSelector, getRepositoryLocationSettingsSelector } from '../selectors';
 import { getConnectionStringSelector, getConnectionStringListSelector } from '../../login/selectors';
 import { setConnectionStringAction } from '../../login/actions';
+import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
+import { setActiveAzureResourceByConnectionStringAction } from '../../azureResource/actions';
 import { listDevicesAction } from '../../devices/deviceList/actions';
 import DeviceQuery from '../../api/models/deviceQuery';
 import { addNotificationAction } from '../../notifications/actions';
@@ -30,9 +32,10 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): SettingsPaneActions 
     return {
         addNotification: (notification: Notification) => dispatch(addNotificationAction.started(notification)),
         onSettingsSave: (payload: Settings) => {
-            dispatch(setConnectionStringAction({
+            dispatch(setActiveAzureResourceByConnectionStringAction({
                 connectionString: payload.hubConnectionString,
-                connectionStringList: payload.connectionStringList
+                connectionStringList: payload.connectionStringList,
+                hostName: getConnectionInfoFromConnectionString(payload.hubConnectionString).hostName
             }));
             dispatch(setSettingsRepositoryLocationsAction(payload.repositoryLocations));
         },

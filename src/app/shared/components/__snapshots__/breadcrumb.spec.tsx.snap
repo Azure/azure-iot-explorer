@@ -3,23 +3,7 @@
 exports[`components/shared/breadcrumb matches snapshot #/ 1`] = `
 <StyledBreadcrumbBase
   className="device-content-breadcrumb"
-  items={
-    Array [
-      Object {
-        "key": "Hub",
-        "text": "breadcrumb.hub",
-      },
-      Object {
-        "href": "#/devices",
-        "key": "Devices",
-        "text": "breadcrumb.devices",
-      },
-      Object {
-        "key": "#",
-        "text": undefined,
-      },
-    ]
-  }
+  items={Array []}
 />
 `;
 
@@ -29,22 +13,9 @@ exports[`components/shared/breadcrumb matches snapshot #/devices.../device1 1`] 
   items={
     Array [
       Object {
-        "key": "Hub",
-        "text": "breadcrumb.hub",
-      },
-      Object {
-        "href": "#/devices",
+        "href": "#/resources/foo.azure-devices.net/devices",
         "key": "Devices",
         "text": "breadcrumb.devices",
-      },
-      Object {
-        "href": "#/devices/detail/identity/?id=device1",
-        "key": "device_device1",
-        "text": "device1",
-      },
-      Object {
-        "key": "identity",
-        "text": "deviceContent.navBar.identity",
       },
     ]
   }
@@ -57,20 +28,22 @@ exports[`components/shared/breadcrumb matches snapshot #/devices.../device1 miss
   items={
     Array [
       Object {
-        "key": "Hub",
-        "text": "breadcrumb.hub",
-      },
-      Object {
-        "href": "#/devices",
+        "href": "#/resources/foo.azure-devices.net/devices",
         "key": "Devices",
         "text": "breadcrumb.devices",
       },
       Object {
-        "href": "#/devices/detail/identity/?id=device1",
-        "key": "device_device1",
+        "href": "#/resources/foo.azure-devices.net/devices/detail/identity?id=device1",
+        "key": "Device",
         "text": "device1",
       },
       Object {
+        "href": "#/devices/detail/digitalTwins/interfaces/?id=device1&interfaceId=null",
+        "key": "device_device1_null",
+        "text": null,
+      },
+      Object {
+        "href": "",
         "key": "properties",
         "text": "deviceContent.navBar.properties",
       },
@@ -85,17 +58,13 @@ exports[`components/shared/breadcrumb matches snapshot #/devices.../device1 with
   items={
     Array [
       Object {
-        "key": "Hub",
-        "text": "breadcrumb.hub",
-      },
-      Object {
-        "href": "#/devices",
+        "href": "#/resources/foo.azure-devices.net/devices",
         "key": "Devices",
         "text": "breadcrumb.devices",
       },
       Object {
-        "href": "#/devices/detail/identity/?id=device1",
-        "key": "device_device1",
+        "href": "#/resources/foo.azure-devices.net/devices/detail/identity?id=device1",
+        "key": "Device",
         "text": "device1",
       },
       Object {
@@ -104,6 +73,7 @@ exports[`components/shared/breadcrumb matches snapshot #/devices.../device1 with
         "text": "urn:some:interface:name:1",
       },
       Object {
+        "href": "",
         "key": "properties",
         "text": "deviceContent.navBar.properties",
       },
@@ -118,20 +88,22 @@ exports[`components/shared/breadcrumb matches snapshot #/devices.../device1 with
   items={
     Array [
       Object {
-        "key": "Hub",
-        "text": "breadcrumb.hub",
-      },
-      Object {
-        "href": "#/devices",
+        "href": "#/resources/foo.azure-devices.net/devices",
         "key": "Devices",
         "text": "breadcrumb.devices",
       },
       Object {
-        "href": "detail",
-        "key": "detail",
-        "text": undefined,
+        "href": "#/resources/foo.azure-devices.net/devices/detail/identity?id=null",
+        "key": "Device",
+        "text": null,
       },
       Object {
+        "href": "#/devices/detail/digitalTwins/interfaces/?id=null&interfaceId=urn:some:interface:name:1",
+        "key": "device_null_urn:some:interface:name:1",
+        "text": "urn:some:interface:name:1",
+      },
+      Object {
+        "href": "",
         "key": "properties",
         "text": "deviceContent.navBar.properties",
       },
@@ -146,20 +118,22 @@ exports[`components/shared/breadcrumb matches snapshot #/devices.../device1 with
   items={
     Array [
       Object {
-        "key": "Hub",
-        "text": "breadcrumb.hub",
-      },
-      Object {
-        "href": "#/devices",
+        "href": "#/resources/foo.azure-devices.net/devices",
         "key": "Devices",
         "text": "breadcrumb.devices",
       },
       Object {
-        "href": "#/devices/detail/identity/?id=device1",
-        "key": "device_device1",
+        "href": "#/resources/foo.azure-devices.net/devices/detail/identity?id=device1",
+        "key": "Device",
         "text": "device1",
       },
       Object {
+        "href": "#/devices/detail/digitalTwins/interfaces/?id=device1&interfaceId=null",
+        "key": "device_device1_null",
+        "text": null,
+      },
+      Object {
+        "href": "",
         "key": "properties",
         "text": "deviceContent.navBar.properties",
       },
@@ -174,11 +148,7 @@ exports[`components/shared/breadcrumb matches snapshot #/devices/ 1`] = `
   items={
     Array [
       Object {
-        "key": "Hub",
-        "text": "breadcrumb.hub",
-      },
-      Object {
-        "href": "#/devices",
+        "href": "",
         "key": "Devices",
         "text": "breadcrumb.devices",
       },
@@ -193,22 +163,9 @@ exports[`components/shared/breadcrumb matches snapshot with malformed #/devices.
   items={
     Array [
       Object {
-        "key": "Hub",
-        "text": "breadcrumb.hub",
-      },
-      Object {
-        "href": "#/devices",
+        "href": "#/resources/foo.azure-devices.net/devices",
         "key": "Devices",
         "text": "breadcrumb.devices",
-      },
-      Object {
-        "href": "details",
-        "key": "details",
-        "text": undefined,
-      },
-      Object {
-        "key": "identity",
-        "text": "deviceContent.navBar.identity",
       },
     ]
   }
@@ -221,22 +178,9 @@ exports[`components/shared/breadcrumb matches snapshot with missing #/devices...
   items={
     Array [
       Object {
-        "key": "Hub",
-        "text": "breadcrumb.hub",
-      },
-      Object {
-        "href": "#/devices",
+        "href": "#/resources/foo.azure-devices.net/devices",
         "key": "Devices",
         "text": "breadcrumb.devices",
-      },
-      Object {
-        "href": "details",
-        "key": "details",
-        "text": undefined,
-      },
-      Object {
-        "key": "identity",
-        "text": "deviceContent.navBar.identity",
       },
     ]
   }

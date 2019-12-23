@@ -108,7 +108,15 @@ exports[`deviceContent matches snapshot 1`] = `
           path="undefined/twin/"
         />
         <Route
-          component={[Function]}
+          component={
+            Object {
+              "$$typeof": Symbol(react.memo),
+              "WrappedComponent": [Function],
+              "compare": null,
+              "displayName": "Connect(DeviceEventsComponent)",
+              "type": [Function],
+            }
+          }
           path="undefined/events/"
         />
         <Route

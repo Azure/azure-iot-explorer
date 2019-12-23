@@ -9,10 +9,8 @@ import { withRouter } from 'react-router-dom';
 import ConnectivityPane, { ConnectivityPaneDataProps, ConnectivityPaneDispatchProps } from './connectivityPane';
 import { StateType } from '../../shared/redux/state';
 import { getConnectionStringSelector, getConnectionStringListSelector } from '../selectors';
-import { clearDevicesAction } from '../../devices/deviceList/actions';
-import { clearModelDefinitionsAction } from '../../devices/deviceContent/actions';
-import { setConnectionStringAction, SetConnectionStringActionParameter } from '../actions';
 import { addNotificationAction } from '../../notifications/actions';
+import { setActiveAzureResourceByConnectionStringAction, SetActiveAzureResourceByConnectionStringActionParameters } from '../../azureResource/actions';
 import { Notification } from '../../api/models/notification';
 
 const mapStateToProps = (state: StateType): ConnectivityPaneDataProps => {
@@ -25,11 +23,7 @@ const mapStateToProps = (state: StateType): ConnectivityPaneDataProps => {
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): ConnectivityPaneDispatchProps => {
     return {
         addNotification: (notification: Notification) => dispatch(addNotificationAction.started(notification)),
-        saveConnectionInfo: (connectionStringSetting: SetConnectionStringActionParameter) => {
-            dispatch(setConnectionStringAction(connectionStringSetting));
-            dispatch(clearDevicesAction());
-            dispatch(clearModelDefinitionsAction());
-        },
+        setActiveAzureResource: (parameters: SetActiveAzureResourceByConnectionStringActionParameters) => dispatch(setActiveAzureResourceByConnectionStringAction(parameters))
     };
 };
 

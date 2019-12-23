@@ -9,14 +9,16 @@ import { RouteComponentProps } from 'react-router-dom';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { generateConnectionStringValidationError } from '../../shared/utils/hubConnectionStringHelper';
-import { SetConnectionStringActionParameter } from '../actions';
 import HubConnectionStringSection from './hubConnectionStringSection';
 import AppVersionMessageBar from './appVersionMessageBar';
 import { Notification } from '../../api/models/notification';
+import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
+import { SetActiveAzureResourceByConnectionStringActionParameters } from '../../azureResource/actions';
+import { ROUTE_PARTS } from '../../constants/routes';
 import '../../css/_connectivityPane.scss';
 
 export interface ConnectivityPaneDispatchProps {
-    saveConnectionInfo: (connectionStringSetting: SetConnectionStringActionParameter) => void;
+    setActiveAzureResource: (parameters: SetActiveAzureResourceByConnectionStringActionParameters) => void;
     addNotification: (notification: Notification) => void;
 }
 
@@ -78,7 +80,6 @@ export default class ConnectivityPane extends React.Component<RouteComponentProp
                     </div>
                 )}
             </LocalizationContextConsumer>
-
         );
     }
 
@@ -91,7 +92,12 @@ export default class ConnectivityPane extends React.Component<RouteComponentProp
     }
 
     private readonly onSaveConnectionInfoClick = (): void => {
-        this.props.saveConnectionInfo({...this.state});
-        this.props.history.push('/devices');
+        const { hostName } = getConnectionInfoFromConnectionString(this.state.connectionString);
+        this.props.setActiveAzureResource({
+            connectionString: this.state.connectionString,
+            connectionStringList: this.state.connectionStringList,
+            hostName
+        });
+        this.props.history.push(`${ROUTE_PARTS.RESOURCE}/${hostName}/${ROUTE_PARTS.DEVICES}`);
     }
 }

@@ -3,7 +3,6 @@
  * Licensed under the MIT License
  **********************************************************/
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; // tslint:disable-line: no-var-requires
-import WebpackShellPlugin from 'webpack-shell-plugin';
 import * as webpack from 'webpack';
 import * as merge from 'webpack-merge';
 import common from './configs/webpack.common';
@@ -36,9 +35,6 @@ const config: webpack.Configuration = merge(common, {
 
     plugins: [
         // new BundleAnalyzerPlugin(),
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify('production')
-        }),
         new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
             // all options are optional
@@ -53,7 +49,13 @@ const config: webpack.Configuration = merge(common, {
             cssProcessorPluginOptions: {
               preset: ['default', { discardComments: { removeAll: true } }],
             },
-        })
+        }),
+        new webpack.DefinePlugin({
+            _CONTROLLER_ENDPOINT: '\'http://127.0.0.1:8081/\''
+        }),
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify('prodElectron')
+        }),
     ]
 });
 
