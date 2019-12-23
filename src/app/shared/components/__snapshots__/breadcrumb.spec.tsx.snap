@@ -13,7 +13,7 @@ exports[`components/shared/breadcrumb matches snapshot #/devices.../device1 1`] 
   items={
     Array [
       Object {
-        "href": "#/iot/foo.azure-devices.net/devices",
+        "href": "#/resources/foo.azure-devices.net/devices",
         "key": "Devices",
         "text": "breadcrumb.devices",
       },
@@ -28,12 +28,12 @@ exports[`components/shared/breadcrumb matches snapshot #/devices.../device1 miss
   items={
     Array [
       Object {
-        "href": "#/iot/foo.azure-devices.net/devices",
+        "href": "#/resources/foo.azure-devices.net/devices",
         "key": "Devices",
         "text": "breadcrumb.devices",
       },
       Object {
-        "href": "#/iot/foo.azure-devices.net/devices/detail/identity?id=device1",
+        "href": "#/resources/foo.azure-devices.net/devices/detail/identity?id=device1",
         "key": "Device",
         "text": "device1",
       },
@@ -58,12 +58,12 @@ exports[`components/shared/breadcrumb matches snapshot #/devices.../device1 with
   items={
     Array [
       Object {
-        "href": "#/iot/foo.azure-devices.net/devices",
+        "href": "#/resources/foo.azure-devices.net/devices",
         "key": "Devices",
         "text": "breadcrumb.devices",
       },
       Object {
-        "href": "#/iot/foo.azure-devices.net/devices/detail/identity?id=device1",
+        "href": "#/resources/foo.azure-devices.net/devices/detail/identity?id=device1",
         "key": "Device",
         "text": "device1",
       },
@@ -88,12 +88,12 @@ exports[`components/shared/breadcrumb matches snapshot #/devices.../device1 with
   items={
     Array [
       Object {
-        "href": "#/iot/foo.azure-devices.net/devices",
+        "href": "#/resources/foo.azure-devices.net/devices",
         "key": "Devices",
         "text": "breadcrumb.devices",
       },
       Object {
-        "href": "#/iot/foo.azure-devices.net/devices/detail/identity?id=null",
+        "href": "#/resources/foo.azure-devices.net/devices/detail/identity?id=null",
         "key": "Device",
         "text": null,
       },
@@ -118,12 +118,12 @@ exports[`components/shared/breadcrumb matches snapshot #/devices.../device1 with
   items={
     Array [
       Object {
-        "href": "#/iot/foo.azure-devices.net/devices",
+        "href": "#/resources/foo.azure-devices.net/devices",
         "key": "Devices",
         "text": "breadcrumb.devices",
       },
       Object {
-        "href": "#/iot/foo.azure-devices.net/devices/detail/identity?id=device1",
+        "href": "#/resources/foo.azure-devices.net/devices/detail/identity?id=device1",
         "key": "Device",
         "text": "device1",
       },
@@ -163,7 +163,7 @@ exports[`components/shared/breadcrumb matches snapshot with malformed #/devices.
   items={
     Array [
       Object {
-        "href": "#/iot/foo.azure-devices.net/devices",
+        "href": "#/resources/foo.azure-devices.net/devices",
         "key": "Devices",
         "text": "breadcrumb.devices",
       },
@@ -178,7 +178,7 @@ exports[`components/shared/breadcrumb matches snapshot with missing #/devices...
   items={
     Array [
       Object {
-        "href": "#/iot/foo.azure-devices.net/devices",
+        "href": "#/resources/foo.azure-devices.net/devices",
         "key": "Devices",
         "text": "breadcrumb.devices",
       },

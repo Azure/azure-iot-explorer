@@ -57,7 +57,7 @@ describe('login/components/connectivityPane', () => {
                 hostName: undefined,
                 persistConnectionString: true
             });
-        expect(routerprops.history.push).toBeCalledWith('/iot/undefined/devices');
+        expect(routerprops.history.push).toBeCalledWith('resources/undefined/devices');
     });
 
     it('changes state when connection string changes', () => {

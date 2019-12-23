@@ -51,9 +51,7 @@ exports[`AzureResourceView matches snapshot when current resource is failed 1`] 
     <main
       role="main"
     >
-      <div
-        className="view"
-      >
+      <div>
         azureResource.access.failed
       </div>
     </main>
@@ -73,9 +71,7 @@ exports[`AzureResourceView matches snapshot when current resource is unauthorize
     <main
       role="main"
     >
-      <div
-        className="view"
-      >
+      <div>
         azureResource.access.unauthorized
       </div>
     </main>
@@ -111,9 +107,7 @@ exports[`AzureResourceView matches snapshot when current resource is verifying 1
     <main
       role="main"
     >
-      <div
-        className="view"
-      >
+      <div>
         azureResource.access.verifying
       </div>
     </main>
