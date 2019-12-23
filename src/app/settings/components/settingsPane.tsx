@@ -262,6 +262,7 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
         }
         else {
             this.props.history.push(targetPath);
+            this.props.refreshDevices();
         }
     }
 

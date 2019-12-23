@@ -11,6 +11,7 @@ import { AzureResourceViewContainer } from '../../azureResource/components/azure
 import NoMatchError from './noMatchError';
 import { LocalizationContextProvider } from '../contexts/localizationContext';
 import connectivityPaneContainer from '../../login/components/connectivityPaneContainer';
+import { ROUTE_PARTS } from '../../constants/routes';
 import '../../css/_app.scss';
 
 const TRANSLATION_NAMESPACE = 'translation';
@@ -24,7 +25,7 @@ const app = (localizationContext: any) => {
                 <>
                     <Switch>
                         <Route exact={true} path="/" component={connectivityPaneContainer}/>
-                        <Route path="/iot/:hostName" component={AzureResourceViewContainer}/>
+                        <Route path={`/${ROUTE_PARTS.RESOURCE}/:hostName`} component={AzureResourceViewContainer}/>
                         <Route component={NoMatchError}/>
 
                     </Switch>
