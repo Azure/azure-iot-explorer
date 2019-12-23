@@ -6,18 +6,18 @@ import { select } from 'redux-saga/effects';
 import { StateInterface } from '../../shared/redux/state';
 import { AzureResource } from '../models/azureResource';
 
-export function* getActiveAzureResourceConnectionStringSaga() {
-    const activeAzureResource: AzureResource = yield select((state: StateInterface) => state.azureResourceState.activeAzureResource);
+// tslint:disable-next-line:no-any  [any required until redux-saga brought to 1.0.0+ -- cloneablegenerator type does not allow mixed return (e.g. iterator and non-iterator)]
+export function* getActiveAzureResourceConnectionStringSaga(): any {
+    const activeAzureResource: AzureResource = yield select(getActiveAzureResource);
 
     if (!activeAzureResource) {
         return '';
     }
 
-    if (activeAzureResource.connectionString) {
-        return activeAzureResource.connectionString;
-    }
-
+    return activeAzureResource.connectionString;
     // todo implement sas lookup once msal implemented.
-
-    return '';
 }
+
+export const getActiveAzureResource = (state: StateInterface) => {
+    return state.azureResourceState.activeAzureResource;
+};
