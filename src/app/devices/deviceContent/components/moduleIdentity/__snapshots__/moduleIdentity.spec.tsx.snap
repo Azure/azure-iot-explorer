@@ -17,6 +17,7 @@ exports[`devices/components/moduleIdentity snapshot matches snapshot when fetch 
         },
         Object {
           "ariaLabel": "moduleIdentity.command.refresh",
+          "disabled": false,
           "iconProps": Object {
             "iconName": "Refresh",
           },
@@ -33,51 +34,56 @@ exports[`devices/components/moduleIdentity snapshot matches snapshot when fetch 
   <div
     className="device-detail"
   >
-    <StyledWithViewportComponent
-      columns={
-        Array [
-          Object {
-            "ariaLabel": "moduleIdentity.columns.moduleId",
-            "fieldName": "moduleId",
-            "isResizable": true,
-            "key": "moduleId",
-            "maxWidth": 200,
-            "minWidth": 50,
-            "name": "moduleIdentity.columns.moduleId",
-          },
-          Object {
-            "ariaLabel": "moduleIdentity.columns.connectionState",
-            "fieldName": "connectionState",
-            "isResizable": true,
-            "key": "connectionState",
-            "maxWidth": 200,
-            "minWidth": 50,
-            "name": "moduleIdentity.columns.connectionState",
-          },
-          Object {
-            "ariaLabel": "moduleIdentity.columns.connectionStateLastUpdated",
-            "fieldName": "connectionStateLastUpdated",
-            "isResizable": true,
-            "key": "connectionStateLastUpdated",
-            "maxWidth": 250,
-            "minWidth": 150,
-            "name": "moduleIdentity.columns.connectionStateLastUpdated",
-            "onRender": [Function],
-          },
-          Object {
-            "ariaLabel": "moduleIdentity.columns.lastActivityTime",
-            "fieldName": "lastActivityTime",
-            "key": "lastActivityTime",
-            "maxWidth": 250,
-            "minWidth": 150,
-            "name": "moduleIdentity.columns.lastActivityTime",
-            "onRender": [Function],
-          },
-        ]
-      }
-      items={Array []}
-      selectionMode={0}
-    />
+    <div
+      className="list-detail"
+    >
+      <StyledWithViewportComponent
+        columns={
+          Array [
+            Object {
+              "ariaLabel": "moduleIdentity.columns.moduleId",
+              "fieldName": "moduleId",
+              "isResizable": true,
+              "key": "moduleId",
+              "maxWidth": 200,
+              "minWidth": 50,
+              "name": "moduleIdentity.columns.moduleId",
+              "onRender": [Function],
+            },
+            Object {
+              "ariaLabel": "moduleIdentity.columns.connectionState",
+              "fieldName": "connectionState",
+              "isResizable": true,
+              "key": "connectionState",
+              "maxWidth": 200,
+              "minWidth": 50,
+              "name": "moduleIdentity.columns.connectionState",
+            },
+            Object {
+              "ariaLabel": "moduleIdentity.columns.connectionStateLastUpdated",
+              "fieldName": "connectionStateLastUpdated",
+              "isResizable": true,
+              "key": "connectionStateLastUpdated",
+              "maxWidth": 250,
+              "minWidth": 150,
+              "name": "moduleIdentity.columns.connectionStateLastUpdated",
+              "onRender": [Function],
+            },
+            Object {
+              "ariaLabel": "moduleIdentity.columns.lastActivityTime",
+              "fieldName": "lastActivityTime",
+              "key": "lastActivityTime",
+              "maxWidth": 250,
+              "minWidth": 150,
+              "name": "moduleIdentity.columns.lastActivityTime",
+              "onRender": [Function],
+            },
+          ]
+        }
+        items={Array []}
+        selectionMode={0}
+      />
+    </div>
     moduleIdentity.errorFetching
   </div>
 </Fragment>
@@ -100,6 +106,7 @@ exports[`devices/components/moduleIdentity snapshot matches snapshot while loadi
         },
         Object {
           "ariaLabel": "moduleIdentity.command.refresh",
+          "disabled": true,
           "iconProps": Object {
             "iconName": "Refresh",
           },
@@ -116,51 +123,56 @@ exports[`devices/components/moduleIdentity snapshot matches snapshot while loadi
   <div
     className="device-detail"
   >
-    <StyledWithViewportComponent
-      columns={
-        Array [
-          Object {
-            "ariaLabel": "moduleIdentity.columns.moduleId",
-            "fieldName": "moduleId",
-            "isResizable": true,
-            "key": "moduleId",
-            "maxWidth": 200,
-            "minWidth": 50,
-            "name": "moduleIdentity.columns.moduleId",
-          },
-          Object {
-            "ariaLabel": "moduleIdentity.columns.connectionState",
-            "fieldName": "connectionState",
-            "isResizable": true,
-            "key": "connectionState",
-            "maxWidth": 200,
-            "minWidth": 50,
-            "name": "moduleIdentity.columns.connectionState",
-          },
-          Object {
-            "ariaLabel": "moduleIdentity.columns.connectionStateLastUpdated",
-            "fieldName": "connectionStateLastUpdated",
-            "isResizable": true,
-            "key": "connectionStateLastUpdated",
-            "maxWidth": 250,
-            "minWidth": 150,
-            "name": "moduleIdentity.columns.connectionStateLastUpdated",
-            "onRender": [Function],
-          },
-          Object {
-            "ariaLabel": "moduleIdentity.columns.lastActivityTime",
-            "fieldName": "lastActivityTime",
-            "key": "lastActivityTime",
-            "maxWidth": 250,
-            "minWidth": 150,
-            "name": "moduleIdentity.columns.lastActivityTime",
-            "onRender": [Function],
-          },
-        ]
-      }
-      items={Array []}
-      selectionMode={0}
-    />
+    <div
+      className="list-detail"
+    >
+      <StyledWithViewportComponent
+        columns={
+          Array [
+            Object {
+              "ariaLabel": "moduleIdentity.columns.moduleId",
+              "fieldName": "moduleId",
+              "isResizable": true,
+              "key": "moduleId",
+              "maxWidth": 200,
+              "minWidth": 50,
+              "name": "moduleIdentity.columns.moduleId",
+              "onRender": [Function],
+            },
+            Object {
+              "ariaLabel": "moduleIdentity.columns.connectionState",
+              "fieldName": "connectionState",
+              "isResizable": true,
+              "key": "connectionState",
+              "maxWidth": 200,
+              "minWidth": 50,
+              "name": "moduleIdentity.columns.connectionState",
+            },
+            Object {
+              "ariaLabel": "moduleIdentity.columns.connectionStateLastUpdated",
+              "fieldName": "connectionStateLastUpdated",
+              "isResizable": true,
+              "key": "connectionStateLastUpdated",
+              "maxWidth": 250,
+              "minWidth": 150,
+              "name": "moduleIdentity.columns.connectionStateLastUpdated",
+              "onRender": [Function],
+            },
+            Object {
+              "ariaLabel": "moduleIdentity.columns.lastActivityTime",
+              "fieldName": "lastActivityTime",
+              "key": "lastActivityTime",
+              "maxWidth": 250,
+              "minWidth": 150,
+              "name": "moduleIdentity.columns.lastActivityTime",
+              "onRender": [Function],
+            },
+          ]
+        }
+        items={Array []}
+        selectionMode={0}
+      />
+    </div>
     <Component />
   </div>
 </Fragment>
@@ -183,6 +195,7 @@ exports[`devices/components/moduleIdentity snapshot matches snapshot with module
         },
         Object {
           "ariaLabel": "moduleIdentity.command.refresh",
+          "disabled": false,
           "iconProps": Object {
             "iconName": "Refresh",
           },
@@ -199,59 +212,64 @@ exports[`devices/components/moduleIdentity snapshot matches snapshot with module
   <div
     className="device-detail"
   >
-    <StyledWithViewportComponent
-      columns={
-        Array [
-          Object {
-            "ariaLabel": "moduleIdentity.columns.moduleId",
-            "fieldName": "moduleId",
-            "isResizable": true,
-            "key": "moduleId",
-            "maxWidth": 200,
-            "minWidth": 50,
-            "name": "moduleIdentity.columns.moduleId",
-          },
-          Object {
-            "ariaLabel": "moduleIdentity.columns.connectionState",
-            "fieldName": "connectionState",
-            "isResizable": true,
-            "key": "connectionState",
-            "maxWidth": 200,
-            "minWidth": 50,
-            "name": "moduleIdentity.columns.connectionState",
-          },
-          Object {
-            "ariaLabel": "moduleIdentity.columns.connectionStateLastUpdated",
-            "fieldName": "connectionStateLastUpdated",
-            "isResizable": true,
-            "key": "connectionStateLastUpdated",
-            "maxWidth": 250,
-            "minWidth": 150,
-            "name": "moduleIdentity.columns.connectionStateLastUpdated",
-            "onRender": [Function],
-          },
-          Object {
-            "ariaLabel": "moduleIdentity.columns.lastActivityTime",
-            "fieldName": "lastActivityTime",
-            "key": "lastActivityTime",
-            "maxWidth": 250,
-            "minWidth": 150,
-            "name": "moduleIdentity.columns.lastActivityTime",
-            "onRender": [Function],
-          },
-        ]
-      }
-      items={
-        Array [
-          Object {
-            "authentication": null,
-            "deviceId": "testDevice",
-            "moduleId": "testModule",
-          },
-        ]
-      }
-      selectionMode={0}
-    />
+    <div
+      className="list-detail"
+    >
+      <StyledWithViewportComponent
+        columns={
+          Array [
+            Object {
+              "ariaLabel": "moduleIdentity.columns.moduleId",
+              "fieldName": "moduleId",
+              "isResizable": true,
+              "key": "moduleId",
+              "maxWidth": 200,
+              "minWidth": 50,
+              "name": "moduleIdentity.columns.moduleId",
+              "onRender": [Function],
+            },
+            Object {
+              "ariaLabel": "moduleIdentity.columns.connectionState",
+              "fieldName": "connectionState",
+              "isResizable": true,
+              "key": "connectionState",
+              "maxWidth": 200,
+              "minWidth": 50,
+              "name": "moduleIdentity.columns.connectionState",
+            },
+            Object {
+              "ariaLabel": "moduleIdentity.columns.connectionStateLastUpdated",
+              "fieldName": "connectionStateLastUpdated",
+              "isResizable": true,
+              "key": "connectionStateLastUpdated",
+              "maxWidth": 250,
+              "minWidth": 150,
+              "name": "moduleIdentity.columns.connectionStateLastUpdated",
+              "onRender": [Function],
+            },
+            Object {
+              "ariaLabel": "moduleIdentity.columns.lastActivityTime",
+              "fieldName": "lastActivityTime",
+              "key": "lastActivityTime",
+              "maxWidth": 250,
+              "minWidth": 150,
+              "name": "moduleIdentity.columns.lastActivityTime",
+              "onRender": [Function],
+            },
+          ]
+        }
+        items={
+          Array [
+            Object {
+              "authentication": null,
+              "deviceId": "testDevice",
+              "moduleId": "testModule",
+            },
+          ]
+        }
+        selectionMode={0}
+      />
+    </div>
   </div>
 </Fragment>
 `;

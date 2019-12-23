@@ -115,7 +115,7 @@ export default class ModuleIdentityComponent
                 onRender: item => (
                 <NavLink
                     key={item.key}
-                    to={`${this.props.match.url}${ROUTE_PARTS.DETAIL}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(getDeviceIdFromQueryString(this.props))}&${ROUTE_PARAMS.MODULE_ID}=${item.moduleId}`}
+                    to={`${this.props.match.url}${ROUTE_PARTS.MODULE_DETAIL}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(getDeviceIdFromQueryString(this.props))}&${ROUTE_PARAMS.MODULE_ID}=${item.moduleId}`}
                 >
                     {item.moduleId}
                 </NavLink>

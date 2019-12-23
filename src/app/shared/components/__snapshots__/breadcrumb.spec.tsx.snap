@@ -33,13 +33,8 @@ exports[`components/shared/breadcrumb matches snapshot #/devices.../device1 miss
         "text": "breadcrumb.devices",
       },
       Object {
-        "href": "#/resources/foo.azure-devices.net/devices/detail/identity?id=device1",
-        "key": "Device",
-        "text": "device1",
-      },
-      Object {
-        "href": "#/devices/detail/digitalTwins/interfaces/?id=device1&interfaceId=null",
-        "key": "device_device1_null",
+        "href": "#/resources/foo.azure-devices.net/devices/deviceDetail/digitalTwins/interfaces/?deviceId=null&interfaceId=null",
+        "key": "device_null_null",
         "text": null,
       },
       Object {
@@ -63,13 +58,8 @@ exports[`components/shared/breadcrumb matches snapshot #/devices.../device1 with
         "text": "breadcrumb.devices",
       },
       Object {
-        "href": "#/resources/foo.azure-devices.net/devices/detail/identity?id=device1",
-        "key": "Device",
-        "text": "device1",
-      },
-      Object {
-        "href": "#/devices/detail/digitalTwins/interfaces/?id=device1&interfaceId=urn:some:interface:name:1",
-        "key": "device_device1_urn:some:interface:name:1",
+        "href": "#/resources/foo.azure-devices.net/devices/deviceDetail/digitalTwins/interfaces/?deviceId=null&interfaceId=urn:some:interface:name:1",
+        "key": "device_null_urn:some:interface:name:1",
         "text": "urn:some:interface:name:1",
       },
       Object {
@@ -93,12 +83,7 @@ exports[`components/shared/breadcrumb matches snapshot #/devices.../device1 with
         "text": "breadcrumb.devices",
       },
       Object {
-        "href": "#/resources/foo.azure-devices.net/devices/detail/identity?id=null",
-        "key": "Device",
-        "text": null,
-      },
-      Object {
-        "href": "#/devices/detail/digitalTwins/interfaces/?id=null&interfaceId=urn:some:interface:name:1",
+        "href": "#/resources/foo.azure-devices.net/devices/deviceDetail/digitalTwins/interfaces/?deviceId=null&interfaceId=urn:some:interface:name:1",
         "key": "device_null_urn:some:interface:name:1",
         "text": "urn:some:interface:name:1",
       },
@@ -123,13 +108,8 @@ exports[`components/shared/breadcrumb matches snapshot #/devices.../device1 with
         "text": "breadcrumb.devices",
       },
       Object {
-        "href": "#/resources/foo.azure-devices.net/devices/detail/identity?id=device1",
-        "key": "Device",
-        "text": "device1",
-      },
-      Object {
-        "href": "#/devices/detail/digitalTwins/interfaces/?id=device1&interfaceId=null",
-        "key": "device_device1_null",
+        "href": "#/resources/foo.azure-devices.net/devices/deviceDetail/digitalTwins/interfaces/?deviceId=null&interfaceId=null",
+        "key": "device_null_null",
         "text": null,
       },
       Object {

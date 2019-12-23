@@ -1,0 +1,258 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after fetched 1`] = `
+<Fragment>
+  <StyledCommandBarBase
+    className="command"
+    items={
+      Array [
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.refresh",
+          "disabled": false,
+          "iconProps": Object {
+            "iconName": "Refresh",
+          },
+          "key": "Refresh",
+          "name": "moduleIdentity.detail.command.refresh",
+          "onClick": [Function],
+        },
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.back",
+          "iconProps": Object {
+            "iconName": "ChromeClose",
+          },
+          "key": "ChromeClose",
+          "name": "moduleIdentity.detail.command.back",
+          "onClick": [Function],
+        },
+      ]
+    }
+  />
+  <h3>
+    moduleIdentity.detail.headerText
+  </h3>
+  <div
+    className="device-detail"
+  >
+    <div
+      className="module-identity"
+    >
+      <Connect(MaskedCopyableTextField)
+        allowMask={false}
+        ariaLabel="moduleIdentity.moduleId"
+        label="moduleIdentity.moduleId"
+        labelCallout="moduleIdentity.moduleIdTooltip"
+        readOnly={true}
+        setFocus={true}
+        t={
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                "moduleIdentity.detail.command.refresh",
+              ],
+              Array [
+                "moduleIdentity.detail.command.refresh",
+              ],
+              Array [
+                "moduleIdentity.detail.command.back",
+              ],
+              Array [
+                "moduleIdentity.detail.command.back",
+              ],
+              Array [
+                "moduleIdentity.detail.headerText",
+              ],
+              Array [
+                "moduleIdentity.moduleId",
+              ],
+              Array [
+                "moduleIdentity.moduleId",
+              ],
+              Array [
+                "moduleIdentity.moduleIdTooltip",
+              ],
+              Array [
+                "moduleIdentity.detail.twin",
+              ],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.refresh",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.refresh",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.back",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.back",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.headerText",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleId",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleId",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleIdTooltip",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.twin",
+              },
+            ],
+          }
+        }
+        value={null}
+      />
+      <StyledLabelBase>
+        moduleIdentity.detail.twin
+      </StyledLabelBase>
+      <div
+        className="monaco-editor"
+      >
+        <Suspense
+          fallback={
+            <StyledSpinnerBase
+              size={3}
+              title="loading"
+            />
+          }
+        >
+          <ContextConsumer>
+            <Component />
+          </ContextConsumer>
+        </Suspense>
+      </div>
+    </div>
+  </div>
+</Fragment>
+`;
+
+exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot while loading 1`] = `
+<Fragment>
+  <StyledCommandBarBase
+    className="command"
+    items={
+      Array [
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.refresh",
+          "disabled": true,
+          "iconProps": Object {
+            "iconName": "Refresh",
+          },
+          "key": "Refresh",
+          "name": "moduleIdentity.detail.command.refresh",
+          "onClick": [Function],
+        },
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.back",
+          "iconProps": Object {
+            "iconName": "ChromeClose",
+          },
+          "key": "ChromeClose",
+          "name": "moduleIdentity.detail.command.back",
+          "onClick": [Function],
+        },
+      ]
+    }
+  />
+  <h3>
+    moduleIdentity.detail.headerText
+  </h3>
+  <div
+    className="device-detail"
+  >
+    <div
+      className="module-identity"
+    >
+      <Connect(MaskedCopyableTextField)
+        allowMask={false}
+        ariaLabel="moduleIdentity.moduleId"
+        label="moduleIdentity.moduleId"
+        labelCallout="moduleIdentity.moduleIdTooltip"
+        readOnly={true}
+        setFocus={true}
+        t={
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                "moduleIdentity.detail.command.refresh",
+              ],
+              Array [
+                "moduleIdentity.detail.command.refresh",
+              ],
+              Array [
+                "moduleIdentity.detail.command.back",
+              ],
+              Array [
+                "moduleIdentity.detail.command.back",
+              ],
+              Array [
+                "moduleIdentity.detail.headerText",
+              ],
+              Array [
+                "moduleIdentity.moduleId",
+              ],
+              Array [
+                "moduleIdentity.moduleId",
+              ],
+              Array [
+                "moduleIdentity.moduleIdTooltip",
+              ],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.refresh",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.refresh",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.back",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.back",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.headerText",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleId",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleId",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleIdTooltip",
+              },
+            ],
+          }
+        }
+        value={null}
+      />
+      <Component />
+    </div>
+  </div>
+</Fragment>
+`;

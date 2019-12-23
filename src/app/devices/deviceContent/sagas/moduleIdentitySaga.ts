@@ -11,6 +11,7 @@ import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getConnectionStringSelector } from '../../../login/selectors';
 import { getModuleIdentitiesAction, addModuleIdentityAction, GetModuleIdentityTwinActionParameters, getModuleIdentityTwinAction } from '../actions';
 import { ModuleIdentity } from './../../../api/models/moduleIdentity';
+import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 
 export function* getModuleIdentitiesSaga(action: Action<string>) {
     try {
@@ -77,7 +78,7 @@ export function* addModuleIdentitySaga(action: Action<ModuleIdentity>) {
 export function* getModuleIdentityTwinSaga(action: Action<GetModuleIdentityTwinActionParameters>) {
     try {
         const parameters = {
-            connectionString: yield select(getConnectionStringSelector),
+            connectionString: yield call(getActiveAzureResourceConnectionStringSaga),
             deviceId: action.payload.deviceId,
             moduleId: action.payload.moduleId
         };
@@ -88,10 +89,10 @@ export function* getModuleIdentityTwinSaga(action: Action<GetModuleIdentityTwinA
     } catch (error) {
         yield put(addNotificationAction.started({
             text: {
-                translationKey: ResourceKeys.notifications.getModuleIdentitiesOnError, // todo
+                translationKey: ResourceKeys.notifications.getModuleIdentityTwinOnError,
                 translationOptions: {
-                    deviceId: action.payload,
                     error,
+                    moduleId: action.payload.moduleId,
                 },
             },
             type: NotificationType.error

@@ -15,7 +15,7 @@ export default class ModuleIdentityRoutes extends React.Component<RouteComponent
             <>
                 <Route exact={true} path={`${this.props.match.url}/`} component={ModuleIdentityListContainer}/>
                 <Route exact={true} path={`${this.props.match.url}/${ROUTE_PARTS.ADD}/`} component={AddModuleIdentityContainer}/>
-                <Route exact={true} path={`${this.props.match.url}/${ROUTE_PARTS.DETAIL}/`} component={ModuleIdentityDetailContainer}/>
+                <Route exact={true} path={`${this.props.match.url}/${ROUTE_PARTS.MODULE_DETAIL}/`} component={ModuleIdentityDetailContainer}/>
             </>
         );
     }

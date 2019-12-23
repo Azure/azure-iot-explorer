@@ -610,7 +610,7 @@
         "detail" : {
             "headerText": "Module identity detail",
             "command" : {
-                "back": "Back",
+                "back": "Close",
                 "refresh": "Refresh"
             },
             "twin": "Module identity twin"
@@ -655,8 +655,8 @@
         "sendingCloudToDeviceMessage": "Trying to send message '{{message}}' to device '{{deviceId}}'",
         "copiedToClipboard": "Content copied to clipboard",
         "addModuleIdentityOnSucceed": "Successfully added module identity {{moduleId}}",
-        "addModuleIdentityOnError": "Failed to add  module identity {{moduleId}}: {{error}}"
-
+        "addModuleIdentityOnError": "Failed to add  module identity {{moduleId}}: {{error}}",
+        "getModuleIdentityTwinOnError": "Failed to get module identity twin for module {{moduleId}}: {{error}}"
     },
     "errorBoundary": {
         "text": "Something went wrong"

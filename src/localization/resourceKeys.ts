@@ -594,6 +594,7 @@ export class ResourceKeys {
       getDigitalTwinInterfacePropertiesOnError : "notifications.getDigitalTwinInterfacePropertiesOnError",
       getInterfaceModelOnError : "notifications.getInterfaceModelOnError",
       getModuleIdentitiesOnError : "notifications.getModuleIdentitiesOnError",
+      getModuleIdentityTwinOnError : "notifications.getModuleIdentityTwinOnError",
       interfaceSchemaNotSupported : "notifications.interfaceSchemaNotSupported",
       invokeDigitalTwinCommandOnError : "notifications.invokeDigitalTwinCommandOnError",
       invokeDigitalTwinCommandOnSuccess : "notifications.invokeDigitalTwinCommandOnSuccess",

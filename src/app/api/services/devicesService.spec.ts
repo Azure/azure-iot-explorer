@@ -1,4 +1,3 @@
-import { addModuleIdentity } from './devicesService';
 /***********************************************************
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
@@ -12,7 +11,7 @@ import { Twin } from '../models/device';
 import { DeviceIdentity } from './../models/deviceIdentity';
 import { buildQueryString, getConnectionInfoFromConnectionString } from '../shared/utils';
 import { DataPlaneParameters } from '../parameters/deviceParameters';
-import { ModuleIdentity } from '../models/moduleIdentity';
+import { ModuleIdentity, ModuleTwin } from '../models/moduleIdentity';
 
 const deviceId = 'deviceId';
 const moduleId = 'moduleId';
@@ -22,8 +21,8 @@ const headers = new Headers({
     'Accept': 'application/json',
     'Content-Type': 'application/json'
 });
-const emptyPromise = new Promise(() => {}); // tslint:disable-line:no-empty
 // tslint:disable
+const emptyPromise = new Promise(() => {});
 const twin: Twin = {
     deviceId,
     deviceEtag: '',
@@ -58,6 +57,21 @@ const moduleIdentity: ModuleIdentity = {
     etag: null,
     lastActivityTime: null
 };
+const moduleTwin: ModuleTwin = {
+    deviceId,
+    moduleId,
+    etag: 'AAAAAAAAAAE=',
+    deviceEtag: 'AAAAAAAAAAE=',
+    status: 'enabled',
+    statusUpdateTime: '0001-01-01T00:00:00Z',
+    lastActivityTime: '0001-01-01T00:00:00Z',
+    x509Thumbprint:  {primaryThumbprint: null, secondaryThumbprint: null},
+    version: 1,
+    connectionState: 'Disconnected',
+    cloudToDeviceMessageCount: 0,
+    authenticationType:'sas',
+    properties: {}
+}
 // tslint:enable
 const sasToken = 'testSasToken';
 const mockDataPlaneConnectionHelper = (parameters: DataPlaneParameters) => {
@@ -1054,6 +1068,57 @@ describe('deviceTwinService', () => {
         it('throws Error when promise rejects', async done => {
             window.fetch = jest.fn().mockRejectedValueOnce(new Error('Not found'));
             await expect(DevicesService.addModuleIdentity(parameters)).rejects.toThrowError('Not found');
+            done();
+        });
+    });
+
+    context('fetchModuleIdentityTwin', () => {
+        const parameters = {
+            connectionString,
+            deviceId,
+            moduleId
+        };
+
+        it('calls fetch with specified parameters and returns moduleTwin when response is 200', async () => {
+            jest.spyOn(DevicesService, 'dataPlaneConnectionHelper').mockReturnValue({
+                connectionInfo: getConnectionInfoFromConnectionString(parameters.connectionString), sasToken});
+
+            // tslint:disable
+            const response = {
+                json: () => {return {
+                    body: moduleTwin
+                    }},
+                status: 200
+            } as any;
+            // tslint:enable
+            jest.spyOn(window, 'fetch').mockResolvedValue(response);
+
+            const connectionInformation = mockDataPlaneConnectionHelper({connectionString});
+            const dataPlaneRequest: DevicesService.DataPlaneRequest = {
+                hostName: connectionInformation.connectionInfo.hostName,
+                httpMethod: HTTP_OPERATION_TYPES.Get,
+                path: `twins/${deviceId}/modules/${moduleId}`,
+                sharedAccessSignature: connectionInformation.sasToken
+            };
+
+            const result = await DevicesService.fetchModuleIdentityTwin(parameters);
+
+            const serviceRequestParams = {
+                body: JSON.stringify(dataPlaneRequest),
+                cache: 'no-cache',
+                credentials: 'include',
+                headers,
+                method: HTTP_OPERATION_TYPES.Post,
+                mode: 'cors',
+            };
+
+            expect(fetch).toBeCalledWith(DevicesService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
+            expect(result).toEqual(moduleTwin);
+        });
+
+        it('throws Error when promise rejects', async done => {
+            window.fetch = jest.fn().mockRejectedValueOnce(new Error('Not found'));
+            await expect(DevicesService.fetchModuleIdentityTwin(parameters)).rejects.toThrowError('Not found');
             done();
         });
     });

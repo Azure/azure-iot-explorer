@@ -15,27 +15,27 @@ exports[`components/devices/deviceContentNav matches snapshot when there device 
               Object {
                 "key": "identity",
                 "name": "deviceContent.navBar.identity",
-                "url": "#undefined/identity/?id=test",
+                "url": "#undefined/identity/?deviceId=test",
               },
               Object {
                 "key": "twin",
                 "name": "deviceContent.navBar.twin",
-                "url": "#undefined/twin/?id=test",
+                "url": "#undefined/twin/?deviceId=test",
               },
               Object {
                 "key": "events",
                 "name": "deviceContent.navBar.events",
-                "url": "#undefined/events/?id=test",
+                "url": "#undefined/events/?deviceId=test",
               },
               Object {
                 "key": "methods",
                 "name": "deviceContent.navBar.methods",
-                "url": "#undefined/methods/?id=test",
+                "url": "#undefined/methods/?deviceId=test",
               },
               Object {
                 "key": "cloudToDeviceMessage",
                 "name": "deviceContent.navBar.cloudToDeviceMessage",
-                "url": "#undefined/cloudToDeviceMessage/?id=test",
+                "url": "#undefined/cloudToDeviceMessage/?deviceId=test",
               },
             ],
             "name": "deviceContent.navBar.nonpnp",

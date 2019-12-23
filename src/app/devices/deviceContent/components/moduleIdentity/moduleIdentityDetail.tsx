@@ -11,7 +11,7 @@ import { LocalizationContextConsumer, LocalizationContextInterface } from '../..
 import { ThemeContextConsumer, ThemeContextInterface } from '../../../../shared/contexts/themeContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString, getModuleIdentityIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
-import { BACK, REFRESH } from '../../../../constants/iconNames';
+import { CLOSE, REFRESH } from '../../../../constants/iconNames';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../../constants/routes';
 import MaskedCopyableTextFieldContainer from '../../../../shared/components/maskedCopyableTextFieldContainer';
@@ -91,8 +91,8 @@ export default class ModuleIdentityDetailComponent
                     },
                     {
                         ariaLabel: context.t(ResourceKeys.moduleIdentity.detail.command.back),
-                        iconProps: {iconName: BACK},
-                        key: BACK,
+                        iconProps: {iconName: CLOSE},
+                        key: CLOSE,
                         name: context.t(ResourceKeys.moduleIdentity.detail.command.back),
                         onClick: this.navigateToModuleList
                     },
@@ -147,7 +147,7 @@ export default class ModuleIdentityDetailComponent
     }
 
     private readonly navigateToModuleList = () => {
-        const path = this.props.match.url.replace(/\/moduleIdentity\/detail\/.*/, `/${ROUTE_PARTS.MODULE_IDENTITY}`);
+        const path = this.props.match.url.replace(/\/moduleIdentity\/moduleDetail\/.*/, `/${ROUTE_PARTS.MODULE_IDENTITY}`);
         const deviceId = getDeviceIdFromQueryString(this.props);
         this.props.history.push(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
     }

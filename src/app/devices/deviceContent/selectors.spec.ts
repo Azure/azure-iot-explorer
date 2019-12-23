@@ -5,8 +5,17 @@
 import 'jest';
 import { Record } from 'immutable';
 import { SynchronizationStatus } from './../../api/models/synchronizationStatus';
-import { getDigitalTwinInterfacePropertiesSelector, getDigitalTwinInterfaceNameAndIdsSelector, getDigitalTwinInterfaceIdsSelector, getIsDevicePnpSelector, getInterfaceNameSelector, getModuleIdentityListWrapperSelector } from './selectors';
+import {
+    getDigitalTwinInterfacePropertiesSelector,
+    getDigitalTwinInterfaceNameAndIdsSelector,
+    getDigitalTwinInterfaceIdsSelector,
+    getIsDevicePnpSelector,
+    getInterfaceNameSelector,
+    getModuleIdentityListWrapperSelector,
+    getModuleIdentityTwinWrapperSelector
+} from './selectors';
 import { getInitialState } from './../../api/shared/testHelper';
+import { ModuleTwin } from '../../api/models/moduleIdentity';
 
 describe('getDigitalTwinInterfacePropertiesSelector', () => {
     const state = getInitialState();
@@ -33,6 +42,22 @@ describe('getDigitalTwinInterfacePropertiesSelector', () => {
         },
         "version": 1
     };
+
+    const moduleIdentityTwin: ModuleTwin = {
+        deviceId: 'deviceId',
+        moduleId: 'moduleId',
+        etag: 'AAAAAAAAAAE=',
+        deviceEtag: 'AAAAAAAAAAE=',
+        status: 'enabled',
+        statusUpdateTime: '0001-01-01T00:00:00Z',
+        lastActivityTime: '0001-01-01T00:00:00Z',
+        x509Thumbprint:  {primaryThumbprint: null, secondaryThumbprint: null},
+        version: 1,
+        connectionState: 'Disconnected',
+        cloudToDeviceMessageCount: 0,
+        authenticationType:'sas',
+        properties: {}
+    }
     /* tslint:enable */
     state.deviceContentState = Record({
         deviceIdentity: null,
@@ -49,6 +74,10 @@ describe('getDigitalTwinInterfacePropertiesSelector', () => {
                     deviceId: 'testDevice',
                     moduleId: 'testModule'
                 }],
+            synchronizationStatus: SynchronizationStatus.working
+        },
+        moduleIdentityTwin: {
+            moduleIdentityTwin,
             synchronizationStatus: SynchronizationStatus.working
         }
     })();
@@ -81,17 +110,24 @@ describe('getDigitalTwinInterfacePropertiesSelector', () => {
         expect(getIsDevicePnpSelector(state)).toEqual(true);
     });
 
-    it('returns is correct interfaceName pnp', () => {
+    it('returns interfaceName', () => {
         expect(getInterfaceNameSelector(state)).toEqual('environmentalsensor');
     });
 
-    it('returns is correct interfaceName pnp', () => {
+    it('returns module identity list wrapper', () => {
         expect(getModuleIdentityListWrapperSelector(state)).toEqual({
             moduleIdentities: [{
                 authentication: null,
                 deviceId: 'testDevice',
                 moduleId: 'testModule'
             }],
+            synchronizationStatus: SynchronizationStatus.working
+        });
+    });
+
+    it('returns module twin wrapper', () => {
+        expect(getModuleIdentityTwinWrapperSelector(state)).toEqual({
+            moduleIdentityTwin,
             synchronizationStatus: SynchronizationStatus.working
         });
     });
