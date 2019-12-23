@@ -11,7 +11,7 @@ import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
-import { COPY } from '../../constants/iconNames';
+import { COPY, REMOVE } from '../../constants/iconNames';
 import { Notification, NotificationType } from '../../api/models/notification';
 import '../../css/_connectivityPane.scss';
 import { generateConnectionStringValidationError } from '../../shared/utils/hubConnectionStringHelper';
@@ -45,89 +45,77 @@ export default class HubConnectionStringSection extends React.Component<HubConne
         );
     }
 
-    private readonly onRenderConnectionString = (item: IComboBoxOption): JSX.Element => {
-        const removeClick = () => {
-            const connections = this.props.connectionStringList.filter(x => x !== item.key as string);
-            this.props.onSaveConnectionString('', connections, '');
-        };
-        const info = getConnectionInfoFromConnectionString(item.key as string);
-        const ariaLabelRemove = `Remove connection to host: ${info.hostName}`;
-        return (
-            <LocalizationContextConsumer>
-                {(context: LocalizationContextInterface) => (
-                    <Stack horizontal={true}>
-                        <Stack.Item align="stretch">
-                            <span className="connection-info">{item.text}</span>
-                        </Stack.Item>
-                        <Stack.Item align="end">
-                            <TooltipHost
-                                content={ariaLabelRemove}
-                            >
-                                <IconButton
-                                    iconProps={{ iconName: 'Cancel' }}
-                                    ariaLabel={ariaLabelRemove}
-                                    onClick={removeClick}
-                                    data={item}
-                                />
-                            </TooltipHost>
-                        </Stack.Item>
-                        <Stack.Item align="end">
-                            <TooltipHost
-                                content={context.t(ResourceKeys.connectivityPane.dropDown.copyButton)}
-                            >
-                                <IconButton
-                                    iconProps={{ iconName: COPY }}
-                                    ariaLabel={context.t(ResourceKeys.connectivityPane.dropDown.copyButton)}
-                                    onClick={this.copyToClipboard}
-                                    componentRef={this.copyButtonRef}
-                                />
-                            </TooltipHost>
-                        </Stack.Item>
-                    </Stack>
-                )}
-            </LocalizationContextConsumer>
-        );
-    }
     private readonly getComboBoxOptionText = (item: string) => {
         const info = getConnectionInfoFromConnectionString(item);
         return `HostName:${info.hostName}; SharedAccessKeyName:${info.sharedAccessKeyName}`;
     }
-    private readonly getComboBoxOption = (item: string) => {
+    private readonly getComboBoxOption = (item: string, t: TranslationFunction) => {
         const info = getConnectionInfoFromConnectionString(item);
 
         return {
-            ariaLabel: `Connection to host ${info.hostName} with shared access key for ${info.sharedAccessKeyName}`,
+            ariaLabel: t(ResourceKeys.connectivityPane.connectionStringComboBox.item.ariaLabel, {hostName: info.hostName, sharedAccessKeyName: info.sharedAccessKeyName}),
             key: item,
             text: this.getComboBoxOptionText(item)
         };
     }
     private readonly renderConnectionStringList = (t: TranslationFunction) => {
-        const options: IComboBoxOption[] = this.props.connectionStringList && this.props.connectionStringList.map(this.getComboBoxOption);
-
+        const options: IComboBoxOption[] = this.props.connectionStringList && this.props.connectionStringList.map(item => this.getComboBoxOption(item, t));
+        const removeClick = () => {
+            const connections = this.props.connectionStringList.filter(x => x !== this.props.connectionString);
+            this.props.onSaveConnectionString('', connections, '');
+        };
+        const hostName = getConnectionInfoFromConnectionString(this.props.connectionString).hostName;
         return (
-            <>
-                <ComboBox
-                    allowFreeform={true}
-                    autoComplete={'on'}
-                    className="connection-string-dropDown"
-                    label={t(ResourceKeys.connectivityPane.connectionStringComboBox.label)}
-                    ariaLabel={t(ResourceKeys.connectivityPane.connectionStringComboBox.ariaLabel)}
-                    onRenderOption={this.onRenderConnectionString}
-                    options={options}
-                    text={this.props.connectionString ? this.getComboBoxOptionText(this.props.connectionString) : 'Select a saved connection string or paste a new connection string here'}
-                    onChange={this.onConnectionStringChanged}
-                    selectedKey={this.props.connectionString}
-                    errorMessage={t(generateConnectionStringValidationError(this.props.connectionString))}
-                />
-                <input
-                    aria-hidden={true}
-                    className="hidden"
-                    tabIndex={-1}
-                    ref={this.hiddenInputRef}
-                    value={this.props.connectionString}
-                    readOnly={true}
-                />
-            </>
+            <Stack horizontal={true}>
+                <Stack.Item align="start">
+                    <ComboBox
+                        allowFreeform={true}
+                        autoComplete={'on'}
+                        className="connection-string-dropDown"
+                        label={t(ResourceKeys.connectivityPane.connectionStringComboBox.label)}
+                        ariaLabel={t(ResourceKeys.connectivityPane.connectionStringComboBox.ariaLabel)}
+                        options={options}
+                        text={this.props.connectionString ? this.getComboBoxOptionText(this.props.connectionString) : t(ResourceKeys.connectivityPane.connectionStringComboBox.prompt)}
+                        onChange={this.onConnectionStringChanged}
+                        selectedKey={this.props.connectionString}
+                        errorMessage={t(generateConnectionStringValidationError(this.props.connectionString))}
+                        useComboBoxAsMenuWidth={true}
+                    />
+                    <input
+                        aria-hidden={true}
+                        className="hidden"
+                        tabIndex={-1}
+                        ref={this.hiddenInputRef}
+                        value={this.props.connectionString}
+                        readOnly={true}
+                    />
+                </Stack.Item>
+                <Stack.Item align="end" className="connection-string-button">
+                    <TooltipHost
+                        content={t(ResourceKeys.connectivityPane.connectionStringComboBox.ariaLabelRemove, {hostName})}
+                    >
+                        <IconButton
+                            iconProps={{ iconName: REMOVE }}
+                            ariaLabel={t(ResourceKeys.connectivityPane.connectionStringComboBox.ariaLabelRemove, {hostName})}
+                            disabled={!this.props.connectionString || this.props.connectionString === ''}
+                            onClick={removeClick}
+                        />
+                    </TooltipHost>
+                </Stack.Item>
+                <Stack.Item align="end" className="connection-string-button">
+                    <TooltipHost
+                        content={t(ResourceKeys.connectivityPane.dropDown.copyButton)}
+                    >
+                        <IconButton
+                            iconProps={{ iconName: COPY }}
+                            ariaLabel={t(ResourceKeys.connectivityPane.dropDown.copyButton)}
+                            disabled={!this.props.connectionString || this.props.connectionString === ''}
+                            onClick={this.copyToClipboard}
+                            componentRef={this.copyButtonRef}
+                        />
+                    </TooltipHost>
+                </Stack.Item>
+            </Stack>
         );
     }
 

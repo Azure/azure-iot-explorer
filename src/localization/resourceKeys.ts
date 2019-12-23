@@ -92,12 +92,16 @@ export class ResourceKeys {
    public static connectivityPane = {
       connectionStringComboBox : {
          ariaLabel : "connectivityPane.connectionStringComboBox.ariaLabel",
+         ariaLabelRemove : "connectivityPane.connectionStringComboBox.ariaLabelRemove",
          errorMessages : {
             invalid : "connectivityPane.connectionStringComboBox.errorMessages.invalid",
             required : "connectivityPane.connectionStringComboBox.errorMessages.required",
          },
+         item : {
+            ariaLabel : "connectivityPane.connectionStringComboBox.item.ariaLabel",
+         },
          label : "connectivityPane.connectionStringComboBox.label",
-         subLabel : "connectivityPane.connectionStringComboBox.subLabel",
+         prompt : "connectivityPane.connectionStringComboBox.prompt",
       },
       dropDown : {
          copyButton : "connectivityPane.dropDown.copyButton",
@@ -598,7 +602,6 @@ export class ResourceKeys {
          connectionString : {
             label : "settings.configuration.connectionString.label",
             link : "settings.configuration.connectionString.link",
-            sublabel : "settings.configuration.connectionString.sublabel",
          },
          headerText : "settings.configuration.headerText",
       },

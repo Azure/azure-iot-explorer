@@ -1,31 +1,80 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`login/components/connectivityPane matches snapshot 1`] = `
-<Fragment>
-  <CustomizedComboBox
-    allowFreeform={true}
-    ariaLabel="connectivityPane.connectionStringComboBox.ariaLabel"
-    autoComplete="on"
-    buttonIconProps={
-      Object {
-        "iconName": "ChevronDown",
+<Stack
+  horizontal={true}
+>
+  <StackItem
+    align="start"
+  >
+    <CustomizedComboBox
+      allowFreeform={true}
+      ariaLabel="connectivityPane.connectionStringComboBox.ariaLabel"
+      autoComplete="on"
+      buttonIconProps={
+        Object {
+          "iconName": "ChevronDown",
+        }
       }
-    }
-    className="connection-string-dropDown"
-    errorMessage="connectivityPane.connectionStringComboBox.errorMessages.required"
-    label="connectivityPane.connectionStringComboBox.label"
-    onChange={[Function]}
-    onRenderOption={[Function]}
-    options={Array []}
-    selectedKey=""
-    text="Select a saved connection string or paste a new connection string here"
-  />
-  <input
-    aria-hidden={true}
-    className="hidden"
-    readOnly={true}
-    tabIndex={-1}
-    value=""
-  />
-</Fragment>
+      className="connection-string-dropDown"
+      errorMessage="connectivityPane.connectionStringComboBox.errorMessages.required"
+      label="connectivityPane.connectionStringComboBox.label"
+      onChange={[Function]}
+      options={Array []}
+      selectedKey=""
+      text="Select a saved connection string or paste a new connection string here"
+      useComboBoxAsMenuWidth={true}
+    />
+    <input
+      aria-hidden={true}
+      className="hidden"
+      readOnly={true}
+      tabIndex={-1}
+      value=""
+    />
+  </StackItem>
+  <StackItem
+    align="end"
+    className="connection-string-button"
+  >
+    <StyledTooltipHostBase
+      content="Remove connection to host: undefined"
+    >
+      <CustomizedIconButton
+        ariaLabel="Remove connection to host: undefined"
+        disabled={true}
+        iconProps={
+          Object {
+            "iconName": "Cancel",
+          }
+        }
+        onClick={[Function]}
+      />
+    </StyledTooltipHostBase>
+  </StackItem>
+  <StackItem
+    align="end"
+    className="connection-string-button"
+  >
+    <StyledTooltipHostBase
+      content="connectivityPane.dropDown.copyButton"
+    >
+      <CustomizedIconButton
+        ariaLabel="connectivityPane.dropDown.copyButton"
+        componentRef={
+          Object {
+            "current": null,
+          }
+        }
+        disabled={true}
+        iconProps={
+          Object {
+            "iconName": "Copy",
+          }
+        }
+        onClick={[Function]}
+      />
+    </StyledTooltipHostBase>
+  </StackItem>
+</Stack>
 `;

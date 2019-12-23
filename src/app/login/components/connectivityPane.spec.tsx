@@ -20,8 +20,7 @@ describe('login/components/connectivityPane', () => {
 
     const connectivityPaneDataProps: ConnectivityPaneDataProps = {
         connectionString: 'testConnectionString',
-        connectionStringList: ['testConnectionString'],
-        rememberConnectionString: true
+        connectionStringList: ['testConnectionString']
     };
 
     const mockSaveConnectionInfo = jest.fn();
@@ -47,34 +46,15 @@ describe('login/components/connectivityPane', () => {
         testSnapshot(getComponent());
     });
 
-    it('calls saveConnectionInfo on button click', () => {
-        const wrapper = mountWithLocalization(getComponent());
-        const button = wrapper.find(PrimaryButton);
-        button.props().onClick(null);
-        expect(mockSaveConnectionInfo).toBeCalledWith(
-            {
-                connectionString: 'testConnectionString',
-                error: '',
-                rememberConnectionString: true
-            });
-        expect(routerprops.history.push).toBeCalledWith('/devices');
-    });
-
     it('changes state when connection string changes', () => {
         const wrapper = mountWithLocalization(getComponent());
         let hubConnectionStringSection = wrapper.find(HubConnectionStringSection);
-        hubConnectionStringSection.props().onConnectionStringChangedFromTextField('newConnectionString1');
-        wrapper.update();
-        expect((wrapper.state() as ConnectivityState).connectionString).toEqual('newConnectionString1');
+        expect((wrapper.state() as ConnectivityState).connectionString).toEqual('testConnectionString');
 
         hubConnectionStringSection = wrapper.find(HubConnectionStringSection);
-        hubConnectionStringSection.props().onConnectionStringChangedFromDropdown(null, {key: 'newConnectionString2'} as any); // tslint:disable-line:no-any
+        hubConnectionStringSection.props().onSaveConnectionString('newConnectionString2', ['newConnnectionString1', 'newConnectionString2'], ''); // tslint:disable-line:no-any
         wrapper.update();
         expect((wrapper.state() as ConnectivityState).connectionString).toEqual('newConnectionString2');
-
-        hubConnectionStringSection = wrapper.find(HubConnectionStringSection);
-        hubConnectionStringSection.props().onCheckboxChange(null, false);
-        wrapper.update();
-        expect((wrapper.state() as ConnectivityState).rememberConnectionString).toEqual(false);
+        expect((wrapper.state() as ConnectivityState).connectionStringList).toEqual(['newConnnectionString1', 'newConnectionString2']);
     });
 });

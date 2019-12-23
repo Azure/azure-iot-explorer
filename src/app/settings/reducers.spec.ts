@@ -11,7 +11,7 @@ import reducer from './reducers';
 import { applicationStateInitial } from './state';
 import { SET_SETTINGS_VISIBILITY, UPDATE_REPO_TOKEN, SET_REPOSITORY_LOCATIONS } from '../constants/actionTypes';
 import { REPOSITORY_LOCATION_TYPE } from '../constants/repositoryLocationTypes';
-import { REMEMBER_CONNECTION_STRING, PRIVATE_REPO_CONNECTION_STRING_NAME } from '../constants/browserStorage';
+import { PRIVATE_REPO_CONNECTION_STRING_NAME } from '../constants/browserStorage';
 
 describe('settingsReducer', () => {
     const connectionString = 'HostName=test.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=test';
@@ -43,7 +43,7 @@ describe('settingsReducer', () => {
         });
 
         it (`handles ${SET_REPOSITORY_LOCATIONS}/ACTION_DONE action with two location and remembers private repo connection string`, () => {
-            localStorage.setItem(REMEMBER_CONNECTION_STRING, 'true');
+            // we always remember connection strings
             const payLoad = [
                 {
                     connectionString,
@@ -57,20 +57,6 @@ describe('settingsReducer', () => {
             expect(reducer(applicationStateInitial(), action).repositoryLocations).toEqual([REPOSITORY_LOCATION_TYPE.Private, REPOSITORY_LOCATION_TYPE.Public]);
             expect(reducer(applicationStateInitial(), action).privateRepositorySettings.privateConnectionString).toEqual(connectionString);
             expect(localStorage.getItem(PRIVATE_REPO_CONNECTION_STRING_NAME)).toEqual(connectionString);
-        });
-
-        it (`handles ${SET_REPOSITORY_LOCATIONS}/ACTION_DONE action with only private location won't remember private repo connection string`, () => {
-            localStorage.setItem(REMEMBER_CONNECTION_STRING, 'false');
-            const payLoad = [
-                {
-                    connectionString,
-                    repositoryLocationType: REPOSITORY_LOCATION_TYPE.Private
-                }
-            ];
-            const action = setSettingsRepositoryLocationsAction(payLoad);
-            expect(reducer(applicationStateInitial(), action).repositoryLocations).toEqual([REPOSITORY_LOCATION_TYPE.Private]);
-            expect(reducer(applicationStateInitial(), action).privateRepositorySettings.privateConnectionString).toEqual(connectionString);
-            expect(localStorage.getItem(PRIVATE_REPO_CONNECTION_STRING_NAME)).toEqual('');
         });
     });
 });

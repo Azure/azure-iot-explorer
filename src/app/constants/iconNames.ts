@@ -16,6 +16,7 @@ export const EMPTY_CHECKBOX = 'Checkbox';
 export const INFO = 'Info';
 export const NAV = 'GlobalNavButton';
 export const REFRESH = 'Refresh';
+export const REMOVE = 'Cancel';
 export const RETURN = 'ReturnKey';
 export const SAVE = 'Save';
 export const START = 'Play';

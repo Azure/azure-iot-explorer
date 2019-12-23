@@ -4,10 +4,10 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import { Dropdown } from 'office-ui-fabric-react/lib/Dropdown';
+import { IconButton } from 'office-ui-fabric-react/lib/Button';
+import { Stack } from 'office-ui-fabric-react';
 import { testSnapshot, mountWithLocalization } from '../../shared/utils/testHelpers';
-import HubConnectionStringSection, { HubConnectionStringSectionDataProps, HubConnectionStringSectionActionProps, HubConnectionStringSectionState } from './hubConnectionStringSection';
-import { MaskedCopyableTextField } from '../../shared/components/maskedCopyableTextField';
+import HubConnectionStringSection, { HubConnectionStringSectionDataProps, HubConnectionStringSectionActionProps } from './hubConnectionStringSection';
 
 describe('login/components/connectivityPane', () => {
     const routerProps: any = { // tslint:disable-line:no-any
@@ -21,15 +21,11 @@ describe('login/components/connectivityPane', () => {
     const connectivityStringSectionDataProps: HubConnectionStringSectionDataProps = {
         connectionString: '',
         connectionStringList: undefined,
-        error: '',
-        rememberConnectionString: true
     };
 
     const connectivityStringSectionActionProps: HubConnectionStringSectionActionProps = {
         addNotification: jest.fn(),
-        onCheckboxChange: jest.fn(),
-        onConnectionStringChangedFromDropdown: jest.fn(),
-        onConnectionStringChangedFromTextField: jest.fn()
+        onSaveConnectionString: jest.fn()
     };
 
     const getComponent = (overrides = {}) => {
@@ -48,13 +44,27 @@ describe('login/components/connectivityPane', () => {
     it('matches snapshot', () => {
         testSnapshot(getComponent());
     });
+    it('toggles iconbuttons disabled based on connectionstring', () => {
+        let wrapper = mountWithLocalization(getComponent());
+        let hubConnectionStringSection = wrapper.find(HubConnectionStringSection);
+        let stackButtons = hubConnectionStringSection.find(Stack.Item)
+            .findWhere(stackItem => stackItem.hasClass('connection-string-button'));
+        stackButtons.forEach(stackItem => {
+            const button = stackItem.find(IconButton);
+            expect(button.props().disabled).toBeTruthy();
+        });
 
-    it('renders MaskedCopyableTextField when selecting \'Add\' from the dropdown', () => {
-        const wrapper = mountWithLocalization(getComponent({connectionStringList: ['connectionString']}), true);
-        const dropDown = wrapper.find(Dropdown);
-        dropDown.props().onChange(null, {key: 'Add'} as any); // tslint:disable-line:no-any
-        wrapper.update();
-        const textField = wrapper.find(MaskedCopyableTextField);
-        expect(textField.length).toEqual(1);
+        wrapper = mountWithLocalization(getComponent({
+            connectionString: 'testConnection1',
+            connectionStringList: ['testConnection1', 'testConnection2']
+        }));
+        hubConnectionStringSection = wrapper.find(HubConnectionStringSection);
+
+        stackButtons = hubConnectionStringSection.find(Stack.Item)
+            .findWhere(stackItem => stackItem.hasClass('connection-string-button'));
+        stackButtons.forEach(stackItem => {
+            const button = stackItem.find(IconButton);
+            expect(button.props().disabled).toBeFalsy();
+        });
     });
 });
