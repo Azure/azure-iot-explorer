@@ -44,7 +44,7 @@ exports[`directMethod matches snapshot 1`] = `
       <div
         className="direct-method-monaco-editor"
       >
-        <React.Suspense
+        <Suspense
           fallback={
             <StyledSpinnerBase
               size={3}
@@ -55,7 +55,7 @@ exports[`directMethod matches snapshot 1`] = `
           <ContextConsumer>
             <Component />
           </ContextConsumer>
-        </React.Suspense>
+        </Suspense>
       </div>
       <Component
         tooltipText="directMethod.connectionTimeoutTooltip"

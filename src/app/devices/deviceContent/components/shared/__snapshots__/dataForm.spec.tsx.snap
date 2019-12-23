@@ -77,7 +77,7 @@ exports[`dataForm matches snapshot with simple type 1`] = `
     <div
       className="monaco-editor"
     >
-      <React.Suspense
+      <Suspense
         fallback={
           <StyledSpinnerBase
             size={3}
@@ -88,7 +88,7 @@ exports[`dataForm matches snapshot with simple type 1`] = `
         <ContextConsumer>
           <Component />
         </ContextConsumer>
-      </React.Suspense>
+      </Suspense>
     </div>
     <StyledDialogFooterBase>
       <CustomizedPrimaryButton
@@ -113,7 +113,7 @@ exports[`dataForm matches snapshot with unsupported type 1`] = `
     <div
       className="monaco-editor"
     >
-      <React.Suspense
+      <Suspense
         fallback={
           <StyledSpinnerBase
             size={3}
@@ -124,7 +124,7 @@ exports[`dataForm matches snapshot with unsupported type 1`] = `
         <ContextConsumer>
           <Component />
         </ContextConsumer>
-      </React.Suspense>
+      </Suspense>
     </div>
     <CustomizedPrimaryButton
       className="submit-button"
@@ -161,7 +161,7 @@ exports[`dataForm matches snapshot with unsupported type 1`] = `
     <div
       className="monaco-editor"
     >
-      <React.Suspense
+      <Suspense
         fallback={
           <StyledSpinnerBase
             size={3}
@@ -172,7 +172,7 @@ exports[`dataForm matches snapshot with unsupported type 1`] = `
         <ContextConsumer>
           <Component />
         </ContextConsumer>
-      </React.Suspense>
+      </Suspense>
     </div>
     <StyledDialogFooterBase>
       <CustomizedPrimaryButton
