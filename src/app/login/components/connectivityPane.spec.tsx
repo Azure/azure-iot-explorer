@@ -53,8 +53,8 @@ describe('login/components/connectivityPane', () => {
         expect(mockSetActiveAzureResource).toBeCalledWith(
             {
                 connectionString: 'testConnectionString',
-                hostName: undefined,
-                persistConnectionString: true
+                connectionStringList: ['testConnectionString'],
+                hostName: undefined
             });
         expect(routerprops.history.push).toBeCalledWith('resources/undefined/devices');
     });

@@ -8,29 +8,20 @@ import { setActiveAzureResourceByConnectionStringSaga } from './setActiveAzureRe
 import { setActiveAzureResourceByConnectionStringAction, SetActiveAzureResourceByConnectionStringActionParameters , setActiveAzureResourceAction } from '../actions';
 import { AccessVerificationState } from '../models/accessVerificationState';
 import { setConnectionStringAction } from '../../login/actions';
-import { addConnectionStringAction } from '../../connectionStrings/actions';
 
 describe('setActiveAzureResourceByConnectionStringSaga (persist string)', () => {
     const parameters: SetActiveAzureResourceByConnectionStringActionParameters = {
         connectionString: 'connectionString',
-        hostName: 'hostname',
-        persistConnectionString: true
+        connectionStringList: ['connectionString'],
+        hostName: 'hostname'
     };
     const setActiveAzureResourceByConnectionStringSagaGenerator = cloneableGenerator(setActiveAzureResourceByConnectionStringSaga)(setActiveAzureResourceByConnectionStringAction(parameters));
-
-    it('yields put effect to addConnectionStringAction', () => {
-        expect(setActiveAzureResourceByConnectionStringSagaGenerator.next()).toEqual({
-            done: false,
-            value: put(addConnectionStringAction('connectionString'))
-        });
-    });
-
     it('yields put effect to setConnectionStringAction', () => {
         expect(setActiveAzureResourceByConnectionStringSagaGenerator.next()).toEqual({
             done: false,
             value: put(setConnectionStringAction({
                 connectionString: 'connectionString',
-                rememberConnectionString: true
+                connectionStringList: ['connectionString']
             }))
         });
     });
@@ -56,8 +47,8 @@ describe('setActiveAzureResourceByConnectionStringSaga (persist string)', () => 
 describe('setActiveAzureResourceByConnectionStringSaga (do not persist string)', () => {
     const parameters: SetActiveAzureResourceByConnectionStringActionParameters = {
         connectionString: 'connectionString',
-        hostName: 'hostname',
-        persistConnectionString: false
+        connectionStringList: ['connectionString'],
+        hostName: 'hostname'
     };
     const setActiveAzureResourceByConnectionStringSagaGenerator = cloneableGenerator(setActiveAzureResourceByConnectionStringSaga)(setActiveAzureResourceByConnectionStringAction(parameters));
 
@@ -66,7 +57,7 @@ describe('setActiveAzureResourceByConnectionStringSaga (do not persist string)',
             done: false,
             value: put(setConnectionStringAction({
                 connectionString: 'connectionString',
-                rememberConnectionString: false
+                connectionStringList: ['connectionString']
             }))
         });
     });
