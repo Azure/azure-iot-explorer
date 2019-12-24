@@ -20,11 +20,7 @@ exports[`login/components/connectivityPane matches snapshot 1`] = `
           "testConnectionString",
         ]
       }
-      error=""
-      onCheckboxChange={[Function]}
-      onConnectionStringChangedFromDropdown={[Function]}
-      onConnectionStringChangedFromTextField={[Function]}
-      rememberConnectionString={true}
+      onSaveConnectionString={[Function]}
     />
     <div
       className="notes"

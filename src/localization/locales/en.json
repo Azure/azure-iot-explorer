@@ -58,7 +58,6 @@
             "headerText": "App configurations",
             "connectionString": {
                 "label": "IoT hub connection string",
-                "sublabel": "Where do I get this?",
                 "link": "https://aka.ms/iot-connection-strings"
             }
         },
@@ -133,20 +132,20 @@
     },
     "connectivityPane": {
         "header": "App configurations",
-        "connectionStringTextBox": {
-            "label": "IoT hub connection string",
+        "connectionStringComboBox": {
+            "ariaLabel": "Select or type an Iot hub connection string",
+            "ariaLabelRemove": "Remove connection to host {{hostName}}",
+            "item": {
+                "ariaLabel": "Connection to host {{hostName}} with shared access key for {{sharedAccessKeyName}}"
+            },
+            "label": "Select or type an IoT hub connection string",
             "errorMessages": {
                 "required": "Connection string is required",
                 "invalid": "Invalid connection string"
             },
-            "subLabel": "Where do I get this?"
+            "prompt": "Select a saved connection string or paste a new connection string here"
         },
-        "connectionStringCheckbox": {
-            "label": "Remember my connection string",
-            "ariaLabel": "Remember my connection string",
-            "tooltip": "The connection string will be stored in the browser local storage. (We will remember up to 5 hub connection strings)"
-        },
-        "notes": "You can open Settings to change application configurations anytime.",
+        "notes": "The most recent connection strings will be saved in application storage. You can open Settings at any time to remove saved connection strings or change other configuration options.",
         "saveButton": {
             "label": "Connect"
         },

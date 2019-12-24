@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import ConnectivityPane, { ConnectivityPaneDataProps, ConnectivityPaneDispatchProps } from './connectivityPane';
 import { StateType } from '../../shared/redux/state';
-import { getConnectionStringSelector, getRememberConnectionStringValueSelector, getConnectionStringListSelector } from '../selectors';
+import { getConnectionStringSelector, getConnectionStringListSelector } from '../selectors';
 import { addNotificationAction } from '../../notifications/actions';
 import { setActiveAzureResourceByConnectionStringAction, SetActiveAzureResourceByConnectionStringActionParameters } from '../../azureResource/actions';
 import { Notification } from '../../api/models/notification';
@@ -16,8 +16,7 @@ import { Notification } from '../../api/models/notification';
 const mapStateToProps = (state: StateType): ConnectivityPaneDataProps => {
     return {
         connectionString: getConnectionStringSelector(state),
-        connectionStringList: getConnectionStringListSelector(state),
-        rememberConnectionString: getRememberConnectionStringValueSelector(state),
+        connectionStringList: getConnectionStringListSelector(),
     };
 };
 

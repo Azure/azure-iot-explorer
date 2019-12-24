@@ -7,25 +7,20 @@ import { put } from 'redux-saga/effects';
 import { AzureResource } from '../models/azureResource';
 import { setActiveAzureResourceAction, SetActiveAzureResourceByConnectionStringActionParameters } from '../actions';
 import { setConnectionStringAction } from '../../login/actions';
-import { addConnectionStringAction } from '../../connectionStrings/actions';
 import { AccessVerificationState } from '../models/accessVerificationState';
 
 export function* setActiveAzureResourceByConnectionStringSaga(action: Action<SetActiveAzureResourceByConnectionStringActionParameters>) {
-    const { connectionString, hostName, persistConnectionString } = action.payload;
+    const { connectionString, connectionStringList, hostName } = action.payload;
     const azureResource: AzureResource = {
         accessVerificationState: AccessVerificationState.Authorized,
         connectionString,
         hostName
     };
 
-    if (persistConnectionString) {
-        yield put(addConnectionStringAction(connectionString));
-    }
-
     // temporary until ready to refactor sagas to remove selector
     yield put(setConnectionStringAction({
         connectionString,
-        rememberConnectionString: persistConnectionString
+        connectionStringList
     }));
 
     yield put(setActiveAzureResourceAction(azureResource));

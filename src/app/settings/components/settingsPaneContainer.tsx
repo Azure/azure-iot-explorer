@@ -10,7 +10,8 @@ import { StateType } from '../../shared/redux/state';
 import SettingsPane, { SettingsPaneActions, SettingsPaneProps, Settings } from './settingsPane';
 import { setSettingsVisibilityAction, setSettingsRepositoryLocationsAction } from '../actions';
 import { getSettingsVisibleSelector, getRepositoryLocationSettingsSelector } from '../selectors';
-import { getConnectionStringSelector, getRememberConnectionStringValueSelector, getConnectionStringListSelector } from '../../login/selectors';
+import { getConnectionStringSelector, getConnectionStringListSelector } from '../../login/selectors';
+import { setConnectionStringAction } from '../../login/actions';
 import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
 import { setActiveAzureResourceByConnectionStringAction } from '../../azureResource/actions';
 import { listDevicesAction } from '../../devices/deviceList/actions';
@@ -20,10 +21,9 @@ import { Notification } from '../../api/models/notification';
 
 const mapStateToProps = (state: StateType): SettingsPaneProps => {
     return {
-        connectionStringList: getConnectionStringListSelector(state),
+        connectionStringList: getConnectionStringListSelector(),
         hubConnectionString: getConnectionStringSelector(state),
         isOpen: getSettingsVisibleSelector(state),
-        rememberConnectionString: getRememberConnectionStringValueSelector(state),
         repositoryLocations: getRepositoryLocationSettingsSelector(state)
     };
 };
@@ -34,8 +34,8 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): SettingsPaneActions 
         onSettingsSave: (payload: Settings) => {
             dispatch(setActiveAzureResourceByConnectionStringAction({
                 connectionString: payload.hubConnectionString,
-                hostName: getConnectionInfoFromConnectionString(payload.hubConnectionString).hostName,
-                persistConnectionString: payload.rememberConnectionString
+                connectionStringList: payload.connectionStringList,
+                hostName: getConnectionInfoFromConnectionString(payload.hubConnectionString).hostName
             }));
             dispatch(setSettingsRepositoryLocationsAction(payload.repositoryLocations));
         },

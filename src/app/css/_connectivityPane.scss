@@ -54,7 +54,12 @@
 }
 
 .connection-string-dropDown {
-    width: 95% !important;
+    min-width: 545px;
+    margin-right: 2px;
+    max-width: 545px;
+}
+.connection-string-button{
+    margin: 28px 2px 20px 2px;
 }
 
 .hidden {

@@ -11,5 +11,5 @@ export const setConnectionStringAction = loginCreator<SetConnectionStringActionP
 
 export interface SetConnectionStringActionParameter {
     connectionString: string;
-    rememberConnectionString: boolean;
+    connectionStringList: string[];
 }

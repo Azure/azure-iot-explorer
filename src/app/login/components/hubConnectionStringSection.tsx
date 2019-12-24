@@ -4,182 +4,143 @@
  **********************************************************/
 import * as React from 'react';
 import { TranslationFunction } from 'i18next';
-import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
 import { IconButton, IButton } from 'office-ui-fabric-react/lib/Button';
-import { Dropdown, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
-import { Link } from 'office-ui-fabric-react/lib/Link';
+import { ComboBox, IComboBoxOption, IComboBox } from 'office-ui-fabric-react/lib/ComboBox';
 import { Stack } from 'office-ui-fabric-react';
 import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip';
-import { getId } from 'office-ui-fabric-react/lib/Utilities';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
-import MaskedCopyableTextFieldContainer from '../../shared/components/maskedCopyableTextFieldContainer';
-import LabelWithTooltip from '../../shared/components/labelWithTooltip';
 import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
-import { COPY } from '../../constants/iconNames';
+import { COPY, REMOVE } from '../../constants/iconNames';
 import { Notification, NotificationType } from '../../api/models/notification';
 import '../../css/_connectivityPane.scss';
+import { generateConnectionStringValidationError } from '../../shared/utils/hubConnectionStringHelper';
 
 export const addNewConnectionStringKey = 'Add';
 export interface HubConnectionStringSectionDataProps {
-    connectionString: string;
+    connectionString?: string;
     connectionStringList: string[];
-    rememberConnectionString: boolean;
-    error: string;
 }
 
 export interface HubConnectionStringSectionActionProps {
-    onConnectionStringChangedFromTextField: (connectionString: string) => void;
-    onConnectionStringChangedFromDropdown: (event: React.FormEvent<HTMLDivElement>, item: IDropdownOption) => void;
-    onCheckboxChange: (ev: React.FormEvent<HTMLElement>, isChecked: boolean) => void;
+    onSaveConnectionString: (connectionString: string, connectionStringList: string[], error: string) => void;
     addNotification: (notification: Notification) => void;
 }
 
-export interface HubConnectionStringSectionState {
-    newConnectionString: string;
-    showAddNewConnectionStringTextField: boolean;
-}
-
-export default class HubConnectionStringSection extends React.Component<HubConnectionStringSectionDataProps & HubConnectionStringSectionActionProps, HubConnectionStringSectionState> {
+export default class HubConnectionStringSection extends React.Component<HubConnectionStringSectionDataProps & HubConnectionStringSectionActionProps> {
     constructor(props: HubConnectionStringSectionDataProps & HubConnectionStringSectionActionProps) {
         super(props);
-
-        this.state = {
-            newConnectionString: '',
-            showAddNewConnectionStringTextField: false
-        };
     }
 
-    private hiddenInputRef = React.createRef<HTMLInputElement>();
-    private copyButtonRef = React.createRef<IButton>();
-    private copyButtonTooltipHostId = getId('copyButtonTooltipHost');
+    private readonly hiddenInputRef = React.createRef<HTMLInputElement>();
+    private readonly copyButtonRef = React.createRef<IButton>();
 
     public render(): JSX.Element {
         return (
             <LocalizationContextConsumer>
                 {(context: LocalizationContextInterface) => (
-                    <>
-                        {!this.props.connectionStringList ? this.renderAddNewConnectionStringTextField(context.t) :
-                             this.state.showAddNewConnectionStringTextField ?
-                                this.renderAddNewConnectionStringTextField(context.t) :
-                                this.renderConnectionStringList(context.t)
-                        }
-                    </>
+                    this.renderConnectionStringList(context.t)
                 )}
             </LocalizationContextConsumer>
         );
     }
 
-    private readonly renderConnectionStringList = (t: TranslationFunction) => {
-        const options: IDropdownOption[] = this.props.connectionStringList && this.props.connectionStringList.map(item => ({
+    private readonly getComboBoxOptionText = (item: string) => {
+        const info = getConnectionInfoFromConnectionString(item);
+        return `HostName=${info.hostName}; SharedAccessKeyName=${info.sharedAccessKeyName}`;
+    }
+    private readonly getComboBoxOption = (item: string, t: TranslationFunction) => {
+        const info = getConnectionInfoFromConnectionString(item);
+
+        return {
+            ariaLabel: t(ResourceKeys.connectivityPane.connectionStringComboBox.item.ariaLabel, {hostName: info.hostName, sharedAccessKeyName: info.sharedAccessKeyName}),
             key: item,
-            text: item.replace(getConnectionInfoFromConnectionString(item).sharedAccessKey, '*****') // only mask sharedAccessKey
-            })
-        );
-        options.push({
-            key: addNewConnectionStringKey,
-            text: t(ResourceKeys.connectivityPane.dropDown.newEntry)
-        });
-        return (
-            <>
-                <Stack horizontal={true}>
-                    <Stack.Item align="start" className="connection-string-dropDown">
-                        <Dropdown
-                            label={t(ResourceKeys.connectivityPane.connectionStringTextBox.label)}
-                            ariaLabel={t(ResourceKeys.connectivityPane.connectionStringTextBox.label)}
-                            defaultSelectedKey={this.props.connectionString}
-                            onChange={this.onConnectionStringChangedFromDropdown}
-                            options={options}
-                        />
-                        </Stack.Item>
-                    <Stack.Item align="end">
-                        <TooltipHost
-                            content={t(ResourceKeys.connectivityPane.dropDown.copyButton)}
-                            id={this.copyButtonTooltipHostId}
-                        >
-                            <IconButton
-                                iconProps={{ iconName: COPY }}
-                                aria-labelledby={this.copyButtonTooltipHostId}
-                                onClick={this.copyToClipboard}
-                                componentRef={this.copyButtonRef}
-                            />
-                        </TooltipHost>
-                    </Stack.Item>
-                </Stack>
-                <input
-                    aria-hidden={true}
-                    className="hidden"
-                    tabIndex={-1}
-                    ref={this.hiddenInputRef}
-                    value={this.props.connectionString}
-                    readOnly={true}
-                />
-            </>
-        );
+            text: this.getComboBoxOptionText(item)
+        };
     }
-
-    private readonly renderAddNewConnectionStringTextField = (t: TranslationFunction) => {
-        const { error } = this.props;
+    private readonly renderConnectionStringList = (t: TranslationFunction) => {
+        const options: IComboBoxOption[] = this.props.connectionStringList && this.props.connectionStringList.map(item => this.getComboBoxOption(item, t));
+        const removeClick = () => {
+            const connections = this.props.connectionStringList.filter(x => x !== this.props.connectionString);
+            this.props.onSaveConnectionString('', connections, '');
+        };
+        const hostName = getConnectionInfoFromConnectionString(this.props.connectionString).hostName;
         return (
-            <>
-                <MaskedCopyableTextFieldContainer
-                    setFocus={true}
-                    ariaLabel={t(ResourceKeys.connectivityPane.connectionStringTextBox.label)}
-                    label={t(ResourceKeys.connectivityPane.connectionStringTextBox.label)}
-                    error={error}
-                    value={this.state.newConnectionString}
-                    allowMask={true}
-                    onTextChange={this.onConnectionStringChangedFromTextField}
-                    readOnly={false}
-                    required={true}
-                    t={t}
-                    calloutContent={(
-                        <div className="callout-wrapper">
-                            <div className="content">
-                                {t(ResourceKeys.settings.configuration.connectionString.sublabel)}
-                            </div>
-                            <div className="footer">
-                                <Link
-                                    href={t(ResourceKeys.settings.configuration.connectionString.link)}
-                                    target="_blank"
-                                >
-                                    {t(ResourceKeys.settings.configuration.connectionString.link)}
-                                </Link>
-                            </div>
-                        </div>
-                    )}
-                />
-                <div className="remember-connection-string">
-                    <Checkbox
-                        ariaLabel={t(ResourceKeys.connectivityPane.connectionStringCheckbox.ariaLabel)}
-                        onChange={this.props.onCheckboxChange}
-                        checked={this.props.rememberConnectionString}
+            <Stack horizontal={true}>
+                <Stack.Item align="start">
+                    <ComboBox
+                        allowFreeform={true}
+                        autoComplete={'on'}
+                        className="connection-string-dropDown"
+                        label={t(ResourceKeys.connectivityPane.connectionStringComboBox.label)}
+                        ariaLabel={t(ResourceKeys.connectivityPane.connectionStringComboBox.ariaLabel)}
+                        options={options}
+                        text={this.props.connectionString ? this.getComboBoxOptionText(this.props.connectionString) : t(ResourceKeys.connectivityPane.connectionStringComboBox.prompt)}
+                        onChange={this.onConnectionStringChanged}
+                        selectedKey={this.props.connectionString}
+                        errorMessage={t(generateConnectionStringValidationError(this.props.connectionString))}
+                        useComboBoxAsMenuWidth={true}
                     />
-                    <LabelWithTooltip
-                        tooltipText={t(ResourceKeys.connectivityPane.connectionStringCheckbox.tooltip)}
+                    <input
+                        aria-hidden={true}
+                        className="hidden"
+                        tabIndex={-1}
+                        ref={this.hiddenInputRef}
+                        value={this.props.connectionString}
+                        readOnly={true}
+                    />
+                </Stack.Item>
+                <Stack.Item align="end" className="connection-string-button">
+                    <TooltipHost
+                        content={t(ResourceKeys.connectivityPane.connectionStringComboBox.ariaLabelRemove, {hostName})}
                     >
-                        {t(ResourceKeys.connectivityPane.connectionStringCheckbox.label)}
-                    </LabelWithTooltip>
-                </div>
-        </>
+                        <IconButton
+                            iconProps={{ iconName: REMOVE }}
+                            ariaLabel={t(ResourceKeys.connectivityPane.connectionStringComboBox.ariaLabelRemove, {hostName})}
+                            disabled={!this.props.connectionString || this.props.connectionString === ''}
+                            onClick={removeClick}
+                        />
+                    </TooltipHost>
+                </Stack.Item>
+                <Stack.Item align="end" className="connection-string-button">
+                    <TooltipHost
+                        content={t(ResourceKeys.connectivityPane.dropDown.copyButton)}
+                    >
+                        <IconButton
+                            iconProps={{ iconName: COPY }}
+                            ariaLabel={t(ResourceKeys.connectivityPane.dropDown.copyButton)}
+                            disabled={!this.props.connectionString || this.props.connectionString === ''}
+                            onClick={this.copyToClipboard}
+                            componentRef={this.copyButtonRef}
+                        />
+                    </TooltipHost>
+                </Stack.Item>
+            </Stack>
         );
     }
 
-    private readonly onConnectionStringChangedFromDropdown = (event: React.FormEvent<HTMLDivElement>, item: IDropdownOption) => {
-        this.setState({
-            showAddNewConnectionStringTextField: item.key.toString() === addNewConnectionStringKey ? true : false
-        });
-        this.props.onConnectionStringChangedFromDropdown(event, item);
-        if (item.key.toString() === addNewConnectionStringKey) {
-            this.props.onConnectionStringChangedFromTextField('');
+    // tslint:disable-next-line: cyclomatic-complexity
+    private readonly onConnectionStringChanged = (event: React.FormEvent<IComboBox>, option?: IComboBoxOption, index?: number, value?: string) => {
+        let connectionString: string;
+        let connectionStringList;
+        let error;
+        if (option) {
+            // option selected from list
+            error = generateConnectionStringValidationError(option.key as string);
+            if (!error || error === '') {
+                connectionString = option.key as string;
+            }
+            connectionStringList = this.props.connectionStringList;
+        } else if (value !== undefined) {
+            // value inputted as text
+            error = generateConnectionStringValidationError(value);
+            if (!error || error === '') {
+                connectionString = value;
+                connectionStringList = [value, ...this.props.connectionStringList];
+            }
         }
-    }
 
-    private readonly onConnectionStringChangedFromTextField = (value: string) => {
-        this.setState({
-            newConnectionString: value
-        });
-        this.props.onConnectionStringChangedFromTextField(value);
+        this.props.onSaveConnectionString(connectionString, connectionStringList, error);
     }
 
     public copyToClipboard = () => {

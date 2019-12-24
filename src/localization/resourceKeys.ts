@@ -97,18 +97,18 @@ export class ResourceKeys {
       },
    };
    public static connectivityPane = {
-      connectionStringCheckbox : {
-         ariaLabel : "connectivityPane.connectionStringCheckbox.ariaLabel",
-         label : "connectivityPane.connectionStringCheckbox.label",
-         tooltip : "connectivityPane.connectionStringCheckbox.tooltip",
-      },
-      connectionStringTextBox : {
+      connectionStringComboBox : {
+         ariaLabel : "connectivityPane.connectionStringComboBox.ariaLabel",
+         ariaLabelRemove : "connectivityPane.connectionStringComboBox.ariaLabelRemove",
          errorMessages : {
-            invalid : "connectivityPane.connectionStringTextBox.errorMessages.invalid",
-            required : "connectivityPane.connectionStringTextBox.errorMessages.required",
+            invalid : "connectivityPane.connectionStringComboBox.errorMessages.invalid",
+            required : "connectivityPane.connectionStringComboBox.errorMessages.required",
          },
-         label : "connectivityPane.connectionStringTextBox.label",
-         subLabel : "connectivityPane.connectionStringTextBox.subLabel",
+         item : {
+            ariaLabel : "connectivityPane.connectionStringComboBox.item.ariaLabel",
+         },
+         label : "connectivityPane.connectionStringComboBox.label",
+         prompt : "connectivityPane.connectionStringComboBox.prompt",
       },
       dropDown : {
          copyButton : "connectivityPane.dropDown.copyButton",
@@ -610,7 +610,6 @@ export class ResourceKeys {
          connectionString : {
             label : "settings.configuration.connectionString.label",
             link : "settings.configuration.connectionString.link",
-            sublabel : "settings.configuration.connectionString.sublabel",
          },
          headerText : "settings.configuration.headerText",
       },

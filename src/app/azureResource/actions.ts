@@ -14,8 +14,8 @@ const actionCreator = actionCreatorFactory(AZURE_RESOURCES);
 
 export interface SetActiveAzureResourceByConnectionStringActionParameters {
     connectionString: string;
+    connectionStringList: string[];
     hostName: string;
-    persistConnectionString?: boolean;
 }
 
 export interface SetActiveAzureResourceByHostNameActionParameters {

@@ -5,7 +5,7 @@
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { setSettingsVisibilityAction, setSettingsRepositoryLocationsAction, updateRepoTokenAction } from './actions';
 import { applicationStateInitial, ApplicationStateType, OFFSET_IN_MINUTES, PrivateRepositorySettings } from './state';
-import { REPO_LOCATIONS, REMEMBER_CONNECTION_STRING } from '../constants/browserStorage';
+import { REPO_LOCATIONS } from '../constants/browserStorage';
 import { REPOSITORY_LOCATION_TYPE } from './../constants/repositoryLocationTypes';
 import { PRIVATE_REPO_CONNECTION_STRING_NAME } from './../constants/browserStorage';
 import { RepositorySettings } from './components/settingsPane';
@@ -33,12 +33,7 @@ const reducer = reducerWithInitialState<ApplicationStateType>(applicationStateIn
 
         if (locations.filter(location => location === REPOSITORY_LOCATION_TYPE.Private).length !== 0) {
             const privateRepoSetting = payload.filter(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Private)[0];
-            if (localStorage.getItem(REMEMBER_CONNECTION_STRING) === 'true') {
-                localStorage.setItem(PRIVATE_REPO_CONNECTION_STRING_NAME, privateRepoSetting.connectionString || '');
-            }
-            else {
-                localStorage.setItem(PRIVATE_REPO_CONNECTION_STRING_NAME, '');
-            }
+            localStorage.setItem(PRIVATE_REPO_CONNECTION_STRING_NAME, privateRepoSetting.connectionString || '');
             return state.merge({
                 privateRepositorySettings: {
                     privateConnectionString: privateRepoSetting && privateRepoSetting.connectionString || '',
