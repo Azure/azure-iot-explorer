@@ -17,10 +17,11 @@ import DigitalTwinsContentContainer from './digitalTwinContentContainer';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../shared/contexts/localizationContext';
 import { NAV } from '../../../constants/iconNames';
-import { ROUTE_PARTS } from '../../../constants/routes';
+import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
 import { DeviceIdentityWrapper } from '../../../api/models/deviceIdentityWrapper';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import MultiLineShimmer from '../../../shared/components/multiLineShimmer';
+import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import '../../../css/_deviceContent.scss';
 import '../../../css/_layouts.scss';
 
@@ -79,6 +80,16 @@ export class DeviceContentComponent extends React.PureComponent<DeviceContentPro
     public componentDidMount() {
         this.props.getDigitalTwinInterfaceProperties(this.props.deviceId);
         this.props.getDeviceIdentity(this.props.deviceId);
+    }
+
+    public componentDidUpdate(oldProps: DeviceContentProps) {
+        if (getDeviceIdFromQueryString(oldProps) !== getDeviceIdFromQueryString(this.props)) {
+            const deviceId = getDeviceIdFromQueryString(this.props);
+            this.props.getDeviceIdentity(deviceId);
+            this.props.getDigitalTwinInterfaceProperties(deviceId);
+            const url = this.props.match.url;
+            this.props.history.push(`${url}/${ROUTE_PARTS.IDENTITY}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
+        }
     }
 
     private readonly renderNav = (context: LocalizationContextInterface) => {
