@@ -7,20 +7,24 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { StateType } from '../../../../shared/redux/state';
 import ModuleIdentityDetailComponent, { ModuleIdentityDetailDataProps, ModuleIdentityDetailDispatchProps } from './moduleIdentityDetail';
-import { getModuleIdentityTwinAction, GetModuleIdentityTwinActionParameters } from '../../actions';
-import { getModuleIdentityTwinWrapperSelector } from '../../selectors';
+import { getModuleIdentityTwinAction, GetModuleIdentityTwinActionParameters, GetModuleIdentityActionParameters, getModuleIdentityAction } from '../../actions';
+import { getModuleIdentityTwinWrapperSelector, getModuleIdentityWrapperSelector } from '../../selectors';
 
 const mapStateToProps = (state: StateType): ModuleIdentityDetailDataProps => {
     const moduleIdentityTwinWrapper = getModuleIdentityTwinWrapperSelector(state);
+    const moduleIdentityWrapper = getModuleIdentityWrapperSelector(state);
     return {
+        moduleIdentity: moduleIdentityWrapper && moduleIdentityWrapper.moduleIdentity,
+        moduleIdentitySyncStatus: moduleIdentityWrapper && moduleIdentityWrapper.synchronizationStatus,
         moduleIdentityTwin: moduleIdentityTwinWrapper && moduleIdentityTwinWrapper.moduleIdentityTwin,
-        synchronizationStatus: moduleIdentityTwinWrapper && moduleIdentityTwinWrapper.synchronizationStatus
+        moduleIdentityTwinSyncStatus: moduleIdentityTwinWrapper && moduleIdentityTwinWrapper.synchronizationStatus
     };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch): ModuleIdentityDetailDispatchProps => {
     return {
-        getModuleIdentityTwin: (params: GetModuleIdentityTwinActionParameters) => dispatch(getModuleIdentityTwinAction.started(params)),
+        getModuleIdentity: (params: GetModuleIdentityActionParameters) => dispatch(getModuleIdentityAction.started(params)),
+        getModuleIdentityTwin: (params: GetModuleIdentityTwinActionParameters) => dispatch(getModuleIdentityTwinAction.started(params))
     };
 };
 

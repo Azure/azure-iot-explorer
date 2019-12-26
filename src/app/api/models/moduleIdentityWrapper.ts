@@ -2,10 +2,10 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { ModuleTwin } from './moduleTwin';
+import { ModuleIdentity } from './moduleIdentity';
 import { SynchronizationStatus } from './synchronizationStatus';
 
-export interface ModuleIdentityTwinWrapper {
-    moduleIdentityTwin?: ModuleTwin;
+export interface ModuleIdentityWrapper {
+    moduleIdentity?: ModuleIdentity;
     synchronizationStatus: SynchronizationStatus;
 }

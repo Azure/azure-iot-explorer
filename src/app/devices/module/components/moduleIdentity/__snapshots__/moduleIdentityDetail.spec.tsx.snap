@@ -8,7 +8,7 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
       Array [
         Object {
           "ariaLabel": "moduleIdentity.detail.command.refresh",
-          "disabled": false,
+          "disabled": true,
           "iconProps": Object {
             "iconName": "Refresh",
           },
@@ -43,7 +43,6 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
         label="moduleIdentity.moduleId"
         labelCallout="moduleIdentity.moduleIdTooltip"
         readOnly={true}
-        setFocus={true}
         t={
           [MockFunction] {
             "calls": Array [
@@ -70,9 +69,6 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
               ],
               Array [
                 "moduleIdentity.moduleIdTooltip",
-              ],
-              Array [
-                "moduleIdentity.detail.twin",
               ],
             ],
             "results": Array [
@@ -108,34 +104,13 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
                 "type": "return",
                 "value": "moduleIdentity.moduleIdTooltip",
               },
-              Object {
-                "type": "return",
-                "value": "moduleIdentity.detail.twin",
-              },
             ],
           }
         }
         value={null}
       />
-      <StyledLabelBase>
-        moduleIdentity.detail.twin
-      </StyledLabelBase>
-      <div
-        className="monaco-editor"
-      >
-        <Suspense
-          fallback={
-            <StyledSpinnerBase
-              size={3}
-              title="loading"
-            />
-          }
-        >
-          <ContextConsumer>
-            <Component />
-          </ContextConsumer>
-        </Suspense>
-      </div>
+      <Component />
+      <Component />
     </div>
   </div>
 </Fragment>
@@ -184,7 +159,6 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot while
         label="moduleIdentity.moduleId"
         labelCallout="moduleIdentity.moduleIdTooltip"
         readOnly={true}
-        setFocus={true}
         t={
           [MockFunction] {
             "calls": Array [
@@ -251,6 +225,7 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot while
         }
         value={null}
       />
+      <Component />
       <Component />
     </div>
   </div>

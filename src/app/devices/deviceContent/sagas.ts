@@ -10,7 +10,6 @@ import { invokeDigitalTwinInterfaceCommandSaga } from './sagas/digitalTwinInterf
 import { getDeviceIdentitySaga, updateDeviceIdentitySaga } from './sagas/deviceIdentitySaga';
 import { getDigitalTwinInterfacePropertySaga, patchDigitalTwinInterfacePropertiesSaga } from './sagas/digitalTwinInterfacePropertySaga';
 import { cloudToDeviceMessageSaga } from './sagas/cloudToDeviceMessageSaga';
-import { getModuleIdentitiesSaga, addModuleIdentitySaga, getModuleIdentityTwinSaga } from './sagas/moduleIdentitySaga';
 import {
     cloudToDeviceMessageAction,
     getDeviceIdentityAction,
@@ -21,24 +20,18 @@ import {
     getModelDefinitionAction,
     patchDigitalTwinInterfacePropertiesAction,
     updateTwinAction,
-    updateDeviceIdentityAction,
-    getModuleIdentitiesAction,
-    addModuleIdentityAction,
-    getModuleIdentityTwinAction
+    updateDeviceIdentityAction
     } from './actions';
 
 export default [
-    takeEvery(addModuleIdentityAction.started.type, addModuleIdentitySaga),
     takeEvery(cloudToDeviceMessageAction.started.type, cloudToDeviceMessageSaga),
     takeLatest(getDeviceIdentityAction.started.type, getDeviceIdentitySaga),
     takeLatest(getDigitalTwinInterfacePropertiesAction.started.type, getDigitalTwinInterfacePropertySaga),
     takeLatest(getModelDefinitionAction.started.type, getModelDefinitionSaga),
-    takeLatest(getModuleIdentitiesAction.started.type, getModuleIdentitiesSaga),
     takeLatest(getTwinAction.started.type, getDeviceTwinSaga),
     takeEvery(invokeDirectMethodAction.started.type, invokeDirectMethodSaga),
     takeEvery(invokeDigitalTwinInterfaceCommandAction.started.type, invokeDigitalTwinInterfaceCommandSaga),
     takeEvery(patchDigitalTwinInterfacePropertiesAction.started.type, patchDigitalTwinInterfacePropertiesSaga),
     takeEvery(updateTwinAction.started.type, updateDeviceTwinSaga),
     takeEvery(updateDeviceIdentityAction.started.type, updateDeviceIdentitySaga),
-    takeLatest(getModuleIdentityTwinAction.started.type, getModuleIdentityTwinSaga)
 ];

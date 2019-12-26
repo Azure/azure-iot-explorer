@@ -87,7 +87,11 @@ describe('devices/components/deviceIdentity', () => {
                 identityWrapper: {
                     deviceIdentity: {
                         authentication: {
-                            type: DeviceAuthenticationType.SelfSigned
+                            type: DeviceAuthenticationType.SelfSigned,
+                            x509Thumbprint: {
+                                primaryThumbprint: '123',
+                                secondaryThumbprint: '456'
+                            }
                         }
                     }
                 }

@@ -2,7 +2,14 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { FetchDeviceTwinParameters,
+import {
+    FetchModuleIdentitiesParameters,
+    AddModuleIdentityParameters,
+    ModuleIdentityTwinParameters,
+    FetchModuleIdentityParameters
+} from '../parameters/moduleParameters';
+import {
+    FetchDeviceTwinParameters,
     UpdateDeviceTwinParameters,
     InvokeMethodParameters,
     FetchDevicesParameters,
@@ -15,10 +22,7 @@ import { FetchDeviceTwinParameters,
     FetchDigitalTwinInterfacePropertiesParameters,
     InvokeDigitalTwinInterfaceCommandParameters,
     PatchDigitalTwinInterfacePropertiesParameters,
-    CloudToDeviceMessageParameters,
-    FetchModuleIdentitiesParameters,
-    AddModuleIdentityParameters,
-    ModuleIdentityTwinParameters
+    CloudToDeviceMessageParameters
 } from '../parameters/deviceParameters';
 import { CONTROLLER_API_ENDPOINT, DATAPLANE, EVENTHUB, DIGITAL_TWIN_API_VERSION, DataPlaneStatusCode, MONITOR, STOP, HEADERS, CLOUD_TO_DEVICE } from '../../constants/apiConstants';
 import { HTTP_OPERATION_TYPES } from '../constants';
@@ -28,7 +32,8 @@ import { Message } from '../models/messages';
 import { Twin, Device, DataPlaneResponse } from '../models/device';
 import { DeviceIdentity } from '../models/deviceIdentity';
 import { DigitalTwinInterfaces } from '../models/digitalTwinModels';
-import { ModuleIdentity, ModuleTwin } from './../models/moduleIdentity';
+import { ModuleIdentity } from '../models/moduleIdentity';
+import { ModuleTwin } from '../models/moduleTwin';
 import { parseEventHubMessage } from './eventHubMessageHelper';
 
 export const DATAPLANE_CONTROLLER_ENDPOINT = `${CONTROLLER_API_ENDPOINT}${DATAPLANE}`;
@@ -102,7 +107,7 @@ export const dataPlaneConnectionHelper = (parameters: DataPlaneParameters) => {
 };
 
 // tslint:disable-next-line:cyclomatic-complexity
-const dataPlaneResponseHelper = async (response: Response) => {
+export const dataPlaneResponseHelper = async (response: Response) => {
     const dataPlaneResponse = await response;
 
     let result;
@@ -505,6 +510,25 @@ export const fetchModuleIdentityTwin = async (parameters: ModuleIdentityTwinPara
             hostName: connectionInformation.connectionInfo.hostName,
             httpMethod: HTTP_OPERATION_TYPES.Get,
             path: `twins/${parameters.deviceId}/modules/${parameters.moduleId}`,
+            sharedAccessSignature: connectionInformation.sasToken,
+        };
+
+        const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
+        const result = await dataPlaneResponseHelper(response);
+        return result.body;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const fetchModuleIdentity = async (parameters: FetchModuleIdentityParameters): Promise<DataPlaneResponse<ModuleIdentity[]>> => {
+    try {
+        const connectionInformation = dataPlaneConnectionHelper(parameters);
+
+        const dataPlaneRequest: DataPlaneRequest = {
+            hostName: connectionInformation.connectionInfo.hostName,
+            httpMethod: HTTP_OPERATION_TYPES.Get,
+            path: `devices/${parameters.deviceId}/modules/${parameters.moduleId}`,
             sharedAccessSignature: connectionInformation.sasToken,
         };
 

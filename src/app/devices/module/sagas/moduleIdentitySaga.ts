@@ -4,12 +4,12 @@
  **********************************************************/
 import { call, put, select } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
-import { fetchModuleIdentities, addModuleIdentity, fetchModuleIdentityTwin } from '../../../api/services/devicesService';
+import { fetchModuleIdentities, addModuleIdentity, fetchModuleIdentityTwin, fetchModuleIdentity } from '../../../api/services/devicesService';
 import { addNotificationAction } from '../../../notifications/actions';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getConnectionStringSelector } from '../../../login/selectors';
-import { getModuleIdentitiesAction, addModuleIdentityAction, GetModuleIdentityTwinActionParameters, getModuleIdentityTwinAction } from '../actions';
+import { getModuleIdentitiesAction, addModuleIdentityAction, GetModuleIdentityTwinActionParameters, getModuleIdentityTwinAction, GetModuleIdentityActionParameters, getModuleIdentityAction } from '../actions';
 import { ModuleIdentity } from './../../../api/models/moduleIdentity';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 
@@ -99,5 +99,32 @@ export function* getModuleIdentityTwinSaga(action: Action<GetModuleIdentityTwinA
           }));
 
         yield put(getModuleIdentityTwinAction.failed({params: action.payload, error}));
+    }
+}
+
+export function* getModuleIdentitySaga(action: Action<GetModuleIdentityActionParameters>) {
+    try {
+        const parameters = {
+            connectionString: yield select(getConnectionStringSelector),
+            deviceId: action.payload.deviceId,
+            moduleId: action.payload.moduleId
+        };
+
+        const moduleIdentity = yield call(fetchModuleIdentity, parameters);
+
+        yield put(getModuleIdentityAction.done({params: action.payload, result: moduleIdentity}));
+    } catch (error) {
+        yield put(addNotificationAction.started({
+            text: {
+                translationKey: ResourceKeys.notifications.getModuleIdentityOnError,
+                translationOptions: {
+                    error,
+                    moduleId: action.payload.moduleId,
+                },
+            },
+            type: NotificationType.error
+          }));
+
+        yield put(getModuleIdentityAction.failed({params: action.payload, error}));
     }
 }

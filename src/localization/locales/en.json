@@ -166,15 +166,19 @@
                 "primaryKey": "Primary key",
                 "secondaryKey": "Secondary key",
                 "primaryConnectionString": "Primary connection string",
-                "primaryConnectionStringTooltip": "The primary symmetric shared access key stored in base64 format",
+                "primaryConnectionStringTooltip": "Connection string based on primary key used in API calls which allows device to communicate with IoT Hub",
+                "primaryKeyTooltip": "The primary symmetric shared access key stored in base64 format",
                 "secondaryConnectionString": "Secondary connection string",
-                "secondaryConnectionStringTooltip": "The secondary symmetric shared access key stored in base64 format",
+                "secondaryConnectionStringTooltip": "Connection string based on secondary key used in API calls which allows device to communicate with IoT Hub",
+                "secondaryKeyTooltip": "The secondary symmetric shared access key stored in base64 format",
                 "generatePrimaryKey": "Generate primary key",
                 "generateSecondaryKey": "Generate secondary key"
             },
             "ca": {
                 "type": "X.509 CA signed",
-                "text": "This device is being authenticated through a CA Certificate."
+                "text": "This device is being authenticated through a CA Certificate.",
+                "connectionString": "Connection string",
+                "connectionStringTooltip": "Connection string used in API calls which allows device to communicate with IoT Hub"
             },
             "selfSigned": {
                 "type": "X.509 self-signed",
@@ -182,7 +186,9 @@
                 "primaryThumbprint": "Primary thumbprint",
                 "primaryThumbprintTooltip": "The primary X.509 thumbprint representing the SHA-1 or SHA-256 hash of the X.509 certificate. Thumbprint values other than 40 hex characters for SHA-1 and 64 hex characters for SHA-256 are not accepted.",
                 "secondaryThumbprint": "Secondary thumbprint",
-                "secondaryThumbprintTooltip": "The secondary X.509 thumbprint representing the SHA-1 or SHA-256 hash of the X.509 certificate. Thumbprint values other than 40 hex characters for SHA-1 and 64 hex characters for SHA-256 are not accepted."
+                "secondaryThumbprintTooltip": "The secondary X.509 thumbprint representing the SHA-1 or SHA-256 hash of the X.509 certificate. Thumbprint values other than 40 hex characters for SHA-1 and 64 hex characters for SHA-256 are not accepted.",
+                "connectionString": "Connection string",
+                "connectionStringTooltip": "Connection string used in API calls which allows device to communicate with IoT Hub"
             },
             "sasToken": {
                 "label": "Connection string with SAS token",
@@ -583,9 +589,9 @@
                 "primaryKey": "Primary key",
                 "secondaryKey": "Secondary key",
                 "primaryConnectionString": "Primary connection string",
-                "primaryConnectionStringTooltip": "The primary symmetric shared access key stored in base64 format",
+                "primaryKeyTooltip": "The primary symmetric shared access key stored in base64 format",
                 "secondaryConnectionString": "Secondary connection string",
-                "secondaryConnectionStringTooltip": "The secondary symmetric shared access key stored in base64 format",
+                "secondaryKeyTooltip": "The secondary symmetric shared access key stored in base64 format",
                 "generatePrimaryKey": "Generate primary key",
                 "generateSecondaryKey": "Generate secondary key"
             },
@@ -656,7 +662,8 @@
         "copiedToClipboard": "Content copied to clipboard",
         "addModuleIdentityOnSucceed": "Successfully added module identity {{moduleId}}",
         "addModuleIdentityOnError": "Failed to add  module identity {{moduleId}}: {{error}}",
-        "getModuleIdentityTwinOnError": "Failed to get module identity twin for module {{moduleId}}: {{error}}"
+        "getModuleIdentityTwinOnError": "Failed to get module identity twin for module {{moduleId}}: {{error}}",
+        "getModuleIdentityOnError": "Failed to get module identity for module {{moduleId}}: {{error}}"
     },
     "errorBoundary": {
         "text": "Something went wrong"

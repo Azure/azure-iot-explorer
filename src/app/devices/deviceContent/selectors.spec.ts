@@ -11,11 +11,8 @@ import {
     getDigitalTwinInterfaceIdsSelector,
     getIsDevicePnpSelector,
     getInterfaceNameSelector,
-    getModuleIdentityListWrapperSelector,
-    getModuleIdentityTwinWrapperSelector
 } from './selectors';
 import { getInitialState } from './../../api/shared/testHelper';
-import { ModuleTwin } from '../../api/models/moduleIdentity';
 
 describe('getDigitalTwinInterfacePropertiesSelector', () => {
     const state = getInitialState();
@@ -42,22 +39,6 @@ describe('getDigitalTwinInterfacePropertiesSelector', () => {
         },
         "version": 1
     };
-
-    const moduleIdentityTwin: ModuleTwin = {
-        deviceId: 'deviceId',
-        moduleId: 'moduleId',
-        etag: 'AAAAAAAAAAE=',
-        deviceEtag: 'AAAAAAAAAAE=',
-        status: 'enabled',
-        statusUpdateTime: '0001-01-01T00:00:00Z',
-        lastActivityTime: '0001-01-01T00:00:00Z',
-        x509Thumbprint:  {primaryThumbprint: null, secondaryThumbprint: null},
-        version: 1,
-        connectionState: 'Disconnected',
-        cloudToDeviceMessageCount: 0,
-        authenticationType:'sas',
-        properties: {}
-    }
     /* tslint:enable */
     state.deviceContentState = Record({
         deviceIdentity: null,
@@ -67,19 +48,7 @@ describe('getDigitalTwinInterfacePropertiesSelector', () => {
             digitalTwinInterfacePropertiesSyncStatus: SynchronizationStatus.fetched
         },
         interfaceIdSelected: 'urn:contoso:com:environmentalsensor:2',
-        modelDefinitionWithSource: null,
-        moduleIdentityList: {
-            moduleIdentities: [{
-                    authentication: null,
-                    deviceId: 'testDevice',
-                    moduleId: 'testModule'
-                }],
-            synchronizationStatus: SynchronizationStatus.working
-        },
-        moduleIdentityTwin: {
-            moduleIdentityTwin,
-            synchronizationStatus: SynchronizationStatus.working
-        }
+        modelDefinitionWithSource: null
     })();
 
     it('returns interface properties', () => {
@@ -112,23 +81,5 @@ describe('getDigitalTwinInterfacePropertiesSelector', () => {
 
     it('returns interfaceName', () => {
         expect(getInterfaceNameSelector(state)).toEqual('environmentalsensor');
-    });
-
-    it('returns module identity list wrapper', () => {
-        expect(getModuleIdentityListWrapperSelector(state)).toEqual({
-            moduleIdentities: [{
-                authentication: null,
-                deviceId: 'testDevice',
-                moduleId: 'testModule'
-            }],
-            synchronizationStatus: SynchronizationStatus.working
-        });
-    });
-
-    it('returns module twin wrapper', () => {
-        expect(getModuleIdentityTwinWrapperSelector(state)).toEqual({
-            moduleIdentityTwin,
-            synchronizationStatus: SynchronizationStatus.working
-        });
     });
 });

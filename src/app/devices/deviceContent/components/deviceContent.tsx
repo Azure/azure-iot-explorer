@@ -10,7 +10,7 @@ import DeviceTwinContainer from './deviceTwin/deviceTwinContainer';
 import DeviceEventsContainer from './deviceEvents/deviceEventsContainer';
 import DirectMethodContainer from './directMethod/directMethodContainer';
 import CloudToDeviceMessageContainer from './cloudToDeviceMessage/cloudToDeviceMessageContainer';
-import ModuleIdentityRoutes from './moduleIdentity/moduleIdentityRoutes';
+import ModuleIdentityRoutes from '../../module/components/moduleIdentity/moduleIdentityRoutes';
 import DeviceContentNavComponent from './deviceContentNav';
 import BreadcrumbContainer from '../../../shared/components/breadcrumbContainer';
 import DigitalTwinsContentContainer from './digitalTwinContentContainer';
@@ -21,7 +21,7 @@ import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
 import { DeviceIdentityWrapper } from '../../../api/models/deviceIdentityWrapper';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import MultiLineShimmer from '../../../shared/components/multiLineShimmer';
-import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
+import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import '../../../css/_deviceContent.scss';
 import '../../../css/_layouts.scss';
 

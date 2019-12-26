@@ -12,10 +12,7 @@ import { GET_TWIN,
     GET_DIGITAL_TWIN_INTERFACE_PROPERTIES,
     PATCH_DIGITAL_TWIN_INTERFACE_PROPERTIES,
     UPDATE_DEVICE_IDENTITY,
-    SET_INTERFACE_ID,
-    GET_MODULE_IDENTITIES,
-    ADD_MODULE_IDENTITY,
-    GET_MODULE_IDENTITY_TWIN
+    SET_INTERFACE_ID
   } from '../../constants/actionTypes';
 import { getTwinAction,
     getModelDefinitionAction,
@@ -24,10 +21,7 @@ import { getTwinAction,
     getDigitalTwinInterfacePropertiesAction,
     patchDigitalTwinInterfacePropertiesAction,
     updateDeviceIdentityAction,
-    setInterfaceIdAction,
-    getModuleIdentitiesAction,
-    addModuleIdentityAction,
-    getModuleIdentityTwinAction
+    setInterfaceIdAction
 } from './actions';
 import reducer from './reducer';
 import { deviceContentStateInitial, DeviceContentStateInterface } from './state';
@@ -36,7 +30,6 @@ import { DeviceIdentity } from '../../api/models/deviceIdentity';
 import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
 import { DigitalTwinInterfaces } from '../../api/models/digitalTwinModels';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
-import { ModuleIdentity, ModuleTwin } from '../../api/models/moduleIdentity';
 
 describe('deviceContentStateReducer', () => {
     const deviceId = 'testDeviceId';
@@ -111,9 +104,7 @@ describe('deviceContentStateReducer', () => {
                 deviceTwin: undefined,
                 digitalTwinInterfaceProperties: undefined,
                 interfaceIdSelected: '',
-                modelDefinitionWithSource,
-                moduleIdentityList: undefined,
-                moduleIdentityTwin: undefined
+                modelDefinitionWithSource
             });
             const action = clearModelDefinitionsAction();
             expect(reducer(initialState(), action).modelDefinitionWithSource).toEqual(null);
@@ -335,93 +326,6 @@ describe('deviceContentStateReducer', () => {
                 propertyKey: 'myProperty'
             }});
             expect(reducer(initialState, action).digitalTwinInterfaceProperties.digitalTwinInterfacePropertiesSyncStatus).toEqual(SynchronizationStatus.failed);
-        });
-    });
-
-    describe('moduleIdentities scenarios', () => {
-
-        const moduleId = 'testModule';
-        const moduleIdentity: ModuleIdentity = {
-            authentication: null,
-            deviceId,
-            moduleId
-        };
-
-        // tslint:disable
-        const moduleTwin: ModuleTwin = {
-            deviceId,
-            moduleId,
-            etag: 'AAAAAAAAAAE=',
-            deviceEtag: 'AAAAAAAAAAE=',
-            status: 'enabled',
-            statusUpdateTime: '0001-01-01T00:00:00Z',
-            lastActivityTime: '0001-01-01T00:00:00Z',
-            x509Thumbprint:  {primaryThumbprint: null, secondaryThumbprint: null},
-            version: 1,
-            connectionState: 'Disconnected',
-            cloudToDeviceMessageCount: 0,
-            authenticationType:'sas',
-            properties: {}
-        };
-        // tslint:enable
-
-        it (`handles ${GET_MODULE_IDENTITIES}/ACTION_START action`, () => {
-            const action = getModuleIdentitiesAction.started(deviceId);
-            expect(reducer(deviceContentStateInitial(), action).moduleIdentityList.synchronizationStatus).toEqual(SynchronizationStatus.working);
-        });
-
-        it (`handles ${GET_MODULE_IDENTITIES}/ACTION_DONE action`, () => {
-            const action = getModuleIdentitiesAction.done({params: deviceId, result: [moduleIdentity]});
-            expect(reducer(deviceContentStateInitial(), action).moduleIdentityList).toEqual({
-                moduleIdentities: [moduleIdentity],
-                synchronizationStatus: SynchronizationStatus.fetched});
-        });
-
-        it (`handles ${GET_MODULE_IDENTITIES}/ACTION_FAILED action`, () => {
-            const action = getModuleIdentitiesAction.failed({error: -1, params: deviceId});
-            expect(reducer(deviceContentStateInitial(), action).moduleIdentityList.synchronizationStatus).toEqual(SynchronizationStatus.failed);
-        });
-
-        it (`handles ${ADD_MODULE_IDENTITY}/ACTION_START action`, () => {
-            const action = addModuleIdentityAction.started(moduleIdentity);
-            expect(reducer(deviceContentStateInitial(), action).moduleIdentityList.synchronizationStatus).toEqual(SynchronizationStatus.working);
-        });
-
-        it (`handles ${ADD_MODULE_IDENTITY}/ACTION_DONE action`, () => {
-            const action = addModuleIdentityAction.done({params: moduleIdentity, result: moduleIdentity});
-            expect(reducer(deviceContentStateInitial(), action).moduleIdentityList).toEqual({
-                synchronizationStatus: SynchronizationStatus.upserted});
-        });
-
-        it (`handles ${ADD_MODULE_IDENTITY}/ACTION_FAILED action`, () => {
-            const action = addModuleIdentityAction.failed({error: -1, params: moduleIdentity});
-            expect(reducer(deviceContentStateInitial(), action).moduleIdentityList.synchronizationStatus).toEqual(SynchronizationStatus.failed);
-        });
-
-        it (`handles ${GET_MODULE_IDENTITY_TWIN}/ACTION_START action`, () => {
-            const action = getModuleIdentityTwinAction.started({
-                deviceId,
-                moduleId
-            });
-            expect(reducer(deviceContentStateInitial(), action).moduleIdentityTwin.synchronizationStatus).toEqual(SynchronizationStatus.working);
-        });
-
-        it (`handles ${GET_MODULE_IDENTITY_TWIN}/ACTION_DONE action`, () => {
-            const action = getModuleIdentityTwinAction.done({params: {
-                deviceId,
-                moduleId
-            }, result: moduleTwin});
-            expect(reducer(deviceContentStateInitial(), action).moduleIdentityTwin).toEqual({
-                moduleIdentityTwin: moduleTwin,
-                synchronizationStatus: SynchronizationStatus.fetched});
-        });
-
-        it (`handles ${GET_MODULE_IDENTITY_TWIN}/ACTION_FAILED action`, () => {
-            const action = getModuleIdentityTwinAction.failed({error: -1, params: {
-                deviceId,
-                moduleId
-            }});
-            expect(reducer(deviceContentStateInitial(), action).moduleIdentityTwin.synchronizationStatus).toEqual(SynchronizationStatus.failed);
         });
     });
 });

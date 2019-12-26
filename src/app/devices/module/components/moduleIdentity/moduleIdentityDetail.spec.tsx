@@ -5,9 +5,9 @@
 import * as React from 'react';
 import 'jest';
 import ModuleIdentityDetailComponent, { ModuleIdentityDetailDataProps, ModuleIdentityDetailDispatchProps } from './moduleIdentityDetail';
-import { testSnapshot, mountWithLocalization } from '../../../../shared/utils/testHelpers';
+import { testSnapshot } from '../../../../shared/utils/testHelpers';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
-import { ModuleTwin } from '../../../../api/models/moduleIdentity';
+import { ModuleTwin } from '../../../../api/models/moduleTwin';
 
 const pathname = `/`;
 const location: any = { // tslint:disable-line:no-any
@@ -22,12 +22,16 @@ const routerprops: any = { // tslint:disable-line:no-any
 };
 
 const moduleIdentityDataProps: ModuleIdentityDetailDataProps = {
+    moduleIdentity: null,
+    moduleIdentitySyncStatus: SynchronizationStatus.working,
     moduleIdentityTwin: null,
-    synchronizationStatus: SynchronizationStatus.working
+    moduleIdentityTwinSyncStatus: SynchronizationStatus.working
 };
 
 const mockGetModuleIdentityTwin = jest.fn();
+const mockGetModuleIdentity = jest.fn();
 const moduleIdentityDispatchProps: ModuleIdentityDetailDispatchProps = {
+    getModuleIdentity: mockGetModuleIdentity,
     getModuleIdentityTwin: mockGetModuleIdentityTwin
 };
 
