@@ -20,4 +20,15 @@ describe('connectionStateReducers', () => {
         expect(connectionStateReducer(connectionStateInitial(), action).connectionString).toEqual(connectionString);
         expect(localStorage.getItem(CONNECTION_STRING_NAME_LIST)).toEqual(connectionString);
     });
+
+    it (`handles ${SET_CONNECTION_STRING} action by unshifting the connection string on an existing array`, () => {
+        const connectionString = 'HostName=test.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=test';
+        const payload = {
+            connectionString,
+            connectionStringList: ['one', 'two', connectionString]
+        };
+        const action = setConnectionStringAction(payload);
+        expect(connectionStateReducer(connectionStateInitial(), action).connectionString).toEqual(connectionString);
+        expect(localStorage.getItem(CONNECTION_STRING_NAME_LIST)).toEqual(`${connectionString},one,two`);
+    });
 });
