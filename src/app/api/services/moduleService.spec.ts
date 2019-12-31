@@ -4,6 +4,7 @@
  **********************************************************/
 import 'jest';
 import * as DevicesService from './devicesService';
+import * as ModuleService from './moduleService';
 import { HTTP_OPERATION_TYPES } from '../constants';
 import { getConnectionInfoFromConnectionString } from '../shared/utils';
 import { DataPlaneParameters } from '../parameters/deviceParameters';
@@ -88,7 +89,7 @@ describe('moduleService', () => {
                 sharedAccessSignature: connectionInformation.sasToken
             };
 
-            const result = await DevicesService.fetchModuleIdentities(parameters);
+            const result = await ModuleService.fetchModuleIdentities(parameters);
 
             const serviceRequestParams = {
                 body: JSON.stringify(dataPlaneRequest),
@@ -105,7 +106,7 @@ describe('moduleService', () => {
 
         it('throws Error when promise rejects', async done => {
             window.fetch = jest.fn().mockRejectedValueOnce(new Error('Not found'));
-            await expect(DevicesService.fetchModuleIdentities(parameters)).rejects.toThrowError('Not found');
+            await expect(ModuleService.fetchModuleIdentities(parameters)).rejects.toThrowError('Not found');
             done();
         });
     });
@@ -139,7 +140,7 @@ describe('moduleService', () => {
                 sharedAccessSignature: connectionInformation.sasToken
             };
 
-            const result = await DevicesService.addModuleIdentity(parameters);
+            const result = await ModuleService.addModuleIdentity(parameters);
 
             const serviceRequestParams = {
                 body: JSON.stringify(dataPlaneRequest),
@@ -156,7 +157,7 @@ describe('moduleService', () => {
 
         it('throws Error when promise rejects', async done => {
             window.fetch = jest.fn().mockRejectedValueOnce(new Error('Not found'));
-            await expect(DevicesService.addModuleIdentity(parameters)).rejects.toThrowError('Not found');
+            await expect(ModuleService.addModuleIdentity(parameters)).rejects.toThrowError('Not found');
             done();
         });
     });
@@ -190,7 +191,7 @@ describe('moduleService', () => {
                 sharedAccessSignature: connectionInformation.sasToken
             };
 
-            const result = await DevicesService.fetchModuleIdentityTwin(parameters);
+            const result = await ModuleService.fetchModuleIdentityTwin(parameters);
 
             const serviceRequestParams = {
                 body: JSON.stringify(dataPlaneRequest),
@@ -207,7 +208,58 @@ describe('moduleService', () => {
 
         it('throws Error when promise rejects', async done => {
             window.fetch = jest.fn().mockRejectedValueOnce(new Error('Not found'));
-            await expect(DevicesService.fetchModuleIdentityTwin(parameters)).rejects.toThrowError('Not found');
+            await expect(ModuleService.fetchModuleIdentityTwin(parameters)).rejects.toThrowError('Not found');
+            done();
+        });
+    });
+
+    context('fetchModuleIdentity', () => {
+        const parameters = {
+            connectionString,
+            deviceId,
+            moduleId
+        };
+
+        it('calls fetch with specified parameters and returns module identity when response is 200', async () => {
+            jest.spyOn(DevicesService, 'dataPlaneConnectionHelper').mockReturnValue({
+                connectionInfo: getConnectionInfoFromConnectionString(parameters.connectionString), sasToken});
+
+            // tslint:disable
+            const response = {
+                json: () => {return {
+                    body: moduleIdentity
+                    }},
+                status: 200
+            } as any;
+            // tslint:enable
+            jest.spyOn(window, 'fetch').mockResolvedValue(response);
+
+            const connectionInformation = mockDataPlaneConnectionHelper({connectionString});
+            const dataPlaneRequest: DevicesService.DataPlaneRequest = {
+                hostName: connectionInformation.connectionInfo.hostName,
+                httpMethod: HTTP_OPERATION_TYPES.Get,
+                path: `devices/${deviceId}/modules/${moduleId}`,
+                sharedAccessSignature: connectionInformation.sasToken
+            };
+
+            const result = await ModuleService.fetchModuleIdentity(parameters);
+
+            const serviceRequestParams = {
+                body: JSON.stringify(dataPlaneRequest),
+                cache: 'no-cache',
+                credentials: 'include',
+                headers,
+                method: HTTP_OPERATION_TYPES.Post,
+                mode: 'cors',
+            };
+
+            expect(fetch).toBeCalledWith(DevicesService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
+            expect(result).toEqual(moduleIdentity);
+        });
+
+        it('throws Error when promise rejects', async done => {
+            window.fetch = jest.fn().mockRejectedValueOnce(new Error('Not found'));
+            await expect(ModuleService.fetchModuleIdentity(parameters)).rejects.toThrowError('Not found');
             done();
         });
     });

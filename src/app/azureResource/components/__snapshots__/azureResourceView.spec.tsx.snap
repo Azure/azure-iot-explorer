@@ -51,28 +51,9 @@ exports[`AzureResourceView matches snapshot when current resource is failed 1`] 
     <main
       role="main"
     >
-      <Route
-        component={
-          Object {
-            "$$typeof": Symbol(react.memo),
-            "WrappedComponent": [Function],
-            "compare": null,
-            "displayName": "Connect(withRouter(DeviceListComponent))",
-            "type": [Function],
-          }
-        }
-        exact={true}
-        path="url/devices"
-      />
-      <Route
-        component={[Function]}
-        exact={true}
-        path="url/devices/add"
-      />
-      <Route
-        component={[Function]}
-        path="url/devices/deviceDetail/"
-      />
+      <div>
+        azureResource.access.failed
+      </div>
     </main>
   </div>
 </div>
@@ -90,28 +71,9 @@ exports[`AzureResourceView matches snapshot when current resource is unauthorize
     <main
       role="main"
     >
-      <Route
-        component={
-          Object {
-            "$$typeof": Symbol(react.memo),
-            "WrappedComponent": [Function],
-            "compare": null,
-            "displayName": "Connect(withRouter(DeviceListComponent))",
-            "type": [Function],
-          }
-        }
-        exact={true}
-        path="url/devices"
-      />
-      <Route
-        component={[Function]}
-        exact={true}
-        path="url/devices/add"
-      />
-      <Route
-        component={[Function]}
-        path="url/devices/deviceDetail/"
-      />
+      <div>
+        azureResource.access.unauthorized
+      </div>
     </main>
   </div>
 </div>
@@ -128,30 +90,7 @@ exports[`AzureResourceView matches snapshot when current resource is undefined 1
     <withRouter(Connect(SettingsPane)) />
     <main
       role="main"
-    >
-      <Route
-        component={
-          Object {
-            "$$typeof": Symbol(react.memo),
-            "WrappedComponent": [Function],
-            "compare": null,
-            "displayName": "Connect(withRouter(DeviceListComponent))",
-            "type": [Function],
-          }
-        }
-        exact={true}
-        path="url/devices"
-      />
-      <Route
-        component={[Function]}
-        exact={true}
-        path="url/devices/add"
-      />
-      <Route
-        component={[Function]}
-        path="url/devices/deviceDetail/"
-      />
-    </main>
+    />
   </div>
 </div>
 `;
@@ -168,28 +107,9 @@ exports[`AzureResourceView matches snapshot when current resource is verifying 1
     <main
       role="main"
     >
-      <Route
-        component={
-          Object {
-            "$$typeof": Symbol(react.memo),
-            "WrappedComponent": [Function],
-            "compare": null,
-            "displayName": "Connect(withRouter(DeviceListComponent))",
-            "type": [Function],
-          }
-        }
-        exact={true}
-        path="url/devices"
-      />
-      <Route
-        component={[Function]}
-        exact={true}
-        path="url/devices/add"
-      />
-      <Route
-        component={[Function]}
-        path="url/devices/deviceDetail/"
-      />
+      <div>
+        azureResource.access.verifying
+      </div>
     </main>
   </div>
 </div>

@@ -102,8 +102,7 @@ const reducer = reducerWithInitialState<DeviceListStateType>(deviceListStateInit
         payload.params.forEach(id => deviceList.delete(id));
         return state.merge({
             devices: state.devices.merge({
-                deviceList,
-                deviceListSynchronizationStatus: SynchronizationStatus.deleted,
+                deviceListSynchronizationStatus: SynchronizationStatus.deleted
             })
         }).set('deviceQuery', {
             clauses: [],

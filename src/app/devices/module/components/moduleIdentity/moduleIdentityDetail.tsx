@@ -21,7 +21,6 @@ import { ModuleTwin } from '../../../../api/models/moduleTwin';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
 import { DeviceAuthenticationType } from '../../../../api/models/deviceAuthenticationType';
 import '../../../../css/_deviceDetail.scss';
-// import { getConnectionInfoFromConnectionString } from 'src/app/api/shared/utils';
 
 const EditorPromise = import('react-monaco-editor');
 const Editor = React.lazy(() => EditorPromise);
@@ -131,7 +130,7 @@ export default class ModuleIdentityDetailComponent
 
     // tslint:disable-next-line:cyclomatic-complexity
     private readonly showModuleIdentity = (context: LocalizationContextInterface) => {
-        const authType = (this.props.moduleIdentity && this.props.moduleIdentity.authentication.type || DeviceAuthenticationType.None).toLowerCase();
+        const authType = (this.props.moduleIdentity && this.props.moduleIdentity.authentication && this.props.moduleIdentity.authentication.type || DeviceAuthenticationType.None).toLowerCase();
 
         switch (authType) {
             case DeviceAuthenticationType.SymmetricKey.toLowerCase():
@@ -168,23 +167,23 @@ export default class ModuleIdentityDetailComponent
                     labelCallout={context.t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryKeyTooltip)}
                 />
 
-                {/* <MaskedCopyableTextFieldContainer
-                    ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionString)}
-                    label={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionString)}
-                    value={generateConnectionString(connectionString, identity.deviceId, identity.authentication.symmetricKey.primaryKey)}
+                <MaskedCopyableTextFieldContainer
+                    ariaLabel={context.t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.primaryConnectionString)}
+                    label={context.t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.primaryConnectionString)}
+                    value={this.generateConnectionString(this.props.moduleIdentity.authentication.symmetricKey.primaryKey)}
                     allowMask={true}
                     t={context.t}
                     readOnly={true}
                 />
 
                 <MaskedCopyableTextFieldContainer
-                    ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString)}
-                    label={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString)}
-                    value={generateConnectionString(connectionString, identity.deviceId, identity.authentication.symmetricKey.secondaryKey)}
+                    ariaLabel={context.t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString)}
+                    label={context.t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString)}
+                    value={this.generateConnectionString(this.props.moduleIdentity.authentication.symmetricKey.secondaryKey)}
                     allowMask={true}
                     t={context.t}
                     readOnly={true}
-                /> */}
+                />
             </>
         );
     }
@@ -235,7 +234,7 @@ export default class ModuleIdentityDetailComponent
                                     {(themeContext: ThemeContextInterface) => (
                                         <Editor
                                             language="json"
-                                            height="calc(100vh - 700px)"
+                                            height="calc(100vh - 680px)"
                                             value={JSON.stringify(this.props.moduleIdentityTwin, null, '\t')}
                                             options={{
                                                 automaticLayout: true,
@@ -259,9 +258,10 @@ export default class ModuleIdentityDetailComponent
         this.props.history.push(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
     }
 
-    // private readonly generateConnectionString = (connectionString: string, deviceId: string, key: string): string => {
-    //     const connectionObject = getConnectionInfoFromConnectionString(connectionString);
-    //     return connectionObject.hostName && deviceId && key ?
-    //         `HostName=${connectionObject.hostName};DeviceId=${deviceId};SharedAccessKey=${key}` : '';
-    // };
+    private readonly generateConnectionString = (key: string): string => {
+        const deviceId = getDeviceIdFromQueryString(this.props);
+        const moduleId = getModuleIdentityIdFromQueryString(this.props);
+        const hostName = this.props.match.url && this.props.match.url.match(new RegExp(`${ROUTE_PARTS.RESOURCE}/` + '(.*)' + `/${ROUTE_PARTS.DEVICES}`))[1];
+        return `HostName=${hostName};DeviceId=${deviceId};ModuleId=${moduleId};SharedAccessKey=${key}`;
+    }
 }

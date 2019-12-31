@@ -45,6 +45,24 @@ const getComponent = (overrides = {}) => {
     return <ModuleIdentityDetailComponent {...props} />;
 };
 
+// tslint:disable
+const moduleIdentityTwin: ModuleTwin = {
+    deviceId: 'deviceId',
+    moduleId: 'moduleId',
+    etag: 'AAAAAAAAAAE=',
+    deviceEtag: 'AAAAAAAAAAE=',
+    status: 'enabled',
+    statusUpdateTime: '0001-01-01T00:00:00Z',
+    lastActivityTime: '0001-01-01T00:00:00Z',
+    x509Thumbprint:  {primaryThumbprint: null, secondaryThumbprint: null},
+    version: 1,
+    connectionState: 'Disconnected',
+    cloudToDeviceMessageCount: 0,
+    authenticationType:'sas',
+    properties: {}
+}
+// tslint:enable
+
 describe('devices/components/moduleIdentityRoutes', () => {
     context('snapshot', () => {
         it('matches snapshot while loading', () => {
@@ -53,27 +71,72 @@ describe('devices/components/moduleIdentityRoutes', () => {
     });
 
     context('snapshot', () => {
-        it('matches snapshot after fetched', () => {
-            // tslint:disable
-            const moduleIdentityTwin: ModuleTwin = {
-                deviceId: 'deviceId',
-                moduleId: 'moduleId',
-                etag: 'AAAAAAAAAAE=',
-                deviceEtag: 'AAAAAAAAAAE=',
-                status: 'enabled',
-                statusUpdateTime: '0001-01-01T00:00:00Z',
-                lastActivityTime: '0001-01-01T00:00:00Z',
-                x509Thumbprint:  {primaryThumbprint: null, secondaryThumbprint: null},
-                version: 1,
-                connectionState: 'Disconnected',
-                cloudToDeviceMessageCount: 0,
-                authenticationType:'sas',
-                properties: {}
-            }
-            // tslint:enable
+        it('matches snapshot after module twin is fetched', () => {
             testSnapshot(getComponent({
                 moduleIdentityTwin,
-                synchronizationStatus: SynchronizationStatus.fetched
+                moduleIdentityTwinSyncStatus: SynchronizationStatus.fetched
+            }));
+        });
+    });
+
+    context('snapshot', () => {
+        const deviceId = 'deviceId';
+        const moduleId = 'moduleId';
+        it('matches snapshot after module identity is fetched', () => {
+            testSnapshot(getComponent({
+                moduleIdentity: {
+                    authentication: null,
+                    deviceId,
+                    moduleId
+                },
+                moduleIdentitySyncStatus: SynchronizationStatus.fetched
+            }));
+
+            testSnapshot(getComponent({
+                moduleIdentity: {
+                    authentication: {
+                        symmetricKey: {
+                            primaryKey: 'key1',
+                            secondaryKey: 'key2'
+                        },
+                        type: 'sas',
+                        x509Thumbprint: null
+                    },
+                    deviceId,
+                    moduleId
+                },
+                moduleIdentitySyncStatus: SynchronizationStatus.fetched
+            }));
+
+            testSnapshot(getComponent({
+                moduleIdentity: {
+                    authentication: {
+                        symmetricKey: null,
+                        type: 'selfSigned',
+                        x509Thumbprint: {
+                            primaryThumbprint: 'thumbprint1',
+                            secondaryThumbprint: 'thumbprint2'
+                        }
+                    },
+                    deviceId,
+                    moduleId
+                },
+                moduleIdentitySyncStatus: SynchronizationStatus.fetched
+            }));
+
+            testSnapshot(getComponent({
+                moduleIdentity: {
+                    authentication: {
+                        symmetricKey: null,
+                        type: 'certificateAuthority',
+                        x509Thumbprint: null
+                    },
+                    deviceId,
+                    moduleId
+                },
+                moduleIdentitySyncStatus: SynchronizationStatus.fetched,
+                moduleIdentityTwin,
+                moduleIdentityTwinSyncStatus: SynchronizationStatus.fetched
             }));
         });
     });

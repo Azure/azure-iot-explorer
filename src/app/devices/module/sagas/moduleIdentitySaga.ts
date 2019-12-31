@@ -4,7 +4,7 @@
  **********************************************************/
 import { call, put, select } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
-import { fetchModuleIdentities, addModuleIdentity, fetchModuleIdentityTwin, fetchModuleIdentity } from '../../../api/services/devicesService';
+import { fetchModuleIdentities, addModuleIdentity, fetchModuleIdentityTwin, fetchModuleIdentity } from '../../../api/services/moduleService';
 import { addNotificationAction } from '../../../notifications/actions';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
@@ -105,7 +105,7 @@ export function* getModuleIdentityTwinSaga(action: Action<GetModuleIdentityTwinA
 export function* getModuleIdentitySaga(action: Action<GetModuleIdentityActionParameters>) {
     try {
         const parameters = {
-            connectionString: yield select(getConnectionStringSelector),
+            connectionString: yield call(getActiveAzureResourceConnectionStringSaga),
             deviceId: action.payload.deviceId,
             moduleId: action.payload.moduleId
         };

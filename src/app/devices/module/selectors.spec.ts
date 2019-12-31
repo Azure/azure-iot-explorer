@@ -7,13 +7,20 @@ import { Record } from 'immutable';
 import { SynchronizationStatus } from './../../api/models/synchronizationStatus';
 import {
     getModuleIdentityListWrapperSelector,
-    getModuleIdentityTwinWrapperSelector
+    getModuleIdentityTwinWrapperSelector,
+    getModuleIdentityWrapperSelector
 } from './selectors';
 import { getInitialState } from './../../api/shared/testHelper';
 import { ModuleTwin } from '../../api/models/moduleTwin';
+import { ModuleIdentity } from './../../api/models/moduleIdentity';
 
 describe('getModuleSelector', () => {
     const state = getInitialState();
+    const moduleIdentity: ModuleIdentity = {
+        authentication: null,
+        deviceId: 'testDevice',
+        moduleId: 'testModule'
+    };
     /* tslint:disable */
     const moduleIdentityTwin: ModuleTwin = {
         deviceId: 'deviceId',
@@ -32,12 +39,12 @@ describe('getModuleSelector', () => {
     }
     /* tslint:enable */
     state.moduleState = Record({
+        moduleIdentity : {
+            moduleIdentity,
+            synchronizationStatus: SynchronizationStatus.working
+        },
         moduleIdentityList: {
-            moduleIdentities: [{
-                    authentication: null,
-                    deviceId: 'testDevice',
-                    moduleId: 'testModule'
-                }],
+            moduleIdentities: [moduleIdentity],
             synchronizationStatus: SynchronizationStatus.working
         },
         moduleIdentityTwin: {
@@ -60,6 +67,13 @@ describe('getModuleSelector', () => {
     it('returns module twin wrapper', () => {
         expect(getModuleIdentityTwinWrapperSelector(state)).toEqual({
             moduleIdentityTwin,
+            synchronizationStatus: SynchronizationStatus.working
+        });
+    });
+
+    it('returns module twin', () => {
+        expect(getModuleIdentityWrapperSelector(state)).toEqual({
+            moduleIdentity,
             synchronizationStatus: SynchronizationStatus.working
         });
     });

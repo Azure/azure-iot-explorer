@@ -35,22 +35,21 @@ export const AzureResourceView: React.FC<AzureResourceViewProps> = props => {
     }, [currentHostName]); // tslint:disable-line:align
 
     const renderContents = (): JSX.Element => {
-        // temporarily commented out to enable refresh scenario
-        // if (!activeAzureResource) {
-        //     return (<></>);
-        // }
+        if (!activeAzureResource) {
+            return (<></>);
+        }
 
-        // if (activeAzureResource.accessVerificationState === AccessVerificationState.Verifying) {
-        //     return (<div>{t(ResourceKeys.azureResource.access.verifying)}</div>);
-        // }
+        if (activeAzureResource.accessVerificationState === AccessVerificationState.Verifying) {
+            return (<div>{t(ResourceKeys.azureResource.access.verifying)}</div>);
+        }
 
-        // if (activeAzureResource.accessVerificationState === AccessVerificationState.Unauthorized) {
-        //     return (<div>{t(ResourceKeys.azureResource.access.unauthorized)}</div>);
-        // }
+        if (activeAzureResource.accessVerificationState === AccessVerificationState.Unauthorized) {
+            return (<div>{t(ResourceKeys.azureResource.access.unauthorized)}</div>);
+        }
 
-        // if (activeAzureResource.accessVerificationState === AccessVerificationState.Failed) {
-        //     return (<div>{t(ResourceKeys.azureResource.access.failed)}</div>);
-        // }
+        if (activeAzureResource.accessVerificationState === AccessVerificationState.Failed) {
+            return (<div>{t(ResourceKeys.azureResource.access.failed)}</div>);
+        }
 
         return (
             <>

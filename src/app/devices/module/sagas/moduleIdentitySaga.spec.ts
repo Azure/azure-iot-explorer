@@ -5,14 +5,15 @@
 import 'jest';
 import { SagaIteratorClone, cloneableGenerator } from 'redux-saga/utils';
 import { select, call, put } from 'redux-saga/effects';
-import { getModuleIdentitiesSaga, addModuleIdentitySaga, getModuleIdentityTwinSaga } from './moduleIdentitySaga';
-import { getModuleIdentitiesAction, addModuleIdentityAction, getModuleIdentityTwinAction } from '../actions';
+import { getModuleIdentitiesSaga, addModuleIdentitySaga, getModuleIdentityTwinSaga, getModuleIdentitySaga } from './moduleIdentitySaga';
+import { getModuleIdentitiesAction, addModuleIdentityAction, getModuleIdentityTwinAction, getModuleIdentityAction } from '../actions';
 import { getConnectionStringSelector } from '../../../login/selectors';
-import * as DevicesService from '../../../api/services/devicesService';
+import * as ModuleService from '../../../api/services/moduleService';
 import { addNotificationAction } from '../../../notifications/actions';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { NotificationType } from '../../../api/models/notification';
-import { ModuleIdentity, ModuleTwin } from '../../../api/models/moduleIdentity';
+import { ModuleIdentity } from '../../../api/models/moduleIdentity';
+import { ModuleTwin } from '../../../api/models/moduleTwin';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 
 describe('moduleIdentitySaga', () => {
@@ -35,7 +36,7 @@ describe('moduleIdentitySaga', () => {
             getModuleIdentitySagaGenerator = cloneableGenerator(getModuleIdentitiesSaga)(getModuleIdentitiesAction.started(deviceId));
         });
 
-        const mockFetchModuleIdentities = jest.spyOn(DevicesService, 'fetchModuleIdentities').mockImplementationOnce(() => {
+        const mockFetchModuleIdentities = jest.spyOn(ModuleService, 'fetchModuleIdentities').mockImplementationOnce(() => {
             return null;
         });
 
@@ -94,7 +95,7 @@ describe('moduleIdentitySaga', () => {
             addModuleIdentitySagaGenerator = cloneableGenerator(addModuleIdentitySaga)(addModuleIdentityAction.started(moduleIdentity));
         });
 
-        const mockAddModuleIdentity = jest.spyOn(DevicesService, 'addModuleIdentity').mockImplementationOnce(parameters => {
+        const mockAddModuleIdentity = jest.spyOn(ModuleService, 'addModuleIdentity').mockImplementationOnce(parameters => {
             return null;
         });
 
@@ -183,7 +184,7 @@ describe('moduleIdentitySaga', () => {
             getModuleIdentityTwinSagaGenerator = cloneableGenerator(getModuleIdentityTwinSaga)(getModuleIdentityTwinAction.started(getModuleIdentityTwinParameter));
         });
 
-        const mockGetModuleIdentityTwin = jest.spyOn(DevicesService, 'fetchModuleIdentityTwin').mockImplementationOnce(parameters => {
+        const mockGetModuleIdentityTwin = jest.spyOn(ModuleService, 'fetchModuleIdentityTwin').mockImplementationOnce(parameters => {
             return null;
         });
 
@@ -230,6 +231,66 @@ describe('moduleIdentitySaga', () => {
             expect(failure.next(error)).toEqual({
                 done: false,
                 value: put(getModuleIdentityTwinAction.failed({params: getModuleIdentityTwinParameter, error}))
+            });
+            expect(failure.next().done).toEqual(true);
+        });
+
+    });
+
+    describe('getModuleIdentitySaga', () => {
+
+        const getModuleIdentityParameter = {deviceId, moduleId};
+        beforeAll(() => {
+            getModuleIdentitySagaGenerator = cloneableGenerator(getModuleIdentitySaga)(getModuleIdentityAction.started(getModuleIdentityParameter));
+        });
+
+        const mockGetModuleIdentity = jest.spyOn(ModuleService, 'fetchModuleIdentity').mockImplementationOnce(parameters => {
+            return null;
+        });
+
+        it('fetches the connection string', () => {
+            expect(getModuleIdentitySagaGenerator.next()).toEqual({
+                done: false,
+                value: call(getActiveAzureResourceConnectionStringSaga)
+            });
+        });
+
+        it('gets the module identity', () => {
+            expect(getModuleIdentitySagaGenerator.next(connectionString)).toEqual({
+                done: false,
+                value: call(mockGetModuleIdentity, { connectionString, ...getModuleIdentityParameter })
+            });
+        });
+
+        it('finishes the action', () => {
+            const success = getModuleIdentitySagaGenerator.clone();
+            expect(success.next(moduleIdentity)).toEqual({
+                done: false,
+                value: put(getModuleIdentityAction.done({params: getModuleIdentityParameter, result: moduleIdentity}))
+            });
+            expect(success.next().done).toEqual(true);
+        });
+
+        it('fails on error', () => {
+            const failure = getModuleIdentitySagaGenerator.clone();
+            const error = { code: -1 };
+            expect(failure.throw(error)).toEqual({
+                done: false,
+                value: put(addNotificationAction.started({
+                    text: {
+                        translationKey: ResourceKeys.notifications.getModuleIdentityOnError,
+                        translationOptions: {
+                            error,
+                            moduleId
+                        },
+                    },
+                    type: NotificationType.error
+                }))
+            });
+
+            expect(failure.next(error)).toEqual({
+                done: false,
+                value: put(getModuleIdentityAction.failed({params: getModuleIdentityParameter, error}))
             });
             expect(failure.next().done).toEqual(true);
         });
