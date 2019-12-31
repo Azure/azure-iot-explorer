@@ -12,7 +12,10 @@ const reducer = reducerWithInitialState<ConnectionStateType>(connectionStateInit
         // save connection string to local storage with a max length of ${CONNECTION_STRING_LIST_MAX_LENGTH}
         if (payload && payload.connectionStringList) {
             const recentItems = payload.connectionStringList.slice(0, CONNECTION_STRING_LIST_MAX_LENGTH);
-            localStorage.setItem(CONNECTION_STRING_NAME_LIST, recentItems.join(','));
+            const connectionStringList = payload.connectionStringList.filter(s => s !== payload.connectionString);
+            connectionStringList.unshift(payload.connectionString);
+
+            localStorage.setItem(CONNECTION_STRING_NAME_LIST, connectionStringList.join(','));
         }
         else {
             localStorage.setItem(CONNECTION_STRING_NAME_LIST, payload.connectionString);
