@@ -9,14 +9,14 @@ import { fetchModuleIdentities, addModuleIdentity } from '../../../api/services/
 import { addNotificationAction } from '../../../notifications/actions';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { getConnectionStringSelector } from '../../../login/selectors';
+import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { getModuleIdentitiesAction, addModuleIdentityAction } from '../actions';
 import { ModuleIdentity } from './../../../api/models/moduleIdentity';
 
 export function* getModuleIdentitiesSaga(action: Action<string>) {
     try {
         const parameters = {
-            connectionString: yield select(getConnectionStringSelector),
+            connectionString: yield call(getActiveAzureResourceConnectionStringSaga),
             deviceId: action.payload,
         };
 
@@ -42,7 +42,7 @@ export function* getModuleIdentitiesSaga(action: Action<string>) {
 export function* addModuleIdentitySaga(action: Action<ModuleIdentity>) {
     try {
         const parameters = {
-            connectionString: yield select(getConnectionStringSelector),
+            connectionString: yield call(getActiveAzureResourceConnectionStringSaga),
             moduleIdentity: action.payload,
         };
 

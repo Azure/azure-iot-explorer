@@ -33,7 +33,7 @@ export interface DeviceIdentityDispatchProps {
 
 export interface DeviceIdentityDataProps {
     identityWrapper: DeviceIdentityWrapper;
-    connectionString: string;
+    // connectionString: string;
 }
 
 export interface DeviceIdentityState {

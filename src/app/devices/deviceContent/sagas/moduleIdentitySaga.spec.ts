@@ -7,7 +7,7 @@ import { SagaIteratorClone, cloneableGenerator } from 'redux-saga/utils';
 import { select, call, put } from 'redux-saga/effects';
 import { getModuleIdentitiesSaga, addModuleIdentitySaga } from './moduleIdentitySaga';
 import { getModuleIdentitiesAction, addModuleIdentityAction } from '../actions';
-import { getConnectionStringSelector } from '../../../login/selectors';
+import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import * as DevicesService from '../../../api/services/devicesService';
 import { addNotificationAction } from '../../../notifications/actions';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
@@ -40,7 +40,7 @@ describe('moduleIdentitySaga', () => {
         it('fetches the connection string', () => {
             expect(getModuleIdentitySagaGenerator.next()).toEqual({
                 done: false,
-                value: select(getConnectionStringSelector)
+                value: call(getActiveAzureResourceConnectionStringSaga)
             });
         });
 
@@ -99,7 +99,7 @@ describe('moduleIdentitySaga', () => {
         it('fetches the connection string', () => {
             expect(addModuleIdentitySagaGenerator.next()).toEqual({
                 done: false,
-                value: select(getConnectionStringSelector)
+                value: call(getActiveAzureResourceConnectionStringSaga)
             });
         });
 

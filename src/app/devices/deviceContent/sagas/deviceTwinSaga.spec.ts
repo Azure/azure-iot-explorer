@@ -7,7 +7,7 @@ import { SagaIteratorClone, cloneableGenerator } from 'redux-saga/utils';
 import { select, call, put } from 'redux-saga/effects';
 import { getDeviceTwinSaga, updateDeviceTwinSaga } from './deviceTwinSaga';
 import { getTwinAction, updateTwinAction } from '../actions';
-import { getConnectionStringSelector } from '../../../login/selectors';
+import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import * as DevicesService from '../../../api/services/devicesService';
 import { Twin } from '../../../api/models/device';
 import { addNotificationAction } from '../../../notifications/actions';
@@ -54,7 +54,7 @@ describe('deviceTwinSaga', () => {
         it('fetches the connection string', () => {
             expect(updateDeviceTwinSagaGenerator.next()).toEqual({
                 done: false,
-                value: select(getConnectionStringSelector)
+                value: call(getActiveAzureResourceConnectionStringSaga)
             });
         });
 
@@ -128,7 +128,7 @@ describe('deviceTwinSaga', () => {
         it('fetches the connection string', () => {
             expect(getDeviceTwinSagaGenerator.next()).toEqual({
                 done: false,
-                value: select(getConnectionStringSelector)
+                value: call(getActiveAzureResourceConnectionStringSaga)
             });
         });
 

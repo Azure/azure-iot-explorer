@@ -10,7 +10,7 @@ import { addNotificationAction } from '../../../notifications/actions';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getInterfaceNameSelector } from '../selectors';
-import { getConnectionStringSelector } from './../../../login/selectors';
+import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 
 export function* invokeDigitalTwinInterfaceCommandSaga(action: Action<InvokeDigitalTwinInterfaceCommandActionParameters>) {
     const toastId: number = Math.random();
@@ -20,7 +20,7 @@ export function* invokeDigitalTwinInterfaceCommandSaga(action: Action<InvokeDigi
         const payload = yield call(notifyMethodInvoked, toastId, action);
         const response = yield call(invokeDigitalTwinInterfaceCommand, {
             commandName: action.payload.commandName,
-            connectionString: yield select(getConnectionStringSelector),
+            connectionString: yield call(getActiveAzureResourceConnectionStringSaga),
             digitalTwinId: action.payload.digitalTwinId,
             interfaceName,
             payload

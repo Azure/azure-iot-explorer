@@ -29,7 +29,7 @@ export interface DirectMethodState {
 }
 
 export interface DirectMethodProps {
-    connectionString: string;
+    // connectionString: string;
     onInvokeMethodClick: (properties: InvokeMethodParameters) => void;
 }
 
@@ -98,11 +98,11 @@ export default class DirectMethod extends React.Component<DirectMethodProps & Ro
 
     private readonly onInvokeMethodClick = () => {
         const { connectionTimeout, methodName, responseTimeout, payload } = this.state;
-        const { connectionString } = this.props;
+        // const { connectionString } = this.props;
 
         this.props.onInvokeMethodClick({
             connectTimeoutInSeconds: connectionTimeout,
-            connectionString,
+            // connectionString,
             deviceId: getDeviceIdFromQueryString(this.props),
             methodName,
             payload: payload ? JSON.parse(payload) : {},

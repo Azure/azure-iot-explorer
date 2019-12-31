@@ -16,7 +16,7 @@ import { RepositoryLocationSettings } from '../../../settings/state';
 import { REPOSITORY_LOCATION_TYPE } from './../../../constants/repositoryLocationTypes';
 import { getRepoConnectionInfoFromConnectionString } from '../../../api/shared/utils';
 import { invokeDigitalTwinInterfaceCommand, fetchDigitalTwinInterfaceProperties } from '../../../api/services/devicesService';
-import { getConnectionStringSelector } from '../../../login/selectors';
+import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { getDigitalTwinInterfaceIdsSelector } from '../selectors';
 import { InterfaceNotImplementedException } from './../../../shared/utils/exceptions/interfaceNotImplementedException';
 import { modelDefinitionInterfaceId, modelDefinitionInterfaceName, modelDefinitionCommandName } from '../../../constants/modelDefinitionConstants';
@@ -78,7 +78,7 @@ export function *getModelDefinitionFromPrivateRepo(action: Action<GetModelDefini
     return yield call(fetchModelDefinition, parameters);
 }
 
-export function *getModelDefinitionFromPublicRepo(action: Action<GetModelDefinitionActionParameters>, location: RepositoryLocationSettings) {
+export function* getModelDefinitionFromPublicRepo(action: Action<GetModelDefinitionActionParameters>, location: RepositoryLocationSettings) {
     const parameters: FetchModelParameters = {
         id: action.payload.interfaceId,
         repoServiceHostName: yield select(getPublicRepositoryHostName),
@@ -87,11 +87,11 @@ export function *getModelDefinitionFromPublicRepo(action: Action<GetModelDefinit
     return yield call(fetchModelDefinition, parameters);
 }
 
-export function *getModelDefinitionFromDevice(action: Action<GetModelDefinitionActionParameters>) {
+export function* getModelDefinitionFromDevice(action: Action<GetModelDefinitionActionParameters>) {
     // dispatch getDigitalTwinInterfacePropertiesAction to make sure it is done before selecting interfaces from the store
     try {
         const parameters: FetchDigitalTwinInterfacePropertiesParameters = {
-            connectionString: yield select(getConnectionStringSelector),
+            connectionString: yield call(getActiveAzureResourceConnectionStringSaga),
             digitalTwinId: action.payload.digitalTwinId,
         };
 
@@ -111,14 +111,14 @@ export function *getModelDefinitionFromDevice(action: Action<GetModelDefinitionA
     // if interface is implemented, invoke command on device
     return yield call(invokeDigitalTwinInterfaceCommand, {
         commandName: modelDefinitionCommandName,
-        connectionString: yield select(getConnectionStringSelector),
+        connectionString: yield call(getActiveAzureResourceConnectionStringSaga),
         digitalTwinId: action.payload.digitalTwinId,
         interfaceName: modelDefinitionInterfaceName,
         payload: action.payload.interfaceId
     });
 }
 
-export function *getModelDefinition(action: Action<GetModelDefinitionActionParameters>, location: RepositoryLocationSettings) {
+export function* getModelDefinition(action: Action<GetModelDefinitionActionParameters>, location: RepositoryLocationSettings) {
     if (location.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Private) {
         return yield call(getModelDefinitionFromPrivateRepo, action, location);
     }

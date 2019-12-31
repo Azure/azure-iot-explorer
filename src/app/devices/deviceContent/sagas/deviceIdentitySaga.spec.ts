@@ -7,7 +7,7 @@ import { select, put, call } from 'redux-saga/effects';
 import { cloneableGenerator } from 'redux-saga/utils';
 import { getDeviceIdentitySaga, updateDeviceIdentitySaga } from './deviceIdentitySaga';
 import { getDeviceIdentityAction, updateDeviceIdentityAction } from '../actions';
-import { getConnectionStringSelector } from '../../../login/selectors';
+import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import * as DevicesService from '../../../api/services/devicesService';
 import { DeviceIdentity } from '../../../api/models/deviceIdentity';
 import { addNotificationAction } from '../../../notifications/actions';
@@ -48,7 +48,7 @@ describe('deviceIdentitySaga', () => {
             // get connection string
             expect(getdeviceIdentitySagaGenerator.next()).toEqual({
                 done: false,
-                value: select(getConnectionStringSelector)
+                value: call(getActiveAzureResourceConnectionStringSaga)
             });
 
             // call for device id
@@ -110,7 +110,7 @@ describe('deviceIdentitySaga', () => {
             // get connection string
             expect(updateDeviceIdentitySagaGenerator.next()).toEqual({
                 done: false,
-                value: select(getConnectionStringSelector)
+                value: call(getActiveAzureResourceConnectionStringSaga)
             });
 
             // call to update

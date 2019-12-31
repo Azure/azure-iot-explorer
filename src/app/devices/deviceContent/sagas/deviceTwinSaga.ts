@@ -2,20 +2,20 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { call, put, select } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
 import { fetchDeviceTwin, updateDeviceTwin } from '../../../api/services/devicesService';
 import { addNotificationAction } from '../../../notifications/actions';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { getConnectionStringSelector } from '../../../login/selectors';
+import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { getTwinAction, UpdateTwinActionParameters, updateTwinAction } from '../actions';
 import { UpdateDeviceTwinParameters } from '../../../api/parameters/deviceParameters';
 
 export function* getDeviceTwinSaga(action: Action<string>) {
     try {
         const parameters = {
-            connectionString: yield select(getConnectionStringSelector),
+            connectionString: yield call(getActiveAzureResourceConnectionStringSaga),
             deviceId: action.payload,
         };
 
@@ -41,7 +41,7 @@ export function* getDeviceTwinSaga(action: Action<string>) {
 export function* updateDeviceTwinSaga(action: Action<UpdateTwinActionParameters>) {
     try {
         const parameters: UpdateDeviceTwinParameters = {
-            connectionString: yield select(getConnectionStringSelector),
+            connectionString: yield call(getActiveAzureResourceConnectionStringSaga),
             deviceId: action.payload.deviceId,
             deviceTwin: action.payload.twin,
         };
