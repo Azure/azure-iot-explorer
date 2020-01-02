@@ -8,7 +8,7 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
-import { generateConnectionStringValidationError } from '../../shared/utils/hubConnectionStringHelper';
+import { generateConnectionStringValidationError, formatConnectionStrings } from '../../shared/utils/hubConnectionStringHelper';
 import HubConnectionStringSection from './hubConnectionStringSection';
 import AppVersionMessageBar from './appVersionMessageBar';
 import { Notification } from '../../api/models/notification';
@@ -19,6 +19,7 @@ import '../../css/_connectivityPane.scss';
 
 export interface ConnectivityPaneDispatchProps {
     setActiveAzureResource: (parameters: SetActiveAzureResourceByConnectionStringActionParameters) => void;
+    setConnectionStrings: (connectionStrings: string[]) => void;
     addNotification: (notification: Notification) => void;
 }
 
@@ -36,8 +37,12 @@ export interface ConnectivityState {
 export default class ConnectivityPane extends React.Component<RouteComponentProps & ConnectivityPaneDataProps & ConnectivityPaneDispatchProps, ConnectivityState> {
     constructor(props: RouteComponentProps & ConnectivityPaneDataProps & ConnectivityPaneDispatchProps) {
         super(props);
+
+        const selectedConnectionString = this.props.connectionString ||
+            (this.props.connectionStringList && this.props.connectionStringList.length > 0 && this.props.connectionStringList[0]) || '';
+
         this.state = {
-            connectionString: this.props.connectionString,
+            connectionString: selectedConnectionString,
             connectionStringList: this.props.connectionStringList,
             error: ''
         };
@@ -93,9 +98,10 @@ export default class ConnectivityPane extends React.Component<RouteComponentProp
 
     private readonly onSaveConnectionInfoClick = (): void => {
         const { hostName } = getConnectionInfoFromConnectionString(this.state.connectionString);
+        const connectionStrings = formatConnectionStrings(this.state.connectionStringList, this.state.connectionString);
+        this.props.setConnectionStrings(connectionStrings);
         this.props.setActiveAzureResource({
             connectionString: this.state.connectionString,
-            connectionStringList: this.state.connectionStringList,
             hostName
         });
         this.props.history.push(`${ROUTE_PARTS.RESOURCE}/${hostName}/${ROUTE_PARTS.DEVICES}`);

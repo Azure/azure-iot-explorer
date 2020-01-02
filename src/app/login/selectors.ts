@@ -9,7 +9,7 @@ export const getConnectionStringSelector = (state: StateInterface) => {
     return state && state.connectionState && state.connectionState.connectionString;
 };
 
-export const getConnectionStringListSelector = () => {
-    const list = localStorage.getItem(CONNECTION_STRING_NAME_LIST);
-    return (list && list.split(',')) || [];
-};
+// export const getConnectionStringListSelector = () => {
+//     const list = localStorage.getItem(CONNECTION_STRING_NAME_LIST);
+//     return (list && list.split(',')) || [];
+// };
