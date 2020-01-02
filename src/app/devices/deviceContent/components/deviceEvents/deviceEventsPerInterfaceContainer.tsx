@@ -8,7 +8,6 @@ import { withRouter } from 'react-router-dom';
 import { AnyAction } from 'typescript-fsa';
 import { StateType } from '../../../../shared/redux/state';
 import DeviceEventsPerInterfaceComponent, { DeviceEventsDataProps, DeviceEventsDispatchProps } from './deviceEventsPerInterface';
-import { getConnectionStringSelector } from '../../../../login/selectors';
 import { getDeviceTelemetrySelector } from './selectors';
 import { getModelDefinitionSyncStatusSelector, getInterfaceNameSelector } from '../../selectors';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
@@ -16,7 +15,7 @@ import { setInterfaceIdAction, getModelDefinitionAction } from '../../actions';
 
 const mapStateToProps = (state: StateType): DeviceEventsDataProps => {
     return {
-        connectionString: getConnectionStringSelector(state),
+        connectionString: state.azureResourceState.activeAzureResource ? state.azureResourceState.activeAzureResource.connectionString : '',
         interfaceName: getInterfaceNameSelector(state),
         isLoading: getModelDefinitionSyncStatusSelector(state) === SynchronizationStatus.working,
         telemetrySchema: getDeviceTelemetrySelector(state)
