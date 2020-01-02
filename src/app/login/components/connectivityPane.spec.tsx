@@ -24,9 +24,11 @@ describe('login/components/connectivityPane', () => {
     };
 
     const mockSetActiveAzureResource = jest.fn();
+    const mockSetConnectionStrings = jest.fn();
     const connectivityPaneDispatchProps: ConnectivityPaneDispatchProps = {
         addNotification: jest.fn(),
-        setActiveAzureResource: mockSetActiveAzureResource
+        setActiveAzureResource: mockSetActiveAzureResource,
+        setConnectionStrings: mockSetConnectionStrings
     };
 
     const getComponent = (overrides = {}) => {
@@ -53,9 +55,10 @@ describe('login/components/connectivityPane', () => {
         expect(mockSetActiveAzureResource).toBeCalledWith(
             {
                 connectionString: 'testConnectionString',
-                connectionStringList: ['testConnectionString'],
                 hostName: undefined
             });
+
+        expect(mockSetConnectionStrings).toBeCalledWith(['testConnectionString']);
         expect(routerprops.history.push).toBeCalledWith('resources/undefined/devices');
     });
 

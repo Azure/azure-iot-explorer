@@ -4,10 +4,9 @@
  **********************************************************/
 import { call, put, select } from 'redux-saga/effects';
 import { cloneableGenerator } from 'redux-saga/utils';
-import { setActiveAzureResourceByHostNameSaga } from './setActiveAzureResourceByHostNameSaga';
+import { setActiveAzureResourceByHostNameSaga, getLastUsedConnectionString } from './setActiveAzureResourceByHostNameSaga';
 import { setActiveAzureResourceByHostNameAction, SetActiveAzureResourceByHostNameActionParameters, setActiveAzureResourceAction } from '../actions';
 import { AccessVerificationState } from '../models/accessVerificationState';
-import { getConnectionStringSelector } from '../../login/selectors';
 import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
 
 describe('setActiveAzureResourceByHostNameSaga', () => {
@@ -19,7 +18,7 @@ describe('setActiveAzureResourceByHostNameSaga', () => {
     it('yields selector to get current connection string', () => {
         expect(setActiveAzureResourceByHostNameSagaGenerator.next()).toEqual({
             done: false,
-            value: select(getConnectionStringSelector)
+            value: select(getLastUsedConnectionString)
         });
     });
 
