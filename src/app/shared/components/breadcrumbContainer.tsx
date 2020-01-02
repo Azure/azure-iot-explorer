@@ -7,12 +7,10 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { StateType } from '../redux/state';
 import Breadcrumb from './breadcrumb';
-import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
 
 const mapStateToProps = (state: StateType) => {
-    const connectionInfo = state.connectionState && state.connectionState.connectionString && getConnectionInfoFromConnectionString(state.connectionState.connectionString);
     return {
-        hubName: connectionInfo && connectionInfo.hostName
+        hubName: state.azureResourceState.activeAzureResource ? state.azureResourceState.activeAzureResource.hostName : ''
     };
 };
 
