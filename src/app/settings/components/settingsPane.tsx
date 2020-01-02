@@ -18,6 +18,7 @@ import HubConnectionStringSection from '../../login/components/hubConnectionStri
 import { THEME_SELECTION } from '../../constants/browserStorage';
 import { Notification } from '../../api/models/notification';
 import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
+import { generateConnectionStringValidationError } from '../../shared/utils/hubConnectionStringHelper';
 import { ROUTE_PARTS } from '../../constants/routes';
 import '../../css/_settingsPane.scss';
 
@@ -39,14 +40,14 @@ export interface RepositorySettings {
 
 export interface Settings {
     hubConnectionString: string;
-    connectionStringList: string[];
+    hubConnectionStringList: string[];
     repositoryLocations?: RepositorySettings[];
 }
 
 interface SettingsPaneState extends Settings{
-    error?: string;
     isDarkTheme: boolean;
     isDirty: boolean;
+    hubConnectionStringError: string;
     showConfirmationDialog: boolean;
 }
 
@@ -59,14 +60,26 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
                 repositoryLocationType: value.repositoryLocationType};
             }) : [];
         const theme = localStorage.getItem(THEME_SELECTION);
+
         this.state = {
-            connectionStringList: props.connectionStringList,
             hubConnectionString: props.hubConnectionString,
+            hubConnectionStringError: '',
+            hubConnectionStringList: props.hubConnectionStringList,
             isDarkTheme: Theme.dark === theme || Theme.highContrastBlack === theme,
             isDirty: false,
             repositoryLocations,
             showConfirmationDialog: false,
         };
+    }
+
+    public static getDerivedStateFromProps(props: SettingsPaneProps, state: SettingsPaneState) {
+        const updatedState = {...state};
+        if (!props.isOpen) {
+            updatedState.hubConnectionString = props.hubConnectionString;
+            updatedState.hubConnectionStringList = props.hubConnectionStringList;
+        }
+
+        return updatedState;
     }
 
     public render(): JSX.Element {
@@ -91,8 +104,10 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
                             <HubConnectionStringSection
                                 addNotification={this.props.addNotification}
                                 connectionString={this.state.hubConnectionString}
-                                connectionStringList={this.state.connectionStringList}
-                                onSaveConnectionString={this.onSaveConnectionString}
+                                connectionStringError={this.state.hubConnectionStringError}
+                                connectionStringList={this.state.hubConnectionStringList}
+                                onChangeConnectionString={this.onChangeHubConnectionString}
+                                onRemoveConnectionString={this.onRemoveHubConnectionString}
                             />
                         </section>
                         <section aria-label={context.t(ResourceKeys.settings.modelDefinitions.headerText)}>
@@ -181,12 +196,26 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
         });
     }
 
-    private readonly onSaveConnectionString = (hubConnectionString: string, connectionStringList: string[], error?: string) => {
-        console.log(connectionStringList); //tslint:disable-line
+    private readonly onChangeHubConnectionString = (hubConnectionString: string, newString?: boolean) => {
+        const hubConnectionStringError = generateConnectionStringValidationError(hubConnectionString);
+        const hubConnectionStringList = newString && !hubConnectionStringError ? [hubConnectionString, ...this.state.hubConnectionStringList] : this.state.hubConnectionStringList;
         this.setState({
-            connectionStringList,
-            error,
             hubConnectionString,
+            hubConnectionStringError,
+            hubConnectionStringList,
+            isDirty: true
+        });
+    }
+
+    private readonly onRemoveHubConnectionString = (connectionStringToRemove: string) => {
+        const hubConnectionStringList = this.state.hubConnectionStringList.filter(s => s !== connectionStringToRemove);
+        const hubConnectionString = hubConnectionStringList.length > 0 ? hubConnectionStringList[0] : '';
+        const hubConnectionStringError = generateConnectionStringValidationError(hubConnectionString);
+
+        this.setState({
+            hubConnectionString,
+            hubConnectionStringError,
+            hubConnectionStringList,
             isDirty: true
         });
     }
@@ -215,8 +244,8 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
 
     private readonly revertState = (): void => {
         this.setState({
-            error: '',
             hubConnectionString: this.props.hubConnectionString,
+            hubConnectionStringError: '',
             isDirty: false,
             repositoryLocations: [...(this.props.repositoryLocations && this.props.repositoryLocations.map(value => {
                 return {
@@ -299,7 +328,7 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
     }
 
     private readonly disableSaveButton = () => {
-        const shouldBeDisabled = !this.state.isDirty || !!this.state.error;
+        const shouldBeDisabled = !this.state.isDirty || !!this.state.hubConnectionStringError;
         if (shouldBeDisabled) {
             return shouldBeDisabled;
         }

@@ -390,6 +390,8 @@ export const fetchDevices = async (parameters: FetchDevicesParameters): Promise<
         const result = await dataPlaneResponseHelper(response);
         return result;
     } catch (error) {
+        // tslint:disable-next-line:no-console
+        console.log('herere wew areaealdfkjas;ldfjkasdl;fkjas;dlfkj;lasdkfj;laskdfj;laskdjfl;ksajdf');
         throw error;
     }
 };

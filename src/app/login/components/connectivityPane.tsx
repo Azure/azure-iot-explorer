@@ -30,8 +30,8 @@ export interface ConnectivityPaneDataProps {
 
 export interface ConnectivityState {
     connectionString: string;
+    connectionStringError: string;
     connectionStringList: string[];
-    error: string;
 }
 
 export default class ConnectivityPane extends React.Component<RouteComponentProps & ConnectivityPaneDataProps & ConnectivityPaneDispatchProps, ConnectivityState> {
@@ -43,13 +43,13 @@ export default class ConnectivityPane extends React.Component<RouteComponentProp
 
         this.state = {
             connectionString: selectedConnectionString,
+            connectionStringError: '',
             connectionStringList: this.props.connectionStringList,
-            error: ''
         };
     }
 
     public render(): JSX.Element {
-        const { error } = this.state;
+        const { connectionStringError } = this.state;
 
         return (
             <LocalizationContextConsumer>
@@ -64,8 +64,10 @@ export default class ConnectivityPane extends React.Component<RouteComponentProp
                             <HubConnectionStringSection
                                 addNotification={this.props.addNotification}
                                 connectionString={this.state.connectionString}
+                                connectionStringError={this.state.connectionStringError}
                                 connectionStringList={this.state.connectionStringList}
-                                onSaveConnectionString={this.onSaveConnectionString}
+                                onChangeConnectionString={this.onChangeConnectionString}
+                                onRemoveConnectionString={this.onRemoveConnectionString}
                             />
                             <div className="notes">
                                 <Text>
@@ -75,7 +77,7 @@ export default class ConnectivityPane extends React.Component<RouteComponentProp
                             <div className="connection-button">
                                 <PrimaryButton
                                     onClick={this.onSaveConnectionInfoClick}
-                                    disabled={!this.state.connectionString || !!error}
+                                    disabled={!this.state.connectionString || !!connectionStringError}
                                 >
                                     {context.t(ResourceKeys.connectivityPane.saveButton.label)}
                                 </PrimaryButton>
@@ -88,11 +90,26 @@ export default class ConnectivityPane extends React.Component<RouteComponentProp
         );
     }
 
-    private readonly onSaveConnectionString = (connectionString: string, connectionStringList: string[]) => {
+    private readonly onChangeConnectionString = (connectionString: string, newString?: boolean) => {
+        const connectionStringError = generateConnectionStringValidationError(connectionString);
+        const connectionStringList = newString && !connectionStringError ? [connectionString, ...this.state.connectionStringList] : this.state.connectionStringList;
+
         this.setState({
             connectionString,
-            connectionStringList,
-            error: generateConnectionStringValidationError(connectionString)
+            connectionStringError,
+            connectionStringList
+        });
+    }
+
+    private readonly onRemoveConnectionString = (connectionStringToRemove: string) => {
+        const connectionStringList = this.state.connectionStringList.filter(s => s !== connectionStringToRemove);
+        const connectionString = connectionStringList.length > 0 ? connectionStringList[0] : '';
+        const connectionStringError = generateConnectionStringValidationError(connectionString);
+
+        this.setState({
+            connectionString,
+            connectionStringError,
+            connectionStringList
         });
     }
 

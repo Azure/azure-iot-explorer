@@ -28,7 +28,8 @@ export function* listDevicesSaga(action: Action<DeviceQuery>) {
           },
         } :
         {
-            translationKey: action.payload.clauses ? ResourceKeys.notifications.getDeviceListQueryGenericErrorHelp : ResourceKeys.notifications.getDeviceListGenericErrorHelp
+            // tslint:disable-next-line:cyclomatic-complexity
+            translationKey: (action.payload && action.payload.clauses) ? ResourceKeys.notifications.getDeviceListQueryGenericErrorHelp : ResourceKeys.notifications.getDeviceListGenericErrorHelp
         };
         yield put(addNotificationAction.started({
             text,

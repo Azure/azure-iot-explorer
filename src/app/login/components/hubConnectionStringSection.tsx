@@ -14,16 +14,17 @@ import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
 import { COPY, REMOVE } from '../../constants/iconNames';
 import { Notification, NotificationType } from '../../api/models/notification';
 import '../../css/_connectivityPane.scss';
-import { generateConnectionStringValidationError } from '../../shared/utils/hubConnectionStringHelper';
 
-export const addNewConnectionStringKey = 'Add';
+// export const addNewConnectionStringKey = 'Add';
 export interface HubConnectionStringSectionDataProps {
-    connectionString?: string;
+    connectionString: string;
+    connectionStringError?: string;
     connectionStringList: string[];
 }
 
 export interface HubConnectionStringSectionActionProps {
-    onSaveConnectionString: (connectionString: string, connectionStringList: string[], error: string) => void;
+    onChangeConnectionString: (connectionString: string, newString?: boolean) => void;
+    onRemoveConnectionString: (connectionString: string) => void;
     addNotification: (notification: Notification) => void;
 }
 
@@ -59,12 +60,11 @@ export default class HubConnectionStringSection extends React.Component<HubConne
         };
     }
     private readonly renderConnectionStringList = (t: TranslationFunction) => {
-        const options: IComboBoxOption[] = this.props.connectionStringList && this.props.connectionStringList.map(item => this.getComboBoxOption(item, t));
-        const removeClick = () => {
-            const connections = this.props.connectionStringList.filter(x => x !== this.props.connectionString);
-            this.props.onSaveConnectionString('', connections, '');
-        };
+        const { connectionString, connectionStringError, connectionStringList } = this.props;
         const hostName = getConnectionInfoFromConnectionString(this.props.connectionString).hostName;
+        const options: IComboBoxOption[] = connectionStringList.map(item => this.getComboBoxOption(item, t));
+        const removeClick = () => this.props.onRemoveConnectionString(this.props.connectionString);
+
         return (
             <Stack horizontal={true}>
                 <Stack.Item align="start">
@@ -75,10 +75,10 @@ export default class HubConnectionStringSection extends React.Component<HubConne
                         label={t(ResourceKeys.connectivityPane.connectionStringComboBox.label)}
                         ariaLabel={t(ResourceKeys.connectivityPane.connectionStringComboBox.ariaLabel)}
                         options={options}
-                        text={this.props.connectionString ? this.getComboBoxOptionText(this.props.connectionString) : t(ResourceKeys.connectivityPane.connectionStringComboBox.prompt)}
+                        text={connectionString}
                         onChange={this.onConnectionStringChanged}
-                        selectedKey={this.props.connectionString}
-                        errorMessage={t(generateConnectionStringValidationError(this.props.connectionString))}
+                        placeholder={t(ResourceKeys.connectivityPane.connectionStringComboBox.prompt)}
+                        errorMessage={t(connectionStringError)}
                         useComboBoxAsMenuWidth={true}
                     />
                     <input
@@ -119,28 +119,12 @@ export default class HubConnectionStringSection extends React.Component<HubConne
         );
     }
 
-    // tslint:disable-next-line: cyclomatic-complexity
     private readonly onConnectionStringChanged = (event: React.FormEvent<IComboBox>, option?: IComboBoxOption, index?: number, value?: string) => {
-        let connectionString: string;
-        let connectionStringList;
-        let error;
         if (option) {
-            // option selected from list
-            error = generateConnectionStringValidationError(option.key as string);
-            if (!error || error === '') {
-                connectionString = option.key as string;
-            }
-            connectionStringList = this.props.connectionStringList;
-        } else if (value !== undefined) {
-            // value inputted as text
-            error = generateConnectionStringValidationError(value);
-            if (!error || error === '') {
-                connectionString = value;
-                connectionStringList = [value, ...this.props.connectionStringList];
-            }
+            this.props.onChangeConnectionString(option.key as string);
+        } else {
+            this.props.onChangeConnectionString(value, true);
         }
-
-        this.props.onSaveConnectionString(connectionString, connectionStringList, error);
     }
 
     public copyToClipboard = () => {
