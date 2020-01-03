@@ -8,13 +8,12 @@ import { connect } from 'react-redux';
 import CloudToDeviceMessage, { CloudToDeviceMessageProps } from './cloudToDeviceMessage';
 import { StateType } from '../../../../shared/redux/state';
 import { NonFunctionProperties, FunctionProperties } from '../../../../shared/types/types';
-import { getConnectionStringSelector } from '../../../../login/selectors';
 import { CloudToDeviceMessageParameters } from '../../../../api/parameters/deviceParameters';
 import { cloudToDeviceMessageAction } from '../../actions';
 
 const mapStateToProps = (state: StateType): NonFunctionProperties<CloudToDeviceMessageProps> => {
     return {
-        connectionString: getConnectionStringSelector(state)
+        connectionString: state.azureResourceState.activeAzureResource ? state.azureResourceState.activeAzureResource.connectionString : ''
     };
 };
 

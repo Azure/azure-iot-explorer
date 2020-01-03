@@ -10,7 +10,7 @@ import { FetchDigitalTwinInterfacePropertiesParameters, PatchDigitalTwinInterfac
 import { DigitalTwinInterfaces, InterfaceModel, Property } from './../../../api/models/digitalTwinModels';
 import { patchDigitalTwinInterfacePropertiesAction } from './../actions';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { getConnectionStringSelector } from '../../../login/selectors';
+import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { getDigitalTwinInterfacePropertiesAction, PatchDigitalTwinInterfacePropertiesActionParameters } from '../actions';
 import { addNotificationAction } from '../../../notifications/actions';
 import { getInterfaceNameSelector } from '../selectors';
@@ -18,7 +18,7 @@ import { getInterfaceNameSelector } from '../selectors';
 export function* getDigitalTwinInterfacePropertySaga(action: Action<string>) {
     try {
         const parameters: FetchDigitalTwinInterfacePropertiesParameters = {
-            connectionString: yield select(getConnectionStringSelector),
+            connectionString: yield call(getActiveAzureResourceConnectionStringSaga),
             digitalTwinId: action.payload,
         };
 
@@ -33,7 +33,7 @@ export function* getDigitalTwinInterfacePropertySaga(action: Action<string>) {
 export function* patchDigitalTwinInterfacePropertiesSaga(action: Action<PatchDigitalTwinInterfacePropertiesActionParameters>) {
     try {
         const parameters: PatchDigitalTwinInterfacePropertiesParameters = {
-            connectionString: yield select(getConnectionStringSelector),
+            connectionString: yield call(getActiveAzureResourceConnectionStringSaga),
             digitalTwinId: action.payload.digitalTwinId,
             payload: yield call(generatePatchDigitalTwinInterfacePropertiesPayload, action.payload),
         };

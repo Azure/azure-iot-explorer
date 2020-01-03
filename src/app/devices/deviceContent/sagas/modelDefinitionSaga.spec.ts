@@ -15,7 +15,7 @@ import { getRepositoryLocationSettingsSelector, getPublicRepositoryHostName } fr
 import { REPOSITORY_LOCATION_TYPE } from '../../../constants/repositoryLocationTypes';
 import { getDigitalTwinInterfaceIdsSelector } from '../selectors';
 import { getRepoTokenSaga } from '../../../settings/sagas/getRepoTokenSaga';
-import { getConnectionStringSelector } from '../../../login/selectors';
+import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { modelDefinitionInterfaceId, modelDefinitionInterfaceName, modelDefinitionCommandName } from '../../../constants/modelDefinitionConstants';
 import { fetchModelDefinition } from '../../../api/services/digitalTwinsModelService';
 import { PUBLIC_REPO_HOSTNAME } from '../../../constants/shared';
@@ -149,7 +149,7 @@ describe('modelDefinitionSaga', () => {
 
         expect(getModelDefinitionFromDeviceGenerator.next()).toEqual({
             done: false,
-            value: select(getConnectionStringSelector)
+            value: call(getActiveAzureResourceConnectionStringSaga)
         });
 
         expect(getModelDefinitionFromDeviceGenerator.next(connectionString)).toEqual({
@@ -176,7 +176,7 @@ describe('modelDefinitionSaga', () => {
 
         expect(getModelDefinitionFromDeviceGenerator.next([modelDefinitionInterfaceId])).toEqual({
             done: false,
-            value: select(getConnectionStringSelector)
+            value: call(getActiveAzureResourceConnectionStringSaga)
         });
 
         expect(getModelDefinitionFromDeviceGenerator.next('connection_string')).toEqual({

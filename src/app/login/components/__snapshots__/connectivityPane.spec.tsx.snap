@@ -15,12 +15,14 @@ exports[`login/components/connectivityPane matches snapshot 1`] = `
     <HubConnectionStringSection
       addNotification={[MockFunction]}
       connectionString="testConnectionString"
+      connectionStringError=""
       connectionStringList={
         Array [
           "testConnectionString",
         ]
       }
-      onSaveConnectionString={[Function]}
+      onChangeConnectionString={[Function]}
+      onRemoveConnectionString={[Function]}
     />
     <div
       className="notes"

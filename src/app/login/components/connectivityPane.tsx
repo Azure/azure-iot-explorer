@@ -8,7 +8,7 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
-import { generateConnectionStringValidationError } from '../../shared/utils/hubConnectionStringHelper';
+import { generateConnectionStringValidationError, formatConnectionStrings } from '../../shared/utils/hubConnectionStringHelper';
 import HubConnectionStringSection from './hubConnectionStringSection';
 import AppVersionMessageBar from './appVersionMessageBar';
 import { Notification } from '../../api/models/notification';
@@ -19,6 +19,7 @@ import '../../css/_connectivityPane.scss';
 
 export interface ConnectivityPaneDispatchProps {
     setActiveAzureResource: (parameters: SetActiveAzureResourceByConnectionStringActionParameters) => void;
+    setConnectionStrings: (connectionStrings: string[]) => void;
     addNotification: (notification: Notification) => void;
 }
 
@@ -29,22 +30,26 @@ export interface ConnectivityPaneDataProps {
 
 export interface ConnectivityState {
     connectionString: string;
+    connectionStringError: string;
     connectionStringList: string[];
-    error: string;
 }
 
 export default class ConnectivityPane extends React.Component<RouteComponentProps & ConnectivityPaneDataProps & ConnectivityPaneDispatchProps, ConnectivityState> {
     constructor(props: RouteComponentProps & ConnectivityPaneDataProps & ConnectivityPaneDispatchProps) {
         super(props);
+
+        const selectedConnectionString = this.props.connectionString ||
+            (this.props.connectionStringList && this.props.connectionStringList.length > 0 && this.props.connectionStringList[0]) || '';
+
         this.state = {
-            connectionString: this.props.connectionString,
+            connectionString: selectedConnectionString,
+            connectionStringError: '',
             connectionStringList: this.props.connectionStringList,
-            error: ''
         };
     }
 
     public render(): JSX.Element {
-        const { error } = this.state;
+        const { connectionStringError } = this.state;
 
         return (
             <LocalizationContextConsumer>
@@ -59,8 +64,10 @@ export default class ConnectivityPane extends React.Component<RouteComponentProp
                             <HubConnectionStringSection
                                 addNotification={this.props.addNotification}
                                 connectionString={this.state.connectionString}
+                                connectionStringError={this.state.connectionStringError}
                                 connectionStringList={this.state.connectionStringList}
-                                onSaveConnectionString={this.onSaveConnectionString}
+                                onChangeConnectionString={this.onChangeConnectionString}
+                                onRemoveConnectionString={this.onRemoveConnectionString}
                             />
                             <div className="notes">
                                 <Text>
@@ -70,7 +77,7 @@ export default class ConnectivityPane extends React.Component<RouteComponentProp
                             <div className="connection-button">
                                 <PrimaryButton
                                     onClick={this.onSaveConnectionInfoClick}
-                                    disabled={!this.state.connectionString || !!error}
+                                    disabled={!this.state.connectionString || !!connectionStringError}
                                 >
                                     {context.t(ResourceKeys.connectivityPane.saveButton.label)}
                                 </PrimaryButton>
@@ -83,19 +90,35 @@ export default class ConnectivityPane extends React.Component<RouteComponentProp
         );
     }
 
-    private readonly onSaveConnectionString = (connectionString: string, connectionStringList: string[]) => {
+    private readonly onChangeConnectionString = (connectionString: string, newString?: boolean) => {
+        const connectionStringError = generateConnectionStringValidationError(connectionString);
+        const connectionStringList = newString && !connectionStringError ? [connectionString, ...this.state.connectionStringList] : this.state.connectionStringList;
+
         this.setState({
             connectionString,
-            connectionStringList,
-            error: generateConnectionStringValidationError(connectionString)
+            connectionStringError,
+            connectionStringList
+        });
+    }
+
+    private readonly onRemoveConnectionString = (connectionStringToRemove: string) => {
+        const connectionStringList = this.state.connectionStringList.filter(s => s !== connectionStringToRemove);
+        const connectionString = connectionStringList.length > 0 ? connectionStringList[0] : '';
+        const connectionStringError = generateConnectionStringValidationError(connectionString);
+
+        this.setState({
+            connectionString,
+            connectionStringError,
+            connectionStringList
         });
     }
 
     private readonly onSaveConnectionInfoClick = (): void => {
         const { hostName } = getConnectionInfoFromConnectionString(this.state.connectionString);
+        const connectionStrings = formatConnectionStrings(this.state.connectionStringList, this.state.connectionString);
+        this.props.setConnectionStrings(connectionStrings);
         this.props.setActiveAzureResource({
             connectionString: this.state.connectionString,
-            connectionStringList: this.state.connectionStringList,
             hostName
         });
         this.props.history.push(`${ROUTE_PARTS.RESOURCE}/${hostName}/${ROUTE_PARTS.DEVICES}`);

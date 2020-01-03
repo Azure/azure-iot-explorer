@@ -8,13 +8,12 @@ import { connect } from 'react-redux';
 import DirectMethod, { DirectMethodProps } from './directMethod';
 import { StateType } from '../../../../shared/redux/state';
 import { NonFunctionProperties, FunctionProperties } from '../../../../shared/types/types';
-import { getConnectionStringSelector } from '../../../../login/selectors';
 import { InvokeMethodParameters } from '../../../../api/parameters/deviceParameters';
 import { invokeDirectMethodAction } from '../../actions';
 
 const mapStateToProps = (state: StateType): NonFunctionProperties<DirectMethodProps> => {
     return {
-        connectionString: getConnectionStringSelector(state),
+        connectionString: state.azureResourceState.activeAzureResource ? state.azureResourceState.activeAzureResource.connectionString : ''
     };
 };
 

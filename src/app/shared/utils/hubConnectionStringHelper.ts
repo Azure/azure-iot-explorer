@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import { ResourceKeys } from '../../../localization/resourceKeys';
+import { CONNECTION_STRING_LIST_MAX_LENGTH } from '../../constants/browserStorage';
 import { getConnectionInfoFromConnectionString, getRepoConnectionInfoFromConnectionString } from './../../api/shared/utils';
 
 export const generateConnectionStringValidationError  = (value: string): string => {
@@ -31,4 +32,12 @@ const isHubConnectionString = (value: string) => {
     }
 
     return false;
+};
+
+export const formatConnectionStrings = (connectionStrings: string[], activeConnectionString: string): string[] => {
+    const trimmedList = connectionStrings.slice(0, CONNECTION_STRING_LIST_MAX_LENGTH);
+    const formattedList = trimmedList.filter(s => s !== activeConnectionString);
+    formattedList.unshift(activeConnectionString);
+
+    return formattedList;
 };

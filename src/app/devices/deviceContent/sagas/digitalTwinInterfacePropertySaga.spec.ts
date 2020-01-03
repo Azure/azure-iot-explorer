@@ -8,7 +8,7 @@ import { SagaIteratorClone, cloneableGenerator } from 'redux-saga/utils';
 import { getDigitalTwinInterfacePropertySaga, patchDigitalTwinInterfacePropertiesSaga, generatePatchDigitalTwinInterfacePropertiesPayload, generateInterfacePropertiesPayload } from './digitalTwinInterfacePropertySaga';
 import { getDigitalTwinInterfacePropertiesAction, patchDigitalTwinInterfacePropertiesAction } from '../actions';
 import * as DevicesService from '../../../api/services/devicesService';
-import { getConnectionStringSelector } from '../../../login/selectors';
+import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { addNotificationAction } from '../../../notifications/actions';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
@@ -38,7 +38,7 @@ describe('digitalTwinInterfacePropertySaga', () => {
         it('fetches the interface property', () => {
             expect(getDigitalTwinInterfacePropertySagaGenerator.next()).toEqual({
                 done: false,
-                value: select(getConnectionStringSelector)
+                value: call(getActiveAzureResourceConnectionStringSaga)
             });
 
             expect(getDigitalTwinInterfacePropertySagaGenerator.next(connectionString)).toEqual({
@@ -90,7 +90,7 @@ describe('digitalTwinInterfacePropertySaga', () => {
         it('patches the interface property', () => {
             expect(patchDigitalTwinInterfacePropertiesSagaGenerator.next()).toEqual({
                 done: false,
-                value: select(getConnectionStringSelector)
+                value: call(getActiveAzureResourceConnectionStringSaga)
             });
 
             expect(patchDigitalTwinInterfacePropertiesSagaGenerator.next(connectionString)).toEqual({

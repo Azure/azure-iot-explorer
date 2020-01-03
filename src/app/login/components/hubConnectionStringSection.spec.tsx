@@ -20,12 +20,13 @@ describe('login/components/connectivityPane', () => {
 
     const connectivityStringSectionDataProps: HubConnectionStringSectionDataProps = {
         connectionString: '',
-        connectionStringList: undefined,
+        connectionStringList: [],
     };
 
     const connectivityStringSectionActionProps: HubConnectionStringSectionActionProps = {
         addNotification: jest.fn(),
-        onSaveConnectionString: jest.fn()
+        onChangeConnectionString: jest.fn(),
+        onRemoveConnectionString: jest.fn()
     };
 
     const getComponent = (overrides = {}) => {

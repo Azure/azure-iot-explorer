@@ -8,14 +8,14 @@ import { fetchDevice, updateDevice } from '../../../api/services/devicesService'
 import { addNotificationAction } from '../../../notifications/actions';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { getConnectionStringSelector } from '../../../login/selectors';
+import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { getDeviceIdentityAction, updateDeviceIdentityAction } from '../actions';
 import { DeviceIdentity } from '../../../api/models/deviceIdentity';
 
 export function* getDeviceIdentitySaga(action: Action<string>) {
     try {
         const parameters = {
-            connectionString: yield select(getConnectionStringSelector),
+            connectionString: yield call(getActiveAzureResourceConnectionStringSaga),
             deviceId: action.payload,
         };
 
@@ -40,7 +40,7 @@ export function* getDeviceIdentitySaga(action: Action<string>) {
 export function* updateDeviceIdentitySaga(action: Action<DeviceIdentity>) {
     try {
         const parameters = {
-            connectionString: yield select(getConnectionStringSelector),
+            connectionString: yield call(getActiveAzureResourceConnectionStringSaga),
             deviceIdentity: action.payload,
         };
 
