@@ -18,7 +18,7 @@ import HubConnectionStringSection from '../../login/components/hubConnectionStri
 import { THEME_SELECTION } from '../../constants/browserStorage';
 import { Notification } from '../../api/models/notification';
 import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
-import { generateConnectionStringValidationError } from '../../shared/utils/hubConnectionStringHelper';
+import { generateConnectionStringValidationError, formatConnectionStrings } from '../../shared/utils/hubConnectionStringHelper';
 import { ROUTE_PARTS } from '../../constants/routes';
 import '../../css/_settingsPane.scss';
 
@@ -266,7 +266,10 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
     }
 
     private readonly saveSettings = () => {
-        this.props.onSettingsSave({...this.state});
+        const settings = {...this.state};
+        settings.hubConnectionStringList = formatConnectionStrings(settings.hubConnectionStringList, settings.hubConnectionString);
+
+        this.props.onSettingsSave(settings);
         this.setState({
             isDirty: false
         });

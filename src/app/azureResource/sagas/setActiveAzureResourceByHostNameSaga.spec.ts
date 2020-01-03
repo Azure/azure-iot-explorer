@@ -54,9 +54,8 @@ describe('setActiveAzureResourceByHostNameSaga', () => {
     describe('host name does not match', () => {
         const cloneSagaGenerator = setActiveAzureResourceByHostNameSagaGenerator.clone();
         cloneSagaGenerator.next();
-        cloneSagaGenerator.next('connectionStirng');
         it('yields put effect to set active resource', () => {
-            expect(cloneSagaGenerator.next({ hostName: 'nothostname'})).toEqual({
+            expect(cloneSagaGenerator.next('')).toEqual({
                 done: false,
                 value: put(setActiveAzureResourceAction({
                     accessVerificationState: AccessVerificationState.Unauthorized,
@@ -70,5 +69,29 @@ describe('setActiveAzureResourceByHostNameSaga', () => {
                 done: true
             });
         });
+    });
+});
+
+describe('getLastUsedConnectionString', () => {
+    it('returns expected value when array has one or more entries', () => {
+        const state = {
+            connectionStringsState: {
+                connectionStrings: ['connection1', 'connection2']
+            }
+        };
+
+        // tslint:disable-next-line:no-any
+        expect(getLastUsedConnectionString(state as any)).toEqual('connection1');
+    });
+
+    it('returns expected value when array has no entries', () => {
+        const state = {
+            connectionStringsState: {
+                connectionStrings: []
+            }
+        };
+
+        // tslint:disable-next-line:no-any
+        expect(getLastUsedConnectionString(state as any)).toEqual('');
     });
 });

@@ -15,7 +15,6 @@ import { COPY, REMOVE } from '../../constants/iconNames';
 import { Notification, NotificationType } from '../../api/models/notification';
 import '../../css/_connectivityPane.scss';
 
-// export const addNewConnectionStringKey = 'Add';
 export interface HubConnectionStringSectionDataProps {
     connectionString: string;
     connectionStringError?: string;
@@ -123,7 +122,8 @@ export default class HubConnectionStringSection extends React.Component<HubConne
         if (option) {
             this.props.onChangeConnectionString(option.key as string);
         } else {
-            this.props.onChangeConnectionString(value, true);
+            const duplicate = this.props.connectionStringList.indexOf(value) >= 0;
+            this.props.onChangeConnectionString(value, !duplicate);
         }
     }
 

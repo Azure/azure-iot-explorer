@@ -14,7 +14,7 @@ export function* setActiveAzureResourceByHostNameSaga(action: Action<SetActiveAz
     const { hostName } = action.payload;
 
     const connectionString  = yield select(getLastUsedConnectionString);
-    const connectionStringInfo = connectionString ? yield call(getConnectionInfoFromConnectionString, connectionString) : '';
+    const connectionStringInfo = connectionString ? yield call(getConnectionInfoFromConnectionString, connectionString) : { hostName: ''};
 
     // until msal implemented -- no manual change of host name alone is authorized
     // todo select against connections strings to retrieve one placed in stored.
