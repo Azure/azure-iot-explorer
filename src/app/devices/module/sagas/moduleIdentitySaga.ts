@@ -11,7 +11,6 @@ import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { getModuleIdentitiesAction, addModuleIdentityAction, GetModuleIdentityTwinActionParameters, getModuleIdentityTwinAction, GetModuleIdentityActionParameters, getModuleIdentityAction } from '../actions';
 import { ModuleIdentity } from './../../../api/models/moduleIdentity';
-import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 
 export function* getModuleIdentitiesSaga(action: Action<string>) {
     try {
