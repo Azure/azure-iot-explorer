@@ -29,7 +29,7 @@ describe('addConnectionStringAction', () => {
 
         const action =  addConnectionStringAction('connectionString1');
         const result = reducer(initialState, action);
-        expect(result.connectionStrings).toHaveLength(1); // tslint:disable-line:no-magic-numbers
+        expect(result.connectionStrings).toHaveLength(1);
         expect(result.connectionStrings[0]).toEqual('connectionString1');
     });
 });
@@ -44,7 +44,7 @@ describe('deleteConnectionStringAction', () => {
 
         const action =  deleteConnectionStringAction('connectionString1');
         const result = reducer(initialState, action);
-        expect(result.connectionStrings).toHaveLength(0); // tslint:disable-line:no-magic-numbers
+        expect(result.connectionStrings).toHaveLength(0);
     });
 });
 
@@ -59,7 +59,7 @@ describe('setConnectionStringAction', () => {
 
         const action =  setConnectionStringsAction(['connectionString3']);
         const result = reducer(initialState, action);
-        expect(result.connectionStrings).toHaveLength(1); // tslint:disable-line:no-magic-numbers
+        expect(result.connectionStrings).toHaveLength(1);
         expect(result.connectionStrings).toEqual(['connectionString3']);
     });
 });

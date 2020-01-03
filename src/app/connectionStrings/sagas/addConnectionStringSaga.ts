@@ -5,6 +5,7 @@
 import { call } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
 import { CONNECTION_STRING_NAME_LIST, CONNECTION_STRING_LIST_MAX_LENGTH } from '../../constants/browserStorage';
+import { getConnectionStrings, setConnectionStrings } from './setConnectionStringsSaga';
 
 export function* addConnectionStringSaga(action: Action<string>) {
     const savedStrings: string = yield call(getConnectionStrings);
@@ -21,11 +22,3 @@ export function* addConnectionStringSaga(action: Action<string>) {
 
     yield call(setConnectionStrings, updatedValue);
 }
-
-export const getConnectionStrings = (): string => {
-    return localStorage.getItem(CONNECTION_STRING_NAME_LIST);
-};
-
-export const setConnectionStrings = (value: string): void => {
-    return localStorage.setItem(CONNECTION_STRING_NAME_LIST, value);
-};

@@ -7,7 +7,6 @@ import { call, put, select } from 'redux-saga/effects';
 import { setActiveAzureResourceAction, SetActiveAzureResourceByHostNameActionParameters } from '../actions';
 import { AccessVerificationState } from '../models/accessVerificationState';
 import { StateInterface } from '../../shared/redux/state';
-
 import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
 
 export function* setActiveAzureResourceByHostNameSaga(action: Action<SetActiveAzureResourceByHostNameActionParameters>) {
