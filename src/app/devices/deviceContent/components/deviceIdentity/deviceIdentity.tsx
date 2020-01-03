@@ -139,6 +139,7 @@ export default class DeviceIdentityInformation
                             allowMask={false}
                             t={context.t}
                             readOnly={true}
+                            labelCallout={context.t(ResourceKeys.deviceIdentity.deviceIDTooltip)}
                         />
                         {this.renderDeviceAuthProperties(context)}
                         <br/>
@@ -271,12 +272,31 @@ export default class DeviceIdentityInformation
                     <>
                         <Label>{context.t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.text)}</Label>
                         <MaskedCopyableTextFieldContainer
-                            ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionString)}
-                            label={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionString)}
+                            ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.primaryThumbprint)}
+                            label={context.t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.primaryThumbprint)}
+                            value={this.state.identity.authentication.x509Thumbprint.primaryThumbprint}
+                            allowMask={true}
+                            t={context.t}
+                            readOnly={true}
+                            labelCallout={context.t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.primaryThumbprintTooltip)}
+                        />
+                        <MaskedCopyableTextFieldContainer
+                            ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.secondaryThumbprint)}
+                            label={context.t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.secondaryThumbprint)}
+                            value={this.state.identity.authentication.x509Thumbprint.secondaryThumbprint}
+                            allowMask={true}
+                            t={context.t}
+                            readOnly={true}
+                            labelCallout={context.t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip)}
+                        />
+                        <MaskedCopyableTextFieldContainer
+                            ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.connectionString)}
+                            label={context.t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.connectionString)}
                             value={generateX509ConnectionString(connectionString, identity.deviceId)}
                             allowMask={true}
                             t={context.t}
                             readOnly={true}
+                            labelCallout={context.t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.connectionStringTooltip)}
                         />
                     </>
                 );
@@ -285,12 +305,13 @@ export default class DeviceIdentityInformation
                     <>
                         <Label>{context.t(ResourceKeys.deviceIdentity.authenticationType.ca.text)}</Label>
                         <MaskedCopyableTextFieldContainer
-                            ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionString)}
-                            label={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionString)}
+                            ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.ca.connectionString)}
+                            label={context.t(ResourceKeys.deviceIdentity.authenticationType.ca.connectionString)}
                             value={generateX509ConnectionString(connectionString, identity.deviceId)}
                             allowMask={true}
                             t={context.t}
                             readOnly={true}
+                            labelCallout={context.t(ResourceKeys.deviceIdentity.authenticationType.ca.connectionStringTooltip)}
                         />
                     </>
                 );
@@ -305,6 +326,7 @@ export default class DeviceIdentityInformation
                             t={context.t}
                             readOnly={false}
                             onTextChange={this.changePrimaryKey}
+                            labelCallout={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryKeyTooltip)}
                         />
 
                         <MaskedCopyableTextFieldContainer
@@ -315,6 +337,7 @@ export default class DeviceIdentityInformation
                             t={context.t}
                             readOnly={false}
                             onTextChange={this.changeSecondaryKey}
+                            labelCallout={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryKeyTooltip)}
                         />
 
                         <MaskedCopyableTextFieldContainer
@@ -324,6 +347,7 @@ export default class DeviceIdentityInformation
                             allowMask={true}
                             t={context.t}
                             readOnly={true}
+                            labelCallout={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionStringTooltip)}
                         />
 
                         <MaskedCopyableTextFieldContainer
@@ -333,6 +357,7 @@ export default class DeviceIdentityInformation
                             allowMask={true}
                             t={context.t}
                             readOnly={true}
+                            labelCallout={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryConnectionStringTooltip)}
                         />
                     </>
                 );

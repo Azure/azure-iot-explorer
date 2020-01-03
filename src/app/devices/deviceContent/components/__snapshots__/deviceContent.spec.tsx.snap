@@ -133,10 +133,6 @@ exports[`deviceContent matches snapshot 1`] = `
         />
         <Route
           component={[Function]}
-          path="undefined/addModuleIdentity/"
-        />
-        <Route
-          component={[Function]}
           path="undefined/digitalTwins/"
         />
       </div>

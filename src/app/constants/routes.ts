@@ -4,10 +4,9 @@
  **********************************************************/
 export enum ROUTE_PARTS {
     ADD = 'add',
-    ADD_MODULE_IDENTITY = 'addModuleIdentity',
     COMMANDS = 'commands',
     CLOUD_TO_DEVICE_MESSAGE = 'cloudToDeviceMessage',
-    DETAIL = 'detail',
+    DEVICE_DETAIL = 'deviceDetail',
     DEVICES = 'devices',
     DIGITAL_TWINS = 'digitalTwins',
     EVENTS = 'events',
@@ -15,6 +14,7 @@ export enum ROUTE_PARTS {
     INTERFACES = 'interfaces',
     METHODS = 'methods',
     MODULE_IDENTITY = 'moduleIdentity',
+    MODULE_DETAIL = 'moduleDetail',
     PROPERTIES = 'properties',
     SETTINGS = 'settings',
     TWIN = 'twin',
@@ -22,6 +22,7 @@ export enum ROUTE_PARTS {
 }
 
 export enum ROUTE_PARAMS {
-    DEVICE_ID = 'id',
+    DEVICE_ID = 'deviceId',
     INTERFACE_ID = 'interfaceId',
+    MODULE_ID = 'moduleId'
 }

@@ -8,6 +8,7 @@ import { DeviceListStateInterface } from '../../devices/deviceList/state';
 import { ConnectionStringsStateInterface } from '../../connectionStrings/state';
 import { NotificationsStateInterface } from '../../notifications/state';
 import { ApplicationStateType } from '../../settings/state';
+import { ModuleStateType } from '../../devices/module/state';
 import { IM } from '../types/types';
 
 export interface StateInterface {
@@ -17,6 +18,7 @@ export interface StateInterface {
     deviceContentState: DeviceContentStateType;
     deviceListState: DeviceListStateInterface;
     notificationsState: NotificationsStateInterface;
+    moduleState: ModuleStateType;
 }
 
 export type StateType = IM<StateInterface>;

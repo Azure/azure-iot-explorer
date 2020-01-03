@@ -9,6 +9,7 @@ import { deviceListStateInitial  } from '../../devices/deviceList/state';
 import { applicationStateInitial } from '../../settings/state';
 import { azureResourceStateInitial } from '../../azureResource/state';
 import { connectionStringsStateInitial } from '../../connectionStrings/state';
+import { moduleStateInitial } from './../../devices/module/state';
 
 export const getInitialState = (): StateInterface => {
     return {
@@ -17,6 +18,7 @@ export const getInitialState = (): StateInterface => {
         connectionStringsState: connectionStringsStateInitial(),
         deviceContentState: deviceContentStateInitial(),
         deviceListState: deviceListStateInitial(),
+        moduleState: moduleStateInitial(),
         notificationsState: notificationsStateInterfaceInitial
     };
 };

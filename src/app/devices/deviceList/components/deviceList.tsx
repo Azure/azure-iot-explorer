@@ -194,7 +194,7 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
             case 'id':
                 const path = this.props.location.pathname.replace(/\/devices\/.*/, `/${ROUTE_PARTS.DEVICES}`);
                 return (
-                    <NavLink key={column.key} to={`${path}/${ROUTE_PARTS.DETAIL}/${ROUTE_PARTS.IDENTITY}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(item.deviceId)}`}>
+                    <NavLink key={column.key} to={`${path}/${ROUTE_PARTS.DEVICE_DETAIL}/${ROUTE_PARTS.IDENTITY}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(item.deviceId)}`}>
                         {item.deviceId}
                     </NavLink>
                 );

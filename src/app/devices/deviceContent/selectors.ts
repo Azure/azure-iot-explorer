@@ -9,7 +9,6 @@ import { DigitalTwinInterfaces } from '../../api/models/digitalTwinModels';
 import { StateType, StateInterface } from '../../shared/redux/state';
 import { ModelDefinitionWithSourceWrapper } from '../../api/models/modelDefinitionWithSourceWrapper';
 import { modelDiscoveryInterfaceName } from '../../constants/modelDefinitionConstants';
-import { ModuleIdentityListWrapper } from '../../api/models/moduleIdentityListWrapper';
 
 export const getInterfaceIdSelector = (state: StateInterface): string => {
     return state && state.deviceContentState && state.deviceContentState.interfaceIdSelected;
@@ -114,9 +113,3 @@ export const getInterfaceNameSelector = createSelector(
         return idToNameMap.get(id);
     }
 );
-
-export const getModuleIdentityListWrapperSelector = (state: StateInterface): ModuleIdentityListWrapper => {
-    return state &&
-        state.deviceContentState &&
-        state.deviceContentState.moduleIdentityList;
-};

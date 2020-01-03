@@ -6,7 +6,6 @@ import { Twin } from '../models/device';
 import { DeviceIdentity } from '../models/deviceIdentity';
 import DeviceQuery from '../models/deviceQuery';
 import { DigitalTwinInterfaces } from '../models/digitalTwinModels';
-import { ModuleIdentity } from '../models/moduleIdentity';
 
 export interface DataPlaneParameters {
     connectionString: string;
@@ -78,12 +77,4 @@ export interface InvokeDigitalTwinInterfaceCommandParameters extends DataPlanePa
 export interface PatchDigitalTwinInterfacePropertiesParameters extends DataPlaneParameters {
     digitalTwinId: string; // Format of digitalTwinId is DeviceId[~ModuleId]. ModuleId is optional.
     payload: DigitalTwinInterfaces;
-}
-
-export interface FetchModuleIdentitiesParameters extends DataPlaneParameters {
-    deviceId: string;
-}
-
-export interface AddModuleIdentityParameters extends DataPlaneParameters {
-    moduleIdentity: ModuleIdentity;
 }

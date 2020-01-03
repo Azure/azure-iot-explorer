@@ -79,8 +79,8 @@ export default class AddModuleIdentityComponent
         );
     }
 
-    public componentDidUpdate(oldProps: AddModuleIdentityDataProps & AddModuleIdentityDispatchProps & RouteComponentProps) {
-        if (oldProps.synchronizationStatus === SynchronizationStatus.upserted) { // only when module identity has been added successfully would navigate to module list view
+    public componentDidUpdate() {
+        if (this.props.synchronizationStatus === SynchronizationStatus.upserted) { // only when module identity has been added successfully would navigate to module list view
             this.navigateToModuleList();
         }
     }
@@ -168,7 +168,7 @@ export default class AddModuleIdentityComponent
                     t={context.t}
                     readOnly={false}
                     error={!!this.state.primaryKeyError ? context.t(this.state.primaryKeyError) : ''}
-                    labelCallout={context.t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.primaryConnectionStringTooltip)}
+                    labelCallout={context.t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.primaryKeyTooltip)}
                 />
                 <MaskedCopyableTextFieldContainer
                     ariaLabel={context.t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryKey)}
@@ -180,7 +180,7 @@ export default class AddModuleIdentityComponent
                     t={context.t}
                     readOnly={false}
                     error={!!this.state.secondaryKeyError ? context.t(this.state.secondaryKeyError) : ''}
-                    labelCallout={context.t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryConnectionStringTooltip)}
+                    labelCallout={context.t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryKeyTooltip)}
                 />
             </>
         );
@@ -260,7 +260,7 @@ export default class AddModuleIdentityComponent
     }
 
     private readonly navigateToModuleList = () => {
-        const path = this.props.location.pathname.replace(/\/addModuleIdentity\/.*/, `/${ROUTE_PARTS.MODULE_IDENTITY}`);
+        const path = this.props.match.url.replace(/\/add\/.*/, ``);
         const deviceId = getDeviceIdFromQueryString(this.props);
         this.props.history.push(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
     }

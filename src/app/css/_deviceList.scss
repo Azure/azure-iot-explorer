@@ -5,16 +5,6 @@
 @import 'themes';
 @import 'mixins';
 
-.deviceId-label {
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.pnp-icon {
-    width: 17px;
-    vertical-align: middle;
-    margin-right: 6px;
-}
 .delete-dialog {
     .ms-Dialog-main {
         min-width: 35vw;

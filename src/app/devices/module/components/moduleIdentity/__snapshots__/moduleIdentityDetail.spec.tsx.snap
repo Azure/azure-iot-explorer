@@ -1,0 +1,1683 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after module identity is fetched 1`] = `
+<Fragment>
+  <StyledCommandBarBase
+    className="command"
+    items={
+      Array [
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.refresh",
+          "disabled": true,
+          "iconProps": Object {
+            "iconName": "Refresh",
+          },
+          "key": "Refresh",
+          "name": "moduleIdentity.detail.command.refresh",
+          "onClick": [Function],
+        },
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.back",
+          "iconProps": Object {
+            "iconName": "ChromeClose",
+          },
+          "key": "ChromeClose",
+          "name": "moduleIdentity.detail.command.back",
+          "onClick": [Function],
+        },
+      ]
+    }
+  />
+  <h3>
+    moduleIdentity.detail.headerText
+  </h3>
+  <div
+    className="device-detail"
+  >
+    <div
+      className="module-identity"
+    >
+      <Connect(MaskedCopyableTextField)
+        allowMask={false}
+        ariaLabel="moduleIdentity.moduleId"
+        label="moduleIdentity.moduleId"
+        labelCallout="moduleIdentity.moduleIdTooltip"
+        readOnly={true}
+        t={
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                "moduleIdentity.detail.command.refresh",
+              ],
+              Array [
+                "moduleIdentity.detail.command.refresh",
+              ],
+              Array [
+                "moduleIdentity.detail.command.back",
+              ],
+              Array [
+                "moduleIdentity.detail.command.back",
+              ],
+              Array [
+                "moduleIdentity.detail.headerText",
+              ],
+              Array [
+                "moduleIdentity.moduleId",
+              ],
+              Array [
+                "moduleIdentity.moduleId",
+              ],
+              Array [
+                "moduleIdentity.moduleIdTooltip",
+              ],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.refresh",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.refresh",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.back",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.back",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.headerText",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleId",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleId",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleIdTooltip",
+              },
+            ],
+          }
+        }
+        value={null}
+      />
+      <Component />
+    </div>
+  </div>
+</Fragment>
+`;
+
+exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after module identity is fetched 2`] = `
+<Fragment>
+  <StyledCommandBarBase
+    className="command"
+    items={
+      Array [
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.refresh",
+          "disabled": true,
+          "iconProps": Object {
+            "iconName": "Refresh",
+          },
+          "key": "Refresh",
+          "name": "moduleIdentity.detail.command.refresh",
+          "onClick": [Function],
+        },
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.back",
+          "iconProps": Object {
+            "iconName": "ChromeClose",
+          },
+          "key": "ChromeClose",
+          "name": "moduleIdentity.detail.command.back",
+          "onClick": [Function],
+        },
+      ]
+    }
+  />
+  <h3>
+    moduleIdentity.detail.headerText
+  </h3>
+  <div
+    className="device-detail"
+  >
+    <div
+      className="module-identity"
+    >
+      <Connect(MaskedCopyableTextField)
+        allowMask={false}
+        ariaLabel="moduleIdentity.moduleId"
+        label="moduleIdentity.moduleId"
+        labelCallout="moduleIdentity.moduleIdTooltip"
+        readOnly={true}
+        t={
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                "moduleIdentity.detail.command.refresh",
+              ],
+              Array [
+                "moduleIdentity.detail.command.refresh",
+              ],
+              Array [
+                "moduleIdentity.detail.command.back",
+              ],
+              Array [
+                "moduleIdentity.detail.command.back",
+              ],
+              Array [
+                "moduleIdentity.detail.headerText",
+              ],
+              Array [
+                "moduleIdentity.moduleId",
+              ],
+              Array [
+                "moduleIdentity.moduleId",
+              ],
+              Array [
+                "moduleIdentity.moduleIdTooltip",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.primaryKey",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.primaryKey",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.primaryKeyTooltip",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.secondaryKey",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.secondaryKey",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.secondaryKeyTooltip",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.primaryConnectionString",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.primaryConnectionString",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+              ],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.refresh",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.refresh",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.back",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.back",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.headerText",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleId",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleId",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleIdTooltip",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.primaryKey",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.primaryKey",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.primaryKeyTooltip",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.secondaryKey",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.secondaryKey",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.secondaryKeyTooltip",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.primaryConnectionString",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.primaryConnectionString",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+              },
+            ],
+          }
+        }
+        value={null}
+      />
+      <Connect(MaskedCopyableTextField)
+        allowMask={true}
+        ariaLabel="moduleIdentity.authenticationType.symmetricKey.primaryKey"
+        label="moduleIdentity.authenticationType.symmetricKey.primaryKey"
+        labelCallout="moduleIdentity.authenticationType.symmetricKey.primaryKeyTooltip"
+        readOnly={true}
+        t={
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                "moduleIdentity.detail.command.refresh",
+              ],
+              Array [
+                "moduleIdentity.detail.command.refresh",
+              ],
+              Array [
+                "moduleIdentity.detail.command.back",
+              ],
+              Array [
+                "moduleIdentity.detail.command.back",
+              ],
+              Array [
+                "moduleIdentity.detail.headerText",
+              ],
+              Array [
+                "moduleIdentity.moduleId",
+              ],
+              Array [
+                "moduleIdentity.moduleId",
+              ],
+              Array [
+                "moduleIdentity.moduleIdTooltip",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.primaryKey",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.primaryKey",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.primaryKeyTooltip",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.secondaryKey",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.secondaryKey",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.secondaryKeyTooltip",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.primaryConnectionString",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.primaryConnectionString",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+              ],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.refresh",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.refresh",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.back",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.back",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.headerText",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleId",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleId",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleIdTooltip",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.primaryKey",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.primaryKey",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.primaryKeyTooltip",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.secondaryKey",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.secondaryKey",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.secondaryKeyTooltip",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.primaryConnectionString",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.primaryConnectionString",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+              },
+            ],
+          }
+        }
+        value="key1"
+      />
+      <Connect(MaskedCopyableTextField)
+        allowMask={true}
+        ariaLabel="moduleIdentity.authenticationType.symmetricKey.secondaryKey"
+        label="moduleIdentity.authenticationType.symmetricKey.secondaryKey"
+        labelCallout="moduleIdentity.authenticationType.symmetricKey.secondaryKeyTooltip"
+        readOnly={true}
+        t={
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                "moduleIdentity.detail.command.refresh",
+              ],
+              Array [
+                "moduleIdentity.detail.command.refresh",
+              ],
+              Array [
+                "moduleIdentity.detail.command.back",
+              ],
+              Array [
+                "moduleIdentity.detail.command.back",
+              ],
+              Array [
+                "moduleIdentity.detail.headerText",
+              ],
+              Array [
+                "moduleIdentity.moduleId",
+              ],
+              Array [
+                "moduleIdentity.moduleId",
+              ],
+              Array [
+                "moduleIdentity.moduleIdTooltip",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.primaryKey",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.primaryKey",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.primaryKeyTooltip",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.secondaryKey",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.secondaryKey",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.secondaryKeyTooltip",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.primaryConnectionString",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.primaryConnectionString",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+              ],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.refresh",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.refresh",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.back",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.back",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.headerText",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleId",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleId",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleIdTooltip",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.primaryKey",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.primaryKey",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.primaryKeyTooltip",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.secondaryKey",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.secondaryKey",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.secondaryKeyTooltip",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.primaryConnectionString",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.primaryConnectionString",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+              },
+            ],
+          }
+        }
+        value="key2"
+      />
+      <Connect(MaskedCopyableTextField)
+        allowMask={true}
+        ariaLabel="moduleIdentity.authenticationType.symmetricKey.primaryConnectionString"
+        label="moduleIdentity.authenticationType.symmetricKey.primaryConnectionString"
+        readOnly={true}
+        t={
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                "moduleIdentity.detail.command.refresh",
+              ],
+              Array [
+                "moduleIdentity.detail.command.refresh",
+              ],
+              Array [
+                "moduleIdentity.detail.command.back",
+              ],
+              Array [
+                "moduleIdentity.detail.command.back",
+              ],
+              Array [
+                "moduleIdentity.detail.headerText",
+              ],
+              Array [
+                "moduleIdentity.moduleId",
+              ],
+              Array [
+                "moduleIdentity.moduleId",
+              ],
+              Array [
+                "moduleIdentity.moduleIdTooltip",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.primaryKey",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.primaryKey",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.primaryKeyTooltip",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.secondaryKey",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.secondaryKey",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.secondaryKeyTooltip",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.primaryConnectionString",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.primaryConnectionString",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+              ],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.refresh",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.refresh",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.back",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.back",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.headerText",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleId",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleId",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleIdTooltip",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.primaryKey",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.primaryKey",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.primaryKeyTooltip",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.secondaryKey",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.secondaryKey",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.secondaryKeyTooltip",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.primaryConnectionString",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.primaryConnectionString",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+              },
+            ],
+          }
+        }
+        value="HostName=undefined;DeviceId=null;ModuleId=null;SharedAccessKey=key1"
+      />
+      <Connect(MaskedCopyableTextField)
+        allowMask={true}
+        ariaLabel="moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString"
+        label="moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString"
+        readOnly={true}
+        t={
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                "moduleIdentity.detail.command.refresh",
+              ],
+              Array [
+                "moduleIdentity.detail.command.refresh",
+              ],
+              Array [
+                "moduleIdentity.detail.command.back",
+              ],
+              Array [
+                "moduleIdentity.detail.command.back",
+              ],
+              Array [
+                "moduleIdentity.detail.headerText",
+              ],
+              Array [
+                "moduleIdentity.moduleId",
+              ],
+              Array [
+                "moduleIdentity.moduleId",
+              ],
+              Array [
+                "moduleIdentity.moduleIdTooltip",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.primaryKey",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.primaryKey",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.primaryKeyTooltip",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.secondaryKey",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.secondaryKey",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.secondaryKeyTooltip",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.primaryConnectionString",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.primaryConnectionString",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+              ],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.refresh",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.refresh",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.back",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.back",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.headerText",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleId",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleId",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleIdTooltip",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.primaryKey",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.primaryKey",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.primaryKeyTooltip",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.secondaryKey",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.secondaryKey",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.secondaryKeyTooltip",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.primaryConnectionString",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.primaryConnectionString",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+              },
+            ],
+          }
+        }
+        value="HostName=undefined;DeviceId=null;ModuleId=null;SharedAccessKey=key2"
+      />
+      <Component />
+    </div>
+  </div>
+</Fragment>
+`;
+
+exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after module identity is fetched 3`] = `
+<Fragment>
+  <StyledCommandBarBase
+    className="command"
+    items={
+      Array [
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.refresh",
+          "disabled": true,
+          "iconProps": Object {
+            "iconName": "Refresh",
+          },
+          "key": "Refresh",
+          "name": "moduleIdentity.detail.command.refresh",
+          "onClick": [Function],
+        },
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.back",
+          "iconProps": Object {
+            "iconName": "ChromeClose",
+          },
+          "key": "ChromeClose",
+          "name": "moduleIdentity.detail.command.back",
+          "onClick": [Function],
+        },
+      ]
+    }
+  />
+  <h3>
+    moduleIdentity.detail.headerText
+  </h3>
+  <div
+    className="device-detail"
+  >
+    <div
+      className="module-identity"
+    >
+      <Connect(MaskedCopyableTextField)
+        allowMask={false}
+        ariaLabel="moduleIdentity.moduleId"
+        label="moduleIdentity.moduleId"
+        labelCallout="moduleIdentity.moduleIdTooltip"
+        readOnly={true}
+        t={
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                "moduleIdentity.detail.command.refresh",
+              ],
+              Array [
+                "moduleIdentity.detail.command.refresh",
+              ],
+              Array [
+                "moduleIdentity.detail.command.back",
+              ],
+              Array [
+                "moduleIdentity.detail.command.back",
+              ],
+              Array [
+                "moduleIdentity.detail.headerText",
+              ],
+              Array [
+                "moduleIdentity.moduleId",
+              ],
+              Array [
+                "moduleIdentity.moduleId",
+              ],
+              Array [
+                "moduleIdentity.moduleIdTooltip",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.selfSigned.text",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.selfSigned.primaryThumbprint",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.selfSigned.primaryThumbprint",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.selfSigned.primaryThumbprintTooltip",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.selfSigned.secondaryThumbprint",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.selfSigned.secondaryThumbprint",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip",
+              ],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.refresh",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.refresh",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.back",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.back",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.headerText",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleId",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleId",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleIdTooltip",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.selfSigned.text",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.selfSigned.primaryThumbprint",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.selfSigned.primaryThumbprint",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.selfSigned.primaryThumbprintTooltip",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.selfSigned.secondaryThumbprint",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.selfSigned.secondaryThumbprint",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip",
+              },
+            ],
+          }
+        }
+        value={null}
+      />
+      <StyledLabelBase>
+        moduleIdentity.authenticationType.selfSigned.text
+      </StyledLabelBase>
+      <Connect(MaskedCopyableTextField)
+        allowMask={true}
+        ariaLabel="moduleIdentity.authenticationType.selfSigned.primaryThumbprint"
+        label="moduleIdentity.authenticationType.selfSigned.primaryThumbprint"
+        labelCallout="moduleIdentity.authenticationType.selfSigned.primaryThumbprintTooltip"
+        readOnly={true}
+        t={
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                "moduleIdentity.detail.command.refresh",
+              ],
+              Array [
+                "moduleIdentity.detail.command.refresh",
+              ],
+              Array [
+                "moduleIdentity.detail.command.back",
+              ],
+              Array [
+                "moduleIdentity.detail.command.back",
+              ],
+              Array [
+                "moduleIdentity.detail.headerText",
+              ],
+              Array [
+                "moduleIdentity.moduleId",
+              ],
+              Array [
+                "moduleIdentity.moduleId",
+              ],
+              Array [
+                "moduleIdentity.moduleIdTooltip",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.selfSigned.text",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.selfSigned.primaryThumbprint",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.selfSigned.primaryThumbprint",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.selfSigned.primaryThumbprintTooltip",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.selfSigned.secondaryThumbprint",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.selfSigned.secondaryThumbprint",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip",
+              ],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.refresh",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.refresh",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.back",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.back",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.headerText",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleId",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleId",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleIdTooltip",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.selfSigned.text",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.selfSigned.primaryThumbprint",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.selfSigned.primaryThumbprint",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.selfSigned.primaryThumbprintTooltip",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.selfSigned.secondaryThumbprint",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.selfSigned.secondaryThumbprint",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip",
+              },
+            ],
+          }
+        }
+        value="thumbprint1"
+      />
+      <Connect(MaskedCopyableTextField)
+        allowMask={true}
+        ariaLabel="moduleIdentity.authenticationType.selfSigned.secondaryThumbprint"
+        label="moduleIdentity.authenticationType.selfSigned.secondaryThumbprint"
+        labelCallout="moduleIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip"
+        readOnly={true}
+        t={
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                "moduleIdentity.detail.command.refresh",
+              ],
+              Array [
+                "moduleIdentity.detail.command.refresh",
+              ],
+              Array [
+                "moduleIdentity.detail.command.back",
+              ],
+              Array [
+                "moduleIdentity.detail.command.back",
+              ],
+              Array [
+                "moduleIdentity.detail.headerText",
+              ],
+              Array [
+                "moduleIdentity.moduleId",
+              ],
+              Array [
+                "moduleIdentity.moduleId",
+              ],
+              Array [
+                "moduleIdentity.moduleIdTooltip",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.selfSigned.text",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.selfSigned.primaryThumbprint",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.selfSigned.primaryThumbprint",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.selfSigned.primaryThumbprintTooltip",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.selfSigned.secondaryThumbprint",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.selfSigned.secondaryThumbprint",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip",
+              ],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.refresh",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.refresh",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.back",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.back",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.headerText",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleId",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleId",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleIdTooltip",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.selfSigned.text",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.selfSigned.primaryThumbprint",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.selfSigned.primaryThumbprint",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.selfSigned.primaryThumbprintTooltip",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.selfSigned.secondaryThumbprint",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.selfSigned.secondaryThumbprint",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip",
+              },
+            ],
+          }
+        }
+        value="thumbprint2"
+      />
+      <Component />
+    </div>
+  </div>
+</Fragment>
+`;
+
+exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after module identity is fetched 4`] = `
+<Fragment>
+  <StyledCommandBarBase
+    className="command"
+    items={
+      Array [
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.refresh",
+          "disabled": false,
+          "iconProps": Object {
+            "iconName": "Refresh",
+          },
+          "key": "Refresh",
+          "name": "moduleIdentity.detail.command.refresh",
+          "onClick": [Function],
+        },
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.back",
+          "iconProps": Object {
+            "iconName": "ChromeClose",
+          },
+          "key": "ChromeClose",
+          "name": "moduleIdentity.detail.command.back",
+          "onClick": [Function],
+        },
+      ]
+    }
+  />
+  <h3>
+    moduleIdentity.detail.headerText
+  </h3>
+  <div
+    className="device-detail"
+  >
+    <div
+      className="module-identity"
+    >
+      <Connect(MaskedCopyableTextField)
+        allowMask={false}
+        ariaLabel="moduleIdentity.moduleId"
+        label="moduleIdentity.moduleId"
+        labelCallout="moduleIdentity.moduleIdTooltip"
+        readOnly={true}
+        t={
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                "moduleIdentity.detail.command.refresh",
+              ],
+              Array [
+                "moduleIdentity.detail.command.refresh",
+              ],
+              Array [
+                "moduleIdentity.detail.command.back",
+              ],
+              Array [
+                "moduleIdentity.detail.command.back",
+              ],
+              Array [
+                "moduleIdentity.detail.headerText",
+              ],
+              Array [
+                "moduleIdentity.moduleId",
+              ],
+              Array [
+                "moduleIdentity.moduleId",
+              ],
+              Array [
+                "moduleIdentity.moduleIdTooltip",
+              ],
+              Array [
+                "moduleIdentity.authenticationType.ca.text",
+              ],
+              Array [
+                "moduleIdentity.detail.twin",
+              ],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.refresh",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.refresh",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.back",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.back",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.headerText",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleId",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleId",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleIdTooltip",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.authenticationType.ca.text",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.twin",
+              },
+            ],
+          }
+        }
+        value={null}
+      />
+      <StyledLabelBase>
+        moduleIdentity.authenticationType.ca.text
+      </StyledLabelBase>
+      <StyledLabelBase>
+        moduleIdentity.detail.twin
+      </StyledLabelBase>
+      <div
+        className="monaco-editor"
+      >
+        <Suspense
+          fallback={
+            <StyledSpinnerBase
+              size={3}
+              title="loading"
+            />
+          }
+        >
+          <ContextConsumer>
+            <Component />
+          </ContextConsumer>
+        </Suspense>
+      </div>
+    </div>
+  </div>
+</Fragment>
+`;
+
+exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after module twin is fetched 1`] = `
+<Fragment>
+  <StyledCommandBarBase
+    className="command"
+    items={
+      Array [
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.refresh",
+          "disabled": true,
+          "iconProps": Object {
+            "iconName": "Refresh",
+          },
+          "key": "Refresh",
+          "name": "moduleIdentity.detail.command.refresh",
+          "onClick": [Function],
+        },
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.back",
+          "iconProps": Object {
+            "iconName": "ChromeClose",
+          },
+          "key": "ChromeClose",
+          "name": "moduleIdentity.detail.command.back",
+          "onClick": [Function],
+        },
+      ]
+    }
+  />
+  <h3>
+    moduleIdentity.detail.headerText
+  </h3>
+  <div
+    className="device-detail"
+  >
+    <div
+      className="module-identity"
+    >
+      <Connect(MaskedCopyableTextField)
+        allowMask={false}
+        ariaLabel="moduleIdentity.moduleId"
+        label="moduleIdentity.moduleId"
+        labelCallout="moduleIdentity.moduleIdTooltip"
+        readOnly={true}
+        t={
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                "moduleIdentity.detail.command.refresh",
+              ],
+              Array [
+                "moduleIdentity.detail.command.refresh",
+              ],
+              Array [
+                "moduleIdentity.detail.command.back",
+              ],
+              Array [
+                "moduleIdentity.detail.command.back",
+              ],
+              Array [
+                "moduleIdentity.detail.headerText",
+              ],
+              Array [
+                "moduleIdentity.moduleId",
+              ],
+              Array [
+                "moduleIdentity.moduleId",
+              ],
+              Array [
+                "moduleIdentity.moduleIdTooltip",
+              ],
+              Array [
+                "moduleIdentity.detail.twin",
+              ],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.refresh",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.refresh",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.back",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.back",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.headerText",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleId",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleId",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleIdTooltip",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.twin",
+              },
+            ],
+          }
+        }
+        value={null}
+      />
+      <Component />
+      <StyledLabelBase>
+        moduleIdentity.detail.twin
+      </StyledLabelBase>
+      <div
+        className="monaco-editor"
+      >
+        <Suspense
+          fallback={
+            <StyledSpinnerBase
+              size={3}
+              title="loading"
+            />
+          }
+        >
+          <ContextConsumer>
+            <Component />
+          </ContextConsumer>
+        </Suspense>
+      </div>
+    </div>
+  </div>
+</Fragment>
+`;
+
+exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot while loading 1`] = `
+<Fragment>
+  <StyledCommandBarBase
+    className="command"
+    items={
+      Array [
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.refresh",
+          "disabled": true,
+          "iconProps": Object {
+            "iconName": "Refresh",
+          },
+          "key": "Refresh",
+          "name": "moduleIdentity.detail.command.refresh",
+          "onClick": [Function],
+        },
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.back",
+          "iconProps": Object {
+            "iconName": "ChromeClose",
+          },
+          "key": "ChromeClose",
+          "name": "moduleIdentity.detail.command.back",
+          "onClick": [Function],
+        },
+      ]
+    }
+  />
+  <h3>
+    moduleIdentity.detail.headerText
+  </h3>
+  <div
+    className="device-detail"
+  >
+    <div
+      className="module-identity"
+    >
+      <Connect(MaskedCopyableTextField)
+        allowMask={false}
+        ariaLabel="moduleIdentity.moduleId"
+        label="moduleIdentity.moduleId"
+        labelCallout="moduleIdentity.moduleIdTooltip"
+        readOnly={true}
+        t={
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                "moduleIdentity.detail.command.refresh",
+              ],
+              Array [
+                "moduleIdentity.detail.command.refresh",
+              ],
+              Array [
+                "moduleIdentity.detail.command.back",
+              ],
+              Array [
+                "moduleIdentity.detail.command.back",
+              ],
+              Array [
+                "moduleIdentity.detail.headerText",
+              ],
+              Array [
+                "moduleIdentity.moduleId",
+              ],
+              Array [
+                "moduleIdentity.moduleId",
+              ],
+              Array [
+                "moduleIdentity.moduleIdTooltip",
+              ],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.refresh",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.refresh",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.back",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.back",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.headerText",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleId",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleId",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.moduleIdTooltip",
+              },
+            ],
+          }
+        }
+        value={null}
+      />
+      <Component />
+      <Component />
+    </div>
+  </div>
+</Fragment>
+`;

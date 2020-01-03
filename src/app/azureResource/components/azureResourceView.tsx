@@ -55,7 +55,7 @@ export const AzureResourceView: React.FC<AzureResourceViewProps> = props => {
             <>
                 <Route path={`${currentUrl}/${ROUTE_PARTS.DEVICES}`} component={DeviceListContainer} exact={true}/>
                 <Route path={`${currentUrl}/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.ADD}`} component={AddDeviceContainer} exact={true} />
-                <Route path={`${currentUrl}/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DETAIL}/`} component={DeviceContentContainer}/>
+                <Route path={`${currentUrl}/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DEVICE_DETAIL}/`} component={DeviceContentContainer}/>
             </>
         );
     };
