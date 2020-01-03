@@ -4,7 +4,8 @@
  **********************************************************/
 import {
     addConnectionStringAction,
-    deleteConnectionStringAction
+    deleteConnectionStringAction,
+    setConnectionStringsAction
 } from './actions';
 
 describe('addConnectionStringAction', () => {
@@ -21,6 +22,15 @@ describe('deleteConnectionStringAction', () => {
         expect(deleteConnectionStringAction('connectionString')).toEqual({
             payload: 'connectionString',
             type: 'CONNECTION_STRINGS/DELETE'
+        });
+    });
+});
+
+describe('setConnectionStringAction', () => {
+    it('returns CONNECTION_STRINGS/SET action object', () => {
+        expect(setConnectionStringsAction([])).toEqual({
+            payload: [],
+            type: 'CONNECTION_STRINGS/SET'
         });
     });
 });

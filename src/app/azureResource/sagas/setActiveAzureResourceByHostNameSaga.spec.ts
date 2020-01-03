@@ -4,10 +4,9 @@
  **********************************************************/
 import { call, put, select } from 'redux-saga/effects';
 import { cloneableGenerator } from 'redux-saga/utils';
-import { setActiveAzureResourceByHostNameSaga } from './setActiveAzureResourceByHostNameSaga';
+import { setActiveAzureResourceByHostNameSaga, getLastUsedConnectionString } from './setActiveAzureResourceByHostNameSaga';
 import { setActiveAzureResourceByHostNameAction, SetActiveAzureResourceByHostNameActionParameters, setActiveAzureResourceAction } from '../actions';
 import { AccessVerificationState } from '../models/accessVerificationState';
-import { getConnectionStringSelector } from '../../login/selectors';
 import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
 
 describe('setActiveAzureResourceByHostNameSaga', () => {
@@ -19,7 +18,7 @@ describe('setActiveAzureResourceByHostNameSaga', () => {
     it('yields selector to get current connection string', () => {
         expect(setActiveAzureResourceByHostNameSagaGenerator.next()).toEqual({
             done: false,
-            value: select(getConnectionStringSelector)
+            value: select(getLastUsedConnectionString)
         });
     });
 
@@ -55,9 +54,8 @@ describe('setActiveAzureResourceByHostNameSaga', () => {
     describe('host name does not match', () => {
         const cloneSagaGenerator = setActiveAzureResourceByHostNameSagaGenerator.clone();
         cloneSagaGenerator.next();
-        cloneSagaGenerator.next('connectionStirng');
         it('yields put effect to set active resource', () => {
-            expect(cloneSagaGenerator.next({ hostName: 'nothostname'})).toEqual({
+            expect(cloneSagaGenerator.next('')).toEqual({
                 done: false,
                 value: put(setActiveAzureResourceAction({
                     accessVerificationState: AccessVerificationState.Unauthorized,
@@ -71,5 +69,29 @@ describe('setActiveAzureResourceByHostNameSaga', () => {
                 done: true
             });
         });
+    });
+});
+
+describe('getLastUsedConnectionString', () => {
+    it('returns expected value when array has one or more entries', () => {
+        const state = {
+            connectionStringsState: {
+                connectionStrings: ['connection1', 'connection2']
+            }
+        };
+
+        // tslint:disable-next-line:no-any
+        expect(getLastUsedConnectionString(state as any)).toEqual('connection1');
+    });
+
+    it('returns expected value when array has no entries', () => {
+        const state = {
+            connectionStringsState: {
+                connectionStrings: []
+            }
+        };
+
+        // tslint:disable-next-line:no-any
+        expect(getLastUsedConnectionString(state as any)).toEqual('');
     });
 });

@@ -5,25 +5,9 @@
 import { call } from 'redux-saga/effects';
 import { cloneableGenerator } from 'redux-saga/utils';
 import { addConnectionStringAction } from '../actions';
-import { addConnectionStringSaga, getConnectionStrings, setConnectionStrings } from './addConnectionStringSaga';
-import { CONNECTION_STRING_LIST_MAX_LENGTH, CONNECTION_STRING_NAME_LIST } from '../../constants/browserStorage';
-
-describe('getConnectionString', () => {
-    it('returns expected value', () => {
-        const setValue = 'helloworld';
-        localStorage.setItem(CONNECTION_STRING_NAME_LIST, setValue);
-        expect(getConnectionStrings()).toEqual(setValue);
-    });
-});
-
-describe('setConnectionString', () => {
-    it('sets expected value', () => {
-        const setValue = 'cruelworld';
-        setConnectionStrings(setValue);
-
-        expect(localStorage.getItem(CONNECTION_STRING_NAME_LIST)).toEqual(setValue);
-    });
-});
+import { addConnectionStringSaga } from './addConnectionStringSaga';
+import { getConnectionStrings, setConnectionStrings } from './setConnectionStringsSaga';
+import { CONNECTION_STRING_LIST_MAX_LENGTH } from '../../constants/browserStorage';
 
 describe('addConnectionStringSaga', () => {
     describe('adding unlisted connection string', () => {

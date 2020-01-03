@@ -6,7 +6,7 @@ import { call } from 'redux-saga/effects';
 import { cloneableGenerator } from 'redux-saga/utils';
 import { deleteConnectionStringAction } from '../actions';
 import { deleteConnectionStringSaga } from './deleteConnectionStringSaga';
-import { getConnectionStrings, setConnectionStrings } from './addConnectionStringSaga';
+import { getConnectionStrings, setConnectionStrings } from './setConnectionStringsSaga';
 
 describe('deleteConnectionStringSaga', () => {
     describe('removing unlisted connection string', () => {

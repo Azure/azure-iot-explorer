@@ -9,7 +9,7 @@ import { invokeDigitalTwinInterfaceCommandSaga, notifyMethodInvoked } from './di
 import { invokeDigitalTwinInterfaceCommandAction, InvokeDigitalTwinInterfaceCommandActionParameters } from '../actions';
 import * as DevicesService from '../../../api/services/devicesService';
 import { getInterfaceNameSelector } from '../selectors';
-import { getConnectionStringSelector } from '../../../login/selectors';
+import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { addNotificationAction } from '../../../notifications/actions';
@@ -68,7 +68,7 @@ describe('digitalTwinInterfaceCommandSaga', () => {
         it('invokes the command', () => {
             expect(invokeDigitalTwinInterfaceCommandSagaGenerator.next(payload)).toEqual({
                 done: false,
-                value: select(getConnectionStringSelector)
+                value: call(getActiveAzureResourceConnectionStringSaga)
             });
 
             expect(invokeDigitalTwinInterfaceCommandSagaGenerator.next(connectionString)).toEqual({

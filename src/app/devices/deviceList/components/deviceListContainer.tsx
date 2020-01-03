@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import DeviceListComponent, { DeviceListDispatchProps, DeviceListDataProps } from './deviceList';
 import { StateType } from '../../../shared/redux/state';
-import { getConnectionStringSelector } from '../../../login/selectors';
 import { listDevicesAction, deleteDevicesAction } from '../actions';
 import { getDeviceSummaryListStatus, deviceQuerySelector, deviceSummaryListWrapperNoPNPSelector } from '../selectors';
 import DeviceQuery from '../../../api/models/deviceQuery';
@@ -16,7 +15,7 @@ const mapStateToProps = (state: StateType): DeviceListDataProps => {
     const deviceListSyncStatus = getDeviceSummaryListStatus(state);
     const isFetching = deviceListSyncStatus && deviceListSyncStatus === SynchronizationStatus.working ||  deviceListSyncStatus === SynchronizationStatus.updating;
     return {
-        connectionString: getConnectionStringSelector(state),
+        connectionString: state.azureResourceState.activeAzureResource ? state.azureResourceState.activeAzureResource.connectionString : '',
         devices: deviceSummaryListWrapperNoPNPSelector(state),
         isFetching,
         query: deviceQuerySelector(state)

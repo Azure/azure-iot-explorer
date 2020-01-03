@@ -8,13 +8,12 @@ import { connect } from 'react-redux';
 import { StateType } from '../../../../shared/redux/state';
 import DeviceIdentityInformation, { DeviceIdentityDataProps, DeviceIdentityDispatchProps } from './deviceIdentity';
 import { getDeviceIdentityWrapperSelector } from '../../selectors';
-import { getConnectionStringSelector } from '../../../../login/selectors';
 import { DeviceIdentity } from '../../../../api/models/deviceIdentity';
 import { updateDeviceIdentityAction } from '../../actions';
 
 const mapStateToProps = (state: StateType): DeviceIdentityDataProps => {
     return {
-        connectionString: getConnectionStringSelector(state),
+        connectionString: state.azureResourceState.activeAzureResource ? state.azureResourceState.activeAzureResource.connectionString : '',
         identityWrapper: getDeviceIdentityWrapperSelector(state)
     };
 };

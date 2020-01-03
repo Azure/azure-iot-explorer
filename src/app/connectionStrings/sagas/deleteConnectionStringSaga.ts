@@ -4,7 +4,7 @@
  **********************************************************/
 import { call } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
-import { getConnectionStrings, setConnectionStrings } from './addConnectionStringSaga';
+import { getConnectionStrings, setConnectionStrings } from './setConnectionStringsSaga';
 
 export function* deleteConnectionStringSaga(action: Action<string>) {
     const savedStrings: string = yield call(getConnectionStrings);

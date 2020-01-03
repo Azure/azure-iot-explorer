@@ -17,12 +17,11 @@ exports[`login/components/connectivityPane matches snapshot 1`] = `
         }
       }
       className="connection-string-dropDown"
-      errorMessage="connectivityPane.connectionStringComboBox.errorMessages.required"
       label="connectivityPane.connectionStringComboBox.label"
       onChange={[Function]}
       options={Array []}
-      selectedKey=""
-      text="connectivityPane.connectionStringComboBox.prompt"
+      placeholder="connectivityPane.connectionStringComboBox.prompt"
+      text=""
       useComboBoxAsMenuWidth={true}
     />
     <input

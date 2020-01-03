@@ -28,7 +28,9 @@ exports[`components/settings/settingsPane matches snapshot is not open 1`] = `
       settings.configuration.headerText
     </h3>
     <HubConnectionStringSection
-      onSaveConnectionString={[Function]}
+      connectionStringError=""
+      onChangeConnectionString={[Function]}
+      onRemoveConnectionString={[Function]}
     />
   </section>
   <section
@@ -100,7 +102,9 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
       settings.configuration.headerText
     </h3>
     <HubConnectionStringSection
-      onSaveConnectionString={[Function]}
+      connectionStringError=""
+      onChangeConnectionString={[Function]}
+      onRemoveConnectionString={[Function]}
     />
   </section>
   <section
@@ -172,7 +176,9 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
       settings.configuration.headerText
     </h3>
     <HubConnectionStringSection
-      onSaveConnectionString={[Function]}
+      connectionStringError=""
+      onChangeConnectionString={[Function]}
+      onRemoveConnectionString={[Function]}
     />
   </section>
   <section
