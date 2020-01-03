@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, NavLink } from 'react-router-dom';
 import { DetailsList, IColumn, SelectionMode } from 'office-ui-fabric-react/lib/DetailsList';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
@@ -61,6 +61,7 @@ export default class ModuleIdentityComponent
                     },
                     {
                         ariaLabel: context.t(ResourceKeys.moduleIdentity.command.refresh),
+                        disabled: this.props.synchronizationStatus === SynchronizationStatus.working,
                         iconProps: {iconName: REFRESH},
                         key: REFRESH,
                         name: context.t(ResourceKeys.moduleIdentity.command.refresh),
@@ -72,7 +73,7 @@ export default class ModuleIdentityComponent
     }
 
     private readonly handleAdd = () => {
-        const path = this.props.location.pathname.replace(/\/moduleIdentity\/.*/, `/${ROUTE_PARTS.ADD_MODULE_IDENTITY}`);
+        const path = this.props.match.url.concat(ROUTE_PARTS.ADD);
         const deviceId = getDeviceIdFromQueryString(this.props);
         this.props.history.push(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
     }
@@ -85,11 +86,13 @@ export default class ModuleIdentityComponent
         const { moduleIdentityList, synchronizationStatus } = this.props;
         return (
             <div className="device-detail">
-                <DetailsList
-                    columns={this.getColumns(context)}
-                    items={moduleIdentityList}
-                    selectionMode={SelectionMode.none}
-                />
+                 <div className="list-detail">
+                    <DetailsList
+                        columns={this.getColumns(context)}
+                        items={moduleIdentityList}
+                        selectionMode={SelectionMode.none}
+                    />
+                </div>
 
                 {synchronizationStatus === SynchronizationStatus.working && <MultiLineShimmer/>}
                 {synchronizationStatus === SynchronizationStatus.fetched && moduleIdentityList.length === 0 && context.t(ResourceKeys.moduleIdentity.noModules)}
@@ -108,7 +111,15 @@ export default class ModuleIdentityComponent
                 key: 'moduleId',
                 maxWidth: 200,
                 minWidth: 50,
-                name: t(ResourceKeys.moduleIdentity.columns.moduleId)
+                name: t(ResourceKeys.moduleIdentity.columns.moduleId),
+                onRender: item => (
+                <NavLink
+                    key={item.key}
+                    to={`${this.props.match.url}${ROUTE_PARTS.MODULE_DETAIL}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(getDeviceIdFromQueryString(this.props))}&${ROUTE_PARAMS.MODULE_ID}=${item.moduleId}`}
+                >
+                    {item.moduleId}
+                </NavLink>
+                )
             },
             {
                 ariaLabel: t(ResourceKeys.moduleIdentity.columns.connectionState),

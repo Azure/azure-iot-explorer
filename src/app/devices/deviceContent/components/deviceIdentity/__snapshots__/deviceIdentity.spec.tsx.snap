@@ -22,6 +22,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with CA aut
       allowMask={false}
       ariaLabel="deviceIdentity.deviceID"
       label="deviceIdentity.deviceID"
+      labelCallout="deviceIdentity.deviceIDTooltip"
       readOnly={true}
       t={
         [MockFunction] {
@@ -33,13 +34,19 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with CA aut
               "deviceIdentity.deviceID",
             ],
             Array [
+              "deviceIdentity.deviceIDTooltip",
+            ],
+            Array [
               "deviceIdentity.authenticationType.ca.text",
             ],
             Array [
-              "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+              "deviceIdentity.authenticationType.ca.connectionString",
             ],
             Array [
-              "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+              "deviceIdentity.authenticationType.ca.connectionString",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.ca.connectionStringTooltip",
             ],
             Array [
               "deviceIdentity.hubConnectivity.label",
@@ -65,15 +72,23 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with CA aut
             },
             Object {
               "type": "return",
+              "value": "deviceIdentity.deviceIDTooltip",
+            },
+            Object {
+              "type": "return",
               "value": "deviceIdentity.authenticationType.ca.text",
             },
             Object {
               "type": "return",
-              "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+              "value": "deviceIdentity.authenticationType.ca.connectionString",
             },
             Object {
               "type": "return",
-              "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+              "value": "deviceIdentity.authenticationType.ca.connectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.ca.connectionStringTooltip",
             },
             Object {
               "type": "return",
@@ -100,8 +115,9 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with CA aut
     </StyledLabelBase>
     <Connect(MaskedCopyableTextField)
       allowMask={true}
-      ariaLabel="deviceIdentity.authenticationType.symmetricKey.primaryConnectionString"
-      label="deviceIdentity.authenticationType.symmetricKey.primaryConnectionString"
+      ariaLabel="deviceIdentity.authenticationType.ca.connectionString"
+      label="deviceIdentity.authenticationType.ca.connectionString"
+      labelCallout="deviceIdentity.authenticationType.ca.connectionStringTooltip"
       readOnly={true}
       t={
         [MockFunction] {
@@ -113,13 +129,19 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with CA aut
               "deviceIdentity.deviceID",
             ],
             Array [
+              "deviceIdentity.deviceIDTooltip",
+            ],
+            Array [
               "deviceIdentity.authenticationType.ca.text",
             ],
             Array [
-              "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+              "deviceIdentity.authenticationType.ca.connectionString",
             ],
             Array [
-              "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+              "deviceIdentity.authenticationType.ca.connectionString",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.ca.connectionStringTooltip",
             ],
             Array [
               "deviceIdentity.hubConnectivity.label",
@@ -145,15 +167,23 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with CA aut
             },
             Object {
               "type": "return",
+              "value": "deviceIdentity.deviceIDTooltip",
+            },
+            Object {
+              "type": "return",
               "value": "deviceIdentity.authenticationType.ca.text",
             },
             Object {
               "type": "return",
-              "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+              "value": "deviceIdentity.authenticationType.ca.connectionString",
             },
             Object {
               "type": "return",
-              "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+              "value": "deviceIdentity.authenticationType.ca.connectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.ca.connectionStringTooltip",
             },
             Object {
               "type": "return",
@@ -202,6 +232,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with SelfSi
       allowMask={false}
       ariaLabel="deviceIdentity.deviceID"
       label="deviceIdentity.deviceID"
+      labelCallout="deviceIdentity.deviceIDTooltip"
       readOnly={true}
       t={
         [MockFunction] {
@@ -213,13 +244,37 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with SelfSi
               "deviceIdentity.deviceID",
             ],
             Array [
+              "deviceIdentity.deviceIDTooltip",
+            ],
+            Array [
               "deviceIdentity.authenticationType.selfSigned.text",
             ],
             Array [
-              "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+              "deviceIdentity.authenticationType.selfSigned.primaryThumbprint",
             ],
             Array [
-              "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+              "deviceIdentity.authenticationType.selfSigned.primaryThumbprint",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.selfSigned.primaryThumbprintTooltip",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.selfSigned.secondaryThumbprint",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.selfSigned.secondaryThumbprint",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.selfSigned.connectionString",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.selfSigned.connectionString",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.selfSigned.connectionStringTooltip",
             ],
             Array [
               "deviceIdentity.hubConnectivity.label",
@@ -245,15 +300,47 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with SelfSi
             },
             Object {
               "type": "return",
+              "value": "deviceIdentity.deviceIDTooltip",
+            },
+            Object {
+              "type": "return",
               "value": "deviceIdentity.authenticationType.selfSigned.text",
             },
             Object {
               "type": "return",
-              "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+              "value": "deviceIdentity.authenticationType.selfSigned.primaryThumbprint",
             },
             Object {
               "type": "return",
-              "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+              "value": "deviceIdentity.authenticationType.selfSigned.primaryThumbprint",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.selfSigned.primaryThumbprintTooltip",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.selfSigned.secondaryThumbprint",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.selfSigned.secondaryThumbprint",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.selfSigned.connectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.selfSigned.connectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.selfSigned.connectionStringTooltip",
             },
             Object {
               "type": "return",
@@ -280,8 +367,9 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with SelfSi
     </StyledLabelBase>
     <Connect(MaskedCopyableTextField)
       allowMask={true}
-      ariaLabel="deviceIdentity.authenticationType.symmetricKey.primaryConnectionString"
-      label="deviceIdentity.authenticationType.symmetricKey.primaryConnectionString"
+      ariaLabel="deviceIdentity.authenticationType.selfSigned.primaryThumbprint"
+      label="deviceIdentity.authenticationType.selfSigned.primaryThumbprint"
+      labelCallout="deviceIdentity.authenticationType.selfSigned.primaryThumbprintTooltip"
       readOnly={true}
       t={
         [MockFunction] {
@@ -293,13 +381,37 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with SelfSi
               "deviceIdentity.deviceID",
             ],
             Array [
+              "deviceIdentity.deviceIDTooltip",
+            ],
+            Array [
               "deviceIdentity.authenticationType.selfSigned.text",
             ],
             Array [
-              "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+              "deviceIdentity.authenticationType.selfSigned.primaryThumbprint",
             ],
             Array [
-              "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+              "deviceIdentity.authenticationType.selfSigned.primaryThumbprint",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.selfSigned.primaryThumbprintTooltip",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.selfSigned.secondaryThumbprint",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.selfSigned.secondaryThumbprint",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.selfSigned.connectionString",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.selfSigned.connectionString",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.selfSigned.connectionStringTooltip",
             ],
             Array [
               "deviceIdentity.hubConnectivity.label",
@@ -325,15 +437,317 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with SelfSi
             },
             Object {
               "type": "return",
+              "value": "deviceIdentity.deviceIDTooltip",
+            },
+            Object {
+              "type": "return",
               "value": "deviceIdentity.authenticationType.selfSigned.text",
             },
             Object {
               "type": "return",
-              "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+              "value": "deviceIdentity.authenticationType.selfSigned.primaryThumbprint",
             },
             Object {
               "type": "return",
-              "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+              "value": "deviceIdentity.authenticationType.selfSigned.primaryThumbprint",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.selfSigned.primaryThumbprintTooltip",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.selfSigned.secondaryThumbprint",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.selfSigned.secondaryThumbprint",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.selfSigned.connectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.selfSigned.connectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.selfSigned.connectionStringTooltip",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.enable",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.disable",
+            },
+          ],
+        }
+      }
+      value="123"
+    />
+    <Connect(MaskedCopyableTextField)
+      allowMask={true}
+      ariaLabel="deviceIdentity.authenticationType.selfSigned.secondaryThumbprint"
+      label="deviceIdentity.authenticationType.selfSigned.secondaryThumbprint"
+      labelCallout="deviceIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip"
+      readOnly={true}
+      t={
+        [MockFunction] {
+          "calls": Array [
+            Array [
+              "deviceIdentity.deviceID",
+            ],
+            Array [
+              "deviceIdentity.deviceID",
+            ],
+            Array [
+              "deviceIdentity.deviceIDTooltip",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.selfSigned.text",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.selfSigned.primaryThumbprint",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.selfSigned.primaryThumbprint",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.selfSigned.primaryThumbprintTooltip",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.selfSigned.secondaryThumbprint",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.selfSigned.secondaryThumbprint",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.selfSigned.connectionString",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.selfSigned.connectionString",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.selfSigned.connectionStringTooltip",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.label",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.label",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.enable",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.disable",
+            ],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.deviceID",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.deviceID",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.deviceIDTooltip",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.selfSigned.text",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.selfSigned.primaryThumbprint",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.selfSigned.primaryThumbprint",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.selfSigned.primaryThumbprintTooltip",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.selfSigned.secondaryThumbprint",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.selfSigned.secondaryThumbprint",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.selfSigned.connectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.selfSigned.connectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.selfSigned.connectionStringTooltip",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.label",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.enable",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.hubConnectivity.disable",
+            },
+          ],
+        }
+      }
+      value="456"
+    />
+    <Connect(MaskedCopyableTextField)
+      allowMask={true}
+      ariaLabel="deviceIdentity.authenticationType.selfSigned.connectionString"
+      label="deviceIdentity.authenticationType.selfSigned.connectionString"
+      labelCallout="deviceIdentity.authenticationType.selfSigned.connectionStringTooltip"
+      readOnly={true}
+      t={
+        [MockFunction] {
+          "calls": Array [
+            Array [
+              "deviceIdentity.deviceID",
+            ],
+            Array [
+              "deviceIdentity.deviceID",
+            ],
+            Array [
+              "deviceIdentity.deviceIDTooltip",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.selfSigned.text",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.selfSigned.primaryThumbprint",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.selfSigned.primaryThumbprint",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.selfSigned.primaryThumbprintTooltip",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.selfSigned.secondaryThumbprint",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.selfSigned.secondaryThumbprint",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.selfSigned.connectionString",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.selfSigned.connectionString",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.selfSigned.connectionStringTooltip",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.label",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.label",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.enable",
+            ],
+            Array [
+              "deviceIdentity.hubConnectivity.disable",
+            ],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.deviceID",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.deviceID",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.deviceIDTooltip",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.selfSigned.text",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.selfSigned.primaryThumbprint",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.selfSigned.primaryThumbprint",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.selfSigned.primaryThumbprintTooltip",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.selfSigned.secondaryThumbprint",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.selfSigned.secondaryThumbprint",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.selfSigned.connectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.selfSigned.connectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.selfSigned.connectionStringTooltip",
             },
             Object {
               "type": "return",
@@ -385,6 +799,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
       allowMask={false}
       ariaLabel="deviceIdentity.deviceID"
       label="deviceIdentity.deviceID"
+      labelCallout="deviceIdentity.deviceIDTooltip"
       readOnly={true}
       t={
         [MockFunction] {
@@ -396,10 +811,16 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
               "deviceIdentity.deviceID",
             ],
             Array [
+              "deviceIdentity.deviceIDTooltip",
+            ],
+            Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryKey",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.primaryKeyTooltip",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
@@ -408,16 +829,25 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
               "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
             ],
             Array [
+              "deviceIdentity.authenticationType.symmetricKey.secondaryKeyTooltip",
+            ],
+            Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.primaryConnectionStringTooltip",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionStringTooltip",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryKey",
@@ -473,11 +903,19 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
             },
             Object {
               "type": "return",
+              "value": "deviceIdentity.deviceIDTooltip",
+            },
+            Object {
+              "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
             },
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.primaryKeyTooltip",
             },
             Object {
               "type": "return",
@@ -489,11 +927,19 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
             },
             Object {
               "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.secondaryKeyTooltip",
+            },
+            Object {
+              "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
             },
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionStringTooltip",
             },
             Object {
               "type": "return",
@@ -502,6 +948,10 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionStringTooltip",
             },
             Object {
               "type": "return",
@@ -568,6 +1018,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.primaryKey"
       label="deviceIdentity.authenticationType.symmetricKey.primaryKey"
+      labelCallout="deviceIdentity.authenticationType.symmetricKey.primaryKeyTooltip"
       onTextChange={[Function]}
       readOnly={false}
       t={
@@ -580,10 +1031,16 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
               "deviceIdentity.deviceID",
             ],
             Array [
+              "deviceIdentity.deviceIDTooltip",
+            ],
+            Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryKey",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.primaryKeyTooltip",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
@@ -592,16 +1049,25 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
               "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
             ],
             Array [
+              "deviceIdentity.authenticationType.symmetricKey.secondaryKeyTooltip",
+            ],
+            Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.primaryConnectionStringTooltip",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionStringTooltip",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryKey",
@@ -657,11 +1123,19 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
             },
             Object {
               "type": "return",
+              "value": "deviceIdentity.deviceIDTooltip",
+            },
+            Object {
+              "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
             },
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.primaryKeyTooltip",
             },
             Object {
               "type": "return",
@@ -673,11 +1147,19 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
             },
             Object {
               "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.secondaryKeyTooltip",
+            },
+            Object {
+              "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
             },
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionStringTooltip",
             },
             Object {
               "type": "return",
@@ -686,6 +1168,10 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionStringTooltip",
             },
             Object {
               "type": "return",
@@ -752,6 +1238,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.secondaryKey"
       label="deviceIdentity.authenticationType.symmetricKey.secondaryKey"
+      labelCallout="deviceIdentity.authenticationType.symmetricKey.secondaryKeyTooltip"
       onTextChange={[Function]}
       readOnly={false}
       t={
@@ -764,10 +1251,16 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
               "deviceIdentity.deviceID",
             ],
             Array [
+              "deviceIdentity.deviceIDTooltip",
+            ],
+            Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryKey",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.primaryKeyTooltip",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
@@ -776,16 +1269,25 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
               "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
             ],
             Array [
+              "deviceIdentity.authenticationType.symmetricKey.secondaryKeyTooltip",
+            ],
+            Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.primaryConnectionStringTooltip",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionStringTooltip",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryKey",
@@ -841,11 +1343,19 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
             },
             Object {
               "type": "return",
+              "value": "deviceIdentity.deviceIDTooltip",
+            },
+            Object {
+              "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
             },
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.primaryKeyTooltip",
             },
             Object {
               "type": "return",
@@ -857,11 +1367,19 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
             },
             Object {
               "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.secondaryKeyTooltip",
+            },
+            Object {
+              "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
             },
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionStringTooltip",
             },
             Object {
               "type": "return",
@@ -870,6 +1388,10 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionStringTooltip",
             },
             Object {
               "type": "return",
@@ -935,6 +1457,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.primaryConnectionString"
       label="deviceIdentity.authenticationType.symmetricKey.primaryConnectionString"
+      labelCallout="deviceIdentity.authenticationType.symmetricKey.primaryConnectionStringTooltip"
       readOnly={true}
       t={
         [MockFunction] {
@@ -946,10 +1469,16 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
               "deviceIdentity.deviceID",
             ],
             Array [
+              "deviceIdentity.deviceIDTooltip",
+            ],
+            Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryKey",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.primaryKeyTooltip",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
@@ -958,16 +1487,25 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
               "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
             ],
             Array [
+              "deviceIdentity.authenticationType.symmetricKey.secondaryKeyTooltip",
+            ],
+            Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.primaryConnectionStringTooltip",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionStringTooltip",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryKey",
@@ -1023,11 +1561,19 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
             },
             Object {
               "type": "return",
+              "value": "deviceIdentity.deviceIDTooltip",
+            },
+            Object {
+              "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
             },
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.primaryKeyTooltip",
             },
             Object {
               "type": "return",
@@ -1039,11 +1585,19 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
             },
             Object {
               "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.secondaryKeyTooltip",
+            },
+            Object {
+              "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
             },
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionStringTooltip",
             },
             Object {
               "type": "return",
@@ -1052,6 +1606,10 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionStringTooltip",
             },
             Object {
               "type": "return",
@@ -1118,6 +1676,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString"
       label="deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString"
+      labelCallout="deviceIdentity.authenticationType.symmetricKey.secondaryConnectionStringTooltip"
       readOnly={true}
       t={
         [MockFunction] {
@@ -1129,10 +1688,16 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
               "deviceIdentity.deviceID",
             ],
             Array [
+              "deviceIdentity.deviceIDTooltip",
+            ],
+            Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryKey",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.primaryKeyTooltip",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
@@ -1141,16 +1706,25 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
               "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
             ],
             Array [
+              "deviceIdentity.authenticationType.symmetricKey.secondaryKeyTooltip",
+            ],
+            Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.primaryConnectionStringTooltip",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionStringTooltip",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryKey",
@@ -1206,11 +1780,19 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
             },
             Object {
               "type": "return",
+              "value": "deviceIdentity.deviceIDTooltip",
+            },
+            Object {
+              "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
             },
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.primaryKeyTooltip",
             },
             Object {
               "type": "return",
@@ -1222,11 +1804,19 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
             },
             Object {
               "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.secondaryKeyTooltip",
+            },
+            Object {
+              "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
             },
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionStringTooltip",
             },
             Object {
               "type": "return",
@@ -1235,6 +1825,10 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionStringTooltip",
             },
             Object {
               "type": "return",
@@ -1362,10 +1956,16 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
                   "deviceIdentity.deviceID",
                 ],
                 Array [
+                  "deviceIdentity.deviceIDTooltip",
+                ],
+                Array [
                   "deviceIdentity.authenticationType.symmetricKey.primaryKey",
                 ],
                 Array [
                   "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.symmetricKey.primaryKeyTooltip",
                 ],
                 Array [
                   "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
@@ -1374,16 +1974,25 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
                   "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
                 ],
                 Array [
+                  "deviceIdentity.authenticationType.symmetricKey.secondaryKeyTooltip",
+                ],
+                Array [
                   "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
                 ],
                 Array [
                   "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.symmetricKey.primaryConnectionStringTooltip",
                 ],
                 Array [
                   "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
                 ],
                 Array [
                   "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionStringTooltip",
                 ],
                 Array [
                   "deviceIdentity.authenticationType.symmetricKey.primaryKey",
@@ -1439,11 +2048,19 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
                 },
                 Object {
                   "type": "return",
+                  "value": "deviceIdentity.deviceIDTooltip",
+                },
+                Object {
+                  "type": "return",
                   "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
                 },
                 Object {
                   "type": "return",
                   "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.symmetricKey.primaryKeyTooltip",
                 },
                 Object {
                   "type": "return",
@@ -1455,11 +2072,19 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
                 },
                 Object {
                   "type": "return",
+                  "value": "deviceIdentity.authenticationType.symmetricKey.secondaryKeyTooltip",
+                },
+                Object {
+                  "type": "return",
                   "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
                 },
                 Object {
                   "type": "return",
                   "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionStringTooltip",
                 },
                 Object {
                   "type": "return",
@@ -1468,6 +2093,10 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
                 Object {
                   "type": "return",
                   "value": "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionStringTooltip",
                 },
                 Object {
                   "type": "return",
@@ -1567,6 +2196,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
       allowMask={false}
       ariaLabel="deviceIdentity.deviceID"
       label="deviceIdentity.deviceID"
+      labelCallout="deviceIdentity.deviceIDTooltip"
       readOnly={true}
       t={
         [MockFunction] {
@@ -1578,10 +2208,16 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
               "deviceIdentity.deviceID",
             ],
             Array [
+              "deviceIdentity.deviceIDTooltip",
+            ],
+            Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryKey",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.primaryKeyTooltip",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
@@ -1590,16 +2226,25 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
               "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
             ],
             Array [
+              "deviceIdentity.authenticationType.symmetricKey.secondaryKeyTooltip",
+            ],
+            Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.primaryConnectionStringTooltip",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionStringTooltip",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryKey",
@@ -1655,11 +2300,19 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
             },
             Object {
               "type": "return",
+              "value": "deviceIdentity.deviceIDTooltip",
+            },
+            Object {
+              "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
             },
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.primaryKeyTooltip",
             },
             Object {
               "type": "return",
@@ -1671,11 +2324,19 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
             },
             Object {
               "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.secondaryKeyTooltip",
+            },
+            Object {
+              "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
             },
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionStringTooltip",
             },
             Object {
               "type": "return",
@@ -1684,6 +2345,10 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionStringTooltip",
             },
             Object {
               "type": "return",
@@ -1749,6 +2414,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.primaryKey"
       label="deviceIdentity.authenticationType.symmetricKey.primaryKey"
+      labelCallout="deviceIdentity.authenticationType.symmetricKey.primaryKeyTooltip"
       onTextChange={[Function]}
       readOnly={false}
       t={
@@ -1761,10 +2427,16 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
               "deviceIdentity.deviceID",
             ],
             Array [
+              "deviceIdentity.deviceIDTooltip",
+            ],
+            Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryKey",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.primaryKeyTooltip",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
@@ -1773,16 +2445,25 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
               "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
             ],
             Array [
+              "deviceIdentity.authenticationType.symmetricKey.secondaryKeyTooltip",
+            ],
+            Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.primaryConnectionStringTooltip",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionStringTooltip",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryKey",
@@ -1838,11 +2519,19 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
             },
             Object {
               "type": "return",
+              "value": "deviceIdentity.deviceIDTooltip",
+            },
+            Object {
+              "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
             },
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.primaryKeyTooltip",
             },
             Object {
               "type": "return",
@@ -1854,11 +2543,19 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
             },
             Object {
               "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.secondaryKeyTooltip",
+            },
+            Object {
+              "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
             },
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionStringTooltip",
             },
             Object {
               "type": "return",
@@ -1867,6 +2564,10 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionStringTooltip",
             },
             Object {
               "type": "return",
@@ -1933,6 +2634,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.secondaryKey"
       label="deviceIdentity.authenticationType.symmetricKey.secondaryKey"
+      labelCallout="deviceIdentity.authenticationType.symmetricKey.secondaryKeyTooltip"
       onTextChange={[Function]}
       readOnly={false}
       t={
@@ -1945,10 +2647,16 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
               "deviceIdentity.deviceID",
             ],
             Array [
+              "deviceIdentity.deviceIDTooltip",
+            ],
+            Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryKey",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.primaryKeyTooltip",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
@@ -1957,16 +2665,25 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
               "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
             ],
             Array [
+              "deviceIdentity.authenticationType.symmetricKey.secondaryKeyTooltip",
+            ],
+            Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.primaryConnectionStringTooltip",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionStringTooltip",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryKey",
@@ -2022,11 +2739,19 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
             },
             Object {
               "type": "return",
+              "value": "deviceIdentity.deviceIDTooltip",
+            },
+            Object {
+              "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
             },
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.primaryKeyTooltip",
             },
             Object {
               "type": "return",
@@ -2038,11 +2763,19 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
             },
             Object {
               "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.secondaryKeyTooltip",
+            },
+            Object {
+              "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
             },
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionStringTooltip",
             },
             Object {
               "type": "return",
@@ -2051,6 +2784,10 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionStringTooltip",
             },
             Object {
               "type": "return",
@@ -2116,6 +2853,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.primaryConnectionString"
       label="deviceIdentity.authenticationType.symmetricKey.primaryConnectionString"
+      labelCallout="deviceIdentity.authenticationType.symmetricKey.primaryConnectionStringTooltip"
       readOnly={true}
       t={
         [MockFunction] {
@@ -2127,10 +2865,16 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
               "deviceIdentity.deviceID",
             ],
             Array [
+              "deviceIdentity.deviceIDTooltip",
+            ],
+            Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryKey",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.primaryKeyTooltip",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
@@ -2139,16 +2883,25 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
               "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
             ],
             Array [
+              "deviceIdentity.authenticationType.symmetricKey.secondaryKeyTooltip",
+            ],
+            Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.primaryConnectionStringTooltip",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionStringTooltip",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryKey",
@@ -2204,11 +2957,19 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
             },
             Object {
               "type": "return",
+              "value": "deviceIdentity.deviceIDTooltip",
+            },
+            Object {
+              "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
             },
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.primaryKeyTooltip",
             },
             Object {
               "type": "return",
@@ -2220,11 +2981,19 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
             },
             Object {
               "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.secondaryKeyTooltip",
+            },
+            Object {
+              "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
             },
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionStringTooltip",
             },
             Object {
               "type": "return",
@@ -2233,6 +3002,10 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionStringTooltip",
             },
             Object {
               "type": "return",
@@ -2299,6 +3072,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString"
       label="deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString"
+      labelCallout="deviceIdentity.authenticationType.symmetricKey.secondaryConnectionStringTooltip"
       readOnly={true}
       t={
         [MockFunction] {
@@ -2310,10 +3084,16 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
               "deviceIdentity.deviceID",
             ],
             Array [
+              "deviceIdentity.deviceIDTooltip",
+            ],
+            Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryKey",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.primaryKeyTooltip",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
@@ -2322,16 +3102,25 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
               "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
             ],
             Array [
+              "deviceIdentity.authenticationType.symmetricKey.secondaryKeyTooltip",
+            ],
+            Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.primaryConnectionStringTooltip",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+            ],
+            Array [
+              "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionStringTooltip",
             ],
             Array [
               "deviceIdentity.authenticationType.symmetricKey.primaryKey",
@@ -2387,11 +3176,19 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
             },
             Object {
               "type": "return",
+              "value": "deviceIdentity.deviceIDTooltip",
+            },
+            Object {
+              "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
             },
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.primaryKeyTooltip",
             },
             Object {
               "type": "return",
@@ -2403,11 +3200,19 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
             },
             Object {
               "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.secondaryKeyTooltip",
+            },
+            Object {
+              "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
             },
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionStringTooltip",
             },
             Object {
               "type": "return",
@@ -2416,6 +3221,10 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
             Object {
               "type": "return",
               "value": "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionStringTooltip",
             },
             Object {
               "type": "return",
@@ -2543,10 +3352,16 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
                   "deviceIdentity.deviceID",
                 ],
                 Array [
+                  "deviceIdentity.deviceIDTooltip",
+                ],
+                Array [
                   "deviceIdentity.authenticationType.symmetricKey.primaryKey",
                 ],
                 Array [
                   "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.symmetricKey.primaryKeyTooltip",
                 ],
                 Array [
                   "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
@@ -2555,16 +3370,25 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
                   "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
                 ],
                 Array [
+                  "deviceIdentity.authenticationType.symmetricKey.secondaryKeyTooltip",
+                ],
+                Array [
                   "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
                 ],
                 Array [
                   "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.symmetricKey.primaryConnectionStringTooltip",
                 ],
                 Array [
                   "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
                 ],
                 Array [
                   "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+                ],
+                Array [
+                  "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionStringTooltip",
                 ],
                 Array [
                   "deviceIdentity.authenticationType.symmetricKey.primaryKey",
@@ -2620,11 +3444,19 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
                 },
                 Object {
                   "type": "return",
+                  "value": "deviceIdentity.deviceIDTooltip",
+                },
+                Object {
+                  "type": "return",
                   "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
                 },
                 Object {
                   "type": "return",
                   "value": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.symmetricKey.primaryKeyTooltip",
                 },
                 Object {
                   "type": "return",
@@ -2636,11 +3468,19 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
                 },
                 Object {
                   "type": "return",
+                  "value": "deviceIdentity.authenticationType.symmetricKey.secondaryKeyTooltip",
+                },
+                Object {
+                  "type": "return",
                   "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
                 },
                 Object {
                   "type": "return",
                   "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionString",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.symmetricKey.primaryConnectionStringTooltip",
                 },
                 Object {
                   "type": "return",
@@ -2649,6 +3489,10 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
                 Object {
                   "type": "return",
                   "value": "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString",
+                },
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.authenticationType.symmetricKey.secondaryConnectionStringTooltip",
                 },
                 Object {
                   "type": "return",
@@ -2763,6 +3607,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with auth t
       allowMask={false}
       ariaLabel="deviceIdentity.deviceID"
       label="deviceIdentity.deviceID"
+      labelCallout="deviceIdentity.deviceIDTooltip"
       readOnly={true}
       t={
         [MockFunction] {
@@ -2772,6 +3617,9 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with auth t
             ],
             Array [
               "deviceIdentity.deviceID",
+            ],
+            Array [
+              "deviceIdentity.deviceIDTooltip",
             ],
             Array [
               "deviceIdentity.hubConnectivity.label",
@@ -2794,6 +3642,10 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with auth t
             Object {
               "type": "return",
               "value": "deviceIdentity.deviceID",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.deviceIDTooltip",
             },
             Object {
               "type": "return",
@@ -2842,6 +3694,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with identi
       allowMask={false}
       ariaLabel="deviceIdentity.deviceID"
       label="deviceIdentity.deviceID"
+      labelCallout="deviceIdentity.deviceIDTooltip"
       readOnly={true}
       t={
         [MockFunction] {
@@ -2851,6 +3704,9 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with identi
             ],
             Array [
               "deviceIdentity.deviceID",
+            ],
+            Array [
+              "deviceIdentity.deviceIDTooltip",
             ],
             Array [
               "deviceIdentity.hubConnectivity.label",
@@ -2873,6 +3729,10 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with identi
             Object {
               "type": "return",
               "value": "deviceIdentity.deviceID",
+            },
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.deviceIDTooltip",
             },
             Object {
               "type": "return",

@@ -5,7 +5,6 @@
 import actionCreatorFactory from 'typescript-fsa';
 import * as actionPrefixes from '../../constants/actionPrefixes';
 import * as actionTypes from '../../constants/actionTypes';
-import { DeviceSummary } from '../../api/models/deviceSummary';
 import { BulkRegistryOperationResult } from '../../api/models/bulkRegistryOperationResult';
 import { DeviceIdentity } from '../../api/models/deviceIdentity';
 import DeviceQuery from '../../api/models/deviceQuery';

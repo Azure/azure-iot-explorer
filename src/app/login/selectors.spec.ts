@@ -16,15 +16,15 @@ describe('getDigitalTwinInterfacePropertiesSelector', () => {
         connectionString: 'testConnectionString'
     })();
 
-    it('returns connection string from state', () => {
-        expect(getConnectionStringSelector(state)).toEqual('testConnectionString');
+    it('returns connection string', () => {
+        localStorage.removeItem(CONNECTION_STRING_NAME_LIST);
+        localStorage.setItem(CONNECTION_STRING_NAME_LIST, ['testConnectionString1', 'testConnectionString2'].join(','));
+        expect(getConnectionStringSelector(state)).toEqual(localStorage.getItem(CONNECTION_STRING_NAME_LIST).split(',')[0]);
     });
 
     it('returns connection string list', () => {
         localStorage.removeItem(CONNECTION_STRING_NAME_LIST);
-        expect(getConnectionStringListSelector()).toEqual([]);
-
         localStorage.setItem(CONNECTION_STRING_NAME_LIST, ['testConnectionString1', 'testConnectionString2'].join(','));
-        expect(getConnectionStringListSelector()).toEqual(localStorage.getItem(CONNECTION_STRING_NAME_LIST) && localStorage.getItem(CONNECTION_STRING_NAME_LIST).split(','));
+        expect(getConnectionStringListSelector()).toEqual(localStorage.getItem(CONNECTION_STRING_NAME_LIST).split(','));
     });
 });

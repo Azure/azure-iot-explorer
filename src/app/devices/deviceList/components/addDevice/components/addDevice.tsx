@@ -91,10 +91,15 @@ export default class AddDevice extends React.Component<AddDeviceActionProps & Ad
         );
     }
 
-    public componentDidUpdate(oldProps: AddDeviceActionProps & AddDeviceDataProps & RouteComponentProps) {
-        if (oldProps.deviceListSyncStatus === SynchronizationStatus.upserted) { // only when device has been added successfully would navigate to list view
-            this.props.history.push(`/devices`);
+    public componentDidUpdate() {
+        if (this.props.deviceListSyncStatus === SynchronizationStatus.upserted) { // only when device has been added successfully would navigate to list view
+            this.navigateToDeviceList();
         }
+    }
+
+    private readonly navigateToDeviceList = () => {
+        const path = this.props.match.url.replace(/\/add/, ``);
+        this.props.history.push(path);
     }
 
     private readonly showDeviceId = (context: LocalizationContextInterface) => {
@@ -155,7 +160,7 @@ export default class AddDevice extends React.Component<AddDeviceActionProps & Ad
                     t={context.t}
                     readOnly={false}
                     error={!!this.state.primaryKeyError ? context.t(this.state.primaryKeyError) : ''}
-                    labelCallout={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionStringTooltip)}
+                    labelCallout={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryKeyTooltip)}
                 />
                 <MaskedCopyableTextFieldContainer
                     ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryKey)}
@@ -167,7 +172,7 @@ export default class AddDevice extends React.Component<AddDeviceActionProps & Ad
                     t={context.t}
                     readOnly={false}
                     error={!!this.state.secondaryKeyError ? context.t(this.state.secondaryKeyError) : ''}
-                    labelCallout={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryConnectionStringTooltip)}
+                    labelCallout={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryKeyTooltip)}
                 />
             </>
         );
@@ -270,7 +275,7 @@ export default class AddDevice extends React.Component<AddDeviceActionProps & Ad
                         },
                         key: CANCEL,
                         name: context.t(ResourceKeys.deviceLists.commands.close),
-                        onClick: this.handleCancel
+                        onClick: this.navigateToDeviceList
                     },
                 ]}
             />
@@ -409,9 +414,5 @@ export default class AddDevice extends React.Component<AddDeviceActionProps & Ad
         // Prevent page refresh
         event.preventDefault();
         this.props.handleSave(this.getDeviceIdentity());
-    }
-
-    private readonly handleCancel = () => {
-        this.props.history.push(`/${ROUTE_PARTS.DEVICES}`);
     }
 }

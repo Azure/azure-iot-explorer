@@ -8,7 +8,6 @@ import { ModelDefinitionWithSourceWrapper } from '../../api/models/modelDefiniti
 import { DeviceIdentityWrapper } from '../../api/models/deviceIdentityWrapper';
 import { DeviceTwinWrapper } from './../../api/models/deviceTwinWrapper';
 import { DigitalTwinInterfacePropertiesWrapper } from '../../api/models/digitalTwinInterfacePropertiesWrapper';
-import { ModuleIdentityListWrapper } from './../../api/models/moduleIdentityListWrapper';
 
 export interface DeviceContentStateInterface {
     deviceIdentity: DeviceIdentityWrapper;
@@ -16,7 +15,6 @@ export interface DeviceContentStateInterface {
     digitalTwinInterfaceProperties: DigitalTwinInterfacePropertiesWrapper;
     interfaceIdSelected: string;
     modelDefinitionWithSource: ModelDefinitionWithSourceWrapper;
-    moduleIdentityList: ModuleIdentityListWrapper;
 }
 
 export const deviceContentStateInitial = Record<DeviceContentStateInterface>({
@@ -24,8 +22,7 @@ export const deviceContentStateInitial = Record<DeviceContentStateInterface>({
     deviceTwin: null,
     digitalTwinInterfaceProperties: null,
     interfaceIdSelected: '',
-    modelDefinitionWithSource: null,
-    moduleIdentityList: null
+    modelDefinitionWithSource: null
 });
 
 export type DeviceContentStateType = IM<DeviceContentStateInterface>;

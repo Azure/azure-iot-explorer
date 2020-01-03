@@ -5,7 +5,13 @@
 import 'jest';
 import { Record } from 'immutable';
 import { SynchronizationStatus } from './../../api/models/synchronizationStatus';
-import { getDigitalTwinInterfacePropertiesSelector, getDigitalTwinInterfaceNameAndIdsSelector, getDigitalTwinInterfaceIdsSelector, getIsDevicePnpSelector, getInterfaceNameSelector, getModuleIdentityListWrapperSelector } from './selectors';
+import {
+    getDigitalTwinInterfacePropertiesSelector,
+    getDigitalTwinInterfaceNameAndIdsSelector,
+    getDigitalTwinInterfaceIdsSelector,
+    getIsDevicePnpSelector,
+    getInterfaceNameSelector,
+} from './selectors';
 import { getInitialState } from './../../api/shared/testHelper';
 
 describe('getDigitalTwinInterfacePropertiesSelector', () => {
@@ -42,15 +48,7 @@ describe('getDigitalTwinInterfacePropertiesSelector', () => {
             digitalTwinInterfacePropertiesSyncStatus: SynchronizationStatus.fetched
         },
         interfaceIdSelected: 'urn:contoso:com:environmentalsensor:2',
-        modelDefinitionWithSource: null,
-        moduleIdentityList: {
-            moduleIdentities: [{
-                    authentication: null,
-                    deviceId: 'testDevice',
-                    moduleId: 'testModule'
-                }],
-            synchronizationStatus: SynchronizationStatus.working
-        }
+        modelDefinitionWithSource: null
     })();
 
     it('returns interface properties', () => {
@@ -81,18 +79,7 @@ describe('getDigitalTwinInterfacePropertiesSelector', () => {
         expect(getIsDevicePnpSelector(state)).toEqual(true);
     });
 
-    it('returns is correct interfaceName pnp', () => {
+    it('returns interfaceName', () => {
         expect(getInterfaceNameSelector(state)).toEqual('environmentalsensor');
-    });
-
-    it('returns is correct interfaceName pnp', () => {
-        expect(getModuleIdentityListWrapperSelector(state)).toEqual({
-            moduleIdentities: [{
-                authentication: null,
-                deviceId: 'testDevice',
-                moduleId: 'testModule'
-            }],
-            synchronizationStatus: SynchronizationStatus.working
-        });
     });
 });

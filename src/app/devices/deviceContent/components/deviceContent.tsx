@@ -10,18 +10,18 @@ import DeviceTwinContainer from './deviceTwin/deviceTwinContainer';
 import DeviceEventsContainer from './deviceEvents/deviceEventsContainer';
 import DirectMethodContainer from './directMethod/directMethodContainer';
 import CloudToDeviceMessageContainer from './cloudToDeviceMessage/cloudToDeviceMessageContainer';
-import ModuleIdentityContainer from './moduleIdentity/moduleIdentityContainer';
+import ModuleIdentityRoutes from '../../module/components/moduleIdentity/moduleIdentityRoutes';
 import DeviceContentNavComponent from './deviceContentNav';
 import BreadcrumbContainer from '../../../shared/components/breadcrumbContainer';
 import DigitalTwinsContentContainer from './digitalTwinContentContainer';
-import AddModuleIdentityContainer from './moduleIdentity/addModuleIdentityContainer';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../shared/contexts/localizationContext';
 import { NAV } from '../../../constants/iconNames';
-import { ROUTE_PARTS } from '../../../constants/routes';
+import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
 import { DeviceIdentityWrapper } from '../../../api/models/deviceIdentityWrapper';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import MultiLineShimmer from '../../../shared/components/multiLineShimmer';
+import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import '../../../css/_deviceContent.scss';
 import '../../../css/_layouts.scss';
 
@@ -82,6 +82,16 @@ export class DeviceContentComponent extends React.PureComponent<DeviceContentPro
         this.props.getDeviceIdentity(this.props.deviceId);
     }
 
+    public componentDidUpdate(oldProps: DeviceContentProps) {
+        if (getDeviceIdFromQueryString(oldProps) !== getDeviceIdFromQueryString(this.props)) {
+            const deviceId = getDeviceIdFromQueryString(this.props);
+            this.props.getDeviceIdentity(deviceId);
+            this.props.getDigitalTwinInterfaceProperties(deviceId);
+            const url = this.props.match.url;
+            this.props.history.push(`${url}/${ROUTE_PARTS.IDENTITY}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
+        }
+    }
+
     private readonly renderNav = (context: LocalizationContextInterface) => {
         return (
             <div className={'device-content-nav-bar' + (!this.state.appMenuVisible ? ' collapsed' : '')}>
@@ -113,8 +123,7 @@ export class DeviceContentComponent extends React.PureComponent<DeviceContentPro
                 <Route path={`${url}/${ROUTE_PARTS.EVENTS}/`} component={DeviceEventsContainer}/>
                 <Route path={`${url}/${ROUTE_PARTS.METHODS}/`} component={DirectMethodContainer} />
                 <Route path={`${url}/${ROUTE_PARTS.CLOUD_TO_DEVICE_MESSAGE}/`} component={CloudToDeviceMessageContainer} />
-                <Route path={`${url}/${ROUTE_PARTS.MODULE_IDENTITY}/`} component={ModuleIdentityContainer} />
-                <Route path={`${url}/${ROUTE_PARTS.ADD_MODULE_IDENTITY}/`} component={AddModuleIdentityContainer} />
+                <Route path={`${url}/${ROUTE_PARTS.MODULE_IDENTITY}/`} component={ModuleIdentityRoutes} />
                 <Route path={`${url}/${ROUTE_PARTS.DIGITAL_TWINS}/`} component={DigitalTwinsContentContainer} />
             </div>
         );

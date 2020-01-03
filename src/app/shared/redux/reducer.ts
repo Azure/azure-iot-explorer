@@ -10,6 +10,7 @@ import connectionStringsStateReducer from '../../connectionStrings/reducer';
 import deviceListStateReducer from '../../devices/deviceList/reducer';
 import deviceContentStateReducer from '../../devices/deviceContent/reducer';
 import notificationsStateReducer from '../../notifications/reducer';
+import moduleStateReducer from '../../devices/module/reducer';
 
 const reducer = combineReducers({
     applicationState: applicationStateReducer,
@@ -18,6 +19,7 @@ const reducer = combineReducers({
     connectionStringsState: connectionStringsStateReducer,
     deviceContentState: deviceContentStateReducer,
     deviceListState: deviceListStateReducer,
+    moduleState: moduleStateReducer,
     notificationsState: notificationsStateReducer
 });
 

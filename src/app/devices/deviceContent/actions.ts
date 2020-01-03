@@ -10,7 +10,6 @@ import { InvokeMethodParameters, CloudToDeviceMessageParameters } from '../../ap
 import { Twin } from '../../api/models/device';
 import { DeviceIdentity } from '../../api/models/deviceIdentity';
 import { DigitalTwinInterfaces } from './../../api/models/digitalTwinModels';
-import { ModuleIdentity } from './../../api/models/moduleIdentity';
 import { REPOSITORY_LOCATION_TYPE } from './../../constants/repositoryLocationTypes';
 
 const deviceContentCreator = actionCreatorFactory(actionPrefixes.DEVICECONTENT);
@@ -26,20 +25,13 @@ const patchDigitalTwinInterfacePropertiesAction = deviceContentCreator.async<Pat
 const setInterfaceIdAction = deviceContentCreator<string>(actionTypes.SET_INTERFACE_ID);
 const updateDeviceIdentityAction = deviceContentCreator.async<DeviceIdentity, DeviceIdentity> (actionTypes.UPDATE_DEVICE_IDENTITY);
 const updateTwinAction = deviceContentCreator.async<UpdateTwinActionParameters, Twin>(actionTypes.UPDATE_TWIN);
-
-const moduleIdentityCreator = actionCreatorFactory(actionPrefixes.MODULEIDENTITY);
-const getModuleIdentitiesAction = moduleIdentityCreator.async<string, ModuleIdentity[]>(actionTypes.GET_MODULE_IDENTITIES);
-const addModuleIdentityAction = moduleIdentityCreator.async<ModuleIdentity, ModuleIdentity>(actionTypes.ADD_MODULE_IDENTITY);
-
 export {
-    addModuleIdentityAction,
     clearModelDefinitionsAction,
     cloudToDeviceMessageAction,
     getDeviceIdentityAction,
     getDigitalTwinInterfacePropertiesAction,
     getTwinAction,
     getModelDefinitionAction,
-    getModuleIdentitiesAction,
     invokeDirectMethodAction,
     invokeDigitalTwinInterfaceCommandAction,
     patchDigitalTwinInterfacePropertiesAction,
