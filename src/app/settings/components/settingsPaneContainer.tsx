@@ -17,10 +17,11 @@ import DeviceQuery from '../../api/models/deviceQuery';
 import { addNotificationAction } from '../../notifications/actions';
 import { Notification } from '../../api/models/notification';
 import { setConnectionStringsAction } from '../../connectionStrings/actions';
+import { getActiveAzureResourceHostNameSelector } from '../../azureResource/selectors';
 
 const mapStateToProps = (state: StateType): SettingsPaneProps => {
     return {
-        hubConnectionString: state.azureResourceState.activeAzureResource ? state.azureResourceState.activeAzureResource.connectionString : '',
+        hubConnectionString: getActiveAzureResourceHostNameSelector(state),
         hubConnectionStringList: state.connectionStringsState.connectionStrings,
         isOpen: getSettingsVisibleSelector(state),
         repositoryLocations: getRepositoryLocationSettingsSelector(state)

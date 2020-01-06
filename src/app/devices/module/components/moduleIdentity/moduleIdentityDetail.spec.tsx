@@ -18,21 +18,27 @@ const routerprops: any = { // tslint:disable-line:no-any
         location
     },
     location,
-    match: {}
+    match: {
+        params: {
+            hostName: 'hostName'
+        },
+        url: 'http://127.0.0.1:3000/#/resources/testhub.azure-devices.net/devices/deviceDetail/moduleIdentity/moduleDetail/?deviceId=newdevice&moduleId=moduleId',
+    } as any // tslint:disable-line:no-any
 };
 
 const moduleIdentityDataProps: ModuleIdentityDetailDataProps = {
+    currentHostName: 'testhub.azure-devices.net',
     moduleIdentity: null,
     moduleIdentitySyncStatus: SynchronizationStatus.working,
     moduleIdentityTwin: null,
-    moduleIdentityTwinSyncStatus: SynchronizationStatus.working
+    moduleIdentityTwinSyncStatus: SynchronizationStatus.working,
+    moduleListSyncStatus: SynchronizationStatus.fetched
 };
 
-const mockGetModuleIdentityTwin = jest.fn();
-const mockGetModuleIdentity = jest.fn();
 const moduleIdentityDispatchProps: ModuleIdentityDetailDispatchProps = {
-    getModuleIdentity: mockGetModuleIdentity,
-    getModuleIdentityTwin: mockGetModuleIdentityTwin
+    deleteModuleIdentity: jest.fn(),
+    getModuleIdentity: jest.fn(),
+    getModuleIdentityTwin: jest.fn()
 };
 
 const getComponent = (overrides = {}) => {

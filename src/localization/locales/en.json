@@ -617,9 +617,11 @@
             "headerText": "Module identity detail",
             "command" : {
                 "back": "Close",
-                "refresh": "Refresh"
+                "refresh": "Refresh",
+                "delete": "Delete"
             },
-            "twin": "Module identity twin"
+            "twin": "Module identity twin",
+            "deleteConfirmation": "Are you certain you wish to delete this module identity?"
         }
     },
     "noMatchError": {
@@ -663,7 +665,9 @@
         "addModuleIdentityOnSucceed": "Successfully added module identity {{moduleId}}",
         "addModuleIdentityOnError": "Failed to add  module identity {{moduleId}}: {{error}}",
         "getModuleIdentityTwinOnError": "Failed to get module identity twin for module {{moduleId}}: {{error}}",
-        "getModuleIdentityOnError": "Failed to get module identity for module {{moduleId}}: {{error}}"
+        "getModuleIdentityOnError": "Failed to get module identity {{moduleId}}: {{error}}",
+        "deleteModuleIdentityOnSuccess": "Successfully deleted module {{moduleId}}",
+        "deleteModuleIdentityOnError": "Failed to delete module identity {{moduleId}}: {{error}}"
     },
     "errorBoundary": {
         "text": "Something went wrong"

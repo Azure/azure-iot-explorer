@@ -12,10 +12,11 @@ import { addNotificationAction } from '../../notifications/actions';
 import { setActiveAzureResourceByConnectionStringAction, SetActiveAzureResourceByConnectionStringActionParameters } from '../../azureResource/actions';
 import { Notification } from '../../api/models/notification';
 import { setConnectionStringsAction } from '../../connectionStrings/actions';
+import { getActiveAzureResourceHostNameSelector } from '../../azureResource/selectors';
 
 const mapStateToProps = (state: StateType): ConnectivityPaneDataProps => {
     return {
-        connectionString: state.azureResourceState.activeAzureResource ? state.azureResourceState.activeAzureResource.connectionString : '',
+        connectionString: getActiveAzureResourceHostNameSelector(state),
         connectionStringList: state.connectionStringsState.connectionStrings
     };
 };

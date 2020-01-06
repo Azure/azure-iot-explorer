@@ -62,10 +62,11 @@ const handleDataPlanePostRequest = (req: express.Request, res: express.Response)
         }
         else {
             request(
-            generateDataPlaneRequestBody(req),
-            (err, httpRes, body) => {
-                generateDataPlaneResponse(httpRes, body, res);
-            });
+                generateDataPlaneRequestBody(req),
+                (err, httpRes, body) => {
+                    generateDataPlaneResponse(httpRes, body, res);
+                }
+            );
         }
     }
     catch (error) {

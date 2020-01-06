@@ -2,6 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
+import { createSelector } from 'reselect';
 import { StateInterface } from '../../shared/redux/state';
 import { ModuleIdentityListWrapper } from '../../api/models/moduleIdentityListWrapper';
 import { ModuleIdentityTwinWrapper } from './../../api/models/moduleIdentityTwinWrapper';
@@ -12,6 +13,10 @@ export const getModuleIdentityListWrapperSelector = (state: StateInterface): Mod
         state.moduleState &&
         state.moduleState.moduleIdentityList;
 };
+
+export const getModuleIdentityListSyncStatusSelector = createSelector(
+    getModuleIdentityListWrapperSelector,
+    wrapper => wrapper && wrapper.synchronizationStatus);
 
 export const getModuleIdentityTwinWrapperSelector = (state: StateInterface): ModuleIdentityTwinWrapper => {
     return state &&

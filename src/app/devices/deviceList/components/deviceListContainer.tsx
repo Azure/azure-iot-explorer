@@ -10,12 +10,13 @@ import { listDevicesAction, deleteDevicesAction } from '../actions';
 import { getDeviceSummaryListStatus, deviceQuerySelector, deviceSummaryListWrapperNoPNPSelector } from '../selectors';
 import DeviceQuery from '../../../api/models/deviceQuery';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
+import { getActiveAzureResourceConnectionStringSelector } from '../../../azureResource/selectors';
 
 const mapStateToProps = (state: StateType): DeviceListDataProps => {
     const deviceListSyncStatus = getDeviceSummaryListStatus(state);
     const isFetching = deviceListSyncStatus && deviceListSyncStatus === SynchronizationStatus.working ||  deviceListSyncStatus === SynchronizationStatus.updating;
     return {
-        connectionString: state.azureResourceState.activeAzureResource ? state.azureResourceState.activeAzureResource.connectionString : '',
+        connectionString: getActiveAzureResourceConnectionStringSelector(state),
         devices: deviceSummaryListWrapperNoPNPSelector(state),
         isFetching,
         query: deviceQuerySelector(state)

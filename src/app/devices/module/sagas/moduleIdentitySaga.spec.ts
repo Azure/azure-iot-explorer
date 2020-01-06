@@ -4,21 +4,22 @@
  **********************************************************/
 import 'jest';
 import { SagaIteratorClone, cloneableGenerator } from 'redux-saga/utils';
-import { select, call, put } from 'redux-saga/effects';
-import { getModuleIdentitiesSaga, addModuleIdentitySaga, getModuleIdentityTwinSaga, getModuleIdentitySaga } from './moduleIdentitySaga';
-import { getModuleIdentitiesAction, addModuleIdentityAction, getModuleIdentityTwinAction, getModuleIdentityAction } from '../actions';
+import { call, put } from 'redux-saga/effects';
+import { getModuleIdentitiesSaga, addModuleIdentitySaga, getModuleIdentityTwinSaga, getModuleIdentitySaga, deleteModuleIdentitySaga } from './moduleIdentitySaga';
+import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
+import { getModuleIdentitiesAction, addModuleIdentityAction, getModuleIdentityTwinAction, getModuleIdentityAction, deleteModuleIdentityAction } from '../actions';
 import * as ModuleService from '../../../api/services/moduleService';
-import { addNotificationAction } from '../../../notifications/actions';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
+import { addNotificationAction } from '../../../notifications/actions';
 import { NotificationType } from '../../../api/models/notification';
 import { ModuleIdentity } from '../../../api/models/moduleIdentity';
 import { ModuleTwin } from '../../../api/models/moduleTwin';
-import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 
 describe('moduleIdentitySaga', () => {
     let getModuleIdentitySagaGenerator: SagaIteratorClone;
     let addModuleIdentitySagaGenerator: SagaIteratorClone;
     let getModuleIdentityTwinSagaGenerator: SagaIteratorClone;
+    let deleteModuleIdentitySagaGenerator: SagaIteratorClone;
 
     const connectionString = 'connection_string';
     const deviceId = 'testDevice';
@@ -290,6 +291,78 @@ describe('moduleIdentitySaga', () => {
             expect(failure.next(error)).toEqual({
                 done: false,
                 value: put(getModuleIdentityAction.failed({params: getModuleIdentityParameter, error}))
+            });
+            expect(failure.next().done).toEqual(true);
+        });
+
+    });
+
+    describe('deleteModuleIdentitySaga', () => {
+
+        const deleteModuleIdentityParameter = {deviceId, moduleId};
+        beforeAll(() => {
+            deleteModuleIdentitySagaGenerator = cloneableGenerator(deleteModuleIdentitySaga)(deleteModuleIdentityAction.started(deleteModuleIdentityParameter));
+        });
+
+        const mockDeleteModuleIdentity = jest.spyOn(ModuleService, 'deleteModuleIdentity').mockImplementationOnce(parameters => {
+            return null;
+        });
+
+        it('fetches the connection string', () => {
+            expect(deleteModuleIdentitySagaGenerator.next()).toEqual({
+                done: false,
+                value: call(getActiveAzureResourceConnectionStringSaga)
+            });
+        });
+
+        it('deletes the module identity', () => {
+            expect(deleteModuleIdentitySagaGenerator.next(connectionString)).toEqual({
+                done: false,
+                value: call(mockDeleteModuleIdentity, { connectionString, moduleId, deviceId })
+            });
+        });
+
+        it('puts the successful action', () => {
+            const success = deleteModuleIdentitySagaGenerator.clone();
+            expect(success.next()).toEqual({
+                done: false,
+                value: put(addNotificationAction.started({
+                    text: {
+                        translationKey: ResourceKeys.notifications.deleteModuleIdentityOnSuccess,
+                        translationOptions: {
+                            moduleId
+                        },
+                    },
+                    type: NotificationType.success
+                }))
+            });
+            expect(success.next()).toEqual({
+                done: false,
+                value: put(deleteModuleIdentityAction.done({params: deleteModuleIdentityParameter}))
+            });
+            expect(success.next().done).toEqual(true);
+        });
+
+        it('fails on error', () => {
+            const failure = deleteModuleIdentitySagaGenerator.clone();
+            const error = { code: -1 };
+            expect(failure.throw(error)).toEqual({
+                done: false,
+                value: put(addNotificationAction.started({
+                    text: {
+                        translationKey: ResourceKeys.notifications.deleteModuleIdentityOnError,
+                        translationOptions: {
+                            error,
+                            moduleId
+                        },
+                    },
+                    type: NotificationType.error
+                }))
+            });
+
+            expect(failure.next(error)).toEqual({
+                done: false,
+                value: put(deleteModuleIdentityAction.failed({params: deleteModuleIdentityParameter, error}))
             });
             expect(failure.next().done).toEqual(true);
         });

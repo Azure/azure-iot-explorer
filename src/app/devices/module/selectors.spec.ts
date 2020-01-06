@@ -8,7 +8,8 @@ import { SynchronizationStatus } from './../../api/models/synchronizationStatus'
 import {
     getModuleIdentityListWrapperSelector,
     getModuleIdentityTwinWrapperSelector,
-    getModuleIdentityWrapperSelector
+    getModuleIdentityWrapperSelector,
+    getModuleIdentityListSyncStatusSelector
 } from './selectors';
 import { getInitialState } from './../../api/shared/testHelper';
 import { ModuleTwin } from '../../api/models/moduleTwin';
@@ -76,5 +77,9 @@ describe('getModuleSelector', () => {
             moduleIdentity,
             synchronizationStatus: SynchronizationStatus.working
         });
+    });
+
+    it('returns module list sync status', () => {
+        expect(getModuleIdentityListSyncStatusSelector(state)).toEqual(SynchronizationStatus.working);
     });
 });

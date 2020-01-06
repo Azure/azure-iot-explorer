@@ -13,9 +13,11 @@ const getModuleIdentitiesAction = moduleIdentityCreator.async<string, ModuleIden
 const addModuleIdentityAction = moduleIdentityCreator.async<ModuleIdentity, ModuleIdentity>(actionTypes.ADD_MODULE_IDENTITY);
 const getModuleIdentityTwinAction = moduleIdentityCreator.async<GetModuleIdentityTwinActionParameters, ModuleTwin>(actionTypes.GET_MODULE_IDENTITY_TWIN);
 const getModuleIdentityAction = moduleIdentityCreator.async<GetModuleIdentityActionParameters, ModuleIdentity>(actionTypes.GET_MODULE_IDENTITY);
+const deleteModuleIdentityAction = moduleIdentityCreator.async<DeleteModuleIdentityActionParameters, void>(actionTypes.DELETE_MODULE_IDENTITY);
 
 export {
     addModuleIdentityAction,
+    deleteModuleIdentityAction,
     getModuleIdentitiesAction,
     getModuleIdentityAction,
     getModuleIdentityTwinAction
@@ -27,6 +29,11 @@ export interface GetModuleIdentityTwinActionParameters {
 }
 
 export interface GetModuleIdentityActionParameters {
+    moduleId: string;
+    deviceId: string;
+}
+
+export interface DeleteModuleIdentityActionParameters {
     moduleId: string;
     deviceId: string;
 }

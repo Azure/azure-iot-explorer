@@ -7,13 +7,15 @@ import {
     GET_MODULE_IDENTITIES,
     ADD_MODULE_IDENTITY,
     GET_MODULE_IDENTITY_TWIN,
-    GET_MODULE_IDENTITY
+    GET_MODULE_IDENTITY,
+    DELETE_MODULE_IDENTITY
   } from '../../constants/actionTypes';
 import {
     getModuleIdentitiesAction,
     addModuleIdentityAction,
     getModuleIdentityTwinAction,
-    getModuleIdentityAction
+    getModuleIdentityAction,
+    deleteModuleIdentityAction
 } from './actions';
 import reducer from './reducer';
 import { moduleStateInitial } from './state';
@@ -141,6 +143,54 @@ describe('moduleStateReducer', () => {
                     moduleId
                 }});
                 expect(reducer(moduleStateInitial(), action).moduleIdentity.synchronizationStatus).toEqual(SynchronizationStatus.failed);
+            });
+        });
+
+        context(`${DELETE_MODULE_IDENTITY}`, () => {
+            let initialState = moduleStateInitial();
+            const moduleIdToBeDeleted = 'newModule';
+            const moduleList = [moduleIdentity, {
+                authentication: null,
+                deviceId,
+                moduleId: moduleIdToBeDeleted
+            }];
+            initialState = initialState.merge({
+                moduleIdentityList: {
+                    moduleIdentities: moduleList,
+                    synchronizationStatus: SynchronizationStatus.fetched
+                }
+            });
+
+            it (`handles ${DELETE_MODULE_IDENTITY}/ACTION_START action`, () => {
+                const action = deleteModuleIdentityAction.started({
+                    deviceId,
+                    moduleId: moduleIdToBeDeleted
+                });
+                expect(reducer(initialState, action).moduleIdentityList).toEqual({
+                    moduleIdentities: moduleList,
+                    synchronizationStatus: SynchronizationStatus.updating
+                });
+            });
+
+            it (`handles ${DELETE_MODULE_IDENTITY}/ACTION_DONE action`, () => {
+                const action = deleteModuleIdentityAction.done({params: {
+                    deviceId,
+                    moduleId: moduleIdToBeDeleted
+                }});
+                expect(reducer(initialState, action).moduleIdentityList).toEqual({
+                    moduleIdentities: [moduleIdentity],
+                    synchronizationStatus: SynchronizationStatus.deleted});
+            });
+
+            it (`handles ${DELETE_MODULE_IDENTITY}/ACTION_FAILED action`, () => {
+                const action = deleteModuleIdentityAction.failed({error: -1, params: {
+                    deviceId,
+                    moduleId: moduleIdToBeDeleted
+                }});
+                expect(reducer(initialState, action).moduleIdentityList).toEqual({
+                    moduleIdentities: moduleList,
+                    synchronizationStatus: SynchronizationStatus.failed
+                });
             });
         });
     });

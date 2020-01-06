@@ -12,7 +12,8 @@ import { HTTP_OPERATION_TYPES } from '../constants';
 import { DataPlaneResponse } from '../models/device';
 import { ModuleIdentity } from '../models/moduleIdentity';
 import { ModuleTwin } from '../models/moduleTwin';
-import { dataPlaneConnectionHelper, dataPlaneResponseHelper, request, DATAPLANE_CONTROLLER_ENDPOINT } from './devicesService';
+import { dataPlaneConnectionHelper, dataPlaneResponseHelper, request, DATAPLANE_CONTROLLER_ENDPOINT } from './dataplaneServiceHelper';
+import { HEADERS } from '../../constants/apiConstants';
 
 export interface DataPlaneRequest {
     apiVersion?: string;
@@ -109,6 +110,27 @@ export const fetchModuleIdentity = async (parameters: FetchModuleIdentityParamet
         const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
         const result = await dataPlaneResponseHelper(response);
         return result.body;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const deleteModuleIdentity = async (parameters: FetchModuleIdentityParameters): Promise<DataPlaneResponse<ModuleIdentity[]>> => {
+    try {
+        const connectionInformation = dataPlaneConnectionHelper(parameters);
+
+        const dataPlaneRequest: DataPlaneRequest = {
+            headers: {} as any, // tslint:disable-line: no-any
+            hostName: connectionInformation.connectionInfo.hostName,
+            httpMethod: HTTP_OPERATION_TYPES.Delete,
+            path: `devices/${parameters.deviceId}/modules/${parameters.moduleId}`,
+            sharedAccessSignature: connectionInformation.sasToken,
+        };
+
+        (dataPlaneRequest.headers as any)[HEADERS.IF_MATCH] = '*'; // tslint:disable-line: no-any
+        const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
+        await dataPlaneResponseHelper(response);
+        return;
     } catch (error) {
         throw error;
     }
