@@ -8,6 +8,7 @@ import { cloneableGenerator, SagaIteratorClone } from 'redux-saga/utils';
 import { call, put } from 'redux-saga/effects';
 import * as DevicesService from '../../../api/services/devicesService';
 import { cloudToDeviceMessageSaga } from './cloudToDeviceMessageSaga';
+import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { cloudToDeviceMessageAction } from '../actions';
 import { addNotificationAction } from '../../../notifications/actions';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
@@ -58,10 +59,17 @@ describe('directMethodSaga', () => {
             });
         });
 
+        it('yields call to get active azure connection string', () => {
+            expect(cloudToDeviceMessageSagaGenerator.next()).toEqual({
+                done: false,
+                value: call(getActiveAzureResourceConnectionStringSaga)
+            });
+        });
+
         it('successfully send cloud to device message', () => {
             const success = cloudToDeviceMessageSagaGenerator.clone();
 
-            expect(success.next()).toEqual({
+            expect(success.next(connectionString)).toEqual({
                 done: false,
                 value: call(mockCloudToDeviceMessage, cloudToDeviceMessageParameters)
             });

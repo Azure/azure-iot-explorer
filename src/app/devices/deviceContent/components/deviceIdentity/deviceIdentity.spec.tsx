@@ -31,9 +31,9 @@ const dispatchProps = {
 };
 
 const getComponent = (overrides = {}) => {
-    const connectionString = 'HostName=test-string.azure-devices.net;SharedAccessKeyName=owner;SharedAccessKey=fakeKey=';
+    const activeAzureResourceHostName = 'test-string.azure-devices.net';
     const props = {
-        connectionString,
+        activeAzureResourceHostName,
         ...routerprops,
         ...overrides,
         ...dispatchProps

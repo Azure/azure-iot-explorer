@@ -10,7 +10,7 @@ import { Slider, SliderBase } from 'office-ui-fabric-react/lib/Slider';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
-import { InvokeMethodParameters } from '../../../../api/parameters/deviceParameters';
+import { InvokeMethodActionParameters } from '../../actions';
 import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { DIRECT_METHOD } from '../../../../constants/iconNames';
 import LabelWithTooltip from '../../../../shared/components/labelWithTooltip';
@@ -29,8 +29,7 @@ export interface DirectMethodState {
 }
 
 export interface DirectMethodProps {
-    connectionString: string;
-    onInvokeMethodClick: (properties: InvokeMethodParameters) => void;
+    onInvokeMethodClick: (properties: InvokeMethodActionParameters) => void;
 }
 
 export default class DirectMethod extends React.Component<DirectMethodProps & RouteComponentProps, DirectMethodState> {
@@ -98,11 +97,9 @@ export default class DirectMethod extends React.Component<DirectMethodProps & Ro
 
     private readonly onInvokeMethodClick = () => {
         const { connectionTimeout, methodName, responseTimeout, payload } = this.state;
-        const { connectionString } = this.props;
 
         this.props.onInvokeMethodClick({
             connectTimeoutInSeconds: connectionTimeout,
-            connectionString,
             deviceId: getDeviceIdFromQueryString(this.props),
             methodName,
             payload: payload ? JSON.parse(payload) : {},

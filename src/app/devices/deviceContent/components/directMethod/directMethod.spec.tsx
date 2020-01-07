@@ -10,7 +10,6 @@ import { testSnapshot } from '../../../../shared/utils/testHelpers';
 describe('directMethod', () => {
     const mockInvokeMethodClick = jest.fn();
     const directMethodProps: DirectMethodProps = {
-        connectionString: 'testString',
         onInvokeMethodClick: mockInvokeMethodClick
     };
 

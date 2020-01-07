@@ -32,8 +32,8 @@ export interface DeviceIdentityDispatchProps {
 }
 
 export interface DeviceIdentityDataProps {
+    activeAzureResourceHostName: string;
     identityWrapper: DeviceIdentityWrapper;
-    connectionString: string;
 }
 
 export interface DeviceIdentityState {
@@ -186,11 +186,11 @@ export default class DeviceIdentityInformation
     }
 
     private readonly onGenerateSASClicked = () => {
-        const { connectionString } = this.props;
+        const { activeAzureResourceHostName } = this.props;
         const { identity, sasTokenExpiration, sasTokenSelectedKey } = this.state;
 
         const sasTokenConnectionString = generateSASTokenConnectionString(
-            connectionString,
+            activeAzureResourceHostName,
             identity.deviceId,
             sasTokenExpiration,
             sasTokenSelectedKey
@@ -263,7 +263,7 @@ export default class DeviceIdentityInformation
     }
 
     private readonly renderDeviceAuthProperties = (context: LocalizationContextInterface) => {
-        const { connectionString } = this.props;
+        const { activeAzureResourceHostName } = this.props;
         const { identity } = this.state;
         const authType = getDeviceAuthenticationType(identity);
         switch (authType) {
@@ -292,7 +292,7 @@ export default class DeviceIdentityInformation
                         <MaskedCopyableTextFieldContainer
                             ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.connectionString)}
                             label={context.t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.connectionString)}
-                            value={generateX509ConnectionString(connectionString, identity.deviceId)}
+                            value={generateX509ConnectionString(activeAzureResourceHostName, identity.deviceId)}
                             allowMask={true}
                             t={context.t}
                             readOnly={true}
@@ -307,7 +307,7 @@ export default class DeviceIdentityInformation
                         <MaskedCopyableTextFieldContainer
                             ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.ca.connectionString)}
                             label={context.t(ResourceKeys.deviceIdentity.authenticationType.ca.connectionString)}
-                            value={generateX509ConnectionString(connectionString, identity.deviceId)}
+                            value={generateX509ConnectionString(activeAzureResourceHostName, identity.deviceId)}
                             allowMask={true}
                             t={context.t}
                             readOnly={true}
@@ -343,7 +343,7 @@ export default class DeviceIdentityInformation
                         <MaskedCopyableTextFieldContainer
                             ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionString)}
                             label={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionString)}
-                            value={generateConnectionString(connectionString, identity.deviceId, identity.authentication.symmetricKey.primaryKey)}
+                            value={generateConnectionString(activeAzureResourceHostName, identity.deviceId, identity.authentication.symmetricKey.primaryKey)}
                             allowMask={true}
                             t={context.t}
                             readOnly={true}
@@ -353,7 +353,7 @@ export default class DeviceIdentityInformation
                         <MaskedCopyableTextFieldContainer
                             ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString)}
                             label={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString)}
-                            value={generateConnectionString(connectionString, identity.deviceId, identity.authentication.symmetricKey.secondaryKey)}
+                            value={generateConnectionString(activeAzureResourceHostName, identity.deviceId, identity.authentication.symmetricKey.secondaryKey)}
                             allowMask={true}
                             t={context.t}
                             readOnly={true}

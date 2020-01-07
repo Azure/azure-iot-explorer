@@ -27,7 +27,6 @@ import '../../../css/_deviceList.scss';
 import '../../../css/_layouts.scss';
 
 export interface DeviceListDataProps {
-    connectionString: string;
     devices?: DeviceSummary[];
     isFetching: boolean;
     query?: DeviceQuery;
@@ -67,10 +66,6 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
     private selection: Selection;
 
     public render() {
-        if (!this.props.connectionString) {
-            return (<Redirect to="/" />);
-        }
-
         return (
             <LocalizationContextConsumer>
                 {(context: LocalizationContextInterface) => (

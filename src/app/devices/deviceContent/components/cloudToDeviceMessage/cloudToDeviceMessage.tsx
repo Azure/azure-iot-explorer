@@ -20,7 +20,7 @@ import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { CLOUD_TO_DEVICE_MESSAGE, ArrayOperation, ITEM, CIRCLE_ADD, CIRCLE_ADD_SOLID } from '../../../../constants/iconNames';
 import LabelWithTooltip from '../../../../shared/components/labelWithTooltip';
-import { CloudToDeviceMessageParameters } from '../../../../api/parameters/deviceParameters';
+import { CloudToDeviceMessageActionParameters } from '../../actions';
 import CollapsibleSection from '../../../../shared/components/collapsibleSection';
 import { MEDIUM_COLUMN_WIDTH } from '../../../../constants/columnWidth';
 import '../../../../css/_deviceDetail.scss';
@@ -60,8 +60,7 @@ export interface CloudToDeviceMessageState {
 }
 
 export interface CloudToDeviceMessageProps {
-    connectionString: string;
-    onSendCloudToDeviceMessage: (parameters: CloudToDeviceMessageParameters) => void;
+    onSendCloudToDeviceMessage: (parameters: CloudToDeviceMessageActionParameters) => void;
 }
 
 export default class CloudToDeviceMessage extends React.Component<CloudToDeviceMessageProps & RouteComponentProps, CloudToDeviceMessageState> {
@@ -429,7 +428,6 @@ export default class CloudToDeviceMessage extends React.Component<CloudToDeviceM
         const timeStamp = new Date().toLocaleString();
         this.props.onSendCloudToDeviceMessage({
             body: this.state.addTimestamp && this.state.body ? `${timeStamp} - ${this.state.body}` : (this.state.addTimestamp ? timeStamp : this.state.body),
-            connectionString: this.props.connectionString,
             deviceId: getDeviceIdFromQueryString(this.props),
             properties
         });

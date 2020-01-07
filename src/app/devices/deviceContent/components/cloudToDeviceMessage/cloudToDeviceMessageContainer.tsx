@@ -6,22 +6,13 @@ import { compose, Dispatch } from 'redux';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import CloudToDeviceMessage, { CloudToDeviceMessageProps } from './cloudToDeviceMessage';
-import { StateType } from '../../../../shared/redux/state';
-import { NonFunctionProperties, FunctionProperties } from '../../../../shared/types/types';
-import { CloudToDeviceMessageParameters } from '../../../../api/parameters/deviceParameters';
-import { cloudToDeviceMessageAction } from '../../actions';
-import { getActiveAzureResourceConnectionStringSelector } from '../../../../azureResource/selectors';
-
-const mapStateToProps = (state: StateType): NonFunctionProperties<CloudToDeviceMessageProps> => {
-    return {
-        connectionString: getActiveAzureResourceConnectionStringSelector(state)
-    };
-};
+import { FunctionProperties } from '../../../../shared/types/types';
+import { cloudToDeviceMessageAction, CloudToDeviceMessageActionParameters } from '../../actions';
 
 const mapDispatchToProps = (dispatch: Dispatch): FunctionProperties<CloudToDeviceMessageProps> => {
     return {
-        onSendCloudToDeviceMessage: (parameters: CloudToDeviceMessageParameters) => dispatch(cloudToDeviceMessageAction.started(parameters))
+        onSendCloudToDeviceMessage: (parameters: CloudToDeviceMessageActionParameters) => dispatch(cloudToDeviceMessageAction.started(parameters))
     };
 };
 
-export default compose(withRouter, connect(mapStateToProps, mapDispatchToProps))(CloudToDeviceMessage);
+export default compose(withRouter, connect(undefined, mapDispatchToProps))(CloudToDeviceMessage);

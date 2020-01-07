@@ -10,12 +10,12 @@ import { DeviceAuthenticationType } from '../../../../api/models/deviceAuthentic
 describe('deviceIdentityHelper', () => {
     describe('generateConnectionString', () => {
         it('generates a symmetric key connection string', () => {
-            expect(generateConnectionString("HostName=test.azure-devices.net;SharedAccessKeyName=test;SharedAccessKey=test;", "testDevice", "testKey")).toEqual("HostName=test.azure-devices.net;DeviceId=testDevice;SharedAccessKey=testKey");
+            expect(generateConnectionString('test.azure-devices.net', 'testDevice', 'testKey')).toEqual('HostName=test.azure-devices.net;DeviceId=testDevice;SharedAccessKey=testKey');
         });
     });
     describe('generateX509ConnectionString', () => {
         it('generates a connection string for CA/self-signed certs', () => {
-            expect(generateX509ConnectionString("HostName=test.azure-devices.net;SharedAccessKeyName=test;SharedAccessKey=test;", "testDevice")).toEqual("HostName=test.azure-devices.net;DeviceId=testDevice;x509=true");
+            expect(generateX509ConnectionString('test.azure-devices.net', 'testDevice')).toEqual('HostName=test.azure-devices.net;DeviceId=testDevice;x509=true');
         });
     });
     describe('getDeviceAuthenticationType', () => {

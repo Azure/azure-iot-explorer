@@ -6,6 +6,7 @@ import { Twin } from '../models/device';
 import { DeviceIdentity } from '../models/deviceIdentity';
 import DeviceQuery from '../models/deviceQuery';
 import { DigitalTwinInterfaces } from '../models/digitalTwinModels';
+import { CloudToDeviceMessageActionParameters, InvokeMethodActionParameters } from '../../devices/deviceContent/actions';
 
 export interface DataPlaneParameters {
     connectionString: string;
@@ -19,19 +20,9 @@ export interface UpdateDeviceTwinParameters extends FetchDeviceTwinParameters {
     deviceTwin: Twin;
 }
 
-export interface InvokeMethodParameters extends DataPlaneParameters {
-    connectTimeoutInSeconds: number;
-    deviceId: string;
-    methodName: string;
-    payload?: object;
-    responseTimeoutInSeconds: number;
-}
+export type InvokeMethodParameters = InvokeMethodActionParameters & DataPlaneParameters;
 
-export interface CloudToDeviceMessageParameters extends DataPlaneParameters {
-    deviceId: string;
-    body: string;
-    properties?: Array<{key: string, value: string, isSystemProperty: boolean}>;
-}
+export type CloudToDeviceMessageParameters = CloudToDeviceMessageActionParameters & DataPlaneParameters;
 
 export interface FetchDeviceParameters extends DataPlaneParameters {
     deviceId: string;

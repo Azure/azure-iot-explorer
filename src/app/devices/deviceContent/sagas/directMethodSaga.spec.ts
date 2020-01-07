@@ -7,6 +7,7 @@ import { cloneableGenerator, SagaIteratorClone } from 'redux-saga/utils';
 import { call, put } from 'redux-saga/effects';
 import * as DevicesService from '../../../api/services/devicesService';
 import { invokeDirectMethodSaga, notifyMethodInvoked } from './directMethodSaga';
+import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { invokeDirectMethodAction } from '../actions';
 import { InvokeMethodParameters } from '../../../api/parameters/deviceParameters';
 import { addNotificationAction } from '../../../notifications/actions';
@@ -108,10 +109,17 @@ describe('directMethodSaga', () => {
             });
         });
 
+        it('yields call to get active azure connection string', () => {
+            expect(invokeDirectMethodSagaGenerator.next()).toEqual({
+                done: false,
+                value: call(getActiveAzureResourceConnectionStringSaga)
+            });
+        });
+
         it('successfully invokes the method', () => {
             const success = invokeDirectMethodSagaGenerator.clone();
 
-            expect(success.next(payload)).toEqual({
+            expect(success.next(connectionString)).toEqual({
                 done: false,
                 value: call(mockInvokeDirectMethod, invokeMethodParameters)
             });

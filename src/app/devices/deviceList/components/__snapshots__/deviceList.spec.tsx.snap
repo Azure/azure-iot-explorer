@@ -2,7 +2,6 @@
 
 exports[`components/devices/DeviceList matches snapshot 1`] = `
 <DeviceListComponent
-  connectionString="connectionString"
   deleteDevices={[MockFunction]}
   devices={
     Array [

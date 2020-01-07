@@ -4,26 +4,27 @@
  **********************************************************/
 import { call, put } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
-import { invokeDirectMethodAction } from '../actions';
+import { invokeDirectMethodAction, InvokeMethodActionParameters } from '../actions';
 import { invokeDirectMethod } from '../../../api/services/devicesService';
+import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { addNotificationAction } from '../../../notifications/actions';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { InvokeMethodParameters } from '../../../api/parameters/deviceParameters';
 
-export function* invokeDirectMethodSaga(action: Action<InvokeMethodParameters>) {
+export function* invokeDirectMethodSaga(action: Action<InvokeMethodActionParameters>) {
     const toastId: number = Math.random();
 
     try {
         const payload = yield call(notifyMethodInvoked, toastId, action);
-        const response = yield call(invokeDirectMethod, {
-            connectTimeoutInSeconds: action.payload.connectTimeoutInSeconds,
-            connectionString: action.payload.connectionString,
-            deviceId: action.payload.deviceId,
-            methodName: action.payload.methodName,
-            payload,
-            responseTimeoutInSeconds: action.payload.responseTimeoutInSeconds
-        });
+
+        const connectionString: string = yield call(getActiveAzureResourceConnectionStringSaga);
+        const invokeMethodParameters: InvokeMethodParameters = {
+            ...action.payload,
+            connectionString
+        };
+
+        const response = yield call(invokeDirectMethod, invokeMethodParameters);
 
         yield put(addNotificationAction.started({
             id: toastId,

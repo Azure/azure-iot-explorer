@@ -10,11 +10,11 @@ import DeviceIdentityInformation, { DeviceIdentityDataProps, DeviceIdentityDispa
 import { getDeviceIdentityWrapperSelector } from '../../selectors';
 import { DeviceIdentity } from '../../../../api/models/deviceIdentity';
 import { updateDeviceIdentityAction } from '../../actions';
-import { getActiveAzureResourceConnectionStringSelector } from '../../../../azureResource/selectors';
+import { getActiveAzureResourceHostNameSelector } from '../../../../azureResource/selectors';
 
 const mapStateToProps = (state: StateType): DeviceIdentityDataProps => {
     return {
-        connectionString: getActiveAzureResourceConnectionStringSelector(state),
+        activeAzureResourceHostName: getActiveAzureResourceHostNameSelector(state),
         identityWrapper: getDeviceIdentityWrapperSelector(state)
     };
 };
