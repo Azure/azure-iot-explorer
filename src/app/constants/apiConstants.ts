@@ -31,17 +31,19 @@ export const HEADERS = {
     CONTINUATION_TOKEN: 'x-ms-continuation',
     CREATED_ON: 'x-ms-model-createdon',
     ETAG: 'Etag',
+    IF_MATCH: 'If-Match',
     LAST_UPDATED: 'x-ms-model-lastupdated',
     MODEL_ID: 'x-ms-model-id',
     PAGE_SIZE: 'x-ms-max-item-count',
     PUBLISHER_ID: 'x-ms-model-publisher-id',
     PUBLISHER_NAME: 'x-ms-model-publisher-name',
-    REQUEST_ID: 'x-ms-request-id',
+    REQUEST_ID: 'x-ms-request-id'
 };
 
 export enum DataPlaneStatusCode{
     SuccessLowerBound = 200,
-    SuccessUpperBound = 299
+    SuccessUpperBound = 299,
+    NoContentSuccess = 204
 }
 
 export const DEFAULT_CONSUMER_GROUP = '$Default';

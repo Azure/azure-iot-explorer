@@ -5,10 +5,11 @@
 import { connect } from 'react-redux';
 import { StateType } from '../../../../shared/redux/state';
 import DeviceEventsComponent, { DeviceEventsDataProps } from './deviceEvents';
+import { getActiveAzureResourceConnectionStringSelector } from '../../../../azureResource/selectors';
 
 const mapStateToProps = (state: StateType): DeviceEventsDataProps => {
     return {
-        connectionString: state.azureResourceState.activeAzureResource ? state.azureResourceState.activeAzureResource.connectionString : '',
+        connectionString: getActiveAzureResourceConnectionStringSelector(state),
     };
 };
 

@@ -7,15 +7,17 @@ import { RouteComponentProps } from 'react-router-dom';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { SpinnerSize, Spinner } from 'office-ui-fabric-react/lib/Spinner';
 import { Label } from 'office-ui-fabric-react/lib/Label';
+import { Dialog, DialogFooter, DialogType } from 'office-ui-fabric-react/lib/Dialog';
+import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/Button';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ThemeContextConsumer, ThemeContextInterface } from '../../../../shared/contexts/themeContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString, getModuleIdentityIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
-import { CLOSE, REFRESH } from '../../../../constants/iconNames';
+import { CLOSE, REFRESH, REMOVE } from '../../../../constants/iconNames';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../../constants/routes';
 import MaskedCopyableTextFieldContainer from '../../../../shared/components/maskedCopyableTextFieldContainer';
-import { GetModuleIdentityTwinActionParameters, GetModuleIdentityActionParameters } from '../../actions';
+import { GetModuleIdentityTwinActionParameters, GetModuleIdentityActionParameters, DeleteModuleIdentityActionParameters } from '../../actions';
 import { ModuleIdentity } from '../../../../api/models/moduleIdentity';
 import { ModuleTwin } from '../../../../api/models/moduleTwin';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
@@ -26,19 +28,35 @@ const EditorPromise = import('react-monaco-editor');
 const Editor = React.lazy(() => EditorPromise);
 
 export interface ModuleIdentityDetailDataProps {
+    currentHostName: string;
     moduleIdentity: ModuleIdentity;
     moduleIdentitySyncStatus: SynchronizationStatus;
     moduleIdentityTwin: ModuleTwin;
     moduleIdentityTwinSyncStatus: SynchronizationStatus;
+    moduleListSyncStatus: SynchronizationStatus;
 }
 
 export interface ModuleIdentityDetailDispatchProps {
     getModuleIdentityTwin: (params: GetModuleIdentityTwinActionParameters) => void;
     getModuleIdentity: (params: GetModuleIdentityActionParameters) => void;
+    deleteModuleIdentity: (params: DeleteModuleIdentityActionParameters) => void;
 }
 
+export interface ModuleIdentityDetailState {
+    showDeleteConfirmation: boolean;
+}
+
+export type ModuleIdentityDetailProps = ModuleIdentityDetailDataProps & ModuleIdentityDetailDispatchProps;
 export default class ModuleIdentityDetailComponent
-    extends React.Component<ModuleIdentityDetailDataProps & ModuleIdentityDetailDispatchProps & RouteComponentProps> {
+    extends React.Component<ModuleIdentityDetailProps & RouteComponentProps, ModuleIdentityDetailState> {
+
+    constructor(props: ModuleIdentityDetailProps & RouteComponentProps) {
+        super(props);
+
+        this.state = {
+            showDeleteConfirmation: false
+        };
+    }
 
     public render(): JSX.Element {
         return (
@@ -58,6 +76,7 @@ export default class ModuleIdentityDetailComponent
                                     <MultiLineShimmer/> :
                                     this.showModuleTwin(context)
                                 }
+                                {this.state.showDeleteConfirmation && this.deleteConfirmationDialog(context)}
                             </div>
                         </div>
                     </>
@@ -74,6 +93,9 @@ export default class ModuleIdentityDetailComponent
         if (getModuleIdentityIdFromQueryString(oldProps) !== getModuleIdentityIdFromQueryString(this.props)) {
             this.retrieveData();
         }
+        if (this.props.moduleListSyncStatus === SynchronizationStatus.deleted) {
+            this.navigateToModuleList();
+        }
     }
 
     private readonly retrieveData = () => {
@@ -89,6 +111,16 @@ export default class ModuleIdentityDetailComponent
         });
     }
 
+    private readonly delete = () => {
+        const deviceId = getDeviceIdFromQueryString(this.props);
+        const moduleId = getModuleIdentityIdFromQueryString(this.props);
+        this.props.deleteModuleIdentity({
+            deviceId,
+            moduleId
+        });
+        this.closeDeleteDialog();
+    }
+
     private readonly showCommandBar = (context: LocalizationContextInterface) => {
         return (
             <CommandBar
@@ -101,6 +133,14 @@ export default class ModuleIdentityDetailComponent
                         key: REFRESH,
                         name: context.t(ResourceKeys.moduleIdentity.detail.command.refresh),
                         onClick: this.retrieveData
+                    },
+                    {
+                        ariaLabel: context.t(ResourceKeys.moduleIdentity.detail.command.delete),
+                        disabled: this.props.moduleIdentityTwinSyncStatus === SynchronizationStatus.working || this.props.moduleIdentitySyncStatus === SynchronizationStatus.working,
+                        iconProps: {iconName: REMOVE},
+                        key: REMOVE,
+                        name: context.t(ResourceKeys.moduleIdentity.detail.command.delete),
+                        onClick: this.deleteConfirmation
                     },
                     {
                         ariaLabel: context.t(ResourceKeys.moduleIdentity.detail.command.back),
@@ -261,7 +301,42 @@ export default class ModuleIdentityDetailComponent
     private readonly generateConnectionString = (key: string): string => {
         const deviceId = getDeviceIdFromQueryString(this.props);
         const moduleId = getModuleIdentityIdFromQueryString(this.props);
-        const hostName = this.props.match.url && this.props.match.url.match(new RegExp(`${ROUTE_PARTS.RESOURCE}/` + '(.*)' + `/${ROUTE_PARTS.DEVICES}`))[1];
+        const hostName = this.props.currentHostName;
         return `HostName=${hostName};DeviceId=${deviceId};ModuleId=${moduleId};SharedAccessKey=${key}`;
+    }
+
+    private readonly deleteConfirmationDialog = (context: LocalizationContextInterface) => {
+        return (
+            <div role="dialog">
+                <Dialog
+                    hidden={!this.state.showDeleteConfirmation}
+                    onDismiss={this.closeDeleteDialog}
+                    dialogContentProps={{
+                        title: context.t(ResourceKeys.moduleIdentity.detail.deleteConfirmation),
+                        type: DialogType.close,
+                    }}
+                    modalProps={{
+                        isBlocking: true,
+                    }}
+                >
+                    <DialogFooter>
+                        <PrimaryButton onClick={this.delete} text={context.t(ResourceKeys.deviceLists.commands.delete.confirmationDialog.confirm)} />
+                        <DefaultButton onClick={this.closeDeleteDialog} text={context.t(ResourceKeys.deviceLists.commands.delete.confirmationDialog.cancel)} />
+                    </DialogFooter>
+                </Dialog>
+            </div>
+        );
+    }
+
+    private readonly deleteConfirmation = () => {
+        this.setState({
+            showDeleteConfirmation: true
+        });
+    }
+
+    private readonly closeDeleteDialog = () => {
+        this.setState({
+            showDeleteConfirmation: false
+        });
     }
 }

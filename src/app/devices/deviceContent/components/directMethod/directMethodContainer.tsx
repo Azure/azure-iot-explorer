@@ -10,10 +10,11 @@ import { StateType } from '../../../../shared/redux/state';
 import { NonFunctionProperties, FunctionProperties } from '../../../../shared/types/types';
 import { InvokeMethodParameters } from '../../../../api/parameters/deviceParameters';
 import { invokeDirectMethodAction } from '../../actions';
+import { getActiveAzureResourceConnectionStringSelector } from '../../../../azureResource/selectors';
 
 const mapStateToProps = (state: StateType): NonFunctionProperties<DirectMethodProps> => {
     return {
-        connectionString: state.azureResourceState.activeAzureResource ? state.azureResourceState.activeAzureResource.connectionString : ''
+        connectionString: getActiveAzureResourceConnectionStringSelector(state)
     };
 };
 

@@ -9,6 +9,7 @@ const DEVICE_STATUS_HEADER = 'x-ms-command-statuscode';
 const MULTIPLE_CHOICES = 300;
 const SUCCESS = 200;
 const SERVER_ERROR = 500;
+const NO_CONTENT_SUCCESS = 204;
 
 export const generateDataPlaneRequestBody = (req: express.Request) => {
     const headers = {
@@ -17,9 +18,6 @@ export const generateDataPlaneRequestBody = (req: express.Request) => {
         'Content-Type': 'application/json',
         ...req.body.headers
     };
-    if (req.body.etag) {
-        (headers as any)['If-Match'] = `"${req.body.etag}"`; // tslint:disable-line:no-any
-    }
 
     const apiVersion = req.body.apiVersion || API_VERSION;
     const queryString = req.body.queryString ? `?${req.body.queryString}&api-version=${apiVersion}` : `?api-version=${apiVersion}`;
@@ -48,6 +46,12 @@ export const processDataPlaneResponse = (httpRes: request.Response, body: any): 
                 };
             }
             else {
+                if (httpRes.statusCode === NO_CONTENT_SUCCESS) {
+                    return {
+                        body: undefined,
+                        statusCode: httpRes.statusCode
+                    };
+                }
                 if (httpRes.statusCode >= SUCCESS && httpRes.statusCode < MULTIPLE_CHOICES) {
                     return {
                         body: {body: JSON.parse(body), headers: httpRes.headers},

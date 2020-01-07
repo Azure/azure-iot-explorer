@@ -3,8 +3,8 @@
  * Licensed under the MIT License
  **********************************************************/
 import 'jest';
-import * as DevicesService from './devicesService';
 import * as ModuleService from './moduleService';
+import * as DataplaneService from './dataplaneServiceHelper';
 import { HTTP_OPERATION_TYPES } from '../constants';
 import { getConnectionInfoFromConnectionString } from '../shared/utils';
 import { DataPlaneParameters } from '../parameters/deviceParameters';
@@ -68,7 +68,7 @@ describe('moduleService', () => {
         };
 
         it('calls fetch with specified parameters and returns moduleIdentities when response is 200', async () => {
-            jest.spyOn(DevicesService, 'dataPlaneConnectionHelper').mockReturnValue({
+            jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockReturnValue({
                 connectionInfo: getConnectionInfoFromConnectionString(parameters.connectionString), sasToken});
 
             // tslint:disable
@@ -82,7 +82,7 @@ describe('moduleService', () => {
             jest.spyOn(window, 'fetch').mockResolvedValue(response);
 
             const connectionInformation = mockDataPlaneConnectionHelper({connectionString});
-            const dataPlaneRequest: DevicesService.DataPlaneRequest = {
+            const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
                 hostName: connectionInformation.connectionInfo.hostName,
                 httpMethod: HTTP_OPERATION_TYPES.Get,
                 path: `devices/${deviceId}/modules`,
@@ -100,7 +100,7 @@ describe('moduleService', () => {
                 mode: 'cors',
             };
 
-            expect(fetch).toBeCalledWith(DevicesService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
+            expect(fetch).toBeCalledWith(DataplaneService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
             expect(result).toEqual(moduleIdentity);
         });
 
@@ -118,7 +118,7 @@ describe('moduleService', () => {
         };
 
         it('calls fetch with specified parameters and returns moduleIdentity when response is 200', async () => {
-            jest.spyOn(DevicesService, 'dataPlaneConnectionHelper').mockReturnValue({
+            jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockReturnValue({
                 connectionInfo: getConnectionInfoFromConnectionString(parameters.connectionString), sasToken});
 
             // tslint:disable
@@ -132,7 +132,7 @@ describe('moduleService', () => {
             jest.spyOn(window, 'fetch').mockResolvedValue(response);
 
             const connectionInformation = mockDataPlaneConnectionHelper({connectionString});
-            const dataPlaneRequest: DevicesService.DataPlaneRequest = {
+            const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
                 body: JSON.stringify(parameters.moduleIdentity),
                 hostName: connectionInformation.connectionInfo.hostName,
                 httpMethod: HTTP_OPERATION_TYPES.Put,
@@ -151,7 +151,7 @@ describe('moduleService', () => {
                 mode: 'cors',
             };
 
-            expect(fetch).toBeCalledWith(DevicesService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
+            expect(fetch).toBeCalledWith(DataplaneService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
             expect(result).toEqual(moduleIdentity);
         });
 
@@ -170,7 +170,7 @@ describe('moduleService', () => {
         };
 
         it('calls fetch with specified parameters and returns moduleTwin when response is 200', async () => {
-            jest.spyOn(DevicesService, 'dataPlaneConnectionHelper').mockReturnValue({
+            jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockReturnValue({
                 connectionInfo: getConnectionInfoFromConnectionString(parameters.connectionString), sasToken});
 
             // tslint:disable
@@ -184,7 +184,7 @@ describe('moduleService', () => {
             jest.spyOn(window, 'fetch').mockResolvedValue(response);
 
             const connectionInformation = mockDataPlaneConnectionHelper({connectionString});
-            const dataPlaneRequest: DevicesService.DataPlaneRequest = {
+            const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
                 hostName: connectionInformation.connectionInfo.hostName,
                 httpMethod: HTTP_OPERATION_TYPES.Get,
                 path: `twins/${deviceId}/modules/${moduleId}`,
@@ -202,7 +202,7 @@ describe('moduleService', () => {
                 mode: 'cors',
             };
 
-            expect(fetch).toBeCalledWith(DevicesService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
+            expect(fetch).toBeCalledWith(DataplaneService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
             expect(result).toEqual(moduleTwin);
         });
 
@@ -221,7 +221,7 @@ describe('moduleService', () => {
         };
 
         it('calls fetch with specified parameters and returns module identity when response is 200', async () => {
-            jest.spyOn(DevicesService, 'dataPlaneConnectionHelper').mockReturnValue({
+            jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockReturnValue({
                 connectionInfo: getConnectionInfoFromConnectionString(parameters.connectionString), sasToken});
 
             // tslint:disable
@@ -235,7 +235,7 @@ describe('moduleService', () => {
             jest.spyOn(window, 'fetch').mockResolvedValue(response);
 
             const connectionInformation = mockDataPlaneConnectionHelper({connectionString});
-            const dataPlaneRequest: DevicesService.DataPlaneRequest = {
+            const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
                 hostName: connectionInformation.connectionInfo.hostName,
                 httpMethod: HTTP_OPERATION_TYPES.Get,
                 path: `devices/${deviceId}/modules/${moduleId}`,
@@ -253,13 +253,65 @@ describe('moduleService', () => {
                 mode: 'cors',
             };
 
-            expect(fetch).toBeCalledWith(DevicesService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
+            expect(fetch).toBeCalledWith(DataplaneService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
             expect(result).toEqual(moduleIdentity);
         });
 
         it('throws Error when promise rejects', async done => {
             window.fetch = jest.fn().mockRejectedValueOnce(new Error('Not found'));
             await expect(ModuleService.fetchModuleIdentity(parameters)).rejects.toThrowError('Not found');
+            done();
+        });
+    });
+
+    context('deleteModuleIdentity', () => {
+        const parameters = {
+            connectionString,
+            deviceId,
+            moduleId
+        };
+
+        it('calls fetch with specified parameters and returns with no content when response is 204', async () => {
+            jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockReturnValue({
+                connectionInfo: getConnectionInfoFromConnectionString(parameters.connectionString), sasToken});
+
+            // tslint:disable
+            const response = {
+                json: () => {return {
+                    body: moduleIdentity
+                    }},
+                status: 204
+            } as any;
+            // tslint:enable
+            jest.spyOn(window, 'fetch').mockResolvedValue(response);
+
+            const connectionInformation = mockDataPlaneConnectionHelper({connectionString});
+            const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
+                headers: {'If-Match': '*'},
+                hostName: connectionInformation.connectionInfo.hostName,
+                httpMethod: HTTP_OPERATION_TYPES.Delete,
+                path: `devices/${deviceId}/modules/${moduleId}`,
+                sharedAccessSignature: connectionInformation.sasToken
+            };
+
+            const result = await ModuleService.deleteModuleIdentity(parameters);
+
+            const serviceRequestParams = {
+                body: JSON.stringify(dataPlaneRequest),
+                cache: 'no-cache',
+                credentials: 'include',
+                headers,
+                method: HTTP_OPERATION_TYPES.Post,
+                mode: 'cors',
+            };
+
+            expect(fetch).toBeCalledWith(DataplaneService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
+            expect(result).toEqual(undefined);
+        });
+
+        it('throws Error when promise rejects', async done => {
+            window.fetch = jest.fn().mockRejectedValueOnce(new Error('Not found'));
+            await expect(ModuleService.deleteModuleIdentity(parameters)).rejects.toThrowError('Not found');
             done();
         });
     });

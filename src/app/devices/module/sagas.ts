@@ -3,17 +3,19 @@
  * Licensed under the MIT License
  **********************************************************/
 import { takeEvery, takeLatest } from 'redux-saga/effects';
-import { getModuleIdentitiesSaga, addModuleIdentitySaga, getModuleIdentityTwinSaga, getModuleIdentitySaga } from './sagas/moduleIdentitySaga';
+import { getModuleIdentitiesSaga, addModuleIdentitySaga, getModuleIdentityTwinSaga, getModuleIdentitySaga, deleteModuleIdentitySaga } from './sagas/moduleIdentitySaga';
 import {
     getModuleIdentitiesAction,
     addModuleIdentityAction,
     getModuleIdentityTwinAction,
-    getModuleIdentityAction
-    } from './actions';
+    getModuleIdentityAction,
+    deleteModuleIdentityAction
+} from './actions';
 
 export default [
     takeEvery(addModuleIdentityAction.started.type, addModuleIdentitySaga),
     takeLatest(getModuleIdentitiesAction.started.type, getModuleIdentitiesSaga),
     takeLatest(getModuleIdentityTwinAction.started.type, getModuleIdentityTwinSaga),
-    takeLatest(getModuleIdentityAction.started.type, getModuleIdentitySaga)
+    takeLatest(getModuleIdentityAction.started.type, getModuleIdentitySaga),
+    takeEvery(deleteModuleIdentityAction.started.type, deleteModuleIdentitySaga),
 ];

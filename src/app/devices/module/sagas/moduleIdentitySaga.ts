@@ -2,14 +2,14 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { call, put, select } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
-import { fetchModuleIdentities, addModuleIdentity, fetchModuleIdentityTwin, fetchModuleIdentity } from '../../../api/services/moduleService';
+import { fetchModuleIdentities, addModuleIdentity, fetchModuleIdentityTwin, fetchModuleIdentity, deleteModuleIdentity } from '../../../api/services/moduleService';
 import { addNotificationAction } from '../../../notifications/actions';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
-import { getModuleIdentitiesAction, addModuleIdentityAction, GetModuleIdentityTwinActionParameters, getModuleIdentityTwinAction, GetModuleIdentityActionParameters, getModuleIdentityAction } from '../actions';
+import { getModuleIdentitiesAction, addModuleIdentityAction, GetModuleIdentityTwinActionParameters, getModuleIdentityTwinAction, GetModuleIdentityActionParameters, getModuleIdentityAction, DeleteModuleIdentityActionParameters, deleteModuleIdentityAction } from '../actions';
 import { ModuleIdentity } from './../../../api/models/moduleIdentity';
 
 export function* getModuleIdentitiesSaga(action: Action<string>) {
@@ -125,5 +125,41 @@ export function* getModuleIdentitySaga(action: Action<GetModuleIdentityActionPar
           }));
 
         yield put(getModuleIdentityAction.failed({params: action.payload, error}));
+    }
+}
+
+export function* deleteModuleIdentitySaga(action: Action<DeleteModuleIdentityActionParameters>) {
+    try {
+        const parameters = {
+            connectionString: yield call(getActiveAzureResourceConnectionStringSaga),
+            deviceId: action.payload.deviceId,
+            moduleId: action.payload.moduleId
+        };
+
+        yield call(deleteModuleIdentity, parameters);
+
+        yield put(addNotificationAction.started({
+            text: {
+                translationKey: ResourceKeys.notifications.deleteModuleIdentityOnSuccess,
+                translationOptions: {
+                    moduleId: action.payload.moduleId
+                },
+            },
+            type: NotificationType.success
+        }));
+        yield put(deleteModuleIdentityAction.done({params: action.payload}));
+    } catch (error) {
+        yield put(addNotificationAction.started({
+            text: {
+                translationKey: ResourceKeys.notifications.deleteModuleIdentityOnError,
+                translationOptions: {
+                    error,
+                    moduleId: action.payload.moduleId,
+                },
+            },
+            type: NotificationType.error
+        }));
+
+        yield put(deleteModuleIdentityAction.failed({params: action.payload, error}));
     }
 }

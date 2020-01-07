@@ -3,18 +3,11 @@
  * Licensed under the MIT License
  **********************************************************/
 import {
-    FetchModuleIdentitiesParameters,
-    AddModuleIdentityParameters,
-    ModuleIdentityTwinParameters,
-    FetchModuleIdentityParameters
-} from '../parameters/moduleParameters';
-import {
     FetchDeviceTwinParameters,
     UpdateDeviceTwinParameters,
     InvokeMethodParameters,
     FetchDevicesParameters,
     MonitorEventsParameters,
-    DataPlaneParameters,
     FetchDeviceParameters,
     DeleteDevicesParameters,
     AddDeviceParameters,
@@ -24,19 +17,17 @@ import {
     PatchDigitalTwinInterfacePropertiesParameters,
     CloudToDeviceMessageParameters
 } from '../parameters/deviceParameters';
-import { CONTROLLER_API_ENDPOINT, DATAPLANE, EVENTHUB, DIGITAL_TWIN_API_VERSION, DataPlaneStatusCode, MONITOR, STOP, HEADERS, CLOUD_TO_DEVICE } from '../../constants/apiConstants';
+import { CONTROLLER_API_ENDPOINT, EVENTHUB, DIGITAL_TWIN_API_VERSION, MONITOR, STOP, HEADERS, CLOUD_TO_DEVICE } from '../../constants/apiConstants';
 import { HTTP_OPERATION_TYPES } from '../constants';
-import { buildQueryString, getConnectionInfoFromConnectionString, generateSasToken } from '../shared/utils';
+import { buildQueryString } from '../shared/utils';
 import { CONNECTION_TIMEOUT_IN_SECONDS, RESPONSE_TIME_IN_SECONDS } from '../../constants/devices';
 import { Message } from '../models/messages';
 import { Twin, Device, DataPlaneResponse } from '../models/device';
 import { DeviceIdentity } from '../models/deviceIdentity';
 import { DigitalTwinInterfaces } from '../models/digitalTwinModels';
-import { ModuleIdentity } from '../models/moduleIdentity';
-import { ModuleTwin } from '../models/moduleTwin';
 import { parseEventHubMessage } from './eventHubMessageHelper';
+import { dataPlaneConnectionHelper, dataPlaneResponseHelper, request, DATAPLANE_CONTROLLER_ENDPOINT } from './dataplaneServiceHelper';
 
-export const DATAPLANE_CONTROLLER_ENDPOINT = `${CONTROLLER_API_ENDPOINT}${DATAPLANE}`;
 const EVENTHUB_CONTROLLER_ENDPOINT = `${CONTROLLER_API_ENDPOINT}${EVENTHUB}`;
 export const EVENTHUB_MONITOR_ENDPOINT = `${EVENTHUB_CONTROLLER_ENDPOINT}${MONITOR}`;
 export const EVENTHUB_STOP_ENDPOINT = `${EVENTHUB_CONTROLLER_ENDPOINT}${STOP}`;
@@ -64,79 +55,6 @@ export interface DirectMethodResult {
     payload: object;
     status: number;
 }
-
-// We can do something more sophisticated with agents and a factory
-export const request = async (endpoint: string, parameters: any) => { // tslint:disable-line
-    return fetch(
-        endpoint,
-        {
-            body: JSON.stringify(parameters),
-            cache: 'no-cache',
-            credentials: 'include',
-            headers: new Headers({
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            }),
-            method: HTTP_OPERATION_TYPES.Post,
-            mode: 'cors',
-        }
-    );
-};
-
-export const dataPlaneConnectionHelper = (parameters: DataPlaneParameters) => {
-    if (!parameters || !parameters.connectionString) {
-        return;
-    }
-
-    const connectionInfo = getConnectionInfoFromConnectionString(parameters.connectionString);
-    if (!(connectionInfo && connectionInfo.hostName)) {
-        return;
-    }
-
-    const fullHostName = `${connectionInfo.hostName}/devices/query`;
-    const sasToken = generateSasToken({
-        key: connectionInfo.sharedAccessKey,
-        keyName: connectionInfo.sharedAccessKeyName,
-        resourceUri: fullHostName
-    });
-
-    return {
-        connectionInfo,
-        sasToken,
-    };
-};
-
-// tslint:disable-next-line:cyclomatic-complexity
-export const dataPlaneResponseHelper = async (response: Response) => {
-    const dataPlaneResponse = await response;
-
-    let result;
-    try {
-        result = await response.json();
-    }
-    catch {
-        throw new Error();
-    }
-
-    // success case
-    if (DataPlaneStatusCode.SuccessLowerBound <= dataPlaneResponse.status && dataPlaneResponse.status <= DataPlaneStatusCode.SuccessUpperBound) {
-        return result;
-    }
-
-    // error case
-    if (result && result.body) {
-        if (result.body.Message || result.body.ExceptionMessage) {
-            throw new Error(result.body.Message || result.body.ExceptionMessage);
-        }
-    }
-
-    // error case
-    if (result && result.message) {
-        throw new Error(result.message);
-    }
-
-    throw new Error();
-};
 
 export const fetchDeviceTwin = async (parameters: FetchDeviceTwinParameters): Promise<Twin> => {
     try {
@@ -407,13 +325,13 @@ export const deleteDevices = async (parameters: DeleteDevicesParameters) => {
     }
 
     try {
-        const deviceDeletionInstructions = parameters.deviceIds.map(deviceId => {
-            return {
+        const deviceDeletionInstructions = parameters.deviceIds.map(deviceId => (
+            {
                 etag: '*',
                 id: deviceId,
                 importMode: 'deleteIfMatchEtag'
-            };
-        });
+            }
+        ));
 
         const connectionInfo = dataPlaneConnectionHelper(parameters);
         const dataPlaneRequest: DataPlaneRequest = {

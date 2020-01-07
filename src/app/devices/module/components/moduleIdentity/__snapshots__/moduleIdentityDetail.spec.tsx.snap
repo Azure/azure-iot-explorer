@@ -17,6 +17,16 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
           "onClick": [Function],
         },
         Object {
+          "ariaLabel": "moduleIdentity.detail.command.delete",
+          "disabled": true,
+          "iconProps": Object {
+            "iconName": "Delete",
+          },
+          "key": "Delete",
+          "name": "moduleIdentity.detail.command.delete",
+          "onClick": [Function],
+        },
+        Object {
           "ariaLabel": "moduleIdentity.detail.command.back",
           "iconProps": Object {
             "iconName": "ChromeClose",
@@ -53,6 +63,12 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
                 "moduleIdentity.detail.command.refresh",
               ],
               Array [
+                "moduleIdentity.detail.command.delete",
+              ],
+              Array [
+                "moduleIdentity.detail.command.delete",
+              ],
+              Array [
                 "moduleIdentity.detail.command.back",
               ],
               Array [
@@ -79,6 +95,14 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
               Object {
                 "type": "return",
                 "value": "moduleIdentity.detail.command.refresh",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.delete",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.delete",
               },
               Object {
                 "type": "return",
@@ -132,6 +156,16 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
           "onClick": [Function],
         },
         Object {
+          "ariaLabel": "moduleIdentity.detail.command.delete",
+          "disabled": true,
+          "iconProps": Object {
+            "iconName": "Delete",
+          },
+          "key": "Delete",
+          "name": "moduleIdentity.detail.command.delete",
+          "onClick": [Function],
+        },
+        Object {
           "ariaLabel": "moduleIdentity.detail.command.back",
           "iconProps": Object {
             "iconName": "ChromeClose",
@@ -166,6 +200,12 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
               ],
               Array [
                 "moduleIdentity.detail.command.refresh",
+              ],
+              Array [
+                "moduleIdentity.detail.command.delete",
+              ],
+              Array [
+                "moduleIdentity.detail.command.delete",
               ],
               Array [
                 "moduleIdentity.detail.command.back",
@@ -224,6 +264,14 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
               Object {
                 "type": "return",
                 "value": "moduleIdentity.detail.command.refresh",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.delete",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.delete",
               },
               Object {
                 "type": "return",
@@ -310,6 +358,12 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
                 "moduleIdentity.detail.command.refresh",
               ],
               Array [
+                "moduleIdentity.detail.command.delete",
+              ],
+              Array [
+                "moduleIdentity.detail.command.delete",
+              ],
+              Array [
                 "moduleIdentity.detail.command.back",
               ],
               Array [
@@ -366,6 +420,14 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
               Object {
                 "type": "return",
                 "value": "moduleIdentity.detail.command.refresh",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.delete",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.delete",
               },
               Object {
                 "type": "return",
@@ -452,6 +514,12 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
                 "moduleIdentity.detail.command.refresh",
               ],
               Array [
+                "moduleIdentity.detail.command.delete",
+              ],
+              Array [
+                "moduleIdentity.detail.command.delete",
+              ],
+              Array [
                 "moduleIdentity.detail.command.back",
               ],
               Array [
@@ -508,6 +576,14 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
               Object {
                 "type": "return",
                 "value": "moduleIdentity.detail.command.refresh",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.delete",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.delete",
               },
               Object {
                 "type": "return",
@@ -593,6 +669,12 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
                 "moduleIdentity.detail.command.refresh",
               ],
               Array [
+                "moduleIdentity.detail.command.delete",
+              ],
+              Array [
+                "moduleIdentity.detail.command.delete",
+              ],
+              Array [
                 "moduleIdentity.detail.command.back",
               ],
               Array [
@@ -649,6 +731,14 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
               Object {
                 "type": "return",
                 "value": "moduleIdentity.detail.command.refresh",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.delete",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.delete",
               },
               Object {
                 "type": "return",
@@ -717,7 +807,7 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
             ],
           }
         }
-        value="HostName=undefined;DeviceId=null;ModuleId=null;SharedAccessKey=key1"
+        value="HostName=testhub.azure-devices.net;DeviceId=null;ModuleId=null;SharedAccessKey=key1"
       />
       <Connect(MaskedCopyableTextField)
         allowMask={true}
@@ -734,6 +824,12 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
                 "moduleIdentity.detail.command.refresh",
               ],
               Array [
+                "moduleIdentity.detail.command.delete",
+              ],
+              Array [
+                "moduleIdentity.detail.command.delete",
+              ],
+              Array [
                 "moduleIdentity.detail.command.back",
               ],
               Array [
@@ -790,6 +886,14 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
               Object {
                 "type": "return",
                 "value": "moduleIdentity.detail.command.refresh",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.delete",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.delete",
               },
               Object {
                 "type": "return",
@@ -858,7 +962,7 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
             ],
           }
         }
-        value="HostName=undefined;DeviceId=null;ModuleId=null;SharedAccessKey=key2"
+        value="HostName=testhub.azure-devices.net;DeviceId=null;ModuleId=null;SharedAccessKey=key2"
       />
       <Component />
     </div>
@@ -880,6 +984,16 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
           },
           "key": "Refresh",
           "name": "moduleIdentity.detail.command.refresh",
+          "onClick": [Function],
+        },
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.delete",
+          "disabled": true,
+          "iconProps": Object {
+            "iconName": "Delete",
+          },
+          "key": "Delete",
+          "name": "moduleIdentity.detail.command.delete",
           "onClick": [Function],
         },
         Object {
@@ -917,6 +1031,12 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
               ],
               Array [
                 "moduleIdentity.detail.command.refresh",
+              ],
+              Array [
+                "moduleIdentity.detail.command.delete",
+              ],
+              Array [
+                "moduleIdentity.detail.command.delete",
               ],
               Array [
                 "moduleIdentity.detail.command.back",
@@ -966,6 +1086,14 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
               Object {
                 "type": "return",
                 "value": "moduleIdentity.detail.command.refresh",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.delete",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.delete",
               },
               Object {
                 "type": "return",
@@ -1043,6 +1171,12 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
                 "moduleIdentity.detail.command.refresh",
               ],
               Array [
+                "moduleIdentity.detail.command.delete",
+              ],
+              Array [
+                "moduleIdentity.detail.command.delete",
+              ],
+              Array [
                 "moduleIdentity.detail.command.back",
               ],
               Array [
@@ -1090,6 +1224,14 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
               Object {
                 "type": "return",
                 "value": "moduleIdentity.detail.command.refresh",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.delete",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.delete",
               },
               Object {
                 "type": "return",
@@ -1164,6 +1306,12 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
                 "moduleIdentity.detail.command.refresh",
               ],
               Array [
+                "moduleIdentity.detail.command.delete",
+              ],
+              Array [
+                "moduleIdentity.detail.command.delete",
+              ],
+              Array [
                 "moduleIdentity.detail.command.back",
               ],
               Array [
@@ -1211,6 +1359,14 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
               Object {
                 "type": "return",
                 "value": "moduleIdentity.detail.command.refresh",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.delete",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.delete",
               },
               Object {
                 "type": "return",
@@ -1292,6 +1448,16 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
           "onClick": [Function],
         },
         Object {
+          "ariaLabel": "moduleIdentity.detail.command.delete",
+          "disabled": false,
+          "iconProps": Object {
+            "iconName": "Delete",
+          },
+          "key": "Delete",
+          "name": "moduleIdentity.detail.command.delete",
+          "onClick": [Function],
+        },
+        Object {
           "ariaLabel": "moduleIdentity.detail.command.back",
           "iconProps": Object {
             "iconName": "ChromeClose",
@@ -1328,6 +1494,12 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
                 "moduleIdentity.detail.command.refresh",
               ],
               Array [
+                "moduleIdentity.detail.command.delete",
+              ],
+              Array [
+                "moduleIdentity.detail.command.delete",
+              ],
+              Array [
                 "moduleIdentity.detail.command.back",
               ],
               Array [
@@ -1360,6 +1532,14 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
               Object {
                 "type": "return",
                 "value": "moduleIdentity.detail.command.refresh",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.delete",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.delete",
               },
               Object {
                 "type": "return",
@@ -1442,6 +1622,16 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
           "onClick": [Function],
         },
         Object {
+          "ariaLabel": "moduleIdentity.detail.command.delete",
+          "disabled": true,
+          "iconProps": Object {
+            "iconName": "Delete",
+          },
+          "key": "Delete",
+          "name": "moduleIdentity.detail.command.delete",
+          "onClick": [Function],
+        },
+        Object {
           "ariaLabel": "moduleIdentity.detail.command.back",
           "iconProps": Object {
             "iconName": "ChromeClose",
@@ -1478,6 +1668,12 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
                 "moduleIdentity.detail.command.refresh",
               ],
               Array [
+                "moduleIdentity.detail.command.delete",
+              ],
+              Array [
+                "moduleIdentity.detail.command.delete",
+              ],
+              Array [
                 "moduleIdentity.detail.command.back",
               ],
               Array [
@@ -1507,6 +1703,14 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
               Object {
                 "type": "return",
                 "value": "moduleIdentity.detail.command.refresh",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.delete",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.delete",
               },
               Object {
                 "type": "return",
@@ -1583,6 +1787,16 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot while
           "onClick": [Function],
         },
         Object {
+          "ariaLabel": "moduleIdentity.detail.command.delete",
+          "disabled": true,
+          "iconProps": Object {
+            "iconName": "Delete",
+          },
+          "key": "Delete",
+          "name": "moduleIdentity.detail.command.delete",
+          "onClick": [Function],
+        },
+        Object {
           "ariaLabel": "moduleIdentity.detail.command.back",
           "iconProps": Object {
             "iconName": "ChromeClose",
@@ -1619,6 +1833,12 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot while
                 "moduleIdentity.detail.command.refresh",
               ],
               Array [
+                "moduleIdentity.detail.command.delete",
+              ],
+              Array [
+                "moduleIdentity.detail.command.delete",
+              ],
+              Array [
                 "moduleIdentity.detail.command.back",
               ],
               Array [
@@ -1645,6 +1865,14 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot while
               Object {
                 "type": "return",
                 "value": "moduleIdentity.detail.command.refresh",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.delete",
+              },
+              Object {
+                "type": "return",
+                "value": "moduleIdentity.detail.command.delete",
               },
               Object {
                 "type": "return",

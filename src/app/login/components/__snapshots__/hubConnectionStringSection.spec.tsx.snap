@@ -44,7 +44,7 @@ exports[`login/components/connectivityPane matches snapshot 1`] = `
         disabled={true}
         iconProps={
           Object {
-            "iconName": "Cancel",
+            "iconName": "Delete",
           }
         }
         onClick={[Function]}

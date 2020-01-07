@@ -10,7 +10,9 @@ import {
     getModuleIdentityTwinAction,
     GetModuleIdentityTwinActionParameters,
     getModuleIdentityAction,
-    GetModuleIdentityActionParameters
+    GetModuleIdentityActionParameters,
+    deleteModuleIdentityAction,
+    DeleteModuleIdentityActionParameters
 } from './actions';
 import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
 import { ModuleIdentity } from '../../api/models/moduleIdentity';
@@ -100,6 +102,34 @@ const reducer = reducerWithInitialState<ModuleStateType>(moduleStateInitial())
     .case(getModuleIdentityAction.failed, (state: ModuleStateType) => {
         return state.merge({
             moduleIdentity: {
+                synchronizationStatus: SynchronizationStatus.failed
+            }
+        });
+    })
+    .case(deleteModuleIdentityAction.started, (state: ModuleStateType) => {
+        const moduleList = state.moduleIdentityList.moduleIdentities;
+        return state.merge({
+            moduleIdentityList: {
+                moduleIdentities: moduleList,
+                synchronizationStatus: SynchronizationStatus.updating
+            }
+        });
+    })
+    .case(deleteModuleIdentityAction.done, (state: ModuleStateType, payload: {params: DeleteModuleIdentityActionParameters}) => {
+        const moduleList = state.moduleIdentityList.moduleIdentities;
+        const filteredList = moduleList.filter(moduleIdentity => moduleIdentity.moduleId !== payload.params.moduleId);
+        return state.merge({
+            moduleIdentityList: {
+                moduleIdentities: filteredList,
+                synchronizationStatus: SynchronizationStatus.deleted
+            }
+        });
+    })
+    .case(deleteModuleIdentityAction.failed, (state: ModuleStateType) => {
+        const moduleList = state.moduleIdentityList.moduleIdentities;
+        return state.merge({
+            moduleIdentityList: {
+                moduleIdentities: moduleList,
                 synchronizationStatus: SynchronizationStatus.failed
             }
         });

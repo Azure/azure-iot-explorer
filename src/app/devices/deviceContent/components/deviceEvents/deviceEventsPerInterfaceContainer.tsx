@@ -12,10 +12,11 @@ import { getDeviceTelemetrySelector } from './selectors';
 import { getModelDefinitionSyncStatusSelector, getInterfaceNameSelector } from '../../selectors';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { setInterfaceIdAction, getModelDefinitionAction } from '../../actions';
+import { getActiveAzureResourceConnectionStringSelector } from '../../../../azureResource/selectors';
 
 const mapStateToProps = (state: StateType): DeviceEventsDataProps => {
     return {
-        connectionString: state.azureResourceState.activeAzureResource ? state.azureResourceState.activeAzureResource.connectionString : '',
+        connectionString: getActiveAzureResourceConnectionStringSelector(state),
         interfaceName: getInterfaceNameSelector(state),
         isLoading: getModelDefinitionSyncStatusSelector(state) === SynchronizationStatus.working,
         telemetrySchema: getDeviceTelemetrySelector(state)

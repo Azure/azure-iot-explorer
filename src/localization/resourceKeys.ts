@@ -561,8 +561,10 @@ export class ResourceKeys {
       detail : {
          command : {
             back : "moduleIdentity.detail.command.back",
+            delete : "moduleIdentity.detail.command.delete",
             refresh : "moduleIdentity.detail.command.refresh",
          },
+         deleteConfirmation : "moduleIdentity.detail.deleteConfirmation",
          headerText : "moduleIdentity.detail.headerText",
          twin : "moduleIdentity.detail.twin",
       },
@@ -592,6 +594,8 @@ export class ResourceKeys {
       copiedToClipboard : "notifications.copiedToClipboard",
       deleteDeviceOnError : "notifications.deleteDeviceOnError",
       deleteDeviceOnSucceed : "notifications.deleteDeviceOnSucceed",
+      deleteModuleIdentityOnError : "notifications.deleteModuleIdentityOnError",
+      deleteModuleIdentityOnSuccess : "notifications.deleteModuleIdentityOnSuccess",
       getDeviceIdentityOnError : "notifications.getDeviceIdentityOnError",
       getDeviceListGenericErrorHelp : "notifications.getDeviceListGenericErrorHelp",
       getDeviceListOnError : "notifications.getDeviceListOnError",

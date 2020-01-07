@@ -10,7 +10,7 @@ import DeviceTwinContainer from './deviceTwin/deviceTwinContainer';
 import DeviceEventsContainer from './deviceEvents/deviceEventsContainer';
 import DirectMethodContainer from './directMethod/directMethodContainer';
 import CloudToDeviceMessageContainer from './cloudToDeviceMessage/cloudToDeviceMessageContainer';
-import ModuleIdentityRoutes from '../../module/components/moduleIdentity/moduleIdentityRoutes';
+import ModuleIdentityContent from '../../module/components/moduleIdentity/moduleIdentityContent';
 import DeviceContentNavComponent from './deviceContentNav';
 import BreadcrumbContainer from '../../../shared/components/breadcrumbContainer';
 import DigitalTwinsContentContainer from './digitalTwinContentContainer';
@@ -123,7 +123,7 @@ export class DeviceContentComponent extends React.PureComponent<DeviceContentPro
                 <Route path={`${url}/${ROUTE_PARTS.EVENTS}/`} component={DeviceEventsContainer}/>
                 <Route path={`${url}/${ROUTE_PARTS.METHODS}/`} component={DirectMethodContainer} />
                 <Route path={`${url}/${ROUTE_PARTS.CLOUD_TO_DEVICE_MESSAGE}/`} component={CloudToDeviceMessageContainer} />
-                <Route path={`${url}/${ROUTE_PARTS.MODULE_IDENTITY}/`} component={ModuleIdentityRoutes} />
+                <Route path={`${url}/${ROUTE_PARTS.MODULE_IDENTITY}/`} component={ModuleIdentityContent} />
                 <Route path={`${url}/${ROUTE_PARTS.DIGITAL_TWINS}/`} component={DigitalTwinsContentContainer} />
             </div>
         );

@@ -4,6 +4,7 @@
  **********************************************************/
 import 'jest';
 import * as DevicesService from './devicesService';
+import * as DataplaneService from './dataplaneServiceHelper';
 import { HTTP_OPERATION_TYPES } from '../constants';
 import { DIGITAL_TWIN_API_VERSION, CONTROLLER_API_ENDPOINT, CLOUD_TO_DEVICE } from '../../constants/apiConstants';
 import { CONNECTION_TIMEOUT_IN_SECONDS, RESPONSE_TIME_IN_SECONDS } from '../../constants/devices';
@@ -81,7 +82,7 @@ describe('deviceTwinService', () => {
         });
 
         it('calls fetch with specified parameters and returns deviceTwin when response is 200', async () => {
-            jest.spyOn(DevicesService, 'dataPlaneConnectionHelper').mockReturnValue({
+            jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockReturnValue({
                 connectionInfo: getConnectionInfoFromConnectionString(parameters.connectionString), sasToken});
 
             // tslint:disable
@@ -118,7 +119,7 @@ describe('deviceTwinService', () => {
                 mode: 'cors',
             };
 
-            expect(fetch).toBeCalledWith(DevicesService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
+            expect(fetch).toBeCalledWith(DataplaneService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
             expect(result).toEqual(twin);
         });
 
@@ -142,7 +143,7 @@ describe('deviceTwinService', () => {
         });
 
         it('calls fetch with specified parameters and returns digitalTwin interfaces when response is 200', async () => {
-            jest.spyOn(DevicesService, 'dataPlaneConnectionHelper').mockReturnValue({
+            jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockReturnValue({
                 connectionInfo: getConnectionInfoFromConnectionString(parameters.connectionString), sasToken});
             // tslint:disable
             const digitalTwin = {
@@ -197,7 +198,7 @@ describe('deviceTwinService', () => {
                 mode: 'cors',
             };
 
-            expect(fetch).toBeCalledWith(DevicesService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
+            expect(fetch).toBeCalledWith(DataplaneService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
             expect(result).toEqual(digitalTwin);
         });
 
@@ -223,7 +224,7 @@ describe('deviceTwinService', () => {
         });
 
         it('calls fetch with specified parameters and invokes DigitalTwinInterfaceCommand when response is 200', async () => {
-            jest.spyOn(DevicesService, 'dataPlaneConnectionHelper').mockReturnValue({
+            jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockReturnValue({
                 connectionInfo: getConnectionInfoFromConnectionString(parameters.connectionString), sasToken});
 
             // tslint:disable
@@ -268,7 +269,7 @@ describe('deviceTwinService', () => {
                 mode: 'cors',
             };
 
-            expect(fetch).toBeCalledWith(DevicesService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
+            expect(fetch).toBeCalledWith(DataplaneService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
             expect(result).toEqual(responseBody);
         });
 
@@ -305,7 +306,7 @@ describe('deviceTwinService', () => {
         });
 
         it('calls fetch with specified parameters and invokes patchDigitalTwinInterfaceProperties when response is 200', async () => {
-            jest.spyOn(DevicesService, 'dataPlaneConnectionHelper').mockReturnValue({
+            jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockReturnValue({
                 connectionInfo: getConnectionInfoFromConnectionString(parameters.connectionString), sasToken});
 
             // tslint:disable
@@ -348,7 +349,7 @@ describe('deviceTwinService', () => {
                 mode: 'cors',
             };
 
-            expect(fetch).toBeCalledWith(DevicesService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
+            expect(fetch).toBeCalledWith(DataplaneService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
             expect(result).toEqual(responseBody);
         });
 
@@ -373,7 +374,7 @@ describe('deviceTwinService', () => {
         });
 
         it('calls fetch with specified parameters and invokes updateDeviceTwin when response is 200', async () => {
-            jest.spyOn(DevicesService, 'dataPlaneConnectionHelper').mockReturnValue({
+            jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockReturnValue({
                 connectionInfo: getConnectionInfoFromConnectionString(parameters.connectionString), sasToken});
 
             // tslint:disable
@@ -414,7 +415,7 @@ describe('deviceTwinService', () => {
                 mode: 'cors',
             };
 
-            expect(fetch).toBeCalledWith(DevicesService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
+            expect(fetch).toBeCalledWith(DataplaneService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
             expect(result).toEqual(responseBody);
         });
 
@@ -441,7 +442,7 @@ describe('deviceTwinService', () => {
         });
 
         it('calls fetch with specified parameters and invokes invokeDirectMethod when response is 200', async () => {
-            jest.spyOn(DevicesService, 'dataPlaneConnectionHelper').mockReturnValue({
+            jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockReturnValue({
                 connectionInfo: getConnectionInfoFromConnectionString(parameters.connectionString), sasToken});
 
             // tslint:disable
@@ -486,7 +487,7 @@ describe('deviceTwinService', () => {
                 mode: 'cors',
             };
 
-            expect(fetch).toBeCalledWith(DevicesService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
+            expect(fetch).toBeCalledWith(DataplaneService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
             expect(result).toEqual(responseBody);
         });
 
@@ -561,7 +562,7 @@ describe('deviceTwinService', () => {
         });
 
         it('calls fetch with specified parameters and invokes addDevice when response is 200', async () => {
-            jest.spyOn(DevicesService, 'dataPlaneConnectionHelper').mockReturnValue({
+            jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockReturnValue({
                 connectionInfo: getConnectionInfoFromConnectionString(parameters.connectionString), sasToken});
             // tslint:disable
             const responseBody = deviceIdentity;
@@ -600,7 +601,7 @@ describe('deviceTwinService', () => {
                 mode: 'cors',
             };
 
-            expect(fetch).toBeCalledWith(DevicesService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
+            expect(fetch).toBeCalledWith(DataplaneService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
             expect(result).toEqual(responseBody);
         });
 
@@ -623,7 +624,7 @@ describe('deviceTwinService', () => {
         });
 
         it('calls fetch with specified parameters and invokes updateDevice when response is 200', async () => {
-            jest.spyOn(DevicesService, 'dataPlaneConnectionHelper').mockReturnValue({
+            jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockReturnValue({
                 connectionInfo: getConnectionInfoFromConnectionString(parameters.connectionString), sasToken});
             // tslint:disable
             const responseBody = deviceIdentity;
@@ -662,7 +663,7 @@ describe('deviceTwinService', () => {
                 mode: 'cors',
             };
 
-            expect(fetch).toBeCalledWith(DevicesService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
+            expect(fetch).toBeCalledWith(DataplaneService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
             expect(result).toEqual(responseBody);
         });
 
@@ -685,7 +686,7 @@ describe('deviceTwinService', () => {
         });
 
         it('calls fetch with specified parameters and invokes fetchDevice when response is 200', async () => {
-            jest.spyOn(DevicesService, 'dataPlaneConnectionHelper').mockReturnValue({
+            jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockReturnValue({
                 connectionInfo: getConnectionInfoFromConnectionString(parameters.connectionString), sasToken});
             // tslint:disable
             const responseBody = deviceIdentity;
@@ -723,7 +724,7 @@ describe('deviceTwinService', () => {
                 mode: 'cors',
             };
 
-            expect(fetch).toBeCalledWith(DevicesService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
+            expect(fetch).toBeCalledWith(DataplaneService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
             expect(result).toEqual(responseBody);
         });
 
@@ -748,7 +749,7 @@ describe('deviceTwinService', () => {
         };
 
         it('calls fetch with specified parameters and invokes fetchDevices when response is 200', async () => {
-            jest.spyOn(DevicesService, 'dataPlaneConnectionHelper').mockReturnValue({
+            jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockReturnValue({
                 connectionInfo: getConnectionInfoFromConnectionString(parameters.connectionString), sasToken});
             // tslint:disable
             const responseBody = deviceIdentity;
@@ -789,7 +790,7 @@ describe('deviceTwinService', () => {
                 mode: 'cors',
             };
 
-            expect(fetch).toBeCalledWith(DevicesService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
+            expect(fetch).toBeCalledWith(DataplaneService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
             expect(result).toEqual({body: [responseBody], headers: {foo: 'bar'}});
         });
 
@@ -809,7 +810,7 @@ describe('deviceTwinService', () => {
         });
 
         it('calls fetch with specified parameters and invokes deleteDevices when response is 200', async () => {
-            jest.spyOn(DevicesService, 'dataPlaneConnectionHelper').mockReturnValue({
+            jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockReturnValue({
                 connectionInfo: getConnectionInfoFromConnectionString(parameters.connectionString), sasToken});
 
              // tslint:disable
@@ -858,7 +859,7 @@ describe('deviceTwinService', () => {
                 mode: 'cors',
             };
 
-            expect(fetch).toBeCalledWith(DevicesService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
+            expect(fetch).toBeCalledWith(DataplaneService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
             expect(result).toEqual(responseBody);
         });
 
