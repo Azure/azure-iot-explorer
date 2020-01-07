@@ -483,7 +483,8 @@
             "error": {
                 "key": {
                     "label": "value does not match schema",
-                    "errorContent": "key is not {{keyName}}"
+                    "doesNotMatch": "key is not {{keyName}}",
+                    "notSpecified": "key is not specified in telemetry's properties"
                 },
                 "value": {
                     "label": "value does not match schema"
