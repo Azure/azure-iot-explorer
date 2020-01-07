@@ -14,7 +14,6 @@ import { testSnapshot, mountWithLocalization } from '../../../../shared/utils/te
 describe('cloudToDeviceMessage', () => {
     const mockSendCloudToDeviceMessage = jest.fn();
     const cloudToDeviceMessageProps: CloudToDeviceMessageProps = {
-        connectionString: 'testString',
         onSendCloudToDeviceMessage: mockSendCloudToDeviceMessage
     };
 

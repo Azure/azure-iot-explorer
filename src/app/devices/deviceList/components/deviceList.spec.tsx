@@ -37,7 +37,7 @@ const devices: DeviceSummary[] = [
 ];
 
 const deviceListDataProps: DeviceListDataProps = {
-    connectionString: 'connectionString',
+
     devices,
     isFetching: false
 };
@@ -75,11 +75,5 @@ describe('components/devices/DeviceList', () => {
 
         // delete button is disabled by default
         expect(commandBar.props().items[2].disabled).toBeTruthy(); // tslint:disable-line:no-magic-numbers
-    });
-
-    it('redirects on missing ConnectionString', () => {
-        const wrapper = shallow(getComponent({connectionString: ''}));
-        const child = shallow(wrapper.props().children());
-        expect(child.find('Redirect').first().prop('to')).toBe('/');
     });
 });

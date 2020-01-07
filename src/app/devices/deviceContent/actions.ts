@@ -6,7 +6,6 @@ import actionCreatorFactory from 'typescript-fsa';
 import * as actionPrefixes from '../../constants/actionPrefixes';
 import * as actionTypes from '../../constants/actionTypes';
 import { ModelDefinition } from '../../api/models/modelDefinition';
-import { InvokeMethodParameters, CloudToDeviceMessageParameters } from '../../api/parameters/deviceParameters';
 import { Twin } from '../../api/models/device';
 import { DeviceIdentity } from '../../api/models/deviceIdentity';
 import { DigitalTwinInterfaces } from './../../api/models/digitalTwinModels';
@@ -14,12 +13,12 @@ import { REPOSITORY_LOCATION_TYPE } from './../../constants/repositoryLocationTy
 
 const deviceContentCreator = actionCreatorFactory(actionPrefixes.DEVICECONTENT);
 const clearModelDefinitionsAction = deviceContentCreator(actionTypes.CLEAR_MODEL_DEFINITIONS);
-const cloudToDeviceMessageAction = deviceContentCreator.async<CloudToDeviceMessageParameters, string>(actionTypes.CLOUD_TO_DEVICE_MESSAGE);
+const cloudToDeviceMessageAction = deviceContentCreator.async<CloudToDeviceMessageActionParameters, string>(actionTypes.CLOUD_TO_DEVICE_MESSAGE);
 const getDeviceIdentityAction = deviceContentCreator.async<string, DeviceIdentity> (actionTypes.GET_DEVICE_IDENTITY);
 const getDigitalTwinInterfacePropertiesAction = deviceContentCreator.async<string, DigitalTwinInterfaces>(actionTypes.GET_DIGITAL_TWIN_INTERFACE_PROPERTIES);
 const getTwinAction = deviceContentCreator.async<string, Twin>(actionTypes.GET_TWIN);
 const getModelDefinitionAction = deviceContentCreator.async<GetModelDefinitionActionParameters, ModelDefinitionActionResult>(actionTypes.FETCH_MODEL_DEFINITION);
-const invokeDirectMethodAction = deviceContentCreator.async<InvokeMethodParameters, string>(actionTypes.INVOKE_DEVICE_METHOD);
+const invokeDirectMethodAction = deviceContentCreator.async<InvokeMethodActionParameters, string>(actionTypes.INVOKE_DEVICE_METHOD);
 const invokeDigitalTwinInterfaceCommandAction = deviceContentCreator.async<InvokeDigitalTwinInterfaceCommandActionParameters, string>(actionTypes.INVOKE_DIGITAL_TWIN_INTERFACE_COMMAND);
 const patchDigitalTwinInterfacePropertiesAction = deviceContentCreator.async<PatchDigitalTwinInterfacePropertiesActionParameters, DigitalTwinInterfaces>(actionTypes.PATCH_DIGITAL_TWIN_INTERFACE_PROPERTIES);
 const setInterfaceIdAction = deviceContentCreator<string>(actionTypes.SET_INTERFACE_ID);
@@ -40,6 +39,12 @@ export {
     updateDeviceIdentityAction
 };
 
+export interface CloudToDeviceMessageActionParameters {
+    deviceId: string;
+    body: string;
+    properties?: Array<{key: string, value: string, isSystemProperty: boolean}>;
+}
+
 export interface PatchDigitalTwinInterfacePropertiesActionParameters {
     digitalTwinId: string;
     interfacesPatchData: any; // tslint:disable-line:no-any
@@ -51,6 +56,14 @@ export interface InvokeDigitalTwinInterfaceCommandActionParameters {
     commandName: string;
     commandPayload: any; // tslint:disable-line:no-any
     propertyKey?: string;
+}
+
+export interface InvokeMethodActionParameters {
+    connectTimeoutInSeconds: number;
+    deviceId: string;
+    methodName: string;
+    payload?: object;
+    responseTimeoutInSeconds: number;
 }
 
 export interface UpdateTwinActionParameters {

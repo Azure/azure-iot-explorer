@@ -4,14 +4,15 @@
  **********************************************************/
 import { call, put } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
-import { cloudToDeviceMessageAction } from '../actions';
+import { cloudToDeviceMessageAction, CloudToDeviceMessageActionParameters } from '../actions';
+import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { cloudToDeviceMessage } from '../../../api/services/devicesService';
 import { addNotificationAction } from '../../../notifications/actions';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { CloudToDeviceMessageParameters } from '../../../api/parameters/deviceParameters';
 
-export function* cloudToDeviceMessageSaga(action: Action<CloudToDeviceMessageParameters>) {
+export function* cloudToDeviceMessageSaga(action: Action<CloudToDeviceMessageActionParameters>) {
     const toastId: number = Math.random();
 
     try {
@@ -26,9 +27,14 @@ export function* cloudToDeviceMessageSaga(action: Action<CloudToDeviceMessagePar
             },
             type: NotificationType.info,
         }));
-        const response = yield call(cloudToDeviceMessage, {
-            ...action.payload
-        });
+
+        const connectionString: string = yield call(getActiveAzureResourceConnectionStringSaga);
+        const cloudToDeviceMessageParameters: CloudToDeviceMessageParameters = {
+            ...action.payload,
+            connectionString
+        };
+
+        const response = yield call(cloudToDeviceMessage, cloudToDeviceMessageParameters);
 
         yield put(addNotificationAction.started({
             id: toastId,
