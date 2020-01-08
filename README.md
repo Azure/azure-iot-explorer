@@ -35,7 +35,7 @@ If you'd like to package the app yourself, please refer to the [FAQ](https://git
 
 - After opening the application, add the connection string for your IoT Hub, then click **Connect**.
 
-<img src="doc/screenshots/login.PNG" alt="login" height="250"/>
+<img src="doc/screenshots/login.PNG" alt="login" width="800"/>
 
 ### Manage devices
 
@@ -43,22 +43,22 @@ If you'd like to package the app yourself, please refer to the [FAQ](https://git
 - Select device(s) and click **Delete** to delete device(s). Multiple devices can be selected by clicking while dragging the mouse.
 - Devices can by queried by typing the first few characters of a device name in the query box.
 
-<img src="doc/screenshots/manage_devices.PNG" alt="manage_devices" height="300"/>
+<img src="doc/screenshots/manage_devices.PNG" alt="manage_devices" width="800"/>
 
 - Click on the device name to see the device details and interact with the device.
 
-<img src="doc/screenshots/device_details.PNG" alt="device_details" height="340"/>
+<img src="doc/screenshots/device_details.PNG" alt="device_details" width="800"/>
 
 ### Manage Plug and Play devices
 
 - Open the **Settings** panel to configure how PnP Model definitions can be resolved. For more information on PnP devices, please visit [Microsoft Docs](https://docs.microsoft.com/en-us/azure/iot-pnp/overview-iot-plug-and-play).
 
-<img src="doc/screenshots/settings.PNG" alt="settings" height="800"/>
+<img src="doc/screenshots/settings.PNG" alt="settings" width="400"/>
 
 - Go to the device details page by clicking the name of a PnP device.
 - Interfaces implemented by the PnP device would be populated under the DIGITAL TWIN section of the left navigation bar. Open interface, properties, commands or telemetry to start interacting with the PnP device.
 
-<img src="doc/screenshots/pnp_device_details.PNG" alt="pnp_device_details" height="400"/>
+<img src="doc/screenshots/pnp_device_details.PNG" alt="pnp_device_details" width="800"/>
 
 ## Contributing
 
