@@ -361,10 +361,6 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
 
     // tslint:disable-next-line:cyclomatic-complexity
     private readonly renderMessageBody = (event: Message, context: LocalizationContextInterface, key: string, schema: ParsedJsonSchema) => {
-        if (!key) {
-            return;
-        }
-
         const validator = new Validator();
         if (Object.keys(event.body) && Object.keys(event.body)[0] !== key) { // validate telemetry's property name
             return(
@@ -374,7 +370,9 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
                         <section className="value-validation-error" aria-label={context.t(ResourceKeys.deviceEvents.columns.error.key.label)}>
                             <span>{context.t(ResourceKeys.deviceEvents.columns.error.key.label)}</span>
                             <ul>
-                                <li key={key}>{context.t(ResourceKeys.deviceEvents.columns.error.key.errorContent, {keyName: key})}</li>
+                                <li key={key}>{key ?
+                                    context.t(ResourceKeys.deviceEvents.columns.error.key.doesNotMatch, {keyName: key}) :
+                                    context.t(ResourceKeys.deviceEvents.columns.error.key.notSpecified)}</li>
                             </ul>
                         </section>
                     </Label>
