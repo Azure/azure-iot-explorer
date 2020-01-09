@@ -9,7 +9,7 @@ import { fromJS } from 'immutable';
 import reducer from '../reducer';
 import rootSaga from '../../../devices/saga';
 import { StateInterface } from '../state';
-import { isAppInDevelopmentMode } from './../../../api/shared/utils';
+import { appConfig } from './../../../api/services/appConfigService';
 
 export default () => {
     const middlewares = [];
@@ -19,7 +19,7 @@ export default () => {
         return s.toJS();
     };
 
-    if (isAppInDevelopmentMode()) {
+    if (appConfig.developmentMode) {
         const logger = createLogger({stateTransformer});
         middlewares.push(logger);
     }

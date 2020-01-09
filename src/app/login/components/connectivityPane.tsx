@@ -15,6 +15,7 @@ import { Notification } from '../../api/models/notification';
 import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
 import { SetActiveAzureResourceByConnectionStringActionParameters } from '../../azureResource/actions';
 import { ROUTE_PARTS } from '../../constants/routes';
+import { appConfig } from '../../api/services/appConfigService';
 import '../../css/_connectivityPane.scss';
 
 export interface ConnectivityPaneDispatchProps {
@@ -56,6 +57,9 @@ export default class ConnectivityPane extends React.Component<RouteComponentProp
                 {(context: LocalizationContextInterface) => (
                     <div className="connectivity-pane" role="main">
 
+                        <div>
+                            {appConfig.hostMode}
+                        </div>
                         <div className="main" role="dialog">
                             <h1>
                                 {context.t(ResourceKeys.connectivityPane.header)}

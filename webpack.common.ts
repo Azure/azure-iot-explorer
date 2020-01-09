@@ -51,7 +51,7 @@ const config: webpack.Configuration = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-                template: path.resolve(__dirname, '..', 'src', 'index.html')
+                template: path.resolve(__dirname, '.', 'src', 'index.html')
         }),
         // new BundleAnalyzerPlugin(),
         new MonacoWebpackPlugin({
