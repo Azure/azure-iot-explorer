@@ -46,12 +46,12 @@ const config: webpack.Configuration = {
     },
     output: {
         filename: '[name].[hash].js',
-        path: path.resolve(__dirname, '..', 'dist'),
+        path: path.resolve(__dirname, '.', 'dist'),
         publicPath: ''
     },
     plugins: [
         new HtmlWebpackPlugin({
-                template: path.resolve(__dirname, '..', 'src', 'index.html')
+                template: path.resolve(__dirname, '.', 'src', 'index.html')
         }),
         // new BundleAnalyzerPlugin(),
         new MonacoWebpackPlugin({
