@@ -44,7 +44,7 @@ const config: webpack.Configuration = merge(common, {
             _CONTROLLER_ENDPOINT: '\'http://127.0.0.1:8082/\''
         }),
         new webpack.NormalModuleReplacementPlugin(
-            /(.*)appconfig.ENV(\.*)/,
+            /(.*)appConfig.ENV(\.*)/,
             resource => resource.request = resource.request.replace(/ENV/, 'dev')
         )
     ],
