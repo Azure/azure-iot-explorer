@@ -4,7 +4,8 @@
  **********************************************************/
 import { createSelector } from 'reselect';
 import { DigitalTwinInterfacePropertiesWrapper } from '../../api/models/digitalTwinInterfacePropertiesWrapper';
-import { DeviceIdentityWrapper } from '../../api/models/deviceIdentityWrapper';
+import { DeviceIdentity } from '../../api/models/deviceIdentity';
+import { SynchronizationWrapper } from '../../api/models/synchronizationWrapper';
 import { DigitalTwinInterfaces } from '../../api/models/digitalTwinModels';
 import { StateType, StateInterface } from '../../shared/redux/state';
 import { ModelDefinitionWithSourceWrapper } from '../../api/models/modelDefinitionWithSourceWrapper';
@@ -31,7 +32,7 @@ export const getModelDefinitionSyncStatusSelector = createSelector(
     }
 );
 
-export const getDeviceIdentityWrapperSelector = (state: StateType): DeviceIdentityWrapper => {
+export const getDeviceIdentityWrapperSelector = (state: StateType): SynchronizationWrapper<DeviceIdentity> => {
     return state &&
         state.deviceContentState &&
         state.deviceContentState.deviceIdentity &&

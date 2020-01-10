@@ -189,45 +189,45 @@ describe('deviceContentStateReducer', () => {
 
         it (`handles ${GET_DEVICE_IDENTITY}/ACTION_START action`, () => {
             const action = getDeviceIdentityAction.started(deviceId);
-            expect(reducer(deviceContentStateInitial(), action).deviceIdentity.deviceIdentitySynchronizationStatus).toEqual(SynchronizationStatus.working);
+            expect(reducer(deviceContentStateInitial(), action).deviceIdentity.synchronizationStatus).toEqual(SynchronizationStatus.working);
         });
 
         it (`handles ${GET_DEVICE_IDENTITY}/ACTION_DONE action`, () => {
             const action = getDeviceIdentityAction.done({params: deviceId, result: deviceIdentity});
             expect(reducer(deviceContentStateInitial(), action).deviceIdentity).toEqual({
-                deviceIdentity,
-                deviceIdentitySynchronizationStatus: SynchronizationStatus.fetched});
+                payload: deviceIdentity,
+                synchronizationStatus: SynchronizationStatus.fetched});
         });
 
         it (`handles ${GET_DEVICE_IDENTITY}/ACTION_FAILED action`, () => {
             const action = getDeviceIdentityAction.failed({error: -1, params: deviceId});
-            expect(reducer(deviceContentStateInitial(), action).deviceIdentity.deviceIdentitySynchronizationStatus).toEqual(SynchronizationStatus.failed);
+            expect(reducer(deviceContentStateInitial(), action).deviceIdentity.synchronizationStatus).toEqual(SynchronizationStatus.failed);
         });
 
         let initialState = deviceContentStateInitial();
         initialState = initialState.merge({
             deviceIdentity: {
-                deviceIdentity,
-                deviceIdentitySynchronizationStatus: SynchronizationStatus.fetched
+                payload: deviceIdentity,
+                synchronizationStatus: SynchronizationStatus.fetched
             }
         });
         deviceIdentity.cloudToDeviceMessageCount = 1;
 
         it (`handles ${UPDATE_DEVICE_IDENTITY}/ACTION_START action`, () => {
             const action = updateDeviceIdentityAction.started(deviceIdentity);
-            expect(reducer(initialState, action).deviceIdentity.deviceIdentitySynchronizationStatus).toEqual(SynchronizationStatus.updating);
+            expect(reducer(initialState, action).deviceIdentity.synchronizationStatus).toEqual(SynchronizationStatus.updating);
         });
 
         it (`handles ${UPDATE_DEVICE_IDENTITY}/ACTION_DONE action`, () => {
             const action = updateDeviceIdentityAction.done({params: deviceIdentity, result: deviceIdentity});
             expect(reducer(initialState, action).deviceIdentity).toEqual({
-                deviceIdentity,
-                deviceIdentitySynchronizationStatus: SynchronizationStatus.upserted});
+                payload: deviceIdentity,
+                synchronizationStatus: SynchronizationStatus.upserted});
         });
 
         it (`handles ${UPDATE_DEVICE_IDENTITY}/ACTION_FAILED action`, () => {
             const action = updateDeviceIdentityAction.failed({error: -1, params: deviceIdentity});
-            expect(reducer(initialState, action).deviceIdentity.deviceIdentitySynchronizationStatus).toEqual(SynchronizationStatus.failed);
+            expect(reducer(initialState, action).deviceIdentity.synchronizationStatus).toEqual(SynchronizationStatus.failed);
         });
     });
 

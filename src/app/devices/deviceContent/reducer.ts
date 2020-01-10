@@ -29,46 +29,46 @@ const reducer = reducerWithInitialState<DeviceContentStateType>(deviceContentSta
     .case(getDeviceIdentityAction.started, (state: DeviceContentStateType) => {
         return state.merge({
             deviceIdentity: {
-                deviceIdentitySynchronizationStatus: SynchronizationStatus.working
+                synchronizationStatus: SynchronizationStatus.working
             }
         });
     })
     .case(getDeviceIdentityAction.done, (state: DeviceContentStateType, payload: {params: string} & {result: DeviceIdentity}) => {
         return state.merge({
             deviceIdentity: {
-                deviceIdentity: payload.result,
-                deviceIdentitySynchronizationStatus: SynchronizationStatus.fetched
+                payload: payload.result,
+                synchronizationStatus: SynchronizationStatus.fetched
             }
         });
     })
     .case(getDeviceIdentityAction.failed, (state: DeviceContentStateType) => {
         return state.merge({
             deviceIdentity: {
-                deviceIdentitySynchronizationStatus: SynchronizationStatus.failed
+                synchronizationStatus: SynchronizationStatus.failed
             }
         });
     })
     .case(updateDeviceIdentityAction.started, (state: DeviceContentStateType) => {
         return state.merge({
             deviceIdentity: {
-                deviceIdentity: state.deviceIdentity.deviceIdentity,
-                deviceIdentitySynchronizationStatus: SynchronizationStatus.updating
+                payload: state.deviceIdentity.payload,
+                synchronizationStatus: SynchronizationStatus.updating
             }
         });
     })
     .case(updateDeviceIdentityAction.done, (state: DeviceContentStateType, payload: {params: DeviceIdentity} & {result: DeviceIdentity}) => {
         return state.merge({
             deviceIdentity: {
-                deviceIdentity: payload.result,
-                deviceIdentitySynchronizationStatus: SynchronizationStatus.upserted
+                payload: payload.result,
+                synchronizationStatus: SynchronizationStatus.upserted
             }
         });
     })
     .case(updateDeviceIdentityAction.failed, (state: DeviceContentStateType) => {
         return state.merge({
             deviceIdentity: {
-                deviceIdentity: state.deviceIdentity.deviceIdentity,
-                deviceIdentitySynchronizationStatus: SynchronizationStatus.failed
+                payload: state.deviceIdentity.payload,
+                synchronizationStatus: SynchronizationStatus.failed
             }
         });
     })

@@ -5,12 +5,13 @@
 import { Record } from 'immutable';
 import { IM } from '../../shared/types/types';
 import { ModelDefinitionWithSourceWrapper } from '../../api/models/modelDefinitionWithSourceWrapper';
-import { DeviceIdentityWrapper } from '../../api/models/deviceIdentityWrapper';
+import { DeviceIdentity } from '../../api/models/deviceIdentity';
+import { SynchronizationWrapper } from '../../api/models/synchronizationWrapper';
 import { DeviceTwinWrapper } from './../../api/models/deviceTwinWrapper';
 import { DigitalTwinInterfacePropertiesWrapper } from '../../api/models/digitalTwinInterfacePropertiesWrapper';
 
 export interface DeviceContentStateInterface {
-    deviceIdentity: DeviceIdentityWrapper;
+    deviceIdentity: SynchronizationWrapper<DeviceIdentity>;
     deviceTwin: DeviceTwinWrapper;
     digitalTwinInterfaceProperties: DigitalTwinInterfacePropertiesWrapper;
     interfaceIdSelected: string;

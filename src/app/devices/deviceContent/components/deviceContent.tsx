@@ -18,7 +18,8 @@ import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../shared/contexts/localizationContext';
 import { NAV } from '../../../constants/iconNames';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
-import { DeviceIdentityWrapper } from '../../../api/models/deviceIdentityWrapper';
+import { DeviceIdentity } from '../../../api/models/deviceIdentity';
+import { SynchronizationWrapper } from '../../../api/models/SynchronizationWrapper';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import MultiLineShimmer from '../../../shared/components/multiLineShimmer';
 import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
@@ -34,7 +35,7 @@ export interface DeviceContentDataProps {
     interfaceIds: string[];
     isLoading: boolean;
     isPnPDevice: boolean;
-    identityWrapper: DeviceIdentityWrapper;
+    identityWrapper: SynchronizationWrapper<DeviceIdentity>;
 }
 
 export interface DeviceContentDispatchProps {
@@ -137,12 +138,12 @@ export class DeviceContentComponent extends React.PureComponent<DeviceContentPro
 
     private readonly createNavLinks = () => {
         return (
-            this.props.identityWrapper && this.props.identityWrapper.deviceIdentitySynchronizationStatus === SynchronizationStatus.working ?
+            this.props.identityWrapper && this.props.identityWrapper.synchronizationStatus === SynchronizationStatus.working ?
                 <MultiLineShimmer/> :
                 (
                     <DeviceContentNavComponent
                         {...this.props}
-                        isEdgeDevice={this.props.identityWrapper && this.props.identityWrapper.deviceIdentity && this.props.identityWrapper.deviceIdentity.capabilities.iotEdge}
+                        isEdgeDevice={this.props.identityWrapper && this.props.identityWrapper.payload && this.props.identityWrapper.payload.capabilities.iotEdge}
                         selectedInterface={this.props.interfaceId}
                     />
                 )

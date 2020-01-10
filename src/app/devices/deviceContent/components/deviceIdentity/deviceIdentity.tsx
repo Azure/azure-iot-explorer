@@ -19,7 +19,7 @@ import DeviceIdentityCommandBar from './deviceIdentityCommandBar';
 import { DeviceAuthenticationType } from '../../../../api/models/deviceAuthenticationType';
 import { DeviceStatus } from '../../../../api/models/deviceStatus';
 import { generateKey } from '../../../../shared/utils/utils';
-import { DeviceIdentityWrapper } from '../../../../api/models/deviceIdentityWrapper';
+import { SynchronizationWrapper } from '../../../../api/models/synchronizationWrapper';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import MaskedCopyableTextFieldContainer from '../../../../shared/components/maskedCopyableTextFieldContainer';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
@@ -33,7 +33,7 @@ export interface DeviceIdentityDispatchProps {
 
 export interface DeviceIdentityDataProps {
     activeAzureResourceHostName: string;
-    identityWrapper: DeviceIdentityWrapper;
+    identityWrapper: SynchronizationWrapper<DeviceIdentity>;
 }
 
 export interface DeviceIdentityState {
@@ -51,7 +51,7 @@ export default class DeviceIdentityInformation
         super(props);
 
         this.state = {
-            identity: this.props.identityWrapper && this.props.identityWrapper.deviceIdentity,
+            identity: this.props.identityWrapper && this.props.identityWrapper.payload,
             isDirty: false,
             requestMade: false,
             sasTokenConnectionString: '',
@@ -77,16 +77,16 @@ export default class DeviceIdentityInformation
     // tslint:disable-next-line:cyclomatic-complexity
     public static getDerivedStateFromProps(props: DeviceIdentityDataProps & DeviceIdentityDispatchProps & RouteComponentProps, state: DeviceIdentityState): Partial<DeviceIdentityState> | null {
         if (props.identityWrapper) {
-            if (state.isDirty && state.requestMade && props.identityWrapper.deviceIdentitySynchronizationStatus === SynchronizationStatus.upserted) {
+            if (state.isDirty && state.requestMade && props.identityWrapper.synchronizationStatus === SynchronizationStatus.upserted) {
                 return {
-                    identity: props.identityWrapper.deviceIdentity,
+                    identity: props.identityWrapper.payload,
                     isDirty: false,
                     requestMade: false
                 };
             }
             else if (!state.isDirty) {
                 return {
-                    identity: props.identityWrapper.deviceIdentity
+                    identity: props.identityWrapper.payload
                 };
             }
         }
@@ -99,8 +99,8 @@ export default class DeviceIdentityInformation
         let onGenerateSecondaryKey;
 
         if (this.props.identityWrapper &&
-            this.props.identityWrapper.deviceIdentity &&
-            this.props.identityWrapper.deviceIdentity.authentication.type === DeviceAuthenticationType.SymmetricKey) {
+            this.props.identityWrapper.payload &&
+            this.props.identityWrapper.payload.authentication.type === DeviceAuthenticationType.SymmetricKey) {
                 onSwapKeys = this.swapKeys;
                 onGeneratePrimaryKey = this.generatePrimaryKey;
                 onGenerateSecondaryKey = this.generateSecondaryKey;
@@ -129,7 +129,7 @@ export default class DeviceIdentityInformation
         const authType = getDeviceAuthenticationType(identity);
         return (
             <div className="device-detail">
-                { this.props.identityWrapper.deviceIdentitySynchronizationStatus === SynchronizationStatus.working ?
+                { this.props.identityWrapper.synchronizationStatus === SynchronizationStatus.working ?
                     <MultiLineShimmer/> :
                     <>
                         <MaskedCopyableTextFieldContainer
@@ -147,7 +147,7 @@ export default class DeviceIdentityInformation
                         {this.renderHubRelatedInformation(context)}
                     </>
                 }
-                {this.props.identityWrapper.deviceIdentitySynchronizationStatus === SynchronizationStatus.updating && <Overlay/>}
+                {this.props.identityWrapper.synchronizationStatus === SynchronizationStatus.updating && <Overlay/>}
             </div>
         );
     }
