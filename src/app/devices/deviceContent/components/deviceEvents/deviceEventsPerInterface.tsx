@@ -28,7 +28,7 @@ import ErrorBoundary from '../../../errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
 import { MILLISECONDS_IN_MINUTE } from '../../../../constants/shared';
-import { appConfig, HostMode } from '../../../../api/services/appConfigService';
+import { appConfig, HostMode } from '../../../../../appConfig/appConfig';
 import '../../../../css/_deviceEvents.scss';
 
 const JSON_SPACES = 2;

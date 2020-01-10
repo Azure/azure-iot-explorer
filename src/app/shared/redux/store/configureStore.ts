@@ -9,7 +9,7 @@ import { fromJS } from 'immutable';
 import reducer from '../reducer';
 import rootSaga from '../../../devices/saga';
 import { StateInterface } from '../state';
-import { appConfig } from './../../../api/services/appConfigService';
+import { appConfig } from './../../../../appConfig/appConfig';
 
 export default () => {
     const middlewares = [];

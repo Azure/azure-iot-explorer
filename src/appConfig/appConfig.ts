@@ -1,4 +1,4 @@
-const config = require('../../../appConfig/appconfig.ENV.json'); // tslint:disable-line: no-var-requires
+const config = require('./appconfig.ENV.json'); // tslint:disable-line: no-var-requires
 
 export enum AuthMode {
     ImplicitFlow = 'implicitFlow',
