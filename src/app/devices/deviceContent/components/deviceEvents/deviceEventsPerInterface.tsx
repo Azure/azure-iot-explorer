@@ -286,29 +286,49 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
                     <section role="feed">
                     {
                         events.map((event: Message, index) => {
-                            const matchingSchema = this.props.telemetrySchema.filter(schema => schema.telemetryModelDefinition.name ===
-                                event.properties[TELEMETRY_SCHEMA_PROP]);
-                            const telemetryModelDefinition =  matchingSchema && matchingSchema.length !== 0 && matchingSchema[0].telemetryModelDefinition;
-                            const parsedSchema = matchingSchema && matchingSchema.length !== 0 && matchingSchema[0].parsedSchema;
-
-                            return (
-                                <article className="list-item" role="article" key={index}>
-                                    <section className="item-summary">
-                                        <ErrorBoundary error={context.t(ResourceKeys.errorBoundary.text)}>
-                                            {this.renderTimestamp(event, context)}
-                                            {this.renderEventName(telemetryModelDefinition, context)}
-                                            {this.renderEventSchema(telemetryModelDefinition, context)}
-                                            {this.renderEventUnit(telemetryModelDefinition, context)}
-                                            {this.renderMessageBody(event, context, event.properties[TELEMETRY_SCHEMA_PROP], parsedSchema)}
-                                        </ErrorBoundary>
-                                    </section>
-                                </article>
-                            );
+                            return event.properties ? this.renderSingleEvents(event, index, context) : this.renderCombinedEvents(event, index, context);
                         })
                     }
                     </section>
                 }
             </div>
+        );
+    }
+
+    private readonly renderSingleEvents = (event: Message, index: number, context: LocalizationContextInterface) => {
+        const matchingSchema = this.props.telemetrySchema.filter(schema => schema.telemetryModelDefinition.name ===
+            event.properties[TELEMETRY_SCHEMA_PROP]);
+        const telemetryModelDefinition =  matchingSchema && matchingSchema.length !== 0 && matchingSchema[0].telemetryModelDefinition;
+        const parsedSchema = matchingSchema && matchingSchema.length !== 0 && matchingSchema[0].parsedSchema;
+
+        return (
+            <article className="list-item" role="article" key={index}>
+                <section className="item-summary">
+                    <ErrorBoundary error={context.t(ResourceKeys.errorBoundary.text)}>
+                        {this.renderTimestamp(event, context)}
+                        {this.renderEventName(context, telemetryModelDefinition)}
+                        {this.renderEventSchema(context, telemetryModelDefinition)}
+                        {this.renderEventUnit(context, telemetryModelDefinition)}
+                        {this.renderMessageBody(event, context, parsedSchema)}
+                    </ErrorBoundary>
+                </section>
+            </article>
+        );
+    }
+
+    private readonly renderCombinedEvents = (event: Message, index: number, context: LocalizationContextInterface) => {
+        return (
+            <article className="list-item" role="article" key={index}>
+                <section className="item-summary">
+                <ErrorBoundary error={context.t(ResourceKeys.errorBoundary.text)}>
+                        {this.renderTimestamp(event, context)}
+                        {this.renderEventName(context)}
+                        {this.renderEventSchema(context)}
+                        {this.renderEventUnit(context)}
+                        {this.renderMessageBody(event, context)}
+                    </ErrorBoundary>
+                </section>
+            </article>
         );
     }
 
@@ -322,8 +342,8 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
         );
     }
 
-    private readonly renderEventName = (telemetryModelDefinition: TelemetryContent, context: LocalizationContextInterface) => {
-        const displayName = getLocalizedData(telemetryModelDefinition.displayName);
+    private readonly renderEventName = (context: LocalizationContextInterface, telemetryModelDefinition?: TelemetryContent) => {
+        const displayName = telemetryModelDefinition ? getLocalizedData(telemetryModelDefinition.displayName) : '';
         return(
             <div className="ms-Grid-col ms-sm2">
                 <Label aria-label={context.t(ResourceKeys.deviceEvents.columns.displayName)}>
@@ -334,7 +354,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
         );
     }
 
-    private readonly renderEventSchema = (telemetryModelDefinition: TelemetryContent, context: LocalizationContextInterface) => {
+    private readonly renderEventSchema = (context: LocalizationContextInterface, telemetryModelDefinition?: TelemetryContent) => {
         return(
             <div className="ms-Grid-col ms-sm2">
                 <Label aria-label={context.t(ResourceKeys.deviceEvents.columns.schema)}>
@@ -347,8 +367,8 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
         );
     }
 
-    private readonly renderEventUnit = (telemetryModelDefinition: TelemetryContent, context: LocalizationContextInterface) => {
-        const displayUnit = getLocalizedData(telemetryModelDefinition.displayUnit);
+    private readonly renderEventUnit = (context: LocalizationContextInterface, telemetryModelDefinition?: TelemetryContent) => {
+        const displayUnit = telemetryModelDefinition ? getLocalizedData(telemetryModelDefinition.displayUnit) : '';
         return(
             <div className="ms-Grid-col ms-sm2">
                 <Label aria-label={context.t(ResourceKeys.deviceEvents.columns.unit)}>
@@ -360,8 +380,20 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
     }
 
     // tslint:disable-next-line:cyclomatic-complexity
-    private readonly renderMessageBody = (event: Message, context: LocalizationContextInterface, key: string, schema: ParsedJsonSchema) => {
+    private readonly renderMessageBody = (event: Message, context: LocalizationContextInterface, schema?: ParsedJsonSchema) => {
+        const key = event.properties ? event.properties[TELEMETRY_SCHEMA_PROP] : null;
         const validator = new Validator();
+
+        if (!key) {
+            return(
+                <div className="column-value-text ms-Grid-col ms-sm4">
+                    <Label aria-label={context.t(ResourceKeys.deviceEvents.columns.value)}>
+                        {JSON.stringify(event.body, undefined, JSON_SPACES)}
+                    </Label>
+                </div>
+            );
+        }
+
         if (Object.keys(event.body) && Object.keys(event.body)[0] !== key) { // validate telemetry's property name
             return(
                 <div className="column-value-text ms-Grid-col ms-sm4">
@@ -370,9 +402,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
                         <section className="value-validation-error" aria-label={context.t(ResourceKeys.deviceEvents.columns.error.key.label)}>
                             <span>{context.t(ResourceKeys.deviceEvents.columns.error.key.label)}</span>
                             <ul>
-                                <li key={key}>{key ?
-                                    context.t(ResourceKeys.deviceEvents.columns.error.key.doesNotMatch, {keyName: key}) :
-                                    context.t(ResourceKeys.deviceEvents.columns.error.key.notSpecified)}</li>
+                                <li key={key}>{context.t(ResourceKeys.deviceEvents.columns.error.key.doesNotMatch, {keyName: key})}</li>
                             </ul>
                         </section>
                     </Label>
