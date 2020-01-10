@@ -8,7 +8,7 @@ import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import DeviceEventsComponent, { DeviceEventsState } from './deviceEvents';
 import { mountWithLocalization, testSnapshot } from '../../../../shared/utils/testHelpers';
-import { AppEnvironment } from '../../../../constants/shared';
+import { appConfig, HostMode } from '../../../../../appConfig/appConfig';
 
 describe('components/devices/deviceEvents', () => {
 
@@ -36,13 +36,13 @@ describe('components/devices/deviceEvents', () => {
     };
 
     it('matches snapshot in electron', () => {
-        process.env = {...process.env, NODE_ENV: AppEnvironment.ProdElectron};
+        appConfig.hostMode = HostMode.Electron;
         const wrapper = getComponent();
         testSnapshot(wrapper);
     });
 
     it('matches snapshot in hosted environment', () => {
-        process.env = {...process.env, NODE_ENV: AppEnvironment.ProdHosted};
+        appConfig.hostMode = HostMode.Browser;
         const wrapper = getComponent();
         testSnapshot(wrapper);
     });
