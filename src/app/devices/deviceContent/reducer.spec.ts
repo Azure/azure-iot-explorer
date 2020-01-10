@@ -146,17 +146,17 @@ describe('deviceContentStateReducer', () => {
 
         it (`handles ${GET_TWIN}/ACTION_START action`, () => {
             const action = getTwinAction.started(deviceId);
-            expect(reducer(deviceContentStateInitial(), action).deviceTwin.deviceTwinSynchronizationStatus).toEqual(SynchronizationStatus.working);
+            expect(reducer(deviceContentStateInitial(), action).deviceTwin.synchronizationStatus).toEqual(SynchronizationStatus.working);
         });
 
         it (`handles ${GET_TWIN}/ACTION_DONE action`, () => {
             const action = getTwinAction.done({params: deviceId, result});
-            expect(reducer(deviceContentStateInitial(), action).deviceTwin.deviceTwin).toEqual(result);
+            expect(reducer(deviceContentStateInitial(), action).deviceTwin.payload).toEqual(result);
         });
 
         it (`handles ${GET_TWIN}/ACTION_FAILED action`, () => {
             const action = getTwinAction.failed({error: -1, params: deviceId});
-            expect(reducer(deviceContentStateInitial(), action).deviceTwin.deviceTwinSynchronizationStatus).toEqual(SynchronizationStatus.failed);
+            expect(reducer(deviceContentStateInitial(), action).deviceTwin.synchronizationStatus).toEqual(SynchronizationStatus.failed);
         });
     });
 
