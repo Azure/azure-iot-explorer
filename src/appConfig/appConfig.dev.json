@@ -1,0 +1,5 @@
+{
+    "developmentMode": true,
+    "hostMode": "browser",
+    "authMode": "implicitFlow"
+}
