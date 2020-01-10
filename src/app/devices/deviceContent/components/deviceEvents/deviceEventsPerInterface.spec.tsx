@@ -136,8 +136,7 @@ describe('components/devices/deviceEventsPerInterface', () => {
             body: {
                 'non-matching-key': 0
             },
-            enqueuedTime: '2019-10-14T21:44:58.397Z',
-            properties: {}
+            enqueuedTime: '2019-10-14T21:44:58.397Z'
         }];
         wrapper.setState({events});
         wrapper.update();
@@ -145,8 +144,7 @@ describe('components/devices/deviceEventsPerInterface', () => {
         expect(errorBoundary.children().at(1).props().children.props.children).toEqual('--');
         expect(errorBoundary.children().at(2).props().children.props.children).toEqual('--'); // tslint:disable-line:no-magic-numbers
         expect(errorBoundary.children().at(3).props().children.props.children).toEqual('--'); // tslint:disable-line:no-magic-numbers
-        expect(errorBoundary.children().at(4).props().children.props.children[0]).toEqual(JSON.stringify(events[0].body, undefined, 2)); // tslint:disable-line:no-magic-numbers
-        expect(errorBoundary.children().at(4).props().children.props.children[1].props['aria-label']).toEqual('deviceEvents.columns.error.key.label'); // tslint:disable-line:no-magic-numbers
+        expect(errorBoundary.children().at(4).props().children.props.children).toEqual(JSON.stringify(events[0].body, undefined, 2)); // tslint:disable-line:no-magic-numbers
     });
 
     it('changes state accordingly when command bar buttons are clicked', () => {

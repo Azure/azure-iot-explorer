@@ -170,7 +170,6 @@ export class ResourceKeys {
             key : {
                doesNotMatch : "deviceEvents.columns.error.key.doesNotMatch",
                label : "deviceEvents.columns.error.key.label",
-               notSpecified : "deviceEvents.columns.error.key.notSpecified",
             },
             value : {
                label : "deviceEvents.columns.error.value.label",
