@@ -28,7 +28,7 @@ import ErrorBoundary from '../../../errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
 import { MILLISECONDS_IN_MINUTE } from '../../../../constants/shared';
-import { isAppInElectron } from '../../../../api/shared/utils';
+import { appConfig, HostMode } from '../../../../../appConfig/appConfig';
 import '../../../../css/_deviceEvents.scss';
 
 const JSON_SPACES = 2;
@@ -152,7 +152,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
     }
 
     private createStartMonitoringCommandItem = (context: LocalizationContextInterface): ICommandBarItemProps => {
-        if (isAppInElectron()) {
+        if (appConfig.hostMode === HostMode.Electron) {
             const label = this.state.monitoringData ? context.t(ResourceKeys.deviceEvents.command.stop) : context.t(ResourceKeys.deviceEvents.command.start);
             const icon = this.state.monitoringData ? STOP : START;
             return {
@@ -490,7 +490,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
     }
 
     private readonly stopMonitoringIfNecessary = () => {
-        if (isAppInElectron()) {
+        if (appConfig.hostMode === HostMode.Electron) {
             return;
         }
         else {

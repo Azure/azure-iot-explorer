@@ -4,7 +4,7 @@
  **********************************************************/
 import * as webpack from 'webpack';
 import * as merge from 'webpack-merge';
-import common from './configs/webpack.common';
+import common from './webpack.common';
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // tslint:disable-line: no-var-requires
 
 const config: webpack.Configuration = merge(common, {
@@ -43,9 +43,10 @@ const config: webpack.Configuration = merge(common, {
         new webpack.DefinePlugin({
             _CONTROLLER_ENDPOINT: '\'http://127.0.0.1:8082/\''
         }),
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify('developmentHosted') // change 'developmentHosted' to 'developmentElectron' to develop in electron environment
-        })
+        new webpack.NormalModuleReplacementPlugin(
+            /(.*)appConfig.ENV(\.*)/,
+            resource => resource.request = resource.request.replace(/ENV/, 'dev')
+        )
     ],
 
     devServer: {
