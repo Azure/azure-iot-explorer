@@ -41,22 +41,22 @@ describe('getModuleSelector', () => {
     /* tslint:enable */
     state.moduleState = Record({
         moduleIdentity : {
-            moduleIdentity,
+            payload: moduleIdentity,
             synchronizationStatus: SynchronizationStatus.working
         },
         moduleIdentityList: {
-            moduleIdentities: [moduleIdentity],
+            payload: [moduleIdentity],
             synchronizationStatus: SynchronizationStatus.working
         },
         moduleIdentityTwin: {
-            moduleIdentityTwin,
+            payload: moduleIdentityTwin,
             synchronizationStatus: SynchronizationStatus.working
         }
     })();
 
     it('returns module identity list wrapper', () => {
         expect(getModuleIdentityListWrapperSelector(state)).toEqual({
-            moduleIdentities: [{
+            payload: [{
                 authentication: null,
                 deviceId: 'testDevice',
                 moduleId: 'testModule'
@@ -67,14 +67,14 @@ describe('getModuleSelector', () => {
 
     it('returns module twin wrapper', () => {
         expect(getModuleIdentityTwinWrapperSelector(state)).toEqual({
-            moduleIdentityTwin,
+            payload: moduleIdentityTwin,
             synchronizationStatus: SynchronizationStatus.working
         });
     });
 
     it('returns module twin', () => {
         expect(getModuleIdentityWrapperSelector(state)).toEqual({
-            moduleIdentity,
+            payload: moduleIdentity,
             synchronizationStatus: SynchronizationStatus.working
         });
     });
