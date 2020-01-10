@@ -24,14 +24,6 @@ export const deviceListStateInitial = Record<DeviceListStateInterface>({
     devices: Record({
         deviceList: Map<string, DeviceSummary>(),
         deviceListSynchronizationStatus: SynchronizationStatus.initialized,
-        error: {
-            error: {
-                code: -1,
-                message: ''
-            },
-            sourceId: '',
-            traceIdentifier: ''
-        }
     })(),
 });
 
