@@ -7,12 +7,12 @@ import { IM } from '../../shared/types/types';
 import { ModelDefinitionWithSourceWrapper } from '../../api/models/modelDefinitionWithSourceWrapper';
 import { DeviceIdentity } from '../../api/models/deviceIdentity';
 import { SynchronizationWrapper } from '../../api/models/synchronizationWrapper';
-import { DeviceTwinWrapper } from './../../api/models/deviceTwinWrapper';
+import { Twin } from './../../api/models/device';
 import { DigitalTwinInterfacePropertiesWrapper } from '../../api/models/digitalTwinInterfacePropertiesWrapper';
 
 export interface DeviceContentStateInterface {
     deviceIdentity: SynchronizationWrapper<DeviceIdentity>;
-    deviceTwin: DeviceTwinWrapper;
+    deviceTwin: SynchronizationWrapper<Twin>;
     digitalTwinInterfaceProperties: DigitalTwinInterfacePropertiesWrapper;
     interfaceIdSelected: string;
     modelDefinitionWithSource: ModelDefinitionWithSourceWrapper;
