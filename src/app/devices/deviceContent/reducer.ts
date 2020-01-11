@@ -161,46 +161,46 @@ const reducer = reducerWithInitialState<DeviceContentStateType>(deviceContentSta
     .case(getDigitalTwinInterfacePropertiesAction.started, (state: DeviceContentStateType) => {
         return state.merge({
             digitalTwinInterfaceProperties: {
-                digitalTwinInterfacePropertiesSyncStatus: SynchronizationStatus.working
+                synchronizationStatus: SynchronizationStatus.working
             }
         });
     })
     .case(getDigitalTwinInterfacePropertiesAction.done, (state: DeviceContentStateType, payload: {params: string} & {result: DigitalTwinInterfaces}) => {
         return state.merge({
             digitalTwinInterfaceProperties: {
-                digitalTwinInterfaceProperties: payload.result,
-                digitalTwinInterfacePropertiesSyncStatus: SynchronizationStatus.fetched
+                payload: payload.result,
+                synchronizationStatus: SynchronizationStatus.fetched
             }
         });
     })
     .case(getDigitalTwinInterfacePropertiesAction.failed, (state: DeviceContentStateType) => {
         return state.merge({
             digitalTwinInterfaceProperties: {
-                digitalTwinInterfacePropertiesSyncStatus: SynchronizationStatus.failed
+                synchronizationStatus: SynchronizationStatus.failed
             }
         });
     })
     .case(patchDigitalTwinInterfacePropertiesAction.started, (state: DeviceContentStateType) => {
         return state.merge({
             digitalTwinInterfaceProperties: {
-                digitalTwinInterfaceProperties: state.digitalTwinInterfaceProperties.digitalTwinInterfaceProperties,
-                digitalTwinInterfacePropertiesSyncStatus: SynchronizationStatus.updating
+                payload: state.digitalTwinInterfaceProperties.payload,
+                synchronizationStatus: SynchronizationStatus.updating
             }
         });
     })
     .case(patchDigitalTwinInterfacePropertiesAction.done, (state: DeviceContentStateType, payload: {params: PatchDigitalTwinInterfacePropertiesActionParameters} & {result: DigitalTwinInterfaces}) => {
         return state.merge({
             digitalTwinInterfaceProperties: {
-                digitalTwinInterfaceProperties: payload.result,
-                digitalTwinInterfacePropertiesSyncStatus: SynchronizationStatus.upserted
+                payload: payload.result,
+                synchronizationStatus: SynchronizationStatus.upserted
             }
         });
     })
     .case(patchDigitalTwinInterfacePropertiesAction.failed, (state: DeviceContentStateType) => {
         return state.merge({
             digitalTwinInterfaceProperties: {
-                digitalTwinInterfaceProperties: state.digitalTwinInterfaceProperties.digitalTwinInterfaceProperties,
-                digitalTwinInterfacePropertiesSyncStatus: SynchronizationStatus.failed
+                payload: state.digitalTwinInterfaceProperties.payload,
+                synchronizationStatus: SynchronizationStatus.failed
             }
         });
     });

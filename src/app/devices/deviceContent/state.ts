@@ -8,12 +8,12 @@ import { ModelDefinitionWithSourceWrapper } from '../../api/models/modelDefiniti
 import { DeviceIdentity } from '../../api/models/deviceIdentity';
 import { SynchronizationWrapper } from '../../api/models/synchronizationWrapper';
 import { Twin } from './../../api/models/device';
-import { DigitalTwinInterfacePropertiesWrapper } from '../../api/models/digitalTwinInterfacePropertiesWrapper';
+import { DigitalTwinInterfaces } from '../../api/models/digitalTwinModels';
 
 export interface DeviceContentStateInterface {
     deviceIdentity: SynchronizationWrapper<DeviceIdentity>;
     deviceTwin: SynchronizationWrapper<Twin>;
-    digitalTwinInterfaceProperties: DigitalTwinInterfacePropertiesWrapper;
+    digitalTwinInterfaceProperties: SynchronizationWrapper<DigitalTwinInterfaces>;
     interfaceIdSelected: string;
     modelDefinitionWithSource: ModelDefinitionWithSourceWrapper;
 }

@@ -3,7 +3,6 @@
  * Licensed under the MIT License
  **********************************************************/
 import { createSelector } from 'reselect';
-import { DigitalTwinInterfacePropertiesWrapper } from '../../api/models/digitalTwinInterfacePropertiesWrapper';
 import { DeviceIdentity } from '../../api/models/deviceIdentity';
 import { SynchronizationWrapper } from '../../api/models/synchronizationWrapper';
 import { DigitalTwinInterfaces } from '../../api/models/digitalTwinModels';
@@ -39,7 +38,7 @@ export const getDeviceIdentityWrapperSelector = (state: StateType): Synchronizat
         state.deviceContentState.deviceIdentity;
 };
 
-export const getDigitalTwinInterfacePropertiesWrapperSelector = (state: StateType): DigitalTwinInterfacePropertiesWrapper => {
+export const getDigitalTwinInterfacePropertiesWrapperSelector = (state: StateType): SynchronizationWrapper<DigitalTwinInterfaces> => {
     return state &&
         state.deviceContentState &&
         state.deviceContentState.digitalTwinInterfaceProperties;
@@ -48,7 +47,7 @@ export const getDigitalTwinInterfacePropertiesWrapperSelector = (state: StateTyp
 export const getDigitalTwinInterfacePropertiesStateSelector = createSelector(
     getDigitalTwinInterfacePropertiesWrapperSelector,
     properties => {
-        return properties && properties.digitalTwinInterfacePropertiesSyncStatus;
+        return properties && properties.synchronizationStatus;
     }
 );
 
@@ -56,7 +55,7 @@ export const getDigitalTwinInterfacePropertiesSelector = (state: StateInterface)
     return state &&
         state.deviceContentState &&
         state.deviceContentState.digitalTwinInterfaceProperties &&
-        state.deviceContentState.digitalTwinInterfaceProperties.digitalTwinInterfaceProperties;
+        state.deviceContentState.digitalTwinInterfaceProperties.payload;
 };
 
 export const getDigitalTwinInterfaceNameAndIdsSelector = createSelector(
