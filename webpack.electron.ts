@@ -5,7 +5,7 @@
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; // tslint:disable-line: no-var-requires
 import * as webpack from 'webpack';
 import * as merge from 'webpack-merge';
-import common from './configs/webpack.common';
+import common from './webpack.common';
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // tslint:disable-line: no-var-requires
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin'); // tslint:disable-line: no-var-requires
 const TerserPlugin = require('terser-webpack-plugin'); // tslint:disable-line: no-var-requires
@@ -53,9 +53,10 @@ const config: webpack.Configuration = merge(common, {
         new webpack.DefinePlugin({
             _CONTROLLER_ENDPOINT: '\'http://127.0.0.1:8081/\''
         }),
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify('prodElectron')
-        }),
+        new webpack.NormalModuleReplacementPlugin(
+            /(.*)appConfig.ENV(\.*)/,
+            resource => resource.request = resource.request.replace(/ENV/, 'electron')
+        )
     ]
 });
 
