@@ -76,7 +76,7 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
                 <h3>{context.t(ResourceKeys.deviceInterfaces.headerText, {
                     interfaceId: getInterfaceIdFromQueryString(this.props)
                 })}</h3>
-                {modelDefinitionWithSource && modelDefinitionWithSource.modelDefinition ?
+                {modelDefinitionWithSource && modelDefinitionWithSource.payload ?
                     <ErrorBoundary error={context.t(ResourceKeys.errorBoundary.text)}>
                         <section className="pnp-interface-info">
                             {this.renderInterfaceInfoDetail(context)}
@@ -92,8 +92,8 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
     private readonly renderInterfaceInfoDetail = (context: LocalizationContextInterface) => {
         const { modelDefinitionWithSource } = this.props;
         const source = this.getModelDefinitionSourceText(context);
-        const displayName = modelDefinitionWithSource.modelDefinition && getLocalizedData(modelDefinitionWithSource.modelDefinition.displayName) || '--';
-        const description = modelDefinitionWithSource.modelDefinition && getLocalizedData(modelDefinitionWithSource.modelDefinition.description) || '--';
+        const displayName = modelDefinitionWithSource.payload && getLocalizedData(modelDefinitionWithSource.payload.displayName) || '--';
+        const description = modelDefinitionWithSource.payload && getLocalizedData(modelDefinitionWithSource.payload.description) || '--';
         return (
             <>
                 <Label className="source"> {context.t(ResourceKeys.deviceInterfaces.columns.source)}: {source}</Label>
@@ -129,7 +129,7 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
     }
 
     private readonly renderInterfaceViewer = () => {
-        const modelDefinition = this.props.modelDefinitionWithSource.modelDefinition;
+        const modelDefinition = this.props.modelDefinitionWithSource.payload;
         return (
             <article className="interface-definition" >
                 { modelDefinition &&

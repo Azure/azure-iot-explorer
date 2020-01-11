@@ -2,12 +2,12 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
+import { SynchronizationWrapper } from './synchronizationWrapper';
 import { ModelDefinition } from './modelDefinition';
-import { SynchronizationStatus } from './synchronizationStatus';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
 
-export interface ModelDefinitionWithSourceWrapper {
-    modelDefinition?: ModelDefinition;
+interface RepositorySource {
     source?: REPOSITORY_LOCATION_TYPE;
-    modelDefinitionSynchronizationStatus: SynchronizationStatus;
 }
+
+export type ModelDefinitionWithSourceWrapper = SynchronizationWrapper<ModelDefinition> & RepositorySource;

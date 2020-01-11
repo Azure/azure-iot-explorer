@@ -22,12 +22,12 @@ export const getModelDefinitionWithSourceSelector = (state: StateInterface): Mod
 
 export const getModelDefinitionSelector = createSelector(
     getModelDefinitionWithSourceSelector,
-    interfaceWithSource => interfaceWithSource && interfaceWithSource.modelDefinition);
+    interfaceWithSource => interfaceWithSource && interfaceWithSource.payload);
 
 export const getModelDefinitionSyncStatusSelector = createSelector(
     getModelDefinitionWithSourceSelector,
     modelDefinitionWithSource => {
-        return modelDefinitionWithSource && modelDefinitionWithSource.modelDefinitionSynchronizationStatus;
+        return modelDefinitionWithSource && modelDefinitionWithSource.synchronizationStatus;
     }
 );
 

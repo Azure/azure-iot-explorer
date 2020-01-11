@@ -74,28 +74,28 @@ describe('deviceContentStateReducer', () => {
         }
         /* tslint:enable */
         const modelDefinitionWithSource = {
-            modelDefinition,
-            modelDefinitionSynchronizationStatus: SynchronizationStatus.fetched,
-            source: REPOSITORY_LOCATION_TYPE.Public
+            payload: modelDefinition,
+            source: REPOSITORY_LOCATION_TYPE.Public,
+            synchronizationStatus: SynchronizationStatus.fetched,
         };
 
         it (`handles ${FETCH_MODEL_DEFINITION}/ACTION_START action`, () => {
             const action = getModelDefinitionAction.started({digitalTwinId: 'testDevice', interfaceId: 'urn:azureiot:ModelDiscovery:ModelInformation:1'});
-            expect(reducer(deviceContentStateInitial(), action).modelDefinitionWithSource.modelDefinitionSynchronizationStatus).toEqual(SynchronizationStatus.working);
+            expect(reducer(deviceContentStateInitial(), action).modelDefinitionWithSource.synchronizationStatus).toEqual(SynchronizationStatus.working);
         });
 
         it (`handles ${FETCH_MODEL_DEFINITION}/ACTION_DONE action`, () => {
             const action = getModelDefinitionAction.done({params: {digitalTwinId: 'testDevice', interfaceId: 'urn:azureiot:ModelDiscovery:ModelInformation:1'}, result: {modelDefinition, source: REPOSITORY_LOCATION_TYPE.Public }});
             expect(reducer(deviceContentStateInitial(), action).modelDefinitionWithSource).toEqual({
-                modelDefinition,
-                modelDefinitionSynchronizationStatus: SynchronizationStatus.fetched,
-                source: REPOSITORY_LOCATION_TYPE.Public
+                payload: modelDefinition,
+                source: REPOSITORY_LOCATION_TYPE.Public,
+                synchronizationStatus: SynchronizationStatus.fetched
             });
         });
 
         it (`handles ${FETCH_MODEL_DEFINITION}/ACTION_FAILED action`, () => {
             const action = getModelDefinitionAction.failed({error: -1, params: {digitalTwinId: 'testDevice', interfaceId: 'urn:azureiot:ModelDiscovery:ModelInformation:1'}});
-            expect(reducer(deviceContentStateInitial(), action).modelDefinitionWithSource.modelDefinitionSynchronizationStatus).toEqual(SynchronizationStatus.failed);
+            expect(reducer(deviceContentStateInitial(), action).modelDefinitionWithSource.synchronizationStatus).toEqual(SynchronizationStatus.failed);
         });
 
         it (`handles ${CLEAR_MODEL_DEFINITIONS} action`, () => {

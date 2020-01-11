@@ -125,24 +125,24 @@ const reducer = reducerWithInitialState<DeviceContentStateType>(deviceContentSta
     .case(getModelDefinitionAction.started, (state: DeviceContentStateType) => {
         return state.merge({
             modelDefinitionWithSource: {
-                modelDefinitionSynchronizationStatus: SynchronizationStatus.working
+                synchronizationStatus: SynchronizationStatus.working
             }
         });
     })
     .case(getModelDefinitionAction.done, (state: DeviceContentStateType, payload: {params: GetModelDefinitionActionParameters} & {result: ModelDefinitionActionResult}) => {
         return state.merge({
             modelDefinitionWithSource: {
-                modelDefinition: payload.result.modelDefinition,
-                modelDefinitionSynchronizationStatus: SynchronizationStatus.fetched,
-                source: payload.result.source
+                payload: payload.result.modelDefinition,
+                source: payload.result.source,
+                synchronizationStatus: SynchronizationStatus.fetched
             }
         });
     })
     .case(getModelDefinitionAction.failed, (state: DeviceContentStateType) => {
         return state.merge({
             modelDefinitionWithSource: {
-                modelDefinition: null,
-                modelDefinitionSynchronizationStatus: SynchronizationStatus.failed
+                payload: null,
+                synchronizationStatus: SynchronizationStatus.failed
             }
         });
     })
