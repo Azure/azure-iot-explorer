@@ -84,8 +84,10 @@ describe('getDigitalTwinInterfacePropertiesSelector', () => {
         },
         interfaceIdSelected: interfaceId,
         modelDefinitionWithSource: {
-            payload: modelDefinition,
-            source: REPOSITORY_LOCATION_TYPE.Private,
+            payload: {
+                modelDefinition,
+                source: REPOSITORY_LOCATION_TYPE.Private
+            },
             synchronizationStatus: SynchronizationStatus.fetched,
         }
     })();

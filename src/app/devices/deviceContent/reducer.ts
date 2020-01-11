@@ -132,8 +132,10 @@ const reducer = reducerWithInitialState<DeviceContentStateType>(deviceContentSta
     .case(getModelDefinitionAction.done, (state: DeviceContentStateType, payload: {params: GetModelDefinitionActionParameters} & {result: ModelDefinitionActionResult}) => {
         return state.merge({
             modelDefinitionWithSource: {
-                payload: payload.result.modelDefinition,
-                source: payload.result.source,
+                payload: {
+                    modelDefinition: payload.result.modelDefinition,
+                    source: payload.result.source
+                },
                 synchronizationStatus: SynchronizationStatus.fetched
             }
         });

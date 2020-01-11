@@ -4,7 +4,7 @@
  **********************************************************/
 import { Record } from 'immutable';
 import { IM } from '../../shared/types/types';
-import { ModelDefinitionWithSourceWrapper } from '../../api/models/modelDefinitionWithSourceWrapper';
+import { ModelDefinitionWithSource } from '../../api/models/modelDefinitionWithSource';
 import { DeviceIdentity } from '../../api/models/deviceIdentity';
 import { SynchronizationWrapper } from '../../api/models/synchronizationWrapper';
 import { Twin } from './../../api/models/device';
@@ -15,7 +15,7 @@ export interface DeviceContentStateInterface {
     deviceTwin: SynchronizationWrapper<Twin>;
     digitalTwinInterfaceProperties: SynchronizationWrapper<DigitalTwinInterfaces>;
     interfaceIdSelected: string;
-    modelDefinitionWithSource: ModelDefinitionWithSourceWrapper;
+    modelDefinitionWithSource: SynchronizationWrapper<ModelDefinitionWithSource>;
 }
 
 export const deviceContentStateInitial = Record<DeviceContentStateInterface>({
