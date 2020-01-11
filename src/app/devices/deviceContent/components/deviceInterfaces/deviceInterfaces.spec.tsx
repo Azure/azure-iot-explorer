@@ -111,10 +111,8 @@ describe('components/devices/deviceInterfaces', () => {
         let component = getComponent({
             isLoading: false,
             modelDefinitionWithSource: {
-                payload: {
-                    modelDefinition,
-                    source: REPOSITORY_LOCATION_TYPE.Public,
-                },
+                payload: modelDefinition,
+                source: REPOSITORY_LOCATION_TYPE.Public,
                 synchronizationStatus: SynchronizationStatus.fetched
             }
         });
@@ -128,10 +126,8 @@ describe('components/devices/deviceInterfaces', () => {
         component = getComponent({
             isLoading: false,
             modelDefinitionWithSource: {
-                payload: {
-                    modelDefinition,
-                    source: REPOSITORY_LOCATION_TYPE.Private,
-                },
+                payload: modelDefinition,
+                source: REPOSITORY_LOCATION_TYPE.Private,
                 synchronizationStatus: SynchronizationStatus.fetched
             }
         });
@@ -140,10 +136,8 @@ describe('components/devices/deviceInterfaces', () => {
         component = getComponent({
             isLoading: false,
             modelDefinitionWithSource: {
-                payload: {
-                    modelDefinition,
-                    source: REPOSITORY_LOCATION_TYPE.Device,
-                },
+                payload: modelDefinition,
+                source: REPOSITORY_LOCATION_TYPE.Device,
                 synchronizationStatus: SynchronizationStatus.fetched
             }
         });
@@ -152,12 +146,10 @@ describe('components/devices/deviceInterfaces', () => {
         component = getComponent({
             isLoading: false,
             modelDefinitionWithSource: {
-                payload: {
-                    modelDefinition,
-                    source: undefined
-                },
+                payload: modelDefinition,
+                source: undefined,
                 synchronizationStatus: SynchronizationStatus.fetched
-            }
+                }
         });
         expect(component).toMatchSnapshot();
     });

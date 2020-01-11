@@ -7,14 +7,14 @@ import { DeviceIdentity } from '../../api/models/deviceIdentity';
 import { SynchronizationWrapper } from '../../api/models/synchronizationWrapper';
 import { DigitalTwinInterfaces } from '../../api/models/digitalTwinModels';
 import { StateType, StateInterface } from '../../shared/redux/state';
-import { ModelDefinitionWithSource } from '../../api/models/modelDefinitionWithSource';
+import { ModelDefinitionWithSourceWrapper } from '../../api/models/modelDefinitionWithSourceWrapper';
 import { modelDiscoveryInterfaceName } from '../../constants/modelDefinitionConstants';
 
 export const getInterfaceIdSelector = (state: StateInterface): string => {
     return state && state.deviceContentState && state.deviceContentState.interfaceIdSelected;
 };
 
-export const getModelDefinitionWithSourceSelector = (state: StateInterface): SynchronizationWrapper<ModelDefinitionWithSource> => {
+export const getModelDefinitionWithSourceSelector = (state: StateInterface): ModelDefinitionWithSourceWrapper => {
     return getInterfaceIdSelector(state) &&
         state.deviceContentState &&
         state.deviceContentState.modelDefinitionWithSource;
@@ -22,7 +22,7 @@ export const getModelDefinitionWithSourceSelector = (state: StateInterface): Syn
 
 export const getModelDefinitionSelector = createSelector(
     getModelDefinitionWithSourceSelector,
-    interfaceWithSource => interfaceWithSource && interfaceWithSource.payload && interfaceWithSource.payload.modelDefinition);
+    interfaceWithSource => interfaceWithSource && interfaceWithSource.payload);
 
 export const getModelDefinitionSyncStatusSelector = createSelector(
     getModelDefinitionWithSourceSelector,

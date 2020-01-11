@@ -83,10 +83,8 @@ describe('getDigitalTwinInterfacePropertiesSelector', () => {
         },
         interfaceIdSelected: interfaceId,
         modelDefinitionWithSource: {
-            payload: {
-                modelDefinition,
-                source: null
-            },
+            payload: modelDefinition,
+            source: null,
             synchronizationStatus: SynchronizationStatus.fetched,
         }
     })();

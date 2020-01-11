@@ -74,10 +74,8 @@ describe('deviceContentStateReducer', () => {
         }
         /* tslint:enable */
         const modelDefinitionWithSource = {
-            payload: {
-                modelDefinition,
-                source: REPOSITORY_LOCATION_TYPE.Public
-            },
+            payload: modelDefinition,
+            source: REPOSITORY_LOCATION_TYPE.Public,
             synchronizationStatus: SynchronizationStatus.fetched,
         };
 
@@ -89,10 +87,8 @@ describe('deviceContentStateReducer', () => {
         it (`handles ${FETCH_MODEL_DEFINITION}/ACTION_DONE action`, () => {
             const action = getModelDefinitionAction.done({params: {digitalTwinId: 'testDevice', interfaceId: 'urn:azureiot:ModelDiscovery:ModelInformation:1'}, result: {modelDefinition, source: REPOSITORY_LOCATION_TYPE.Public }});
             expect(reducer(deviceContentStateInitial(), action).modelDefinitionWithSource).toEqual({
-                payload: {
-                    modelDefinition,
-                    source: REPOSITORY_LOCATION_TYPE.Public
-                },
+                payload: modelDefinition,
+                source: REPOSITORY_LOCATION_TYPE.Public,
                 synchronizationStatus: SynchronizationStatus.fetched
             });
         });

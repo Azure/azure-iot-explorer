@@ -11,8 +11,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getInterfaceIdFromQueryString, getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
-import { ModelDefinitionWithSource } from '../../../../api/models/modelDefinitionWithSource';
-import { SynchronizationWrapper } from '../../../../api/models/synchronizationWrapper';
+import { ModelDefinitionWithSourceWrapper } from '../../../../api/models/modelDefinitionWithSourceWrapper';
 import { REPOSITORY_LOCATION_TYPE } from '../../../../constants/repositoryLocationTypes';
 import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
 import { REFRESH } from '../../../../constants/iconNames';
@@ -25,7 +24,7 @@ const EditorPromise = import('react-monaco-editor');
 const Editor = React.lazy(() => EditorPromise);
 
 export interface DeviceInterfaceProps {
-    modelDefinitionWithSource: SynchronizationWrapper<ModelDefinitionWithSource>;
+    modelDefinitionWithSource: ModelDefinitionWithSourceWrapper;
     isLoading: boolean;
 }
 
@@ -93,8 +92,8 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
     private readonly renderInterfaceInfoDetail = (context: LocalizationContextInterface) => {
         const { modelDefinitionWithSource } = this.props;
         const source = this.getModelDefinitionSourceText(context);
-        const displayName = modelDefinitionWithSource.payload && getLocalizedData(modelDefinitionWithSource.payload.modelDefinition.displayName) || '--';
-        const description = modelDefinitionWithSource.payload && getLocalizedData(modelDefinitionWithSource.payload.modelDefinition.description) || '--';
+        const displayName = modelDefinitionWithSource.payload && getLocalizedData(modelDefinitionWithSource.payload.displayName) || '--';
+        const description = modelDefinitionWithSource.payload && getLocalizedData(modelDefinitionWithSource.payload.description) || '--';
         return (
             <>
                 <Label className="source"> {context.t(ResourceKeys.deviceInterfaces.columns.source)}: {source}</Label>
@@ -113,7 +112,7 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
     private readonly getModelDefinitionSourceText = (context: LocalizationContextInterface) => {
         const { modelDefinitionWithSource } = this.props;
 
-        switch (modelDefinitionWithSource.payload.source) {
+        switch (modelDefinitionWithSource.source) {
             case REPOSITORY_LOCATION_TYPE.Public:
                 return context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.public.label);
             case REPOSITORY_LOCATION_TYPE.Private:
