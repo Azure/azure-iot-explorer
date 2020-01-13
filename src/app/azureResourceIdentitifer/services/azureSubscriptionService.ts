@@ -30,6 +30,6 @@ export const getAzureSubscriptions = async (parameters: GetSubscriptionsParamete
         throw new HttpError(response.status);
     }
 
-    const responseBody = await response.json() as AzureSubscription[];
-    return responseBody;
+    const responseBody = await response.json() as { value: AzureSubscription[] };
+    return responseBody.value;
 };

@@ -4,8 +4,10 @@
  **********************************************************/
 
 export interface AzureResourceIdentifier {
-    resourceName: string;
-    resouceGroupName: string;
-    subscriptionId: string;
+    id: string;
     location: string;
+    name: string;
+    resourceGroup: string;
+    subscriptionId: string;
+    type: string;
 }

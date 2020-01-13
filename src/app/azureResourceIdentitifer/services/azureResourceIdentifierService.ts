@@ -18,7 +18,7 @@ const azureResourceManagementQueryFields = [
     'type',
     'location',
     'resourceGroup',
-    'subscrciptionId'
+    'subscriptionId'
 ];
 
 export interface GetAzureResourceIdentifiersParameters {
@@ -59,7 +59,7 @@ export const getAzureResourceIdentifiers = async (parameters: GetAzureResourceId
 
     const responseBody = await response.json() as AzureResourceIdentifierQueryResult;
     const azureResourceIdentifiers = (responseBody.data && responseBody.data.rows) ?
-        responseBody.data.rows.map(row => mapPropertyArrayToObject(row, azureResourceManagementQueryFields) as AzureResourceIdentifier) :
+        responseBody.data.rows.map(row => mapPropertyArrayToObject(azureResourceManagementQueryFields, row) as AzureResourceIdentifier) :
         [];
 
     const resultSet: ContinuingResultSet<AzureResourceIdentifier> = {
@@ -76,7 +76,7 @@ export interface GetAzureResourceIdentifierParameters {
     resourceType: AzureResourceIdentifierType;
     subscriptionIds: string[];
 }
-export const getResourceIdentifier = async (parameters: GetAzureResourceIdentifierParameters): Promise<AzureResourceIdentifier | undefined> => {
+export const getAzureResourceIdentifier = async (parameters: GetAzureResourceIdentifierParameters): Promise<AzureResourceIdentifier | undefined> => {
     const { azureResourceManagementEndpoint, subscriptionIds, resourceName, resourceType } = parameters;
     const { authorizationToken, endpoint } = azureResourceManagementEndpoint;
 
@@ -102,7 +102,7 @@ export const getResourceIdentifier = async (parameters: GetAzureResourceIdentifi
 
     const responseBody = await response.json() as AzureResourceIdentifierQueryResult;
     const azureResourceIdentifier = (responseBody.data && responseBody.data.rows && responseBody.data.rows.length > 0) ?
-        mapPropertyArrayToObject(responseBody.data.rows[0], azureResourceManagementQueryFields) :
+        mapPropertyArrayToObject( azureResourceManagementQueryFields, responseBody.data.rows[0]) :
         undefined;
 
     return azureResourceIdentifier as AzureResourceIdentifier | undefined;
