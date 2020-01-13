@@ -1,12 +1,13 @@
 import * as Msal from 'msal';
+import { appConfig } from '../../../appConfig/appConfig';
 
 let authResponse: Msal.AuthResponse | undefined;
 let authError: Msal.AuthError | undefined;
 
 const config: Msal.Configuration = {
     auth: {
-        authority: 'https://login.microsoftonline.com/common',
-        clientId: 'c9d0ec1d-3630-477b-ae58-83585222d684',
+        authority: appConfig && appConfig.authServiceSettings && appConfig.authServiceSettings.authority,
+        clientId: appConfig && appConfig.authServiceSettings && appConfig.authServiceSettings.client,
         redirectUri: window.location.origin
     },
     cache: {
