@@ -5,7 +5,7 @@
 import 'jest';
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { Link } from 'office-ui-fabric-react/lib/Link';
+import { ActionButton } from 'office-ui-fabric-react';
 import ListPaging from './listPaging';
 import { testSnapshot, mountWithLocalization } from '../../../shared/utils/testHelpers';
 
@@ -49,7 +49,7 @@ describe('components/devices/listPaging', () => {
             fetchPage={fetchPage}
         />);
 
-        const link = wrapper.find(Link).first();
+        const link = wrapper.find(ActionButton).first();
         link.simulate('click');
         expect(fetchPage).toHaveBeenCalled();
     });

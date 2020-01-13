@@ -22,32 +22,38 @@
             left: 3px;
         }
     }
-    ul {
+    div.page-list {
+        float: left;
         margin: {
             top: 0px;
             bottom: 0px;
         }
         padding: {
             left: 10px;
-            bottom: 10px;
+            bottom: 0px;
         }
-        li {
+        div {
             button {
+                border: 0;
                 @include themify($themes) {
                     color: themed('pagerButtonColor');
+                    background-color: themed('pagerColor');
                 }
+                margin: 0;
+                padding: {
+                    top: 3px;
+                    bottom: 0px;
+                    left: 5px;
+                    right: 5px;
+                }
+                height: 28px;
             }
             margin: {
                 left: 1px;
                 right: 1px;
-                bottom: 0px;
-            }
-            padding: {
-                top: 3px;
-                bottom: 0px;
-                left: 5px;
-                right: 5px;
-            }
+                bottom: 0;
+            };
+            padding: 0;
             float: left;
             list-style-type: none;
             cursor: pointer;
@@ -60,14 +66,13 @@
                     top-left-radius: 3px;
                     top-right-radius: 3px;
                 };
-                background-color: themed('pagerColor');
             } 
             font: {
                 size: 18px;
                 weight: 100;
             }
         }
-        li.selected {
+        div.selected {
             border-width: 2px;
             @include themify($themes) {
                 border-color: themed('selectedBorder');
@@ -76,6 +81,12 @@
                 color: themed('pagerTextColor');
             }
             border-color: $selected-border;
+            padding: {
+                top: 3px;
+                bottom: 0px;
+                left: 5px;
+                right: 5px;
+            }
         }
     }
 }
