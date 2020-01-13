@@ -7,7 +7,7 @@ import { IM } from '../../shared/types/types';
 import { DeviceSummary } from './../../api/models/deviceSummary';
 import DeviceQuery from '../../api/models/deviceQuery';
 import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
-import { SynchronizationWrapper } from '../../api/models/SynchronizationWrapper';
+import { SynchronizationWrapper } from '../../api/models/synchronizationWrapper';
 
 export type DeviceList = Map<string, DeviceSummary>;
 

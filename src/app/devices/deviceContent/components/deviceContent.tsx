@@ -19,7 +19,7 @@ import { LocalizationContextConsumer, LocalizationContextInterface } from '../..
 import { NAV } from '../../../constants/iconNames';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
 import { DeviceIdentity } from '../../../api/models/deviceIdentity';
-import { SynchronizationWrapper } from '../../../api/models/SynchronizationWrapper';
+import { SynchronizationWrapper } from '../../../api/models/synchronizationWrapper';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import MultiLineShimmer from '../../../shared/components/multiLineShimmer';
 import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';

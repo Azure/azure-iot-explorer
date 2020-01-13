@@ -9,5 +9,3 @@ export interface ModelDefinitionWithSource {
     modelDefinition: ModelDefinition;
     source?: REPOSITORY_LOCATION_TYPE;
 }
-
-// export type ModelDefinitionWithSourceWrapper = SynchronizationWrapper<ModelDefinition> & RepositorySource;

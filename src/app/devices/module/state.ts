@@ -4,7 +4,7 @@
  **********************************************************/
 import { Record } from 'immutable';
 import { IM } from '../../shared/types/types';
-import { SynchronizationWrapper } from '../../api/models/SynchronizationWrapper';
+import { SynchronizationWrapper } from '../../api/models/synchronizationWrapper';
 import { ModuleTwin } from '../../api/models/moduleTwin';
 import { ModuleIdentity } from '../../api/models/moduleIdentity';
 
