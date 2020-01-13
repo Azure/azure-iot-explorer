@@ -21,7 +21,7 @@ const mapStateToProps = (state: StateType, ownProps: RouteComponentProps): Devic
         interfaceId: getInterfaceIdFromQueryString(ownProps),
         interfaceIds: getDigitalTwinInterfaceIdsSelector(state),
         isLoading: digitalTwinInterfacesWrapper &&
-            digitalTwinInterfacesWrapper.digitalTwinInterfacePropertiesSyncStatus === SynchronizationStatus.working,
+            digitalTwinInterfacesWrapper.synchronizationStatus === SynchronizationStatus.working,
         isPnPDevice: getIsDevicePnpSelector(state)
     };
 };

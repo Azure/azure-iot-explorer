@@ -4,17 +4,18 @@
  **********************************************************/
 import { Record } from 'immutable';
 import { IM } from '../../shared/types/types';
-import { ModelDefinitionWithSourceWrapper } from '../../api/models/modelDefinitionWithSourceWrapper';
-import { DeviceIdentityWrapper } from '../../api/models/deviceIdentityWrapper';
-import { DeviceTwinWrapper } from './../../api/models/deviceTwinWrapper';
-import { DigitalTwinInterfacePropertiesWrapper } from '../../api/models/digitalTwinInterfacePropertiesWrapper';
+import { ModelDefinitionWithSource } from '../../api/models/modelDefinitionWithSource';
+import { DeviceIdentity } from '../../api/models/deviceIdentity';
+import { SynchronizationWrapper } from '../../api/models/synchronizationWrapper';
+import { Twin } from './../../api/models/device';
+import { DigitalTwinInterfaces } from '../../api/models/digitalTwinModels';
 
 export interface DeviceContentStateInterface {
-    deviceIdentity: DeviceIdentityWrapper;
-    deviceTwin: DeviceTwinWrapper;
-    digitalTwinInterfaceProperties: DigitalTwinInterfacePropertiesWrapper;
+    deviceIdentity: SynchronizationWrapper<DeviceIdentity>;
+    deviceTwin: SynchronizationWrapper<Twin>;
+    digitalTwinInterfaceProperties: SynchronizationWrapper<DigitalTwinInterfaces>;
     interfaceIdSelected: string;
-    modelDefinitionWithSource: ModelDefinitionWithSourceWrapper;
+    modelDefinitionWithSource: SynchronizationWrapper<ModelDefinitionWithSource>;
 }
 
 export const deviceContentStateInitial = Record<DeviceContentStateInterface>({

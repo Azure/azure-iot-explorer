@@ -44,8 +44,8 @@ describe('getDigitalTwinInterfacePropertiesSelector', () => {
         deviceIdentity: null,
         deviceTwin: null,
         digitalTwinInterfaceProperties: {
-            digitalTwinInterfaceProperties,
-            digitalTwinInterfacePropertiesSyncStatus: SynchronizationStatus.fetched
+            payload: digitalTwinInterfaceProperties,
+            synchronizationStatus: SynchronizationStatus.fetched
         },
         interfaceIdSelected: 'urn:contoso:com:environmentalsensor:2',
         modelDefinitionWithSource: null

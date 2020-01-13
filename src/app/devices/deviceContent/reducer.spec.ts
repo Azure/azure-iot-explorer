@@ -74,28 +74,32 @@ describe('deviceContentStateReducer', () => {
         }
         /* tslint:enable */
         const modelDefinitionWithSource = {
-            modelDefinition,
-            modelDefinitionSynchronizationStatus: SynchronizationStatus.fetched,
-            source: REPOSITORY_LOCATION_TYPE.Public
+            payload: {
+                modelDefinition,
+                source: REPOSITORY_LOCATION_TYPE.Public
+            },
+            synchronizationStatus: SynchronizationStatus.fetched,
         };
 
         it (`handles ${FETCH_MODEL_DEFINITION}/ACTION_START action`, () => {
             const action = getModelDefinitionAction.started({digitalTwinId: 'testDevice', interfaceId: 'urn:azureiot:ModelDiscovery:ModelInformation:1'});
-            expect(reducer(deviceContentStateInitial(), action).modelDefinitionWithSource.modelDefinitionSynchronizationStatus).toEqual(SynchronizationStatus.working);
+            expect(reducer(deviceContentStateInitial(), action).modelDefinitionWithSource.synchronizationStatus).toEqual(SynchronizationStatus.working);
         });
 
         it (`handles ${FETCH_MODEL_DEFINITION}/ACTION_DONE action`, () => {
             const action = getModelDefinitionAction.done({params: {digitalTwinId: 'testDevice', interfaceId: 'urn:azureiot:ModelDiscovery:ModelInformation:1'}, result: {modelDefinition, source: REPOSITORY_LOCATION_TYPE.Public }});
             expect(reducer(deviceContentStateInitial(), action).modelDefinitionWithSource).toEqual({
-                modelDefinition,
-                modelDefinitionSynchronizationStatus: SynchronizationStatus.fetched,
-                source: REPOSITORY_LOCATION_TYPE.Public
+                payload: {
+                    modelDefinition,
+                    source: REPOSITORY_LOCATION_TYPE.Public
+                },
+                synchronizationStatus: SynchronizationStatus.fetched
             });
         });
 
         it (`handles ${FETCH_MODEL_DEFINITION}/ACTION_FAILED action`, () => {
             const action = getModelDefinitionAction.failed({error: -1, params: {digitalTwinId: 'testDevice', interfaceId: 'urn:azureiot:ModelDiscovery:ModelInformation:1'}});
-            expect(reducer(deviceContentStateInitial(), action).modelDefinitionWithSource.modelDefinitionSynchronizationStatus).toEqual(SynchronizationStatus.failed);
+            expect(reducer(deviceContentStateInitial(), action).modelDefinitionWithSource.synchronizationStatus).toEqual(SynchronizationStatus.failed);
         });
 
         it (`handles ${CLEAR_MODEL_DEFINITIONS} action`, () => {
@@ -146,17 +150,17 @@ describe('deviceContentStateReducer', () => {
 
         it (`handles ${GET_TWIN}/ACTION_START action`, () => {
             const action = getTwinAction.started(deviceId);
-            expect(reducer(deviceContentStateInitial(), action).deviceTwin.deviceTwinSynchronizationStatus).toEqual(SynchronizationStatus.working);
+            expect(reducer(deviceContentStateInitial(), action).deviceTwin.synchronizationStatus).toEqual(SynchronizationStatus.working);
         });
 
         it (`handles ${GET_TWIN}/ACTION_DONE action`, () => {
             const action = getTwinAction.done({params: deviceId, result});
-            expect(reducer(deviceContentStateInitial(), action).deviceTwin.deviceTwin).toEqual(result);
+            expect(reducer(deviceContentStateInitial(), action).deviceTwin.payload).toEqual(result);
         });
 
         it (`handles ${GET_TWIN}/ACTION_FAILED action`, () => {
             const action = getTwinAction.failed({error: -1, params: deviceId});
-            expect(reducer(deviceContentStateInitial(), action).deviceTwin.deviceTwinSynchronizationStatus).toEqual(SynchronizationStatus.failed);
+            expect(reducer(deviceContentStateInitial(), action).deviceTwin.synchronizationStatus).toEqual(SynchronizationStatus.failed);
         });
     });
 
@@ -189,45 +193,45 @@ describe('deviceContentStateReducer', () => {
 
         it (`handles ${GET_DEVICE_IDENTITY}/ACTION_START action`, () => {
             const action = getDeviceIdentityAction.started(deviceId);
-            expect(reducer(deviceContentStateInitial(), action).deviceIdentity.deviceIdentitySynchronizationStatus).toEqual(SynchronizationStatus.working);
+            expect(reducer(deviceContentStateInitial(), action).deviceIdentity.synchronizationStatus).toEqual(SynchronizationStatus.working);
         });
 
         it (`handles ${GET_DEVICE_IDENTITY}/ACTION_DONE action`, () => {
             const action = getDeviceIdentityAction.done({params: deviceId, result: deviceIdentity});
             expect(reducer(deviceContentStateInitial(), action).deviceIdentity).toEqual({
-                deviceIdentity,
-                deviceIdentitySynchronizationStatus: SynchronizationStatus.fetched});
+                payload: deviceIdentity,
+                synchronizationStatus: SynchronizationStatus.fetched});
         });
 
         it (`handles ${GET_DEVICE_IDENTITY}/ACTION_FAILED action`, () => {
             const action = getDeviceIdentityAction.failed({error: -1, params: deviceId});
-            expect(reducer(deviceContentStateInitial(), action).deviceIdentity.deviceIdentitySynchronizationStatus).toEqual(SynchronizationStatus.failed);
+            expect(reducer(deviceContentStateInitial(), action).deviceIdentity.synchronizationStatus).toEqual(SynchronizationStatus.failed);
         });
 
         let initialState = deviceContentStateInitial();
         initialState = initialState.merge({
             deviceIdentity: {
-                deviceIdentity,
-                deviceIdentitySynchronizationStatus: SynchronizationStatus.fetched
+                payload: deviceIdentity,
+                synchronizationStatus: SynchronizationStatus.fetched
             }
         });
         deviceIdentity.cloudToDeviceMessageCount = 1;
 
         it (`handles ${UPDATE_DEVICE_IDENTITY}/ACTION_START action`, () => {
             const action = updateDeviceIdentityAction.started(deviceIdentity);
-            expect(reducer(initialState, action).deviceIdentity.deviceIdentitySynchronizationStatus).toEqual(SynchronizationStatus.updating);
+            expect(reducer(initialState, action).deviceIdentity.synchronizationStatus).toEqual(SynchronizationStatus.updating);
         });
 
         it (`handles ${UPDATE_DEVICE_IDENTITY}/ACTION_DONE action`, () => {
             const action = updateDeviceIdentityAction.done({params: deviceIdentity, result: deviceIdentity});
             expect(reducer(initialState, action).deviceIdentity).toEqual({
-                deviceIdentity,
-                deviceIdentitySynchronizationStatus: SynchronizationStatus.upserted});
+                payload: deviceIdentity,
+                synchronizationStatus: SynchronizationStatus.upserted});
         });
 
         it (`handles ${UPDATE_DEVICE_IDENTITY}/ACTION_FAILED action`, () => {
             const action = updateDeviceIdentityAction.failed({error: -1, params: deviceIdentity});
-            expect(reducer(initialState, action).deviceIdentity.deviceIdentitySynchronizationStatus).toEqual(SynchronizationStatus.failed);
+            expect(reducer(initialState, action).deviceIdentity.synchronizationStatus).toEqual(SynchronizationStatus.failed);
         });
     });
 
@@ -279,24 +283,24 @@ describe('deviceContentStateReducer', () => {
 
         it (`handles ${GET_DIGITAL_TWIN_INTERFACE_PROPERTIES}/ACTION_START action`, () => {
             const action = getDigitalTwinInterfacePropertiesAction.started(deviceId);
-            expect(reducer(deviceContentStateInitial(), action).digitalTwinInterfaceProperties.digitalTwinInterfacePropertiesSyncStatus).toEqual(SynchronizationStatus.working);
+            expect(reducer(deviceContentStateInitial(), action).digitalTwinInterfaceProperties.synchronizationStatus).toEqual(SynchronizationStatus.working);
         });
 
         it (`handles ${GET_DIGITAL_TWIN_INTERFACE_PROPERTIES}/ACTION_DONE action`, () => {
             const action = getDigitalTwinInterfacePropertiesAction.done({params: deviceId, result: digitalTwinInterfaceProperties});
-            expect(reducer(deviceContentStateInitial(), action).digitalTwinInterfaceProperties.digitalTwinInterfaceProperties).toEqual(digitalTwinInterfaceProperties);
+            expect(reducer(deviceContentStateInitial(), action).digitalTwinInterfaceProperties.payload).toEqual(digitalTwinInterfaceProperties);
         });
 
         it (`handles ${GET_DIGITAL_TWIN_INTERFACE_PROPERTIES}/ACTION_FAILED action`, () => {
             const action = getDigitalTwinInterfacePropertiesAction.failed({error: -1, params: deviceId});
-            expect(reducer(deviceContentStateInitial(), action).digitalTwinInterfaceProperties.digitalTwinInterfacePropertiesSyncStatus).toEqual(SynchronizationStatus.failed);
+            expect(reducer(deviceContentStateInitial(), action).digitalTwinInterfaceProperties.synchronizationStatus).toEqual(SynchronizationStatus.failed);
         });
 
         let initialState = deviceContentStateInitial();
         initialState = initialState.merge({
             digitalTwinInterfaceProperties: {
-                digitalTwinInterfaceProperties,
-                digitalTwinInterfacePropertiesSyncStatus: SynchronizationStatus.fetched
+                payload: digitalTwinInterfaceProperties,
+                synchronizationStatus: SynchronizationStatus.fetched
             }
         });
         digitalTwinInterfaceProperties.version = 1;
@@ -307,7 +311,7 @@ describe('deviceContentStateReducer', () => {
                 interfacesPatchData: 'Mexico',
                 propertyKey: 'myProperty'
             });
-            expect(reducer(initialState, action).digitalTwinInterfaceProperties.digitalTwinInterfacePropertiesSyncStatus).toEqual(SynchronizationStatus.updating);
+            expect(reducer(initialState, action).digitalTwinInterfaceProperties.synchronizationStatus).toEqual(SynchronizationStatus.updating);
         });
 
         it (`handles ${PATCH_DIGITAL_TWIN_INTERFACE_PROPERTIES}/ACTION_DONE action`, () => {
@@ -316,7 +320,7 @@ describe('deviceContentStateReducer', () => {
                 interfacesPatchData: 'Mexico',
                 propertyKey: 'myProperty'
             }, result: digitalTwinInterfaceProperties});
-            expect(reducer(initialState, action).digitalTwinInterfaceProperties.digitalTwinInterfaceProperties).toEqual(digitalTwinInterfaceProperties);
+            expect(reducer(initialState, action).digitalTwinInterfaceProperties.payload).toEqual(digitalTwinInterfaceProperties);
         });
 
         it (`handles ${PATCH_DIGITAL_TWIN_INTERFACE_PROPERTIES}/ACTION_FAILED action`, () => {
@@ -325,7 +329,7 @@ describe('deviceContentStateReducer', () => {
                 interfacesPatchData: 'Mexico',
                 propertyKey: 'myProperty'
             }});
-            expect(reducer(initialState, action).digitalTwinInterfaceProperties.digitalTwinInterfacePropertiesSyncStatus).toEqual(SynchronizationStatus.failed);
+            expect(reducer(initialState, action).digitalTwinInterfaceProperties.synchronizationStatus).toEqual(SynchronizationStatus.failed);
         });
     });
 });

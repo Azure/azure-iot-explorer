@@ -3,18 +3,18 @@
  * Licensed under the MIT License
  **********************************************************/
 import { createSelector } from 'reselect';
-import { DigitalTwinInterfacePropertiesWrapper } from '../../api/models/digitalTwinInterfacePropertiesWrapper';
-import { DeviceIdentityWrapper } from '../../api/models/deviceIdentityWrapper';
+import { DeviceIdentity } from '../../api/models/deviceIdentity';
+import { SynchronizationWrapper } from '../../api/models/synchronizationWrapper';
 import { DigitalTwinInterfaces } from '../../api/models/digitalTwinModels';
 import { StateType, StateInterface } from '../../shared/redux/state';
-import { ModelDefinitionWithSourceWrapper } from '../../api/models/modelDefinitionWithSourceWrapper';
+import { ModelDefinitionWithSource } from '../../api/models/modelDefinitionWithSource';
 import { modelDiscoveryInterfaceName } from '../../constants/modelDefinitionConstants';
 
 export const getInterfaceIdSelector = (state: StateInterface): string => {
     return state && state.deviceContentState && state.deviceContentState.interfaceIdSelected;
 };
 
-export const getModelDefinitionWithSourceSelector = (state: StateInterface): ModelDefinitionWithSourceWrapper => {
+export const getModelDefinitionWithSourceSelector = (state: StateInterface): SynchronizationWrapper<ModelDefinitionWithSource> => {
     return getInterfaceIdSelector(state) &&
         state.deviceContentState &&
         state.deviceContentState.modelDefinitionWithSource;
@@ -22,23 +22,23 @@ export const getModelDefinitionWithSourceSelector = (state: StateInterface): Mod
 
 export const getModelDefinitionSelector = createSelector(
     getModelDefinitionWithSourceSelector,
-    interfaceWithSource => interfaceWithSource && interfaceWithSource.modelDefinition);
+    interfaceWithSource => interfaceWithSource && interfaceWithSource.payload && interfaceWithSource.payload.modelDefinition);
 
 export const getModelDefinitionSyncStatusSelector = createSelector(
     getModelDefinitionWithSourceSelector,
     modelDefinitionWithSource => {
-        return modelDefinitionWithSource && modelDefinitionWithSource.modelDefinitionSynchronizationStatus;
+        return modelDefinitionWithSource && modelDefinitionWithSource.synchronizationStatus;
     }
 );
 
-export const getDeviceIdentityWrapperSelector = (state: StateType): DeviceIdentityWrapper => {
+export const getDeviceIdentityWrapperSelector = (state: StateType): SynchronizationWrapper<DeviceIdentity> => {
     return state &&
         state.deviceContentState &&
         state.deviceContentState.deviceIdentity &&
         state.deviceContentState.deviceIdentity;
 };
 
-export const getDigitalTwinInterfacePropertiesWrapperSelector = (state: StateType): DigitalTwinInterfacePropertiesWrapper => {
+export const getDigitalTwinInterfacePropertiesWrapperSelector = (state: StateType): SynchronizationWrapper<DigitalTwinInterfaces> => {
     return state &&
         state.deviceContentState &&
         state.deviceContentState.digitalTwinInterfaceProperties;
@@ -47,7 +47,7 @@ export const getDigitalTwinInterfacePropertiesWrapperSelector = (state: StateTyp
 export const getDigitalTwinInterfacePropertiesStateSelector = createSelector(
     getDigitalTwinInterfacePropertiesWrapperSelector,
     properties => {
-        return properties && properties.digitalTwinInterfacePropertiesSyncStatus;
+        return properties && properties.synchronizationStatus;
     }
 );
 
@@ -55,7 +55,7 @@ export const getDigitalTwinInterfacePropertiesSelector = (state: StateInterface)
     return state &&
         state.deviceContentState &&
         state.deviceContentState.digitalTwinInterfaceProperties &&
-        state.deviceContentState.digitalTwinInterfaceProperties.digitalTwinInterfaceProperties;
+        state.deviceContentState.digitalTwinInterfaceProperties.payload;
 };
 
 export const getDigitalTwinInterfaceNameAndIdsSelector = createSelector(

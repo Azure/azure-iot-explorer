@@ -56,7 +56,7 @@ describe('devices/components/deviceIdentity', () => {
         it('matches snapshot with auth type of None', () => {
             testSnapshot(getComponent({
                 identityWrapper: {
-                    deviceIdentity: {
+                    payload: {
                         authentication: {
                             type: DeviceAuthenticationType.None
                         },
@@ -69,7 +69,7 @@ describe('devices/components/deviceIdentity', () => {
         it('matches snapshot with SymmetricKey auth type', () => {
             testSnapshot(getComponent({
                 identityWrapper: {
-                    deviceIdentity: {
+                    payload: {
                         authentication: {
                             symmetricKey: {
                                 primaryKey: 'key'
@@ -85,7 +85,7 @@ describe('devices/components/deviceIdentity', () => {
         it('matches snapshot with SelfSigned auth type', () => {
             testSnapshot(getComponent({
                 identityWrapper: {
-                    deviceIdentity: {
+                    payload: {
                         authentication: {
                             type: DeviceAuthenticationType.SelfSigned,
                             x509Thumbprint: {
@@ -101,7 +101,7 @@ describe('devices/components/deviceIdentity', () => {
         it('matches snapshot with CA auth type', () => {
             testSnapshot(getComponent({
                 identityWrapper: {
-                    deviceIdentity: {
+                    payload: {
                         authentication: {
                             type: DeviceAuthenticationType.CACertificate
                         }
@@ -113,7 +113,7 @@ describe('devices/components/deviceIdentity', () => {
         it('matches snapshot with Synchronization Status of working', () => {
             testSnapshot(getComponent({
                 identityWrapper: {
-                    deviceIdentity: {
+                    payload: {
                         authentication: {
                             symmetricKey: {
                                 primaryKey: 'key'
@@ -121,7 +121,7 @@ describe('devices/components/deviceIdentity', () => {
                             type: DeviceAuthenticationType.SymmetricKey
                         }
                     },
-                    deviceIdentitySynchronizationStatus: SynchronizationStatus.working,
+                    synchronizationStatus: SynchronizationStatus.working,
                 }
             }));
         });
@@ -129,7 +129,7 @@ describe('devices/components/deviceIdentity', () => {
         it('matches snapshot with Synchronization Status of updating', () => {
             testSnapshot(getComponent({
                 identityWrapper: {
-                    deviceIdentity: {
+                    payload: {
                         authentication: {
                             symmetricKey: {
                                 primaryKey: 'key'
@@ -137,7 +137,7 @@ describe('devices/components/deviceIdentity', () => {
                             type: DeviceAuthenticationType.SymmetricKey
                         }
                     },
-                    deviceIdentitySynchronizationStatus: SynchronizationStatus.updating,
+                    synchronizationStatus: SynchronizationStatus.updating,
                 }
             }));
         });
@@ -146,7 +146,7 @@ describe('devices/components/deviceIdentity', () => {
             const wrapper = mountWithLocalization(
                 getComponent({
                     identityWrapper: {
-                        deviceIdentity: {
+                        payload: {
                             authentication: {
                                 symmetricKey: {
                                     primaryKey: 'key'
