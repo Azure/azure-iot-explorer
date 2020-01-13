@@ -10,21 +10,22 @@ exports[`components/devices/listPaging matches snapshot on different page 1`] = 
   >
     deviceLists.paging.pages
   </span>
-  <ul
+  <div
+    className="page-list"
     role="list"
   >
-    <li
+    <div
       className=""
       key="page_0"
       role="listitem"
     >
-      <StyledLinkBase
+      <CustomizedActionButton
         onClick={[Function]}
       >
         1
-      </StyledLinkBase>
-    </li>
-    <li
+      </CustomizedActionButton>
+    </div>
+    <div
       className="selected"
       key="page_1"
       role="listitem"
@@ -32,19 +33,19 @@ exports[`components/devices/listPaging matches snapshot on different page 1`] = 
       <span>
         2
       </span>
-    </li>
-    <li
+    </div>
+    <div
       className=""
       key="page_2"
       role="listitem"
     >
-      <StyledLinkBase
+      <CustomizedActionButton
         onClick={[Function]}
       >
         »
-      </StyledLinkBase>
-    </li>
-  </ul>
+      </CustomizedActionButton>
+    </div>
+  </div>
 </section>
 `;
 
@@ -58,10 +59,11 @@ exports[`components/devices/listPaging matches snapshot with continuation tokens
   >
     deviceLists.paging.pages
   </span>
-  <ul
+  <div
+    className="page-list"
     role="list"
   >
-    <li
+    <div
       className="selected"
       key="page_0"
       role="listitem"
@@ -69,19 +71,19 @@ exports[`components/devices/listPaging matches snapshot with continuation tokens
       <span>
         1
       </span>
-    </li>
-    <li
+    </div>
+    <div
       className=""
       key="page_1"
       role="listitem"
     >
-      <StyledLinkBase
+      <CustomizedActionButton
         onClick={[Function]}
       >
         »
-      </StyledLinkBase>
-    </li>
-  </ul>
+      </CustomizedActionButton>
+    </div>
+  </div>
 </section>
 `;
 

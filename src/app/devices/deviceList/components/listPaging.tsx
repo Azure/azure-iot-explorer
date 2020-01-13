@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Link } from 'office-ui-fabric-react/lib/Link';
+import { ActionButton } from 'office-ui-fabric-react';
 import '../../../css/_deviceListPaging.scss';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
@@ -33,9 +33,9 @@ export default class ListPagingComponent extends React.Component<ListPagingDataP
                 {(context: LocalizationContextInterface) => (
                     <section role="navigation" className="grid-paging">
                         <span className="pages">{context.t(ResourceKeys.deviceLists.paging.pages)}</span>
-                        <ul role="list">
+                        <div role="list" className="page-list">
                             {this.props.continuationTokens.map(this.renderListItem)}
-                        </ul>
+                        </div>
                     </section>
                 )}
             </LocalizationContextConsumer>
@@ -48,20 +48,20 @@ export default class ListPagingComponent extends React.Component<ListPagingDataP
         };
 
         return (
-            <li
+            <div
                 key={`page_${index}`}
                 role="listitem"
                 className={index === this.props.currentPageIndex ? 'selected' : ''}
             >
                 {index !== this.props.currentPageIndex ?
-                    (<Link
+                    (<ActionButton
                         onClick={fetchPage}
                     >
                         {index === this.props.continuationTokens.length - 1 ? '»' : index + 1}
-                    </Link>) :
+                    </ActionButton>) :
                     (<span>{index + 1}</span>)
                 }
-            </li>
+            </div>
         );
     }
 }
