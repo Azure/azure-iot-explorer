@@ -29,46 +29,46 @@ const reducer = reducerWithInitialState<DeviceContentStateType>(deviceContentSta
     .case(getDeviceIdentityAction.started, (state: DeviceContentStateType) => {
         return state.merge({
             deviceIdentity: {
-                deviceIdentitySynchronizationStatus: SynchronizationStatus.working
+                synchronizationStatus: SynchronizationStatus.working
             }
         });
     })
     .case(getDeviceIdentityAction.done, (state: DeviceContentStateType, payload: {params: string} & {result: DeviceIdentity}) => {
         return state.merge({
             deviceIdentity: {
-                deviceIdentity: payload.result,
-                deviceIdentitySynchronizationStatus: SynchronizationStatus.fetched
+                payload: payload.result,
+                synchronizationStatus: SynchronizationStatus.fetched
             }
         });
     })
     .case(getDeviceIdentityAction.failed, (state: DeviceContentStateType) => {
         return state.merge({
             deviceIdentity: {
-                deviceIdentitySynchronizationStatus: SynchronizationStatus.failed
+                synchronizationStatus: SynchronizationStatus.failed
             }
         });
     })
     .case(updateDeviceIdentityAction.started, (state: DeviceContentStateType) => {
         return state.merge({
             deviceIdentity: {
-                deviceIdentity: state.deviceIdentity.deviceIdentity,
-                deviceIdentitySynchronizationStatus: SynchronizationStatus.updating
+                payload: state.deviceIdentity.payload,
+                synchronizationStatus: SynchronizationStatus.updating
             }
         });
     })
     .case(updateDeviceIdentityAction.done, (state: DeviceContentStateType, payload: {params: DeviceIdentity} & {result: DeviceIdentity}) => {
         return state.merge({
             deviceIdentity: {
-                deviceIdentity: payload.result,
-                deviceIdentitySynchronizationStatus: SynchronizationStatus.upserted
+                payload: payload.result,
+                synchronizationStatus: SynchronizationStatus.upserted
             }
         });
     })
     .case(updateDeviceIdentityAction.failed, (state: DeviceContentStateType) => {
         return state.merge({
             deviceIdentity: {
-                deviceIdentity: state.deviceIdentity.deviceIdentity,
-                deviceIdentitySynchronizationStatus: SynchronizationStatus.failed
+                payload: state.deviceIdentity.payload,
+                synchronizationStatus: SynchronizationStatus.failed
             }
         });
     })
@@ -77,46 +77,46 @@ const reducer = reducerWithInitialState<DeviceContentStateType>(deviceContentSta
     .case(getTwinAction.started, (state: DeviceContentStateType) => {
         return state.merge({
             deviceTwin: {
-                deviceTwinSynchronizationStatus: SynchronizationStatus.working
+                synchronizationStatus: SynchronizationStatus.working
             }
         });
     })
     .case(getTwinAction.done, (state: DeviceContentStateType, payload: {params: string} & {result: Twin}) => {
         return state.merge({
             deviceTwin: {
-                deviceTwin: payload.result,
-                deviceTwinSynchronizationStatus: SynchronizationStatus.fetched
+                payload: payload.result,
+                synchronizationStatus: SynchronizationStatus.fetched
             }
         });
     })
     .case(getTwinAction.failed, (state: DeviceContentStateType) => {
         return state.merge({
             deviceTwin: {
-                deviceTwinSynchronizationStatus: SynchronizationStatus.failed
+                synchronizationStatus: SynchronizationStatus.failed
             }
         });
     })
     .case(updateTwinAction.started, (state: DeviceContentStateType) => {
         return state.merge({
             deviceTwin: {
-                deviceTwin: state.deviceTwin.deviceTwin,
-                deviceTwinSynchronizationStatus: SynchronizationStatus.updating
+                payload: state.deviceTwin.payload,
+                synchronizationStatus: SynchronizationStatus.updating
             }
         });
     })
     .case(updateTwinAction.done, (state: DeviceContentStateType, payload: {params: UpdateTwinActionParameters} & {result: Twin}) => {
         return state.merge({
             deviceTwin: {
-                deviceTwin: payload.result,
-                deviceTwinSynchronizationStatus: SynchronizationStatus.upserted
+                payload: payload.result,
+                synchronizationStatus: SynchronizationStatus.upserted
             }
         });
     })
     .case(updateTwinAction.failed, (state: DeviceContentStateType) => {
         return state.merge({
             deviceTwin: {
-                deviceTwin: state.deviceTwin.deviceTwin,
-                deviceTwinSynchronizationStatus: SynchronizationStatus.failed
+                payload: state.deviceTwin.payload,
+                synchronizationStatus: SynchronizationStatus.failed
             }
         });
     })
@@ -125,24 +125,26 @@ const reducer = reducerWithInitialState<DeviceContentStateType>(deviceContentSta
     .case(getModelDefinitionAction.started, (state: DeviceContentStateType) => {
         return state.merge({
             modelDefinitionWithSource: {
-                modelDefinitionSynchronizationStatus: SynchronizationStatus.working
+                synchronizationStatus: SynchronizationStatus.working
             }
         });
     })
     .case(getModelDefinitionAction.done, (state: DeviceContentStateType, payload: {params: GetModelDefinitionActionParameters} & {result: ModelDefinitionActionResult}) => {
         return state.merge({
             modelDefinitionWithSource: {
-                modelDefinition: payload.result.modelDefinition,
-                modelDefinitionSynchronizationStatus: SynchronizationStatus.fetched,
-                source: payload.result.source
+                payload: {
+                    modelDefinition: payload.result.modelDefinition,
+                    source: payload.result.source
+                },
+                synchronizationStatus: SynchronizationStatus.fetched
             }
         });
     })
     .case(getModelDefinitionAction.failed, (state: DeviceContentStateType) => {
         return state.merge({
             modelDefinitionWithSource: {
-                modelDefinition: null,
-                modelDefinitionSynchronizationStatus: SynchronizationStatus.failed
+                payload: null,
+                synchronizationStatus: SynchronizationStatus.failed
             }
         });
     })
@@ -161,46 +163,46 @@ const reducer = reducerWithInitialState<DeviceContentStateType>(deviceContentSta
     .case(getDigitalTwinInterfacePropertiesAction.started, (state: DeviceContentStateType) => {
         return state.merge({
             digitalTwinInterfaceProperties: {
-                digitalTwinInterfacePropertiesSyncStatus: SynchronizationStatus.working
+                synchronizationStatus: SynchronizationStatus.working
             }
         });
     })
     .case(getDigitalTwinInterfacePropertiesAction.done, (state: DeviceContentStateType, payload: {params: string} & {result: DigitalTwinInterfaces}) => {
         return state.merge({
             digitalTwinInterfaceProperties: {
-                digitalTwinInterfaceProperties: payload.result,
-                digitalTwinInterfacePropertiesSyncStatus: SynchronizationStatus.fetched
+                payload: payload.result,
+                synchronizationStatus: SynchronizationStatus.fetched
             }
         });
     })
     .case(getDigitalTwinInterfacePropertiesAction.failed, (state: DeviceContentStateType) => {
         return state.merge({
             digitalTwinInterfaceProperties: {
-                digitalTwinInterfacePropertiesSyncStatus: SynchronizationStatus.failed
+                synchronizationStatus: SynchronizationStatus.failed
             }
         });
     })
     .case(patchDigitalTwinInterfacePropertiesAction.started, (state: DeviceContentStateType) => {
         return state.merge({
             digitalTwinInterfaceProperties: {
-                digitalTwinInterfaceProperties: state.digitalTwinInterfaceProperties.digitalTwinInterfaceProperties,
-                digitalTwinInterfacePropertiesSyncStatus: SynchronizationStatus.updating
+                payload: state.digitalTwinInterfaceProperties.payload,
+                synchronizationStatus: SynchronizationStatus.updating
             }
         });
     })
     .case(patchDigitalTwinInterfacePropertiesAction.done, (state: DeviceContentStateType, payload: {params: PatchDigitalTwinInterfacePropertiesActionParameters} & {result: DigitalTwinInterfaces}) => {
         return state.merge({
             digitalTwinInterfaceProperties: {
-                digitalTwinInterfaceProperties: payload.result,
-                digitalTwinInterfacePropertiesSyncStatus: SynchronizationStatus.upserted
+                payload: payload.result,
+                synchronizationStatus: SynchronizationStatus.upserted
             }
         });
     })
     .case(patchDigitalTwinInterfacePropertiesAction.failed, (state: DeviceContentStateType) => {
         return state.merge({
             digitalTwinInterfaceProperties: {
-                digitalTwinInterfaceProperties: state.digitalTwinInterfaceProperties.digitalTwinInterfaceProperties,
-                digitalTwinInterfacePropertiesSyncStatus: SynchronizationStatus.failed
+                payload: state.digitalTwinInterfaceProperties.payload,
+                synchronizationStatus: SynchronizationStatus.failed
             }
         });
     });

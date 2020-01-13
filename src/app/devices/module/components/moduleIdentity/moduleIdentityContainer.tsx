@@ -13,7 +13,7 @@ import { getModuleIdentityListWrapperSelector } from '../../selectors';
 const mapStateToProps = (state: StateType): ModuleIdentityDataProps => {
     const moduleIdentityListWrapper = getModuleIdentityListWrapperSelector(state);
     return {
-        moduleIdentityList: moduleIdentityListWrapper && moduleIdentityListWrapper.moduleIdentities || [],
+        moduleIdentityList: moduleIdentityListWrapper && moduleIdentityListWrapper.payload || [],
         synchronizationStatus: moduleIdentityListWrapper && moduleIdentityListWrapper.synchronizationStatus
     };
 };

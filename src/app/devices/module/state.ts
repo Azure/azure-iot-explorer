@@ -4,14 +4,14 @@
  **********************************************************/
 import { Record } from 'immutable';
 import { IM } from '../../shared/types/types';
-import { ModuleIdentityListWrapper } from './../../api/models/moduleIdentityListWrapper';
-import { ModuleIdentityTwinWrapper } from './../../api/models/moduleIdentityTwinWrapper';
-import { ModuleIdentityWrapper } from './../../api/models/moduleIdentityWrapper';
+import { SynchronizationWrapper } from '../../api/models/synchronizationWrapper';
+import { ModuleTwin } from '../../api/models/moduleTwin';
+import { ModuleIdentity } from '../../api/models/moduleIdentity';
 
 export interface ModuleStateInterface {
-    moduleIdentityList?: ModuleIdentityListWrapper;
-    moduleIdentityTwin?: ModuleIdentityTwinWrapper;
-    moduleIdentity?: ModuleIdentityWrapper;
+    moduleIdentityList?: SynchronizationWrapper<ModuleIdentity[]>;
+    moduleIdentityTwin?: SynchronizationWrapper<ModuleTwin>;
+    moduleIdentity?: SynchronizationWrapper<ModuleIdentity>;
 }
 
 export const moduleStateInitial = Record<ModuleStateInterface>({

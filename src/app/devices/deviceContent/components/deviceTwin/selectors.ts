@@ -10,12 +10,12 @@ export const getDeviceTwinSelector = (state: StateInterface): Twin => {
     return state &&
     state.deviceContentState &&
     state.deviceContentState.deviceTwin &&
-    state.deviceContentState.deviceTwin.deviceTwin;
+    state.deviceContentState.deviceTwin.payload;
 };
 
 export const getDeviceTwinStateSelector = (state: StateInterface): SynchronizationStatus => {
     return state &&
     state.deviceContentState &&
     state.deviceContentState.deviceTwin &&
-    state.deviceContentState.deviceTwin.deviceTwinSynchronizationStatus;
+    state.deviceContentState.deviceTwin.synchronizationStatus;
 };

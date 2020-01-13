@@ -29,7 +29,7 @@ const reducer = reducerWithInitialState<ModuleStateType>(moduleStateInitial())
     .case(getModuleIdentitiesAction.done, (state: ModuleStateType, payload: {params: string} & {result: ModuleIdentity[]}) => {
         return state.merge({
             moduleIdentityList: {
-                moduleIdentities: payload.result,
+                payload: payload.result,
                 synchronizationStatus: SynchronizationStatus.fetched
             }
         });
@@ -72,7 +72,7 @@ const reducer = reducerWithInitialState<ModuleStateType>(moduleStateInitial())
     .case(getModuleIdentityTwinAction.done, (state: ModuleStateType, payload: {params: GetModuleIdentityTwinActionParameters} & {result: ModuleTwin}) => {
         return state.merge({
             moduleIdentityTwin: {
-                moduleIdentityTwin: payload.result,
+                payload: payload.result,
                 synchronizationStatus: SynchronizationStatus.fetched
             }
         });
@@ -94,7 +94,7 @@ const reducer = reducerWithInitialState<ModuleStateType>(moduleStateInitial())
     .case(getModuleIdentityAction.done, (state: ModuleStateType, payload: {params: GetModuleIdentityActionParameters} & {result: ModuleIdentity}) => {
         return state.merge({
             moduleIdentity: {
-                moduleIdentity: payload.result,
+                payload: payload.result,
                 synchronizationStatus: SynchronizationStatus.fetched
             }
         });
@@ -107,29 +107,29 @@ const reducer = reducerWithInitialState<ModuleStateType>(moduleStateInitial())
         });
     })
     .case(deleteModuleIdentityAction.started, (state: ModuleStateType) => {
-        const moduleList = state.moduleIdentityList.moduleIdentities;
+        const moduleList = state.moduleIdentityList.payload;
         return state.merge({
             moduleIdentityList: {
-                moduleIdentities: moduleList,
+                payload: moduleList,
                 synchronizationStatus: SynchronizationStatus.updating
             }
         });
     })
     .case(deleteModuleIdentityAction.done, (state: ModuleStateType, payload: {params: DeleteModuleIdentityActionParameters}) => {
-        const moduleList = state.moduleIdentityList.moduleIdentities;
+        const moduleList = state.moduleIdentityList.payload;
         const filteredList = moduleList.filter(moduleIdentity => moduleIdentity.moduleId !== payload.params.moduleId);
         return state.merge({
             moduleIdentityList: {
-                moduleIdentities: filteredList,
+                payload: filteredList,
                 synchronizationStatus: SynchronizationStatus.deleted
             }
         });
     })
     .case(deleteModuleIdentityAction.failed, (state: ModuleStateType) => {
-        const moduleList = state.moduleIdentityList.moduleIdentities;
+        const moduleList = state.moduleIdentityList.payload;
         return state.merge({
             moduleIdentityList: {
-                moduleIdentities: moduleList,
+                payload: moduleList,
                 synchronizationStatus: SynchronizationStatus.failed
             }
         });
