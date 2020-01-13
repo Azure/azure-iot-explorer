@@ -4,7 +4,7 @@
  **********************************************************/
 
 import { AccessVerificationState } from './accessVerificationState';
-import { AzureResourceIdentifier } from './azureResourceIdentifier';
+import { AzureResourceIdentifier } from '../../azureResourceIdentifier/models/azureResourceIdentifier';
 import { SharedAccessSignatureAuthorizationRule } from './sharedAccessSignatureAuthorizationRule';
 
 export interface AzureResource {
