@@ -55,7 +55,7 @@ describe('getAzureResourceIdentifiers', () => {
             subscriptionIds: ['sub1', 'sub2']
         });
 
-        const resourceUrl = `managementEndpoint/providers/Microsoft.ResourcesGraph/resources?api-version=2019-04-01`;
+        const resourceUrl = `https://managementEndpoint/providers/Microsoft.ResourcesGraph/resources?api-version=2019-04-01`;
         const serviceRequestParams = {
             body: JSON.stringify({
                 query: `where type =~ 'microsoft.devices/iothubs' | project id,name,type,location,resourceGroup,subscriptionId`,
@@ -83,7 +83,7 @@ describe('getAzureResourceIdentifiers', () => {
             subscriptionIds: ['sub1', 'sub2']
         });
 
-        const resourceUrl = `managementEndpoint/providers/Microsoft.ResourcesGraph/resources?api-version=2019-04-01`;
+        const resourceUrl = `https://managementEndpoint/providers/Microsoft.ResourcesGraph/resources?api-version=2019-04-01`;
         const serviceRequestParams = {
             body: JSON.stringify({
                 query: `where type =~ 'microsoft.devices/iothubs' | project id,name,type,location,resourceGroup,subscriptionId`,
@@ -313,7 +313,7 @@ describe('getAzureResourceIdentifier', () => {
             subscriptionIds: ['sub1', 'sub2']
         });
 
-        const resourceUrl = `managementEndpoint/providers/Microsoft.ResourcesGraph/resources?api-version=2019-04-01`;
+        const resourceUrl = `https://managementEndpoint/providers/Microsoft.ResourcesGraph/resources?api-version=2019-04-01`;
         const serviceRequestParams = {
             body: JSON.stringify({
                 query: `where type =~ 'microsoft.devices/iothubs' and name =~ 'resourceName' | project id,name,type,location,resourceGroup,subscriptionId`,

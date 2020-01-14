@@ -11,7 +11,7 @@ describe('getAzureSubscriptions', () => {
             },
         });
 
-        const resourceUrl = `managementEndpoint/subscriptions?api-version=2019-06-01`;
+        const resourceUrl = `https://managementEndpoint/subscriptions?api-version=2019-06-01`;
         const serviceRequestParams = {
             headers: new Headers({
                 'Accept': APPLICATION_JSON,

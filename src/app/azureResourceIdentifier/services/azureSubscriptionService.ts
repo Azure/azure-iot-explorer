@@ -16,7 +16,7 @@ export const getAzureSubscriptions = async (parameters: GetSubscriptionsParamete
     const { azureResourceManagementEndpoint } = parameters;
     const { authorizationToken, endpoint } = azureResourceManagementEndpoint;
 
-    const resourceUrl = `${endpoint}/subscriptions?api-version=${azureSubscriptionAPIVersion}`;
+    const resourceUrl = `https://${endpoint}/subscriptions?api-version=${azureSubscriptionAPIVersion}`;
     const serviceRequestParams: RequestInit = {
         headers: new Headers({
             'Accept': APPLICATION_JSON,

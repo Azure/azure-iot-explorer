@@ -18,6 +18,7 @@ export interface AppConfigInterface {
         authority: string;
         client: string;
     };
+    azureResourceManagementEndpoint?: string;
 }
 
 export const appConfig = config as AppConfigInterface;
