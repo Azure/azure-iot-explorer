@@ -18,7 +18,7 @@ describe('getResourceNameFromHostName', () => {
 
 describe('getResourceTypeFromHostName', () => {
     it('returns iot hub resource type given iot hub host name', () => {
-        expect(getResourceTypeFromHostName('resourceName1.azure-devices.net')).toEqual(AzureResourceIdentifierType.IoTHub);
+        expect(getResourceTypeFromHostName('resourceName1.azure-devices.net')).toEqual(AzureResourceIdentifierType.IotHub);
     });
 
     it('returns device provisioning service given device provisioning host name', () => {

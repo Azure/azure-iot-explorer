@@ -13,8 +13,8 @@ export const getResourceTypeFromHostName = (hostName: string): AzureResourceIden
     const hostNameSplit = hostName ? hostName.split('.') : [];
     if (hostNameSplit.length > 1) {
         const type = hostNameSplit[1].toLowerCase();
-        if (type === AzureResourceHostNameType.IoTHub.toLowerCase()) {
-            return AzureResourceIdentifierType.IoTHub;
+        if (type === AzureResourceHostNameType.IotHub.toLowerCase()) {
+            return AzureResourceIdentifierType.IotHub;
         }
 
         if (type === AzureResourceHostNameType.DeviceProvisioningService.toLowerCase()) {

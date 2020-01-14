@@ -10,7 +10,7 @@ describe('getAzureResourceIdentifiers', () => {
                 authorizationToken: 'token',
                 endpoint: 'managementEndpoint'
             },
-            resourceType: AzureResourceIdentifierType.IoTHub,
+            resourceType: AzureResourceIdentifierType.IotHub,
             subscriptionIds: ['sub1', 'sub2']
         });
 
@@ -38,7 +38,7 @@ describe('getAzureResourceIdentifiers', () => {
                 endpoint: 'managementEndpoint'
             },
             continuationToken: 'continuationToken',
-            resourceType: AzureResourceIdentifierType.IoTHub,
+            resourceType: AzureResourceIdentifierType.IotHub,
             subscriptionIds: ['sub1', 'sub2']
         });
 
@@ -78,7 +78,7 @@ describe('getAzureResourceIdentifiers', () => {
                 authorizationToken: 'token',
                 endpoint: 'managementEndpoint'
             },
-            resourceType: AzureResourceIdentifierType.IoTHub,
+            resourceType: AzureResourceIdentifierType.IotHub,
             subscriptionIds: ['sub1', 'sub2']
         })).rejects.toThrow(httpError);
     });
@@ -97,7 +97,7 @@ describe('getAzureResourceIdentifiers', () => {
                 authorizationToken: 'token',
                 endpoint: 'managementEndpoint'
             },
-            resourceType: AzureResourceIdentifierType.IoTHub,
+            resourceType: AzureResourceIdentifierType.IotHub,
             subscriptionIds: ['sub1', 'sub2']
         });
 
@@ -124,7 +124,7 @@ describe('getAzureResourceIdentifiers', () => {
                 authorizationToken: 'token',
                 endpoint: 'managementEndpoint'
             },
-            resourceType: AzureResourceIdentifierType.IoTHub,
+            resourceType: AzureResourceIdentifierType.IotHub,
             subscriptionIds: ['sub1', 'sub2']
         });
 
@@ -152,7 +152,7 @@ describe('getAzureResourceIdentifiers', () => {
                 authorizationToken: 'token',
                 endpoint: 'managementEndpoint'
             },
-            resourceType: AzureResourceIdentifierType.IoTHub,
+            resourceType: AzureResourceIdentifierType.IotHub,
             subscriptionIds: ['sub1', 'sub2']
         });
 
@@ -183,7 +183,7 @@ describe('getAzureResourceIdentifiers', () => {
                 authorizationToken: 'token',
                 endpoint: 'managementEndpoint'
             },
-            resourceType: AzureResourceIdentifierType.IoTHub,
+            resourceType: AzureResourceIdentifierType.IotHub,
             subscriptionIds: ['sub1', 'sub2']
         });
 
@@ -232,7 +232,7 @@ describe('getAzureResourceIdentifiers', () => {
                 authorizationToken: 'token',
                 endpoint: 'managementEndpoint'
             },
-            resourceType: AzureResourceIdentifierType.IoTHub,
+            resourceType: AzureResourceIdentifierType.IotHub,
             subscriptionIds: ['sub1', 'sub2']
         });
 
@@ -268,7 +268,7 @@ describe('getAzureResourceIdentifier', () => {
                 endpoint: 'managementEndpoint'
             },
             resourceName: 'resourceName',
-            resourceType: AzureResourceIdentifierType.IoTHub,
+            resourceType: AzureResourceIdentifierType.IotHub,
             subscriptionIds: ['sub1', 'sub2']
         });
 
@@ -305,7 +305,7 @@ describe('getAzureResourceIdentifier', () => {
                 endpoint: 'managementEndpoint'
             },
             resourceName: 'resourceName',
-            resourceType: AzureResourceIdentifierType.IoTHub,
+            resourceType: AzureResourceIdentifierType.IotHub,
             subscriptionIds: ['sub1', 'sub2']
         })).rejects.toThrow(httpError);
     });
@@ -328,7 +328,7 @@ describe('getAzureResourceIdentifier', () => {
                 endpoint: 'managementEndpoint'
             },
             resourceName: 'resourceName',
-            resourceType: AzureResourceIdentifierType.IoTHub,
+            resourceType: AzureResourceIdentifierType.IotHub,
             subscriptionIds: ['sub1', 'sub2']
         });
 
@@ -354,7 +354,7 @@ describe('getAzureResourceIdentifier', () => {
                 endpoint: 'managementEndpoint'
             },
             resourceName: 'resourceName',
-            resourceType: AzureResourceIdentifierType.IoTHub,
+            resourceType: AzureResourceIdentifierType.IotHub,
             subscriptionIds: ['sub1', 'sub2']
         });
 
@@ -383,7 +383,7 @@ describe('getAzureResourceIdentifier', () => {
                 endpoint: 'managementEndpoint'
             },
             resourceName: 'resourceName',
-            resourceType: AzureResourceIdentifierType.IoTHub,
+            resourceType: AzureResourceIdentifierType.IotHub,
             subscriptionIds: ['sub1', 'sub2']
         });
 

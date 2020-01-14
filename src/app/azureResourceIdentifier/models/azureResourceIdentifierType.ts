@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 export enum AzureResourceIdentifierType {
-    IoTHub = 'microsoft.devices/iothubs',
+    IotHub = 'microsoft.devices/iothubs',
     DeviceProvisioningService = 'microsoft.Devices/provisioningservices',
     Unknown = 'unknown'
 }

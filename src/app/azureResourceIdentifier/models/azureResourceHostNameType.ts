@@ -1,4 +1,4 @@
 export enum AzureResourceHostNameType {
-    IoTHub = 'azure-devices',
+    IotHub = 'azure-devices',
     DeviceProvisioningService = 'azure-devices-provisioning'
 }
