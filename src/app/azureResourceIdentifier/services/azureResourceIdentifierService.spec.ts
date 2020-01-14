@@ -1,48 +1,7 @@
-import { getAzureResourceIdentifiers, getAzureResourceIdentifier, mapPropertyArrayToObject } from './azureResourceIdentifierService';
+import { getAzureResourceIdentifiers, getAzureResourceIdentifier } from './azureResourceIdentifierService';
 import { AzureResourceIdentifierType } from '../models/azureResourceIdentifierType';
 import { HttpError } from '../../api/models/httpError';
 import { APPLICATION_JSON, HTTP_OPERATION_TYPES } from '../../api/constants';
-
-describe('mapPropertyArrayToObject', () => {
-    it('returns expected data structure', () => {
-        const fieldNames = [
-            'name',
-            'id',
-            'account'
-        ];
-
-        const fieldValues = [
-            'myName',
-            'myId',
-            'myAccount'
-        ];
-
-        expect(mapPropertyArrayToObject(fieldNames, fieldValues)).toEqual({
-            account: 'myAccount',
-            id: 'myId',
-            name: 'myName'
-        });
-    });
-
-    it('maps a value to undefined if fieldName possesses no associated fieldValue', () => {
-        const fieldNames = [
-            'name',
-            'id',
-            'account'
-        ];
-
-        const fieldValues = [
-            'myName',
-            'myId'
-        ];
-
-        expect(mapPropertyArrayToObject(fieldNames, fieldValues)).toEqual({
-            account: undefined,
-            id: 'myId',
-            name: 'myName'
-        });
-    });
-});
 
 describe('getAzureResourceIdentifiers', () => {
     it('calls fetch with specificed parameters', () => {

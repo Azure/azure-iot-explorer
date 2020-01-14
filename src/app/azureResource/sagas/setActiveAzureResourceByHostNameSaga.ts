@@ -8,15 +8,27 @@ import { setActiveAzureResourceAction, SetActiveAzureResourceByHostNameActionPar
 import { AccessVerificationState } from '../models/accessVerificationState';
 import { StateInterface } from '../../shared/redux/state';
 import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
+import { executeAzureResourceManagementTokenRequest } from '../../login/services/authService';
+import { appConfig, AuthMode } from '../../../appConfig/appConfig';
+import { AzureSubscription } from '../../azureResourceIdentifier/models/azureSubscription';
+import { getAzureSubscriptions } from '../../azureResourceIdentifier/services/azureSubscriptionService';
+import { AzureResourceIdentifier } from '../../azureResourceIdentifier/models/azureResourceIdentifier';
+import { getResourceNameFromHostName, getResourceTypeFromHostName } from '../../api/shared/hostNameUtils';
+import { getAzureResourceIdentifier } from '../../azureResourceIdentifier/services/azureResourceIdentifierService';
 
 export function* setActiveAzureResourceByHostNameSaga(action: Action<SetActiveAzureResourceByHostNameActionParameters>) {
     const { hostName } = action.payload;
 
+    if (appConfig.authMode === AuthMode.ConnectionString) {
+        yield call(setActiveAzureResourceByHostNameSaga_ConnectionString, hostName);
+    } else {
+        yield call(setActiveAzureResourceByHostNameSaga_ImplicitFlow, hostName);
+    }
+}
+
+export function* setActiveAzureResourceByHostNameSaga_ConnectionString(hostName: string) {
     const connectionString  = yield select(getLastUsedConnectionString);
     const connectionStringInfo = connectionString ? yield call(getConnectionInfoFromConnectionString, connectionString) : { hostName: ''};
-
-    // until msal implemented -- no manual change of host name alone is authorized
-    // todo select against connections strings to retrieve one placed in stored.
     if (hostName === connectionStringInfo.hostName) {
         yield put(setActiveAzureResourceAction({
             accessVerificationState: AccessVerificationState.Authorized,
@@ -29,28 +41,47 @@ export function* setActiveAzureResourceByHostNameSaga(action: Action<SetActiveAz
             hostName
         }));
     }
+}
 
-    // try {
-    //     yield call(getAccount);
-    //     if (!account) {
-    //         yield put(setActiveAzureResourceAction({
-    //             accessVerificationState: AccessVerificationState.Unauthorized,
-    //             hostName
-    //         }));
-    //     } else {
-    //     // todo auth check
-    //     //
-    //     // 1. search subscriptions
-    //     // 2. get resource
-    //     // 3. get shared access policies
-    //     // 4. update azure resource
-    //     }
-    // } catch (e) {
-    //     yield put(setActiveAzureResourceAction({
-    //         accessVerificationState: AccessVerificationState.Failed,
-    //         hostName
-    //     }));
-    // }
+export function* setActiveAzureResourceByHostNameSaga_ImplicitFlow(hostName: string) {
+
+    yield put(setActiveAzureResourceAction({
+        accessVerificationState: AccessVerificationState.Verifying,
+        hostName
+    }));
+
+    try {
+        const endpoint: string = appConfig.azureResourceManagementEndpoint;
+        const authorizationToken: string = yield call(executeAzureResourceManagementTokenRequest);
+        const subscriptions: AzureSubscription[] = yield call(getAzureSubscriptions, {
+            azureResourceManagementEndpoint: {
+                authorizationToken,
+                endpoint
+            }
+        });
+
+        const azureResourceIdentifier: AzureResourceIdentifier = yield call(getAzureResourceIdentifier, {
+            azureResourceManagementEndpoint: {
+                authorizationToken,
+                endpoint
+            },
+            resourceName: getResourceNameFromHostName(hostName),
+            resourceType: getResourceTypeFromHostName(hostName),
+            subscriptionIds: subscriptions.map(s => s.subscriptionId)
+        });
+
+        yield put(setActiveAzureResourceAction({
+            accessVerificationState: azureResourceIdentifier ? AccessVerificationState.Authorized : AccessVerificationState.Unauthorized,
+            azureResourceIdentifier,
+            hostName
+        }));
+
+    } catch {
+        yield put(setActiveAzureResourceAction({
+            accessVerificationState: AccessVerificationState.Failed,
+            hostName
+        }));
+    }
 }
 
 export const getLastUsedConnectionString = (state: StateInterface): string => {

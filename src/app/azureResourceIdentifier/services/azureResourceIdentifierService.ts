@@ -10,6 +10,7 @@ import { AzureResourceIdentifierQueryResult } from '../models/azureResourceIdent
 import { APPLICATION_JSON, HTTP_OPERATION_TYPES } from '../../api/constants';
 import { AzureResourceManagementEndpoint } from '../models/azureResourceManagementEndpoint';
 import { HttpError } from '../../api/models/httpError';
+import { mapPropertyArrayToObject } from '../../api/shared/mapUtils';
 
 const azureResourceManagementAPIVersion = '2019-04-01';
 const azureResourceManagementQueryFields = [
@@ -106,13 +107,4 @@ export const getAzureResourceIdentifier = async (parameters: GetAzureResourceIde
         undefined;
 
     return azureResourceIdentifier as AzureResourceIdentifier | undefined;
-};
-
-export const mapPropertyArrayToObject = (fieldNames: string[], fieldValues: string[]): object => {
-    const result = {} as any; // tslint:disable-line:no-any
-    fieldNames.forEach((fieldName, index) => {
-        result[fieldName] = index < fieldValues.length ? fieldValues[index] : undefined;
-    });
-
-    return result;
 };
