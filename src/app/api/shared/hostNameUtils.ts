@@ -9,7 +9,7 @@ export const getResourceNameFromHostName = (hostName: string): string | undefine
     }
 };
 
-export const getResourceTypeFromHostName = (hostName: string): string | undefined => {
+export const getResourceTypeFromHostName = (hostName: string): AzureResourceIdentifierType | undefined => {
     const hostNameSplit = hostName ? hostName.split('.') : [];
     if (hostNameSplit.length > 1) {
         const type = hostNameSplit[1].toLowerCase();

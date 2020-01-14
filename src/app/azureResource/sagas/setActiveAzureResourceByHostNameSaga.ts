@@ -23,15 +23,17 @@ export function* setActiveAzureResourceByHostNameSaga(action: Action<SetActiveAz
             accessVerificationState: AccessVerificationState.Failed,
             hostName
         }));
-
         return;
     }
 
-    if (appConfig.authMode === AuthMode.ConnectionString) {
+    const authMode = yield call(getAuthMode);
+
+    if (authMode === AuthMode.ConnectionString) {
         yield call(setActiveAzureResourceByHostNameSaga_ConnectionString, hostName);
-    } else {
-        yield call(setActiveAzureResourceByHostNameSaga_ImplicitFlow, hostName);
+        return;
     }
+
+    yield call(setActiveAzureResourceByHostNameSaga_ImplicitFlow, hostName);
 }
 
 export function* setActiveAzureResourceByHostNameSaga_ConnectionString(hostName: string) {
@@ -54,7 +56,7 @@ export function* setActiveAzureResourceByHostNameSaga_ConnectionString(hostName:
 
 export function* setActiveAzureResourceByHostNameSaga_ImplicitFlow(hostName: string) {
     try {
-        const endpoint: string = appConfig.azureResourceManagementEndpoint;
+        const endpoint: string = yield call(getAzureResourceManagementEndpoint);
         const authorizationToken: string = yield call(executeAzureResourceManagementTokenRequest);
         const subscriptions: AzureSubscription[] = yield call(getAzureSubscriptions, {
             azureResourceManagementEndpoint: {
@@ -86,6 +88,14 @@ export function* setActiveAzureResourceByHostNameSaga_ImplicitFlow(hostName: str
         }));
     }
 }
+
+export const getAuthMode = (): AuthMode => {
+    return appConfig.authMode;
+};
+
+export const getAzureResourceManagementEndpoint = (): string => {
+    return appConfig.azureResourceManagementEndpoint;
+};
 
 export const getLastUsedConnectionString = (state: StateInterface): string => {
     return state.connectionStringsState.connectionStrings.length > 0 ? state.connectionStringsState.connectionStrings[0] : '';

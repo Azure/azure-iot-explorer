@@ -4,5 +4,6 @@
  **********************************************************/
 export enum AzureResourceIdentifierType {
     IoTHub = 'microsoft.devices/iothubs',
-    DeviceProvisioningService = 'microsoft.Devices/provisioningservices'
+    DeviceProvisioningService = 'microsoft.Devices/provisioningservices',
+    Unknown = 'unknown'
 }
