@@ -1,5 +1,6 @@
-import {  getResourceNameFromHostName, getResourceTypeFromHostName } from './hostNameUtils';
+import {  getResourceNameFromHostName, getResourceTypeFromHostName, tryGetHostNameFromConnectionString } from './hostNameUtils';
 import { AzureResourceIdentifierType } from '../../azureResourceIdentifier/models/azureResourceIdentifierType';
+import * as utils from './utils';
 
 describe('getResourceNameFromHostName', () => {
     it('returns resource name given propertly formed hostName', () => {
@@ -34,5 +35,18 @@ describe('getResourceTypeFromHostName', () => {
 
     it('returns undefined given empty string', () => {
         expect(getResourceTypeFromHostName('')).toBeUndefined();
+    });
+});
+
+describe('tryGetHostNameFromConnectionString', () => {
+    it('returns empty string when falsy value provided', () => {
+        expect(tryGetHostNameFromConnectionString(undefined)).toEqual('');
+    });
+
+    it('returns expected value from getConnectionStringInfo', () => {
+        const spy = jest.spyOn(utils, 'getConnectionInfoFromConnectionString');
+        spy.mockReturnValue({ hostName: 'hostName'});
+
+        expect(tryGetHostNameFromConnectionString('connectionString')).toEqual('hostName');
     });
 });

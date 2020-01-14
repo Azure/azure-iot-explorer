@@ -1,5 +1,6 @@
 import { AzureResourceIdentifierType } from '../../azureResourceIdentifier/models/azureResourceIdentifierType';
 import { AzureResourceHostNameType } from '../../azureResourceIdentifier/models/azureResourceHostNameType';
+import { getConnectionInfoFromConnectionString } from './utils';
 
 export const getResourceNameFromHostName = (hostName: string): string | undefined => {
     const hostNameSplit = hostName ? hostName.split('.') : [];
@@ -19,5 +20,14 @@ export const getResourceTypeFromHostName = (hostName: string): string | undefine
         if (type === AzureResourceHostNameType.DeviceProvisioningService.toLowerCase()) {
             return AzureResourceIdentifierType.DeviceProvisioningService;
         }
+    }
+};
+
+export const tryGetHostNameFromConnectionString = (connectionString: string): string => {
+    try {
+        const { hostName } = getConnectionInfoFromConnectionString(connectionString);
+        return hostName;
+    } catch {
+        return '';
     }
 };

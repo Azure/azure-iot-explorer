@@ -7,17 +7,25 @@ import { call, put, select } from 'redux-saga/effects';
 import { setActiveAzureResourceAction, SetActiveAzureResourceByHostNameActionParameters } from '../actions';
 import { AccessVerificationState } from '../models/accessVerificationState';
 import { StateInterface } from '../../shared/redux/state';
-import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
 import { executeAzureResourceManagementTokenRequest } from '../../login/services/authService';
 import { appConfig, AuthMode } from '../../../appConfig/appConfig';
 import { AzureSubscription } from '../../azureResourceIdentifier/models/azureSubscription';
 import { getAzureSubscriptions } from '../../azureResourceIdentifier/services/azureSubscriptionService';
 import { AzureResourceIdentifier } from '../../azureResourceIdentifier/models/azureResourceIdentifier';
-import { getResourceNameFromHostName, getResourceTypeFromHostName } from '../../api/shared/hostNameUtils';
+import { getResourceNameFromHostName, getResourceTypeFromHostName, tryGetHostNameFromConnectionString } from '../../api/shared/hostNameUtils';
 import { getAzureResourceIdentifier } from '../../azureResourceIdentifier/services/azureResourceIdentifierService';
 
 export function* setActiveAzureResourceByHostNameSaga(action: Action<SetActiveAzureResourceByHostNameActionParameters>) {
     const { hostName } = action.payload;
+
+    if (!hostName) {
+        yield put(setActiveAzureResourceAction({
+            accessVerificationState: AccessVerificationState.Failed,
+            hostName
+        }));
+
+        return;
+    }
 
     if (appConfig.authMode === AuthMode.ConnectionString) {
         yield call(setActiveAzureResourceByHostNameSaga_ConnectionString, hostName);
@@ -28,8 +36,9 @@ export function* setActiveAzureResourceByHostNameSaga(action: Action<SetActiveAz
 
 export function* setActiveAzureResourceByHostNameSaga_ConnectionString(hostName: string) {
     const connectionString  = yield select(getLastUsedConnectionString);
-    const connectionStringInfo = connectionString ? yield call(getConnectionInfoFromConnectionString, connectionString) : { hostName: ''};
-    if (hostName === connectionStringInfo.hostName) {
+    const connectionStringHostName = yield call(tryGetHostNameFromConnectionString, connectionString);
+
+    if (hostName.toLowerCase() === connectionStringHostName.toLowerCase()) {
         yield put(setActiveAzureResourceAction({
             accessVerificationState: AccessVerificationState.Authorized,
             connectionString,
@@ -44,12 +53,6 @@ export function* setActiveAzureResourceByHostNameSaga_ConnectionString(hostName:
 }
 
 export function* setActiveAzureResourceByHostNameSaga_ImplicitFlow(hostName: string) {
-
-    yield put(setActiveAzureResourceAction({
-        accessVerificationState: AccessVerificationState.Verifying,
-        hostName
-    }));
-
     try {
         const endpoint: string = appConfig.azureResourceManagementEndpoint;
         const authorizationToken: string = yield call(executeAzureResourceManagementTokenRequest);
