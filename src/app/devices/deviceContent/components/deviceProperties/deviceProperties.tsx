@@ -12,6 +12,7 @@ import DevicePropertiesPerInterface, { TwinWithSchema } from './deviceProperties
 import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
 import { REFRESH } from '../../../../constants/iconNames';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
+import { RenderHeaderText } from '../../../../shared/components/headerText';
 
 export interface DevicePropertiesDataProps {
     twinAndSchema: TwinWithSchema[];
@@ -65,7 +66,7 @@ export default class DeviceProperties
         const { twinAndSchema } = this.props;
         return (
             <>
-                <h3>{context.t(ResourceKeys.deviceProperties.headerText)}</h3>
+                {RenderHeaderText(context, ResourceKeys.deviceProperties.headerText)}
                 {twinAndSchema ?
                     <DevicePropertiesPerInterface
                         twinAndSchema={twinAndSchema}

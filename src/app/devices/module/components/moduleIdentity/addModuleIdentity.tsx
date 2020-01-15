@@ -13,8 +13,9 @@ import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryString
 import { CANCEL, SAVE } from '../../../../constants/iconNames';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { ModuleIdentity } from '../../../../api/models/moduleIdentity';
-import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../../constants/routes';
+import { ROUTE_PARAMS } from '../../../../constants/routes';
 import MaskedCopyableTextFieldContainer from '../../../../shared/components/maskedCopyableTextFieldContainer';
+import { RenderHeaderText } from '../../../../shared/components/headerText';
 import { DeviceAuthenticationType } from '../../../../api/models/deviceAuthenticationType';
 import { validateThumbprint, validateKey, validateModuleIdentityName } from '../../../../shared/utils/utils';
 import '../../../../css/_deviceDetail.scss';
@@ -66,7 +67,7 @@ export default class AddModuleIdentityComponent
                 {(context: LocalizationContextInterface) => (
                     <>
                         {this.showCommandBar(context)}
-                        <h3>{context.t(ResourceKeys.moduleIdentity.addModuleHeaderText)}</h3>
+                        {RenderHeaderText(context, ResourceKeys.moduleIdentity.headerText)}
                         <div className="device-detail">
                             <div className="module-identity">
                                 {this.showModuleId(context)}

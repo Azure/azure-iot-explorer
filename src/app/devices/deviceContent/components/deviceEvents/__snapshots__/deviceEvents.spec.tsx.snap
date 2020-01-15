@@ -42,9 +42,36 @@ exports[`components/devices/deviceEvents matches snapshot in electron 1`] = `
       ]
     }
   />
-  <h3>
-    deviceEvents.headerText
-  </h3>
+  <Stack
+    horizontal={true}
+  >
+    <StackItem
+      align="start"
+    >
+      <h3>
+         
+        deviceEvents.headerText
+      </h3>
+    </StackItem>
+    <StackItem
+      align="center"
+    >
+      <StyledTooltipHostBase
+        content="deviceEvents.tooltip"
+        directionalHint={12}
+        id="deviceEvents.tooltip"
+      >
+        <CustomizedIconButton
+          aria-labelledby="tooltip1"
+          iconProps={
+            Object {
+              "iconName": "info",
+            }
+          }
+        />
+      </StyledTooltipHostBase>
+    </StackItem>
+  </Stack>
   <StyledTextFieldBase
     ariaLabel="deviceEvents.consumerGroups.label"
     className="consumer-group-text-field"
@@ -130,9 +157,36 @@ exports[`components/devices/deviceEvents matches snapshot in hosted environment 
       ]
     }
   />
-  <h3>
-    deviceEvents.headerText
-  </h3>
+  <Stack
+    horizontal={true}
+  >
+    <StackItem
+      align="start"
+    >
+      <h3>
+         
+        deviceEvents.headerText
+      </h3>
+    </StackItem>
+    <StackItem
+      align="center"
+    >
+      <StyledTooltipHostBase
+        content="deviceEvents.tooltip"
+        directionalHint={12}
+        id="deviceEvents.tooltip"
+      >
+        <CustomizedIconButton
+          aria-labelledby="tooltip2"
+          iconProps={
+            Object {
+              "iconName": "info",
+            }
+          }
+        />
+      </StyledTooltipHostBase>
+    </StackItem>
+  </Stack>
   <StyledTextFieldBase
     ariaLabel="deviceEvents.consumerGroups.label"
     className="consumer-group-text-field"

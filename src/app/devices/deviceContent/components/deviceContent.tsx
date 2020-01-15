@@ -67,7 +67,7 @@ export class DeviceContentComponent extends React.PureComponent<DeviceContentPro
                             <div className="device-content">
                                 <>
                                     {this.renderNav(context)}
-                                    {this.renderDeviceContentDetail()}
+                                {this.renderDeviceContentDetail()}
                                 </>
                             </div>
                         </div>

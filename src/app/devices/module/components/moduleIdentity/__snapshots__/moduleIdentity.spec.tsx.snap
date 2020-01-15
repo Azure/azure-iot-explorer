@@ -28,9 +28,43 @@ exports[`devices/components/moduleIdentity snapshot matches snapshot when fetch 
       ]
     }
   />
-  <h3>
-    moduleIdentity.headerText
-  </h3>
+  <Stack
+    horizontal={true}
+  >
+    <StackItem
+      align="start"
+    >
+      <h3>
+         
+        moduleIdentity.headerText
+      </h3>
+    </StackItem>
+    <StackItem
+      align="center"
+    >
+      <StyledTooltipHostBase
+        content={
+          <StyledLinkBase
+            href="moduleIdentity.link"
+            target="_blank"
+          >
+            moduleIdentity.tooltip
+          </StyledLinkBase>
+        }
+        directionalHint={12}
+        id="moduleIdentity.tooltip"
+      >
+        <CustomizedIconButton
+          aria-labelledby="tooltip2"
+          iconProps={
+            Object {
+              "iconName": "info",
+            }
+          }
+        />
+      </StyledTooltipHostBase>
+    </StackItem>
+  </Stack>
   <div
     className="device-detail"
   >
@@ -117,9 +151,43 @@ exports[`devices/components/moduleIdentity snapshot matches snapshot while loadi
       ]
     }
   />
-  <h3>
-    moduleIdentity.headerText
-  </h3>
+  <Stack
+    horizontal={true}
+  >
+    <StackItem
+      align="start"
+    >
+      <h3>
+         
+        moduleIdentity.headerText
+      </h3>
+    </StackItem>
+    <StackItem
+      align="center"
+    >
+      <StyledTooltipHostBase
+        content={
+          <StyledLinkBase
+            href="moduleIdentity.link"
+            target="_blank"
+          >
+            moduleIdentity.tooltip
+          </StyledLinkBase>
+        }
+        directionalHint={12}
+        id="moduleIdentity.tooltip"
+      >
+        <CustomizedIconButton
+          aria-labelledby="tooltip1"
+          iconProps={
+            Object {
+              "iconName": "info",
+            }
+          }
+        />
+      </StyledTooltipHostBase>
+    </StackItem>
+  </Stack>
   <div
     className="device-detail"
   >
@@ -206,9 +274,43 @@ exports[`devices/components/moduleIdentity snapshot matches snapshot with module
       ]
     }
   />
-  <h3>
-    moduleIdentity.headerText
-  </h3>
+  <Stack
+    horizontal={true}
+  >
+    <StackItem
+      align="start"
+    >
+      <h3>
+         
+        moduleIdentity.headerText
+      </h3>
+    </StackItem>
+    <StackItem
+      align="center"
+    >
+      <StyledTooltipHostBase
+        content={
+          <StyledLinkBase
+            href="moduleIdentity.link"
+            target="_blank"
+          >
+            moduleIdentity.tooltip
+          </StyledLinkBase>
+        }
+        directionalHint={12}
+        id="moduleIdentity.tooltip"
+      >
+        <CustomizedIconButton
+          aria-labelledby="tooltip3"
+          iconProps={
+            Object {
+              "iconName": "info",
+            }
+          }
+        />
+      </StyledTooltipHostBase>
+    </StackItem>
+  </Stack>
   <div
     className="device-detail"
   >

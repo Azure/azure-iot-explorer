@@ -6,6 +6,18 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot 1`] = `
     disableSave={true}
     handleSave={[Function]}
   />
+  <Stack
+    horizontal={true}
+  >
+    <StackItem
+      align="start"
+    >
+      <h3>
+         
+        deviceIdentity.headerText
+      </h3>
+    </StackItem>
+  </Stack>
 </Fragment>
 `;
 
@@ -15,6 +27,18 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with CA aut
     disableSave={true}
     handleSave={[Function]}
   />
+  <Stack
+    horizontal={true}
+  >
+    <StackItem
+      align="start"
+    >
+      <h3>
+         
+        deviceIdentity.headerText
+      </h3>
+    </StackItem>
+  </Stack>
   <div
     className="device-detail"
   >
@@ -27,6 +51,9 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with CA aut
       t={
         [MockFunction] {
           "calls": Array [
+            Array [
+              "deviceIdentity.headerText",
+            ],
             Array [
               "deviceIdentity.deviceID",
             ],
@@ -62,6 +89,10 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with CA aut
             ],
           ],
           "results": Array [
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.headerText",
+            },
             Object {
               "type": "return",
               "value": "deviceIdentity.deviceID",
@@ -123,6 +154,9 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with CA aut
         [MockFunction] {
           "calls": Array [
             Array [
+              "deviceIdentity.headerText",
+            ],
+            Array [
               "deviceIdentity.deviceID",
             ],
             Array [
@@ -157,6 +191,10 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with CA aut
             ],
           ],
           "results": Array [
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.headerText",
+            },
             Object {
               "type": "return",
               "value": "deviceIdentity.deviceID",
@@ -225,6 +263,18 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with SelfSi
     disableSave={true}
     handleSave={[Function]}
   />
+  <Stack
+    horizontal={true}
+  >
+    <StackItem
+      align="start"
+    >
+      <h3>
+         
+        deviceIdentity.headerText
+      </h3>
+    </StackItem>
+  </Stack>
   <div
     className="device-detail"
   >
@@ -237,6 +287,9 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with SelfSi
       t={
         [MockFunction] {
           "calls": Array [
+            Array [
+              "deviceIdentity.headerText",
+            ],
             Array [
               "deviceIdentity.deviceID",
             ],
@@ -290,6 +343,10 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with SelfSi
             ],
           ],
           "results": Array [
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.headerText",
+            },
             Object {
               "type": "return",
               "value": "deviceIdentity.deviceID",
@@ -375,6 +432,9 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with SelfSi
         [MockFunction] {
           "calls": Array [
             Array [
+              "deviceIdentity.headerText",
+            ],
+            Array [
               "deviceIdentity.deviceID",
             ],
             Array [
@@ -427,6 +487,10 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with SelfSi
             ],
           ],
           "results": Array [
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.headerText",
+            },
             Object {
               "type": "return",
               "value": "deviceIdentity.deviceID",
@@ -510,6 +574,9 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with SelfSi
         [MockFunction] {
           "calls": Array [
             Array [
+              "deviceIdentity.headerText",
+            ],
+            Array [
               "deviceIdentity.deviceID",
             ],
             Array [
@@ -562,6 +629,10 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with SelfSi
             ],
           ],
           "results": Array [
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.headerText",
+            },
             Object {
               "type": "return",
               "value": "deviceIdentity.deviceID",
@@ -645,6 +716,9 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with SelfSi
         [MockFunction] {
           "calls": Array [
             Array [
+              "deviceIdentity.headerText",
+            ],
+            Array [
               "deviceIdentity.deviceID",
             ],
             Array [
@@ -697,6 +771,10 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with SelfSi
             ],
           ],
           "results": Array [
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.headerText",
+            },
             Object {
               "type": "return",
               "value": "deviceIdentity.deviceID",
@@ -792,6 +870,18 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
     onRegenerateSecondaryKey={[Function]}
     onSwapKeys={[Function]}
   />
+  <Stack
+    horizontal={true}
+  >
+    <StackItem
+      align="start"
+    >
+      <h3>
+         
+        deviceIdentity.headerText
+      </h3>
+    </StackItem>
+  </Stack>
   <div
     className="device-detail"
   >
@@ -804,6 +894,9 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
       t={
         [MockFunction] {
           "calls": Array [
+            Array [
+              "deviceIdentity.headerText",
+            ],
             Array [
               "deviceIdentity.deviceID",
             ],
@@ -893,6 +986,10 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
             ],
           ],
           "results": Array [
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.headerText",
+            },
             Object {
               "type": "return",
               "value": "deviceIdentity.deviceID",
@@ -1025,6 +1122,9 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
         [MockFunction] {
           "calls": Array [
             Array [
+              "deviceIdentity.headerText",
+            ],
+            Array [
               "deviceIdentity.deviceID",
             ],
             Array [
@@ -1113,6 +1213,10 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
             ],
           ],
           "results": Array [
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.headerText",
+            },
             Object {
               "type": "return",
               "value": "deviceIdentity.deviceID",
@@ -1245,6 +1349,9 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
         [MockFunction] {
           "calls": Array [
             Array [
+              "deviceIdentity.headerText",
+            ],
+            Array [
               "deviceIdentity.deviceID",
             ],
             Array [
@@ -1333,6 +1440,10 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
             ],
           ],
           "results": Array [
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.headerText",
+            },
             Object {
               "type": "return",
               "value": "deviceIdentity.deviceID",
@@ -1463,6 +1574,9 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
         [MockFunction] {
           "calls": Array [
             Array [
+              "deviceIdentity.headerText",
+            ],
+            Array [
               "deviceIdentity.deviceID",
             ],
             Array [
@@ -1551,6 +1665,10 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
             ],
           ],
           "results": Array [
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.headerText",
+            },
             Object {
               "type": "return",
               "value": "deviceIdentity.deviceID",
@@ -1682,6 +1800,9 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
         [MockFunction] {
           "calls": Array [
             Array [
+              "deviceIdentity.headerText",
+            ],
+            Array [
               "deviceIdentity.deviceID",
             ],
             Array [
@@ -1770,6 +1891,10 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
             ],
           ],
           "results": Array [
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.headerText",
+            },
             Object {
               "type": "return",
               "value": "deviceIdentity.deviceID",
@@ -1950,6 +2075,9 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
             [MockFunction] {
               "calls": Array [
                 Array [
+                  "deviceIdentity.headerText",
+                ],
+                Array [
                   "deviceIdentity.deviceID",
                 ],
                 Array [
@@ -2038,6 +2166,10 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
                 ],
               ],
               "results": Array [
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.headerText",
+                },
                 Object {
                   "type": "return",
                   "value": "deviceIdentity.deviceID",
@@ -2189,6 +2321,18 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
     onRegenerateSecondaryKey={[Function]}
     onSwapKeys={[Function]}
   />
+  <Stack
+    horizontal={true}
+  >
+    <StackItem
+      align="start"
+    >
+      <h3>
+         
+        deviceIdentity.headerText
+      </h3>
+    </StackItem>
+  </Stack>
   <div
     className="device-detail"
   >
@@ -2201,6 +2345,9 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
       t={
         [MockFunction] {
           "calls": Array [
+            Array [
+              "deviceIdentity.headerText",
+            ],
             Array [
               "deviceIdentity.deviceID",
             ],
@@ -2290,6 +2437,10 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
             ],
           ],
           "results": Array [
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.headerText",
+            },
             Object {
               "type": "return",
               "value": "deviceIdentity.deviceID",
@@ -2421,6 +2572,9 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
         [MockFunction] {
           "calls": Array [
             Array [
+              "deviceIdentity.headerText",
+            ],
+            Array [
               "deviceIdentity.deviceID",
             ],
             Array [
@@ -2509,6 +2663,10 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
             ],
           ],
           "results": Array [
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.headerText",
+            },
             Object {
               "type": "return",
               "value": "deviceIdentity.deviceID",
@@ -2641,6 +2799,9 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
         [MockFunction] {
           "calls": Array [
             Array [
+              "deviceIdentity.headerText",
+            ],
+            Array [
               "deviceIdentity.deviceID",
             ],
             Array [
@@ -2729,6 +2890,10 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
             ],
           ],
           "results": Array [
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.headerText",
+            },
             Object {
               "type": "return",
               "value": "deviceIdentity.deviceID",
@@ -2859,6 +3024,9 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
         [MockFunction] {
           "calls": Array [
             Array [
+              "deviceIdentity.headerText",
+            ],
+            Array [
               "deviceIdentity.deviceID",
             ],
             Array [
@@ -2947,6 +3115,10 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
             ],
           ],
           "results": Array [
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.headerText",
+            },
             Object {
               "type": "return",
               "value": "deviceIdentity.deviceID",
@@ -3078,6 +3250,9 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
         [MockFunction] {
           "calls": Array [
             Array [
+              "deviceIdentity.headerText",
+            ],
+            Array [
               "deviceIdentity.deviceID",
             ],
             Array [
@@ -3166,6 +3341,10 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
             ],
           ],
           "results": Array [
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.headerText",
+            },
             Object {
               "type": "return",
               "value": "deviceIdentity.deviceID",
@@ -3346,6 +3525,9 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
             [MockFunction] {
               "calls": Array [
                 Array [
+                  "deviceIdentity.headerText",
+                ],
+                Array [
                   "deviceIdentity.deviceID",
                 ],
                 Array [
@@ -3434,6 +3616,10 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
                 ],
               ],
               "results": Array [
+                Object {
+                  "type": "return",
+                  "value": "deviceIdentity.headerText",
+                },
                 Object {
                   "type": "return",
                   "value": "deviceIdentity.deviceID",
@@ -3586,6 +3772,18 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
     onRegenerateSecondaryKey={[Function]}
     onSwapKeys={[Function]}
   />
+  <Stack
+    horizontal={true}
+  >
+    <StackItem
+      align="start"
+    >
+      <h3>
+         
+        deviceIdentity.headerText
+      </h3>
+    </StackItem>
+  </Stack>
   <div
     className="device-detail"
   >
@@ -3600,6 +3798,18 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with auth t
     disableSave={true}
     handleSave={[Function]}
   />
+  <Stack
+    horizontal={true}
+  >
+    <StackItem
+      align="start"
+    >
+      <h3>
+         
+        deviceIdentity.headerText
+      </h3>
+    </StackItem>
+  </Stack>
   <div
     className="device-detail"
   >
@@ -3612,6 +3822,9 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with auth t
       t={
         [MockFunction] {
           "calls": Array [
+            Array [
+              "deviceIdentity.headerText",
+            ],
             Array [
               "deviceIdentity.deviceID",
             ],
@@ -3635,6 +3848,10 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with auth t
             ],
           ],
           "results": Array [
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.headerText",
+            },
             Object {
               "type": "return",
               "value": "deviceIdentity.deviceID",
@@ -3687,6 +3904,18 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with identi
     disableSave={true}
     handleSave={[Function]}
   />
+  <Stack
+    horizontal={true}
+  >
+    <StackItem
+      align="start"
+    >
+      <h3>
+         
+        deviceIdentity.headerText
+      </h3>
+    </StackItem>
+  </Stack>
   <div
     className="device-detail"
   >
@@ -3699,6 +3928,9 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with identi
       t={
         [MockFunction] {
           "calls": Array [
+            Array [
+              "deviceIdentity.headerText",
+            ],
             Array [
               "deviceIdentity.deviceID",
             ],
@@ -3722,6 +3954,10 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with identi
             ],
           ],
           "results": Array [
+            Object {
+              "type": "return",
+              "value": "deviceIdentity.headerText",
+            },
             Object {
               "type": "return",
               "value": "deviceIdentity.deviceID",

@@ -23,9 +23,10 @@ import { SynchronizationWrapper } from '../../../../api/models/synchronizationWr
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import MaskedCopyableTextFieldContainer from '../../../../shared/components/maskedCopyableTextFieldContainer';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
-import '../../../../css/_deviceDetail.scss';
 import CollapsibleSection from '../../../../shared/components/collapsibleSection';
 import { SAS_EXPIRES_MINUTES } from '../../../../constants/devices';
+import { RenderHeaderText } from '../../../../shared/components/headerText';
+import '../../../../css/_deviceDetail.scss';
 
 export interface DeviceIdentityDispatchProps {
     updateDeviceIdentity: (deviceIdentity: DeviceIdentity) => void;
@@ -66,8 +67,8 @@ export default class DeviceIdentityInformation
                 {(context: LocalizationContextInterface) => (
                     <>
                         {this.showCommandBar()}
+                        {RenderHeaderText(context, ResourceKeys.deviceIdentity.headerText)}
                         {this.props.identityWrapper && this.renderInformationSection(context)}
-
                     </>
                 )}
             </LocalizationContextConsumer>

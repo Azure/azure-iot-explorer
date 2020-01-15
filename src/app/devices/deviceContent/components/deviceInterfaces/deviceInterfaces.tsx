@@ -20,6 +20,8 @@ import ErrorBoundary from '../../../errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 import { ThemeContextInterface, ThemeContextConsumer } from '../../../../shared/contexts/themeContext';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
+import { RenderHeaderText } from '../../../../shared/components/headerText';
+import MaskedCopyableTextFieldContainer from '../../../../shared/components/maskedCopyableTextFieldContainer';
 
 const EditorPromise = import('react-monaco-editor');
 const Editor = React.lazy(() => EditorPromise);
@@ -74,9 +76,7 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
         const {  modelDefinitionWithSource } = this.props;
         return (
             <>
-                <h3>{context.t(ResourceKeys.deviceInterfaces.headerText, {
-                    interfaceId: getInterfaceIdFromQueryString(this.props)
-                })}</h3>
+                {RenderHeaderText(context, ResourceKeys.deviceInterfaces.headerText)}
                 {modelDefinitionWithSource && modelDefinitionWithSource.payload ?
                     <ErrorBoundary error={context.t(ResourceKeys.errorBoundary.text)}>
                         <section className="pnp-interface-info">
@@ -104,8 +104,30 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
                 >
                         {context.t(ResourceKeys.deviceInterfaces.command.configure)}
                 </ActionButton>
-                <Label> {context.t(ResourceKeys.deviceInterfaces.columns.displayName)}: {displayName}</Label>
-                <Label> {context.t(ResourceKeys.deviceInterfaces.columns.description)}: {description}</Label>
+                <MaskedCopyableTextFieldContainer
+                    ariaLabel={context.t(ResourceKeys.deviceInterfaces.columns.id)}
+                    label={context.t(ResourceKeys.deviceInterfaces.columns.id)}
+                    value={getInterfaceIdFromQueryString(this.props)}
+                    allowMask={false}
+                    t={context.t}
+                    readOnly={true}
+                />
+                <MaskedCopyableTextFieldContainer
+                    ariaLabel={context.t(ResourceKeys.deviceInterfaces.columns.displayName)}
+                    label={context.t(ResourceKeys.deviceInterfaces.columns.displayName)}
+                    value={displayName}
+                    allowMask={false}
+                    t={context.t}
+                    readOnly={true}
+                />
+                <MaskedCopyableTextFieldContainer
+                    ariaLabel={context.t(ResourceKeys.deviceInterfaces.columns.description)}
+                    label={context.t(ResourceKeys.deviceInterfaces.columns.description)}
+                    value={description}
+                    allowMask={false}
+                    t={context.t}
+                    readOnly={true}
+                />
             </>
         );
     }
@@ -140,7 +162,7 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
                                 {(themeContext: ThemeContextInterface) => (
                                     <Editor
                                         language="json"
-                                        height="calc(100vh - 400px)"
+                                        height="calc(100vh - 600px)"
                                         value={JSON.stringify(modelDefinition, null, '\t')}
                                         options={{
                                             automaticLayout: true,

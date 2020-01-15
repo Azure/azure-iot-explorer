@@ -18,9 +18,18 @@ exports[`components/devices/deviceProperties matches snapshot while interface ca
       ]
     }
   />
-  <h3>
-    deviceProperties.headerText
-  </h3>
+  <Stack
+    horizontal={true}
+  >
+    <StackItem
+      align="start"
+    >
+      <h3>
+         
+        deviceProperties.headerText
+      </h3>
+    </StackItem>
+  </Stack>
   <DevicePropertiesPerInterface
     twinAndSchema={Array []}
   />
@@ -45,9 +54,18 @@ exports[`components/devices/deviceProperties matches snapshot with one twinWithS
       ]
     }
   />
-  <h3>
-    deviceProperties.headerText
-  </h3>
+  <Stack
+    horizontal={true}
+  >
+    <StackItem
+      align="start"
+    >
+      <h3>
+         
+        deviceProperties.headerText
+      </h3>
+    </StackItem>
+  </Stack>
   <DevicePropertiesPerInterface
     twinAndSchema={Array []}
   />

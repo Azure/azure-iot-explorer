@@ -21,6 +21,7 @@ import { GetModuleIdentityTwinActionParameters, GetModuleIdentityActionParameter
 import { ModuleIdentity } from '../../../../api/models/moduleIdentity';
 import { ModuleTwin } from '../../../../api/models/moduleTwin';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
+import { RenderHeaderText } from '../../../../shared/components/headerText';
 import { DeviceAuthenticationType } from '../../../../api/models/deviceAuthenticationType';
 import '../../../../css/_deviceDetail.scss';
 
@@ -64,7 +65,7 @@ export default class ModuleIdentityDetailComponent
                 {(context: LocalizationContextInterface) => (
                     <>
                         {this.showCommandBar(context)}
-                        <h3>{context.t(ResourceKeys.moduleIdentity.detail.headerText)}</h3>
+                        {RenderHeaderText(context, ResourceKeys.moduleIdentity.detail.headerText)}
                         <div className="device-detail">
                             <div className="module-identity">
                                 {this.showModuleId(context)}

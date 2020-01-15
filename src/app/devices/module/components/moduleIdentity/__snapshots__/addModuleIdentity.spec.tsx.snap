@@ -28,9 +28,18 @@ exports[`devices/components/addModuleIdentity snapshot matches snapshot when add
       ]
     }
   />
-  <h3>
-    moduleIdentity.addModuleHeaderText
-  </h3>
+  <Stack
+    horizontal={true}
+  >
+    <StackItem
+      align="start"
+    >
+      <h3>
+         
+        moduleIdentity.headerText
+      </h3>
+    </StackItem>
+  </Stack>
   <div
     className="device-detail"
   >
@@ -63,7 +72,7 @@ exports[`devices/components/addModuleIdentity snapshot matches snapshot when add
                 "moduleIdentity.command.cancel",
               ],
               Array [
-                "moduleIdentity.addModuleHeaderText",
+                "moduleIdentity.headerText",
               ],
               Array [
                 "moduleIdentity.moduleId",
@@ -109,7 +118,7 @@ exports[`devices/components/addModuleIdentity snapshot matches snapshot when add
               },
               Object {
                 "type": "return",
-                "value": "moduleIdentity.addModuleHeaderText",
+                "value": "moduleIdentity.headerText",
               },
               Object {
                 "type": "return",
@@ -213,9 +222,18 @@ exports[`devices/components/addModuleIdentity snapshot matches snapshot while lo
       ]
     }
   />
-  <h3>
-    moduleIdentity.addModuleHeaderText
-  </h3>
+  <Stack
+    horizontal={true}
+  >
+    <StackItem
+      align="start"
+    >
+      <h3>
+         
+        moduleIdentity.headerText
+      </h3>
+    </StackItem>
+  </Stack>
   <div
     className="device-detail"
   >
@@ -248,7 +266,7 @@ exports[`devices/components/addModuleIdentity snapshot matches snapshot while lo
                 "moduleIdentity.command.cancel",
               ],
               Array [
-                "moduleIdentity.addModuleHeaderText",
+                "moduleIdentity.headerText",
               ],
               Array [
                 "moduleIdentity.moduleId",
@@ -294,7 +312,7 @@ exports[`devices/components/addModuleIdentity snapshot matches snapshot while lo
               },
               Object {
                 "type": "return",
-                "value": "moduleIdentity.addModuleHeaderText",
+                "value": "moduleIdentity.headerText",
               },
               Object {
                 "type": "return",

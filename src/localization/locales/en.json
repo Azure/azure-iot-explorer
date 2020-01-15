@@ -155,7 +155,7 @@
         }
     },
     "deviceIdentity": {
-        "headerText": "{{deviceId}} identity information",
+        "headerText": "Device identity",
         "deviceID": "Device ID",
         "deviceIDTooltip": "Device identity used for device authentication and access control",
         "authenticationType": {
@@ -355,7 +355,8 @@
         "command" : {
             "refresh": "Refresh",
             "save": "Save"
-        }
+        },
+        "tooltip": "You can add tags and desired properties to your device twin here. To remove a tag or desired property, set the value of the item to be removed to 'null'."
     },
     "deviceProperties": {
         "command" : {
@@ -439,12 +440,13 @@
             "configure": "Configure"
         },
         "columns": {
+            "id": "Interface Id",
             "source": "Source",
             "noSource": "Failed to get interface definition",
             "displayName": "Name",
             "description": "Description"
         },
-        "headerText": "Interface ID {{interfaceId}}",
+        "headerText": "Interface",
         "noInterfaces": "No interfaces",
         "interfaceNotFound": "We are not able to retrieve interface model definition. Please click 'Configure' button below to see how we resolve model definition."
     },
@@ -462,6 +464,7 @@
             "tooltip": "Consumer groups are used by applications to pull data from the IoT Hub. To change the current consumer group, stop monitoring telemetry."
         },
         "headerText": "Telemetry",
+        "tooltip": "You can monitor telemetry that the device sends to the IoT hub",
         "interfaceDropDown": {
             "label": "Select interface to filter telemetry",
             "placeHolder": "Select interface"
@@ -493,6 +496,7 @@
     },
     "directMethod": {
         "headerText": "Direct method",
+        "tooltip": "You can send direct methods to a device. Direct methods have a name, payload, and configurable connection and method timeouts.",
         "methodName": "Method name",
         "methodNamePlaceHolder": "The name of the Direct method to invoke on this device",
         "connectionTimeout": "Connection timeout in seconds",
@@ -506,6 +510,7 @@
     },
     "cloudToDeviceMessage": {
         "headerText": "Cloud-to-device message",
+        "tooltip":"You can send messages to a device in your IoT Hub. Messages have both a body and optional properties organized as a collection of key/value string pairs.",
         "sendMessageButtonText": "Send message to device",
         "body" : "Message body",
         "bodyTooltip" : "The body of the message to send to the device.",
@@ -564,6 +569,8 @@
     },
     "moduleIdentity": {
         "headerText": "Module identities",
+        "tooltip": "You can create up to 20 module identities. Each module identity implicitly generates a module twin",
+        "link": "https://aka.ms/iot-hub-module-twin",
         "addModuleHeaderText": "Add module identity",
         "command" : {
             "add": "Add",

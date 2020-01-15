@@ -15,6 +15,7 @@ import { REFRESH, SAVE } from '../../../../constants/iconNames';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { ThemeContextConsumer, ThemeContextInterface } from '../../../../shared/contexts/themeContext';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
+import { RenderHeaderText } from '../../../../shared/components/headerText';
 
 const EditorPromise = import('react-monaco-editor');
 const Editor = React.lazy(() => EditorPromise);
@@ -56,7 +57,7 @@ export default class DeviceTwin
                 {(context: LocalizationContextInterface) => (
                     <>
                         {this.showCommandBar(context)}
-                        <h3>{context.t(ResourceKeys.deviceTwin.headerText)}</h3>
+                        {RenderHeaderText(context, ResourceKeys.deviceTwin.headerText, ResourceKeys.deviceTwin.tooltip)}
                         {this.renderTwinViewer()}
                     </>
             )}

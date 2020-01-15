@@ -38,9 +38,18 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
       ]
     }
   />
-  <h3>
-    moduleIdentity.detail.headerText
-  </h3>
+  <Stack
+    horizontal={true}
+  >
+    <StackItem
+      align="start"
+    >
+      <h3>
+         
+        moduleIdentity.detail.headerText
+      </h3>
+    </StackItem>
+  </Stack>
   <div
     className="device-detail"
   >
@@ -177,9 +186,18 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
       ]
     }
   />
-  <h3>
-    moduleIdentity.detail.headerText
-  </h3>
+  <Stack
+    horizontal={true}
+  >
+    <StackItem
+      align="start"
+    >
+      <h3>
+         
+        moduleIdentity.detail.headerText
+      </h3>
+    </StackItem>
+  </Stack>
   <div
     className="device-detail"
   >
@@ -1008,9 +1026,18 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
       ]
     }
   />
-  <h3>
-    moduleIdentity.detail.headerText
-  </h3>
+  <Stack
+    horizontal={true}
+  >
+    <StackItem
+      align="start"
+    >
+      <h3>
+         
+        moduleIdentity.detail.headerText
+      </h3>
+    </StackItem>
+  </Stack>
   <div
     className="device-detail"
   >
@@ -1469,9 +1496,18 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
       ]
     }
   />
-  <h3>
-    moduleIdentity.detail.headerText
-  </h3>
+  <Stack
+    horizontal={true}
+  >
+    <StackItem
+      align="start"
+    >
+      <h3>
+         
+        moduleIdentity.detail.headerText
+      </h3>
+    </StackItem>
+  </Stack>
   <div
     className="device-detail"
   >
@@ -1643,9 +1679,18 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
       ]
     }
   />
-  <h3>
-    moduleIdentity.detail.headerText
-  </h3>
+  <Stack
+    horizontal={true}
+  >
+    <StackItem
+      align="start"
+    >
+      <h3>
+         
+        moduleIdentity.detail.headerText
+      </h3>
+    </StackItem>
+  </Stack>
   <div
     className="device-detail"
   >
@@ -1808,9 +1853,18 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot while
       ]
     }
   />
-  <h3>
-    moduleIdentity.detail.headerText
-  </h3>
+  <Stack
+    horizontal={true}
+  >
+    <StackItem
+      align="start"
+    >
+      <h3>
+         
+        moduleIdentity.detail.headerText
+      </h3>
+    </StackItem>
+  </Stack>
   <div
     className="device-detail"
   >

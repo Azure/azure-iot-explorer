@@ -42,9 +42,18 @@ exports[`components/devices/deviceEventsPerInterface matches snapshot while inte
       ]
     }
   />
-  <h3>
-    deviceEvents.headerText
-  </h3>
+  <Stack
+    horizontal={true}
+  >
+    <StackItem
+      align="start"
+    >
+      <h3>
+         
+        deviceEvents.headerText
+      </h3>
+    </StackItem>
+  </Stack>
   <Connect(InterfaceNotFoundMessageBox) />
 </div>
 `;
@@ -91,9 +100,18 @@ exports[`components/devices/deviceEventsPerInterface matches snapshot while inte
       ]
     }
   />
-  <h3>
-    deviceEvents.headerText
-  </h3>
+  <Stack
+    horizontal={true}
+  >
+    <StackItem
+      align="start"
+    >
+      <h3>
+         
+        deviceEvents.headerText
+      </h3>
+    </StackItem>
+  </Stack>
   <StyledTextFieldBase
     ariaLabel="deviceEvents.consumerGroups.label"
     className="consumer-group-text-field"
@@ -218,9 +236,18 @@ exports[`components/devices/deviceEventsPerInterface matches snapshot while inte
       ]
     }
   />
-  <h3>
-    deviceEvents.headerText
-  </h3>
+  <Stack
+    horizontal={true}
+  >
+    <StackItem
+      align="start"
+    >
+      <h3>
+         
+        deviceEvents.headerText
+      </h3>
+    </StackItem>
+  </Stack>
   <StyledTextFieldBase
     ariaLabel="deviceEvents.consumerGroups.label"
     className="consumer-group-text-field"
