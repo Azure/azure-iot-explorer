@@ -5,7 +5,6 @@
 import { SharedAccessSignatureAuthorizationRule } from '../models/sharedAccessSignatureAuthorizationRule';
 import { AzureResourceManagementEndpoint } from '../../azureResourceIdentifier/models/azureResourceManagementEndpoint';
 import { AzureResourceIdentifier } from '../../azureResourceIdentifier/models/azureResourceIdentifier';
-import { generateResourceIdentifierUrlPath } from '../../api/shared/resourceIdentifierHelper';
 import { APPLICATION_JSON, HTTP_OPERATION_TYPES } from '../../api/constants';
 import { HttpError } from '../../api/models/httpError';
 
@@ -19,8 +18,7 @@ export const getSharedAccessPolicies = async (parameters: GetSharedAccessSignatu
     const { azureResourceManagementEndpoint, azureResourceIdentifier } = parameters;
     const { authorizationToken, endpoint } = azureResourceManagementEndpoint;
 
-    const resourceIdentifierPath = generateResourceIdentifierUrlPath(azureResourceIdentifier);
-    const requestUrl = `https://${endpoint}/${resourceIdentifierPath}/listkeys?api-version=${apiVersion}`;
+    const requestUrl = `https://${endpoint}${azureResourceIdentifier.id}/listkeys?api-version=${apiVersion}`;
 
     const serviceRequestParams: RequestInit = {
         headers: new Headers({

@@ -10,7 +10,7 @@ export interface IotHubStateInterface {
      sharedAccessSignatureAuthorizationRules: Map<string, LastRetrievedWrapper<SharedAccessSignatureAuthorizationRule[]>>;
 }
 
-export const IotHubStateInitial  = (): IotHubStateInterface => {
+export const iotHubStateInitial  = (): IotHubStateInterface => {
     return {
         sharedAccessSignatureAuthorizationRules: Map<string, LastRetrievedWrapper<SharedAccessSignatureAuthorizationRule[]>>()
     };

@@ -11,4 +11,9 @@ export const SHARED_ACCESS_SIGNATURE_AUTHORIZATION_RULES = 'SAS';
 
 const actionCreator = actionCreatorFactory(IOT_HUB);
 
-export const setActiveAzureResourceAction = actionCreator<SharedAccessSignatureAuthorizationRule[]>(`${SET}_${SHARED_ACCESS_SIGNATURE_AUTHORIZATION_RULES}`);
+export interface SetSharedAccessSignatureAuthorizationRulesParameters {
+    hubName: string;
+    sharedAccessSignatureAuthorizationRules: SharedAccessSignatureAuthorizationRule[];
+}
+
+export const setSharedAccessSignatureAuthorizationRules = actionCreator<SetSharedAccessSignatureAuthorizationRulesParameters>(`${SET}_${SHARED_ACCESS_SIGNATURE_AUTHORIZATION_RULES}`);
