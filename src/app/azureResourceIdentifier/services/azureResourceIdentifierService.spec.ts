@@ -1,3 +1,7 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
 import { getAzureResourceIdentifiers, getAzureResourceIdentifier } from './azureResourceIdentifierService';
 import { AzureResourceIdentifierType } from '../models/azureResourceIdentifierType';
 import { HttpError } from '../../api/models/httpError';

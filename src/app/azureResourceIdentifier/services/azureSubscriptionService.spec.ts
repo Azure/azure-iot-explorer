@@ -1,3 +1,7 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
 import { getAzureSubscriptions } from './azureSubscriptionService';
 import { HttpError } from '../../api/models/httpError';
 import { APPLICATION_JSON, HTTP_OPERATION_TYPES } from '../../api/constants';

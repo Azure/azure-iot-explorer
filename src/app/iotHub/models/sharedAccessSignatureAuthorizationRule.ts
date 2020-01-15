@@ -2,7 +2,11 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-export enum AzureResourceIdentifierType {
-    IotHub = 'microsoft.devices/iothubs',
-    DeviceProvisioningService = 'microsoft.Devices/provisioningservices',
+import { AccessRights } from './accessRights';
+
+export interface SharedAccessSignatureAuthorizationRule {
+    keyName: string;
+    primaryKey?: string;
+    secondaryKey?: string;
+    rights: AccessRights;
 }
