@@ -10,7 +10,7 @@ import { SharedAccessSignatureAuthorizationRule } from '../models/sharedAccessSi
 import { AzureResourceHostNameType } from '../../azureResourceIdentifier/models/azureResourceHostNameType';
 import { AuthorizationRuleNotFoundError } from '../../api/models/authorizationRuleNotFound.Error';
 
-export function* getConnectionSTringFormIotHubSaga(azureResourceIdentifier: AzureResourceIdentifier) {
+export function* getConnectionStringFormIotHubSaga(azureResourceIdentifier: AzureResourceIdentifier) {
     const rules: SharedAccessSignatureAuthorizationRule[] = yield call(getSharedAccessSignatureAuthorizationRulesSaga, azureResourceIdentifier);
     const targetRule = rules.filter(s =>
         s.rights === AccessRights.RegistryWriteServiceConnectDeviceConnect ||
