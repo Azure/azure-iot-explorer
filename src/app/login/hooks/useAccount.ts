@@ -1,3 +1,7 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
 import { useState } from 'react';
 import { msalInstance, executeLoginRedirect, executeLogout, getLoginRedirectError } from '../services/authService';
 

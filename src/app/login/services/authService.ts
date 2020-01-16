@@ -1,3 +1,7 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
 import * as Msal from 'msal';
 import { appConfig } from '../../../appConfig/appConfig';
 
@@ -23,7 +27,7 @@ export const authenticationParameters: Msal.AuthenticationParameters = {
     ]
 };
 
-const azureResourceManagementParameters: Msal.AuthenticationParameters = {
+export const azureResourceManagementParameters: Msal.AuthenticationParameters = {
     scopes: [
         'https://management.azure.com//user_impersonation',
     ]
@@ -38,7 +42,7 @@ export const executeAzureResourceManagementTokenRequest = async (): Promise<stri
         const response = await msalInstance.acquireTokenSilent(azureResourceManagementParameters);
         return response.accessToken;
     } catch (error) {
-        if (error.errorMessage && error.errorMessage.indexOf('interaction_required') !== -1) {
+        if (error.message && error.message.indexOf('interaction_required') !== -1) {
             msalInstance.acquireTokenRedirect(azureResourceManagementParameters);
         }
     }
