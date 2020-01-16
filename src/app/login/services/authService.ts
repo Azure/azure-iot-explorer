@@ -15,7 +15,7 @@ const config: Msal.Configuration = {
     }
 };
 
-const authenticationParameters: Msal.AuthenticationParameters = {
+export const authenticationParameters: Msal.AuthenticationParameters = {
     scopes: [
         'openid',
         'profile',
