@@ -2,7 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-export declare enum AccessRights {
+export enum AccessRights {
     RegistryRead = 'RegistryRead',
     RegistryWrite = 'RegistryWrite',
     ServiceConnect = 'ServiceConnect',
@@ -17,5 +17,5 @@ export declare enum AccessRights {
     RegistryReadRegistryWriteDeviceConnect = 'RegistryRead, RegistryWrite, DeviceConnect',
     RegistryReadServiceConnectDeviceConnect = 'RegistryRead, ServiceConnect, DeviceConnect',
     RegistryWriteServiceConnectDeviceConnect = 'RegistryWrite, ServiceConnect, DeviceConnect',
-    RegistryReadRegistryWriteServiceConnectDeviceConnect = 'RegistryRead, RegistryWrite, ServiceConnect, DeviceConnect',
+    RegistryReadRegistryWriteServiceConnectDeviceConnect = 'RegistryRead, RegistryWrite, ServiceConnect, DeviceConnect'
 }

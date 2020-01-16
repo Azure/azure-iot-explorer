@@ -3,29 +3,29 @@
  * Licensed under the MIT License
  **********************************************************/
 import { call, select, put } from 'redux-saga/effects';
-import { setSharedAccessSignatureAuthorizationRules } from '../actions';
-import { getSharedAccessPolicies } from '../services/iotHubService';
+import { setSharedAccessSignatureAuthorizationRulesAction } from '../actions';
+import { getSharedAccessSignatureAuthorizationRules } from '../services/iotHubService';
 import { AzureResourceIdentifier } from '../../azureResourceIdentifier/models/azureResourceIdentifier';
 import { SharedAccessSignatureAuthorizationRule } from '../models/sharedAccessSignatureAuthorizationRule';
 import { executeAzureResourceManagementTokenRequest } from '../../login/services/authService';
 import { appConfig } from '../../../appConfig/appConfig';
 import { StateInterface } from '../../shared/redux/state';
-import { LastRetrievedWrapper } from '../../api/models/lastRetrievedWrapper';
+import { CacheWrapper } from '../../api/models/cacheWrapper';
 
 const cacheInMinutes = 4;
 const secondsPerMinute = 60;
 const millisecondsPerSecond = 1000;
-export const cacheRetention = cacheInMinutes * secondsPerMinute * millisecondsPerSecond;
+export const cacheRetentionInMilliseconds = cacheInMinutes * secondsPerMinute * millisecondsPerSecond;
 
-export function* getSharedAccessSignatureAuthorizationRules(azureResourceIdentifier: AzureResourceIdentifier) {
+export function* getSharedAccessSignatureAuthorizationRulesSaga(azureResourceIdentifier: AzureResourceIdentifier) {
 
-    const cachedSharedAccessSignatureAuthorizationRules: Map<string, LastRetrievedWrapper<SharedAccessSignatureAuthorizationRule[]>> = yield select((state : StateInterface) => state.);
+    const cachedSharedAccessSignatureAuthorizationRules: Map<string, CacheWrapper<SharedAccessSignatureAuthorizationRule[]>> = yield select(getSharedAccessSignatureAuthorizationRulesCache);
 
     if (cachedSharedAccessSignatureAuthorizationRules.has(azureResourceIdentifier.name)) {
         const iotHubRulesWrapper = cachedSharedAccessSignatureAuthorizationRules.get(azureResourceIdentifier.name);
-        const cacheDuration = Date.now() - iotHubRulesWrapper.lastRetrieved;
+        const cacheAgeInMilliseconds = Date.now() - iotHubRulesWrapper.lastSynchronized;
 
-        if (cacheDuration <= cacheRetention) {
+        if (cacheAgeInMilliseconds <= cacheRetentionInMilliseconds) {
             return iotHubRulesWrapper.payload;
         }
     }
@@ -33,7 +33,7 @@ export function* getSharedAccessSignatureAuthorizationRules(azureResourceIdentif
     const endpoint: string = yield call(getAzureResourceManagementEndpoint);
     const authorizationToken: string = yield call(executeAzureResourceManagementTokenRequest);
 
-    const sharedAccessSignatureAuthorizationRules: SharedAccessSignatureAuthorizationRule[] = yield call(getSharedAccessPolicies, {
+    const sharedAccessSignatureAuthorizationRules: SharedAccessSignatureAuthorizationRule[] = yield call(getSharedAccessSignatureAuthorizationRules, {
         azureResourceIdentifier,
         azureResourceManagementEndpoint: {
             authorizationToken,
@@ -41,13 +41,17 @@ export function* getSharedAccessSignatureAuthorizationRules(azureResourceIdentif
         }
     });
 
-    yield put(setSharedAccessSignatureAuthorizationRules({
+    yield put(setSharedAccessSignatureAuthorizationRulesAction({
         hubName: azureResourceIdentifier.name,
         sharedAccessSignatureAuthorizationRules
     }));
 
     return sharedAccessSignatureAuthorizationRules;
 }
+
+export const getSharedAccessSignatureAuthorizationRulesCache = (state: StateInterface) => {
+    return state.iotHubState.sharedAccessSignatureAuthorizationRules;
+};
 
 export const getAzureResourceManagementEndpoint = (): string => {
     return appConfig.azureResourceManagementEndpoint;

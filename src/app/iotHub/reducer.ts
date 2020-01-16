@@ -3,14 +3,14 @@
  * Licensed under the MIT License
  **********************************************************/
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
-import { setSharedAccessSignatureAuthorizationRules, SetSharedAccessSignatureAuthorizationRulesParameters } from './actions';
+import { setSharedAccessSignatureAuthorizationRulesAction, SetSharedAccessSignatureAuthorizationRulesParameters } from './actions';
 import { iotHubStateInitial, IotHubStateInterface } from './state';
 
 const reducer = reducerWithInitialState<IotHubStateInterface>(iotHubStateInitial())
-    .case(setSharedAccessSignatureAuthorizationRules, (state: IotHubStateInterface, payload: SetSharedAccessSignatureAuthorizationRulesParameters) => {
+    .case(setSharedAccessSignatureAuthorizationRulesAction, (state: IotHubStateInterface, payload: SetSharedAccessSignatureAuthorizationRulesParameters) => {
         const updatedState = {...state};
         updatedState.sharedAccessSignatureAuthorizationRules = updatedState.sharedAccessSignatureAuthorizationRules.set(payload.hubName, {
-            lastRetrieved: Date.now(),
+            lastSynchronized: Date.now(),
             payload: payload.sharedAccessSignatureAuthorizationRules
         });
         return updatedState;

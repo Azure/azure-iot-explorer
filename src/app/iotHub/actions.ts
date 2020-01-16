@@ -16,4 +16,4 @@ export interface SetSharedAccessSignatureAuthorizationRulesParameters {
     sharedAccessSignatureAuthorizationRules: SharedAccessSignatureAuthorizationRule[];
 }
 
-export const setSharedAccessSignatureAuthorizationRules = actionCreator<SetSharedAccessSignatureAuthorizationRulesParameters>(`${SET}_${SHARED_ACCESS_SIGNATURE_AUTHORIZATION_RULES}`);
+export const setSharedAccessSignatureAuthorizationRulesAction = actionCreator<SetSharedAccessSignatureAuthorizationRulesParameters>(`${SET}_${SHARED_ACCESS_SIGNATURE_AUTHORIZATION_RULES}`);

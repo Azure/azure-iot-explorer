@@ -4,14 +4,14 @@
  **********************************************************/
 import { Map } from 'immutable';
 import { SharedAccessSignatureAuthorizationRule } from './models/sharedAccessSignatureAuthorizationRule';
-import { LastRetrievedWrapper } from '../api/models/lastRetrievedWrapper';
+import { CacheWrapper } from '../api/models/CacheWrapper';
 
 export interface IotHubStateInterface {
-     sharedAccessSignatureAuthorizationRules: Map<string, LastRetrievedWrapper<SharedAccessSignatureAuthorizationRule[]>>;
+     sharedAccessSignatureAuthorizationRules: Map<string, CacheWrapper<SharedAccessSignatureAuthorizationRule[]>>;
 }
 
 export const iotHubStateInitial  = (): IotHubStateInterface => {
     return {
-        sharedAccessSignatureAuthorizationRules: Map<string, LastRetrievedWrapper<SharedAccessSignatureAuthorizationRule[]>>()
+        sharedAccessSignatureAuthorizationRules: Map<string, CacheWrapper<SharedAccessSignatureAuthorizationRule[]>>()
     };
 };

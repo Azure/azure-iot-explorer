@@ -2,7 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-export interface LastRetrievedWrapper<T> {
+export interface CacheWrapper<T> {
     payload: T;
-    lastRetrieved: number;
+    lastSynchronized: number;
 }

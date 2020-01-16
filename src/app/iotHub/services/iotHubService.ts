@@ -14,11 +14,11 @@ export interface GetSharedAccessSignatureAuthorizationRulesParameters {
     azureResourceManagementEndpoint: AzureResourceManagementEndpoint;
     azureResourceIdentifier: AzureResourceIdentifier;
 }
-export const getSharedAccessPolicies = async (parameters: GetSharedAccessSignatureAuthorizationRulesParameters): Promise<SharedAccessSignatureAuthorizationRule[]> => {
+export const getSharedAccessSignatureAuthorizationRules = async (parameters: GetSharedAccessSignatureAuthorizationRulesParameters): Promise<SharedAccessSignatureAuthorizationRule[]> => {
     const { azureResourceManagementEndpoint, azureResourceIdentifier } = parameters;
     const { authorizationToken, endpoint } = azureResourceManagementEndpoint;
 
-    const requestUrl = `https://${endpoint}${azureResourceIdentifier.id}/listkeys?api-version=${apiVersion}`;
+    const requestUrl = `https://${endpoint}${azureResourceIdentifier.id}/listKeys?api-version=${apiVersion}`;
 
     const serviceRequestParams: RequestInit = {
         headers: new Headers({
