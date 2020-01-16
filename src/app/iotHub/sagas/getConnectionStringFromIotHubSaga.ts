@@ -10,19 +10,14 @@ import { SharedAccessSignatureAuthorizationRule } from '../models/sharedAccessSi
 import { AzureResourceHostNameType } from '../../azureResourceIdentifier/models/azureResourceHostNameType';
 import { AuthorizationRuleNotFoundError } from '../../api/models/authorizationRuleNotFound.Error';
 
-export function* getConnectionStringFormIotHubSaga(azureResourceIdentifier: AzureResourceIdentifier) {
+export function* getConnectionStringFromIotHubSaga(azureResourceIdentifier: AzureResourceIdentifier) {
     const rules: SharedAccessSignatureAuthorizationRule[] = yield call(getSharedAccessSignatureAuthorizationRulesSaga, azureResourceIdentifier);
-    const targetRule = rules.filter(s =>
+    const targetRules = rules.filter(s =>
         s.rights === AccessRights.RegistryWriteServiceConnectDeviceConnect ||
         s.rights === AccessRights.RegistryReadRegistryWriteServiceConnectDeviceConnect);
 
-    if (targetRule.length === 0) {
+    if (targetRules.length === 0) {
         throw new AuthorizationRuleNotFoundError(AccessRights.RegistryWriteServiceConnectDeviceConnect.split(', '));
     }
-
-    return `
-        HostName=${azureResourceIdentifier.name}.${AzureResourceHostNameType.IotHub};
-        SharedAccessKeyName=${targetRule[1].keyName};
-        SharedAccessKey=${targetRule[0].primaryKey}
-    `;
+    return `HostName=${azureResourceIdentifier.name}.${AzureResourceHostNameType.IotHub}.net;SharedAccessKeyName=${targetRules[0].keyName};SharedAccessKey=${targetRules[0].primaryKey}`;
 }
