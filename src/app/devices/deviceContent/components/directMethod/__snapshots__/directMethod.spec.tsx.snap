@@ -19,36 +19,10 @@ exports[`directMethod matches snapshot 1`] = `
       ]
     }
   />
-  <Stack
-    horizontal={true}
-  >
-    <StackItem
-      align="start"
-    >
-      <h3>
-         
-        directMethod.headerText
-      </h3>
-    </StackItem>
-    <StackItem
-      align="center"
-    >
-      <StyledTooltipHostBase
-        content="directMethod.tooltip"
-        directionalHint={12}
-        id="directMethod.tooltip"
-      >
-        <CustomizedIconButton
-          aria-labelledby="tooltip1"
-          iconProps={
-            Object {
-              "iconName": "info",
-            }
-          }
-        />
-      </StyledTooltipHostBase>
-    </StackItem>
-  </Stack>
+  <Component
+    headerText="directMethod.headerText"
+    tooltip="directMethod.tooltip"
+  />
   <div
     className="device-detail"
   >

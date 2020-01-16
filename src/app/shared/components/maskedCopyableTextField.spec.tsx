@@ -17,7 +17,6 @@ describe('MaskedCopyableTextField', () => {
                     ariaLabel="ariaLabel1"
                     label="label1"
                     value="value1"
-                    t={jest.fn((value: string) => value)}
                     onTextChange={jest.fn()}
                     readOnly={true}
                     addNotification={jest.fn()}
@@ -32,7 +31,6 @@ describe('MaskedCopyableTextField', () => {
                     ariaLabel="ariaLabel1"
                     label="label1"
                     value="value1"
-                    t={jest.fn((value: string) => value)}
                     onTextChange={jest.fn()}
                     readOnly={true}
                     addNotification={jest.fn()}
@@ -47,7 +45,6 @@ describe('MaskedCopyableTextField', () => {
                     ariaLabel="ariaLabel1"
                     label="label1"
                     value="value1"
-                    t={jest.fn((value: string) => value)}
                     onTextChange={jest.fn()}
                     readOnly={true}
                     addNotification={jest.fn()}
@@ -63,7 +60,6 @@ describe('MaskedCopyableTextField', () => {
                     error="error"
                     label="label1"
                     value="value1"
-                    t={jest.fn((value: string) => value)}
                     onTextChange={jest.fn()}
                     readOnly={true}
                     addNotification={jest.fn()}
@@ -80,7 +76,6 @@ describe('MaskedCopyableTextField', () => {
                     ariaLabel="ariaLabel1"
                     label="label1"
                     value="value1"
-                    t={jest.fn((value: string) => value)}
                     onTextChange={jest.fn()}
                     readOnly={true}
                     addNotification={jest.fn()}
@@ -102,7 +97,6 @@ describe('MaskedCopyableTextField', () => {
                     ariaLabel="ariaLabel1"
                     label="label1"
                     value="value1"
-                    t={jest.fn((value: string) => value)}
                     onTextChange={jest.fn()}
                     readOnly={true}
                     addNotification={jest.fn()}
@@ -125,7 +119,6 @@ describe('MaskedCopyableTextField', () => {
                     ariaLabel="ariaLabel1"
                     label="label1"
                     value="value1"
-                    t={jest.fn((value: string) => value)}
                     onTextChange={onTextChange}
                     readOnly={true}
                     addNotification={jest.fn()}

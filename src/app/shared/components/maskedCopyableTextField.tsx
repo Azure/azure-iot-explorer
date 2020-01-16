@@ -13,6 +13,7 @@ import LabelWithTooltip from './labelWithTooltip';
 import LabelWithRichCallout from './labelWithRichCallout';
 import { Notification, NotificationType } from '../../api/models/notification';
 import '../../css/_maskedCopyableTextField.scss';
+import { LocalizationContextConsumer, LocalizationContextInterface } from '../contexts/localizationContext';
 
 export interface MaskedCopyableTextFieldProps {
     ariaLabel: string;
@@ -22,7 +23,6 @@ export interface MaskedCopyableTextFieldProps {
     error?: string;
     value: string;
     allowMask: boolean;
-    t: TranslationFunction;
     readOnly: boolean;
     required?: boolean;
     onTextChange?(text: string): void;
@@ -52,11 +52,25 @@ export class MaskedCopyableTextField extends React.Component<MaskedCopyableTextF
             hideContents: props.allowMask
         };
     }
-    // tslint:disable-next-line:cyclomatic-complexity
-    public render(): JSX.Element {
-        const { ariaLabel, error, value, allowMask, t, readOnly, placeholder } = this.props;
-        const { hideContents } = this.state;
 
+    public render(): JSX.Element {
+        return (
+            <LocalizationContextConsumer>
+                {(context: LocalizationContextInterface) => (
+                    <div className="view-scroll">
+                        {this.renderTextField(context)}
+                    </div>
+                )}
+            </LocalizationContextConsumer>
+        );
+
+    }
+
+    // tslint:disable-next-line:cyclomatic-complexity
+    private renderTextField = (context: LocalizationContextInterface) => {
+
+        const { ariaLabel, error, value, allowMask, readOnly, placeholder } = this.props;
+        const { hideContents } = this.state;
         return (
             <div className="maskedCopyableTextField">
                 <div className="labelSection">
@@ -90,8 +104,8 @@ export class MaskedCopyableTextField extends React.Component<MaskedCopyableTextF
                         {allowMask &&
                             <TooltipHost
                                 content={hideContents ?
-                                    t(ResourceKeys.common.maskedCopyableTextField.toggleMask.label.show) :
-                                    t(ResourceKeys.common.maskedCopyableTextField.toggleMask.label.hide)}
+                                    context.t(ResourceKeys.common.maskedCopyableTextField.toggleMask.label.show) :
+                                    context.t(ResourceKeys.common.maskedCopyableTextField.toggleMask.label.hide)}
                                 id={this.toggleMaskButtonTooltipHostId}
                             >
                                 <IconButton
@@ -105,7 +119,7 @@ export class MaskedCopyableTextField extends React.Component<MaskedCopyableTextF
 
                     <div className="copySection">
                         <TooltipHost
-                            content={t(ResourceKeys.common.maskedCopyableTextField.copy.label)}
+                            content={context.t(ResourceKeys.common.maskedCopyableTextField.copy.label)}
                             id={this.copyButtonTooltipHostId}
                         >
                             <IconButton
@@ -128,7 +142,6 @@ export class MaskedCopyableTextField extends React.Component<MaskedCopyableTextF
             </div>
         );
     }
-
     private readonly renderLabelSection = () => {
         const { calloutContent, label, labelCallout, required } = this.props;
         if (calloutContent) {

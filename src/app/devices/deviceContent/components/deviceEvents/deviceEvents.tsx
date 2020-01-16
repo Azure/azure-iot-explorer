@@ -20,7 +20,7 @@ import LabelWithTooltip from '../../../../shared/components/labelWithTooltip';
 import { DEFAULT_CONSUMER_GROUP } from '../../../../constants/apiConstants';
 import { MILLISECONDS_IN_MINUTE } from '../../../../constants/shared';
 import { appConfig, HostMode } from '../../../../../appConfig/appConfig';
-import { RenderHeaderText } from '../../../../shared/components/headerText';
+import { HeaderView } from '../../../../shared/components/headerView';
 import '../../../../css/_deviceEvents.scss';
 
 const JSON_SPACES = 2;
@@ -74,7 +74,10 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
                             className="command"
                             items={this.createCommandBarItems(context)}
                         />
-                        {RenderHeaderText(context, ResourceKeys.deviceEvents.headerText, ResourceKeys.deviceEvents.tooltip)}
+                        <HeaderView
+                            headerText={ResourceKeys.deviceEvents.headerText}
+                            tooltip={ResourceKeys.deviceEvents.tooltip}
+                        />
                         <TextField
                             className={'consumer-group-text-field'}
                             onRenderLabel={this.renderConsumerGroupLabel}

@@ -23,7 +23,7 @@ import LabelWithTooltip from '../../../../shared/components/labelWithTooltip';
 import { CloudToDeviceMessageActionParameters } from '../../actions';
 import CollapsibleSection from '../../../../shared/components/collapsibleSection';
 import { MEDIUM_COLUMN_WIDTH } from '../../../../constants/columnWidth';
-import { RenderHeaderText } from '../../../../shared/components/headerText';
+import { HeaderView } from '../../../../shared/components/headerView';
 import '../../../../css/_deviceDetail.scss';
 
 interface PropertyItem {
@@ -85,7 +85,10 @@ export default class CloudToDeviceMessage extends React.Component<CloudToDeviceM
                 {(context: LocalizationContextInterface) => (
                     <>
                         {this.showCommandBar(context)}
-                        {RenderHeaderText(context, ResourceKeys.cloudToDeviceMessage.headerText, ResourceKeys.cloudToDeviceMessage.tooltip)}
+                        <HeaderView
+                            headerText={ResourceKeys.cloudToDeviceMessage.headerText}
+                            tooltip={ResourceKeys.cloudToDeviceMessage.tooltip}
+                        />
                         <div className="device-detail">
                             {this.renderMessageBodySection(context)}
                             {this.renderPropertiesSection(context)}

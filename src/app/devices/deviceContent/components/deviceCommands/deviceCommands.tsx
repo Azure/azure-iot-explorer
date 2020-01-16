@@ -14,7 +14,7 @@ import { CommandSchema } from './deviceCommandsPerInterfacePerCommand';
 import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
 import { REFRESH } from '../../../../constants/iconNames';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
-import { RenderHeaderText } from '../../../../shared/components/headerText';
+import { HeaderView } from '../../../../shared/components/headerView';
 
 export interface DeviceCommandsProps extends DeviceInterfaceWithSchema{
     isLoading: boolean;
@@ -74,7 +74,9 @@ export default class DeviceCommands
     private readonly renderCommandsPerInterface = (context: LocalizationContextInterface) => {
         return (
             <>
-                {RenderHeaderText(context, ResourceKeys.deviceCommands.headerText)}
+                <HeaderView
+                    headerText={ResourceKeys.deviceCommands.headerText}
+                />
                 { this.props.commandSchemas ?
                     <DeviceCommandPerInterface
                         {...this.props}

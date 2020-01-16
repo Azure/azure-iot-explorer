@@ -7,14 +7,23 @@ import { TooltipHost, DirectionalHint } from 'office-ui-fabric-react/lib/Tooltip
 import { Stack } from 'office-ui-fabric-react/lib/Stack';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import { getId, Link } from 'office-ui-fabric-react';
-import { LocalizationContextInterface } from '../contexts/localizationContext';
+import { useLocalizationContext } from '../contexts/localizationContext';
 
-export const RenderHeaderText = (context: LocalizationContextInterface, headerText: string, tooltip?: string, link?: string) => {
+export interface HeaderViewProps {
+    headerText: string;
+    tooltip?: string;
+    link?: string;
+}
+
+export const HeaderView: React.FC<HeaderViewProps> = props => {
     const hostId = getId('tooltip');
+    const { headerText, tooltip, link } = props;
+
+    const { t } = useLocalizationContext();
     return (
         <Stack horizontal={true}>
             <Stack.Item align="start">
-                <h3> {context.t(headerText)}</h3>
+                <h3>{t(headerText)}</h3>
             </Stack.Item>
 
             {tooltip &&
@@ -23,12 +32,12 @@ export const RenderHeaderText = (context: LocalizationContextInterface, headerTe
                         content={
                             link ?
                                 <Link
-                                    href={context.t(link)}
+                                    href={t(link)}
                                     target="_blank"
                                 >
-                                    {context.t(tooltip)}
+                                    {t(tooltip)}
                                 </Link> :
-                                context.t(tooltip)
+                                t(tooltip)
                         }
                         id={tooltip}
                         directionalHint={DirectionalHint.rightCenter}

@@ -18,18 +18,9 @@ exports[`components/devices/deviceSettings matches snapshot while interface cann
       ]
     }
   />
-  <Stack
-    horizontal={true}
-  >
-    <StackItem
-      align="start"
-    >
-      <h3>
-         
-        deviceSettings.headerText
-      </h3>
-    </StackItem>
-  </Stack>
+  <Component
+    headerText="deviceSettings.headerText"
+  />
   <Connect(InterfaceNotFoundMessageBox) />
 </Fragment>
 `;
@@ -52,18 +43,9 @@ exports[`components/devices/deviceSettings matches snapshot with one twinWithSch
       ]
     }
   />
-  <Stack
-    horizontal={true}
-  >
-    <StackItem
-      align="start"
-    >
-      <h3>
-         
-        deviceSettings.headerText
-      </h3>
-    </StackItem>
-  </Stack>
+  <Component
+    headerText="deviceSettings.headerText"
+  />
   <DeviceSettingsPerInterface
     deviceId={null}
     history={

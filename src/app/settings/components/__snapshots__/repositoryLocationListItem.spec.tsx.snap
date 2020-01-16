@@ -59,49 +59,6 @@ exports[`components/settings/repositoryLocationListItem matches snapshot for pri
         placeholder="settings.modelDefinitions.repositoryTypes.private.placeholder"
         readOnly={false}
         required={true}
-        t={
-          [MockFunction] {
-            "calls": Array [
-              Array [
-                "settings.modelDefinitions.repositoryTypes.private.textBoxLabel",
-              ],
-              Array [
-                "settings.modelDefinitions.repositoryTypes.private.textBoxLabel",
-              ],
-              Array [
-                "settings.modelDefinitions.repositoryTypes.private.placeholder",
-              ],
-              Array [
-                "settings.cancel",
-              ],
-              Array [
-                "settings.cancel",
-              ],
-            ],
-            "results": Array [
-              Object {
-                "type": "return",
-                "value": "settings.modelDefinitions.repositoryTypes.private.textBoxLabel",
-              },
-              Object {
-                "type": "return",
-                "value": "settings.modelDefinitions.repositoryTypes.private.textBoxLabel",
-              },
-              Object {
-                "type": "return",
-                "value": "settings.modelDefinitions.repositoryTypes.private.placeholder",
-              },
-              Object {
-                "type": "return",
-                "value": "settings.cancel",
-              },
-              Object {
-                "type": "return",
-                "value": "settings.cancel",
-              },
-            ],
-          }
-        }
         value=""
       />
     </div>

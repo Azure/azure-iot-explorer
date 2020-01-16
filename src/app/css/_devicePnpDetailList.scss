@@ -168,6 +168,9 @@
     .interface-definition
     {
         padding-top: 20px;
+        .monaco-editor {
+            height: calc(100vh - 600px);
+        }
     }
 }
 

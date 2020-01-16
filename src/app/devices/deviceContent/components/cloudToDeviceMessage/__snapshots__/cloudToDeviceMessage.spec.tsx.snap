@@ -19,36 +19,10 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
       ]
     }
   />
-  <Stack
-    horizontal={true}
-  >
-    <StackItem
-      align="start"
-    >
-      <h3>
-         
-        cloudToDeviceMessage.headerText
-      </h3>
-    </StackItem>
-    <StackItem
-      align="center"
-    >
-      <StyledTooltipHostBase
-        content="cloudToDeviceMessage.tooltip"
-        directionalHint={12}
-        id="cloudToDeviceMessage.tooltip"
-      >
-        <CustomizedIconButton
-          aria-labelledby="tooltip1"
-          iconProps={
-            Object {
-              "iconName": "info",
-            }
-          }
-        />
-      </StyledTooltipHostBase>
-    </StackItem>
-  </Stack>
+  <Component
+    headerText="cloudToDeviceMessage.headerText"
+    tooltip="cloudToDeviceMessage.tooltip"
+  />
   <div
     className="device-detail"
   >

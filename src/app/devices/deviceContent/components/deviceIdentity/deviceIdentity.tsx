@@ -25,7 +25,7 @@ import MaskedCopyableTextFieldContainer from '../../../../shared/components/mask
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
 import CollapsibleSection from '../../../../shared/components/collapsibleSection';
 import { SAS_EXPIRES_MINUTES } from '../../../../constants/devices';
-import { RenderHeaderText } from '../../../../shared/components/headerText';
+import { HeaderView } from '../../../../shared/components/headerView';
 import '../../../../css/_deviceDetail.scss';
 
 export interface DeviceIdentityDispatchProps {
@@ -67,7 +67,9 @@ export default class DeviceIdentityInformation
                 {(context: LocalizationContextInterface) => (
                     <>
                         {this.showCommandBar()}
-                        {RenderHeaderText(context, ResourceKeys.deviceIdentity.headerText)}
+                        <HeaderView
+                            headerText={ResourceKeys.deviceIdentity.headerText}
+                        />
                         {this.props.identityWrapper && this.renderInformationSection(context)}
                     </>
                 )}
@@ -138,7 +140,6 @@ export default class DeviceIdentityInformation
                             label={context.t(ResourceKeys.deviceIdentity.deviceID)}
                             value={this.state.identity && this.state.identity.deviceId}
                             allowMask={false}
-                            t={context.t}
                             readOnly={true}
                             labelCallout={context.t(ResourceKeys.deviceIdentity.deviceIDTooltip)}
                         />
@@ -248,7 +249,6 @@ export default class DeviceIdentityInformation
                         label={context.t(ResourceKeys.deviceIdentity.authenticationType.sasToken.textField.label)}
                         value={this.state.sasTokenConnectionString}
                         allowMask={true}
-                        t={context.t}
                         readOnly={true}
                     />
                     <PrimaryButton
@@ -277,7 +277,6 @@ export default class DeviceIdentityInformation
                             label={context.t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.primaryThumbprint)}
                             value={this.state.identity.authentication.x509Thumbprint.primaryThumbprint}
                             allowMask={true}
-                            t={context.t}
                             readOnly={true}
                             labelCallout={context.t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.primaryThumbprintTooltip)}
                         />
@@ -286,7 +285,6 @@ export default class DeviceIdentityInformation
                             label={context.t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.secondaryThumbprint)}
                             value={this.state.identity.authentication.x509Thumbprint.secondaryThumbprint}
                             allowMask={true}
-                            t={context.t}
                             readOnly={true}
                             labelCallout={context.t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip)}
                         />
@@ -295,7 +293,6 @@ export default class DeviceIdentityInformation
                             label={context.t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.connectionString)}
                             value={generateX509ConnectionString(activeAzureResourceHostName, identity.deviceId)}
                             allowMask={true}
-                            t={context.t}
                             readOnly={true}
                             labelCallout={context.t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.connectionStringTooltip)}
                         />
@@ -310,7 +307,6 @@ export default class DeviceIdentityInformation
                             label={context.t(ResourceKeys.deviceIdentity.authenticationType.ca.connectionString)}
                             value={generateX509ConnectionString(activeAzureResourceHostName, identity.deviceId)}
                             allowMask={true}
-                            t={context.t}
                             readOnly={true}
                             labelCallout={context.t(ResourceKeys.deviceIdentity.authenticationType.ca.connectionStringTooltip)}
                         />
@@ -324,7 +320,6 @@ export default class DeviceIdentityInformation
                             label={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryKey)}
                             value={this.state.identity.authentication.symmetricKey.primaryKey}
                             allowMask={true}
-                            t={context.t}
                             readOnly={false}
                             onTextChange={this.changePrimaryKey}
                             labelCallout={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryKeyTooltip)}
@@ -335,7 +330,6 @@ export default class DeviceIdentityInformation
                             label={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryKey)}
                             value={this.state.identity.authentication.symmetricKey.secondaryKey}
                             allowMask={true}
-                            t={context.t}
                             readOnly={false}
                             onTextChange={this.changeSecondaryKey}
                             labelCallout={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryKeyTooltip)}
@@ -346,7 +340,6 @@ export default class DeviceIdentityInformation
                             label={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionString)}
                             value={generateConnectionString(activeAzureResourceHostName, identity.deviceId, identity.authentication.symmetricKey.primaryKey)}
                             allowMask={true}
-                            t={context.t}
                             readOnly={true}
                             labelCallout={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionStringTooltip)}
                         />
@@ -356,7 +349,6 @@ export default class DeviceIdentityInformation
                             label={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString)}
                             value={generateConnectionString(activeAzureResourceHostName, identity.deviceId, identity.authentication.symmetricKey.secondaryKey)}
                             allowMask={true}
-                            t={context.t}
                             readOnly={true}
                             labelCallout={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryConnectionStringTooltip)}
                         />

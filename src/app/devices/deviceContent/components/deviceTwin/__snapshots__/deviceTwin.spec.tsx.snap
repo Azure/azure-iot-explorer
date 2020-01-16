@@ -28,36 +28,10 @@ exports[`devices/components/deviceTwin snapshot matches snapshot 1`] = `
       ]
     }
   />
-  <Stack
-    horizontal={true}
-  >
-    <StackItem
-      align="start"
-    >
-      <h3>
-         
-        deviceTwin.headerText
-      </h3>
-    </StackItem>
-    <StackItem
-      align="center"
-    >
-      <StyledTooltipHostBase
-        content="deviceTwin.tooltip"
-        directionalHint={12}
-        id="deviceTwin.tooltip"
-      >
-        <CustomizedIconButton
-          aria-labelledby="tooltip1"
-          iconProps={
-            Object {
-              "iconName": "info",
-            }
-          }
-        />
-      </StyledTooltipHostBase>
-    </StackItem>
-  </Stack>
+  <Component
+    headerText="deviceTwin.headerText"
+    tooltip="deviceTwin.tooltip"
+  />
   <Component
     className="device-detail"
   />
@@ -92,38 +66,12 @@ exports[`devices/components/deviceTwin snapshot matches snapshot with twin 1`] =
       ]
     }
   />
-  <Stack
-    horizontal={true}
-  >
-    <StackItem
-      align="start"
-    >
-      <h3>
-         
-        deviceTwin.headerText
-      </h3>
-    </StackItem>
-    <StackItem
-      align="center"
-    >
-      <StyledTooltipHostBase
-        content="deviceTwin.tooltip"
-        directionalHint={12}
-        id="deviceTwin.tooltip"
-      >
-        <CustomizedIconButton
-          aria-labelledby="tooltip2"
-          iconProps={
-            Object {
-              "iconName": "info",
-            }
-          }
-        />
-      </StyledTooltipHostBase>
-    </StackItem>
-  </Stack>
+  <Component
+    headerText="deviceTwin.headerText"
+    tooltip="deviceTwin.tooltip"
+  />
   <article
-    className="interface-definition device-detail"
+    className="device-twin device-detail"
   >
     <div
       className="monaco-editor"
