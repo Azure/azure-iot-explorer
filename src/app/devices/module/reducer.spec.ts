@@ -62,7 +62,7 @@ describe('moduleStateReducer', () => {
             it (`handles ${GET_MODULE_IDENTITIES}/ACTION_DONE action`, () => {
                 const action = getModuleIdentitiesAction.done({params: deviceId, result: [moduleIdentity]});
                 expect(reducer(moduleStateInitial(), action).moduleIdentityList).toEqual({
-                    moduleIdentities: [moduleIdentity],
+                    payload: [moduleIdentity],
                     synchronizationStatus: SynchronizationStatus.fetched});
             });
 
@@ -105,7 +105,7 @@ describe('moduleStateReducer', () => {
                     moduleId
                 }, result: moduleTwin});
                 expect(reducer(moduleStateInitial(), action).moduleIdentityTwin).toEqual({
-                    moduleIdentityTwin: moduleTwin,
+                    payload: moduleTwin,
                     synchronizationStatus: SynchronizationStatus.fetched});
             });
 
@@ -133,7 +133,7 @@ describe('moduleStateReducer', () => {
                     moduleId
                 }, result: moduleIdentity});
                 expect(reducer(moduleStateInitial(), action).moduleIdentity).toEqual({
-                    moduleIdentity,
+                    payload: moduleIdentity,
                     synchronizationStatus: SynchronizationStatus.fetched});
             });
 
@@ -156,7 +156,7 @@ describe('moduleStateReducer', () => {
             }];
             initialState = initialState.merge({
                 moduleIdentityList: {
-                    moduleIdentities: moduleList,
+                    payload: moduleList,
                     synchronizationStatus: SynchronizationStatus.fetched
                 }
             });
@@ -167,7 +167,7 @@ describe('moduleStateReducer', () => {
                     moduleId: moduleIdToBeDeleted
                 });
                 expect(reducer(initialState, action).moduleIdentityList).toEqual({
-                    moduleIdentities: moduleList,
+                    payload: moduleList,
                     synchronizationStatus: SynchronizationStatus.updating
                 });
             });
@@ -178,7 +178,7 @@ describe('moduleStateReducer', () => {
                     moduleId: moduleIdToBeDeleted
                 }});
                 expect(reducer(initialState, action).moduleIdentityList).toEqual({
-                    moduleIdentities: [moduleIdentity],
+                    payload: [moduleIdentity],
                     synchronizationStatus: SynchronizationStatus.deleted});
             });
 
@@ -188,7 +188,7 @@ describe('moduleStateReducer', () => {
                     moduleId: moduleIdToBeDeleted
                 }});
                 expect(reducer(initialState, action).moduleIdentityList).toEqual({
-                    moduleIdentities: moduleList,
+                    payload: moduleList,
                     synchronizationStatus: SynchronizationStatus.failed
                 });
             });

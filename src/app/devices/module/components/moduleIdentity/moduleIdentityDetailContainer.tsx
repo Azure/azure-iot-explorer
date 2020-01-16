@@ -27,9 +27,9 @@ const mapStateToProps = (state: StateType): ModuleIdentityDetailDataProps => {
     const moduleIdentityWrapper = getModuleIdentityWrapperSelector(state);
     return {
         currentHostName: getActiveAzureResourceHostNameSelector(state),
-        moduleIdentity: moduleIdentityWrapper && moduleIdentityWrapper.moduleIdentity,
+        moduleIdentity: moduleIdentityWrapper && moduleIdentityWrapper.payload,
         moduleIdentitySyncStatus: moduleIdentityWrapper && moduleIdentityWrapper.synchronizationStatus,
-        moduleIdentityTwin: moduleIdentityTwinWrapper && moduleIdentityTwinWrapper.moduleIdentityTwin,
+        moduleIdentityTwin: moduleIdentityTwinWrapper && moduleIdentityTwinWrapper.payload,
         moduleIdentityTwinSyncStatus: moduleIdentityTwinWrapper && moduleIdentityTwinWrapper.synchronizationStatus,
         moduleListSyncStatus: getModuleIdentityListSyncStatusSelector(state),
     };

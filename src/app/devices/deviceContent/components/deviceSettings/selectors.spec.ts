@@ -79,14 +79,16 @@ describe('getDigitalTwinInterfacePropertiesSelector', () => {
         deviceIdentity: null,
         deviceTwin: null,
         digitalTwinInterfaceProperties: {
-            digitalTwinInterfaceProperties,
-            digitalTwinInterfacePropertiesSyncStatus: SynchronizationStatus.fetched
+            payload: digitalTwinInterfaceProperties,
+            synchronizationStatus: SynchronizationStatus.fetched
         },
         interfaceIdSelected: interfaceId,
         modelDefinitionWithSource: {
-            modelDefinition,
-            modelDefinitionSynchronizationStatus: SynchronizationStatus.fetched,
-            source: REPOSITORY_LOCATION_TYPE.Private
+            payload: {
+                modelDefinition,
+                source: REPOSITORY_LOCATION_TYPE.Private
+            },
+            synchronizationStatus: SynchronizationStatus.fetched,
         }
     })();
 

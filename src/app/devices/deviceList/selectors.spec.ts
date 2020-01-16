@@ -25,8 +25,8 @@ describe('getDigitalTwinInterfacePropertiesSelector', () => {
     state.deviceListState = Record({
         deviceQuery: undefined,
         devices: Record({
-            deviceList: newMap,
-            deviceListSynchronizationStatus: SynchronizationStatus.fetched
+            payload: newMap,
+            synchronizationStatus: SynchronizationStatus.fetched
         })()
     })();
 

@@ -37,8 +37,8 @@ describe('./selectors', () => {
     state.deviceContentState = Record({
         deviceIdentity: null,
         deviceTwin: {
-            deviceTwin: twin,
-            deviceTwinSynchronizationStatus: SynchronizationStatus.fetched
+            payload: twin,
+            synchronizationStatus: SynchronizationStatus.fetched
         },
         digitalTwinInterfaceProperties: null,
         interfaceIdSelected: '',

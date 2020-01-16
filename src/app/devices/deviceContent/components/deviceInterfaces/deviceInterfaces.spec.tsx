@@ -32,7 +32,7 @@ describe('components/devices/deviceInterfaces', () => {
 
     const dataProps: DeviceInterfaceProps = {
         isLoading: true,
-        modelDefinitionWithSource: {modelDefinitionSynchronizationStatus: SynchronizationStatus.working},
+        modelDefinitionWithSource: {synchronizationStatus: SynchronizationStatus.working},
     };
 
     const settingsVisibleToggle = jest.fn();
@@ -111,9 +111,11 @@ describe('components/devices/deviceInterfaces', () => {
         let component = getComponent({
             isLoading: false,
             modelDefinitionWithSource: {
-                modelDefinition,
-                modelDefinitionSynchronizationStatus: SynchronizationStatus.fetched,
-                source: REPOSITORY_LOCATION_TYPE.Public
+                payload: {
+                    modelDefinition,
+                    source: REPOSITORY_LOCATION_TYPE.Public,
+                },
+                synchronizationStatus: SynchronizationStatus.fetched
             }
         });
         expect(component).toMatchSnapshot();
@@ -126,9 +128,11 @@ describe('components/devices/deviceInterfaces', () => {
         component = getComponent({
             isLoading: false,
             modelDefinitionWithSource: {
-                modelDefinition,
-                modelDefinitionSynchronizationStatus: SynchronizationStatus.fetched,
-                source: REPOSITORY_LOCATION_TYPE.Private
+                payload: {
+                    modelDefinition,
+                    source: REPOSITORY_LOCATION_TYPE.Private,
+                },
+                synchronizationStatus: SynchronizationStatus.fetched
             }
         });
         expect(component).toMatchSnapshot();
@@ -136,9 +140,11 @@ describe('components/devices/deviceInterfaces', () => {
         component = getComponent({
             isLoading: false,
             modelDefinitionWithSource: {
-                modelDefinition,
-                modelDefinitionSynchronizationStatus: SynchronizationStatus.fetched,
-                source: REPOSITORY_LOCATION_TYPE.Device
+                payload: {
+                    modelDefinition,
+                    source: REPOSITORY_LOCATION_TYPE.Device,
+                },
+                synchronizationStatus: SynchronizationStatus.fetched
             }
         });
         expect(component).toMatchSnapshot();
@@ -146,9 +152,11 @@ describe('components/devices/deviceInterfaces', () => {
         component = getComponent({
             isLoading: false,
             modelDefinitionWithSource: {
-                modelDefinition,
-                modelDefinitionSynchronizationStatus: SynchronizationStatus.fetched,
-                source: undefined
+                payload: {
+                    modelDefinition,
+                    source: undefined
+                },
+                synchronizationStatus: SynchronizationStatus.fetched
             }
         });
         expect(component).toMatchSnapshot();
