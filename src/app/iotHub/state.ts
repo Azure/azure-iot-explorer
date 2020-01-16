@@ -4,7 +4,7 @@
  **********************************************************/
 import { Map } from 'immutable';
 import { SharedAccessSignatureAuthorizationRule } from './models/sharedAccessSignatureAuthorizationRule';
-import { CacheWrapper } from '../api/models/CacheWrapper';
+import { CacheWrapper } from '../api/models/cacheWrapper';
 
 export interface IotHubStateInterface {
      sharedAccessSignatureAuthorizationRules: Map<string, CacheWrapper<SharedAccessSignatureAuthorizationRule[]>>;
