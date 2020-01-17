@@ -19,9 +19,10 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
       ]
     }
   />
-  <h3>
-    cloudToDeviceMessage.headerText
-  </h3>
+  <Component
+    headerText="cloudToDeviceMessage.headerText"
+    tooltip="cloudToDeviceMessage.tooltip"
+  />
   <div
     className="device-detail"
   >

@@ -15,6 +15,7 @@ import { parseDateTimeString } from '../../../../api/dataTransforms/transformHel
 import { ModuleIdentity } from '../../../../api/models/moduleIdentity';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../../constants/routes';
+import { HeaderView } from '../../../../shared/components/headerView';
 import '../../../../css/_deviceDetail.scss';
 
 export interface ModuleIdentityDataProps {
@@ -35,7 +36,11 @@ export default class ModuleIdentityComponent
                 {(context: LocalizationContextInterface) => (
                     <>
                         {this.showCommandBar(context)}
-                        <h3>{context.t(ResourceKeys.moduleIdentity.headerText)}</h3>
+                        <HeaderView
+                            headerText={ResourceKeys.moduleIdentity.headerText}
+                            link={ResourceKeys.moduleIdentity.link}
+                            tooltip={ResourceKeys.moduleIdentity.tooltip}
+                        />
                         {this.renderGrid(context)}
                     </>
             )}

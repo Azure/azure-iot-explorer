@@ -18,9 +18,9 @@ exports[`components/devices/deviceSettings matches snapshot while interface cann
       ]
     }
   />
-  <h3>
-    deviceSettings.headerText
-  </h3>
+  <Component
+    headerText="deviceSettings.headerText"
+  />
   <Connect(InterfaceNotFoundMessageBox) />
 </Fragment>
 `;
@@ -43,9 +43,9 @@ exports[`components/devices/deviceSettings matches snapshot with one twinWithSch
       ]
     }
   />
-  <h3>
-    deviceSettings.headerText
-  </h3>
+  <Component
+    headerText="deviceSettings.headerText"
+  />
   <DeviceSettingsPerInterface
     deviceId={null}
     history={

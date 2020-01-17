@@ -28,9 +28,9 @@ exports[`devices/components/addModuleIdentity snapshot matches snapshot when add
       ]
     }
   />
-  <h3>
-    moduleIdentity.addModuleHeaderText
-  </h3>
+  <Component
+    headerText="moduleIdentity.headerText"
+  />
   <div
     className="device-detail"
   >
@@ -47,105 +47,6 @@ exports[`devices/components/addModuleIdentity snapshot matches snapshot when add
         readOnly={false}
         required={true}
         setFocus={true}
-        t={
-          [MockFunction] {
-            "calls": Array [
-              Array [
-                "moduleIdentity.command.save",
-              ],
-              Array [
-                "moduleIdentity.command.save",
-              ],
-              Array [
-                "moduleIdentity.command.cancel",
-              ],
-              Array [
-                "moduleIdentity.command.cancel",
-              ],
-              Array [
-                "moduleIdentity.addModuleHeaderText",
-              ],
-              Array [
-                "moduleIdentity.moduleId",
-              ],
-              Array [
-                "moduleIdentity.moduleId",
-              ],
-              Array [
-                "moduleIdentity.moduleIdTooltip",
-              ],
-              Array [
-                "moduleIdentity.authenticationType.text",
-              ],
-              Array [
-                "moduleIdentity.authenticationType.symmetricKey.type",
-              ],
-              Array [
-                "moduleIdentity.authenticationType.selfSigned.type",
-              ],
-              Array [
-                "moduleIdentity.authenticationType.ca.type",
-              ],
-              Array [
-                "moduleIdentity.authenticationType.symmetricKey.autoGenerate",
-              ],
-            ],
-            "results": Array [
-              Object {
-                "type": "return",
-                "value": "moduleIdentity.command.save",
-              },
-              Object {
-                "type": "return",
-                "value": "moduleIdentity.command.save",
-              },
-              Object {
-                "type": "return",
-                "value": "moduleIdentity.command.cancel",
-              },
-              Object {
-                "type": "return",
-                "value": "moduleIdentity.command.cancel",
-              },
-              Object {
-                "type": "return",
-                "value": "moduleIdentity.addModuleHeaderText",
-              },
-              Object {
-                "type": "return",
-                "value": "moduleIdentity.moduleId",
-              },
-              Object {
-                "type": "return",
-                "value": "moduleIdentity.moduleId",
-              },
-              Object {
-                "type": "return",
-                "value": "moduleIdentity.moduleIdTooltip",
-              },
-              Object {
-                "type": "return",
-                "value": "moduleIdentity.authenticationType.text",
-              },
-              Object {
-                "type": "return",
-                "value": "moduleIdentity.authenticationType.symmetricKey.type",
-              },
-              Object {
-                "type": "return",
-                "value": "moduleIdentity.authenticationType.selfSigned.type",
-              },
-              Object {
-                "type": "return",
-                "value": "moduleIdentity.authenticationType.ca.type",
-              },
-              Object {
-                "type": "return",
-                "value": "moduleIdentity.authenticationType.symmetricKey.autoGenerate",
-              },
-            ],
-          }
-        }
         value=""
       />
       <div
@@ -213,9 +114,9 @@ exports[`devices/components/addModuleIdentity snapshot matches snapshot while lo
       ]
     }
   />
-  <h3>
-    moduleIdentity.addModuleHeaderText
-  </h3>
+  <Component
+    headerText="moduleIdentity.headerText"
+  />
   <div
     className="device-detail"
   >
@@ -232,105 +133,6 @@ exports[`devices/components/addModuleIdentity snapshot matches snapshot while lo
         readOnly={false}
         required={true}
         setFocus={true}
-        t={
-          [MockFunction] {
-            "calls": Array [
-              Array [
-                "moduleIdentity.command.save",
-              ],
-              Array [
-                "moduleIdentity.command.save",
-              ],
-              Array [
-                "moduleIdentity.command.cancel",
-              ],
-              Array [
-                "moduleIdentity.command.cancel",
-              ],
-              Array [
-                "moduleIdentity.addModuleHeaderText",
-              ],
-              Array [
-                "moduleIdentity.moduleId",
-              ],
-              Array [
-                "moduleIdentity.moduleId",
-              ],
-              Array [
-                "moduleIdentity.moduleIdTooltip",
-              ],
-              Array [
-                "moduleIdentity.authenticationType.text",
-              ],
-              Array [
-                "moduleIdentity.authenticationType.symmetricKey.type",
-              ],
-              Array [
-                "moduleIdentity.authenticationType.selfSigned.type",
-              ],
-              Array [
-                "moduleIdentity.authenticationType.ca.type",
-              ],
-              Array [
-                "moduleIdentity.authenticationType.symmetricKey.autoGenerate",
-              ],
-            ],
-            "results": Array [
-              Object {
-                "type": "return",
-                "value": "moduleIdentity.command.save",
-              },
-              Object {
-                "type": "return",
-                "value": "moduleIdentity.command.save",
-              },
-              Object {
-                "type": "return",
-                "value": "moduleIdentity.command.cancel",
-              },
-              Object {
-                "type": "return",
-                "value": "moduleIdentity.command.cancel",
-              },
-              Object {
-                "type": "return",
-                "value": "moduleIdentity.addModuleHeaderText",
-              },
-              Object {
-                "type": "return",
-                "value": "moduleIdentity.moduleId",
-              },
-              Object {
-                "type": "return",
-                "value": "moduleIdentity.moduleId",
-              },
-              Object {
-                "type": "return",
-                "value": "moduleIdentity.moduleIdTooltip",
-              },
-              Object {
-                "type": "return",
-                "value": "moduleIdentity.authenticationType.text",
-              },
-              Object {
-                "type": "return",
-                "value": "moduleIdentity.authenticationType.symmetricKey.type",
-              },
-              Object {
-                "type": "return",
-                "value": "moduleIdentity.authenticationType.selfSigned.type",
-              },
-              Object {
-                "type": "return",
-                "value": "moduleIdentity.authenticationType.ca.type",
-              },
-              Object {
-                "type": "return",
-                "value": "moduleIdentity.authenticationType.symmetricKey.autoGenerate",
-              },
-            ],
-          }
-        }
         value=""
       />
       <div

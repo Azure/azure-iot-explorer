@@ -21,8 +21,10 @@ import { GetModuleIdentityTwinActionParameters, GetModuleIdentityActionParameter
 import { ModuleIdentity } from '../../../../api/models/moduleIdentity';
 import { ModuleTwin } from '../../../../api/models/moduleTwin';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
+import { HeaderView } from '../../../../shared/components/headerView';
 import { DeviceAuthenticationType } from '../../../../api/models/deviceAuthenticationType';
 import '../../../../css/_deviceDetail.scss';
+import '../../../../css/_moduleIdentityDetail.scss';
 
 const EditorPromise = import('react-monaco-editor');
 const Editor = React.lazy(() => EditorPromise);
@@ -64,7 +66,9 @@ export default class ModuleIdentityDetailComponent
                 {(context: LocalizationContextInterface) => (
                     <>
                         {this.showCommandBar(context)}
-                        <h3>{context.t(ResourceKeys.moduleIdentity.detail.headerText)}</h3>
+                        <HeaderView
+                            headerText={ResourceKeys.moduleIdentity.detail.headerText}
+                        />
                         <div className="device-detail">
                             <div className="module-identity">
                                 {this.showModuleId(context)}
@@ -161,7 +165,6 @@ export default class ModuleIdentityDetailComponent
                 label={context.t(ResourceKeys.moduleIdentity.moduleId)}
                 value={getModuleIdentityIdFromQueryString(this.props)}
                 allowMask={false}
-                t={context.t}
                 readOnly={true}
                 labelCallout={context.t(ResourceKeys.moduleIdentity.moduleIdTooltip)}
             />
@@ -192,7 +195,6 @@ export default class ModuleIdentityDetailComponent
                     label={context.t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.primaryKey)}
                     value={this.props.moduleIdentity.authentication.symmetricKey.primaryKey}
                     allowMask={true}
-                    t={context.t}
                     readOnly={true}
                     labelCallout={context.t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.primaryKeyTooltip)}
                 />
@@ -202,7 +204,6 @@ export default class ModuleIdentityDetailComponent
                     label={context.t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryKey)}
                     value={this.props.moduleIdentity.authentication.symmetricKey.secondaryKey}
                     allowMask={true}
-                    t={context.t}
                     readOnly={true}
                     labelCallout={context.t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryKeyTooltip)}
                 />
@@ -212,7 +213,6 @@ export default class ModuleIdentityDetailComponent
                     label={context.t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.primaryConnectionString)}
                     value={this.generateConnectionString(this.props.moduleIdentity.authentication.symmetricKey.primaryKey)}
                     allowMask={true}
-                    t={context.t}
                     readOnly={true}
                 />
 
@@ -221,7 +221,6 @@ export default class ModuleIdentityDetailComponent
                     label={context.t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString)}
                     value={this.generateConnectionString(this.props.moduleIdentity.authentication.symmetricKey.secondaryKey)}
                     allowMask={true}
-                    t={context.t}
                     readOnly={true}
                 />
             </>
@@ -245,7 +244,6 @@ export default class ModuleIdentityDetailComponent
                     label={context.t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.primaryThumbprint)}
                     value={this.props.moduleIdentity.authentication.x509Thumbprint.primaryThumbprint}
                     allowMask={true}
-                    t={context.t}
                     readOnly={true}
                     labelCallout={context.t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.primaryThumbprintTooltip)}
                 />
@@ -254,7 +252,6 @@ export default class ModuleIdentityDetailComponent
                     label={context.t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.secondaryThumbprint)}
                     value={this.props.moduleIdentity.authentication.x509Thumbprint.secondaryThumbprint}
                     allowMask={true}
-                    t={context.t}
                     readOnly={true}
                     labelCallout={context.t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip)}
                 />
@@ -274,7 +271,6 @@ export default class ModuleIdentityDetailComponent
                                     {(themeContext: ThemeContextInterface) => (
                                         <Editor
                                             language="json"
-                                            height="calc(100vh - 680px)"
                                             value={JSON.stringify(this.props.moduleIdentityTwin, null, '\t')}
                                             options={{
                                                 automaticLayout: true,

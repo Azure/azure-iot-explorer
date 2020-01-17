@@ -20,9 +20,9 @@ exports[`components/devices/deviceInterfaces shows interface information when st
       ]
     }
   />
-  <h3>
-    deviceInterfaces.headerText
-  </h3>
+  <Component
+    headerText="deviceInterfaces.headerText"
+  />
   <Connect(InterfaceNotFoundMessageBox) />
 </Fragment>
 `;
@@ -45,9 +45,9 @@ exports[`components/devices/deviceInterfaces shows interface information when st
       ]
     }
   />
-  <h3>
-    deviceInterfaces.headerText
-  </h3>
+  <Component
+    headerText="deviceInterfaces.headerText"
+  />
   <ErrorBoundary
     error="errorBoundary.text"
   >
@@ -68,18 +68,27 @@ exports[`components/devices/deviceInterfaces shows interface information when st
       >
         deviceInterfaces.command.configure
       </CustomizedActionButton>
-      <StyledLabelBase>
-         
-        deviceInterfaces.columns.displayName
-        : 
-        --
-      </StyledLabelBase>
-      <StyledLabelBase>
-         
-        deviceInterfaces.columns.description
-        : 
-        --
-      </StyledLabelBase>
+      <Connect(MaskedCopyableTextField)
+        allowMask={false}
+        ariaLabel="deviceInterfaces.columns.id"
+        label="deviceInterfaces.columns.id"
+        readOnly={true}
+        value={null}
+      />
+      <Connect(MaskedCopyableTextField)
+        allowMask={false}
+        ariaLabel="deviceInterfaces.columns.displayName"
+        label="deviceInterfaces.columns.displayName"
+        readOnly={true}
+        value="--"
+      />
+      <Connect(MaskedCopyableTextField)
+        allowMask={false}
+        ariaLabel="deviceInterfaces.columns.description"
+        label="deviceInterfaces.columns.description"
+        readOnly={true}
+        value="--"
+      />
       <article
         className="interface-definition"
       >
@@ -123,9 +132,9 @@ exports[`components/devices/deviceInterfaces shows interface information when st
       ]
     }
   />
-  <h3>
-    deviceInterfaces.headerText
-  </h3>
+  <Component
+    headerText="deviceInterfaces.headerText"
+  />
   <ErrorBoundary
     error="errorBoundary.text"
   >
@@ -146,18 +155,27 @@ exports[`components/devices/deviceInterfaces shows interface information when st
       >
         deviceInterfaces.command.configure
       </CustomizedActionButton>
-      <StyledLabelBase>
-         
-        deviceInterfaces.columns.displayName
-        : 
-        --
-      </StyledLabelBase>
-      <StyledLabelBase>
-         
-        deviceInterfaces.columns.description
-        : 
-        --
-      </StyledLabelBase>
+      <Connect(MaskedCopyableTextField)
+        allowMask={false}
+        ariaLabel="deviceInterfaces.columns.id"
+        label="deviceInterfaces.columns.id"
+        readOnly={true}
+        value={null}
+      />
+      <Connect(MaskedCopyableTextField)
+        allowMask={false}
+        ariaLabel="deviceInterfaces.columns.displayName"
+        label="deviceInterfaces.columns.displayName"
+        readOnly={true}
+        value="--"
+      />
+      <Connect(MaskedCopyableTextField)
+        allowMask={false}
+        ariaLabel="deviceInterfaces.columns.description"
+        label="deviceInterfaces.columns.description"
+        readOnly={true}
+        value="--"
+      />
       <article
         className="interface-definition"
       >
@@ -201,9 +219,9 @@ exports[`components/devices/deviceInterfaces shows interface information when st
       ]
     }
   />
-  <h3>
-    deviceInterfaces.headerText
-  </h3>
+  <Component
+    headerText="deviceInterfaces.headerText"
+  />
   <ErrorBoundary
     error="errorBoundary.text"
   >
@@ -224,18 +242,27 @@ exports[`components/devices/deviceInterfaces shows interface information when st
       >
         deviceInterfaces.command.configure
       </CustomizedActionButton>
-      <StyledLabelBase>
-         
-        deviceInterfaces.columns.displayName
-        : 
-        --
-      </StyledLabelBase>
-      <StyledLabelBase>
-         
-        deviceInterfaces.columns.description
-        : 
-        --
-      </StyledLabelBase>
+      <Connect(MaskedCopyableTextField)
+        allowMask={false}
+        ariaLabel="deviceInterfaces.columns.id"
+        label="deviceInterfaces.columns.id"
+        readOnly={true}
+        value={null}
+      />
+      <Connect(MaskedCopyableTextField)
+        allowMask={false}
+        ariaLabel="deviceInterfaces.columns.displayName"
+        label="deviceInterfaces.columns.displayName"
+        readOnly={true}
+        value="--"
+      />
+      <Connect(MaskedCopyableTextField)
+        allowMask={false}
+        ariaLabel="deviceInterfaces.columns.description"
+        label="deviceInterfaces.columns.description"
+        readOnly={true}
+        value="--"
+      />
       <article
         className="interface-definition"
       >
@@ -279,9 +306,9 @@ exports[`components/devices/deviceInterfaces shows interface information when st
       ]
     }
   />
-  <h3>
-    deviceInterfaces.headerText
-  </h3>
+  <Component
+    headerText="deviceInterfaces.headerText"
+  />
   <ErrorBoundary
     error="errorBoundary.text"
   >
@@ -302,18 +329,27 @@ exports[`components/devices/deviceInterfaces shows interface information when st
       >
         deviceInterfaces.command.configure
       </CustomizedActionButton>
-      <StyledLabelBase>
-         
-        deviceInterfaces.columns.displayName
-        : 
-        --
-      </StyledLabelBase>
-      <StyledLabelBase>
-         
-        deviceInterfaces.columns.description
-        : 
-        --
-      </StyledLabelBase>
+      <Connect(MaskedCopyableTextField)
+        allowMask={false}
+        ariaLabel="deviceInterfaces.columns.id"
+        label="deviceInterfaces.columns.id"
+        readOnly={true}
+        value={null}
+      />
+      <Connect(MaskedCopyableTextField)
+        allowMask={false}
+        ariaLabel="deviceInterfaces.columns.displayName"
+        label="deviceInterfaces.columns.displayName"
+        readOnly={true}
+        value="--"
+      />
+      <Connect(MaskedCopyableTextField)
+        allowMask={false}
+        ariaLabel="deviceInterfaces.columns.description"
+        label="deviceInterfaces.columns.description"
+        readOnly={true}
+        value="--"
+      />
       <article
         className="interface-definition"
       >

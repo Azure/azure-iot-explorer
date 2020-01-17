@@ -28,9 +28,10 @@ exports[`devices/components/deviceTwin snapshot matches snapshot 1`] = `
       ]
     }
   />
-  <h3>
-    deviceTwin.headerText
-  </h3>
+  <Component
+    headerText="deviceTwin.headerText"
+    tooltip="deviceTwin.tooltip"
+  />
   <Component
     className="device-detail"
   />
@@ -65,11 +66,12 @@ exports[`devices/components/deviceTwin snapshot matches snapshot with twin 1`] =
       ]
     }
   />
-  <h3>
-    deviceTwin.headerText
-  </h3>
+  <Component
+    headerText="deviceTwin.headerText"
+    tooltip="deviceTwin.tooltip"
+  />
   <article
-    className="interface-definition device-detail"
+    className="device-twin device-detail"
   >
     <div
       className="monaco-editor"

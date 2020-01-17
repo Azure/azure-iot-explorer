@@ -27,6 +27,7 @@ import { DEFAULT_CONSUMER_GROUP } from '../../../../constants/apiConstants';
 import ErrorBoundary from '../../../errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
+import { HeaderView } from '../../../../shared/components/headerView';
 import { MILLISECONDS_IN_MINUTE } from '../../../../constants/shared';
 import { appConfig, HostMode } from '../../../../../appConfig/appConfig';
 import '../../../../css/_deviceEvents.scss';
@@ -98,7 +99,9 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
                             className="command"
                             items={this.createCommandBarItems(context)}
                         />
-                        <h3>{context.t(ResourceKeys.deviceEvents.headerText)}</h3>
+                        <HeaderView
+                            headerText={ResourceKeys.deviceEvents.headerText}
+                        />
                         {this.props.telemetrySchema &&
                             <TextField
                                 className={'consumer-group-text-field'}

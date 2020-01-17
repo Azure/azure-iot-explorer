@@ -13,8 +13,9 @@ import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryString
 import { CANCEL, SAVE } from '../../../../constants/iconNames';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { ModuleIdentity } from '../../../../api/models/moduleIdentity';
-import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../../constants/routes';
+import { ROUTE_PARAMS } from '../../../../constants/routes';
 import MaskedCopyableTextFieldContainer from '../../../../shared/components/maskedCopyableTextFieldContainer';
+import { HeaderView } from '../../../../shared/components/headerView';
 import { DeviceAuthenticationType } from '../../../../api/models/deviceAuthenticationType';
 import { validateThumbprint, validateKey, validateModuleIdentityName } from '../../../../shared/utils/utils';
 import '../../../../css/_deviceDetail.scss';
@@ -66,7 +67,9 @@ export default class AddModuleIdentityComponent
                 {(context: LocalizationContextInterface) => (
                     <>
                         {this.showCommandBar(context)}
-                        <h3>{context.t(ResourceKeys.moduleIdentity.addModuleHeaderText)}</h3>
+                        <HeaderView
+                            headerText={ResourceKeys.moduleIdentity.headerText}
+                        />
                         <div className="device-detail">
                             <div className="module-identity">
                                 {this.showModuleId(context)}
@@ -119,7 +122,6 @@ export default class AddModuleIdentityComponent
                 required={true}
                 onTextChange={this.changeModuleIdentityName}
                 allowMask={false}
-                t={context.t}
                 readOnly={false}
                 error={!!this.state.moduleIdError ? context.t(this.state.moduleIdError) : ''}
                 labelCallout={context.t(ResourceKeys.moduleIdentity.moduleIdTooltip)}
@@ -165,7 +167,6 @@ export default class AddModuleIdentityComponent
                     required={true}
                     onTextChange={this.changePrimaryKey}
                     allowMask={true}
-                    t={context.t}
                     readOnly={false}
                     error={!!this.state.primaryKeyError ? context.t(this.state.primaryKeyError) : ''}
                     labelCallout={context.t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.primaryKeyTooltip)}
@@ -177,7 +178,6 @@ export default class AddModuleIdentityComponent
                     required={true}
                     onTextChange={this.changeSecondaryKey}
                     allowMask={true}
-                    t={context.t}
                     readOnly={false}
                     error={!!this.state.secondaryKeyError ? context.t(this.state.secondaryKeyError) : ''}
                     labelCallout={context.t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryKeyTooltip)}
@@ -196,7 +196,6 @@ export default class AddModuleIdentityComponent
                     required={true}
                     onTextChange={this.changePrimaryThumbprint}
                     allowMask={true}
-                    t={context.t}
                     readOnly={false}
                     error={!!this.state.primaryThumbprintError ? context.t(this.state.primaryThumbprintError) : ''}
                     labelCallout={context.t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.primaryThumbprintTooltip)}
@@ -208,7 +207,6 @@ export default class AddModuleIdentityComponent
                     required={true}
                     onTextChange={this.changeSecondaryThumbprint}
                     allowMask={true}
-                    t={context.t}
                     readOnly={false}
                     error={!!this.state.secondaryThumbprintError ? context.t(this.state.secondaryThumbprintError) : ''}
                     labelCallout={context.t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip)}

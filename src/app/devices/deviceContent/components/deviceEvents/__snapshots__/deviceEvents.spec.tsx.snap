@@ -42,9 +42,10 @@ exports[`components/devices/deviceEvents matches snapshot in electron 1`] = `
       ]
     }
   />
-  <h3>
-    deviceEvents.headerText
-  </h3>
+  <Component
+    headerText="deviceEvents.headerText"
+    tooltip="deviceEvents.tooltip"
+  />
   <StyledTextFieldBase
     ariaLabel="deviceEvents.consumerGroups.label"
     className="consumer-group-text-field"
@@ -130,9 +131,10 @@ exports[`components/devices/deviceEvents matches snapshot in hosted environment 
       ]
     }
   />
-  <h3>
-    deviceEvents.headerText
-  </h3>
+  <Component
+    headerText="deviceEvents.headerText"
+    tooltip="deviceEvents.tooltip"
+  />
   <StyledTextFieldBase
     ariaLabel="deviceEvents.consumerGroups.label"
     className="consumer-group-text-field"

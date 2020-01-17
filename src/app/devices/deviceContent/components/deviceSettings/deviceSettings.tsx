@@ -14,6 +14,7 @@ import { PatchDigitalTwinInterfacePropertiesActionParameters } from '../../actio
 import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
 import { REFRESH } from '../../../../constants/iconNames';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
+import { HeaderView } from '../../../../shared/components/headerView';
 
 export interface DeviceSettingsProps extends DeviceInterfaceWithSchema{
     isLoading: boolean;
@@ -74,7 +75,9 @@ export default class DeviceSettings
     private readonly renderProperties = (context: LocalizationContextInterface) => {
         return (
             <>
-                <h3>{context.t(ResourceKeys.deviceSettings.headerText)}</h3>
+                <HeaderView
+                    headerText={ResourceKeys.deviceSettings.headerText}
+                />
                 {this.props.twinWithSchema ?
                     <DeviceSettingPerInterface
                         {...this.props}

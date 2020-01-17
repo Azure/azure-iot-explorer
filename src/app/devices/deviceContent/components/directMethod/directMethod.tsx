@@ -17,6 +17,7 @@ import LabelWithTooltip from '../../../../shared/components/labelWithTooltip';
 import { ThemeContextConsumer, ThemeContextInterface } from '../../../../shared/contexts/themeContext';
 const EditorPromise = import('react-monaco-editor');
 const Editor = React.lazy(() => EditorPromise);
+import { HeaderView } from '../../../../shared/components/headerView';
 import '../../../../css/_deviceDetail.scss';
 
 const SLIDER_MAX = 300;
@@ -52,7 +53,10 @@ export default class DirectMethod extends React.Component<DirectMethodProps & Ro
                 {(context: LocalizationContextInterface) => (
                     <>
                         {this.showCommandBar(context)}
-                        <h3>{context.t(ResourceKeys.directMethod.headerText)}</h3>
+                        <HeaderView
+                            headerText={ResourceKeys.directMethod.headerText}
+                            tooltip={ResourceKeys.directMethod.tooltip}
+                        />
                         <div className="device-detail">
                             {this.renderMethodsName(context)}
                             {this.renderMethodsPayloadSection(context)}

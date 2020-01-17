@@ -28,9 +28,11 @@ exports[`devices/components/moduleIdentity snapshot matches snapshot when fetch 
       ]
     }
   />
-  <h3>
-    moduleIdentity.headerText
-  </h3>
+  <Component
+    headerText="moduleIdentity.headerText"
+    link="moduleIdentity.link"
+    tooltip="moduleIdentity.tooltip"
+  />
   <div
     className="device-detail"
   >
@@ -117,9 +119,11 @@ exports[`devices/components/moduleIdentity snapshot matches snapshot while loadi
       ]
     }
   />
-  <h3>
-    moduleIdentity.headerText
-  </h3>
+  <Component
+    headerText="moduleIdentity.headerText"
+    link="moduleIdentity.link"
+    tooltip="moduleIdentity.tooltip"
+  />
   <div
     className="device-detail"
   >
@@ -206,9 +210,11 @@ exports[`devices/components/moduleIdentity snapshot matches snapshot with module
       ]
     }
   />
-  <h3>
-    moduleIdentity.headerText
-  </h3>
+  <Component
+    headerText="moduleIdentity.headerText"
+    link="moduleIdentity.link"
+    tooltip="moduleIdentity.tooltip"
+  />
   <div
     className="device-detail"
   >

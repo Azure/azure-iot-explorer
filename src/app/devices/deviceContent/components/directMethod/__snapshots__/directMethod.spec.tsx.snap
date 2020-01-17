@@ -19,9 +19,10 @@ exports[`directMethod matches snapshot 1`] = `
       ]
     }
   />
-  <h3>
-    directMethod.headerText
-  </h3>
+  <Component
+    headerText="directMethod.headerText"
+    tooltip="directMethod.tooltip"
+  />
   <div
     className="device-detail"
   >

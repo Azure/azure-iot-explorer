@@ -70,6 +70,7 @@ export class ResourceKeys {
          value : "cloudToDeviceMessage.properties.value",
       },
       sendMessageButtonText : "cloudToDeviceMessage.sendMessageButtonText",
+      tooltip : "cloudToDeviceMessage.tooltip",
    };
    public static collapsibleSection = {
       close : "collapsibleSection.close",
@@ -205,6 +206,7 @@ export class ResourceKeys {
          label : "deviceEvents.interfaceDropDown.label",
          placeHolder : "deviceEvents.interfaceDropDown.placeHolder",
       },
+      tooltip : "deviceEvents.tooltip",
    };
    public static deviceIdentity = {
       authenticationType : {
@@ -294,6 +296,7 @@ export class ResourceKeys {
       columns : {
          description : "deviceInterfaces.columns.description",
          displayName : "deviceInterfaces.columns.displayName",
+         id : "deviceInterfaces.columns.id",
          noSource : "deviceInterfaces.columns.noSource",
          source : "deviceInterfaces.columns.source",
       },
@@ -479,6 +482,7 @@ export class ResourceKeys {
       },
       headerText : "deviceTwin.headerText",
       notFound : "deviceTwin.notFound",
+      tooltip : "deviceTwin.tooltip",
    };
    public static directMethod = {
       connectionTimeout : "directMethod.connectionTimeout",
@@ -492,6 +496,7 @@ export class ResourceKeys {
       responseTimeout : "directMethod.responseTimeout",
       responseTimeoutTooltip : "directMethod.responseTimeoutTooltip",
       result : "directMethod.result",
+      tooltip : "directMethod.tooltip",
    };
    public static errorBoundary = {
       text : "errorBoundary.text",
@@ -570,9 +575,11 @@ export class ResourceKeys {
       },
       errorFetching : "moduleIdentity.errorFetching",
       headerText : "moduleIdentity.headerText",
+      link : "moduleIdentity.link",
       moduleId : "moduleIdentity.moduleId",
       moduleIdTooltip : "moduleIdentity.moduleIdTooltip",
       noModules : "moduleIdentity.noModules",
+      tooltip : "moduleIdentity.tooltip",
       validation : {
          invalidKey : "moduleIdentity.validation.invalidKey",
          invalidModuleIdentityName : "moduleIdentity.validation.invalidModuleIdentityName",

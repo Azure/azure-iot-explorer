@@ -143,7 +143,7 @@
     "jest-trx-results-processor": "0.0.7",
     "mini-css-extract-plugin": "0.8.0",
     "monaco-editor-webpack-plugin": "1.7.0",
-    "node-sass": "4.12.0",
+    "node-sass": "4.13.1",
     "nodemon": "1.18.7",
     "optimize-css-assets-webpack-plugin": "5.0.3",
     "sass-loader": "7.1.0",

@@ -15,6 +15,8 @@ import { REFRESH, SAVE } from '../../../../constants/iconNames';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { ThemeContextConsumer, ThemeContextInterface } from '../../../../shared/contexts/themeContext';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
+import { HeaderView } from '../../../../shared/components/headerView';
+import '../../../../css/_deviceTwin.scss';
 
 const EditorPromise = import('react-monaco-editor');
 const Editor = React.lazy(() => EditorPromise);
@@ -56,7 +58,10 @@ export default class DeviceTwin
                 {(context: LocalizationContextInterface) => (
                     <>
                         {this.showCommandBar(context)}
-                        <h3>{context.t(ResourceKeys.deviceTwin.headerText)}</h3>
+                        <HeaderView
+                            headerText={ResourceKeys.deviceTwin.headerText}
+                            tooltip={ResourceKeys.deviceTwin.tooltip}
+                        />
                         {this.renderTwinViewer()}
                     </>
             )}
@@ -143,7 +148,7 @@ export default class DeviceTwin
 
         const twin = this.state.twin;
         return (
-            <article className="interface-definition device-detail">
+            <article className="device-twin device-detail">
                 { twin &&
                     <div className="monaco-editor">
                         <React.Suspense fallback={<Spinner title={'loading'} size={SpinnerSize.large} />}>
@@ -151,7 +156,6 @@ export default class DeviceTwin
                                 {(themeContext: ThemeContextInterface) => (
                                     <Editor
                                         language="json"
-                                        height="calc(100vh - 300px)"
                                         value={twin}
                                         options={{
                                             automaticLayout: true,

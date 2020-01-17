@@ -18,9 +18,9 @@ exports[`components/devices/deviceCommands matches snapshot while interface cann
       ]
     }
   />
-  <h3>
-    deviceCommands.headerText
-  </h3>
+  <Component
+    headerText="deviceCommands.headerText"
+  />
   <Connect(InterfaceNotFoundMessageBox) />
 </Fragment>
 `;
@@ -43,9 +43,9 @@ exports[`components/devices/deviceCommands matches snapshot with a commandSchema
       ]
     }
   />
-  <h3>
-    deviceCommands.headerText
-  </h3>
+  <Component
+    headerText="deviceCommands.headerText"
+  />
   <DeviceCommandsPerInterface
     commandSchemas={
       Array [

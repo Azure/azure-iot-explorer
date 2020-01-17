@@ -51,7 +51,6 @@ export default class RepositoryLocationListItem extends React.Component<Reposito
                                 && context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.device.label)}
                             {item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Private &&
                                 <MaskedCopyableTextFieldContainer
-                                    t={context.t}
                                     ariaLabel={context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.private.textBoxLabel)}
                                     label={context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.private.textBoxLabel)}
                                     value={item.connectionString}
