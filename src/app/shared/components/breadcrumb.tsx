@@ -3,165 +3,127 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Breadcrumb } from 'office-ui-fabric-react/lib/Breadcrumb';
-import { RouteComponentProps } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Route, NavLink, RouteComponentProps } from 'react-router-dom';
 import { TranslationFunction } from 'i18next';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../constants/routes';
+import { StateInterface } from '../redux/state';
+import { getActiveAzureResourceHostNameSelector } from '../../azureResource/selectors';
+import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString } from '../utils/queryStringHelper';
 import '../../css/_breadcrumb.scss';
 
-export interface BreadCrumbProps {
-    hubName: string;
+const Breadcrumb = () => (
+    <ul className="breadcrumb">
+        <Route path="/:path" component={BreadcrumbItemContainer} />
+    </ul>
+);
+
+export interface BreadcrumbItemDataProps {
+    hostName: string;
 }
 
-export interface BreadcrumbEntry {
-    text: string;
-    key: string;
-    href?: string;
-}
-
-export default class BreadcrumbComponent extends React.Component<BreadCrumbProps & RouteComponentProps>{
-    constructor(props: BreadCrumbProps & RouteComponentProps) {
-        super(props);
-    }
-
+export class BreadcrumbItem extends React.Component<BreadcrumbItemDataProps & RouteComponentProps> {
     public render() {
-        return (
+        const { match } = this.props;
+        return(
+
             <LocalizationContextConsumer>
                 {(context: LocalizationContextInterface) => (
-                    <Breadcrumb
-                        className="device-content-breadcrumb"
-                        items={this.getItems(context.t)}
-                    />
+                    <>
+                        {this.renderBreadcrumbItem(context.t, this.getCurrentUrl())}
+                        <Route path={`${match.url}/:path`} component={BreadcrumbItemContainer} />
+                    </>
                 )}
             </LocalizationContextConsumer>
+
         );
     }
 
-       private readonly getItems = (t: TranslationFunction) => {
-        const { hubName, location } = this.props;
-        const { pathname, search } = location;
-        const pathComponents = pathname.split('/').filter(s => s !== '');
-
-        const items: BreadcrumbEntry[] = [];
-        // tslint:disable-next-line:cyclomatic-complexity
-        pathComponents.forEach((pathComponent, index) => {
-            if (pathComponent.toLowerCase() === ROUTE_PARTS.RESOURCE.toLowerCase() && index < pathComponents.length) {
-                items.push({
-                    key: 'Hub',
-                    text: t(ResourceKeys.breadcrumb.hub, {hubName: this.getShortHubName(hubName)})
-                });
-                return;
+    // tslint:disable-next-line:cyclomatic-complexity
+    private renderBreadcrumbItem = (t: TranslationFunction, route: string | undefined) => {
+        if (route) {
+            switch (route) {
+                case ROUTE_PARTS.RESOURCE:
+                    return <></>;
+                case this.props.hostName:
+                    return this.renderTextItem(t(ResourceKeys.breadcrumb.hub, {hubName: this.getShortHubName(route)}));
+                case ROUTE_PARTS.DEVICE_DETAIL:
+                    return this.renderTextItem(getDeviceIdFromQueryString(this.props));
+                case ROUTE_PARTS.DIGITAL_TWINS:
+                    return this.renderTextItem(getInterfaceIdFromQueryString(this.props));
+                case ROUTE_PARTS.MODULE_IDENTITY:
+                    return this.renderLinkItem(this.getLocalizedKey(t, route), [ROUTE_PARAMS.DEVICE_ID]);
+                default:
+                    return this.renderLinkItem(this.getLocalizedKey(t, route));
             }
-
-            if (pathComponent.toLowerCase() === ROUTE_PARTS.DEVICES.toLowerCase()) {
-                items.push({
-                    href: (index !== pathComponents.length - 1) ? `#/${ROUTE_PARTS.RESOURCE}/${hubName}/${ROUTE_PARTS.DEVICES}` : '',
-                    key: 'Devices',
-                    text: t(ResourceKeys.breadcrumb.devices)
-                });
-                return;
-            }
-
-            if (pathComponent.toLowerCase() === ROUTE_PARTS.DEVICE_DETAIL.toLowerCase()) {
-                const deviceId = this.getDeviceIdFromSearch(search);
-                items.push({
-                    href: `#/${ROUTE_PARTS.RESOURCE}/${hubName}/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DEVICE_DETAIL}/${ROUTE_PARTS.IDENTITY}?${ROUTE_PARAMS.DEVICE_ID}=${deviceId}`,
-                    key: 'Device',
-                    text: deviceId
-                });
-
-                if (index < pathComponents.length - 1 && pathComponents[index + 1].toLowerCase() !== ROUTE_PARTS.DIGITAL_TWINS.toLowerCase()) {
-                    const remainingPathComponents = pathComponents.slice(index + 1);
-                    items.push(...this.buildDeviceDetails(remainingPathComponents, hubName, deviceId, t));
-                }
-                return;
-            }
-
-            if (pathComponent.toLowerCase() === ROUTE_PARTS.DIGITAL_TWINS.toLowerCase()) {
-                const deviceId = this.getDeviceIdFromSearch(search);
-                const interfaceId = this.getInterfaceIdFromSearch(search);
-                items.push({
-                    href: `#/${ROUTE_PARTS.RESOURCE}/${hubName}/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DEVICE_DETAIL}/${ROUTE_PARTS.DIGITAL_TWINS}/${ROUTE_PARTS.INTERFACES}/?${ROUTE_PARAMS.DEVICE_ID}=${deviceId}&${ROUTE_PARAMS.INTERFACE_ID}=${interfaceId}`,
-                    key: `device_${deviceId}_${interfaceId}`,
-                    text: interfaceId
-                });
-
-                if (index < pathComponents.length - 1) {
-                    const remainingPathComponents = pathComponents.slice(index + 1);
-                    items.push(...this.buildDigitalTwinDetails(remainingPathComponents, hubName, deviceId, interfaceId, t));
-                }
-                return;
-            }
-
-            if (pathComponent.toLowerCase() === ROUTE_PARTS.MODULE_DETAIL.toLowerCase()) {
-                const deviceId = this.getDeviceIdFromSearch(search);
-                const moduleId = this.getModuleIdFromSearch(search);
-                items.push({
-                    href: ``,
-                    key: `device_${deviceId}_${moduleId}`,
-                    text: moduleId
-                });
-                return;
-            }
-        });
-
-        return items;
-    }
-
-    private buildDeviceDetails = (pathComponents: string[], hubName: string, deviceId: string, t: TranslationFunction): BreadcrumbEntry[] => {
-        const entries: BreadcrumbEntry[] = [];
-        const paths = [...pathComponents];
-        const query = `${ROUTE_PARAMS.DEVICE_ID}=${deviceId}`;
-        let basePath = `#/${ROUTE_PARTS.RESOURCE}/${hubName}/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DEVICE_DETAIL}`;
-        while (paths.length > 0) {
-            basePath = `${basePath}/${paths[0]}`;
-            if (t((ResourceKeys.deviceContent.navBar as any)[paths[0]])) { // tslint:disable-line:no-any
-                entries.push({
-                    href: paths.length !== 1 ? `${basePath}/?${query}` : '',
-                    key: paths[0],
-                    text: t((ResourceKeys.deviceContent.navBar as any)[paths[0]]) // tslint:disable-line:no-any
-                });
-            }
-            paths.splice(0, 1);
         }
-
-        return entries;
+        return <></>;
     }
 
-    private buildDigitalTwinDetails = (pathComponents: string[], hubName: string, deviceId: string, interfaceId: string, t: TranslationFunction): BreadcrumbEntry[] => {
-        const entries: BreadcrumbEntry[] = [];
-        const paths = [...pathComponents];
-        const query = `${ROUTE_PARAMS.DEVICE_ID}=${deviceId}&${ROUTE_PARAMS.INTERFACE_ID}=${interfaceId}`;
-        let basePath = `#/${ROUTE_PARTS.RESOURCE}/${hubName}/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DEVICE_DETAIL}/${ROUTE_PARTS.DIGITAL_TWINS}`;
-        while (paths.length > 0) {
-            basePath = `${basePath}/${paths[0]}`;
-            entries.push({
-                href: paths.length !== 1 ? `${basePath}?${query}` : '',
-                key: paths[0],
-                text: t((ResourceKeys.deviceContent.navBar as any)[paths[0]]) // tslint:disable-line:no-any
-            });
-
-            paths.splice(0, 1);
-        }
-
-        return entries;
-    }
-
-    private readonly getShortHubName = (hostName: string) => {
+    private getShortHubName = (hostName: string) => {
         return hostName && hostName.replace(/\..*/, '');
     }
 
-    private readonly getDeviceIdFromSearch = (search: string) => {
-        return new URLSearchParams(search).get(ROUTE_PARAMS.DEVICE_ID);
+    private getLocalizedKey = (t: TranslationFunction, route: string | undefined) => {
+        const resourceKey = (ResourceKeys.breadcrumb as any)[route]; // tslint:disable-line:no-any
+        return resourceKey ? t(resourceKey) : route;
     }
 
-    private readonly getInterfaceIdFromSearch = (search: string) => {
-        return new URLSearchParams(search).get(ROUTE_PARAMS.INTERFACE_ID);
+    private getCurrentUrl = () => {
+        let url = this.props.match.url;
+        if (url.endsWith('/')) {
+            url = url.slice(0, -1); // remove trailing slash
+        }
+        return url.split('/').pop();
     }
 
-    private readonly getModuleIdFromSearch = (search: string) => {
-        return new URLSearchParams(search).get(ROUTE_PARAMS.MODULE_ID);
+    private renderLinkItem = (linkContent: string, searchParams?: ROUTE_PARAMS[]) => {
+        const { match } = this.props;
+        let href = match.url;
+        if (searchParams) {
+            href += '/';
+            searchParams.forEach(para => {
+                switch (para) {
+                    case ROUTE_PARAMS.DEVICE_ID:
+                        href += `?${ROUTE_PARAMS.DEVICE_ID}=${getDeviceIdFromQueryString(this.props)}`;
+                        break;
+                    case ROUTE_PARAMS.INTERFACE_ID:
+                        href += `?${ROUTE_PARAMS.INTERFACE_ID}=${getInterfaceIdFromQueryString(this.props)}`;
+                        break;
+                    default:
+                        return;
+                }
+            });
+        }
+        return (
+            <li className="breadcrumb-item">
+                {match.isExact ?
+                    linkContent :
+                    <NavLink to={href}>
+                        {linkContent}
+                    </NavLink>
+                }
+            </li>
+        );
+    }
+
+    private renderTextItem = (text: string) => {
+        return (
+            <li className="breadcrumb-item">
+                {text}
+            </li>
+        );
     }
 }
+
+const mapStateToProps = (state: StateInterface): BreadcrumbItemDataProps => {
+    return {
+        hostName: getActiveAzureResourceHostNameSelector(state)
+    };
+};
+
+const BreadcrumbItemContainer = connect(mapStateToProps, {})(BreadcrumbItem);
+
+export default Breadcrumb;

@@ -9,9 +9,19 @@ export class ResourceKeys {
       },
    };
    public static breadcrumb = {
-      addDevice : "breadcrumb.addDevice",
+      add : "breadcrumb.add",
+      cloudToDeviceMessage : "breadcrumb.cloudToDeviceMessage",
+      commands : "breadcrumb.commands",
       devices : "breadcrumb.devices",
+      events : "breadcrumb.events",
       hub : "breadcrumb.hub",
+      identity : "breadcrumb.identity",
+      interfaces : "breadcrumb.interfaces",
+      methods : "breadcrumb.methods",
+      moduleIdentity : "breadcrumb.moduleIdentity",
+      properties : "breadcrumb.properties",
+      settings : "breadcrumb.settings",
+      twin : "breadcrumb.twin",
    };
    public static cloudToDeviceMessage = {
       addTimestamp : "cloudToDeviceMessage.addTimestamp",

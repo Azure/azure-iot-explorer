@@ -4,10 +4,20 @@
  **********************************************************/
  @import 'themes';
 
-.device-content-breadcrumb {
-    .ms-Breadcrumb-itemLink {
-        @include themify($themes) {
-            color: themed('linkColor');
+.breadcrumb {
+    padding-inline-start: 0px;
+    padding-left: 10px;
+    font-size: 20px;
+    .breadcrumb-item {
+        display: inline;
+        a {
+            @include themify($themes) {
+                color: themed('linkColor');
+            }
         }
+    }
+    li+li:before {
+        padding: 8px;
+        content: ">\00a0";
     }
 }

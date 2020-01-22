@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { RouteComponentProps, Route } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
 import { Overlay } from 'office-ui-fabric-react/lib/Overlay';
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/ChoiceGroup';
@@ -16,13 +16,12 @@ import { DeviceIdentity } from '../../../../../api/models/deviceIdentity';
 import { DeviceStatus } from '../../../../../api/models/deviceStatus';
 import { validateKey, validateThumbprint, validateDeviceId } from '../../../../../shared/utils/utils';
 import LabelWithTooltip from '../../../../../shared/components/labelWithTooltip';
-import BreadcrumbContainer from '../../../../../shared/components/breadcrumbContainer';
 import MaskedCopyableTextFieldContainer from '../../../../../shared/components/maskedCopyableTextFieldContainer';
 import { SynchronizationStatus } from '../../../../../api/models/synchronizationStatus';
-import { ROUTE_PARTS } from '../../../../../constants/routes';
+import { SAVE, CANCEL } from '../../../../../constants/iconNames';
+import Breadcrumb from '../../../../../shared/components/breadcrumb';
 import '../../../../../css/_addDevice.scss';
 import '../../../../../css/_layouts.scss';
-import { SAVE, CANCEL } from '../../../../../constants/iconNames';
 
 export interface AddDeviceActionProps {
     handleSave: (deviceIdentity: DeviceIdentity) => void;
@@ -72,7 +71,7 @@ export default class AddDevice extends React.Component<AddDeviceActionProps & Ad
                 {(context: LocalizationContextInterface) => (
                      <form onSubmit={this.handleSave} className="view add-device">
                         <div className="view-header">
-                            <Route component={BreadcrumbContainer} />
+                            <Breadcrumb/>
                         </div>
                         <div className="view-command">
                             {this.showCommandBar(context)}

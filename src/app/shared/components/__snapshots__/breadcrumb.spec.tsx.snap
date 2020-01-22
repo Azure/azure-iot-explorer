@@ -1,168 +1,96 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/shared/breadcrumb matches snapshot #/ 1`] = `
-<StyledBreadcrumbBase
-  className="device-content-breadcrumb"
-  items={Array []}
-/>
+exports[`Breadcrumb snapshot matches snapshot 1`] = `
+<Fragment>
+  <Route
+    component={
+      Object {
+        "$$typeof": Symbol(react.memo),
+        "WrappedComponent": [Function],
+        "compare": null,
+        "displayName": "Connect(BreadcrumbItem)",
+        "type": [Function],
+      }
+    }
+    path="/resources/:path"
+  />
+</Fragment>
 `;
 
-exports[`components/shared/breadcrumb matches snapshot #/devices.../device1 1`] = `
-<StyledBreadcrumbBase
-  className="device-content-breadcrumb"
-  items={
-    Array [
+exports[`Breadcrumb snapshot matches snapshot when rendering devices links 1`] = `
+<Fragment>
+  <li
+    className="breadcrumb-item"
+  >
+    <NavLink
+      activeClassName="active"
+      aria-current="page"
+      to="/resources/hub.azure-devices.net/devices"
+    >
+      breadcrumb.devices
+    </NavLink>
+  </li>
+  <Route
+    component={
       Object {
-        "href": "#/resources/foo.azure-devices.net/devices",
-        "key": "Devices",
-        "text": "breadcrumb.devices",
-      },
-    ]
-  }
-/>
+        "$$typeof": Symbol(react.memo),
+        "WrappedComponent": [Function],
+        "compare": null,
+        "displayName": "Connect(BreadcrumbItem)",
+        "type": [Function],
+      }
+    }
+    path="/resources/hub.azure-devices.net/devices/:path"
+  />
+</Fragment>
 `;
 
-exports[`components/shared/breadcrumb matches snapshot #/devices.../device1 missing interface 1`] = `
-<StyledBreadcrumbBase
-  className="device-content-breadcrumb"
-  items={
-    Array [
+exports[`Breadcrumb snapshot matches snapshot when rendering last breadcrumb 1`] = `
+<Fragment>
+  <li
+    className="breadcrumb-item"
+  >
+    breadcrumb.cloudToDeviceMessage
+  </li>
+  <Route
+    component={
       Object {
-        "href": "#/resources/foo.azure-devices.net/devices",
-        "key": "Devices",
-        "text": "breadcrumb.devices",
-      },
-      Object {
-        "href": "#/resources/foo.azure-devices.net/devices/deviceDetail/digitalTwins/interfaces/?deviceId=null&interfaceId=null",
-        "key": "device_null_null",
-        "text": null,
-      },
-      Object {
-        "href": "",
-        "key": "properties",
-        "text": "deviceContent.navBar.properties",
-      },
-    ]
-  }
-/>
+        "$$typeof": Symbol(react.memo),
+        "WrappedComponent": [Function],
+        "compare": null,
+        "displayName": "Connect(BreadcrumbItem)",
+        "type": [Function],
+      }
+    }
+    path="/resources/hub.azure-devices.net/devices/deviceDetail/cloudToDeviceMessage//:path"
+  />
+</Fragment>
 `;
 
-exports[`components/shared/breadcrumb matches snapshot #/devices.../device1 with interface 1`] = `
-<StyledBreadcrumbBase
-  className="device-content-breadcrumb"
-  items={
-    Array [
+exports[`Breadcrumb snapshot matches snapshot when rendering module identity links 1`] = `
+<Fragment>
+  <li
+    className="breadcrumb-item"
+  >
+    <NavLink
+      activeClassName="active"
+      aria-current="page"
+      to="/resources/hub.azure-devices.net/devices/deviceDetail/moduleIdentity/?deviceId=newdevice\\""
+    >
+      breadcrumb.moduleIdentity
+    </NavLink>
+  </li>
+  <Route
+    component={
       Object {
-        "href": "#/resources/foo.azure-devices.net/devices",
-        "key": "Devices",
-        "text": "breadcrumb.devices",
-      },
-      Object {
-        "href": "#/resources/foo.azure-devices.net/devices/deviceDetail/digitalTwins/interfaces/?deviceId=null&interfaceId=urn:some:interface:name:1",
-        "key": "device_null_urn:some:interface:name:1",
-        "text": "urn:some:interface:name:1",
-      },
-      Object {
-        "href": "",
-        "key": "properties",
-        "text": "deviceContent.navBar.properties",
-      },
-    ]
-  }
-/>
-`;
-
-exports[`components/shared/breadcrumb matches snapshot #/devices.../device1 with interface and missing deviceId 1`] = `
-<StyledBreadcrumbBase
-  className="device-content-breadcrumb"
-  items={
-    Array [
-      Object {
-        "href": "#/resources/foo.azure-devices.net/devices",
-        "key": "Devices",
-        "text": "breadcrumb.devices",
-      },
-      Object {
-        "href": "#/resources/foo.azure-devices.net/devices/deviceDetail/digitalTwins/interfaces/?deviceId=null&interfaceId=urn:some:interface:name:1",
-        "key": "device_null_urn:some:interface:name:1",
-        "text": "urn:some:interface:name:1",
-      },
-      Object {
-        "href": "",
-        "key": "properties",
-        "text": "deviceContent.navBar.properties",
-      },
-    ]
-  }
-/>
-`;
-
-exports[`components/shared/breadcrumb matches snapshot #/devices.../device1 with malformed interface 1`] = `
-<StyledBreadcrumbBase
-  className="device-content-breadcrumb"
-  items={
-    Array [
-      Object {
-        "href": "#/resources/foo.azure-devices.net/devices",
-        "key": "Devices",
-        "text": "breadcrumb.devices",
-      },
-      Object {
-        "href": "#/resources/foo.azure-devices.net/devices/deviceDetail/digitalTwins/interfaces/?deviceId=null&interfaceId=null",
-        "key": "device_null_null",
-        "text": null,
-      },
-      Object {
-        "href": "",
-        "key": "properties",
-        "text": "deviceContent.navBar.properties",
-      },
-    ]
-  }
-/>
-`;
-
-exports[`components/shared/breadcrumb matches snapshot #/devices/ 1`] = `
-<StyledBreadcrumbBase
-  className="device-content-breadcrumb"
-  items={
-    Array [
-      Object {
-        "href": "",
-        "key": "Devices",
-        "text": "breadcrumb.devices",
-      },
-    ]
-  }
-/>
-`;
-
-exports[`components/shared/breadcrumb matches snapshot with malformed #/devices.../device1 1`] = `
-<StyledBreadcrumbBase
-  className="device-content-breadcrumb"
-  items={
-    Array [
-      Object {
-        "href": "#/resources/foo.azure-devices.net/devices",
-        "key": "Devices",
-        "text": "breadcrumb.devices",
-      },
-    ]
-  }
-/>
-`;
-
-exports[`components/shared/breadcrumb matches snapshot with missing #/devices.../device1 1`] = `
-<StyledBreadcrumbBase
-  className="device-content-breadcrumb"
-  items={
-    Array [
-      Object {
-        "href": "#/resources/foo.azure-devices.net/devices",
-        "key": "Devices",
-        "text": "breadcrumb.devices",
-      },
-    ]
-  }
-/>
+        "$$typeof": Symbol(react.memo),
+        "WrappedComponent": [Function],
+        "compare": null,
+        "displayName": "Connect(BreadcrumbItem)",
+        "type": [Function],
+      }
+    }
+    path="/resources/hub.azure-devices.net/devices/deviceDetail/moduleIdentity/:path"
+  />
+</Fragment>
 `;
