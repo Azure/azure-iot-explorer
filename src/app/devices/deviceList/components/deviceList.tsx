@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Redirect, RouteComponentProps, withRouter, NavLink, Route } from 'react-router-dom';
+import { RouteComponentProps, withRouter, NavLink, Route } from 'react-router-dom';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import { Label } from 'office-ui-fabric-react/lib/Label';
 import { Dialog, DialogFooter, DialogType } from 'office-ui-fabric-react/lib/Dialog';
@@ -16,7 +16,7 @@ import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { DeviceSummary } from '../../../api/models/deviceSummary';
 import DeviceQuery from '../../../api/models/deviceQuery';
 import DeviceListCommandBar from './deviceListCommandBar';
-import BreadcrumbContainer from '../../../shared/components/breadcrumbContainer';
+import Breadcrumb from '../../../shared/components/breadcrumb';
 import DeviceListQuery from './deviceListQuery';
 import ListPaging from './listPaging';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
@@ -71,7 +71,7 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
                 {(context: LocalizationContextInterface) => (
                     <div className="view">
                         <div className="view-header">
-                            <Route component={BreadcrumbContainer} />
+                            <Route component={Breadcrumb} />
                         </div>
                         <div className="view-command">
                             {this.showCommandBar()}

@@ -12,7 +12,7 @@ import DirectMethodContainer from './directMethod/directMethodContainer';
 import CloudToDeviceMessageContainer from './cloudToDeviceMessage/cloudToDeviceMessageContainer';
 import ModuleIdentityContent from '../../module/components/moduleIdentity/moduleIdentityContent';
 import DeviceContentNavComponent from './deviceContentNav';
-import BreadcrumbContainer from '../../../shared/components/breadcrumbContainer';
+import Breadcrumb from '../../../shared/components/breadcrumb';
 import DigitalTwinsContentContainer from './digitalTwinContentContainer';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../shared/contexts/localizationContext';
@@ -60,7 +60,7 @@ export class DeviceContentComponent extends React.PureComponent<DeviceContentPro
             {(context: LocalizationContextInterface) => (
                 <div className="edit">
                     <div className="view-header">
-                        <Route component={BreadcrumbContainer} />
+                        <Route component={Breadcrumb} />
                     </div>
                     {this.props.deviceId &&
                         <div className="view-content view-scroll">

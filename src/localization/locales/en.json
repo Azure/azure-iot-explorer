@@ -105,7 +105,17 @@
     "breadcrumb": {
         "hub": "Hub {{hubName}}",
         "devices": "Devices",
-        "addDevice": "Create a device"
+        "add": "Create a new identity",
+        "identity": "Device identity",
+        "twin": "Device twin",
+        "events": "Telemetry",
+        "methods": "Direct method",
+        "cloudToDeviceMessage": "Cloud-to-device message",
+        "moduleIdentity": "Module identity",
+        "interfaces": "Interface",
+        "properties": "Properties (non-writable)",
+        "settings": "Properties (writable)",
+        "commands": "Commands"
     },
     "deviceContent": {
         "start": "Select a device to start",
