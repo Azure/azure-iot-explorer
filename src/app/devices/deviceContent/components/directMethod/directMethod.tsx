@@ -21,7 +21,7 @@ import { HeaderView } from '../../../../shared/components/headerView';
 import '../../../../css/_deviceDetail.scss';
 
 const SLIDER_MAX = 300;
-
+const DEFAULT_TIMEOUT = 10;
 export interface DirectMethodState {
     connectionTimeout: number;
     methodName: string;
@@ -40,10 +40,10 @@ export default class DirectMethod extends React.Component<DirectMethodProps & Ro
     constructor(props: DirectMethodProps & RouteComponentProps) {
         super(props);
         this.state = {
-            connectionTimeout: 0,
+            connectionTimeout: DEFAULT_TIMEOUT,
             methodName: '',
             payload: '',
-            responseTimeout: 0
+            responseTimeout: DEFAULT_TIMEOUT
         };
     }
 
