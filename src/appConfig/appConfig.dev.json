@@ -1,5 +1,10 @@
 {
     "developmentMode": true,
     "hostMode": "browser",
-    "authMode": "implicitFlow"
+    "authMode": "connectionString",
+    "authServiceSettings": {
+        "authority": "https://login.microsoftonline.com/common",
+        "client": "c9d0ec1d-3630-477b-ae58-83585222d684"
+    },
+    "azureResourceManagementEndpoint": "management.azure.com"
 }

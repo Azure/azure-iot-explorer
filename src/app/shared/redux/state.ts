@@ -6,6 +6,7 @@ import { AzureResourceStateInterface } from '../../azureResource/state';
 import { DeviceContentStateType } from '../../devices/deviceContent/state';
 import { DeviceListStateInterface } from '../../devices/deviceList/state';
 import { ConnectionStringsStateInterface } from '../../connectionStrings/state';
+import { IotHubStateInterface } from '../../iotHub/state';
 import { NotificationsStateInterface } from '../../notifications/state';
 import { ApplicationStateType } from '../../settings/state';
 import { ModuleStateType } from '../../devices/module/state';
@@ -17,6 +18,7 @@ export interface StateInterface {
     connectionStringsState: ConnectionStringsStateInterface;
     deviceContentState: DeviceContentStateType;
     deviceListState: DeviceListStateInterface;
+    iotHubState: IotHubStateInterface;
     notificationsState: NotificationsStateInterface;
     moduleState: ModuleStateType;
 }
