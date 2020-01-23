@@ -68,7 +68,7 @@ exports[`directMethod matches snapshot 1`] = `
         max={300}
         min={0}
         onChange={[Function]}
-        value={0}
+        value={10}
       />
       <Component
         tooltipText="directMethod.responseTimeoutTooltip"
@@ -78,9 +78,9 @@ exports[`directMethod matches snapshot 1`] = `
       <StyledSliderBase
         ariaLabel="directMethod.responseTimeout"
         max={300}
-        min={0}
+        min={10}
         onChange={[Function]}
-        value={0}
+        value={10}
       />
     </div>
   </div>
