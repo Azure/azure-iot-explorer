@@ -1,96 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Breadcrumb snapshot matches snapshot 1`] = `
-<Fragment>
+<ul
+  className="breadcrumb"
+>
   <Route
-    component={
-      Object {
-        "$$typeof": Symbol(react.memo),
-        "WrappedComponent": [Function],
-        "compare": null,
-        "displayName": "Connect(BreadcrumbItem)",
-        "type": [Function],
-      }
-    }
-    path="/resources/:path"
+    component={[Function]}
+    path="/:path"
   />
-</Fragment>
-`;
-
-exports[`Breadcrumb snapshot matches snapshot when rendering devices links 1`] = `
-<Fragment>
-  <li
-    className="breadcrumb-item"
-  >
-    <NavLink
-      activeClassName="active"
-      aria-current="page"
-      to="/resources/hub.azure-devices.net/devices"
-    >
-      breadcrumb.devices
-    </NavLink>
-  </li>
-  <Route
-    component={
-      Object {
-        "$$typeof": Symbol(react.memo),
-        "WrappedComponent": [Function],
-        "compare": null,
-        "displayName": "Connect(BreadcrumbItem)",
-        "type": [Function],
-      }
-    }
-    path="/resources/hub.azure-devices.net/devices/:path"
-  />
-</Fragment>
-`;
-
-exports[`Breadcrumb snapshot matches snapshot when rendering last breadcrumb 1`] = `
-<Fragment>
-  <li
-    className="breadcrumb-item"
-  >
-    breadcrumb.cloudToDeviceMessage
-  </li>
-  <Route
-    component={
-      Object {
-        "$$typeof": Symbol(react.memo),
-        "WrappedComponent": [Function],
-        "compare": null,
-        "displayName": "Connect(BreadcrumbItem)",
-        "type": [Function],
-      }
-    }
-    path="/resources/hub.azure-devices.net/devices/deviceDetail/cloudToDeviceMessage//:path"
-  />
-</Fragment>
-`;
-
-exports[`Breadcrumb snapshot matches snapshot when rendering module identity links 1`] = `
-<Fragment>
-  <li
-    className="breadcrumb-item"
-  >
-    <NavLink
-      activeClassName="active"
-      aria-current="page"
-      to="/resources/hub.azure-devices.net/devices/deviceDetail/moduleIdentity/?deviceId=newdevice\\""
-    >
-      breadcrumb.moduleIdentity
-    </NavLink>
-  </li>
-  <Route
-    component={
-      Object {
-        "$$typeof": Symbol(react.memo),
-        "WrappedComponent": [Function],
-        "compare": null,
-        "displayName": "Connect(BreadcrumbItem)",
-        "type": [Function],
-      }
-    }
-    path="/resources/hub.azure-devices.net/devices/deviceDetail/moduleIdentity/:path"
-  />
-</Fragment>
+</ul>
 `;

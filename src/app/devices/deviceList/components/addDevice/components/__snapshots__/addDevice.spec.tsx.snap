@@ -8,7 +8,9 @@ exports[`components/devices/addDevice matches snapshot 1`] = `
   <div
     className="view-header"
   >
-    <Breadcrumb />
+    <Route
+      component={[Function]}
+    />
   </div>
   <div
     className="view-command"

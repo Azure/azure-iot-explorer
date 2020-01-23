@@ -4,9 +4,9 @@
  **********************************************************/
 import * as React from 'react';
 import 'jest';
-import { BreadcrumbItemDataProps, BreadcrumbItem } from './breadcrumb';
+import { shallow } from 'enzyme';
+import Breadcrumb, { BreadcrumbItemDataProps } from './breadcrumb';
 import { ROUTE_PARTS } from '../../constants/routes';
-import { testWithLocalizationContext } from '../utils/testHelpers';
 
 describe('Breadcrumb', () => {
     const hostName = 'hub.azure-devices.net';
@@ -29,7 +29,8 @@ describe('Breadcrumb', () => {
     };
 
     const breadcrumbItemDataProps: BreadcrumbItemDataProps = {
-        hostName
+        hostName,
+        ...routerprops
     };
 
     const getComponent = (overrides = {}) => {
@@ -39,71 +40,12 @@ describe('Breadcrumb', () => {
             ...overrides
         };
 
-        return <BreadcrumbItem {...props}/>;
+        return <Breadcrumb {...props}/>;
     };
 
     context('snapshot', () => {
         it('matches snapshot', () => {
-            const wrapper = testWithLocalizationContext(
-                getComponent()
-            );
-            expect(wrapper).toMatchSnapshot();
-        });
-
-        it('matches snapshot when rendering devices links', () => {
-            const wrapper = testWithLocalizationContext(
-                getComponent({
-                    history: {
-                        location,
-                    },
-                    location,
-                    match: {
-                        isExact: false,
-                        path: `/${ROUTE_PARTS.RESOURCE}/${hostName}/:path`,
-                        url: `/${ROUTE_PARTS.RESOURCE}/${hostName}/${ROUTE_PARTS.DEVICES}`
-                    }
-                })
-            );
-            expect(wrapper).toMatchSnapshot();
-        });
-
-        it('matches snapshot when rendering module identity links', () => {
-            const newPathName = `/${ROUTE_PARTS.RESOURCE}/${hostName}/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DEVICE_DETAIL}/${ROUTE_PARTS.MODULE_IDENTITY}/${ROUTE_PARTS.MODULE_DETAIL}/`;
-            const newLocation = {
-                pathname: newPathName,
-                search: '?deviceId=newdevice"&moduleId=ca'
-            };
-            const wrapper = testWithLocalizationContext(
-                getComponent({
-                    history: {
-                        newLocation,
-                    },
-                    location: newLocation,
-                    match: {
-                        isExact: false,
-                        path: `/${ROUTE_PARTS.RESOURCE}/${hostName}/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DEVICE_DETAIL}/:path`,
-                        url: `/${ROUTE_PARTS.RESOURCE}/${hostName}/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DEVICE_DETAIL}/${ROUTE_PARTS.MODULE_IDENTITY}`
-                    }
-                })
-            );
-            expect(wrapper).toMatchSnapshot();
-        });
-
-        it('matches snapshot when rendering last breadcrumb', () => {
-            const wrapper = testWithLocalizationContext(
-                getComponent({
-                    history: {
-                        location,
-                    },
-                    location,
-                    match: {
-                        isExact: true,
-                        path: `/${ROUTE_PARTS.RESOURCE}/${hostName}/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DEVICE_DETAIL}/:path`,
-                        url: `/${ROUTE_PARTS.RESOURCE}/${hostName}/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DEVICE_DETAIL}/${ROUTE_PARTS.CLOUD_TO_DEVICE_MESSAGE}/`
-                    }
-                })
-            );
-            expect(wrapper).toMatchSnapshot();
+            expect(shallow(getComponent())).toMatchSnapshot();
         });
     });
 });

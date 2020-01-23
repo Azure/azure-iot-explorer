@@ -7,7 +7,9 @@ exports[`deviceContent matches snapshot 1`] = `
   <div
     className="view-header"
   >
-    <Breadcrumb />
+    <Route
+      component={[Function]}
+    />
   </div>
   <div
     className="view-content view-scroll"

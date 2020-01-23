@@ -60,7 +60,7 @@ export class DeviceContentComponent extends React.PureComponent<DeviceContentPro
             {(context: LocalizationContextInterface) => (
                 <div className="edit">
                     <div className="view-header">
-                        <Breadcrumb/>
+                        <Route component={Breadcrumb} />
                     </div>
                     {this.props.deviceId &&
                         <div className="view-content view-scroll">

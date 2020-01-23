@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { RouteComponentProps, withRouter, NavLink } from 'react-router-dom';
+import { RouteComponentProps, withRouter, NavLink, Route } from 'react-router-dom';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import { Label } from 'office-ui-fabric-react/lib/Label';
 import { Dialog, DialogFooter, DialogType } from 'office-ui-fabric-react/lib/Dialog';
@@ -71,7 +71,7 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
                 {(context: LocalizationContextInterface) => (
                     <div className="view">
                         <div className="view-header">
-                            <Breadcrumb/>
+                            <Route component={Breadcrumb} />
                         </div>
                         <div className="view-command">
                             {this.showCommandBar()}

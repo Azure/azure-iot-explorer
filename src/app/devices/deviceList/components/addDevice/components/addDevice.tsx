@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, Route } from 'react-router-dom';
 import { Overlay } from 'office-ui-fabric-react/lib/Overlay';
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/ChoiceGroup';
@@ -71,7 +71,7 @@ export default class AddDevice extends React.Component<AddDeviceActionProps & Ad
                 {(context: LocalizationContextInterface) => (
                      <form onSubmit={this.handleSave} className="view add-device">
                         <div className="view-header">
-                            <Breadcrumb/>
+                            <Route component={Breadcrumb} />
                         </div>
                         <div className="view-command">
                             {this.showCommandBar(context)}
