@@ -11,11 +11,10 @@ import { executeAzureResourceManagementTokenRequest } from '../../login/services
 import { appConfig } from '../../../appConfig/appConfig';
 import { StateInterface } from '../../shared/redux/state';
 import { CacheWrapper } from '../../api/models/cacheWrapper';
+import {  MILLISECONDS_PER_SECOND, SECONDS_PER_MINUTE } from '../../api/constants';
 
 const cacheInMinutes = 4;
-const secondsPerMinute = 60;
-const millisecondsPerSecond = 1000;
-export const cacheRetentionInMilliseconds = cacheInMinutes * secondsPerMinute * millisecondsPerSecond;
+export const cacheRetentionInMilliseconds = cacheInMinutes * SECONDS_PER_MINUTE * MILLISECONDS_PER_SECOND;
 
 export function* getSharedAccessSignatureAuthorizationRulesSaga(azureResourceIdentifier: AzureResourceIdentifier) {
 

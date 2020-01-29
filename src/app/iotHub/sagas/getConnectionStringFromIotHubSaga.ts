@@ -8,7 +8,7 @@ import { getSharedAccessSignatureAuthorizationRulesSaga } from './getSharedAcces
 import { AccessRights } from '../models/accessRights';
 import { SharedAccessSignatureAuthorizationRule } from '../models/sharedAccessSignatureAuthorizationRule';
 import { AzureResourceHostNameType } from '../../azureResourceIdentifier/models/azureResourceHostNameType';
-import { AuthorizationRuleNotFoundError } from '../../api/models/authorizationRuleNotFound.Error';
+import { AuthorizationRuleNotFoundError } from '../../api/models/authorizationRuleNotFoundError';
 
 export function* getConnectionStringFromIotHubSaga(azureResourceIdentifier: AzureResourceIdentifier) {
     const rules: SharedAccessSignatureAuthorizationRule[] = yield call(getSharedAccessSignatureAuthorizationRulesSaga, azureResourceIdentifier);

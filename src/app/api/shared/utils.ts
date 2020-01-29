@@ -8,9 +8,7 @@ import { LIST_PLUG_AND_PLAY_DEVICES, SAS_EXPIRES_MINUTES } from '../../constants
 import DeviceQuery, { QueryClause, ParameterType, OperationType } from '../models/deviceQuery';
 import { RepoConnectionSettings } from '../services/digitalTwinsModelService';
 import { AppEnvironment } from '../../constants/shared';
-
-const MILLISECONDS_PER_SECOND = 1000;
-const SECONDS_PER_MINUTE = 60;
+import { MILLISECONDS_PER_SECOND, SECONDS_PER_MINUTE } from '../constants';
 
 export const enum PnPQueryPrefix {
     HAS_CAPABILITY_MODEL = 'HAS_CAPABILITYMODEL',
