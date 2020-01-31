@@ -9,7 +9,7 @@ import { Label } from 'office-ui-fabric-react/lib/Label';
 import { Spinner } from 'office-ui-fabric-react/lib/Spinner';
 import { TextField, ITextFieldProps } from 'office-ui-fabric-react/lib/TextField';
 import { Announced } from 'office-ui-fabric-react/lib/Announced';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, Route } from 'react-router-dom';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { monitorEvents, stopMonitoringEvents } from '../../../../api/services/devicesService';
@@ -27,10 +27,10 @@ import { DEFAULT_CONSUMER_GROUP } from '../../../../constants/apiConstants';
 import ErrorBoundary from '../../../errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
-import { HeaderView } from '../../../../shared/components/headerView';
 import { MILLISECONDS_IN_MINUTE } from '../../../../constants/shared';
 import { appConfig, HostMode } from '../../../../../appConfig/appConfig';
 import '../../../../css/_deviceEvents.scss';
+import { DigitalTwinHeaderContainer } from '../digitalTwin/digitalTwinHeaderView';
 
 const JSON_SPACES = 2;
 const LOADING_LOCK = 50;
@@ -99,9 +99,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
                             className="command"
                             items={this.createCommandBarItems(context)}
                         />
-                        <HeaderView
-                            headerText={ResourceKeys.deviceEvents.headerText}
-                        />
+                        <Route component={DigitalTwinHeaderContainer} />
                         {this.props.telemetrySchema &&
                             <TextField
                                 className={'consumer-group-text-field'}

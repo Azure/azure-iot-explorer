@@ -7,7 +7,7 @@ import { Label } from 'office-ui-fabric-react/lib/Label';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { ActionButton } from 'office-ui-fabric-react/lib/Button';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, Route } from 'react-router-dom';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getInterfaceIdFromQueryString, getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
@@ -20,8 +20,8 @@ import ErrorBoundary from '../../../errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 import { ThemeContextInterface, ThemeContextConsumer } from '../../../../shared/contexts/themeContext';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
-import { HeaderView } from '../../../../shared/components/headerView';
 import MaskedCopyableTextFieldContainer from '../../../../shared/components/maskedCopyableTextFieldContainer';
+import { DigitalTwinHeaderContainer } from '../digitalTwin/digitalTwinHeaderView';
 
 const EditorPromise = import('react-monaco-editor');
 const Editor = React.lazy(() => EditorPromise);
@@ -76,9 +76,7 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
         const {  modelDefinitionWithSource } = this.props;
         return (
             <>
-                <HeaderView
-                    headerText={ResourceKeys.deviceInterfaces.headerText}
-                />
+                <Route component={DigitalTwinHeaderContainer} />
                 {modelDefinitionWithSource && modelDefinitionWithSource.payload ?
                     <ErrorBoundary error={context.t(ResourceKeys.errorBoundary.text)}>
                         <section className="pnp-interface-info">

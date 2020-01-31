@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, Route } from 'react-router-dom';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
@@ -12,7 +12,7 @@ import DevicePropertiesPerInterface, { TwinWithSchema } from './deviceProperties
 import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
 import { REFRESH } from '../../../../constants/iconNames';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
-import { HeaderView } from '../../../../shared/components/headerView';
+import { DigitalTwinHeaderContainer } from '../digitalTwin/digitalTwinHeaderView';
 
 export interface DevicePropertiesDataProps {
     twinAndSchema: TwinWithSchema[];
@@ -51,7 +51,7 @@ export default class DeviceProperties
                                     }
                                 ]}
                         />
-                        {this.renderProperties(context)}
+                        {this.renderProperties()}
                     </>
                 )}
             </LocalizationContextConsumer>
@@ -62,13 +62,11 @@ export default class DeviceProperties
         this.props.setInterfaceId(getInterfaceIdFromQueryString(this.props));
     }
 
-    private readonly renderProperties = (context: LocalizationContextInterface) => {
+    private readonly renderProperties = () => {
         const { twinAndSchema } = this.props;
         return (
             <>
-                <HeaderView
-                    headerText={ResourceKeys.deviceProperties.headerText}
-                />
+                <Route component={DigitalTwinHeaderContainer} />
                 {twinAndSchema ?
                     <DevicePropertiesPerInterface
                         twinAndSchema={twinAndSchema}

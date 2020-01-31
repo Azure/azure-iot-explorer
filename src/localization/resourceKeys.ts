@@ -13,6 +13,7 @@ export class ResourceKeys {
       cloudToDeviceMessage : "breadcrumb.cloudToDeviceMessage",
       commands : "breadcrumb.commands",
       devices : "breadcrumb.devices",
+      digitalTwins : "breadcrumb.digitalTwins",
       events : "breadcrumb.events",
       hub : "breadcrumb.hub",
       identity : "breadcrumb.identity",
@@ -158,6 +159,7 @@ export class ResourceKeys {
          cloudToDeviceMessage : "deviceContent.navBar.cloudToDeviceMessage",
          collapse : "deviceContent.navBar.collapse",
          commands : "deviceContent.navBar.commands",
+         digitalTwins : "deviceContent.navBar.digitalTwins",
          events : "deviceContent.navBar.events",
          eventsPerInterface : "deviceContent.navBar.eventsPerInterface",
          expand : "deviceContent.navBar.expand",
@@ -493,6 +495,12 @@ export class ResourceKeys {
       headerText : "deviceTwin.headerText",
       notFound : "deviceTwin.notFound",
       tooltip : "deviceTwin.tooltip",
+   };
+   public static digitalTwin = {
+      componentName : "digitalTwin.componentName",
+      dcm : "digitalTwin.dcm",
+      headerText : "digitalTwin.headerText",
+      interfaceName : "digitalTwin.interfaceName",
    };
    public static directMethod = {
       connectionTimeout : "directMethod.connectionTimeout",

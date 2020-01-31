@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, Route } from 'react-router-dom';
 import DeviceSettingPerInterface from './deviceSettingsPerInterface';
 import { TwinWithSchema } from './deviceSettingsPerInterfacePerSetting';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
@@ -14,7 +14,7 @@ import { PatchDigitalTwinInterfacePropertiesActionParameters } from '../../actio
 import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
 import { REFRESH } from '../../../../constants/iconNames';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
-import { HeaderView } from '../../../../shared/components/headerView';
+import { DigitalTwinHeaderContainer } from '../digitalTwin/digitalTwinHeaderView';
 
 export interface DeviceSettingsProps extends DeviceInterfaceWithSchema{
     isLoading: boolean;
@@ -61,7 +61,7 @@ export default class DeviceSettings
                                     }
                                 ]}
                         />
-                        {this.renderProperties(context)}
+                        {this.renderProperties()}
                     </>
                 )}
             </LocalizationContextConsumer>
@@ -72,12 +72,10 @@ export default class DeviceSettings
         this.props.setInterfaceId(getInterfaceIdFromQueryString(this.props));
     }
 
-    private readonly renderProperties = (context: LocalizationContextInterface) => {
+    private readonly renderProperties = () => {
         return (
             <>
-                <HeaderView
-                    headerText={ResourceKeys.deviceSettings.headerText}
-                />
+                <Route component={DigitalTwinHeaderContainer} />
                 {this.props.twinWithSchema ?
                     <DeviceSettingPerInterface
                         {...this.props}
