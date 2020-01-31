@@ -14,6 +14,11 @@ export interface AppConfigInterface {
     developmentMode: boolean;
     hostMode: HostMode;
     authMode: AuthMode;
+    authServiceSettings?: {
+        authority: string;
+        client: string;
+    };
+    azureResourceManagementEndpoint?: string;
 }
 
 export const appConfig = config as AppConfigInterface;

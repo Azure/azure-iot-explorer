@@ -2,10 +2,11 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
+import { AccessRights } from './accessRights';
 
-export interface AzureResourceIdentifier {
-    resourceName: string;
-    resouceGroupName: string;
-    subscriptionId: string;
-    location: string;
+export interface SharedAccessSignatureAuthorizationRule {
+    keyName: string;
+    primaryKey?: string;
+    secondaryKey?: string;
+    rights: AccessRights;
 }

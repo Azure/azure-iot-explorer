@@ -9,3 +9,11 @@ export enum HTTP_OPERATION_TYPES {
     Post = 'POST',
     Put = 'PUT'
 }
+
+export const MILLISECONDS_PER_SECOND = 1000;
+export const SECONDS_PER_MINUTE = 60;
+export const APPLICATION_JSON = 'application/json';
+export const ERROR_TYPES = {
+    AUTHORIZATION_RULE_NOT_FOUND: 'authorizationRuleNotFound',
+    HTTP: 'http'
+};
