@@ -115,7 +115,8 @@
         "interfaces": "Interface",
         "properties": "Properties (non-writable)",
         "settings": "Properties (writable)",
-        "commands": "Commands"
+        "commands": "Commands",
+        "digitalTwins": "Plug and Play"
     },
     "deviceContent": {
         "start": "Select a device to start",
@@ -131,6 +132,7 @@
             "methods": "Direct method",
             "cloudToDeviceMessage": "Cloud-to-device message",
             "pnp": "DIGITAL TWIN",
+            "digitalTwins": "Plug and Play",
             "nonpnp": "DEVICE",
             "add": "Create device identity",
             "collapse": "Collapse navigation menu",
@@ -367,6 +369,12 @@
             "save": "Save"
         },
         "tooltip": "You can add tags and desired properties to your device twin here. To remove a tag or desired property, set the value of the item to be removed to 'null'."
+    },
+    "digitalTwin": {
+        "headerText": "Plug and Play",
+        "dcm": "Model id: {{modelId}}",
+        "componentName": "Component: {{componentName}}",
+        "interfaceName": "Interface: {{interfaceName}}"
     },
     "deviceProperties": {
         "command" : {

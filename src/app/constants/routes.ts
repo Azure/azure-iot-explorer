@@ -9,6 +9,7 @@ export enum ROUTE_PARTS {
     DEVICE_DETAIL = 'deviceDetail',
     DEVICES = 'devices',
     DIGITAL_TWINS = 'digitalTwins',
+    DIGITAL_TWINS_DETAIL = 'digitalTwinsDetail',
     EVENTS = 'events',
     IDENTITY = 'identity',
     INTERFACES = 'interfaces',

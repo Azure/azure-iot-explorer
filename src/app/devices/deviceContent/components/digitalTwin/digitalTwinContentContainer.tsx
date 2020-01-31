@@ -6,7 +6,7 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { AnyAction } from 'typescript-fsa';
 import { DigitalTwinContentDispatchProps, DigitalTwinContent } from './digitalTwinContent';
-import { getModelDefinitionAction } from '../actions';
+import { getModelDefinitionAction } from '../../actions';
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): Partial<DigitalTwinContentDispatchProps> => {
     return {

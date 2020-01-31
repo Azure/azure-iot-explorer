@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, Route } from 'react-router-dom';
 import DeviceCommandPerInterface from './deviceCommandsPerInterface';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
@@ -14,7 +14,7 @@ import { CommandSchema } from './deviceCommandsPerInterfacePerCommand';
 import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
 import { REFRESH } from '../../../../constants/iconNames';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
-import { HeaderView } from '../../../../shared/components/headerView';
+import { DigitalTwinHeaderContainer } from '../digitalTwin/digitalTwinHeaderView';
 
 export interface DeviceCommandsProps extends DeviceInterfaceWithSchema{
     isLoading: boolean;
@@ -60,7 +60,7 @@ export default class DeviceCommands
                                 }
                             ]}
                         />
-                        {this.renderCommandsPerInterface(context)}
+                        {this.renderCommandsPerInterface()}
                     </>
                 )}
             </LocalizationContextConsumer>
@@ -71,12 +71,10 @@ export default class DeviceCommands
         this.props.setInterfaceId(getInterfaceIdFromQueryString(this.props));
     }
 
-    private readonly renderCommandsPerInterface = (context: LocalizationContextInterface) => {
+    private readonly renderCommandsPerInterface = () => {
         return (
             <>
-                <HeaderView
-                    headerText={ResourceKeys.deviceCommands.headerText}
-                />
+                <Route component={DigitalTwinHeaderContainer} />
                 { this.props.commandSchemas ?
                     <DeviceCommandPerInterface
                         {...this.props}
