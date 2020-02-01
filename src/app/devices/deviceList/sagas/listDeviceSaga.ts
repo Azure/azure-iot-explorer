@@ -13,6 +13,7 @@ import DeviceQuery from '../../../api/models/deviceQuery';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { ERROR_TYPES } from './../../../api/constants';
 import { appConfig } from '../../../../appConfig/appConfig';
+import { CUSTOM_CONTROLLER_PORT } from './../../../constants/browserStorage';
 
 export function* listDevicesSaga(action: Action<DeviceQuery>) {
     try {
@@ -25,7 +26,10 @@ export function* listDevicesSaga(action: Action<DeviceQuery>) {
     } catch (error) {
         let text;
         if (error.name === ERROR_TYPES.PORT_IS_IN_USE) {
-            text = { translationKey: ResourceKeys.notifications.portIsInUseError, translationOptions: {portNumber: appConfig.controllerPort} };
+            text = {
+                translationKey: ResourceKeys.notifications.portIsInUseError,
+                translationOptions: { portNumber: localStorage.getItem(CUSTOM_CONTROLLER_PORT) || appConfig.controllerPort }
+            };
         }
         else if (error && error.message) {
             text = {

@@ -33,9 +33,11 @@ const createWindow = () => {
 
     const setPort = () => {
         try {
-            const userPort = parseInt(process.env.AZURE_IOT_EXPLORER_PORT); // tslint:disable-line:radix
-            if (userPort) {
-                mainWindow.webContents.executeJavaScript(`localStorage.setItem("CONTROLLER_PORT", ${userPort});`);
+            const customPort = parseInt(process.env.AZURE_IOT_EXPLORER_PORT); // tslint:disable-line:radix
+            if (customPort) {
+                mainWindow.webContents.executeJavaScript(`localStorage.setItem("CUSTOM_CONTROLLER_PORT", ${customPort});`);
+            } else {
+                mainWindow.webContents.executeJavaScript(`localStorage.setItem("CUSTOM_CONTROLLER_PORT", '');`);
             }
         }
         catch {

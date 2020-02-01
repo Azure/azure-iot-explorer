@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import { appConfig, HostMode } from '../../appConfig/appConfig';
+import { CUSTOM_CONTROLLER_PORT } from './browserStorage';
 
 // express server
 export const DATAPLANE = '/DataPlane';
@@ -50,9 +51,7 @@ export const DEFAULT_CONSUMER_GROUP = '$Default';
 
 const localIp = 'http://127.0.0.1';
 const apiPath = '/api';
-const controllerPortKey = 'CONTROLLER_PORT';
 export const CONTROLLER_API_ENDPOINT =
     appConfig.hostMode ===  HostMode.Browser ?
         `${localIp}:${appConfig.controllerPort}${apiPath}` :
-        localStorage.getItem(controllerPortKey) ?
-            `${localIp}:${localStorage.getItem(controllerPortKey)}${apiPath}` : `${localIp}:${appConfig.controllerPort}${apiPath}`;
+        `${localIp}:${localStorage.getItem(CUSTOM_CONTROLLER_PORT) || appConfig.controllerPort}${apiPath}`;
