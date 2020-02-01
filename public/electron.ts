@@ -31,8 +31,21 @@ const createWindow = () => {
         }
     };
 
+    const setPort = () => {
+        try {
+            const userPort = parseInt(process.env.AZURE_IOT_EXPLORER_PORT); // tslint:disable-line:radix
+            if (userPort) {
+                mainWindow.webContents.executeJavaScript(`localStorage.setItem("CONTROLLER_PORT", ${userPort});`);
+            }
+        }
+        catch {
+            // no port to set
+        }
+    };
+
     mainWindow.loadURL(startUrl).then(() => {
         setHighContrast();
+        setPort();
     });
 
     electron.nativeTheme.on('updated', () => {

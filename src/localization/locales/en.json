@@ -684,7 +684,8 @@
         "getModuleIdentityTwinOnError": "Failed to get module identity twin for module {{moduleId}}: {{error}}",
         "getModuleIdentityOnError": "Failed to get module identity {{moduleId}}: {{error}}",
         "deleteModuleIdentityOnSuccess": "Successfully deleted module {{moduleId}}",
-        "deleteModuleIdentityOnError": "Failed to delete module identity {{moduleId}}: {{error}}"
+        "deleteModuleIdentityOnError": "Failed to delete module identity {{moduleId}}: {{error}}",
+        "portIsInUseError": "The port {{portNumber}} is in use. To configure a custom port value, set environment variable 'AZURE_IOT_EXPLORER_PORT' to an available port number. To learn more, visit https://github.com/Azure/azure-iot-explorer/wiki/FAQ "
     },
     "errorBoundary": {
         "text": "Something went wrong"

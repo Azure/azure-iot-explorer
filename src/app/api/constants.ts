@@ -15,5 +15,6 @@ export const SECONDS_PER_MINUTE = 60;
 export const APPLICATION_JSON = 'application/json';
 export const ERROR_TYPES = {
     AUTHORIZATION_RULE_NOT_FOUND: 'authorizationRuleNotFound',
-    HTTP: 'http'
+    HTTP: 'http',
+    PORT_IS_IN_USE: 'portIsInUse'
 };

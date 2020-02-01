@@ -6,6 +6,7 @@ import { DataPlaneParameters } from '../parameters/deviceParameters';
 import { CONTROLLER_API_ENDPOINT, DATAPLANE, DataPlaneStatusCode } from '../../constants/apiConstants';
 import { HTTP_OPERATION_TYPES } from '../constants';
 import { getConnectionInfoFromConnectionString, generateSasToken } from '../shared/utils';
+import { PortIsInUseError } from '../models/portIsInUseError';
 
 export const DATAPLANE_CONTROLLER_ENDPOINT = `${CONTROLLER_API_ENDPOINT}${DATAPLANE}`;
 
@@ -75,7 +76,13 @@ export const dataPlaneResponseHelper = async (response: Response) => {
         result = await response.json();
     }
     catch {
-        throw new Error();
+        if (DataPlaneStatusCode.NotFound === dataPlaneResponse.status) {
+            // no response with 404 highly indicates that server is not running
+            throw new PortIsInUseError();
+        }
+        else {
+            throw new Error();
+        }
     }
 
     // success case

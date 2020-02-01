@@ -1,5 +1,6 @@
 {
     "developmentMode": false,
     "hostMode": "electron",
-    "authMode": "connectionString"
+    "authMode": "connectionString",
+    "controllerPort": 8081
 }

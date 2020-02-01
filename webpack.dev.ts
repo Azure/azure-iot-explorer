@@ -40,9 +40,6 @@ const config: webpack.Configuration = merge(common, {
             filename: '[name].css',
             ignoreOrder: false, // Enable to remove warnings about conflicting order
         }),
-        new webpack.DefinePlugin({
-            _CONTROLLER_ENDPOINT: '\'http://127.0.0.1:8082/\''
-        }),
         new webpack.NormalModuleReplacementPlugin(
             /(.*)appConfig.ENV(\.*)/,
             resource => resource.request = resource.request.replace(/ENV/, 'dev')

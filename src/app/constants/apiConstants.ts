@@ -2,10 +2,9 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-declare const _CONTROLLER_ENDPOINT: string;
+import { appConfig, HostMode } from '../../appConfig/appConfig';
 
 // express server
-export const CONTROLLER_API_ENDPOINT = (`${_CONTROLLER_ENDPOINT}/api`).replace(/([^:]\/)\/+/, '$1');
 export const DATAPLANE = '/DataPlane';
 export const EVENTHUB = '/EventHub';
 export const MODELREPO = '/ModelRepo';
@@ -43,7 +42,17 @@ export const HEADERS = {
 export enum DataPlaneStatusCode{
     SuccessLowerBound = 200,
     SuccessUpperBound = 299,
-    NoContentSuccess = 204
+    NoContentSuccess = 204,
+    NotFound = 404
 }
 
 export const DEFAULT_CONSUMER_GROUP = '$Default';
+
+const localIp = 'http://127.0.0.1';
+const apiPath = '/api';
+const controllerPortKey = 'CONTROLLER_PORT';
+export const CONTROLLER_API_ENDPOINT =
+    appConfig.hostMode ===  HostMode.Browser ?
+        `${localIp}:${appConfig.controllerPort}${apiPath}` :
+        localStorage.getItem(controllerPortKey) ?
+            `${localIp}:${localStorage.getItem(controllerPortKey)}${apiPath}` : `${localIp}:${appConfig.controllerPort}${apiPath}`;

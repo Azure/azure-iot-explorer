@@ -634,6 +634,7 @@ export class ResourceKeys {
       invokingMethodWithPayload : "notifications.invokingMethodWithPayload",
       patchDigitalTwinInterfacePropertiesOnError : "notifications.patchDigitalTwinInterfacePropertiesOnError",
       patchDigitalTwinInterfacePropertiesOnSuccess : "notifications.patchDigitalTwinInterfacePropertiesOnSuccess",
+      portIsInUseError : "notifications.portIsInUseError",
       savedToIotHubConnectionString : "notifications.savedToIotHubConnectionString",
       sendingCloudToDeviceMessage : "notifications.sendingCloudToDeviceMessage",
       updateDeviceOnError : "notifications.updateDeviceOnError",

@@ -11,6 +11,8 @@ import { listDevicesAction } from '../actions';
 import { fetchDevices } from '../../../api/services/devicesService';
 import DeviceQuery from '../../../api/models/deviceQuery';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
+import { ERROR_TYPES } from './../../../api/constants';
+import { appConfig } from '../../../../appConfig/appConfig';
 
 export function* listDevicesSaga(action: Action<DeviceQuery>) {
     try {
@@ -21,16 +23,23 @@ export function* listDevicesSaga(action: Action<DeviceQuery>) {
         const response = yield call(fetchDevices, parameters);
         yield put(listDevicesAction.done({params: action.payload, result: response}));
     } catch (error) {
-        const text = error && error.message ? {
-            translationKey: ResourceKeys.notifications.getDeviceListOnError,
-            translationOptions: {
-              error: error.message,
-          },
-        } :
-        {
+        let text;
+        if (error.name === ERROR_TYPES.PORT_IS_IN_USE) {
+            text = { translationKey: ResourceKeys.notifications.portIsInUseError, translationOptions: {portNumber: appConfig.controllerPort} };
+        }
+        else if (error && error.message) {
+            text = {
+                translationKey: ResourceKeys.notifications.getDeviceListOnError,
+                translationOptions: { error: error.message }
+            };
+        }
+        else {
             // tslint:disable-next-line:cyclomatic-complexity
-            translationKey: (action.payload && action.payload.clauses) ? ResourceKeys.notifications.getDeviceListQueryGenericErrorHelp : ResourceKeys.notifications.getDeviceListGenericErrorHelp
-        };
+            text = {
+                translationKey: (action.payload && action.payload.clauses) ? ResourceKeys.notifications.getDeviceListQueryGenericErrorHelp : ResourceKeys.notifications.getDeviceListGenericErrorHelp
+            };
+        }
+
         yield put(addNotificationAction.started({
             text,
             type: NotificationType.error,
