@@ -616,7 +616,6 @@ export class ResourceKeys {
       getDeviceIdentityOnError : "notifications.getDeviceIdentityOnError",
       getDeviceListGenericErrorHelp : "notifications.getDeviceListGenericErrorHelp",
       getDeviceListOnError : "notifications.getDeviceListOnError",
-      getDeviceListQueryGenericErrorHelp : "notifications.getDeviceListQueryGenericErrorHelp",
       getDeviceTwinOnError : "notifications.getDeviceTwinOnError",
       getDigitalTwinInterfacePropertiesOnError : "notifications.getDigitalTwinInterfacePropertiesOnError",
       getInterfaceModelOnError : "notifications.getInterfaceModelOnError",
