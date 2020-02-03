@@ -8,7 +8,8 @@ import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import DeviceSettings, { DeviceSettingDispatchProps , DeviceSettingsProps } from './deviceSettings';
 import { mountWithLocalization, testSnapshot } from '../../../../shared/utils/testHelpers';
-import { TwinWithSchema } from './deviceSettingsPerInterfacePerSetting';import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
+import { TwinWithSchema } from './deviceSettingsPerInterfacePerSetting';
+import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
 
 export const twinWithSchema: TwinWithSchema = {
     desiredTwin: 123,
@@ -89,7 +90,7 @@ describe('components/devices/deviceSettings', () => {
     });
 
     it('dispatch action when refresh button is clicked', () => {
-        const wrapper = mountWithLocalization(getComponent({isLoading: false}));
+        const wrapper = mountWithLocalization(getComponent({isLoading: false}), false, true);
         const commandBar = wrapper.find(CommandBar).first();
         commandBar.props().items[0].onClick(null);
         wrapper.update();

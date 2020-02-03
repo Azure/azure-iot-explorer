@@ -4,6 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
+import { Label } from 'office-ui-fabric-react/lib/Label';
 import { RouteComponentProps, Route } from 'react-router-dom';
 import DeviceCommandPerInterface from './deviceCommandsPerInterface';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
@@ -12,9 +13,10 @@ import { InvokeDigitalTwinInterfaceCommandActionParameters } from '../../actions
 import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { CommandSchema } from './deviceCommandsPerInterfacePerCommand';
 import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
-import { REFRESH } from '../../../../constants/iconNames';
+import { REFRESH, CLOSE } from '../../../../constants/iconNames';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
 import { DigitalTwinHeaderContainer } from '../digitalTwin/digitalTwinHeaderView';
+import { ROUTE_PARAMS } from '../../../../constants/routes';
 
 export interface DeviceCommandsProps extends DeviceInterfaceWithSchema{
     isLoading: boolean;
@@ -52,15 +54,22 @@ export default class DeviceCommands
                             className="command"
                             items={[
                                 {
-                                    ariaLabel: context.t(ResourceKeys.deviceSettings.command.refresh),
+                                    ariaLabel: context.t(ResourceKeys.deviceCommands.command.refresh),
                                     iconProps: {iconName: REFRESH},
                                     key: REFRESH,
-                                    name: context.t(ResourceKeys.deviceSettings.command.refresh),
+                                    name: context.t(ResourceKeys.deviceCommands.command.refresh),
                                     onClick: this.handleRefresh
+                                },
+                                {
+                                    ariaLabel: context.t(ResourceKeys.deviceCommands.command.close),
+                                    iconProps: {iconName: CLOSE},
+                                    key: CLOSE,
+                                    name: context.t(ResourceKeys.deviceCommands.command.close),
+                                    onClick: this.handleClose
                                 }
                             ]}
                         />
-                        {this.renderCommandsPerInterface()}
+                        {this.renderCommandsPerInterface(context)}
                     </>
                 )}
             </LocalizationContextConsumer>
@@ -71,16 +80,19 @@ export default class DeviceCommands
         this.props.setInterfaceId(getInterfaceIdFromQueryString(this.props));
     }
 
-    private readonly renderCommandsPerInterface = () => {
+    private readonly renderCommandsPerInterface = (context: LocalizationContextInterface) => {
+        const { commandSchemas } = this.props;
         return (
             <>
                 <Route component={DigitalTwinHeaderContainer} />
-                { this.props.commandSchemas ?
-                    <DeviceCommandPerInterface
-                        {...this.props}
-                        deviceId={getDeviceIdFromQueryString(this.props)}
-                    /> :
-                    <InterfaceNotFoundMessageBoxContainer/>
+                {commandSchemas ?
+                    commandSchemas.length === 0 ?
+                        <Label className="no-pnp-content">{context.t(ResourceKeys.deviceCommands.noCommands, {interfaceName: getInterfaceIdFromQueryString(this.props)})}</Label> :
+                        <DeviceCommandPerInterface
+                            {...this.props}
+                            deviceId={getDeviceIdFromQueryString(this.props)}
+                        />
+                    : <InterfaceNotFoundMessageBoxContainer/>
                 }
             </>
         );
@@ -88,5 +100,11 @@ export default class DeviceCommands
 
     private readonly handleRefresh = () => {
         this.props.refresh(getDeviceIdFromQueryString(this.props), getInterfaceIdFromQueryString(this.props));
+    }
+
+    private readonly handleClose = () => {
+        const path = this.props.match.url.replace(/\/digitalTwinsDetail\/commands\/.*/, ``);
+        const deviceId = getDeviceIdFromQueryString(this.props);
+        this.props.history.push(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
     }
 }

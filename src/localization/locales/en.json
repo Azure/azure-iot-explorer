@@ -116,7 +116,7 @@
         "properties": "Properties (non-writable)",
         "settings": "Properties (writable)",
         "commands": "Commands",
-        "digitalTwins": "Plug and Play"
+        "digitalTwins": "Plug and Play (preview)"
     },
     "deviceContent": {
         "start": "Select a device to start",
@@ -132,7 +132,7 @@
             "methods": "Direct method",
             "cloudToDeviceMessage": "Cloud-to-device message",
             "pnp": "DIGITAL TWIN",
-            "digitalTwins": "Plug and Play",
+            "digitalTwins": "Plug and Play (preview)",
             "nonpnp": "DEVICE",
             "add": "Create device identity",
             "collapse": "Collapse navigation menu",
@@ -371,7 +371,7 @@
         "tooltip": "You can add tags and desired properties to your device twin here. To remove a tag or desired property, set the value of the item to be removed to 'null'."
     },
     "digitalTwin": {
-        "headerText": "Plug and Play",
+        "headerText": "Plug and Play (preview)",
         "dcm": "Model id: {{modelId}}",
         "componentName": "Component: {{componentName}}",
         "interfaceName": "Interface: {{interfaceName}}"
@@ -379,10 +379,11 @@
     "deviceProperties": {
         "command" : {
             "refresh": "Refresh",
-            "openReportedValuePanel": "Click to view value"
+            "openReportedValuePanel": "Click to view value",
+            "close": "Close"
         },
         "headerText": "Non-writable properties",
-        "noProperty": "No properties",
+        "noProperties": "Interface {{interfaceName}} contains no non-writable property definition",
         "columns": {
             "name": "Name (Display Name / Description)",
             "value": "Value",
@@ -404,10 +405,11 @@
             "expandAll": "Expand all",
             "expand": "Expand",
             "collapseAll": "Collapse all",
-            "collapse": "Collapse"
+            "collapse": "Collapse",
+            "close": "Close"
         },
         "headerText": "Writable properties",
-        "noSetting": "No settings",
+        "noSettings": "Interface {{interfaceName}} contains no writable property definition",
         "syncStatus": {
             "label": "Sync status : {{status}}",
             "synced": "synced",
@@ -439,10 +441,11 @@
             "expandAll": "Expand all",
             "expand": "Expand",
             "collapseAll": "Collapse all",
-            "collapse": "Collapse"
+            "collapse": "Collapse",
+            "close": "Close"
         },
         "headerText": "Commands",
-        "noCommands": "No commands",
+        "noCommands": "Interface {{interfaceName}} contains no command definition",
         "columns": {
             "name": "Name (Display Name / Description)",
             "schema": {
@@ -455,7 +458,8 @@
     "deviceInterfaces": {
         "command" : {
             "refresh": "Refresh",
-            "configure": "Configure"
+            "configure": "Configure",
+            "close": "Close"
         },
         "columns": {
             "id": "Interface Id",
@@ -475,13 +479,15 @@
             "showSystemProperties": "Show system properties",
             "start": "Start",
             "stop": "Stop",
-            "fetch": "Retrieve events"
+            "fetch": "Retrieve events",
+            "close": "Close"
         },
         "consumerGroups": {
             "label": "Consumer Group",
             "tooltip": "Consumer groups are used by applications to pull data from the IoT Hub. To change the current consumer group, stop monitoring telemetry."
         },
         "headerText": "Telemetry",
+        "noEvent": "Interface {{interfaceName}} contains no telemetry definition",
         "tooltip": "You can monitor telemetry that the device sends to the IoT hub",
         "interfaceDropDown": {
             "label": "Select interface to filter telemetry",

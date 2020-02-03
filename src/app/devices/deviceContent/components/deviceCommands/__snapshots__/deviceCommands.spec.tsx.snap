@@ -7,19 +7,28 @@ exports[`components/devices/deviceCommands matches snapshot while interface cann
     items={
       Array [
         Object {
-          "ariaLabel": "deviceSettings.command.refresh",
+          "ariaLabel": "deviceCommands.command.refresh",
           "iconProps": Object {
             "iconName": "Refresh",
           },
           "key": "Refresh",
-          "name": "deviceSettings.command.refresh",
+          "name": "deviceCommands.command.refresh",
+          "onClick": [Function],
+        },
+        Object {
+          "ariaLabel": "deviceCommands.command.close",
+          "iconProps": Object {
+            "iconName": "ChromeClose",
+          },
+          "key": "ChromeClose",
+          "name": "deviceCommands.command.close",
           "onClick": [Function],
         },
       ]
     }
   />
-  <Component
-    headerText="deviceCommands.headerText"
+  <Route
+    component={[Function]}
   />
   <Connect(InterfaceNotFoundMessageBox) />
 </Fragment>
@@ -32,19 +41,28 @@ exports[`components/devices/deviceCommands matches snapshot with a commandSchema
     items={
       Array [
         Object {
-          "ariaLabel": "deviceSettings.command.refresh",
+          "ariaLabel": "deviceCommands.command.refresh",
           "iconProps": Object {
             "iconName": "Refresh",
           },
           "key": "Refresh",
-          "name": "deviceSettings.command.refresh",
+          "name": "deviceCommands.command.refresh",
+          "onClick": [Function],
+        },
+        Object {
+          "ariaLabel": "deviceCommands.command.close",
+          "iconProps": Object {
+            "iconName": "ChromeClose",
+          },
+          "key": "ChromeClose",
+          "name": "deviceCommands.command.close",
           "onClick": [Function],
         },
       ]
     }
   />
-  <Component
-    headerText="deviceCommands.headerText"
+  <Route
+    component={[Function]}
   />
   <DeviceCommandsPerInterface
     commandSchemas={

@@ -142,6 +142,7 @@ export class ResourceKeys {
          type : "deviceCommands.columns.type",
       },
       command : {
+         close : "deviceCommands.command.close",
          collapse : "deviceCommands.command.collapse",
          collapseAll : "deviceCommands.command.collapseAll",
          expand : "deviceCommands.command.expand",
@@ -195,6 +196,7 @@ export class ResourceKeys {
       },
       command : {
          clearEvents : "deviceEvents.command.clearEvents",
+         close : "deviceEvents.command.close",
          fetch : "deviceEvents.command.fetch",
          refresh : "deviceEvents.command.refresh",
          showSystemProperties : "deviceEvents.command.showSystemProperties",
@@ -218,6 +220,7 @@ export class ResourceKeys {
          label : "deviceEvents.interfaceDropDown.label",
          placeHolder : "deviceEvents.interfaceDropDown.placeHolder",
       },
+      noEvent : "deviceEvents.noEvent",
       tooltip : "deviceEvents.tooltip",
    };
    public static deviceIdentity = {
@@ -313,6 +316,7 @@ export class ResourceKeys {
          source : "deviceInterfaces.columns.source",
       },
       command : {
+         close : "deviceInterfaces.command.close",
          configure : "deviceInterfaces.command.configure",
          refresh : "deviceInterfaces.command.refresh",
       },
@@ -440,6 +444,7 @@ export class ResourceKeys {
          value : "deviceProperties.columns.value",
       },
       command : {
+         close : "deviceProperties.command.close",
          openReportedValuePanel : "deviceProperties.command.openReportedValuePanel",
          refresh : "deviceProperties.command.refresh",
       },
@@ -447,7 +452,7 @@ export class ResourceKeys {
          label : "deviceProperties.editor.label",
       },
       headerText : "deviceProperties.headerText",
-      noProperty : "deviceProperties.noProperty",
+      noProperties : "deviceProperties.noProperties",
    };
    public static deviceSettings = {
       columns : {
@@ -459,6 +464,7 @@ export class ResourceKeys {
          unit : "deviceSettings.columns.unit",
       },
       command : {
+         close : "deviceSettings.command.close",
          collapse : "deviceSettings.command.collapse",
          collapseAll : "deviceSettings.command.collapseAll",
          expand : "deviceSettings.command.expand",
@@ -475,7 +481,7 @@ export class ResourceKeys {
          unknown : "deviceSettings.desiredState.unknown",
       },
       headerText : "deviceSettings.headerText",
-      noSetting : "deviceSettings.noSetting",
+      noSettings : "deviceSettings.noSettings",
       panel : {
          title : "deviceSettings.panel.title",
       },
