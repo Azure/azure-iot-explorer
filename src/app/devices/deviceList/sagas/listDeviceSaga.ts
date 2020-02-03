@@ -25,7 +25,7 @@ export function* listDevicesSaga(action: Action<DeviceQuery>) {
         yield put(listDevicesAction.done({params: action.payload, result: response}));
     } catch (error) {
         let text;
-        if (error.name === ERROR_TYPES.PORT_IS_IN_USE) {
+        if (error && error.name === ERROR_TYPES.PORT_IS_IN_USE) {
             text = {
                 translationKey: ResourceKeys.notifications.portIsInUseError,
                 translationOptions: { portNumber: localStorage.getItem(CUSTOM_CONTROLLER_PORT) || appConfig.controllerPort }
