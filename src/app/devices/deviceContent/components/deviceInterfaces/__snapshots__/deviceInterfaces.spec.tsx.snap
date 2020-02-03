@@ -17,11 +17,20 @@ exports[`components/devices/deviceInterfaces shows interface information when st
           "name": "deviceProperties.command.refresh",
           "onClick": [Function],
         },
+        Object {
+          "ariaLabel": "deviceInterfaces.command.close",
+          "iconProps": Object {
+            "iconName": "ChromeClose",
+          },
+          "key": "ChromeClose",
+          "name": "deviceInterfaces.command.close",
+          "onClick": [Function],
+        },
       ]
     }
   />
-  <Component
-    headerText="deviceInterfaces.headerText"
+  <Route
+    component={[Function]}
   />
   <Connect(InterfaceNotFoundMessageBox) />
 </Fragment>
@@ -42,11 +51,20 @@ exports[`components/devices/deviceInterfaces shows interface information when st
           "name": "deviceProperties.command.refresh",
           "onClick": [Function],
         },
+        Object {
+          "ariaLabel": "deviceInterfaces.command.close",
+          "iconProps": Object {
+            "iconName": "ChromeClose",
+          },
+          "key": "ChromeClose",
+          "name": "deviceInterfaces.command.close",
+          "onClick": [Function],
+        },
       ]
     }
   />
-  <Component
-    headerText="deviceInterfaces.headerText"
+  <Route
+    component={[Function]}
   />
   <ErrorBoundary
     error="errorBoundary.text"
@@ -129,11 +147,20 @@ exports[`components/devices/deviceInterfaces shows interface information when st
           "name": "deviceProperties.command.refresh",
           "onClick": [Function],
         },
+        Object {
+          "ariaLabel": "deviceInterfaces.command.close",
+          "iconProps": Object {
+            "iconName": "ChromeClose",
+          },
+          "key": "ChromeClose",
+          "name": "deviceInterfaces.command.close",
+          "onClick": [Function],
+        },
       ]
     }
   />
-  <Component
-    headerText="deviceInterfaces.headerText"
+  <Route
+    component={[Function]}
   />
   <ErrorBoundary
     error="errorBoundary.text"
@@ -216,11 +243,20 @@ exports[`components/devices/deviceInterfaces shows interface information when st
           "name": "deviceProperties.command.refresh",
           "onClick": [Function],
         },
+        Object {
+          "ariaLabel": "deviceInterfaces.command.close",
+          "iconProps": Object {
+            "iconName": "ChromeClose",
+          },
+          "key": "ChromeClose",
+          "name": "deviceInterfaces.command.close",
+          "onClick": [Function],
+        },
       ]
     }
   />
-  <Component
-    headerText="deviceInterfaces.headerText"
+  <Route
+    component={[Function]}
   />
   <ErrorBoundary
     error="errorBoundary.text"
@@ -303,11 +339,20 @@ exports[`components/devices/deviceInterfaces shows interface information when st
           "name": "deviceProperties.command.refresh",
           "onClick": [Function],
         },
+        Object {
+          "ariaLabel": "deviceInterfaces.command.close",
+          "iconProps": Object {
+            "iconName": "ChromeClose",
+          },
+          "key": "ChromeClose",
+          "name": "deviceInterfaces.command.close",
+          "onClick": [Function],
+        },
       ]
     }
   />
-  <Component
-    headerText="deviceInterfaces.headerText"
+  <Route
+    component={[Function]}
   />
   <ErrorBoundary
     error="errorBoundary.text"

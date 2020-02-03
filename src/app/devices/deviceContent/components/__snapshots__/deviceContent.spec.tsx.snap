@@ -133,7 +133,12 @@ exports[`deviceContent matches snapshot 1`] = `
         />
         <Route
           component={[Function]}
+          exact={true}
           path="undefined/digitalTwins/"
+        />
+        <Route
+          component={[Function]}
+          path="undefined/digitalTwins/digitalTwinsDetail/"
         />
       </div>
     </div>

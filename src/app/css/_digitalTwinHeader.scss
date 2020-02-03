@@ -6,11 +6,12 @@
 
  .pivot {
     padding: {
-        left: 15px;
+        left: 5px;
         bottom: 15px;
     }
     .pivot-item {
         padding:10px;
+        margin: 10px;
         font-size: 18px;
         a {
             @include themify($themes) {
@@ -29,6 +30,9 @@
         font-weight: bold;
         a {
             text-decoration: underline;
+            @include themify($themes) {
+                color: themed('linkColor') !important;
+            }
         }
     }
  }

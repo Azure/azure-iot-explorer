@@ -9,12 +9,10 @@ import { Label } from 'office-ui-fabric-react/lib/Label';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
-import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import '../../../css/_deviceContentNav.scss';
 
 export interface DeviceContentNavDataProps {
     deviceId: string;
-    interfaceIds: string[];
     isLoading: boolean;
     isPnPDevice: boolean;
     selectedInterface: string;
@@ -58,7 +56,7 @@ export default class DeviceContentNavComponent extends React.Component<DeviceCon
         const groups: INavLinkGroup[] = [];
         groups.push({
             links: nonPnpNavLinks,
-            name: getDeviceIdFromQueryString(this.props),
+            name: context.t(ResourceKeys.deviceContent.navBar.nonpnp)
         });
 
         if (!isEdgeDevice && isPnPDevice) {

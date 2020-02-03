@@ -15,7 +15,7 @@ import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { monitorEvents, stopMonitoringEvents } from '../../../../api/services/devicesService';
 import { Message, MESSAGE_SYSTEM_PROPERTIES, MESSAGE_PROPERTIES } from '../../../../api/models/messages';
 import { parseDateTimeString } from '../../../../api/dataTransforms/transformHelper';
-import { CLEAR, REFRESH, STOP, START } from '../../../../constants/iconNames';
+import { REFRESH, STOP, START, CLOSE, REMOVE } from '../../../../constants/iconNames';
 import { ParsedJsonSchema } from '../../../../api/models/interfaceJsonParserOutput';
 import { TelemetryContent } from '../../../../api/models/modelDefinition';
 import { getInterfaceIdFromQueryString, getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
@@ -31,6 +31,7 @@ import { MILLISECONDS_IN_MINUTE } from '../../../../constants/shared';
 import { appConfig, HostMode } from '../../../../../appConfig/appConfig';
 import '../../../../css/_deviceEvents.scss';
 import { DigitalTwinHeaderContainer } from '../digitalTwin/digitalTwinHeaderView';
+import { ROUTE_PARAMS } from '../../../../constants/routes';
 
 const JSON_SPACES = 2;
 const LOADING_LOCK = 50;
@@ -91,6 +92,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
             return <MultiLineShimmer/>;
         }
 
+        const { telemetrySchema } = this.props;
         return (
             <LocalizationContextConsumer>
                 {(context: LocalizationContextInterface) => (
@@ -100,20 +102,23 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
                             items={this.createCommandBarItems(context)}
                         />
                         <Route component={DigitalTwinHeaderContainer} />
-                        {this.props.telemetrySchema &&
-                            <TextField
-                                className={'consumer-group-text-field'}
-                                onRenderLabel={this.renderConsumerGroupLabel}
-                                label={context.t(ResourceKeys.deviceEvents.consumerGroups.label)}
-                                ariaLabel={context.t(ResourceKeys.deviceEvents.consumerGroups.label)}
-                                underlined={true}
-                                value={this.state.consumerGroup}
-                                disabled={this.state.monitoringData}
-                                onChange={this.consumerGroupChange}
-                            />}
-                        {this.props.telemetrySchema  ?
-                            this.props.telemetrySchema.length !== 0 && this.renderInfiniteScroll(context) :
-                            <InterfaceNotFoundMessageBoxContainer/>
+                        {telemetrySchema  ?
+                            telemetrySchema.length === 0 ?
+                                <Label className="no-pnp-content">{context.t(ResourceKeys.deviceEvents.noEvent, {interfaceName: getInterfaceIdFromQueryString(this.props)})}</Label> :
+                                <>
+                                    <TextField
+                                        className={'consumer-group-text-field'}
+                                        onRenderLabel={this.renderConsumerGroupLabel}
+                                        label={context.t(ResourceKeys.deviceEvents.consumerGroups.label)}
+                                        ariaLabel={context.t(ResourceKeys.deviceEvents.consumerGroups.label)}
+                                        underlined={true}
+                                        value={this.state.consumerGroup}
+                                        disabled={this.state.monitoringData}
+                                        onChange={this.consumerGroupChange}
+                                    />
+                                    {this.renderInfiniteScroll(context)}
+                                </>
+                            : <InterfaceNotFoundMessageBoxContainer/>
                         }
                         {this.state.loadingAnnounced}
                     </div>
@@ -126,7 +131,8 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
         return [
             this.createStartMonitoringCommandItem(context),
             this.createRefreshCommandItem(context),
-            this.createClearCommandItem(context)
+            this.createClearCommandItem(context),
+            this.createCloseCommandItem(context)
         ];
     }
 
@@ -134,8 +140,8 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
         return {
             ariaLabel: context.t(ResourceKeys.deviceEvents.command.clearEvents),
             disabled: this.state.events.length === 0 || this.state.synchronizationStatus === SynchronizationStatus.updating,
-            iconProps: {iconName: CLEAR},
-            key: CLEAR,
+            iconProps: {iconName: REMOVE},
+            key: REMOVE,
             name: context.t(ResourceKeys.deviceEvents.command.clearEvents),
             onClick: this.onClearData
         };
@@ -179,6 +185,16 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
                 onClick: this.onToggleStart
             };
         }
+    }
+
+    private createCloseCommandItem = (context: LocalizationContextInterface): ICommandBarItemProps => {
+        return {
+            ariaLabel: context.t(ResourceKeys.deviceEvents.command.close),
+            iconProps: {iconName: CLOSE},
+            key: CLOSE,
+            name: context.t(ResourceKeys.deviceEvents.command.close),
+            onClick: this.handleClose
+        };
     }
 
     private consumerGroupChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
@@ -503,5 +519,11 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
                 });
             });
         }
+    }
+
+    private readonly handleClose = () => {
+        const path = this.props.match.url.replace(/\/digitalTwinsDetail\/events\/.*/, ``);
+        const deviceId = getDeviceIdFromQueryString(this.props);
+        this.props.history.push(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
     }
 }

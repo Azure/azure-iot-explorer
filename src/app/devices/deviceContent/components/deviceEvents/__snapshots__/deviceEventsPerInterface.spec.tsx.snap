@@ -33,17 +33,26 @@ exports[`components/devices/deviceEventsPerInterface matches snapshot while inte
           "ariaLabel": "deviceEvents.command.clearEvents",
           "disabled": true,
           "iconProps": Object {
-            "iconName": "Clear",
+            "iconName": "Delete",
           },
-          "key": "Clear",
+          "key": "Delete",
           "name": "deviceEvents.command.clearEvents",
+          "onClick": [Function],
+        },
+        Object {
+          "ariaLabel": "deviceEvents.command.close",
+          "iconProps": Object {
+            "iconName": "ChromeClose",
+          },
+          "key": "ChromeClose",
+          "name": "deviceEvents.command.close",
           "onClick": [Function],
         },
       ]
     }
   />
-  <Component
-    headerText="deviceEvents.headerText"
+  <Route
+    component={[Function]}
   />
   <Connect(InterfaceNotFoundMessageBox) />
 </div>
@@ -82,17 +91,26 @@ exports[`components/devices/deviceEventsPerInterface matches snapshot while inte
           "ariaLabel": "deviceEvents.command.clearEvents",
           "disabled": true,
           "iconProps": Object {
-            "iconName": "Clear",
+            "iconName": "Delete",
           },
-          "key": "Clear",
+          "key": "Delete",
           "name": "deviceEvents.command.clearEvents",
+          "onClick": [Function],
+        },
+        Object {
+          "ariaLabel": "deviceEvents.command.close",
+          "iconProps": Object {
+            "iconName": "ChromeClose",
+          },
+          "key": "ChromeClose",
+          "name": "deviceEvents.command.close",
           "onClick": [Function],
         },
       ]
     }
   />
-  <Component
-    headerText="deviceEvents.headerText"
+  <Route
+    component={[Function]}
   />
   <StyledTextFieldBase
     ariaLabel="deviceEvents.consumerGroups.label"
@@ -209,17 +227,26 @@ exports[`components/devices/deviceEventsPerInterface matches snapshot while inte
           "ariaLabel": "deviceEvents.command.clearEvents",
           "disabled": true,
           "iconProps": Object {
-            "iconName": "Clear",
+            "iconName": "Delete",
           },
-          "key": "Clear",
+          "key": "Delete",
           "name": "deviceEvents.command.clearEvents",
+          "onClick": [Function],
+        },
+        Object {
+          "ariaLabel": "deviceEvents.command.close",
+          "iconProps": Object {
+            "iconName": "ChromeClose",
+          },
+          "key": "ChromeClose",
+          "name": "deviceEvents.command.close",
           "onClick": [Function],
         },
       ]
     }
   />
-  <Component
-    headerText="deviceEvents.headerText"
+  <Route
+    component={[Function]}
   />
   <StyledTextFieldBase
     ariaLabel="deviceEvents.consumerGroups.label"
