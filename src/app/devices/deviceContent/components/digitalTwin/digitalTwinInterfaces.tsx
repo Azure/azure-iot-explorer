@@ -36,17 +36,19 @@ export const DigitalTwinInterfaces: React.FC<DigitalTwinInterfacesProps> = props
     const { t } = useLocalizationContext();
 
     const navLinks: JSX.Element[] = [];
-    props.idToNameMap.forEach((componentName, interfaceName) => {
-        const test = `${url}${ROUTE_PARTS.DIGITAL_TWINS_DETAIL}/${ROUTE_PARTS.INTERFACES}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}&${ROUTE_PARAMS.INTERFACE_ID}=${interfaceName}`;
-        navLinks.push(
-            <li className="interface-item">
-                <NavLink key={componentName} to={test}>
-                    {t(ResourceKeys.digitalTwin.componentName, {componentName})}
-                </NavLink>
-                <Label>{t(ResourceKeys.digitalTwin.interfaceName, {interfaceName})}</Label>
-            </li>
-        );
-    });
+    if (props.idToNameMap && props.idToNameMap.size > 0) {
+        props.idToNameMap.forEach((componentName, interfaceName) => {
+            const link = `${url}${ROUTE_PARTS.DIGITAL_TWINS_DETAIL}/${ROUTE_PARTS.INTERFACES}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}&${ROUTE_PARAMS.INTERFACE_ID}=${interfaceName}`;
+            navLinks.push(
+                <li className="interface-item">
+                    <NavLink key={componentName} to={link}>
+                        {t(ResourceKeys.digitalTwin.componentName, {componentName})}
+                    </NavLink>
+                    <Label>{t(ResourceKeys.digitalTwin.interfaceName, {interfaceName})}</Label>
+                </li>
+            );
+        });
+    }
 
     const createCommandBarItems = (): ICommandBarItemProps[] => {
         return [
