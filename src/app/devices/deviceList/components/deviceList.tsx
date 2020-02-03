@@ -302,6 +302,7 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
         this.setState({
             showDeleteConfirmation: false
         });
+        this.selection = new Selection();
     }
 }
 
