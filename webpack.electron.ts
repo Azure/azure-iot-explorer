@@ -50,9 +50,6 @@ const config: webpack.Configuration = merge(common, {
               preset: ['default', { discardComments: { removeAll: true } }],
             },
         }),
-        new webpack.DefinePlugin({
-            _CONTROLLER_ENDPOINT: '\'http://127.0.0.1:8081/\''
-        }),
         new webpack.NormalModuleReplacementPlugin(
             /(.*)appConfig.ENV(\.*)/,
             resource => resource.request = resource.request.replace(/ENV/, 'electron')

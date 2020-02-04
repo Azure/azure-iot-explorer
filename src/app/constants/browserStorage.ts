@@ -8,3 +8,4 @@ export const CONNECTION_STRING_NAME_LIST = 'CONNECTION_STRING_NAME_LIST'; // sto
 export const REPO_LOCATIONS = 'REPO_LOCATIONS'; // store repo locations in localStorage separated by comma
 export const THEME_SELECTION = 'THEME_SELECTION';
 export const HIGH_CONTRAST = 'HIGH_CONTRAST';
+export const CUSTOM_CONTROLLER_PORT = 'CUSTOM_CONTROLLER_PORT';

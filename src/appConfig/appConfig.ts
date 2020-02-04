@@ -19,6 +19,7 @@ export interface AppConfigInterface {
         client: string;
     };
     azureResourceManagementEndpoint?: string;
+    controllerPort: number;
 }
 
 export const appConfig = config as AppConfigInterface;

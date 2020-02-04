@@ -650,7 +650,6 @@
         "savedToIotHubConnectionString": "Successfully saved connection string for IoT hub {{hostName}}",
         "getDeviceIdentityOnError": "Failed to get device {{deviceId}}'s identity: {{error}}",
         "getDeviceListOnError": "Failed to retrieve device list: {{error}}",
-        "getDeviceListQueryGenericErrorHelp": "Failed to retrieve device list. It is possibly due to an invalid query value",
         "getDeviceListGenericErrorHelp": "Failed to retrieve device list. It is possibly due to an invalid IoT hub connection string",
         "getDeviceTwinOnError": "Failed to get device {{deviceId}}'s twin: {{error}}",
         "getDigitalTwinInterfacePropertiesOnError": "Failed to get properties of digital twin interfaces on device {{deviceId}}: {{error}}",
@@ -684,7 +683,8 @@
         "getModuleIdentityTwinOnError": "Failed to get module identity twin for module {{moduleId}}: {{error}}",
         "getModuleIdentityOnError": "Failed to get module identity {{moduleId}}: {{error}}",
         "deleteModuleIdentityOnSuccess": "Successfully deleted module {{moduleId}}",
-        "deleteModuleIdentityOnError": "Failed to delete module identity {{moduleId}}: {{error}}"
+        "deleteModuleIdentityOnError": "Failed to delete module identity {{moduleId}}: {{error}}",
+        "portIsInUseError": "The port {{portNumber}} is in use. To configure a custom port value, set system environment variable 'AZURE_IOT_EXPLORER_PORT' to an available port number. To learn more, visit https://github.com/Azure/azure-iot-explorer/wiki/FAQ "
     },
     "errorBoundary": {
         "text": "Something went wrong"

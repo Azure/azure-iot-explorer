@@ -31,8 +31,23 @@ const createWindow = () => {
         }
     };
 
+    const setPort = () => {
+        try {
+            const customPort = parseInt(process.env.AZURE_IOT_EXPLORER_PORT); // tslint:disable-line:radix
+            if (customPort) {
+                mainWindow.webContents.executeJavaScript(`localStorage.setItem("CUSTOM_CONTROLLER_PORT", ${customPort});`);
+            } else {
+                mainWindow.webContents.executeJavaScript(`localStorage.setItem("CUSTOM_CONTROLLER_PORT", '');`);
+            }
+        }
+        catch {
+            // no port to set
+        }
+    };
+
     mainWindow.loadURL(startUrl).then(() => {
         setHighContrast();
+        setPort();
     });
 
     electron.nativeTheme.on('updated', () => {
