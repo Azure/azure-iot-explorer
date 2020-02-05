@@ -97,7 +97,7 @@ describe('deviceTwinService', () => {
             jest.spyOn(window, 'fetch').mockResolvedValue(response);
 
             const connectionInformation = mockDataPlaneConnectionHelper({connectionString});
-            const dataPlaneRequest: DevicesService.DataPlaneRequest = {
+            const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
                 apiVersion: DIGITAL_TWIN_API_VERSION,
                 hostName: connectionInformation.connectionInfo.hostName,
                 httpMethod: HTTP_OPERATION_TYPES.Get,
@@ -181,7 +181,7 @@ describe('deviceTwinService', () => {
             });
 
             const connectionInformation = mockDataPlaneConnectionHelper({connectionString});
-            const dataPlaneRequest: DevicesService.DataPlaneRequest = {
+            const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
                 apiVersion: DIGITAL_TWIN_API_VERSION,
                 hostName: connectionInformation.connectionInfo.hostName,
                 httpMethod: HTTP_OPERATION_TYPES.Get,
@@ -250,7 +250,7 @@ describe('deviceTwinService', () => {
 
             const connectionInformation = mockDataPlaneConnectionHelper({connectionString});
             const queryString = `connectTimeoutInSeconds=${CONNECTION_TIMEOUT_IN_SECONDS}&responseTimeoutInSeconds=${RESPONSE_TIME_IN_SECONDS}`;
-            const dataPlaneRequest: DevicesService.DataPlaneRequest = {
+            const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
                 apiVersion: DIGITAL_TWIN_API_VERSION,
                 body: JSON.stringify(parameters.payload),
                 hostName: connectionInformation.connectionInfo.hostName,
@@ -331,7 +331,7 @@ describe('deviceTwinService', () => {
             });
 
             const connectionInformation = mockDataPlaneConnectionHelper({connectionString});
-            const dataPlaneRequest: DevicesService.DataPlaneRequest = {
+            const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
                 apiVersion: DIGITAL_TWIN_API_VERSION,
                 body: JSON.stringify(parameters.payload),
                 hostName: connectionInformation.connectionInfo.hostName,
@@ -397,7 +397,7 @@ describe('deviceTwinService', () => {
             });
 
             const connectionInformation = mockDataPlaneConnectionHelper({connectionString});
-            const dataPlaneRequest: DevicesService.DataPlaneRequest = {
+            const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
                 apiVersion: DIGITAL_TWIN_API_VERSION,
                 body: JSON.stringify(twin),
                 hostName: connectionInformation.connectionInfo.hostName,
@@ -465,7 +465,7 @@ describe('deviceTwinService', () => {
             });
 
             const connectionInformation = mockDataPlaneConnectionHelper({connectionString});
-            const dataPlaneRequest: DevicesService.DataPlaneRequest = {
+            const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
                 body: JSON.stringify({
                     connectTimeoutInSeconds: parameters.connectTimeoutInSeconds,
                     methodName: parameters.methodName,
@@ -584,7 +584,7 @@ describe('deviceTwinService', () => {
             });
 
             const connectionInformation = mockDataPlaneConnectionHelper({connectionString});
-            const dataPlaneRequest: DevicesService.DataPlaneRequest = {
+            const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
                 body: JSON.stringify(deviceIdentity),
                 hostName: connectionInformation.connectionInfo.hostName,
                 httpMethod: HTTP_OPERATION_TYPES.Put,
@@ -646,7 +646,7 @@ describe('deviceTwinService', () => {
             });
 
             const connectionInformation = mockDataPlaneConnectionHelper({connectionString});
-            const dataPlaneRequest: DevicesService.DataPlaneRequest = {
+            const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
                 body: JSON.stringify(deviceIdentity),
                 hostName: connectionInformation.connectionInfo.hostName,
                 httpMethod: HTTP_OPERATION_TYPES.Put,
@@ -708,7 +708,7 @@ describe('deviceTwinService', () => {
             });
 
             const connectionInformation = mockDataPlaneConnectionHelper({connectionString});
-            const dataPlaneRequest: DevicesService.DataPlaneRequest = {
+            const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
                 hostName: connectionInformation.connectionInfo.hostName,
                 httpMethod: HTTP_OPERATION_TYPES.Get,
                 path: `devices/${deviceId}`,
@@ -770,7 +770,7 @@ describe('deviceTwinService', () => {
             const connectionInformation = mockDataPlaneConnectionHelper({connectionString});
             const queryString = buildQueryString(parameters.query);
 
-            const dataPlaneRequest: DevicesService.DataPlaneRequest = {
+            const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
                 body: JSON.stringify({
                     query: queryString,
                 }),
@@ -842,7 +842,7 @@ describe('deviceTwinService', () => {
                     importMode: 'deleteIfMatchEtag'
                 };
             });
-            const dataPlaneRequest: DevicesService.DataPlaneRequest = {
+            const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
                 body: JSON.stringify(deviceDeletionInstructions),
                 hostName: connectionInformation.connectionInfo.hostName,
                 httpMethod: HTTP_OPERATION_TYPES.Post,
