@@ -12,7 +12,6 @@ export const DATAPLANE_CONTROLLER_ENDPOINT = `${CONTROLLER_API_ENDPOINT}${DATAPL
 export interface DataPlaneRequest {
     apiVersion?: string;
     body?: string;
-    etag?: string;
     headers?: unknown;
     hostName: string;
     httpMethod: string;

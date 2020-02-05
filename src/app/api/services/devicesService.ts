@@ -26,24 +26,12 @@ import { Twin, Device, DataPlaneResponse } from '../models/device';
 import { DeviceIdentity } from '../models/deviceIdentity';
 import { DigitalTwinInterfaces } from '../models/digitalTwinModels';
 import { parseEventHubMessage } from './eventHubMessageHelper';
-import { dataPlaneConnectionHelper, dataPlaneResponseHelper, request, DATAPLANE_CONTROLLER_ENDPOINT } from './dataplaneServiceHelper';
+import { dataPlaneConnectionHelper, dataPlaneResponseHelper, request, DATAPLANE_CONTROLLER_ENDPOINT, DataPlaneRequest } from './dataplaneServiceHelper';
 
 const EVENTHUB_CONTROLLER_ENDPOINT = `${CONTROLLER_API_ENDPOINT}${EVENTHUB}`;
 export const EVENTHUB_MONITOR_ENDPOINT = `${EVENTHUB_CONTROLLER_ENDPOINT}${MONITOR}`;
 export const EVENTHUB_STOP_ENDPOINT = `${EVENTHUB_CONTROLLER_ENDPOINT}${STOP}`;
 const PAGE_SIZE = 100;
-
-export interface DataPlaneRequest {
-    apiVersion?: string;
-    body?: string;
-    etag?: string;
-    headers?: unknown;
-    hostName: string;
-    httpMethod: string;
-    path: string;
-    sharedAccessSignature: string;
-    queryString?: string;
-}
 
 export interface IoTHubConnectionSettings {
     hostName?: string;
@@ -251,12 +239,14 @@ export const updateDevice = async (parameters: UpdateDeviceParameters): Promise<
         const connectionInfo = dataPlaneConnectionHelper(parameters);
         const dataPlaneRequest: DataPlaneRequest = {
             body: JSON.stringify(parameters.deviceIdentity),
-            etag: parameters.deviceIdentity.etag,
+            headers: {} as any, // tslint:disable-line: no-any
             hostName: connectionInfo.connectionInfo.hostName,
             httpMethod: HTTP_OPERATION_TYPES.Put,
             path: `devices/${parameters.deviceIdentity.deviceId}`,
             sharedAccessSignature: connectionInfo.sasToken
         };
+
+        (dataPlaneRequest.headers as any)[HEADERS.IF_MATCH] = `"${parameters.deviceIdentity.etag}"`; // tslint:disable-line: no-any
 
         const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
         const result = await dataPlaneResponseHelper(response);
