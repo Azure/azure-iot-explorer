@@ -11,7 +11,7 @@ steps:
 - template: '.\sign-prep-template.yml'
 - powershell: |
         $ErrorActionPreference = "Stop"
-        $(Build.SourcesDirectory)/pipelines/sign-exe.ps1 -ESRPClientId $(ESRPClientId) -ClientPath "$(Build.SourcesDirectory)\pipelines\ESRPClient\packages\Microsoft.EsrpClient.1.2.10\tools\" -Path "$(Build.SourcesDirectory)/dist/win-unpacked/"
+        $(Build.SourcesDirectory)/pipelines/sign-exe.ps1 -ESRPClientId $(ESRPClientId) -ClientPath "$(Build.SourcesDirectory)\pipelines\ESRPClient\packages\Microsoft.EsrpClient.1.2.25\tools\" -Path "$(Build.SourcesDirectory)/dist/win-unpacked/"
   displayName: Request code sign of exe
 
 - script: 'npm run dist:win'

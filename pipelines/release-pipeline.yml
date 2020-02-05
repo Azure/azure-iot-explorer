@@ -74,7 +74,7 @@ jobs:
 
     - powershell: |
         $ErrorActionPreference = "Stop"
-        $(Build.SourcesDirectory)/pipelines/sign.ps1 -ESRPClientId $(ESRPClientId) -ClientPath "$(Build.SourcesDirectory)\pipelines\ESRPClient\packages\Microsoft.EsrpClient.1.2.10\tools\" -Path "$(Pipeline.Workspace)/staging"
+        $(Build.SourcesDirectory)/pipelines/sign.ps1 -ESRPClientId $(ESRPClientId) -ClientPath "$(Build.SourcesDirectory)\pipelines\ESRPClient\packages\Microsoft.EsrpClient.1.2.25\tools\" -Path "$(Pipeline.Workspace)/staging"
       displayName: Request code sign
     
     - task: CopyFiles@2
