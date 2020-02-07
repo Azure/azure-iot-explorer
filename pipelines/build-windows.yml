@@ -8,11 +8,39 @@ steps:
 - script: 'npm run pack:win'
   displayName: 'Pre-package for electron'
 
-- template: '.\sign-prep-template.yml'
-- powershell: |
-        $ErrorActionPreference = "Stop"
-        $(Build.SourcesDirectory)/pipelines/sign-exe.ps1 -ESRPClientId $(ESRPClientId) -ClientPath "$(Build.SourcesDirectory)\pipelines\ESRPClient\packages\Microsoft.EsrpClient.1.2.25\tools\" -Path "$(Build.SourcesDirectory)/dist/win-unpacked/"
-  displayName: Request code sign of exe
+- task: EsrpCodeSigning@1
+  inputs:
+    ConnectedServiceName: 'Azure IoT Explorer CodeSign'
+    FolderPath: '$(Build.SourcesDirectory)/dist/win-unpacked'
+    Pattern: '*.exe'
+    signConfigType: 'inlineSignParams'
+    inlineOperation: |
+      [
+        {
+          "KeyCode": "CP-230012",
+          "OperationCode": "SigntoolSign",
+          "Parameters": {
+              "OpusName": "Microsoft",
+              "OpusInfo": "http://www.microsoft.com",
+              "FileDigest": "/fd \"SHA256\"",
+              "PageHash": "/NPH",
+              "TimeStamp": "/tr \"http://rfc3161.gtm.corp.microsoft.com/TSS/HttpTspServer\" /td sha256"
+          },
+          "ToolName": "sign",
+          "ToolVersion": "1.0"
+        },
+        {
+          "KeyCode": "CP-230012",
+          "OperationCode": "SigntoolVerify",
+          "Parameters": {},
+          "ToolName": "sign",
+          "ToolVersion": "1.0"
+        }
+      ]
+    SessionTimeout: '60'
+    MaxConcurrency: '50'
+    MaxRetryAttempts: '5'
+    VerboseLogin: true
 
 - script: 'npm run dist:win'
   displayName: 'Build MSI'
