@@ -1,0 +1,2 @@
+steps:
+- script: 'npm run package:linux'
