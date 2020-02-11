@@ -18,6 +18,7 @@ import { HeaderView } from '../../../../shared/components/headerView';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
 import { REFRESH } from '../../../../constants/iconNames';
 import '../../../../css/_digitalTwinNav.scss';
+import '../../../../css/_devicePnPDetailList.scss';
 
 export interface DigitalTwinInterfacesProps extends RouteComponentProps{
     isLoading: boolean;
@@ -40,12 +41,13 @@ export const DigitalTwinInterfaces: React.FC<DigitalTwinInterfacesProps> = props
         props.idToNameMap.forEach((componentName, interfaceName) => {
             const link = `${url}${ROUTE_PARTS.DIGITAL_TWINS_DETAIL}/${ROUTE_PARTS.INTERFACES}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}&${ROUTE_PARAMS.INTERFACE_ID}=${interfaceName}`;
             navLinks.push(
-                <li className="interface-item">
-                    <NavLink key={componentName} to={link}>
-                        {t(ResourceKeys.digitalTwin.componentName, {componentName})}
+                <div className="interface-item ms-Grid-row" key={componentName}>
+                    <NavLink className="ms-Grid-col ms-sm3 ms-md3 ms-lg3" key={componentName} to={link}>
+                        {componentName}
                     </NavLink>
-                    <Label>{t(ResourceKeys.digitalTwin.interfaceName, {interfaceName})}</Label>
-                </li>
+                    <Label className="ms-Grid-col ms-sm3 ms-md3 ms-lg3 interface-info" >{interfaceName}</Label>
+                </div>
+
             );
         });
     }
@@ -74,10 +76,18 @@ export const DigitalTwinInterfaces: React.FC<DigitalTwinInterfacesProps> = props
                 link={ResourceKeys.settings.questions.questions.documentation.link}
                 tooltip={ResourceKeys.settings.questions.questions.documentation.text}
             />
-            <div className="device-detail">
-                <Label>{t(ResourceKeys.digitalTwin.dcm, {modelId: props.dcm })}</Label>
-                {navLinks}
-            </div>
+
+            <section className="device-detail pnp-detail-list scrollable-lg">
+                {props.dcm && <Label className="dcm-info">{t(ResourceKeys.digitalTwin.dcm, {modelId: props.dcm })}</Label>}
+
+                <div className="ms-Grid">
+                    <div className="interface-item ms-Grid-row">
+                        <Label className="ms-Grid-col ms-sm3 ms-md3 ms-lg3 grid-header" >{t(ResourceKeys.digitalTwin.componentName)}</Label>
+                        <Label className="ms-Grid-col ms-sm3 ms-md3 ms-lg3 grid-header" >{t(ResourceKeys.digitalTwin.interfaceName)}</Label>
+                    </div>
+                    {navLinks}
+                </div>
+            </section>
         </>
     );
 };
