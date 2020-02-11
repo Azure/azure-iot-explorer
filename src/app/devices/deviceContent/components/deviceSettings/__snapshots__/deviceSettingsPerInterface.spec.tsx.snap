@@ -178,7 +178,7 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
           }
         }
         content="deviceSettings.columns.reportedValueTooltip"
-        id="tooltipHost8"
+        id="tooltipHost23"
         styles={
           Object {
             "root": Object {
@@ -188,7 +188,7 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
         }
       >
         <CustomizedIconButton
-          aria-labelledby="tooltipHost8"
+          aria-labelledby="tooltipHost23"
           iconProps={
             Object {
               "iconName": "Info",
