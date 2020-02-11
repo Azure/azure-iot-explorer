@@ -42,7 +42,6 @@ exports[`components/devices/deviceContentNav matches snapshot when there device 
           },
         ]
       }
-      onLinkExpandClick={[Function]}
       onRenderGroupHeader={[Function]}
     />
   </div>

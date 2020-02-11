@@ -66,7 +66,7 @@ export const getDigitalTwinInterfaceNameAndIdsSelector = createSelector(
 );
 
 // tslint:disable-next-line:cyclomatic-complexity
-export const getReportedInterfacesFromDigitalTwin = (properties: DigitalTwinInterfaces) => {
+const getReportedValueFromDigitalTwin = (properties: DigitalTwinInterfaces) => {
     return properties &&
         properties.interfaces &&
         properties.interfaces[modelDiscoveryInterfaceName] &&
@@ -74,7 +74,17 @@ export const getReportedInterfacesFromDigitalTwin = (properties: DigitalTwinInte
         properties.interfaces[modelDiscoveryInterfaceName].properties.modelInformation &&
         properties.interfaces[modelDiscoveryInterfaceName].properties.modelInformation.reported &&
         properties.interfaces[modelDiscoveryInterfaceName].properties.modelInformation.reported.value &&
-        properties.interfaces[modelDiscoveryInterfaceName].properties.modelInformation.reported.value.interfaces;
+        properties.interfaces[modelDiscoveryInterfaceName].properties.modelInformation.reported.value;
+};
+
+const getReportedInterfacesFromDigitalTwin = (properties: DigitalTwinInterfaces) => {
+    const value = getReportedValueFromDigitalTwin(properties);
+    return value && value.interfaces;
+};
+
+const getReportedDcmFromDigitalTwin = (properties: DigitalTwinInterfaces) => {
+    const value = getReportedValueFromDigitalTwin(properties);
+    return value && value.modelId;
 };
 
 export const getDigitalTwinInterfaceIdToNameMapSelector = createSelector(
@@ -87,6 +97,13 @@ export const getDigitalTwinInterfaceIdToNameMapSelector = createSelector(
             return idToNameMap;
         }
         return idToNameMap;
+    }
+);
+
+export const getDigitalTwinDcmNameSelector = createSelector(
+    getDigitalTwinInterfacePropertiesSelector,
+    properties => {
+        return getReportedDcmFromDigitalTwin(properties);
     }
 );
 

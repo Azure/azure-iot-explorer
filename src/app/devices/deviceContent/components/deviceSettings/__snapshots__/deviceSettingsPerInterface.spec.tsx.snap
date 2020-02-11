@@ -15,11 +15,20 @@ exports[`components/devices/deviceSettings matches snapshot while interface cann
           "name": "deviceSettings.command.refresh",
           "onClick": [Function],
         },
+        Object {
+          "ariaLabel": "deviceSettings.command.close",
+          "iconProps": Object {
+            "iconName": "ChromeClose",
+          },
+          "key": "ChromeClose",
+          "name": "deviceSettings.command.close",
+          "onClick": [Function],
+        },
       ]
     }
   />
-  <Component
-    headerText="deviceSettings.headerText"
+  <Route
+    component={[Function]}
   />
   <Connect(InterfaceNotFoundMessageBox) />
 </Fragment>
@@ -40,11 +49,20 @@ exports[`components/devices/deviceSettings matches snapshot with one twinWithSch
           "name": "deviceSettings.command.refresh",
           "onClick": [Function],
         },
+        Object {
+          "ariaLabel": "deviceSettings.command.close",
+          "iconProps": Object {
+            "iconName": "ChromeClose",
+          },
+          "key": "ChromeClose",
+          "name": "deviceSettings.command.close",
+          "onClick": [Function],
+        },
       ]
     }
   />
-  <Component
-    headerText="deviceSettings.headerText"
+  <Route
+    component={[Function]}
   />
   <DeviceSettingsPerInterface
     deviceId={null}
@@ -160,7 +178,7 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
           }
         }
         content="deviceSettings.columns.reportedValueTooltip"
-        id="tooltipHost13"
+        id="tooltipHost8"
         styles={
           Object {
             "root": Object {
@@ -170,7 +188,7 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
         }
       >
         <CustomizedIconButton
-          aria-labelledby="tooltipHost13"
+          aria-labelledby="tooltipHost8"
           iconProps={
             Object {
               "iconName": "Info",

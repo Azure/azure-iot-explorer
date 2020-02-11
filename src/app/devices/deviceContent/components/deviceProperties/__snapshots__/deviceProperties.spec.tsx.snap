@@ -15,15 +15,26 @@ exports[`components/devices/deviceProperties matches snapshot while interface ca
           "name": "deviceProperties.command.refresh",
           "onClick": [Function],
         },
+        Object {
+          "ariaLabel": "deviceProperties.command.close",
+          "iconProps": Object {
+            "iconName": "ChromeClose",
+          },
+          "key": "ChromeClose",
+          "name": "deviceProperties.command.close",
+          "onClick": [Function],
+        },
       ]
     }
   />
-  <Component
-    headerText="deviceProperties.headerText"
+  <Route
+    component={[Function]}
   />
-  <DevicePropertiesPerInterface
-    twinAndSchema={Array []}
-  />
+  <StyledLabelBase
+    className="no-pnp-content"
+  >
+    deviceProperties.noProperties
+  </StyledLabelBase>
 </Fragment>
 `;
 
@@ -42,14 +53,25 @@ exports[`components/devices/deviceProperties matches snapshot with one twinWithS
           "name": "deviceProperties.command.refresh",
           "onClick": [Function],
         },
+        Object {
+          "ariaLabel": "deviceProperties.command.close",
+          "iconProps": Object {
+            "iconName": "ChromeClose",
+          },
+          "key": "ChromeClose",
+          "name": "deviceProperties.command.close",
+          "onClick": [Function],
+        },
       ]
     }
   />
-  <Component
-    headerText="deviceProperties.headerText"
+  <Route
+    component={[Function]}
   />
-  <DevicePropertiesPerInterface
-    twinAndSchema={Array []}
-  />
+  <StyledLabelBase
+    className="no-pnp-content"
+  >
+    deviceProperties.noProperties
+  </StyledLabelBase>
 </Fragment>
 `;
