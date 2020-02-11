@@ -87,7 +87,7 @@ describe('components/devices/deviceProperties', () => {
     });
 
     it('dispatch action when refresh button is clicked', () => {
-        const wrapper = mountWithLocalization(getComponent({isLoading: false}));
+        const wrapper = mountWithLocalization(getComponent({isLoading: false}), false, true);
         const commandBar = wrapper.find(CommandBar).first();
         commandBar.props().items[0].onClick(null);
         wrapper.update();

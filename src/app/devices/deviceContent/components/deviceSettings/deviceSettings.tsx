@@ -4,7 +4,8 @@
  **********************************************************/
 import * as React from 'react';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
-import { RouteComponentProps } from 'react-router-dom';
+import { Label } from 'office-ui-fabric-react/lib/components/Label';
+import { RouteComponentProps, Route } from 'react-router-dom';
 import DeviceSettingPerInterface from './deviceSettingsPerInterface';
 import { TwinWithSchema } from './deviceSettingsPerInterfacePerSetting';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
@@ -12,9 +13,10 @@ import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { PatchDigitalTwinInterfacePropertiesActionParameters } from '../../actions';
 import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
-import { REFRESH } from '../../../../constants/iconNames';
+import { REFRESH, CLOSE } from '../../../../constants/iconNames';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
-import { HeaderView } from '../../../../shared/components/headerView';
+import { DigitalTwinHeaderContainer } from '../digitalTwin/digitalTwinHeaderView';
+import { ROUTE_PARAMS } from '../../../../constants/routes';
 
 export interface DeviceSettingsProps extends DeviceInterfaceWithSchema{
     isLoading: boolean;
@@ -58,6 +60,13 @@ export default class DeviceSettings
                                         key: REFRESH,
                                         name: context.t(ResourceKeys.deviceSettings.command.refresh),
                                         onClick: this.handleRefresh
+                                    },
+                                    {
+                                        ariaLabel: context.t(ResourceKeys.deviceSettings.command.close),
+                                        iconProps: {iconName: CLOSE},
+                                        key: CLOSE,
+                                        name: context.t(ResourceKeys.deviceSettings.command.close),
+                                        onClick: this.handleClose
                                     }
                                 ]}
                         />
@@ -73,17 +82,18 @@ export default class DeviceSettings
     }
 
     private readonly renderProperties = (context: LocalizationContextInterface) => {
+        const { twinWithSchema } = this.props;
         return (
             <>
-                <HeaderView
-                    headerText={ResourceKeys.deviceSettings.headerText}
-                />
-                {this.props.twinWithSchema ?
-                    <DeviceSettingPerInterface
-                        {...this.props}
-                        deviceId={getDeviceIdFromQueryString(this.props)}
-                    /> :
-                    <InterfaceNotFoundMessageBoxContainer/>
+                <Route component={DigitalTwinHeaderContainer} />
+                {twinWithSchema ?
+                    twinWithSchema.length === 0 ?
+                        <Label className="no-pnp-content">{context.t(ResourceKeys.deviceSettings.noSettings, {interfaceName: getInterfaceIdFromQueryString(this.props)})}</Label> :
+                        <DeviceSettingPerInterface
+                            {...this.props}
+                            deviceId={getDeviceIdFromQueryString(this.props)}
+                        />
+                    : <InterfaceNotFoundMessageBoxContainer/>
                 }
             </>
         );
@@ -91,5 +101,11 @@ export default class DeviceSettings
 
     private readonly handleRefresh = () => {
         this.props.refresh(getDeviceIdFromQueryString(this.props), getInterfaceIdFromQueryString(this.props));
+    }
+
+    private readonly handleClose = () => {
+        const path = this.props.match.url.replace(/\/digitalTwinsDetail\/settings\/.*/, ``);
+        const deviceId = getDeviceIdFromQueryString(this.props);
+        this.props.history.push(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
     }
 }
