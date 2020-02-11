@@ -8,14 +8,14 @@ import { SynchronizationWrapper } from '../../api/models/synchronizationWrapper'
 import { DigitalTwinInterfaces } from '../../api/models/digitalTwinModels';
 import { StateType, StateInterface } from '../../shared/redux/state';
 import { ModelDefinitionWithSource } from '../../api/models/modelDefinitionWithSource';
-import { modelDiscoveryInterfaceName } from '../../constants/modelDefinitionConstants';
+import { modelDiscoveryComponentName } from '../../constants/modelDefinitionConstants';
 
-export const getInterfaceIdSelector = (state: StateInterface): string => {
-    return state && state.deviceContentState && state.deviceContentState.interfaceIdSelected;
+export const getComponentNameSelector = (state: StateInterface): string => {
+    return state && state.deviceContentState && state.deviceContentState.componentNameSelected;
 };
 
 export const getModelDefinitionWithSourceSelector = (state: StateInterface): SynchronizationWrapper<ModelDefinitionWithSource> => {
-    return getInterfaceIdSelector(state) &&
+    return getComponentNameSelector(state) &&
         state.deviceContentState &&
         state.deviceContentState.modelDefinitionWithSource;
 };
@@ -58,7 +58,7 @@ export const getDigitalTwinInterfacePropertiesSelector = (state: StateInterface)
         state.deviceContentState.digitalTwinInterfaceProperties.payload;
 };
 
-export const getDigitalTwinInterfaceNameAndIdsSelector = createSelector(
+export const getDigitalTwincomponentNameAndIdsSelector = createSelector(
     getDigitalTwinInterfacePropertiesSelector,
     properties => {
         return getReportedInterfacesFromDigitalTwin(properties);
@@ -69,12 +69,12 @@ export const getDigitalTwinInterfaceNameAndIdsSelector = createSelector(
 const getReportedValueFromDigitalTwin = (properties: DigitalTwinInterfaces) => {
     return properties &&
         properties.interfaces &&
-        properties.interfaces[modelDiscoveryInterfaceName] &&
-        properties.interfaces[modelDiscoveryInterfaceName].properties &&
-        properties.interfaces[modelDiscoveryInterfaceName].properties.modelInformation &&
-        properties.interfaces[modelDiscoveryInterfaceName].properties.modelInformation.reported &&
-        properties.interfaces[modelDiscoveryInterfaceName].properties.modelInformation.reported.value &&
-        properties.interfaces[modelDiscoveryInterfaceName].properties.modelInformation.reported.value;
+        properties.interfaces[modelDiscoveryComponentName] &&
+        properties.interfaces[modelDiscoveryComponentName].properties &&
+        properties.interfaces[modelDiscoveryComponentName].properties.modelInformation &&
+        properties.interfaces[modelDiscoveryComponentName].properties.modelInformation.reported &&
+        properties.interfaces[modelDiscoveryComponentName].properties.modelInformation.reported.value &&
+        properties.interfaces[modelDiscoveryComponentName].properties.modelInformation.reported.value;
 };
 
 const getReportedInterfacesFromDigitalTwin = (properties: DigitalTwinInterfaces) => {
@@ -87,19 +87,6 @@ const getReportedDcmFromDigitalTwin = (properties: DigitalTwinInterfaces) => {
     return value && value.modelId;
 };
 
-export const getDigitalTwinInterfaceIdToNameMapSelector = createSelector(
-    getDigitalTwinInterfaceNameAndIdsSelector,
-    nameAndIds => {
-        const idToNameMap = new Map<string, string>();
-        if (nameAndIds) {
-            Object.keys(nameAndIds).map(
-                name => { idToNameMap.set(nameAndIds[name], name); });
-            return idToNameMap;
-        }
-        return idToNameMap;
-    }
-);
-
 export const getDigitalTwinDcmNameSelector = createSelector(
     getDigitalTwinInterfacePropertiesSelector,
     properties => {
@@ -108,7 +95,7 @@ export const getDigitalTwinDcmNameSelector = createSelector(
 );
 
 export const getDigitalTwinInterfaceIdsSelector = createSelector(
-    getDigitalTwinInterfaceNameAndIdsSelector,
+    getDigitalTwincomponentNameAndIdsSelector,
     nameAndIds => {
         if (nameAndIds) {
             const interfaceIds = Object.keys(nameAndIds).map(
@@ -120,13 +107,5 @@ export const getDigitalTwinInterfaceIdsSelector = createSelector(
 );
 
 export const getIsDevicePnpSelector = createSelector(
-    getDigitalTwinInterfaceNameAndIdsSelector,
+    getDigitalTwincomponentNameAndIdsSelector,
     names => names && Object.keys(names).length > 0);
-
-export const getInterfaceNameSelector = createSelector(
-    getInterfaceIdSelector,
-    getDigitalTwinInterfaceIdToNameMapSelector,
-    (id, idToNameMap) => {
-        return idToNameMap.get(id);
-    }
-);

@@ -14,7 +14,7 @@ import '../../../../css/_devicePnpDetailList.scss';
 export interface DeviceCommandDataProps {
     commandSchemas: CommandSchema[];
     deviceId: string;
-    interfaceName: string;
+    componentName: string;
 }
 
 export interface DeviceCommandDispatchProps {

@@ -506,7 +506,7 @@ export class ResourceKeys {
       componentName : "digitalTwin.componentName",
       dcm : "digitalTwin.dcm",
       headerText : "digitalTwin.headerText",
-      interfaceName : "digitalTwin.interfaceName",
+      interfaceId : "digitalTwin.interfaceId",
    };
    public static directMethod = {
       connectionTimeout : "directMethod.connectionTimeout",

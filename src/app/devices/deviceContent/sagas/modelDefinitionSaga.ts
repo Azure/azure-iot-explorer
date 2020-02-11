@@ -19,7 +19,7 @@ import { invokeDigitalTwinInterfaceCommand, fetchDigitalTwinInterfaceProperties 
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { getDigitalTwinInterfaceIdsSelector } from '../selectors';
 import { InterfaceNotImplementedException } from './../../../shared/utils/exceptions/interfaceNotImplementedException';
-import { modelDefinitionInterfaceId, modelDefinitionInterfaceName, modelDefinitionCommandName } from '../../../constants/modelDefinitionConstants';
+import { modelDefinitionInterfaceId, modelDefinitionComponentName, modelDefinitionCommandName } from '../../../constants/modelDefinitionConstants';
 import { FetchDigitalTwinInterfacePropertiesParameters } from '../../../api/parameters/deviceParameters';
 
 export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionParameters>) {
@@ -111,9 +111,9 @@ export function* getModelDefinitionFromDevice(action: Action<GetModelDefinitionA
     // if interface is implemented, invoke command on device
     return yield call(invokeDigitalTwinInterfaceCommand, {
         commandName: modelDefinitionCommandName,
+        componentName: modelDefinitionComponentName,
         connectionString: yield call(getActiveAzureResourceConnectionStringSaga),
         digitalTwinId: action.payload.digitalTwinId,
-        interfaceName: modelDefinitionInterfaceName,
         payload: action.payload.interfaceId
     });
 }

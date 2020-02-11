@@ -10,7 +10,7 @@ import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 import { RouteComponentProps, Route } from 'react-router-dom';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
-import { getInterfaceIdFromQueryString, getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
+import { getInterfaceIdFromQueryString, getDeviceIdFromQueryString, getComponentNameFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { ModelDefinitionWithSource } from '../../../../api/models/modelDefinitionWithSource';
 import { SynchronizationWrapper } from '../../../../api/models/synchronizationWrapper';
 import { REPOSITORY_LOCATION_TYPE } from '../../../../constants/repositoryLocationTypes';
@@ -33,7 +33,7 @@ export interface DeviceInterfaceProps {
 }
 
 export interface DeviceInterfaceDispatchProps {
-    setInterfaceId: (id: string) => void;
+    setComponentName: (id: string) => void;
     settingsVisibleToggle: (visible: boolean) => void;
     refresh: (deviceId: string, interfaceId: string) => void;
 }
@@ -77,7 +77,7 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
     }
 
     public componentDidMount() {
-        this.props.setInterfaceId(getInterfaceIdFromQueryString(this.props));
+        this.props.setComponentName(getComponentNameFromQueryString(this.props));
     }
 
     private readonly renderInterfaceInfo = (context: LocalizationContextInterface) => {

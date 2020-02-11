@@ -62,13 +62,13 @@ describe('getDeviceCommandPairs', () => {
         /* tslint:enable */
 
         state.deviceContentState = Record({
+            componentNameSelected: 'environmentalSensor',
             deviceIdentity: null,
             deviceTwin: null,
             digitalTwinInterfaceProperties: {
                 payload: digitalTwinInterfaceProperties,
                 synchronizationStatus: SynchronizationStatus.fetched
             },
-            interfaceIdSelected: interfaceId,
             modelDefinitionWithSource: {
                 payload: {
                     modelDefinition,
@@ -111,6 +111,6 @@ describe('getDeviceCommandPairs', () => {
             }
         ];
         expect(getDeviceCommandPairs(state))
-            .toEqual({commandSchemas, interfaceName: 'environmentalsensor'});
+            .toEqual({commandSchemas});
     });
 });

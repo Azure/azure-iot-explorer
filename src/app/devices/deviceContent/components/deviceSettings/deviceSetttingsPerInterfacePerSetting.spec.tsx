@@ -46,10 +46,10 @@ describe('components/devices/deviceSettingsPerInterfacePerSetting', () => {
 
     let deviceSettingDataProps: DeviceSettingDataProps = {
         collapsed: true,
+        componentName: 'sensor',
         desiredTwin: twinValue,
         deviceId: 'deviceId',
         interfaceId: 'urn:interfaceId',
-        interfaceName: 'interfaceId',
         reportedTwin: {value: twinValue},
         settingModelDefinition: propertyModelDefinition,
         settingSchema: propertySchema};

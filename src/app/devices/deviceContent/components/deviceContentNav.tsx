@@ -15,12 +15,11 @@ export interface DeviceContentNavDataProps {
     deviceId: string;
     isLoading: boolean;
     isPnPDevice: boolean;
-    selectedInterface: string;
     isEdgeDevice: boolean;
 }
 
 export interface DeviceContentNavDispatchProps {
-    setInterfaceId: (interfaceId: string) => void;
+    setComponentName: (interfaceId: string) => void;
 }
 
 export const NAV_LINK_ITEMS = [ROUTE_PARTS.IDENTITY, ROUTE_PARTS.TWIN, ROUTE_PARTS.EVENTS, ROUTE_PARTS.METHODS, ROUTE_PARTS.CLOUD_TO_DEVICE_MESSAGE];

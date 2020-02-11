@@ -65,6 +65,7 @@ exports[`components/devices/deviceSettings matches snapshot with one twinWithSch
     component={[Function]}
   />
   <DeviceSettingsPerInterface
+    componentName="environmentalSensor"
     deviceId={null}
     history={
       Object {
@@ -74,7 +75,6 @@ exports[`components/devices/deviceSettings matches snapshot with one twinWithSch
       }
     }
     interfaceId="urn:contoso:com:EnvironmentalSensor:1"
-    interfaceName="environmentalSensor"
     isLoading={false}
     location={
       Object {
@@ -84,7 +84,7 @@ exports[`components/devices/deviceSettings matches snapshot with one twinWithSch
     match={Object {}}
     patchDigitalTwinInterfaceProperties={[MockFunction]}
     refresh={[MockFunction]}
-    setInterfaceId={
+    setComponentName={
       [MockFunction] {
         "calls": Array [
           Array [
@@ -218,12 +218,12 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
   >
     <DeviceSettingsPerInterfacePerSetting
       collapsed={false}
+      componentName="environmentalSensor"
       desiredTwin={123}
       deviceId="testDevice"
       handleCollapseToggle={[Function]}
       handleOverlayToggle={[Function]}
       interfaceId="urn:contoso:com:EnvironmentalSensor:1"
-      interfaceName="environmentalSensor"
       key="0"
       patchDigitalTwinInterfaceProperties={[MockFunction]}
       reportedTwin={null}

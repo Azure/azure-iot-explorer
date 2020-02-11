@@ -19,7 +19,7 @@ import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinition
 export interface DeviceCommandDataProps extends CommandSchema {
     collapsed: boolean;
     deviceId: string;
-    interfaceName: string;
+    componentName: string;
 }
 
 export interface DeviceCommandDispatchProps {
@@ -92,7 +92,7 @@ export default class DeviceCommandsPerInterfacePerCommand
             <DataForm
                 buttonText={ResourceKeys.deviceCommands.command.submit}
                 formData={undefined}
-                interfaceName={this.props.interfaceName}
+                componentName={this.props.componentName}
                 settingSchema={this.props.parsedSchema.requestSchema}
                 handleSave={this.onSubmit}
                 craftPayload={this.craftCommandPayload}

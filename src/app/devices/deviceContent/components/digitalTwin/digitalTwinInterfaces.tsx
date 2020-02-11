@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Label } from 'office-ui-fabric-react/lib/Label';
 import { CommandBar, ICommandBarItemProps } from 'office-ui-fabric-react/lib/CommandBar';
 import { RouteComponentProps, NavLink } from 'react-router-dom';
-import { getDigitalTwinInterfaceIdToNameMapSelector, getDigitalTwinDcmNameSelector, getDigitalTwinInterfacePropertiesWrapperSelector } from '../../selectors';
+import { getDigitalTwincomponentNameAndIdsSelector, getDigitalTwinDcmNameSelector, getDigitalTwinInterfacePropertiesWrapperSelector } from '../../selectors';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../../constants/routes';
 import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
@@ -22,7 +22,7 @@ import '../../../../css/_devicePnPDetailList.scss';
 
 export interface DigitalTwinInterfacesProps extends RouteComponentProps{
     isLoading: boolean;
-    idToNameMap: Map<string, string>;
+    nameToIds: object;
     dcm: string;
     refresh: (deviceId: string) => void;
 }
@@ -36,18 +36,22 @@ export const DigitalTwinInterfaces: React.FC<DigitalTwinInterfacesProps> = props
     const deviceId = getDeviceIdFromQueryString(props);
     const { t } = useLocalizationContext();
 
-    const navLinks: JSX.Element[] = [];
-    if (props.idToNameMap && props.idToNameMap.size > 0) {
-        props.idToNameMap.forEach((componentName, interfaceName) => {
-            const link = `${url}${ROUTE_PARTS.DIGITAL_TWINS_DETAIL}/${ROUTE_PARTS.INTERFACES}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}&${ROUTE_PARAMS.INTERFACE_ID}=${interfaceName}`;
-            navLinks.push(
+    let navLinks: JSX.Element[] = [];
+    if (props.nameToIds) {
+        navLinks = Object.keys(props.nameToIds).map(componentName => {
+            const interfaceId = (props.nameToIds as any)[componentName]; // tslint:disable-line:no-any
+            const link = `${url}${ROUTE_PARTS.DIGITAL_TWINS_DETAIL}/${ROUTE_PARTS.INTERFACES}/` +
+                            `?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}` +
+                            `&${ROUTE_PARAMS.COMPONENT_NAME}=${componentName}` +
+                            `&${ROUTE_PARAMS.INTERFACE_ID}=${interfaceId}`;
+
+            return (
                 <div className="interface-item ms-Grid-row" key={componentName}>
                     <NavLink className="ms-Grid-col ms-sm3 ms-md3 ms-lg3" key={componentName} to={link}>
                         {componentName}
                     </NavLink>
-                    <Label className="ms-Grid-col ms-sm3 ms-md3 ms-lg3 interface-info" >{interfaceName}</Label>
+                    <Label className="ms-Grid-col ms-sm3 ms-md3 ms-lg3 interface-info" >{interfaceId}</Label>
                 </div>
-
             );
         });
     }
@@ -83,11 +87,12 @@ export const DigitalTwinInterfaces: React.FC<DigitalTwinInterfacesProps> = props
                 <div className="ms-Grid">
                     <div className="interface-item ms-Grid-row">
                         <Label className="ms-Grid-col ms-sm3 ms-md3 ms-lg3 grid-header" >{t(ResourceKeys.digitalTwin.componentName)}</Label>
-                        <Label className="ms-Grid-col ms-sm3 ms-md3 ms-lg3 grid-header" >{t(ResourceKeys.digitalTwin.interfaceName)}</Label>
+                        <Label className="ms-Grid-col ms-sm3 ms-md3 ms-lg3 grid-header" >{t(ResourceKeys.digitalTwin.interfaceId)}</Label>
                     </div>
                     {navLinks}
                 </div>
             </section>
+
         </>
     );
 };
@@ -99,9 +104,9 @@ export const DigitalTwinInterfacesContainer: React.FC<DigitalTwinInterfacesConta
 
     const viewProps = {
         dcm: useSelector(getDigitalTwinDcmNameSelector),
-        idToNameMap: useSelector(getDigitalTwinInterfaceIdToNameMapSelector),
         isLoading: digitalTwinInterfacesWrapper &&
             digitalTwinInterfacesWrapper.synchronizationStatus === SynchronizationStatus.working,
+        nameToIds: useSelector(getDigitalTwincomponentNameAndIdsSelector),
         refresh: (deviceId: string) => dispatch(getDigitalTwinInterfacePropertiesAction.started(deviceId)),
         ...props
     };

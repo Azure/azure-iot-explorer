@@ -10,7 +10,7 @@ import { StateType } from '../../../../shared/redux/state';
 import { getModelDefinitionSyncStatusSelector, getModelDefinitionWithSourceSelector } from '../../selectors';
 import DeviceInterfaces, { DeviceInterfaceProps, DeviceInterfaceDispatchProps } from './deviceInterfaces';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
-import { setInterfaceIdAction, getModelDefinitionAction } from '../../actions';
+import { setComponentNameAction, getModelDefinitionAction } from '../../actions';
 import { setSettingsVisibilityAction } from '../../../../settings/actions';
 
 const mapStateToProps = (state: StateType): DeviceInterfaceProps => {
@@ -25,7 +25,7 @@ const mapStateToProps = (state: StateType): DeviceInterfaceProps => {
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DeviceInterfaceDispatchProps => {
     return {
         refresh: (deviceId: string, interfaceId: string) => dispatch(getModelDefinitionAction.started({digitalTwinId: deviceId, interfaceId})),
-        setInterfaceId: (id: string) => dispatch(setInterfaceIdAction(id)),
+        setComponentName: (id: string) => dispatch(setComponentNameAction(id)),
         settingsVisibleToggle: (visible: boolean) => dispatch(setSettingsVisibilityAction(visible))
     };
 };

@@ -14,15 +14,15 @@ export interface DeviceContentStateInterface {
     deviceIdentity: SynchronizationWrapper<DeviceIdentity>;
     deviceTwin: SynchronizationWrapper<Twin>;
     digitalTwinInterfaceProperties: SynchronizationWrapper<DigitalTwinInterfaces>;
-    interfaceIdSelected: string;
+    componentNameSelected: string;
     modelDefinitionWithSource: SynchronizationWrapper<ModelDefinitionWithSource>;
 }
 
 export const deviceContentStateInitial = Record<DeviceContentStateInterface>({
+    componentNameSelected: '',
     deviceIdentity: null,
     deviceTwin: null,
     digitalTwinInterfaceProperties: null,
-    interfaceIdSelected: '',
     modelDefinitionWithSource: null
 });
 

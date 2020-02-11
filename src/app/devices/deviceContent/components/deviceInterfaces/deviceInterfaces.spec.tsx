@@ -39,7 +39,7 @@ describe('components/devices/deviceInterfaces', () => {
     const refresh = jest.fn();
     const dispatchProps: DeviceInterfaceDispatchProps = {
         refresh,
-        setInterfaceId: jest.fn(),
+        setComponentName: jest.fn(),
         settingsVisibleToggle
     };
 

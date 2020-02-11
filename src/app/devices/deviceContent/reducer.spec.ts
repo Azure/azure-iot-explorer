@@ -21,7 +21,7 @@ import { getTwinAction,
     getDigitalTwinInterfacePropertiesAction,
     patchDigitalTwinInterfacePropertiesAction,
     updateDeviceIdentityAction,
-    setInterfaceIdAction
+    setComponentNameAction
 } from './actions';
 import reducer from './reducer';
 import { deviceContentStateInitial, DeviceContentStateInterface } from './state';
@@ -104,10 +104,10 @@ describe('deviceContentStateReducer', () => {
 
         it (`handles ${CLEAR_MODEL_DEFINITIONS} action`, () => {
             const initialState = Record<DeviceContentStateInterface>({
+                componentNameSelected: '',
                 deviceIdentity: undefined,
                 deviceTwin: undefined,
                 digitalTwinInterfaceProperties: undefined,
-                interfaceIdSelected: '',
                 modelDefinitionWithSource
             });
             const action = clearModelDefinitionsAction();
@@ -115,8 +115,8 @@ describe('deviceContentStateReducer', () => {
         });
 
         it (`handles ${SET_INTERFACE_ID} action`, () => {
-            const action = setInterfaceIdAction('testId');
-            expect(reducer(deviceContentStateInitial(), action).interfaceIdSelected).toEqual('testId');
+            const action = setComponentNameAction('testId');
+            expect(reducer(deviceContentStateInitial(), action).componentNameSelected).toEqual('testId');
         });
     });
 

@@ -24,7 +24,6 @@ describe('deviceContent', () => {
     const deviceContentDataProps: DeviceContentDataProps = {
         deviceId: 'testDevice',
         identityWrapper: null,
-        interfaceId: 'testInterfaceId',
         interfaceIds: [],
         isLoading: false,
         isPnPDevice: true,
@@ -33,7 +32,7 @@ describe('deviceContent', () => {
     const deviceContentDispatchProps: DeviceContentDispatchProps = {
         getDeviceIdentity: jest.fn(),
         getDigitalTwinInterfaceProperties: jest.fn(),
-        setInterfaceId: jest.fn()
+        setComponentName: jest.fn()
     };
 
     const getComponent = (overrides = {}) => {

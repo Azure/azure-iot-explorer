@@ -16,7 +16,7 @@ import { REPOSITORY_LOCATION_TYPE } from '../../../constants/repositoryLocationT
 import { getDigitalTwinInterfaceIdsSelector } from '../selectors';
 import { getRepoTokenSaga } from '../../../settings/sagas/getRepoTokenSaga';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
-import { modelDefinitionInterfaceId, modelDefinitionInterfaceName, modelDefinitionCommandName } from '../../../constants/modelDefinitionConstants';
+import { modelDefinitionInterfaceId, modelDefinitionComponentName, modelDefinitionCommandName } from '../../../constants/modelDefinitionConstants';
 import { fetchModelDefinition } from '../../../api/services/digitalTwinsModelService';
 import { PUBLIC_REPO_HOSTNAME } from '../../../constants/shared';
 
@@ -183,9 +183,9 @@ describe('modelDefinitionSaga', () => {
             done: false,
             value: call(DevicesService.invokeDigitalTwinInterfaceCommand, {
                 commandName: modelDefinitionCommandName,
+                componentName: modelDefinitionComponentName,
                 connectionString: 'connection_string',
                 digitalTwinId,
-                interfaceName: modelDefinitionInterfaceName,
                 payload: interfaceId
             })
         });

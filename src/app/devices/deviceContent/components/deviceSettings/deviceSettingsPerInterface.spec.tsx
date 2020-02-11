@@ -13,9 +13,9 @@ import { twinWithSchema } from './deviceSettings.spec';
 describe('components/devices/deviceSettingsPerInterface', () => {
 
     const deviceSettingsProps: DeviceSettingDataProps = {
+        componentName: 'environmentalSensor',
         deviceId: 'testDevice',
         interfaceId: 'urn:contoso:com:EnvironmentalSensor:1',
-        interfaceName: 'environmentalSensor',
         twinWithSchema: [twinWithSchema]
     };
 

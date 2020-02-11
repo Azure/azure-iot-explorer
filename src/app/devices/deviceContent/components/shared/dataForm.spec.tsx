@@ -18,8 +18,8 @@ describe('dataForm', () => {
 
     const dataFormProps: DataFormDataProps = {
         buttonText: 'text',
+        componentName: 'testInterface',
         formData,
-        interfaceName: 'testInterface',
         schema: 'integer',
         settingSchema
     };

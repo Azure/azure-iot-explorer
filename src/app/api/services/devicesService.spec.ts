@@ -15,7 +15,7 @@ import { DataPlaneParameters } from '../parameters/deviceParameters';
 
 const deviceId = 'deviceId';
 const connectionString = 'HostName=test-string.azure-devices.net;SharedAccessKeyName=owner;SharedAccessKey=fakeKey=';
-const interfaceName = 'interfaceName';
+const componentName = 'componentName';
 const headers = new Headers({
     'Accept': 'application/json',
     'Content-Type': 'application/json'
@@ -214,9 +214,9 @@ describe('deviceTwinService', () => {
     context('invokeDigitalTwinInterfaceCommand', () => {
         const parameters = {
             commandName: 'commandName',
+            componentName,
             connectionString,
             digitalTwinId: undefined,
-            interfaceName,
             payload: undefined
         };
         it ('returns if digitalTwinId is not specified', () => {
@@ -255,7 +255,7 @@ describe('deviceTwinService', () => {
                 body: JSON.stringify(parameters.payload),
                 hostName: connectionInformation.connectionInfo.hostName,
                 httpMethod: HTTP_OPERATION_TYPES.Post,
-                path: `/digitalTwins/${deviceId}/interfaces/${parameters.interfaceName}/commands/${parameters.commandName}`,
+                path: `/digitalTwins/${deviceId}/interfaces/${parameters.componentName}/commands/${parameters.commandName}`,
                 queryString,
                 sharedAccessSignature: connectionInformation.sasToken
             };
