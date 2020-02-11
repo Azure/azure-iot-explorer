@@ -6,6 +6,8 @@
 
 .interface-item {
     margin:10px;
+    padding-left: 10px;
+    word-wrap: break-word;
     a {
         @include themify($themes) {
             color: themed('linkColor');
@@ -18,7 +20,17 @@
             background-color: themed('pivotOnHoverBackground');
         }
     }
-    .ms-Label {
-        padding-left: 30px;
+    .grid-header {
+        font-weight: bold;
     }
+
+    .interface-info {
+        padding: 10px;
+    }
+}
+
+.dcm-info {
+    font-size: 16px;
+    font-weight: bold;
+    padding-left: 6px;
 }
