@@ -35,9 +35,11 @@ export const BreadcrumbItem: React.FC<BreadcrumbItemDataProps> = props => {
                     return renderTextItem(getShortHubName());
                 case ROUTE_PARTS.DEVICE_DETAIL:
                     return renderTextItem(getDeviceIdFromQueryString(props));
-                case ROUTE_PARTS.DIGITAL_TWINS:
+                case ROUTE_PARTS.DIGITAL_TWINS_DETAIL:
                     return renderTextItem(getInterfaceIdFromQueryString(props));
                 case ROUTE_PARTS.MODULE_IDENTITY:
+                        return renderLinkItem(getLocalizedKey(route), [ROUTE_PARAMS.DEVICE_ID]);
+                case ROUTE_PARTS.DIGITAL_TWINS:
                     return renderLinkItem(getLocalizedKey(route), [ROUTE_PARAMS.DEVICE_ID]);
                 default:
                     return renderLinkItem(getLocalizedKey(route));

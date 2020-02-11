@@ -56,7 +56,11 @@ If you'd like to package the app yourself, please refer to the [FAQ](https://git
 <img src="doc/screenshots/settings.PNG" alt="settings" width="400"/>
 
 - Go to the device details page by clicking the name of a PnP device.
-- Interfaces implemented by the PnP device would be populated under the DIGITAL TWIN section of the left navigation bar. Open interface, properties, commands or telemetry to start interacting with the PnP device.
+- Click Plug and Play from the navigation, the DCM along with its interfaces the device implements as components would be listed on the page.
+
+<img src="doc/screenshots/pnp_interfaces.PNG" alt="settings" width="800"/>
+
+- Click the name of any component, and switch between interface, properties, commands and telemetry to start interacting with the PnP device.
 
 <img src="doc/screenshots/pnp_device_details.PNG" alt="pnp_device_details" width="800"/>
 
