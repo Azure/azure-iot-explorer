@@ -4,5 +4,4 @@
  **********************************************************/
 export const modelDiscoveryInterfaceName = 'urn_azureiot_ModelDiscovery_DigitalTwin';
 export const modelDefinitionInterfaceId = 'urn:azureiot:ModelDiscovery:ModelDefinition:1';
-export const modelDefinitionInterfaceName = 'urn_azureiot_ModelDiscovery_ModelDefinition';
 export const modelDefinitionCommandName = 'getModelDefinition';
