@@ -289,7 +289,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
                     <section role="feed">
                     {
                         events.map((event: Message, index) => {
-                            return event.properties ? this.renderSingleEvents(event, index, context) : this.renderCombinedEvents(event, index, context);
+                            return event.systemProperties ? this.renderSingleEvents(event, index, context) : this.renderCombinedEvents(event, index, context);
                         })
                     }
                     </section>
@@ -300,7 +300,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
 
     private readonly renderSingleEvents = (event: Message, index: number, context: LocalizationContextInterface) => {
         const matchingSchema = this.props.telemetrySchema.filter(schema => schema.telemetryModelDefinition.name ===
-            event.properties[TELEMETRY_SCHEMA_PROP]);
+            event.systemProperties[TELEMETRY_SCHEMA_PROP]);
         const telemetryModelDefinition =  matchingSchema && matchingSchema.length !== 0 && matchingSchema[0].telemetryModelDefinition;
         const parsedSchema = matchingSchema && matchingSchema.length !== 0 && matchingSchema[0].parsedSchema;
 
@@ -384,7 +384,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
 
     // tslint:disable-next-line:cyclomatic-complexity
     private readonly renderMessageBody = (event: Message, context: LocalizationContextInterface, schema?: ParsedJsonSchema) => {
-        const key = event.properties ? event.properties[TELEMETRY_SCHEMA_PROP] : null;
+        const key = event.systemProperties ? event.systemProperties[TELEMETRY_SCHEMA_PROP] : null;
         const validator = new Validator();
 
         if (!key) {
