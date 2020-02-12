@@ -372,7 +372,7 @@
     },
     "digitalTwin": {
         "headerText": "Plug and Play (preview)",
-        "dcm": "Model id: {{modelId}}",
+        "dcm": "Device capability model ID: {{modelId}}",
         "componentName": "Component",
         "interfaceId": "Interface"
     },

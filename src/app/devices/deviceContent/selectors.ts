@@ -58,7 +58,7 @@ export const getDigitalTwinInterfacePropertiesSelector = (state: StateInterface)
         state.deviceContentState.digitalTwinInterfaceProperties.payload;
 };
 
-export const getDigitalTwincomponentNameAndIdsSelector = createSelector(
+export const getDigitalTwinComponentNameAndIdsSelector = createSelector(
     getDigitalTwinInterfacePropertiesSelector,
     properties => {
         return getReportedInterfacesFromDigitalTwin(properties);
@@ -95,7 +95,7 @@ export const getDigitalTwinDcmNameSelector = createSelector(
 );
 
 export const getDigitalTwinInterfaceIdsSelector = createSelector(
-    getDigitalTwincomponentNameAndIdsSelector,
+    getDigitalTwinComponentNameAndIdsSelector,
     nameAndIds => {
         if (nameAndIds) {
             const interfaceIds = Object.keys(nameAndIds).map(
@@ -107,5 +107,5 @@ export const getDigitalTwinInterfaceIdsSelector = createSelector(
 );
 
 export const getIsDevicePnpSelector = createSelector(
-    getDigitalTwincomponentNameAndIdsSelector,
+    getDigitalTwinComponentNameAndIdsSelector,
     names => names && Object.keys(names).length > 0);

@@ -49,7 +49,7 @@ export default class DevicePropertiesPerInterface
             <LocalizationContextConsumer>
                 {(context: LocalizationContextInterface) => (
                     <div className="pnp-detail-list scrollable-lg ms-Grid">
-                        <div className="non-writable-properties">
+                        <div className="list-detail non-writable-properties">
                             <DetailsList
                                 checkboxVisibility={CheckboxVisibility.hidden}
                                 onRenderItemColumn={this.renderItemColumn(context)}

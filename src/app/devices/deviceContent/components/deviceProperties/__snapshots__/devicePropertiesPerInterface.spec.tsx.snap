@@ -150,7 +150,7 @@ exports[`devicePropertiesPerInterface matches snapshot 1`] = `
   className="pnp-detail-list scrollable-lg ms-Grid"
 >
   <div
-    className="non-writable-properties"
+    className="list-detail non-writable-properties"
   >
     <StyledWithViewportComponent
       checkboxVisibility={2}

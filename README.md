@@ -56,7 +56,7 @@ If you'd like to package the app yourself, please refer to the [FAQ](https://git
 <img src="doc/screenshots/settings.PNG" alt="settings" width="400"/>
 
 - Go to the device details page by clicking the name of a PnP device.
-- Click Plug and Play from the navigation, the DCM along with its interfaces the device implements as components would be listed on the page.
+- Click Plug and Play from the navigation. If the device is a Plug and Play device, the Device capability model ID would be shown. A table would show the list of components implemented by the device and the corresponding interfaces the components conform to.
 
 <img src="doc/screenshots/pnp_interfaces.PNG" alt="settings" width="800"/>
 
