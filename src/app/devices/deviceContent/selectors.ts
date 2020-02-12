@@ -77,7 +77,7 @@ export const getReportedInterfacesFromDigitalTwin = (properties: DigitalTwinInte
         properties.interfaces[modelDiscoveryInterfaceName].properties.modelInformation.reported.value.interfaces;
 };
 
-const getDigitalTwinInterfaceIdToNameMapSelector = createSelector(
+export const getDigitalTwinInterfaceIdToNameMapSelector = createSelector(
     getDigitalTwinInterfaceNameAndIdsSelector,
     nameAndIds => {
         const idToNameMap = new Map<string, string>();

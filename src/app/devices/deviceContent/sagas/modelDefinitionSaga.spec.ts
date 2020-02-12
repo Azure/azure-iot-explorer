@@ -13,10 +13,10 @@ import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getModelDefinitionAction, getDigitalTwinInterfacePropertiesAction } from '../actions';
 import { getRepositoryLocationSettingsSelector, getPublicRepositoryHostName } from '../../../settings/selectors';
 import { REPOSITORY_LOCATION_TYPE } from '../../../constants/repositoryLocationTypes';
-import { getDigitalTwinInterfaceIdsSelector } from '../selectors';
+import { getDigitalTwinInterfaceIdsSelector, getDigitalTwinInterfaceIdToNameMapSelector } from '../selectors';
 import { getRepoTokenSaga } from '../../../settings/sagas/getRepoTokenSaga';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
-import { modelDefinitionInterfaceId, modelDefinitionInterfaceName, modelDefinitionCommandName } from '../../../constants/modelDefinitionConstants';
+import { modelDefinitionInterfaceId, modelDefinitionCommandName } from '../../../constants/modelDefinitionConstants';
 import { fetchModelDefinition } from '../../../api/services/digitalTwinsModelService';
 import { PUBLIC_REPO_HOSTNAME } from '../../../constants/shared';
 
@@ -146,6 +146,7 @@ describe('modelDefinitionSaga', () => {
         const mockFetchDigitalTwinInterfaceProperties = jest.spyOn(DevicesService, 'fetchDigitalTwinInterfaceProperties').mockImplementationOnce(parameters => {
             return null;
         });
+        const modelDefinitionInterfaceName = 'model_discovery';
 
         expect(getModelDefinitionFromDeviceGenerator.next()).toEqual({
             done: false,
@@ -175,6 +176,13 @@ describe('modelDefinitionSaga', () => {
         });
 
         expect(getModelDefinitionFromDeviceGenerator.next([modelDefinitionInterfaceId])).toEqual({
+            done: false,
+            value: select(getDigitalTwinInterfaceIdToNameMapSelector)
+        });
+
+        const idToNameMap = new Map<string, string>();
+        idToNameMap.set(modelDefinitionInterfaceId, modelDefinitionInterfaceName);
+        expect(getModelDefinitionFromDeviceGenerator.next(idToNameMap)).toEqual({
             done: false,
             value: call(getActiveAzureResourceConnectionStringSaga)
         });

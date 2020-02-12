@@ -17,9 +17,9 @@ import { REPOSITORY_LOCATION_TYPE } from './../../../constants/repositoryLocatio
 import { getRepoConnectionInfoFromConnectionString } from '../../../api/shared/utils';
 import { invokeDigitalTwinInterfaceCommand, fetchDigitalTwinInterfaceProperties } from '../../../api/services/devicesService';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
-import { getDigitalTwinInterfaceIdsSelector } from '../selectors';
+import { getDigitalTwinInterfaceIdsSelector, getDigitalTwinInterfaceIdToNameMapSelector } from '../selectors';
 import { InterfaceNotImplementedException } from './../../../shared/utils/exceptions/interfaceNotImplementedException';
-import { modelDefinitionInterfaceId, modelDefinitionInterfaceName, modelDefinitionCommandName } from '../../../constants/modelDefinitionConstants';
+import { modelDefinitionInterfaceId, modelDefinitionCommandName } from '../../../constants/modelDefinitionConstants';
 import { FetchDigitalTwinInterfacePropertiesParameters } from '../../../api/parameters/deviceParameters';
 
 export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionParameters>) {
@@ -107,6 +107,10 @@ export function* getModelDefinitionFromDevice(action: Action<GetModelDefinitionA
     if (interfaceIds.filter(id => id === modelDefinitionInterfaceId).length === 0) {
         throw new InterfaceNotImplementedException();
     }
+
+    // then get the name of ${modelDefinitionInterfaceId} interface.
+    const interfaceIdToNameMap: Map<string, string> = yield select(getDigitalTwinInterfaceIdToNameMapSelector);
+    const modelDefinitionInterfaceName = interfaceIdToNameMap.get(modelDefinitionInterfaceId);
 
     // if interface is implemented, invoke command on device
     return yield call(invokeDigitalTwinInterfaceCommand, {

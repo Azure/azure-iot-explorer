@@ -95,7 +95,7 @@ describe('components/devices/deviceEventsPerInterface', () => {
                 humid: '123' // intentionally set a value which type is double
             },
             enqueuedTime: '2019-10-14T21:44:58.397Z',
-            properties: {
+            systemProperties: {
               'iothub-message-schema': 'humid'
             }
         }];
@@ -116,7 +116,7 @@ describe('components/devices/deviceEventsPerInterface', () => {
                 'non-matching-key': 0
             },
             enqueuedTime: '2019-10-14T21:44:58.397Z',
-            properties: {
+            systemProperties: {
               'iothub-message-schema': 'humid'
             }
         }];
