@@ -59,13 +59,13 @@ describe('getDeviceCommandPairs', () => {
         /* tslint:enable */
 
         state.deviceContentState = Record({
+            componentNameSelected: 'environmentalsensor',
             deviceIdentity: null,
             deviceTwin: null,
             digitalTwinInterfaceProperties: {
                 payload: digitalTwinInterfaceProperties,
                 synchronizationStatus: SynchronizationStatus.fetched
             },
-            interfaceIdSelected: interfaceId,
             modelDefinitionWithSource: {
                 payload: {
                     modelDefinition,

@@ -79,7 +79,6 @@ exports[`deviceContent matches snapshot 1`] = `
                 }
               }
               identityWrapper={null}
-              interfaceId="testInterfaceId"
               interfaceIds={Array []}
               isEdgeDevice={null}
               isLoading={false}
@@ -90,8 +89,7 @@ exports[`deviceContent matches snapshot 1`] = `
                 }
               }
               match={Object {}}
-              selectedInterface="testInterfaceId"
-              setInterfaceId={[MockFunction]}
+              setComponentName={[MockFunction]}
             />
           </div>
         </nav>

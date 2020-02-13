@@ -13,6 +13,10 @@ export const getInterfaceIdFromQueryString = (props: RouteComponentProps) => {
     return new URLSearchParams(props.location.search).get(ROUTE_PARAMS.INTERFACE_ID);
 };
 
+export const getComponentNameFromQueryString = (props: RouteComponentProps) => {
+    return new URLSearchParams(props.location.search).get(ROUTE_PARAMS.COMPONENT_NAME);
+};
+
 export const getModuleIdentityIdFromQueryString = (props: RouteComponentProps) => {
     return new URLSearchParams(props.location.search).get(ROUTE_PARAMS.MODULE_ID);
 };

@@ -10,7 +10,7 @@ import { mountWithLocalization, testSnapshot } from '../../../shared/utils/testH
 
 describe('components/devices/deviceContentNav', () => {
 
-    const setInterfaceId = jest.fn();
+    const setComponentName = jest.fn();
     const getComponent = (overrides = {}) => {
         const routeProps = {
             history: jest.fn() as any, // tslint:disable-line:no-any
@@ -23,11 +23,10 @@ describe('components/devices/deviceContentNav', () => {
             isEdgeDevice: true,
             isLoading: false,
             isPnPDevice: false,
-            selectedInterface: '',
         };
 
         const navDispatchProps: DeviceContentNavDispatchProps = {
-            setInterfaceId
+            setComponentName
         };
 
         const props = {

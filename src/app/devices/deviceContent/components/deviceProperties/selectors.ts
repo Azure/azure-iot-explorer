@@ -7,7 +7,7 @@ import { ModelDefinition, PropertyContent, ContentType } from '../../../../api/m
 import { StateInterface } from '../../../../shared/redux/state';
 import { parseInterfacePropertyToJsonSchema } from '../../../../shared/utils/jsonSchemaAdaptor';
 import { TwinWithSchema } from './devicePropertiesPerInterface';
-import { getModelDefinitionSelector, getDigitalTwinInterfacePropertiesSelector, getInterfaceIdSelector, getInterfaceNameSelector } from '../../selectors';
+import { getModelDefinitionSelector, getDigitalTwinInterfacePropertiesSelector, getComponentNameSelector } from '../../selectors';
 
 export const getDevicePropertyTupleSelector = (state: StateInterface): TwinWithSchema[] => {
     const modelDefinition = getModelDefinitionSelector(state);
@@ -37,12 +37,12 @@ const filterProperties = (content: PropertyContent) => {
 export const generateDigitalTwinForSpecificProperty = (state: StateInterface, property: PropertyContent) => {
     try {
         const interfaceProperties = getDigitalTwinInterfacePropertiesSelector(state);
-        const interfaceNameSelected = getInterfaceNameSelector(state);
+        const componentNameSelected = getComponentNameSelector(state);
         return interfaceProperties &&
         interfaceProperties.interfaces &&
-        interfaceProperties.interfaces[interfaceNameSelected] &&
+        interfaceProperties.interfaces[componentNameSelected] &&
         // tslint:disable-next-line:no-any
-        (interfaceProperties.interfaces[interfaceNameSelected].properties)[property.name];
+        (interfaceProperties.interfaces[componentNameSelected].properties)[property.name];
     } catch {
         return;
     }

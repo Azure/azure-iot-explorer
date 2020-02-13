@@ -9,20 +9,20 @@ import { invokeDigitalTwinInterfaceCommand } from '../../../api/services/devices
 import { addNotificationAction } from '../../../notifications/actions';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { getInterfaceNameSelector } from '../selectors';
+import { getComponentNameSelector } from '../selectors';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 
 export function* invokeDigitalTwinInterfaceCommandSaga(action: Action<InvokeDigitalTwinInterfaceCommandActionParameters>) {
     const toastId: number = Math.random();
 
-    const interfaceName = yield select(getInterfaceNameSelector);
+    const componentName = yield select(getComponentNameSelector);
     try {
         const payload = yield call(notifyMethodInvoked, toastId, action);
         const response = yield call(invokeDigitalTwinInterfaceCommand, {
             commandName: action.payload.commandName,
+            componentName,
             connectionString: yield call(getActiveAzureResourceConnectionStringSaga),
             digitalTwinId: action.payload.digitalTwinId,
-            interfaceName,
             payload
         });
         const responseStringified = JSON.stringify(response);
@@ -33,8 +33,8 @@ export function* invokeDigitalTwinInterfaceCommandSaga(action: Action<InvokeDigi
                 translationKey: ResourceKeys.notifications.invokeDigitalTwinCommandOnSuccess,
                 translationOptions: {
                     commandName: action.payload.commandName,
+                    componentName,
                     deviceId: action.payload.digitalTwinId,
-                    interfaceName,
                     response: responseStringified
                 },
             },
@@ -49,9 +49,9 @@ export function* invokeDigitalTwinInterfaceCommandSaga(action: Action<InvokeDigi
                 translationKey: ResourceKeys.notifications.invokeDigitalTwinCommandOnError,
                 translationOptions: {
                     commandName: action.payload.commandName,
+                    componentName,
                     deviceId: action.payload.digitalTwinId,
                     error,
-                    interfaceName,
                 },
             },
             type: NotificationType.error,
@@ -75,8 +75,8 @@ export function* notifyMethodInvoked(toastId: number, action: Action<InvokeDigit
                 translationKey: ResourceKeys.notifications.invokingDigitalTwinCommandWithPayload,
                 translationOptions: {
                     commandName: action.payload.commandName,
+                    componentName: yield select(getComponentNameSelector),
                     deviceId: action.payload.digitalTwinId,
-                    interfaceName: yield select(getInterfaceNameSelector),
                     payload: JSON.stringify(commandPayload),
                 },
             },

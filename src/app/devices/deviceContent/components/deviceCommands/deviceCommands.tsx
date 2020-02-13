@@ -10,7 +10,7 @@ import DeviceCommandPerInterface from './deviceCommandsPerInterface';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { InvokeDigitalTwinInterfaceCommandActionParameters } from '../../actions';
-import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
+import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString, getComponentNameFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { CommandSchema } from './deviceCommandsPerInterfacePerCommand';
 import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
 import { REFRESH, CLOSE } from '../../../../constants/iconNames';
@@ -23,14 +23,13 @@ export interface DeviceCommandsProps extends DeviceInterfaceWithSchema{
 }
 
 export interface DeviceInterfaceWithSchema {
-    interfaceName: string;
     commandSchemas: CommandSchema[];
 }
 
 export interface DeviceCommandDispatchProps {
     refresh: (deviceId: string, interfaceId: string) => void;
     invokeDigitalTwinInterfaceCommand: (parameters: InvokeDigitalTwinInterfaceCommandActionParameters) => void;
-    setInterfaceId: (id: string) => void;
+    setComponentName: (id: string) => void;
 }
 
 export default class DeviceCommands
@@ -77,7 +76,7 @@ export default class DeviceCommands
     }
 
     public componentDidMount() {
-        this.props.setInterfaceId(getInterfaceIdFromQueryString(this.props));
+        this.props.setComponentName(getComponentNameFromQueryString(this.props));
     }
 
     private readonly renderCommandsPerInterface = (context: LocalizationContextInterface) => {
@@ -87,9 +86,10 @@ export default class DeviceCommands
                 <Route component={DigitalTwinHeaderContainer} />
                 {commandSchemas ?
                     commandSchemas.length === 0 ?
-                        <Label className="no-pnp-content">{context.t(ResourceKeys.deviceCommands.noCommands, {interfaceName: getInterfaceIdFromQueryString(this.props)})}</Label> :
+                        <Label className="no-pnp-content">{context.t(ResourceKeys.deviceCommands.noCommands, {componentName: getComponentNameFromQueryString(this.props)})}</Label> :
                         <DeviceCommandPerInterface
                             {...this.props}
+                            componentName={getComponentNameFromQueryString(this.props)}
                             deviceId={getDeviceIdFromQueryString(this.props)}
                         />
                     : <InterfaceNotFoundMessageBoxContainer/>

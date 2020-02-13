@@ -33,10 +33,4 @@ export class DigitalTwinContent extends React.Component<DigitalTwinContentDispat
         this.props.fetchModelDefinition(getDeviceIdFromQueryString(this.props), getInterfaceIdFromQueryString(this.props));
     }
 
-    public componentDidUpdate(preProps: DigitalTwinContentDispatchProps & RouteComponentProps) {
-        const oldInterfaceId = getInterfaceIdFromQueryString(preProps);
-        if (oldInterfaceId !== getInterfaceIdFromQueryString(this.props)) {
-            this.props.fetchModelDefinition(getDeviceIdFromQueryString(this.props), getInterfaceIdFromQueryString(this.props));
-        }
-    }
 }

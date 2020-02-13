@@ -32,8 +32,8 @@ export const twinWithSchema: TwinWithSchema = {
 describe('components/devices/deviceSettings', () => {
     const interfaceId = 'urn:contoso:com:EnvironmentalSensor:1';
     const deviceSettingsProps: DeviceSettingsProps = {
+        componentName: 'environmentalSensor',
         interfaceId,
-        interfaceName: 'environmentalSensor',
         isLoading: true,
         twinWithSchema: []
     };
@@ -42,7 +42,7 @@ describe('components/devices/deviceSettings', () => {
     const deviceSettingsDispatchProps: DeviceSettingDispatchProps = {
         patchDigitalTwinInterfaceProperties: jest.fn(),
         refresh: refreshMock,
-        setInterfaceId: jest.fn()
+        setComponentName: jest.fn()
     };
 
     const pathname = `/#/devices/detail/digitalTwins/settings/?id=device1&interfaceId=${interfaceId}`;

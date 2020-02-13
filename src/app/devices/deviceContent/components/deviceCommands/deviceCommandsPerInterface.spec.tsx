@@ -26,7 +26,7 @@ describe('components/devices/deviceCommandsPerInterface', () => {
             }
         ],
         deviceId: 'device1',
-        interfaceName: 'urn:interfaceId',
+        componentName: 'urn:interfaceId',
     };
 
     const getComponent = (overrides = {}) => {

@@ -35,13 +35,13 @@ describe('./selectors', () => {
     const state = getInitialState();
 
     state.deviceContentState = Record({
+        componentNameSelected: '',
         deviceIdentity: null,
         deviceTwin: {
             payload: twin,
             synchronizationStatus: SynchronizationStatus.fetched
         },
         digitalTwinInterfaceProperties: null,
-        interfaceIdSelected: '',
         modelDefinitionWithSource: null
     })();
 
