@@ -13,7 +13,7 @@ import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString, getComponentNameFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { PatchDigitalTwinInterfacePropertiesActionParameters } from '../../actions';
 import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
-import { REFRESH, CLOSE } from '../../../../constants/iconNames';
+import { REFRESH, NAVIGATE_BACK } from '../../../../constants/iconNames';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
 import { DigitalTwinHeaderContainer } from '../digitalTwin/digitalTwinHeaderView';
 import { ROUTE_PARAMS } from '../../../../constants/routes';
@@ -60,11 +60,13 @@ export default class DeviceSettings
                                         key: REFRESH,
                                         name: context.t(ResourceKeys.deviceSettings.command.refresh),
                                         onClick: this.handleRefresh
-                                    },
+                                    }
+                                ]}
+                                farItems={[
                                     {
                                         ariaLabel: context.t(ResourceKeys.deviceSettings.command.close),
-                                        iconProps: {iconName: CLOSE},
-                                        key: CLOSE,
+                                        iconProps: {iconName: NAVIGATE_BACK},
+                                        key: NAVIGATE_BACK,
                                         name: context.t(ResourceKeys.deviceSettings.command.close),
                                         onClick: this.handleClose
                                     }

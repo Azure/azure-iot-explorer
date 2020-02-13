@@ -4,6 +4,19 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
 <Fragment>
   <StyledCommandBarBase
     className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.back",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "moduleIdentity.detail.command.back",
+          "onClick": [Function],
+        },
+      ]
+    }
     items={
       Array [
         Object {
@@ -24,15 +37,6 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
           },
           "key": "Delete",
           "name": "moduleIdentity.detail.command.delete",
-          "onClick": [Function],
-        },
-        Object {
-          "ariaLabel": "moduleIdentity.detail.command.back",
-          "iconProps": Object {
-            "iconName": "ChromeClose",
-          },
-          "key": "ChromeClose",
-          "name": "moduleIdentity.detail.command.back",
           "onClick": [Function],
         },
       ]
@@ -65,6 +69,19 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
 <Fragment>
   <StyledCommandBarBase
     className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.back",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "moduleIdentity.detail.command.back",
+          "onClick": [Function],
+        },
+      ]
+    }
     items={
       Array [
         Object {
@@ -85,15 +102,6 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
           },
           "key": "Delete",
           "name": "moduleIdentity.detail.command.delete",
-          "onClick": [Function],
-        },
-        Object {
-          "ariaLabel": "moduleIdentity.detail.command.back",
-          "iconProps": Object {
-            "iconName": "ChromeClose",
-          },
-          "key": "ChromeClose",
-          "name": "moduleIdentity.detail.command.back",
           "onClick": [Function],
         },
       ]
@@ -156,6 +164,19 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
 <Fragment>
   <StyledCommandBarBase
     className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.back",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "moduleIdentity.detail.command.back",
+          "onClick": [Function],
+        },
+      ]
+    }
     items={
       Array [
         Object {
@@ -176,15 +197,6 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
           },
           "key": "Delete",
           "name": "moduleIdentity.detail.command.delete",
-          "onClick": [Function],
-        },
-        Object {
-          "ariaLabel": "moduleIdentity.detail.command.back",
-          "iconProps": Object {
-            "iconName": "ChromeClose",
-          },
-          "key": "ChromeClose",
-          "name": "moduleIdentity.detail.command.back",
           "onClick": [Function],
         },
       ]
@@ -236,6 +248,19 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
 <Fragment>
   <StyledCommandBarBase
     className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.back",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "moduleIdentity.detail.command.back",
+          "onClick": [Function],
+        },
+      ]
+    }
     items={
       Array [
         Object {
@@ -256,15 +281,6 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
           },
           "key": "Delete",
           "name": "moduleIdentity.detail.command.delete",
-          "onClick": [Function],
-        },
-        Object {
-          "ariaLabel": "moduleIdentity.detail.command.back",
-          "iconProps": Object {
-            "iconName": "ChromeClose",
-          },
-          "key": "ChromeClose",
-          "name": "moduleIdentity.detail.command.back",
           "onClick": [Function],
         },
       ]
@@ -318,6 +334,19 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
 <Fragment>
   <StyledCommandBarBase
     className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.back",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "moduleIdentity.detail.command.back",
+          "onClick": [Function],
+        },
+      ]
+    }
     items={
       Array [
         Object {
@@ -338,15 +367,6 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
           },
           "key": "Delete",
           "name": "moduleIdentity.detail.command.delete",
-          "onClick": [Function],
-        },
-        Object {
-          "ariaLabel": "moduleIdentity.detail.command.back",
-          "iconProps": Object {
-            "iconName": "ChromeClose",
-          },
-          "key": "ChromeClose",
-          "name": "moduleIdentity.detail.command.back",
           "onClick": [Function],
         },
       ]
@@ -398,6 +418,19 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot while
 <Fragment>
   <StyledCommandBarBase
     className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.back",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "moduleIdentity.detail.command.back",
+          "onClick": [Function],
+        },
+      ]
+    }
     items={
       Array [
         Object {
@@ -418,15 +451,6 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot while
           },
           "key": "Delete",
           "name": "moduleIdentity.detail.command.delete",
-          "onClick": [Function],
-        },
-        Object {
-          "ariaLabel": "moduleIdentity.detail.command.back",
-          "iconProps": Object {
-            "iconName": "ChromeClose",
-          },
-          "key": "ChromeClose",
-          "name": "moduleIdentity.detail.command.back",
           "onClick": [Function],
         },
       ]

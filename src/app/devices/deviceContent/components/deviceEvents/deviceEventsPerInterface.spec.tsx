@@ -12,6 +12,7 @@ import { mountWithLocalization, testSnapshot } from '../../../../shared/utils/te
 import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
 import ErrorBoundary from '../../../errorBoundary';
 import { appConfig, HostMode } from '../../../../../appConfig/appConfig';
+import { ResourceKeys } from '../../../../../localization/resourceKeys';
 
 describe('components/devices/deviceEventsPerInterface', () => {
 
@@ -108,7 +109,7 @@ describe('components/devices/deviceEventsPerInterface', () => {
         expect(errorBoundary.children().at(2).props().children.props.children).toEqual('double'); // tslint:disable-line:no-magic-numbers
         expect(errorBoundary.children().at(3).props().children.props.children).toEqual('--'); // tslint:disable-line:no-magic-numbers
         expect(errorBoundary.children().at(4).props().children.props.children[0]).toEqual(JSON.stringify(events[0].body, undefined, 2)); // tslint:disable-line:no-magic-numbers
-        expect(errorBoundary.children().at(4).props().children.props.children[1].props['aria-label']).toEqual('deviceEvents.columns.error.value.label'); // tslint:disable-line:no-magic-numbers
+        expect(errorBoundary.children().at(4).props().children.props.children[1].props['aria-label']).toEqual(ResourceKeys.deviceEvents.columns.validation.value.label); // tslint:disable-line:no-magic-numbers
     });
 
     it('renders events which body\'s key name is wrong with expected columns', () => {
@@ -131,7 +132,35 @@ describe('components/devices/deviceEventsPerInterface', () => {
         expect(errorBoundary.children().at(2).props().children.props.children).toEqual('double'); // tslint:disable-line:no-magic-numbers
         expect(errorBoundary.children().at(3).props().children.props.children).toEqual('--'); // tslint:disable-line:no-magic-numbers
         expect(errorBoundary.children().at(4).props().children.props.children[0]).toEqual(JSON.stringify(events[0].body, undefined, 2)); // tslint:disable-line:no-magic-numbers
-        expect(errorBoundary.children().at(4).props().children.props.children[1].props['aria-label']).toEqual('deviceEvents.columns.error.key.label'); // tslint:disable-line:no-magic-numbers
+        expect(errorBoundary.children().at(4).props().children.props.children[1].props.className).toEqual('value-validation-error'); // tslint:disable-line:no-magic-numbers
+    });
+
+    it('renders events when body is exploded and schema is not provided in system properties', () => {
+        const wrapper = mountWithLocalization(getComponent({isLoading: false, telemetrySchema}), false, true);
+        const events = [{
+            body: {
+                'humid': 0,
+                'humid-foo': 'test'
+            },
+            enqueuedTime: '2019-10-14T21:44:58.397Z',
+            systemProperties: {}
+        }];
+        let deviceEventsPerInterfaceComponent = wrapper.find(DeviceEventsPerInterfaceComponent);
+        deviceEventsPerInterfaceComponent.setState({events});
+        wrapper.update();
+        deviceEventsPerInterfaceComponent = wrapper.find(DeviceEventsPerInterfaceComponent);
+        let errorBoundary = deviceEventsPerInterfaceComponent.find(ErrorBoundary).first();
+        expect(errorBoundary.children().at(1).props().children.props.children).toEqual('humid (Temperature)');
+        expect(errorBoundary.children().at(2).props().children.props.children).toEqual('double'); // tslint:disable-line:no-magic-numbers
+        expect(errorBoundary.children().at(3).props().children.props.children).toEqual('--'); // tslint:disable-line:no-magic-numbers
+        expect(errorBoundary.children().at(4).props().children.props.children[0]).toEqual(JSON.stringify({humid: 0}, undefined, 2)); // tslint:disable-line:no-magic-numbers
+
+        errorBoundary = deviceEventsPerInterfaceComponent.find(ErrorBoundary).at(1);
+        expect(errorBoundary.children().at(1).props().children.props.children).toEqual('--');
+        expect(errorBoundary.children().at(2).props().children.props.children).toEqual('--'); // tslint:disable-line:no-magic-numbers
+        expect(errorBoundary.children().at(3).props().children.props.children).toEqual('--'); // tslint:disable-line:no-magic-numbers
+        expect(errorBoundary.children().at(4).props().children.props.children[0]).toEqual(JSON.stringify({'humid-foo': 'test'}, undefined, 2)); // tslint:disable-line:no-magic-numbers
+        expect(errorBoundary.children().at(4).props().children.props.children[1].props.className).toEqual('value-validation-error'); // tslint:disable-line:no-magic-numbers
     });
 
     it('renders events which body\'s key name is not populated', () => {

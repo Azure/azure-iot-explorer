@@ -22,12 +22,6 @@
         }
     }
 
-    .scrollable {
-        overflow: auto;
-        margin-top: 10px;
-        height: calc(100vh - 341px);
-    }
-
     .consumer-group-label {
         font-weight: 600;
         font-size: 14px;
@@ -38,10 +32,15 @@
 
     .consumer-group-text-field {
         display: grid;
-        padding-left: 26px;
+        padding-left: 24px;
+        padding-bottom: 10px;
         @include themify($themes) {
             color: themed('textColor');
         }
         width: 500px;
+    }
+
+    .toggle-button {
+        padding-left: 24px;
     }
 }

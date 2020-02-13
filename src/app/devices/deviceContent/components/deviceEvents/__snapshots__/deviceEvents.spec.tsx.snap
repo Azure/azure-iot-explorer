@@ -83,7 +83,7 @@ exports[`components/devices/deviceEvents matches snapshot in electron 1`] = `
     useWindow={true}
   >
     <div
-      className="scrollable-sm"
+      className="scrollable-telemetry"
     />
   </InfiniteScroll>
 </div>
@@ -172,7 +172,7 @@ exports[`components/devices/deviceEvents matches snapshot in hosted environment 
     useWindow={true}
   >
     <div
-      className="scrollable-sm"
+      className="scrollable-telemetry"
     />
   </InfiniteScroll>
 </div>

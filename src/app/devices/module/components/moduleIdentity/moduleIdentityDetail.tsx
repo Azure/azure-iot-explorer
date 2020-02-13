@@ -13,7 +13,7 @@ import { LocalizationContextConsumer, LocalizationContextInterface } from '../..
 import { ThemeContextConsumer, ThemeContextInterface } from '../../../../shared/contexts/themeContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString, getModuleIdentityIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
-import { CLOSE, REFRESH, REMOVE } from '../../../../constants/iconNames';
+import { REFRESH, REMOVE, NAVIGATE_BACK } from '../../../../constants/iconNames';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../../constants/routes';
 import MaskedCopyableTextFieldContainer from '../../../../shared/components/maskedCopyableTextFieldContainer';
@@ -145,14 +145,16 @@ export default class ModuleIdentityDetailComponent
                         key: REMOVE,
                         name: context.t(ResourceKeys.moduleIdentity.detail.command.delete),
                         onClick: this.deleteConfirmation
-                    },
+                    }
+                ]}
+                farItems={[
                     {
                         ariaLabel: context.t(ResourceKeys.moduleIdentity.detail.command.back),
-                        iconProps: {iconName: CLOSE},
-                        key: CLOSE,
+                        iconProps: {iconName: NAVIGATE_BACK},
+                        key: NAVIGATE_BACK,
                         name: context.t(ResourceKeys.moduleIdentity.detail.command.back),
                         onClick: this.navigateToModuleList
-                    },
+                    }
                 ]}
             />
         );

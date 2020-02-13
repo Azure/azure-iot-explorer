@@ -4,6 +4,19 @@ exports[`components/devices/deviceCommands matches snapshot while interface cann
 <Fragment>
   <StyledCommandBarBase
     className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "deviceCommands.command.close",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "deviceCommands.command.close",
+          "onClick": [Function],
+        },
+      ]
+    }
     items={
       Array [
         Object {
@@ -13,15 +26,6 @@ exports[`components/devices/deviceCommands matches snapshot while interface cann
           },
           "key": "Refresh",
           "name": "deviceCommands.command.refresh",
-          "onClick": [Function],
-        },
-        Object {
-          "ariaLabel": "deviceCommands.command.close",
-          "iconProps": Object {
-            "iconName": "ChromeClose",
-          },
-          "key": "ChromeClose",
-          "name": "deviceCommands.command.close",
           "onClick": [Function],
         },
       ]
@@ -38,6 +42,19 @@ exports[`components/devices/deviceCommands matches snapshot with a commandSchema
 <Fragment>
   <StyledCommandBarBase
     className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "deviceCommands.command.close",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "deviceCommands.command.close",
+          "onClick": [Function],
+        },
+      ]
+    }
     items={
       Array [
         Object {
@@ -47,15 +64,6 @@ exports[`components/devices/deviceCommands matches snapshot with a commandSchema
           },
           "key": "Refresh",
           "name": "deviceCommands.command.refresh",
-          "onClick": [Function],
-        },
-        Object {
-          "ariaLabel": "deviceCommands.command.close",
-          "iconProps": Object {
-            "iconName": "ChromeClose",
-          },
-          "key": "ChromeClose",
-          "name": "deviceCommands.command.close",
           "onClick": [Function],
         },
       ]

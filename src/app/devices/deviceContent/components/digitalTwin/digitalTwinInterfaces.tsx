@@ -137,7 +137,7 @@ export const DigitalTwinInterfacesContainer: React.FC<DigitalTwinInterfacesConta
     const viewProps = {
         dcm: useSelector(getDigitalTwinDcmNameSelector),
         isLoading: digitalTwinInterfacesWrapper &&
-        digitalTwinInterfacesWrapper.synchronizationStatus === SynchronizationStatus.working,
+            digitalTwinInterfacesWrapper.synchronizationStatus === SynchronizationStatus.working,
         nameToIds: useSelector(getDigitalTwinComponentNameAndIdsSelector),
         refresh: (deviceId: string) => dispatch(getDigitalTwinInterfacePropertiesAction.started(deviceId)),
         ...props
