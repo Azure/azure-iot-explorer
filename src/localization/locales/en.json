@@ -380,7 +380,7 @@
             "close": "Close"
         },
         "headerText": "Non-writable properties",
-        "noProperties": "Interface {{interfaceName}} contains no non-writable property definitions",
+        "noProperties": "ComponentName {{componentName}} contains no non-writable property definitions",
         "columns": {
             "name": "Name (Display Name / Description)",
             "value": "Value",
@@ -406,7 +406,7 @@
             "close": "Close"
         },
         "headerText": "Writable properties",
-        "noSettings": "Interface {{interfaceName}} contains no writable property definitions",
+        "noSettings": "ComponentName {{componentName}} contains no writable property definitions",
         "syncStatus": {
             "label": "Sync status : {{status}}",
             "synced": "synced",
@@ -442,7 +442,7 @@
             "close": "Close"
         },
         "headerText": "Commands",
-        "noCommands": "Interface {{interfaceName}} contains no command definitions",
+        "noCommands": "ComponentName {{componentName}} contains no command definitions",
         "columns": {
             "name": "Name (Display Name / Description)",
             "schema": {
@@ -484,7 +484,7 @@
             "tooltip": "Consumer groups are used by applications to pull data from the IoT Hub. To change the current consumer group, stop monitoring telemetry."
         },
         "headerText": "Telemetry",
-        "noEvent": "Interface {{interfaceName}} contains no telemetry definitions",
+        "noEvent": "ComponentName {{componentName}} contains no telemetry definitions",
         "tooltip": "You can monitor telemetry that the device sends to the IoT hub",
         "interfaceDropDown": {
             "label": "Select interface to filter telemetry",

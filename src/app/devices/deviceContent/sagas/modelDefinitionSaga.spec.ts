@@ -146,7 +146,6 @@ describe('modelDefinitionSaga', () => {
         const mockFetchDigitalTwinInterfaceProperties = jest.spyOn(DevicesService, 'fetchDigitalTwinInterfaceProperties').mockImplementationOnce(parameters => {
             return null;
         });
-        const modelDefinitionInterfaceName = 'model_discovery';
 
         expect(getModelDefinitionFromDeviceGenerator.next()).toEqual({
             done: false,
@@ -181,7 +180,7 @@ describe('modelDefinitionSaga', () => {
         });
 
         const nameAndId = {
-            modelDefinitionInterfaceId, modelDefinitionInterfaceName
+            model_discovery: modelDefinitionInterfaceId
         };
         expect(getModelDefinitionFromDeviceGenerator.next(nameAndId)).toEqual({
             done: false,
@@ -192,7 +191,7 @@ describe('modelDefinitionSaga', () => {
             done: false,
             value: call(DevicesService.invokeDigitalTwinInterfaceCommand, {
                 commandName: modelDefinitionCommandName,
-                componentName: modelDefinitionComponentName,
+                componentName: 'model_discovery',
                 connectionString: 'connection_string',
                 digitalTwinId,
                 payload: interfaceId

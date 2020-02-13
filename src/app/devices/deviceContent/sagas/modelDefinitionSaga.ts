@@ -109,13 +109,23 @@ export function* getModelDefinitionFromDevice(action: Action<GetModelDefinitionA
     }
 
     // then get the name of ${modelDefinitionInterfaceId} interface.
-    const interfaceNameAndIdObject = yield select(getDigitalTwinComponentNameAndIdsSelector);
-    const modelDefinitionInterfaceName = interfaceNameAndIdObject[modelDefinitionInterfaceId];
+    const nameAndIdObject = yield select(getDigitalTwinComponentNameAndIdsSelector);
+    let componentName;
+    Object.keys(nameAndIdObject).forEach(key => {
+        if (nameAndIdObject[key] === modelDefinitionInterfaceId)
+        {
+            componentName = key;
+        }
+    });
+
+    if (!componentName) {
+        throw new InterfaceNotImplementedException();
+    }
 
     // if interface is implemented, invoke command on device
     return yield call(invokeDigitalTwinInterfaceCommand, {
         commandName: modelDefinitionCommandName,
-        componentName: modelDefinitionInterfaceName,
+        componentName,
         connectionString: yield call(getActiveAzureResourceConnectionStringSaga),
         digitalTwinId: action.payload.digitalTwinId,
         payload: action.payload.interfaceId
