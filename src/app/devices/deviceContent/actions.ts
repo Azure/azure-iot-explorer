@@ -21,7 +21,7 @@ const getModelDefinitionAction = deviceContentCreator.async<GetModelDefinitionAc
 const invokeDirectMethodAction = deviceContentCreator.async<InvokeMethodActionParameters, string>(actionTypes.INVOKE_DEVICE_METHOD);
 const invokeDigitalTwinInterfaceCommandAction = deviceContentCreator.async<InvokeDigitalTwinInterfaceCommandActionParameters, string>(actionTypes.INVOKE_DIGITAL_TWIN_INTERFACE_COMMAND);
 const patchDigitalTwinInterfacePropertiesAction = deviceContentCreator.async<PatchDigitalTwinInterfacePropertiesActionParameters, DigitalTwinInterfaces>(actionTypes.PATCH_DIGITAL_TWIN_INTERFACE_PROPERTIES);
-const setInterfaceIdAction = deviceContentCreator<string>(actionTypes.SET_INTERFACE_ID);
+const setComponentNameAction = deviceContentCreator<string>(actionTypes.SET_INTERFACE_ID);
 const updateDeviceIdentityAction = deviceContentCreator.async<DeviceIdentity, DeviceIdentity> (actionTypes.UPDATE_DEVICE_IDENTITY);
 const updateTwinAction = deviceContentCreator.async<UpdateTwinActionParameters, Twin>(actionTypes.UPDATE_TWIN);
 export {
@@ -34,7 +34,7 @@ export {
     invokeDirectMethodAction,
     invokeDigitalTwinInterfaceCommandAction,
     patchDigitalTwinInterfacePropertiesAction,
-    setInterfaceIdAction,
+    setComponentNameAction,
     updateTwinAction,
     updateDeviceIdentityAction
 };

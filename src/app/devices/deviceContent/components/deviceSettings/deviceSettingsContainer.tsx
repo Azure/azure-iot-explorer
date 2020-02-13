@@ -8,7 +8,7 @@ import { withRouter } from 'react-router-dom';
 import { AnyAction } from 'typescript-fsa';
 import { StateType } from '../../../../shared/redux/state';
 import DeviceSettings, { DeviceSettingDispatchProps, DeviceSettingsProps } from './deviceSettings';
-import { setInterfaceIdAction, patchDigitalTwinInterfacePropertiesAction, PatchDigitalTwinInterfacePropertiesActionParameters, getDigitalTwinInterfacePropertiesAction, getModelDefinitionAction } from '../../actions';
+import { setComponentNameAction, patchDigitalTwinInterfacePropertiesAction, PatchDigitalTwinInterfacePropertiesActionParameters, getDigitalTwinInterfacePropertiesAction, getModelDefinitionAction } from '../../actions';
 import { getDeviceSettingTupleSelector } from './selectors';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { getModelDefinitionSyncStatusSelector, getDigitalTwinInterfacePropertiesStateSelector } from '../../selectors';
@@ -29,7 +29,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DeviceSettingDispatc
             dispatch(getDigitalTwinInterfacePropertiesAction.started(deviceId));
             dispatch(getModelDefinitionAction.started({digitalTwinId: deviceId, interfaceId}));
         },
-        setInterfaceId: (id: string) => dispatch(setInterfaceIdAction(id))
+        setComponentName: (id: string) => dispatch(setComponentNameAction(id))
     };
 };
 

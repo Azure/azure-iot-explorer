@@ -7,10 +7,9 @@ import { Record } from 'immutable';
 import { SynchronizationStatus } from './../../api/models/synchronizationStatus';
 import {
     getDigitalTwinInterfacePropertiesSelector,
-    getDigitalTwinInterfaceNameAndIdsSelector,
     getDigitalTwinInterfaceIdsSelector,
     getIsDevicePnpSelector,
-    getInterfaceNameSelector,
+    getComponentNameSelector,
 } from './selectors';
 import { getInitialState } from './../../api/shared/testHelper';
 
@@ -41,29 +40,18 @@ describe('getDigitalTwinInterfacePropertiesSelector', () => {
     };
     /* tslint:enable */
     state.deviceContentState = Record({
+        componentNameSelected: 'environmentalsensor',
         deviceIdentity: null,
         deviceTwin: null,
         digitalTwinInterfaceProperties: {
             payload: digitalTwinInterfaceProperties,
             synchronizationStatus: SynchronizationStatus.fetched
         },
-        interfaceIdSelected: 'urn:contoso:com:environmentalsensor:2',
         modelDefinitionWithSource: null
     })();
 
     it('returns interface properties', () => {
         expect(getDigitalTwinInterfacePropertiesSelector(state)).toEqual(digitalTwinInterfaceProperties);
-    });
-
-    it('returns name and ids', () => {
-        /* tslint:disable */
-        const result = {
-            "environmentalsensor": "urn:contoso:com:environmentalsensor:2",
-            "urn_azureiot_ModelDiscovery_ModelInformation": "urn:azureiot:ModelDiscovery:ModelInformation:1",
-            "urn_azureiot_ModelDiscovery_DigitalTwin": "urn:azureiot:ModelDiscovery:DigitalTwin:1"
-        }
-        /* tslint:enable */
-        expect(getDigitalTwinInterfaceNameAndIdsSelector(state)).toEqual(result);
     });
 
     it('returns ids', () => {
@@ -79,7 +67,7 @@ describe('getDigitalTwinInterfacePropertiesSelector', () => {
         expect(getIsDevicePnpSelector(state)).toEqual(true);
     });
 
-    it('returns interfaceName', () => {
-        expect(getInterfaceNameSelector(state)).toEqual('environmentalsensor');
+    it('returns componentName', () => {
+        expect(getComponentNameSelector(state)).toEqual('environmentalsensor');
     });
 });

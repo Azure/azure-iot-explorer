@@ -68,9 +68,9 @@ exports[`components/devices/deviceCommandsPerInterface matches snapshot 1`] = `
           },
         ]
       }
+      componentName="urn:interfaceId"
       deviceId="device1"
       handleCollapseToggle={[Function]}
-      interfaceName="urn:interfaceId"
       invokeDigitalTwinInterfaceCommand={[MockFunction]}
       key="0"
       parsedSchema={

@@ -32,7 +32,6 @@ interface DeviceContentState {
 }
 export interface DeviceContentDataProps {
     deviceId: string;
-    interfaceId: string;
     interfaceIds: string[];
     isLoading: boolean;
     isPnPDevice: boolean;
@@ -40,7 +39,7 @@ export interface DeviceContentDataProps {
 }
 
 export interface DeviceContentDispatchProps {
-    setInterfaceId: (interfaceId: string) => void;
+    setComponentName: (componentName: string) => void;
     getDigitalTwinInterfaceProperties: (deviceId: string) => void;
     getDeviceIdentity: (deviceId: string) => void;
 }
@@ -146,7 +145,6 @@ export class DeviceContentComponent extends React.PureComponent<DeviceContentPro
                     <DeviceContentNavComponent
                         {...this.props}
                         isEdgeDevice={this.props.identityWrapper && this.props.identityWrapper.payload && this.props.identityWrapper.payload.capabilities.iotEdge}
-                        selectedInterface={this.props.interfaceId}
                     />
                 )
         );

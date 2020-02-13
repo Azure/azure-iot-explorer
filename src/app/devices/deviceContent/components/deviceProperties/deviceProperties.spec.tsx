@@ -37,7 +37,7 @@ describe('components/devices/deviceProperties', () => {
     const refreshMock = jest.fn();
     const devicePropertiesDispatchProps: DevicePropertiesDispatchProps = {
         refresh: refreshMock,
-        setInterfaceId: jest.fn()
+        setComponentName: jest.fn()
     };
 
     const pathname = `/#/devices/detail/digitalTwins/properties/?id=device1&interfaceId=${interfaceId}`;

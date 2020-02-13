@@ -13,7 +13,6 @@ import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMes
 describe('components/devices/deviceCommands', () => {
     const deviceCommandsProps: DeviceCommandsProps = {
         commandSchemas: [],
-        interfaceName: 'interface1',
         isLoading: true,
     };
 
@@ -21,7 +20,7 @@ describe('components/devices/deviceCommands', () => {
     const deviceCommandsDispatchProps: DeviceCommandDispatchProps = {
         invokeDigitalTwinInterfaceCommand: jest.fn(),
         refresh: refreshMock,
-        setInterfaceId: jest.fn()
+        setComponentName: jest.fn()
     };
 
     const pathname = `/#/devices/detail/digitalTwins/commands/?id=device1&interfaceId=urn:iotInterfaces:com:interface1:1`;

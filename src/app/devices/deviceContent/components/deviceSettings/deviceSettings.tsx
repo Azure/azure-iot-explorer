@@ -10,7 +10,7 @@ import DeviceSettingPerInterface from './deviceSettingsPerInterface';
 import { TwinWithSchema } from './deviceSettingsPerInterfacePerSetting';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
-import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
+import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString, getComponentNameFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { PatchDigitalTwinInterfacePropertiesActionParameters } from '../../actions';
 import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
 import { REFRESH, CLOSE } from '../../../../constants/iconNames';
@@ -24,13 +24,13 @@ export interface DeviceSettingsProps extends DeviceInterfaceWithSchema{
 
 export interface DeviceInterfaceWithSchema {
     interfaceId: string;
-    interfaceName: string;
+    componentName: string;
     twinWithSchema: TwinWithSchema[];
 }
 
 export interface DeviceSettingDispatchProps {
     refresh: (deviceId: string, interfaceId: string) => void;
-    setInterfaceId: (id: string) => void;
+    setComponentName: (id: string) => void;
     patchDigitalTwinInterfaceProperties: (parameters: PatchDigitalTwinInterfacePropertiesActionParameters) => void;
 }
 
@@ -78,7 +78,7 @@ export default class DeviceSettings
     }
 
     public componentDidMount() {
-        this.props.setInterfaceId(getInterfaceIdFromQueryString(this.props));
+        this.props.setComponentName(getComponentNameFromQueryString(this.props));
     }
 
     private readonly renderProperties = (context: LocalizationContextInterface) => {
@@ -88,7 +88,7 @@ export default class DeviceSettings
                 <Route component={DigitalTwinHeaderContainer} />
                 {twinWithSchema ?
                     twinWithSchema.length === 0 ?
-                        <Label className="no-pnp-content">{context.t(ResourceKeys.deviceSettings.noSettings, {interfaceName: getInterfaceIdFromQueryString(this.props)})}</Label> :
+                        <Label className="no-pnp-content">{context.t(ResourceKeys.deviceSettings.noSettings, {componentName: getComponentNameFromQueryString(this.props)})}</Label> :
                         <DeviceSettingPerInterface
                             {...this.props}
                             deviceId={getDeviceIdFromQueryString(this.props)}

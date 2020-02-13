@@ -79,6 +79,7 @@ exports[`components/devices/deviceCommands matches snapshot with a commandSchema
         },
       ]
     }
+    componentName={null}
     deviceId={null}
     history={
       Object {
@@ -87,7 +88,6 @@ exports[`components/devices/deviceCommands matches snapshot with a commandSchema
         },
       }
     }
-    interfaceName="interface1"
     invokeDigitalTwinInterfaceCommand={[MockFunction]}
     isLoading={false}
     location={
@@ -97,7 +97,7 @@ exports[`components/devices/deviceCommands matches snapshot with a commandSchema
     }
     match={Object {}}
     refresh={[MockFunction]}
-    setInterfaceId={
+    setComponentName={
       [MockFunction] {
         "calls": Array [
           Array [

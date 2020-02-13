@@ -8,7 +8,7 @@ import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { Label } from 'office-ui-fabric-react/lib/components/Label';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
-import { getInterfaceIdFromQueryString, getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
+import { getInterfaceIdFromQueryString, getDeviceIdFromQueryString, getComponentNameFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import DevicePropertiesPerInterface, { TwinWithSchema } from './devicePropertiesPerInterface';
 import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
 import { REFRESH, CLOSE } from '../../../../constants/iconNames';
@@ -22,7 +22,7 @@ export interface DevicePropertiesDataProps {
 }
 
 export interface DevicePropertiesDispatchProps {
-    setInterfaceId: (id: string) => void;
+    setComponentName: (id: string) => void;
     refresh: (deviceId: string, interfaceId: string) => void;
 }
 
@@ -68,7 +68,7 @@ export default class DeviceProperties
     }
 
     public componentDidMount() {
-        this.props.setInterfaceId(getInterfaceIdFromQueryString(this.props));
+        this.props.setComponentName(getComponentNameFromQueryString(this.props));
     }
 
     private readonly renderProperties = (context: LocalizationContextInterface) => {
@@ -78,7 +78,7 @@ export default class DeviceProperties
                 <Route component={DigitalTwinHeaderContainer} />
                 {twinAndSchema ?
                     twinAndSchema.length === 0 ?
-                        <Label className="no-pnp-content">{context.t(ResourceKeys.deviceProperties.noProperties, {interfaceName: getInterfaceIdFromQueryString(this.props)})}</Label> :
+                        <Label className="no-pnp-content">{context.t(ResourceKeys.deviceProperties.noProperties, {componentName: getComponentNameFromQueryString(this.props)})}</Label> :
                         <DevicePropertiesPerInterface twinAndSchema={twinAndSchema} />
                     : <InterfaceNotFoundMessageBoxContainer/>
                 }

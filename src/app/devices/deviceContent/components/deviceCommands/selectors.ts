@@ -6,7 +6,7 @@ import { ContentType, CommandContent } from '../../../../api/models/modelDefinit
 import { parseInterfaceCommandToJsonSchema } from './../../../../shared/utils/jsonSchemaAdaptor';
 import { StateInterface } from '../../../../shared/redux/state';
 import { DeviceInterfaceWithSchema } from './deviceCommands';
-import { getModelDefinitionSelector, getInterfaceNameSelector } from '../../selectors';
+import { getModelDefinitionSelector } from '../../selectors';
 
 export const getDeviceCommandPairs = (state: StateInterface): DeviceInterfaceWithSchema => {
     const modelDefinition = getModelDefinitionSelector(state);
@@ -15,8 +15,7 @@ export const getDeviceCommandPairs = (state: StateInterface): DeviceInterfaceWit
         commandSchemas: commands && commands.map(command => ({
             commandModelDefinition: command,
             parsedSchema: parseInterfaceCommandToJsonSchema(command),
-        })),
-        interfaceName: getInterfaceNameSelector(state)
+        }))
     };
 };
 

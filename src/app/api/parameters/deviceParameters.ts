@@ -58,7 +58,7 @@ export interface FetchDigitalTwinInterfacePropertiesParameters extends DataPlane
 
 export interface InvokeDigitalTwinInterfaceCommandParameters extends DataPlaneParameters {
     digitalTwinId: string; // Format of digitalTwinId is DeviceId[~ModuleId]. ModuleId is optional.
-    interfaceName: string;
+    componentName: string;
     commandName: string;
     connectTimeoutInSeconds?: number;
     payload?: any; // tslint:disable-line:no-any

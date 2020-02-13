@@ -12,7 +12,7 @@ import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResour
 import { addNotificationAction } from '../../../notifications/actions';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { getInterfaceNameSelector } from '../selectors';
+import { getComponentNameSelector } from '../selectors';
 
 describe('digitalTwinInterfacePropertySaga', () => {
     const digitalTwinId = 'device_id';
@@ -181,7 +181,7 @@ describe('digitalTwinInterfacePropertySaga', () => {
         const generatePatchDigitalTwinInterfacePropertiesPayloadGenerator = cloneableGenerator(generatePatchDigitalTwinInterfacePropertiesPayload)(patchAction.payload);
         expect(generatePatchDigitalTwinInterfacePropertiesPayloadGenerator.next()).toEqual({
             done: false,
-            value: select(getInterfaceNameSelector)
+            value: select(getComponentNameSelector)
         });
 
         expect(generatePatchDigitalTwinInterfacePropertiesPayloadGenerator.next().done).toEqual(true);

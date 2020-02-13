@@ -18,7 +18,7 @@ import { parseDateTimeString } from '../../../../api/dataTransforms/transformHel
 import { REFRESH, STOP, START, CLOSE, REMOVE } from '../../../../constants/iconNames';
 import { ParsedJsonSchema } from '../../../../api/models/interfaceJsonParserOutput';
 import { TelemetryContent } from '../../../../api/models/modelDefinition';
-import { getInterfaceIdFromQueryString, getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
+import { getInterfaceIdFromQueryString, getDeviceIdFromQueryString, getComponentNameFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
 import { getNumberOfMapsInSchema } from '../../../../shared/utils/twinAndJsonSchemaDataConverter';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
@@ -42,11 +42,11 @@ export interface DeviceEventsDataProps {
     connectionString: string;
     isLoading: boolean;
     telemetrySchema: TelemetrySchema[];
-    interfaceName: string;
+    componentName: string;
 }
 
 export interface DeviceEventsDispatchProps {
-    setInterfaceId: (id: string) => void;
+    setComponentName: (id: string) => void;
     refresh: (deviceId: string, interfaceId: string) => void;
 }
 
@@ -104,7 +104,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
                         <Route component={DigitalTwinHeaderContainer} />
                         {telemetrySchema  ?
                             telemetrySchema.length === 0 ?
-                                <Label className="no-pnp-content">{context.t(ResourceKeys.deviceEvents.noEvent, {interfaceName: getInterfaceIdFromQueryString(this.props)})}</Label> :
+                                <Label className="no-pnp-content">{context.t(ResourceKeys.deviceEvents.noEvent, {componentName: getComponentNameFromQueryString(this.props)})}</Label> :
                                 <>
                                     <TextField
                                         className={'consumer-group-text-field'}
@@ -250,18 +250,8 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
     }
 
     public componentDidMount() {
-        this.props.setInterfaceId(getInterfaceIdFromQueryString(this.props));
+        this.props.setComponentName(getComponentNameFromQueryString(this.props));
         this.isComponentMounted = true;
-    }
-
-    public componentDidUpdate(oldProps: DeviceEventsDataProps & DeviceEventsDispatchProps & RouteComponentProps) {
-        if (getInterfaceIdFromQueryString(oldProps) !== getInterfaceIdFromQueryString(this.props)) {
-            this.setState({
-                events: [],
-                hasMore: false,
-                monitoringData: false
-            });
-        }
     }
 
     private readonly renderInfiniteScroll = (context: LocalizationContextInterface) => {
@@ -481,7 +471,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
                     .then((results: Message[]) => {
                         const messages = results && results
                                 .filter(result => result && result.systemProperties &&
-                                        result.systemProperties[TELEMETRY_INTERFACE_NAME_PROP] === this.props.interfaceName)
+                                        result.systemProperties[TELEMETRY_INTERFACE_NAME_PROP] === this.props.componentName)
                                 .reverse().map((message: Message) => message);
                         if (this.isComponentMounted) {
                             this.setState({

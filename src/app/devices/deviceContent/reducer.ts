@@ -10,7 +10,7 @@ import {
     getDigitalTwinInterfacePropertiesAction,
     getTwinAction,
     getModelDefinitionAction,
-    setInterfaceIdAction,
+    setComponentNameAction,
     updateTwinAction,
     UpdateTwinActionParameters,
     updateDeviceIdentityAction,
@@ -153,9 +153,9 @@ const reducer = reducerWithInitialState<DeviceContentStateType>(deviceContentSta
             modelDefinitionWithSource: null
         });
     })
-    .case(setInterfaceIdAction, (state: DeviceContentStateType, payload: string) => {
+    .case(setComponentNameAction, (state: DeviceContentStateType, payload: string) => {
         return state.merge({
-            interfaceIdSelected: payload
+            componentNameSelected: payload
         });
     })
     //#endregion

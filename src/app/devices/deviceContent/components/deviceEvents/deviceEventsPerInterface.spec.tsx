@@ -31,12 +31,12 @@ describe('components/devices/deviceEventsPerInterface', () => {
     const refreshMock = jest.fn();
     const deviceEventsDispatchProps: DeviceEventsDispatchProps = {
         refresh: refreshMock,
-        setInterfaceId: jest.fn()
+        setComponentName: jest.fn()
     };
 
     const deviceEventsDataProps: DeviceEventsDataProps = {
+        componentName: 'environmentalSensor',
         connectionString: 'testString',
-        interfaceName: 'environmentalSensor',
         isLoading: true,
         telemetrySchema: []
     };

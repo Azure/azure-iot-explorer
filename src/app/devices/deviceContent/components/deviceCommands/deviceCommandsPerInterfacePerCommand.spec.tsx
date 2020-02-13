@@ -20,8 +20,8 @@ describe('components/devices/deviceCommandsPerInterfacePerCommand', () => {
             '@type': 'Command',
             'name': 'command1'
         },
+        componentName: 'sensor',
         deviceId: 'deviceId',
-        interfaceName: 'urn:interfaceId',
         parsedSchema: {
             description: 'command1 description',
             name: 'command1'
