@@ -137,7 +137,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
                     this.createRefreshCommandItem(context),
                     this.createClearCommandItem(context)
                 ]}
-                farItems={[this.createCloseCommandItem(context)]}
+                farItems={[this.createNavigateBackCommandItem(context)]}
             />
         );
     }
@@ -193,7 +193,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
         }
     }
 
-    private createCloseCommandItem = (context: LocalizationContextInterface): ICommandBarItemProps => {
+    private createNavigateBackCommandItem = (context: LocalizationContextInterface): ICommandBarItemProps => {
         return {
             ariaLabel: context.t(ResourceKeys.deviceEvents.command.close),
             iconProps: {iconName: NAVIGATE_BACK},
