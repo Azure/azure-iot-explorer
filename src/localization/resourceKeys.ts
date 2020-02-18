@@ -180,18 +180,18 @@ export class ResourceKeys {
    public static deviceEvents = {
       columns : {
          displayName : "deviceEvents.columns.displayName",
-         error : {
-            key : {
-               doesNotMatch : "deviceEvents.columns.error.key.doesNotMatch",
-               label : "deviceEvents.columns.error.key.label",
-            },
-            value : {
-               label : "deviceEvents.columns.error.value.label",
-            },
-         },
          schema : "deviceEvents.columns.schema",
          timestamp : "deviceEvents.columns.timestamp",
          unit : "deviceEvents.columns.unit",
+         validation : {
+            key : {
+               doesNotMatch : "deviceEvents.columns.validation.key.doesNotMatch",
+               isNotSpecified : "deviceEvents.columns.validation.key.isNotSpecified",
+            },
+            value : {
+               label : "deviceEvents.columns.validation.value.label",
+            },
+         },
          value : "deviceEvents.columns.value",
       },
       command : {
@@ -221,6 +221,11 @@ export class ResourceKeys {
          placeHolder : "deviceEvents.interfaceDropDown.placeHolder",
       },
       noEvent : "deviceEvents.noEvent",
+      toggle : {
+         label : "deviceEvents.toggle.label",
+         off : "deviceEvents.toggle.off",
+         on : "deviceEvents.toggle.on",
+      },
       tooltip : "deviceEvents.tooltip",
    };
    public static deviceIdentity = {

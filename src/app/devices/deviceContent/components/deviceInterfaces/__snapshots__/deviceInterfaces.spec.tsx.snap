@@ -6,6 +6,19 @@ exports[`components/devices/deviceInterfaces shows interface information when st
 <Fragment>
   <StyledCommandBarBase
     className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "deviceInterfaces.command.close",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "deviceInterfaces.command.close",
+          "onClick": [Function],
+        },
+      ]
+    }
     items={
       Array [
         Object {
@@ -15,15 +28,6 @@ exports[`components/devices/deviceInterfaces shows interface information when st
           },
           "key": "Refresh",
           "name": "deviceProperties.command.refresh",
-          "onClick": [Function],
-        },
-        Object {
-          "ariaLabel": "deviceInterfaces.command.close",
-          "iconProps": Object {
-            "iconName": "ChromeClose",
-          },
-          "key": "ChromeClose",
-          "name": "deviceInterfaces.command.close",
           "onClick": [Function],
         },
       ]
@@ -40,6 +44,19 @@ exports[`components/devices/deviceInterfaces shows interface information when st
 <Fragment>
   <StyledCommandBarBase
     className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "deviceInterfaces.command.close",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "deviceInterfaces.command.close",
+          "onClick": [Function],
+        },
+      ]
+    }
     items={
       Array [
         Object {
@@ -49,15 +66,6 @@ exports[`components/devices/deviceInterfaces shows interface information when st
           },
           "key": "Refresh",
           "name": "deviceProperties.command.refresh",
-          "onClick": [Function],
-        },
-        Object {
-          "ariaLabel": "deviceInterfaces.command.close",
-          "iconProps": Object {
-            "iconName": "ChromeClose",
-          },
-          "key": "ChromeClose",
-          "name": "deviceInterfaces.command.close",
           "onClick": [Function],
         },
       ]
@@ -136,6 +144,19 @@ exports[`components/devices/deviceInterfaces shows interface information when st
 <Fragment>
   <StyledCommandBarBase
     className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "deviceInterfaces.command.close",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "deviceInterfaces.command.close",
+          "onClick": [Function],
+        },
+      ]
+    }
     items={
       Array [
         Object {
@@ -145,15 +166,6 @@ exports[`components/devices/deviceInterfaces shows interface information when st
           },
           "key": "Refresh",
           "name": "deviceProperties.command.refresh",
-          "onClick": [Function],
-        },
-        Object {
-          "ariaLabel": "deviceInterfaces.command.close",
-          "iconProps": Object {
-            "iconName": "ChromeClose",
-          },
-          "key": "ChromeClose",
-          "name": "deviceInterfaces.command.close",
           "onClick": [Function],
         },
       ]
@@ -232,6 +244,19 @@ exports[`components/devices/deviceInterfaces shows interface information when st
 <Fragment>
   <StyledCommandBarBase
     className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "deviceInterfaces.command.close",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "deviceInterfaces.command.close",
+          "onClick": [Function],
+        },
+      ]
+    }
     items={
       Array [
         Object {
@@ -241,15 +266,6 @@ exports[`components/devices/deviceInterfaces shows interface information when st
           },
           "key": "Refresh",
           "name": "deviceProperties.command.refresh",
-          "onClick": [Function],
-        },
-        Object {
-          "ariaLabel": "deviceInterfaces.command.close",
-          "iconProps": Object {
-            "iconName": "ChromeClose",
-          },
-          "key": "ChromeClose",
-          "name": "deviceInterfaces.command.close",
           "onClick": [Function],
         },
       ]
@@ -328,6 +344,19 @@ exports[`components/devices/deviceInterfaces shows interface information when st
 <Fragment>
   <StyledCommandBarBase
     className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "deviceInterfaces.command.close",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "deviceInterfaces.command.close",
+          "onClick": [Function],
+        },
+      ]
+    }
     items={
       Array [
         Object {
@@ -337,15 +366,6 @@ exports[`components/devices/deviceInterfaces shows interface information when st
           },
           "key": "Refresh",
           "name": "deviceProperties.command.refresh",
-          "onClick": [Function],
-        },
-        Object {
-          "ariaLabel": "deviceInterfaces.command.close",
-          "iconProps": Object {
-            "iconName": "ChromeClose",
-          },
-          "key": "ChromeClose",
-          "name": "deviceInterfaces.command.close",
           "onClick": [Function],
         },
       ]

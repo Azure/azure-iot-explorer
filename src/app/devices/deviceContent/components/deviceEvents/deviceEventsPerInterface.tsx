@@ -9,29 +9,30 @@ import { Label } from 'office-ui-fabric-react/lib/Label';
 import { Spinner } from 'office-ui-fabric-react/lib/Spinner';
 import { TextField, ITextFieldProps } from 'office-ui-fabric-react/lib/TextField';
 import { Announced } from 'office-ui-fabric-react/lib/Announced';
+import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 import { RouteComponentProps, Route } from 'react-router-dom';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { monitorEvents, stopMonitoringEvents } from '../../../../api/services/devicesService';
 import { Message, MESSAGE_SYSTEM_PROPERTIES, MESSAGE_PROPERTIES } from '../../../../api/models/messages';
 import { parseDateTimeString } from '../../../../api/dataTransforms/transformHelper';
-import { REFRESH, STOP, START, CLOSE, REMOVE } from '../../../../constants/iconNames';
+import { REFRESH, STOP, START, REMOVE, NAVIGATE_BACK } from '../../../../constants/iconNames';
 import { ParsedJsonSchema } from '../../../../api/models/interfaceJsonParserOutput';
 import { TelemetryContent } from '../../../../api/models/modelDefinition';
 import { getInterfaceIdFromQueryString, getDeviceIdFromQueryString, getComponentNameFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
 import { getNumberOfMapsInSchema } from '../../../../shared/utils/twinAndJsonSchemaDataConverter';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
-import LabelWithTooltip from '../../../../shared/components/labelWithTooltip';
 import { DEFAULT_CONSUMER_GROUP } from '../../../../constants/apiConstants';
 import ErrorBoundary from '../../../errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
+import LabelWithTooltip from '../../../../shared/components/labelWithTooltip';
 import { MILLISECONDS_IN_MINUTE } from '../../../../constants/shared';
 import { appConfig, HostMode } from '../../../../../appConfig/appConfig';
-import '../../../../css/_deviceEvents.scss';
 import { DigitalTwinHeaderContainer } from '../digitalTwin/digitalTwinHeaderView';
 import { ROUTE_PARAMS } from '../../../../constants/routes';
+import '../../../../css/_deviceEvents.scss';
 
 const JSON_SPACES = 2;
 const LOADING_LOCK = 50;
@@ -59,16 +60,17 @@ export interface DeviceEventsState {
     consumerGroup: string;
     events: Message[];
     hasMore: boolean;
-    startTime: Date; // todo: add a datetime picker
-    loading?: boolean;
-    loadingAnnounced?: JSX.Element;
+    startTime: Date;
     synchronizationStatus: SynchronizationStatus;
     monitoringData: boolean;
+    showRawEvent: boolean;
+
+    loading?: boolean;
+    loadingAnnounced?: JSX.Element;
 }
 
 export default class DeviceEventsPerInterfaceComponent extends React.Component<DeviceEventsDataProps & DeviceEventsDispatchProps & RouteComponentProps, DeviceEventsState> {
-    // tslint:disable-next-line:no-any
-    private timerID: any;
+    private timerID: any; // tslint:disable-line:no-any
     private isComponentMounted: boolean;
     constructor(props: DeviceEventsDataProps & DeviceEventsDispatchProps & RouteComponentProps) {
         super(props);
@@ -77,6 +79,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
             events: [],
             hasMore: false,
             monitoringData: false,
+            showRawEvent: false,
             startTime: new Date(new Date().getTime() - MILLISECONDS_IN_MINUTE), // set start time to one minute ago
             synchronizationStatus: SynchronizationStatus.initialized
         };
@@ -97,10 +100,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
             <LocalizationContextConsumer>
                 {(context: LocalizationContextInterface) => (
                     <div className="device-events" key="device-events">
-                        <CommandBar
-                            className="command"
-                            items={this.createCommandBarItems(context)}
-                        />
+                        {this.renderCommandBar(context)}
                         <Route component={DigitalTwinHeaderContainer} />
                         {telemetrySchema  ?
                             telemetrySchema.length === 0 ?
@@ -108,7 +108,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
                                 <>
                                     <TextField
                                         className={'consumer-group-text-field'}
-                                        onRenderLabel={this.renderConsumerGroupLabel}
+                                        onRenderLabel={this.renderConsumerGroupLabel(context)}
                                         label={context.t(ResourceKeys.deviceEvents.consumerGroups.label)}
                                         ariaLabel={context.t(ResourceKeys.deviceEvents.consumerGroups.label)}
                                         underlined={true}
@@ -116,6 +116,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
                                         disabled={this.state.monitoringData}
                                         onChange={this.consumerGroupChange}
                                     />
+                                    {this.renderRawTelemetryToggle(context)}
                                     {this.renderInfiniteScroll(context)}
                                 </>
                             : <InterfaceNotFoundMessageBoxContainer/>
@@ -127,13 +128,18 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
         );
     }
 
-    private createCommandBarItems = (context: LocalizationContextInterface): ICommandBarItemProps[] => {
-        return [
-            this.createStartMonitoringCommandItem(context),
-            this.createRefreshCommandItem(context),
-            this.createClearCommandItem(context),
-            this.createCloseCommandItem(context)
-        ];
+    private renderCommandBar = (context: LocalizationContextInterface) => {
+        return (
+            <CommandBar
+                className="command"
+                items={[
+                    this.createStartMonitoringCommandItem(context),
+                    this.createRefreshCommandItem(context),
+                    this.createClearCommandItem(context)
+                ]}
+                farItems={[this.createNavigateBackCommandItem(context)]}
+            />
+        );
     }
 
     private createClearCommandItem = (context: LocalizationContextInterface): ICommandBarItemProps => {
@@ -187,11 +193,11 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
         }
     }
 
-    private createCloseCommandItem = (context: LocalizationContextInterface): ICommandBarItemProps => {
+    private createNavigateBackCommandItem = (context: LocalizationContextInterface): ICommandBarItemProps => {
         return {
             ariaLabel: context.t(ResourceKeys.deviceEvents.command.close),
-            iconProps: {iconName: CLOSE},
-            key: CLOSE,
+            iconProps: {iconName: NAVIGATE_BACK},
+            key: NAVIGATE_BACK,
             name: context.t(ResourceKeys.deviceEvents.command.close),
             onClick: this.handleClose
         };
@@ -205,19 +211,35 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
         }
     }
 
-    private renderConsumerGroupLabel = (props: ITextFieldProps) => {
+    private renderConsumerGroupLabel = (context: LocalizationContextInterface) => (props: ITextFieldProps) => {
         return (
-            <LocalizationContextConsumer>
-                {(context: LocalizationContextInterface) => (
-                    <LabelWithTooltip
-                        className={'consumer-group-label'}
-                        tooltipText={context.t(ResourceKeys.deviceEvents.consumerGroups.tooltip)}
-                    >
-                        {props.label}
-                    </LabelWithTooltip>
-                )}
-            </LocalizationContextConsumer>
+            <LabelWithTooltip
+                className={'consumer-group-label'}
+                tooltipText={context.t(ResourceKeys.deviceEvents.consumerGroups.tooltip)}
+            >
+                {props.label}
+            </LabelWithTooltip>
         );
+    }
+
+    private renderRawTelemetryToggle = (context: LocalizationContextInterface) => {
+        return (
+            <Toggle
+                className="toggle-button"
+                checked={this.state.showRawEvent}
+                ariaLabel={context.t(ResourceKeys.deviceEvents.toggle.label)}
+                label={context.t(ResourceKeys.deviceEvents.toggle.label)}
+                onText={context.t(ResourceKeys.deviceEvents.toggle.on)}
+                offText={context.t(ResourceKeys.deviceEvents.toggle.off)}
+                onChange={this.changeToggle}
+            />
+        );
+    }
+
+    private readonly changeToggle = () => {
+        this.setState({
+            showRawEvent: !this.state.showRawEvent
+        });
     }
 
     private stopMonitoring = () => {
@@ -268,9 +290,28 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
                 isReverse={true}
             >
             <section className="list-content">
-                {this.renderEvents(context)}
+                {this.state.showRawEvent ? this.renderRawEvents() : this.renderEvents(context)}
             </section>
             </InfiniteScroll>
+        );
+    }
+
+    private readonly renderRawEvents = () => {
+        const { events } = this.state;
+
+        return (
+            <div className="scrollable-pnp-telemetry">
+            {
+                events && events.map((event: Message, index) => {
+                    return (
+                        <article key={index} className="device-events-content">
+                            {<h5>{parseDateTimeString(event.enqueuedTime)}:</h5>}
+                            <pre>{JSON.stringify(event, undefined, JSON_SPACES)}</pre>
+                        </article>
+                    );
+                })
+            }
+            </div>
         );
     }
 
@@ -278,72 +319,100 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
         const { events } = this.state;
 
         return (
-            <div className="scrollable-sm">
-                <div className="pnp-detail-list ms-Grid">
-                    <div className="list-header list-header-uncollapsible ms-Grid-row">
-                        <span className="ms-Grid-col ms-sm2">{context.t(ResourceKeys.deviceEvents.columns.timestamp)}</span>
-                        <span className="ms-Grid-col ms-sm2">{context.t(ResourceKeys.deviceEvents.columns.displayName)}</span>
-                        <span className="ms-Grid-col ms-sm2">{context.t(ResourceKeys.deviceEvents.columns.schema)}</span>
-                        <span className="ms-Grid-col ms-sm2">{context.t(ResourceKeys.deviceEvents.columns.unit)}</span>
-                        <span className="ms-Grid-col ms-sm4">{context.t(ResourceKeys.deviceEvents.columns.value)}</span>
-                    </div>
-                </div>
+            <div className="scrollable-pnp-telemetry">
                 {
                     events && events.length > 0 &&
-                    <section role="feed">
-                    {
-                        events.map((event: Message, index) => {
-                            return event.systemProperties ? this.renderSingleEvents(event, index, context) : this.renderCombinedEvents(event, index, context);
-                        })
-                    }
-                    </section>
+                    <>
+                        <div className="pnp-detail-list ms-Grid">
+                            <div className="list-header list-header-uncollapsible ms-Grid-row">
+                                <span className="ms-Grid-col ms-sm2">{context.t(ResourceKeys.deviceEvents.columns.timestamp)}</span>
+                                <span className="ms-Grid-col ms-sm2">{context.t(ResourceKeys.deviceEvents.columns.displayName)}</span>
+                                <span className="ms-Grid-col ms-sm2">{context.t(ResourceKeys.deviceEvents.columns.schema)}</span>
+                                <span className="ms-Grid-col ms-sm2">{context.t(ResourceKeys.deviceEvents.columns.unit)}</span>
+                                <span className="ms-Grid-col ms-sm4">{context.t(ResourceKeys.deviceEvents.columns.value)}</span>
+                            </div>
+                        </div>
+                        <section role="feed">
+                        {
+                            events.map((event: Message, index) => {
+                                return !event.systemProperties ? this.renderEventsWithNoSystemProperties(event, index, context) :
+                                    event.systemProperties[TELEMETRY_SCHEMA_PROP] ?
+                                        this.renderEventsWithSchemaProperty(event, index, context) :
+                                        this.renderEventsWithNoSchemaProperty(event, index, context);
+                            })
+                        }
+                        </section>
+                    </>
                 }
             </div>
         );
     }
 
-    private readonly renderSingleEvents = (event: Message, index: number, context: LocalizationContextInterface) => {
-        const matchingSchema = this.props.telemetrySchema.filter(schema => schema.telemetryModelDefinition.name ===
-            event.systemProperties[TELEMETRY_SCHEMA_PROP]);
-        const telemetryModelDefinition =  matchingSchema && matchingSchema.length !== 0 && matchingSchema[0].telemetryModelDefinition;
-        const parsedSchema = matchingSchema && matchingSchema.length !== 0 && matchingSchema[0].parsedSchema;
+    private readonly renderEventsWithSchemaProperty = (event: Message, index: number, context: LocalizationContextInterface) => {
+        const { telemetryModelDefinition, parsedSchema } = this.getModelDefinitionAndSchema(event.systemProperties[TELEMETRY_SCHEMA_PROP]);
 
         return (
             <article className="list-item" role="article" key={index}>
                 <section className="item-summary">
                     <ErrorBoundary error={context.t(ResourceKeys.errorBoundary.text)}>
-                        {this.renderTimestamp(event, context)}
+                        {this.renderTimestamp(event.enqueuedTime, context)}
                         {this.renderEventName(context, telemetryModelDefinition)}
                         {this.renderEventSchema(context, telemetryModelDefinition)}
                         {this.renderEventUnit(context, telemetryModelDefinition)}
-                        {this.renderMessageBody(event, context, parsedSchema)}
+                        {this.renderMessageBodyWithSchema(event.body, context, parsedSchema, event.systemProperties[TELEMETRY_SCHEMA_PROP])}
                     </ErrorBoundary>
                 </section>
             </article>
         );
     }
 
-    private readonly renderCombinedEvents = (event: Message, index: number, context: LocalizationContextInterface) => {
+    private readonly renderEventsWithNoSchemaProperty = (event: Message, index: number, context: LocalizationContextInterface) => {
+        const telemetryKeys = Object.keys(event.body);
+        if (telemetryKeys && telemetryKeys.length !== 0) {
+            return telemetryKeys.map((key, keyIndex) => {
+                const { telemetryModelDefinition, parsedSchema } = this.getModelDefinitionAndSchema(key);
+                const partialEventBody: any = {}; // tslint:disable-line:no-any
+                partialEventBody[key] = event.body[key];
+                const isNotItemLast = keyIndex !== telemetryKeys.length - 1;
+
+                return (
+                    <article className="list-item" role="article" key={key + index}>
+                        <section className={`item-summary ${isNotItemLast && 'item-summary-partial'}`}>
+                            <ErrorBoundary error={context.t(ResourceKeys.errorBoundary.text)}>
+                                {this.renderTimestamp(keyIndex === 0 ? event.enqueuedTime : null, context)}
+                                {this.renderEventName(context, telemetryModelDefinition)}
+                                {this.renderEventSchema(context, telemetryModelDefinition)}
+                                {this.renderEventUnit(context, telemetryModelDefinition)}
+                                {this.renderMessageBodyWithSchema(partialEventBody, context, parsedSchema, key)}
+                            </ErrorBoundary>
+                        </section>
+                    </article>
+                );
+            });
+        }
+    }
+
+    private readonly renderEventsWithNoSystemProperties = (event: Message, index: number, context: LocalizationContextInterface) => {
         return (
             <article className="list-item" role="article" key={index}>
                 <section className="item-summary">
-                <ErrorBoundary error={context.t(ResourceKeys.errorBoundary.text)}>
-                        {this.renderTimestamp(event, context)}
+                    <ErrorBoundary error={context.t(ResourceKeys.errorBoundary.text)}>
+                        {this.renderTimestamp(event.enqueuedTime, context)}
                         {this.renderEventName(context)}
                         {this.renderEventSchema(context)}
                         {this.renderEventUnit(context)}
-                        {this.renderMessageBody(event, context)}
+                        {this.renderMessageBodyWithNoSchema(event.body, context)}
                     </ErrorBoundary>
                 </section>
             </article>
         );
     }
 
-    private readonly renderTimestamp = (event: Message, context: LocalizationContextInterface) => {
+    private readonly renderTimestamp = (enqueuedTime: string, context: LocalizationContextInterface) => {
         return(
             <div className="ms-Grid-col ms-sm2">
                 <Label aria-label={context.t(ResourceKeys.deviceEvents.columns.timestamp)}>
-                    {parseDateTimeString(event.enqueuedTime)}
+                    {enqueuedTime && parseDateTimeString(enqueuedTime)}
                 </Label>
             </div>
         );
@@ -386,50 +455,57 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
         );
     }
 
+    private readonly renderMessageBodyWithSchema = (eventBody: any, context: LocalizationContextInterface, schema: ParsedJsonSchema, key: string) => { // tslint:disable-line:no-any
+        if (key && !schema) { // DTDL doesn't contain corresponding key
+            const labelContent = context.t(ResourceKeys.deviceEvents.columns.validation.key.isNotSpecified, { key });
+            return(
+                <div className="column-value-text ms-Grid-col ms-sm4">
+                    <span aria-label={context.t(ResourceKeys.deviceEvents.columns.value)}>
+                        {JSON.stringify(eventBody, undefined, JSON_SPACES)}
+                        <Label className="value-validation-error">
+                            {labelContent}
+                        </Label>
+                    </span>
+                </div>
+            );
+        }
+
+        if (Object.keys(eventBody) && Object.keys(eventBody)[0] !== key) { // key in event body doesn't match property name
+            const labelContent = context.t(ResourceKeys.deviceEvents.columns.validation.key.doesNotMatch, {
+                expectedKey: key,
+                receivedKey: Object.keys(eventBody)[0]
+            });
+            return(
+                <div className="column-value-text ms-Grid-col ms-sm4">
+                    <span aria-label={context.t(ResourceKeys.deviceEvents.columns.value)}>
+                        {JSON.stringify(eventBody, undefined, JSON_SPACES)}
+                        <Label className="value-validation-error">
+                            {labelContent}
+                        </Label>
+                    </span>
+                </div>
+            );
+        }
+
+        return this.renderMessageBodyWithValueValidation(eventBody, context, schema, key);
+    }
+
     // tslint:disable-next-line:cyclomatic-complexity
-    private readonly renderMessageBody = (event: Message, context: LocalizationContextInterface, schema?: ParsedJsonSchema) => {
-        const key = event.systemProperties ? event.systemProperties[TELEMETRY_SCHEMA_PROP] : null;
+    private readonly renderMessageBodyWithValueValidation = (eventBody: any, context: LocalizationContextInterface, schema: ParsedJsonSchema, key: string) => { // tslint:disable-line:no-any
         const validator = new Validator();
-
-        if (!key) {
-            return(
-                <div className="column-value-text ms-Grid-col ms-sm4">
-                    <Label aria-label={context.t(ResourceKeys.deviceEvents.columns.value)}>
-                        {JSON.stringify(event.body, undefined, JSON_SPACES)}
-                    </Label>
-                </div>
-            );
-        }
-
-        if (Object.keys(event.body) && Object.keys(event.body)[0] !== key) { // validate telemetry's property name
-            return(
-                <div className="column-value-text ms-Grid-col ms-sm4">
-                    <Label aria-label={context.t(ResourceKeys.deviceEvents.columns.value)}>
-                        {JSON.stringify(event.body, undefined, JSON_SPACES)}
-                        <section className="value-validation-error" aria-label={context.t(ResourceKeys.deviceEvents.columns.error.key.label)}>
-                            <span>{context.t(ResourceKeys.deviceEvents.columns.error.key.label)}</span>
-                            <ul>
-                                <li key={key}>{context.t(ResourceKeys.deviceEvents.columns.error.key.doesNotMatch, {keyName: key})}</li>
-                            </ul>
-                        </section>
-                    </Label>
-                </div>
-            );
-        }
-
         let result: ValidatorResult;
         if (schema && getNumberOfMapsInSchema(schema) <= 0) {
             // only validate telemetry if schema doesn't contain map type
-            result = validator.validate(event.body[key], schema);  // validate telemetry's property value
+            result = validator.validate(eventBody[key], schema);
         }
 
         return(
-            <div className="column-value-text ms-Grid-col s4">
+            <div className="column-value-text ms-Grid-col ms-sm4">
                 <Label aria-label={context.t(ResourceKeys.deviceEvents.columns.value)}>
-                    {JSON.stringify(event.body, undefined, JSON_SPACES)}
+                    {JSON.stringify(eventBody, undefined, JSON_SPACES)}
                     {result && result.errors && result.errors.length !== 0 &&
-                        <section className="value-validation-error" aria-label={context.t(ResourceKeys.deviceEvents.columns.error.value.label)}>
-                            <span>{context.t(ResourceKeys.deviceEvents.columns.error.value.label)}</span>
+                        <section className="value-validation-error" aria-label={context.t(ResourceKeys.deviceEvents.columns.validation.value.label)}>
+                            <span>{context.t(ResourceKeys.deviceEvents.columns.validation.value.label)}</span>
                             <ul>
                             {result.errors.map((element, index) =>
                                 <li key={index}>{element.message}</li>
@@ -437,6 +513,16 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
                             </ul>
                         </section>
                     }
+                </Label>
+            </div>
+        );
+    }
+
+    private readonly renderMessageBodyWithNoSchema = (eventBody: any, context: LocalizationContextInterface) => { // tslint:disable-line:no-any
+        return(
+            <div className="column-value-text ms-Grid-col ms-sm4">
+                <Label aria-label={context.t(ResourceKeys.deviceEvents.columns.value)}>
+                    {JSON.stringify(eventBody, undefined, JSON_SPACES)}
                 </Label>
             </div>
         );
@@ -515,5 +601,15 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
         const path = this.props.match.url.replace(/\/digitalTwinsDetail\/events\/.*/, ``);
         const deviceId = getDeviceIdFromQueryString(this.props);
         this.props.history.push(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
+    }
+
+    private readonly getModelDefinitionAndSchema = (key: string): TelemetrySchema => {
+        const matchingSchema = this.props.telemetrySchema.filter(schema => schema.telemetryModelDefinition.name === key);
+        const telemetryModelDefinition =  matchingSchema && matchingSchema.length !== 0 && matchingSchema[0].telemetryModelDefinition;
+        const parsedSchema = matchingSchema && matchingSchema.length !== 0 && matchingSchema[0].parsedSchema;
+        return {
+            parsedSchema,
+            telemetryModelDefinition
+        };
     }
 }

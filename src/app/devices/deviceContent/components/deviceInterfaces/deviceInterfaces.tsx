@@ -15,7 +15,7 @@ import { ModelDefinitionWithSource } from '../../../../api/models/modelDefinitio
 import { SynchronizationWrapper } from '../../../../api/models/synchronizationWrapper';
 import { REPOSITORY_LOCATION_TYPE } from '../../../../constants/repositoryLocationTypes';
 import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
-import { REFRESH, CLOSE } from '../../../../constants/iconNames';
+import { REFRESH, CLOSE, NAVIGATE_BACK } from '../../../../constants/iconNames';
 import ErrorBoundary from '../../../errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 import { ThemeContextInterface, ThemeContextConsumer } from '../../../../shared/contexts/themeContext';
@@ -59,11 +59,13 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
                                     key: REFRESH,
                                     name: context.t(ResourceKeys.deviceProperties.command.refresh),
                                     onClick: this.handleRefresh
-                                },
+                                }
+                            ]}
+                            farItems={[
                                 {
                                     ariaLabel: context.t(ResourceKeys.deviceInterfaces.command.close),
-                                    iconProps: {iconName: CLOSE},
-                                    key: CLOSE,
+                                    iconProps: {iconName: NAVIGATE_BACK},
+                                    key: NAVIGATE_BACK,
                                     name: context.t(ResourceKeys.deviceInterfaces.command.close),
                                     onClick: this.handleClose
                                 }

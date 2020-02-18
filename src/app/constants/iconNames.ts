@@ -27,6 +27,7 @@ export const WARNING = 'Warning';
 export const DIRECT_METHOD = 'Remote';
 export const CLOUD_TO_DEVICE_MESSAGE = 'Mail';
 export const ITEM = 'LocationDot';
+export const NAVIGATE_BACK = 'NavigateBack';
 
 export enum GroupedList {
     OPEN = 'ChevronDown',
