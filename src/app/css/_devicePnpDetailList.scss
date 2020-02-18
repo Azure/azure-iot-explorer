@@ -85,6 +85,10 @@
             border-bottom: none;
         }
 
+        .item-summary-partial {
+            border-bottom: none;
+        }
+
         .item-detail {
             @include themify($themes) {
                 border-bottom-color: 1px solid themed('itemDetailBottomBorderColor');
@@ -183,7 +187,12 @@
     overflow-y: auto;
 }
 
-.scrollable-sm {
-    height: calc(100vh - 392px);
+.scrollable-pnp-telemetry {
+    height: calc(100vh - 400px);
+    overflow-y: auto;
+}
+
+.scrollable-telemetry {
+    height: calc(100vh - 360px);
     overflow-y: auto;
 }

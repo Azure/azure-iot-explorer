@@ -10,6 +10,8 @@ import {
     getDigitalTwinInterfaceIdsSelector,
     getIsDevicePnpSelector,
     getComponentNameSelector,
+    getDigitalTwinDcmNameSelector,
+    getDigitalTwinComponentNameAndIdsSelector
 } from './selectors';
 import { getInitialState } from './../../api/shared/testHelper';
 
@@ -69,5 +71,19 @@ describe('getDigitalTwinInterfacePropertiesSelector', () => {
 
     it('returns componentName', () => {
         expect(getComponentNameSelector(state)).toEqual('environmentalsensor');
+    });
+
+    it('returns dcm id', () => {
+        expect(getDigitalTwinDcmNameSelector(state)).toEqual('urn:contoso:com:dcm:2');
+    });
+
+    it('returns component names and interface ids', () => {
+        /* tslint:disable */
+        expect(getDigitalTwinComponentNameAndIdsSelector(state)).toEqual({
+            "environmentalsensor": "urn:contoso:com:environmentalsensor:2",
+            "urn_azureiot_ModelDiscovery_ModelInformation": "urn:azureiot:ModelDiscovery:ModelInformation:1",
+            "urn_azureiot_ModelDiscovery_DigitalTwin": "urn:azureiot:ModelDiscovery:DigitalTwin:1"
+        });
+        /* tslint:enable */
     });
 });

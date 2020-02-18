@@ -377,7 +377,7 @@
         "command" : {
             "refresh": "Refresh",
             "openReportedValuePanel": "Click to view value",
-            "close": "Close"
+            "close": "Back"
         },
         "headerText": "Non-writable properties",
         "noProperties": "ComponentName {{componentName}} contains no non-writable property definitions",
@@ -403,7 +403,7 @@
             "expand": "Expand",
             "collapseAll": "Collapse all",
             "collapse": "Collapse",
-            "close": "Close"
+            "close": "Back"
         },
         "headerText": "Writable properties",
         "noSettings": "ComponentName {{componentName}} contains no writable property definitions",
@@ -439,7 +439,7 @@
             "expand": "Expand",
             "collapseAll": "Collapse all",
             "collapse": "Collapse",
-            "close": "Close"
+            "close": "Back"
         },
         "headerText": "Commands",
         "noCommands": "ComponentName {{componentName}} contains no command definitions",
@@ -456,7 +456,7 @@
         "command" : {
             "refresh": "Refresh",
             "configure": "Configure",
-            "close": "Close"
+            "close": "Back"
         },
         "columns": {
             "id": "Interface Id",
@@ -477,7 +477,7 @@
             "start": "Start",
             "stop": "Stop",
             "fetch": "Retrieve events",
-            "close": "Close"
+            "close": "Back"
         },
         "consumerGroups": {
             "label": "Consumer Group",
@@ -504,15 +504,20 @@
             "schema": "Schema",
             "unit": "Unit",
             "value": "Value",
-            "error": {
+            "validation": {
                 "key": {
-                    "label": "key does not match schema",
-                    "doesNotMatch": "key is not {{keyName}}"
+                    "isNotSpecified": "This telemetry '{{key}}' is not in the model. You may consider modeling it.",
+                    "doesNotMatch": "Key mismatch. Expected key is {{expectedKey}}, but received is {{receivedKey}}"
                 },
                 "value": {
                     "label": "value does not match schema"
                 }
             }
+        },
+        "toggle": {
+            "label": "Show raw telemetry data",
+            "on": "On",
+            "off": "Off"
         }
     },
     "directMethod": {
@@ -644,7 +649,7 @@
         "detail" : {
             "headerText": "Module identity detail",
             "command" : {
-                "back": "Close",
+                "back": "Back",
                 "refresh": "Refresh",
                 "delete": "Delete"
             },
