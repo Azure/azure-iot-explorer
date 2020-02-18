@@ -9,6 +9,7 @@ const BrowserWindow = electron.BrowserWindow;
 
 let mainWindow: electron.BrowserWindow;
 
+const isMac = process.platform === 'darwin';
 const createWindow = () => {
 
     mainWindow = new BrowserWindow({
@@ -68,7 +69,7 @@ const createMenu = () => {
         {
             label: '&File',
             submenu: [
-                process.platform === 'darwin' ? { role: 'close' } : { role: 'quit' }
+                isMac ? { role: 'quit' } : { role: 'close' }
             ]
         },
         // { role: 'editMenu' }
@@ -156,7 +157,7 @@ else {
 }
 
 app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') {
+    if (!isMac) {
         app.quit();
     }
 });
