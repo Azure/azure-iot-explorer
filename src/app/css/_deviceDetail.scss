@@ -3,12 +3,15 @@
  * Licensed under the MIT License
  **********************************************************/
  @import 'themes';
+ @import 'variables';
 
 .device-detail {
-    height: calc(100vh - 247px);
+    height: calc(100vh - 244px);
     overflow-y: auto;
-    padding-left: 20px;
+    padding-left: 30px;
     padding-right: 20px;
+    width: calc(80% - 50px);
+    position: fixed;
 }
 
 .method-payload{
