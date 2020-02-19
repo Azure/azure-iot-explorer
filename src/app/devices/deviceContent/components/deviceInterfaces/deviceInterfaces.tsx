@@ -89,7 +89,7 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
                 <Route component={DigitalTwinHeaderContainer} />
                 {modelDefinitionWithSource && modelDefinitionWithSource.payload ?
                     <ErrorBoundary error={context.t(ResourceKeys.errorBoundary.text)}>
-                        <section className="pnp-interface-info">
+                        <section className="pnp-interface-info scrollable-lg">
                             {this.renderInterfaceInfoDetail(context)}
                             {this.renderInterfaceViewer()}
                         </section>

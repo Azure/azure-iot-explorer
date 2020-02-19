@@ -7,7 +7,6 @@ import 'jest';
 import ModuleIdentityDetailComponent, { ModuleIdentityDetailDataProps, ModuleIdentityDetailDispatchProps } from './moduleIdentityDetail';
 import { testSnapshot } from '../../../../shared/utils/testHelpers';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
-import { ModuleTwin } from '../../../../api/models/moduleTwin';
 
 const pathname = `/`;
 const location: any = { // tslint:disable-line:no-any
@@ -30,15 +29,12 @@ const moduleIdentityDataProps: ModuleIdentityDetailDataProps = {
     currentHostName: 'testhub.azure-devices.net',
     moduleIdentity: null,
     moduleIdentitySyncStatus: SynchronizationStatus.working,
-    moduleIdentityTwin: null,
-    moduleIdentityTwinSyncStatus: SynchronizationStatus.working,
     moduleListSyncStatus: SynchronizationStatus.fetched
 };
 
 const moduleIdentityDispatchProps: ModuleIdentityDetailDispatchProps = {
     deleteModuleIdentity: jest.fn(),
-    getModuleIdentity: jest.fn(),
-    getModuleIdentityTwin: jest.fn()
+    getModuleIdentity: jest.fn()
 };
 
 const getComponent = (overrides = {}) => {
@@ -51,41 +47,12 @@ const getComponent = (overrides = {}) => {
     return <ModuleIdentityDetailComponent {...props} />;
 };
 
-// tslint:disable
-const moduleIdentityTwin: ModuleTwin = {
-    deviceId: 'deviceId',
-    moduleId: 'moduleId',
-    etag: 'AAAAAAAAAAE=',
-    deviceEtag: 'AAAAAAAAAAE=',
-    status: 'enabled',
-    statusUpdateTime: '0001-01-01T00:00:00Z',
-    lastActivityTime: '0001-01-01T00:00:00Z',
-    x509Thumbprint:  {primaryThumbprint: null, secondaryThumbprint: null},
-    version: 1,
-    connectionState: 'Disconnected',
-    cloudToDeviceMessageCount: 0,
-    authenticationType:'sas',
-    properties: {}
-}
-// tslint:enable
-
-describe('devices/components/moduleIdentityRoutes', () => {
+describe('devices/components/moduleIdentityDetail', () => {
     context('snapshot', () => {
         it('matches snapshot while loading', () => {
             testSnapshot(getComponent());
         });
-    });
 
-    context('snapshot', () => {
-        it('matches snapshot after module twin is fetched', () => {
-            testSnapshot(getComponent({
-                moduleIdentityTwin,
-                moduleIdentityTwinSyncStatus: SynchronizationStatus.fetched
-            }));
-        });
-    });
-
-    context('snapshot', () => {
         const deviceId = 'deviceId';
         const moduleId = 'moduleId';
         it('matches snapshot after module identity is fetched', () => {
@@ -141,7 +108,6 @@ describe('devices/components/moduleIdentityRoutes', () => {
                     moduleId
                 },
                 moduleIdentitySyncStatus: SynchronizationStatus.fetched,
-                moduleIdentityTwin,
                 moduleIdentityTwinSyncStatus: SynchronizationStatus.fetched
             }));
         });

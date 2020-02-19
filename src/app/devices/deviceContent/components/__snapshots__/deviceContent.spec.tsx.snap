@@ -12,7 +12,7 @@ exports[`deviceContent matches snapshot 1`] = `
     />
   </div>
   <div
-    className="view-content view-scroll"
+    className="edit-content"
   >
     <div
       className="device-content"

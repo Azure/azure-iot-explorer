@@ -138,7 +138,9 @@
             "collapse": "Collapse navigation menu",
             "expand": "Expand navigation menu",
             "moduleIdentity": "Module identity",
-            "addModuleIdentity": "Add module identity"
+            "addModuleIdentity": "Add module identity",
+            "moduleDetail": "Module identity",
+            "moduleTwin": "Module twin"
         },
         "value": "Value"
     },

@@ -3,49 +3,45 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, Route } from 'react-router-dom';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
-import { SpinnerSize, Spinner } from 'office-ui-fabric-react/lib/Spinner';
 import { Label } from 'office-ui-fabric-react/lib/Label';
 import { Dialog, DialogFooter, DialogType } from 'office-ui-fabric-react/lib/Dialog';
 import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/Button';
-import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
-import { ThemeContextConsumer, ThemeContextInterface } from '../../../../shared/contexts/themeContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
+import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { getDeviceIdFromQueryString, getModuleIdentityIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { REFRESH, REMOVE, NAVIGATE_BACK } from '../../../../constants/iconNames';
-import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../../constants/routes';
-import MaskedCopyableTextFieldContainer from '../../../../shared/components/maskedCopyableTextFieldContainer';
-import { GetModuleIdentityTwinActionParameters, GetModuleIdentityActionParameters, DeleteModuleIdentityActionParameters } from '../../actions';
+import { SAS_EXPIRES_MINUTES } from '../../../../constants/devices';
+import { GetModuleIdentityActionParameters, DeleteModuleIdentityActionParameters } from '../../actions';
+import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { ModuleIdentity } from '../../../../api/models/moduleIdentity';
-import { ModuleTwin } from '../../../../api/models/moduleTwin';
-import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
-import { HeaderView } from '../../../../shared/components/headerView';
 import { DeviceAuthenticationType } from '../../../../api/models/deviceAuthenticationType';
+import MaskedCopyableTextFieldContainer from '../../../../shared/components/maskedCopyableTextFieldContainer';
+import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
+import SasTokenGenerationView from '../../../shared/components/sasTokenGenerationView';
+import { ModuleIdentityDetailHeaderContainer } from './moduleIdentityDetailHeaderView';
 import '../../../../css/_deviceDetail.scss';
 import '../../../../css/_moduleIdentityDetail.scss';
-
-const EditorPromise = import('react-monaco-editor');
-const Editor = React.lazy(() => EditorPromise);
 
 export interface ModuleIdentityDetailDataProps {
     currentHostName: string;
     moduleIdentity: ModuleIdentity;
     moduleIdentitySyncStatus: SynchronizationStatus;
-    moduleIdentityTwin: ModuleTwin;
-    moduleIdentityTwinSyncStatus: SynchronizationStatus;
     moduleListSyncStatus: SynchronizationStatus;
 }
 
 export interface ModuleIdentityDetailDispatchProps {
-    getModuleIdentityTwin: (params: GetModuleIdentityTwinActionParameters) => void;
     getModuleIdentity: (params: GetModuleIdentityActionParameters) => void;
     deleteModuleIdentity: (params: DeleteModuleIdentityActionParameters) => void;
 }
 
 export interface ModuleIdentityDetailState {
     showDeleteConfirmation: boolean;
+    sasTokenExpiration: number;
+    sasTokenConnectionString: string;
+    sasTokenSelectedKey: string;
 }
 
 export type ModuleIdentityDetailProps = ModuleIdentityDetailDataProps & ModuleIdentityDetailDispatchProps;
@@ -56,6 +52,9 @@ export default class ModuleIdentityDetailComponent
         super(props);
 
         this.state = {
+            sasTokenConnectionString: '',
+            sasTokenExpiration: SAS_EXPIRES_MINUTES,
+            sasTokenSelectedKey: '',
             showDeleteConfirmation: false
         };
     }
@@ -66,22 +65,14 @@ export default class ModuleIdentityDetailComponent
                 {(context: LocalizationContextInterface) => (
                     <>
                         {this.showCommandBar(context)}
-                        <HeaderView
-                            headerText={ResourceKeys.moduleIdentity.detail.headerText}
-                        />
-                        <div className="device-detail">
-                            <div className="module-identity">
-                                {this.showModuleId(context)}
-                                {this.props.moduleIdentitySyncStatus === SynchronizationStatus.working ?
-                                    <MultiLineShimmer/> :
-                                    this.showModuleIdentity(context)
-                                }
-                                {this.props.moduleIdentityTwinSyncStatus === SynchronizationStatus.working ?
-                                    <MultiLineShimmer/> :
-                                    this.showModuleTwin(context)
-                                }
-                                {this.state.showDeleteConfirmation && this.deleteConfirmationDialog(context)}
-                            </div>
+                        <Route component={ModuleIdentityDetailHeaderContainer} />
+                        <div className="module-identity-detail">
+                            {this.showModuleId(context)}
+                            {this.props.moduleIdentitySyncStatus === SynchronizationStatus.working ?
+                                <MultiLineShimmer/> :
+                                this.showModuleIdentity(context)
+                            }
+                            {this.state.showDeleteConfirmation && this.deleteConfirmationDialog(context)}
                         </div>
                     </>
             )}
@@ -109,10 +100,6 @@ export default class ModuleIdentityDetailComponent
             deviceId,
             moduleId
         });
-        this.props.getModuleIdentityTwin({
-            deviceId,
-            moduleId
-        });
     }
 
     private readonly delete = () => {
@@ -132,7 +119,7 @@ export default class ModuleIdentityDetailComponent
                 items={[
                     {
                         ariaLabel: context.t(ResourceKeys.moduleIdentity.detail.command.refresh),
-                        disabled: this.props.moduleIdentityTwinSyncStatus === SynchronizationStatus.working || this.props.moduleIdentitySyncStatus === SynchronizationStatus.working,
+                        disabled: this.props.moduleIdentitySyncStatus === SynchronizationStatus.working,
                         iconProps: {iconName: REFRESH},
                         key: REFRESH,
                         name: context.t(ResourceKeys.moduleIdentity.detail.command.refresh),
@@ -140,7 +127,7 @@ export default class ModuleIdentityDetailComponent
                     },
                     {
                         ariaLabel: context.t(ResourceKeys.moduleIdentity.detail.command.delete),
-                        disabled: this.props.moduleIdentityTwinSyncStatus === SynchronizationStatus.working || this.props.moduleIdentitySyncStatus === SynchronizationStatus.working,
+                        disabled: this.props.moduleIdentitySyncStatus === SynchronizationStatus.working,
                         iconProps: {iconName: REMOVE},
                         key: REMOVE,
                         name: context.t(ResourceKeys.moduleIdentity.detail.command.delete),
@@ -225,6 +212,8 @@ export default class ModuleIdentityDetailComponent
                     allowMask={true}
                     readOnly={true}
                 />
+
+                {this.renderSasTokenSection()}
             </>
         );
     }
@@ -261,32 +250,13 @@ export default class ModuleIdentityDetailComponent
         );
     }
 
-    private readonly showModuleTwin = (context: LocalizationContextInterface) => {
+    private readonly renderSasTokenSection = () => {
+        const { moduleIdentity, currentHostName } = this.props;
         return (
-            <>
-            { this.props.moduleIdentityTwin &&
-                    <>
-                        <Label>{context.t(ResourceKeys.moduleIdentity.detail.twin)}</Label>
-                        <div className="monaco-editor">
-                            <React.Suspense fallback={<Spinner title={'loading'} size={SpinnerSize.large} />}>
-                                <ThemeContextConsumer>
-                                    {(themeContext: ThemeContextInterface) => (
-                                        <Editor
-                                            language="json"
-                                            value={JSON.stringify(this.props.moduleIdentityTwin, null, '\t')}
-                                            options={{
-                                                automaticLayout: true,
-                                                readOnly: true
-                                            }}
-                                            theme={themeContext.monacoTheme}
-                                        />
-                                    )}
-                                </ThemeContextConsumer>
-                            </React.Suspense>
-                        </div>
-                    </>
-                }
-            </>
+            <SasTokenGenerationView
+                activeAzureResourceHostName={currentHostName}
+                moduleIdentity={moduleIdentity}
+            />
         );
     }
 

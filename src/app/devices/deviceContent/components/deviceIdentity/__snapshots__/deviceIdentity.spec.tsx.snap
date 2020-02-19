@@ -9,6 +9,9 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot 1`] = `
   <Component
     headerText="deviceIdentity.headerText"
   />
+  <div
+    className="device-detail"
+  />
 </Fragment>
 `;
 
@@ -171,71 +174,20 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
       value=""
     />
     <br />
-    <CollapsibleSection
-      expanded={false}
-      label="deviceIdentity.authenticationType.sasToken.label"
-      tooltipText="deviceIdentity.authenticationType.sasToken.toolTip"
-    >
-      <div
-        className="sas-token-section"
-      >
-        <StyledWithResponsiveMode
-          className="sas-token-key-field"
-          label="deviceIdentity.authenticationType.sasToken.symmetricKey"
-          onChange={[Function]}
-          options={
-            Array [
-              Object {
-                "key": "key",
-                "text": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
-              },
-              Object {
-                "key": undefined,
-                "text": "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
-              },
-            ]
-          }
-          required={true}
-        />
-        <CustomizedSpinButton
-          className="sas-token-expiration-field"
-          decrementButtonIcon={
-            Object {
-              "iconName": "ChevronDownSmall",
-            }
-          }
-          disabled={false}
-          incrementButtonIcon={
-            Object {
-              "iconName": "ChevronUpSmall",
-            }
-          }
-          label="deviceIdentity.authenticationType.sasToken.expiration"
-          labelPosition={0}
-          max={9007199254740991}
-          min={0}
-          onBlur={[Function]}
-          onDecrement={[Function]}
-          onIncrement={[Function]}
-          step={1}
-          value="5"
-        />
-        <Connect(MaskedCopyableTextField)
-          allowMask={true}
-          ariaLabel="deviceIdentity.authenticationType.sasToken.textField.ariaLabel"
-          label="deviceIdentity.authenticationType.sasToken.textField.label"
-          readOnly={true}
-          value=""
-        />
-        <CustomizedPrimaryButton
-          className="sas-token-generate-button"
-          disabled={true}
-          onClick={[Function]}
-          text="deviceIdentity.authenticationType.sasToken.generateButton.text"
-          title="deviceIdentity.authenticationType.sasToken.generateButton.title"
-        />
-      </div>
-    </CollapsibleSection>
+    <SasTokenGenerationView
+      activeAzureResourceHostName="test-string.azure-devices.net"
+      deviceIdentity={
+        Object {
+          "authentication": Object {
+            "symmetricKey": Object {
+              "primaryKey": "key",
+            },
+            "type": "sas",
+          },
+          "deviceId": "device1",
+        }
+      }
+    />
     <StyledToggleBase
       ariaLabel="deviceIdentity.hubConnectivity.label"
       checked={false}
@@ -304,71 +256,19 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
       value=""
     />
     <br />
-    <CollapsibleSection
-      expanded={false}
-      label="deviceIdentity.authenticationType.sasToken.label"
-      tooltipText="deviceIdentity.authenticationType.sasToken.toolTip"
-    >
-      <div
-        className="sas-token-section"
-      >
-        <StyledWithResponsiveMode
-          className="sas-token-key-field"
-          label="deviceIdentity.authenticationType.sasToken.symmetricKey"
-          onChange={[Function]}
-          options={
-            Array [
-              Object {
-                "key": "key",
-                "text": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
-              },
-              Object {
-                "key": undefined,
-                "text": "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
-              },
-            ]
-          }
-          required={true}
-        />
-        <CustomizedSpinButton
-          className="sas-token-expiration-field"
-          decrementButtonIcon={
-            Object {
-              "iconName": "ChevronDownSmall",
-            }
-          }
-          disabled={false}
-          incrementButtonIcon={
-            Object {
-              "iconName": "ChevronUpSmall",
-            }
-          }
-          label="deviceIdentity.authenticationType.sasToken.expiration"
-          labelPosition={0}
-          max={9007199254740991}
-          min={0}
-          onBlur={[Function]}
-          onDecrement={[Function]}
-          onIncrement={[Function]}
-          step={1}
-          value="5"
-        />
-        <Connect(MaskedCopyableTextField)
-          allowMask={true}
-          ariaLabel="deviceIdentity.authenticationType.sasToken.textField.ariaLabel"
-          label="deviceIdentity.authenticationType.sasToken.textField.label"
-          readOnly={true}
-          value=""
-        />
-        <CustomizedPrimaryButton
-          className="sas-token-generate-button"
-          disabled={true}
-          onClick={[Function]}
-          text="deviceIdentity.authenticationType.sasToken.generateButton.text"
-          title="deviceIdentity.authenticationType.sasToken.generateButton.title"
-        />
-      </div>
-    </CollapsibleSection>
+    <SasTokenGenerationView
+      activeAzureResourceHostName="test-string.azure-devices.net"
+      deviceIdentity={
+        Object {
+          "authentication": Object {
+            "symmetricKey": Object {
+              "primaryKey": "key",
+            },
+            "type": "sas",
+          },
+        }
+      }
+    />
     <StyledToggleBase
       ariaLabel="deviceIdentity.hubConnectivity.label"
       checked={false}

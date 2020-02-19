@@ -33,9 +33,7 @@ export default class DeviceContentNavComponent extends React.Component<DeviceCon
         return (
             <LocalizationContextConsumer>
                 {(context: LocalizationContextInterface) => (
-                    <div className="view-scroll">
-                        {this.createNavLinks(context)}
-                    </div>
+                    this.createNavLinks(context)
                 )}
             </LocalizationContextConsumer>
         );

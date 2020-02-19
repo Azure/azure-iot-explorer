@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import { DeviceIdentity } from '../../../../api/models/deviceIdentity';
-import { getConnectionInfoFromConnectionString, generateSasToken } from '../../../../api/shared/utils';
+import { generateSasToken } from '../../../../api/shared/utils';
 import { DeviceAuthenticationType } from '../../../../api/models/deviceAuthenticationType';
 
 // tslint:disable-next-line:cyclomatic-complexity
@@ -37,7 +37,7 @@ export const generateConnectionString = (hostName: string, deviceId: string, key
         `HostName=${hostName};DeviceId=${deviceId};SharedAccessKey=${key}` : '';
 };
 
-export const generateSASTokenConnectionString = (hostName: string, deviceId: string, expiration: number, key: string): string => {
+export const generateSASTokenConnectionStringForDevice = (hostName: string, deviceId: string, expiration: number, key: string): string => {
     const resourceUri = hostName && deviceId ?
         `${hostName}/devices/${deviceId}` : '';
 
@@ -49,4 +49,18 @@ export const generateSASTokenConnectionString = (hostName: string, deviceId: str
 
     return hostName && sasToken ?
         `HostName=${hostName};DeviceId=${deviceId};SharedAccessSignature=${sasToken}` : '';
+};
+
+export const generateSASTokenConnectionStringForModuleIdentity = (hostName: string, deviceId: string, moduleId: string, expiration: number, key: string): string => {
+    const resourceUri = hostName && deviceId ?
+        `${hostName}/devices/${deviceId}/modules/${moduleId}` : '';
+
+    const sasToken = generateSasToken({
+        expiration,
+        key,
+        resourceUri
+    });
+
+    return hostName && sasToken ?
+        `HostName=${hostName};DeviceId=${deviceId};ModuleId=${moduleId};SharedAccessSignature=${sasToken}` : '';
 };
