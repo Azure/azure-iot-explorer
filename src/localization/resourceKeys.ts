@@ -14,7 +14,6 @@ export class ResourceKeys {
       commands : "breadcrumb.commands",
       devices : "breadcrumb.devices",
       events : "breadcrumb.events",
-      hub : "breadcrumb.hub",
       identity : "breadcrumb.identity",
       interfaces : "breadcrumb.interfaces",
       methods : "breadcrumb.methods",
@@ -119,6 +118,8 @@ export class ResourceKeys {
             ariaLabel : "connectivityPane.connectionStringComboBox.item.ariaLabel",
          },
          label : "connectivityPane.connectionStringComboBox.label",
+         link : "connectivityPane.connectionStringComboBox.link",
+         linkText : "connectivityPane.connectionStringComboBox.linkText",
          prompt : "connectivityPane.connectionStringComboBox.prompt",
       },
       dropDown : {
@@ -644,10 +645,6 @@ export class ResourceKeys {
    public static settings = {
       cancel : "settings.cancel",
       configuration : {
-         connectionString : {
-            label : "settings.configuration.connectionString.label",
-            link : "settings.configuration.connectionString.link",
-         },
          headerText : "settings.configuration.headerText",
       },
       confirmationMessage : "settings.confirmationMessage",

@@ -31,6 +31,18 @@ exports[`login/components/connectivityPane matches snapshot 1`] = `
         connectivityPane.notes
       </Text>
     </div>
+    <h3
+      aria-level={1}
+      role="heading"
+    >
+      settings.questions.headerText
+    </h3>
+    <StyledLinkBase
+      href="connectivityPane.connectionStringComboBox.link"
+      target="_blank"
+    >
+      connectivityPane.connectionStringComboBox.linkText
+    </StyledLinkBase>
     <div
       className="connection-button"
     >

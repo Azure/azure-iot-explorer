@@ -55,11 +55,7 @@
     "settings": {
         "headerText": "Settings",
         "configuration": {
-            "headerText": "App configurations",
-            "connectionString": {
-                "label": "IoT hub connection string",
-                "link": "https://aka.ms/iot-connection-strings"
-            }
+            "headerText": "App configurations"
         },
         "modelDefinitions": {
             "add": "Add module definition source",
@@ -103,7 +99,6 @@
         }
     },
     "breadcrumb": {
-        "hub": "Hub {{hubName}}",
         "devices": "Devices",
         "add": "Create a new identity",
         "identity": "Device identity",
@@ -145,6 +140,8 @@
         "connectionStringComboBox": {
             "ariaLabel": "Select or type an Iot hub connection string",
             "ariaLabelRemove": "Remove connection to host {{hostName}}",
+            "link": "https://aka.ms/iot-connection-strings",
+            "linkText": "Where do I get an IoT hub connection string",
             "item": {
                 "ariaLabel": "Connection to host {{hostName}} with shared access key for {{sharedAccessKeyName}}"
             },

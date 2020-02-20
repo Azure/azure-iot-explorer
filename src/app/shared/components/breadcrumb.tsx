@@ -29,10 +29,10 @@ export const BreadcrumbItem: React.FC<BreadcrumbItemDataProps> = props => {
         const { t } = useLocalizationContext();
         if (route) {
             switch (route) {
-                case ROUTE_PARTS.RESOURCE:
-                    return <></>;
+                case ROUTE_PARTS.RESOURCE: // redirects to login page
+                    return <li className="breadcrumb-item"><NavLink to={'/'}>{'Hubs'}</NavLink></li>;
                 case props.hostName:
-                    return renderTextItem(t(ResourceKeys.breadcrumb.hub, {hubName: getShortHubName()}));
+                    return renderTextItem(getShortHubName());
                 case ROUTE_PARTS.DEVICE_DETAIL:
                     return renderTextItem(getDeviceIdFromQueryString(props));
                 case ROUTE_PARTS.DIGITAL_TWINS:
