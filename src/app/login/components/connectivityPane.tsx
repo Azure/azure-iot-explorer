@@ -2,9 +2,10 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
+import * as React from 'react';
 import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
 import { Text } from 'office-ui-fabric-react/lib/Text';
-import * as React from 'react';
+import { Link } from 'office-ui-fabric-react/lib/Link';
 import { RouteComponentProps } from 'react-router-dom';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
@@ -73,6 +74,15 @@ export default class ConnectivityPane extends React.Component<RouteComponentProp
                                     {context.t(ResourceKeys.connectivityPane.notes)}
                                 </Text>
                             </div>
+
+                            <h3 role="heading" aria-level={1}>{context.t(ResourceKeys.settings.questions.headerText)}</h3>
+                            <Link
+                                href={context.t(ResourceKeys.connectivityPane.connectionStringComboBox.link)}
+                                target="_blank"
+                            >
+                                {context.t(ResourceKeys.connectivityPane.connectionStringComboBox.linkText)}
+                            </Link>
+
                             <div className="connection-button">
                                 <PrimaryButton
                                     onClick={this.onSaveConnectionInfoClick}
