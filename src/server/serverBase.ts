@@ -14,7 +14,8 @@ import { generateDataPlaneRequestBody, generateDataPlaneResponse } from './dataP
 const SERVER_ERROR = 500;
 const BAD_REQUEST = 400;
 const SUCCESS = 200;
-const NOT_FOUND = 400;
+const NOT_FOUND = 404;
+const CONFLICT = 409;
 const SERVER_WAIT = 3000; // how long we'll let the call for eventHub messages run in non-socket
 const receivers: ReceiveHandler[] = [];
 const IOTHUB_CONNECTION_DEVICE_ID = 'iothub-connection-device-id';
@@ -55,7 +56,7 @@ export default class ServerBase {
 }
 
 const dataPlaneUri = '/api/DataPlane';
-const handleDataPlanePostRequest = (req: express.Request, res: express.Response) => {
+export const handleDataPlanePostRequest = (req: express.Request, res: express.Response) => {
     try {
         if (!req.body) {
             res.status(BAD_REQUEST).send();
@@ -75,7 +76,7 @@ const handleDataPlanePostRequest = (req: express.Request, res: express.Response)
 };
 
 const cloudToDeviceUri = '/api/CloudToDevice';
-const handleCloudToDevicePostRequest = (req: express.Request, res: express.Response) => {
+export const handleCloudToDevicePostRequest = (req: express.Request, res: express.Response) => {
     try {
         if (!req.body) {
             res.status(BAD_REQUEST).send();
@@ -102,7 +103,7 @@ const handleCloudToDevicePostRequest = (req: express.Request, res: express.Respo
 };
 
 const eventHubMonitorUri = '/api/EventHub/monitor';
-const handleEventHubMonitorPostRequest = (req: express.Request, res: express.Response) => {
+export const handleEventHubMonitorPostRequest = (req: express.Request, res: express.Response) => {
     try {
         if (!req.body) {
             res.status(BAD_REQUEST).send();
@@ -113,7 +114,7 @@ const handleEventHubMonitorPostRequest = (req: express.Request, res: express.Res
                 res.status(SUCCESS).send(result);
             });
         } else {
-            res.status(NOT_FOUND).send('Client currently stopping');
+            res.status(CONFLICT).send('Client currently stopping');
         }
     } catch (error) {
         res.status(SERVER_ERROR).send(error);
@@ -121,7 +122,7 @@ const handleEventHubMonitorPostRequest = (req: express.Request, res: express.Res
 };
 
 const eventHubStopUri = '/api/EventHub/stop';
-const handleEventHubStopPostRequest = (req: express.Request, res: express.Response) => {
+export const handleEventHubStopPostRequest = (req: express.Request, res: express.Response) => {
     try {
         if (!req.body) {
             res.status(BAD_REQUEST).send();
@@ -139,7 +140,7 @@ const handleEventHubStopPostRequest = (req: express.Request, res: express.Respon
 };
 
 const modelRepoUri = '/api/ModelRepo';
-const handleModelRepoPostRequest = (req: express.Request, res: express.Response) => {
+export const handleModelRepoPostRequest = (req: express.Request, res: express.Response) => {
     try {
         if (!req.body) {
             res.status(BAD_REQUEST).send();
@@ -165,7 +166,7 @@ const handleModelRepoPostRequest = (req: express.Request, res: express.Response)
 };
 
 // tslint:disable-next-line:cyclomatic-complexity
-const addPropertiesToCloudToDeviceMessage = (message: CloudToDeviceMessage, properties: Array<{key: string, value: string, isSystemProperty: boolean}>) => {
+export const addPropertiesToCloudToDeviceMessage = (message: CloudToDeviceMessage, properties: Array<{key: string, value: string, isSystemProperty: boolean}>) => {
     if (!properties || properties.length === 0) {
         return;
     }
@@ -176,18 +177,16 @@ const addPropertiesToCloudToDeviceMessage = (message: CloudToDeviceMessage, prop
                     message.ack = property.value;
                     break;
                 case 'contentType':
-                    // tslint:disable-next-line:no-any
-                    message.contentType = property.value as any;
+                    message.contentType = property.value as any; // tslint:disable-line:no-any
                     break;
                 case 'correlationId':
                     message.correlationId = property.value;
                     break;
                 case 'contentEncoding':
-                    message.correlationId = property.value;
+                    message.contentEncoding = property.value as any; // tslint:disable-line:no-any
                     break;
                 case 'expiryTimeUtc':
-                    // tslint:disable-next-line:radix
-                    message.expiryTimeUtc = parseInt(property.value);
+                    message.expiryTimeUtc = parseInt(property.value); // tslint:disable-line:radix
                     break;
                 case 'messageId':
                     message.messageId = property.value;
@@ -207,7 +206,7 @@ const addPropertiesToCloudToDeviceMessage = (message: CloudToDeviceMessage, prop
 };
 
 // tslint:disable-next-line:cyclomatic-complexity
-const eventHubProvider = async (res: any, body: any) =>  { // tslint:disable-line: no-any
+export const eventHubProvider = async (res: any, body: any) =>  { // tslint:disable-line: no-any
     try {
         if (!eventHubClientStopping) {
             if (!client || connectionString !== body.connectionString) {
@@ -228,7 +227,7 @@ const eventHubProvider = async (res: any, body: any) =>  { // tslint:disable-lin
 
             return handleMessages(body.deviceId, client, hubInfo, partitionIds, startTime, !!body.fetchSystemProperties, body.consumerGroup);
         } else {
-            res.status(NOT_FOUND).send('Client currently stopping');
+            res.status(CONFLICT).send('Client currently stopping');
         }
     } catch (error) {
         res.status(SERVER_ERROR).send(error);
@@ -249,7 +248,7 @@ const stopReceivers = async () => {
     );
 };
 
-const stopClient = async () => {
+export const stopClient = async () => {
     return stopReceivers().then(() => {
         return client && client.close().then(() => {
             client = null;

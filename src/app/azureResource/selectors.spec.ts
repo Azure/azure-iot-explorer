@@ -11,7 +11,7 @@ import {
 } from './selectors';
 import { getInitialState } from '../api/shared/testHelper';
 
-describe('getDigitalTwinInterfacePropertiesSelector', () => {
+describe('getAzureResourceSelector', () => {
     const state = getInitialState();
     const hostName = 'testhub.azure-devices.net';
     state.azureResourceState = Record({
