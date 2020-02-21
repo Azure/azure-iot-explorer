@@ -1,5 +1,36 @@
-.module-identity {
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+@import 'variables';
+
+.module-identity-detail {
+    padding-left: 30px;
+    padding-right: 20px;
+
+    height: calc(100vh - 240px);
+    overflow-y: auto;
+    position: fixed;
+    width: calc(80% - 50px);
+
+    .authentication{
+        padding-top: 20px;
+        .autoGenerateButton {
+            padding-top: 10px;
+        }
+        .ms-ChoiceFieldGroup-flexContainer {
+            display: flex;
+            .ms-ChoiceField-wrapper {
+                padding-right: 10px;
+            }
+        }
+    }
+
     .monaco-editor {
-        height: calc(100vh - 680px);
+        height: calc(100vh - 280px);
+    }
+
+    .collapsible-section {
+        margin-top: 20px;
     }
 }

@@ -19,7 +19,6 @@ import { HeaderView } from '../../../../shared/components/headerView';
 import { DeviceAuthenticationType } from '../../../../api/models/deviceAuthenticationType';
 import { validateThumbprint, validateKey, validateModuleIdentityName } from '../../../../shared/utils/utils';
 import '../../../../css/_deviceDetail.scss';
-import '../../../../css/_moduleIdentity.scss';
 
 export interface AddModuleIdentityDataProps {
     synchronizationStatus: SynchronizationStatus;
@@ -71,10 +70,8 @@ export default class AddModuleIdentityComponent
                             headerText={ResourceKeys.moduleIdentity.headerText}
                         />
                         <div className="device-detail">
-                            <div className="module-identity">
-                                {this.showModuleId(context)}
-                                {this.showAuthentication(context)}
-                            </div>
+                            {this.showModuleId(context)}
+                            {this.showAuthentication(context)}
                         </div>
                     </>
             )}

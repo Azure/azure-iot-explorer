@@ -57,9 +57,7 @@ export class MaskedCopyableTextField extends React.Component<MaskedCopyableTextF
         return (
             <LocalizationContextConsumer>
                 {(context: LocalizationContextInterface) => (
-                    <div className="view-scroll">
-                        {this.renderTextField(context)}
-                    </div>
+                    this.renderTextField(context)
                 )}
             </LocalizationContextConsumer>
         );

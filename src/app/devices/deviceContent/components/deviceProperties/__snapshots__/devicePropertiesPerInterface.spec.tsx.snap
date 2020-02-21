@@ -175,6 +175,7 @@ exports[`devicePropertiesPerInterface matches snapshot 1`] = `
           },
           Object {
             "fieldName": "schema",
+            "isMultiline": true,
             "isResizable": true,
             "key": "schema",
             "maxWidth": 200,
@@ -183,6 +184,7 @@ exports[`devicePropertiesPerInterface matches snapshot 1`] = `
           },
           Object {
             "fieldName": "unit",
+            "isMultiline": true,
             "isResizable": true,
             "key": "unit",
             "maxWidth": 200,
@@ -191,6 +193,7 @@ exports[`devicePropertiesPerInterface matches snapshot 1`] = `
           },
           Object {
             "fieldName": "value",
+            "isMultiline": true,
             "isResizable": true,
             "key": "value",
             "minWidth": 150,

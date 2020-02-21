@@ -63,7 +63,7 @@ export class DeviceContentComponent extends React.PureComponent<DeviceContentPro
                         <Route component={Breadcrumb} />
                     </div>
                     {this.props.deviceId &&
-                        <div className="view-content view-scroll">
+                        <div className="edit-content">
                             <div className="device-content">
                                 <>
                                     {this.renderNav(context)}
