@@ -3,22 +3,25 @@
  * Licensed under the MIT License
  **********************************************************/
 import 'jest';
-import { generateConnectionString, generateX509ConnectionString, getDeviceAuthenticationType } from './deviceIdentityHelper';
+import { generateConnectionString, generateX509ConnectionString, getDeviceAuthenticationType, generateSASTokenConnectionStringForDevice, generateSASTokenConnectionStringForModuleIdentity } from './deviceIdentityHelper';
 import { DeviceIdentity } from '../../../../api/models/deviceIdentity';
 import { DeviceAuthenticationType } from '../../../../api/models/deviceAuthenticationType';
+import * as Utils from '../../../../api/shared/utils';
 
 describe('deviceIdentityHelper', () => {
-    describe('generateConnectionString', () => {
+    context('generateConnectionString', () => {
         it('generates a symmetric key connection string', () => {
             expect(generateConnectionString('test.azure-devices.net', 'testDevice', 'testKey')).toEqual('HostName=test.azure-devices.net;DeviceId=testDevice;SharedAccessKey=testKey');
         });
     });
-    describe('generateX509ConnectionString', () => {
+
+    context('generateX509ConnectionString', () => {
         it('generates a connection string for CA/self-signed certs', () => {
             expect(generateX509ConnectionString('test.azure-devices.net', 'testDevice')).toEqual('HostName=test.azure-devices.net;DeviceId=testDevice;x509=true');
         });
     });
-    describe('getDeviceAuthenticationType', () => {
+
+    context('getDeviceAuthenticationType', () => {
         const testIdentity: DeviceIdentity = {
             authentication: {
                 symmetricKey: {
@@ -61,7 +64,25 @@ describe('deviceIdentityHelper', () => {
             const noneIdentity = { ...testIdentity};
             noneIdentity.authentication.type = '';
             expect(getDeviceAuthenticationType(noneIdentity)).toEqual(DeviceAuthenticationType.None);
-        })
-    })
+        });
+    });
 
-})
+    context('generate SAS token', () => {
+        const hostName = 'testHub.azure-devices.net';
+        const deviceId = 'testDevice';
+        const moduleId = 'testModule';
+        const sasToken = 'sasToken';
+        jest.spyOn(Utils, 'generateSasToken').mockReturnValue(sasToken);
+
+        it('generateSASTokenConnectionStringForDevice', () => {
+            // tslint:disable-next-line:no-magic-numbers
+            expect(generateSASTokenConnectionStringForDevice(hostName, deviceId, 5, '')).toEqual(`HostName=${hostName};DeviceId=${deviceId};SharedAccessSignature=${sasToken}`);
+        });
+
+        it('generateSASTokenConnectionStringForDevice', () => {
+            // tslint:disable-next-line:no-magic-numbers
+            expect(generateSASTokenConnectionStringForModuleIdentity(hostName, deviceId, moduleId, 5, '')).toEqual(`HostName=${hostName};DeviceId=${deviceId};ModuleId=${moduleId};SharedAccessSignature=${sasToken}`);
+        });
+    });
+
+});

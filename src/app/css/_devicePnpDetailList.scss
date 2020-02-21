@@ -23,8 +23,6 @@
 }
 
 .pnp-detail-list {
-    padding-top: 20px;
-    top: 0;
     @include themify($themes) {
         background-color: themed('backgroundColor');
     }
@@ -183,7 +181,7 @@
 }
 
 .scrollable-lg {
-    height: calc(100vh - 300px);
+    height: calc(100vh - 245px);
     overflow-y: auto;
 }
 

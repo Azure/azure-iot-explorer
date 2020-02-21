@@ -78,7 +78,7 @@ exports[`components/devices/deviceInterfaces shows interface information when st
     error="errorBoundary.text"
   >
     <section
-      className="pnp-interface-info"
+      className="pnp-interface-info scrollable-lg"
     >
       <StyledLabelBase
         className="source"
@@ -178,7 +178,7 @@ exports[`components/devices/deviceInterfaces shows interface information when st
     error="errorBoundary.text"
   >
     <section
-      className="pnp-interface-info"
+      className="pnp-interface-info scrollable-lg"
     >
       <StyledLabelBase
         className="source"
@@ -278,7 +278,7 @@ exports[`components/devices/deviceInterfaces shows interface information when st
     error="errorBoundary.text"
   >
     <section
-      className="pnp-interface-info"
+      className="pnp-interface-info scrollable-lg"
     >
       <StyledLabelBase
         className="source"
@@ -378,7 +378,7 @@ exports[`components/devices/deviceInterfaces shows interface information when st
     error="errorBoundary.text"
   >
     <section
-      className="pnp-interface-info"
+      className="pnp-interface-info scrollable-lg"
     >
       <StyledLabelBase
         className="source"

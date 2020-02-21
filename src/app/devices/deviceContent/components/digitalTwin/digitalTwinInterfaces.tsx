@@ -74,7 +74,7 @@ export const DigitalTwinInterfaces: React.FC<DigitalTwinInterfacesProps> = props
         return [
             { fieldName: 'name', isMultiline: true, isResizable: true, key: 'name',
                 maxWidth: LARGE_COLUMN_WIDTH, minWidth: 100, name: t(ResourceKeys.digitalTwin.componentName) },
-            { fieldName: 'id', isResizable: true, key: 'id',
+            { fieldName: 'id', isMultiline: true, isResizable: true, key: 'id',
                 maxWidth: LARGE_COLUMN_WIDTH, minWidth: 100, name: t(ResourceKeys.digitalTwin.interfaceId)}
         ];
     };
@@ -112,7 +112,7 @@ export const DigitalTwinInterfaces: React.FC<DigitalTwinInterfacesProps> = props
                 tooltip={ResourceKeys.settings.questions.questions.documentation.text}
             />
 
-            <section className="device-detail pnp-detail-list scrollable-lg">
+            <section className="device-detail pnp-detail-list">
                 {props.dcm && <Label className="dcm-info">{t(ResourceKeys.digitalTwin.dcm, {modelId: props.dcm })}</Label>}
                 {modelContents.length !== 0 &&
                     <div className="list-detail">

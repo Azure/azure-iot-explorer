@@ -34,53 +34,49 @@ exports[`devices/components/addModuleIdentity snapshot matches snapshot when add
   <div
     className="device-detail"
   >
+    <Connect(MaskedCopyableTextField)
+      allowMask={false}
+      ariaLabel="moduleIdentity.moduleId"
+      error=""
+      label="moduleIdentity.moduleId"
+      labelCallout="moduleIdentity.moduleIdTooltip"
+      onTextChange={[Function]}
+      readOnly={false}
+      required={true}
+      setFocus={true}
+      value=""
+    />
     <div
-      className="module-identity"
+      className="authentication"
     >
-      <Connect(MaskedCopyableTextField)
-        allowMask={false}
-        ariaLabel="moduleIdentity.moduleId"
-        error=""
-        label="moduleIdentity.moduleId"
-        labelCallout="moduleIdentity.moduleIdTooltip"
-        onTextChange={[Function]}
-        readOnly={false}
+      <StyledChoiceGroupBase
+        label="moduleIdentity.authenticationType.text"
+        onChange={[Function]}
+        options={
+          Array [
+            Object {
+              "key": "sas",
+              "text": "moduleIdentity.authenticationType.symmetricKey.type",
+            },
+            Object {
+              "key": "selfSigned",
+              "text": "moduleIdentity.authenticationType.selfSigned.type",
+            },
+            Object {
+              "key": "certificateAuthority",
+              "text": "moduleIdentity.authenticationType.ca.type",
+            },
+          ]
+        }
         required={true}
-        setFocus={true}
-        value=""
+        selectedKey="sas"
       />
-      <div
-        className="authentication"
-      >
-        <StyledChoiceGroupBase
-          label="moduleIdentity.authenticationType.text"
-          onChange={[Function]}
-          options={
-            Array [
-              Object {
-                "key": "sas",
-                "text": "moduleIdentity.authenticationType.symmetricKey.type",
-              },
-              Object {
-                "key": "selfSigned",
-                "text": "moduleIdentity.authenticationType.selfSigned.type",
-              },
-              Object {
-                "key": "certificateAuthority",
-                "text": "moduleIdentity.authenticationType.ca.type",
-              },
-            ]
-          }
-          required={true}
-          selectedKey="sas"
-        />
-        <StyledCheckboxBase
-          checked={true}
-          className="autoGenerateButton"
-          label="moduleIdentity.authenticationType.symmetricKey.autoGenerate"
-          onChange={[Function]}
-        />
-      </div>
+      <StyledCheckboxBase
+        checked={true}
+        className="autoGenerateButton"
+        label="moduleIdentity.authenticationType.symmetricKey.autoGenerate"
+        onChange={[Function]}
+      />
     </div>
   </div>
 </Fragment>
@@ -120,53 +116,49 @@ exports[`devices/components/addModuleIdentity snapshot matches snapshot while lo
   <div
     className="device-detail"
   >
+    <Connect(MaskedCopyableTextField)
+      allowMask={false}
+      ariaLabel="moduleIdentity.moduleId"
+      error=""
+      label="moduleIdentity.moduleId"
+      labelCallout="moduleIdentity.moduleIdTooltip"
+      onTextChange={[Function]}
+      readOnly={false}
+      required={true}
+      setFocus={true}
+      value=""
+    />
     <div
-      className="module-identity"
+      className="authentication"
     >
-      <Connect(MaskedCopyableTextField)
-        allowMask={false}
-        ariaLabel="moduleIdentity.moduleId"
-        error=""
-        label="moduleIdentity.moduleId"
-        labelCallout="moduleIdentity.moduleIdTooltip"
-        onTextChange={[Function]}
-        readOnly={false}
+      <StyledChoiceGroupBase
+        label="moduleIdentity.authenticationType.text"
+        onChange={[Function]}
+        options={
+          Array [
+            Object {
+              "key": "sas",
+              "text": "moduleIdentity.authenticationType.symmetricKey.type",
+            },
+            Object {
+              "key": "selfSigned",
+              "text": "moduleIdentity.authenticationType.selfSigned.type",
+            },
+            Object {
+              "key": "certificateAuthority",
+              "text": "moduleIdentity.authenticationType.ca.type",
+            },
+          ]
+        }
         required={true}
-        setFocus={true}
-        value=""
+        selectedKey="sas"
       />
-      <div
-        className="authentication"
-      >
-        <StyledChoiceGroupBase
-          label="moduleIdentity.authenticationType.text"
-          onChange={[Function]}
-          options={
-            Array [
-              Object {
-                "key": "sas",
-                "text": "moduleIdentity.authenticationType.symmetricKey.type",
-              },
-              Object {
-                "key": "selfSigned",
-                "text": "moduleIdentity.authenticationType.selfSigned.type",
-              },
-              Object {
-                "key": "certificateAuthority",
-                "text": "moduleIdentity.authenticationType.ca.type",
-              },
-            ]
-          }
-          required={true}
-          selectedKey="sas"
-        />
-        <StyledCheckboxBase
-          checked={true}
-          className="autoGenerateButton"
-          label="moduleIdentity.authenticationType.symmetricKey.autoGenerate"
-          onChange={[Function]}
-        />
-      </div>
+      <StyledCheckboxBase
+        checked={true}
+        className="autoGenerateButton"
+        label="moduleIdentity.authenticationType.symmetricKey.autoGenerate"
+        onChange={[Function]}
+      />
     </div>
   </div>
 </Fragment>

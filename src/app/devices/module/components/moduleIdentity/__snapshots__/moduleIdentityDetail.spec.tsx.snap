@@ -1,250 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after module identity is fetched 1`] = `
-<Fragment>
-  <StyledCommandBarBase
-    className="command"
-    farItems={
-      Array [
-        Object {
-          "ariaLabel": "moduleIdentity.detail.command.back",
-          "iconProps": Object {
-            "iconName": "NavigateBack",
-          },
-          "key": "NavigateBack",
-          "name": "moduleIdentity.detail.command.back",
-          "onClick": [Function],
-        },
-      ]
-    }
-    items={
-      Array [
-        Object {
-          "ariaLabel": "moduleIdentity.detail.command.refresh",
-          "disabled": true,
-          "iconProps": Object {
-            "iconName": "Refresh",
-          },
-          "key": "Refresh",
-          "name": "moduleIdentity.detail.command.refresh",
-          "onClick": [Function],
-        },
-        Object {
-          "ariaLabel": "moduleIdentity.detail.command.delete",
-          "disabled": true,
-          "iconProps": Object {
-            "iconName": "Delete",
-          },
-          "key": "Delete",
-          "name": "moduleIdentity.detail.command.delete",
-          "onClick": [Function],
-        },
-      ]
-    }
-  />
-  <Component
-    headerText="moduleIdentity.detail.headerText"
-  />
-  <div
-    className="device-detail"
-  >
-    <div
-      className="module-identity"
-    >
-      <Connect(MaskedCopyableTextField)
-        allowMask={false}
-        ariaLabel="moduleIdentity.moduleId"
-        label="moduleIdentity.moduleId"
-        labelCallout="moduleIdentity.moduleIdTooltip"
-        readOnly={true}
-        value={null}
-      />
-      <Component />
-    </div>
-  </div>
-</Fragment>
-`;
-
-exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after module identity is fetched 2`] = `
-<Fragment>
-  <StyledCommandBarBase
-    className="command"
-    farItems={
-      Array [
-        Object {
-          "ariaLabel": "moduleIdentity.detail.command.back",
-          "iconProps": Object {
-            "iconName": "NavigateBack",
-          },
-          "key": "NavigateBack",
-          "name": "moduleIdentity.detail.command.back",
-          "onClick": [Function],
-        },
-      ]
-    }
-    items={
-      Array [
-        Object {
-          "ariaLabel": "moduleIdentity.detail.command.refresh",
-          "disabled": true,
-          "iconProps": Object {
-            "iconName": "Refresh",
-          },
-          "key": "Refresh",
-          "name": "moduleIdentity.detail.command.refresh",
-          "onClick": [Function],
-        },
-        Object {
-          "ariaLabel": "moduleIdentity.detail.command.delete",
-          "disabled": true,
-          "iconProps": Object {
-            "iconName": "Delete",
-          },
-          "key": "Delete",
-          "name": "moduleIdentity.detail.command.delete",
-          "onClick": [Function],
-        },
-      ]
-    }
-  />
-  <Component
-    headerText="moduleIdentity.detail.headerText"
-  />
-  <div
-    className="device-detail"
-  >
-    <div
-      className="module-identity"
-    >
-      <Connect(MaskedCopyableTextField)
-        allowMask={false}
-        ariaLabel="moduleIdentity.moduleId"
-        label="moduleIdentity.moduleId"
-        labelCallout="moduleIdentity.moduleIdTooltip"
-        readOnly={true}
-        value={null}
-      />
-      <Connect(MaskedCopyableTextField)
-        allowMask={true}
-        ariaLabel="moduleIdentity.authenticationType.symmetricKey.primaryKey"
-        label="moduleIdentity.authenticationType.symmetricKey.primaryKey"
-        labelCallout="moduleIdentity.authenticationType.symmetricKey.primaryKeyTooltip"
-        readOnly={true}
-        value="key1"
-      />
-      <Connect(MaskedCopyableTextField)
-        allowMask={true}
-        ariaLabel="moduleIdentity.authenticationType.symmetricKey.secondaryKey"
-        label="moduleIdentity.authenticationType.symmetricKey.secondaryKey"
-        labelCallout="moduleIdentity.authenticationType.symmetricKey.secondaryKeyTooltip"
-        readOnly={true}
-        value="key2"
-      />
-      <Connect(MaskedCopyableTextField)
-        allowMask={true}
-        ariaLabel="moduleIdentity.authenticationType.symmetricKey.primaryConnectionString"
-        label="moduleIdentity.authenticationType.symmetricKey.primaryConnectionString"
-        readOnly={true}
-        value="HostName=testhub.azure-devices.net;DeviceId=null;ModuleId=null;SharedAccessKey=key1"
-      />
-      <Connect(MaskedCopyableTextField)
-        allowMask={true}
-        ariaLabel="moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString"
-        label="moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString"
-        readOnly={true}
-        value="HostName=testhub.azure-devices.net;DeviceId=null;ModuleId=null;SharedAccessKey=key2"
-      />
-      <Component />
-    </div>
-  </div>
-</Fragment>
-`;
-
-exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after module identity is fetched 3`] = `
-<Fragment>
-  <StyledCommandBarBase
-    className="command"
-    farItems={
-      Array [
-        Object {
-          "ariaLabel": "moduleIdentity.detail.command.back",
-          "iconProps": Object {
-            "iconName": "NavigateBack",
-          },
-          "key": "NavigateBack",
-          "name": "moduleIdentity.detail.command.back",
-          "onClick": [Function],
-        },
-      ]
-    }
-    items={
-      Array [
-        Object {
-          "ariaLabel": "moduleIdentity.detail.command.refresh",
-          "disabled": true,
-          "iconProps": Object {
-            "iconName": "Refresh",
-          },
-          "key": "Refresh",
-          "name": "moduleIdentity.detail.command.refresh",
-          "onClick": [Function],
-        },
-        Object {
-          "ariaLabel": "moduleIdentity.detail.command.delete",
-          "disabled": true,
-          "iconProps": Object {
-            "iconName": "Delete",
-          },
-          "key": "Delete",
-          "name": "moduleIdentity.detail.command.delete",
-          "onClick": [Function],
-        },
-      ]
-    }
-  />
-  <Component
-    headerText="moduleIdentity.detail.headerText"
-  />
-  <div
-    className="device-detail"
-  >
-    <div
-      className="module-identity"
-    >
-      <Connect(MaskedCopyableTextField)
-        allowMask={false}
-        ariaLabel="moduleIdentity.moduleId"
-        label="moduleIdentity.moduleId"
-        labelCallout="moduleIdentity.moduleIdTooltip"
-        readOnly={true}
-        value={null}
-      />
-      <StyledLabelBase>
-        moduleIdentity.authenticationType.selfSigned.text
-      </StyledLabelBase>
-      <Connect(MaskedCopyableTextField)
-        allowMask={true}
-        ariaLabel="moduleIdentity.authenticationType.selfSigned.primaryThumbprint"
-        label="moduleIdentity.authenticationType.selfSigned.primaryThumbprint"
-        labelCallout="moduleIdentity.authenticationType.selfSigned.primaryThumbprintTooltip"
-        readOnly={true}
-        value="thumbprint1"
-      />
-      <Connect(MaskedCopyableTextField)
-        allowMask={true}
-        ariaLabel="moduleIdentity.authenticationType.selfSigned.secondaryThumbprint"
-        label="moduleIdentity.authenticationType.selfSigned.secondaryThumbprint"
-        labelCallout="moduleIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip"
-        readOnly={true}
-        value="thumbprint2"
-      />
-      <Component />
-    </div>
-  </div>
-</Fragment>
-`;
-
-exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after module identity is fetched 4`] = `
+exports[`devices/components/moduleIdentityDetail snapshot matches snapshot after module identity is fetched 1`] = `
 <Fragment>
   <StyledCommandBarBase
     className="command"
@@ -286,51 +42,274 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
       ]
     }
   />
-  <Component
-    headerText="moduleIdentity.detail.headerText"
+  <Route
+    component={[Function]}
   />
   <div
-    className="device-detail"
+    className="module-identity-detail"
   >
-    <div
-      className="module-identity"
-    >
-      <Connect(MaskedCopyableTextField)
-        allowMask={false}
-        ariaLabel="moduleIdentity.moduleId"
-        label="moduleIdentity.moduleId"
-        labelCallout="moduleIdentity.moduleIdTooltip"
-        readOnly={true}
-        value={null}
-      />
-      <StyledLabelBase>
-        moduleIdentity.authenticationType.ca.text
-      </StyledLabelBase>
-      <StyledLabelBase>
-        moduleIdentity.detail.twin
-      </StyledLabelBase>
-      <div
-        className="monaco-editor"
-      >
-        <Suspense
-          fallback={
-            <StyledSpinnerBase
-              size={3}
-              title="loading"
-            />
-          }
-        >
-          <ContextConsumer>
-            <Component />
-          </ContextConsumer>
-        </Suspense>
-      </div>
-    </div>
+    <Connect(MaskedCopyableTextField)
+      allowMask={false}
+      ariaLabel="moduleIdentity.moduleId"
+      label="moduleIdentity.moduleId"
+      labelCallout="moduleIdentity.moduleIdTooltip"
+      readOnly={true}
+      value={null}
+    />
   </div>
 </Fragment>
 `;
 
-exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after module twin is fetched 1`] = `
+exports[`devices/components/moduleIdentityDetail snapshot matches snapshot after module identity is fetched 2`] = `
+<Fragment>
+  <StyledCommandBarBase
+    className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.back",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "moduleIdentity.detail.command.back",
+          "onClick": [Function],
+        },
+      ]
+    }
+    items={
+      Array [
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.refresh",
+          "disabled": false,
+          "iconProps": Object {
+            "iconName": "Refresh",
+          },
+          "key": "Refresh",
+          "name": "moduleIdentity.detail.command.refresh",
+          "onClick": [Function],
+        },
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.delete",
+          "disabled": false,
+          "iconProps": Object {
+            "iconName": "Delete",
+          },
+          "key": "Delete",
+          "name": "moduleIdentity.detail.command.delete",
+          "onClick": [Function],
+        },
+      ]
+    }
+  />
+  <Route
+    component={[Function]}
+  />
+  <div
+    className="module-identity-detail"
+  >
+    <Connect(MaskedCopyableTextField)
+      allowMask={false}
+      ariaLabel="moduleIdentity.moduleId"
+      label="moduleIdentity.moduleId"
+      labelCallout="moduleIdentity.moduleIdTooltip"
+      readOnly={true}
+      value={null}
+    />
+    <Connect(MaskedCopyableTextField)
+      allowMask={true}
+      ariaLabel="moduleIdentity.authenticationType.symmetricKey.primaryKey"
+      label="moduleIdentity.authenticationType.symmetricKey.primaryKey"
+      labelCallout="moduleIdentity.authenticationType.symmetricKey.primaryKeyTooltip"
+      readOnly={true}
+      value="key1"
+    />
+    <Connect(MaskedCopyableTextField)
+      allowMask={true}
+      ariaLabel="moduleIdentity.authenticationType.symmetricKey.secondaryKey"
+      label="moduleIdentity.authenticationType.symmetricKey.secondaryKey"
+      labelCallout="moduleIdentity.authenticationType.symmetricKey.secondaryKeyTooltip"
+      readOnly={true}
+      value="key2"
+    />
+    <Connect(MaskedCopyableTextField)
+      allowMask={true}
+      ariaLabel="moduleIdentity.authenticationType.symmetricKey.primaryConnectionString"
+      label="moduleIdentity.authenticationType.symmetricKey.primaryConnectionString"
+      readOnly={true}
+      value="HostName=testhub.azure-devices.net;DeviceId=null;ModuleId=null;SharedAccessKey=key1"
+    />
+    <Connect(MaskedCopyableTextField)
+      allowMask={true}
+      ariaLabel="moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString"
+      label="moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString"
+      readOnly={true}
+      value="HostName=testhub.azure-devices.net;DeviceId=null;ModuleId=null;SharedAccessKey=key2"
+    />
+    <SasTokenGenerationView
+      activeAzureResourceHostName="testhub.azure-devices.net"
+      moduleIdentity={
+        Object {
+          "authentication": Object {
+            "symmetricKey": Object {
+              "primaryKey": "key1",
+              "secondaryKey": "key2",
+            },
+            "type": "sas",
+            "x509Thumbprint": null,
+          },
+          "deviceId": "deviceId",
+          "moduleId": "moduleId",
+        }
+      }
+    />
+  </div>
+</Fragment>
+`;
+
+exports[`devices/components/moduleIdentityDetail snapshot matches snapshot after module identity is fetched 3`] = `
+<Fragment>
+  <StyledCommandBarBase
+    className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.back",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "moduleIdentity.detail.command.back",
+          "onClick": [Function],
+        },
+      ]
+    }
+    items={
+      Array [
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.refresh",
+          "disabled": false,
+          "iconProps": Object {
+            "iconName": "Refresh",
+          },
+          "key": "Refresh",
+          "name": "moduleIdentity.detail.command.refresh",
+          "onClick": [Function],
+        },
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.delete",
+          "disabled": false,
+          "iconProps": Object {
+            "iconName": "Delete",
+          },
+          "key": "Delete",
+          "name": "moduleIdentity.detail.command.delete",
+          "onClick": [Function],
+        },
+      ]
+    }
+  />
+  <Route
+    component={[Function]}
+  />
+  <div
+    className="module-identity-detail"
+  >
+    <Connect(MaskedCopyableTextField)
+      allowMask={false}
+      ariaLabel="moduleIdentity.moduleId"
+      label="moduleIdentity.moduleId"
+      labelCallout="moduleIdentity.moduleIdTooltip"
+      readOnly={true}
+      value={null}
+    />
+    <StyledLabelBase>
+      moduleIdentity.authenticationType.selfSigned.text
+    </StyledLabelBase>
+    <Connect(MaskedCopyableTextField)
+      allowMask={true}
+      ariaLabel="moduleIdentity.authenticationType.selfSigned.primaryThumbprint"
+      label="moduleIdentity.authenticationType.selfSigned.primaryThumbprint"
+      labelCallout="moduleIdentity.authenticationType.selfSigned.primaryThumbprintTooltip"
+      readOnly={true}
+      value="thumbprint1"
+    />
+    <Connect(MaskedCopyableTextField)
+      allowMask={true}
+      ariaLabel="moduleIdentity.authenticationType.selfSigned.secondaryThumbprint"
+      label="moduleIdentity.authenticationType.selfSigned.secondaryThumbprint"
+      labelCallout="moduleIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip"
+      readOnly={true}
+      value="thumbprint2"
+    />
+  </div>
+</Fragment>
+`;
+
+exports[`devices/components/moduleIdentityDetail snapshot matches snapshot after module identity is fetched 4`] = `
+<Fragment>
+  <StyledCommandBarBase
+    className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.back",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "moduleIdentity.detail.command.back",
+          "onClick": [Function],
+        },
+      ]
+    }
+    items={
+      Array [
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.refresh",
+          "disabled": false,
+          "iconProps": Object {
+            "iconName": "Refresh",
+          },
+          "key": "Refresh",
+          "name": "moduleIdentity.detail.command.refresh",
+          "onClick": [Function],
+        },
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.delete",
+          "disabled": false,
+          "iconProps": Object {
+            "iconName": "Delete",
+          },
+          "key": "Delete",
+          "name": "moduleIdentity.detail.command.delete",
+          "onClick": [Function],
+        },
+      ]
+    }
+  />
+  <Route
+    component={[Function]}
+  />
+  <div
+    className="module-identity-detail"
+  >
+    <Connect(MaskedCopyableTextField)
+      allowMask={false}
+      ariaLabel="moduleIdentity.moduleId"
+      label="moduleIdentity.moduleId"
+      labelCallout="moduleIdentity.moduleIdTooltip"
+      readOnly={true}
+      value={null}
+    />
+    <StyledLabelBase>
+      moduleIdentity.authenticationType.ca.text
+    </StyledLabelBase>
+  </div>
+</Fragment>
+`;
+
+exports[`devices/components/moduleIdentityDetail snapshot matches snapshot while loading 1`] = `
 <Fragment>
   <StyledCommandBarBase
     className="command"
@@ -372,110 +351,21 @@ exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot after
       ]
     }
   />
-  <Component
-    headerText="moduleIdentity.detail.headerText"
+  <Route
+    component={[Function]}
   />
   <div
-    className="device-detail"
+    className="module-identity-detail"
   >
-    <div
-      className="module-identity"
-    >
-      <Connect(MaskedCopyableTextField)
-        allowMask={false}
-        ariaLabel="moduleIdentity.moduleId"
-        label="moduleIdentity.moduleId"
-        labelCallout="moduleIdentity.moduleIdTooltip"
-        readOnly={true}
-        value={null}
-      />
-      <Component />
-      <StyledLabelBase>
-        moduleIdentity.detail.twin
-      </StyledLabelBase>
-      <div
-        className="monaco-editor"
-      >
-        <Suspense
-          fallback={
-            <StyledSpinnerBase
-              size={3}
-              title="loading"
-            />
-          }
-        >
-          <ContextConsumer>
-            <Component />
-          </ContextConsumer>
-        </Suspense>
-      </div>
-    </div>
-  </div>
-</Fragment>
-`;
-
-exports[`devices/components/moduleIdentityRoutes snapshot matches snapshot while loading 1`] = `
-<Fragment>
-  <StyledCommandBarBase
-    className="command"
-    farItems={
-      Array [
-        Object {
-          "ariaLabel": "moduleIdentity.detail.command.back",
-          "iconProps": Object {
-            "iconName": "NavigateBack",
-          },
-          "key": "NavigateBack",
-          "name": "moduleIdentity.detail.command.back",
-          "onClick": [Function],
-        },
-      ]
-    }
-    items={
-      Array [
-        Object {
-          "ariaLabel": "moduleIdentity.detail.command.refresh",
-          "disabled": true,
-          "iconProps": Object {
-            "iconName": "Refresh",
-          },
-          "key": "Refresh",
-          "name": "moduleIdentity.detail.command.refresh",
-          "onClick": [Function],
-        },
-        Object {
-          "ariaLabel": "moduleIdentity.detail.command.delete",
-          "disabled": true,
-          "iconProps": Object {
-            "iconName": "Delete",
-          },
-          "key": "Delete",
-          "name": "moduleIdentity.detail.command.delete",
-          "onClick": [Function],
-        },
-      ]
-    }
-  />
-  <Component
-    headerText="moduleIdentity.detail.headerText"
-  />
-  <div
-    className="device-detail"
-  >
-    <div
-      className="module-identity"
-    >
-      <Connect(MaskedCopyableTextField)
-        allowMask={false}
-        ariaLabel="moduleIdentity.moduleId"
-        label="moduleIdentity.moduleId"
-        labelCallout="moduleIdentity.moduleIdTooltip"
-        readOnly={true}
-        value={null}
-      />
-      <Component />
-      <Component />
-    </div>
+    <Connect(MaskedCopyableTextField)
+      allowMask={false}
+      ariaLabel="moduleIdentity.moduleId"
+      label="moduleIdentity.moduleId"
+      labelCallout="moduleIdentity.moduleIdTooltip"
+      readOnly={true}
+      value={null}
+    />
+    <Component />
   </div>
 </Fragment>
 `;
