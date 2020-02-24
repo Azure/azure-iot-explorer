@@ -112,7 +112,7 @@ export const DigitalTwinInterfaces: React.FC<DigitalTwinInterfacesProps> = props
                 tooltip={ResourceKeys.settings.questions.questions.documentation.text}
             />
 
-            <section className="device-detail pnp-detail-list">
+            <section className="device-detail">
                 {props.dcm && <Label className="dcm-info">{t(ResourceKeys.digitalTwin.dcm, {modelId: props.dcm })}</Label>}
                 {modelContents.length !== 0 &&
                     <div className="list-detail">

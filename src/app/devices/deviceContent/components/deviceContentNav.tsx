@@ -43,25 +43,21 @@ export default class DeviceContentNavComponent extends React.Component<DeviceCon
         const url = this.props.match.url;
 
         const navItems = isEdgeDevice ? NAV_LINK_ITEMS : NAV_LINK_ITEMS_NONEDGE;
-        let navLinks = navItems.map((nav: string) => ({
+        const navLinks = navItems.map((nav: string) => ({
             key: nav,
             name: context.t((ResourceKeys.deviceContent.navBar as any)[nav]), // tslint:disable-line:no-any
             url: `#${url}/${nav}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`
         }));
 
-        const groups: INavLinkGroup[] = [];
-
         if (!isEdgeDevice && isPnPDevice) {
-            navLinks = [...navLinks, {
+            navLinks.push({
                 key: NAV_LINK_ITEM_PNP,
                 name: context.t((ResourceKeys.deviceContent.navBar as any)[NAV_LINK_ITEM_PNP]), // tslint:disable-line:no-any
                 url: `#${url}/${NAV_LINK_ITEM_PNP}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`
-            }];
+            });
         }
 
-        groups.push({
-            links: navLinks,
-        });
+        const groups: INavLinkGroup[] = [{ links: navLinks }];
 
         return (
             <div role="navigation">
