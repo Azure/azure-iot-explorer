@@ -22,7 +22,7 @@ export const DigitalTwinHeaderView: React.FC<RouteComponentProps> = props => {
 
     const pivotItems = NAV_LINK_ITEMS_PNP.map(nav =>  {
         const text = t((ResourceKeys.deviceContent.navBar as any)[nav]); // tslint:disable-line:no-any
-        const path = props.match.url.replace(/\/digitalTwinsDetail\/.*/, `/${ROUTE_PARTS.DIGITAL_TWINS_DETAIL}`);
+        const path = props.match.url.replace(/\/ioTPlugAndPlayDetail\/.*/, `/${ROUTE_PARTS.DIGITAL_TWINS_DETAIL}`);
         const url = `#${path}/${nav}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}&${ROUTE_PARAMS.COMPONENT_NAME}=${componentName}&${ROUTE_PARAMS.INTERFACE_ID}=${interfaceId}`;
         const isCurrentPivot = props.match.url.indexOf(nav) > 0;
         return (

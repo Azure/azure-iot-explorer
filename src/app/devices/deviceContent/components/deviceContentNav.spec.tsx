@@ -64,7 +64,6 @@ describe('components/devices/deviceContentNav', () => {
         const wrapper = mountWithLocalization(getComponent({isPnPDevice: true, isEdgeDevice: false}));
 
         const navigation = wrapper.find(Nav);
-        expect(navigation.props().groups[0].links.length).toEqual(NAV_LINK_ITEMS_NONEDGE.length);
-        expect(navigation.props().groups[1].links.length).toEqual(1);
+        expect(navigation.props().groups[0].links.length).toEqual(NAV_LINK_ITEMS_NONEDGE.length + 1);
     });
 });

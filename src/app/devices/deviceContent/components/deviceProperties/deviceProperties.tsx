@@ -93,7 +93,7 @@ export default class DeviceProperties
     }
 
     private readonly handleClose = () => {
-        const path = this.props.match.url.replace(/\/digitalTwinsDetail\/properties\/.*/, ``);
+        const path = this.props.match.url.replace(/\/ioTPlugAndPlayDetail\/properties\/.*/, ``);
         const deviceId = getDeviceIdFromQueryString(this.props);
         this.props.history.push(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
     }

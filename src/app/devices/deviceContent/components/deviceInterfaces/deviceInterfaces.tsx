@@ -190,7 +190,7 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
     }
 
     private readonly handleClose = () => {
-        const path = this.props.match.url.replace(/\/digitalTwinsDetail\/interfaces\/.*/, ``);
+        const path = this.props.match.url.replace(/\/ioTPlugAndPlayDetail\/interfaces\/.*/, ``);
         const deviceId = getDeviceIdFromQueryString(this.props);
         this.props.history.push(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
     }

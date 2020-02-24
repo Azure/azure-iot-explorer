@@ -45,7 +45,7 @@ describe('components/devices/deviceSettings', () => {
         setComponentName: jest.fn()
     };
 
-    const pathname = `/#/devices/detail/digitalTwins/settings/?id=device1&interfaceId=${interfaceId}`;
+    const pathname = `/#/devices/deviceDetail/ioTPlugAndPlay/ioTPlugAndPlayDetail/settings/?id=device1&componentName=foo&interfaceId=${interfaceId}`;
 
     const location: any = { // tslint:disable-line:no-any
         pathname

@@ -92,7 +92,7 @@ exports[`components/devices/deviceCommands matches snapshot with a commandSchema
     history={
       Object {
         "location": Object {
-          "pathname": "/#/devices/detail/digitalTwins/commands/?id=device1&interfaceId=urn:iotInterfaces:com:interface1:1",
+          "pathname": "/#/devices/deviceDetail/ioTPlugAndPlay/ioTPlugAndPlayDetail/commands/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1",
         },
       }
     }
@@ -100,7 +100,7 @@ exports[`components/devices/deviceCommands matches snapshot with a commandSchema
     isLoading={false}
     location={
       Object {
-        "pathname": "/#/devices/detail/digitalTwins/commands/?id=device1&interfaceId=urn:iotInterfaces:com:interface1:1",
+        "pathname": "/#/devices/deviceDetail/ioTPlugAndPlay/ioTPlugAndPlayDetail/commands/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1",
       }
     }
     match={Object {}}

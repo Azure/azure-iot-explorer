@@ -598,7 +598,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
     }
 
     private readonly handleClose = () => {
-        const path = this.props.match.url.replace(/\/digitalTwinsDetail\/events\/.*/, ``);
+        const path = this.props.match.url.replace(/\/ioTPlugAndPlayDetail\/events\/.*/, ``);
         const deviceId = getDeviceIdFromQueryString(this.props);
         this.props.history.push(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
     }

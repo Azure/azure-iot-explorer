@@ -35,11 +35,9 @@ exports[`components/devices/deviceContentNav matches snapshot when there device 
               "url": "#undefined/cloudToDeviceMessage/?deviceId=test",
             },
           ],
-          "name": "deviceContent.navBar.nonpnp",
         },
       ]
     }
-    onRenderGroupHeader={[Function]}
   />
 </div>
 `;

@@ -17,7 +17,7 @@ describe('login/components/connectivityPane', () => {
         },
         location,
         match: {
-            url: 'resources/TestHub.azure-devices.net/devices/deviceDetail/digitalTwins/'
+            url: 'resources/TestHub.azure-devices.net/devices/deviceDetail/ioTPlugAndPlay/?deviceId=testDevice'
         }
     };
 

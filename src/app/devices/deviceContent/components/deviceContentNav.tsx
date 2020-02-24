@@ -5,7 +5,6 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { Nav, INavLinkGroup } from 'office-ui-fabric-react/lib/Nav';
-import { Label } from 'office-ui-fabric-react/lib/Label';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
@@ -44,41 +43,32 @@ export default class DeviceContentNavComponent extends React.Component<DeviceCon
         const url = this.props.match.url;
 
         const navItems = isEdgeDevice ? NAV_LINK_ITEMS : NAV_LINK_ITEMS_NONEDGE;
-        const nonPnpNavLinks = navItems.map((nav: string) => ({
+        let navLinks = navItems.map((nav: string) => ({
             key: nav,
             name: context.t((ResourceKeys.deviceContent.navBar as any)[nav]), // tslint:disable-line:no-any
             url: `#${url}/${nav}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`
         }));
 
         const groups: INavLinkGroup[] = [];
-        groups.push({
-            links: nonPnpNavLinks,
-            name: context.t(ResourceKeys.deviceContent.navBar.nonpnp)
-        });
 
         if (!isEdgeDevice && isPnPDevice) {
-            const pnpNavLinks = [{
+            navLinks = [...navLinks, {
                 key: NAV_LINK_ITEM_PNP,
                 name: context.t((ResourceKeys.deviceContent.navBar as any)[NAV_LINK_ITEM_PNP]), // tslint:disable-line:no-any
                 url: `#${url}/${NAV_LINK_ITEM_PNP}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`
             }];
-            groups.push({
-                links: pnpNavLinks,
-                name: context.t(ResourceKeys.deviceContent.navBar.pnp),
-            });
         }
+
+        groups.push({
+            links: navLinks,
+        });
 
         return (
             <div role="navigation">
                 <Nav
-                    onRenderGroupHeader={this.onRenderGroupHeader}
                     groups={groups}
                 />
             </div>
         );
-    }
-
-    private readonly onRenderGroupHeader = (group: INavLinkGroup) => {
-        return <Label className="nav-label">{group.name}</Label>;
     }
 }

@@ -106,7 +106,7 @@ export default class DeviceSettings
     }
 
     private readonly handleClose = () => {
-        const path = this.props.match.url.replace(/\/digitalTwinsDetail\/settings\/.*/, ``);
+        const path = this.props.match.url.replace(/\/ioTPlugAndPlayDetail\/settings\/.*/, ``);
         const deviceId = getDeviceIdFromQueryString(this.props);
         this.props.history.push(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
     }
