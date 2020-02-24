@@ -43,7 +43,7 @@ stages:
       displayName: "Package for MacOS"
 
       pool:
-        vmImage: 'macos-10.13'
+        vmImage: 'macOS-10.14'
 
       steps:
       - task: NodeTool@0
