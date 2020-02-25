@@ -9,7 +9,7 @@ import { AnyAction } from 'typescript-fsa';
 import { StateType } from '../../../../shared/redux/state';
 import DeviceProperties, { DevicePropertiesDataProps, DevicePropertiesDispatchProps } from './deviceProperties';
 import { getDevicePropertyTupleSelector } from './selectors';
-import { setInterfaceIdAction, getDigitalTwinInterfacePropertiesAction, getModelDefinitionAction } from '../../actions';
+import { setComponentNameAction, getDigitalTwinInterfacePropertiesAction, getModelDefinitionAction } from '../../actions';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { getModelDefinitionSyncStatusSelector, getDigitalTwinInterfacePropertiesStateSelector } from '../../selectors';
 
@@ -27,7 +27,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DevicePropertiesDisp
             dispatch(getDigitalTwinInterfacePropertiesAction.started(deviceId));
             dispatch(getModelDefinitionAction.started({digitalTwinId: deviceId, interfaceId}));
         },
-        setInterfaceId: (id: string) => dispatch(setInterfaceIdAction(id))
+        setComponentName: (id: string) => dispatch(setComponentNameAction(id))
     };
 };
 

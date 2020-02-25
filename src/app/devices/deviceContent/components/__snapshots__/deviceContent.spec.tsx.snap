@@ -12,7 +12,7 @@ exports[`deviceContent matches snapshot 1`] = `
     />
   </div>
   <div
-    className="view-content view-scroll"
+    className="edit-content"
   >
     <div
       className="device-content"
@@ -79,7 +79,6 @@ exports[`deviceContent matches snapshot 1`] = `
                 }
               }
               identityWrapper={null}
-              interfaceId="testInterfaceId"
               interfaceIds={Array []}
               isEdgeDevice={null}
               isLoading={false}
@@ -90,8 +89,7 @@ exports[`deviceContent matches snapshot 1`] = `
                 }
               }
               match={Object {}}
-              selectedInterface="testInterfaceId"
-              setInterfaceId={[MockFunction]}
+              setComponentName={[MockFunction]}
             />
           </div>
         </nav>
@@ -133,7 +131,12 @@ exports[`deviceContent matches snapshot 1`] = `
         />
         <Route
           component={[Function]}
-          path="undefined/digitalTwins/"
+          exact={true}
+          path="undefined/ioTPlugAndPlay/"
+        />
+        <Route
+          component={[Function]}
+          path="undefined/ioTPlugAndPlay/ioTPlugAndPlayDetail/"
         />
       </div>
     </div>

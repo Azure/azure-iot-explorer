@@ -4,20 +4,21 @@
  **********************************************************/
 import { connect } from 'react-redux';
 import { compose, Dispatch } from 'redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { AnyAction } from 'typescript-fsa';
 import { StateType } from '../../../../shared/redux/state';
 import DeviceEventsPerInterfaceComponent, { DeviceEventsDataProps, DeviceEventsDispatchProps } from './deviceEventsPerInterface';
 import { getDeviceTelemetrySelector } from './selectors';
-import { getModelDefinitionSyncStatusSelector, getInterfaceNameSelector } from '../../selectors';
+import { getModelDefinitionSyncStatusSelector } from '../../selectors';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
-import { setInterfaceIdAction, getModelDefinitionAction } from '../../actions';
+import { setComponentNameAction, getModelDefinitionAction } from '../../actions';
 import { getActiveAzureResourceConnectionStringSelector } from '../../../../azureResource/selectors';
+import { getComponentNameFromQueryString } from '../../../../shared/utils/queryStringHelper';
 
-const mapStateToProps = (state: StateType): DeviceEventsDataProps => {
+const mapStateToProps = (state: StateType, ownProps: RouteComponentProps): DeviceEventsDataProps => {
     return {
+        componentName: getComponentNameFromQueryString(ownProps),
         connectionString: getActiveAzureResourceConnectionStringSelector(state),
-        interfaceName: getInterfaceNameSelector(state),
         isLoading: getModelDefinitionSyncStatusSelector(state) === SynchronizationStatus.working,
         telemetrySchema: getDeviceTelemetrySelector(state)
     };
@@ -26,7 +27,7 @@ const mapStateToProps = (state: StateType): DeviceEventsDataProps => {
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DeviceEventsDispatchProps => {
     return {
         refresh: (deviceId: string, interfaceId: string) => dispatch(getModelDefinitionAction.started({digitalTwinId: deviceId, interfaceId})),
-        setInterfaceId: (id: string) => dispatch(setInterfaceIdAction(id))
+        setComponentName: (id: string) => dispatch(setComponentNameAction(id))
     };
 };
 

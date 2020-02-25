@@ -110,7 +110,8 @@
         "interfaces": "Interface",
         "properties": "Properties (non-writable)",
         "settings": "Properties (writable)",
-        "commands": "Commands"
+        "commands": "Commands",
+        "ioTPlugAndPlay": "IoT Plug and Play components"
     },
     "deviceContent": {
         "start": "Select a device to start",
@@ -125,13 +126,16 @@
             "eventsPerInterface": "Telemetry",
             "methods": "Direct method",
             "cloudToDeviceMessage": "Cloud-to-device message",
-            "pnp": "DIGITAL TWIN",
+            "pnp": "IoT Plug and Play (preview)",
+            "ioTPlugAndPlay": "IoT Plug and Play components",
             "nonpnp": "DEVICE",
             "add": "Create device identity",
             "collapse": "Collapse navigation menu",
             "expand": "Expand navigation menu",
             "moduleIdentity": "Module identity",
-            "addModuleIdentity": "Add module identity"
+            "addModuleIdentity": "Add module identity",
+            "moduleDetail": "Module identity",
+            "moduleTwin": "Module twin"
         },
         "value": "Value"
     },
@@ -365,13 +369,20 @@
         },
         "tooltip": "You can add tags and desired properties to your device twin here. To remove a tag or desired property, set the value of the item to be removed to 'null'."
     },
+    "digitalTwin": {
+        "headerText": "IoT Plug and Play components",
+        "dcm": "Device capability model ID: {{modelId}}",
+        "componentName": "Component",
+        "interfaceId": "Interface"
+    },
     "deviceProperties": {
         "command" : {
             "refresh": "Refresh",
-            "openReportedValuePanel": "Click to view value"
+            "openReportedValuePanel": "Click to view value",
+            "close": "Back"
         },
         "headerText": "Non-writable properties",
-        "noProperty": "No properties",
+        "noProperties": "ComponentName {{componentName}} contains no non-writable property definitions",
         "columns": {
             "name": "Name (Display Name / Description)",
             "value": "Value",
@@ -393,10 +404,11 @@
             "expandAll": "Expand all",
             "expand": "Expand",
             "collapseAll": "Collapse all",
-            "collapse": "Collapse"
+            "collapse": "Collapse",
+            "close": "Back"
         },
         "headerText": "Writable properties",
-        "noSetting": "No settings",
+        "noSettings": "ComponentName {{componentName}} contains no writable property definitions",
         "syncStatus": {
             "label": "Sync status : {{status}}",
             "synced": "synced",
@@ -428,10 +440,11 @@
             "expandAll": "Expand all",
             "expand": "Expand",
             "collapseAll": "Collapse all",
-            "collapse": "Collapse"
+            "collapse": "Collapse",
+            "close": "Back"
         },
         "headerText": "Commands",
-        "noCommands": "No commands",
+        "noCommands": "ComponentName {{componentName}} contains no command definitions",
         "columns": {
             "name": "Name (Display Name / Description)",
             "schema": {
@@ -444,7 +457,8 @@
     "deviceInterfaces": {
         "command" : {
             "refresh": "Refresh",
-            "configure": "Configure"
+            "configure": "Configure",
+            "close": "Back"
         },
         "columns": {
             "id": "Interface Id",
@@ -464,13 +478,15 @@
             "showSystemProperties": "Show system properties",
             "start": "Start",
             "stop": "Stop",
-            "fetch": "Retrieve events"
+            "fetch": "Retrieve events",
+            "close": "Back"
         },
         "consumerGroups": {
             "label": "Consumer Group",
             "tooltip": "Consumer groups are used by applications to pull data from the IoT Hub. To change the current consumer group, stop monitoring telemetry."
         },
         "headerText": "Telemetry",
+        "noEvent": "ComponentName {{componentName}} contains no telemetry definitions",
         "tooltip": "You can monitor telemetry that the device sends to the IoT hub",
         "interfaceDropDown": {
             "label": "Select interface to filter telemetry",
@@ -490,15 +506,20 @@
             "schema": "Schema",
             "unit": "Unit",
             "value": "Value",
-            "error": {
+            "validation": {
                 "key": {
-                    "label": "key does not match schema",
-                    "doesNotMatch": "key is not {{keyName}}"
+                    "isNotSpecified": "This telemetry '{{key}}' is not in the model. You may consider modeling it.",
+                    "doesNotMatch": "Key mismatch. Expected key is {{expectedKey}}, but received is {{receivedKey}}"
                 },
                 "value": {
                     "label": "value does not match schema"
                 }
             }
+        },
+        "toggle": {
+            "label": "Show raw telemetry data",
+            "on": "On",
+            "off": "Off"
         }
     },
     "directMethod": {
@@ -630,7 +651,7 @@
         "detail" : {
             "headerText": "Module identity detail",
             "command" : {
-                "back": "Close",
+                "back": "Back",
                 "refresh": "Refresh",
                 "delete": "Delete"
             },
@@ -649,15 +670,15 @@
         "getDeviceListOnError": "Failed to retrieve device list: {{error}}",
         "getDeviceListGenericErrorHelp": "Failed to retrieve device list. It is possibly due to an invalid IoT hub connection string",
         "getDeviceTwinOnError": "Failed to get device {{deviceId}}'s twin: {{error}}",
-        "getDigitalTwinInterfacePropertiesOnError": "Failed to get properties of digital twin interfaces on device {{deviceId}}: {{error}}",
+        "getDigitalTwinInterfacePropertiesOnError": "Failed to get properties of the IoT Plug and Play device {{deviceId}}: {{error}}",
         "getModuleIdentitiesOnError": "Failed to get module identities of device {{deviceId}}: {{error}}",
         "getInterfaceModelOnError": "Failed to get interface model definition {{interfaceId}}",
         "updateDeviceTwinOnError": "Failed to update device twin on device {{deviceId}}: {{error}}",
         "updateDeviceTwinOnSuccess": "Successfully updated device twin on device {{deviceId}}.",
-        "invokeDigitalTwinCommandOnError": "Failed to invoke digital twin command '{{commandName}}' for interface '{{interfaceName}}' on device '{{deviceId}}': {{error}}",
-        "invokeDigitalTwinCommandOnSuccess": "Successfully invoked digital twin command '{{commandName}}' for interface '{{interfaceName}}' on device '{{deviceId}}': {{response}}",
-        "invokingDigitalTwinCommand": "Trying to invoke digital twin command '{{commandName}}' for interface '{{interfaceName}}' on device '{{deviceId}}' with no payload",
-        "invokingDigitalTwinCommandWithPayload": "Trying to invoke digital twin command '{{commandName}}' for interface '{{interfaceName}}' on device '{{deviceId}}' with payload {{payload}}",
+        "invokeDigitalTwinCommandOnError": "Failed to invoke the IoT Plug and Play device command '{{commandName}}' for component '{{componentName}}' on device '{{deviceId}}': {{error}}",
+        "invokeDigitalTwinCommandOnSuccess": "Successfully invoked the IoT Plug and Play device command '{{commandName}}' for component '{{componentName}}' on device '{{deviceId}}': {{response}}",
+        "invokingDigitalTwinCommand": "Trying to invoke the IoT Plug and Play device command '{{commandName}}' for component '{{componentName}}' on device '{{deviceId}}' with no payload",
+        "invokingDigitalTwinCommandWithPayload": "Trying to invoke the IoT Plug and Play device command '{{commandName}}' for component '{{componentName}}' on device '{{deviceId}}' with payload {{payload}}",
         "invokeMethodOnError": "Failed to invoke method on device {{deviceId}}: {{error}}",
         "invokeMethodOnSuccess": "Successfully invoked method '{{methodName}}' on device '{{deviceId}}' with response {{response}}",
         "invokingMethod": "Trying to invoke method '{{methodName}}' on device '{{deviceId}}' with no payload",
@@ -669,8 +690,8 @@
         "addDeviceOnError": "Failed to add device {{deviceId}}: {{error}}",
         "updateDeviceOnSucceed": "Successfully updated device {{deviceId}}",
         "updateDeviceOnError": "Failed to update device {{deviceId}}: {{error}}",
-        "patchDigitalTwinInterfacePropertiesOnError": "Failed to update desired properties of digital twin interfaces on device {{deviceId}}: {{error}}",
-        "patchDigitalTwinInterfacePropertiesOnSuccess": "Successfully updated desired properties of digital twin interfaces on device {{deviceId}}.",
+        "patchDigitalTwinInterfacePropertiesOnError": "Failed to update desired properties of the IoT Plug and Play device {{deviceId}}: {{error}}",
+        "patchDigitalTwinInterfacePropertiesOnSuccess": "Successfully updated desired properties of the IoT Plug and Play device {{deviceId}}.",
         "cloudToDeviceMessageOnError": "Failed to send message to device {{deviceId}}: {{error}}",
         "cloudToDeviceMessageOnSuccess": "Successfully send message '{{message}}' to device '{{deviceId}}'",
         "sendingCloudToDeviceMessage": "Trying to send message '{{message}}' to device '{{deviceId}}'",

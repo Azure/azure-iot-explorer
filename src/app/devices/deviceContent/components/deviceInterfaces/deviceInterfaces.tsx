@@ -7,21 +7,22 @@ import { Label } from 'office-ui-fabric-react/lib/Label';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { ActionButton } from 'office-ui-fabric-react/lib/Button';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, Route } from 'react-router-dom';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
-import { getInterfaceIdFromQueryString, getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
+import { getInterfaceIdFromQueryString, getDeviceIdFromQueryString, getComponentNameFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { ModelDefinitionWithSource } from '../../../../api/models/modelDefinitionWithSource';
 import { SynchronizationWrapper } from '../../../../api/models/synchronizationWrapper';
 import { REPOSITORY_LOCATION_TYPE } from '../../../../constants/repositoryLocationTypes';
 import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
-import { REFRESH } from '../../../../constants/iconNames';
+import { REFRESH, CLOSE, NAVIGATE_BACK } from '../../../../constants/iconNames';
 import ErrorBoundary from '../../../errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 import { ThemeContextInterface, ThemeContextConsumer } from '../../../../shared/contexts/themeContext';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
-import { HeaderView } from '../../../../shared/components/headerView';
 import MaskedCopyableTextFieldContainer from '../../../../shared/components/maskedCopyableTextFieldContainer';
+import { DigitalTwinHeaderContainer } from '../digitalTwin/digitalTwinHeaderView';
+import { ROUTE_PARAMS } from '../../../../constants/routes';
 
 const EditorPromise = import('react-monaco-editor');
 const Editor = React.lazy(() => EditorPromise);
@@ -32,7 +33,7 @@ export interface DeviceInterfaceProps {
 }
 
 export interface DeviceInterfaceDispatchProps {
-    setInterfaceId: (id: string) => void;
+    setComponentName: (id: string) => void;
     settingsVisibleToggle: (visible: boolean) => void;
     refresh: (deviceId: string, interfaceId: string) => void;
 }
@@ -60,6 +61,15 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
                                     onClick: this.handleRefresh
                                 }
                             ]}
+                            farItems={[
+                                {
+                                    ariaLabel: context.t(ResourceKeys.deviceInterfaces.command.close),
+                                    iconProps: {iconName: NAVIGATE_BACK},
+                                    key: NAVIGATE_BACK,
+                                    name: context.t(ResourceKeys.deviceInterfaces.command.close),
+                                    onClick: this.handleClose
+                                }
+                            ]}
                         />
                         {this.renderInterfaceInfo(context)}
                     </>
@@ -69,19 +79,17 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
     }
 
     public componentDidMount() {
-        this.props.setInterfaceId(getInterfaceIdFromQueryString(this.props));
+        this.props.setComponentName(getComponentNameFromQueryString(this.props));
     }
 
     private readonly renderInterfaceInfo = (context: LocalizationContextInterface) => {
         const {  modelDefinitionWithSource } = this.props;
         return (
             <>
-                <HeaderView
-                    headerText={ResourceKeys.deviceInterfaces.headerText}
-                />
+                <Route component={DigitalTwinHeaderContainer} />
                 {modelDefinitionWithSource && modelDefinitionWithSource.payload ?
                     <ErrorBoundary error={context.t(ResourceKeys.errorBoundary.text)}>
-                        <section className="pnp-interface-info">
+                        <section className="pnp-interface-info scrollable-lg">
                             {this.renderInterfaceInfoDetail(context)}
                             {this.renderInterfaceViewer()}
                         </section>
@@ -179,5 +187,11 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
 
     private readonly handleRefresh = () => {
         this.props.refresh(getDeviceIdFromQueryString(this.props), getInterfaceIdFromQueryString(this.props));
+    }
+
+    private readonly handleClose = () => {
+        const path = this.props.match.url.replace(/\/ioTPlugAndPlayDetail\/interfaces\/.*/, ``);
+        const deviceId = getDeviceIdFromQueryString(this.props);
+        this.props.history.push(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
     }
 }

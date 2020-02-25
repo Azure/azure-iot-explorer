@@ -13,7 +13,7 @@ import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { getDigitalTwinInterfacePropertiesAction, PatchDigitalTwinInterfacePropertiesActionParameters } from '../actions';
 import { addNotificationAction } from '../../../notifications/actions';
-import { getInterfaceNameSelector } from '../selectors';
+import { getComponentNameSelector } from '../selectors';
 
 export function* getDigitalTwinInterfacePropertySaga(action: Action<string>) {
     try {
@@ -68,7 +68,7 @@ export function* patchDigitalTwinInterfacePropertiesSaga(action: Action<PatchDig
 }
 
 // tslint:disable-next-line:no-any
-export const generateInterfacePropertiesPayload = (interfaceName: string, propertyKey: string, patchData: any) => {
+export const generateInterfacePropertiesPayload = (componentName: string, propertyKey: string, patchData: any) => {
     const propertyValue: { [propertyName: string]: Property } = {};
     propertyValue[propertyKey] = {
         desired: {
@@ -76,10 +76,10 @@ export const generateInterfacePropertiesPayload = (interfaceName: string, proper
         }
     };
     const interfaceData: { [propertyName: string]: InterfaceModel } = {};
-    interfaceData[interfaceName] = {
+    interfaceData[componentName] = {
         properties: {}
     };
-    interfaceData[interfaceName].properties = propertyValue;
+    interfaceData[componentName].properties = propertyValue;
     const result: DigitalTwinInterfaces = {
         interfaces: interfaceData
     };
@@ -88,6 +88,6 @@ export const generateInterfacePropertiesPayload = (interfaceName: string, proper
 };
 
 export function* generatePatchDigitalTwinInterfacePropertiesPayload(interfacePatchData: PatchDigitalTwinInterfacePropertiesActionParameters) {
-    const interfaceName = yield select(getInterfaceNameSelector);
-    return generateInterfacePropertiesPayload(interfaceName, interfacePatchData.propertyKey, interfacePatchData.interfacesPatchData);
+    const componentName = yield select(getComponentNameSelector);
+    return generateInterfacePropertiesPayload(componentName, interfacePatchData.propertyKey, interfacePatchData.interfacesPatchData);
 }

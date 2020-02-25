@@ -13,7 +13,7 @@ import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getModelDefinitionAction, getDigitalTwinInterfacePropertiesAction } from '../actions';
 import { getRepositoryLocationSettingsSelector, getPublicRepositoryHostName } from '../../../settings/selectors';
 import { REPOSITORY_LOCATION_TYPE } from '../../../constants/repositoryLocationTypes';
-import { getDigitalTwinInterfaceIdsSelector, getDigitalTwinInterfaceIdToNameMapSelector } from '../selectors';
+import { getDigitalTwinInterfaceIdsSelector, getDigitalTwinComponentNameAndIdsSelector } from '../selectors';
 import { getRepoTokenSaga } from '../../../settings/sagas/getRepoTokenSaga';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { modelDefinitionInterfaceId, modelDefinitionCommandName } from '../../../constants/modelDefinitionConstants';
@@ -146,7 +146,6 @@ describe('modelDefinitionSaga', () => {
         const mockFetchDigitalTwinInterfaceProperties = jest.spyOn(DevicesService, 'fetchDigitalTwinInterfaceProperties').mockImplementationOnce(parameters => {
             return null;
         });
-        const modelDefinitionInterfaceName = 'model_discovery';
 
         expect(getModelDefinitionFromDeviceGenerator.next()).toEqual({
             done: false,
@@ -177,12 +176,13 @@ describe('modelDefinitionSaga', () => {
 
         expect(getModelDefinitionFromDeviceGenerator.next([modelDefinitionInterfaceId])).toEqual({
             done: false,
-            value: select(getDigitalTwinInterfaceIdToNameMapSelector)
+            value: select(getDigitalTwinComponentNameAndIdsSelector)
         });
 
-        const idToNameMap = new Map<string, string>();
-        idToNameMap.set(modelDefinitionInterfaceId, modelDefinitionInterfaceName);
-        expect(getModelDefinitionFromDeviceGenerator.next(idToNameMap)).toEqual({
+        const nameAndId = {
+            model_discovery: modelDefinitionInterfaceId
+        };
+        expect(getModelDefinitionFromDeviceGenerator.next(nameAndId)).toEqual({
             done: false,
             value: call(getActiveAzureResourceConnectionStringSaga)
         });
@@ -191,9 +191,9 @@ describe('modelDefinitionSaga', () => {
             done: false,
             value: call(DevicesService.invokeDigitalTwinInterfaceCommand, {
                 commandName: modelDefinitionCommandName,
+                componentName: 'model_discovery',
                 connectionString: 'connection_string',
                 digitalTwinId,
-                interfaceName: modelDefinitionInterfaceName,
                 payload: interfaceId
             })
         });

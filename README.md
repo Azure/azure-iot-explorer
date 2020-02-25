@@ -1,5 +1,5 @@
 
-# Azure IoT Plug and Play (PnP) Device Explorer
+# Azure IoT explorer
 
 [![Build Status](https://dev.azure.com/azure/azure-iot-explorer/_apis/build/status/Azure%20IoT%20Explorer%20CI%20Pipeline?branchName=master)](https://dev.azure.com/azure/azure-iot-explorer/_build/latest?definitionId=31&branchName=master)
 
@@ -56,7 +56,11 @@ If you'd like to package the app yourself, please refer to the [FAQ](https://git
 <img src="doc/screenshots/settings.PNG" alt="settings" width="400"/>
 
 - Go to the device details page by clicking the name of a PnP device.
-- Interfaces implemented by the PnP device would be populated under the DIGITAL TWIN section of the left navigation bar. Open interface, properties, commands or telemetry to start interacting with the PnP device.
+- Click Plug and Play from the navigation. If the device is a Plug and Play device, the Device capability model ID would be shown. A table would show the list of components implemented by the device and the corresponding interfaces the components conform to.
+
+<img src="doc/screenshots/pnp_interfaces.PNG" alt="settings" width="800"/>
+
+- Click the name of any component, and switch between interface, properties, commands and telemetry to start interacting with the PnP device.
 
 <img src="doc/screenshots/pnp_device_details.PNG" alt="pnp_device_details" width="800"/>
 

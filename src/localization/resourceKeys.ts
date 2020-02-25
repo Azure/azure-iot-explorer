@@ -16,6 +16,7 @@ export class ResourceKeys {
       events : "breadcrumb.events",
       identity : "breadcrumb.identity",
       interfaces : "breadcrumb.interfaces",
+      ioTPlugAndPlay : "breadcrumb.ioTPlugAndPlay",
       methods : "breadcrumb.methods",
       moduleIdentity : "breadcrumb.moduleIdentity",
       properties : "breadcrumb.properties",
@@ -142,6 +143,7 @@ export class ResourceKeys {
          type : "deviceCommands.columns.type",
       },
       command : {
+         close : "deviceCommands.command.close",
          collapse : "deviceCommands.command.collapse",
          collapseAll : "deviceCommands.command.collapseAll",
          expand : "deviceCommands.command.expand",
@@ -164,8 +166,11 @@ export class ResourceKeys {
          expand : "deviceContent.navBar.expand",
          identity : "deviceContent.navBar.identity",
          interfaces : "deviceContent.navBar.interfaces",
+         ioTPlugAndPlay : "deviceContent.navBar.ioTPlugAndPlay",
          methods : "deviceContent.navBar.methods",
+         moduleDetail : "deviceContent.navBar.moduleDetail",
          moduleIdentity : "deviceContent.navBar.moduleIdentity",
+         moduleTwin : "deviceContent.navBar.moduleTwin",
          nonpnp : "deviceContent.navBar.nonpnp",
          pnp : "deviceContent.navBar.pnp",
          properties : "deviceContent.navBar.properties",
@@ -178,22 +183,23 @@ export class ResourceKeys {
    public static deviceEvents = {
       columns : {
          displayName : "deviceEvents.columns.displayName",
-         error : {
-            key : {
-               doesNotMatch : "deviceEvents.columns.error.key.doesNotMatch",
-               label : "deviceEvents.columns.error.key.label",
-            },
-            value : {
-               label : "deviceEvents.columns.error.value.label",
-            },
-         },
          schema : "deviceEvents.columns.schema",
          timestamp : "deviceEvents.columns.timestamp",
          unit : "deviceEvents.columns.unit",
+         validation : {
+            key : {
+               doesNotMatch : "deviceEvents.columns.validation.key.doesNotMatch",
+               isNotSpecified : "deviceEvents.columns.validation.key.isNotSpecified",
+            },
+            value : {
+               label : "deviceEvents.columns.validation.value.label",
+            },
+         },
          value : "deviceEvents.columns.value",
       },
       command : {
          clearEvents : "deviceEvents.command.clearEvents",
+         close : "deviceEvents.command.close",
          fetch : "deviceEvents.command.fetch",
          refresh : "deviceEvents.command.refresh",
          showSystemProperties : "deviceEvents.command.showSystemProperties",
@@ -216,6 +222,12 @@ export class ResourceKeys {
       interfaceDropDown : {
          label : "deviceEvents.interfaceDropDown.label",
          placeHolder : "deviceEvents.interfaceDropDown.placeHolder",
+      },
+      noEvent : "deviceEvents.noEvent",
+      toggle : {
+         label : "deviceEvents.toggle.label",
+         off : "deviceEvents.toggle.off",
+         on : "deviceEvents.toggle.on",
       },
       tooltip : "deviceEvents.tooltip",
    };
@@ -312,6 +324,7 @@ export class ResourceKeys {
          source : "deviceInterfaces.columns.source",
       },
       command : {
+         close : "deviceInterfaces.command.close",
          configure : "deviceInterfaces.command.configure",
          refresh : "deviceInterfaces.command.refresh",
       },
@@ -439,6 +452,7 @@ export class ResourceKeys {
          value : "deviceProperties.columns.value",
       },
       command : {
+         close : "deviceProperties.command.close",
          openReportedValuePanel : "deviceProperties.command.openReportedValuePanel",
          refresh : "deviceProperties.command.refresh",
       },
@@ -446,7 +460,7 @@ export class ResourceKeys {
          label : "deviceProperties.editor.label",
       },
       headerText : "deviceProperties.headerText",
-      noProperty : "deviceProperties.noProperty",
+      noProperties : "deviceProperties.noProperties",
    };
    public static deviceSettings = {
       columns : {
@@ -458,6 +472,7 @@ export class ResourceKeys {
          unit : "deviceSettings.columns.unit",
       },
       command : {
+         close : "deviceSettings.command.close",
          collapse : "deviceSettings.command.collapse",
          collapseAll : "deviceSettings.command.collapseAll",
          expand : "deviceSettings.command.expand",
@@ -474,7 +489,7 @@ export class ResourceKeys {
          unknown : "deviceSettings.desiredState.unknown",
       },
       headerText : "deviceSettings.headerText",
-      noSetting : "deviceSettings.noSetting",
+      noSettings : "deviceSettings.noSettings",
       panel : {
          title : "deviceSettings.panel.title",
       },
@@ -494,6 +509,12 @@ export class ResourceKeys {
       headerText : "deviceTwin.headerText",
       notFound : "deviceTwin.notFound",
       tooltip : "deviceTwin.tooltip",
+   };
+   public static digitalTwin = {
+      componentName : "digitalTwin.componentName",
+      dcm : "digitalTwin.dcm",
+      headerText : "digitalTwin.headerText",
+      interfaceId : "digitalTwin.interfaceId",
    };
    public static directMethod = {
       connectionTimeout : "directMethod.connectionTimeout",

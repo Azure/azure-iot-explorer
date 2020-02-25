@@ -6,7 +6,7 @@ import { ModelDefinition } from './../../../../api/models/modelDefinition';
 import { PropertyContent, ContentType } from '../../../../api/models/modelDefinition';
 import { StateInterface } from '../../../../shared/redux/state';
 import { parseInterfacePropertyToJsonSchema } from '../../../../shared/utils/jsonSchemaAdaptor';
-import { getModelDefinitionSelector, getInterfaceNameSelector } from '../../selectors';
+import { getModelDefinitionSelector, getComponentNameSelector } from '../../selectors';
 import { DeviceInterfaceWithSchema } from './deviceSettings';
 import { generateDigitalTwinForSpecificProperty } from './../deviceProperties/selectors';
 
@@ -30,8 +30,8 @@ const generateTwinSchemaAndInterfaceTuple = (state: StateInterface, model: Model
         });
 
     return {
+        componentName: getComponentNameSelector(state),
         interfaceId: model['@id'],
-        interfaceName: getInterfaceNameSelector(state),
         twinWithSchema: settings,
     };
 };

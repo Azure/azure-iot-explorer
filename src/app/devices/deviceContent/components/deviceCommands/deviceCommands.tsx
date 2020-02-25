@@ -4,31 +4,32 @@
  **********************************************************/
 import * as React from 'react';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
-import { RouteComponentProps } from 'react-router-dom';
+import { Label } from 'office-ui-fabric-react/lib/Label';
+import { RouteComponentProps, Route } from 'react-router-dom';
 import DeviceCommandPerInterface from './deviceCommandsPerInterface';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { InvokeDigitalTwinInterfaceCommandActionParameters } from '../../actions';
-import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
+import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString, getComponentNameFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { CommandSchema } from './deviceCommandsPerInterfacePerCommand';
 import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
-import { REFRESH } from '../../../../constants/iconNames';
+import { REFRESH, NAVIGATE_BACK } from '../../../../constants/iconNames';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
-import { HeaderView } from '../../../../shared/components/headerView';
+import { DigitalTwinHeaderContainer } from '../digitalTwin/digitalTwinHeaderView';
+import { ROUTE_PARAMS } from '../../../../constants/routes';
 
 export interface DeviceCommandsProps extends DeviceInterfaceWithSchema{
     isLoading: boolean;
 }
 
 export interface DeviceInterfaceWithSchema {
-    interfaceName: string;
     commandSchemas: CommandSchema[];
 }
 
 export interface DeviceCommandDispatchProps {
     refresh: (deviceId: string, interfaceId: string) => void;
     invokeDigitalTwinInterfaceCommand: (parameters: InvokeDigitalTwinInterfaceCommandActionParameters) => void;
-    setInterfaceId: (id: string) => void;
+    setComponentName: (id: string) => void;
 }
 
 export default class DeviceCommands
@@ -52,11 +53,20 @@ export default class DeviceCommands
                             className="command"
                             items={[
                                 {
-                                    ariaLabel: context.t(ResourceKeys.deviceSettings.command.refresh),
+                                    ariaLabel: context.t(ResourceKeys.deviceCommands.command.refresh),
                                     iconProps: {iconName: REFRESH},
                                     key: REFRESH,
-                                    name: context.t(ResourceKeys.deviceSettings.command.refresh),
+                                    name: context.t(ResourceKeys.deviceCommands.command.refresh),
                                     onClick: this.handleRefresh
+                                }
+                            ]}
+                            farItems={[
+                                {
+                                    ariaLabel: context.t(ResourceKeys.deviceCommands.command.close),
+                                    iconProps: {iconName: NAVIGATE_BACK},
+                                    key: NAVIGATE_BACK,
+                                    name: context.t(ResourceKeys.deviceCommands.command.close),
+                                    onClick: this.handleClose
                                 }
                             ]}
                         />
@@ -68,21 +78,23 @@ export default class DeviceCommands
     }
 
     public componentDidMount() {
-        this.props.setInterfaceId(getInterfaceIdFromQueryString(this.props));
+        this.props.setComponentName(getComponentNameFromQueryString(this.props));
     }
 
     private readonly renderCommandsPerInterface = (context: LocalizationContextInterface) => {
+        const { commandSchemas } = this.props;
         return (
             <>
-                <HeaderView
-                    headerText={ResourceKeys.deviceCommands.headerText}
-                />
-                { this.props.commandSchemas ?
-                    <DeviceCommandPerInterface
-                        {...this.props}
-                        deviceId={getDeviceIdFromQueryString(this.props)}
-                    /> :
-                    <InterfaceNotFoundMessageBoxContainer/>
+                <Route component={DigitalTwinHeaderContainer} />
+                {commandSchemas ?
+                    commandSchemas.length === 0 ?
+                        <Label className="no-pnp-content">{context.t(ResourceKeys.deviceCommands.noCommands, {componentName: getComponentNameFromQueryString(this.props)})}</Label> :
+                        <DeviceCommandPerInterface
+                            {...this.props}
+                            componentName={getComponentNameFromQueryString(this.props)}
+                            deviceId={getDeviceIdFromQueryString(this.props)}
+                        />
+                    : <InterfaceNotFoundMessageBoxContainer/>
                 }
             </>
         );
@@ -90,5 +102,11 @@ export default class DeviceCommands
 
     private readonly handleRefresh = () => {
         this.props.refresh(getDeviceIdFromQueryString(this.props), getInterfaceIdFromQueryString(this.props));
+    }
+
+    private readonly handleClose = () => {
+        const path = this.props.match.url.replace(/\/ioTPlugAndPlayDetail\/commands\/.*/, ``);
+        const deviceId = getDeviceIdFromQueryString(this.props);
+        this.props.history.push(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
     }
 }

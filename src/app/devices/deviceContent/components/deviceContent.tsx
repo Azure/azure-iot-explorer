@@ -13,7 +13,8 @@ import CloudToDeviceMessageContainer from './cloudToDeviceMessage/cloudToDeviceM
 import ModuleIdentityContent from '../../module/components/moduleIdentity/moduleIdentityContent';
 import DeviceContentNavComponent from './deviceContentNav';
 import Breadcrumb from '../../../shared/components/breadcrumb';
-import DigitalTwinsContentContainer from './digitalTwinContentContainer';
+import DigitalTwinsContentContainer from './digitalTwin/digitalTwinContentContainer';
+import { DigitalTwinInterfacesContainer } from './digitalTwin/digitalTwinInterfaces';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../shared/contexts/localizationContext';
 import { NAV } from '../../../constants/iconNames';
@@ -31,7 +32,6 @@ interface DeviceContentState {
 }
 export interface DeviceContentDataProps {
     deviceId: string;
-    interfaceId: string;
     interfaceIds: string[];
     isLoading: boolean;
     isPnPDevice: boolean;
@@ -39,7 +39,7 @@ export interface DeviceContentDataProps {
 }
 
 export interface DeviceContentDispatchProps {
-    setInterfaceId: (interfaceId: string) => void;
+    setComponentName: (componentName: string) => void;
     getDigitalTwinInterfaceProperties: (deviceId: string) => void;
     getDeviceIdentity: (deviceId: string) => void;
 }
@@ -63,7 +63,7 @@ export class DeviceContentComponent extends React.PureComponent<DeviceContentPro
                         <Route component={Breadcrumb} />
                     </div>
                     {this.props.deviceId &&
-                        <div className="view-content view-scroll">
+                        <div className="edit-content">
                             <div className="device-content">
                                 <>
                                     {this.renderNav(context)}
@@ -125,7 +125,8 @@ export class DeviceContentComponent extends React.PureComponent<DeviceContentPro
                 <Route path={`${url}/${ROUTE_PARTS.METHODS}/`} component={DirectMethodContainer} />
                 <Route path={`${url}/${ROUTE_PARTS.CLOUD_TO_DEVICE_MESSAGE}/`} component={CloudToDeviceMessageContainer} />
                 <Route path={`${url}/${ROUTE_PARTS.MODULE_IDENTITY}/`} component={ModuleIdentityContent} />
-                <Route path={`${url}/${ROUTE_PARTS.DIGITAL_TWINS}/`} component={DigitalTwinsContentContainer} />
+                <Route exact={true} path={`${url}/${ROUTE_PARTS.DIGITAL_TWINS}/`} component={DigitalTwinInterfacesContainer} />
+                <Route path={`${url}/${ROUTE_PARTS.DIGITAL_TWINS}/${ROUTE_PARTS.DIGITAL_TWINS_DETAIL}/`} component={DigitalTwinsContentContainer}/>
             </div>
         );
     }
@@ -144,7 +145,6 @@ export class DeviceContentComponent extends React.PureComponent<DeviceContentPro
                     <DeviceContentNavComponent
                         {...this.props}
                         isEdgeDevice={this.props.identityWrapper && this.props.identityWrapper.payload && this.props.identityWrapper.payload.capabilities.iotEdge}
-                        selectedInterface={this.props.interfaceId}
                     />
                 )
         );

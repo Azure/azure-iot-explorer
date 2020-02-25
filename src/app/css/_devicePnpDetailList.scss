@@ -23,8 +23,6 @@
 }
 
 .pnp-detail-list {
-    padding-top: 20px;
-    top: 0;
     @include themify($themes) {
         background-color: themed('backgroundColor');
     }
@@ -82,6 +80,10 @@
             @include themify($themes) {
                 background-color: themed('summaryBackground');
             }
+            border-bottom: none;
+        }
+
+        .item-summary-partial {
             border-bottom: none;
         }
 
@@ -169,7 +171,7 @@
     {
         padding-top: 20px;
         .monaco-editor {
-            height: calc(100vh - 600px);
+            height: calc(100vh - 540px);
         }
     }
 }
@@ -179,11 +181,16 @@
 }
 
 .scrollable-lg {
-    height: calc(100vh - 300px);
+    height: calc(100vh - 245px);
     overflow-y: auto;
 }
 
-.scrollable-sm {
-    height: calc(100vh - 392px);
+.scrollable-pnp-telemetry {
+    height: calc(100vh - 400px);
+    overflow-y: auto;
+}
+
+.scrollable-telemetry {
+    height: calc(100vh - 360px);
     overflow-y: auto;
 }

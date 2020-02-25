@@ -1,0 +1,35 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+ @import 'themes';
+
+ .pivot {
+    padding: {
+        left: 5px;
+    }
+    .pivot-item {
+        margin: 12px;
+        font-size: 18px;
+        a {
+            @include themify($themes) {
+                color: themed('textColor');
+            }
+            text-decoration: none;
+        }
+    }
+    .pivot-item:hover {
+        @include themify($themes) {
+            background-color: themed('pivotOnHoverBackground');
+        }
+    }
+    .pivot-item-active {
+        font-weight: bold;
+        a {
+            text-decoration: underline;
+            @include themify($themes) {
+                color: themed('linkColor') !important;
+            }
+        }
+    }
+ }

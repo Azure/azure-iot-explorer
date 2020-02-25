@@ -43,7 +43,7 @@ exports[`components/devices/addDevice matches snapshot 1`] = `
     />
   </div>
   <div
-    className="edit-content view-scroll"
+    className="edit-content view-scroll-vertical"
   >
     <div
       className="form"

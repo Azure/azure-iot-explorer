@@ -6,6 +6,19 @@ exports[`components/devices/deviceInterfaces shows interface information when st
 <Fragment>
   <StyledCommandBarBase
     className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "deviceInterfaces.command.close",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "deviceInterfaces.command.close",
+          "onClick": [Function],
+        },
+      ]
+    }
     items={
       Array [
         Object {
@@ -20,8 +33,8 @@ exports[`components/devices/deviceInterfaces shows interface information when st
       ]
     }
   />
-  <Component
-    headerText="deviceInterfaces.headerText"
+  <Route
+    component={[Function]}
   />
   <Connect(InterfaceNotFoundMessageBox) />
 </Fragment>
@@ -31,6 +44,19 @@ exports[`components/devices/deviceInterfaces shows interface information when st
 <Fragment>
   <StyledCommandBarBase
     className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "deviceInterfaces.command.close",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "deviceInterfaces.command.close",
+          "onClick": [Function],
+        },
+      ]
+    }
     items={
       Array [
         Object {
@@ -45,14 +71,14 @@ exports[`components/devices/deviceInterfaces shows interface information when st
       ]
     }
   />
-  <Component
-    headerText="deviceInterfaces.headerText"
+  <Route
+    component={[Function]}
   />
   <ErrorBoundary
     error="errorBoundary.text"
   >
     <section
-      className="pnp-interface-info"
+      className="pnp-interface-info scrollable-lg"
     >
       <StyledLabelBase
         className="source"
@@ -118,6 +144,19 @@ exports[`components/devices/deviceInterfaces shows interface information when st
 <Fragment>
   <StyledCommandBarBase
     className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "deviceInterfaces.command.close",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "deviceInterfaces.command.close",
+          "onClick": [Function],
+        },
+      ]
+    }
     items={
       Array [
         Object {
@@ -132,14 +171,14 @@ exports[`components/devices/deviceInterfaces shows interface information when st
       ]
     }
   />
-  <Component
-    headerText="deviceInterfaces.headerText"
+  <Route
+    component={[Function]}
   />
   <ErrorBoundary
     error="errorBoundary.text"
   >
     <section
-      className="pnp-interface-info"
+      className="pnp-interface-info scrollable-lg"
     >
       <StyledLabelBase
         className="source"
@@ -205,6 +244,19 @@ exports[`components/devices/deviceInterfaces shows interface information when st
 <Fragment>
   <StyledCommandBarBase
     className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "deviceInterfaces.command.close",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "deviceInterfaces.command.close",
+          "onClick": [Function],
+        },
+      ]
+    }
     items={
       Array [
         Object {
@@ -219,14 +271,14 @@ exports[`components/devices/deviceInterfaces shows interface information when st
       ]
     }
   />
-  <Component
-    headerText="deviceInterfaces.headerText"
+  <Route
+    component={[Function]}
   />
   <ErrorBoundary
     error="errorBoundary.text"
   >
     <section
-      className="pnp-interface-info"
+      className="pnp-interface-info scrollable-lg"
     >
       <StyledLabelBase
         className="source"
@@ -292,6 +344,19 @@ exports[`components/devices/deviceInterfaces shows interface information when st
 <Fragment>
   <StyledCommandBarBase
     className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "deviceInterfaces.command.close",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "deviceInterfaces.command.close",
+          "onClick": [Function],
+        },
+      ]
+    }
     items={
       Array [
         Object {
@@ -306,14 +371,14 @@ exports[`components/devices/deviceInterfaces shows interface information when st
       ]
     }
   />
-  <Component
-    headerText="deviceInterfaces.headerText"
+  <Route
+    component={[Function]}
   />
   <ErrorBoundary
     error="errorBoundary.text"
   >
     <section
-      className="pnp-interface-info"
+      className="pnp-interface-info scrollable-lg"
     >
       <StyledLabelBase
         className="source"

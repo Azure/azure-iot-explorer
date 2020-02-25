@@ -14,7 +14,7 @@ import { REPOSITORY_LOCATION_TYPE } from '../../../../constants/repositoryLocati
 describe('getDigitalTwinInterfacePropertiesSelector', () => {
     const state = getInitialState();
     const interfaceId = 'urn:contoso:com:EnvironmentalSensor:1';
-    const interfaceName = 'environmentalSensor';
+    const componentName = 'environmentalSensor';
     /* tslint:disable */
     const digitalTwinInterfaceProperties = {
         interfaces: {
@@ -35,7 +35,7 @@ describe('getDigitalTwinInterfacePropertiesSelector', () => {
                 }
             },
             environmentalSensor: {
-                name: interfaceName,
+                name: componentName,
                 properties: {
                     brightness: {
                         desired: {
@@ -76,13 +76,13 @@ describe('getDigitalTwinInterfacePropertiesSelector', () => {
     /* tslint:enable */
 
     state.deviceContentState = Record({
+        componentNameSelected: componentName,
         deviceIdentity: null,
         deviceTwin: null,
         digitalTwinInterfaceProperties: {
             payload: digitalTwinInterfaceProperties,
             synchronizationStatus: SynchronizationStatus.fetched
         },
-        interfaceIdSelected: interfaceId,
         modelDefinitionWithSource: {
             payload: {
                 modelDefinition,
@@ -94,7 +94,7 @@ describe('getDigitalTwinInterfacePropertiesSelector', () => {
 
     it('returns interface settings tuple', () => {
         expect(getDeviceSettingTupleSelector(state).interfaceId).toEqual(interfaceId);
-        expect(getDeviceSettingTupleSelector(state).interfaceName).toEqual(interfaceName);
+        expect(getDeviceSettingTupleSelector(state).componentName).toEqual(componentName);
 
         expect(getDeviceSettingTupleSelector(state).twinWithSchema[0]).toEqual({
             desiredTwin: digitalTwinInterfaceProperties.interfaces.environmentalSensor.properties.brightness.desired.value,

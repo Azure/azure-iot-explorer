@@ -7,6 +7,7 @@ import { Route, RouteComponentProps } from 'react-router-dom';
 import ModuleIdentityListContainer from './moduleIdentityContainer';
 import AddModuleIdentityContainer from './addModuleIdentityContainer';
 import ModuleIdentityDetailContainer from './moduleIdentityDetailContainer';
+import ModuleIdentityTwinContainer from './moduleIdentityTwinContainer';
 import { ROUTE_PARTS } from '../../../../constants/routes';
 
 export default class ModuleIdentityRoutes extends React.Component<RouteComponentProps> {
@@ -16,6 +17,7 @@ export default class ModuleIdentityRoutes extends React.Component<RouteComponent
                 <Route exact={true} path={`${this.props.match.url}/`} component={ModuleIdentityListContainer}/>
                 <Route exact={true} path={`${this.props.match.url}/${ROUTE_PARTS.ADD}/`} component={AddModuleIdentityContainer}/>
                 <Route exact={true} path={`${this.props.match.url}/${ROUTE_PARTS.MODULE_DETAIL}/`} component={ModuleIdentityDetailContainer}/>
+                <Route exact={true} path={`${this.props.match.url}/${ROUTE_PARTS.MODULE_TWIN}/`} component={ModuleIdentityTwinContainer}/>
             </>
         );
     }

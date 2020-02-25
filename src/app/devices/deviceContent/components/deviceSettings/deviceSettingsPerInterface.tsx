@@ -17,7 +17,7 @@ import '../../../../css/_devicePnpDetailList.scss';
 export interface DeviceSettingDataProps {
     deviceId: string;
     interfaceId: string;
-    interfaceName: string;
+    componentName: string;
     twinWithSchema: TwinWithSchema[];
 }
 

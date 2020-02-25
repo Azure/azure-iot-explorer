@@ -26,7 +26,7 @@ export interface DeviceSettingDataProps extends TwinWithSchema {
     collapsed: boolean;
     deviceId: string;
     interfaceId: string;
-    interfaceName: string;
+    componentName: string;
 }
 
 export interface DeviceSettingDispatchProps {
@@ -223,13 +223,13 @@ export default class DeviceSettingsPerInterfacePerSetting
                 settingSchema={this.props.settingSchema}
                 handleSave={this.onSubmit}
                 craftPayload={this.createSettingsPayload}
-                interfaceName={this.props.interfaceName}
+                componentName={this.props.componentName}
                 schema={this.getSettingSchema()}
             />
         );
     }
     private readonly createSettingsPayload = (patchData: object) => {
-        return generateInterfacePropertiesPayload(this.props.interfaceName, this.props.settingModelDefinition.name, patchData);
+        return generateInterfacePropertiesPayload(this.props.componentName, this.props.settingModelDefinition.name, patchData);
     }
 
     private readonly onSubmit = (twin: any) => () => { // tslint:disable-line:no-any

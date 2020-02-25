@@ -8,9 +8,9 @@ import { AnyAction } from 'typescript-fsa';
 import { RouteComponentProps } from 'react-router-dom';
 import { DeviceContentComponent, DeviceContentDispatchProps, DeviceContentDataProps } from './deviceContent';
 import { StateType } from '../../../shared/redux/state';
-import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
+import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { getIsDevicePnpSelector, getDigitalTwinInterfaceIdsSelector, getDigitalTwinInterfacePropertiesWrapperSelector, getDeviceIdentityWrapperSelector } from '../selectors';
-import { setInterfaceIdAction, getDigitalTwinInterfacePropertiesAction, getDeviceIdentityAction } from '../actions';
+import { setComponentNameAction, getDigitalTwinInterfacePropertiesAction, getDeviceIdentityAction } from '../actions';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 
 const mapStateToProps = (state: StateType, ownProps: RouteComponentProps): DeviceContentDataProps => {
@@ -18,7 +18,6 @@ const mapStateToProps = (state: StateType, ownProps: RouteComponentProps): Devic
     return {
         deviceId: getDeviceIdFromQueryString(ownProps),
         identityWrapper: getDeviceIdentityWrapperSelector(state),
-        interfaceId: getInterfaceIdFromQueryString(ownProps),
         interfaceIds: getDigitalTwinInterfaceIdsSelector(state),
         isLoading: digitalTwinInterfacesWrapper &&
             digitalTwinInterfacesWrapper.synchronizationStatus === SynchronizationStatus.working,
@@ -30,7 +29,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DeviceContentDispatc
     return {
         getDeviceIdentity: (deviceId: string) => dispatch(getDeviceIdentityAction.started(deviceId)),
         getDigitalTwinInterfaceProperties: (deviceId: string) => dispatch(getDigitalTwinInterfacePropertiesAction.started(deviceId)),
-        setInterfaceId: (interfaceId: string) => dispatch(setInterfaceIdAction(interfaceId))
+        setComponentName: (interfaceId: string) => dispatch(setComponentNameAction(interfaceId))
     };
 };
 

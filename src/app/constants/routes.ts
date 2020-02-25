@@ -8,13 +8,15 @@ export enum ROUTE_PARTS {
     CLOUD_TO_DEVICE_MESSAGE = 'cloudToDeviceMessage',
     DEVICE_DETAIL = 'deviceDetail',
     DEVICES = 'devices',
-    DIGITAL_TWINS = 'digitalTwins',
+    DIGITAL_TWINS = 'ioTPlugAndPlay',
+    DIGITAL_TWINS_DETAIL = 'ioTPlugAndPlayDetail',
     EVENTS = 'events',
     IDENTITY = 'identity',
     INTERFACES = 'interfaces',
     METHODS = 'methods',
     MODULE_IDENTITY = 'moduleIdentity',
     MODULE_DETAIL = 'moduleDetail',
+    MODULE_TWIN = 'moduleTwin',
     PROPERTIES = 'properties',
     SETTINGS = 'settings',
     TWIN = 'twin',
@@ -24,5 +26,6 @@ export enum ROUTE_PARTS {
 export enum ROUTE_PARAMS {
     DEVICE_ID = 'deviceId',
     INTERFACE_ID = 'interfaceId',
+    COMPONENT_NAME = 'componentName',
     MODULE_ID = 'moduleId'
 }

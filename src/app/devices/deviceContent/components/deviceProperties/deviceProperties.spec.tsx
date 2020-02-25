@@ -37,10 +37,10 @@ describe('components/devices/deviceProperties', () => {
     const refreshMock = jest.fn();
     const devicePropertiesDispatchProps: DevicePropertiesDispatchProps = {
         refresh: refreshMock,
-        setInterfaceId: jest.fn()
+        setComponentName: jest.fn()
     };
 
-    const pathname = `/#/devices/detail/digitalTwins/properties/?id=device1&interfaceId=${interfaceId}`;
+    const pathname = `/#/devices/deviceDetail/ioTPlugAndPlay/ioTPlugAndPlayDetail/properties/?id=device1&componentName=foo&interfaceId=${interfaceId}`;
 
     const location: any = { // tslint:disable-line:no-any
         pathname
@@ -87,7 +87,7 @@ describe('components/devices/deviceProperties', () => {
     });
 
     it('dispatch action when refresh button is clicked', () => {
-        const wrapper = mountWithLocalization(getComponent({isLoading: false}));
+        const wrapper = mountWithLocalization(getComponent({isLoading: false}), false, true);
         const commandBar = wrapper.find(CommandBar).first();
         commandBar.props().items[0].onClick(null);
         wrapper.update();

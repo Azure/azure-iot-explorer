@@ -3,16 +3,18 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, Route } from 'react-router-dom';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
+import { Label } from 'office-ui-fabric-react/lib/components/Label';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
-import { getInterfaceIdFromQueryString, getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
+import { getInterfaceIdFromQueryString, getDeviceIdFromQueryString, getComponentNameFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import DevicePropertiesPerInterface, { TwinWithSchema } from './devicePropertiesPerInterface';
 import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
-import { REFRESH } from '../../../../constants/iconNames';
+import { REFRESH, NAVIGATE_BACK } from '../../../../constants/iconNames';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
-import { HeaderView } from '../../../../shared/components/headerView';
+import { DigitalTwinHeaderContainer } from '../digitalTwin/digitalTwinHeaderView';
+import { ROUTE_PARAMS } from '../../../../constants/routes';
 
 export interface DevicePropertiesDataProps {
     twinAndSchema: TwinWithSchema[];
@@ -20,7 +22,7 @@ export interface DevicePropertiesDataProps {
 }
 
 export interface DevicePropertiesDispatchProps {
-    setInterfaceId: (id: string) => void;
+    setComponentName: (id: string) => void;
     refresh: (deviceId: string, interfaceId: string) => void;
 }
 
@@ -50,6 +52,15 @@ export default class DeviceProperties
                                         onClick: this.handleRefresh
                                     }
                                 ]}
+                                farItems={[
+                                    {
+                                        ariaLabel: context.t(ResourceKeys.deviceProperties.command.close),
+                                        iconProps: {iconName: NAVIGATE_BACK},
+                                        key: NAVIGATE_BACK,
+                                        name: context.t(ResourceKeys.deviceProperties.command.close),
+                                        onClick: this.handleClose
+                                    }
+                                ]}
                         />
                         {this.renderProperties(context)}
                     </>
@@ -59,21 +70,19 @@ export default class DeviceProperties
     }
 
     public componentDidMount() {
-        this.props.setInterfaceId(getInterfaceIdFromQueryString(this.props));
+        this.props.setComponentName(getComponentNameFromQueryString(this.props));
     }
 
     private readonly renderProperties = (context: LocalizationContextInterface) => {
         const { twinAndSchema } = this.props;
         return (
             <>
-                <HeaderView
-                    headerText={ResourceKeys.deviceProperties.headerText}
-                />
+                <Route component={DigitalTwinHeaderContainer} />
                 {twinAndSchema ?
-                    <DevicePropertiesPerInterface
-                        twinAndSchema={twinAndSchema}
-                    /> :
-                    <InterfaceNotFoundMessageBoxContainer/>
+                    twinAndSchema.length === 0 ?
+                        <Label className="no-pnp-content">{context.t(ResourceKeys.deviceProperties.noProperties, {componentName: getComponentNameFromQueryString(this.props)})}</Label> :
+                        <DevicePropertiesPerInterface twinAndSchema={twinAndSchema} />
+                    : <InterfaceNotFoundMessageBoxContainer/>
                 }
             </>
         );
@@ -81,5 +90,11 @@ export default class DeviceProperties
 
     private readonly handleRefresh = () => {
         this.props.refresh(getDeviceIdFromQueryString(this.props), getInterfaceIdFromQueryString(this.props));
+    }
+
+    private readonly handleClose = () => {
+        const path = this.props.match.url.replace(/\/ioTPlugAndPlayDetail\/properties\/.*/, ``);
+        const deviceId = getDeviceIdFromQueryString(this.props);
+        this.props.history.push(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
     }
 }

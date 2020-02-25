@@ -4,6 +4,19 @@ exports[`components/devices/deviceSettings matches snapshot while interface cann
 <Fragment>
   <StyledCommandBarBase
     className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "deviceSettings.command.close",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "deviceSettings.command.close",
+          "onClick": [Function],
+        },
+      ]
+    }
     items={
       Array [
         Object {
@@ -18,8 +31,8 @@ exports[`components/devices/deviceSettings matches snapshot while interface cann
       ]
     }
   />
-  <Component
-    headerText="deviceSettings.headerText"
+  <Route
+    component={[Function]}
   />
   <Connect(InterfaceNotFoundMessageBox) />
 </Fragment>
@@ -29,6 +42,19 @@ exports[`components/devices/deviceSettings matches snapshot with one twinWithSch
 <Fragment>
   <StyledCommandBarBase
     className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "deviceSettings.command.close",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "deviceSettings.command.close",
+          "onClick": [Function],
+        },
+      ]
+    }
     items={
       Array [
         Object {
@@ -43,30 +69,30 @@ exports[`components/devices/deviceSettings matches snapshot with one twinWithSch
       ]
     }
   />
-  <Component
-    headerText="deviceSettings.headerText"
+  <Route
+    component={[Function]}
   />
   <DeviceSettingsPerInterface
+    componentName="environmentalSensor"
     deviceId={null}
     history={
       Object {
         "location": Object {
-          "pathname": "/#/devices/detail/digitalTwins/settings/?id=device1&interfaceId=urn:contoso:com:EnvironmentalSensor:1",
+          "pathname": "/#/devices/deviceDetail/ioTPlugAndPlay/ioTPlugAndPlayDetail/settings/?id=device1&componentName=foo&interfaceId=urn:contoso:com:EnvironmentalSensor:1",
         },
       }
     }
     interfaceId="urn:contoso:com:EnvironmentalSensor:1"
-    interfaceName="environmentalSensor"
     isLoading={false}
     location={
       Object {
-        "pathname": "/#/devices/detail/digitalTwins/settings/?id=device1&interfaceId=urn:contoso:com:EnvironmentalSensor:1",
+        "pathname": "/#/devices/deviceDetail/ioTPlugAndPlay/ioTPlugAndPlayDetail/settings/?id=device1&componentName=foo&interfaceId=urn:contoso:com:EnvironmentalSensor:1",
       }
     }
     match={Object {}}
     patchDigitalTwinInterfaceProperties={[MockFunction]}
     refresh={[MockFunction]}
-    setInterfaceId={
+    setComponentName={
       [MockFunction] {
         "calls": Array [
           Array [
@@ -160,7 +186,7 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
           }
         }
         content="deviceSettings.columns.reportedValueTooltip"
-        id="tooltipHost13"
+        id="tooltipHost23"
         styles={
           Object {
             "root": Object {
@@ -170,7 +196,7 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
         }
       >
         <CustomizedIconButton
-          aria-labelledby="tooltipHost13"
+          aria-labelledby="tooltipHost23"
           iconProps={
             Object {
               "iconName": "Info",
@@ -200,12 +226,12 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
   >
     <DeviceSettingsPerInterfacePerSetting
       collapsed={false}
+      componentName="environmentalSensor"
       desiredTwin={123}
       deviceId="testDevice"
       handleCollapseToggle={[Function]}
       handleOverlayToggle={[Function]}
       interfaceId="urn:contoso:com:EnvironmentalSensor:1"
-      interfaceName="environmentalSensor"
       key="0"
       patchDigitalTwinInterfaceProperties={[MockFunction]}
       reportedTwin={null}

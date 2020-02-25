@@ -8,7 +8,7 @@ import { SagaIteratorClone, cloneableGenerator } from 'redux-saga/utils';
 import { invokeDigitalTwinInterfaceCommandSaga, notifyMethodInvoked } from './digitalTwinInterfaceCommandSaga';
 import { invokeDigitalTwinInterfaceCommandAction, InvokeDigitalTwinInterfaceCommandActionParameters } from '../actions';
 import * as DevicesService from '../../../api/services/devicesService';
-import { getInterfaceNameSelector } from '../selectors';
+import { getComponentNameSelector } from '../selectors';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
@@ -22,7 +22,7 @@ describe('digitalTwinInterfaceCommandSaga', () => {
     const connectionString = 'connection_string';
     const digitalTwinId = 'device_id';
     const commandName = 'command';
-    const interfaceName = 'interface_name';
+    const componentName = 'interface_name';
     const payload = { };
 
     const randomNumber = 0;
@@ -54,12 +54,12 @@ describe('digitalTwinInterfaceCommandSaga', () => {
         it('fetches the interface name', () => {
             expect(invokeDigitalTwinInterfaceCommandSagaGenerator.next()).toEqual({
                 done: false,
-                value: select(getInterfaceNameSelector)
+                value: select(getComponentNameSelector)
             });
         });
 
         it('notifies of method invokation', () => {
-            expect(invokeDigitalTwinInterfaceCommandSagaGenerator.next(interfaceName)).toEqual({
+            expect(invokeDigitalTwinInterfaceCommandSagaGenerator.next(componentName)).toEqual({
                 done: false,
                 value: call(notifyMethodInvoked, randomNumber, invokeDigitalTwinInterfaceCommandAction.started(invokeParameters))
             });
@@ -77,7 +77,7 @@ describe('digitalTwinInterfaceCommandSaga', () => {
                     commandName,
                     connectionString,
                     digitalTwinId,
-                    interfaceName,
+                    componentName,
                     payload
                 })
             });
@@ -94,7 +94,7 @@ describe('digitalTwinInterfaceCommandSaga', () => {
                             translationOptions: {
                                 commandName,
                                 deviceId: digitalTwinId,
-                                interfaceName,
+                                componentName,
                                 response: JSON.stringify(response)
                             },
                         },
@@ -124,7 +124,7 @@ describe('digitalTwinInterfaceCommandSaga', () => {
                             commandName,
                             deviceId: digitalTwinId,
                             error,
-                            interfaceName
+                            componentName
                         },
                     },
                     type: NotificationType.error,
@@ -151,10 +151,10 @@ describe('digitalTwinInterfaceCommandSaga', () => {
         it('puts a notification if there is a payload', () => {
             expect(notifyMethodInvokedGenerator.next()).toEqual({
                 done: false,
-                value: select(getInterfaceNameSelector)
+                value: select(getComponentNameSelector)
             });
 
-            expect(notifyMethodInvokedGenerator.next(interfaceName)).toEqual({
+            expect(notifyMethodInvokedGenerator.next(componentName)).toEqual({
                 done: false,
                 value: put(addNotificationAction.started({
                     id: randomNumber,
@@ -163,7 +163,7 @@ describe('digitalTwinInterfaceCommandSaga', () => {
                         translationOptions: {
                             commandName,
                             deviceId: digitalTwinId,
-                            interfaceName,
+                            componentName,
                             payload: JSON.stringify(payload),
                         },
                     },

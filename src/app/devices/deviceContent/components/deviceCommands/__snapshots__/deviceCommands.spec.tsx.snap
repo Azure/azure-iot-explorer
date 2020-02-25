@@ -4,22 +4,35 @@ exports[`components/devices/deviceCommands matches snapshot while interface cann
 <Fragment>
   <StyledCommandBarBase
     className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "deviceCommands.command.close",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "deviceCommands.command.close",
+          "onClick": [Function],
+        },
+      ]
+    }
     items={
       Array [
         Object {
-          "ariaLabel": "deviceSettings.command.refresh",
+          "ariaLabel": "deviceCommands.command.refresh",
           "iconProps": Object {
             "iconName": "Refresh",
           },
           "key": "Refresh",
-          "name": "deviceSettings.command.refresh",
+          "name": "deviceCommands.command.refresh",
           "onClick": [Function],
         },
       ]
     }
   />
-  <Component
-    headerText="deviceCommands.headerText"
+  <Route
+    component={[Function]}
   />
   <Connect(InterfaceNotFoundMessageBox) />
 </Fragment>
@@ -29,22 +42,35 @@ exports[`components/devices/deviceCommands matches snapshot with a commandSchema
 <Fragment>
   <StyledCommandBarBase
     className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "deviceCommands.command.close",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "deviceCommands.command.close",
+          "onClick": [Function],
+        },
+      ]
+    }
     items={
       Array [
         Object {
-          "ariaLabel": "deviceSettings.command.refresh",
+          "ariaLabel": "deviceCommands.command.refresh",
           "iconProps": Object {
             "iconName": "Refresh",
           },
           "key": "Refresh",
-          "name": "deviceSettings.command.refresh",
+          "name": "deviceCommands.command.refresh",
           "onClick": [Function],
         },
       ]
     }
   />
-  <Component
-    headerText="deviceCommands.headerText"
+  <Route
+    component={[Function]}
   />
   <DeviceCommandsPerInterface
     commandSchemas={
@@ -61,25 +87,25 @@ exports[`components/devices/deviceCommands matches snapshot with a commandSchema
         },
       ]
     }
+    componentName={null}
     deviceId={null}
     history={
       Object {
         "location": Object {
-          "pathname": "/#/devices/detail/digitalTwins/commands/?id=device1&interfaceId=urn:iotInterfaces:com:interface1:1",
+          "pathname": "/#/devices/deviceDetail/ioTPlugAndPlay/ioTPlugAndPlayDetail/commands/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1",
         },
       }
     }
-    interfaceName="interface1"
     invokeDigitalTwinInterfaceCommand={[MockFunction]}
     isLoading={false}
     location={
       Object {
-        "pathname": "/#/devices/detail/digitalTwins/commands/?id=device1&interfaceId=urn:iotInterfaces:com:interface1:1",
+        "pathname": "/#/devices/deviceDetail/ioTPlugAndPlay/ioTPlugAndPlayDetail/commands/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1",
       }
     }
     match={Object {}}
     refresh={[MockFunction]}
-    setInterfaceId={
+    setComponentName={
       [MockFunction] {
         "calls": Array [
           Array [

@@ -9,7 +9,7 @@ import { useLocalizationContext } from '../contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../constants/routes';
 import { getActiveAzureResourceHostNameSelector } from '../../azureResource/selectors';
-import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString } from '../utils/queryStringHelper';
+import { getDeviceIdFromQueryString, getComponentNameFromQueryString } from '../utils/queryStringHelper';
 import '../../css/_breadcrumb.scss';
 
 const Breadcrumb = () => (
@@ -35,9 +35,11 @@ export const BreadcrumbItem: React.FC<BreadcrumbItemDataProps> = props => {
                     return renderTextItem(getShortHubName());
                 case ROUTE_PARTS.DEVICE_DETAIL:
                     return renderTextItem(getDeviceIdFromQueryString(props));
-                case ROUTE_PARTS.DIGITAL_TWINS:
-                    return renderTextItem(getInterfaceIdFromQueryString(props));
+                case ROUTE_PARTS.DIGITAL_TWINS_DETAIL:
+                    return renderTextItem(getComponentNameFromQueryString(props));
                 case ROUTE_PARTS.MODULE_IDENTITY:
+                        return renderLinkItem(getLocalizedKey(route), [ROUTE_PARAMS.DEVICE_ID]);
+                case ROUTE_PARTS.DIGITAL_TWINS:
                     return renderLinkItem(getLocalizedKey(route), [ROUTE_PARAMS.DEVICE_ID]);
                 default:
                     return renderLinkItem(getLocalizedKey(route));
@@ -74,8 +76,8 @@ export const BreadcrumbItem: React.FC<BreadcrumbItemDataProps> = props => {
                     case ROUTE_PARAMS.DEVICE_ID:
                         href += `${ROUTE_PARAMS.DEVICE_ID}=${getDeviceIdFromQueryString(props)}`;
                         break;
-                    case ROUTE_PARAMS.INTERFACE_ID:
-                        href += `${ROUTE_PARAMS.INTERFACE_ID}=${getInterfaceIdFromQueryString(props)}`;
+                    case ROUTE_PARAMS.COMPONENT_NAME:
+                        href += `${ROUTE_PARAMS.COMPONENT_NAME}=${getComponentNameFromQueryString(props)}`;
                         break;
                     default:
                         break;

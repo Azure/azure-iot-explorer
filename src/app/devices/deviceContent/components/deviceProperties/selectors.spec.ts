@@ -12,6 +12,7 @@ import { getInitialState } from '../../../../api/shared/testHelper';
 describe('getDigitalTwinInterfacePropertiesSelector', () => {
     const state = getInitialState();
     const interfaceId = 'urn:azureiot:ModelDiscovery:DigitalTwin:1';
+    const componentName = 'urn_azureiot_ModelDiscovery_DigitalTwin';
     /* tslint:disable */
     const digitalTwinInterfaceProperties = {
         "interfaces": {
@@ -24,7 +25,7 @@ describe('getDigitalTwinInterfacePropertiesSelector', () => {
                                 "modelId": "urn:contoso:com:dcm:2",
                                 "interfaces": {
                                     "urn_azureiot_ModelDiscovery_ModelInformation": "urn:azureiot:ModelDiscovery:ModelInformation:1",
-                                    "urn_azureiot_ModelDiscovery_DigitalTwin": interfaceId
+                                    componentName: interfaceId
                                 }
                             }
                         }
@@ -75,13 +76,13 @@ describe('getDigitalTwinInterfacePropertiesSelector', () => {
     /* tslint:enable */
 
     state.deviceContentState = Record({
+        componentNameSelected: componentName,
         deviceIdentity: null,
         deviceTwin: null,
         digitalTwinInterfaceProperties: {
             payload: digitalTwinInterfaceProperties,
             synchronizationStatus: SynchronizationStatus.fetched
         },
-        interfaceIdSelected: interfaceId,
         modelDefinitionWithSource: {
             payload: {
                 modelDefinition,

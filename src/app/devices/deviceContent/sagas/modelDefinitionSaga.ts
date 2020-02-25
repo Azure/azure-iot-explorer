@@ -17,7 +17,7 @@ import { REPOSITORY_LOCATION_TYPE } from './../../../constants/repositoryLocatio
 import { getRepoConnectionInfoFromConnectionString } from '../../../api/shared/utils';
 import { invokeDigitalTwinInterfaceCommand, fetchDigitalTwinInterfaceProperties } from '../../../api/services/devicesService';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
-import { getDigitalTwinInterfaceIdsSelector, getDigitalTwinInterfaceIdToNameMapSelector } from '../selectors';
+import { getDigitalTwinInterfaceIdsSelector, getDigitalTwinComponentNameAndIdsSelector } from '../selectors';
 import { InterfaceNotImplementedException } from './../../../shared/utils/exceptions/interfaceNotImplementedException';
 import { modelDefinitionInterfaceId, modelDefinitionCommandName } from '../../../constants/modelDefinitionConstants';
 import { FetchDigitalTwinInterfacePropertiesParameters } from '../../../api/parameters/deviceParameters';
@@ -109,15 +109,25 @@ export function* getModelDefinitionFromDevice(action: Action<GetModelDefinitionA
     }
 
     // then get the name of ${modelDefinitionInterfaceId} interface.
-    const interfaceIdToNameMap: Map<string, string> = yield select(getDigitalTwinInterfaceIdToNameMapSelector);
-    const modelDefinitionInterfaceName = interfaceIdToNameMap.get(modelDefinitionInterfaceId);
+    const nameAndIdObject = yield select(getDigitalTwinComponentNameAndIdsSelector);
+    let componentName;
+    Object.keys(nameAndIdObject).forEach(key => {
+        if (nameAndIdObject[key] === modelDefinitionInterfaceId)
+        {
+            componentName = key;
+        }
+    });
+
+    if (!componentName) {
+        throw new InterfaceNotImplementedException();
+    }
 
     // if interface is implemented, invoke command on device
     return yield call(invokeDigitalTwinInterfaceCommand, {
         commandName: modelDefinitionCommandName,
+        componentName,
         connectionString: yield call(getActiveAzureResourceConnectionStringSaga),
         digitalTwinId: action.payload.digitalTwinId,
-        interfaceName: modelDefinitionInterfaceName,
         payload: action.payload.interfaceId
     });
 }

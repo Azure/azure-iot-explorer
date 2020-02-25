@@ -7,6 +7,19 @@ exports[`components/devices/deviceEventsPerInterface matches snapshot while inte
 >
   <StyledCommandBarBase
     className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "deviceEvents.command.close",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "deviceEvents.command.close",
+          "onClick": [Function],
+        },
+      ]
+    }
     items={
       Array [
         Object {
@@ -33,17 +46,17 @@ exports[`components/devices/deviceEventsPerInterface matches snapshot while inte
           "ariaLabel": "deviceEvents.command.clearEvents",
           "disabled": true,
           "iconProps": Object {
-            "iconName": "Clear",
+            "iconName": "Delete",
           },
-          "key": "Clear",
+          "key": "Delete",
           "name": "deviceEvents.command.clearEvents",
           "onClick": [Function],
         },
       ]
     }
   />
-  <Component
-    headerText="deviceEvents.headerText"
+  <Route
+    component={[Function]}
   />
   <Connect(InterfaceNotFoundMessageBox) />
 </div>
@@ -56,6 +69,19 @@ exports[`components/devices/deviceEventsPerInterface matches snapshot while inte
 >
   <StyledCommandBarBase
     className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "deviceEvents.command.close",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "deviceEvents.command.close",
+          "onClick": [Function],
+        },
+      ]
+    }
     items={
       Array [
         Object {
@@ -82,17 +108,17 @@ exports[`components/devices/deviceEventsPerInterface matches snapshot while inte
           "ariaLabel": "deviceEvents.command.clearEvents",
           "disabled": true,
           "iconProps": Object {
-            "iconName": "Clear",
+            "iconName": "Delete",
           },
-          "key": "Clear",
+          "key": "Delete",
           "name": "deviceEvents.command.clearEvents",
           "onClick": [Function],
         },
       ]
     }
   />
-  <Component
-    headerText="deviceEvents.headerText"
+  <Route
+    component={[Function]}
   />
   <StyledTextFieldBase
     ariaLabel="deviceEvents.consumerGroups.label"
@@ -103,6 +129,15 @@ exports[`components/devices/deviceEventsPerInterface matches snapshot while inte
     onRenderLabel={[Function]}
     underlined={true}
     value="$Default"
+  />
+  <StyledToggleBase
+    ariaLabel="deviceEvents.toggle.label"
+    checked={false}
+    className="toggle-button"
+    label="deviceEvents.toggle.label"
+    offText="deviceEvents.toggle.off"
+    onChange={[Function]}
+    onText="deviceEvents.toggle.on"
   />
   <InfiniteScroll
     className="device-events-container"
@@ -135,42 +170,8 @@ exports[`components/devices/deviceEventsPerInterface matches snapshot while inte
       className="list-content"
     >
       <div
-        className="scrollable-sm"
-      >
-        <div
-          className="pnp-detail-list ms-Grid"
-        >
-          <div
-            className="list-header list-header-uncollapsible ms-Grid-row"
-          >
-            <span
-              className="ms-Grid-col ms-sm2"
-            >
-              deviceEvents.columns.timestamp
-            </span>
-            <span
-              className="ms-Grid-col ms-sm2"
-            >
-              deviceEvents.columns.displayName
-            </span>
-            <span
-              className="ms-Grid-col ms-sm2"
-            >
-              deviceEvents.columns.schema
-            </span>
-            <span
-              className="ms-Grid-col ms-sm2"
-            >
-              deviceEvents.columns.unit
-            </span>
-            <span
-              className="ms-Grid-col ms-sm4"
-            >
-              deviceEvents.columns.value
-            </span>
-          </div>
-        </div>
-      </div>
+        className="scrollable-pnp-telemetry"
+      />
     </section>
   </InfiniteScroll>
 </div>
@@ -183,6 +184,19 @@ exports[`components/devices/deviceEventsPerInterface matches snapshot while inte
 >
   <StyledCommandBarBase
     className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "deviceEvents.command.close",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "deviceEvents.command.close",
+          "onClick": [Function],
+        },
+      ]
+    }
     items={
       Array [
         Object {
@@ -209,17 +223,17 @@ exports[`components/devices/deviceEventsPerInterface matches snapshot while inte
           "ariaLabel": "deviceEvents.command.clearEvents",
           "disabled": true,
           "iconProps": Object {
-            "iconName": "Clear",
+            "iconName": "Delete",
           },
-          "key": "Clear",
+          "key": "Delete",
           "name": "deviceEvents.command.clearEvents",
           "onClick": [Function],
         },
       ]
     }
   />
-  <Component
-    headerText="deviceEvents.headerText"
+  <Route
+    component={[Function]}
   />
   <StyledTextFieldBase
     ariaLabel="deviceEvents.consumerGroups.label"
@@ -230,6 +244,15 @@ exports[`components/devices/deviceEventsPerInterface matches snapshot while inte
     onRenderLabel={[Function]}
     underlined={true}
     value="$Default"
+  />
+  <StyledToggleBase
+    ariaLabel="deviceEvents.toggle.label"
+    checked={false}
+    className="toggle-button"
+    label="deviceEvents.toggle.label"
+    offText="deviceEvents.toggle.off"
+    onChange={[Function]}
+    onText="deviceEvents.toggle.on"
   />
   <InfiniteScroll
     className="device-events-container"
@@ -262,42 +285,8 @@ exports[`components/devices/deviceEventsPerInterface matches snapshot while inte
       className="list-content"
     >
       <div
-        className="scrollable-sm"
-      >
-        <div
-          className="pnp-detail-list ms-Grid"
-        >
-          <div
-            className="list-header list-header-uncollapsible ms-Grid-row"
-          >
-            <span
-              className="ms-Grid-col ms-sm2"
-            >
-              deviceEvents.columns.timestamp
-            </span>
-            <span
-              className="ms-Grid-col ms-sm2"
-            >
-              deviceEvents.columns.displayName
-            </span>
-            <span
-              className="ms-Grid-col ms-sm2"
-            >
-              deviceEvents.columns.schema
-            </span>
-            <span
-              className="ms-Grid-col ms-sm2"
-            >
-              deviceEvents.columns.unit
-            </span>
-            <span
-              className="ms-Grid-col ms-sm4"
-            >
-              deviceEvents.columns.value
-            </span>
-          </div>
-        </div>
-      </div>
+        className="scrollable-pnp-telemetry"
+      />
     </section>
   </InfiniteScroll>
 </div>

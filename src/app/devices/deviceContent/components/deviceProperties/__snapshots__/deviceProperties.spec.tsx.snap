@@ -4,6 +4,19 @@ exports[`components/devices/deviceProperties matches snapshot while interface ca
 <Fragment>
   <StyledCommandBarBase
     className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "deviceProperties.command.close",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "deviceProperties.command.close",
+          "onClick": [Function],
+        },
+      ]
+    }
     items={
       Array [
         Object {
@@ -18,12 +31,14 @@ exports[`components/devices/deviceProperties matches snapshot while interface ca
       ]
     }
   />
-  <Component
-    headerText="deviceProperties.headerText"
+  <Route
+    component={[Function]}
   />
-  <DevicePropertiesPerInterface
-    twinAndSchema={Array []}
-  />
+  <StyledLabelBase
+    className="no-pnp-content"
+  >
+    deviceProperties.noProperties
+  </StyledLabelBase>
 </Fragment>
 `;
 
@@ -31,6 +46,19 @@ exports[`components/devices/deviceProperties matches snapshot with one twinWithS
 <Fragment>
   <StyledCommandBarBase
     className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "deviceProperties.command.close",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "deviceProperties.command.close",
+          "onClick": [Function],
+        },
+      ]
+    }
     items={
       Array [
         Object {
@@ -45,11 +73,13 @@ exports[`components/devices/deviceProperties matches snapshot with one twinWithS
       ]
     }
   />
-  <Component
-    headerText="deviceProperties.headerText"
+  <Route
+    component={[Function]}
   />
-  <DevicePropertiesPerInterface
-    twinAndSchema={Array []}
-  />
+  <StyledLabelBase
+    className="no-pnp-content"
+  >
+    deviceProperties.noProperties
+  </StyledLabelBase>
 </Fragment>
 `;

@@ -8,7 +8,8 @@ import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import DeviceSettings, { DeviceSettingDispatchProps , DeviceSettingsProps } from './deviceSettings';
 import { mountWithLocalization, testSnapshot } from '../../../../shared/utils/testHelpers';
-import { TwinWithSchema } from './deviceSettingsPerInterfacePerSetting';import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
+import { TwinWithSchema } from './deviceSettingsPerInterfacePerSetting';
+import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
 
 export const twinWithSchema: TwinWithSchema = {
     desiredTwin: 123,
@@ -31,8 +32,8 @@ export const twinWithSchema: TwinWithSchema = {
 describe('components/devices/deviceSettings', () => {
     const interfaceId = 'urn:contoso:com:EnvironmentalSensor:1';
     const deviceSettingsProps: DeviceSettingsProps = {
+        componentName: 'environmentalSensor',
         interfaceId,
-        interfaceName: 'environmentalSensor',
         isLoading: true,
         twinWithSchema: []
     };
@@ -41,10 +42,10 @@ describe('components/devices/deviceSettings', () => {
     const deviceSettingsDispatchProps: DeviceSettingDispatchProps = {
         patchDigitalTwinInterfaceProperties: jest.fn(),
         refresh: refreshMock,
-        setInterfaceId: jest.fn()
+        setComponentName: jest.fn()
     };
 
-    const pathname = `/#/devices/detail/digitalTwins/settings/?id=device1&interfaceId=${interfaceId}`;
+    const pathname = `/#/devices/deviceDetail/ioTPlugAndPlay/ioTPlugAndPlayDetail/settings/?id=device1&componentName=foo&interfaceId=${interfaceId}`;
 
     const location: any = { // tslint:disable-line:no-any
         pathname
@@ -89,7 +90,7 @@ describe('components/devices/deviceSettings', () => {
     });
 
     it('dispatch action when refresh button is clicked', () => {
-        const wrapper = mountWithLocalization(getComponent({isLoading: false}));
+        const wrapper = mountWithLocalization(getComponent({isLoading: false}), false, true);
         const commandBar = wrapper.find(CommandBar).first();
         commandBar.props().items[0].onClick(null);
         wrapper.update();

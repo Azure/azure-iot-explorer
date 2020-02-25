@@ -13,7 +13,6 @@ import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMes
 describe('components/devices/deviceCommands', () => {
     const deviceCommandsProps: DeviceCommandsProps = {
         commandSchemas: [],
-        interfaceName: 'interface1',
         isLoading: true,
     };
 
@@ -21,10 +20,10 @@ describe('components/devices/deviceCommands', () => {
     const deviceCommandsDispatchProps: DeviceCommandDispatchProps = {
         invokeDigitalTwinInterfaceCommand: jest.fn(),
         refresh: refreshMock,
-        setInterfaceId: jest.fn()
+        setComponentName: jest.fn()
     };
 
-    const pathname = `/#/devices/detail/digitalTwins/commands/?id=device1&interfaceId=urn:iotInterfaces:com:interface1:1`;
+    const pathname = `/#/devices/deviceDetail/ioTPlugAndPlay/ioTPlugAndPlayDetail/commands/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1`;
 
     const location: any = { // tslint:disable-line:no-any
         pathname
@@ -82,7 +81,7 @@ describe('components/devices/deviceCommands', () => {
     });
 
     it('dispatch action when refresh button is clicked', () => {
-        const wrapper = mountWithLocalization(getComponent({isLoading: false}));
+        const wrapper = mountWithLocalization(getComponent({isLoading: false}), false, true);
         const commandBar = wrapper.find(CommandBar).first();
         commandBar.props().items[0].onClick(null);
         wrapper.update();
