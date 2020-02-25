@@ -20,7 +20,6 @@ import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
 import { REFRESH } from '../../../../constants/iconNames';
 import { LARGE_COLUMN_WIDTH } from '../../../../constants/columnWidth';
 import '../../../../css/_digitalTwinNav.scss';
-import '../../../../css/_devicePnPDetailList.scss';
 
 export interface DigitalTwinInterfacesProps extends RouteComponentProps{
     isLoading: boolean;
