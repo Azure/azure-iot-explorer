@@ -78,7 +78,7 @@ exports[`components/devices/deviceSettings matches snapshot with one twinWithSch
     history={
       Object {
         "location": Object {
-          "pathname": "/#/devices/detail/digitalTwins/settings/?id=device1&interfaceId=urn:contoso:com:EnvironmentalSensor:1",
+          "pathname": "/#/devices/deviceDetail/ioTPlugAndPlay/ioTPlugAndPlayDetail/settings/?id=device1&componentName=foo&interfaceId=urn:contoso:com:EnvironmentalSensor:1",
         },
       }
     }
@@ -86,7 +86,7 @@ exports[`components/devices/deviceSettings matches snapshot with one twinWithSch
     isLoading={false}
     location={
       Object {
-        "pathname": "/#/devices/detail/digitalTwins/settings/?id=device1&interfaceId=urn:contoso:com:EnvironmentalSensor:1",
+        "pathname": "/#/devices/deviceDetail/ioTPlugAndPlay/ioTPlugAndPlayDetail/settings/?id=device1&componentName=foo&interfaceId=urn:contoso:com:EnvironmentalSensor:1",
       }
     }
     match={Object {}}
