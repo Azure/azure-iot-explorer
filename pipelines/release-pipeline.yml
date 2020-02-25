@@ -284,7 +284,7 @@ stages:
           tagSource: 'gitTag'
           isDraft: true
           addChangeLog: true
-          assetUploadMode: 'replace'
+          assetUploadMode: replace
           changeLogCompareToRelease: 'lastFullRelease'
           changeLogType: 'commitBased'
-          assets: '$(Pipeline.Workspace)/release'
+          assets: '$(Pipeline.Workspace)/release/*.*'
