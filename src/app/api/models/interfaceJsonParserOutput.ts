@@ -12,6 +12,7 @@ export interface ParsedJsonSchema {
     enumNames?: string[];
     format?: string;
     items?: any; // tslint:disable-line: no-any
+    pattern?: string;
     properties?: {};
     required?: string[];
     title?: string;

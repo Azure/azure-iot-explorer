@@ -59,7 +59,7 @@ const parseInterfacePropertyHelper = (property:  PropertyContent): ParsedJsonSch
             case 'datetime':
                 return {
                     description: getDescription(property),
-                    format: 'date-time',
+                    pattern: '^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(.[0-9]+)?(Z)?$', // regex for ISO 8601
                     title: property.name,
                     type: 'string',
                 };
