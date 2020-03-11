@@ -11,7 +11,7 @@ import { CONNECTION_TIMEOUT_IN_SECONDS, RESPONSE_TIME_IN_SECONDS } from '../../c
 import { Twin } from '../models/device';
 import { DeviceIdentity } from './../models/deviceIdentity';
 import { buildQueryString, getConnectionInfoFromConnectionString } from '../shared/utils';
-import { DataPlaneParameters } from '../parameters/deviceParameters';
+import { DataPlaneParameters, MonitorEventsParameters } from '../parameters/deviceParameters';
 
 const deviceId = 'deviceId';
 const connectionString = 'HostName=test-string.azure-devices.net;SharedAccessKeyName=owner;SharedAccessKey=fakeKey=';
@@ -883,8 +883,9 @@ describe('deviceTwinService', () => {
     });
 
     context('monitorEvents', () => {
-        let parameters = {
+        let parameters: MonitorEventsParameters = {
             consumerGroup: '$Default',
+            customEventHubConnectionString: undefined,
             deviceId,
             fetchSystemProperties: undefined,
             hubConnectionString: undefined,
@@ -911,10 +912,7 @@ describe('deviceTwinService', () => {
             const result = await DevicesService.monitorEvents(parameters);
 
             const eventHubRequestParameters = {
-                connectionString,
-                consumerGroup: parameters.consumerGroup,
-                deviceId: parameters.deviceId,
-                fetchSystemProperties: parameters.fetchSystemProperties,
+                ...parameters,
                 startTime: parameters.startTime && parameters.startTime.toISOString()
             };
 

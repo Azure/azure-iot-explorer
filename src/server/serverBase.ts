@@ -214,15 +214,14 @@ export const eventHubProvider = async (res: any, body: any) =>  { // tslint:disa
                 body.hubConnectionString && body.hubConnectionString !== connectionString  ||
                 body.customEventHubConnectionString && body.customEventHubConnectionString !== connectionString)
             {
-                if (body.hubConnectionString) {
-                    client = await EventHubClient.createFromIotHubConnectionString(body.hubConnectionString);
-                }
 
-                if (body.customEventHubConnectionString) {
-                    client = await EventHubClient.createFromConnectionString(body.customEventHubConnectionString);
-                }
+                client = body.customEventHubConnectionString ?
+                    await EventHubClient.createFromConnectionString(body.customEventHubConnectionString) :
+                    await EventHubClient.createFromIotHubConnectionString(body.hubConnectionString);
 
-                connectionString = body.customEventHubConnectionString ? body.customEventHubConnectionString : body.customEventHubConnectionString;
+                connectionString = body.customEventHubConnectionString ?
+                    body.customEventHubConnectionString :
+                    body.customEventHubConnectionString;
             }
 
             const partitionIds = await client.getPartitionIds();

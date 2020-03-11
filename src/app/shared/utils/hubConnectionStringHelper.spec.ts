@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import 'jest';
-import { generateConnectionStringValidationError } from './hubConnectionStringHelper';
+import { generateConnectionStringValidationError, isValidEventHubConnectionString } from './hubConnectionStringHelper';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 
 describe('hubConnectionStringHelper', () => {
@@ -26,5 +26,11 @@ describe('hubConnectionStringHelper', () => {
 
     it('does not generate error when value is in right format', () => {
         expect(generateConnectionStringValidationError('HostName=testhub.azure-devices.net;SharedAccessKeyName=123;SharedAccessKey=456')).toEqual(null);
+    });
+
+    it('validate event hub connection string', () => {
+        expect(isValidEventHubConnectionString(null)).toEqual(true);
+        expect(isValidEventHubConnectionString('Endpoint=sb://123/;SharedAccessKeyName=456;SharedAccessKey=789')).toEqual(true);
+        expect(isValidEventHubConnectionString('Endpoint=sb://123/;SharedAccessKeyName=456;SharedAccess=789')).toEqual(false);
     });
 });

@@ -21,6 +21,7 @@ import { DEFAULT_CONSUMER_GROUP } from '../../../../constants/apiConstants';
 import { MILLISECONDS_IN_MINUTE } from '../../../../constants/shared';
 import { appConfig, HostMode } from '../../../../../appConfig/appConfig';
 import { HeaderView } from '../../../../shared/components/headerView';
+import { isValidEventHubConnectionString } from '../../../../shared/utils/hubConnectionStringHelper';
 import '../../../../css/_deviceEvents.scss';
 
 const JSON_SPACES = 2;
@@ -167,6 +168,7 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
                 consumerGroup: newValue
             });
         };
+
         return (
             <TextField
                 className={'consumer-group-text-field'}
@@ -196,6 +198,11 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
                 customEventHubConnectionString: newValue
             });
         };
+
+        const renderError = () => {
+            return !isValidEventHubConnectionString(this.state.customEventHubConnectionString) && context.t(ResourceKeys.deviceEvents.customEventHub.error);
+        };
+
         return (
             <TextField
                 className={'custom-event-hub-text-field'}
@@ -206,6 +213,8 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
                 value={this.state.customEventHubConnectionString}
                 disabled={this.state.monitoringData}
                 onChange={customEventHubChange}
+                placeholder={context.t(ResourceKeys.deviceEvents.customEventHub.placeHolder)}
+                errorMessage={renderError()}
             />
         );
     }

@@ -37,7 +37,7 @@
         @include themify($themes) {
             color: themed('textColor');
         }
-        width: 50%;
+        width: 80%;
     }
 
     .custom-event-hub-label {
@@ -55,7 +55,7 @@
         @include themify($themes) {
             color: themed('textColor');
         }
-        width: 50%;
+        width: 80%;
     }
 
     .toggle-button {

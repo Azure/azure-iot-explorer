@@ -487,7 +487,9 @@
         },
         "customEventHub": {
             "label": "Custom event hub connection string",
-            "tooltip": "If you've configured a custom event hub for telemetry, stop monitoring telemetry and input event hub connection string."
+            "tooltip": "If you want to monitor telemetry from a custom event hub, enter the event hub connection string and start monitoring. Otherwise leave it blank.",
+            "placeHolder": "Endpoint=sb://<FQDN>/;SharedAccessKeyName=<KeyName>;SharedAccessKey=<KeyValue>",
+            "error": "Event hub connection string format should look like 'Endpoint=sb://<FQDN>/;SharedAccessKeyName=<KeyName>;SharedAccessKey=<KeyValue>'"
         },
         "headerText": "Telemetry",
         "noEvent": "ComponentName {{componentName}} contains no telemetry definitions",

@@ -211,7 +211,9 @@ export class ResourceKeys {
          tooltip : "deviceEvents.consumerGroups.tooltip",
       },
       customEventHub : {
+         error : "deviceEvents.customEventHub.error",
          label : "deviceEvents.customEventHub.label",
+         placeHolder : "deviceEvents.customEventHub.placeHolder",
          tooltip : "deviceEvents.customEventHub.tooltip",
       },
       event : {
