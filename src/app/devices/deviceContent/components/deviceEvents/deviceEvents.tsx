@@ -40,6 +40,7 @@ export interface DeviceEventsState {
     synchronizationStatus: SynchronizationStatus;
     consumerGroup: string;
     monitoringData: boolean;
+    customEventHubConnectionString?: string;
 }
 
 export default class DeviceEventsComponent extends React.Component<DeviceEventsDataProps & RouteComponentProps, DeviceEventsState> {
@@ -78,16 +79,8 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
                             headerText={ResourceKeys.deviceEvents.headerText}
                             tooltip={ResourceKeys.deviceEvents.tooltip}
                         />
-                        <TextField
-                            className={'consumer-group-text-field'}
-                            onRenderLabel={this.renderConsumerGroupLabel}
-                            label={context.t(ResourceKeys.deviceEvents.consumerGroups.label)}
-                            ariaLabel={context.t(ResourceKeys.deviceEvents.consumerGroups.label)}
-                            underlined={true}
-                            value={this.state.consumerGroup}
-                            disabled={this.state.monitoringData}
-                            onChange={this.consumerGroupChange}
-                        />
+                        {this.renderConsumerGroup(context)}
+                        {this.renderCustomEventHub(context)}
                         {this.renderInfiniteScroll(context)}
                         {this.state.loadingAnnounced}
                     </div>
@@ -159,26 +152,61 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
         }
     }
 
-    private consumerGroupChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
-        if (!!newValue) {
+    private renderConsumerGroup = (context: LocalizationContextInterface) => {
+        const renderConsumerGroupLabel = (props: ITextFieldProps) => (
+            <LabelWithTooltip
+                className={'consumer-group-label'}
+                tooltipText={context.t(ResourceKeys.deviceEvents.consumerGroups.tooltip)}
+            >
+                {props.label}
+            </LabelWithTooltip>
+        );
+
+        const consumerGroupChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
             this.setState({
                 consumerGroup: newValue
             });
-        }
+        };
+        return (
+            <TextField
+                className={'consumer-group-text-field'}
+                onRenderLabel={renderConsumerGroupLabel}
+                label={context.t(ResourceKeys.deviceEvents.consumerGroups.label)}
+                ariaLabel={context.t(ResourceKeys.deviceEvents.consumerGroups.label)}
+                underlined={true}
+                value={this.state.consumerGroup}
+                disabled={this.state.monitoringData}
+                onChange={consumerGroupChange}
+            />
+        );
     }
 
-    private renderConsumerGroupLabel = (props: ITextFieldProps) => {
+    private renderCustomEventHub = (context: LocalizationContextInterface) => {
+        const renderCustomEventHubLabel = (props: ITextFieldProps) => (
+            <LabelWithTooltip
+                className={'custom-event-hub-label'}
+                tooltipText={context.t(ResourceKeys.deviceEvents.customEventHub.tooltip)}
+            >
+                {props.label}
+            </LabelWithTooltip>
+        );
+
+        const customEventHubChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
+            this.setState({
+                customEventHubConnectionString: newValue
+            });
+        };
         return (
-            <LocalizationContextConsumer>
-                {(context: LocalizationContextInterface) => (
-                    <LabelWithTooltip
-                        className={'consumer-group-label'}
-                        tooltipText={context.t(ResourceKeys.deviceEvents.consumerGroups.tooltip)}
-                    >
-                        {props.label}
-                    </LabelWithTooltip>
-                )}
-            </LocalizationContextConsumer>
+            <TextField
+                className={'custom-event-hub-text-field'}
+                onRenderLabel={renderCustomEventHubLabel}
+                label={context.t(ResourceKeys.deviceEvents.customEventHub.label)}
+                ariaLabel={context.t(ResourceKeys.deviceEvents.customEventHub.label)}
+                underlined={true}
+                value={this.state.customEventHubConnectionString}
+                disabled={this.state.monitoringData}
+                onChange={customEventHubChange}
+            />
         );
     }
 
@@ -273,13 +301,14 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
                 () => {
                     monitorEvents({
                         consumerGroup: this.state.consumerGroup,
+                        customEventHubConnectionString: this.state.customEventHubConnectionString,
                         deviceId: getDeviceIdFromQueryString(this.props),
                         fetchSystemProperties: this.state.showSystemProperties,
-                        hubConnectionString: this.props.connectionString,
+                        hubConnectionString: this.state.customEventHubConnectionString ? null : this.props.connectionString,
                         startTime: this.state.startTime
                     })
                     .then(results => {
-                        const messages = results && results.reverse().map((message: Message) => message);
+                        const messages = results ? results.reverse().map((message: Message) => message) : [];
                         if (this.isComponentMounted) {
                             this.setState({
                                 events: [...messages, ...this.state.events],

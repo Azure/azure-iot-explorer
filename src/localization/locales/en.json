@@ -482,8 +482,12 @@
             "close": "Back"
         },
         "consumerGroups": {
-            "label": "Consumer Group",
+            "label": "Consumer group",
             "tooltip": "Consumer groups are used by applications to pull data from the IoT Hub. To change the current consumer group, stop monitoring telemetry."
+        },
+        "customEventHub": {
+            "label": "Custom event hub connection string",
+            "tooltip": "If you've configured a custom event hub for telemetry, stop monitoring telemetry and input event hub connection string."
         },
         "headerText": "Telemetry",
         "noEvent": "ComponentName {{componentName}} contains no telemetry definitions",

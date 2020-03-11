@@ -37,10 +37,33 @@
         @include themify($themes) {
             color: themed('textColor');
         }
-        width: 500px;
+        width: 50%;
+    }
+
+    .custom-event-hub-label {
+        font-weight: 600;
+        font-size: 14px;
+        @include themify($themes) {
+            color: themed('textColor');
+        }
+    }
+
+    .custom-event-hub-text-field {
+        display: grid;
+        padding-left: 24px;
+        padding-bottom: 10px;
+        @include themify($themes) {
+            color: themed('textColor');
+        }
+        width: 50%;
     }
 
     .toggle-button {
         padding-left: 24px;
+    }
+
+    .scrollable-telemetry {
+        height: calc(100vh - 400px);
+        overflow-y: auto;
     }
 }
