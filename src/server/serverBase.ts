@@ -221,7 +221,7 @@ export const eventHubProvider = async (res: any, body: any) =>  { // tslint:disa
 
                 connectionString = body.customEventHubConnectionString ?
                     body.customEventHubConnectionString :
-                    body.customEventHubConnectionString;
+                    body.hubConnectionString;
             }
 
             const partitionIds = await client.getPartitionIds();
