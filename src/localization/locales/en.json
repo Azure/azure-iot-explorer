@@ -482,8 +482,14 @@
             "close": "Back"
         },
         "consumerGroups": {
-            "label": "Consumer Group",
+            "label": "Consumer group",
             "tooltip": "Consumer groups are used by applications to pull data from the IoT Hub. To change the current consumer group, stop monitoring telemetry."
+        },
+        "customEventHub": {
+            "label": "Custom event hub connection string",
+            "tooltip": "If you want to monitor telemetry from a custom event hub, enter the event hub connection string and start monitoring. Otherwise leave it blank.",
+            "placeHolder": "Endpoint=sb://<FQDN>/;SharedAccessKeyName=<KeyName>;SharedAccessKey=<KeyValue>",
+            "error": "Event hub connection string format should look like 'Endpoint=sb://<FQDN>/;SharedAccessKeyName=<KeyName>;SharedAccessKey=<KeyValue>'"
         },
         "headerText": "Telemetry",
         "noEvent": "ComponentName {{componentName}} contains no telemetry definitions",

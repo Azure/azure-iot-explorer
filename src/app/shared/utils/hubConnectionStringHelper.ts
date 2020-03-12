@@ -41,3 +41,11 @@ export const formatConnectionStrings = (connectionStrings: string[], activeConne
 
     return formattedList;
 };
+
+export const isValidEventHubConnectionString = (connectionString: string): boolean => {
+    if (!connectionString) {
+        return true;
+    }
+    const pattern = new RegExp('^Endpoint=sb://.*;SharedAccessKeyName=.*;SharedAccessKey=.*$');
+    return pattern.test(connectionString);
+};

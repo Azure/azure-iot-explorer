@@ -34,10 +34,13 @@ export interface FetchDevicesParameters extends DataPlaneParameters {
 
 export interface MonitorEventsParameters {
     deviceId: string;
-    startTime?: Date;
-    hubConnectionString: string;
-    fetchSystemProperties?: boolean;
     consumerGroup: string;
+
+    customEventHubConnectionString?: string;
+    hubConnectionString?: string;
+
+    fetchSystemProperties?: boolean;
+    startTime?: Date;
 }
 
 export interface DeleteDevicesParameters extends DataPlaneParameters {

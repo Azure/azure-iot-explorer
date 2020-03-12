@@ -210,6 +210,12 @@ export class ResourceKeys {
          label : "deviceEvents.consumerGroups.label",
          tooltip : "deviceEvents.consumerGroups.tooltip",
       },
+      customEventHub : {
+         error : "deviceEvents.customEventHub.error",
+         label : "deviceEvents.customEventHub.label",
+         placeHolder : "deviceEvents.customEventHub.placeHolder",
+         tooltip : "deviceEvents.customEventHub.tooltip",
+      },
       event : {
          body : "deviceEvents.event.body",
          enqueuedTime : "deviceEvents.event.enqueuedTime",

@@ -161,6 +161,7 @@ export const handleModelRepoPostRequest = (req: express.Request, res: express.Re
             }
         });
     } catch (error) {
+        stopReceivers();
         res.status(SERVER_ERROR).send(error);
     }
 };
@@ -209,10 +210,20 @@ export const addPropertiesToCloudToDeviceMessage = (message: CloudToDeviceMessag
 export const eventHubProvider = async (res: any, body: any) =>  { // tslint:disable-line: no-any
     try {
         if (!eventHubClientStopping) {
-            if (!client || connectionString !== body.connectionString) {
-                client = await EventHubClient.createFromIotHubConnectionString(body.connectionString);
-                connectionString = body.connectionString;
+            if (!client ||
+                body.hubConnectionString && body.hubConnectionString !== connectionString  ||
+                body.customEventHubConnectionString && body.customEventHubConnectionString !== connectionString)
+            {
+
+                client = body.customEventHubConnectionString ?
+                    await EventHubClient.createFromConnectionString(body.customEventHubConnectionString) :
+                    await EventHubClient.createFromIotHubConnectionString(body.hubConnectionString);
+
+                connectionString = body.customEventHubConnectionString ?
+                    body.customEventHubConnectionString :
+                    body.hubConnectionString;
             }
+
             const partitionIds = await client.getPartitionIds();
 
             const hubInfo = await client.getHubRuntimeInformation();

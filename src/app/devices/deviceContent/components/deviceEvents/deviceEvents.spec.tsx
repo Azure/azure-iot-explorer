@@ -77,6 +77,14 @@ describe('components/devices/deviceEvents', () => {
         expect((wrapper.state() as DeviceEventsState).consumerGroup).toEqual('testGroup');
     });
 
+    it('changes state accordingly when custom event hub connection string value is changed', () => {
+        const wrapper = mountWithLocalization(getComponent());
+        const textField = wrapper.find(TextField).at(1);
+        textField.instance().props.onChange({ target: null}, 'sb://testeventhub');
+        wrapper.update();
+        expect((wrapper.state() as DeviceEventsState).customEventHubConnectionString).toEqual('sb://testeventhub');
+    });
+
     it('renders events', () => {
         const wrapper = mountWithLocalization(getComponent());
         const events = [{

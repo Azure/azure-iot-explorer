@@ -56,6 +56,17 @@ exports[`components/devices/deviceEvents matches snapshot in electron 1`] = `
     underlined={true}
     value="$Default"
   />
+  <StyledTextFieldBase
+    ariaLabel="deviceEvents.customEventHub.label"
+    className="custom-event-hub-text-field"
+    disabled={false}
+    errorMessage={false}
+    label="deviceEvents.customEventHub.label"
+    onChange={[Function]}
+    onRenderLabel={[Function]}
+    placeholder="deviceEvents.customEventHub.placeHolder"
+    underlined={true}
+  />
   <InfiniteScroll
     className="device-events-container"
     element="div"
@@ -144,6 +155,17 @@ exports[`components/devices/deviceEvents matches snapshot in hosted environment 
     onRenderLabel={[Function]}
     underlined={true}
     value="$Default"
+  />
+  <StyledTextFieldBase
+    ariaLabel="deviceEvents.customEventHub.label"
+    className="custom-event-hub-text-field"
+    disabled={false}
+    errorMessage={false}
+    label="deviceEvents.customEventHub.label"
+    onChange={[Function]}
+    onRenderLabel={[Function]}
+    placeholder="deviceEvents.customEventHub.placeHolder"
+    underlined={true}
   />
   <InfiniteScroll
     className="device-events-container"
