@@ -25,6 +25,7 @@ export function* invokeDirectMethodSaga(action: Action<InvokeMethodActionParamet
         };
 
         const response = yield call(invokeDirectMethod, invokeMethodParameters);
+        const stringifiedResponse = typeof response === 'object' ? JSON.stringify(response) : response;
 
         yield put(addNotificationAction.started({
             id: toastId,
@@ -33,13 +34,13 @@ export function* invokeDirectMethodSaga(action: Action<InvokeMethodActionParamet
                 translationOptions: {
                     deviceId: action.payload.deviceId,
                     methodName: action.payload.methodName,
-                    response
+                    response: stringifiedResponse
                 },
             },
             type: NotificationType.success
         }));
 
-        yield put(invokeDirectMethodAction.done({params: action.payload, result: response}));
+        yield put(invokeDirectMethodAction.done({params: action.payload, result: stringifiedResponse}));
     } catch (error) {
         yield put(addNotificationAction.started({
             id: toastId,
