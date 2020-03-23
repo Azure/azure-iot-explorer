@@ -47,6 +47,7 @@
     "package:win": "npm run clean && npm install && npm rebuild node-sass && npm run build && electron-builder -w",
     "package:linux": "npm run clean:linux && npm install && npm rebuild node-sass && npm run build && electron-builder -l",
     "package:mac": "npm install && npm rebuild node-sass && npm run build && electron-builder -m",
+    "preinstall": "npx npm-force-resolutions",
     "webpack:compile": "tsc --target es6 --module CommonJS --moduleResolution node ./webpack.common.ts webpack.electron.ts webpack.dev.ts",
     "server:compile": "tsc ./src/server/serverElectron.ts ./src/server/serverLocal.ts --skipLibCheck --lib es2015 --inlineSourceMap --outDir ./dist/server/",
     "start": "concurrently \"npm run start:web\" \"npm run start:server\"",
@@ -107,6 +108,10 @@
     "typescript-fsa-reducers": "1.0.0",
     "uuid": "3.3.3"
   },
+  "resolutions": {
+    "minimist": "1.2.3",
+    "mkdirp": "0.5.3"
+  },
   "devDependencies": {
     "@types/async-lock": "1.1.0",
     "@types/cors": "2.8.4",
@@ -139,13 +144,13 @@
     "enzyme-to-json": "3.3.5",
     "file-loader": "2.0.0",
     "html-webpack-plugin": "3.2.0",
-    "jest": "24.8.0",
+    "jest": "25.1.0",
     "jest-plugin-context": "2.9.0",
     "jest-trx-results-processor": "0.0.7",
     "mini-css-extract-plugin": "0.8.0",
     "monaco-editor-webpack-plugin": "1.7.0",
     "node-sass": "4.13.1",
-    "nodemon": "1.18.7",
+    "nodemon": "2.0.2",
     "optimize-css-assets-webpack-plugin": "5.0.3",
     "sass-loader": "7.1.0",
     "source-map-loader": "0.2.4",
