@@ -23,6 +23,7 @@
 }
 
 .pnp-detail-list {
+    margin-left: 15px;
     @include themify($themes) {
         background-color: themed('backgroundColor');
     }
@@ -47,6 +48,27 @@
 
     .list-header-uncollapsible {
         padding-bottom: 13px;
+    }
+}
+
+.flex-grid-row {
+    display: flex;
+    justify-content: space-between;
+    .col-sm4 {
+        width: 33.33333333333333%;
+        padding: 5px;
+    }
+    .col-sm3 {
+        width: 25%;
+        padding: 5px;
+    }
+    .col-sm2 {
+        width: 16.666666666666664%;
+        padding: 5px;
+    }
+    .col-sm2 {
+        width: 8.333333333333332%;
+        padding: 5px;
     }
 }
 
@@ -114,6 +136,10 @@
                 margin-top: 10px;
             }
         }
+    }
+
+    .event-list-item {
+        margin-left: 15px;
     }
 }
 

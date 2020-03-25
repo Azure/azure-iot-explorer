@@ -323,13 +323,13 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
                 {
                     events && events.length > 0 &&
                     <>
-                        <div className="pnp-detail-list ms-Grid">
-                            <div className="list-header list-header-uncollapsible ms-Grid-row">
-                                <span className="ms-Grid-col ms-sm2">{context.t(ResourceKeys.deviceEvents.columns.timestamp)}</span>
-                                <span className="ms-Grid-col ms-sm2">{context.t(ResourceKeys.deviceEvents.columns.displayName)}</span>
-                                <span className="ms-Grid-col ms-sm2">{context.t(ResourceKeys.deviceEvents.columns.schema)}</span>
-                                <span className="ms-Grid-col ms-sm2">{context.t(ResourceKeys.deviceEvents.columns.unit)}</span>
-                                <span className="ms-Grid-col ms-sm4">{context.t(ResourceKeys.deviceEvents.columns.value)}</span>
+                        <div className="pnp-detail-list">
+                            <div className="list-header list-header-uncollapsible flex-grid-row">
+                                <span className="col-sm2">{context.t(ResourceKeys.deviceEvents.columns.timestamp)}</span>
+                                <span className="col-sm2">{context.t(ResourceKeys.deviceEvents.columns.displayName)}</span>
+                                <span className="col-sm2">{context.t(ResourceKeys.deviceEvents.columns.schema)}</span>
+                                <span className="col-sm2">{context.t(ResourceKeys.deviceEvents.columns.unit)}</span>
+                                <span className="col-sm4">{context.t(ResourceKeys.deviceEvents.columns.value)}</span>
                             </div>
                         </div>
                         <section role="feed">
@@ -352,8 +352,8 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
         const { telemetryModelDefinition, parsedSchema } = this.getModelDefinitionAndSchema(event.systemProperties[TELEMETRY_SCHEMA_PROP]);
 
         return (
-            <article className="list-item" role="article" key={index}>
-                <section className="item-summary">
+            <article className="list-item event-list-item" role="article" key={index}>
+                <section className="flex-grid-row item-summary">
                     <ErrorBoundary error={context.t(ResourceKeys.errorBoundary.text)}>
                         {this.renderTimestamp(event.enqueuedTime, context)}
                         {this.renderEventName(context, telemetryModelDefinition)}
@@ -376,8 +376,8 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
                 const isNotItemLast = keyIndex !== telemetryKeys.length - 1;
 
                 return (
-                    <article className="list-item" role="article" key={key + index}>
-                        <section className={`item-summary ${isNotItemLast && 'item-summary-partial'}`}>
+                    <article className="list-item event-list-item" role="article" key={key + index}>
+                        <section className={`flex-grid-row item-summary ${isNotItemLast && 'item-summary-partial'}`}>
                             <ErrorBoundary error={context.t(ResourceKeys.errorBoundary.text)}>
                                 {this.renderTimestamp(keyIndex === 0 ? event.enqueuedTime : null, context)}
                                 {this.renderEventName(context, telemetryModelDefinition)}
@@ -394,8 +394,8 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
 
     private readonly renderEventsWithNoSystemProperties = (event: Message, index: number, context: LocalizationContextInterface) => {
         return (
-            <article className="list-item" role="article" key={index}>
-                <section className="item-summary">
+            <article className="list-item event-list-item" role="article" key={index}>
+                <section className="flex-grid-row item-summary">
                     <ErrorBoundary error={context.t(ResourceKeys.errorBoundary.text)}>
                         {this.renderTimestamp(event.enqueuedTime, context)}
                         {this.renderEventName(context)}
@@ -410,7 +410,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
 
     private readonly renderTimestamp = (enqueuedTime: string, context: LocalizationContextInterface) => {
         return(
-            <div className="ms-Grid-col ms-sm2">
+            <div className="col-sm2">
                 <Label aria-label={context.t(ResourceKeys.deviceEvents.columns.timestamp)}>
                     {enqueuedTime && parseDateTimeString(enqueuedTime)}
                 </Label>
@@ -421,7 +421,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
     private readonly renderEventName = (context: LocalizationContextInterface, telemetryModelDefinition?: TelemetryContent) => {
         const displayName = telemetryModelDefinition ? getLocalizedData(telemetryModelDefinition.displayName) : '';
         return(
-            <div className="ms-Grid-col ms-sm2">
+            <div className="col-sm2">
                 <Label aria-label={context.t(ResourceKeys.deviceEvents.columns.displayName)}>
                     {telemetryModelDefinition ?
                         `${telemetryModelDefinition.name} (${displayName ? displayName : '--'})` : '--'}
@@ -432,7 +432,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
 
     private readonly renderEventSchema = (context: LocalizationContextInterface, telemetryModelDefinition?: TelemetryContent) => {
         return(
-            <div className="ms-Grid-col ms-sm2">
+            <div className="col-sm2">
                 <Label aria-label={context.t(ResourceKeys.deviceEvents.columns.schema)}>
                     {telemetryModelDefinition ?
                         (typeof telemetryModelDefinition.schema === 'string' ?
@@ -446,7 +446,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
     private readonly renderEventUnit = (context: LocalizationContextInterface, telemetryModelDefinition?: TelemetryContent) => {
         const displayUnit = telemetryModelDefinition ? getLocalizedData(telemetryModelDefinition.displayUnit) : '';
         return(
-            <div className="ms-Grid-col ms-sm2">
+            <div className="col-sm2">
                 <Label aria-label={context.t(ResourceKeys.deviceEvents.columns.unit)}>
                     {telemetryModelDefinition ?
                         telemetryModelDefinition.unit || displayUnit || '--' : '--'}
@@ -459,7 +459,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
         if (key && !schema) { // DTDL doesn't contain corresponding key
             const labelContent = context.t(ResourceKeys.deviceEvents.columns.validation.key.isNotSpecified, { key });
             return(
-                <div className="column-value-text ms-Grid-col ms-sm4">
+                <div className="column-value-text col-sm4">
                     <span aria-label={context.t(ResourceKeys.deviceEvents.columns.value)}>
                         {JSON.stringify(eventBody, undefined, JSON_SPACES)}
                         <Label className="value-validation-error">
@@ -476,7 +476,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
                 receivedKey: Object.keys(eventBody)[0]
             });
             return(
-                <div className="column-value-text ms-Grid-col ms-sm4">
+                <div className="column-value-text col-sm4">
                     <span aria-label={context.t(ResourceKeys.deviceEvents.columns.value)}>
                         {JSON.stringify(eventBody, undefined, JSON_SPACES)}
                         <Label className="value-validation-error">
@@ -500,7 +500,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
         }
 
         return(
-            <div className="column-value-text ms-Grid-col ms-sm4">
+            <div className="column-value-text col-sm4">
                 <Label aria-label={context.t(ResourceKeys.deviceEvents.columns.value)}>
                     {JSON.stringify(eventBody, undefined, JSON_SPACES)}
                     {result && result.errors && result.errors.length !== 0 &&
@@ -520,7 +520,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
 
     private readonly renderMessageBodyWithNoSchema = (eventBody: any, context: LocalizationContextInterface) => { // tslint:disable-line:no-any
         return(
-            <div className="column-value-text ms-Grid-col ms-sm4">
+            <div className="column-value-text col-sm4">
                 <Label aria-label={context.t(ResourceKeys.deviceEvents.columns.value)}>
                     {JSON.stringify(eventBody, undefined, JSON_SPACES)}
                 </Label>

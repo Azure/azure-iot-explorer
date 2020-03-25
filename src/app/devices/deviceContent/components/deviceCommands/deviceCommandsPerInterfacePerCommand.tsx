@@ -41,10 +41,8 @@ export default class DeviceCommandsPerInterfacePerCommand
                 <LocalizationContextConsumer >
                     {(context: LocalizationContextInterface) => (
                         <ErrorBoundary error={context.t(ResourceKeys.errorBoundary.text)}>
-                            <div className="ms-Grid-row">
-                                {this.createCollapsedSummary(context)}
-                                {this.createUncollapsedCard(context)}
-                            </div>
+                            {this.createCollapsedSummary(context)}
+                            {this.createUncollapsedCard(context)}
                         </ErrorBoundary>
                     )}
                 </LocalizationContextConsumer>
@@ -56,7 +54,7 @@ export default class DeviceCommandsPerInterfacePerCommand
 
     private readonly createCollapsedSummary = (context: LocalizationContextInterface) => {
         return (
-            <header className={this.props.collapsed ? 'item-summary' : 'item-summary item-summary-uncollapsed'} onClick={this.handleToggleCollapse}>
+            <header className={`flex-grid-row item-summary ${this.props.collapsed ? '' : 'item-summary-uncollapsed'}`} onClick={this.handleToggleCollapse}>
                 {this.renderCommandName(context)}
                 {this.renderCommandSchema(context, true)}
                 {this.renderCommandSchema(context, false)}
@@ -126,23 +124,23 @@ export default class DeviceCommandsPerInterfacePerCommand
         displayName = displayName ? displayName : '--';
         let description = getLocalizedData(this.props.commandModelDefinition.description);
         description = description ? description : '--';
-        return <div className="ms-Grid-col ms-sm3"><Label aria-label={ariaLabel}>{this.props.commandModelDefinition.name} ({displayName} / {description})</Label></div>;
+        return <div className="col-sm3"><Label aria-label={ariaLabel}>{this.props.commandModelDefinition.name} ({displayName} / {description})</Label></div>;
     }
 
     private readonly renderCommandSchema = (context: LocalizationContextInterface, isRequest: boolean) => {
         const ariaLabel = context.t(ResourceKeys.deviceCommands.columns.type);
-        return <div className="ms-Grid-col ms-sm3"><Label aria-label={ariaLabel}>{this.getCommandSchema(isRequest)}</Label></div>;
+        return <div className="col-sm3"><Label aria-label={ariaLabel}>{this.getCommandSchema(isRequest)}</Label></div>;
     }
 
     private readonly renderCommandType = (context: LocalizationContextInterface) => {
         const ariaLabel = context.t(ResourceKeys.deviceCommands.columns.schema.request);
         const { commandModelDefinition } = this.props;
-        return <div className="ms-Grid-col ms-sm2"><Label aria-label={ariaLabel}>{commandModelDefinition.commandType ? commandModelDefinition.commandType : '--'}</Label></div>;
+        return <div className="col-sm2"><Label aria-label={ariaLabel}>{commandModelDefinition.commandType ? commandModelDefinition.commandType : '--'}</Label></div>;
     }
 
     private readonly renderCollapseButton = (context: LocalizationContextInterface) => {
         return (
-        <div className="ms-Grid-col ms-sm1">
+        <div className="col-sm1">
             <IconButton
                 title={context.t(this.props.collapsed ? ResourceKeys.deviceCommands.command.expand : ResourceKeys.deviceCommands.command.collapse)}
                 iconProps={{iconName: this.props.collapsed ? InterfaceDetailCard.OPEN : InterfaceDetailCard.CLOSE}}

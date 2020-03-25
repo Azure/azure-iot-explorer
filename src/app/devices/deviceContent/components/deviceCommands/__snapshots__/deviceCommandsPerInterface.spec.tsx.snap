@@ -2,33 +2,33 @@
 
 exports[`components/devices/deviceCommandsPerInterface matches snapshot 1`] = `
 <div
-  className="pnp-detail-list scrollable-lg ms-Grid"
+  className="pnp-detail-list scrollable-lg"
 >
   <div
-    className="list-header ms-Grid-row"
+    className="list-header flex-grid-row"
   >
     <span
-      className="ms-Grid-col ms-sm3"
+      className="col-sm3"
     >
       deviceCommands.columns.name
     </span>
     <span
-      className="ms-Grid-col ms-sm3"
+      className="col-sm3"
     >
       deviceCommands.columns.schema.request
     </span>
     <span
-      className="ms-Grid-col ms-sm3"
+      className="col-sm3"
     >
       deviceCommands.columns.schema.response
     </span>
     <span
-      className="ms-Grid-col ms-sm2"
+      className="col-sm2"
     >
       deviceCommands.columns.type
     </span>
     <div
-      className="ms-Grid-col ms-sm1 collapse-button"
+      className="col-sm1 collapse-button"
     >
       <CustomizedIconButton
         ariaLabel="deviceCommands.command.collapseAll"
