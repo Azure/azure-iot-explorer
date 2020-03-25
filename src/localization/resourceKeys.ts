@@ -686,6 +686,12 @@ export class ResourceKeys {
                infoText : "settings.modelDefinitions.repositoryTypes.device.infoText",
                label : "settings.modelDefinitions.repositoryTypes.device.label",
             },
+            local : {
+               infoText : "settings.modelDefinitions.repositoryTypes.local.infoText",
+               label : "settings.modelDefinitions.repositoryTypes.local.label",
+               placeholder : "settings.modelDefinitions.repositoryTypes.local.placeholder",
+               textBoxLabel : "settings.modelDefinitions.repositoryTypes.local.textBoxLabel",
+            },
             private : {
                infoText : "settings.modelDefinitions.repositoryTypes.private.infoText",
                label : "settings.modelDefinitions.repositoryTypes.private.label",

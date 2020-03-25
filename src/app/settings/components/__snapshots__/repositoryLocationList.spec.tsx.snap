@@ -19,7 +19,23 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
             "repositoryLocationType": "PUBLIC",
           }
         }
+        items={
+          Array [
+            Object {
+              "repositoryLocationType": "PUBLIC",
+            },
+            Object {
+              "repositoryLocationType": "DEVICE",
+            },
+            Object {
+              "repositoryLocationType": "PRIVATE",
+            },
+          ]
+        }
         moveCard={[MockFunction]}
+        onAddListItem={[MockFunction]}
+        onLocalFolderPathChanged={[MockFunction]}
+        onMoveItem={[MockFunction]}
         onPrivateRepositoryConnectionStringChanged={[MockFunction]}
         onRemoveListItem={[MockFunction]}
       />
@@ -34,7 +50,23 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
             "repositoryLocationType": "DEVICE",
           }
         }
+        items={
+          Array [
+            Object {
+              "repositoryLocationType": "PUBLIC",
+            },
+            Object {
+              "repositoryLocationType": "DEVICE",
+            },
+            Object {
+              "repositoryLocationType": "PRIVATE",
+            },
+          ]
+        }
         moveCard={[MockFunction]}
+        onAddListItem={[MockFunction]}
+        onLocalFolderPathChanged={[MockFunction]}
+        onMoveItem={[MockFunction]}
         onPrivateRepositoryConnectionStringChanged={[MockFunction]}
         onRemoveListItem={[MockFunction]}
       />
@@ -49,14 +81,30 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
             "repositoryLocationType": "PRIVATE",
           }
         }
+        items={
+          Array [
+            Object {
+              "repositoryLocationType": "PUBLIC",
+            },
+            Object {
+              "repositoryLocationType": "DEVICE",
+            },
+            Object {
+              "repositoryLocationType": "PRIVATE",
+            },
+          ]
+        }
         moveCard={[MockFunction]}
+        onAddListItem={[MockFunction]}
+        onLocalFolderPathChanged={[MockFunction]}
+        onMoveItem={[MockFunction]}
         onPrivateRepositoryConnectionStringChanged={[MockFunction]}
         onRemoveListItem={[MockFunction]}
       />
     </n>
   </t>
   <CustomizedActionButton
-    disabled={true}
+    disabled={false}
     iconProps={
       Object {
         "iconName": "Add",
@@ -82,6 +130,12 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
             "key": "DEVICE",
             "onClick": [Function],
             "text": "settings.modelDefinitions.repositoryTypes.device.label",
+          },
+          Object {
+            "disabled": false,
+            "key": "LOCAL",
+            "onClick": [Function],
+            "text": "settings.modelDefinitions.repositoryTypes.local.label",
           },
         ],
       }
@@ -128,6 +182,12 @@ exports[`components/settings/repositoryLocationList matches snapshot with no ite
             "onClick": [Function],
             "text": "settings.modelDefinitions.repositoryTypes.device.label",
           },
+          Object {
+            "disabled": true,
+            "key": "LOCAL",
+            "onClick": [Function],
+            "text": "settings.modelDefinitions.repositoryTypes.local.label",
+          },
         ],
       }
     }
@@ -155,7 +215,17 @@ exports[`components/settings/repositoryLocationList matches snapshot with public
             "repositoryLocationType": "PUBLIC",
           }
         }
+        items={
+          Array [
+            Object {
+              "repositoryLocationType": "PUBLIC",
+            },
+          ]
+        }
         moveCard={[MockFunction]}
+        onAddListItem={[MockFunction]}
+        onLocalFolderPathChanged={[MockFunction]}
+        onMoveItem={[MockFunction]}
         onPrivateRepositoryConnectionStringChanged={[MockFunction]}
         onRemoveListItem={[MockFunction]}
       />
@@ -188,6 +258,12 @@ exports[`components/settings/repositoryLocationList matches snapshot with public
             "key": "DEVICE",
             "onClick": [Function],
             "text": "settings.modelDefinitions.repositoryTypes.device.label",
+          },
+          Object {
+            "disabled": false,
+            "key": "LOCAL",
+            "onClick": [Function],
+            "text": "settings.modelDefinitions.repositoryTypes.local.label",
           },
         ],
       }

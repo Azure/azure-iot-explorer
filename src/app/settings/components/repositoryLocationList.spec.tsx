@@ -17,6 +17,7 @@ describe('components/settings/repositoryLocationList', () => {
                 onAddListItem={jest.fn()}
                 onMoveItem={jest.fn()}
                 onPrivateRepositoryConnectionStringChanged={jest.fn()}
+                onLocalFolderPathChanged={jest.fn()}
                 onRemoveListItem={jest.fn()}
             />
         );
@@ -29,6 +30,7 @@ describe('components/settings/repositoryLocationList', () => {
                 onAddListItem={jest.fn()}
                 onMoveItem={jest.fn()}
                 onPrivateRepositoryConnectionStringChanged={jest.fn()}
+                onLocalFolderPathChanged={jest.fn()}
                 onRemoveListItem={jest.fn()}
             />
         );
@@ -46,6 +48,7 @@ describe('components/settings/repositoryLocationList', () => {
                 onAddListItem={jest.fn()}
                 onMoveItem={jest.fn()}
                 onPrivateRepositoryConnectionStringChanged={jest.fn()}
+                onLocalFolderPathChanged={jest.fn()}
                 onRemoveListItem={jest.fn()}
             />
         );

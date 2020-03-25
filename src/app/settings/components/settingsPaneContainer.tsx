@@ -24,7 +24,7 @@ const mapStateToProps = (state: StateType): SettingsPaneProps => {
         hubConnectionString: getActiveAzureResourceConnectionStringSelector(state),
         hubConnectionStringList: state.connectionStringsState.connectionStrings,
         isOpen: getSettingsVisibleSelector(state),
-        repositoryLocations: getRepositoryLocationSettingsSelector(state)
+        repositoryLocationSettings: getRepositoryLocationSettingsSelector(state)
     };
 };
 
@@ -37,7 +37,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): SettingsPaneActions 
                 hostName: getConnectionInfoFromConnectionString(payload.hubConnectionString).hostName
             }));
             dispatch(setConnectionStringsAction(payload.hubConnectionStringList));
-            dispatch(setSettingsRepositoryLocationsAction(payload.repositoryLocations));
+            dispatch(setSettingsRepositoryLocationsAction(payload.repositoryLocationSettings));
         },
         onSettingsVisibleChanged: (visible: boolean) => {
             dispatch(setSettingsVisibilityAction(visible));

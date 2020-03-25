@@ -8,14 +8,14 @@ import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationType
 import { LocalizationContextInterface, LocalizationContextConsumer } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import MaskedCopyableTextFieldContainer from '../../shared/components/maskedCopyableTextFieldContainer';
-import { RepositoryLocationSettings } from '../state';
 import { CANCEL } from '../../constants/iconNames';
+import { RepositoryLocationSettings } from '../state';
 
 export interface RepositoryLocationListItemProps {
     index: number;
     item: RepositoryLocationSettings;
     onPrivateRepositoryConnectionStringChanged: (connectionString: string) => void;
-
+    onLocalFolderPathChanged: (path: string) => void;
     moveCard: (oldIndex: number, newIndex: number) => void;
     onRemoveListItem: (index: number) => void;
 }
@@ -24,13 +24,49 @@ export default class RepositoryLocationListItem extends React.Component<Reposito
     constructor(props: RepositoryLocationListItemProps) {
         super(props);
     }
-    private readonly onConnectionStringChanged = (newValue?: string) => {
-        this.props.onPrivateRepositoryConnectionStringChanged(newValue);
-    }
 
     private readonly onRemove = () => {
         this.props.onRemoveListItem(this.props.index);
     }
+
+    private renderItemDetail = (context: LocalizationContextInterface) => {
+        const { item } = this.props;
+        return (
+            <div className="item-details">
+                {item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Public
+                    && context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.public.label)}
+                {item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Device
+                    && context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.device.label)}
+                {item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Private &&
+                    <MaskedCopyableTextFieldContainer
+                        ariaLabel={context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.private.textBoxLabel)}
+                        label={context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.private.textBoxLabel)}
+                        value={item.value}
+                        allowMask={true}
+                        readOnly={false}
+                        required={true}
+                        onTextChange={this.props.onPrivateRepositoryConnectionStringChanged}
+                        placeholder={context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.private.placeholder)}
+                        setFocus={true}
+                    />
+                }
+                {item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local &&
+                    <MaskedCopyableTextFieldContainer
+                        ariaLabel={context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.local.textBoxLabel)}
+                        label={context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.local.textBoxLabel)}
+                        labelCallout={context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.local.infoText)}
+                        value={item.value}
+                        allowMask={false}
+                        readOnly={false}
+                        required={true}
+                        onTextChange={this.props.onLocalFolderPathChanged}
+                        placeholder={context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.local.placeholder)}
+                        setFocus={true}
+                    />
+                }
+            </div>);
+    }
+
     public render(): JSX.Element {
         const { item, index } = this.props;
         return (
@@ -44,24 +80,7 @@ export default class RepositoryLocationListItem extends React.Component<Reposito
                         className="location-item"
                         role="listitem"
                     >
-                        <div className="item-details">
-                            {item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Public
-                                && context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.public.label)}
-                            {item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Device
-                                && context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.device.label)}
-                            {item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Private &&
-                                <MaskedCopyableTextFieldContainer
-                                    ariaLabel={context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.private.textBoxLabel)}
-                                    label={context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.private.textBoxLabel)}
-                                    value={item.connectionString}
-                                    allowMask={true}
-                                    readOnly={false}
-                                    required={true}
-                                    onTextChange={this.onConnectionStringChanged}
-                                    placeholder={context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.private.placeholder)}
-                                />
-                            }
-                        </div>
+                        {this.renderItemDetail(context)}
                         {item.repositoryLocationType !== REPOSITORY_LOCATION_TYPE.Public && <IconButton
                             className="remove-button"
                             iconProps={{ iconName: CANCEL }}
