@@ -10,12 +10,14 @@ import { LocalizationContextInterface, LocalizationContextConsumer } from '../..
 import RepositoryLocationItem from './repositoryLocationListItem';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
+import { ADD } from '../../constants/iconNames';
 
 export interface RepositoryLocationListProps {
     items: RepositoryLocationSettings[];
     onAddListItem: (type: REPOSITORY_LOCATION_TYPE) => void;
     onMoveItem: (oldIndex: number, newIndex: number) => void;
     onPrivateRepositoryConnectionStringChanged: (connectionString: string) => void;
+    onLocalFolderPathChanged: (path: string) => void;
     onRemoveListItem: (index: number) => void;
 }
 
@@ -27,11 +29,10 @@ export default class RepositoryLocationList extends React.Component<RepositoryLo
         return (
                 <Draggable key={item.repositoryLocationType} >
                     <RepositoryLocationItem
+                        {...this.props}
                         index={index}
                         item={item}
                         moveCard={this.props.onMoveItem}
-                        onPrivateRepositoryConnectionStringChanged={this.props.onPrivateRepositoryConnectionStringChanged}
-                        onRemoveListItem={this.props.onRemoveListItem}
                     />
                 </Draggable>
         );
@@ -44,39 +45,50 @@ export default class RepositoryLocationList extends React.Component<RepositoryLo
         this.props.onAddListItem(type);
     }
 
+    private readonly getMenuItems = (context: LocalizationContextInterface) => {
+        const { items} = this.props;
+        return [
+            {
+                disabled: !items || items.some(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Private),
+                key: REPOSITORY_LOCATION_TYPE.Private,
+                onClick: () => this.onAddRepositoryType(REPOSITORY_LOCATION_TYPE.Private),
+                text: context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.private.label)
+            },
+            {
+                disabled: !items || items.some(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Public),
+                key: REPOSITORY_LOCATION_TYPE.Public,
+                onClick: () => this.onAddRepositoryType(REPOSITORY_LOCATION_TYPE.Public),
+                text: context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.public.label)
+            },
+            {
+                disabled: !items || items.some(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Device),
+                key: REPOSITORY_LOCATION_TYPE.Device,
+                onClick: () => this.onAddRepositoryType(REPOSITORY_LOCATION_TYPE.Device),
+                text: context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.device.label),
+            },
+            {
+                disabled: !items || items.some(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local),
+                key: REPOSITORY_LOCATION_TYPE.Local,
+                onClick: () => this.onAddRepositoryType(REPOSITORY_LOCATION_TYPE.Local),
+                text: context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.local.label),
+            }
+        ];
+    }
+
     public render(): JSX.Element {
         const { items} = this.props;
 
         return (
             <LocalizationContextConsumer>
                 {(context: LocalizationContextInterface) => {
-                    const menuItems = [
-                        {
-                            disabled: !items || items.some(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Private),
-                            key: REPOSITORY_LOCATION_TYPE.Private,
-                            onClick: () => this.onAddRepositoryType(REPOSITORY_LOCATION_TYPE.Private),
-                            text: context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.private.label)
-                        },
-                        {
-                            disabled: !items || items.some(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Public),
-                            key: REPOSITORY_LOCATION_TYPE.Public,
-                            onClick: () => this.onAddRepositoryType(REPOSITORY_LOCATION_TYPE.Public),
-                            text: context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.public.label)
-                        },
-                        {
-                            disabled: !items || items.some(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Device),
-                            key: REPOSITORY_LOCATION_TYPE.Device,
-                            onClick: () => this.onAddRepositoryType(REPOSITORY_LOCATION_TYPE.Device),
-                            text: context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.device.label),
-                        }
-                    ];
+                    const menuItems = this.getMenuItems(context);
                     return(
                         <div className="location-list">
                             <Container onDrop={this.onDrop}>
                                 {items && items.map((item, index) => this.renderItem(item, index))}
                             </Container>
                             <CommandButton
-                                iconProps={{iconName: 'Add'}}
+                                iconProps={{iconName: ADD}}
                                 text={context.t(ResourceKeys.settings.modelDefinitions.add)}
                                 menuProps={{
                                     items: menuItems,

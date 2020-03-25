@@ -20,6 +20,7 @@ import { Notification } from '../../api/models/notification';
 import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
 import { generateConnectionStringValidationError, formatConnectionStrings } from '../../shared/utils/hubConnectionStringHelper';
 import { ROUTE_PARTS } from '../../constants/routes';
+import { RepositoryLocationSettings } from '../state';
 import '../../css/_settingsPane.scss';
 
 export interface SettingsPaneProps extends Settings {
@@ -33,15 +34,10 @@ export interface SettingsPaneActions {
     addNotification: (notification: Notification) => void;
 }
 
-export interface RepositorySettings {
-    repositoryLocationType: REPOSITORY_LOCATION_TYPE;
-    connectionString?: string;
-}
-
 export interface Settings {
     hubConnectionString: string;
     hubConnectionStringList: string[];
-    repositoryLocations?: RepositorySettings[];
+    repositoryLocationSettings?: RepositoryLocationSettings[];
 }
 
 interface SettingsPaneState extends Settings{
@@ -54,10 +50,10 @@ interface SettingsPaneState extends Settings{
 export default class SettingsPane extends React.Component<SettingsPaneProps & SettingsPaneActions & RouteComponentProps, SettingsPaneState> {
     constructor(props: SettingsPaneProps & SettingsPaneActions & RouteComponentProps) {
         super(props);
-        const repositoryLocations = props.repositoryLocations ? props.repositoryLocations.map(value => {
+        const repositoryLocationSettings: RepositoryLocationSettings[] = props.repositoryLocationSettings ? props.repositoryLocationSettings.map(setting => {
             return {
-                connectionString: value.connectionString,
-                repositoryLocationType: value.repositoryLocationType};
+                repositoryLocationType: setting.repositoryLocationType,
+                value: setting.value};
             }) : [];
         const theme = localStorage.getItem(THEME_SELECTION);
 
@@ -67,7 +63,7 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
             hubConnectionStringList: props.hubConnectionStringList,
             isDarkTheme: Theme.dark === theme || Theme.highContrastBlack === theme,
             isDirty: false,
-            repositoryLocations,
+            repositoryLocationSettings,
             showConfirmationDialog: false,
         };
     }
@@ -114,10 +110,11 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
                             <h3 role="heading" aria-level={1}>{context.t(ResourceKeys.settings.modelDefinitions.headerText)}</h3>
                             <span className="helptext">{context.t(ResourceKeys.settings.modelDefinitions.helpText)}</span>
                             <RepositoryLocationList
-                                items={this.state.repositoryLocations}
+                                items={this.state.repositoryLocationSettings}
                                 onAddListItem={this.onAddListItem}
                                 onMoveItem={this.onMoveRepositoryLocation}
                                 onPrivateRepositoryConnectionStringChanged={this.onPrivateRepositoryConnectionStringChanged}
+                                onLocalFolderPathChanged={this.onLocalFolderPathChanged}
                                 onRemoveListItem={this.onRemoveListItem}
                             />
                         </section>
@@ -158,41 +155,51 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
     }
 
     private readonly onAddListItem = (type: REPOSITORY_LOCATION_TYPE) => {
-        const items = this.state.repositoryLocations;
+        const items = this.state.repositoryLocationSettings;
         items.push({
             repositoryLocationType: type
         });
         this.setState({
             isDirty: true,
-            repositoryLocations: [...items]
+            repositoryLocationSettings: [...items]
         });
     }
 
     private readonly onRemoveListItem = (index: number) => {
-        const items = this.state.repositoryLocations;
+        const items = this.state.repositoryLocationSettings;
         items.splice(index, 1);
         this.setState({
             isDirty: true,
-            repositoryLocations: [...items]
+            repositoryLocationSettings: [...items]
         });
     }
 
     private readonly onPrivateRepositoryConnectionStringChanged = (connectionString: string) => {
-        const items = this.state.repositoryLocations;
+        const items = this.state.repositoryLocationSettings;
         const item = items[items.findIndex(value => value.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Private)];
-        item.connectionString = connectionString;
+        item.value = connectionString;
         this.setState({
             isDirty: true,
-            repositoryLocations: [...items]
+            repositoryLocationSettings: [...items]
+        });
+    }
+
+    private readonly onLocalFolderPathChanged = (path: string) => {
+        const items = this.state.repositoryLocationSettings;
+        const item = items[items.findIndex(value => value.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local)];
+        item.value = path;
+        this.setState({
+            isDirty: true,
+            repositoryLocationSettings: [...items]
         });
     }
 
     private readonly onMoveRepositoryLocation = (oldIndex: number, newIndex: number) => {
-        const items = this.state.repositoryLocations;
+        const items = this.state.repositoryLocationSettings;
         items.splice(newIndex, 0, items.splice(oldIndex, 1)[0]);
         this.setState({
             isDirty: true,
-            repositoryLocations: [...items]
+            repositoryLocationSettings: [...items]
         });
     }
 
@@ -247,10 +254,10 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
             hubConnectionString: this.props.hubConnectionString,
             hubConnectionStringError: '',
             isDirty: false,
-            repositoryLocations: [...(this.props.repositoryLocations && this.props.repositoryLocations.map(value => {
+            repositoryLocationSettings: [...(this.props.repositoryLocationSettings && this.props.repositoryLocationSettings.map(setting => {
                 return {
-                    connectionString: value.connectionString,
-                    repositoryLocationType: value.repositoryLocationType
+                    connectionString: setting.value,
+                    repositoryLocationType: setting.repositoryLocationType
                 };
             }))],
             showConfirmationDialog: false
@@ -311,9 +318,9 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
                                     text={context.t(ResourceKeys.settings.save)}
                                     // tslint:disable-next-line: jsx-no-lambda
                                     onClick={() => {
-                                        themeContext.updateTheme(this.state.isDarkTheme);
-                                        this.saveSettings();
-                                    }
+                                            themeContext.updateTheme(this.state.isDarkTheme);
+                                            this.saveSettings();
+                                        }
                                     }
                                 />
                             )}
@@ -330,17 +337,21 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
         );
     }
 
+    // tslint:disable-next-line:cyclomatic-complexity
     private readonly disableSaveButton = () => {
-        const shouldBeDisabled = !this.state.isDirty || !!this.state.hubConnectionStringError;
-        if (shouldBeDisabled) {
-            return shouldBeDisabled;
+        // 1. check dirty and hub connection string
+        let shouldBeDisabled = !this.state.isDirty || !!this.state.hubConnectionStringError;
+
+        // 2. check if private repo has been added along with it's connection string
+        const privateLocationSetting = this.state.repositoryLocationSettings.filter(location => location.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Private);
+        if (privateLocationSetting && privateLocationSetting.length !== 0  ) {
+            shouldBeDisabled = shouldBeDisabled || !privateLocationSetting[0].value;
         }
-        else {
-            // when state is dirty and has no errors, check if private repo has been added along with it's connection string
-            const privateLocationSetting = this.state.repositoryLocations.filter(location => location.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Private);
-            if (privateLocationSetting && privateLocationSetting.length !== 0  ) {
-                return !privateLocationSetting[0].connectionString;
-            }
+        // 3. check if local file explorer has been added along with it's path
+        const localLocationSetting = this.state.repositoryLocationSettings.filter(location => location.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local);
+        if (localLocationSetting && localLocationSetting.length !== 0  ) {
+            shouldBeDisabled = shouldBeDisabled || !localLocationSetting[0].value;
         }
+        return shouldBeDisabled;
     }
 }

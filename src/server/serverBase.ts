@@ -2,6 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
+import * as fs from 'fs';
 import express = require('express');
 import request = require('request');
 import bodyParser = require('body-parser');
@@ -50,10 +51,32 @@ export default class ServerBase {
         app.post(eventHubMonitorUri, handleEventHubMonitorPostRequest);
         app.post(eventHubStopUri, handleEventHubStopPostRequest);
         app.post(modelRepoUri, handleModelRepoPostRequest);
+        app.get(readFileUri, handleReadFilePostRequest);
 
         app.listen(this.port);
     }
 }
+
+const readFileUri = '/api/ReadFile/:path';
+export const handleReadFilePostRequest = (req: express.Request, res: express.Response) => {
+    try {
+        const path = req.params.path;
+        if (!path) {
+            res.status(BAD_REQUEST).send();
+        }
+        else {
+            fs.readFile(path, 'utf-8', (err, data) => {
+                if (err) {
+                    res.status(NOT_FOUND).send(err);
+                }
+                res.status(SUCCESS).send(data);
+            });
+        }
+    }
+    catch (error) {
+        res.status(SERVER_ERROR).send(error);
+    }
+};
 
 const dataPlaneUri = '/api/DataPlane';
 export const handleDataPlanePostRequest = (req: express.Request, res: express.Response) => {

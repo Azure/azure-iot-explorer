@@ -58,7 +58,7 @@
             "headerText": "App configurations"
         },
         "modelDefinitions": {
-            "add": "Add module definition source",
+            "add": "Add model definition source",
             "headerText": "Plug and Play configurations",
             "helpText": "We'll look for your model definition in the following order. Please drag and drop to change it.",
             "repositoryTypes": {
@@ -75,6 +75,12 @@
                 "device": {
                     "label":"On the connected device",
                     "infoText": ""
+                },
+                "local": {
+                    "label":"Local Folder",
+                    "infoText": "Use your local folder as a model repository. The files in the folder should be named as same as the interface id with ':' removed, and should be in the format of json, for example: urncontosocomEnvironmentalSensor1.json",
+                    "textBoxLabel": "Local folder path",
+                    "placeholder": "Please fill in this required field in order to proceed. For example: f:/"
                 }
             }
         },

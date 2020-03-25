@@ -11,7 +11,7 @@ import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getModelDefinitionAction, GetModelDefinitionActionParameters, getDigitalTwinInterfacePropertiesAction } from '../actions';
 import { FetchModelParameters } from '../../../api/parameters/repoParameters';
 import { getRepoTokenSaga } from '../../../settings/sagas/getRepoTokenSaga';
-import { getRepositoryLocationSettingsSelector, getPublicRepositoryHostName } from '../../../settings/selectors';
+import { getRepositoryLocationSettingsSelector, getPublicRepositoryHostName, getLocalFolderPath } from '../../../settings/selectors';
 import { RepositoryLocationSettings } from '../../../settings/state';
 import { REPOSITORY_LOCATION_TYPE } from './../../../constants/repositoryLocationTypes';
 import { getRepoConnectionInfoFromConnectionString } from '../../../api/shared/utils';
@@ -21,6 +21,7 @@ import { getDigitalTwinInterfaceIdsSelector, getDigitalTwinComponentNameAndIdsSe
 import { InterfaceNotImplementedException } from './../../../shared/utils/exceptions/interfaceNotImplementedException';
 import { modelDefinitionInterfaceId, modelDefinitionCommandName } from '../../../constants/modelDefinitionConstants';
 import { FetchDigitalTwinInterfacePropertiesParameters } from '../../../api/parameters/deviceParameters';
+import { fetchLocalFile } from './../../../api/services/localRepoService';
 
 export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionParameters>) {
     try {
@@ -68,7 +69,7 @@ export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionP
 }
 
 export function *getModelDefinitionFromPrivateRepo(action: Action<GetModelDefinitionActionParameters>, location: RepositoryLocationSettings) {
-    const repoConnectionStringInfo = getRepoConnectionInfoFromConnectionString(location.connectionString);
+    const repoConnectionStringInfo = getRepoConnectionInfoFromConnectionString(location.value);
     const parameters: FetchModelParameters = {
         id: action.payload.interfaceId,
         repoServiceHostName: repoConnectionStringInfo.hostName,
@@ -85,6 +86,12 @@ export function* getModelDefinitionFromPublicRepo(action: Action<GetModelDefinit
         token: yield call(getRepoTokenSaga, location.repositoryLocationType)
     };
     return yield call(fetchModelDefinition, parameters);
+}
+
+export function* getModelDefinitionFromLocalFile(action: Action<GetModelDefinitionActionParameters>) {
+    const path = (yield select(getLocalFolderPath)).replace(/\/$/, ''); // remove trailing slash
+    const fileName = action.payload.interfaceId.replace(/\:/g, ''); // remove ':' from id
+    return yield call(fetchLocalFile, `${path}/${fileName}.json`);
 }
 
 export function* getModelDefinitionFromDevice(action: Action<GetModelDefinitionActionParameters>) {
@@ -133,13 +140,14 @@ export function* getModelDefinitionFromDevice(action: Action<GetModelDefinitionA
 }
 
 export function* getModelDefinition(action: Action<GetModelDefinitionActionParameters>, location: RepositoryLocationSettings) {
-    if (location.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Private) {
-        return yield call(getModelDefinitionFromPrivateRepo, action, location);
-    }
-    if (location.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Public) {
-        return yield call(getModelDefinitionFromPublicRepo, action, location);
-    }
-    if (location.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Device) {
-        return yield call(getModelDefinitionFromDevice, action);
+    switch (location.repositoryLocationType) {
+        case REPOSITORY_LOCATION_TYPE.Private:
+            return yield call(getModelDefinitionFromPrivateRepo, action, location);
+        case REPOSITORY_LOCATION_TYPE.Device:
+            return yield call(getModelDefinitionFromDevice, action);
+        case REPOSITORY_LOCATION_TYPE.Local:
+            return yield call(getModelDefinitionFromLocalFile, action);
+        default:
+            return yield call(getModelDefinitionFromPublicRepo, action, location);
     }
 }
