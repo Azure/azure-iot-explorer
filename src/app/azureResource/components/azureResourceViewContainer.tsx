@@ -29,5 +29,7 @@ export const AzureResourceViewContainer: React.FC<AzureResourceViewContainerProp
         setActiveAzureResourceByHostName
     };
 
-    return <AzureResourceView {...viewProps} />;
+    return (
+        <AzureResourceView {...viewProps} />
+    );
 };

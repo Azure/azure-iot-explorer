@@ -70,13 +70,10 @@ export default class AddDevice extends React.Component<AddDeviceActionProps & Ad
             <LocalizationContextConsumer>
                 {(context: LocalizationContextInterface) => (
                      <form onSubmit={this.handleSave} className="view add-device">
-                        <div className="view-header">
-                            <Route component={Breadcrumb} />
-                        </div>
                         <div className="view-command">
                             {this.showCommandBar(context)}
                         </div>
-                        <div className="edit-content view-scroll-vertical">
+                        <div className="view-content view-scroll-vertical">
                             <div className="form">
                                 {this.showDeviceId(context)}
                                 {this.showAuthentication(context)}

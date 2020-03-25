@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ApplicationFrame matches snapshot 1`] = `
+<div
+  className="app"
+>
+  <div
+    className="masthead"
+  >
+    <Connect(Header) />
+  </div>
+  <nav
+    className="navigation"
+  >
+    <Route
+      component={[Function]}
+    />
+  </nav>
+  <main
+    className="content"
+    role="main"
+  />
+  <withRouter(Connect(SettingsPane)) />
+</div>
+`;
+
+exports[`withApplicationFrame matches snapshot 1`] = `
+<div
+  className="app"
+>
+  <div
+    className="masthead"
+  >
+    <Connect(Header) />
+  </div>
+  <nav
+    className="navigation"
+  >
+    <Route
+      component={[Function]}
+    />
+  </nav>
+  <main
+    className="content"
+    role="main"
+  >
+    <Component />
+  </main>
+  <withRouter(Connect(SettingsPane)) />
+</div>
+`;
