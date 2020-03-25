@@ -155,28 +155,28 @@ exports[`components/devices/deviceSettings matches snapshot with one twinWithSch
 
 exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
 <div
-  className="pnp-detail-list scrollable-lg ms-Grid"
+  className="pnp-detail-list scrollable-lg"
 >
   <div
-    className="list-header ms-Grid-row"
+    className="list-header flex-grid-row"
   >
     <span
-      className="ms-Grid-col ms-sm3"
+      className="col-sm3"
     >
       deviceSettings.columns.name
     </span>
     <span
-      className="ms-Grid-col ms-sm2"
+      className="col-sm2"
     >
       deviceSettings.columns.schema
     </span>
     <span
-      className="ms-Grid-col ms-sm2"
+      className="col-sm2"
     >
       deviceSettings.columns.unit
     </span>
     <span
-      className="ms-Grid-col ms-sm4 reported-value"
+      className="col-sm4 reported-value"
     >
       deviceSettings.columns.reportedValue
       <StyledTooltipHostBase
@@ -206,7 +206,7 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
       </StyledTooltipHostBase>
     </span>
     <div
-      className="ms-Grid-col ms-sm1 collapse-button"
+      className="col-sm1 collapse-button"
     >
       <CustomizedIconButton
         ariaLabel="deviceSettings.command.collapseAll"
