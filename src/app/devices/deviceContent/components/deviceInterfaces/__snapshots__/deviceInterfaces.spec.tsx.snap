@@ -33,9 +33,6 @@ exports[`components/devices/deviceInterfaces shows interface information when st
       ]
     }
   />
-  <Route
-    component={[Function]}
-  />
   <Connect(InterfaceNotFoundMessageBox) />
 </Fragment>
 `;
@@ -71,12 +68,12 @@ exports[`components/devices/deviceInterfaces shows interface information when st
       ]
     }
   />
-  <Route
-    component={[Function]}
-  />
   <ErrorBoundary
     error="errorBoundary.text"
   >
+    <Route
+      component={[Function]}
+    />
     <section
       className="pnp-interface-info scrollable-lg"
     >
@@ -171,12 +168,12 @@ exports[`components/devices/deviceInterfaces shows interface information when st
       ]
     }
   />
-  <Route
-    component={[Function]}
-  />
   <ErrorBoundary
     error="errorBoundary.text"
   >
+    <Route
+      component={[Function]}
+    />
     <section
       className="pnp-interface-info scrollable-lg"
     >
@@ -271,12 +268,12 @@ exports[`components/devices/deviceInterfaces shows interface information when st
       ]
     }
   />
-  <Route
-    component={[Function]}
-  />
   <ErrorBoundary
     error="errorBoundary.text"
   >
+    <Route
+      component={[Function]}
+    />
     <section
       className="pnp-interface-info scrollable-lg"
     >
@@ -371,12 +368,12 @@ exports[`components/devices/deviceInterfaces shows interface information when st
       ]
     }
   />
-  <Route
-    component={[Function]}
-  />
   <ErrorBoundary
     error="errorBoundary.text"
   >
+    <Route
+      component={[Function]}
+    />
     <section
       className="pnp-interface-info scrollable-lg"
     >
@@ -471,12 +468,12 @@ exports[`components/devices/deviceInterfaces shows interface information when st
       ]
     }
   />
-  <Route
-    component={[Function]}
-  />
   <ErrorBoundary
     error="errorBoundary.text"
   >
+    <Route
+      component={[Function]}
+    />
     <section
       className="pnp-interface-info scrollable-lg"
     >
