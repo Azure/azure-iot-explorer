@@ -20,7 +20,6 @@ import { REFRESH, STOP, START, REMOVE, NAVIGATE_BACK } from '../../../../constan
 import { ParsedJsonSchema } from '../../../../api/models/interfaceJsonParserOutput';
 import { TelemetryContent } from '../../../../api/models/modelDefinition';
 import { getInterfaceIdFromQueryString, getDeviceIdFromQueryString, getComponentNameFromQueryString } from '../../../../shared/utils/queryStringHelper';
-import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
 import { getNumberOfMapsInSchema } from '../../../../shared/utils/twinAndJsonSchemaDataConverter';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { DEFAULT_CONSUMER_GROUP } from '../../../../constants/apiConstants';
@@ -102,24 +101,22 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
                     <div className="device-events" key="device-events">
                         {this.renderCommandBar(context)}
                         <Route component={DigitalTwinHeaderContainer} />
-                        {telemetrySchema  ?
-                            telemetrySchema.length === 0 ?
-                                <Label className="no-pnp-content">{context.t(ResourceKeys.deviceEvents.noEvent, {componentName: getComponentNameFromQueryString(this.props)})}</Label> :
-                                <>
-                                    <TextField
-                                        className={'consumer-group-text-field'}
-                                        onRenderLabel={this.renderConsumerGroupLabel(context)}
-                                        label={context.t(ResourceKeys.deviceEvents.consumerGroups.label)}
-                                        ariaLabel={context.t(ResourceKeys.deviceEvents.consumerGroups.label)}
-                                        underlined={true}
-                                        value={this.state.consumerGroup}
-                                        disabled={this.state.monitoringData}
-                                        onChange={this.consumerGroupChange}
-                                    />
-                                    {this.renderRawTelemetryToggle(context)}
-                                    {this.renderInfiniteScroll(context)}
-                                </>
-                            : <InterfaceNotFoundMessageBoxContainer/>
+                        {telemetrySchema && telemetrySchema.length === 0 ?
+                            <Label className="no-pnp-content">{context.t(ResourceKeys.deviceEvents.noEvent, {componentName: getComponentNameFromQueryString(this.props)})}</Label> :
+                            <>
+                                <TextField
+                                    className={'consumer-group-text-field'}
+                                    onRenderLabel={this.renderConsumerGroupLabel(context)}
+                                    label={context.t(ResourceKeys.deviceEvents.consumerGroups.label)}
+                                    ariaLabel={context.t(ResourceKeys.deviceEvents.consumerGroups.label)}
+                                    underlined={true}
+                                    value={this.state.consumerGroup}
+                                    disabled={this.state.monitoringData}
+                                    onChange={this.consumerGroupChange}
+                                />
+                                {this.renderRawTelemetryToggle(context)}
+                                {this.renderInfiniteScroll(context)}
+                            </>
                         }
                         {this.state.loadingAnnounced}
                     </div>
