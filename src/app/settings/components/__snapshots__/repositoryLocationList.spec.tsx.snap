@@ -104,7 +104,7 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
     </n>
   </t>
   <CustomizedActionButton
-    disabled={false}
+    disabled={true}
     iconProps={
       Object {
         "iconName": "Add",
@@ -132,10 +132,10 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
             "text": "settings.modelDefinitions.repositoryTypes.device.label",
           },
           Object {
-            "disabled": false,
+            "disabled": true,
             "key": "LOCAL",
             "onClick": [Function],
-            "text": "settings.modelDefinitions.repositoryTypes.local.label",
+            "text": "settings.modelDefinitions.repositoryTypes.local.labelInBrowser",
           },
         ],
       }
@@ -186,7 +186,7 @@ exports[`components/settings/repositoryLocationList matches snapshot with no ite
             "disabled": true,
             "key": "LOCAL",
             "onClick": [Function],
-            "text": "settings.modelDefinitions.repositoryTypes.local.label",
+            "text": "settings.modelDefinitions.repositoryTypes.local.labelInBrowser",
           },
         ],
       }
@@ -260,10 +260,10 @@ exports[`components/settings/repositoryLocationList matches snapshot with public
             "text": "settings.modelDefinitions.repositoryTypes.device.label",
           },
           Object {
-            "disabled": false,
+            "disabled": true,
             "key": "LOCAL",
             "onClick": [Function],
-            "text": "settings.modelDefinitions.repositoryTypes.local.label",
+            "text": "settings.modelDefinitions.repositoryTypes.local.labelInBrowser",
           },
         ],
       }

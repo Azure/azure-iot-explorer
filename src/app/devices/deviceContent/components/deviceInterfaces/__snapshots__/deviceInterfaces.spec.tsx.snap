@@ -386,7 +386,7 @@ exports[`components/devices/deviceInterfaces shows interface information when st
          
         deviceInterfaces.columns.source
         : 
-        settings.modelDefinitions.repositoryTypes.local.label
+        settings.modelDefinitions.repositoryTypes.local.labelInElectron
       </StyledLabelBase>
       <CustomizedActionButton
         className="configure-button"
