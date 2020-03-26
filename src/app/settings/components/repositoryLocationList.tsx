@@ -11,6 +11,7 @@ import RepositoryLocationItem from './repositoryLocationListItem';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
 import { ADD } from '../../constants/iconNames';
+import { appConfig, HostMode } from '../../../appConfig/appConfig';
 
 export interface RepositoryLocationListProps {
     items: RepositoryLocationSettings[];
@@ -66,13 +67,20 @@ export default class RepositoryLocationList extends React.Component<RepositoryLo
                 onClick: () => this.onAddRepositoryType(REPOSITORY_LOCATION_TYPE.Device),
                 text: context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.device.label),
             },
-            {
-                disabled: !items || items.some(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local),
-                key: REPOSITORY_LOCATION_TYPE.Local,
-                onClick: () => this.onAddRepositoryType(REPOSITORY_LOCATION_TYPE.Local),
-                text: context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.local.label),
-            }
+            this.getLocalMenuItem(context)
         ];
+    }
+
+    private readonly getLocalMenuItem = (context: LocalizationContextInterface) => {
+        const { items} = this.props;
+        return {
+            disabled: appConfig.hostMode !== HostMode.Electron || !items || items.some(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local),
+            key: REPOSITORY_LOCATION_TYPE.Local,
+            onClick: () => this.onAddRepositoryType(REPOSITORY_LOCATION_TYPE.Local),
+            text: context.t(appConfig.hostMode === HostMode.Electron ?
+                ResourceKeys.settings.modelDefinitions.repositoryTypes.local.labelInElectron :
+                ResourceKeys.settings.modelDefinitions.repositoryTypes.local.labelInBrowser),
+        };
     }
 
     public render(): JSX.Element {

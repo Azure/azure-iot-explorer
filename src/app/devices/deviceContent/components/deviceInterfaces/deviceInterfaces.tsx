@@ -150,7 +150,7 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
             case REPOSITORY_LOCATION_TYPE.Device:
                 return context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.device.label);
             case REPOSITORY_LOCATION_TYPE.Local:
-                return context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.local.label);
+                return context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.local.labelInElectron);
             default:
                 return '--';
         }

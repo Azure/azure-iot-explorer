@@ -688,7 +688,8 @@ export class ResourceKeys {
             },
             local : {
                infoText : "settings.modelDefinitions.repositoryTypes.local.infoText",
-               label : "settings.modelDefinitions.repositoryTypes.local.label",
+               labelInBrowser : "settings.modelDefinitions.repositoryTypes.local.labelInBrowser",
+               labelInElectron : "settings.modelDefinitions.repositoryTypes.local.labelInElectron",
                placeholder : "settings.modelDefinitions.repositoryTypes.local.placeholder",
                textBoxLabel : "settings.modelDefinitions.repositoryTypes.local.textBoxLabel",
             },

@@ -77,7 +77,8 @@
                     "infoText": ""
                 },
                 "local": {
-                    "label":"Local Folder",
+                    "labelInElectron":"Local Folder",
+                    "labelInBrowser":"Local Folder (This is only enabled in the desktop version from: https://github.com/Azure/azure-iot-explorer/releases)",
                     "infoText": "Use your local folder as a model repository. The files in the folder should be named as same as the interface id with ':' removed, and should be in the format of json, for example: urncontosocomEnvironmentalSensor1.json",
                     "textBoxLabel": "Local folder path",
                     "placeholder": "Please fill in this required field in order to proceed. For example: f:/"
