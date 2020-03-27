@@ -47,7 +47,7 @@ export default class RepositoryLocationListItem extends React.Component<Reposito
                         required={true}
                         onTextChange={this.props.onPrivateRepositoryConnectionStringChanged}
                         placeholder={context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.private.placeholder)}
-                        setFocus={true}
+                        setFocus={!item.value}
                     />
                 }
                 {item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local &&
@@ -61,7 +61,7 @@ export default class RepositoryLocationListItem extends React.Component<Reposito
                         required={true}
                         onTextChange={this.props.onLocalFolderPathChanged}
                         placeholder={context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.local.placeholder)}
-                        setFocus={true}
+                        setFocus={!item.value}
                     />
                 }
             </div>);

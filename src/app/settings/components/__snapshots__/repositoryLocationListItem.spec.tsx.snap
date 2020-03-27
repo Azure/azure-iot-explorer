@@ -60,7 +60,7 @@ exports[`components/settings/repositoryLocationListItem matches snapshot for loc
         placeholder="settings.modelDefinitions.repositoryTypes.local.placeholder"
         readOnly={false}
         required={true}
-        setFocus={true}
+        setFocus={false}
         value="f:/"
       />
     </div>
@@ -104,7 +104,7 @@ exports[`components/settings/repositoryLocationListItem matches snapshot for pri
         placeholder="settings.modelDefinitions.repositoryTypes.private.placeholder"
         readOnly={false}
         required={true}
-        setFocus={true}
+        setFocus={false}
         value="HostName=repo.azureiotrepository.com;RepositoryId=123;SharedAccessKeyName=456;SharedAccessKey=789"
       />
     </div>
