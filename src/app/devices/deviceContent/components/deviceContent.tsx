@@ -58,10 +58,7 @@ export class DeviceContentComponent extends React.PureComponent<DeviceContentPro
         return (
             <LocalizationContextConsumer>
             {(context: LocalizationContextInterface) => (
-                <div className="edit">
-                    <div className="view-header">
-                        <Route component={Breadcrumb} />
-                    </div>
+                <div>
                     {this.props.deviceId &&
                         <div className="edit-content">
                             <div className="device-content">

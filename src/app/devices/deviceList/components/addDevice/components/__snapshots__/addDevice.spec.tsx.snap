@@ -6,13 +6,6 @@ exports[`components/devices/addDevice matches snapshot 1`] = `
   onSubmit={[Function]}
 >
   <div
-    className="view-header"
-  >
-    <Route
-      component={[Function]}
-    />
-  </div>
-  <div
     className="view-command"
   >
     <StyledCommandBarBase
@@ -43,7 +36,7 @@ exports[`components/devices/addDevice matches snapshot 1`] = `
     />
   </div>
   <div
-    className="edit-content view-scroll-vertical"
+    className="view-content view-scroll-vertical"
   >
     <div
       className="form"

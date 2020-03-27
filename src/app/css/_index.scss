@@ -1,0 +1,25 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+@import 'variables';
+@import 'themes';
+
+body {
+    margin: 0;
+    height: 100vh;
+}
+
+.ms-Fabric {
+    @include themify($themes) {
+        color: themed('textColor');
+        background: themed('backgroundColor');
+    }
+    .ms-Callout-container{
+        .ms-Callout {
+            @include themify($themes) {
+                box-shadow: themed('calloutShadow');
+            }
+        }
+    }
+}

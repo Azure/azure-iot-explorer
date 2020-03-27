@@ -4,6 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { Shimmer, ShimmerElementType } from 'office-ui-fabric-react/lib/Shimmer';
+import '../../css/_multilineShimmer.scss';
 
 const SHIMMER_HEIGHT = 20;
 const SHIMMER_COUNT = 3;

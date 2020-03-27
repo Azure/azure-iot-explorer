@@ -1,116 +1,48 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AzureResourceView matches snapshot when current resource is authorized 1`] = `
-<div
-  className="app"
->
-  <Connect(Header) />
-  <div
-    className="content"
-  >
-    <withRouter(Connect(SettingsPane)) />
-    <main
-      role="main"
-    >
-      <Route
-        component={
-          Object {
-            "$$typeof": Symbol(react.memo),
-            "WrappedComponent": [Function],
-            "compare": null,
-            "displayName": "Connect(withRouter(DeviceListComponent))",
-            "type": [Function],
-          }
-        }
-        exact={true}
-        path="url/devices"
-      />
-      <Route
-        component={[Function]}
-        exact={true}
-        path="url/devices/add"
-      />
-      <Route
-        component={[Function]}
-        path="url/devices/deviceDetail/"
-      />
-    </main>
-  </div>
-</div>
+<Fragment>
+  <Route
+    component={
+      Object {
+        "$$typeof": Symbol(react.memo),
+        "WrappedComponent": [Function],
+        "compare": null,
+        "displayName": "Connect(withRouter(DeviceListComponent))",
+        "type": [Function],
+      }
+    }
+    exact={true}
+    path="url/devices"
+  />
+  <Route
+    component={[Function]}
+    exact={true}
+    path="url/devices/add"
+  />
+  <Route
+    component={[Function]}
+    path="url/devices/deviceDetail/"
+  />
+</Fragment>
 `;
 
 exports[`AzureResourceView matches snapshot when current resource is failed 1`] = `
-<div
-  className="app"
->
-  <Connect(Header) />
-  <div
-    className="content"
-  >
-    <withRouter(Connect(SettingsPane)) />
-    <main
-      role="main"
-    >
-      <div>
-        azureResource.access.failed
-      </div>
-    </main>
-  </div>
+<div>
+  azureResource.access.failed
 </div>
 `;
 
 exports[`AzureResourceView matches snapshot when current resource is unauthorized 1`] = `
-<div
-  className="app"
->
-  <Connect(Header) />
-  <div
-    className="content"
-  >
-    <withRouter(Connect(SettingsPane)) />
-    <main
-      role="main"
-    >
-      <div>
-        azureResource.access.unauthorized
-      </div>
-    </main>
-  </div>
+<div>
+  azureResource.access.unauthorized
 </div>
 `;
 
-exports[`AzureResourceView matches snapshot when current resource is undefined 1`] = `
-<div
-  className="app"
->
-  <Connect(Header) />
-  <div
-    className="content"
-  >
-    <withRouter(Connect(SettingsPane)) />
-    <main
-      role="main"
-    />
-  </div>
-</div>
-`;
+exports[`AzureResourceView matches snapshot when current resource is undefined 1`] = `<Fragment />`;
 
 exports[`AzureResourceView matches snapshot when current resource is verifying 1`] = `
-<div
-  className="app"
->
-  <Connect(Header) />
-  <div
-    className="content"
-  >
-    <withRouter(Connect(SettingsPane)) />
-    <main
-      role="main"
-    >
-      <div>
-        azureResource.access.verifying
-      </div>
-    </main>
-  </div>
+<div>
+  azureResource.access.verifying
 </div>
 `;
