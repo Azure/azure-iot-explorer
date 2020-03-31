@@ -50,6 +50,7 @@ exports[`components/settings/settingsPane matches snapshot is not open 1`] = `
     <RepositoryLocationList
       items={Array []}
       onAddListItem={[Function]}
+      onLocalFolderPathChanged={[Function]}
       onMoveItem={[Function]}
       onPrivateRepositoryConnectionStringChanged={[Function]}
       onRemoveListItem={[Function]}
@@ -124,6 +125,7 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
     <RepositoryLocationList
       items={Array []}
       onAddListItem={[Function]}
+      onLocalFolderPathChanged={[Function]}
       onMoveItem={[Function]}
       onPrivateRepositoryConnectionStringChanged={[Function]}
       onRemoveListItem={[Function]}
@@ -196,15 +198,9 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
       settings.modelDefinitions.helpText
     </span>
     <RepositoryLocationList
-      items={
-        Array [
-          Object {
-            "connectionString": undefined,
-            "repositoryLocationType": "PRIVATE",
-          },
-        ]
-      }
+      items={Array []}
       onAddListItem={[Function]}
+      onLocalFolderPathChanged={[Function]}
       onMoveItem={[Function]}
       onPrivateRepositoryConnectionStringChanged={[Function]}
       onRemoveListItem={[Function]}

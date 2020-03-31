@@ -34,6 +34,51 @@ exports[`components/settings/repositoryLocationListItem matches snapshot for dev
 </div>
 `;
 
+exports[`components/settings/repositoryLocationListItem matches snapshot for local 1`] = `
+<div
+  className="item"
+  role="list"
+>
+  <div
+    className="numbering"
+  >
+    1
+  </div>
+  <div
+    className="location-item"
+    role="listitem"
+  >
+    <div
+      className="item-details"
+    >
+      <Connect(MaskedCopyableTextField)
+        allowMask={false}
+        ariaLabel="settings.modelDefinitions.repositoryTypes.local.textBoxLabel"
+        label="settings.modelDefinitions.repositoryTypes.local.textBoxLabel"
+        labelCallout="settings.modelDefinitions.repositoryTypes.local.infoText"
+        onTextChange={[MockFunction]}
+        placeholder="settings.modelDefinitions.repositoryTypes.local.placeholder"
+        readOnly={false}
+        required={true}
+        setFocus={false}
+        value="f:/"
+      />
+    </div>
+    <CustomizedIconButton
+      ariaLabel="settings.cancel"
+      className="remove-button"
+      iconProps={
+        Object {
+          "iconName": "Cancel",
+        }
+      }
+      onClick={[Function]}
+      title="settings.cancel"
+    />
+  </div>
+</div>
+`;
+
 exports[`components/settings/repositoryLocationListItem matches snapshot for private 1`] = `
 <div
   className="item"
@@ -55,11 +100,12 @@ exports[`components/settings/repositoryLocationListItem matches snapshot for pri
         allowMask={true}
         ariaLabel="settings.modelDefinitions.repositoryTypes.private.textBoxLabel"
         label="settings.modelDefinitions.repositoryTypes.private.textBoxLabel"
-        onTextChange={[Function]}
+        onTextChange={[MockFunction]}
         placeholder="settings.modelDefinitions.repositoryTypes.private.placeholder"
         readOnly={false}
         required={true}
-        value=""
+        setFocus={false}
+        value="HostName=repo.azureiotrepository.com;RepositoryId=123;SharedAccessKeyName=456;SharedAccessKey=789"
       />
     </div>
     <CustomizedIconButton
