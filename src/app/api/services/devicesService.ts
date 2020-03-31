@@ -17,17 +17,7 @@ import {
     PatchDigitalTwinInterfacePropertiesParameters,
     CloudToDeviceMessageParameters
 } from '../parameters/deviceParameters';
-import { CONTROLLER_API_ENDPOINT,
-    EVENTHUB,
-    DIGITAL_TWIN_API_VERSION,
-    HUB_DATA_PLANE_API_VERSION,
-    MONITOR,
-    STOP,
-    HEADERS,
-    CLOUD_TO_DEVICE,
-    DataPlaneStatusCode
-} from '../../constants/apiConstants';
-import { HTTP_OPERATION_TYPES } from '../constants';
+import { CONTROLLER_API_ENDPOINT, EVENTHUB, DIGITAL_TWIN_API_VERSION, MONITOR, STOP, HEADERS, CLOUD_TO_DEVICE, HTTP_OPERATION_TYPES, HUB_DATA_PLANE_API_VERSION } from '../../constants/apiConstants';
 import { buildQueryString } from '../shared/utils';
 import { CONNECTION_TIMEOUT_IN_SECONDS, RESPONSE_TIME_IN_SECONDS } from '../../constants/devices';
 import { Message } from '../models/messages';

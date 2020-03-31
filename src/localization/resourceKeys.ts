@@ -423,6 +423,7 @@ export class ResourceKeys {
       },
       headerText : "deviceInterfaces.headerText",
       interfaceNotFound : "deviceInterfaces.interfaceNotFound",
+      interfaceNotValid : "deviceInterfaces.interfaceNotValid",
       noInterfaces : "deviceInterfaces.noInterfaces",
    };
    public static deviceLists = {

@@ -20,13 +20,15 @@ export const MODEL_ID_REF = '/ref:modelId?';
 export const MODEL_ID = 'modelId=';
 export const API_VERSION = 'api-version=';
 export const AND = '&';
+export const PUBLIC_REPO_HOSTNAME = 'repo.azureiotrepository.com';
+export const PUBLIC_REPO_HOSTNAME_TEST = 'repo.azureiotrepository-test.com';
 
 // event hub controller
 export const MONITOR = '/monitor';
 export const STOP = '/stop';
 
 export const DIGITAL_TWIN_API_VERSION = '2019-07-01-preview';
-export const HUB_DATA_PLANE_API_VERSION = '2019-10-01';
+export const MODEL_REPO_API_VERSION = '2020-05-01-preview';
 
 export const HEADERS = {
     CONTINUATION_TOKEN: 'x-ms-continuation',
@@ -56,3 +58,18 @@ export const CONTROLLER_API_ENDPOINT =
     appConfig.hostMode ===  HostMode.Browser ?
         `${localIp}:${appConfig.controllerPort}${apiPath}` :
         `${localIp}:${localStorage.getItem(CUSTOM_CONTROLLER_PORT) || appConfig.controllerPort}${apiPath}`;
+
+export enum HTTP_OPERATION_TYPES {
+    Delete = 'DELETE',
+    Get = 'GET',
+    Patch = 'PATCH',
+    Post = 'POST',
+    Put = 'PUT'
+}
+
+export const APPLICATION_JSON = 'application/json';
+export const ERROR_TYPES = {
+    AUTHORIZATION_RULE_NOT_FOUND: 'authorizationRuleNotFound',
+    HTTP: 'http',
+    PORT_IS_IN_USE: 'portIsInUse'
+};
