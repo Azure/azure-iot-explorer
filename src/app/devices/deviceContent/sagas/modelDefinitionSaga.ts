@@ -4,7 +4,7 @@
  **********************************************************/
 import { call, put, select } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
-import { fetchModelDefinition } from '../../../api/services/digitalTwinsModelService';
+import { fetchModelDefinition, validateModelDefinitions } from '../../../api/services/digitalTwinsModelService';
 import { addNotificationAction } from '../../../notifications/actions';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
@@ -22,6 +22,7 @@ import { InterfaceNotImplementedException } from './../../../shared/utils/except
 import { modelDefinitionInterfaceId, modelDefinitionCommandName } from '../../../constants/modelDefinitionConstants';
 import { FetchDigitalTwinInterfacePropertiesParameters } from '../../../api/parameters/deviceParameters';
 import { fetchLocalFile } from './../../../api/services/localRepoService';
+import { ModelDefinition } from './../../../api/models/modelDefinition';
 
 export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionParameters>) {
     try {
@@ -31,8 +32,12 @@ export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionP
         for (const location of locations) { // try to get model definition in order according to user's location settings
             try {
                 const modelDefinition = yield call (getModelDefinition, action, location);
+                const isModelValid = yield call(validateModelDefinitionHelper, modelDefinition, location);
                 yield put(getModelDefinitionAction.done(
-                    {params: action.payload, result: {modelDefinition, source: location.repositoryLocationType}}));
+                    {
+                        params: action.payload,
+                        result: {isModelValid, modelDefinition, source: location.repositoryLocationType}
+                    }));
                 break; // found the model definition, break
             }
             catch {
@@ -65,6 +70,18 @@ export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionP
         }));
 
         yield put(getModelDefinitionAction.failed({params: action.payload, error}));
+    }
+}
+
+export function *validateModelDefinitionHelper(modelDefinition: ModelDefinition, location: RepositoryLocationSettings) {
+    if (location.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Private || location.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Public) {
+        return true;
+    }
+    try {
+        return yield call (validateModelDefinitions, JSON.stringify([modelDefinition]));
+    }
+    catch {
+        return false;
     }
 }
 

@@ -75,6 +75,7 @@ describe('deviceContentStateReducer', () => {
         /* tslint:enable */
         const modelDefinitionWithSource = {
             payload: {
+                isModelValid: true,
                 modelDefinition,
                 source: REPOSITORY_LOCATION_TYPE.Public
             },
@@ -87,9 +88,14 @@ describe('deviceContentStateReducer', () => {
         });
 
         it (`handles ${FETCH_MODEL_DEFINITION}/ACTION_DONE action`, () => {
-            const action = getModelDefinitionAction.done({params: {digitalTwinId: 'testDevice', interfaceId: 'urn:azureiot:ModelDiscovery:ModelInformation:1'}, result: {modelDefinition, source: REPOSITORY_LOCATION_TYPE.Public }});
+            const action = getModelDefinitionAction.done(
+                {
+                    params: {digitalTwinId: 'testDevice', interfaceId: 'urn:azureiot:ModelDiscovery:ModelInformation:1'},
+                    result: {isModelValid: true, modelDefinition, source: REPOSITORY_LOCATION_TYPE.Public }
+                });
             expect(reducer(deviceContentStateInitial(), action).modelDefinitionWithSource).toEqual({
                 payload: {
+                    isModelValid: true,
                     modelDefinition,
                     source: REPOSITORY_LOCATION_TYPE.Public
                 },

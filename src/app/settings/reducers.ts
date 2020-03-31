@@ -4,11 +4,11 @@
  **********************************************************/
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { setSettingsVisibilityAction, setSettingsRepositoryLocationsAction, updateRepoTokenAction } from './actions';
-import { applicationStateInitial, ApplicationStateType, OFFSET_IN_MINUTES, PrivateRepositorySettings, RepositoryLocationSettings } from './state';
+import { applicationStateInitial, ApplicationStateType, PrivateRepositorySettings, RepositoryLocationSettings } from './state';
 import { REPO_LOCATIONS } from '../constants/browserStorage';
 import { REPOSITORY_LOCATION_TYPE } from './../constants/repositoryLocationTypes';
 import { PRIVATE_REPO_CONNECTION_STRING_NAME, LOCAL_FILE_EXPLORER_PATH_NAME } from './../constants/browserStorage';
-import { MILLISECONDS_IN_MINUTE } from '../constants/shared';
+import { MILLISECONDS_IN_MINUTE, OFFSET_IN_MINUTES } from '../constants/shared';
 
 const reducer = reducerWithInitialState<ApplicationStateType>(applicationStateInitial())
     .case(setSettingsVisibilityAction, (state: ApplicationStateType, payload: boolean) => {

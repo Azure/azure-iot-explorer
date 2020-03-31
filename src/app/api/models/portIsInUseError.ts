@@ -2,7 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { ERROR_TYPES } from '../constants';
+import { ERROR_TYPES } from './../../constants/apiConstants';
 
 export class PortIsInUseError extends Error {
     constructor() {

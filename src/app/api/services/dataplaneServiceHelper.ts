@@ -3,8 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import { DataPlaneParameters } from '../parameters/deviceParameters';
-import { CONTROLLER_API_ENDPOINT, DATAPLANE, DataPlaneStatusCode } from '../../constants/apiConstants';
-import { HTTP_OPERATION_TYPES } from '../constants';
+import { CONTROLLER_API_ENDPOINT, DATAPLANE, DataPlaneStatusCode, HTTP_OPERATION_TYPES } from '../../constants/apiConstants';
 import { getConnectionInfoFromConnectionString, generateSasToken } from '../shared/utils';
 import { PortIsInUseError } from '../models/portIsInUseError';
 

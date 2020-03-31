@@ -3,8 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as DigitalTwinsModelService from './digitalTwinsModelService';
-import { API_VERSION, DIGITAL_TWIN_API_VERSION } from '../../constants/apiConstants';
-import { HTTP_OPERATION_TYPES } from '../constants';
+import { API_VERSION, DIGITAL_TWIN_API_VERSION, MODEL_REPO_API_VERSION, HTTP_OPERATION_TYPES, PUBLIC_REPO_HOSTNAME_TEST } from '../../constants/apiConstants';
 
 describe('digitalTwinsModelService', () => {
 
@@ -109,6 +108,48 @@ describe('digitalTwinsModelService', () => {
 
             await expect(DigitalTwinsModelService.fetchModel(parameters)).rejects.toThrow(new Error('Not found'));
             done();
+        });
+    });
+
+    context('validateModelDefinitions', () => {
+        const parameters = JSON.stringify([]);
+
+        it('calls fetch with specified parameters and returns true when response is 200', async () => {
+            // tslint:disable
+            const response = {
+                json: () => {},
+                ok: true
+            } as any;
+            // tslint:enable
+            jest.spyOn(window, 'fetch').mockResolvedValue(response);
+
+            const result = await DigitalTwinsModelService.validateModelDefinitions(parameters);
+
+            const apiVersionQueryString = `?${API_VERSION}${MODEL_REPO_API_VERSION}`;
+            const controllerRequest = {
+                body: parameters,
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'x-ms-client-request-id': 'azure iot explorer: validate model definition'
+                },
+                method: HTTP_OPERATION_TYPES.Post,
+                uri: `https://${PUBLIC_REPO_HOSTNAME_TEST}/models/validate${apiVersionQueryString}`
+            };
+
+            const validateModelParameters = {
+                body: JSON.stringify(controllerRequest),
+                cache: 'no-cache',
+                credentials: 'include',
+                headers: new Headers({
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }),
+                method: HTTP_OPERATION_TYPES.Post
+            };
+
+            expect(fetch).toBeCalledWith(DigitalTwinsModelService.CONTROLLER_ENDPOINT, validateModelParameters);
+            expect(result).toEqual(true);
         });
     });
 });

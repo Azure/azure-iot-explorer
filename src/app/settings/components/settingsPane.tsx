@@ -256,8 +256,8 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
             isDirty: false,
             repositoryLocationSettings: [...(this.props.repositoryLocationSettings && this.props.repositoryLocationSettings.map(setting => {
                 return {
-                    connectionString: setting.value,
-                    repositoryLocationType: setting.repositoryLocationType
+                    repositoryLocationType: setting.repositoryLocationType,
+                    value: setting.value
                 };
             }))],
             showConfirmationDialog: false

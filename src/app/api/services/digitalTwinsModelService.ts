@@ -9,8 +9,10 @@ import {
     CONTROLLER_API_ENDPOINT,
     DIGITAL_TWIN_API_VERSION,
     HEADERS,
-    MODELREPO } from '../../constants/apiConstants';
-import { HTTP_OPERATION_TYPES } from '../constants';
+    MODELREPO,
+    MODEL_REPO_API_VERSION,
+    PUBLIC_REPO_HOSTNAME_TEST,
+    HTTP_OPERATION_TYPES } from '../../constants/apiConstants';
 import { PnPModel } from '../models/metamodelMetadata';
 
 export const fetchModel = async (parameters: FetchModelParameters): Promise<PnPModel> => {
@@ -69,6 +71,27 @@ export const fetchModelDefinition = async (parameters: FetchModelParameters) => 
     }
 };
 
+export const validateModelDefinitions = async (modelDefinitions: string) => {
+    try {
+        const apiVersionQueryString = `?${API_VERSION}${MODEL_REPO_API_VERSION}`;
+        const controllerRequest: RequestInitWithUri = {
+            body: modelDefinitions,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'x-ms-client-request-id': 'azure iot explorer: validate model definition'
+            },
+            method: HTTP_OPERATION_TYPES.Post,
+            uri: `https://${PUBLIC_REPO_HOSTNAME_TEST}/models/validate${apiVersionQueryString}`
+        };
+
+        return (await request(controllerRequest)).ok;
+    }
+    catch (error) {
+        throw new Error(error);
+    }
+};
+
 export interface RequestInitWithUri extends RequestInit {
     uri: string;
     headers?: Record<string, string>;
@@ -82,6 +105,7 @@ export interface RepoConnectionSettings {
 }
 
 export const CONTROLLER_ENDPOINT = `${CONTROLLER_API_ENDPOINT}${MODELREPO}`;
+
 const request = async (requestInit: RequestInitWithUri) => {
     return fetch(
         CONTROLLER_ENDPOINT,

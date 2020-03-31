@@ -5,7 +5,7 @@
 import 'jest';
 import { select, call, put } from 'redux-saga/effects';
 import { SagaIteratorClone, cloneableGenerator } from 'redux-saga/utils';
-import { getModelDefinitionSaga, getModelDefinition, getModelDefinitionFromPublicRepo, getModelDefinitionFromPrivateRepo, getModelDefinitionFromDevice, getModelDefinitionFromLocalFile } from './modelDefinitionSaga';
+import { getModelDefinitionSaga, getModelDefinition, getModelDefinitionFromPublicRepo, getModelDefinitionFromPrivateRepo, getModelDefinitionFromDevice, getModelDefinitionFromLocalFile, validateModelDefinitionHelper } from './modelDefinitionSaga';
 import * as DevicesService from '../../../api/services/devicesService';
 import { addNotificationAction } from '../../../notifications/actions';
 import { NotificationType } from '../../../api/models/notification';
@@ -30,6 +30,44 @@ describe('modelDefinitionSaga', () => {
     };
     const action = getModelDefinitionAction.started(params);
     const connectionString = 'connection_string';
+    /* tslint:disable */
+    const modelDefinition = {
+        "@id": "urn:azureiot:ModelDiscovery:DigitalTwin:1",
+        "@type": "Interface",
+        "contents": [
+            {
+                "@type": "Property",
+                "name": "modelInformation",
+                "displayName": "Model Information",
+                "description": "Providing model and optional interfaces information on a digital twin.",
+                "schema": {
+                    "@type": "Object",
+                    "fields": [
+                        {
+                            "name": "modelId",
+                            "schema": "string"
+                        },
+                        {
+                            "name": "interfaces",
+                            "schema": {
+                                "@type": "Map",
+                                "mapKey": {
+                                    "name": "name",
+                                    "schema": "string"
+                                },
+                                "mapValue": {
+                                    "name": "schema",
+                                    "schema": "string"
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "@context": "http://azureiot.com/v1/contexts/Interface.json"
+    };
+    /* tslint:enable */
 
     describe('getModelDefinitionSaga', () => {
         let getModelDefinitionSagaGenerator: SagaIteratorClone;
@@ -49,16 +87,21 @@ describe('modelDefinitionSaga', () => {
             }]).value).toEqual(
                 call(getModelDefinition, action, { repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public })
             );
+
+            expect(getModelDefinitionSagaGenerator.next(modelDefinition).value).toEqual(
+                call(validateModelDefinitionHelper, modelDefinition, { repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public })
+            );
         });
 
         it('puts the successful action', () => {
             const success = getModelDefinitionSagaGenerator.clone();
-            expect(success.next()).toEqual({
+            expect(success.next(true)).toEqual({
                 done: false,
                 value: put((getModelDefinitionAction.done({
                     params,
                     result: {
-                        modelDefinition: undefined,
+                        isModelValid: true,
+                        modelDefinition,
                         source: REPOSITORY_LOCATION_TYPE.Public
                     }
                 })))
