@@ -7,8 +7,8 @@ import { getConnectionStringFromIotHubSaga } from './getConnectionStringFromIotH
 import { AzureResourceIdentifier } from '../../azureResourceIdentifier/models/azureResourceIdentifier';
 import { AzureResourceIdentifierType } from '../../azureResourceIdentifier/models/azureResourceIdentifierType';
 import { getSharedAccessSignatureAuthorizationRulesSaga } from './getSharedAccessSignatureAuthorizationRulesSaga';
-import { ERROR_TYPES } from '../../api/constants';
 import { AccessRights } from '../models/accessRights';
+import { ERROR_TYPES } from '../../constants/apiConstants';
 
 describe('getConnectionStringFromIotHubSaga', () => {
     const azureResourceIdentifier: AzureResourceIdentifier = {

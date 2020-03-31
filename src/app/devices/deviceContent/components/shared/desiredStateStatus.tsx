@@ -9,7 +9,12 @@ import LabelWithTooltip from '../../../../shared/components/labelWithTooltip';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../..//shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { ACCEPT, WARNING, SYNCH } from '../../../../constants/iconNames';
-import { DesiredStateStatus } from '../../../../constants/shared';
+
+export enum DesiredStateStatus{
+    Success = 200,
+    Synching = 202,
+    Error = 500
+}
 
 export const RenderDesiredState = (state: DesiredState) => {
     return (

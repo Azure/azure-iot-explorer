@@ -11,7 +11,7 @@ import { executeAzureResourceManagementTokenRequest } from '../../login/services
 import { appConfig } from '../../../appConfig/appConfig';
 import { StateInterface } from '../../shared/redux/state';
 import { CacheWrapper } from '../../api/models/cacheWrapper';
-import {  MILLISECONDS_PER_SECOND, SECONDS_PER_MINUTE } from '../../api/constants';
+import { SECONDS_PER_MINUTE, MILLISECONDS_PER_SECOND } from './../../constants/shared';
 
 const cacheInMinutes = 4;
 export const cacheRetentionInMilliseconds = cacheInMinutes * SECONDS_PER_MINUTE * MILLISECONDS_PER_SECOND;

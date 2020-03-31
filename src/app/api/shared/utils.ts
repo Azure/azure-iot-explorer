@@ -7,8 +7,7 @@ import { IoTHubConnectionSettings } from '../services/devicesService';
 import { LIST_PLUG_AND_PLAY_DEVICES, SAS_EXPIRES_MINUTES } from '../../constants/devices';
 import DeviceQuery, { QueryClause, ParameterType, OperationType } from '../models/deviceQuery';
 import { RepoConnectionSettings } from '../services/digitalTwinsModelService';
-import { AppEnvironment } from '../../constants/shared';
-import { MILLISECONDS_PER_SECOND, SECONDS_PER_MINUTE } from '../constants';
+import { AppEnvironment, MILLISECONDS_PER_SECOND, SECONDS_PER_MINUTE } from '../../constants/shared';
 
 export const enum PnPQueryPrefix {
     HAS_CAPABILITY_MODEL = 'HAS_CAPABILITYMODEL',

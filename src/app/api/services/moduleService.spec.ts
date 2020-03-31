@@ -5,11 +5,11 @@
 import 'jest';
 import * as ModuleService from './moduleService';
 import * as DataplaneService from './dataplaneServiceHelper';
-import { HTTP_OPERATION_TYPES } from '../constants';
 import { getConnectionInfoFromConnectionString } from '../shared/utils';
 import { DataPlaneParameters } from '../parameters/deviceParameters';
 import { ModuleIdentity } from '../models/moduleIdentity';
 import { ModuleTwin } from '../models/moduleTwin';
+import { HTTP_OPERATION_TYPES } from '../../constants/apiConstants';
 
 const deviceId = 'deviceId';
 const moduleId = 'moduleId';

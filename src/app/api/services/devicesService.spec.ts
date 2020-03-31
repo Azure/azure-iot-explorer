@@ -5,8 +5,7 @@
 import 'jest';
 import * as DevicesService from './devicesService';
 import * as DataplaneService from './dataplaneServiceHelper';
-import { HTTP_OPERATION_TYPES } from '../constants';
-import { DIGITAL_TWIN_API_VERSION, CONTROLLER_API_ENDPOINT, CLOUD_TO_DEVICE } from '../../constants/apiConstants';
+import { DIGITAL_TWIN_API_VERSION, CONTROLLER_API_ENDPOINT, CLOUD_TO_DEVICE, HTTP_OPERATION_TYPES } from '../../constants/apiConstants';
 import { CONNECTION_TIMEOUT_IN_SECONDS, RESPONSE_TIME_IN_SECONDS } from '../../constants/devices';
 import { Twin } from '../models/device';
 import { DeviceIdentity } from './../models/deviceIdentity';
