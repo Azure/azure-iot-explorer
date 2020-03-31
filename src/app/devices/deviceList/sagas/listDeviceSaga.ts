@@ -11,7 +11,7 @@ import { listDevicesAction } from '../actions';
 import { fetchDevices } from '../../../api/services/devicesService';
 import DeviceQuery from '../../../api/models/deviceQuery';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
-import { ERROR_TYPES } from './../../../api/constants';
+import { ERROR_TYPES } from './../../../constants/apiConstants';
 import { appConfig } from '../../../../appConfig/appConfig';
 import { CUSTOM_CONTROLLER_PORT } from './../../../constants/browserStorage';
 

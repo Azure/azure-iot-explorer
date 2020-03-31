@@ -8,12 +8,11 @@ import {
     ModuleIdentityTwinParameters,
     FetchModuleIdentityParameters
 } from '../parameters/moduleParameters';
-import { HTTP_OPERATION_TYPES } from '../constants';
 import { DataPlaneResponse } from '../models/device';
 import { ModuleIdentity } from '../models/moduleIdentity';
 import { ModuleTwin } from '../models/moduleTwin';
 import { dataPlaneConnectionHelper, dataPlaneResponseHelper, request, DATAPLANE_CONTROLLER_ENDPOINT, DataPlaneRequest } from './dataplaneServiceHelper';
-import { HEADERS } from '../../constants/apiConstants';
+import { HEADERS, HTTP_OPERATION_TYPES } from '../../constants/apiConstants';
 
 export interface IoTHubConnectionSettings {
     hostName?: string;

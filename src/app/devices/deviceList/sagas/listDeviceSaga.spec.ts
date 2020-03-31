@@ -14,7 +14,7 @@ import { DeviceIdentity } from '../../../api/models/deviceIdentity';
 import { addNotificationAction } from '../../../notifications/actions';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { NotificationType } from '../../../api/models/notification';
-import { ERROR_TYPES } from '../../../api/constants';
+import { ERROR_TYPES } from '../../../constants/apiConstants';
 
 describe('listDeviceSaga', () => {
     let listDevicesSagaGenerator: SagaIteratorClone;

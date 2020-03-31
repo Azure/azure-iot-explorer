@@ -112,6 +112,7 @@ describe('components/devices/deviceInterfaces', () => {
             isLoading: false,
             modelDefinitionWithSource: {
                 payload: {
+                    isModelValid: true,
                     modelDefinition,
                     source: REPOSITORY_LOCATION_TYPE.Public,
                 },
@@ -129,6 +130,7 @@ describe('components/devices/deviceInterfaces', () => {
             isLoading: false,
             modelDefinitionWithSource: {
                 payload: {
+                    isModelValid: true,
                     modelDefinition,
                     source: REPOSITORY_LOCATION_TYPE.Private,
                 },
@@ -141,6 +143,7 @@ describe('components/devices/deviceInterfaces', () => {
             isLoading: false,
             modelDefinitionWithSource: {
                 payload: {
+                    isModelValid: true,
                     modelDefinition,
                     source: REPOSITORY_LOCATION_TYPE.Device,
                 },
@@ -153,6 +156,7 @@ describe('components/devices/deviceInterfaces', () => {
             isLoading: false,
             modelDefinitionWithSource: {
                 payload: {
+                    isModelValid: true,
                     modelDefinition,
                     source: REPOSITORY_LOCATION_TYPE.Local
                 },
@@ -165,6 +169,7 @@ describe('components/devices/deviceInterfaces', () => {
             isLoading: false,
             modelDefinitionWithSource: {
                 payload: {
+                    isModelValid: false,
                     modelDefinition,
                     source: undefined
                 },

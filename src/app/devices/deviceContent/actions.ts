@@ -5,11 +5,10 @@
 import actionCreatorFactory from 'typescript-fsa';
 import * as actionPrefixes from '../../constants/actionPrefixes';
 import * as actionTypes from '../../constants/actionTypes';
-import { ModelDefinition } from '../../api/models/modelDefinition';
 import { Twin } from '../../api/models/device';
 import { DeviceIdentity } from '../../api/models/deviceIdentity';
 import { DigitalTwinInterfaces } from './../../api/models/digitalTwinModels';
-import { REPOSITORY_LOCATION_TYPE } from './../../constants/repositoryLocationTypes';
+import { ModelDefinitionWithSource } from './../../api/models/modelDefinitionWithSource';
 
 const deviceContentCreator = actionCreatorFactory(actionPrefixes.DEVICECONTENT);
 const clearModelDefinitionsAction = deviceContentCreator(actionTypes.CLEAR_MODEL_DEFINITIONS);
@@ -17,7 +16,7 @@ const cloudToDeviceMessageAction = deviceContentCreator.async<CloudToDeviceMessa
 const getDeviceIdentityAction = deviceContentCreator.async<string, DeviceIdentity> (actionTypes.GET_DEVICE_IDENTITY);
 const getDigitalTwinInterfacePropertiesAction = deviceContentCreator.async<string, DigitalTwinInterfaces>(actionTypes.GET_DIGITAL_TWIN_INTERFACE_PROPERTIES);
 const getTwinAction = deviceContentCreator.async<string, Twin>(actionTypes.GET_TWIN);
-const getModelDefinitionAction = deviceContentCreator.async<GetModelDefinitionActionParameters, ModelDefinitionActionResult>(actionTypes.FETCH_MODEL_DEFINITION);
+const getModelDefinitionAction = deviceContentCreator.async<GetModelDefinitionActionParameters, ModelDefinitionWithSource>(actionTypes.FETCH_MODEL_DEFINITION);
 const invokeDirectMethodAction = deviceContentCreator.async<InvokeMethodActionParameters, string>(actionTypes.INVOKE_DEVICE_METHOD);
 const invokeDigitalTwinInterfaceCommandAction = deviceContentCreator.async<InvokeDigitalTwinInterfaceCommandActionParameters, string>(actionTypes.INVOKE_DIGITAL_TWIN_INTERFACE_COMMAND);
 const patchDigitalTwinInterfacePropertiesAction = deviceContentCreator.async<PatchDigitalTwinInterfacePropertiesActionParameters, DigitalTwinInterfaces>(actionTypes.PATCH_DIGITAL_TWIN_INTERFACE_PROPERTIES);
@@ -69,11 +68,6 @@ export interface InvokeMethodActionParameters {
 export interface UpdateTwinActionParameters {
     deviceId: string;
     twin: Twin;
-}
-
-export interface ModelDefinitionActionResult {
-    modelDefinition: ModelDefinition;
-    source: REPOSITORY_LOCATION_TYPE;
 }
 
 export interface GetModelDefinitionActionParameters {

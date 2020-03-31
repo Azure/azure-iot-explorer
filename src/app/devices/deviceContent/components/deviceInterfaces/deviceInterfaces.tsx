@@ -7,6 +7,10 @@ import { Label } from 'office-ui-fabric-react/lib/Label';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { ActionButton } from 'office-ui-fabric-react/lib/Button';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
+import {
+    MessageBar,
+    MessageBarType,
+} from 'office-ui-fabric-react';
 import { RouteComponentProps, Route } from 'react-router-dom';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
@@ -88,11 +92,23 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
             <>
                 {modelDefinitionWithSource && modelDefinitionWithSource.payload ?
                     <ErrorBoundary error={context.t(ResourceKeys.errorBoundary.text)}>
-                        <Route component={DigitalTwinHeaderContainer} />
-                        <section className="pnp-interface-info scrollable-lg">
-                            {this.renderInterfaceInfoDetail(context)}
-                            {this.renderInterfaceViewer()}
-                        </section>
+                        {modelDefinitionWithSource.payload.isModelValid ?
+                            <>
+                                <Route component={DigitalTwinHeaderContainer} />
+                                <section className="pnp-interface-info scrollable-lg">
+                                    {this.renderInterfaceInfoDetail(context)}
+                                    {this.renderInterfaceViewer()}
+                                </section>
+                            </> :
+                            <section className="pnp-interface-info scrollable-lg">
+                                <MessageBar
+                                    messageBarType={MessageBarType.error}
+                                >
+                                    {context.t(ResourceKeys.deviceInterfaces.interfaceNotValid)}
+                                </MessageBar>
+                                {this.renderInterfaceViewer()}
+                            </section>
+                        }
                     </ErrorBoundary> :
                     <InterfaceNotFoundMessageBoxContainer/>
                 }

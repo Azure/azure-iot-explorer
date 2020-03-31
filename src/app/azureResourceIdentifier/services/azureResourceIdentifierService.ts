@@ -7,7 +7,7 @@ import { AzureResourceIdentifier } from '../models/azureResourceIdentifier';
 import { AzureResourceIdentifierType } from '../models/azureResourceIdentifierType';
 import { AzureResourceIdentifierQuery } from '../models/azureResourceIdentifierQuery';
 import { AzureResourceIdentifierQueryResult } from '../models/azureResourceIdentifierQueryResult';
-import { APPLICATION_JSON, HTTP_OPERATION_TYPES } from '../../api/constants';
+import { APPLICATION_JSON, HTTP_OPERATION_TYPES } from '../../constants/apiConstants';
 import { AzureResourceManagementEndpoint } from '../models/azureResourceManagementEndpoint';
 import { HttpError } from '../../api/models/httpError';
 import { mapPropertyArrayToObject } from '../../api/shared/mapUtils';

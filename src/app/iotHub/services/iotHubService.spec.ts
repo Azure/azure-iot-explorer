@@ -4,8 +4,8 @@
  **********************************************************/
 import { getSharedAccessSignatureAuthorizationRules } from './iotHubService';
 import { HttpError } from '../../api/models/httpError';
-import { APPLICATION_JSON, HTTP_OPERATION_TYPES } from '../../api/constants';
 import { AccessRights } from '../models/accessRights';
+import { APPLICATION_JSON, HTTP_OPERATION_TYPES } from '../../constants/apiConstants';
 
 describe('getSharedAccessSignatureAuthorizationRules', () => {
     it('calls fetch with specified parameters', () => {

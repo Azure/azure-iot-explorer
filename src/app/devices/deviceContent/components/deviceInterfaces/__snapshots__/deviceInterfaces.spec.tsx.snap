@@ -471,47 +471,14 @@ exports[`components/devices/deviceInterfaces shows interface information when st
   <ErrorBoundary
     error="errorBoundary.text"
   >
-    <Route
-      component={[Function]}
-    />
     <section
       className="pnp-interface-info scrollable-lg"
     >
-      <StyledLabelBase
-        className="source"
+      <StyledMessageBarBase
+        messageBarType={1}
       >
-         
-        deviceInterfaces.columns.source
-        : 
-        --
-      </StyledLabelBase>
-      <CustomizedActionButton
-        className="configure-button"
-        onClick={[Function]}
-      >
-        deviceInterfaces.command.configure
-      </CustomizedActionButton>
-      <Connect(MaskedCopyableTextField)
-        allowMask={false}
-        ariaLabel="deviceInterfaces.columns.id"
-        label="deviceInterfaces.columns.id"
-        readOnly={true}
-        value={null}
-      />
-      <Connect(MaskedCopyableTextField)
-        allowMask={false}
-        ariaLabel="deviceInterfaces.columns.displayName"
-        label="deviceInterfaces.columns.displayName"
-        readOnly={true}
-        value="--"
-      />
-      <Connect(MaskedCopyableTextField)
-        allowMask={false}
-        ariaLabel="deviceInterfaces.columns.description"
-        label="deviceInterfaces.columns.description"
-        readOnly={true}
-        value="--"
-      />
+        deviceInterfaces.interfaceNotValid
+      </StyledMessageBarBase>
       <article
         className="interface-definition"
       >

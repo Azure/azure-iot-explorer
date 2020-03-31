@@ -5,7 +5,7 @@
 import { SharedAccessSignatureAuthorizationRule } from '../models/sharedAccessSignatureAuthorizationRule';
 import { AzureResourceManagementEndpoint } from '../../azureResourceIdentifier/models/azureResourceManagementEndpoint';
 import { AzureResourceIdentifier } from '../../azureResourceIdentifier/models/azureResourceIdentifier';
-import { APPLICATION_JSON, HTTP_OPERATION_TYPES } from '../../api/constants';
+import { APPLICATION_JSON, HTTP_OPERATION_TYPES } from '../../constants/apiConstants';
 import { HttpError } from '../../api/models/httpError';
 
 const apiVersion = '2018-04-01';

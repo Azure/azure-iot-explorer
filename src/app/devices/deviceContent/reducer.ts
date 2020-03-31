@@ -16,13 +16,13 @@ import {
     updateDeviceIdentityAction,
     patchDigitalTwinInterfacePropertiesAction,
     PatchDigitalTwinInterfacePropertiesActionParameters,
-    ModelDefinitionActionResult,
     GetModelDefinitionActionParameters
 } from './actions';
 import { Twin } from '../../api/models/device';
 import { DeviceIdentity } from '../../api/models/deviceIdentity';
 import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
 import { DigitalTwinInterfaces } from '../../api/models/digitalTwinModels';
+import { ModelDefinitionWithSource } from './../../api/models/modelDefinitionWithSource';
 
 const reducer = reducerWithInitialState<DeviceContentStateType>(deviceContentStateInitial())
     //#region DeviceIdentity-related actions
@@ -129,13 +129,10 @@ const reducer = reducerWithInitialState<DeviceContentStateType>(deviceContentSta
             }
         });
     })
-    .case(getModelDefinitionAction.done, (state: DeviceContentStateType, payload: {params: GetModelDefinitionActionParameters} & {result: ModelDefinitionActionResult}) => {
+    .case(getModelDefinitionAction.done, (state: DeviceContentStateType, payload: {params: GetModelDefinitionActionParameters} & {result: ModelDefinitionWithSource}) => {
         return state.merge({
             modelDefinitionWithSource: {
-                payload: {
-                    modelDefinition: payload.result.modelDefinition,
-                    source: payload.result.source
-                },
+                payload: {...payload.result},
                 synchronizationStatus: SynchronizationStatus.fetched
             }
         });
