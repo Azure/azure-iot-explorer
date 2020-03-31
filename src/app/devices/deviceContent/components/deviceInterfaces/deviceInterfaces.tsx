@@ -15,7 +15,7 @@ import { ModelDefinitionWithSource } from '../../../../api/models/modelDefinitio
 import { SynchronizationWrapper } from '../../../../api/models/synchronizationWrapper';
 import { REPOSITORY_LOCATION_TYPE } from '../../../../constants/repositoryLocationTypes';
 import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
-import { REFRESH, CLOSE, NAVIGATE_BACK } from '../../../../constants/iconNames';
+import { REFRESH, NAVIGATE_BACK } from '../../../../constants/iconNames';
 import ErrorBoundary from '../../../errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 import { ThemeContextInterface, ThemeContextConsumer } from '../../../../shared/contexts/themeContext';
@@ -86,9 +86,9 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
         const {  modelDefinitionWithSource } = this.props;
         return (
             <>
-                <Route component={DigitalTwinHeaderContainer} />
                 {modelDefinitionWithSource && modelDefinitionWithSource.payload ?
                     <ErrorBoundary error={context.t(ResourceKeys.errorBoundary.text)}>
+                        <Route component={DigitalTwinHeaderContainer} />
                         <section className="pnp-interface-info scrollable-lg">
                             {this.renderInterfaceInfoDetail(context)}
                             {this.renderInterfaceViewer()}
@@ -149,6 +149,8 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
                 return context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.private.label);
             case REPOSITORY_LOCATION_TYPE.Device:
                 return context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.device.label);
+            case REPOSITORY_LOCATION_TYPE.Local:
+                return context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.local.labelInElectron);
             default:
                 return '--';
         }
@@ -159,17 +161,17 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
     }
 
     private readonly renderInterfaceViewer = () => {
-        const modelDefinition = this.props.modelDefinitionWithSource.payload;
+        const modelDefinitionWithSource = this.props.modelDefinitionWithSource.payload;
         return (
             <article className="interface-definition" >
-                { modelDefinition &&
+                { modelDefinitionWithSource && modelDefinitionWithSource.modelDefinition &&
                     <div className="monaco-editor">
                         <React.Suspense fallback={<Spinner title={'loading'} size={SpinnerSize.large} />}>
                             <ThemeContextConsumer>
                                 {(themeContext: ThemeContextInterface) => (
                                     <Editor
                                         language="json"
-                                        value={JSON.stringify(modelDefinition, null, '\t')}
+                                        value={JSON.stringify(modelDefinitionWithSource.modelDefinition, null, '\t')}
                                         options={{
                                             automaticLayout: true,
                                             readOnly: true

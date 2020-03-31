@@ -10,7 +10,6 @@ import { LocalizationContextConsumer, LocalizationContextInterface } from '../..
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getInterfaceIdFromQueryString, getDeviceIdFromQueryString, getComponentNameFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import DevicePropertiesPerInterface, { TwinWithSchema } from './devicePropertiesPerInterface';
-import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
 import { REFRESH, NAVIGATE_BACK } from '../../../../constants/iconNames';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
 import { DigitalTwinHeaderContainer } from '../digitalTwin/digitalTwinHeaderView';
@@ -78,11 +77,9 @@ export default class DeviceProperties
         return (
             <>
                 <Route component={DigitalTwinHeaderContainer} />
-                {twinAndSchema ?
-                    twinAndSchema.length === 0 ?
-                        <Label className="no-pnp-content">{context.t(ResourceKeys.deviceProperties.noProperties, {componentName: getComponentNameFromQueryString(this.props)})}</Label> :
-                        <DevicePropertiesPerInterface twinAndSchema={twinAndSchema} />
-                    : <InterfaceNotFoundMessageBoxContainer/>
+                {twinAndSchema && twinAndSchema.length === 0 ?
+                    <Label className="no-pnp-content">{context.t(ResourceKeys.deviceProperties.noProperties, {componentName: getComponentNameFromQueryString(this.props)})}</Label> :
+                    <DevicePropertiesPerInterface twinAndSchema={twinAndSchema} />
                 }
             </>
         );

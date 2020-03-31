@@ -2,6 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
+export const ADD = 'Add';
 export const ACCEPT = 'Accept';
 export const CANCEL = 'Cancel';
 export const CHECK = 'SkypeCheck';

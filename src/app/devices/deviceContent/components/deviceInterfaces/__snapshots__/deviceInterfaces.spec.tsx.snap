@@ -33,9 +33,6 @@ exports[`components/devices/deviceInterfaces shows interface information when st
       ]
     }
   />
-  <Route
-    component={[Function]}
-  />
   <Connect(InterfaceNotFoundMessageBox) />
 </Fragment>
 `;
@@ -71,12 +68,12 @@ exports[`components/devices/deviceInterfaces shows interface information when st
       ]
     }
   />
-  <Route
-    component={[Function]}
-  />
   <ErrorBoundary
     error="errorBoundary.text"
   >
+    <Route
+      component={[Function]}
+    />
     <section
       className="pnp-interface-info scrollable-lg"
     >
@@ -171,12 +168,12 @@ exports[`components/devices/deviceInterfaces shows interface information when st
       ]
     }
   />
-  <Route
-    component={[Function]}
-  />
   <ErrorBoundary
     error="errorBoundary.text"
   >
+    <Route
+      component={[Function]}
+    />
     <section
       className="pnp-interface-info scrollable-lg"
     >
@@ -271,12 +268,12 @@ exports[`components/devices/deviceInterfaces shows interface information when st
       ]
     }
   />
-  <Route
-    component={[Function]}
-  />
   <ErrorBoundary
     error="errorBoundary.text"
   >
+    <Route
+      component={[Function]}
+    />
     <section
       className="pnp-interface-info scrollable-lg"
     >
@@ -371,12 +368,112 @@ exports[`components/devices/deviceInterfaces shows interface information when st
       ]
     }
   />
-  <Route
-    component={[Function]}
+  <ErrorBoundary
+    error="errorBoundary.text"
+  >
+    <Route
+      component={[Function]}
+    />
+    <section
+      className="pnp-interface-info scrollable-lg"
+    >
+      <StyledLabelBase
+        className="source"
+      >
+         
+        deviceInterfaces.columns.source
+        : 
+        settings.modelDefinitions.repositoryTypes.local.labelInElectron
+      </StyledLabelBase>
+      <CustomizedActionButton
+        className="configure-button"
+        onClick={[Function]}
+      >
+        deviceInterfaces.command.configure
+      </CustomizedActionButton>
+      <Connect(MaskedCopyableTextField)
+        allowMask={false}
+        ariaLabel="deviceInterfaces.columns.id"
+        label="deviceInterfaces.columns.id"
+        readOnly={true}
+        value={null}
+      />
+      <Connect(MaskedCopyableTextField)
+        allowMask={false}
+        ariaLabel="deviceInterfaces.columns.displayName"
+        label="deviceInterfaces.columns.displayName"
+        readOnly={true}
+        value="--"
+      />
+      <Connect(MaskedCopyableTextField)
+        allowMask={false}
+        ariaLabel="deviceInterfaces.columns.description"
+        label="deviceInterfaces.columns.description"
+        readOnly={true}
+        value="--"
+      />
+      <article
+        className="interface-definition"
+      >
+        <div
+          className="monaco-editor"
+        >
+          <Suspense
+            fallback={
+              <StyledSpinnerBase
+                size={3}
+                title="loading"
+              />
+            }
+          >
+            <ContextConsumer>
+              <Component />
+            </ContextConsumer>
+          </Suspense>
+        </div>
+      </article>
+    </section>
+  </ErrorBoundary>
+</Fragment>
+`;
+
+exports[`components/devices/deviceInterfaces shows interface information when status is fetched 5`] = `
+<Fragment>
+  <StyledCommandBarBase
+    className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "deviceInterfaces.command.close",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "deviceInterfaces.command.close",
+          "onClick": [Function],
+        },
+      ]
+    }
+    items={
+      Array [
+        Object {
+          "ariaLabel": "deviceInterfaces.command.refresh",
+          "iconProps": Object {
+            "iconName": "Refresh",
+          },
+          "key": "Refresh",
+          "name": "deviceProperties.command.refresh",
+          "onClick": [Function],
+        },
+      ]
+    }
   />
   <ErrorBoundary
     error="errorBoundary.text"
   >
+    <Route
+      component={[Function]}
+    />
     <section
       className="pnp-interface-info scrollable-lg"
     >

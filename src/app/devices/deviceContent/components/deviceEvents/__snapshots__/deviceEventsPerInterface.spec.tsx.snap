@@ -58,7 +58,60 @@ exports[`components/devices/deviceEventsPerInterface matches snapshot while inte
   <Route
     component={[Function]}
   />
-  <Connect(InterfaceNotFoundMessageBox) />
+  <StyledTextFieldBase
+    ariaLabel="deviceEvents.consumerGroups.label"
+    className="consumer-group-text-field"
+    disabled={false}
+    label="deviceEvents.consumerGroups.label"
+    onChange={[Function]}
+    onRenderLabel={[Function]}
+    underlined={true}
+    value="$Default"
+  />
+  <StyledToggleBase
+    ariaLabel="deviceEvents.toggle.label"
+    checked={false}
+    className="toggle-button"
+    label="deviceEvents.toggle.label"
+    offText="deviceEvents.toggle.off"
+    onChange={[Function]}
+    onText="deviceEvents.toggle.on"
+  />
+  <InfiniteScroll
+    className="device-events-container"
+    element="div"
+    getScrollParent={null}
+    hasMore={false}
+    initialLoad={true}
+    isReverse={true}
+    key="scroll"
+    loadMore={[Function]}
+    loader={
+      <div>
+        <div
+          className="events-loader"
+        >
+          <StyledSpinnerBase />
+          <h4>
+            deviceEvents.infiniteScroll.loading
+          </h4>
+        </div>
+      </div>
+    }
+    pageStart={0}
+    ref={null}
+    threshold={250}
+    useCapture={false}
+    useWindow={true}
+  >
+    <section
+      className="list-content"
+    >
+      <div
+        className="scrollable-pnp-telemetry"
+      />
+    </section>
+  </InfiniteScroll>
 </div>
 `;
 

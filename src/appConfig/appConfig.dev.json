@@ -1,6 +1,6 @@
 {
     "developmentMode": true,
-    "hostMode": "browser",
+    "hostMode": "electron",
     "authMode": "connectionString",
     "authServiceSettings": {
         "authority": "https://login.microsoftonline.com/common",

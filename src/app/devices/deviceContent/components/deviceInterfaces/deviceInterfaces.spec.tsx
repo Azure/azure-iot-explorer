@@ -154,6 +154,18 @@ describe('components/devices/deviceInterfaces', () => {
             modelDefinitionWithSource: {
                 payload: {
                     modelDefinition,
+                    source: REPOSITORY_LOCATION_TYPE.Local
+                },
+                synchronizationStatus: SynchronizationStatus.fetched
+            }
+        });
+        expect(component).toMatchSnapshot();
+
+        component = getComponent({
+            isLoading: false,
+            modelDefinitionWithSource: {
+                payload: {
+                    modelDefinition,
                     source: undefined
                 },
                 synchronizationStatus: SynchronizationStatus.fetched

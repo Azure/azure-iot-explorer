@@ -15,11 +15,12 @@ describe('components/settings/repositoryLocationListItem', () => {
             <RepositoryLocationListItem
                 index={0}
                 item={{
-                    connectionString: '',
                     repositoryLocationType: REPOSITORY_LOCATION_TYPE.Private,
+                    value: 'HostName=repo.azureiotrepository.com;RepositoryId=123;SharedAccessKeyName=456;SharedAccessKey=789'
                 }}
                 moveCard={jest.fn()}
                 onPrivateRepositoryConnectionStringChanged={jest.fn()}
+                onLocalFolderPathChanged={jest.fn()}
                 onRemoveListItem={jest.fn()}
             />
         );
@@ -34,6 +35,7 @@ describe('components/settings/repositoryLocationListItem', () => {
                 }}
                 moveCard={jest.fn()}
                 onPrivateRepositoryConnectionStringChanged={jest.fn()}
+                onLocalFolderPathChanged={jest.fn()}
                 onRemoveListItem={jest.fn()}
             />
         );
@@ -48,6 +50,23 @@ describe('components/settings/repositoryLocationListItem', () => {
                 }}
                 moveCard={jest.fn()}
                 onPrivateRepositoryConnectionStringChanged={jest.fn()}
+                onLocalFolderPathChanged={jest.fn()}
+                onRemoveListItem={jest.fn()}
+            />
+        );
+        expect(wrapper).toMatchSnapshot();
+    });
+    it('matches snapshot for local', () => {
+        const wrapper = testWithLocalizationContext(
+            <RepositoryLocationListItem
+                index={0}
+                item={{
+                    repositoryLocationType: REPOSITORY_LOCATION_TYPE.Local,
+                    value: 'f:/'
+                }}
+                moveCard={jest.fn()}
+                onPrivateRepositoryConnectionStringChanged={jest.fn()}
+                onLocalFolderPathChanged={jest.fn()}
                 onRemoveListItem={jest.fn()}
             />
         );

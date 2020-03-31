@@ -12,10 +12,10 @@ export const getDeviceCommandPairs = (state: StateInterface): DeviceInterfaceWit
     const modelDefinition = getModelDefinitionSelector(state);
     const commands = modelDefinition && modelDefinition.contents && modelDefinition.contents.filter((item: CommandContent) => filterCommand(item));
     return {
-        commandSchemas: commands && commands.map(command => ({
+        commandSchemas: commands ? commands.map(command => ({
             commandModelDefinition: command,
             parsedSchema: parseInterfaceCommandToJsonSchema(command),
-        }))
+        })) : []
     };
 };
 
