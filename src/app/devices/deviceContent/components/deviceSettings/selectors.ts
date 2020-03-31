@@ -18,7 +18,7 @@ export const getDeviceSettingTupleSelector = (state: StateInterface) => {
 const generateTwinSchemaAndInterfaceTuple = (state: StateInterface, model: ModelDefinition): DeviceInterfaceWithSchema => {
     const writableProperties = model && model.contents && model.contents.filter((item: PropertyContent) => filterProperties(item)) as PropertyContent[];
 
-    const settings = writableProperties && writableProperties
+    const settings = writableProperties ? writableProperties
         .map(setting => {
             const property = generateDigitalTwinForSpecificProperty(state, setting);
             return {
@@ -27,7 +27,7 @@ const generateTwinSchemaAndInterfaceTuple = (state: StateInterface, model: Model
                 settingModelDefinition: setting,
                 settingSchema: parseInterfacePropertyToJsonSchema(setting)
             };
-        });
+        }) : [];
 
     return {
         componentName: getComponentNameSelector(state),

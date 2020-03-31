@@ -11,10 +11,10 @@ import { TelemetrySchema } from './deviceEventsPerInterface';
 export const getDeviceTelemetrySelector = (state: StateInterface): TelemetrySchema[] => {
     const modelDefinition = getModelDefinitionSelector(state);
     const telemetryContents = modelDefinition && modelDefinition.contents && modelDefinition.contents.filter((item: TelemetryContent) => filterTelemetry(item)) as TelemetryContent[];
-    return telemetryContents && telemetryContents.map(telemetry => ({
+    return telemetryContents ? telemetryContents.map(telemetry => ({
         parsedSchema: parseInterfaceTelemetryToJsonSchema(telemetry),
         telemetryModelDefinition: telemetry
-    }));
+    })) : [];
 };
 
 const filterTelemetry = (content: TelemetryContent) => {

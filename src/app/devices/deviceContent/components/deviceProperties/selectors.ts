@@ -17,11 +17,11 @@ export const getDevicePropertyTupleSelector = (state: StateInterface): TwinWithS
 const getDevicePropertyProps = (state: StateInterface, model: ModelDefinition): TwinWithSchema[] => {
     const nonWritableProperties = model && model.contents && model.contents.filter((content: PropertyContent) => filterProperties(content)) as PropertyContent[];
 
-    return nonWritableProperties && nonWritableProperties.map(property => ({
+    return nonWritableProperties ? nonWritableProperties.map(property => ({
         propertyModelDefinition: property,
         propertySchema: parseInterfacePropertyToJsonSchema(property),
         reportedTwin: generateReportedTwin(state, property)
-    }));
+    })) : [];
 };
 
 const filterProperties = (content: PropertyContent) => {

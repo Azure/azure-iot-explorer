@@ -8,10 +8,10 @@ import { setSettingsVisibilityAction,
     setSettingsRepositoryLocationsAction
 } from './actions';
 import reducer from './reducers';
-import { applicationStateInitial } from './state';
+import { applicationStateInitial, RepositoryLocationSettings } from './state';
 import { SET_SETTINGS_VISIBILITY, UPDATE_REPO_TOKEN, SET_REPOSITORY_LOCATIONS } from '../constants/actionTypes';
 import { REPOSITORY_LOCATION_TYPE } from '../constants/repositoryLocationTypes';
-import { PRIVATE_REPO_CONNECTION_STRING_NAME } from '../constants/browserStorage';
+import { PRIVATE_REPO_CONNECTION_STRING_NAME, LOCAL_FILE_EXPLORER_PATH_NAME } from '../constants/browserStorage';
 
 describe('settingsReducer', () => {
     const connectionString = 'HostName=test.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=test';
@@ -42,21 +42,27 @@ describe('settingsReducer', () => {
             expect(reducer(applicationStateInitial(), action).repositoryLocations).toEqual([REPOSITORY_LOCATION_TYPE.Public]);
         });
 
-        it (`handles ${SET_REPOSITORY_LOCATIONS}/ACTION_DONE action with two location and remembers private repo connection string`, () => {
-            // we always remember connection strings
-            const payLoad = [
+        it (`handles ${SET_REPOSITORY_LOCATIONS}/ACTION_DONE action with multiple locations`, () => {
+            const path = 'f:/';
+            const payLoad: RepositoryLocationSettings[] = [
                 {
-                    connectionString,
-                    repositoryLocationType: REPOSITORY_LOCATION_TYPE.Private
+                    repositoryLocationType: REPOSITORY_LOCATION_TYPE.Private,
+                    value: connectionString
                 },
                 {
                     repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public
-                }
+                },
+                {
+                    repositoryLocationType: REPOSITORY_LOCATION_TYPE.Local,
+                    value: path
+                },
             ];
             const action = setSettingsRepositoryLocationsAction(payLoad);
-            expect(reducer(applicationStateInitial(), action).repositoryLocations).toEqual([REPOSITORY_LOCATION_TYPE.Private, REPOSITORY_LOCATION_TYPE.Public]);
+            expect(reducer(applicationStateInitial(), action).repositoryLocations).toEqual([REPOSITORY_LOCATION_TYPE.Private, REPOSITORY_LOCATION_TYPE.Public, REPOSITORY_LOCATION_TYPE.Local]);
             expect(reducer(applicationStateInitial(), action).privateRepositorySettings.privateConnectionString).toEqual(connectionString);
+            expect(reducer(applicationStateInitial(), action).localFolderSettings.path).toEqual(path);
             expect(localStorage.getItem(PRIVATE_REPO_CONNECTION_STRING_NAME)).toEqual(connectionString);
+            expect(localStorage.getItem(LOCAL_FILE_EXPLORER_PATH_NAME)).toEqual(path);
         });
     });
 });

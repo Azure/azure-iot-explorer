@@ -4,11 +4,10 @@
  **********************************************************/
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { setSettingsVisibilityAction, setSettingsRepositoryLocationsAction, updateRepoTokenAction } from './actions';
-import { applicationStateInitial, ApplicationStateType, OFFSET_IN_MINUTES, PrivateRepositorySettings } from './state';
+import { applicationStateInitial, ApplicationStateType, OFFSET_IN_MINUTES, PrivateRepositorySettings, RepositoryLocationSettings } from './state';
 import { REPO_LOCATIONS } from '../constants/browserStorage';
 import { REPOSITORY_LOCATION_TYPE } from './../constants/repositoryLocationTypes';
-import { PRIVATE_REPO_CONNECTION_STRING_NAME } from './../constants/browserStorage';
-import { RepositorySettings } from './components/settingsPane';
+import { PRIVATE_REPO_CONNECTION_STRING_NAME, LOCAL_FILE_EXPLORER_PATH_NAME } from './../constants/browserStorage';
 import { MILLISECONDS_IN_MINUTE } from '../constants/shared';
 
 const reducer = reducerWithInitialState<ApplicationStateType>(applicationStateInitial())
@@ -27,26 +26,31 @@ const reducer = reducerWithInitialState<ApplicationStateType>(applicationStateIn
         });
     })
     // tslint:disable-next-line:cyclomatic-complexity
-    .case(setSettingsRepositoryLocationsAction, (state: ApplicationStateType, payload: RepositorySettings[]) => {
+    .case(setSettingsRepositoryLocationsAction, (state: ApplicationStateType, payload: RepositoryLocationSettings[]) => {
         const locations = payload.map(item => item.repositoryLocationType);
         localStorage.setItem(REPO_LOCATIONS, locations.join(','));
-
+        let privateRepositorySettings = null;
+        let localFolderSettings = null;
         if (locations.filter(location => location === REPOSITORY_LOCATION_TYPE.Private).length !== 0) {
             const privateRepoSetting = payload.filter(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Private)[0];
-            localStorage.setItem(PRIVATE_REPO_CONNECTION_STRING_NAME, privateRepoSetting.connectionString || '');
-            return state.merge({
-                privateRepositorySettings: {
-                    privateConnectionString: privateRepoSetting && privateRepoSetting.connectionString || '',
-                    privateRepoTimestamp: new Date().getTime() - (OFFSET_IN_MINUTES * MILLISECONDS_IN_MINUTE),
-                    privateRepoToken: ''
-                },
-                repositoryLocations: locations,
-            });
+            localStorage.setItem(PRIVATE_REPO_CONNECTION_STRING_NAME, privateRepoSetting.value || '');
+            privateRepositorySettings = {
+                privateConnectionString: privateRepoSetting && privateRepoSetting.value || '',
+                privateRepoTimestamp: new Date().getTime() - (OFFSET_IN_MINUTES * MILLISECONDS_IN_MINUTE),
+                privateRepoToken: ''
+            };
         }
-        else {
-            return state.merge({
-                repositoryLocations: locations,
-            });
+        if (locations.filter(location => location === REPOSITORY_LOCATION_TYPE.Local).length !== 0) {
+            const localFolderSetting = payload.filter(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local)[0];
+            localStorage.setItem(LOCAL_FILE_EXPLORER_PATH_NAME, localFolderSetting.value || '');
+            localFolderSettings = {
+                path: localFolderSetting && localFolderSetting.value || ''
+            };
         }
+        return state.merge({
+            localFolderSettings,
+            privateRepositorySettings,
+            repositoryLocations: locations
+        });
     });
 export default reducer;
