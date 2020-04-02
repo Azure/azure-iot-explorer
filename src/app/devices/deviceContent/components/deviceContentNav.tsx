@@ -13,7 +13,7 @@ import '../../../css/_deviceContentNav.scss';
 export interface DeviceContentNavDataProps {
     deviceId: string;
     isLoading: boolean;
-    isPnPDevice: boolean;
+    digitalTwinModelId: string;
     isEdgeDevice: boolean;
 }
 
@@ -39,7 +39,7 @@ export default class DeviceContentNavComponent extends React.Component<DeviceCon
     }
 
     private readonly createNavLinks = (context: LocalizationContextInterface) => {
-        const { deviceId, isPnPDevice, isEdgeDevice } = this.props;
+        const { deviceId, digitalTwinModelId, isEdgeDevice } = this.props;
         const url = this.props.match.url;
 
         const navItems = isEdgeDevice ? NAV_LINK_ITEMS : NAV_LINK_ITEMS_NONEDGE;
@@ -49,7 +49,7 @@ export default class DeviceContentNavComponent extends React.Component<DeviceCon
             url: `#${url}/${nav}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`
         }));
 
-        if (!isEdgeDevice && isPnPDevice) {
+        if (!isEdgeDevice && digitalTwinModelId) {
             navLinks.push({
                 key: NAV_LINK_ITEM_PNP,
                 name: context.t((ResourceKeys.deviceContent.navBar as any)[NAV_LINK_ITEM_PNP]), // tslint:disable-line:no-any

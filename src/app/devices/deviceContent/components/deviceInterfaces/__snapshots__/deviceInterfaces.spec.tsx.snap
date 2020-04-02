@@ -77,20 +77,10 @@ exports[`components/devices/deviceInterfaces shows interface information when st
     <section
       className="pnp-interface-info scrollable-lg"
     >
-      <StyledLabelBase
-        className="source"
-      >
-         
-        deviceInterfaces.columns.source
-        : 
-        settings.modelDefinitions.repositoryTypes.public.label
-      </StyledLabelBase>
-      <CustomizedActionButton
-        className="configure-button"
-        onClick={[Function]}
-      >
-        deviceInterfaces.command.configure
-      </CustomizedActionButton>
+      <Component
+        handleConfigure={[Function]}
+        source="PUBLIC"
+      />
       <Connect(MaskedCopyableTextField)
         allowMask={false}
         ariaLabel="deviceInterfaces.columns.id"
@@ -112,26 +102,47 @@ exports[`components/devices/deviceInterfaces shows interface information when st
         readOnly={true}
         value="--"
       />
-      <article
-        className="interface-definition"
-      >
-        <div
-          className="monaco-editor"
-        >
-          <Suspense
-            fallback={
-              <StyledSpinnerBase
-                size={3}
-                title="loading"
-              />
-            }
-          >
-            <ContextConsumer>
-              <Component />
-            </ContextConsumer>
-          </Suspense>
-        </div>
-      </article>
+      <Component
+        className="interface-definition-monaco-editor"
+        content={
+          Object {
+            "@context": "http://azureiot.com/v1/contexts/Interface.json",
+            "@id": "urn:azureiot:ModelDiscovery:DigitalTwin:1",
+            "@type": "Interface",
+            "contents": Array [
+              Object {
+                "@type": "Property",
+                "description": "Providing model and optional interfaces information on a digital twin.",
+                "displayName": "Model Information",
+                "name": "modelInformation",
+                "schema": Object {
+                  "@type": "Object",
+                  "fields": Array [
+                    Object {
+                      "name": "modelId",
+                      "schema": "string",
+                    },
+                    Object {
+                      "name": "interfaces",
+                      "schema": Object {
+                        "@type": "Map",
+                        "mapKey": Object {
+                          "name": "name",
+                          "schema": "string",
+                        },
+                        "mapValue": Object {
+                          "name": "schema",
+                          "schema": "string",
+                        },
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+          }
+        }
+      />
     </section>
   </ErrorBoundary>
 </Fragment>

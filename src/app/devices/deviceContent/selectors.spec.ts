@@ -8,9 +8,8 @@ import { SynchronizationStatus } from './../../api/models/synchronizationStatus'
 import {
     getDigitalTwinInterfacePropertiesSelector,
     getDigitalTwinInterfaceIdsSelector,
-    getIsDevicePnpSelector,
+    getDigitalTwinModelId,
     getComponentNameSelector,
-    getDigitalTwinDcmNameSelector,
     getDigitalTwinComponentNameAndIdsSelector
 } from './selectors';
 import { getInitialState } from './../../api/shared/testHelper';
@@ -45,6 +44,7 @@ describe('getDigitalTwinInterfacePropertiesSelector', () => {
         componentNameSelected: 'environmentalsensor',
         deviceIdentity: null,
         deviceTwin: null,
+        digitalTwin: null,
         digitalTwinInterfaceProperties: {
             payload: digitalTwinInterfaceProperties,
             synchronizationStatus: SynchronizationStatus.fetched
@@ -66,15 +66,11 @@ describe('getDigitalTwinInterfacePropertiesSelector', () => {
     });
 
     it('returns is device pnp', () => {
-        expect(getIsDevicePnpSelector(state)).toEqual(true);
+        expect(getDigitalTwinModelId(state)).toEqual(true);
     });
 
     it('returns componentName', () => {
         expect(getComponentNameSelector(state)).toEqual('environmentalsensor');
-    });
-
-    it('returns dcm id', () => {
-        expect(getDigitalTwinDcmNameSelector(state)).toEqual('urn:contoso:com:dcm:2');
     });
 
     it('returns component names and interface ids', () => {

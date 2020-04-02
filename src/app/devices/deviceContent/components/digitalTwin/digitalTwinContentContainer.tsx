@@ -6,11 +6,12 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { AnyAction } from 'typescript-fsa';
 import { DigitalTwinContentDispatchProps, DigitalTwinContent } from './digitalTwinContent';
-import { getModelDefinitionAction } from '../../actions';
+import { getModelDefinitionAction, getDigitalTwinInterfacePropertiesAction } from '../../actions';
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): Partial<DigitalTwinContentDispatchProps> => {
     return {
-        fetchModelDefinition: (deviceId: string, interfaceId: string) => dispatch(getModelDefinitionAction.started({digitalTwinId: deviceId, interfaceId}))
+        fetchModelDefinition: (deviceId: string, interfaceId: string) => dispatch(getModelDefinitionAction.started({digitalTwinId: deviceId, interfaceId})),
+        getDigitalTwinInterfaceProperties: (deviceId: string) => dispatch(getDigitalTwinInterfacePropertiesAction.started(deviceId))
     };
 };
 

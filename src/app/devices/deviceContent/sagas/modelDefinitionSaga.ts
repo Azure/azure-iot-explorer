@@ -15,7 +15,7 @@ import { getRepositoryLocationSettingsSelector, getPublicRepositoryHostName, get
 import { RepositoryLocationSettings } from '../../../settings/state';
 import { REPOSITORY_LOCATION_TYPE } from './../../../constants/repositoryLocationTypes';
 import { getRepoConnectionInfoFromConnectionString } from '../../../api/shared/utils';
-import { invokeDigitalTwinInterfaceCommand, fetchDigitalTwinInterfaceProperties } from '../../../api/services/devicesService';
+import { invokeDigitalTwinInterfaceCommand, fetchDigitalTwinInterfaceProperties } from '../../../api/services/digitalTwinService';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { getDigitalTwinInterfaceIdsSelector, getDigitalTwinComponentNameAndIdsSelector } from '../selectors';
 import { InterfaceNotImplementedException } from './../../../shared/utils/exceptions/interfaceNotImplementedException';
@@ -23,53 +23,55 @@ import { modelDefinitionInterfaceId, modelDefinitionCommandName } from '../../..
 import { FetchDigitalTwinInterfacePropertiesParameters } from '../../../api/parameters/deviceParameters';
 import { fetchLocalFile } from './../../../api/services/localRepoService';
 import { ModelDefinition } from './../../../api/models/modelDefinition';
+import { ModelDefinitionNotValidJsonError } from './../../../api/models/modelDefinitionNotValidJsonError';
 
 export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionParameters>) {
-    try {
-
-        const locations: RepositoryLocationSettings[] = yield select(getRepositoryLocationSettingsSelector);
-        let errorCount = 0;
-        for (const location of locations) { // try to get model definition in order according to user's location settings
-            try {
-                const modelDefinition = yield call (getModelDefinition, action, location);
-                const isModelValid = yield call(validateModelDefinitionHelper, modelDefinition, location);
+    const locations: RepositoryLocationSettings[] = yield select(getRepositoryLocationSettingsSelector);
+    let errorCount = 0;
+    for (const location of locations) { // try to get model definition in order according to user's location settings
+        try {
+            const modelDefinition = yield call (getModelDefinition, action, location);
+            const isModelValid = yield call(validateModelDefinitionHelper, modelDefinition, location);
+            yield put(getModelDefinitionAction.done(
+                {
+                    params: action.payload,
+                    result: {isModelValid, modelDefinition, source: location.repositoryLocationType}
+                }));
+            break; // found the model definition, break
+        }
+        catch (error) {
+            if (error instanceof ModelDefinitionNotValidJsonError) {
+                yield put(addNotificationAction.started({
+                    text: {
+                        translationKey: ResourceKeys.notifications.parseLocalInterfaceModelOnError,
+                        translationOptions: {
+                            interfaceId: action.payload.interfaceId
+                        },
+                    },
+                    type: NotificationType.error
+                }));
                 yield put(getModelDefinitionAction.done(
                     {
                         params: action.payload,
-                        result: {isModelValid, modelDefinition, source: location.repositoryLocationType}
+                        result: {isModelValid: false, modelDefinition: null, source: location.repositoryLocationType}
                     }));
-                break; // found the model definition, break
+                break;
             }
-            catch {
-                errorCount ++;
-                // continue the loop
-            }
+            errorCount ++;
+            // continue the loop
         }
-        if (errorCount === locations.length) {
-            yield put(addNotificationAction.started({
-                text: {
-                    translationKey: ResourceKeys.notifications.getInterfaceModelOnError,
-                    translationOptions: {
-                        interfaceId: action.payload.interfaceId
-                    },
-                },
-                type: NotificationType.error
-            }));
-            yield put(getModelDefinitionAction.failed({params: action.payload, error: undefined}));
-        }
-
-    } catch (error) {
+    }
+    if (errorCount === locations.length) {
         yield put(addNotificationAction.started({
             text: {
                 translationKey: ResourceKeys.notifications.getInterfaceModelOnError,
                 translationOptions: {
-                    interfaceId: action.payload
+                    interfaceId: action.payload.interfaceId
                 },
             },
             type: NotificationType.error
         }));
-
-        yield put(getModelDefinitionAction.failed({params: action.payload, error}));
+        yield put(getModelDefinitionAction.failed({params: action.payload, error: undefined}));
     }
 }
 

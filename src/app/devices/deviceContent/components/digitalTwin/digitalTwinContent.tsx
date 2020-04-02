@@ -14,6 +14,7 @@ import { ROUTE_PARTS } from '../../../../constants/routes';
 
 export interface DigitalTwinContentDispatchProps {
     fetchModelDefinition(deviceId: string, interfaceId: string): void;
+    getDigitalTwinInterfaceProperties(deviceId: string): void;
 }
 
 export class DigitalTwinContent extends React.Component<DigitalTwinContentDispatchProps & RouteComponentProps> {
@@ -31,6 +32,6 @@ export class DigitalTwinContent extends React.Component<DigitalTwinContentDispat
 
     public componentDidMount() {
         this.props.fetchModelDefinition(getDeviceIdFromQueryString(this.props), getInterfaceIdFromQueryString(this.props));
+        this.props.getDigitalTwinInterfaceProperties(getDeviceIdFromQueryString(this.props));
     }
-
 }

@@ -7,7 +7,7 @@ export interface ModelDefinition {
     '@id': string;
     '@type': string;
     comment?: string | object;
-    contents: Array<PropertyContent | CommandContent | TelemetryContent>;
+    contents: Array<PropertyContent | CommandContent | TelemetryContent | ComponentContent>;
     description?: string | object;
     displayName?: string | object;
 }
@@ -25,6 +25,10 @@ export interface CommandContent extends ContentBase{
 
 export interface TelemetryContent extends ContentBase{
     schema: string | EnumSchema | ObjectSchema | MapSchema;
+}
+
+export interface ComponentContent extends ContentBase{
+    schema: string;
 }
 
 interface ContentBase {
@@ -64,5 +68,6 @@ export interface MapSchema {
 export enum ContentType{
     Command = 'command',
     Property = 'property',
-    Telemetry = 'telemetry'
+    Telemetry = 'telemetry',
+    Component = 'component'
 }

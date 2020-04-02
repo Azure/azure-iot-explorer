@@ -9,15 +9,38 @@ import { DigitalTwinInterfaces } from '../../api/models/digitalTwinModels';
 import { StateType, StateInterface } from '../../shared/redux/state';
 import { ModelDefinitionWithSource } from '../../api/models/modelDefinitionWithSource';
 import { modelDiscoveryComponentName } from '../../constants/modelDefinitionConstants';
+import { SynchronizationStatus } from './../../api/models/synchronizationStatus';
+import { ComponentContent, ContentType } from './../../api/models/modelDefinition';
+
+export interface ComponentAndInterfaceId {
+    componentName: string;
+    interfaceId: string;
+}
 
 export const getComponentNameSelector = (state: StateInterface): string => {
     return state && state.deviceContentState && state.deviceContentState.componentNameSelected;
 };
 
 export const getModelDefinitionWithSourceSelector = (state: StateInterface): SynchronizationWrapper<ModelDefinitionWithSource> => {
-    return getComponentNameSelector(state) &&
-        state.deviceContentState &&
-        state.deviceContentState.modelDefinitionWithSource;
+    return state.deviceContentState && state.deviceContentState.modelDefinitionWithSource;
+};
+
+export const getComponentToInterfaceIdMappingSelector = (state: StateInterface): ComponentAndInterfaceId[] => {
+    const modelDefinition = getModelDefinitionSelector(state);
+    const componentContents = modelDefinition && modelDefinition.contents && modelDefinition.contents.filter((item: ComponentContent) => filterTelemetry(item)) as ComponentContent[];
+    return componentContents ? componentContents.map(componentContent => ({
+        componentName: componentContent.name,
+        interfaceId: componentContent.schema
+    })) : [];
+};
+
+const filterTelemetry = (content: ComponentContent) => {
+    if (typeof content['@type'] === 'string') {
+        return content['@type'].toLowerCase() === ContentType.Component;
+    }
+    else {
+        return content['@type'].some((entry: string) => entry.toLowerCase() === ContentType.Component);
+    }
 };
 
 export const getModelDefinitionSelector = createSelector(
@@ -82,18 +105,6 @@ const getReportedInterfacesFromDigitalTwin = (properties: DigitalTwinInterfaces)
     return value && value.interfaces;
 };
 
-const getReportedDcmFromDigitalTwin = (properties: DigitalTwinInterfaces) => {
-    const value = getReportedValueFromDigitalTwin(properties);
-    return value && value.modelId;
-};
-
-export const getDigitalTwinDcmNameSelector = createSelector(
-    getDigitalTwinInterfacePropertiesSelector,
-    properties => {
-        return getReportedDcmFromDigitalTwin(properties);
-    }
-);
-
 export const getDigitalTwinInterfaceIdsSelector = createSelector(
     getDigitalTwinComponentNameAndIdsSelector,
     nameAndIds => {
@@ -106,6 +117,21 @@ export const getDigitalTwinInterfaceIdsSelector = createSelector(
     }
 );
 
-export const getIsDevicePnpSelector = createSelector(
-    getDigitalTwinComponentNameAndIdsSelector,
-    names => names && Object.keys(names).length > 0);
+export const getDigitalTwinSynchronizationStatusSelector = (state: StateInterface): SynchronizationStatus => {
+    return state &&
+        state.deviceContentState &&
+        state.deviceContentState.digitalTwin &&
+        state.deviceContentState.digitalTwin.synchronizationStatus;
+};
+
+// tslint:disable-next-line:no-any
+const getDigitalTwinSelector = (state: StateInterface): any => {
+    return state &&
+        state.deviceContentState &&
+        state.deviceContentState.digitalTwin &&
+        state.deviceContentState.digitalTwin.payload;
+};
+
+export const getDigitalTwinModelId = createSelector(
+    getDigitalTwinSelector,
+    dt => dt &&  dt.$metadata && dt.$metadata.$model);

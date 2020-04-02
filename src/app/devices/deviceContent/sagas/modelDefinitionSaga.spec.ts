@@ -6,7 +6,7 @@ import 'jest';
 import { select, call, put } from 'redux-saga/effects';
 import { SagaIteratorClone, cloneableGenerator } from 'redux-saga/utils';
 import { getModelDefinitionSaga, getModelDefinition, getModelDefinitionFromPublicRepo, getModelDefinitionFromPrivateRepo, getModelDefinitionFromDevice, getModelDefinitionFromLocalFile, validateModelDefinitionHelper } from './modelDefinitionSaga';
-import * as DevicesService from '../../../api/services/devicesService';
+import * as DigitalTwinService from '../../../api/services/digitalTwinService';
 import { addNotificationAction } from '../../../notifications/actions';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
@@ -18,7 +18,7 @@ import { getRepoTokenSaga } from '../../../settings/sagas/getRepoTokenSaga';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { modelDefinitionInterfaceId, modelDefinitionCommandName } from '../../../constants/modelDefinitionConstants';
 import { fetchModelDefinition } from '../../../api/services/digitalTwinsModelService';
-import { PUBLIC_REPO_HOSTNAME } from '../../../constants/shared';
+import { PUBLIC_REPO_HOSTNAME } from '../../../constants/apiConstants';
 import { fetchLocalFile } from '../../../api/services/localRepoService';
 
 describe('modelDefinitionSaga', () => {
@@ -187,7 +187,7 @@ describe('modelDefinitionSaga', () => {
 
     describe('getModelDefinitionFromDevice ', () => {
         const getModelDefinitionFromDeviceGenerator = cloneableGenerator(getModelDefinitionFromDevice)(action);
-        const mockFetchDigitalTwinInterfaceProperties = jest.spyOn(DevicesService, 'fetchDigitalTwinInterfaceProperties').mockImplementationOnce(parameters => {
+        const mockFetchDigitalTwinInterfaceProperties = jest.spyOn(DigitalTwinService, 'fetchDigitalTwinInterfaceProperties').mockImplementationOnce(parameters => {
             return null;
         });
 
@@ -233,7 +233,7 @@ describe('modelDefinitionSaga', () => {
 
         expect(getModelDefinitionFromDeviceGenerator.next('connection_string')).toEqual({
             done: false,
-            value: call(DevicesService.invokeDigitalTwinInterfaceCommand, {
+            value: call(DigitalTwinService.invokeDigitalTwinInterfaceCommand, {
                 commandName: modelDefinitionCommandName,
                 componentName: 'model_discovery',
                 connectionString: 'connection_string',

@@ -12,7 +12,6 @@ import DirectMethodContainer from './directMethod/directMethodContainer';
 import CloudToDeviceMessageContainer from './cloudToDeviceMessage/cloudToDeviceMessageContainer';
 import ModuleIdentityContent from '../../module/components/moduleIdentity/moduleIdentityContent';
 import DeviceContentNavComponent from './deviceContentNav';
-import Breadcrumb from '../../../shared/components/breadcrumb';
 import DigitalTwinsContentContainer from './digitalTwin/digitalTwinContentContainer';
 import { DigitalTwinInterfacesContainer } from './digitalTwin/digitalTwinInterfaces';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
@@ -34,13 +33,13 @@ export interface DeviceContentDataProps {
     deviceId: string;
     interfaceIds: string[];
     isLoading: boolean;
-    isPnPDevice: boolean;
+    digitalTwinModelId: string;
     identityWrapper: SynchronizationWrapper<DeviceIdentity>;
 }
 
 export interface DeviceContentDispatchProps {
     setComponentName: (componentName: string) => void;
-    getDigitalTwinInterfaceProperties: (deviceId: string) => void;
+    getDigitalTwin: (deviceId: string) => void;
     getDeviceIdentity: (deviceId: string) => void;
 }
 
@@ -76,7 +75,7 @@ export class DeviceContentComponent extends React.PureComponent<DeviceContentPro
     }
 
     public componentDidMount() {
-        this.props.getDigitalTwinInterfaceProperties(this.props.deviceId);
+        this.props.getDigitalTwin(this.props.deviceId);
         this.props.getDeviceIdentity(this.props.deviceId);
     }
 
@@ -84,7 +83,7 @@ export class DeviceContentComponent extends React.PureComponent<DeviceContentPro
         if (getDeviceIdFromQueryString(oldProps) !== getDeviceIdFromQueryString(this.props)) {
             const deviceId = getDeviceIdFromQueryString(this.props);
             this.props.getDeviceIdentity(deviceId);
-            this.props.getDigitalTwinInterfaceProperties(deviceId);
+            this.props.getDigitalTwin(deviceId);
             const url = this.props.match.url;
             this.props.history.push(`${url}/${ROUTE_PARTS.IDENTITY}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
         }

@@ -82,7 +82,8 @@
                     "infoText": "Use your local folder as a model repository. The interface files you wish to use should have a json extension and a file name equal to the Interface ID with all colons (':') removed. For example: urn:contoso:com:EnvironmentalSensor:1 should be named as urncontosocomEnvironmentalSensor1.json",
                     "textBoxLabel": "Local folder path",
                     "placeholder": "f:/"
-                }
+                },
+                "notAvailable": "--"
             }
         },
         "questions": {
@@ -325,7 +326,7 @@
                         "title":"Parameter type",
                         "ariaLabel": "Type of query clause",
                         "items": {
-                            "capabilityModelId":"Capability model ID",
+                            "capabilityModelId":"Model ID",
                             "interfaceId": "Interface ID",
                             "propertyValue": "Property value",
                             "status": "Status",
@@ -378,7 +379,8 @@
     },
     "digitalTwin": {
         "headerText": "IoT Plug and Play components",
-        "dcm": "Device capability model ID: {{modelId}}",
+        "modelId": "Model ID",
+        "modelContainsNoComponents": "Model '{{modelId}}' contains no Plug and Play components",
         "componentName": "Component",
         "interfaceId": "Interface"
     },
@@ -476,7 +478,7 @@
         },
         "headerText": "Interface",
         "noInterfaces": "No interfaces",
-        "interfaceNotFound": "We are not able to retrieve interface model definition. Please click 'Configure' button below to see how we resolve model definition.",
+        "interfaceNotFound": "We are not able to retrieve any valid interface model definition. Please click 'Configure' button below to see how we resolve model definition.",
         "interfaceNotValid": "Model definition is not valid. Please update the model definition and then proceed."
     },
     "deviceEvents": {
@@ -687,6 +689,7 @@
         "getDigitalTwinInterfacePropertiesOnError": "Failed to get properties of the IoT Plug and Play device {{deviceId}}: {{error}}",
         "getModuleIdentitiesOnError": "Failed to get module identities of device {{deviceId}}: {{error}}",
         "getInterfaceModelOnError": "Failed to get interface model definition {{interfaceId}}",
+        "parseLocalInterfaceModelOnError": "{{interfaceId}} has been retrieved from local folder but it is not a valid JSON file. You may want to check if there is any trailing comma.",
         "updateDeviceTwinOnError": "Failed to update device twin on device {{deviceId}}: {{error}}",
         "updateDeviceTwinOnSuccess": "Successfully updated device twin on device {{deviceId}}.",
         "invokeDigitalTwinCommandOnError": "Failed to invoke the IoT Plug and Play device command '{{commandName}}' for component '{{componentName}}' on device '{{deviceId}}': {{error}}",

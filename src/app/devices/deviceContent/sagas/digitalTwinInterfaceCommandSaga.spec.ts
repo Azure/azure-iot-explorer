@@ -7,7 +7,7 @@ import { select, call, put } from 'redux-saga/effects';
 import { SagaIteratorClone, cloneableGenerator } from 'redux-saga/utils';
 import { invokeDigitalTwinInterfaceCommandSaga, notifyMethodInvoked } from './digitalTwinInterfaceCommandSaga';
 import { invokeDigitalTwinInterfaceCommandAction, InvokeDigitalTwinInterfaceCommandActionParameters } from '../actions';
-import * as DevicesService from '../../../api/services/devicesService';
+import * as DigitalTwinService from '../../../api/services/digitalTwinService';
 import { getComponentNameSelector } from '../selectors';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { NotificationType } from '../../../api/models/notification';
@@ -47,7 +47,7 @@ describe('digitalTwinInterfaceCommandSaga', () => {
             invokeDigitalTwinInterfaceCommandSagaGenerator = cloneableGenerator(invokeDigitalTwinInterfaceCommandSaga)(invokeDigitalTwinInterfaceCommandAction.started(invokeParameters));
         });
 
-        const mockInvokeDigitalTwinInterfaceCommand = jest.spyOn(DevicesService, 'invokeDigitalTwinInterfaceCommand').mockImplementationOnce(parameters => {
+        const mockInvokeDigitalTwinInterfaceCommand = jest.spyOn(DigitalTwinService, 'invokeDigitalTwinInterfaceCommand').mockImplementationOnce(parameters => {
             return null;
         });
 

@@ -55,8 +55,17 @@ export interface UpdateDeviceParameters extends DataPlaneParameters {
     deviceIdentity: DeviceIdentity;
 }
 
+export interface FetchDigitalTwinParameters extends DataPlaneParameters {
+    digitalTwinId: string;
+}
+
 export interface FetchDigitalTwinInterfacePropertiesParameters extends DataPlaneParameters {
     digitalTwinId: string; // Format of digitalTwinId is DeviceId[~ModuleId]. ModuleId is optional.
+}
+
+export interface PatchDigitalTwinInterfacePropertiesParameters extends DataPlaneParameters {
+    digitalTwinId: string; // Format of digitalTwinId is DeviceId[~ModuleId]. ModuleId is optional.
+    payload: DigitalTwinInterfaces;
 }
 
 export interface InvokeDigitalTwinInterfaceCommandParameters extends DataPlaneParameters {
@@ -66,9 +75,4 @@ export interface InvokeDigitalTwinInterfaceCommandParameters extends DataPlanePa
     connectTimeoutInSeconds?: number;
     payload?: any; // tslint:disable-line:no-any
     responseTimeoutInSeconds?: number;
-}
-
-export interface PatchDigitalTwinInterfacePropertiesParameters extends DataPlaneParameters {
-    digitalTwinId: string; // Format of digitalTwinId is DeviceId[~ModuleId]. ModuleId is optional.
-    payload: DigitalTwinInterfaces;
 }

@@ -7,25 +7,42 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Label } from 'office-ui-fabric-react/lib/Label';
 import { CommandBar, ICommandBarItemProps } from 'office-ui-fabric-react/lib/CommandBar';
 import { DetailsList, IColumn, SelectionMode } from 'office-ui-fabric-react/lib/DetailsList';
+import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
+import { Announced } from 'office-ui-fabric-react/lib/Announced';
+import { Pivot, PivotItem } from 'office-ui-fabric-react/lib/Pivot';
 import { RouteComponentProps, NavLink } from 'react-router-dom';
-import { getDigitalTwinComponentNameAndIdsSelector, getDigitalTwinDcmNameSelector, getDigitalTwinInterfacePropertiesWrapperSelector } from '../../selectors';
+import { getDigitalTwinModelId,
+    getDigitalTwinSynchronizationStatusSelector,
+    getModelDefinitionWithSourceSelector,
+    ComponentAndInterfaceId,
+    getComponentToInterfaceIdMappingSelector } from '../../selectors';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../../constants/routes';
 import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
-import { getDigitalTwinInterfacePropertiesAction } from '../../actions';
-import { HeaderView } from '../../../../shared/components/headerView';
-import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
+import { getDigitalTwinAction, getModelDefinitionAction } from '../../actions';
 import { REFRESH } from '../../../../constants/iconNames';
 import { LARGE_COLUMN_WIDTH } from '../../../../constants/columnWidth';
-import '../../../../css/_digitalTwinNav.scss';
+import { SynchronizationWrapper } from '../../../../api/models/synchronizationWrapper';
+import { ModelDefinitionWithSource } from '../../../../api/models/modelDefinitionWithSource';
+import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
+import { ModelDefinitionSourceView } from '../shared/modelDefinitionSource';
+import MaskedCopyableTextFieldContainer from '../../../../shared/components/maskedCopyableTextFieldContainer';
+import { MonacoEditorView } from '../../../../shared/components/monacoEditor';
+import { HeaderView } from '../../../../shared/components/headerView';
+import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
+import { setSettingsVisibilityAction } from '../../../../settings/actions';
+import '../../../../css/_digitalTwinInterfaces.scss';
 
 export interface DigitalTwinInterfacesProps extends RouteComponentProps{
     isLoading: boolean;
-    nameToIds: object;
-    dcm: string;
-    refresh: (deviceId: string) => void;
+    modelDefinitionWithSource: SynchronizationWrapper<ModelDefinitionWithSource>;
+    modelId: string;
+    nameToIds: ComponentAndInterfaceId[];
+    retrieveDigitalTwin: (deviceId: string) => void;
+    retrieveComponents: (deviceId: string, interfaceId: string) => void;
+    settingsVisibleToggle: (visible: boolean) => void;
 }
 
 interface ModelContent {
@@ -35,26 +52,26 @@ interface ModelContent {
 }
 
 export const DigitalTwinInterfaces: React.FC<DigitalTwinInterfacesProps> = props => {
-    if (props.isLoading) {
-        return <MultiLineShimmer/>;
-    }
-
     const url = props.match.url;
     const deviceId = getDeviceIdFromQueryString(props);
     const { t } = useLocalizationContext();
+    const { modelId, nameToIds, retrieveComponents, modelDefinitionWithSource } = props;
 
-    let modelContents: ModelContent[] = [];
-    if (props.nameToIds) {
-        modelContents = Object.keys(props.nameToIds).map(componentName => {
-            const interfaceId = (props.nameToIds as any)[componentName]; // tslint:disable-line:no-any
+    React.useEffect(() => {
+        if (!modelId) {
+            return;
+        }
+        retrieveComponents(deviceId, modelId);
+    }, [modelId]); // tslint:disable-line:align
+
+    const modelContents: ModelContent[]  = nameToIds && nameToIds.map(nameToId => {
             const link = `${url}${ROUTE_PARTS.DIGITAL_TWINS_DETAIL}/${ROUTE_PARTS.INTERFACES}/` +
                             `?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}` +
-                            `&${ROUTE_PARAMS.COMPONENT_NAME}=${componentName}` +
-                            `&${ROUTE_PARAMS.INTERFACE_ID}=${interfaceId}`;
+                            `&${ROUTE_PARAMS.COMPONENT_NAME}=${nameToId.componentName}` +
+                            `&${ROUTE_PARAMS.INTERFACE_ID}=${nameToId.interfaceId}`;
 
-            return { componentName, interfaceId, link };
-        });
-    }
+            return { ...nameToId, link };
+    });
 
     const createCommandBarItems = (): ICommandBarItemProps[] => {
         return [
@@ -64,7 +81,7 @@ export const DigitalTwinInterfaces: React.FC<DigitalTwinInterfacesProps> = props
                 iconProps: {iconName: REFRESH},
                 key: REFRESH,
                 name: t(ResourceKeys.deviceEvents.command.refresh),
-                onClick: () => props.refresh(deviceId)
+                onClick: () =>  props.retrieveDigitalTwin(deviceId)
             }
         ];
     };
@@ -99,6 +116,87 @@ export const DigitalTwinInterfaces: React.FC<DigitalTwinInterfacesProps> = props
         }
     };
 
+    const handleConfigure = () => {
+       props.settingsVisibleToggle(true);
+    };
+
+    const renderComponentList = () => {
+        const listView = (
+            <>
+                {
+                    modelContents.length !== 0 ?
+                        <div className="list-detail">
+                            <DetailsList
+                                onRenderItemColumn={renderItemColumn()}
+                                items={modelContents}
+                                columns={getColumns()}
+                                selectionMode={SelectionMode.none}
+                            />
+                        </div> :
+                        <>
+                            <Label className="no-component">{t(ResourceKeys.digitalTwin.modelContainsNoComponents, {modelId: props.modelId })}</Label>
+                            <Announced
+                                message={t(ResourceKeys.digitalTwin.modelContainsNoComponents, {modelId: props.modelId })}
+                            />
+                        </>
+                }
+            </>);
+
+        return (
+            <>
+                <h4>Step 3. Continue your Plug and Play journey by drilling down to each component</h4>
+                <Pivot aria-label="Basic Pivot Example">
+                    <PivotItem headerText="Components">
+                        {listView}
+                    </PivotItem>
+                    <PivotItem headerText="Model content">
+                        <MonacoEditorView
+                            className="interface-definition-monaco-editor"
+                            content={modelDefinitionWithSource.payload.modelDefinition}
+                        />
+                    </PivotItem>
+                </Pivot>
+            </>
+        );
+    };
+
+    // tslint:disable-next-line:cyclomatic-complexity
+    const renderModelDefinition = () => {
+        if (modelDefinitionWithSource && modelDefinitionWithSource.synchronizationStatus === SynchronizationStatus.working) {
+            return <MultiLineShimmer/>;
+        }
+
+        if (!modelDefinitionWithSource || !modelDefinitionWithSource.payload) {
+            return (
+            <>
+                <h4>Step 2. We've failed to resolve your Plug and Play model</h4>
+                <InterfaceNotFoundMessageBoxContainer/>
+            </>);
+        }
+
+        return (
+            <>
+                <h4>Step 2. We've resolved your Plug and Play model</h4>
+                <ModelDefinitionSourceView
+                    handleConfigure={handleConfigure}
+                    source={props.modelDefinitionWithSource.payload.source}
+                />
+                {modelDefinitionWithSource.payload.isModelValid ?
+                    renderComponentList() :
+                    <>
+                        <MessageBar messageBarType={MessageBarType.error}>
+                            {t(ResourceKeys.deviceInterfaces.interfaceNotValid)}
+                        </MessageBar>
+                        <MonacoEditorView
+                            className="interface-definition-monaco-editor"
+                            content={modelDefinitionWithSource.payload.modelDefinition}
+                        />
+                    </>
+                }
+            </>
+        );
+    };
+
     return (
         <>
             <CommandBar
@@ -110,35 +208,36 @@ export const DigitalTwinInterfaces: React.FC<DigitalTwinInterfacesProps> = props
                 link={ResourceKeys.settings.questions.questions.documentation.link}
                 tooltip={ResourceKeys.settings.questions.questions.documentation.text}
             />
-
-            <section className="device-detail">
-                {props.dcm && <Label className="dcm-info">{t(ResourceKeys.digitalTwin.dcm, {modelId: props.dcm })}</Label>}
-                {modelContents.length !== 0 &&
-                    <div className="list-detail">
-                        <DetailsList
-                            onRenderItemColumn={renderItemColumn()}
-                            items={modelContents}
-                            columns={getColumns()}
-                            selectionMode={SelectionMode.none}
-                        />
-                    </div>
-                }
-            </section>
+            {props.isLoading ?
+                <MultiLineShimmer/> :
+                <section className="device-detail">
+                    <h4>Step 1. Your device has been discovered as a Plug and Play device</h4>
+                    <MaskedCopyableTextFieldContainer
+                        ariaLabel={t(ResourceKeys.digitalTwin.modelId)}
+                        label={t(ResourceKeys.digitalTwin.modelId)}
+                        value={props.modelId}
+                        allowMask={false}
+                        readOnly={true}
+                    />
+                    {renderModelDefinition()}
+            </section>}
         </>
     );
 };
 
 export type DigitalTwinInterfacesContainerProps = RouteComponentProps;
 export const DigitalTwinInterfacesContainer: React.FC<DigitalTwinInterfacesContainerProps> = props => {
-    const digitalTwinInterfacesWrapper = useSelector(getDigitalTwinInterfacePropertiesWrapperSelector);
+    const getDigitalTwinSynchronizationStatus = useSelector(getDigitalTwinSynchronizationStatusSelector);
     const dispatch = useDispatch();
 
     const viewProps = {
-        dcm: useSelector(getDigitalTwinDcmNameSelector),
-        isLoading: digitalTwinInterfacesWrapper &&
-            digitalTwinInterfacesWrapper.synchronizationStatus === SynchronizationStatus.working,
-        nameToIds: useSelector(getDigitalTwinComponentNameAndIdsSelector),
-        refresh: (deviceId: string) => dispatch(getDigitalTwinInterfacePropertiesAction.started(deviceId)),
+        isLoading: getDigitalTwinSynchronizationStatus === SynchronizationStatus.working,
+        modelDefinitionWithSource: useSelector(getModelDefinitionWithSourceSelector),
+        modelId: useSelector(getDigitalTwinModelId),
+        nameToIds: useSelector(getComponentToInterfaceIdMappingSelector),
+        retrieveComponents: (deviceId: string, interfaceId: string) => dispatch(getModelDefinitionAction.started({digitalTwinId: deviceId, interfaceId})),
+        retrieveDigitalTwin: (deviceId: string) => dispatch(getDigitalTwinAction.started(deviceId)),
+        settingsVisibleToggle: (visible: boolean) => dispatch(setSettingsVisibilityAction(visible)),
         ...props
     };
     return <DigitalTwinInterfaces {...viewProps} />;

@@ -519,9 +519,10 @@ export class ResourceKeys {
    };
    public static digitalTwin = {
       componentName : "digitalTwin.componentName",
-      dcm : "digitalTwin.dcm",
       headerText : "digitalTwin.headerText",
       interfaceId : "digitalTwin.interfaceId",
+      modelContainsNoComponents : "digitalTwin.modelContainsNoComponents",
+      modelId : "digitalTwin.modelId",
    };
    public static directMethod = {
       connectionTimeout : "directMethod.connectionTimeout",
@@ -660,6 +661,7 @@ export class ResourceKeys {
       invokingDigitalTwinCommandWithPayload : "notifications.invokingDigitalTwinCommandWithPayload",
       invokingMethod : "notifications.invokingMethod",
       invokingMethodWithPayload : "notifications.invokingMethodWithPayload",
+      parseLocalInterfaceModelOnError : "notifications.parseLocalInterfaceModelOnError",
       patchDigitalTwinInterfacePropertiesOnError : "notifications.patchDigitalTwinInterfacePropertiesOnError",
       patchDigitalTwinInterfacePropertiesOnSuccess : "notifications.patchDigitalTwinInterfacePropertiesOnSuccess",
       portIsInUseError : "notifications.portIsInUseError",
@@ -694,6 +696,7 @@ export class ResourceKeys {
                placeholder : "settings.modelDefinitions.repositoryTypes.local.placeholder",
                textBoxLabel : "settings.modelDefinitions.repositoryTypes.local.textBoxLabel",
             },
+            notAvailable : "settings.modelDefinitions.repositoryTypes.notAvailable",
             private : {
                infoText : "settings.modelDefinitions.repositoryTypes.private.infoText",
                label : "settings.modelDefinitions.repositoryTypes.private.label",
