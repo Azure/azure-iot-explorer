@@ -31,7 +31,6 @@ interface DeviceContentState {
 }
 export interface DeviceContentDataProps {
     deviceId: string;
-    interfaceIds: string[];
     isLoading: boolean;
     digitalTwinModelId: string;
     identityWrapper: SynchronizationWrapper<DeviceIdentity>;

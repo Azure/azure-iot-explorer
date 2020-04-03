@@ -10,7 +10,6 @@ import { LocalizationContextConsumer, LocalizationContextInterface } from '../..
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getInterfaceIdFromQueryString, getDeviceIdFromQueryString, getComponentNameFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { ModelDefinitionWithSource } from '../../../../api/models/modelDefinitionWithSource';
-import { SynchronizationWrapper } from '../../../../api/models/synchronizationWrapper';
 import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
 import { REFRESH, NAVIGATE_BACK } from '../../../../constants/iconNames';
 import ErrorBoundary from '../../../errorBoundary';
@@ -24,7 +23,7 @@ import { ModelDefinitionSourceView } from '../shared/modelDefinitionSource';
 import '../../../../css/_deviceInterface.scss';
 
 export interface DeviceInterfaceProps {
-    modelDefinitionWithSource: SynchronizationWrapper<ModelDefinitionWithSource>;
+    modelDefinitionWithSource: ModelDefinitionWithSource;
     isLoading: boolean;
 }
 
@@ -82,9 +81,9 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
         const {  modelDefinitionWithSource } = this.props;
         return (
             <>
-                {modelDefinitionWithSource && modelDefinitionWithSource.payload ?
+                {modelDefinitionWithSource ?
                     <ErrorBoundary error={context.t(ResourceKeys.errorBoundary.text)}>
-                        {modelDefinitionWithSource.payload.isModelValid ?
+                        {modelDefinitionWithSource.isModelValid ?
                             <>
                                 <Route component={DigitalTwinHeaderContainer} />
                                 <section className="pnp-interface-info scrollable-lg">
@@ -113,7 +112,7 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
             <>
                 <ModelDefinitionSourceView
                     handleConfigure={this.handleConfigure}
-                    source={modelDefinitionWithSource.payload.source}
+                    source={modelDefinitionWithSource.source}
                 />
                 <MaskedCopyableTextFieldContainer
                     ariaLabel={context.t(ResourceKeys.deviceInterfaces.columns.id)}
@@ -127,14 +126,14 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
                     <MaskedCopyableTextFieldContainer
                         ariaLabel={context.t(ResourceKeys.deviceInterfaces.columns.displayName)}
                         label={context.t(ResourceKeys.deviceInterfaces.columns.displayName)}
-                        value={getLocalizedData(modelDefinitionWithSource.payload.modelDefinition.displayName) || '--'}
+                        value={getLocalizedData(modelDefinitionWithSource.modelDefinition.displayName) || '--'}
                         allowMask={false}
                         readOnly={true}
                     />
                     <MaskedCopyableTextFieldContainer
                         ariaLabel={context.t(ResourceKeys.deviceInterfaces.columns.description)}
                         label={context.t(ResourceKeys.deviceInterfaces.columns.description)}
-                        value={getLocalizedData(modelDefinitionWithSource.payload.modelDefinition.description) || '--'}
+                        value={getLocalizedData(modelDefinitionWithSource.modelDefinition.description) || '--'}
                         allowMask={false}
                         readOnly={true}
                     />
@@ -149,7 +148,7 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
     }
 
     private readonly renderInterfaceViewer = (isValidInterface: boolean) => {
-        const modelDefinitionWithSource = this.props.modelDefinitionWithSource.payload;
+        const { modelDefinitionWithSource } = this.props;
         return (
             <>
                 { modelDefinitionWithSource && modelDefinitionWithSource.modelDefinition &&

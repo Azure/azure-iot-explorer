@@ -20,9 +20,9 @@ describe('components/devices/deviceContentNav', () => {
 
         const navDataProps: DeviceContentNavDataProps = {
             deviceId: 'test',
+            digitalTwinModelId: '',
             isEdgeDevice: true,
             isLoading: false,
-            isPnPDevice: false,
         };
 
         const navDispatchProps: DeviceContentNavDispatchProps = {
@@ -61,7 +61,7 @@ describe('components/devices/deviceContentNav', () => {
     });
 
     it('show non-pnp nav and pnp nav when device is pnp', () => {
-        const wrapper = mountWithLocalization(getComponent({isPnPDevice: true, isEdgeDevice: false}));
+        const wrapper = mountWithLocalization(getComponent({digitalTwinModelId: 'dtmi:__azureiot:samplemodel;1', isEdgeDevice: false}));
 
         const navigation = wrapper.find(Nav);
         expect(navigation.props().groups[0].links.length).toEqual(NAV_LINK_ITEMS_NONEDGE.length + 1);

@@ -32,6 +32,7 @@ exports[`deviceContent matches snapshot 1`] = `
           >
             <DeviceContentNavComponent
               deviceId="testDevice"
+              digitalTwinModelId="dtmi:__azureiot:samplemodel;1"
               getDeviceIdentity={
                 [MockFunction] {
                   "calls": Array [
@@ -47,7 +48,7 @@ exports[`deviceContent matches snapshot 1`] = `
                   ],
                 }
               }
-              getDigitalTwinInterfaceProperties={
+              getDigitalTwin={
                 [MockFunction] {
                   "calls": Array [
                     Array [
@@ -70,10 +71,8 @@ exports[`deviceContent matches snapshot 1`] = `
                 }
               }
               identityWrapper={null}
-              interfaceIds={Array []}
               isEdgeDevice={null}
               isLoading={false}
-              isPnPDevice={true}
               location={
                 Object {
                   "pathname": "/#/devices/detail/?id=testDevice",

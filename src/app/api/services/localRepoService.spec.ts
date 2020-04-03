@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as LocalRepoService from './localRepoService';
+import { ModelDefinitionNotFound } from '../models/modelDefinitionNotFoundError';
 describe('localRepoService', () => {
 
     context('fetchLocalFile', () => {
@@ -40,7 +41,7 @@ describe('localRepoService', () => {
         });
 
         it('throw when response is 404', async done => {
-            window.fetch = jest.fn().mockRejectedValueOnce(new Error('Not found'));
+            window.fetch = jest.fn().mockRejectedValueOnce(new ModelDefinitionNotFound('Not found'));
             await expect(LocalRepoService.fetchLocalFile('f:/test.json')).rejects.toThrowError('Not found');
             done();
         });

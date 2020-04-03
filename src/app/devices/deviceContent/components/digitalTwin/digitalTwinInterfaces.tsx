@@ -13,9 +13,10 @@ import { Pivot, PivotItem } from 'office-ui-fabric-react/lib/Pivot';
 import { RouteComponentProps, NavLink } from 'react-router-dom';
 import { getDigitalTwinModelId,
     getDigitalTwinSynchronizationStatusSelector,
-    getModelDefinitionWithSourceSelector,
     ComponentAndInterfaceId,
-    getComponentToInterfaceIdMappingSelector } from '../../selectors';
+    getComponentToInterfaceIdMappingSelector,
+    getModelDefinitionSyncStatusSelector,
+    getModelDefinitionWithSourceSelector } from '../../selectors';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../../constants/routes';
 import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
@@ -24,7 +25,6 @@ import { SynchronizationStatus } from '../../../../api/models/synchronizationSta
 import { getDigitalTwinAction, getModelDefinitionAction } from '../../actions';
 import { REFRESH } from '../../../../constants/iconNames';
 import { LARGE_COLUMN_WIDTH } from '../../../../constants/columnWidth';
-import { SynchronizationWrapper } from '../../../../api/models/synchronizationWrapper';
 import { ModelDefinitionWithSource } from '../../../../api/models/modelDefinitionWithSource';
 import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
 import { ModelDefinitionSourceView } from '../shared/modelDefinitionSource';
@@ -36,10 +36,11 @@ import { setSettingsVisibilityAction } from '../../../../settings/actions';
 import '../../../../css/_digitalTwinInterfaces.scss';
 
 export interface DigitalTwinInterfacesProps extends RouteComponentProps{
-    isLoading: boolean;
-    modelDefinitionWithSource: SynchronizationWrapper<ModelDefinitionWithSource>;
+    isDigitalTwinLoading: boolean;
+    isModelDefinitionLoading: boolean;
+    modelDefinitionWithSource: ModelDefinitionWithSource;
     modelId: string;
-    nameToIds: ComponentAndInterfaceId[];
+    componentNameToIds: ComponentAndInterfaceId[];
     retrieveDigitalTwin: (deviceId: string) => void;
     retrieveComponents: (deviceId: string, interfaceId: string) => void;
     settingsVisibleToggle: (visible: boolean) => void;
@@ -55,7 +56,7 @@ export const DigitalTwinInterfaces: React.FC<DigitalTwinInterfacesProps> = props
     const url = props.match.url;
     const deviceId = getDeviceIdFromQueryString(props);
     const { t } = useLocalizationContext();
-    const { modelId, nameToIds, retrieveComponents, modelDefinitionWithSource } = props;
+    const { modelId, componentNameToIds, retrieveComponents, modelDefinitionWithSource } = props;
 
     React.useEffect(() => {
         if (!modelId) {
@@ -64,7 +65,7 @@ export const DigitalTwinInterfaces: React.FC<DigitalTwinInterfacesProps> = props
         retrieveComponents(deviceId, modelId);
     }, [modelId]); // tslint:disable-line:align
 
-    const modelContents: ModelContent[]  = nameToIds && nameToIds.map(nameToId => {
+    const modelContents: ModelContent[]  = componentNameToIds && componentNameToIds.map(nameToId => {
             const link = `${url}${ROUTE_PARTS.DIGITAL_TWINS_DETAIL}/${ROUTE_PARTS.INTERFACES}/` +
                             `?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}` +
                             `&${ROUTE_PARAMS.COMPONENT_NAME}=${nameToId.componentName}` +
@@ -77,7 +78,7 @@ export const DigitalTwinInterfaces: React.FC<DigitalTwinInterfacesProps> = props
         return [
             {
                 ariaLabel: t(ResourceKeys.deviceEvents.command.refresh),
-                disabled: props.isLoading,
+                disabled: props.isDigitalTwinLoading,
                 iconProps: {iconName: REFRESH},
                 key: REFRESH,
                 name: t(ResourceKeys.deviceEvents.command.refresh),
@@ -144,15 +145,15 @@ export const DigitalTwinInterfaces: React.FC<DigitalTwinInterfacesProps> = props
 
         return (
             <>
-                <h4>Step 3. Continue your Plug and Play journey by drilling down to each component</h4>
-                <Pivot aria-label="Basic Pivot Example">
-                    <PivotItem headerText="Components">
+                <h4>{t(ResourceKeys.digitalTwin.steps.third)}</h4>
+                <Pivot aria-label={t(ResourceKeys.digitalTwin.pivot.ariaLabel)}>
+                    <PivotItem headerText={t(ResourceKeys.digitalTwin.pivot.components)}>
                         {listView}
                     </PivotItem>
-                    <PivotItem headerText="Model content">
+                    <PivotItem headerText={t(ResourceKeys.digitalTwin.pivot.content)}>
                         <MonacoEditorView
                             className="interface-definition-monaco-editor"
-                            content={modelDefinitionWithSource.payload.modelDefinition}
+                            content={modelDefinitionWithSource.modelDefinition}
                         />
                     </PivotItem>
                 </Pivot>
@@ -160,28 +161,27 @@ export const DigitalTwinInterfaces: React.FC<DigitalTwinInterfacesProps> = props
         );
     };
 
-    // tslint:disable-next-line:cyclomatic-complexity
     const renderModelDefinition = () => {
-        if (modelDefinitionWithSource && modelDefinitionWithSource.synchronizationStatus === SynchronizationStatus.working) {
+        if (props.isModelDefinitionLoading) {
             return <MultiLineShimmer/>;
         }
 
-        if (!modelDefinitionWithSource || !modelDefinitionWithSource.payload) {
+        if (!modelDefinitionWithSource) {
             return (
             <>
-                <h4>Step 2. We've failed to resolve your Plug and Play model</h4>
+                <h4>{t(ResourceKeys.digitalTwin.steps.secondFailure)}</h4>
                 <InterfaceNotFoundMessageBoxContainer/>
             </>);
         }
 
         return (
             <>
-                <h4>Step 2. We've resolved your Plug and Play model</h4>
+                <h4>{t(ResourceKeys.digitalTwin.steps.secondSuccess)}</h4>
                 <ModelDefinitionSourceView
                     handleConfigure={handleConfigure}
-                    source={props.modelDefinitionWithSource.payload.source}
+                    source={props.modelDefinitionWithSource.source}
                 />
-                {modelDefinitionWithSource.payload.isModelValid ?
+                {modelDefinitionWithSource.isModelValid ?
                     renderComponentList() :
                     <>
                         <MessageBar messageBarType={MessageBarType.error}>
@@ -189,7 +189,7 @@ export const DigitalTwinInterfaces: React.FC<DigitalTwinInterfacesProps> = props
                         </MessageBar>
                         <MonacoEditorView
                             className="interface-definition-monaco-editor"
-                            content={modelDefinitionWithSource.payload.modelDefinition}
+                            content={modelDefinitionWithSource.modelDefinition}
                         />
                     </>
                 }
@@ -208,10 +208,10 @@ export const DigitalTwinInterfaces: React.FC<DigitalTwinInterfacesProps> = props
                 link={ResourceKeys.settings.questions.questions.documentation.link}
                 tooltip={ResourceKeys.settings.questions.questions.documentation.text}
             />
-            {props.isLoading ?
+            {props.isDigitalTwinLoading ?
                 <MultiLineShimmer/> :
                 <section className="device-detail">
-                    <h4>Step 1. Your device has been discovered as a Plug and Play device</h4>
+                    <h4>{t(ResourceKeys.digitalTwin.steps.first)}</h4>
                     <MaskedCopyableTextFieldContainer
                         ariaLabel={t(ResourceKeys.digitalTwin.modelId)}
                         label={t(ResourceKeys.digitalTwin.modelId)}
@@ -227,14 +227,16 @@ export const DigitalTwinInterfaces: React.FC<DigitalTwinInterfacesProps> = props
 
 export type DigitalTwinInterfacesContainerProps = RouteComponentProps;
 export const DigitalTwinInterfacesContainer: React.FC<DigitalTwinInterfacesContainerProps> = props => {
-    const getDigitalTwinSynchronizationStatus = useSelector(getDigitalTwinSynchronizationStatusSelector);
+    const digitalTwinSynchronizationStatus = useSelector(getDigitalTwinSynchronizationStatusSelector);
+    const modelDefinitionSynchronizationStatus = useSelector(getModelDefinitionSyncStatusSelector);
     const dispatch = useDispatch();
 
     const viewProps = {
-        isLoading: getDigitalTwinSynchronizationStatus === SynchronizationStatus.working,
+        componentNameToIds: useSelector(getComponentToInterfaceIdMappingSelector),
+        isDigitalTwinLoading: digitalTwinSynchronizationStatus === SynchronizationStatus.working,
+        isModelDefinitionLoading: modelDefinitionSynchronizationStatus === SynchronizationStatus.working,
         modelDefinitionWithSource: useSelector(getModelDefinitionWithSourceSelector),
         modelId: useSelector(getDigitalTwinModelId),
-        nameToIds: useSelector(getComponentToInterfaceIdMappingSelector),
         retrieveComponents: (deviceId: string, interfaceId: string) => dispatch(getModelDefinitionAction.started({digitalTwinId: deviceId, interfaceId})),
         retrieveDigitalTwin: (deviceId: string) => dispatch(getDigitalTwinAction.started(deviceId)),
         settingsVisibleToggle: (visible: boolean) => dispatch(setSettingsVisibilityAction(visible)),

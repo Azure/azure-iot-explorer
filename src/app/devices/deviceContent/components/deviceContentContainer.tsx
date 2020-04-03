@@ -9,7 +9,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { DeviceContentComponent, DeviceContentDispatchProps, DeviceContentDataProps } from './deviceContent';
 import { StateType } from '../../../shared/redux/state';
 import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
-import { getDigitalTwinModelId, getDigitalTwinInterfaceIdsSelector, getDeviceIdentityWrapperSelector, getDigitalTwinSynchronizationStatusSelector } from '../selectors';
+import { getDigitalTwinModelId, getDeviceIdentityWrapperSelector, getDigitalTwinSynchronizationStatusSelector } from '../selectors';
 import { setComponentNameAction, getDigitalTwinAction, getDeviceIdentityAction } from '../actions';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 
@@ -19,7 +19,6 @@ const mapStateToProps = (state: StateType, ownProps: RouteComponentProps): Devic
         deviceId: getDeviceIdFromQueryString(ownProps),
         digitalTwinModelId: getDigitalTwinModelId(state),
         identityWrapper: getDeviceIdentityWrapperSelector(state),
-        interfaceIds: getDigitalTwinInterfaceIdsSelector(state),
         isLoading: digitalTwinSynchronizationStatus === SynchronizationStatus.working
     };
 };

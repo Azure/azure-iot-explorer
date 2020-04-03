@@ -523,6 +523,17 @@ export class ResourceKeys {
       interfaceId : "digitalTwin.interfaceId",
       modelContainsNoComponents : "digitalTwin.modelContainsNoComponents",
       modelId : "digitalTwin.modelId",
+      pivot : {
+         ariaLabel : "digitalTwin.pivot.ariaLabel",
+         components : "digitalTwin.pivot.components",
+         content : "digitalTwin.pivot.content",
+      },
+      steps : {
+         first : "digitalTwin.steps.first",
+         secondFailure : "digitalTwin.steps.secondFailure",
+         secondSuccess : "digitalTwin.steps.secondSuccess",
+         third : "digitalTwin.steps.third",
+      },
    };
    public static directMethod = {
       connectionTimeout : "directMethod.connectionTimeout",

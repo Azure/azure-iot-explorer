@@ -21,9 +21,14 @@ export const getComponentNameSelector = (state: StateInterface): string => {
     return state && state.deviceContentState && state.deviceContentState.componentNameSelected;
 };
 
-export const getModelDefinitionWithSourceSelector = (state: StateInterface): SynchronizationWrapper<ModelDefinitionWithSource> => {
+export const getModelDefinitionWithSourceWrapperSelector = (state: StateInterface): SynchronizationWrapper<ModelDefinitionWithSource> => {
     return state.deviceContentState && state.deviceContentState.modelDefinitionWithSource;
 };
+
+export const getModelDefinitionWithSourceSelector = createSelector(
+    getModelDefinitionWithSourceWrapperSelector,
+    interfaceWithSourceWrapper => interfaceWithSourceWrapper && interfaceWithSourceWrapper.payload
+);
 
 export const getComponentToInterfaceIdMappingSelector = (state: StateInterface): ComponentAndInterfaceId[] => {
     const modelDefinition = getModelDefinitionSelector(state);
@@ -45,19 +50,17 @@ const filterTelemetry = (content: ComponentContent) => {
 
 export const getModelDefinitionSelector = createSelector(
     getModelDefinitionWithSourceSelector,
-    interfaceWithSource => interfaceWithSource && interfaceWithSource.payload && interfaceWithSource.payload.modelDefinition);
+    interfaceWithSource => interfaceWithSource && interfaceWithSource.modelDefinition
+);
 
 export const getModelDefinitionSyncStatusSelector = createSelector(
-    getModelDefinitionWithSourceSelector,
-    modelDefinitionWithSource => {
-        return modelDefinitionWithSource && modelDefinitionWithSource.synchronizationStatus;
-    }
+    getModelDefinitionWithSourceWrapperSelector,
+    modelDefinitionWithSource => modelDefinitionWithSource && modelDefinitionWithSource.synchronizationStatus
 );
 
 export const getDeviceIdentityWrapperSelector = (state: StateType): SynchronizationWrapper<DeviceIdentity> => {
     return state &&
         state.deviceContentState &&
-        state.deviceContentState.deviceIdentity &&
         state.deviceContentState.deviceIdentity;
 };
 
@@ -96,7 +99,6 @@ const getReportedValueFromDigitalTwin = (properties: DigitalTwinInterfaces) => {
         properties.interfaces[modelDiscoveryComponentName].properties &&
         properties.interfaces[modelDiscoveryComponentName].properties.modelInformation &&
         properties.interfaces[modelDiscoveryComponentName].properties.modelInformation.reported &&
-        properties.interfaces[modelDiscoveryComponentName].properties.modelInformation.reported.value &&
         properties.interfaces[modelDiscoveryComponentName].properties.modelInformation.reported.value;
 };
 
@@ -134,4 +136,5 @@ const getDigitalTwinSelector = (state: StateInterface): any => {
 
 export const getDigitalTwinModelId = createSelector(
     getDigitalTwinSelector,
-    dt => dt &&  dt.$metadata && dt.$metadata.$model);
+    dt => dt &&  dt.$metadata && dt.$metadata.$model
+);

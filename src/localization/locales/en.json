@@ -382,7 +382,18 @@
         "modelId": "Model ID",
         "modelContainsNoComponents": "Model '{{modelId}}' contains no Plug and Play components",
         "componentName": "Component",
-        "interfaceId": "Interface"
+        "interfaceId": "Interface",
+        "steps": {
+            "first": "Step 1. Your device has been discovered as a Plug and Play device",
+            "secondSuccess": "Step 2. We've resolved your Plug and Play model",
+            "secondFailure": "Step 2. We've failed to resolve your Plug and Play model",
+            "third": "Step 3. Continue your Plug and Play journey by drilling down to each component"
+        },
+        "pivot": {
+            "ariaLabel": "Model component and content pivot",
+            "components" :"Components",
+            "content": "Model content"
+        }
     },
     "deviceProperties": {
         "command" : {
