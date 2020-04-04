@@ -14,7 +14,7 @@ import { RouteComponentProps, NavLink } from 'react-router-dom';
 import { getDigitalTwinModelId,
     getDigitalTwinSynchronizationStatusSelector,
     ComponentAndInterfaceId,
-    getComponentToInterfaceIdMappingSelector,
+    getComponentNameAndInterfaceIdArraySelector,
     getModelDefinitionSyncStatusSelector,
     getModelDefinitionWithSourceSelector } from '../../selectors';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../../constants/routes';
@@ -232,7 +232,7 @@ export const DigitalTwinInterfacesContainer: React.FC<DigitalTwinInterfacesConta
     const dispatch = useDispatch();
 
     const viewProps = {
-        componentNameToIds: useSelector(getComponentToInterfaceIdMappingSelector),
+        componentNameToIds: useSelector(getComponentNameAndInterfaceIdArraySelector),
         isDigitalTwinLoading: digitalTwinSynchronizationStatus === SynchronizationStatus.working,
         isModelDefinitionLoading: modelDefinitionSynchronizationStatus === SynchronizationStatus.working,
         modelDefinitionWithSource: useSelector(getModelDefinitionWithSourceSelector),

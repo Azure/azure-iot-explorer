@@ -13,10 +13,10 @@ import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getModelDefinitionAction, getDigitalTwinInterfacePropertiesAction } from '../actions';
 import { getRepositoryLocationSettingsSelector, getPublicRepositoryHostName, getLocalFolderPath } from '../../../settings/selectors';
 import { REPOSITORY_LOCATION_TYPE } from '../../../constants/repositoryLocationTypes';
-import { getDigitalTwinInterfaceIdsSelector, getDigitalTwinComponentNameAndIdsSelector } from '../selectors';
+import { getComponentNameAndInterfaceIdArraySelector } from '../selectors';
 import { getRepoTokenSaga } from '../../../settings/sagas/getRepoTokenSaga';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
-import { modelDefinitionInterfaceId, modelDefinitionCommandName } from '../../../constants/modelDefinitionConstants';
+import { modelDefinitionCommandName, modelDefinitionInterfaceId } from '../../../constants/modelDefinitionConstants';
 import { fetchModelDefinition } from '../../../api/services/digitalTwinsModelService';
 import { PUBLIC_REPO_HOSTNAME } from '../../../constants/apiConstants';
 import { fetchLocalFile } from '../../../api/services/localRepoService';
@@ -215,17 +215,13 @@ describe('modelDefinitionSaga', () => {
 
         expect(getModelDefinitionFromDeviceGenerator.next()).toEqual({
             done: false,
-            value: select(getDigitalTwinInterfaceIdsSelector)
+            value: select(getComponentNameAndInterfaceIdArraySelector)
         });
 
-        expect(getModelDefinitionFromDeviceGenerator.next([modelDefinitionInterfaceId])).toEqual({
-            done: false,
-            value: select(getDigitalTwinComponentNameAndIdsSelector)
-        });
-
-        const nameAndId = {
-            model_discovery: modelDefinitionInterfaceId
-        };
+        const nameAndId = [{
+            componentName: 'model_discovery',
+            interfaceId: modelDefinitionInterfaceId
+        }];
         expect(getModelDefinitionFromDeviceGenerator.next(nameAndId)).toEqual({
             done: false,
             value: call(getActiveAzureResourceConnectionStringSaga)

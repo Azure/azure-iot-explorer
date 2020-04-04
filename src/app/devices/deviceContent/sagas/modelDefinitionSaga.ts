@@ -17,7 +17,7 @@ import { REPOSITORY_LOCATION_TYPE } from './../../../constants/repositoryLocatio
 import { getRepoConnectionInfoFromConnectionString } from '../../../api/shared/utils';
 import { invokeDigitalTwinInterfaceCommand, fetchDigitalTwinInterfaceProperties } from '../../../api/services/digitalTwinService';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
-import { getDigitalTwinInterfaceIdsSelector, getDigitalTwinComponentNameAndIdsSelector } from '../selectors';
+import { getComponentNameAndInterfaceIdArraySelector, ComponentAndInterfaceId } from '../selectors';
 import { InterfaceNotImplementedException } from './../../../shared/utils/exceptions/interfaceNotImplementedException';
 import { modelDefinitionInterfaceId, modelDefinitionCommandName } from '../../../constants/modelDefinitionConstants';
 import { FetchDigitalTwinInterfacePropertiesParameters } from '../../../api/parameters/deviceParameters';
@@ -129,24 +129,12 @@ export function* getModelDefinitionFromDevice(action: Action<GetModelDefinitionA
     }
 
     // then check if device has implemented ${modelDefinitionInterfaceId} interface.
-    const interfaceIds: string[] = yield select(getDigitalTwinInterfaceIdsSelector);
-    if (interfaceIds.filter(id => id === modelDefinitionInterfaceId).length === 0) {
+    const componentAndIs: ComponentAndInterfaceId[] = yield select(getComponentNameAndInterfaceIdArraySelector);
+    const filtered = componentAndIs.filter(componentAndId => componentAndId.interfaceId === modelDefinitionInterfaceId);
+    if (filtered.length === 0) {
         throw new InterfaceNotImplementedException();
     }
-
-    // then get the name of ${modelDefinitionInterfaceId} interface.
-    const nameAndIdObject = yield select(getDigitalTwinComponentNameAndIdsSelector);
-    let componentName;
-    Object.keys(nameAndIdObject).forEach(key => {
-        if (nameAndIdObject[key] === modelDefinitionInterfaceId)
-        {
-            componentName = key;
-        }
-    });
-
-    if (!componentName) {
-        throw new InterfaceNotImplementedException();
-    }
+    const componentName = filtered[0].componentName;
 
     // if interface is implemented, invoke command on device
     return yield call(invokeDigitalTwinInterfaceCommand, {

@@ -47,7 +47,6 @@ export const ModelDefinitionSourceView: React.FC<ModelDefinitionSourceViewProps>
                         {t(ResourceKeys.deviceInterfaces.command.configure)}
                 </ActionButton>
             </Stack.Item>
-
         </Stack>
     );
 };
