@@ -23,7 +23,7 @@ import { modelDefinitionInterfaceId, modelDefinitionCommandName } from '../../..
 import { FetchDigitalTwinInterfacePropertiesParameters } from '../../../api/parameters/deviceParameters';
 import { fetchLocalFile } from './../../../api/services/localRepoService';
 import { ModelDefinition } from './../../../api/models/modelDefinition';
-import { ModelDefinitionNotValidJsonError } from './../../../api/models/modelDefinitionNotValidJsonError';
+import { ModelDefinitionNotValidJsonError } from '../../../api/models/modelDefinitionNotValidJsonError';
 
 export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionParameters>) {
     const locations: RepositoryLocationSettings[] = yield select(getRepositoryLocationSettingsSelector);
@@ -50,12 +50,6 @@ export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionP
                     },
                     type: NotificationType.error
                 }));
-                yield put(getModelDefinitionAction.done(
-                    {
-                        params: action.payload,
-                        result: {isModelValid: false, modelDefinition: null, source: location.repositoryLocationType}
-                    }));
-                break;
             }
             errorCount ++;
             // continue the loop
@@ -76,6 +70,7 @@ export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionP
 }
 
 export function *validateModelDefinitionHelper(modelDefinition: ModelDefinition, location: RepositoryLocationSettings) {
+    return true; // temporarily disable the validation til service deploys dtmi change in pnp discovery
     if (location.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Private || location.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Public) {
         return true;
     }
@@ -109,8 +104,7 @@ export function* getModelDefinitionFromPublicRepo(action: Action<GetModelDefinit
 
 export function* getModelDefinitionFromLocalFile(action: Action<GetModelDefinitionActionParameters>) {
     const path = (yield select(getLocalFolderPath)).replace(/\/$/, ''); // remove trailing slash
-    const fileName = action.payload.interfaceId.replace(/\:/g, ''); // remove ':' from id
-    return yield call(fetchLocalFile, `${path}/${fileName}.json`);
+    return yield call(fetchLocalFile, path, action.payload.interfaceId);
 }
 
 export function* getModelDefinitionFromDevice(action: Action<GetModelDefinitionActionParameters>) {

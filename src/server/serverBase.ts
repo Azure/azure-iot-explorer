@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as fs from 'fs';
+import * as path from 'path';
 import express = require('express');
 import request = require('request');
 import bodyParser = require('body-parser');
@@ -17,6 +18,7 @@ const BAD_REQUEST = 400;
 const SUCCESS = 200;
 const NOT_FOUND = 404;
 const CONFLICT = 409;
+const NO_CONTENT_SUCCESS = 204;
 const SERVER_WAIT = 3000; // how long we'll let the call for eventHub messages run in non-socket
 const receivers: ReceiveHandler[] = [];
 const IOTHUB_CONNECTION_DEVICE_ID = 'iothub-connection-device-id';
@@ -51,31 +53,68 @@ export default class ServerBase {
         app.post(eventHubMonitorUri, handleEventHubMonitorPostRequest);
         app.post(eventHubStopUri, handleEventHubStopPostRequest);
         app.post(modelRepoUri, handleModelRepoPostRequest);
-        app.get(readFileUri, handleReadFilePostRequest);
+        app.get(readFileUri, handleReadFileRequest);
 
         app.listen(this.port);
     }
 }
 
-const readFileUri = '/api/ReadFile/:path';
-export const handleReadFilePostRequest = (req: express.Request, res: express.Response) => {
+const readFileUri = '/api/ReadFile/:path/:file';
+// tslint:disable-next-line:cyclomatic-complexity
+export const handleReadFileRequest = (req: express.Request, res: express.Response) => {
     try {
-        const path = req.params.path;
-        if (!path) {
+        const filePath = req.params.path;
+        const expectedFileName = req.params.file;
+        if (!filePath || !expectedFileName) {
             res.status(BAD_REQUEST).send();
         }
         else {
-            fs.readFile(path, 'utf-8', (err, data) => {
-                if (err) {
-                    res.status(NOT_FOUND).send(err);
+            const fileNames = fs.readdirSync(filePath);
+            try {
+                const foundContent = findMatchingFile(filePath, fileNames, expectedFileName);
+                if (foundContent) {
+                    res.status(SUCCESS).send(foundContent);
                 }
-                res.status(SUCCESS).send(data);
-            });
+                else {
+                    res.status(NO_CONTENT_SUCCESS).send();
+                }
+            }
+            catch {
+                res.status(NOT_FOUND).send(); // couldn't find matching file, and the folder contains json files that cannot be parsed
+            }
+
         }
     }
     catch (error) {
         res.status(SERVER_ERROR).send(error);
     }
+};
+
+// tslint:disable-next-line:cyclomatic-complexity
+const findMatchingFile = (filePath: string, fileNames: string[], expectedFileName: string): string => {
+    let errorsCaught = 0;
+    for (const fileName of fileNames) {
+        if (isFileExtensionJson(fileName)) {
+            try {
+                const data = fs.readFileSync(`${filePath}/${fileName}`, 'utf-8');
+                if (JSON.parse(data)['@id'].toString() === expectedFileName) {
+                    return data;
+                }
+            }
+            catch {
+                errorsCaught ++; // swallow error and continue the loop
+            }
+        }
+    }
+    if (errorsCaught > 0) {
+        throw new Error();
+    }
+    return null;
+};
+
+const isFileExtensionJson = (fileName: string) => {
+    const i = fileName.lastIndexOf('.');
+    return i > 0 && fileName.substr(i) === '.json';
 };
 
 const dataPlaneUri = '/api/DataPlane';

@@ -79,7 +79,7 @@
                 "local": {
                     "labelInElectron":"Local folder",
                     "labelInBrowser":"Local folder (This is only enabled in the desktop version from: https://github.com/Azure/azure-iot-explorer/releases)",
-                    "infoText": "Use your local folder as a model repository. The interface files you wish to use should have a json extension and a file name equal to the Interface ID with all colons (':') removed. For example: urn:contoso:com:EnvironmentalSensor:1 should be named as urncontosocomEnvironmentalSensor1.json",
+                    "infoText": "Use your local folder as a model repository. The model definition files you wish to use should have a json extension. The first JSON file with an '@id' property matching the digital twin model identifier (DTMI) will be retrieved.",
                     "textBoxLabel": "Local folder path",
                     "placeholder": "f:/"
                 },
@@ -382,7 +382,6 @@
         "modelId": "Model ID",
         "modelContainsNoComponents": "Model '{{modelId}}' contains no Plug and Play components",
         "componentName": "Component",
-        "interfaceId": "Interface",
         "steps": {
             "first": "Step 1. Your device has been discovered as a Plug and Play device",
             "secondSuccess": "Step 2. We've resolved your Plug and Play model",
@@ -393,7 +392,8 @@
             "ariaLabel": "Model component and content pivot",
             "components" :"Components",
             "content": "Model content"
-        }
+        },
+        "interfaceId": "Model ID"
     },
     "deviceProperties": {
         "command" : {
@@ -700,7 +700,7 @@
         "getDigitalTwinInterfacePropertiesOnError": "Failed to get properties of the IoT Plug and Play device {{deviceId}}: {{error}}",
         "getModuleIdentitiesOnError": "Failed to get module identities of device {{deviceId}}: {{error}}",
         "getInterfaceModelOnError": "Failed to get interface model definition {{interfaceId}}",
-        "parseLocalInterfaceModelOnError": "{{interfaceId}} has been retrieved from local folder but it is not a valid JSON file. You may want to check if there is any trailing comma.",
+        "parseLocalInterfaceModelOnError": "{{interfaceId}} cannot be retrieved from local folder. There are JSON files in the local folder which are invalid and cannot be parsed.",
         "updateDeviceTwinOnError": "Failed to update device twin on device {{deviceId}}: {{error}}",
         "updateDeviceTwinOnSuccess": "Successfully updated device twin on device {{deviceId}}.",
         "invokeDigitalTwinCommandOnError": "Failed to invoke the IoT Plug and Play device command '{{commandName}}' for component '{{componentName}}' on device '{{deviceId}}': {{error}}",
