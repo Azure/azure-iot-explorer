@@ -257,7 +257,7 @@ describe('modelDefinitionSaga', () => {
         const fileName = action.payload.interfaceId.replace(/\:/g, '');
         expect(getModelDefinitionFromLocalFolderGenerator.next('f:/')).toEqual({
             done: false,
-            value: call(fetchLocalFile, `f:/${fileName}.json`)
+            value: call(fetchLocalFile, 'f:', action.payload.interfaceId)
         });
 
         expect(getModelDefinitionFromLocalFolderGenerator.next().done).toEqual(true);
