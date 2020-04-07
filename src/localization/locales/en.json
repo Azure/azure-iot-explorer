@@ -79,7 +79,7 @@
                 "local": {
                     "labelInElectron":"Local folder",
                     "labelInBrowser":"Local folder (This is only enabled in the desktop version from: https://github.com/Azure/azure-iot-explorer/releases)",
-                    "infoText": "Use your local folder as a model repository. The interface files you wish to use should have a json extension and a file name equal to the Interface ID with all colons (':') removed. For example: urn:contoso:com:EnvironmentalSensor:1 should be named as urncontosocomEnvironmentalSensor1.json",
+                    "infoText": "Use your local folder as a model repository. The model definition files you wish to use should have a json extension. The first file with '@id' property in the content matching the digital twin model identifier (DTMI) would be retrieved.",
                     "textBoxLabel": "Local folder path",
                     "placeholder": "f:/"
                 }
@@ -457,7 +457,7 @@
         "headerText": "IoT Plug and Play components",
         "dcm": "Device capability model ID: {{modelId}}",
         "componentName": "Component",
-        "interfaceId": "Interface"
+        "interfaceId": "Model ID"
     },
     "deviceProperties": {
         "command" : {
