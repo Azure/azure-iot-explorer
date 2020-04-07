@@ -93,7 +93,7 @@ const findMatchingFile = (filePath: string, fileNames: string[], expectedFileNam
                 }
             }
             catch {
-                // swallow error
+                // swallow error and continue the loop
             }
         }
     }
