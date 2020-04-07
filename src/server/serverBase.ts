@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as fs from 'fs';
+import * as path from 'path';
 import express = require('express');
 import request = require('request');
 import bodyParser = require('body-parser');
@@ -51,31 +52,57 @@ export default class ServerBase {
         app.post(eventHubMonitorUri, handleEventHubMonitorPostRequest);
         app.post(eventHubStopUri, handleEventHubStopPostRequest);
         app.post(modelRepoUri, handleModelRepoPostRequest);
-        app.get(readFileUri, handleReadFilePostRequest);
+        app.get(readFileUri, handleReadFileRequest);
 
         app.listen(this.port);
     }
 }
 
-const readFileUri = '/api/ReadFile/:path';
-export const handleReadFilePostRequest = (req: express.Request, res: express.Response) => {
+const readFileUri = '/api/ReadFile/:path/:file';
+export const handleReadFileRequest = (req: express.Request, res: express.Response) => {
     try {
-        const path = req.params.path;
-        if (!path) {
+        const filePath = req.params.path;
+        const expectedFileName = req.params.file;
+        if (!filePath || !expectedFileName) {
             res.status(BAD_REQUEST).send();
         }
         else {
-            fs.readFile(path, 'utf-8', (err, data) => {
-                if (err) {
-                    res.status(NOT_FOUND).send(err);
-                }
-                res.status(SUCCESS).send(data);
-            });
+            const fileNames = fs.readdirSync(filePath);
+            const foundContent = findMatchingFile(filePath, fileNames, expectedFileName);
+            if (foundContent) {
+                res.status(SUCCESS).send(foundContent);
+            }
+            else {
+                res.status(NOT_FOUND).send();
+            }
+
         }
     }
     catch (error) {
         res.status(SERVER_ERROR).send(error);
     }
+};
+
+const findMatchingFile = (filePath: string, fileNames: string[], expectedFileName: string): string => {
+    for (const fileName of fileNames) {
+        if (isFileExtensionJson(fileName)) {
+            try {
+                const data = fs.readFileSync(`${filePath}/${fileName}`, 'utf-8');
+                if (JSON.parse(data)['@id'].toString() === expectedFileName) {
+                    return data;
+                }
+            }
+            catch {
+                // swallow error and continue the loop
+            }
+        }
+    }
+    return null;
+};
+
+const isFileExtensionJson = (fileName: string) => {
+    const i = fileName.lastIndexOf('.');
+    return i > 0 && fileName.substr(i) === '.json';
 };
 
 const dataPlaneUri = '/api/DataPlane';
