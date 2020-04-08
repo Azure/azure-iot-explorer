@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConnectionStringsView matches snapshot when connection string count exceeds max 1`] = `
+<div
+  className="view"
+>
+  <div
+    className="view-command"
+  >
+    <StyledCommandBarBase
+      items={
+        Array [
+          Object {
+            "ariaLabel": "connectionStrings.addConnectionCommand.ariaLabel",
+            "disabled": true,
+            "iconProps": Object {
+              "iconName": "Add",
+            },
+            "key": "add",
+            "onClick": [Function],
+            "text": "connectionStrings.addConnectionCommand.label",
+          },
+        ]
+      }
+    />
+  </div>
+  <div
+    className="view-content view-scroll-vertical"
+  >
+    <div
+      className="connection-strings"
+    />
+  </div>
+</div>
+`;
+
+exports[`ConnectionStringsView matches snapshot when connection strings present 1`] = `
+<div
+  className="view"
+>
+  <div
+    className="view-command"
+  >
+    <StyledCommandBarBase
+      items={
+        Array [
+          Object {
+            "ariaLabel": "connectionStrings.addConnectionCommand.ariaLabel",
+            "disabled": false,
+            "iconProps": Object {
+              "iconName": "Add",
+            },
+            "key": "add",
+            "onClick": [Function],
+            "text": "connectionStrings.addConnectionCommand.label",
+          },
+        ]
+      }
+    />
+  </div>
+  <div
+    className="view-content view-scroll-vertical"
+  >
+    <div
+      className="connection-strings"
+    >
+      <Component
+        connectionString="connectionString1"
+        key="connectionString1"
+        onDeleteConnectionString={[MockFunction]}
+        onEditConnectionString={[Function]}
+        onSelectConnectionString={[MockFunction]}
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ConnectionStringsView matches snapshot when no connection strings 1`] = `
+<div
+  className="view"
+>
+  <div
+    className="view-command"
+  >
+    <StyledCommandBarBase
+      items={
+        Array [
+          Object {
+            "ariaLabel": "connectionStrings.addConnectionCommand.ariaLabel",
+            "disabled": false,
+            "iconProps": Object {
+              "iconName": "Add",
+            },
+            "key": "add",
+            "onClick": [Function],
+            "text": "connectionStrings.addConnectionCommand.label",
+          },
+        ]
+      }
+    />
+  </div>
+  <div
+    className="view-content view-scroll-vertical"
+  >
+    <div
+      className="connection-strings"
+    />
+  </div>
+</div>
+`;

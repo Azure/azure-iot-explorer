@@ -5,7 +5,8 @@
 import {
     addConnectionStringAction,
     deleteConnectionStringAction,
-    setConnectionStringsAction
+    setConnectionStringsAction,
+    upsertConnectionStringAction
 } from './actions';
 
 describe('addConnectionStringAction', () => {
@@ -31,6 +32,15 @@ describe('setConnectionStringAction', () => {
         expect(setConnectionStringsAction([])).toEqual({
             payload: [],
             type: 'CONNECTION_STRINGS/SET'
+        });
+    });
+});
+
+describe('upsertConnectionStringAction', () => {
+    it('returns CONNECTION_STRINGS/UPSERT action object', () => {
+        expect(upsertConnectionStringAction({ newConnectionString: 'new', connectionString: 'old'})).toEqual({
+            payload: { newConnectionString: 'new', connectionString: 'old'},
+            type: 'CONNECTION_STRINGS/UPSERT'
         });
     });
 });

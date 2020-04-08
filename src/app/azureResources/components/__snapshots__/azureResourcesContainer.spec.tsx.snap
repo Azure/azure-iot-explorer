@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`azureResourcesContainer matches snapshot 1`] = `
+<Component
+  history={[MockFunction]}
+  location={[MockFunction]}
+  match={
+    Object {
+      "params": Object {
+        "hostName": "hostName",
+      },
+      "url": "currentUrl",
+    }
+  }
+/>
+`;

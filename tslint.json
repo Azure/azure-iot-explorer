@@ -138,6 +138,7 @@
             "redux-saga/effects",
             "redux-saga/utils",
             "redux-devtools-extension",
+            "react-dom",
             "react-toastify"
         ],
         "no-switch-case-fall-through": true,

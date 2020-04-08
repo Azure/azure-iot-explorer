@@ -7,6 +7,7 @@ import * as React from 'react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { AzureResourceViewContainer } from '../../azureResource/components/azureResourceViewContainer';
+import { AzureResourcesContainer } from '../../azureResources/components/azureResourcesContainer';
 import NoMatchError from './noMatchError';
 import connectivityPaneContainer from '../../login/components/connectivityPaneContainer';
 import { ROUTE_PARTS } from '../../constants/routes';
@@ -21,7 +22,7 @@ export const Application: React.FC = props => {
             <>
                 <Switch>
                     <Route path="/" component={connectivityPaneContainer} exact={true} />
-                    <Route path={`/${ROUTE_PARTS.RESOURCE}/`} component={withApplicationFrame(AzureResourceViewContainer)} exact={true} />
+                    <Route path={`/${ROUTE_PARTS.RESOURCE}/`} component={withApplicationFrame(AzureResourcesContainer)} exact={true} />
                     <Route path={`/${ROUTE_PARTS.RESOURCE}/:hostName`} component={withApplicationFrame(AzureResourceViewContainer)} />
                     <Route component={NoMatchError}/>
                 </Switch>
