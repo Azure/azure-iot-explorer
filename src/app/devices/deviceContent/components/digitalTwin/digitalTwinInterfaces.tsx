@@ -41,9 +41,6 @@ export interface DigitalTwinInterfacesProps extends RouteComponentProps{
     modelDefinitionWithSource: ModelDefinitionWithSource;
     modelId: string;
     componentNameToIds: ComponentAndInterfaceId[];
-    retrieveDigitalTwin: (deviceId: string) => void;
-    retrieveComponents: (deviceId: string, interfaceId: string) => void;
-    settingsVisibleToggle: (visible: boolean) => void;
 }
 
 interface ModelContent {
@@ -56,13 +53,14 @@ export const DigitalTwinInterfaces: React.FC<DigitalTwinInterfacesProps> = props
     const url = props.match.url;
     const deviceId = getDeviceIdFromQueryString(props);
     const { t } = useLocalizationContext();
-    const { modelId, componentNameToIds, retrieveComponents, modelDefinitionWithSource } = props;
+    const { modelId, componentNameToIds, modelDefinitionWithSource } = props;
+    const dispatch = useDispatch();
 
     React.useEffect(() => {
         if (!modelId) {
             return;
         }
-        retrieveComponents(deviceId, modelId);
+        dispatch(getModelDefinitionAction.started({digitalTwinId: deviceId, interfaceId: modelId}));
     }, [modelId]); // tslint:disable-line:align
 
     const modelContents: ModelContent[]  = componentNameToIds && componentNameToIds.map(nameToId => {
@@ -82,7 +80,8 @@ export const DigitalTwinInterfaces: React.FC<DigitalTwinInterfacesProps> = props
                 iconProps: {iconName: REFRESH},
                 key: REFRESH,
                 name: t(ResourceKeys.deviceEvents.command.refresh),
-                onClick: () =>  props.retrieveDigitalTwin(deviceId)
+                // tslint:disable-next-line:no-any
+                onClick: () =>  dispatch(getDigitalTwinAction.started(deviceId)) as any
             }
         ];
     };
@@ -118,7 +117,7 @@ export const DigitalTwinInterfaces: React.FC<DigitalTwinInterfacesProps> = props
     };
 
     const handleConfigure = () => {
-       props.settingsVisibleToggle(true);
+        dispatch(setSettingsVisibilityAction(true));
     };
 
     const renderComponentList = () => {
@@ -237,9 +236,6 @@ export const DigitalTwinInterfacesContainer: React.FC<DigitalTwinInterfacesConta
         isModelDefinitionLoading: modelDefinitionSynchronizationStatus === SynchronizationStatus.working,
         modelDefinitionWithSource: useSelector(getModelDefinitionWithSourceSelector),
         modelId: useSelector(getDigitalTwinModelId),
-        retrieveComponents: (deviceId: string, interfaceId: string) => dispatch(getModelDefinitionAction.started({digitalTwinId: deviceId, interfaceId})),
-        retrieveDigitalTwin: (deviceId: string) => dispatch(getDigitalTwinAction.started(deviceId)),
-        settingsVisibleToggle: (visible: boolean) => dispatch(setSettingsVisibilityAction(visible)),
         ...props
     };
     return <DigitalTwinInterfaces {...viewProps} />;

@@ -105,6 +105,6 @@ const getDigitalTwinSelector = (state: StateInterface): any => {
 
 export const getDigitalTwinModelId = createSelector(
     getDigitalTwinSelector,
-    dt => dt &&  dt.$metadata && dt.$metadata.$model
+    digitalTwin => digitalTwin &&  digitalTwin.$metadata && digitalTwin.$metadata.$model
 );
 //#endregion

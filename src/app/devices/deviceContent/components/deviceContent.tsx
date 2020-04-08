@@ -12,7 +12,7 @@ import DirectMethodContainer from './directMethod/directMethodContainer';
 import CloudToDeviceMessageContainer from './cloudToDeviceMessage/cloudToDeviceMessageContainer';
 import ModuleIdentityContent from '../../module/components/moduleIdentity/moduleIdentityContent';
 import DeviceContentNavComponent from './deviceContentNav';
-import DigitalTwinsContentContainer from './digitalTwin/digitalTwinContentContainer';
+import { DigitalTwinContentContainer } from './digitalTwin/digitalTwinContent';
 import { DigitalTwinInterfacesContainer } from './digitalTwin/digitalTwinInterfaces';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../shared/contexts/localizationContext';
@@ -121,7 +121,7 @@ export class DeviceContentComponent extends React.PureComponent<DeviceContentPro
                 <Route path={`${url}/${ROUTE_PARTS.CLOUD_TO_DEVICE_MESSAGE}/`} component={CloudToDeviceMessageContainer} />
                 <Route path={`${url}/${ROUTE_PARTS.MODULE_IDENTITY}/`} component={ModuleIdentityContent} />
                 <Route exact={true} path={`${url}/${ROUTE_PARTS.DIGITAL_TWINS}/`} component={DigitalTwinInterfacesContainer} />
-                <Route path={`${url}/${ROUTE_PARTS.DIGITAL_TWINS}/${ROUTE_PARTS.DIGITAL_TWINS_DETAIL}/`} component={DigitalTwinsContentContainer}/>
+                <Route path={`${url}/${ROUTE_PARTS.DIGITAL_TWINS}/${ROUTE_PARTS.DIGITAL_TWINS_DETAIL}/`} component={DigitalTwinContentContainer}/>
             </div>
         );
     }

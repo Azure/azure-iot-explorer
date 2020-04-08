@@ -44,7 +44,7 @@ exports[`components/devices/deviceInterfaces shows interface information when st
     >
       <Component
         handleConfigure={[Function]}
-        source="PUBLIC"
+        source="public"
       />
       <Connect(MaskedCopyableTextField)
         allowMask={false}

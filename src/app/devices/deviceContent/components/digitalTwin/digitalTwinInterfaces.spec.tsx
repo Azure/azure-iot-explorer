@@ -8,7 +8,7 @@ import { Label } from 'office-ui-fabric-react/lib/Label';
 import { Announced } from 'office-ui-fabric-react/lib/Announced';
 import { MessageBar } from 'office-ui-fabric-react/lib/MessageBar';
 import { Pivot } from 'office-ui-fabric-react/lib/Pivot';
-import { mountWithLocalization } from '../../../../shared/utils/testHelpers';
+import { mountWithStoreAndRouter } from '../../../../shared/utils/testHelpers';
 import { DigitalTwinInterfaces } from './digitalTwinInterfaces';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
@@ -58,10 +58,7 @@ describe('login/components/connectivityPane', () => {
         isDigitalTwinLoading: true,
         isModelDefinitionLoading: false,
         modelDefinitionWithSource: null,
-        modelId: '',
-        retrieveComponents: jest.fn(),
-        retrieveDigitalTwin: jest.fn(),
-        settingsVisibleToggle: jest.fn()
+        modelId: ''
     };
 
     const getComponent = (overrides = {}) => {
@@ -77,12 +74,12 @@ describe('login/components/connectivityPane', () => {
     };
 
     it('shows shimmer when model id is not retrieved', () => {
-        const digitalTwinInterfaces = mountWithLocalization(getComponent(), true, true).find(DigitalTwinInterfaces);
+        const digitalTwinInterfaces = mountWithStoreAndRouter(getComponent(), true, true).find(DigitalTwinInterfaces);
         expect(digitalTwinInterfaces.find(MultiLineShimmer)).toHaveLength(1);
     });
 
     it('shows model id with no model definition found', () => {
-        const digitalTwinInterfaces = mountWithLocalization(
+        const digitalTwinInterfaces = mountWithStoreAndRouter(
             getComponent({
                 isDigitalTwinLoading: false,
                 modelId: 'dtmi:__azureiot:sampleModel;1',
@@ -100,7 +97,7 @@ describe('login/components/connectivityPane', () => {
     });
 
     it('shows model id with null model definition found', () => {
-        const digitalTwinInterfaces = mountWithLocalization(
+        const digitalTwinInterfaces = mountWithStoreAndRouter(
             getComponent({
                 isDigitalTwinLoading: false,
                 modelDefinitionWithSource: {
@@ -119,7 +116,7 @@ describe('login/components/connectivityPane', () => {
 
         const labels = digitalTwinInterfaces.find(Label);
         expect(labels).toHaveLength(2); // tslint:disable-line:no-magic-numbers
-        expect(labels.at(1).props().children).toEqual([ResourceKeys.deviceInterfaces.columns.source, ': ', ResourceKeys.settings.modelDefinitions.repositoryTypes.local.labelInElectron]);
+        expect(labels.at(1).props().children).toEqual([ResourceKeys.deviceInterfaces.columns.source, ': ', ResourceKeys.settings.modelDefinitions.repositoryTypes.local.label]);
 
         const messageBar = digitalTwinInterfaces.find(MessageBar);
         expect(messageBar).toHaveLength(1);
@@ -127,7 +124,7 @@ describe('login/components/connectivityPane', () => {
     });
 
     it('shows model id with valid model definition found but has no component from selector', () => {
-        const digitalTwinInterfaces = mountWithLocalization(
+        const digitalTwinInterfaces = mountWithStoreAndRouter(
             getComponent({
                 isDigitalTwinLoading: false,
                 modelDefinitionWithSource: {
@@ -153,7 +150,7 @@ describe('login/components/connectivityPane', () => {
     });
 
     it('shows model id with valid model definition found and has components', () => {
-        const digitalTwinInterfaces = mountWithLocalization(
+        const digitalTwinInterfaces = mountWithStoreAndRouter(
             getComponent({
                 componentNameToIds: [
                     {componentName: 'deviceInformation', interfaceId: 'dtmi:__DeviceManagement:DeviceInformation;1'},

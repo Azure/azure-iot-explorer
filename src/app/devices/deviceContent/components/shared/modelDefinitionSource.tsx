@@ -16,19 +16,12 @@ interface ModelDefinitionSourceViewProps {
     handleConfigure: () => void;
 }
 
-const getModelDefinitionSourceResourceKeys = (source: string) => {
-    switch (source) {
-        case REPOSITORY_LOCATION_TYPE.Public:
-            return ResourceKeys.settings.modelDefinitions.repositoryTypes.public.label;
-        case REPOSITORY_LOCATION_TYPE.Private:
-            return ResourceKeys.settings.modelDefinitions.repositoryTypes.private.label;
-        case REPOSITORY_LOCATION_TYPE.Device:
-            return ResourceKeys.settings.modelDefinitions.repositoryTypes.device.label;
-        case REPOSITORY_LOCATION_TYPE.Local:
-            return ResourceKeys.settings.modelDefinitions.repositoryTypes.local.labelInElectron;
-        default:
-            return ResourceKeys.settings.modelDefinitions.repositoryTypes.notAvailable;
+const getModelDefinitionSourceResourceKeys = (source: REPOSITORY_LOCATION_TYPE) => {
+    if (Object.values(REPOSITORY_LOCATION_TYPE).includes(source)) {
+        // tslint:disable-next-line:no-any
+        return (ResourceKeys.settings.modelDefinitions.repositoryTypes as any)[source].label;
     }
+    return ResourceKeys.settings.modelDefinitions.repositoryTypes.notAvailable;
 };
 
 export const ModelDefinitionSourceView: React.FC<ModelDefinitionSourceViewProps> = props => {

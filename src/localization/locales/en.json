@@ -77,7 +77,7 @@
                     "infoText": ""
                 },
                 "local": {
-                    "labelInElectron":"Local folder",
+                    "label":"Local folder",
                     "labelInBrowser":"Local folder (This is only enabled in the desktop version from: https://github.com/Azure/azure-iot-explorer/releases)",
                     "infoText": "Use your local folder as a model repository. The model definition files you wish to use should have a json extension. The first JSON file with an '@id' property matching the digital twin model identifier (DTMI) will be retrieved.",
                     "textBoxLabel": "Local folder path",
