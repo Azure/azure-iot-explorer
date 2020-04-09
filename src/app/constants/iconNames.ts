@@ -14,6 +14,7 @@ export const CLOSE = 'ChromeClose';
 export const CODE = 'Code';
 export const COPY = 'Copy';
 export const EMPTY_CHECKBOX = 'Checkbox';
+export const FOLDER = 'OpenFolderHorizontal';
 export const INFO = 'Info';
 export const NAV = 'GlobalNavButton';
 export const REFRESH = 'Refresh';

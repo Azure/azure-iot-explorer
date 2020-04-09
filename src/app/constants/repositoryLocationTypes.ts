@@ -3,8 +3,8 @@
  * Licensed under the MIT License
  **********************************************************/
 export enum REPOSITORY_LOCATION_TYPE {
-    Public = 'public',
-    Private = 'private',
-    Device = 'device',
-    Local = 'local'
+    Public = 'PUBLIC',
+    Private = 'PRIVATE',
+    Device = 'DEVICE',
+    Local = 'LOCAL'
 }

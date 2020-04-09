@@ -11,6 +11,8 @@ export const EVENTHUB = '/EventHub';
 export const MODELREPO = '/ModelRepo';
 export const CLOUD_TO_DEVICE = '/CloudToDevice';
 export const READ_FILE = '/ReadFile';
+export const GET_DIRECTORIES = '/Directories';
+export const DEFAULT_DIRECTORY = '$DEFAULT';
 
 // model repo .net controller
 export const INTERFACE_ID = '?interfaceId=';

@@ -80,8 +80,21 @@
                     "label":"Local folder",
                     "labelInBrowser":"Local folder (This is only enabled in the desktop version from: https://github.com/Azure/azure-iot-explorer/releases)",
                     "infoText": "Use your local folder as a model repository. The model definition files you wish to use should have a json extension. The first JSON file with an '@id' property matching the digital twin model identifier (DTMI) will be retrieved.",
-                    "textBoxLabel": "Local folder path",
-                    "placeholder": "f:/"
+                    "textBoxLabel": "Selected folder",
+                    "folderPicker": {
+                        "command": {
+                            "openPicker": "Pick a folder",
+                            "navigateToParent": "Navigate back to parent folder",
+                            "select": "Select",
+                            "cancel": "Cancel"
+                        },
+                        "dialog": {
+                            "title": "Select a folder as a local model repository",
+                            "subText": "Selected folder: {{folder}}",
+                            "noFolderFoundText": "No folders found.",
+                            "error": "Failed to retrieve folder information."
+                        }
+                    }
                 },
                 "notAvailable": "--"
             }
@@ -129,14 +142,11 @@
             "properties": "Properties (non-writable)",
             "settings": "Properties (writable)",
             "commands": "Commands",
-            "interfaces": "Interface",
             "events": "Telemetry",
             "eventsPerInterface": "Telemetry",
             "methods": "Direct method",
             "cloudToDeviceMessage": "Cloud-to-device message",
-            "pnp": "IoT Plug and Play (preview)",
             "ioTPlugAndPlay": "IoT Plug and Play components",
-            "nonpnp": "DEVICE",
             "add": "Create device identity",
             "collapse": "Collapse navigation menu",
             "expand": "Expand navigation menu",
