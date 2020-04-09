@@ -5,7 +5,7 @@
 import { call, put, select } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
 import { invokeDigitalTwinInterfaceCommandAction, InvokeDigitalTwinInterfaceCommandActionParameters } from '../actions';
-import { invokeDigitalTwinInterfaceCommand } from '../../../api/services/devicesService';
+import { invokeDigitalTwinInterfaceCommand } from '../../../api/services/digitalTwinService';
 import { addNotificationAction } from '../../../notifications/actions';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';

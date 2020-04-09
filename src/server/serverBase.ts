@@ -18,6 +18,7 @@ const BAD_REQUEST = 400;
 const SUCCESS = 200;
 const NOT_FOUND = 404;
 const CONFLICT = 409;
+const NO_CONTENT_SUCCESS = 204;
 const SERVER_WAIT = 3000; // how long we'll let the call for eventHub messages run in non-socket
 const receivers: ReceiveHandler[] = [];
 const IOTHUB_CONNECTION_DEVICE_ID = 'iothub-connection-device-id';
@@ -59,6 +60,7 @@ export default class ServerBase {
 }
 
 const readFileUri = '/api/ReadFile/:path/:file';
+// tslint:disable-next-line:cyclomatic-complexity
 export const handleReadFileRequest = (req: express.Request, res: express.Response) => {
     try {
         const filePath = req.params.path;
@@ -68,12 +70,17 @@ export const handleReadFileRequest = (req: express.Request, res: express.Respons
         }
         else {
             const fileNames = fs.readdirSync(filePath);
-            const foundContent = findMatchingFile(filePath, fileNames, expectedFileName);
-            if (foundContent) {
-                res.status(SUCCESS).send(foundContent);
+            try {
+                const foundContent = findMatchingFile(filePath, fileNames, expectedFileName);
+                if (foundContent) {
+                    res.status(SUCCESS).send(foundContent);
+                }
+                else {
+                    res.status(NO_CONTENT_SUCCESS).send();
+                }
             }
-            else {
-                res.status(NOT_FOUND).send();
+            catch {
+                res.status(NOT_FOUND).send(); // couldn't find matching file, and the folder contains json files that cannot be parsed
             }
 
         }
@@ -83,7 +90,9 @@ export const handleReadFileRequest = (req: express.Request, res: express.Respons
     }
 };
 
+// tslint:disable-next-line:cyclomatic-complexity
 const findMatchingFile = (filePath: string, fileNames: string[], expectedFileName: string): string => {
+    let errorsCaught = 0;
     for (const fileName of fileNames) {
         if (isFileExtensionJson(fileName)) {
             try {
@@ -93,9 +102,12 @@ const findMatchingFile = (filePath: string, fileNames: string[], expectedFileNam
                 }
             }
             catch {
-                // swallow error and continue the loop
+                errorsCaught ++; // swallow error and continue the loop
             }
         }
+    }
+    if (errorsCaught > 0) {
+        throw new Error();
     }
     return null;
 };

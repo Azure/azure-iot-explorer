@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useDispatch } from 'react-redux';
 import { Route, RouteComponentProps } from 'react-router-dom';
 import DeviceSettingsContainer from '../deviceSettings/deviceSettingsContainer';
 import DeviceCommandsContainer from '../deviceCommands/deviceCommandsContainer';
@@ -11,26 +12,37 @@ import DevicePropertiesContainer from '../deviceProperties/devicePropertiesConta
 import DeviceEventsPerInterfaceContainer from '../deviceEvents/deviceEventsPerInterfaceContainer';
 import { getInterfaceIdFromQueryString, getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { ROUTE_PARTS } from '../../../../constants/routes';
+import { getModelDefinitionAction, getDigitalTwinInterfacePropertiesAction } from '../../actions';
 
-export interface DigitalTwinContentDispatchProps {
-    fetchModelDefinition(deviceId: string, interfaceId: string): void;
+export interface DigitalTwinContentProps extends RouteComponentProps{
+    deviceId: string;
+    interfaceId: string;
 }
 
-export class DigitalTwinContent extends React.Component<DigitalTwinContentDispatchProps & RouteComponentProps> {
-    public render(): JSX.Element {
-        return (
-            <>
-                <Route path={`${this.props.match.url}/${ROUTE_PARTS.SETTINGS}/`} component={DeviceSettingsContainer}/>
-                <Route path={`${this.props.match.url}/${ROUTE_PARTS.PROPERTIES}/`} component={DevicePropertiesContainer}/>
-                <Route path={`${this.props.match.url}/${ROUTE_PARTS.COMMANDS}/`} component={DeviceCommandsContainer}/>
-                <Route path={`${this.props.match.url}/${ROUTE_PARTS.INTERFACES}/`} component={DeviceInterfacesContainer}/>
-                <Route path={`${this.props.match.url}/${ROUTE_PARTS.EVENTS}/`} component={DeviceEventsPerInterfaceContainer}/>
-            </>
-        );
-    }
+export const DigitalTwinContent: React.FC<DigitalTwinContentProps> = props => {
+    const dispatch = useDispatch();
+    const { deviceId, interfaceId } = props;
+    React.useEffect(() => {
+        dispatch(getModelDefinitionAction.started({digitalTwinId: deviceId, interfaceId}));
+        dispatch(getDigitalTwinInterfacePropertiesAction.started(deviceId));
+    }, [interfaceId, deviceId]);  // tslint:disable-line:align
+    return (
+        <>
+            <Route path={`${props.match.url}/${ROUTE_PARTS.SETTINGS}/`} component={DeviceSettingsContainer}/>
+            <Route path={`${props.match.url}/${ROUTE_PARTS.PROPERTIES}/`} component={DevicePropertiesContainer}/>
+            <Route path={`${props.match.url}/${ROUTE_PARTS.COMMANDS}/`} component={DeviceCommandsContainer}/>
+            <Route path={`${props.match.url}/${ROUTE_PARTS.INTERFACES}/`} component={DeviceInterfacesContainer}/>
+            <Route path={`${props.match.url}/${ROUTE_PARTS.EVENTS}/`} component={DeviceEventsPerInterfaceContainer}/>
+        </>
+    );
+};
 
-    public componentDidMount() {
-        this.props.fetchModelDefinition(getDeviceIdFromQueryString(this.props), getInterfaceIdFromQueryString(this.props));
-    }
-
-}
+export type DigitalTwinContentContainerProps = RouteComponentProps;
+export const DigitalTwinContentContainer: React.FC<DigitalTwinContentContainerProps> = props => {
+    const viewProps = {
+        deviceId: getDeviceIdFromQueryString(props),
+        interfaceId: getInterfaceIdFromQueryString(props),
+        ...props
+    };
+    return <DigitalTwinContent {...viewProps} />;
+};

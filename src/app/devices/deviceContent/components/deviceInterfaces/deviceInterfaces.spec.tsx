@@ -4,10 +4,8 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import { ActionButton } from 'office-ui-fabric-react/lib/Button';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import DeviceInterfaces, { DeviceInterfaceProps, DeviceInterfaceDispatchProps } from './deviceInterfaces';
-import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { testWithLocalizationContext } from '../../../../shared/utils/testHelpers';
 import { REPOSITORY_LOCATION_TYPE } from '../../../../constants/repositoryLocationTypes';
 
@@ -32,7 +30,7 @@ describe('components/devices/deviceInterfaces', () => {
 
     const dataProps: DeviceInterfaceProps = {
         isLoading: true,
-        modelDefinitionWithSource: {synchronizationStatus: SynchronizationStatus.working},
+        modelDefinitionWithSource: null,
     };
 
     const settingsVisibleToggle = jest.fn();
@@ -97,85 +95,19 @@ describe('components/devices/deviceInterfaces', () => {
         expect(component).toMatchSnapshot();
     });
 
-    it('shows interface information when status is failed', () => {
+    it('shows interface information when status is fetched', () => {
         const component = getComponent({
             isLoading: false,
             modelDefinitionWithSource: {
-                modelDefinitionSynchronizationStatus: SynchronizationStatus.failed
+                isModelValid: true,
+                modelDefinition,
+                source: REPOSITORY_LOCATION_TYPE.Public
             }
         });
         expect(component).toMatchSnapshot();
-    });
 
-    it('shows interface information when status is fetched', () => {
-        let component = getComponent({
-            isLoading: false,
-            modelDefinitionWithSource: {
-                payload: {
-                    isModelValid: true,
-                    modelDefinition,
-                    source: REPOSITORY_LOCATION_TYPE.Public,
-                },
-                synchronizationStatus: SynchronizationStatus.fetched
-            }
-        });
-        expect(component).toMatchSnapshot();
-        expect(component.find(ActionButton).props().onClick(null));
-        expect(settingsVisibleToggle).toBeCalled();
         const command = component.find(CommandBar);
         command.props().items[0].onClick(null);
         expect(refresh).toBeCalled();
-
-        component = getComponent({
-            isLoading: false,
-            modelDefinitionWithSource: {
-                payload: {
-                    isModelValid: true,
-                    modelDefinition,
-                    source: REPOSITORY_LOCATION_TYPE.Private,
-                },
-                synchronizationStatus: SynchronizationStatus.fetched
-            }
-        });
-        expect(component).toMatchSnapshot();
-
-        component = getComponent({
-            isLoading: false,
-            modelDefinitionWithSource: {
-                payload: {
-                    isModelValid: true,
-                    modelDefinition,
-                    source: REPOSITORY_LOCATION_TYPE.Device,
-                },
-                synchronizationStatus: SynchronizationStatus.fetched
-            }
-        });
-        expect(component).toMatchSnapshot();
-
-        component = getComponent({
-            isLoading: false,
-            modelDefinitionWithSource: {
-                payload: {
-                    isModelValid: true,
-                    modelDefinition,
-                    source: REPOSITORY_LOCATION_TYPE.Local
-                },
-                synchronizationStatus: SynchronizationStatus.fetched
-            }
-        });
-        expect(component).toMatchSnapshot();
-
-        component = getComponent({
-            isLoading: false,
-            modelDefinitionWithSource: {
-                payload: {
-                    isModelValid: false,
-                    modelDefinition,
-                    source: undefined
-                },
-                synchronizationStatus: SynchronizationStatus.fetched
-            }
-        });
-        expect(component).toMatchSnapshot();
     });
 });

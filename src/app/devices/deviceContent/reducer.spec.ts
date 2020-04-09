@@ -12,7 +12,8 @@ import { GET_TWIN,
     GET_DIGITAL_TWIN_INTERFACE_PROPERTIES,
     PATCH_DIGITAL_TWIN_INTERFACE_PROPERTIES,
     UPDATE_DEVICE_IDENTITY,
-    SET_INTERFACE_ID
+    SET_INTERFACE_ID,
+    GET_DIGITAL_TWIN
   } from '../../constants/actionTypes';
 import { getTwinAction,
     getModelDefinitionAction,
@@ -21,7 +22,8 @@ import { getTwinAction,
     getDigitalTwinInterfacePropertiesAction,
     patchDigitalTwinInterfacePropertiesAction,
     updateDeviceIdentityAction,
-    setComponentNameAction
+    setComponentNameAction,
+    getDigitalTwinAction
 } from './actions';
 import reducer from './reducer';
 import { deviceContentStateInitial, DeviceContentStateInterface } from './state';
@@ -113,6 +115,7 @@ describe('deviceContentStateReducer', () => {
                 componentNameSelected: '',
                 deviceIdentity: undefined,
                 deviceTwin: undefined,
+                digitalTwin: undefined,
                 digitalTwinInterfaceProperties: undefined,
                 modelDefinitionWithSource
             });
@@ -242,6 +245,39 @@ describe('deviceContentStateReducer', () => {
     });
 
     describe('digitalTwin scenarios', () => {
+
+        /* tslint:disable */
+        const digitalTwin = {
+            "$dtId": "testDevice",
+            "environmentalSensor": {
+              "state": true,
+              "$metadata": {
+                "state": {
+                  "lastUpdateTime": "2020-03-31T23:17:42.4813073Z"
+                }
+              }
+            },
+            "$metadata": {
+              "$model": "urn:azureiot:samplemodel:1"
+            }
+        };
+        /* tslint:enable */
+
+        it (`handles ${GET_DIGITAL_TWIN}/ACTION_START action`, () => {
+            const action = getDigitalTwinAction.started(deviceId);
+            expect(reducer(deviceContentStateInitial(), action).digitalTwin.synchronizationStatus).toEqual(SynchronizationStatus.working);
+        });
+
+        it (`handles ${GET_DIGITAL_TWIN}/ACTION_DONE action`, () => {
+            const action = getDigitalTwinAction.done({params: deviceId, result: digitalTwin});
+            expect(reducer(deviceContentStateInitial(), action).digitalTwin.payload).toEqual(digitalTwin);
+        });
+
+        it (`handles ${GET_DIGITAL_TWIN}/ACTION_FAILED action`, () => {
+            const action = getDigitalTwinAction.failed({error: -1, params: deviceId});
+            expect(reducer(deviceContentStateInitial(), action).digitalTwin.synchronizationStatus).toEqual(SynchronizationStatus.failed);
+        });
+
         /* tslint:disable */
         const digitalTwinInterfaceProperties: DigitalTwinInterfaces = {
             "interfaces": {

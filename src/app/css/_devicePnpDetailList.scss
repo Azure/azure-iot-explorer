@@ -178,30 +178,6 @@
     }
 }
 
-.pnp-interface-info {
-    padding: 0 25px;
-    .source {
-        float:left;
-        .no-source-error {
-            @include themify($themes) {
-                color: themed('errorText');
-            }
-        }
-    }
-    .configure-button {
-        @include default-button;
-        padding-bottom: 8px;
-        margin-top: 0px !important;
-    }
-    .interface-definition
-    {
-        padding-top: 20px;
-        .monaco-editor {
-            height: calc(100vh - 540px);
-        }
-    }
-}
-
 .ms-Panel-main {
     margin-top: 45px;
 }
