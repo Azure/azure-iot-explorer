@@ -23,15 +23,14 @@ describe('deviceContent', () => {
     };
     const deviceContentDataProps: DeviceContentDataProps = {
         deviceId: 'testDevice',
+        digitalTwinModelId: 'dtmi:__azureiot:samplemodel;1',
         identityWrapper: null,
-        interfaceIds: [],
         isLoading: false,
-        isPnPDevice: true,
     };
 
     const deviceContentDispatchProps: DeviceContentDispatchProps = {
         getDeviceIdentity: jest.fn(),
-        getDigitalTwinInterfaceProperties: jest.fn(),
+        getDigitalTwin: jest.fn(),
         setComponentName: jest.fn()
     };
 

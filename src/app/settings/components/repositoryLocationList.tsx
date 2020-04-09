@@ -78,7 +78,7 @@ export default class RepositoryLocationList extends React.Component<RepositoryLo
             key: REPOSITORY_LOCATION_TYPE.Local,
             onClick: () => this.onAddRepositoryType(REPOSITORY_LOCATION_TYPE.Local),
             text: context.t(appConfig.hostMode === HostMode.Electron ?
-                ResourceKeys.settings.modelDefinitions.repositoryTypes.local.labelInElectron :
+                ResourceKeys.settings.modelDefinitions.repositoryTypes.local.label :
                 ResourceKeys.settings.modelDefinitions.repositoryTypes.local.labelInBrowser),
         };
     }

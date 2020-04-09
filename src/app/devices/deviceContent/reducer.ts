@@ -16,7 +16,8 @@ import {
     updateDeviceIdentityAction,
     patchDigitalTwinInterfacePropertiesAction,
     PatchDigitalTwinInterfacePropertiesActionParameters,
-    GetModelDefinitionActionParameters
+    GetModelDefinitionActionParameters,
+    getDigitalTwinAction
 } from './actions';
 import { Twin } from '../../api/models/device';
 import { DeviceIdentity } from '../../api/models/deviceIdentity';
@@ -157,6 +158,28 @@ const reducer = reducerWithInitialState<DeviceContentStateType>(deviceContentSta
     })
     //#endregion
     //#region DigitalTwin-related actions
+    .case(getDigitalTwinAction.started, (state: DeviceContentStateType) => {
+        return state.merge({
+            digitalTwin: {
+                synchronizationStatus: SynchronizationStatus.working
+            }
+        });
+    })
+    .case(getDigitalTwinAction.done, (state: DeviceContentStateType, payload: {params: string} & {result: object}) => {
+        return state.merge({
+            digitalTwin: {
+                payload: payload.result,
+                synchronizationStatus: SynchronizationStatus.fetched
+            }
+        });
+    })
+    .case(getDigitalTwinAction.failed, (state: DeviceContentStateType) => {
+        return state.merge({
+            digitalTwin: {
+                synchronizationStatus: SynchronizationStatus.failed
+            }
+        });
+    })
     .case(getDigitalTwinInterfacePropertiesAction.started, (state: DeviceContentStateType) => {
         return state.merge({
             digitalTwinInterfaceProperties: {

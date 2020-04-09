@@ -12,8 +12,7 @@ import DirectMethodContainer from './directMethod/directMethodContainer';
 import CloudToDeviceMessageContainer from './cloudToDeviceMessage/cloudToDeviceMessageContainer';
 import ModuleIdentityContent from '../../module/components/moduleIdentity/moduleIdentityContent';
 import DeviceContentNavComponent from './deviceContentNav';
-import Breadcrumb from '../../../shared/components/breadcrumb';
-import DigitalTwinsContentContainer from './digitalTwin/digitalTwinContentContainer';
+import { DigitalTwinContentContainer } from './digitalTwin/digitalTwinContent';
 import { DigitalTwinInterfacesContainer } from './digitalTwin/digitalTwinInterfaces';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../shared/contexts/localizationContext';
@@ -32,15 +31,14 @@ interface DeviceContentState {
 }
 export interface DeviceContentDataProps {
     deviceId: string;
-    interfaceIds: string[];
     isLoading: boolean;
-    isPnPDevice: boolean;
+    digitalTwinModelId: string;
     identityWrapper: SynchronizationWrapper<DeviceIdentity>;
 }
 
 export interface DeviceContentDispatchProps {
     setComponentName: (componentName: string) => void;
-    getDigitalTwinInterfaceProperties: (deviceId: string) => void;
+    getDigitalTwin: (deviceId: string) => void;
     getDeviceIdentity: (deviceId: string) => void;
 }
 
@@ -76,7 +74,7 @@ export class DeviceContentComponent extends React.PureComponent<DeviceContentPro
     }
 
     public componentDidMount() {
-        this.props.getDigitalTwinInterfaceProperties(this.props.deviceId);
+        this.props.getDigitalTwin(this.props.deviceId);
         this.props.getDeviceIdentity(this.props.deviceId);
     }
 
@@ -84,7 +82,7 @@ export class DeviceContentComponent extends React.PureComponent<DeviceContentPro
         if (getDeviceIdFromQueryString(oldProps) !== getDeviceIdFromQueryString(this.props)) {
             const deviceId = getDeviceIdFromQueryString(this.props);
             this.props.getDeviceIdentity(deviceId);
-            this.props.getDigitalTwinInterfaceProperties(deviceId);
+            this.props.getDigitalTwin(deviceId);
             const url = this.props.match.url;
             this.props.history.push(`${url}/${ROUTE_PARTS.IDENTITY}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
         }
@@ -123,7 +121,7 @@ export class DeviceContentComponent extends React.PureComponent<DeviceContentPro
                 <Route path={`${url}/${ROUTE_PARTS.CLOUD_TO_DEVICE_MESSAGE}/`} component={CloudToDeviceMessageContainer} />
                 <Route path={`${url}/${ROUTE_PARTS.MODULE_IDENTITY}/`} component={ModuleIdentityContent} />
                 <Route exact={true} path={`${url}/${ROUTE_PARTS.DIGITAL_TWINS}/`} component={DigitalTwinInterfacesContainer} />
-                <Route path={`${url}/${ROUTE_PARTS.DIGITAL_TWINS}/${ROUTE_PARTS.DIGITAL_TWINS_DETAIL}/`} component={DigitalTwinsContentContainer}/>
+                <Route path={`${url}/${ROUTE_PARTS.DIGITAL_TWINS}/${ROUTE_PARTS.DIGITAL_TWINS_DETAIL}/`} component={DigitalTwinContentContainer}/>
             </div>
         );
     }

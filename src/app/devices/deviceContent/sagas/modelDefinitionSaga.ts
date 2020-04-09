@@ -15,61 +15,57 @@ import { getRepositoryLocationSettingsSelector, getPublicRepositoryHostName, get
 import { RepositoryLocationSettings } from '../../../settings/state';
 import { REPOSITORY_LOCATION_TYPE } from './../../../constants/repositoryLocationTypes';
 import { getRepoConnectionInfoFromConnectionString } from '../../../api/shared/utils';
-import { invokeDigitalTwinInterfaceCommand, fetchDigitalTwinInterfaceProperties } from '../../../api/services/devicesService';
+import { invokeDigitalTwinInterfaceCommand, fetchDigitalTwinInterfaceProperties } from '../../../api/services/digitalTwinService';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
-import { getDigitalTwinInterfaceIdsSelector, getDigitalTwinComponentNameAndIdsSelector } from '../selectors';
+import { getComponentNameAndInterfaceIdArraySelector, ComponentAndInterfaceId } from '../selectors';
 import { InterfaceNotImplementedException } from './../../../shared/utils/exceptions/interfaceNotImplementedException';
 import { modelDefinitionInterfaceId, modelDefinitionCommandName } from '../../../constants/modelDefinitionConstants';
 import { FetchDigitalTwinInterfacePropertiesParameters } from '../../../api/parameters/deviceParameters';
 import { fetchLocalFile } from './../../../api/services/localRepoService';
 import { ModelDefinition } from './../../../api/models/modelDefinition';
+import { ModelDefinitionNotValidJsonError } from '../../../api/models/modelDefinitionNotValidJsonError';
 
 export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionParameters>) {
-    try {
-
-        const locations: RepositoryLocationSettings[] = yield select(getRepositoryLocationSettingsSelector);
-        let errorCount = 0;
-        for (const location of locations) { // try to get model definition in order according to user's location settings
-            try {
-                const modelDefinition = yield call (getModelDefinition, action, location);
-                const isModelValid = yield call(validateModelDefinitionHelper, modelDefinition, location);
-                yield put(getModelDefinitionAction.done(
-                    {
-                        params: action.payload,
-                        result: {isModelValid, modelDefinition, source: location.repositoryLocationType}
-                    }));
-                break; // found the model definition, break
-            }
-            catch {
-                errorCount ++;
-                // continue the loop
-            }
+    const locations: RepositoryLocationSettings[] = yield select(getRepositoryLocationSettingsSelector);
+    let errorCount = 0;
+    for (const location of locations) { // try to get model definition in order according to user's location settings
+        try {
+            const modelDefinition = yield call (getModelDefinition, action, location);
+            const isModelValid = yield call(validateModelDefinitionHelper, modelDefinition, location);
+            yield put(getModelDefinitionAction.done(
+                {
+                    params: action.payload,
+                    result: {isModelValid, modelDefinition, source: location.repositoryLocationType}
+                }));
+            break; // found the model definition, break
         }
-        if (errorCount === locations.length) {
-            yield put(addNotificationAction.started({
-                text: {
-                    translationKey: ResourceKeys.notifications.getInterfaceModelOnError,
-                    translationOptions: {
-                        interfaceId: action.payload.interfaceId
+        catch (error) {
+            if (error instanceof ModelDefinitionNotValidJsonError) {
+                yield put(addNotificationAction.started({
+                    text: {
+                        translationKey: ResourceKeys.notifications.parseLocalInterfaceModelOnError,
+                        translationOptions: {
+                            interfaceId: action.payload.interfaceId
+                        },
                     },
-                },
-                type: NotificationType.error
-            }));
-            yield put(getModelDefinitionAction.failed({params: action.payload, error: undefined}));
+                    type: NotificationType.error
+                }));
+            }
+            errorCount ++;
+            // continue the loop
         }
-
-    } catch (error) {
+    }
+    if (errorCount === locations.length) {
         yield put(addNotificationAction.started({
             text: {
                 translationKey: ResourceKeys.notifications.getInterfaceModelOnError,
                 translationOptions: {
-                    interfaceId: action.payload
+                    interfaceId: action.payload.interfaceId
                 },
             },
             type: NotificationType.error
         }));
-
-        yield put(getModelDefinitionAction.failed({params: action.payload, error}));
+        yield put(getModelDefinitionAction.failed({params: action.payload, error: undefined}));
     }
 }
 
@@ -127,24 +123,12 @@ export function* getModelDefinitionFromDevice(action: Action<GetModelDefinitionA
     }
 
     // then check if device has implemented ${modelDefinitionInterfaceId} interface.
-    const interfaceIds: string[] = yield select(getDigitalTwinInterfaceIdsSelector);
-    if (interfaceIds.filter(id => id === modelDefinitionInterfaceId).length === 0) {
+    const componentAndIs: ComponentAndInterfaceId[] = yield select(getComponentNameAndInterfaceIdArraySelector);
+    const filtered = componentAndIs.filter(componentAndId => componentAndId.interfaceId === modelDefinitionInterfaceId);
+    if (filtered.length === 0) {
         throw new InterfaceNotImplementedException();
     }
-
-    // then get the name of ${modelDefinitionInterfaceId} interface.
-    const nameAndIdObject = yield select(getDigitalTwinComponentNameAndIdsSelector);
-    let componentName;
-    Object.keys(nameAndIdObject).forEach(key => {
-        if (nameAndIdObject[key] === modelDefinitionInterfaceId)
-        {
-            componentName = key;
-        }
-    });
-
-    if (!componentName) {
-        throw new InterfaceNotImplementedException();
-    }
+    const componentName = filtered[0].componentName;
 
     // if interface is implemented, invoke command on device
     return yield call(invokeDigitalTwinInterfaceCommand, {

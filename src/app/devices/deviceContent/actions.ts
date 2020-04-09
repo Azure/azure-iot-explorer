@@ -14,6 +14,7 @@ const deviceContentCreator = actionCreatorFactory(actionPrefixes.DEVICECONTENT);
 const clearModelDefinitionsAction = deviceContentCreator(actionTypes.CLEAR_MODEL_DEFINITIONS);
 const cloudToDeviceMessageAction = deviceContentCreator.async<CloudToDeviceMessageActionParameters, string>(actionTypes.CLOUD_TO_DEVICE_MESSAGE);
 const getDeviceIdentityAction = deviceContentCreator.async<string, DeviceIdentity> (actionTypes.GET_DEVICE_IDENTITY);
+const getDigitalTwinAction = deviceContentCreator.async<string, object>(actionTypes.GET_DIGITAL_TWIN);
 const getDigitalTwinInterfacePropertiesAction = deviceContentCreator.async<string, DigitalTwinInterfaces>(actionTypes.GET_DIGITAL_TWIN_INTERFACE_PROPERTIES);
 const getTwinAction = deviceContentCreator.async<string, Twin>(actionTypes.GET_TWIN);
 const getModelDefinitionAction = deviceContentCreator.async<GetModelDefinitionActionParameters, ModelDefinitionWithSource>(actionTypes.FETCH_MODEL_DEFINITION);
@@ -23,10 +24,12 @@ const patchDigitalTwinInterfacePropertiesAction = deviceContentCreator.async<Pat
 const setComponentNameAction = deviceContentCreator<string>(actionTypes.SET_INTERFACE_ID);
 const updateDeviceIdentityAction = deviceContentCreator.async<DeviceIdentity, DeviceIdentity> (actionTypes.UPDATE_DEVICE_IDENTITY);
 const updateTwinAction = deviceContentCreator.async<UpdateTwinActionParameters, Twin>(actionTypes.UPDATE_TWIN);
+
 export {
     clearModelDefinitionsAction,
     cloudToDeviceMessageAction,
     getDeviceIdentityAction,
+    getDigitalTwinAction,
     getDigitalTwinInterfacePropertiesAction,
     getTwinAction,
     getModelDefinitionAction,

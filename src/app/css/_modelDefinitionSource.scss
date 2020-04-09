@@ -1,0 +1,16 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+@import 'themes';
+
+.configure-button {
+    margin-top: 3px;
+    padding-top: 0px;
+    @include themify($themes) {
+        color: themed('buttonColor');
+    }
+    padding: 0;
+    padding-bottom: 8px;
+    margin-top: 0px !important;
+}

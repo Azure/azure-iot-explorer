@@ -44,7 +44,29 @@ export const mountWithLocalization = (Target: JSX.Element, connectToStore: boole
         );
     }
 
-    if ( useMemoryRouter ) {
+    if (useMemoryRouter ) {
+        wrapper = (
+            <MemoryRouter initialEntries={routerInitialEntries} keyLength={0}>
+                {wrapper}
+            </MemoryRouter>
+        );
+    }
+
+    return mount(wrapper);
+};
+
+export const mountWithStoreAndRouter = (Target: JSX.Element, connectToStore: boolean = false, useMemoryRouter: boolean = false, routerInitialEntries = ['/']) => {
+    let wrapper = Target;
+
+    if (connectToStore) {
+        wrapper = (
+            <Provider store={configureStore()}>
+                {wrapper}
+            </Provider>
+        );
+    }
+
+    if (useMemoryRouter ) {
         wrapper = (
             <MemoryRouter initialEntries={routerInitialEntries} keyLength={0}>
                 {wrapper}
