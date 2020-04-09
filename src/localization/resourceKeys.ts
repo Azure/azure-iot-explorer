@@ -519,9 +519,21 @@ export class ResourceKeys {
    };
    public static digitalTwin = {
       componentName : "digitalTwin.componentName",
-      dcm : "digitalTwin.dcm",
       headerText : "digitalTwin.headerText",
       interfaceId : "digitalTwin.interfaceId",
+      modelContainsNoComponents : "digitalTwin.modelContainsNoComponents",
+      modelId : "digitalTwin.modelId",
+      pivot : {
+         ariaLabel : "digitalTwin.pivot.ariaLabel",
+         components : "digitalTwin.pivot.components",
+         content : "digitalTwin.pivot.content",
+      },
+      steps : {
+         first : "digitalTwin.steps.first",
+         secondFailure : "digitalTwin.steps.secondFailure",
+         secondSuccess : "digitalTwin.steps.secondSuccess",
+         third : "digitalTwin.steps.third",
+      },
    };
    public static directMethod = {
       connectionTimeout : "directMethod.connectionTimeout",
@@ -660,6 +672,7 @@ export class ResourceKeys {
       invokingDigitalTwinCommandWithPayload : "notifications.invokingDigitalTwinCommandWithPayload",
       invokingMethod : "notifications.invokingMethod",
       invokingMethodWithPayload : "notifications.invokingMethodWithPayload",
+      parseLocalInterfaceModelOnError : "notifications.parseLocalInterfaceModelOnError",
       patchDigitalTwinInterfacePropertiesOnError : "notifications.patchDigitalTwinInterfacePropertiesOnError",
       patchDigitalTwinInterfacePropertiesOnSuccess : "notifications.patchDigitalTwinInterfacePropertiesOnSuccess",
       portIsInUseError : "notifications.portIsInUseError",
@@ -689,11 +702,12 @@ export class ResourceKeys {
             },
             local : {
                infoText : "settings.modelDefinitions.repositoryTypes.local.infoText",
+               label : "settings.modelDefinitions.repositoryTypes.local.label",
                labelInBrowser : "settings.modelDefinitions.repositoryTypes.local.labelInBrowser",
-               labelInElectron : "settings.modelDefinitions.repositoryTypes.local.labelInElectron",
                placeholder : "settings.modelDefinitions.repositoryTypes.local.placeholder",
                textBoxLabel : "settings.modelDefinitions.repositoryTypes.local.textBoxLabel",
             },
+            notAvailable : "settings.modelDefinitions.repositoryTypes.notAvailable",
             private : {
                infoText : "settings.modelDefinitions.repositoryTypes.private.infoText",
                label : "settings.modelDefinitions.repositoryTypes.private.label",

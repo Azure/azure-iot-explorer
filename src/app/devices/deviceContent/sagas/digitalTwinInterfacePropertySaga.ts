@@ -4,7 +4,7 @@
  **********************************************************/
 import { call, put, select } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
-import { fetchDigitalTwinInterfaceProperties, patchDigitalTwinInterfaceProperties } from '../../../api/services/devicesService';
+import { fetchDigitalTwinInterfaceProperties, patchDigitalTwinInterfaceProperties } from '../../../api/services/digitalTwinService';
 import { NotificationType } from '../../../api/models/notification';
 import { FetchDigitalTwinInterfacePropertiesParameters, PatchDigitalTwinInterfacePropertiesParameters } from '../../../api/parameters/deviceParameters';
 import { DigitalTwinInterfaces, InterfaceModel, Property } from './../../../api/models/digitalTwinModels';

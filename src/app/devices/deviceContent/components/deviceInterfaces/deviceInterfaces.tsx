@@ -3,36 +3,27 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Label } from 'office-ui-fabric-react/lib/Label';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
-import { ActionButton } from 'office-ui-fabric-react/lib/Button';
-import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
-import {
-    MessageBar,
-    MessageBarType,
-} from 'office-ui-fabric-react';
+import { MessageBar, MessageBarType } from 'office-ui-fabric-react';
 import { RouteComponentProps, Route } from 'react-router-dom';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getInterfaceIdFromQueryString, getDeviceIdFromQueryString, getComponentNameFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { ModelDefinitionWithSource } from '../../../../api/models/modelDefinitionWithSource';
-import { SynchronizationWrapper } from '../../../../api/models/synchronizationWrapper';
-import { REPOSITORY_LOCATION_TYPE } from '../../../../constants/repositoryLocationTypes';
 import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
 import { REFRESH, NAVIGATE_BACK } from '../../../../constants/iconNames';
 import ErrorBoundary from '../../../errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
-import { ThemeContextInterface, ThemeContextConsumer } from '../../../../shared/contexts/themeContext';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
 import MaskedCopyableTextFieldContainer from '../../../../shared/components/maskedCopyableTextFieldContainer';
 import { DigitalTwinHeaderContainer } from '../digitalTwin/digitalTwinHeaderView';
 import { ROUTE_PARAMS } from '../../../../constants/routes';
-
-const EditorPromise = import('react-monaco-editor');
-const Editor = React.lazy(() => EditorPromise);
+import { MonacoEditorView } from '../../../../shared/components/monacoEditor';
+import { ModelDefinitionSourceView } from '../shared/modelDefinitionSource';
+import '../../../../css/_deviceInterface.scss';
 
 export interface DeviceInterfaceProps {
-    modelDefinitionWithSource: SynchronizationWrapper<ModelDefinitionWithSource>;
+    modelDefinitionWithSource: ModelDefinitionWithSource;
     isLoading: boolean;
 }
 
@@ -90,23 +81,22 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
         const {  modelDefinitionWithSource } = this.props;
         return (
             <>
-                {modelDefinitionWithSource && modelDefinitionWithSource.payload ?
+                {modelDefinitionWithSource ?
                     <ErrorBoundary error={context.t(ResourceKeys.errorBoundary.text)}>
-                        {modelDefinitionWithSource.payload.isModelValid ?
+                        {modelDefinitionWithSource.isModelValid ?
                             <>
                                 <Route component={DigitalTwinHeaderContainer} />
                                 <section className="pnp-interface-info scrollable-lg">
-                                    {this.renderInterfaceInfoDetail(context)}
-                                    {this.renderInterfaceViewer()}
+                                    {this.renderInterfaceInfoDetail(context, true)}
+                                    {this.renderInterfaceViewer(true)}
                                 </section>
                             </> :
                             <section className="pnp-interface-info scrollable-lg">
-                                <MessageBar
-                                    messageBarType={MessageBarType.error}
-                                >
+                                {this.renderInterfaceInfoDetail(context, false)}
+                                <MessageBar messageBarType={MessageBarType.error}>
                                     {context.t(ResourceKeys.deviceInterfaces.interfaceNotValid)}
                                 </MessageBar>
-                                {this.renderInterfaceViewer()}
+                                {this.renderInterfaceViewer(false)}
                             </section>
                         }
                     </ErrorBoundary> :
@@ -116,20 +106,14 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
         );
     }
 
-    private readonly renderInterfaceInfoDetail = (context: LocalizationContextInterface) => {
+    private readonly renderInterfaceInfoDetail = (context: LocalizationContextInterface, isValidInterface: boolean) => {
         const { modelDefinitionWithSource } = this.props;
-        const source = this.getModelDefinitionSourceText(context);
-        const displayName = modelDefinitionWithSource.payload && getLocalizedData(modelDefinitionWithSource.payload.modelDefinition.displayName) || '--';
-        const description = modelDefinitionWithSource.payload && getLocalizedData(modelDefinitionWithSource.payload.modelDefinition.description) || '--';
         return (
             <>
-                <Label className="source"> {context.t(ResourceKeys.deviceInterfaces.columns.source)}: {source}</Label>
-                <ActionButton
-                    className="configure-button"
-                    onClick={this.handleConfigure}
-                >
-                        {context.t(ResourceKeys.deviceInterfaces.command.configure)}
-                </ActionButton>
+                <ModelDefinitionSourceView
+                    handleConfigure={this.handleConfigure}
+                    source={modelDefinitionWithSource.source}
+                />
                 <MaskedCopyableTextFieldContainer
                     ariaLabel={context.t(ResourceKeys.deviceInterfaces.columns.id)}
                     label={context.t(ResourceKeys.deviceInterfaces.columns.id)}
@@ -137,69 +121,43 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
                     allowMask={false}
                     readOnly={true}
                 />
-                <MaskedCopyableTextFieldContainer
-                    ariaLabel={context.t(ResourceKeys.deviceInterfaces.columns.displayName)}
-                    label={context.t(ResourceKeys.deviceInterfaces.columns.displayName)}
-                    value={displayName}
-                    allowMask={false}
-                    readOnly={true}
-                />
-                <MaskedCopyableTextFieldContainer
-                    ariaLabel={context.t(ResourceKeys.deviceInterfaces.columns.description)}
-                    label={context.t(ResourceKeys.deviceInterfaces.columns.description)}
-                    value={description}
-                    allowMask={false}
-                    readOnly={true}
-                />
+                {isValidInterface &&
+                <>
+                    <MaskedCopyableTextFieldContainer
+                        ariaLabel={context.t(ResourceKeys.deviceInterfaces.columns.displayName)}
+                        label={context.t(ResourceKeys.deviceInterfaces.columns.displayName)}
+                        value={getLocalizedData(modelDefinitionWithSource.modelDefinition.displayName) || '--'}
+                        allowMask={false}
+                        readOnly={true}
+                    />
+                    <MaskedCopyableTextFieldContainer
+                        ariaLabel={context.t(ResourceKeys.deviceInterfaces.columns.description)}
+                        label={context.t(ResourceKeys.deviceInterfaces.columns.description)}
+                        value={getLocalizedData(modelDefinitionWithSource.modelDefinition.description) || '--'}
+                        allowMask={false}
+                        readOnly={true}
+                    />
+                </>
+                }
             </>
         );
-    }
-
-    private readonly getModelDefinitionSourceText = (context: LocalizationContextInterface) => {
-        const { modelDefinitionWithSource } = this.props;
-
-        switch (modelDefinitionWithSource.payload.source) {
-            case REPOSITORY_LOCATION_TYPE.Public:
-                return context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.public.label);
-            case REPOSITORY_LOCATION_TYPE.Private:
-                return context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.private.label);
-            case REPOSITORY_LOCATION_TYPE.Device:
-                return context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.device.label);
-            case REPOSITORY_LOCATION_TYPE.Local:
-                return context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.local.labelInElectron);
-            default:
-                return '--';
-        }
     }
 
     private readonly handleConfigure = () => {
             this.props.settingsVisibleToggle(true);
     }
 
-    private readonly renderInterfaceViewer = () => {
-        const modelDefinitionWithSource = this.props.modelDefinitionWithSource.payload;
+    private readonly renderInterfaceViewer = (isValidInterface: boolean) => {
+        const { modelDefinitionWithSource } = this.props;
         return (
-            <article className="interface-definition" >
+            <>
                 { modelDefinitionWithSource && modelDefinitionWithSource.modelDefinition &&
-                    <div className="monaco-editor">
-                        <React.Suspense fallback={<Spinner title={'loading'} size={SpinnerSize.large} />}>
-                            <ThemeContextConsumer>
-                                {(themeContext: ThemeContextInterface) => (
-                                    <Editor
-                                        language="json"
-                                        value={JSON.stringify(modelDefinitionWithSource.modelDefinition, null, '\t')}
-                                        options={{
-                                            automaticLayout: true,
-                                            readOnly: true
-                                        }}
-                                        theme={themeContext.monacoTheme}
-                                    />
-                                )}
-                            </ThemeContextConsumer>
-                        </React.Suspense>
-                    </div>
+                    <MonacoEditorView
+                        className={`${isValidInterface ? 'interface-definition-monaco-editor' : 'invalid-interface-definition-monaco-editor'}`}
+                        content={modelDefinitionWithSource.modelDefinition}
+                    />
                 }
-            </article>
+            </>
         );
     }
 

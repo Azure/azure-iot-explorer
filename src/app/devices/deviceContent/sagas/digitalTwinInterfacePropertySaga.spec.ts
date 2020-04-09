@@ -7,7 +7,7 @@ import { select, call, put } from 'redux-saga/effects';
 import { SagaIteratorClone, cloneableGenerator } from 'redux-saga/utils';
 import { getDigitalTwinInterfacePropertySaga, patchDigitalTwinInterfacePropertiesSaga, generatePatchDigitalTwinInterfacePropertiesPayload, generateInterfacePropertiesPayload } from './digitalTwinInterfacePropertySaga';
 import { getDigitalTwinInterfacePropertiesAction, patchDigitalTwinInterfacePropertiesAction } from '../actions';
-import * as DevicesService from '../../../api/services/devicesService';
+import * as DigitalTwinService from '../../../api/services/digitalTwinService';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { addNotificationAction } from '../../../notifications/actions';
 import { NotificationType } from '../../../api/models/notification';
@@ -31,7 +31,7 @@ describe('digitalTwinInterfacePropertySaga', () => {
             getDigitalTwinInterfacePropertySagaGenerator = cloneableGenerator(getDigitalTwinInterfacePropertySaga)(getDigitalTwinInterfacePropertiesAction.started(digitalTwinId));
         });
 
-        const mockFetchDigitalTwinInterfaceProperties = jest.spyOn(DevicesService, 'fetchDigitalTwinInterfaceProperties').mockImplementationOnce(parameters => {
+        const mockFetchDigitalTwinInterfaceProperties = jest.spyOn(DigitalTwinService, 'fetchDigitalTwinInterfaceProperties').mockImplementationOnce(parameters => {
             return null;
         });
 
@@ -83,7 +83,7 @@ describe('digitalTwinInterfacePropertySaga', () => {
             patchDigitalTwinInterfacePropertiesSagaGenerator = cloneableGenerator(patchDigitalTwinInterfacePropertiesSaga)(patchAction);
         });
 
-        const mockFetchDigitalTwinInterfaceProperties = jest.spyOn(DevicesService, 'patchDigitalTwinInterfaceProperties').mockImplementationOnce(parameters => {
+        const mockFetchDigitalTwinInterfaceProperties = jest.spyOn(DigitalTwinService, 'patchDigitalTwinInterfaceProperties').mockImplementationOnce(parameters => {
             return null;
         });
 

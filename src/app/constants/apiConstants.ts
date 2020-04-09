@@ -29,6 +29,7 @@ export const STOP = '/stop';
 
 // digital twin api version
 export const DIGITAL_TWIN_API_VERSION = '2019-07-01-preview';
+export const DIGITAL_TWIN_API_VERSION_PREVIEW = '2020-05-31-preview';
 export const MODEL_REPO_API_VERSION = '2020-05-01-preview';
 
 export const HEADERS = {

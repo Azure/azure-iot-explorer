@@ -2,41 +2,6 @@
 
 exports[`components/devices/deviceInterfaces shows Shimmer when status is working 1`] = `<Component />`;
 
-exports[`components/devices/deviceInterfaces shows interface information when status is failed 1`] = `
-<Fragment>
-  <StyledCommandBarBase
-    className="command"
-    farItems={
-      Array [
-        Object {
-          "ariaLabel": "deviceInterfaces.command.close",
-          "iconProps": Object {
-            "iconName": "NavigateBack",
-          },
-          "key": "NavigateBack",
-          "name": "deviceInterfaces.command.close",
-          "onClick": [Function],
-        },
-      ]
-    }
-    items={
-      Array [
-        Object {
-          "ariaLabel": "deviceInterfaces.command.refresh",
-          "iconProps": Object {
-            "iconName": "Refresh",
-          },
-          "key": "Refresh",
-          "name": "deviceProperties.command.refresh",
-          "onClick": [Function],
-        },
-      ]
-    }
-  />
-  <Connect(InterfaceNotFoundMessageBox) />
-</Fragment>
-`;
-
 exports[`components/devices/deviceInterfaces shows interface information when status is fetched 1`] = `
 <Fragment>
   <StyledCommandBarBase
@@ -77,20 +42,10 @@ exports[`components/devices/deviceInterfaces shows interface information when st
     <section
       className="pnp-interface-info scrollable-lg"
     >
-      <StyledLabelBase
-        className="source"
-      >
-         
-        deviceInterfaces.columns.source
-        : 
-        settings.modelDefinitions.repositoryTypes.public.label
-      </StyledLabelBase>
-      <CustomizedActionButton
-        className="configure-button"
-        onClick={[Function]}
-      >
-        deviceInterfaces.command.configure
-      </CustomizedActionButton>
+      <Component
+        handleConfigure={[Function]}
+        source="public"
+      />
       <Connect(MaskedCopyableTextField)
         allowMask={false}
         ariaLabel="deviceInterfaces.columns.id"
@@ -112,393 +67,47 @@ exports[`components/devices/deviceInterfaces shows interface information when st
         readOnly={true}
         value="--"
       />
-      <article
-        className="interface-definition"
-      >
-        <div
-          className="monaco-editor"
-        >
-          <Suspense
-            fallback={
-              <StyledSpinnerBase
-                size={3}
-                title="loading"
-              />
-            }
-          >
-            <ContextConsumer>
-              <Component />
-            </ContextConsumer>
-          </Suspense>
-        </div>
-      </article>
-    </section>
-  </ErrorBoundary>
-</Fragment>
-`;
-
-exports[`components/devices/deviceInterfaces shows interface information when status is fetched 2`] = `
-<Fragment>
-  <StyledCommandBarBase
-    className="command"
-    farItems={
-      Array [
-        Object {
-          "ariaLabel": "deviceInterfaces.command.close",
-          "iconProps": Object {
-            "iconName": "NavigateBack",
-          },
-          "key": "NavigateBack",
-          "name": "deviceInterfaces.command.close",
-          "onClick": [Function],
-        },
-      ]
-    }
-    items={
-      Array [
-        Object {
-          "ariaLabel": "deviceInterfaces.command.refresh",
-          "iconProps": Object {
-            "iconName": "Refresh",
-          },
-          "key": "Refresh",
-          "name": "deviceProperties.command.refresh",
-          "onClick": [Function],
-        },
-      ]
-    }
-  />
-  <ErrorBoundary
-    error="errorBoundary.text"
-  >
-    <Route
-      component={[Function]}
-    />
-    <section
-      className="pnp-interface-info scrollable-lg"
-    >
-      <StyledLabelBase
-        className="source"
-      >
-         
-        deviceInterfaces.columns.source
-        : 
-        settings.modelDefinitions.repositoryTypes.private.label
-      </StyledLabelBase>
-      <CustomizedActionButton
-        className="configure-button"
-        onClick={[Function]}
-      >
-        deviceInterfaces.command.configure
-      </CustomizedActionButton>
-      <Connect(MaskedCopyableTextField)
-        allowMask={false}
-        ariaLabel="deviceInterfaces.columns.id"
-        label="deviceInterfaces.columns.id"
-        readOnly={true}
-        value={null}
+      <Component
+        className="interface-definition-monaco-editor"
+        content={
+          Object {
+            "@context": "http://azureiot.com/v1/contexts/Interface.json",
+            "@id": "urn:azureiot:ModelDiscovery:DigitalTwin:1",
+            "@type": "Interface",
+            "contents": Array [
+              Object {
+                "@type": "Property",
+                "description": "Providing model and optional interfaces information on a digital twin.",
+                "displayName": "Model Information",
+                "name": "modelInformation",
+                "schema": Object {
+                  "@type": "Object",
+                  "fields": Array [
+                    Object {
+                      "name": "modelId",
+                      "schema": "string",
+                    },
+                    Object {
+                      "name": "interfaces",
+                      "schema": Object {
+                        "@type": "Map",
+                        "mapKey": Object {
+                          "name": "name",
+                          "schema": "string",
+                        },
+                        "mapValue": Object {
+                          "name": "schema",
+                          "schema": "string",
+                        },
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+          }
+        }
       />
-      <Connect(MaskedCopyableTextField)
-        allowMask={false}
-        ariaLabel="deviceInterfaces.columns.displayName"
-        label="deviceInterfaces.columns.displayName"
-        readOnly={true}
-        value="--"
-      />
-      <Connect(MaskedCopyableTextField)
-        allowMask={false}
-        ariaLabel="deviceInterfaces.columns.description"
-        label="deviceInterfaces.columns.description"
-        readOnly={true}
-        value="--"
-      />
-      <article
-        className="interface-definition"
-      >
-        <div
-          className="monaco-editor"
-        >
-          <Suspense
-            fallback={
-              <StyledSpinnerBase
-                size={3}
-                title="loading"
-              />
-            }
-          >
-            <ContextConsumer>
-              <Component />
-            </ContextConsumer>
-          </Suspense>
-        </div>
-      </article>
-    </section>
-  </ErrorBoundary>
-</Fragment>
-`;
-
-exports[`components/devices/deviceInterfaces shows interface information when status is fetched 3`] = `
-<Fragment>
-  <StyledCommandBarBase
-    className="command"
-    farItems={
-      Array [
-        Object {
-          "ariaLabel": "deviceInterfaces.command.close",
-          "iconProps": Object {
-            "iconName": "NavigateBack",
-          },
-          "key": "NavigateBack",
-          "name": "deviceInterfaces.command.close",
-          "onClick": [Function],
-        },
-      ]
-    }
-    items={
-      Array [
-        Object {
-          "ariaLabel": "deviceInterfaces.command.refresh",
-          "iconProps": Object {
-            "iconName": "Refresh",
-          },
-          "key": "Refresh",
-          "name": "deviceProperties.command.refresh",
-          "onClick": [Function],
-        },
-      ]
-    }
-  />
-  <ErrorBoundary
-    error="errorBoundary.text"
-  >
-    <Route
-      component={[Function]}
-    />
-    <section
-      className="pnp-interface-info scrollable-lg"
-    >
-      <StyledLabelBase
-        className="source"
-      >
-         
-        deviceInterfaces.columns.source
-        : 
-        settings.modelDefinitions.repositoryTypes.device.label
-      </StyledLabelBase>
-      <CustomizedActionButton
-        className="configure-button"
-        onClick={[Function]}
-      >
-        deviceInterfaces.command.configure
-      </CustomizedActionButton>
-      <Connect(MaskedCopyableTextField)
-        allowMask={false}
-        ariaLabel="deviceInterfaces.columns.id"
-        label="deviceInterfaces.columns.id"
-        readOnly={true}
-        value={null}
-      />
-      <Connect(MaskedCopyableTextField)
-        allowMask={false}
-        ariaLabel="deviceInterfaces.columns.displayName"
-        label="deviceInterfaces.columns.displayName"
-        readOnly={true}
-        value="--"
-      />
-      <Connect(MaskedCopyableTextField)
-        allowMask={false}
-        ariaLabel="deviceInterfaces.columns.description"
-        label="deviceInterfaces.columns.description"
-        readOnly={true}
-        value="--"
-      />
-      <article
-        className="interface-definition"
-      >
-        <div
-          className="monaco-editor"
-        >
-          <Suspense
-            fallback={
-              <StyledSpinnerBase
-                size={3}
-                title="loading"
-              />
-            }
-          >
-            <ContextConsumer>
-              <Component />
-            </ContextConsumer>
-          </Suspense>
-        </div>
-      </article>
-    </section>
-  </ErrorBoundary>
-</Fragment>
-`;
-
-exports[`components/devices/deviceInterfaces shows interface information when status is fetched 4`] = `
-<Fragment>
-  <StyledCommandBarBase
-    className="command"
-    farItems={
-      Array [
-        Object {
-          "ariaLabel": "deviceInterfaces.command.close",
-          "iconProps": Object {
-            "iconName": "NavigateBack",
-          },
-          "key": "NavigateBack",
-          "name": "deviceInterfaces.command.close",
-          "onClick": [Function],
-        },
-      ]
-    }
-    items={
-      Array [
-        Object {
-          "ariaLabel": "deviceInterfaces.command.refresh",
-          "iconProps": Object {
-            "iconName": "Refresh",
-          },
-          "key": "Refresh",
-          "name": "deviceProperties.command.refresh",
-          "onClick": [Function],
-        },
-      ]
-    }
-  />
-  <ErrorBoundary
-    error="errorBoundary.text"
-  >
-    <Route
-      component={[Function]}
-    />
-    <section
-      className="pnp-interface-info scrollable-lg"
-    >
-      <StyledLabelBase
-        className="source"
-      >
-         
-        deviceInterfaces.columns.source
-        : 
-        settings.modelDefinitions.repositoryTypes.local.labelInElectron
-      </StyledLabelBase>
-      <CustomizedActionButton
-        className="configure-button"
-        onClick={[Function]}
-      >
-        deviceInterfaces.command.configure
-      </CustomizedActionButton>
-      <Connect(MaskedCopyableTextField)
-        allowMask={false}
-        ariaLabel="deviceInterfaces.columns.id"
-        label="deviceInterfaces.columns.id"
-        readOnly={true}
-        value={null}
-      />
-      <Connect(MaskedCopyableTextField)
-        allowMask={false}
-        ariaLabel="deviceInterfaces.columns.displayName"
-        label="deviceInterfaces.columns.displayName"
-        readOnly={true}
-        value="--"
-      />
-      <Connect(MaskedCopyableTextField)
-        allowMask={false}
-        ariaLabel="deviceInterfaces.columns.description"
-        label="deviceInterfaces.columns.description"
-        readOnly={true}
-        value="--"
-      />
-      <article
-        className="interface-definition"
-      >
-        <div
-          className="monaco-editor"
-        >
-          <Suspense
-            fallback={
-              <StyledSpinnerBase
-                size={3}
-                title="loading"
-              />
-            }
-          >
-            <ContextConsumer>
-              <Component />
-            </ContextConsumer>
-          </Suspense>
-        </div>
-      </article>
-    </section>
-  </ErrorBoundary>
-</Fragment>
-`;
-
-exports[`components/devices/deviceInterfaces shows interface information when status is fetched 5`] = `
-<Fragment>
-  <StyledCommandBarBase
-    className="command"
-    farItems={
-      Array [
-        Object {
-          "ariaLabel": "deviceInterfaces.command.close",
-          "iconProps": Object {
-            "iconName": "NavigateBack",
-          },
-          "key": "NavigateBack",
-          "name": "deviceInterfaces.command.close",
-          "onClick": [Function],
-        },
-      ]
-    }
-    items={
-      Array [
-        Object {
-          "ariaLabel": "deviceInterfaces.command.refresh",
-          "iconProps": Object {
-            "iconName": "Refresh",
-          },
-          "key": "Refresh",
-          "name": "deviceProperties.command.refresh",
-          "onClick": [Function],
-        },
-      ]
-    }
-  />
-  <ErrorBoundary
-    error="errorBoundary.text"
-  >
-    <section
-      className="pnp-interface-info scrollable-lg"
-    >
-      <StyledMessageBarBase
-        messageBarType={1}
-      >
-        deviceInterfaces.interfaceNotValid
-      </StyledMessageBarBase>
-      <article
-        className="interface-definition"
-      >
-        <div
-          className="monaco-editor"
-        >
-          <Suspense
-            fallback={
-              <StyledSpinnerBase
-                size={3}
-                title="loading"
-              />
-            }
-          >
-            <ContextConsumer>
-              <Component />
-            </ContextConsumer>
-          </Suspense>
-        </div>
-      </article>
     </section>
   </ErrorBoundary>
 </Fragment>
