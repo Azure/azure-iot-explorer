@@ -71,9 +71,9 @@ exports[`components/settings/repositoryLocationListItem matches snapshot for loc
         value="f:/"
       />
       <CustomizedDefaultButton
-        ariaLabel="Pick a folder"
+        ariaLabel="settings.modelDefinitions.repositoryTypes.local.folderPicker.command.openPicker"
         onClick={[Function]}
-        text="Pick a folder"
+        text="settings.modelDefinitions.repositoryTypes.local.folderPicker.command.openPicker"
       />
       <div
         role="dialog"
@@ -87,14 +87,14 @@ exports[`components/settings/repositoryLocationListItem matches snapshot for loc
             }
           }
           onDismiss={[Function]}
-          subText="Current folder: f:/"
-          title="Select a folder as a local model repository"
+          subText="settings.modelDefinitions.repositoryTypes.local.folderPicker.dialog.subText"
+          title="settings.modelDefinitions.repositoryTypes.local.folderPicker.dialog.title"
         >
           <div
             className="folder-links"
           >
             <CustomizedDefaultButton
-              ariaLabel="Navigate back to parent folder"
+              ariaLabel="settings.modelDefinitions.repositoryTypes.local.folderPicker.command.navigateToParent"
               className="folder-button"
               disabled={false}
               iconProps={
@@ -103,23 +103,23 @@ exports[`components/settings/repositoryLocationListItem matches snapshot for loc
                 }
               }
               onClick={[Function]}
-              text="Navigate back to parent folder"
+              text="settings.modelDefinitions.repositoryTypes.local.folderPicker.command.navigateToParent"
             />
             <div
               className="no-folders-text"
             >
-              No folders found
+              settings.modelDefinitions.repositoryTypes.local.folderPicker.dialog.noFolderFoundText
             </div>
           </div>
           <StyledDialogFooterBase>
             <CustomizedPrimaryButton
               disabled={false}
               onClick={[Function]}
-              text="Select"
+              text="settings.modelDefinitions.repositoryTypes.local.folderPicker.command.select"
             />
             <CustomizedDefaultButton
               onClick={[Function]}
-              text="Cancel"
+              text="settings.modelDefinitions.repositoryTypes.local.folderPicker.command.cancel"
             />
           </StyledDialogFooterBase>
         </StyledWithResponsiveMode>

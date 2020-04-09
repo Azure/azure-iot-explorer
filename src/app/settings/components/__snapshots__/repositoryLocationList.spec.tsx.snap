@@ -10,25 +10,25 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
     orientation="vertical"
   >
     <n
-      key="public"
+      key="PUBLIC"
     >
       <RepositoryLocationListItem
         index={0}
         item={
           Object {
-            "repositoryLocationType": "public",
+            "repositoryLocationType": "PUBLIC",
           }
         }
         items={
           Array [
             Object {
-              "repositoryLocationType": "public",
+              "repositoryLocationType": "PUBLIC",
             },
             Object {
-              "repositoryLocationType": "device",
+              "repositoryLocationType": "DEVICE",
             },
             Object {
-              "repositoryLocationType": "private",
+              "repositoryLocationType": "PRIVATE",
             },
           ]
         }
@@ -41,25 +41,25 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
       />
     </n>
     <n
-      key="device"
+      key="DEVICE"
     >
       <RepositoryLocationListItem
         index={1}
         item={
           Object {
-            "repositoryLocationType": "device",
+            "repositoryLocationType": "DEVICE",
           }
         }
         items={
           Array [
             Object {
-              "repositoryLocationType": "public",
+              "repositoryLocationType": "PUBLIC",
             },
             Object {
-              "repositoryLocationType": "device",
+              "repositoryLocationType": "DEVICE",
             },
             Object {
-              "repositoryLocationType": "private",
+              "repositoryLocationType": "PRIVATE",
             },
           ]
         }
@@ -72,25 +72,25 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
       />
     </n>
     <n
-      key="private"
+      key="PRIVATE"
     >
       <RepositoryLocationListItem
         index={2}
         item={
           Object {
-            "repositoryLocationType": "private",
+            "repositoryLocationType": "PRIVATE",
           }
         }
         items={
           Array [
             Object {
-              "repositoryLocationType": "public",
+              "repositoryLocationType": "PUBLIC",
             },
             Object {
-              "repositoryLocationType": "device",
+              "repositoryLocationType": "DEVICE",
             },
             Object {
-              "repositoryLocationType": "private",
+              "repositoryLocationType": "PRIVATE",
             },
           ]
         }
@@ -115,25 +115,25 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
         "items": Array [
           Object {
             "disabled": true,
-            "key": "private",
+            "key": "PRIVATE",
             "onClick": [Function],
             "text": "settings.modelDefinitions.repositoryTypes.private.label",
           },
           Object {
             "disabled": true,
-            "key": "public",
+            "key": "PUBLIC",
             "onClick": [Function],
             "text": "settings.modelDefinitions.repositoryTypes.public.label",
           },
           Object {
             "disabled": true,
-            "key": "device",
+            "key": "DEVICE",
             "onClick": [Function],
             "text": "settings.modelDefinitions.repositoryTypes.device.label",
           },
           Object {
             "disabled": true,
-            "key": "local",
+            "key": "LOCAL",
             "onClick": [Function],
             "text": "settings.modelDefinitions.repositoryTypes.local.labelInBrowser",
           },
@@ -166,25 +166,25 @@ exports[`components/settings/repositoryLocationList matches snapshot with no ite
         "items": Array [
           Object {
             "disabled": true,
-            "key": "private",
+            "key": "PRIVATE",
             "onClick": [Function],
             "text": "settings.modelDefinitions.repositoryTypes.private.label",
           },
           Object {
             "disabled": true,
-            "key": "public",
+            "key": "PUBLIC",
             "onClick": [Function],
             "text": "settings.modelDefinitions.repositoryTypes.public.label",
           },
           Object {
             "disabled": true,
-            "key": "device",
+            "key": "DEVICE",
             "onClick": [Function],
             "text": "settings.modelDefinitions.repositoryTypes.device.label",
           },
           Object {
             "disabled": true,
-            "key": "local",
+            "key": "LOCAL",
             "onClick": [Function],
             "text": "settings.modelDefinitions.repositoryTypes.local.labelInBrowser",
           },
@@ -206,19 +206,19 @@ exports[`components/settings/repositoryLocationList matches snapshot with public
     orientation="vertical"
   >
     <n
-      key="public"
+      key="PUBLIC"
     >
       <RepositoryLocationListItem
         index={0}
         item={
           Object {
-            "repositoryLocationType": "public",
+            "repositoryLocationType": "PUBLIC",
           }
         }
         items={
           Array [
             Object {
-              "repositoryLocationType": "public",
+              "repositoryLocationType": "PUBLIC",
             },
           ]
         }
@@ -243,25 +243,25 @@ exports[`components/settings/repositoryLocationList matches snapshot with public
         "items": Array [
           Object {
             "disabled": false,
-            "key": "private",
+            "key": "PRIVATE",
             "onClick": [Function],
             "text": "settings.modelDefinitions.repositoryTypes.private.label",
           },
           Object {
             "disabled": true,
-            "key": "public",
+            "key": "PUBLIC",
             "onClick": [Function],
             "text": "settings.modelDefinitions.repositoryTypes.public.label",
           },
           Object {
             "disabled": false,
-            "key": "device",
+            "key": "DEVICE",
             "onClick": [Function],
             "text": "settings.modelDefinitions.repositoryTypes.device.label",
           },
           Object {
             "disabled": true,
-            "key": "local",
+            "key": "LOCAL",
             "onClick": [Function],
             "text": "settings.modelDefinitions.repositoryTypes.local.labelInBrowser",
           },

@@ -54,21 +54,18 @@ export const getRootFolder = (): string => {
 export const getParentFolder = (currentFolder: string): string => {
     const i = currentFolder.lastIndexOf('/');
     if (isPlatformWindows()) {
+        const pattern = new RegExp(':/$'); // current folder is system drive
+        if (pattern.test(currentFolder)) {
+            return null;
+        }
+
         let parentFolder =  i > 0 && currentFolder.substr(0, i);
         if (parentFolder.indexOf('/') < 0) { // if parent folder is system drive, add trailing slash
             parentFolder = `${parentFolder}/`;
         }
-        if (parentFolder === currentFolder) { // if current folder is a system drive, set it back to null
-            parentFolder = null;
-        }
         return parentFolder;
     }
     else {
-        if (i === 0) {
-            return '/'; // parent is root
-        }
-        else {
-            return i > 0 && currentFolder.substr(0, i);
-        }
+        return i === 0 ? '/' : i > 0 && currentFolder.substr(0, i);
     }
 };

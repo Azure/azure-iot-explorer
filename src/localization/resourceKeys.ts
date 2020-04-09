@@ -708,7 +708,6 @@ export class ResourceKeys {
                   dialog : {
                      error : "settings.modelDefinitions.repositoryTypes.local.folderPicker.dialog.error",
                      noFolderFoundText : "settings.modelDefinitions.repositoryTypes.local.folderPicker.dialog.noFolderFoundText",
-                     noFolderSelectedText : "settings.modelDefinitions.repositoryTypes.local.folderPicker.dialog.noFolderSelectedText",
                      subText : "settings.modelDefinitions.repositoryTypes.local.folderPicker.dialog.subText",
                      title : "settings.modelDefinitions.repositoryTypes.local.folderPicker.dialog.title",
                   },

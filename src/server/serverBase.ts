@@ -119,37 +119,47 @@ const isFileExtensionJson = (fileName: string) => {
 };
 
 const getDirectoriesUri = '/api/Directories/:path';
-// tslint:disable-next-line:cyclomatic-complexity
 export const handleGetDirectoriesRequest = (req: express.Request, res: express.Response) => {
     try {
         const dir = req.params.path;
-        const result: string[] = [];
         if (dir === '$DEFAULT') {
-            const exec = require('child_process').exec;
-            exec('wmic logicaldisk get name', (error: any, stdout: any, stderr: any) => { // tslint:disable-line:no-any
-                if (!error && !stderr) {
-                    res.status(SUCCESS).send(stdout);
-                }
-            });
+            fetchDrivesOnWindows(res);
         }
         else {
-            for (const item of fs.readdirSync(dir)) {
-                try {
-                    const stat = fs.statSync(path.join(dir, item));
-                    if (stat.isDirectory()) {
-                        result.push(item);
-                    }
-                }
-                catch {
-                    // some item cannot be checked by isDirectory(), swallow error and continue the loop
-                }
-            }
-            res.status(SUCCESS).send(result);
+            fetchDirectories(dir, res);
         }
     }
-    catch (e) {
-        res.status(SERVER_ERROR).send(e);
+    catch (error) {
+        res.status(SERVER_ERROR).send(error);
     }
+};
+
+const fetchDrivesOnWindows = (res: express.Response) => {
+    const exec = require('child_process').exec;
+    exec('wmic logicaldisk get name', (error: any, stdout: any, stderr: any) => { // tslint:disable-line:no-any
+        if (!error && !stderr) {
+            res.status(SUCCESS).send(stdout);
+        }
+        else {
+            res.status(SERVER_ERROR).send();
+        }
+    });
+};
+
+const fetchDirectories = (dir: string, res: express.Response) => {
+    const result: string[] = [];
+    for (const item of fs.readdirSync(dir)) {
+        try {
+            const stat = fs.statSync(path.join(dir, item));
+            if (stat.isDirectory()) {
+                result.push(item);
+            }
+        }
+        catch {
+            // some item cannot be checked by isDirectory(), swallow error and continue the loop
+        }
+    }
+    res.status(SUCCESS).send(result);
 };
 
 const dataPlaneUri = '/api/DataPlane';
