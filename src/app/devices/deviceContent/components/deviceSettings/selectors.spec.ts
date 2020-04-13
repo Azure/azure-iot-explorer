@@ -7,54 +7,51 @@ import 'jest';
 import { Record } from 'immutable';
 import { ModelDefinition } from '../../../../api/models/modelDefinition';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
-import { getDeviceSettingTupleSelector } from './selectors';
+import { getDeviceSettingTupleSelector, filterProperties } from './selectors';
 import { getInitialState } from '../../../../api/shared/testHelper';
 import { REPOSITORY_LOCATION_TYPE } from '../../../../constants/repositoryLocationTypes';
 
-describe('getDigitalTwinInterfacePropertiesSelector', () => {
+describe('getDigitalTwinSettingsSelector', () => {
     const state = getInitialState();
-    const interfaceId = 'urn:contoso:com:EnvironmentalSensor:1';
+    const interfaceId = 'urn:azureiot:samplemodel:1';
     const componentName = 'environmentalSensor';
     /* tslint:disable */
-    const digitalTwinInterfaceProperties = {
-        interfaces: {
-            urn_azureiot_ModelDiscovery_DigitalTwin: {
-                name: 'urn_azureiot_ModelDiscovery_DigitalTwin',
-                properties: {
-                    modelInformation: {
-                        reported: {
-                            value: {
-                                modelId: 'urn:azureiot:testdevicecapabilitymodel:1',
-                                interfaces: {
-                                    environmentalSensor: interfaceId,
-                                    urn_azureiot_ModelDiscovery_DigitalTwin: 'urn:azureiot:ModelDiscovery:DigitalTwin:1'
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            environmentalSensor: {
-                name: componentName,
-                properties: {
-                    brightness: {
-                        desired: {
-                            value: 123
-                        },
-                        reported: {
-                            desiredState: {
-                              code: 200,
-                              description: 'Brightness updated',
-                              version: 19
-                            },
-                            value: 123
-                        }
-                    }
-                }
+    const digitalTwin = {
+        "$dtId": "testDevice",
+        "$metadata": {
+            "$model": interfaceId
+        }
+    };
+    digitalTwin[componentName] = {
+        "brightness": 123,
+        "$metadata": {
+            "brightness": {
+                "desiredValue": 456,
+                "desiredVersion": 2,
+                "lastUpdateTime": "2020-03-31T23:17:42.4813073Z"
             }
         }
     };
 
+    const brightnessProperty = {
+        '@type': 'Property',
+        displayName: 'Brightness Level',
+        description: 'The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)',
+        name: 'brightness',
+        writable: true,
+        schema: 'long'
+    };
+    const sampleSenmanticProperty = {
+        '@type': [
+            "Property",
+            "SemanticType/Brightness Level"
+          ],
+        displayName: 'Brightness Level',
+        description: 'The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)',
+        name: 'brightness',
+        writable: true,
+        schema: 'long'
+    };
     const modelDefinition: ModelDefinition = {
         '@id': interfaceId,
         '@type': 'Interface',
@@ -62,16 +59,7 @@ describe('getDigitalTwinInterfacePropertiesSelector', () => {
         displayName: 'Environmental Sensor',
         description: 'Provides functionality to report temperature, humidity. Provides telemetry, commands and read-write properties',
         comment: 'Requires temperature and humidity sensors.',
-        contents: [
-            {
-                '@type': 'Property',
-                displayName: 'Brightness Level',
-                description: 'The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)',
-                name: 'brightness',
-                writable: true,
-                schema: 'long'
-            }
-        ]
+        contents: [ brightnessProperty, sampleSenmanticProperty ]
     }
     /* tslint:enable */
 
@@ -79,12 +67,14 @@ describe('getDigitalTwinInterfacePropertiesSelector', () => {
         componentNameSelected: componentName,
         deviceIdentity: null,
         deviceTwin: null,
-        digitalTwinInterfaceProperties: {
-            payload: digitalTwinInterfaceProperties,
-            synchronizationStatus: SynchronizationStatus.fetched
+        digitalTwin: {
+            payload:  digitalTwin,
+            synchronizationStatus: SynchronizationStatus.fetched,
         },
+        digitalTwinInterfaceProperties: null,
         modelDefinitionWithSource: {
             payload: {
+                isModelValid: true,
                 modelDefinition,
                 source: REPOSITORY_LOCATION_TYPE.Private
             },
@@ -92,13 +82,20 @@ describe('getDigitalTwinInterfacePropertiesSelector', () => {
         }
     })();
 
+    it('filters writable property with semantic types', () => {
+        expect(filterProperties(sampleSenmanticProperty)).toBeTruthy();
+    });
+
     it('returns interface settings tuple', () => {
         expect(getDeviceSettingTupleSelector(state).interfaceId).toEqual(interfaceId);
         expect(getDeviceSettingTupleSelector(state).componentName).toEqual(componentName);
-
         expect(getDeviceSettingTupleSelector(state).twinWithSchema[0]).toEqual({
-            desiredTwin: digitalTwinInterfaceProperties.interfaces.environmentalSensor.properties.brightness.desired.value,
-            reportedTwin: digitalTwinInterfaceProperties.interfaces.environmentalSensor.properties.brightness.reported,
+            metadata: {
+                desiredValue: 456,
+                desiredVersion: 2,
+                lastUpdateTime: '2020-03-31T23:17:42.4813073Z'
+            },
+            reportedTwin: 123,
             settingModelDefinition: modelDefinition.contents[0],
             settingSchema: {
                 description: `${modelDefinition.contents[0].displayName} / ${modelDefinition.contents[0].description}`,

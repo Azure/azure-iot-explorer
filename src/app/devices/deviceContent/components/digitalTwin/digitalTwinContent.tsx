@@ -12,7 +12,7 @@ import DevicePropertiesContainer from '../deviceProperties/devicePropertiesConta
 import DeviceEventsPerInterfaceContainer from '../deviceEvents/deviceEventsPerInterfaceContainer';
 import { getInterfaceIdFromQueryString, getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { ROUTE_PARTS } from '../../../../constants/routes';
-import { getModelDefinitionAction, getDigitalTwinInterfacePropertiesAction } from '../../actions';
+import { getModelDefinitionAction } from '../../actions';
 
 export interface DigitalTwinContentProps extends RouteComponentProps{
     deviceId: string;
@@ -24,8 +24,8 @@ export const DigitalTwinContent: React.FC<DigitalTwinContentProps> = props => {
     const { deviceId, interfaceId } = props;
     React.useEffect(() => {
         dispatch(getModelDefinitionAction.started({digitalTwinId: deviceId, interfaceId}));
-        dispatch(getDigitalTwinInterfacePropertiesAction.started(deviceId));
     }, [interfaceId, deviceId]);  // tslint:disable-line:align
+
     return (
         <>
             <Route path={`${props.match.url}/${ROUTE_PARTS.SETTINGS}/`} component={DeviceSettingsContainer}/>

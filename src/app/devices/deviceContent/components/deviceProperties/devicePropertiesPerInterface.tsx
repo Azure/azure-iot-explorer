@@ -23,7 +23,7 @@ export interface DevicePropertiesDataProps {
 export interface TwinWithSchema {
     propertyModelDefinition: PropertyContent;
     propertySchema: ParsedJsonSchema;
-    reportedTwin: any; // tslint:disable-line:no-any
+    reportedTwin: string | object;
 }
 
 export interface DevicePropertiesState {

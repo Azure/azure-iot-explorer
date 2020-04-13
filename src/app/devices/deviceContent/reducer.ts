@@ -7,7 +7,6 @@ import { DeviceContentStateType, deviceContentStateInitial } from './state';
 import {
     clearModelDefinitionsAction,
     getDeviceIdentityAction,
-    getDigitalTwinInterfacePropertiesAction,
     getTwinAction,
     getModelDefinitionAction,
     setComponentNameAction,
@@ -176,28 +175,6 @@ const reducer = reducerWithInitialState<DeviceContentStateType>(deviceContentSta
     .case(getDigitalTwinAction.failed, (state: DeviceContentStateType) => {
         return state.merge({
             digitalTwin: {
-                synchronizationStatus: SynchronizationStatus.failed
-            }
-        });
-    })
-    .case(getDigitalTwinInterfacePropertiesAction.started, (state: DeviceContentStateType) => {
-        return state.merge({
-            digitalTwinInterfaceProperties: {
-                synchronizationStatus: SynchronizationStatus.working
-            }
-        });
-    })
-    .case(getDigitalTwinInterfacePropertiesAction.done, (state: DeviceContentStateType, payload: {params: string} & {result: DigitalTwinInterfaces}) => {
-        return state.merge({
-            digitalTwinInterfaceProperties: {
-                payload: payload.result,
-                synchronizationStatus: SynchronizationStatus.fetched
-            }
-        });
-    })
-    .case(getDigitalTwinInterfacePropertiesAction.failed, (state: DeviceContentStateType) => {
-        return state.merge({
-            digitalTwinInterfaceProperties: {
                 synchronizationStatus: SynchronizationStatus.failed
             }
         });

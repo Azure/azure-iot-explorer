@@ -2,12 +2,11 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { createSelector } from 'reselect';
 import { ModelDefinition, PropertyContent, ContentType } from '../../../../api/models/modelDefinition';
 import { StateInterface } from '../../../../shared/redux/state';
 import { parseInterfacePropertyToJsonSchema } from '../../../../shared/utils/jsonSchemaAdaptor';
 import { TwinWithSchema } from './devicePropertiesPerInterface';
-import { getModelDefinitionSelector, getDigitalTwinInterfacePropertiesSelector, getComponentNameSelector } from '../../selectors';
+import { getModelDefinitionSelector, getComponentNameSelector, getDigitalTwinSelector } from '../../selectors';
 
 export const getDevicePropertyTupleSelector = (state: StateInterface): TwinWithSchema[] => {
     const modelDefinition = getModelDefinitionSelector(state);
@@ -20,11 +19,11 @@ const getDevicePropertyProps = (state: StateInterface, model: ModelDefinition): 
     return nonWritableProperties ? nonWritableProperties.map(property => ({
         propertyModelDefinition: property,
         propertySchema: parseInterfacePropertyToJsonSchema(property),
-        reportedTwin: generateReportedTwin(state, property)
+        reportedTwin: getReportedValueForSpecificProperty(state, property)
     })) : [];
 };
 
-const filterProperties = (content: PropertyContent) => {
+export const filterProperties = (content: PropertyContent) => {
     if (typeof content['@type'] === 'string') {
         return content['@type'].toLowerCase() === ContentType.Property && !content.writable;
     }
@@ -33,22 +32,10 @@ const filterProperties = (content: PropertyContent) => {
     }
 };
 
-// tslint:disable-next-line:cyclomatic-complexity
-export const generateDigitalTwinForSpecificProperty = (state: StateInterface, property: PropertyContent) => {
-    try {
-        const interfaceProperties = getDigitalTwinInterfacePropertiesSelector(state);
-        const componentNameSelected = getComponentNameSelector(state);
-        return interfaceProperties &&
-        interfaceProperties.interfaces &&
-        interfaceProperties.interfaces[componentNameSelected] &&
-        // tslint:disable-next-line:no-any
-        (interfaceProperties.interfaces[componentNameSelected].properties)[property.name];
-    } catch {
-        return;
-    }
+export const getReportedValueForSpecificProperty = (state: StateInterface, property: PropertyContent): string | object => {
+    const digitalTwin = getDigitalTwinSelector(state);
+    const componentNameSelected = getComponentNameSelector(state);
+    return digitalTwin &&
+        digitalTwin[componentNameSelected] &&
+        digitalTwin[componentNameSelected][property.name];
 };
-
-export const generateReportedTwin = createSelector(
-    generateDigitalTwinForSpecificProperty,
-    property =>
-    property && property.reported && property.reported.value);

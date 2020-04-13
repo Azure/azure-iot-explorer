@@ -8,14 +8,18 @@ import { withRouter } from 'react-router-dom';
 import { AnyAction } from 'typescript-fsa';
 import { StateType } from '../../../../shared/redux/state';
 import DeviceSettings, { DeviceSettingDispatchProps, DeviceSettingsProps } from './deviceSettings';
-import { setComponentNameAction, patchDigitalTwinInterfacePropertiesAction, PatchDigitalTwinInterfacePropertiesActionParameters, getDigitalTwinInterfacePropertiesAction, getModelDefinitionAction } from '../../actions';
+import { setComponentNameAction,
+    patchDigitalTwinInterfacePropertiesAction,
+    PatchDigitalTwinInterfacePropertiesActionParameters,
+    getModelDefinitionAction,
+    getDigitalTwinAction } from '../../actions';
 import { getDeviceSettingTupleSelector } from './selectors';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
-import { getModelDefinitionSyncStatusSelector, getDigitalTwinInterfacePropertiesStateSelector } from '../../selectors';
+import { getModelDefinitionSyncStatusSelector, getDigitalTwinSynchronizationStatusSelector } from '../../selectors';
 
 const mapStateToProps = (state: StateType): DeviceSettingsProps => {
     return {
-        isLoading: getDigitalTwinInterfacePropertiesStateSelector(state) === SynchronizationStatus.working ||
+        isLoading: getDigitalTwinSynchronizationStatusSelector(state) === SynchronizationStatus.working ||
             getModelDefinitionSyncStatusSelector(state) === SynchronizationStatus.working,
         ...getDeviceSettingTupleSelector(state),
     };
@@ -26,7 +30,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DeviceSettingDispatc
         patchDigitalTwinInterfaceProperties:
             (parameters: PatchDigitalTwinInterfacePropertiesActionParameters) => dispatch(patchDigitalTwinInterfacePropertiesAction.started(parameters)),
         refresh: (deviceId: string, interfaceId: string) => {
-            dispatch(getDigitalTwinInterfacePropertiesAction.started(deviceId));
+            dispatch(getDigitalTwinAction.started(deviceId));
             dispatch(getModelDefinitionAction.started({digitalTwinId: deviceId, interfaceId}));
         },
         setComponentName: (id: string) => dispatch(setComponentNameAction(id))

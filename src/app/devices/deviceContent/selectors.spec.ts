@@ -6,7 +6,6 @@ import 'jest';
 import { Record } from 'immutable';
 import { SynchronizationStatus } from './../../api/models/synchronizationStatus';
 import {
-    getDigitalTwinInterfacePropertiesSelector,
     getDigitalTwinModelId,
     getComponentNameSelector,
     getDigitalTwinSynchronizationStatusSelector,
@@ -15,8 +14,7 @@ import {
     getComponentNameAndInterfaceIdArraySelector,
     getModelDefinitionSelector,
     getDeviceIdentityWrapperSelector,
-    getModelDefinitionSyncStatusSelector,
-    getDigitalTwinInterfacePropertiesStateSelector
+    getModelDefinitionSyncStatusSelector
 } from './selectors';
 import { getInitialState } from './../../api/shared/testHelper';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
@@ -183,14 +181,6 @@ describe('selector', () => {
     });
 
     describe('getDigitalTwinSelectors', () => {
-        it('returns interface properties', () => {
-            expect(getDigitalTwinInterfacePropertiesSelector(state)).toEqual(digitalTwinInterfaceProperties);
-        });
-
-        it('returns interface properties sync status', () => {
-            expect(getDigitalTwinInterfacePropertiesStateSelector(state)).toEqual(SynchronizationStatus.fetched);
-        });
-
         it('returns digital twin sync status ', () => {
             expect(getDigitalTwinSynchronizationStatusSelector(state)).toEqual(SynchronizationStatus.fetched);
         });
