@@ -23,7 +23,7 @@ export interface DevicePropertiesDataProps {
 export interface TwinWithSchema {
     propertyModelDefinition: PropertyContent;
     propertySchema: ParsedJsonSchema;
-    reportedTwin: string | object;
+    reportedTwin: boolean | string | number | object;
 }
 
 export interface DevicePropertiesState {

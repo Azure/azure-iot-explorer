@@ -32,7 +32,7 @@ export const filterProperties = (content: PropertyContent) => {
     }
 };
 
-export const getReportedValueForSpecificProperty = (state: StateInterface, property: PropertyContent): string | object => {
+export const getReportedValueForSpecificProperty = (state: StateInterface, property: PropertyContent): boolean | string | number | object => {
     const digitalTwin = getDigitalTwinSelector(state);
     const componentNameSelected = getComponentNameSelector(state);
     return digitalTwin &&

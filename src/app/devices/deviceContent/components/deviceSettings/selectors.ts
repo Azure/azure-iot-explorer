@@ -45,7 +45,7 @@ export const filterProperties = (content: PropertyContent) => {
 };
 
 export interface MetadataSection {
-    desiredValue: string;
+    desiredValue: boolean | string | number | object;
     desiredVersion: number;
     ackVersion: number;
     ackCode: number;

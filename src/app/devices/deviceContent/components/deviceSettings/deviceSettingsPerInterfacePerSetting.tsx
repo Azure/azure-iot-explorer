@@ -37,7 +37,7 @@ export interface DeviceSettingDispatchProps {
 
 export interface TwinWithSchema {
     metadata: MetadataSection;
-    reportedTwin: string | object;
+    reportedTwin: boolean | string | number | object;
     settingModelDefinition: PropertyContent;
     settingSchema: ParsedJsonSchema;
 }
