@@ -109,36 +109,36 @@ export default class RepositoryLocationListItem extends React.Component<Reposito
             );
     }
 
-    private readonly onShowFolderPicker = () => {
+    private onShowFolderPicker = () => {
         this.setState({showFolderPicker: true});
         this.fetchSubDirectoriesInfo(this.state.currentFolder);
     }
 
-    private readonly dismissFolderPicker = () => {
+    private dismissFolderPicker = () => {
         this.setState({
             currentFolder: this.props.item.value || getRootFolder(),
             showFolderPicker: false
         });
     }
 
-    private readonly onSelectFolder = () => {
+    private onSelectFolder = () => {
         this.props.onLocalFolderPathChanged(this.state.currentFolder);
         this.setState({showFolderPicker: false});
     }
 
-    private readonly onClickFolderName = (folder: string) => () => {
+    private onClickFolderName = (folder: string) => () => {
         const newDir = this.state.currentFolder ? `${this.state.currentFolder.replace(/\/$/, '')}/${folder}` : folder;
         this.setState({currentFolder: newDir});
         this.fetchSubDirectoriesInfo(newDir);
     }
 
-    private readonly onNavigateBack = () => {
+    private onNavigateBack = () => {
         const parentFolder = getParentFolder(this.state.currentFolder);
         this.setState({currentFolder: parentFolder});
         this.fetchSubDirectoriesInfo(parentFolder);
     }
 
-    private readonly fetchSubDirectoriesInfo = (folderName: string) => {
+    private fetchSubDirectoriesInfo = (folderName: string) => {
         fetchDirectories(folderName).then(result => this.setState({showError: false, subFolders: result})).catch(error => {this.setState({showError: true}); });
     }
 

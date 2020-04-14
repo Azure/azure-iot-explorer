@@ -52,20 +52,20 @@ export const getRootFolder = (): string => {
 
 // tslint:disable-next-line:cyclomatic-complexity
 export const getParentFolder = (currentFolder: string): string => {
-    const i = currentFolder.lastIndexOf('/');
+    const index = currentFolder.lastIndexOf('/');
     if (isPlatformWindows()) {
         const pattern = new RegExp(':/$'); // current folder is system drive
         if (pattern.test(currentFolder)) {
             return null;
         }
 
-        let parentFolder =  i > 0 && currentFolder.substr(0, i);
+        let parentFolder =  index > 0 && currentFolder.substr(0, index);
         if (parentFolder.indexOf('/') < 0) { // if parent folder is system drive, add trailing slash
             parentFolder = `${parentFolder}/`;
         }
         return parentFolder;
     }
     else {
-        return i === 0 ? '/' : i > 0 && currentFolder.substr(0, i);
+        return index === 0 ? '/' : index > 0 && currentFolder.substr(0, index);
     }
 };
