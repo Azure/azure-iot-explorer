@@ -8,9 +8,8 @@ import { getDeviceTwinSaga, updateDeviceTwinSaga } from './sagas/deviceTwinSaga'
 import { invokeDirectMethodSaga } from './sagas/directMethodSaga';
 import { invokeDigitalTwinInterfaceCommandSaga } from './sagas/digitalTwinInterfaceCommandSaga';
 import { getDeviceIdentitySaga, updateDeviceIdentitySaga } from './sagas/deviceIdentitySaga';
-import { patchDigitalTwinInterfacePropertiesSaga } from './sagas/digitalTwinInterfacePropertySaga';
 import { cloudToDeviceMessageSaga } from './sagas/cloudToDeviceMessageSaga';
-import { getDigitalTwinSaga } from './sagas/digitalTwinSaga';
+import { getDigitalTwinSaga, patchDigitalTwinSaga } from './sagas/digitalTwinSaga';
 import {
     cloudToDeviceMessageAction,
     getDeviceIdentityAction,
@@ -19,7 +18,7 @@ import {
     invokeDirectMethodAction,
     invokeDigitalTwinInterfaceCommandAction,
     getModelDefinitionAction,
-    patchDigitalTwinInterfacePropertiesAction,
+    patchDigitalTwinAction,
     updateTwinAction,
     updateDeviceIdentityAction
     } from './actions';
@@ -32,7 +31,7 @@ export default [
     takeLatest(getTwinAction.started.type, getDeviceTwinSaga),
     takeEvery(invokeDirectMethodAction.started.type, invokeDirectMethodSaga),
     takeEvery(invokeDigitalTwinInterfaceCommandAction.started.type, invokeDigitalTwinInterfaceCommandSaga),
-    takeEvery(patchDigitalTwinInterfacePropertiesAction.started.type, patchDigitalTwinInterfacePropertiesSaga),
+    takeEvery(patchDigitalTwinAction.started.type, patchDigitalTwinSaga),
     takeEvery(updateTwinAction.started.type, updateDeviceTwinSaga),
     takeEvery(updateDeviceIdentityAction.started.type, updateDeviceIdentitySaga),
 ];

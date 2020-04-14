@@ -47,6 +47,7 @@ export const HEADERS = {
 
 export enum DataPlaneStatusCode{
     SuccessLowerBound = 200,
+    Accepted = 202,
     SuccessUpperBound = 299,
     NoContentSuccess = 204,
     NotFound = 404

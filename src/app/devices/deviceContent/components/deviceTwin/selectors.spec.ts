@@ -37,12 +37,11 @@ describe('./selectors', () => {
     state.deviceContentState = Record({
         componentNameSelected: '',
         deviceIdentity: null,
-        digitalTwin:null,
         deviceTwin: {
             payload: twin,
             synchronizationStatus: SynchronizationStatus.fetched
         },
-        digitalTwinInterfaceProperties: null,
+        digitalTwin: null,
         modelDefinitionWithSource: null
     })();
 

@@ -95,7 +95,6 @@ describe('getDigitalTwinPropertiesSelector', () => {
             payload:  digitalTwin,
             synchronizationStatus: SynchronizationStatus.fetched,
         },
-        digitalTwinInterfaceProperties: null,
         modelDefinitionWithSource: {
             payload: {
                 isModelValid: true,

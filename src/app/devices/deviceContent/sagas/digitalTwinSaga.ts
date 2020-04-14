@@ -4,10 +4,14 @@
  **********************************************************/
 import { call, put } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
-import { fetchDigitalTwin } from '../../../api/services/digitalTwinService';
-import { FetchDigitalTwinParameters } from '../../../api/parameters/deviceParameters';
-import { getDigitalTwinAction } from './../actions';
+import { fetchDigitalTwin, patchDigitalTwinAndGetResponseCode } from '../../../api/services/digitalTwinService';
+import { FetchDigitalTwinParameters, PatchDigitalTwinParameters } from '../../../api/parameters/deviceParameters';
+import { getDigitalTwinAction, PatchDigitalTwinActionParameters, patchDigitalTwinAction } from './../actions';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
+import { addNotificationAction } from '../../../notifications/actions';
+import { ResourceKeys } from '../../../../localization/resourceKeys';
+import { NotificationType } from '../../../api/models/notification';
+import { DataPlaneStatusCode } from '../../../constants/apiConstants';
 
 export function* getDigitalTwinSaga(action: Action<string>) {
     try {
@@ -16,10 +20,63 @@ export function* getDigitalTwinSaga(action: Action<string>) {
             digitalTwinId: action.payload,
         };
 
-        const digitalTwinInterfaceProperties = yield call(fetchDigitalTwin, parameters);
+        const digitalTwin = yield call(fetchDigitalTwin, parameters);
 
-        yield put(getDigitalTwinAction.done({params: action.payload, result: digitalTwinInterfaceProperties}));
+        yield put(getDigitalTwinAction.done({params: action.payload, result: digitalTwin}));
     } catch (error) {
         yield put(getDigitalTwinAction.failed({params: action.payload, error}));
+    }
+}
+
+export function* patchDigitalTwinSaga(action: Action<PatchDigitalTwinActionParameters>) {
+    try {
+        const connectionString = yield call(getActiveAzureResourceConnectionStringSaga);
+        const parameters: PatchDigitalTwinParameters = {
+            ...action.payload,
+            connectionString
+        };
+
+        const responseCode = yield call(patchDigitalTwinAndGetResponseCode, parameters);
+        const digitalTwin = yield call(fetchDigitalTwin, {connectionString, digitalTwinId: parameters.digitalTwinId});
+
+        if (responseCode === DataPlaneStatusCode.Accepted) {
+            yield put(addNotificationAction.started({
+                text: {
+                    translationKey: ResourceKeys.notifications.patchDigitalTwinOnAccept,
+                    translationOptions: {
+                        deviceId: action.payload.digitalTwinId
+                    },
+                },
+                type: NotificationType.success
+            }));
+            yield put(patchDigitalTwinAction.done({params: action.payload, result: digitalTwin}));
+        }
+        else if (responseCode === DataPlaneStatusCode.SuccessLowerBound) {
+            yield put(addNotificationAction.started({
+                text: {
+                    translationKey: ResourceKeys.notifications.patchDigitalTwinOnSuccess,
+                    translationOptions: {
+                        deviceId: action.payload.digitalTwinId
+                    },
+                },
+                type: NotificationType.success
+            }));
+            yield put(patchDigitalTwinAction.done({params: action.payload, result: digitalTwin}));
+        }
+        else {
+            throw new Error(responseCode);
+        }
+    } catch (error) {
+        yield put(addNotificationAction.started({
+            text: {
+                translationKey: ResourceKeys.notifications.patchDigitalTwinOnError,
+                translationOptions: {
+                    deviceId: action.payload.digitalTwinId,
+                    error,
+                },
+            },
+            type: NotificationType.error
+        }));
+        yield put(patchDigitalTwinAction.failed({params: action.payload, error}));
     }
 }

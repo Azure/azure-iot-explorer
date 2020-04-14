@@ -13,15 +13,14 @@ import {
     updateTwinAction,
     UpdateTwinActionParameters,
     updateDeviceIdentityAction,
-    patchDigitalTwinInterfacePropertiesAction,
-    PatchDigitalTwinInterfacePropertiesActionParameters,
+    patchDigitalTwinAction,
+    PatchDigitalTwinActionParameters,
     GetModelDefinitionActionParameters,
     getDigitalTwinAction
 } from './actions';
 import { Twin } from '../../api/models/device';
 import { DeviceIdentity } from '../../api/models/deviceIdentity';
 import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
-import { DigitalTwinInterfaces } from '../../api/models/digitalTwinModels';
 import { ModelDefinitionWithSource } from './../../api/models/modelDefinitionWithSource';
 
 const reducer = reducerWithInitialState<DeviceContentStateType>(deviceContentStateInitial())
@@ -33,7 +32,7 @@ const reducer = reducerWithInitialState<DeviceContentStateType>(deviceContentSta
             }
         });
     })
-    .case(getDeviceIdentityAction.done, (state: DeviceContentStateType, payload: {params: string} & {result: DeviceIdentity}) => {
+    .case(getDeviceIdentityAction.done, (state: DeviceContentStateType, payload: {params: string, result: DeviceIdentity}) => {
         return state.merge({
             deviceIdentity: {
                 payload: payload.result,
@@ -56,7 +55,7 @@ const reducer = reducerWithInitialState<DeviceContentStateType>(deviceContentSta
             }
         });
     })
-    .case(updateDeviceIdentityAction.done, (state: DeviceContentStateType, payload: {params: DeviceIdentity} & {result: DeviceIdentity}) => {
+    .case(updateDeviceIdentityAction.done, (state: DeviceContentStateType, payload: {params: DeviceIdentity, result: DeviceIdentity}) => {
         return state.merge({
             deviceIdentity: {
                 payload: payload.result,
@@ -81,7 +80,7 @@ const reducer = reducerWithInitialState<DeviceContentStateType>(deviceContentSta
             }
         });
     })
-    .case(getTwinAction.done, (state: DeviceContentStateType, payload: {params: string} & {result: Twin}) => {
+    .case(getTwinAction.done, (state: DeviceContentStateType, payload: {params: string, result: Twin}) => {
         return state.merge({
             deviceTwin: {
                 payload: payload.result,
@@ -104,7 +103,7 @@ const reducer = reducerWithInitialState<DeviceContentStateType>(deviceContentSta
             }
         });
     })
-    .case(updateTwinAction.done, (state: DeviceContentStateType, payload: {params: UpdateTwinActionParameters} & {result: Twin}) => {
+    .case(updateTwinAction.done, (state: DeviceContentStateType, payload: {params: UpdateTwinActionParameters, result: Twin}) => {
         return state.merge({
             deviceTwin: {
                 payload: payload.result,
@@ -129,7 +128,7 @@ const reducer = reducerWithInitialState<DeviceContentStateType>(deviceContentSta
             }
         });
     })
-    .case(getModelDefinitionAction.done, (state: DeviceContentStateType, payload: {params: GetModelDefinitionActionParameters} & {result: ModelDefinitionWithSource}) => {
+    .case(getModelDefinitionAction.done, (state: DeviceContentStateType, payload: {params: GetModelDefinitionActionParameters, result: ModelDefinitionWithSource}) => {
         return state.merge({
             modelDefinitionWithSource: {
                 payload: {...payload.result},
@@ -164,7 +163,7 @@ const reducer = reducerWithInitialState<DeviceContentStateType>(deviceContentSta
             }
         });
     })
-    .case(getDigitalTwinAction.done, (state: DeviceContentStateType, payload: {params: string} & {result: object}) => {
+    .case(getDigitalTwinAction.done, (state: DeviceContentStateType, payload: {params: string, result: object}) => {
         return state.merge({
             digitalTwin: {
                 payload: payload.result,
@@ -179,26 +178,26 @@ const reducer = reducerWithInitialState<DeviceContentStateType>(deviceContentSta
             }
         });
     })
-    .case(patchDigitalTwinInterfacePropertiesAction.started, (state: DeviceContentStateType) => {
+    .case(patchDigitalTwinAction.started, (state: DeviceContentStateType) => {
         return state.merge({
-            digitalTwinInterfaceProperties: {
-                payload: state.digitalTwinInterfaceProperties.payload,
+            digitalTwin: {
+                payload: state.digitalTwin.payload,
                 synchronizationStatus: SynchronizationStatus.updating
             }
         });
     })
-    .case(patchDigitalTwinInterfacePropertiesAction.done, (state: DeviceContentStateType, payload: {params: PatchDigitalTwinInterfacePropertiesActionParameters} & {result: DigitalTwinInterfaces}) => {
+    .case(patchDigitalTwinAction.done, (state: DeviceContentStateType, payload: {params: PatchDigitalTwinActionParameters, result: object}) => {
         return state.merge({
-            digitalTwinInterfaceProperties: {
+            digitalTwin: {
                 payload: payload.result,
                 synchronizationStatus: SynchronizationStatus.upserted
             }
         });
     })
-    .case(patchDigitalTwinInterfacePropertiesAction.failed, (state: DeviceContentStateType) => {
+    .case(patchDigitalTwinAction.failed, (state: DeviceContentStateType) => {
         return state.merge({
-            digitalTwinInterfaceProperties: {
-                payload: state.digitalTwinInterfaceProperties.payload,
+            digitalTwin: {
+                payload: state.digitalTwin.payload,
                 synchronizationStatus: SynchronizationStatus.failed
             }
         });

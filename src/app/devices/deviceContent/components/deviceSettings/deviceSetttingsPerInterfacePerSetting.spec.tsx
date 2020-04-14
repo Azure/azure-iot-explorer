@@ -33,6 +33,7 @@ describe('components/devices/deviceSettingsPerInterfacePerSetting', () => {
     const propertySchema: ParsedJsonSchema = {
         default: false,
         description: 'Device State / The state of the device. Two states online/offline are available.',
+        required: null,
         title: name,
         type: schema
     };
@@ -41,7 +42,7 @@ describe('components/devices/deviceSettingsPerInterfacePerSetting', () => {
     const deviceSettingDispatchProps: DeviceSettingDispatchProps = {
         handleCollapseToggle,
         handleOverlayToggle,
-        patchDigitalTwinInterfaceProperties: jest.fn()
+        patchDigitalTwin: jest.fn()
     };
 
     let deviceSettingDataProps: DeviceSettingDataProps = {
@@ -124,15 +125,13 @@ describe('components/devices/deviceSettingsPerInterfacePerSetting', () => {
         expect(handleOverlayToggle).toBeCalled();
 
         const reportedStatus = wrapper.find(Stack);
-        expect(reportedStatus.props().children[1].props.children.props.children).toEqual(`(${ackCode})`);
-        expect(reportedStatus.props().children[1].props.children.props.tooltipText).toEqual(ackDescription);
+        expect(reportedStatus.props().children[1].props.children).toEqual(`(${ackCode} ${ackDescription})`);
 
         const form = wrapper.find(DataForm);
         expect(form.props().formData).toEqual(twinValue);
 
         const toggleButtons = wrapper.find(IconButton);
-        expect(toggleButtons.first().props().iconProps).toEqual({iconName: INFO});
-        expect(toggleButtons.at(1).props().iconProps).toEqual({iconName: InterfaceDetailCard.CLOSE});
+        expect(toggleButtons.first().props().iconProps).toEqual({iconName: InterfaceDetailCard.CLOSE});
 
         const header = wrapper.find('header');
         header.props().onClick(null);
