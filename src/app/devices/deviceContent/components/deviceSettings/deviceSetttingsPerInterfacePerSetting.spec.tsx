@@ -126,7 +126,6 @@ describe('components/devices/deviceSettingsPerInterfacePerSetting', () => {
 
         const reportedStatus = wrapper.find(Stack);
         expect(reportedStatus.props().children[1].props.children).toEqual(`(${ackCode} ${ackDescription})`);
-
         const form = wrapper.find(DataForm);
         expect(form.props().formData).toEqual(twinValue);
 

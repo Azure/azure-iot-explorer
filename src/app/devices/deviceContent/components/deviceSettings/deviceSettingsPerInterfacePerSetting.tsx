@@ -14,7 +14,6 @@ import { PropertyContent } from '../../../../api/models/modelDefinition';
 import ComplexReportedFormPanel from '../shared/complexReportedFormPanel';
 import DataForm from '../shared/dataForm';
 import { RenderSimplyTypeValue } from '../shared/simpleReportedSection';
-import LabelWithTooltip from '../../../../shared/components/labelWithTooltip';
 import { PatchDigitalTwinActionParameters } from '../../actions';
 import ErrorBoundary from '../../../errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
