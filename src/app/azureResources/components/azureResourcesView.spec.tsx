@@ -4,9 +4,9 @@
  **********************************************************/
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { AzureResourcesContainer } from './azureResourcesContainer';
+import { AzureResourcesView } from './azureResourcesView';
 
-describe('azureResourcesContainer', () => {
+describe('azureResourcesView', () => {
     it('matches snapshot', () => {
 
         const routerprops = {
@@ -19,7 +19,7 @@ describe('azureResourcesContainer', () => {
                 url: 'currentUrl',
             } as any // tslint:disable-line:no-any
         };
-        const wrapper = shallow(<AzureResourcesContainer {...routerprops} />);
+        const wrapper = shallow(<AzureResourcesView {...routerprops} />);
         expect(wrapper).toMatchSnapshot();
     });
 });
