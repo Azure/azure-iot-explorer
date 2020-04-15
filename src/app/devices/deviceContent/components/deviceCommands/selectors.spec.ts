@@ -65,12 +65,14 @@ describe('getDeviceCommandPairs', () => {
             componentNameSelected: 'environmentalSensor',
             deviceIdentity: null,
             deviceTwin: null,
+            digitalTwin:null,
             digitalTwinInterfaceProperties: {
                 payload: digitalTwinInterfaceProperties,
                 synchronizationStatus: SynchronizationStatus.fetched
             },
             modelDefinitionWithSource: {
                 payload: {
+                    isModelValid: true,,
                     modelDefinition,
                     source: null,
                 },

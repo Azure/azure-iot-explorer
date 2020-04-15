@@ -77,7 +77,7 @@ export default class DeviceProperties
         return (
             <>
                 <Route component={DigitalTwinHeaderContainer} />
-                {twinAndSchema && twinAndSchema.length === 0 ?
+                {!twinAndSchema || twinAndSchema.length === 0 ?
                     <Label className="no-pnp-content">{context.t(ResourceKeys.deviceProperties.noProperties, {componentName: getComponentNameFromQueryString(this.props)})}</Label> :
                     <DevicePropertiesPerInterface twinAndSchema={twinAndSchema} />
                 }

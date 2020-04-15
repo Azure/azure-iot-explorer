@@ -9,13 +9,15 @@ import { getDeviceSummaryListStatus, getDeviceSummaryWrapper, deviceSummaryListW
 import { getInitialState } from './../../api/shared/testHelper';
 import { DeviceSummary } from '../../api/models/deviceSummary';
 
-describe('getDigitalTwinInterfacePropertiesSelector', () => {
+describe('getDeviceListSelector', () => {
     const state = getInitialState();
     const deviceId = 'testDeviceId';
     const deviceSummary: DeviceSummary = {
         authenticationType: 'sas',
         cloudToDeviceMessageCount: '0',
+        connectionState: 'connected',
         deviceId,
+        iotEdge: true,
         lastActivityTime: 'Thu Apr 25 2019 16:48:19 GMT-0700 (Pacific Daylight Time)',
         status: 'Enabled',
         statusUpdatedTime: 'Thu Apr 25 2019 16:48:19 GMT-0700 (Pacific Daylight Time)',

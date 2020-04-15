@@ -7,8 +7,6 @@ import * as DigitalTwinService from './digitalTwinService';
 import * as DataplaneService from './dataplaneServiceHelper';
 import { DIGITAL_TWIN_API_VERSION, HTTP_OPERATION_TYPES } from '../../constants/apiConstants';
 import { CONNECTION_TIMEOUT_IN_SECONDS, RESPONSE_TIME_IN_SECONDS } from '../../constants/devices';
-import { Twin } from '../models/device';
-import { DeviceIdentity } from '../models/deviceIdentity';
 import { getConnectionInfoFromConnectionString } from '../shared/utils';
 import { DataPlaneParameters } from '../parameters/deviceParameters';
 
@@ -38,84 +36,6 @@ const mockDataPlaneConnectionHelper = (parameters: DataPlaneParameters) => {
 };
 
 describe('digitalTwinService', () => {
-
-    context('fetchDigitalTwinInterfaceProperties', () => {
-        const parameters = {
-            connectionString,
-            digitalTwinId: undefined
-        };
-        it ('returns if digitalTwinId is not specified', () => {
-            expect(DigitalTwinService.fetchDigitalTwinInterfaceProperties(parameters)).toEqual(emptyPromise);
-        });
-
-        it('calls fetch with specified parameters and returns digitalTwin interfaces when response is 200', async () => {
-            jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockReturnValue({
-                connectionInfo: getConnectionInfoFromConnectionString(parameters.connectionString), sasToken});
-            // tslint:disable
-            const digitalTwin = {
-                interfaces: {
-                    'urn_azureiot_ModelDiscovery_DigitalTwin': {
-                        name: 'urn_azureiot_ModelDiscovery_DigitalTwin',
-                        properties: {
-                            modelInformation:
-                                {
-                                    reported: {
-                                        value:{interfaces: {'urn_azureiot_ModelDiscovery_DigitalTwin':'urn:azureiot:ModelDiscovery:DigitalTwin:1'}
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                'version':1
-            };
-            const response = {
-                json: () => {
-                    return {
-                        body: digitalTwin,
-                        headers:{}
-                        }
-                    },
-                status: 200
-            } as any;
-            // tslint:enable
-            jest.spyOn(window, 'fetch').mockResolvedValue(response);
-
-            const result = await DigitalTwinService.fetchDigitalTwinInterfaceProperties({
-                ...parameters,
-                digitalTwinId: deviceId
-            });
-
-            const connectionInformation = mockDataPlaneConnectionHelper({connectionString});
-            const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
-                apiVersion: DIGITAL_TWIN_API_VERSION,
-                hostName: connectionInformation.connectionInfo.hostName,
-                httpMethod: HTTP_OPERATION_TYPES.Get,
-                path: `/digitalTwins/${deviceId}/interfaces`,
-                sharedAccessSignature: connectionInformation.sasToken
-            };
-
-            const serviceRequestParams = {
-                body: JSON.stringify(dataPlaneRequest),
-                cache: 'no-cache',
-                credentials: 'include',
-                headers,
-                method: HTTP_OPERATION_TYPES.Post,
-                mode: 'cors',
-            };
-
-            expect(fetch).toBeCalledWith(DataplaneService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
-            expect(result).toEqual(digitalTwin);
-        });
-
-        it('throws Error when promise rejects', async () => {
-            window.fetch = jest.fn().mockRejectedValueOnce(new Error('Internal server error'));
-            await expect(DigitalTwinService.fetchDigitalTwinInterfaceProperties({
-                ...parameters,
-                digitalTwinId: deviceId
-            })).rejects.toThrow('Internal server error');
-        });
-    });
 
     context('invokeDigitalTwinInterfaceCommand', () => {
         const parameters = {

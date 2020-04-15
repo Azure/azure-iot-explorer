@@ -85,7 +85,7 @@ export default class DeviceCommands
         return (
             <>
                 <Route component={DigitalTwinHeaderContainer} />
-                {commandSchemas && commandSchemas.length === 0 ?
+                {!commandSchemas || commandSchemas.length === 0 ?
                     <Label className="no-pnp-content">{context.t(ResourceKeys.deviceCommands.noCommands, {componentName: getComponentNameFromQueryString(this.props)})}</Label> :
                     <DeviceCommandPerInterface
                         {...this.props}

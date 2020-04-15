@@ -12,7 +12,7 @@ import { mountWithLocalization } from '../../../../shared/utils/testHelpers';
 import { PropertyContent } from '../../../../api/models/modelDefinition';
 import { ParsedJsonSchema } from '../../../../api/models/interfaceJsonParserOutput';
 import DataForm from '../shared/dataForm';
-import { InterfaceDetailCard } from '../../../../constants/iconNames';
+import { InterfaceDetailCard, INFO } from '../../../../constants/iconNames';
 
 describe('components/devices/deviceSettingsPerInterfacePerSetting', () => {
     const name = 'state';
@@ -47,10 +47,11 @@ describe('components/devices/deviceSettingsPerInterfacePerSetting', () => {
     let deviceSettingDataProps: DeviceSettingDataProps = {
         collapsed: true,
         componentName: 'sensor',
-        desiredTwin: twinValue,
         deviceId: 'deviceId',
         interfaceId: 'urn:interfaceId',
-        reportedTwin: {value: twinValue},
+        // tslint:disable-next-line: no-any
+        metadata: {desiredValue: twinValue} as any,
+        reportedTwin: twinValue,
         settingModelDefinition: propertyModelDefinition,
         settingSchema: propertySchema};
 
@@ -75,9 +76,6 @@ describe('components/devices/deviceSettingsPerInterfacePerSetting', () => {
 
         const valueLabel = wrapper.find(Label).at(3); // tslint:disable-line:no-magic-numbers
         expect(valueLabel.props().children).toEqual('true');
-
-        const reportedStatus = wrapper.find(Stack);
-        expect(reportedStatus.props().children[1]).toBeUndefined();
     });
 
     it('renders when there is a writable property of complex type with sync status', () => {
@@ -90,17 +88,14 @@ describe('components/devices/deviceSettingsPerInterfacePerSetting', () => {
             'fields': []
         };
         propertySchema.type = schema;
+        const ackCode = 200;
+        const ackDescription = 'ackDescription';
         deviceSettingDataProps = {
             ...deviceSettingDataProps,
             collapsed: false,
-            desiredTwin: twinValue,
-            reportedTwin: {
-                desiredState: {
-                    code: 202,
-                    description: 'Updating'
-                },
-                value: twinValue,
-            },
+            // tslint:disable-next-line: no-any
+            metadata: { ackCode, ackDescription, desiredValue: twinValue } as any,
+            reportedTwin: twinValue,
             settingModelDefinition: propertyModelDefinition,
             settingSchema: propertySchema
         };
@@ -129,13 +124,15 @@ describe('components/devices/deviceSettingsPerInterfacePerSetting', () => {
         expect(handleOverlayToggle).toBeCalled();
 
         const reportedStatus = wrapper.find(Stack);
-        expect(reportedStatus.props().children[1]).toBeDefined();
+        expect(reportedStatus.props().children[1].props.children.props.children).toEqual(`(${ackCode})`);
+        expect(reportedStatus.props().children[1].props.children.props.tooltipText).toEqual(ackDescription);
 
         const form = wrapper.find(DataForm);
         expect(form.props().formData).toEqual(twinValue);
 
-        const toggleButton = wrapper.find(IconButton).at(1);
-        expect(toggleButton.props().iconProps).toEqual({iconName: InterfaceDetailCard.CLOSE});
+        const toggleButtons = wrapper.find(IconButton);
+        expect(toggleButtons.first().props().iconProps).toEqual({iconName: INFO});
+        expect(toggleButtons.at(1).props().iconProps).toEqual({iconName: InterfaceDetailCard.CLOSE});
 
         const header = wrapper.find('header');
         header.props().onClick(null);

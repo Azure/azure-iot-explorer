@@ -34,49 +34,11 @@ exports[`components/devices/deviceSettings matches snapshot while interface cann
   <Route
     component={[Function]}
   />
-  <DeviceSettingsPerInterface
-    componentName="environmentalSensor"
-    deviceId={null}
-    history={
-      Object {
-        "location": Object {
-          "pathname": "/#/devices/deviceDetail/ioTPlugAndPlay/ioTPlugAndPlayDetail/settings/?id=device1&componentName=foo&interfaceId=urn:contoso:com:EnvironmentalSensor:1",
-        },
-      }
-    }
-    interfaceId="urn:contoso:com:EnvironmentalSensor:1"
-    isLoading={false}
-    location={
-      Object {
-        "pathname": "/#/devices/deviceDetail/ioTPlugAndPlay/ioTPlugAndPlayDetail/settings/?id=device1&componentName=foo&interfaceId=urn:contoso:com:EnvironmentalSensor:1",
-      }
-    }
-    match={Object {}}
-    patchDigitalTwinInterfaceProperties={[MockFunction]}
-    refresh={[MockFunction]}
-    setComponentName={
-      [MockFunction] {
-        "calls": Array [
-          Array [
-            null,
-          ],
-          Array [
-            null,
-          ],
-        ],
-        "results": Array [
-          Object {
-            "type": "return",
-            "value": undefined,
-          },
-          Object {
-            "type": "return",
-            "value": undefined,
-          },
-        ],
-      }
-    }
-  />
+  <StyledLabelBase
+    className="no-pnp-content"
+  >
+    deviceSettings.noSettings
+  </StyledLabelBase>
 </Fragment>
 `;
 
