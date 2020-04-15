@@ -113,14 +113,14 @@ export default class DirectMethod extends React.Component<DirectMethodProps & Ro
 
     private readonly renderMethodsName = (context: LocalizationContextInterface) => {
         return (
-                <TextField
-                    label={context.t(ResourceKeys.directMethod.methodName)}
-                    ariaLabel={context.t(ResourceKeys.directMethod.methodName)}
-                    value={this.state.methodName}
-                    onChange={this.onMethodNameChange}
-                    required={true}
-                    placeholder={context.t(ResourceKeys.directMethod.methodNamePlaceHolder)}
-                />
+            <TextField
+                label={context.t(ResourceKeys.directMethod.methodName)}
+                ariaLabel={context.t(ResourceKeys.directMethod.methodName)}
+                value={this.state.methodName}
+                onChange={this.onMethodNameChange}
+                required={true}
+                placeholder={context.t(ResourceKeys.directMethod.methodNamePlaceHolder)}
+            />
         );
     }
 
@@ -201,10 +201,8 @@ export default class DirectMethod extends React.Component<DirectMethodProps & Ro
     }
 
     private readonly onMethodNameChange = (event: React.FormEvent, value?: string) => {
-        if (!!value) {
-            this.setState({
-                methodName: value
-            });
-        }
+        this.setState({
+            methodName: value
+        });
     }
 }
