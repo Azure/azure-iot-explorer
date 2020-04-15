@@ -1,0 +1,113 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConnectionStringEdit matches snapshot in Add Scenario 1`] = `
+<StyledPanelBase
+  closeButtonAriaLabel="connectionStrings.editConnection.cancel.ariaLabel.add"
+  isBlocking={true}
+  isFooterAtBottom={true}
+  isOpen={true}
+  onDismiss={[MockFunction]}
+  onRenderFooter={[Function]}
+  onRenderHeader={[Function]}
+  type={3}
+>
+  <div
+    className="connection-string-edit-body"
+  >
+    <StyledTextFieldBase
+      ariaLabel="connectionStrings.editConnection.editField.ariaLabel"
+      label="connectionStrings.editConnection.editField.label"
+      multiline={true}
+      onChange={[Function]}
+      placeholder="connectionStrings.editConnection.editField.placeholder"
+      required={true}
+      rows={8}
+      value=""
+    />
+  </div>
+</StyledPanelBase>
+`;
+
+exports[`ConnectionStringEdit matches snapshot in Edit / invalid scenario 1`] = `
+<StyledPanelBase
+  closeButtonAriaLabel="connectionStrings.editConnection.cancel.ariaLabel.edit"
+  isBlocking={true}
+  isFooterAtBottom={true}
+  isOpen={true}
+  onDismiss={[MockFunction]}
+  onRenderFooter={[Function]}
+  onRenderHeader={[Function]}
+  type={3}
+>
+  <div
+    className="connection-string-edit-body"
+  >
+    <StyledTextFieldBase
+      ariaLabel="connectionStrings.editConnection.editField.ariaLabel"
+      label="connectionStrings.editConnection.editField.label"
+      multiline={true}
+      onChange={[Function]}
+      placeholder="connectionStrings.editConnection.editField.placeholder"
+      required={true}
+      rows={8}
+      value="connectionString"
+    />
+  </div>
+</StyledPanelBase>
+`;
+
+exports[`ConnectionStringEdit matches snapshot in Edit / valid scenario 1`] = `
+<StyledPanelBase
+  closeButtonAriaLabel="connectionStrings.editConnection.cancel.ariaLabel.edit"
+  isBlocking={true}
+  isFooterAtBottom={true}
+  isOpen={true}
+  onDismiss={[MockFunction]}
+  onRenderFooter={[Function]}
+  onRenderHeader={[Function]}
+  type={3}
+>
+  <div
+    className="connection-string-edit-body"
+  >
+    <StyledTextFieldBase
+      ariaLabel="connectionStrings.editConnection.editField.ariaLabel"
+      label="connectionStrings.editConnection.editField.label"
+      multiline={true}
+      onChange={[Function]}
+      placeholder="connectionStrings.editConnection.editField.placeholder"
+      required={true}
+      rows={8}
+      value="HostName=test.azure-devices-int.net;SharedAccessKeyName=iothubowner;SharedAccessKey=key"
+    />
+  </div>
+</StyledPanelBase>
+`;
+
+exports[`ConnectionStringEdit matches snapshot in Edit Scenario 1`] = `
+<StyledPanelBase
+  closeButtonAriaLabel="connectionStrings.editConnection.cancel.ariaLabel.edit"
+  isBlocking={true}
+  isFooterAtBottom={true}
+  isOpen={true}
+  onDismiss={[MockFunction]}
+  onRenderFooter={[Function]}
+  onRenderHeader={[Function]}
+  type={3}
+>
+  <div
+    className="connection-string-edit-body"
+  >
+    <StyledTextFieldBase
+      ariaLabel="connectionStrings.editConnection.editField.ariaLabel"
+      label="connectionStrings.editConnection.editField.label"
+      multiline={true}
+      onChange={[Function]}
+      placeholder="connectionStrings.editConnection.editField.placeholder"
+      required={true}
+      rows={8}
+      value="connectionString"
+    />
+  </div>
+</StyledPanelBase>
+`;

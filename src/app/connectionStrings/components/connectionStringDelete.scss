@@ -1,0 +1,20 @@
+/***********************************************************
+* Copyright (c) Microsoft Corporation. All rights reserved.
+* Licensed under the MIT License
+**********************************************************/
+@import '../../css/themes';
+@import '../../css/variables';
+
+.connection-string-delete {
+    textArea {
+        resize: vertical;
+        margin-top: 5px;
+        margin-bottom: 5px;
+
+        @include themify($themes) {
+            border: 1px solid themed('borderColor');
+            background-color: themed('backgroundColor');
+            color: themed('textColor');
+        }
+    }
+}

@@ -47,3 +47,5 @@ export const CLEAR = 'CLEAR';
 export const DELETE = 'DELETE';
 export const READ = 'READ';
 export const SET = 'SET';
+export const UPSERT = 'UPSERT';
+export const UPDATE = 'UPDATE';

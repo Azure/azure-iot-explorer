@@ -107,6 +107,83 @@ export class ResourceKeys {
          },
       },
    };
+   public static connectionStrings = {
+      addConnectionCommand : {
+         ariaLabel : "connectionStrings.addConnectionCommand.ariaLabel",
+         label : "connectionStrings.addConnectionCommand.label",
+      },
+      copyConnectionCommand : {
+         ariaLabel : "connectionStrings.copyConnectionCommand.ariaLabel",
+         label : "connectionStrings.copyConnectionCommand.label",
+      },
+      deleteConnection : {
+         body : "connectionStrings.deleteConnection.body",
+         input : "connectionStrings.deleteConnection.input",
+         no : {
+            ariaLabel : "connectionStrings.deleteConnection.no.ariaLabel",
+            label : "connectionStrings.deleteConnection.no.label",
+         },
+         title : "connectionStrings.deleteConnection.title",
+         yes : {
+            ariaLabel : "connectionStrings.deleteConnection.yes.ariaLabel",
+            label : "connectionStrings.deleteConnection.yes.label",
+         },
+      },
+      deleteConnectionCommand : {
+         ariaLabel : "connectionStrings.deleteConnectionCommand.ariaLabel",
+         label : "connectionStrings.deleteConnectionCommand.label",
+      },
+      editConnection : {
+         cancel : {
+            ariaLabel : {
+               add : "connectionStrings.editConnection.cancel.ariaLabel.add",
+               edit : "connectionStrings.editConnection.cancel.ariaLabel.edit",
+            },
+            label : "connectionStrings.editConnection.cancel.label",
+         },
+         editField : {
+            ariaLabel : "connectionStrings.editConnection.editField.ariaLabel",
+            label : "connectionStrings.editConnection.editField.label",
+            placeholder : "connectionStrings.editConnection.editField.placeholder",
+         },
+         save : {
+            ariaLabel : "connectionStrings.editConnection.save.ariaLabel",
+            label : "connectionStrings.editConnection.save.label",
+         },
+         title : {
+            add : "connectionStrings.editConnection.title.add",
+            edit : "connectionStrings.editConnection.title.edit",
+         },
+         validations : {
+            duplicate : "connectionStrings.editConnection.validations.duplicate",
+         },
+      },
+      editConnectionCommand : {
+         ariaLabel : "connectionStrings.editConnectionCommand.ariaLabel",
+         label : "connectionStrings.editConnectionCommand.label",
+      },
+      properties : {
+         connectionString : {
+            ariaLabel : "connectionStrings.properties.connectionString.ariaLabel",
+            label : "connectionStrings.properties.connectionString.label",
+         },
+         hostName : {
+            ariaLabel : "connectionStrings.properties.hostName.ariaLabel",
+            label : "connectionStrings.properties.hostName.label",
+         },
+         sharedAccessPolicyKey : {
+            ariaLabel : "connectionStrings.properties.sharedAccessPolicyKey.ariaLabel",
+            label : "connectionStrings.properties.sharedAccessPolicyKey.label",
+         },
+         sharedAccessPolicyName : {
+            ariaLabel : "connectionStrings.properties.sharedAccessPolicyName.ariaLabel",
+            label : "connectionStrings.properties.sharedAccessPolicyName.label",
+         },
+      },
+      visitConnectionCommand : {
+         ariaLabel : "connectionStrings.visitConnectionCommand.ariaLabel",
+      },
+   };
    public static connectivityPane = {
       connectionStringComboBox : {
          ariaLabel : "connectivityPane.connectionStringComboBox.ariaLabel",
