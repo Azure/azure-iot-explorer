@@ -435,12 +435,6 @@
             "syncing": "syncing",
             "failed": "failed"
         },
-        "desiredState": {
-            "success": "Success",
-            "synching": "Synching...",
-            "error": "Error",
-            "unknown": "Status Code: {{code}}"
-        },
         "columns": {
             "name": "Name (Display Name / Description)",
             "schema": "Schema",

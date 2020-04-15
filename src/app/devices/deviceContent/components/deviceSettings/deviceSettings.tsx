@@ -87,7 +87,7 @@ export default class DeviceSettings
         return (
             <>
                 <Route component={DigitalTwinHeaderContainer} />
-                {twinWithSchema && twinWithSchema.length === 0 ?
+                {!twinWithSchema || twinWithSchema.length === 0 ?
                     <Label className="no-pnp-content">{context.t(ResourceKeys.deviceSettings.noSettings, {componentName: getComponentNameFromQueryString(this.props)})}</Label> :
                     <DeviceSettingPerInterface
                         {...this.props}

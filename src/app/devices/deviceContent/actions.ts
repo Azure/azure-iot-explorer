@@ -15,13 +15,12 @@ const clearModelDefinitionsAction = deviceContentCreator(actionTypes.CLEAR_MODEL
 const cloudToDeviceMessageAction = deviceContentCreator.async<CloudToDeviceMessageActionParameters, string>(actionTypes.CLOUD_TO_DEVICE_MESSAGE);
 const getDeviceIdentityAction = deviceContentCreator.async<string, DeviceIdentity> (actionTypes.GET_DEVICE_IDENTITY);
 const getDigitalTwinAction = deviceContentCreator.async<string, object>(actionTypes.GET_DIGITAL_TWIN);
-const getDigitalTwinInterfacePropertiesAction = deviceContentCreator.async<string, DigitalTwinInterfaces>(actionTypes.GET_DIGITAL_TWIN_INTERFACE_PROPERTIES);
 const getTwinAction = deviceContentCreator.async<string, Twin>(actionTypes.GET_TWIN);
 const getModelDefinitionAction = deviceContentCreator.async<GetModelDefinitionActionParameters, ModelDefinitionWithSource>(actionTypes.FETCH_MODEL_DEFINITION);
 const invokeDirectMethodAction = deviceContentCreator.async<InvokeMethodActionParameters, string>(actionTypes.INVOKE_DEVICE_METHOD);
 const invokeDigitalTwinInterfaceCommandAction = deviceContentCreator.async<InvokeDigitalTwinInterfaceCommandActionParameters, string>(actionTypes.INVOKE_DIGITAL_TWIN_INTERFACE_COMMAND);
 const patchDigitalTwinInterfacePropertiesAction = deviceContentCreator.async<PatchDigitalTwinInterfacePropertiesActionParameters, DigitalTwinInterfaces>(actionTypes.PATCH_DIGITAL_TWIN_INTERFACE_PROPERTIES);
-const setComponentNameAction = deviceContentCreator<string>(actionTypes.SET_INTERFACE_ID);
+const setComponentNameAction = deviceContentCreator<string>(actionTypes.SET_COMPONENT_NAME);
 const updateDeviceIdentityAction = deviceContentCreator.async<DeviceIdentity, DeviceIdentity> (actionTypes.UPDATE_DEVICE_IDENTITY);
 const updateTwinAction = deviceContentCreator.async<UpdateTwinActionParameters, Twin>(actionTypes.UPDATE_TWIN);
 
@@ -30,7 +29,6 @@ export {
     cloudToDeviceMessageAction,
     getDeviceIdentityAction,
     getDigitalTwinAction,
-    getDigitalTwinInterfacePropertiesAction,
     getTwinAction,
     getModelDefinitionAction,
     invokeDirectMethodAction,

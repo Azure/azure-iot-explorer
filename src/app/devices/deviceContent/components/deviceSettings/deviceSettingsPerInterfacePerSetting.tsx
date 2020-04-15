@@ -14,12 +14,12 @@ import { PropertyContent } from '../../../../api/models/modelDefinition';
 import ComplexReportedFormPanel from '../shared/complexReportedFormPanel';
 import DataForm from '../shared/dataForm';
 import { RenderSimplyTypeValue } from '../shared/simpleReportedSection';
-import { RenderDesiredState } from '../shared/desiredStateStatus';
+import LabelWithTooltip from '../../../../shared/components/labelWithTooltip';
 import { PatchDigitalTwinInterfacePropertiesActionParameters } from '../../actions';
 import { generateInterfacePropertiesPayload } from '../../sagas/digitalTwinInterfacePropertySaga';
-import { Reported } from '../../../../api/models/digitalTwinModels';
 import ErrorBoundary from '../../../errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
+import { MetadataSection } from './selectors';
 import '../../../../css/_deviceSettings.scss';
 
 export interface DeviceSettingDataProps extends TwinWithSchema {
@@ -36,9 +36,8 @@ export interface DeviceSettingDispatchProps {
 }
 
 export interface TwinWithSchema {
-    desiredTwin: any; // tslint:disable-line: no-any
-    reportedTwin: Reported;
-
+    metadata: MetadataSection;
+    reportedTwin: boolean | string | number | object;
     settingModelDefinition: PropertyContent;
     settingSchema: ParsedJsonSchema;
 }
@@ -85,7 +84,7 @@ export default class DeviceSettingsPerInterfacePerSetting
                 {this.renderPropertyName(context)}
                 {this.renderPropertySchema(context)}
                 {this.renderPropertyUnit(context)}
-                {this.renderPropertyReportedValue(context)}
+                {this.renderReportedValueAndMetadata(context)}
                 {this.renderCollapseButton(context)}
             </header>
         );
@@ -115,8 +114,8 @@ export default class DeviceSettingsPerInterfacePerSetting
         return <div className="col-sm2"><Label aria-label={ariaLabel}>{unit ? unit : '--'}</Label></div>;
     }
 
-    private readonly renderPropertyReportedValue = (context: LocalizationContextInterface) => {
-        const { reportedTwin } = this.props;
+    private readonly renderReportedValueAndMetadata = (context: LocalizationContextInterface) => {
+        const { metadata } = this.props;
         const ariaLabel = context.t(ResourceKeys.deviceSettings.columns.reportedValue);
         return (
             <div className="column-value-text col-sm4" aria-label={ariaLabel}>
@@ -124,9 +123,11 @@ export default class DeviceSettingsPerInterfacePerSetting
                     <Stack.Item align="start" className="reported-property">
                         {this.renderReportedValue(context)}
                     </Stack.Item>
-                    {reportedTwin && reportedTwin.desiredState &&
+                    {metadata &&
                         <Stack.Item align="start">
-                            {RenderDesiredState(reportedTwin.desiredState)}
+                            <LabelWithTooltip tooltipText={metadata.ackDescription}>
+                                {metadata.ackCode && `(${metadata.ackCode})`}
+                            </LabelWithTooltip>
                         </Stack.Item>
                     }
                 </Stack>
@@ -141,7 +142,7 @@ export default class DeviceSettingsPerInterfacePerSetting
                 {reportedTwin || typeof reportedTwin === 'boolean' ?
                     (this.isSchemaSimpleType() ?
                         RenderSimplyTypeValue(
-                            reportedTwin.value,
+                            reportedTwin,
                             this.props.settingSchema,
                             context.t(ResourceKeys.deviceSettings.columns.error)) :
                         <ActionButton
@@ -217,7 +218,7 @@ export default class DeviceSettingsPerInterfacePerSetting
         return (
             <DataForm
                 buttonText={ResourceKeys.deviceSettings.command.submit}
-                formData={this.props.desiredTwin}
+                formData={this.props.metadata && this.props.metadata.desiredValue}
                 settingSchema={this.props.settingSchema}
                 handleSave={this.onSubmit}
                 craftPayload={this.createSettingsPayload}

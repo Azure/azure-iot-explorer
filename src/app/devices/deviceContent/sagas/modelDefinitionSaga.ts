@@ -8,19 +8,18 @@ import { fetchModelDefinition, validateModelDefinitions } from '../../../api/ser
 import { addNotificationAction } from '../../../notifications/actions';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { getModelDefinitionAction, GetModelDefinitionActionParameters, getDigitalTwinInterfacePropertiesAction } from '../actions';
+import { getModelDefinitionAction, GetModelDefinitionActionParameters } from '../actions';
 import { FetchModelParameters } from '../../../api/parameters/repoParameters';
 import { getRepoTokenSaga } from '../../../settings/sagas/getRepoTokenSaga';
 import { getRepositoryLocationSettingsSelector, getPublicRepositoryHostName, getLocalFolderPath } from '../../../settings/selectors';
 import { RepositoryLocationSettings } from '../../../settings/state';
 import { REPOSITORY_LOCATION_TYPE } from './../../../constants/repositoryLocationTypes';
 import { getRepoConnectionInfoFromConnectionString } from '../../../api/shared/utils';
-import { invokeDigitalTwinInterfaceCommand, fetchDigitalTwinInterfaceProperties } from '../../../api/services/digitalTwinService';
+import { invokeDigitalTwinInterfaceCommand } from '../../../api/services/digitalTwinService';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { getComponentNameAndInterfaceIdArraySelector, ComponentAndInterfaceId } from '../selectors';
 import { InterfaceNotImplementedException } from './../../../shared/utils/exceptions/interfaceNotImplementedException';
 import { modelDefinitionInterfaceId, modelDefinitionCommandName } from '../../../constants/modelDefinitionConstants';
-import { FetchDigitalTwinInterfacePropertiesParameters } from '../../../api/parameters/deviceParameters';
 import { fetchLocalFile } from './../../../api/services/localRepoService';
 import { ModelDefinition } from './../../../api/models/modelDefinition';
 import { ModelDefinitionNotValidJsonError } from '../../../api/models/modelDefinitionNotValidJsonError';
@@ -108,21 +107,7 @@ export function* getModelDefinitionFromLocalFile(action: Action<GetModelDefiniti
 }
 
 export function* getModelDefinitionFromDevice(action: Action<GetModelDefinitionActionParameters>) {
-    // dispatch getDigitalTwinInterfacePropertiesAction to make sure it is done before selecting interfaces from the store
-    try {
-        const parameters: FetchDigitalTwinInterfacePropertiesParameters = {
-            connectionString: yield call(getActiveAzureResourceConnectionStringSaga),
-            digitalTwinId: action.payload.digitalTwinId,
-        };
-
-        const digitalTwinInterfaceProperties = yield call(fetchDigitalTwinInterfaceProperties, parameters);
-
-        yield put(getDigitalTwinInterfacePropertiesAction.done({params: action.payload.digitalTwinId, result: digitalTwinInterfaceProperties}));
-    } catch (error) {
-        yield put(getDigitalTwinInterfacePropertiesAction.failed({params: action.payload.digitalTwinId, error}));
-    }
-
-    // then check if device has implemented ${modelDefinitionInterfaceId} interface.
+    // check if device has implemented ${modelDefinitionInterfaceId} interface.
     const componentAndIs: ComponentAndInterfaceId[] = yield select(getComponentNameAndInterfaceIdArraySelector);
     const filtered = componentAndIs.filter(componentAndId => componentAndId.interfaceId === modelDefinitionInterfaceId);
     if (filtered.length === 0) {

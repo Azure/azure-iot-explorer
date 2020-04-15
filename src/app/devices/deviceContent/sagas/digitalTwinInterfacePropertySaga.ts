@@ -4,31 +4,16 @@
  **********************************************************/
 import { call, put, select } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
-import { fetchDigitalTwinInterfaceProperties, patchDigitalTwinInterfaceProperties } from '../../../api/services/digitalTwinService';
+import { patchDigitalTwinInterfaceProperties } from '../../../api/services/digitalTwinService';
 import { NotificationType } from '../../../api/models/notification';
-import { FetchDigitalTwinInterfacePropertiesParameters, PatchDigitalTwinInterfacePropertiesParameters } from '../../../api/parameters/deviceParameters';
+import { PatchDigitalTwinInterfacePropertiesParameters } from '../../../api/parameters/deviceParameters';
 import { DigitalTwinInterfaces, InterfaceModel, Property } from './../../../api/models/digitalTwinModels';
 import { patchDigitalTwinInterfacePropertiesAction } from './../actions';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
-import { getDigitalTwinInterfacePropertiesAction, PatchDigitalTwinInterfacePropertiesActionParameters } from '../actions';
+import { PatchDigitalTwinInterfacePropertiesActionParameters } from '../actions';
 import { addNotificationAction } from '../../../notifications/actions';
 import { getComponentNameSelector } from '../selectors';
-
-export function* getDigitalTwinInterfacePropertySaga(action: Action<string>) {
-    try {
-        const parameters: FetchDigitalTwinInterfacePropertiesParameters = {
-            connectionString: yield call(getActiveAzureResourceConnectionStringSaga),
-            digitalTwinId: action.payload,
-        };
-
-        const digitalTwinInterfaceProperties = yield call(fetchDigitalTwinInterfaceProperties, parameters);
-
-        yield put(getDigitalTwinInterfacePropertiesAction.done({params: action.payload, result: digitalTwinInterfaceProperties}));
-    } catch (error) {
-        yield put(getDigitalTwinInterfacePropertiesAction.failed({params: action.payload, error}));
-    }
-}
 
 export function* patchDigitalTwinInterfacePropertiesSaga(action: Action<PatchDigitalTwinInterfacePropertiesActionParameters>) {
     try {
