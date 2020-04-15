@@ -144,6 +144,7 @@
             "commands": "Commands",
             "events": "Telemetry",
             "eventsPerInterface": "Telemetry",
+            "interfaces": "Interface",
             "methods": "Direct method",
             "cloudToDeviceMessage": "Cloud-to-device message",
             "ioTPlugAndPlay": "IoT Plug and Play components",

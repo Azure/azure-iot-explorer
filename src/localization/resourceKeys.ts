@@ -165,6 +165,7 @@ export class ResourceKeys {
          eventsPerInterface : "deviceContent.navBar.eventsPerInterface",
          expand : "deviceContent.navBar.expand",
          identity : "deviceContent.navBar.identity",
+         interfaces : "deviceContent.navBar.interfaces",
          ioTPlugAndPlay : "deviceContent.navBar.ioTPlugAndPlay",
          methods : "deviceContent.navBar.methods",
          moduleDetail : "deviceContent.navBar.moduleDetail",
