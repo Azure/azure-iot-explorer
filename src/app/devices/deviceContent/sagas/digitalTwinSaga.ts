@@ -39,22 +39,11 @@ export function* patchDigitalTwinSaga(action: Action<PatchDigitalTwinActionParam
         const responseCode = yield call(patchDigitalTwinAndGetResponseCode, parameters);
         const digitalTwin = yield call(fetchDigitalTwin, {connectionString, digitalTwinId: parameters.digitalTwinId});
 
-        if (responseCode === DataPlaneStatusCode.Accepted) {
+        if (responseCode === DataPlaneStatusCode.Accepted || responseCode === DataPlaneStatusCode.SuccessLowerBound) {
             yield put(addNotificationAction.started({
                 text: {
-                    translationKey: ResourceKeys.notifications.patchDigitalTwinOnAccept,
-                    translationOptions: {
-                        deviceId: action.payload.digitalTwinId
-                    },
-                },
-                type: NotificationType.success
-            }));
-            yield put(patchDigitalTwinAction.done({params: action.payload, result: digitalTwin}));
-        }
-        else if (responseCode === DataPlaneStatusCode.SuccessLowerBound) {
-            yield put(addNotificationAction.started({
-                text: {
-                    translationKey: ResourceKeys.notifications.patchDigitalTwinOnSuccess,
+                    translationKey: responseCode === DataPlaneStatusCode.Accepted ?
+                        ResourceKeys.notifications.patchDigitalTwinOnAccept : ResourceKeys.notifications.patchDigitalTwinOnSuccess,
                     translationOptions: {
                         deviceId: action.payload.digitalTwinId
                     },
