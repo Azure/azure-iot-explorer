@@ -9,17 +9,15 @@ import { GET_TWIN,
     CLEAR_MODEL_DEFINITIONS,
     GET_DEVICE_IDENTITY,
     FETCH_MODEL_DEFINITION,
-    GET_DIGITAL_TWIN_INTERFACE_PROPERTIES,
     PATCH_DIGITAL_TWIN_INTERFACE_PROPERTIES,
     UPDATE_DEVICE_IDENTITY,
-    SET_INTERFACE_ID,
+    SET_COMPONENT_NAME,
     GET_DIGITAL_TWIN
   } from '../../constants/actionTypes';
 import { getTwinAction,
     getModelDefinitionAction,
     clearModelDefinitionsAction,
     getDeviceIdentityAction,
-    getDigitalTwinInterfacePropertiesAction,
     patchDigitalTwinInterfacePropertiesAction,
     updateDeviceIdentityAction,
     setComponentNameAction,
@@ -123,7 +121,7 @@ describe('deviceContentStateReducer', () => {
             expect(reducer(initialState(), action).modelDefinitionWithSource).toEqual(null);
         });
 
-        it (`handles ${SET_INTERFACE_ID} action`, () => {
+        it (`handles ${SET_COMPONENT_NAME} action`, () => {
             const action = setComponentNameAction('testId');
             expect(reducer(deviceContentStateInitial(), action).componentNameSelected).toEqual('testId');
         });
@@ -322,21 +320,6 @@ describe('deviceContentStateReducer', () => {
             "version": 2
         };
         /* tslint:enable */
-
-        it (`handles ${GET_DIGITAL_TWIN_INTERFACE_PROPERTIES}/ACTION_START action`, () => {
-            const action = getDigitalTwinInterfacePropertiesAction.started(deviceId);
-            expect(reducer(deviceContentStateInitial(), action).digitalTwinInterfaceProperties.synchronizationStatus).toEqual(SynchronizationStatus.working);
-        });
-
-        it (`handles ${GET_DIGITAL_TWIN_INTERFACE_PROPERTIES}/ACTION_DONE action`, () => {
-            const action = getDigitalTwinInterfacePropertiesAction.done({params: deviceId, result: digitalTwinInterfaceProperties});
-            expect(reducer(deviceContentStateInitial(), action).digitalTwinInterfaceProperties.payload).toEqual(digitalTwinInterfaceProperties);
-        });
-
-        it (`handles ${GET_DIGITAL_TWIN_INTERFACE_PROPERTIES}/ACTION_FAILED action`, () => {
-            const action = getDigitalTwinInterfacePropertiesAction.failed({error: -1, params: deviceId});
-            expect(reducer(deviceContentStateInitial(), action).digitalTwinInterfaceProperties.synchronizationStatus).toEqual(SynchronizationStatus.failed);
-        });
 
         let initialState = deviceContentStateInitial();
         initialState = initialState.merge({

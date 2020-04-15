@@ -9,13 +9,13 @@ import { AnyAction } from 'typescript-fsa';
 import { StateType } from '../../../../shared/redux/state';
 import DeviceProperties, { DevicePropertiesDataProps, DevicePropertiesDispatchProps } from './deviceProperties';
 import { getDevicePropertyTupleSelector } from './selectors';
-import { setComponentNameAction, getDigitalTwinInterfacePropertiesAction, getModelDefinitionAction } from '../../actions';
+import { setComponentNameAction, getModelDefinitionAction, getDigitalTwinAction } from '../../actions';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
-import { getModelDefinitionSyncStatusSelector, getDigitalTwinInterfacePropertiesStateSelector } from '../../selectors';
+import { getModelDefinitionSyncStatusSelector, getDigitalTwinSynchronizationStatusSelector } from '../../selectors';
 
 const mapStateToProps = (state: StateType): DevicePropertiesDataProps => {
     return {
-        isLoading: getDigitalTwinInterfacePropertiesStateSelector(state) === SynchronizationStatus.working ||
+        isLoading: getDigitalTwinSynchronizationStatusSelector(state) === SynchronizationStatus.working ||
             getModelDefinitionSyncStatusSelector(state) === SynchronizationStatus.working,
         twinAndSchema: getDevicePropertyTupleSelector(state)
     };
@@ -24,7 +24,7 @@ const mapStateToProps = (state: StateType): DevicePropertiesDataProps => {
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DevicePropertiesDispatchProps => {
     return {
         refresh: (deviceId: string, interfaceId: string) => {
-            dispatch(getDigitalTwinInterfacePropertiesAction.started(deviceId));
+            dispatch(getDigitalTwinAction.started(deviceId));
             dispatch(getModelDefinitionAction.started({digitalTwinId: deviceId, interfaceId}));
         },
         setComponentName: (id: string) => dispatch(setComponentNameAction(id))

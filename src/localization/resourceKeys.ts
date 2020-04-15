@@ -576,12 +576,6 @@ export class ResourceKeys {
          refresh : "deviceSettings.command.refresh",
          submit : "deviceSettings.command.submit",
       },
-      desiredState : {
-         error : "deviceSettings.desiredState.error",
-         success : "deviceSettings.desiredState.success",
-         synching : "deviceSettings.desiredState.synching",
-         unknown : "deviceSettings.desiredState.unknown",
-      },
       headerText : "deviceSettings.headerText",
       noSettings : "deviceSettings.noSettings",
       panel : {

@@ -4,7 +4,6 @@
  **********************************************************/
 import {
     FetchDigitalTwinParameters,
-    FetchDigitalTwinInterfacePropertiesParameters,
     PatchDigitalTwinInterfacePropertiesParameters,
     InvokeDigitalTwinInterfaceCommandParameters
 } from '../parameters/deviceParameters';
@@ -24,25 +23,6 @@ export const fetchDigitalTwin = async (parameters: FetchDigitalTwinParameters) =
         hostName: connectionInformation.connectionInfo.hostName,
         httpMethod: HTTP_OPERATION_TYPES.Get,
         path: `/digitalTwins/${parameters.digitalTwinId}`,
-        sharedAccessSignature: connectionInformation.sasToken
-    };
-
-    const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
-    const result = await dataPlaneResponseHelper(response);
-    return result.body;
-};
-
-export const fetchDigitalTwinInterfaceProperties = async (parameters: FetchDigitalTwinInterfacePropertiesParameters): Promise<DigitalTwinInterfaces> => {
-    if (!parameters.digitalTwinId) {
-        return;
-    }
-
-    const connectionInformation = dataPlaneConnectionHelper(parameters);
-    const dataPlaneRequest: DataPlaneRequest = {
-        apiVersion: DIGITAL_TWIN_API_VERSION,
-        hostName: connectionInformation.connectionInfo.hostName,
-        httpMethod: HTTP_OPERATION_TYPES.Get,
-        path: `/digitalTwins/${parameters.digitalTwinId}/interfaces`,
         sharedAccessSignature: connectionInformation.sasToken
     };
 

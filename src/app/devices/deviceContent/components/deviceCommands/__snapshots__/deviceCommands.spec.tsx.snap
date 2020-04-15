@@ -34,48 +34,11 @@ exports[`components/devices/deviceCommands matches snapshot while interface cann
   <Route
     component={[Function]}
   />
-  <DeviceCommandsPerInterface
-    componentName={null}
-    deviceId={null}
-    history={
-      Object {
-        "location": Object {
-          "pathname": "/#/devices/deviceDetail/ioTPlugAndPlay/ioTPlugAndPlayDetail/commands/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1",
-        },
-      }
-    }
-    invokeDigitalTwinInterfaceCommand={[MockFunction]}
-    isLoading={false}
-    location={
-      Object {
-        "pathname": "/#/devices/deviceDetail/ioTPlugAndPlay/ioTPlugAndPlayDetail/commands/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1",
-      }
-    }
-    match={Object {}}
-    refresh={[MockFunction]}
-    setComponentName={
-      [MockFunction] {
-        "calls": Array [
-          Array [
-            null,
-          ],
-          Array [
-            null,
-          ],
-        ],
-        "results": Array [
-          Object {
-            "type": "return",
-            "value": undefined,
-          },
-          Object {
-            "type": "return",
-            "value": undefined,
-          },
-        ],
-      }
-    }
-  />
+  <StyledLabelBase
+    className="no-pnp-content"
+  >
+    deviceCommands.noCommands
+  </StyledLabelBase>
 </Fragment>
 `;
 

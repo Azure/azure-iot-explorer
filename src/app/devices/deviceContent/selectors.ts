@@ -68,26 +68,6 @@ const filterTelemetry = (content: ComponentContent) => {
 //#endregion
 
 //#region DigitalTwin-related selectors
-export const getDigitalTwinInterfacePropertiesWrapperSelector = (state: StateInterface): SynchronizationWrapper<DigitalTwinInterfaces> => {
-    return state &&
-        state.deviceContentState &&
-        state.deviceContentState.digitalTwinInterfaceProperties;
-};
-
-export const getDigitalTwinInterfacePropertiesStateSelector = createSelector(
-    getDigitalTwinInterfacePropertiesWrapperSelector,
-    properties => {
-        return properties && properties.synchronizationStatus;
-    }
-);
-
-export const getDigitalTwinInterfacePropertiesSelector = (state: StateInterface): DigitalTwinInterfaces => {
-    return state &&
-        state.deviceContentState &&
-        state.deviceContentState.digitalTwinInterfaceProperties &&
-        state.deviceContentState.digitalTwinInterfaceProperties.payload;
-};
-
 export const getDigitalTwinSynchronizationStatusSelector = (state: StateInterface): SynchronizationStatus => {
     return state &&
         state.deviceContentState &&
@@ -96,7 +76,7 @@ export const getDigitalTwinSynchronizationStatusSelector = (state: StateInterfac
 };
 
 // tslint:disable-next-line:no-any
-const getDigitalTwinSelector = (state: StateInterface): any => {
+export const getDigitalTwinSelector = (state: StateInterface): any => {
     return state &&
         state.deviceContentState &&
         state.deviceContentState.digitalTwin &&

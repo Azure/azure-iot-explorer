@@ -29,7 +29,6 @@ export interface DeviceTwinDataProps {
 export interface DeviceTwinDispatchProps {
     getDeviceTwin: (deviceId: string) => void;
     updateDeviceTwin: (parameters: UpdateTwinActionParameters) => void;
-    refreshDigitalTwin: (deviceId: string) => void;
 }
 
 export interface DeviceTwinState {
@@ -79,8 +78,6 @@ export default class DeviceTwin
         if (props.twin && props.twinState !== SynchronizationStatus.working && props.twinState !== SynchronizationStatus.updating) {
             if (!state.isDirty) {
                 if (state.needsRefresh && props.twinState === SynchronizationStatus.upserted) {
-                    // after device twin has been updated, refresh digital twin
-                    props.refreshDigitalTwin(getDeviceIdFromQueryString(props));
                     return {
                         needsRefresh: false,
                         twin: JSON.stringify(props.twin, null, '\t')
