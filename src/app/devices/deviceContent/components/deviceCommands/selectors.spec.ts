@@ -14,29 +14,6 @@ describe('getDeviceCommandPairs', () => {
         const state = getInitialState();
         const interfaceId = 'urn:contoso:com:environmentalsensor:1';
         /* tslint:disable */
-        const digitalTwinInterfaceProperties = {
-            "interfaces": {
-                "urn_azureiot_ModelDiscovery_DigitalTwin": {
-                    "name": "urn_azureiot_ModelDiscovery_DigitalTwin",
-                    "properties": {
-                        "modelInformation": {
-                            "reported": {
-                                "value": {
-                                    "modelId": "urn:contoso:com:dcm:2",
-                                    "interfaces": {
-                                        "environmentalsensor": interfaceId,
-                                        "urn_azureiot_ModelDiscovery_ModelInformation": "urn:azureiot:ModelDiscovery:ModelInformation:1",
-                                        "urn_azureiot_ModelDiscovery_DigitalTwin": "urn:azureiot:ModelDiscovery:DigitalTwin:1"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "version": 1
-        };
-
         const modelDefinition: ModelDefinition = {
             "@id": interfaceId,
             "@type": "Interface",
@@ -65,14 +42,10 @@ describe('getDeviceCommandPairs', () => {
             componentNameSelected: 'environmentalSensor',
             deviceIdentity: null,
             deviceTwin: null,
-            digitalTwin:null,
-            digitalTwinInterfaceProperties: {
-                payload: digitalTwinInterfaceProperties,
-                synchronizationStatus: SynchronizationStatus.fetched
-            },
+            digitalTwin: null,
             modelDefinitionWithSource: {
                 payload: {
-                    isModelValid: true,,
+                    isModelValid: true,
                     modelDefinition,
                     source: null,
                 },
@@ -101,11 +74,13 @@ describe('getDeviceCommandPairs', () => {
                     name: 'blink',
                     requestSchema: {
                         description: '',
+                        required: null,
                         title: 'blinkRequest',
                         type: 'number'
                     },
                     responseSchema: {
                         description: '',
+                        required: null,
                         title: 'blinkResponse',
                         type: 'string'
                     }

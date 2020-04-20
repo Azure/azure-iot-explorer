@@ -5,13 +5,12 @@
 import * as React from 'react';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import { Overlay } from 'office-ui-fabric-react/lib/Overlay';
-import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip';
-import { getId } from 'office-ui-fabric-react/lib/Utilities';
 import DeviceSettingPerInterfacePerSetting, { TwinWithSchema } from './deviceSettingsPerInterfacePerSetting';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
-import { PatchDigitalTwinInterfacePropertiesActionParameters } from '../../actions';
-import { INFO, InterfaceDetailCard } from '../../../../constants/iconNames';
+import { PatchDigitalTwinActionParameters } from '../../actions';
+import { InterfaceDetailCard } from '../../../../constants/iconNames';
+import LabelWithTooltip from '../../../../shared/components/labelWithTooltip';
 import '../../../../css/_devicePnpDetailList.scss';
 
 export interface DeviceSettingDataProps {
@@ -22,7 +21,7 @@ export interface DeviceSettingDataProps {
 }
 
 export interface DeviceSettingDispatchProps {
-    patchDigitalTwinInterfaceProperties: (parameters: PatchDigitalTwinInterfacePropertiesActionParameters) => void;
+    patchDigitalTwin: (parameters: PatchDigitalTwinActionParameters) => void;
 }
 
 export interface DeviceSettingState {
@@ -48,8 +47,6 @@ export default class DeviceSettingsPerInterface
         };
     }
 
-    private tooltipHostId = getId('tooltipHost');
-
     public render(): JSX.Element {
         const { twinWithSchema} = this.props;
 
@@ -73,18 +70,9 @@ export default class DeviceSettingsPerInterface
                             <span className="col-sm2">{context.t(ResourceKeys.deviceSettings.columns.schema)}</span>
                             <span className="col-sm2">{context.t(ResourceKeys.deviceSettings.columns.unit)}</span>
                             <span className="col-sm4 reported-value">
-                                {context.t(ResourceKeys.deviceSettings.columns.reportedValue)}
-                                <TooltipHost
-                                    content={context.t(ResourceKeys.deviceSettings.columns.reportedValueTooltip)}
-                                    calloutProps={{ gapSpace: 0 }}
-                                    styles={{ root: { display: 'inline-flex'} }}
-                                    id={this.tooltipHostId}
-                                >
-                                    <IconButton
-                                        iconProps={{ iconName: INFO }}
-                                        aria-labelledby={this.tooltipHostId}
-                                    />
-                                </TooltipHost>
+                                <LabelWithTooltip tooltipText={context.t(ResourceKeys.deviceSettings.columns.reportedValueTooltip)}>
+                                    {context.t(ResourceKeys.deviceSettings.columns.reportedValue)}
+                                </LabelWithTooltip>
                             </span>
                             {this.renderCollapseAllButton(context)}
                         </div>

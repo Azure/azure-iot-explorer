@@ -14,29 +14,6 @@ describe('getDeviceCommandPairs', () => {
         const state = getInitialState();
         const interfaceId = 'urn:contoso:com:environmentalsensor:1';
         /* tslint:disable */
-        const digitalTwinInterfaceProperties = {
-            "interfaces": {
-                "urn_azureiot_ModelDiscovery_DigitalTwin": {
-                    "name": "urn_azureiot_ModelDiscovery_DigitalTwin",
-                    "properties": {
-                        "modelInformation": {
-                            "reported": {
-                                "value": {
-                                    "modelId": "urn:contoso:com:dcm:2",
-                                    "interfaces": {
-                                        "environmentalsensor": interfaceId,
-                                        "urn_azureiot_ModelDiscovery_ModelInformation": "urn:azureiot:ModelDiscovery:ModelInformation:1",
-                                        "urn_azureiot_ModelDiscovery_DigitalTwin": "urn:azureiot:ModelDiscovery:DigitalTwin:1"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "version": 1
-        };
-
         const modelDefinition: ModelDefinition = {
             "@id": interfaceId,
             "@type": "Interface",
@@ -62,12 +39,10 @@ describe('getDeviceCommandPairs', () => {
             componentNameSelected: 'environmentalsensor',
             deviceIdentity: null,
             deviceTwin: null,
-            digitalTwinInterfaceProperties: {
-                payload: digitalTwinInterfaceProperties,
-                synchronizationStatus: SynchronizationStatus.fetched
-            },
+            digitalTwin: null,
             modelDefinitionWithSource: {
                 payload: {
+                    isModelValid: true,
                     modelDefinition,
                     source: null,
                 },
@@ -79,6 +54,7 @@ describe('getDeviceCommandPairs', () => {
             {
                 parsedSchema: {
                     description: 'Temperature / Current temperature on the device ( Unit: Units/Temperature/fahrenheit )',
+                    required: null,
                     title: 'temp',
                     type: 'number'
                 },

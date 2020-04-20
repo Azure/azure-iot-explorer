@@ -9,8 +9,8 @@ import { AnyAction } from 'typescript-fsa';
 import { StateType } from '../../../../shared/redux/state';
 import DeviceSettings, { DeviceSettingDispatchProps, DeviceSettingsProps } from './deviceSettings';
 import { setComponentNameAction,
-    patchDigitalTwinInterfacePropertiesAction,
-    PatchDigitalTwinInterfacePropertiesActionParameters,
+    patchDigitalTwinAction,
+    PatchDigitalTwinActionParameters,
     getModelDefinitionAction,
     getDigitalTwinAction } from '../../actions';
 import { getDeviceSettingTupleSelector } from './selectors';
@@ -27,8 +27,7 @@ const mapStateToProps = (state: StateType): DeviceSettingsProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DeviceSettingDispatchProps => {
     return {
-        patchDigitalTwinInterfaceProperties:
-            (parameters: PatchDigitalTwinInterfacePropertiesActionParameters) => dispatch(patchDigitalTwinInterfacePropertiesAction.started(parameters)),
+        patchDigitalTwin: (parameters: PatchDigitalTwinActionParameters) => dispatch(patchDigitalTwinAction.started(parameters)),
         refresh: (deviceId: string, interfaceId: string) => {
             dispatch(getDigitalTwinAction.started(deviceId));
             dispatch(getModelDefinitionAction.started({digitalTwinId: deviceId, interfaceId}));

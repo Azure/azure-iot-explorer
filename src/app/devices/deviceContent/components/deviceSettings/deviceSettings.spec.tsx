@@ -9,10 +9,11 @@ import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import DeviceSettings, { DeviceSettingDispatchProps , DeviceSettingsProps } from './deviceSettings';
 import { mountWithLocalization, testSnapshot } from '../../../../shared/utils/testHelpers';
 import { TwinWithSchema } from './deviceSettingsPerInterfacePerSetting';
-import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
 
 export const twinWithSchema: TwinWithSchema = {
-    desiredTwin: 123,
+    metadata: {
+        lastUpdatedTime: '2020-03-31T23:17:42.4813073Z'
+    },
     reportedTwin: null,
     settingModelDefinition: {
         '@type': 'Property',
@@ -24,6 +25,7 @@ export const twinWithSchema: TwinWithSchema = {
     },
     settingSchema: {
         description: 'Brightness Level / The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)',
+        required: null,
         title: 'brightness',
         type: 'number'
     }
@@ -40,7 +42,7 @@ describe('components/devices/deviceSettings', () => {
 
     const refreshMock = jest.fn();
     const deviceSettingsDispatchProps: DeviceSettingDispatchProps = {
-        patchDigitalTwinInterfaceProperties: jest.fn(),
+        patchDigitalTwin: jest.fn(),
         refresh: refreshMock,
         setComponentName: jest.fn()
     };
@@ -74,12 +76,6 @@ describe('components/devices/deviceSettings', () => {
             getComponent(), false, true, [pathname]
         );
         expect(wrapper.find(Shimmer)).toBeDefined();
-    });
-
-    it('matches snapshot while interface cannot be found', () => {
-        testSnapshot(getComponent({isLoading: false, twinWithSchema: undefined}));
-        const wrapper = mountWithLocalization(getComponent(), true);
-        expect(wrapper.find(InterfaceNotFoundMessageBoxContainer)).toBeDefined();
     });
 
     it('matches snapshot with one twinWithSchema', () => {
