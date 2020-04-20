@@ -248,8 +248,6 @@ export class ResourceKeys {
          moduleDetail : "deviceContent.navBar.moduleDetail",
          moduleIdentity : "deviceContent.navBar.moduleIdentity",
          moduleTwin : "deviceContent.navBar.moduleTwin",
-         nonpnp : "deviceContent.navBar.nonpnp",
-         pnp : "deviceContent.navBar.pnp",
          properties : "deviceContent.navBar.properties",
          settings : "deviceContent.navBar.settings",
          twin : "deviceContent.navBar.twin",
@@ -782,10 +780,23 @@ export class ResourceKeys {
                label : "settings.modelDefinitions.repositoryTypes.device.label",
             },
             local : {
+               folderPicker : {
+                  command : {
+                     cancel : "settings.modelDefinitions.repositoryTypes.local.folderPicker.command.cancel",
+                     navigateToParent : "settings.modelDefinitions.repositoryTypes.local.folderPicker.command.navigateToParent",
+                     openPicker : "settings.modelDefinitions.repositoryTypes.local.folderPicker.command.openPicker",
+                     select : "settings.modelDefinitions.repositoryTypes.local.folderPicker.command.select",
+                  },
+                  dialog : {
+                     error : "settings.modelDefinitions.repositoryTypes.local.folderPicker.dialog.error",
+                     noFolderFoundText : "settings.modelDefinitions.repositoryTypes.local.folderPicker.dialog.noFolderFoundText",
+                     subText : "settings.modelDefinitions.repositoryTypes.local.folderPicker.dialog.subText",
+                     title : "settings.modelDefinitions.repositoryTypes.local.folderPicker.dialog.title",
+                  },
+               },
                infoText : "settings.modelDefinitions.repositoryTypes.local.infoText",
                label : "settings.modelDefinitions.repositoryTypes.local.label",
                labelInBrowser : "settings.modelDefinitions.repositoryTypes.local.labelInBrowser",
-               placeholder : "settings.modelDefinitions.repositoryTypes.local.placeholder",
                textBoxLabel : "settings.modelDefinitions.repositoryTypes.local.textBoxLabel",
             },
             notAvailable : "settings.modelDefinitions.repositoryTypes.notAvailable",

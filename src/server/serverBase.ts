@@ -54,6 +54,7 @@ export default class ServerBase {
         app.post(eventHubStopUri, handleEventHubStopPostRequest);
         app.post(modelRepoUri, handleModelRepoPostRequest);
         app.get(readFileUri, handleReadFileRequest);
+        app.get(getDirectoriesUri, handleGetDirectoriesRequest);
 
         app.listen(this.port);
     }
@@ -115,6 +116,50 @@ const findMatchingFile = (filePath: string, fileNames: string[], expectedFileNam
 const isFileExtensionJson = (fileName: string) => {
     const i = fileName.lastIndexOf('.');
     return i > 0 && fileName.substr(i) === '.json';
+};
+
+const getDirectoriesUri = '/api/Directories/:path';
+export const handleGetDirectoriesRequest = (req: express.Request, res: express.Response) => {
+    try {
+        const dir = req.params.path;
+        if (dir === '$DEFAULT') {
+            fetchDrivesOnWindows(res);
+        }
+        else {
+            fetchDirectories(dir, res);
+        }
+    }
+    catch (error) {
+        res.status(SERVER_ERROR).send(error);
+    }
+};
+
+const fetchDrivesOnWindows = (res: express.Response) => {
+    const exec = require('child_process').exec;
+    exec('wmic logicaldisk get name', (error: any, stdout: any, stderr: any) => { // tslint:disable-line:no-any
+        if (!error && !stderr) {
+            res.status(SUCCESS).send(stdout);
+        }
+        else {
+            res.status(SERVER_ERROR).send();
+        }
+    });
+};
+
+const fetchDirectories = (dir: string, res: express.Response) => {
+    const result: string[] = [];
+    for (const item of fs.readdirSync(dir)) {
+        try {
+            const stat = fs.statSync(path.join(dir, item));
+            if (stat.isDirectory()) {
+                result.push(item);
+            }
+        }
+        catch {
+            // some item cannot be checked by isDirectory(), swallow error and continue the loop
+        }
+    }
+    res.status(SUCCESS).send(result);
 };
 
 const dataPlaneUri = '/api/DataPlane';
