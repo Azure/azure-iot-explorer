@@ -30,19 +30,19 @@ describe('parse interface model definition to Json schema', () => {
     it('simple property can be converted to json schema format with displayUnit', () => {
         /* tslint:disable */
         const interfacePropertyDefinition = {
-            '@type': 'Property',
+            '@type': '[Property, DataSize]',
             'name': 'totalStorage',
             'displayName': 'Total storage',
             'schema': 'double',
-            'displayUnit': 'MB',
+            'unit': 'mebibit',
             'comment': 'Total available storage on the device in MB. Ex. 2048 MB.'
         };
         /* tslint:enable */
         const interfacePropertyInJsonSchema =
             {
-                description: 'Total storage ( Unit: MB )',
+                description: 'Total storage ( Unit: mebibit )',
                 title: 'totalStorage',
-                type: 'number'
+                type: 'number',
             };
         expect(parseInterfacePropertyToJsonSchema(interfacePropertyDefinition)).toEqual(interfacePropertyInJsonSchema);
     });
@@ -50,19 +50,18 @@ describe('parse interface model definition to Json schema', () => {
     it('simple property can be converted to json schema format with displayUnit and unit', () => {
         /* tslint:disable */
         const interfacePropertyDefinition = {
-            '@type': 'Property',
+            '@type': '[Property, DataSize]',
             'name': 'totalStorage',
             'displayName': 'Total storage',
             'schema': 'boolean',
-            'unit': 'megabytes',
-            'displayUnit': 'MB',
+            'unit': 'mebibit',
             'comment': 'Total available storage on the device in MB. Ex. 2048 MB.'
         };
         /* tslint:enable */
         const interfacePropertyInJsonSchema =
             {
                 default: false,
-                description: 'Total storage ( Unit: megabytes / MB )',
+                description: 'Total storage ( Unit: mebibit )',
                 title: 'totalStorage',
                 type: 'boolean'
             };

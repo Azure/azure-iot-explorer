@@ -204,9 +204,5 @@ const getDisplayName = (schema: PropertyContent | CommandContent | Schema): stri
 
 // tslint:disable-next-line:cyclomatic-complexity
 const getDisplayUnit = (schema: PropertyContent | CommandContent): string => {
-    const unit = getLocalizedData(schema.unit);
-    const displayUnit = getLocalizedData(schema.displayUnit);
-    return unit && displayUnit ?
-    `${unit} / ${displayUnit}` :
-     (unit || displayUnit || '') as string;
+    return schema.unit || '';
 };

@@ -441,12 +441,10 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
     }
 
     private readonly renderEventUnit = (context: LocalizationContextInterface, telemetryModelDefinition?: TelemetryContent) => {
-        const displayUnit = telemetryModelDefinition ? getLocalizedData(telemetryModelDefinition.displayUnit) : '';
         return(
             <div className="col-sm2">
                 <Label aria-label={context.t(ResourceKeys.deviceEvents.columns.unit)}>
-                    {telemetryModelDefinition ?
-                        telemetryModelDefinition.unit || displayUnit || '--' : '--'}
+                    {(telemetryModelDefinition && telemetryModelDefinition.unit) || '--'}
                 </Label>
             </div>
         );

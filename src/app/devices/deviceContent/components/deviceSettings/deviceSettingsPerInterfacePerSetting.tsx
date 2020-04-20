@@ -111,8 +111,8 @@ export default class DeviceSettingsPerInterfacePerSetting
 
     private readonly renderPropertyUnit = (context: LocalizationContextInterface) => {
         const ariaLabel = context.t(ResourceKeys.deviceProperties.columns.unit);
-        const unit = this.props.settingModelDefinition.unit;
-        return <div className="col-sm2"><Label aria-label={ariaLabel}>{unit ? unit : '--'}</Label></div>;
+        const unit = this.props.settingModelDefinition.unit || '--';
+        return <div className="col-sm2"><Label aria-label={ariaLabel}>{unit}</Label></div>;
     }
 
     private readonly renderPropertyReportedValue = (context: LocalizationContextInterface) => {
