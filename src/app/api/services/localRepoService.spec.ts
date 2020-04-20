@@ -35,14 +35,50 @@ describe('localRepoService', () => {
             // tslint:enable
             jest.spyOn(window, 'fetch').mockResolvedValue(response);
 
-            const result = await LocalRepoService.fetchLocalFile('f:/test.json');
+            const result = await LocalRepoService.fetchLocalFile('f:', 'test.json');
             expect(result).toEqual(content);
             done();
         });
 
         it('throw when response is 404', async done => {
             window.fetch = jest.fn().mockRejectedValueOnce(new ModelDefinitionNotFound('Not found'));
-            await expect(LocalRepoService.fetchLocalFile('f:/test.json')).rejects.toThrowError('Not found');
+            await expect(LocalRepoService.fetchLocalFile('f:', 'test.json')).rejects.toThrowError('Not found');
+            done();
+        });
+    });
+
+    context('fetchDirectories', () => {
+        it('returns array of drives when path is not provided', async done => {
+            // tslint:disable
+            const content = `Name  \r\n  C:    \r\n D:    \r\n \r\n  \r\n  `;
+            const response = {
+                status: 200,
+                text: () => content,
+                headers: {},
+                ok: true
+            } as any;
+            // tslint:enable
+            jest.spyOn(window, 'fetch').mockResolvedValue(response);
+
+            const result = await LocalRepoService.fetchDirectories('');
+            expect(result).toEqual(['C:/', 'D:/']);
+            done();
+        });
+
+        it('returns array of folders when path is provided', async done => {
+            // tslint:disable
+            const content = ["documents", "pictures"];
+            const response = {
+                status: 200,
+                json: () => content,
+                headers: {},
+                ok: true
+            } as any;
+            // tslint:enable
+            jest.spyOn(window, 'fetch').mockResolvedValue(response);
+
+            const result = await LocalRepoService.fetchDirectories('C:/');
+            expect(result).toEqual(['documents', 'pictures']);
             done();
         });
     });
