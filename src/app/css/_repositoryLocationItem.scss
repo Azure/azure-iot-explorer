@@ -1,0 +1,45 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+ @import 'themes';
+
+.folder-picker-dialog {
+    .ms-Dialog-main {
+        min-width: 50vw;
+        max-width: 356px;
+        min-height: 30vh;
+    }
+    .folder-links{
+        height: 30vh;
+        overflow: auto;
+    }
+    .ms-Dialog-header{
+        word-wrap: break-word;
+    }
+    .labelSection {
+        text-overflow: ellipsis;
+    }
+    .folder-button {
+        width: 100%;
+        text-align: left;
+        border: none;
+        margin-bottom: 10px;
+    }
+    .no-folders-text {
+        margin-left: 22px;
+    }
+}
+
+.local-folder-textbox {
+    .ms-Label {
+        float:left;
+        margin-bottom: 10px;
+        margin-right: 5px;
+    }
+    .ms-TextField-field {
+        @include themify($themes) {
+            background-color: themed('maskedCopyableReadonlyBackground');
+        }
+    }
+}
