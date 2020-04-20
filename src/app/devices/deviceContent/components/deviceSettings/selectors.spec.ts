@@ -99,6 +99,7 @@ describe('getDigitalTwinSettingsSelector', () => {
             settingModelDefinition: modelDefinition.contents[0],
             settingSchema: {
                 description: `${modelDefinition.contents[0].displayName} / ${modelDefinition.contents[0].description}`,
+                required: null,
                 title: modelDefinition.contents[0].name,
                 type: 'number'
             }

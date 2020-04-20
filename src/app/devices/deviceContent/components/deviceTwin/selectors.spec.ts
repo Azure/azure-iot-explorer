@@ -42,7 +42,7 @@ describe('./selectors', () => {
             payload: twin,
             synchronizationStatus: SynchronizationStatus.fetched
         },
-        digitalTwinInterfaceProperties: null,
+        digitalTwin: null,
         modelDefinitionWithSource: null
     })();
 

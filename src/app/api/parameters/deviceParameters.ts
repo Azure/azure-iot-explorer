@@ -5,7 +5,6 @@
 import { Twin } from '../models/device';
 import { DeviceIdentity } from '../models/deviceIdentity';
 import DeviceQuery from '../models/deviceQuery';
-import { DigitalTwinInterfaces } from '../models/digitalTwinModels';
 import { CloudToDeviceMessageActionParameters, InvokeMethodActionParameters } from '../../devices/deviceContent/actions';
 
 export interface DataPlaneParameters {
@@ -59,9 +58,17 @@ export interface FetchDigitalTwinParameters extends DataPlaneParameters {
     digitalTwinId: string;
 }
 
-export interface PatchDigitalTwinInterfacePropertiesParameters extends DataPlaneParameters {
+export enum JsonPatchOperation {
+    ADD = 'add',
+    REPLACE = 'replace',
+    REMOVE = 'remove'
+}
+
+export interface PatchDigitalTwinParameters extends DataPlaneParameters {
     digitalTwinId: string; // Format of digitalTwinId is DeviceId[~ModuleId]. ModuleId is optional.
-    payload: DigitalTwinInterfaces;
+    operation: JsonPatchOperation;
+    path: string;
+    value?: boolean | number | string | object;
 }
 
 export interface InvokeDigitalTwinInterfaceCommandParameters extends DataPlaneParameters {
@@ -69,6 +76,6 @@ export interface InvokeDigitalTwinInterfaceCommandParameters extends DataPlanePa
     componentName: string;
     commandName: string;
     connectTimeoutInSeconds?: number;
-    payload?: any; // tslint:disable-line:no-any
+    payload?: boolean | number | string | object;
     responseTimeoutInSeconds?: number;
 }
