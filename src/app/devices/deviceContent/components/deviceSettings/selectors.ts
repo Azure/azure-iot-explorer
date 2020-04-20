@@ -45,12 +45,12 @@ export const filterProperties = (content: PropertyContent) => {
 };
 
 export interface MetadataSection {
-    desiredValue: boolean | string | number | object;
-    desiredVersion: number;
-    ackVersion: number;
-    ackCode: number;
-    ackDescription: string;
-    lastUpdatedTime: string;
+    desiredValue?: boolean | string | number | object;
+    desiredVersion?: number;
+    ackVersion?: number;
+    ackCode?: number;
+    ackDescription?: string;
+    lastUpdatedTime?: string;
 }
 
 const getMetadataSectionForSpecificProperty = (state: StateInterface, property: PropertyContent): MetadataSection => {

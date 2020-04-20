@@ -8,13 +8,11 @@ import { ModelDefinitionWithSource } from '../../api/models/modelDefinitionWithS
 import { DeviceIdentity } from '../../api/models/deviceIdentity';
 import { SynchronizationWrapper } from '../../api/models/synchronizationWrapper';
 import { Twin } from './../../api/models/device';
-import { DigitalTwinInterfaces } from '../../api/models/digitalTwinModels';
 
 export interface DeviceContentStateInterface {
     deviceIdentity: SynchronizationWrapper<DeviceIdentity>;
     deviceTwin: SynchronizationWrapper<Twin>;
     digitalTwin: SynchronizationWrapper<object>;
-    digitalTwinInterfaceProperties: SynchronizationWrapper<DigitalTwinInterfaces>;
     componentNameSelected: string;
     modelDefinitionWithSource: SynchronizationWrapper<ModelDefinitionWithSource>;
 }
@@ -24,7 +22,6 @@ export const deviceContentStateInitial = Record<DeviceContentStateInterface>({
     deviceIdentity: null,
     deviceTwin: null,
     digitalTwin: null,
-    digitalTwinInterfaceProperties: null,
     modelDefinitionWithSource: null
 });
 

@@ -20,7 +20,7 @@ describe('components/devices/deviceSettingsPerInterface', () => {
     };
 
     const deviceSettingsDispatchProps: DeviceSettingDispatchProps = {
-        patchDigitalTwinInterfaceProperties: jest.fn()
+        patchDigitalTwin: jest.fn()
     };
 
     const getComponent = (overrides = {}) => {

@@ -14,13 +14,12 @@ import { PropertyContent } from '../../../../api/models/modelDefinition';
 import ComplexReportedFormPanel from '../shared/complexReportedFormPanel';
 import DataForm from '../shared/dataForm';
 import { RenderSimplyTypeValue } from '../shared/simpleReportedSection';
-import LabelWithTooltip from '../../../../shared/components/labelWithTooltip';
-import { PatchDigitalTwinInterfacePropertiesActionParameters } from '../../actions';
-import { generateInterfacePropertiesPayload } from '../../sagas/digitalTwinInterfacePropertySaga';
+import { PatchDigitalTwinActionParameters } from '../../actions';
 import ErrorBoundary from '../../../errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 import { MetadataSection } from './selectors';
 import '../../../../css/_deviceSettings.scss';
+import { JsonPatchOperation } from '../../../../api/parameters/deviceParameters';
 
 export interface DeviceSettingDataProps extends TwinWithSchema {
     collapsed: boolean;
@@ -32,7 +31,7 @@ export interface DeviceSettingDataProps extends TwinWithSchema {
 export interface DeviceSettingDispatchProps {
     handleCollapseToggle: () => void;
     handleOverlayToggle: () => void;
-    patchDigitalTwinInterfaceProperties: (parameters: PatchDigitalTwinInterfacePropertiesActionParameters) => void;
+    patchDigitalTwin: (parameters: PatchDigitalTwinActionParameters) => void;
 }
 
 export interface TwinWithSchema {
@@ -124,10 +123,8 @@ export default class DeviceSettingsPerInterfacePerSetting
                         {this.renderReportedValue(context)}
                     </Stack.Item>
                     {metadata &&
-                        <Stack.Item align="start">
-                            <LabelWithTooltip tooltipText={metadata.ackDescription}>
-                                {metadata.ackCode && `(${metadata.ackCode})`}
-                            </LabelWithTooltip>
+                        <Stack.Item align="start" className="reported-status">
+                            {metadata.ackCode && `(${metadata.ackCode} ${metadata.ackDescription})`}
                         </Stack.Item>
                     }
                 </Stack>
@@ -227,15 +224,23 @@ export default class DeviceSettingsPerInterfacePerSetting
             />
         );
     }
-    private readonly createSettingsPayload = (patchData: object) => {
-        return generateInterfacePropertiesPayload(this.props.componentName, this.props.settingModelDefinition.name, patchData);
+
+    private readonly createSettingsPayload = (twin: boolean | number | string | object)
+        : {operation: JsonPatchOperation; path: string; value?: boolean | number | string | object} => {
+        return twin ? {
+            operation: this.props.metadata && this.props.metadata.desiredValue && this.props.metadata.desiredValue !== {} ? JsonPatchOperation.REPLACE : JsonPatchOperation.ADD,
+            path: `/${this.props.componentName}/${this.props.settingModelDefinition.name}`,
+            value: twin,
+        } : {
+            operation: JsonPatchOperation.REMOVE,
+            path: `/${this.props.componentName}/${this.props.settingModelDefinition.name}`,
+        };
     }
 
-    private readonly onSubmit = (twin: any) => () => { // tslint:disable-line:no-any
-        this.props.patchDigitalTwinInterfaceProperties({
-            digitalTwinId: this.props.deviceId,
-            interfacesPatchData: twin,
-            propertyKey: this.props.settingModelDefinition.name
+    private readonly onSubmit = (twin: boolean | number | string | object) => () => {
+        this.props.patchDigitalTwin({
+            ...this.createSettingsPayload(twin),
+            digitalTwinId: this.props.deviceId
         });
     }
 }

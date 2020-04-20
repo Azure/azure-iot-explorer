@@ -4,6 +4,7 @@
  **********************************************************/
 export interface ParsedJsonSchema {
     type: string;
+    required: string[];
 
     additionalProperties?: boolean; // use this props as a workaround to indicate whether parsed property is map type
     default?: {};
@@ -14,7 +15,6 @@ export interface ParsedJsonSchema {
     items?: any; // tslint:disable-line: no-any
     pattern?: string;
     properties?: {};
-    required?: string[];
     title?: string;
 }
 
