@@ -20,6 +20,7 @@ import { generateInterfacePropertiesPayload } from '../../sagas/digitalTwinInter
 import { Reported } from '../../../../api/models/digitalTwinModels';
 import ErrorBoundary from '../../../errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
+import { SemanticUnit } from '../../../../shared/units/components/semanticUnit';
 import '../../../../css/_deviceSettings.scss';
 
 export interface DeviceSettingDataProps extends TwinWithSchema {
@@ -111,8 +112,13 @@ export default class DeviceSettingsPerInterfacePerSetting
 
     private readonly renderPropertyUnit = (context: LocalizationContextInterface) => {
         const ariaLabel = context.t(ResourceKeys.deviceProperties.columns.unit);
-        const unit = this.props.settingModelDefinition.unit || '--';
-        return <div className="col-sm2"><Label aria-label={ariaLabel}>{unit}</Label></div>;
+
+        return (
+            <div className="col-sm2">
+                <Label aria-label={ariaLabel}>
+                    <SemanticUnit unitHost={this.props.settingModelDefinition} />
+                </Label>
+            </div>);
     }
 
     private readonly renderPropertyReportedValue = (context: LocalizationContextInterface) => {

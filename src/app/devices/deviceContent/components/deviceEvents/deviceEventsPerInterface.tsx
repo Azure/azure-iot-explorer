@@ -30,6 +30,7 @@ import LabelWithTooltip from '../../../../shared/components/labelWithTooltip';
 import { MILLISECONDS_IN_MINUTE } from '../../../../constants/shared';
 import { appConfig, HostMode } from '../../../../../appConfig/appConfig';
 import { DigitalTwinHeaderContainer } from '../digitalTwin/digitalTwinHeaderView';
+import { SemanticUnit } from '../../../../shared/units/components/semanticUnit';
 import { ROUTE_PARAMS } from '../../../../constants/routes';
 import '../../../../css/_deviceEvents.scss';
 
@@ -444,7 +445,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
         return(
             <div className="col-sm2">
                 <Label aria-label={context.t(ResourceKeys.deviceEvents.columns.unit)}>
-                    {(telemetryModelDefinition && telemetryModelDefinition.unit) || '--'}
+                    <SemanticUnit unitHost={telemetryModelDefinition}/>
                 </Label>
             </div>
         );
