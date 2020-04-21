@@ -109,7 +109,6 @@ describe('components/devices/deviceEventsPerInterface', () => {
         const errorBoundary = deviceEventsPerInterfaceComponent.find(ErrorBoundary);
         expect(errorBoundary.children().at(1).props().children.props.children).toEqual('humid (Temperature)');
         expect(errorBoundary.children().at(2).props().children.props.children).toEqual('double'); // tslint:disable-line:no-magic-numbers
-        expect(errorBoundary.children().at(3).props().children.props.children).toEqual('--'); // tslint:disable-line:no-magic-numbers
         expect(errorBoundary.children().at(4).props().children.props.children[0]).toEqual(JSON.stringify(events[0].body, undefined, 2)); // tslint:disable-line:no-magic-numbers
         expect(errorBoundary.children().at(4).props().children.props.children[1].props['aria-label']).toEqual(ResourceKeys.deviceEvents.columns.validation.value.label); // tslint:disable-line:no-magic-numbers
     });
@@ -132,7 +131,6 @@ describe('components/devices/deviceEventsPerInterface', () => {
         const errorBoundary = deviceEventsPerInterfaceComponent.find(ErrorBoundary);
         expect(errorBoundary.children().at(1).props().children.props.children).toEqual('humid (Temperature)');
         expect(errorBoundary.children().at(2).props().children.props.children).toEqual('double'); // tslint:disable-line:no-magic-numbers
-        expect(errorBoundary.children().at(3).props().children.props.children).toEqual('--'); // tslint:disable-line:no-magic-numbers
         expect(errorBoundary.children().at(4).props().children.props.children[0]).toEqual(JSON.stringify(events[0].body, undefined, 2)); // tslint:disable-line:no-magic-numbers
         expect(errorBoundary.children().at(4).props().children.props.children[1].props.className).toEqual('value-validation-error'); // tslint:disable-line:no-magic-numbers
     });
@@ -154,13 +152,11 @@ describe('components/devices/deviceEventsPerInterface', () => {
         let errorBoundary = deviceEventsPerInterfaceComponent.find(ErrorBoundary).first();
         expect(errorBoundary.children().at(1).props().children.props.children).toEqual('humid (Temperature)');
         expect(errorBoundary.children().at(2).props().children.props.children).toEqual('double'); // tslint:disable-line:no-magic-numbers
-        expect(errorBoundary.children().at(3).props().children.props.children).toEqual('--'); // tslint:disable-line:no-magic-numbers
         expect(errorBoundary.children().at(4).props().children.props.children[0]).toEqual(JSON.stringify({humid: 0}, undefined, 2)); // tslint:disable-line:no-magic-numbers
 
         errorBoundary = deviceEventsPerInterfaceComponent.find(ErrorBoundary).at(1);
         expect(errorBoundary.children().at(1).props().children.props.children).toEqual('--');
         expect(errorBoundary.children().at(2).props().children.props.children).toEqual('--'); // tslint:disable-line:no-magic-numbers
-        expect(errorBoundary.children().at(3).props().children.props.children).toEqual('--'); // tslint:disable-line:no-magic-numbers
         expect(errorBoundary.children().at(4).props().children.props.children[0]).toEqual(JSON.stringify({'humid-foo': 'test'}, undefined, 2)); // tslint:disable-line:no-magic-numbers
         expect(errorBoundary.children().at(4).props().children.props.children[1].props.className).toEqual('value-validation-error'); // tslint:disable-line:no-magic-numbers
     });
@@ -180,7 +176,6 @@ describe('components/devices/deviceEventsPerInterface', () => {
         const errorBoundary = deviceEventsPerInterfaceComponent.find(ErrorBoundary);
         expect(errorBoundary.children().at(1).props().children.props.children).toEqual('--');
         expect(errorBoundary.children().at(2).props().children.props.children).toEqual('--'); // tslint:disable-line:no-magic-numbers
-        expect(errorBoundary.children().at(3).props().children.props.children).toEqual('--'); // tslint:disable-line:no-magic-numbers
         expect(errorBoundary.children().at(4).props().children.props.children).toEqual(JSON.stringify(events[0].body, undefined, 2)); // tslint:disable-line:no-magic-numbers
     });
 

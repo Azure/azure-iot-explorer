@@ -41,6 +41,7 @@
     "clean": "IF EXIST .\\dist RMDIR /Q /S .\\dist",
     "clean:linux": "rm --recursive -f ./dist",
     "localization": "tsc ./scripts/composeLocalizationKeys.ts --skipLibCheck && node ./scripts/composeLocalizationKeys.js",
+    "import-semantic-units": "tsc ./scripts/importSemanticUnitTypes.ts --skipLibCheck && node ./scripts/importSemanticUnitTypes.js",
     "docker": "docker pull electronuserland/electron-builder && docker run --rm -ti --mount source=$(pwd),target=/project,type=bind electronuserland/electron-builder:latest",
     "electron": "electron .",
     "electron:compile": "tsc ./public/electron.ts --skipLibCheck --lib es2015 --inlineSourceMap",

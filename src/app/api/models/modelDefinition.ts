@@ -39,7 +39,7 @@ interface ContentBase {
     description?: string | object;
     displayName?: string | object;
     displayUnit?: string;
-    unit?: any; // tslint:disable-line:no-any
+    unit?: string;
 }
 
 export interface Schema {

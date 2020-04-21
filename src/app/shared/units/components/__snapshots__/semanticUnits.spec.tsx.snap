@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SemanticUnit matches snapshot when unit host is undefined 1`] = `
+<span>
+  --
+</span>
+`;
+
+exports[`SemanticUnit matches snapshot when unit is listed 1`] = `
+<span
+  title="displayName"
+>
+  displayName
+   (
+  abbr
+  )
+</span>
+`;
+
+exports[`SemanticUnit matches snapshot when unit is undefined 1`] = `
+<span>
+  --
+</span>
+`;
+
+exports[`SemanticUnit matches snapshot when unit is unlisted 1`] = `
+<span>
+  fizzbin
+</span>
+`;
