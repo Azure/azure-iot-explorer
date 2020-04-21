@@ -143,7 +143,7 @@
     }
 }
 
-.non-writable-properties {
+.pnp-properties {
     dialog {
         @include themify($themes) {
             background-color: themed('backgroundColor');

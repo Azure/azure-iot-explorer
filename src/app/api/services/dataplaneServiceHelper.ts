@@ -100,7 +100,7 @@ export const dataPlaneResponseHelper = async (response: Response) => {
         throw new Error(result.message);
     }
 
-    throw new Error();
+    throw new Error(dataPlaneResponse.status && dataPlaneResponse.status.toString());
 };
 
 export const dataPlaneResponseCodeHelper = async (response: Response) => {

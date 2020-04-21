@@ -645,7 +645,7 @@ describe('deviceTwinService', () => {
             await expect(DevicesService.deleteDevices({
                 ...parameters,
                 deviceIds: [deviceId]
-            })).rejects.toThrow(new Error()).catch();
+            })).rejects.toThrow(new Error('500')).catch();
         });
     });
 
