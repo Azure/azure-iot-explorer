@@ -1,0 +1,1734 @@
+{
+    "@context": "dtmi:dtdl:context;2",
+    "@graph": [
+      {
+        "@id": "dtmi:standard:unitprefix:deci;2",
+        "@type": "DecimalPrefix",
+        "name": "deci",
+        "symbol": "d",
+        "exponent": -1
+      },
+      {
+        "@id": "dtmi:standard:unitprefix:centi;2",
+        "@type": "DecimalPrefix",
+        "name": "centi",
+        "symbol": "c",
+        "exponent": -2
+      },
+      {
+        "@id": "dtmi:standard:unitprefix:milli;2",
+        "@type": "DecimalPrefix",
+        "name": "milli",
+        "symbol": "m",
+        "exponent": -3
+      },
+      {
+        "@id": "dtmi:standard:unitprefix:micro;2",
+        "@type": "DecimalPrefix",
+        "name": "micro",
+        "symbol": "µ",
+        "exponent": -6
+      },
+      {
+        "@id": "dtmi:standard:unitprefix:nano;2",
+        "@type": "DecimalPrefix",
+        "name": "nano",
+        "symbol": "n",
+        "exponent": -9
+      },
+      {
+        "@id": "dtmi:standard:unitprefix:pico;2",
+        "@type": "DecimalPrefix",
+        "name": "pico",
+        "symbol": "p",
+        "exponent": -12
+      },
+      {
+        "@id": "dtmi:standard:unitprefix:femto;2",
+        "@type": "DecimalPrefix",
+        "name": "femto",
+        "symbol": "f",
+        "exponent": -15
+      },
+      {
+        "@id": "dtmi:standard:unitprefix:atto;2",
+        "@type": "DecimalPrefix",
+        "name": "atto",
+        "symbol": "a",
+        "exponent": -18
+      },
+      {
+        "@id": "dtmi:standard:unitprefix:zepto;2",
+        "@type": "DecimalPrefix",
+        "name": "zepto",
+        "symbol": "z",
+        "exponent": -21
+      },
+      {
+        "@id": "dtmi:standard:unitprefix:yocto;2",
+        "@type": "DecimalPrefix",
+        "name": "yocto",
+        "symbol": "y",
+        "exponent": -24
+      },
+      {
+        "@id": "dtmi:standard:unitprefix:deka;2",
+        "@type": "DecimalPrefix",
+        "name": "deka",
+        "symbol": "da",
+        "exponent": 1
+      },
+      {
+        "@id": "dtmi:standard:unitprefix:hecto;2",
+        "@type": "DecimalPrefix",
+        "name": "hecto",
+        "symbol": "h",
+        "exponent": 2
+      },
+      {
+        "@id": "dtmi:standard:unitprefix:kilo;2",
+        "@type": "DecimalPrefix",
+        "name": "kilo",
+        "symbol": "k",
+        "exponent": 3
+      },
+      {
+        "@id": "dtmi:standard:unitprefix:mega;2",
+        "@type": "DecimalPrefix",
+        "name": "mega",
+        "symbol": "M",
+        "exponent": 6
+      },
+      {
+        "@id": "dtmi:standard:unitprefix:giga;2",
+        "@type": "DecimalPrefix",
+        "name": "giga",
+        "symbol": "G",
+        "exponent": 9
+      },
+      {
+        "@id": "dtmi:standard:unitprefix:tera;2",
+        "@type": "DecimalPrefix",
+        "name": "tera",
+        "symbol": "T",
+        "exponent": 12
+      },
+      {
+        "@id": "dtmi:standard:unitprefix:peta;2",
+        "@type": "DecimalPrefix",
+        "name": "peta",
+        "symbol": "P",
+        "exponent": 15
+      },
+      {
+        "@id": "dtmi:standard:unitprefix:exa;2",
+        "@type": "DecimalPrefix",
+        "name": "exa",
+        "symbol": "E",
+        "exponent": 18
+      },
+      {
+        "@id": "dtmi:standard:unitprefix:zetta;2",
+        "@type": "DecimalPrefix",
+        "name": "zetta",
+        "symbol": "Z",
+        "exponent": 21
+      },
+      {
+        "@id": "dtmi:standard:unitprefix:yotta;2",
+        "@type": "DecimalPrefix",
+        "name": "yotta",
+        "symbol": "Y",
+        "exponent": 24
+      },
+
+      {
+        "@id": "dtmi:standard:unitprefix:kibi;2",
+        "@type": "BinaryPrefix",
+        "name": "kibi",
+        "symbol": "Ki",
+        "exponent": 10
+      },
+      {
+        "@id": "dtmi:standard:unitprefix:mebi;2",
+        "@type": "BinaryPrefix",
+        "name": "mebi",
+        "symbol": "Mi",
+        "exponent": 20
+      },
+      {
+        "@id": "dtmi:standard:unitprefix:gibi;2",
+        "@type": "BinaryPrefix",
+        "name": "gibi",
+        "symbol": "Gi",
+        "exponent": 30
+      },
+      {
+        "@id": "dtmi:standard:unitprefix:tebi;2",
+        "@type": "BinaryPrefix",
+        "name": "tebi",
+        "symbol": "Ti",
+        "exponent": 40
+      },
+      {
+        "@id": "dtmi:standard:unitprefix:pebi;2",
+        "@type": "BinaryPrefix",
+        "name": "pebi",
+        "symbol": "Pi",
+        "exponent": 50
+      },
+      {
+        "@id": "dtmi:standard:unitprefix:exbi;2",
+        "@type": "BinaryPrefix",
+        "name": "exbi",
+        "symbol": "Ei",
+        "exponent": 60
+      },
+      {
+        "@id": "dtmi:standard:unitprefix:zebi;2",
+        "@type": "BinaryPrefix",
+        "name": "zebi",
+        "symbol": "Zi",
+        "exponent": 70
+      },
+      {
+        "@id": "dtmi:standard:unitprefix:yobi;2",
+        "@type": "BinaryPrefix",
+        "name": "yobi",
+        "symbol": "Yi",
+        "exponent": 80
+      },
+
+      {
+        "@id": "dtmi:standard:unit:metrePerSecondSquared;2",
+        "@type": [ "AccelerationUnit", "DecimalUnit", "RatioUnit" ],
+        "displayName": "metre per second squared",
+        "abbreviation": "m/s²",
+        "baseUnit": "metrePerSecondSquared",
+        "topUnit": "metrePerSecond",
+        "bottomUnit": "second"
+      },
+      {
+        "@id": "dtmi:standard:unit:centimetrePerSecondSquared;2",
+        "@type": [ "AccelerationUnit", "DecimalUnit", "RatioUnit" ],
+        "displayName": "centimetre per second squared",
+        "abbreviation": "cm/s²",
+        "baseUnit": "metrePerSecondSquared",
+        "prefix": "centi",
+        "topUnit": "centimetrePerSecond",
+        "bottomUnit": "second"
+      },
+      {
+        "@id": "dtmi:standard:unit:gForce;2",
+        "@type": [ "AccelerationUnit" ],
+        "displayName": "g-force",
+        "abbreviation": "g"
+      },
+      {
+        "@id": "dtmi:standard:unit:radian;2",
+        "@type": [ "AngleUnit" ],
+        "displayName": "radian",
+        "abbreviation": "rad"
+      },
+      {
+        "@id": "dtmi:standard:unit:degreeOfArc;2",
+        "@type": [ "AngleUnit" ],
+        "displayName": "degree of arc",
+        "abbreviation": "°"
+      },
+      {
+        "@id": "dtmi:standard:unit:minuteOfArc;2",
+        "@type": [ "AngleUnit" ],
+        "displayName": "minute of arc",
+        "abbreviation": "'"
+      },
+      {
+        "@id": "dtmi:standard:unit:secondOfArc;2",
+        "@type": [ "AngleUnit" ],
+        "displayName": "second of arc",
+        "abbreviation": "\""
+      },
+      {
+        "@id": "dtmi:standard:unit:turn;2",
+        "@type": [ "AngleUnit" ],
+        "displayName": "turn",
+        "abbreviation": "turn"
+      },
+      {
+        "@id": "dtmi:standard:unit:radianPerSecondSquared;2",
+        "@type": [ "AngularAccelerationUnit", "RatioUnit" ],
+        "displayName": "radian per second squared",
+        "abbreviation": "rad/s²",
+        "topUnit": "radianPerSecond",
+        "bottomUnit": "second"
+      },
+      {
+        "@id": "dtmi:standard:unit:radianPerSecond;2",
+        "@type": [ "AngularVelocityUnit", "RatioUnit" ],
+        "displayName": "radian per second",
+        "abbreviation": "rad/s",
+        "topUnit": "radian",
+        "bottomUnit": "second"
+      },
+      {
+        "@id": "dtmi:standard:unit:degreePerSecond;2",
+        "@type": [ "AngularVelocityUnit", "RatioUnit" ],
+        "displayName": "degree per second",
+        "abbreviation": "°/s",
+        "topUnit": "degreeOfArc",
+        "bottomUnit": "second"
+      },
+      {
+        "@id": "dtmi:standard:unit:revolutionPerSecond;2",
+        "@type": [ "AngularVelocityUnit", "RatioUnit" ],
+        "displayName": "revolution per second",
+        "abbreviation": "rps",
+        "topUnit": "turn",
+        "bottomUnit": "second"
+      },
+      {
+        "@id": "dtmi:standard:unit:revolutionPerMinute;2",
+        "@type": [ "AngularVelocityUnit", "RatioUnit" ],
+        "displayName": "revolution per minute",
+        "abbreviation": "rpm",
+        "topUnit": "turn",
+        "bottomUnit": "minute"
+      },
+      {
+        "@id": "dtmi:standard:unit:squareMetre;2",
+        "@type": [ "AreaUnit" ],
+        "displayName": "square metre",
+        "abbreviation": "m²"
+      },
+      {
+        "@id": "dtmi:standard:unit:squareCentimetre;2",
+        "@type": [ "AreaUnit" ],
+        "displayName": "square centimetre",
+        "abbreviation": "cm²"
+      },
+      {
+        "@id": "dtmi:standard:unit:squareMillimetre;2",
+        "@type": [ "AreaUnit" ],
+        "displayName": "square millimetre",
+        "abbreviation": "mm²"
+      },
+      {
+        "@id": "dtmi:standard:unit:squareKilometre;2",
+        "@type": [ "AreaUnit" ],
+        "displayName": "square kilometre",
+        "abbreviation": "km²"
+      },
+      {
+        "@id": "dtmi:standard:unit:hectare;2",
+        "@type": [ "AreaUnit" ],
+        "displayName": "hectare",
+        "abbreviation": "ha"
+      },
+      {
+        "@id": "dtmi:standard:unit:squareFoot;2",
+        "@type": [ "AreaUnit" ],
+        "displayName": "square foot",
+        "abbreviation": "ft²"
+      },
+      {
+        "@id": "dtmi:standard:unit:squareInch;2",
+        "@type": [ "AreaUnit" ],
+        "displayName": "square inch",
+        "abbreviation": "in²"
+      },
+      {
+        "@id": "dtmi:standard:unit:acre;2",
+        "@type": [ "AreaUnit" ],
+        "displayName": "acre",
+        "abbreviation": "ac"
+      },
+      {
+        "@id": "dtmi:standard:unit:farad;2",
+        "@type": [ "CapacitanceUnit", "DecimalUnit" ],
+        "displayName": "farad",
+        "abbreviation": "F",
+        "baseUnit": "farad"
+      },
+      {
+        "@id": "dtmi:standard:unit:millifarad;2",
+        "@type": [ "CapacitanceUnit", "DecimalUnit" ],
+        "displayName": "millifarad",
+        "abbreviation": "mF",
+        "baseUnit": "farad",
+        "prefix": "milli"
+      },
+      {
+        "@id": "dtmi:standard:unit:microfarad;2",
+        "@type": [ "CapacitanceUnit", "DecimalUnit" ],
+        "displayName": "microfarad",
+        "abbreviation": "µF",
+        "baseUnit": "farad",
+        "prefix": "micro"
+      },
+      {
+        "@id": "dtmi:standard:unit:nanofarad;2",
+        "@type": [ "CapacitanceUnit", "DecimalUnit" ],
+        "displayName": "nanofarad",
+        "abbreviation": "nF",
+        "baseUnit": "farad",
+        "prefix": "nano"
+      },
+      {
+        "@id": "dtmi:standard:unit:picofarad;2",
+        "@type": [ "CapacitanceUnit", "DecimalUnit" ],
+        "displayName": "picofarad",
+        "abbreviation": "pF",
+        "baseUnit": "farad",
+        "prefix": "pico"
+      },
+      {
+        "@id": "dtmi:standard:unit:coulomb;2",
+        "@type": [ "ChargeUnit", "DecimalUnit" ],
+        "displayName": "coulomb",
+        "abbreviation": "C",
+        "baseUnit": "coulomb"
+      },
+      {
+        "@id": "dtmi:standard:unit:ampere;2",
+        "@type": [ "CurrentUnit", "DecimalUnit" ],
+        "displayName": "ampere",
+        "abbreviation": "A",
+        "baseUnit": "ampere"
+      },
+      {
+        "@id": "dtmi:standard:unit:microampere;2",
+        "@type": [ "CurrentUnit", "DecimalUnit" ],
+        "displayName": "microampere",
+        "abbreviation": "µA",
+        "baseUnit": "ampere",
+        "prefix": "micro"
+      },
+      {
+        "@id": "dtmi:standard:unit:milliampere;2",
+        "@type": [ "CurrentUnit", "DecimalUnit" ],
+        "displayName": "milliampere",
+        "abbreviation": "mA",
+        "baseUnit": "ampere",
+        "prefix": "milli"
+      },
+      {
+        "@id": "dtmi:standard:unit:bitPerSecond;2",
+        "@type": [ "DataRateUnit", "BinaryUnit", "RatioUnit" ],
+        "displayName": "bit per second",
+        "abbreviation": "bps",
+        "baseUnit": "bitPerSecond",
+        "topUnit": "bit",
+        "bottomUnit": "second"
+      },
+      {
+        "@id": "dtmi:standard:unit:kibibitPerSecond;2",
+        "@type": [ "DataRateUnit", "BinaryUnit", "RatioUnit" ],
+        "displayName": "kibibit per second",
+        "abbreviation": "Kibps",
+        "baseUnit": "bitPerSecond",
+        "prefix": "kibi",
+        "topUnit": "kibibit",
+        "bottomUnit": "second"
+      },
+      {
+        "@id": "dtmi:standard:unit:mebibitPerSecond;2",
+        "@type": [ "DataRateUnit", "BinaryUnit", "RatioUnit" ],
+        "displayName": "mebibit per second",
+        "abbreviation": "Mibps",
+        "baseUnit": "bitPerSecond",
+        "prefix": "mebi",
+        "topUnit": "mebibit",
+        "bottomUnit": "second"
+      },
+      {
+        "@id": "dtmi:standard:unit:gibibitPerSecond;2",
+        "@type": [ "DataRateUnit", "BinaryUnit", "RatioUnit" ],
+        "displayName": "gibibit per second",
+        "abbreviation": "Gibps",
+        "baseUnit": "bitPerSecond",
+        "prefix": "gibi",
+        "topUnit": "gibibit",
+        "bottomUnit": "second"
+      },
+      {
+        "@id": "dtmi:standard:unit:tebibitPerSecond;2",
+        "@type": [ "DataRateUnit", "BinaryUnit", "RatioUnit" ],
+        "displayName": "tebibit per second",
+        "abbreviation": "Tibps",
+        "baseUnit": "bitPerSecond",
+        "prefix": "tebi",
+        "topUnit": "tebibit",
+        "bottomUnit": "second"
+      },
+      {
+        "@id": "dtmi:standard:unit:exbibitPerSecond;2",
+        "@type": [ "DataRateUnit", "BinaryUnit", "RatioUnit" ],
+        "displayName": "exbibit per second",
+        "abbreviation": "Eibps",
+        "baseUnit": "bitPerSecond",
+        "prefix": "exbi",
+        "topUnit": "exbibit",
+        "bottomUnit": "second"
+      },
+      {
+        "@id": "dtmi:standard:unit:zebibitPerSecond;2",
+        "@type": [ "DataRateUnit", "BinaryUnit", "RatioUnit" ],
+        "displayName": "zebibit per second",
+        "abbreviation": "Zibps",
+        "baseUnit": "bitPerSecond",
+        "prefix": "zebi",
+        "topUnit": "zebibit",
+        "bottomUnit": "second"
+      },
+      {
+        "@id": "dtmi:standard:unit:yobibitPerSecond;2",
+        "@type": [ "DataRateUnit", "BinaryUnit", "RatioUnit" ],
+        "displayName": "yobibit per second",
+        "abbreviation": "Yibps",
+        "baseUnit": "bitPerSecond",
+        "prefix": "yobi",
+        "topUnit": "yobibit",
+        "bottomUnit": "second"
+      },
+      {
+        "@id": "dtmi:standard:unit:bytePerSecond;2",
+        "@type": [ "DataRateUnit", "BinaryUnit", "RatioUnit" ],
+        "displayName": "byte per second",
+        "abbreviation": "Bps",
+        "baseUnit": "bytePerSecond",
+        "topUnit": "byte",
+        "bottomUnit": "second"
+      },
+      {
+        "@id": "dtmi:standard:unit:kibibytePerSecond;2",
+        "@type": [ "DataRateUnit", "BinaryUnit", "RatioUnit" ],
+        "displayName": "kibibyte per second",
+        "abbreviation": "KiBps",
+        "baseUnit": "bytePerSecond",
+        "prefix": "kibi",
+        "topUnit": "kibibyte",
+        "bottomUnit": "second"
+      },
+      {
+        "@id": "dtmi:standard:unit:mebibytePerSecond;2",
+        "@type": [ "DataRateUnit", "BinaryUnit", "RatioUnit" ],
+        "displayName": "mebibyte per second",
+        "abbreviation": "MiBps",
+        "baseUnit": "bytePerSecond",
+        "prefix": "mebi",
+        "topUnit": "mebibyte",
+        "bottomUnit": "second"
+      },
+      {
+        "@id": "dtmi:standard:unit:gibibytePerSecond;2",
+        "@type": [ "DataRateUnit", "BinaryUnit", "RatioUnit" ],
+        "displayName": "gibibyte per second",
+        "abbreviation": "GiBps",
+        "baseUnit": "bytePerSecond",
+        "prefix": "gibi",
+        "topUnit": "gibibyte",
+        "bottomUnit": "second"
+      },
+      {
+        "@id": "dtmi:standard:unit:tebibytePerSecond;2",
+        "@type": [ "DataRateUnit", "BinaryUnit", "RatioUnit" ],
+        "displayName": "tebibyte per second",
+        "abbreviation": "TiBps",
+        "baseUnit": "bytePerSecond",
+        "prefix": "tebi",
+        "topUnit": "tebibyte",
+        "bottomUnit": "second"
+      },
+      {
+        "@id": "dtmi:standard:unit:exbibytePerSecond;2",
+        "@type": [ "DataRateUnit", "BinaryUnit", "RatioUnit" ],
+        "displayName": "exbibyte per second",
+        "abbreviation": "EiBps",
+        "baseUnit": "bytePerSecond",
+        "prefix": "exbi",
+        "topUnit": "exbibyte",
+        "bottomUnit": "second"
+      },
+      {
+        "@id": "dtmi:standard:unit:zebibytePerSecond;2",
+        "@type": [ "DataRateUnit", "BinaryUnit", "RatioUnit" ],
+        "displayName": "zebibyte per second",
+        "abbreviation": "ZiBps",
+        "baseUnit": "bytePerSecond",
+        "prefix": "zebi",
+        "topUnit": "zebibyte",
+        "bottomUnit": "second"
+      },
+      {
+        "@id": "dtmi:standard:unit:yobibytePerSecond;2",
+        "@type": [ "DataRateUnit", "BinaryUnit", "RatioUnit" ],
+        "displayName": "yobibyte per second",
+        "abbreviation": "YiBps",
+        "baseUnit": "bytePerSecond",
+        "prefix": "yobi",
+        "topUnit": "yobibyte",
+        "bottomUnit": "second"
+      },
+      {
+        "@id": "dtmi:standard:unit:bit;2",
+        "@type": [ "DataSizeUnit", "BinaryUnit" ],
+        "displayName": "bit",
+        "abbreviation": "bit",
+        "baseUnit": "bit"
+      },
+      {
+        "@id": "dtmi:standard:unit:kibibit;2",
+        "@type": [ "DataSizeUnit", "BinaryUnit" ],
+        "displayName": "kibibit",
+        "abbreviation": "Kibit",
+        "baseUnit": "bit",
+        "prefix": "kibi"
+      },
+      {
+        "@id": "dtmi:standard:unit:mebibit;2",
+        "@type": [ "DataSizeUnit", "BinaryUnit" ],
+        "displayName": "mebibit",
+        "abbreviation": "Mibit",
+        "baseUnit": "bit",
+        "prefix": "mebi"
+      },
+      {
+        "@id": "dtmi:standard:unit:gibibit;2",
+        "@type": [ "DataSizeUnit", "BinaryUnit" ],
+        "displayName": "gibibit",
+        "abbreviation": "Gibit",
+        "baseUnit": "bit",
+        "prefix": "gibi"
+      },
+      {
+        "@id": "dtmi:standard:unit:tebibit;2",
+        "@type": [ "DataSizeUnit", "BinaryUnit" ],
+        "displayName": "tebibit",
+        "abbreviation": "Tibit",
+        "baseUnit": "bit",
+        "prefix": "tebi"
+      },
+      {
+        "@id": "dtmi:standard:unit:exbibit;2",
+        "@type": [ "DataSizeUnit", "BinaryUnit" ],
+        "displayName": "exbibit",
+        "abbreviation": "Eibit",
+        "baseUnit": "bit",
+        "prefix": "exbi"
+      },
+      {
+        "@id": "dtmi:standard:unit:zebibit;2",
+        "@type": [ "DataSizeUnit", "BinaryUnit" ],
+        "displayName": "zebibit",
+        "abbreviation": "Zibit",
+        "baseUnit": "bit",
+        "prefix": "zebi"
+      },
+      {
+        "@id": "dtmi:standard:unit:yobibit;2",
+        "@type": [ "DataSizeUnit", "BinaryUnit" ],
+        "displayName": "yobibit",
+        "abbreviation": "Yibit",
+        "baseUnit": "bit",
+        "prefix": "yobi"
+      },
+      {
+        "@id": "dtmi:standard:unit:byte;2",
+        "@type": [ "DataSizeUnit", "BinaryUnit" ],
+        "displayName": "byte",
+        "abbreviation": "B",
+        "baseUnit": "byte"
+      },
+      {
+        "@id": "dtmi:standard:unit:kibibyte;2",
+        "@type": [ "DataSizeUnit", "BinaryUnit" ],
+        "displayName": "kibibyte",
+        "abbreviation": "KiB",
+        "baseUnit": "byte",
+        "prefix": "kibi"
+      },
+      {
+        "@id": "dtmi:standard:unit:mebibyte;2",
+        "@type": [ "DataSizeUnit", "BinaryUnit" ],
+        "displayName": "mebibyte",
+        "abbreviation": "MiB",
+        "baseUnit": "byte",
+        "prefix": "mebi"
+      },
+      {
+        "@id": "dtmi:standard:unit:gibibyte;2",
+        "@type": [ "DataSizeUnit", "BinaryUnit" ],
+        "displayName": "gibibyte",
+        "abbreviation": "GiB",
+        "baseUnit": "byte",
+        "prefix": "gibi"
+      },
+      {
+        "@id": "dtmi:standard:unit:tebibyte;2",
+        "@type": [ "DataSizeUnit", "BinaryUnit" ],
+        "displayName": "tebibyte",
+        "abbreviation": "TiB",
+        "baseUnit": "byte",
+        "prefix": "tebi"
+      },
+      {
+        "@id": "dtmi:standard:unit:exbibyte;2",
+        "@type": [ "DataSizeUnit", "BinaryUnit" ],
+        "displayName": "exbibyte",
+        "abbreviation": "EiB",
+        "baseUnit": "byte",
+        "prefix": "exbi"
+      },
+      {
+        "@id": "dtmi:standard:unit:zebibyte;2",
+        "@type": [ "DataSizeUnit", "BinaryUnit" ],
+        "displayName": "zebibyte",
+        "abbreviation": "ZiB",
+        "baseUnit": "byte",
+        "prefix": "zebi"
+      },
+      {
+        "@id": "dtmi:standard:unit:yobibyte;2",
+        "@type": [ "DataSizeUnit", "BinaryUnit" ],
+        "displayName": "yobibyte",
+        "abbreviation": "YiB",
+        "baseUnit": "byte",
+        "prefix": "yobi"
+      },
+      {
+        "@id": "dtmi:standard:unit:kilogramPerCubicMetre;2",
+        "@type": [ "DensityUnit", "DecimalUnit", "RatioUnit" ],
+        "displayName": "kilogram per cubic metre",
+        "abbreviation": "kg/m³",
+        "baseUnit": "gramPerCubicMetre",
+        "prefix": "kilo",
+        "topUnit": "kilogram",
+        "bottomUnit": "cubicMetre"
+      },
+      {
+        "@id": "dtmi:standard:unit:gramPerCubicMetre;2",
+        "@type": [ "DensityUnit", "DecimalUnit", "RatioUnit" ],
+        "displayName": "gram per cubic metre",
+        "abbreviation": "g/m³",
+        "baseUnit": "gramPerCubicMetre",
+        "topUnit": "gram",
+        "bottomUnit": "cubicMetre"
+      },
+      {
+        "@id": "dtmi:standard:unit:joule;2",
+        "@type": [ "EnergyUnit", "DecimalUnit" ],
+        "displayName": "joule",
+        "abbreviation": "J",
+        "baseUnit": "joule"
+      },
+      {
+        "@id": "dtmi:standard:unit:kilojoule;2",
+        "@type": [ "EnergyUnit", "DecimalUnit" ],
+        "displayName": "kilojoule",
+        "abbreviation": "kJ",
+        "baseUnit": "joule",
+        "prefix": "kilo"
+      },
+      {
+        "@id": "dtmi:standard:unit:megajoule;2",
+        "@type": [ "EnergyUnit", "DecimalUnit" ],
+        "displayName": "megajoule",
+        "abbreviation": "MJ",
+        "baseUnit": "joule",
+        "prefix": "mega"
+      },
+      {
+        "@id": "dtmi:standard:unit:gigajoule;2",
+        "@type": [ "EnergyUnit", "DecimalUnit" ],
+        "displayName": "gigajoule",
+        "abbreviation": "GJ",
+        "baseUnit": "joule",
+        "prefix": "giga"
+      },
+      {
+        "@id": "dtmi:standard:unit:electronvolt;2",
+        "@type": [ "EnergyUnit", "DecimalUnit" ],
+        "displayName": "electronvolt",
+        "abbreviation": "eV",
+        "baseUnit": "electronvolt"
+      },
+      {
+        "@id": "dtmi:standard:unit:megaelectronvolt;2",
+        "@type": [ "EnergyUnit", "DecimalUnit" ],
+        "displayName": "megaelectronvolt",
+        "abbreviation": "MeV",
+        "baseUnit": "electronvolt",
+        "prefix": "mega"
+      },
+      {
+        "@id": "dtmi:standard:unit:kilowattHour;2",
+        "@type": [ "EnergyUnit" ],
+        "displayName": "kilowat-hour",
+        "abbreviation": "kWh"
+      },
+      {
+        "@id": "dtmi:standard:unit:newton;2",
+        "@type": [ "ForceUnit", "DecimalUnit" ],
+        "displayName": "newton",
+        "abbreviation": "N",
+        "baseUnit": "newton"
+      },
+      {
+        "@id": "dtmi:standard:unit:pound;2",
+        "@type": [ "ForceUnit" ],
+        "displayName": "pound",
+        "abbreviation": "lb"
+      },
+      {
+        "@id": "dtmi:standard:unit:ounce;2",
+        "@type": [ "ForceUnit" ],
+        "displayName": "ounce",
+        "abbreviation": "oz"
+      },
+      {
+        "@id": "dtmi:standard:unit:ton;2",
+        "@type": [ "ForceUnit" ],
+        "displayName": "ton",
+        "abbreviation": "T"
+      },
+      {
+        "@id": "dtmi:standard:unit:hertz;2",
+        "@type": [ "FrequencyUnit", "DecimalUnit" ],
+        "displayName": "hertz",
+        "abbreviation": "Hz",
+        "baseUnit": "hertz"
+      },
+      {
+        "@id": "dtmi:standard:unit:kilohertz;2",
+        "@type": [ "FrequencyUnit", "DecimalUnit" ],
+        "displayName": "kilohertz",
+        "abbreviation": "kHz",
+        "baseUnit": "hertz",
+        "prefix": "kilo"
+      },
+      {
+        "@id": "dtmi:standard:unit:megahertz;2",
+        "@type": [ "FrequencyUnit", "DecimalUnit" ],
+        "displayName": "megahertz",
+        "abbreviation": "MHz",
+        "baseUnit": "hertz",
+        "prefix": "mega"
+      },
+      {
+        "@id": "dtmi:standard:unit:gigahertz;2",
+        "@type": [ "FrequencyUnit", "DecimalUnit" ],
+        "displayName": "gigahertz",
+        "abbreviation": "GHz",
+        "baseUnit": "hertz",
+        "prefix": "giga"
+      },
+      {
+        "@id": "dtmi:standard:unit:lux;2",
+        "@type": [ "IlluminanceUnit", "DecimalUnit" ],
+        "displayName": "lux",
+        "abbreviation": "lx",
+        "baseUnit": "lux"
+      },
+      {
+        "@id": "dtmi:standard:unit:footcandle;2",
+        "@type": [ "IlluminanceUnit" ],
+        "displayName": "footcandle",
+        "abbreviation": "fc"
+      },
+      {
+        "@id": "dtmi:standard:unit:henry;2",
+        "@type": [ "InductanceUnit", "DecimalUnit" ],
+        "displayName": "henry",
+        "abbreviation": "H",
+        "baseUnit": "henry"
+      },
+      {
+        "@id": "dtmi:standard:unit:millihenry;2",
+        "@type": [ "InductanceUnit", "DecimalUnit" ],
+        "displayName": "millihenry",
+        "abbreviation": "mH",
+        "baseUnit": "henry",
+        "prefix": "milli"
+      },
+      {
+        "@id": "dtmi:standard:unit:microhenry;2",
+        "@type": [ "InductanceUnit", "DecimalUnit" ],
+        "displayName": "microhenry",
+        "abbreviation": "µH",
+        "baseUnit": "henry",
+        "prefix": "micro"
+      },
+      {
+        "@id": "dtmi:standard:unit:metre;2",
+        "@type": [ "LengthUnit", "DecimalUnit" ],
+        "displayName": "metre",
+        "abbreviation": "m",
+        "baseUnit": "metre"
+      },
+      {
+        "@id": "dtmi:standard:unit:centimetre;2",
+        "@type": [ "LengthUnit", "DecimalUnit" ],
+        "displayName": "centimetre",
+        "abbreviation": "cm",
+        "baseUnit": "metre",
+        "prefix": "centi"
+      },
+      {
+        "@id": "dtmi:standard:unit:millimetre;2",
+        "@type": [ "LengthUnit", "DecimalUnit" ],
+        "displayName": "millimetre",
+        "abbreviation": "mm",
+        "baseUnit": "metre",
+        "prefix": "milli"
+      },
+      {
+        "@id": "dtmi:standard:unit:micrometre;2",
+        "@type": [ "LengthUnit", "DecimalUnit" ],
+        "displayName": "micrometre",
+        "abbreviation": "µm",
+        "baseUnit": "metre",
+        "prefix": "micro"
+      },
+      {
+        "@id": "dtmi:standard:unit:nanometre;2",
+        "@type": [ "LengthUnit", "DecimalUnit" ],
+        "displayName": "nanometre",
+        "abbreviation": "nm",
+        "baseUnit": "metre",
+        "prefix": "nano"
+      },
+      {
+        "@id": "dtmi:standard:unit:kilometre;2",
+        "@type": [ "LengthUnit", "DecimalUnit" ],
+        "displayName": "kilometre",
+        "abbreviation": "km",
+        "baseUnit": "metre",
+        "prefix": "kilo"
+      },
+      {
+        "@id": "dtmi:standard:unit:foot;2",
+        "@type": [ "LengthUnit" ],
+        "displayName": "foot",
+        "abbreviation": "ft"
+      },
+      {
+        "@id": "dtmi:standard:unit:inch;2",
+        "@type": [ "LengthUnit" ],
+        "displayName": "inch",
+        "abbreviation": "in"
+      },
+      {
+        "@id": "dtmi:standard:unit:mile;2",
+        "@type": [ "LengthUnit" ],
+        "displayName": "mile",
+        "abbreviation": "mi"
+      },
+      {
+        "@id": "dtmi:standard:unit:nauticalMile;2",
+        "@type": [ "LengthUnit" ],
+        "displayName": "nautical mile",
+        "abbreviation": "M"
+      },
+      {
+        "@id": "dtmi:standard:unit:astronomicalUnit;2",
+        "@type": [ "LengthUnit" ],
+        "displayName": "astronomical unit",
+        "abbreviation": "AU"
+      },
+      {
+        "@id": "dtmi:standard:unit:candelaPerSquareMetre;2",
+        "@type": [ "LuminanceUnit", "DecimalUnit", "RatioUnit" ],
+        "displayName": "candela per square metre",
+        "abbreviation": "cd/m²",
+        "baseUnit": "candelaPerSquareMetre",
+        "topUnit": "candela",
+        "bottomUnit": "squareMetre"
+      },
+      {
+        "@id": "dtmi:standard:unit:lumen;2",
+        "@type": [ "LuminousFluxUnit", "DecimalUnit" ],
+        "displayName": "lumen",
+        "abbreviation": "lm",
+        "baseUnit": "lumen"
+      },
+      {
+        "@id": "dtmi:standard:unit:candela;2",
+        "@type": [ "LuminousIntensityUnit", "DecimalUnit" ],
+        "displayName": "candela",
+        "abbreviation": "cd",
+        "baseUnit": "candela"
+      },
+      {
+        "@id": "dtmi:standard:unit:weber;2",
+        "@type": [ "MagneticFluxUnit", "DecimalUnit" ],
+        "displayName": "weber",
+        "abbreviation": "Wb",
+        "baseUnit": "weber"
+      },
+      {
+        "@id": "dtmi:standard:unit:maxwell;2",
+        "@type": [ "MagneticFluxUnit" ],
+        "displayName": "maxwell",
+        "abbreviation": "Mx"
+      },
+      {
+        "@id": "dtmi:standard:unit:tesla;2",
+        "@type": [ "MagneticInductionUnit", "DecimalUnit" ],
+        "displayName": "tesla",
+        "abbreviation": "T",
+        "baseUnit": "tesla"
+      },
+      {
+        "@id": "dtmi:standard:unit:kilogram;2",
+        "@type": [ "MassUnit", "DecimalUnit" ],
+        "displayName": "kilogram",
+        "abbreviation": "kg",
+        "baseUnit": "gram",
+        "prefix": "kilo"
+      },
+      {
+        "@id": "dtmi:standard:unit:gram;2",
+        "@type": [ "MassUnit", "DecimalUnit" ],
+        "displayName": "gram",
+        "abbreviation": "g",
+        "baseUnit": "gram"
+      },
+      {
+        "@id": "dtmi:standard:unit:milligram;2",
+        "@type": [ "MassUnit", "DecimalUnit" ],
+        "displayName": "milligram",
+        "abbreviation": "mg",
+        "baseUnit": "gram",
+        "prefix": "milli"
+      },
+      {
+        "@id": "dtmi:standard:unit:microgram;2",
+        "@type": [ "MassUnit", "DecimalUnit" ],
+        "displayName": "microgram",
+        "abbreviation": "µg",
+        "baseUnit": "gram",
+        "prefix": "micro"
+      },
+      {
+        "@id": "dtmi:standard:unit:tonne;2",
+        "@type": [ "MassUnit" ],
+        "displayName": "tonne",
+        "abbreviation": "t"
+      },
+      {
+        "@id": "dtmi:standard:unit:slug;2",
+        "@type": [ "MassUnit" ],
+        "displayName": "slug",
+        "abbreviation": "slug"
+      },
+      {
+        "@id": "dtmi:standard:unit:gramPerSecond;2",
+        "@type": [ "MassFlowRateUnit", "DecimalUnit", "RatioUnit" ],
+        "displayName": "gram per second",
+        "abbreviation": "g/s",
+        "baseUnit": "gramPerSecond",
+        "topUnit": "gram",
+        "bottomUnit": "second"
+      },
+      {
+        "@id": "dtmi:standard:unit:kilogramPerSecond;2",
+        "@type": [ "MassFlowRateUnit", "DecimalUnit", "RatioUnit" ],
+        "displayName": "kilogram per second",
+        "abbreviation": "kg/s",
+        "baseUnit": "gramPerSecond",
+        "prefix": "kilo",
+        "topUnit": "kilogram",
+        "bottomUnit": "second"
+      },
+      {
+        "@id": "dtmi:standard:unit:gramPerHour;2",
+        "@type": [ "MassFlowRateUnit", "DecimalUnit", "RatioUnit" ],
+        "displayName": "gram per hour",
+        "abbreviation": "g/h",
+        "baseUnit": "gramPerHour",
+        "topUnit": "gram",
+        "bottomUnit": "hour"
+      },
+      {
+        "@id": "dtmi:standard:unit:kilogramPerHour;2",
+        "@type": [ "MassFlowRateUnit", "DecimalUnit", "RatioUnit" ],
+        "displayName": "kilogram per hour",
+        "abbreviation": "kg/h",
+        "baseUnit": "gramPerHour",
+        "prefix": "kilo",
+        "topUnit": "kilogram",
+        "bottomUnit": "hour"
+      },
+      {
+        "@id": "dtmi:standard:unit:watt;2",
+        "@type": [ "PowerUnit", "DecimalUnit" ],
+        "displayName": "watt",
+        "abbreviation": "W",
+        "baseUnit": "watt"
+      },
+      {
+        "@id": "dtmi:standard:unit:microwatt;2",
+        "@type": [ "PowerUnit", "DecimalUnit" ],
+        "displayName": "microwatt",
+        "abbreviation": "µW",
+        "baseUnit": "watt",
+        "prefix": "micro"
+      },
+      {
+        "@id": "dtmi:standard:unit:milliwatt;2",
+        "@type": [ "PowerUnit", "DecimalUnit" ],
+        "displayName": "milliwatt",
+        "abbreviation": "mW",
+        "baseUnit": "watt",
+        "prefix": "milli"
+      },
+      {
+        "@id": "dtmi:standard:unit:kilowatt;2",
+        "@type": [ "PowerUnit", "DecimalUnit" ],
+        "displayName": "kilowatt",
+        "abbreviation": "kW",
+        "baseUnit": "watt",
+        "prefix": "kilo"
+      },
+      {
+        "@id": "dtmi:standard:unit:megawatt;2",
+        "@type": [ "PowerUnit", "DecimalUnit" ],
+        "displayName": "megawatt",
+        "abbreviation": "MW",
+        "baseUnit": "watt",
+        "prefix": "mega"
+      },
+      {
+        "@id": "dtmi:standard:unit:gigawatt;2",
+        "@type": [ "PowerUnit", "DecimalUnit" ],
+        "displayName": "gigawatt",
+        "abbreviation": "GW",
+        "baseUnit": "watt",
+        "prefix": "giga"
+      },
+      {
+        "@id": "dtmi:standard:unit:horsepower;2",
+        "@type": [ "PowerUnit" ],
+        "displayName": "horsepower",
+        "abbreviation": "hp"
+      },
+      {
+        "@id": "dtmi:standard:unit:kilowattHourPerYear;2",
+        "@type": [ "PowerUnit", "RatioUnit" ],
+        "displayName": "kilowatt-hour per year",
+        "abbreviation": "kWh/yr",
+        "topUnit": "kilowattHour",
+        "bottomUnit": "year"
+      },
+      {
+        "@id": "dtmi:standard:unit:pascal;2",
+        "@type": [ "PressureUnit", "DecimalUnit" ],
+        "displayName": "pascal",
+        "abbreviation": "Pa",
+        "baseUnit": "pascal"
+      },
+      {
+        "@id": "dtmi:standard:unit:kilopascal;2",
+        "@type": [ "PressureUnit", "DecimalUnit" ],
+        "displayName": "kilopascal",
+        "abbreviation": "kPa",
+        "baseUnit": "pascal",
+        "prefix": "kilo"
+      },
+      {
+        "@id": "dtmi:standard:unit:bar;2",
+        "@type": [ "PressureUnit", "DecimalUnit" ],
+        "displayName": "bar",
+        "abbreviation": "bar",
+        "baseUnit": "bar"
+      },
+      {
+        "@id": "dtmi:standard:unit:millibar;2",
+        "@type": [ "PressureUnit", "DecimalUnit" ],
+        "displayName": "millibar",
+        "abbreviation": "mbar",
+        "baseUnit": "bar",
+        "prefix": "milli"
+      },
+      {
+        "@id": "dtmi:standard:unit:millimetresOfMercury;2",
+        "@type": [ "PressureUnit" ],
+        "displayName": "millimetres of mercury",
+        "abbreviation": "mmHg"
+      },
+      {
+        "@id": "dtmi:standard:unit:poundPerSquareInch;2",
+        "@type": [ "PressureUnit", "RatioUnit" ],
+        "displayName": "pound per square inch",
+        "abbreviation": "psi",
+        "topUnit": "pound",
+        "bottomUnit": "squareInch"
+      },
+      {
+        "@id": "dtmi:standard:unit:inchesOfMercury;2",
+        "@type": [ "PressureUnit" ],
+        "displayName": "inches of mercury",
+        "abbreviation": "inHg"
+      },
+      {
+        "@id": "dtmi:standard:unit:inchesOfWater;2",
+        "@type": [ "PressureUnit" ],
+        "displayName": "inches of water",
+        "abbreviation": "inH2O"
+      },
+      {
+        "@id": "dtmi:standard:unit:ohm;2",
+        "@type": [ "ResistanceUnit", "DecimalUnit" ],
+        "displayName": "ohm",
+        "abbreviation": "Ω",
+        "baseUnit": "ohm"
+      },
+      {
+        "@id": "dtmi:standard:unit:milliohm;2",
+        "@type": [ "ResistanceUnit", "DecimalUnit" ],
+        "displayName": "milliohm",
+        "abbreviation": "mΩ",
+        "baseUnit": "ohm",
+        "prefix": "milli"
+      },
+      {
+        "@id": "dtmi:standard:unit:kiloohm;2",
+        "@type": [ "ResistanceUnit", "DecimalUnit" ],
+        "displayName": "kiloohm",
+        "abbreviation": "kΩ",
+        "baseUnit": "ohm",
+        "prefix": "kilo"
+      },
+      {
+        "@id": "dtmi:standard:unit:megaohm;2",
+        "@type": [ "ResistanceUnit", "DecimalUnit" ],
+        "displayName": "megaohm",
+        "abbreviation": "MΩ",
+        "baseUnit": "ohm",
+        "prefix": "mega"
+      },
+      {
+        "@id": "dtmi:standard:unit:decibel;2",
+        "@type": [ "SoundPressureUnit", "DecimalUnit" ],
+        "displayName": "decibel",
+        "abbreviation": "dB",
+        "baseUnit": "bel",
+        "prefix": "deci"
+      },
+      {
+        "@id": "dtmi:standard:unit:bel;2",
+        "@type": [ "SoundPressureUnit", "DecimalUnit" ],
+        "displayName": "bel",
+        "abbreviation": "B",
+        "baseUnit": "bel"
+      },
+      {
+        "@id": "dtmi:standard:unit:kelvin;2",
+        "@type": [ "TemperatureUnit" ],
+        "displayName": "kelvin",
+        "abbreviation": "K"
+      },
+      {
+        "@id": "dtmi:standard:unit:degreeCelsius;2",
+        "@type": [ "TemperatureUnit" ],
+        "displayName": "degree celsius",
+        "abbreviation": "°C"
+      },
+      {
+        "@id": "dtmi:standard:unit:degreeFahrenheit;2",
+        "@type": [ "TemperatureUnit" ],
+        "displayName": "degree fahrenheit",
+        "abbreviation": "°F"
+      },
+      {
+        "@id": "dtmi:standard:unit:second;2",
+        "@type": [ "TimeUnit", "DecimalUnit" ],
+        "displayName": "second",
+        "abbreviation": "s",
+        "baseUnit": "second"
+      },
+      {
+        "@id": "dtmi:standard:unit:millisecond;2",
+        "@type": [ "TimeUnit", "DecimalUnit" ],
+        "displayName": "millisecond",
+        "abbreviation": "ms",
+        "baseUnit": "second",
+        "prefix": "milli"
+      },
+      {
+        "@id": "dtmi:standard:unit:microsecond;2",
+        "@type": [ "TimeUnit", "DecimalUnit" ],
+        "displayName": "microsecond",
+        "abbreviation": "µs",
+        "baseUnit": "second",
+        "prefix": "micro"
+      },
+      {
+        "@id": "dtmi:standard:unit:nanosecond;2",
+        "@type": [ "TimeUnit", "DecimalUnit" ],
+        "displayName": "nanosecond",
+        "abbreviation": "ns",
+        "baseUnit": "second",
+        "prefix": "nano"
+      },
+      {
+        "@id": "dtmi:standard:unit:minute;2",
+        "@type": [ "TimeUnit" ],
+        "displayName": "minute",
+        "abbreviation": "m"
+      },
+      {
+        "@id": "dtmi:standard:unit:hour;2",
+        "@type": [ "TimeUnit" ],
+        "displayName": "hour",
+        "abbreviation": "h"
+      },
+      {
+        "@id": "dtmi:standard:unit:day;2",
+        "@type": [ "TimeUnit" ],
+        "displayName": "day",
+        "abbreviation": "d"
+      },
+      {
+        "@id": "dtmi:standard:unit:year;2",
+        "@type": [ "TimeUnit" ],
+        "displayName": "year",
+        "abbreviation": "yr"
+      },
+      {
+        "@id": "dtmi:standard:unit:newtonMetre;2",
+        "@type": [ "TorqueUnit", "DecimalUnit" ],
+        "displayName": "newton-metre",
+        "abbreviation": "N m",
+        "baseUnit": "newtonMetre"
+      },
+      {
+        "@id": "dtmi:standard:unit:unity;2",
+        "@type": [ "Unitless" ],
+        "displayName": "",
+        "abbreviation": ""
+      },
+      {
+        "@id": "dtmi:standard:unit:percent;2",
+        "@type": [ "Unitless" ],
+        "displayName": "percent",
+        "abbreviation": "%"
+      },
+      {
+        "@id": "dtmi:standard:unit:metrePerSecond;2",
+        "@type": [ "VelocityUnit", "DecimalUnit", "RatioUnit" ],
+        "displayName": "metre per second",
+        "abbreviation": "m/s",
+        "baseUnit": "metrePerSecond",
+        "topUnit": "metre",
+        "bottomUnit": "second"
+      },
+      {
+        "@id": "dtmi:standard:unit:centimetrePerSecond;2",
+        "@type": [ "VelocityUnit", "DecimalUnit", "RatioUnit" ],
+        "displayName": "centimetre per second",
+        "abbreviation": "cm/s",
+        "baseUnit": "metrePerSecond",
+        "prefix": "centi",
+        "topUnit": "centimetre",
+        "bottomUnit": "second"
+      },
+      {
+        "@id": "dtmi:standard:unit:kilometrePerSecond;2",
+        "@type": [ "VelocityUnit", "DecimalUnit", "RatioUnit" ],
+        "displayName": "kilometre per second",
+        "abbreviation": "km/s",
+        "baseUnit": "metrePerSecond",
+        "prefix": "kilo",
+        "topUnit": "kilometre",
+        "bottomUnit": "second"
+      },
+      {
+        "@id": "dtmi:standard:unit:metrePerHour;2",
+        "@type": [ "VelocityUnit", "DecimalUnit", "RatioUnit" ],
+        "displayName": "metre per hour",
+        "abbreviation": "m/h",
+        "baseUnit": "metrePerHour",
+        "topUnit": "metre",
+        "bottomUnit": "hour"
+      },
+      {
+        "@id": "dtmi:standard:unit:kilometrePerHour;2",
+        "@type": [ "VelocityUnit", "DecimalUnit", "RatioUnit" ],
+        "displayName": "kilometre per hour",
+        "abbreviation": "km/h",
+        "baseUnit": "metrePerHour",
+        "prefix": "kilo",
+        "topUnit": "kilometre",
+        "bottomUnit": "hour"
+      },
+      {
+        "@id": "dtmi:standard:unit:milePerHour;2",
+        "@type": [ "VelocityUnit", "RatioUnit" ],
+        "displayName": "mile per hour",
+        "abbreviation": "mph",
+        "topUnit": "mile",
+        "bottomUnit": "hour"
+      },
+      {
+        "@id": "dtmi:standard:unit:milePerSecond;2",
+        "@type": [ "VelocityUnit", "RatioUnit" ],
+        "displayName": "mile per second",
+        "abbreviation": "mi/s",
+        "topUnit": "mile",
+        "bottomUnit": "second"
+      },
+      {
+        "@id": "dtmi:standard:unit:knot;2",
+        "@type": [ "VelocityUnit" ],
+        "displayName": "knot",
+        "abbreviation": "kn"
+      },
+      {
+        "@id": "dtmi:standard:unit:volt;2",
+        "@type": [ "VoltageUnit", "DecimalUnit" ],
+        "displayName": "volt",
+        "abbreviation": "V",
+        "baseUnit": "volt"
+      },
+      {
+        "@id": "dtmi:standard:unit:millivolt;2",
+        "@type": [ "VoltageUnit", "DecimalUnit" ],
+        "displayName": "millivolt",
+        "abbreviation": "mV",
+        "baseUnit": "volt",
+        "prefix": "milli"
+      },
+      {
+        "@id": "dtmi:standard:unit:microvolt;2",
+        "@type": [ "VoltageUnit", "DecimalUnit" ],
+        "displayName": "microvolt",
+        "abbreviation": "µV",
+        "baseUnit": "volt",
+        "prefix": "micro"
+      },
+      {
+        "@id": "dtmi:standard:unit:kilovolt;2",
+        "@type": [ "VoltageUnit", "DecimalUnit" ],
+        "displayName": "kilovolt",
+        "abbreviation": "kV",
+        "baseUnit": "volt",
+        "prefix": "kilo"
+      },
+      {
+        "@id": "dtmi:standard:unit:megavolt;2",
+        "@type": [ "VoltageUnit", "DecimalUnit" ],
+        "displayName": "megavolt",
+        "abbreviation": "MV",
+        "baseUnit": "volt",
+        "prefix": "mega"
+      },
+      {
+        "@id": "dtmi:standard:unit:cubicMetre;2",
+        "@type": [ "VolumeUnit" ],
+        "displayName": "cubic metre",
+        "abbreviation": "m³"
+      },
+      {
+        "@id": "dtmi:standard:unit:cubicCentimetre;2",
+        "@type": [ "VolumeUnit" ],
+        "displayName": "cubic centimetre",
+        "abbreviation": "cm³"
+      },
+      {
+        "@id": "dtmi:standard:unit:litre;2",
+        "@type": [ "VolumeUnit", "DecimalUnit" ],
+        "displayName": "litre",
+        "abbreviation": "l",
+        "baseUnit": "litre"
+      },
+      {
+        "@id": "dtmi:standard:unit:millilitre;2",
+        "@type": [ "VolumeUnit", "DecimalUnit" ],
+        "displayName": "millilitre",
+        "abbreviation": "ml",
+        "baseUnit": "litre",
+        "prefix": "milli"
+      },
+      {
+        "@id": "dtmi:standard:unit:cubicFoot;2",
+        "@type": [ "VolumeUnit" ],
+        "displayName": "cubic foot",
+        "abbreviation": "ft³"
+      },
+      {
+        "@id": "dtmi:standard:unit:cubicInch;2",
+        "@type": [ "VolumeUnit" ],
+        "displayName": "cubic inch",
+        "abbreviation": "in³"
+      },
+      {
+        "@id": "dtmi:standard:unit:fluidOunce;2",
+        "@type": [ "VolumeUnit" ],
+        "displayName": "fluid ounce",
+        "abbreviation": "fl oz"
+      },
+      {
+        "@id": "dtmi:standard:unit:gallon;2",
+        "@type": [ "VolumeUnit" ],
+        "displayName": "gallon",
+        "abbreviation": "gal"
+      },
+      {
+        "@id": "dtmi:standard:unit:litrePerSecond;2",
+        "@type": [ "VolumeFlowRateUnit", "DecimalUnit", "RatioUnit" ],
+        "displayName": "litre per second",
+        "abbreviation": "l/s",
+        "baseUnit": "litrePerSecond",
+        "topUnit": "litre",
+        "bottomUnit": "second"
+      },
+      {
+        "@id": "dtmi:standard:unit:millilitrePerSecond;2",
+        "@type": [ "VolumeFlowRateUnit", "DecimalUnit", "RatioUnit" ],
+        "displayName": "millilitre per second",
+        "abbreviation": "ml/s",
+        "baseUnit": "litrePerSecond",
+        "prefix": "milli",
+        "topUnit": "millilitre",
+        "bottomUnit": "second"
+      },
+      {
+        "@id": "dtmi:standard:unit:litrePerHour;2",
+        "@type": [ "VolumeFlowRateUnit", "DecimalUnit", "RatioUnit" ],
+        "displayName": "litre per hour",
+        "abbreviation": "l/h",
+        "baseUnit": "litrePerHour",
+        "topUnit": "litre",
+        "bottomUnit": "hour"
+      },
+      {
+        "@id": "dtmi:standard:unit:millilitrePerHour;2",
+        "@type": [ "VolumeFlowRateUnit", "DecimalUnit", "RatioUnit" ],
+        "displayName": "millilitre per hour",
+        "abbreviation": "ml/h",
+        "baseUnit": "litrePerHour",
+        "prefix": "milli",
+        "topUnit": "millilitre",
+        "bottomUnit": "hour"
+      },
+
+      {
+        "@id": "dtmi:standard:schema:geospatialPointType;2",
+        "@type": "Enum",
+        "valueSchema": "string",
+        "enumValues": [
+          {
+            "@id": "dtmi:standard:schema:geospatial:enumValue:point;2",
+            "@type": "EnumValue",
+            "name": "point",
+            "enumValue": "Point"
+          }
+        ]
+      },
+      {
+        "@id": "dtmi:standard:schema:geospatialMultiPointType;2",
+        "@type": "Enum",
+        "valueSchema": "string",
+        "enumValues": [
+          {
+            "@id": "dtmi:standard:schema:geospatial:enumValue:multiPoint;2",
+            "@type": "EnumValue",
+            "name": "multiPoint",
+            "enumValue": "MultiPoint"
+          }
+        ]
+      },
+      {
+        "@id": "dtmi:standard:schema:geospatialLineStringType;2",
+        "@type": "Enum",
+        "valueSchema": "string",
+        "enumValues": [
+          {
+            "@id": "dtmi:standard:schema:geospatial:enumValue:lineString;2",
+            "@type": "EnumValue",
+            "name": "lineString",
+            "enumValue": "LineString"
+          }
+        ]
+      },
+      {
+        "@id": "dtmi:standard:schema:geospatialMultiLineStringType;2",
+        "@type": "Enum",
+        "valueSchema": "string",
+        "enumValues": [
+          {
+            "@id": "dtmi:standard:schema:geospatial:enumValue:multiLineString;2",
+            "@type": "EnumValue",
+            "name": "multiLineString",
+            "enumValue": "MultiLineString"
+          }
+        ]
+      },
+      {
+        "@id": "dtmi:standard:schema:geospatialPolygonType;2",
+        "@type": "Enum",
+        "valueSchema": "string",
+        "enumValues": [
+          {
+            "@id": "dtmi:standard:schema:geospatial:enumValue:polygon;2",
+            "@type": "EnumValue",
+            "name": "polygon",
+            "enumValue": "Polygon"
+          }
+        ]
+      },
+      {
+        "@id": "dtmi:standard:schema:geospatialMultiPolygonType;2",
+        "@type": "Enum",
+        "valueSchema": "string",
+        "enumValues": [
+          {
+            "@id": "dtmi:standard:schema:geospatial:enumValue:multiPolygon;2",
+            "@type": "EnumValue",
+            "name": "multiPolygon",
+            "enumValue": "MultiPolygon"
+          }
+        ]
+      },
+      {
+        "@id": "dtmi:standard:schema:geospatial:position;2",
+        "@type": "Array",
+        "elementSchema": "double"
+      },
+      {
+        "@id": "dtmi:standard:schema:geospatial:lineStringCoordinateArray;2",
+        "@type": "Array",
+        "elementSchema": "dtmi:standard:schema:geospatial:position;2"
+      },
+      {
+        "@id": "dtmi:standard:schema:geospatial:polygonCoordinateArray;2",
+        "@type": "Array",
+        "elementSchema": {
+          "@id": "dtmi:standard:schema:geospatial:linearRingCoordinateArray;2",
+          "@type": "Array",
+          "elementSchema": "dtmi:standard:schema:geospatial:position;2"
+        }
+      },
+      {
+        "@id": "dtmi:standard:schema:geospatial:point;2",
+        "@type": "Object",
+        "fields": [
+          {
+            "@id": "dtmi:standard:schema:geospatial:point:type;2",
+            "@type": "Field",
+            "name": "type",
+            "schema": "dtmi:standard:schema:geospatialPointType;2"
+          },
+          {
+            "@id": "dtmi:standard:schema:geospatial:point:coordinates;2",
+            "@type": "Field",
+            "name": "coordinates",
+            "schema": "dtmi:standard:schema:geospatial:position;2"
+          }
+        ]
+      },
+      {
+        "@id": "dtmi:standard:schema:geospatial:multiPoint;2",
+        "@type": "Object",
+        "fields": [
+          {
+            "@id": "dtmi:standard:schema:geospatial:multiPoint:type;2",
+            "@type": "Field",
+            "name": "type",
+            "schema": "dtmi:standard:schema:geospatialMultiPointType;2"
+          },
+          {
+            "@id": "dtmi:standard:schema:geospatial:multiPoint:coordinates;2",
+            "@type": "Field",
+            "name": "coordinates",
+            "schema": {
+              "@id": "dtmi:standard:schema:geospatial:positionArray;2",
+              "@type": "Array",
+              "elementSchema": "dtmi:standard:schema:geospatial:position;2"
+            }
+          }
+        ]
+      },
+      {
+        "@id": "dtmi:standard:schema:geospatial:lineString;2",
+        "@type": "Object",
+        "fields": [
+          {
+            "@id": "dtmi:standard:schema:geospatial:lineString:type;2",
+            "@type": "Field",
+            "name": "type",
+            "schema": "dtmi:standard:schema:geospatialLineStringType;2"
+          },
+          {
+            "@id": "dtmi:standard:schema:geospatial:lineString:coordinates;2",
+            "@type": "Field",
+            "name": "coordinates",
+            "schema": "dtmi:standard:schema:geospatial:lineStringCoordinateArray;2"
+          }
+        ]
+      },
+      {
+        "@id": "dtmi:standard:schema:geospatial:multiLineString;2",
+        "@type": "Object",
+        "fields": [
+          {
+            "@id": "dtmi:standard:schema:geospatial:multiLineString:type;2",
+            "@type": "Field",
+            "name": "type",
+            "schema": "dtmi:standard:schema:geospatialMultiLineStringType;2"
+          },
+          {
+            "@id": "dtmi:standard:schema:geospatial:multiLineString:coordinates;2",
+            "@type": "Field",
+            "name": "coordinates",
+            "schema": {
+              "@id": "dtmi:standard:schema:geospatial:lineStringCoordinateArrayArray;2",
+              "@type": "Array",
+              "elementSchema": "dtmi:standard:schema:geospatial:lineStringCoordinateArray;2"
+            }
+          }
+        ]
+      },
+      {
+        "@id": "dtmi:standard:schema:geospatial:polygon;2",
+        "@type": "Object",
+        "fields": [
+          {
+            "@id": "dtmi:standard:schema:geospatial:polygon:type;2",
+            "@type": "Field",
+            "name": "type",
+            "schema": "dtmi:standard:schema:geospatialPolygonType;2"
+          },
+          {
+            "@id": "dtmi:standard:schema:geospatial:polygon:coordinates;2",
+            "@type": "Field",
+            "name": "coordinates",
+            "schema": "dtmi:standard:schema:geospatial:polygonCoordinateArray;2"
+          }
+        ]
+      },
+      {
+        "@id": "dtmi:standard:schema:geospatial:multiPolygon;2",
+        "@type": "Object",
+        "fields": [
+          {
+            "@id": "dtmi:standard:schema:geospatial:multiPolygon:type;2",
+            "@type": "Field",
+            "name": "type",
+            "schema": "dtmi:standard:schema:geospatialMultiPolygonType;2"
+          },
+          {
+            "@id": "dtmi:standard:schema:geospatial:multiPolygon:coordinates;2",
+            "@type": "Field",
+            "name": "coordinates",
+            "schema": {
+              "@id": "dtmi:standard:schema:geospatial:polygonCoordinateArrayArray;2",
+              "@type": "Array",
+              "elementSchema": "dtmi:standard:schema:geospatial:polygonCoordinateArray;2"
+            }
+          }
+        ]
+      }
+    ]
+  }

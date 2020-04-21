@@ -72,9 +72,6 @@ describe('components/devices/deviceSettingsPerInterfacePerSetting', () => {
         const schemaLabel = wrapper.find(Label).at(1);
         expect(schemaLabel.props().children).toEqual(schema);
 
-        const unitLabel = wrapper.find(Label).at(2); // tslint:disable-line:no-magic-numbers
-        expect(unitLabel.props().children).toEqual('--');
-
         const valueLabel = wrapper.find(Label).at(3); // tslint:disable-line:no-magic-numbers
         expect(valueLabel.props().children).toEqual('true');
     });
@@ -115,9 +112,6 @@ describe('components/devices/deviceSettingsPerInterfacePerSetting', () => {
 
         const schemaLabel = wrapper.find(Label).at(1);
         expect(schemaLabel.props().children).toEqual(schema);
-
-        const unitLabel = wrapper.find(Label).at(2); // tslint:disable-line:no-magic-numbers
-        expect(unitLabel.props().children).toEqual('--');
 
         const complexValueButton = wrapper.find(ActionButton).first();
         expect(complexValueButton.props().className).toEqual('column-value-button');
