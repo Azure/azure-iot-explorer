@@ -40,7 +40,7 @@ describe('parse interface model definition to Json schema', () => {
         /* tslint:enable */
         const interfacePropertyInJsonSchema =
             {
-                description: 'Total storage ( Unit: mebibit )',
+                description: 'Total storage',
                 title: 'totalStorage',
                 type: 'number',
             };
@@ -61,7 +61,7 @@ describe('parse interface model definition to Json schema', () => {
         const interfacePropertyInJsonSchema =
             {
                 default: false,
-                description: 'Total storage ( Unit: mebibit )',
+                description: 'Total storage',
                 title: 'totalStorage',
                 type: 'boolean'
             };
@@ -259,7 +259,7 @@ describe('parse interface model definition to Json schema', () => {
 
         const interfaceTelemetryInJsonSchema =
             {
-                description: 'Temperature / Current temperature on the device ( Unit: Units/Temperature/fahrenheit )',
+                description: 'Temperature / Current temperature on the device',
                 title: 'temp',
                 type: 'number'
             };

@@ -22,6 +22,6 @@ export const SemanticUnit: React.FC<SemanticUnitProps> = props => {
         return <span>{unitHost.unit}</span>;
     } else {
         const title = getLocalizedData(semanticUnit.displayName);
-        return <span title={title}>{semanticUnit.abbreviation}</span>;
+        return <span title={title}>{title} ({semanticUnit.abbreviation})</span>;
     }
 };

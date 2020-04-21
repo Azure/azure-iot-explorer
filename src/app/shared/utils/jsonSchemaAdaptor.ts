@@ -18,7 +18,7 @@ export const parseInterfacePropertyToJsonSchema = (property: PropertyContent): P
 export const parseInterfaceCommandToJsonSchema = (command: CommandContent): ParsedCommandSchema => {
     try {
         return {
-            description: getDisplayName(command),
+            description: getDescription(command),
             name: command.name,
             requestSchema: parseInterfaceCommandsHelper(command, true),
             responseSchema: parseInterfaceCommandsHelper(command, false)
@@ -172,7 +172,7 @@ const parseInterfaceCommandsHelper = (command: CommandContent, parseRequestSchem
     // add a dummy head for command request/response schema to make the recursion logic simpler
     const dummyCommand: PropertyContent = {
         '@type': ContentType.Command,
-        'displayName': getDisplayName(commandSchema),
+        'displayName': getDescription(commandSchema),
         'name': commandSchema.name,
         'schema': commandSchema.schema,
     };
@@ -186,23 +186,10 @@ const parseInterfaceCommandsHelper = (command: CommandContent, parseRequestSchem
     }
 };
 
-const getDescription = (property: PropertyContent): string => {
-    const displayName = getDisplayName(property);
-    const displayUnit = getDisplayUnit(property);
-
-    return displayName && displayUnit ?
-    `${displayName} ( Unit: ${displayUnit} )` : (displayUnit ? `( Unit: ${displayUnit} )` : displayName );
-};
-
-const getDisplayName = (schema: PropertyContent | CommandContent | Schema): string => {
+const getDescription = (schema: PropertyContent | CommandContent | Schema): string => {
     const displayName = getLocalizedData(schema.displayName);
     const description = getLocalizedData(schema.description);
     return displayName && description ?
     `${displayName} / ${description}` :
      (description || displayName || '') as string;
-};
-
-// tslint:disable-next-line:cyclomatic-complexity
-const getDisplayUnit = (schema: PropertyContent | CommandContent): string => {
-    return schema.unit || '';
 };

@@ -10,7 +10,10 @@ exports[`SemanticUnit matches snapshot when unit is listed 1`] = `
 <span
   title="displayName"
 >
+  displayName
+   (
   abbr
+  )
 </span>
 `;
 
