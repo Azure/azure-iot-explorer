@@ -15,6 +15,7 @@ import { RenderSimplyTypeValue } from '../shared/simpleReportedSection';
 import { PropertyContent } from '../../../../api/models/modelDefinition';
 import { ParsedJsonSchema } from '../../../../api/models/interfaceJsonParserOutput';
 import { SMALL_COLUMN_WIDTH, EXTRA_LARGE_COLUMN_WIDTH } from '../../../../constants/columnWidth';
+import { SemanticUnit } from '../../../../shared/units/components/semanticUnit';
 
 export interface DevicePropertiesDataProps {
     twinAndSchema: TwinWithSchema[];
@@ -110,8 +111,10 @@ export default class DevicePropertiesPerInterface
 
     private readonly renderPropertyUnit = (context: LocalizationContextInterface, item: TwinWithSchema) => {
         const ariaLabel = context.t(ResourceKeys.deviceProperties.columns.unit);
-        const unit = item.propertyModelDefinition.unit;
-        return <Label aria-label={ariaLabel}>{unit ? unit : '--'}</Label>;
+        return (
+            <Label aria-label={ariaLabel}>
+                <SemanticUnit unitHost={item.propertyModelDefinition} />
+            </Label>);
     }
 
     private readonly renderPropertyReportedValue = (context: LocalizationContextInterface, item: TwinWithSchema) => {

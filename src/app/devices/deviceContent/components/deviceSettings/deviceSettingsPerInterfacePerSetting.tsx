@@ -17,7 +17,7 @@ import { RenderSimplyTypeValue } from '../shared/simpleReportedSection';
 import { PatchDigitalTwinActionParameters } from '../../actions';
 import ErrorBoundary from '../../../errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
-import { MetadataSection } from './selectors';
+import { SemanticUnit } from '../../../../shared/units/components/semanticUnit';
 import '../../../../css/_deviceSettings.scss';
 import { JsonPatchOperation } from '../../../../api/parameters/deviceParameters';
 
@@ -109,8 +109,13 @@ export default class DeviceSettingsPerInterfacePerSetting
 
     private readonly renderPropertyUnit = (context: LocalizationContextInterface) => {
         const ariaLabel = context.t(ResourceKeys.deviceProperties.columns.unit);
-        const unit = this.props.settingModelDefinition.unit;
-        return <div className="col-sm2"><Label aria-label={ariaLabel}>{unit ? unit : '--'}</Label></div>;
+
+        return (
+            <div className="col-sm2">
+                <Label aria-label={ariaLabel}>
+                    <SemanticUnit unitHost={this.props.settingModelDefinition} />
+                </Label>
+            </div>);
     }
 
     private readonly renderReportedValueAndMetadata = (context: LocalizationContextInterface) => {
