@@ -57,7 +57,7 @@ export default class DeviceSettingsPerInterfacePerSetting
 
     public render(): JSX.Element {
         return (
-            <article className="list-item" role="listitem">
+            <article className="list-item pnp-properties" role="listitem">
                 <LocalizationContextConsumer>
                     {(context: LocalizationContextInterface) => (
                         <ErrorBoundary error={context.t(ResourceKeys.errorBoundary.text)}>
@@ -123,7 +123,7 @@ export default class DeviceSettingsPerInterfacePerSetting
                         {this.renderReportedValue(context)}
                     </Stack.Item>
                     {metadata &&
-                        <Stack.Item align="start" className="reported-status">
+                        <Stack.Item align="start" className={`${this.isSchemaSimpleType() ? 'reported-status' : 'reported-status-complex'} `}>
                             {metadata.ackCode && `(${metadata.ackCode} ${metadata.ackDescription})`}
                         </Stack.Item>
                     }
@@ -183,20 +183,16 @@ export default class DeviceSettingsPerInterfacePerSetting
     private readonly createReportedValuePanel = () => {
         const { reportedTwin, settingModelDefinition : modelDefinition, settingSchema : schema } = this.props;
         return (
-            <>
-            {
-                this.state.showReportedValuePanel &&
-                <div role="dialog">
+            <div role="dialog">
+                {this.state.showReportedValuePanel &&
                     <ComplexReportedFormPanel
                         schema={schema}
                         modelDefinition={modelDefinition}
                         showPanel={this.state.showReportedValuePanel}
                         formData={reportedTwin}
                         handleDismiss={this.handleDismissViewReportedPanel}
-                    />
-                </div>
-            }
-            </>
+                    />}
+            </div>
         );
     }
 
