@@ -14,14 +14,12 @@ import { PropertyContent } from '../../../../api/models/modelDefinition';
 import ComplexReportedFormPanel from '../shared/complexReportedFormPanel';
 import DataForm from '../shared/dataForm';
 import { RenderSimplyTypeValue } from '../shared/simpleReportedSection';
-import { RenderDesiredState } from '../shared/desiredStateStatus';
-import { PatchDigitalTwinInterfacePropertiesActionParameters } from '../../actions';
-import { generateInterfacePropertiesPayload } from '../../sagas/digitalTwinInterfacePropertySaga';
-import { Reported } from '../../../../api/models/digitalTwinModels';
+import { PatchDigitalTwinActionParameters } from '../../actions';
 import ErrorBoundary from '../../../errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 import { SemanticUnit } from '../../../../shared/units/components/semanticUnit';
 import '../../../../css/_deviceSettings.scss';
+import { JsonPatchOperation } from '../../../../api/parameters/deviceParameters';
 
 export interface DeviceSettingDataProps extends TwinWithSchema {
     collapsed: boolean;
@@ -33,13 +31,12 @@ export interface DeviceSettingDataProps extends TwinWithSchema {
 export interface DeviceSettingDispatchProps {
     handleCollapseToggle: () => void;
     handleOverlayToggle: () => void;
-    patchDigitalTwinInterfaceProperties: (parameters: PatchDigitalTwinInterfacePropertiesActionParameters) => void;
+    patchDigitalTwin: (parameters: PatchDigitalTwinActionParameters) => void;
 }
 
 export interface TwinWithSchema {
-    desiredTwin: any; // tslint:disable-line: no-any
-    reportedTwin: Reported;
-
+    metadata: MetadataSection;
+    reportedTwin: boolean | string | number | object;
     settingModelDefinition: PropertyContent;
     settingSchema: ParsedJsonSchema;
 }
@@ -86,7 +83,7 @@ export default class DeviceSettingsPerInterfacePerSetting
                 {this.renderPropertyName(context)}
                 {this.renderPropertySchema(context)}
                 {this.renderPropertyUnit(context)}
-                {this.renderPropertyReportedValue(context)}
+                {this.renderReportedValueAndMetadata(context)}
                 {this.renderCollapseButton(context)}
             </header>
         );
@@ -121,8 +118,8 @@ export default class DeviceSettingsPerInterfacePerSetting
             </div>);
     }
 
-    private readonly renderPropertyReportedValue = (context: LocalizationContextInterface) => {
-        const { reportedTwin } = this.props;
+    private readonly renderReportedValueAndMetadata = (context: LocalizationContextInterface) => {
+        const { metadata } = this.props;
         const ariaLabel = context.t(ResourceKeys.deviceSettings.columns.reportedValue);
         return (
             <div className="column-value-text col-sm4" aria-label={ariaLabel}>
@@ -130,9 +127,9 @@ export default class DeviceSettingsPerInterfacePerSetting
                     <Stack.Item align="start" className="reported-property">
                         {this.renderReportedValue(context)}
                     </Stack.Item>
-                    {reportedTwin && reportedTwin.desiredState &&
-                        <Stack.Item align="start">
-                            {RenderDesiredState(reportedTwin.desiredState)}
+                    {metadata &&
+                        <Stack.Item align="start" className="reported-status">
+                            {metadata.ackCode && `(${metadata.ackCode} ${metadata.ackDescription})`}
                         </Stack.Item>
                     }
                 </Stack>
@@ -147,7 +144,7 @@ export default class DeviceSettingsPerInterfacePerSetting
                 {reportedTwin || typeof reportedTwin === 'boolean' ?
                     (this.isSchemaSimpleType() ?
                         RenderSimplyTypeValue(
-                            reportedTwin.value,
+                            reportedTwin,
                             this.props.settingSchema,
                             context.t(ResourceKeys.deviceSettings.columns.error)) :
                         <ActionButton
@@ -223,7 +220,7 @@ export default class DeviceSettingsPerInterfacePerSetting
         return (
             <DataForm
                 buttonText={ResourceKeys.deviceSettings.command.submit}
-                formData={this.props.desiredTwin}
+                formData={this.props.metadata && this.props.metadata.desiredValue}
                 settingSchema={this.props.settingSchema}
                 handleSave={this.onSubmit}
                 craftPayload={this.createSettingsPayload}
@@ -232,15 +229,23 @@ export default class DeviceSettingsPerInterfacePerSetting
             />
         );
     }
-    private readonly createSettingsPayload = (patchData: object) => {
-        return generateInterfacePropertiesPayload(this.props.componentName, this.props.settingModelDefinition.name, patchData);
+
+    private readonly createSettingsPayload = (twin: boolean | number | string | object)
+        : {operation: JsonPatchOperation; path: string; value?: boolean | number | string | object} => {
+        return twin ? {
+            operation: this.props.metadata && this.props.metadata.desiredValue && this.props.metadata.desiredValue !== {} ? JsonPatchOperation.REPLACE : JsonPatchOperation.ADD,
+            path: `/${this.props.componentName}/${this.props.settingModelDefinition.name}`,
+            value: twin,
+        } : {
+            operation: JsonPatchOperation.REMOVE,
+            path: `/${this.props.componentName}/${this.props.settingModelDefinition.name}`,
+        };
     }
 
-    private readonly onSubmit = (twin: any) => () => { // tslint:disable-line:no-any
-        this.props.patchDigitalTwinInterfaceProperties({
-            digitalTwinId: this.props.deviceId,
-            interfacesPatchData: twin,
-            propertyKey: this.props.settingModelDefinition.name
+    private readonly onSubmit = (twin: boolean | number | string | object) => () => {
+        this.props.patchDigitalTwin({
+            ...this.createSettingsPayload(twin),
+            digitalTwinId: this.props.deviceId
         });
     }
 }

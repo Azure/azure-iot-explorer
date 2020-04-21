@@ -4,14 +4,12 @@
  **********************************************************/
 import {
     FetchDigitalTwinParameters,
-    FetchDigitalTwinInterfacePropertiesParameters,
-    PatchDigitalTwinInterfacePropertiesParameters,
-    InvokeDigitalTwinInterfaceCommandParameters
+    InvokeDigitalTwinInterfaceCommandParameters,
+    PatchDigitalTwinParameters
 } from '../parameters/deviceParameters';
-import { DIGITAL_TWIN_API_VERSION, DIGITAL_TWIN_API_VERSION_PREVIEW, HTTP_OPERATION_TYPES } from '../../constants/apiConstants';
+import { DIGITAL_TWIN_API_VERSION_PREVIEW, HTTP_OPERATION_TYPES } from '../../constants/apiConstants';
 import { CONNECTION_TIMEOUT_IN_SECONDS, RESPONSE_TIME_IN_SECONDS } from '../../constants/devices';
-import { DigitalTwinInterfaces } from '../models/digitalTwinModels';
-import { dataPlaneConnectionHelper, dataPlaneResponseHelper, request, DATAPLANE_CONTROLLER_ENDPOINT, DataPlaneRequest } from './dataplaneServiceHelper';
+import { dataPlaneConnectionHelper, dataPlaneResponseHelper, request, DATAPLANE_CONTROLLER_ENDPOINT, DataPlaneRequest, dataPlaneResponseCodeHelper } from './dataplaneServiceHelper';
 
 export const fetchDigitalTwin = async (parameters: FetchDigitalTwinParameters) => {
     if (!parameters.digitalTwinId) {
@@ -32,43 +30,27 @@ export const fetchDigitalTwin = async (parameters: FetchDigitalTwinParameters) =
     return result.body;
 };
 
-export const fetchDigitalTwinInterfaceProperties = async (parameters: FetchDigitalTwinInterfacePropertiesParameters): Promise<DigitalTwinInterfaces> => {
+export const patchDigitalTwinAndGetResponseCode = async (parameters: PatchDigitalTwinParameters): Promise<number> => {
     if (!parameters.digitalTwinId) {
         return;
     }
 
     const connectionInformation = dataPlaneConnectionHelper(parameters);
     const dataPlaneRequest: DataPlaneRequest = {
-        apiVersion: DIGITAL_TWIN_API_VERSION,
-        hostName: connectionInformation.connectionInfo.hostName,
-        httpMethod: HTTP_OPERATION_TYPES.Get,
-        path: `/digitalTwins/${parameters.digitalTwinId}/interfaces`,
-        sharedAccessSignature: connectionInformation.sasToken
-    };
-
-    const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
-    const result = await dataPlaneResponseHelper(response);
-    return result.body;
-};
-
-export const patchDigitalTwinInterfaceProperties = async (parameters: PatchDigitalTwinInterfacePropertiesParameters): Promise<DigitalTwinInterfaces> => {
-    if (!parameters.digitalTwinId) {
-        return;
-    }
-
-    const connectionInformation = dataPlaneConnectionHelper(parameters);
-    const dataPlaneRequest: DataPlaneRequest = {
-        apiVersion: DIGITAL_TWIN_API_VERSION,
-        body: JSON.stringify(parameters.payload),
+        apiVersion: DIGITAL_TWIN_API_VERSION_PREVIEW,
+        body: JSON.stringify([{
+            op: parameters.operation,
+            path: parameters.path,
+            value: parameters.value
+        }]),
         hostName: connectionInformation.connectionInfo.hostName,
         httpMethod: HTTP_OPERATION_TYPES.Patch,
-        path: `/digitalTwins/${parameters.digitalTwinId}/interfaces`,
+        path: `/digitalTwins/${parameters.digitalTwinId}`,
         sharedAccessSignature: connectionInformation.sasToken
     };
 
     const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
-    const result = await dataPlaneResponseHelper(response);
-    return result.body;
+    return dataPlaneResponseCodeHelper(response);
 };
 
 export const invokeDigitalTwinInterfaceCommand = async (parameters: InvokeDigitalTwinInterfaceCommandParameters) => {
@@ -81,7 +63,7 @@ export const invokeDigitalTwinInterfaceCommand = async (parameters: InvokeDigita
     const responseTimeoutInSeconds = parameters.responseTimeoutInSeconds || RESPONSE_TIME_IN_SECONDS;
     const queryString = `connectTimeoutInSeconds=${connectTimeoutInSeconds}&responseTimeoutInSeconds=${responseTimeoutInSeconds}`;
     const dataPlaneRequest: DataPlaneRequest = {
-        apiVersion: DIGITAL_TWIN_API_VERSION,
+        apiVersion: DIGITAL_TWIN_API_VERSION_PREVIEW,
         body: JSON.stringify(parameters.payload),
         hostName: connectionInformation.connectionInfo.hostName,
         httpMethod: HTTP_OPERATION_TYPES.Post,

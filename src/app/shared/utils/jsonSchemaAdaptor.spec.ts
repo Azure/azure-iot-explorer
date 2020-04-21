@@ -21,6 +21,7 @@ describe('parse interface model definition to Json schema', () => {
         const interfacePropertyInJsonSchema =
             {
                 description: 'Firmware version',
+                required: null,
                 title: 'fwVersion',
                 type: 'string'
             };
@@ -41,6 +42,7 @@ describe('parse interface model definition to Json schema', () => {
         const interfacePropertyInJsonSchema =
             {
                 description: 'Total storage',
+                required: null,
                 title: 'totalStorage',
                 type: 'number',
             };
@@ -62,6 +64,7 @@ describe('parse interface model definition to Json schema', () => {
             {
                 default: false,
                 description: 'Total storage',
+                required: null,
                 title: 'totalStorage',
                 type: 'boolean'
             };
@@ -115,6 +118,7 @@ describe('parse interface model definition to Json schema', () => {
             // tslint:disable-next-line:no-magic-numbers
             enum: [1, 2],
             enumNames : ['offline', 'online'],
+            required: null,
             title: 'testProperty',
             type: 'number',
         });
@@ -166,6 +170,7 @@ describe('parse interface model definition to Json schema', () => {
                             },
                             schema:  {
                                 description: '',
+                                required: null,
                                 title: 'schema',
                                 type: 'string',
                             }
@@ -176,15 +181,18 @@ describe('parse interface model definition to Json schema', () => {
                         ],
                         type: 'object',
                     },
+                    required: null,
                     title: 'interfaces',
                     type: 'array',
                 },
                 modelId: {
                     description: '',
+                    required: null,
                     title: 'modelId',
                     type: 'string',
                 }
             },
+            required: null,
             title: 'modelInformation',
             type: 'object'
         };
@@ -229,11 +237,13 @@ describe('parse interface model definition to Json schema', () => {
                 name: 'blink',
                 requestSchema: {
                     description: 'blink interval / blinking the LED for given time interval',
+                    required: null,
                     title: 'blinkRequest',
                     type: 'number'
                 },
                 responseSchema: {
                     description: '',
+                    required: null,
                     title: 'blinkResponse',
                     type: 'string'
                 }
@@ -260,6 +270,7 @@ describe('parse interface model definition to Json schema', () => {
         const interfaceTelemetryInJsonSchema =
             {
                 description: 'Temperature / Current temperature on the device',
+                required: null,
                 title: 'temp',
                 type: 'number'
             };

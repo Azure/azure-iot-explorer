@@ -11,7 +11,7 @@ import { TwinWithSchema } from './deviceSettingsPerInterfacePerSetting';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString, getComponentNameFromQueryString } from '../../../../shared/utils/queryStringHelper';
-import { PatchDigitalTwinInterfacePropertiesActionParameters } from '../../actions';
+import { PatchDigitalTwinActionParameters } from '../../actions';
 import { REFRESH, NAVIGATE_BACK } from '../../../../constants/iconNames';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
 import { DigitalTwinHeaderContainer } from '../digitalTwin/digitalTwinHeaderView';
@@ -30,7 +30,7 @@ export interface DeviceInterfaceWithSchema {
 export interface DeviceSettingDispatchProps {
     refresh: (deviceId: string, interfaceId: string) => void;
     setComponentName: (id: string) => void;
-    patchDigitalTwinInterfaceProperties: (parameters: PatchDigitalTwinInterfacePropertiesActionParameters) => void;
+    patchDigitalTwin: (parameters: PatchDigitalTwinActionParameters) => void;
 }
 
 export default class DeviceSettings
@@ -87,7 +87,7 @@ export default class DeviceSettings
         return (
             <>
                 <Route component={DigitalTwinHeaderContainer} />
-                {twinWithSchema && twinWithSchema.length === 0 ?
+                {!twinWithSchema || twinWithSchema.length === 0 ?
                     <Label className="no-pnp-content">{context.t(ResourceKeys.deviceSettings.noSettings, {componentName: getComponentNameFromQueryString(this.props)})}</Label> :
                     <DeviceSettingPerInterface
                         {...this.props}

@@ -19,7 +19,7 @@ interface ModelDefinitionSourceViewProps {
 const getModelDefinitionSourceResourceKeys = (source: REPOSITORY_LOCATION_TYPE) => {
     if (Object.values(REPOSITORY_LOCATION_TYPE).includes(source)) {
         // tslint:disable-next-line:no-any
-        return (ResourceKeys.settings.modelDefinitions.repositoryTypes as any)[source].label;
+        return (ResourceKeys.settings.modelDefinitions.repositoryTypes as any)[source.toLowerCase()].label;
     }
     return ResourceKeys.settings.modelDefinitions.repositoryTypes.notAvailable;
 };

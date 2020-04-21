@@ -1,85 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/devices/deviceSettings matches snapshot while interface cannot be found 1`] = `
-<Fragment>
-  <StyledCommandBarBase
-    className="command"
-    farItems={
-      Array [
-        Object {
-          "ariaLabel": "deviceSettings.command.close",
-          "iconProps": Object {
-            "iconName": "NavigateBack",
-          },
-          "key": "NavigateBack",
-          "name": "deviceSettings.command.close",
-          "onClick": [Function],
-        },
-      ]
-    }
-    items={
-      Array [
-        Object {
-          "ariaLabel": "deviceSettings.command.refresh",
-          "iconProps": Object {
-            "iconName": "Refresh",
-          },
-          "key": "Refresh",
-          "name": "deviceSettings.command.refresh",
-          "onClick": [Function],
-        },
-      ]
-    }
-  />
-  <Route
-    component={[Function]}
-  />
-  <DeviceSettingsPerInterface
-    componentName="environmentalSensor"
-    deviceId={null}
-    history={
-      Object {
-        "location": Object {
-          "pathname": "/#/devices/deviceDetail/ioTPlugAndPlay/ioTPlugAndPlayDetail/settings/?id=device1&componentName=foo&interfaceId=urn:contoso:com:EnvironmentalSensor:1",
-        },
-      }
-    }
-    interfaceId="urn:contoso:com:EnvironmentalSensor:1"
-    isLoading={false}
-    location={
-      Object {
-        "pathname": "/#/devices/deviceDetail/ioTPlugAndPlay/ioTPlugAndPlayDetail/settings/?id=device1&componentName=foo&interfaceId=urn:contoso:com:EnvironmentalSensor:1",
-      }
-    }
-    match={Object {}}
-    patchDigitalTwinInterfaceProperties={[MockFunction]}
-    refresh={[MockFunction]}
-    setComponentName={
-      [MockFunction] {
-        "calls": Array [
-          Array [
-            null,
-          ],
-          Array [
-            null,
-          ],
-        ],
-        "results": Array [
-          Object {
-            "type": "return",
-            "value": undefined,
-          },
-          Object {
-            "type": "return",
-            "value": undefined,
-          },
-        ],
-      }
-    }
-  />
-</Fragment>
-`;
-
 exports[`components/devices/deviceSettings matches snapshot with one twinWithSchema 1`] = `
 <Fragment>
   <StyledCommandBarBase
@@ -132,17 +52,11 @@ exports[`components/devices/deviceSettings matches snapshot with one twinWithSch
       }
     }
     match={Object {}}
-    patchDigitalTwinInterfaceProperties={[MockFunction]}
+    patchDigitalTwin={[MockFunction]}
     refresh={[MockFunction]}
     setComponentName={
       [MockFunction] {
         "calls": Array [
-          Array [
-            null,
-          ],
-          Array [
-            null,
-          ],
           Array [
             null,
           ],
@@ -159,21 +73,15 @@ exports[`components/devices/deviceSettings matches snapshot with one twinWithSch
             "type": "return",
             "value": undefined,
           },
-          Object {
-            "type": "return",
-            "value": undefined,
-          },
-          Object {
-            "type": "return",
-            "value": undefined,
-          },
         ],
       }
     }
     twinWithSchema={
       Array [
         Object {
-          "desiredTwin": 123,
+          "metadata": Object {
+            "lastUpdatedTime": "2020-03-31T23:17:42.4813073Z",
+          },
           "reportedTwin": null,
           "settingModelDefinition": Object {
             "@type": "Property",
@@ -185,6 +93,7 @@ exports[`components/devices/deviceSettings matches snapshot with one twinWithSch
           },
           "settingSchema": Object {
             "description": "Brightness Level / The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)",
+            "required": null,
             "title": "brightness",
             "type": "number",
           },
@@ -220,32 +129,11 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
     <span
       className="col-sm4 reported-value"
     >
-      deviceSettings.columns.reportedValue
-      <StyledTooltipHostBase
-        calloutProps={
-          Object {
-            "gapSpace": 0,
-          }
-        }
-        content="deviceSettings.columns.reportedValueTooltip"
-        id="tooltipHost23"
-        styles={
-          Object {
-            "root": Object {
-              "display": "inline-flex",
-            },
-          }
-        }
+      <Component
+        tooltipText="deviceSettings.columns.reportedValueTooltip"
       >
-        <CustomizedIconButton
-          aria-labelledby="tooltipHost23"
-          iconProps={
-            Object {
-              "iconName": "Info",
-            }
-          }
-        />
-      </StyledTooltipHostBase>
+        deviceSettings.columns.reportedValue
+      </Component>
     </span>
     <div
       className="col-sm1 collapse-button"
@@ -269,13 +157,17 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
     <DeviceSettingsPerInterfacePerSetting
       collapsed={false}
       componentName="environmentalSensor"
-      desiredTwin={123}
       deviceId="testDevice"
       handleCollapseToggle={[Function]}
       handleOverlayToggle={[Function]}
       interfaceId="urn:contoso:com:EnvironmentalSensor:1"
       key="0"
-      patchDigitalTwinInterfaceProperties={[MockFunction]}
+      metadata={
+        Object {
+          "lastUpdatedTime": "2020-03-31T23:17:42.4813073Z",
+        }
+      }
+      patchDigitalTwin={[MockFunction]}
       reportedTwin={null}
       settingModelDefinition={
         Object {
@@ -290,6 +182,7 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
       settingSchema={
         Object {
           "description": "Brightness Level / The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)",
+          "required": null,
           "title": "brightness",
           "type": "number",
         }
@@ -297,7 +190,9 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
       twinWithSchema={
         Array [
           Object {
-            "desiredTwin": 123,
+            "metadata": Object {
+              "lastUpdatedTime": "2020-03-31T23:17:42.4813073Z",
+            },
             "reportedTwin": null,
             "settingModelDefinition": Object {
               "@type": "Property",
@@ -309,6 +204,7 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
             },
             "settingSchema": Object {
               "description": "Brightness Level / The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)",
+              "required": null,
               "title": "brightness",
               "type": "number",
             },

@@ -46,6 +46,7 @@ const parseInterfacePropertyHelper = (property:  PropertyContent): ParsedJsonSch
                 return {
                     default: false,
                     description: getDescription(property),
+                    required: null,
                     title: property.name,
                     type: 'boolean'
                 };
@@ -53,6 +54,7 @@ const parseInterfacePropertyHelper = (property:  PropertyContent): ParsedJsonSch
                 return {
                     description: getDescription(property),
                     format: 'date',
+                    required: null,
                     title: property.name,
                     type: 'string',
                 };
@@ -60,6 +62,7 @@ const parseInterfacePropertyHelper = (property:  PropertyContent): ParsedJsonSch
                 return {
                     description: getDescription(property),
                     pattern: '^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(.[0-9]+)?(Z)?$', // regex for ISO 8601
+                    required: null,
                     title: property.name,
                     type: 'string',
                 };
@@ -68,6 +71,7 @@ const parseInterfacePropertyHelper = (property:  PropertyContent): ParsedJsonSch
             case 'long':
                 return {
                     description: getDescription(property),
+                    required: null,
                     title: property.name,
                     type: 'number',
                 };
@@ -75,6 +79,7 @@ const parseInterfacePropertyHelper = (property:  PropertyContent): ParsedJsonSch
                 return {
                     default: 0,
                     description: getDescription(property),
+                    required: null,
                     title: property.name,
                     type: 'integer',
                 };
@@ -83,6 +88,7 @@ const parseInterfacePropertyHelper = (property:  PropertyContent): ParsedJsonSch
             case 'string':
                 return {
                     description: getDescription(property),
+                    required: null,
                     title: property.name,
                     type: 'string'
                 };
@@ -96,6 +102,7 @@ const parseInterfacePropertyHelper = (property:  PropertyContent): ParsedJsonSch
             description: getDescription(property),
             enum: (property.schema as EnumSchema).enumValues.map(item => item.enumValue),
             enumNames : (property.schema as EnumSchema).enumValues.map(item => item.name),
+            required: null,
             title: property.name,
             type: (property.schema as EnumSchema).enumValues.some(item => typeof item.enumValue === 'string') ? 'string' : 'number',
         } : undefined;
@@ -117,6 +124,7 @@ const parseInterfacePropertyHelper = (property:  PropertyContent): ParsedJsonSch
         return  {
             description: getDescription(property),
             properties: children,
+            required: null,
             title: property.name,
             type: 'object'
         };
@@ -130,6 +138,7 @@ const parseInterfacePropertyHelper = (property:  PropertyContent): ParsedJsonSch
             additionalProperties: true,
             description: getDescription(property),
             items: parseInterfaceMapTypePropertyItems(property),
+            required: null,
             title: property.name,
             type: 'array' // there is no map type in json schema, instead we use an array of object type to present it
         };
@@ -137,6 +146,7 @@ const parseInterfacePropertyHelper = (property:  PropertyContent): ParsedJsonSch
 
     return {
         description: getDescription(property),
+        required: null,
         title: property.name,
         type: 'string'
     };

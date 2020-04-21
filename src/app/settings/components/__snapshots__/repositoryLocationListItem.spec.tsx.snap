@@ -17,7 +17,9 @@ exports[`components/settings/repositoryLocationListItem matches snapshot for dev
     <div
       className="item-details"
     >
-      settings.modelDefinitions.repositoryTypes.device.label
+      <StyledLabelBase>
+        settings.modelDefinitions.repositoryTypes.device.label
+      </StyledLabelBase>
     </div>
     <CustomizedIconButton
       ariaLabel="settings.cancel"
@@ -51,18 +53,77 @@ exports[`components/settings/repositoryLocationListItem matches snapshot for loc
     <div
       className="item-details"
     >
-      <Connect(MaskedCopyableTextField)
-        allowMask={false}
+      <div
+        className="labelSection"
+      >
+        <LabelWithRichCallout
+          calloutContent="settings.modelDefinitions.repositoryTypes.local.infoText"
+          required={true}
+        >
+          settings.modelDefinitions.repositoryTypes.local.label
+        </LabelWithRichCallout>
+      </div>
+      <StyledTextFieldBase
         ariaLabel="settings.modelDefinitions.repositoryTypes.local.textBoxLabel"
+        className="local-folder-textbox"
         label="settings.modelDefinitions.repositoryTypes.local.textBoxLabel"
-        labelCallout="settings.modelDefinitions.repositoryTypes.local.infoText"
-        onTextChange={[MockFunction]}
-        placeholder="settings.modelDefinitions.repositoryTypes.local.placeholder"
-        readOnly={false}
-        required={true}
-        setFocus={false}
+        readOnly={true}
         value="f:/"
       />
+      <CustomizedDefaultButton
+        ariaLabel="settings.modelDefinitions.repositoryTypes.local.folderPicker.command.openPicker"
+        onClick={[Function]}
+        text="settings.modelDefinitions.repositoryTypes.local.folderPicker.command.openPicker"
+      />
+      <div
+        role="dialog"
+      >
+        <StyledWithResponsiveMode
+          className="folder-picker-dialog"
+          hidden={true}
+          modalProps={
+            Object {
+              "isBlocking": false,
+            }
+          }
+          onDismiss={[Function]}
+          subText="settings.modelDefinitions.repositoryTypes.local.folderPicker.dialog.subText"
+          title="settings.modelDefinitions.repositoryTypes.local.folderPicker.dialog.title"
+        >
+          <div
+            className="folder-links"
+          >
+            <CustomizedDefaultButton
+              ariaLabel="settings.modelDefinitions.repositoryTypes.local.folderPicker.command.navigateToParent"
+              className="folder-button"
+              disabled={false}
+              iconProps={
+                Object {
+                  "iconName": "NavigateBack",
+                }
+              }
+              onClick={[Function]}
+              text="settings.modelDefinitions.repositoryTypes.local.folderPicker.command.navigateToParent"
+            />
+            <div
+              className="no-folders-text"
+            >
+              settings.modelDefinitions.repositoryTypes.local.folderPicker.dialog.noFolderFoundText
+            </div>
+          </div>
+          <StyledDialogFooterBase>
+            <CustomizedPrimaryButton
+              disabled={false}
+              onClick={[Function]}
+              text="settings.modelDefinitions.repositoryTypes.local.folderPicker.command.select"
+            />
+            <CustomizedDefaultButton
+              onClick={[Function]}
+              text="settings.modelDefinitions.repositoryTypes.local.folderPicker.command.cancel"
+            />
+          </StyledDialogFooterBase>
+        </StyledWithResponsiveMode>
+      </div>
     </div>
     <CustomizedIconButton
       ariaLabel="settings.cancel"
@@ -140,7 +201,9 @@ exports[`components/settings/repositoryLocationListItem matches snapshot for pub
     <div
       className="item-details"
     >
-      settings.modelDefinitions.repositoryTypes.public.label
+      <StyledLabelBase>
+        settings.modelDefinitions.repositoryTypes.public.label
+      </StyledLabelBase>
     </div>
   </div>
 </div>

@@ -6,7 +6,6 @@ import 'jest';
 import { Record } from 'immutable';
 import { SynchronizationStatus } from './../../api/models/synchronizationStatus';
 import {
-    getDigitalTwinInterfacePropertiesSelector,
     getDigitalTwinModelId,
     getComponentNameSelector,
     getDigitalTwinSynchronizationStatusSelector,
@@ -15,8 +14,7 @@ import {
     getComponentNameAndInterfaceIdArraySelector,
     getModelDefinitionSelector,
     getDeviceIdentityWrapperSelector,
-    getModelDefinitionSyncStatusSelector,
-    getDigitalTwinInterfacePropertiesStateSelector
+    getModelDefinitionSyncStatusSelector
 } from './selectors';
 import { getInitialState } from './../../api/shared/testHelper';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
@@ -47,40 +45,18 @@ describe('selector', () => {
             type: 'sas'
         },
     };
-    const digitalTwinInterfaceProperties = {
-        "interfaces": {
-            "urn_azureiot_ModelDiscovery_DigitalTwin": {
-                "name": "urn_azureiot_ModelDiscovery_DigitalTwin",
-                "properties": {
-                    "modelInformation": {
-                        "reported": {
-                            "value": {
-                                "modelId": "urn:contoso:com:dcm:2",
-                                "interfaces": {
-                                    "environmentalsensor": "urn:contoso:com:environmentalsensor:2",
-                                    "urn_azureiot_ModelDiscovery_ModelInformation": "urn:azureiot:ModelDiscovery:ModelInformation:1",
-                                    "urn_azureiot_ModelDiscovery_DigitalTwin": "urn:azureiot:ModelDiscovery:DigitalTwin:1"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "version": 1
-    };
     const digitalTwin = {
         "$dtId": "testDevice",
         "environmentalSensor": {
         "state": true,
         "$metadata": {
             "state": {
-            "lastUpdateTime": "2020-03-31T23:17:42.4813073Z"
+                "lastUpdateTime": "2020-03-31T23:17:42.4813073Z"
             }
         }
         },
         "$metadata": {
-        "$model": "urn:azureiot:samplemodel:1"
+            "$model": "urn:azureiot:samplemodel:1"
         }
     };
     const modelDefinition ={
@@ -116,10 +92,6 @@ describe('selector', () => {
         deviceTwin: null,
         digitalTwin: {
             payload: digitalTwin,
-            synchronizationStatus: SynchronizationStatus.fetched
-        },
-        digitalTwinInterfaceProperties: {
-            payload: digitalTwinInterfaceProperties,
             synchronizationStatus: SynchronizationStatus.fetched
         },
         modelDefinitionWithSource: {
@@ -183,14 +155,6 @@ describe('selector', () => {
     });
 
     describe('getDigitalTwinSelectors', () => {
-        it('returns interface properties', () => {
-            expect(getDigitalTwinInterfacePropertiesSelector(state)).toEqual(digitalTwinInterfaceProperties);
-        });
-
-        it('returns interface properties sync status', () => {
-            expect(getDigitalTwinInterfacePropertiesStateSelector(state)).toEqual(SynchronizationStatus.fetched);
-        });
-
         it('returns digital twin sync status ', () => {
             expect(getDigitalTwinSynchronizationStatusSelector(state)).toEqual(SynchronizationStatus.fetched);
         });
@@ -198,6 +162,5 @@ describe('selector', () => {
         it('returns digital twin Model Id ', () => {
             expect(getDigitalTwinModelId(state)).toEqual('urn:azureiot:samplemodel:1');
         });
-
     });
 });

@@ -100,7 +100,7 @@ describe('server', () => {
         const response = processDataPlaneResponse(res, null);
         // tslint:disable-next-line:no-magic-numbers
         expect(response.statusCode).toEqual(500);
-        expect(response.body).toEqual({body: null});
+        expect(response.body).toEqual({body: null, headers: res.headers});
     });
 
     it('generates data plane response with no httpResponse', () => {

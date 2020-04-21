@@ -9,18 +9,16 @@ import { GET_TWIN,
     CLEAR_MODEL_DEFINITIONS,
     GET_DEVICE_IDENTITY,
     FETCH_MODEL_DEFINITION,
-    GET_DIGITAL_TWIN_INTERFACE_PROPERTIES,
-    PATCH_DIGITAL_TWIN_INTERFACE_PROPERTIES,
+    PATCH_DIGITAL_TWIN,
     UPDATE_DEVICE_IDENTITY,
-    SET_INTERFACE_ID,
+    SET_COMPONENT_NAME,
     GET_DIGITAL_TWIN
   } from '../../constants/actionTypes';
 import { getTwinAction,
     getModelDefinitionAction,
     clearModelDefinitionsAction,
     getDeviceIdentityAction,
-    getDigitalTwinInterfacePropertiesAction,
-    patchDigitalTwinInterfacePropertiesAction,
+    patchDigitalTwinAction,
     updateDeviceIdentityAction,
     setComponentNameAction,
     getDigitalTwinAction
@@ -30,8 +28,8 @@ import { deviceContentStateInitial, DeviceContentStateInterface } from './state'
 import { ModelDefinition } from '../../api/models/ModelDefinition';
 import { DeviceIdentity } from '../../api/models/deviceIdentity';
 import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
-import { DigitalTwinInterfaces } from '../../api/models/digitalTwinModels';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
+import { JsonPatchOperation } from '../../api/parameters/deviceParameters';
 
 describe('deviceContentStateReducer', () => {
     const deviceId = 'testDeviceId';
@@ -116,14 +114,13 @@ describe('deviceContentStateReducer', () => {
                 deviceIdentity: undefined,
                 deviceTwin: undefined,
                 digitalTwin: undefined,
-                digitalTwinInterfaceProperties: undefined,
                 modelDefinitionWithSource
             });
             const action = clearModelDefinitionsAction();
             expect(reducer(initialState(), action).modelDefinitionWithSource).toEqual(null);
         });
 
-        it (`handles ${SET_INTERFACE_ID} action`, () => {
+        it (`handles ${SET_COMPONENT_NAME} action`, () => {
             const action = setComponentNameAction('testId');
             expect(reducer(deviceContentStateInitial(), action).componentNameSelected).toEqual('testId');
         });
@@ -278,100 +275,34 @@ describe('deviceContentStateReducer', () => {
             expect(reducer(deviceContentStateInitial(), action).digitalTwin.synchronizationStatus).toEqual(SynchronizationStatus.failed);
         });
 
-        /* tslint:disable */
-        const digitalTwinInterfaceProperties: DigitalTwinInterfaces = {
-            "interfaces": {
-                "urn_azureiot_ModelDiscovery_DigitalTwin": {
-                "name": "urn_azureiot_ModelDiscovery_DigitalTwin",
-                "properties": {
-                    "modelInformation": {
-                        "reported": {
-                            "value": {
-                                "modelId": "urn:contoso:cm:1",
-                                "interfaces": {
-                                    "environmentalsensor": "urn:contoso:environmentalsensor:1",
-                                    "urn_azureiot_ModelDiscovery_ModelInformation": "urn:azureiot:ModelDiscovery:ModelInformation:1",
-                                    "urn_azureiot_ModelDiscovery_DigitalTwin": "urn:azureiot:ModelDiscovery:DigitalTwin:1"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "environmentalsensor": {
-                "name": "environmentalsensor",
-                "properties": {
-                    "myProperty": {
-                    "desired": {
-                        "value": "Mexico"
-                    }
-                    },
-                "myProperty1": {
-                    "desired": {
-                        "value": "Lindo"
-                    }
-                },
-                "myProperty2": {
-                    "desired": {
-                        "value": "Y Querido"
-                    }
-                }
-                }
-            }
-            },
-            "version": 2
-        };
-        /* tslint:enable */
-
-        it (`handles ${GET_DIGITAL_TWIN_INTERFACE_PROPERTIES}/ACTION_START action`, () => {
-            const action = getDigitalTwinInterfacePropertiesAction.started(deviceId);
-            expect(reducer(deviceContentStateInitial(), action).digitalTwinInterfaceProperties.synchronizationStatus).toEqual(SynchronizationStatus.working);
-        });
-
-        it (`handles ${GET_DIGITAL_TWIN_INTERFACE_PROPERTIES}/ACTION_DONE action`, () => {
-            const action = getDigitalTwinInterfacePropertiesAction.done({params: deviceId, result: digitalTwinInterfaceProperties});
-            expect(reducer(deviceContentStateInitial(), action).digitalTwinInterfaceProperties.payload).toEqual(digitalTwinInterfaceProperties);
-        });
-
-        it (`handles ${GET_DIGITAL_TWIN_INTERFACE_PROPERTIES}/ACTION_FAILED action`, () => {
-            const action = getDigitalTwinInterfacePropertiesAction.failed({error: -1, params: deviceId});
-            expect(reducer(deviceContentStateInitial(), action).digitalTwinInterfaceProperties.synchronizationStatus).toEqual(SynchronizationStatus.failed);
-        });
-
         let initialState = deviceContentStateInitial();
         initialState = initialState.merge({
-            digitalTwinInterfaceProperties: {
-                payload: digitalTwinInterfaceProperties,
+            digitalTwin: {
+                payload: digitalTwin,
                 synchronizationStatus: SynchronizationStatus.fetched
             }
         });
-        digitalTwinInterfaceProperties.version = 1;
+        digitalTwin.environmentalSensor.state = false;
+        const parameters =  {
+            digitalTwinId: deviceId,
+            operation: JsonPatchOperation.REPLACE,
+            path: '/environmentalSensor/state',
+            value: false
+        };
 
-        it (`handles ${PATCH_DIGITAL_TWIN_INTERFACE_PROPERTIES}/ACTION_START action`, () => {
-            const action = patchDigitalTwinInterfacePropertiesAction.started({
-                digitalTwinId: deviceId,
-                interfacesPatchData: 'Mexico',
-                propertyKey: 'myProperty'
-            });
-            expect(reducer(initialState, action).digitalTwinInterfaceProperties.synchronizationStatus).toEqual(SynchronizationStatus.updating);
+        it (`handles ${PATCH_DIGITAL_TWIN}/ACTION_START action`, () => {
+            const action = patchDigitalTwinAction.started(parameters);
+            expect(reducer(initialState, action).digitalTwin.synchronizationStatus).toEqual(SynchronizationStatus.updating);
         });
 
-        it (`handles ${PATCH_DIGITAL_TWIN_INTERFACE_PROPERTIES}/ACTION_DONE action`, () => {
-            const action = patchDigitalTwinInterfacePropertiesAction.done({params: {
-                digitalTwinId: deviceId,
-                interfacesPatchData: 'Mexico',
-                propertyKey: 'myProperty'
-            }, result: digitalTwinInterfaceProperties});
-            expect(reducer(initialState, action).digitalTwinInterfaceProperties.payload).toEqual(digitalTwinInterfaceProperties);
+        it (`handles ${PATCH_DIGITAL_TWIN}/ACTION_DONE action`, () => {
+            const action = patchDigitalTwinAction.done({params: parameters, result: digitalTwin});
+            expect(reducer(initialState, action).digitalTwin.payload).toEqual(digitalTwin);
         });
 
-        it (`handles ${PATCH_DIGITAL_TWIN_INTERFACE_PROPERTIES}/ACTION_FAILED action`, () => {
-            const action = patchDigitalTwinInterfacePropertiesAction.failed({error: -1, params: {
-                digitalTwinId: deviceId,
-                interfacesPatchData: 'Mexico',
-                propertyKey: 'myProperty'
-            }});
-            expect(reducer(initialState, action).digitalTwinInterfaceProperties.synchronizationStatus).toEqual(SynchronizationStatus.failed);
+        it (`handles ${PATCH_DIGITAL_TWIN}/ACTION_FAILED action`, () => {
+            const action = patchDigitalTwinAction.failed({error: -1, params: parameters});
+            expect(reducer(initialState, action).digitalTwin.synchronizationStatus).toEqual(SynchronizationStatus.failed);
         });
     });
 });

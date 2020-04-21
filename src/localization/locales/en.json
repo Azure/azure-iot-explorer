@@ -80,8 +80,21 @@
                     "label":"Local folder",
                     "labelInBrowser":"Local folder (This is only enabled in the desktop version from: https://github.com/Azure/azure-iot-explorer/releases)",
                     "infoText": "Use your local folder as a model repository. The model definition files you wish to use should have a json extension. The first JSON file with an '@id' property matching the digital twin model identifier (DTMI) will be retrieved.",
-                    "textBoxLabel": "Local folder path",
-                    "placeholder": "f:/"
+                    "textBoxLabel": "Selected folder",
+                    "folderPicker": {
+                        "command": {
+                            "openPicker": "Pick a folder",
+                            "navigateToParent": "Navigate back to parent folder",
+                            "select": "Select",
+                            "cancel": "Cancel"
+                        },
+                        "dialog": {
+                            "title": "Select a folder as a local model repository",
+                            "subText": "Selected folder: {{folder}}",
+                            "noFolderFoundText": "No folders found.",
+                            "error": "Failed to retrieve folder information."
+                        }
+                    }
                 },
                 "notAvailable": "--"
             }
@@ -129,14 +142,12 @@
             "properties": "Properties (non-writable)",
             "settings": "Properties (writable)",
             "commands": "Commands",
-            "interfaces": "Interface",
             "events": "Telemetry",
             "eventsPerInterface": "Telemetry",
+            "interfaces": "Interface",
             "methods": "Direct method",
             "cloudToDeviceMessage": "Cloud-to-device message",
-            "pnp": "IoT Plug and Play (preview)",
             "ioTPlugAndPlay": "IoT Plug and Play components",
-            "nonpnp": "DEVICE",
             "add": "Create device identity",
             "collapse": "Collapse navigation menu",
             "expand": "Expand navigation menu",
@@ -435,12 +446,6 @@
             "syncing": "syncing",
             "failed": "failed"
         },
-        "desiredState": {
-            "success": "Success",
-            "synching": "Synching...",
-            "error": "Error",
-            "unknown": "Status Code: {{code}}"
-        },
         "columns": {
             "name": "Name (Display Name / Description)",
             "schema": "Schema",
@@ -697,7 +702,7 @@
         "getDeviceListOnError": "Failed to retrieve device list: {{error}}",
         "getDeviceListGenericErrorHelp": "Failed to retrieve device list. It is possibly due to an invalid IoT hub connection string",
         "getDeviceTwinOnError": "Failed to get device {{deviceId}}'s twin: {{error}}",
-        "getDigitalTwinInterfacePropertiesOnError": "Failed to get properties of the IoT Plug and Play device {{deviceId}}: {{error}}",
+        "getDigitalTwinOnError": "Failed to get properties of the IoT Plug and Play device {{deviceId}}: {{error}}",
         "getModuleIdentitiesOnError": "Failed to get module identities of device {{deviceId}}: {{error}}",
         "getInterfaceModelOnError": "Failed to get interface model definition {{interfaceId}}",
         "parseLocalInterfaceModelOnError": "{{interfaceId}} cannot be retrieved from local folder. There are JSON files in the local folder which are invalid and cannot be parsed.",
@@ -718,8 +723,9 @@
         "addDeviceOnError": "Failed to add device {{deviceId}}: {{error}}",
         "updateDeviceOnSucceed": "Successfully updated device {{deviceId}}",
         "updateDeviceOnError": "Failed to update device {{deviceId}}: {{error}}",
-        "patchDigitalTwinInterfacePropertiesOnError": "Failed to update desired properties of the IoT Plug and Play device {{deviceId}}: {{error}}",
-        "patchDigitalTwinInterfacePropertiesOnSuccess": "Successfully updated desired properties of the IoT Plug and Play device {{deviceId}}.",
+        "patchDigitalTwinOnError": "Failed to update desired properties of the IoT Plug and Play device {{deviceId}} with response code {{error}}",
+        "patchDigitalTwinOnSuccess": "Successfully updated desired properties of the IoT Plug and Play device {{deviceId}}.",
+        "patchDigitalTwinOnAccept": "The request to updated desired properties of the IoT Plug and Play device {{deviceId}} has been accepted.",
         "cloudToDeviceMessageOnError": "Failed to send message to device {{deviceId}}: {{error}}",
         "cloudToDeviceMessageOnSuccess": "Successfully send message '{{message}}' to device '{{deviceId}}'",
         "sendingCloudToDeviceMessage": "Trying to send message '{{message}}' to device '{{deviceId}}'",

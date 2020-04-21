@@ -10,7 +10,7 @@ import * as DigitalTwinService from '../../../api/services/digitalTwinService';
 import { addNotificationAction } from '../../../notifications/actions';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { getModelDefinitionAction, getDigitalTwinInterfacePropertiesAction } from '../actions';
+import { getModelDefinitionAction } from '../actions';
 import { getRepositoryLocationSettingsSelector, getPublicRepositoryHostName, getLocalFolderPath } from '../../../settings/selectors';
 import { REPOSITORY_LOCATION_TYPE } from '../../../constants/repositoryLocationTypes';
 import { getComponentNameAndInterfaceIdArraySelector } from '../selectors';
@@ -29,7 +29,6 @@ describe('modelDefinitionSaga', () => {
         interfaceId
     };
     const action = getModelDefinitionAction.started(params);
-    const connectionString = 'connection_string';
     /* tslint:disable */
     const modelDefinition = {
         "@id": "urn:azureiot:ModelDiscovery:DigitalTwin:1",
@@ -187,32 +186,6 @@ describe('modelDefinitionSaga', () => {
 
     describe('getModelDefinitionFromDevice ', () => {
         const getModelDefinitionFromDeviceGenerator = cloneableGenerator(getModelDefinitionFromDevice)(action);
-        const mockFetchDigitalTwinInterfaceProperties = jest.spyOn(DigitalTwinService, 'fetchDigitalTwinInterfaceProperties').mockImplementationOnce(parameters => {
-            return null;
-        });
-
-        expect(getModelDefinitionFromDeviceGenerator.next()).toEqual({
-            done: false,
-            value: call(getActiveAzureResourceConnectionStringSaga)
-        });
-
-        expect(getModelDefinitionFromDeviceGenerator.next(connectionString)).toEqual({
-            done: false,
-            value: call(mockFetchDigitalTwinInterfaceProperties, {
-                connectionString,
-                digitalTwinId
-            })
-        });
-
-        const response = {};
-        expect(getModelDefinitionFromDeviceGenerator.next(response)).toEqual({
-            done: false,
-            value: put(getDigitalTwinInterfacePropertiesAction.done({
-                params: digitalTwinId,
-                result: response
-            }))
-        });
-
         expect(getModelDefinitionFromDeviceGenerator.next()).toEqual({
             done: false,
             value: select(getComponentNameAndInterfaceIdArraySelector)
@@ -250,7 +223,6 @@ describe('modelDefinitionSaga', () => {
             value: select(getLocalFolderPath)
         });
 
-        const fileName = action.payload.interfaceId.replace(/\:/g, '');
         expect(getModelDefinitionFromLocalFolderGenerator.next('f:/')).toEqual({
             done: false,
             value: call(fetchLocalFile, 'f:', action.payload.interfaceId)
