@@ -215,16 +215,10 @@ export default class DeviceSettingsPerInterfacePerSetting
     }
 
     private readonly createForm = () => {
-        let formData = null;
-        if (this.props.metadata) {
-            if (this.props.metadata.desiredValue || typeof this.props.metadata.desiredValue === 'boolean') {
-                formData = this.props.metadata.desiredValue;
-            }
-        }
         return (
             <DataForm
                 buttonText={ResourceKeys.deviceSettings.command.submit}
-                formData={formData}
+                formData={this.props.metadata && this.props.metadata.desiredValue}
                 settingSchema={this.props.settingSchema}
                 handleSave={this.onSubmit}
                 craftPayload={this.createSettingsPayload}
