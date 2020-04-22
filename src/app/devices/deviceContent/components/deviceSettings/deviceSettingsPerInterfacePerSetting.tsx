@@ -18,8 +18,9 @@ import { PatchDigitalTwinActionParameters } from '../../actions';
 import ErrorBoundary from '../../../errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 import { SemanticUnit } from '../../../../shared/units/components/semanticUnit';
-import '../../../../css/_deviceSettings.scss';
 import { JsonPatchOperation } from '../../../../api/parameters/deviceParameters';
+import { MetadataSection } from './selectors';
+import '../../../../css/_deviceSettings.scss';
 
 export interface DeviceSettingDataProps extends TwinWithSchema {
     collapsed: boolean;
@@ -35,6 +36,7 @@ export interface DeviceSettingDispatchProps {
 }
 
 export interface TwinWithSchema {
+    isComponentContainedInDigitalTwin: boolean;
     metadata: MetadataSection;
     reportedTwin: boolean | string | number | object;
     settingModelDefinition: PropertyContent;
@@ -213,10 +215,16 @@ export default class DeviceSettingsPerInterfacePerSetting
     }
 
     private readonly createForm = () => {
+        let formData = null;
+        if (this.props.metadata) {
+            if (this.props.metadata.desiredValue || typeof this.props.metadata.desiredValue === 'boolean') {
+                formData = this.props.metadata.desiredValue;
+            }
+        }
         return (
             <DataForm
                 buttonText={ResourceKeys.deviceSettings.command.submit}
-                formData={this.props.metadata && this.props.metadata.desiredValue}
+                formData={formData}
                 settingSchema={this.props.settingSchema}
                 handleSave={this.onSubmit}
                 craftPayload={this.createSettingsPayload}
@@ -226,9 +234,10 @@ export default class DeviceSettingsPerInterfacePerSetting
         );
     }
 
-    private readonly createSettingsPayload = (twin: boolean | number | string | object)
-        : {operation: JsonPatchOperation; path: string; value?: boolean | number | string | object} => {
-        return twin ? {
+    // tslint:disable-next-line: cyclomatic-complexity
+    private readonly createSettingsPayload = (twin: boolean | number | string | object): {operation: JsonPatchOperation; path: string; value?: boolean | number | string | object} => {
+        // todo: refactor this whenever service has updated json patch
+        return twin || typeof twin === 'boolean' ? {
             operation: this.props.metadata && this.props.metadata.desiredValue && this.props.metadata.desiredValue !== {} ? JsonPatchOperation.REPLACE : JsonPatchOperation.ADD,
             path: `/${this.props.componentName}/${this.props.settingModelDefinition.name}`,
             value: twin,

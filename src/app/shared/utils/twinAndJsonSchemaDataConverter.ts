@@ -27,7 +27,7 @@ export const dataToTwinConverter = (formData: any, settingSchema: ParsedJsonSche
 
 export const twinToFormDataConverter = (twin: any, settingSchema: ParsedJsonSchema): {formData: any, error?: Exception} => { // tslint:disable-line:no-any
     if (!twin) {
-        return {formData: twin};
+        return {formData: {twin: null}};
     }
 
     try {
@@ -208,22 +208,30 @@ const convertJsonFormDataToTwin = (
                     }
 
                     let deletedKeys: string[] = [];
-                    if (originalFormData && dummyOriginalFormData[key] &&  dummyOriginalFormData[key].length !== parentFormData[key].length) {
+                    if (originalFormData &&
+                        dummyOriginalFormData[key] &&
+                        dummyOriginalFormData[key].length > 0 &&
+                        parentFormData[key] &&
+                        parentFormData[key].length > 0 &&
+                        dummyOriginalFormData[key].length !== parentFormData[key].length) {
                         // find keys that have been deleted from the orignal form and specifically set its value to null
                         const oldKeys: string[] = dummyOriginalFormData[key].map((item: any) => item[mapKeyName]); // tslint:disable-line:no-any
                         const newKeys: string[] = parentFormData[key].map((item: any) => item[mapKeyName]); // tslint:disable-line:no-any
                         deletedKeys = oldKeys.filter((oldKey: string) => newKeys.indexOf(oldKey) === -1);
                     }
 
-                    parentFormData[key].forEach((keyValue: any) => { // tslint:disable-line: no-any
-                        try {
-                            newFormNode[keyValue[mapKeyName]] = keyValue[mapValueName];
-                        }
-                        catch {
-                            return;
-                        }
-                    });
-                    if (deletedKeys) {
+                    if (parentFormData[key] && parentFormData[key].length > 0) {
+                        parentFormData[key].forEach((keyValue: any) => { // tslint:disable-line: no-any
+                            try {
+                                newFormNode[keyValue[mapKeyName]] = keyValue[mapValueName];
+                            }
+                            catch {
+                                return;
+                            }
+                        });
+                    }
+
+                    if (deletedKeys && deletedKeys.length > 0) {
                         deletedKeys.forEach(deletedKey => {
                             newFormNode[deletedKey] = null;
                         });

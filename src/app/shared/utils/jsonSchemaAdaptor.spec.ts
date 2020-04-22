@@ -20,7 +20,6 @@ describe('parse interface model definition to Json schema', () => {
 
         const interfacePropertyInJsonSchema =
             {
-                description: 'Firmware version',
                 required: null,
                 title: 'fwVersion',
                 type: 'string'
@@ -41,7 +40,6 @@ describe('parse interface model definition to Json schema', () => {
         /* tslint:enable */
         const interfacePropertyInJsonSchema =
             {
-                description: 'Total storage',
                 required: null,
                 title: 'totalStorage',
                 type: 'number',
@@ -63,7 +61,6 @@ describe('parse interface model definition to Json schema', () => {
         const interfacePropertyInJsonSchema =
             {
                 default: false,
-                description: 'Total storage',
                 required: null,
                 title: 'totalStorage',
                 type: 'boolean'
@@ -114,7 +111,6 @@ describe('parse interface model definition to Json schema', () => {
         }
         /* tslint:enable */
         expect(parseInterfacePropertyToJsonSchema(interfacePropertyDefinition)).toEqual({
-            description: '',
             // tslint:disable-next-line:no-magic-numbers
             enum: [1, 2],
             enumNames : ['offline', 'online'],
@@ -157,11 +153,9 @@ describe('parse interface model definition to Json schema', () => {
 		};
         /* tslint:enable */
         const interfacePropertyInJsonSchema = {
-            description: 'Model Information / Providing model and optional interfaces information on a digital twin.',
             properties:  {
                 interfaces:  {
                     additionalProperties: true,
-                    description: '',
                     items:  {
                         description: `interfaces's key: name`,
                         properties:  {
@@ -169,7 +163,6 @@ describe('parse interface model definition to Json schema', () => {
                                 type: 'string',
                             },
                             schema:  {
-                                description: '',
                                 required: null,
                                 title: 'schema',
                                 type: 'string',
@@ -186,7 +179,6 @@ describe('parse interface model definition to Json schema', () => {
                     type: 'array',
                 },
                 modelId: {
-                    description: '',
                     required: null,
                     title: 'modelId',
                     type: 'string',
@@ -233,16 +225,13 @@ describe('parse interface model definition to Json schema', () => {
         /* tslint:enable */
         const interfaceCommandInJsonSchema =
             {
-                description: 'This command will begin blinking the LED for given time interval.',
                 name: 'blink',
                 requestSchema: {
-                    description: 'blink interval / blinking the LED for given time interval',
                     required: null,
                     title: 'blinkRequest',
                     type: 'number'
                 },
                 responseSchema: {
-                    description: '',
                     required: null,
                     title: 'blinkResponse',
                     type: 'string'
@@ -258,8 +247,8 @@ describe('parse interface model definition to Json schema', () => {
 			'@type': [
 				'Telemetry',
 				'SemanticType/Temperature'
-			],
-			'description': 'Current temperature on the device',
+            ],
+            'description': 'Current temperature on the device',
 			'displayName': 'Temperature',
 			'name': 'temp',
 			'schema': 'double',
@@ -269,7 +258,6 @@ describe('parse interface model definition to Json schema', () => {
 
         const interfaceTelemetryInJsonSchema =
             {
-                description: 'Temperature / Current temperature on the device',
                 required: null,
                 title: 'temp',
                 type: 'number'

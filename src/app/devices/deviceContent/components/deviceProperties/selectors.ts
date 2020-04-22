@@ -32,10 +32,13 @@ export const filterProperties = (content: PropertyContent) => {
     }
 };
 
-export const getReportedValueForSpecificProperty = (state: StateInterface, property: PropertyContent): boolean | string | number | object => {
+export const getDigitalTwinForSpecificComponent = (state: StateInterface) => {
     const digitalTwin = getDigitalTwinSelector(state);
     const componentNameSelected = getComponentNameSelector(state);
-    return digitalTwin &&
-        digitalTwin[componentNameSelected] &&
-        digitalTwin[componentNameSelected][property.name];
+    return digitalTwin && digitalTwin[componentNameSelected];
+};
+
+export const getReportedValueForSpecificProperty = (state: StateInterface, property: PropertyContent): boolean | string | number | object => {
+    const digitalTwinForSpecificComponent = getDigitalTwinForSpecificComponent (state);
+    return digitalTwinForSpecificComponent && digitalTwinForSpecificComponent[property.name];
 };

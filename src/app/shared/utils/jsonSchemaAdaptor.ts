@@ -5,7 +5,6 @@
 import { PropertyContent, CommandContent, EnumSchema, ObjectSchema, MapSchema, ContentType, TelemetryContent, Schema } from '../../api/models/modelDefinition';
 import { ParsedCommandSchema, ParsedJsonSchema } from '../../api/models/interfaceJsonParserOutput';
 import { InterfaceSchemaNotSupportedException } from './exceptions/interfaceSchemaNotSupportedException';
-import { getLocalizedData } from '../../api/dataTransforms/modelDefinitionTransform';
 
 export const parseInterfacePropertyToJsonSchema = (property: PropertyContent): ParsedJsonSchema => {
     try {
@@ -18,7 +17,6 @@ export const parseInterfacePropertyToJsonSchema = (property: PropertyContent): P
 export const parseInterfaceCommandToJsonSchema = (command: CommandContent): ParsedCommandSchema => {
     try {
         return {
-            description: getDescription(command),
             name: command.name,
             requestSchema: parseInterfaceCommandsHelper(command, true),
             responseSchema: parseInterfaceCommandsHelper(command, false)
@@ -45,14 +43,12 @@ const parseInterfacePropertyHelper = (property:  PropertyContent): ParsedJsonSch
             case 'boolean':
                 return {
                     default: false,
-                    description: getDescription(property),
                     required: null,
                     title: property.name,
                     type: 'boolean'
                 };
             case 'date':
                 return {
-                    description: getDescription(property),
                     format: 'date',
                     required: null,
                     title: property.name,
@@ -60,7 +56,6 @@ const parseInterfacePropertyHelper = (property:  PropertyContent): ParsedJsonSch
                 };
             case 'datetime':
                 return {
-                    description: getDescription(property),
                     pattern: '^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(.[0-9]+)?(Z)?$', // regex for ISO 8601
                     required: null,
                     title: property.name,
@@ -70,7 +65,6 @@ const parseInterfacePropertyHelper = (property:  PropertyContent): ParsedJsonSch
             case 'float':
             case 'long':
                 return {
-                    description: getDescription(property),
                     required: null,
                     title: property.name,
                     type: 'number',
@@ -78,7 +72,6 @@ const parseInterfacePropertyHelper = (property:  PropertyContent): ParsedJsonSch
             case 'integer':
                 return {
                     default: 0,
-                    description: getDescription(property),
                     required: null,
                     title: property.name,
                     type: 'integer',
@@ -87,7 +80,6 @@ const parseInterfacePropertyHelper = (property:  PropertyContent): ParsedJsonSch
             case 'duration': // todo: no widget for 'duration' type
             case 'string':
                 return {
-                    description: getDescription(property),
                     required: null,
                     title: property.name,
                     type: 'string'
@@ -99,7 +91,6 @@ const parseInterfacePropertyHelper = (property:  PropertyContent): ParsedJsonSch
 
     if (property.schema['@type'] === 'Enum') {
         return property.schema && (property.schema as EnumSchema).enumValues ? {
-            description: getDescription(property),
             enum: (property.schema as EnumSchema).enumValues.map(item => item.enumValue),
             enumNames : (property.schema as EnumSchema).enumValues.map(item => item.name),
             required: null,
@@ -122,7 +113,6 @@ const parseInterfacePropertyHelper = (property:  PropertyContent): ParsedJsonSch
         });
 
         return  {
-            description: getDescription(property),
             properties: children,
             required: null,
             title: property.name,
@@ -136,7 +126,6 @@ const parseInterfacePropertyHelper = (property:  PropertyContent): ParsedJsonSch
         }
         return {
             additionalProperties: true,
-            description: getDescription(property),
             items: parseInterfaceMapTypePropertyItems(property),
             required: null,
             title: property.name,
@@ -145,7 +134,6 @@ const parseInterfacePropertyHelper = (property:  PropertyContent): ParsedJsonSch
     }
 
     return {
-        description: getDescription(property),
         required: null,
         title: property.name,
         type: 'string'
@@ -182,7 +170,6 @@ const parseInterfaceCommandsHelper = (command: CommandContent, parseRequestSchem
     // add a dummy head for command request/response schema to make the recursion logic simpler
     const dummyCommand: PropertyContent = {
         '@type': ContentType.Command,
-        'displayName': getDescription(commandSchema),
         'name': commandSchema.name,
         'schema': commandSchema.schema,
     };
@@ -194,12 +181,4 @@ const parseInterfaceCommandsHelper = (command: CommandContent, parseRequestSchem
     catch {
         return;  // swallow the error and let UI render JSON editor for types which are not supported yet
     }
-};
-
-const getDescription = (schema: PropertyContent | CommandContent | Schema): string => {
-    const displayName = getLocalizedData(schema.displayName);
-    const description = getLocalizedData(schema.description);
-    return displayName && description ?
-    `${displayName} / ${description}` :
-     (description || displayName || '') as string;
 };

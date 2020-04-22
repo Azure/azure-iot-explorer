@@ -19,8 +19,9 @@ export interface ParsedJsonSchema {
 }
 
 export interface ParsedCommandSchema {
-    description: string;
     name: string;
+
+    description?: string;
     requestSchema?: ParsedJsonSchema;
     responseSchema?: ParsedJsonSchema;
 }
