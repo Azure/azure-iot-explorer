@@ -18,8 +18,9 @@ import { PatchDigitalTwinActionParameters } from '../../actions';
 import ErrorBoundary from '../../../errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 import { SemanticUnit } from '../../../../shared/units/components/semanticUnit';
-import '../../../../css/_deviceSettings.scss';
 import { JsonPatchOperation } from '../../../../api/parameters/deviceParameters';
+import { MetadataSection } from './selectors';
+import '../../../../css/_deviceSettings.scss';
 
 export interface DeviceSettingDataProps extends TwinWithSchema {
     collapsed: boolean;
