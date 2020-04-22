@@ -26,17 +26,19 @@ export const dataToTwinConverter = (formData: any, settingSchema: ParsedJsonSche
 };
 
 export const twinToFormDataConverter = (twin: any, settingSchema: ParsedJsonSchema): {formData: any, error?: Exception} => { // tslint:disable-line:no-any
-    if (!twin) {
-        return {formData: {twin: null}};
-    }
-
     try {
         const numberOfMaps = getNumberOfMapsInSchema(settingSchema);
         if (numberOfMaps > 0) {
+            if (!twin) {
+                return {formData: {twin: null}};
+            }
             const twinClone = JSON.parse(JSON.stringify(twin)); // important: needs this deep copy to prevent inital twin got changed in store
             const pathsWithKeyValuePair = findPathsTowardsMapType(settingSchema, [], numberOfMaps);
             const formData = convertTwinToJsonFormData(twinClone, pathsWithKeyValuePair, settingSchema.title);
             return {formData};
+        }
+        if (!twin) {
+            return {formData: twin};
         }
     }catch (ex) {
         return {formData: twin, error: ex};

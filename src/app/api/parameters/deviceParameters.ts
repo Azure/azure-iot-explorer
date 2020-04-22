@@ -66,7 +66,11 @@ export enum JsonPatchOperation {
 
 export interface PatchDigitalTwinParameters extends DataPlaneParameters {
     digitalTwinId: string; // Format of digitalTwinId is DeviceId[~ModuleId]. ModuleId is optional.
-    operation: JsonPatchOperation;
+    payload: PatchPayload[];
+}
+
+export interface PatchPayload {
+    op: JsonPatchOperation;
     path: string;
     value?: boolean | number | string | object;
 }
