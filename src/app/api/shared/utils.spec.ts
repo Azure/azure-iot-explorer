@@ -167,14 +167,6 @@ describe('utils', () => {
         expect(connectionObject.sharedAccessKey = 'key');
     });
 
-    it('gets connectionObject from repo connection string', () => {
-        const connectionObject = utils.getRepoConnectionInfoFromConnectionString('HostName=test.azureiotrepository.com;RepositoryId=123;SharedAccessKeyName=456;SharedAccessKey=key');
-        expect(connectionObject.hostName = 'test.azureiotrepository.com');
-        expect(connectionObject.repositoryId = '123');
-        expect(connectionObject.sharedAccessKeyName = '456');
-        expect(connectionObject.sharedAccessKey = 'key');
-    });
-
     it('generates hub sas token ', () => {
         const token = utils.generateSasToken({
             key: 'key',
@@ -182,12 +174,6 @@ describe('utils', () => {
             resourceUri: 'test.azureiotrepository.com'
         });
         const regex = new RegExp(/^SharedAccessSignature sr=test\.azureiotrepository\.com&sig=.*&se=.*&skn=iothubowner$/);
-        expect(regex.test(token)).toBeTruthy();
-    });
-
-    it('generates repo sas token ', () => {
-        const token = utils.generatePnpSasToken('123', 'test.azureiotrepository.com', '456', 'key');
-        const regex = new RegExp(/^SharedAccessSignature sr=test\.azureiotrepository\.com&sig=.*&se=.*&rid=123$/);
         expect(regex.test(token)).toBeTruthy();
     });
 });

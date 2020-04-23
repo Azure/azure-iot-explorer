@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as DigitalTwinsModelService from './publicDigitalTwinsModelRepoService';
-import { API_VERSION, DIGITAL_TWIN_API_VERSION, MODEL_REPO_API_VERSION, HTTP_OPERATION_TYPES, PUBLIC_REPO_HOSTNAME_TEST } from '../../constants/apiConstants';
+import { API_VERSION, MODEL_REPO_API_VERSION, HTTP_OPERATION_TYPES, PUBLIC_REPO_HOSTNAME_TEST } from '../../constants/apiConstants';
 
 describe('digitalTwinsModelService', () => {
 
@@ -12,7 +12,6 @@ describe('digitalTwinsModelService', () => {
             expand: undefined,
             id: 'urn:azureiot:ModelDiscovery:ModelInformation:1',
             repoServiceHostName: 'canary-repo.azureiotrepository.com',
-            repositoryId: 'repositoryId',
             token: 'SharedAccessSignature sr=canary-repo.azureiotrepository.com&sig=123&rid=repositoryId'
         };
 
@@ -58,9 +57,8 @@ describe('digitalTwinsModelService', () => {
             const result = await DigitalTwinsModelService.fetchModel(parameters);
 
             const expandQueryString = parameters.expand ? `&expand=true` : ``;
-            const repositoryQueryString = parameters.repositoryId ? `&repositoryId=${parameters.repositoryId}` : '';
-            const apiVersionQuerySTring = `?${API_VERSION}${DIGITAL_TWIN_API_VERSION}`;
-            const queryString = `${apiVersionQuerySTring}${expandQueryString}${repositoryQueryString}`;
+            const apiVersionQuerySTring = `?${API_VERSION}${MODEL_REPO_API_VERSION}`;
+            const queryString = `${apiVersionQuerySTring}${expandQueryString}`;
             const modelIdentifier = encodeURIComponent(parameters.id);
             const resourceUrl = `https://${parameters.repoServiceHostName}/models/${modelIdentifier}${queryString}`;
 
@@ -87,9 +85,8 @@ describe('digitalTwinsModelService', () => {
 
             expect(fetch).toBeCalledWith(DigitalTwinsModelService.CONTROLLER_ENDPOINT, fetchModelParameters);
             expect(result).toEqual({
-                createdOn: '',
+                createdDate: '',
                 etag: '',
-                lastUpdated: '',
                 model,
                 modelId: '',
                 publisherId: '',

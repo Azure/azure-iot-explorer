@@ -5,7 +5,7 @@
 import 'jest';
 import { select, call, put } from 'redux-saga/effects';
 import { SagaIteratorClone, cloneableGenerator } from 'redux-saga/utils';
-import { getModelDefinitionSaga, getModelDefinition, getModelDefinitionFromPublicRepo, getModelDefinitionFromPrivateRepo, getModelDefinitionFromDevice, getModelDefinitionFromLocalFile, validateModelDefinitionHelper } from './modelDefinitionSaga';
+import { getModelDefinitionSaga, getModelDefinition, getModelDefinitionFromPublicRepo, getModelDefinitionFromDevice, getModelDefinitionFromLocalFile, validateModelDefinitionHelper } from './modelDefinitionSaga';
 import * as DigitalTwinService from '../../../api/services/digitalTwinService';
 import { addNotificationAction } from '../../../notifications/actions';
 import { NotificationType } from '../../../api/models/notification';
@@ -14,12 +14,11 @@ import { getModelDefinitionAction } from '../actions';
 import { getRepositoryLocationSettingsSelector, getPublicRepositoryHostName, getLocalFolderPath } from '../../../settings/selectors';
 import { REPOSITORY_LOCATION_TYPE } from '../../../constants/repositoryLocationTypes';
 import { getComponentNameAndInterfaceIdArraySelector } from '../selectors';
-import { getRepoTokenSaga } from '../../../settings/sagas/getRepoTokenSaga';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { modelDefinitionCommandName, modelDefinitionInterfaceId } from '../../../constants/modelDefinitionConstants';
-import { fetchModelDefinition } from '../../../api/services/digitalTwinsModelService';
 import { PUBLIC_REPO_HOSTNAME } from '../../../constants/apiConstants';
 import { fetchLocalFile } from '../../../api/services/localRepoService';
+import { fetchModelDefinition } from '../../../api/services/publicDigitalTwinsModelRepoService';
 
 describe('modelDefinitionSaga', () => {
     const digitalTwinId = 'device_id';
@@ -82,7 +81,8 @@ describe('modelDefinitionSaga', () => {
             });
 
             expect(getModelDefinitionSagaGenerator.next([{
-                repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public
+                repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public,
+
             }]).value).toEqual(
                 call(getModelDefinition, action, { repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public })
             );
@@ -136,28 +136,6 @@ describe('modelDefinitionSaga', () => {
         });
     });
 
-    describe('getModelDefinitionFromPrivateRepo ', () => {
-        const getModelDefinitionFromPrivateRepoGenerator = cloneableGenerator(getModelDefinitionFromPrivateRepo)
-            (action, {repositoryLocationType: REPOSITORY_LOCATION_TYPE.Private, value: 'HostName=test.azureiotrepository.com;RepositoryId=123;SharedAccessKeyName=456;SharedAccessKey=789'});
-
-        expect(getModelDefinitionFromPrivateRepoGenerator.next()).toEqual({
-            done: false,
-            value: call(getRepoTokenSaga, REPOSITORY_LOCATION_TYPE.Private)
-        });
-
-        expect(getModelDefinitionFromPrivateRepoGenerator.next('token')).toEqual({
-            done: false,
-            value: call(fetchModelDefinition, {
-                id: params.interfaceId,
-                repoServiceHostName: 'test.azureiotrepository.com',
-                repositoryId: '123',
-                token: 'token'
-            })
-        });
-
-        expect(getModelDefinitionFromPrivateRepoGenerator.next().done).toEqual(true);
-    });
-
     describe('getModelDefinitionFromPublicRepo ', () => {
         const getModelDefinitionFromPublicRepoGenerator = cloneableGenerator(getModelDefinitionFromPublicRepo)
             (action, {repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public});
@@ -169,15 +147,10 @@ describe('modelDefinitionSaga', () => {
 
         expect(getModelDefinitionFromPublicRepoGenerator.next(PUBLIC_REPO_HOSTNAME)).toEqual({
             done: false,
-            value: call(getRepoTokenSaga, REPOSITORY_LOCATION_TYPE.Public)
-        });
-
-        expect(getModelDefinitionFromPublicRepoGenerator.next('token')).toEqual({
-            done: false,
             value: call(fetchModelDefinition, {
                 id: params.interfaceId,
                 repoServiceHostName: PUBLIC_REPO_HOSTNAME,
-                token: 'token'
+                token: ''
             })
         });
 
@@ -239,15 +212,6 @@ describe('modelDefinitionSaga', () => {
                 value: call(getModelDefinitionFromPublicRepo, action, {repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public})
             });
             expect(getModelDefinitionFromPublicRepoGenerator.next().done).toEqual(true);
-        });
-
-        it('getModelDefinition from private repo', () => {
-            const getModelDefinitionFromPrivateRepoGenerator = cloneableGenerator(getModelDefinition)(action,  {repositoryLocationType: REPOSITORY_LOCATION_TYPE.Private});
-            expect(getModelDefinitionFromPrivateRepoGenerator.next()).toEqual({
-                done: false,
-                value: call(getModelDefinitionFromPrivateRepo, action, {repositoryLocationType: REPOSITORY_LOCATION_TYPE.Private})
-            });
-            expect(getModelDefinitionFromPrivateRepoGenerator.next().done).toEqual(true);
         });
 
         it('getModelDefinition from device', () => {

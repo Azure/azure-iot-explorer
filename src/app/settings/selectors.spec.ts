@@ -7,7 +7,6 @@ import { Record } from 'immutable';
 import {
     getSettingsVisibleSelector,
     getRepositoryLocationSettingsSelector,
-    getPrivateRepositorySettingsSelector,
     getPublicRepositoryHostName,
     getLocalFolderPath
 } from './selectors';
@@ -21,17 +20,11 @@ describe('applicationStateSelector', () => {
         localFolderSettings: {
           path: 'f:/mist/pnp-docs'
         },
-        privateRepositorySettings: {
-          privateConnectionString: 'HostName=repo.azureiotrepository.com;RepositoryId=123;SharedAccessKeyName=456;SharedAccessKey=789',
-          privateRepoTimestamp: 1585177784380,
-          privateRepoToken: ''
-        },
         publicRepositorySettings: {
           publicRepoHostName: 'repo.azureiotrepository.com'
         },
         repositoryLocations: [
             REPOSITORY_LOCATION_TYPE.Public,
-            REPOSITORY_LOCATION_TYPE.Private,
             REPOSITORY_LOCATION_TYPE.Local
         ],
         showSettings: true
@@ -48,22 +41,10 @@ describe('applicationStateSelector', () => {
                 value: null
             },
             {
-                repositoryLocationType: REPOSITORY_LOCATION_TYPE.Private,
-                value: 'HostName=repo.azureiotrepository.com;RepositoryId=123;SharedAccessKeyName=456;SharedAccessKey=789',
-            },
-            {
                 repositoryLocationType: REPOSITORY_LOCATION_TYPE.Local,
                 value: 'f:/mist/pnp-docs'
             }
         ]);
-    });
-
-    it('returns private repo settings', () => {
-        expect(getPrivateRepositorySettingsSelector(state)).toEqual({
-            privateConnectionString: 'HostName=repo.azureiotrepository.com;RepositoryId=123;SharedAccessKeyName=456;SharedAccessKey=789',
-            privateRepoTimestamp: 1585177784380,
-            privateRepoToken: ''
-          });
     });
 
     it('returns public repo hostname', () => {
