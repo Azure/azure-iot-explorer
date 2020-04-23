@@ -2,7 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import * as DigitalTwinsModelService from './digitalTwinsModelService';
+import * as DigitalTwinsModelService from './publicDigitalTwinsModelRepoService';
 import { API_VERSION, DIGITAL_TWIN_API_VERSION, MODEL_REPO_API_VERSION, HTTP_OPERATION_TYPES, PUBLIC_REPO_HOSTNAME_TEST } from '../../constants/apiConstants';
 
 describe('digitalTwinsModelService', () => {

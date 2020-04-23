@@ -113,7 +113,6 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
                                 items={this.state.repositoryLocationSettings}
                                 onAddListItem={this.onAddListItem}
                                 onMoveItem={this.onMoveRepositoryLocation}
-                                onPrivateRepositoryConnectionStringChanged={this.onPrivateRepositoryConnectionStringChanged}
                                 onLocalFolderPathChanged={this.onLocalFolderPathChanged}
                                 onRemoveListItem={this.onRemoveListItem}
                             />
@@ -168,16 +167,6 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
     private readonly onRemoveListItem = (index: number) => {
         const items = this.state.repositoryLocationSettings;
         items.splice(index, 1);
-        this.setState({
-            isDirty: true,
-            repositoryLocationSettings: [...items]
-        });
-    }
-
-    private readonly onPrivateRepositoryConnectionStringChanged = (connectionString: string) => {
-        const items = this.state.repositoryLocationSettings;
-        const item = items[items.findIndex(value => value.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Private)];
-        item.value = connectionString;
         this.setState({
             isDirty: true,
             repositoryLocationSettings: [...items]
@@ -337,16 +326,10 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
         );
     }
 
-    // tslint:disable-next-line:cyclomatic-complexity
     private readonly disableSaveButton = () => {
         // 1. check dirty and hub connection string
         let shouldBeDisabled = !this.state.isDirty || !!this.state.hubConnectionStringError;
 
-        // 2. check if private repo has been added along with it's connection string
-        const privateLocationSetting = this.state.repositoryLocationSettings.filter(location => location.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Private);
-        if (privateLocationSetting && privateLocationSetting.length !== 0  ) {
-            shouldBeDisabled = shouldBeDisabled || !privateLocationSetting[0].value;
-        }
         // 3. check if local file explorer has been added along with it's path
         const localLocationSetting = this.state.repositoryLocationSettings.filter(location => location.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local);
         if (localLocationSetting && localLocationSetting.length !== 0  ) {

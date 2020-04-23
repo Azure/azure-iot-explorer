@@ -17,7 +17,6 @@ export interface RepositoryLocationListProps {
     items: RepositoryLocationSettings[];
     onAddListItem: (type: REPOSITORY_LOCATION_TYPE) => void;
     onMoveItem: (oldIndex: number, newIndex: number) => void;
-    onPrivateRepositoryConnectionStringChanged: (connectionString: string) => void;
     onLocalFolderPathChanged: (path: string) => void;
     onRemoveListItem: (index: number) => void;
 }

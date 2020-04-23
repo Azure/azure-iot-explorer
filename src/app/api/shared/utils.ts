@@ -6,8 +6,7 @@ import { createHmac } from 'crypto';
 import { IoTHubConnectionSettings } from '../services/devicesService';
 import { LIST_PLUG_AND_PLAY_DEVICES, SAS_EXPIRES_MINUTES } from '../../constants/devices';
 import DeviceQuery, { QueryClause, ParameterType, OperationType } from '../models/deviceQuery';
-import { RepoConnectionSettings } from '../services/digitalTwinsModelService';
-import { AppEnvironment, MILLISECONDS_PER_SECOND, SECONDS_PER_MINUTE } from '../../constants/shared';
+import { MILLISECONDS_PER_SECOND, SECONDS_PER_MINUTE } from '../../constants/shared';
 
 export const enum PnPQueryPrefix {
     HAS_CAPABILITY_MODEL = 'HAS_CAPABILITYMODEL',
@@ -51,48 +50,6 @@ export const generateSasToken = (parameters: GenerateSasTokenParameters) => {
         token = `SharedAccessSignature sr=${encodedUri}&sig=${base64UriEncoded}&se=${expires}${parameters.keyName ? '&skn=' + parameters.keyName : ''}`;
     }
     return token;
-};
-
-export const generatePnpSasToken = (repositoryId: string, audience: string, secret: string, keyName: string) => {
-    const now = new Date();
-    const ms = 1000;
-    const expiry = (now.setDate(now.getDate() + 1) / ms).toFixed(0);
-    const encodedServiceEndpoint = encodeURIComponent(audience);
-    const encodedRepoId = encodeURIComponent(repositoryId);
-    const signature = [encodedRepoId, encodedServiceEndpoint, expiry].join('\n').toLowerCase();
-    const sigUTF8 = new Buffer(signature, 'utf8');
-    const secret64bit = new Buffer(secret, 'base64');
-    const hmac = createHmac('sha256', secret64bit);
-    hmac.update(sigUTF8);
-    const hash = encodeURIComponent(hmac.digest('base64'));
-    return `SharedAccessSignature sr=${encodedServiceEndpoint}&sig=${hash}&se=${expiry}&skn=${keyName}&rid=${repositoryId}`;
-};
-
-export const getRepoConnectionInfoFromConnectionString = (connectionString: string): RepoConnectionSettings => {
-    const connectionObject: RepoConnectionSettings = {};
-    connectionString.split(';')
-    .forEach((segment: string) => {
-        const keyValue = segment.split('=');
-        switch (keyValue[0]) {
-            case 'HostName':
-            connectionObject.hostName = keyValue[1];
-            break;
-            case 'SharedAccessKeyName':
-            connectionObject.sharedAccessKeyName = keyValue[1];
-            break;
-            case 'SharedAccessKey':
-            connectionObject.sharedAccessKey = keyValue[1];
-            break;
-            case 'RepositoryId':
-            connectionObject.repositoryId = keyValue[1];
-            break;
-            default:
-            // we don't use other parts of connection string
-            break;
-        }
-    });
-
-    return connectionObject;
 };
 
 export const getConnectionInfoFromConnectionString = (connectionString: string): IoTHubConnectionSettings => {

@@ -4,17 +4,15 @@
  **********************************************************/
 import { call, put, select } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
-import { fetchModelDefinition, validateModelDefinitions } from '../../../api/services/digitalTwinsModelService';
+import { fetchModelDefinition, validateModelDefinitions } from '../../../api/services/publicDigitalTwinsModelRepoService';
 import { addNotificationAction } from '../../../notifications/actions';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getModelDefinitionAction, GetModelDefinitionActionParameters } from '../actions';
 import { FetchModelParameters } from '../../../api/parameters/repoParameters';
-import { getRepoTokenSaga } from '../../../settings/sagas/getRepoTokenSaga';
 import { getRepositoryLocationSettingsSelector, getPublicRepositoryHostName, getLocalFolderPath } from '../../../settings/selectors';
 import { RepositoryLocationSettings } from '../../../settings/state';
 import { REPOSITORY_LOCATION_TYPE } from './../../../constants/repositoryLocationTypes';
-import { getRepoConnectionInfoFromConnectionString } from '../../../api/shared/utils';
 import { invokeDigitalTwinInterfaceCommand } from '../../../api/services/digitalTwinService';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { getComponentNameAndInterfaceIdArraySelector, ComponentAndInterfaceId } from '../selectors';
@@ -70,7 +68,7 @@ export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionP
 
 export function *validateModelDefinitionHelper(modelDefinition: ModelDefinition, location: RepositoryLocationSettings) {
     return true; // temporarily disable the validation til service deploys dtmi change in pnp discovery
-    if (location.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Private || location.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Public) {
+    if (location.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Public) {
         return true;
     }
     try {
@@ -81,22 +79,11 @@ export function *validateModelDefinitionHelper(modelDefinition: ModelDefinition,
     }
 }
 
-export function *getModelDefinitionFromPrivateRepo(action: Action<GetModelDefinitionActionParameters>, location: RepositoryLocationSettings) {
-    const repoConnectionStringInfo = getRepoConnectionInfoFromConnectionString(location.value);
-    const parameters: FetchModelParameters = {
-        id: action.payload.interfaceId,
-        repoServiceHostName: repoConnectionStringInfo.hostName,
-        repositoryId: repoConnectionStringInfo.repositoryId,
-        token: yield call(getRepoTokenSaga, location.repositoryLocationType)
-    };
-    return yield call(fetchModelDefinition, parameters);
-}
-
 export function* getModelDefinitionFromPublicRepo(action: Action<GetModelDefinitionActionParameters>, location: RepositoryLocationSettings) {
     const parameters: FetchModelParameters = {
         id: action.payload.interfaceId,
         repoServiceHostName: yield select(getPublicRepositoryHostName),
-        token: yield call(getRepoTokenSaga, location.repositoryLocationType)
+        token: ''
     };
     return yield call(fetchModelDefinition, parameters);
 }
@@ -127,8 +114,6 @@ export function* getModelDefinitionFromDevice(action: Action<GetModelDefinitionA
 
 export function* getModelDefinition(action: Action<GetModelDefinitionActionParameters>, location: RepositoryLocationSettings) {
     switch (location.repositoryLocationType) {
-        case REPOSITORY_LOCATION_TYPE.Private:
-            return yield call(getModelDefinitionFromPrivateRepo, action, location);
         case REPOSITORY_LOCATION_TYPE.Device:
             return yield call(getModelDefinitionFromDevice, action);
         case REPOSITORY_LOCATION_TYPE.Local:
