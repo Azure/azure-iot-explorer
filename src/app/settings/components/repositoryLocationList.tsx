@@ -50,12 +50,6 @@ export default class RepositoryLocationList extends React.Component<RepositoryLo
         const { items} = this.props;
         return [
             {
-                disabled: !items || items.some(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Private),
-                key: REPOSITORY_LOCATION_TYPE.Private,
-                onClick: () => this.onAddRepositoryType(REPOSITORY_LOCATION_TYPE.Private),
-                text: context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.private.label)
-            },
-            {
                 disabled: !items || items.some(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Public),
                 key: REPOSITORY_LOCATION_TYPE.Public,
                 onClick: () => this.onAddRepositoryType(REPOSITORY_LOCATION_TYPE.Public),
