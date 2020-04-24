@@ -66,13 +66,12 @@ export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionP
     }
 }
 
-export function *validateModelDefinitionHelper(modelDefinition: ModelDefinition, location: RepositoryLocationSettings) {
-    return true; // temporarily disable the validation til service deploys dtmi change in pnp discovery
-    if (location.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Public) {
-        return true;
-    }
-    try {
-        return yield call (validateModelDefinitions, JSON.stringify([modelDefinition]));
+export function* validateModelDefinitionHelper(modelDefinition: ModelDefinition, location: RepositoryLocationSettings) {
+   try {
+        if (location.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Public) {
+            return true;
+        }
+        return yield call(validateModelDefinitions, JSON.stringify([modelDefinition]));
     }
     catch {
         return false;
