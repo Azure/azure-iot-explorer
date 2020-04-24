@@ -4,22 +4,20 @@
  **********************************************************/
 import * as React from 'react';
 import { WidgetProps } from 'react-jsonschema-form';
-import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
+import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/ChoiceGroup';
 
 // tslint:disable-next-line:no-any
 const onChangePassthrough = (props: WidgetProps) => (event: any, value: any) => {
-    props.onChange(!props.value);
+    props.onChange(value.key === 'true' ? true : false);
 };
 
-export const FabricCheckbox = (props: WidgetProps & { label: string }) => (
-    <div className="ms-font-m" style={{ display: 'flex' }}>
-        <Checkbox
-            checked={!!props.value}
-            value={props.value}
-            disabled={props.disabled}
-            label={props.label}
-            placeholder={props.placeholder}
-            onChange={onChangePassthrough(props)}
-        />
-    </div>
-);
+export const FabricCheckbox = (props: WidgetProps & { label: string }) => {
+    const options: IChoiceGroupOption[] = [
+        { key: 'true', text: 'true' },
+        { key: 'false', text: 'false' }
+      ];
+
+    return(
+        <ChoiceGroup selectedKey={props.value.toString()} options={options} onChange={onChangePassthrough(props)} label={props.label} disabled={props.disabled}/>
+    );
+};

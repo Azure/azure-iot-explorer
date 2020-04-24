@@ -6,9 +6,9 @@ import { ModelDefinition } from './../../../../api/models/modelDefinition';
 import { PropertyContent, ContentType } from '../../../../api/models/modelDefinition';
 import { StateInterface } from '../../../../shared/redux/state';
 import { parseInterfacePropertyToJsonSchema } from '../../../../shared/utils/jsonSchemaAdaptor';
-import { getModelDefinitionSelector, getComponentNameSelector, getDigitalTwinSelector } from '../../selectors';
+import { getModelDefinitionSelector, getComponentNameSelector } from '../../selectors';
 import { DeviceInterfaceWithSchema } from './deviceSettings';
-import { getReportedValueForSpecificProperty } from '../deviceProperties/selectors';
+import { getReportedValueForSpecificProperty, getDigitalTwinForSpecificComponent } from '../deviceProperties/selectors';
 
 export const getDeviceSettingTupleSelector = (state: StateInterface) => {
     const modelDefinition = getModelDefinitionSelector(state);
@@ -21,6 +21,7 @@ const generateTwinSchemaAndInterfaceTuple = (state: StateInterface, model: Model
     const settings = writableProperties ? writableProperties
         .map(setting => {
             return {
+                isComponentContainedInDigitalTwin: !!getDigitalTwinForSpecificComponent(state),
                 metadata: getMetadataSectionForSpecificProperty(state, setting),
                 reportedTwin: getReportedValueForSpecificProperty(state, setting),
                 settingModelDefinition: setting,
@@ -54,10 +55,8 @@ export interface MetadataSection {
 }
 
 const getMetadataSectionForSpecificProperty = (state: StateInterface, property: PropertyContent): MetadataSection => {
-    const digitalTwin = getDigitalTwinSelector(state);
-    const componentNameSelected = getComponentNameSelector(state);
-    return digitalTwin &&
-        digitalTwin[componentNameSelected] &&
-        digitalTwin[componentNameSelected].$metadata &&
-        digitalTwin[componentNameSelected].$metadata[property.name];
+    const digitalTwinForSpecificComponent = getDigitalTwinForSpecificComponent(state);
+    return digitalTwinForSpecificComponent &&
+        digitalTwinForSpecificComponent.$metadata &&
+        digitalTwinForSpecificComponent.$metadata[property.name];
 };

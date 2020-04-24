@@ -179,12 +179,15 @@ export default class DataForm extends React.Component<DataFormDataProps & DataFo
         this.setState({stringifiedFormData: data});
     }
 
+    private readonly generatePayload = () => {
+        return (this.state.parseMapTypeError || !this.props.settingSchema) ?
+            this.state.stringifiedFormData && JSON.parse(this.state.stringifiedFormData) :
+            dataToTwinConverter(this.state.formData, this.props.settingSchema, this.state.originalFormData).twin;
+    }
+
     private readonly createPayloadPreview = () => {
-        const payload = (this.state.parseMapTypeError || !this.props.settingSchema) ?
-        this.state.stringifiedFormData && JSON.parse(this.state.stringifiedFormData) :
-        dataToTwinConverter(this.state.formData, this.props.settingSchema, this.state.originalFormData).twin;
         this.setState({
-            payloadPreviewData: this.props.craftPayload(payload || null),
+            payloadPreviewData: this.props.craftPayload(this.generatePayload()),
             showPayloadDialog: true
         });
     }
@@ -205,9 +208,7 @@ export default class DataForm extends React.Component<DataFormDataProps & DataFo
         let buttonDisabled = false;
 
         try {
-            payload = (this.state.parseMapTypeError || !this.props.settingSchema) ?
-            (this.state.stringifiedFormData && JSON.parse(this.state.stringifiedFormData)) :
-            dataToTwinConverter(this.state.formData, this.props.settingSchema, this.state.originalFormData).twin;
+            payload = this.generatePayload();
         } catch (e) {
             payload = null;
             buttonDisabled = true;
