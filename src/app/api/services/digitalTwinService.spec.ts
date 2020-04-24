@@ -125,9 +125,12 @@ describe('digitalTwinService', () => {
         const parameters = {
             connectionString,
             digitalTwinId: undefined,
-            operation: JsonPatchOperation.REPLACE,
-            path: '/environmentalSensor/state',
-            value: false
+            payload: [
+                {
+                    op: JsonPatchOperation.REPLACE,
+                    path: '/environmentalSensor/state',
+                    value: false
+                }]
         };
         it ('returns if digitalTwinId is not specified', () => {
             expect(DigitalTwinService.patchDigitalTwinAndGetResponseCode(parameters)).toEqual(emptyPromise);
@@ -137,10 +140,17 @@ describe('digitalTwinService', () => {
             jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockReturnValue({
                 connectionInfo: getConnectionInfoFromConnectionString(parameters.connectionString), sasToken});
 
+            // tslint:disable
             const response = {
+                json: () => {
+                    return {
+                        body: {},
+                        headers:{}
+                        }
+                    },
                 status: 200
-            // tslint:disable-next-line: no-any
             } as any;
+            // tslint:enable
             jest.spyOn(window, 'fetch').mockResolvedValue(response);
 
             const result = await DigitalTwinService.patchDigitalTwinAndGetResponseCode({
@@ -151,11 +161,7 @@ describe('digitalTwinService', () => {
             const connectionInformation = mockDataPlaneConnectionHelper({connectionString});
             const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
                 apiVersion: DIGITAL_TWIN_API_VERSION_PREVIEW,
-                body: JSON.stringify([{
-                    op: parameters.operation,
-                    path: parameters.path,
-                    value: parameters.value
-                }]),
+                body: JSON.stringify(parameters.payload),
                 hostName: connectionInformation.connectionInfo.hostName,
                 httpMethod: HTTP_OPERATION_TYPES.Patch,
                 path: `/digitalTwins/${deviceId}`,

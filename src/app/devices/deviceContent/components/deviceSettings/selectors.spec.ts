@@ -71,7 +71,6 @@ describe('getDigitalTwinSettingsSelector', () => {
             payload:  digitalTwin,
             synchronizationStatus: SynchronizationStatus.fetched,
         },
-        digitalTwinInterfaceProperties: null,
         modelDefinitionWithSource: {
             payload: {
                 isModelValid: true,
@@ -90,6 +89,7 @@ describe('getDigitalTwinSettingsSelector', () => {
         expect(getDeviceSettingTupleSelector(state).interfaceId).toEqual(interfaceId);
         expect(getDeviceSettingTupleSelector(state).componentName).toEqual(componentName);
         expect(getDeviceSettingTupleSelector(state).twinWithSchema[0]).toEqual({
+            isComponentContainedInDigitalTwin: true,
             metadata: {
                 desiredValue: 456,
                 desiredVersion: 2,
@@ -98,7 +98,6 @@ describe('getDigitalTwinSettingsSelector', () => {
             reportedTwin: 123,
             settingModelDefinition: modelDefinition.contents[0],
             settingSchema: {
-                description: `${modelDefinition.contents[0].displayName} / ${modelDefinition.contents[0].description}`,
                 required: null,
                 title: modelDefinition.contents[0].name,
                 type: 'number'
