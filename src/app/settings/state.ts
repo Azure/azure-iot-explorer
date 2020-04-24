@@ -38,7 +38,9 @@ export const applicationStateInitial = appConfig.hostMode === HostMode.Electron 
             publicRepoHostName: PUBLIC_REPO_HOSTNAME
         },
         repositoryLocations: localStorage.getItem(REPO_LOCATIONS) ?
-            localStorage.getItem(REPO_LOCATIONS).split(',').map(location => location as REPOSITORY_LOCATION_TYPE) :
+            localStorage.getItem(REPO_LOCATIONS).split(',')
+                .filter(location => Object.values(REPOSITORY_LOCATION_TYPE).indexOf(location.toUpperCase() as REPOSITORY_LOCATION_TYPE) > -1)
+                .map(location => location.toUpperCase() as REPOSITORY_LOCATION_TYPE) :
             [REPOSITORY_LOCATION_TYPE.Public, REPOSITORY_LOCATION_TYPE.Device],
         showSettings: false
     }) :
@@ -48,7 +50,9 @@ export const applicationStateInitial = appConfig.hostMode === HostMode.Electron 
             publicRepoHostName: PUBLIC_REPO_HOSTNAME
         },
         repositoryLocations: localStorage.getItem(REPO_LOCATIONS) ?
-            localStorage.getItem(REPO_LOCATIONS).split(',').map(location => location as REPOSITORY_LOCATION_TYPE).filter(location => location !== REPOSITORY_LOCATION_TYPE.Local) :
+            localStorage.getItem(REPO_LOCATIONS).split(',')
+                .filter(location => Object.values(REPOSITORY_LOCATION_TYPE).indexOf(location.toUpperCase() as REPOSITORY_LOCATION_TYPE) > -1)
+                .map(location => location.toUpperCase() as REPOSITORY_LOCATION_TYPE).filter(location => location !== REPOSITORY_LOCATION_TYPE.Local) :
             [REPOSITORY_LOCATION_TYPE.Public, REPOSITORY_LOCATION_TYPE.Device],
         showSettings: false
     });
