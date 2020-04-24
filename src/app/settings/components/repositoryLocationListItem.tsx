@@ -21,7 +21,6 @@ import '../../css/_repositoryLocationItem.scss';
 export interface RepositoryLocationListItemProps {
     index: number;
     item: RepositoryLocationSettings;
-    onPrivateRepositoryConnectionStringChanged: (connectionString: string) => void;
     onLocalFolderPathChanged: (path: string) => void;
     moveCard: (oldIndex: number, newIndex: number) => void;
     onRemoveListItem: (index: number) => void;
@@ -62,19 +61,6 @@ export default class RepositoryLocationListItem extends React.Component<Reposito
                     && <Label>{context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.public.label)}</Label>}
                 {item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Device
                     &&  <Label>{context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.device.label)}</Label>}
-                {item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Private &&
-                    <MaskedCopyableTextFieldContainer
-                        ariaLabel={context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.private.textBoxLabel)}
-                        label={context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.private.textBoxLabel)}
-                        value={item.value}
-                        allowMask={true}
-                        readOnly={false}
-                        required={true}
-                        onTextChange={this.props.onPrivateRepositoryConnectionStringChanged}
-                        placeholder={context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.private.placeholder)}
-                        setFocus={!item.value}
-                    />
-                }
                 {item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local &&
                    this.renderLocalFolderItem(context)
                 }

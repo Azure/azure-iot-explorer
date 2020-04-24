@@ -52,7 +52,6 @@ exports[`components/settings/settingsPane matches snapshot is not open 1`] = `
       onAddListItem={[Function]}
       onLocalFolderPathChanged={[Function]}
       onMoveItem={[Function]}
-      onPrivateRepositoryConnectionStringChanged={[Function]}
       onRemoveListItem={[Function]}
     />
   </section>
@@ -127,7 +126,6 @@ exports[`components/settings/settingsPane matches snapshot open 1`] = `
       onAddListItem={[Function]}
       onLocalFolderPathChanged={[Function]}
       onMoveItem={[Function]}
-      onPrivateRepositoryConnectionStringChanged={[Function]}
       onRemoveListItem={[Function]}
     />
   </section>
@@ -202,7 +200,6 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
       onAddListItem={[Function]}
       onLocalFolderPathChanged={[Function]}
       onMoveItem={[Function]}
-      onPrivateRepositoryConnectionStringChanged={[Function]}
       onRemoveListItem={[Function]}
     />
   </section>
