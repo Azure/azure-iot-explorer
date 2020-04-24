@@ -36,14 +36,13 @@ export const HUB_DATA_PLANE_API_VERSION = '2019-10-01';
 
 export const HEADERS = {
     CONTINUATION_TOKEN: 'x-ms-continuation',
-    CREATED_ON: 'x-ms-model-createdon',
     ETAG: 'Etag',
     IF_MATCH: 'If-Match',
-    LAST_UPDATED: 'x-ms-model-lastupdated',
+    MODEL_CREATED_DATE: 'x-ms-model-created-date',
     MODEL_ID: 'x-ms-model-id',
+    MODEL_PUBLISHER_ID: 'x-ms-model-publisher-id',
+    MODEL_PUBLISHER_NAME: 'x-ms-model-publisher-name',
     PAGE_SIZE: 'x-ms-max-item-count',
-    PUBLISHER_ID: 'x-ms-model-publisher-id',
-    PUBLISHER_NAME: 'x-ms-model-publisher-name',
     REQUEST_ID: 'x-ms-request-id'
 };
 

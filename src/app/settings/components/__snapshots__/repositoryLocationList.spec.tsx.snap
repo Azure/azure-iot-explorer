@@ -28,7 +28,7 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
               "repositoryLocationType": "DEVICE",
             },
             Object {
-              "repositoryLocationType": "PRIVATE",
+              "repositoryLocationType": undefined,
             },
           ]
         }
@@ -59,7 +59,7 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
               "repositoryLocationType": "DEVICE",
             },
             Object {
-              "repositoryLocationType": "PRIVATE",
+              "repositoryLocationType": undefined,
             },
           ]
         }
@@ -71,14 +71,12 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
         onRemoveListItem={[MockFunction]}
       />
     </n>
-    <n
-      key="PRIVATE"
-    >
+    <n>
       <RepositoryLocationListItem
         index={2}
         item={
           Object {
-            "repositoryLocationType": "PRIVATE",
+            "repositoryLocationType": undefined,
           }
         }
         items={
@@ -90,7 +88,7 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
               "repositoryLocationType": "DEVICE",
             },
             Object {
-              "repositoryLocationType": "PRIVATE",
+              "repositoryLocationType": undefined,
             },
           ]
         }
@@ -113,12 +111,6 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
     menuProps={
       Object {
         "items": Array [
-          Object {
-            "disabled": true,
-            "key": "PRIVATE",
-            "onClick": [Function],
-            "text": "settings.modelDefinitions.repositoryTypes.private.label",
-          },
           Object {
             "disabled": true,
             "key": "PUBLIC",
@@ -164,12 +156,6 @@ exports[`components/settings/repositoryLocationList matches snapshot with no ite
     menuProps={
       Object {
         "items": Array [
-          Object {
-            "disabled": true,
-            "key": "PRIVATE",
-            "onClick": [Function],
-            "text": "settings.modelDefinitions.repositoryTypes.private.label",
-          },
           Object {
             "disabled": true,
             "key": "PUBLIC",
@@ -241,12 +227,6 @@ exports[`components/settings/repositoryLocationList matches snapshot with public
     menuProps={
       Object {
         "items": Array [
-          Object {
-            "disabled": false,
-            "key": "PRIVATE",
-            "onClick": [Function],
-            "text": "settings.modelDefinitions.repositoryTypes.private.label",
-          },
           Object {
             "disabled": true,
             "key": "PUBLIC",

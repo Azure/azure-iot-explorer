@@ -12,12 +12,6 @@ describe('hubConnectionStringHelper', () => {
         expect(generateConnectionStringValidationError('')).toEqual(ResourceKeys.connectivityPane.connectionStringComboBox.errorMessages.required);
     });
 
-    it('generates error when value is repo connection string', () => {
-        expect(
-            generateConnectionStringValidationError('HostName=repo.azureiotrepository.com;RepositoryId=123;SharedAccessKeyName=456;SharedAccessKey=789'))
-            .toEqual(ResourceKeys.connectivityPane.connectionStringComboBox.errorMessages.invalid);
-    });
-
     it('generates error when value does not contain expected property', () => {
         expect(
             generateConnectionStringValidationError('HostName=testhub.azure-devices.net;SharedAccessKey=123'))

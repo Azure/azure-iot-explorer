@@ -156,19 +156,7 @@ exports[`components/settings/repositoryLocationListItem matches snapshot for pri
   >
     <div
       className="item-details"
-    >
-      <Connect(MaskedCopyableTextField)
-        allowMask={true}
-        ariaLabel="settings.modelDefinitions.repositoryTypes.private.textBoxLabel"
-        label="settings.modelDefinitions.repositoryTypes.private.textBoxLabel"
-        onTextChange={[MockFunction]}
-        placeholder="settings.modelDefinitions.repositoryTypes.private.placeholder"
-        readOnly={false}
-        required={true}
-        setFocus={false}
-        value="HostName=repo.azureiotrepository.com;RepositoryId=123;SharedAccessKeyName=456;SharedAccessKey=789"
-      />
-    </div>
+    />
     <CustomizedIconButton
       ariaLabel="settings.cancel"
       className="remove-button"
