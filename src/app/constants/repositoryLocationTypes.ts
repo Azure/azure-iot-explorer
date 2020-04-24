@@ -4,7 +4,6 @@
  **********************************************************/
 export enum REPOSITORY_LOCATION_TYPE {
     Public = 'PUBLIC',
-    Private = 'PRIVATE',
     Device = 'DEVICE',
     Local = 'LOCAL'
 }

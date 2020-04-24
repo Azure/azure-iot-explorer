@@ -10,23 +10,15 @@ export const getSettingsVisibleSelector = (state: StateInterface) => {
 };
 
 export const getRepositoryLocationSettingsSelector = (state: StateInterface) => {
-    // tslint:disable-next-line:cyclomatic-complexity
     return state && state.applicationState && state.applicationState.repositoryLocations && state.applicationState.repositoryLocations.map(item => {
         return {
             repositoryLocationType: item,
             value:
-                (item === REPOSITORY_LOCATION_TYPE.Private &&
-                        state.applicationState.privateRepositorySettings &&
-                        state.applicationState.privateRepositorySettings.privateConnectionString) ||
                 (item === REPOSITORY_LOCATION_TYPE.Local &&
                     state.applicationState.localFolderSettings &&
                     state.applicationState.localFolderSettings.path) || null
         };
     });
-};
-
-export const getPrivateRepositorySettingsSelector = (state: StateInterface) => {
-    return state && state.applicationState.privateRepositorySettings;
 };
 
 export const getPublicRepositoryHostName = (state: StateInterface) => {

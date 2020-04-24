@@ -7,19 +7,18 @@ import { FetchModelParameters } from '../parameters/repoParameters';
 import {
     API_VERSION,
     CONTROLLER_API_ENDPOINT,
-    DIGITAL_TWIN_API_VERSION,
     HEADERS,
     MODELREPO,
     MODEL_REPO_API_VERSION,
     PUBLIC_REPO_HOSTNAME_TEST,
     HTTP_OPERATION_TYPES } from '../../constants/apiConstants';
 import { PnPModel } from '../models/metamodelMetadata';
+import { getHeaderValue } from '../shared/fetchUtils';
 
 export const fetchModel = async (parameters: FetchModelParameters): Promise<PnPModel> => {
     const expandQueryString = parameters.expand ? `&expand=true` : ``;
-    const repositoryQueryString = parameters.repositoryId ? `&repositoryId=${parameters.repositoryId}` : '';
-    const apiVersionQuerySTring = `?${API_VERSION}${DIGITAL_TWIN_API_VERSION}`;
-    const queryString = `${apiVersionQuerySTring}${expandQueryString}${repositoryQueryString}`;
+    const apiVersionQuerySTring = `?${API_VERSION}${MODEL_REPO_API_VERSION}`;
+    const queryString = `${apiVersionQuerySTring}${expandQueryString}`;
     const modelIdentifier = encodeURIComponent(parameters.id);
     const resourceUrl = `https://${parameters.repoServiceHostName}/models/${modelIdentifier}${queryString}`;
 
@@ -38,37 +37,23 @@ export const fetchModel = async (parameters: FetchModelParameters): Promise<PnPM
         throw new Error(response.statusText);
     }
 
-    // tslint:disable-next-line:cyclomatic-complexity
     const model =  await response.json() as ModelDefinition;
-    const createdOn = response.headers.has(HEADERS.CREATED_ON) ? response.headers.get(HEADERS.CREATED_ON) : '';
-    const etag = response.headers.has(HEADERS.ETAG) ? response.headers.get(HEADERS.ETAG) : '';
-    const lastUpdated = response.headers.has(HEADERS.LAST_UPDATED) ? response.headers.get(HEADERS.LAST_UPDATED) : '';
-    const modelId = response.headers.has(HEADERS.MODEL_ID) ? response.headers.get(HEADERS.MODEL_ID) : '';
-    const publisherId = response.headers.has(HEADERS.PUBLISHER_ID) ? response.headers.get(HEADERS.PUBLISHER_ID) : '';
-    const publisherName = response.headers.has(HEADERS.PUBLISHER_NAME) ? response.headers.get(HEADERS.PUBLISHER_NAME) : '';
-    const pnpModel = {
-        createdOn,
-        etag,
-        lastUpdated,
+    return {
+        createdDate: getHeaderValue(response, HEADERS.MODEL_CREATED_DATE),
+        etag: getHeaderValue(response, HEADERS.ETAG),
         model,
-        modelId,
-        publisherId,
-        publisherName,
+        modelId: getHeaderValue(response, HEADERS.MODEL_ID),
+        publisherId: getHeaderValue(response, HEADERS.MODEL_PUBLISHER_ID),
+        publisherName: getHeaderValue(response, HEADERS.MODEL_PUBLISHER_NAME)
     };
-
-    return pnpModel;
 };
 
-export const fetchModelDefinition = async (parameters: FetchModelParameters) => {
-    try {
-        const result = await fetchModel({
-            ...parameters
-        });
-        return result.model;
-    }
-    catch (error) {
-        throw new Error(error);
-    }
+export const fetchModelDefinition = async (parameters: FetchModelParameters): Promise<ModelDefinition> => {
+    const result = await fetchModel({
+        ...parameters
+    });
+
+    return result.model;
 };
 
 export const validateModelDefinitions = async (modelDefinitions: string) => {

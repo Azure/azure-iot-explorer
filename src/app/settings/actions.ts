@@ -5,10 +5,9 @@
 import actionCreatorFactory from 'typescript-fsa';
 import * as actionPrefixes from '../constants/actionPrefixes';
 import * as actionTypes from '../constants/actionTypes';
-import { PrivateRepositorySettings, RepositoryLocationSettings } from './state';
+import { RepositoryLocationSettings } from './state';
 
 const factory = actionCreatorFactory(actionPrefixes.APPLICATION);
 
 export const setSettingsVisibilityAction = factory<boolean>(actionTypes.SET_SETTINGS_VISIBILITY);
 export const setSettingsRepositoryLocationsAction = factory<RepositoryLocationSettings[]>(actionTypes.SET_REPOSITORY_LOCATIONS);
-export const updateRepoTokenAction =  factory<PrivateRepositorySettings>(actionTypes.UPDATE_REPO_TOKEN);

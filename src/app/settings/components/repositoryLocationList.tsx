@@ -17,7 +17,6 @@ export interface RepositoryLocationListProps {
     items: RepositoryLocationSettings[];
     onAddListItem: (type: REPOSITORY_LOCATION_TYPE) => void;
     onMoveItem: (oldIndex: number, newIndex: number) => void;
-    onPrivateRepositoryConnectionStringChanged: (connectionString: string) => void;
     onLocalFolderPathChanged: (path: string) => void;
     onRemoveListItem: (index: number) => void;
 }
@@ -49,12 +48,6 @@ export default class RepositoryLocationList extends React.Component<RepositoryLo
     private readonly getMenuItems = (context: LocalizationContextInterface) => {
         const { items} = this.props;
         return [
-            {
-                disabled: !items || items.some(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Private),
-                key: REPOSITORY_LOCATION_TYPE.Private,
-                onClick: () => this.onAddRepositoryType(REPOSITORY_LOCATION_TYPE.Private),
-                text: context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.private.label)
-            },
             {
                 disabled: !items || items.some(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Public),
                 key: REPOSITORY_LOCATION_TYPE.Public,
