@@ -18,7 +18,7 @@ import { PatchDigitalTwinActionParameters } from '../../actions';
 import ErrorBoundary from '../../../errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 import { SemanticUnit } from '../../../../shared/units/components/semanticUnit';
-import { JsonPatchOperation } from '../../../../api/parameters/deviceParameters';
+import { JsonPatchOperation, PatchPayload } from '../../../../api/parameters/deviceParameters';
 import { MetadataSection } from './selectors';
 import '../../../../css/_deviceSettings.scss';
 
@@ -36,6 +36,7 @@ export interface DeviceSettingDispatchProps {
 }
 
 export interface TwinWithSchema {
+    isComponentContainedInDigitalTwin: boolean;
     metadata: MetadataSection;
     reportedTwin: boolean | string | number | object;
     settingModelDefinition: PropertyContent;
@@ -227,22 +228,38 @@ export default class DeviceSettingsPerInterfacePerSetting
         );
     }
 
-    private readonly createSettingsPayload = (twin: boolean | number | string | object)
-        : {operation: JsonPatchOperation; path: string; value?: boolean | number | string | object} => {
-        return twin ? {
-            operation: this.props.metadata && this.props.metadata.desiredValue && this.props.metadata.desiredValue !== {} ? JsonPatchOperation.REPLACE : JsonPatchOperation.ADD,
-            path: `/${this.props.componentName}/${this.props.settingModelDefinition.name}`,
-            value: twin,
-        } : {
-            operation: JsonPatchOperation.REMOVE,
-            path: `/${this.props.componentName}/${this.props.settingModelDefinition.name}`,
-        };
+    // tslint:disable-next-line: cyclomatic-complexity
+    private readonly createSettingsPayload = (twin: boolean | number | string | object): PatchPayload[] => {
+        const { componentName, metadata, isComponentContainedInDigitalTwin, settingModelDefinition } = this.props;
+        if (!isComponentContainedInDigitalTwin) {
+            const value: any = { // tslint:disable-line: no-any
+                $metadata: {}
+            };
+            value[settingModelDefinition.name] = twin;
+            return[{
+                op: JsonPatchOperation.ADD,
+                path: `/${componentName}`,
+                value
+            }];
+        }
+        else {
+            const patchPayloadWithTwin = twin || typeof twin === 'boolean' ? {
+                op: metadata && metadata.desiredValue ?
+                    JsonPatchOperation.REPLACE : JsonPatchOperation.ADD,
+                path: `/${componentName}/${settingModelDefinition.name}`,
+                value: twin,
+            } : {
+                op: JsonPatchOperation.REMOVE,
+                path: `/${componentName}/${settingModelDefinition.name}`,
+            };
+            return[patchPayloadWithTwin];
+        }
     }
 
     private readonly onSubmit = (twin: boolean | number | string | object) => () => {
         this.props.patchDigitalTwin({
-            ...this.createSettingsPayload(twin),
-            digitalTwinId: this.props.deviceId
+            digitalTwinId: this.props.deviceId,
+            payload: this.createSettingsPayload(twin)
         });
     }
 }

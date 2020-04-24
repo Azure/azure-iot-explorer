@@ -95,7 +95,6 @@ describe('getDigitalTwinPropertiesSelector', () => {
             payload:  digitalTwin,
             synchronizationStatus: SynchronizationStatus.fetched,
         },
-        digitalTwinInterfaceProperties: null,
         modelDefinitionWithSource: {
             payload: {
                 isModelValid: true,
@@ -114,7 +113,6 @@ describe('getDigitalTwinPropertiesSelector', () => {
         const result = getDevicePropertyTupleSelector(state);
         expect(result[0].propertyModelDefinition).toEqual(modelDefinition.contents[0]);
         expect(result[0].reportedTwin).toEqual(modelInformationReportedValue);
-        expect(result[0].propertySchema.description).toEqual(`${modelDefinition.contents[0].displayName} / ${modelDefinition.contents[0].description}`);
         expect(result[0].propertySchema.title).toEqual(modelDefinition.contents[0].name);
     });
 });

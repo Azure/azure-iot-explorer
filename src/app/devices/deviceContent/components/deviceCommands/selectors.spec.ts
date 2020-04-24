@@ -70,16 +70,13 @@ describe('getDeviceCommandPairs', () => {
                     }
                 },
                 parsedSchema: {
-                    description: 'This command will begin blinking the LED for given time interval.',
                     name: 'blink',
                     requestSchema: {
-                        description: '',
                         required: null,
                         title: 'blinkRequest',
                         type: 'number'
                     },
                     responseSchema: {
-                        description: '',
                         required: null,
                         title: 'blinkResponse',
                         type: 'string'

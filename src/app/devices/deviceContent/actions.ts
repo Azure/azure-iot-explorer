@@ -8,7 +8,7 @@ import * as actionTypes from '../../constants/actionTypes';
 import { Twin } from '../../api/models/device';
 import { DeviceIdentity } from '../../api/models/deviceIdentity';
 import { ModelDefinitionWithSource } from '../../api/models/modelDefinitionWithSource';
-import { JsonPatchOperation } from '../../api/parameters/deviceParameters';
+import { PatchPayload } from '../../api/parameters/deviceParameters';
 
 const deviceContentCreator = actionCreatorFactory(actionPrefixes.DEVICECONTENT);
 const clearModelDefinitionsAction = deviceContentCreator(actionTypes.CLEAR_MODEL_DEFINITIONS);
@@ -47,9 +47,7 @@ export interface CloudToDeviceMessageActionParameters {
 
 export interface PatchDigitalTwinActionParameters {
     digitalTwinId: string;
-    operation: JsonPatchOperation;
-    path: string;
-    value?: boolean | number | string | object;
+    payload: PatchPayload[];
 }
 
 export interface InvokeDigitalTwinInterfaceCommandActionParameters {

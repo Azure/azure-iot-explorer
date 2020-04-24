@@ -32,6 +32,7 @@ describe('top level map converter', () => {
             required: ['telemetryName', 'telemetryConfig'],
             type: 'object'
         },
+        required: null,
         title: 'MapValStringValue',
         type: 'array'
     };
@@ -69,8 +70,8 @@ describe('top level map converter', () => {
         ]
     };
 
-    it('transforms json form data to twin and would return undefined form data if form data has no corresponding path',  () => {
-        expect(dataToTwinConverter(formDataWithNoMatchingPath, settingWithTopLevelMap).twin).toEqual(undefined);
+    it('transforms json form data to twin and would return empty form data if form data has no corresponding path',  () => {
+        expect(dataToTwinConverter(formDataWithNoMatchingPath, settingWithTopLevelMap).twin).toEqual({});
     });
 });
 
@@ -93,6 +94,7 @@ describe('nested map type converter', () => {
                     },
                     required: ['commandName', 'commandConfig']
                 },
+                required: null,
                 title: 'commands',
                 type: 'array'
             },
@@ -112,10 +114,12 @@ describe('nested map type converter', () => {
                     },
                     required: ['telemetryName', 'telemetryConfig']
                 },
+                required: null,
                 title: 'telemetry',
                 type: 'array'
             },
         },
+        required: null,
         title: 'interfaceConfig',
         type: 'object'
     };
@@ -232,6 +236,7 @@ describe('map in map converter', () => {
             required: ['level_1_Key', 'level_1_Name'],
             type: 'object'
         },
+        required: null,
         title: 'Map With Map',
         type: 'array',
     };
