@@ -10,6 +10,7 @@ export interface ModelDefinition {
     contents: Array<PropertyContent | CommandContent | TelemetryContent | ComponentContent>;
     description?: string | object;
     displayName?: string | object;
+    schemas?: Array<ObjectSchema | MapSchema | EnumSchema>;
 }
 
 export interface PropertyContent extends ContentBase {
@@ -38,7 +39,6 @@ interface ContentBase {
     comment?: string | object;
     description?: string | object;
     displayName?: string | object;
-    displayUnit?: string;
     unit?: string;
 }
 
@@ -51,18 +51,22 @@ export interface Schema {
 
 export interface EnumSchema {
     '@type': string;
-    enumValues: Array<{ displayName: string | object, name: string, enumValue: number}>;
+    valueSchema: string;
+    enumValues: Array<{ displayName: string | object, name: string, enumValue: number | string}>;
+    '@id'?: string;
 }
 
 export interface ObjectSchema {
     '@type': string;
     fields: Schema[];
+    '@id'?: string;
 }
 
 export interface MapSchema {
     '@type': string;
     mapKey: Schema;
     mapValue: Schema;
+    '@id'?: string;
 }
 
 export enum ContentType{

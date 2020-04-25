@@ -2,183 +2,277 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { PropertyContent, CommandContent, EnumSchema, ObjectSchema, MapSchema, ContentType, TelemetryContent, Schema } from '../../api/models/modelDefinition';
+import { PropertyContent, CommandContent, EnumSchema, MapSchema, ObjectSchema, ContentType, TelemetryContent, ModelDefinition } from '../../api/models/modelDefinition';
 import { ParsedCommandSchema, ParsedJsonSchema } from '../../api/models/interfaceJsonParserOutput';
 import { InterfaceSchemaNotSupportedException } from './exceptions/interfaceSchemaNotSupportedException';
 
-export const parseInterfacePropertyToJsonSchema = (property: PropertyContent): ParsedJsonSchema => {
-    try {
-        return parseInterfacePropertyHelper(property);
-    } catch {
-        return; // swallow the error and let UI render JSON editor for types which are not supported yet
-    }
-};
+export interface JsonSchemaAdaptorInterface {
+    getWritableProperties: () => PropertyContent[];
+    getNonWritableProperties: () => PropertyContent[];
+    getCommands: () => CommandContent[];
+    getTelemetry: () => TelemetryContent[];
+    parseInterfacePropertyToJsonSchema: (property: PropertyContent) => ParsedJsonSchema;
+    parseInterfaceCommandToJsonSchema: (command: CommandContent) => ParsedCommandSchema;
+    parseInterfaceTelemetryToJsonSchema: (telemetry: TelemetryContent) => ParsedJsonSchema;
+}
 
-export const parseInterfaceCommandToJsonSchema = (command: CommandContent): ParsedCommandSchema => {
-    try {
-        return {
-            name: command.name,
-            requestSchema: parseInterfaceCommandsHelper(command, true),
-            responseSchema: parseInterfaceCommandsHelper(command, false)
-        };
-    } catch {
-        return; // swallow the error and let UI render JSON editor for types which are not supported yet
-    }
-};
+export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
+    private readonly model: ModelDefinition;
+    private readonly definitions: any; // tslint:disable-line: no-any
 
-export const parseInterfaceTelemetryToJsonSchema = (telemetry: TelemetryContent): ParsedJsonSchema => {
-    try {
-        return parseInterfacePropertyHelper(telemetry);
-    } catch {
-        return; // swallow the error and let UI render JSON editor for types which are not supported yet
-    }
-};
-
-// tslint:disable-next-line:cyclomatic-complexity
-const parseInterfacePropertyHelper = (property:  PropertyContent): ParsedJsonSchema  => {
-    if (!property || !property.schema) { return; }
-
-    if (typeof(property.schema) === 'string') {
-        switch (property.schema.toLowerCase()) {
-            case 'boolean':
-                return {
-                    default: false,
-                    required: null,
-                    title: property.name,
-                    type: 'boolean'
-                };
-            case 'date':
-                return {
-                    format: 'date',
-                    required: null,
-                    title: property.name,
-                    type: 'string',
-                };
-            case 'datetime':
-                return {
-                    pattern: '^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(.[0-9]+)?(Z)?$', // regex for ISO 8601
-                    required: null,
-                    title: property.name,
-                    type: 'string',
-                };
-            case 'double':
-            case 'float':
-            case 'long':
-                return {
-                    required: null,
-                    title: property.name,
-                    type: 'number',
-                };
-            case 'integer':
-                return {
-                    default: 0,
-                    required: null,
-                    title: property.name,
-                    type: 'integer',
-                };
-            case 'time': // todo: no widget for 'time' type
-            case 'duration': // todo: no widget for 'duration' type
-            case 'string':
-                return {
-                    required: null,
-                    title: property.name,
-                    type: 'string'
-                };
-            default:
-                throw new InterfaceSchemaNotSupportedException();
-        }
-    }
-
-    if (property.schema['@type'] === 'Enum') {
-        return property.schema && (property.schema as EnumSchema).enumValues ? {
-            enum: (property.schema as EnumSchema).enumValues.map(item => item.enumValue),
-            enumNames : (property.schema as EnumSchema).enumValues.map(item => item.name),
-            required: null,
-            title: property.name,
-            type: (property.schema as EnumSchema).enumValues.some(item => typeof item.enumValue === 'string') ? 'string' : 'number',
-        } : undefined;
-    }
-
-    if (property.schema['@type'] === 'Object') {
-        if (!(property.schema as ObjectSchema).fields) {
-            return;
-        }
-        const children: any = {}; // tslint:disable-line: no-any
-        (property.schema as ObjectSchema).fields.forEach(element => {
-            const child = parseInterfacePropertyHelper({...element, '@type': null});
-            if (child) {
-                const propertyName = child.title;
-                children[propertyName] = child;
+    constructor(model: ModelDefinition) {
+        this.model = model;
+        const reusableSchema = model && model.schemas || [];
+        this.definitions = {} as any; // tslint:disable-line: no-any
+        reusableSchema.forEach(schema => {
+            try {
+                const parsedReusableSchema = this.parseInterfaceContentSchemaHelper(schema);
+                this.definitions[schema['@id']] = parsedReusableSchema;
+            }
+            catch {
+                this.definitions[schema['@id']] = {};
             }
         });
+    }
 
-        return  {
-            properties: children,
+    public getWritableProperties = () => {
+        return this.model && this.model.contents && this.model.contents.filter((item: PropertyContent) => this.filterProperty(item, true)) as PropertyContent[] || [];
+    }
+
+    public getNonWritableProperties = () => {
+        return this.model && this.model.contents && this.model.contents.filter((item: PropertyContent) => this.filterProperty(item, false || undefined)) as PropertyContent[] || [];
+    }
+
+    public getCommands = () => {
+        return this.model && this.model.contents && this.model.contents.filter((item: CommandContent) => this.filterCommand(item)) as CommandContent[] || [];
+    }
+
+    public getTelemetry = () => {
+        return this.model && this.model.contents && this.model.contents.filter((item: TelemetryContent) => this.filterTelemetry(item)) as TelemetryContent[] || [];
+    }
+
+    public parseInterfacePropertyToJsonSchema = (property: PropertyContent): ParsedJsonSchema => {
+        try {
+            return {
+                ...this.parseInterfaceContentHelper(property),
+                definitions: this.definitions
+            };
+        } catch {
+            return; // swallow the error and let UI render JSON editor for types which are not supported yet
+        }
+    }
+
+    public parseInterfaceCommandToJsonSchema = (command: CommandContent): ParsedCommandSchema => {
+        try {
+            return {
+                name: command.name,
+                requestSchema: this.parseInterfaceCommandsHelper(command, true),
+                responseSchema: this.parseInterfaceCommandsHelper(command, false)
+            };
+        } catch {
+            return; // swallow the error and let UI render JSON editor for types which are not supported yet
+        }
+    }
+
+    public parseInterfaceTelemetryToJsonSchema = (telemetry: TelemetryContent): ParsedJsonSchema => {
+        try {
+            return {
+                ...this.parseInterfaceContentHelper(telemetry),
+                definitions: this.definitions
+            };
+        } catch {
+            return; // swallow the error and let UI render JSON editor for types which are not supported yet
+        }
+    }
+
+    private readonly filterProperty = (content: PropertyContent, writable: boolean) => {
+        if (typeof content['@type'] === 'string') {
+            return content['@type'].toLowerCase() === ContentType.Property && content.writable === writable;
+        }
+        else {
+            return content['@type'].some((entry: string) => entry.toLowerCase() === ContentType.Property) && content.writable === writable;
+        }
+    }
+
+    private readonly filterCommand = (content: CommandContent) => {
+        if (typeof content['@type'] === 'string') {
+            return content['@type'].toLowerCase() === ContentType.Command;
+        }
+        else {
+            return content['@type'].some((entry: string) => entry.toLowerCase() === ContentType.Command);
+        }
+    }
+
+    private readonly filterTelemetry = (content: TelemetryContent) => {
+        if (typeof content['@type'] === 'string') {
+            return content['@type'].toLowerCase() === ContentType.Telemetry;
+        }
+        else {
+            return content['@type'].some((entry: string) => entry.toLowerCase() === ContentType.Telemetry);
+        }
+    }
+
+    private readonly parseInterfaceContentHelper = (property:  PropertyContent): ParsedJsonSchema  => {
+        if (!property || !property.schema) { return; }
+
+        const parsedSchema = this.parseInterfaceContentSchemaHelper(property.schema);
+        return {
+            ...parsedSchema,
+            title: property.name
+        };
+    }
+
+    // tslint:disable-next-line: cyclomatic-complexity
+    private readonly parseInterfaceContentSchemaHelper = (propertySchema: string | EnumSchema | ObjectSchema | MapSchema): ParsedJsonSchema  => {
+        if (typeof(propertySchema) === 'string') {
+            if (propertySchema.startsWith('dtmi')) {
+                if (Object.keys(this.definitions).includes(propertySchema)) {
+                    return {
+                        $ref: `#/definitions/${propertySchema}`,
+                        required: null
+                    };
+                }
+                else {
+                    return {
+                        required: null,
+                        type: 'string'
+                    };
+                }
+            }
+            else {
+                switch (propertySchema.toLowerCase()) {
+                    case 'boolean':
+                        return {
+                            default: false,
+                            required: null,
+                            type: 'boolean'
+                        };
+                    case 'date':
+                        return {
+                            format: 'date',
+                            required: null,
+                            type: 'string',
+                        };
+                    case 'datetime':
+                        return {
+                            pattern: '^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(.[0-9]+)?(Z)?$', // regex for ISO 8601
+                            required: null,
+                            type: 'string',
+                        };
+                    case 'double':
+                    case 'float':
+                    case 'long':
+                        return {
+                            required: null,
+                            type: 'number',
+                        };
+                    case 'integer':
+                        return {
+                            required: null,
+                            type: 'integer',
+                        };
+                    case 'time': // todo: no widget for 'time' type
+                    case 'duration': // todo: no widget for 'duration' type
+                    case 'string':
+                        return {
+                            required: null,
+                            type: 'string'
+                        };
+                    default:
+                        throw new InterfaceSchemaNotSupportedException();
+                }
+            }
+        }
+
+        if (propertySchema['@type'] === 'Enum') {
+            return propertySchema && (propertySchema as EnumSchema).enumValues ? {
+                enum: (propertySchema as EnumSchema).enumValues.map(item => item.enumValue),
+                enumNames : (propertySchema as EnumSchema).enumValues.map(item => item.name),
+                required: null,
+                type: (propertySchema as EnumSchema).enumValues.some(item => typeof item.enumValue === 'string') ? 'string' : 'number',
+            } : undefined;
+        }
+
+        if (propertySchema['@type'] === 'Object') {
+            if (!(propertySchema as ObjectSchema).fields) {
+                return;
+            }
+            const children: any = {}; // tslint:disable-line: no-any
+            (propertySchema as ObjectSchema).fields.forEach(element => {
+                const child = this.parseInterfaceContentHelper({...element, '@type': null});
+                if (child) {
+                    const propertyName = child.title;
+                    children[propertyName] = child;
+                }
+            });
+
+            return  {
+                properties: children,
+                required: null,
+                type: 'object'
+            };
+        }
+
+        if (propertySchema['@type'] === 'Map') {
+            if (!(propertySchema as MapSchema).mapKey || !(propertySchema as MapSchema).mapValue) {
+                return;
+            }
+            return {
+                additionalProperties: true,
+                items: this.parseInterfaceMapTypePropertyItems(propertySchema),
+                required: null,
+                type: 'array' // there is no map type in json schema, instead we use an array of object type to present it
+            };
+        }
+
+        return {
             required: null,
-            title: property.name,
+            type: 'string'
+        };
+    }
+
+    // tslint:disable-next-line:cyclomatic-complexity
+    private readonly parseInterfaceCommandsHelper = (command: CommandContent, parseRequestSchema: boolean): ParsedJsonSchema => {
+        const commandSchema = parseRequestSchema ? command.request : command.response;
+
+        if (!commandSchema) { return; }
+
+        // add a dummy head for command request/response schema to make the recursion logic simpler
+        const dummyCommand: PropertyContent = {
+            '@type': ContentType.Command,
+            'name': commandSchema.name,
+            'schema': commandSchema.schema,
+        };
+
+        if (!dummyCommand || !dummyCommand.schema) { return; }
+        try {
+            return {
+                ...this.parseInterfaceContentHelper(dummyCommand),
+                definitions: this.definitions
+            };
+        }
+        catch {
+            return;  // swallow the error and let UI render JSON editor for types which are not supported yet
+        }
+    }
+
+    private readonly parseInterfaceMapTypePropertyItems = (propertySchema: string | EnumSchema | ObjectSchema | MapSchema): ParsedJsonSchema => {
+        const parsedMapValue = this.parseInterfaceContentHelper({...(propertySchema as MapSchema).mapValue, '@type': null});
+        // there is no map type in json schema, instead we use an object type to present every single key value pair
+        const items = {
+            description: '',
+            properties: {} as any, // tslint:disable-line: no-any
+            required: [] as string[],
             type: 'object'
         };
-    }
-
-    if (property.schema['@type'] === 'Map') {
-        if (!(property.schema as MapSchema).mapKey || !(property.schema as MapSchema).mapValue) {
-            return;
-        }
-        return {
-            additionalProperties: true,
-            items: parseInterfaceMapTypePropertyItems(property),
-            required: null,
-            title: property.name,
-            type: 'array' // there is no map type in json schema, instead we use an array of object type to present it
+        // make mapKey as the first property of the object type, which is always a string
+        items.properties[(propertySchema as MapSchema).mapKey.name] = {
+            type: 'string'
         };
+        // make mapValue as the second property of the object type
+        items.properties[(propertySchema as MapSchema).mapValue.name] = parsedMapValue;
+        items.required.push(...[(propertySchema as MapSchema).mapKey.name, (propertySchema as MapSchema).mapValue.name]);
+        items.description = `Key of the map is: ${(propertySchema as MapSchema).mapKey.name}`;
+        return items;
     }
-
-    return {
-        required: null,
-        title: property.name,
-        type: 'string'
-    };
-};
-
-const parseInterfaceMapTypePropertyItems = (property: PropertyContent): ParsedJsonSchema => {
-    const parsedMapValue = parseInterfacePropertyHelper({...(property.schema as MapSchema).mapValue, '@type': null});
-
-    // there is no map type in json schema, instead we use an object type to present every single key value pair
-    const items = {
-        description: '',
-        properties: {} as any, // tslint:disable-line: no-any
-        required: [] as string[],
-        type: 'object'
-    };
-    // make mapKey as the first property of the object type, which is always a string
-    items.properties[(property.schema as MapSchema).mapKey.name] = {
-        type: 'string'
-    };
-    // make mapValue as the second property of the object type
-    items.properties[(property.schema as MapSchema).mapValue.name] = parsedMapValue;
-    items.required.push(...[(property.schema as MapSchema).mapKey.name, (property.schema as MapSchema).mapValue.name]);
-    items.description = `${property.name}'s key: ${(property.schema as MapSchema).mapKey.name}`;
-    return items;
-};
-
-// tslint:disable-next-line:cyclomatic-complexity
-const parseInterfaceCommandsHelper = (command: CommandContent, parseRequestSchema: boolean): ParsedJsonSchema => {
-    const commandSchema = parseRequestSchema ? command.request : command.response;
-
-    if (!commandSchema) { return; }
-
-    // add a dummy head for command request/response schema to make the recursion logic simpler
-    const dummyCommand: PropertyContent = {
-        '@type': ContentType.Command,
-        'name': commandSchema.name,
-        'schema': commandSchema.schema,
-    };
-
-    if (!dummyCommand || !dummyCommand.schema) { return; }
-    try {
-        return parseInterfacePropertyHelper(dummyCommand);
-    }
-    catch {
-        return;  // swallow the error and let UI render JSON editor for types which are not supported yet
-    }
-};
+}

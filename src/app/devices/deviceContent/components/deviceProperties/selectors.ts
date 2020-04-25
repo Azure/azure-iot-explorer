@@ -4,7 +4,7 @@
  **********************************************************/
 import { ModelDefinition, PropertyContent, ContentType } from '../../../../api/models/modelDefinition';
 import { StateInterface } from '../../../../shared/redux/state';
-import { parseInterfacePropertyToJsonSchema } from '../../../../shared/utils/jsonSchemaAdaptor';
+import { JsonSchemaAdaptor } from '../../../../shared/utils/jsonSchemaAdaptor';
 import { TwinWithSchema } from './devicePropertiesPerInterface';
 import { getModelDefinitionSelector, getComponentNameSelector, getDigitalTwinSelector } from '../../selectors';
 
@@ -14,13 +14,14 @@ export const getDevicePropertyTupleSelector = (state: StateInterface): TwinWithS
 };
 
 const getDevicePropertyProps = (state: StateInterface, model: ModelDefinition): TwinWithSchema[] => {
-    const nonWritableProperties = model && model.contents && model.contents.filter((content: PropertyContent) => filterProperties(content)) as PropertyContent[];
+    const jsonSchemaAdaptor = new JsonSchemaAdaptor(model);
+    const nonWritableProperties = jsonSchemaAdaptor.getNonWritableProperties();
 
-    return nonWritableProperties ? nonWritableProperties.map(property => ({
+    return nonWritableProperties.map(property => ({
         propertyModelDefinition: property,
-        propertySchema: parseInterfacePropertyToJsonSchema(property),
+        propertySchema: jsonSchemaAdaptor.parseInterfacePropertyToJsonSchema(property),
         reportedTwin: getReportedValueForSpecificProperty(state, property)
-    })) : [];
+    }));
 };
 
 export const filterProperties = (content: PropertyContent) => {
