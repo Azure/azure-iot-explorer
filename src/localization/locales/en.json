@@ -32,7 +32,7 @@
         "close": "Collapse"
     },
     "header": {
-        "applicationName": "Azure IoT explorer",
+        "applicationName": "Azure IoT explorer (preview)",
         "search": {
             "watermark": "Find on page"
         },

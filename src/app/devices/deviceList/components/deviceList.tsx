@@ -297,7 +297,7 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
     private readonly handleDelete = () => {
         this.props.deleteDevices(this.state.selectedDeviceIds);
         this.setState({
-            showDeleteConfirmation: false,
+            showDeleteConfirmation: false
         });
         // clear selection
         this.selection.setItems([]);
