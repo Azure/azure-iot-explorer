@@ -193,6 +193,17 @@ exports[`components/settings/repositoryLocationListItem matches snapshot for pub
         settings.modelDefinitions.repositoryTypes.public.label
       </StyledLabelBase>
     </div>
+    <CustomizedIconButton
+      ariaLabel="settings.cancel"
+      className="remove-button"
+      iconProps={
+        Object {
+          "iconName": "Cancel",
+        }
+      }
+      onClick={[Function]}
+      title="settings.cancel"
+    />
   </div>
 </div>
 `;
