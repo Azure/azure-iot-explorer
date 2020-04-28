@@ -66,19 +66,9 @@
                     "label":"Public repository",
                     "infoText": ""
                 },
-                "private": {
-                    "label":"Company repository",
-                    "infoText": "",
-                    "textBoxLabel": "Company model repository connection string",
-                    "placeholder": ""
-                },
-                "device": {
-                    "label":"On the connected device",
-                    "infoText": ""
-                },
                 "local": {
                     "label":"Local folder",
-                    "labelInBrowser":"Local folder (This is only enabled in the desktop version from: https://github.com/Azure/azure-iot-explorer/releases)",
+                    "labelInBrowser":"Local folder (Only available in the desktop version from: https://github.com/Azure/azure-iot-explorer/releases)",
                     "infoText": "Use your local folder as a model repository. The model definition files you wish to use should have a json extension. The first JSON file with an '@id' property matching the digital twin model identifier (DTMI) will be retrieved.",
                     "textBoxLabel": "Selected folder",
                     "folderPicker": {
@@ -414,8 +404,6 @@
                         "title":"Parameter type",
                         "ariaLabel": "Type of query clause",
                         "items": {
-                            "capabilityModelId":"Model ID",
-                            "interfaceId": "Interface ID",
                             "propertyValue": "Property value",
                             "status": "Status",
                             "lastActivityTime": "Last activity time",

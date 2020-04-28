@@ -7,7 +7,6 @@ import { IM } from '../shared/types/types';
 import { REPOSITORY_LOCATION_TYPE } from '../constants/repositoryLocationTypes';
 import { REPO_LOCATIONS, LOCAL_FILE_EXPLORER_PATH_NAME } from '../constants/browserStorage';
 import { appConfig, HostMode } from '../../appConfig/appConfig';
-import { PUBLIC_REPO_HOSTNAME } from '../constants/apiConstants';
 
 export interface RepositoryLocationSettings {
     repositoryLocationType: REPOSITORY_LOCATION_TYPE;
@@ -17,43 +16,34 @@ export interface RepositoryLocationSettings {
 export interface ApplicationStateInterface {
     showSettings: boolean;
     repositoryLocations: REPOSITORY_LOCATION_TYPE[];
-    publicRepositorySettings: PublicRepositorySettings;
     localFolderSettings: LocalFolderSettings;
-}
-
-export interface PublicRepositorySettings {
-    publicRepoHostName: string;
 }
 
 export interface LocalFolderSettings {
     path: string;
 }
 
-export const applicationStateInitial = appConfig.hostMode === HostMode.Electron ?
+const getRepositoryLocations = () => {
+    if (localStorage.getItem(REPO_LOCATIONS)) {
+        let locations = localStorage.getItem(REPO_LOCATIONS).split(',')
+            .filter(location => Object.values(REPOSITORY_LOCATION_TYPE).indexOf(location.toUpperCase() as REPOSITORY_LOCATION_TYPE) > -1)
+            .map(location => location.toUpperCase() as REPOSITORY_LOCATION_TYPE);
+
+        if (appConfig.hostMode !== HostMode.Electron) { // do now show local folder option in browser version
+            locations = locations.filter(location => location !== REPOSITORY_LOCATION_TYPE.Local);
+        }
+        return locations;
+    }
+    return [REPOSITORY_LOCATION_TYPE.Public];
+};
+
+export const applicationStateInitial =
     Record<ApplicationStateInterface>({
-        localFolderSettings: {
-            path: localStorage.getItem(LOCAL_FILE_EXPLORER_PATH_NAME) || '',
-        },
-        publicRepositorySettings: {
-            publicRepoHostName: PUBLIC_REPO_HOSTNAME
-        },
-        repositoryLocations: localStorage.getItem(REPO_LOCATIONS) ?
-            localStorage.getItem(REPO_LOCATIONS).split(',')
-                .filter(location => Object.values(REPOSITORY_LOCATION_TYPE).indexOf(location.toUpperCase() as REPOSITORY_LOCATION_TYPE) > -1)
-                .map(location => location.toUpperCase() as REPOSITORY_LOCATION_TYPE) :
-            [REPOSITORY_LOCATION_TYPE.Public, REPOSITORY_LOCATION_TYPE.Device],
-        showSettings: false
-    }) :
-    Record<ApplicationStateInterface>({
-        localFolderSettings: null,
-        publicRepositorySettings: {
-            publicRepoHostName: PUBLIC_REPO_HOSTNAME
-        },
-        repositoryLocations: localStorage.getItem(REPO_LOCATIONS) ?
-            localStorage.getItem(REPO_LOCATIONS).split(',')
-                .filter(location => Object.values(REPOSITORY_LOCATION_TYPE).indexOf(location.toUpperCase() as REPOSITORY_LOCATION_TYPE) > -1)
-                .map(location => location.toUpperCase() as REPOSITORY_LOCATION_TYPE).filter(location => location !== REPOSITORY_LOCATION_TYPE.Local) :
-            [REPOSITORY_LOCATION_TYPE.Public, REPOSITORY_LOCATION_TYPE.Device],
+        localFolderSettings: appConfig.hostMode === HostMode.Electron ?
+            {
+                path: localStorage.getItem(LOCAL_FILE_EXPLORER_PATH_NAME) || '',
+            } : null,
+        repositoryLocations: getRepositoryLocations(),
         showSettings: false
     });
 

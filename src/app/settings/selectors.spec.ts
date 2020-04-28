@@ -7,7 +7,6 @@ import { Record } from 'immutable';
 import {
     getSettingsVisibleSelector,
     getRepositoryLocationSettingsSelector,
-    getPublicRepositoryHostName,
     getLocalFolderPath
 } from './selectors';
 import { getInitialState } from '../api/shared/testHelper';
@@ -19,9 +18,6 @@ describe('applicationStateSelector', () => {
     state.applicationState = Record({
         localFolderSettings: {
           path: 'f:/mist/pnp-docs'
-        },
-        publicRepositorySettings: {
-          publicRepoHostName: 'repo.azureiotrepository.com'
         },
         repositoryLocations: [
             REPOSITORY_LOCATION_TYPE.Public,
@@ -45,10 +41,6 @@ describe('applicationStateSelector', () => {
                 value: 'f:/mist/pnp-docs'
             }
         ]);
-    });
-
-    it('returns public repo hostname', () => {
-        expect(getPublicRepositoryHostName(state)).toEqual('repo.azureiotrepository.com');
     });
 
     it('returns local folder path', () => {

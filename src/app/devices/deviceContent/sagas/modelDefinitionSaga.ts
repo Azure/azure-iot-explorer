@@ -10,14 +10,9 @@ import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getModelDefinitionAction, GetModelDefinitionActionParameters } from '../actions';
 import { FetchModelParameters } from '../../../api/parameters/repoParameters';
-import { getRepositoryLocationSettingsSelector, getPublicRepositoryHostName, getLocalFolderPath } from '../../../settings/selectors';
+import { getRepositoryLocationSettingsSelector, getLocalFolderPath } from '../../../settings/selectors';
 import { RepositoryLocationSettings } from '../../../settings/state';
 import { REPOSITORY_LOCATION_TYPE } from './../../../constants/repositoryLocationTypes';
-import { invokeDigitalTwinInterfaceCommand } from '../../../api/services/digitalTwinService';
-import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
-import { getComponentNameAndInterfaceIdArraySelector, ComponentAndInterfaceId } from '../selectors';
-import { InterfaceNotImplementedException } from './../../../shared/utils/exceptions/interfaceNotImplementedException';
-import { modelDefinitionInterfaceId, modelDefinitionCommandName } from '../../../constants/modelDefinitionConstants';
 import { fetchLocalFile } from './../../../api/services/localRepoService';
 import { ModelDefinition } from './../../../api/models/modelDefinition';
 import { ModelDefinitionNotValidJsonError } from '../../../api/models/modelDefinitionNotValidJsonError';
@@ -81,7 +76,6 @@ export function* validateModelDefinitionHelper(modelDefinition: ModelDefinition,
 export function* getModelDefinitionFromPublicRepo(action: Action<GetModelDefinitionActionParameters>, location: RepositoryLocationSettings) {
     const parameters: FetchModelParameters = {
         id: action.payload.interfaceId,
-        repoServiceHostName: yield select(getPublicRepositoryHostName),
         token: ''
     };
     return yield call(fetchModelDefinition, parameters);
@@ -92,29 +86,8 @@ export function* getModelDefinitionFromLocalFile(action: Action<GetModelDefiniti
     return yield call(fetchLocalFile, path, action.payload.interfaceId);
 }
 
-export function* getModelDefinitionFromDevice(action: Action<GetModelDefinitionActionParameters>) {
-    // check if device has implemented ${modelDefinitionInterfaceId} interface.
-    const componentAndIs: ComponentAndInterfaceId[] = yield select(getComponentNameAndInterfaceIdArraySelector);
-    const filtered = componentAndIs.filter(componentAndId => componentAndId.interfaceId === modelDefinitionInterfaceId);
-    if (filtered.length === 0) {
-        throw new InterfaceNotImplementedException();
-    }
-    const componentName = filtered[0].componentName;
-
-    // if interface is implemented, invoke command on device
-    return yield call(invokeDigitalTwinInterfaceCommand, {
-        commandName: modelDefinitionCommandName,
-        componentName,
-        connectionString: yield call(getActiveAzureResourceConnectionStringSaga),
-        digitalTwinId: action.payload.digitalTwinId,
-        payload: action.payload.interfaceId
-    });
-}
-
 export function* getModelDefinition(action: Action<GetModelDefinitionActionParameters>, location: RepositoryLocationSettings) {
     switch (location.repositoryLocationType) {
-        case REPOSITORY_LOCATION_TYPE.Device:
-            return yield call(getModelDefinitionFromDevice, action);
         case REPOSITORY_LOCATION_TYPE.Local:
             return yield call(getModelDefinitionFromLocalFile, action);
         default:
