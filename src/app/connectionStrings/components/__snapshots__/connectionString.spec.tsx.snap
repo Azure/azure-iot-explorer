@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`connectionString matches snapshot 1`] = `
+<div
+  className="connection-string"
+>
+  <div
+    className="commands"
+  >
+    <div
+      className="name"
+    >
+      <StyledLinkBase
+        ariaLabel="connectionStrings.visitConnectionCommand.ariaLabel"
+        onClick={[Function]}
+        title="test"
+      >
+        test
+      </StyledLinkBase>
+    </div>
+    <div
+      className="actions"
+    >
+      <CustomizedIconButton
+        ariaLabel="connectionStrings.editConnectionCommand.ariaLabel"
+        iconProps={
+          Object {
+            "iconName": "EditSolid12",
+          }
+        }
+        onClick={[Function]}
+        title="connectionStrings.editConnectionCommand.label"
+      />
+      <CustomizedIconButton
+        ariaLabel="connectionStrings.deleteConnectionCommand.ariaLabel"
+        iconProps={
+          Object {
+            "iconName": "Delete",
+          }
+        }
+        onClick={[Function]}
+        title="connectionStrings.deleteConnectionCommand.label"
+      />
+    </div>
+  </div>
+  <div
+    className="properties"
+  >
+    <Component
+      connectionString="HostName=test.azure-devices-int.net;SharedAccessKeyName=iothubowner;SharedAccessKey=key"
+      hostName="test.azure-devices-int.net"
+      sharedAccessKey="key"
+      sharedAccessKeyName="iothubowner"
+    />
+    <Connect(MaskedCopyableTextField)
+      allowMask={false}
+      ariaLabel="connectionStrings.properties.connectionString.ariaLabel"
+      label="connectionStrings.properties.connectionString.label"
+      readOnly={true}
+      value="HostName=test.azure-devices-int.net;SharedAccessKeyName=iothubowner;SharedAccessKey=key"
+    />
+  </div>
+  <Component
+    connectionString="HostName=test.azure-devices-int.net;SharedAccessKeyName=iothubowner;SharedAccessKey=key"
+    hidden={true}
+    onDeleteCancel={[Function]}
+    onDeleteConfirm={[Function]}
+  />
+</div>
+`;
