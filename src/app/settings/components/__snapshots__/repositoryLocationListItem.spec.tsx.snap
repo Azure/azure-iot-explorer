@@ -16,11 +16,7 @@ exports[`components/settings/repositoryLocationListItem matches snapshot for dev
   >
     <div
       className="item-details"
-    >
-      <StyledLabelBase>
-        settings.modelDefinitions.repositoryTypes.device.label
-      </StyledLabelBase>
-    </div>
+    />
     <CustomizedIconButton
       ariaLabel="settings.cancel"
       className="remove-button"

@@ -25,7 +25,7 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
               "repositoryLocationType": "PUBLIC",
             },
             Object {
-              "repositoryLocationType": "DEVICE",
+              "repositoryLocationType": undefined,
             },
             Object {
               "repositoryLocationType": undefined,
@@ -40,14 +40,12 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
         onRemoveListItem={[MockFunction]}
       />
     </n>
-    <n
-      key="DEVICE"
-    >
+    <n>
       <RepositoryLocationListItem
         index={1}
         item={
           Object {
-            "repositoryLocationType": "DEVICE",
+            "repositoryLocationType": undefined,
           }
         }
         items={
@@ -56,7 +54,7 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
               "repositoryLocationType": "PUBLIC",
             },
             Object {
-              "repositoryLocationType": "DEVICE",
+              "repositoryLocationType": undefined,
             },
             Object {
               "repositoryLocationType": undefined,
@@ -85,7 +83,7 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
               "repositoryLocationType": "PUBLIC",
             },
             Object {
-              "repositoryLocationType": "DEVICE",
+              "repositoryLocationType": undefined,
             },
             Object {
               "repositoryLocationType": undefined,
@@ -102,7 +100,6 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
     </n>
   </t>
   <CustomizedActionButton
-    disabled={true}
     iconProps={
       Object {
         "iconName": "Add",
@@ -116,12 +113,6 @@ exports[`components/settings/repositoryLocationList matches snapshot with each t
             "key": "PUBLIC",
             "onClick": [Function],
             "text": "settings.modelDefinitions.repositoryTypes.public.label",
-          },
-          Object {
-            "disabled": true,
-            "key": "DEVICE",
-            "onClick": [Function],
-            "text": "settings.modelDefinitions.repositoryTypes.device.label",
           },
           Object {
             "disabled": true,
@@ -147,7 +138,6 @@ exports[`components/settings/repositoryLocationList matches snapshot with no ite
     orientation="vertical"
   />
   <CustomizedActionButton
-    disabled={true}
     iconProps={
       Object {
         "iconName": "Add",
@@ -161,12 +151,6 @@ exports[`components/settings/repositoryLocationList matches snapshot with no ite
             "key": "PUBLIC",
             "onClick": [Function],
             "text": "settings.modelDefinitions.repositoryTypes.public.label",
-          },
-          Object {
-            "disabled": true,
-            "key": "DEVICE",
-            "onClick": [Function],
-            "text": "settings.modelDefinitions.repositoryTypes.device.label",
           },
           Object {
             "disabled": true,
@@ -218,7 +202,6 @@ exports[`components/settings/repositoryLocationList matches snapshot with public
     </n>
   </t>
   <CustomizedActionButton
-    disabled={false}
     iconProps={
       Object {
         "iconName": "Add",
@@ -232,12 +215,6 @@ exports[`components/settings/repositoryLocationList matches snapshot with public
             "key": "PUBLIC",
             "onClick": [Function],
             "text": "settings.modelDefinitions.repositoryTypes.public.label",
-          },
-          Object {
-            "disabled": false,
-            "key": "DEVICE",
-            "onClick": [Function],
-            "text": "settings.modelDefinitions.repositoryTypes.device.label",
           },
           Object {
             "disabled": true,
