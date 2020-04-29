@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as DigitalTwinsModelService from './publicDigitalTwinsModelRepoService';
-import { API_VERSION, MODEL_REPO_API_VERSION, HTTP_OPERATION_TYPES, PUBLIC_REPO_HOSTNAME_TEST } from '../../constants/apiConstants';
+import { API_VERSION, MODEL_REPO_API_VERSION, HTTP_OPERATION_TYPES, PUBLIC_REPO_HOSTNAME_TEST, PUBLIC_REPO_HOSTNAME } from '../../constants/apiConstants';
 
 describe('digitalTwinsModelService', () => {
 
@@ -11,7 +11,6 @@ describe('digitalTwinsModelService', () => {
         const parameters = {
             expand: undefined,
             id: 'urn:azureiot:ModelDiscovery:ModelInformation:1',
-            repoServiceHostName: 'canary-repo.azureiotrepository.com',
             token: 'SharedAccessSignature sr=canary-repo.azureiotrepository.com&sig=123&rid=repositoryId'
         };
 
@@ -60,7 +59,7 @@ describe('digitalTwinsModelService', () => {
             const apiVersionQuerySTring = `?${API_VERSION}${MODEL_REPO_API_VERSION}`;
             const queryString = `${apiVersionQuerySTring}${expandQueryString}`;
             const modelIdentifier = encodeURIComponent(parameters.id);
-            const resourceUrl = `https://${parameters.repoServiceHostName}/models/${modelIdentifier}${queryString}`;
+            const resourceUrl = `https://${PUBLIC_REPO_HOSTNAME}/models/${modelIdentifier}${queryString}`;
 
             const controllerRequest = {
                 headers: {

@@ -11,26 +11,13 @@ describe('utils', () => {
     it('builds query string', () => {
         expect(utils.buildQueryString(
             {
-                clauses: [
-                    {
-                        operation: OperationType.equals,
-                        parameterType: ParameterType.capabilityModelId,
-                        value: 'enabled'
-                    }
-                ],
-                continuationTokens: [],
-                currentPageIndex: 1,
-                deviceId: '',
-            }
-        )).toEqual(`${LIST_PLUG_AND_PLAY_DEVICES} WHERE (HAS_CAPABILITYMODEL('enabled'))`);
-        expect(utils.buildQueryString(
-            {
                 clauses: [],
                 continuationTokens: [],
                 currentPageIndex: 1,
                 deviceId: 'device1',
             }
         )).toEqual(`${LIST_PLUG_AND_PLAY_DEVICES} WHERE STARTSWITH(devices.deviceId, 'device1')`);
+
         expect(utils.buildQueryString(
             {
                 clauses: [],
@@ -39,9 +26,11 @@ describe('utils', () => {
                 deviceId: '',
             }
         )).toEqual(LIST_PLUG_AND_PLAY_DEVICES + ' ');
+
         expect(utils.buildQueryString(
             null
         )).toEqual(LIST_PLUG_AND_PLAY_DEVICES);
+
         expect(utils.buildQueryString(
             {
                 clauses: [
@@ -56,6 +45,7 @@ describe('utils', () => {
                 deviceId: '',
             }
         )).toEqual(`${LIST_PLUG_AND_PLAY_DEVICES} WHERE (${ParameterType.edge}=true)`);
+
         expect(utils.buildQueryString(
             {
                 clauses: [
@@ -75,28 +65,13 @@ describe('utils', () => {
     it('converts query object to string', () => {
         expect(utils.queryToString(
             {
-                clauses: [
-                    {
-                        operation: OperationType.equals,
-                        parameterType: ParameterType.capabilityModelId,
-                        value: 'enabled'
-                    },
-                    {
-                    }
-                ],
-                continuationTokens: [],
-                currentPageIndex: 1,
-                deviceId: '',
-            }
-        )).toEqual(`WHERE (HAS_CAPABILITYMODEL('enabled'))`);
-        expect(utils.queryToString(
-            {
                 clauses: [],
                 continuationTokens: [],
                 currentPageIndex: 1,
                 deviceId: 'device1',
             }
         )).toEqual(`WHERE STARTSWITH(devices.deviceId, 'device1')`);
+
         expect(utils.queryToString(
             {
                 clauses: [],
@@ -121,22 +96,6 @@ describe('utils', () => {
                 value: 'disabled'
             }
         ])).toEqual(`status='enabled' AND status='disabled'`);
-
-        expect(utils.clauseListToString([
-            {
-                operation: OperationType.equals,
-                parameterType: ParameterType.capabilityModelId,
-                value: 'enabled'
-            }
-        ])).toEqual(`HAS_CAPABILITYMODEL('enabled')`);
-
-        expect(utils.clauseListToString([
-            {
-                operation: OperationType.equals,
-                parameterType: ParameterType.interfaceId,
-                value: 'enabled'
-            }
-        ])).toEqual(`HAS_INTERFACE('enabled')`);
     });
 
     it('creates clause item as string', () => {

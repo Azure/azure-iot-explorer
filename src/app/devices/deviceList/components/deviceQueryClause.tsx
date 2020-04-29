@@ -5,8 +5,7 @@
 import * as React from 'react';
 import { Dropdown, IDropdown, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
-import { TextField } from 'office-ui-fabric-react/lib/TextField';
-import { QueryClause, ParameterType, OperationType, DeviceCapability, DeviceStatus } from '../../../api/models/deviceQuery';
+import { QueryClause, ParameterType, DeviceCapability, DeviceStatus } from '../../../api/models/deviceQuery';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../shared/contexts/localizationContext';
 import '../../../css/_deviceListQuery.scss';
@@ -29,21 +28,6 @@ export default class DeviceQueryClause extends React.PureComponent<DeviceQueryCl
 
     private readonly remove = () => {
         this.props.removeClause(this.props.index);
-    }
-
-    private readonly onValueChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, value: string) => {
-        this.props.setClause(
-            this.props.index, {
-                isError: this.isError({
-                    operation: this.props.operation,
-                    parameterType: this.props.parameterType,
-                    value
-                }),
-                operation: this.props.operation,
-                parameterType: this.props.parameterType,
-                value
-            }
-        );
     }
 
     private readonly onValueDropdownChange = (event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption) => {
@@ -77,22 +61,6 @@ export default class DeviceQueryClause extends React.PureComponent<DeviceQueryCl
         );
     }
 
-    private readonly onOperationChange = (event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption) => {
-        const operation = option.key as OperationType;
-        this.props.setClause(
-            this.props.index, {
-                isError: this.isError({
-                    operation,
-                    parameterType: this.props.parameterType,
-                    value: this.props.value
-                }),
-                operation,
-                parameterType: this.props.parameterType,
-                value: this.props.value
-            }
-        );
-    }
-
     public componentDidMount() {
         // set focus to parameter type dropdown
         const node = this.parameterTypeRef.current;
@@ -111,7 +79,6 @@ export default class DeviceQueryClause extends React.PureComponent<DeviceQueryCl
                         className={`search-pill active${isError ? ' error' : ''}${' no-operator'}`}
                     >
                         {this.renderParameterDropdown(context)}
-                        {/* {this.renderOperationDropdown(context)} */}
                         {this.renderValueInput(context)}
                         <IconButton
                             className="remove-pill"
@@ -145,24 +112,6 @@ export default class DeviceQueryClause extends React.PureComponent<DeviceQueryCl
         );
     }
 
-    private readonly renderOperationDropdown = (context: LocalizationContextInterface) => {
-        return (
-                <Dropdown
-                    className="operation-type"
-                    options={Object.keys(OperationType).map
-                        (operationType => ({
-                            ariaLabel: context.t((ResourceKeys.deviceLists.query.searchPills.clause.operationType.options as any)[operationType]), // tslint:disable-line: no-any
-                            key: (OperationType as any)[operationType], // tslint:disable-line: no-any
-                            text: (OperationType as any)[operationType] // tslint:disable-line: no-any
-                        }))}
-                    onChange={this.onOperationChange}
-                    defaultSelectedKey={this.props.operation}
-                    title={context.t(ResourceKeys.deviceLists.query.searchPills.clause.operationType.title)}
-                    ariaLabel={context.t(ResourceKeys.deviceLists.query.searchPills.clause.operationType.ariaLabel)}
-                />
-        );
-    }
-
     private readonly renderEdgeDropdownOptions = (context: LocalizationContextInterface) => {
         return Object.keys(DeviceCapability).map
         (deviceCapability => ({
@@ -180,21 +129,8 @@ export default class DeviceQueryClause extends React.PureComponent<DeviceQueryCl
         }));
     }
 
-    // tslint:disable-next-line:cyclomatic-complexity
     private readonly renderValueInput =  (context: LocalizationContextInterface) => {
         switch (this.props.parameterType) {
-            case ParameterType.capabilityModelId:
-            case ParameterType.interfaceId:
-                return (
-                    <TextField
-                        className="clause-value"
-                        placeholder={context.t(ResourceKeys.deviceLists.query.searchPills.clause.value.placeholder)}
-                        ariaLabel={context.t(ResourceKeys.deviceLists.query.searchPills.clause.value.title)}
-                        required={true}
-                        title={context.t(ResourceKeys.deviceLists.query.searchPills.clause.value.title)}
-                        onChange={this.onValueChange}
-                    />
-                );
             case ParameterType.edge:
                 return (
                     <Dropdown

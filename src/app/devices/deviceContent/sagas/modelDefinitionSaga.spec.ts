@@ -5,18 +5,13 @@
 import 'jest';
 import { select, call, put } from 'redux-saga/effects';
 import { SagaIteratorClone, cloneableGenerator } from 'redux-saga/utils';
-import { getModelDefinitionSaga, getModelDefinition, getModelDefinitionFromPublicRepo, getModelDefinitionFromDevice, getModelDefinitionFromLocalFile, validateModelDefinitionHelper } from './modelDefinitionSaga';
-import * as DigitalTwinService from '../../../api/services/digitalTwinService';
+import { getModelDefinitionSaga, getModelDefinition, getModelDefinitionFromPublicRepo, getModelDefinitionFromLocalFile, validateModelDefinitionHelper } from './modelDefinitionSaga';
 import { addNotificationAction } from '../../../notifications/actions';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getModelDefinitionAction } from '../actions';
-import { getRepositoryLocationSettingsSelector, getPublicRepositoryHostName, getLocalFolderPath } from '../../../settings/selectors';
+import { getRepositoryLocationSettingsSelector, getLocalFolderPath } from '../../../settings/selectors';
 import { REPOSITORY_LOCATION_TYPE } from '../../../constants/repositoryLocationTypes';
-import { getComponentNameAndInterfaceIdArraySelector } from '../selectors';
-import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
-import { modelDefinitionCommandName, modelDefinitionInterfaceId } from '../../../constants/modelDefinitionConstants';
-import { PUBLIC_REPO_HOSTNAME } from '../../../constants/apiConstants';
 import { fetchLocalFile } from '../../../api/services/localRepoService';
 import { fetchModelDefinition } from '../../../api/services/publicDigitalTwinsModelRepoService';
 
@@ -82,7 +77,6 @@ describe('modelDefinitionSaga', () => {
 
             expect(getModelDefinitionSagaGenerator.next([{
                 repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public,
-
             }]).value).toEqual(
                 call(getModelDefinition, action, { repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public })
             );
@@ -142,49 +136,13 @@ describe('modelDefinitionSaga', () => {
 
         expect(getModelDefinitionFromPublicRepoGenerator.next()).toEqual({
             done: false,
-            value: select(getPublicRepositoryHostName)
-        });
-
-        expect(getModelDefinitionFromPublicRepoGenerator.next(PUBLIC_REPO_HOSTNAME)).toEqual({
-            done: false,
             value: call(fetchModelDefinition, {
                 id: params.interfaceId,
-                repoServiceHostName: PUBLIC_REPO_HOSTNAME,
                 token: ''
             })
         });
 
         expect(getModelDefinitionFromPublicRepoGenerator.next().done).toEqual(true);
-    });
-
-    describe('getModelDefinitionFromDevice ', () => {
-        const getModelDefinitionFromDeviceGenerator = cloneableGenerator(getModelDefinitionFromDevice)(action);
-        expect(getModelDefinitionFromDeviceGenerator.next()).toEqual({
-            done: false,
-            value: select(getComponentNameAndInterfaceIdArraySelector)
-        });
-
-        const nameAndId = [{
-            componentName: 'model_discovery',
-            interfaceId: modelDefinitionInterfaceId
-        }];
-        expect(getModelDefinitionFromDeviceGenerator.next(nameAndId)).toEqual({
-            done: false,
-            value: call(getActiveAzureResourceConnectionStringSaga)
-        });
-
-        expect(getModelDefinitionFromDeviceGenerator.next('connection_string')).toEqual({
-            done: false,
-            value: call(DigitalTwinService.invokeDigitalTwinInterfaceCommand, {
-                commandName: modelDefinitionCommandName,
-                componentName: 'model_discovery',
-                connectionString: 'connection_string',
-                digitalTwinId,
-                payload: interfaceId
-            })
-        });
-
-        expect(getModelDefinitionFromDeviceGenerator.next().done).toEqual(true);
     });
 
     describe('getModelDefinitionFromLocalFile ', () => {
@@ -212,15 +170,6 @@ describe('modelDefinitionSaga', () => {
                 value: call(getModelDefinitionFromPublicRepo, action, {repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public})
             });
             expect(getModelDefinitionFromPublicRepoGenerator.next().done).toEqual(true);
-        });
-
-        it('getModelDefinition from device', () => {
-            const getModelDefinitionFromDeviceGenerator = cloneableGenerator(getModelDefinition)(action,  {repositoryLocationType: REPOSITORY_LOCATION_TYPE.Device});
-            expect(getModelDefinitionFromDeviceGenerator.next()).toEqual({
-                done: false,
-                value: call(getModelDefinitionFromDevice, action)
-            });
-            expect(getModelDefinitionFromDeviceGenerator.next().done).toEqual(true);
         });
 
         it('getModelDefinition from local', () => {

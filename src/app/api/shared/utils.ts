@@ -99,10 +99,6 @@ export const clauseListToString = (clauses: QueryClause[]) => {
 
 export const clauseToString = (clause: QueryClause) => {
     switch (clause.parameterType) {
-        case ParameterType.capabilityModelId:
-            return toPnPClause(PnPQueryPrefix.HAS_CAPABILITY_MODEL, clause.value);
-        case ParameterType.interfaceId:
-            return toPnPClause(PnPQueryPrefix.HAS_INTERFACE, clause.value);
         case ParameterType.edge:
             return toEdgeClause(clause.parameterType, clause.value);
         case ParameterType.status:
