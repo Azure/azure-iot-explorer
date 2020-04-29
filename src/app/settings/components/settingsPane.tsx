@@ -17,6 +17,8 @@ import { ThemeContextConsumer, ThemeContextInterface, Theme } from '../../shared
 import { THEME_SELECTION } from '../../constants/browserStorage';
 import { Notification } from '../../api/models/notification';
 import { RepositoryLocationSettings } from '../state';
+import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
+import { ROUTE_PARTS } from '../../constants/routes';
 import '../../css/_settingsPane.scss';
 
 export interface SettingsPaneProps extends Settings {
@@ -27,9 +29,11 @@ export interface SettingsPaneActions {
     onSettingsSave: (payload: Settings) => void;
     onSettingsVisibleChanged: (visible: boolean) => void;
     addNotification: (notification: Notification) => void;
+    refreshDevices: () => void;
 }
 
 export interface Settings {
+    hubConnectionString: string;
     repositoryLocationSettings?: RepositoryLocationSettings[];
 }
 
@@ -50,6 +54,7 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
         const theme = localStorage.getItem(THEME_SELECTION);
 
         this.state = {
+            hubConnectionString: props.hubConnectionString,
             isDarkTheme: Theme.dark === theme || Theme.highContrastBlack === theme,
             isDirty: false,
             repositoryLocationSettings,
@@ -215,6 +220,14 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
             isDirty: false
         });
         this.props.onSettingsVisibleChanged(false);
+
+        const { hostName } = getConnectionInfoFromConnectionString(this.state.hubConnectionString);
+        const targetPath = `/${ROUTE_PARTS.RESOURCE}/${hostName}/${ROUTE_PARTS.DEVICES}`;
+        if (this.props.location.pathname !== targetPath) {
+            this.props.history.push(targetPath);
+        }
+
+        this.props.refreshDevices();
     }
 
     private readonly settingsFooter = () => {
