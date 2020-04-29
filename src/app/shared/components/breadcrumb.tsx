@@ -30,7 +30,7 @@ export const BreadcrumbItem: React.FC<BreadcrumbItemDataProps> = props => {
         if (route) {
             switch (route) {
                 case ROUTE_PARTS.RESOURCE: // redirects to login page
-                    return <li className="breadcrumb-item"><NavLink to={'/'}>{'Hubs'}</NavLink></li>;
+                    return <li className="breadcrumb-item"><NavLink to={'/resources'}>{'Home'}</NavLink></li>;
                 case props.hostName:
                     return renderTextItem(getShortHubName());
                 case ROUTE_PARTS.DEVICE_DETAIL:

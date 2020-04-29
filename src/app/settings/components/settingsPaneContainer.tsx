@@ -10,10 +10,7 @@ import { StateType } from '../../shared/redux/state';
 import SettingsPane, { SettingsPaneActions, SettingsPaneProps, Settings } from './settingsPane';
 import { setSettingsVisibilityAction, setSettingsRepositoryLocationsAction } from '../actions';
 import { getSettingsVisibleSelector, getRepositoryLocationSettingsSelector } from '../selectors';
-import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
-import { setActiveAzureResourceByConnectionStringAction } from '../../azureResource/actions';
-import { listDevicesAction } from '../../devices/deviceList/actions';
-import DeviceQuery from '../../api/models/deviceQuery';
+
 import { addNotificationAction } from '../../notifications/actions';
 import { Notification } from '../../api/models/notification';
 import { setConnectionStringsAction } from '../../connectionStrings/actions';
@@ -21,8 +18,6 @@ import { getActiveAzureResourceConnectionStringSelector } from '../../azureResou
 
 const mapStateToProps = (state: StateType): SettingsPaneProps => {
     return {
-        hubConnectionString: getActiveAzureResourceConnectionStringSelector(state),
-        hubConnectionStringList: state.connectionStringsState.connectionStrings,
         isOpen: getSettingsVisibleSelector(state),
         repositoryLocationSettings: getRepositoryLocationSettingsSelector(state)
     };
@@ -32,17 +27,11 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): SettingsPaneActions 
     return {
         addNotification: (notification: Notification) => dispatch(addNotificationAction.started(notification)),
         onSettingsSave: (payload: Settings) => {
-            dispatch(setActiveAzureResourceByConnectionStringAction({
-                connectionString: payload.hubConnectionString,
-                hostName: getConnectionInfoFromConnectionString(payload.hubConnectionString).hostName
-            }));
-            dispatch(setConnectionStringsAction(payload.hubConnectionStringList));
             dispatch(setSettingsRepositoryLocationsAction(payload.repositoryLocationSettings));
         },
         onSettingsVisibleChanged: (visible: boolean) => {
             dispatch(setSettingsVisibilityAction(visible));
-        },
-        refreshDevices: (query?: DeviceQuery) => dispatch(listDevicesAction.started(query)),
+        }
     };
 };
 

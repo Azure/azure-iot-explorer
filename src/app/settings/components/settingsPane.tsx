@@ -14,12 +14,8 @@ import RepositoryLocationList from './repositoryLocationList';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
 import { ConfirmationDialog } from './confirmationDialog';
 import { ThemeContextConsumer, ThemeContextInterface, Theme } from '../../shared/contexts/themeContext';
-import HubConnectionStringSection from '../../login/components/hubConnectionStringSection';
 import { THEME_SELECTION } from '../../constants/browserStorage';
 import { Notification } from '../../api/models/notification';
-import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
-import { generateConnectionStringValidationError, formatConnectionStrings } from '../../shared/utils/hubConnectionStringHelper';
-import { ROUTE_PARTS } from '../../constants/routes';
 import { RepositoryLocationSettings } from '../state';
 import '../../css/_settingsPane.scss';
 
@@ -28,22 +24,18 @@ export interface SettingsPaneProps extends Settings {
 }
 
 export interface SettingsPaneActions {
-    onSettingsVisibleChanged: (visible: boolean) => void;
     onSettingsSave: (payload: Settings) => void;
-    refreshDevices: () => void;
+    onSettingsVisibleChanged: (visible: boolean) => void;
     addNotification: (notification: Notification) => void;
 }
 
 export interface Settings {
-    hubConnectionString: string;
-    hubConnectionStringList: string[];
     repositoryLocationSettings?: RepositoryLocationSettings[];
 }
 
 interface SettingsPaneState extends Settings{
     isDarkTheme: boolean;
     isDirty: boolean;
-    hubConnectionStringError: string;
     showConfirmationDialog: boolean;
 }
 
@@ -58,24 +50,11 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
         const theme = localStorage.getItem(THEME_SELECTION);
 
         this.state = {
-            hubConnectionString: props.hubConnectionString,
-            hubConnectionStringError: '',
-            hubConnectionStringList: props.hubConnectionStringList,
             isDarkTheme: Theme.dark === theme || Theme.highContrastBlack === theme,
             isDirty: false,
             repositoryLocationSettings,
             showConfirmationDialog: false,
         };
-    }
-
-    public static getDerivedStateFromProps(props: SettingsPaneProps, state: SettingsPaneState) {
-        const updatedState = {...state};
-        if (!props.isOpen) {
-            updatedState.hubConnectionString = props.hubConnectionString;
-            updatedState.hubConnectionStringList = props.hubConnectionStringList;
-        }
-
-        return updatedState;
     }
 
     public render(): JSX.Element {
@@ -97,14 +76,7 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
                         </header>
                         <section aria-label={context.t(ResourceKeys.settings.configuration.headerText)}>
                             <h3 role="heading" aria-level={1}>{context.t(ResourceKeys.settings.configuration.headerText)}</h3>
-                            <HubConnectionStringSection
-                                addNotification={this.props.addNotification}
-                                connectionString={this.state.hubConnectionString}
-                                connectionStringError={this.state.hubConnectionStringError}
-                                connectionStringList={this.state.hubConnectionStringList}
-                                onChangeConnectionString={this.onChangeHubConnectionString}
-                                onRemoveConnectionString={this.onRemoveHubConnectionString}
-                            />
+                            <div>Looking for hub connection strings -- visit home.</div>
                         </section>
                         <section aria-label={context.t(ResourceKeys.settings.modelDefinitions.headerText)}>
                             <h3 role="heading" aria-level={1}>{context.t(ResourceKeys.settings.modelDefinitions.headerText)}</h3>
@@ -192,30 +164,6 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
         });
     }
 
-    private readonly onChangeHubConnectionString = (hubConnectionString: string, newString?: boolean) => {
-        const hubConnectionStringError = generateConnectionStringValidationError(hubConnectionString);
-        const hubConnectionStringList = newString && !hubConnectionStringError ? [hubConnectionString, ...this.state.hubConnectionStringList] : this.state.hubConnectionStringList;
-        this.setState({
-            hubConnectionString,
-            hubConnectionStringError,
-            hubConnectionStringList,
-            isDirty: true
-        });
-    }
-
-    private readonly onRemoveHubConnectionString = (connectionStringToRemove: string) => {
-        const hubConnectionStringList = this.state.hubConnectionStringList.filter(s => s !== connectionStringToRemove);
-        const hubConnectionString = hubConnectionStringList.length > 0 ? hubConnectionStringList[0] : '';
-        const hubConnectionStringError = generateConnectionStringValidationError(hubConnectionString);
-
-        this.setState({
-            hubConnectionString,
-            hubConnectionStringError,
-            hubConnectionStringList,
-            isDirty: true
-        });
-    }
-
     private readonly dismissPane = (event?: React.SyntheticEvent<HTMLElement, Event>) => {
         event.preventDefault();
         if (this.state.isDirty) {
@@ -240,8 +188,6 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
 
     private readonly revertState = (): void => {
         this.setState({
-            hubConnectionString: this.props.hubConnectionString,
-            hubConnectionStringError: '',
             isDirty: false,
             repositoryLocationSettings: [...(this.props.repositoryLocationSettings && this.props.repositoryLocationSettings.map(setting => {
                 return {
@@ -263,21 +209,12 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
 
     private readonly saveSettings = () => {
         const settings = {...this.state};
-        settings.hubConnectionStringList = formatConnectionStrings(settings.hubConnectionStringList, settings.hubConnectionString);
 
         this.props.onSettingsSave(settings);
         this.setState({
             isDirty: false
         });
         this.props.onSettingsVisibleChanged(false);
-
-        const { hostName } = getConnectionInfoFromConnectionString(this.state.hubConnectionString);
-        const targetPath = `/${ROUTE_PARTS.RESOURCE}/${hostName}/${ROUTE_PARTS.DEVICES}`;
-        if (this.props.location.pathname !== targetPath) {
-            this.props.history.push(targetPath);
-        }
-
-        this.props.refreshDevices();
     }
 
     private readonly settingsFooter = () => {
@@ -328,7 +265,7 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
 
     private readonly disableSaveButton = () => {
         // 1. check dirty and hub connection string
-        let shouldBeDisabled = !this.state.isDirty || !!this.state.hubConnectionStringError;
+        let shouldBeDisabled = !this.state.isDirty;
 
         // 3. check if local file explorer has been added along with it's path
         const localLocationSetting = this.state.repositoryLocationSettings.filter(location => location.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local);
