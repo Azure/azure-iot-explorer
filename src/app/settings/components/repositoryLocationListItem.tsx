@@ -10,7 +10,6 @@ import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
 import { LocalizationContextInterface, LocalizationContextConsumer } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
-import MaskedCopyableTextFieldContainer from '../../shared/components/maskedCopyableTextFieldContainer';
 import { CANCEL, NAVIGATE_BACK, FOLDER } from '../../constants/iconNames';
 import { RepositoryLocationSettings } from '../state';
 import { fetchDirectories } from '../../api/services/localRepoService';
@@ -59,8 +58,6 @@ export default class RepositoryLocationListItem extends React.Component<Reposito
             <div className="item-details">
                 {item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Public
                     && <Label>{context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.public.label)}</Label>}
-                {item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Device
-                    &&  <Label>{context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.device.label)}</Label>}
                 {item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local &&
                    this.renderLocalFolderItem(context)
                 }

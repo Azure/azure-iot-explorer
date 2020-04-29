@@ -10,6 +10,7 @@ import {
     HEADERS,
     MODELREPO,
     MODEL_REPO_API_VERSION,
+    PUBLIC_REPO_HOSTNAME,
     PUBLIC_REPO_HOSTNAME_TEST,
     HTTP_OPERATION_TYPES } from '../../constants/apiConstants';
 import { PnPModel } from '../models/metamodelMetadata';
@@ -20,7 +21,7 @@ export const fetchModel = async (parameters: FetchModelParameters): Promise<PnPM
     const apiVersionQuerySTring = `?${API_VERSION}${MODEL_REPO_API_VERSION}`;
     const queryString = `${apiVersionQuerySTring}${expandQueryString}`;
     const modelIdentifier = encodeURIComponent(parameters.id);
-    const resourceUrl = `https://${parameters.repoServiceHostName}/models/${modelIdentifier}${queryString}`;
+    const resourceUrl = `https://${PUBLIC_REPO_HOSTNAME}/models/${modelIdentifier}${queryString}`;
 
     const controllerRequest: RequestInitWithUri = {
         headers: {

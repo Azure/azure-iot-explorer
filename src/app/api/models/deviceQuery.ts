@@ -17,12 +17,8 @@ export interface QueryClause {
 }
 
 export enum ParameterType {
-    // non pnp
     edge = 'capabilities.iotEdge',
     status = 'status',
-    // pnp
-    capabilityModelId = 'dcm',
-    interfaceId = 'interface',
 }
 
 export enum OperationType {

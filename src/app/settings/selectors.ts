@@ -21,10 +21,6 @@ export const getRepositoryLocationSettingsSelector = (state: StateInterface) => 
     });
 };
 
-export const getPublicRepositoryHostName = (state: StateInterface) => {
-    return state && state.applicationState && state.applicationState.publicRepositorySettings && state.applicationState.publicRepositorySettings.publicRepoHostName;
-};
-
 export const getLocalFolderPath = (state: StateInterface) => {
     return state && state.applicationState && state.applicationState.localFolderSettings && state.applicationState.localFolderSettings.path;
 };

@@ -5,6 +5,5 @@
 export interface FetchModelParameters {
     id: string;
     expand?: boolean;
-    repoServiceHostName: string;
     token?: string;
 }

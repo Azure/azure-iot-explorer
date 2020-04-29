@@ -499,9 +499,7 @@ export class ResourceKeys {
                parameterType : {
                   ariaLabel : "deviceLists.query.searchPills.clause.parameterType.ariaLabel",
                   items : {
-                     capabilityModelId : "deviceLists.query.searchPills.clause.parameterType.items.capabilityModelId",
                      edge : "deviceLists.query.searchPills.clause.parameterType.items.edge",
-                     interfaceId : "deviceLists.query.searchPills.clause.parameterType.items.interfaceId",
                      lastActivityTime : "deviceLists.query.searchPills.clause.parameterType.items.lastActivityTime",
                      propertyValue : "deviceLists.query.searchPills.clause.parameterType.items.propertyValue",
                      status : "deviceLists.query.searchPills.clause.parameterType.items.status",
@@ -776,10 +774,6 @@ export class ResourceKeys {
          headerText : "settings.modelDefinitions.headerText",
          helpText : "settings.modelDefinitions.helpText",
          repositoryTypes : {
-            device : {
-               infoText : "settings.modelDefinitions.repositoryTypes.device.infoText",
-               label : "settings.modelDefinitions.repositoryTypes.device.label",
-            },
             local : {
                folderPicker : {
                   command : {
@@ -801,12 +795,6 @@ export class ResourceKeys {
                textBoxLabel : "settings.modelDefinitions.repositoryTypes.local.textBoxLabel",
             },
             notAvailable : "settings.modelDefinitions.repositoryTypes.notAvailable",
-            private : {
-               infoText : "settings.modelDefinitions.repositoryTypes.private.infoText",
-               label : "settings.modelDefinitions.repositoryTypes.private.label",
-               placeholder : "settings.modelDefinitions.repositoryTypes.private.placeholder",
-               textBoxLabel : "settings.modelDefinitions.repositoryTypes.private.textBoxLabel",
-            },
             public : {
                infoText : "settings.modelDefinitions.repositoryTypes.public.infoText",
                label : "settings.modelDefinitions.repositoryTypes.public.label",
