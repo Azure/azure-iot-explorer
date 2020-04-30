@@ -21,7 +21,7 @@ const receivers: ReceiveHandler[] = [];
 const IOTHUB_CONNECTION_DEVICE_ID = 'iothub-connection-device-id';
 
 let client: EventHubClient = null;
-let connectionString: string = '';
+let connectionString: string = ''; // would be the same as connection string or in the format of `${connectionString}/${hubName}`
 let eventHubClientStopping = false;
 
 interface Message {
@@ -212,15 +212,14 @@ export const eventHubProvider = async (res: any, body: any) =>  { // tslint:disa
         if (!eventHubClientStopping) {
             if (!client ||
                 body.hubConnectionString && body.hubConnectionString !== connectionString  ||
-                body.customEventHubConnectionString && body.customEventHubConnectionString !== connectionString)
+                body.customEventHubConnectionString && `${body.customEventHubConnectionString}/${body.customEventHubName}` !== connectionString)
             {
-
                 client = body.customEventHubConnectionString ?
-                    await EventHubClient.createFromConnectionString(body.customEventHubConnectionString) :
+                    await EventHubClient.createFromConnectionString(body.customEventHubConnectionString, body.customEventHubName) :
                     await EventHubClient.createFromIotHubConnectionString(body.hubConnectionString);
 
                 connectionString = body.customEventHubConnectionString ?
-                    body.customEventHubConnectionString :
+                    `${body.customEventHubConnectionString}/${body.customEventHubName}` :
                     body.hubConnectionString;
             }
 

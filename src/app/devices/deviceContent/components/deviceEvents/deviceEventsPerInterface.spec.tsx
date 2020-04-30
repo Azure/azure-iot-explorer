@@ -31,6 +31,7 @@ describe('components/devices/deviceEventsPerInterface', () => {
 
     const refreshMock = jest.fn();
     const deviceEventsDispatchProps: DeviceEventsDispatchProps = {
+        addNotification: jest.fn(),
         refresh: refreshMock,
         setComponentName: jest.fn()
     };
@@ -56,6 +57,7 @@ describe('components/devices/deviceEventsPerInterface', () => {
     const telemetrySchema: TelemetrySchema[] = [{
         parsedSchema: {
             description: 'Temperature /Current temperature on the device',
+            required: null,
             title: 'temp',
             type: 'number'
         },

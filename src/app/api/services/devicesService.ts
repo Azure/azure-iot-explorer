@@ -17,7 +17,15 @@ import {
     PatchDigitalTwinInterfacePropertiesParameters,
     CloudToDeviceMessageParameters
 } from '../parameters/deviceParameters';
-import { CONTROLLER_API_ENDPOINT, EVENTHUB, DIGITAL_TWIN_API_VERSION, MONITOR, STOP, HEADERS, CLOUD_TO_DEVICE } from '../../constants/apiConstants';
+import { CONTROLLER_API_ENDPOINT,
+    EVENTHUB,
+    DIGITAL_TWIN_API_VERSION,
+    MONITOR,
+    STOP,
+    HEADERS,
+    CLOUD_TO_DEVICE,
+    DataPlaneStatusCode
+} from '../../constants/apiConstants';
 import { HTTP_OPERATION_TYPES } from '../constants';
 import { buildQueryString } from '../shared/utils';
 import { CONNECTION_TIMEOUT_IN_SECONDS, RESPONSE_TIME_IN_SECONDS } from '../../constants/devices';
@@ -342,21 +350,23 @@ export const deleteDevices = async (parameters: DeleteDevicesParameters) => {
 
 // tslint:disable-next-line:cyclomatic-complexity
 export const monitorEvents = async (parameters: MonitorEventsParameters): Promise<Message[]> => {
-    try {
-        if (!parameters.hubConnectionString && !parameters.customEventHubConnectionString) {
-            return;
-        }
+    if (!parameters.hubConnectionString && (!parameters.customEventHubConnectionString || !parameters.customEventHubName)) {
+        return;
+    }
 
-        const requestParameters = {
-            ...parameters,
-            startTime: parameters.startTime && parameters.startTime.toISOString()
-        };
+    const requestParameters = {
+        ...parameters,
+        startTime: parameters.startTime && parameters.startTime.toISOString()
+    };
 
-        const response = await request(EVENTHUB_MONITOR_ENDPOINT, requestParameters);
+    const response = await request(EVENTHUB_MONITOR_ENDPOINT, requestParameters);
+    if (response.status === DataPlaneStatusCode.SuccessLowerBound) {
         const messages = await response.json() as Message[];
         return  messages && messages.length && messages.length !== 0 && messages.map(message => parseEventHubMessage(message)) || [];
-    } catch (error) {
-        throw error;
+    }
+    else {
+        const error = await response.json();
+        throw new Error(error && error.name);
     }
 };
 
