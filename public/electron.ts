@@ -100,7 +100,11 @@ const createMenu = () => {
         // { role: 'windowMenu' }
         {
             label: '&Window',
-            submenu: [
+            submenu: isMac ? [
+                { role: 'minimize' },
+                { role: 'hide' },
+                { role: 'close' }
+            ] : [
                 { role: 'minimize' },
                 { role: 'close' }
             ]
