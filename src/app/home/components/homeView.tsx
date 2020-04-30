@@ -17,15 +17,16 @@ export const HomeView: React.FC<HomeViewProps> = props => {
 
     return (
         <div>
-            <div>
-                <AppVersionMessageBar/>
-            </div>
-            <div className="home-view-navigation">
-                <HomeViewNavigation/>
-            </div>
-            <div className="content">
-                <Route path={`${match.url}`} component={AzureResourcesView} exact={true} />
-                <Route path={`${match.url}/${ROUTE_PARTS.MODEL_REPOS}/`} component={AzureResourcesView} />
+            <AppVersionMessageBar/>
+
+            <div className="home-view">
+                <div className="nav">
+                    <HomeViewNavigation/>
+                </div>
+                <div className="content">
+                    <Route path={`${match.url}`} component={AzureResourcesView} exact={true} />
+                    <Route path={`${match.url}/${ROUTE_PARTS.MODEL_REPOS}/`} component={AzureResourcesView} />
+                </div>
             </div>
         </div>
     );

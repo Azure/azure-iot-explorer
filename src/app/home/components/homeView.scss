@@ -3,10 +3,14 @@
  * Licensed under the MIT License
  **********************************************************/
 
- home-view-navigation {
-   background-color: 'red';
+ .home-view {
+   display: flex;
+   flex-direction: row;
 
-    .content {
-       background-color: 'blue';
-    }
+   .nav{
+      width: 300;
+   }
+
+   .content {
+   }
  }
