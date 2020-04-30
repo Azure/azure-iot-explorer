@@ -93,6 +93,7 @@ export class ResourceKeys {
          title : "common.confirmationDialog.title",
          yes : "common.confirmationDialog.yes",
       },
+      home : "common.home",
       learnMore : "common.learnMore",
       loading : "common.loading",
       maskedCopyableTextField : {
@@ -757,6 +758,7 @@ export class ResourceKeys {
       cancel : "settings.cancel",
       configuration : {
          headerText : "settings.configuration.headerText",
+         redirect : "settings.configuration.redirect",
       },
       confirmationMessage : "settings.confirmationMessage",
       footerText : "settings.footerText",

@@ -4,5 +4,7 @@
  **********************************************************/
 import semver from 'semver';
 export const isNewReleaseVersionHigher = (releaseVersion: string, appVersion: string) => {
-    return semver.gt(releaseVersion, appVersion);
+    return true;
+
+    // return semver.gt(releaseVersion, appVersion);
 };

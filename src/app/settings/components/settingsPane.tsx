@@ -81,7 +81,7 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
                         </header>
                         <section aria-label={context.t(ResourceKeys.settings.configuration.headerText)}>
                             <h3 role="heading" aria-level={1}>{context.t(ResourceKeys.settings.configuration.headerText)}</h3>
-                            <div>Looking for hub connection strings -- visit home.</div>
+                            <Link onClick={this.onNavigateHome}>{context.t(ResourceKeys.settings.configuration.redirect)}</Link>
                         </section>
                         <section aria-label={context.t(ResourceKeys.settings.modelDefinitions.headerText)}>
                             <h3 role="heading" aria-level={1}>{context.t(ResourceKeys.settings.modelDefinitions.headerText)}</h3>
@@ -128,6 +128,11 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
                 />
             );
         }
+    }
+
+    private readonly onNavigateHome = () => {
+        this.props.onSettingsVisibleChanged(false);
+        this.props.history.push(`/${ROUTE_PARTS.RESOURCE}/`);
     }
 
     private readonly onAddListItem = (type: REPOSITORY_LOCATION_TYPE) => {
@@ -220,6 +225,10 @@ export default class SettingsPane extends React.Component<SettingsPaneProps & Se
             isDirty: false
         });
         this.props.onSettingsVisibleChanged(false);
+
+        if (!this.state.hubConnectionString) {
+            return;
+        }
 
         const { hostName } = getConnectionInfoFromConnectionString(this.state.hubConnectionString);
         const targetPath = `/${ROUTE_PARTS.RESOURCE}/${hostName}/${ROUTE_PARTS.DEVICES}`;

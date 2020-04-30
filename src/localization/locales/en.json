@@ -8,6 +8,7 @@
     },
     "common": {
         "close": "Close",
+        "home": "Home",
         "learnMore": "Learn more",
         "loading": "Loading...",
         "maskedCopyableTextField": {
@@ -55,7 +56,8 @@
     "settings": {
         "headerText": "Settings",
         "configuration": {
-            "headerText": "App configurations"
+            "headerText": "App configurations",
+            "redirect": "Looking for connection settings? Please visit Home."
         },
         "modelDefinitions": {
             "add": "Add model definition source",
@@ -241,7 +243,7 @@
             "ariaLabel": "Select or type an Iot hub connection string",
             "ariaLabelRemove": "Remove connection to host {{hostName}}",
             "link": "https://aka.ms/iot-connection-strings",
-            "linkText": "Where do I get an IoT hub connection string",
+            "linkText": "Where do I get an IoT hub connection string?",
             "item": {
                 "ariaLabel": "Connection to host {{hostName}} with shared access key for {{sharedAccessKeyName}}"
             },
