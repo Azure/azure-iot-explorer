@@ -9,7 +9,7 @@ import { LocalizationContextConsumer, LocalizationContextInterface } from '../..
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { fetchLatestReleaseTagName, latestReleaseUrlPath } from '../../api/services/githubService';
 import * as packageJson from '../../../../package.json';
-import { isNewReleaseVersionHigher } from './appVersionHelper';
+import { isNewReleaseVersionHigher } from '../utils/appVersionHelper';
 
 interface AppVersionMessageBarState {
     latestReleaseVersion?: string;

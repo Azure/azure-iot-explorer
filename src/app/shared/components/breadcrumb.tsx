@@ -29,8 +29,10 @@ export const BreadcrumbItem: React.FC<BreadcrumbItemDataProps> = props => {
         const { t } = useLocalizationContext();
         if (route) {
             switch (route) {
-                case ROUTE_PARTS.RESOURCE: // redirects to login page
-                    return <li className="breadcrumb-item"><NavLink to={'/resources'}>{t(ResourceKeys.common.home)}</NavLink></li>;
+                case ROUTE_PARTS.HOME:
+                    return <li className="breadcrumb-item"><NavLink to={`/${ROUTE_PARTS.HOME}`}>{t(ResourceKeys.common.home)}</NavLink></li>;
+                case ROUTE_PARTS.RESOURCE:
+                    return <li className="breadcrumb-item"><NavLink to={`/${ROUTE_PARTS.HOME}`}>{t(ResourceKeys.common.home)}</NavLink></li>;
                 case props.hostName:
                     return renderTextItem(getShortHubName());
                 case ROUTE_PARTS.DEVICE_DETAIL:

@@ -7,25 +7,24 @@ import * as React from 'react';
 import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { AzureResourceViewContainer } from '../../azureResource/components/azureResourceViewContainer';
-import { AzureResourcesView } from '../../azureResources/components/azureResourcesView';
 import NoMatchError from './noMatchError';
 import { ROUTE_PARTS } from '../../constants/routes';
+import { HomeView } from '../../home/components/homeView';
 import { withApplicationFrame } from './applicationFrame';
 
 const NOTIFICATION_AUTO_CLOSE = 5000;
 
 export const Application: React.FC = props => {
-
-    const redirectToResources = () => {
-        return <Redirect to={`/${ROUTE_PARTS.RESOURCE}/`} />;
+    const redirectHome = () => {
+        return <Redirect to={`/${ROUTE_PARTS.HOME}/`} />;
     };
 
     return (
         <HashRouter>
             <>
                 <Switch>
-                    <Route path="/" exact={true} render={redirectToResources} />
-                    <Route path={`/${ROUTE_PARTS.RESOURCE}/`} component={withApplicationFrame(AzureResourcesView)} exact={true} />
+                    <Route path={`/`} exact={true} render={redirectHome}/>
+                    <Route path={`/${ROUTE_PARTS.HOME}/`} component={withApplicationFrame(HomeView)} />
                     <Route path={`/${ROUTE_PARTS.RESOURCE}/:hostName`} component={withApplicationFrame(AzureResourceViewContainer)} />
                     <Route component={NoMatchError}/>
                 </Switch>

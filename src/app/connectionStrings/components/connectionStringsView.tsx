@@ -17,7 +17,6 @@ import { setActiveAzureResourceByConnectionStringAction } from '../../azureResou
 import { ROUTE_PARTS } from '../../constants/routes';
 import { formatConnectionStrings } from '../../shared/utils/hubConnectionStringHelper';
 import { ConnectionStringsEmpty } from './connectionStringsEmpty';
-import AppVersionMessageBar from '../../login/components/appVersionMessageBar';
 import '../../css/_layouts.scss';
 import './connectionStringsView.scss';
 
@@ -53,7 +52,6 @@ export const ConnectionStringsView: React.FC<ConnectionStringsViewProps> = props
     return (
         <div className="view">
             <div className="view-command">
-                <AppVersionMessageBar/>
                 <CommandBar
                     items={[
                         {
