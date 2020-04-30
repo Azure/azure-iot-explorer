@@ -5,6 +5,7 @@
 import 'jest';
 import * as React from 'react';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
+import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import DeviceEventsComponent, { DeviceEventsState } from './deviceEvents';
 import { mountWithLocalization, testSnapshot } from '../../../../shared/utils/testHelpers';
@@ -28,6 +29,7 @@ describe('components/devices/deviceEvents', () => {
 
     const getComponent = (overrides = {}) => {
         const props = {
+            addNotification: jest.fn(),
             connectionString: '',
             ...routerProps,
             ...overrides,
@@ -77,12 +79,12 @@ describe('components/devices/deviceEvents', () => {
         expect((wrapper.state() as DeviceEventsState).consumerGroup).toEqual('testGroup');
     });
 
-    it('changes state accordingly when custom event hub connection string value is changed', () => {
+    it('changes state accordingly when custom event hub boolean value is changed', () => {
         const wrapper = mountWithLocalization(getComponent());
-        const textField = wrapper.find(TextField).at(1);
-        textField.instance().props.onChange({ target: null}, 'sb://testeventhub');
+        const toggle = wrapper.find(Toggle).at(0);
+        toggle.instance().props.onChange({ target: null}, false);
         wrapper.update();
-        expect((wrapper.state() as DeviceEventsState).customEventHubConnectionString).toEqual('sb://testeventhub');
+        expect((wrapper.state() as DeviceEventsState).useBuiltInEventHub).toBeFalsy();
     });
 
     it('renders events', () => {

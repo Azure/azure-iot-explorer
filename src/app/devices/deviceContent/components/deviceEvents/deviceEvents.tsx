@@ -7,6 +7,7 @@ import { CommandBar, ICommandBarItemProps } from 'office-ui-fabric-react/lib/Com
 import { Spinner } from 'office-ui-fabric-react/lib/Spinner';
 import { TextField, ITextFieldProps } from 'office-ui-fabric-react/lib/TextField';
 import { Announced } from 'office-ui-fabric-react/lib/Announced';
+import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 import { RouteComponentProps } from 'react-router-dom';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
@@ -16,6 +17,8 @@ import { parseDateTimeString } from '../../../../api/dataTransforms/transformHel
 import { CLEAR, CHECKED_CHECKBOX, EMPTY_CHECKBOX, START, STOP } from '../../../../constants/iconNames';
 import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
+import { MonitorEventsParameters } from '../../../../api/parameters/deviceParameters';
+import { Notification, NotificationType } from '../../../../api/models/notification';
 import LabelWithTooltip from '../../../../shared/components/labelWithTooltip';
 import { DEFAULT_CONSUMER_GROUP } from '../../../../constants/apiConstants';
 import { MILLISECONDS_IN_MINUTE } from '../../../../constants/shared';
@@ -31,24 +34,34 @@ export interface DeviceEventsDataProps {
     connectionString: string;
 }
 
-export interface DeviceEventsState {
+export interface DeviceEventsActionProps {
+    addNotification: (notification: Notification) => void;
+}
+
+export interface DeviceEventsState extends ConfigurationSettings{
     events: Message[];
     hasMore: boolean;
-    startTime: Date; // todo: add a datetime picker
-    loading?: boolean;
-    loadingAnnounced?: JSX.Element;
+    startTime: Date;
     showSystemProperties: boolean;
     synchronizationStatus: SynchronizationStatus;
-    consumerGroup: string;
     monitoringData: boolean;
+
+    loading?: boolean;
+    loadingAnnounced?: JSX.Element;
+}
+
+export interface ConfigurationSettings {
+    consumerGroup: string;
+    useBuiltInEventHub: boolean;
+    customEventHubName?: string;
     customEventHubConnectionString?: string;
 }
 
-export default class DeviceEventsComponent extends React.Component<DeviceEventsDataProps & RouteComponentProps, DeviceEventsState> {
+export default class DeviceEventsComponent extends React.Component<DeviceEventsDataProps & DeviceEventsActionProps & RouteComponentProps, DeviceEventsState> {
     // tslint:disable-next-line:no-any
     private timerID: any;
     private isComponentMounted: boolean;
-    constructor(props: DeviceEventsDataProps & RouteComponentProps) {
+    constructor(props: DeviceEventsDataProps & DeviceEventsActionProps & RouteComponentProps) {
         super(props);
 
         this.state = {
@@ -59,6 +72,7 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
             showSystemProperties: false,
             startTime: new Date(new Date().getTime() - MILLISECONDS_IN_MINUTE), // set start time to one minute ago
             synchronizationStatus: SynchronizationStatus.initialized,
+            useBuiltInEventHub: true
         };
     }
 
@@ -184,38 +198,67 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
     }
 
     private renderCustomEventHub = (context: LocalizationContextInterface) => {
-        const renderCustomEventHubLabel = (props: ITextFieldProps) => (
-            <LabelWithTooltip
-                className={'custom-event-hub-label'}
-                tooltipText={context.t(ResourceKeys.deviceEvents.customEventHub.tooltip)}
-            >
-                {props.label}
-            </LabelWithTooltip>
-        );
+        const toggleChange = () => {
+            this.setState({
+                useBuiltInEventHub: !this.state.useBuiltInEventHub
+            });
+        };
 
-        const customEventHubChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
+        const customEventHubConnectionStringChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
             this.setState({
                 customEventHubConnectionString: newValue
             });
         };
 
         const renderError = () => {
-            return !isValidEventHubConnectionString(this.state.customEventHubConnectionString) && context.t(ResourceKeys.deviceEvents.customEventHub.error);
+            return !isValidEventHubConnectionString(this.state.customEventHubConnectionString) && context.t(ResourceKeys.deviceEvents.customEventHub.connectionString.error);
+        };
+
+        const customEventHubNameChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
+            this.setState({
+                customEventHubName: newValue
+            });
         };
 
         return (
-            <TextField
-                className={'custom-event-hub-text-field'}
-                onRenderLabel={renderCustomEventHubLabel}
-                label={context.t(ResourceKeys.deviceEvents.customEventHub.label)}
-                ariaLabel={context.t(ResourceKeys.deviceEvents.customEventHub.label)}
-                underlined={true}
-                value={this.state.customEventHubConnectionString}
-                disabled={this.state.monitoringData}
-                onChange={customEventHubChange}
-                placeholder={context.t(ResourceKeys.deviceEvents.customEventHub.placeHolder)}
-                errorMessage={renderError()}
-            />
+            <>
+                <Toggle
+                    className="toggle-button"
+                    checked={this.state.useBuiltInEventHub}
+                    ariaLabel={context.t(ResourceKeys.deviceEvents.toggleUseDefaultEventHub.label)}
+                    label={context.t(ResourceKeys.deviceEvents.toggleUseDefaultEventHub.label)}
+                    onText={context.t(ResourceKeys.deviceEvents.toggleUseDefaultEventHub.on)}
+                    offText={context.t(ResourceKeys.deviceEvents.toggleUseDefaultEventHub.off)}
+                    onChange={toggleChange}
+                    disabled={this.state.monitoringData}
+                />
+                {!this.state.useBuiltInEventHub &&
+                    <>
+                        <TextField
+                            className={'custom-event-hub-text-field'}
+                            label={context.t(ResourceKeys.deviceEvents.customEventHub.connectionString.label)}
+                            ariaLabel={context.t(ResourceKeys.deviceEvents.customEventHub.connectionString.label)}
+                            underlined={true}
+                            value={this.state.customEventHubConnectionString}
+                            disabled={this.state.monitoringData}
+                            onChange={customEventHubConnectionStringChange}
+                            placeholder={context.t(ResourceKeys.deviceEvents.customEventHub.connectionString.placeHolder)}
+                            errorMessage={renderError()}
+                            required={true}
+                        />
+                        <TextField
+                            className={'custom-event-hub-text-field'}
+                            label={context.t(ResourceKeys.deviceEvents.customEventHub.name.label)}
+                            ariaLabel={context.t(ResourceKeys.deviceEvents.customEventHub.name.label)}
+                            underlined={true}
+                            value={this.state.customEventHubName}
+                            disabled={this.state.monitoringData}
+                            onChange={customEventHubNameChange}
+                            required={true}
+                        />
+                    </>
+                }
+            </>
         );
     }
 
@@ -308,14 +351,28 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
             });
             this.timerID = setTimeout(
                 () => {
-                    monitorEvents({
+                    let parameters: MonitorEventsParameters = {
                         consumerGroup: this.state.consumerGroup,
-                        customEventHubConnectionString: this.state.customEventHubConnectionString,
                         deviceId: getDeviceIdFromQueryString(this.props),
                         fetchSystemProperties: this.state.showSystemProperties,
-                        hubConnectionString: this.state.customEventHubConnectionString ? null : this.props.connectionString,
                         startTime: this.state.startTime
-                    })
+                    };
+
+                    if (!this.state.useBuiltInEventHub && this.state.customEventHubConnectionString && this.state.customEventHubName) {
+                        parameters = {
+                            ...parameters,
+                            customEventHubConnectionString: this.state.customEventHubConnectionString,
+                            customEventHubName: this.state.customEventHubName
+                        };
+                    }
+                    else {
+                        parameters = {
+                            ...parameters,
+                            hubConnectionString: this.props.connectionString,
+                        };
+                    }
+
+                    monitorEvents(parameters)
                     .then(results => {
                         const messages = results ? results.reverse().map((message: Message) => message) : [];
                         if (this.isComponentMounted) {
@@ -326,6 +383,18 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
                             });
                             this.stopMonitoringIfNecessary();
                         }
+                    })
+                    .catch (error => {
+                        this.props.addNotification({
+                            text: {
+                                translationKey: ResourceKeys.deviceEvents.error,
+                                translationOptions: {
+                                    error
+                                }
+                            },
+                            type: NotificationType.error
+                        });
+                        this.stopMonitoringIfNecessary();
                     });
                 },
                 LOADING_LOCK);

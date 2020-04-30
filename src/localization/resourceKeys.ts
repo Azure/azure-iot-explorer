@@ -288,11 +288,16 @@ export class ResourceKeys {
          tooltip : "deviceEvents.consumerGroups.tooltip",
       },
       customEventHub : {
-         error : "deviceEvents.customEventHub.error",
-         label : "deviceEvents.customEventHub.label",
-         placeHolder : "deviceEvents.customEventHub.placeHolder",
-         tooltip : "deviceEvents.customEventHub.tooltip",
+         connectionString : {
+            error : "deviceEvents.customEventHub.connectionString.error",
+            label : "deviceEvents.customEventHub.connectionString.label",
+            placeHolder : "deviceEvents.customEventHub.connectionString.placeHolder",
+         },
+         name : {
+            label : "deviceEvents.customEventHub.name.label",
+         },
       },
+      error : "deviceEvents.error",
       event : {
          body : "deviceEvents.event.body",
          enqueuedTime : "deviceEvents.event.enqueuedTime",
@@ -307,10 +312,15 @@ export class ResourceKeys {
          placeHolder : "deviceEvents.interfaceDropDown.placeHolder",
       },
       noEvent : "deviceEvents.noEvent",
-      toggle : {
-         label : "deviceEvents.toggle.label",
-         off : "deviceEvents.toggle.off",
-         on : "deviceEvents.toggle.on",
+      toggleShowRawData : {
+         label : "deviceEvents.toggleShowRawData.label",
+         off : "deviceEvents.toggleShowRawData.off",
+         on : "deviceEvents.toggleShowRawData.on",
+      },
+      toggleUseDefaultEventHub : {
+         label : "deviceEvents.toggleUseDefaultEventHub.label",
+         off : "deviceEvents.toggleUseDefaultEventHub.off",
+         on : "deviceEvents.toggleUseDefaultEventHub.on",
       },
       tooltip : "deviceEvents.tooltip",
    };
