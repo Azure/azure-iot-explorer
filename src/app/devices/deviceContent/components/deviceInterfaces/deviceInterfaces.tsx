@@ -100,11 +100,16 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
         );
     }
 
+    // tslint:disable-next-line: cyclomatic-complexity
     private readonly renderInterfaceInfoDetail = (context: LocalizationContextInterface) => {
         const { modelDefinitionWithSource } = this.props;
         const source = this.getModelDefinitionSourceText(context);
-        const displayName = modelDefinitionWithSource.payload && getLocalizedData(modelDefinitionWithSource.payload.modelDefinition.displayName) || '--';
-        const description = modelDefinitionWithSource.payload && getLocalizedData(modelDefinitionWithSource.payload.modelDefinition.description) || '--';
+        const displayName = modelDefinitionWithSource.payload &&
+            modelDefinitionWithSource.payload.modelDefinition &&
+            getLocalizedData(modelDefinitionWithSource.payload.modelDefinition.displayName) || '--';
+        const description = modelDefinitionWithSource.payload &&
+            modelDefinitionWithSource.payload.modelDefinition &&
+            getLocalizedData(modelDefinitionWithSource.payload.modelDefinition.description) || '--';
         return (
             <>
                 <Label className="source"> {context.t(ResourceKeys.deviceInterfaces.columns.source)}: {source}</Label>
