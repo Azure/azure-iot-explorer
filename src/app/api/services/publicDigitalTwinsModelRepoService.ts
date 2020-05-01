@@ -11,7 +11,6 @@ import {
     MODELREPO,
     MODEL_REPO_API_VERSION,
     PUBLIC_REPO_HOSTNAME,
-    PUBLIC_REPO_HOSTNAME_TEST,
     HTTP_OPERATION_TYPES } from '../../constants/apiConstants';
 import { PnPModel } from '../models/metamodelMetadata';
 import { getHeaderValue } from '../shared/fetchUtils';
@@ -68,7 +67,7 @@ export const validateModelDefinitions = async (modelDefinitions: string) => {
                 'x-ms-client-request-id': 'azure iot explorer: validate model definition'
             },
             method: HTTP_OPERATION_TYPES.Post,
-            uri: `https://${PUBLIC_REPO_HOSTNAME_TEST}/models/validate${apiVersionQueryString}`
+            uri: `https://${PUBLIC_REPO_HOSTNAME}/models/validate${apiVersionQueryString}`
         };
 
         return (await request(controllerRequest)).ok;

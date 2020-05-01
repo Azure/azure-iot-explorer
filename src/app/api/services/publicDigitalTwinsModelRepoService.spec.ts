@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as DigitalTwinsModelService from './publicDigitalTwinsModelRepoService';
-import { API_VERSION, MODEL_REPO_API_VERSION, HTTP_OPERATION_TYPES, PUBLIC_REPO_HOSTNAME_TEST, PUBLIC_REPO_HOSTNAME } from '../../constants/apiConstants';
+import { API_VERSION, MODEL_REPO_API_VERSION, HTTP_OPERATION_TYPES, PUBLIC_REPO_HOSTNAME } from '../../constants/apiConstants';
 
 describe('digitalTwinsModelService', () => {
 
@@ -130,7 +130,7 @@ describe('digitalTwinsModelService', () => {
                     'x-ms-client-request-id': 'azure iot explorer: validate model definition'
                 },
                 method: HTTP_OPERATION_TYPES.Post,
-                uri: `https://${PUBLIC_REPO_HOSTNAME_TEST}/models/validate${apiVersionQueryString}`
+                uri: `https://${PUBLIC_REPO_HOSTNAME}/models/validate${apiVersionQueryString}`
             };
 
             const validateModelParameters = {
