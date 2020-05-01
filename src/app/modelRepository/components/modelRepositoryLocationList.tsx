@@ -5,7 +5,6 @@
 import * as React from 'react';
 import { Container, Draggable } from 'react-smooth-dnd';
 import { RepositoryLocationSettings } from '../state';
-import { LocalizationContextInterface, LocalizationContextConsumer } from '../../shared/contexts/localizationContext';
 import { ModelRepositoryLocationListItem } from './modelRepositoryLocationListItem';
 import './modelRepositoryLocationList.scss';
 
@@ -14,51 +13,41 @@ export interface ModelRepositoryLocationListProps {
     onChangeRepositoryLocationSettings(settings: RepositoryLocationSettings[]): void;
 }
 
-export default class RepositoryLocationList extends React.Component<ModelRepositoryLocationListProps> {
-    constructor(props: ModelRepositoryLocationListProps) {
-        super(props);
-    }
-    private readonly renderItem = (item: RepositoryLocationSettings, index: number) => {
+export const ModelRepositoryLocationList: React.FC<ModelRepositoryLocationListProps> = props => {
+    const { repositoryLocationSettings, onChangeRepositoryLocationSettings} = props;
+
+    const onDrop = (e: {addedIndex: number, removedIndex: number}) => {
+        const updatedRepositoryLocationSettings = [...repositoryLocationSettings];
+        updatedRepositoryLocationSettings.splice(e.addedIndex, 0, updatedRepositoryLocationSettings.splice(e.removedIndex, 1)[0]);
+
+        onChangeRepositoryLocationSettings(updatedRepositoryLocationSettings);
+    };
+
+    const onRemoveRepositoryLocationSetting = (index: number) => {
+        const updatedRepositoryLocationSettings = [...props.repositoryLocationSettings];
+        updatedRepositoryLocationSettings.splice(index, 1);
+
+        onChangeRepositoryLocationSettings(updatedRepositoryLocationSettings);
+    };
+
+    const renderModelRepositoryLocationListItem = (item: RepositoryLocationSettings, index: number) => {
         return (
                 <Draggable key={item.repositoryLocationType} >
                     <ModelRepositoryLocationListItem
                         index={index}
                         item={item}
                         onLocalFolderPathChanged={undefined}
-                        onRemoveListItem={this.onRemoveRepositoryLocationSetting}
+                        onRemoveListItem={onRemoveRepositoryLocationSetting}
                     />
                 </Draggable>
         );
-    }
-    private readonly onDrop = (e: {addedIndex: number, removedIndex: number}) => {
-        const updatedRepositoryLocationSettings = [...this.props.repositoryLocationSettings];
-        updatedRepositoryLocationSettings.splice(e.addedIndex, 0, updatedRepositoryLocationSettings.splice(e.removedIndex, 1)[0]);
+    };
 
-        this.props.onChangeRepositoryLocationSettings(updatedRepositoryLocationSettings);
-    }
-
-    private readonly onRemoveRepositoryLocationSetting = (index: number) => {
-        const updatedRepositoryLocationSettings = [...this.props.repositoryLocationSettings];
-        updatedRepositoryLocationSettings.splice(index, 1);
-
-        this.props.onChangeRepositoryLocationSettings(updatedRepositoryLocationSettings);
-    }
-
-    public render(): JSX.Element {
-        const { repositoryLocationSettings } = this.props;
-
-        return (
-            <LocalizationContextConsumer>
-                {(context: LocalizationContextInterface) => {
-                    return(
-                        <div className="location-list">
-                            <Container onDrop={this.onDrop}>
-                                {repositoryLocationSettings && repositoryLocationSettings.map((item, index) => this.renderItem(item, index))}
-                            </Container>
-                        </div>
-                    );
-                }}
-            </LocalizationContextConsumer>
-        );
-    }
-}
+    return (
+        <div className="location-list">
+            <Container onDrop={onDrop}>
+                {repositoryLocationSettings && repositoryLocationSettings.map((item, index) => renderModelRepositoryLocationListItem(item, index))}
+            </Container>
+        </div>
+    );
+};

@@ -11,7 +11,7 @@ import { getRepositoryLocationSettingsSelector } from '../selectors';
 import { RepositoryLocationSettings } from '../state';
 import { StateInterface } from '../../shared/redux/state';
 import { ResourceKeys } from '../../../localization/resourceKeys';
-import ModelRepositoryLocationList from './modelRepositoryLocationList';
+import { ModelRepositoryLocationList } from './modelRepositoryLocationList';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
 import { appConfig, HostMode } from '../../../appConfig/appConfig';
 import '../../css/_layouts.scss';
