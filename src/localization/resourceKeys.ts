@@ -20,6 +20,8 @@ export class ResourceKeys {
       methods : "breadcrumb.methods",
       moduleIdentity : "breadcrumb.moduleIdentity",
       properties : "breadcrumb.properties",
+      repos : "breadcrumb.repos",
+      resources : "breadcrumb.resources",
       settings : "breadcrumb.settings",
       twin : "breadcrumb.twin",
    };

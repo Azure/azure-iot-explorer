@@ -48,6 +48,7 @@ export default class AppVersionMessageBar extends React.Component<{}, AppVersion
         return this.hasNewerRelease() ?
         (
             <MessageBar
+                className="home-view-message-bar"
                 messageBarType={MessageBarType.info}
             >
                 {context.t(ResourceKeys.deviceLists.messageBar.message, {version: this.state.latestReleaseVersion})}

@@ -13,8 +13,8 @@ export const HomeViewNavigation: React.FC = props => {
         <div className="view">
             <div className="view-scroll-vertical">
                 <nav role="navigation">
-                    <NavLink className="nav-link" activeClassName="nav-link-active" to={`/${ROUTE_PARTS.HOME}`} title="hello">Connections</NavLink>
-                    <NavLink className="nav-link" activeClassName="nav-link-active" to={`/${ROUTE_PARTS.HOME}/repos`}>Plug and Play Configurations</NavLink>
+                    <NavLink className="nav-link" activeClassName="nav-link-active" to={`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.RESOURCES}`} title="hello">Connections</NavLink>
+                    <NavLink className="nav-link" activeClassName="nav-link-active" to={`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.MODEL_REPOS}`}>Plug and Play Configurations</NavLink>
                 </nav>
             </div>
         </div>

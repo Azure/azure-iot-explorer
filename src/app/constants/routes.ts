@@ -20,7 +20,8 @@ export enum ROUTE_PARTS {
     PROPERTIES = 'properties',
     SETTINGS = 'settings',
     TWIN = 'twin',
-    RESOURCE = 'resources',
+    RESOURCE = 'resource',
+    RESOURCES = 'resources',
     HOME = 'home',
     MODEL_REPOS = 'repos'
 }

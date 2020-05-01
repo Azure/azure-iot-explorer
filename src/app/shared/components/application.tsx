@@ -16,7 +16,7 @@ const NOTIFICATION_AUTO_CLOSE = 5000;
 
 export const Application: React.FC = props => {
     const redirectHome = () => {
-        return <Redirect to={`/${ROUTE_PARTS.HOME}/`} />;
+        return <Redirect to={`${ROUTE_PARTS.HOME}`} />;
     };
 
     return (

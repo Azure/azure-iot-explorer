@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Route, RouteComponentProps } from 'react-router-dom';
+import { Route, RouteComponentProps, Redirect } from 'react-router-dom';
 import { ROUTE_PARTS } from '../../constants/routes';
 import AppVersionMessageBar from './appVersionMessageBar';
 import { HomeViewNavigation } from './homeViewNavigation';
@@ -16,6 +16,10 @@ export type HomeViewProps = RouteComponentProps;
 export const HomeView: React.FC<HomeViewProps> = props => {
     const { match } = props;
 
+    const redirectToResources = () => {
+        return <Redirect to={`${match.url}/${ROUTE_PARTS.RESOURCES}`}/>;
+    };
+
     return (
         <div>
             <AppVersionMessageBar/>
@@ -25,8 +29,9 @@ export const HomeView: React.FC<HomeViewProps> = props => {
                     <HomeViewNavigation/>
                 </div>
                 <div className="content">
-                    <Route path={`${match.url}`} component={AzureResourcesView} exact={true} />
-                    <Route path={`${match.url}/${ROUTE_PARTS.MODEL_REPOS}/`} component={ModelRepositoryLocationViewContainer} />
+                    <Route path={`${match.url}`} exact={true} render={redirectToResources} />
+                    <Route path={`${match.url}/${ROUTE_PARTS.RESOURCES}/`} component={AzureResourcesView} exact={true} />
+                    <Route path={`${match.url}/${ROUTE_PARTS.MODEL_REPOS}/`} component={ModelRepositoryLocationViewContainer} exact={true} />
                 </div>
             </div>
         </div>

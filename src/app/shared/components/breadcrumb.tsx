@@ -35,6 +35,10 @@ export const BreadcrumbItem: React.FC<BreadcrumbItemDataProps> = props => {
                     return <li className="breadcrumb-item"><NavLink to={`/${ROUTE_PARTS.HOME}`}>{t(ResourceKeys.common.home)}</NavLink></li>;
                 case props.hostName:
                     return renderTextItem(getShortHubName());
+                case ROUTE_PARTS.RESOURCES:
+                    return renderTextItem(getLocalizedKey(route));
+                case ROUTE_PARTS.MODEL_REPOS:
+                    return renderTextItem(getLocalizedKey(route));
                 case ROUTE_PARTS.DEVICE_DETAIL:
                     return renderTextItem(getDeviceIdFromQueryString(props));
                 case ROUTE_PARTS.DIGITAL_TWINS_DETAIL:

@@ -96,7 +96,9 @@
         "properties": "Properties (non-writable)",
         "settings": "Properties (writable)",
         "commands": "Commands",
-        "ioTPlugAndPlay": "IoT Plug and Play components"
+        "ioTPlugAndPlay": "IoT Plug and Play components",
+        "resources": "Connections",
+        "repos": "Plug and Play Configuration"
     },
     "deviceContent": {
         "start": "Select a device to start",
