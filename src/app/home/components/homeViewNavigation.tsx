@@ -16,26 +16,6 @@ export const HomeViewNavigation: React.FC = props => {
                     <NavLink className="nav-link" activeClassName="nav-link-active" to={`/${ROUTE_PARTS.HOME}`} title="hello">Connections</NavLink>
                     <NavLink className="nav-link" activeClassName="nav-link-active" to={`/${ROUTE_PARTS.HOME}/repos`}>Plug and Play Configurations</NavLink>
                 </nav>
-                <div>Heree</div>
-                <div>Heree</div>
-                <div>Heree</div>
-                <div>Heree</div>
-                <div>Heree</div>
-                <div>Heree</div>
-                <div>Heree</div>
-                <div>Heree</div>
-                <div>Heree</div>
-                <div>Heree</div>
-                <div>Heree</div>
-                <div>Heree</div>
-                <div>Heree</div>
-                <div>Heree</div>
-                <div>Heree</div>
-                <div>Heree</div>
-                <div>Heree</div>
-                <div>Heree</div>
-                <div>Heree</div>
-                <div>Heree</div>
             </div>
         </div>
     );

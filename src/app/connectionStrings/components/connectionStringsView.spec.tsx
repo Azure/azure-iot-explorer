@@ -4,6 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
+import { MemoryRouter } from 'react-router-dom';
 import { act } from 'react-dom/test-utils';
 import { CommandBarButton } from 'office-ui-fabric-react/lib/Button';
 import { ConnectionStringsView, ConnectionStringsViewProps } from './connectionStringsView';
@@ -59,7 +60,7 @@ describe('ConnectionStringsView', () => {
                 onUpsertConnectionString: jest.fn()
             };
 
-            const wrapper = mount(<ConnectionStringsView {...props}/>);
+            const wrapper = mount(<MemoryRouter><ConnectionStringsView {...props}/></MemoryRouter>);
             expect(wrapper.find(ConnectionStringEditView).length).toEqual(0);
 
             act(() => {
@@ -79,7 +80,7 @@ describe('ConnectionStringsView', () => {
                 onUpsertConnectionString: jest.fn()
             };
 
-            const wrapper = mount(<ConnectionStringsView {...props}/>);
+            const wrapper = mount(<MemoryRouter><ConnectionStringsView {...props}/></MemoryRouter>);
             act(() => {
                 wrapper.find(CommandBarButton).props().onClick(undefined);
             });
@@ -102,7 +103,7 @@ describe('ConnectionStringsView', () => {
                 onUpsertConnectionString: upsertSpy
             };
 
-            const wrapper = mount(<ConnectionStringsView {...props}/>);
+            const wrapper = mount(<MemoryRouter><ConnectionStringsView {...props}/></MemoryRouter>);
             act(() => {
                 wrapper.find(CommandBarButton).props().onClick(undefined);
             });

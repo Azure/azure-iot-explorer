@@ -29,9 +29,7 @@ describe('components/settings/settingsPane', () => {
             <SettingsPane
                 {...routerprops}
                 isOpen={false}
-                onSettingsSave={jest.fn()}
                 onSettingsVisibleChanged={jest.fn()}
-                repositoryLocations={null}
             />
         );
         testSnapshot(component);
@@ -42,9 +40,7 @@ describe('components/settings/settingsPane', () => {
             <SettingsPane
                 {...routerprops}
                 isOpen={true}
-                onSettingsSave={jest.fn()}
                 onSettingsVisibleChanged={jest.fn()}
-                repositoryLocations={null}
             />
         );
         testSnapshot(component);
@@ -55,9 +51,7 @@ describe('components/settings/settingsPane', () => {
             <SettingsPane
                 {...routerprops}
                 isOpen={true}
-                onSettingsSave={jest.fn()}
                 onSettingsVisibleChanged={jest.fn()}
-                repositoryLocations={[{repositoryLocationType: REPOSITORY_LOCATION_TYPE.Private}]}
             />
         );
         testSnapshot(component);

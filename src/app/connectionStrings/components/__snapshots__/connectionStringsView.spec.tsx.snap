@@ -106,6 +106,7 @@ exports[`ConnectionStringsView matches snapshot when no connection strings 1`] =
     <div
       className="connection-strings"
     />
+    <Component />
   </div>
 </div>
 `;
