@@ -81,7 +81,7 @@ describe('digitalTwinService', () => {
                 body: JSON.stringify(parameters.payload),
                 hostName: connectionInformation.connectionInfo.hostName,
                 httpMethod: HTTP_OPERATION_TYPES.Post,
-                path: `/digitalTwins/${deviceId}/interfaces/${parameters.componentName}/commands/${parameters.commandName}`,
+                path: `/digitalTwins/${deviceId}/components/${parameters.componentName}/commands/${parameters.commandName}`,
                 queryString,
                 sharedAccessSignature: connectionInformation.sasToken
             };

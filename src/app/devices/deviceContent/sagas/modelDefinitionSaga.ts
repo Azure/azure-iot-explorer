@@ -62,14 +62,15 @@ export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionP
 }
 
 export function* validateModelDefinitionHelper(modelDefinition: ModelDefinition, location: RepositoryLocationSettings) {
-   try {
-        if (location.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Public) {
-            return true;
+    return true;
+    try {
+            if (location.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Public) {
+                return true;
+            }
+            return yield call(validateModelDefinitions, JSON.stringify([modelDefinition]));
         }
-        return yield call(validateModelDefinitions, JSON.stringify([modelDefinition]));
-    }
-    catch {
-        return false;
+        catch {
+            return false;
     }
 }
 

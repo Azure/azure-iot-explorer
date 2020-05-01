@@ -23,7 +23,6 @@ export const MODEL_ID = 'modelId=';
 export const API_VERSION = 'api-version=';
 export const AND = '&';
 export const PUBLIC_REPO_HOSTNAME = 'repo.azureiotrepository.com';
-export const PUBLIC_REPO_HOSTNAME_TEST = 'repo.azureiotrepository-test.com';
 
 // event hub controller
 export const MONITOR = '/monitor';

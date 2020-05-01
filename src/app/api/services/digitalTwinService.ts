@@ -63,7 +63,7 @@ export const invokeDigitalTwinInterfaceCommand = async (parameters: InvokeDigita
         body: JSON.stringify(parameters.payload),
         hostName: connectionInformation.connectionInfo.hostName,
         httpMethod: HTTP_OPERATION_TYPES.Post,
-        path: `/digitalTwins/${parameters.digitalTwinId}/interfaces/${parameters.componentName}/commands/${parameters.commandName}`,
+        path: `/digitalTwins/${parameters.digitalTwinId}/components/${parameters.componentName}/commands/${parameters.commandName}`,
         queryString,
         sharedAccessSignature: connectionInformation.sasToken
     };
