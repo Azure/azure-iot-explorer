@@ -10,29 +10,30 @@ import { useLocalizationContext } from '../../shared/contexts/localizationContex
 import { getRepositoryLocationSettingsSelector } from '../selectors';
 import { RepositoryLocationSettings } from '../state';
 import { StateInterface } from '../../shared/redux/state';
+import { setRepositoryLocationsAction } from '../actions';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { ModelRepositoryLocationList } from './modelRepositoryLocationList';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
 import { appConfig, HostMode } from '../../../appConfig/appConfig';
 import '../../css/_layouts.scss';
 
-export interface ModelRepositoriesViewDataProps {
+export interface ModelRepositoryLocationViewDataProps {
     repositoryLocationSettings: RepositoryLocationSettings[];
 }
 
-export interface ModelRepositoriesViewActionProps {
+export interface ModelRepositoryLocationViewActionProps {
     onSaveRepositoryLocationSettings(modelRepositorySettings: RepositoryLocationSettings[]): void;
 }
 
-export type ModelRepositoriesViewProps = ModelRepositoriesViewDataProps & ModelRepositoriesViewActionProps;
+export type ModelRepositoryLocationViewProps = ModelRepositoryLocationViewDataProps & ModelRepositoryLocationViewActionProps;
 
-export const ModelRepositoriesView: React.FC<ModelRepositoriesViewProps> = props => {
+export const ModelRepositoryLocationView: React.FC<ModelRepositoryLocationViewProps> = props => {
     const [ repositoryLocationSettings, setRepositoryLocationSettings ] = React.useState<RepositoryLocationSettings[]>(props.repositoryLocationSettings);
     const [ dirty, setDirtyFlag ] = React.useState<boolean>(false);
     const { t } = useLocalizationContext();
 
     const onSaveModelRepositorySettingsClick = () => {
-        throw new Error('not implemented');
+        props.onSaveRepositoryLocationSettings(repositoryLocationSettings);
     };
 
     const getCommandBarItems = (): ICommandBarItemProps[] => {
@@ -40,21 +41,30 @@ export const ModelRepositoriesView: React.FC<ModelRepositoriesViewProps> = props
 
         return [
             {
-                ariaLabel: t(ResourceKeys.connectionStrings.addConnectionCommand.ariaLabel),
+                ariaLabel: t(ResourceKeys.modelRepository.commands.save.ariaLabel),
                 disabled: !dirty,
                 iconProps: { iconName: 'Save' },
                 key: 'save',
                 onClick: onSaveModelRepositorySettingsClick,
-                text: 'Save'
+                text: t(ResourceKeys.modelRepository.commands.save.label)
             },
             {
-                ariaLabel: '',
+                ariaLabel: t(ResourceKeys.modelRepository.commands.revert.ariaLabel),
+                disabled: !dirty,
+                iconProps: { iconName: 'Undo' },
+                key: 'revert',
+                onClick: onRevertModelRepositorySettingsClick,
+                text: t(ResourceKeys.modelRepository.commands.revert.label)
+            },
+            {
+                ariaLabel: t(ResourceKeys.modelRepository.commands.add.ariaLabel),
+                disabled: repositoryLocationSettings.length >= Object.keys(REPOSITORY_LOCATION_TYPE).length,
                 iconProps: { iconName: 'Add'},
                 key: 'add',
                 subMenuProps: {
                     items: addItems
                 },
-                text: 'Add',
+                text: t(ResourceKeys.modelRepository.commands.add.ariaLabel)
             }
         ];
     };
@@ -64,26 +74,34 @@ export const ModelRepositoriesView: React.FC<ModelRepositoriesViewProps> = props
 
         return [
             {
+                ariaLabel: t(ResourceKeys.modelRepository.commands.addPublicSource.ariaLabel),
                 disabled: repositoryLocationSettings.some(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Public),
                 key: REPOSITORY_LOCATION_TYPE.Public,
                 onClick: onAddRepositoryLocationPublic,
-                text: t(ResourceKeys.settings.modelDefinitions.repositoryTypes.public.label)
+                text: t(ResourceKeys.modelRepository.commands.addPublicSource.label)
             },
             {
+                ariaLabel: t(ResourceKeys.modelRepository.commands.addDeviceSource.ariaLabel),
                 disabled: repositoryLocationSettings.some(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Device),
                 key: REPOSITORY_LOCATION_TYPE.Device,
                 onClick: onAddRepositoryLocationDevice,
-                text: t(ResourceKeys.settings.modelDefinitions.repositoryTypes.device.label),
+                text: t(ResourceKeys.modelRepository.commands.addDeviceSource.label),
             },
             {
+                ariaLabel: t(ResourceKeys.modelRepository.commands.addLocalSource.ariaLabel),
                 disabled: hostModeNotElectron || repositoryLocationSettings.some(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local),
                 key: REPOSITORY_LOCATION_TYPE.Local,
                 onClick: onAddRepositoryLocationLocal,
                 text: t(hostModeNotElectron ?
-                    ResourceKeys.settings.modelDefinitions.repositoryTypes.local.labelInBrowser :
-                    ResourceKeys.settings.modelDefinitions.repositoryTypes.local.label)
+                    ResourceKeys.modelRepository.commands.addLocalSource.labelInBrowser :
+                    ResourceKeys.modelRepository.commands.addLocalSource.label)
             }
         ];
+    };
+
+    const onRevertModelRepositorySettingsClick = () => {
+        setDirtyFlag(false);
+        setRepositoryLocationSettings(props.repositoryLocationSettings);
     };
 
     const onAddRepositoryLocationPublic = () => {
@@ -138,17 +156,18 @@ export const ModelRepositoriesView: React.FC<ModelRepositoriesViewProps> = props
     );
 };
 
-export const ModelRepositoriesViewContainer: React.FC = () => {
+export const ModelRepositoryLocationViewContainer: React.FC = () => {
     const reduxState = useSelector((state: StateInterface) => state);
+    const dispatch = useDispatch();
     const modelRepositorySettings = getRepositoryLocationSettingsSelector(reduxState) || [];
-    const onSaveModelRepistorySettings = () => {
-        throw new Error('not implemented');
+    const onSaveModelRepositorySettings = (repositoryLocationSettings: RepositoryLocationSettings[]) => {
+        dispatch(setRepositoryLocationsAction(repositoryLocationSettings));
     };
 
     return (
-        <ModelRepositoriesView
+        <ModelRepositoryLocationView
             repositoryLocationSettings={modelRepositorySettings}
-            onSaveRepositoryLocationSettings={onSaveModelRepistorySettings}
+            onSaveRepositoryLocationSettings={onSaveModelRepositorySettings}
         />
     );
 };

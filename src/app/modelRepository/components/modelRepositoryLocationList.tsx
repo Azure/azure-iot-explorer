@@ -30,14 +30,29 @@ export const ModelRepositoryLocationList: React.FC<ModelRepositoryLocationListPr
         onChangeRepositoryLocationSettings(updatedRepositoryLocationSettings);
     };
 
+    const onChangeRepositoryLocationSettingValue = (index: number, value: string) => {
+        const updatedRepositoryLocationSettings = repositoryLocationSettings.map((setting, i) => {
+            if (i === index) {
+                const updatedSetting = {...setting};
+                setting.value = value;
+
+                return updatedSetting;
+            } else {
+                return setting;
+            }
+        });
+
+        onChangeRepositoryLocationSettings(updatedRepositoryLocationSettings);
+    };
+
     const renderModelRepositoryLocationListItem = (item: RepositoryLocationSettings, index: number) => {
         return (
                 <Draggable key={item.repositoryLocationType} >
                     <ModelRepositoryLocationListItem
                         index={index}
                         item={item}
-                        onLocalFolderPathChanged={undefined}
-                        onRemoveListItem={onRemoveRepositoryLocationSetting}
+                        onChangeRepositoryLocationSettingValue={onChangeRepositoryLocationSettingValue}
+                        onRemoveRepositoryLocationSetting={onRemoveRepositoryLocationSetting}
                     />
                 </Draggable>
         );

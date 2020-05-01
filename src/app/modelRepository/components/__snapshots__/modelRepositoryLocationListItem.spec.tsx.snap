@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/settings/repositoryLocationListItem matches snapshot for device 1`] = `
+exports[`components/settings/modelRepositoryLocationListItem matches snapshot for device 1`] = `
 <div
   className="item"
   role="list"
@@ -36,7 +36,111 @@ exports[`components/settings/repositoryLocationListItem matches snapshot for dev
 </div>
 `;
 
-exports[`components/settings/repositoryLocationListItem matches snapshot for local 1`] = `
+exports[`components/settings/modelRepositoryLocationListItem matches snapshot for local 1`] = `
+<div
+  className="item"
+  role="list"
+>
+  <div
+    className="numbering"
+  >
+    1
+  </div>
+  <div
+    className="location-item"
+    role="listitem"
+  >
+    <div
+      className="item-details"
+    >
+      <div
+        className="labelSection"
+      >
+        <LabelWithRichCallout
+          calloutContent="settings.modelDefinitions.repositoryTypes.local.infoText"
+          required={true}
+        >
+          settings.modelDefinitions.repositoryTypes.local.label
+        </LabelWithRichCallout>
+      </div>
+      <StyledTextFieldBase
+        ariaLabel="settings.modelDefinitions.repositoryTypes.local.textBoxLabel"
+        className="local-folder-textbox"
+        label="settings.modelDefinitions.repositoryTypes.local.textBoxLabel"
+        readOnly={true}
+        value="HostName=repo.azureiotrepository.com;RepositoryId=123;SharedAccessKeyName=456;SharedAccessKey=789"
+      />
+      <CustomizedDefaultButton
+        ariaLabel="settings.modelDefinitions.repositoryTypes.local.folderPicker.command.openPicker"
+        onClick={[Function]}
+        text="settings.modelDefinitions.repositoryTypes.local.folderPicker.command.openPicker"
+      />
+      <div
+        role="dialog"
+      >
+        <StyledWithResponsiveMode
+          className="folder-picker-dialog"
+          hidden={true}
+          modalProps={
+            Object {
+              "isBlocking": false,
+            }
+          }
+          onDismiss={[Function]}
+          subText="settings.modelDefinitions.repositoryTypes.local.folderPicker.dialog.subText"
+          title="settings.modelDefinitions.repositoryTypes.local.folderPicker.dialog.title"
+        >
+          <div
+            className="folder-links"
+          >
+            <CustomizedDefaultButton
+              ariaLabel="settings.modelDefinitions.repositoryTypes.local.folderPicker.command.navigateToParent"
+              className="folder-button"
+              disabled={false}
+              iconProps={
+                Object {
+                  "iconName": "NavigateBack",
+                }
+              }
+              onClick={[Function]}
+              text="settings.modelDefinitions.repositoryTypes.local.folderPicker.command.navigateToParent"
+            />
+            <div
+              className="no-folders-text"
+            >
+              settings.modelDefinitions.repositoryTypes.local.folderPicker.dialog.noFolderFoundText
+            </div>
+          </div>
+          <StyledDialogFooterBase>
+            <CustomizedPrimaryButton
+              disabled={false}
+              onClick={[Function]}
+              text="settings.modelDefinitions.repositoryTypes.local.folderPicker.command.select"
+            />
+            <CustomizedDefaultButton
+              onClick={[Function]}
+              text="settings.modelDefinitions.repositoryTypes.local.folderPicker.command.cancel"
+            />
+          </StyledDialogFooterBase>
+        </StyledWithResponsiveMode>
+      </div>
+    </div>
+    <CustomizedIconButton
+      ariaLabel="settings.cancel"
+      className="remove-button"
+      iconProps={
+        Object {
+          "iconName": "Cancel",
+        }
+      }
+      onClick={[Function]}
+      title="settings.cancel"
+    />
+  </div>
+</div>
+`;
+
+exports[`components/settings/modelRepositoryLocationListItem matches snapshot for local 2`] = `
 <div
   className="item"
   role="list"
@@ -140,39 +244,7 @@ exports[`components/settings/repositoryLocationListItem matches snapshot for loc
 </div>
 `;
 
-exports[`components/settings/repositoryLocationListItem matches snapshot for private 1`] = `
-<div
-  className="item"
-  role="list"
->
-  <div
-    className="numbering"
-  >
-    1
-  </div>
-  <div
-    className="location-item"
-    role="listitem"
-  >
-    <div
-      className="item-details"
-    />
-    <CustomizedIconButton
-      ariaLabel="settings.cancel"
-      className="remove-button"
-      iconProps={
-        Object {
-          "iconName": "Cancel",
-        }
-      }
-      onClick={[Function]}
-      title="settings.cancel"
-    />
-  </div>
-</div>
-`;
-
-exports[`components/settings/repositoryLocationListItem matches snapshot for public 1`] = `
+exports[`components/settings/modelRepositoryLocationListItem matches snapshot for public 1`] = `
 <div
   className="item"
   role="list"

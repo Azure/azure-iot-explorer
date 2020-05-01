@@ -4,51 +4,42 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import ModelRepositoryLocationList from './modelRepositoryLocationList';
+import { shallow } from 'enzyme';
+import { ModelRepositoryLocationList } from './modelRepositoryLocationList';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
-import { testSnapshot } from '../../shared/utils/testHelpers';
 
 describe('components/settings/modelRepositoryLocationList', () => {
 
     it('matches snapshot with no items', () => {
         const component = (
             <ModelRepositoryLocationList
-                items={null}
-                onAddListItem={jest.fn()}
-                onMoveItem={jest.fn()}
-                onLocalFolderPathChanged={jest.fn()}
-                onRemoveListItem={jest.fn()}
+                repositoryLocationSettings={null}
+                onChangeRepositoryLocationSettings={jest.fn()}
             />
         );
-        testSnapshot(component);
+        expect(shallow(component)).toMatchSnapshot();
     });
     it('matches snapshot with public item', () => {
         const component = (
             <ModelRepositoryLocationList
-                items={[{repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public}]}
-                onAddListItem={jest.fn()}
-                onMoveItem={jest.fn()}
-                onLocalFolderPathChanged={jest.fn()}
-                onRemoveListItem={jest.fn()}
+                repositoryLocationSettings={[{repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public}]}
+                onChangeRepositoryLocationSettings={jest.fn()}
             />
         );
-        testSnapshot(component);
+        expect(shallow(component)).toMatchSnapshot();
     });
 
     it('matches snapshot with each type item', () => {
         const component = (
             <ModelRepositoryLocationList
-                items={[
+                repositoryLocationSettings={[
                     {repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public},
                     {repositoryLocationType: REPOSITORY_LOCATION_TYPE.Device},
                     {repositoryLocationType: REPOSITORY_LOCATION_TYPE.Local}
                 ]}
-                onAddListItem={jest.fn()}
-                onMoveItem={jest.fn()}
-                onLocalFolderPathChanged={jest.fn()}
-                onRemoveListItem={jest.fn()}
+                onChangeRepositoryLocationSettings={jest.fn()}
             />
         );
-        testSnapshot(component);
+        expect(shallow(component)).toMatchSnapshot();
     });
 });

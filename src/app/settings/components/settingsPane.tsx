@@ -68,8 +68,7 @@ export default class SettingsPane extends React.Component<SettingsPaneProps, Set
                         </section>
                         <section aria-label={context.t(ResourceKeys.settings.modelDefinitions.headerText)}>
                             <h3 role="heading" aria-level={1}>{context.t(ResourceKeys.settings.modelDefinitions.headerText)}</h3>
-                            <span className="helptext">{context.t(ResourceKeys.settings.modelDefinitions.helpText)}</span>
-                            <NavLink to={`"/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.MODEL_REPOS}`}>{context.t(ResourceKeys.settings.configuration.redirect)}</NavLink>
+                            <NavLink to={`"/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.MODEL_REPOS}`}>{context.t(ResourceKeys.settings.modelDefinitions.redirect)}</NavLink>
                         </section>
                         <section aria-label={context.t(ResourceKeys.settings.theme.headerText)}>
                             <h3 role="heading" aria-level={1}>{context.t(ResourceKeys.settings.theme.headerText)}</h3>

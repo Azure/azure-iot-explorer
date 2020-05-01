@@ -60,46 +60,8 @@
             "redirect": "Looking for connection settings? Please visit Home."
         },
         "modelDefinitions": {
-            "add": "Add model definition source",
             "headerText": "Plug and Play configurations",
-            "helpText": "We'll look for your model definition in the following order. Please drag and drop to change it.",
-            "repositoryTypes": {
-                "public": {
-                    "label":"Public repository",
-                    "infoText": ""
-                },
-                "private": {
-                    "label":"Company repository",
-                    "infoText": "",
-                    "textBoxLabel": "Company model repository connection string",
-                    "placeholder": ""
-                },
-                "device": {
-                    "label":"On the connected device",
-                    "infoText": ""
-                },
-                "local": {
-                    "label":"Local folder",
-                    "labelInBrowser":"Local folder (This is only enabled in the desktop version from: https://github.com/Azure/azure-iot-explorer/releases)",
-                    "infoText": "Use your local folder as a model repository. The model definition files you wish to use should have a json extension. The first JSON file with an '@id' property matching the digital twin model identifier (DTMI) will be retrieved.",
-                    "textBoxLabel": "Selected folder",
-                    "folderPicker": {
-                        "command": {
-                            "openPicker": "Pick a folder",
-                            "navigateToParent": "Navigate back to parent folder",
-                            "select": "Select",
-                            "cancel": "Cancel"
-                        },
-                        "dialog": {
-                            "title": "Select a folder as a local model repository",
-                            "subText": "Selected folder: {{folder}}",
-                            "noFolderFoundText": "No folders found.",
-                            "error": "Failed to retrieve folder information."
-                        }
-                    }
-                },
-                "notAvailable": "--"
-            }
+            "redirect": "Looking for Plug and Play settings? Please visit Home."
         },
         "questions": {
             "headerText": "Help:",
@@ -828,6 +790,63 @@
         "collapse": {
             "open": "Open for more information",
             "close": "Collapse"
+        }
+    },
+    "modelRepository" : {
+        "commands": {
+            "save": {
+                "label": "Save",
+                "ariaLabel": "Save"
+            },
+            "revert": {
+                "label": "Revert",
+                "ariaLabel": "Revert to last saved"
+            },
+            "add": {
+                "label": "Add",
+                "ariaLabel": "Add model source"
+            },
+            "addPublicSource" : {
+                "label": "Public repository",
+                "ariaLabel": "Public repository model source"
+            },
+            "addLocalSource": {
+                "label": "Local folder",
+                "labelInBrowser":"Local folder (This is only enabled in the desktop version from: https://github.com/Azure/azure-iot-explorer/releases)",
+                "ariaLabel": "Add local folder as model source"
+            },
+            "addDeviceSource": {
+                "label": "Connected device source",
+                "ariaLabel": "Connected device source"
+            }
+        },
+        "types": {
+            "public" : {
+                "label": "Public Repository"
+            },
+            "device": {
+                "label": "On Connected Device"
+            },
+            "local": {
+                "label": "Local Folder",
+                "infoText": "Use your local folder as a model repository. The model definition files you wish to use should have a json extension. The first JSON file with an '@id' property matching the digital twin model identifier (DTMI) will be retrieved.",
+                "textBoxLabel": "Selected folder",
+                "folderPicker": {
+                    "command": {
+                        "openPicker": "Pick a folder",
+                        "navigateToParent": "Navigate back to parent folder",
+                        "select": "Select",
+                        "cancel": "Cancel"
+                    },
+                    "dialog": {
+                        "title": "Select a folder as a local model repository",
+                        "subText": "Selected folder: {{folder}}",
+                        "noFolderFoundText": "No folders found.",
+                        "error": "Failed to retrieve folder information."
+                    }
+                }
+            },
+            "notAvailable": "--"
         }
     }
 }

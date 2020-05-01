@@ -19,9 +19,9 @@ interface ModelDefinitionSourceViewProps {
 const getModelDefinitionSourceResourceKeys = (source: REPOSITORY_LOCATION_TYPE) => {
     if (Object.values(REPOSITORY_LOCATION_TYPE).includes(source)) {
         // tslint:disable-next-line:no-any
-        return (ResourceKeys.settings.modelDefinitions.repositoryTypes as any)[source.toLowerCase()].label;
+        return (ResourceKeys.modelRepository.types as any)[source.toLowerCase()].label;
     }
-    return ResourceKeys.settings.modelDefinitions.repositoryTypes.notAvailable;
+    return ResourceKeys.modelRepository.types.notAvailable;
 };
 
 export const ModelDefinitionSourceView: React.FC<ModelDefinitionSourceViewProps> = props => {

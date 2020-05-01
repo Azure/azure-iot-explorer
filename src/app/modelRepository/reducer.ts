@@ -3,14 +3,14 @@
  * Licensed under the MIT License
  **********************************************************/
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
-import { setSettingsRepositoryLocationsAction } from './actions';
+import { setRepositoryLocationsAction } from './actions';
 import { modelRepositoryStateInitial, ModelRepositoryStateInterface, RepositoryLocationSettings } from './state';
 import { REPO_LOCATIONS } from '../constants/browserStorage';
 import { REPOSITORY_LOCATION_TYPE } from './../constants/repositoryLocationTypes';
 import { LOCAL_FILE_EXPLORER_PATH_NAME } from './../constants/browserStorage';
 
 const reducer = reducerWithInitialState<ModelRepositoryStateInterface>(modelRepositoryStateInitial())
-    .case(setSettingsRepositoryLocationsAction, (state: ModelRepositoryStateInterface, payload: RepositoryLocationSettings[]) => {
+    .case(setRepositoryLocationsAction, (state: ModelRepositoryStateInterface, payload: RepositoryLocationSettings[]) => {
         const locations = payload.map(item => item.repositoryLocationType);
         localStorage.setItem(REPO_LOCATIONS, locations.join(','));
         let localFolderSettings = null;
@@ -24,9 +24,9 @@ const reducer = reducerWithInitialState<ModelRepositoryStateInterface>(modelRepo
         }
 
         const updatedState = {...state};
-        state.localFolderSettings = localFolderSettings;
-        state.repositoryLocations = locations;
+        updatedState.localFolderSettings = localFolderSettings;
+        updatedState.repositoryLocations = locations;
 
-        return state;
+        return updatedState;
     });
 export default reducer;

@@ -5,7 +5,7 @@
 import 'jest';
 import * as React from 'react';
 import Dialog from 'office-ui-fabric-react/lib/Dialog';
-import ModelRepositoryLocationListItem from './modelRepositoryLocationListItem';
+import { ModelRepositoryLocationListItem } from './modelRepositoryLocationListItem';
 import { testWithLocalizationContext, mountWithLocalization } from '../../shared/utils/testHelpers';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
 import { ResourceKeys } from '../../../localization/resourceKeys';
@@ -21,9 +21,8 @@ describe('components/settings/modelRepositoryLocationListItem', () => {
                     repositoryLocationType: REPOSITORY_LOCATION_TYPE.Local,
                     value: 'HostName=repo.azureiotrepository.com;RepositoryId=123;SharedAccessKeyName=456;SharedAccessKey=789'
                 }}
-                moveCard={jest.fn()}
-                onLocalFolderPathChanged={jest.fn()}
-                onRemoveListItem={jest.fn()}
+                onChangeRepositoryLocationSettingValue={jest.fn()}
+                onRemoveRepositoryLocationSetting={jest.fn()}
             />
         );
         expect(wrapper).toMatchSnapshot();
@@ -35,9 +34,8 @@ describe('components/settings/modelRepositoryLocationListItem', () => {
                 item={{
                     repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public,
                 }}
-                moveCard={jest.fn()}
-                onLocalFolderPathChanged={jest.fn()}
-                onRemoveListItem={jest.fn()}
+                onChangeRepositoryLocationSettingValue={jest.fn()}
+                onRemoveRepositoryLocationSetting={jest.fn()}
             />
         );
         expect(wrapper).toMatchSnapshot();
@@ -49,9 +47,8 @@ describe('components/settings/modelRepositoryLocationListItem', () => {
                 item={{
                     repositoryLocationType: REPOSITORY_LOCATION_TYPE.Device,
                 }}
-                moveCard={jest.fn()}
-                onLocalFolderPathChanged={jest.fn()}
-                onRemoveListItem={jest.fn()}
+                onChangeRepositoryLocationSettingValue={jest.fn()}
+                onRemoveRepositoryLocationSetting={jest.fn()}
             />
         );
         expect(wrapper).toMatchSnapshot();
@@ -64,9 +61,8 @@ describe('components/settings/modelRepositoryLocationListItem', () => {
                     repositoryLocationType: REPOSITORY_LOCATION_TYPE.Local,
                     value: 'f:/'
                 }}
-                moveCard={jest.fn()}
-                onLocalFolderPathChanged={jest.fn()}
-                onRemoveListItem={jest.fn()}
+                onChangeRepositoryLocationSettingValue={jest.fn()}
+                onRemoveRepositoryLocationSetting={jest.fn()}
             />
         );
         expect(wrapper).toMatchSnapshot();
@@ -81,9 +77,8 @@ describe('components/settings/modelRepositoryLocationListItem', () => {
                     repositoryLocationType: REPOSITORY_LOCATION_TYPE.Local,
                     value: 'f:/'
                 }}
-                moveCard={jest.fn()}
-                onLocalFolderPathChanged={jest.fn()}
-                onRemoveListItem={jest.fn()}
+                onChangeRepositoryLocationSettingValue={jest.fn()}
+                onRemoveRepositoryLocationSetting={jest.fn()}
             />
         );
         const subFolders = [];
@@ -111,10 +106,8 @@ describe('components/settings/modelRepositoryLocationListItem', () => {
                     repositoryLocationType: REPOSITORY_LOCATION_TYPE.Local,
                     value: 'f:/'
                 }}
-                moveCard={jest.fn()}
-                onPrivateRepositoryConnectionStringChanged={jest.fn()}
-                onLocalFolderPathChanged={jest.fn()}
-                onRemoveListItem={jest.fn()}
+                onChangeRepositoryLocationSettingValue={jest.fn()}
+                onRemoveRepositoryLocationSetting={jest.fn()}
             />
         );
         const subFolders = ['documents', 'pictures'];
