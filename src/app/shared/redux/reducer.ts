@@ -18,7 +18,7 @@ const reducer = combineReducers({
     deviceContentState: deviceContentStateReducer,
     deviceListState: deviceListStateReducer,
     iotHubState: iotHubStateReducer,
-    modelReposistoryState: modelRepositoryStateReducer,
+    modelRepositoryState: modelRepositoryStateReducer,
     moduleState: moduleStateReducer,
     notificationsState: notificationsStateReducer
 });
