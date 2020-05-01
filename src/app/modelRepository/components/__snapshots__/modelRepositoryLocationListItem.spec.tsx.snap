@@ -18,7 +18,7 @@ exports[`components/settings/modelRepositoryLocationListItem matches snapshot fo
       className="item-details"
     >
       <StyledLabelBase>
-        settings.modelDefinitions.repositoryTypes.device.label
+        modelRepository.types.device.label
       </StyledLabelBase>
     </div>
     <CustomizedIconButton
@@ -57,23 +57,23 @@ exports[`components/settings/modelRepositoryLocationListItem matches snapshot fo
         className="labelSection"
       >
         <LabelWithRichCallout
-          calloutContent="settings.modelDefinitions.repositoryTypes.local.infoText"
+          calloutContent="modelRepository.types.local.infoText"
           required={true}
         >
-          settings.modelDefinitions.repositoryTypes.local.label
+          modelRepository.types.local.label
         </LabelWithRichCallout>
       </div>
       <StyledTextFieldBase
-        ariaLabel="settings.modelDefinitions.repositoryTypes.local.textBoxLabel"
+        ariaLabel="modelRepository.types.local.textBoxLabel"
         className="local-folder-textbox"
-        label="settings.modelDefinitions.repositoryTypes.local.textBoxLabel"
+        label="modelRepository.types.local.textBoxLabel"
         readOnly={true}
         value="HostName=repo.azureiotrepository.com;RepositoryId=123;SharedAccessKeyName=456;SharedAccessKey=789"
       />
       <CustomizedDefaultButton
-        ariaLabel="settings.modelDefinitions.repositoryTypes.local.folderPicker.command.openPicker"
+        ariaLabel="modelRepository.types.local.folderPicker.command.openPicker"
         onClick={[Function]}
-        text="settings.modelDefinitions.repositoryTypes.local.folderPicker.command.openPicker"
+        text="modelRepository.types.local.folderPicker.command.openPicker"
       />
       <div
         role="dialog"
@@ -87,14 +87,14 @@ exports[`components/settings/modelRepositoryLocationListItem matches snapshot fo
             }
           }
           onDismiss={[Function]}
-          subText="settings.modelDefinitions.repositoryTypes.local.folderPicker.dialog.subText"
-          title="settings.modelDefinitions.repositoryTypes.local.folderPicker.dialog.title"
+          subText="modelRepository.types.local.folderPicker.dialog.subText"
+          title="modelRepository.types.local.folderPicker.dialog.title"
         >
           <div
             className="folder-links"
           >
             <CustomizedDefaultButton
-              ariaLabel="settings.modelDefinitions.repositoryTypes.local.folderPicker.command.navigateToParent"
+              ariaLabel="modelRepository.types.local.folderPicker.command.navigateToParent"
               className="folder-button"
               disabled={false}
               iconProps={
@@ -103,23 +103,23 @@ exports[`components/settings/modelRepositoryLocationListItem matches snapshot fo
                 }
               }
               onClick={[Function]}
-              text="settings.modelDefinitions.repositoryTypes.local.folderPicker.command.navigateToParent"
+              text="modelRepository.types.local.folderPicker.command.navigateToParent"
             />
             <div
               className="no-folders-text"
             >
-              settings.modelDefinitions.repositoryTypes.local.folderPicker.dialog.noFolderFoundText
+              modelRepository.types.local.folderPicker.dialog.noFolderFoundText
             </div>
           </div>
           <StyledDialogFooterBase>
             <CustomizedPrimaryButton
               disabled={false}
               onClick={[Function]}
-              text="settings.modelDefinitions.repositoryTypes.local.folderPicker.command.select"
+              text="modelRepository.types.local.folderPicker.command.select"
             />
             <CustomizedDefaultButton
               onClick={[Function]}
-              text="settings.modelDefinitions.repositoryTypes.local.folderPicker.command.cancel"
+              text="modelRepository.types.local.folderPicker.command.cancel"
             />
           </StyledDialogFooterBase>
         </StyledWithResponsiveMode>
@@ -161,23 +161,23 @@ exports[`components/settings/modelRepositoryLocationListItem matches snapshot fo
         className="labelSection"
       >
         <LabelWithRichCallout
-          calloutContent="settings.modelDefinitions.repositoryTypes.local.infoText"
+          calloutContent="modelRepository.types.local.infoText"
           required={true}
         >
-          settings.modelDefinitions.repositoryTypes.local.label
+          modelRepository.types.local.label
         </LabelWithRichCallout>
       </div>
       <StyledTextFieldBase
-        ariaLabel="settings.modelDefinitions.repositoryTypes.local.textBoxLabel"
+        ariaLabel="modelRepository.types.local.textBoxLabel"
         className="local-folder-textbox"
-        label="settings.modelDefinitions.repositoryTypes.local.textBoxLabel"
+        label="modelRepository.types.local.textBoxLabel"
         readOnly={true}
         value="f:/"
       />
       <CustomizedDefaultButton
-        ariaLabel="settings.modelDefinitions.repositoryTypes.local.folderPicker.command.openPicker"
+        ariaLabel="modelRepository.types.local.folderPicker.command.openPicker"
         onClick={[Function]}
-        text="settings.modelDefinitions.repositoryTypes.local.folderPicker.command.openPicker"
+        text="modelRepository.types.local.folderPicker.command.openPicker"
       />
       <div
         role="dialog"
@@ -191,14 +191,14 @@ exports[`components/settings/modelRepositoryLocationListItem matches snapshot fo
             }
           }
           onDismiss={[Function]}
-          subText="settings.modelDefinitions.repositoryTypes.local.folderPicker.dialog.subText"
-          title="settings.modelDefinitions.repositoryTypes.local.folderPicker.dialog.title"
+          subText="modelRepository.types.local.folderPicker.dialog.subText"
+          title="modelRepository.types.local.folderPicker.dialog.title"
         >
           <div
             className="folder-links"
           >
             <CustomizedDefaultButton
-              ariaLabel="settings.modelDefinitions.repositoryTypes.local.folderPicker.command.navigateToParent"
+              ariaLabel="modelRepository.types.local.folderPicker.command.navigateToParent"
               className="folder-button"
               disabled={false}
               iconProps={
@@ -207,23 +207,23 @@ exports[`components/settings/modelRepositoryLocationListItem matches snapshot fo
                 }
               }
               onClick={[Function]}
-              text="settings.modelDefinitions.repositoryTypes.local.folderPicker.command.navigateToParent"
+              text="modelRepository.types.local.folderPicker.command.navigateToParent"
             />
             <div
               className="no-folders-text"
             >
-              settings.modelDefinitions.repositoryTypes.local.folderPicker.dialog.noFolderFoundText
+              modelRepository.types.local.folderPicker.dialog.noFolderFoundText
             </div>
           </div>
           <StyledDialogFooterBase>
             <CustomizedPrimaryButton
               disabled={false}
               onClick={[Function]}
-              text="settings.modelDefinitions.repositoryTypes.local.folderPicker.command.select"
+              text="modelRepository.types.local.folderPicker.command.select"
             />
             <CustomizedDefaultButton
               onClick={[Function]}
-              text="settings.modelDefinitions.repositoryTypes.local.folderPicker.command.cancel"
+              text="modelRepository.types.local.folderPicker.command.cancel"
             />
           </StyledDialogFooterBase>
         </StyledWithResponsiveMode>
@@ -262,7 +262,7 @@ exports[`components/settings/modelRepositoryLocationListItem matches snapshot fo
       className="item-details"
     >
       <StyledLabelBase>
-        settings.modelDefinitions.repositoryTypes.public.label
+        modelRepository.types.public.label
       </StyledLabelBase>
     </div>
     <CustomizedIconButton

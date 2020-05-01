@@ -87,12 +87,12 @@ describe('components/settings/modelRepositoryLocationListItem', () => {
         let dialog = wrapper.find(Dialog).first();
         expect(dialog.children().props().hidden).toBeFalsy();
         expect(dialog.children().props().children[0].props.children[0].props.disabled).toBeTruthy();
-        expect(dialog.children().props().children[0].props.children[1].props.children).toEqual(ResourceKeys.settings.modelDefinitions.repositoryTypes.local.folderPicker.dialog.noFolderFoundText);
+        expect(dialog.children().props().children[0].props.children[1].props.children).toEqual(ResourceKeys.modelRepository.types.local.folderPicker.dialog.noFolderFoundText);
 
         wrapper.setState({showFolderPicker: true, showError: true});
         wrapper.update();
         dialog = wrapper.find(Dialog).first();
-        expect(dialog.children().props().children[0].props.children[1].props.children).toStrictEqual(ResourceKeys.settings.modelDefinitions.repositoryTypes.local.folderPicker.dialog.error);
+        expect(dialog.children().props().children[0].props.children[1].props.children).toStrictEqual(ResourceKeys.modelRepository.types.local.folderPicker.dialog.error);
         expect(dialog.children().props().children[1].props.children[0].props.disabled).toBeTruthy();
     });
 
@@ -115,7 +115,7 @@ describe('components/settings/modelRepositoryLocationListItem', () => {
         wrapper.update();
         const dialog = wrapper.find(Dialog).first();
         expect(dialog.children().props().hidden).toBeFalsy();
-        expect(dialog.children().props().children[0].props.children[0].props.text).toEqual(ResourceKeys.settings.modelDefinitions.repositoryTypes.local.folderPicker.command.navigateToParent);
+        expect(dialog.children().props().children[0].props.children[0].props.text).toEqual(ResourceKeys.modelRepository.types.local.folderPicker.command.navigateToParent);
         expect(dialog.children().props().children[0].props.children[0].props.disabled).toBeFalsy();
         expect(dialog.children().props().children[0].props.children[1].length).toEqual(subFolders.length);
         expect(dialog.children().props().children[0].props.children[1][0].props.text).toEqual(subFolders[0]);
