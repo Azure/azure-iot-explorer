@@ -6,16 +6,12 @@ import * as React from 'react';
 import { Container, Draggable } from 'react-smooth-dnd';
 import { RepositoryLocationSettings } from '../state';
 import { LocalizationContextInterface, LocalizationContextConsumer } from '../../shared/contexts/localizationContext';
-import ModelRepositoryLocationItem from './modelRepositoryLocationListItem';
-import { ResourceKeys } from '../../../localization/resourceKeys';
-import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
+import { ModelRepositoryLocationListItem } from './modelRepositoryLocationListItem';
+import './modelRepositoryLocationList.scss';
 
 export interface ModelRepositoryLocationListProps {
-    items: RepositoryLocationSettings[];
-    onAddListItem: (type: REPOSITORY_LOCATION_TYPE) => void;
-    onMoveItem: (oldIndex: number, newIndex: number) => void;
-    onLocalFolderPathChanged: (path: string) => void;
-    onRemoveListItem: (index: number) => void;
+    repositoryLocationSettings: RepositoryLocationSettings[];
+    onChangeRepositoryLocationSettings(settings: RepositoryLocationSettings[]): void;
 }
 
 export default class RepositoryLocationList extends React.Component<ModelRepositoryLocationListProps> {
@@ -25,25 +21,31 @@ export default class RepositoryLocationList extends React.Component<ModelReposit
     private readonly renderItem = (item: RepositoryLocationSettings, index: number) => {
         return (
                 <Draggable key={item.repositoryLocationType} >
-                    <ModelRepositoryLocationItem
-                        {...this.props}
+                    <ModelRepositoryLocationListItem
                         index={index}
                         item={item}
-                        moveCard={this.props.onMoveItem}
+                        onLocalFolderPathChanged={undefined}
+                        onRemoveListItem={this.onRemoveRepositoryLocationSetting}
                     />
                 </Draggable>
         );
     }
     private readonly onDrop = (e: {addedIndex: number, removedIndex: number}) => {
-        this.props.onMoveItem(e.removedIndex, e.addedIndex);
+        const updatedRepositoryLocationSettings = [...this.props.repositoryLocationSettings];
+        updatedRepositoryLocationSettings.splice(e.addedIndex, 0, updatedRepositoryLocationSettings.splice(e.removedIndex, 1)[0]);
+
+        this.props.onChangeRepositoryLocationSettings(updatedRepositoryLocationSettings);
     }
 
-    private readonly onAddRepositoryType = (type: REPOSITORY_LOCATION_TYPE) => {
-        this.props.onAddListItem(type);
+    private readonly onRemoveRepositoryLocationSetting = (index: number) => {
+        const updatedRepositoryLocationSettings = [...this.props.repositoryLocationSettings];
+        updatedRepositoryLocationSettings.splice(index, 1);
+
+        this.props.onChangeRepositoryLocationSettings(updatedRepositoryLocationSettings);
     }
 
     public render(): JSX.Element {
-        const { items} = this.props;
+        const { repositoryLocationSettings } = this.props;
 
         return (
             <LocalizationContextConsumer>
@@ -51,7 +53,7 @@ export default class RepositoryLocationList extends React.Component<ModelReposit
                     return(
                         <div className="location-list">
                             <Container onDrop={this.onDrop}>
-                                {items && items.map((item, index) => this.renderItem(item, index))}
+                                {repositoryLocationSettings && repositoryLocationSettings.map((item, index) => this.renderItem(item, index))}
                             </Container>
                         </div>
                     );

@@ -22,7 +22,6 @@ export interface ModelRepositoryLocationListItemProps {
     index: number;
     item: RepositoryLocationSettings;
     onLocalFolderPathChanged: (path: string) => void;
-    moveCard: (oldIndex: number, newIndex: number) => void;
     onRemoveListItem: (index: number) => void;
 }
 
@@ -33,7 +32,7 @@ export interface RepositoryLocationListItemState {
     showError: boolean;
 }
 
-export default class ModelRepositoryLocationListItem extends React.Component<ModelRepositoryLocationListItemProps, RepositoryLocationListItemState> {
+export class ModelRepositoryLocationListItem extends React.Component<ModelRepositoryLocationListItemProps, RepositoryLocationListItemState> {
     constructor(props: ModelRepositoryLocationListItemProps) {
         super(props);
         let currentFolder = '';

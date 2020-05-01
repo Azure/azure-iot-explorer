@@ -17,17 +17,17 @@ import { appConfig, HostMode } from '../../../appConfig/appConfig';
 import '../../css/_layouts.scss';
 
 export interface ModelRepositoriesViewDataProps {
-    modelRespositorySettings: RepositoryLocationSettings[];
+    repositoryLocationSettings: RepositoryLocationSettings[];
 }
 
 export interface ModelRepositoriesViewActionProps {
-    onSaveModelRepositorySettings(modelRepositorySettings: RepositoryLocationSettings[]): void;
+    onSaveRepositoryLocationSettings(modelRepositorySettings: RepositoryLocationSettings[]): void;
 }
 
 export type ModelRepositoriesViewProps = ModelRepositoriesViewDataProps & ModelRepositoriesViewActionProps;
 
 export const ModelRepositoriesView: React.FC<ModelRepositoriesViewProps> = props => {
-    const [ modelRepositoryLocationSettings, setModelRepositorySettings ] = React.useState<RepositoryLocationSettings[]>(props.modelRespositorySettings);
+    const [ repositoryLocationSettings, setRepositoryLocationSettings ] = React.useState<RepositoryLocationSettings[]>(props.repositoryLocationSettings);
     const [ dirty, setDirtyFlag ] = React.useState<boolean>(false);
     const { t } = useLocalizationContext();
 
@@ -41,6 +41,7 @@ export const ModelRepositoriesView: React.FC<ModelRepositoriesViewProps> = props
         return [
             {
                 ariaLabel: t(ResourceKeys.connectionStrings.addConnectionCommand.ariaLabel),
+                disabled: !dirty,
                 iconProps: { iconName: 'Save' },
                 key: 'save',
                 onClick: onSaveModelRepositorySettingsClick,
@@ -63,19 +64,19 @@ export const ModelRepositoriesView: React.FC<ModelRepositoriesViewProps> = props
 
         return [
             {
-                disabled: modelRepositoryLocationSettings.some(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Public),
+                disabled: repositoryLocationSettings.some(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Public),
                 key: REPOSITORY_LOCATION_TYPE.Public,
                 onClick: onAddRepositoryLocationPublic,
                 text: t(ResourceKeys.settings.modelDefinitions.repositoryTypes.public.label)
             },
             {
-                disabled: modelRepositoryLocationSettings.some(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Device),
+                disabled: repositoryLocationSettings.some(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Device),
                 key: REPOSITORY_LOCATION_TYPE.Device,
                 onClick: onAddRepositoryLocationDevice,
                 text: t(ResourceKeys.settings.modelDefinitions.repositoryTypes.device.label),
             },
             {
-                disabled: hostModeNotElectron || modelRepositoryLocationSettings.some(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local),
+                disabled: hostModeNotElectron || repositoryLocationSettings.some(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local),
                 key: REPOSITORY_LOCATION_TYPE.Local,
                 onClick: onAddRepositoryLocationLocal,
                 text: t(hostModeNotElectron ?
@@ -86,20 +87,40 @@ export const ModelRepositoriesView: React.FC<ModelRepositoriesViewProps> = props
     };
 
     const onAddRepositoryLocationPublic = () => {
-        throw new Error('not implemented');
+        setDirtyFlag(true);
+        setRepositoryLocationSettings([
+            ...repositoryLocationSettings,
+            {
+               repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public
+            }
+        ]);
     };
 
     const onAddRepositoryLocationLocal = () => {
-        throw new Error('not implemented');
+        setDirtyFlag(true);
+        setRepositoryLocationSettings([
+            ...repositoryLocationSettings,
+            {
+               repositoryLocationType: REPOSITORY_LOCATION_TYPE.Local
+            }
+        ]);
     };
 
     const onAddRepositoryLocationDevice = () => {
-        throw new Error('not implemented');
-
+        setDirtyFlag(true);
+        setRepositoryLocationSettings([
+            ...repositoryLocationSettings,
+            {
+               repositoryLocationType: REPOSITORY_LOCATION_TYPE.Device
+            }
+        ]);
     };
 
-    const onChangeRepositories = (repositoryLocationSettings: RepositoryLocationSettings[]) => {
-        throw new Error('not implemented');
+    const onChangeRepositoryLocationSettings = (updatedRepositoryLocationSettings: RepositoryLocationSettings[]) => {
+        setDirtyFlag(true);
+        setRepositoryLocationSettings([
+            ...updatedRepositoryLocationSettings
+        ]);
     };
 
     return (
@@ -109,11 +130,8 @@ export const ModelRepositoriesView: React.FC<ModelRepositoriesViewProps> = props
             </div>
             <div className="view-content view-scroll-vertical">
                 <ModelRepositoryLocationList
-                     items={props.modelRespositorySettings}
-                     onAddListItem={undefined}
-                     onMoveItem={undefined}
-                     onLocalFolderPathChanged={undefined}
-                     onRemoveListItem={undefined}
+                    repositoryLocationSettings={repositoryLocationSettings}
+                    onChangeRepositoryLocationSettings={onChangeRepositoryLocationSettings}
                 />
             </div>
         </div>
@@ -127,13 +145,10 @@ export const ModelRepositoriesViewContainer: React.FC = () => {
         throw new Error('not implemented');
     };
 
-    // tslint:disable-next-line: no-console
-    console.log(JSON.stringify(reduxState));
-
     return (
         <ModelRepositoriesView
-            modelRespositorySettings={modelRepositorySettings}
-            onSaveModelRepositorySettings={onSaveModelRepistorySettings}
+            repositoryLocationSettings={modelRepositorySettings}
+            onSaveRepositoryLocationSettings={onSaveModelRepistorySettings}
         />
     );
 };
