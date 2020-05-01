@@ -34,6 +34,7 @@ export const ModelRepositoryLocationView: React.FC<ModelRepositoryLocationViewPr
 
     const onSaveModelRepositorySettingsClick = () => {
         props.onSaveRepositoryLocationSettings(repositoryLocationSettings);
+        setDirtyFlag(false);
     };
 
     const getCommandBarItems = (): ICommandBarItemProps[] => {
