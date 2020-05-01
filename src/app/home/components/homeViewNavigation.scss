@@ -1,0 +1,23 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+
+.nav-link {
+    margin-left: 1px;
+    display: block;
+    text-decoration: none;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 14px;
+}
+
+.nav-link-active {
+    border-left-color: blue;
+    border-left-style: solid;
+    border-left-width: 2px;
+    background-color: gray;
+}

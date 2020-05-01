@@ -4,19 +4,18 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import RepositoryLocationList from './repositoryLocationList';
+import ModelRepositoryLocationList from './modelRepositoryLocationList';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
 import { testSnapshot } from '../../shared/utils/testHelpers';
 
-describe('components/settings/repositoryLocationList', () => {
+describe('components/settings/modelRepositoryLocationList', () => {
 
     it('matches snapshot with no items', () => {
         const component = (
-            <RepositoryLocationList
+            <ModelRepositoryLocationList
                 items={null}
                 onAddListItem={jest.fn()}
                 onMoveItem={jest.fn()}
-                onPrivateRepositoryConnectionStringChanged={jest.fn()}
                 onLocalFolderPathChanged={jest.fn()}
                 onRemoveListItem={jest.fn()}
             />
@@ -25,11 +24,10 @@ describe('components/settings/repositoryLocationList', () => {
     });
     it('matches snapshot with public item', () => {
         const component = (
-            <RepositoryLocationList
+            <ModelRepositoryLocationList
                 items={[{repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public}]}
                 onAddListItem={jest.fn()}
                 onMoveItem={jest.fn()}
-                onPrivateRepositoryConnectionStringChanged={jest.fn()}
                 onLocalFolderPathChanged={jest.fn()}
                 onRemoveListItem={jest.fn()}
             />
@@ -39,15 +37,14 @@ describe('components/settings/repositoryLocationList', () => {
 
     it('matches snapshot with each type item', () => {
         const component = (
-            <RepositoryLocationList
+            <ModelRepositoryLocationList
                 items={[
                     {repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public},
                     {repositoryLocationType: REPOSITORY_LOCATION_TYPE.Device},
-                    {repositoryLocationType: REPOSITORY_LOCATION_TYPE.Private}
+                    {repositoryLocationType: REPOSITORY_LOCATION_TYPE.Local}
                 ]}
                 onAddListItem={jest.fn()}
                 onMoveItem={jest.fn()}
-                onPrivateRepositoryConnectionStringChanged={jest.fn()}
                 onLocalFolderPathChanged={jest.fn()}
                 onRemoveListItem={jest.fn()}
             />

@@ -5,24 +5,23 @@
 import 'jest';
 import * as React from 'react';
 import Dialog from 'office-ui-fabric-react/lib/Dialog';
-import RepositoryLocationListItem from './repositoryLocationListItem';
+import ModelRepositoryLocationListItem from './modelRepositoryLocationListItem';
 import { testWithLocalizationContext, mountWithLocalization } from '../../shared/utils/testHelpers';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import * as Utils from '../../shared/utils/utils';
 
-describe('components/settings/repositoryLocationListItem', () => {
+describe('components/settings/modelRepositoryLocationListItem', () => {
 
-    it('matches snapshot for private', () => {
+    it('matches snapshot for local', () => {
         const wrapper = testWithLocalizationContext(
-            <RepositoryLocationListItem
+            <ModelRepositoryLocationListItem
                 index={0}
                 item={{
-                    repositoryLocationType: REPOSITORY_LOCATION_TYPE.Private,
+                    repositoryLocationType: REPOSITORY_LOCATION_TYPE.Local,
                     value: 'HostName=repo.azureiotrepository.com;RepositoryId=123;SharedAccessKeyName=456;SharedAccessKey=789'
                 }}
                 moveCard={jest.fn()}
-                onPrivateRepositoryConnectionStringChanged={jest.fn()}
                 onLocalFolderPathChanged={jest.fn()}
                 onRemoveListItem={jest.fn()}
             />
@@ -31,13 +30,12 @@ describe('components/settings/repositoryLocationListItem', () => {
     });
     it('matches snapshot for public', () => {
         const wrapper = testWithLocalizationContext(
-            <RepositoryLocationListItem
+            <ModelRepositoryLocationListItem
                 index={0}
                 item={{
                     repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public,
                 }}
                 moveCard={jest.fn()}
-                onPrivateRepositoryConnectionStringChanged={jest.fn()}
                 onLocalFolderPathChanged={jest.fn()}
                 onRemoveListItem={jest.fn()}
             />
@@ -46,13 +44,12 @@ describe('components/settings/repositoryLocationListItem', () => {
     });
     it('matches snapshot for device', () => {
         const wrapper = testWithLocalizationContext(
-            <RepositoryLocationListItem
+            <ModelRepositoryLocationListItem
                 index={0}
                 item={{
                     repositoryLocationType: REPOSITORY_LOCATION_TYPE.Device,
                 }}
                 moveCard={jest.fn()}
-                onPrivateRepositoryConnectionStringChanged={jest.fn()}
                 onLocalFolderPathChanged={jest.fn()}
                 onRemoveListItem={jest.fn()}
             />
@@ -61,14 +58,13 @@ describe('components/settings/repositoryLocationListItem', () => {
     });
     it('matches snapshot for local', () => {
         const wrapper = testWithLocalizationContext(
-            <RepositoryLocationListItem
+            <ModelRepositoryLocationListItem
                 index={0}
                 item={{
                     repositoryLocationType: REPOSITORY_LOCATION_TYPE.Local,
                     value: 'f:/'
                 }}
                 moveCard={jest.fn()}
-                onPrivateRepositoryConnectionStringChanged={jest.fn()}
                 onLocalFolderPathChanged={jest.fn()}
                 onRemoveListItem={jest.fn()}
             />
@@ -79,14 +75,13 @@ describe('components/settings/repositoryLocationListItem', () => {
         jest.spyOn(Utils, 'getRootFolder').mockReturnValue(null);
 
         const wrapper = mountWithLocalization(
-            <RepositoryLocationListItem
+            <ModelRepositoryLocationListItem
                 index={0}
                 item={{
                     repositoryLocationType: REPOSITORY_LOCATION_TYPE.Local,
                     value: 'f:/'
                 }}
                 moveCard={jest.fn()}
-                onPrivateRepositoryConnectionStringChanged={jest.fn()}
                 onLocalFolderPathChanged={jest.fn()}
                 onRemoveListItem={jest.fn()}
             />
@@ -110,7 +105,7 @@ describe('components/settings/repositoryLocationListItem', () => {
         jest.spyOn(Utils, 'getRootFolder').mockReturnValue(null);
 
         const wrapper = mountWithLocalization(
-            <RepositoryLocationListItem
+            <ModelRepositoryLocationListItem
                 index={0}
                 item={{
                     repositoryLocationType: REPOSITORY_LOCATION_TYPE.Local,

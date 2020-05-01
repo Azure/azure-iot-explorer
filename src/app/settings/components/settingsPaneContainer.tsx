@@ -7,33 +7,18 @@ import { compose, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { StateType } from '../../shared/redux/state';
-import SettingsPane, { SettingsPaneActions, SettingsPaneProps, Settings } from './settingsPane';
-import { setSettingsVisibilityAction, setSettingsRepositoryLocationsAction } from '../actions';
-import { getSettingsVisibleSelector, getRepositoryLocationSettingsSelector } from '../selectors';
-import { listDevicesAction } from '../../devices/deviceList/actions';
-import { addNotificationAction } from '../../notifications/actions';
-import { Notification } from '../../api/models/notification';
-import DeviceQuery from '../../api/models/deviceQuery';
-import { getActiveAzureResourceConnectionStringSelector } from '../../azureResource/selectors';
+import SettingsPane, { SettingsPaneActionProps, SettingsPaneDataProps } from './settingsPane';
 
-const mapStateToProps = (state: StateType): SettingsPaneProps => {
+const mapStateToProps = (state: StateType): SettingsPaneDataProps => {
     return {
-        hubConnectionString: getActiveAzureResourceConnectionStringSelector(state),
-        isOpen: getSettingsVisibleSelector(state),
-        repositoryLocationSettings: getRepositoryLocationSettingsSelector(state)
+        isOpen: false
     };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): SettingsPaneActions => {
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): SettingsPaneActionProps => {
     return {
-        addNotification: (notification: Notification) => dispatch(addNotificationAction.started(notification)),
-        onSettingsSave: (payload: Settings) => {
-            dispatch(setSettingsRepositoryLocationsAction(payload.repositoryLocationSettings));
-        },
-        onSettingsVisibleChanged: (visible: boolean) => {
-            dispatch(setSettingsVisibilityAction(visible));
-        },
-        refreshDevices: (query?: DeviceQuery) => dispatch(listDevicesAction.started(query))
+        // tslint:disable-next-line: no-empty
+        toggleVisibility: () => {}
     };
 };
 

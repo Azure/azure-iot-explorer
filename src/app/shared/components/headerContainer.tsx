@@ -8,11 +8,10 @@ import { connect } from 'react-redux';
 import { StateType } from '../redux/state';
 import Header, { HeaderProps, HeaderActions } from './header';
 import { setSettingsVisibilityAction } from '../../settings/actions';
-import { getSettingsVisibleSelector } from '../../settings/selectors';
 
 const mapStateToProps = (state: StateType): HeaderProps => {
     return {
-        settingsVisible: getSettingsVisibleSelector(state)
+        settingsVisible: false
     };
 };
 

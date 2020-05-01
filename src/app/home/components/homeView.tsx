@@ -8,6 +8,7 @@ import { ROUTE_PARTS } from '../../constants/routes';
 import AppVersionMessageBar from './appVersionMessageBar';
 import { HomeViewNavigation } from './homeViewNavigation';
 import { AzureResourcesView } from '../../azureResources/components/azureResourcesView';
+import { ModelRepositoriesView } from '../../modelRepository/components/modelRepositoriesView';
 import './homeView.scss';
 
 export type HomeViewProps = RouteComponentProps;
@@ -25,7 +26,7 @@ export const HomeView: React.FC<HomeViewProps> = props => {
                 </div>
                 <div className="content">
                     <Route path={`${match.url}`} component={AzureResourcesView} exact={true} />
-                    <Route path={`${match.url}/${ROUTE_PARTS.MODEL_REPOS}/`} component={AzureResourcesView} />
+                    <Route path={`${match.url}/${ROUTE_PARTS.MODEL_REPOS}/`} component={ModelRepositoriesView} />
                 </div>
             </div>
         </div>

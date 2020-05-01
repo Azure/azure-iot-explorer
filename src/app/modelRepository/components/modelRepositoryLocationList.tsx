@@ -7,13 +7,13 @@ import { Container, Draggable } from 'react-smooth-dnd';
 import { CommandButton } from 'office-ui-fabric-react/lib/Button';
 import { RepositoryLocationSettings } from '../state';
 import { LocalizationContextInterface, LocalizationContextConsumer } from '../../shared/contexts/localizationContext';
-import RepositoryLocationItem from './repositoryLocationListItem';
+import ModelRepositoryLocationItem from './modelRepositoryLocationListItem';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
 import { ADD } from '../../constants/iconNames';
 import { appConfig, HostMode } from '../../../appConfig/appConfig';
 
-export interface RepositoryLocationListProps {
+export interface ModelRepositoryLocationListProps {
     items: RepositoryLocationSettings[];
     onAddListItem: (type: REPOSITORY_LOCATION_TYPE) => void;
     onMoveItem: (oldIndex: number, newIndex: number) => void;
@@ -21,14 +21,14 @@ export interface RepositoryLocationListProps {
     onRemoveListItem: (index: number) => void;
 }
 
-export default class RepositoryLocationList extends React.Component<RepositoryLocationListProps> {
-    constructor(props: RepositoryLocationListProps) {
+export default class RepositoryLocationList extends React.Component<ModelRepositoryLocationListProps> {
+    constructor(props: ModelRepositoryLocationListProps) {
         super(props);
     }
     private readonly renderItem = (item: RepositoryLocationSettings, index: number) => {
         return (
                 <Draggable key={item.repositoryLocationType} >
-                    <RepositoryLocationItem
+                    <ModelRepositoryLocationItem
                         {...this.props}
                         index={index}
                         item={item}

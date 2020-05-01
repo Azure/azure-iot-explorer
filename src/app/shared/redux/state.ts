@@ -7,18 +7,18 @@ import { DeviceContentStateType } from '../../devices/deviceContent/state';
 import { DeviceListStateInterface } from '../../devices/deviceList/state';
 import { ConnectionStringsStateInterface } from '../../connectionStrings/state';
 import { IotHubStateInterface } from '../../iotHub/state';
+import { ModelRepositoryStateInterface } from '../../modelRepository/state';
 import { NotificationsStateInterface } from '../../notifications/state';
-import { ApplicationStateType } from '../../settings/state';
 import { ModuleStateType } from '../../devices/module/state';
 import { IM } from '../types/types';
 
 export interface StateInterface {
-    applicationState: ApplicationStateType;
     azureResourceState: AzureResourceStateInterface;
     connectionStringsState: ConnectionStringsStateInterface;
     deviceContentState: DeviceContentStateType;
     deviceListState: DeviceListStateInterface;
     iotHubState: IotHubStateInterface;
+    modelRepositoryState: ModelRepositoryStateInterface;
     notificationsState: NotificationsStateInterface;
     moduleState: ModuleStateType;
 }

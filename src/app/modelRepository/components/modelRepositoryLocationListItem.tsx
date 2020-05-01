@@ -18,7 +18,7 @@ import LabelWithRichCallout from '../../shared/components/labelWithRichCallout';
 import { getRootFolder, getParentFolder } from '../../shared/utils/utils';
 import '../../css/_repositoryLocationItem.scss';
 
-export interface RepositoryLocationListItemProps {
+export interface ModelRepositoryLocationListItemProps {
     index: number;
     item: RepositoryLocationSettings;
     onLocalFolderPathChanged: (path: string) => void;
@@ -33,8 +33,8 @@ export interface RepositoryLocationListItemState {
     showError: boolean;
 }
 
-export default class RepositoryLocationListItem extends React.Component<RepositoryLocationListItemProps, RepositoryLocationListItemState> {
-    constructor(props: RepositoryLocationListItemProps) {
+export default class ModelRepositoryLocationListItem extends React.Component<ModelRepositoryLocationListItemProps, RepositoryLocationListItemState> {
+    constructor(props: ModelRepositoryLocationListItemProps) {
         super(props);
         let currentFolder = '';
         if (this.props.item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local) {

@@ -11,7 +11,7 @@ import { addNotificationAction } from '../../../notifications/actions';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getModelDefinitionAction } from '../actions';
-import { getRepositoryLocationSettingsSelector, getPublicRepositoryHostName, getLocalFolderPath } from '../../../settings/selectors';
+import { getRepositoryLocationSettingsSelector, getPublicRepositoryHostName, getLocalFolderPath } from '../../../modelRepository/selectors';
 import { REPOSITORY_LOCATION_TYPE } from '../../../constants/repositoryLocationTypes';
 import { getComponentNameAndInterfaceIdArraySelector } from '../selectors';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
