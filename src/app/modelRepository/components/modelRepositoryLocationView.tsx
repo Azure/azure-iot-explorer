@@ -65,7 +65,7 @@ export const ModelRepositoryLocationView: React.FC<ModelRepositoryLocationViewPr
                 subMenuProps: {
                     items: addItems
                 },
-                text: t(ResourceKeys.modelRepository.commands.add.ariaLabel)
+                text: t(ResourceKeys.modelRepository.commands.add.label)
             }
         ];
     };

@@ -22,7 +22,7 @@ exports[`components/settings/modelRepositoryLocationListItem matches snapshot fo
       </StyledLabelBase>
     </div>
     <CustomizedIconButton
-      ariaLabel="settings.cancel"
+      ariaLabel="modelRepository.commands.remove.ariaLabel"
       className="remove-button"
       iconProps={
         Object {
@@ -30,7 +30,7 @@ exports[`components/settings/modelRepositoryLocationListItem matches snapshot fo
         }
       }
       onClick={[Function]}
-      title="settings.cancel"
+      title="modelRepository.commands.remove.label"
     />
   </div>
 </div>
@@ -126,7 +126,7 @@ exports[`components/settings/modelRepositoryLocationListItem matches snapshot fo
       </div>
     </div>
     <CustomizedIconButton
-      ariaLabel="settings.cancel"
+      ariaLabel="modelRepository.commands.remove.ariaLabel"
       className="remove-button"
       iconProps={
         Object {
@@ -134,7 +134,7 @@ exports[`components/settings/modelRepositoryLocationListItem matches snapshot fo
         }
       }
       onClick={[Function]}
-      title="settings.cancel"
+      title="modelRepository.commands.remove.label"
     />
   </div>
 </div>
@@ -230,7 +230,7 @@ exports[`components/settings/modelRepositoryLocationListItem matches snapshot fo
       </div>
     </div>
     <CustomizedIconButton
-      ariaLabel="settings.cancel"
+      ariaLabel="modelRepository.commands.remove.ariaLabel"
       className="remove-button"
       iconProps={
         Object {
@@ -238,7 +238,7 @@ exports[`components/settings/modelRepositoryLocationListItem matches snapshot fo
         }
       }
       onClick={[Function]}
-      title="settings.cancel"
+      title="modelRepository.commands.remove.label"
     />
   </div>
 </div>
@@ -266,7 +266,7 @@ exports[`components/settings/modelRepositoryLocationListItem matches snapshot fo
       </StyledLabelBase>
     </div>
     <CustomizedIconButton
-      ariaLabel="settings.cancel"
+      ariaLabel="modelRepository.commands.remove.ariaLabel"
       className="remove-button"
       iconProps={
         Object {
@@ -274,7 +274,7 @@ exports[`components/settings/modelRepositoryLocationListItem matches snapshot fo
         }
       }
       onClick={[Function]}
-      title="settings.cancel"
+      title="modelRepository.commands.remove.label"
     />
   </div>
 </div>

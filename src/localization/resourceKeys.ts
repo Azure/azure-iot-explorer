@@ -664,6 +664,10 @@ export class ResourceKeys {
             ariaLabel : "modelRepository.commands.addPublicSource.ariaLabel",
             label : "modelRepository.commands.addPublicSource.label",
          },
+         remove : {
+            ariaLabel : "modelRepository.commands.remove.ariaLabel",
+            label : "modelRepository.commands.remove.label",
+         },
          revert : {
             ariaLabel : "modelRepository.commands.revert.ariaLabel",
             label : "modelRepository.commands.revert.label",
@@ -814,7 +818,7 @@ export class ResourceKeys {
       updateDeviceTwinOnSuccess : "notifications.updateDeviceTwinOnSuccess",
    };
    public static settings = {
-      cancel : "settings.cancel",
+      close : "settings.close",
       configuration : {
          headerText : "settings.configuration.headerText",
          redirect : "settings.configuration.redirect",

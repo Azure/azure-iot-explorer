@@ -187,8 +187,8 @@ export class ModelRepositoryLocationListItem extends React.Component<ModelReposi
                         <IconButton
                             className="remove-button"
                             iconProps={{ iconName: CANCEL }}
-                            title={context.t(ResourceKeys.settings.cancel)}
-                            ariaLabel={context.t(ResourceKeys.settings.cancel)}
+                            title={context.t(ResourceKeys.modelRepository.commands.remove.label)}
+                            ariaLabel={context.t(ResourceKeys.modelRepository.commands.remove.ariaLabel)}
                             onClick={this.onRemove}
                         />
                     </div>

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/settings/settingsPane matches snapshot is not open 1`] = `
+exports[`settingsPane matches snapshot 1`] = `
 <Fragment>
   <CustomizedActionButton
     ariaLabel="header.settings.launch"
@@ -41,6 +41,7 @@ exports[`components/settings/settingsPane matches snapshot is not open 1`] = `
       <NavLink
         activeClassName="active"
         aria-current="page"
+        onClick={[Function]}
         to="/home"
       >
         settings.configuration.redirect
@@ -58,172 +59,7 @@ exports[`components/settings/settingsPane matches snapshot is not open 1`] = `
       <NavLink
         activeClassName="active"
         aria-current="page"
-        to="/home/repos"
-      >
-        settings.modelDefinitions.redirect
-      </NavLink>
-    </section>
-    <section
-      aria-label="settings.theme.headerText"
-    >
-      <h3
-        aria-level={1}
-        role="heading"
-      >
-        settings.theme.headerText
-      </h3>
-      <StyledToggleBase
-        checked={false}
-        offText="settings.theme.lightTheme"
-        onChange={[Function]}
-        onText="settings.theme.darkTheme"
-      />
-    </section>
-  </StyledPanelBase>
-</Fragment>
-`;
-
-exports[`components/settings/settingsPane matches snapshot open 1`] = `
-<Fragment>
-  <CustomizedActionButton
-    ariaLabel="header.settings.launch"
-    iconProps={
-      Object {
-        "iconName": "Settings",
-      }
-    }
-    onClick={[Function]}
-    text="header.settings.launch"
-  />
-  <StyledPanelBase
-    className="settingsPane"
-    closeButtonAriaLabel="common.close"
-    isFooterAtBottom={true}
-    isOpen={false}
-    onDismiss={[Function]}
-    onRenderFooter={[Function]}
-    role="dialog"
-    type={3}
-  >
-    <header
-      className="panel-header"
-    >
-      <h2>
-        settings.headerText
-      </h2>
-    </header>
-    <section
-      aria-label="settings.configuration.headerText"
-    >
-      <h3
-        aria-level={1}
-        role="heading"
-      >
-        settings.configuration.headerText
-      </h3>
-      <NavLink
-        activeClassName="active"
-        aria-current="page"
-        to="/home"
-      >
-        settings.configuration.redirect
-      </NavLink>
-    </section>
-    <section
-      aria-label="settings.modelDefinitions.headerText"
-    >
-      <h3
-        aria-level={1}
-        role="heading"
-      >
-        settings.modelDefinitions.headerText
-      </h3>
-      <NavLink
-        activeClassName="active"
-        aria-current="page"
-        to="/home/repos"
-      >
-        settings.modelDefinitions.redirect
-      </NavLink>
-    </section>
-    <section
-      aria-label="settings.theme.headerText"
-    >
-      <h3
-        aria-level={1}
-        role="heading"
-      >
-        settings.theme.headerText
-      </h3>
-      <StyledToggleBase
-        checked={false}
-        offText="settings.theme.lightTheme"
-        onChange={[Function]}
-        onText="settings.theme.darkTheme"
-      />
-    </section>
-  </StyledPanelBase>
-</Fragment>
-`;
-
-exports[`components/settings/settingsPane matches snapshot with repositoryLocations 1`] = `
-<Fragment>
-  <CustomizedActionButton
-    ariaLabel="header.settings.launch"
-    iconProps={
-      Object {
-        "iconName": "Settings",
-      }
-    }
-    onClick={[Function]}
-    text="header.settings.launch"
-  />
-  <StyledPanelBase
-    className="settingsPane"
-    closeButtonAriaLabel="common.close"
-    isFooterAtBottom={true}
-    isOpen={false}
-    onDismiss={[Function]}
-    onRenderFooter={[Function]}
-    role="dialog"
-    type={3}
-  >
-    <header
-      className="panel-header"
-    >
-      <h2>
-        settings.headerText
-      </h2>
-    </header>
-    <section
-      aria-label="settings.configuration.headerText"
-    >
-      <h3
-        aria-level={1}
-        role="heading"
-      >
-        settings.configuration.headerText
-      </h3>
-      <NavLink
-        activeClassName="active"
-        aria-current="page"
-        to="/home"
-      >
-        settings.configuration.redirect
-      </NavLink>
-    </section>
-    <section
-      aria-label="settings.modelDefinitions.headerText"
-    >
-      <h3
-        aria-level={1}
-        role="heading"
-      >
-        settings.modelDefinitions.headerText
-      </h3>
-      <NavLink
-        activeClassName="active"
-        aria-current="page"
+        onClick={[Function]}
         to="/home/repos"
       >
         settings.modelDefinitions.redirect

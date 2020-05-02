@@ -6,203 +6,114 @@ import * as React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel';
 import { Link } from 'office-ui-fabric-react/lib/Link';
-import { PrimaryButton, DefaultButton, ActionButton } from 'office-ui-fabric-react/lib/Button';
+import { DefaultButton, ActionButton } from 'office-ui-fabric-react/lib/Button';
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
-import { LocalizationContextConsumer, LocalizationContextInterface } from '../../shared/contexts/localizationContext';
+import { useLocalizationContext } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
-import { ConfirmationDialog } from './confirmationDialog';
-import { ThemeContextConsumer, ThemeContextInterface, Theme } from '../../shared/contexts/themeContext';
+import { Theme, useThemeContext } from '../../shared/contexts/themeContext';
 import { THEME_SELECTION } from '../../constants/browserStorage';
 import { ROUTE_PARTS } from '../../constants/routes';
 import '../../css/_settingsPane.scss';
 
-interface SettingsPaneState {
-    isDarkTheme: boolean;
-    isDirty: boolean;
-    showConfirmationDialog: boolean;
-    showPanel: boolean;
-}
+const SettingsPane: React.FC = () => {
+    const [ showPanel, setShowPanel ] = React.useState<boolean>(false);
+    const [ darkTheme, setDarkTheme] = React.useState<boolean>(false);
+    const { t } = useLocalizationContext();
+    const { updateTheme } = useThemeContext();
 
-export default class SettingsPane extends React.Component<{}, SettingsPaneState> {
-    constructor(props: {}) {
-        super(props);
+    React.useEffect(() => {
         const theme = localStorage.getItem(THEME_SELECTION);
+        setDarkTheme(theme === Theme.dark || theme === Theme.highContrastBlack);
+    }, []); // tslint:disable-line: align
 
-        this.state = {
-            isDarkTheme: Theme.dark === theme || Theme.highContrastBlack === theme,
-            isDirty: false,
-            showConfirmationDialog: false,
-            showPanel: false
-        };
-    }
+    const togglePanelVisibility = () => {
+        setShowPanel(!showPanel);
+    };
 
-    public render(): JSX.Element {
+    const toggleTheme = () => {
+        const newDarkTheme = !darkTheme;
+        setDarkTheme(newDarkTheme);
+        updateTheme(newDarkTheme);
+    };
+
+    const renderFooter = () => {
         return (
-            <LocalizationContextConsumer>
-                {(context: LocalizationContextInterface) => (
-                    <>
-                        <ActionButton
-                            iconProps={{iconName: 'Settings'}}
-                            onClick={this.togglePanelVisibility}
-                            text={context.t(ResourceKeys.header.settings.launch)}
-                            ariaLabel={context.t(ResourceKeys.header.settings.launch)}
-                        />
-
-                        <Panel
-                            className="settingsPane"
-                            role="dialog"
-                            isOpen={this.state.showPanel}
-                            onDismiss={this.dismissPane}
-                            type={PanelType.medium}
-                            isBlocking={false}
-                            isFooterAtBottom={true}
-                            onRenderFooter={this.settingsFooter}
-                            closeButtonAriaLabel={context.t(ResourceKeys.common.close)}
-                        >
-                            <header className="panel-header">
-                                <h2>{context.t(ResourceKeys.settings.headerText)}</h2>
-                            </header>
-                            <section aria-label={context.t(ResourceKeys.settings.configuration.headerText)}>
-                                <h3 role="heading" aria-level={1}>{context.t(ResourceKeys.settings.configuration.headerText)}</h3>
-                                <NavLink to={`/${ROUTE_PARTS.HOME}`}>{context.t(ResourceKeys.settings.configuration.redirect)}</NavLink>
-                            </section>
-                            <section aria-label={context.t(ResourceKeys.settings.modelDefinitions.headerText)}>
-                                <h3 role="heading" aria-level={1}>{context.t(ResourceKeys.settings.modelDefinitions.headerText)}</h3>
-                                <NavLink to={`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.MODEL_REPOS}`}>{context.t(ResourceKeys.settings.modelDefinitions.redirect)}</NavLink>
-                            </section>
-                            <section aria-label={context.t(ResourceKeys.settings.theme.headerText)}>
-                                <h3 role="heading" aria-level={1}>{context.t(ResourceKeys.settings.theme.headerText)}</h3>
-                                <Toggle
-                                    onText={context.t(ResourceKeys.settings.theme.darkTheme)}
-                                    offText={context.t(ResourceKeys.settings.theme.lightTheme)}
-                                    onChange={this.setTheme}
-                                    checked={this.state.isDarkTheme}
-                                />
-                            </section>
-                            {this.renderConfirmationDialog(context)}
-                        </Panel>
-                    </>
-                )}
-            </LocalizationContextConsumer>
+            <footer className="settings-footer">
+                <section aria-label={t(ResourceKeys.settings.questions.headerText)}>
+                    <h3 role="heading" aria-level={1}>{t(ResourceKeys.settings.questions.headerText)}</h3>
+                    <ul className="faq">
+                        <li className="faq-item">
+                            <Link
+                                href={t(ResourceKeys.settings.questions.questions.documentation.link)}
+                                target="_blank"
+                            >{t(ResourceKeys.settings.questions.questions.documentation.text)}
+                            </Link>
+                        </li>
+                    </ul>
+                </section>
+                <section className="footer-buttons">
+                    <DefaultButton
+                        type="reset"
+                        text={t(ResourceKeys.common.close)}
+                        onClick={togglePanelVisibility}
+                    />
+                </section>
+            </footer>
         );
-    }
+    };
 
-    private readonly togglePanelVisibility = () => {
-        this.setState({
-            showPanel: !this.state.showPanel
-        });
-    }
+    return (
+        <>
+            <ActionButton
+                iconProps={{iconName: 'Settings'}}
+                onClick={togglePanelVisibility}
+                text={t(ResourceKeys.header.settings.launch)}
+                ariaLabel={t(ResourceKeys.header.settings.launch)}
+            />
 
-    private readonly setTheme = (ev: React.MouseEvent<HTMLElement>, isDarkTheme: boolean) => {
-        this.setState({
-            isDarkTheme,
-            isDirty: true,
-        });
-    }
+            <Panel
+                className="settingsPane"
+                role="dialog"
+                isOpen={showPanel}
+                onDismiss={togglePanelVisibility}
+                type={PanelType.medium}
+                isFooterAtBottom={true}
+                onRenderFooter={renderFooter}
+                closeButtonAriaLabel={t(ResourceKeys.common.close)}
+            >
+                <header className="panel-header">
+                    <h2>{t(ResourceKeys.settings.headerText)}</h2>
+                </header>
+                <section aria-label={t(ResourceKeys.settings.configuration.headerText)}>
+                    <h3 role="heading" aria-level={1}>{t(ResourceKeys.settings.configuration.headerText)}</h3>
+                    <NavLink
+                        onClick={togglePanelVisibility}
+                        to={`/${ROUTE_PARTS.HOME}`}
+                    >
+                        {t(ResourceKeys.settings.configuration.redirect)}
+                    </NavLink>
+                </section>
+                <section aria-label={t(ResourceKeys.settings.modelDefinitions.headerText)}>
+                    <h3 role="heading" aria-level={1}>{t(ResourceKeys.settings.modelDefinitions.headerText)}</h3>
+                    <NavLink
+                        onClick={togglePanelVisibility}
+                        to={`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.MODEL_REPOS}`}
+                    >
+                        {t(ResourceKeys.settings.modelDefinitions.redirect)}
+                    </NavLink>
+                </section>
+                <section aria-label={t(ResourceKeys.settings.theme.headerText)}>
+                    <h3 role="heading" aria-level={1}>{t(ResourceKeys.settings.theme.headerText)}</h3>
+                    <Toggle
+                        onText={t(ResourceKeys.settings.theme.darkTheme)}
+                        offText={t(ResourceKeys.settings.theme.lightTheme)}
+                        onChange={toggleTheme}
+                        checked={darkTheme}
+                    />
+                </section>
+            </Panel>
+        </>
+    );
+};
 
-    private readonly renderConfirmationDialog = (context: LocalizationContextInterface) => {
-        if (this.state.isDirty && this.state.showConfirmationDialog) {
-            return (
-                <ConfirmationDialog
-                    t={context.t}
-                    messageKey={ResourceKeys.settings.confirmationMessage}
-                    onYes={this.onDialogConfirmCancel}
-                    onNo={this.closeDialog}
-                />
-            );
-        }
-    }
-
-    private readonly dismissPane = (event?: React.SyntheticEvent<HTMLElement, Event>) => {
-        event.preventDefault();
-        if (this.state.isDirty) {
-            this.revertState();
-        }
-        this.togglePanelVisibility();
-    }
-
-    private readonly closePane = () => {
-        if (this.state.isDirty) {
-            this.showDialog();
-        }
-        else {
-            this.togglePanelVisibility();
-        }
-    }
-
-    private readonly onDialogConfirmCancel = (): void => {
-        this.revertState();
-        this.togglePanelVisibility();
-    }
-
-    private readonly revertState = (): void => {
-        this.setState({
-            isDirty: false,
-            showConfirmationDialog: false
-        });
-    }
-
-    private readonly showDialog = (): void => {
-        this.setState({ showConfirmationDialog: true });
-    }
-
-    private readonly closeDialog = (): void => {
-        this.setState({ showConfirmationDialog: false });
-    }
-
-    private readonly saveSettings = () => {
-        this.togglePanelVisibility();
-    }
-
-    private readonly settingsFooter = () => {
-        return (
-        <LocalizationContextConsumer>
-            {(context: LocalizationContextInterface) => (
-                <footer className="settings-footer">
-                    <section aria-label={context.t(ResourceKeys.settings.questions.headerText)}>
-                        <h3 role="heading" aria-level={1}>{context.t(ResourceKeys.settings.questions.headerText)}</h3>
-                        <ul className="faq">
-                            <li className="faq-item">
-                                <Link
-                                    href={context.t(ResourceKeys.settings.questions.questions.documentation.link)}
-                                    target="_blank"
-                                >{context.t(ResourceKeys.settings.questions.questions.documentation.text)}
-                                </Link>
-                            </li>
-                        </ul>
-                    </section>
-                    <section className="footer-buttons">
-                        <h3 role="heading" aria-level={1}>{context.t(ResourceKeys.settings.footerText)}</h3>
-                        <ThemeContextConsumer>
-                            {(themeContext: ThemeContextInterface) => (
-                                <PrimaryButton
-                                    type="submit"
-                                    disabled={this.disableSaveButton()}
-                                    text={context.t(ResourceKeys.settings.save)}
-                                    // tslint:disable-next-line: jsx-no-lambda
-                                    onClick={() => {
-                                            themeContext.updateTheme(this.state.isDarkTheme);
-                                            this.saveSettings();
-                                        }
-                                    }
-                                />
-                            )}
-                        </ThemeContextConsumer>
-                        <DefaultButton
-                            type="reset"
-                            text={context.t(ResourceKeys.settings.cancel)}
-                            onClick={this.closePane}
-                        />
-                    </section>
-                </footer>
-            )}
-            </LocalizationContextConsumer>
-        );
-    }
-
-    private readonly disableSaveButton = () => {
-        // 1. check dirty and hub connection string
-        const shouldBeDisabled = !this.state.isDirty;
-        return shouldBeDisabled;
-    }
-}
+export default SettingsPane;

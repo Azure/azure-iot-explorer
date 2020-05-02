@@ -60,7 +60,7 @@
             "redirect": "Looking for connection settings? Please visit Home."
         },
         "modelDefinitions": {
-            "headerText": "Plug and Play configurations",
+            "headerText": "Plug and Play configuration",
             "redirect": "Looking for Plug and Play settings? Please visit Home."
         },
         "questions": {
@@ -74,7 +74,7 @@
         },
         "footerText": "You can come back to Settings and make changes later.",
         "save": "Save and Connect",
-        "cancel": "Close",
+        "close": "Close",
         "confirmationMessage": "Are you sure you want to close without saving?",
         "theme": {
             "headerText": "Application theme",
@@ -98,7 +98,7 @@
         "commands": "Commands",
         "ioTPlugAndPlay": "IoT Plug and Play components",
         "resources": "Connections",
-        "repos": "Plug and Play Configuration"
+        "repos": "Plug and Play configuration"
     },
     "deviceContent": {
         "start": "Select a device to start",
@@ -126,7 +126,7 @@
     },
     "connectionStrings": {
         "addConnectionCommand": {
-            "label": "Add Connection",
+            "label": "Add connection",
             "ariaLabel": "Add connection string"
         },
         "deleteConnectionCommand": {
@@ -820,6 +820,10 @@
             "addDeviceSource": {
                 "label": "Connected device source",
                 "ariaLabel": "Connected device source"
+            },
+            "remove": {
+                "label": "Remove",
+                "ariaLabel": "remove"
             }
         },
         "types": {
