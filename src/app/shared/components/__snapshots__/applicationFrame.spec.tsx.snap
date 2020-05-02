@@ -7,7 +7,7 @@ exports[`ApplicationFrame matches snapshot 1`] = `
   <div
     className="masthead"
   >
-    <Connect(Header) />
+    <Component />
   </div>
   <nav
     className="navigation"
@@ -20,7 +20,6 @@ exports[`ApplicationFrame matches snapshot 1`] = `
     className="content"
     role="main"
   />
-  <withRouter(Connect(SettingsPane)) />
 </div>
 `;
 
@@ -31,7 +30,7 @@ exports[`withApplicationFrame matches snapshot 1`] = `
   <div
     className="masthead"
   >
-    <Connect(Header) />
+    <Component />
   </div>
   <nav
     className="navigation"
@@ -46,6 +45,5 @@ exports[`withApplicationFrame matches snapshot 1`] = `
   >
     <Component />
   </main>
-  <withRouter(Connect(SettingsPane)) />
 </div>
 `;
