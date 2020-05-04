@@ -4,7 +4,7 @@ exports[`HomeView matches snapshot 1`] = `
 <div>
   <AppVersionMessageBar />
   <div
-    className="home-view"
+    className="view-content home-view"
   >
     <div
       className="nav"

@@ -9,7 +9,7 @@ import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import DeviceEventsPerInterfaceComponent, { DeviceEventsDataProps, DeviceEventsDispatchProps, TelemetrySchema, DeviceEventsState } from './deviceEventsPerInterface';
 import { mountWithLocalization, testSnapshot } from '../../../../shared/utils/testHelpers';
-import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
+import { InterfaceNotFoundMessageBar } from '../shared/interfaceNotFoundMessageBar';
 import ErrorBoundary from '../../../errorBoundary';
 import { appConfig, HostMode } from '../../../../../appConfig/appConfig';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
@@ -56,6 +56,7 @@ describe('components/devices/deviceEventsPerInterface', () => {
     const telemetrySchema: TelemetrySchema[] = [{
         parsedSchema: {
             description: 'Temperature /Current temperature on the device',
+            required: [],
             title: 'temp',
             type: 'number'
         },
@@ -76,7 +77,7 @@ describe('components/devices/deviceEventsPerInterface', () => {
     it('matches snapshot while interface cannot be found', () => {
         testSnapshot(getComponent({isLoading: false, telemetrySchema: undefined}));
         const wrapper = mountWithLocalization(getComponent(), true);
-        expect(wrapper.find(InterfaceNotFoundMessageBoxContainer)).toBeDefined();
+        expect(wrapper.find(InterfaceNotFoundMessageBar)).toBeDefined();
     });
 
     it('matches snapshot while interface definition is retrieved in electron', () => {

@@ -38,14 +38,13 @@ exports[`settingsPane matches snapshot 1`] = `
       >
         settings.configuration.headerText
       </h3>
-      <NavLink
-        activeClassName="active"
-        aria-current="page"
+      <StyledLinkBase
+        className="ms-Link"
+        href="#/home"
         onClick={[Function]}
-        to="/home"
       >
         settings.configuration.redirect
-      </NavLink>
+      </StyledLinkBase>
     </section>
     <section
       aria-label="settings.modelDefinitions.headerText"
@@ -56,14 +55,12 @@ exports[`settingsPane matches snapshot 1`] = `
       >
         settings.modelDefinitions.headerText
       </h3>
-      <NavLink
-        activeClassName="active"
-        aria-current="page"
+      <StyledLinkBase
+        href="#/home/repos"
         onClick={[Function]}
-        to="/home/repos"
       >
         settings.modelDefinitions.redirect
-      </NavLink>
+      </StyledLinkBase>
     </section>
     <section
       aria-label="settings.theme.headerText"
