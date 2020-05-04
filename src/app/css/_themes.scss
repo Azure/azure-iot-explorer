@@ -58,7 +58,12 @@
     successText: $successText,
     infoText: #52ABFF,
     inputComponentBackgroundColor: #ffffff,
-    pivotOnHoverBackground: $textfield-disabled-background
+    pivotOnHoverBackground: $textfield-disabled-background,
+    menuLinkBackground_Active: rgb(234, 234, 234),
+    menuLinkBackground_Hover: rgb(250, 250, 250),
+    menuLinkBorder_Active: rgb(0, 116, 204),
+    menuLinkColor_Hover: rgb(0, 116, 204),
+    menuLinkColor: rgb(51,51,51)
   ),
   dark: (
     headerTitleColor: #cccccc,

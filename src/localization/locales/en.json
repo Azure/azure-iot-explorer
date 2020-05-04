@@ -26,6 +26,9 @@
             "title": "Confirmation",
             "yes": "Yes",
             "no": "No"
+        },
+        "navigation": {
+            "confirm": "You have unsaved changes.  Are you sure you wish to continue?"
         }
     },
     "collapsibleSection": {
@@ -99,8 +102,8 @@
         "settings": "Properties (writable)",
         "commands": "Commands",
         "ioTPlugAndPlay": "IoT Plug and Play components",
-        "resources": "Connections",
-        "repos": "Plug and Play configuration"
+        "resources": "IoT hubs",
+        "repos": "IoT Plug and Play"
     },
     "deviceContent": {
         "start": "Select a device to start",
@@ -830,7 +833,11 @@
             "back": {
                 "label": "Go back",
                 "ariaLabel": "Go back to last location"
-            }
+            },
+            "help": {
+                "label": "IoT Plug and Play documentation",
+                "ariaLabel": "Open browser tab to IoT Plug and Play documentation"
+                }
         },
         "types": {
             "public" : {

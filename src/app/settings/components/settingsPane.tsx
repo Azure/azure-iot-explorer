@@ -38,18 +38,6 @@ const SettingsPane: React.FC = () => {
     const renderFooter = () => {
         return (
             <footer className="settings-footer">
-                <section aria-label={t(ResourceKeys.settings.questions.headerText)}>
-                    <h3 role="heading" aria-level={1}>{t(ResourceKeys.settings.questions.headerText)}</h3>
-                    <ul className="faq">
-                        <li className="faq-item">
-                            <Link
-                                href={t(ResourceKeys.settings.questions.questions.documentation.link)}
-                                target="_blank"
-                            >{t(ResourceKeys.settings.questions.questions.documentation.text)}
-                            </Link>
-                        </li>
-                    </ul>
-                </section>
                 <section className="footer-buttons">
                     <DefaultButton
                         type="reset"

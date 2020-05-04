@@ -109,6 +109,9 @@ export class ResourceKeys {
             },
          },
       },
+      navigation : {
+         confirm : "common.navigation.confirm",
+      },
    };
    public static connectionStrings = {
       addConnectionCommand : {
@@ -667,6 +670,10 @@ export class ResourceKeys {
          back : {
             ariaLabel : "modelRepository.commands.back.ariaLabel",
             label : "modelRepository.commands.back.label",
+         },
+         help : {
+            ariaLabel : "modelRepository.commands.help.ariaLabel",
+            label : "modelRepository.commands.help.label",
          },
          remove : {
             ariaLabel : "modelRepository.commands.remove.ariaLabel",

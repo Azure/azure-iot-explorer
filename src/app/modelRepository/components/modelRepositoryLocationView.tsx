@@ -4,8 +4,8 @@
  **********************************************************/
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { RouteComponentProps } from 'react-router-dom';
-import { CommandBar, ICommandBarItemProps,  } from 'office-ui-fabric-react/lib/CommandBar';
+import { RouteComponentProps, Prompt } from 'react-router-dom';
+import { CommandBar, ICommandBarItemProps, ICommandBarProps,  } from 'office-ui-fabric-react/lib/CommandBar';
 import { IContextualMenuItem } from 'office-ui-fabric-react/lib/ContextualMenu';
 import { useLocalizationContext } from '../../shared/contexts/localizationContext';
 import { getRepositoryLocationSettingsSelector } from '../selectors';
@@ -20,7 +20,6 @@ import '../../css/_layouts.scss';
 
 export interface ModelRepositoryLocationViewDataProps {
     repositoryLocationSettings: RepositoryLocationSettings[];
-    enableNavigateBack: boolean;
 }
 
 export interface ModelRepositoryLocationViewActionProps {
@@ -34,11 +33,6 @@ export const ModelRepositoryLocationView: React.FC<ModelRepositoryLocationViewPr
     const [ repositoryLocationSettings, setRepositoryLocationSettings ] = React.useState<RepositoryLocationSettings[]>(props.repositoryLocationSettings);
     const [ dirty, setDirtyFlag ] = React.useState<boolean>(false);
     const { t } = useLocalizationContext();
-
-    const onSaveModelRepositorySettingsClick = () => {
-        props.onSaveRepositoryLocationSettings(repositoryLocationSettings);
-        setDirtyFlag(false);
-    };
 
     const getCommandBarItems = (): ICommandBarItemProps[] => {
         const addItems = getCommandBarItemsAdd();
@@ -74,16 +68,30 @@ export const ModelRepositoryLocationView: React.FC<ModelRepositoryLocationViewPr
     };
 
     const getCommandBarItemsFar = (): ICommandBarItemProps[] => {
-        return !props.enableNavigateBack ? [] :
-            [
+        const items: ICommandBarItemProps[] = [
+            {
+                ariaLabel: t(ResourceKeys.modelRepository.commands.help.ariaLabel),
+                iconOnly: true,
+                iconProps: { iconName: 'Help'},
+                key: 'help',
+                onClick: onHelpClick,
+                text: t(ResourceKeys.modelRepository.commands.help.label)
+            }
+        ];
+
+        if (props.onNavigateBack) {
+            items.push(
                 {
                     ariaLabel: t(ResourceKeys.modelRepository.commands.back.ariaLabel),
                     iconProps: { iconName: 'NavigateBackMirrored'},
                     key: 'back',
-                    onClick: onNavigateBack,
+                    onClick: onNavigateBackClick,
                     text: t(ResourceKeys.modelRepository.commands.back.label)
                 }
-            ];
+            );
+        }
+
+        return items;
     };
 
     const getCommandBarItemsAdd = (): IContextualMenuItem[] => {
@@ -116,7 +124,16 @@ export const ModelRepositoryLocationView: React.FC<ModelRepositoryLocationViewPr
         ];
     };
 
-    const onNavigateBack = () => {
+    const onHelpClick = () => {
+        window.open(t(ResourceKeys.settings.questions.questions.documentation.link), '_blank');
+    };
+
+    const onSaveModelRepositorySettingsClick = () => {
+        props.onSaveRepositoryLocationSettings(repositoryLocationSettings);
+        setDirtyFlag(false);
+    };
+
+    const onNavigateBackClick = () => {
         props.onNavigateBack();
     };
 
@@ -164,6 +181,7 @@ export const ModelRepositoryLocationView: React.FC<ModelRepositoryLocationViewPr
 
     return (
         <div className="view">
+            <Prompt when={dirty} message={t(ResourceKeys.common.navigation.confirm)}/>
             <div className="view-command">
                 <CommandBar
                     items={getCommandBarItems()}
@@ -188,25 +206,22 @@ export const ModelRepositoryLocationViewContainer: React.FC<RouteComponentProps>
         dispatch(setRepositoryLocationsAction(repositoryLocationSettings));
     };
 
-    const enableNavigateBack = () => {
+    const getNavigateBack = () => {
         if (!props.history || !props.location.search || !props.location.search) {
-            return false;
+            return undefined;
         }
 
         const params = new URLSearchParams(props.location.search);
-        return (params.has('from'));
-    };
-
-    const onNavigateBack = () => {
-       props.history.goBack();
+        if (params.has('from')) {
+            return () => { props.history.goBack(); };
+        }
     };
 
     return (
         <ModelRepositoryLocationView
-            enableNavigateBack={enableNavigateBack()}
             repositoryLocationSettings={modelRepositorySettings}
             onSaveRepositoryLocationSettings={onSaveModelRepositorySettings}
-            onNavigateBack={onNavigateBack}
+            onNavigateBack={getNavigateBack()}
         />
     );
 };
