@@ -45,6 +45,7 @@ exports[`complexReportedFormPanel matches snapshot without twinWithSchema 1`] = 
       schema={
         Object {
           "description": "Brightness Level / The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)",
+          "required": null,
           "title": "brightness",
           "type": "number",
         }

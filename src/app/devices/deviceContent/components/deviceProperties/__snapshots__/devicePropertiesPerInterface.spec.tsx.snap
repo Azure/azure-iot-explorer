@@ -79,6 +79,7 @@ exports[`components/devices/deviceSettings matches snapshot with one twinWithSch
     twinWithSchema={
       Array [
         Object {
+          "isComponentContainedInDigitalTwin": true,
           "metadata": Object {
             "lastUpdatedTime": "2020-03-31T23:17:42.4813073Z",
           },
