@@ -13,7 +13,7 @@
     padding-bottom: 10px;
     text-overflow: ellipsis;
     overflow: hidden;
-    min-width: 180px;
+    min-width: 275px;
     font-size: 14px;
     @include themify($themes) {
         color: themed('menuLinkColor');
@@ -43,13 +43,14 @@
     }
 }
 
-.nav-bar {
+.nav-link-bar {
     padding-top: 44px;
-
+    border-right-width: 1px;
+    border-style: solid;
+    border-top-width: 0px;
+    border-left-width: 0px;
     @include themify($themes) {
         border: {
-            width: 1px;
-            style: solid;
             color: themed('navBarBorderColor');
         }
     }

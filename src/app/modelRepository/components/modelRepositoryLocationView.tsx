@@ -71,7 +71,6 @@ export const ModelRepositoryLocationView: React.FC<ModelRepositoryLocationViewPr
         const items: ICommandBarItemProps[] = [
             {
                 ariaLabel: t(ResourceKeys.modelRepository.commands.help.ariaLabel),
-                iconOnly: true,
                 iconProps: { iconName: 'Help'},
                 key: 'help',
                 onClick: onHelpClick,

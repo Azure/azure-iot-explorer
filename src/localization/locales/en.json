@@ -103,7 +103,7 @@
         "commands": "Commands",
         "ioTPlugAndPlay": "IoT Plug and Play components",
         "resources": "IoT hubs",
-        "repos": "IoT Plug and Play"
+        "repos": "IoT Plug and Play Settings"
     },
     "deviceContent": {
         "start": "Select a device to start",
@@ -835,7 +835,7 @@
                 "ariaLabel": "Go back to last location"
             },
             "help": {
-                "label": "IoT Plug and Play documentation",
+                "label": "Help",
                 "ariaLabel": "Open browser tab to IoT Plug and Play documentation"
                 }
         },

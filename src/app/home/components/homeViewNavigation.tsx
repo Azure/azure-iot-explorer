@@ -14,7 +14,7 @@ export const HomeViewNavigation: React.FC = props => {
     const { t } = useLocalizationContext();
 
     return (
-        <div className="nav-bar view">
+        <div className="nav-link-bar view">
             <div className="view-scroll-vertical">
                 <nav role="navigation">
                     <NavLink

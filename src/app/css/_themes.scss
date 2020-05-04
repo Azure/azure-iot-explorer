@@ -119,6 +119,11 @@
     infoText: rgb(75, 166, 216),
     inputComponentBackgroundColor: $dark-gray,
     pivotOnHoverBackground: #363636,
+    menuLinkBackground_Active: rgb(37, 37, 37),
+    menuLinkBackground_Hover: rgb(96,94,92),
+    menuLinkBorder_Active: rgb(75, 166, 216),
+    menuLinkColor_Hover: rgb(75, 166, 216),
+    menuLinkColor: rgb(248,248,248)
   ),
   highContrastWhite: (
     headerTitleColor: $contrast-white-text,
