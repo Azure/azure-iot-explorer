@@ -53,6 +53,7 @@ describe('getDeviceCommandPairs', () => {
         const telemetrySchemas = [
             {
                 parsedSchema: {
+                    definitions: {},
                     required: null,
                     title: 'temp',
                     type: 'number'

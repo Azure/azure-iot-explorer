@@ -11,6 +11,7 @@ import { mountWithLocalization, testSnapshot } from '../../../../shared/utils/te
 import { TwinWithSchema } from './deviceSettingsPerInterfacePerSetting';
 
 export const twinWithSchema: TwinWithSchema = {
+    isComponentContainedInDigitalTwin: true,
     metadata: {
         lastUpdatedTime: '2020-03-31T23:17:42.4813073Z'
     },

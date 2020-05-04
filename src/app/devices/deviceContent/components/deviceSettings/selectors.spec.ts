@@ -7,7 +7,7 @@ import 'jest';
 import { Record } from 'immutable';
 import { ModelDefinition } from '../../../../api/models/modelDefinition';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
-import { getDeviceSettingTupleSelector, filterProperties } from './selectors';
+import { getDeviceSettingTupleSelector } from './selectors';
 import { getInitialState } from '../../../../api/shared/testHelper';
 import { REPOSITORY_LOCATION_TYPE } from '../../../../constants/repositoryLocationTypes';
 
@@ -81,10 +81,6 @@ describe('getDigitalTwinSettingsSelector', () => {
         }
     })();
 
-    it('filters writable property with semantic types', () => {
-        expect(filterProperties(sampleSenmanticProperty)).toBeTruthy();
-    });
-
     it('returns interface settings tuple', () => {
         expect(getDeviceSettingTupleSelector(state).interfaceId).toEqual(interfaceId);
         expect(getDeviceSettingTupleSelector(state).componentName).toEqual(componentName);
@@ -98,6 +94,7 @@ describe('getDigitalTwinSettingsSelector', () => {
             reportedTwin: 123,
             settingModelDefinition: modelDefinition.contents[0],
             settingSchema: {
+                definitions: {},
                 required: null,
                 title: modelDefinition.contents[0].name,
                 type: 'number'

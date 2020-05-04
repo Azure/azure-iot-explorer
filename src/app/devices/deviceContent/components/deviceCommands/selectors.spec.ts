@@ -72,11 +72,13 @@ describe('getDeviceCommandPairs', () => {
                 parsedSchema: {
                     name: 'blink',
                     requestSchema: {
+                        definitions: {},
                         required: null,
                         title: 'blinkRequest',
                         type: 'number'
                     },
                     responseSchema: {
+                        definitions: {},
                         required: null,
                         title: 'blinkResponse',
                         type: 'string'
