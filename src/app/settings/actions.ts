@@ -8,4 +8,4 @@ import * as actionTypes from '../constants/actionTypes';
 
 const factory = actionCreatorFactory('TEMPORARY');
 
-export const setSettingsVisibilityAction = factory<boolean>(actionTypes.SET_SETTINGS_VISIBILITY);
+// export const setSettingsVisibilityAction = factory<boolean>(actionTypes.SET_SETTINGS_VISIBILITY);

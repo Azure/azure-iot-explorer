@@ -24,11 +24,11 @@ export const HomeView: React.FC<HomeViewProps> = props => {
         <div>
             <AppVersionMessageBar/>
 
-            <div className="home-view">
+            <div className="view-content home-view">
                 <div className="nav">
                     <HomeViewNavigation/>
                 </div>
-                <div className="view-content content">
+                <div className="content">
                     <Route path={`${match.url}`} exact={true} render={redirectToResources} />
                     <Route path={`${match.url}/${ROUTE_PARTS.RESOURCES}/`} component={AzureResourcesView} exact={true} />
                     <Route path={`${match.url}/${ROUTE_PARTS.MODEL_REPOS}/`} component={ModelRepositoryLocationViewContainer} exact={true} />

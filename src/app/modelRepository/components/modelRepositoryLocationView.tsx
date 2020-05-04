@@ -147,7 +147,7 @@ export const ModelRepositoryLocationView: React.FC<ModelRepositoryLocationViewPr
             <div className="view-command">
                 <CommandBar items={getCommandBarItems()} />
             </div>
-            <div className="view-content view-scroll-vertical">
+            <div className="view-scroll-vertical">
                 <ModelRepositoryLocationList
                     repositoryLocationSettings={repositoryLocationSettings}
                     onChangeRepositoryLocationSettings={onChangeRepositoryLocationSettings}
