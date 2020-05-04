@@ -2,266 +2,176 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { parseInterfacePropertyToJsonSchema, parseInterfaceCommandToJsonSchema, parseInterfaceTelemetryToJsonSchema } from './jsonSchemaAdaptor';
-import { PropertyContent, TelemetryContent, CommandContent } from '../../api/models/modelDefinition';
+import { mockModelDefinition,
+    stringTypeWritableProperty,
+    longTypeNonWritableProperty,
+    timeTypeCommand,
+    mapTypeTelemetry,
+    enumbTypeProperty,
+    schema,
+    commandWithReusableSchema
+} from './mockModelDefinition';
+import { JsonSchemaAdaptor } from './jsonSchemaAdaptor';
 
 describe('parse interface model definition to Json schema', () => {
-    it('simple property can be converted to json schema format', () => {
-        /* tslint:disable */
-        const interfacePropertyDefinition: PropertyContent =
-            {
-                '@type': 'Property',
-                'name': 'fwVersion',
-                'displayName': 'Firmware version',
-                'schema': 'string',
-                'comment': 'Version of the firmware on your device. Ex. 1.3.45'
-            }
-        /* tslint:enable */
+    const jsonSchemaAdaptor = new JsonSchemaAdaptor(mockModelDefinition);
 
-        const interfacePropertyInJsonSchema =
-            {
-                required: null,
-                title: 'fwVersion',
-                type: 'string'
-            };
-        expect(parseInterfacePropertyToJsonSchema(interfacePropertyDefinition)).toEqual(interfacePropertyInJsonSchema);
-    });
+    describe('returns list', () => {
+        it('returns a list of writable properties', () => {
+            expect(jsonSchemaAdaptor.getWritableProperties()).toEqual([stringTypeWritableProperty]);
+        });
 
-    it('simple property can be converted to json schema format with displayUnit', () => {
-        /* tslint:disable */
-        const interfacePropertyDefinition = {
-            '@type': '[Property, DataSize]',
-            'name': 'totalStorage',
-            'displayName': 'Total storage',
-            'schema': 'double',
-            'unit': 'mebibit',
-            'comment': 'Total available storage on the device in MB. Ex. 2048 MB.'
-        };
-        /* tslint:enable */
-        const interfacePropertyInJsonSchema =
-            {
-                required: null,
-                title: 'totalStorage',
-                type: 'number',
-            };
-        expect(parseInterfacePropertyToJsonSchema(interfacePropertyDefinition)).toEqual(interfacePropertyInJsonSchema);
-    });
+        it('returns a list of non-writable properties', () => {
+            expect(jsonSchemaAdaptor.getNonWritableProperties()).toEqual([longTypeNonWritableProperty]);
+        });
 
-    it('simple property can be converted to json schema format with displayUnit and unit', () => {
-        /* tslint:disable */
-        const interfacePropertyDefinition = {
-            '@type': '[Property, DataSize]',
-            'name': 'totalStorage',
-            'displayName': 'Total storage',
-            'schema': 'boolean',
-            'unit': 'mebibit',
-            'comment': 'Total available storage on the device in MB. Ex. 2048 MB.'
-        };
-        /* tslint:enable */
-        const interfacePropertyInJsonSchema =
-            {
-                default: false,
-                required: null,
-                title: 'totalStorage',
-                type: 'boolean'
-            };
-        expect(parseInterfacePropertyToJsonSchema(interfacePropertyDefinition)).toEqual(interfacePropertyInJsonSchema);
-    });
+        it('returns a list of commands', () => {
+            expect(jsonSchemaAdaptor.getCommands()).toEqual([timeTypeCommand]);
+        });
 
-    it('a few more simple property can be converted to json schema format with corresponding type', () => {
-        /* tslint:disable */
-        const interfacePropertyDefinition = {
-            '@type': 'Property',
-            'name': 'testProperty',
-            'schema': 'date'
-        };
-        /* tslint:enable */
-        expect(parseInterfacePropertyToJsonSchema(interfacePropertyDefinition).type).toEqual('string');
-        expect(parseInterfacePropertyToJsonSchema(interfacePropertyDefinition).format).toEqual('date');
-
-        interfacePropertyDefinition.schema = 'datetime';
-        expect(parseInterfacePropertyToJsonSchema(interfacePropertyDefinition).type).toEqual('string');
-        expect(parseInterfacePropertyToJsonSchema(interfacePropertyDefinition).pattern).toEqual('^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(.[0-9]+)?(Z)?$');
-
-        interfacePropertyDefinition.schema = 'integer';
-        expect(parseInterfacePropertyToJsonSchema(interfacePropertyDefinition).type).toEqual('integer');
-
-        interfacePropertyDefinition.schema = 'time';
-        expect(parseInterfacePropertyToJsonSchema(interfacePropertyDefinition).type).toEqual('string');
-
-        interfacePropertyDefinition.schema = 'duration';
-        expect(parseInterfacePropertyToJsonSchema(interfacePropertyDefinition).type).toEqual('string');
-
-        interfacePropertyDefinition['@type'] = 'Enum';
-        /* tslint:disable */
-        (interfacePropertyDefinition as any).schema = {
-            '@type': 'Enum',
-            'enumValues': [
-                {
-                    name: 'offline',
-                    displayName: 'Offline',
-                    enumValue: 1
-                },
-                {
-                    name: 'online',
-                    displayName: 'Online',
-                    enumValue: 2
-                }
-            ]
-        }
-        /* tslint:enable */
-        expect(parseInterfacePropertyToJsonSchema(interfacePropertyDefinition)).toEqual({
-            // tslint:disable-next-line:no-magic-numbers
-            enum: [1, 2],
-            enumNames : ['offline', 'online'],
-            required: null,
-            title: 'testProperty',
-            type: 'number',
+        it('returns a list of telemetry', () => {
+            expect(jsonSchemaAdaptor.getTelemetry()).toEqual([mapTypeTelemetry]);
         });
     });
 
-    it('complex property can be converted to json schema format', () => {
-        /* tslint:disable */
-        const interfacePropertyDefinition = {
-			'@type': 'Property',
-			'name': 'modelInformation',
-			'displayName': 'Model Information',
-			'description': 'Providing model and optional interfaces information on a digital twin.',
-			'schema': {
-				'@type': 'Object',
-				'fields': [
-					{
-						'name': 'modelId',
-						'schema': 'string'
-					},
-					{
-						'name': 'interfaces',
-						'schema': {
-							'@type': 'Map',
-							'mapKey': {
-								'name': 'name',
-								'schema': 'string'
-							},
-							'mapValue': {
-								'name': 'schema',
-								'schema': 'string'
-							}
-						}
-					}
-				]
-			}
-		};
-        /* tslint:enable */
-        const interfacePropertyInJsonSchema = {
-            properties:  {
-                interfaces:  {
+    describe('parses simple content', () => {
+        it('parses simple property', () => {
+            expect(jsonSchemaAdaptor.parseInterfacePropertyToJsonSchema(stringTypeWritableProperty)).toEqual(
+                {
+                    definitions: {},
+                    required: null,
+                    title: stringTypeWritableProperty.name,
+                    type: 'string'
+                }
+            );
+            expect(jsonSchemaAdaptor.parseInterfacePropertyToJsonSchema(longTypeNonWritableProperty)).toEqual(
+                {
+                    definitions: {},
+                    required: null,
+                    title: longTypeNonWritableProperty.name,
+                    type: 'number'
+                }
+            );
+        });
+
+        it('parses simple command', () => {
+            expect(jsonSchemaAdaptor.parseInterfaceCommandToJsonSchema(timeTypeCommand)).toEqual(
+                {
+                    name: timeTypeCommand.name,
+                    requestSchema: {
+                        definitions: {},
+                        pattern: '^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(.[0-9]+)?(Z)?$',
+                        required: null,
+                        title: timeTypeCommand.request.name,
+                        type: 'string',
+                    },
+                    responseSchema: {
+                        definitions: {},
+                        required: null,
+                        title: timeTypeCommand.response.name,
+                        type: 'string',
+                    }
+                }
+            );
+        });
+    });
+
+    describe('parses complex content', () => {
+        it('parses enum type property', () => {
+            expect(jsonSchemaAdaptor.parseInterfacePropertyToJsonSchema(enumbTypeProperty)).toEqual(
+                {
+                    definitions: {},
+                    enum: ['1', '2'],
+                    enumNames : ['offline', 'online'],
+                    required: null,
+                    title: enumbTypeProperty.name,
+                    type: 'string'
+                }
+            );
+        });
+
+        it('parses map type telemetry', () => {
+            expect(jsonSchemaAdaptor.parseInterfaceTelemetryToJsonSchema(mapTypeTelemetry)).toEqual(
+                {
                     additionalProperties: true,
-                    items:  {
-                        description: `interfaces's key: name`,
-                        properties:  {
-                            name:  {
+                    definitions: {},
+                    items: {
+                        description: 'Key of the map is: telemetryName',
+                        properties: {
+                            telemetryConfig: {
+                                format: 'date',
+                                required: null,
+                                title: 'telemetryConfig',
                                 type: 'string',
                             },
-                            schema:  {
-                                required: null,
-                                title: 'schema',
+                            telemetryName: {
                                 type: 'string',
-                            }
+                            },
                         },
-                        required: [
-                            'name',
-                            'schema'
+                        required:  [
+                            'telemetryName',
+                            'telemetryConfig',
                         ],
                         type: 'object',
                     },
                     required: null,
-                    title: 'interfaces',
-                    type: 'array',
-                },
-                modelId: {
-                    required: null,
-                    title: 'modelId',
-                    type: 'string',
+                    title: mapTypeTelemetry.name,
+                    type: 'array'
                 }
-            },
-            required: null,
-            title: 'modelInformation',
-            type: 'object'
-        };
-        expect(parseInterfacePropertyToJsonSchema(interfacePropertyDefinition)).toEqual(interfacePropertyInJsonSchema);
+            );
+        });
     });
 
-    it('interface schema is not supported and returns undefined', () => {
-        /* tslint:disable */
-        const interfacePropertyDefinition: PropertyContent =
-            {
-                '@type': 'Property',
-                'name': 'accelerometer1',
-                'schema': 'urn:example:acceleration:1'
-            }
-        /* tslint:enable */
-
-        expect(parseInterfacePropertyToJsonSchema(interfacePropertyDefinition)).toEqual(undefined);
-    });
-
-    it('simple command with displayName in request can be converted to json schema format', () => {
-        /* tslint:disable */
-        const interfaceCommandDefinition: CommandContent = {
-            '@type': 'Command',
-            'name': 'blink',
-            'displayName': 'This command will begin blinking the LED for given time interval.',
-            'request': {
-                'name': 'blinkRequest',
-                'displayName': 'blink interval',
-                'description': 'blinking the LED for given time interval',
-				'schema': 'long'
-			},
-			'response': {
-				'name': 'blinkResponse',
-				'schema': 'string'
-			},
-			'commandType': 'synchronous'
-        };
-        /* tslint:enable */
-        const interfaceCommandInJsonSchema =
-            {
-                name: 'blink',
-                requestSchema: {
-                    required: null,
-                    title: 'blinkRequest',
-                    type: 'number'
-                },
-                responseSchema: {
-                    required: null,
-                    title: 'blinkResponse',
-                    type: 'string'
+    describe('parses content with reusable schema', () => {
+        const jsonSchemaAdaptorWithResuableSchema = new JsonSchemaAdaptor({...mockModelDefinition, schemas: schema});
+        it('parses command with reusable schema', () => {
+            expect(jsonSchemaAdaptorWithResuableSchema.parseInterfaceCommandToJsonSchema(commandWithReusableSchema)).toEqual(
+                {
+                    name: commandWithReusableSchema.name,
+                    requestSchema: {
+                        definitions: {
+                            'dtmi:example:schema;1' : {
+                                properties: {
+                                    sensor0: {
+                                        required: null,
+                                        title: 'sensor0',
+                                        type: 'string'
+                                    },
+                                    sensor1: {
+                                        required: null,
+                                        title: 'sensor1',
+                                        type: 'integer'
+                                    },
+                                    sensor2: {
+                                        default: false,
+                                        required: null,
+                                        title: 'sensor2',
+                                        type: 'boolean'
+                                    }
+                                },
+                                required: null,
+                                type: 'object'
+                            }
+                        },
+                        properties: {
+                            sensor0: {
+                                $ref: '#/definitions/dtmi:example:schema;1',
+                                required: null,
+                                title: 'sensor0'
+                            },
+                            sensor1: {
+                                required: null,
+                                title: 'sensor1',
+                                type: 'string'
+                            }
+                        },
+                        required: null,
+                        title: 'commandWithReusableSchema',
+                        type: 'object'
+                    },
+                    responseSchema: undefined
                 }
-            };
-        expect(parseInterfaceCommandToJsonSchema(interfaceCommandDefinition)).toEqual(interfaceCommandInJsonSchema);
-    });
-
-    it('simple telemetry with semantic type can be converted to json schema format', () => {
-        /* tslint:disable */
-        const interfaceTelemetryDefinition: TelemetryContent =
-        {
-			'@type': [
-				'Telemetry',
-				'SemanticType/Temperature'
-            ],
-            'description': 'Current temperature on the device',
-			'displayName': 'Temperature',
-			'name': 'temp',
-			'schema': 'double',
-			'unit': 'Units/Temperature/fahrenheit'
-		}
-        /* tslint:enable */
-
-        const interfaceTelemetryInJsonSchema =
-            {
-                required: null,
-                title: 'temp',
-                type: 'number'
-            };
-        expect(parseInterfaceTelemetryToJsonSchema(interfaceTelemetryDefinition)).toEqual(interfaceTelemetryInJsonSchema);
+            );
+        });
     });
 });

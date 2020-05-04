@@ -107,7 +107,7 @@ export const findPathsTowardsMapType = (
 };
 
 export const getNumberOfMapsInSchema = (settingSchema: ParsedJsonSchema): number => {
-    const hasMatch = JSON.stringify(settingSchema).match(/additionalProperties/g);
+    const hasMatch = settingSchema && JSON.stringify(settingSchema).match(/additionalProperties/g);
     return hasMatch ? hasMatch.length : 0;
 };
 
