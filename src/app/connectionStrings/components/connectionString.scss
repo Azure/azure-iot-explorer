@@ -28,7 +28,7 @@
          border: 1px solid themed('borderColor')
       }
       @include themify($themes) {
-         border-bottom: 1px solid themed('backgroundColor')
+         border-bottom: 2px solid themed('backgroundColor')
       }
 
       font-size: 16px;
@@ -54,3 +54,4 @@
 
    }
 }
+

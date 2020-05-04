@@ -3,7 +3,6 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { NavLink } from 'react-router-dom';
 import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel';
 import { Link } from 'office-ui-fabric-react/lib/Link';
 import { DefaultButton, ActionButton } from 'office-ui-fabric-react/lib/Button';
@@ -86,21 +85,22 @@ const SettingsPane: React.FC = () => {
                 </header>
                 <section aria-label={t(ResourceKeys.settings.configuration.headerText)}>
                     <h3 role="heading" aria-level={1}>{t(ResourceKeys.settings.configuration.headerText)}</h3>
-                    <NavLink
+                    <Link
+                        className="ms-Link"
                         onClick={togglePanelVisibility}
-                        to={`/${ROUTE_PARTS.HOME}`}
+                        href={`#/${ROUTE_PARTS.HOME}`}
                     >
                         {t(ResourceKeys.settings.configuration.redirect)}
-                    </NavLink>
+                    </Link>
                 </section>
                 <section aria-label={t(ResourceKeys.settings.modelDefinitions.headerText)}>
                     <h3 role="heading" aria-level={1}>{t(ResourceKeys.settings.modelDefinitions.headerText)}</h3>
-                    <NavLink
+                    <Link
                         onClick={togglePanelVisibility}
-                        to={`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.MODEL_REPOS}`}
+                        href={`#/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.MODEL_REPOS}`}
                     >
                         {t(ResourceKeys.settings.modelDefinitions.redirect)}
-                    </NavLink>
+                    </Link>
                 </section>
                 <section aria-label={t(ResourceKeys.settings.theme.headerText)}>
                     <h3 role="heading" aria-level={1}>{t(ResourceKeys.settings.theme.headerText)}</h3>

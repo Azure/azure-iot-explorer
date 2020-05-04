@@ -65,7 +65,7 @@ export const ConnectionStringsView: React.FC<ConnectionStringsViewProps> = props
                     ]}
                 />
             </div>
-            <div className="view-content view-scroll-vertical">
+            <div className="view-scroll-vertical">
                 <div className="connection-strings">
                     {connectionStrings.map(connectionString =>
                         <ConnectionString

@@ -28,7 +28,7 @@ export const HomeView: React.FC<HomeViewProps> = props => {
                 <div className="nav">
                     <HomeViewNavigation/>
                 </div>
-                <div className="content">
+                <div className="view-content content">
                     <Route path={`${match.url}`} exact={true} render={redirectToResources} />
                     <Route path={`${match.url}/${ROUTE_PARTS.RESOURCES}/`} component={AzureResourcesView} exact={true} />
                     <Route path={`${match.url}/${ROUTE_PARTS.MODEL_REPOS}/`} component={ModelRepositoryLocationViewContainer} exact={true} />
