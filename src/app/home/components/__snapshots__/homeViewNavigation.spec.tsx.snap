@@ -2,7 +2,7 @@
 
 exports[`homeViewNavigation matches snapshot 1`] = `
 <div
-  className="nav-bar view"
+  className="nav-link-bar view"
 >
   <div
     className="view-scroll-vertical"

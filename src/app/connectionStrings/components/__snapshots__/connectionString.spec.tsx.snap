@@ -10,13 +10,18 @@ exports[`connectionString matches snapshot 1`] = `
     <div
       className="name"
     >
-      <StyledLinkBase
+      <CustomizedActionButton
         ariaLabel="connectionStrings.visitConnectionCommand.ariaLabel"
+        className="text"
+        iconProps={
+          Object {
+            "iconName": "NavigateForward",
+          }
+        }
         onClick={[Function]}
+        text="test"
         title="test"
-      >
-        test
-      </StyledLinkBase>
+      />
     </div>
     <div
       className="actions"

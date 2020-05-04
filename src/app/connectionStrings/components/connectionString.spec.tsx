@@ -4,8 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { Link } from 'office-ui-fabric-react/lib/Link';
-import { IconButton } from 'office-ui-fabric-react/lib/Button';
+import { ActionButton, IconButton } from 'office-ui-fabric-react/lib/Button';
 import { ConnectionString, ConnectionStringProps } from './connectionString';
 import { ConnectionStringDelete } from './connectionStringDelete';
 
@@ -33,7 +32,7 @@ describe('connectionString', () => {
         };
 
         const wrapper = shallow(<ConnectionString {...props}/>);
-        wrapper.find(Link).props().onClick(undefined);
+        wrapper.find(ActionButton).props().onClick(undefined);
 
         expect(onSelectConnectionString).toHaveBeenCalledWith(connectionString, 'test.azure-devices-int.net');
     });
