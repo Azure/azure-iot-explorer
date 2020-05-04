@@ -664,6 +664,10 @@ export class ResourceKeys {
             ariaLabel : "modelRepository.commands.addPublicSource.ariaLabel",
             label : "modelRepository.commands.addPublicSource.label",
          },
+         back : {
+            ariaLabel : "modelRepository.commands.back.ariaLabel",
+            label : "modelRepository.commands.back.label",
+         },
          remove : {
             ariaLabel : "modelRepository.commands.remove.ariaLabel",
             label : "modelRepository.commands.remove.label",
@@ -822,6 +826,7 @@ export class ResourceKeys {
       configuration : {
          headerText : "settings.configuration.headerText",
          redirect : "settings.configuration.redirect",
+         redirectLink : "settings.configuration.redirectLink",
       },
       confirmationMessage : "settings.confirmationMessage",
       footerText : "settings.footerText",
@@ -829,6 +834,7 @@ export class ResourceKeys {
       modelDefinitions : {
          headerText : "settings.modelDefinitions.headerText",
          redirect : "settings.modelDefinitions.redirect",
+         redirectLink : "settings.modelDefinitions.redirectLink",
       },
       questions : {
          headerText : "settings.questions.headerText",

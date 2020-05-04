@@ -9,7 +9,7 @@ import { MessageBarButton } from 'office-ui-fabric-react/lib/Button';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import '../../../../css/_interfaceNotFoundMessageBar.scss';
-import { ROUTE_PARTS } from '../../../../constants/routes';
+import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../../constants/routes';
 
 export const InterfaceNotFoundMessageBar: React.FC = () => {
     const [redirectToModelRepositories, setRedirectToModelRepositories] = React.useState<boolean>(false);
@@ -19,7 +19,7 @@ export const InterfaceNotFoundMessageBar: React.FC = () => {
     };
 
     if (redirectToModelRepositories) {
-        return <Redirect to={`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.MODEL_REPOS}`} />;
+        return <Redirect to={`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.MODEL_REPOS}?${ROUTE_PARAMS.NAV_FROM}`} />;
     }
 
     return (

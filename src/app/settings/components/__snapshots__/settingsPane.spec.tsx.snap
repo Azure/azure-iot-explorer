@@ -38,12 +38,15 @@ exports[`settingsPane matches snapshot 1`] = `
       >
         settings.configuration.headerText
       </h3>
+      <span>
+        settings.configuration.redirect
+      </span>
       <StyledLinkBase
-        className="ms-Link"
+        className="home-link"
         href="#/home"
         onClick={[Function]}
       >
-        settings.configuration.redirect
+        settings.configuration.redirectLink
       </StyledLinkBase>
     </section>
     <section
@@ -55,11 +58,15 @@ exports[`settingsPane matches snapshot 1`] = `
       >
         settings.modelDefinitions.headerText
       </h3>
+      <span>
+        settings.modelDefinitions.redirect
+      </span>
       <StyledLinkBase
-        href="#/home/repos"
+        className="home-link"
+        href="#/home/repos?from"
         onClick={[Function]}
       >
-        settings.modelDefinitions.redirect
+        settings.modelDefinitions.redirectLink
       </StyledLinkBase>
     </section>
     <section

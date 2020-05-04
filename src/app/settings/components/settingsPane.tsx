@@ -11,7 +11,7 @@ import { useLocalizationContext } from '../../shared/contexts/localizationContex
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { Theme, useThemeContext } from '../../shared/contexts/themeContext';
 import { THEME_SELECTION } from '../../constants/browserStorage';
-import { ROUTE_PARTS } from '../../constants/routes';
+import { ROUTE_PARTS, ROUTE_PARAMS } from '../../constants/routes';
 import '../../css/_settingsPane.scss';
 
 const SettingsPane: React.FC = () => {
@@ -85,21 +85,24 @@ const SettingsPane: React.FC = () => {
                 </header>
                 <section aria-label={t(ResourceKeys.settings.configuration.headerText)}>
                     <h3 role="heading" aria-level={1}>{t(ResourceKeys.settings.configuration.headerText)}</h3>
+                    <span>{t(ResourceKeys.settings.configuration.redirect)}</span>
                     <Link
-                        className="ms-Link"
+                        className="home-link"
                         onClick={togglePanelVisibility}
                         href={`#/${ROUTE_PARTS.HOME}`}
                     >
-                        {t(ResourceKeys.settings.configuration.redirect)}
+                        {t(ResourceKeys.settings.configuration.redirectLink)}
                     </Link>
                 </section>
                 <section aria-label={t(ResourceKeys.settings.modelDefinitions.headerText)}>
                     <h3 role="heading" aria-level={1}>{t(ResourceKeys.settings.modelDefinitions.headerText)}</h3>
+                    <span>{t(ResourceKeys.settings.modelDefinitions.redirect)}</span>
                     <Link
                         onClick={togglePanelVisibility}
-                        href={`#/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.MODEL_REPOS}`}
+                        className="home-link"
+                        href={`#/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.MODEL_REPOS}?${ROUTE_PARAMS.NAV_FROM}`}
                     >
-                        {t(ResourceKeys.settings.modelDefinitions.redirect)}
+                        {t(ResourceKeys.settings.modelDefinitions.redirectLink)}
                     </Link>
                 </section>
                 <section aria-label={t(ResourceKeys.settings.theme.headerText)}>

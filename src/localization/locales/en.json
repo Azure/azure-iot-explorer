@@ -57,11 +57,13 @@
         "headerText": "Settings",
         "configuration": {
             "headerText": "App configurations",
-            "redirect": "Looking for connection settings? Please visit Home."
+            "redirect": "Looking for connection settings?",
+            "redirectLink": "Please visit Home."
         },
         "modelDefinitions": {
             "headerText": "Plug and Play configuration",
-            "redirect": "Looking for Plug and Play settings? Please visit Home."
+            "redirect": "Looking for Plug and Play settings?",
+            "redirectLink": "Please visit Home."
         },
         "questions": {
             "headerText": "Help:",
@@ -824,6 +826,10 @@
             "remove": {
                 "label": "Remove",
                 "ariaLabel": "remove"
+            },
+            "back": {
+                "label": "Go back",
+                "ariaLabel": "Go back to last location"
             }
         },
         "types": {

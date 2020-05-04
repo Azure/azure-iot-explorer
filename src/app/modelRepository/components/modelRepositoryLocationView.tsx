@@ -4,6 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { RouteComponentProps } from 'react-router-dom';
 import { CommandBar, ICommandBarItemProps,  } from 'office-ui-fabric-react/lib/CommandBar';
 import { IContextualMenuItem } from 'office-ui-fabric-react/lib/ContextualMenu';
 import { useLocalizationContext } from '../../shared/contexts/localizationContext';
@@ -19,10 +20,12 @@ import '../../css/_layouts.scss';
 
 export interface ModelRepositoryLocationViewDataProps {
     repositoryLocationSettings: RepositoryLocationSettings[];
+    enableNavigateBack: boolean;
 }
 
 export interface ModelRepositoryLocationViewActionProps {
     onSaveRepositoryLocationSettings(modelRepositorySettings: RepositoryLocationSettings[]): void;
+    onNavigateBack(): void;
 }
 
 export type ModelRepositoryLocationViewProps = ModelRepositoryLocationViewDataProps & ModelRepositoryLocationViewActionProps;
@@ -50,14 +53,6 @@ export const ModelRepositoryLocationView: React.FC<ModelRepositoryLocationViewPr
                 text: t(ResourceKeys.modelRepository.commands.save.label)
             },
             {
-                ariaLabel: t(ResourceKeys.modelRepository.commands.revert.ariaLabel),
-                disabled: !dirty,
-                iconProps: { iconName: 'Undo' },
-                key: 'revert',
-                onClick: onRevertModelRepositorySettingsClick,
-                text: t(ResourceKeys.modelRepository.commands.revert.label)
-            },
-            {
                 ariaLabel: t(ResourceKeys.modelRepository.commands.add.ariaLabel),
                 disabled: repositoryLocationSettings.length >= Object.keys(REPOSITORY_LOCATION_TYPE).length,
                 iconProps: { iconName: 'Add'},
@@ -66,8 +61,29 @@ export const ModelRepositoryLocationView: React.FC<ModelRepositoryLocationViewPr
                     items: addItems
                 },
                 text: t(ResourceKeys.modelRepository.commands.add.label)
+            },
+            {
+                ariaLabel: t(ResourceKeys.modelRepository.commands.revert.ariaLabel),
+                disabled: !dirty,
+                iconProps: { iconName: 'Undo' },
+                key: 'revert',
+                onClick: onRevertModelRepositorySettingsClick,
+                text: t(ResourceKeys.modelRepository.commands.revert.label)
             }
         ];
+    };
+
+    const getCommandBarItemsFar = (): ICommandBarItemProps[] => {
+        return !props.enableNavigateBack ? [] :
+            [
+                {
+                    ariaLabel: t(ResourceKeys.modelRepository.commands.back.ariaLabel),
+                    iconProps: { iconName: 'NavigateBackMirrored'},
+                    key: 'back',
+                    onClick: onNavigateBack,
+                    text: t(ResourceKeys.modelRepository.commands.back.label)
+                }
+            ];
     };
 
     const getCommandBarItemsAdd = (): IContextualMenuItem[] => {
@@ -98,6 +114,10 @@ export const ModelRepositoryLocationView: React.FC<ModelRepositoryLocationViewPr
                     ResourceKeys.modelRepository.commands.addLocalSource.label)
             }
         ];
+    };
+
+    const onNavigateBack = () => {
+        props.onNavigateBack();
     };
 
     const onRevertModelRepositorySettingsClick = () => {
@@ -145,7 +165,10 @@ export const ModelRepositoryLocationView: React.FC<ModelRepositoryLocationViewPr
     return (
         <div className="view">
             <div className="view-command">
-                <CommandBar items={getCommandBarItems()} />
+                <CommandBar
+                    items={getCommandBarItems()}
+                    farItems={getCommandBarItemsFar()}
+                />
             </div>
             <div className="view-scroll-vertical">
                 <ModelRepositoryLocationList
@@ -157,7 +180,7 @@ export const ModelRepositoryLocationView: React.FC<ModelRepositoryLocationViewPr
     );
 };
 
-export const ModelRepositoryLocationViewContainer: React.FC = () => {
+export const ModelRepositoryLocationViewContainer: React.FC<RouteComponentProps> = props => {
     const reduxState = useSelector((state: StateInterface) => state);
     const dispatch = useDispatch();
     const modelRepositorySettings = getRepositoryLocationSettingsSelector(reduxState) || [];
@@ -165,10 +188,25 @@ export const ModelRepositoryLocationViewContainer: React.FC = () => {
         dispatch(setRepositoryLocationsAction(repositoryLocationSettings));
     };
 
+    const enableNavigateBack = () => {
+        if (!props.history || !props.location.search || !props.location.search) {
+            return false;
+        }
+
+        const params = new URLSearchParams(props.location.search);
+        return (params.has('from'));
+    };
+
+    const onNavigateBack = () => {
+       props.history.goBack();
+    };
+
     return (
         <ModelRepositoryLocationView
+            enableNavigateBack={enableNavigateBack()}
             repositoryLocationSettings={modelRepositorySettings}
             onSaveRepositoryLocationSettings={onSaveModelRepositorySettings}
+            onNavigateBack={onNavigateBack}
         />
     );
 };
