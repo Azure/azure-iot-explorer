@@ -69,13 +69,13 @@ exports[`components/devices/deviceEventsPerInterface matches snapshot while inte
     value="$Default"
   />
   <StyledToggleBase
-    ariaLabel="deviceEvents.toggle.label"
+    ariaLabel="deviceEvents.toggleShowRawData.label"
     checked={false}
     className="toggle-button"
-    label="deviceEvents.toggle.label"
-    offText="deviceEvents.toggle.off"
+    label="deviceEvents.toggleShowRawData.label"
+    offText="deviceEvents.toggleShowRawData.off"
     onChange={[Function]}
-    onText="deviceEvents.toggle.on"
+    onText="deviceEvents.toggleShowRawData.on"
   />
   <InfiniteScroll
     className="device-events-container"
@@ -184,13 +184,13 @@ exports[`components/devices/deviceEventsPerInterface matches snapshot while inte
     value="$Default"
   />
   <StyledToggleBase
-    ariaLabel="deviceEvents.toggle.label"
+    ariaLabel="deviceEvents.toggleShowRawData.label"
     checked={false}
     className="toggle-button"
-    label="deviceEvents.toggle.label"
-    offText="deviceEvents.toggle.off"
+    label="deviceEvents.toggleShowRawData.label"
+    offText="deviceEvents.toggleShowRawData.off"
     onChange={[Function]}
-    onText="deviceEvents.toggle.on"
+    onText="deviceEvents.toggleShowRawData.on"
   />
   <InfiniteScroll
     className="device-events-container"
@@ -299,13 +299,13 @@ exports[`components/devices/deviceEventsPerInterface matches snapshot while inte
     value="$Default"
   />
   <StyledToggleBase
-    ariaLabel="deviceEvents.toggle.label"
+    ariaLabel="deviceEvents.toggleShowRawData.label"
     checked={false}
     className="toggle-button"
-    label="deviceEvents.toggle.label"
-    offText="deviceEvents.toggle.off"
+    label="deviceEvents.toggleShowRawData.label"
+    offText="deviceEvents.toggleShowRawData.off"
     onChange={[Function]}
-    onText="deviceEvents.toggle.on"
+    onText="deviceEvents.toggleShowRawData.on"
   />
   <InfiniteScroll
     className="device-events-container"

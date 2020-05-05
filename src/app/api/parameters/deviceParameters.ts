@@ -35,6 +35,7 @@ export interface MonitorEventsParameters {
     deviceId: string;
     consumerGroup: string;
 
+    customEventHubName?: string;
     customEventHubConnectionString?: string;
     hubConnectionString?: string;
 

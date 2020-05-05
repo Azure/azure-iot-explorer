@@ -14,7 +14,16 @@ import {
     UpdateDeviceParameters,
     CloudToDeviceMessageParameters
 } from '../parameters/deviceParameters';
-import { CONTROLLER_API_ENDPOINT, EVENTHUB, DIGITAL_TWIN_API_VERSION, MONITOR, STOP, HEADERS, CLOUD_TO_DEVICE, HTTP_OPERATION_TYPES } from '../../constants/apiConstants';
+import { CONTROLLER_API_ENDPOINT,
+    EVENTHUB,
+    DIGITAL_TWIN_API_VERSION,
+    MONITOR,
+    STOP,
+    HEADERS,
+    CLOUD_TO_DEVICE,
+    HTTP_OPERATION_TYPES,
+    DataPlaneStatusCode
+} from '../../constants/apiConstants';
 import { buildQueryString } from '../shared/utils';
 import { Message } from '../models/messages';
 import { Twin, Device, DataPlaneResponse } from '../models/device';
@@ -223,7 +232,7 @@ export const deleteDevices = async (parameters: DeleteDevicesParameters) => {
 
 // tslint:disable-next-line:cyclomatic-complexity
 export const monitorEvents = async (parameters: MonitorEventsParameters): Promise<Message[]> => {
-    if (!parameters.hubConnectionString && !parameters.customEventHubConnectionString) {
+    if (!parameters.hubConnectionString && (!parameters.customEventHubConnectionString || !parameters.customEventHubName)) {
         return;
     }
 
@@ -233,8 +242,14 @@ export const monitorEvents = async (parameters: MonitorEventsParameters): Promis
     };
 
     const response = await request(EVENTHUB_MONITOR_ENDPOINT, requestParameters);
-    const messages = await response.json() as Message[];
-    return  messages && messages.length && messages.length !== 0 && messages.map(message => parseEventHubMessage(message)) || [];
+    if (response.status === DataPlaneStatusCode.SuccessLowerBound) {
+        const messages = await response.json() as Message[];
+        return  messages && messages.length && messages.length !== 0 && messages.map(message => parseEventHubMessage(message)) || [];
+    }
+    else {
+        const error = await response.json();
+        throw new Error(error && error.name);
+    }
 };
 
 export const stopMonitoringEvents = async (): Promise<void> => {

@@ -25,6 +25,7 @@ import { SynchronizationStatus } from '../../../../api/models/synchronizationSta
 import { DEFAULT_CONSUMER_GROUP } from '../../../../constants/apiConstants';
 import ErrorBoundary from '../../../errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
+import { Notification, NotificationType } from '../../../../api/models/notification';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
 import LabelWithTooltip from '../../../../shared/components/labelWithTooltip';
 import { MILLISECONDS_IN_MINUTE } from '../../../../constants/shared';
@@ -47,6 +48,7 @@ export interface DeviceEventsDataProps {
 }
 
 export interface DeviceEventsDispatchProps {
+    addNotification: (notification: Notification) => void;
     setComponentName: (id: string) => void;
     refresh: (deviceId: string, interfaceId: string) => void;
 }
@@ -225,10 +227,10 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
             <Toggle
                 className="toggle-button"
                 checked={this.state.showRawEvent}
-                ariaLabel={context.t(ResourceKeys.deviceEvents.toggle.label)}
-                label={context.t(ResourceKeys.deviceEvents.toggle.label)}
-                onText={context.t(ResourceKeys.deviceEvents.toggle.on)}
-                offText={context.t(ResourceKeys.deviceEvents.toggle.off)}
+                ariaLabel={context.t(ResourceKeys.deviceEvents.toggleShowRawData.label)}
+                label={context.t(ResourceKeys.deviceEvents.toggleShowRawData.label)}
+                onText={context.t(ResourceKeys.deviceEvents.toggleShowRawData.on)}
+                offText={context.t(ResourceKeys.deviceEvents.toggleShowRawData.off)}
                 onChange={this.changeToggle}
             />
         );
@@ -562,6 +564,18 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
                                 startTime: new Date()});
                             this.stopMonitoringIfNecessary();
                         }
+                    })
+                    .catch (error => {
+                        this.props.addNotification({
+                            text: {
+                                translationKey: ResourceKeys.deviceEvents.error,
+                                translationOptions: {
+                                    error
+                                }
+                            },
+                            type: NotificationType.error
+                        });
+                        this.stopMonitoringIfNecessary();
                     });
                 },
                 LOADING_LOCK);
