@@ -14,6 +14,7 @@ describe('components/settings/modelRepositoryLocationList', () => {
         const component = (
             <ModelRepositoryLocationList
                 repositoryLocationSettings={null}
+                repositoryLocationSettingsErrors={{}}
                 onChangeRepositoryLocationSettings={jest.fn()}
             />
         );
@@ -23,6 +24,7 @@ describe('components/settings/modelRepositoryLocationList', () => {
         const component = (
             <ModelRepositoryLocationList
                 repositoryLocationSettings={[{repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public}]}
+                repositoryLocationSettingsErrors={{}}
                 onChangeRepositoryLocationSettings={jest.fn()}
             />
         );
@@ -33,10 +35,11 @@ describe('components/settings/modelRepositoryLocationList', () => {
         const component = (
             <ModelRepositoryLocationList
                 repositoryLocationSettings={[
-                    {repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public},
+                    {repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public,},
                     {repositoryLocationType: REPOSITORY_LOCATION_TYPE.Device},
                     {repositoryLocationType: REPOSITORY_LOCATION_TYPE.Local}
                 ]}
+                repositoryLocationSettingsErrors={{}}
                 onChangeRepositoryLocationSettings={jest.fn()}
             />
         );

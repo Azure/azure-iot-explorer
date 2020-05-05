@@ -93,7 +93,7 @@ export const ConnectionString: React.FC<ConnectionStringProps> = props => {
                 />
                 <MaskedCopyableTextFieldContainer
                     ariaLabel={t(ResourceKeys.connectionStrings.properties.connectionString.ariaLabel)}
-                    allowMask={false}
+                    allowMask={true}
                     label={t(ResourceKeys.connectionStrings.properties.connectionString.label)}
                     value={connectionString}
                     readOnly={true}

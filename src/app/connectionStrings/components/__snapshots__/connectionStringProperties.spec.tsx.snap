@@ -17,7 +17,7 @@ exports[`ConnectionSTringProperties matches snapshot 1`] = `
     value="sharedAccessKeyName"
   />
   <Connect(MaskedCopyableTextField)
-    allowMask={false}
+    allowMask={true}
     ariaLabel="connectionStrings.properties.sharedAccessPolicyKey.ariaLabel"
     label="connectionStrings.properties.sharedAccessPolicyKey.label"
     readOnly={true}

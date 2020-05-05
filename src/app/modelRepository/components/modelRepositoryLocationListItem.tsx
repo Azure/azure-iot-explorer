@@ -15,9 +15,10 @@ import { RepositoryLocationSettings } from '../state';
 import { fetchDirectories } from '../../api/services/localRepoService';
 import LabelWithRichCallout from '../../shared/components/labelWithRichCallout';
 import { getRootFolder, getParentFolder } from '../../shared/utils/utils';
-import '../../css/_repositoryLocationItem.scss';
+import './modelRepositoryLocationListItem.scss';
 
 export interface ModelRepositoryLocationListItemProps {
+    errorKey?: string;
     index: number;
     item: RepositoryLocationSettings;
     onChangeRepositoryLocationSettingValue: (index: number, path: string) => void;
@@ -82,8 +83,10 @@ export class ModelRepositoryLocationListItem extends React.Component<ModelReposi
                         ariaLabel={context.t(ResourceKeys.modelRepository.types.local.textBoxLabel)}
                         value={this.state.currentFolder}
                         readOnly={true}
+                        errorMessage={this.props.errorKey ? context.t(this.props.errorKey) : ''}
                     />
                     <DefaultButton
+                        className="local-folder-launch"
                         text={context.t(ResourceKeys.modelRepository.types.local.folderPicker.command.openPicker)}
                         ariaLabel={context.t(ResourceKeys.modelRepository.types.local.folderPicker.command.openPicker)}
                         onClick={this.onShowFolderPicker}

@@ -2,7 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
- @import 'themes';
+ @import '../../css/themes';
 
 .folder-picker-dialog {
     .ms-Dialog-main {
@@ -29,6 +29,11 @@
     .no-folders-text {
         margin-left: 22px;
     }
+}
+
+.local-folder-launch {
+    margin-top: 5px;
+    float: right;
 }
 
 .local-folder-textbox {

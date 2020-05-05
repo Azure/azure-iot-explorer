@@ -175,11 +175,11 @@
                 }
             },
             "title": {
-                "add": "Add Connection String",
-                "edit": "Edit Connection String"
+                "add": "Add connection string",
+                "edit": "Edit connection string"
             },
             "editField": {
-                "label": "Connection String",
+                "label": "Connection string",
                 "ariaLabel": "Connection String",
                 "placeholder": "enter a connection string"
             },
@@ -189,15 +189,15 @@
         },
         "properties": {
             "hostName": {
-                "label": "Host Name",
+                "label": "Host name",
                 "ariaLabel": "Host name for {{connection string}}"
             },
             "sharedAccessPolicyName": {
-                "label": "Shared Access Policy Name",
+                "label": "Shared access policy name",
                 "ariaLabel": "Shared Access Policy Name for {{connection string}}"
             },
             "sharedAccessPolicyKey": {
-                "label": "Shared Access Policy Key",
+                "label": "Shared access policy key",
                 "ariaLabel": "Shared Access Policy Key for {{connection string}}"
             },
             "connectionString": {
@@ -856,6 +856,9 @@
                         "navigateToParent": "Navigate back to parent folder",
                         "select": "Select",
                         "cancel": "Cancel"
+                    },
+                    "errors": {
+                        "mandatory": "Please specify a folder."
                     },
                     "dialog": {
                         "title": "Select a folder as a local model repository",

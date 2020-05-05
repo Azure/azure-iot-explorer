@@ -67,6 +67,22 @@ describe('components/settings/modelRepositoryLocationListItem', () => {
         );
         expect(wrapper).toMatchSnapshot();
     });
+    it('matches snapshot for local with error', () => {
+        const wrapper = testWithLocalizationContext(
+            <ModelRepositoryLocationListItem
+                errorKey={'error'}
+                index={0}
+                item={{
+                    repositoryLocationType: REPOSITORY_LOCATION_TYPE.Local,
+                    value: 'f:/'
+                }}
+                onChangeRepositoryLocationSettingValue={jest.fn()}
+                onRemoveRepositoryLocationSetting={jest.fn()}
+            />
+        );
+        expect(wrapper).toMatchSnapshot();
+
+    });
     it('renders no folder text when no sub folder is retrieved', () => {
         jest.spyOn(Utils, 'getRootFolder').mockReturnValue(null);
 

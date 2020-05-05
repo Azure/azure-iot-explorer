@@ -66,12 +66,14 @@ exports[`components/settings/modelRepositoryLocationListItem matches snapshot fo
       <StyledTextFieldBase
         ariaLabel="modelRepository.types.local.textBoxLabel"
         className="local-folder-textbox"
+        errorMessage=""
         label="modelRepository.types.local.textBoxLabel"
         readOnly={true}
         value="HostName=repo.azureiotrepository.com;RepositoryId=123;SharedAccessKeyName=456;SharedAccessKey=789"
       />
       <CustomizedDefaultButton
         ariaLabel="modelRepository.types.local.folderPicker.command.openPicker"
+        className="local-folder-launch"
         onClick={[Function]}
         text="modelRepository.types.local.folderPicker.command.openPicker"
       />
@@ -170,12 +172,120 @@ exports[`components/settings/modelRepositoryLocationListItem matches snapshot fo
       <StyledTextFieldBase
         ariaLabel="modelRepository.types.local.textBoxLabel"
         className="local-folder-textbox"
+        errorMessage=""
         label="modelRepository.types.local.textBoxLabel"
         readOnly={true}
         value="f:/"
       />
       <CustomizedDefaultButton
         ariaLabel="modelRepository.types.local.folderPicker.command.openPicker"
+        className="local-folder-launch"
+        onClick={[Function]}
+        text="modelRepository.types.local.folderPicker.command.openPicker"
+      />
+      <div
+        role="dialog"
+      >
+        <StyledWithResponsiveMode
+          className="folder-picker-dialog"
+          hidden={true}
+          modalProps={
+            Object {
+              "isBlocking": false,
+            }
+          }
+          onDismiss={[Function]}
+          subText="modelRepository.types.local.folderPicker.dialog.subText"
+          title="modelRepository.types.local.folderPicker.dialog.title"
+        >
+          <div
+            className="folder-links"
+          >
+            <CustomizedDefaultButton
+              ariaLabel="modelRepository.types.local.folderPicker.command.navigateToParent"
+              className="folder-button"
+              disabled={false}
+              iconProps={
+                Object {
+                  "iconName": "NavigateBack",
+                }
+              }
+              onClick={[Function]}
+              text="modelRepository.types.local.folderPicker.command.navigateToParent"
+            />
+            <div
+              className="no-folders-text"
+            >
+              modelRepository.types.local.folderPicker.dialog.noFolderFoundText
+            </div>
+          </div>
+          <StyledDialogFooterBase>
+            <CustomizedPrimaryButton
+              disabled={false}
+              onClick={[Function]}
+              text="modelRepository.types.local.folderPicker.command.select"
+            />
+            <CustomizedDefaultButton
+              onClick={[Function]}
+              text="modelRepository.types.local.folderPicker.command.cancel"
+            />
+          </StyledDialogFooterBase>
+        </StyledWithResponsiveMode>
+      </div>
+    </div>
+    <CustomizedIconButton
+      ariaLabel="modelRepository.commands.remove.ariaLabel"
+      className="remove-button"
+      iconProps={
+        Object {
+          "iconName": "Cancel",
+        }
+      }
+      onClick={[Function]}
+      title="modelRepository.commands.remove.label"
+    />
+  </div>
+</div>
+`;
+
+exports[`components/settings/modelRepositoryLocationListItem matches snapshot for local with error 1`] = `
+<div
+  className="item"
+  role="list"
+>
+  <div
+    className="numbering"
+  >
+    1
+  </div>
+  <div
+    className="location-item"
+    role="listitem"
+  >
+    <div
+      className="item-details"
+    >
+      <div
+        className="labelSection"
+      >
+        <LabelWithRichCallout
+          calloutContent="modelRepository.types.local.infoText"
+          required={true}
+        >
+          modelRepository.types.local.label
+        </LabelWithRichCallout>
+      </div>
+      <StyledTextFieldBase
+        ariaLabel="modelRepository.types.local.textBoxLabel"
+        className="local-folder-textbox"
+        errorMessage="error"
+        label="modelRepository.types.local.textBoxLabel"
+        readOnly={true}
+        value="f:/"
+      />
+      <CustomizedDefaultButton
+        ariaLabel="modelRepository.types.local.folderPicker.command.openPicker"
+        className="local-folder-launch"
         onClick={[Function]}
         text="modelRepository.types.local.folderPicker.command.openPicker"
       />

@@ -16,6 +16,8 @@ import { ResourceKeys } from '../../../localization/resourceKeys';
 import { ModelRepositoryLocationList } from './modelRepositoryLocationList';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
 import { appConfig, HostMode } from '../../../appConfig/appConfig';
+import { StringMap } from '../../api/models/stringMap';
+import { ROUTE_PARAMS } from '../../constants/routes';
 import '../../css/_layouts.scss';
 
 export interface ModelRepositoryLocationViewDataProps {
@@ -31,6 +33,7 @@ export type ModelRepositoryLocationViewProps = ModelRepositoryLocationViewDataPr
 
 export const ModelRepositoryLocationView: React.FC<ModelRepositoryLocationViewProps> = props => {
     const [ repositoryLocationSettings, setRepositoryLocationSettings ] = React.useState<RepositoryLocationSettings[]>(props.repositoryLocationSettings);
+    const [ repositoryLocationSettingsErrors, setRepositoryLocationSettingsErrors ] = React.useState<StringMap<string>>({});
     const [ dirty, setDirtyFlag ] = React.useState<boolean>(false);
     const { t } = useLocalizationContext();
 
@@ -128,8 +131,14 @@ export const ModelRepositoryLocationView: React.FC<ModelRepositoryLocationViewPr
     };
 
     const onSaveModelRepositorySettingsClick = () => {
-        props.onSaveRepositoryLocationSettings(repositoryLocationSettings);
-        setDirtyFlag(false);
+        const errors = validateRepositoryLocationSettings(repositoryLocationSettings);
+
+        if (Object.keys(errors).length === 0) {
+            props.onSaveRepositoryLocationSettings(repositoryLocationSettings);
+            setDirtyFlag(false);
+        }
+
+        setRepositoryLocationSettingsErrors(errors);
     };
 
     const onNavigateBackClick = () => {
@@ -173,6 +182,7 @@ export const ModelRepositoryLocationView: React.FC<ModelRepositoryLocationViewPr
 
     const onChangeRepositoryLocationSettings = (updatedRepositoryLocationSettings: RepositoryLocationSettings[]) => {
         setDirtyFlag(true);
+        setRepositoryLocationSettingsErrors(validateRepositoryLocationSettings(updatedRepositoryLocationSettings));
         setRepositoryLocationSettings([
             ...updatedRepositoryLocationSettings
         ]);
@@ -190,11 +200,23 @@ export const ModelRepositoryLocationView: React.FC<ModelRepositoryLocationViewPr
             <div className="view-scroll-vertical">
                 <ModelRepositoryLocationList
                     repositoryLocationSettings={repositoryLocationSettings}
+                    repositoryLocationSettingsErrors={repositoryLocationSettingsErrors}
                     onChangeRepositoryLocationSettings={onChangeRepositoryLocationSettings}
                 />
             </div>
         </div>
     );
+};
+
+export const validateRepositoryLocationSettings = (repositoryLocationSettings: RepositoryLocationSettings[]): StringMap<string> => {
+    const errors: StringMap<string> = {};
+    repositoryLocationSettings.forEach(s => {
+        if (s.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local && !s.value) {
+            errors[REPOSITORY_LOCATION_TYPE.Local] = ResourceKeys.modelRepository.types.local.folderPicker.errors.mandatory;
+        }
+    });
+
+    return errors;
 };
 
 export const ModelRepositoryLocationViewContainer: React.FC<RouteComponentProps> = props => {
@@ -211,7 +233,7 @@ export const ModelRepositoryLocationViewContainer: React.FC<RouteComponentProps>
         }
 
         const params = new URLSearchParams(props.location.search);
-        if (params.has('from')) {
+        if (params.has(ROUTE_PARAMS.NAV_FROM)) {
             return () => { props.history.goBack(); };
         }
     };

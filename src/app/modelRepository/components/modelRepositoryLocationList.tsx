@@ -6,15 +6,17 @@ import * as React from 'react';
 import { Container, Draggable } from 'react-smooth-dnd';
 import { RepositoryLocationSettings } from '../state';
 import { ModelRepositoryLocationListItem } from './modelRepositoryLocationListItem';
+import { StringMap } from '../../api/models/stringMap';
 import './modelRepositoryLocationList.scss';
 
 export interface ModelRepositoryLocationListProps {
     repositoryLocationSettings: RepositoryLocationSettings[];
+    repositoryLocationSettingsErrors: StringMap<string>;
     onChangeRepositoryLocationSettings(settings: RepositoryLocationSettings[]): void;
 }
 
 export const ModelRepositoryLocationList: React.FC<ModelRepositoryLocationListProps> = props => {
-    const { repositoryLocationSettings, onChangeRepositoryLocationSettings} = props;
+    const { repositoryLocationSettings, repositoryLocationSettingsErrors, onChangeRepositoryLocationSettings} = props;
 
     const onDrop = (e: {addedIndex: number, removedIndex: number}) => {
         const updatedRepositoryLocationSettings = [...repositoryLocationSettings];
@@ -34,8 +36,7 @@ export const ModelRepositoryLocationList: React.FC<ModelRepositoryLocationListPr
         const updatedRepositoryLocationSettings = repositoryLocationSettings.map((setting, i) => {
             if (i === index) {
                 const updatedSetting = {...setting};
-                setting.value = value;
-
+                updatedSetting.value = value;
                 return updatedSetting;
             } else {
                 return setting;
@@ -51,6 +52,7 @@ export const ModelRepositoryLocationList: React.FC<ModelRepositoryLocationListPr
                     <ModelRepositoryLocationListItem
                         index={index}
                         item={item}
+                        errorKey={repositoryLocationSettingsErrors[item.repositoryLocationType]}
                         onChangeRepositoryLocationSettingValue={onChangeRepositoryLocationSettingValue}
                         onRemoveRepositoryLocationSetting={onRemoveRepositoryLocationSetting}
                     />

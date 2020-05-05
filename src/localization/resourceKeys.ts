@@ -706,6 +706,9 @@ export class ResourceKeys {
                   subText : "modelRepository.types.local.folderPicker.dialog.subText",
                   title : "modelRepository.types.local.folderPicker.dialog.title",
                },
+               errors : {
+                  mandatory : "modelRepository.types.local.folderPicker.errors.mandatory",
+               },
             },
             infoText : "modelRepository.types.local.infoText",
             label : "modelRepository.types.local.label",
