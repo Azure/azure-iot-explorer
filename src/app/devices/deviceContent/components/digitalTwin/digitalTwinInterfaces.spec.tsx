@@ -171,7 +171,7 @@ describe('login/components/connectivityPane', () => {
 
         const labels = digitalTwinInterfaces.find(Label);
         expect(labels).toHaveLength(5); // tslint:disable-line:no-magic-numbers
-        expect(labels.at(1).props().children).toEqual([ResourceKeys.deviceInterfaces.columns.source, ': ', ResourceKeys.modelRepository.types.device.label]);
+        expect(labels.at(1).props().children).toEqual([ResourceKeys.deviceInterfaces.columns.source, ': ', ResourceKeys.modelRepository.types.local.label]);
         expect(labels.at(2).props().children).toEqual('dtmi:__DeviceManagement:DeviceInformation;1'); // tslint:disable-line:no-magic-numbers
         expect(labels.at(3).props().children).toEqual('dtmi:__Client:SDKInformation;1'); // tslint:disable-line:no-magic-numbers
         expect(labels.at(4).props().children).toEqual('dtmi:__Contoso:EnvironmentalSensor;1'); // tslint:disable-line:no-magic-numbers

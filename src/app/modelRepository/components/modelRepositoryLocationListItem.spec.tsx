@@ -12,40 +12,12 @@ import { ResourceKeys } from '../../../localization/resourceKeys';
 import * as Utils from '../../shared/utils/utils';
 
 describe('components/settings/modelRepositoryLocationListItem', () => {
-
-    it('matches snapshot for local', () => {
-        const wrapper = testWithLocalizationContext(
-            <ModelRepositoryLocationListItem
-                index={0}
-                item={{
-                    repositoryLocationType: REPOSITORY_LOCATION_TYPE.Local,
-                    value: 'HostName=repo.azureiotrepository.com;RepositoryId=123;SharedAccessKeyName=456;SharedAccessKey=789'
-                }}
-                onChangeRepositoryLocationSettingValue={jest.fn()}
-                onRemoveRepositoryLocationSetting={jest.fn()}
-            />
-        );
-        expect(wrapper).toMatchSnapshot();
-    });
     it('matches snapshot for public', () => {
         const wrapper = testWithLocalizationContext(
             <ModelRepositoryLocationListItem
                 index={0}
                 item={{
                     repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public,
-                }}
-                onChangeRepositoryLocationSettingValue={jest.fn()}
-                onRemoveRepositoryLocationSetting={jest.fn()}
-            />
-        );
-        expect(wrapper).toMatchSnapshot();
-    });
-    it('matches snapshot for device', () => {
-        const wrapper = testWithLocalizationContext(
-            <ModelRepositoryLocationListItem
-                index={0}
-                item={{
-                    repositoryLocationType: REPOSITORY_LOCATION_TYPE.Device,
                 }}
                 onChangeRepositoryLocationSettingValue={jest.fn()}
                 onRemoveRepositoryLocationSetting={jest.fn()}
