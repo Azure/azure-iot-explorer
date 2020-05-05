@@ -31,6 +31,7 @@ describe('components/devices/deviceEventsPerInterface', () => {
 
     const refreshMock = jest.fn();
     const deviceEventsDispatchProps: DeviceEventsDispatchProps = {
+        addNotification: jest.fn(),
         refresh: refreshMock,
         setComponentName: jest.fn()
     };
