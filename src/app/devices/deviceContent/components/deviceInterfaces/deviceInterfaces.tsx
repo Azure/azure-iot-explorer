@@ -105,6 +105,7 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
         );
     }
 
+    // tslint:disable-next-line: cyclomatic-complexity
     private readonly renderInterfaceInfoDetail = (context: LocalizationContextInterface, isValidInterface: boolean) => {
         const { modelDefinitionWithSource } = this.props;
         return (
@@ -120,22 +121,22 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
                     readOnly={true}
                 />
                 {isValidInterface &&
-                <>
-                    <MaskedCopyableTextFieldContainer
-                        ariaLabel={context.t(ResourceKeys.deviceInterfaces.columns.displayName)}
-                        label={context.t(ResourceKeys.deviceInterfaces.columns.displayName)}
-                        value={getLocalizedData(modelDefinitionWithSource.modelDefinition.displayName) || '--'}
-                        allowMask={false}
-                        readOnly={true}
-                    />
-                    <MaskedCopyableTextFieldContainer
-                        ariaLabel={context.t(ResourceKeys.deviceInterfaces.columns.description)}
-                        label={context.t(ResourceKeys.deviceInterfaces.columns.description)}
-                        value={getLocalizedData(modelDefinitionWithSource.modelDefinition.description) || '--'}
-                        allowMask={false}
-                        readOnly={true}
-                    />
-                </>
+                    <>
+                        <MaskedCopyableTextFieldContainer
+                            ariaLabel={context.t(ResourceKeys.deviceInterfaces.columns.displayName)}
+                            label={context.t(ResourceKeys.deviceInterfaces.columns.displayName)}
+                            value={modelDefinitionWithSource.modelDefinition && getLocalizedData(modelDefinitionWithSource.modelDefinition.displayName) || '--'}
+                            allowMask={false}
+                            readOnly={true}
+                        />
+                        <MaskedCopyableTextFieldContainer
+                            ariaLabel={context.t(ResourceKeys.deviceInterfaces.columns.description)}
+                            label={context.t(ResourceKeys.deviceInterfaces.columns.description)}
+                            value={modelDefinitionWithSource.modelDefinition && getLocalizedData(modelDefinitionWithSource.modelDefinition.description) || '--'}
+                            allowMask={false}
+                            readOnly={true}
+                        />
+                    </>
                 }
             </>
         );

@@ -94,7 +94,7 @@ exports[`components/devices/deviceSettings matches snapshot with one twinWithSch
           },
           "settingSchema": Object {
             "description": "Brightness Level / The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)",
-            "required": null,
+            "required": Array [],
             "title": "brightness",
             "type": "number",
           },
@@ -184,7 +184,7 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
       settingSchema={
         Object {
           "description": "Brightness Level / The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)",
-          "required": null,
+          "required": Array [],
           "title": "brightness",
           "type": "number",
         }
@@ -207,7 +207,7 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
             },
             "settingSchema": Object {
               "description": "Brightness Level / The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)",
-              "required": null,
+              "required": Array [],
               "title": "brightness",
               "type": "number",
             },
