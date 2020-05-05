@@ -11,7 +11,6 @@ import { getModelDefinitionSyncStatusSelector, getModelDefinitionWithSourceSelec
 import DeviceInterfaces, { DeviceInterfaceProps, DeviceInterfaceDispatchProps } from './deviceInterfaces';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { setComponentNameAction, getModelDefinitionAction } from '../../actions';
-import { setSettingsVisibilityAction } from '../../../../settings/actions';
 
 const mapStateToProps = (state: StateType): DeviceInterfaceProps => {
     const modelSyncStatus = getModelDefinitionSyncStatusSelector(state);
@@ -26,7 +25,6 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DeviceInterfaceDispa
     return {
         refresh: (deviceId: string, interfaceId: string) => dispatch(getModelDefinitionAction.started({digitalTwinId: deviceId, interfaceId})),
         setComponentName: (id: string) => dispatch(setComponentNameAction(id)),
-        settingsVisibleToggle: (visible: boolean) => dispatch(setSettingsVisibilityAction(visible))
     };
 };
 

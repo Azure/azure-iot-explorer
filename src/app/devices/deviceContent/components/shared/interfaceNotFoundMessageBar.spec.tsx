@@ -4,26 +4,31 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import { MessageBarButton } from 'office-ui-fabric-react/lib/Button';
-import InterfaceNotFoundMessageBox from './interfaceNotFoundMessageBar';
-import { testSnapshot, mountWithLocalization } from '../../../../shared/utils/testHelpers';
+import { act } from 'react-dom/test-utils';
+import { MessageBarButton } from 'office-ui-fabric-react';
+import { MemoryRouter, Redirect } from 'react-router-dom';
+import { shallow, mount } from 'enzyme';
+import { InterfaceNotFoundMessageBar } from './interfaceNotFoundMessageBar';
 
 describe('interfaceNotFoundMessageBar', () => {
-    const settingsVisibleToggle = jest.fn();
-    const getComponent = (overrides = {}) => {
-        const props = {
-            settingsVisibleToggle,
-            ...overrides
-        };
+    it('matches snapshot', () => {
+        expect(shallow(<InterfaceNotFoundMessageBar/>)).toMatchSnapshot();
+    });
 
-        return <InterfaceNotFoundMessageBox {...props} />;
-    };
+    it ('issues redirect when button clicked', () => {
+        const wrapper = mount(
+            <MemoryRouter>
+                <InterfaceNotFoundMessageBar />
+            </MemoryRouter>
+        );
 
-    it('matches snapshot with simple type', () => {
-        testSnapshot(getComponent());
-        const wrapper = mountWithLocalization(getComponent());
-        const messageBarButton = wrapper.find(MessageBarButton);
-        messageBarButton.props().onClick(null);
-        expect(settingsVisibleToggle).toBeCalled();
+        act(() => {
+            wrapper.find(MessageBarButton).first().props().onClick(undefined);
+        });
+
+        wrapper.update();
+
+        const redirect = wrapper.find(Redirect);
+        expect(redirect.length).toBeGreaterThan(0);
     });
 });

@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`homeViewNavigation matches snapshot 1`] = `
+<div
+  className="nav-link-bar view"
+>
+  <div
+    className="view-scroll-vertical"
+  >
+    <nav
+      role="navigation"
+    >
+      <NavLink
+        activeClassName="nav-link-active"
+        aria-current="page"
+        className="nav-link"
+        title="breadcrumb.resources"
+        to="/home/resources"
+      >
+        breadcrumb.resources
+      </NavLink>
+      <NavLink
+        activeClassName="nav-link-active"
+        aria-current="page"
+        className="nav-link"
+        title="breadcrumb.repos"
+        to="/home/repos"
+      >
+        breadcrumb.repos
+      </NavLink>
+    </nav>
+  </div>
+</div>
+`;

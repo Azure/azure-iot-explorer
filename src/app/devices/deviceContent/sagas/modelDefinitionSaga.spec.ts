@@ -10,7 +10,7 @@ import { addNotificationAction } from '../../../notifications/actions';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getModelDefinitionAction } from '../actions';
-import { getRepositoryLocationSettingsSelector, getLocalFolderPath } from '../../../settings/selectors';
+import { getRepositoryLocationSettingsSelector, getLocalFolderPath } from '../../../modelRepository/selectors';
 import { REPOSITORY_LOCATION_TYPE } from '../../../constants/repositoryLocationTypes';
 import { fetchLocalFile } from '../../../api/services/localRepoService';
 import { fetchModelDefinition } from '../../../api/services/publicDigitalTwinsModelRepoService';

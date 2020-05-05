@@ -43,7 +43,6 @@ exports[`components/devices/deviceInterfaces shows interface information when st
       className="pnp-interface-info scrollable-lg"
     >
       <Component
-        handleConfigure={[Function]}
         source="PUBLIC"
       />
       <Connect(MaskedCopyableTextField)

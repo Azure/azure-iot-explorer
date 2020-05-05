@@ -1,0 +1,16 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+.home-view-message-bar {
+  margin-top: -32px;
+}
+
+.home-view {
+  display: flex;
+  flex-direction: row;
+
+  .nav{
+    max-width: 300px;
+  }
+}

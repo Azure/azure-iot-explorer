@@ -8,7 +8,7 @@ import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import DeviceCommands, { DeviceCommandDispatchProps , DeviceCommandsProps } from './deviceCommands';
 import { testSnapshot, mountWithLocalization } from '../../../../shared/utils/testHelpers';
-import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
+import { InterfaceNotFoundMessageBar } from '../shared/interfaceNotFoundMessageBar';
 
 describe('components/devices/deviceCommands', () => {
     const deviceCommandsProps: DeviceCommandsProps = {
@@ -59,7 +59,7 @@ describe('components/devices/deviceCommands', () => {
     it('matches snapshot while interface cannot be found', () => {
         testSnapshot(getComponent({isLoading: false, commandSchemas: undefined}));
         const wrapper = mountWithLocalization(getComponent(), true);
-        expect(wrapper.find(InterfaceNotFoundMessageBoxContainer)).toBeDefined();
+        expect(wrapper.find(InterfaceNotFoundMessageBar)).toBeDefined();
     });
 
     it('matches snapshot with a commandSchema', () => {

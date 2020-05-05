@@ -1,15 +1,14 @@
 import * as React from 'react';
 import { Route } from 'react-router-dom';
-import SettingsPaneContainer from '../../settings/components/settingsPaneContainer';
-import HeaderContainer from './headerContainer';
 import Breadcrumb from './breadcrumb';
+import { Header } from './header';
 import '../../css/_applicationFrame.scss';
 
 export const ApplicationFrame: React.FC = props => {
     return (
         <div className="app">
             <div className="masthead">
-                <HeaderContainer />
+                <Header />
             </div>
 
             <nav className="navigation">
@@ -19,8 +18,6 @@ export const ApplicationFrame: React.FC = props => {
             <main role="main" className="content">
                 {props.children}
             </main>
-
-            <SettingsPaneContainer />
         </div>
     );
 };

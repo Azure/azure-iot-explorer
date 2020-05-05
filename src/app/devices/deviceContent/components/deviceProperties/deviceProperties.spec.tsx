@@ -9,7 +9,7 @@ import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
 import DeviceProperties, { DevicePropertiesDataProps , DevicePropertiesDispatchProps } from './deviceProperties';
 import { TwinWithSchema } from './devicePropertiesPerInterface';
 import { mountWithLocalization, testSnapshot } from '../../../../shared/utils/testHelpers';
-import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
+import { InterfaceNotFoundMessageBar } from '../shared/interfaceNotFoundMessageBar';
 
 export const twinWithSchema: TwinWithSchema = {
     propertyModelDefinition: {
@@ -76,7 +76,7 @@ describe('components/devices/deviceProperties', () => {
     it('matches snapshot while interface cannot be found', () => {
         testSnapshot(getComponent({isLoading: false, twinWithSchema: undefined}));
         const wrapper = mountWithLocalization(getComponent(), true);
-        expect(wrapper.find(InterfaceNotFoundMessageBoxContainer)).toBeDefined();
+        expect(wrapper.find(InterfaceNotFoundMessageBar)).toBeDefined();
     });
 
     it('matches snapshot with one twinWithSchema', () => {
