@@ -28,7 +28,7 @@
             "no": "No"
         },
         "navigation": {
-            "confirm": "You have unsaved changes.  Are you sure you wish to continue?"
+            "confirm": "Your unsaved edits will be discarded."
         }
     },
     "collapsibleSection": {
