@@ -21,8 +21,8 @@ import { CONTROLLER_API_ENDPOINT,
     STOP,
     HEADERS,
     CLOUD_TO_DEVICE,
-    DataPlaneStatusCode,
-    HTTP_OPERATION_TYPES
+    HTTP_OPERATION_TYPES,
+    DataPlaneStatusCode
 } from '../../constants/apiConstants';
 import { buildQueryString } from '../shared/utils';
 import { Message } from '../models/messages';

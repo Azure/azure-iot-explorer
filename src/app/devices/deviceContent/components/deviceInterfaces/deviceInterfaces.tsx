@@ -123,22 +123,22 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
                     readOnly={true}
                 />
                 {isValidInterface &&
-                <>
-                    <MaskedCopyableTextFieldContainer
-                        ariaLabel={context.t(ResourceKeys.deviceInterfaces.columns.displayName)}
-                        label={context.t(ResourceKeys.deviceInterfaces.columns.displayName)}
-                        value={modelDefinitionWithSource.modelDefinition && getLocalizedData(modelDefinitionWithSource.modelDefinition.displayName) || '--'}
-                        allowMask={false}
-                        readOnly={true}
-                    />
-                    <MaskedCopyableTextFieldContainer
-                        ariaLabel={context.t(ResourceKeys.deviceInterfaces.columns.description)}
-                        label={context.t(ResourceKeys.deviceInterfaces.columns.description)}
-                        value={modelDefinitionWithSource.modelDefinition && getLocalizedData(modelDefinitionWithSource.modelDefinition.description) || '--'}
-                        allowMask={false}
-                        readOnly={true}
-                    />
-                </>
+                    <>
+                        <MaskedCopyableTextFieldContainer
+                            ariaLabel={context.t(ResourceKeys.deviceInterfaces.columns.displayName)}
+                            label={context.t(ResourceKeys.deviceInterfaces.columns.displayName)}
+                            value={modelDefinitionWithSource.modelDefinition && getLocalizedData(modelDefinitionWithSource.modelDefinition.displayName) || '--'}
+                            allowMask={false}
+                            readOnly={true}
+                        />
+                        <MaskedCopyableTextFieldContainer
+                            ariaLabel={context.t(ResourceKeys.deviceInterfaces.columns.description)}
+                            label={context.t(ResourceKeys.deviceInterfaces.columns.description)}
+                            value={modelDefinitionWithSource.modelDefinition && getLocalizedData(modelDefinitionWithSource.modelDefinition.description) || '--'}
+                            allowMask={false}
+                            readOnly={true}
+                        />
+                    </>
                 }
             </>
         );
