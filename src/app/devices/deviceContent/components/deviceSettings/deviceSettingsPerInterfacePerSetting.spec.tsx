@@ -33,7 +33,7 @@ describe('components/devices/deviceSettingsPerInterfacePerSetting', () => {
     const propertySchema: ParsedJsonSchema = {
         default: false,
         description: 'Device State / The state of the device. Two states online/offline are available.',
-        required: null,
+        required: [],
         title: name,
         type: schema
     };

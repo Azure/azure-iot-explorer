@@ -129,12 +129,12 @@ export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
                 if (Object.keys(this.definitions).includes(propertySchema)) {
                     return {
                         $ref: `#/definitions/${propertySchema}`,
-                        required: null
+                        required: []
                     };
                 }
                 else {
                     return {
-                        required: null,
+                        required: [],
                         type: 'string'
                     };
                 }
@@ -144,38 +144,38 @@ export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
                     case 'boolean':
                         return {
                             default: false,
-                            required: null,
+                            required: [],
                             type: 'boolean'
                         };
                     case 'date':
                         return {
                             format: 'date',
-                            required: null,
+                            required: [],
                             type: 'string',
                         };
                     case 'datetime':
                         return {
                             pattern: '^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(.[0-9]+)?(Z)?$', // regex for ISO 8601
-                            required: null,
+                            required: [],
                             type: 'string',
                         };
                     case 'double':
                     case 'float':
                     case 'long':
                         return {
-                            required: null,
-                            type: 'number',
+                            required: [],
+                            type:  'number'
                         };
                     case 'integer':
                         return {
-                            required: null,
-                            type: 'integer',
+                            required: [],
+                            type: 'integer'
                         };
                     case 'time': // todo: no widget for 'time' type
                     case 'duration': // todo: no widget for 'duration' type
                     case 'string':
                         return {
-                            required: null,
+                            required: [],
                             type: 'string'
                         };
                     default:
@@ -188,7 +188,7 @@ export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
             return propertySchema && (propertySchema as EnumSchema).enumValues ? {
                 enum: (propertySchema as EnumSchema).enumValues.map(item => item.enumValue),
                 enumNames : (propertySchema as EnumSchema).enumValues.map(item => item.name),
-                required: null,
+                required: [],
                 type: (propertySchema as EnumSchema).enumValues.some(item => typeof item.enumValue === 'string') ? 'string' : 'number',
             } : undefined;
         }
@@ -208,7 +208,7 @@ export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
 
             return  {
                 properties: children,
-                required: null,
+                required: [],
                 type: 'object'
             };
         }
@@ -220,13 +220,13 @@ export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
             return {
                 additionalProperties: true,
                 items: this.parseInterfaceMapTypePropertyItems(propertySchema),
-                required: null,
+                required: [],
                 type: 'array' // there is no map type in json schema, instead we use an array of object type to present it
             };
         }
 
         return {
-            required: null,
+            required: [],
             type: 'string'
         };
     }

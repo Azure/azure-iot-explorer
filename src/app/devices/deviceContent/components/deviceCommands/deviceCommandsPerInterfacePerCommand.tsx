@@ -12,7 +12,6 @@ import { ParsedCommandSchema } from '../../../../api/models/interfaceJsonParserO
 import { CommandContent } from '../../../../api/models/modelDefinition';
 import DataForm from '../shared/dataForm';
 import { InvokeDigitalTwinInterfaceCommandActionParameters } from '../../actions';
-import { generateCommandPayload } from '../../sagas/digitalTwinInterfaceCommandSaga';
 import ErrorBoundary from '../../../errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 
@@ -93,14 +92,9 @@ export default class DeviceCommandsPerInterfacePerCommand
                 componentName={this.props.componentName}
                 settingSchema={this.props.parsedSchema.requestSchema}
                 handleSave={this.onSubmit}
-                craftPayload={this.craftCommandPayload}
                 schema={this.getCommandSchema(true)}
             />
         );
-    }
-
-    private readonly craftCommandPayload = (payload: object) => {
-      return generateCommandPayload(payload);
     }
 
     private readonly getCommandSchema = (isRequest: boolean) => {

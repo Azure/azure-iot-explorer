@@ -56,6 +56,7 @@ describe('components/devices/deviceEventsPerInterface', () => {
     const telemetrySchema: TelemetrySchema[] = [{
         parsedSchema: {
             description: 'Temperature /Current temperature on the device',
+            required: [],
             title: 'temp',
             type: 'number'
         },

@@ -34,7 +34,7 @@ export interface DataFormDataProps {
 
 export interface DataFormActionProps {
     handleSave: (twin: any) => () => void; // tslint:disable-line:no-any
-    craftPayload: (payload: object) => object;
+    craftPayload?: (payload: object) => object;
 }
 
 export interface DataFormState {
@@ -120,8 +120,8 @@ export default class DataForm extends React.Component<DataFormDataProps & DataFo
                 <ErrorBoundary error={context.t(ResourceKeys.errorBoundary.text)}>
                     <Form
                         className="value-section"
-                        formData={this.state.formData}
-                        liveValidate={true}
+                        formData={stringifyNumberIfNecessary(this.state.formData)}
+                        liveValidate={false}
                         onChange={this.onChangeForm}
                         schema={this.props.settingSchema as any} // tslint:disable-line: no-any
                         showErrorList={false}
@@ -187,7 +187,7 @@ export default class DataForm extends React.Component<DataFormDataProps & DataFo
 
     private readonly createPayloadPreview = () => {
         this.setState({
-            payloadPreviewData: this.props.craftPayload(this.generatePayload()),
+            payloadPreviewData: this.props.craftPayload ? this.props.craftPayload(this.generatePayload()) : this.generatePayload(),
             showPayloadDialog: true
         });
     }
@@ -234,3 +234,13 @@ export default class DataForm extends React.Component<DataFormDataProps & DataFo
         );
     }
 }
+
+// tslint:disable-next-line: no-any
+export const isValueDefined = (value: any) => {
+    return value !== undefined || (typeof value === 'number' && value === 0) || typeof value === 'boolean';
+};
+
+// tslint:disable-next-line: no-any
+export const stringifyNumberIfNecessary = (value: any) => {
+    return typeof value === 'number' && value === 0 ? '0' : value;
+};
