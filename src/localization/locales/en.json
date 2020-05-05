@@ -130,6 +130,10 @@
         "value": "Value"
     },
     "connectionStrings": {
+        "empty": {
+            "header": "No connections to display",
+            "description": "You will need to add an IoT hub connection string. Connection strings are saved to application storage and can be edited or removed at any time by returning"
+        },
         "addConnectionCommand": {
             "label": "Add connection",
             "ariaLabel": "Add connection string"

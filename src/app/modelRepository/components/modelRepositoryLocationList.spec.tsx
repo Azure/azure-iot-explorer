@@ -36,7 +36,6 @@ describe('components/settings/modelRepositoryLocationList', () => {
             <ModelRepositoryLocationList
                 repositoryLocationSettings={[
                     {repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public,},
-                    {repositoryLocationType: REPOSITORY_LOCATION_TYPE.Device},
                     {repositoryLocationType: REPOSITORY_LOCATION_TYPE.Local}
                 ]}
                 repositoryLocationSettingsErrors={{}}

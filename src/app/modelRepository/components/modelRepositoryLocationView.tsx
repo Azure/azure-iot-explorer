@@ -18,6 +18,7 @@ import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationType
 import { appConfig, HostMode } from '../../../appConfig/appConfig';
 import { StringMap } from '../../api/models/stringMap';
 import { ROUTE_PARAMS } from '../../constants/routes';
+import { SAVE, ADD, UNDO, HELP, NAVIGATE_BACK } from '../../constants/iconNames';
 import '../../css/_layouts.scss';
 
 export interface ModelRepositoryLocationViewDataProps {
@@ -44,7 +45,7 @@ export const ModelRepositoryLocationView: React.FC<ModelRepositoryLocationViewPr
             {
                 ariaLabel: t(ResourceKeys.modelRepository.commands.save.ariaLabel),
                 disabled: !dirty,
-                iconProps: { iconName: 'Save' },
+                iconProps: { iconName: SAVE },
                 key: 'save',
                 onClick: onSaveModelRepositorySettingsClick,
                 text: t(ResourceKeys.modelRepository.commands.save.label)
@@ -52,7 +53,7 @@ export const ModelRepositoryLocationView: React.FC<ModelRepositoryLocationViewPr
             {
                 ariaLabel: t(ResourceKeys.modelRepository.commands.add.ariaLabel),
                 disabled: repositoryLocationSettings.length >= Object.keys(REPOSITORY_LOCATION_TYPE).length,
-                iconProps: { iconName: 'Add'},
+                iconProps: { iconName: ADD },
                 key: 'add',
                 subMenuProps: {
                     items: addItems
@@ -62,7 +63,7 @@ export const ModelRepositoryLocationView: React.FC<ModelRepositoryLocationViewPr
             {
                 ariaLabel: t(ResourceKeys.modelRepository.commands.revert.ariaLabel),
                 disabled: !dirty,
-                iconProps: { iconName: 'Undo' },
+                iconProps: { iconName: UNDO },
                 key: 'revert',
                 onClick: onRevertModelRepositorySettingsClick,
                 text: t(ResourceKeys.modelRepository.commands.revert.label)
@@ -74,7 +75,7 @@ export const ModelRepositoryLocationView: React.FC<ModelRepositoryLocationViewPr
         const items: ICommandBarItemProps[] = [
             {
                 ariaLabel: t(ResourceKeys.modelRepository.commands.help.ariaLabel),
-                iconProps: { iconName: 'Help'},
+                iconProps: { iconName: HELP},
                 key: 'help',
                 onClick: onHelpClick,
                 text: t(ResourceKeys.modelRepository.commands.help.label)
@@ -85,7 +86,7 @@ export const ModelRepositoryLocationView: React.FC<ModelRepositoryLocationViewPr
             items.push(
                 {
                     ariaLabel: t(ResourceKeys.modelRepository.commands.back.ariaLabel),
-                    iconProps: { iconName: 'NavigateBackMirrored'},
+                    iconProps: { iconName: NAVIGATE_BACK},
                     key: 'back',
                     onClick: onNavigateBackClick,
                     text: t(ResourceKeys.modelRepository.commands.back.label)

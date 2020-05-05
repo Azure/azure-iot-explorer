@@ -23,23 +23,11 @@ exports[`components/settings/modelRepositoryLocationList matches snapshot with e
         onRemoveRepositoryLocationSetting={[Function]}
       />
     </n>
-    <n>
-      <ModelRepositoryLocationListItem
-        index={1}
-        item={
-          Object {
-            "repositoryLocationType": undefined,
-          }
-        }
-        onChangeRepositoryLocationSettingValue={[Function]}
-        onRemoveRepositoryLocationSetting={[Function]}
-      />
-    </n>
     <n
       key="LOCAL"
     >
       <ModelRepositoryLocationListItem
-        index={2}
+        index={1}
         item={
           Object {
             "repositoryLocationType": "LOCAL",

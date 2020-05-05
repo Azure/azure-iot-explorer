@@ -14,9 +14,9 @@ export const ConnectionStringsEmpty: React.FC = props => {
 
     return (
         <div className="connection-strings-empty">
-            <h3 role="heading" aria-level={1}>No connections to display</h3>
+            <h3 role="heading" aria-level={1}>{t(ResourceKeys.connectionStrings.empty.header)}</h3>
             <div>
-                <span>You will need to add an IoT hub connection string. Connection strings are saved to application storage and can be edited or removed at any time by returning</span>
+                <span>{t(ResourceKeys.connectionStrings.empty.description)}</span>
                 <NavLink to="/" className="embedded-link">Home.</NavLink>
             </div>
 

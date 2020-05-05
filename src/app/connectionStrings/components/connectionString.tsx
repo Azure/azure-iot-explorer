@@ -12,6 +12,7 @@ import { useLocalizationContext } from '../../shared/contexts/localizationContex
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { ConnectionStringDelete } from './connectionStringDelete';
 import MaskedCopyableTextFieldContainer from '../../shared/components/maskedCopyableTextFieldContainer';
+import { EDIT, REMOVE } from '../../constants/iconNames';
 import './connectionString.scss';
 
 export interface ConnectionStringProps {
@@ -59,9 +60,6 @@ export const ConnectionString: React.FC<ConnectionStringProps> = props => {
                         ariaLabel={t(ResourceKeys.connectionStrings.visitConnectionCommand.ariaLabel, {connectionString})}
                         onClick={onSelectConnectionStringClick}
                         title={t(ResourceKeys.connectionStrings.visitConnectionCommand.ariaLabel, {connectionString})}
-                        iconProps={{
-                            iconName: 'NavigateForward'
-                        }}
                     >
                         {resourceName}
                     </Link>
@@ -69,7 +67,7 @@ export const ConnectionString: React.FC<ConnectionStringProps> = props => {
                 <div className="actions">
                     <IconButton
                         iconProps={{
-                            iconName: 'EditSolid12'
+                            iconName: EDIT
                         }}
                         title={t(ResourceKeys.connectionStrings.editConnectionCommand.label)}
                         ariaLabel={t(ResourceKeys.connectionStrings.editConnectionCommand.ariaLabel, {connectionString})}
@@ -77,7 +75,7 @@ export const ConnectionString: React.FC<ConnectionStringProps> = props => {
                     />
                     <IconButton
                         iconProps={{
-                            iconName: 'Delete'
+                            iconName: REMOVE
                         }}
                         title={t(ResourceKeys.connectionStrings.deleteConnectionCommand.label)}
                         ariaLabel={t(ResourceKeys.connectionStrings.deleteConnectionCommand.ariaLabel, {connectionString})}

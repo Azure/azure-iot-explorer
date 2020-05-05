@@ -168,6 +168,10 @@ export class ResourceKeys {
          ariaLabel : "connectionStrings.editConnectionCommand.ariaLabel",
          label : "connectionStrings.editConnectionCommand.label",
       },
+      empty : {
+         description : "connectionStrings.empty.description",
+         header : "connectionStrings.empty.header",
+      },
       properties : {
          connectionString : {
             ariaLabel : "connectionStrings.properties.connectionString.ariaLabel",

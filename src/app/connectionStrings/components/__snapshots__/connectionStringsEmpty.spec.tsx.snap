@@ -8,11 +8,11 @@ exports[`ConnectionSTringsEmpty matches snapshot 1`] = `
     aria-level={1}
     role="heading"
   >
-    No connections to display
+    connectionStrings.empty.header
   </h3>
   <div>
     <span>
-      You will need to add an IoT hub connection string. Connection strings are saved to application storage and can be edited or removed at any time by returning
+      connectionStrings.empty.description
     </span>
     <NavLink
       activeClassName="active"
