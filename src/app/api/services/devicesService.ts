@@ -22,8 +22,12 @@ import { CONTROLLER_API_ENDPOINT,
     HEADERS,
     CLOUD_TO_DEVICE,
     HTTP_OPERATION_TYPES,
+<<<<<<< HEAD
     DataPlaneStatusCode,
     HUB_DATA_PLANE_API_VERSION
+=======
+    DataPlaneStatusCode
+>>>>>>> merge master in (#276)
 } from '../../constants/apiConstants';
 import { buildQueryString } from '../shared/utils';
 import { Message } from '../models/messages';
@@ -252,7 +256,7 @@ export const monitorEvents = async (parameters: MonitorEventsParameters): Promis
         const connectionInfo = await dataPlaneConnectionHelper(parameters);
         requestParameters = {
             ...requestParameters,
-            hubConnectionString: 'connectionInfo.connectionInfo'
+            hubConnectionString: connectionInfo.connectionString
         };
     }
 
