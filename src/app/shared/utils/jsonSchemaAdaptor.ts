@@ -36,11 +36,27 @@ export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
     }
 
     public getWritableProperties = () => {
-        return this.model && this.model.contents && this.model.contents.filter((item: PropertyContent) => this.filterProperty(item, true)) as PropertyContent[] || [];
+        const filterWritablePropeties = (content: PropertyContent) =>  {
+                if (typeof content['@type'] === 'string') {
+                return content['@type'].toLowerCase() === ContentType.Property && content.writable === true;
+            }
+            else {
+                return content['@type'].some((entry: string) => entry.toLowerCase() === ContentType.Property) && content.writable === true;
+            }
+        };
+        return this.model && this.model.contents && this.model.contents.filter((item: PropertyContent) => filterWritablePropeties(item)) as PropertyContent[] || [];
     }
 
     public getNonWritableProperties = () => {
-        return this.model && this.model.contents && this.model.contents.filter((item: PropertyContent) => this.filterProperty(item, false || undefined)) as PropertyContent[] || [];
+        const filterNonWritablePropeties = (content: PropertyContent) =>  {
+            if (typeof content['@type'] === 'string') {
+            return content['@type'].toLowerCase() === ContentType.Property && !content.writable;
+        }
+        else {
+            return content['@type'].some((entry: string) => entry.toLowerCase() === ContentType.Property) && !content.writable;
+        }
+    };
+        return this.model && this.model.contents && this.model.contents.filter((item: PropertyContent) => filterNonWritablePropeties(item)) as PropertyContent[] || [];
     }
 
     public getCommands = () => {
@@ -82,15 +98,6 @@ export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
             };
         } catch {
             return; // swallow the error and let UI render JSON editor for types which are not supported yet
-        }
-    }
-
-    private readonly filterProperty = (content: PropertyContent, writable: boolean) => {
-        if (typeof content['@type'] === 'string') {
-            return content['@type'].toLowerCase() === ContentType.Property && content.writable === writable;
-        }
-        else {
-            return content['@type'].some((entry: string) => entry.toLowerCase() === ContentType.Property) && content.writable === writable;
         }
     }
 
@@ -164,12 +171,12 @@ export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
                     case 'long':
                         return {
                             required: [],
-                            type:  'number'
+                            type:  ['number', 'null']
                         };
                     case 'integer':
                         return {
                             required: [],
-                            type: 'integer'
+                            type: ['integer', 'null']
                         };
                     case 'time': // todo: no widget for 'time' type
                     case 'duration': // todo: no widget for 'duration' type

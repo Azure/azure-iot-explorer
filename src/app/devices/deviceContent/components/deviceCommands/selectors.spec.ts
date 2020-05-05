@@ -75,7 +75,7 @@ describe('getDeviceCommandPairs', () => {
                         definitions: {},
                         required: [],
                         title: 'blinkRequest',
-                        type: 'number'
+                        type: ['number', 'null']
                     },
                     responseSchema: {
                         definitions: {},

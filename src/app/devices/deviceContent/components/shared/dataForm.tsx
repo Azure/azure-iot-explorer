@@ -6,7 +6,9 @@ import * as React from 'react';
 import { PrimaryButton, ActionButton } from 'office-ui-fabric-react/lib/Button';
 import { Dialog, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
+import { Label } from 'office-ui-fabric-react/lib/Label';
 import Form from 'react-jsonschema-form';
+import { Validator } from 'jsonschema';
 import { fabricWidgets, fabricFields } from '../../../../jsonSchemaFormFabricPlugin';
 import { ObjectTemplate } from '../../../../jsonSchemaFormFabricPlugin/fields/objectTemplate';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
@@ -111,6 +113,28 @@ export default class DataForm extends React.Component<DataFormDataProps & DataFo
         );
     }
 
+    private readonly renderMessageBodyWithValueValidation = (context: LocalizationContextInterface) => {
+        const validator = new Validator();
+        const result = validator.validate(this.state.formData, this.props.settingSchema);
+
+        return(
+            <div className="column-value-text col-sm4">
+                <Label aria-label={context.t(ResourceKeys.deviceEvents.columns.value)}>
+                    {result && result.errors && result.errors.length !== 0 &&
+                        <section className="value-validation-error" aria-label={context.t(ResourceKeys.deviceSettings.columns.error)}>
+                            <span>{context.t(ResourceKeys.deviceSettings.columns.error)}</span>
+                            <ul>
+                                {result.errors.map((element, index) =>
+                                    <li key={index}>{element.message}</li>
+                                )}
+                            </ul>
+                        </section>
+                    }
+                </Label>
+            </div>
+        );
+    }
+
     private readonly createForm = (context: LocalizationContextInterface) => {
         if (this.state.parseMapTypeError || !this.props.settingSchema) { // Not able to parse interface definition, render raw json in editor instead
             return this.createJsonEditor(context);
@@ -119,9 +143,9 @@ export default class DataForm extends React.Component<DataFormDataProps & DataFo
             return (
                 <ErrorBoundary error={context.t(ResourceKeys.errorBoundary.text)}>
                     <Form
-                        className={`${this.skipValidation() ? 'value-section-noErrors' : 'value-section'}`}
+                        className="value-section"
                         formData={this.stringifyNumberIfNecessary()}
-                        liveValidate={true}
+                        liveValidate={false}
                         onChange={this.onChangeForm}
                         schema={this.props.settingSchema as any} // tslint:disable-line: no-any
                         showErrorList={false}
@@ -130,6 +154,7 @@ export default class DataForm extends React.Component<DataFormDataProps & DataFo
                         {...fabricFields}
                         ObjectFieldTemplate={ObjectTemplate}
                     >
+                        {this.renderMessageBodyWithValueValidation(context)}
                         {this.createActionButtons(context)}
                     </Form>
                 </ErrorBoundary>
@@ -201,13 +226,6 @@ export default class DataForm extends React.Component<DataFormDataProps & DataFo
         editor.setSelection(editor.getVisibleRanges()[0]);
         editor.focus();
         document.execCommand('copy');
-    }
-
-    private readonly skipValidation = () => {
-        const value = this.state.formData;
-        return typeof value === 'number' && value === 0
-            && this.props.settingSchema
-            && ( this.props.settingSchema.type === 'integer' || this.props.settingSchema.type === 'number'); // skip validation when value is 0 for integer and number (take 0 as valid)
     }
 
     private readonly stringifyNumberIfNecessary = () => {

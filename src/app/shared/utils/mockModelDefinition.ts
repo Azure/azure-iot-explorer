@@ -17,6 +17,13 @@ export const longTypeNonWritableProperty = {
     "schema": "long"
 };
 
+export const longTypeNonWritableProperty2 = {
+    "@type": "Property",
+    "name": "property1",
+    "writable": false,
+    "schema": "long"
+};
+
 export const enumbTypeProperty = {
     "@type": [
         "Property",
@@ -127,6 +134,9 @@ export const mockModelDefinition = {
         },
         {
             ...longTypeNonWritableProperty
+        },
+        {
+            ...longTypeNonWritableProperty2
         },
         {
             ...timeTypeCommand

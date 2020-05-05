@@ -9,7 +9,8 @@ import { mockModelDefinition,
     mapTypeTelemetry,
     enumbTypeProperty,
     schema,
-    commandWithReusableSchema
+    commandWithReusableSchema,
+    longTypeNonWritableProperty2
 } from './mockModelDefinition';
 import { JsonSchemaAdaptor } from './jsonSchemaAdaptor';
 
@@ -22,7 +23,7 @@ describe('parse interface model definition to Json schema', () => {
         });
 
         it('returns a list of non-writable properties', () => {
-            expect(jsonSchemaAdaptor.getNonWritableProperties()).toEqual([longTypeNonWritableProperty]);
+            expect(jsonSchemaAdaptor.getNonWritableProperties()).toEqual([longTypeNonWritableProperty, longTypeNonWritableProperty2]);
         });
 
         it('returns a list of commands', () => {
@@ -49,7 +50,7 @@ describe('parse interface model definition to Json schema', () => {
                     definitions: {},
                     required: [],
                     title: longTypeNonWritableProperty.name,
-                    type: 'number'
+                    type: ['number', 'null']
                 }
             );
         });
@@ -140,7 +141,7 @@ describe('parse interface model definition to Json schema', () => {
                                     sensor1: {
                                         required: [],
                                         title: 'sensor1',
-                                        type: 'integer'
+                                        type: ['integer', 'null']
                                     },
                                     sensor2: {
                                         default: false,

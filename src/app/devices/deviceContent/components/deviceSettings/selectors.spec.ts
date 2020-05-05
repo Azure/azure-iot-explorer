@@ -97,7 +97,7 @@ describe('getDigitalTwinSettingsSelector', () => {
                 definitions: {},
                 required: [],
                 title: modelDefinition.contents[0].name,
-                type: 'number'
+                type: ['number', 'null']
             }
         });
     });

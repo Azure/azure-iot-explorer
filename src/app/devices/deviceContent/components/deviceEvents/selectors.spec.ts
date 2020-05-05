@@ -56,7 +56,7 @@ describe('getDeviceCommandPairs', () => {
                     definitions: {},
                     required: [],
                     title: 'temp',
-                    type: 'number'
+                    type: ['number', 'null']
                 },
                 telemetryModelDefinition: {
                     '@type': [
