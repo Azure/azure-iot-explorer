@@ -60,28 +60,19 @@ $nav-width: 20%;
                     padding: 1px 12px 1px 12px;
                 }
                 .form-control:disabled {
-                    border: none;                    
+                    border: none;
                     height: 32px;
                 }
             }
         }
         .each-property {
             margin-bottom: 10px;
-        } 
-        .ms-CommandBar {
-            @include themify($themes) {
-                background: themed('backgroundColor');
-                border-bottom: 1px solid themed('borderColor');
-                .ms-Button--commandBar {
-                    background: themed('backgroundColor');
-                }
-            }
         }
         h3 {
             font-size: 20px;
             padding-left: 26px;
         }
-        
+
     }
     .device-content-detail.collapsed {
         margin-left: $nav-collapsed-width;

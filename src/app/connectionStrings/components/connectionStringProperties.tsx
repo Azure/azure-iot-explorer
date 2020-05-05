@@ -38,7 +38,7 @@ export const ConnectionStringProperties: React.FC<ConnectionStringPropertiesProp
 
             <MaskedCopyableTextFieldContainer
                 ariaLabel={t(ResourceKeys.connectionStrings.properties.sharedAccessPolicyKey.ariaLabel, {connectionString})}
-                allowMask={false}
+                allowMask={true}
                 label={t(ResourceKeys.connectionStrings.properties.sharedAccessPolicyKey.label)}
                 value={sharedAccessKey}
                 readOnly={true}

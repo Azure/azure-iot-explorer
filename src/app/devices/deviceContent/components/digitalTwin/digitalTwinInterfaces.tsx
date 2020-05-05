@@ -26,13 +26,12 @@ import { getDigitalTwinAction, getModelDefinitionAction } from '../../actions';
 import { REFRESH } from '../../../../constants/iconNames';
 import { LARGE_COLUMN_WIDTH } from '../../../../constants/columnWidth';
 import { ModelDefinitionWithSource } from '../../../../api/models/modelDefinitionWithSource';
-import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
+import { InterfaceNotFoundMessageBar } from '../shared/interfaceNotFoundMessageBar';
 import { ModelDefinitionSourceView } from '../shared/modelDefinitionSource';
 import MaskedCopyableTextFieldContainer from '../../../../shared/components/maskedCopyableTextFieldContainer';
 import { MonacoEditorView } from '../../../../shared/components/monacoEditor';
 import { HeaderView } from '../../../../shared/components/headerView';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
-import { setSettingsVisibilityAction } from '../../../../settings/actions';
 import '../../../../css/_digitalTwinInterfaces.scss';
 
 export interface DigitalTwinInterfacesProps extends RouteComponentProps{
@@ -116,10 +115,6 @@ export const DigitalTwinInterfaces: React.FC<DigitalTwinInterfacesProps> = props
         }
     };
 
-    const handleConfigure = () => {
-        dispatch(setSettingsVisibilityAction(true));
-    };
-
     const renderComponentList = () => {
         const listView = (
             <>
@@ -169,7 +164,7 @@ export const DigitalTwinInterfaces: React.FC<DigitalTwinInterfacesProps> = props
             return (
             <>
                 <h4>{t(ResourceKeys.digitalTwin.steps.secondFailure)}</h4>
-                <InterfaceNotFoundMessageBoxContainer/>
+                <InterfaceNotFoundMessageBar/>
             </>);
         }
 
@@ -177,7 +172,6 @@ export const DigitalTwinInterfaces: React.FC<DigitalTwinInterfacesProps> = props
             <>
                 <h4>{t(ResourceKeys.digitalTwin.steps.secondSuccess)}</h4>
                 <ModelDefinitionSourceView
-                    handleConfigure={handleConfigure}
                     source={props.modelDefinitionWithSource.source}
                 />
                 {modelDefinitionWithSource.isModelValid ?

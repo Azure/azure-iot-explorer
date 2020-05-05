@@ -12,8 +12,9 @@ exports[`connectionString matches snapshot 1`] = `
     >
       <StyledLinkBase
         ariaLabel="connectionStrings.visitConnectionCommand.ariaLabel"
+        className="text"
         onClick={[Function]}
-        title="test"
+        title="connectionStrings.visitConnectionCommand.ariaLabel"
       >
         test
       </StyledLinkBase>
@@ -53,12 +54,24 @@ exports[`connectionString matches snapshot 1`] = `
       sharedAccessKeyName="iothubowner"
     />
     <Connect(MaskedCopyableTextField)
-      allowMask={false}
+      allowMask={true}
       ariaLabel="connectionStrings.properties.connectionString.ariaLabel"
       label="connectionStrings.properties.connectionString.label"
       readOnly={true}
       value="HostName=test.azure-devices-int.net;SharedAccessKeyName=iothubowner;SharedAccessKey=key"
     />
+    <StyledLinkBase
+      ariaLabel="connectionStrings.visitConnectionCommand.ariaLabel"
+      onClick={[Function]}
+      style={
+        Object {
+          "marginTop": 10,
+        }
+      }
+      title="connectionStrings.visitConnectionCommand.ariaLabel"
+    >
+      connectionStrings.visitConnectionCommand.label
+    </StyledLinkBase>
   </div>
   <Component
     connectionString="HostName=test.azure-devices-int.net;SharedAccessKeyName=iothubowner;SharedAccessKey=key"

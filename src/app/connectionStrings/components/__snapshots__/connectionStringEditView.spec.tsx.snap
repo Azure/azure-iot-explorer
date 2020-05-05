@@ -24,6 +24,12 @@ exports[`ConnectionStringEdit matches snapshot in Add Scenario 1`] = `
       rows={8}
       value=""
     />
+    <StyledLinkBase
+      href="connectivityPane.connectionStringComboBox.link"
+      target="_blank"
+    >
+      connectivityPane.connectionStringComboBox.linkText
+    </StyledLinkBase>
   </div>
 </StyledPanelBase>
 `;
@@ -52,6 +58,12 @@ exports[`ConnectionStringEdit matches snapshot in Edit / invalid scenario 1`] = 
       rows={8}
       value="connectionString"
     />
+    <StyledLinkBase
+      href="connectivityPane.connectionStringComboBox.link"
+      target="_blank"
+    >
+      connectivityPane.connectionStringComboBox.linkText
+    </StyledLinkBase>
   </div>
 </StyledPanelBase>
 `;
@@ -80,6 +92,12 @@ exports[`ConnectionStringEdit matches snapshot in Edit / valid scenario 1`] = `
       rows={8}
       value="HostName=test.azure-devices-int.net;SharedAccessKeyName=iothubowner;SharedAccessKey=key"
     />
+    <StyledLinkBase
+      href="connectivityPane.connectionStringComboBox.link"
+      target="_blank"
+    >
+      connectivityPane.connectionStringComboBox.linkText
+    </StyledLinkBase>
   </div>
 </StyledPanelBase>
 `;
@@ -108,6 +126,12 @@ exports[`ConnectionStringEdit matches snapshot in Edit Scenario 1`] = `
       rows={8}
       value="connectionString"
     />
+    <StyledLinkBase
+      href="connectivityPane.connectionStringComboBox.link"
+      target="_blank"
+    >
+      connectivityPane.connectionStringComboBox.linkText
+    </StyledLinkBase>
   </div>
 </StyledPanelBase>
 `;
