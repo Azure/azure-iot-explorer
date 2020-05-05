@@ -14,6 +14,8 @@ import { SynchronizationStatus } from '../../../../api/models/synchronizationSta
 import { setComponentNameAction, getModelDefinitionAction } from '../../actions';
 import { getActiveAzureResourceConnectionStringSelector } from '../../../../azureResource/selectors';
 import { getComponentNameFromQueryString } from '../../../../shared/utils/queryStringHelper';
+import { addNotificationAction } from '../../../../notifications/actions';
+import { Notification } from '../../../../api/models/notification';
 
 const mapStateToProps = (state: StateType, ownProps: RouteComponentProps): DeviceEventsDataProps => {
     return {
@@ -26,6 +28,7 @@ const mapStateToProps = (state: StateType, ownProps: RouteComponentProps): Devic
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DeviceEventsDispatchProps => {
     return {
+        addNotification: (notification: Notification) => dispatch(addNotificationAction.started(notification)),
         refresh: (deviceId: string, interfaceId: string) => dispatch(getModelDefinitionAction.started({digitalTwinId: deviceId, interfaceId})),
         setComponentName: (id: string) => dispatch(setComponentNameAction(id))
     };
