@@ -4,8 +4,8 @@
  **********************************************************/
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { Link } from 'office-ui-fabric-react/lib/Link';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
+import { Link } from 'office-ui-fabric-react/lib/Link';
 import { ConnectionString, ConnectionStringProps } from './connectionString';
 import { ConnectionStringDelete } from './connectionStringDelete';
 
@@ -33,7 +33,22 @@ describe('connectionString', () => {
         };
 
         const wrapper = shallow(<ConnectionString {...props}/>);
-        wrapper.find(Link).props().onClick(undefined);
+        wrapper.find(Link).first().props().onClick(undefined);
+
+        expect(onSelectConnectionString).toHaveBeenCalledWith(connectionString, 'test.azure-devices-int.net');
+    });
+
+    it('calls onSelectConnectionString when convenience link clicked', () => {
+        const onSelectConnectionString = jest.fn();
+        const props: ConnectionStringProps = {
+            connectionString,
+            onDeleteConnectionString: jest.fn(),
+            onEditConnectionString: jest.fn(),
+            onSelectConnectionString
+        };
+
+        const wrapper = shallow(<ConnectionString {...props}/>);
+        wrapper.find(Link).last().props().onClick(undefined);
 
         expect(onSelectConnectionString).toHaveBeenCalledWith(connectionString, 'test.azure-devices-int.net');
     });

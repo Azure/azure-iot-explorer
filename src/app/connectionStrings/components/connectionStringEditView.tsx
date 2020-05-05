@@ -6,6 +6,7 @@ import * as React from 'react';
 import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { DefaultButton, PrimaryButton } from 'office-ui-fabric-react/lib/Button';
+import { Link } from 'office-ui-fabric-react/lib/Link';
 import { ConnectionStringProperties } from './connectionStringProperties';
 import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
 import { generateConnectionStringValidationError } from '../../shared/utils/hubConnectionStringHelper';
@@ -136,6 +137,12 @@ export const ConnectionStringEditView: React.FC<ConnectionStringEditViewProps> =
                     required={true}
                     placeholder={t(ResourceKeys.connectionStrings.editConnection.editField.placeholder)}
                 />
+                <Link
+                    href={t(ResourceKeys.connectivityPane.connectionStringComboBox.link)}
+                    target="_blank"
+                >
+                    {t(ResourceKeys.connectivityPane.connectionStringComboBox.linkText)}
+                </Link>
                 {showProperties() &&
                     <div className="details">
                         <ConnectionStringProperties

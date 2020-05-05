@@ -12,6 +12,7 @@ import { useLocalizationContext } from '../../shared/contexts/localizationContex
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { ConnectionStringDelete } from './connectionStringDelete';
 import MaskedCopyableTextFieldContainer from '../../shared/components/maskedCopyableTextFieldContainer';
+import { EDIT, REMOVE } from '../../constants/iconNames';
 import './connectionString.scss';
 
 export interface ConnectionStringProps {
@@ -55,9 +56,10 @@ export const ConnectionString: React.FC<ConnectionStringProps> = props => {
             <div className="commands">
                 <div className="name">
                     <Link
+                        className="text"
                         ariaLabel={t(ResourceKeys.connectionStrings.visitConnectionCommand.ariaLabel, {connectionString})}
                         onClick={onSelectConnectionStringClick}
-                        title={resourceName}
+                        title={t(ResourceKeys.connectionStrings.visitConnectionCommand.ariaLabel, {connectionString})}
                     >
                         {resourceName}
                     </Link>
@@ -65,7 +67,7 @@ export const ConnectionString: React.FC<ConnectionStringProps> = props => {
                 <div className="actions">
                     <IconButton
                         iconProps={{
-                            iconName: 'EditSolid12'
+                            iconName: EDIT
                         }}
                         title={t(ResourceKeys.connectionStrings.editConnectionCommand.label)}
                         ariaLabel={t(ResourceKeys.connectionStrings.editConnectionCommand.ariaLabel, {connectionString})}
@@ -73,7 +75,7 @@ export const ConnectionString: React.FC<ConnectionStringProps> = props => {
                     />
                     <IconButton
                         iconProps={{
-                            iconName: 'Delete'
+                            iconName: REMOVE
                         }}
                         title={t(ResourceKeys.connectionStrings.deleteConnectionCommand.label)}
                         ariaLabel={t(ResourceKeys.connectionStrings.deleteConnectionCommand.ariaLabel, {connectionString})}
@@ -91,11 +93,19 @@ export const ConnectionString: React.FC<ConnectionStringProps> = props => {
                 />
                 <MaskedCopyableTextFieldContainer
                     ariaLabel={t(ResourceKeys.connectionStrings.properties.connectionString.ariaLabel)}
-                    allowMask={false}
+                    allowMask={true}
                     label={t(ResourceKeys.connectionStrings.properties.connectionString.label)}
                     value={connectionString}
                     readOnly={true}
                 />
+                <Link
+                    style={{marginTop: 10}}
+                    ariaLabel={t(ResourceKeys.connectionStrings.visitConnectionCommand.ariaLabel, {connectionString})}
+                    onClick={onSelectConnectionStringClick}
+                    title={t(ResourceKeys.connectionStrings.visitConnectionCommand.ariaLabel, {connectionString})}
+                >
+                    {t(ResourceKeys.connectionStrings.visitConnectionCommand.label)}
+                </Link>
             </div>
             <ConnectionStringDelete
                 connectionString={connectionString}

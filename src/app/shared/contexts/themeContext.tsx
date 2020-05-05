@@ -24,6 +24,12 @@ export interface ThemeContextInterface {
     updateTheme: (isDarkTheme: boolean) => void;
 }
 
-export const ThemeContext = React.createContext({});
+export const ThemeContext = React.createContext({
+    fabricTheme: undefined,
+    monacoTheme: undefined,
+    theme: undefined,
+    updateTheme: (isDarkTheme: boolean) => undefined
+});
 export const ThemeContextProvider = ThemeContext.Provider;
 export const ThemeContextConsumer = ThemeContext.Consumer;
+export const useThemeContext = () => React.useContext(ThemeContext);

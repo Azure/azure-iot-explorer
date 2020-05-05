@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HomeView matches snapshot 1`] = `
+<div>
+  <AppVersionMessageBar />
+  <div
+    className="view-content home-view"
+  >
+    <div
+      className="nav"
+    >
+      <Component />
+    </div>
+    <div
+      className="content"
+    >
+      <Route
+        exact={true}
+        path="undefined"
+        render={[Function]}
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="undefined/resources/"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="undefined/repos/"
+      />
+    </div>
+  </div>
+</div>
+`;

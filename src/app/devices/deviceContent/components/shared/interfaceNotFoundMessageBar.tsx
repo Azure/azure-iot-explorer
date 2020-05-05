@@ -3,42 +3,43 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { Redirect } from 'react-router-dom';
 import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
 import { MessageBarButton } from 'office-ui-fabric-react/lib/Button';
 import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import '../../../../css/_interfaceNotFoundMessageBar.scss';
+import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../../constants/routes';
 
-export interface InterfaceNotFoundMessageBoxProps {
-    settingsVisibleToggle: (visible: boolean) => void;
-}
+export const InterfaceNotFoundMessageBar: React.FC = () => {
+    const [redirectToModelRepositories, setRedirectToModelRepositories] = React.useState<boolean>(false);
 
-export default class InterfaceNotFoundMessageBox extends React.Component<InterfaceNotFoundMessageBoxProps> {
+    const onConfigureClick = () => {
+        setRedirectToModelRepositories(true);
+    };
 
-    public render() {
-        return (
-            <LocalizationContextConsumer>
-                {(context: LocalizationContextInterface) => (
-                    <div className="message-bar">
-                        <MessageBar
-                            messageBarType={MessageBarType.error}
-                            actions={
-                                <MessageBarButton
-                                    className="configure-button"
-                                    onClick={this.handleConfigure}
-                                >
-                                    {context.t(ResourceKeys.deviceInterfaces.command.configure)}
-                                </MessageBarButton>}
-                        >
-                            {context.t(ResourceKeys.deviceInterfaces.interfaceNotFound)}
-                        </MessageBar>
-                    </div>
-                )}
-            </LocalizationContextConsumer>
-        );
+    if (redirectToModelRepositories) {
+        return <Redirect to={`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.MODEL_REPOS}?${ROUTE_PARAMS.NAV_FROM}`} />;
     }
 
-    private readonly handleConfigure = () => {
-        this.props.settingsVisibleToggle(true);
-}
-}
+    return (
+        <LocalizationContextConsumer>
+            {(context: LocalizationContextInterface) => (
+                <div className="message-bar">
+                    <MessageBar
+                        messageBarType={MessageBarType.error}
+                        actions={
+                            <MessageBarButton
+                                className="configure-button"
+                                onClick={onConfigureClick}
+                            >
+                                {context.t(ResourceKeys.deviceInterfaces.command.configure)}
+                            </MessageBarButton>}
+                    >
+                        {context.t(ResourceKeys.deviceInterfaces.interfaceNotFound)}
+                    </MessageBar>
+                </div>
+            )}
+        </LocalizationContextConsumer>
+    );
+};

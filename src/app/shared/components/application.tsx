@@ -4,25 +4,28 @@
  **********************************************************/
 import 'react-toastify/dist/ReactToastify.css';
 import * as React from 'react';
-import { HashRouter, Route, Switch } from 'react-router-dom';
+import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { AzureResourceViewContainer } from '../../azureResource/components/azureResourceViewContainer';
-import { AzureResourcesView } from '../../azureResources/components/azureResourcesView';
 import NoMatchError from './noMatchError';
-import connectivityPaneContainer from '../../login/components/connectivityPaneContainer';
 import { ROUTE_PARTS } from '../../constants/routes';
 import { withApplicationFrame } from './applicationFrame';
+import { HomeView } from '../../home/components/homeView';
 
 const NOTIFICATION_AUTO_CLOSE = 5000;
 
 // tslint:disable-next-line:no-any
 export const Application: React.FC = props => {
+    const redirectHome = () => {
+        return <Redirect to={`${ROUTE_PARTS.HOME}`} />;
+    };
+
     return (
         <HashRouter>
             <>
                 <Switch>
-                    <Route path="/" component={connectivityPaneContainer} exact={true} />
-                    <Route path={`/${ROUTE_PARTS.RESOURCE}/`} component={withApplicationFrame(AzureResourcesView)} exact={true} />
+                    <Route path={`/`} exact={true} render={redirectHome}/>
+                    <Route path={`/${ROUTE_PARTS.HOME}/`} component={withApplicationFrame(HomeView)} />
                     <Route path={`/${ROUTE_PARTS.RESOURCE}/:hostName`} component={withApplicationFrame(AzureResourceViewContainer)} />
                     <Route component={NoMatchError}/>
                 </Switch>

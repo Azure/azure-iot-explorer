@@ -16,6 +16,7 @@ import { upsertConnectionStringAction, deleteConnectionStringAction, setConnecti
 import { setActiveAzureResourceByConnectionStringAction } from '../../azureResource/actions';
 import { ROUTE_PARTS } from '../../constants/routes';
 import { formatConnectionStrings } from '../../shared/utils/hubConnectionStringHelper';
+import { ConnectionStringsEmpty } from './connectionStringsEmpty';
 import '../../css/_layouts.scss';
 import './connectionStringsView.scss';
 
@@ -64,7 +65,7 @@ export const ConnectionStringsView: React.FC<ConnectionStringsViewProps> = props
                     ]}
                 />
             </div>
-            <div className="view-content view-scroll-vertical">
+            <div className="view-scroll-vertical">
                 <div className="connection-strings">
                     {connectionStrings.map(connectionString =>
                         <ConnectionString
@@ -76,6 +77,11 @@ export const ConnectionStringsView: React.FC<ConnectionStringsViewProps> = props
                         />
                     )}
                 </div>
+
+                {(!connectionStrings || connectionStrings.length === 0) &&
+                    <ConnectionStringsEmpty/>
+                }
+
             </div>
             {connectionStringUnderEdit !== undefined &&
                 <ConnectionStringEditView
