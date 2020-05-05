@@ -12,7 +12,7 @@ export const RenderSimplyTypeValue = (twin: any, schema: ParsedJsonSchema, error
     const result = validator.validate(twin, schema);
     return (
         <>
-            <Label>{twin.toString()}</Label>
+            <Label>{twin && twin.toString()}</Label>
             {result && result.errors && result.errors.length !== 0 && renderSchemaErrors(result.errors, errorLabel)}
         </>
     );

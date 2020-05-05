@@ -26,7 +26,7 @@ export const twinWithSchema: TwinWithSchema = {
     },
     settingSchema: {
         description: 'Brightness Level / The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)',
-        required: null,
+        required: [],
         title: 'brightness',
         type: 'number'
     }

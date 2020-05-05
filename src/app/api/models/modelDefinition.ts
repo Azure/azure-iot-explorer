@@ -49,10 +49,16 @@ export interface Schema {
     description?: string | object;
 }
 
+interface EnumValue {
+    displayName: string | object;
+    name: string;
+    enumValue: number | string;
+}
+
 export interface EnumSchema {
     '@type': string;
     valueSchema: string;
-    enumValues: Array<{ displayName: string | object, name: string, enumValue: number | string}>;
+    enumValues: EnumValue[];
     '@id'?: string;
 }
 

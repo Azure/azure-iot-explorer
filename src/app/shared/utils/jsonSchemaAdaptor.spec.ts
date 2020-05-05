@@ -9,7 +9,8 @@ import { mockModelDefinition,
     mapTypeTelemetry,
     enumbTypeProperty,
     schema,
-    commandWithReusableSchema
+    commandWithReusableSchema,
+    longTypeNonWritableProperty2
 } from './mockModelDefinition';
 import { JsonSchemaAdaptor } from './jsonSchemaAdaptor';
 
@@ -22,7 +23,7 @@ describe('parse interface model definition to Json schema', () => {
         });
 
         it('returns a list of non-writable properties', () => {
-            expect(jsonSchemaAdaptor.getNonWritableProperties()).toEqual([longTypeNonWritableProperty]);
+            expect(jsonSchemaAdaptor.getNonWritableProperties()).toEqual([longTypeNonWritableProperty, longTypeNonWritableProperty2]);
         });
 
         it('returns a list of commands', () => {
@@ -39,7 +40,7 @@ describe('parse interface model definition to Json schema', () => {
             expect(jsonSchemaAdaptor.parseInterfacePropertyToJsonSchema(stringTypeWritableProperty)).toEqual(
                 {
                     definitions: {},
-                    required: null,
+                    required: [],
                     title: stringTypeWritableProperty.name,
                     type: 'string'
                 }
@@ -47,9 +48,9 @@ describe('parse interface model definition to Json schema', () => {
             expect(jsonSchemaAdaptor.parseInterfacePropertyToJsonSchema(longTypeNonWritableProperty)).toEqual(
                 {
                     definitions: {},
-                    required: null,
+                    required: [],
                     title: longTypeNonWritableProperty.name,
-                    type: 'number'
+                    type: ['number', 'null']
                 }
             );
         });
@@ -61,13 +62,13 @@ describe('parse interface model definition to Json schema', () => {
                     requestSchema: {
                         definitions: {},
                         pattern: '^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(.[0-9]+)?(Z)?$',
-                        required: null,
+                        required: [],
                         title: timeTypeCommand.request.name,
                         type: 'string',
                     },
                     responseSchema: {
                         definitions: {},
-                        required: null,
+                        required: [],
                         title: timeTypeCommand.response.name,
                         type: 'string',
                     }
@@ -83,7 +84,7 @@ describe('parse interface model definition to Json schema', () => {
                     definitions: {},
                     enum: ['1', '2'],
                     enumNames : ['offline', 'online'],
-                    required: null,
+                    required: [],
                     title: enumbTypeProperty.name,
                     type: 'string'
                 }
@@ -100,7 +101,7 @@ describe('parse interface model definition to Json schema', () => {
                         properties: {
                             telemetryConfig: {
                                 format: 'date',
-                                required: null,
+                                required: [],
                                 title: 'telemetryConfig',
                                 type: 'string',
                             },
@@ -114,7 +115,7 @@ describe('parse interface model definition to Json schema', () => {
                         ],
                         type: 'object',
                     },
-                    required: null,
+                    required: [],
                     title: mapTypeTelemetry.name,
                     type: 'array'
                 }
@@ -133,39 +134,39 @@ describe('parse interface model definition to Json schema', () => {
                             'dtmi:example:schema;1' : {
                                 properties: {
                                     sensor0: {
-                                        required: null,
+                                        required: [],
                                         title: 'sensor0',
                                         type: 'string'
                                     },
                                     sensor1: {
-                                        required: null,
+                                        required: [],
                                         title: 'sensor1',
-                                        type: 'integer'
+                                        type: ['integer', 'null']
                                     },
                                     sensor2: {
                                         default: false,
-                                        required: null,
+                                        required: [],
                                         title: 'sensor2',
                                         type: 'boolean'
                                     }
                                 },
-                                required: null,
+                                required: [],
                                 type: 'object'
                             }
                         },
                         properties: {
                             sensor0: {
                                 $ref: '#/definitions/dtmi:example:schema;1',
-                                required: null,
+                                required: [],
                                 title: 'sensor0'
                             },
                             sensor1: {
-                                required: null,
+                                required: [],
                                 title: 'sensor1',
                                 type: 'string'
                             }
                         },
-                        required: null,
+                        required: [],
                         title: 'commandWithReusableSchema',
                         type: 'object'
                     },
