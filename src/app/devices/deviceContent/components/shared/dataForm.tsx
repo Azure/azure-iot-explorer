@@ -119,9 +119,9 @@ export default class DataForm extends React.Component<DataFormDataProps & DataFo
             return (
                 <ErrorBoundary error={context.t(ResourceKeys.errorBoundary.text)}>
                     <Form
-                        className="value-section"
-                        formData={stringifyNumberIfNecessary(this.state.formData)}
-                        liveValidate={false}
+                        className={`${this.skipValidation() ? 'value-section-noErrors' : 'value-section'}`}
+                        formData={this.stringifyNumberIfNecessary()}
+                        liveValidate={true}
                         onChange={this.onChangeForm}
                         schema={this.props.settingSchema as any} // tslint:disable-line: no-any
                         showErrorList={false}
@@ -203,6 +203,18 @@ export default class DataForm extends React.Component<DataFormDataProps & DataFo
         document.execCommand('copy');
     }
 
+    private readonly skipValidation = () => {
+        const value = this.state.formData;
+        return typeof value === 'number' && value === 0
+            && this.props.settingSchema
+            && ( this.props.settingSchema.type === 'integer' || this.props.settingSchema.type === 'number'); // skip validation when value is 0 for integer and number (take 0 as valid)
+    }
+
+    private readonly stringifyNumberIfNecessary = () => {
+        const value = this.state.formData;
+        return typeof value === 'number' && value === 0 ? '0' : value; // javascript takes 0 as false, and json schema form would show it as undefined
+    }
+
     private readonly createActionButtons = (context: LocalizationContextInterface) => {
         let payload;
         let buttonDisabled = false;
@@ -235,12 +247,6 @@ export default class DataForm extends React.Component<DataFormDataProps & DataFo
     }
 }
 
-// tslint:disable-next-line: no-any
-export const isValueDefined = (value: any) => {
+export const isValueDefined = (value: boolean | string | number | object) => {
     return value !== undefined || (typeof value === 'number' && value === 0) || typeof value === 'boolean';
-};
-
-// tslint:disable-next-line: no-any
-export const stringifyNumberIfNecessary = (value: any) => {
-    return typeof value === 'number' && value === 0 ? '0' : value;
 };

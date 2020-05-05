@@ -132,6 +132,14 @@
                 padding-top: 20px;
             }
 
+            .value-section-noErrors {
+                padding-top: 20px;
+                .errors {
+                    visibility: hidden;
+                    height: 0px;
+                }
+            }
+
             .submit-button {
                 margin-top: 10px;
             }
