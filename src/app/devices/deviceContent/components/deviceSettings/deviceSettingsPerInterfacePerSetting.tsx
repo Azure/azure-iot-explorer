@@ -20,6 +20,7 @@ import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinition
 import { SemanticUnit } from '../../../../shared/units/components/semanticUnit';
 import { JsonPatchOperation, PatchPayload } from '../../../../api/parameters/deviceParameters';
 import { MetadataSection } from './selectors';
+import { isValueDefined } from './../shared/dataForm';
 import '../../../../css/_deviceSettings.scss';
 
 export interface DeviceSettingDataProps extends TwinWithSchema {
@@ -143,7 +144,7 @@ export default class DeviceSettingsPerInterfacePerSetting
         const { reportedTwin } = this.props;
         return (
             <>
-                {reportedTwin || typeof reportedTwin === 'boolean' ?
+                {isValueDefined(reportedTwin) ?
                     (this.isSchemaSimpleType() ?
                         RenderSimplyTypeValue(
                             reportedTwin,
@@ -243,7 +244,7 @@ export default class DeviceSettingsPerInterfacePerSetting
             }];
         }
         else {
-            const patchPayloadWithTwin = twin || typeof twin === 'boolean' ? {
+            const patchPayloadWithTwin = isValueDefined(twin) ? {
                 op: metadata && metadata.desiredValue ?
                     JsonPatchOperation.REPLACE : JsonPatchOperation.ADD,
                 path: `/${componentName}/${settingModelDefinition.name}`,

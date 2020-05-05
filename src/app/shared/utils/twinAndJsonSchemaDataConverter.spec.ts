@@ -32,7 +32,7 @@ describe('top level map converter', () => {
             required: ['telemetryName', 'telemetryConfig'],
             type: 'object'
         },
-        required: null,
+        required: [],
         title: 'MapValStringValue',
         type: 'array'
     };
@@ -94,7 +94,7 @@ describe('nested map type converter', () => {
                     },
                     required: ['commandName', 'commandConfig']
                 },
-                required: null,
+                required: [],
                 title: 'commands',
                 type: 'array'
             },
@@ -114,12 +114,12 @@ describe('nested map type converter', () => {
                     },
                     required: ['telemetryName', 'telemetryConfig']
                 },
-                required: null,
+                required: [],
                 title: 'telemetry',
                 type: 'array'
             },
         },
-        required: null,
+        required: [],
         title: 'interfaceConfig',
         type: 'object'
     };
@@ -236,7 +236,7 @@ describe('map in map converter', () => {
             required: ['level_1_Key', 'level_1_Name'],
             type: 'object'
         },
-        required: null,
+        required: [],
         title: 'Map With Map',
         type: 'array',
     };

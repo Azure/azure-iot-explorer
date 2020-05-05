@@ -61,14 +61,9 @@ export function* invokeDigitalTwinInterfaceCommandSaga(action: Action<InvokeDigi
     }
 }
 
-// tslint:disable-next-line: no-any
-export const generateCommandPayload = (commandPayload: any) => {
-    return commandPayload || null;
-};
-
 export function* notifyMethodInvoked(toastId: number, action: Action<InvokeDigitalTwinInterfaceCommandActionParameters>) {
     if (action.payload) {
-        const commandPayload = generateCommandPayload(action.payload.commandPayload);
+        const commandPayload = action.payload.commandPayload;
         yield put(addNotificationAction.started({
             id: toastId,
             text: {

@@ -54,9 +54,9 @@ describe('getDeviceCommandPairs', () => {
             {
                 parsedSchema: {
                     definitions: {},
-                    required: null,
+                    required: [],
                     title: 'temp',
-                    type: 'number'
+                    type: ['number', 'null']
                 },
                 telemetryModelDefinition: {
                     '@type': [

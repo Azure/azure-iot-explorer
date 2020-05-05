@@ -106,7 +106,7 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
     }
 
     // tslint:disable-next-line: cyclomatic-complexity
-    private readonly const renderInterfaceInfoDetail = (isValidInterface: boolean) => {
+    private readonly renderInterfaceInfoDetail = (isValidInterface: boolean) => {
         return (
             <>
                 <ModelDefinitionSourceView

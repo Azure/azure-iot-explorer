@@ -95,9 +95,9 @@ describe('getDigitalTwinSettingsSelector', () => {
             settingModelDefinition: modelDefinition.contents[0],
             settingSchema: {
                 definitions: {},
-                required: null,
+                required: [],
                 title: modelDefinition.contents[0].name,
-                type: 'number'
+                type: ['number', 'null']
             }
         });
     });

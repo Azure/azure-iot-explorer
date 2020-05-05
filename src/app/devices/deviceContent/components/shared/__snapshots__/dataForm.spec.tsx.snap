@@ -13,7 +13,7 @@ exports[`dataForm matches snapshot with simple type 1`] = `
       className="value-section"
       disabled={false}
       formData={123}
-      liveValidate={true}
+      liveValidate={false}
       noHtml5Validate={false}
       noValidate={false}
       omitExtraData={false}
@@ -41,6 +41,13 @@ exports[`dataForm matches snapshot with simple type 1`] = `
         }
       }
     >
+      <div
+        className="column-value-text col-sm4"
+      >
+        <StyledLabelBase
+          aria-label="deviceEvents.columns.value"
+        />
+      </div>
       <CustomizedPrimaryButton
         className="submit-button"
         disabled={false}

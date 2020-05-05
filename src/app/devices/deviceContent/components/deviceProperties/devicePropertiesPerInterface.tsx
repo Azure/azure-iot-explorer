@@ -16,6 +16,7 @@ import { PropertyContent } from '../../../../api/models/modelDefinition';
 import { ParsedJsonSchema } from '../../../../api/models/interfaceJsonParserOutput';
 import { SMALL_COLUMN_WIDTH, EXTRA_LARGE_COLUMN_WIDTH } from '../../../../constants/columnWidth';
 import { SemanticUnit } from '../../../../shared/units/components/semanticUnit';
+import { isValueDefined } from '../shared/dataForm';
 
 export interface DevicePropertiesDataProps {
     twinAndSchema: TwinWithSchema[];
@@ -124,7 +125,7 @@ export default class DevicePropertiesPerInterface
         const ariaLabel = context.t(ResourceKeys.deviceProperties.columns.value);
         return (
             <div aria-label={ariaLabel}>
-                {item.reportedTwin || typeof item.reportedTwin === 'boolean' ?
+                {isValueDefined(item.reportedTwin) ?
                     (this.isSchemaSimpleType(item) ?
                         RenderSimplyTypeValue(
                             item.reportedTwin,

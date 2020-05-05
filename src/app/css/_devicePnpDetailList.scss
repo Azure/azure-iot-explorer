@@ -75,20 +75,20 @@
 .list-content{
     width: calc(100% - 2px);
     .list-item {
+        .column-value-text {
+            .column-value-button {
+                @include default-button;
+            }
+            .value-validation-error {
+                @include validation-error;
+            }
+        }
         .item-summary {
             overflow: auto;
             width: 100%;
             border-bottom: 1px solid;
             @include themify($themes) {
                 border-bottom-color: themed('borderColor');
-            }
-            .column-value-text {
-                .column-value-button {
-                    @include default-button;
-                }
-                .value-validation-error {
-                    @include validation-error;
-                }
             }
             .column-toggle {
                 padding-right: 2%;
