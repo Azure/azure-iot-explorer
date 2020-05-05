@@ -8,6 +8,7 @@
     },
     "common": {
         "close": "Close",
+        "home": "Home",
         "learnMore": "Learn more",
         "loading": "Loading...",
         "maskedCopyableTextField": {
@@ -25,6 +26,9 @@
             "title": "Confirmation",
             "yes": "Yes",
             "no": "No"
+        },
+        "navigation": {
+            "confirm": "You have unsaved changes.  Are you sure you wish to continue?"
         }
     },
     "collapsibleSection": {
@@ -55,39 +59,14 @@
     "settings": {
         "headerText": "Settings",
         "configuration": {
-            "headerText": "App configurations"
+            "headerText": "App configurations",
+            "redirect": "Looking for connection settings?",
+            "redirectLink": "Please visit Home."
         },
         "modelDefinitions": {
-            "add": "Add model definition source",
-            "headerText": "Plug and Play configurations",
-            "helpText": "We'll look for your model definition in the following order. Please drag and drop to change it.",
-            "repositoryTypes": {
-                "public": {
-                    "label":"Public repository",
-                    "infoText": ""
-                },
-                "local": {
-                    "label":"Local folder",
-                    "labelInBrowser":"Local folder (Only available in the desktop version from: https://github.com/Azure/azure-iot-explorer/releases)",
-                    "infoText": "Use your local folder as a model repository. The model definition files you wish to use should have a json extension. The first JSON file with an '@id' property matching the digital twin model identifier (DTMI) will be retrieved.",
-                    "textBoxLabel": "Selected folder",
-                    "folderPicker": {
-                        "command": {
-                            "openPicker": "Pick a folder",
-                            "navigateToParent": "Navigate back to parent folder",
-                            "select": "Select",
-                            "cancel": "Cancel"
-                        },
-                        "dialog": {
-                            "title": "Select a folder as a local model repository",
-                            "subText": "Selected folder: {{folder}}",
-                            "noFolderFoundText": "No folders found.",
-                            "error": "Failed to retrieve folder information."
-                        }
-                    }
-                },
-                "notAvailable": "--"
-            }
+            "headerText": "Plug and Play configuration",
+            "redirect": "Looking for Plug and Play settings?",
+            "redirectLink": "Please visit Home."
         },
         "questions": {
             "headerText": "Help:",
@@ -100,7 +79,7 @@
         },
         "footerText": "You can come back to Settings and make changes later.",
         "save": "Save and Connect",
-        "cancel": "Close",
+        "close": "Close",
         "confirmationMessage": "Are you sure you want to close without saving?",
         "theme": {
             "headerText": "Application theme",
@@ -122,7 +101,9 @@
         "properties": "Properties (non-writable)",
         "settings": "Properties (writable)",
         "commands": "Commands",
-        "ioTPlugAndPlay": "IoT Plug and Play components"
+        "ioTPlugAndPlay": "IoT Plug and Play components",
+        "resources": "IoT hubs",
+        "repos": "IoT Plug and Play Settings"
     },
     "deviceContent": {
         "start": "Select a device to start",
@@ -150,7 +131,7 @@
     },
     "connectionStrings": {
         "addConnectionCommand": {
-            "label": "Add Connection",
+            "label": "Add connection",
             "ariaLabel": "Add connection string"
         },
         "deleteConnectionCommand": {
@@ -166,7 +147,8 @@
             "ariaLabel": "Copy connection string {{connectionString}}"
         },
         "visitConnectionCommand": {
-            "ariaLabel": "View resource: {{connection string}}"
+            "label": "View devices in this hub",
+            "ariaLabel": "View resource: {{connectionString}}"
         },
         "deleteConnection": {
             "title": "Confirm Delete",
@@ -194,12 +176,12 @@
                 }
             },
             "title": {
-                "add": "Add Connection String",
-                "edit": "Edit Connection String"
+                "add": "Add connection string",
+                "edit": "Edit connection string"
             },
             "editField": {
-                "label": "Connection String",
-                "ariaLabel": "Connection String",
+                "label": "Connection string",
+                "ariaLabel": "Connection string",
                 "placeholder": "enter a connection string"
             },
             "validations": {
@@ -208,15 +190,15 @@
         },
         "properties": {
             "hostName": {
-                "label": "Host Name",
+                "label": "Host name",
                 "ariaLabel": "Host name for {{connection string}}"
             },
             "sharedAccessPolicyName": {
-                "label": "Shared Access Policy Name",
+                "label": "Shared access policy name",
                 "ariaLabel": "Shared Access Policy Name for {{connection string}}"
             },
             "sharedAccessPolicyKey": {
-                "label": "Shared Access Policy Key",
+                "label": "Shared access policy key",
                 "ariaLabel": "Shared Access Policy Key for {{connection string}}"
             },
             "connectionString": {
@@ -231,7 +213,7 @@
             "ariaLabel": "Select or type an Iot hub connection string",
             "ariaLabelRemove": "Remove connection to host {{hostName}}",
             "link": "https://aka.ms/iot-connection-strings",
-            "linkText": "Where do I get an IoT hub connection string",
+            "linkText": "Where do I get an IoT hub connection string?",
             "item": {
                 "ariaLabel": "Connection to host {{hostName}} with shared access key for {{sharedAccessKeyName}}"
             },
@@ -824,6 +806,71 @@
         "collapse": {
             "open": "Open for more information",
             "close": "Collapse"
+        }
+    },
+    "modelRepository" : {
+        "commands": {
+            "save": {
+                "label": "Save",
+                "ariaLabel": "Save"
+            },
+            "revert": {
+                "label": "Revert",
+                "ariaLabel": "Revert to last saved"
+            },
+            "add": {
+                "label": "Add",
+                "ariaLabel": "Add model source"
+            },
+            "addPublicSource" : {
+                "label": "Public repository",
+                "ariaLabel": "Public repository model source"
+            },
+            "addLocalSource": {
+                "label": "Local folder",
+                "labelInBrowser":"Local folder (This is only enabled in the desktop version from: https://github.com/Azure/azure-iot-explorer/releases)",
+                "ariaLabel": "Add local folder as model source"
+            },
+            "remove": {
+                "label": "Remove",
+                "ariaLabel": "remove"
+            },
+            "back": {
+                "label": "Go back",
+                "ariaLabel": "Go back to last location"
+            },
+            "help": {
+                "label": "Help",
+                "ariaLabel": "Open browser tab to IoT Plug and Play documentation"
+                }
+        },
+        "types": {
+            "public" : {
+                "label": "Public Repository"
+            },
+            "local": {
+                "label": "Local Folder",
+                "infoText": "Use your local folder as a model repository. The model definition files you wish to use should have a json extension. The first JSON file with an '@id' property matching the digital twin model identifier (DTMI) will be retrieved.",
+                "textBoxLabel": "Selected folder",
+                "folderPicker": {
+                    "command": {
+                        "openPicker": "Pick a folder",
+                        "navigateToParent": "Navigate back to parent folder",
+                        "select": "Select",
+                        "cancel": "Cancel"
+                    },
+                    "errors": {
+                        "mandatory": "Please specify a folder."
+                    },
+                    "dialog": {
+                        "title": "Select a folder as a local model repository",
+                        "subText": "Selected folder: {{folder}}",
+                        "noFolderFoundText": "No folders found.",
+                        "error": "Failed to retrieve folder information."
+                    }
+                }
+            },
+            "notAvailable": "--"
         }
     }
 }

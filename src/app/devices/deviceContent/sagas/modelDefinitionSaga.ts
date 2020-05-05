@@ -10,8 +10,8 @@ import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getModelDefinitionAction, GetModelDefinitionActionParameters } from '../actions';
 import { FetchModelParameters } from '../../../api/parameters/repoParameters';
-import { getRepositoryLocationSettingsSelector, getLocalFolderPath } from '../../../settings/selectors';
-import { RepositoryLocationSettings } from '../../../settings/state';
+import { getRepositoryLocationSettingsSelector, getLocalFolderPath } from '../../../modelRepository/selectors';
+import { RepositoryLocationSettings } from '../../../modelRepository/state';
 import { REPOSITORY_LOCATION_TYPE } from './../../../constants/repositoryLocationTypes';
 import { fetchLocalFile } from './../../../api/services/localRepoService';
 import { ModelDefinition } from './../../../api/models/modelDefinition';
@@ -62,7 +62,6 @@ export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionP
 }
 
 export function* validateModelDefinitionHelper(modelDefinition: ModelDefinition, location: RepositoryLocationSettings) {
-    return true;
     try {
             if (location.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Public) {
                 return true;

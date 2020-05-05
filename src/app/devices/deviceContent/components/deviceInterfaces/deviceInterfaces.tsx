@@ -10,7 +10,7 @@ import { LocalizationContextConsumer, LocalizationContextInterface } from '../..
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getInterfaceIdFromQueryString, getDeviceIdFromQueryString, getComponentNameFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { ModelDefinitionWithSource } from '../../../../api/models/modelDefinitionWithSource';
-import InterfaceNotFoundMessageBoxContainer from '../shared/interfaceNotFoundMessageBarContainer';
+import { InterfaceNotFoundMessageBar } from '../shared/interfaceNotFoundMessageBar';
 import { REFRESH, NAVIGATE_BACK } from '../../../../constants/iconNames';
 import ErrorBoundary from '../../../errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
@@ -29,7 +29,6 @@ export interface DeviceInterfaceProps {
 
 export interface DeviceInterfaceDispatchProps {
     setComponentName: (id: string) => void;
-    settingsVisibleToggle: (visible: boolean) => void;
     refresh: (deviceId: string, interfaceId: string) => void;
 }
 
@@ -100,7 +99,7 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
                             </section>
                         }
                     </ErrorBoundary> :
-                    <InterfaceNotFoundMessageBoxContainer/>
+                    <InterfaceNotFoundMessageBar/>
                 }
             </>
         );
@@ -111,7 +110,6 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
         return (
             <>
                 <ModelDefinitionSourceView
-                    handleConfigure={this.handleConfigure}
                     source={modelDefinitionWithSource.source}
                 />
                 <MaskedCopyableTextFieldContainer
@@ -141,10 +139,6 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
                 }
             </>
         );
-    }
-
-    private readonly handleConfigure = () => {
-            this.props.settingsVisibleToggle(true);
     }
 
     private readonly renderInterfaceViewer = (isValidInterface: boolean) => {

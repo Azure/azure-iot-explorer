@@ -221,3 +221,92 @@ exports[`components/settings/settingsPane matches snapshot with repositoryLocati
   </section>
 </StyledPanelBase>
 `;
+
+exports[`settingsPane matches snapshot 1`] = `
+<Fragment>
+  <CustomizedActionButton
+    ariaLabel="header.settings.launch"
+    iconProps={
+      Object {
+        "iconName": "Settings",
+      }
+    }
+    onClick={[Function]}
+    text="header.settings.launch"
+  />
+  <StyledPanelBase
+    className="settingsPane"
+    closeButtonAriaLabel="common.close"
+    isFooterAtBottom={true}
+    isOpen={false}
+    onDismiss={[Function]}
+    onRenderFooter={[Function]}
+    role="dialog"
+    type={3}
+  >
+    <header
+      className="panel-header"
+    >
+      <h2>
+        settings.headerText
+      </h2>
+    </header>
+    <section
+      aria-label="settings.configuration.headerText"
+    >
+      <h3
+        aria-level={1}
+        role="heading"
+      >
+        settings.configuration.headerText
+      </h3>
+      <span>
+        settings.configuration.redirect
+      </span>
+      <StyledLinkBase
+        className="home-link"
+        href="#/home"
+        onClick={[Function]}
+      >
+        settings.configuration.redirectLink
+      </StyledLinkBase>
+    </section>
+    <section
+      aria-label="settings.modelDefinitions.headerText"
+    >
+      <h3
+        aria-level={1}
+        role="heading"
+      >
+        settings.modelDefinitions.headerText
+      </h3>
+      <span>
+        settings.modelDefinitions.redirect
+      </span>
+      <StyledLinkBase
+        className="home-link"
+        href="#/home/repos?from"
+        onClick={[Function]}
+      >
+        settings.modelDefinitions.redirectLink
+      </StyledLinkBase>
+    </section>
+    <section
+      aria-label="settings.theme.headerText"
+    >
+      <h3
+        aria-level={1}
+        role="heading"
+      >
+        settings.theme.headerText
+      </h3>
+      <StyledToggleBase
+        checked={false}
+        offText="settings.theme.lightTheme"
+        onChange={[Function]}
+        onText="settings.theme.darkTheme"
+      />
+    </section>
+  </StyledPanelBase>
+</Fragment>
+`;

@@ -15,14 +15,14 @@ import { RepositoryLocationSettings } from '../state';
 import { fetchDirectories } from '../../api/services/localRepoService';
 import LabelWithRichCallout from '../../shared/components/labelWithRichCallout';
 import { getRootFolder, getParentFolder } from '../../shared/utils/utils';
-import '../../css/_repositoryLocationItem.scss';
+import './modelRepositoryLocationListItem.scss';
 
-export interface RepositoryLocationListItemProps {
+export interface ModelRepositoryLocationListItemProps {
+    errorKey?: string;
     index: number;
     item: RepositoryLocationSettings;
-    onLocalFolderPathChanged: (path: string) => void;
-    moveCard: (oldIndex: number, newIndex: number) => void;
-    onRemoveListItem: (index: number) => void;
+    onChangeRepositoryLocationSettingValue: (index: number, path: string) => void;
+    onRemoveRepositoryLocationSetting: (index: number) => void;
 }
 
 export interface RepositoryLocationListItemState {
@@ -32,8 +32,8 @@ export interface RepositoryLocationListItemState {
     showError: boolean;
 }
 
-export default class RepositoryLocationListItem extends React.Component<RepositoryLocationListItemProps, RepositoryLocationListItemState> {
-    constructor(props: RepositoryLocationListItemProps) {
+export class ModelRepositoryLocationListItem extends React.Component<ModelRepositoryLocationListItemProps, RepositoryLocationListItemState> {
+    constructor(props: ModelRepositoryLocationListItemProps) {
         super(props);
         let currentFolder = '';
         if (this.props.item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local) {
@@ -49,7 +49,7 @@ export default class RepositoryLocationListItem extends React.Component<Reposito
     }
 
     private readonly onRemove = () => {
-        this.props.onRemoveListItem(this.props.index);
+        this.props.onRemoveRepositoryLocationSetting(this.props.index);
     }
 
     private renderItemDetail = (context: LocalizationContextInterface) => {
@@ -57,7 +57,7 @@ export default class RepositoryLocationListItem extends React.Component<Reposito
         return (
             <div className="item-details">
                 {item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Public
-                    && <Label>{context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.public.label)}</Label>}
+                    && <Label>{context.t(ResourceKeys.modelRepository.types.public.label)}</Label>}
                 {item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local &&
                    this.renderLocalFolderItem(context)
                 }
@@ -69,22 +69,24 @@ export default class RepositoryLocationListItem extends React.Component<Reposito
                 <>
                     <div className="labelSection">
                         <LabelWithRichCallout
-                            calloutContent={context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.local.infoText)}
+                            calloutContent={context.t(ResourceKeys.modelRepository.types.local.infoText)}
                             required={true}
                         >
-                            {context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.local.label)}
+                            {context.t(ResourceKeys.modelRepository.types.local.label)}
                         </LabelWithRichCallout>
                     </div>
                     <TextField
                         className="local-folder-textbox"
-                        label={context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.local.textBoxLabel)}
-                        ariaLabel={context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.local.textBoxLabel)}
+                        label={context.t(ResourceKeys.modelRepository.types.local.textBoxLabel)}
+                        ariaLabel={context.t(ResourceKeys.modelRepository.types.local.textBoxLabel)}
                         value={this.state.currentFolder}
                         readOnly={true}
+                        errorMessage={this.props.errorKey ? context.t(this.props.errorKey) : ''}
                     />
                     <DefaultButton
-                        text={context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.local.folderPicker.command.openPicker)}
-                        ariaLabel={context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.local.folderPicker.command.openPicker)}
+                        className="local-folder-launch"
+                        text={context.t(ResourceKeys.modelRepository.types.local.folderPicker.command.openPicker)}
+                        ariaLabel={context.t(ResourceKeys.modelRepository.types.local.folderPicker.command.openPicker)}
                         onClick={this.onShowFolderPicker}
                     />
                     {this.renderFolderPicker(context)}
@@ -105,7 +107,7 @@ export default class RepositoryLocationListItem extends React.Component<Reposito
     }
 
     private onSelectFolder = () => {
-        this.props.onLocalFolderPathChanged(this.state.currentFolder);
+        this.props.onChangeRepositoryLocationSettingValue(this.props.index, this.state.currentFolder);
         this.setState({showFolderPicker: false});
     }
 
@@ -131,8 +133,8 @@ export default class RepositoryLocationListItem extends React.Component<Reposito
                 <Dialog
                     className="folder-picker-dialog"
                     hidden={!this.state.showFolderPicker}
-                    title={context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.local.folderPicker.dialog.title)}
-                    subText={this.state.currentFolder && context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.local.folderPicker.dialog.subText, {folder: this.state.currentFolder})}
+                    title={context.t(ResourceKeys.modelRepository.types.local.folderPicker.dialog.title)}
+                    subText={this.state.currentFolder && context.t(ResourceKeys.modelRepository.types.local.folderPicker.dialog.subText, {folder: this.state.currentFolder})}
                     modalProps={{
                         isBlocking: false,
                     }}
@@ -142,12 +144,12 @@ export default class RepositoryLocationListItem extends React.Component<Reposito
                         <DefaultButton
                             className="folder-button"
                             iconProps={{ iconName: NAVIGATE_BACK }}
-                            text={context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.local.folderPicker.command.navigateToParent)}
-                            ariaLabel={context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.local.folderPicker.command.navigateToParent)}
+                            text={context.t(ResourceKeys.modelRepository.types.local.folderPicker.command.navigateToParent)}
+                            ariaLabel={context.t(ResourceKeys.modelRepository.types.local.folderPicker.command.navigateToParent)}
                             onClick={this.onNavigateBack}
                             disabled={this.state.currentFolder === getRootFolder()}
                         />
-                        {this.state.showError ? <div className="no-folders-text">{context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.local.folderPicker.dialog.error)}</div> :
+                        {this.state.showError ? <div className="no-folders-text">{context.t(ResourceKeys.modelRepository.types.local.folderPicker.dialog.error)}</div> :
                             this.state.subFolders && this.state.subFolders.length > 0 ?
                                 this.state.subFolders.map(folder =>
                                     <DefaultButton
@@ -158,11 +160,11 @@ export default class RepositoryLocationListItem extends React.Component<Reposito
                                         onClick={this.onClickFolderName(folder)}
                                     />)
                                 :
-                                <div className="no-folders-text">{context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.local.folderPicker.dialog.noFolderFoundText)}</div>}
+                                <div className="no-folders-text">{context.t(ResourceKeys.modelRepository.types.local.folderPicker.dialog.noFolderFoundText)}</div>}
                     </div>
                     <DialogFooter>
-                        <PrimaryButton onClick={this.onSelectFolder} text={context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.local.folderPicker.command.select)} disabled={!this.state.currentFolder}/>
-                        <DefaultButton onClick={this.dismissFolderPicker} text={context.t(ResourceKeys.settings.modelDefinitions.repositoryTypes.local.folderPicker.command.cancel)} />
+                        <PrimaryButton onClick={this.onSelectFolder} text={context.t(ResourceKeys.modelRepository.types.local.folderPicker.command.select)} disabled={!this.state.currentFolder}/>
+                        <DefaultButton onClick={this.dismissFolderPicker} text={context.t(ResourceKeys.modelRepository.types.local.folderPicker.command.cancel)} />
                     </DialogFooter>
                 </Dialog>
             </div>
@@ -186,8 +188,8 @@ export default class RepositoryLocationListItem extends React.Component<Reposito
                         <IconButton
                             className="remove-button"
                             iconProps={{ iconName: CANCEL }}
-                            title={context.t(ResourceKeys.settings.cancel)}
-                            ariaLabel={context.t(ResourceKeys.settings.cancel)}
+                            title={context.t(ResourceKeys.modelRepository.commands.remove.label)}
+                            ariaLabel={context.t(ResourceKeys.modelRepository.commands.remove.ariaLabel)}
                             onClick={this.onRemove}
                         />
                     </div>

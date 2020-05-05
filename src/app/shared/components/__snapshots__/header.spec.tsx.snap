@@ -1,5 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Header matches snapshot 1`] = `
+<ContextConsumer>
+  <Component />
+</ContextConsumer>
+`;
+
 exports[`shared/components/header matches snapshot when settings is not visible 1`] = `
 <header
   className="header"

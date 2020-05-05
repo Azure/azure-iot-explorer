@@ -2,8 +2,6 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { Record } from 'immutable';
-import { IM } from '../shared/types/types';
 import { REPOSITORY_LOCATION_TYPE } from '../constants/repositoryLocationTypes';
 import { REPO_LOCATIONS, LOCAL_FILE_EXPLORER_PATH_NAME } from '../constants/browserStorage';
 import { appConfig, HostMode } from '../../appConfig/appConfig';
@@ -13,14 +11,13 @@ export interface RepositoryLocationSettings {
     value?: string;
 }
 
-export interface ApplicationStateInterface {
-    showSettings: boolean;
-    repositoryLocations: REPOSITORY_LOCATION_TYPE[];
-    localFolderSettings: LocalFolderSettings;
-}
-
 export interface LocalFolderSettings {
     path: string;
+}
+
+export interface ModelRepositoryStateInterface {
+    repositoryLocations: REPOSITORY_LOCATION_TYPE[];
+    localFolderSettings: LocalFolderSettings;
 }
 
 const getRepositoryLocations = () => {
@@ -37,14 +34,12 @@ const getRepositoryLocations = () => {
     return [REPOSITORY_LOCATION_TYPE.Public];
 };
 
-export const applicationStateInitial =
-    Record<ApplicationStateInterface>({
+export const modelRepositoryStateInitial = () => {
+    return {
         localFolderSettings: appConfig.hostMode === HostMode.Electron ?
-            {
-                path: localStorage.getItem(LOCAL_FILE_EXPLORER_PATH_NAME) || '',
-            } : null,
+        {
+            path: localStorage.getItem(LOCAL_FILE_EXPLORER_PATH_NAME) || '',
+        } : null,
         repositoryLocations: getRepositoryLocations(),
-        showSettings: false
-    });
-
-export type ApplicationStateType = IM<ApplicationStateInterface>;
+    };
+};

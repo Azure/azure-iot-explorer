@@ -7,7 +7,7 @@ import * as React from 'react';
 import { MessageBar } from 'office-ui-fabric-react/lib/MessageBar';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import AppVersionMessageBar from './appVersionMessageBar';
-import * as AppVersionHelper from './appVersionHelper';
+import * as AppVersionHelper from '../utils/appVersionHelper';
 import { mountWithLocalization } from '../../shared/utils/testHelpers';
 import { latestReleaseUrlPath } from '../../api/services/githubService';
 

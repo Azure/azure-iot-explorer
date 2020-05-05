@@ -1,5 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`interfaceNotFoundMessageBar matches snapshot 1`] = `
+<ContextConsumer>
+  <Component />
+</ContextConsumer>
+`;
+
 exports[`interfaceNotFoundMessageBar matches snapshot with simple type 1`] = `
 <div
   className="message-bar"

@@ -55,9 +55,13 @@ export const ConnectionString: React.FC<ConnectionStringProps> = props => {
             <div className="commands">
                 <div className="name">
                     <Link
+                        className="text"
                         ariaLabel={t(ResourceKeys.connectionStrings.visitConnectionCommand.ariaLabel, {connectionString})}
                         onClick={onSelectConnectionStringClick}
-                        title={resourceName}
+                        title={t(ResourceKeys.connectionStrings.visitConnectionCommand.ariaLabel, {connectionString})}
+                        iconProps={{
+                            iconName: 'NavigateForward'
+                        }}
                     >
                         {resourceName}
                     </Link>
@@ -91,11 +95,19 @@ export const ConnectionString: React.FC<ConnectionStringProps> = props => {
                 />
                 <MaskedCopyableTextFieldContainer
                     ariaLabel={t(ResourceKeys.connectionStrings.properties.connectionString.ariaLabel)}
-                    allowMask={false}
+                    allowMask={true}
                     label={t(ResourceKeys.connectionStrings.properties.connectionString.label)}
                     value={connectionString}
                     readOnly={true}
                 />
+                <Link
+                    style={{marginTop: 10}}
+                    ariaLabel={t(ResourceKeys.connectionStrings.visitConnectionCommand.ariaLabel, {connectionString})}
+                    onClick={onSelectConnectionStringClick}
+                    title={t(ResourceKeys.connectionStrings.visitConnectionCommand.ariaLabel, {connectionString})}
+                >
+                    {t(ResourceKeys.connectionStrings.visitConnectionCommand.label)}
+                </Link>
             </div>
             <ConnectionStringDelete
                 connectionString={connectionString}

@@ -9,7 +9,7 @@ import { LocalizationContextConsumer, LocalizationContextInterface } from '../..
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { fetchLatestReleaseTagName, latestReleaseUrlPath } from '../../api/services/githubService';
 import * as packageJson from '../../../../package.json';
-import { isNewReleaseVersionHigher } from './appVersionHelper';
+import { isNewReleaseVersionHigher } from '../utils/appVersionHelper';
 
 interface AppVersionMessageBarState {
     latestReleaseVersion?: string;
@@ -48,6 +48,7 @@ export default class AppVersionMessageBar extends React.Component<{}, AppVersion
         return this.hasNewerRelease() ?
         (
             <MessageBar
+                className="home-view-message-bar"
                 messageBarType={MessageBarType.info}
             >
                 {context.t(ResourceKeys.deviceLists.messageBar.message, {version: this.state.latestReleaseVersion})}

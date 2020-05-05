@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/settings/modelRepositoryLocationList matches snapshot with each type item 1`] = `
+<div
+  className="location-list"
+>
+  <t
+    behaviour="move"
+    onDrop={[Function]}
+    orientation="vertical"
+  >
+    <n
+      key="PUBLIC"
+    >
+      <ModelRepositoryLocationListItem
+        index={0}
+        item={
+          Object {
+            "repositoryLocationType": "PUBLIC",
+          }
+        }
+        onChangeRepositoryLocationSettingValue={[Function]}
+        onRemoveRepositoryLocationSetting={[Function]}
+      />
+    </n>
+    <n
+      key="DEVICE"
+    >
+      <ModelRepositoryLocationListItem
+        index={1}
+        item={
+          Object {
+            "repositoryLocationType": "DEVICE",
+          }
+        }
+        onChangeRepositoryLocationSettingValue={[Function]}
+        onRemoveRepositoryLocationSetting={[Function]}
+      />
+    </n>
+    <n
+      key="LOCAL"
+    >
+      <ModelRepositoryLocationListItem
+        index={2}
+        item={
+          Object {
+            "repositoryLocationType": "LOCAL",
+          }
+        }
+        onChangeRepositoryLocationSettingValue={[Function]}
+        onRemoveRepositoryLocationSetting={[Function]}
+      />
+    </n>
+  </t>
+</div>
+`;
+
+exports[`components/settings/modelRepositoryLocationList matches snapshot with no items 1`] = `
+<div
+  className="location-list"
+>
+  <t
+    behaviour="move"
+    onDrop={[Function]}
+    orientation="vertical"
+  />
+</div>
+`;
+
+exports[`components/settings/modelRepositoryLocationList matches snapshot with public item 1`] = `
+<div
+  className="location-list"
+>
+  <t
+    behaviour="move"
+    onDrop={[Function]}
+    orientation="vertical"
+  >
+    <n
+      key="PUBLIC"
+    >
+      <ModelRepositoryLocationListItem
+        index={0}
+        item={
+          Object {
+            "repositoryLocationType": "PUBLIC",
+          }
+        }
+        onChangeRepositoryLocationSettingValue={[Function]}
+        onRemoveRepositoryLocationSetting={[Function]}
+      />
+    </n>
+  </t>
+</div>
+`;

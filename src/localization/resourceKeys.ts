@@ -20,6 +20,8 @@ export class ResourceKeys {
       methods : "breadcrumb.methods",
       moduleIdentity : "breadcrumb.moduleIdentity",
       properties : "breadcrumb.properties",
+      repos : "breadcrumb.repos",
+      resources : "breadcrumb.resources",
       settings : "breadcrumb.settings",
       twin : "breadcrumb.twin",
    };
@@ -93,6 +95,7 @@ export class ResourceKeys {
          title : "common.confirmationDialog.title",
          yes : "common.confirmationDialog.yes",
       },
+      home : "common.home",
       learnMore : "common.learnMore",
       loading : "common.loading",
       maskedCopyableTextField : {
@@ -105,6 +108,9 @@ export class ResourceKeys {
                show : "common.maskedCopyableTextField.toggleMask.label.show",
             },
          },
+      },
+      navigation : {
+         confirm : "common.navigation.confirm",
       },
    };
    public static connectionStrings = {
@@ -182,6 +188,7 @@ export class ResourceKeys {
       },
       visitConnectionCommand : {
          ariaLabel : "connectionStrings.visitConnectionCommand.ariaLabel",
+         label : "connectionStrings.visitConnectionCommand.label",
       },
    };
    public static connectivityPane = {
@@ -650,6 +657,71 @@ export class ResourceKeys {
          launch : "header.settings.launch",
       },
    };
+   public static modelRepository = {
+      commands : {
+         add : {
+            ariaLabel : "modelRepository.commands.add.ariaLabel",
+            label : "modelRepository.commands.add.label",
+         },
+         addLocalSource : {
+            ariaLabel : "modelRepository.commands.addLocalSource.ariaLabel",
+            label : "modelRepository.commands.addLocalSource.label",
+            labelInBrowser : "modelRepository.commands.addLocalSource.labelInBrowser",
+         },
+         addPublicSource : {
+            ariaLabel : "modelRepository.commands.addPublicSource.ariaLabel",
+            label : "modelRepository.commands.addPublicSource.label",
+         },
+         back : {
+            ariaLabel : "modelRepository.commands.back.ariaLabel",
+            label : "modelRepository.commands.back.label",
+         },
+         help : {
+            ariaLabel : "modelRepository.commands.help.ariaLabel",
+            label : "modelRepository.commands.help.label",
+         },
+         remove : {
+            ariaLabel : "modelRepository.commands.remove.ariaLabel",
+            label : "modelRepository.commands.remove.label",
+         },
+         revert : {
+            ariaLabel : "modelRepository.commands.revert.ariaLabel",
+            label : "modelRepository.commands.revert.label",
+         },
+         save : {
+            ariaLabel : "modelRepository.commands.save.ariaLabel",
+            label : "modelRepository.commands.save.label",
+         },
+      },
+      types : {
+         local : {
+            folderPicker : {
+               command : {
+                  cancel : "modelRepository.types.local.folderPicker.command.cancel",
+                  navigateToParent : "modelRepository.types.local.folderPicker.command.navigateToParent",
+                  openPicker : "modelRepository.types.local.folderPicker.command.openPicker",
+                  select : "modelRepository.types.local.folderPicker.command.select",
+               },
+               dialog : {
+                  error : "modelRepository.types.local.folderPicker.dialog.error",
+                  noFolderFoundText : "modelRepository.types.local.folderPicker.dialog.noFolderFoundText",
+                  subText : "modelRepository.types.local.folderPicker.dialog.subText",
+                  title : "modelRepository.types.local.folderPicker.dialog.title",
+               },
+               errors : {
+                  mandatory : "modelRepository.types.local.folderPicker.errors.mandatory",
+               },
+            },
+            infoText : "modelRepository.types.local.infoText",
+            label : "modelRepository.types.local.label",
+            textBoxLabel : "modelRepository.types.local.textBoxLabel",
+         },
+         notAvailable : "modelRepository.types.notAvailable",
+         public : {
+            label : "modelRepository.types.public.label",
+         },
+      },
+   };
    public static moduleIdentity = {
       addModuleHeaderText : "moduleIdentity.addModuleHeaderText",
       authenticationType : {
@@ -762,44 +834,19 @@ export class ResourceKeys {
       updateDeviceTwinOnSuccess : "notifications.updateDeviceTwinOnSuccess",
    };
    public static settings = {
-      cancel : "settings.cancel",
+      close : "settings.close",
       configuration : {
          headerText : "settings.configuration.headerText",
+         redirect : "settings.configuration.redirect",
+         redirectLink : "settings.configuration.redirectLink",
       },
       confirmationMessage : "settings.confirmationMessage",
       footerText : "settings.footerText",
       headerText : "settings.headerText",
       modelDefinitions : {
-         add : "settings.modelDefinitions.add",
          headerText : "settings.modelDefinitions.headerText",
-         helpText : "settings.modelDefinitions.helpText",
-         repositoryTypes : {
-            local : {
-               folderPicker : {
-                  command : {
-                     cancel : "settings.modelDefinitions.repositoryTypes.local.folderPicker.command.cancel",
-                     navigateToParent : "settings.modelDefinitions.repositoryTypes.local.folderPicker.command.navigateToParent",
-                     openPicker : "settings.modelDefinitions.repositoryTypes.local.folderPicker.command.openPicker",
-                     select : "settings.modelDefinitions.repositoryTypes.local.folderPicker.command.select",
-                  },
-                  dialog : {
-                     error : "settings.modelDefinitions.repositoryTypes.local.folderPicker.dialog.error",
-                     noFolderFoundText : "settings.modelDefinitions.repositoryTypes.local.folderPicker.dialog.noFolderFoundText",
-                     subText : "settings.modelDefinitions.repositoryTypes.local.folderPicker.dialog.subText",
-                     title : "settings.modelDefinitions.repositoryTypes.local.folderPicker.dialog.title",
-                  },
-               },
-               infoText : "settings.modelDefinitions.repositoryTypes.local.infoText",
-               label : "settings.modelDefinitions.repositoryTypes.local.label",
-               labelInBrowser : "settings.modelDefinitions.repositoryTypes.local.labelInBrowser",
-               textBoxLabel : "settings.modelDefinitions.repositoryTypes.local.textBoxLabel",
-            },
-            notAvailable : "settings.modelDefinitions.repositoryTypes.notAvailable",
-            public : {
-               infoText : "settings.modelDefinitions.repositoryTypes.public.infoText",
-               label : "settings.modelDefinitions.repositoryTypes.public.label",
-            },
-         },
+         redirect : "settings.modelDefinitions.redirect",
+         redirectLink : "settings.modelDefinitions.redirectLink",
       },
       questions : {
          headerText : "settings.questions.headerText",
