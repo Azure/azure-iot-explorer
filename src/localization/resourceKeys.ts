@@ -188,6 +188,7 @@ export class ResourceKeys {
       },
       visitConnectionCommand : {
          ariaLabel : "connectionStrings.visitConnectionCommand.ariaLabel",
+         label : "connectionStrings.visitConnectionCommand.label",
       },
    };
    public static connectivityPane = {

@@ -147,7 +147,8 @@
             "ariaLabel": "Copy connection string {{connectionString}}"
         },
         "visitConnectionCommand": {
-            "ariaLabel": "View resource: {{connection string}}"
+            "label": "View devices in this hub",
+            "ariaLabel": "View resource: {{connectionString}}"
         },
         "deleteConnection": {
             "title": "Confirm Delete",

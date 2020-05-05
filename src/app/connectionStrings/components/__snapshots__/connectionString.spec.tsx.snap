@@ -10,7 +10,7 @@ exports[`connectionString matches snapshot 1`] = `
     <div
       className="name"
     >
-      <CustomizedActionButton
+      <StyledLinkBase
         ariaLabel="connectionStrings.visitConnectionCommand.ariaLabel"
         className="text"
         iconProps={
@@ -19,9 +19,10 @@ exports[`connectionString matches snapshot 1`] = `
           }
         }
         onClick={[Function]}
-        text="test"
-        title="test"
-      />
+        title="connectionStrings.visitConnectionCommand.ariaLabel"
+      >
+        test
+      </StyledLinkBase>
     </div>
     <div
       className="actions"
@@ -64,6 +65,18 @@ exports[`connectionString matches snapshot 1`] = `
       readOnly={true}
       value="HostName=test.azure-devices-int.net;SharedAccessKeyName=iothubowner;SharedAccessKey=key"
     />
+    <StyledLinkBase
+      ariaLabel="connectionStrings.visitConnectionCommand.ariaLabel"
+      onClick={[Function]}
+      style={
+        Object {
+          "marginTop": 10,
+        }
+      }
+      title="connectionStrings.visitConnectionCommand.ariaLabel"
+    >
+      connectionStrings.visitConnectionCommand.label
+    </StyledLinkBase>
   </div>
   <Component
     connectionString="HostName=test.azure-devices-int.net;SharedAccessKeyName=iothubowner;SharedAccessKey=key"
