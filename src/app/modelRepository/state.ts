@@ -31,7 +31,7 @@ const getRepositoryLocations = () => {
         }
         return locations;
     }
-    return [REPOSITORY_LOCATION_TYPE.Public];
+    return [];
 };
 
 export const modelRepositoryStateInitial = () => {

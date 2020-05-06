@@ -62,6 +62,7 @@ export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionP
 }
 
 export function* validateModelDefinitionHelper(modelDefinition: ModelDefinition, location: RepositoryLocationSettings) {
+    return true; // commenting out validating model until it aligns with local parser
     try {
             if (location.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Public) {
                 return true;
