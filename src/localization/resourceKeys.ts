@@ -697,6 +697,12 @@ export class ResourceKeys {
             label : "modelRepository.commands.save.label",
          },
       },
+      empty : {
+         description : "modelRepository.empty.description",
+         header : "modelRepository.empty.header",
+         help : "modelRepository.empty.help",
+      },
+      instruction : "modelRepository.instruction",
       types : {
          local : {
             folderPicker : {

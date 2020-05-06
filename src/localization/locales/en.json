@@ -813,6 +813,12 @@
         }
     },
     "modelRepository" : {
+        "empty": {
+            "header": "No model repository configurations to display",
+            "description": "Model repository configurations are saved to application storage and can be edited or removed at any time by returning",
+            "help": "What is Plug and Play Preview"
+        },
+        "instruction": "We'll look for your model definition in the following order. Please drag and drop to change it. Click 'Add' to enable more ways we can resolve your model definitions.",
         "commands": {
             "save": {
                 "label": "Save",

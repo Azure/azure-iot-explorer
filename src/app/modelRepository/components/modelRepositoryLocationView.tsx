@@ -5,7 +5,7 @@
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RouteComponentProps, Prompt } from 'react-router-dom';
-import { CommandBar, ICommandBarItemProps, ICommandBarProps,  } from 'office-ui-fabric-react/lib/CommandBar';
+import { CommandBar, ICommandBarItemProps  } from 'office-ui-fabric-react/lib/CommandBar';
 import { IContextualMenuItem } from 'office-ui-fabric-react/lib/ContextualMenu';
 import { useLocalizationContext } from '../../shared/contexts/localizationContext';
 import { getRepositoryLocationSettingsSelector } from '../selectors';
@@ -19,6 +19,7 @@ import { appConfig, HostMode } from '../../../appConfig/appConfig';
 import { StringMap } from '../../api/models/stringMap';
 import { ROUTE_PARAMS } from '../../constants/routes';
 import { SAVE, ADD, UNDO, HELP, NAVIGATE_BACK } from '../../constants/iconNames';
+import { ModelRepositoryInstruction } from './modelRepositoryInstruction';
 import '../../css/_layouts.scss';
 
 export interface ModelRepositoryLocationViewDataProps {
@@ -52,7 +53,6 @@ export const ModelRepositoryLocationView: React.FC<ModelRepositoryLocationViewPr
             },
             {
                 ariaLabel: t(ResourceKeys.modelRepository.commands.add.ariaLabel),
-                disabled: repositoryLocationSettings.length >= Object.keys(REPOSITORY_LOCATION_TYPE).length,
                 iconProps: { iconName: ADD },
                 key: 'add',
                 subMenuProps: {
@@ -182,6 +182,7 @@ export const ModelRepositoryLocationView: React.FC<ModelRepositoryLocationViewPr
                 />
             </div>
             <div className="view-scroll-vertical">
+                <ModelRepositoryInstruction empty={repositoryLocationSettings.length === 0}/>
                 <ModelRepositoryLocationList
                     repositoryLocationSettings={repositoryLocationSettings}
                     repositoryLocationSettingsErrors={repositoryLocationSettingsErrors}
