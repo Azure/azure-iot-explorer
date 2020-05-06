@@ -4,7 +4,7 @@
 **********************************************************/
 import * as React from 'react';
 import { Link } from 'office-ui-fabric-react/lib/Link';
-import { Label } from 'office-ui-fabric-react/lib/Label';
+import { Text } from 'office-ui-fabric-react/lib/text';
 import { NavLink } from 'react-router-dom';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { useLocalizationContext } from '../../shared/contexts/localizationContext';
@@ -39,7 +39,7 @@ export const ModelRepositoryInstruction: React.FC<ModelRepositoryInstructionData
 
     return (
         <div className="model-repository-instruction">
-            <Label>{t(ResourceKeys.modelRepository.instruction)}</Label>
+            {t(ResourceKeys.modelRepository.instruction)}
         </div>
     );
 };
