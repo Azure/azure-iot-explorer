@@ -10,7 +10,7 @@ import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getModelDefinitionAction, GetModelDefinitionActionParameters } from '../actions';
 import { FetchModelParameters } from '../../../api/parameters/repoParameters';
-import { getRepositoryLocationSettingsSelector, getLocalFolderPath } from '../../../modelRepository/selectors';
+import { getRepositoryLocationSettingsSelector, getLocalFolderPathSelector } from '../../../modelRepository/selectors';
 import { RepositoryLocationSettings } from '../../../modelRepository/state';
 import { REPOSITORY_LOCATION_TYPE } from './../../../constants/repositoryLocationTypes';
 import { fetchLocalFile } from './../../../api/services/localRepoService';
@@ -83,7 +83,7 @@ export function* getModelDefinitionFromPublicRepo(action: Action<GetModelDefinit
 }
 
 export function* getModelDefinitionFromLocalFile(action: Action<GetModelDefinitionActionParameters>) {
-    const path = (yield select(getLocalFolderPath)).replace(/\/$/, ''); // remove trailing slash
+    const path = (yield select(getLocalFolderPathSelector)).replace(/\/$/, ''); // remove trailing slash
     return yield call(fetchLocalFile, path, action.payload.interfaceId);
 }
 

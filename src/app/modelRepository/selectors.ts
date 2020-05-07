@@ -17,6 +17,6 @@ export const getRepositoryLocationSettingsSelector = (state: StateInterface) => 
     });
 };
 
-export const getLocalFolderPath = (state: StateInterface) => {
+export const getLocalFolderPathSelector = (state: StateInterface) => {
     return state && state.modelRepositoryState && state.modelRepositoryState.localFolderSettings && state.modelRepositoryState.localFolderSettings.path;
 };
