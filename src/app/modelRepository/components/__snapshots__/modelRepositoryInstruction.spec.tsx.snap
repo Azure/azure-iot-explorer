@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ConnectionSTringsEmpty matches snapshot 1`] = `
+exports[`ModelRepositoryInstruction matches snapshot 1`] = `
 <div
   className="model-repository-empty"
 >
@@ -38,12 +38,10 @@ exports[`ConnectionSTringsEmpty matches snapshot 1`] = `
 </div>
 `;
 
-exports[`ConnectionSTringsEmpty matches snapshot 2`] = `
+exports[`ModelRepositoryInstruction matches snapshot 2`] = `
 <div
   className="model-repository-instruction"
 >
-  <StyledLabelBase>
-    modelRepository.instruction
-  </StyledLabelBase>
+  modelRepository.instruction
 </div>
 `;

@@ -4,7 +4,7 @@
  **********************************************************/
 import { takeLatest } from 'redux-saga/effects';
 import { setRepositoryLocationsAction } from './actions';
-import { setRepositoryLocationsSaga } from './sagas/setRepositoryLocationsActionSaga';
+import { setRepositoryLocationsSaga } from './sagas/setRepositoryLocationsSaga';
 
 export default [
     takeLatest(setRepositoryLocationsAction, setRepositoryLocationsSaga),
