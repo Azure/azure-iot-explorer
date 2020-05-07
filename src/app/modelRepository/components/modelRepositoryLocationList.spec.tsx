@@ -4,8 +4,10 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
+import { Container } from 'react-smooth-dnd';
 import { ModelRepositoryLocationList } from './modelRepositoryLocationList';
+import { ModelRepositoryLocationListItem } from './modelRepositoryLocationListItem';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
 
 describe('components/settings/modelRepositoryLocationList', () => {
@@ -43,5 +45,64 @@ describe('components/settings/modelRepositoryLocationList', () => {
             />
         );
         expect(shallow(component)).toMatchSnapshot();
+    });
+
+    it('calls onChangeRepositoryLocationSettings when location value changes', () => {
+        const spy = jest.fn();
+        const wrapper = mount(
+            <ModelRepositoryLocationList
+                repositoryLocationSettings={[
+                    {repositoryLocationType: REPOSITORY_LOCATION_TYPE.Local, value: 'folder'},
+                    {repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public},
+                ]}
+                repositoryLocationSettingsErrors={{}}
+                onChangeRepositoryLocationSettings={spy}
+            />
+        );
+
+        wrapper.find(ModelRepositoryLocationListItem).first().props().onChangeRepositoryLocationSettingValue(0, 'newFolder');
+        expect(spy).toHaveBeenCalledWith([
+            {repositoryLocationType: REPOSITORY_LOCATION_TYPE.Local, value: 'newFolder'},
+            {repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public},
+           ]);
+    });
+
+    it('calls onChangeRepositoryLocationSettings when location removed', () => {
+        const spy = jest.fn();
+        const wrapper = mount(
+            <ModelRepositoryLocationList
+                repositoryLocationSettings={[
+                    {repositoryLocationType: REPOSITORY_LOCATION_TYPE.Local, value: 'folder'},
+                    {repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public},
+                ]}
+                repositoryLocationSettingsErrors={{}}
+                onChangeRepositoryLocationSettings={spy}
+            />
+        );
+
+        wrapper.find(ModelRepositoryLocationListItem).first().props().onRemoveRepositoryLocationSetting(0);
+        expect(spy).toHaveBeenCalledWith([
+            {repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public},
+        ]);
+    });
+
+    it('calls onChangeRepositoryLocationSettings when location dropped', () => {
+        const spy = jest.fn();
+        const wrapper = mount(
+            <ModelRepositoryLocationList
+                repositoryLocationSettings={[
+                    {repositoryLocationType: REPOSITORY_LOCATION_TYPE.Local, value: 'folder'},
+                    {repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public},
+                ]}
+                repositoryLocationSettingsErrors={{}}
+                onChangeRepositoryLocationSettings={spy}
+            />
+        );
+
+        wrapper.find(Container).first().props().onDrop({addedIndex: 0, removedIndex: 1});
+        expect(spy).toHaveBeenCalledWith([
+            {repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public},
+            {repositoryLocationType: REPOSITORY_LOCATION_TYPE.Local, value: 'folder'}
+        ]);
     });
 });

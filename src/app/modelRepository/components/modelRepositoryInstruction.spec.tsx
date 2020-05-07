@@ -6,7 +6,7 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import { ModelRepositoryInstruction } from './modelRepositoryInstruction';
 
-describe('ConnectionSTringsEmpty', () => {
+describe('ModelRepositoryInstruction', () => {
     it('matches snapshot', () => {
         expect(shallow(<ModelRepositoryInstruction empty={true}/>)).toMatchSnapshot();
         expect(shallow(<ModelRepositoryInstruction empty={false}/>)).toMatchSnapshot();
