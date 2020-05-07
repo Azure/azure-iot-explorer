@@ -4,14 +4,13 @@
  **********************************************************/
 import { call, put } from 'redux-saga/effects';
 import { cloneableGenerator } from 'redux-saga/utils';
-import { setRepositoryLocationsSaga, setLocalFolderPath, setRepositoryLocations } from './setRepositoryLocationsSaga';
+import { setRepositoryLocationsSaga } from './setRepositoryLocationsSaga';
 import { setRepositoryLocationsAction } from '../actions';
-import { REPO_LOCATIONS, LOCAL_FILE_EXPLORER_PATH_NAME } from '../../constants/browserStorage';
 import { addNotificationAction } from '../../notifications/actions';
 import { getLocalFolderPath, getRepositoryLocationTypes } from '../reducer';
 import { NotificationType } from '../../api/models/notification';
 import { ResourceKeys } from '../../../localization/resourceKeys';
-import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
+import { setLocalFolderPath, setRepositoryLocations } from '../services/modelRepositoryService';
 
 describe('setRepositoryLocationsSaga', () => {
     const setRepositoryLocationsSagaGenerator = cloneableGenerator(setRepositoryLocationsSaga)(setRepositoryLocationsAction([]));
@@ -61,19 +60,4 @@ describe('setRepositoryLocationsSaga', () => {
             done: true,
         });
     });
-});
-
-describe('setLocalFolderPath', () => {
-    setLocalFolderPath('localFolderPath');
-    expect(localStorage.getItem(LOCAL_FILE_EXPLORER_PATH_NAME)).toEqual('localFolderPath');
-
-});
-
-describe('setRepositoryLocations', () => {
-    setRepositoryLocations([
-      REPOSITORY_LOCATION_TYPE.Local,
-      REPOSITORY_LOCATION_TYPE.Public
-    ]);
-
-    expect(localStorage.getItem(REPO_LOCATIONS)).toEqual('LOCAL,PUBLIC');
 });

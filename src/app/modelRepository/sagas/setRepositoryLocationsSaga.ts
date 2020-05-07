@@ -4,8 +4,7 @@
  **********************************************************/
 import { call, put } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
-import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
-import { REPO_LOCATIONS, LOCAL_FILE_EXPLORER_PATH_NAME } from '../../constants/browserStorage';
+import { setLocalFolderPath, setRepositoryLocations } from '../services/modelRepositoryService';
 import { RepositoryLocationSettings } from '../state';
 import { addNotificationAction } from '../../notifications/actions';
 import { getLocalFolderPath, getRepositoryLocationTypes } from '../reducer';
@@ -26,11 +25,3 @@ export function* setRepositoryLocationsSaga(action: Action<RepositoryLocationSet
         type: NotificationType.success
     }));
 }
-
-export const setLocalFolderPath = (localFolderPath: string) => {
-    localStorage.setItem(LOCAL_FILE_EXPLORER_PATH_NAME, localFolderPath);
-};
-
-export const setRepositoryLocations = (locations: REPOSITORY_LOCATION_TYPE[]) => {
-    localStorage.setItem(REPO_LOCATIONS, locations.join(','));
-};
