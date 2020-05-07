@@ -4,7 +4,6 @@
 **********************************************************/
 import * as React from 'react';
 import { Link } from 'office-ui-fabric-react/lib/Link';
-import { Text } from 'office-ui-fabric-react/lib/text';
 import { NavLink } from 'react-router-dom';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { useLocalizationContext } from '../../shared/contexts/localizationContext';

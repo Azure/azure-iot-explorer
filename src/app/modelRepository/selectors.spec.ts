@@ -15,7 +15,6 @@ describe('getLocalFolderPath', () => {
         const state = getInitialState();
         state.modelRepositoryState = undefined;
         expect(getLocalFolderPathSelector(state)).toEqual(undefined);
-
     });
 
     it('returns undefined when localFolderSetting is undefined', () => {
@@ -42,7 +41,6 @@ describe('getRepositoryLocationSettingsSelector', () => {
         const state = getInitialState();
         state.modelRepositoryState = undefined;
         expect(getRepositoryLocationSettingsSelector(state)).toEqual(undefined);
-
     });
 
     it('returns undefined when repositoryLocations is undefined', () => {
