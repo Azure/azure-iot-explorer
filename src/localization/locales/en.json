@@ -797,7 +797,8 @@
         "getModuleIdentityOnError": "Failed to get module identity {{moduleId}}: {{error}}",
         "deleteModuleIdentityOnSuccess": "Successfully deleted module {{moduleId}}",
         "deleteModuleIdentityOnError": "Failed to delete module identity {{moduleId}}: {{error}}",
-        "portIsInUseError": "The port {{portNumber}} is in use. To configure a custom port value, set system environment variable 'AZURE_IOT_EXPLORER_PORT' to an available port number. To learn more, visit https://github.com/Azure/azure-iot-explorer/wiki/FAQ "
+        "portIsInUseError": "The port {{portNumber}} is in use. To configure a custom port value, set system environment variable 'AZURE_IOT_EXPLORER_PORT' to an available port number. To learn more, visit https://github.com/Azure/azure-iot-explorer/wiki/FAQ ",
+        "modelRepoistorySettingsUpdated": "Model repository locations successfully updated."
     },
     "errorBoundary": {
         "text": "Something went wrong"
@@ -814,8 +815,8 @@
     },
     "modelRepository" : {
         "empty": {
-            "header": "No model repository configurations to display",
-            "description": "Model repository configurations are saved to application storage and can be edited or removed at any time by returning",
+            "header": "No model repository locations to display",
+            "description": "Model repository locations specify where the application looks to find Plug and Play model definitions. Locations are saved to application storage and can be edited or removed at any time by returning",
             "help": "What is Plug and Play Preview"
         },
         "instruction": "We'll look for your model definition in the following order. Please drag and drop to change it. Click 'Add' to enable more ways we can resolve your model definitions.",
