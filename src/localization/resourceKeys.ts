@@ -831,6 +831,7 @@ export class ResourceKeys {
       invokingDigitalTwinCommandWithPayload : "notifications.invokingDigitalTwinCommandWithPayload",
       invokingMethod : "notifications.invokingMethod",
       invokingMethodWithPayload : "notifications.invokingMethodWithPayload",
+      modelRepoistorySettingsUpdated : "notifications.modelRepoistorySettingsUpdated",
       parseLocalInterfaceModelOnError : "notifications.parseLocalInterfaceModelOnError",
       patchDigitalTwinOnAccept : "notifications.patchDigitalTwinOnAccept",
       patchDigitalTwinOnError : "notifications.patchDigitalTwinOnError",
