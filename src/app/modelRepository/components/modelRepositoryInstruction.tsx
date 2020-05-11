@@ -33,12 +33,29 @@ export const ModelRepositoryInstruction: React.FC<ModelRepositoryInstructionData
                 >
                     {t(ResourceKeys.modelRepository.empty.help)}
                 </Link>
+                {RenderPrivaryStatement()}
             </div>);
     }
 
     return (
         <div className="model-repository-instruction">
             {t(ResourceKeys.modelRepository.instruction)}
+            {RenderPrivaryStatement()}
+        </div>
+    );
+};
+
+const RenderPrivaryStatement = () => {
+    const { t } = useLocalizationContext();
+    return (
+        <div className="privacy-statement">
+            <span>{t(ResourceKeys.settings.questions.questions.privacy.text)}</span>
+            <Link
+                href={t(ResourceKeys.settings.questions.questions.privacy.link)}
+                target="_blank"
+            >
+               {t(ResourceKeys.settings.questions.questions.privacy.linkText)}
+            </Link>
         </div>
     );
 };
