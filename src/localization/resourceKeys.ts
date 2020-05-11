@@ -866,6 +866,11 @@ export class ResourceKeys {
                link : "settings.questions.questions.documentation.link",
                text : "settings.questions.questions.documentation.text",
             },
+            privacy : {
+               link : "settings.questions.questions.privacy.link",
+               linkText : "settings.questions.questions.privacy.linkText",
+               text : "settings.questions.questions.privacy.text",
+            },
          },
       },
       save : "settings.save",

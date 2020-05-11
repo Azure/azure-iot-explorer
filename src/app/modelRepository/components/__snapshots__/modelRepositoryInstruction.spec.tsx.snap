@@ -35,6 +35,19 @@ exports[`ModelRepositoryInstruction matches snapshot 1`] = `
   >
     modelRepository.empty.help
   </StyledLinkBase>
+  <div
+    className="privacy-statement"
+  >
+    <span>
+      settings.questions.questions.privacy.text
+    </span>
+    <StyledLinkBase
+      href="settings.questions.questions.privacy.link"
+      target="_blank"
+    >
+      settings.questions.questions.privacy.linkText
+    </StyledLinkBase>
+  </div>
 </div>
 `;
 
@@ -43,5 +56,18 @@ exports[`ModelRepositoryInstruction matches snapshot 2`] = `
   className="model-repository-instruction"
 >
   modelRepository.instruction
+  <div
+    className="privacy-statement"
+  >
+    <span>
+      settings.questions.questions.privacy.text
+    </span>
+    <StyledLinkBase
+      href="settings.questions.questions.privacy.link"
+      target="_blank"
+    >
+      settings.questions.questions.privacy.linkText
+    </StyledLinkBase>
+  </div>
 </div>
 `;

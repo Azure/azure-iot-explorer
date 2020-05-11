@@ -34,3 +34,9 @@ body {
         }
     }
 }
+
+.embedded-link {
+    @include themify($themes) {
+        color: themed('linkColor');
+    }
+}

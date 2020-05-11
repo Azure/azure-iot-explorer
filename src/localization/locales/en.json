@@ -36,7 +36,7 @@
         "close": "Collapse"
     },
     "header": {
-        "applicationName": "Azure IoT explorer (preview)",
+        "applicationName": "Azure IoT Explorer (preview)",
         "search": {
             "watermark": "Find on page"
         },
@@ -74,6 +74,11 @@
                 "documentation": {
                     "text":"IoT Plug and Play documentation",
                     "link": "https://aka.ms/azure-iot-explorer-documentation"
+                },
+                "privacy": {
+                    "text": "Before enabling us to retrieve model definition from local folder, please read ",
+                    "linkText": "Microsoft Privacy Statement",
+                    "link": "https://privacy.microsoft.com/en-us/privacystatement"
                 }
             }
         },

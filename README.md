@@ -1,15 +1,15 @@
 
-# Azure IoT explorer (preview)
+# Azure IoT Explorer (preview)
 
 [![Build Status](https://dev.azure.com/azure/azure-iot-explorer/_apis/build/status/Azure%20IoT%20Explorer%20CI%20Pipeline?branchName=master)](https://dev.azure.com/azure/azure-iot-explorer/_build/latest?definitionId=31&branchName=master)
 
 ## Table of Contents
 
-- [Getting Azure IoT explorer](#getting-azure-iot-explorer)
+- [Getting Azure IoT Explorer](#getting-azure-iot-explorer)
 - [Features](#features)
 - [Contributing](#contributing)
 
-## Getting Azure IoT explorer
+## Getting Azure IoT Explorer
 
 You can either download a pre-built version or build it yourself.
 
