@@ -5,7 +5,7 @@
   "main": "public/electron.js",
   "build": {
     "appId": "com.microsoft.azure.iot.pnp.ui",
-    "productName": "Azure IoT explorer (preview)",
+    "productName": "Azure IoT Explorer (preview)",
     "files": [
       "dist/**/*",
       "package.json",
