@@ -37,6 +37,7 @@ export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionP
                     text: {
                         translationKey: ResourceKeys.notifications.parseLocalInterfaceModelOnError,
                         translationOptions: {
+                            files: error.message,
                             interfaceId: action.payload.interfaceId
                         },
                     },
