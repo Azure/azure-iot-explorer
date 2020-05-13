@@ -108,7 +108,7 @@ const findMatchingFile = (filePath: string, fileNames: string[], expectedFileNam
         }
     }
     if (filesWithParsingError.length > 0) {
-        throw new Error(filesWithParsingError.join(','));
+        throw new Error(filesWithParsingError.join(', '));
     }
     return null;
 };
