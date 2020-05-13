@@ -278,6 +278,7 @@ export class ResourceKeys {
                isNotSpecified : "deviceEvents.columns.validation.key.isNotSpecified",
             },
             value : {
+               bodyIsEmpty : "deviceEvents.columns.validation.value.bodyIsEmpty",
                label : "deviceEvents.columns.validation.value.label",
             },
          },
