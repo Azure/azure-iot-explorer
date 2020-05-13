@@ -80,8 +80,8 @@ export const handleReadFileRequest = (req: express.Request, res: express.Respons
                     res.status(NO_CONTENT_SUCCESS).send();
                 }
             }
-            catch {
-                res.status(NOT_FOUND).send(); // couldn't find matching file, and the folder contains json files that cannot be parsed
+            catch (error) {
+                res.status(NOT_FOUND).send(error.message); // couldn't find matching file, and the folder contains json files that cannot be parsed
             }
 
         }
@@ -93,7 +93,7 @@ export const handleReadFileRequest = (req: express.Request, res: express.Respons
 
 // tslint:disable-next-line:cyclomatic-complexity
 const findMatchingFile = (filePath: string, fileNames: string[], expectedFileName: string): string => {
-    let errorsCaught = 0;
+    const filesWithParsingError = [];
     for (const fileName of fileNames) {
         if (isFileExtensionJson(fileName)) {
             try {
@@ -103,12 +103,12 @@ const findMatchingFile = (filePath: string, fileNames: string[], expectedFileNam
                 }
             }
             catch {
-                errorsCaught ++; // swallow error and continue the loop
+                filesWithParsingError.push(fileName); // swallow error and continue the loop
             }
         }
     }
-    if (errorsCaught > 0) {
-        throw new Error();
+    if (filesWithParsingError.length > 0) {
+        throw new Error(filesWithParsingError.join(', '));
     }
     return null;
 };

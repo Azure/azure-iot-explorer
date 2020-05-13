@@ -390,6 +390,19 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
                 );
             });
         }
+        return (
+            <article className="list-item event-list-item" role="article" key={index}>
+                <section className="flex-grid-row item-summary">
+                    <ErrorBoundary error={context.t(ResourceKeys.errorBoundary.text)}>
+                        {this.renderTimestamp(event.enqueuedTime, context)}
+                        {this.renderEventName(context)}
+                        {this.renderEventSchema(context)}
+                        {this.renderEventUnit(context)}
+                        {this.renderMessageBodyWithSchema(event.body, context, null, null)}
+                    </ErrorBoundary>
+                </section>
+            </article>
+        );
     }
 
     private readonly renderEventsWithNoSystemProperties = (event: Message, index: number, context: LocalizationContextInterface) => {
@@ -453,6 +466,7 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
         );
     }
 
+    // tslint:disable-next-line: cyclomatic-complexity
     private readonly renderMessageBodyWithSchema = (eventBody: any, context: LocalizationContextInterface, schema: ParsedJsonSchema, key: string) => { // tslint:disable-line:no-any
         if (key && !schema) { // DTDL doesn't contain corresponding key
             const labelContent = context.t(ResourceKeys.deviceEvents.columns.validation.key.isNotSpecified, { key });
@@ -468,11 +482,11 @@ export default class DeviceEventsPerInterfaceComponent extends React.Component<D
             );
         }
 
-        if (Object.keys(eventBody) && Object.keys(eventBody)[0] !== key) { // key in event body doesn't match property name
-            const labelContent = context.t(ResourceKeys.deviceEvents.columns.validation.key.doesNotMatch, {
+        if (eventBody && Object.keys(eventBody) && Object.keys(eventBody)[0] !== key) { // key in event body doesn't match property name
+            const labelContent = Object.keys(eventBody)[0] ? context.t(ResourceKeys.deviceEvents.columns.validation.key.doesNotMatch, {
                 expectedKey: key,
                 receivedKey: Object.keys(eventBody)[0]
-            });
+            }) : context.t(ResourceKeys.deviceEvents.columns.validation.value.bodyIsEmpty);
             return(
                 <div className="column-value-text col-sm4">
                     <span aria-label={context.t(ResourceKeys.deviceEvents.columns.value)}>

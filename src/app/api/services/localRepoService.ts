@@ -13,7 +13,7 @@ export const fetchLocalFile = async (path: string, fileName: string): Promise<st
     }
 
     if (await response.status === DataPlaneStatusCode.NotFound) {
-        throw new ModelDefinitionNotValidJsonError();
+        throw new ModelDefinitionNotValidJsonError(await response.text());
     }
 
     return response.json();
