@@ -604,7 +604,8 @@
                     "doesNotMatch": "Key mismatch. Expected key is {{expectedKey}}, but received is {{receivedKey}}"
                 },
                 "value": {
-                    "label": "value does not match schema"
+                    "label": "value does not match schema",
+                    "bodyIsEmpty": "Telemetry body is empty"
                 }
             }
         },
