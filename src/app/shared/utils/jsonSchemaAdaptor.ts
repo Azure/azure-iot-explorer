@@ -2,11 +2,12 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { PropertyContent, CommandContent, EnumSchema, MapSchema, ObjectSchema, ContentType, TelemetryContent, ModelDefinition } from '../../api/models/modelDefinition';
+import { PropertyContent, CommandContent, EnumSchema, MapSchema, ObjectSchema, ContentType, TelemetryContent, ModelDefinition, ComponentContent } from '../../api/models/modelDefinition';
 import { ParsedCommandSchema, ParsedJsonSchema } from '../../api/models/interfaceJsonParserOutput';
 import { InterfaceSchemaNotSupportedException } from './exceptions/interfaceSchemaNotSupportedException';
 
 export interface JsonSchemaAdaptorInterface {
+    getComponentNameAndInterfaceIdArray: () => ComponentAndInterfaceId[];
     getWritableProperties: () => PropertyContent[];
     getNonWritableProperties: () => PropertyContent[];
     getCommands: () => CommandContent[];
@@ -14,6 +15,11 @@ export interface JsonSchemaAdaptorInterface {
     parseInterfacePropertyToJsonSchema: (property: PropertyContent) => ParsedJsonSchema;
     parseInterfaceCommandToJsonSchema: (command: CommandContent) => ParsedCommandSchema;
     parseInterfaceTelemetryToJsonSchema: (telemetry: TelemetryContent) => ParsedJsonSchema;
+}
+
+export interface ComponentAndInterfaceId {
+    componentName: string;
+    interfaceId: string;
 }
 
 export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
@@ -33,6 +39,14 @@ export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
                 this.definitions[schema['@id']] = {};
             }
         });
+    }
+
+    public getComponentNameAndInterfaceIdArray = (): ComponentAndInterfaceId[] => {
+        const componentContents = this.model && this.model.contents && this.model.contents.filter((item: ComponentContent) => this.filterComponent(item)) as ComponentContent[];
+        return componentContents && componentContents.map(componentContent => ({
+            componentName: componentContent.name,
+            interfaceId: componentContent.schema
+        })) || [];
     }
 
     public getWritableProperties = () => {
@@ -127,6 +141,15 @@ export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
             ...parsedSchema,
             title: property.name
         };
+    }
+
+    private readonly filterComponent = (content: ComponentContent) => {
+        if (typeof content['@type'] === 'string') {
+            return content['@type'].toLowerCase() === ContentType.Component;
+        }
+        else {
+            return false;
+        }
     }
 
     // tslint:disable-next-line: cyclomatic-complexity

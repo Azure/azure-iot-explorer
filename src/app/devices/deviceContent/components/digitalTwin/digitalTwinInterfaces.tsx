@@ -13,10 +13,10 @@ import { Pivot, PivotItem } from 'office-ui-fabric-react/lib/Pivot';
 import { RouteComponentProps, NavLink } from 'react-router-dom';
 import { getDigitalTwinModelId,
     getDigitalTwinSynchronizationStatusSelector,
-    ComponentAndInterfaceId,
     getComponentNameAndInterfaceIdArraySelector,
     getModelDefinitionSyncStatusSelector,
-    getModelDefinitionWithSourceSelector } from '../../selectors';
+    getModelDefinitionWithSourceSelector, 
+    defaultComponentKey} from '../../selectors';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../../constants/routes';
 import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
@@ -32,6 +32,7 @@ import MaskedCopyableTextFieldContainer from '../../../../shared/components/mask
 import { MonacoEditorView } from '../../../../shared/components/monacoEditor';
 import { HeaderView } from '../../../../shared/components/headerView';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
+import { ComponentAndInterfaceId } from '../../../../shared/utils/jsonSchemaAdaptor';
 import '../../../../css/_digitalTwinInterfaces.scss';
 
 export interface DigitalTwinInterfacesProps extends RouteComponentProps{
@@ -60,15 +61,26 @@ export const DigitalTwinInterfaces: React.FC<DigitalTwinInterfacesProps> = props
             return;
         }
         dispatch(getModelDefinitionAction.started({digitalTwinId: deviceId, interfaceId: modelId}));
-    }, [modelId]); // tslint:disable-line:align
+    },              [modelId]);
 
     const modelContents: ModelContent[]  = componentNameToIds && componentNameToIds.map(nameToId => {
-            const link = `${url}${ROUTE_PARTS.DIGITAL_TWINS_DETAIL}/${ROUTE_PARTS.INTERFACES}/` +
-                            `?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}` +
-                            `&${ROUTE_PARAMS.COMPONENT_NAME}=${nameToId.componentName}` +
-                            `&${ROUTE_PARAMS.INTERFACE_ID}=${nameToId.interfaceId}`;
-
-            return { ...nameToId, link };
+        const link = `${url}${ROUTE_PARTS.DIGITAL_TWINS_DETAIL}/${ROUTE_PARTS.INTERFACES}/` +
+            `?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}` +
+            `&${ROUTE_PARAMS.COMPONENT_NAME}=${nameToId.componentName}` +
+            `&${ROUTE_PARAMS.INTERFACE_ID}=${nameToId.interfaceId}`;
+        if (nameToId.componentName === defaultComponentKey && nameToId.interfaceId === props.modelId) {
+            return{
+                componentName: t(ResourceKeys.digitalTwin.pivot.defaultComponent),
+                interfaceId: nameToId.interfaceId,
+                link
+            };
+        }
+        else {
+            return {
+                ...nameToId,
+                link
+            };
+        }
     });
 
     const createCommandBarItems = (): ICommandBarItemProps[] => {
@@ -87,9 +99,9 @@ export const DigitalTwinInterfaces: React.FC<DigitalTwinInterfacesProps> = props
 
     const getColumns = (): IColumn[] => {
         return [
-            { fieldName: 'name', isMultiline: true, isResizable: true, key: 'name',
+            { fieldName: 'componentName', isMultiline: true, isResizable: true, key: 'name',
                 maxWidth: LARGE_COLUMN_WIDTH, minWidth: 100, name: t(ResourceKeys.digitalTwin.componentName) },
-            { fieldName: 'id', isMultiline: true, isResizable: true, key: 'id',
+            { fieldName: 'interfaceId', isMultiline: true, isResizable: true, key: 'id',
                 maxWidth: LARGE_COLUMN_WIDTH, minWidth: 100, name: t(ResourceKeys.digitalTwin.interfaceId)}
         ];
     };
@@ -140,6 +152,7 @@ export const DigitalTwinInterfaces: React.FC<DigitalTwinInterfacesProps> = props
         return (
             <>
                 <h4>{t(ResourceKeys.digitalTwin.steps.third)}</h4>
+                <h5>{t(ResourceKeys.digitalTwin.steps.explanation, {modelId: props.modelId})}</h5>
                 <Pivot aria-label={t(ResourceKeys.digitalTwin.pivot.ariaLabel)}>
                     <PivotItem headerText={t(ResourceKeys.digitalTwin.pivot.components)}>
                         {listView}
@@ -222,7 +235,6 @@ export type DigitalTwinInterfacesContainerProps = RouteComponentProps;
 export const DigitalTwinInterfacesContainer: React.FC<DigitalTwinInterfacesContainerProps> = props => {
     const digitalTwinSynchronizationStatus = useSelector(getDigitalTwinSynchronizationStatusSelector);
     const modelDefinitionSynchronizationStatus = useSelector(getModelDefinitionSyncStatusSelector);
-    const dispatch = useDispatch();
 
     const viewProps = {
         componentNameToIds: useSelector(getComponentNameAndInterfaceIdArraySelector),
