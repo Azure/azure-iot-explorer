@@ -9,7 +9,7 @@ import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 import Form from 'react-jsonschema-form';
 import { fabricWidgets, fabricFields } from '../../../../jsonSchemaFormFabricPlugin';
 import { ObjectTemplate } from '../../../../jsonSchemaFormFabricPlugin/fields/objectTemplate';
-import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
+import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { Exception } from '../../../../shared/utils/exceptions/exception';
 import { ParsedJsonSchema } from '../../../../api/models/interfaceJsonParserOutput';
@@ -18,7 +18,7 @@ import { CLOSE } from '../../../../constants/iconNames';
 import { PropertyContent } from '../../../../api/models/modelDefinition';
 import ErrorBoundary from '../../../errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
-import { ThemeContextConsumer, ThemeContextInterface } from '../../../../shared/contexts/themeContext';
+import { useThemeContext } from '../../../../shared/contexts/themeContext';
 
 const EditorPromise = import('react-monaco-editor');
 const Editor = React.lazy(() => EditorPromise);
@@ -39,58 +39,38 @@ export interface ReportedFormState {
     parseMapTypeError?: Exception;
 }
 
-export default class ComplexReportedFormPanel extends React.Component<ReportedFormDataProps & ReportedFormActionProps, ReportedFormState> {
-    constructor(props: ReportedFormDataProps & ReportedFormActionProps) {
-        super(props);
+export const ComplexReportedFormPanel: React.FC<ReportedFormDataProps & ReportedFormActionProps> = (props: ReportedFormDataProps & ReportedFormActionProps) => {
+    const { t } = useLocalizationContext();
+    const { monacoTheme } = useThemeContext();
 
-        const { formData, schema } = this.props;
-        const twinData = twinToFormDataConverter(formData, schema);
-        this.state = {
-            formData: twinData.formData,
-            parseMapTypeError: twinData.error
-        };
-    }
+    const { schema, modelDefinition, showPanel } = props;
+    const twinData = twinToFormDataConverter(props.formData, schema);
+    const formData = twinData.formData;
+    const parseMapTypeError = twinData.error;
 
-    public render() {
-        return (
-            <LocalizationContextConsumer>
-                {(context: LocalizationContextInterface) => (
-                    <dialog open={this.props.showPanel} role="dialog">
-                        <IconButton
-                            className="close-dialog-icon"
-                            iconProps={{ iconName: CLOSE }}
-                            onClick={this.props.handleDismiss}
-                        />
-                        {this.createTitle(context)}
-                        {this.createForm(context)}
-                    </dialog>
-                )}
-            </LocalizationContextConsumer>
-        );
-    }
-
-    private readonly createTitle = (context: LocalizationContextInterface) => {
-        const displayName = getLocalizedData(this.props.modelDefinition.displayName);
+    const createTitle = () => {
+        const displayName = getLocalizedData(modelDefinition.displayName);
         return (
             <div className="panel-title">
-                <h1>{context.t(ResourceKeys.deviceSettings.panel.title)}</h1>
-                <Label>{this.props.modelDefinition.name} ({displayName ? displayName : '--'})</Label>
+                <h1>{t(ResourceKeys.deviceSettings.panel.title)}</h1>
+                <Label>{props.modelDefinition.name} ({displayName ? displayName : '--'})</Label>
             </div>
         );
-    }
-    private readonly createForm = (context: LocalizationContextInterface) => {
-        if (this.state.parseMapTypeError || !this.props.schema) { // Not able to parse interface definition, render raw json editor instead
-            return this.createJsonEditor(context);
+    };
+
+    const createForm = () => {
+        if (parseMapTypeError || !schema) { // Not able to parse interface definition, render raw json editor instead
+            return createJsonEditor();
         }
         else {
             return (
-                <ErrorBoundary error={context.t(ResourceKeys.errorBoundary.text)}>
+                <ErrorBoundary error={t(ResourceKeys.errorBoundary.text)}>
                     <Form
-                        formData={this.state.formData}
+                        formData={formData}
                         liveValidate={true}
-                        schema={this.props.schema as any} // tslint:disable-line: no-any
+                        schema={props.schema as any} // tslint:disable-line: no-any
                         showErrorList={false}
-                        uiSchema={{'ui:description': this.props.schema.description, 'ui:disabled': true}}
+                        uiSchema={{'ui:description': props.schema.description, 'ui:disabled': true}}
                         widgets={fabricWidgets}
                         {...fabricFields}
                         ObjectFieldTemplate={ObjectTemplate}
@@ -100,38 +80,45 @@ export default class ComplexReportedFormPanel extends React.Component<ReportedFo
                 </ErrorBoundary>
             );
         }
-    }
+    };
 
-    private readonly createJsonEditor = (context: LocalizationContextInterface) => {
+    const createJsonEditor = () => {
         return (
             <form>
-                <Label>{context.t(ResourceKeys.deviceProperties.editor.label, {schema: this.getSettingSchema()})}</Label>
+                <Label>{t(ResourceKeys.deviceProperties.editor.label, {schema: getSettingSchema()})}</Label>
                 <div className="monaco-editor">
                     <React.Suspense fallback={<Spinner title={'loading'} size={SpinnerSize.large} />}>
-                        <ThemeContextConsumer>
-                            {(themeContext: ThemeContextInterface) => (
-                                <Editor
-                                    language="json"
-                                    options={{
-                                        automaticLayout: true,
-                                        readOnly: true
-                                    }}
-                                    height="70vh"
-                                    value={JSON.stringify(this.state.formData, null, '\t')}
-                                    theme={themeContext.monacoTheme}
-                                />
-                            )}
-                        </ThemeContextConsumer>
+                        <Editor
+                            language="json"
+                            options={{
+                                automaticLayout: true,
+                                readOnly: true
+                            }}
+                            height="70vh"
+                            value={JSON.stringify(formData, null, '\t')}
+                            theme={monacoTheme}
+                        />
                     </React.Suspense>
                 </div>
             </form>
         );
-    }
+    };
 
-    private readonly getSettingSchema = () => {
-        const { modelDefinition } = this.props;
+    const getSettingSchema = () => {
         return typeof modelDefinition.schema === 'string' ?
             modelDefinition.schema :
             modelDefinition.schema['@type'];
-    }
-}
+    };
+
+    return (
+        <dialog open={showPanel} role="dialog">
+            <IconButton
+                className="close-dialog-icon"
+                iconProps={{ iconName: CLOSE }}
+                onClick={props.handleDismiss}
+            />
+            {createTitle()}
+            {createForm()}
+        </dialog>
+    );
+};

@@ -7,12 +7,12 @@ import * as React from 'react';
 import { Stack } from 'office-ui-fabric-react/lib/Stack';
 import { ActionButton, IconButton } from 'office-ui-fabric-react/lib/Button';
 import { Label } from 'office-ui-fabric-react/lib/Label';
-import DeviceSettingsPerInterfacePerSetting, { DeviceSettingDataProps, DeviceSettingDispatchProps } from './deviceSettingsPerInterfacePerSetting';
+import { DeviceSettingsPerInterfacePerSetting, DeviceSettingDataProps, DeviceSettingDispatchProps } from './deviceSettingsPerInterfacePerSetting';
 import { mountWithLocalization } from '../../../../shared/utils/testHelpers';
 import { PropertyContent } from '../../../../api/models/modelDefinition';
 import { ParsedJsonSchema } from '../../../../api/models/interfaceJsonParserOutput';
-import DataForm from '../shared/dataForm';
-import { InterfaceDetailCard, INFO } from '../../../../constants/iconNames';
+import { DataForm } from '../shared/dataForm';
+import { InterfaceDetailCard } from '../../../../constants/iconNames';
 
 describe('components/devices/deviceSettingsPerInterfacePerSetting', () => {
     const name = 'state';
@@ -50,11 +50,12 @@ describe('components/devices/deviceSettingsPerInterfacePerSetting', () => {
         componentName: 'sensor',
         deviceId: 'deviceId',
         interfaceId: 'urn:interfaceId',
-        // tslint:disable-next-line: no-any
-        metadata: {desiredValue: twinValue} as any,
+        isComponentContainedInDigitalTwin: false,
+        metadata: {desiredValue: twinValue} as any,         // tslint:disable-line: no-any
         reportedTwin: twinValue,
         settingModelDefinition: propertyModelDefinition,
-        settingSchema: propertySchema};
+        settingSchema: propertySchema
+    };
 
     it('renders when there is a writable property of simple type without sync status', () => {
         const props = {

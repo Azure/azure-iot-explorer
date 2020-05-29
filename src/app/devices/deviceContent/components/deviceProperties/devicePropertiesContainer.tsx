@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { AnyAction } from 'typescript-fsa';
 import { StateType } from '../../../../shared/redux/state';
-import DeviceProperties, { DevicePropertiesDataProps, DevicePropertiesDispatchProps } from './deviceProperties';
+import { DeviceProperties, DevicePropertiesDataProps, DevicePropertiesDispatchProps } from './deviceProperties';
 import { getDevicePropertyTupleSelector } from './selectors';
 import { setComponentNameAction, getModelDefinitionAction, getDigitalTwinAction } from '../../actions';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';

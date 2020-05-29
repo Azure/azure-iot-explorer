@@ -4,28 +4,26 @@
  **********************************************************/
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RouteComponentProps } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { setActiveAzureResourceByHostNameAction } from '../actions';
 import { AzureResourceView, AzureResourceViewProps } from './azureResourceView';
 import { getActiveAzureResourceSelector } from '../selectors';
 
-export type AzureResourceViewContainerProps = RouteComponentProps;
-export const AzureResourceViewContainer: React.FC<AzureResourceViewContainerProps> = props => {
-    const currentUrl = props.match.url;
-    const currentHostName = (props.match.params as { hostName: string}).hostName;
+export const AzureResourceViewContainer: React.FC = () => {
+    const { pathname } = useLocation();
+    const { hostName } = useParams();
     const activeAzureResource = useSelector(getActiveAzureResourceSelector);
     const dispatch = useDispatch();
 
-    const setActiveAzureResourceByHostName = (hostName: string) => {
+    const setActiveAzureResourceByHostName = (host: string) => {
         dispatch(setActiveAzureResourceByHostNameAction({
-            hostName
+            hostName: host
         }));
     };
 
     const viewProps: AzureResourceViewProps = {
         activeAzureResource,
-        currentHostName,
-        currentUrl,
+        currentHostName: hostName,
         setActiveAzureResourceByHostName
     };
 

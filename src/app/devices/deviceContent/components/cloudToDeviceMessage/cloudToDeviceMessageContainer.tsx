@@ -5,7 +5,7 @@
 import { compose, Dispatch } from 'redux';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import CloudToDeviceMessage, { CloudToDeviceMessageProps } from './cloudToDeviceMessage';
+import { CloudToDeviceMessage, CloudToDeviceMessageProps } from './cloudToDeviceMessage';
 import { FunctionProperties } from '../../../../shared/types/types';
 import { cloudToDeviceMessageAction, CloudToDeviceMessageActionParameters } from '../../actions';
 

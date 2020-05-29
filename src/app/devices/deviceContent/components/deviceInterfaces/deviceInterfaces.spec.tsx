@@ -4,30 +4,17 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
+import { shallow, mount } from 'enzyme';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
-import DeviceInterfaces, { DeviceInterfaceProps, DeviceInterfaceDispatchProps } from './deviceInterfaces';
-import { testWithLocalizationContext } from '../../../../shared/utils/testHelpers';
+import { DeviceInterfaces, DeviceInterfaceProps, DeviceInterfaceDispatchProps } from './deviceInterfaces';
 import { REPOSITORY_LOCATION_TYPE } from '../../../../constants/repositoryLocationTypes';
 
+jest.mock('react-router-dom', () => ({
+    useHistory: () => ({ push: jest.fn() }),
+    useLocation: () => ({ pathname: '/devices', search: '' }),
+}));
+
 describe('components/devices/deviceInterfaces', () => {
-
-    const getRouterProps = (pathname?: string, search?: string) => {
-        const location: any = { // tslint:disable-line:no-any
-            pathname,
-            search
-        };
-        const routerProps: any = { // tslint:disable-line:no-any
-            history: {
-                location,
-            },
-            location,
-            match: {
-                params: {}
-            }
-        };
-        return routerProps;
-    };
-
     const dataProps: DeviceInterfaceProps = {
         isLoading: true,
         modelDefinitionWithSource: null,
@@ -38,17 +25,15 @@ describe('components/devices/deviceInterfaces', () => {
     const dispatchProps: DeviceInterfaceDispatchProps = {
         refresh,
         setComponentName: jest.fn(),
-        settingsVisibleToggle
     };
 
     const getComponent = (overrides = {}) => {
         const props = {
             ...dataProps,
             ...dispatchProps,
-            ...getRouterProps(),
             ...overrides,
         };
-        return testWithLocalizationContext(<DeviceInterfaces {...props} />);
+        return <DeviceInterfaces {...props} />;
     };
 
     /* tslint:disable */
@@ -91,22 +76,22 @@ describe('components/devices/deviceInterfaces', () => {
     /* tslint:enable */
 
     it('shows Shimmer when status is working', () => {
-        const component = getComponent();
-        expect(component).toMatchSnapshot();
+        const wrapper = mount(getComponent());
+        expect(wrapper).toMatchSnapshot();
     });
 
     it('shows interface information when status is fetched', () => {
-        const component = getComponent({
+        const wrapper = shallow(getComponent({
             isLoading: false,
             modelDefinitionWithSource: {
                 isModelValid: true,
                 modelDefinition,
                 source: REPOSITORY_LOCATION_TYPE.Public
             }
-        });
-        expect(component).toMatchSnapshot();
+        }));
+        expect(wrapper).toMatchSnapshot();
 
-        const command = component.find(CommandBar);
+        const command = wrapper.find(CommandBar);
         command.props().items[0].onClick(null);
         expect(refresh).toBeCalled();
     });

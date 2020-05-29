@@ -23,12 +23,6 @@ export const testWithLocalizationContextAndErrorBoundary = (Target: JSX.Element,
     return enzymeWrapper(<Children t={jest.fn()}/>);
 };
 
-export const testSnapshot = (Target: JSX.Element) => {
-    const outerWrapper = shallow(Target);
-    const Children = outerWrapper.props().children;
-    expect(shallow(<Children t={jest.fn((value: string) => value)}/>)).toMatchSnapshot();
-};
-
 export const mountWithLocalization = (Target: JSX.Element, connectToStore: boolean = false, useMemoryRouter: boolean = false, routerInitialEntries = ['/']) => {
     let wrapper = (
         <LocalizationContextProvider value={{t: jest.fn((value: string) => value)}}>

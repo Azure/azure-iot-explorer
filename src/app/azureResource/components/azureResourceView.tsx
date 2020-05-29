@@ -16,12 +16,11 @@ import { ResourceKeys } from '../../../localization/resourceKeys';
 export interface AzureResourceViewProps {
     activeAzureResource: AzureResource | undefined;
     currentHostName: string;
-    currentUrl: string;
     setActiveAzureResourceByHostName(hostName: string): void;
 }
 
 export const AzureResourceView: React.FC<AzureResourceViewProps> = props => {
-    const { activeAzureResource, currentHostName, currentUrl, setActiveAzureResourceByHostName } = props;
+    const { activeAzureResource, currentHostName, setActiveAzureResourceByHostName } = props;
     const { t } = useLocalizationContext();
 
     React.useEffect(() => {
@@ -50,9 +49,9 @@ export const AzureResourceView: React.FC<AzureResourceViewProps> = props => {
 
     return (
         <>
-            <Route path={`${currentUrl}/${ROUTE_PARTS.DEVICES}`} component={DeviceListContainer} exact={true}/>
-            <Route path={`${currentUrl}/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.ADD}`} component={AddDeviceContainer} exact={true} />
-            <Route path={`${currentUrl}/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DEVICE_DETAIL}/`} component={DeviceContentContainer}/>
+            <Route path={`/${ROUTE_PARTS.RESOURCE}/${currentHostName}/${ROUTE_PARTS.DEVICES}`} component={DeviceListContainer} exact={true}/>
+            <Route path={`/${ROUTE_PARTS.RESOURCE}/${currentHostName}/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.ADD}`} component={AddDeviceContainer} exact={true} />
+            <Route path={`/${ROUTE_PARTS.RESOURCE}/${currentHostName}/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DEVICE_DETAIL}/`} component={DeviceContentContainer}/>
         </>
     );
 };

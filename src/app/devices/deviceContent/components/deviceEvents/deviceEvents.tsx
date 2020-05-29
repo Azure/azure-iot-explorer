@@ -5,11 +5,11 @@
 import * as React from 'react';
 import { CommandBar, ICommandBarItemProps } from 'office-ui-fabric-react/lib/CommandBar';
 import { Spinner } from 'office-ui-fabric-react/lib/Spinner';
+import { useLocation } from 'react-router-dom';
 import { TextField, ITextFieldProps } from 'office-ui-fabric-react/lib/TextField';
 import { Announced } from 'office-ui-fabric-react/lib/Announced';
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
-import { RouteComponentProps } from 'react-router-dom';
-import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
+import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { monitorEvents, stopMonitoringEvents } from '../../../../api/services/devicesService';
 import { Message } from '../../../../api/models/messages';
@@ -57,128 +57,112 @@ export interface ConfigurationSettings {
     customEventHubConnectionString?: string;
 }
 
-export default class DeviceEventsComponent extends React.Component<DeviceEventsDataProps & DeviceEventsActionProps & RouteComponentProps, DeviceEventsState> {
-    // tslint:disable-next-line:no-any
-    private timerID: any;
-    private isComponentMounted: boolean;
-    constructor(props: DeviceEventsDataProps & DeviceEventsActionProps & RouteComponentProps) {
-        super(props);
+export const DeviceEventsComponent: React.FC<DeviceEventsDataProps & DeviceEventsActionProps> = (props: DeviceEventsDataProps & DeviceEventsActionProps) => {
+    let timerID: any; // tslint:disable-line:no-any
+    let isComponentMounted: boolean;
+    const { t } = useLocalizationContext();
+    const { search } = useLocation();
+    const deviceId = getDeviceIdFromQueryString(search);
 
-        this.state = {
-            consumerGroup: DEFAULT_CONSUMER_GROUP,
-            events: [],
-            hasMore: false,
-            monitoringData: false,
-            showSystemProperties: false,
-            startTime: new Date(new Date().getTime() - MILLISECONDS_IN_MINUTE), // set start time to one minute ago
-            synchronizationStatus: SynchronizationStatus.initialized,
-            useBuiltInEventHub: true
+    const [ state, setState ] = React.useState({
+        consumerGroup: DEFAULT_CONSUMER_GROUP,
+        customEventHubConnectionString: undefined,
+        customEventHubName: undefined,
+        events: [],
+        hasMore: false,
+        loading: false,
+        loadingAnnounced: undefined,
+        monitoringData: false,
+        showSystemProperties: false,
+        startTime: new Date(new Date().getTime() - MILLISECONDS_IN_MINUTE), // set start time to one minute ago
+        synchronizationStatus: SynchronizationStatus.initialized,
+        useBuiltInEventHub: true
+    });
+
+    React.useEffect(() => {
+        isComponentMounted = true;
+        return () => {
+            stopMonitoring();
+            isComponentMounted = false;
         };
-    }
+    },              []);
 
-    public componentWillUnmount() {
-        this.stopMonitoring();
-        this.isComponentMounted = false;
-    }
-
-    public render(): JSX.Element {
-        return (
-            <LocalizationContextConsumer>
-                {(context: LocalizationContextInterface) => (
-                    <div className="device-events" key="device-events">
-                        <CommandBar
-                            className="command"
-                            items={this.createCommandBarItems(context)}
-                        />
-                        <HeaderView
-                            headerText={ResourceKeys.deviceEvents.headerText}
-                            tooltip={ResourceKeys.deviceEvents.tooltip}
-                        />
-                        {this.renderConsumerGroup(context)}
-                        {this.renderCustomEventHub(context)}
-                        {this.renderInfiniteScroll(context)}
-                        {this.state.loadingAnnounced}
-                    </div>
-                )}
-            </LocalizationContextConsumer>
-        );
-    }
-
-    private createCommandBarItems = (context: LocalizationContextInterface): ICommandBarItemProps[] => {
+    const createCommandBarItems = (): ICommandBarItemProps[] => {
         return [
-            this.createStartMonitoringCommandItem(context),
-            this.createClearCommandItem(context),
-            this.createSystemPropertiesCommandItem(context)
+            createStartMonitoringCommandItem(),
+            createClearCommandItem(),
+            createSystemPropertiesCommandItem()
         ];
-    }
+    };
 
-    private createClearCommandItem = (context: LocalizationContextInterface): ICommandBarItemProps => {
+    const createClearCommandItem = (): ICommandBarItemProps => {
         return {
-            ariaLabel: context.t(ResourceKeys.deviceEvents.command.clearEvents),
-            disabled: this.state.events.length === 0 || this.state.synchronizationStatus === SynchronizationStatus.updating,
+            ariaLabel: t(ResourceKeys.deviceEvents.command.clearEvents),
+            disabled: state.events.length === 0 || state.synchronizationStatus === SynchronizationStatus.updating,
             iconProps: {
                 iconName: CLEAR
             },
             key: CLEAR,
-            name: context.t(ResourceKeys.deviceEvents.command.clearEvents),
-            onClick: this.onClearData
+            name: t(ResourceKeys.deviceEvents.command.clearEvents),
+            onClick: onClearData
         };
-    }
+    };
 
-    private createSystemPropertiesCommandItem = (context: LocalizationContextInterface): ICommandBarItemProps => {
+    const createSystemPropertiesCommandItem = (): ICommandBarItemProps => {
         return {
-            ariaLabel: context.t(ResourceKeys.deviceEvents.command.showSystemProperties),
-            disabled: this.state.synchronizationStatus === SynchronizationStatus.updating,
+            ariaLabel: t(ResourceKeys.deviceEvents.command.showSystemProperties),
+            disabled: state.synchronizationStatus === SynchronizationStatus.updating,
             iconProps: {
-                iconName: this.state.showSystemProperties ? CHECKED_CHECKBOX : EMPTY_CHECKBOX
+                iconName: state.showSystemProperties ? CHECKED_CHECKBOX : EMPTY_CHECKBOX
             },
             key: CHECKED_CHECKBOX,
-            name: context.t(ResourceKeys.deviceEvents.command.showSystemProperties),
-            onClick: this.onShowSystemProperties
+            name: t(ResourceKeys.deviceEvents.command.showSystemProperties),
+            onClick: onShowSystemProperties
         };
-    }
+    };
 
-    private createStartMonitoringCommandItem = (context: LocalizationContextInterface): ICommandBarItemProps => {
+    const createStartMonitoringCommandItem = (): ICommandBarItemProps => {
         if (appConfig.hostMode === HostMode.Electron) {
-            const label = this.state.monitoringData ? context.t(ResourceKeys.deviceEvents.command.stop) : context.t(ResourceKeys.deviceEvents.command.start);
-            const icon = this.state.monitoringData ? STOP : START;
+            const label = state.monitoringData ? t(ResourceKeys.deviceEvents.command.stop) : t(ResourceKeys.deviceEvents.command.start);
+            const icon = state.monitoringData ? STOP : START;
             return {
                 ariaLabel: label,
-                disabled: this.state.synchronizationStatus === SynchronizationStatus.updating,
+                disabled: state.synchronizationStatus === SynchronizationStatus.updating,
                 iconProps: {
                     iconName: icon
                 },
                 key: icon,
                 name: label,
-                onClick: this.onToggleStart
+                onClick: onToggleStart
             };
         }
         else {
             return {
-                ariaLabel: context.t(ResourceKeys.deviceEvents.command.fetch),
-                disabled: this.state.synchronizationStatus === SynchronizationStatus.updating || this.state.monitoringData,
+                ariaLabel: t(ResourceKeys.deviceEvents.command.fetch),
+                disabled: state.synchronizationStatus === SynchronizationStatus.updating || state.monitoringData,
                 iconProps: {
                     iconName: START
                 },
                 key: START,
-                name: context.t(ResourceKeys.deviceEvents.command.fetch),
-                onClick: this.onToggleStart
+                name: t(ResourceKeys.deviceEvents.command.fetch),
+                onClick: onToggleStart
             };
         }
-    }
+    };
 
-    private renderConsumerGroup = (context: LocalizationContextInterface) => {
-        const renderConsumerGroupLabel = (props: ITextFieldProps) => (
+    const renderConsumerGroup = () => {
+        const renderConsumerGroupLabel = (textFieldProps: ITextFieldProps) => (
             <LabelWithTooltip
                 className={'consumer-group-label'}
-                tooltipText={context.t(ResourceKeys.deviceEvents.consumerGroups.tooltip)}
+                tooltipText={t(ResourceKeys.deviceEvents.consumerGroups.tooltip)}
             >
-                {props.label}
+                {textFieldProps.label}
             </LabelWithTooltip>
         );
 
         const consumerGroupChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
-            this.setState({
+            setState({
+                ...state,
                 consumerGroup: newValue
             });
         };
@@ -187,35 +171,38 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
             <TextField
                 className={'consumer-group-text-field'}
                 onRenderLabel={renderConsumerGroupLabel}
-                label={context.t(ResourceKeys.deviceEvents.consumerGroups.label)}
-                ariaLabel={context.t(ResourceKeys.deviceEvents.consumerGroups.label)}
+                label={t(ResourceKeys.deviceEvents.consumerGroups.label)}
+                ariaLabel={t(ResourceKeys.deviceEvents.consumerGroups.label)}
                 underlined={true}
-                value={this.state.consumerGroup}
-                disabled={this.state.monitoringData}
+                value={state.consumerGroup}
+                disabled={state.monitoringData}
                 onChange={consumerGroupChange}
             />
         );
-    }
+    };
 
-    private renderCustomEventHub = (context: LocalizationContextInterface) => {
+    const renderCustomEventHub = () => {
         const toggleChange = () => {
-            this.setState({
-                useBuiltInEventHub: !this.state.useBuiltInEventHub
+            setState({
+                ...state,
+                useBuiltInEventHub: !state.useBuiltInEventHub
             });
         };
 
         const customEventHubConnectionStringChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
-            this.setState({
+            setState({
+                ...state,
                 customEventHubConnectionString: newValue
             });
         };
 
         const renderError = () => {
-            return !isValidEventHubConnectionString(this.state.customEventHubConnectionString) && context.t(ResourceKeys.deviceEvents.customEventHub.connectionString.error);
+            return !isValidEventHubConnectionString(state.customEventHubConnectionString) && t(ResourceKeys.deviceEvents.customEventHub.connectionString.error);
         };
 
         const customEventHubNameChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
-            this.setState({
+            setState({
+                ...state,
                 customEventHubName: newValue
             });
         };
@@ -224,35 +211,35 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
             <>
                 <Toggle
                     className="toggle-button"
-                    checked={this.state.useBuiltInEventHub}
-                    ariaLabel={context.t(ResourceKeys.deviceEvents.toggleUseDefaultEventHub.label)}
-                    label={context.t(ResourceKeys.deviceEvents.toggleUseDefaultEventHub.label)}
-                    onText={context.t(ResourceKeys.deviceEvents.toggleUseDefaultEventHub.on)}
-                    offText={context.t(ResourceKeys.deviceEvents.toggleUseDefaultEventHub.off)}
+                    checked={state.useBuiltInEventHub}
+                    ariaLabel={t(ResourceKeys.deviceEvents.toggleUseDefaultEventHub.label)}
+                    label={t(ResourceKeys.deviceEvents.toggleUseDefaultEventHub.label)}
+                    onText={t(ResourceKeys.deviceEvents.toggleUseDefaultEventHub.on)}
+                    offText={t(ResourceKeys.deviceEvents.toggleUseDefaultEventHub.off)}
                     onChange={toggleChange}
-                    disabled={this.state.monitoringData}
+                    disabled={state.monitoringData}
                 />
-                {!this.state.useBuiltInEventHub &&
+                {!state.useBuiltInEventHub &&
                     <>
                         <TextField
                             className={'custom-event-hub-text-field'}
-                            label={context.t(ResourceKeys.deviceEvents.customEventHub.connectionString.label)}
-                            ariaLabel={context.t(ResourceKeys.deviceEvents.customEventHub.connectionString.label)}
+                            label={t(ResourceKeys.deviceEvents.customEventHub.connectionString.label)}
+                            ariaLabel={t(ResourceKeys.deviceEvents.customEventHub.connectionString.label)}
                             underlined={true}
-                            value={this.state.customEventHubConnectionString}
-                            disabled={this.state.monitoringData}
+                            value={state.customEventHubConnectionString}
+                            disabled={state.monitoringData}
                             onChange={customEventHubConnectionStringChange}
-                            placeholder={context.t(ResourceKeys.deviceEvents.customEventHub.connectionString.placeHolder)}
+                            placeholder={t(ResourceKeys.deviceEvents.customEventHub.connectionString.placeHolder)}
                             errorMessage={renderError()}
                             required={true}
                         />
                         <TextField
                             className={'custom-event-hub-text-field'}
-                            label={context.t(ResourceKeys.deviceEvents.customEventHub.name.label)}
-                            ariaLabel={context.t(ResourceKeys.deviceEvents.customEventHub.name.label)}
+                            label={t(ResourceKeys.deviceEvents.customEventHub.name.label)}
+                            ariaLabel={t(ResourceKeys.deviceEvents.customEventHub.name.label)}
                             underlined={true}
-                            value={this.state.customEventHubName}
-                            disabled={this.state.monitoringData}
+                            value={state.customEventHubName}
+                            disabled={state.monitoringData}
                             onChange={customEventHubNameChange}
                             required={true}
                         />
@@ -260,62 +247,61 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
                 }
             </>
         );
-    }
+    };
 
-    private stopMonitoring = () => {
-        clearTimeout(this.timerID);
+    const stopMonitoring = async () => {
+        clearTimeout(timerID);
         return stopMonitoringEvents();
-    }
+    };
 
-    private onToggleStart = () => {
-        const monitoringState = this.state.monitoringData;
+    const onToggleStart = () => {
+        const monitoringState = state.monitoringData;
 
         if (monitoringState) {
-            this.stopMonitoring().then(() => {
-                this.setState({
+            stopMonitoring().then(() => {
+                setState({
+                    ...state,
                     monitoringData: false,
                     synchronizationStatus: SynchronizationStatus.fetched
                 });
             });
-            this.setState({
+            setState({
+                ...state,
                 hasMore: false,
                 synchronizationStatus: SynchronizationStatus.updating
             });
         } else {
-            this.setState({
+            setState({
+                ...state,
                 hasMore: true,
                 loading: false,
                 loadingAnnounced: undefined,
                 monitoringData: true
             });
         }
-    }
+    };
 
-    public componentDidMount() {
-        this.isComponentMounted = true;
-    }
-
-    private readonly renderInfiniteScroll = (context: LocalizationContextInterface) => {
-        const { hasMore } = this.state;
+    const renderInfiniteScroll = () => {
+        const { hasMore } = state;
         const InfiniteScroll = require('react-infinite-scroller'); // https://github.com/CassetteRocks/react-infinite-scroller/issues/110
         return (
             <InfiniteScroll
                 key="scroll"
                 className="device-events-container"
                 pageStart={0}
-                loadMore={this.fetchData(context)}
+                loadMore={fetchData()}
                 hasMore={hasMore}
-                loader={this.renderLoader(context)}
-                role={this.state.events && this.state.events.length === 0 ? 'main' : 'feed'}
+                loader={renderLoader()}
+                role={state.events && state.events.length === 0 ? 'main' : 'feed'}
                 isReverse={true}
             >
-            {this.renderEvents()}
+                {renderEvents()}
             </InfiniteScroll>
         );
-    }
+    };
 
-    private readonly renderEvents = () => {
-        const { events } = this.state;
+    const renderEvents = () => {
+        const { events } = state;
 
         return (
             <div className="scrollable-telemetry">
@@ -331,61 +317,63 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
             }
             </div>
         );
-    }
+    };
 
-    private readonly renderLoader = (context: LocalizationContextInterface): JSX.Element => {
+    const renderLoader = (): JSX.Element => {
         return (
             <div key="loading" className="events-loader">
                 <Spinner/>
-                <h4>{context.t(ResourceKeys.deviceEvents.infiniteScroll.loading)}</h4>
+                <h4>{t(ResourceKeys.deviceEvents.infiniteScroll.loading)}</h4>
             </div>
         );
-    }
+    };
 
-    private readonly fetchData = (context: LocalizationContextInterface) => () => {
-        const { loading, monitoringData } = this.state;
+    const fetchData = () => () => {
+        const { loading, monitoringData } = state;
         if (!loading && monitoringData) {
-            this.setState({
+            setState({
+                ...state,
                 loading: true,
-                loadingAnnounced: <Announced message={context.t(ResourceKeys.deviceEvents.infiniteScroll.loading)}/>
+                loadingAnnounced: <Announced message={t(ResourceKeys.deviceEvents.infiniteScroll.loading)}/>
             });
-            this.timerID = setTimeout(
+            timerID = setTimeout(
                 () => {
                     let parameters: MonitorEventsParameters = {
-                        consumerGroup: this.state.consumerGroup,
-                        deviceId: getDeviceIdFromQueryString(this.props),
-                        fetchSystemProperties: this.state.showSystemProperties,
-                        startTime: this.state.startTime
+                        consumerGroup: state.consumerGroup,
+                        deviceId,
+                        fetchSystemProperties: state.showSystemProperties,
+                        startTime: state.startTime
                     };
 
-                    if (!this.state.useBuiltInEventHub && this.state.customEventHubConnectionString && this.state.customEventHubName) {
+                    if (!state.useBuiltInEventHub && state.customEventHubConnectionString && state.customEventHubName) {
                         parameters = {
                             ...parameters,
-                            customEventHubConnectionString: this.state.customEventHubConnectionString,
-                            customEventHubName: this.state.customEventHubName
+                            customEventHubConnectionString: state.customEventHubConnectionString,
+                            customEventHubName: state.customEventHubName
                         };
                     }
                     else {
                         parameters = {
                             ...parameters,
-                            hubConnectionString: this.props.connectionString,
+                            hubConnectionString: props.connectionString,
                         };
                     }
 
                     monitorEvents(parameters)
                     .then(results => {
                         const messages = results ? results.reverse().map((message: Message) => message) : [];
-                        if (this.isComponentMounted) {
-                            this.setState({
-                                events: [...messages, ...this.state.events],
+                        if (isComponentMounted) {
+                            setState({
+                                ...state,
+                                events: [...messages, ...state.events],
                                 loading: false,
                                 startTime: new Date()
                             });
-                            this.stopMonitoringIfNecessary();
+                            stopMonitoringIfNecessary();
                         }
                     })
                     .catch (error => {
-                        this.props.addNotification({
+                        props.addNotification({
                             text: {
                                 translationKey: ResourceKeys.deviceEvents.error,
                                 translationOptions: {
@@ -394,37 +382,57 @@ export default class DeviceEventsComponent extends React.Component<DeviceEventsD
                             },
                             type: NotificationType.error
                         });
-                        this.stopMonitoringIfNecessary();
+                        stopMonitoringIfNecessary();
                     });
                 },
                 LOADING_LOCK);
         }
-    }
+    };
 
-    private readonly onClearData = () => {
-        this.setState({
+    const onClearData = () => {
+        setState({
+            ...state,
             events: []
         });
-    }
+    };
 
-    private readonly onShowSystemProperties = () => {
-        this.setState({
-            showSystemProperties: !this.state.showSystemProperties
+    const onShowSystemProperties = () => {
+        setState({
+            ...state,
+            showSystemProperties: !state.showSystemProperties
         });
-    }
+    };
 
-    private readonly stopMonitoringIfNecessary = () => {
+    const stopMonitoringIfNecessary = () => {
         if (appConfig.hostMode === HostMode.Electron) {
             return;
         }
         else {
-            this.stopMonitoring().then(() => {
-                this.setState({
+            stopMonitoring().then(() => {
+                setState({
+                    ...state,
                     hasMore: false,
                     monitoringData: false,
                     synchronizationStatus: SynchronizationStatus.fetched
                 });
             });
         }
-    }
-}
+    };
+
+    return (
+        <div className="device-events" key="device-events">
+            <CommandBar
+                className="command"
+                items={createCommandBarItems()}
+            />
+            <HeaderView
+                headerText={ResourceKeys.deviceEvents.headerText}
+                tooltip={ResourceKeys.deviceEvents.tooltip}
+            />
+            {renderConsumerGroup()}
+            {renderCustomEventHub()}
+            {renderInfiniteScroll()}
+            {state.loadingAnnounced}
+        </div>
+    );
+};

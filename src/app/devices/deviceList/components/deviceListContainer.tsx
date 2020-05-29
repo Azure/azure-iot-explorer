@@ -4,7 +4,7 @@
  **********************************************************/
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import DeviceListComponent, { DeviceListDispatchProps, DeviceListDataProps } from './deviceList';
+import { DeviceListComponent, DeviceListDispatchProps, DeviceListDataProps } from './deviceList';
 import { StateType } from '../../../shared/redux/state';
 import { listDevicesAction, deleteDevicesAction } from '../actions';
 import { getDeviceSummaryListStatus, deviceQuerySelector, deviceSummaryListWrapperNoPNPSelector } from '../selectors';

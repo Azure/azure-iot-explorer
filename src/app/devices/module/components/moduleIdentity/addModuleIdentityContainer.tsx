@@ -6,7 +6,7 @@ import { compose, Dispatch } from 'redux';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { StateType } from '../../../../shared/redux/state';
-import AddModuleIdentityComponent, { AddModuleIdentityDataProps, AddModuleIdentityDispatchProps } from './addModuleIdentity';
+import { AddModuleIdentityComponent, AddModuleIdentityDataProps, AddModuleIdentityDispatchProps } from './addModuleIdentity';
 import { addModuleIdentityAction } from '../../actions';
 import { getModuleIdentityListWrapperSelector } from '../../selectors';
 import { ModuleIdentity } from '../../../../api/models/moduleIdentity';

@@ -4,31 +4,24 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
+import { shallow, mount } from 'enzyme';
 import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
-import DeviceEventsPerInterfaceComponent, { DeviceEventsDataProps, DeviceEventsDispatchProps, TelemetrySchema, DeviceEventsState } from './deviceEventsPerInterface';
-import { mountWithLocalization, testSnapshot } from '../../../../shared/utils/testHelpers';
+import { DeviceEventsPerInterfaceComponent, DeviceEventsDataProps, DeviceEventsDispatchProps, TelemetrySchema, DeviceEventsState } from './deviceEventsPerInterface';
+import { mountWithLocalization } from '../../../../shared/utils/testHelpers';
 import { InterfaceNotFoundMessageBar } from '../shared/interfaceNotFoundMessageBar';
 import ErrorBoundary from '../../../errorBoundary';
 import { appConfig, HostMode } from '../../../../../appConfig/appConfig';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 
+const pathname = `#/devices/detail/events/?id=device1`;
+jest.mock('react-router-dom', () => ({
+    useHistory: () => ({ push: jest.fn() }),
+    useLocation: () => ({ search: '?id=device1', pathname }),
+}));
+
 describe('components/devices/deviceEventsPerInterface', () => {
-
-    const pathname = `#/devices/detail/events/?id=device1`;
-
-    const location: any = { // tslint:disable-line:no-any
-        pathname
-    };
-    const routerProps: any = { // tslint:disable-line:no-any
-        history: {
-            location
-        },
-        location,
-        match: {}
-    };
-
     const refreshMock = jest.fn();
     const deviceEventsDispatchProps: DeviceEventsDispatchProps = {
         addNotification: jest.fn(),
@@ -37,7 +30,6 @@ describe('components/devices/deviceEventsPerInterface', () => {
     };
 
     const deviceEventsDataProps: DeviceEventsDataProps = {
-        componentName: 'environmentalSensor',
         connectionString: 'testString',
         isLoading: true,
         telemetrySchema: []
@@ -48,7 +40,6 @@ describe('components/devices/deviceEventsPerInterface', () => {
             connectionString: '',
             ...deviceEventsDispatchProps,
             ...deviceEventsDataProps,
-            ...routerProps,
             ...overrides,
         };
         return <DeviceEventsPerInterfaceComponent {...props} />;
@@ -71,28 +62,28 @@ describe('components/devices/deviceEventsPerInterface', () => {
     }];
 
     it('renders Shimmer while loading', () => {
-        const wrapper = mountWithLocalization(getComponent());
+        const wrapper = mount(getComponent());
         expect(wrapper.find(Shimmer)).toBeDefined();
     });
 
     it('matches snapshot while interface cannot be found', () => {
-        testSnapshot(getComponent({isLoading: false, telemetrySchema: undefined}));
+        expect(shallow(getComponent({isLoading: false, telemetrySchema: undefined}))).toMatchSnapshot();
         const wrapper = mountWithLocalization(getComponent(), true);
         expect(wrapper.find(InterfaceNotFoundMessageBar)).toBeDefined();
     });
 
     it('matches snapshot while interface definition is retrieved in electron', () => {
         appConfig.hostMode = HostMode.Electron;
-        testSnapshot(getComponent({isLoading: false, telemetrySchema}));
+        expect(shallow(getComponent({isLoading: false, telemetrySchema}))).toMatchSnapshot();
     });
 
     it('matches snapshot while interface definition is retrieved in hosted environment', () => {
         appConfig.hostMode = HostMode.Browser;
-        testSnapshot(getComponent({isLoading: false, telemetrySchema}));
+        expect(shallow(getComponent({isLoading: false, telemetrySchema}))).toMatchSnapshot();
     });
 
     it('renders events which body\'s value type is wrong with expected columns', () => {
-        const wrapper = mountWithLocalization(getComponent({isLoading: false, telemetrySchema}), false, true);
+        const wrapper = mount(getComponent({isLoading: false, telemetrySchema}));
         const events = [{
             body: {
                 humid: '123' // intentionally set a value which type is double
@@ -114,7 +105,7 @@ describe('components/devices/deviceEventsPerInterface', () => {
     });
 
     it('renders events which body\'s key name is wrong with expected columns', () => {
-        const wrapper = mountWithLocalization(getComponent({isLoading: false, telemetrySchema}), false, true);
+        const wrapper = mount(getComponent({isLoading: false, telemetrySchema}));
         const events = [{
             body: {
                 'non-matching-key': 0

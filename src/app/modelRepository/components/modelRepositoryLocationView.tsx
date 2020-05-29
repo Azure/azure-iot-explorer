@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { RouteComponentProps, Prompt } from 'react-router-dom';
+import { Prompt, useHistory, useLocation } from 'react-router-dom';
 import { CommandBar, ICommandBarItemProps  } from 'office-ui-fabric-react/lib/CommandBar';
 import { IContextualMenuItem } from 'office-ui-fabric-react/lib/ContextualMenu';
 import { useLocalizationContext } from '../../shared/contexts/localizationContext';
@@ -211,22 +211,24 @@ export const validateRepositoryLocationSettings = (repositoryLocationSettings: R
     return errors;
 };
 
-export const ModelRepositoryLocationViewContainer: React.FC<RouteComponentProps> = props => {
+export const ModelRepositoryLocationViewContainer: React.FC = () => {
     const reduxState = useSelector((state: StateInterface) => state);
     const dispatch = useDispatch();
+    const history = useHistory();
+    const { search } = useLocation();
     const modelRepositorySettings = getRepositoryLocationSettingsSelector(reduxState) || [];
     const onSaveModelRepositorySettings = (repositoryLocationSettings: RepositoryLocationSettings[]) => {
         dispatch(setRepositoryLocationsAction(repositoryLocationSettings));
     };
 
     const getNavigateBack = () => {
-        if (!props.history || !props.location.search || !props.location.search) {
+        if (!history || !search) {
             return undefined;
         }
 
-        const params = new URLSearchParams(props.location.search);
+        const params = new URLSearchParams(search);
         if (params.has(ROUTE_PARAMS.NAV_FROM)) {
-            return () => { props.history.goBack(); };
+            return () => { history.goBack(); };
         }
     };
 

@@ -3,35 +3,28 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Route, RouteComponentProps, Redirect } from 'react-router-dom';
+import { Route, Redirect, useLocation, Switch } from 'react-router-dom';
 import { ROUTE_PARTS } from '../../constants/routes';
-import AppVersionMessageBar from './appVersionMessageBar';
+import { AppVersionMessageBar } from './appVersionMessageBar';
 import { HomeViewNavigation } from './homeViewNavigation';
 import { AzureResourcesView } from '../../azureResources/components/azureResourcesView';
 import { ModelRepositoryLocationViewContainer } from '../../modelRepository/components/modelRepositoryLocationView';
 import './homeView.scss';
 
-export type HomeViewProps = RouteComponentProps;
-
-export const HomeView: React.FC<HomeViewProps> = props => {
-    const { match } = props;
-
-    const redirectToResources = () => {
-        return <Redirect to={`${match.url}/${ROUTE_PARTS.RESOURCES}`}/>;
-    };
-
+export const HomeView: React.FC = () => {
     return (
         <div>
             <AppVersionMessageBar/>
-
             <div className="view-content home-view">
                 <div className="nav">
                     <HomeViewNavigation/>
                 </div>
                 <div className="content">
-                    <Route path={`${match.url}`} exact={true} render={redirectToResources} />
-                    <Route path={`${match.url}/${ROUTE_PARTS.RESOURCES}/`} component={AzureResourcesView} exact={true} />
-                    <Route path={`${match.url}/${ROUTE_PARTS.MODEL_REPOS}/`} component={ModelRepositoryLocationViewContainer} exact={true} />
+                    <Switch>
+                        <Redirect from={`/${ROUTE_PARTS.HOME}`} to={`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.RESOURCES}`} exact={true}/>
+                        <Route path={`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.RESOURCES}`} component={AzureResourcesView} exact={true} />
+                        <Route path={`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.MODEL_REPOS}`} component={ModelRepositoryLocationViewContainer} exact={true} />
+                    </Switch>
                 </div>
             </div>
         </div>

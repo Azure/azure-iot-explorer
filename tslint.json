@@ -144,6 +144,7 @@
         "no-switch-case-fall-through": true,
         "no-this-assignment": true,
         "no-trailing-whitespace": true,
+        "no-unused-variable": true,
         "no-unnecessary-initializer": true,
         "no-unsafe-finally": true,
         "no-unused-expression": true,

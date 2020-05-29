@@ -3,10 +3,12 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { act } from 'react-dom/test-utils';
 import 'jest';
 import { shallow, mount } from 'enzyme';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
-import { MaskedCopyableTextField, MaskedCopyableTextFieldState } from './maskedCopyableTextField';
+import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip';
+import { MaskedCopyableTextField } from './maskedCopyableTextField';
 
 describe('MaskedCopyableTextField', () => {
     describe('snapshots', () => {
@@ -81,11 +83,12 @@ describe('MaskedCopyableTextField', () => {
                     addNotification={jest.fn()}
                 />);
 
+            expect(wrapper.find(TooltipHost).first().props().content).toEqual('common.maskedCopyableTextField.toggleMask.label.show');
             const showButton = wrapper.find(IconButton).first();
-            showButton.props().onClick(undefined);
+            act(() =>showButton.props().onClick(undefined));
 
-            const state = wrapper.state() as MaskedCopyableTextFieldState;
-            expect(state.hideContents).toEqual(false);
+            wrapper.update();
+            expect(wrapper.find(TooltipHost).first().props().content).toEqual('common.maskedCopyableTextField.toggleMask.label.hide');
         });
     });
 

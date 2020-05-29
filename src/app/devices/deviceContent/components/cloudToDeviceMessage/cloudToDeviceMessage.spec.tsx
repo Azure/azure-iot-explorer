@@ -4,12 +4,16 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
+import { mount, shallow } from 'enzyme';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { Dropdown } from 'office-ui-fabric-react/lib/Dropdown';
-import CloudToDeviceMessage, { CloudToDeviceMessageProps, CloudToDeviceMessageState, systemPropertyKeyNameMappings } from './cloudToDeviceMessage';
-import { testSnapshot, mountWithLocalization } from '../../../../shared/utils/testHelpers';
+import { CloudToDeviceMessage, CloudToDeviceMessageProps, CloudToDeviceMessageState, systemPropertyKeyNameMappings } from './cloudToDeviceMessage';
+
+jest.mock('react-router-dom', () => ({
+    useLocation: () => ({ search: '' })
+}));
 
 describe('cloudToDeviceMessage', () => {
     const mockSendCloudToDeviceMessage = jest.fn();
@@ -17,18 +21,9 @@ describe('cloudToDeviceMessage', () => {
         onSendCloudToDeviceMessage: mockSendCloudToDeviceMessage
     };
 
-    const routerprops: any = { // tslint:disable-line:no-any
-        history: {
-            location
-        },
-        location,
-        match: {}
-    };
-
     const getComponent = (overrides = {}) => {
         const props = {
             ...cloudToDeviceMessageProps,
-            ...routerprops,
             ...overrides
         };
 
@@ -39,11 +34,11 @@ describe('cloudToDeviceMessage', () => {
         const component = getComponent({
             settingSchema: undefined
         });
-        testSnapshot(component);
+        expect(shallow(component)).toMatchSnapshot();
     });
 
     it('sets message body', () => {
-        const wrapper = mountWithLocalization(getComponent());
+        const wrapper = mount(getComponent());
         const bodyTextField = wrapper.find(TextField).first();
         bodyTextField.instance().props.onChange({ target: null}, 'hello world');
         wrapper.update();
@@ -51,7 +46,7 @@ describe('cloudToDeviceMessage', () => {
     });
 
     it('sets timestamp', () => {
-        const wrapper = mountWithLocalization(getComponent());
+        const wrapper = mount(getComponent());
         const checkbox = wrapper.find(Checkbox).first();
         checkbox.instance().props.onChange({ target: null}, true);
         wrapper.update();
@@ -59,7 +54,7 @@ describe('cloudToDeviceMessage', () => {
     });
 
     it('adds custom properties', () => {
-        const wrapper = mountWithLocalization(getComponent());
+        const wrapper = mount(getComponent());
         const commandBar = wrapper.find(CommandBar).at(1);
         // click the add custom property, which would add an entry to the editable grid
         commandBar.props().items[0].onClick(null);
@@ -77,7 +72,7 @@ describe('cloudToDeviceMessage', () => {
     });
 
     it('adds system properties', () => {
-        const wrapper = mountWithLocalization(getComponent());
+        const wrapper = mount(getComponent());
         const commandBar = wrapper.find(CommandBar).at(1);
         // click the add system property, which would add an entry to the editable grid
         commandBar.props().items[1].subMenuProps.items[0].onClick();
@@ -91,7 +86,7 @@ describe('cloudToDeviceMessage', () => {
     });
 
     it('disables send message button where there is duplicate keys', () => {
-        const wrapper = mountWithLocalization(getComponent());
+        const wrapper = mount(getComponent());
         // update state and intentionally create duplicated keys
         wrapper.setState({properties: [{index: 0, keyName: 'key', isSystemProperty: false, value: 'value1'}, {index: 0, keyName: 'key', isSystemProperty: false, value: 'value2'}]});
         wrapper.update();
@@ -100,7 +95,7 @@ describe('cloudToDeviceMessage', () => {
     });
 
     it('disables system property button when all the system properties keys have been added', () => {
-        const wrapper = mountWithLocalization(getComponent());
+        const wrapper = mount(getComponent());
         const properties = systemPropertyKeyNameMappings.map(keyNameMapping => ({
             index: 0, isSystemProperty: false, keyName: keyNameMapping.keyName, value: 'value'
         }));

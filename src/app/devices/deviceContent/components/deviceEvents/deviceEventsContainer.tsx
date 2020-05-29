@@ -5,7 +5,7 @@
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { StateType } from '../../../../shared/redux/state';
-import DeviceEventsComponent, { DeviceEventsDataProps, DeviceEventsActionProps } from './deviceEvents';
+import { DeviceEventsComponent, DeviceEventsDataProps, DeviceEventsActionProps } from './deviceEvents';
 import { getActiveAzureResourceConnectionStringSelector } from '../../../../azureResource/selectors';
 import { addNotificationAction } from '../../../../notifications/actions';
 import { Notification } from '../../../../api/models/notification';

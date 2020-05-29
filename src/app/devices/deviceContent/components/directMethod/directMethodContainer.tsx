@@ -5,7 +5,7 @@
 import { compose, Dispatch } from 'redux';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import DirectMethod, { DirectMethodProps } from './directMethod';
+import { DirectMethod, DirectMethodProps } from './directMethod';
 import { FunctionProperties } from '../../../../shared/types/types';
 import { InvokeMethodParameters } from '../../../../api/parameters/deviceParameters';
 import { invokeDirectMethodAction } from '../../actions';

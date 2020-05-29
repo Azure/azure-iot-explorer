@@ -53,7 +53,7 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
         }
       }
     />
-    <CollapsibleSection
+    <Component
       expanded={true}
       label="cloudToDeviceMessage.properties.label"
       tooltipText="cloudToDeviceMessage.properties.tooltip"
@@ -240,7 +240,7 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
           }
         />
       </StyledMarqueeSelectionBase>
-    </CollapsibleSection>
+    </Component>
   </div>
 </Fragment>
 `;

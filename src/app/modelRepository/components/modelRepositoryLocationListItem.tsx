@@ -8,12 +8,12 @@ import { Label } from 'office-ui-fabric-react/lib/Label';
 import Dialog, { DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
-import { LocalizationContextInterface, LocalizationContextConsumer } from '../../shared/contexts/localizationContext';
+import { useLocalizationContext } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { CANCEL, NAVIGATE_BACK, FOLDER } from '../../constants/iconNames';
 import { RepositoryLocationSettings } from '../state';
 import { fetchDirectories } from '../../api/services/localRepoService';
-import LabelWithRichCallout from '../../shared/components/labelWithRichCallout';
+import { LabelWithRichCallout } from '../../shared/components/labelWithRichCallout';
 import { getRootFolder, getParentFolder } from '../../shared/utils/utils';
 import './modelRepositoryLocationListItem.scss';
 
@@ -32,170 +32,160 @@ export interface RepositoryLocationListItemState {
     showError: boolean;
 }
 
-export class ModelRepositoryLocationListItem extends React.Component<ModelRepositoryLocationListItemProps, RepositoryLocationListItemState> {
-    constructor(props: ModelRepositoryLocationListItemProps) {
-        super(props);
-        let currentFolder = '';
-        if (this.props.item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local) {
-            currentFolder = this.props.item.value || getRootFolder();
-        }
+export const ModelRepositoryLocationListItem: React.FC<ModelRepositoryLocationListItemProps> = (props: ModelRepositoryLocationListItemProps) => {
+    const { t } = useLocalizationContext();
 
-        this.state = {
-            currentFolder,
-            showError: false,
-            showFolderPicker: false,
-            subFolders: []
-        };
+    const { item, errorKey, index, onChangeRepositoryLocationSettingValue, onRemoveRepositoryLocationSetting } = props;
+    let initialCurrentFolder = '';
+    if (item && item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local) {
+        initialCurrentFolder = item.value || getRootFolder();
     }
+    const [ currentFolder, setCurrentFolder ] = React.useState(initialCurrentFolder);
+    const [ showError, setShowError ] = React.useState<boolean>(false);
+    const [ showFolderPicker, setShowFolderPicker ] = React.useState<boolean>(false);
+    const [ subFolders, setSubFolders ] = React.useState([]);
 
-    private readonly onRemove = () => {
-        this.props.onRemoveRepositoryLocationSetting(this.props.index);
-    }
+    const onRemove = () => onRemoveRepositoryLocationSetting(index);
 
-    private renderItemDetail = (context: LocalizationContextInterface) => {
-        const { item } = this.props;
+    const renderItemDetail = () => {
         return (
             <div className="item-details">
                 {item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Public
-                    && <Label>{context.t(ResourceKeys.modelRepository.types.public.label)}</Label>}
+                    && <Label>{t(ResourceKeys.modelRepository.types.public.label)}</Label>}
                 {item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local &&
-                   this.renderLocalFolderItem(context)
+                   renderLocalFolderItem()
                 }
             </div>);
-    }
+    };
 
-    private renderLocalFolderItem = (context: LocalizationContextInterface) => {
+    const renderLocalFolderItem = () => {
         return(
                 <>
                     <div className="labelSection">
                         <LabelWithRichCallout
-                            calloutContent={context.t(ResourceKeys.modelRepository.types.local.infoText)}
+                            calloutContent={t(ResourceKeys.modelRepository.types.local.infoText)}
                             required={true}
                         >
-                            {context.t(ResourceKeys.modelRepository.types.local.label)}
+                            {t(ResourceKeys.modelRepository.types.local.label)}
                         </LabelWithRichCallout>
                     </div>
                     <TextField
                         className="local-folder-textbox"
-                        label={context.t(ResourceKeys.modelRepository.types.local.textBoxLabel)}
-                        ariaLabel={context.t(ResourceKeys.modelRepository.types.local.textBoxLabel)}
-                        value={this.state.currentFolder}
+                        label={t(ResourceKeys.modelRepository.types.local.textBoxLabel)}
+                        ariaLabel={t(ResourceKeys.modelRepository.types.local.textBoxLabel)}
+                        value={currentFolder}
                         readOnly={true}
-                        errorMessage={this.props.errorKey ? context.t(this.props.errorKey) : ''}
+                        errorMessage={props.errorKey ? t(props.errorKey) : ''}
                     />
                     <DefaultButton
                         className="local-folder-launch"
-                        text={context.t(ResourceKeys.modelRepository.types.local.folderPicker.command.openPicker)}
-                        ariaLabel={context.t(ResourceKeys.modelRepository.types.local.folderPicker.command.openPicker)}
-                        onClick={this.onShowFolderPicker}
+                        text={t(ResourceKeys.modelRepository.types.local.folderPicker.command.openPicker)}
+                        ariaLabel={t(ResourceKeys.modelRepository.types.local.folderPicker.command.openPicker)}
+                        onClick={onShowFolderPicker}
                     />
-                    {this.renderFolderPicker(context)}
+                    {renderFolderPicker()}
                 </>
             );
-    }
+    };
 
-    private onShowFolderPicker = () => {
-        this.setState({showFolderPicker: true});
-        this.fetchSubDirectoriesInfo(this.state.currentFolder);
-    }
+    const onShowFolderPicker = () => {
+        setShowFolderPicker(true);
+        fetchSubDirectoriesInfo(currentFolder);
+    };
 
-    private dismissFolderPicker = () => {
-        this.setState({
-            currentFolder: this.props.item.value || getRootFolder(),
-            showFolderPicker: false
+    const dismissFolderPicker = () => {
+        setCurrentFolder(item.value || getRootFolder());
+        setShowFolderPicker(false);
+    };
+
+    const onSelectFolder = () => {
+        onChangeRepositoryLocationSettingValue(index, currentFolder);
+        setShowFolderPicker(false);
+    };
+
+    const onClickFolderName = (folder: string) => () => {
+        const newDir = currentFolder ? `${currentFolder.replace(/\/$/, '')}/${folder}` : folder;
+        setCurrentFolder(newDir);
+        fetchSubDirectoriesInfo(newDir);
+    };
+
+    const onNavigateBack = () => {
+        const parentFolder = getParentFolder(currentFolder);
+        setCurrentFolder(parentFolder);
+        fetchSubDirectoriesInfo(parentFolder);
+    };
+
+    const fetchSubDirectoriesInfo = (folderName: string) => {
+        fetchDirectories(folderName).then(result => {
+            setShowError(false);
+            setSubFolders(result);
+        }).catch(error => {
+            setShowError(true);
         });
-    }
+    };
 
-    private onSelectFolder = () => {
-        this.props.onChangeRepositoryLocationSettingValue(this.props.index, this.state.currentFolder);
-        this.setState({showFolderPicker: false});
-    }
-
-    private onClickFolderName = (folder: string) => () => {
-        const newDir = this.state.currentFolder ? `${this.state.currentFolder.replace(/\/$/, '')}/${folder}` : folder;
-        this.setState({currentFolder: newDir});
-        this.fetchSubDirectoriesInfo(newDir);
-    }
-
-    private onNavigateBack = () => {
-        const parentFolder = getParentFolder(this.state.currentFolder);
-        this.setState({currentFolder: parentFolder});
-        this.fetchSubDirectoriesInfo(parentFolder);
-    }
-
-    private fetchSubDirectoriesInfo = (folderName: string) => {
-        fetchDirectories(folderName).then(result => this.setState({showError: false, subFolders: result})).catch(error => {this.setState({showError: true}); });
-    }
-
-    private renderFolderPicker = (context: LocalizationContextInterface) => {
+    const renderFolderPicker = () => {
         return (
             <div role="dialog">
                 <Dialog
                     className="folder-picker-dialog"
-                    hidden={!this.state.showFolderPicker}
-                    title={context.t(ResourceKeys.modelRepository.types.local.folderPicker.dialog.title)}
-                    subText={this.state.currentFolder && context.t(ResourceKeys.modelRepository.types.local.folderPicker.dialog.subText, {folder: this.state.currentFolder})}
+                    hidden={!showFolderPicker}
+                    title={t(ResourceKeys.modelRepository.types.local.folderPicker.dialog.title)}
+                    subText={currentFolder && t(ResourceKeys.modelRepository.types.local.folderPicker.dialog.subText, {folder: currentFolder})}
                     modalProps={{
                         isBlocking: false,
                     }}
-                    onDismiss={this.dismissFolderPicker}
+                    onDismiss={dismissFolderPicker}
                 >
                     <div className="folder-links">
                         <DefaultButton
                             className="folder-button"
                             iconProps={{ iconName: NAVIGATE_BACK }}
-                            text={context.t(ResourceKeys.modelRepository.types.local.folderPicker.command.navigateToParent)}
-                            ariaLabel={context.t(ResourceKeys.modelRepository.types.local.folderPicker.command.navigateToParent)}
-                            onClick={this.onNavigateBack}
-                            disabled={this.state.currentFolder === getRootFolder()}
+                            text={t(ResourceKeys.modelRepository.types.local.folderPicker.command.navigateToParent)}
+                            ariaLabel={t(ResourceKeys.modelRepository.types.local.folderPicker.command.navigateToParent)}
+                            onClick={onNavigateBack}
+                            disabled={currentFolder === getRootFolder()}
                         />
-                        {this.state.showError ? <div className="no-folders-text">{context.t(ResourceKeys.modelRepository.types.local.folderPicker.dialog.error)}</div> :
-                            this.state.subFolders && this.state.subFolders.length > 0 ?
-                                this.state.subFolders.map(folder =>
+                        {showError ? <div className="no-folders-text">{t(ResourceKeys.modelRepository.types.local.folderPicker.dialog.error)}</div> :
+                            subFolders && subFolders.length > 0 ?
+                                subFolders.map(folder =>
                                     <DefaultButton
                                         className="folder-button"
                                         iconProps={{ iconName: FOLDER }}
                                         key={folder}
                                         text={folder}
-                                        onClick={this.onClickFolderName(folder)}
+                                        onClick={onClickFolderName(folder)}
                                     />)
                                 :
-                                <div className="no-folders-text">{context.t(ResourceKeys.modelRepository.types.local.folderPicker.dialog.noFolderFoundText)}</div>}
+                                <div className="no-folders-text">{t(ResourceKeys.modelRepository.types.local.folderPicker.dialog.noFolderFoundText)}</div>}
                     </div>
                     <DialogFooter>
-                        <PrimaryButton onClick={this.onSelectFolder} text={context.t(ResourceKeys.modelRepository.types.local.folderPicker.command.select)} disabled={!this.state.currentFolder}/>
-                        <DefaultButton onClick={this.dismissFolderPicker} text={context.t(ResourceKeys.modelRepository.types.local.folderPicker.command.cancel)} />
+                        <PrimaryButton onClick={onSelectFolder} text={t(ResourceKeys.modelRepository.types.local.folderPicker.command.select)} disabled={!currentFolder}/>
+                        <DefaultButton onClick={dismissFolderPicker} text={t(ResourceKeys.modelRepository.types.local.folderPicker.command.cancel)} />
                     </DialogFooter>
                 </Dialog>
             </div>
         );
-    }
+    };
 
-    public render(): JSX.Element {
-        const { item, index } = this.props;
-        return (
-            <LocalizationContextConsumer>
-                {(context: LocalizationContextInterface) => (
-                <div className="item" role="list">
-                    <div className="numbering">
-                        {index + 1}
-                    </div>
-                    <div
-                        className="location-item"
-                        role="listitem"
-                    >
-                        {this.renderItemDetail(context)}
-                        <IconButton
-                            className="remove-button"
-                            iconProps={{ iconName: CANCEL }}
-                            title={context.t(ResourceKeys.modelRepository.commands.remove.label)}
-                            ariaLabel={context.t(ResourceKeys.modelRepository.commands.remove.ariaLabel)}
-                            onClick={this.onRemove}
-                        />
-                    </div>
-                </div>
-            )}
-            </LocalizationContextConsumer>
-        );
-    }
-}
+    return (
+        <div className="item" role="list">
+            <div className="numbering">
+                {index + 1}
+            </div>
+            <div
+                className="location-item"
+                role="listitem"
+            >
+                {renderItemDetail()}
+                <IconButton
+                    className="remove-button"
+                    iconProps={{ iconName: CANCEL }}
+                    title={t(ResourceKeys.modelRepository.commands.remove.label)}
+                    ariaLabel={t(ResourceKeys.modelRepository.commands.remove.ariaLabel)}
+                    onClick={onRemove}
+                />
+            </div>
+        </div>
+    );
+};

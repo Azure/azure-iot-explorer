@@ -4,9 +4,9 @@
  **********************************************************/
 import * as React from 'react';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
-import DeviceCommandsPerInterfacePerCommand, { CommandSchema } from './deviceCommandsPerInterfacePerCommand';
+import { DeviceCommandsPerInterfacePerCommand, CommandSchema } from './deviceCommandsPerInterfacePerCommand';
 import { InvokeDigitalTwinInterfaceCommandActionParameters } from '../../actions';
-import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
+import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { InterfaceDetailCard } from '../../../../constants/iconNames';
 import '../../../../css/_devicePnpDetailList.scss';
@@ -26,83 +26,69 @@ export interface DeviceCommandState {
     allCollapsed: boolean;
 }
 
-export default class DeviceCommandsPerInterface
-    extends React.Component<DeviceCommandDataProps & DeviceCommandDispatchProps, DeviceCommandState> {
-    constructor(props: DeviceCommandDataProps & DeviceCommandDispatchProps) {
-        super(props);
+export const DeviceCommandsPerInterface: React.FC<DeviceCommandDataProps & DeviceCommandDispatchProps> = (props: DeviceCommandDataProps & DeviceCommandDispatchProps) => {
+    const { commandSchemas } = props;
+    const { t } = useLocalizationContext();
 
-        const { commandSchemas } = this.props;
-        const collapseMap = new Map();
-        for (let index = 0; index < commandSchemas.length; index ++) {
-            collapseMap.set(index, false);
-        }
-        this.state = {
-            allCollapsed: false,
-            collapseMap
-        };
+    const initialCollapseMap = new Map();
+    for (let index = 0; index < commandSchemas.length; index ++) {
+        initialCollapseMap.set(index, false);
     }
+    const [ allCollapsed, setAllCollapsed ] = React.useState<boolean>(false);
+    const [ collapseMap, setCollapseMap ] = React.useState(initialCollapseMap);
 
-    public render(): JSX.Element {
-
-        const { commandSchemas } = this.props;
-
-        const commands = commandSchemas && commandSchemas.map((schema, index) => (
-            <DeviceCommandsPerInterfacePerCommand
-                key={index}
-                {...this.props}
-                {...schema}
-                collapsed={this.state.collapseMap.get(index)}
-                handleCollapseToggle={this.handleCollapseToggle(index)}
-            />
-        ));
-
-        return (
-            <LocalizationContextConsumer>
-                {(context: LocalizationContextInterface) => (
-                    <div className="pnp-detail-list scrollable-lg">
-                            <div className="list-header flex-grid-row">
-                                <span className="col-sm3">{context.t(ResourceKeys.deviceCommands.columns.name)}</span>
-                                <span className="col-sm3">{context.t(ResourceKeys.deviceCommands.columns.schema.request)}</span>
-                                <span className="col-sm3">{context.t(ResourceKeys.deviceCommands.columns.schema.response)}</span>
-                                <span className="col-sm2">{context.t(ResourceKeys.deviceCommands.columns.type)}</span>
-                                {this.renderCollapseAllButton(context)}
-                            </div>
-                        <section role={commandSchemas && commandSchemas.length === 0 ? 'main' : 'list'} className="list-content">
-                            {commands}
-                        </section>
-                    </div>
-                )}
-            </LocalizationContextConsumer>
-        );
-    }
-
-    private readonly renderCollapseAllButton = (context: LocalizationContextInterface) => {
+    const renderCollapseAllButton = () => {
         return (
             <div className="col-sm1 collapse-button">
                 <IconButton
-                    iconProps={{iconName: this.state.allCollapsed ? InterfaceDetailCard.OPEN : InterfaceDetailCard.CLOSE}}
-                    ariaLabel={this.state.allCollapsed ?
-                        context.t(ResourceKeys.deviceCommands.command.expandAll) :
-                        context.t(ResourceKeys.deviceCommands.command.collapseAll)}
-                    onClick={this.onToggleCollapseAll}
-                    title={context.t(this.state.allCollapsed ? ResourceKeys.deviceCommands.command.expandAll : ResourceKeys.deviceCommands.command.collapseAll)}
+                    iconProps={{iconName: allCollapsed ? InterfaceDetailCard.OPEN : InterfaceDetailCard.CLOSE}}
+                    ariaLabel={allCollapsed ?
+                        t(ResourceKeys.deviceCommands.command.expandAll) :
+                        t(ResourceKeys.deviceCommands.command.collapseAll)}
+                    onClick={onToggleCollapseAll}
+                    title={t(allCollapsed ? ResourceKeys.deviceCommands.command.expandAll : ResourceKeys.deviceCommands.command.collapseAll)}
                 />
             </div>
         );
-    }
+    };
 
-    private readonly onToggleCollapseAll = () => {
-        const allCollapsed = this.state.allCollapsed;
-        const collapseMap = new Map();
-        for (let index = 0; index < this.state.collapseMap.size; index ++) {
-            collapseMap.set(index, !allCollapsed);
+    const onToggleCollapseAll = () => {
+        const newCollapseMap = new Map();
+        for (let index = 0; index < collapseMap.size; index ++) {
+            newCollapseMap.set(index, !allCollapsed);
         }
-        this.setState({allCollapsed: !allCollapsed, collapseMap});
-    }
+        setAllCollapsed(!allCollapsed);
+        setCollapseMap(newCollapseMap);
+    };
 
-    private readonly handleCollapseToggle = (index: number) => () => {
-        const collapseMap = this.state.collapseMap;
-        collapseMap.set(index, !collapseMap.get(index));
-        this.setState({collapseMap});
-    }
-}
+    const handleCollapseToggle = (index: number) => () => {
+        const newCollapseMap = collapseMap;
+        newCollapseMap.set(index, !newCollapseMap.get(index));
+        setCollapseMap(newCollapseMap);
+    };
+
+    const commands = commandSchemas && commandSchemas.map((schema, index) => (
+        <DeviceCommandsPerInterfacePerCommand
+            key={index}
+            {...props}
+            {...schema}
+            collapsed={collapseMap.get(index)}
+            handleCollapseToggle={handleCollapseToggle(index)}
+        />
+    ));
+
+    return (
+        <div className="pnp-detail-list scrollable-lg">
+            <div className="list-header flex-grid-row">
+                <span className="col-sm3">{t(ResourceKeys.deviceCommands.columns.name)}</span>
+                <span className="col-sm3">{t(ResourceKeys.deviceCommands.columns.schema.request)}</span>
+                <span className="col-sm3">{t(ResourceKeys.deviceCommands.columns.schema.response)}</span>
+                <span className="col-sm2">{t(ResourceKeys.deviceCommands.columns.type)}</span>
+                {renderCollapseAllButton()}
+            </div>
+            <section role={commandSchemas && commandSchemas.length === 0 ? 'main' : 'list'} className="list-content">
+                {commands}
+            </section>
+        </div>
+    );
+};

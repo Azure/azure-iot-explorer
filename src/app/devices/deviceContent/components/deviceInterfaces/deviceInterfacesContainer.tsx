@@ -8,7 +8,7 @@ import { withRouter } from 'react-router-dom';
 import { AnyAction } from 'typescript-fsa';
 import { StateType } from '../../../../shared/redux/state';
 import { getModelDefinitionSyncStatusSelector, getModelDefinitionWithSourceSelector } from '../../selectors';
-import DeviceInterfaces, { DeviceInterfaceProps, DeviceInterfaceDispatchProps } from './deviceInterfaces';
+import { DeviceInterfaces, DeviceInterfaceProps, DeviceInterfaceDispatchProps } from './deviceInterfaces';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { setComponentNameAction, getModelDefinitionAction } from '../../actions';
 

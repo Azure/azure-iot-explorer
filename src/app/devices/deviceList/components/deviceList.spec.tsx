@@ -3,25 +3,19 @@
  * Licensed under the MIT License
  **********************************************************/
 import 'jest';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import * as React from 'react';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
-import DeviceListComponent, { DeviceListDataProps, DeviceListDispatchProps } from './deviceList';
-import { testSnapshot, mountWithLocalization } from '../../../shared/utils/testHelpers';
+import { DeviceListComponent, DeviceListDataProps, DeviceListDispatchProps } from './deviceList';
+import { mountWithLocalization } from '../../../shared/utils/testHelpers';
 import { DeviceSummary } from '../../../api/models/deviceSummary';
 
 const pathname = `/`;
 
-const location: any = { // tslint:disable-line:no-any
-    pathname
-};
-const routerprops: any = { // tslint:disable-line:no-any
-    history: {
-        location
-    },
-    location,
-    match: {}
-};
+jest.mock('react-router-dom', () => ({
+    useHistory: () => ({ push: jest.fn() }),
+    useLocation: () => ({ pathname })
+}));
 
 const devices: DeviceSummary[] = [
     {
@@ -37,7 +31,6 @@ const devices: DeviceSummary[] = [
 ];
 
 const deviceListDataProps: DeviceListDataProps = {
-
     devices,
     isFetching: false
 };
@@ -52,7 +45,6 @@ const getComponent = (overrides = {}) => {
     const props = {
         ...deviceListDataProps,
         ...deviceListDispatchProps,
-        ...routerprops,
         ...overrides
     };
 
@@ -63,8 +55,9 @@ const getComponent = (overrides = {}) => {
 
 describe('components/devices/DeviceList', () => {
     it('matches snapshot', () => {
-        testSnapshot(getComponent());
-        const wrapper = mountWithLocalization(getComponent(), true, true);
+        expect(shallow(getComponent())).toMatchSnapshot();
+
+        const wrapper = mount(getComponent());
         const deviceList = wrapper.find(DeviceListComponent);
 
         const commandBar = deviceList.find(CommandBar).first();

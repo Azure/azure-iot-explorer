@@ -4,8 +4,8 @@
  **********************************************************/
 import * as React from 'react';
 import 'jest';
-import SasTokenGenerationView, { SasTokenGenerationDataProps, SasTokenGenerationState } from './sasTokenGenerationView';
-import { testSnapshot } from '../../../shared/utils/testHelpers';
+import { shallow } from 'enzyme';
+import { SasTokenGenerationView, SasTokenGenerationDataProps } from './sasTokenGenerationView';
 import { ModuleIdentity } from '../../../api/models/moduleIdentity';
 import { DeviceIdentity } from '../../../api/models/deviceIdentity';
 
@@ -53,15 +53,15 @@ const deviceIdentity: DeviceIdentity = {
 describe('devices/components/moduleIdentityTwin', () => {
     context('snapshot', () => {
         it('matches snapshot when no device identity is provided', () => {
-            testSnapshot(getComponent({
+            expect(shallow(getComponent({
                 deviceIdentity
-            }));
+            }))).toMatchSnapshot();
         });
 
         it('matches snapshot when no device identity is provided', () => {
-            testSnapshot(getComponent({
+            expect(shallow(getComponent({
                 moduleIdentity
-            }));
+            }))).toMatchSnapshot();
         });
     });
 });

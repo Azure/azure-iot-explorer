@@ -3,9 +3,8 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { RouteComponentProps } from 'react-router-dom';
 import { ConnectionStringsViewContainer } from '../../connectionStrings/components/connectionStringsView';
 
-export const AzureResourcesView: React.FC<RouteComponentProps> = props => {
-       return <ConnectionStringsViewContainer {...props} />;
+export const AzureResourcesView: React.FC = () => {
+       return <ConnectionStringsViewContainer />;
 };

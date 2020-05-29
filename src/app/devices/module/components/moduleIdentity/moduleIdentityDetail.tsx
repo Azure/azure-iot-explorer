@@ -3,13 +3,13 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { RouteComponentProps, Route } from 'react-router-dom';
+import { Route, useLocation, useHistory } from 'react-router-dom';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { Label } from 'office-ui-fabric-react/lib/Label';
 import { Dialog, DialogFooter, DialogType } from 'office-ui-fabric-react/lib/Dialog';
 import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/Button';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
-import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
+import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
 import { getDeviceIdFromQueryString, getModuleIdentityIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { REFRESH, REMOVE, NAVIGATE_BACK } from '../../../../constants/iconNames';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../../constants/routes';
@@ -20,8 +20,8 @@ import { ModuleIdentity } from '../../../../api/models/moduleIdentity';
 import { DeviceAuthenticationType } from '../../../../api/models/deviceAuthenticationType';
 import MaskedCopyableTextFieldContainer from '../../../../shared/components/maskedCopyableTextFieldContainer';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
-import SasTokenGenerationView from '../../../shared/components/sasTokenGenerationView';
-import { ModuleIdentityDetailHeaderContainer } from './moduleIdentityDetailHeaderView';
+import { SasTokenGenerationView } from '../../../shared/components/sasTokenGenerationView';
+import { ModuleIdentityDetailHeaderView } from './moduleIdentityDetailHeaderView';
 import '../../../../css/_deviceDetail.scss';
 import '../../../../css/_moduleIdentityDetail.scss';
 
@@ -45,242 +45,188 @@ export interface ModuleIdentityDetailState {
 }
 
 export type ModuleIdentityDetailProps = ModuleIdentityDetailDataProps & ModuleIdentityDetailDispatchProps;
-export default class ModuleIdentityDetailComponent
-    extends React.Component<ModuleIdentityDetailProps & RouteComponentProps, ModuleIdentityDetailState> {
+export const ModuleIdentityDetailComponent: React.FC<ModuleIdentityDetailProps> = (props: ModuleIdentityDetailProps) => {
+    const { t } = useLocalizationContext();
+    const { search, pathname } = useLocation();
+    const history = useHistory();
 
-    constructor(props: ModuleIdentityDetailProps & RouteComponentProps) {
-        super(props);
+    const { moduleIdentitySyncStatus, moduleListSyncStatus, moduleIdentity, currentHostName, getModuleIdentity } = props;
+    const moduleId = getModuleIdentityIdFromQueryString(search);
+    const deviceId = getDeviceIdFromQueryString(search);
+    const [ showDeleteConfirmation, setShowDeleteConfirmation ] = React.useState<boolean>(false);
 
-        this.state = {
-            sasTokenConnectionString: '',
-            sasTokenExpiration: SAS_EXPIRES_MINUTES,
-            sasTokenSelectedKey: '',
-            showDeleteConfirmation: false
-        };
-    }
-
-    public render(): JSX.Element {
-        return (
-            <LocalizationContextConsumer>
-                {(context: LocalizationContextInterface) => (
-                    <>
-                        {this.showCommandBar(context)}
-                        <Route component={ModuleIdentityDetailHeaderContainer} />
-                        <div className="module-identity-detail">
-                            {this.showModuleId(context)}
-                            {this.props.moduleIdentitySyncStatus === SynchronizationStatus.working ?
-                                <MultiLineShimmer/> :
-                                this.showModuleIdentity(context)
-                            }
-                            {this.state.showDeleteConfirmation && this.deleteConfirmationDialog(context)}
-                        </div>
-                    </>
-            )}
-            </LocalizationContextConsumer>
-        );
-    }
-
-    public componentDidMount() {
-        this.retrieveData();
-    }
-
-    public componentDidUpdate(oldProps: ModuleIdentityDetailDataProps & RouteComponentProps) {
-        if (getModuleIdentityIdFromQueryString(oldProps) !== getModuleIdentityIdFromQueryString(this.props)) {
-            this.retrieveData();
+    React.useEffect(() => {
+        retrieveData();
+        if (moduleListSyncStatus === SynchronizationStatus.deleted) {
+            navigateToModuleList();
         }
-        if (this.props.moduleListSyncStatus === SynchronizationStatus.deleted) {
-            this.navigateToModuleList();
-        }
-    }
+    },              [moduleId]);
 
-    private readonly retrieveData = () => {
-        const deviceId = getDeviceIdFromQueryString(this.props);
-        const moduleId = getModuleIdentityIdFromQueryString(this.props);
-        this.props.getModuleIdentity({
-            deviceId,
-            moduleId
-        });
-    }
+    const retrieveData = () => getModuleIdentity({ deviceId, moduleId });
 
-    private readonly delete = () => {
-        const deviceId = getDeviceIdFromQueryString(this.props);
-        const moduleId = getModuleIdentityIdFromQueryString(this.props);
-        this.props.deleteModuleIdentity({
-            deviceId,
-            moduleId
-        });
-        this.closeDeleteDialog();
-    }
+    const onDelete = () =>  {
+        retrieveData();
+        closeDeleteDialog();
+    };
 
-    private readonly showCommandBar = (context: LocalizationContextInterface) => {
+    const showCommandBar = () => {
         return (
             <CommandBar
                 className="command"
                 items={[
                     {
-                        ariaLabel: context.t(ResourceKeys.moduleIdentity.detail.command.refresh),
-                        disabled: this.props.moduleIdentitySyncStatus === SynchronizationStatus.working,
+                        ariaLabel: t(ResourceKeys.moduleIdentity.detail.command.refresh),
+                        disabled: moduleIdentitySyncStatus === SynchronizationStatus.working,
                         iconProps: {iconName: REFRESH},
                         key: REFRESH,
-                        name: context.t(ResourceKeys.moduleIdentity.detail.command.refresh),
-                        onClick: this.retrieveData
+                        name: t(ResourceKeys.moduleIdentity.detail.command.refresh),
+                        onClick: retrieveData
                     },
                     {
-                        ariaLabel: context.t(ResourceKeys.moduleIdentity.detail.command.delete),
-                        disabled: this.props.moduleIdentitySyncStatus === SynchronizationStatus.working,
+                        ariaLabel: t(ResourceKeys.moduleIdentity.detail.command.delete),
+                        disabled: moduleIdentitySyncStatus === SynchronizationStatus.working,
                         iconProps: {iconName: REMOVE},
                         key: REMOVE,
-                        name: context.t(ResourceKeys.moduleIdentity.detail.command.delete),
-                        onClick: this.deleteConfirmation
+                        name: t(ResourceKeys.moduleIdentity.detail.command.delete),
+                        onClick: deleteConfirmation
                     }
                 ]}
                 farItems={[
                     {
-                        ariaLabel: context.t(ResourceKeys.moduleIdentity.detail.command.back),
+                        ariaLabel: t(ResourceKeys.moduleIdentity.detail.command.back),
                         iconProps: {iconName: NAVIGATE_BACK},
                         key: NAVIGATE_BACK,
-                        name: context.t(ResourceKeys.moduleIdentity.detail.command.back),
-                        onClick: this.navigateToModuleList
+                        name: t(ResourceKeys.moduleIdentity.detail.command.back),
+                        onClick: navigateToModuleList
                     }
                 ]}
             />
         );
-    }
+    };
 
-    private readonly showModuleId = (context: LocalizationContextInterface) => {
+    const showModuleId = () => {
         return (
             <MaskedCopyableTextFieldContainer
-                ariaLabel={context.t(ResourceKeys.moduleIdentity.moduleId)}
-                label={context.t(ResourceKeys.moduleIdentity.moduleId)}
-                value={getModuleIdentityIdFromQueryString(this.props)}
+                ariaLabel={t(ResourceKeys.moduleIdentity.moduleId)}
+                label={t(ResourceKeys.moduleIdentity.moduleId)}
+                value={moduleId}
                 allowMask={false}
                 readOnly={true}
-                labelCallout={context.t(ResourceKeys.moduleIdentity.moduleIdTooltip)}
+                labelCallout={t(ResourceKeys.moduleIdentity.moduleIdTooltip)}
             />
         );
-    }
+    };
 
     // tslint:disable-next-line:cyclomatic-complexity
-    private readonly showModuleIdentity = (context: LocalizationContextInterface) => {
-        const authType = (this.props.moduleIdentity && this.props.moduleIdentity.authentication && this.props.moduleIdentity.authentication.type || DeviceAuthenticationType.None).toLowerCase();
+    const showModuleIdentity = () => {
+        const authType = (moduleIdentity && moduleIdentity.authentication && moduleIdentity.authentication.type || DeviceAuthenticationType.None).toLowerCase();
 
         switch (authType) {
             case DeviceAuthenticationType.SymmetricKey.toLowerCase():
-                return this.renderSymmetricKeySection(context);
+                return renderSymmetricKeySection();
             case DeviceAuthenticationType.CACertificate.toLowerCase():
-                return this.renderCaSection(context);
+                return renderCaSection();
             case DeviceAuthenticationType.SelfSigned.toLowerCase():
-                return this.renderSelfSignedSection(context);
+                return renderSelfSignedSection();
             default:
                 return (<></>);
         }
-    }
+    };
 
-    private readonly renderSymmetricKeySection = (context: LocalizationContextInterface) => {
+    const renderSymmetricKeySection = () => {
         return (
             <>
                 <MaskedCopyableTextFieldContainer
-                    ariaLabel={context.t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.primaryKey)}
-                    label={context.t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.primaryKey)}
-                    value={this.props.moduleIdentity.authentication.symmetricKey.primaryKey}
+                    ariaLabel={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.primaryKey)}
+                    label={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.primaryKey)}
+                    value={moduleIdentity.authentication.symmetricKey.primaryKey}
                     allowMask={true}
                     readOnly={true}
-                    labelCallout={context.t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.primaryKeyTooltip)}
+                    labelCallout={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.primaryKeyTooltip)}
                 />
 
                 <MaskedCopyableTextFieldContainer
-                    ariaLabel={context.t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryKey)}
-                    label={context.t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryKey)}
-                    value={this.props.moduleIdentity.authentication.symmetricKey.secondaryKey}
+                    ariaLabel={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryKey)}
+                    label={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryKey)}
+                    value={moduleIdentity.authentication.symmetricKey.secondaryKey}
                     allowMask={true}
                     readOnly={true}
-                    labelCallout={context.t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryKeyTooltip)}
+                    labelCallout={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryKeyTooltip)}
                 />
 
                 <MaskedCopyableTextFieldContainer
-                    ariaLabel={context.t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.primaryConnectionString)}
-                    label={context.t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.primaryConnectionString)}
-                    value={this.generateConnectionString(this.props.moduleIdentity.authentication.symmetricKey.primaryKey)}
+                    ariaLabel={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.primaryConnectionString)}
+                    label={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.primaryConnectionString)}
+                    value={generateConnectionString(moduleIdentity.authentication.symmetricKey.primaryKey)}
                     allowMask={true}
                     readOnly={true}
                 />
 
                 <MaskedCopyableTextFieldContainer
-                    ariaLabel={context.t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString)}
-                    label={context.t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString)}
-                    value={this.generateConnectionString(this.props.moduleIdentity.authentication.symmetricKey.secondaryKey)}
+                    ariaLabel={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString)}
+                    label={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString)}
+                    value={generateConnectionString(moduleIdentity.authentication.symmetricKey.secondaryKey)}
                     allowMask={true}
                     readOnly={true}
                 />
 
-                {this.renderSasTokenSection()}
+                {renderSasTokenSection()}
             </>
         );
-    }
+    };
 
-    private readonly renderCaSection = (context: LocalizationContextInterface) => {
+    const renderCaSection = () => <Label>{t(ResourceKeys.moduleIdentity.authenticationType.ca.text)}</Label>;
+
+    const renderSelfSignedSection = () => {
         return (
             <>
-                <Label>{context.t(ResourceKeys.moduleIdentity.authenticationType.ca.text)}</Label>
-            </>
-        );
-    }
-
-    private readonly renderSelfSignedSection = (context: LocalizationContextInterface) => {
-        return (
-            <>
-                <Label>{context.t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.text)}</Label>
+                <Label>{t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.text)}</Label>
                 <MaskedCopyableTextFieldContainer
-                    ariaLabel={context.t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.primaryThumbprint)}
-                    label={context.t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.primaryThumbprint)}
-                    value={this.props.moduleIdentity.authentication.x509Thumbprint.primaryThumbprint}
+                    ariaLabel={t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.primaryThumbprint)}
+                    label={t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.primaryThumbprint)}
+                    value={moduleIdentity.authentication.x509Thumbprint.primaryThumbprint}
                     allowMask={true}
                     readOnly={true}
-                    labelCallout={context.t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.primaryThumbprintTooltip)}
+                    labelCallout={t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.primaryThumbprintTooltip)}
                 />
                 <MaskedCopyableTextFieldContainer
-                    ariaLabel={context.t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.secondaryThumbprint)}
-                    label={context.t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.secondaryThumbprint)}
-                    value={this.props.moduleIdentity.authentication.x509Thumbprint.secondaryThumbprint}
+                    ariaLabel={t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.secondaryThumbprint)}
+                    label={t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.secondaryThumbprint)}
+                    value={moduleIdentity.authentication.x509Thumbprint.secondaryThumbprint}
                     allowMask={true}
                     readOnly={true}
-                    labelCallout={context.t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip)}
+                    labelCallout={t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip)}
                 />
             </>
         );
-    }
+    };
 
-    private readonly renderSasTokenSection = () => {
-        const { moduleIdentity, currentHostName } = this.props;
+    const renderSasTokenSection = () => {
         return (
             <SasTokenGenerationView
                 activeAzureResourceHostName={currentHostName}
                 moduleIdentity={moduleIdentity}
             />
         );
-    }
+    };
 
-    private readonly navigateToModuleList = () => {
-        const path = this.props.match.url.replace(/\/moduleIdentity\/moduleDetail\/.*/, `/${ROUTE_PARTS.MODULE_IDENTITY}`);
-        const deviceId = getDeviceIdFromQueryString(this.props);
-        this.props.history.push(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
-    }
+    const navigateToModuleList = () => {
+        const path = pathname.replace(/\/moduleIdentity\/moduleDetail\/.*/, `/${ROUTE_PARTS.MODULE_IDENTITY}`);
+        history.push(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
+    };
 
-    private readonly generateConnectionString = (key: string): string => {
-        const deviceId = getDeviceIdFromQueryString(this.props);
-        const moduleId = getModuleIdentityIdFromQueryString(this.props);
-        const hostName = this.props.currentHostName;
-        return `HostName=${hostName};DeviceId=${deviceId};ModuleId=${moduleId};SharedAccessKey=${key}`;
-    }
+    const generateConnectionString = (key: string): string => {
+        return `HostName=${currentHostName};DeviceId=${deviceId};ModuleId=${moduleId};SharedAccessKey=${key}`;
+    };
 
-    private readonly deleteConfirmationDialog = (context: LocalizationContextInterface) => {
+    const deleteConfirmationDialog = () => {
         return (
             <div role="dialog">
                 <Dialog
-                    hidden={!this.state.showDeleteConfirmation}
-                    onDismiss={this.closeDeleteDialog}
+                    hidden={!showDeleteConfirmation}
+                    onDismiss={closeDeleteDialog}
                     dialogContentProps={{
-                        title: context.t(ResourceKeys.moduleIdentity.detail.deleteConfirmation),
+                        title: t(ResourceKeys.moduleIdentity.detail.deleteConfirmation),
                         type: DialogType.close,
                     }}
                     modalProps={{
@@ -288,23 +234,30 @@ export default class ModuleIdentityDetailComponent
                     }}
                 >
                     <DialogFooter>
-                        <PrimaryButton onClick={this.delete} text={context.t(ResourceKeys.deviceLists.commands.delete.confirmationDialog.confirm)} />
-                        <DefaultButton onClick={this.closeDeleteDialog} text={context.t(ResourceKeys.deviceLists.commands.delete.confirmationDialog.cancel)} />
+                        <PrimaryButton onClick={onDelete} text={t(ResourceKeys.deviceLists.commands.delete.confirmationDialog.confirm)} />
+                        <DefaultButton onClick={closeDeleteDialog} text={t(ResourceKeys.deviceLists.commands.delete.confirmationDialog.cancel)} />
                     </DialogFooter>
                 </Dialog>
             </div>
         );
-    }
+    };
 
-    private readonly deleteConfirmation = () => {
-        this.setState({
-            showDeleteConfirmation: true
-        });
-    }
+    const deleteConfirmation = () => setShowDeleteConfirmation(true);
 
-    private readonly closeDeleteDialog = () => {
-        this.setState({
-            showDeleteConfirmation: false
-        });
-    }
-}
+    const closeDeleteDialog = () => setShowDeleteConfirmation(false);
+
+    return (
+        <>
+            {showCommandBar()}
+            <Route component={ModuleIdentityDetailHeaderView} />
+            <div className="module-identity-detail">
+                {showModuleId()}
+                {moduleIdentitySyncStatus === SynchronizationStatus.working ?
+                    <MultiLineShimmer/> :
+                    showModuleIdentity()
+                }
+                {showDeleteConfirmation && deleteConfirmationDialog()}
+            </div>
+        </>
+    );
+};

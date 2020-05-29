@@ -5,7 +5,7 @@
 import * as React from 'react';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import { toast, ToastType, ToastOptions, UpdateOptions } from 'react-toastify';
-import { LocalizationContextConsumer, LocalizationContextInterface } from '../../shared/contexts/localizationContext';
+import { useLocalizationContext } from '../../shared/contexts/localizationContext';
 import { NotificationListEntry } from '../../notifications/components/notificationListEntry';
 import { Notification } from '../../api/models/notification';
 import { ResourceKeys } from '../../../localization/resourceKeys';
@@ -18,20 +18,17 @@ export interface CloseButtonProps {
 }
 
 export const CloseButton = (props: CloseButtonProps): JSX.Element => {
+    const { t } = useLocalizationContext();
     return (
-        <LocalizationContextConsumer>
-            {(context: LocalizationContextInterface) => (
-                <IconButton
-                    iconProps={{
-                        iconName: CANCEL
-                    }}
-                    label={context.t(ResourceKeys.common.close)}
-                    ariaLabel={context.t(ResourceKeys.common.close)}
-                    style={{width: 50}}
-                    onClick={props.closeToast}
-                />
-            )}
-        </LocalizationContextConsumer>
+        <IconButton
+            iconProps={{
+                iconName: CANCEL
+            }}
+            label={t(ResourceKeys.common.close)}
+            ariaLabel={t(ResourceKeys.common.close)}
+            style={{width: 50}}
+            onClick={props.closeToast}
+        />
     );
 };
 

@@ -5,8 +5,8 @@
 import * as React from 'react';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import { Overlay } from 'office-ui-fabric-react/lib/Overlay';
-import DeviceSettingPerInterfacePerSetting, { TwinWithSchema } from './deviceSettingsPerInterfacePerSetting';
-import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
+import { DeviceSettingsPerInterfacePerSetting, TwinWithSchema } from './deviceSettingsPerInterfacePerSetting';
+import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { PatchDigitalTwinActionParameters } from '../../actions';
 import { InterfaceDetailCard } from '../../../../constants/iconNames';
@@ -30,93 +30,80 @@ export interface DeviceSettingState {
     showOverlay: boolean;
 }
 
-export default class DeviceSettingsPerInterface
-    extends React.Component<DeviceSettingDataProps & DeviceSettingDispatchProps, DeviceSettingState> {
-    constructor(props: DeviceSettingDataProps & DeviceSettingDispatchProps) {
-        super(props);
-
-        const { twinWithSchema } = this.props;
-        const collapseMap = new Map();
-        for (let index = 0; index < twinWithSchema.length; index ++) {
-            collapseMap.set(index, false);
-        }
-        this.state = {
-            allCollapsed: false,
-            collapseMap,
-            showOverlay: false
-        };
+// tslint:disable-next-line: cyclomatic-complexity
+export const DeviceSettingsPerInterface: React.FC<DeviceSettingDataProps & DeviceSettingDispatchProps> = (props: DeviceSettingDataProps & DeviceSettingDispatchProps) => {
+    const { t } = useLocalizationContext();
+    const { twinWithSchema } = props;
+    const initialCollapseMap = new Map();
+    for (let index = 0; index < twinWithSchema.length; index ++) {
+        initialCollapseMap.set(index, false);
     }
+    const [ allCollapsed, setAllCollapsed ] = React.useState<boolean>(false);
+    const [ collapseMap, setCollapseMap ] = React.useState(initialCollapseMap);
+    const [ showOverlay, setShowOverlay ] = React.useState<boolean>(false);
 
-    public render(): JSX.Element {
-        const { twinWithSchema} = this.props;
-
-        const settings = twinWithSchema && twinWithSchema.map((tuple, index) => (
-            <DeviceSettingPerInterfacePerSetting
-                key={index}
-                {...tuple}
-                {...this.props}
-                collapsed={this.state.collapseMap.get(index)}
-                handleCollapseToggle={this.handleCollapseToggle(index)}
-                handleOverlayToggle={this.handleOverlayToggle}
-            />
-        ));
-
-        return (
-            <LocalizationContextConsumer>
-                {(context: LocalizationContextInterface) => (
-                    <div className="pnp-detail-list scrollable-lg">
-                        <div className="list-header flex-grid-row">
-                            <span className="col-sm3">{context.t(ResourceKeys.deviceSettings.columns.name)}</span>
-                            <span className="col-sm2">{context.t(ResourceKeys.deviceSettings.columns.schema)}</span>
-                            <span className="col-sm2">{context.t(ResourceKeys.deviceSettings.columns.unit)}</span>
-                            <span className="col-sm4 reported-value">
-                                <LabelWithTooltip tooltipText={context.t(ResourceKeys.deviceSettings.columns.reportedValueTooltip)}>
-                                    {context.t(ResourceKeys.deviceSettings.columns.reportedValue)}
-                                </LabelWithTooltip>
-                            </span>
-                            {this.renderCollapseAllButton(context)}
-                        </div>
-                        <section role={twinWithSchema && twinWithSchema.length === 0 ? 'main' : 'list'} className="list-content">
-                            {settings}
-                        </section>
-                        {this.state.showOverlay && <Overlay/>}
-                    </div>
-                )}
-            </LocalizationContextConsumer>
-        );
-    }
-
-    private readonly renderCollapseAllButton = (context: LocalizationContextInterface) => {
+    const renderCollapseAllButton = () => {
         return (
             <div className="col-sm1 collapse-button">
                 <IconButton
-                    iconProps={{iconName: this.state.allCollapsed ? InterfaceDetailCard.OPEN : InterfaceDetailCard.CLOSE}}
-                    ariaLabel={this.state.allCollapsed ?
-                        context.t(ResourceKeys.deviceSettings.command.expandAll) :
-                        context.t(ResourceKeys.deviceSettings.command.collapseAll)}
-                    onClick={this.onToggleCollapseAll}
-                    title={context.t(this.state.allCollapsed ? ResourceKeys.deviceSettings.command.expandAll : ResourceKeys.deviceSettings.command.collapseAll)}
+                    iconProps={{iconName: allCollapsed ? InterfaceDetailCard.OPEN : InterfaceDetailCard.CLOSE}}
+                    ariaLabel={allCollapsed ?
+                        t(ResourceKeys.deviceSettings.command.expandAll) :
+                        t(ResourceKeys.deviceSettings.command.collapseAll)}
+                    onClick={onToggleCollapseAll}
+                    title={t(allCollapsed ? ResourceKeys.deviceSettings.command.expandAll : ResourceKeys.deviceSettings.command.collapseAll)}
                 />
             </div>
         );
-    }
+    };
 
-    private readonly onToggleCollapseAll = () => {
-        const allCollapsed = this.state.allCollapsed;
-        const collapseMap = new Map();
-        for (let index = 0; index < this.state.collapseMap.size; index ++) {
-            collapseMap.set(index, !allCollapsed);
+    const onToggleCollapseAll = () => {
+        const newCollapseMap = new Map();
+        for (let index = 0; index < collapseMap.size; index ++) {
+            newCollapseMap.set(index, !allCollapsed);
         }
-        this.setState({allCollapsed: !allCollapsed, collapseMap});
-    }
+        setCollapseMap(newCollapseMap);
+        setAllCollapsed(!allCollapsed);
+    };
 
-    private readonly handleCollapseToggle = (index: number) => () => {
-        const collapseMap = this.state.collapseMap;
-        collapseMap.set(index, !collapseMap.get(index));
-        this.setState({collapseMap});
-    }
+    const handleCollapseToggle = (index: number) => () => {
+        const newCollapseMap = collapseMap;
+        newCollapseMap.set(index, !newCollapseMap.get(index));
+        setCollapseMap(newCollapseMap);
+    };
 
-    private readonly handleOverlayToggle = () => {
-        this.setState({showOverlay: !this.state.showOverlay});
-    }
-}
+    const handleOverlayToggle = () => {
+        setShowOverlay(!showOverlay);
+    };
+
+    const settings = twinWithSchema && twinWithSchema.map((tuple, index) => (
+        <DeviceSettingsPerInterfacePerSetting
+            key={index}
+            {...tuple}
+            {...props}
+            collapsed={collapseMap.get(index)}
+            handleCollapseToggle={handleCollapseToggle(index)}
+            handleOverlayToggle={handleOverlayToggle}
+        />
+    ));
+
+    return (
+        <div className="pnp-detail-list scrollable-lg">
+            <div className="list-header flex-grid-row">
+                <span className="col-sm3">{t(ResourceKeys.deviceSettings.columns.name)}</span>
+                <span className="col-sm2">{t(ResourceKeys.deviceSettings.columns.schema)}</span>
+                <span className="col-sm2">{t(ResourceKeys.deviceSettings.columns.unit)}</span>
+                <span className="col-sm4 reported-value">
+                    <LabelWithTooltip tooltipText={t(ResourceKeys.deviceSettings.columns.reportedValueTooltip)}>
+                        {t(ResourceKeys.deviceSettings.columns.reportedValue)}
+                    </LabelWithTooltip>
+                </span>
+                {renderCollapseAllButton()}
+            </div>
+            <section role={twinWithSchema && twinWithSchema.length === 0 ? 'main' : 'list'} className="list-content">
+                {settings}
+            </section>
+            {showOverlay && <Overlay/>}
+        </div>
+    );
+};

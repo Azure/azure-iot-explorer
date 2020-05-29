@@ -6,7 +6,7 @@ import { compose, Dispatch } from 'redux';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { StateType } from '../../../../shared/redux/state';
-import DeviceTwin, { DeviceTwinDataProps, DeviceTwinDispatchProps } from './deviceTwin';
+import { DeviceTwin, DeviceTwinDataProps, DeviceTwinDispatchProps } from './deviceTwin';
 import { getDeviceTwinSelector, getDeviceTwinStateSelector } from './selectors';
 import { getTwinAction, updateTwinAction, UpdateTwinActionParameters } from '../../actions';
 

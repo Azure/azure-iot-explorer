@@ -5,16 +5,16 @@
 import * as React from 'react';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { Label } from 'office-ui-fabric-react/lib/Label';
-import { RouteComponentProps, Route } from 'react-router-dom';
-import DeviceCommandPerInterface from './deviceCommandsPerInterface';
-import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
+import { Route, useLocation, useHistory } from 'react-router-dom';
+import { DeviceCommandsPerInterface } from './deviceCommandsPerInterface';
+import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { InvokeDigitalTwinInterfaceCommandActionParameters } from '../../actions';
-import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString, getComponentNameFromQueryString } from '../../../../shared/utils/queryStringHelper';
+import { getDeviceIdFromQueryString, getComponentNameFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { CommandSchema } from './deviceCommandsPerInterfacePerCommand';
 import { REFRESH, NAVIGATE_BACK } from '../../../../constants/iconNames';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
-import { DigitalTwinHeaderContainer } from '../digitalTwin/digitalTwinHeaderView';
+import { DigitalTwinHeaderView } from '../digitalTwin/digitalTwinHeaderView';
 import { ROUTE_PARAMS } from '../../../../constants/routes';
 
 export interface DeviceCommandsProps extends DeviceInterfaceWithSchema{
@@ -31,79 +31,73 @@ export interface DeviceCommandDispatchProps {
     setComponentName: (id: string) => void;
 }
 
-export default class DeviceCommands
-    extends React.Component<DeviceCommandsProps & DeviceCommandDispatchProps & RouteComponentProps> {
-    constructor(props: DeviceCommandsProps & DeviceCommandDispatchProps & RouteComponentProps) {
-        super(props);
-    }
+export const DeviceCommands: React.FC<DeviceCommandsProps & DeviceCommandDispatchProps> = (props: DeviceCommandsProps & DeviceCommandDispatchProps) => {
+    const { refresh, invokeDigitalTwinInterfaceCommand, setComponentName, isLoading, commandSchemas } = props;
+    const { search, pathname } = useLocation();
+    const history = useHistory();
+    const { t } = useLocalizationContext();
+    const deviceId = getDeviceIdFromQueryString(search);
+    const componentName = getComponentNameFromQueryString(search);
 
-    public render(): JSX.Element {
-        if (this.props.isLoading) {
-            return (
-                <MultiLineShimmer/>
-            );
-        }
+    React.useEffect(() => {
+        setComponentName(componentName);
+    });
 
-        return (
-            <LocalizationContextConsumer>
-                {(context: LocalizationContextInterface) => (
-                    <>
-                        <CommandBar
-                            className="command"
-                            items={[
-                                {
-                                    ariaLabel: context.t(ResourceKeys.deviceCommands.command.refresh),
-                                    iconProps: {iconName: REFRESH},
-                                    key: REFRESH,
-                                    name: context.t(ResourceKeys.deviceCommands.command.refresh),
-                                    onClick: this.handleRefresh
-                                }
-                            ]}
-                            farItems={[
-                                {
-                                    ariaLabel: context.t(ResourceKeys.deviceCommands.command.close),
-                                    iconProps: {iconName: NAVIGATE_BACK},
-                                    key: NAVIGATE_BACK,
-                                    name: context.t(ResourceKeys.deviceCommands.command.close),
-                                    onClick: this.handleClose
-                                }
-                            ]}
-                        />
-                        {this.renderCommandsPerInterface(context)}
-                    </>
-                )}
-            </LocalizationContextConsumer>
-        );
-    }
-
-    public componentDidMount() {
-        this.props.setComponentName(getComponentNameFromQueryString(this.props));
-    }
-
-    private readonly renderCommandsPerInterface = (context: LocalizationContextInterface) => {
-        const { commandSchemas } = this.props;
+    const renderCommandsPerInterface = () => {
         return (
             <>
-                <Route component={DigitalTwinHeaderContainer} />
+                <Route component={DigitalTwinHeaderView} />
                 {!commandSchemas || commandSchemas.length === 0 ?
-                    <Label className="no-pnp-content">{context.t(ResourceKeys.deviceCommands.noCommands, {componentName: getComponentNameFromQueryString(this.props)})}</Label> :
-                    <DeviceCommandPerInterface
-                        {...this.props}
-                        componentName={getComponentNameFromQueryString(this.props)}
-                        deviceId={getDeviceIdFromQueryString(this.props)}
+                    <Label className="no-pnp-content">{t(ResourceKeys.deviceCommands.noCommands, {componentName})}</Label> :
+                    <DeviceCommandsPerInterface
+                        {...props}
+                        componentName={getComponentNameFromQueryString(search)}
+                        deviceId={getDeviceIdFromQueryString(search)}
                     />
                 }
             </>
         );
+    };
+
+    const handleRefresh = () => {
+        refresh(deviceId, componentName);
+    };
+
+    const handleClose = () => {
+        const path = pathname.replace(/\/ioTPlugAndPlayDetail\/commands\/.*/, ``);
+        history.push(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
+    };
+
+    if (isLoading) {
+        return (
+            <MultiLineShimmer/>
+        );
     }
 
-    private readonly handleRefresh = () => {
-        this.props.refresh(getDeviceIdFromQueryString(this.props), getInterfaceIdFromQueryString(this.props));
-    }
-
-    private readonly handleClose = () => {
-        const path = this.props.match.url.replace(/\/ioTPlugAndPlayDetail\/commands\/.*/, ``);
-        const deviceId = getDeviceIdFromQueryString(this.props);
-        this.props.history.push(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
-    }
-}
+    return (
+        <>
+            <CommandBar
+                className="command"
+                items={[
+                    {
+                        ariaLabel: t(ResourceKeys.deviceCommands.command.refresh),
+                        iconProps: {iconName: REFRESH},
+                        key: REFRESH,
+                        name: t(ResourceKeys.deviceCommands.command.refresh),
+                        onClick: handleRefresh
+                    }
+                ]}
+                farItems={[
+                    {
+                        ariaLabel: t(ResourceKeys.deviceCommands.command.close),
+                        iconProps: {iconName: NAVIGATE_BACK},
+                        key: NAVIGATE_BACK,
+                        name: t(ResourceKeys.deviceCommands.command.close),
+                        onClick: handleClose
+                    }
+                ]}
+            />
+            {renderCommandsPerInterface()}
+        </>
+    );
+};

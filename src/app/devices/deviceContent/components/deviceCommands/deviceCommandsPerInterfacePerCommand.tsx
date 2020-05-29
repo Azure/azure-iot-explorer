@@ -5,12 +5,12 @@
 import * as React from 'react';
 import { Label } from 'office-ui-fabric-react/lib/Label';
 import { IconButton, PrimaryButton } from 'office-ui-fabric-react/lib/Button';
-import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
+import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { InterfaceDetailCard, SUBMIT } from '../../../../constants/iconNames';
 import { ParsedCommandSchema } from '../../../../api/models/interfaceJsonParserOutput';
 import { CommandContent } from '../../../../api/models/modelDefinition';
-import DataForm from '../shared/dataForm';
+import { DataForm } from '../shared/dataForm';
 import { InvokeDigitalTwinInterfaceCommandActionParameters } from '../../actions';
 import ErrorBoundary from '../../../errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
@@ -31,49 +31,33 @@ export interface CommandSchema {
     commandModelDefinition: CommandContent;
 }
 
-export default class DeviceCommandsPerInterfacePerCommand
-    extends React.Component<DeviceCommandDataProps & DeviceCommandDispatchProps> {
+export const DeviceCommandsPerInterfacePerCommand: React.FC<DeviceCommandDataProps & DeviceCommandDispatchProps> = (props: DeviceCommandDataProps & DeviceCommandDispatchProps) => {
+    const { t } = useLocalizationContext();
+    const { collapsed, deviceId, componentName, commandModelDefinition, parsedSchema, handleCollapseToggle, invokeDigitalTwinInterfaceCommand  } = props;
 
-    public render(): JSX.Element {
-        const commandForm = (
-            <article className="list-item" role="listitem">
-                <LocalizationContextConsumer >
-                    {(context: LocalizationContextInterface) => (
-                        <ErrorBoundary error={context.t(ResourceKeys.errorBoundary.text)}>
-                            {this.createCollapsedSummary(context)}
-                            {this.createUncollapsedCard(context)}
-                        </ErrorBoundary>
-                    )}
-                </LocalizationContextConsumer>
-            </article>
-        );
-
-        return (commandForm);
-    }
-
-    private readonly createCollapsedSummary = (context: LocalizationContextInterface) => {
+    const createCollapsedSummary = () => {
         return (
-            <header className={`flex-grid-row item-summary ${this.props.collapsed ? '' : 'item-summary-uncollapsed'}`} onClick={this.handleToggleCollapse}>
-                {this.renderCommandName(context)}
-                {this.renderCommandSchema(context, true)}
-                {this.renderCommandSchema(context, false)}
-                {this.renderCommandType(context)}
-                {this.renderCollapseButton(context)}
+            <header className={`flex-grid-row item-summary ${collapsed ? '' : 'item-summary-uncollapsed'}`} onClick={handleToggleCollapse}>
+                {renderCommandName()}
+                {renderCommandSchema(true)}
+                {renderCommandSchema(false)}
+                {renderCommandType()}
+                {renderCollapseButton()}
             </header>
         );
-    }
+    };
 
-    private readonly createUncollapsedCard = (context: LocalizationContextInterface) => {
+    const createUncollapsedCard = () => {
         return (
-            <section className={this.props.collapsed ? 'item-detail' : 'item-detail item-detail-uncollapsed'}>
-                {!this.props.collapsed &&
+            <section className={collapsed ? 'item-detail' : 'item-detail item-detail-uncollapsed'}>
+                {!collapsed &&
                 <>
-                    {this.props.commandModelDefinition.request ? this.createForm() :
+                    {commandModelDefinition.request ? createForm() :
                         <div className="value-section">
                             <PrimaryButton
                                 className="submit-button"
-                                onClick={this.onSubmit(null)}
-                                text={context.t(ResourceKeys.deviceCommands.command.submit)}
+                                onClick={onSubmit(null)}
+                                text={t(ResourceKeys.deviceCommands.command.submit)}
                                 iconProps={{ iconName: SUBMIT }}
                             />
                         </div>
@@ -82,23 +66,22 @@ export default class DeviceCommandsPerInterfacePerCommand
                 }
             </section>
         );
-    }
+    };
 
-    private readonly createForm = () => {
+    const createForm = () => {
         return (
             <DataForm
                 buttonText={ResourceKeys.deviceCommands.command.submit}
                 formData={undefined}
-                componentName={this.props.componentName}
-                settingSchema={this.props.parsedSchema.requestSchema}
-                handleSave={this.onSubmit}
-                schema={this.getCommandSchema(true)}
+                componentName={componentName}
+                settingSchema={parsedSchema.requestSchema}
+                handleSave={onSubmit}
+                schema={getCommandSchema(true)}
             />
         );
-    }
+    };
 
-    private readonly getCommandSchema = (isRequest: boolean) => {
-        const { commandModelDefinition } = this.props;
+    const getCommandSchema = (isRequest: boolean) => {
         const schema = isRequest ?
             commandModelDefinition.request :
             commandModelDefinition.response;
@@ -110,48 +93,56 @@ export default class DeviceCommandsPerInterfacePerCommand
             schema.schema :
             schema.schema['@type'];
         }
-    }
+    };
 
-    private readonly renderCommandName = (context: LocalizationContextInterface) => {
-        const ariaLabel = context.t(ResourceKeys.deviceCommands.columns.name);
-        let displayName = getLocalizedData(this.props.commandModelDefinition.displayName);
+    const renderCommandName = () => {
+        const ariaLabel = t(ResourceKeys.deviceCommands.columns.name);
+        let displayName = getLocalizedData(commandModelDefinition.displayName);
         displayName = displayName ? displayName : '--';
-        let description = getLocalizedData(this.props.commandModelDefinition.description);
+        let description = getLocalizedData(commandModelDefinition.description);
         description = description ? description : '--';
-        return <div className="col-sm3"><Label aria-label={ariaLabel}>{this.props.commandModelDefinition.name} ({displayName} / {description})</Label></div>;
-    }
+        return <div className="col-sm3"><Label aria-label={ariaLabel}>{commandModelDefinition.name} ({displayName} / {description})</Label></div>;
+    };
 
-    private readonly renderCommandSchema = (context: LocalizationContextInterface, isRequest: boolean) => {
-        const ariaLabel = context.t(ResourceKeys.deviceCommands.columns.type);
-        return <div className="col-sm3"><Label aria-label={ariaLabel}>{this.getCommandSchema(isRequest)}</Label></div>;
-    }
+    const renderCommandSchema = (isRequest: boolean) => {
+        const ariaLabel = t(ResourceKeys.deviceCommands.columns.type);
+        return <div className="col-sm3"><Label aria-label={ariaLabel}>{getCommandSchema(isRequest)}</Label></div>;
+    };
 
-    private readonly renderCommandType = (context: LocalizationContextInterface) => {
-        const ariaLabel = context.t(ResourceKeys.deviceCommands.columns.schema.request);
-        const { commandModelDefinition } = this.props;
+    const renderCommandType = () => {
+        const ariaLabel = t(ResourceKeys.deviceCommands.columns.schema.request);
         return <div className="col-sm2"><Label aria-label={ariaLabel}>{commandModelDefinition.commandType ? commandModelDefinition.commandType : '--'}</Label></div>;
-    }
+    };
 
-    private readonly renderCollapseButton = (context: LocalizationContextInterface) => {
+    const renderCollapseButton = () => {
         return (
         <div className="col-sm1">
             <IconButton
-                title={context.t(this.props.collapsed ? ResourceKeys.deviceCommands.command.expand : ResourceKeys.deviceCommands.command.collapse)}
-                iconProps={{iconName: this.props.collapsed ? InterfaceDetailCard.OPEN : InterfaceDetailCard.CLOSE}}
+                title={t(collapsed ? ResourceKeys.deviceCommands.command.expand : ResourceKeys.deviceCommands.command.collapse)}
+                iconProps={{iconName: collapsed ? InterfaceDetailCard.OPEN : InterfaceDetailCard.CLOSE}}
             />
         </div>);
-    }
+    };
 
-    private readonly onSubmit = (data: any) => () => { // tslint:disable-line:no-any
-        this.props.invokeDigitalTwinInterfaceCommand({
-            commandName: this.props.commandModelDefinition.name,
+    const onSubmit = (data: any) => () => { // tslint:disable-line:no-any
+        invokeDigitalTwinInterfaceCommand({
+            commandName: commandModelDefinition.name,
             commandPayload: data,
-            digitalTwinId: this.props.deviceId,
-            propertyKey: this.props.commandModelDefinition.request && this.props.commandModelDefinition.request.name
+            digitalTwinId: deviceId,
+            propertyKey: commandModelDefinition.request && commandModelDefinition.request.name
         });
-    }
+    };
 
-    private readonly handleToggleCollapse = () => {
-        this.props.handleCollapseToggle();
-    }
-}
+    const handleToggleCollapse = () => {
+        handleCollapseToggle();
+    };
+
+    return (
+        <article className="list-item" role="listitem">
+            <ErrorBoundary error={t(ResourceKeys.errorBoundary.text)}>
+                {createCollapsedSummary()}
+                {createUncollapsedCard()}
+            </ErrorBoundary>
+        </article>
+    );
+};

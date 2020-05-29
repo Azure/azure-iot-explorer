@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { AnyAction } from 'typescript-fsa';
 import { StateType } from '../../../../shared/redux/state';
-import DeviceSettings, { DeviceSettingDispatchProps, DeviceSettingsProps } from './deviceSettings';
+import { DeviceSettings, DeviceSettingDispatchProps, DeviceSettingsProps } from './deviceSettings';
 import { setComponentNameAction,
     patchDigitalTwinAction,
     PatchDigitalTwinActionParameters,

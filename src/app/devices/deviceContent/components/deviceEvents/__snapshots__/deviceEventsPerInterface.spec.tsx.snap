@@ -55,7 +55,7 @@ exports[`components/devices/deviceEventsPerInterface matches snapshot while inte
       ]
     }
   />
-  <Route
+  <Component
     component={[Function]}
   />
   <StyledTextFieldBase
@@ -170,7 +170,7 @@ exports[`components/devices/deviceEventsPerInterface matches snapshot while inte
       ]
     }
   />
-  <Route
+  <Component
     component={[Function]}
   />
   <StyledTextFieldBase
@@ -285,7 +285,7 @@ exports[`components/devices/deviceEventsPerInterface matches snapshot while inte
       ]
     }
   />
-  <Route
+  <Component
     component={[Function]}
   />
   <StyledTextFieldBase
