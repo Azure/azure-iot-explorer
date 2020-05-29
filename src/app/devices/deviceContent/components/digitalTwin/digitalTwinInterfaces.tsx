@@ -15,8 +15,8 @@ import { getDigitalTwinModelId,
     getDigitalTwinSynchronizationStatusSelector,
     getComponentNameAndInterfaceIdArraySelector,
     getModelDefinitionSyncStatusSelector,
-    getModelDefinitionWithSourceSelector, 
-    defaultComponentKey} from '../../selectors';
+    getModelDefinitionWithSourceSelector,
+    defaultComponentKey } from '../../selectors';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../../constants/routes';
 import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';

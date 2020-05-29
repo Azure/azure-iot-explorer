@@ -140,6 +140,7 @@ describe('login/components/connectivityPane', () => {
         const h4 = digitalTwinInterfaces.find('h4');
         expect(h4).toHaveLength(3); // tslint:disable-line:no-magic-numbers
         expect(h4.at(2).props().children).toEqual(ResourceKeys.digitalTwin.steps.third); // tslint:disable-line:no-magic-numbers
+        expect(digitalTwinInterfaces.find('h5').first().props().children).toEqual(ResourceKeys.digitalTwin.steps.explanation);
 
         const labels = digitalTwinInterfaces.find(Label);
         expect(labels).toHaveLength(3); // tslint:disable-line:no-magic-numbers
