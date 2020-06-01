@@ -616,8 +616,10 @@ export class ResourceKeys {
          ariaLabel : "digitalTwin.pivot.ariaLabel",
          components : "digitalTwin.pivot.components",
          content : "digitalTwin.pivot.content",
+         defaultComponent : "digitalTwin.pivot.defaultComponent",
       },
       steps : {
+         explanation : "digitalTwin.steps.explanation",
          first : "digitalTwin.steps.first",
          secondFailure : "digitalTwin.steps.secondFailure",
          secondSuccess : "digitalTwin.steps.secondSuccess",

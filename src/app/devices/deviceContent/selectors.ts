@@ -5,11 +5,10 @@
 import { createSelector } from 'reselect';
 import { DeviceIdentity } from '../../api/models/deviceIdentity';
 import { SynchronizationWrapper } from '../../api/models/synchronizationWrapper';
-import { DigitalTwinInterfaces } from '../../api/models/digitalTwinModels';
 import { StateInterface } from '../../shared/redux/state';
 import { ModelDefinitionWithSource } from '../../api/models/modelDefinitionWithSource';
 import { SynchronizationStatus } from './../../api/models/synchronizationStatus';
-import { ComponentContent, ContentType } from './../../api/models/modelDefinition';
+import { JsonSchemaAdaptor, ComponentAndInterfaceId } from '../../shared/utils/jsonSchemaAdaptor';
 
 //#region DeviceIdentity-related selectors
 export const getDeviceIdentityWrapperSelector = (state: StateInterface): SynchronizationWrapper<DeviceIdentity> => {
@@ -20,11 +19,6 @@ export const getDeviceIdentityWrapperSelector = (state: StateInterface): Synchro
 //#endregion
 
 //#region ModelDefinition-related selectors
-export interface ComponentAndInterfaceId {
-    componentName: string;
-    interfaceId: string;
-}
-
 export const getComponentNameSelector = (state: StateInterface): string => {
     return state && state.deviceContentState && state.deviceContentState.componentNameSelected;
 };
@@ -48,22 +42,22 @@ export const getModelDefinitionSyncStatusSelector = createSelector(
     modelDefinitionWithSource => modelDefinitionWithSource && modelDefinitionWithSource.synchronizationStatus
 );
 
+export const defaultComponentKey = '$default';
 export const getComponentNameAndInterfaceIdArraySelector = (state: StateInterface): ComponentAndInterfaceId[] => {
     const modelDefinition = getModelDefinitionSelector(state);
-    const componentContents = modelDefinition && modelDefinition.contents && modelDefinition.contents.filter((item: ComponentContent) => filterTelemetry(item)) as ComponentContent[];
-    return componentContents ? componentContents.map(componentContent => ({
-        componentName: componentContent.name,
-        interfaceId: componentContent.schema
-    })) : [];
-};
-
-const filterTelemetry = (content: ComponentContent) => {
-    if (typeof content['@type'] === 'string') {
-        return content['@type'].toLowerCase() === ContentType.Component;
+    const jsonSchemaAdaptor = new JsonSchemaAdaptor(modelDefinition);
+    const components = jsonSchemaAdaptor.getComponentNameAndInterfaceIdArray();
+    // check if model contains no-component items
+    if (jsonSchemaAdaptor.getNonWritableProperties().length +
+        jsonSchemaAdaptor.getWritableProperties().length +
+        jsonSchemaAdaptor.getCommands().length +
+        jsonSchemaAdaptor.getTelemetry().length > 0) {
+        components.unshift({
+            componentName: defaultComponentKey,
+            interfaceId: modelDefinition['@id']
+        });
     }
-    else {
-        return false;
-    }
+    return components;
 };
 //#endregion
 

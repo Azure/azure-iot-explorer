@@ -13,7 +13,7 @@ import { getModelDefinitionSyncStatusSelector } from '../../selectors';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { setComponentNameAction, getModelDefinitionAction } from '../../actions';
 import { getActiveAzureResourceConnectionStringSelector } from '../../../../azureResource/selectors';
-import { getComponentNameFromQueryString } from '../../../../shared/utils/queryStringHelper';
+import { getComponentNameFromQueryString, getInterfaceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { addNotificationAction } from '../../../../notifications/actions';
 import { Notification } from '../../../../api/models/notification';
 
@@ -21,6 +21,7 @@ const mapStateToProps = (state: StateType, ownProps: RouteComponentProps): Devic
     return {
         componentName: getComponentNameFromQueryString(ownProps),
         connectionString: getActiveAzureResourceConnectionStringSelector(state),
+        interfaceId: getInterfaceIdFromQueryString(ownProps),
         isLoading: getModelDefinitionSyncStatusSelector(state) === SynchronizationStatus.working,
         telemetrySchema: getDeviceTelemetrySelector(state)
     };

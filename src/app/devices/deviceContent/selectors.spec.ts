@@ -14,7 +14,8 @@ import {
     getComponentNameAndInterfaceIdArraySelector,
     getModelDefinitionSelector,
     getDeviceIdentityWrapperSelector,
-    getModelDefinitionSyncStatusSelector
+    getModelDefinitionSyncStatusSelector,
+    defaultComponentKey
 } from './selectors';
 import { getInitialState } from './../../api/shared/testHelper';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
@@ -78,6 +79,12 @@ describe('selector', () => {
                     "@type": "Component",
                     "name": "environmentalSensor",
                     "schema": "dtmi:__Contoso:EnvironmentalSensor;1"
+                },
+                {
+                    "@type": "Property",
+                    "name": "property1",
+                    "writable": false,
+                    "schema": "long"
                 }
             ],
             "@context": "dtmi:dtdl:context;2"
@@ -148,6 +155,7 @@ describe('selector', () => {
 
         it('returns component to interface mapping from model definition', () => {
             expect(getComponentNameAndInterfaceIdArraySelector(state)).toEqual([
+                {componentName: defaultComponentKey, interfaceId: 'dtmi:plugnplay:hube2e:cm;1'},
                 {componentName: 'deviceInformation', interfaceId: 'dtmi:__DeviceManagement:DeviceInformation;1'},
                 {componentName: 'sdkInfo', interfaceId: 'dtmi:__Client:SDKInformation;1'},
                 {componentName: 'environmentalSensor', interfaceId: 'dtmi:__Contoso:EnvironmentalSensor;1'}]);
