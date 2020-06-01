@@ -10,12 +10,11 @@
         width: calc(100% - 2px);
     }
     .configure-button {
-        margin-top: 3px;
+        margin-top: 0px;
         padding-top: 0px;
         @include themify($themes) {
             color: themed('buttonColor');
         }
         padding: 0;
-        margin-top: 0px !important;
     }
 }

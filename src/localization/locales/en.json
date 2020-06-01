@@ -453,12 +453,14 @@
             "first": "Step 1. Your device has been discovered as a Plug and Play device",
             "secondSuccess": "Step 2. We've resolved your Plug and Play model",
             "secondFailure": "Step 2. We've failed to resolve your Plug and Play model",
-            "third": "Step 3. Continue your Plug and Play journey by drilling down to each component"
+            "third": "Step 3. Continue your Plug and Play journey by drilling down to each component",
+            "explanation": "If you have defined 'Property', 'Command' or 'Telemetry' in model {{modelId}}, you would be able to see 'Default component' in the table below. If you havea defined 'Component', you would be able to see a list of components down below."
         },
         "pivot": {
             "ariaLabel": "Model component and content pivot",
             "components" :"Components",
-            "content": "Model content"
+            "content": "Model content",
+            "defaultComponent": "Default component"
         },
         "interfaceId": "Model ID"
     },
