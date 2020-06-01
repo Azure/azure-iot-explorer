@@ -39,6 +39,7 @@ exports[`modelRepositoryLocationView matches snapshot when locations greater tha
           },
           Object {
             "ariaLabel": "modelRepository.commands.add.ariaLabel",
+            "disabled": false,
             "iconProps": Object {
               "iconName": "Add",
             },
@@ -48,6 +49,9 @@ exports[`modelRepositoryLocationView matches snapshot when locations greater tha
                 Object {
                   "ariaLabel": "modelRepository.commands.addPublicSource.ariaLabel",
                   "disabled": true,
+                  "iconProps": Object {
+                    "iconName": "Repo",
+                  },
                   "key": "PUBLIC",
                   "onClick": [Function],
                   "text": "modelRepository.commands.addPublicSource.label",
@@ -55,6 +59,9 @@ exports[`modelRepositoryLocationView matches snapshot when locations greater tha
                 Object {
                   "ariaLabel": "modelRepository.commands.addLocalSource.ariaLabel",
                   "disabled": true,
+                  "iconProps": Object {
+                    "iconName": "OpenFolderHorizontal",
+                  },
                   "key": "LOCAL",
                   "onClick": [Function],
                   "text": "modelRepository.commands.addLocalSource.labelInBrowser",
@@ -146,6 +153,7 @@ exports[`modelRepositoryLocationView matches snapshot when no locations 1`] = `
           },
           Object {
             "ariaLabel": "modelRepository.commands.add.ariaLabel",
+            "disabled": false,
             "iconProps": Object {
               "iconName": "Add",
             },
@@ -155,6 +163,9 @@ exports[`modelRepositoryLocationView matches snapshot when no locations 1`] = `
                 Object {
                   "ariaLabel": "modelRepository.commands.addPublicSource.ariaLabel",
                   "disabled": false,
+                  "iconProps": Object {
+                    "iconName": "Repo",
+                  },
                   "key": "PUBLIC",
                   "onClick": [Function],
                   "text": "modelRepository.commands.addPublicSource.label",
@@ -162,6 +173,9 @@ exports[`modelRepositoryLocationView matches snapshot when no locations 1`] = `
                 Object {
                   "ariaLabel": "modelRepository.commands.addLocalSource.ariaLabel",
                   "disabled": true,
+                  "iconProps": Object {
+                    "iconName": "OpenFolderHorizontal",
+                  },
                   "key": "LOCAL",
                   "onClick": [Function],
                   "text": "modelRepository.commands.addLocalSource.labelInBrowser",

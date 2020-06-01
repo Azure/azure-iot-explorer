@@ -102,8 +102,8 @@ const findMatchingFile = (filePath: string, fileNames: string[], expectedFileNam
                     return data;
                 }
             }
-            catch {
-                filesWithParsingError.push(fileName); // swallow error and continue the loop
+            catch (error) {
+                filesWithParsingError.push(`${fileName}: ${error.message}`); // swallow error and continue the loop
             }
         }
     }
