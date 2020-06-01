@@ -143,6 +143,9 @@ export const ConnectionStringEditView: React.FC<ConnectionStringEditViewProps> =
                 >
                     {t(ResourceKeys.connectivityPane.connectionStringComboBox.linkText)}
                 </Link>
+                <div>
+                    <span>{t(ResourceKeys.connectivityPane.connectionStringComboBox.warning)}</span>
+                </div>
                 {showProperties() &&
                     <div className="details">
                         <ConnectionStringProperties

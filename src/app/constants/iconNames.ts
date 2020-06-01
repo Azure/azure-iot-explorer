@@ -32,6 +32,7 @@ export const DIRECT_METHOD = 'Remote';
 export const CLOUD_TO_DEVICE_MESSAGE = 'Mail';
 export const ITEM = 'LocationDot';
 export const NAVIGATE_BACK = 'NavigateBack';
+export const REPO = 'Repo';
 export const UNDO = 'Undo';
 
 export enum GroupedList {
