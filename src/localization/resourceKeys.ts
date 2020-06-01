@@ -210,6 +210,7 @@ export class ResourceKeys {
          link : "connectivityPane.connectionStringComboBox.link",
          linkText : "connectivityPane.connectionStringComboBox.linkText",
          prompt : "connectivityPane.connectionStringComboBox.prompt",
+         warning : "connectivityPane.connectionStringComboBox.warning",
       },
       dropDown : {
          copyButton : "connectivityPane.dropDown.copyButton",

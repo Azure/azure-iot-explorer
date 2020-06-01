@@ -18,7 +18,7 @@ import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationType
 import { appConfig, HostMode } from '../../../appConfig/appConfig';
 import { StringMap } from '../../api/models/stringMap';
 import { ROUTE_PARAMS } from '../../constants/routes';
-import { SAVE, ADD, UNDO, HELP, NAVIGATE_BACK } from '../../constants/iconNames';
+import { SAVE, ADD, UNDO, HELP, NAVIGATE_BACK, REPO, FOLDER } from '../../constants/iconNames';
 import { ModelRepositoryInstruction } from './modelRepositoryInstruction';
 import '../../css/_layouts.scss';
 
@@ -53,6 +53,7 @@ export const ModelRepositoryLocationView: React.FC<ModelRepositoryLocationViewPr
             },
             {
                 ariaLabel: t(ResourceKeys.modelRepository.commands.add.ariaLabel),
+                disabled: repositoryLocationSettings.length === addItems.length,
                 iconProps: { iconName: ADD },
                 key: 'add',
                 subMenuProps: {
@@ -104,13 +105,19 @@ export const ModelRepositoryLocationView: React.FC<ModelRepositoryLocationViewPr
             {
                 ariaLabel: t(ResourceKeys.modelRepository.commands.addPublicSource.ariaLabel),
                 disabled: repositoryLocationSettings.some(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Public),
+                iconProps: {
+                    iconName: REPO
+                },
                 key: REPOSITORY_LOCATION_TYPE.Public,
                 onClick: onAddRepositoryLocationPublic,
-                text: t(ResourceKeys.modelRepository.commands.addPublicSource.label)
+                text: t(ResourceKeys.modelRepository.commands.addPublicSource.label),
             },
             {
                 ariaLabel: t(ResourceKeys.modelRepository.commands.addLocalSource.ariaLabel),
                 disabled: hostModeNotElectron || repositoryLocationSettings.some(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local),
+                iconProps: {
+                    iconName: FOLDER
+                },
                 key: REPOSITORY_LOCATION_TYPE.Local,
                 onClick: onAddRepositoryLocationLocal,
                 text: t(hostModeNotElectron ?
