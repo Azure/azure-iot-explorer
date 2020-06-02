@@ -231,6 +231,7 @@ export const DeviceEventsPerInterfaceComponent: React.FC<DeviceEventsDataProps &
             stopMonitoring().then(() => {
                 setState({
                     ...state,
+                    hasMore: false,
                     monitoringData: false,
                     synchronizationStatus: SynchronizationStatus.fetched
                 });

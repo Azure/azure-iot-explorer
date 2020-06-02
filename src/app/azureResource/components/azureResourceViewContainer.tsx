@@ -12,9 +12,9 @@ export const AzureResourceViewContainer: React.FC = () => {
     const activeAzureResource = useSelector(getActiveAzureResourceSelector);
     const dispatch = useDispatch();
 
-    const setActiveAzureResourceByHostName = (host: string) => {
+    const setActiveAzureResourceByHostName = (hostName: string) => {
         dispatch(setActiveAzureResourceByHostNameAction({
-            hostName: host
+            hostName
         }));
     };
 

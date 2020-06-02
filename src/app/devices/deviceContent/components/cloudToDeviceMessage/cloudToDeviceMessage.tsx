@@ -229,6 +229,12 @@ export const CloudToDeviceMessage: React.FC<CloudToDeviceMessageProps> = (props:
     };
 
     const renderItemColumn = () => (item: PropertyItem, index: number, column: IColumn) => {
+        const handleEditCustomPropertyKey = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
+            const items = [...properties];
+            items[index] = {...items[index], keyName: newValue};
+            setProperties(items);
+        };
+
         switch (column.key) {
             case 'key':
                 if (item.isSystemProperty) {
@@ -245,7 +251,7 @@ export const CloudToDeviceMessage: React.FC<CloudToDeviceMessageProps> = (props:
                             ariaLabel={t(ResourceKeys.cloudToDeviceMessage.properties.key)}
                             errorMessage={hasDuplicateKey(item.keyName) && t(ResourceKeys.cloudToDeviceMessage.properties.keyDup)}
                             value={item.keyName}
-                            onChange={handleEditCustomPropertyKey(item)}
+                            onChange={handleEditCustomPropertyKey}
                         />);
                 }
             case 'value':
@@ -256,6 +262,21 @@ export const CloudToDeviceMessage: React.FC<CloudToDeviceMessageProps> = (props:
     };
 
     const renderItemValueColumn = (item: PropertyItem, column: IColumn) => {
+        const index = findMatchingItemIndex(item);
+
+        const handleEditPropertyValue = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
+            const items = [...properties];
+            items[index] = {...items[index], value: newValue};
+            setProperties(items);
+        };
+
+        const handleEditExpiryTime = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
+            const items = properties;
+            items[index] = {...items[index], value: newValue};
+            setShowExpiryError(!parseInt(newValue) || moment.utc(parseInt(newValue)) <= moment.utc()); // tslint:disable-line:radix
+            setProperties(items);
+        };
+
         if (item.keyName === SystemProperties.ACK) {
             return renderAckDropdown(item);
         }
@@ -268,7 +289,7 @@ export const CloudToDeviceMessage: React.FC<CloudToDeviceMessageProps> = (props:
                     ariaLabel={t(ResourceKeys.cloudToDeviceMessage.properties.key)}
                     errorMessage={showExpiryError && t(ResourceKeys.cloudToDeviceMessage.properties.systemProperties.expiryTimeUtc.error)}
                     value={item.value}
-                    onChange={handleEditExpiryTime(item)}
+                    onChange={handleEditExpiryTime}
                 />);
         }
         else {
@@ -276,12 +297,20 @@ export const CloudToDeviceMessage: React.FC<CloudToDeviceMessageProps> = (props:
                 <TextField
                     ariaLabel={t(ResourceKeys.cloudToDeviceMessage.properties.value)}
                     value={item.value}
-                    onChange={handleEditPropertyValue(item)}
+                    onChange={handleEditPropertyValue}
                 />);
         }
     };
 
     const renderAckDropdown = ( property: PropertyItem) => {
+        const index = findMatchingItemIndex(property);
+
+        const onDropdownSelectedKeyChanged = (event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption): void => {
+            const items = properties;
+            items[index] = {...items[index], value: option.key.toString()};
+            setProperties(items);
+        };
+
         const options: IDropdownOption[] = [
             {
                 key: 'full',
@@ -300,11 +329,19 @@ export const CloudToDeviceMessage: React.FC<CloudToDeviceMessageProps> = (props:
         return (
             <Dropdown
                 options={options}
-                onChange={onDropdownSelectedKeyChanged(property)}
+                onChange={onDropdownSelectedKeyChanged}
             />);
     };
 
     const renderEncodingDropdown = (property: PropertyItem) => {
+        const index = findMatchingItemIndex(property);
+
+        const onDropdownSelectedKeyChanged = (event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption): void => {
+            const items = properties;
+            items[index] = {...items[index], value: option.key.toString()};
+            setProperties(items);
+        };
+
         const options: IDropdownOption[] = [
             {
                 key: 'utf-8',
@@ -322,15 +359,8 @@ export const CloudToDeviceMessage: React.FC<CloudToDeviceMessageProps> = (props:
         return (
             <Dropdown
                 options={options}
-                onChange={onDropdownSelectedKeyChanged(property)}
+                onChange={onDropdownSelectedKeyChanged}
             />);
-    };
-
-    const onDropdownSelectedKeyChanged = (property: PropertyItem) => (event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption): void => {
-        const items = properties;
-        const index = findMatchingItemIndex(property);
-        items[index] = {...items[index], value: option.key.toString()};
-        setProperties(items);
     };
 
     const onSelectionChanged = () => {
@@ -350,28 +380,6 @@ export const CloudToDeviceMessage: React.FC<CloudToDeviceMessageProps> = (props:
         setProperties(newProperties);
         setPropertyIndex(newIndex);
     };
-
-    const handleEditCustomPropertyKey = (property: PropertyItem) => ((event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
-        const items = properties;
-        const index = findMatchingItemIndex(property);
-        items[index] = {...items[index], keyName: newValue};
-        setProperties(items);
-    });
-
-    const handleEditPropertyValue = (property: PropertyItem) => ((event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
-        const items = properties;
-        const index = findMatchingItemIndex(property);
-        items[index] = {...items[index], value: newValue};
-        setProperties(items);
-    });
-
-    const handleEditExpiryTime = (property: PropertyItem) => ((event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
-        const items = properties;
-        const index = findMatchingItemIndex(property);
-        items[index] = {...items[index], value: newValue};
-        setShowExpiryError(!parseInt(newValue) || moment.utc(parseInt(newValue)) <= moment.utc()); // tslint:disable-line:radix
-        setProperties(items);
-    });
 
     const handleDelete = () => {
         const updatedProperties = [];

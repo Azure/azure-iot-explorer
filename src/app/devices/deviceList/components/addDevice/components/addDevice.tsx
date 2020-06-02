@@ -30,23 +30,6 @@ export interface AddDeviceDataProps {
     deviceListSyncStatus: SynchronizationStatus;
 }
 
-export interface AddDeviceState {
-    authenticationType: DeviceAuthenticationType;
-    autoGenerateKeys: boolean;
-    primaryKey: string;
-    secondaryKey: string;
-    primaryThumbprint: string;
-    secondaryThumbprint: string;
-    deviceId: string;
-    status: DeviceStatus;
-
-    deviceIdError?: string;
-    primaryKeyError?: string;
-    secondaryKeyError?: string;
-    primaryThumbprintError?: string;
-    secondaryThumbprintError?: string;
-}
-
 const initialKeyValue = {
     error: '',
     thumbprint: '',
