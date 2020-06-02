@@ -4,9 +4,9 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
+import { shallow } from 'enzyme';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
-import DeviceQueryClause from './deviceQueryClause';
-import { testWithLocalizationContext } from '../../../shared/utils/testHelpers';
+import { DeviceQueryClause } from './deviceQueryClause';
 import { ParameterType, OperationType } from '../../../api/models/deviceQuery';
 
 describe('components/devices/DeviceQueryClause', () => {
@@ -18,7 +18,7 @@ describe('components/devices/DeviceQueryClause', () => {
     };
 
     it('matches snapshot', () => {
-        const wrapper = testWithLocalizationContext(
+        const wrapper = shallow(
             <DeviceQueryClause
                 operation={OperationType.equals}
                 parameterType={ParameterType.status}
@@ -33,7 +33,7 @@ describe('components/devices/DeviceQueryClause', () => {
     });
 
     it('matches snapshot without operation', () => {
-        const wrapper = testWithLocalizationContext(
+        const wrapper = shallow(
             <DeviceQueryClause
                 parameterType={ParameterType.edge}
                 value="true"
@@ -48,7 +48,7 @@ describe('components/devices/DeviceQueryClause', () => {
 
     it('calls removeClause', () => {
         const removeClause = jest.fn();
-        const wrapper = testWithLocalizationContext(
+        const wrapper = shallow(
             <DeviceQueryClause
                 parameterType={ParameterType.edge}
                 value="enabled"

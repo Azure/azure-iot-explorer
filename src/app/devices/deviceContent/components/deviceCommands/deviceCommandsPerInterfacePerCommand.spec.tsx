@@ -3,11 +3,11 @@
  * Licensed under the MIT License
  **********************************************************/
 import 'jest';
+import { mount } from 'enzyme';
 import * as React from 'react';
 import { Label } from 'office-ui-fabric-react/lib/Label';
-import DeviceCommandsPerInterfacePerCommand, { DeviceCommandDataProps, DeviceCommandDispatchProps } from './deviceCommandsPerInterfacePerCommand';
-import { mountWithLocalization } from '../../../../shared/utils/testHelpers';
-import DataForm from '../shared/dataForm';
+import { DeviceCommandsPerInterfacePerCommand, DeviceCommandDataProps, DeviceCommandDispatchProps } from './deviceCommandsPerInterfacePerCommand';
+import { DataForm } from '../shared/dataForm';
 
 describe('components/devices/deviceCommandsPerInterfacePerCommand', () => {
     const deviceCommandsDispatchProps: DeviceCommandDispatchProps = {
@@ -35,7 +35,7 @@ describe('components/devices/deviceCommandsPerInterfacePerCommand', () => {
             ...overrides
         };
 
-        return mountWithLocalization(
+        return mount(
             <DeviceCommandsPerInterfacePerCommand {...props} />
         );
     };

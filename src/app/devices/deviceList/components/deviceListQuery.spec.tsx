@@ -4,11 +4,12 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
+import { act } from 'react-dom/test-utils';
+import { shallow, mount } from 'enzyme';
 import { ActionButton, IconButton, PrimaryButton } from 'office-ui-fabric-react/lib/Button';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
-import DeviceListQuery, { DeviceListQueryProps, DeviceListQueryState } from './deviceListQuery';
-import { testSnapshot, mountWithLocalization } from '../../../shared/utils/testHelpers';
-import DeviceQueryClause from './deviceQueryClause';
+import { DeviceListQuery, DeviceListQueryProps } from './deviceListQuery';
+import { DeviceQueryClause } from './deviceQueryClause';
 
 describe('components/devices/DeviceListQuery', () => {
     const mockSetQueryAndExecute = jest.fn();
@@ -31,29 +32,29 @@ describe('components/devices/DeviceListQuery', () => {
     };
 
     it('matches snapshot', () => {
-        testSnapshot(getComponent());
+        expect(shallow(getComponent())).toMatchSnapshot();
     });
 
     it('sets device id', () => {
-        const wrapper = mountWithLocalization(getComponent());
+        const wrapper = mount(getComponent());
         const textField = wrapper.find(TextField).first();
-        textField.instance().props.onChange({ target: null}, 'testDevice');
+        act(() => textField.instance().props.onChange({ target: null}, 'testDevice'));
         wrapper.update();
 
-        const deviceListQueryState = wrapper.state() as DeviceListQueryState;
-        expect(deviceListQueryState.deviceId).toEqual('testDevice');
+        expect(wrapper.find(TextField).props().value).toEqual('testDevice');
         wrapper.find(IconButton).first().props().onClick(null);
         expect(mockSetQueryAndExecute).toBeCalled();
     });
 
     it('adds query pills and execute query', () => {
-        const wrapper = mountWithLocalization(getComponent());
-        wrapper.find(ActionButton).first().props().onClick(null);
+        const wrapper = mount(getComponent());
+        act(() => wrapper.find(ActionButton).first().props().onClick(null));
         wrapper.update();
+
         expect(wrapper.find(DeviceQueryClause)).toHaveLength(1);
         expect(wrapper.find(PrimaryButton)).toBeDefined();
 
-        wrapper.find(PrimaryButton).first().props().onClick(null);
+        act(() => wrapper.find(PrimaryButton).first().props().onClick(null));
         expect(mockSetQueryAndExecute).toBeCalled();
     });
 });

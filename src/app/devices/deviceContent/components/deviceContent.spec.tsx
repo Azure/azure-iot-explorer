@@ -4,25 +4,18 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
+import { shallow } from 'enzyme';
 import { DeviceContentComponent, DeviceContentDispatchProps, DeviceContentDataProps } from './deviceContent';
-import { testSnapshot } from '../../../shared/utils/testHelpers';
+
+const pathname = '/#/devices/detail/?id=testDevice';
+jest.mock('react-router-dom', () => ({
+    useHistory: () => ({ push: jest.fn() }),
+    useLocation: () => ({ search: '?id=testDevice' }),
+    useRouteMatch: () => ({ url: pathname })
+}));
 
 describe('deviceContent', () => {
-
-    const pathname = `/#/devices/detail/?id=testDevice`;
-
-    const location: any = { // tslint:disable-line:no-any
-        pathname
-    };
-    const routerprops: any = { // tslint:disable-line:no-any
-        history: {
-            location
-        },
-        location,
-        match: {}
-    };
     const deviceContentDataProps: DeviceContentDataProps = {
-        deviceId: 'testDevice',
         digitalTwinModelId: 'dtmi:__azureiot:samplemodel;1',
         identityWrapper: null,
         isLoading: false,
@@ -38,7 +31,6 @@ describe('deviceContent', () => {
         const props = {
             ...deviceContentDataProps,
             ...deviceContentDispatchProps,
-            ...routerprops,
             ...overrides
         };
 
@@ -48,6 +40,6 @@ describe('deviceContent', () => {
     };
 
     it('matches snapshot', () => {
-        testSnapshot(getComponent());
+        expect(shallow(getComponent())).toMatchSnapshot();
     });
 });

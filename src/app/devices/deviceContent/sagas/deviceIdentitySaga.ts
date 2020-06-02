@@ -2,7 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { call, put, select } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
 import { fetchDevice, updateDevice } from '../../../api/services/devicesService';
 import { addNotificationAction } from '../../../notifications/actions';

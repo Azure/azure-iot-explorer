@@ -4,25 +4,13 @@
  **********************************************************/
 import * as React from 'react';
 import 'jest';
+import { shallow, mount } from 'enzyme';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
-import DeviceIdentity from './deviceIdentity';
-import { testSnapshot, mountWithLocalization } from '../../../../shared/utils/testHelpers';
+import { DeviceIdentityInformation } from './deviceIdentity';
 import { DeviceAuthenticationType } from '../../../../api/models/deviceAuthenticationType';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
-
-const pathname = `/`;
-
-const location: any = { // tslint:disable-line:no-any
-    pathname
-};
-const routerprops: any = { // tslint:disable-line:no-any
-    history: {
-        location
-    },
-    location,
-    match: {}
-};
+import { mountWithStoreAndRouter } from '../../../../shared/utils/testHelpers';
 
 const mockUpdateDevice = jest.fn();
 const dispatchProps = {
@@ -34,27 +22,26 @@ const getComponent = (overrides = {}) => {
     const activeAzureResourceHostName = 'test-string.azure-devices.net';
     const props = {
         activeAzureResourceHostName,
-        ...routerprops,
         ...overrides,
         ...dispatchProps
     };
-    return <DeviceIdentity {...props} />;
+    return <DeviceIdentityInformation {...props} />;
 };
 
 describe('devices/components/deviceIdentity', () => {
     context('snapshot', () => {
         it('matches snapshot', () => {
-            testSnapshot(getComponent());
+            expect(shallow(getComponent())).toMatchSnapshot();
         });
 
         it('matches snapshot with identity wrapper', () => {
-            testSnapshot(getComponent({
+            expect(shallow(getComponent({
                 identityWrapper: {}
-            }));
+            }))).toMatchSnapshot();
         });
 
         it('matches snapshot with auth type of None', () => {
-            testSnapshot(getComponent({
+            expect(shallow(getComponent({
                 identityWrapper: {
                     payload: {
                         authentication: {
@@ -63,11 +50,11 @@ describe('devices/components/deviceIdentity', () => {
                         deviceId: 'device1'
                     }
                 }
-            }));
+            }))).toMatchSnapshot();
         });
 
         it('matches snapshot with SymmetricKey auth type', () => {
-            testSnapshot(getComponent({
+            expect(shallow(getComponent({
                 identityWrapper: {
                     payload: {
                         authentication: {
@@ -79,11 +66,11 @@ describe('devices/components/deviceIdentity', () => {
                         deviceId: 'device1'
                     }
                 }
-            }));
+            }))).toMatchSnapshot();
         });
 
         it('matches snapshot with SelfSigned auth type', () => {
-            testSnapshot(getComponent({
+            expect(shallow(getComponent({
                 identityWrapper: {
                     payload: {
                         authentication: {
@@ -95,11 +82,11 @@ describe('devices/components/deviceIdentity', () => {
                         }
                     }
                 }
-            }));
+            }))).toMatchSnapshot();
         });
 
         it('matches snapshot with CA auth type', () => {
-            testSnapshot(getComponent({
+            expect(shallow(getComponent({
                 identityWrapper: {
                     payload: {
                         authentication: {
@@ -107,11 +94,11 @@ describe('devices/components/deviceIdentity', () => {
                         }
                     }
                 }
-            }));
+            }))).toMatchSnapshot();
         });
 
         it('matches snapshot with Synchronization Status of working', () => {
-            testSnapshot(getComponent({
+            expect(shallow(getComponent({
                 identityWrapper: {
                     payload: {
                         authentication: {
@@ -123,11 +110,11 @@ describe('devices/components/deviceIdentity', () => {
                     },
                     synchronizationStatus: SynchronizationStatus.working,
                 }
-            }));
+            }))).toMatchSnapshot();
         });
 
         it('matches snapshot with Synchronization Status of updating', () => {
-            testSnapshot(getComponent({
+            expect(shallow(getComponent({
                 identityWrapper: {
                     payload: {
                         authentication: {
@@ -139,11 +126,11 @@ describe('devices/components/deviceIdentity', () => {
                     },
                     synchronizationStatus: SynchronizationStatus.updating,
                 }
-            }));
+            }))).toMatchSnapshot();
         });
 
         it('calls save', () => {
-            const wrapper = mountWithLocalization(
+            const wrapper = mountWithStoreAndRouter(
                 getComponent({
                     identityWrapper: {
                         payload: {

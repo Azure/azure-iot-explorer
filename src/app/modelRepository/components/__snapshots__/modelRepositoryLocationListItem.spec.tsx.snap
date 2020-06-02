@@ -20,12 +20,12 @@ exports[`components/settings/modelRepositoryLocationListItem matches snapshot fo
       <div
         className="labelSection"
       >
-        <LabelWithRichCallout
+        <Memo()
           calloutContent="modelRepository.types.local.infoText"
           required={true}
         >
           modelRepository.types.local.label
-        </LabelWithRichCallout>
+        </Memo()>
       </div>
       <StyledTextFieldBase
         ariaLabel="modelRepository.types.local.textBoxLabel"
@@ -126,12 +126,12 @@ exports[`components/settings/modelRepositoryLocationListItem matches snapshot fo
       <div
         className="labelSection"
       >
-        <LabelWithRichCallout
+        <Memo()
           calloutContent="modelRepository.types.local.infoText"
           required={true}
         >
           modelRepository.types.local.label
-        </LabelWithRichCallout>
+        </Memo()>
       </div>
       <StyledTextFieldBase
         ariaLabel="modelRepository.types.local.textBoxLabel"

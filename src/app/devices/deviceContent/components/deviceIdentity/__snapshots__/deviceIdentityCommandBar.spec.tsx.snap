@@ -12,7 +12,7 @@ exports[`devices/components/deviceIdentityCommandBar snapshot matches snapshot 1
         },
         "key": "Save",
         "name": "deviceIdentity.commands.save",
-        "onClick": undefined,
+        "onClick": [MockFunction],
       },
       Object {
         "ariaLabel": "deviceIdentity.commands.manageKeys.ariaLabel",
@@ -74,7 +74,7 @@ exports[`devices/components/deviceIdentityCommandBar snapshot matches snapshot w
         },
         "key": "Save",
         "name": "deviceIdentity.commands.save",
-        "onClick": undefined,
+        "onClick": [MockFunction],
       },
       Object {
         "ariaLabel": "deviceIdentity.commands.manageKeys.ariaLabel",

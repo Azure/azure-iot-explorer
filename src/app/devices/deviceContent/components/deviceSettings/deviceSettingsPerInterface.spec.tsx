@@ -4,11 +4,13 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
+import { act } from 'react-dom/test-utils';
+import { shallow, mount } from 'enzyme';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import { Overlay } from 'office-ui-fabric-react/lib/Overlay';
-import DeviceSettingsPerInterface, { DeviceSettingDataProps, DeviceSettingDispatchProps, DeviceSettingState } from './deviceSettingsPerInterface';
-import { mountWithLocalization, testSnapshot } from '../../../../shared/utils/testHelpers';
+import { DeviceSettingsPerInterface, DeviceSettingDataProps, DeviceSettingDispatchProps } from './deviceSettingsPerInterface';
 import { twinWithSchema } from './deviceSettings.spec';
+import { DeviceSettingsPerInterfacePerSetting } from './deviceSettingsPerInterfacePerSetting';
 
 describe('components/devices/deviceSettingsPerInterface', () => {
 
@@ -34,34 +36,35 @@ describe('components/devices/deviceSettingsPerInterface', () => {
     };
 
     it('matches snapshot', () => {
-        testSnapshot(getComponent());
+        expect(shallow(getComponent())).toMatchSnapshot();
     });
 
     it('toggles collapsed', () => {
-        const wrapper = mountWithLocalization(getComponent());
-        expect((wrapper.state() as DeviceSettingState).allCollapsed).toBeFalsy();
-        const button = wrapper.find(IconButton).at(1);
-        button.simulate('click');
+        const wrapper = mount(getComponent());
+        const iconButton = wrapper.find('.collapse-button').find(IconButton).first();
+        expect(iconButton.props().title).toEqual('deviceSettings.command.collapseAll');
+
+        act(() => iconButton.props().onClick(undefined));
         wrapper.update();
-        expect((wrapper.state() as DeviceSettingState).allCollapsed).toBeTruthy();
+        const updatedIconButton = wrapper.find('.collapse-button').find(IconButton).first();
+        expect(updatedIconButton.props().title).toEqual('deviceSettings.command.expandAll');
     });
 
     it('executes handle toggle from child', () => {
-        const wrapper = mountWithLocalization(getComponent());
-        let collapsed = (wrapper.state() as DeviceSettingState).collapseMap.get(0);
-        expect(collapsed).toBeFalsy();
-        // tslint:disable-next-line:no-magic-numbers
-        const button = wrapper.find(IconButton).at(2);
-        button.simulate('click');
+        const wrapper = mount(getComponent());
+
+        expect(wrapper.find(DeviceSettingsPerInterfacePerSetting).first().props().collapsed).toBeFalsy();
+
+        act(() => wrapper.find(DeviceSettingsPerInterfacePerSetting).first().props().handleCollapseToggle());
         wrapper.update();
-        collapsed = (wrapper.state() as DeviceSettingState).collapseMap.get(0);
-        expect(collapsed).toBeTruthy();
+        expect(wrapper.find(DeviceSettingsPerInterfacePerSetting).first().props().collapsed).toBeTruthy();
     });
 
     it('shows overlay', () => {
-        const wrapper = mountWithLocalization(getComponent());
-        expect((wrapper.state() as DeviceSettingState).showOverlay).toBeFalsy();
-        wrapper.setState({showOverlay: true});
+        const wrapper = mount(getComponent());
+        expect(wrapper.find(Overlay)).toEqual({});
+
+        act(() => wrapper.find(DeviceSettingsPerInterfacePerSetting).first().props().handleOverlayToggle());
         wrapper.update();
         expect(wrapper.find(Overlay)).toBeDefined();
     });

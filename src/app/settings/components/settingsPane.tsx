@@ -23,7 +23,7 @@ const SettingsPane: React.FC = () => {
     React.useEffect(() => {
         const theme = localStorage.getItem(THEME_SELECTION);
         setDarkTheme(theme === Theme.dark || theme === Theme.highContrastBlack);
-    }, []); // tslint:disable-line: align
+    },              []);
 
     const togglePanelVisibility = () => {
         setShowPanel(!showPanel);

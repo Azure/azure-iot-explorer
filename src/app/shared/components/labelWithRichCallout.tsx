@@ -20,57 +20,42 @@ export interface LabelWithRichCalloutState{
     showCallout: boolean;
 }
 
-export default class LabelWithRichCallout extends React.PureComponent<LabelWithRichCalloutProps, LabelWithRichCalloutState> {
-    constructor(props: LabelWithRichCalloutProps) {
-        super(props);
-        this.state = {
-            showCallout: false
-        };
-    }
-    private readonly setVisibility = () => {
-        this.setState({
-            showCallout: true
-        });
-    }
-    private readonly dismissCallout = () => {
-        this.setState({
-            showCallout: false
-        });
-    }
+export const LabelWithRichCallout: React.FC<LabelWithRichCalloutProps> = React.memo((props: LabelWithRichCalloutProps) => {
+    const { calloutContent, directionalHint, style } = props;
+    const [ showCallout, setShowCallout ] = React.useState<boolean>(false);
 
-    public render(): JSX.Element {
-        const { calloutContent, style } = this.props;
+    const setVisibility = () => setShowCallout(true);
+    const dismissCallout = () => setShowCallout(false);
+    const buttonId = getId('iconbutton');
 
-        const buttonId = getId('iconbutton');
-        return (
-            <div
-                style={style}
-                className="labelWithTooltip"
-            >
-                <Label
-                    {...this.props}
-                />
-                {calloutContent &&
-                    <>
-                        <IconButton
-                            iconProps={{ iconName: INFO }}
-                            id={buttonId}
-                            onClick={this.setVisibility}
-                        />
-                        <Callout
-                            role="alertdialog"
-                            gapSpace={0}
-                            target={`#${buttonId}`}
-                            setInitialFocus={true}
-                            directionalHint={this.props.directionalHint || DirectionalHint.rightCenter}
-                            hidden={!this.state.showCallout}
-                            onDismiss={this.dismissCallout}
-                        >
-                            {calloutContent}
-                        </Callout>
-                    </>
-                }
-            </div>
-        );
-    }
-}
+    return (
+        <div
+            style={style}
+            className="labelWithTooltip"
+        >
+            <Label
+                {...props}
+            />
+            {calloutContent &&
+                <>
+                    <IconButton
+                        iconProps={{ iconName: INFO }}
+                        id={buttonId}
+                        onClick={setVisibility}
+                    />
+                    { showCallout && <Callout
+                        role="alertdialog"
+                        gapSpace={0}
+                        target={`#${buttonId}`}
+                        setInitialFocus={true}
+                        directionalHint={directionalHint || DirectionalHint.rightCenter}
+                        hidden={!showCallout}
+                        onDismiss={dismissCallout}
+                    >
+                        {calloutContent}
+                    </Callout>}
+                </>
+            }
+        </div>
+    );
+});

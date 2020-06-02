@@ -8,7 +8,7 @@ import * as ReactDOM from 'react-dom';
 import { I18nextProvider } from 'react-i18next';
 import { Provider } from 'react-redux';
 import { initializeIcons } from 'office-ui-fabric-react/lib/Icons';
-import Themer from './themer';
+import { Themer } from './themer';
 import resources from './localization/resources';
 import configureStore from './app/shared/redux/store/configureStore';
 import Localizer from './app/shared/components/localizer';
@@ -33,7 +33,7 @@ const i18n = i18next.init({
 const store = configureStore();
 
 const ViewHolder =  () => (
-    <I18nextProvider i18n={i18next}>
+    <I18nextProvider i18n={i18n}>
         <Provider store={store}>
             <Themer>
                 <Localizer>

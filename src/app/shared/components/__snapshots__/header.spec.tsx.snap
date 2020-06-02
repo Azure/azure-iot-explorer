@@ -1,7 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Header matches snapshot 1`] = `
-<ContextConsumer>
-  <Component />
-</ContextConsumer>
+<header
+  className="header"
+>
+  <div
+    className="title"
+  >
+    header.applicationName
+  </div>
+  <div>
+    <Connect(Component) />
+  </div>
+  <div>
+    <SettingsPane />
+  </div>
+</header>
 `;

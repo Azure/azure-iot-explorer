@@ -4,8 +4,12 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import DirectMethod, { DirectMethodProps } from './directMethod';
-import { testSnapshot } from '../../../../shared/utils/testHelpers';
+import { shallow } from 'enzyme';
+import { DirectMethod, DirectMethodProps } from './directMethod';
+
+jest.mock('react-router-dom', () => ({
+    useLocation: () => ({ search: '?deviceId=test' })
+}));
 
 describe('directMethod', () => {
     const mockInvokeMethodClick = jest.fn();
@@ -13,18 +17,9 @@ describe('directMethod', () => {
         onInvokeMethodClick: mockInvokeMethodClick
     };
 
-    const routerprops: any = { // tslint:disable-line:no-any
-        history: {
-            location
-        },
-        location,
-        match: {}
-    };
-
     const getComponent = (overrides = {}) => {
         const props = {
             ...directMethodProps,
-            ...routerprops,
             ...overrides
         };
 
@@ -32,6 +27,6 @@ describe('directMethod', () => {
     };
 
     it('matches snapshot', () => {
-        testSnapshot(getComponent());
+        expect(shallow(getComponent())).toMatchSnapshot();
     });
 });

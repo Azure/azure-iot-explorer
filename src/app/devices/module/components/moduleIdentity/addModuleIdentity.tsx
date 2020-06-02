@@ -3,11 +3,11 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/ChoiceGroup';
 import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
-import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
+import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { CANCEL, SAVE } from '../../../../constants/iconNames';
@@ -44,321 +44,312 @@ export interface AddModuleIdentityState {
     secondaryThumbprintError?: string;
 }
 
-export default class AddModuleIdentityComponent
-    extends React.Component<AddModuleIdentityDataProps & AddModuleIdentityDispatchProps & RouteComponentProps, AddModuleIdentityState> {
+const initialKeyValue = {
+    error: '',
+    thumbprint: '',
+    thumbprintError: '',
+    value: ''
+};
 
-    constructor(props: AddModuleIdentityDataProps & AddModuleIdentityDispatchProps & RouteComponentProps) {
-        super(props);
+export const AddModuleIdentityComponent: React.FC<AddModuleIdentityDataProps & AddModuleIdentityDispatchProps> = (props: AddModuleIdentityDataProps & AddModuleIdentityDispatchProps) => {
+    const { t } = useLocalizationContext();
+    const { search, pathname } = useLocation();
+    const history = useHistory();
+    const deviceId = getDeviceIdFromQueryString(search);
 
-        this.state = {
-            authenticationType: DeviceAuthenticationType.SymmetricKey,
-            autoGenerateKeys: true,
-            moduleId: '',
-            primaryKey: '',
-            primaryThumbprint: '',
-            secondaryKey: '',
-            secondaryThumbprint: ''
-        };
-    }
-    public render(): JSX.Element {
-        return (
-            <LocalizationContextConsumer>
-                {(context: LocalizationContextInterface) => (
-                    <>
-                        {this.showCommandBar(context)}
-                        <HeaderView
-                            headerText={ResourceKeys.moduleIdentity.headerText}
-                        />
-                        <div className="device-detail">
-                            {this.showModuleId(context)}
-                            {this.showAuthentication(context)}
-                        </div>
-                    </>
-            )}
-            </LocalizationContextConsumer>
-        );
-    }
+    const { synchronizationStatus , addModuleIdentity } = props;
+    const [ authenticationType, setAuthenticationType ] = React.useState(DeviceAuthenticationType.SymmetricKey);
+    const [ autoGenerateKeys, setautoGenerateKeys ] = React.useState<boolean>(true);
+    const [ module, setModule ] = React.useState<{ id: string, error: string }>({ id: '', error: ''});
+    const [ primaryKey, setPrimaryKey ] = React.useState(initialKeyValue);
+    const [ secondaryKey, setSecondaryKey ] = React.useState(initialKeyValue);
 
-    public componentDidUpdate() {
-        if (this.props.synchronizationStatus === SynchronizationStatus.upserted) { // only when module identity has been added successfully would navigate to module list view
-            this.navigateToModuleList();
+    React.useEffect(() => {
+        if (synchronizationStatus === SynchronizationStatus.upserted) { // only when module identity has been added successfully would navigate to module list view
+            navigateToModuleList();
         }
-    }
+    },              [synchronizationStatus]);
 
-    private readonly showCommandBar = (context: LocalizationContextInterface) => {
+    const showCommandBar = () => {
         return (
             <CommandBar
                 className="command"
                 items={[
                     {
-                        ariaLabel: context.t(ResourceKeys.moduleIdentity.command.save),
-                        disabled: this.disableSaveButton(),
+                        ariaLabel: t(ResourceKeys.moduleIdentity.command.save),
+                        disabled: disableSaveButton(),
                         iconProps: {iconName: SAVE},
                         key: SAVE,
-                        name: context.t(ResourceKeys.moduleIdentity.command.save),
-                        onClick: this.handleSave
+                        name: t(ResourceKeys.moduleIdentity.command.save),
+                        onClick: handleSave
                     },
                     {
-                        ariaLabel: context.t(ResourceKeys.moduleIdentity.command.cancel),
+                        ariaLabel: t(ResourceKeys.moduleIdentity.command.cancel),
                         iconProps: {iconName: CANCEL},
                         key: CANCEL,
-                        name: context.t(ResourceKeys.moduleIdentity.command.cancel),
-                        onClick: this.navigateToModuleList
+                        name: t(ResourceKeys.moduleIdentity.command.cancel),
+                        onClick: navigateToModuleList
                     }
                 ]}
             />
         );
-    }
+    };
 
-    private readonly showModuleId = (context: LocalizationContextInterface) => {
+    const showModuleId = () => {
         return (
             <MaskedCopyableTextFieldContainer
-                ariaLabel={context.t(ResourceKeys.moduleIdentity.moduleId)}
-                label={context.t(ResourceKeys.moduleIdentity.moduleId)}
-                value={this.state.moduleId}
+                ariaLabel={t(ResourceKeys.moduleIdentity.moduleId)}
+                label={t(ResourceKeys.moduleIdentity.moduleId)}
+                value={module.id}
                 required={true}
-                onTextChange={this.changeModuleIdentityName}
+                onTextChange={changeModuleIdentityName}
                 allowMask={false}
                 readOnly={false}
-                error={!!this.state.moduleIdError ? context.t(this.state.moduleIdError) : ''}
-                labelCallout={context.t(ResourceKeys.moduleIdentity.moduleIdTooltip)}
+                error={!!module.error ? t(module.error) : ''}
+                labelCallout={t(ResourceKeys.moduleIdentity.moduleIdTooltip)}
                 setFocus={true}
             />
         );
-    }
+    };
 
-    private readonly getAuthType = (context: LocalizationContextInterface) => {
+    const getAuthType = () => {
         return (
             <ChoiceGroup
-                label={context.t(ResourceKeys.moduleIdentity.authenticationType.text)}
-                selectedKey={this.state.authenticationType}
-                onChange={this.changeAuthenticationType}
+                label={t(ResourceKeys.moduleIdentity.authenticationType.text)}
+                selectedKey={authenticationType}
+                onChange={changeAuthenticationType}
                 options={
                     [
                         {
                             key: DeviceAuthenticationType.SymmetricKey,
-                            text: context.t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.type)
+                            text: t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.type)
                         },
                         {
                             key: DeviceAuthenticationType.SelfSigned,
-                            text: context.t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.type)
+                            text: t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.type)
                         },
                         {
                             key: DeviceAuthenticationType.CACertificate,
-                            text: context.t(ResourceKeys.moduleIdentity.authenticationType.ca.type)
+                            text: t(ResourceKeys.moduleIdentity.authenticationType.ca.type)
                         }
                     ]
                 }
                 required={true}
             />
         );
-    }
+    };
 
-    private readonly renderSymmetricKeySection = (context: LocalizationContextInterface) => {
+    const renderSymmetricKeySection = () => {
         return (
             <>
                 <MaskedCopyableTextFieldContainer
-                    ariaLabel={context.t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.primaryKey)}
-                    label={context.t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.primaryKey)}
-                    value={this.state.primaryKey}
+                    ariaLabel={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.primaryKey)}
+                    label={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.primaryKey)}
+                    value={primaryKey.value}
                     required={true}
-                    onTextChange={this.changePrimaryKey}
+                    onTextChange={changePrimaryKey}
                     allowMask={true}
                     readOnly={false}
-                    error={!!this.state.primaryKeyError ? context.t(this.state.primaryKeyError) : ''}
-                    labelCallout={context.t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.primaryKeyTooltip)}
+                    error={!!primaryKey.error ? t(primaryKey.error) : ''}
+                    labelCallout={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.primaryKeyTooltip)}
                 />
                 <MaskedCopyableTextFieldContainer
-                    ariaLabel={context.t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryKey)}
-                    label={context.t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryKey)}
-                    value={this.state.secondaryKey}
+                    ariaLabel={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryKey)}
+                    label={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryKey)}
+                    value={secondaryKey.value}
                     required={true}
-                    onTextChange={this.changeSecondaryKey}
+                    onTextChange={changeSecondaryKey}
                     allowMask={true}
                     readOnly={false}
-                    error={!!this.state.secondaryKeyError ? context.t(this.state.secondaryKeyError) : ''}
-                    labelCallout={context.t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryKeyTooltip)}
+                    error={!!secondaryKey.error ? t(secondaryKey.error) : ''}
+                    labelCallout={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryKeyTooltip)}
                 />
             </>
         );
-    }
+    };
 
-    private readonly renderSelfSignedSection = (context: LocalizationContextInterface) => {
+    const renderSelfSignedSection = () => {
         return (
             <>
                 <MaskedCopyableTextFieldContainer
-                    ariaLabel={context.t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.primaryThumbprint)}
-                    label={context.t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.primaryThumbprint)}
-                    value={this.state.primaryThumbprint}
+                    ariaLabel={t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.primaryThumbprint)}
+                    label={t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.primaryThumbprint)}
+                    value={primaryKey.thumbprint}
                     required={true}
-                    onTextChange={this.changePrimaryThumbprint}
+                    onTextChange={changePrimaryThumbprint}
                     allowMask={true}
                     readOnly={false}
-                    error={!!this.state.primaryThumbprintError ? context.t(this.state.primaryThumbprintError) : ''}
-                    labelCallout={context.t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.primaryThumbprintTooltip)}
+                    error={!!primaryKey.thumbprintError ? t(primaryKey.thumbprintError) : ''}
+                    labelCallout={t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.primaryThumbprintTooltip)}
                 />
                 <MaskedCopyableTextFieldContainer
-                    ariaLabel={context.t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.secondaryThumbprint)}
-                    label={context.t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.secondaryThumbprint)}
-                    value={this.state.secondaryThumbprint}
+                    ariaLabel={t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.secondaryThumbprint)}
+                    label={t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.secondaryThumbprint)}
+                    value={secondaryKey.thumbprint}
                     required={true}
-                    onTextChange={this.changeSecondaryThumbprint}
+                    onTextChange={changeSecondaryThumbprint}
                     allowMask={true}
                     readOnly={false}
-                    error={!!this.state.secondaryThumbprintError ? context.t(this.state.secondaryThumbprintError) : ''}
-                    labelCallout={context.t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip)}
+                    error={!!secondaryKey.thumbprintError ? t(secondaryKey.thumbprintError) : ''}
+                    labelCallout={t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip)}
                 />
             </>
         );
-    }
+    };
 
-    private readonly showAuthentication = (context: LocalizationContextInterface) => {
+    const showAuthentication = () => {
         return (
             <div className="authentication">
-                {this.getAuthType(context)}
-                {this.state.authenticationType === DeviceAuthenticationType.SymmetricKey &&
+                {getAuthType()}
+                {authenticationType === DeviceAuthenticationType.SymmetricKey &&
                     <>
                         <Checkbox
                             className="autoGenerateButton"
-                            label={context.t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.autoGenerate)}
-                            checked={this.state.autoGenerateKeys}
-                            onChange={this.changeAutoGenerateKeys}
+                            label={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.autoGenerate)}
+                            checked={autoGenerateKeys}
+                            onChange={changeAutoGenerateKeys}
                         />
-                        {!this.state.autoGenerateKeys &&
-                            this.renderSymmetricKeySection(context)
+                        {!autoGenerateKeys &&
+                            renderSymmetricKeySection()
                         }
                     </>
                 }
-                {this.state.authenticationType === DeviceAuthenticationType.SelfSigned &&
-                   this.renderSelfSignedSection(context)
+                {authenticationType === DeviceAuthenticationType.SelfSigned &&
+                   renderSelfSignedSection()
                 }
             </div>
         );
-    }
+    };
 
-    private readonly handleSave = () => {
-        this.props.addModuleIdentity({
+    const handleSave = () => {
+        addModuleIdentity({
             authentication: {
-                symmetricKey: this.state.authenticationType === DeviceAuthenticationType.SymmetricKey ? {
-                    primaryKey: this.state.autoGenerateKeys ? null : this.state.primaryKey,
-                    secondaryKey: this.state.autoGenerateKeys ? null : this.state.secondaryKey
+                symmetricKey: authenticationType === DeviceAuthenticationType.SymmetricKey ? {
+                    primaryKey: autoGenerateKeys ? null : primaryKey.value,
+                    secondaryKey: autoGenerateKeys ? null : secondaryKey.value
                 } : null,
-                type: this.state.authenticationType.toString(),
-                x509Thumbprint: this.state.authenticationType === DeviceAuthenticationType.SelfSigned ? {
-                    primaryThumbprint: this.state.primaryThumbprint,
-                    secondaryThumbprint: this.state.secondaryThumbprint
+                type: authenticationType.toString(),
+                x509Thumbprint: authenticationType === DeviceAuthenticationType.SelfSigned ? {
+                    primaryThumbprint: primaryKey.thumbprint,
+                    secondaryThumbprint: secondaryKey.thumbprint
                 } : null,
             },
-            deviceId: getDeviceIdFromQueryString(this.props),
-            moduleId: this.state.moduleId
+            deviceId,
+            moduleId: module.id
         });
-    }
+    };
 
-    private readonly navigateToModuleList = () => {
-        const path = this.props.match.url.replace(/\/add\/.*/, ``);
-        const deviceId = getDeviceIdFromQueryString(this.props);
-        this.props.history.push(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
-    }
+    const navigateToModuleList = () => {
+        const path = pathname.replace(/\/add\/.*/, ``);
+        history.push(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
+    };
 
-    private readonly disableSaveButton = () => {
-        if (!this.state.moduleId || !validateModuleIdentityName(this.state.moduleId)) { return true; }
-        if (this.state.authenticationType === DeviceAuthenticationType.SymmetricKey) {
-            return !this.isSymmetricKeyValid();
+    const disableSaveButton = () => {
+        if (!module.id || !validateModuleIdentityName(module.id)) { return true; }
+        if (authenticationType === DeviceAuthenticationType.SymmetricKey) {
+            return !isSymmetricKeyValid();
         }
-        if (this.state.authenticationType === DeviceAuthenticationType.SelfSigned) {
-            return !this.isSelfSignedThumbprintValid();
+        if (authenticationType === DeviceAuthenticationType.SelfSigned) {
+            return !isSelfSignedThumbprintValid();
         }
         return false;
-    }
+    };
 
-    private readonly isSymmetricKeyValid = () => {
-        if (!this.state.autoGenerateKeys) {
-            return this.state.primaryKey &&
-                this.state.secondaryKey &&
-                validateKey(this.state.primaryKey) &&
-                validateKey(this.state.secondaryKey);
+    const isSymmetricKeyValid = () => {
+        if (!autoGenerateKeys) {
+            return primaryKey.value &&
+                secondaryKey.value &&
+                validateKey(primaryKey.value) &&
+                validateKey(secondaryKey.value);
         }
         return true;
-    }
+    };
 
-    private readonly isSelfSignedThumbprintValid = () => {
-        return this.state.primaryThumbprint &&
-            this.state.secondaryThumbprint &&
-            validateThumbprint(this.state.primaryThumbprint) &&
-            validateThumbprint(this.state.secondaryThumbprint);
-    }
+    const isSelfSignedThumbprintValid = () => {
+        return primaryKey.thumbprint &&
+            secondaryKey.thumbprint &&
+            validateThumbprint(primaryKey.thumbprint) &&
+            validateThumbprint(secondaryKey.thumbprint);
+    };
 
-    private readonly changeModuleIdentityName = (newValue?: string) => {
-        const moduleIdError = this.getModuleIdentityNameValidationMessage(newValue);
-        this.setState({
-            moduleId: newValue,
-            moduleIdError
+    const changeModuleIdentityName = (newValue?: string) => {
+        const moduleIdError = getModuleIdentityNameValidationMessage(newValue);
+        setModule({
+            error: moduleIdError,
+            id: newValue
         });
-    }
+    };
 
-    private readonly changeAuthenticationType = (ev?: React.FormEvent<HTMLElement | HTMLInputElement>, option?: IChoiceGroupOption) => {
-        this.setState({
-            authenticationType: option.key as DeviceAuthenticationType
-        });
-    }
+    const changeAuthenticationType = (ev?: React.FormEvent<HTMLElement | HTMLInputElement>, option?: IChoiceGroupOption) => {
+        setAuthenticationType(option.key as DeviceAuthenticationType);
+    };
 
-    private readonly changeAutoGenerateKeys = (ev?: React.FormEvent<HTMLElement | HTMLInputElement>, checked?: boolean) => {
-        this.setState(
-            {
-                autoGenerateKeys: checked
-            }
-        );
+    const changeAutoGenerateKeys = (ev?: React.FormEvent<HTMLElement | HTMLInputElement>, checked?: boolean) => {
+        setautoGenerateKeys(checked);
         if (checked) {
-            this.setState(
-                {
-                    primaryKey: undefined,
-                    secondaryKey: undefined
-                }
-            );
+            setPrimaryKey(initialKeyValue);
+            setSecondaryKey(initialKeyValue);
         }
-    }
+    };
 
-    private readonly changePrimaryKey = (newValue?: string) => {
-        const primaryKeyError = this.getSymmetricKeyValidationMessage(newValue);
-        this.setState({
-            primaryKey: newValue,
-            primaryKeyError
+    const changePrimaryKey = (newValue?: string) => {
+        const primaryKeyError = getSymmetricKeyValidationMessage(newValue);
+        setPrimaryKey({
+            ...primaryKey,
+            error: primaryKeyError,
+            value: newValue
         });
-    }
+    };
 
-    private readonly changeSecondaryKey = (newValue?: string) => {
-        const secondaryKeyError = this.getSymmetricKeyValidationMessage(newValue);
-        this.setState({
-            secondaryKey: newValue,
-            secondaryKeyError
+    const changeSecondaryKey = (newValue?: string) => {
+        const secondaryKeyError = getSymmetricKeyValidationMessage(newValue);
+        setSecondaryKey({
+            ...secondaryKey,
+            error: secondaryKeyError,
+            value: newValue
         });
-    }
+    };
 
-    private readonly changePrimaryThumbprint = (newValue?: string) => {
-        const primaryThumbprintError = this.getThumbprintValidationMessage(newValue);
-        this.setState({
-            primaryThumbprint: newValue,
-            primaryThumbprintError
+    const changePrimaryThumbprint = (newValue?: string) => {
+        const primaryThumbprintError = getThumbprintValidationMessage(newValue);
+        setPrimaryKey({
+            ...primaryKey,
+            thumbprint: newValue,
+            thumbprintError: primaryThumbprintError
         });
-    }
+    };
 
-    private readonly changeSecondaryThumbprint = (newValue?: string) => {
-        const secondaryThumbprintError = this.getThumbprintValidationMessage(newValue);
-        this.setState({
-            secondaryThumbprint: newValue,
-            secondaryThumbprintError
+    const changeSecondaryThumbprint = (newValue?: string) => {
+        const secondaryThumbprintError = getThumbprintValidationMessage(newValue);
+        setSecondaryKey({
+            ...secondaryKey,
+            thumbprint: newValue,
+            thumbprintError: secondaryThumbprintError
         });
-    }
+    };
 
-    private getThumbprintValidationMessage = (value: string) => {
+    const getThumbprintValidationMessage = (value: string) => {
         return validateThumbprint(value) ? '' : ResourceKeys.moduleIdentity.validation.invalidThumbprint;
-    }
+    };
 
-    private getModuleIdentityNameValidationMessage = (value: string) => {
+    const getModuleIdentityNameValidationMessage = (value: string) => {
         return validateModuleIdentityName(value) ? '' : ResourceKeys.moduleIdentity.validation.invalidModuleIdentityName;
-    }
+    };
 
-    private getSymmetricKeyValidationMessage = (value: string): string => {
-        return this.state.autoGenerateKeys ? '' : validateKey(value) ? '' : ResourceKeys.moduleIdentity.validation.invalidKey;
-    }
-}
+    const getSymmetricKeyValidationMessage = (value: string): string => {
+        return autoGenerateKeys ? '' : validateKey(value) ? '' : ResourceKeys.moduleIdentity.validation.invalidKey;
+    };
+
+    return (
+        <>
+            {showCommandBar()}
+            <HeaderView
+                headerText={ResourceKeys.moduleIdentity.headerText}
+            />
+            <div className="device-detail">
+                {showModuleId()}
+                {showAuthentication()}
+            </div>
+        </>
+    );
+};

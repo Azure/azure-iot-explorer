@@ -3,17 +3,17 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 import { Twin } from '../../../../api/models/device';
-import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
+import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { UpdateTwinActionParameters } from '../../actions';
 import { REFRESH, SAVE } from '../../../../constants/iconNames';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
-import { ThemeContextConsumer, ThemeContextInterface } from '../../../../shared/contexts/themeContext';
+import { useThemeContext } from '../../../../shared/contexts/themeContext';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
 import { HeaderView } from '../../../../shared/components/headerView';
 import '../../../../css/_deviceTwin.scss';
@@ -38,139 +38,121 @@ export interface DeviceTwinState {
     needsRefresh: boolean;
 }
 
-export default class DeviceTwin
-    extends React.Component<DeviceTwinDataProps & DeviceTwinDispatchProps & RouteComponentProps, DeviceTwinState> {
-    constructor(props: DeviceTwinDataProps & DeviceTwinDispatchProps & RouteComponentProps) {
-        super(props);
+export const DeviceTwin: React.FC<DeviceTwinDataProps & DeviceTwinDispatchProps> = (props: DeviceTwinDataProps & DeviceTwinDispatchProps) => {
+    const { t } = useLocalizationContext();
+    const { monacoTheme } = useThemeContext();
+    const { search } = useLocation();
 
-        this.state = {
-            isDirty: false,
-            isTwinValid: true,
-            needsRefresh: false,
-            twin: JSON.stringify(this.props.twin, null, '\t')
-        };
-    }
+    const { getDeviceTwin, updateDeviceTwin, twin, twinState } = props;
+    const deviceId = getDeviceIdFromQueryString(search);
+    const [ state, setState ] = React.useState({
+        isDirty: false,
+        isTwinValid: true,
+        needsRefresh: false,
+        twin: JSON.stringify(twin, null, '\t')
+    });
 
-    public render(): JSX.Element {
-        return (
-            <LocalizationContextConsumer>
-                {(context: LocalizationContextInterface) => (
-                    <>
-                        {this.showCommandBar(context)}
-                        <HeaderView
-                            headerText={ResourceKeys.deviceTwin.headerText}
-                            tooltip={ResourceKeys.deviceTwin.tooltip}
-                        />
-                        {this.renderTwinViewer()}
-                    </>
-            )}
-            </LocalizationContextConsumer>
-        );
-    }
-
-    public componentDidMount() {
-        this.props.getDeviceTwin(getDeviceIdFromQueryString(this.props));
-    }
+    React.useEffect(() => {
+        getDeviceTwin(deviceId);
+    },              []);
 
     // tslint:disable-next-line:cyclomatic-complexity
-    public static getDerivedStateFromProps(props: DeviceTwinDataProps & DeviceTwinDispatchProps & RouteComponentProps, state: DeviceTwinState): Partial<DeviceTwinState> | null
-    {
-        if (props.twin && props.twinState !== SynchronizationStatus.working && props.twinState !== SynchronizationStatus.updating) {
+    React.useEffect(() => {
+        if (twin && twinState !== SynchronizationStatus.working && props.twinState !== SynchronizationStatus.updating) {
             if (!state.isDirty) {
-                if (state.needsRefresh && props.twinState === SynchronizationStatus.upserted) {
-                    return {
+                if (state.needsRefresh && twinState === SynchronizationStatus.upserted) {
+                    setState ({
+                        ...state,
                         needsRefresh: false,
                         twin: JSON.stringify(props.twin, null, '\t')
-                    };
+                    });
                 }
                 else {
-                    return {
+                    setState({
+                        ...state,
                         twin: JSON.stringify(props.twin, null, '\t')
-                    };
+                    });
                 }
             }
         }
-        return null;
-    }
 
-    private readonly showCommandBar = (context: LocalizationContextInterface) => {
+    },              [state.isDirty, state.needsRefresh, twinState]) ;
+
+    const showCommandBar = () => {
         return (
             <CommandBar
                 className="command"
                 items={[
                     {
-                        ariaLabel: context.t(ResourceKeys.deviceTwin.command.refresh),
+                        ariaLabel: t(ResourceKeys.deviceTwin.command.refresh),
                         iconProps: {iconName: REFRESH},
                         key: REFRESH,
-                        name: context.t(ResourceKeys.deviceTwin.command.refresh),
-                        onClick: this.handleRefresh
+                        name: t(ResourceKeys.deviceTwin.command.refresh),
+                        onClick: handleRefresh
                     },
                     {
-                        ariaLabel: context.t(ResourceKeys.deviceTwin.command.save),
-                        disabled: !this.state.isDirty || !this.state.isTwinValid,
+                        ariaLabel: t(ResourceKeys.deviceTwin.command.save),
+                        disabled: !state.isDirty || !state.isTwinValid,
                         iconProps: {iconName: SAVE},
                         key: SAVE,
-                        name: context.t(ResourceKeys.deviceTwin.command.save),
-                        onClick: this.handleSave
+                        name: t(ResourceKeys.deviceTwin.command.save),
+                        onClick: handleSave
                     }
                 ]}
             />
         );
-    }
+    };
 
-    private readonly handleRefresh = () => {
-        this.setState({
+    const handleRefresh = () => {
+        setState({
+            ...state,
             isDirty: false,
             needsRefresh: false
         });
-        this.props.getDeviceTwin(getDeviceIdFromQueryString(this.props));
-    }
+        getDeviceTwin(deviceId);
+    };
 
-    private readonly handleSave = () => {
-        this.setState({
+    const handleSave = () => {
+        setState({
+            ...state,
             isDirty: false,
             isTwinValid: true,
             needsRefresh: true
         });
-        this.props.updateDeviceTwin({
-            deviceId: getDeviceIdFromQueryString(this.props),
-            twin: JSON.parse(this.state.twin)
+        updateDeviceTwin({
+            deviceId,
+            twin: JSON.parse(state.twin)
         });
-    }
+    };
 
-    private readonly renderTwinViewer = () => {
-        if (this.props.twinState === SynchronizationStatus.working) {
+    const renderTwinViewer = () => {
+        if (twinState === SynchronizationStatus.working) {
             return <MultiLineShimmer className="device-detail"/>;
         }
 
-        const twin = this.state.twin;
         return (
             <article className="device-twin device-detail">
                 { twin &&
                     <div className="monaco-editor">
                         <React.Suspense fallback={<Spinner title={'loading'} size={SpinnerSize.large} />}>
-                            <ThemeContextConsumer>
-                                {(themeContext: ThemeContextInterface) => (
-                                    <Editor
-                                        language="json"
-                                        value={twin}
-                                        options={{
-                                            automaticLayout: true,
-                                            readOnly: false
-                                        }}
-                                        onChange={this.onChange}
-                                        theme={themeContext.monacoTheme}
-                                    />
-                                )}
-                            </ThemeContextConsumer>
+                            <Editor
+                                language="json"
+                                value={state.twin}
+                                options={{
+                                    automaticLayout: true,
+                                    readOnly: false
+                                }}
+                                onChange={onChange}
+                                theme={monacoTheme}
+                            />
                         </React.Suspense>
                     </div>
                 }
             </article>
         );
-    }
+    };
 
-    private readonly onChange = (data: string) => {
+    const onChange = (data: string) => {
         let isTwinValid = true;
         try {
             JSON.parse(data);
@@ -178,10 +160,22 @@ export default class DeviceTwin
         catch  {
             isTwinValid = false;
         }
-        this.setState({
+        setState({
+            ...state,
             isDirty: true,
             isTwinValid,
             twin: data
         });
-    }
-}
+    };
+
+    return (
+        <>
+            {showCommandBar()}
+            <HeaderView
+                headerText={ResourceKeys.deviceTwin.headerText}
+                tooltip={ResourceKeys.deviceTwin.tooltip}
+            />
+            {renderTwinViewer()}
+        </>
+    );
+};

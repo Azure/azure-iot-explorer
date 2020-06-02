@@ -32,7 +32,7 @@ exports[`devices/components/moduleIdentityTwin snapshot matches snapshot after m
       ]
     }
   />
-  <Route
+  <Component
     component={[Function]}
   />
   <div
@@ -49,9 +49,33 @@ exports[`devices/components/moduleIdentityTwin snapshot matches snapshot after m
           />
         }
       >
-        <ContextConsumer>
-          <Component />
-        </ContextConsumer>
+        <lazy
+          language="json"
+          options={
+            Object {
+              "automaticLayout": true,
+              "readOnly": true,
+            }
+          }
+          value="{
+	\\"deviceId\\": \\"deviceId\\",
+	\\"moduleId\\": \\"moduleId\\",
+	\\"etag\\": \\"AAAAAAAAAAE=\\",
+	\\"deviceEtag\\": \\"AAAAAAAAAAE=\\",
+	\\"status\\": \\"enabled\\",
+	\\"statusUpdateTime\\": \\"0001-01-01T00:00:00Z\\",
+	\\"lastActivityTime\\": \\"0001-01-01T00:00:00Z\\",
+	\\"x509Thumbprint\\": {
+		\\"primaryThumbprint\\": null,
+		\\"secondaryThumbprint\\": null
+	},
+	\\"version\\": 1,
+	\\"connectionState\\": \\"Disconnected\\",
+	\\"cloudToDeviceMessageCount\\": 0,
+	\\"authenticationType\\": \\"sas\\",
+	\\"properties\\": {}
+}"
+        />
       </Suspense>
     </div>
   </div>
@@ -90,7 +114,7 @@ exports[`devices/components/moduleIdentityTwin snapshot matches snapshot while l
       ]
     }
   />
-  <Route
+  <Component
     component={[Function]}
   />
   <div

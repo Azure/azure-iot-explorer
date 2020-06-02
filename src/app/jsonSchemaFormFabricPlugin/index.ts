@@ -3,7 +3,6 @@
  * Licensed under the MIT License
  **********************************************************/
 // Please refer to https://github.com/mozilla-services/react-jsonschema-form/blob/master/docs/advanced-customization.md#custom-component-registration
-import { FabricText } from './widgets/text';
 import { FabricCheckbox } from './widgets/checkBox';
 import { FabricSelect } from './widgets/select';
 import { FabricDatePicker } from './widgets/datePicker';

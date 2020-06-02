@@ -4,9 +4,9 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
+import { shallow, mount } from 'enzyme';
 import Form from 'react-jsonschema-form';
-import DataForm, { DataFormDataProps, DataFormActionProps } from './dataForm';
-import { testSnapshot, mountWithLocalization } from '../../../../shared/utils/testHelpers';
+import { DataForm, DataFormDataProps, DataFormActionProps } from './dataForm';
 
 describe('dataForm', () => {
     const formData = 123;
@@ -40,17 +40,18 @@ describe('dataForm', () => {
     };
 
     it('matches snapshot with simple type', () => {
-        testSnapshot(getComponent());
-        const wrapper = mountWithLocalization(getComponent());
+        expect(shallow(getComponent())).toMatchSnapshot();
+
+        const wrapper = mount(getComponent());
         expect(wrapper.find(Form)).toBeDefined();
     });
 
     it('matches snapshot with unsupported type', () => {
-        const component = getComponent({
+        expect(shallow(getComponent({
             settingSchema: undefined
-        });
-        testSnapshot(component);
-        const wrapper = mountWithLocalization(getComponent());
+        }))).toMatchSnapshot();
+
+        const wrapper = mount(getComponent());
         expect(wrapper.find('div.monaco-editor')).toBeDefined();
     });
 });

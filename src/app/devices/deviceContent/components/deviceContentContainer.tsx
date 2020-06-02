@@ -5,18 +5,15 @@
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { AnyAction } from 'typescript-fsa';
-import { RouteComponentProps } from 'react-router-dom';
 import { DeviceContentComponent, DeviceContentDispatchProps, DeviceContentDataProps } from './deviceContent';
 import { StateType } from '../../../shared/redux/state';
-import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { getDigitalTwinModelId, getDeviceIdentityWrapperSelector, getDigitalTwinSynchronizationStatusSelector } from '../selectors';
 import { setComponentNameAction, getDigitalTwinAction, getDeviceIdentityAction } from '../actions';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 
-const mapStateToProps = (state: StateType, ownProps: RouteComponentProps): DeviceContentDataProps => {
+const mapStateToProps = (state: StateType): DeviceContentDataProps => {
     const digitalTwinSynchronizationStatus = getDigitalTwinSynchronizationStatusSelector(state);
     return {
-        deviceId: getDeviceIdFromQueryString(ownProps),
         digitalTwinModelId: getDigitalTwinModelId(state),
         identityWrapper: getDeviceIdentityWrapperSelector(state),
         isLoading: digitalTwinSynchronizationStatus === SynchronizationStatus.working

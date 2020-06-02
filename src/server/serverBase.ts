@@ -35,7 +35,7 @@ interface Message {
 }
 
 export default class ServerBase {
-    private port: number;
+    private readonly port: number;
     constructor(port: number) {
         this.port = port;
     }

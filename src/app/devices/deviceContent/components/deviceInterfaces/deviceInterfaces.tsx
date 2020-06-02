@@ -3,99 +3,54 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
-import { MessageBar, MessageBarType } from 'office-ui-fabric-react';
-import { RouteComponentProps, Route } from 'react-router-dom';
-import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
+import { useTranslation } from 'react-i18next';
+import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
+import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/components/MessageBar';
+import { useLocation, useHistory } from 'react-router-dom';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
-import { getInterfaceIdFromQueryString, getDeviceIdFromQueryString, getComponentNameFromQueryString } from '../../../../shared/utils/queryStringHelper';
-import { ModelDefinitionWithSource } from '../../../../api/models/modelDefinitionWithSource';
-import { InterfaceNotFoundMessageBar } from '../shared/interfaceNotFoundMessageBar';
+import { getInterfaceIdFromQueryString, getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
+import { InterfaceNotFoundMessageBar } from '../../../shared/components/interfaceNotFoundMessageBar';
 import { REFRESH, NAVIGATE_BACK } from '../../../../constants/iconNames';
-import ErrorBoundary from '../../../errorBoundary';
+import { ErrorBoundary } from '../../../shared/components/errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
-import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
-import MaskedCopyableTextFieldContainer from '../../../../shared/components/maskedCopyableTextFieldContainer';
-import { DigitalTwinHeaderContainer } from '../digitalTwin/digitalTwinHeaderView';
+import { MultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
+import { MaskedCopyableTextField } from '../../../../shared/components/maskedCopyableTextField';
 import { ROUTE_PARAMS } from '../../../../constants/routes';
-import { MonacoEditorView } from '../../../../shared/components/monacoEditor';
-import { ModelDefinitionSourceView } from '../shared/modelDefinitionSource';
+import { JSONEditor } from '../../../../shared/components/jsonEditor';
+import { ModelDefinitionSourceView } from '../../../shared/components/modelDefinitionSource';
+import { usePnpStateContext } from '../../../../shared/contexts/pnpStateContext';
+import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import '../../../../css/_deviceInterface.scss';
 
-export interface DeviceInterfaceProps {
-    modelDefinitionWithSource: ModelDefinitionWithSource;
-    isLoading: boolean;
-}
+export const DeviceInterfaces: React.FC = () => {
+    const { t } = useTranslation();
+    const { search, pathname } = useLocation();
+    const history = useHistory();
+    const interfaceId = getInterfaceIdFromQueryString(search);
+    const deviceId = getDeviceIdFromQueryString(search);
 
-export interface DeviceInterfaceDispatchProps {
-    setComponentName: (id: string) => void;
-    refresh: (deviceId: string, interfaceId: string) => void;
-}
+    const { pnpState, getModelDefinition } = usePnpStateContext();
+    const modelDefinitionWithSource = pnpState.modelDefinitionWithSource.payload;
+    const isLoading = pnpState.modelDefinitionWithSource.synchronizationStatus === SynchronizationStatus.working;
 
-export default class DeviceInterfaces extends React.Component<DeviceInterfaceProps & DeviceInterfaceDispatchProps & RouteComponentProps, {}> {
-    constructor(props: DeviceInterfaceProps & DeviceInterfaceDispatchProps & RouteComponentProps) {
-        super(props);
-
-    }
-
-    public render(): JSX.Element {
-        return (
-            <LocalizationContextConsumer>
-                {(context: LocalizationContextInterface) => (
-                    this.props.isLoading ? <MultiLineShimmer/> :
-                    <>
-                        <CommandBar
-                            className="command"
-                            items={[
-                                {
-                                    ariaLabel: context.t(ResourceKeys.deviceInterfaces.command.refresh),
-                                    iconProps: {iconName: REFRESH},
-                                    key: REFRESH,
-                                    name: context.t(ResourceKeys.deviceProperties.command.refresh),
-                                    onClick: this.handleRefresh
-                                }
-                            ]}
-                            farItems={[
-                                {
-                                    ariaLabel: context.t(ResourceKeys.deviceInterfaces.command.close),
-                                    iconProps: {iconName: NAVIGATE_BACK},
-                                    key: NAVIGATE_BACK,
-                                    name: context.t(ResourceKeys.deviceInterfaces.command.close),
-                                    onClick: this.handleClose
-                                }
-                            ]}
-                        />
-                        {this.renderInterfaceInfo(context)}
-                    </>
-                )}
-            </LocalizationContextConsumer>
-        );
-    }
-
-    public componentDidMount() {
-        this.props.setComponentName(getComponentNameFromQueryString(this.props));
-    }
-
-    private readonly renderInterfaceInfo = (context: LocalizationContextInterface) => {
-        const {  modelDefinitionWithSource } = this.props;
+    const renderInterfaceInfo = () => {
         return (
             <>
                 {modelDefinitionWithSource ?
-                    <ErrorBoundary error={context.t(ResourceKeys.errorBoundary.text)}>
+                    <ErrorBoundary error={t(ResourceKeys.errorBoundary.text)}>
                         {modelDefinitionWithSource.isModelValid ?
                             <>
-                                <Route component={DigitalTwinHeaderContainer} />
                                 <section className="pnp-interface-info scrollable-lg">
-                                    {this.renderInterfaceInfoDetail(context, true)}
-                                    {this.renderInterfaceViewer(true)}
+                                    {renderInterfaceInfoDetail(true)}
+                                    {renderInterfaceViewer(true)}
                                 </section>
                             </> :
                             <section className="pnp-interface-info scrollable-lg">
-                                {this.renderInterfaceInfoDetail(context, false)}
+                                {renderInterfaceInfoDetail(false)}
                                 <MessageBar messageBarType={MessageBarType.error}>
-                                    {context.t(ResourceKeys.deviceInterfaces.interfaceNotValid)}
+                                    {t(ResourceKeys.deviceInterfaces.interfaceNotValid)}
                                 </MessageBar>
-                                {this.renderInterfaceViewer(false)}
+                                {renderInterfaceViewer(false)}
                             </section>
                         }
                     </ErrorBoundary> :
@@ -103,10 +58,10 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
                 }
             </>
         );
-    }
+    };
 
     // tslint:disable-next-line: cyclomatic-complexity
-    private readonly renderInterfaceInfoDetail = (isValidInterface: boolean) => {
+    const renderInterfaceInfoDetail = (isValidInterface: boolean) => {
         return (
             <>
                 <ModelDefinitionSourceView
@@ -139,29 +94,50 @@ export default class DeviceInterfaces extends React.Component<DeviceInterfacePro
                 }
             </>
         );
-    }
+    };
 
-    private readonly renderInterfaceViewer = (isValidInterface: boolean) => {
-        const { modelDefinitionWithSource } = this.props;
+    const renderInterfaceViewer = (isValidInterface: boolean) => {
         return (
             <>
                 { modelDefinitionWithSource && modelDefinitionWithSource.modelDefinition &&
-                    <MonacoEditorView
-                        className={`${isValidInterface ? 'interface-definition-monaco-editor' : 'invalid-interface-definition-monaco-editor'}`}
-                        content={modelDefinitionWithSource.modelDefinition}
+                    <JSONEditor
+                        className={`${isValidInterface ? 'interface-definition-json-editor' : 'invalid-interface-definition-json-editor'}`}
+                        content={JSON.stringify(modelDefinitionWithSource.modelDefinition, null, '\t')}
                     />
                 }
             </>
         );
-    }
+    };
 
-    private readonly handleRefresh = () => {
-        this.props.refresh(getDeviceIdFromQueryString(this.props), getInterfaceIdFromQueryString(this.props));
-    }
+    const handleClose = () => {
+        const path = pathname.replace(/\/ioTPlugAndPlayDetail\/interfaces\/.*/, ``);
+        history.push(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
+    };
 
-    private readonly handleClose = () => {
-        const path = this.props.match.url.replace(/\/ioTPlugAndPlayDetail\/interfaces\/.*/, ``);
-        const deviceId = getDeviceIdFromQueryString(this.props);
-        this.props.history.push(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
-    }
-}
+    return (isLoading ? <MultiLineShimmer/> : (
+        <>
+            <CommandBar
+                className="command"
+                items={[
+                    {
+                        ariaLabel: t(ResourceKeys.deviceInterfaces.command.refresh),
+                        iconProps: {iconName: REFRESH},
+                        key: REFRESH,
+                        name: t(ResourceKeys.deviceProperties.command.refresh),
+                        onClick: getModelDefinition
+                    }
+                ]}
+                farItems={[
+                    {
+                        ariaLabel: t(ResourceKeys.deviceInterfaces.command.close),
+                        iconProps: {iconName: NAVIGATE_BACK},
+                        key: NAVIGATE_BACK,
+                        name: t(ResourceKeys.deviceInterfaces.command.close),
+                        onClick: handleClose
+                    }
+                ]}
+            />
+            {renderInterfaceInfo()}
+        </>)
+    );
+};
