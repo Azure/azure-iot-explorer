@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Route, useLocation, useHistory, useRouteMatch } from 'react-router-dom';
+import { Route, useLocation, useRouteMatch } from 'react-router-dom';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import DeviceIdentityContainer from './deviceIdentity/deviceIdentityContainer';
 import DeviceTwinContainer from './deviceTwin/deviceTwinContainer';
@@ -17,7 +17,7 @@ import { DigitalTwinInterfacesContainer } from './digitalTwin/digitalTwinInterfa
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { useLocalizationContext } from '../../../shared/contexts/localizationContext';
 import { NAV } from '../../../constants/iconNames';
-import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
+import { ROUTE_PARTS } from '../../../constants/routes';
 import { DeviceIdentity } from '../../../api/models/deviceIdentity';
 import { SynchronizationWrapper } from '../../../api/models/synchronizationWrapper';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';

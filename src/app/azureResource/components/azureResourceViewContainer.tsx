@@ -4,7 +4,6 @@
  **********************************************************/
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useLocation } from 'react-router-dom';
 import { setActiveAzureResourceByHostNameAction } from '../actions';
 import { AzureResourceView, AzureResourceViewProps } from './azureResourceView';
 import { getActiveAzureResourceSelector } from '../selectors';

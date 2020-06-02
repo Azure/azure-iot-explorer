@@ -4,7 +4,7 @@
  **********************************************************/
 import { call } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
-import { CONNECTION_STRING_NAME_LIST, CONNECTION_STRING_LIST_MAX_LENGTH } from '../../constants/browserStorage';
+import { CONNECTION_STRING_LIST_MAX_LENGTH } from '../../constants/browserStorage';
 import { getConnectionStrings, setConnectionStrings } from './setConnectionStringsSaga';
 
 export function* addConnectionStringSaga(action: Action<string>) {

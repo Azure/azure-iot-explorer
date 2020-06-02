@@ -13,7 +13,6 @@ import { useLocalizationContext } from '../../../../shared/contexts/localization
 import { getDeviceIdFromQueryString, getModuleIdentityIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { REFRESH, REMOVE, NAVIGATE_BACK } from '../../../../constants/iconNames';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../../constants/routes';
-import { SAS_EXPIRES_MINUTES } from '../../../../constants/devices';
 import { GetModuleIdentityActionParameters, DeleteModuleIdentityActionParameters } from '../../actions';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { ModuleIdentity } from '../../../../api/models/moduleIdentity';

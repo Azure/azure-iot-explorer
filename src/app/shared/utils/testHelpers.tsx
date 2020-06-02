@@ -6,7 +6,6 @@ import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { LocalizationContextProvider } from '../contexts/localizationContext';
 import configureStore from '../../../app/shared/redux/store/configureStore';
 
 export const testWithLocalizationContextAndErrorBoundary = (Target: JSX.Element, enzymeWrapper: any = shallow) => { // tslint:disable-line:no-any
