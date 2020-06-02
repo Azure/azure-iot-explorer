@@ -4,11 +4,19 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
+import { mount, shallow } from 'enzyme';
 import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
-import DeviceSettings, { DeviceSettingDispatchProps , DeviceSettingsProps } from './deviceSettings';
-import { mountWithLocalization, testSnapshot } from '../../../../shared/utils/testHelpers';
+import { DeviceSettings, DeviceSettingDispatchProps , DeviceSettingsProps } from './deviceSettings';
 import { TwinWithSchema } from './deviceSettingsPerInterfacePerSetting';
+
+const interfaceId = 'urn:contoso:com:EnvironmentalSensor:1';
+const pathname = `/#/devices/deviceDetail/ioTPlugAndPlay/ioTPlugAndPlayDetail/settings/?id=device1&componentName=foo&interfaceId=${interfaceId}`;
+
+jest.mock('react-router-dom', () => ({
+    useHistory: () => ({ push: jest.fn() }),
+    useLocation: () => ({ search: `?id=device1&componentName=foo&interfaceId=${interfaceId}`, pathname }),
+}));
 
 export const twinWithSchema: TwinWithSchema = {
     isComponentContainedInDigitalTwin: true,
@@ -33,7 +41,6 @@ export const twinWithSchema: TwinWithSchema = {
 };
 
 describe('components/devices/deviceSettings', () => {
-    const interfaceId = 'urn:contoso:com:EnvironmentalSensor:1';
     const deviceSettingsProps: DeviceSettingsProps = {
         componentName: 'environmentalSensor',
         interfaceId,
@@ -48,24 +55,10 @@ describe('components/devices/deviceSettings', () => {
         setComponentName: jest.fn()
     };
 
-    const pathname = `/#/devices/deviceDetail/ioTPlugAndPlay/ioTPlugAndPlayDetail/settings/?id=device1&componentName=foo&interfaceId=${interfaceId}`;
-
-    const location: any = { // tslint:disable-line:no-any
-        pathname
-    };
-    const routerprops: any = { // tslint:disable-line:no-any
-        history: {
-            location
-        },
-        location,
-        match: {}
-    };
-
     const getComponent = (overrides = {}) => {
         const props = {
             ...deviceSettingsProps,
             ...deviceSettingsDispatchProps,
-            ...routerprops,
             ...overrides
         };
 
@@ -73,21 +66,18 @@ describe('components/devices/deviceSettings', () => {
     };
 
     it('matches snapshot while loading', () => {
-        const wrapper = mountWithLocalization(
-            getComponent(), false, true, [pathname]
-        );
+        const wrapper = mount(getComponent());
         expect(wrapper.find(Shimmer)).toBeDefined();
     });
 
     it('matches snapshot with one twinWithSchema', () => {
-        const component = getComponent({
+        expect(shallow(getComponent({
             isLoading: false,
-            twinWithSchema: [twinWithSchema]});
-        testSnapshot(component);
+            twinWithSchema: [twinWithSchema]}))).toMatchSnapshot();
     });
 
     it('dispatch action when refresh button is clicked', () => {
-        const wrapper = mountWithLocalization(getComponent({isLoading: false}), false, true);
+        const wrapper = shallow(getComponent({isLoading: false}));
         const commandBar = wrapper.find(CommandBar).first();
         commandBar.props().items[0].onClick(null);
         wrapper.update();

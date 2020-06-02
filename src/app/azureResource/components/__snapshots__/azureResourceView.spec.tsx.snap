@@ -2,27 +2,27 @@
 
 exports[`AzureResourceView matches snapshot when current resource is authorized 1`] = `
 <Fragment>
-  <Route
+  <Component
     component={
       Object {
         "$$typeof": Symbol(react.memo),
         "WrappedComponent": [Function],
         "compare": null,
-        "displayName": "Connect(withRouter(DeviceListComponent))",
+        "displayName": "Connect(Component)",
         "type": [Function],
       }
     }
     exact={true}
-    path="url/devices"
+    path="/resource/hostName/devices"
   />
-  <Route
+  <Component
     component={[Function]}
     exact={true}
-    path="url/devices/add"
+    path="/resource/hostName/devices/add"
   />
-  <Route
+  <Component
     component={[Function]}
-    path="url/devices/deviceDetail/"
+    path="/resource/hostName/devices/deviceDetail/"
   />
 </Fragment>
 `;

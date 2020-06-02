@@ -4,9 +4,9 @@
  **********************************************************/
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import AddDevice, { AddDeviceActionProps, AddDeviceDataProps } from './addDevice';
+import { AddDevice, AddDeviceActionProps, AddDeviceDataProps } from './addDevice';
 import { DeviceIdentity } from '../../../../../api/models/deviceIdentity';
-import { addDeviceAction, listDevicesAction } from '../../../actions';
+import { addDeviceAction } from '../../../actions';
 import { StateType } from '../../../../../shared/redux/state';
 import { getDeviceSummaryListStatus } from '../../../selectors';
 

@@ -31,5 +31,4 @@ export const ThemeContext = React.createContext({
     updateTheme: (isDarkTheme: boolean) => undefined
 });
 export const ThemeContextProvider = ThemeContext.Provider;
-export const ThemeContextConsumer = ThemeContext.Consumer;
 export const useThemeContext = () => React.useContext(ThemeContext);

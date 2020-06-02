@@ -1,12 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Breadcrumb snapshot matches snapshot 1`] = `
-<ul
-  className="breadcrumb"
->
-  <Route
+<Fragment>
+  <li
+    className="breadcrumb-item"
+  >
+    <Component
+      to="/home"
+    >
+      common.home
+    </Component>
+  </li>
+  <Component
     component={[Function]}
-    path="/:path"
+    path="/resource/:path"
   />
-</ul>
+</Fragment>
 `;

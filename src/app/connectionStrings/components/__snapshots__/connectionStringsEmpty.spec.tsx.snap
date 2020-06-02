@@ -15,8 +15,6 @@ exports[`ConnectionSTringsEmpty matches snapshot 1`] = `
       connectionStrings.empty.description
     </span>
     <NavLink
-      activeClassName="active"
-      aria-current="page"
       className="embedded-link"
       to="/"
     >

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Route } from 'react-router-dom';
-import Breadcrumb from './breadcrumb';
+import { Breadcrumb } from './breadcrumb';
 import { Header } from './header';
 import '../../css/_applicationFrame.scss';
 
@@ -22,7 +22,7 @@ export const ApplicationFrame: React.FC = props => {
     );
 };
 
-export const withApplicationFrame = <T, >(Component: React.ComponentType<T>) => {
+export const withApplicationFrame = <T, >(Component: React.FC<T>) => {
     return (props: T) => (
         <ApplicationFrame>
             <Component {...props} />

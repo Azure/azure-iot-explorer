@@ -4,29 +4,14 @@
  **********************************************************/
 import * as React from 'react';
 import 'jest';
-import DeviceIdentityCommandBar from './deviceIdentityCommandBar';
-import { testSnapshot } from '../../../../shared/utils/testHelpers';
-import { DeviceAuthenticationType } from '../../../../api/models/deviceAuthenticationType';
-import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
-
-const pathname = `/`;
-
-const location: any = { // tslint:disable-line:no-any
-    pathname
-};
-const routerprops: any = { // tslint:disable-line:no-any
-    history: {
-        location
-    },
-    location,
-    match: {}
-};
+import { shallow } from 'enzyme';
+import { DeviceIdentityCommandBar } from './deviceIdentityCommandBar';
 
 const getComponent = (overrides = {}) => {
     const connectionString = 'HostName=test-string.azure-devices.net;SharedAccessKeyName=owner;SharedAccessKey=fakeKey=';
     const props = {
         connectionString,
-        ...routerprops,
+        handleSave: jest.fn(),
         ...overrides,
     };
     return <DeviceIdentityCommandBar {...props} />;
@@ -35,12 +20,13 @@ const getComponent = (overrides = {}) => {
 describe('devices/components/deviceIdentityCommandBar', () => {
     context('snapshot', () => {
         it('matches snapshot', () => {
-            testSnapshot(getComponent());
+            expect(shallow(getComponent())).toMatchSnapshot();
         });
+
         it('matches snapshot with disabled save', () => {
-            testSnapshot(getComponent({
+            expect(shallow(getComponent({
                 disableSave: true
-            }));
+            }))).toMatchSnapshot();
         });
     });
 });

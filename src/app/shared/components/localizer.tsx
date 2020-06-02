@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { TranslationFunction } from 'i18next';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { LocalizationContextProvider } from '../contexts/localizationContext';
 
 const TRANSLATION_NAMESPACE = 'translation';
@@ -16,4 +16,4 @@ export const Localizer: React.FC<{ t: TranslationFunction}> = props => {
     );
 };
 
-export default withNamespaces(TRANSLATION_NAMESPACE)(Localizer as any); // tslint:disable-line: no-any
+export default withTranslation(TRANSLATION_NAMESPACE)(Localizer as any); // tslint:disable-line: no-any

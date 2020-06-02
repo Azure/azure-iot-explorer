@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { RouteComponentProps } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { ConnectionString  } from './connectionString';
 import { ConnectionStringEditView } from './connectionStringEditView';
@@ -95,7 +95,8 @@ export const ConnectionStringsView: React.FC<ConnectionStringsViewProps> = props
     );
 };
 
-export const ConnectionStringsViewContainer: React.FC<RouteComponentProps> = props => {
+export const ConnectionStringsViewContainer: React.FC = () => {
+    const history = useHistory();
     const connectionStrings = useSelector((state: StateInterface) => state.connectionStringsState.connectionStrings);
     const dispatch = useDispatch();
 
@@ -116,7 +117,7 @@ export const ConnectionStringsViewContainer: React.FC<RouteComponentProps> = pro
             hostName
         }));
 
-        props.history.push(`/${ROUTE_PARTS.RESOURCE}/${hostName}/${ROUTE_PARTS.DEVICES}`);
+        history.push(`/${ROUTE_PARTS.RESOURCE}/${hostName}/${ROUTE_PARTS.DEVICES}`);
     };
 
     return (

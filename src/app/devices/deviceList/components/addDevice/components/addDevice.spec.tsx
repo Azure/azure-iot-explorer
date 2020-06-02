@@ -4,33 +4,25 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
+import { act } from 'react-dom/test-utils';
+import { shallow, mount } from 'enzyme';
+import { ChoiceGroup } from 'office-ui-fabric-react/lib/ChoiceGroup';
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
-import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
-import AddDeviceComponent, { AddDeviceDataProps, AddDeviceActionProps, AddDeviceState } from './addDevice';
-import { testSnapshot, mountWithLocalization } from '../../../../../shared/utils/testHelpers';
+import { AddDevice, AddDeviceDataProps, AddDeviceActionProps } from './addDevice';
 import { MaskedCopyableTextField } from '../../../../../shared/components/maskedCopyableTextField';
 import { SynchronizationStatus } from '../../../../../api/models/synchronizationStatus';
 import { DeviceAuthenticationType } from '../../../../../api/models/deviceAuthenticationType';
 import { DeviceStatus } from '../../../../../api/models/deviceStatus';
+import { mountWithStoreAndRouter } from '../../../../../shared/utils/testHelpers';
+
+const pathname = '/devices/add';
+jest.mock('react-router-dom', () => ({
+    useHistory: () => ({ push: jest.fn() }),
+    useLocation: () => ({ pathname })
+}));
 
 describe('components/devices/addDevice', () => {
-
-    const pathname = '/devices/add';
-    const location: any = { // tslint:disable-line:no-any
-        pathname,
-    };
-    const routerprops: any = { // tslint:disable-line:no-any
-        history: {
-            location,
-        },
-        location,
-        match: {
-            params: {
-            }
-        }
-    };
-
     const addDeviceDataProps: AddDeviceDataProps = {
         deviceListSyncStatus: SynchronizationStatus.fetched
     };
@@ -44,83 +36,72 @@ describe('components/devices/addDevice', () => {
         const props = {
             ...addDeviceDataProps,
             ...addDeviceDispatchProps,
-            ...routerprops,
             ...overrides
         };
 
         return (
-            <AddDeviceComponent {...props} />
+            <AddDevice {...props} />
         );
     };
 
     it('matches snapshot', () => {
-        testSnapshot(getComponent());
+        expect(shallow(getComponent())).toMatchSnapshot();
     });
 
     it('renders symmetric key input field if not auto generating keys', () => {
-        const component = getComponent();
-        const wrapper = mountWithLocalization(component, true, true);
+        // auto generate
+        const wrapper = mountWithStoreAndRouter(getComponent(), true);
+        expect(wrapper.find(MaskedCopyableTextField).length).toEqual(1);
 
-        let addDevice = wrapper.find(AddDeviceComponent);
-        addDevice.setState({autoGenerateKeys : false});
+        // uncheck auto generate
+        const autoGenerateButton = wrapper.find('.autoGenerateButton').first();
+        act(() => autoGenerateButton.props().onChange(undefined));
         wrapper.update();
         expect(wrapper.find(MaskedCopyableTextField).length).toEqual(3); // tslint:disable-line:no-magic-numbers
 
-        wrapper.find(MaskedCopyableTextField).at(1).props().onTextChange('test-key1');
-        wrapper.find(MaskedCopyableTextField).at(2).props().onTextChange('test-key2'); // tslint:disable-line:no-magic-numbers
+        act(() => wrapper.find(MaskedCopyableTextField).at(1).props().onTextChange('test-key1'));
+        act(() => wrapper.find(MaskedCopyableTextField).at(2).props().onTextChange('test-key2')); // tslint:disable-line:no-magic-numbers
         wrapper.update();
-        addDevice = wrapper.find(AddDeviceComponent);
-        let addDeviceState = addDevice.state() as AddDeviceState;
-        expect(addDeviceState.primaryKey).toEqual('test-key1');
-        expect(addDeviceState.primaryKeyError).toEqual('deviceIdentity.validation.invalidKey');
-        expect(addDeviceState.secondaryKey).toEqual('test-key2');
-        expect(addDeviceState.secondaryKeyError).toEqual('deviceIdentity.validation.invalidKey');
-
-        // auto generate
-        const checkbox = addDevice.find(Checkbox);
-        checkbox.instance().props.onChange({ target: null}, true);
-        addDevice = wrapper.find(AddDeviceComponent);
-        addDeviceState = addDevice.state() as AddDeviceState;
-        expect(addDeviceState.primaryKey).toEqual(undefined);
-        expect(addDeviceState.secondaryKey).toEqual(undefined);
+        const fields = wrapper.find(MaskedCopyableTextField);
+        expect(fields.at(1).props().value).toEqual('test-key1');
+        expect(fields.at(1).props().error).toEqual('deviceIdentity.validation.invalidKey');
+        expect(fields.last().props().value).toEqual('test-key2');
+        expect(fields.last().props().error).toEqual('deviceIdentity.validation.invalidKey');
     });
 
     it('renders selfSigned input field', () => {
-        const component = getComponent();
-        const wrapper = mountWithLocalization(component, true, true);
+        const wrapper = mountWithStoreAndRouter(getComponent(), true);
 
-        let addDevice = wrapper.find(AddDeviceComponent);
-        addDevice.setState({authenticationType : DeviceAuthenticationType.SelfSigned});
+        const choiceGroup = wrapper.find(ChoiceGroup).first();
+        act(() => choiceGroup.props().onChange(undefined, { key: DeviceAuthenticationType.SelfSigned, text: 'text' } ));
         wrapper.update();
         expect(wrapper.find(MaskedCopyableTextField).length).toEqual(3);  // tslint:disable-line:no-magic-numbers
 
-        wrapper.find(MaskedCopyableTextField).at(1).props().onTextChange('test-thumbprint1');
-        wrapper.find(MaskedCopyableTextField).at(2).props().onTextChange('test-thumbprint2'); // tslint:disable-line:no-magic-numbers
+        act(() => wrapper.find(MaskedCopyableTextField).at(1).props().onTextChange('test-thumbprint1'));
+        act(() => wrapper.find(MaskedCopyableTextField).last().props().onTextChange('test-thumbprint2'));
         wrapper.update();
-        addDevice = wrapper.find(AddDeviceComponent);
-        const addDeviceState = addDevice.state() as AddDeviceState;
-        expect(addDeviceState.primaryThumbprint).toEqual('test-thumbprint1');
-        expect(addDeviceState.primaryThumbprintError).toEqual('deviceIdentity.validation.invalidThumbprint');
-        expect(addDeviceState.secondaryThumbprint).toEqual('test-thumbprint2');
-        expect(addDeviceState.secondaryThumbprintError).toEqual('deviceIdentity.validation.invalidThumbprint');
+        const fields = wrapper.find(MaskedCopyableTextField);
+        expect(fields.at(1).props().value).toEqual('test-thumbprint1');
+        expect(fields.at(1).props().error).toEqual('deviceIdentity.validation.invalidThumbprint');
+        expect(fields.last().props().value).toEqual('test-thumbprint2');
+        expect(fields.last().props().error).toEqual('deviceIdentity.validation.invalidThumbprint');
     });
 
     it('saves new device identity', () => {
-        const component = getComponent();
-        const wrapper = mountWithLocalization(component, true, true);
+        const wrapper = mountWithStoreAndRouter(getComponent(), true);
 
-        wrapper.find(MaskedCopyableTextField).first().props().onTextChange('test-device');
-        wrapper.find(Toggle).first().instance().props.onChange({ target: null}, false);
+        act(() => wrapper.find(MaskedCopyableTextField).first().props().onTextChange('test-device'));
+        act(() => wrapper.find(Toggle).first().instance().props.onChange({ target: null}, false));
         wrapper.update();
-        const addDevice = wrapper.find(AddDeviceComponent);
-        const addDeviceState = addDevice.state() as AddDeviceState;
-        expect(addDeviceState.deviceId).toEqual('test-device');
-        expect(addDeviceState.status).toEqual(DeviceStatus.Disabled);
+
+        expect(wrapper.find(MaskedCopyableTextField).first().props().value).toEqual('test-device');
+        const toggle = wrapper.find('.connectivity').find(Toggle).first();
+        expect(toggle.props().checked).toBeFalsy();
         const commandBar = wrapper.find(CommandBar).first();
         const saveButton = commandBar.props().items[0];
         expect(saveButton.disabled).toBeFalsy();
 
-        const form = addDevice.find('form');
+        const form = wrapper.find('form');
         form.simulate('submit');
         expect(mockSaveDevice).toBeCalled();
     });

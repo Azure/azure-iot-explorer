@@ -42,19 +42,19 @@ exports[`devices/components/moduleIdentityDetail snapshot matches snapshot after
       ]
     }
   />
-  <Route
+  <Component
     component={[Function]}
   />
   <div
     className="module-identity-detail"
   >
-    <Connect(MaskedCopyableTextField)
+    <Connect(Component)
       allowMask={false}
       ariaLabel="moduleIdentity.moduleId"
       label="moduleIdentity.moduleId"
       labelCallout="moduleIdentity.moduleIdTooltip"
       readOnly={true}
-      value={null}
+      value="moduleId"
     />
   </div>
 </Fragment>
@@ -102,21 +102,21 @@ exports[`devices/components/moduleIdentityDetail snapshot matches snapshot after
       ]
     }
   />
-  <Route
+  <Component
     component={[Function]}
   />
   <div
     className="module-identity-detail"
   >
-    <Connect(MaskedCopyableTextField)
+    <Connect(Component)
       allowMask={false}
       ariaLabel="moduleIdentity.moduleId"
       label="moduleIdentity.moduleId"
       labelCallout="moduleIdentity.moduleIdTooltip"
       readOnly={true}
-      value={null}
+      value="moduleId"
     />
-    <Connect(MaskedCopyableTextField)
+    <Connect(Component)
       allowMask={true}
       ariaLabel="moduleIdentity.authenticationType.symmetricKey.primaryKey"
       label="moduleIdentity.authenticationType.symmetricKey.primaryKey"
@@ -124,7 +124,7 @@ exports[`devices/components/moduleIdentityDetail snapshot matches snapshot after
       readOnly={true}
       value="key1"
     />
-    <Connect(MaskedCopyableTextField)
+    <Connect(Component)
       allowMask={true}
       ariaLabel="moduleIdentity.authenticationType.symmetricKey.secondaryKey"
       label="moduleIdentity.authenticationType.symmetricKey.secondaryKey"
@@ -132,21 +132,21 @@ exports[`devices/components/moduleIdentityDetail snapshot matches snapshot after
       readOnly={true}
       value="key2"
     />
-    <Connect(MaskedCopyableTextField)
+    <Connect(Component)
       allowMask={true}
       ariaLabel="moduleIdentity.authenticationType.symmetricKey.primaryConnectionString"
       label="moduleIdentity.authenticationType.symmetricKey.primaryConnectionString"
       readOnly={true}
-      value="HostName=testhub.azure-devices.net;DeviceId=null;ModuleId=null;SharedAccessKey=key1"
+      value="HostName=testhub.azure-devices.net;DeviceId=newdevice;ModuleId=moduleId;SharedAccessKey=key1"
     />
-    <Connect(MaskedCopyableTextField)
+    <Connect(Component)
       allowMask={true}
       ariaLabel="moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString"
       label="moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString"
       readOnly={true}
-      value="HostName=testhub.azure-devices.net;DeviceId=null;ModuleId=null;SharedAccessKey=key2"
+      value="HostName=testhub.azure-devices.net;DeviceId=newdevice;ModuleId=moduleId;SharedAccessKey=key2"
     />
-    <SasTokenGenerationView
+    <Component
       activeAzureResourceHostName="testhub.azure-devices.net"
       moduleIdentity={
         Object {
@@ -209,24 +209,24 @@ exports[`devices/components/moduleIdentityDetail snapshot matches snapshot after
       ]
     }
   />
-  <Route
+  <Component
     component={[Function]}
   />
   <div
     className="module-identity-detail"
   >
-    <Connect(MaskedCopyableTextField)
+    <Connect(Component)
       allowMask={false}
       ariaLabel="moduleIdentity.moduleId"
       label="moduleIdentity.moduleId"
       labelCallout="moduleIdentity.moduleIdTooltip"
       readOnly={true}
-      value={null}
+      value="moduleId"
     />
     <StyledLabelBase>
       moduleIdentity.authenticationType.selfSigned.text
     </StyledLabelBase>
-    <Connect(MaskedCopyableTextField)
+    <Connect(Component)
       allowMask={true}
       ariaLabel="moduleIdentity.authenticationType.selfSigned.primaryThumbprint"
       label="moduleIdentity.authenticationType.selfSigned.primaryThumbprint"
@@ -234,7 +234,7 @@ exports[`devices/components/moduleIdentityDetail snapshot matches snapshot after
       readOnly={true}
       value="thumbprint1"
     />
-    <Connect(MaskedCopyableTextField)
+    <Connect(Component)
       allowMask={true}
       ariaLabel="moduleIdentity.authenticationType.selfSigned.secondaryThumbprint"
       label="moduleIdentity.authenticationType.selfSigned.secondaryThumbprint"
@@ -288,19 +288,19 @@ exports[`devices/components/moduleIdentityDetail snapshot matches snapshot after
       ]
     }
   />
-  <Route
+  <Component
     component={[Function]}
   />
   <div
     className="module-identity-detail"
   >
-    <Connect(MaskedCopyableTextField)
+    <Connect(Component)
       allowMask={false}
       ariaLabel="moduleIdentity.moduleId"
       label="moduleIdentity.moduleId"
       labelCallout="moduleIdentity.moduleIdTooltip"
       readOnly={true}
-      value={null}
+      value="moduleId"
     />
     <StyledLabelBase>
       moduleIdentity.authenticationType.ca.text
@@ -351,19 +351,19 @@ exports[`devices/components/moduleIdentityDetail snapshot matches snapshot while
       ]
     }
   />
-  <Route
+  <Component
     component={[Function]}
   />
   <div
     className="module-identity-detail"
   >
-    <Connect(MaskedCopyableTextField)
+    <Connect(Component)
       allowMask={false}
       ariaLabel="moduleIdentity.moduleId"
       label="moduleIdentity.moduleId"
       labelCallout="moduleIdentity.moduleIdTooltip"
       readOnly={true}
-      value={null}
+      value="moduleId"
     />
     <Component />
   </div>

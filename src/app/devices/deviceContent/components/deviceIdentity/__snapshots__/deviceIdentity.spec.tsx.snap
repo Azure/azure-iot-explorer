@@ -2,7 +2,7 @@
 
 exports[`devices/components/deviceIdentity snapshot matches snapshot 1`] = `
 <Fragment>
-  <DeviceIdentityCommandBar
+  <Component
     disableSave={true}
     handleSave={[Function]}
   />
@@ -17,7 +17,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot 1`] = `
 
 exports[`devices/components/deviceIdentity snapshot matches snapshot with CA auth type 1`] = `
 <Fragment>
-  <DeviceIdentityCommandBar
+  <Component
     disableSave={true}
     handleSave={[Function]}
   />
@@ -27,7 +27,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with CA aut
   <div
     className="device-detail"
   >
-    <Connect(MaskedCopyableTextField)
+    <Connect(Component)
       allowMask={false}
       ariaLabel="deviceIdentity.deviceID"
       label="deviceIdentity.deviceID"
@@ -37,7 +37,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with CA aut
     <StyledLabelBase>
       deviceIdentity.authenticationType.ca.text
     </StyledLabelBase>
-    <Connect(MaskedCopyableTextField)
+    <Connect(Component)
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.ca.connectionString"
       label="deviceIdentity.authenticationType.ca.connectionString"
@@ -60,7 +60,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with CA aut
 
 exports[`devices/components/deviceIdentity snapshot matches snapshot with SelfSigned auth type 1`] = `
 <Fragment>
-  <DeviceIdentityCommandBar
+  <Component
     disableSave={true}
     handleSave={[Function]}
   />
@@ -70,7 +70,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with SelfSi
   <div
     className="device-detail"
   >
-    <Connect(MaskedCopyableTextField)
+    <Connect(Component)
       allowMask={false}
       ariaLabel="deviceIdentity.deviceID"
       label="deviceIdentity.deviceID"
@@ -80,7 +80,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with SelfSi
     <StyledLabelBase>
       deviceIdentity.authenticationType.selfSigned.text
     </StyledLabelBase>
-    <Connect(MaskedCopyableTextField)
+    <Connect(Component)
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.selfSigned.primaryThumbprint"
       label="deviceIdentity.authenticationType.selfSigned.primaryThumbprint"
@@ -88,7 +88,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with SelfSi
       readOnly={true}
       value="123"
     />
-    <Connect(MaskedCopyableTextField)
+    <Connect(Component)
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.selfSigned.secondaryThumbprint"
       label="deviceIdentity.authenticationType.selfSigned.secondaryThumbprint"
@@ -96,7 +96,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with SelfSi
       readOnly={true}
       value="456"
     />
-    <Connect(MaskedCopyableTextField)
+    <Connect(Component)
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.selfSigned.connectionString"
       label="deviceIdentity.authenticationType.selfSigned.connectionString"
@@ -119,7 +119,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with SelfSi
 
 exports[`devices/components/deviceIdentity snapshot matches snapshot with SymmetricKey auth type 1`] = `
 <Fragment>
-  <DeviceIdentityCommandBar
+  <Component
     disableSave={true}
     handleSave={[Function]}
     onRegeneratePrimaryKey={[Function]}
@@ -132,7 +132,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
   <div
     className="device-detail"
   >
-    <Connect(MaskedCopyableTextField)
+    <Connect(Component)
       allowMask={false}
       ariaLabel="deviceIdentity.deviceID"
       label="deviceIdentity.deviceID"
@@ -140,7 +140,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
       readOnly={true}
       value="device1"
     />
-    <Connect(MaskedCopyableTextField)
+    <Connect(Component)
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.primaryKey"
       label="deviceIdentity.authenticationType.symmetricKey.primaryKey"
@@ -149,7 +149,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
       readOnly={false}
       value="key"
     />
-    <Connect(MaskedCopyableTextField)
+    <Connect(Component)
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.secondaryKey"
       label="deviceIdentity.authenticationType.symmetricKey.secondaryKey"
@@ -157,7 +157,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
       onTextChange={[Function]}
       readOnly={false}
     />
-    <Connect(MaskedCopyableTextField)
+    <Connect(Component)
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.primaryConnectionString"
       label="deviceIdentity.authenticationType.symmetricKey.primaryConnectionString"
@@ -165,7 +165,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
       readOnly={true}
       value="HostName=test-string.azure-devices.net;DeviceId=device1;SharedAccessKey=key"
     />
-    <Connect(MaskedCopyableTextField)
+    <Connect(Component)
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString"
       label="deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString"
@@ -174,7 +174,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
       value=""
     />
     <br />
-    <SasTokenGenerationView
+    <Component
       activeAzureResourceHostName="test-string.azure-devices.net"
       deviceIdentity={
         Object {
@@ -202,7 +202,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
 
 exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchronization Status of updating 1`] = `
 <Fragment>
-  <DeviceIdentityCommandBar
+  <Component
     disableSave={true}
     handleSave={[Function]}
     onRegeneratePrimaryKey={[Function]}
@@ -215,14 +215,14 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
   <div
     className="device-detail"
   >
-    <Connect(MaskedCopyableTextField)
+    <Connect(Component)
       allowMask={false}
       ariaLabel="deviceIdentity.deviceID"
       label="deviceIdentity.deviceID"
       labelCallout="deviceIdentity.deviceIDTooltip"
       readOnly={true}
     />
-    <Connect(MaskedCopyableTextField)
+    <Connect(Component)
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.primaryKey"
       label="deviceIdentity.authenticationType.symmetricKey.primaryKey"
@@ -231,7 +231,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
       readOnly={false}
       value="key"
     />
-    <Connect(MaskedCopyableTextField)
+    <Connect(Component)
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.secondaryKey"
       label="deviceIdentity.authenticationType.symmetricKey.secondaryKey"
@@ -239,7 +239,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
       onTextChange={[Function]}
       readOnly={false}
     />
-    <Connect(MaskedCopyableTextField)
+    <Connect(Component)
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.primaryConnectionString"
       label="deviceIdentity.authenticationType.symmetricKey.primaryConnectionString"
@@ -247,7 +247,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
       readOnly={true}
       value=""
     />
-    <Connect(MaskedCopyableTextField)
+    <Connect(Component)
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString"
       label="deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString"
@@ -256,7 +256,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
       value=""
     />
     <br />
-    <SasTokenGenerationView
+    <Component
       activeAzureResourceHostName="test-string.azure-devices.net"
       deviceIdentity={
         Object {
@@ -284,7 +284,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
 
 exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchronization Status of working 1`] = `
 <Fragment>
-  <DeviceIdentityCommandBar
+  <Component
     disableSave={true}
     handleSave={[Function]}
     onRegeneratePrimaryKey={[Function]}
@@ -304,7 +304,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
 
 exports[`devices/components/deviceIdentity snapshot matches snapshot with auth type of None 1`] = `
 <Fragment>
-  <DeviceIdentityCommandBar
+  <Component
     disableSave={true}
     handleSave={[Function]}
   />
@@ -314,7 +314,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with auth t
   <div
     className="device-detail"
   >
-    <Connect(MaskedCopyableTextField)
+    <Connect(Component)
       allowMask={false}
       ariaLabel="deviceIdentity.deviceID"
       label="deviceIdentity.deviceID"
@@ -337,7 +337,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with auth t
 
 exports[`devices/components/deviceIdentity snapshot matches snapshot with identity wrapper 1`] = `
 <Fragment>
-  <DeviceIdentityCommandBar
+  <Component
     disableSave={true}
     handleSave={[Function]}
   />
@@ -347,7 +347,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with identi
   <div
     className="device-detail"
   >
-    <Connect(MaskedCopyableTextField)
+    <Connect(Component)
       allowMask={false}
       ariaLabel="deviceIdentity.deviceID"
       label="deviceIdentity.deviceID"

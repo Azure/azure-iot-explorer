@@ -3,17 +3,19 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import { AzureResourceView } from './azureResourceView';
 import { AccessVerificationState } from '../models/accessVerificationState';
+
+jest.mock('react-router-dom', () => ({
+    useParams: () => ({ hostName: 'hostName' }),
+}));
 
 describe('AzureResourceView', () => {
     it('matches snapshot when current resource is undefined', () => {
         expect(shallow(
             <AzureResourceView
                 activeAzureResource={undefined}
-                currentHostName="hostName"
-                currentUrl="url"
                 setActiveAzureResourceByHostName={jest.fn()}
             />
         )).toMatchSnapshot();
@@ -26,8 +28,6 @@ describe('AzureResourceView', () => {
                     accessVerificationState: AccessVerificationState.Verifying,
                     hostName: 'hostName'
                 }}
-                currentHostName="hostName"
-                currentUrl="url"
                 setActiveAzureResourceByHostName={jest.fn()}
             />
         )).toMatchSnapshot();
@@ -40,8 +40,6 @@ describe('AzureResourceView', () => {
                     accessVerificationState: AccessVerificationState.Failed,
                     hostName: 'hostName'
                 }}
-                currentHostName="hostName"
-                currentUrl="url"
                 setActiveAzureResourceByHostName={jest.fn()}
             />
         )).toMatchSnapshot();
@@ -54,8 +52,6 @@ describe('AzureResourceView', () => {
                     accessVerificationState: AccessVerificationState.Unauthorized,
                     hostName: 'hostName'
                 }}
-                currentHostName="hostName"
-                currentUrl="url"
                 setActiveAzureResourceByHostName={jest.fn()}
             />
         )).toMatchSnapshot();
@@ -68,8 +64,6 @@ describe('AzureResourceView', () => {
                     accessVerificationState: AccessVerificationState.Authorized,
                     hostName: 'hostName'
                 }}
-                currentHostName="hostName"
-                currentUrl="url"
                 setActiveAzureResourceByHostName={jest.fn()}
             />
         )).toMatchSnapshot();
@@ -77,29 +71,25 @@ describe('AzureResourceView', () => {
 
     it('calls setActiveAzureResourceByHostName when hostName changes', () => {
         jest.spyOn(React, 'useEffect').mockImplementation(f => f());
-        const setActiveAzureResourceByHostName = jest.fn();
+        const setActiveAzureResourceByHostNameSpy = jest.fn();
         const wrapper = shallow(
             <AzureResourceView
                 activeAzureResource={{
                     accessVerificationState: AccessVerificationState.Unauthorized,
                     hostName: 'hostName'
                 }}
-                currentHostName="hostName"
-                currentUrl="url"
-                setActiveAzureResourceByHostName={setActiveAzureResourceByHostName}
+                setActiveAzureResourceByHostName={setActiveAzureResourceByHostNameSpy}
             />
         );
 
         wrapper.setProps({
             activeAzureResource: {
                 accessVerificationState: AccessVerificationState.Unauthorized,
-                hostName: 'hostName'
+                hostName: 'oldHostName'
             },
-            currentHostName: 'newHostName',
-            currentUrl: 'url',
-            setActiveAzureResourceByHostName
+            setActiveAzureResourceByHostName: setActiveAzureResourceByHostNameSpy
         });
 
-        expect(setActiveAzureResourceByHostName).toHaveBeenCalledWith('newHostName');
+        expect(setActiveAzureResourceByHostNameSpy).toHaveBeenCalledWith('hostName');
     });
 });

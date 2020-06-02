@@ -4,34 +4,28 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
+import { act } from 'react-dom/test-utils';
+import { shallow, mount } from 'enzyme';
+const InfiniteScroll = require('react-infinite-scroller'); // tslint:disable-line: no-var-requires
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
-import DeviceEventsComponent, { DeviceEventsState } from './deviceEvents';
-import { mountWithLocalization, testSnapshot } from '../../../../shared/utils/testHelpers';
+import { DeviceEventsComponent } from './deviceEvents';
 import { appConfig, HostMode } from '../../../../../appConfig/appConfig';
+import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
+import { DEFAULT_CONSUMER_GROUP } from '../../../../constants/apiConstants';
+import { MILLISECONDS_IN_MINUTE } from '../../../../constants/shared';
+
+const pathname = `#/devices/detail/events/?id=device1`;
+jest.mock('react-router-dom', () => ({
+    useLocation: () => ({ search: `?id=device1`, pathname }),
+}));
 
 describe('components/devices/deviceEvents', () => {
-
-    const pathname = `#/devices/detail/events/?id=device1`;
-
-    const location: any = { // tslint:disable-line:no-any
-        pathname
-    };
-
-    const routerProps: any = { // tslint:disable-line:no-any
-        history: {
-            location
-        },
-        location,
-        match: {}
-    };
-
     const getComponent = (overrides = {}) => {
         const props = {
             addNotification: jest.fn(),
             connectionString: '',
-            ...routerProps,
             ...overrides,
         };
         return (<DeviceEventsComponent {...props} />);
@@ -39,56 +33,56 @@ describe('components/devices/deviceEvents', () => {
 
     it('matches snapshot in electron', () => {
         appConfig.hostMode = HostMode.Electron;
-        const wrapper = getComponent();
-        testSnapshot(wrapper);
+        expect(shallow(getComponent())).toMatchSnapshot();
     });
 
     it('matches snapshot in hosted environment', () => {
         appConfig.hostMode = HostMode.Browser;
-        const wrapper = getComponent();
-        testSnapshot(wrapper);
+        expect(shallow(getComponent())).toMatchSnapshot();
     });
 
     it('changes state accordingly when command bar buttons are clicked', () => {
-        const wrapper = mountWithLocalization(getComponent());
+        const wrapper = mount(getComponent());
         const commandBar = wrapper.find(CommandBar).first();
         // click the start button
-        commandBar.props().items[0].onClick(null);
+        act(() => commandBar.props().items[0].onClick(null));
         wrapper.update();
-        expect((wrapper.state() as DeviceEventsState).hasMore).toBeTruthy();
+        expect(wrapper.find(InfiniteScroll).first().props().hasMore).toBeTruthy();
 
         // click the start button again which has been toggled to stop button
-        commandBar.props().items[0].onClick(null);
+        act(() => wrapper.find(CommandBar).first().props().items[0].onClick(null));
         wrapper.update();
-        expect((wrapper.state() as DeviceEventsState).hasMore).toBeFalsy();
+        expect(wrapper.find(InfiniteScroll).first().props().hasMore).toBeFalsy();
 
         // clear events button should be disabled
         expect(commandBar.props().items[1].disabled).toBeTruthy();
 
         // click the show system property button
-        commandBar.props().items[2].onClick(null); // tslint:disable-line:no-magic-numbers
+        expect(commandBar.props().items[2].iconProps.iconName).toEqual('Checkbox');
+        act(() => commandBar.props().items[2].onClick(null)); // tslint:disable-line:no-magic-numbers
         wrapper.update();
-        expect((wrapper.state() as DeviceEventsState).showSystemProperties).toBeTruthy();
+        const updatedCommandBar = wrapper.find(CommandBar).first();
+        expect(updatedCommandBar.props().items[2].iconProps.iconName).toEqual('CheckboxComposite');
     });
 
     it('changes state accordingly when consumer group value is changed', () => {
-        const wrapper = mountWithLocalization(getComponent());
+        const wrapper = mount(getComponent());
         const textField = wrapper.find(TextField).first();
-        textField.instance().props.onChange({ target: null}, 'testGroup');
+        act(() => textField.instance().props.onChange({ target: null}, 'testGroup'));
         wrapper.update();
-        expect((wrapper.state() as DeviceEventsState).consumerGroup).toEqual('testGroup');
+        expect(wrapper.find(TextField).first().props().value).toEqual('testGroup');
     });
 
     it('changes state accordingly when custom event hub boolean value is changed', () => {
-        const wrapper = mountWithLocalization(getComponent());
+        const wrapper = mount(getComponent());
+        expect(wrapper.find('.custom-event-hub-text-field').length).toEqual(0);
         const toggle = wrapper.find(Toggle).at(0);
-        toggle.instance().props.onChange({ target: null}, false);
+        act(() => toggle.instance().props.onChange({ target: null}, false));
         wrapper.update();
-        expect((wrapper.state() as DeviceEventsState).useBuiltInEventHub).toBeFalsy();
+        expect(wrapper.find('.custom-event-hub-text-field').length).toEqual(6);
     });
 
     it('renders events', () => {
-        const wrapper = mountWithLocalization(getComponent());
         const events = [{
             body: {
                 humid: 123
@@ -98,16 +92,34 @@ describe('components/devices/deviceEvents', () => {
               'iothub-message-schema': 'humid'
             }
         }];
-        wrapper.setState({events});
-        wrapper.update();
+
+        const initialState = {
+            consumerGroup: DEFAULT_CONSUMER_GROUP,
+            customEventHubConnectionString: undefined,
+            customEventHubName: undefined,
+            events,
+            hasMore: false,
+            loading: false,
+            loadingAnnounced: undefined,
+            monitoringData: false,
+            showSystemProperties: false,
+            startTime: new Date(new Date().getTime() - MILLISECONDS_IN_MINUTE), // set start time to one minute ago
+            synchronizationStatus: SynchronizationStatus.initialized,
+            useBuiltInEventHub: true
+        };
+        const realUseState = React.useState;
+        jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(initialState));
+
+        const wrapper = mount(getComponent());
         const enqueueTime = wrapper.find('h5');
         // tslint:disable-next-line:no-any
         expect((enqueueTime.props().children as any).join('')).toBeDefined();
 
         // click the clear events button
+        expect(wrapper.find(InfiniteScroll).first().props().role).toEqual('feed');
         const commandBar = wrapper.find(CommandBar).first();
-        commandBar.props().items[1].onClick(null);
+        act(() => commandBar.props().items[1].onClick(null));
         wrapper.update();
-        expect((wrapper.state() as DeviceEventsState).events).toEqual([]);
+        expect(wrapper.find(InfiniteScroll).first().props().role).toEqual('main');
     });
 });

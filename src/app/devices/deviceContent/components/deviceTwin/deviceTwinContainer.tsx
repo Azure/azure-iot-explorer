@@ -2,11 +2,10 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { compose, Dispatch } from 'redux';
-import { withRouter } from 'react-router-dom';
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { StateType } from '../../../../shared/redux/state';
-import DeviceTwin, { DeviceTwinDataProps, DeviceTwinDispatchProps } from './deviceTwin';
+import { DeviceTwin, DeviceTwinDataProps, DeviceTwinDispatchProps } from './deviceTwin';
 import { getDeviceTwinSelector, getDeviceTwinStateSelector } from './selectors';
 import { getTwinAction, updateTwinAction, UpdateTwinActionParameters } from '../../actions';
 
@@ -24,4 +23,4 @@ const mapDispatchToProps = (dispatch: Dispatch): DeviceTwinDispatchProps => {
     };
 };
 
-export default compose(withRouter, connect(mapStateToProps, mapDispatchToProps))(DeviceTwin);
+export default connect(mapStateToProps, mapDispatchToProps)(DeviceTwin);

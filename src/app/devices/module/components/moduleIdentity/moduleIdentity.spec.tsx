@@ -4,24 +4,18 @@
  **********************************************************/
 import * as React from 'react';
 import 'jest';
-import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
+import { shallow, mount } from 'enzyme';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
-import ModuleIdentityComponent, { ModuleIdentityDataProps, ModuleIdentityDispatchProps } from './moduleIdentity';
-import { mountWithLocalization, testWithLocalizationContext, testSnapshot } from '../../../../shared/utils/testHelpers';
+import { ModuleIdentityComponent, ModuleIdentityDataProps, ModuleIdentityDispatchProps } from './moduleIdentity';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 
 const pathname = `/`;
 
-const location: any = { // tslint:disable-line:no-any
-    pathname
-};
-const routerprops: any = { // tslint:disable-line:no-any
-    history: {
-        location
-    },
-    location,
-    match: {}
-};
+jest.mock('react-router-dom', () => ({
+    useHistory: () => ({ push: jest.fn() }),
+    useLocation: () => ({ search: '', pathname }),
+    useRouteMatch: () => ({ url: pathname }),
+}));
 
 const moduleIdentityDataProps: ModuleIdentityDataProps = {
     moduleIdentityList: [],
@@ -37,7 +31,6 @@ const getComponent = (overrides = {}) => {
     const props = {
         ...moduleIdentityDataProps,
         ...moduleIdentityDispatchProps,
-        ...routerprops,
         ...overrides
     };
     return <ModuleIdentityComponent {...props} />;
@@ -46,28 +39,28 @@ const getComponent = (overrides = {}) => {
 describe('devices/components/moduleIdentity', () => {
     context('snapshot', () => {
         it('matches snapshot while loading', () => {
-            testSnapshot(getComponent());
+            expect(shallow(getComponent())).toMatchSnapshot();
         });
 
         it('matches snapshot when fetch failed', () => {
-            testSnapshot(getComponent({
+            expect(shallow(getComponent({
                 synchronizationStatus: SynchronizationStatus.failed
-            }));
+            }))).toMatchSnapshot();
         });
 
         it('matches snapshot with moduleIdentityList', () => {
-            testSnapshot(getComponent({
+            expect(shallow(getComponent({
                 moduleIdentityList: [{
                     authentication: null,
                     deviceId: 'testDevice',
                     moduleId: 'testModule'
                 }],
                 synchronizationStatus: SynchronizationStatus.fetched
-            }));
+            }))).toMatchSnapshot();
         });
 
         it('calls refresh', () => {
-            const wrapper = mountWithLocalization(getComponent());
+            const wrapper = mount(getComponent());
             const commandBar = wrapper.find(CommandBar).first();
             commandBar.props().items[1].onClick(null);
             expect(mockGetModuleIdentities).toBeCalled();

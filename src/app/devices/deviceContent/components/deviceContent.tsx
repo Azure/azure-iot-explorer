@@ -3,21 +3,21 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Route, RouteComponentProps } from 'react-router-dom';
+import { Route, useLocation, useRouteMatch } from 'react-router-dom';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import DeviceIdentityContainer from './deviceIdentity/deviceIdentityContainer';
 import DeviceTwinContainer from './deviceTwin/deviceTwinContainer';
 import DeviceEventsContainer from './deviceEvents/deviceEventsContainer';
 import DirectMethodContainer from './directMethod/directMethodContainer';
 import CloudToDeviceMessageContainer from './cloudToDeviceMessage/cloudToDeviceMessageContainer';
-import ModuleIdentityContent from '../../module/components/moduleIdentity/moduleIdentityContent';
-import DeviceContentNavComponent from './deviceContentNav';
-import { DigitalTwinContentContainer } from './digitalTwin/digitalTwinContent';
+import { ModuleIdentityRoutes } from '../../module/components/moduleIdentity/moduleIdentityContent';
+import { DeviceContentNavComponent } from './deviceContentNav';
+import { DigitalTwinContent } from './digitalTwin/digitalTwinContent';
 import { DigitalTwinInterfacesContainer } from './digitalTwin/digitalTwinInterfaces';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../shared/contexts/localizationContext';
+import { useLocalizationContext } from '../../../shared/contexts/localizationContext';
 import { NAV } from '../../../constants/iconNames';
-import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
+import { ROUTE_PARTS } from '../../../constants/routes';
 import { DeviceIdentity } from '../../../api/models/deviceIdentity';
 import { SynchronizationWrapper } from '../../../api/models/synchronizationWrapper';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
@@ -30,7 +30,6 @@ interface DeviceContentState {
     appMenuVisible: boolean;
 }
 export interface DeviceContentDataProps {
-    deviceId: string;
     isLoading: boolean;
     digitalTwinModelId: string;
     identityWrapper: SynchronizationWrapper<DeviceIdentity>;
@@ -42,106 +41,84 @@ export interface DeviceContentDispatchProps {
     getDeviceIdentity: (deviceId: string) => void;
 }
 
-export type DeviceContentProps = DeviceContentDataProps & DeviceContentDispatchProps & RouteComponentProps;
+export type DeviceContentProps = DeviceContentDataProps & DeviceContentDispatchProps;
 
-export class DeviceContentComponent extends React.PureComponent<DeviceContentProps, DeviceContentState> {
-    constructor(props: DeviceContentProps) {
-        super(props);
-        this.state = {
-            appMenuVisible: true
-        };
-    }
+export const DeviceContentComponent: React.FC<DeviceContentProps> = (props: DeviceContentProps) => {
+    const { identityWrapper, getDeviceIdentity, getDigitalTwin } = props;
+    const { t } = useLocalizationContext();
+    const { url } = useRouteMatch();
+    const { search } = useLocation();
+    const deviceId = getDeviceIdFromQueryString(search);
+    const [ appMenuVisible, setAppMenuVisible ] = React.useState(true);
 
-    public render(): JSX.Element {
+    React.useEffect(() => {
+        getDigitalTwin(deviceId);
+        getDeviceIdentity(deviceId);
+    },              [deviceId]);
+
+    const renderNav = () => {
         return (
-            <LocalizationContextConsumer>
-            {(context: LocalizationContextInterface) => (
-                <div>
-                    {this.props.deviceId &&
-                        <div className="edit-content">
-                            <div className="device-content">
-                                <>
-                                    {this.renderNav(context)}
-                                    {this.renderDeviceContentDetail()}
-                                </>
-                            </div>
-                        </div>
-                    }
-                </div>
-            )}
-            </LocalizationContextConsumer>
-        );
-    }
-
-    public componentDidMount() {
-        this.props.getDigitalTwin(this.props.deviceId);
-        this.props.getDeviceIdentity(this.props.deviceId);
-    }
-
-    public componentDidUpdate(oldProps: DeviceContentProps) {
-        if (getDeviceIdFromQueryString(oldProps) !== getDeviceIdFromQueryString(this.props)) {
-            const deviceId = getDeviceIdFromQueryString(this.props);
-            this.props.getDeviceIdentity(deviceId);
-            this.props.getDigitalTwin(deviceId);
-            const url = this.props.match.url;
-            this.props.history.push(`${url}/${ROUTE_PARTS.IDENTITY}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
-        }
-    }
-
-    private readonly renderNav = (context: LocalizationContextInterface) => {
-        return (
-            <div className={'device-content-nav-bar' + (!this.state.appMenuVisible ? ' collapsed' : '')}>
+            <div className={'device-content-nav-bar' + (!appMenuVisible ? ' collapsed' : '')}>
                 <nav>
                     <div className="navToggle">
                         <IconButton
                             tabIndex={0}
                             iconProps={{ iconName: NAV }}
-                            title={this.state.appMenuVisible ? context.t(ResourceKeys.deviceContent.navBar.collapse) : context.t(ResourceKeys.deviceContent.navBar.expand)}
-                            ariaLabel={this.state.appMenuVisible ? context.t(ResourceKeys.deviceContent.navBar.collapse) : context.t(ResourceKeys.deviceContent.navBar.expand)}
-                            onClick={this.collapseToggle}
+                            title={appMenuVisible ? t(ResourceKeys.deviceContent.navBar.collapse) : t(ResourceKeys.deviceContent.navBar.expand)}
+                            ariaLabel={appMenuVisible ? t(ResourceKeys.deviceContent.navBar.collapse) : t(ResourceKeys.deviceContent.navBar.expand)}
+                            onClick={collapseToggle}
                         />
                     </div>
                     <div className="nav-links">
-                        {this.createNavLinks()}
+                        {createNavLinks()}
                     </div>
                 </nav>
             </div>
         );
-    }
+    };
 
-    private readonly renderDeviceContentDetail = () => {
-        const url = this.props.match.url;
-
+    const renderDeviceContentDetail = () => {
         return (
-            <div className={'device-content-detail' + (!this.state.appMenuVisible ? ' collapsed' : '')}>
-                <Route path={`${url}/${ROUTE_PARTS.IDENTITY}/`} component={DeviceIdentityContainer} />
-                <Route path={`${url}/${ROUTE_PARTS.TWIN}/`} component={DeviceTwinContainer} />
-                <Route path={`${url}/${ROUTE_PARTS.EVENTS}/`} component={DeviceEventsContainer}/>
-                <Route path={`${url}/${ROUTE_PARTS.METHODS}/`} component={DirectMethodContainer} />
-                <Route path={`${url}/${ROUTE_PARTS.CLOUD_TO_DEVICE_MESSAGE}/`} component={CloudToDeviceMessageContainer} />
-                <Route path={`${url}/${ROUTE_PARTS.MODULE_IDENTITY}/`} component={ModuleIdentityContent} />
-                <Route exact={true} path={`${url}/${ROUTE_PARTS.DIGITAL_TWINS}/`} component={DigitalTwinInterfacesContainer} />
-                <Route path={`${url}/${ROUTE_PARTS.DIGITAL_TWINS}/${ROUTE_PARTS.DIGITAL_TWINS_DETAIL}/`} component={DigitalTwinContentContainer}/>
+            <div className={'device-content-detail' + (!appMenuVisible ? ' collapsed' : '')}>
+                <Route path={`${url}/${ROUTE_PARTS.IDENTITY}`} component={DeviceIdentityContainer} />
+                <Route path={`${url}/${ROUTE_PARTS.TWIN}`} component={DeviceTwinContainer} />
+                <Route path={`${url}/${ROUTE_PARTS.EVENTS}`} component={DeviceEventsContainer}/>
+                <Route path={`${url}/${ROUTE_PARTS.METHODS}`} component={DirectMethodContainer} />
+                <Route path={`${url}/${ROUTE_PARTS.CLOUD_TO_DEVICE_MESSAGE}`} component={CloudToDeviceMessageContainer} />
+                <Route path={`${url}/${ROUTE_PARTS.MODULE_IDENTITY}`} component={ModuleIdentityRoutes} />
+                <Route exact={true} path={`${url}/${ROUTE_PARTS.DIGITAL_TWINS}`} component={DigitalTwinInterfacesContainer} />
+                <Route path={`${url}/${ROUTE_PARTS.DIGITAL_TWINS}/${ROUTE_PARTS.DIGITAL_TWINS_DETAIL}`} component={DigitalTwinContent}/>
             </div>
         );
-    }
+    };
 
-    private readonly collapseToggle = () => {
-        this.setState({
-            appMenuVisible: !this.state.appMenuVisible
-        });
-    }
+    const collapseToggle = () => {
+        setAppMenuVisible(true);
+    };
 
-    private readonly createNavLinks = () => {
+    const createNavLinks = () => {
         return (
-            this.props.identityWrapper && this.props.identityWrapper.synchronizationStatus === SynchronizationStatus.working ?
+            identityWrapper && identityWrapper.synchronizationStatus === SynchronizationStatus.working ?
                 <MultiLineShimmer/> :
                 (
                     <DeviceContentNavComponent
-                        {...this.props}
-                        isEdgeDevice={this.props.identityWrapper && this.props.identityWrapper.payload && this.props.identityWrapper.payload.capabilities.iotEdge}
+                        {...props}
+                        isEdgeDevice={identityWrapper && identityWrapper.payload && identityWrapper.payload.capabilities.iotEdge}
                     />
                 )
         );
-    }
-}
+    };
+
+    return (
+        <div>
+            {deviceId &&
+                <div className="edit-content">
+                    <div className="device-content">
+                        {renderNav()}
+                        {renderDeviceContentDetail()}
+                    </div>
+                </div>
+            }
+        </div>
+    );
+};

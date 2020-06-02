@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
-import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../shared/contexts/localizationContext';
+import { useLocalizationContext } from '../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { ArrayOperation, REFRESH } from '../../../constants/iconNames';
 
@@ -20,57 +20,45 @@ export interface DeviceListCommandBarActionProps {
     handleDelete: () => void;
 }
 
-export default class DeviceListCommandBar extends React.Component<DeviceListCommandBarDataProps & DeviceListCommandBarActionProps> {
-    constructor(props: DeviceListCommandBarDataProps & DeviceListCommandBarActionProps) {
-        super(props);
-    }
+export const DeviceListCommandBar: React.FC<DeviceListCommandBarDataProps & DeviceListCommandBarActionProps> = (props: DeviceListCommandBarDataProps & DeviceListCommandBarActionProps) => {
+    const { t } = useLocalizationContext();
 
-    public render() {
-        return (
-            <LocalizationContextConsumer>
-                {(context: LocalizationContextInterface) => (
-                    this.showCommandBar(context)
-                )}
-            </LocalizationContextConsumer>
-        );
-    }
+    const { disableAdd, disableDelete, disableRefresh, handleAdd, handleDelete, handleRefresh } = props;
 
-    private readonly showCommandBar = (context: LocalizationContextInterface) => {
-        return (
-            <CommandBar
-                items={[
-                    {
-                        ariaLabel: context.t(ResourceKeys.deviceLists.commands.add),
-                        disabled: this.props.disableAdd,
-                        iconProps: {
-                            iconName: ArrayOperation.ADD
-                        },
-                        key: ArrayOperation.ADD,
-                        name: context.t(ResourceKeys.deviceLists.commands.add),
-                        onClick: this.props.handleAdd
+    return (
+        <CommandBar
+            items={[
+                {
+                    ariaLabel: t(ResourceKeys.deviceLists.commands.add),
+                    disabled: disableAdd,
+                    iconProps: {
+                        iconName: ArrayOperation.ADD
                     },
-                    {
-                        ariaLabel: context.t(ResourceKeys.deviceLists.commands.refresh),
-                        disabled: this.props.disableRefresh,
-                        iconProps: {
-                            iconName: REFRESH
-                        },
-                        key: REFRESH,
-                        name: context.t(ResourceKeys.deviceLists.commands.refresh),
-                        onClick: this.props.handleRefresh
+                    key: ArrayOperation.ADD,
+                    name: t(ResourceKeys.deviceLists.commands.add),
+                    onClick: handleAdd
+                },
+                {
+                    ariaLabel: t(ResourceKeys.deviceLists.commands.refresh),
+                    disabled: disableRefresh,
+                    iconProps: {
+                        iconName: REFRESH
                     },
-                    {
-                        ariaLabel: context.t(ResourceKeys.deviceLists.commands.delete.buttonText),
-                        disabled: this.props.disableDelete,
-                        iconProps: {
-                            iconName: ArrayOperation.REMOVE
-                        },
-                        key: ArrayOperation.REMOVE,
-                        name: context.t(ResourceKeys.deviceLists.commands.delete.buttonText),
-                        onClick: this.props.handleDelete
+                    key: REFRESH,
+                    name: t(ResourceKeys.deviceLists.commands.refresh),
+                    onClick: handleRefresh
+                },
+                {
+                    ariaLabel: t(ResourceKeys.deviceLists.commands.delete.buttonText),
+                    disabled: disableDelete,
+                    iconProps: {
+                        iconName: ArrayOperation.REMOVE
                     },
-                ]}
-            />
-        );
-    }
-}
+                    key: ArrayOperation.REMOVE,
+                    name: t(ResourceKeys.deviceLists.commands.delete.buttonText),
+                    onClick: handleDelete
+                },
+            ]}
+        />
+    );
+};

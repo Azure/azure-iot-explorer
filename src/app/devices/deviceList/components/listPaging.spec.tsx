@@ -4,10 +4,9 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { ActionButton } from 'office-ui-fabric-react';
-import ListPaging from './listPaging';
-import { testSnapshot, mountWithLocalization } from '../../../shared/utils/testHelpers';
+import { ListPaging } from './listPaging';
 
 describe('components/devices/listPaging', () => {
 
@@ -23,26 +22,28 @@ describe('components/devices/listPaging', () => {
     });
 
     it('matches snapshot with continuation tokens', () => {
-        testSnapshot(
+        expect(shallow(
             <ListPaging
                 continuationTokens={['', 'abc123']}
                 currentPageIndex={0}
                 fetchPage={jest.fn()}
             />
-        );
+        )).toMatchSnapshot();
     });
+
     it('matches snapshot on different page', () => {
-        testSnapshot(
+        expect(shallow(
             <ListPaging
                 continuationTokens={['', 'abc123', 'def456']}
                 currentPageIndex={1}
                 fetchPage={jest.fn()}
             />
-        );
+        )).toMatchSnapshot();
     });
+
     it('calls fetchPage on click', () => {
         const fetchPage = jest.fn();
-        const wrapper = mountWithLocalization(
+        const wrapper = mount(
         <ListPaging
             continuationTokens={['', 'abc123', 'def456']}
             currentPageIndex={1}

@@ -31,44 +31,24 @@ exports[`components/devices/deviceSettings matches snapshot with one twinWithSch
       ]
     }
   />
-  <Route
+  <Component
     component={[Function]}
   />
-  <DeviceSettingsPerInterface
+  <Component
     componentName="environmentalSensor"
     deviceId={null}
-    history={
-      Object {
-        "location": Object {
-          "pathname": "/#/devices/deviceDetail/ioTPlugAndPlay/ioTPlugAndPlayDetail/settings/?id=device1&componentName=foo&interfaceId=urn:contoso:com:EnvironmentalSensor:1",
-        },
-      }
-    }
     interfaceId="urn:contoso:com:EnvironmentalSensor:1"
     isLoading={false}
-    location={
-      Object {
-        "pathname": "/#/devices/deviceDetail/ioTPlugAndPlay/ioTPlugAndPlayDetail/settings/?id=device1&componentName=foo&interfaceId=urn:contoso:com:EnvironmentalSensor:1",
-      }
-    }
-    match={Object {}}
     patchDigitalTwin={[MockFunction]}
     refresh={[MockFunction]}
     setComponentName={
       [MockFunction] {
         "calls": Array [
           Array [
-            null,
-          ],
-          Array [
-            null,
+            "foo",
           ],
         ],
         "results": Array [
-          Object {
-            "type": "return",
-            "value": undefined,
-          },
           Object {
             "type": "return",
             "value": undefined,
@@ -155,7 +135,7 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
     className="list-content"
     role="list"
   >
-    <DeviceSettingsPerInterfacePerSetting
+    <Component
       collapsed={false}
       componentName="environmentalSensor"
       deviceId="testDevice"
