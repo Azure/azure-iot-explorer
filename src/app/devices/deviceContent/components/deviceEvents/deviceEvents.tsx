@@ -59,7 +59,6 @@ export interface ConfigurationSettings {
 
 export const DeviceEventsComponent: React.FC<DeviceEventsDataProps & DeviceEventsActionProps> = (props: DeviceEventsDataProps & DeviceEventsActionProps) => {
     let timerID: any; // tslint:disable-line:no-any
-    let isComponentMounted: boolean;
     const { t } = useLocalizationContext();
     const { search } = useLocation();
     const deviceId = getDeviceIdFromQueryString(search);
@@ -73,17 +72,15 @@ export const DeviceEventsComponent: React.FC<DeviceEventsDataProps & DeviceEvent
         loading: false,
         loadingAnnounced: undefined,
         monitoringData: false,
-        showSystemProperties: false,
         startTime: new Date(new Date().getTime() - MILLISECONDS_IN_MINUTE), // set start time to one minute ago
         synchronizationStatus: SynchronizationStatus.initialized,
         useBuiltInEventHub: true
     });
 
+    const [ showSystemProperties, setShowSystemProperties ] = React.useState(false);
     React.useEffect(() => {
-        isComponentMounted = true;
         return () => {
             stopMonitoring();
-            isComponentMounted = false;
         };
     },              []);
 
@@ -113,7 +110,7 @@ export const DeviceEventsComponent: React.FC<DeviceEventsDataProps & DeviceEvent
             ariaLabel: t(ResourceKeys.deviceEvents.command.showSystemProperties),
             disabled: state.synchronizationStatus === SynchronizationStatus.updating,
             iconProps: {
-                iconName: state.showSystemProperties ? CHECKED_CHECKBOX : EMPTY_CHECKBOX
+                iconName: showSystemProperties ? CHECKED_CHECKBOX : EMPTY_CHECKBOX
             },
             key: CHECKED_CHECKBOX,
             name: t(ResourceKeys.deviceEvents.command.showSystemProperties),
@@ -290,7 +287,7 @@ export const DeviceEventsComponent: React.FC<DeviceEventsDataProps & DeviceEvent
                 key="scroll"
                 className="device-events-container"
                 pageStart={0}
-                loadMore={fetchData()}
+                loadMore={fetchData}
                 hasMore={hasMore}
                 loader={renderLoader()}
                 role={state.events && state.events.length === 0 ? 'main' : 'feed'}
@@ -329,7 +326,7 @@ export const DeviceEventsComponent: React.FC<DeviceEventsDataProps & DeviceEvent
         );
     };
 
-    const fetchData = () => () => {
+    const fetchData = () => {
         const { loading, monitoringData } = state;
         if (!loading && monitoringData) {
             setState({
@@ -342,7 +339,7 @@ export const DeviceEventsComponent: React.FC<DeviceEventsDataProps & DeviceEvent
                     let parameters: MonitorEventsParameters = {
                         consumerGroup: state.consumerGroup,
                         deviceId,
-                        fetchSystemProperties: state.showSystemProperties,
+                        fetchSystemProperties: showSystemProperties,
                         startTime: state.startTime
                     };
 
@@ -363,15 +360,13 @@ export const DeviceEventsComponent: React.FC<DeviceEventsDataProps & DeviceEvent
                     monitorEvents(parameters)
                     .then(results => {
                         const messages = results ? results.reverse().map((message: Message) => message) : [];
-                        if (isComponentMounted) {
-                            setState({
-                                ...state,
-                                events: [...messages, ...state.events],
-                                loading: false,
-                                startTime: new Date()
-                            });
-                            stopMonitoringIfNecessary();
-                        }
+                        setState({
+                            ...state,
+                            events: [...messages, ...state.events],
+                            loading: false,
+                            startTime: new Date()
+                        });
+                        stopMonitoringIfNecessary();
                     })
                     .catch (error => {
                         props.addNotification({
@@ -398,10 +393,7 @@ export const DeviceEventsComponent: React.FC<DeviceEventsDataProps & DeviceEvent
     };
 
     const onShowSystemProperties = () => {
-        setState({
-            ...state,
-            showSystemProperties: !state.showSystemProperties
-        });
+        setShowSystemProperties(!showSystemProperties);
     };
 
     const stopMonitoringIfNecessary = () => {

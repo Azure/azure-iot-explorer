@@ -229,11 +229,11 @@ export const CloudToDeviceMessage: React.FC<CloudToDeviceMessageProps> = (props:
     };
 
     const renderItemColumn = () => (item: PropertyItem, index: number, column: IColumn) => {
-        const handleEditCustomPropertyKey = React.useCallback((event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
+        const handleEditCustomPropertyKey = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
             const items = [...properties];
             items[index] = {...items[index], keyName: newValue};
             setProperties(items);
-        },                                                    [item]);
+        };
 
         switch (column.key) {
             case 'key':
@@ -262,20 +262,20 @@ export const CloudToDeviceMessage: React.FC<CloudToDeviceMessageProps> = (props:
     };
 
     const renderItemValueColumn = (item: PropertyItem, column: IColumn) => {
-        const handleEditPropertyValue = React.useCallback((event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
+        const index = findMatchingItemIndex(item);
+
+        const handleEditPropertyValue = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
             const items = [...properties];
-            const index = findMatchingItemIndex(item);
             items[index] = {...items[index], value: newValue};
             setProperties(items);
-        },                                                [item]);
+        };
 
-        const handleEditExpiryTime = React.useCallback((event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
+        const handleEditExpiryTime = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
             const items = properties;
-            const index = findMatchingItemIndex(item);
             items[index] = {...items[index], value: newValue};
             setShowExpiryError(!parseInt(newValue) || moment.utc(parseInt(newValue)) <= moment.utc()); // tslint:disable-line:radix
             setProperties(items);
-        },                                             [item]);
+        };
 
         if (item.keyName === SystemProperties.ACK) {
             return renderAckDropdown(item);
@@ -303,12 +303,13 @@ export const CloudToDeviceMessage: React.FC<CloudToDeviceMessageProps> = (props:
     };
 
     const renderAckDropdown = ( property: PropertyItem) => {
-        const onDropdownSelectedKeyChanged = React.useCallback((event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption): void => {
+        const index = findMatchingItemIndex(property);
+
+        const onDropdownSelectedKeyChanged = (event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption): void => {
             const items = properties;
-            const index = findMatchingItemIndex(property);
             items[index] = {...items[index], value: option.key.toString()};
             setProperties(items);
-        },                                                     [property]);
+        };
 
         const options: IDropdownOption[] = [
             {
@@ -333,9 +334,10 @@ export const CloudToDeviceMessage: React.FC<CloudToDeviceMessageProps> = (props:
     };
 
     const renderEncodingDropdown = (property: PropertyItem) => {
+        const index = findMatchingItemIndex(property);
+
         const onDropdownSelectedKeyChanged = (event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption): void => {
             const items = properties;
-            const index = findMatchingItemIndex(property);
             items[index] = {...items[index], value: option.key.toString()};
             setProperties(items);
         };
