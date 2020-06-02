@@ -234,10 +234,12 @@ export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataPro
     };
 
     return (
-        <ErrorBoundary error={t(ResourceKeys.errorBoundary.text)}>
-            {createCollapsedSummary()}
-            {createUncollapsedCard()}
-            {createReportedValuePanel()}
-        </ErrorBoundary>
+        <article className="list-item" role="listitem">
+            <ErrorBoundary error={t(ResourceKeys.errorBoundary.text)}>
+                {createCollapsedSummary()}
+                {createUncollapsedCard()}
+                {createReportedValuePanel()}
+            </ErrorBoundary>
+        </article>
     );
 };
