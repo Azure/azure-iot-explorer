@@ -54,7 +54,6 @@ export const DeviceContentComponent: React.FC<DeviceContentProps> = (props: Devi
     React.useEffect(() => {
         getDigitalTwin(deviceId);
         getDeviceIdentity(deviceId);
-        // history.push(`${pathname}/${ROUTE_PARTS.IDENTITY}?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
     },              [deviceId]);
 
     const renderNav = () => {

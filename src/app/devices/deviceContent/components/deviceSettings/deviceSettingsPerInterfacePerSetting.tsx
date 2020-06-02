@@ -43,10 +43,6 @@ export interface TwinWithSchema {
     settingSchema: ParsedJsonSchema;
 }
 
-interface DeviceSettingState {
-    showReportedValuePanel: boolean;
-}
-
 export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataProps & DeviceSettingDispatchProps> = (props: DeviceSettingDataProps & DeviceSettingDispatchProps) => {
     const { t } = useLocalizationContext();
 

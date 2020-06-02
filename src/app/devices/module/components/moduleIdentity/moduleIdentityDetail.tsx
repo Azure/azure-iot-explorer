@@ -49,22 +49,29 @@ export const ModuleIdentityDetailComponent: React.FC<ModuleIdentityDetailProps> 
     const { search, pathname } = useLocation();
     const history = useHistory();
 
-    const { moduleIdentitySyncStatus, moduleListSyncStatus, moduleIdentity, currentHostName, getModuleIdentity } = props;
+    const { moduleIdentitySyncStatus, moduleListSyncStatus, moduleIdentity, currentHostName, getModuleIdentity, deleteModuleIdentity } = props;
     const moduleId = getModuleIdentityIdFromQueryString(search);
     const deviceId = getDeviceIdFromQueryString(search);
     const [ showDeleteConfirmation, setShowDeleteConfirmation ] = React.useState<boolean>(false);
+    const isDeleted = React.useMemo(() => moduleListSyncStatus === SynchronizationStatus.deleted, [ moduleListSyncStatus]);
 
     React.useEffect(() => {
         retrieveData();
-        if (moduleListSyncStatus === SynchronizationStatus.deleted) {
+    },              []);
+
+    React.useEffect(() => {
+        if (isDeleted) {
             navigateToModuleList();
         }
-    },              [moduleId]);
+    },              [isDeleted]);
 
     const retrieveData = () => getModuleIdentity({ deviceId, moduleId });
 
     const onDelete = () =>  {
-        retrieveData();
+        deleteModuleIdentity({
+            deviceId,
+            moduleId
+        });
         closeDeleteDialog();
     };
 
