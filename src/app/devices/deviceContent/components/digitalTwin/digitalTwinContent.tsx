@@ -23,7 +23,7 @@ export const DigitalTwinContent: React.FC = () => {
 
     React.useEffect(() => {
         dispatch(getModelDefinitionAction.started({digitalTwinId: deviceId, interfaceId}));
-    }, [interfaceId, deviceId]);  // tslint:disable-line:align
+    },              [interfaceId, deviceId]);
 
     return (
         <>

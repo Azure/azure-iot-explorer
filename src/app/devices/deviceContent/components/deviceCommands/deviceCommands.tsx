@@ -32,7 +32,7 @@ export interface DeviceCommandDispatchProps {
 }
 
 export const DeviceCommands: React.FC<DeviceCommandsProps & DeviceCommandDispatchProps> = (props: DeviceCommandsProps & DeviceCommandDispatchProps) => {
-    const { refresh, invokeDigitalTwinInterfaceCommand, setComponentName, isLoading, commandSchemas } = props;
+    const { refresh, setComponentName, isLoading, commandSchemas } = props;
     const { search, pathname } = useLocation();
     const history = useHistory();
     const { t } = useLocalizationContext();
@@ -41,7 +41,7 @@ export const DeviceCommands: React.FC<DeviceCommandsProps & DeviceCommandDispatc
 
     React.useEffect(() => {
         setComponentName(componentName);
-    });
+    },              []);
 
     const renderCommandsPerInterface = () => {
         return (
