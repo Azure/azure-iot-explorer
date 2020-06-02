@@ -59,30 +59,9 @@
         }
         margin-bottom: 0px;
     }
-}
 
-.ms-Callout {
-    max-width: 300px;
-    min-width: 250px;
-    .content {
-        margin: {
-            top: 5px;
-            bottom: 3px;
-            right: 5px;
-            left: 5px;
-        }
-        min-height: 20px;
+    .home-link {
+        margin-left: 5px;
+        margin-right: 5px;
     }
-    .footer {
-        margin: {
-            bottom: 3px;
-            left: 5px;
-        }
-        width: 100%;
-    }
-}
-
-.home-link {
-    margin-left: 5px;
-    margin-right: 5px;
 }
