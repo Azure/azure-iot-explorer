@@ -71,7 +71,6 @@ export interface DeviceEventsState {
 
 export const DeviceEventsPerInterfaceComponent: React.FC<DeviceEventsDataProps & DeviceEventsDispatchProps> = (props: DeviceEventsDataProps & DeviceEventsDispatchProps) => {
     let timerID: any; // tslint:disable-line:no-any
-    let isComponentMounted: boolean;
 
     const { t } = useLocalizationContext();
     const { search, pathname } = useLocation();
@@ -96,10 +95,8 @@ export const DeviceEventsPerInterfaceComponent: React.FC<DeviceEventsDataProps &
 
     React.useEffect(() => {
         setComponentName(componentName);
-        isComponentMounted = true;
         return () => {
             stopMonitoring();
-            isComponentMounted = false;
         };
     },              []);
 
@@ -548,14 +545,12 @@ export const DeviceEventsPerInterfaceComponent: React.FC<DeviceEventsDataProps &
                                          (result.systemProperties[MESSAGE_SYSTEM_PROPERTIES.IOTHUB_COMPONENT_NAME] === componentName ||
                                           result.systemProperties[MESSAGE_SYSTEM_PROPERTIES.IOTHUB_INTERFACE_ID] === interfaceId))
                                 .reverse().map((message: Message) => message);
-                        if (isComponentMounted) {
-                            setState({
-                                ...state,
-                                events: [...messages, ...state.events],
-                                loading: false,
-                                startTime: new Date()});
-                            stopMonitoringIfNecessary();
-                        }
+                        setState({
+                            ...state,
+                            events: [...messages, ...state.events],
+                            loading: false,
+                            startTime: new Date()});
+                        stopMonitoringIfNecessary();
                     })
                     .catch (error => {
                         props.addNotification({
