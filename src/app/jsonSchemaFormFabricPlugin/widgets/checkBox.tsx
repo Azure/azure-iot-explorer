@@ -18,6 +18,6 @@ export const FabricCheckbox = (props: WidgetProps & { label: string }) => {
       ];
 
     return(
-        <ChoiceGroup selectedKey={props.value.toString()} options={options} onChange={onChangePassthrough(props)} label={props.label} disabled={props.disabled}/>
+        <ChoiceGroup selectedKey={props.value && props.value.toString()} options={options} onChange={onChangePassthrough(props)} label={props.label} disabled={props.disabled}/>
     );
 };

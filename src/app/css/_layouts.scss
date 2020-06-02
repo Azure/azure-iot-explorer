@@ -46,3 +46,23 @@
     overflow-y: auto;
     overflow-x: hidden;
 }
+
+.ms-Callout {
+    max-width: 800px;
+    .content {
+        margin: {
+            top: 5px;
+            bottom: 3px;
+            right: 5px;
+            left: 5px;
+        }
+        min-height: 20px;
+    }
+    .footer {
+        margin: {
+            bottom: 3px;
+            left: 5px;
+        }
+        width: 100%;
+    }
+}
