@@ -10,8 +10,6 @@ import { AzureResourceView, AzureResourceViewProps } from './azureResourceView';
 import { getActiveAzureResourceSelector } from '../selectors';
 
 export const AzureResourceViewContainer: React.FC = () => {
-    const { pathname } = useLocation();
-    const { hostName } = useParams();
     const activeAzureResource = useSelector(getActiveAzureResourceSelector);
     const dispatch = useDispatch();
 
@@ -23,7 +21,6 @@ export const AzureResourceViewContainer: React.FC = () => {
 
     const viewProps: AzureResourceViewProps = {
         activeAzureResource,
-        currentHostName: hostName,
         setActiveAzureResourceByHostName
     };
 

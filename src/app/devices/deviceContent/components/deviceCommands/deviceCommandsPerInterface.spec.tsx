@@ -4,9 +4,11 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
+import { shallow, mount } from 'enzyme';
+import { act } from 'react-dom/test-utils';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
-import DeviceCommandsPerInterface, { DeviceCommandDataProps, DeviceCommandDispatchProps, DeviceCommandState } from './deviceCommandsPerInterface';
-import { mountWithLocalization, testSnapshot } from '../../../../shared/utils/testHelpers';
+import { DeviceCommandsPerInterface, DeviceCommandDataProps, DeviceCommandDispatchProps, DeviceCommandState } from './deviceCommandsPerInterface';
+import { DeviceCommandsPerInterfacePerCommand } from './deviceCommandsPerInterfacePerCommand';
 
 describe('components/devices/deviceCommandsPerInterface', () => {
     const deviceCommandsDispatchProps: DeviceCommandDispatchProps = {
@@ -25,8 +27,8 @@ describe('components/devices/deviceCommandsPerInterface', () => {
                 }
             }
         ],
-        deviceId: 'device1',
         componentName: 'urn:interfaceId',
+        deviceId: 'device1'
     };
 
     const getComponent = (overrides = {}) => {
@@ -42,26 +44,26 @@ describe('components/devices/deviceCommandsPerInterface', () => {
     };
 
     it('matches snapshot', () => {
-        testSnapshot(getComponent());
+        expect(shallow(getComponent())).toMatchSnapshot();
     });
 
     it('toggles collapsed', () => {
-        const wrapper = mountWithLocalization(getComponent());
-        expect((wrapper.state() as DeviceCommandState).allCollapsed).toBeFalsy();
+        const wrapper = mount(getComponent());
+        expect(wrapper.find('.collapse-button').find(IconButton).first().props().title).toEqual('deviceCommands.command.collapseAll');
+
         const button = wrapper.find(IconButton).first();
         button.simulate('click');
         wrapper.update();
-        expect((wrapper.state() as DeviceCommandState).allCollapsed).toBeTruthy();
+        expect(wrapper.find('.collapse-button').find(IconButton).first().props().title).toEqual('deviceCommands.command.expandAll');
     });
 
     it('executes handle toggle from child', () => {
-        const wrapper = mountWithLocalization(getComponent());
-        let collapsed = (wrapper.state() as DeviceCommandState).collapseMap.get(0);
-        expect(collapsed).toBeFalsy();
-        const button = wrapper.find(IconButton).at(1);
-        button.simulate('click');
+        const wrapper = mount(getComponent());
+
+        expect(wrapper.find(DeviceCommandsPerInterfacePerCommand).first().props().collapsed).toBeFalsy();
+
+        act(() => wrapper.find(DeviceCommandsPerInterfacePerCommand).first().props().handleCollapseToggle());
         wrapper.update();
-        collapsed = (wrapper.state() as DeviceCommandState).collapseMap.get(0);
-        expect(collapsed).toBeTruthy();
+        expect(wrapper.find(DeviceCommandsPerInterfacePerCommand).first().props().collapsed).toBeTruthy();
     });
 });

@@ -40,10 +40,11 @@ export const ModelRepositoryLocationListItem: React.FC<ModelRepositoryLocationLi
     if (item && item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local) {
         initialCurrentFolder = item.value || getRootFolder();
     }
+
+    const [ subFolders, setSubFolders ] = React.useState([]);
     const [ currentFolder, setCurrentFolder ] = React.useState(initialCurrentFolder);
     const [ showError, setShowError ] = React.useState<boolean>(false);
     const [ showFolderPicker, setShowFolderPicker ] = React.useState<boolean>(false);
-    const [ subFolders, setSubFolders ] = React.useState([]);
 
     const onRemove = () => onRemoveRepositoryLocationSetting(index);
 
@@ -89,8 +90,8 @@ export const ModelRepositoryLocationListItem: React.FC<ModelRepositoryLocationLi
     };
 
     const onShowFolderPicker = () => {
-        setShowFolderPicker(true);
         fetchSubDirectoriesInfo(currentFolder);
+        setShowFolderPicker(true);
     };
 
     const dismissFolderPicker = () => {

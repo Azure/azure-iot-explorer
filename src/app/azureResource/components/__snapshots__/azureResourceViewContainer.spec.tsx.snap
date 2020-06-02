@@ -3,8 +3,6 @@
 exports[`AzureResourceViewContainer matches snapshot 1`] = `
 <Component
   activeAzureResource="active azure resource"
-  currentHostName="hostName"
-  currentUrl="currentUrl"
   setActiveAzureResourceByHostName={[Function]}
 />
 `;

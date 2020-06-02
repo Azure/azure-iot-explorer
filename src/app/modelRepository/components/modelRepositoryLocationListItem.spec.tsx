@@ -4,7 +4,8 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
+import { act } from 'react-dom/test-utils';
 import Dialog from 'office-ui-fabric-react/lib/Dialog';
 import { ModelRepositoryLocationListItem } from './modelRepositoryLocationListItem';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
@@ -13,7 +14,7 @@ import * as Utils from '../../shared/utils/utils';
 
 describe('components/settings/modelRepositoryLocationListItem', () => {
     it('matches snapshot for public', () => {
-        const wrapper = mount(
+        const wrapper = shallow(
             <ModelRepositoryLocationListItem
                 index={0}
                 item={{
@@ -25,9 +26,8 @@ describe('components/settings/modelRepositoryLocationListItem', () => {
         );
         expect(wrapper).toMatchSnapshot();
     });
-
     it('matches snapshot for local', () => {
-        const wrapper = mount(
+        const wrapper = shallow(
             <ModelRepositoryLocationListItem
                 index={0}
                 item={{
@@ -40,9 +40,8 @@ describe('components/settings/modelRepositoryLocationListItem', () => {
         );
         expect(wrapper).toMatchSnapshot();
     });
-
     it('matches snapshot for local with error', () => {
-        const wrapper = mount(
+        const wrapper = shallow(
             <ModelRepositoryLocationListItem
                 errorKey={'error'}
                 index={0}
@@ -58,7 +57,7 @@ describe('components/settings/modelRepositoryLocationListItem', () => {
 
     });
     it('renders no folder text when no sub folder is retrieved', () => {
-        jest.spyOn(Utils, 'getRootFolder').mockReturnValue(null);
+        jest.spyOn(Utils, 'getRootFolder').mockReturnValue('f:/');
 
         const wrapper = mount(
             <ModelRepositoryLocationListItem
@@ -71,24 +70,22 @@ describe('components/settings/modelRepositoryLocationListItem', () => {
                 onRemoveRepositoryLocationSetting={jest.fn()}
             />
         );
-        const button = wrapper.find('.local-folder-launch').first();
-        button.simulate('click');
+
+        act(() => wrapper.find('.local-folder-launch').first().props().onClick(undefined));
         wrapper.update();
 
-        let dialog = wrapper.find(Dialog).first();
+        const dialog = wrapper.find(Dialog).first();
         expect(dialog.children().props().hidden).toBeFalsy();
         expect(dialog.children().props().children[0].props.children[0].props.disabled).toBeTruthy();
         expect(dialog.children().props().children[0].props.children[1].props.children).toEqual(ResourceKeys.modelRepository.types.local.folderPicker.dialog.noFolderFoundText);
-
-        wrapper.setState({showFolderPicker: true, showError: true});
-        wrapper.update();
-        dialog = wrapper.find(Dialog).first();
-        expect(dialog.children().props().children[0].props.children[1].props.children).toStrictEqual(ResourceKeys.modelRepository.types.local.folderPicker.dialog.error);
-        expect(dialog.children().props().children[1].props.children[0].props.disabled).toBeTruthy();
     });
 
     it('renders folders when sub folders retrieved', () => {
-        jest.spyOn(Utils, 'getRootFolder').mockReturnValue(null);
+        const subFolders = ['documents', 'pictures'];
+        jest.spyOn(Utils, 'getRootFolder').mockReturnValue('d:/');
+
+        const realUseState = React.useState;
+        jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(subFolders));
 
         const wrapper = mount(
             <ModelRepositoryLocationListItem
@@ -101,9 +98,10 @@ describe('components/settings/modelRepositoryLocationListItem', () => {
                 onRemoveRepositoryLocationSetting={jest.fn()}
             />
         );
-        const subFolders = ['documents', 'pictures'];
-        wrapper.setState({showFolderPicker: true, subFolders});
+
+        act(() => wrapper.find('.local-folder-launch').first().props().onClick(null));
         wrapper.update();
+
         const dialog = wrapper.find(Dialog).first();
         expect(dialog.children().props().hidden).toBeFalsy();
         expect(dialog.children().props().children[0].props.children[0].props.text).toEqual(ResourceKeys.modelRepository.types.local.folderPicker.command.navigateToParent);

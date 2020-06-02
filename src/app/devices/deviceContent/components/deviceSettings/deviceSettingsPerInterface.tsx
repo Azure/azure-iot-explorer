@@ -67,7 +67,7 @@ export const DeviceSettingsPerInterface: React.FC<DeviceSettingDataProps & Devic
     };
 
     const handleCollapseToggle = (index: number) => () => {
-        const newCollapseMap = collapseMap;
+        const newCollapseMap = new Map(collapseMap);
         newCollapseMap.set(index, !newCollapseMap.get(index));
         setCollapseMap(newCollapseMap);
     };

@@ -4,21 +4,21 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
+import { act } from 'react-dom/test-utils';
 import { mount, shallow } from 'enzyme';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { Dropdown } from 'office-ui-fabric-react/lib/Dropdown';
-import { CloudToDeviceMessage, CloudToDeviceMessageProps, CloudToDeviceMessageState, systemPropertyKeyNameMappings } from './cloudToDeviceMessage';
+import { CloudToDeviceMessage, CloudToDeviceMessageProps, systemPropertyKeyNameMappings } from './cloudToDeviceMessage';
 
 jest.mock('react-router-dom', () => ({
-    useLocation: () => ({ search: '' })
+    useLocation: () => ({ search: '?deviceId=testDevice' })
 }));
 
 describe('cloudToDeviceMessage', () => {
-    const mockSendCloudToDeviceMessage = jest.fn();
     const cloudToDeviceMessageProps: CloudToDeviceMessageProps = {
-        onSendCloudToDeviceMessage: mockSendCloudToDeviceMessage
+        onSendCloudToDeviceMessage: jest.fn()
     };
 
     const getComponent = (overrides = {}) => {
@@ -38,69 +38,87 @@ describe('cloudToDeviceMessage', () => {
     });
 
     it('sets message body', () => {
-        const wrapper = mount(getComponent());
+        const mockSendCloudToDeviceMessageSpy = jest.fn();
+        const wrapper = mount(getComponent({ onSendCloudToDeviceMessage: mockSendCloudToDeviceMessageSpy}));
         const bodyTextField = wrapper.find(TextField).first();
-        bodyTextField.instance().props.onChange({ target: null}, 'hello world');
+        act(() => bodyTextField.instance().props.onChange({ target: null}, 'hello world'));
         wrapper.update();
-        expect((wrapper.state() as CloudToDeviceMessageState).body).toEqual('hello world');
+        const commandBar = wrapper.find(CommandBar).first();
+        act(() => commandBar.props().items[0].onClick());
+        wrapper.update();
+        expect(mockSendCloudToDeviceMessageSpy.mock.calls[0][0].body).toEqual('hello world');
     });
 
     it('sets timestamp', () => {
-        const wrapper = mount(getComponent());
+        const mockSendCloudToDeviceMessageSpy = jest.fn();
+        const wrapper = mount(getComponent({ onSendCloudToDeviceMessage: mockSendCloudToDeviceMessageSpy}));
         const checkbox = wrapper.find(Checkbox).first();
-        checkbox.instance().props.onChange({ target: null}, true);
+        act(() => checkbox.instance().props.onChange({ target: null}, true));
         wrapper.update();
-        expect((wrapper.state() as CloudToDeviceMessageState).addTimestamp).toEqual(true);
+        const commandBar = wrapper.find(CommandBar).first();
+        const currentTime = new Date().toLocaleString();
+        act(() => commandBar.props().items[0].onClick());
+        wrapper.update();
+        expect(mockSendCloudToDeviceMessageSpy.mock.calls[0][0].body).toEqual(currentTime.toLocaleString());
     });
 
     it('adds custom properties', () => {
-        const wrapper = mount(getComponent());
+        const mockSendCloudToDeviceMessageSpy = jest.fn();
+        const wrapper = mount(getComponent({ onSendCloudToDeviceMessage: mockSendCloudToDeviceMessageSpy}));
         const commandBar = wrapper.find(CommandBar).at(1);
         // click the add custom property, which would add an entry to the editable grid
-        commandBar.props().items[0].onClick(null);
+        act(() => commandBar.props().items[0].onClick(null));
 
         wrapper.update();
-        expect((wrapper.state() as CloudToDeviceMessageState).properties.length).toEqual(2); // tslint:disable-line:no-magic-numbers
-
         const keyInput = wrapper.find(TextField).at(1);
-        keyInput.instance().props.onChange({ target: null}, 'foo');
+        act(() => keyInput.instance().props.onChange({ target: null}, 'foo'));
         const valueInput = wrapper.find(TextField).at(2); // tslint:disable-line:no-magic-numbers
-        valueInput.instance().props.onChange({ target: null}, 'bar');
+        act(() => valueInput.instance().props.onChange({ target: null}, 'bar'));
 
         wrapper.update();
-        expect((wrapper.state() as CloudToDeviceMessageState).properties.some(property => property.keyName === 'foo' && !property.isSystemProperty && property.value === 'bar')).toEqual(true);
+        const updatedCommandBar = wrapper.find(CommandBar).first();
+        act(() => updatedCommandBar.props().items[0].onClick());
+        wrapper.update();
+        expect(mockSendCloudToDeviceMessageSpy.mock.calls[0][0].properties).toContainEqual({isSystemProperty: false, key: 'foo', value: 'bar' });
     });
 
     it('adds system properties', () => {
-        const wrapper = mount(getComponent());
+        const mockSendCloudToDeviceMessageSpy = jest.fn();
+        const wrapper = mount(getComponent({ onSendCloudToDeviceMessage: mockSendCloudToDeviceMessageSpy}));
         const commandBar = wrapper.find(CommandBar).at(1);
         // click the add system property, which would add an entry to the editable grid
-        commandBar.props().items[1].subMenuProps.items[0].onClick();
+        act(() => commandBar.props().items[1].subMenuProps.items[0].onClick());
 
         wrapper.update();
-        expect((wrapper.state() as CloudToDeviceMessageState).properties.length).toEqual(2); // tslint:disable-line:no-magic-numbers
         const ackDropDown = wrapper.find(Dropdown).first();
-        ackDropDown.props().onChange(null, {key: 'full'} as any); // tslint:disable-line:no-any
+        act(() => ackDropDown.props().onChange(null, {key: 'full'} as any)); // tslint:disable-line:no-any
         wrapper.update();
-        expect((wrapper.state() as CloudToDeviceMessageState).properties.some(property => property.keyName === 'ack' && property.isSystemProperty && property.value === 'full')).toEqual(true);
+
+        const updatedCommandBar = wrapper.find(CommandBar).first();
+        act(() => updatedCommandBar.props().items[0].onClick());
+        wrapper.update();
+        expect(mockSendCloudToDeviceMessageSpy.mock.calls[0][0].properties).toContainEqual({ isSystemProperty: true, key: 'ack', value: 'full' });
     });
 
     it('disables send message button where there is duplicate keys', () => {
+        const duplicateProperties = [{index: 0, keyName: 'key', isSystemProperty: false, value: 'value1'}, {index: 0, keyName: 'key', isSystemProperty: false, value: 'value2'}];
+        const realUseState = React.useState;
+        jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(duplicateProperties));
+
         const wrapper = mount(getComponent());
-        // update state and intentionally create duplicated keys
-        wrapper.setState({properties: [{index: 0, keyName: 'key', isSystemProperty: false, value: 'value1'}, {index: 0, keyName: 'key', isSystemProperty: false, value: 'value2'}]});
         wrapper.update();
         const commandBar = wrapper.find(CommandBar).first();
         expect(commandBar.props().items[0].disabled).toBeTruthy();
     });
 
     it('disables system property button when all the system properties keys have been added', () => {
-        const wrapper = mount(getComponent());
         const properties = systemPropertyKeyNameMappings.map(keyNameMapping => ({
             index: 0, isSystemProperty: false, keyName: keyNameMapping.keyName, value: 'value'
         }));
-        wrapper.setState({properties});
-        wrapper.update();
+        const realUseState = React.useState;
+        jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(properties));
+
+        const wrapper = mount(getComponent());
         const commandBar = wrapper.find(CommandBar).get(1);
         expect(commandBar.props.items[1].subMenuProps.items.length).toEqual(systemPropertyKeyNameMappings.length);
         for (const item of commandBar.props.items[1].subMenuProps.items) {
@@ -109,11 +127,11 @@ describe('cloudToDeviceMessage', () => {
     });
 
     it('dispatch action when send button is clicked', () => {
-        const wrapper = mountWithLocalization(getComponent());
+        const mockSendCloudToDeviceMessageSpy = jest.fn();
+        const wrapper = mount(getComponent({ onSendCloudToDeviceMessage: mockSendCloudToDeviceMessageSpy}));
         const commandBar = wrapper.find(CommandBar).first();
-        commandBar.props().items[0].onClick(null);
-        wrapper.setState({properties: [{keyName: 'foo', value: 'bar'}]});
-        wrapper.update();
-        expect(mockSendCloudToDeviceMessage).toBeCalled();
+
+        act(() => commandBar.props().items[0].onClick());
+        expect(mockSendCloudToDeviceMessageSpy).toBeCalled();
     });
 });

@@ -3,8 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import { connect } from 'react-redux';
-import { compose, Dispatch } from 'redux';
-import { withRouter } from 'react-router-dom';
+import { Dispatch } from 'redux';
 import { AnyAction } from 'typescript-fsa';
 import { StateType } from '../../../../shared/redux/state';
 import { DeviceEventsPerInterfaceComponent, DeviceEventsDataProps, DeviceEventsDispatchProps } from './deviceEventsPerInterface';
@@ -32,4 +31,4 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DeviceEventsDispatch
     };
 };
 
-export default compose(withRouter, connect(mapStateToProps, mapDispatchToProps))(DeviceEventsPerInterfaceComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(DeviceEventsPerInterfaceComponent);

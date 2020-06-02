@@ -3,12 +3,13 @@
  * Licensed under the MIT License
  **********************************************************/
 import 'jest';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
+import { act } from 'react-dom/test-utils';
 import * as React from 'react';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { DeviceListComponent, DeviceListDataProps, DeviceListDispatchProps } from './deviceList';
-import { mountWithLocalization } from '../../../shared/utils/testHelpers';
 import { DeviceSummary } from '../../../api/models/deviceSummary';
+import { DeviceListCommandBar } from './deviceListCommandBar';
 
 const pathname = `/`;
 
@@ -55,18 +56,16 @@ const getComponent = (overrides = {}) => {
 
 describe('components/devices/DeviceList', () => {
     it('matches snapshot', () => {
-        expect(shallow(getComponent())).toMatchSnapshot();
+        const wrapper = shallow(getComponent());
 
-        const wrapper = mount(getComponent());
-        const deviceList = wrapper.find(DeviceListComponent);
-
-        const commandBar = deviceList.find(CommandBar).first();
+        expect(wrapper).toMatchSnapshot();
+        const commandBar = wrapper.find(DeviceListCommandBar).first();
         // click the refresh button
-        commandBar.props().items[1].onClick(null);
+        act(() => commandBar.props().handleRefresh());
         wrapper.update();
         expect(mockListDevices).toBeCalled();
 
         // delete button is disabled by default
-        expect(commandBar.props().items[2].disabled).toBeTruthy(); // tslint:disable-line:no-magic-numbers
+        expect(wrapper.find(DeviceListCommandBar).first().props().disableDelete).toBeTruthy(); // tslint:disable-line:no-magic-numbers
     });
 });

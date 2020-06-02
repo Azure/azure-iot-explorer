@@ -85,7 +85,7 @@ describe('MaskedCopyableTextField', () => {
 
             expect(wrapper.find(TooltipHost).first().props().content).toEqual('common.maskedCopyableTextField.toggleMask.label.show');
             const showButton = wrapper.find(IconButton).first();
-            act(() =>showButton.props().onClick(undefined));
+            act(() => showButton.props().onClick(undefined));
 
             wrapper.update();
             expect(wrapper.find(TooltipHost).first().props().content).toEqual('common.maskedCopyableTextField.toggleMask.label.hide');

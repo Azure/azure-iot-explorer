@@ -2,8 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { compose, Dispatch } from 'redux';
-import { withRouter } from 'react-router-dom';
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { StateType } from '../../../../shared/redux/state';
 import { AddModuleIdentityComponent, AddModuleIdentityDataProps, AddModuleIdentityDispatchProps } from './addModuleIdentity';
@@ -24,4 +23,4 @@ const mapDispatchToProps = (dispatch: Dispatch): AddModuleIdentityDispatchProps 
     };
 };
 
-export default compose(withRouter, connect(mapStateToProps, mapDispatchToProps))(AddModuleIdentityComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(AddModuleIdentityComponent);

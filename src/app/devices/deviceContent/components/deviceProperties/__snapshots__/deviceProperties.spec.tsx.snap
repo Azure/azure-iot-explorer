@@ -31,7 +31,7 @@ exports[`components/devices/deviceProperties matches snapshot while interface ca
       ]
     }
   />
-  <Route
+  <Component
     component={[Function]}
   />
   <StyledLabelBase
@@ -73,7 +73,7 @@ exports[`components/devices/deviceProperties matches snapshot with one twinWithS
       ]
     }
   />
-  <Route
+  <Component
     component={[Function]}
   />
   <StyledLabelBase

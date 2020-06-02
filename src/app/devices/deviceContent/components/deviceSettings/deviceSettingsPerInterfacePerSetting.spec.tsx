@@ -4,11 +4,12 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
+import { mount } from 'enzyme';
+import { act } from 'react-dom/test-utils';
 import { Stack } from 'office-ui-fabric-react/lib/Stack';
 import { ActionButton, IconButton } from 'office-ui-fabric-react/lib/Button';
 import { Label } from 'office-ui-fabric-react/lib/Label';
 import { DeviceSettingsPerInterfacePerSetting, DeviceSettingDataProps, DeviceSettingDispatchProps } from './deviceSettingsPerInterfacePerSetting';
-import { mountWithLocalization } from '../../../../shared/utils/testHelpers';
 import { PropertyContent } from '../../../../api/models/modelDefinition';
 import { ParsedJsonSchema } from '../../../../api/models/interfaceJsonParserOutput';
 import { DataForm } from '../shared/dataForm';
@@ -63,7 +64,7 @@ describe('components/devices/deviceSettingsPerInterfacePerSetting', () => {
             ...deviceSettingDispatchProps
         };
 
-        const wrapper = mountWithLocalization(
+        const wrapper = mount(
             <DeviceSettingsPerInterfacePerSetting {...props}/>
         );
 
@@ -104,7 +105,7 @@ describe('components/devices/deviceSettingsPerInterfacePerSetting', () => {
             ...deviceSettingDispatchProps
         };
 
-        const wrapper = mountWithLocalization(
+        const wrapper = mount(
             <DeviceSettingsPerInterfacePerSetting {...props}/>
         );
 
@@ -116,7 +117,7 @@ describe('components/devices/deviceSettingsPerInterfacePerSetting', () => {
 
         const complexValueButton = wrapper.find(ActionButton).first();
         expect(complexValueButton.props().className).toEqual('column-value-button');
-        complexValueButton.props().onClick(null);
+        act(() => complexValueButton.props().onClick(null));
         expect(handleOverlayToggle).toBeCalled();
 
         const reportedStatus = wrapper.find(Stack);
@@ -128,7 +129,7 @@ describe('components/devices/deviceSettingsPerInterfacePerSetting', () => {
         expect(toggleButtons.first().props().iconProps).toEqual({iconName: InterfaceDetailCard.CLOSE});
 
         const header = wrapper.find('header');
-        header.props().onClick(null);
+        act(() => header.props().onClick(null));
         expect(handleCollapseToggle).toBeCalled();
     });
 });

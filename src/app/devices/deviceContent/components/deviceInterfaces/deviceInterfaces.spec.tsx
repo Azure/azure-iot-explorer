@@ -4,6 +4,7 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
+import { act } from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { DeviceInterfaces, DeviceInterfaceProps, DeviceInterfaceDispatchProps } from './deviceInterfaces';
@@ -92,7 +93,7 @@ describe('components/devices/deviceInterfaces', () => {
         expect(wrapper).toMatchSnapshot();
 
         const command = wrapper.find(CommandBar);
-        command.props().items[0].onClick(null);
+        act(() => command.props().items[0].onClick(null));
         expect(refresh).toBeCalled();
     });
 });

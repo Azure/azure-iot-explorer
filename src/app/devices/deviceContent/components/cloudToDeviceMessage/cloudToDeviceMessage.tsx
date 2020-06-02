@@ -68,9 +68,9 @@ export const CloudToDeviceMessage: React.FC<CloudToDeviceMessageProps> = (props:
     const { t } = useLocalizationContext();
     const { search } = useLocation();
 
+    const [ properties, setProperties ] = React.useState([{index: 0, keyName: '', isSystemProperty: false, value: ''}]);
     const [ addTimestamp, setAddTimestamp ] = React.useState<boolean>(false);
     const [ body, setBody ] = React.useState<string>('');
-    const [ properties, setProperties ] = React.useState([{index: 0, keyName: '', isSystemProperty: false, value: ''}]);
     const [ propertyIndex, setPropertyIndex ] = React.useState<number>(0);
     const [ selectedIndices, setSelectedIndices ] = React.useState(new Set());
     const [ showExpiryError, setShowExpiryError ] = React.useState<boolean>(false);

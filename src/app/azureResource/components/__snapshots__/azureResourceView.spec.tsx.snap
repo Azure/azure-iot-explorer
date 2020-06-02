@@ -2,7 +2,7 @@
 
 exports[`AzureResourceView matches snapshot when current resource is authorized 1`] = `
 <Fragment>
-  <Route
+  <Component
     component={
       Object {
         "$$typeof": Symbol(react.memo),
@@ -15,12 +15,12 @@ exports[`AzureResourceView matches snapshot when current resource is authorized 
     exact={true}
     path="/resource/hostName/devices"
   />
-  <Route
+  <Component
     component={[Function]}
     exact={true}
     path="/resource/hostName/devices/add"
   />
-  <Route
+  <Component
     component={[Function]}
     path="/resource/hostName/devices/deviceDetail/"
   />
