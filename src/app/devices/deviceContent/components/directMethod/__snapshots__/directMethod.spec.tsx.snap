@@ -53,9 +53,17 @@ exports[`directMethod matches snapshot 1`] = `
             />
           }
         >
-          <ContextConsumer>
-            <Component />
-          </ContextConsumer>
+          <lazy
+            height="25vh"
+            language="json"
+            onChange={[Function]}
+            options={
+              Object {
+                "automaticLayout": true,
+              }
+            }
+            value=""
+          />
         </Suspense>
       </div>
       <Component

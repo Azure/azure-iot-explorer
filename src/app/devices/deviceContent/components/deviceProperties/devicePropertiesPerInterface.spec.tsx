@@ -4,9 +4,9 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
+import { shallow, mount } from 'enzyme';
 import { Overlay } from 'office-ui-fabric-react/lib/Overlay';
-import DevicePropertiesPerInterface, { DevicePropertiesDataProps, DevicePropertiesState } from './devicePropertiesPerInterface';
-import { testSnapshot, mountWithLocalization } from '../../../../shared/utils/testHelpers';
+import { DevicePropertiesPerInterface, DevicePropertiesDataProps, DevicePropertiesState } from './devicePropertiesPerInterface';
 import { twinWithSchema } from '../deviceSettings/deviceSettings.spec';
 
 describe('devicePropertiesPerInterface', () => {
@@ -29,14 +29,13 @@ describe('devicePropertiesPerInterface', () => {
     };
 
     it('matches snapshot', () => {
-        testSnapshot(getComponent());
+        expect(shallow(getComponent())).toMatchSnapshot();
     });
 
     it('shows overlay', () => {
-        const wrapper = mountWithLocalization(getComponent());
-        expect((wrapper.state() as DevicePropertiesState).showOverlay).toBeFalsy();
-        wrapper.setState({showOverlay: true});
-        wrapper.update();
-        expect(wrapper.find(Overlay)).toBeDefined();
+        const realUseState = React.useState;
+        jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(true));
+        const wrapperWithOverlay = mount(getComponent());
+        expect(wrapperWithOverlay.find(Overlay)).toBeDefined();
     });
 });

@@ -3,15 +3,15 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import { useLocation, useRouteMatch } from 'react-router-dom';
 import { Nav, INavLinkGroup } from 'office-ui-fabric-react/lib/Nav';
-import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../shared/contexts/localizationContext';
+import { useLocalizationContext } from '../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
+import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import '../../../css/_deviceContentNav.scss';
 
 export interface DeviceContentNavDataProps {
-    deviceId: string;
     isLoading: boolean;
     digitalTwinModelId: string;
     isEdgeDevice: boolean;
@@ -25,46 +25,34 @@ export const NAV_LINK_ITEMS = [ROUTE_PARTS.IDENTITY, ROUTE_PARTS.TWIN, ROUTE_PAR
 export const NAV_LINK_ITEMS_NONEDGE = [...NAV_LINK_ITEMS, ROUTE_PARTS.MODULE_IDENTITY];
 export const NAV_LINK_ITEM_PNP = ROUTE_PARTS.DIGITAL_TWINS;
 
-export type DeviceContentNavProps = DeviceContentNavDataProps & DeviceContentNavDispatchProps & RouteComponentProps;
-export default class DeviceContentNavComponent extends React.Component<DeviceContentNavProps> {
-    public render(): JSX.Element {
+export type DeviceContentNavProps = DeviceContentNavDataProps & DeviceContentNavDispatchProps;
+export const DeviceContentNavComponent: React.FC<DeviceContentNavProps> =  (props: DeviceContentNavProps) => {
+    const { t } = useLocalizationContext();
+    const { digitalTwinModelId, isEdgeDevice } = props;
+    const {  search } = useLocation();
+    const { url } = useRouteMatch();
+    const deviceId = getDeviceIdFromQueryString(search);
 
-        return (
-            <LocalizationContextConsumer>
-                {(context: LocalizationContextInterface) => (
-                    this.createNavLinks(context)
-                )}
-            </LocalizationContextConsumer>
-        );
+    const navItems = isEdgeDevice ? NAV_LINK_ITEMS : NAV_LINK_ITEMS_NONEDGE;
+    const navLinks = navItems.map((nav: string) => ({
+        key: nav,
+        name: t((ResourceKeys.deviceContent.navBar as any)[nav]), // tslint:disable-line:no-any
+        url: `#${url}/${nav}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`
+    }));
+
+    if (!isEdgeDevice && digitalTwinModelId) {
+        navLinks.push({
+            key: NAV_LINK_ITEM_PNP,
+            name: t((ResourceKeys.deviceContent.navBar as any)[NAV_LINK_ITEM_PNP]), // tslint:disable-line:no-any
+            url: `#${url}/${NAV_LINK_ITEM_PNP}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`
+        });
     }
 
-    private readonly createNavLinks = (context: LocalizationContextInterface) => {
-        const { deviceId, digitalTwinModelId, isEdgeDevice } = this.props;
-        const url = this.props.match.url;
+    const groups: INavLinkGroup[] = [{ links: navLinks }];
 
-        const navItems = isEdgeDevice ? NAV_LINK_ITEMS : NAV_LINK_ITEMS_NONEDGE;
-        const navLinks = navItems.map((nav: string) => ({
-            key: nav,
-            name: context.t((ResourceKeys.deviceContent.navBar as any)[nav]), // tslint:disable-line:no-any
-            url: `#${url}/${nav}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`
-        }));
-
-        if (!isEdgeDevice && digitalTwinModelId) {
-            navLinks.push({
-                key: NAV_LINK_ITEM_PNP,
-                name: context.t((ResourceKeys.deviceContent.navBar as any)[NAV_LINK_ITEM_PNP]), // tslint:disable-line:no-any
-                url: `#${url}/${NAV_LINK_ITEM_PNP}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`
-            });
-        }
-
-        const groups: INavLinkGroup[] = [{ links: navLinks }];
-
-        return (
-            <div role="navigation">
-                <Nav
-                    groups={groups}
-                />
-            </div>
-        );
-    }
-}
+    return (
+        <div role="navigation">
+            <Nav groups={groups}/>
+        </div>
+    );
+};

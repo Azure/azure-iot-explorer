@@ -4,26 +4,15 @@
  **********************************************************/
 import * as React from 'react';
 import 'jest';
-import ModuleIdentityDetailComponent, { ModuleIdentityDetailDataProps, ModuleIdentityDetailDispatchProps } from './moduleIdentityDetail';
-import { testSnapshot } from '../../../../shared/utils/testHelpers';
+import { shallow } from 'enzyme';
+import { ModuleIdentityDetailComponent, ModuleIdentityDetailDataProps, ModuleIdentityDetailDispatchProps } from './moduleIdentityDetail';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 
-const pathname = `/`;
-const location: any = { // tslint:disable-line:no-any
-    pathname
-};
-const routerprops: any = { // tslint:disable-line:no-any
-    history: {
-        location
-    },
-    location,
-    match: {
-        params: {
-            hostName: 'hostName'
-        },
-        url: 'http://127.0.0.1:3000/#/resources/testhub.azure-devices.net/devices/deviceDetail/moduleIdentity/moduleDetail/?deviceId=newdevice&moduleId=moduleId',
-    } as any // tslint:disable-line:no-any
-};
+const pathname = 'http://127.0.0.1:3000/#/resources/testhub.azure-devices.net/devices/deviceDetail/moduleIdentity/moduleDetail/?deviceId=newdevice&moduleId=moduleId';
+jest.mock('react-router-dom', () => ({
+    useHistory: () => ({ push: jest.fn() }),
+    useLocation: () => ({ search: '?deviceId=newdevice&moduleId=moduleId', pathname }),
+}));
 
 const moduleIdentityDataProps: ModuleIdentityDetailDataProps = {
     currentHostName: 'testhub.azure-devices.net',
@@ -41,7 +30,6 @@ const getComponent = (overrides = {}) => {
     const props = {
         ...moduleIdentityDataProps,
         ...moduleIdentityDispatchProps,
-        ...routerprops,
         ...overrides
     };
     return <ModuleIdentityDetailComponent {...props} />;
@@ -50,22 +38,22 @@ const getComponent = (overrides = {}) => {
 describe('devices/components/moduleIdentityDetail', () => {
     context('snapshot', () => {
         it('matches snapshot while loading', () => {
-            testSnapshot(getComponent());
+            expect(shallow(getComponent())).toMatchSnapshot();
         });
 
         const deviceId = 'deviceId';
         const moduleId = 'moduleId';
         it('matches snapshot after module identity is fetched', () => {
-            testSnapshot(getComponent({
+            expect(shallow(getComponent({
                 moduleIdentity: {
                     authentication: null,
                     deviceId,
                     moduleId
                 },
                 moduleIdentitySyncStatus: SynchronizationStatus.fetched
-            }));
+            }))).toMatchSnapshot();
 
-            testSnapshot(getComponent({
+            expect(shallow(getComponent({
                 moduleIdentity: {
                     authentication: {
                         symmetricKey: {
@@ -79,9 +67,9 @@ describe('devices/components/moduleIdentityDetail', () => {
                     moduleId
                 },
                 moduleIdentitySyncStatus: SynchronizationStatus.fetched
-            }));
+            }))).toMatchSnapshot();
 
-            testSnapshot(getComponent({
+            expect(shallow(getComponent({
                 moduleIdentity: {
                     authentication: {
                         symmetricKey: null,
@@ -95,9 +83,9 @@ describe('devices/components/moduleIdentityDetail', () => {
                     moduleId
                 },
                 moduleIdentitySyncStatus: SynchronizationStatus.fetched
-            }));
+            }))).toMatchSnapshot();
 
-            testSnapshot(getComponent({
+            expect(shallow(getComponent({
                 moduleIdentity: {
                     authentication: {
                         symmetricKey: null,
@@ -109,7 +97,7 @@ describe('devices/components/moduleIdentityDetail', () => {
                 },
                 moduleIdentitySyncStatus: SynchronizationStatus.fetched,
                 moduleIdentityTwinSyncStatus: SynchronizationStatus.fetched
-            }));
+            }))).toMatchSnapshot();
         });
     });
 });

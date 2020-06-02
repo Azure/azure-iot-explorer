@@ -4,27 +4,16 @@
  **********************************************************/
 import * as React from 'react';
 import 'jest';
-import ModuleIdentityTwinComponent, { ModuleIdentityTwinDataProps, ModuleIdentityTwinDispatchProps } from './moduleIdentityTwin';
-import { testSnapshot } from '../../../../shared/utils/testHelpers';
+import { shallow } from 'enzyme';
+import { ModuleIdentityDetailComponent, ModuleIdentityTwinDataProps, ModuleIdentityTwinDispatchProps } from './moduleIdentityTwin';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { ModuleTwin } from '../../../../api/models/moduleTwin';
 
-const pathname = `/`;
-const location: any = { // tslint:disable-line:no-any
-    pathname
-};
-const routerprops: any = { // tslint:disable-line:no-any
-    history: {
-        location
-    },
-    location,
-    match: {
-        params: {
-            hostName: 'hostName'
-        },
-        url: 'http://127.0.0.1:3000/#/resources/testhub.azure-devices.net/devices/deviceDetail/moduleIdentity/moduleTwin/?deviceId=newdevice&moduleId=moduleId',
-    } as any // tslint:disable-line:no-any
-};
+const pathname = 'http://127.0.0.1:3000/#/resources/testhub.azure-devices.net/devices/deviceDetail/moduleIdentity/moduleTwin/?deviceId=newdevice&moduleId=moduleId';
+jest.mock('react-router-dom', () => ({
+    useHistory: () => ({ push: jest.fn() }),
+    useLocation: () => ({ search: '?deviceId=newdevice&moduleId=moduleId', pathname }),
+}));
 
 const moduleIdentityTwinDataProps: ModuleIdentityTwinDataProps = {
     moduleIdentityTwin: null,
@@ -39,10 +28,9 @@ const getComponent = (overrides = {}) => {
     const props = {
         ...moduleIdentityTwinDataProps,
         ...moduleIdentityTwinDispatchProps,
-        ...routerprops,
         ...overrides
     };
-    return <ModuleIdentityTwinComponent {...props} />;
+    return <ModuleIdentityDetailComponent {...props} />;
 };
 
 // tslint:disable
@@ -66,14 +54,14 @@ const moduleIdentityTwin: ModuleTwin = {
 describe('devices/components/moduleIdentityTwin', () => {
     context('snapshot', () => {
         it('matches snapshot while loading', () => {
-            testSnapshot(getComponent());
+            expect(shallow(getComponent())).toMatchSnapshot();
         });
 
         it('matches snapshot after module twin is fetched', () => {
-            testSnapshot(getComponent({
+            expect(shallow(getComponent({
                 moduleIdentityTwin,
                 moduleIdentityTwinSyncStatus: SynchronizationStatus.fetched
-            }));
+            }))).toMatchSnapshot();
         });
     });
 });

@@ -2,12 +2,11 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { compose, Dispatch } from 'redux';
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import { AnyAction } from 'typescript-fsa';
 import { StateType } from '../../../../shared/redux/state';
-import DeviceCommands, { DeviceCommandDispatchProps, DeviceCommandsProps } from './deviceCommands';
+import { DeviceCommands, DeviceCommandDispatchProps, DeviceCommandsProps } from './deviceCommands';
 import { getDeviceCommandPairs } from './selectors';
 import { invokeDigitalTwinInterfaceCommandAction, setComponentNameAction, InvokeDigitalTwinInterfaceCommandActionParameters, getModelDefinitionAction } from '../../actions';
 import { getModelDefinitionSyncStatusSelector } from '../../selectors';
@@ -29,4 +28,4 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DeviceCommandDispatc
     };
 };
 
-export default compose(withRouter, connect(mapStateToProps, mapDispatchToProps))(DeviceCommands);
+export default connect(mapStateToProps, mapDispatchToProps)(DeviceCommands);

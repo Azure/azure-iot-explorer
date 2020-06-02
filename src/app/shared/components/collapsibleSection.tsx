@@ -5,7 +5,7 @@
 import * as React from 'react';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import LabelWithTooltip from './labelWithTooltip';
-import { LocalizationContextConsumer, LocalizationContextInterface } from '../contexts/localizationContext';
+import { useLocalizationContext } from '../contexts/localizationContext';
 import { GroupedList } from '../../constants/iconNames';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import '../../css/_collapsibleSection.scss';
@@ -14,52 +14,38 @@ export interface CollapsibleSectionProps {
     expanded?: boolean;
     label: string;
     tooltipText: string;
+    children: any;     // tslint:disable-line: no-any
 }
 
 export interface CollapsibleSectionState {
     expanded: boolean;
 }
 
-export default class CollapsibleSection extends React.PureComponent<CollapsibleSectionProps, CollapsibleSectionState> {
-    constructor(props: CollapsibleSectionProps) {
-        super(props);
+export const CollapsibleSection: React.FC<CollapsibleSectionProps> = (props: CollapsibleSectionProps) => {
+    const { t } = useLocalizationContext();
 
-        this.state = {
-            expanded: props.expanded
-        };
-    }
+    const { children, tooltipText, label } = props;
+    const [ expanded, setExpanded ] = React.useState<boolean>(props.expanded);
 
-    public render() {
-        const { children, tooltipText, label } = this.props;
-        const { expanded } = this.state;
-        return (
-            <LocalizationContextConsumer>
-                {(context: LocalizationContextInterface) => (
-                    <div className="collapsible-section">
-                        <IconButton
-                            className="collapsible-section-icon"
-                            iconProps={{iconName: expanded ? GroupedList.CLOSE : GroupedList.OPEN}}
-                            ariaLabel={!expanded ?
-                                context.t(ResourceKeys.collapsibleSection.open) :
-                                context.t(ResourceKeys.collapsibleSection.close)}
-                            onClick={this.toggleCollapse}
-                            title={context.t(!expanded ? ResourceKeys.collapsibleSection.open : ResourceKeys.collapsibleSection.close)}
-                        />
-                        <LabelWithTooltip
-                            tooltipText={tooltipText}
-                        >
-                            {label}
-                        </LabelWithTooltip>
-                        {expanded && children}
-                    </div>
-                )}
-            </LocalizationContextConsumer>
-        );
-    }
+    const toggleCollapse = () => setExpanded(!expanded);
 
-    private toggleCollapse = () => {
-        this.setState({
-            expanded: !this.state.expanded
-        });
-    }
-}
+    return (
+        <div className="collapsible-section">
+            <IconButton
+                className="collapsible-section-icon"
+                iconProps={{iconName: expanded ? GroupedList.CLOSE : GroupedList.OPEN}}
+                ariaLabel={!expanded ?
+                    t(ResourceKeys.collapsibleSection.open) :
+                    t(ResourceKeys.collapsibleSection.close)}
+                onClick={toggleCollapse}
+                title={t(!expanded ? ResourceKeys.collapsibleSection.open : ResourceKeys.collapsibleSection.close)}
+            />
+            <LabelWithTooltip
+                tooltipText={tooltipText}
+            >
+                {label}
+            </LabelWithTooltip>
+            {expanded && children}
+        </div>
+    );
+};

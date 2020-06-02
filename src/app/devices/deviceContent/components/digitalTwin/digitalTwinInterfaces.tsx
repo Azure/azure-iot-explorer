@@ -10,7 +10,7 @@ import { DetailsList, IColumn, SelectionMode } from 'office-ui-fabric-react/lib/
 import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
 import { Announced } from 'office-ui-fabric-react/lib/Announced';
 import { Pivot, PivotItem } from 'office-ui-fabric-react/lib/Pivot';
-import { RouteComponentProps, NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { getDigitalTwinModelId,
     getDigitalTwinSynchronizationStatusSelector,
     getComponentNameAndInterfaceIdArraySelector,
@@ -35,7 +35,7 @@ import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
 import { ComponentAndInterfaceId } from '../../../../shared/utils/jsonSchemaAdaptor';
 import '../../../../css/_digitalTwinInterfaces.scss';
 
-export interface DigitalTwinInterfacesProps extends RouteComponentProps{
+export interface DigitalTwinInterfacesProps {
     isDigitalTwinLoading: boolean;
     isModelDefinitionLoading: boolean;
     modelDefinitionWithSource: ModelDefinitionWithSource;
@@ -50,8 +50,8 @@ interface ModelContent {
 }
 
 export const DigitalTwinInterfaces: React.FC<DigitalTwinInterfacesProps> = props => {
-    const url = props.match.url;
-    const deviceId = getDeviceIdFromQueryString(props);
+    const { pathname, search } = useLocation();
+    const deviceId = getDeviceIdFromQueryString(search);
     const { t } = useLocalizationContext();
     const { modelId, componentNameToIds, modelDefinitionWithSource } = props;
     const dispatch = useDispatch();
@@ -64,7 +64,7 @@ export const DigitalTwinInterfaces: React.FC<DigitalTwinInterfacesProps> = props
     },              [modelId]);
 
     const modelContents: ModelContent[]  = componentNameToIds && componentNameToIds.map(nameToId => {
-        const link = `${url}${ROUTE_PARTS.DIGITAL_TWINS_DETAIL}/${ROUTE_PARTS.INTERFACES}/` +
+        const link = `${pathname}${ROUTE_PARTS.DIGITAL_TWINS_DETAIL}/${ROUTE_PARTS.INTERFACES}/` +
             `?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}` +
             `&${ROUTE_PARAMS.COMPONENT_NAME}=${nameToId.componentName}` +
             `&${ROUTE_PARAMS.INTERFACE_ID}=${nameToId.interfaceId}`;
@@ -231,8 +231,7 @@ export const DigitalTwinInterfaces: React.FC<DigitalTwinInterfacesProps> = props
     );
 };
 
-export type DigitalTwinInterfacesContainerProps = RouteComponentProps;
-export const DigitalTwinInterfacesContainer: React.FC<DigitalTwinInterfacesContainerProps> = props => {
+export const DigitalTwinInterfacesContainer: React.FC = () => {
     const digitalTwinSynchronizationStatus = useSelector(getDigitalTwinSynchronizationStatusSelector);
     const modelDefinitionSynchronizationStatus = useSelector(getModelDefinitionSyncStatusSelector);
 
@@ -242,7 +241,6 @@ export const DigitalTwinInterfacesContainer: React.FC<DigitalTwinInterfacesConta
         isModelDefinitionLoading: modelDefinitionSynchronizationStatus === SynchronizationStatus.working,
         modelDefinitionWithSource: useSelector(getModelDefinitionWithSourceSelector),
         modelId: useSelector(getDigitalTwinModelId),
-        ...props
     };
     return <DigitalTwinInterfaces {...viewProps} />;
 };

@@ -6,12 +6,11 @@ import * as React from 'react';
 import { Label } from 'office-ui-fabric-react/lib/Label';
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 import { Overlay } from 'office-ui-fabric-react/lib/Overlay';
-import { RouteComponentProps } from 'react-router-dom';
-import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
+import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { DeviceIdentity } from '../../../../api/models/deviceIdentity';
 import { getDeviceAuthenticationType, generateConnectionString, generateX509ConnectionString } from './deviceIdentityHelper';
-import DeviceIdentityCommandBar from './deviceIdentityCommandBar';
+import { DeviceIdentityCommandBar } from './deviceIdentityCommandBar';
 import { DeviceAuthenticationType } from '../../../../api/models/deviceAuthenticationType';
 import { DeviceStatus } from '../../../../api/models/deviceStatus';
 import { generateKey } from '../../../../shared/utils/utils';
@@ -19,9 +18,8 @@ import { SynchronizationWrapper } from '../../../../api/models/synchronizationWr
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import MaskedCopyableTextFieldContainer from '../../../../shared/components/maskedCopyableTextFieldContainer';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
-import { SAS_EXPIRES_MINUTES } from '../../../../constants/devices';
 import { HeaderView } from '../../../../shared/components/headerView';
-import SasTokenGenerationView from '../../../shared/components/sasTokenGenerationView';
+import { SasTokenGenerationView } from '../../../shared/components/sasTokenGenerationView';
 import '../../../../css/_deviceDetail.scss';
 
 export interface DeviceIdentityDispatchProps {
@@ -42,171 +40,148 @@ export interface DeviceIdentityState {
     sasTokenSelectedKey: string;
 }
 
-export default class DeviceIdentityInformation
-    extends React.Component<DeviceIdentityDataProps & DeviceIdentityDispatchProps & RouteComponentProps, DeviceIdentityState> {
-    constructor(props: DeviceIdentityDataProps & DeviceIdentityDispatchProps & RouteComponentProps) {
-        super(props);
+export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & DeviceIdentityDispatchProps> = (props: DeviceIdentityDataProps & DeviceIdentityDispatchProps) => {
+    const { t } = useLocalizationContext();
+    const { identityWrapper, updateDeviceIdentity, activeAzureResourceHostName } = props;
 
-        this.state = {
-            identity: this.props.identityWrapper && this.props.identityWrapper.payload,
-            isDirty: false,
-            requestMade: false,
-            sasTokenConnectionString: '',
-            sasTokenExpiration: SAS_EXPIRES_MINUTES,
-            sasTokenSelectedKey: ''
-        };
-    }
+    const [ state, setState ] = React.useState({
+        identity: identityWrapper && identityWrapper.payload,
+        isDirty: false,
+        requestMade: false
+    });
 
-    public render(): JSX.Element {
-        return (
-            <LocalizationContextConsumer>
-                {(context: LocalizationContextInterface) => (
-                    <>
-                        {this.showCommandBar()}
-                        <HeaderView
-                            headerText={ResourceKeys.deviceIdentity.headerText}
-                        />
-                        <div className="device-detail">
-                            {this.props.identityWrapper && this.renderInformationSection(context)}
-                        </div>
-                    </>
-                )}
-            </LocalizationContextConsumer>
-        );
-    }
-
-    // tslint:disable-next-line:cyclomatic-complexity
-    public static getDerivedStateFromProps(props: DeviceIdentityDataProps & DeviceIdentityDispatchProps & RouteComponentProps, state: DeviceIdentityState): Partial<DeviceIdentityState> | null {
-        if (props.identityWrapper) {
+    // tslint:disable-next-line: cyclomatic-complexity
+    React.useEffect(() => {
+        if (identityWrapper) {
             if (state.isDirty && state.requestMade && props.identityWrapper.synchronizationStatus === SynchronizationStatus.upserted) {
-                return {
+                setState({
                     identity: props.identityWrapper.payload,
                     isDirty: false,
                     requestMade: false
-                };
+                });
             }
             else if (!state.isDirty) {
-                return {
+                setState({
+                    ...state,
                     identity: props.identityWrapper.payload
-                };
+                });
             }
         }
-        return null;
-    }
+    },              [identityWrapper]);
 
-    private readonly showCommandBar = () => {
+    const showCommandBar = () => {
         let onSwapKeys;
         let onGeneratePrimaryKey;
         let onGenerateSecondaryKey;
 
-        if (this.props.identityWrapper &&
-            this.props.identityWrapper.payload &&
-            this.props.identityWrapper.payload.authentication.type === DeviceAuthenticationType.SymmetricKey) {
-                onSwapKeys = this.swapKeys;
-                onGeneratePrimaryKey = this.generatePrimaryKey;
-                onGenerateSecondaryKey = this.generateSecondaryKey;
+        if (identityWrapper &&
+            identityWrapper.payload &&
+            identityWrapper.payload.authentication.type === DeviceAuthenticationType.SymmetricKey) {
+                onSwapKeys = swapKeys;
+                onGeneratePrimaryKey = generatePrimaryKey;
+                onGenerateSecondaryKey = generateSecondaryKey;
         }
 
         return (
             <DeviceIdentityCommandBar
-                disableSave={!this.state.isDirty}
-                handleSave={this.handleSave}
+                disableSave={!state.isDirty}
+                handleSave={handleSave}
                 onRegeneratePrimaryKey={onGeneratePrimaryKey}
                 onRegenerateSecondaryKey={onGenerateSecondaryKey}
                 onSwapKeys={onSwapKeys}
             />
         );
-    }
+    };
 
-    private readonly handleSave = () => {
-        this.props.updateDeviceIdentity(this.state.identity);
-        this.setState({
+    const handleSave = () => {
+        props.updateDeviceIdentity(state.identity);
+        setState({
+            ...state,
             requestMade: true
         });
-    }
+    };
 
-    private readonly renderInformationSection = (context: LocalizationContextInterface) => {
-        const { identity } = this.state;
+    const renderInformationSection = () => {
+        const { identity } = state;
         const authType = getDeviceAuthenticationType(identity);
         return (
             <>
-                { this.props.identityWrapper.synchronizationStatus === SynchronizationStatus.working ?
+                { identityWrapper.synchronizationStatus === SynchronizationStatus.working ?
                     <MultiLineShimmer/> :
                     <>
                         <MaskedCopyableTextFieldContainer
-                            ariaLabel={context.t(ResourceKeys.deviceIdentity.deviceID)}
-                            label={context.t(ResourceKeys.deviceIdentity.deviceID)}
-                            value={this.state.identity && this.state.identity.deviceId}
+                            ariaLabel={t(ResourceKeys.deviceIdentity.deviceID)}
+                            label={t(ResourceKeys.deviceIdentity.deviceID)}
+                            value={state.identity && state.identity.deviceId}
                             allowMask={false}
                             readOnly={true}
-                            labelCallout={context.t(ResourceKeys.deviceIdentity.deviceIDTooltip)}
+                            labelCallout={t(ResourceKeys.deviceIdentity.deviceIDTooltip)}
                         />
-                        {this.renderDeviceAuthProperties(context)}
+                        {renderDeviceAuthProperties()}
                         <br/>
-                        {authType === DeviceAuthenticationType.SymmetricKey && this.renderSasTokenSection()}
-                        {this.renderHubRelatedInformation(context)}
+                        {authType === DeviceAuthenticationType.SymmetricKey && renderSasTokenSection()}
+                        {renderHubRelatedInformation()}
                     </>
                 }
-                {this.props.identityWrapper.synchronizationStatus === SynchronizationStatus.updating && <Overlay/>}
+                {identityWrapper.synchronizationStatus === SynchronizationStatus.updating && <Overlay/>}
             </>
         );
-    }
+    };
 
-    private readonly renderSasTokenSection = () => {
+    const renderSasTokenSection = () => {
         return (
             <SasTokenGenerationView
-                activeAzureResourceHostName={this.props.activeAzureResourceHostName}
-                deviceIdentity={this.state.identity}
+                activeAzureResourceHostName={props.activeAzureResourceHostName}
+                deviceIdentity={state.identity}
             />
         );
-    }
+    };
 
-    private readonly renderDeviceAuthProperties = (context: LocalizationContextInterface) => {
-        const { activeAzureResourceHostName } = this.props;
-        const { identity } = this.state;
+    const renderDeviceAuthProperties = () => {
+        const { identity } = state;
         const authType = getDeviceAuthenticationType(identity);
         switch (authType) {
             case DeviceAuthenticationType.SelfSigned:
                 return (
                     <>
-                        <Label>{context.t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.text)}</Label>
+                        <Label>{t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.text)}</Label>
                         <MaskedCopyableTextFieldContainer
-                            ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.primaryThumbprint)}
-                            label={context.t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.primaryThumbprint)}
-                            value={this.state.identity.authentication.x509Thumbprint.primaryThumbprint}
+                            ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.primaryThumbprint)}
+                            label={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.primaryThumbprint)}
+                            value={state.identity.authentication.x509Thumbprint.primaryThumbprint}
                             allowMask={true}
                             readOnly={true}
-                            labelCallout={context.t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.primaryThumbprintTooltip)}
+                            labelCallout={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.primaryThumbprintTooltip)}
                         />
                         <MaskedCopyableTextFieldContainer
-                            ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.secondaryThumbprint)}
-                            label={context.t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.secondaryThumbprint)}
-                            value={this.state.identity.authentication.x509Thumbprint.secondaryThumbprint}
+                            ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.secondaryThumbprint)}
+                            label={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.secondaryThumbprint)}
+                            value={state.identity.authentication.x509Thumbprint.secondaryThumbprint}
                             allowMask={true}
                             readOnly={true}
-                            labelCallout={context.t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip)}
+                            labelCallout={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip)}
                         />
                         <MaskedCopyableTextFieldContainer
-                            ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.connectionString)}
-                            label={context.t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.connectionString)}
+                            ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.connectionString)}
+                            label={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.connectionString)}
                             value={generateX509ConnectionString(activeAzureResourceHostName, identity.deviceId)}
                             allowMask={true}
                             readOnly={true}
-                            labelCallout={context.t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.connectionStringTooltip)}
+                            labelCallout={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.connectionStringTooltip)}
                         />
                     </>
                 );
             case DeviceAuthenticationType.CACertificate:
                 return (
                     <>
-                        <Label>{context.t(ResourceKeys.deviceIdentity.authenticationType.ca.text)}</Label>
+                        <Label>{t(ResourceKeys.deviceIdentity.authenticationType.ca.text)}</Label>
                         <MaskedCopyableTextFieldContainer
-                            ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.ca.connectionString)}
-                            label={context.t(ResourceKeys.deviceIdentity.authenticationType.ca.connectionString)}
+                            ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.ca.connectionString)}
+                            label={t(ResourceKeys.deviceIdentity.authenticationType.ca.connectionString)}
                             value={generateX509ConnectionString(activeAzureResourceHostName, identity.deviceId)}
                             allowMask={true}
                             readOnly={true}
-                            labelCallout={context.t(ResourceKeys.deviceIdentity.authenticationType.ca.connectionStringTooltip)}
+                            labelCallout={t(ResourceKeys.deviceIdentity.authenticationType.ca.connectionStringTooltip)}
                         />
                     </>
                 );
@@ -214,119 +189,137 @@ export default class DeviceIdentityInformation
                 return (
                     <>
                         <MaskedCopyableTextFieldContainer
-                            ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryKey)}
-                            label={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryKey)}
-                            value={this.state.identity.authentication.symmetricKey.primaryKey}
+                            ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryKey)}
+                            label={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryKey)}
+                            value={state.identity.authentication.symmetricKey.primaryKey}
                             allowMask={true}
                             readOnly={false}
-                            onTextChange={this.changePrimaryKey}
-                            labelCallout={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryKeyTooltip)}
+                            onTextChange={changePrimaryKey}
+                            labelCallout={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryKeyTooltip)}
                         />
 
                         <MaskedCopyableTextFieldContainer
-                            ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryKey)}
-                            label={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryKey)}
-                            value={this.state.identity.authentication.symmetricKey.secondaryKey}
+                            ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryKey)}
+                            label={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryKey)}
+                            value={state.identity.authentication.symmetricKey.secondaryKey}
                             allowMask={true}
                             readOnly={false}
-                            onTextChange={this.changeSecondaryKey}
-                            labelCallout={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryKeyTooltip)}
+                            onTextChange={changeSecondaryKey}
+                            labelCallout={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryKeyTooltip)}
                         />
 
                         <MaskedCopyableTextFieldContainer
-                            ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionString)}
-                            label={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionString)}
+                            ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionString)}
+                            label={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionString)}
                             value={generateConnectionString(activeAzureResourceHostName, identity.deviceId, identity.authentication.symmetricKey.primaryKey)}
                             allowMask={true}
                             readOnly={true}
-                            labelCallout={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionStringTooltip)}
+                            labelCallout={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionStringTooltip)}
                         />
 
                         <MaskedCopyableTextFieldContainer
-                            ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString)}
-                            label={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString)}
+                            ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString)}
+                            label={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString)}
                             value={generateConnectionString(activeAzureResourceHostName, identity.deviceId, identity.authentication.symmetricKey.secondaryKey)}
                             allowMask={true}
                             readOnly={true}
-                            labelCallout={context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryConnectionStringTooltip)}
+                            labelCallout={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryConnectionStringTooltip)}
                         />
                     </>
                 );
             default:
                 return (<></>);
         }
-    }
+    };
 
-    private readonly renderHubRelatedInformation = (context: LocalizationContextInterface) => {
+    const renderHubRelatedInformation = () => {
         return (
             <Toggle
-                checked={this.state.identity && this.state.identity.status === DeviceStatus.Enabled}
-                ariaLabel={context.t(ResourceKeys.deviceIdentity.hubConnectivity.label)}
-                label={context.t(ResourceKeys.deviceIdentity.hubConnectivity.label)}
-                onText={context.t(ResourceKeys.deviceIdentity.hubConnectivity.enable)}
-                offText={context.t(ResourceKeys.deviceIdentity.hubConnectivity.disable)}
-                onChange={this.changeToggle}
+                checked={state.identity && state.identity.status === DeviceStatus.Enabled}
+                ariaLabel={t(ResourceKeys.deviceIdentity.hubConnectivity.label)}
+                label={t(ResourceKeys.deviceIdentity.hubConnectivity.label)}
+                onText={t(ResourceKeys.deviceIdentity.hubConnectivity.enable)}
+                offText={t(ResourceKeys.deviceIdentity.hubConnectivity.disable)}
+                onChange={changeToggle}
             />
         );
-    }
+    };
 
-    private readonly changePrimaryKey = (value: string) => {
-        const identityDeepCopy: DeviceIdentity = JSON.parse(JSON.stringify(this.state.identity));
+    const changePrimaryKey = (value: string) => {
+        const identityDeepCopy: DeviceIdentity = JSON.parse(JSON.stringify(state.identity));
         identityDeepCopy.authentication.symmetricKey.primaryKey = value;
-        this.setState({
+        setState({
+            ...state,
             identity: identityDeepCopy,
             isDirty: true
         });
-    }
+    };
 
-    private readonly changeSecondaryKey = (value: string) => {
-        const identityDeepCopy: DeviceIdentity = JSON.parse(JSON.stringify(this.state.identity));
+    const changeSecondaryKey = (value: string) => {
+        const identityDeepCopy: DeviceIdentity = JSON.parse(JSON.stringify(state.identity));
         identityDeepCopy.authentication.symmetricKey.secondaryKey = value;
-        this.setState({
+        setState({
+            ...state,
             identity: identityDeepCopy,
             isDirty: true
         });
-    }
+    };
 
-    private readonly generatePrimaryKey = () => {
-        const identityDeepCopy: DeviceIdentity = JSON.parse(JSON.stringify(this.state.identity));
+    const generatePrimaryKey = () => {
+        const identityDeepCopy: DeviceIdentity = JSON.parse(JSON.stringify(state.identity));
         identityDeepCopy.authentication.symmetricKey.primaryKey = generateKey();
-        this.setState({
+        setState({
+            ...state,
             identity: identityDeepCopy,
             isDirty: true
         });
-    }
+    };
 
-    private readonly generateSecondaryKey = () => {
-        const identityDeepCopy: DeviceIdentity = JSON.parse(JSON.stringify(this.state.identity));
+    const generateSecondaryKey = () => {
+        const identityDeepCopy: DeviceIdentity = JSON.parse(JSON.stringify(state.identity));
         identityDeepCopy.authentication.symmetricKey.secondaryKey = generateKey();
-        this.setState({
+        setState({
+            ...state,
             identity: identityDeepCopy,
             isDirty: true
         });
-    }
+    };
 
-    private readonly swapKeys = () => {
-        const identityDeepCopy: DeviceIdentity = JSON.parse(JSON.stringify(this.state.identity));
+    const swapKeys = () => {
+        const identityDeepCopy: DeviceIdentity = JSON.parse(JSON.stringify(state.identity));
         const originalPrimaryKey  = identityDeepCopy.authentication.symmetricKey.primaryKey;
         const originalSecondaryKey  = identityDeepCopy.authentication.symmetricKey.secondaryKey;
 
         identityDeepCopy.authentication.symmetricKey.primaryKey = originalSecondaryKey;
         identityDeepCopy.authentication.symmetricKey.secondaryKey = originalPrimaryKey;
 
-        this.setState({
+        setState({
+            ...state,
             identity: identityDeepCopy,
             isDirty: true
         });
-    }
+    };
 
-    private readonly changeToggle = (event: React.MouseEvent<HTMLElement>, checked?: boolean) => {
+    const changeToggle = (event: React.MouseEvent<HTMLElement>, checked?: boolean) => {
         const identity = {
-            ...this.state.identity,
+            ...state.identity,
             status: checked ? DeviceStatus.Enabled.toString() : DeviceStatus.Disabled.toString()};
-        this.setState({
+        setState({
+            ...state,
             identity,
             isDirty: true
         });
-    }
-}
+    };
+
+    return (
+        <>
+            {showCommandBar()}
+            <HeaderView
+                headerText={ResourceKeys.deviceIdentity.headerText}
+            />
+            <div className="device-detail">
+                {identityWrapper && renderInformationSection()}
+            </div>
+        </>
+    );
+};

@@ -15,8 +15,6 @@ exports[`ModelRepositoryInstruction matches snapshot 1`] = `
       modelRepository.empty.description
     </span>
     <NavLink
-      activeClassName="active"
-      aria-current="page"
       className="embedded-link"
       to="/home/repos"
     >

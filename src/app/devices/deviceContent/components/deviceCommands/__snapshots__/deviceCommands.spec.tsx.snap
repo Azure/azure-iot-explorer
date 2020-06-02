@@ -31,7 +31,7 @@ exports[`components/devices/deviceCommands matches snapshot while interface cann
       ]
     }
   />
-  <Route
+  <Component
     component={[Function]}
   />
   <StyledLabelBase
@@ -73,10 +73,10 @@ exports[`components/devices/deviceCommands matches snapshot with a commandSchema
       ]
     }
   />
-  <Route
+  <Component
     component={[Function]}
   />
-  <DeviceCommandsPerInterface
+  <Component
     commandSchemas={
       Array [
         Object {
@@ -91,49 +91,22 @@ exports[`components/devices/deviceCommands matches snapshot with a commandSchema
         },
       ]
     }
-    componentName={null}
+    componentName="foo"
     deviceId={null}
-    history={
-      Object {
-        "location": Object {
-          "pathname": "/#/devices/deviceDetail/ioTPlugAndPlay/ioTPlugAndPlayDetail/commands/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1",
-        },
-      }
-    }
     invokeDigitalTwinInterfaceCommand={[MockFunction]}
     isLoading={false}
-    location={
-      Object {
-        "pathname": "/#/devices/deviceDetail/ioTPlugAndPlay/ioTPlugAndPlayDetail/commands/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1",
-      }
-    }
-    match={Object {}}
     refresh={[MockFunction]}
     setComponentName={
       [MockFunction] {
         "calls": Array [
           Array [
-            null,
+            "foo",
           ],
           Array [
-            null,
-          ],
-          Array [
-            null,
-          ],
-          Array [
-            null,
+            "foo",
           ],
         ],
         "results": Array [
-          Object {
-            "type": "return",
-            "value": undefined,
-          },
-          Object {
-            "type": "return",
-            "value": undefined,
-          },
           Object {
             "type": "return",
             "value": undefined,

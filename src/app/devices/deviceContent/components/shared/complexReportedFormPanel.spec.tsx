@@ -3,9 +3,9 @@
  * Licensed under the MIT License
  **********************************************************/
 import 'jest';
+import { shallow } from 'enzyme';
 import * as React from 'react';
-import ComplexReportedFormPanel, { ReportedFormDataProps , ReportedFormActionProps } from './complexReportedFormPanel';
-import { testSnapshot } from '../../../../shared/utils/testHelpers';
+import { ComplexReportedFormPanel, ReportedFormDataProps , ReportedFormActionProps } from './complexReportedFormPanel';
 
 describe('complexReportedFormPanel', () => {
     const formData = 123;
@@ -45,6 +45,6 @@ describe('complexReportedFormPanel', () => {
     };
 
     it('matches snapshot without twinWithSchema', () => {
-        testSnapshot(getComponent());
+        expect(shallow(getComponent())).toMatchSnapshot();
     });
 });

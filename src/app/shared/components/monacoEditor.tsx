@@ -4,14 +4,16 @@
  **********************************************************/
 import * as React from 'react';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
-import { ThemeContextConsumer, ThemeContextInterface } from '../contexts/themeContext';
+import { useThemeContext } from '../contexts/themeContext';
 
 export interface MonacoEditorViewViewProps {
     className: string;
     content: object;
 }
 
-export const MonacoEditorView: React.FC<MonacoEditorViewViewProps> = props => {
+export const MonacoEditorView: React.FC<MonacoEditorViewViewProps> = (props: MonacoEditorViewViewProps) => {
+    const { monacoTheme } = useThemeContext();
+
     const EditorPromise = import('react-monaco-editor');
     const Editor = React.lazy(() => EditorPromise);
 
@@ -23,19 +25,15 @@ export const MonacoEditorView: React.FC<MonacoEditorViewViewProps> = props => {
         <article >
             <div className={props.className}>
                 <React.Suspense fallback={<Spinner title={'loading'} size={SpinnerSize.large} />}>
-                    <ThemeContextConsumer>
-                        {(themeContext: ThemeContextInterface) => (
-                            <Editor
-                                language="json"
-                                value={JSON.stringify(props.content, null, '\t')}
-                                options={{
-                                    automaticLayout: true,
-                                    readOnly: true
-                                }}
-                                theme={themeContext.monacoTheme}
-                            />
-                        )}
-                    </ThemeContextConsumer>
+                    <Editor
+                        language="json"
+                        value={JSON.stringify(props.content, null, '\t')}
+                        options={{
+                            automaticLayout: true,
+                            readOnly: true
+                        }}
+                        theme={monacoTheme}
+                    />
                 </React.Suspense>
             </div>
         </article>

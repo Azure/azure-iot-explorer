@@ -84,9 +84,36 @@ exports[`devices/components/deviceTwin snapshot matches snapshot with twin 1`] =
           />
         }
       >
-        <ContextConsumer>
-          <Component />
-        </ContextConsumer>
+        <lazy
+          language="json"
+          onChange={[Function]}
+          options={
+            Object {
+              "automaticLayout": true,
+              "readOnly": false,
+            }
+          }
+          value="{
+	\\"deviceId\\": \\"testId\\",
+	\\"deviceEtag\\": \\"\\",
+	\\"etag\\": \\"AAAAAAAAAAE=\\",
+	\\"status\\": \\"enabled\\",
+	\\"statusUpdateTime\\": \\"0001-01-01T00:00:00Z\\",
+	\\"connectionState\\": \\"Disconnected\\",
+	\\"lastActivityTime\\": \\"0001-01-01T00:00:00Z\\",
+	\\"cloudToDeviceMessageCount\\": 0,
+	\\"authenticationType\\": \\"sas\\",
+	\\"x509Thumbprint\\": {
+		\\"primaryThumbprint\\": null,
+		\\"secondaryThumbprint\\": null
+	},
+	\\"properties\\": {},
+	\\"capabilities\\": {
+		\\"iotEdge\\": false
+	},
+	\\"version\\": 1
+}"
+        />
       </Suspense>
     </div>
   </article>

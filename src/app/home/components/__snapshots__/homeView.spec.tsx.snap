@@ -2,7 +2,7 @@
 
 exports[`HomeView matches snapshot 1`] = `
 <div>
-  <AppVersionMessageBar />
+  <Component />
   <div
     className="view-content home-view"
   >
@@ -14,21 +14,23 @@ exports[`HomeView matches snapshot 1`] = `
     <div
       className="content"
     >
-      <Route
-        exact={true}
-        path="undefined"
-        render={[Function]}
-      />
-      <Route
-        component={[Function]}
-        exact={true}
-        path="undefined/resources/"
-      />
-      <Route
-        component={[Function]}
-        exact={true}
-        path="undefined/repos/"
-      />
+      <Switch>
+        <Redirect
+          exact={true}
+          from="/home"
+          to="/home/resources"
+        />
+        <Route
+          component={[Function]}
+          exact={true}
+          path="/home/resources"
+        />
+        <Route
+          component={[Function]}
+          exact={true}
+          path="/home/repos"
+        />
+      </Switch>
     </div>
   </div>
 </div>

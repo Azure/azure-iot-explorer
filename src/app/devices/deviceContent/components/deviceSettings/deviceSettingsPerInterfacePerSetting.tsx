@@ -7,12 +7,11 @@ import { Label } from 'office-ui-fabric-react/lib/Label';
 import { Stack } from 'office-ui-fabric-react/lib/Stack';
 import { ActionButton, IconButton } from 'office-ui-fabric-react/lib/Button';
 import { ParsedJsonSchema } from '../../../../api/models/interfaceJsonParserOutput';
-import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../../shared/contexts/localizationContext';
+import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { InterfaceDetailCard } from '../../../../constants/iconNames';
 import { PropertyContent } from '../../../../api/models/modelDefinition';
-import ComplexReportedFormPanel from '../shared/complexReportedFormPanel';
-import DataForm from '../shared/dataForm';
+import { ComplexReportedFormPanel } from '../shared/complexReportedFormPanel';
 import { RenderSimplyTypeValue } from '../shared/simpleReportedSection';
 import { PatchDigitalTwinActionParameters } from '../../actions';
 import ErrorBoundary from '../../../errorBoundary';
@@ -20,7 +19,7 @@ import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinition
 import { SemanticUnit } from '../../../../shared/units/components/semanticUnit';
 import { JsonPatchOperation, PatchPayload } from '../../../../api/parameters/deviceParameters';
 import { MetadataSection } from './selectors';
-import { isValueDefined } from './../shared/dataForm';
+import { isValueDefined, DataForm } from './../shared/dataForm';
 import '../../../../css/_deviceSettings.scss';
 
 export interface DeviceSettingDataProps extends TwinWithSchema {
@@ -44,194 +43,164 @@ export interface TwinWithSchema {
     settingSchema: ParsedJsonSchema;
 }
 
-interface DeviceSettingState {
-    showReportedValuePanel: boolean;
-}
+export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataProps & DeviceSettingDispatchProps> = (props: DeviceSettingDataProps & DeviceSettingDispatchProps) => {
+    const { t } = useLocalizationContext();
 
-export default class DeviceSettingsPerInterfacePerSetting
-    extends React.Component<DeviceSettingDataProps & DeviceSettingDispatchProps, DeviceSettingState> {
-    constructor(props: DeviceSettingDataProps & DeviceSettingDispatchProps) {
-        super(props);
+    const { deviceId, settingSchema, settingModelDefinition, isComponentContainedInDigitalTwin, collapsed, metadata, componentName, patchDigitalTwin, handleCollapseToggle, handleOverlayToggle } = props;
+    const [ showReportedValuePanel, setShowReportedValuePanel ] = React.useState<boolean>(false);
 
-        this.state = {
-            showReportedValuePanel: false
-        };
-    }
+    const isSchemaSimpleType = () => {
+        return settingSchema && (
+            typeof settingModelDefinition.schema === 'string' ||
+            settingModelDefinition.schema['@type'].toLowerCase() === 'enum');
+    };
 
-    public render(): JSX.Element {
+    const createCollapsedSummary = () => {
         return (
-            <article className="list-item pnp-properties" role="listitem">
-                <LocalizationContextConsumer>
-                    {(context: LocalizationContextInterface) => (
-                        <ErrorBoundary error={context.t(ResourceKeys.errorBoundary.text)}>
-                            {this.createCollapsedSummary(context)}
-                            {this.createUncollapsedCard()}
-                            {this.createReportedValuePanel()}
-                        </ErrorBoundary>
-                    )}
-                </LocalizationContextConsumer>
-            </article>
-        );
-    }
-
-    private readonly isSchemaSimpleType = () => {
-        return this.props.settingSchema && (
-            typeof this.props.settingModelDefinition.schema === 'string' ||
-            this.props.settingModelDefinition.schema['@type'].toLowerCase() === 'enum');
-    }
-
-    private readonly createCollapsedSummary = (context: LocalizationContextInterface) => {
-        return (
-            <header className={`flex-grid-row item-summary ${this.props.collapsed ? '' : 'item-summary-uncollapsed'}`} onClick={this.props.handleCollapseToggle}>
-                {this.renderPropertyName(context)}
-                {this.renderPropertySchema(context)}
-                {this.renderPropertyUnit(context)}
-                {this.renderReportedValueAndMetadata(context)}
-                {this.renderCollapseButton(context)}
+            <header className={`flex-grid-row item-summary ${collapsed ? '' : 'item-summary-uncollapsed'}`} onClick={handleCollapseToggle}>
+                {renderPropertyName()}
+                {renderPropertySchema()}
+                {renderPropertyUnit()}
+                {renderReportedValueAndMetadata()}
+                {renderCollapseButton()}
             </header>
         );
-    }
+    };
 
-    private readonly renderPropertyName = (context: LocalizationContextInterface) => {
-        const ariaLabel = context.t(ResourceKeys.deviceSettings.columns.name);
-        let displayName = getLocalizedData(this.props.settingModelDefinition.displayName);
+    const renderPropertyName = () => {
+        const ariaLabel = t(ResourceKeys.deviceSettings.columns.name);
+        let displayName = getLocalizedData(settingModelDefinition.displayName);
         displayName = displayName ? displayName : '--';
-        let description = getLocalizedData(this.props.settingModelDefinition.description);
+        let description = getLocalizedData(settingModelDefinition.description);
         description = description ? description : '--';
-        return <div className="col-sm3"><Label aria-label={ariaLabel}>{this.props.settingModelDefinition.name} ({displayName} / {description})</Label></div>;
-    }
+        return <div className="col-sm3"><Label aria-label={ariaLabel}>{settingModelDefinition.name} ({displayName} / {description})</Label></div>;
+    };
 
-    private readonly renderPropertySchema = (context: LocalizationContextInterface) => {
-        const ariaLabel = context.t(ResourceKeys.deviceProperties.columns.schema);
-        const { settingModelDefinition } = this.props;
+    const renderPropertySchema = () => {
+        const ariaLabel = t(ResourceKeys.deviceProperties.columns.schema);
         const schemaType = typeof settingModelDefinition.schema === 'string' ?
             settingModelDefinition.schema :
             settingModelDefinition.schema['@type'];
         return <div className="col-sm2"><Label aria-label={ariaLabel}>{schemaType}</Label></div>;
-    }
+    };
 
-    private readonly renderPropertyUnit = (context: LocalizationContextInterface) => {
-        const ariaLabel = context.t(ResourceKeys.deviceProperties.columns.unit);
-
+    const renderPropertyUnit = () => {
         return (
             <div className="col-sm2">
-                <Label aria-label={ariaLabel}>
-                    <SemanticUnit unitHost={this.props.settingModelDefinition} />
+                <Label aria-label={t(ResourceKeys.deviceProperties.columns.unit)}>
+                    <SemanticUnit unitHost={settingModelDefinition} />
                 </Label>
             </div>);
-    }
+    };
 
-    private readonly renderReportedValueAndMetadata = (context: LocalizationContextInterface) => {
-        const { metadata } = this.props;
-        const ariaLabel = context.t(ResourceKeys.deviceSettings.columns.reportedValue);
+    const renderReportedValueAndMetadata = () => {
+        const ariaLabel = t(ResourceKeys.deviceSettings.columns.reportedValue);
         return (
             <div className="column-value-text col-sm4" aria-label={ariaLabel}>
                 <Stack horizontal={true}>
                     <Stack.Item align="start" className="reported-property">
-                        {this.renderReportedValue(context)}
+                        {renderReportedValue()}
                     </Stack.Item>
                     {metadata &&
-                        <Stack.Item align="start" className={`${this.isSchemaSimpleType() ? 'reported-status' : 'reported-status-complex'} `}>
+                        <Stack.Item align="start" className={`${isSchemaSimpleType() ? 'reported-status' : 'reported-status-complex'} `}>
                             {metadata.ackCode && `(${metadata.ackCode} ${metadata.ackDescription})`}
                         </Stack.Item>
                     }
                 </Stack>
             </div>
         );
-    }
+    };
 
-    private readonly renderReportedValue = (context: LocalizationContextInterface) => {
-        const { reportedTwin } = this.props;
+    const renderReportedValue = () => {
+        const { reportedTwin } = props;
         return (
             <>
                 {isValueDefined(reportedTwin) ?
-                    (this.isSchemaSimpleType() ?
+                    (isSchemaSimpleType() ?
                         RenderSimplyTypeValue(
                             reportedTwin,
-                            this.props.settingSchema,
-                            context.t(ResourceKeys.deviceSettings.columns.error)) :
+                            settingSchema,
+                            t(ResourceKeys.deviceSettings.columns.error)) :
                         <ActionButton
                             className="column-value-button"
-                            ariaDescription={context.t(ResourceKeys.deviceSettings.command.openReportedValuePanel)}
-                            onClick={this.onViewReportedValue}
+                            ariaDescription={t(ResourceKeys.deviceSettings.command.openReportedValuePanel)}
+                            onClick={onViewReportedValue}
                         >
-                            {context.t(ResourceKeys.deviceSettings.command.openReportedValuePanel)}
+                            {t(ResourceKeys.deviceSettings.command.openReportedValuePanel)}
                         </ActionButton>
                     ) : <Label>--</Label>
                 }
             </>
         );
-    }
+    };
 
-    private readonly renderCollapseButton = (context: LocalizationContextInterface) => {
+    const renderCollapseButton = () => {
         return (
         <div className="col-sm1">
             <IconButton
-                title={context.t(this.props.collapsed ? ResourceKeys.deviceSettings.command.expand : ResourceKeys.deviceSettings.command.collapse)}
-                iconProps={{iconName: this.props.collapsed ? InterfaceDetailCard.OPEN : InterfaceDetailCard.CLOSE}}
+                title={t(collapsed ? ResourceKeys.deviceSettings.command.expand : ResourceKeys.deviceSettings.command.collapse)}
+                iconProps={{iconName: collapsed ? InterfaceDetailCard.OPEN : InterfaceDetailCard.CLOSE}}
             />
         </div>);
-    }
+    };
 
-    private readonly createUncollapsedCard = () => {
+    const createUncollapsedCard = () => {
         return (
-            <section className={this.props.collapsed ? 'item-detail' : 'item-detail item-detail-uncollapsed'}>
-                {!this.props.collapsed && this.createForm()}
+            <section className={collapsed ? 'item-detail' : 'item-detail item-detail-uncollapsed'}>
+                {!collapsed && createForm()}
             </section>
         );
-    }
+    };
 
-    private readonly getSettingSchema = () => {
-        const { settingModelDefinition } = this.props;
+    const getSettingSchema = () => {
         return typeof settingModelDefinition.schema === 'string' ?
             settingModelDefinition.schema :
             settingModelDefinition.schema['@type'];
-    }
+    };
 
-    private readonly createReportedValuePanel = () => {
-        const { reportedTwin, settingModelDefinition : modelDefinition, settingSchema : schema } = this.props;
+    const createReportedValuePanel = () => {
+        const { reportedTwin, settingModelDefinition : modelDefinition, settingSchema : schema } = props;
         return (
             <div role="dialog">
-                {this.state.showReportedValuePanel &&
+                {showReportedValuePanel &&
                     <ComplexReportedFormPanel
                         schema={schema}
                         modelDefinition={modelDefinition}
-                        showPanel={this.state.showReportedValuePanel}
+                        showPanel={showReportedValuePanel}
                         formData={reportedTwin}
-                        handleDismiss={this.handleDismissViewReportedPanel}
+                        handleDismiss={handleDismissViewReportedPanel}
                     />}
             </div>
         );
-    }
+    };
 
-    private readonly onViewReportedValue = () => {
-        this.setState({showReportedValuePanel: true});
-        this.props.handleOverlayToggle();
-        this.props.handleCollapseToggle();
-    }
+    const onViewReportedValue = () => {
+        setShowReportedValuePanel(true);
+        handleOverlayToggle();
+        handleCollapseToggle();
+    };
 
-    private readonly handleDismissViewReportedPanel = () => {
-        this.setState({showReportedValuePanel: false});
-        this.props.handleOverlayToggle();
-    }
+    const handleDismissViewReportedPanel = () => {
+        setShowReportedValuePanel(false);
+        handleOverlayToggle();
+    };
 
-    private readonly createForm = () => {
+    const createForm = () => {
         return (
             <DataForm
                 buttonText={ResourceKeys.deviceSettings.command.submit}
-                formData={this.props.metadata && this.props.metadata.desiredValue}
-                settingSchema={this.props.settingSchema}
-                handleSave={this.onSubmit}
-                craftPayload={this.createSettingsPayload}
-                componentName={this.props.componentName}
-                schema={this.getSettingSchema()}
+                formData={metadata && metadata.desiredValue}
+                settingSchema={settingSchema}
+                handleSave={onSubmit}
+                craftPayload={createSettingsPayload}
+                componentName={componentName}
+                schema={getSettingSchema()}
             />
         );
-    }
+    };
 
     // tslint:disable-next-line: cyclomatic-complexity
-    private readonly createSettingsPayload = (twin: boolean | number | string | object): PatchPayload[] => {
-        const { componentName, metadata, isComponentContainedInDigitalTwin, settingModelDefinition } = this.props;
+    const createSettingsPayload = (twin: boolean | number | string | object): PatchPayload[] => {
         if (!isComponentContainedInDigitalTwin) {
             const value: any = { // tslint:disable-line: no-any
                 $metadata: {}
@@ -253,14 +222,22 @@ export default class DeviceSettingsPerInterfacePerSetting
                 op: JsonPatchOperation.REMOVE,
                 path: `/${componentName}/${settingModelDefinition.name}`,
             };
-            return[patchPayloadWithTwin];
+            return  [patchPayloadWithTwin];
         }
-    }
+    };
 
-    private readonly onSubmit = (twin: boolean | number | string | object) => () => {
-        this.props.patchDigitalTwin({
-            digitalTwinId: this.props.deviceId,
-            payload: this.createSettingsPayload(twin)
+    const onSubmit = (twin: boolean | number | string | object) => () => {
+        patchDigitalTwin({
+            digitalTwinId: deviceId,
+            payload: createSettingsPayload(twin)
         });
-    }
-}
+    };
+
+    return (
+        <ErrorBoundary error={t(ResourceKeys.errorBoundary.text)}>
+            {createCollapsedSummary()}
+            {createUncollapsedCard()}
+            {createReportedValuePanel()}
+        </ErrorBoundary>
+    );
+};
