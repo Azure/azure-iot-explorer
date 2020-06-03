@@ -15,6 +15,7 @@ export function* setActiveAzureResourceSaga(action: Action<AzureResource>) {
     yield put(clearModelDefinitionsAction());
 }
 
+// note(asrudra): storing active connection string in local storage for now. Will keep it in memory with glo balContext or singleton class in next iteration
 export const setActiveConnectionString = (value: string): void => {
     return localStorage.setItem(ACTIVE_CONNECTION_STRING, value);
 };

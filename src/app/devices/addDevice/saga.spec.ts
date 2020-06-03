@@ -70,7 +70,7 @@ describe('addDeviceSaga', () => {
                     },
                 },
                 type: NotificationType.success
-            });
+            })
         });
 
         expect(success.next()).toEqual({
