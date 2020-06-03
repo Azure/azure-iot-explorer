@@ -34,44 +34,50 @@ exports[`devices/components/deviceTwin snapshot matches snapshot 1`] = `
   />
   <article
     className="device-twin device-detail"
-  />
-</Fragment>
-`;
-
-exports[`devices/components/deviceTwin snapshot matches snapshot with twin 1`] = `
-<Fragment>
-  <StyledCommandBarBase
-    className="command"
-    items={
-      Array [
-        Object {
-          "ariaLabel": "deviceTwin.command.refresh",
-          "iconProps": Object {
-            "iconName": "Refresh",
-          },
-          "key": "Refresh",
-          "name": "deviceTwin.command.refresh",
-          "onClick": [Function],
-        },
-        Object {
-          "ariaLabel": "deviceTwin.command.save",
-          "disabled": true,
-          "iconProps": Object {
-            "iconName": "Save",
-          },
-          "key": "Save",
-          "name": "deviceTwin.command.save",
-          "onClick": [Function],
-        },
-      ]
-    }
-  />
-  <Component
-    headerText="deviceTwin.headerText"
-    tooltip="deviceTwin.tooltip"
-  />
-  <article
-    className="device-twin device-detail"
-  />
+  >
+    <div
+      className="monaco-editor"
+    >
+      <Suspense
+        fallback={
+          <StyledSpinnerBase
+            size={3}
+            title="loading"
+          />
+        }
+      >
+        <lazy
+          language="json"
+          onChange={[Function]}
+          options={
+            Object {
+              "automaticLayout": true,
+              "readOnly": false,
+            }
+          }
+          value="{
+	\\"deviceEtag\\": \\"\\",
+	\\"deviceId\\": \\"test\\",
+	\\"etag\\": \\"AAAAAAAAAAE=\\",
+	\\"status\\": \\"enabled\\",
+	\\"statusUpdateTime\\": \\"0001-01-01T00:00:00Z\\",
+	\\"connectionState\\": \\"Disconnected\\",
+	\\"lastActivityTime\\": \\"0001-01-01T00:00:00Z\\",
+	\\"cloudToDeviceMessageCount\\": 0,
+	\\"authenticationType\\": \\"sas\\",
+	\\"x509Thumbprint\\": {
+		\\"primaryThumbprint\\": null,
+		\\"secondaryThumbprint\\": null
+	},
+	\\"properties\\": {},
+	\\"capabilities\\": {
+		\\"iotEdge\\": false
+	},
+	\\"version\\": 1
+}"
+        />
+      </Suspense>
+    </div>
+  </article>
 </Fragment>
 `;

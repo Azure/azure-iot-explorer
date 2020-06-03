@@ -4,19 +4,19 @@
  **********************************************************/
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { deviceTwinStateInitial, DeviceTwinStateType, DeviceTwinStateInterface } from './state';
-import { getTwinAction, updateTwinAction, UpdateTwinActionParameters } from './actions';
+import { getDeviceTwinAction, updateDeviceTwinAction, UpdateTwinActionParameters } from './actions';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import { Twin } from '../../../api/models/device';
 
 export const deviceTwinReducer = reducerWithInitialState<DeviceTwinStateInterface>(deviceTwinStateInitial())
-    .case(getTwinAction.started, (state: DeviceTwinStateType) => {
+    .case(getDeviceTwinAction.started, (state: DeviceTwinStateType) => {
         return state.merge({
             deviceTwin: {
                 synchronizationStatus: SynchronizationStatus.working
             }
         });
     })
-    .case(getTwinAction.done, (state: DeviceTwinStateType, payload: {params: string, result: Twin}) => {
+    .case(getDeviceTwinAction.done, (state: DeviceTwinStateType, payload: {params: string, result: Twin}) => {
         return state.merge({
             deviceTwin: {
                 payload: payload.result,
@@ -24,14 +24,14 @@ export const deviceTwinReducer = reducerWithInitialState<DeviceTwinStateInterfac
             }
         });
     })
-    .case(getTwinAction.failed, (state: DeviceTwinStateType) => {
+    .case(getDeviceTwinAction.failed, (state: DeviceTwinStateType) => {
         return state.merge({
             deviceTwin: {
                 synchronizationStatus: SynchronizationStatus.failed
             }
         });
     })
-    .case(updateTwinAction.started, (state: DeviceTwinStateType) => {
+    .case(updateDeviceTwinAction.started, (state: DeviceTwinStateType) => {
         return state.merge({
             deviceTwin: {
                 payload: state.deviceTwin.payload,
@@ -39,7 +39,7 @@ export const deviceTwinReducer = reducerWithInitialState<DeviceTwinStateInterfac
             }
         });
     })
-    .case(updateTwinAction.done, (state: DeviceTwinStateType, payload: {params: UpdateTwinActionParameters, result: Twin}) => {
+    .case(updateDeviceTwinAction.done, (state: DeviceTwinStateType, payload: {params: UpdateTwinActionParameters, result: Twin}) => {
         return state.merge({
             deviceTwin: {
                 payload: payload.result,
@@ -47,7 +47,7 @@ export const deviceTwinReducer = reducerWithInitialState<DeviceTwinStateInterfac
             }
         });
     })
-    .case(updateTwinAction.failed, (state: DeviceTwinStateType) => {
+    .case(updateDeviceTwinAction.failed, (state: DeviceTwinStateType) => {
         return state.merge({
             deviceTwin: {
                 payload: state.deviceTwin.payload,

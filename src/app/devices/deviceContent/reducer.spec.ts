@@ -4,8 +4,7 @@
  **********************************************************/
 import 'jest';
 import { Record } from 'immutable';
-import { Twin } from '../../api/models/device';
-import { GET_TWIN,
+import {
     CLEAR_MODEL_DEFINITIONS,
     GET_DEVICE_IDENTITY,
     FETCH_MODEL_DEFINITION,
@@ -14,7 +13,7 @@ import { GET_TWIN,
     SET_COMPONENT_NAME,
     GET_DIGITAL_TWIN
   } from '../../constants/actionTypes';
-import { getTwinAction,
+import {
     getModelDefinitionAction,
     clearModelDefinitionsAction,
     getDeviceIdentityAction,
@@ -112,7 +111,6 @@ describe('deviceContentStateReducer', () => {
             const initialState = Record<DeviceContentStateInterface>({
                 componentNameSelected: '',
                 deviceIdentity: undefined,
-                deviceTwin: undefined,
                 digitalTwin: undefined,
                 modelDefinitionWithSource
             });
@@ -123,50 +121,6 @@ describe('deviceContentStateReducer', () => {
         it (`handles ${SET_COMPONENT_NAME} action`, () => {
             const action = setComponentNameAction('testId');
             expect(reducer(deviceContentStateInitial(), action).componentNameSelected).toEqual('testId');
-        });
-    });
-
-    describe('deviceTwin scenarios', () => {
-        /* tslint:disable */
-        const result: Twin = {
-            deviceId,
-            etag: 'AAAAAAAAAAk=',
-            deviceEtag: 'NTQ0MTQ4NzAy',
-            status: 'enabled',
-            lastActivityTime: '0001-01-01T00:00:00',
-            statusUpdateTime: '0001-01-01T00:00:00',
-            x509Thumbprint: {},
-            version: 1,
-            capabilities: {
-                iotEdge: false
-            },
-            connectionState: 'Connected',
-            cloudToDeviceMessageCount: 0,
-            authenticationType: 'sas',
-            properties: {
-                desired: {
-                    'contoso*com^EnvironmentalSensor^1*0*0' : {
-                        brightlevel: 1
-                    }
-                },
-                reported: {}
-            }
-        };
-        /* tslint:enable */
-
-        it (`handles ${GET_TWIN}/ACTION_START action`, () => {
-            const action = getTwinAction.started(deviceId);
-            expect(reducer(deviceContentStateInitial(), action).deviceTwin.synchronizationStatus).toEqual(SynchronizationStatus.working);
-        });
-
-        it (`handles ${GET_TWIN}/ACTION_DONE action`, () => {
-            const action = getTwinAction.done({params: deviceId, result});
-            expect(reducer(deviceContentStateInitial(), action).deviceTwin.payload).toEqual(result);
-        });
-
-        it (`handles ${GET_TWIN}/ACTION_FAILED action`, () => {
-            const action = getTwinAction.failed({error: -1, params: deviceId});
-            expect(reducer(deviceContentStateInitial(), action).deviceTwin.synchronizationStatus).toEqual(SynchronizationStatus.failed);
         });
     });
 

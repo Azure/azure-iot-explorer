@@ -9,7 +9,7 @@ import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
-import { getTwinAction, updateTwinAction } from '../actions';
+import { getDeviceTwinAction, updateDeviceTwinAction } from '../actions';
 import { REFRESH, SAVE } from '../../../../constants/iconNames';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { useThemeContext } from '../../../../shared/contexts/themeContext';
@@ -41,7 +41,7 @@ export const DeviceTwin: React.FC = () => {
     });
 
     React.useEffect(() => {
-        dispatch(getTwinAction.started(deviceId));
+        dispatch(getDeviceTwinAction.started(deviceId));
     },              []);
 
     // tslint:disable-next-line:cyclomatic-complexity
@@ -97,7 +97,7 @@ export const DeviceTwin: React.FC = () => {
             isDirty: false,
             needsRefresh: false
         });
-        dispatch(getTwinAction.started(deviceId));
+        dispatch(getDeviceTwinAction.started(deviceId));
     };
 
     const handleSave = () => {
@@ -107,7 +107,7 @@ export const DeviceTwin: React.FC = () => {
             isTwinValid: true,
             needsRefresh: true
         });
-        dispatch(updateTwinAction.started({
+        dispatch(updateDeviceTwinAction.started({
             deviceId,
             twin: JSON.parse(state.twin)
         }));
@@ -122,19 +122,19 @@ export const DeviceTwin: React.FC = () => {
             <article className="device-twin device-detail">
                 { twin &&
                     <div className="monaco-editor">
-                    <React.Suspense fallback={<Spinner title={'loading'} size={SpinnerSize.large} />}>
-                        <Editor
-                            language="json"
-                            value={state.twin}
-                            options={{
-                                automaticLayout: true,
-                                readOnly: false
-                            }}
-                            onChange={onChange}
-                            theme={monacoTheme}
-                        />
-                    </React.Suspense>
-                </div>
+                        <React.Suspense fallback={<Spinner title={'loading'} size={SpinnerSize.large} />}>
+                            <Editor
+                                language="json"
+                                value={state.twin}
+                                options={{
+                                    automaticLayout: true,
+                                    readOnly: false
+                                }}
+                                onChange={onChange}
+                                theme={monacoTheme}
+                            />
+                        </React.Suspense>
+                    </div>
                 }
             </article>
         );

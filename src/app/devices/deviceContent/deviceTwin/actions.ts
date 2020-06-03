@@ -8,8 +8,8 @@ import * as actionTypes from '../../../constants/actionTypes';
 import { Twin } from '../../../api/models/device';
 
 const deviceContentCreator = actionCreatorFactory(actionPrefixes.DEVICECONTENT);
-export const getTwinAction = deviceContentCreator.async<string, Twin>(actionTypes.GET_TWIN);
-export const updateTwinAction = deviceContentCreator.async<UpdateTwinActionParameters, Twin>(actionTypes.UPDATE_TWIN);
+export const getDeviceTwinAction = deviceContentCreator.async<string, Twin>(actionTypes.GET_TWIN);
+export const updateDeviceTwinAction = deviceContentCreator.async<UpdateTwinActionParameters, Twin>(actionTypes.UPDATE_TWIN);
 
 export interface UpdateTwinActionParameters {
     deviceId: string;
