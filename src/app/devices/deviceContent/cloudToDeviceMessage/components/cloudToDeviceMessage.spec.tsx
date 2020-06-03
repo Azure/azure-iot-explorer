@@ -5,41 +5,35 @@
 import 'jest';
 import * as React from 'react';
 import { act } from 'react-dom/test-utils';
-import { mount, shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { Dropdown } from 'office-ui-fabric-react/lib/Dropdown';
-import { CloudToDeviceMessage, CloudToDeviceMessageProps, systemPropertyKeyNameMappings } from './cloudToDeviceMessage';
+import * as AsyncSagaReducer from '../../../../shared/hooks/useAsyncSagaReducer';
+import { CloudToDeviceMessage, systemPropertyKeyNameMappings } from './cloudToDeviceMessage';
+import { cloudToDeviceMessageAction } from '../actions';
 
 jest.mock('react-router-dom', () => ({
     useLocation: () => ({ search: '?deviceId=testDevice' })
 }));
 
 describe('cloudToDeviceMessage', () => {
-    const cloudToDeviceMessageProps: CloudToDeviceMessageProps = {
-        onSendCloudToDeviceMessage: jest.fn()
-    };
+    beforeEach(() => {
+        jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([{}, jest.fn()]);
+    });
 
-    const getComponent = (overrides = {}) => {
-        const props = {
-            ...cloudToDeviceMessageProps,
-            ...overrides
-        };
-
-        return <CloudToDeviceMessage {...props} />;
-    };
+    afterEach(() => {
+        jest.clearAllMocks();
+    });
 
     it('matches snapshot', () => {
-        const component = getComponent({
-            settingSchema: undefined
-        });
-        expect(shallow(component)).toMatchSnapshot();
+        expect(shallow(<CloudToDeviceMessage/>)).toMatchSnapshot();
     });
 
     it('sets message body', () => {
-        const mockSendCloudToDeviceMessageSpy = jest.fn();
-        const wrapper = mount(getComponent({ onSendCloudToDeviceMessage: mockSendCloudToDeviceMessageSpy}));
+        const mockSendCloudToDeviceMessageSpy = jest.spyOn(cloudToDeviceMessageAction, 'started');
+        const wrapper = mount(<CloudToDeviceMessage/>);
         const bodyTextField = wrapper.find(TextField).first();
         act(() => bodyTextField.instance().props.onChange({ target: null}, 'hello world'));
         wrapper.update();
@@ -50,8 +44,8 @@ describe('cloudToDeviceMessage', () => {
     });
 
     it('sets timestamp', () => {
-        const mockSendCloudToDeviceMessageSpy = jest.fn();
-        const wrapper = mount(getComponent({ onSendCloudToDeviceMessage: mockSendCloudToDeviceMessageSpy}));
+        const mockSendCloudToDeviceMessageSpy = jest.spyOn(cloudToDeviceMessageAction, 'started');
+        const wrapper = mount(<CloudToDeviceMessage/>);
         const checkbox = wrapper.find(Checkbox).first();
         act(() => checkbox.instance().props.onChange({ target: null}, true));
         wrapper.update();
@@ -63,8 +57,8 @@ describe('cloudToDeviceMessage', () => {
     });
 
     it('adds custom properties', () => {
-        const mockSendCloudToDeviceMessageSpy = jest.fn();
-        const wrapper = mount(getComponent({ onSendCloudToDeviceMessage: mockSendCloudToDeviceMessageSpy}));
+        const mockSendCloudToDeviceMessageSpy = jest.spyOn(cloudToDeviceMessageAction, 'started');
+        const wrapper = mount(<CloudToDeviceMessage/>);
         const commandBar = wrapper.find(CommandBar).at(1);
         // click the add custom property, which would add an entry to the editable grid
         act(() => commandBar.props().items[0].onClick(null));
@@ -83,8 +77,8 @@ describe('cloudToDeviceMessage', () => {
     });
 
     it('adds system properties', () => {
-        const mockSendCloudToDeviceMessageSpy = jest.fn();
-        const wrapper = mount(getComponent({ onSendCloudToDeviceMessage: mockSendCloudToDeviceMessageSpy}));
+        const mockSendCloudToDeviceMessageSpy = jest.spyOn(cloudToDeviceMessageAction, 'started');
+        const wrapper = mount(<CloudToDeviceMessage/>);
         const commandBar = wrapper.find(CommandBar).at(1);
         // click the add system property, which would add an entry to the editable grid
         act(() => commandBar.props().items[1].subMenuProps.items[0].onClick());
@@ -105,7 +99,7 @@ describe('cloudToDeviceMessage', () => {
         const realUseState = React.useState;
         jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(duplicateProperties));
 
-        const wrapper = mount(getComponent());
+        const wrapper = mount(<CloudToDeviceMessage/>);
         wrapper.update();
         const commandBar = wrapper.find(CommandBar).first();
         expect(commandBar.props().items[0].disabled).toBeTruthy();
@@ -118,7 +112,7 @@ describe('cloudToDeviceMessage', () => {
         const realUseState = React.useState;
         jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(properties));
 
-        const wrapper = mount(getComponent());
+        const wrapper = mount(<CloudToDeviceMessage/>);
         const commandBar = wrapper.find(CommandBar).get(1);
         expect(commandBar.props.items[1].subMenuProps.items.length).toEqual(systemPropertyKeyNameMappings.length);
         for (const item of commandBar.props.items[1].subMenuProps.items) {
@@ -127,8 +121,8 @@ describe('cloudToDeviceMessage', () => {
     });
 
     it('dispatch action when send button is clicked', () => {
-        const mockSendCloudToDeviceMessageSpy = jest.fn();
-        const wrapper = mount(getComponent({ onSendCloudToDeviceMessage: mockSendCloudToDeviceMessageSpy}));
+        const mockSendCloudToDeviceMessageSpy = jest.spyOn(cloudToDeviceMessageAction, 'started');
+        const wrapper = mount(<CloudToDeviceMessage/>);
         const commandBar = wrapper.find(CommandBar).first();
 
         act(() => commandBar.props().items[0].onClick());

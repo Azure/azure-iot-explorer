@@ -266,7 +266,6 @@ describe('deviceTwinService', () => {
     context('cloudToDeviceMessage', () => {
         const parameters = {
             body: '',
-            connectionString,
             deviceId: undefined,
             properties: undefined
         };

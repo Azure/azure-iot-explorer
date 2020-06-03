@@ -2,9 +2,9 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { call, put } from 'redux-saga/effects';
+import { call, put, takeEvery } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
-import { cloudToDeviceMessageAction, CloudToDeviceMessageActionParameters } from '../actions';
+import { cloudToDeviceMessageAction, CloudToDeviceMessageActionParameters } from './actions';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { cloudToDeviceMessage } from '../../../api/services/devicesService';
 import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
@@ -28,10 +28,8 @@ export function* cloudToDeviceMessageSaga(action: Action<CloudToDeviceMessageAct
             type: NotificationType.info,
         });
 
-        const connectionString: string = yield call(getActiveAzureResourceConnectionStringSaga);
         const cloudToDeviceMessageParameters: CloudToDeviceMessageParameters = {
-            ...action.payload,
-            connectionString
+            ...action.payload
         };
 
         const response = yield call(cloudToDeviceMessage, cloudToDeviceMessageParameters);
@@ -64,4 +62,8 @@ export function* cloudToDeviceMessageSaga(action: Action<CloudToDeviceMessageAct
 
         yield put(cloudToDeviceMessageAction.failed({params: action.payload, error}));
     }
+}
+
+export function* cloudToDeviceMessageSagaWatcher() {
+    yield takeEvery(cloudToDeviceMessageAction.started.type, cloudToDeviceMessageSaga);
 }

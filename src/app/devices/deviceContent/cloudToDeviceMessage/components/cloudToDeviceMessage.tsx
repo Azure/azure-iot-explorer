@@ -20,11 +20,13 @@ import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { CLOUD_TO_DEVICE_MESSAGE, ArrayOperation, ITEM, CIRCLE_ADD, CIRCLE_ADD_SOLID } from '../../../../constants/iconNames';
 import LabelWithTooltip from '../../../../shared/components/labelWithTooltip';
-import { CloudToDeviceMessageActionParameters } from '../../actions';
+import { CloudToDeviceMessageActionParameters, cloudToDeviceMessageAction } from '../actions';
 import { CollapsibleSection } from '../../../../shared/components/collapsibleSection';
 import { MEDIUM_COLUMN_WIDTH } from '../../../../constants/columnWidth';
 import { HeaderView } from '../../../../shared/components/headerView';
+import { useAsyncSagaReducer } from '../../../../shared/hooks/useAsyncSagaReducer';
 import '../../../../css/_deviceDetail.scss';
+import { cloudToDeviceMessageSagaWatcher } from '../saga';
 
 interface PropertyItem {
     isSystemProperty: boolean;
@@ -50,24 +52,11 @@ export const systemPropertyKeyNameMappings: Array<{keyName: string, displayName:
         secondaryText: (ResourceKeys.cloudToDeviceMessage.properties.systemProperties as any)[property].description // tslint:disable-line:no-any
     }));
 
-export interface CloudToDeviceMessageState {
-    addTimestamp: boolean;
-    body: string;
-    properties: PropertyItem[];
-    propertyIndex: number;
-    selectedIndices: Set<number>;
-    selection: ISelection;
-    showExpiryError: boolean;
-}
-
-export interface CloudToDeviceMessageProps {
-    onSendCloudToDeviceMessage: (parameters: CloudToDeviceMessageActionParameters) => void;
-}
-
-export const CloudToDeviceMessage: React.FC<CloudToDeviceMessageProps> = (props: CloudToDeviceMessageProps) => {
+export const CloudToDeviceMessage: React.FC = () => {
     const { t } = useLocalizationContext();
     const { search } = useLocation();
 
+    const [ , dispatch ] = useAsyncSagaReducer(() => undefined, cloudToDeviceMessageSagaWatcher, undefined);
     const [ properties, setProperties ] = React.useState([{index: 0, keyName: '', isSystemProperty: false, value: ''}]);
     const [ addTimestamp, setAddTimestamp ] = React.useState<boolean>(false);
     const [ body, setBody ] = React.useState<string>('');
@@ -406,11 +395,11 @@ export const CloudToDeviceMessage: React.FC<CloudToDeviceMessageProps> = (props:
         }
 
         const timeStamp = new Date().toLocaleString();
-        props.onSendCloudToDeviceMessage({
+        dispatch(cloudToDeviceMessageAction.started({
             body: addTimestamp && body ? `${timeStamp} - ${body}` : (addTimestamp ? timeStamp : body),
             deviceId: getDeviceIdFromQueryString(search),
             properties: newProperties
-        });
+        }));
     };
 
     const findMatchingItemIndex = (property: PropertyItem): number => {
