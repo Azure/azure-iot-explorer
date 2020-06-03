@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/devices/DeviceList matches snapshot 1`] = `
+exports[`DeviceList matches snapshot 1`] = `
 <div
   className="view"
 >
