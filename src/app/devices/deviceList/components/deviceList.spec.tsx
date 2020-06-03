@@ -7,9 +7,12 @@ import { shallow } from 'enzyme';
 import { act } from 'react-dom/test-utils';
 import * as React from 'react';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
-import { DeviceListComponent, DeviceListDataProps, DeviceListDispatchProps } from './deviceList';
+import { DeviceList } from './deviceList';
+import { deviceListStateInitial, DeviceListStateInterface } from '../state';
 import { DeviceSummary } from '../../../api/models/deviceSummary';
 import { DeviceListCommandBar } from './deviceListCommandBar';
+import * as AsyncSagaReducer from '../../../shared/hooks/useAsyncSagaReducer';
+import { listDevicesAction } from '../actions';
 
 const pathname = `/`;
 
@@ -31,39 +34,35 @@ const devices: DeviceSummary[] = [
     }
 ];
 
-const deviceListDataProps: DeviceListDataProps = {
-    devices,
-    isFetching: false
+const initialState: DeviceListStateInterface = {
+    ...deviceListStateInitial(),
+    devices
 };
 
-const mockListDevices = jest.fn();
-const deviceListDispatchProps: DeviceListDispatchProps = {
-    deleteDevices: jest.fn(),
-    listDevices: mockListDevices
-};
+describe('DeviceList', () => {
+    beforeEach(() => {
+        jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([initialState, jest.fn()]);
+    });
 
-const getComponent = (overrides = {}) => {
-    const props = {
-        ...deviceListDataProps,
-        ...deviceListDispatchProps,
-        ...overrides
-    };
+    afterEach(() => {
+        jest.clearAllMocks();
+    });
 
-    return (
-        <DeviceListComponent {...props} />
-    );
-};
-
-describe('components/devices/DeviceList', () => {
     it('matches snapshot', () => {
-        const wrapper = shallow(getComponent());
+        const listDevicesActionSpy = jest.spyOn(listDevicesAction, 'started');
+        const wrapper = shallow(<DeviceList/>);
 
         expect(wrapper).toMatchSnapshot();
         const commandBar = wrapper.find(DeviceListCommandBar).first();
         // click the refresh button
         act(() => commandBar.props().handleRefresh());
         wrapper.update();
-        expect(mockListDevices).toBeCalled();
+        expect(listDevicesActionSpy).lastCalledWith({
+            clauses: [],
+            continuationTokens: [],
+            currentPageIndex: 0,
+            deviceId: ''
+        });
 
         // delete button is disabled by default
         expect(wrapper.find(DeviceListCommandBar).first().props().disableDelete).toBeTruthy(); // tslint:disable-line:no-magic-numbers

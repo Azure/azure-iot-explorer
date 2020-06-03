@@ -20,35 +20,27 @@ import { DeviceListQuery } from './deviceListQuery';
 import { ListPaging } from './listPaging';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
 import { CHECK } from '../../../constants/iconNames';
+import { useAsyncSagaReducer } from '../../../shared/hooks/useAsyncSagaReducer';
+import { deviceListReducer } from '../reducer';
 import MultiLineShimmer from '../../../shared/components/multiLineShimmer';
+import { deviceListSaga } from '../saga';
+import { deviceListStateInitial } from '../state';
+import { listDevicesAction, deleteDevicesAction } from '../actions';
+import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import { LARGE_COLUMN_WIDTH, EXTRA_SMALL_COLUMN_WIDTH, SMALL_COLUMN_WIDTH, MEDIUM_COLUMN_WIDTH } from '../../../constants/columnWidth';
 import '../../../css/_deviceList.scss';
 import '../../../css/_layouts.scss';
 
-export interface DeviceListDataProps {
-    devices?: DeviceSummary[];
-    isFetching: boolean;
-    query?: DeviceQuery;
-}
-
-export interface DeviceListDispatchProps {
-    listDevices: (query?: DeviceQuery) => void;
-    deleteDevices: (deviceIds: string[]) => void;
-}
-
-interface DeviceListState {
-    selectedDeviceIds: string[];
-    showDeleteConfirmation: boolean;
-    refreshQuery: number;
-}
-
 const SHIMMER_COUNT = 10;
-export const DeviceListComponent: React.FC<DeviceListDataProps & DeviceListDispatchProps> = (props: DeviceListDataProps & DeviceListDispatchProps) => {
+export const DeviceList: React.FC = () => {
     const { t } = useLocalizationContext();
     const { pathname } = useLocation();
     const history = useHistory();
 
-    const { devices, isFetching, query, listDevices, deleteDevices } = props;
+    const [ localState, dispatch ] = useAsyncSagaReducer(deviceListReducer, deviceListSaga, deviceListStateInitial());
+    const { devices, synchronizationStatus, deviceQuery } = localState;
+    const isFetching = React.useMemo(() => synchronizationStatus === SynchronizationStatus.working, [synchronizationStatus]);
+
     const [ refreshQuery, setRefreshQuery ] = React.useState<number>(0);
     const [ selectedDeviceIds, setSelectedDeviceIds ] = React.useState([]);
     const [ showDeleteConfirmation, setShowDeleteConfirmation ] = React.useState<boolean>(false);
@@ -59,16 +51,16 @@ export const DeviceListComponent: React.FC<DeviceListDataProps & DeviceListDispa
     });
 
     React.useEffect(() => {
-        listDevices(query);
+        setQueryAndExecute(deviceQuery);
     },              []);
 
-    const setQueryAndExecute = (deviceQuery: DeviceQuery) => {
-        listDevices({
-            clauses: deviceQuery.clauses,
+    const setQueryAndExecute = (query: DeviceQuery) => {
+        dispatch(listDevicesAction.started({
+            clauses: query.clauses,
             continuationTokens: query.continuationTokens,
             currentPageIndex: 0,
-            deviceId: deviceQuery.deviceId
-        });
+            deviceId: query.deviceId
+        }));
     };
 
     const showCommandBar = () => {
@@ -85,12 +77,12 @@ export const DeviceListComponent: React.FC<DeviceListDataProps & DeviceListDispa
     };
 
     const refresh = () => {
-        listDevices({
+        dispatch(listDevicesAction.started({
             clauses: [],
             continuationTokens: [],
             currentPageIndex: 0,
             deviceId: ''
-        });
+        }));
         setRefreshQuery(refreshQuery + 1);
     };
 
@@ -127,8 +119,8 @@ export const DeviceListComponent: React.FC<DeviceListDataProps & DeviceListDispa
     const showPaging = () => {
         return (
             <ListPaging
-                continuationTokens={query && query.continuationTokens}
-                currentPageIndex={query && query.currentPageIndex}
+                continuationTokens={deviceQuery && deviceQuery.continuationTokens}
+                currentPageIndex={deviceQuery && deviceQuery.currentPageIndex}
                 fetchPage={fetchPage}
             />
         );
@@ -209,12 +201,12 @@ export const DeviceListComponent: React.FC<DeviceListDataProps & DeviceListDispa
     };
 
     const fetchPage = (pageNumber: number) => {
-        return listDevices({
-            clauses: query.clauses,
-            continuationTokens: query.continuationTokens,
+        dispatch(listDevicesAction.started({
+            clauses: deviceQuery.clauses,
+            continuationTokens: deviceQuery.continuationTokens,
             currentPageIndex: pageNumber,
-            deviceId: query.deviceId
-        });
+            deviceId: deviceQuery.deviceId
+        }));
     };
 
     const deleteConfirmationDialog = () => {
@@ -256,7 +248,7 @@ export const DeviceListComponent: React.FC<DeviceListDataProps & DeviceListDispa
     };
 
     const handleDelete = () => {
-        deleteDevices(selectedDeviceIds);
+        dispatch(deleteDevicesAction.started(selectedDeviceIds));
         setShowDeleteConfirmation(false);
         // clear selection
         selection.setItems([]);
