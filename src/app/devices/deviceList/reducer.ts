@@ -2,33 +2,27 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { Map as ImmutableMap, fromJS } from 'immutable';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { deviceListStateInitial, DeviceListStateType } from './state';
-import { listDevicesAction, clearDevicesAction, deleteDevicesAction } from './actions';
-import { DeviceSummary } from './../../api/models/deviceSummary';
+import { listDevicesAction, deleteDevicesAction } from './actions';
 import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
-import { DeviceIdentity } from '../../api/models/deviceIdentity';
 import DeviceQuery from '../../api/models/deviceQuery';
 import { BulkRegistryOperationResult } from '../../api/models/bulkRegistryOperationResult';
 import { DataPlaneResponse, Device } from '../../api/models/device';
 import { transformDevice } from '../../api/dataTransforms/deviceSummaryTransform';
 import { HEADERS } from '../../constants/apiConstants';
 
-const reducer = reducerWithInitialState<DeviceListStateType>(deviceListStateInitial())
+export const deviceListReducer = reducerWithInitialState<DeviceListStateType>(deviceListStateInitial())
     .case(listDevicesAction.started, (state: DeviceListStateType, payload: DeviceQuery) => {
         return state.merge({
             deviceQuery: {...payload},
-            devices: state.devices.merge({
-                synchronizationStatus: SynchronizationStatus.working
-            })
+            synchronizationStatus: SynchronizationStatus.working
         });
     })
     // tslint:disable-next-line: cyclomatic-complexity
     .case(listDevicesAction.done, (state: DeviceListStateType, payload: {params: DeviceQuery} & {result: DataPlaneResponse<Device[]>}) => {
-        const deviceList = new Map<string, DeviceSummary>();
         const devices = payload.result.body || [];
-        devices.forEach(item => deviceList.set(item.DeviceId, transformDevice(item)));
+        const devicesummeries = devices.map(item => transformDevice(item));
         const continuationTokens = (state.deviceQuery.continuationTokens && [...state.deviceQuery.continuationTokens]) || [];
         const currentPageIndex = payload && payload.params && payload.params.currentPageIndex;
 
@@ -46,10 +40,8 @@ const reducer = reducerWithInitialState<DeviceListStateType>(deviceListStateInit
             }
         }
         return state.merge({
-            devices: state.devices.merge({
-                payload: fromJS(deviceList),
-                synchronizationStatus: SynchronizationStatus.fetched
-            })
+            devices: devicesummeries,
+            synchronizationStatus: SynchronizationStatus.fetched,
         }).set('deviceQuery', {
             ...payload.params,
             continuationTokens,
@@ -58,51 +50,31 @@ const reducer = reducerWithInitialState<DeviceListStateType>(deviceListStateInit
     })
     .case(listDevicesAction.failed, (state: DeviceListStateType) => {
         return state.merge({
-            devices: state.devices.merge({
-                payload: ImmutableMap<string, DeviceSummary>(),
-                synchronizationStatus: SynchronizationStatus.failed
-            })
+            devices: [],
+            synchronizationStatus: SynchronizationStatus.failed,
         });
     })
     .case(deleteDevicesAction.started, (state: DeviceListStateType) => {
         return state.merge({
-            devices: state.devices.merge({
-                synchronizationStatus: SynchronizationStatus.updating
-            })
+            synchronizationStatus: SynchronizationStatus.updating
         });
     })
     .case(deleteDevicesAction.done, (state: DeviceListStateType, payload: {params: string[]} & {result: BulkRegistryOperationResult}) => {
-        const deviceList = state.devices.payload;
-        payload.params.forEach(id => deviceList.delete(id));
+        const updatedDeviceList = state.devices.filter(item => !payload.params.includes(item.deviceId));
+
         return state.merge({
-            devices: state.devices.merge({
-                synchronizationStatus: SynchronizationStatus.deleted
-            })
-        }).set('deviceQuery', {
-            clauses: [],
-            continuationTokens: [],
-            currentPageIndex: 0,
-            deviceId: '',
+            deviceQuery: {
+                clauses: [],
+                continuationTokens: [],
+                currentPageIndex: 0,
+                deviceId: '',
+            },
+            devices: updatedDeviceList,
+            synchronizationStatus: SynchronizationStatus.deleted
         });
     })
     .case(deleteDevicesAction.failed, (state: DeviceListStateType) => {
         return state.merge({
-            devices: state.devices.merge({
-                synchronizationStatus: SynchronizationStatus.failed
-            })
-        });
-    })
-    .case(clearDevicesAction, (state: DeviceListStateType) => {
-        return state.merge({
-            devices: state.devices.merge({
-                payload: ImmutableMap<string, DeviceSummary>(),
-                synchronizationStatus: SynchronizationStatus.deleted
-            })
-        }).set('deviceQuery', {
-            clauses: [],
-            continuationTokens: [],
-            currentPageIndex: 0,
-            deviceId: ''
+            synchronizationStatus: SynchronizationStatus.failed
         });
     });
-export default reducer;

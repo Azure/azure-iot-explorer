@@ -7,14 +7,12 @@ import { Action } from 'typescript-fsa';
 import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { deleteDevicesAction } from '../actions';
 import { deleteDevices } from '../../../api/services/devicesService';
 
 export function* deleteDevicesSaga(action: Action<string[]>) {
     try {
         const parameters = {
-            connectionString: yield call(getActiveAzureResourceConnectionStringSaga),
             deviceIds: action.payload,
         };
 

@@ -39,18 +39,10 @@ describe('deleteDeviceSaga', () => {
         deleteDevicesSagaGenerator = cloneableGenerator(deleteDevicesSaga)(deleteDevicesAction.started(deviceIds));
     });
 
-    it('fetches the connection string', () => {
+    it('deletes the devices', () => {
         expect(deleteDevicesSagaGenerator.next()).toEqual({
             done: false,
-            value: call(getActiveAzureResourceConnectionStringSaga)
-        });
-    });
-
-    it('deletes the devices', () => {
-        expect(deleteDevicesSagaGenerator.next(connectionString)).toEqual({
-            done: false,
             value: call(mockDeleteDevice, {
-                connectionString,
                 deviceIds
             })
         });

@@ -10,12 +10,10 @@ import DeviceQuery from '../../api/models/deviceQuery';
 import { DataPlaneResponse, Device } from '../../api/models/device';
 
 const deviceListCreator = actionCreatorFactory(actionPrefixes.DEVICELISTS);
-const clearDevicesAction = deviceListCreator<void>(actionTypes.CLEAR_DEVICES);
 const listDevicesAction = deviceListCreator.async<DeviceQuery, DataPlaneResponse<Device[]>>(actionTypes.LIST_DEVICES);
 const deleteDevicesAction = deviceListCreator.async<string[], BulkRegistryOperationResult>(actionTypes.DELETE_DEVICES);
 
 export {
-    clearDevicesAction,
     deleteDevicesAction,
     listDevicesAction
 };

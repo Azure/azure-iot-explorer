@@ -10,7 +10,6 @@ import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { listDevicesAction } from '../actions';
 import { fetchDevices } from '../../../api/services/devicesService';
 import DeviceQuery from '../../../api/models/deviceQuery';
-import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { ERROR_TYPES } from './../../../constants/apiConstants';
 import { appConfig } from '../../../../appConfig/appConfig';
 import { CUSTOM_CONTROLLER_PORT } from './../../../constants/browserStorage';
@@ -18,7 +17,6 @@ import { CUSTOM_CONTROLLER_PORT } from './../../../constants/browserStorage';
 export function* listDevicesSaga(action: Action<DeviceQuery>) {
     try {
         const parameters = {
-            connectionString: yield call(getActiveAzureResourceConnectionStringSaga),
             query: action.payload
         };
         const response = yield call(fetchDevices, parameters);

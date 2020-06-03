@@ -5,13 +5,11 @@
 import { Action } from 'typescript-fsa';
 import { call, put } from 'redux-saga/effects';
 import { AzureResource } from '../models/azureResource';
-import { clearDevicesAction } from '../../devices/deviceList/actions';
 import { clearModelDefinitionsAction } from '../../devices/deviceContent/actions';
 import { ACTIVE_CONNECTION_STRING } from '../../constants/browserStorage';
 
 export function* setActiveAzureResourceSaga(action: Action<AzureResource>) {
     yield call(setActiveConnectionString, action.payload.connectionString);
-    yield put(clearDevicesAction());
     yield put(clearModelDefinitionsAction());
 }
 
