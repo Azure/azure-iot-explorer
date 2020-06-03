@@ -2,20 +2,18 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { call, put } from 'redux-saga/effects';
+import { call, put, all, takeLatest, takeEvery } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
 import { fetchDeviceTwin, updateDeviceTwin } from '../../../api/services/devicesService';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
-import { getTwinAction, UpdateTwinActionParameters, updateTwinAction } from '../actions';
+import { getTwinAction, UpdateTwinActionParameters, updateTwinAction } from './actions';
 import { UpdateDeviceTwinParameters } from '../../../api/parameters/deviceParameters';
 import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 
-export function* getDeviceTwinSaga(action: Action<string>) {
+export function* getDeviceTwinSagaWorker(action: Action<string>) {
     try {
         const parameters = {
-            connectionString: yield call(getActiveAzureResourceConnectionStringSaga),
             deviceId: action.payload,
         };
 
@@ -38,10 +36,9 @@ export function* getDeviceTwinSaga(action: Action<string>) {
     }
 }
 
-export function* updateDeviceTwinSaga(action: Action<UpdateTwinActionParameters>) {
+export function* updateDeviceTwinSagaWorker(action: Action<UpdateTwinActionParameters>) {
     try {
         const parameters: UpdateDeviceTwinParameters = {
-            connectionString: yield call(getActiveAzureResourceConnectionStringSaga),
             deviceId: action.payload.deviceId,
             deviceTwin: action.payload.twin,
         };
@@ -73,4 +70,11 @@ export function* updateDeviceTwinSaga(action: Action<UpdateTwinActionParameters>
 
         yield put(updateTwinAction.failed({params: action.payload, error}));
     }
+}
+
+export function* deviceTwinSaga() {
+    yield all([
+        takeLatest(getTwinAction.started.type, getDeviceTwinSagaWorker),
+        takeEvery(updateTwinAction.started.type, updateDeviceTwinSagaWorker),
+    ]);
 }

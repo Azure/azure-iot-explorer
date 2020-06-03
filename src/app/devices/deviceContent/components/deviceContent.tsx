@@ -6,7 +6,7 @@ import * as React from 'react';
 import { Route, useLocation, useRouteMatch } from 'react-router-dom';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import DeviceIdentityContainer from './deviceIdentity/deviceIdentityContainer';
-import DeviceTwinContainer from './deviceTwin/deviceTwinContainer';
+import { DeviceTwin } from '../deviceTwin/components/deviceTwin';
 import DeviceEventsContainer from './deviceEvents/deviceEventsContainer';
 import DirectMethodContainer from './directMethod/directMethodContainer';
 import CloudToDeviceMessageContainer from './cloudToDeviceMessage/cloudToDeviceMessageContainer';
@@ -26,9 +26,6 @@ import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHel
 import '../../../css/_deviceContent.scss';
 import '../../../css/_layouts.scss';
 
-interface DeviceContentState {
-    appMenuVisible: boolean;
-}
 export interface DeviceContentDataProps {
     isLoading: boolean;
     digitalTwinModelId: string;
@@ -81,7 +78,7 @@ export const DeviceContentComponent: React.FC<DeviceContentProps> = (props: Devi
         return (
             <div className={'device-content-detail' + (!appMenuVisible ? ' collapsed' : '')}>
                 <Route path={`${url}/${ROUTE_PARTS.IDENTITY}`} component={DeviceIdentityContainer} />
-                <Route path={`${url}/${ROUTE_PARTS.TWIN}`} component={DeviceTwinContainer} />
+                <Route path={`${url}/${ROUTE_PARTS.TWIN}`} component={DeviceTwin} />
                 <Route path={`${url}/${ROUTE_PARTS.EVENTS}`} component={DeviceEventsContainer}/>
                 <Route path={`${url}/${ROUTE_PARTS.METHODS}`} component={DirectMethodContainer} />
                 <Route path={`${url}/${ROUTE_PARTS.CLOUD_TO_DEVICE_MESSAGE}`} component={CloudToDeviceMessageContainer} />

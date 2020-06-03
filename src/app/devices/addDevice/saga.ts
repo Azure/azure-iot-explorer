@@ -6,7 +6,6 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
 import { NotificationType } from '../../api/models/notification';
 import { ResourceKeys } from '../../../localization/resourceKeys';
-import { getActiveAzureResourceConnectionStringSaga } from '../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { addDeviceAction } from './actions';
 import { addDevice } from '../../api/services/devicesService';
 import { DeviceIdentity } from '../../api/models/deviceIdentity';

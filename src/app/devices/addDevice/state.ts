@@ -1,3 +1,7 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
 import { Record } from 'immutable';
 import { IM } from '../../shared/types/types';
 import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
