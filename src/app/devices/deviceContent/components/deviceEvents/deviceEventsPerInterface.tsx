@@ -33,6 +33,7 @@ import { appConfig, HostMode } from '../../../../../appConfig/appConfig';
 import { DigitalTwinHeaderView } from '../digitalTwin/digitalTwinHeaderView';
 import { SemanticUnit } from '../../../../shared/units/components/semanticUnit';
 import { ROUTE_PARAMS } from '../../../../constants/routes';
+import { raiseNotificationToast } from '../../../../notifications/components/notificationToast';
 import '../../../../css/_deviceEvents.scss';
 
 const JSON_SPACES = 2;
@@ -46,7 +47,6 @@ export interface DeviceEventsDataProps {
 }
 
 export interface DeviceEventsDispatchProps {
-    addNotification: (notification: Notification) => void;
     setComponentName: (id: string) => void;
     refresh: (deviceId: string, interfaceId: string) => void;
 }
@@ -553,7 +553,7 @@ export const DeviceEventsPerInterfaceComponent: React.FC<DeviceEventsDataProps &
                         stopMonitoringIfNecessary();
                     })
                     .catch (error => {
-                        props.addNotification({
+                        raiseNotificationToast({
                             text: {
                                 translationKey: ResourceKeys.deviceEvents.error,
                                 translationOptions: {

@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 export const DEVICELISTS = 'DEVICE_LISTS';
+export const DEVICE = 'DEVICE';
 export const DEVICECONTENT = 'DEVICE_CONTENT';
 export const LOGIN = 'LOGIN';
 export const MODEL_REPOSITORY = 'MODEL_REPOSITORY';

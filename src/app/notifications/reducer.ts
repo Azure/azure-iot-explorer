@@ -20,15 +20,19 @@ const reducer = reducerWithInitialState<NotificationsStateInterface>(notificatio
            notifications: state.notifications
        };
     })
-    .case(addNotificationAction.done, (state: NotificationsStateInterface, payload: { params: Notification, result: Notification }) => {
+    .case(addNotificationAction, (state: NotificationsStateInterface, payload: Notification) => {
         let notifications: Notification[];
         let existingId: boolean = false;
 
-        if (payload.result.id) {
+        if (!payload.issued) {
+            payload.issued =  Date();
+        }
+
+        if (payload.id) {
             notifications = state.notifications.map(notification => {
-                if (notification.id && notification.id === payload.result.id) {
+                if (notification.id && notification.id === payload.id) {
                     existingId = true;
-                    return payload.result;
+                    return payload;
                 }
 
                 return notification;
@@ -36,7 +40,7 @@ const reducer = reducerWithInitialState<NotificationsStateInterface>(notificatio
         }
 
         if (!existingId) {
-            notifications = [payload.result, ...state.notifications];
+            notifications = [payload, ...state.notifications];
         }
 
         return {

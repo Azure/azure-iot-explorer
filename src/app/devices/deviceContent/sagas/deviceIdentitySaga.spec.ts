@@ -3,16 +3,17 @@
  * Licensed under the MIT License
  **********************************************************/
 import 'jest';
-import { select, put, call } from 'redux-saga/effects';
-import { cloneableGenerator } from 'redux-saga/utils';
+import { put, call } from 'redux-saga/effects';
+// tslint:disable-next-line: no-implicit-dependencies
+import { cloneableGenerator } from '@redux-saga/testing-utils';
 import { getDeviceIdentitySaga, updateDeviceIdentitySaga } from './deviceIdentitySaga';
 import { getDeviceIdentityAction, updateDeviceIdentityAction } from '../actions';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import * as DevicesService from '../../../api/services/devicesService';
 import { DeviceIdentity } from '../../../api/models/deviceIdentity';
-import { addNotificationAction } from '../../../notifications/actions';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { NotificationType } from '../../../api/models/notification';
+import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 
 describe('deviceIdentitySaga', () => {
     let getdeviceIdentitySagaGenerator;
@@ -77,7 +78,7 @@ describe('deviceIdentitySaga', () => {
             getdeviceIdentitySagaGenerator.next();
             expect(getdeviceIdentitySagaGenerator.throw(error)).toEqual({
                 done: false,
-                value: put(addNotificationAction.started({
+                value: call(raiseNotificationToast, {
                     text: {
                         translationKey: ResourceKeys.notifications.getDeviceIdentityOnError,
                         translationOptions: {
@@ -86,7 +87,7 @@ describe('deviceIdentitySaga', () => {
                         },
                     },
                     type: NotificationType.error
-                }))
+                })
             });
 
             expect(getdeviceIdentitySagaGenerator.next()).toEqual({
@@ -122,7 +123,7 @@ describe('deviceIdentitySaga', () => {
             // notification
             expect(updateDeviceIdentitySagaGenerator.next(mockDevice)).toEqual({
                 done: false,
-                value: put(addNotificationAction.started({
+                value: call(raiseNotificationToast, {
                     text: {
                         translationKey: ResourceKeys.notifications.updateDeviceOnSucceed,
                         translationOptions: {
@@ -130,7 +131,7 @@ describe('deviceIdentitySaga', () => {
                         },
                     },
                     type: NotificationType.success
-                }))
+                })
             });
 
             // add to store
@@ -153,7 +154,7 @@ describe('deviceIdentitySaga', () => {
             updateDeviceIdentitySagaGenerator.next();
             expect(updateDeviceIdentitySagaGenerator.throw(error)).toEqual({
                 done: false,
-                value: put(addNotificationAction.started({
+                value: call(raiseNotificationToast, {
                     text: {
                         translationKey: ResourceKeys.notifications.updateDeviceOnError,
                         translationOptions: {
@@ -162,7 +163,7 @@ describe('deviceIdentitySaga', () => {
                         },
                     },
                     type: NotificationType.error
-                }))
+                })
             });
 
             expect(updateDeviceIdentitySagaGenerator.next()).toEqual({

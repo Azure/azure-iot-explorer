@@ -9,7 +9,7 @@ import { SpinButton } from 'office-ui-fabric-react/lib/SpinButton';
 import { Position } from 'office-ui-fabric-react/lib/utilities/positioning';
 import { useLocalizationContext } from '../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
-import MaskedCopyableTextFieldContainer from '../../../shared/components/maskedCopyableTextFieldContainer';
+import { MaskedCopyableTextField } from '../../../shared/components/maskedCopyableTextField';
 import { CollapsibleSection } from '../../../shared/components/collapsibleSection';
 import { ModuleIdentity } from '../../../api/models/moduleIdentity';
 import { SAS_EXPIRES_MINUTES } from '../../../constants/devices';
@@ -129,7 +129,7 @@ export const SasTokenGenerationView: React.FC<SasTokenGenerationDataProps> = (pr
                     onDecrement={onExpirationDecrement}
                     value={`${sasTokenExpiration}`}
                 />
-                <MaskedCopyableTextFieldContainer
+                <MaskedCopyableTextField
                     ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.sasToken.textField.ariaLabel)}
                     label={t(ResourceKeys.deviceIdentity.authenticationType.sasToken.textField.label)}
                     value={sasTokenConnectionString}

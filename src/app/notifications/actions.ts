@@ -9,8 +9,6 @@ import { Notification } from '../api/models/notification';
 
 const actionCreator = actionCreatorFactory(actionPrefixes.NOTIFICATIONS);
 
-const clearNotificationsAction = actionCreator(actionTypes.CLEAR);
-const addNotificationAction = actionCreator.async<Notification, Notification>(actionTypes.ADD);
-const markAllNotificationsAsReadAction = actionCreator(actionTypes.READ);
-
-export { clearNotificationsAction, addNotificationAction, markAllNotificationsAsReadAction };
+export const clearNotificationsAction = actionCreator(actionTypes.CLEAR);
+export const addNotificationAction = actionCreator<Notification>(actionTypes.ADD);
+export const markAllNotificationsAsReadAction = actionCreator(actionTypes.READ);

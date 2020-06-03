@@ -4,7 +4,7 @@
  **********************************************************/
 import 'jest';
 import { Record, Map as ImmutableMap, fromJS } from 'immutable';
-import { clearDevicesAction, listDevicesAction, addDeviceAction, deleteDevicesAction } from './actions';
+import { clearDevicesAction, listDevicesAction, deleteDevicesAction } from './actions';
 import reducer from './reducer';
 import { DeviceListStateInterface, deviceListStateInitial, DeviceList } from './state';
 import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
@@ -95,21 +95,6 @@ describe('deviceListStateReducer', () => {
         const deviceSummaryMap = ImmutableMap<string, DeviceSummary>();
         const action = listDevicesAction.failed(undefined);
         expect(reducer(deviceListStateInitial(), action).devices.payload).toEqual(deviceSummaryMap);
-        expect(reducer(deviceListStateInitial(), action).devices.synchronizationStatus).toEqual(SynchronizationStatus.failed);
-    });
-
-    it(`handles ADD_DEVICE/ACTION_START action`, () => {
-        const action = addDeviceAction.started(undefined);
-        expect(reducer(deviceListStateInitial(), action).devices.synchronizationStatus).toEqual(SynchronizationStatus.updating);
-    });
-
-    it(`handles ADD_DEVICE/ACTION_DONE action`, () => {
-        const action = addDeviceAction.done({ params: undefined, result: undefined });
-        expect(reducer(deviceListStateInitial(), action).devices.synchronizationStatus).toEqual(SynchronizationStatus.upserted);
-    });
-
-    it(`handles ADD_DEVICE/ACTION_FAIL action`, () => {
-        const action = addDeviceAction.failed(undefined);
         expect(reducer(deviceListStateInitial(), action).devices.synchronizationStatus).toEqual(SynchronizationStatus.failed);
     });
 
