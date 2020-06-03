@@ -2,26 +2,25 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { call, put } from 'redux-saga/effects';
+import { call, put, takeEvery } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
-import { addNotificationAction } from '../../../notifications/actions';
-import { NotificationType } from '../../../api/models/notification';
-import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
-import { addDeviceAction } from '../actions';
-import { addDevice } from '../../../api/services/devicesService';
-import { DeviceIdentity } from '../../../api/models/deviceIdentity';
+import { NotificationType } from '../../api/models/notification';
+import { ResourceKeys } from '../../../localization/resourceKeys';
+import { getActiveAzureResourceConnectionStringSaga } from '../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
+import { addDeviceAction } from './actions';
+import { addDevice } from '../../api/services/devicesService';
+import { DeviceIdentity } from '../../api/models/deviceIdentity';
+import { raiseNotificationToast } from '../../notifications/components/notificationToast';
 
-export function* addDeviceSaga(action: Action<DeviceIdentity>) {
+export function* addDeviceSagaWorker(action: Action<DeviceIdentity>) {
     try {
         const parameters = {
-            connectionString: yield call(getActiveAzureResourceConnectionStringSaga),
-            deviceIdentity: action.payload,
+            deviceIdentity: action.payload
         };
 
         const result = yield call(addDevice, parameters);
 
-        yield put(addNotificationAction.started({
+        yield call(raiseNotificationToast, {
             text: {
                 translationKey: ResourceKeys.notifications.addDeviceOnSucceed,
                 translationOptions: {
@@ -29,11 +28,12 @@ export function* addDeviceSaga(action: Action<DeviceIdentity>) {
                 },
             },
             type: NotificationType.success
-        }));
+        });
 
         yield put(addDeviceAction.done({params: action.payload, result}));
     } catch (error) {
-        yield put(addNotificationAction.started({
+
+        yield call(raiseNotificationToast, {
             text: {
                 translationKey: ResourceKeys.notifications.addDeviceOnError,
                 translationOptions: {
@@ -42,8 +42,12 @@ export function* addDeviceSaga(action: Action<DeviceIdentity>) {
                 },
             },
             type: NotificationType.error
-          }));
+        });
 
         yield put(addDeviceAction.failed({params: action.payload, error}));
     }
+}
+
+export function* addDeviceSaga() {
+    yield takeEvery(addDeviceAction.started.type, addDeviceSagaWorker);
 }

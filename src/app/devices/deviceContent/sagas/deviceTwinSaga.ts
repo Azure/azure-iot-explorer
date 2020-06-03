@@ -5,12 +5,12 @@
 import { call, put } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
 import { fetchDeviceTwin, updateDeviceTwin } from '../../../api/services/devicesService';
-import { addNotificationAction } from '../../../notifications/actions';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { getTwinAction, UpdateTwinActionParameters, updateTwinAction } from '../actions';
 import { UpdateDeviceTwinParameters } from '../../../api/parameters/deviceParameters';
+import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 
 export function* getDeviceTwinSaga(action: Action<string>) {
     try {
@@ -23,7 +23,7 @@ export function* getDeviceTwinSaga(action: Action<string>) {
 
         yield put(getTwinAction.done({params: action.payload, result: twin}));
     } catch (error) {
-        yield put(addNotificationAction.started({
+        yield call(raiseNotificationToast, {
             text: {
                 translationKey: ResourceKeys.notifications.getDeviceTwinOnError,
                 translationOptions: {
@@ -32,7 +32,7 @@ export function* getDeviceTwinSaga(action: Action<string>) {
                 },
             },
             type: NotificationType.error
-          }));
+          });
 
         yield put(getTwinAction.failed({params: action.payload, error}));
     }
@@ -48,7 +48,7 @@ export function* updateDeviceTwinSaga(action: Action<UpdateTwinActionParameters>
 
         const twin = yield call(updateDeviceTwin, parameters);
 
-        yield put(addNotificationAction.started({
+        yield call(raiseNotificationToast, {
             text: {
                 translationKey: ResourceKeys.notifications.updateDeviceTwinOnSuccess,
                 translationOptions: {
@@ -56,11 +56,11 @@ export function* updateDeviceTwinSaga(action: Action<UpdateTwinActionParameters>
                 },
             },
             type: NotificationType.success
-          }));
+          });
 
         yield put(updateTwinAction.done({params: action.payload, result: twin}));
     } catch (error) {
-        yield put(addNotificationAction.started({
+        yield call(raiseNotificationToast, {
             text: {
                 translationKey: ResourceKeys.notifications.updateDeviceTwinOnError,
                 translationOptions: {
@@ -69,7 +69,7 @@ export function* updateDeviceTwinSaga(action: Action<UpdateTwinActionParameters>
                 },
             },
             type: NotificationType.error
-          }));
+          });
 
         yield put(updateTwinAction.failed({params: action.payload, error}));
     }

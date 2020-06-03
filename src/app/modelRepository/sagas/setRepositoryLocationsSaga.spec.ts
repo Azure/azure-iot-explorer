@@ -3,10 +3,11 @@
  * Licensed under the MIT License
  **********************************************************/
 import { call, put } from 'redux-saga/effects';
-import { cloneableGenerator } from 'redux-saga/utils';
+// tslint:disable-next-line: no-implicit-dependencies
+import { cloneableGenerator } from '@redux-saga/testing-utils';
 import { setRepositoryLocationsSaga } from './setRepositoryLocationsSaga';
 import { setRepositoryLocationsAction } from '../actions';
-import { addNotificationAction } from '../../notifications/actions';
+import { raiseNotificationToast } from '../../notifications/components/notificationToast';
 import { getLocalFolderPath, getRepositoryLocationTypes } from '../reducer';
 import { NotificationType } from '../../api/models/notification';
 import { ResourceKeys } from '../../../localization/resourceKeys';
@@ -43,15 +44,15 @@ describe('setRepositoryLocationsSaga', () => {
         });
     });
 
-    it('issues addNOtificationAction.started', () => {
+    it('issues notification', () => {
         expect(setRepositoryLocationsSagaGenerator.next()).toEqual({
             done: false,
-            value: put(addNotificationAction.started({
+            value: call(raiseNotificationToast, {
                 text: {
                     translationKey: ResourceKeys.notifications.modelRepoistorySettingsUpdated
                 },
                 type: NotificationType.success
-            }))
+            })
         });
     });
 

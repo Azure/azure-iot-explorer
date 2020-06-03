@@ -9,12 +9,13 @@ import { shallow, mount } from 'enzyme';
 import { ChoiceGroup } from 'office-ui-fabric-react/lib/ChoiceGroup';
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
-import { AddDevice, AddDeviceDataProps, AddDeviceActionProps } from './addDevice';
-import { MaskedCopyableTextField } from '../../../../../shared/components/maskedCopyableTextField';
-import { SynchronizationStatus } from '../../../../../api/models/synchronizationStatus';
-import { DeviceAuthenticationType } from '../../../../../api/models/deviceAuthenticationType';
-import { DeviceStatus } from '../../../../../api/models/deviceStatus';
-import { mountWithStoreAndRouter } from '../../../../../shared/utils/testHelpers';
+import { AddDevice } from './addDevice';
+import { MaskedCopyableTextField } from '../../../shared/components/maskedCopyableTextField';
+import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
+import { DeviceAuthenticationType } from '../../../api/models/deviceAuthenticationType';
+import { mountWithStoreAndRouter } from '../../../shared/utils/testHelpers';
+import * as AsyncSagaReducer from '../../../shared/hooks/useAsyncSagaReducer';
+import { addDeviceAction } from '../actions';
 
 const pathname = '/devices/add';
 jest.mock('react-router-dom', () => ({
@@ -23,34 +24,17 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('components/devices/addDevice', () => {
-    const addDeviceDataProps: AddDeviceDataProps = {
-        deviceListSyncStatus: SynchronizationStatus.fetched
-    };
-
-    const mockSaveDevice = jest.fn();
-    const addDeviceDispatchProps: AddDeviceActionProps = {
-        handleSave: mockSaveDevice
-    };
-
-    const getComponent = (overrides = {}) => {
-        const props = {
-            ...addDeviceDataProps,
-            ...addDeviceDispatchProps,
-            ...overrides
-        };
-
-        return (
-            <AddDevice {...props} />
-        );
-    };
+    beforeEach(() => {
+        jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([{synchronizationStatus: SynchronizationStatus.initialized}, jest.fn()]);
+    });
 
     it('matches snapshot', () => {
-        expect(shallow(getComponent())).toMatchSnapshot();
+        expect(shallow(<AddDevice/>)).toMatchSnapshot();
     });
 
     it('renders symmetric key input field if not auto generating keys', () => {
         // auto generate
-        const wrapper = mountWithStoreAndRouter(getComponent(), true);
+        const wrapper = mountWithStoreAndRouter(<AddDevice/>, true);
         expect(wrapper.find(MaskedCopyableTextField).length).toEqual(1);
 
         // uncheck auto generate
@@ -70,7 +54,7 @@ describe('components/devices/addDevice', () => {
     });
 
     it('renders selfSigned input field', () => {
-        const wrapper = mountWithStoreAndRouter(getComponent(), true);
+        const wrapper = mountWithStoreAndRouter(<AddDevice/>, true);
 
         const choiceGroup = wrapper.find(ChoiceGroup).first();
         act(() => choiceGroup.props().onChange(undefined, { key: DeviceAuthenticationType.SelfSigned, text: 'text' } ));
@@ -88,7 +72,8 @@ describe('components/devices/addDevice', () => {
     });
 
     it('saves new device identity', () => {
-        const wrapper = mountWithStoreAndRouter(getComponent(), true);
+        const addDeviceActionSpy = jest.spyOn(addDeviceAction, 'started');
+        const wrapper = mountWithStoreAndRouter(<AddDevice/>, true);
 
         act(() => wrapper.find(MaskedCopyableTextField).first().props().onTextChange('test-device'));
         act(() => wrapper.find(Toggle).first().instance().props.onChange({ target: null}, false));
@@ -103,6 +88,26 @@ describe('components/devices/addDevice', () => {
 
         const form = wrapper.find('form');
         form.simulate('submit');
-        expect(mockSaveDevice).toBeCalled();
+        wrapper.update();
+        expect(addDeviceActionSpy).toBeCalledWith({
+            authentication: {
+                symmetricKey: {
+                    primaryKey: null,
+                    secondaryKey: null
+                },
+                type: 'sas',
+                x509Thumbprint:  null,
+            },
+            capabilities: {
+                iotEdge: false
+            },
+            cloudToDeviceMessageCount: null,
+            deviceId: 'test-device',
+            etag: null,
+            lastActivityTime: null,
+            status: '',
+            statusReason: null,
+            statusUpdatedTime: null
+        });
     });
 });

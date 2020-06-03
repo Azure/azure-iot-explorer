@@ -5,7 +5,7 @@
 import { Map as ImmutableMap, fromJS } from 'immutable';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { deviceListStateInitial, DeviceListStateType } from './state';
-import { listDevicesAction, clearDevicesAction, deleteDevicesAction, addDeviceAction } from './actions';
+import { listDevicesAction, clearDevicesAction, deleteDevicesAction } from './actions';
 import { DeviceSummary } from './../../api/models/deviceSummary';
 import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
 import { DeviceIdentity } from '../../api/models/deviceIdentity';
@@ -60,32 +60,6 @@ const reducer = reducerWithInitialState<DeviceListStateType>(deviceListStateInit
         return state.merge({
             devices: state.devices.merge({
                 payload: ImmutableMap<string, DeviceSummary>(),
-                synchronizationStatus: SynchronizationStatus.failed
-            })
-        });
-    })
-    .case(addDeviceAction.started, (state: DeviceListStateType) => {
-        return state.merge({
-            devices: state.devices.merge({
-                synchronizationStatus: SynchronizationStatus.updating
-            })
-        });
-    })
-    .case(addDeviceAction.done, (state: DeviceListStateType, payload: {params: DeviceIdentity} & {result: DeviceIdentity}) => {
-        return state.merge({
-            devices: state.devices.merge({
-                synchronizationStatus: SynchronizationStatus.upserted
-            })
-        }).set('deviceQuery', {
-            clauses: [],
-            continuationTokens: [],
-            currentPageIndex: 0,
-            deviceId: '',
-        });
-    })
-    .case(addDeviceAction.failed, (state: DeviceListStateType) => {
-        return state.merge({
-            devices: state.devices.merge({
                 synchronizationStatus: SynchronizationStatus.failed
             })
         });

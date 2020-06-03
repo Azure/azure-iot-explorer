@@ -48,7 +48,7 @@ exports[`devices/components/moduleIdentityDetail snapshot matches snapshot after
   <div
     className="module-identity-detail"
   >
-    <Connect(Component)
+    <Component
       allowMask={false}
       ariaLabel="moduleIdentity.moduleId"
       label="moduleIdentity.moduleId"
@@ -108,7 +108,7 @@ exports[`devices/components/moduleIdentityDetail snapshot matches snapshot after
   <div
     className="module-identity-detail"
   >
-    <Connect(Component)
+    <Component
       allowMask={false}
       ariaLabel="moduleIdentity.moduleId"
       label="moduleIdentity.moduleId"
@@ -116,7 +116,7 @@ exports[`devices/components/moduleIdentityDetail snapshot matches snapshot after
       readOnly={true}
       value="moduleId"
     />
-    <Connect(Component)
+    <Component
       allowMask={true}
       ariaLabel="moduleIdentity.authenticationType.symmetricKey.primaryKey"
       label="moduleIdentity.authenticationType.symmetricKey.primaryKey"
@@ -124,7 +124,7 @@ exports[`devices/components/moduleIdentityDetail snapshot matches snapshot after
       readOnly={true}
       value="key1"
     />
-    <Connect(Component)
+    <Component
       allowMask={true}
       ariaLabel="moduleIdentity.authenticationType.symmetricKey.secondaryKey"
       label="moduleIdentity.authenticationType.symmetricKey.secondaryKey"
@@ -132,14 +132,14 @@ exports[`devices/components/moduleIdentityDetail snapshot matches snapshot after
       readOnly={true}
       value="key2"
     />
-    <Connect(Component)
+    <Component
       allowMask={true}
       ariaLabel="moduleIdentity.authenticationType.symmetricKey.primaryConnectionString"
       label="moduleIdentity.authenticationType.symmetricKey.primaryConnectionString"
       readOnly={true}
       value="HostName=testhub.azure-devices.net;DeviceId=newdevice;ModuleId=moduleId;SharedAccessKey=key1"
     />
-    <Connect(Component)
+    <Component
       allowMask={true}
       ariaLabel="moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString"
       label="moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString"
@@ -215,7 +215,7 @@ exports[`devices/components/moduleIdentityDetail snapshot matches snapshot after
   <div
     className="module-identity-detail"
   >
-    <Connect(Component)
+    <Component
       allowMask={false}
       ariaLabel="moduleIdentity.moduleId"
       label="moduleIdentity.moduleId"
@@ -226,7 +226,7 @@ exports[`devices/components/moduleIdentityDetail snapshot matches snapshot after
     <StyledLabelBase>
       moduleIdentity.authenticationType.selfSigned.text
     </StyledLabelBase>
-    <Connect(Component)
+    <Component
       allowMask={true}
       ariaLabel="moduleIdentity.authenticationType.selfSigned.primaryThumbprint"
       label="moduleIdentity.authenticationType.selfSigned.primaryThumbprint"
@@ -234,7 +234,7 @@ exports[`devices/components/moduleIdentityDetail snapshot matches snapshot after
       readOnly={true}
       value="thumbprint1"
     />
-    <Connect(Component)
+    <Component
       allowMask={true}
       ariaLabel="moduleIdentity.authenticationType.selfSigned.secondaryThumbprint"
       label="moduleIdentity.authenticationType.selfSigned.secondaryThumbprint"
@@ -294,7 +294,7 @@ exports[`devices/components/moduleIdentityDetail snapshot matches snapshot after
   <div
     className="module-identity-detail"
   >
-    <Connect(Component)
+    <Component
       allowMask={false}
       ariaLabel="moduleIdentity.moduleId"
       label="moduleIdentity.moduleId"
@@ -357,7 +357,7 @@ exports[`devices/components/moduleIdentityDetail snapshot matches snapshot while
   <div
     className="module-identity-detail"
   >
-    <Connect(Component)
+    <Component
       allowMask={false}
       ariaLabel="moduleIdentity.moduleId"
       label="moduleIdentity.moduleId"

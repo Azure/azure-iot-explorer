@@ -11,7 +11,7 @@ import { ConnectionStringProperties } from './connectionStringProperties';
 import { useLocalizationContext } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { ConnectionStringDelete } from './connectionStringDelete';
-import MaskedCopyableTextFieldContainer from '../../shared/components/maskedCopyableTextFieldContainer';
+import { MaskedCopyableTextField } from '../../shared/components/maskedCopyableTextField';
 import { EDIT, REMOVE } from '../../constants/iconNames';
 import './connectionString.scss';
 
@@ -91,7 +91,7 @@ export const ConnectionString: React.FC<ConnectionStringProps> = props => {
                     sharedAccessKey={sharedAccessKey}
                     sharedAccessKeyName={sharedAccessKeyName}
                 />
-                <MaskedCopyableTextFieldContainer
+                <MaskedCopyableTextField
                     ariaLabel={t(ResourceKeys.connectionStrings.properties.connectionString.ariaLabel)}
                     allowMask={true}
                     label={t(ResourceKeys.connectionStrings.properties.connectionString.label)}

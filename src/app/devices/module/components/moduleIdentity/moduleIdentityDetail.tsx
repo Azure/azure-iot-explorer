@@ -17,7 +17,7 @@ import { GetModuleIdentityActionParameters, DeleteModuleIdentityActionParameters
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { ModuleIdentity } from '../../../../api/models/moduleIdentity';
 import { DeviceAuthenticationType } from '../../../../api/models/deviceAuthenticationType';
-import MaskedCopyableTextFieldContainer from '../../../../shared/components/maskedCopyableTextFieldContainer';
+import { MaskedCopyableTextField } from '../../../../shared/components/maskedCopyableTextField';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
 import { SasTokenGenerationView } from '../../../shared/components/sasTokenGenerationView';
 import { ModuleIdentityDetailHeaderView } from './moduleIdentityDetailHeaderView';
@@ -112,7 +112,7 @@ export const ModuleIdentityDetailComponent: React.FC<ModuleIdentityDetailProps> 
 
     const showModuleId = () => {
         return (
-            <MaskedCopyableTextFieldContainer
+            <MaskedCopyableTextField
                 ariaLabel={t(ResourceKeys.moduleIdentity.moduleId)}
                 label={t(ResourceKeys.moduleIdentity.moduleId)}
                 value={moduleId}
@@ -142,7 +142,7 @@ export const ModuleIdentityDetailComponent: React.FC<ModuleIdentityDetailProps> 
     const renderSymmetricKeySection = () => {
         return (
             <>
-                <MaskedCopyableTextFieldContainer
+                <MaskedCopyableTextField
                     ariaLabel={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.primaryKey)}
                     label={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.primaryKey)}
                     value={moduleIdentity.authentication.symmetricKey.primaryKey}
@@ -151,7 +151,7 @@ export const ModuleIdentityDetailComponent: React.FC<ModuleIdentityDetailProps> 
                     labelCallout={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.primaryKeyTooltip)}
                 />
 
-                <MaskedCopyableTextFieldContainer
+                <MaskedCopyableTextField
                     ariaLabel={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryKey)}
                     label={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryKey)}
                     value={moduleIdentity.authentication.symmetricKey.secondaryKey}
@@ -160,7 +160,7 @@ export const ModuleIdentityDetailComponent: React.FC<ModuleIdentityDetailProps> 
                     labelCallout={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryKeyTooltip)}
                 />
 
-                <MaskedCopyableTextFieldContainer
+                <MaskedCopyableTextField
                     ariaLabel={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.primaryConnectionString)}
                     label={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.primaryConnectionString)}
                     value={generateConnectionString(moduleIdentity.authentication.symmetricKey.primaryKey)}
@@ -168,7 +168,7 @@ export const ModuleIdentityDetailComponent: React.FC<ModuleIdentityDetailProps> 
                     readOnly={true}
                 />
 
-                <MaskedCopyableTextFieldContainer
+                <MaskedCopyableTextField
                     ariaLabel={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString)}
                     label={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString)}
                     value={generateConnectionString(moduleIdentity.authentication.symmetricKey.secondaryKey)}
@@ -187,7 +187,7 @@ export const ModuleIdentityDetailComponent: React.FC<ModuleIdentityDetailProps> 
         return (
             <>
                 <Label>{t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.text)}</Label>
-                <MaskedCopyableTextFieldContainer
+                <MaskedCopyableTextField
                     ariaLabel={t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.primaryThumbprint)}
                     label={t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.primaryThumbprint)}
                     value={moduleIdentity.authentication.x509Thumbprint.primaryThumbprint}
@@ -195,7 +195,7 @@ export const ModuleIdentityDetailComponent: React.FC<ModuleIdentityDetailProps> 
                     readOnly={true}
                     labelCallout={t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.primaryThumbprintTooltip)}
                 />
-                <MaskedCopyableTextFieldContainer
+                <MaskedCopyableTextField
                     ariaLabel={t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.secondaryThumbprint)}
                     label={t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.secondaryThumbprint)}
                     value={moduleIdentity.authentication.x509Thumbprint.secondaryThumbprint}

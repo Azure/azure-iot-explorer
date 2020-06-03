@@ -3,17 +3,17 @@
  * Licensed under the MIT License
  **********************************************************/
 import 'jest';
-import { SagaIteratorClone, cloneableGenerator } from 'redux-saga/utils';
+// tslint:disable-next-line: no-implicit-dependencies
+import { SagaIteratorClone, cloneableGenerator } from '@redux-saga/testing-utils';
 import { call, put } from 'redux-saga/effects';
-import { addDeviceSaga } from './addDeviceSaga';
-import { DeviceIdentity } from '../../../api/models/deviceIdentity';
-import { addDeviceAction } from '../actions';
-import * as DevicesService from '../../../api/services/devicesService';
-import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
-import { addNotificationAction } from '../../../notifications/actions';
-import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { NotificationType } from '../../../api/models/notification';
-import { DeviceSummary } from '../../../api/models/deviceSummary';
+import { addDeviceSagaWorker } from './saga';
+import { DeviceIdentity } from '../../api/models/deviceIdentity';
+import { addDeviceAction } from './actions';
+import * as DevicesService from '../../api/services/devicesService';
+import { raiseNotificationToast } from '../../notifications/components/notificationToast';
+import { ResourceKeys } from '../../../localization/resourceKeys';
+import { NotificationType } from '../../api/models/notification';
+import { DeviceSummary } from '../../api/models/deviceSummary';
 
 describe('addDeviceSaga', () => {
     let addDeviceSagaGenerator: SagaIteratorClone;
@@ -46,21 +46,13 @@ describe('addDeviceSaga', () => {
     });
 
     beforeAll(() => {
-        addDeviceSagaGenerator = cloneableGenerator(addDeviceSaga)(addDeviceAction.started(mockDevice));
-    });
-
-    it('fetches the connection string', () => {
-        expect(addDeviceSagaGenerator.next()).toEqual({
-            done: false,
-            value: call(getActiveAzureResourceConnectionStringSaga)
-        });
+        addDeviceSagaGenerator = cloneableGenerator(addDeviceSagaWorker)(addDeviceAction.started(mockDevice));
     });
 
     it('adds the device', () => {
         expect(addDeviceSagaGenerator.next(connectionString)).toEqual({
             done: false,
             value: call(mockAddDevice, {
-                connectionString,
                 deviceIdentity: mockDevice
             })
         });
@@ -70,7 +62,7 @@ describe('addDeviceSaga', () => {
         const success = addDeviceSagaGenerator.clone();
         expect(success.next(mockResult)).toEqual({
             done: false,
-            value: put(addNotificationAction.started({
+            value: call(raiseNotificationToast, {
                 text: {
                     translationKey: ResourceKeys.notifications.addDeviceOnSucceed,
                     translationOptions: {
@@ -78,7 +70,7 @@ describe('addDeviceSaga', () => {
                     },
                 },
                 type: NotificationType.success
-            }))
+            })
         });
 
         expect(success.next()).toEqual({
@@ -94,7 +86,7 @@ describe('addDeviceSaga', () => {
         const error = { code: -1 };
         expect(failure.throw(error)).toEqual({
             done: false,
-            value: put(addNotificationAction.started({
+            value: call(raiseNotificationToast, {
                 text: {
                     translationKey: ResourceKeys.notifications.addDeviceOnError,
                     translationOptions: {
@@ -103,7 +95,7 @@ describe('addDeviceSaga', () => {
                     },
                 },
                 type: NotificationType.error
-              }))
+              })
         });
 
         expect(failure.next(error)).toEqual({

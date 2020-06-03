@@ -3,17 +3,18 @@
  * Licensed under the MIT License
  **********************************************************/
 import 'jest';
-import { SagaIteratorClone, cloneableGenerator } from 'redux-saga/utils';
+// tslint:disable-next-line: no-implicit-dependencies
+import { SagaIteratorClone, cloneableGenerator } from '@redux-saga/testing-utils';
 import { call, put } from 'redux-saga/effects';
 import { getModuleIdentitiesSaga, addModuleIdentitySaga, getModuleIdentityTwinSaga, getModuleIdentitySaga, deleteModuleIdentitySaga } from './moduleIdentitySaga';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { getModuleIdentitiesAction, addModuleIdentityAction, getModuleIdentityTwinAction, getModuleIdentityAction, deleteModuleIdentityAction } from '../actions';
 import * as ModuleService from '../../../api/services/moduleService';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { addNotificationAction } from '../../../notifications/actions';
 import { NotificationType } from '../../../api/models/notification';
 import { ModuleIdentity } from '../../../api/models/moduleIdentity';
 import { ModuleTwin } from '../../../api/models/moduleTwin';
+import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 
 describe('moduleIdentitySaga', () => {
     let getModuleIdentitySagaGenerator: SagaIteratorClone;
@@ -68,7 +69,7 @@ describe('moduleIdentitySaga', () => {
             const error = { code: -1 };
             expect(failure.throw(error)).toEqual({
                 done: false,
-                value: put(addNotificationAction.started({
+                value: call(raiseNotificationToast, {
                     text: {
                         translationKey: ResourceKeys.notifications.getModuleIdentitiesOnError,
                         translationOptions: {
@@ -77,7 +78,7 @@ describe('moduleIdentitySaga', () => {
                         },
                     },
                     type: NotificationType.error
-                }))
+                })
             });
 
             expect(failure.next(error)).toEqual({
@@ -117,7 +118,7 @@ describe('moduleIdentitySaga', () => {
             const success = addModuleIdentitySagaGenerator.clone();
             expect(success.next(moduleIdentity)).toEqual({
                 done: false,
-                value: put(addNotificationAction.started({
+                value: call(raiseNotificationToast, {
                     text: {
                         translationKey: ResourceKeys.notifications.addModuleIdentityOnSucceed,
                         translationOptions: {
@@ -125,7 +126,7 @@ describe('moduleIdentitySaga', () => {
                         },
                     },
                     type: NotificationType.success
-                }))
+                })
             });
             expect(success.next()).toEqual({
                 done: false,
@@ -139,7 +140,7 @@ describe('moduleIdentitySaga', () => {
             const error = { code: -1 };
             expect(failure.throw(error)).toEqual({
                 done: false,
-                value: put(addNotificationAction.started({
+                value: call(raiseNotificationToast, {
                     text: {
                         translationKey: ResourceKeys.notifications.addModuleIdentityOnError,
                         translationOptions: {
@@ -148,7 +149,7 @@ describe('moduleIdentitySaga', () => {
                         },
                     },
                     type: NotificationType.error
-                }))
+                })
             });
 
             expect(failure.next(error)).toEqual({
@@ -216,7 +217,7 @@ describe('moduleIdentitySaga', () => {
             const error = { code: -1 };
             expect(failure.throw(error)).toEqual({
                 done: false,
-                value: put(addNotificationAction.started({
+                value: call(raiseNotificationToast, {
                     text: {
                         translationKey: ResourceKeys.notifications.getModuleIdentityTwinOnError,
                         translationOptions: {
@@ -225,7 +226,7 @@ describe('moduleIdentitySaga', () => {
                         },
                     },
                     type: NotificationType.error
-                }))
+                })
             });
 
             expect(failure.next(error)).toEqual({
@@ -276,7 +277,7 @@ describe('moduleIdentitySaga', () => {
             const error = { code: -1 };
             expect(failure.throw(error)).toEqual({
                 done: false,
-                value: put(addNotificationAction.started({
+                value: call(raiseNotificationToast, {
                     text: {
                         translationKey: ResourceKeys.notifications.getModuleIdentityOnError,
                         translationOptions: {
@@ -285,7 +286,7 @@ describe('moduleIdentitySaga', () => {
                         },
                     },
                     type: NotificationType.error
-                }))
+                })
             });
 
             expect(failure.next(error)).toEqual({
@@ -326,7 +327,7 @@ describe('moduleIdentitySaga', () => {
             const success = deleteModuleIdentitySagaGenerator.clone();
             expect(success.next()).toEqual({
                 done: false,
-                value: put(addNotificationAction.started({
+                value: call(raiseNotificationToast, {
                     text: {
                         translationKey: ResourceKeys.notifications.deleteModuleIdentityOnSuccess,
                         translationOptions: {
@@ -334,7 +335,7 @@ describe('moduleIdentitySaga', () => {
                         },
                     },
                     type: NotificationType.success
-                }))
+                })
             });
             expect(success.next()).toEqual({
                 done: false,
@@ -348,7 +349,7 @@ describe('moduleIdentitySaga', () => {
             const error = { code: -1 };
             expect(failure.throw(error)).toEqual({
                 done: false,
-                value: put(addNotificationAction.started({
+                value: call(raiseNotificationToast, {
                     text: {
                         translationKey: ResourceKeys.notifications.deleteModuleIdentityOnError,
                         translationOptions: {
@@ -357,7 +358,7 @@ describe('moduleIdentitySaga', () => {
                         },
                     },
                     type: NotificationType.error
-                }))
+                })
             });
 
             expect(failure.next(error)).toEqual({

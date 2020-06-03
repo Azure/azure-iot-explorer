@@ -4,7 +4,9 @@
  **********************************************************/
 import 'jest';
 import { select, call, put } from 'redux-saga/effects';
-import { SagaIteratorClone, cloneableGenerator } from 'redux-saga/utils';
+// tslint:disable-next-line: no-submodule-imports
+// tslint:disable-next-line: no-implicit-dependencies
+import { SagaIteratorClone, cloneableGenerator } from '@redux-saga/testing-utils';
 import { invokeDigitalTwinInterfaceCommandSaga, notifyMethodInvoked } from './digitalTwinInterfaceCommandSaga';
 import { invokeDigitalTwinInterfaceCommandAction, InvokeDigitalTwinInterfaceCommandActionParameters } from '../actions';
 import * as DigitalTwinService from '../../../api/services/digitalTwinService';
@@ -12,7 +14,7 @@ import { getComponentNameSelector } from '../selectors';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { addNotificationAction } from '../../../notifications/actions';
+import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 
 describe('digitalTwinInterfaceCommandSaga', () => {
     let invokeDigitalTwinInterfaceCommandSagaGenerator: SagaIteratorClone;
@@ -87,7 +89,7 @@ describe('digitalTwinInterfaceCommandSaga', () => {
             const success = invokeDigitalTwinInterfaceCommandSagaGenerator.clone();
             expect(success.next(response)).toEqual({
                 done: false,
-                value: put(addNotificationAction.started({
+                value: call(raiseNotificationToast, {
                         id: randomNumber,
                         text: {
                             translationKey: ResourceKeys.notifications.invokeDigitalTwinCommandOnSuccess,
@@ -99,7 +101,7 @@ describe('digitalTwinInterfaceCommandSaga', () => {
                             },
                         },
                         type: NotificationType.success
-                    }))
+                    })
             });
             expect(success.next()).toEqual({
                 done: false,
@@ -116,7 +118,7 @@ describe('digitalTwinInterfaceCommandSaga', () => {
             const error = { code: -1 };
             expect(failure.throw(error)).toEqual({
                 done: false,
-                value: put(addNotificationAction.started({
+                value: call(raiseNotificationToast, {
                     id: randomNumber,
                     text: {
                         translationKey: ResourceKeys.notifications.invokeDigitalTwinCommandOnError,
@@ -128,7 +130,7 @@ describe('digitalTwinInterfaceCommandSaga', () => {
                         },
                     },
                     type: NotificationType.error,
-                  }))
+                  })
             });
 
             expect(failure.next(error)).toEqual({
@@ -156,7 +158,7 @@ describe('digitalTwinInterfaceCommandSaga', () => {
 
             expect(notifyMethodInvokedGenerator.next(componentName)).toEqual({
                 done: false,
-                value: put(addNotificationAction.started({
+                value: call(raiseNotificationToast, {
                     id: randomNumber,
                     text: {
                         translationKey: ResourceKeys.notifications.invokingDigitalTwinCommandWithPayload,
@@ -168,7 +170,7 @@ describe('digitalTwinInterfaceCommandSaga', () => {
                         },
                     },
                     type: NotificationType.info,
-                }))
+                })
             });
 
             expect(notifyMethodInvokedGenerator.next().done).toEqual(true);

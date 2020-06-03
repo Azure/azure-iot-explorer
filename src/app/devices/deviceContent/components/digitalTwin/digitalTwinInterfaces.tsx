@@ -28,7 +28,7 @@ import { LARGE_COLUMN_WIDTH } from '../../../../constants/columnWidth';
 import { ModelDefinitionWithSource } from '../../../../api/models/modelDefinitionWithSource';
 import { InterfaceNotFoundMessageBar } from '../shared/interfaceNotFoundMessageBar';
 import { ModelDefinitionSourceView } from '../shared/modelDefinitionSource';
-import MaskedCopyableTextFieldContainer from '../../../../shared/components/maskedCopyableTextFieldContainer';
+import { MaskedCopyableTextField } from '../../../../shared/components/maskedCopyableTextField';
 import { MonacoEditorView } from '../../../../shared/components/monacoEditor';
 import { HeaderView } from '../../../../shared/components/headerView';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
@@ -218,7 +218,7 @@ export const DigitalTwinInterfaces: React.FC<DigitalTwinInterfacesProps> = props
                 <MultiLineShimmer/> :
                 <section className="device-detail">
                     <h4>{t(ResourceKeys.digitalTwin.steps.first)}</h4>
-                    <MaskedCopyableTextFieldContainer
+                    <MaskedCopyableTextField
                         ariaLabel={t(ResourceKeys.digitalTwin.modelId)}
                         label={t(ResourceKeys.digitalTwin.modelId)}
                         value={props.modelId}

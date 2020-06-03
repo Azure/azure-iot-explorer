@@ -3,7 +3,8 @@
  * Licensed under the MIT License
  **********************************************************/
 import { call } from 'redux-saga/effects';
-import { cloneableGenerator } from 'redux-saga/utils';
+// tslint:disable-next-line: no-implicit-dependencies
+import { cloneableGenerator } from '@redux-saga/testing-utils';
 import { addConnectionStringAction } from '../actions';
 import { addConnectionStringSaga } from './addConnectionStringSaga';
 import { getConnectionStrings, setConnectionStrings } from './setConnectionStringsSaga';

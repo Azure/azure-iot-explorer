@@ -3,7 +3,8 @@
  * Licensed under the MIT License
  **********************************************************/
 import { put } from 'redux-saga/effects';
-import { cloneableGenerator } from 'redux-saga/utils';
+// tslint:disable-next-line: no-implicit-dependencies
+import { cloneableGenerator } from '@redux-saga/testing-utils';
 import { setActiveAzureResourceByConnectionStringSaga } from './setActiveAzureResourceByConnectionStringSaga';
 import { setActiveAzureResourceByConnectionStringAction, SetActiveAzureResourceByConnectionStringActionParameters , setActiveAzureResourceAction } from '../actions';
 import { AccessVerificationState } from '../models/accessVerificationState';

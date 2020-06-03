@@ -7,7 +7,7 @@ import { Action } from 'typescript-fsa';
 import { invokeDirectMethodAction, InvokeMethodActionParameters } from '../actions';
 import { invokeDirectMethod } from '../../../api/services/devicesService';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
-import { addNotificationAction } from '../../../notifications/actions';
+import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { InvokeMethodParameters } from '../../../api/parameters/deviceParameters';
@@ -16,18 +16,18 @@ export function* invokeDirectMethodSaga(action: Action<InvokeMethodActionParamet
     const toastId: number = Math.random();
 
     try {
-        const payload = yield call(notifyMethodInvoked, toastId, action);
-
         const connectionString: string = yield call(getActiveAzureResourceConnectionStringSaga);
         const invokeMethodParameters: InvokeMethodParameters = {
             ...action.payload,
             connectionString
         };
 
+        yield call(notifyMethodInvoked, toastId, invokeMethodParameters);
+
         const response = yield call(invokeDirectMethod, invokeMethodParameters);
         const stringifiedResponse = typeof response === 'object' ? JSON.stringify(response) : response;
 
-        yield put(addNotificationAction.started({
+        yield call(raiseNotificationToast, {
             id: toastId,
             text: {
                 translationKey: ResourceKeys.notifications.invokeMethodOnSuccess,
@@ -38,11 +38,11 @@ export function* invokeDirectMethodSaga(action: Action<InvokeMethodActionParamet
                 },
             },
             type: NotificationType.success
-        }));
+        });
 
         yield put(invokeDirectMethodAction.done({params: action.payload, result: stringifiedResponse}));
     } catch (error) {
-        yield put(addNotificationAction.started({
+        yield call(raiseNotificationToast, {
             id: toastId,
             text: {
                 translationKey: ResourceKeys.notifications.invokeMethodOnError,
@@ -52,42 +52,42 @@ export function* invokeDirectMethodSaga(action: Action<InvokeMethodActionParamet
                 },
             },
             type: NotificationType.error
-        }));
+        });
 
         yield put(invokeDirectMethodAction.failed({params: action.payload, error}));
     }
 }
 
-export function* notifyMethodInvoked(toastId: number, action: Action<InvokeMethodParameters>) {
-    if (action.payload) {
-        if ( action.payload.payload !== undefined) { // payload could be boolean value false
-            yield put(addNotificationAction.started({
+export function* notifyMethodInvoked(toastId: number, payload: InvokeMethodParameters) {
+    if (payload) {
+        if ( payload.payload !== undefined) { // payload could be boolean value false
+            yield call(raiseNotificationToast, {
                 id: toastId,
                 text: {
                     translationKey: ResourceKeys.notifications.invokingMethodWithPayload,
                     translationOptions: {
-                        deviceId: action.payload.deviceId,
-                        methodName: action.payload.methodName,
-                        payload: JSON.stringify(action.payload.payload),
+                        deviceId: payload.deviceId,
+                        methodName: payload.methodName,
+                        payload: JSON.stringify(payload.payload),
                     },
                 },
                 type: NotificationType.info
-            }));
-            return action.payload.payload;
+            });
+            return payload.payload;
         }
         else
         {
-            yield put(addNotificationAction.started({
+            yield call(raiseNotificationToast, {
                 id: toastId,
                 text: {
                     translationKey: ResourceKeys.notifications.invokingMethod,
                     translationOptions: {
-                        deviceId: action.payload.deviceId,
-                        methodName: action.payload.methodName,
+                        deviceId: payload.deviceId,
+                        methodName: payload.methodName,
                     },
                 },
                 type: NotificationType.info,
-            }));
+            });
 
             return;
         }
