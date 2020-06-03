@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import 'jest';
-// tslint:disable-next-line: no-submodule-imports
+// tslint:disable-next-line: no-implicit-dependencies
 import { SagaIteratorClone, cloneableGenerator } from '@redux-saga/testing-utils';
 import { call, put } from 'redux-saga/effects';
 import { listDevicesSaga } from './listDeviceSaga';
@@ -50,18 +50,10 @@ describe('listDeviceSaga', () => {
         listDevicesSagaGenerator = cloneableGenerator(listDevicesSaga)(listDevicesAction.started(query));
     });
 
-    it('fetches the connection string', () => {
+    it('fetches the devices', () => {
         expect(listDevicesSagaGenerator.next()).toEqual({
             done: false,
-            value: call(getActiveAzureResourceConnectionStringSaga)
-        });
-    });
-
-    it('fetches the devices', () => {
-        expect(listDevicesSagaGenerator.next(connectionString)).toEqual({
-            done: false,
             value: call(mockFetchDevices, {
-                connectionString,
                 query
             })
         });

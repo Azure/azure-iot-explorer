@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/devices/addDevice matches snapshot 1`] = `
+exports[`addDevice matches snapshot 1`] = `
 <form
   className="view add-device"
   onSubmit={[Function]}

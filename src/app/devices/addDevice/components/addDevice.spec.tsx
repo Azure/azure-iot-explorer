@@ -23,9 +23,13 @@ jest.mock('react-router-dom', () => ({
     useLocation: () => ({ pathname })
 }));
 
-describe('components/devices/addDevice', () => {
+describe('addDevice', () => {
     beforeEach(() => {
         jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([{synchronizationStatus: SynchronizationStatus.initialized}, jest.fn()]);
+    });
+
+    afterEach(() => {
+        jest.clearAllMocks();
     });
 
     it('matches snapshot', () => {
