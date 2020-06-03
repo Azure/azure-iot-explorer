@@ -7,7 +7,7 @@ import { Action } from 'typescript-fsa';
 import { cloudToDeviceMessageAction, CloudToDeviceMessageActionParameters } from '../actions';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { cloudToDeviceMessage } from '../../../api/services/devicesService';
-import { addNotificationAction } from '../../../notifications/actions';
+import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { CloudToDeviceMessageParameters } from '../../../api/parameters/deviceParameters';
@@ -16,7 +16,7 @@ export function* cloudToDeviceMessageSaga(action: Action<CloudToDeviceMessageAct
     const toastId: number = Math.random();
 
     try {
-        yield put(addNotificationAction.started({
+        yield call(raiseNotificationToast, {
             id: toastId,
             text: {
                 translationKey: ResourceKeys.notifications.sendingCloudToDeviceMessage,
@@ -26,7 +26,7 @@ export function* cloudToDeviceMessageSaga(action: Action<CloudToDeviceMessageAct
                 },
             },
             type: NotificationType.info,
-        }));
+        });
 
         const connectionString: string = yield call(getActiveAzureResourceConnectionStringSaga);
         const cloudToDeviceMessageParameters: CloudToDeviceMessageParameters = {
@@ -36,7 +36,7 @@ export function* cloudToDeviceMessageSaga(action: Action<CloudToDeviceMessageAct
 
         const response = yield call(cloudToDeviceMessage, cloudToDeviceMessageParameters);
 
-        yield put(addNotificationAction.started({
+        yield call(raiseNotificationToast, {
             id: toastId,
             text: {
                 translationKey: ResourceKeys.notifications.cloudToDeviceMessageOnSuccess,
@@ -46,11 +46,11 @@ export function* cloudToDeviceMessageSaga(action: Action<CloudToDeviceMessageAct
                 },
             },
             type: NotificationType.success
-        }));
+        });
 
         yield put(cloudToDeviceMessageAction.done({params: action.payload, result: response}));
     } catch (error) {
-        yield put(addNotificationAction.started({
+        yield call(raiseNotificationToast, {
             id: toastId,
             text: {
                 translationKey: ResourceKeys.notifications.cloudToDeviceMessageOnError,
@@ -60,7 +60,7 @@ export function* cloudToDeviceMessageSaga(action: Action<CloudToDeviceMessageAct
                 },
             },
             type: NotificationType.error
-        }));
+        });
 
         yield put(cloudToDeviceMessageAction.failed({params: action.payload, error}));
     }

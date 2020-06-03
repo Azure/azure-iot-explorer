@@ -5,7 +5,6 @@
 import { all } from 'redux-saga/effects';
 import deviceListSagas from './deviceList/sagas';
 import deviceContentSagas from './deviceContent/sagas';
-import notificationsSagas from '../notifications/sagas';
 import connectionStringsSagas from '../connectionStrings/sagas';
 import modelRepositorySagas from '../modelRepository/sagas';
 import azureResourceSagas from '../azureResource/sagas';
@@ -18,7 +17,6 @@ export default function* rootSaga() {
         ...deviceListSagas,
         ...deviceContentSagas,
         ...modelRepositorySagas,
-        ...moduleSaga,
-        ...notificationsSagas,
+        ...moduleSaga
     ]);
 }

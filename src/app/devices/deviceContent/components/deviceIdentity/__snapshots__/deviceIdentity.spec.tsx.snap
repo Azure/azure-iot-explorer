@@ -27,7 +27,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with CA aut
   <div
     className="device-detail"
   >
-    <Connect(Component)
+    <Component
       allowMask={false}
       ariaLabel="deviceIdentity.deviceID"
       label="deviceIdentity.deviceID"
@@ -37,7 +37,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with CA aut
     <StyledLabelBase>
       deviceIdentity.authenticationType.ca.text
     </StyledLabelBase>
-    <Connect(Component)
+    <Component
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.ca.connectionString"
       label="deviceIdentity.authenticationType.ca.connectionString"
@@ -70,7 +70,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with SelfSi
   <div
     className="device-detail"
   >
-    <Connect(Component)
+    <Component
       allowMask={false}
       ariaLabel="deviceIdentity.deviceID"
       label="deviceIdentity.deviceID"
@@ -80,7 +80,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with SelfSi
     <StyledLabelBase>
       deviceIdentity.authenticationType.selfSigned.text
     </StyledLabelBase>
-    <Connect(Component)
+    <Component
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.selfSigned.primaryThumbprint"
       label="deviceIdentity.authenticationType.selfSigned.primaryThumbprint"
@@ -88,7 +88,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with SelfSi
       readOnly={true}
       value="123"
     />
-    <Connect(Component)
+    <Component
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.selfSigned.secondaryThumbprint"
       label="deviceIdentity.authenticationType.selfSigned.secondaryThumbprint"
@@ -96,7 +96,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with SelfSi
       readOnly={true}
       value="456"
     />
-    <Connect(Component)
+    <Component
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.selfSigned.connectionString"
       label="deviceIdentity.authenticationType.selfSigned.connectionString"
@@ -132,7 +132,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
   <div
     className="device-detail"
   >
-    <Connect(Component)
+    <Component
       allowMask={false}
       ariaLabel="deviceIdentity.deviceID"
       label="deviceIdentity.deviceID"
@@ -140,7 +140,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
       readOnly={true}
       value="device1"
     />
-    <Connect(Component)
+    <Component
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.primaryKey"
       label="deviceIdentity.authenticationType.symmetricKey.primaryKey"
@@ -149,7 +149,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
       readOnly={false}
       value="key"
     />
-    <Connect(Component)
+    <Component
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.secondaryKey"
       label="deviceIdentity.authenticationType.symmetricKey.secondaryKey"
@@ -157,7 +157,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
       onTextChange={[Function]}
       readOnly={false}
     />
-    <Connect(Component)
+    <Component
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.primaryConnectionString"
       label="deviceIdentity.authenticationType.symmetricKey.primaryConnectionString"
@@ -165,7 +165,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Symmet
       readOnly={true}
       value="HostName=test-string.azure-devices.net;DeviceId=device1;SharedAccessKey=key"
     />
-    <Connect(Component)
+    <Component
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString"
       label="deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString"
@@ -215,14 +215,14 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
   <div
     className="device-detail"
   >
-    <Connect(Component)
+    <Component
       allowMask={false}
       ariaLabel="deviceIdentity.deviceID"
       label="deviceIdentity.deviceID"
       labelCallout="deviceIdentity.deviceIDTooltip"
       readOnly={true}
     />
-    <Connect(Component)
+    <Component
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.primaryKey"
       label="deviceIdentity.authenticationType.symmetricKey.primaryKey"
@@ -231,7 +231,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
       readOnly={false}
       value="key"
     />
-    <Connect(Component)
+    <Component
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.secondaryKey"
       label="deviceIdentity.authenticationType.symmetricKey.secondaryKey"
@@ -239,7 +239,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
       onTextChange={[Function]}
       readOnly={false}
     />
-    <Connect(Component)
+    <Component
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.primaryConnectionString"
       label="deviceIdentity.authenticationType.symmetricKey.primaryConnectionString"
@@ -247,7 +247,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with Synchr
       readOnly={true}
       value=""
     />
-    <Connect(Component)
+    <Component
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString"
       label="deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString"
@@ -314,7 +314,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with auth t
   <div
     className="device-detail"
   >
-    <Connect(Component)
+    <Component
       allowMask={false}
       ariaLabel="deviceIdentity.deviceID"
       label="deviceIdentity.deviceID"
@@ -347,7 +347,7 @@ exports[`devices/components/deviceIdentity snapshot matches snapshot with identi
   <div
     className="device-detail"
   >
-    <Connect(Component)
+    <Component
       allowMask={false}
       ariaLabel="deviceIdentity.deviceID"
       label="deviceIdentity.deviceID"

@@ -2851,21 +2851,21 @@ exports[`components/devices/deviceInterfaces shows interface information when st
       <Component
         source="PUBLIC"
       />
-      <Connect(Component)
+      <Component
         allowMask={false}
         ariaLabel="deviceInterfaces.columns.id"
         label="deviceInterfaces.columns.id"
         readOnly={true}
         value={null}
       />
-      <Connect(Component)
+      <Component
         allowMask={false}
         ariaLabel="deviceInterfaces.columns.displayName"
         label="deviceInterfaces.columns.displayName"
         readOnly={true}
         value="--"
       />
-      <Connect(Component)
+      <Component
         allowMask={false}
         ariaLabel="deviceInterfaces.columns.description"
         label="deviceInterfaces.columns.description"

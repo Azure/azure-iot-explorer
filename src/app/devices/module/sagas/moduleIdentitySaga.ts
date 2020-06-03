@@ -5,7 +5,7 @@
 import { call, put } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
 import { fetchModuleIdentities, addModuleIdentity, fetchModuleIdentityTwin, fetchModuleIdentity, deleteModuleIdentity } from '../../../api/services/moduleService';
-import { addNotificationAction } from '../../../notifications/actions';
+import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
@@ -23,7 +23,7 @@ export function* getModuleIdentitiesSaga(action: Action<string>) {
 
         yield put(getModuleIdentitiesAction.done({params: action.payload, result: moduleIdentities}));
     } catch (error) {
-        yield put(addNotificationAction.started({
+        yield call(raiseNotificationToast, {
             text: {
                 translationKey: ResourceKeys.notifications.getModuleIdentitiesOnError,
                 translationOptions: {
@@ -32,7 +32,7 @@ export function* getModuleIdentitiesSaga(action: Action<string>) {
                 },
             },
             type: NotificationType.error
-          }));
+          });
 
         yield put(getModuleIdentitiesAction.failed({params: action.payload, error}));
     }
@@ -47,7 +47,7 @@ export function* addModuleIdentitySaga(action: Action<ModuleIdentity>) {
 
         const moduleIdentity = yield call(addModuleIdentity, parameters);
 
-        yield put(addNotificationAction.started({
+        yield call(raiseNotificationToast, {
             text: {
                 translationKey: ResourceKeys.notifications.addModuleIdentityOnSucceed,
                 translationOptions: {
@@ -55,11 +55,11 @@ export function* addModuleIdentitySaga(action: Action<ModuleIdentity>) {
                 },
             },
             type: NotificationType.success
-        }));
+        });
 
         yield put(addModuleIdentityAction.done({params: action.payload, result: moduleIdentity}));
     } catch (error) {
-        yield put(addNotificationAction.started({
+        yield call(raiseNotificationToast, {
             text: {
                 translationKey: ResourceKeys.notifications.addModuleIdentityOnError,
                 translationOptions: {
@@ -68,7 +68,7 @@ export function* addModuleIdentitySaga(action: Action<ModuleIdentity>) {
                 },
             },
             type: NotificationType.error
-          }));
+          });
 
         yield put(addModuleIdentityAction.failed({params: action.payload, error}));
     }
@@ -86,7 +86,7 @@ export function* getModuleIdentityTwinSaga(action: Action<GetModuleIdentityTwinA
 
         yield put(getModuleIdentityTwinAction.done({params: action.payload, result: moduleIdentityTwin}));
     } catch (error) {
-        yield put(addNotificationAction.started({
+        yield call(raiseNotificationToast, {
             text: {
                 translationKey: ResourceKeys.notifications.getModuleIdentityTwinOnError,
                 translationOptions: {
@@ -95,7 +95,7 @@ export function* getModuleIdentityTwinSaga(action: Action<GetModuleIdentityTwinA
                 },
             },
             type: NotificationType.error
-          }));
+          });
 
         yield put(getModuleIdentityTwinAction.failed({params: action.payload, error}));
     }
@@ -113,7 +113,7 @@ export function* getModuleIdentitySaga(action: Action<GetModuleIdentityActionPar
 
         yield put(getModuleIdentityAction.done({params: action.payload, result: moduleIdentity}));
     } catch (error) {
-        yield put(addNotificationAction.started({
+        yield call(raiseNotificationToast, {
             text: {
                 translationKey: ResourceKeys.notifications.getModuleIdentityOnError,
                 translationOptions: {
@@ -122,7 +122,7 @@ export function* getModuleIdentitySaga(action: Action<GetModuleIdentityActionPar
                 },
             },
             type: NotificationType.error
-          }));
+          });
 
         yield put(getModuleIdentityAction.failed({params: action.payload, error}));
     }
@@ -138,7 +138,7 @@ export function* deleteModuleIdentitySaga(action: Action<DeleteModuleIdentityAct
 
         yield call(deleteModuleIdentity, parameters);
 
-        yield put(addNotificationAction.started({
+        yield call(raiseNotificationToast, {
             text: {
                 translationKey: ResourceKeys.notifications.deleteModuleIdentityOnSuccess,
                 translationOptions: {
@@ -146,10 +146,10 @@ export function* deleteModuleIdentitySaga(action: Action<DeleteModuleIdentityAct
                 },
             },
             type: NotificationType.success
-        }));
+        });
         yield put(deleteModuleIdentityAction.done({params: action.payload}));
     } catch (error) {
-        yield put(addNotificationAction.started({
+        yield call(raiseNotificationToast, {
             text: {
                 translationKey: ResourceKeys.notifications.deleteModuleIdentityOnError,
                 translationOptions: {
@@ -158,7 +158,7 @@ export function* deleteModuleIdentitySaga(action: Action<DeleteModuleIdentityAct
                 },
             },
             type: NotificationType.error
-        }));
+        });
 
         yield put(deleteModuleIdentityAction.failed({params: action.payload, error}));
     }

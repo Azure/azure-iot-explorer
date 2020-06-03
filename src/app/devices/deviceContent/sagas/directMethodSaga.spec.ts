@@ -3,14 +3,15 @@
  * Licensed under the MIT License
  **********************************************************/
 import 'jest';
-import { cloneableGenerator, SagaIteratorClone } from 'redux-saga/utils';
+// tslint:disable-next-line: no-implicit-dependencies
+import { cloneableGenerator, SagaIteratorClone } from '@redux-saga/testing-utils';
 import { call, put } from 'redux-saga/effects';
 import * as DevicesService from '../../../api/services/devicesService';
 import { invokeDirectMethodSaga, notifyMethodInvoked } from './directMethodSaga';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { invokeDirectMethodAction } from '../actions';
 import { InvokeMethodParameters } from '../../../api/parameters/deviceParameters';
-import { addNotificationAction } from '../../../notifications/actions';
+import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { NotificationType } from '../../../api/models/notification';
 
@@ -25,7 +26,7 @@ describe('directMethodSaga', () => {
 
     const randomNumber = 0;
 
-    const mockRandom = jest.spyOn(Math, 'random').mockImplementation(() => {
+    jest.spyOn(Math, 'random').mockImplementation(() => {
         return randomNumber;
     });
 
@@ -55,15 +56,15 @@ describe('directMethodSaga', () => {
     });
 
     beforeEach(() => {
-        notifyMethodInvokedGenerator = cloneableGenerator(notifyMethodInvoked)(randomNumber, invokeDirectMethodAction.started(invokeMethodParameters));
-        notifyMethodInvokedGeneratorNoPayload = cloneableGenerator(notifyMethodInvoked)(randomNumber, invokeDirectMethodAction.started(invokeMethodParametersNoPayload));
+        notifyMethodInvokedGenerator = cloneableGenerator(notifyMethodInvoked)(randomNumber, invokeMethodParameters);
+        notifyMethodInvokedGeneratorNoPayload = cloneableGenerator(notifyMethodInvoked)(randomNumber, invokeMethodParametersNoPayload);
     });
 
     describe('notifyMethodInvoked', () => {
         it('puts a notification with payload if there is a payload', () => {
             expect(notifyMethodInvokedGenerator.next()).toEqual({
                 done: false,
-                value: put(addNotificationAction.started({
+                value: call(raiseNotificationToast, {
                     id: randomNumber,
                     text: {
                         translationKey: ResourceKeys.notifications.invokingMethodWithPayload,
@@ -74,7 +75,7 @@ describe('directMethodSaga', () => {
                         },
                     },
                     type: NotificationType.info
-                }))
+                })
             });
 
             expect(notifyMethodInvokedGenerator.next().done).toEqual(true);
@@ -83,7 +84,7 @@ describe('directMethodSaga', () => {
         it('puts a notification with payload if there is no payload', () => {
             expect(notifyMethodInvokedGeneratorNoPayload.next()).toEqual({
                 done: false,
-                value: put(addNotificationAction.started({
+                value: call(raiseNotificationToast, {
                     id: randomNumber,
                     text: {
                         translationKey: ResourceKeys.notifications.invokingMethod,
@@ -93,7 +94,7 @@ describe('directMethodSaga', () => {
                         },
                     },
                     type: NotificationType.info,
-                }))
+                })
             });
 
             expect(notifyMethodInvokedGeneratorNoPayload.next().done).toEqual(true);
@@ -102,24 +103,24 @@ describe('directMethodSaga', () => {
 
     describe('invokeDirectMethodSaga', () => {
 
-        it('notifies that the method is being invoked', () => {
+        it('yields call to get active azure connection string', () => {
             expect(invokeDirectMethodSagaGenerator.next(randomNumber)).toEqual({
                 done: false,
-                value: call(notifyMethodInvoked, randomNumber, invokeDirectMethodAction.started(invokeMethodParameters))
+                value: call(getActiveAzureResourceConnectionStringSaga)
             });
         });
 
-        it('yields call to get active azure connection string', () => {
-            expect(invokeDirectMethodSagaGenerator.next()).toEqual({
+        it('notifies that the method is being invoked', () => {
+            expect(invokeDirectMethodSagaGenerator.next(connectionString)).toEqual({
                 done: false,
-                value: call(getActiveAzureResourceConnectionStringSaga)
+                value: call(notifyMethodInvoked, randomNumber, invokeMethodParameters)
             });
         });
 
         it('successfully invokes the method', () => {
             const success = invokeDirectMethodSagaGenerator.clone();
 
-            expect(success.next(connectionString)).toEqual({
+            expect(success.next()).toEqual({
                 done: false,
                 value: call(mockInvokeDirectMethod, invokeMethodParameters)
             });
@@ -128,7 +129,7 @@ describe('directMethodSaga', () => {
 
             expect(success.next(response)).toEqual({
                 done: false,
-                value: put(addNotificationAction.started({
+                value: call(raiseNotificationToast, {
                     id: randomNumber,
                     text: {
                         translationKey: ResourceKeys.notifications.invokeMethodOnSuccess,
@@ -139,7 +140,7 @@ describe('directMethodSaga', () => {
                         },
                     },
                     type: NotificationType.success
-                }))
+                })
             });
 
             expect(success.next()).toEqual({
@@ -157,7 +158,7 @@ describe('directMethodSaga', () => {
 
             expect(failed.throw(error)).toEqual({
                 done: false,
-                value: put(addNotificationAction.started({
+                value: call(raiseNotificationToast, {
                     id: randomNumber,
                     text: {
                         translationKey: ResourceKeys.notifications.invokeMethodOnError,
@@ -167,7 +168,7 @@ describe('directMethodSaga', () => {
                         },
                     },
                     type: NotificationType.error
-                }))
+                })
             });
 
             expect(failed.next(error)).toEqual({

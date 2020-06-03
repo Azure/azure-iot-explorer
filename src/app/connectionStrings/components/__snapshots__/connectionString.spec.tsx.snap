@@ -53,7 +53,7 @@ exports[`connectionString matches snapshot 1`] = `
       sharedAccessKey="key"
       sharedAccessKeyName="iothubowner"
     />
-    <Connect(Component)
+    <Component
       allowMask={true}
       ariaLabel="connectionStrings.properties.connectionString.ariaLabel"
       label="connectionStrings.properties.connectionString.label"

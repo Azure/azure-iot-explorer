@@ -72,7 +72,7 @@ describe('notifications/reducer', () => {
                 notifications: []
             };
 
-            const action = addNotificationAction.done({ params: notification2, result: notification2});
+            const action = addNotificationAction(notification2);
             const result = reducer(initialState, action);
             const expectedLength: number = 1;
             expect(result.notifications.length).toEqual(expectedLength);
@@ -84,7 +84,7 @@ describe('notifications/reducer', () => {
                 notifications: [notification1]
             };
 
-            const action = addNotificationAction.done({ params: notification2, result: notification2});
+            const action = addNotificationAction(notification2);
             const result = reducer(initialState, action);
             const expectedLength: number = 2;
             expect(result.notifications.length).toEqual(expectedLength);
@@ -96,7 +96,7 @@ describe('notifications/reducer', () => {
                 notifications: [notification1]
             };
 
-            const action = addNotificationAction.done({ params: notification3, result: notification3});
+            const action = addNotificationAction(notification3);
             const result = reducer(initialState, action);
             const expectedLength: number = 1;
             expect(result.notifications.length).toEqual(expectedLength);
@@ -108,7 +108,7 @@ describe('notifications/reducer', () => {
                 notifications: [notification1]
             };
 
-            const action = addNotificationAction.done({ params: notification4, result: notification4});
+            const action = addNotificationAction(notification4);
             const result = reducer(initialState, action);
             const expectedLength: number = 2;
             expect(result.notifications.length).toEqual(expectedLength);

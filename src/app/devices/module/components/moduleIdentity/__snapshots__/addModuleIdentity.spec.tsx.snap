@@ -34,7 +34,7 @@ exports[`devices/components/addModuleIdentity snapshot matches snapshot when add
   <div
     className="device-detail"
   >
-    <Connect(Component)
+    <Component
       allowMask={false}
       ariaLabel="moduleIdentity.moduleId"
       error=""
@@ -116,7 +116,7 @@ exports[`devices/components/addModuleIdentity snapshot matches snapshot while lo
   <div
     className="device-detail"
   >
-    <Connect(Component)
+    <Component
       allowMask={false}
       ariaLabel="moduleIdentity.moduleId"
       error=""

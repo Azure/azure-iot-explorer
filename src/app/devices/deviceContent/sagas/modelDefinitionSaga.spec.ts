@@ -4,9 +4,10 @@
  **********************************************************/
 import 'jest';
 import { select, call, put } from 'redux-saga/effects';
-import { SagaIteratorClone, cloneableGenerator } from 'redux-saga/utils';
+// tslint:disable-next-line: no-implicit-dependencies
+import { SagaIteratorClone, cloneableGenerator } from '@redux-saga/testing-utils';
 import { getModelDefinitionSaga, getModelDefinition, getModelDefinitionFromPublicRepo, getModelDefinitionFromLocalFile, validateModelDefinitionHelper } from './modelDefinitionSaga';
-import { addNotificationAction } from '../../../notifications/actions';
+import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getModelDefinitionAction } from '../actions';
@@ -108,7 +109,7 @@ describe('modelDefinitionSaga', () => {
 
             expect(failure.throw()).toEqual({
                 done: false,
-                value: put(addNotificationAction.started({
+                value: call(raiseNotificationToast, {
                     text: {
                         translationKey: ResourceKeys.notifications.getInterfaceModelOnError,
                         translationOptions: {
@@ -116,7 +117,7 @@ describe('modelDefinitionSaga', () => {
                         },
                     },
                     type: NotificationType.error,
-                }))
+                })
             });
 
             expect(failure.next()).toEqual({

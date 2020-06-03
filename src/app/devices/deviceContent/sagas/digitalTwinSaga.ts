@@ -8,7 +8,7 @@ import { fetchDigitalTwin, patchDigitalTwinAndGetResponseCode } from '../../../a
 import { FetchDigitalTwinParameters, PatchDigitalTwinParameters } from '../../../api/parameters/deviceParameters';
 import { getDigitalTwinAction, PatchDigitalTwinActionParameters, patchDigitalTwinAction } from './../actions';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
-import { addNotificationAction } from '../../../notifications/actions';
+import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { NotificationType } from '../../../api/models/notification';
 import { DataPlaneStatusCode } from '../../../constants/apiConstants';
@@ -40,7 +40,7 @@ export function* patchDigitalTwinSaga(action: Action<PatchDigitalTwinActionParam
         const digitalTwin = yield call(fetchDigitalTwin, {connectionString, digitalTwinId: parameters.digitalTwinId});
 
         if (response === DataPlaneStatusCode.Accepted || response === DataPlaneStatusCode.SuccessLowerBound) {
-            yield put(addNotificationAction.started({
+            yield call(raiseNotificationToast, {
                 text: {
                     translationKey: response === DataPlaneStatusCode.Accepted ?
                         ResourceKeys.notifications.patchDigitalTwinOnAccept : ResourceKeys.notifications.patchDigitalTwinOnSuccess,
@@ -49,14 +49,14 @@ export function* patchDigitalTwinSaga(action: Action<PatchDigitalTwinActionParam
                     },
                 },
                 type: NotificationType.success
-            }));
+            });
             yield put(patchDigitalTwinAction.done({params: action.payload, result: digitalTwin}));
         }
         else {
             throw new Error(response);
         }
     } catch (error) {
-        yield put(addNotificationAction.started({
+        yield call(raiseNotificationToast, {
             text: {
                 translationKey: ResourceKeys.notifications.patchDigitalTwinOnError,
                 translationOptions: {
@@ -65,7 +65,8 @@ export function* patchDigitalTwinSaga(action: Action<PatchDigitalTwinActionParam
                 },
             },
             type: NotificationType.error
-        }));
+        });
+
         yield put(patchDigitalTwinAction.failed({params: action.payload, error}));
     }
 }

@@ -16,7 +16,7 @@ import { DeviceStatus } from '../../../../api/models/deviceStatus';
 import { generateKey } from '../../../../shared/utils/utils';
 import { SynchronizationWrapper } from '../../../../api/models/synchronizationWrapper';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
-import MaskedCopyableTextFieldContainer from '../../../../shared/components/maskedCopyableTextFieldContainer';
+import { MaskedCopyableTextField } from '../../../../shared/components/maskedCopyableTextField';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
 import { HeaderView } from '../../../../shared/components/headerView';
 import { SasTokenGenerationView } from '../../../shared/components/sasTokenGenerationView';
@@ -109,7 +109,7 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
                 { identityWrapper.synchronizationStatus === SynchronizationStatus.working ?
                     <MultiLineShimmer/> :
                     <>
-                        <MaskedCopyableTextFieldContainer
+                        <MaskedCopyableTextField
                             ariaLabel={t(ResourceKeys.deviceIdentity.deviceID)}
                             label={t(ResourceKeys.deviceIdentity.deviceID)}
                             value={state.identity && state.identity.deviceId}
@@ -145,7 +145,7 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
                 return (
                     <>
                         <Label>{t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.text)}</Label>
-                        <MaskedCopyableTextFieldContainer
+                        <MaskedCopyableTextField
                             ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.primaryThumbprint)}
                             label={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.primaryThumbprint)}
                             value={state.identity.authentication.x509Thumbprint.primaryThumbprint}
@@ -153,7 +153,7 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
                             readOnly={true}
                             labelCallout={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.primaryThumbprintTooltip)}
                         />
-                        <MaskedCopyableTextFieldContainer
+                        <MaskedCopyableTextField
                             ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.secondaryThumbprint)}
                             label={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.secondaryThumbprint)}
                             value={state.identity.authentication.x509Thumbprint.secondaryThumbprint}
@@ -161,7 +161,7 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
                             readOnly={true}
                             labelCallout={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip)}
                         />
-                        <MaskedCopyableTextFieldContainer
+                        <MaskedCopyableTextField
                             ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.connectionString)}
                             label={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.connectionString)}
                             value={generateX509ConnectionString(activeAzureResourceHostName, identity.deviceId)}
@@ -175,7 +175,7 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
                 return (
                     <>
                         <Label>{t(ResourceKeys.deviceIdentity.authenticationType.ca.text)}</Label>
-                        <MaskedCopyableTextFieldContainer
+                        <MaskedCopyableTextField
                             ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.ca.connectionString)}
                             label={t(ResourceKeys.deviceIdentity.authenticationType.ca.connectionString)}
                             value={generateX509ConnectionString(activeAzureResourceHostName, identity.deviceId)}
@@ -188,7 +188,7 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
             case DeviceAuthenticationType.SymmetricKey:
                 return (
                     <>
-                        <MaskedCopyableTextFieldContainer
+                        <MaskedCopyableTextField
                             ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryKey)}
                             label={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryKey)}
                             value={state.identity.authentication.symmetricKey.primaryKey}
@@ -198,7 +198,7 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
                             labelCallout={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryKeyTooltip)}
                         />
 
-                        <MaskedCopyableTextFieldContainer
+                        <MaskedCopyableTextField
                             ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryKey)}
                             label={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryKey)}
                             value={state.identity.authentication.symmetricKey.secondaryKey}
@@ -208,7 +208,7 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
                             labelCallout={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryKeyTooltip)}
                         />
 
-                        <MaskedCopyableTextFieldContainer
+                        <MaskedCopyableTextField
                             ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionString)}
                             label={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionString)}
                             value={generateConnectionString(activeAzureResourceHostName, identity.deviceId, identity.authentication.symmetricKey.primaryKey)}
@@ -217,7 +217,7 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
                             labelCallout={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionStringTooltip)}
                         />
 
-                        <MaskedCopyableTextFieldContainer
+                        <MaskedCopyableTextField
                             ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString)}
                             label={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString)}
                             value={generateConnectionString(activeAzureResourceHostName, identity.deviceId, identity.authentication.symmetricKey.secondaryKey)}

@@ -5,12 +5,12 @@
 import { call, put } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
 import { fetchDevice, updateDevice } from '../../../api/services/devicesService';
-import { addNotificationAction } from '../../../notifications/actions';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { getDeviceIdentityAction, updateDeviceIdentityAction } from '../actions';
 import { DeviceIdentity } from '../../../api/models/deviceIdentity';
+import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 
 export function* getDeviceIdentitySaga(action: Action<string>) {
     try {
@@ -22,7 +22,7 @@ export function* getDeviceIdentitySaga(action: Action<string>) {
         const devieIdentity = yield call(fetchDevice, parameters);
         yield put(getDeviceIdentityAction.done({params: action.payload, result: devieIdentity}));
     } catch (error) {
-        yield put(addNotificationAction.started({
+        yield call(raiseNotificationToast, {
             text: {
                 translationKey: ResourceKeys.notifications.getDeviceIdentityOnError,
                 translationOptions: {
@@ -31,7 +31,7 @@ export function* getDeviceIdentitySaga(action: Action<string>) {
                 },
             },
             type: NotificationType.error
-        }));
+        });
 
         yield put(getDeviceIdentityAction.failed({params: action.payload, error}));
     }
@@ -45,7 +45,7 @@ export function* updateDeviceIdentitySaga(action: Action<DeviceIdentity>) {
         };
 
         const devieIdentity = yield call(updateDevice, parameters);
-        yield put(addNotificationAction.started({
+        yield call(raiseNotificationToast, {
             text: {
                 translationKey: ResourceKeys.notifications.updateDeviceOnSucceed,
                 translationOptions: {
@@ -53,10 +53,11 @@ export function* updateDeviceIdentitySaga(action: Action<DeviceIdentity>) {
                 },
             },
             type: NotificationType.success
-          }));
+          });
+
         yield put(updateDeviceIdentityAction.done({params: action.payload, result: devieIdentity}));
     } catch (error) {
-        yield put(addNotificationAction.started({
+        yield call(raiseNotificationToast, {
             text: {
                 translationKey: ResourceKeys.notifications.updateDeviceOnError,
                 translationOptions: {
@@ -65,7 +66,7 @@ export function* updateDeviceIdentitySaga(action: Action<DeviceIdentity>) {
                 },
             },
             type: NotificationType.error
-          }));
+          });
 
         yield put(updateDeviceIdentityAction.failed({params: action.payload, error}));
     }
