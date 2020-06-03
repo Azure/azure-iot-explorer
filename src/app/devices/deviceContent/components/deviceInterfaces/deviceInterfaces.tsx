@@ -15,7 +15,7 @@ import { REFRESH, NAVIGATE_BACK } from '../../../../constants/iconNames';
 import ErrorBoundary from '../../../errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
-import MaskedCopyableTextFieldContainer from '../../../../shared/components/maskedCopyableTextFieldContainer';
+import { MaskedCopyableTextField } from '../../../../shared/components/maskedCopyableTextField';
 import { DigitalTwinHeaderView } from '../digitalTwin/digitalTwinHeaderView';
 import { ROUTE_PARAMS } from '../../../../constants/routes';
 import { MonacoEditorView } from '../../../../shared/components/monacoEditor';
@@ -80,7 +80,7 @@ export const DeviceInterfaces: React.FC<DeviceInterfaceProps & DeviceInterfaceDi
                 <ModelDefinitionSourceView
                     source={modelDefinitionWithSource.source}
                 />
-                <MaskedCopyableTextFieldContainer
+                <MaskedCopyableTextField
                     ariaLabel={t(ResourceKeys.deviceInterfaces.columns.id)}
                     label={t(ResourceKeys.deviceInterfaces.columns.id)}
                     value={interfaceId}
@@ -89,14 +89,14 @@ export const DeviceInterfaces: React.FC<DeviceInterfaceProps & DeviceInterfaceDi
                 />
                 {isValidInterface &&
                     <>
-                        <MaskedCopyableTextFieldContainer
+                        <MaskedCopyableTextField
                             ariaLabel={t(ResourceKeys.deviceInterfaces.columns.displayName)}
                             label={t(ResourceKeys.deviceInterfaces.columns.displayName)}
                             value={modelDefinitionWithSource.modelDefinition && getLocalizedData(modelDefinitionWithSource.modelDefinition.displayName) || '--'}
                             allowMask={false}
                             readOnly={true}
                         />
-                        <MaskedCopyableTextFieldContainer
+                        <MaskedCopyableTextField
                             ariaLabel={t(ResourceKeys.deviceInterfaces.columns.description)}
                             label={t(ResourceKeys.deviceInterfaces.columns.description)}
                             value={modelDefinitionWithSource.modelDefinition && getLocalizedData(modelDefinitionWithSource.modelDefinition.description) || '--'}

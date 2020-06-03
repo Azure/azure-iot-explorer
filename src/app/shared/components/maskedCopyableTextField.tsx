@@ -10,9 +10,10 @@ import { Announced } from 'office-ui-fabric-react/lib/Announced';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import LabelWithTooltip from './labelWithTooltip';
 import { LabelWithRichCallout } from './labelWithRichCallout';
-import { Notification, NotificationType } from '../../api/models/notification';
-import '../../css/_maskedCopyableTextField.scss';
+import { NotificationType } from '../../api/models/notification';
 import { useLocalizationContext } from '../contexts/localizationContext';
+import { raiseNotificationToast } from '../../notifications/components/notificationToast';
+import '../../css/_maskedCopyableTextField.scss';
 
 export interface MaskedCopyableTextFieldProps {
     ariaLabel: string;
@@ -29,16 +30,8 @@ export interface MaskedCopyableTextFieldProps {
     setFocus?: boolean;
 }
 
-export interface MaskedCopyableTextFieldActionProps {
-    addNotification: (notification: Notification) => void;
-}
-
-export interface MaskedCopyableTextFieldState {
-    hideContents: boolean;
-}
-
 // tslint:disable-next-line: cyclomatic-complexity
-export const MaskedCopyableTextField: React.FC<MaskedCopyableTextFieldProps & MaskedCopyableTextFieldActionProps> = (props: MaskedCopyableTextFieldProps & MaskedCopyableTextFieldActionProps) => {
+export const MaskedCopyableTextField: React.FC<MaskedCopyableTextFieldProps> = (props: MaskedCopyableTextFieldProps) => {
     const hiddenInputRef = React.createRef<HTMLInputElement>();
     const visibleInputRef = React.createRef<HTMLInputElement>();
     const copyButtonRef = React.createRef<IButton>();
@@ -92,7 +85,7 @@ export const MaskedCopyableTextField: React.FC<MaskedCopyableTextFieldProps & Ma
             }
 
             // add notification
-            props.addNotification({
+            raiseNotificationToast({
                 text: {
                     translationKey: ResourceKeys.notifications.copiedToClipboard
                 },

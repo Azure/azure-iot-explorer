@@ -16,7 +16,7 @@ import { DeviceIdentity } from '../../../api/models/deviceIdentity';
 import { DeviceStatus } from '../../../api/models/deviceStatus';
 import { validateKey, validateThumbprint, validateDeviceId } from '../../../shared/utils/utils';
 import LabelWithTooltip from '../../../shared/components/labelWithTooltip';
-import MaskedCopyableTextFieldContainer from '../../../shared/components/maskedCopyableTextFieldContainer';
+import { MaskedCopyableTextField } from '../../../shared/components/maskedCopyableTextField';
 import { useAsyncSagaReducer } from '../../../shared/hooks/useAsyncSagaReducer';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import { SAVE, CANCEL } from '../../../constants/iconNames';
@@ -61,7 +61,7 @@ export const AddDevice: React.FC = () => {
 
     const showDeviceId = () => {
         return (
-            <MaskedCopyableTextFieldContainer
+            <MaskedCopyableTextField
                 ariaLabel={t(ResourceKeys.deviceIdentity.deviceID)}
                 label={t(ResourceKeys.deviceIdentity.deviceID)}
                 value={device.id}
@@ -106,7 +106,7 @@ export const AddDevice: React.FC = () => {
     const renderSymmetricKeySection = () => {
         return (
             <>
-                <MaskedCopyableTextFieldContainer
+                <MaskedCopyableTextField
                     ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryKey)}
                     label={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryKey)}
                     value={primaryKey.value}
@@ -117,7 +117,7 @@ export const AddDevice: React.FC = () => {
                     error={!!primaryKey.error ? t(primaryKey.error) : ''}
                     labelCallout={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryKeyTooltip)}
                 />
-                <MaskedCopyableTextFieldContainer
+                <MaskedCopyableTextField
                     ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryKey)}
                     label={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryKey)}
                     value={secondaryKey.value}
@@ -135,7 +135,7 @@ export const AddDevice: React.FC = () => {
     const renderSelfSignedSection = () => {
         return (
             <>
-                <MaskedCopyableTextFieldContainer
+                <MaskedCopyableTextField
                     ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.primaryThumbprint)}
                     label={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.primaryThumbprint)}
                     value={primaryKey.thumbprint}
@@ -146,7 +146,7 @@ export const AddDevice: React.FC = () => {
                     error={!!primaryKey.thumbprintError ? t(primaryKey.thumbprintError) : ''}
                     labelCallout={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.primaryThumbprintTooltip)}
                 />
-                <MaskedCopyableTextFieldContainer
+                <MaskedCopyableTextField
                     ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.secondaryThumbprint)}
                     label={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.secondaryThumbprint)}
                     value={secondaryKey.thumbprint}

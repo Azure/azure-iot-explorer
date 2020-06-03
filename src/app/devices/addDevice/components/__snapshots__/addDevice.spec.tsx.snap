@@ -41,7 +41,7 @@ exports[`components/devices/addDevice matches snapshot 1`] = `
     <div
       className="form"
     >
-      <Connect(Component)
+      <Component
         allowMask={false}
         ariaLabel="deviceIdentity.deviceID"
         error=""

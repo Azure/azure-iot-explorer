@@ -50,7 +50,7 @@ exports[`devices/components/moduleIdentityTwin snapshot matches snapshot when no
       step={1}
       value="5"
     />
-    <Connect(Component)
+    <Component
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.sasToken.textField.ariaLabel"
       label="deviceIdentity.authenticationType.sasToken.textField.label"
@@ -118,7 +118,7 @@ exports[`devices/components/moduleIdentityTwin snapshot matches snapshot when no
       step={1}
       value="5"
     />
-    <Connect(Component)
+    <Component
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.sasToken.textField.ariaLabel"
       label="deviceIdentity.authenticationType.sasToken.textField.label"

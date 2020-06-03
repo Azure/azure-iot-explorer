@@ -18,7 +18,7 @@ import { CLEAR, CHECKED_CHECKBOX, EMPTY_CHECKBOX, START, STOP } from '../../../.
 import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { MonitorEventsParameters } from '../../../../api/parameters/deviceParameters';
-import { Notification, NotificationType } from '../../../../api/models/notification';
+import { NotificationType } from '../../../../api/models/notification';
 import LabelWithTooltip from '../../../../shared/components/labelWithTooltip';
 import { DEFAULT_CONSUMER_GROUP } from '../../../../constants/apiConstants';
 import { MILLISECONDS_IN_MINUTE } from '../../../../constants/shared';
@@ -26,16 +26,13 @@ import { appConfig, HostMode } from '../../../../../appConfig/appConfig';
 import { HeaderView } from '../../../../shared/components/headerView';
 import { isValidEventHubConnectionString } from '../../../../shared/utils/hubConnectionStringHelper';
 import '../../../../css/_deviceEvents.scss';
+import { raiseNotificationToast } from '../../../../notifications/components/notificationToast';
 
 const JSON_SPACES = 2;
 const LOADING_LOCK = 50;
 
 export interface DeviceEventsDataProps {
     connectionString: string;
-}
-
-export interface DeviceEventsActionProps {
-    addNotification: (notification: Notification) => void;
 }
 
 export interface DeviceEventsState extends ConfigurationSettings{
@@ -57,7 +54,7 @@ export interface ConfigurationSettings {
     customEventHubConnectionString?: string;
 }
 
-export const DeviceEventsComponent: React.FC<DeviceEventsDataProps & DeviceEventsActionProps> = (props: DeviceEventsDataProps & DeviceEventsActionProps) => {
+export const DeviceEventsComponent: React.FC<DeviceEventsDataProps> = (props: DeviceEventsDataProps) => {
     let timerID: any; // tslint:disable-line:no-any
     const { t } = useLocalizationContext();
     const { search } = useLocation();
@@ -369,7 +366,7 @@ export const DeviceEventsComponent: React.FC<DeviceEventsDataProps & DeviceEvent
                         stopMonitoringIfNecessary();
                     })
                     .catch (error => {
-                        props.addNotification({
+                        raiseNotificationToast({
                             text: {
                                 translationKey: ResourceKeys.deviceEvents.error,
                                 translationOptions: {

@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import MaskedCopyableTextFieldContainer from '../../shared/components/maskedCopyableTextFieldContainer';
+import { MaskedCopyableTextField } from '../../shared/components/maskedCopyableTextField';
 import { useLocalizationContext } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 
@@ -20,7 +20,7 @@ export const ConnectionStringProperties: React.FC<ConnectionStringPropertiesProp
 
     return (
         <>
-            <MaskedCopyableTextFieldContainer
+            <MaskedCopyableTextField
                 ariaLabel={t(ResourceKeys.connectionStrings.properties.hostName.ariaLabel, {connectionString})}
                 allowMask={false}
                 label={t(ResourceKeys.connectionStrings.properties.hostName.label)}
@@ -28,7 +28,7 @@ export const ConnectionStringProperties: React.FC<ConnectionStringPropertiesProp
                 readOnly={true}
             />
 
-            <MaskedCopyableTextFieldContainer
+            <MaskedCopyableTextField
                 ariaLabel={t(ResourceKeys.connectionStrings.properties.sharedAccessPolicyName.ariaLabel, {connectionString})}
                 allowMask={false}
                 label={t(ResourceKeys.connectionStrings.properties.sharedAccessPolicyName.label)}
@@ -36,7 +36,7 @@ export const ConnectionStringProperties: React.FC<ConnectionStringPropertiesProp
                 readOnly={true}
             />
 
-            <MaskedCopyableTextFieldContainer
+            <MaskedCopyableTextField
                 ariaLabel={t(ResourceKeys.connectionStrings.properties.sharedAccessPolicyKey.ariaLabel, {connectionString})}
                 allowMask={true}
                 label={t(ResourceKeys.connectionStrings.properties.sharedAccessPolicyKey.label)}
