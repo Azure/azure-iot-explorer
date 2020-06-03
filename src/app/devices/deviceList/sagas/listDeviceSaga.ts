@@ -4,7 +4,7 @@
  **********************************************************/
 import { Action } from 'typescript-fsa';
 import { call, put } from 'redux-saga/effects';
-import { addNotificationAction } from '../../../notifications/actions';
+import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { listDevicesAction } from '../actions';
@@ -44,10 +44,10 @@ export function* listDevicesSaga(action: Action<DeviceQuery>) {
             };
         }
 
-        yield put(addNotificationAction.started({
+        yield call(raiseNotificationToast, {
             text,
             type: NotificationType.error,
-        }));
+        });
 
         yield put(listDevicesAction.failed({params: action.payload, error}));
     }

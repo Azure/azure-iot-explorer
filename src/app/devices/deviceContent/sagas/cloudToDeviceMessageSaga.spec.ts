@@ -4,13 +4,14 @@
  * Licensed under the MIT License
  **********************************************************/
 import 'jest';
-import { cloneableGenerator, SagaIteratorClone } from 'redux-saga/utils';
+// tslint:disable-next-line: no-implicit-dependencies
+import { cloneableGenerator, SagaIteratorClone } from '@redux-saga/testing-utils';
 import { call, put } from 'redux-saga/effects';
 import * as DevicesService from '../../../api/services/devicesService';
 import { cloudToDeviceMessageSaga } from './cloudToDeviceMessageSaga';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { cloudToDeviceMessageAction } from '../actions';
-import { addNotificationAction } from '../../../notifications/actions';
+import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { NotificationType } from '../../../api/models/notification';
 import { CloudToDeviceMessageParameters } from './../../../api/parameters/deviceParameters';
@@ -22,7 +23,7 @@ describe('directMethodSaga', () => {
     });
 
     const randomNumber = 0;
-    const mockRandom = jest.spyOn(Math, 'random').mockImplementation(() => {
+    jest.spyOn(Math, 'random').mockImplementation(() => {
         return randomNumber;
     });
 
@@ -45,7 +46,7 @@ describe('directMethodSaga', () => {
         it('notifies that sending message started', () => {
             expect(cloudToDeviceMessageSagaGenerator.next()).toEqual({
                 done: false,
-                value: put(addNotificationAction.started({
+                value: call(raiseNotificationToast, {
                     id: randomNumber,
                     text: {
                         translationKey: ResourceKeys.notifications.sendingCloudToDeviceMessage,
@@ -55,7 +56,7 @@ describe('directMethodSaga', () => {
                         },
                     },
                     type: NotificationType.info
-                }))
+                })
             });
         });
 
@@ -76,7 +77,7 @@ describe('directMethodSaga', () => {
 
             expect(success.next('')).toEqual({
                 done: false,
-                value: put(addNotificationAction.started({
+                value: call(raiseNotificationToast, {
                     id: randomNumber,
                     text: {
                         translationKey: ResourceKeys.notifications.cloudToDeviceMessageOnSuccess,
@@ -86,7 +87,7 @@ describe('directMethodSaga', () => {
                         },
                     },
                     type: NotificationType.success
-                }))
+                })
             });
 
             expect(success.next()).toEqual({
@@ -108,7 +109,7 @@ describe('directMethodSaga', () => {
 
             expect(failed.throw(error)).toEqual({
                 done: false,
-                value: put(addNotificationAction.started({
+                value: call(raiseNotificationToast, {
                     id: randomNumber,
                     text: {
                         translationKey: ResourceKeys.notifications.cloudToDeviceMessageOnError,
@@ -118,7 +119,7 @@ describe('directMethodSaga', () => {
                         },
                     },
                     type: NotificationType.error
-                }))
+                })
             });
 
             expect(failed.next(error)).toEqual({

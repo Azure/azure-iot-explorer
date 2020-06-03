@@ -3,14 +3,15 @@
  * Licensed under the MIT License
  **********************************************************/
 import 'jest';
-import { SagaIteratorClone, cloneableGenerator } from 'redux-saga/utils';
+// tslint:disable-next-line: no-implicit-dependencies
+import { SagaIteratorClone, cloneableGenerator } from '@redux-saga/testing-utils';
 import { select, call, put } from 'redux-saga/effects';
 import { getDeviceTwinSaga, updateDeviceTwinSaga } from './deviceTwinSaga';
 import { getTwinAction, updateTwinAction } from '../actions';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import * as DevicesService from '../../../api/services/devicesService';
 import { Twin } from '../../../api/models/device';
-import { addNotificationAction } from '../../../notifications/actions';
+import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { NotificationType } from '../../../api/models/notification';
 
@@ -73,7 +74,7 @@ describe('deviceTwinSaga', () => {
             const success = updateDeviceTwinSagaGenerator.clone();
             expect(success.next(mockTwin)).toEqual({
                 done: false,
-                value: put(addNotificationAction.started({
+                value: call(raiseNotificationToast, {
                     text: {
                         translationKey: ResourceKeys.notifications.updateDeviceTwinOnSuccess,
                         translationOptions: {
@@ -81,7 +82,7 @@ describe('deviceTwinSaga', () => {
                         },
                     },
                     type: NotificationType.success
-                  }))
+                  })
             });
             expect(success.next()).toEqual({
                 done: false,
@@ -95,7 +96,7 @@ describe('deviceTwinSaga', () => {
             const error = { code: -1 };
             expect(failure.throw(error)).toEqual({
                 done: false,
-                value: put(addNotificationAction.started({
+                value: call(raiseNotificationToast, {
                     text: {
                         translationKey: ResourceKeys.notifications.updateDeviceTwinOnError,
                         translationOptions: {
@@ -104,7 +105,7 @@ describe('deviceTwinSaga', () => {
                         },
                     },
                     type: NotificationType.error
-                  }))
+                  })
             });
 
             expect(failure.next(error)).toEqual({
@@ -153,7 +154,7 @@ describe('deviceTwinSaga', () => {
             const error = { code: -1 };
             expect(failure.throw(error)).toEqual({
                 done: false,
-                value: put(addNotificationAction.started({
+                value: call(raiseNotificationToast, {
                     text: {
                         translationKey: ResourceKeys.notifications.getDeviceTwinOnError,
                         translationOptions: {
@@ -162,7 +163,7 @@ describe('deviceTwinSaga', () => {
                         },
                     },
                     type: NotificationType.error
-                }))
+                })
             });
 
             expect(failure.next(error)).toEqual({

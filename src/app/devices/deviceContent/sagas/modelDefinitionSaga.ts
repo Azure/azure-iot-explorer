@@ -5,7 +5,7 @@
 import { call, put, select } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
 import { fetchModelDefinition, validateModelDefinitions } from '../../../api/services/publicDigitalTwinsModelRepoService';
-import { addNotificationAction } from '../../../notifications/actions';
+import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getModelDefinitionAction, GetModelDefinitionActionParameters } from '../actions';
@@ -33,7 +33,7 @@ export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionP
         }
         catch (error) {
             if (error instanceof ModelDefinitionNotValidJsonError) {
-                yield put(addNotificationAction.started({
+                yield call(raiseNotificationToast, {
                     text: {
                         translationKey: ResourceKeys.notifications.parseLocalInterfaceModelOnError,
                         translationOptions: {
@@ -42,14 +42,14 @@ export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionP
                         },
                     },
                     type: NotificationType.error
-                }));
+                });
             }
             errorCount ++;
             // continue the loop
         }
     }
     if (errorCount === locations.length) {
-        yield put(addNotificationAction.started({
+        yield call(raiseNotificationToast, {
             text: {
                 translationKey: ResourceKeys.notifications.getInterfaceModelOnError,
                 translationOptions: {
@@ -57,7 +57,8 @@ export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionP
                 },
             },
             type: NotificationType.error
-        }));
+        });
+
         yield put(getModelDefinitionAction.failed({params: action.payload, error: undefined}));
     }
 }

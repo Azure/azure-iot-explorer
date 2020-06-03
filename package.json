@@ -101,7 +101,7 @@
     "react-toastify": "4.4.0",
     "redux": "4.0.4",
     "redux-logger": "3.0.6",
-    "redux-saga": "0.16.2",
+    "redux-saga": "1.1.3",
     "request": "2.88.0",
     "reselect": "4.0.0",
     "semver": "6.3.0",
@@ -114,6 +114,7 @@
     "mkdirp": "0.5.3"
   },
   "devDependencies": {
+    "@redux-saga/testing-utils": "1.1.3",
     "@types/async-lock": "1.1.0",
     "@types/cors": "2.8.4",
     "@types/enzyme": "3.10.4",

@@ -9,26 +9,23 @@ import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/ChoiceGroup';
 import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
-import { useLocalizationContext } from '../../../../../shared/contexts/localizationContext';
-import { ResourceKeys } from '../../../../../../localization/resourceKeys';
-import { DeviceAuthenticationType } from '../../../../../api/models/deviceAuthenticationType';
-import { DeviceIdentity } from '../../../../../api/models/deviceIdentity';
-import { DeviceStatus } from '../../../../../api/models/deviceStatus';
-import { validateKey, validateThumbprint, validateDeviceId } from '../../../../../shared/utils/utils';
-import LabelWithTooltip from '../../../../../shared/components/labelWithTooltip';
-import MaskedCopyableTextFieldContainer from '../../../../../shared/components/maskedCopyableTextFieldContainer';
-import { SynchronizationStatus } from '../../../../../api/models/synchronizationStatus';
-import { SAVE, CANCEL } from '../../../../../constants/iconNames';
-import '../../../../../css/_addDevice.scss';
-import '../../../../../css/_layouts.scss';
-
-export interface AddDeviceActionProps {
-    handleSave: (deviceIdentity: DeviceIdentity) => void;
-}
-
-export interface AddDeviceDataProps {
-    deviceListSyncStatus: SynchronizationStatus;
-}
+import { useLocalizationContext } from '../../../shared/contexts/localizationContext';
+import { ResourceKeys } from '../../../../localization/resourceKeys';
+import { DeviceAuthenticationType } from '../../../api/models/deviceAuthenticationType';
+import { DeviceIdentity } from '../../../api/models/deviceIdentity';
+import { DeviceStatus } from '../../../api/models/deviceStatus';
+import { validateKey, validateThumbprint, validateDeviceId } from '../../../shared/utils/utils';
+import LabelWithTooltip from '../../../shared/components/labelWithTooltip';
+import MaskedCopyableTextFieldContainer from '../../../shared/components/maskedCopyableTextFieldContainer';
+import { useAsyncSagaReducer } from '../../../shared/hooks/useAsyncSagaReducer';
+import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
+import { SAVE, CANCEL } from '../../../constants/iconNames';
+import '../../../css/_addDevice.scss';
+import '../../../css/_layouts.scss';
+import { addDeviceSaga } from '../saga';
+import { addDeviceReducer } from '../reducer';
+import { addDeviceStateInitial } from '../state';
+import { addDeviceAction } from '../actions';
 
 const initialKeyValue = {
     error: '',
@@ -37,12 +34,13 @@ const initialKeyValue = {
     value: ''
 };
 
-export const AddDevice: React.FC<AddDeviceActionProps & AddDeviceDataProps> = (props: AddDeviceActionProps & AddDeviceDataProps) => {
+export const AddDevice: React.FC = () => {
     const { t } = useLocalizationContext();
     const { pathname } = useLocation();
     const history = useHistory();
 
-    const { deviceListSyncStatus, handleSave } = props;
+    const [ localState, dispatch ] = useAsyncSagaReducer(addDeviceReducer, addDeviceSaga, addDeviceStateInitial());
+    const { synchronizationStatus } = localState;
     const [ authenticationType, setAuthenticationType ] = React.useState(DeviceAuthenticationType.SymmetricKey);
     const [ autoGenerateKeys, setautoGenerateKeys ] = React.useState<boolean>(true);
     const [ device, setDevice ] = React.useState<{id: string, error: string}>({ id: '', error: '' });
@@ -51,10 +49,10 @@ export const AddDevice: React.FC<AddDeviceActionProps & AddDeviceDataProps> = (p
     const [ secondaryKey, setSecondaryKey ] = React.useState(initialKeyValue);
 
     React.useEffect(() => {
-        if (deviceListSyncStatus === SynchronizationStatus.upserted) { // only when device has been added successfully would navigate to list view
+        if (synchronizationStatus === SynchronizationStatus.upserted) { // only when device has been added successfully would navigate to list view
             navigateToDeviceList();
         }
-    },              [deviceListSyncStatus]);
+    },              [synchronizationStatus]);
 
     const navigateToDeviceList = () => {
         const path = pathname.replace(/\/add/, ``);
@@ -349,7 +347,8 @@ export const AddDevice: React.FC<AddDeviceActionProps & AddDeviceDataProps> = (p
     const onSaveHandler = (event: React.FormEvent<HTMLFormElement>) => {
         // Prevent page refresh
         event.preventDefault();
-        handleSave(getDeviceIdentity());
+        const deviceIdentity = getDeviceIdentity();
+        dispatch(addDeviceAction.started(deviceIdentity));
     };
 
     return (
@@ -364,7 +363,7 @@ export const AddDevice: React.FC<AddDeviceActionProps & AddDeviceDataProps> = (p
                     {showConnectivity()}
                 </div>
             </div>
-            {props.deviceListSyncStatus === SynchronizationStatus.updating && <Overlay/>}
+            {synchronizationStatus === SynchronizationStatus.updating && <Overlay/>}
         </form>
     );
 };

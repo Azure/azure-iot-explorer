@@ -6,7 +6,6 @@ import { Action } from 'typescript-fsa';
 import { call, put } from 'redux-saga/effects';
 import { Notification } from '../../api/models/notification';
 import { addNotificationAction } from '../actions';
-import { raiseNotificationToast } from '../components/notificationToast';
 
 export function* addNotificationSaga(action: Action<Notification>) {
 
@@ -15,5 +14,4 @@ export function* addNotificationSaga(action: Action<Notification>) {
     }
 
     yield put(addNotificationAction.done({params: action.payload, result: action.payload}));
-    yield call(raiseNotificationToast, action.payload);
 }

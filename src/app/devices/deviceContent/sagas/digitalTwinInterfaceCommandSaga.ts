@@ -6,7 +6,7 @@ import { call, put, select } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
 import { invokeDigitalTwinInterfaceCommandAction, InvokeDigitalTwinInterfaceCommandActionParameters } from '../actions';
 import { invokeDigitalTwinInterfaceCommand } from '../../../api/services/digitalTwinService';
-import { addNotificationAction } from '../../../notifications/actions';
+import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getComponentNameSelector } from '../selectors';
@@ -27,7 +27,7 @@ export function* invokeDigitalTwinInterfaceCommandSaga(action: Action<InvokeDigi
         });
         const responseStringified = JSON.stringify(response);
 
-        yield put(addNotificationAction.started({
+        yield call(raiseNotificationToast, {
             id: toastId,
             text: {
                 translationKey: ResourceKeys.notifications.invokeDigitalTwinCommandOnSuccess,
@@ -39,11 +39,11 @@ export function* invokeDigitalTwinInterfaceCommandSaga(action: Action<InvokeDigi
                 },
             },
             type: NotificationType.success
-        }));
+        });
 
         yield put(invokeDigitalTwinInterfaceCommandAction.done({params: action.payload, result: response}));
     } catch (error) {
-        yield put(addNotificationAction.started({
+        yield call(raiseNotificationToast, {
             id: toastId,
             text: {
                 translationKey: ResourceKeys.notifications.invokeDigitalTwinCommandOnError,
@@ -55,7 +55,7 @@ export function* invokeDigitalTwinInterfaceCommandSaga(action: Action<InvokeDigi
                 },
             },
             type: NotificationType.error,
-        }));
+        });
 
         yield put(invokeDigitalTwinInterfaceCommandAction.failed({params: action.payload, error}));
     }
@@ -64,7 +64,7 @@ export function* invokeDigitalTwinInterfaceCommandSaga(action: Action<InvokeDigi
 export function* notifyMethodInvoked(toastId: number, action: Action<InvokeDigitalTwinInterfaceCommandActionParameters>) {
     if (action.payload) {
         const commandPayload = action.payload.commandPayload;
-        yield put(addNotificationAction.started({
+        yield call(raiseNotificationToast, {
             id: toastId,
             text: {
                 translationKey: ResourceKeys.notifications.invokingDigitalTwinCommandWithPayload,
@@ -76,7 +76,8 @@ export function* notifyMethodInvoked(toastId: number, action: Action<InvokeDigit
                 },
             },
             type: NotificationType.info,
-        }));
+        });
+
         return commandPayload;
     }
 }

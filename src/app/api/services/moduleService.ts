@@ -27,7 +27,7 @@ export interface DirectMethodResult {
 
 export const fetchModuleIdentities = async (parameters: FetchModuleIdentitiesParameters): Promise<DataPlaneResponse<ModuleIdentity[]>> => {
     try {
-        const connectionInformation = dataPlaneConnectionHelper(parameters);
+        const connectionInformation = await dataPlaneConnectionHelper(parameters);
 
         const dataPlaneRequest: DataPlaneRequest = {
             hostName: connectionInformation.connectionInfo.hostName,
@@ -46,7 +46,7 @@ export const fetchModuleIdentities = async (parameters: FetchModuleIdentitiesPar
 
 export const addModuleIdentity = async (parameters: AddModuleIdentityParameters): Promise<DataPlaneResponse<ModuleIdentity>> => {
     try {
-        const connectionInformation = dataPlaneConnectionHelper(parameters);
+        const connectionInformation = await dataPlaneConnectionHelper(parameters);
 
         const dataPlaneRequest: DataPlaneRequest = {
             body: JSON.stringify(parameters.moduleIdentity),
@@ -66,7 +66,7 @@ export const addModuleIdentity = async (parameters: AddModuleIdentityParameters)
 
 export const fetchModuleIdentityTwin = async (parameters: ModuleIdentityTwinParameters): Promise<DataPlaneResponse<ModuleTwin>> => {
     try {
-        const connectionInformation = dataPlaneConnectionHelper(parameters);
+        const connectionInformation = await dataPlaneConnectionHelper(parameters);
 
         const dataPlaneRequest: DataPlaneRequest = {
             hostName: connectionInformation.connectionInfo.hostName,
@@ -85,7 +85,7 @@ export const fetchModuleIdentityTwin = async (parameters: ModuleIdentityTwinPara
 
 export const fetchModuleIdentity = async (parameters: FetchModuleIdentityParameters): Promise<DataPlaneResponse<ModuleIdentity[]>> => {
     try {
-        const connectionInformation = dataPlaneConnectionHelper(parameters);
+        const connectionInformation = await dataPlaneConnectionHelper(parameters);
 
         const dataPlaneRequest: DataPlaneRequest = {
             hostName: connectionInformation.connectionInfo.hostName,
@@ -104,7 +104,7 @@ export const fetchModuleIdentity = async (parameters: FetchModuleIdentityParamet
 
 export const deleteModuleIdentity = async (parameters: FetchModuleIdentityParameters): Promise<DataPlaneResponse<ModuleIdentity[]>> => {
     try {
-        const connectionInformation = dataPlaneConnectionHelper(parameters);
+        const connectionInformation = await dataPlaneConnectionHelper(parameters);
 
         const dataPlaneRequest: DataPlaneRequest = {
             headers: {} as any, // tslint:disable-line: no-any

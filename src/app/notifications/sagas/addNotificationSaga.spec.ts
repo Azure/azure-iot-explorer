@@ -3,7 +3,8 @@
  * Licensed under the MIT License
  **********************************************************/
 import { call, getContext, put } from 'redux-saga/effects';
-import { cloneableGenerator } from 'redux-saga/utils';
+// tslint:disable-next-line: no-implicit-dependencies
+import { cloneableGenerator } from '@redux-saga/testing-utils';
 import { addNotificationSaga } from './addNotificationSaga';
 import { addNotificationAction } from '../actions';
 import { Notification, NotificationType } from '../../api/models/notification';
@@ -28,13 +29,6 @@ describe('addNotificationSaga', () => {
             expect(addNotificationSagaGenerator.next()).toEqual({
                 done: false,
                 value: put(addNotificationAction.done({params: notification, result: notification}))
-            });
-        });
-
-        it('yields call effect to raiseToast', () => {
-            expect(addNotificationSagaGenerator.next()).toEqual({
-                done: false,
-                value: call(raiseNotificationToast, notification)
             });
         });
 
@@ -68,13 +62,6 @@ describe('addNotificationSaga', () => {
             expect(addNotificationSagaGenerator.next('date')).toEqual({
                 done: false,
                 value: put(addNotificationAction.done({params: notification, result: notification}))
-            });
-        });
-
-        it('yields call effect to raiseToast', () => {
-            expect(addNotificationSagaGenerator.next()).toEqual({
-                done: false,
-                value: call(raiseNotificationToast, notification)
             });
         });
 

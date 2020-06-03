@@ -8,7 +8,7 @@ import DeviceQuery from '../models/deviceQuery';
 import { CloudToDeviceMessageActionParameters, InvokeMethodActionParameters } from '../../devices/deviceContent/actions';
 
 export interface DataPlaneParameters {
-    connectionString: string;
+    connectionString?: string;
 }
 
 export interface FetchDeviceTwinParameters extends DataPlaneParameters {

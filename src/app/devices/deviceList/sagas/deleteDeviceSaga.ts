@@ -4,7 +4,7 @@
  **********************************************************/
 import { call, put } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
-import { addNotificationAction } from '../../../notifications/actions';
+import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
@@ -19,7 +19,7 @@ export function* deleteDevicesSaga(action: Action<string[]>) {
         };
 
         const bulkDeleteResult = yield call(deleteDevices, parameters);
-        yield put(addNotificationAction.started({
+        yield call(raiseNotificationToast, {
             text: {
                 translationKey: ResourceKeys.notifications.deleteDeviceOnSucceed,
                 translationOptions: {
@@ -27,10 +27,11 @@ export function* deleteDevicesSaga(action: Action<string[]>) {
                 },
             },
             type: NotificationType.success
-          }));
+          });
+
         yield put(deleteDevicesAction.done({params: action.payload, result: bulkDeleteResult}));
     } catch (error) {
-        yield put(addNotificationAction.started({
+        yield call(raiseNotificationToast, {
             text: {
                 translationKey: ResourceKeys.notifications.deleteDeviceOnError,
                 translationOptions: {
@@ -39,7 +40,7 @@ export function* deleteDevicesSaga(action: Action<string[]>) {
                 },
             },
             type: NotificationType.error
-          }));
+          });
 
         yield put(deleteDevicesAction.failed({params: action.payload, error}));
     }

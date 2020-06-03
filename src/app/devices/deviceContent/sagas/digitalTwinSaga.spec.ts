@@ -3,13 +3,14 @@
  * Licensed under the MIT License
  **********************************************************/
 import 'jest';
-import { SagaIteratorClone, cloneableGenerator } from 'redux-saga/utils';
+// tslint:disable-next-line: no-implicit-dependencies
+import { SagaIteratorClone, cloneableGenerator } from '@redux-saga/testing-utils';
 import { call, put } from 'redux-saga/effects';
 import { getDigitalTwinSaga. patchDigitalTwinSaga } from './digitalTwinSaga';
 import { getDigitalTwinAction, patchDigitalTwinAction } from '../actions';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import * as DigitalTwinService from '../../../api/services/digitalTwinService';
-import { addNotificationAction } from '../../../notifications/actions';
+import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { NotificationType } from '../../../api/models/notification';
 import { JsonPatchOperation } from '../../../api/parameters/deviceParameters';
@@ -129,7 +130,7 @@ describe('digitalTwinSaga', () => {
             const success = patchDigitalTwinSagaGenerator.clone();
             expect(success.next(digitalTwin)).toEqual({
                 done: false,
-                value: put(addNotificationAction.started({
+                value: call(raiseNotificationToast, {
                         text: {
                             translationKey: ResourceKeys.notifications.patchDigitalTwinOnSuccess,
                             translationOptions: {
@@ -137,7 +138,7 @@ describe('digitalTwinSaga', () => {
                             },
                         },
                         type: NotificationType.success
-                    }))
+                    })
             });
             expect(success.next()).toEqual({
                 done: false,
@@ -154,7 +155,7 @@ describe('digitalTwinSaga', () => {
             const error = { code: -1 };
             expect(failure.throw(error)).toEqual({
                 done: false,
-                value: put(addNotificationAction.started({
+                value: call(raiseNotificationToast, {
                     text: {
                         translationKey: ResourceKeys.notifications.patchDigitalTwinOnError,
                         translationOptions: {
@@ -163,7 +164,7 @@ describe('digitalTwinSaga', () => {
                         },
                     },
                     type: NotificationType.error,
-                }))
+                })
             });
 
             expect(failure.next(error)).toEqual({

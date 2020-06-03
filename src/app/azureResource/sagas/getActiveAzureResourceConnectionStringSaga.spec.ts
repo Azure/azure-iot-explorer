@@ -3,7 +3,8 @@
  * Licensed under the MIT License
  **********************************************************/
 import { select, call } from 'redux-saga/effects';
-import { cloneableGenerator } from 'redux-saga/utils';
+// tslint:disable-next-line: no-implicit-dependencies
+import { cloneableGenerator } from '@redux-saga/testing-utils';
 import { getActiveAzureResourceConnectionStringSaga, getActiveAzureResource, getAuthMode } from './getActiveAzureResourceConnectionStringSaga';
 import { appConfig, AuthMode } from '../../../appConfig/appConfig';
 import { AzureResourceIdentifierType } from '../../azureResourceIdentifier/models/azureResourceIdentifierType';
