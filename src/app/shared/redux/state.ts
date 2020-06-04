@@ -8,7 +8,6 @@ import { ConnectionStringsStateInterface } from '../../connectionStrings/state';
 import { IotHubStateInterface } from '../../iotHub/state';
 import { ModelRepositoryStateInterface } from '../../modelRepository/state';
 import { NotificationsStateInterface } from '../../notifications/state';
-import { ModuleStateType } from '../../devices/module/state';
 import { IM } from '../types/types';
 
 export interface StateInterface {
@@ -18,7 +17,6 @@ export interface StateInterface {
     iotHubState: IotHubStateInterface;
     modelRepositoryState: ModelRepositoryStateInterface;
     notificationsState: NotificationsStateInterface;
-    moduleState: ModuleStateType;
 }
 
 export type StateType = IM<StateInterface>;

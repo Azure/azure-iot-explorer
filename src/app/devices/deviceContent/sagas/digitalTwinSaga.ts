@@ -6,7 +6,7 @@ import { call, put } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
 import { fetchDigitalTwin, patchDigitalTwinAndGetResponseCode } from '../../../api/services/digitalTwinService';
 import { FetchDigitalTwinParameters, PatchDigitalTwinParameters } from '../../../api/parameters/deviceParameters';
-import { getDigitalTwinAction, PatchDigitalTwinActionParameters, patchDigitalTwinAction } from './../actions';
+import { getDigitalTwinAction, PatchDigitalTwinActionParameters, patchDigitalTwinAction } from '../actions';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 import { ResourceKeys } from '../../../../localization/resourceKeys';

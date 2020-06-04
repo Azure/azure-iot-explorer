@@ -111,9 +111,12 @@ export const invokeDirectMethod = async (parameters: InvokeMethodParameters): Pr
 };
 
 export const cloudToDeviceMessage = async (parameters: CloudToDeviceMessageParameters) => {
+    const connectionInfo = await dataPlaneConnectionHelper(parameters);
     const cloudToDeviceRequest = {
-        ...parameters
+        ...parameters,
+        connectionString: connectionInfo.connectionString
     };
+
     const response = await request(`${CONTROLLER_API_ENDPOINT}${CLOUD_TO_DEVICE}`, cloudToDeviceRequest);
     await dataPlaneResponseHelper(response);
 };
