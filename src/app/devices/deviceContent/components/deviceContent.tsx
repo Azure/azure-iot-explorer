@@ -7,8 +7,8 @@ import { Route, useLocation, useRouteMatch } from 'react-router-dom';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import DeviceIdentityContainer from './deviceIdentity/deviceIdentityContainer';
 import { DeviceTwin } from '../deviceTwin/components/deviceTwin';
-import DeviceEventsContainer from './deviceEvents/deviceEventsContainer';
-import DirectMethodContainer from './directMethod/directMethodContainer';
+import { DeviceEvents } from '../deviceEvents/components/deviceEvents';
+import { DirectMethod } from '../directMethod/components/directMethod';
 import CloudToDeviceMessageContainer from './cloudToDeviceMessage/cloudToDeviceMessageContainer';
 import { ModuleIdentityRoutes } from '../../module/components/moduleIdentity/moduleIdentityContent';
 import { DeviceContentNavComponent } from './deviceContentNav';
@@ -79,8 +79,8 @@ export const DeviceContentComponent: React.FC<DeviceContentProps> = (props: Devi
             <div className={'device-content-detail' + (!appMenuVisible ? ' collapsed' : '')}>
                 <Route path={`${url}/${ROUTE_PARTS.IDENTITY}`} component={DeviceIdentityContainer} />
                 <Route path={`${url}/${ROUTE_PARTS.TWIN}`} component={DeviceTwin} />
-                <Route path={`${url}/${ROUTE_PARTS.EVENTS}`} component={DeviceEventsContainer}/>
-                <Route path={`${url}/${ROUTE_PARTS.METHODS}`} component={DirectMethodContainer} />
+                <Route path={`${url}/${ROUTE_PARTS.EVENTS}`} component={DeviceEvents}/>
+                <Route path={`${url}/${ROUTE_PARTS.METHODS}`} component={DirectMethod} />
                 <Route path={`${url}/${ROUTE_PARTS.CLOUD_TO_DEVICE_MESSAGE}`} component={CloudToDeviceMessageContainer} />
                 <Route path={`${url}/${ROUTE_PARTS.MODULE_IDENTITY}`} component={ModuleIdentityRoutes} />
                 <Route exact={true} path={`${url}/${ROUTE_PARTS.DIGITAL_TWINS}`} component={DigitalTwinInterfacesContainer} />

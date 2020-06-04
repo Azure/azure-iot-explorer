@@ -10,36 +10,29 @@ import { Slider } from 'office-ui-fabric-react/lib/Slider';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
-import { InvokeMethodActionParameters } from '../../actions';
 import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { DIRECT_METHOD } from '../../../../constants/iconNames';
 import LabelWithTooltip from '../../../../shared/components/labelWithTooltip';
 import { useThemeContext } from '../../../../shared/contexts/themeContext';
-const EditorPromise = import('react-monaco-editor');
-const Editor = React.lazy(() => EditorPromise);
 import { HeaderView } from '../../../../shared/components/headerView';
+import { useAsyncSagaReducer } from '../../../../shared/hooks/useAsyncSagaReducer';
+import { invokeDirectMethodSaga } from '../saga';
+import { invokeDirectMethodAction } from '../actions';
 import '../../../../css/_deviceDetail.scss';
 
 const SLIDER_MAX = 300;
 const DEFAULT_TIMEOUT = 10;
-export interface DirectMethodState {
-    connectionTimeout: number;
-    methodName: string;
-    responseTimeout: number;
-    payload: string;
-}
 
-export interface DirectMethodProps {
-    onInvokeMethodClick: (properties: InvokeMethodActionParameters) => void;
-}
+const EditorPromise = import('react-monaco-editor');
+const Editor = React.lazy(() => EditorPromise);
 
-export const DirectMethod: React.FC<DirectMethodProps> = (props: DirectMethodProps) => {
+export const DirectMethod: React.FC = () => {
     const { t } = useLocalizationContext();
     const { monacoTheme } = useThemeContext();
     const { search } = useLocation();
     const deviceId = getDeviceIdFromQueryString(search);
 
-    const { onInvokeMethodClick } = props;
+    const [ , dispatch ] = useAsyncSagaReducer(() => undefined, invokeDirectMethodSaga, undefined);
     const [connectionTimeOut, setConnectionTimeOut] = React.useState<number>(DEFAULT_TIMEOUT);
     const [methodName, setMethodName] = React.useState<string>('');
     const [payload, setPayload] = React.useState<string>('');
@@ -75,13 +68,13 @@ export const DirectMethod: React.FC<DirectMethodProps> = (props: DirectMethodPro
     };
 
     const onInvokeMethodClickHandler = () => {
-        onInvokeMethodClick({
+        dispatch(invokeDirectMethodAction.started({
             connectTimeoutInSeconds: connectionTimeOut,
             deviceId,
             methodName,
             payload: payload ? JSON.parse(payload) : {},
             responseTimeoutInSeconds: responseTimeOut
-        });
+        }));
     };
 
     const renderMethodsName = () => {
