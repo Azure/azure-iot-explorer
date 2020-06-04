@@ -23,7 +23,7 @@ describe('addDeviceSaga', () => {
     const mockDevice: DeviceIdentity = {
         authentication: null,
         capabilities: null,
-        cloudToDeviceMessageCount: '',
+        cloudToDeviceMessageCount: 1,
         deviceId,
         etag: 'etag',
         lastActivityTime: '',
@@ -35,7 +35,9 @@ describe('addDeviceSaga', () => {
     const mockResult: DeviceSummary = {
         authenticationType: 'SAS',
         cloudToDeviceMessageCount: '',
+        connectionState: 'Connected',
         deviceId,
+        iotEdge: true,
         lastActivityTime: '',
         status: 'Enabled',
         statusUpdatedTime: ''

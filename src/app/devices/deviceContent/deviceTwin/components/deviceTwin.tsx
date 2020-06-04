@@ -6,44 +6,32 @@ import * as React from 'react';
 import { useLocation } from 'react-router-dom';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
-import { Twin } from '../../../../api/models/device';
 import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
-import { UpdateTwinActionParameters } from '../../actions';
+import { getDeviceTwinAction, updateDeviceTwinAction } from '../actions';
 import { REFRESH, SAVE } from '../../../../constants/iconNames';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { useThemeContext } from '../../../../shared/contexts/themeContext';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
 import { HeaderView } from '../../../../shared/components/headerView';
 import '../../../../css/_deviceTwin.scss';
+import { useAsyncSagaReducer } from '../../../../shared/hooks/useAsyncSagaReducer';
+import { deviceTwinReducer } from './../reducer';
+import { deviceTwinSaga } from '../saga';
+import { deviceTwinStateInitial } from '../state';
 
 const EditorPromise = import('react-monaco-editor');
 const Editor = React.lazy(() => EditorPromise);
 
-export interface DeviceTwinDataProps {
-    twin: Twin;
-    twinState: SynchronizationStatus;
-}
-
-export interface DeviceTwinDispatchProps {
-    getDeviceTwin: (deviceId: string) => void;
-    updateDeviceTwin: (parameters: UpdateTwinActionParameters) => void;
-}
-
-export interface DeviceTwinState {
-    twin: string;
-    isDirty: boolean;
-    isTwinValid: boolean;
-    needsRefresh: boolean;
-}
-
-export const DeviceTwin: React.FC<DeviceTwinDataProps & DeviceTwinDispatchProps> = (props: DeviceTwinDataProps & DeviceTwinDispatchProps) => {
+export const DeviceTwin: React.FC = () => {
     const { t } = useLocalizationContext();
     const { monacoTheme } = useThemeContext();
     const { search } = useLocation();
 
-    const { getDeviceTwin, updateDeviceTwin, twin, twinState } = props;
+    const [ localState, dispatch ] = useAsyncSagaReducer(deviceTwinReducer, deviceTwinSaga, deviceTwinStateInitial());
+    const twin = localState.deviceTwin && localState.deviceTwin.payload;
+    const twinState = localState.deviceTwin && localState.deviceTwin.synchronizationStatus;
     const deviceId = getDeviceIdFromQueryString(search);
     const [ state, setState ] = React.useState({
         isDirty: false,
@@ -53,24 +41,24 @@ export const DeviceTwin: React.FC<DeviceTwinDataProps & DeviceTwinDispatchProps>
     });
 
     React.useEffect(() => {
-        getDeviceTwin(deviceId);
+        dispatch(getDeviceTwinAction.started(deviceId));
     },              []);
 
     // tslint:disable-next-line:cyclomatic-complexity
     React.useEffect(() => {
-        if (twin && twinState !== SynchronizationStatus.working && props.twinState !== SynchronizationStatus.updating) {
+        if (twin && twinState !== SynchronizationStatus.working && twinState !== SynchronizationStatus.updating) {
             if (!state.isDirty) {
                 if (state.needsRefresh && twinState === SynchronizationStatus.upserted) {
                     setState ({
                         ...state,
                         needsRefresh: false,
-                        twin: JSON.stringify(props.twin, null, '\t')
+                        twin: JSON.stringify(twin, null, '\t')
                     });
                 }
                 else {
                     setState({
                         ...state,
-                        twin: JSON.stringify(props.twin, null, '\t')
+                        twin: JSON.stringify(twin, null, '\t')
                     });
                 }
             }
@@ -109,7 +97,7 @@ export const DeviceTwin: React.FC<DeviceTwinDataProps & DeviceTwinDispatchProps>
             isDirty: false,
             needsRefresh: false
         });
-        getDeviceTwin(deviceId);
+        dispatch(getDeviceTwinAction.started(deviceId));
     };
 
     const handleSave = () => {
@@ -119,10 +107,10 @@ export const DeviceTwin: React.FC<DeviceTwinDataProps & DeviceTwinDispatchProps>
             isTwinValid: true,
             needsRefresh: true
         });
-        updateDeviceTwin({
+        dispatch(updateDeviceTwinAction.started({
             deviceId,
             twin: JSON.parse(state.twin)
-        });
+        }));
     };
 
     const renderTwinViewer = () => {
