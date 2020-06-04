@@ -232,14 +232,19 @@ export const deleteDevices = async (parameters: DeleteDevicesParameters) => {
 
 // tslint:disable-next-line:cyclomatic-complexity
 export const monitorEvents = async (parameters: MonitorEventsParameters): Promise<Message[]> => {
-    if (!parameters.hubConnectionString && (!parameters.customEventHubConnectionString || !parameters.customEventHubName)) {
-        return;
-    }
-
-    const requestParameters = {
+    let requestParameters = {
         ...parameters,
         startTime: parameters.startTime && parameters.startTime.toISOString()
     };
+
+    // if either of the info about custom event hub is not provided, use default hub connection string to connect to event hub
+    if (!parameters.customEventHubConnectionString || !parameters.customEventHubName) {
+        const connectionInfo = await dataPlaneConnectionHelper(parameters);
+        requestParameters = {
+            ...requestParameters,
+            hubConnectionString: connectionInfo.connectionString
+        };
+    }
 
     const response = await request(EVENTHUB_MONITOR_ENDPOINT, requestParameters);
     if (response.status === DataPlaneStatusCode.SuccessLowerBound) {

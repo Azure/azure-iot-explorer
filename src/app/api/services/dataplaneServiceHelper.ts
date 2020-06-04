@@ -58,6 +58,7 @@ export const dataPlaneConnectionHelper = async (parameters: DataPlaneParameters)
 
     return {
         connectionInfo,
+        connectionString,
         sasToken,
     };
 };

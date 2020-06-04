@@ -32,7 +32,7 @@ export interface FetchDevicesParameters extends DataPlaneParameters {
     query?: DeviceQuery;
 }
 
-export interface MonitorEventsParameters {
+export interface MonitorEventsParameters extends DataPlaneParameters {
     deviceId: string;
     consumerGroup: string;
 
