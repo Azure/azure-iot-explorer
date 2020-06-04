@@ -3,10 +3,10 @@
  * Licensed under the MIT License
  **********************************************************/
 import actionCreatorFactory from 'typescript-fsa';
-import * as actionPrefixes from '../../../constants/actionPrefixes';
-import * as actionTypes from '../../../constants/actionTypes';
+import { DEVICECONTENT } from '../../../constants/actionPrefixes';
+import { INVOKE_DEVICE_METHOD } from '../../../constants/actionTypes';
 
-export const invokeDirectMethodAction = actionCreatorFactory(actionPrefixes.DEVICECONTENT).async<InvokeMethodActionParameters, string>(actionTypes.INVOKE_DEVICE_METHOD);
+export const invokeDirectMethodAction = actionCreatorFactory(DEVICECONTENT).async<InvokeMethodActionParameters, string>(INVOKE_DEVICE_METHOD);
 
 export interface InvokeMethodActionParameters {
     connectTimeoutInSeconds: number;
