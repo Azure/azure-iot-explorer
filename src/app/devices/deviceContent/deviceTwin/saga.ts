@@ -4,8 +4,8 @@
  **********************************************************/
 import { all, takeLatest, takeEvery } from 'redux-saga/effects';
 import { getDeviceTwinAction, updateDeviceTwinAction } from './actions';
-import { getDeviceTwinSaga } from './sagas.ts/getDeviceTwinSaga';
-import { updateDeviceTwinSaga } from './sagas.ts/updateDeviceTwinSaga';
+import { getDeviceTwinSaga } from './sagas/getDeviceTwinSaga';
+import { updateDeviceTwinSaga } from './sagas/updateDeviceTwinSaga';
 
 export function* deviceTwinSaga() {
     yield all([
