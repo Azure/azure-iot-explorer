@@ -31,22 +31,6 @@ import { raiseNotificationToast } from '../../../../notifications/components/not
 const JSON_SPACES = 2;
 const LOADING_LOCK = 50;
 
-export interface DeviceEventsDataProps {
-    connectionString: string;
-}
-
-export interface DeviceEventsState extends ConfigurationSettings{
-    events: Message[];
-    hasMore: boolean;
-    startTime: Date;
-    showSystemProperties: boolean;
-    synchronizationStatus: SynchronizationStatus;
-    monitoringData: boolean;
-
-    loading?: boolean;
-    loadingAnnounced?: JSX.Element;
-}
-
 export interface ConfigurationSettings {
     consumerGroup: string;
     useBuiltInEventHub: boolean;
@@ -54,7 +38,7 @@ export interface ConfigurationSettings {
     customEventHubConnectionString?: string;
 }
 
-export const DeviceEventsComponent: React.FC<DeviceEventsDataProps> = (props: DeviceEventsDataProps) => {
+export const DeviceEvents: React.FC = () => {
     let timerID: any; // tslint:disable-line:no-any
     const { t } = useLocalizationContext();
     const { search } = useLocation();
@@ -345,12 +329,6 @@ export const DeviceEventsComponent: React.FC<DeviceEventsDataProps> = (props: De
                             ...parameters,
                             customEventHubConnectionString: state.customEventHubConnectionString,
                             customEventHubName: state.customEventHubName
-                        };
-                    }
-                    else {
-                        parameters = {
-                            ...parameters,
-                            hubConnectionString: props.connectionString,
                         };
                     }
 

@@ -7,9 +7,9 @@ import 'jest';
 import { cloneableGenerator, SagaIteratorClone } from '@redux-saga/testing-utils';
 import { call, put } from 'redux-saga/effects';
 import * as DevicesService from '../../../api/services/devicesService';
-import { invokeDirectMethodSaga, notifyMethodInvoked } from './directMethodSaga';
+import { invokeDirectMethodSagaWorker, notifyMethodInvokedHelper } from './saga';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
-import { invokeDirectMethodAction } from '../actions';
+import { invokeDirectMethodAction } from './actions';
 import { InvokeMethodParameters } from '../../../api/parameters/deviceParameters';
 import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
@@ -30,7 +30,6 @@ describe('directMethodSaga', () => {
         return randomNumber;
     });
 
-    const connectionString = 'connection_string';
     const connectTimeoutInSeconds = 10;
     const deviceId = 'device_id';
     const methodName = 'test';
@@ -41,7 +40,6 @@ describe('directMethodSaga', () => {
 
     const invokeMethodParameters: InvokeMethodParameters = {
         connectTimeoutInSeconds,
-        connectionString,
         deviceId,
         methodName,
         payload,
@@ -52,15 +50,15 @@ describe('directMethodSaga', () => {
     invokeMethodParametersNoPayload.payload = undefined;
 
     beforeAll(() => {
-        invokeDirectMethodSagaGenerator = cloneableGenerator(invokeDirectMethodSaga)(invokeDirectMethodAction.started(invokeMethodParameters));
+        invokeDirectMethodSagaGenerator = cloneableGenerator(invokeDirectMethodSagaWorker)(invokeDirectMethodAction.started(invokeMethodParameters));
     });
 
     beforeEach(() => {
-        notifyMethodInvokedGenerator = cloneableGenerator(notifyMethodInvoked)(randomNumber, invokeMethodParameters);
-        notifyMethodInvokedGeneratorNoPayload = cloneableGenerator(notifyMethodInvoked)(randomNumber, invokeMethodParametersNoPayload);
+        notifyMethodInvokedGenerator = cloneableGenerator(notifyMethodInvokedHelper)(randomNumber, invokeMethodParameters);
+        notifyMethodInvokedGeneratorNoPayload = cloneableGenerator(notifyMethodInvokedHelper)(randomNumber, invokeMethodParametersNoPayload);
     });
 
-    describe('notifyMethodInvoked', () => {
+    describe('notifyMethodInvokedHelper', () => {
         it('puts a notification with payload if there is a payload', () => {
             expect(notifyMethodInvokedGenerator.next()).toEqual({
                 done: false,
@@ -101,19 +99,11 @@ describe('directMethodSaga', () => {
         });
     });
 
-    describe('invokeDirectMethodSaga', () => {
-
-        it('yields call to get active azure connection string', () => {
+    describe('invokeDirectMethodSagaWorker', () => {
+        it('notifies that the method is being invoked', () => {
             expect(invokeDirectMethodSagaGenerator.next(randomNumber)).toEqual({
                 done: false,
-                value: call(getActiveAzureResourceConnectionStringSaga)
-            });
-        });
-
-        it('notifies that the method is being invoked', () => {
-            expect(invokeDirectMethodSagaGenerator.next(connectionString)).toEqual({
-                done: false,
-                value: call(notifyMethodInvoked, randomNumber, invokeMethodParameters)
+                value: call(notifyMethodInvokedHelper, randomNumber, invokeMethodParameters)
             });
         });
 

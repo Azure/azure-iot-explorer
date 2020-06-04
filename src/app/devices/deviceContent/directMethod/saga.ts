@@ -2,27 +2,24 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { call, put } from 'redux-saga/effects';
+import { call, put, takeEvery } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
-import { invokeDirectMethodAction, InvokeMethodActionParameters } from '../actions';
+import { invokeDirectMethodAction, InvokeMethodActionParameters } from './actions';
 import { invokeDirectMethod } from '../../../api/services/devicesService';
-import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { InvokeMethodParameters } from '../../../api/parameters/deviceParameters';
 
-export function* invokeDirectMethodSaga(action: Action<InvokeMethodActionParameters>) {
+export function* invokeDirectMethodSagaWorker(action: Action<InvokeMethodActionParameters>) {
     const toastId: number = Math.random();
 
     try {
-        const connectionString: string = yield call(getActiveAzureResourceConnectionStringSaga);
         const invokeMethodParameters: InvokeMethodParameters = {
             ...action.payload,
-            connectionString
         };
 
-        yield call(notifyMethodInvoked, toastId, invokeMethodParameters);
+        yield call(notifyMethodInvokedHelper, toastId, invokeMethodParameters);
 
         const response = yield call(invokeDirectMethod, invokeMethodParameters);
         const stringifiedResponse = typeof response === 'object' ? JSON.stringify(response) : response;
@@ -58,7 +55,7 @@ export function* invokeDirectMethodSaga(action: Action<InvokeMethodActionParamet
     }
 }
 
-export function* notifyMethodInvoked(toastId: number, payload: InvokeMethodParameters) {
+export function* notifyMethodInvokedHelper(toastId: number, payload: InvokeMethodParameters) {
     if (payload) {
         if ( payload.payload !== undefined) { // payload could be boolean value false
             yield call(raiseNotificationToast, {
@@ -92,4 +89,8 @@ export function* notifyMethodInvoked(toastId: number, payload: InvokeMethodParam
             return;
         }
     }
+}
+
+export function* invokeDirectMethodSaga() {
+    yield takeEvery(invokeDirectMethodAction.started.type, invokeDirectMethodSagaWorker);
 }

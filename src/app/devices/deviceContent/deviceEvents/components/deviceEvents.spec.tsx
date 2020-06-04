@@ -10,7 +10,7 @@ const InfiniteScroll = require('react-infinite-scroller'); // tslint:disable-lin
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
-import { DeviceEventsComponent } from './deviceEvents';
+import { DeviceEvents } from './deviceEvents';
 import { appConfig, HostMode } from '../../../../../appConfig/appConfig';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { DEFAULT_CONSUMER_GROUP } from '../../../../constants/apiConstants';
@@ -22,27 +22,18 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('components/devices/deviceEvents', () => {
-    const getComponent = (overrides = {}) => {
-        const props = {
-            addNotification: jest.fn(),
-            connectionString: '',
-            ...overrides,
-        };
-        return (<DeviceEventsComponent {...props} />);
-    };
-
     it('matches snapshot in electron', () => {
         appConfig.hostMode = HostMode.Electron;
-        expect(shallow(getComponent())).toMatchSnapshot();
+        expect(shallow(<DeviceEvents/>)).toMatchSnapshot();
     });
 
     it('matches snapshot in hosted environment', () => {
         appConfig.hostMode = HostMode.Browser;
-        expect(shallow(getComponent())).toMatchSnapshot();
+        expect(shallow(<DeviceEvents/>)).toMatchSnapshot();
     });
 
     it('changes state accordingly when command bar buttons are clicked', () => {
-        const wrapper = mount(getComponent());
+        const wrapper = mount(<DeviceEvents/>);
         const commandBar = wrapper.find(CommandBar).first();
         // click the start button
         act(() => commandBar.props().items[0].onClick(null));
@@ -66,7 +57,7 @@ describe('components/devices/deviceEvents', () => {
     });
 
     it('changes state accordingly when consumer group value is changed', () => {
-        const wrapper = mount(getComponent());
+        const wrapper = mount(<DeviceEvents/>);
         const textField = wrapper.find(TextField).first();
         act(() => textField.instance().props.onChange({ target: null}, 'testGroup'));
         wrapper.update();
@@ -74,7 +65,7 @@ describe('components/devices/deviceEvents', () => {
     });
 
     it('changes state accordingly when custom event hub boolean value is changed', () => {
-        const wrapper = mount(getComponent());
+        const wrapper = mount(<DeviceEvents/>);
         expect(wrapper.find('.custom-event-hub-text-field').length).toEqual(0);
         const toggle = wrapper.find(Toggle).at(0);
         act(() => toggle.instance().props.onChange({ target: null}, false));
@@ -110,7 +101,7 @@ describe('components/devices/deviceEvents', () => {
         const realUseState = React.useState;
         jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(initialState));
 
-        const wrapper = mount(getComponent());
+        const wrapper = mount(<DeviceEvents/>);
         const enqueueTime = wrapper.find('h5');
         // tslint:disable-next-line:no-any
         expect((enqueueTime.props().children as any).join('')).toBeDefined();
