@@ -12,9 +12,9 @@ import { getModelDefinitionAction, GetModelDefinitionActionParameters } from '..
 import { FetchModelParameters } from '../../../api/parameters/repoParameters';
 import { getRepositoryLocationSettingsSelector, getLocalFolderPathSelector } from '../../../modelRepository/selectors';
 import { RepositoryLocationSettings } from '../../../modelRepository/state';
-import { REPOSITORY_LOCATION_TYPE } from './../../../constants/repositoryLocationTypes';
-import { fetchLocalFile } from './../../../api/services/localRepoService';
-import { ModelDefinition } from './../../../api/models/modelDefinition';
+import { REPOSITORY_LOCATION_TYPE } from '../../../constants/repositoryLocationTypes';
+import { fetchLocalFile } from '../../../api/services/localRepoService';
+import { ModelDefinition } from '../../../api/models/modelDefinition';
 import { ModelDefinitionNotValidJsonError } from '../../../api/models/modelDefinitionNotValidJsonError';
 
 export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionParameters>) {

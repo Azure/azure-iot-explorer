@@ -292,6 +292,7 @@ describe('deviceTwinService', () => {
             expect(fetch).toBeCalledWith(`${CONTROLLER_API_ENDPOINT}${CLOUD_TO_DEVICE}`, {
                 body: JSON.stringify({
                     ...parameters,
+                    connectionString,
                     deviceId
                 }),
                 cache: 'no-cache',

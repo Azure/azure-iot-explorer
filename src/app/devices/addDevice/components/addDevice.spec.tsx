@@ -13,7 +13,6 @@ import { AddDevice } from './addDevice';
 import { MaskedCopyableTextField } from '../../../shared/components/maskedCopyableTextField';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import { DeviceAuthenticationType } from '../../../api/models/deviceAuthenticationType';
-import { mountWithStoreAndRouter } from '../../../shared/utils/testHelpers';
 import * as AsyncSagaReducer from '../../../shared/hooks/useAsyncSagaReducer';
 import { addDeviceAction } from '../actions';
 
@@ -38,7 +37,7 @@ describe('addDevice', () => {
 
     it('renders symmetric key input field if not auto generating keys', () => {
         // auto generate
-        const wrapper = mountWithStoreAndRouter(<AddDevice/>, true);
+        const wrapper = mount(<AddDevice/>);
         expect(wrapper.find(MaskedCopyableTextField).length).toEqual(1);
 
         // uncheck auto generate
@@ -58,7 +57,7 @@ describe('addDevice', () => {
     });
 
     it('renders selfSigned input field', () => {
-        const wrapper = mountWithStoreAndRouter(<AddDevice/>, true);
+        const wrapper = mount(<AddDevice/>);
 
         const choiceGroup = wrapper.find(ChoiceGroup).first();
         act(() => choiceGroup.props().onChange(undefined, { key: DeviceAuthenticationType.SelfSigned, text: 'text' } ));
@@ -77,7 +76,7 @@ describe('addDevice', () => {
 
     it('saves new device identity', () => {
         const addDeviceActionSpy = jest.spyOn(addDeviceAction, 'started');
-        const wrapper = mountWithStoreAndRouter(<AddDevice/>, true);
+        const wrapper = mount(<AddDevice/>);
 
         act(() => wrapper.find(MaskedCopyableTextField).first().props().onTextChange('test-device'));
         act(() => wrapper.find(Toggle).first().instance().props.onChange({ target: null}, false));
