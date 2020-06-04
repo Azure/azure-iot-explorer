@@ -7,7 +7,6 @@ import { notificationsStateInterfaceInitial } from '../../notifications/state';
 import { deviceContentStateInitial } from '../../devices/deviceContent/state';
 import { azureResourceStateInitial } from '../../azureResource/state';
 import { connectionStringsStateInitial } from '../../connectionStrings/state';
-import { moduleStateInitial } from './../../devices/module/state';
 import { modelRepositoryStateInitial } from '../../modelRepository/state';
 import { iotHubStateInitial } from '../../../app/iotHub/state';
 
@@ -18,7 +17,6 @@ export const getInitialState = (): StateInterface => {
         deviceContentState: deviceContentStateInitial(),
         iotHubState: iotHubStateInitial(),
         modelRepositoryState: modelRepositoryStateInitial(),
-        moduleState: moduleStateInitial(),
         notificationsState: notificationsStateInterfaceInitial
     };
 };

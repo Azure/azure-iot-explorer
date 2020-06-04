@@ -22,12 +22,8 @@ import { CONTROLLER_API_ENDPOINT,
     HEADERS,
     CLOUD_TO_DEVICE,
     HTTP_OPERATION_TYPES,
-<<<<<<< HEAD
     DataPlaneStatusCode,
     HUB_DATA_PLANE_API_VERSION
-=======
-    DataPlaneStatusCode
->>>>>>> merge master in (#276)
 } from '../../constants/apiConstants';
 import { buildQueryString } from '../shared/utils';
 import { Message } from '../models/messages';
@@ -120,7 +116,7 @@ export const cloudToDeviceMessage = async (parameters: CloudToDeviceMessageParam
     const connectionInfo = await dataPlaneConnectionHelper(parameters);
     const cloudToDeviceRequest = {
         ...parameters,
-        connectionString: connectionInfo.connectionInfo
+        connectionString: connectionInfo.connectionString
     };
 
     const response = await request(`${CONTROLLER_API_ENDPOINT}${CLOUD_TO_DEVICE}`, cloudToDeviceRequest);

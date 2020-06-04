@@ -4,13 +4,13 @@
  **********************************************************/
 import * as React from 'react';
 import 'jest';
+import { act } from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 import { DeviceIdentityInformation } from './deviceIdentity';
 import { DeviceAuthenticationType } from '../../../../api/models/deviceAuthenticationType';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
-import { mountWithStoreAndRouter } from '../../../../shared/utils/testHelpers';
 
 const mockUpdateDevice = jest.fn();
 const dispatchProps = {
@@ -130,7 +130,7 @@ describe('devices/components/deviceIdentity', () => {
         });
 
         it('calls save', () => {
-            const wrapper = mountWithStoreAndRouter(
+            const wrapper = mount(
                 getComponent({
                     identityWrapper: {
                         payload: {
@@ -143,14 +143,13 @@ describe('devices/components/deviceIdentity', () => {
                             deviceId: 'device1'
                         }
                     }
-                }),
-                true
+                })
             );
-            wrapper.find(Toggle).first().instance().props.onChange({ target: null}, false);
+            act(() => wrapper.find(Toggle).first().instance().props.onChange({ target: null}, false));
             wrapper.update();
 
             const commandBar = wrapper.find(CommandBar).first();
-            commandBar.props().items[0].onClick(null);
+            act(() => commandBar.props().items[0].onClick(null));
             expect(mockUpdateDevice).toBeCalled();
         });
     });
