@@ -8,7 +8,7 @@ import 'jest';
 import { cloneableGenerator, SagaIteratorClone } from '@redux-saga/testing-utils';
 import { call, put } from 'redux-saga/effects';
 import * as DevicesService from '../../../api/services/devicesService';
-import { cloudToDeviceMessageSaga } from './saga';
+import { cloudToDeviceMessageSagaWorker } from './saga';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { cloudToDeviceMessageAction } from './actions';
 import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
@@ -38,7 +38,7 @@ describe('cloudToDeviceMessageSaga', () => {
     };
 
     beforeAll(() => {
-        cloudToDeviceMessageSagaGenerator = cloneableGenerator(cloudToDeviceMessageSaga)(cloudToDeviceMessageAction.started(cloudToDeviceMessageParameters));
+        cloudToDeviceMessageSagaGenerator = cloneableGenerator(cloudToDeviceMessageSagaWorker)(cloudToDeviceMessageAction.started(cloudToDeviceMessageParameters));
     });
 
     describe('cloudToDeviceMessageSaga', () => {

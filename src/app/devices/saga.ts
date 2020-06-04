@@ -7,7 +7,6 @@ import deviceContentSagas from './deviceContent/sagas';
 import connectionStringsSagas from '../connectionStrings/sagas';
 import modelRepositorySagas from '../modelRepository/sagas';
 import azureResourceSagas from '../azureResource/sagas';
-import moduleSaga from './module/sagas';
 
 export default function* rootSaga() {
     yield all([
@@ -15,6 +14,5 @@ export default function* rootSaga() {
         ...connectionStringsSagas,
         ...deviceContentSagas,
         ...modelRepositorySagas,
-        ...moduleSaga
     ]);
 }

@@ -1,0 +1,387 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ModuleIdentityDetail snapshot matches snapshot after certificateAuthority module identity is fetched 1`] = `
+<Fragment>
+  <StyledCommandBarBase
+    className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.back",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "moduleIdentity.detail.command.back",
+          "onClick": [Function],
+        },
+      ]
+    }
+    items={
+      Array [
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.refresh",
+          "disabled": false,
+          "iconProps": Object {
+            "iconName": "Refresh",
+          },
+          "key": "Refresh",
+          "name": "moduleIdentity.detail.command.refresh",
+          "onClick": [Function],
+        },
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.delete",
+          "disabled": false,
+          "iconProps": Object {
+            "iconName": "Delete",
+          },
+          "key": "Delete",
+          "name": "moduleIdentity.detail.command.delete",
+          "onClick": [Function],
+        },
+      ]
+    }
+  />
+  <Component
+    component={[Function]}
+  />
+  <div
+    className="module-identity-detail"
+  >
+    <Component
+      allowMask={false}
+      ariaLabel="moduleIdentity.moduleId"
+      label="moduleIdentity.moduleId"
+      labelCallout="moduleIdentity.moduleIdTooltip"
+      readOnly={true}
+      value="moduleId"
+    />
+    <StyledLabelBase>
+      moduleIdentity.authenticationType.selfSigned.text
+    </StyledLabelBase>
+    <Component
+      allowMask={true}
+      ariaLabel="moduleIdentity.authenticationType.selfSigned.primaryThumbprint"
+      label="moduleIdentity.authenticationType.selfSigned.primaryThumbprint"
+      labelCallout="moduleIdentity.authenticationType.selfSigned.primaryThumbprintTooltip"
+      readOnly={true}
+      value="thumbprint1"
+    />
+    <Component
+      allowMask={true}
+      ariaLabel="moduleIdentity.authenticationType.selfSigned.secondaryThumbprint"
+      label="moduleIdentity.authenticationType.selfSigned.secondaryThumbprint"
+      labelCallout="moduleIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip"
+      readOnly={true}
+      value="thumbprint2"
+    />
+  </div>
+</Fragment>
+`;
+
+exports[`ModuleIdentityDetail snapshot matches snapshot after module identity is fetched 1`] = `
+<Fragment>
+  <StyledCommandBarBase
+    className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.back",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "moduleIdentity.detail.command.back",
+          "onClick": [Function],
+        },
+      ]
+    }
+    items={
+      Array [
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.refresh",
+          "disabled": false,
+          "iconProps": Object {
+            "iconName": "Refresh",
+          },
+          "key": "Refresh",
+          "name": "moduleIdentity.detail.command.refresh",
+          "onClick": [Function],
+        },
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.delete",
+          "disabled": false,
+          "iconProps": Object {
+            "iconName": "Delete",
+          },
+          "key": "Delete",
+          "name": "moduleIdentity.detail.command.delete",
+          "onClick": [Function],
+        },
+      ]
+    }
+  />
+  <Component
+    component={[Function]}
+  />
+  <div
+    className="module-identity-detail"
+  >
+    <Component
+      allowMask={false}
+      ariaLabel="moduleIdentity.moduleId"
+      label="moduleIdentity.moduleId"
+      labelCallout="moduleIdentity.moduleIdTooltip"
+      readOnly={true}
+      value="moduleId"
+    />
+  </div>
+</Fragment>
+`;
+
+exports[`ModuleIdentityDetail snapshot matches snapshot after sas module identity is fetched 1`] = `
+<Fragment>
+  <StyledCommandBarBase
+    className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.back",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "moduleIdentity.detail.command.back",
+          "onClick": [Function],
+        },
+      ]
+    }
+    items={
+      Array [
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.refresh",
+          "disabled": false,
+          "iconProps": Object {
+            "iconName": "Refresh",
+          },
+          "key": "Refresh",
+          "name": "moduleIdentity.detail.command.refresh",
+          "onClick": [Function],
+        },
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.delete",
+          "disabled": false,
+          "iconProps": Object {
+            "iconName": "Delete",
+          },
+          "key": "Delete",
+          "name": "moduleIdentity.detail.command.delete",
+          "onClick": [Function],
+        },
+      ]
+    }
+  />
+  <Component
+    component={[Function]}
+  />
+  <div
+    className="module-identity-detail"
+  >
+    <Component
+      allowMask={false}
+      ariaLabel="moduleIdentity.moduleId"
+      label="moduleIdentity.moduleId"
+      labelCallout="moduleIdentity.moduleIdTooltip"
+      readOnly={true}
+      value="moduleId"
+    />
+    <Component
+      allowMask={true}
+      ariaLabel="moduleIdentity.authenticationType.symmetricKey.primaryKey"
+      label="moduleIdentity.authenticationType.symmetricKey.primaryKey"
+      labelCallout="moduleIdentity.authenticationType.symmetricKey.primaryKeyTooltip"
+      readOnly={true}
+      value="key1"
+    />
+    <Component
+      allowMask={true}
+      ariaLabel="moduleIdentity.authenticationType.symmetricKey.secondaryKey"
+      label="moduleIdentity.authenticationType.symmetricKey.secondaryKey"
+      labelCallout="moduleIdentity.authenticationType.symmetricKey.secondaryKeyTooltip"
+      readOnly={true}
+      value="key2"
+    />
+    <Component
+      allowMask={true}
+      ariaLabel="moduleIdentity.authenticationType.symmetricKey.primaryConnectionString"
+      label="moduleIdentity.authenticationType.symmetricKey.primaryConnectionString"
+      readOnly={true}
+      value="HostName=hostName;DeviceId=newdevice;ModuleId=moduleId;SharedAccessKey=key1"
+    />
+    <Component
+      allowMask={true}
+      ariaLabel="moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString"
+      label="moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString"
+      readOnly={true}
+      value="HostName=hostName;DeviceId=newdevice;ModuleId=moduleId;SharedAccessKey=key2"
+    />
+    <Component
+      activeAzureResourceHostName="hostName"
+      moduleIdentity={
+        Object {
+          "authentication": Object {
+            "symmetricKey": Object {
+              "primaryKey": "key1",
+              "secondaryKey": "key2",
+            },
+            "type": "sas",
+            "x509Thumbprint": null,
+          },
+          "deviceId": "deviceId",
+          "moduleId": "moduleId",
+        }
+      }
+    />
+  </div>
+</Fragment>
+`;
+
+exports[`ModuleIdentityDetail snapshot matches snapshot after self signed module identity is fetched 1`] = `
+<Fragment>
+  <StyledCommandBarBase
+    className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.back",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "moduleIdentity.detail.command.back",
+          "onClick": [Function],
+        },
+      ]
+    }
+    items={
+      Array [
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.refresh",
+          "disabled": false,
+          "iconProps": Object {
+            "iconName": "Refresh",
+          },
+          "key": "Refresh",
+          "name": "moduleIdentity.detail.command.refresh",
+          "onClick": [Function],
+        },
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.delete",
+          "disabled": false,
+          "iconProps": Object {
+            "iconName": "Delete",
+          },
+          "key": "Delete",
+          "name": "moduleIdentity.detail.command.delete",
+          "onClick": [Function],
+        },
+      ]
+    }
+  />
+  <Component
+    component={[Function]}
+  />
+  <div
+    className="module-identity-detail"
+  >
+    <Component
+      allowMask={false}
+      ariaLabel="moduleIdentity.moduleId"
+      label="moduleIdentity.moduleId"
+      labelCallout="moduleIdentity.moduleIdTooltip"
+      readOnly={true}
+      value="moduleId"
+    />
+    <StyledLabelBase>
+      moduleIdentity.authenticationType.selfSigned.text
+    </StyledLabelBase>
+    <Component
+      allowMask={true}
+      ariaLabel="moduleIdentity.authenticationType.selfSigned.primaryThumbprint"
+      label="moduleIdentity.authenticationType.selfSigned.primaryThumbprint"
+      labelCallout="moduleIdentity.authenticationType.selfSigned.primaryThumbprintTooltip"
+      readOnly={true}
+      value="thumbprint1"
+    />
+    <Component
+      allowMask={true}
+      ariaLabel="moduleIdentity.authenticationType.selfSigned.secondaryThumbprint"
+      label="moduleIdentity.authenticationType.selfSigned.secondaryThumbprint"
+      labelCallout="moduleIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip"
+      readOnly={true}
+      value="thumbprint2"
+    />
+  </div>
+</Fragment>
+`;
+
+exports[`ModuleIdentityDetail snapshot matches snapshot while loading 1`] = `
+<Fragment>
+  <StyledCommandBarBase
+    className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.back",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "moduleIdentity.detail.command.back",
+          "onClick": [Function],
+        },
+      ]
+    }
+    items={
+      Array [
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.refresh",
+          "disabled": true,
+          "iconProps": Object {
+            "iconName": "Refresh",
+          },
+          "key": "Refresh",
+          "name": "moduleIdentity.detail.command.refresh",
+          "onClick": [Function],
+        },
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.delete",
+          "disabled": true,
+          "iconProps": Object {
+            "iconName": "Delete",
+          },
+          "key": "Delete",
+          "name": "moduleIdentity.detail.command.delete",
+          "onClick": [Function],
+        },
+      ]
+    }
+  />
+  <Component
+    component={[Function]}
+  />
+  <div
+    className="module-identity-detail"
+  >
+    <Component
+      allowMask={false}
+      ariaLabel="moduleIdentity.moduleId"
+      label="moduleIdentity.moduleId"
+      labelCallout="moduleIdentity.moduleIdTooltip"
+      readOnly={true}
+      value="moduleId"
+    />
+    <Component />
+  </div>
+</Fragment>
+`;

@@ -7,16 +7,9 @@ import { Route, useLocation, useRouteMatch } from 'react-router-dom';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import DeviceIdentityContainer from './deviceIdentity/deviceIdentityContainer';
 import { DeviceTwin } from '../deviceTwin/components/deviceTwin';
-<<<<<<< HEAD
 import { DeviceEvents } from '../deviceEvents/components/deviceEvents';
 import { DirectMethod } from '../directMethod/components/directMethod';
-import CloudToDeviceMessageContainer from './cloudToDeviceMessage/cloudToDeviceMessageContainer';
-=======
-import DeviceEventsContainer from './deviceEvents/deviceEventsContainer';
-import DirectMethodContainer from './directMethod/directMethodContainer';
 import { CloudToDeviceMessage } from '../cloudToDeviceMessage/components/cloudToDeviceMessage';
->>>>>>> reduxless cloud to device message
-import { ModuleIdentityRoutes } from '../../module/components/moduleIdentity/moduleIdentityContent';
 import { DeviceContentNavComponent } from './deviceContentNav';
 import { DigitalTwinContent } from './digitalTwin/digitalTwinContent';
 import { DigitalTwinInterfacesContainer } from './digitalTwin/digitalTwinInterfaces';
@@ -29,6 +22,10 @@ import { SynchronizationWrapper } from '../../../api/models/synchronizationWrapp
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import MultiLineShimmer from '../../../shared/components/multiLineShimmer';
 import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
+import { ModuleIdentityTwin } from '../../module/moduleIdentityTwin/components/moduleIdentityTwin';
+import { AddModuleIdentity } from '../../module/addModuleIdentity/components/addModuleIdentity';
+import { ModuleIdentityList } from '../../module/moduleIdentityList/components/moduleIdentityList';
+import { ModuleIdentityDetail } from '../../module/moduleIndentityDetail/components/moduleIdentityDetail';
 import '../../../css/_deviceContent.scss';
 import '../../../css/_layouts.scss';
 
@@ -81,22 +78,21 @@ export const DeviceContentComponent: React.FC<DeviceContentProps> = (props: Devi
     };
 
     const renderDeviceContentDetail = () => {
+        const currentRoutePath = `/${ROUTE_PARTS.RESOURCE}/:hostName/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DEVICE_DETAIL}`;
         return (
             <div className={'device-content-detail' + (!appMenuVisible ? ' collapsed' : '')}>
-                <Route path={`${url}/${ROUTE_PARTS.IDENTITY}`} component={DeviceIdentityContainer} />
-                <Route path={`${url}/${ROUTE_PARTS.TWIN}`} component={DeviceTwin} />
-<<<<<<< HEAD
-                <Route path={`${url}/${ROUTE_PARTS.EVENTS}`} component={DeviceEvents}/>
-                <Route path={`${url}/${ROUTE_PARTS.METHODS}`} component={DirectMethod} />
-                <Route path={`${url}/${ROUTE_PARTS.CLOUD_TO_DEVICE_MESSAGE}`} component={CloudToDeviceMessageContainer} />
-=======
-                <Route path={`${url}/${ROUTE_PARTS.EVENTS}`} component={DeviceEventsContainer}/>
-                <Route path={`${url}/${ROUTE_PARTS.METHODS}`} component={DirectMethodContainer} />
-                <Route path={`${url}/${ROUTE_PARTS.CLOUD_TO_DEVICE_MESSAGE}`} component={CloudToDeviceMessage} />
->>>>>>> reduxless cloud to device message
-                <Route path={`${url}/${ROUTE_PARTS.MODULE_IDENTITY}`} component={ModuleIdentityRoutes} />
-                <Route exact={true} path={`${url}/${ROUTE_PARTS.DIGITAL_TWINS}`} component={DigitalTwinInterfacesContainer} />
-                <Route path={`${url}/${ROUTE_PARTS.DIGITAL_TWINS}/${ROUTE_PARTS.DIGITAL_TWINS_DETAIL}`} component={DigitalTwinContent}/>
+                <Route path={`${currentRoutePath}/${ROUTE_PARTS.IDENTITY}`} component={DeviceIdentityContainer} />
+                <Route path={`${currentRoutePath}/${ROUTE_PARTS.TWIN}`} component={DeviceTwin} />
+                <Route path={`${currentRoutePath}/${ROUTE_PARTS.EVENTS}`} component={DeviceEvents}/>
+                <Route path={`${currentRoutePath}/${ROUTE_PARTS.METHODS}`} component={DirectMethod} />
+                <Route path={`${currentRoutePath}/${ROUTE_PARTS.CLOUD_TO_DEVICE_MESSAGE}`} component={CloudToDeviceMessage} />
+                <Route exact={true} path={`${currentRoutePath}/${ROUTE_PARTS.DIGITAL_TWINS}`} component={DigitalTwinInterfacesContainer} />
+                <Route path={`${currentRoutePath}/${ROUTE_PARTS.DIGITAL_TWINS}/${ROUTE_PARTS.DIGITAL_TWINS_DETAIL}`} component={DigitalTwinContent}/>
+                {/* module Routes */}
+                <Route exact={true} path={`${currentRoutePath}/${ROUTE_PARTS.MODULE_IDENTITY}`} component={ModuleIdentityList}/>
+                <Route exact={true} path={`${currentRoutePath}/${ROUTE_PARTS.MODULE_IDENTITY}/${ROUTE_PARTS.ADD}`} component={AddModuleIdentity}/>
+                <Route exact={true} path={`${currentRoutePath}/${ROUTE_PARTS.MODULE_IDENTITY}/${ROUTE_PARTS.MODULE_DETAIL}`} component={ModuleIdentityDetail}/>
+                <Route exact={true} path={`${currentRoutePath}/${ROUTE_PARTS.MODULE_IDENTITY}/${ROUTE_PARTS.MODULE_TWIN}`} component={ModuleIdentityTwin}/>
             </div>
         );
     };

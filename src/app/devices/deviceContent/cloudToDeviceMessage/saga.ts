@@ -5,14 +5,13 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
 import { cloudToDeviceMessageAction, CloudToDeviceMessageActionParameters } from './actions';
-import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { cloudToDeviceMessage } from '../../../api/services/devicesService';
 import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { CloudToDeviceMessageParameters } from '../../../api/parameters/deviceParameters';
 
-export function* cloudToDeviceMessageSaga(action: Action<CloudToDeviceMessageActionParameters>) {
+export function* cloudToDeviceMessageSagaWorker(action: Action<CloudToDeviceMessageActionParameters>) {
     const toastId: number = Math.random();
 
     try {
@@ -64,6 +63,6 @@ export function* cloudToDeviceMessageSaga(action: Action<CloudToDeviceMessageAct
     }
 }
 
-export function* cloudToDeviceMessageSagaWatcher() {
-    yield takeEvery(cloudToDeviceMessageAction.started.type, cloudToDeviceMessageSaga);
+export function* cloudToDeviceMessageSaga() {
+    yield takeEvery(cloudToDeviceMessageAction.started.type, cloudToDeviceMessageSagaWorker);
 }

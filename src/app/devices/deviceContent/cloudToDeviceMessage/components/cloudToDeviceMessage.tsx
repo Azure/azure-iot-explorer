@@ -26,7 +26,7 @@ import { MEDIUM_COLUMN_WIDTH } from '../../../../constants/columnWidth';
 import { HeaderView } from '../../../../shared/components/headerView';
 import { useAsyncSagaReducer } from '../../../../shared/hooks/useAsyncSagaReducer';
 import '../../../../css/_deviceDetail.scss';
-import { cloudToDeviceMessageSagaWatcher } from '../saga';
+import { cloudToDeviceMessageSaga } from '../saga';
 
 interface PropertyItem {
     isSystemProperty: boolean;
@@ -56,7 +56,7 @@ export const CloudToDeviceMessage: React.FC = () => {
     const { t } = useLocalizationContext();
     const { search } = useLocation();
 
-    const [ , dispatch ] = useAsyncSagaReducer(() => undefined, cloudToDeviceMessageSagaWatcher, undefined);
+    const [ , dispatch ] = useAsyncSagaReducer(() => undefined, cloudToDeviceMessageSaga, undefined);
     const [ properties, setProperties ] = React.useState([{index: 0, keyName: '', isSystemProperty: false, value: ''}]);
     const [ addTimestamp, setAddTimestamp ] = React.useState<boolean>(false);
     const [ body, setBody ] = React.useState<string>('');
