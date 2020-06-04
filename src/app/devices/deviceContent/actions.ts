@@ -15,7 +15,6 @@ const cloudToDeviceMessageAction = deviceContentCreator.async<CloudToDeviceMessa
 const getDeviceIdentityAction = deviceContentCreator.async<string, DeviceIdentity> (actionTypes.GET_DEVICE_IDENTITY);
 const getDigitalTwinAction = deviceContentCreator.async<string, object>(actionTypes.GET_DIGITAL_TWIN);
 const getModelDefinitionAction = deviceContentCreator.async<GetModelDefinitionActionParameters, ModelDefinitionWithSource>(actionTypes.FETCH_MODEL_DEFINITION);
-const invokeDirectMethodAction = deviceContentCreator.async<InvokeMethodActionParameters, string>(actionTypes.INVOKE_DEVICE_METHOD);
 const invokeDigitalTwinInterfaceCommandAction = deviceContentCreator.async<InvokeDigitalTwinInterfaceCommandActionParameters, string>(actionTypes.INVOKE_DIGITAL_TWIN_INTERFACE_COMMAND);
 const patchDigitalTwinAction = deviceContentCreator.async<PatchDigitalTwinActionParameters, object>(actionTypes.PATCH_DIGITAL_TWIN);
 const setComponentNameAction = deviceContentCreator<string>(actionTypes.SET_COMPONENT_NAME);
@@ -27,7 +26,6 @@ export {
     getDeviceIdentityAction,
     getDigitalTwinAction,
     getModelDefinitionAction,
-    invokeDirectMethodAction,
     invokeDigitalTwinInterfaceCommandAction,
     patchDigitalTwinAction,
     setComponentNameAction,
@@ -50,14 +48,6 @@ export interface InvokeDigitalTwinInterfaceCommandActionParameters {
     commandName: string;
     commandPayload: boolean | number | string | object;
     propertyKey?: string;
-}
-
-export interface InvokeMethodActionParameters {
-    connectTimeoutInSeconds: number;
-    deviceId: string;
-    methodName: string;
-    payload?: object;
-    responseTimeoutInSeconds: number;
 }
 
 export interface GetModelDefinitionActionParameters {

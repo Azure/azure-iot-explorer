@@ -5,7 +5,8 @@
 import { Twin } from '../models/device';
 import { DeviceIdentity } from '../models/deviceIdentity';
 import DeviceQuery from '../models/deviceQuery';
-import { CloudToDeviceMessageActionParameters, InvokeMethodActionParameters } from '../../devices/deviceContent/actions';
+import { CloudToDeviceMessageActionParameters } from '../../devices/deviceContent/actions';
+import { InvokeMethodActionParameters } from '../../devices/deviceContent/directMethod/actions';
 
 export interface DataPlaneParameters {
     connectionString?: string;
@@ -31,7 +32,7 @@ export interface FetchDevicesParameters extends DataPlaneParameters {
     query?: DeviceQuery;
 }
 
-export interface MonitorEventsParameters {
+export interface MonitorEventsParameters extends DataPlaneParameters {
     deviceId: string;
     consumerGroup: string;
 
