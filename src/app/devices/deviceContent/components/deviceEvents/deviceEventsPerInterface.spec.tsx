@@ -11,7 +11,6 @@ import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { DeviceEventsPerInterfaceComponent, DeviceEventsDataProps, DeviceEventsDispatchProps, TelemetrySchema, DeviceEventsState } from './deviceEventsPerInterface';
-import { mountWithStoreAndRouter } from '../../../../shared/utils/testHelpers';
 import { InterfaceNotFoundMessageBar } from '../shared/interfaceNotFoundMessageBar';
 import ErrorBoundary from '../../../errorBoundary';
 import { appConfig, HostMode } from '../../../../../appConfig/appConfig';

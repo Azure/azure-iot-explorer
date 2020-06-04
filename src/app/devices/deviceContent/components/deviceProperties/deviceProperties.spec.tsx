@@ -10,7 +10,6 @@ import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
 import { DeviceProperties, DevicePropertiesDataProps , DevicePropertiesDispatchProps } from './deviceProperties';
 import { TwinWithSchema } from './devicePropertiesPerInterface';
-import { mountWithStoreAndRouter } from '../../../../shared/utils/testHelpers';
 import { InterfaceNotFoundMessageBar } from '../shared/interfaceNotFoundMessageBar';
 
 const interfaceId = 'urn:contoso:com:EnvironmentalSensor:1';

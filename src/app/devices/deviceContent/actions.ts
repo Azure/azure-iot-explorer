@@ -11,7 +11,6 @@ import { PatchPayload } from '../../api/parameters/deviceParameters';
 
 const deviceContentCreator = actionCreatorFactory(actionPrefixes.DEVICECONTENT);
 const clearModelDefinitionsAction = deviceContentCreator(actionTypes.CLEAR_MODEL_DEFINITIONS);
-const cloudToDeviceMessageAction = deviceContentCreator.async<CloudToDeviceMessageActionParameters, string>(actionTypes.CLOUD_TO_DEVICE_MESSAGE);
 const getDeviceIdentityAction = deviceContentCreator.async<string, DeviceIdentity> (actionTypes.GET_DEVICE_IDENTITY);
 const getDigitalTwinAction = deviceContentCreator.async<string, object>(actionTypes.GET_DIGITAL_TWIN);
 const getModelDefinitionAction = deviceContentCreator.async<GetModelDefinitionActionParameters, ModelDefinitionWithSource>(actionTypes.FETCH_MODEL_DEFINITION);
@@ -22,7 +21,6 @@ const updateDeviceIdentityAction = deviceContentCreator.async<DeviceIdentity, De
 
 export {
     clearModelDefinitionsAction,
-    cloudToDeviceMessageAction,
     getDeviceIdentityAction,
     getDigitalTwinAction,
     getModelDefinitionAction,
@@ -31,12 +29,6 @@ export {
     setComponentNameAction,
     updateDeviceIdentityAction
 };
-
-export interface CloudToDeviceMessageActionParameters {
-    deviceId: string;
-    body: string;
-    properties?: Array<{key: string, value: string, isSystemProperty: boolean}>;
-}
 
 export interface PatchDigitalTwinActionParameters {
     digitalTwinId: string;

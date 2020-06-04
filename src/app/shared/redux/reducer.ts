@@ -8,7 +8,6 @@ import connectionStringsStateReducer from '../../connectionStrings/reducer';
 import deviceContentStateReducer from '../../devices/deviceContent/reducer';
 import iotHubStateReducer from '../../iotHub/reducer';
 import notificationsStateReducer from '../../notifications/reducer';
-import moduleStateReducer from '../../devices/module/reducer';
 import modelRepositoryStateReducer from '../../modelRepository/reducer';
 
 const reducer = combineReducers({
@@ -17,7 +16,6 @@ const reducer = combineReducers({
     deviceContentState: deviceContentStateReducer,
     iotHubState: iotHubStateReducer,
     modelRepositoryState: modelRepositoryStateReducer,
-    moduleState: moduleStateReducer,
     notificationsState: notificationsStateReducer
 });
 
