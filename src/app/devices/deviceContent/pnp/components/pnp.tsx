@@ -17,7 +17,7 @@ import { pnpSaga } from '../saga';
 import { pnpStateInitial } from '../state';
 import { getRepositoryLocationSettingsSelector, getLocalFolderPathSelector } from '../../../../modelRepository/selectors';
 import { RepositoryLocationSettings } from '../../../../modelRepository/state';
-import { DigitalTwinInterfacesList } from './digitalTwinInterfacesList';
+import { DigitalTwinInterfacesList, defaultComponentKey } from './digitalTwinInterfacesList';
 import '../../../../css/_digitalTwinInterfaces.scss';
 
 // tslint:disable-next-line: cyclomatic-complexity
@@ -33,7 +33,7 @@ export const Pnp: React.FC = () => {
     const digitalTwin = pnpState.digitalTwin.payload as any; // tslint:disable-line: no-any
     const modelId = digitalTwin &&  digitalTwin.$metadata && digitalTwin.$metadata.$model;
 
-    const interfaceIdModified = React.useMemo(() => !interfaceId || interfaceId === '$Default' ? modelId : interfaceId, [modelId, interfaceId]);
+    const interfaceIdModified = React.useMemo(() => !interfaceId || interfaceId === defaultComponentKey ? modelId : interfaceId, [modelId, interfaceId]);
     const getModelDefinition = () => dispatch(getModelDefinitionAction.started({digitalTwinId: deviceId, interfaceId: interfaceIdModified, locations, localFolderPath}));
 
     React.useEffect(() => {

@@ -29,7 +29,7 @@ import { ModelDefinition } from '../../../../api/models/modelDefinition';
 import { ComponentAndInterfaceId, JsonSchemaAdaptor } from '../../../../shared/utils/jsonSchemaAdaptor';
 import '../../../../css/_digitalTwinInterfaces.scss';
 
-const defaultComponentKey = '$default';
+export const defaultComponentKey = '$default';
 interface ModelContent {
     link: string;
     componentName: string;
