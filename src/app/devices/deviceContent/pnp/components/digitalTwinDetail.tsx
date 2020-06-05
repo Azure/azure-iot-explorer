@@ -16,16 +16,22 @@ import { DeviceInterfaces } from './deviceInterfaces/deviceInterfaces';
 import { DeviceEventsPerInterface } from './deviceEvents/deviceEventsPerInterface';
 import '../../../../css/_pivotHeader.scss';
 import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString, getComponentNameFromQueryString } from '../../../../shared/utils/queryStringHelper';
+import { usePnpStateContext } from '../pnpStateContext';
 
 export const DigitalTwinDetail: React.FC = () => {
     const { t } = useLocalizationContext();
     const { search, pathname } = useLocation();
     const { url } = useRouteMatch();
+    const { pnpState, dispatch, getModelDefinition } = usePnpStateContext();
     const deviceId = getDeviceIdFromQueryString(search);
     const interfaceId = getInterfaceIdFromQueryString(search);
     const componentName = getComponentNameFromQueryString(search);
 
     const NAV_LINK_ITEMS_PNP = [ROUTE_PARTS.INTERFACES, ROUTE_PARTS.PROPERTIES, ROUTE_PARTS.SETTINGS, ROUTE_PARTS.COMMANDS, ROUTE_PARTS.EVENTS];
+
+    React.useEffect(() => {
+        getModelDefinition();
+    },              []);
 
     const pivotItems = NAV_LINK_ITEMS_PNP.map(nav =>  {
         const text = t((ResourceKeys.deviceContent.navBar as any)[nav]); // tslint:disable-line:no-any

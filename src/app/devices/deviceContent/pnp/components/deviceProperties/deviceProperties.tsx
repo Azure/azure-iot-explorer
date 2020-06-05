@@ -24,7 +24,6 @@ export const DeviceProperties: React.FC = () => {
     const history = useHistory();
     const componentName = getComponentNameFromQueryString(search);
     const deviceId = getDeviceIdFromQueryString(search);
-    const interfaceId = getInterfaceIdFromQueryString(search);
 
     const { pnpState, dispatch, getModelDefinition } = usePnpStateContext();
     const isLoading = pnpState.digitalTwin.synchronizationStatus === SynchronizationStatus.working ||

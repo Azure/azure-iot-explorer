@@ -28,12 +28,6 @@ export interface TwinWithSchema {
     reportedTwin: boolean | string | number | object;
 }
 
-export interface DevicePropertiesState {
-    showOverlay: boolean;
-    showReportedValuePanel: boolean;
-    selectedItem?: TwinWithSchema;
-}
-
 export const DevicePropertiesPerInterface: React.FC<DevicePropertiesDataProps> = (props: DevicePropertiesDataProps) => {
     const { t } = useLocalizationContext();
     const [ showOverlay, setShowOverlay ] = React.useState<boolean>(false);

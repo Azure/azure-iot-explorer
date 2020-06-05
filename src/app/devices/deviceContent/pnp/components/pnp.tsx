@@ -6,7 +6,7 @@ import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation, useRouteMatch, Route } from 'react-router-dom';
 import { ROUTE_PARTS } from '../../../../constants/routes';
-import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
+import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
 import { getDigitalTwinAction, getModelDefinitionAction } from '../actions';
 import { PnpStateContextProvider } from '../pnpStateContext';
@@ -28,23 +28,21 @@ export const Pnp: React.FC = () => {
     const { t } = useLocalizationContext();
     const locations: RepositoryLocationSettings[] = useSelector(getRepositoryLocationSettingsSelector);
     const localFolderPath: string = useSelector(getLocalFolderPathSelector);
-
+    const interfaceId = getInterfaceIdFromQueryString(search);
     const [ pnpState, dispatch ] = useAsyncSagaReducer(pnpReducer, pnpSaga, pnpStateInitial());
     const digitalTwin = pnpState.digitalTwin.payload as any; // tslint:disable-line: no-any
     const modelId = digitalTwin &&  digitalTwin.$metadata && digitalTwin.$metadata.$model;
+
+    const interfaceIdModified = React.useMemo(() => !interfaceId || interfaceId === '$Default' ? modelId : interfaceId, [modelId, interfaceId]);
+    const getModelDefinition = () => dispatch(getModelDefinitionAction.started({digitalTwinId: deviceId, interfaceId: interfaceIdModified, locations, localFolderPath}));
 
     React.useEffect(() => {
         dispatch(getDigitalTwinAction.started(deviceId));
     },              []);
 
     React.useEffect(() => {
-        if (!modelId) {
-            return;
-        }
         getModelDefinition();
-    },              [modelId]);
-
-    const getModelDefinition = () => dispatch(getModelDefinitionAction.started({digitalTwinId: deviceId, interfaceId: modelId, locations, localFolderPath}));
+    },              [interfaceIdModified]);
 
     return (
         <PnpStateContextProvider value={{ pnpState, dispatch, getModelDefinition }}>

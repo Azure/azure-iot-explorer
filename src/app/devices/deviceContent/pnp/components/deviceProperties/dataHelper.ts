@@ -4,7 +4,7 @@ import { TwinWithSchema } from './devicePropertiesPerInterface';
 
 // tslint:disable-next-line: no-any
 export const getDevicePropertyProps = (model: ModelDefinition, digitalTwinForSpecificComponent: any): TwinWithSchema[] => {
-    if (model) {
+    if (!model) {
         return [];
     }
     const jsonSchemaAdaptor = new JsonSchemaAdaptor(model);
