@@ -11,6 +11,8 @@ stages:
       steps:
       - template: .\build-and-test-template.yml
     - job: scan
+      pool:
+        vmImage: 'vs2017-win2016'
       steps:
       - task: ea576cd4-c61f-48f8-97e7-a3cb07b90a6f@2
         inputs:
