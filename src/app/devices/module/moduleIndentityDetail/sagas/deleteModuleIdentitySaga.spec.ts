@@ -11,10 +11,9 @@ import { deleteModuleIdentityAction } from '../actions';
 import * as ModuleService from '../../../../api/services/moduleService';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { NotificationType } from '../../../../api/models/notification';
-import { ModuleIdentity } from '../../../../api/models/moduleIdentity';
 import { raiseNotificationToast } from '../../../../notifications/components/notificationToast';
 
-describe('moduleIdentitySaga', () => {
+describe('deleteModuleIdentitySaga', () => {
     let deleteModuleIdentitySagaGenerator: SagaIteratorClone;
     const deviceId = 'testDevice';
     const moduleId = 'testModule';
