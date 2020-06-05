@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Route, useLocation, useRouteMatch } from 'react-router-dom';
+import { Route, useLocation } from 'react-router-dom';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import DeviceIdentityContainer from './deviceIdentity/deviceIdentityContainer';
 import { DeviceTwin } from '../deviceTwin/components/deviceTwin';
@@ -11,8 +11,6 @@ import { DeviceEvents } from '../deviceEvents/components/deviceEvents';
 import { DirectMethod } from '../directMethod/components/directMethod';
 import { CloudToDeviceMessage } from '../cloudToDeviceMessage/components/cloudToDeviceMessage';
 import { DeviceContentNavComponent } from './deviceContentNav';
-import { DigitalTwinContent } from './digitalTwin/digitalTwinContent';
-import { DigitalTwinInterfacesContainer } from './digitalTwin/digitalTwinInterfaces';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { useLocalizationContext } from '../../../shared/contexts/localizationContext';
 import { NAV } from '../../../constants/iconNames';
@@ -26,33 +24,29 @@ import { ModuleIdentityTwin } from '../../module/moduleIdentityTwin/components/m
 import { AddModuleIdentity } from '../../module/addModuleIdentity/components/addModuleIdentity';
 import { ModuleIdentityList } from '../../module/moduleIdentityList/components/moduleIdentityList';
 import { ModuleIdentityDetail } from '../../module/moduleIndentityDetail/components/moduleIdentityDetail';
+import { Pnp } from '../pnp/components/pnp';
 import '../../../css/_deviceContent.scss';
 import '../../../css/_layouts.scss';
 
 export interface DeviceContentDataProps {
     isLoading: boolean;
-    digitalTwinModelId: string;
     identityWrapper: SynchronizationWrapper<DeviceIdentity>;
 }
 
 export interface DeviceContentDispatchProps {
-    setComponentName: (componentName: string) => void;
-    getDigitalTwin: (deviceId: string) => void;
     getDeviceIdentity: (deviceId: string) => void;
 }
 
 export type DeviceContentProps = DeviceContentDataProps & DeviceContentDispatchProps;
 
 export const DeviceContentComponent: React.FC<DeviceContentProps> = (props: DeviceContentProps) => {
-    const { identityWrapper, getDeviceIdentity, getDigitalTwin } = props;
+    const { identityWrapper, getDeviceIdentity } = props;
     const { t } = useLocalizationContext();
-    const { url } = useRouteMatch();
     const { search } = useLocation();
     const deviceId = getDeviceIdFromQueryString(search);
     const [ appMenuVisible, setAppMenuVisible ] = React.useState(true);
 
     React.useEffect(() => {
-        getDigitalTwin(deviceId);
         getDeviceIdentity(deviceId);
     },              [deviceId]);
 
@@ -86,8 +80,7 @@ export const DeviceContentComponent: React.FC<DeviceContentProps> = (props: Devi
                 <Route path={`${currentRoutePath}/${ROUTE_PARTS.EVENTS}`} component={DeviceEvents}/>
                 <Route path={`${currentRoutePath}/${ROUTE_PARTS.METHODS}`} component={DirectMethod} />
                 <Route path={`${currentRoutePath}/${ROUTE_PARTS.CLOUD_TO_DEVICE_MESSAGE}`} component={CloudToDeviceMessage} />
-                <Route exact={true} path={`${currentRoutePath}/${ROUTE_PARTS.DIGITAL_TWINS}`} component={DigitalTwinInterfacesContainer} />
-                <Route path={`${currentRoutePath}/${ROUTE_PARTS.DIGITAL_TWINS}/${ROUTE_PARTS.DIGITAL_TWINS_DETAIL}`} component={DigitalTwinContent}/>
+                <Route path={`${currentRoutePath}/${ROUTE_PARTS.DIGITAL_TWINS}`} component={Pnp} />
                 {/* module Routes */}
                 <Route exact={true} path={`${currentRoutePath}/${ROUTE_PARTS.MODULE_IDENTITY}`} component={ModuleIdentityList}/>
                 <Route exact={true} path={`${currentRoutePath}/${ROUTE_PARTS.MODULE_IDENTITY}/${ROUTE_PARTS.ADD}`} component={AddModuleIdentity}/>

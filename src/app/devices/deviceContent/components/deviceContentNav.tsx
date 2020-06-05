@@ -13,22 +13,17 @@ import '../../../css/_deviceContentNav.scss';
 
 export interface DeviceContentNavDataProps {
     isLoading: boolean;
-    digitalTwinModelId: string;
     isEdgeDevice: boolean;
-}
-
-export interface DeviceContentNavDispatchProps {
-    setComponentName: (interfaceId: string) => void;
 }
 
 export const NAV_LINK_ITEMS = [ROUTE_PARTS.IDENTITY, ROUTE_PARTS.TWIN, ROUTE_PARTS.EVENTS, ROUTE_PARTS.METHODS, ROUTE_PARTS.CLOUD_TO_DEVICE_MESSAGE];
 export const NAV_LINK_ITEMS_NONEDGE = [...NAV_LINK_ITEMS, ROUTE_PARTS.MODULE_IDENTITY];
 export const NAV_LINK_ITEM_PNP = ROUTE_PARTS.DIGITAL_TWINS;
 
-export type DeviceContentNavProps = DeviceContentNavDataProps & DeviceContentNavDispatchProps;
+export type DeviceContentNavProps = DeviceContentNavDataProps;
 export const DeviceContentNavComponent: React.FC<DeviceContentNavProps> =  (props: DeviceContentNavProps) => {
     const { t } = useLocalizationContext();
-    const { digitalTwinModelId, isEdgeDevice } = props;
+    const { isEdgeDevice } = props;
     const {  search } = useLocation();
     const { url } = useRouteMatch();
     const deviceId = getDeviceIdFromQueryString(search);
@@ -40,7 +35,7 @@ export const DeviceContentNavComponent: React.FC<DeviceContentNavProps> =  (prop
         url: `#${url}/${nav}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`
     }));
 
-    if (!isEdgeDevice && digitalTwinModelId) {
+    if (!isEdgeDevice) {
         navLinks.push({
             key: NAV_LINK_ITEM_PNP,
             name: t((ResourceKeys.deviceContent.navBar as any)[NAV_LINK_ITEM_PNP]), // tslint:disable-line:no-any

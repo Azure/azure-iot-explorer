@@ -1,0 +1,154 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/devices/deviceSettings matches snapshot with one twinWithSchema 1`] = `
+<Fragment>
+  <StyledCommandBarBase
+    className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "deviceSettings.command.close",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "deviceSettings.command.close",
+          "onClick": [Function],
+        },
+      ]
+    }
+    items={
+      Array [
+        Object {
+          "ariaLabel": "deviceSettings.command.refresh",
+          "iconProps": Object {
+            "iconName": "Refresh",
+          },
+          "key": "Refresh",
+          "name": "deviceSettings.command.refresh",
+          "onClick": [Function],
+        },
+      ]
+    }
+  />
+  <StyledLabelBase
+    className="no-pnp-content"
+  >
+    deviceSettings.noSettings
+  </StyledLabelBase>
+</Fragment>
+`;
+
+exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
+<div
+  className="pnp-detail-list scrollable-lg"
+>
+  <div
+    className="list-header flex-grid-row"
+  >
+    <span
+      className="col-sm3"
+    >
+      deviceSettings.columns.name
+    </span>
+    <span
+      className="col-sm2"
+    >
+      deviceSettings.columns.schema
+    </span>
+    <span
+      className="col-sm2"
+    >
+      deviceSettings.columns.unit
+    </span>
+    <span
+      className="col-sm4 reported-value"
+    >
+      <Component
+        tooltipText="deviceSettings.columns.reportedValueTooltip"
+      >
+        deviceSettings.columns.reportedValue
+      </Component>
+    </span>
+    <div
+      className="col-sm1 collapse-button"
+    >
+      <CustomizedIconButton
+        ariaLabel="deviceSettings.command.collapseAll"
+        iconProps={
+          Object {
+            "iconName": "ChevronUp",
+          }
+        }
+        onClick={[Function]}
+        title="deviceSettings.command.collapseAll"
+      />
+    </div>
+  </div>
+  <section
+    className="list-content"
+    role="list"
+  >
+    <Component
+      collapsed={false}
+      componentName="environmentalSensor"
+      deviceId="testDevice"
+      handleCollapseToggle={[Function]}
+      handleOverlayToggle={[Function]}
+      interfaceId="urn:contoso:com:EnvironmentalSensor:1"
+      isComponentContainedInDigitalTwin={true}
+      key="0"
+      metadata={
+        Object {
+          "lastUpdatedTime": "2020-03-31T23:17:42.4813073Z",
+        }
+      }
+      patchDigitalTwin={[MockFunction]}
+      reportedTwin={null}
+      settingModelDefinition={
+        Object {
+          "@type": "Property",
+          "description": "The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)",
+          "displayName": "Brightness Level",
+          "name": "brightness",
+          "schema": "long",
+          "writable": true,
+        }
+      }
+      settingSchema={
+        Object {
+          "description": "Brightness Level / The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)",
+          "required": Array [],
+          "title": "brightness",
+          "type": "number",
+        }
+      }
+      twinWithSchema={
+        Array [
+          Object {
+            "isComponentContainedInDigitalTwin": true,
+            "metadata": Object {
+              "lastUpdatedTime": "2020-03-31T23:17:42.4813073Z",
+            },
+            "reportedTwin": null,
+            "settingModelDefinition": Object {
+              "@type": "Property",
+              "description": "The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)",
+              "displayName": "Brightness Level",
+              "name": "brightness",
+              "schema": "long",
+              "writable": true,
+            },
+            "settingSchema": Object {
+              "description": "Brightness Level / The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)",
+              "required": Array [],
+              "title": "brightness",
+              "type": "number",
+            },
+          },
+        ]
+      }
+    />
+  </section>
+</div>
+`;

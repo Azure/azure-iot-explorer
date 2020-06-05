@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/devices/deviceSettings matches snapshot with one twinWithSchema 1`] = `
+<Fragment>
+  <StyledCommandBarBase
+    className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "deviceSettings.command.close",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "deviceSettings.command.close",
+          "onClick": [Function],
+        },
+      ]
+    }
+    items={
+      Array [
+        Object {
+          "ariaLabel": "deviceSettings.command.refresh",
+          "iconProps": Object {
+            "iconName": "Refresh",
+          },
+          "key": "Refresh",
+          "name": "deviceSettings.command.refresh",
+          "onClick": [Function],
+        },
+      ]
+    }
+  />
+  <StyledLabelBase
+    className="no-pnp-content"
+  >
+    deviceSettings.noSettings
+  </StyledLabelBase>
+</Fragment>
+`;

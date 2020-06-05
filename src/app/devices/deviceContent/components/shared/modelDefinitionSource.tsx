@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { Stack } from 'office-ui-fabric-react/lib/Stack';
 import { ActionButton } from 'office-ui-fabric-react/lib/Button';
 import { Label } from 'office-ui-fabric-react/lib/Label';
@@ -27,15 +27,11 @@ const getModelDefinitionSourceResourceKeys = (source: REPOSITORY_LOCATION_TYPE) 
 
 export const ModelDefinitionSourceView: React.FC<ModelDefinitionSourceViewProps> = props => {
     const { t } = useLocalizationContext();
-    const [redirectToModelRepositories, setRedirectToModelRepositories] = React.useState<boolean>(false);
+    const history = useHistory();
 
     const onConfigureClick = () => {
-        setRedirectToModelRepositories(true);
+        history.push(`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.MODEL_REPOS}?${ROUTE_PARAMS.NAV_FROM}`);
     };
-
-    if (redirectToModelRepositories) {
-        return <Redirect to={`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.MODEL_REPOS}?${ROUTE_PARAMS.NAV_FROM}`} />;
-    }
 
     return (
         <Stack horizontal={true}>
