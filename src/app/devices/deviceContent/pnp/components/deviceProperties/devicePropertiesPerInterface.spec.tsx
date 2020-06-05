@@ -6,7 +6,7 @@ import 'jest';
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 import { Overlay } from 'office-ui-fabric-react/lib/Overlay';
-import { DevicePropertiesPerInterface, DevicePropertiesDataProps, DevicePropertiesState } from './devicePropertiesPerInterface';
+import { DevicePropertiesPerInterface, DevicePropertiesDataProps } from './devicePropertiesPerInterface';
 import { twinWithSchema } from '../deviceSettings/deviceSettings.spec';
 
 describe('devicePropertiesPerInterface', () => {
