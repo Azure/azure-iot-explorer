@@ -9,16 +9,17 @@ import { shallow, mount } from 'enzyme';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import { Overlay } from 'office-ui-fabric-react/lib/Overlay';
 import { DeviceSettingsPerInterface, DeviceSettingDataProps, DeviceSettingDispatchProps } from './deviceSettingsPerInterface';
-import { twinWithSchema } from './deviceSettings.spec';
 import { DeviceSettingsPerInterfacePerSetting } from './deviceSettingsPerInterfacePerSetting';
+import { generateTwinSchemaAndInterfaceTuple } from './dataHelper';
+import { testModelDefinition, testDigitalTwin, testComponentName } from './testData';
 
 describe('components/devices/deviceSettingsPerInterface', () => {
-
+    const twinWithSchema = generateTwinSchemaAndInterfaceTuple(testModelDefinition, testDigitalTwin, testComponentName).twinWithSchema;
     const deviceSettingsProps: DeviceSettingDataProps = {
-        componentName: 'environmentalSensor',
+        componentName: testComponentName,
         deviceId: 'testDevice',
         interfaceId: 'urn:contoso:com:EnvironmentalSensor:1',
-        twinWithSchema: [twinWithSchema]
+        twinWithSchema
     };
 
     const deviceSettingsDispatchProps: DeviceSettingDispatchProps = {
