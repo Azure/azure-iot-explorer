@@ -12,10 +12,10 @@ stages:
       - template: .\build-and-test-template.yml
     - job: scan
       steps:
-        - task: CredScan@3
-          inputs:
-            scanFolder: '$(Build.SourcesDirectory)'
-            outputFormat: sarif
+      - task: CredScan@3
+        inputs:
+          scanFolder: '$(Build.SourcesDirectory)'
+          outputFormat: sarif
 
   - stage: 'package'
     displayName: 'Package for all platforms'
