@@ -12,23 +12,26 @@ import { DeviceIdentityInformation } from './deviceIdentity';
 import { DeviceAuthenticationType } from '../../../../api/models/deviceAuthenticationType';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 
+jest.mock('react-router-dom', () => ({
+    useParams: () => ({ hostName: 'hostName' })
+}));
+
 const mockUpdateDevice = jest.fn();
-const dispatchProps = {
-    getDeviceIdentity: jest.fn(),
+const componentProps = {
+    deviceIdentity: null,
+    synchronizationStatus: SynchronizationStatus.initialized,
     updateDeviceIdentity: mockUpdateDevice
 };
 
 const getComponent = (overrides = {}) => {
-    const activeAzureResourceHostName = 'test-string.azure-devices.net';
     const props = {
-        activeAzureResourceHostName,
         ...overrides,
-        ...dispatchProps
+        ...componentProps
     };
     return <DeviceIdentityInformation {...props} />;
 };
 
-describe('devices/components/deviceIdentity', () => {
+describe('deviceIdentity', () => {
     context('snapshot', () => {
         it('matches snapshot', () => {
             expect(shallow(getComponent())).toMatchSnapshot();
@@ -42,43 +45,37 @@ describe('devices/components/deviceIdentity', () => {
 
         it('matches snapshot with auth type of None', () => {
             expect(shallow(getComponent({
-                identityWrapper: {
-                    payload: {
-                        authentication: {
-                            type: DeviceAuthenticationType.None
-                        },
-                        deviceId: 'device1'
-                    }
+                deviceIdentity: {
+                    authentication: {
+                        type: DeviceAuthenticationType.None
+                    },
+                    deviceId: 'device1'
                 }
             }))).toMatchSnapshot();
         });
 
         it('matches snapshot with SymmetricKey auth type', () => {
             expect(shallow(getComponent({
-                identityWrapper: {
-                    payload: {
-                        authentication: {
-                            symmetricKey: {
-                                primaryKey: 'key'
-                            },
-                            type: DeviceAuthenticationType.SymmetricKey
+                deviceIdentity: {
+                    authentication: {
+                        symmetricKey: {
+                            primaryKey: 'key'
                         },
-                        deviceId: 'device1'
-                    }
+                        type: DeviceAuthenticationType.SymmetricKey
+                    },
+                    deviceId: 'device1'
                 }
             }))).toMatchSnapshot();
         });
 
         it('matches snapshot with SelfSigned auth type', () => {
             expect(shallow(getComponent({
-                identityWrapper: {
-                    payload: {
-                        authentication: {
-                            type: DeviceAuthenticationType.SelfSigned,
-                            x509Thumbprint: {
-                                primaryThumbprint: '123',
-                                secondaryThumbprint: '456'
-                            }
+                deviceIdentity: {
+                    authentication: {
+                        type: DeviceAuthenticationType.SelfSigned,
+                        x509Thumbprint: {
+                            primaryThumbprint: '123',
+                            secondaryThumbprint: '456'
                         }
                     }
                 }
@@ -87,11 +84,9 @@ describe('devices/components/deviceIdentity', () => {
 
         it('matches snapshot with CA auth type', () => {
             expect(shallow(getComponent({
-                identityWrapper: {
-                    payload: {
-                        authentication: {
-                            type: DeviceAuthenticationType.CACertificate
-                        }
+                deviceIdentity: {
+                    authentication: {
+                        type: DeviceAuthenticationType.CACertificate
                     }
                 }
             }))).toMatchSnapshot();
@@ -99,49 +94,43 @@ describe('devices/components/deviceIdentity', () => {
 
         it('matches snapshot with Synchronization Status of working', () => {
             expect(shallow(getComponent({
-                identityWrapper: {
-                    payload: {
-                        authentication: {
-                            symmetricKey: {
-                                primaryKey: 'key'
-                            },
-                            type: DeviceAuthenticationType.SymmetricKey
-                        }
-                    },
-                    synchronizationStatus: SynchronizationStatus.working,
-                }
+                deviceIdentity: {
+                    authentication: {
+                        symmetricKey: {
+                            primaryKey: 'key'
+                        },
+                        type: DeviceAuthenticationType.SymmetricKey
+                    }
+                },
+                synchronizationStatus: SynchronizationStatus.working
             }))).toMatchSnapshot();
         });
 
         it('matches snapshot with Synchronization Status of updating', () => {
             expect(shallow(getComponent({
-                identityWrapper: {
-                    payload: {
-                        authentication: {
-                            symmetricKey: {
-                                primaryKey: 'key'
-                            },
-                            type: DeviceAuthenticationType.SymmetricKey
-                        }
-                    },
-                    synchronizationStatus: SynchronizationStatus.updating,
-                }
+                deviceIdentity: {
+                    authentication: {
+                        symmetricKey: {
+                            primaryKey: 'key'
+                        },
+                        type: DeviceAuthenticationType.SymmetricKey
+                    }
+                },
+                synchronizationStatus: SynchronizationStatus.updating
             }))).toMatchSnapshot();
         });
 
         it('calls save', () => {
             const wrapper = mount(
                 getComponent({
-                    identityWrapper: {
-                        payload: {
-                            authentication: {
-                                symmetricKey: {
-                                    primaryKey: 'key'
-                                },
-                                type: DeviceAuthenticationType.SymmetricKey
+                    deviceIdentity: {
+                        authentication: {
+                            symmetricKey: {
+                                primaryKey: 'key'
                             },
-                            deviceId: 'device1'
-                        }
+                            type: DeviceAuthenticationType.SymmetricKey
+                        },
+                        deviceId: 'device1'
                     }
                 })
             );

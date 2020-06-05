@@ -13,7 +13,6 @@ import {
     getModelDefinitionWithSourceSelector,
     getComponentNameAndInterfaceIdArraySelector,
     getModelDefinitionSelector,
-    getDeviceIdentityWrapperSelector,
     getModelDefinitionSyncStatusSelector,
     defaultComponentKey
 } from './selectors';
@@ -92,11 +91,6 @@ describe('selector', () => {
     /* tslint:enable */
     state.deviceContentState = Record({
         componentNameSelected: 'environmentalsensor',
-        deviceIdentity: {
-            payload: deviceIdentity,
-            synchronizationStatus: SynchronizationStatus.fetched
-        },
-        deviceTwin: null,
         digitalTwin: {
             payload: digitalTwin,
             synchronizationStatus: SynchronizationStatus.fetched
@@ -110,16 +104,6 @@ describe('selector', () => {
             synchronizationStatus: SynchronizationStatus.fetched
         }
     })();
-
-    describe('device identity sync wrapper', () => {
-
-        it('returns DeviceIdentityWrapper', () => {
-            expect(getDeviceIdentityWrapperSelector(state)).toEqual({
-                payload: deviceIdentity,
-                synchronizationStatus: SynchronizationStatus.fetched
-            });
-        });
-    });
 
     describe('get model definition related selectors', () => {
         it('returns componentName', () => {

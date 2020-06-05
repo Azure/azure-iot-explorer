@@ -6,29 +6,20 @@ import 'jest';
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 import { Nav } from 'office-ui-fabric-react/lib/Nav';
-import { DeviceContentNavComponent, DeviceContentNavDataProps, DeviceContentNavDispatchProps, NAV_LINK_ITEMS, NAV_LINK_ITEMS_NONEDGE, NAV_LINK_ITEM_PNP } from './deviceContentNav';
+import { DeviceContentNavComponent, DeviceContentNavDataProps, NAV_LINK_ITEMS, NAV_LINK_ITEMS_NONEDGE } from './deviceContentNav';
 
 jest.mock('react-router-dom', () => ({
     useLocation: () => ({ search: '?deviceId=test' }),
     useRouteMatch: () => ({ url: '' })
 }));
 
-describe('components/devices/deviceContentNav', () => {
-
-    const setComponentName = jest.fn();
+describe('deviceContentNav', () => {
     const getComponent = (overrides = {}) => {
         const navDataProps: DeviceContentNavDataProps = {
-            digitalTwinModelId: '',
-            isEdgeDevice: true,
-            isLoading: false,
-        };
-
-        const navDispatchProps: DeviceContentNavDispatchProps = {
-            setComponentName
+            isEdgeDevice: true
         };
 
         const props = {
-            ...navDispatchProps,
             ...navDataProps,
             ...overrides,
         };
@@ -36,7 +27,7 @@ describe('components/devices/deviceContentNav', () => {
         return <DeviceContentNavComponent {...props} />;
     };
 
-    it('matches snapshot when there device is not pnp', () => {
+    it('matches snapshot when there device is edge', () => {
         expect(shallow(getComponent())).toMatchSnapshot();
         const wrapper = mount(getComponent());
         const navigation = wrapper.find(Nav);
@@ -50,17 +41,10 @@ describe('components/devices/deviceContentNav', () => {
         expect(navigation.props().groups[0].links.length).toEqual(NAV_LINK_ITEMS.length);
     });
 
-    it('shows non-pnp non-edge nav if device is not edge', () => {
+    it('shows pnp component if device is not edge', () => {
         const wrapper = mount(getComponent({isEdgeDevice: false}));
 
         const navigation = wrapper.find(Nav);
         expect(navigation.props().groups[0].links.length).toEqual(NAV_LINK_ITEMS_NONEDGE.length);
-    });
-
-    it('show non-pnp nav and pnp nav when device is pnp', () => {
-        const wrapper = mount(getComponent({digitalTwinModelId: 'dtmi:__azureiot:samplemodel;1', isEdgeDevice: false}));
-
-        const navigation = wrapper.find(Nav);
-        expect(navigation.props().groups[0].links.length).toEqual(NAV_LINK_ITEMS_NONEDGE.length + 1);
     });
 });

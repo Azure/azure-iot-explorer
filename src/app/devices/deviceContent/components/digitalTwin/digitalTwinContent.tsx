@@ -12,7 +12,7 @@ import DevicePropertiesContainer from '../deviceProperties/devicePropertiesConta
 import DeviceEventsPerInterfaceContainer from '../deviceEvents/deviceEventsPerInterfaceContainer';
 import { getInterfaceIdFromQueryString, getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { ROUTE_PARTS } from '../../../../constants/routes';
-import { getModelDefinitionAction } from '../../actions';
+import { getModelDefinitionAction, getDigitalTwinAction } from '../../actions';
 
 export const DigitalTwinContent: React.FC = () => {
     const dispatch = useDispatch();
@@ -23,6 +23,7 @@ export const DigitalTwinContent: React.FC = () => {
 
     React.useEffect(() => {
         dispatch(getModelDefinitionAction.started({digitalTwinId: deviceId, interfaceId}));
+        dispatch(getDigitalTwinAction.started(deviceId));
     },              [interfaceId, deviceId]);
 
     return (

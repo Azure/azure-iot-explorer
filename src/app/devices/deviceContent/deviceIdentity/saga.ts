@@ -2,20 +2,19 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { call, put } from 'redux-saga/effects';
+import { call, put, all, takeLatest, takeEvery } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
 import { fetchDevice, updateDevice } from '../../../api/services/devicesService';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
-import { getDeviceIdentityAction, updateDeviceIdentityAction } from '../actions';
+import { getDeviceIdentityAction, updateDeviceIdentityAction } from './actions';
 import { DeviceIdentity } from '../../../api/models/deviceIdentity';
 import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 
-export function* getDeviceIdentitySaga(action: Action<string>) {
+export function* getDeviceIdentitySagaWorker(action: Action<string>) {
     try {
         const parameters = {
-            connectionString: yield call(getActiveAzureResourceConnectionStringSaga),
             deviceId: action.payload,
         };
 
@@ -37,10 +36,9 @@ export function* getDeviceIdentitySaga(action: Action<string>) {
     }
 }
 
-export function* updateDeviceIdentitySaga(action: Action<DeviceIdentity>) {
+export function* updateDeviceIdentitySagaWorker(action: Action<DeviceIdentity>) {
     try {
         const parameters = {
-            connectionString: yield call(getActiveAzureResourceConnectionStringSaga),
             deviceIdentity: action.payload,
         };
 
@@ -70,4 +68,11 @@ export function* updateDeviceIdentitySaga(action: Action<DeviceIdentity>) {
 
         yield put(updateDeviceIdentityAction.failed({params: action.payload, error}));
     }
+}
+
+export function* DeviceIdentitySaga() {
+    yield all([
+        takeLatest(getDeviceIdentityAction.started.type, getDeviceIdentitySagaWorker),
+        takeEvery(updateDeviceIdentityAction.started.type, updateDeviceIdentitySagaWorker),
+    ]);
 }

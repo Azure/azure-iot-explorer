@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useParams } from 'react-router-dom';
 import { Label } from 'office-ui-fabric-react/lib/Label';
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 import { Overlay } from 'office-ui-fabric-react/lib/Overlay';
@@ -14,7 +15,6 @@ import { DeviceIdentityCommandBar } from './deviceIdentityCommandBar';
 import { DeviceAuthenticationType } from '../../../../api/models/deviceAuthenticationType';
 import { DeviceStatus } from '../../../../api/models/deviceStatus';
 import { generateKey } from '../../../../shared/utils/utils';
-import { SynchronizationWrapper } from '../../../../api/models/synchronizationWrapper';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { MaskedCopyableTextField } from '../../../../shared/components/maskedCopyableTextField';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
@@ -27,14 +27,13 @@ export interface DeviceIdentityDispatchProps {
 }
 
 export interface DeviceIdentityDataProps {
-    activeAzureResourceHostName: string;
-    identityWrapper: SynchronizationWrapper<DeviceIdentity>;
+    deviceIdentity: DeviceIdentity;
+    synchronizationStatus: SynchronizationStatus;
 }
 
 export interface DeviceIdentityState {
     identity: DeviceIdentity;
     isDirty: boolean;
-    requestMade: boolean;
     sasTokenExpiration: number;
     sasTokenConnectionString: string;
     sasTokenSelectedKey: string;
@@ -42,41 +41,20 @@ export interface DeviceIdentityState {
 
 export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & DeviceIdentityDispatchProps> = (props: DeviceIdentityDataProps & DeviceIdentityDispatchProps) => {
     const { t } = useLocalizationContext();
-    const { identityWrapper, updateDeviceIdentity, activeAzureResourceHostName } = props;
+    const { hostName } = useParams();
 
     const [ state, setState ] = React.useState({
-        identity: identityWrapper && identityWrapper.payload,
+        identity: props.deviceIdentity,
         isDirty: false,
-        requestMade: false
     });
-
-    // tslint:disable-next-line: cyclomatic-complexity
-    React.useEffect(() => {
-        if (identityWrapper) {
-            if (state.isDirty && state.requestMade && props.identityWrapper.synchronizationStatus === SynchronizationStatus.upserted) {
-                setState({
-                    identity: props.identityWrapper.payload,
-                    isDirty: false,
-                    requestMade: false
-                });
-            }
-            else if (!state.isDirty) {
-                setState({
-                    ...state,
-                    identity: props.identityWrapper.payload
-                });
-            }
-        }
-    },              [identityWrapper]);
 
     const showCommandBar = () => {
         let onSwapKeys;
         let onGeneratePrimaryKey;
         let onGenerateSecondaryKey;
 
-        if (identityWrapper &&
-            identityWrapper.payload &&
-            identityWrapper.payload.authentication.type === DeviceAuthenticationType.SymmetricKey) {
+        if (props.deviceIdentity &&
+            props.deviceIdentity.authentication.type === DeviceAuthenticationType.SymmetricKey) {
                 onSwapKeys = swapKeys;
                 onGeneratePrimaryKey = generatePrimaryKey;
                 onGenerateSecondaryKey = generateSecondaryKey;
@@ -95,10 +73,6 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
 
     const handleSave = () => {
         props.updateDeviceIdentity(state.identity);
-        setState({
-            ...state,
-            requestMade: true
-        });
     };
 
     const renderInformationSection = () => {
@@ -106,7 +80,7 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
         const authType = getDeviceAuthenticationType(identity);
         return (
             <>
-                { identityWrapper.synchronizationStatus === SynchronizationStatus.working ?
+                {props.synchronizationStatus === SynchronizationStatus.working || props.synchronizationStatus === SynchronizationStatus.updating ?
                     <MultiLineShimmer/> :
                     <>
                         <MaskedCopyableTextField
@@ -123,7 +97,6 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
                         {renderHubRelatedInformation()}
                     </>
                 }
-                {identityWrapper.synchronizationStatus === SynchronizationStatus.updating && <Overlay/>}
             </>
         );
     };
@@ -131,7 +104,7 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
     const renderSasTokenSection = () => {
         return (
             <SasTokenGenerationView
-                activeAzureResourceHostName={props.activeAzureResourceHostName}
+                activeAzureResourceHostName={hostName}
                 deviceIdentity={state.identity}
             />
         );
@@ -164,7 +137,7 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
                         <MaskedCopyableTextField
                             ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.connectionString)}
                             label={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.connectionString)}
-                            value={generateX509ConnectionString(activeAzureResourceHostName, identity.deviceId)}
+                            value={generateX509ConnectionString(hostName, identity.deviceId)}
                             allowMask={true}
                             readOnly={true}
                             labelCallout={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.connectionStringTooltip)}
@@ -178,7 +151,7 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
                         <MaskedCopyableTextField
                             ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.ca.connectionString)}
                             label={t(ResourceKeys.deviceIdentity.authenticationType.ca.connectionString)}
-                            value={generateX509ConnectionString(activeAzureResourceHostName, identity.deviceId)}
+                            value={generateX509ConnectionString(hostName, identity.deviceId)}
                             allowMask={true}
                             readOnly={true}
                             labelCallout={t(ResourceKeys.deviceIdentity.authenticationType.ca.connectionStringTooltip)}
@@ -211,7 +184,7 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
                         <MaskedCopyableTextField
                             ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionString)}
                             label={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionString)}
-                            value={generateConnectionString(activeAzureResourceHostName, identity.deviceId, identity.authentication.symmetricKey.primaryKey)}
+                            value={generateConnectionString(hostName, identity.deviceId, identity.authentication.symmetricKey.primaryKey)}
                             allowMask={true}
                             readOnly={true}
                             labelCallout={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionStringTooltip)}
@@ -220,7 +193,7 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
                         <MaskedCopyableTextField
                             ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString)}
                             label={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString)}
-                            value={generateConnectionString(activeAzureResourceHostName, identity.deviceId, identity.authentication.symmetricKey.secondaryKey)}
+                            value={generateConnectionString(hostName, identity.deviceId, identity.authentication.symmetricKey.secondaryKey)}
                             allowMask={true}
                             readOnly={true}
                             labelCallout={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryConnectionStringTooltip)}
@@ -318,7 +291,7 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
                 headerText={ResourceKeys.deviceIdentity.headerText}
             />
             <div className="device-detail">
-                {identityWrapper && renderInformationSection()}
+                {renderInformationSection()}
             </div>
         </>
     );

@@ -6,8 +6,8 @@ import 'jest';
 import { put, call } from 'redux-saga/effects';
 // tslint:disable-next-line: no-implicit-dependencies
 import { cloneableGenerator } from '@redux-saga/testing-utils';
-import { getDeviceIdentitySaga, updateDeviceIdentitySaga } from './deviceIdentitySaga';
-import { getDeviceIdentityAction, updateDeviceIdentityAction } from '../actions';
+import { getDeviceIdentitySagaWorker, updateDeviceIdentitySagaWorker } from './saga';
+import { getDeviceIdentityAction, updateDeviceIdentityAction } from './actions';
 import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import * as DevicesService from '../../../api/services/devicesService';
 import { DeviceIdentity } from '../../../api/models/deviceIdentity';
@@ -29,7 +29,7 @@ describe('deviceIdentitySaga', () => {
     const mockDevice: DeviceIdentity = {
         authentication: null,
         capabilities: null,
-        cloudToDeviceMessageCount: '',
+        cloudToDeviceMessageCount: 1,
         deviceId,
         etag: 'etag',
         lastActivityTime: '',
@@ -39,23 +39,17 @@ describe('deviceIdentitySaga', () => {
     };
 
     beforeEach(() => {
-        getdeviceIdentitySagaGenerator = cloneableGenerator(getDeviceIdentitySaga)(getDeviceIdentityAction.started(deviceId));
-        updateDeviceIdentitySagaGenerator = cloneableGenerator(updateDeviceIdentitySaga)(updateDeviceIdentityAction.started(mockDevice));
+        getdeviceIdentitySagaGenerator = cloneableGenerator(getDeviceIdentitySagaWorker)(getDeviceIdentityAction.started(deviceId));
+        updateDeviceIdentitySagaGenerator = cloneableGenerator(updateDeviceIdentitySagaWorker)(updateDeviceIdentityAction.started(mockDevice));
     });
 
     describe('getDeviceIdentitySaga', () => {
 
         it('fetches the device identity', () => {
-            // get connection string
+            // call for device id
             expect(getdeviceIdentitySagaGenerator.next()).toEqual({
                 done: false,
-                value: call(getActiveAzureResourceConnectionStringSaga)
-            });
-
-            // call for device id
-            expect(getdeviceIdentitySagaGenerator.next('connection_string')).toEqual({
-                done: false,
-                value: call(mockGetDeviceFn, {connectionString: 'connection_string', deviceId})
+                value: call(mockGetDeviceFn, {deviceId})
             });
 
             // add to store
@@ -108,16 +102,10 @@ describe('deviceIdentitySaga', () => {
     describe('updateDeviceIdentitySaga', () => {
 
         it('updates the device identity', () => {
-            // get connection string
+            // call to update
             expect(updateDeviceIdentitySagaGenerator.next()).toEqual({
                 done: false,
-                value: call(getActiveAzureResourceConnectionStringSaga)
-            });
-
-            // call to update
-            expect(updateDeviceIdentitySagaGenerator.next('connection_string')).toEqual({
-                done: false,
-                value: call(mockUpdateDeviceFn, {connectionString: 'connection_string', deviceIdentity: mockDevice})
+                value: call(mockUpdateDeviceFn, {deviceIdentity: mockDevice})
             });
 
             // notification

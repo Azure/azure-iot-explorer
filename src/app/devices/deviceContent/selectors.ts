@@ -3,20 +3,11 @@
  * Licensed under the MIT License
  **********************************************************/
 import { createSelector } from 'reselect';
-import { DeviceIdentity } from '../../api/models/deviceIdentity';
 import { SynchronizationWrapper } from '../../api/models/synchronizationWrapper';
 import { StateInterface } from '../../shared/redux/state';
 import { ModelDefinitionWithSource } from '../../api/models/modelDefinitionWithSource';
 import { SynchronizationStatus } from './../../api/models/synchronizationStatus';
 import { JsonSchemaAdaptor, ComponentAndInterfaceId } from '../../shared/utils/jsonSchemaAdaptor';
-
-//#region DeviceIdentity-related selectors
-export const getDeviceIdentityWrapperSelector = (state: StateInterface): SynchronizationWrapper<DeviceIdentity> => {
-    return state &&
-        state.deviceContentState &&
-        state.deviceContentState.deviceIdentity;
-};
-//#endregion
 
 //#region ModelDefinition-related selectors
 export const getComponentNameSelector = (state: StateInterface): string => {

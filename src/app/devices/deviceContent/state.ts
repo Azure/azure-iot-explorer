@@ -5,11 +5,9 @@
 import { Record } from 'immutable';
 import { IM } from '../../shared/types/types';
 import { ModelDefinitionWithSource } from '../../api/models/modelDefinitionWithSource';
-import { DeviceIdentity } from '../../api/models/deviceIdentity';
 import { SynchronizationWrapper } from '../../api/models/synchronizationWrapper';
 
 export interface DeviceContentStateInterface {
-    deviceIdentity: SynchronizationWrapper<DeviceIdentity>;
     digitalTwin: SynchronizationWrapper<object>;
     componentNameSelected: string;
     modelDefinitionWithSource: SynchronizationWrapper<ModelDefinitionWithSource>;
@@ -17,7 +15,6 @@ export interface DeviceContentStateInterface {
 
 export const deviceContentStateInitial = Record<DeviceContentStateInterface>({
     componentNameSelected: '',
-    deviceIdentity: null,
     digitalTwin: null,
     modelDefinitionWithSource: null
 });

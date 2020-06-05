@@ -6,68 +6,17 @@ import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { DeviceContentStateType, deviceContentStateInitial } from './state';
 import {
     clearModelDefinitionsAction,
-    getDeviceIdentityAction,
     getModelDefinitionAction,
     setComponentNameAction,
-    updateDeviceIdentityAction,
     patchDigitalTwinAction,
     PatchDigitalTwinActionParameters,
     GetModelDefinitionActionParameters,
     getDigitalTwinAction
 } from './actions';
-import { DeviceIdentity } from '../../api/models/deviceIdentity';
 import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
 import { ModelDefinitionWithSource } from './../../api/models/modelDefinitionWithSource';
 
 const reducer = reducerWithInitialState<DeviceContentStateType>(deviceContentStateInitial())
-    //#region DeviceIdentity-related actions
-    .case(getDeviceIdentityAction.started, (state: DeviceContentStateType) => {
-        return state.merge({
-            deviceIdentity: {
-                synchronizationStatus: SynchronizationStatus.working
-            }
-        });
-    })
-    .case(getDeviceIdentityAction.done, (state: DeviceContentStateType, payload: {params: string, result: DeviceIdentity}) => {
-        return state.merge({
-            deviceIdentity: {
-                payload: payload.result,
-                synchronizationStatus: SynchronizationStatus.fetched
-            }
-        });
-    })
-    .case(getDeviceIdentityAction.failed, (state: DeviceContentStateType) => {
-        return state.merge({
-            deviceIdentity: {
-                synchronizationStatus: SynchronizationStatus.failed
-            }
-        });
-    })
-    .case(updateDeviceIdentityAction.started, (state: DeviceContentStateType) => {
-        return state.merge({
-            deviceIdentity: {
-                payload: state.deviceIdentity.payload,
-                synchronizationStatus: SynchronizationStatus.updating
-            }
-        });
-    })
-    .case(updateDeviceIdentityAction.done, (state: DeviceContentStateType, payload: {params: DeviceIdentity, result: DeviceIdentity}) => {
-        return state.merge({
-            deviceIdentity: {
-                payload: payload.result,
-                synchronizationStatus: SynchronizationStatus.upserted
-            }
-        });
-    })
-    .case(updateDeviceIdentityAction.failed, (state: DeviceContentStateType) => {
-        return state.merge({
-            deviceIdentity: {
-                payload: state.deviceIdentity.payload,
-                synchronizationStatus: SynchronizationStatus.failed
-            }
-        });
-    })
-    //#endregion
     //#region Interface-related actions
     .case(getModelDefinitionAction.started, (state: DeviceContentStateType) => {
         return state.merge({
