@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/devices/deviceContentNav matches snapshot when there device is not pnp 1`] = `
+exports[`deviceContentNav matches snapshot when there device is edge 1`] = `
 <div
   role="navigation"
 >

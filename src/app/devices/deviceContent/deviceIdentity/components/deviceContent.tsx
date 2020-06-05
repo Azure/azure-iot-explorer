@@ -5,49 +5,46 @@
 import * as React from 'react';
 import { Route, useLocation } from 'react-router-dom';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
-import DeviceIdentityContainer from './deviceIdentity/deviceIdentityContainer';
-import { DeviceTwin } from '../deviceTwin/components/deviceTwin';
-import { DeviceEvents } from '../deviceEvents/components/deviceEvents';
-import { DirectMethod } from '../directMethod/components/directMethod';
-import { CloudToDeviceMessage } from '../cloudToDeviceMessage/components/cloudToDeviceMessage';
+import { DeviceIdentityInformation } from './deviceIdentity';
+import { DeviceTwin } from '../../deviceTwin/components/deviceTwin';
+import { DeviceEvents } from '../../deviceEvents/components/deviceEvents';
+import { DirectMethod } from '../../directMethod/components/directMethod';
+import { CloudToDeviceMessage } from '../../cloudToDeviceMessage/components/cloudToDeviceMessage';
 import { DeviceContentNavComponent } from './deviceContentNav';
-import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { useLocalizationContext } from '../../../shared/contexts/localizationContext';
-import { NAV } from '../../../constants/iconNames';
-import { ROUTE_PARTS } from '../../../constants/routes';
-import { DeviceIdentity } from '../../../api/models/deviceIdentity';
-import { SynchronizationWrapper } from '../../../api/models/synchronizationWrapper';
-import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
-import MultiLineShimmer from '../../../shared/components/multiLineShimmer';
-import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
-import { ModuleIdentityTwin } from '../../module/moduleIdentityTwin/components/moduleIdentityTwin';
-import { AddModuleIdentity } from '../../module/addModuleIdentity/components/addModuleIdentity';
-import { ModuleIdentityList } from '../../module/moduleIdentityList/components/moduleIdentityList';
-import { ModuleIdentityDetail } from '../../module/moduleIndentityDetail/components/moduleIdentityDetail';
-import { Pnp } from '../pnp/components/pnp';
-import '../../../css/_deviceContent.scss';
-import '../../../css/_layouts.scss';
+import { ResourceKeys } from '../../../../../localization/resourceKeys';
+import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
+import { NAV } from '../../../../constants/iconNames';
+import { ROUTE_PARTS } from '../../../../constants/routes';
+import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
+import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
+import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
+import { ModuleIdentityTwin } from '../../../module/moduleIdentityTwin/components/moduleIdentityTwin';
+import { AddModuleIdentity } from '../../../module/addModuleIdentity/components/addModuleIdentity';
+import { ModuleIdentityList } from '../../../module/moduleIdentityList/components/moduleIdentityList';
+import { ModuleIdentityDetail } from '../../../module/moduleIndentityDetail/components/moduleIdentityDetail';
+import { useAsyncSagaReducer } from '../../../../shared/hooks/useAsyncSagaReducer';
+import { deviceIdentityReducer } from '../reducer';
+import { DeviceIdentitySaga } from '../saga';
+import { deviceIdentityStateInitial } from '../state';
+import { getDeviceIdentityAction, updateDeviceIdentityAction } from '../actions';
+import { DeviceIdentity } from '../../../../api/models/deviceIdentity';
+import { Pnp } from '../../pnp/components/pnp';
+import '../../../../css/_deviceContent.scss';
+import '../../../../css/_layouts.scss';
 
-export interface DeviceContentDataProps {
-    isLoading: boolean;
-    identityWrapper: SynchronizationWrapper<DeviceIdentity>;
-}
-
-export interface DeviceContentDispatchProps {
-    getDeviceIdentity: (deviceId: string) => void;
-}
-
-export type DeviceContentProps = DeviceContentDataProps & DeviceContentDispatchProps;
-
-export const DeviceContentComponent: React.FC<DeviceContentProps> = (props: DeviceContentProps) => {
-    const { identityWrapper, getDeviceIdentity } = props;
+export const DeviceContent: React.FC = () => {
     const { t } = useLocalizationContext();
     const { search } = useLocation();
     const deviceId = getDeviceIdFromQueryString(search);
+
+    const [ localState, dispatch ] = useAsyncSagaReducer(deviceIdentityReducer, DeviceIdentitySaga, deviceIdentityStateInitial());
+    const synchronizationStatus = localState.synchronizationStatus;
+    const deviceIdentity = localState.payload;
+
     const [ appMenuVisible, setAppMenuVisible ] = React.useState(true);
 
     React.useEffect(() => {
-        getDeviceIdentity(deviceId);
+        dispatch(getDeviceIdentityAction.started(deviceId));
     },              [deviceId]);
 
     const renderNav = () => {
@@ -71,11 +68,24 @@ export const DeviceContentComponent: React.FC<DeviceContentProps> = (props: Devi
         );
     };
 
+    const updateDeviceIdentity = (deviceIdentityToUpdate: DeviceIdentity) => {
+        dispatch(updateDeviceIdentityAction.started(deviceIdentityToUpdate));
+    };
+
+    const createDeviceIdentityComponent = () => {
+        return (
+            <DeviceIdentityInformation
+                deviceIdentity={deviceIdentity}
+                synchronizationStatus={synchronizationStatus}
+                updateDeviceIdentity={updateDeviceIdentity}
+            />);
+    };
+
     const renderDeviceContentDetail = () => {
         const currentRoutePath = `/${ROUTE_PARTS.RESOURCE}/:hostName/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DEVICE_DETAIL}`;
         return (
             <div className={'device-content-detail' + (!appMenuVisible ? ' collapsed' : '')}>
-                <Route path={`${currentRoutePath}/${ROUTE_PARTS.IDENTITY}`} component={DeviceIdentityContainer} />
+                <Route path={`${currentRoutePath}/${ROUTE_PARTS.IDENTITY}`} component={createDeviceIdentityComponent} />
                 <Route path={`${currentRoutePath}/${ROUTE_PARTS.TWIN}`} component={DeviceTwin} />
                 <Route path={`${currentRoutePath}/${ROUTE_PARTS.EVENTS}`} component={DeviceEvents}/>
                 <Route path={`${currentRoutePath}/${ROUTE_PARTS.METHODS}`} component={DirectMethod} />
@@ -96,12 +106,11 @@ export const DeviceContentComponent: React.FC<DeviceContentProps> = (props: Devi
 
     const createNavLinks = () => {
         return (
-            identityWrapper && identityWrapper.synchronizationStatus === SynchronizationStatus.working ?
+            synchronizationStatus === SynchronizationStatus.working ?
                 <MultiLineShimmer/> :
                 (
                     <DeviceContentNavComponent
-                        {...props}
-                        isEdgeDevice={identityWrapper && identityWrapper.payload && identityWrapper.payload.capabilities.iotEdge}
+                        isEdgeDevice={deviceIdentity && deviceIdentity.capabilities && deviceIdentity.capabilities.iotEdge}
                     />
                 )
         );

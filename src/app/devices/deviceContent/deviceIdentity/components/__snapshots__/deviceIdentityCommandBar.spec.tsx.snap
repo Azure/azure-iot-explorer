@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`devices/components/deviceIdentityCommandBar snapshot matches snapshot 1`] = `
+exports[`deviceIdentityCommandBar snapshot matches snapshot 1`] = `
 <StyledCommandBarBase
   items={
     Array [
@@ -62,7 +62,7 @@ exports[`devices/components/deviceIdentityCommandBar snapshot matches snapshot 1
 />
 `;
 
-exports[`devices/components/deviceIdentityCommandBar snapshot matches snapshot with disabled save 1`] = `
+exports[`deviceIdentityCommandBar snapshot matches snapshot with disabled save 1`] = `
 <StyledCommandBarBase
   items={
     Array [

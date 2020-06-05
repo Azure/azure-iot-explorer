@@ -17,7 +17,7 @@ const getComponent = (overrides = {}) => {
     return <DeviceIdentityCommandBar {...props} />;
 };
 
-describe('devices/components/deviceIdentityCommandBar', () => {
+describe('deviceIdentityCommandBar', () => {
     context('snapshot', () => {
         it('matches snapshot', () => {
             expect(shallow(getComponent())).toMatchSnapshot();
