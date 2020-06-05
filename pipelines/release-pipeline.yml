@@ -10,7 +10,7 @@ stages:
       displayName: 'Build and Test Source'
       steps:
       - template: .\build-and-test-template.yml
-    - job: credscan
+    - job: scan
       steps:
         - task: CredScan@3
           inputs:
