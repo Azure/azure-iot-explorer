@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import { select, call } from 'redux-saga/effects';
-import { StateInterface } from '../../shared/redux/state';
+import { AzureResourceStateInterface } from '../state';
 import { AzureResource } from '../models/azureResource';
 import { appConfig, AuthMode } from '../../../appConfig/appConfig';
 import { AzureResourceIdentifierType } from '../../azureResourceIdentifier/models/azureResourceIdentifierType';
@@ -29,8 +29,8 @@ export function* getActiveAzureResourceConnectionStringSaga() {
     return '';
 }
 
-export const getActiveAzureResource = (state: StateInterface) => {
-    return state.azureResourceState.activeAzureResource;
+export const getActiveAzureResource = (state: AzureResourceStateInterface) => {
+    return state.activeAzureResource;
 };
 
 export const getAuthMode = (): AuthMode => {

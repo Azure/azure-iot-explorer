@@ -9,7 +9,6 @@ import { Label } from 'office-ui-fabric-react/lib/Label';
 import { Announced } from 'office-ui-fabric-react/lib/Announced';
 import { MessageBar } from 'office-ui-fabric-react/lib/MessageBar';
 import { Pivot } from 'office-ui-fabric-react/lib/Pivot';
-import { mountWithStoreAndRouter } from '../../../../shared/utils/testHelpers';
 import { DigitalTwinInterfacesList } from './digitalTwinInterfacesList';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';

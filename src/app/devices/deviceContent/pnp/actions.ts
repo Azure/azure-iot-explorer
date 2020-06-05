@@ -7,7 +7,7 @@ import { DEVICECONTENT } from '../../../constants/actionPrefixes';
 import { GET_DIGITAL_TWIN, FETCH_MODEL_DEFINITION, INVOKE_DIGITAL_TWIN_INTERFACE_COMMAND, PATCH_DIGITAL_TWIN } from '../../../constants/actionTypes';
 import { ModelDefinitionWithSource } from '../../../api/models/modelDefinitionWithSource';
 import { PatchPayload } from '../../../api/parameters/deviceParameters';
-import { RepositoryLocationSettings } from '../../../modelRepository/state';
+import { RepositoryLocationSettings } from '../../../shared/global/state';
 
 const deviceContentCreator = actionCreatorFactory(DEVICECONTENT);
 const getDigitalTwinAction = deviceContentCreator.async<string, object>(GET_DIGITAL_TWIN);

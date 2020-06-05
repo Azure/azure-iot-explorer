@@ -7,11 +7,11 @@ import { call, put } from 'redux-saga/effects';
 import { cloneableGenerator } from '@redux-saga/testing-utils';
 import { setRepositoryLocationsSaga } from './setRepositoryLocationsSaga';
 import { setRepositoryLocationsAction } from '../actions';
-import { raiseNotificationToast } from '../../notifications/components/notificationToast';
+import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 import { getLocalFolderPath, getRepositoryLocationTypes } from '../reducer';
-import { NotificationType } from '../../api/models/notification';
-import { ResourceKeys } from '../../../localization/resourceKeys';
-import { setLocalFolderPath, setRepositoryLocations } from '../services/modelRepositoryService';
+import { NotificationType } from '../../../api/models/notification';
+import { ResourceKeys } from '../../../../localization/resourceKeys';
+import { setLocalFolderPath, setRepositoryLocations } from '../../../../modelRepository/services/modelRepositoryService';
 
 describe('setRepositoryLocationsSaga', () => {
     const setRepositoryLocationsSagaGenerator = cloneableGenerator(setRepositoryLocationsSaga)(setRepositoryLocationsAction([]));

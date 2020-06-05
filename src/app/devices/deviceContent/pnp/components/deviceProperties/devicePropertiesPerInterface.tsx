@@ -12,9 +12,9 @@ import { ResourceKeys } from '../../../../../../localization/resourceKeys';
 import { getLocalizedData } from '../../../../../api/dataTransforms/modelDefinitionTransform';
 import { PropertyContent } from '../../../../../api/models/modelDefinition';
 import { ParsedJsonSchema } from '../../../../../api/models/interfaceJsonParserOutput';
-import { isValueDefined } from '../../../components/shared/dataForm';
-import { RenderSimplyTypeValue } from '../../../components/shared/simpleReportedSection';
-import { ComplexReportedFormPanel } from '../../../components/shared/complexReportedFormPanel';
+import { isValueDefined } from '../../../shared/components/dataForm';
+import { RenderSimplyTypeValue } from '../../../shared/components/simpleReportedSection';
+import { ComplexReportedFormPanel } from '../../../shared/components/complexReportedFormPanel';
 import { SemanticUnit } from '../../../../../shared/units/components/semanticUnit';
 import { EXTRA_LARGE_COLUMN_WIDTH, SMALL_COLUMN_WIDTH } from '../../../../../constants/columnWidth';
 

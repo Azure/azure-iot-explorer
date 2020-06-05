@@ -3,11 +3,9 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { useSelector } from 'react-redux';
 import { useLocation, useRouteMatch, Route } from 'react-router-dom';
 import { ROUTE_PARTS } from '../../../../constants/routes';
 import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
-import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
 import { getDigitalTwinAction, getModelDefinitionAction } from '../actions';
 import { PnpStateContextProvider } from '../pnpStateContext';
 import { DigitalTwinDetail } from './digitalTwinDetail';
@@ -15,20 +13,24 @@ import { useAsyncSagaReducer } from '../../../../shared/hooks/useAsyncSagaReduce
 import { pnpReducer } from '../reducer';
 import { pnpSaga } from '../saga';
 import { pnpStateInitial } from '../state';
-import { getRepositoryLocationSettingsSelector, getLocalFolderPathSelector } from '../../../../modelRepository/selectors';
-import { RepositoryLocationSettings } from '../../../../modelRepository/state';
-import { DigitalTwinInterfacesList, defaultComponentKey } from './digitalTwinInterfacesList';
+import { RepositoryLocationSettings } from '../../../../shared/global/state';
+import { useGlobalStateContext } from '../../../../shared/contexts/globalStateContext';
+import { getRepositoryLocationSettings } from '../../../../modelRepository/dataHelper';
 import '../../../../css/_digitalTwinInterfaces.scss';
+import { DigitalTwinInterfacesList, defaultComponentKey } from './digitalTwinInterfacesList';
 
 // tslint:disable-next-line: cyclomatic-complexity
 export const Pnp: React.FC = () => {
     const { search } = useLocation();
     const { url } = useRouteMatch();
     const deviceId = getDeviceIdFromQueryString(search);
-    const { t } = useLocalizationContext();
-    const locations: RepositoryLocationSettings[] = useSelector(getRepositoryLocationSettingsSelector);
-    const localFolderPath: string = useSelector(getLocalFolderPathSelector);
     const interfaceId = getInterfaceIdFromQueryString(search);
+
+    const { globalState } = useGlobalStateContext();
+    const { modelRepositoryState } = globalState;
+    const locations: RepositoryLocationSettings[] = getRepositoryLocationSettings(modelRepositoryState);
+    const localFolderPath: string =  (modelRepositoryState && modelRepositoryState.localFolderSettings && modelRepositoryState.localFolderSettings.path) || '';
+
     const [ pnpState, dispatch ] = useAsyncSagaReducer(pnpReducer, pnpSaga, pnpStateInitial());
     const digitalTwin = pnpState.digitalTwin.payload as any; // tslint:disable-line: no-any
     const modelId = digitalTwin &&  digitalTwin.$metadata && digitalTwin.$metadata.$model;
@@ -41,8 +43,10 @@ export const Pnp: React.FC = () => {
     },              []);
 
     React.useEffect(() => {
-        getModelDefinition();
-    },              [interfaceIdModified]);
+        if (interfaceIdModified && deviceId) {
+            getModelDefinition();
+        }
+    },              [interfaceIdModified, deviceId]);
 
     return (
         <PnpStateContextProvider value={{ pnpState, dispatch, getModelDefinition }}>

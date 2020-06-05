@@ -4,7 +4,7 @@
  **********************************************************/
 import { ConnectionStringsStateInterface } from './state';
 import { addConnectionStringAction, deleteConnectionStringAction, setConnectionStringsAction, upsertConnectionStringAction } from './actions';
-import reducer from './reducer';
+import { connectionStringsReducer } from './reducer';
 
 describe('addConnectionStringAction', () => {
     it('amends existing list of connection strings', () => {
@@ -15,7 +15,7 @@ describe('addConnectionStringAction', () => {
         };
 
         const action =  addConnectionStringAction('connectionString2');
-        const result = reducer(initialState, action);
+        const result = connectionStringsReducer(initialState, action);
         expect(result.connectionStrings).toHaveLength(2); // tslint:disable-line:no-magic-numbers
         expect(result.connectionStrings[1]).toEqual('connectionString2');
     });
@@ -28,7 +28,7 @@ describe('addConnectionStringAction', () => {
         };
 
         const action =  addConnectionStringAction('connectionString1');
-        const result = reducer(initialState, action);
+        const result = connectionStringsReducer(initialState, action);
         expect(result.connectionStrings).toHaveLength(1);
         expect(result.connectionStrings[0]).toEqual('connectionString1');
     });
@@ -42,8 +42,8 @@ describe('deleteConnectionStringAction', () => {
             ]
         };
 
-        const action =  deleteConnectionStringAction('connectionString1');
-        const result = reducer(initialState, action);
+        const action = deleteConnectionStringAction('connectionString1');
+        const result = connectionStringsReducer(initialState, action);
         expect(result.connectionStrings).toHaveLength(0);
     });
 });
@@ -58,7 +58,7 @@ describe('setConnectionStringAction', () => {
         };
 
         const action =  setConnectionStringsAction(['connectionString3']);
-        const result = reducer(initialState, action);
+        const result = connectionStringsReducer(initialState, action);
         expect(result.connectionStrings).toHaveLength(1);
         expect(result.connectionStrings).toEqual(['connectionString3']);
     });

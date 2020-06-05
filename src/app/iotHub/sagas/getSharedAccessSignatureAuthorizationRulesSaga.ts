@@ -9,7 +9,7 @@ import { AzureResourceIdentifier } from '../../azureResourceIdentifier/models/az
 import { SharedAccessSignatureAuthorizationRule } from '../models/sharedAccessSignatureAuthorizationRule';
 import { executeAzureResourceManagementTokenRequest } from '../../login/services/authService';
 import { appConfig } from '../../../appConfig/appConfig';
-import { StateInterface } from '../../shared/redux/state';
+import { IotHubStateInterface } from '../state';
 import { CacheWrapper } from '../../api/models/cacheWrapper';
 import { SECONDS_PER_MINUTE, MILLISECONDS_PER_SECOND } from './../../constants/shared';
 
@@ -48,8 +48,8 @@ export function* getSharedAccessSignatureAuthorizationRulesSaga(azureResourceIde
     return sharedAccessSignatureAuthorizationRules;
 }
 
-export const getSharedAccessSignatureAuthorizationRulesCache = (state: StateInterface) => {
-    return state.iotHubState.sharedAccessSignatureAuthorizationRules;
+export const getSharedAccessSignatureAuthorizationRulesCache = (state: IotHubStateInterface) => {
+    return state.sharedAccessSignatureAuthorizationRules;
 };
 
 export const getAzureResourceManagementEndpoint = (): string => {

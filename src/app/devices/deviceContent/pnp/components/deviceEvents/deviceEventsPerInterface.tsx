@@ -23,7 +23,7 @@ import { getInterfaceIdFromQueryString, getDeviceIdFromQueryString, getComponent
 import { getNumberOfMapsInSchema } from '../../../../../shared/utils/twinAndJsonSchemaDataConverter';
 import { SynchronizationStatus } from '../../../../../api/models/synchronizationStatus';
 import { DEFAULT_CONSUMER_GROUP } from '../../../../../constants/apiConstants';
-import ErrorBoundary from '../../../../errorBoundary';
+import ErrorBoundary from '../../../../shared/components/errorBoundary';
 import { getLocalizedData } from '../../../../../api/dataTransforms/modelDefinitionTransform';
 import { Notification, NotificationType } from '../../../../../api/models/notification';
 import MultiLineShimmer from '../../../../../shared/components/multiLineShimmer';

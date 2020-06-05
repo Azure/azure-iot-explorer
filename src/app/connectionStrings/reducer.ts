@@ -6,7 +6,7 @@ import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { addConnectionStringAction, deleteConnectionStringAction, setConnectionStringsAction, upsertConnectionStringAction, UpsertConnectionStringActionPayload } from './actions';
 import { connectionStringsStateInitial, ConnectionStringsStateInterface } from './state';
 
-const reducer = reducerWithInitialState<ConnectionStringsStateInterface>(connectionStringsStateInitial())
+export const connectionStringsReducer = reducerWithInitialState<ConnectionStringsStateInterface>(connectionStringsStateInitial())
     .case(addConnectionStringAction, (state: ConnectionStringsStateInterface, payload: string) => {
         const updatedState = {...state};
         updatedState.connectionStrings = updatedState.connectionStrings.filter(s => s !== payload);
@@ -38,5 +38,3 @@ const reducer = reducerWithInitialState<ConnectionStringsStateInterface>(connect
 
         return updatedState;
     });
-
-export default reducer;

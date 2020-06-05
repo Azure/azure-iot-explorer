@@ -3,15 +3,10 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { Prompt, useHistory, useLocation } from 'react-router-dom';
 import { CommandBar, ICommandBarItemProps  } from 'office-ui-fabric-react/lib/CommandBar';
 import { IContextualMenuItem } from 'office-ui-fabric-react/lib/ContextualMenu';
 import { useLocalizationContext } from '../../shared/contexts/localizationContext';
-import { getRepositoryLocationSettingsSelector } from '../selectors';
-import { RepositoryLocationSettings } from '../state';
-import { StateInterface } from '../../shared/redux/state';
-import { setRepositoryLocationsAction } from '../actions';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { ModelRepositoryLocationList } from './modelRepositoryLocationList';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
@@ -20,24 +15,30 @@ import { StringMap } from '../../api/models/stringMap';
 import { ROUTE_PARAMS } from '../../constants/routes';
 import { SAVE, ADD, UNDO, HELP, NAVIGATE_BACK, REPO, FOLDER } from '../../constants/iconNames';
 import { ModelRepositoryInstruction } from './modelRepositoryInstruction';
+import { useGlobalStateContext } from '../../shared/contexts/globalStateContext';
+import { getRepositoryLocationSettings } from '../dataHelper';
+import { setRepositoryLocationsAction } from '../../shared/global/actions';
+import { RepositoryLocationSettings } from '../../shared/global/state';
 import '../../css/_layouts.scss';
 
-export interface ModelRepositoryLocationViewDataProps {
-    repositoryLocationSettings: RepositoryLocationSettings[];
-}
+export const ModelRepositoryLocationView: React.FC = () => {
+    const { t } = useLocalizationContext();
+    const history = useHistory();
+    const { search } = useLocation();
+    const params = new URLSearchParams(search);
+    const navigationBackAvailable = params.has(ROUTE_PARAMS.NAV_FROM);
 
-export interface ModelRepositoryLocationViewActionProps {
-    onSaveRepositoryLocationSettings(modelRepositorySettings: RepositoryLocationSettings[]): void;
-    onNavigateBack(): void;
-}
-
-export type ModelRepositoryLocationViewProps = ModelRepositoryLocationViewDataProps & ModelRepositoryLocationViewActionProps;
-
-export const ModelRepositoryLocationView: React.FC<ModelRepositoryLocationViewProps> = props => {
-    const [ repositoryLocationSettings, setRepositoryLocationSettings ] = React.useState<RepositoryLocationSettings[]>(props.repositoryLocationSettings);
+    const { globalState, dispatch } = useGlobalStateContext();
+    const initialRepositoryLocationSettings = getRepositoryLocationSettings(globalState.modelRepositoryState);
+    const [ repositoryLocationSettings, setRepositoryLocationSettings ] = React.useState<RepositoryLocationSettings[]>(initialRepositoryLocationSettings);
     const [ repositoryLocationSettingsErrors, setRepositoryLocationSettingsErrors ] = React.useState<StringMap<string>>({});
     const [ dirty, setDirtyFlag ] = React.useState<boolean>(false);
-    const { t } = useLocalizationContext();
+
+    const onNavigateBack = () => {
+        if (params.has(ROUTE_PARAMS.NAV_FROM)) {
+            return () => { history.goBack(); };
+        }
+    };
 
     const getCommandBarItems = (): ICommandBarItemProps[] => {
         const addItems = getCommandBarItemsAdd();
@@ -83,7 +84,7 @@ export const ModelRepositoryLocationView: React.FC<ModelRepositoryLocationViewPr
             }
         ];
 
-        if (props.onNavigateBack) {
+        if (navigationBackAvailable) {
             items.push(
                 {
                     ariaLabel: t(ResourceKeys.modelRepository.commands.back.ariaLabel),
@@ -135,20 +136,18 @@ export const ModelRepositoryLocationView: React.FC<ModelRepositoryLocationViewPr
         const errors = validateRepositoryLocationSettings(repositoryLocationSettings);
 
         if (Object.keys(errors).length === 0) {
-            props.onSaveRepositoryLocationSettings(repositoryLocationSettings);
+            dispatch(setRepositoryLocationsAction(repositoryLocationSettings));
             setDirtyFlag(false);
         }
 
         setRepositoryLocationSettingsErrors(errors);
     };
 
-    const onNavigateBackClick = () => {
-        props.onNavigateBack();
-    };
+    const onNavigateBackClick = () => history.goBack();
 
     const onRevertModelRepositorySettingsClick = () => {
         setDirtyFlag(false);
-        setRepositoryLocationSettings(props.repositoryLocationSettings);
+        setRepositoryLocationSettings(initialRepositoryLocationSettings);
     };
 
     const onAddRepositoryLocationPublic = () => {
@@ -209,34 +208,4 @@ export const validateRepositoryLocationSettings = (repositoryLocationSettings: R
     });
 
     return errors;
-};
-
-export const ModelRepositoryLocationViewContainer: React.FC = () => {
-    const reduxState = useSelector((state: StateInterface) => state);
-    const dispatch = useDispatch();
-    const history = useHistory();
-    const { search } = useLocation();
-    const modelRepositorySettings = getRepositoryLocationSettingsSelector(reduxState) || [];
-    const onSaveModelRepositorySettings = (repositoryLocationSettings: RepositoryLocationSettings[]) => {
-        dispatch(setRepositoryLocationsAction(repositoryLocationSettings));
-    };
-
-    const getNavigateBack = () => {
-        if (!history || !search) {
-            return undefined;
-        }
-
-        const params = new URLSearchParams(search);
-        if (params.has(ROUTE_PARAMS.NAV_FROM)) {
-            return () => { history.goBack(); };
-        }
-    };
-
-    return (
-        <ModelRepositoryLocationView
-            repositoryLocationSettings={modelRepositorySettings}
-            onSaveRepositoryLocationSettings={onSaveModelRepositorySettings}
-            onNavigateBack={getNavigateBack()}
-        />
-    );
 };

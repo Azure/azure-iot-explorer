@@ -11,14 +11,14 @@ import { useLocalizationContext } from '../../../../../shared/contexts/localizat
 import { ResourceKeys } from '../../../../../../localization/resourceKeys';
 import { InterfaceDetailCard } from '../../../../../constants/iconNames';
 import { PropertyContent } from '../../../../../api/models/modelDefinition';
-import { ComplexReportedFormPanel } from '../../../components/shared/complexReportedFormPanel';
-import { RenderSimplyTypeValue } from '../../../components/shared/simpleReportedSection';
+import { ComplexReportedFormPanel } from '../../../shared/components/complexReportedFormPanel';
+import { RenderSimplyTypeValue } from '../../../shared/components/simpleReportedSection';
 import { PatchDigitalTwinActionParameters } from '../../actions';
-import ErrorBoundary from '../../../../errorBoundary';
+import ErrorBoundary from '../../../../shared/components/errorBoundary';
 import { getLocalizedData } from '../../../../../api/dataTransforms/modelDefinitionTransform';
 import { SemanticUnit } from '../../../../../shared/units/components/semanticUnit';
 import { JsonPatchOperation, PatchPayload } from '../../../../../api/parameters/deviceParameters';
-import { isValueDefined, DataForm } from '../../../components/shared/dataForm';
+import { isValueDefined, DataForm } from '../../../shared/components/dataForm';
 import '../../../../../css/_deviceSettings.scss';
 
 export interface MetadataSection {

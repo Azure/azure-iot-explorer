@@ -8,7 +8,7 @@ import { ROUTE_PARTS } from '../../constants/routes';
 import { AppVersionMessageBar } from './appVersionMessageBar';
 import { HomeViewNavigation } from './homeViewNavigation';
 import { AzureResourcesView } from '../../azureResources/components/azureResourcesView';
-import { ModelRepositoryLocationViewContainer } from '../../modelRepository/components/modelRepositoryLocationView';
+import { ModelRepositoryLocationView } from '../../modelRepository/components/modelRepositoryLocationView';
 import './homeView.scss';
 
 export const HomeView: React.FC = () => {
@@ -23,7 +23,7 @@ export const HomeView: React.FC = () => {
                     <Switch>
                         <Redirect from={`/${ROUTE_PARTS.HOME}`} to={`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.RESOURCES}`} exact={true}/>
                         <Route path={`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.RESOURCES}`} component={AzureResourcesView} exact={true} />
-                        <Route path={`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.MODEL_REPOS}`} component={ModelRepositoryLocationViewContainer} exact={true} />
+                        <Route path={`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.MODEL_REPOS}`} component={ModelRepositoryLocationView} exact={true} />
                     </Switch>
                 </div>
             </div>

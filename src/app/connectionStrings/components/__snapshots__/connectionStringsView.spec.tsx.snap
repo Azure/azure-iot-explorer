@@ -12,7 +12,7 @@ exports[`ConnectionStringsView matches snapshot when connection string count exc
         Array [
           Object {
             "ariaLabel": "connectionStrings.addConnectionCommand.ariaLabel",
-            "disabled": true,
+            "disabled": false,
             "iconProps": Object {
               "iconName": "Add",
             },
@@ -30,6 +30,7 @@ exports[`ConnectionStringsView matches snapshot when connection string count exc
     <div
       className="connection-strings"
     />
+    <Component />
   </div>
 </div>
 `;
@@ -63,15 +64,8 @@ exports[`ConnectionStringsView matches snapshot when connection strings present 
   >
     <div
       className="connection-strings"
-    >
-      <Component
-        connectionString="connectionString1"
-        key="connectionString1"
-        onDeleteConnectionString={[MockFunction]}
-        onEditConnectionString={[Function]}
-        onSelectConnectionString={[MockFunction]}
-      />
-    </div>
+    />
+    <Component />
   </div>
 </div>
 `;

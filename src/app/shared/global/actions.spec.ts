@@ -2,8 +2,17 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { clearNotificationsAction, addNotificationAction } from './actions';
-import { Notification, NotificationType } from '../api/models/notification';
+import { setRepositoryLocationsAction, clearNotificationsAction, addNotificationAction } from './actions';
+import { NotificationType } from '../../api/models/notification';
+
+describe('setSettingsRepositoryLocationsAction', () => {
+    it('returns MODEL_REPOSITORY/SET action object', () => {
+        expect(setRepositoryLocationsAction([])).toEqual({
+            payload: [],
+            type: 'MODEL_REPOSITORY/SET'
+        });
+    });
+});
 
 describe('clearNotificationsAction', () => {
     it('returns NOTIFICATIONS/CLEAR action object', () => {

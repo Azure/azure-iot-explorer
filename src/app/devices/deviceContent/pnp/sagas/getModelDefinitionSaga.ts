@@ -9,7 +9,7 @@ import { raiseNotificationToast } from '../../../../notifications/components/not
 import { NotificationType } from '../../../../api/models/notification';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { FetchModelParameters } from '../../../../api/parameters/repoParameters';
-import { RepositoryLocationSettings } from '../../../../modelRepository/state';
+import { RepositoryLocationSettings } from '../../../../shared/global/state';
 import { REPOSITORY_LOCATION_TYPE } from '../../../../constants/repositoryLocationTypes';
 import { fetchLocalFile } from '../../../../api/services/localRepoService';
 import { ModelDefinition } from '../../../../api/models/modelDefinition';

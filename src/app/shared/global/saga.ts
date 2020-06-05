@@ -2,13 +2,10 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
+import { takeLatest } from 'redux-saga/effects';
 import { setRepositoryLocationsAction } from './actions';
+import { setRepositoryLocationsSaga } from './sagas/setRepositoryLocationsSaga';
 
-describe('setSettingsRepositoryLocationsAction', () => {
-    it('returns MODEL_REPOSITORY/SET action object', () => {
-        expect(setRepositoryLocationsAction([])).toEqual({
-            payload: [],
-            type: 'MODEL_REPOSITORY/SET'
-        });
-    });
-});
+export function* globalSaga() {
+    yield takeLatest(setRepositoryLocationsAction, setRepositoryLocationsSaga);
+}

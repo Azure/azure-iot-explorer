@@ -2,8 +2,8 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { takeEvery, takeLatest } from 'redux-saga/effects';
-import rootSaga from './sagas';
+import { takeEvery, takeLatest, all } from 'redux-saga/effects';
+import { connectionStringsSaga } from './sagas';
 import { addConnectionStringAction, deleteConnectionStringAction, setConnectionStringsAction, upsertConnectionStringAction } from './actions';
 import { addConnectionStringSaga } from './sagas/addConnectionStringSaga';
 import { deleteConnectionStringSaga } from './sagas/deleteConnectionStringSaga';
@@ -12,11 +12,11 @@ import { upsertConnectionStringSaga } from './sagas/upsertConnectionStringSaga';
 
 describe('connectionStrings/saga/rootSaga', () => {
     it('returns specified sagas', () => {
-        expect(rootSaga).toEqual([
+        expect(connectionStringsSaga().next().value).toEqual(all([
             takeEvery(addConnectionStringAction, addConnectionStringSaga),
             takeEvery(deleteConnectionStringAction, deleteConnectionStringSaga),
             takeLatest(setConnectionStringsAction, setConnectionStringsSaga),
             takeEvery(upsertConnectionStringAction, upsertConnectionStringSaga)
-        ]);
+        ]));
     });
 });

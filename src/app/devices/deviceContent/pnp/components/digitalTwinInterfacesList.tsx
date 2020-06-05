@@ -18,8 +18,8 @@ import { SynchronizationStatus } from '../../../../api/models/synchronizationSta
 import { getDigitalTwinAction } from '../actions';
 import { REFRESH } from '../../../../constants/iconNames';
 import { LARGE_COLUMN_WIDTH } from '../../../../constants/columnWidth';
-import { InterfaceNotFoundMessageBar } from '../../components/shared/interfaceNotFoundMessageBar';
-import { ModelDefinitionSourceView } from '../../components/shared/modelDefinitionSource';
+import { InterfaceNotFoundMessageBar } from '../../shared/components/interfaceNotFoundMessageBar';
+import { ModelDefinitionSourceView } from '../../shared/components/modelDefinitionSource';
 import { MaskedCopyableTextField } from '../../../../shared/components/maskedCopyableTextField';
 import { MonacoEditorView } from '../../../../shared/components/monacoEditor';
 import { HeaderView } from '../../../../shared/components/headerView';

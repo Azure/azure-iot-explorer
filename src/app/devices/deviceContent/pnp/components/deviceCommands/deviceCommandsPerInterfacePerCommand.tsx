@@ -10,9 +10,9 @@ import { ResourceKeys } from '../../../../../../localization/resourceKeys';
 import { InterfaceDetailCard, SUBMIT } from '../../../../../constants/iconNames';
 import { ParsedCommandSchema } from '../../../../../api/models/interfaceJsonParserOutput';
 import { CommandContent } from '../../../../../api/models/modelDefinition';
-import { DataForm } from '../../../components/shared/dataForm';
+import { DataForm } from '../../../shared/components/dataForm';
 import { InvokeDigitalTwinInterfaceCommandActionParameters } from '../../actions';
-import ErrorBoundary from '../../../../errorBoundary';
+import ErrorBoundary from '../../../../shared/components/errorBoundary';
 import { getLocalizedData } from '../../../../../api/dataTransforms/modelDefinitionTransform';
 
 export interface DeviceCommandDataProps extends CommandSchema {
@@ -128,6 +128,7 @@ export const DeviceCommandsPerInterfacePerCommand: React.FC<DeviceCommandDataPro
         invokeDigitalTwinInterfaceCommand({
             commandName: commandModelDefinition.name,
             commandPayload: data,
+            componentName,
             digitalTwinId: deviceId,
             propertyKey: commandModelDefinition.request && commandModelDefinition.request.name
         });

@@ -8,8 +8,7 @@ import {
     setActiveAzureResourceByHostNameSaga_ConnectionString,
     setActiveAzureResourceByHostNameSaga_ImplicitFlow,
     getAuthMode,
-    getAzureResourceManagementEndpoint,
-    getLastUsedConnectionString } from './setActiveAzureResourceByHostNameSaga';
+    getAzureResourceManagementEndpoint } from './setActiveAzureResourceByHostNameSaga';
 import { setActiveAzureResourceByHostNameAction, SetActiveAzureResourceByHostNameActionParameters, setActiveAzureResourceAction } from '../actions';
 import { AccessVerificationState } from '../models/accessVerificationState';
 import * as hostNameUtils from '../../api/shared/hostNameUtils';

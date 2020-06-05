@@ -5,7 +5,6 @@
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
-import { Provider } from 'react-redux';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/Button';
 import { ConnectionStringEditView, ConnectionStringEditViewProps } from './connectionStringEditView';
@@ -86,11 +85,7 @@ describe('ConnectionStringEdit', () => {
                 onDismiss: jest.fn()
             };
 
-            const wrapper = mount(
-                <Provider store={configureStore()}>
-                     <ConnectionStringEditView {...props}/>
-                </Provider>
-           );
+            const wrapper = mount(<ConnectionStringEditView {...props}/>);
             act(() => wrapper.find(TextField).props().onChange(undefined, 'badConnectionString'));
             wrapper.update();
 
@@ -106,11 +101,7 @@ describe('ConnectionStringEdit', () => {
                 onDismiss: jest.fn()
             };
 
-            const wrapper = mount(
-                <Provider store={configureStore()}>
-                     <ConnectionStringEditView {...props}/>
-                </Provider>
-           );
+            const wrapper = mount(<ConnectionStringEditView {...props}/>);
             act(() => wrapper.find(TextField).props().onChange(undefined, connectionString));
             wrapper.update();
 
