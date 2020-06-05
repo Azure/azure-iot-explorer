@@ -16,25 +16,8 @@ import MultiLineShimmer from '../../../../../shared/components/multiLineShimmer'
 import { ROUTE_PARAMS } from '../../../../../constants/routes';
 import { usePnpStateContext } from '../../pnpStateContext';
 import { SynchronizationStatus } from '../../../../../api/models/synchronizationStatus';
-import { getModelDefinitionAction, InvokeDigitalTwinInterfaceCommandActionParameters, invokeDigitalTwinInterfaceCommandAction } from '../../actions';
-import { ModelDefinition } from '../../../../../api/models/modelDefinition';
-import { JsonSchemaAdaptor } from '../../../../../shared/utils/jsonSchemaAdaptor';
-
-interface DeviceCommandsWithSchema {
-    commandSchemas: CommandSchema[];
-}
-
-const getDeviceCommandPairs = (modelDefinition: ModelDefinition): DeviceCommandsWithSchema => {
-    const jsonSchemaAdaptor = new JsonSchemaAdaptor(modelDefinition);
-    const commands = jsonSchemaAdaptor.getCommands();
-    return {
-        // tslint:disable-next-line: no-any
-        commandSchemas: commands.map((command: any) => ({
-            commandModelDefinition: command,
-            parsedSchema: jsonSchemaAdaptor.parseInterfaceCommandToJsonSchema(command),
-        }))
-    };
-};
+import { InvokeDigitalTwinInterfaceCommandActionParameters, invokeDigitalTwinInterfaceCommandAction } from '../../actions';
+import { getDeviceCommandPairs } from './dataHelper';
 
 export const DeviceCommands: React.FC = () => {
     // const { refresh, setComponentName, isLoading, commandSchemas } = props;
@@ -46,7 +29,7 @@ export const DeviceCommands: React.FC = () => {
 
     const { pnpState, dispatch, getModelDefinition } = usePnpStateContext();
     const isLoading = pnpState.modelDefinitionWithSource.synchronizationStatus === SynchronizationStatus.working;
-    const modelDefinition = pnpState.modelDefinitionWithSource.payload!.modelDefinition;
+    const modelDefinition = pnpState.modelDefinitionWithSource.payload && pnpState.modelDefinitionWithSource.payload.modelDefinition;
     const commandSchemas = React.useMemo(() => getDeviceCommandPairs(modelDefinition).commandSchemas, [modelDefinition]);
 
     const invokeDigitalTwinInterfaceCommand = (parameters: InvokeDigitalTwinInterfaceCommandActionParameters) => dispatch(invokeDigitalTwinInterfaceCommandAction.started(parameters));

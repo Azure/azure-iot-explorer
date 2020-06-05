@@ -52,7 +52,7 @@ describe('components/devices/deviceCommandsPerInterface', () => {
         expect(wrapper.find('.collapse-button').find(IconButton).first().props().title).toEqual('deviceCommands.command.collapseAll');
 
         const button = wrapper.find(IconButton).first();
-        button.simulate('click');
+        act(() => button.simulate('click'));
         wrapper.update();
         expect(wrapper.find('.collapse-button').find(IconButton).first().props().title).toEqual('deviceCommands.command.expandAll');
     });

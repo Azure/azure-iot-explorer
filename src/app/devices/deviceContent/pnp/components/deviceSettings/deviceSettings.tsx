@@ -7,7 +7,6 @@ import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { Label } from 'office-ui-fabric-react/lib/components/Label';
 import { useLocation, useHistory } from 'react-router-dom';
 import { DeviceSettingsPerInterface } from './deviceSettingsPerInterface';
-import { TwinWithSchema } from './deviceSettingsPerInterfacePerSetting';
 import { useLocalizationContext } from '../../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString, getComponentNameFromQueryString } from '../../../../../shared/utils/queryStringHelper';
@@ -17,36 +16,7 @@ import MultiLineShimmer from '../../../../../shared/components/multiLineShimmer'
 import { ROUTE_PARAMS } from '../../../../../constants/routes';
 import { usePnpStateContext } from '../../pnpStateContext';
 import { SynchronizationStatus } from '../../../../../api/models/synchronizationStatus';
-import { JsonSchemaAdaptor } from '../../../../../shared/utils/jsonSchemaAdaptor';
-import { ModelDefinition } from '../../../../../api/models/modelDefinition';
-
-export interface DeviceInterfaceWithSchema {
-    twinWithSchema: TwinWithSchema[];
-}
-
-const generateTwinSchemaAndInterfaceTuple = (model: ModelDefinition, digitalTwin: object, componentName: string): DeviceInterfaceWithSchema => {
-    if (!model) {
-        return { twinWithSchema: [] };
-    }
-    const jsonSchemaAdaptor = new JsonSchemaAdaptor(model);
-    const writableProperties = jsonSchemaAdaptor.getWritableProperties();
-    const digitalTwinForSpecificComponent = digitalTwin && (digitalTwin as any)[componentName]; // tslint:disable-line: no-any
-
-    const settings = writableProperties
-        .map(setting => {
-            return {
-                isComponentContainedInDigitalTwin: !!digitalTwinForSpecificComponent,
-                metadata: digitalTwinForSpecificComponent && digitalTwinForSpecificComponent.$metaData && digitalTwinForSpecificComponent.$metadata[setting.name],
-                reportedTwin: digitalTwinForSpecificComponent && digitalTwinForSpecificComponent[setting.name],
-                settingModelDefinition: setting,
-                settingSchema: jsonSchemaAdaptor.parseInterfacePropertyToJsonSchema(setting)
-            };
-        });
-
-    return {
-        twinWithSchema: settings,
-    };
-};
+import { generateTwinSchemaAndInterfaceTuple } from './dataHelper';
 
 export const DeviceSettings: React.FC = () => {
     const { t } = useLocalizationContext();
@@ -59,7 +29,7 @@ export const DeviceSettings: React.FC = () => {
     const { pnpState, dispatch, getModelDefinition } = usePnpStateContext();
     const isLoading = (pnpState.digitalTwin.synchronizationStatus === SynchronizationStatus.working)
      || (pnpState.modelDefinitionWithSource.synchronizationStatus === SynchronizationStatus.working);
-    const modelDefinitionWithSource = pnpState.modelDefinitionWithSource.payload;
+    const modelDefinitionWithSource = pnpState.modelDefinitionWithSource && pnpState.modelDefinitionWithSource.payload;
     const modelDefinition = modelDefinitionWithSource && modelDefinitionWithSource.modelDefinition;
     const digitalTwin = pnpState.digitalTwin.payload;
     const twinWithSchema = React.useMemo(() => {

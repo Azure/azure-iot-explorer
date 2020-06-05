@@ -18,7 +18,6 @@ describe('components/devices/deviceContentNav', () => {
     const setComponentName = jest.fn();
     const getComponent = (overrides = {}) => {
         const navDataProps: DeviceContentNavDataProps = {
-            digitalTwinModelId: '',
             isEdgeDevice: true,
             isLoading: false,
         };
@@ -50,11 +49,11 @@ describe('components/devices/deviceContentNav', () => {
         expect(navigation.props().groups[0].links.length).toEqual(NAV_LINK_ITEMS.length);
     });
 
-    it('shows non-pnp non-edge nav if device is not edge', () => {
+    it('shows pnp non-edge nav if device is not edge', () => {
         const wrapper = mount(getComponent({isEdgeDevice: false}));
 
         const navigation = wrapper.find(Nav);
-        expect(navigation.props().groups[0].links.length).toEqual(NAV_LINK_ITEMS_NONEDGE.length);
+        expect(navigation.props().groups[0].links.length).toEqual(NAV_LINK_ITEMS_NONEDGE.length + 1);
     });
 
     it('show non-pnp nav and pnp nav when device is pnp', () => {

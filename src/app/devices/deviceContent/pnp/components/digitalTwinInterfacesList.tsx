@@ -57,7 +57,7 @@ const getComponentNameAndInterfaceIdArray = (modelDefinition: ModelDefinition): 
 
 // tslint:disable-next-line: cyclomatic-complexity
 export const DigitalTwinInterfacesList: React.FC = () => {
-    const { pathname, search } = useLocation();
+    const { search } = useLocation();
     const { url } = useRouteMatch();
     const deviceId = getDeviceIdFromQueryString(search);
     const { t } = useLocalizationContext();

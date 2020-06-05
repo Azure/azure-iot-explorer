@@ -11,7 +11,7 @@ import {
 import { DeviceIdentity } from '../../api/models/deviceIdentity';
 import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
 
-const reducer = reducerWithInitialState<DeviceContentStateType>(deviceContentStateInitial())
+export const deviceContentReducer = reducerWithInitialState<DeviceContentStateType>(deviceContentStateInitial())
     .case(getDeviceIdentityAction.started, (state: DeviceContentStateType) => {
         return state.merge({
             deviceIdentity: {
@@ -58,4 +58,3 @@ const reducer = reducerWithInitialState<DeviceContentStateType>(deviceContentSta
             }
         });
     });
-export default reducer;

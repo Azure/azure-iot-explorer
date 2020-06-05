@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/devices/deviceSettings matches snapshot with one twinWithSchema 1`] = `
+exports[`deviceSettings matches snapshot with one twinWithSchema 1`] = `
 <Fragment>
   <StyledCommandBarBase
     className="command"
@@ -31,10 +31,62 @@ exports[`components/devices/deviceSettings matches snapshot with one twinWithSch
       ]
     }
   />
-  <StyledLabelBase
-    className="no-pnp-content"
-  >
-    deviceSettings.noSettings
-  </StyledLabelBase>
+  <Component
+    componentName="foo"
+    deviceId={null}
+    interfaceId="urn:contoso:com:EnvironmentalSensor:1"
+    patchDigitalTwin={[Function]}
+    twinWithSchema={
+      Array [
+        Object {
+          "isComponentContainedInDigitalTwin": false,
+          "metadata": undefined,
+          "reportedTwin": undefined,
+          "settingModelDefinition": Object {
+            "@type": "Property",
+            "description": "The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)",
+            "displayName": "Brightness Level",
+            "name": "brightness",
+            "schema": "long",
+            "writable": true,
+          },
+          "settingSchema": Object {
+            "definitions": Object {},
+            "required": Array [],
+            "title": "brightness",
+            "type": Array [
+              "number",
+              "null",
+            ],
+          },
+        },
+        Object {
+          "isComponentContainedInDigitalTwin": false,
+          "metadata": undefined,
+          "reportedTwin": undefined,
+          "settingModelDefinition": Object {
+            "@type": Array [
+              "Property",
+              "SemanticType/Brightness Level",
+            ],
+            "description": "The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)",
+            "displayName": "Brightness Level",
+            "name": "brightness",
+            "schema": "long",
+            "writable": true,
+          },
+          "settingSchema": Object {
+            "definitions": Object {},
+            "required": Array [],
+            "title": "brightness",
+            "type": Array [
+              "number",
+              "null",
+            ],
+          },
+        },
+      ]
+    }
+  />
 </Fragment>
 `;

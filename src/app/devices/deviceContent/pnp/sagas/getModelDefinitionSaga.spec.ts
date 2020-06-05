@@ -6,22 +6,23 @@ import 'jest';
 import { select, call, put } from 'redux-saga/effects';
 // tslint:disable-next-line: no-implicit-dependencies
 import { SagaIteratorClone, cloneableGenerator } from '@redux-saga/testing-utils';
-import { getModelDefinitionSaga, getModelDefinition, getModelDefinitionFromPublicRepo, getModelDefinitionFromLocalFile, validateModelDefinitionHelper } from './modelDefinitionSaga';
+import { getModelDefinitionSaga, getModelDefinition, getModelDefinitionFromPublicRepo, getModelDefinitionFromLocalFile, validateModelDefinitionHelper } from './getModelDefinitionSaga';
 import { raiseNotificationToast } from '../../../../notifications/components/notificationToast';
 import { NotificationType } from '../../../../api/models/notification';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
-import { getModelDefinitionAction } from '../../actions';
-import { getRepositoryLocationSettingsSelector, getLocalFolderPathSelector } from '../../../../modelRepository/selectors';
+import { getModelDefinitionAction, GetModelDefinitionActionParameters } from '../actions';
 import { REPOSITORY_LOCATION_TYPE } from '../../../../constants/repositoryLocationTypes';
 import { fetchLocalFile } from '../../../../api/services/localRepoService';
 import { fetchModelDefinition } from '../../../../api/services/publicDigitalTwinsModelRepoService';
 
-describe('modelDefinitionSaga', () => {
+describe('modelDefinition sagas', () => {
     const digitalTwinId = 'device_id';
     const interfaceId = 'interface_id';
-    const params = {
+    const params: GetModelDefinitionActionParameters = {
         digitalTwinId,
-        interfaceId
+        interfaceId,
+        localFolderPath: 'f:/',
+        locations: [{ repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public }],
     };
     const action = getModelDefinitionAction.started(params);
     /* tslint:disable */
@@ -71,14 +72,7 @@ describe('modelDefinitionSaga', () => {
         });
 
         it('fetches the model definition', () => {
-            expect(getModelDefinitionSagaGenerator.next()).toEqual({
-                done: false,
-                value: select(getRepositoryLocationSettingsSelector)
-            });
-
-            expect(getModelDefinitionSagaGenerator.next([{
-                repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public,
-            }]).value).toEqual(
+            expect(getModelDefinitionSagaGenerator.next().value).toEqual(
                 call(getModelDefinition, action, { repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public })
             );
 
@@ -151,11 +145,6 @@ describe('modelDefinitionSaga', () => {
             (action);
 
         expect(getModelDefinitionFromLocalFolderGenerator.next()).toEqual({
-            done: false,
-            value: select(getLocalFolderPathSelector)
-        });
-
-        expect(getModelDefinitionFromLocalFolderGenerator.next('f:/')).toEqual({
             done: false,
             value: call(fetchLocalFile, 'f:', action.payload.interfaceId)
         });

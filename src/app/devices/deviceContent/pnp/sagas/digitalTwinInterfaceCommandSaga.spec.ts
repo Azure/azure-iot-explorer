@@ -4,13 +4,11 @@
  **********************************************************/
 import 'jest';
 import { select, call, put } from 'redux-saga/effects';
-// tslint:disable-next-line: no-submodule-imports
 // tslint:disable-next-line: no-implicit-dependencies
 import { SagaIteratorClone, cloneableGenerator } from '@redux-saga/testing-utils';
 import { invokeDigitalTwinInterfaceCommandSaga, notifyMethodInvoked } from './digitalTwinInterfaceCommandSaga';
-import { invokeDigitalTwinInterfaceCommandAction, InvokeDigitalTwinInterfaceCommandActionParameters } from '../../actions';
+import { invokeDigitalTwinInterfaceCommandAction, InvokeDigitalTwinInterfaceCommandActionParameters } from '../actions';
 import * as DigitalTwinService from '../../../../api/services/digitalTwinService';
-import { getComponentNameSelector } from '../../selectors';
 import { NotificationType } from '../../../../api/models/notification';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { raiseNotificationToast } from '../../../../notifications/components/notificationToast';
@@ -23,11 +21,11 @@ describe('digitalTwinInterfaceCommandSaga', () => {
     const digitalTwinId = 'device_id';
     const commandName = 'command';
     const componentName = 'interface_name';
-    const payload = { };
+    const payload = {};
 
     const randomNumber = 0;
 
-    const mockRandom = jest.spyOn(Math, 'random').mockImplementation(() => {
+    jest.spyOn(Math, 'random').mockImplementation(() => {
         return randomNumber;
     });
 
@@ -39,6 +37,7 @@ describe('digitalTwinInterfaceCommandSaga', () => {
     const invokeParameters: InvokeDigitalTwinInterfaceCommandActionParameters = {
         commandName,
         commandPayload: payload,
+        componentName,
         digitalTwinId
     };
 
@@ -51,15 +50,8 @@ describe('digitalTwinInterfaceCommandSaga', () => {
             return null;
         });
 
-        it('fetches the interface name', () => {
-            expect(invokeDigitalTwinInterfaceCommandSagaGenerator.next()).toEqual({
-                done: false,
-                value: select(getComponentNameSelector)
-            });
-        });
-
         it('notifies of method invokation', () => {
-            expect(invokeDigitalTwinInterfaceCommandSagaGenerator.next(componentName)).toEqual({
+            expect(invokeDigitalTwinInterfaceCommandSagaGenerator.next()).toEqual({
                 done: false,
                 value: call(notifyMethodInvoked, randomNumber, invokeDigitalTwinInterfaceCommandAction.started(invokeParameters))
             });
@@ -71,7 +63,6 @@ describe('digitalTwinInterfaceCommandSaga', () => {
                 done: false,
                 value: call(mockInvokeDigitalTwinInterfaceCommand, {
                     commandName,
-                    connectionString,
                     digitalTwinId,
                     componentName,
                     payload
@@ -145,11 +136,6 @@ describe('digitalTwinInterfaceCommandSaga', () => {
         });
 
         it('puts a notification if there is a payload', () => {
-            expect(notifyMethodInvokedGenerator.next()).toEqual({
-                done: false,
-                value: select(getComponentNameSelector)
-            });
-
             expect(notifyMethodInvokedGenerator.next(componentName)).toEqual({
                 done: false,
                 value: call(raiseNotificationToast, {

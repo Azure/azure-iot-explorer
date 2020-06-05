@@ -7,8 +7,7 @@ import 'jest';
 import { SagaIteratorClone, cloneableGenerator } from '@redux-saga/testing-utils';
 import { call, put } from 'redux-saga/effects';
 import { getDigitalTwinSaga } from './getDigitalTwinSaga';
-import { getDigitalTwinAction } from '../../actions';
-import { getActiveAzureResourceConnectionStringSaga } from '../../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
+import { getDigitalTwinAction } from '../actions';
 import * as DigitalTwinService from '../../../../api/services/digitalTwinService';
 
 describe('digitalTwinSaga', () => {
@@ -41,17 +40,10 @@ describe('digitalTwinSaga', () => {
             getDigitalTwinSagaGenerator = cloneableGenerator(getDigitalTwinSaga)(getDigitalTwinAction.started(digitalTwinId));
         });
 
-        it('fetches the connection string', () => {
+        it('fetches the digital twin', () => {
             expect(getDigitalTwinSagaGenerator.next()).toEqual({
                 done: false,
-                value: call(getActiveAzureResourceConnectionStringSaga)
-            });
-        });
-
-        it('fetches the digital twin', () => {
-            expect(getDigitalTwinSagaGenerator.next(connectionString)).toEqual({
-                done: false,
-                value: call(mockFetchDigitalTwin, { connectionString, digitalTwinId })
+                value: call(mockFetchDigitalTwin, { digitalTwinId })
             });
         });
 

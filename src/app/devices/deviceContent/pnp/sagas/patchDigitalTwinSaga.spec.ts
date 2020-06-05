@@ -7,8 +7,7 @@ import 'jest';
 import { SagaIteratorClone, cloneableGenerator } from '@redux-saga/testing-utils';
 import { call, put } from 'redux-saga/effects';
 import { patchDigitalTwinSaga } from './patchDigitalTwinSaga';
-import { patchDigitalTwinAction } from '../actions';
-import { getActiveAzureResourceConnectionStringSaga } from '../../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
+import { patchDigitalTwinAction, PatchDigitalTwinActionParameters } from '../actions';
 import * as DigitalTwinService from '../../../../api/services/digitalTwinService';
 import { raiseNotificationToast } from '../../../../notifications/components/notificationToast';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
@@ -19,7 +18,6 @@ describe('digitalTwinSaga', () => {
     const mockFetchDigitalTwin = jest.spyOn(DigitalTwinService, 'fetchDigitalTwin').mockImplementationOnce(parameters => {
         return null;
     });
-    const connectionString = 'connection_string';
     const digitalTwinId = 'device_id';
 
     /* tslint:disable */
@@ -40,11 +38,13 @@ describe('digitalTwinSaga', () => {
     /* tslint:enable */
 
     describe('patchDigitalTwinSaga', () => {
-        const patchParameters = {
+        const patchParameters: PatchDigitalTwinActionParameters = {
             digitalTwinId,
-            operation: JsonPatchOperation.ADD,
-            path: 'name',
-            value: 123,
+            payload: [{
+                op: JsonPatchOperation.ADD,
+                path: 'name',
+                value: 123,
+            }]
         };
         const patchAction = patchDigitalTwinAction.started(patchParameters);
         let patchDigitalTwinSagaGenerator: SagaIteratorClone;
@@ -56,18 +56,10 @@ describe('digitalTwinSaga', () => {
             return null;
         });
 
-        it('fetches the connection string', () => {
+        it('patches the digital twin', () => {
             expect(patchDigitalTwinSagaGenerator.next()).toEqual({
                 done: false,
-                value: call(getActiveAzureResourceConnectionStringSaga)
-            });
-        });
-
-        it('patches the digital twin', () => {
-            expect(patchDigitalTwinSagaGenerator.next(connectionString)).toEqual({
-                done: false,
                 value: call(mockPatchDigitalTwin, {
-                    connectionString,
                     ...patchParameters
                 })
             });
@@ -78,7 +70,6 @@ describe('digitalTwinSaga', () => {
             expect(patchDigitalTwinSagaGenerator.next(200)).toEqual({
                 done: false,
                 value: call(mockFetchDigitalTwin, {
-                    connectionString,
                     digitalTwinId
                 })
             });

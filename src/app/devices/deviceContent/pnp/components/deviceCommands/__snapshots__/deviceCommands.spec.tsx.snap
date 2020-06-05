@@ -31,9 +31,6 @@ exports[`components/devices/deviceCommands matches snapshot while interface cann
       ]
     }
   />
-  <Component
-    component={[Function]}
-  />
   <StyledLabelBase
     className="no-pnp-content"
   >
@@ -74,50 +71,47 @@ exports[`components/devices/deviceCommands matches snapshot with a commandSchema
     }
   />
   <Component
-    component={[Function]}
-  />
-  <Component
     commandSchemas={
       Array [
         Object {
           "commandModelDefinition": Object {
             "@type": "Command",
-            "name": "command1",
+            "commandType": "synchronous",
+            "description": "This command will begin blinking the LED for given time interval.",
+            "name": "blink",
+            "request": Object {
+              "name": "blinkRequest",
+              "schema": "long",
+            },
+            "response": Object {
+              "name": "blinkResponse",
+              "schema": "string",
+            },
           },
           "parsedSchema": Object {
-            "description": "command1 description",
-            "name": "command1",
+            "name": "blink",
+            "requestSchema": Object {
+              "definitions": Object {},
+              "required": Array [],
+              "title": "blinkRequest",
+              "type": Array [
+                "number",
+                "null",
+              ],
+            },
+            "responseSchema": Object {
+              "definitions": Object {},
+              "required": Array [],
+              "title": "blinkResponse",
+              "type": "string",
+            },
           },
         },
       ]
     }
     componentName="foo"
     deviceId={null}
-    invokeDigitalTwinInterfaceCommand={[MockFunction]}
-    isLoading={false}
-    refresh={[MockFunction]}
-    setComponentName={
-      [MockFunction] {
-        "calls": Array [
-          Array [
-            "foo",
-          ],
-          Array [
-            "foo",
-          ],
-        ],
-        "results": Array [
-          Object {
-            "type": "return",
-            "value": undefined,
-          },
-          Object {
-            "type": "return",
-            "value": undefined,
-          },
-        ],
-      }
-    }
+    invokeDigitalTwinInterfaceCommand={[Function]}
   />
 </Fragment>
 `;

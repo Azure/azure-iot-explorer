@@ -8,7 +8,10 @@ import { mount, shallow } from 'enzyme';
 import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { DeviceSettings } from './deviceSettings';
-import { TwinWithSchema } from './deviceSettingsPerInterfacePerSetting';
+import { pnpStateInitial, PnpStateInterface } from '../../state';
+import { SynchronizationStatus } from '../../../../../api/models/synchronizationStatus';
+import * as PnpContext from '../../pnpStateContext';
+import { pnpStateWithTestData } from './testData';
 
 const interfaceId = 'urn:contoso:com:EnvironmentalSensor:1';
 const pathname = `/#/devices/deviceDetail/ioTPlugAndPlay/ioTPlugAndPlayDetail/settings/?id=device1&componentName=foo&interfaceId=${interfaceId}`;
@@ -18,69 +21,31 @@ jest.mock('react-router-dom', () => ({
     useLocation: () => ({ search: `?id=device1&componentName=foo&interfaceId=${interfaceId}`, pathname }),
 }));
 
-export const twinWithSchema: TwinWithSchema = {
-    isComponentContainedInDigitalTwin: true,
-    metadata: {
-        lastUpdatedTime: '2020-03-31T23:17:42.4813073Z'
-    },
-    reportedTwin: null,
-    settingModelDefinition: {
-        '@type': 'Property',
-        'description': 'The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)',
-        'displayName': 'Brightness Level',
-        'name': 'brightness',
-        'schema': 'long',
-        'writable': true
-    },
-    settingSchema: {
-        description: 'Brightness Level / The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)',
-        required: [],
-        title: 'brightness',
-        type: 'number'
-    }
-};
-
-describe('components/devices/deviceSettings', () => {
-    const deviceSettingsProps: DeviceSettingsProps = {
-        componentName: 'environmentalSensor',
-        interfaceId,
-        isLoading: true,
-        twinWithSchema: []
-    };
-
-    const refreshMock = jest.fn();
-    const deviceSettingsDispatchProps: DeviceSettingDispatchProps = {
-        patchDigitalTwin: jest.fn(),
-        refresh: refreshMock,
-        setComponentName: jest.fn()
-    };
-
-    const getComponent = (overrides = {}) => {
-        const props = {
-            ...deviceSettingsProps,
-            ...deviceSettingsDispatchProps,
-            ...overrides
-        };
-
-        return <DeviceSettings {...props} />;
-    };
-
+describe('deviceSettings', () => {
     it('matches snapshot while loading', () => {
-        const wrapper = mount(getComponent());
+        const pnpState: PnpStateInterface = {
+            ...pnpStateInitial(),
+            digitalTwin: {
+                synchronizationStatus: SynchronizationStatus.working
+            }
+        };
+        jest.spyOn(PnpContext, 'usePnpStateContext').mockReturnValueOnce({pnpState, dispatch: jest.fn(), getModelDefinition: jest.fn()});
+        const wrapper = mount(<DeviceSettings/>);
         expect(wrapper.find(Shimmer)).toBeDefined();
     });
 
     it('matches snapshot with one twinWithSchema', () => {
-        expect(shallow(getComponent({
-            isLoading: false,
-            twinWithSchema: [twinWithSchema]}))).toMatchSnapshot();
+        jest.spyOn(PnpContext, 'usePnpStateContext').mockReturnValueOnce({pnpState: pnpStateWithTestData, dispatch: jest.fn(), getModelDefinition: jest.fn()});
+        expect(shallow(<DeviceSettings/>)).toMatchSnapshot();
     });
 
     it('dispatch action when refresh button is clicked', () => {
-        const wrapper = shallow(getComponent({isLoading: false}));
+        const getModelDefinitionSpy = jest.fn();
+        jest.spyOn(PnpContext, 'usePnpStateContext').mockReturnValueOnce({pnpState: pnpStateWithTestData, dispatch: jest.fn(), getModelDefinition: getModelDefinitionSpy});
+        const wrapper = shallow(<DeviceSettings/>);
         const commandBar = wrapper.find(CommandBar).first();
         commandBar.props().items[0].onClick(null);
         wrapper.update();
-        expect(refreshMock).toBeCalled();
+        expect(getModelDefinitionSpy).toBeCalled();
     });
 });

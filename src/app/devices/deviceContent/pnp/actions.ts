@@ -30,6 +30,7 @@ export interface PatchDigitalTwinActionParameters {
 export interface InvokeDigitalTwinInterfaceCommandActionParameters {
     digitalTwinId: string;
     commandName: string;
+    componentName: string;
     commandPayload: boolean | number | string | object;
     propertyKey?: string;
 }
