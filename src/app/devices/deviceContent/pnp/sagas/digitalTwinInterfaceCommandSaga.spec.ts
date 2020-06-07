@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import 'jest';
-import { select, call, put } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
 // tslint:disable-next-line: no-implicit-dependencies
 import { SagaIteratorClone, cloneableGenerator } from '@redux-saga/testing-utils';
 import { invokeDigitalTwinInterfaceCommandSaga, notifyMethodInvoked } from './digitalTwinInterfaceCommandSaga';
@@ -58,13 +58,12 @@ describe('digitalTwinInterfaceCommandSaga', () => {
         });
 
         it('invokes the command', () => {
-
-            expect(invokeDigitalTwinInterfaceCommandSagaGenerator.next()).toEqual({
+            expect(invokeDigitalTwinInterfaceCommandSagaGenerator.next(payload)).toEqual({
                 done: false,
                 value: call(mockInvokeDigitalTwinInterfaceCommand, {
                     commandName,
-                    digitalTwinId,
                     componentName,
+                    digitalTwinId,
                     payload
                 })
             });
@@ -80,8 +79,8 @@ describe('digitalTwinInterfaceCommandSaga', () => {
                             translationKey: ResourceKeys.notifications.invokeDigitalTwinCommandOnSuccess,
                             translationOptions: {
                                 commandName,
-                                deviceId: digitalTwinId,
                                 componentName,
+                                deviceId: digitalTwinId,
                                 response: JSON.stringify(response)
                             },
                         },
@@ -109,9 +108,9 @@ describe('digitalTwinInterfaceCommandSaga', () => {
                         translationKey: ResourceKeys.notifications.invokeDigitalTwinCommandOnError,
                         translationOptions: {
                             commandName,
+                            componentName,
                             deviceId: digitalTwinId,
                             error,
-                            componentName
                         },
                     },
                     type: NotificationType.error,
@@ -144,8 +143,8 @@ describe('digitalTwinInterfaceCommandSaga', () => {
                         translationKey: ResourceKeys.notifications.invokingDigitalTwinCommandWithPayload,
                         translationOptions: {
                             commandName,
-                            deviceId: digitalTwinId,
                             componentName,
+                            deviceId: digitalTwinId,
                             payload: JSON.stringify(payload),
                         },
                     },

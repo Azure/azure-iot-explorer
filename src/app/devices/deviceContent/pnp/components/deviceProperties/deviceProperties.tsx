@@ -8,7 +8,7 @@ import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { Label } from 'office-ui-fabric-react/lib/components/Label';
 import { useLocalizationContext } from '../../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../../localization/resourceKeys';
-import { getInterfaceIdFromQueryString, getDeviceIdFromQueryString, getComponentNameFromQueryString } from '../../../../../shared/utils/queryStringHelper';
+import { getDeviceIdFromQueryString, getComponentNameFromQueryString } from '../../../../../shared/utils/queryStringHelper';
 import { DevicePropertiesPerInterface } from './devicePropertiesPerInterface';
 import { REFRESH, NAVIGATE_BACK } from '../../../../../constants/iconNames';
 import MultiLineShimmer from '../../../../../shared/components/multiLineShimmer';

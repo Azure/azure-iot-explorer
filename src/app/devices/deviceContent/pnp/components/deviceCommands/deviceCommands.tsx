@@ -10,7 +10,6 @@ import { DeviceCommandsPerInterface } from './deviceCommandsPerInterface';
 import { useLocalizationContext } from '../../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString, getComponentNameFromQueryString } from '../../../../../shared/utils/queryStringHelper';
-import { CommandSchema } from './deviceCommandsPerInterfacePerCommand';
 import { REFRESH, NAVIGATE_BACK } from '../../../../../constants/iconNames';
 import MultiLineShimmer from '../../../../../shared/components/multiLineShimmer';
 import { ROUTE_PARAMS } from '../../../../../constants/routes';

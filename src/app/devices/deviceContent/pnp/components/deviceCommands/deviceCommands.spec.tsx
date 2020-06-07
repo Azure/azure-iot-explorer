@@ -9,7 +9,7 @@ import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { DeviceCommands } from './deviceCommands';
 import * as PnpContext from '../../pnpStateContext';
-import { InterfaceNotFoundMessageBar } from '../../../components/shared/interfaceNotFoundMessageBar';
+import { InterfaceNotFoundMessageBar } from '../../../shared/components/interfaceNotFoundMessageBar';
 import { PnpStateInterface, pnpStateInitial } from '../../state';
 import { SynchronizationStatus } from '../../../../../api/models/synchronizationStatus';
 import { pnpStateWithTestData } from './testData';

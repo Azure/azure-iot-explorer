@@ -8,7 +8,6 @@ import { act } from 'react-dom/test-utils';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/Button';
 import { ConnectionStringEditView, ConnectionStringEditViewProps } from './connectionStringEditView';
-import configureStore from '../../../app/shared/redux/store/configureStore';
 
 describe('ConnectionStringEdit', () => {
     const connectionString = 'HostName=test.azure-devices-int.net;SharedAccessKeyName=iothubowner;SharedAccessKey=key';
@@ -118,11 +117,7 @@ describe('ConnectionStringEdit', () => {
                 onDismiss: jest.fn()
             };
 
-            const wrapper = mount(
-                <Provider store={configureStore()}>
-                     <ConnectionStringEditView {...props}/>
-                </Provider>
-           );
+            const wrapper = mount(<ConnectionStringEditView {...props}/>);
             act(() => wrapper.find(TextField).props().onChange(undefined, connectionString));
             wrapper.update();
 

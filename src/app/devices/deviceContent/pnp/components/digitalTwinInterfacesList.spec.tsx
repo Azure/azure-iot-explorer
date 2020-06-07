@@ -4,7 +4,7 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import { Label } from 'office-ui-fabric-react/lib/Label';
 import { Announced } from 'office-ui-fabric-react/lib/Announced';
 import { MessageBar } from 'office-ui-fabric-react/lib/MessageBar';
@@ -13,12 +13,31 @@ import { DigitalTwinInterfacesList } from './digitalTwinInterfacesList';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
 import { REPOSITORY_LOCATION_TYPE } from '../../../../constants/repositoryLocationTypes';
-import * as AsyncSagaReducer from '../../../../shared/hooks/useAsyncSagaReducer';
-import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { pnpStateInitial, PnpStateInterface } from '../state';
-import { pnpStateWithTestData, testDigitalTwin } from './testData';
+import * as pnpStateContext from '../pnpStateContext';
+import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 
+const interfaceId = 'urn:azureiot:samplemodel:1';
+
+export const testDigitalTwin: any = { // tslint:disable-line: no-any
+    $dtId: 'testDevice',
+    $metadata: {
+        $model: interfaceId
+    },
+    environmentalSensor: {
+        $metadata: {
+            brightness: {
+                desiredValue: 456,
+                desiredVersion: 2,
+                lastUpdateTime: '2020-03-31T23:17:42.4813073Z'
+            }
+        },
+        brightness: 123
+    }
+
+};
 const pathname = 'resources/TestHub.azure-devices.net/devices/deviceDetail/ioTPlugAndPlay/?deviceId=testDevice';
+
 jest.mock('react-router-dom', () => ({
     useHistory: () => ({ push: jest.fn()}),
     useLocation: () => ({ search: '?deviceId=testDevice' }),
@@ -27,20 +46,30 @@ jest.mock('react-router-dom', () => ({
 
 describe('DigitalTwinInterfacesList', () => {
     it('shows shimmer when model id is not retrieved', () => {
-        const initialState: PnpStateInterface = {
-            ...pnpStateInitial(),
+        const initialState: PnpStateInterface = pnpStateInitial().merge({
             digitalTwin: {
                 synchronizationStatus: SynchronizationStatus.working
             }
-        };
-        jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([initialState, jest.fn()]);
+        });
+
+        jest.spyOn(pnpStateContext, 'usePnpStateContext').mockReturnValue({ pnpState: initialState, dispatch: jest.fn()});
 
         const wrapper = mount(<DigitalTwinInterfacesList/>);
         expect(wrapper.find(MultiLineShimmer)).toHaveLength(1);
     });
 
     it('shows model id with no model definition found', () => {
-        jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([pnpStateWithTestData, jest.fn()]);
+        const initialState: PnpStateInterface = pnpStateInitial().merge({
+            digitalTwin: {
+                payload: testDigitalTwin,
+                synchronizationStatus: SynchronizationStatus.fetched
+            },
+            modelDefinitionWithSource: {
+                payload: null,
+                synchronizationStatus: SynchronizationStatus.fetched
+            }
+        });
+        jest.spyOn(pnpStateContext, 'usePnpStateContext').mockReturnValue({ pnpState: initialState, dispatch: jest.fn()});
 
         const wrapper = mount(<DigitalTwinInterfacesList/>);
         const labels = wrapper.find(Label);
@@ -53,8 +82,7 @@ describe('DigitalTwinInterfacesList', () => {
     });
 
     it('shows model id with null model definition found', () => {
-        const initialState: PnpStateInterface = {
-            ...pnpStateInitial(),
+        const initialState: PnpStateInterface = pnpStateInitial().merge({
             digitalTwin: {
                 payload: testDigitalTwin,
                 synchronizationStatus: SynchronizationStatus.fetched
@@ -67,8 +95,8 @@ describe('DigitalTwinInterfacesList', () => {
                 },
                 synchronizationStatus: SynchronizationStatus.fetched
             }
-        };
-        jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([initialState, jest.fn()]);
+        });
+        jest.spyOn(pnpStateContext, 'usePnpStateContext').mockReturnValue({ pnpState: initialState, dispatch: jest.fn()});
 
         const wrapper = mount(<DigitalTwinInterfacesList/>);
 
@@ -86,8 +114,7 @@ describe('DigitalTwinInterfacesList', () => {
     });
 
     it('shows model id with valid model definition found but has no component', () => {
-        const initialState: PnpStateInterface = {
-            ...pnpStateInitial(),
+        const initialState: PnpStateInterface = pnpStateInitial().merge({
             digitalTwin: {
                 payload: testDigitalTwin,
                 synchronizationStatus: SynchronizationStatus.fetched
@@ -106,8 +133,9 @@ describe('DigitalTwinInterfacesList', () => {
                 },
                 synchronizationStatus: SynchronizationStatus.fetched
             }
-        };
-        jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([initialState, jest.fn()]);
+        });
+
+        jest.spyOn(pnpStateContext, 'usePnpStateContext').mockReturnValue({ pnpState: initialState, dispatch: jest.fn()});
         const wrapper = mount(<DigitalTwinInterfacesList/>);
 
         const h4 = wrapper.find('h4');
@@ -124,16 +152,51 @@ describe('DigitalTwinInterfacesList', () => {
     });
 
     it('shows model id with valid model definition found and has components', () => {
-        jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([pnpStateWithTestData, jest.fn()]);
-        const wrapper = mount(<DigitalTwinInterfacesList/>);
+        const initialState: PnpStateInterface = pnpStateInitial().merge({
+            digitalTwin: {
+                payload: testDigitalTwin,
+                synchronizationStatus: SynchronizationStatus.fetched
+            },
+            modelDefinitionWithSource: {
+                payload: {
+                    isModelValid: true,
+                    modelDefinition: {
+                        '@context': 'dtmi:dtdl:context;2',
+                        '@id': 'dtmi:plugnplay:hube2e:cm;1',
+                        '@type': 'Interface',
+                        'contents': [
+                            {
+                                '@type': 'Component',
+                                'name': 'deviceInformation',
+                                'schema': 'dtmi:__DeviceManagement:DeviceInformation;1'
+                            },
+                            {
+                                '@type': 'Component',
+                                'name': 'sdkInfo',
+                                'schema': 'dtmi:__Client:SDKInformation;1'
+                            },
+                            {
+                                '@type': 'Component',
+                                'name': 'environmentalSensor',
+                                'schema': 'dtmi:__Contoso:EnvironmentalSensor;1'
+                            }
+                        ],
+                        'displayName': 'IoT Hub E2E Tests',
+                    },
+                    source: REPOSITORY_LOCATION_TYPE.Public
+                },
+                synchronizationStatus: SynchronizationStatus.fetched
+            }
+        });
+
+        jest.spyOn(pnpStateContext, 'usePnpStateContext').mockReturnValue({ pnpState: initialState, dispatch: jest.fn()});
+        const wrapper = shallow(<DigitalTwinInterfacesList/>);
 
         expect(wrapper.find(Announced)).toHaveLength(0);
 
-        const labels = wrapper.find(Label);
-        expect(labels).toHaveLength(5); // tslint:disable-line:no-magic-numbers
-        expect(labels.at(1).props().children).toEqual([ResourceKeys.deviceInterfaces.columns.source, ': ', ResourceKeys.modelRepository.types.local.label]);
-        expect(labels.at(2).props().children).toEqual('dtmi:__DeviceManagement:DeviceInformation;1'); // tslint:disable-line:no-magic-numbers
-        expect(labels.at(3).props().children).toEqual('dtmi:__Client:SDKInformation;1'); // tslint:disable-line:no-magic-numbers
-        expect(labels.at(4).props().children).toEqual('dtmi:__Contoso:EnvironmentalSensor;1'); // tslint:disable-line:no-magic-numbers
+        const list = wrapper.find('.component-list');
+        expect((list.props() as any).items[0].interfaceId).toEqual('dtmi:__DeviceManagement:DeviceInformation;1'); // tslint:disable-line:no-any
+        expect((list.props() as any).items[1].interfaceId).toEqual('dtmi:__Client:SDKInformation;1'); // tslint:disable-line:no-magic-numbers, no-any
+        expect((list.props() as any).items[2].interfaceId).toEqual('dtmi:__Contoso:EnvironmentalSensor;1'); // tslint:disable-line:no-magic-numbers, no-any
     });
 });

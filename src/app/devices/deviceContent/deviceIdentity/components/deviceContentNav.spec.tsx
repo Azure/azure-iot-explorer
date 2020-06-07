@@ -27,11 +27,18 @@ describe('deviceContentNav', () => {
         return <DeviceContentNavComponent {...props} />;
     };
 
-    it('matches snapshot when there device is edge', () => {
+    it('matches snapshot when the device is edge', () => {
         expect(shallow(getComponent())).toMatchSnapshot();
         const wrapper = mount(getComponent());
         const navigation = wrapper.find(Nav);
         expect(navigation.props().groups[0].links.length).toEqual(NAV_LINK_ITEMS.length);
+    });
+
+    it('matches snapshot when the device is not edge', () => {
+        expect(shallow(getComponent({ isEdgeDevice: false }))).toMatchSnapshot();
+        const wrapper = mount(getComponent({ isEdgeDevice: false }));
+        const navigation = wrapper.find(Nav);
+        expect(navigation.props().groups[0].links.length).toEqual(NAV_LINK_ITEMS_NONEDGE.length);
     });
 
     it('shows non-pnp nav when component is loading', () => {
@@ -39,12 +46,5 @@ describe('deviceContentNav', () => {
 
         const navigation = wrapper.find(Nav);
         expect(navigation.props().groups[0].links.length).toEqual(NAV_LINK_ITEMS.length);
-    });
-
-    it('shows pnp component if device is not edge', () => {
-        const wrapper = mount(getComponent({isEdgeDevice: false}));
-
-        const navigation = wrapper.find(Nav);
-        expect(navigation.props().groups[0].links.length).toEqual(NAV_LINK_ITEMS_NONEDGE.length + 1);
     });
 });

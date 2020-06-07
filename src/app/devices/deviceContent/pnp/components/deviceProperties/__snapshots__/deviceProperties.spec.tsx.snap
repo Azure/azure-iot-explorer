@@ -31,9 +31,6 @@ exports[`components/devices/deviceProperties matches snapshot while interface ca
       ]
     }
   />
-  <Component
-    component={[Function]}
-  />
   <StyledLabelBase
     className="no-pnp-content"
   >
@@ -72,9 +69,6 @@ exports[`components/devices/deviceProperties matches snapshot with one twinWithS
         },
       ]
     }
-  />
-  <Component
-    component={[Function]}
   />
   <StyledLabelBase
     className="no-pnp-content"

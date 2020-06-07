@@ -62,7 +62,7 @@ export const DigitalTwinInterfacesList: React.FC = () => {
     const deviceId = getDeviceIdFromQueryString(search);
     const { t } = useLocalizationContext();
 
-    const { pnpState, dispatch, getModelDefinition } = usePnpStateContext();
+    const { pnpState, dispatch, } = usePnpStateContext();
     const modelDefinitionWithSource = pnpState.modelDefinitionWithSource.payload;
     const modelDefinition = modelDefinitionWithSource && modelDefinitionWithSource.modelDefinition;
     const digitalTwin = pnpState.digitalTwin.payload as any; // tslint:disable-line: no-any
@@ -148,6 +148,7 @@ export const DigitalTwinInterfacesList: React.FC = () => {
                         <div className="list-detail">
                             <DetailsList
                                 onRenderItemColumn={renderItemColumn()}
+                                className="component-list"
                                 items={modelContents}
                                 columns={getColumns()}
                                 selectionMode={SelectionMode.none}

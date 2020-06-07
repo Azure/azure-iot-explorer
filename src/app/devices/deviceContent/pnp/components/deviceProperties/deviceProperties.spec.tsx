@@ -8,9 +8,9 @@ import { shallow, mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
-import { DeviceProperties, DevicePropertiesDataProps , DevicePropertiesDispatchProps } from './deviceProperties';
+import { DeviceProperties } from './deviceProperties';
 import { TwinWithSchema } from './devicePropertiesPerInterface';
-import { InterfaceNotFoundMessageBar } from '../shared/interfaceNotFoundMessageBar';
+import { InterfaceNotFoundMessageBar } from '../../../shared/components/interfaceNotFoundMessageBar';
 
 const interfaceId = 'urn:contoso:com:EnvironmentalSensor:1';
 const pathname = `/#/devices/deviceDetail/ioTPlugAndPlay/ioTPlugAndPlayDetail/properties/?id=device1&componentName=foo&interfaceId=${interfaceId}`;

@@ -12,10 +12,10 @@ import { Label } from 'office-ui-fabric-react/lib/Label';
 import { DeviceSettingsPerInterfacePerSetting, DeviceSettingDataProps, DeviceSettingDispatchProps } from './deviceSettingsPerInterfacePerSetting';
 import { PropertyContent } from '../../../../../api/models/modelDefinition';
 import { ParsedJsonSchema } from '../../../../../api/models/interfaceJsonParserOutput';
-import { DataForm } from '../../../components/shared/dataForm';
 import { InterfaceDetailCard } from '../../../../../constants/iconNames';
+import { DataForm } from '../../../shared/components/dataForm';
 
-describe('components/devices/deviceSettingsPerInterfacePerSetting', () => {
+describe('deviceSettingsPerInterfacePerSetting', () => {
     const name = 'state';
     const description = 'The state of the device. Two states online/offline are available.';
     const displayName = 'Device State';

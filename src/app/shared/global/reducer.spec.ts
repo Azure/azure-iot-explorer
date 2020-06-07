@@ -2,9 +2,8 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { Record } from 'immutable';
 import { globalReducer } from './reducer';
-import { globalStateInitial, GlobalStateInterface } from './state';
+import { globalStateInitial } from './state';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
 import { clearNotificationsAction, addNotificationAction, setRepositoryLocationsAction } from './actions';
 import { Notification, NotificationType } from '../../api/models/notification';
@@ -76,13 +75,12 @@ describe('globalReducer', () => {
 
     context('clearNotifications cases', () => {
         it('returns empty notifications array', () => {
-            const initialState = Record<GlobalStateInterface>({
-                ...globalStateInitial(),
+            const initialState = globalStateInitial().merge({
                 notificationsState: {
                     hasNew: true,
                     notifications: [notification1, notification2]
                 }
-            })();
+            });
 
             const action = clearNotificationsAction();
             const updatedState = globalReducer(initialState, action).notificationsState;
@@ -93,13 +91,12 @@ describe('globalReducer', () => {
 
     context('addNotification.done cases', () => {
         it('returns notification array with length 1 when empty array', () => {
-            const initialState = Record<GlobalStateInterface>({
-                ...globalStateInitial(),
+            const initialState = globalStateInitial().merge({
                 notificationsState: {
                     hasNew: false,
                     notifications: []
                 }
-            })();
+            });
 
             const action = addNotificationAction(notification2);
             const result = globalReducer(initialState, action).notificationsState;
@@ -109,13 +106,12 @@ describe('globalReducer', () => {
         });
 
         it('returns notification array with notification at index 0', () => {
-            const initialState = Record<GlobalStateInterface>({
-                ...globalStateInitial(),
+            const initialState = globalStateInitial().merge({
                 notificationsState: {
                     hasNew: true,
                     notifications: [notification1]
                 }
-            })();
+            });
 
             const action = addNotificationAction(notification2);
             const result = globalReducer(initialState, action).notificationsState;
@@ -125,13 +121,12 @@ describe('globalReducer', () => {
         });
 
         it('replaces notification when updated', () => {
-            const initialState = Record<GlobalStateInterface>({
-                ...globalStateInitial(),
+            const initialState = globalStateInitial().merge({
                 notificationsState: {
                     hasNew: false,
                     notifications: [notification3]
                 }
-            })();
+            });
 
             const action = addNotificationAction(notification3);
             const result = globalReducer(initialState, action).notificationsState;
@@ -141,13 +136,12 @@ describe('globalReducer', () => {
         });
 
         it('adds notification when new id added', () => {
-            const initialState = Record<GlobalStateInterface>({
-                ...globalStateInitial(),
+            const initialState = globalStateInitial().merge({
                 notificationsState: {
                     hasNew: false,
                     notifications: [notification1]
                 }
-            })();
+            });
 
             const action = addNotificationAction(notification4);
             const result = globalReducer(initialState, action).notificationsState;

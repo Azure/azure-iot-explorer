@@ -7,7 +7,7 @@ import { mount } from 'enzyme';
 import * as React from 'react';
 import { Label } from 'office-ui-fabric-react/lib/Label';
 import { DeviceCommandsPerInterfacePerCommand, DeviceCommandDataProps, DeviceCommandDispatchProps } from './deviceCommandsPerInterfacePerCommand';
-import { DataForm } from '../../../components/shared/dataForm';
+import { DataForm } from '../../../shared/components/dataForm';
 
 describe('components/devices/deviceCommandsPerInterfacePerCommand', () => {
     const deviceCommandsDispatchProps: DeviceCommandDispatchProps = {

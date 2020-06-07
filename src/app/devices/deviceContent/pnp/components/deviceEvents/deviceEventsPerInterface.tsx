@@ -25,7 +25,7 @@ import { SynchronizationStatus } from '../../../../../api/models/synchronization
 import { DEFAULT_CONSUMER_GROUP } from '../../../../../constants/apiConstants';
 import ErrorBoundary from '../../../../shared/components/errorBoundary';
 import { getLocalizedData } from '../../../../../api/dataTransforms/modelDefinitionTransform';
-import { Notification, NotificationType } from '../../../../../api/models/notification';
+import { NotificationType } from '../../../../../api/models/notification';
 import MultiLineShimmer from '../../../../../shared/components/multiLineShimmer';
 import LabelWithTooltip from '../../../../../shared/components/labelWithTooltip';
 import { MILLISECONDS_IN_MINUTE } from '../../../../../constants/shared';
@@ -33,7 +33,6 @@ import { appConfig, HostMode } from '../../../../../../appConfig/appConfig';
 import { SemanticUnit } from '../../../../../shared/units/components/semanticUnit';
 import { ROUTE_PARAMS } from '../../../../../constants/routes';
 import { raiseNotificationToast } from '../../../../../notifications/components/notificationToast';
-import { getModelDefinitionAction } from '../../actions';
 import { usePnpStateContext } from '../../pnpStateContext';
 import { JsonSchemaAdaptor } from '../../../../../shared/utils/jsonSchemaAdaptor';
 import '../../../../../css/_deviceEvents.scss';
@@ -48,6 +47,9 @@ export interface TelemetrySchema {
 }
 
 export const getDeviceTelemetry = (modelDefinition: ModelDefinition): TelemetrySchema[] => {
+    if (!modelDefinition) {
+        return [];
+    }
     const jsonSchemaAdaptor = new JsonSchemaAdaptor(modelDefinition);
     const telemetryContents = jsonSchemaAdaptor.getTelemetry();
     return telemetryContents.map(telemetry => ({
