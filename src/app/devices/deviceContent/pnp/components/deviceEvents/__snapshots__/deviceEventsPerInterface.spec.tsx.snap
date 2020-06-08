@@ -40,7 +40,7 @@ exports[`components/devices/deviceEventsPerInterface matches snapshot while inte
           },
           "key": "Refresh",
           "name": "deviceEvents.command.refresh",
-          "onClick": [Function],
+          "onClick": [MockFunction],
         },
         Object {
           "ariaLabel": "deviceEvents.command.clearEvents",
@@ -55,63 +55,11 @@ exports[`components/devices/deviceEventsPerInterface matches snapshot while inte
       ]
     }
   />
-  <Component
-    component={[Function]}
-  />
-  <StyledTextFieldBase
-    ariaLabel="deviceEvents.consumerGroups.label"
-    className="consumer-group-text-field"
-    disabled={false}
-    label="deviceEvents.consumerGroups.label"
-    onChange={[Function]}
-    onRenderLabel={[Function]}
-    underlined={true}
-    value="$Default"
-  />
-  <StyledToggleBase
-    ariaLabel="deviceEvents.toggleShowRawData.label"
-    checked={false}
-    className="toggle-button"
-    label="deviceEvents.toggleShowRawData.label"
-    offText="deviceEvents.toggleShowRawData.off"
-    onChange={[Function]}
-    onText="deviceEvents.toggleShowRawData.on"
-  />
-  <InfiniteScroll
-    className="device-events-container"
-    element="div"
-    getScrollParent={null}
-    hasMore={false}
-    initialLoad={true}
-    isReverse={true}
-    key="scroll"
-    loadMore={[Function]}
-    loader={
-      <div>
-        <div
-          className="events-loader"
-        >
-          <StyledSpinnerBase />
-          <h4>
-            deviceEvents.infiniteScroll.loading
-          </h4>
-        </div>
-      </div>
-    }
-    pageStart={0}
-    ref={null}
-    threshold={250}
-    useCapture={false}
-    useWindow={true}
+  <StyledLabelBase
+    className="no-pnp-content"
   >
-    <section
-      className="list-content"
-    >
-      <div
-        className="scrollable-pnp-telemetry"
-      />
-    </section>
-  </InfiniteScroll>
+    deviceEvents.noEvent
+  </StyledLabelBase>
 </div>
 `;
 
@@ -155,7 +103,7 @@ exports[`components/devices/deviceEventsPerInterface matches snapshot while inte
           },
           "key": "Refresh",
           "name": "deviceEvents.command.refresh",
-          "onClick": [Function],
+          "onClick": [MockFunction],
         },
         Object {
           "ariaLabel": "deviceEvents.command.clearEvents",
@@ -169,9 +117,6 @@ exports[`components/devices/deviceEventsPerInterface matches snapshot while inte
         },
       ]
     }
-  />
-  <Component
-    component={[Function]}
   />
   <StyledTextFieldBase
     ariaLabel="deviceEvents.consumerGroups.label"
@@ -270,7 +215,7 @@ exports[`components/devices/deviceEventsPerInterface matches snapshot while inte
           },
           "key": "Refresh",
           "name": "deviceEvents.command.refresh",
-          "onClick": [Function],
+          "onClick": [MockFunction],
         },
         Object {
           "ariaLabel": "deviceEvents.command.clearEvents",
@@ -284,9 +229,6 @@ exports[`components/devices/deviceEventsPerInterface matches snapshot while inte
         },
       ]
     }
-  />
-  <Component
-    component={[Function]}
   />
   <StyledTextFieldBase
     ariaLabel="deviceEvents.consumerGroups.label"

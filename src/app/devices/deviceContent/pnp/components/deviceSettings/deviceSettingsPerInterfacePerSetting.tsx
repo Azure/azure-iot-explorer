@@ -6,11 +6,9 @@ import * as React from 'react';
 import { Label } from 'office-ui-fabric-react/lib/Label';
 import { Stack } from 'office-ui-fabric-react/lib/Stack';
 import { ActionButton, IconButton } from 'office-ui-fabric-react/lib/Button';
-import { ParsedJsonSchema } from '../../../../../api/models/interfaceJsonParserOutput';
 import { useLocalizationContext } from '../../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../../localization/resourceKeys';
 import { InterfaceDetailCard } from '../../../../../constants/iconNames';
-import { PropertyContent } from '../../../../../api/models/modelDefinition';
 import { ComplexReportedFormPanel } from '../../../shared/components/complexReportedFormPanel';
 import { RenderSimplyTypeValue } from '../../../shared/components/simpleReportedSection';
 import { PatchDigitalTwinActionParameters } from '../../actions';
@@ -20,6 +18,7 @@ import { SemanticUnit } from '../../../../../shared/units/components/semanticUni
 import { JsonPatchOperation, PatchPayload } from '../../../../../api/parameters/deviceParameters';
 import { isValueDefined, DataForm } from '../../../shared/components/dataForm';
 import '../../../../../css/_deviceSettings.scss';
+import { TwinWithSchema } from './dataHelper';
 
 export interface MetadataSection {
     desiredValue?: boolean | string | number | object;
@@ -41,14 +40,6 @@ export interface DeviceSettingDispatchProps {
     handleCollapseToggle: () => void;
     handleOverlayToggle: () => void;
     patchDigitalTwin: (parameters: PatchDigitalTwinActionParameters) => void;
-}
-
-export interface TwinWithSchema {
-    isComponentContainedInDigitalTwin: boolean;
-    metadata: MetadataSection;
-    reportedTwin: boolean | string | number | object;
-    settingModelDefinition: PropertyContent;
-    settingSchema: ParsedJsonSchema;
 }
 
 export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataProps & DeviceSettingDispatchProps> = (props: DeviceSettingDataProps & DeviceSettingDispatchProps) => {

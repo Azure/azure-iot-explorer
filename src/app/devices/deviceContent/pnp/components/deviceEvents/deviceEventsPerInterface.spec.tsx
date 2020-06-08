@@ -4,20 +4,23 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-const InfiniteScroll =  require('react-infinite-scroller');
+import InfiniteScroll from 'react-infinite-scroller';
 import { act } from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
 import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
-import { DeviceEventsPerInterfaceComponent, DeviceEventsDataProps, DeviceEventsDispatchProps, TelemetrySchema, DeviceEventsState } from './deviceEventsPerInterface';
-import { InterfaceNotFoundMessageBar } from '../../../components/shared/interfaceNotFoundMessageBar';
-import ErrorBoundary from '../../../../errorBoundary';
+import { DeviceEventsPerInterface } from './deviceEventsPerInterface';
+import ErrorBoundary from '../../../../shared/components/errorBoundary';
 import { appConfig, HostMode } from '../../../../../../appConfig/appConfig';
 import { ResourceKeys } from '../../../../../../localization/resourceKeys';
 import { MILLISECONDS_IN_MINUTE } from '../../../../../constants/shared';
 import { SynchronizationStatus } from '../../../../../api/models/synchronizationStatus';
 import { DEFAULT_CONSUMER_GROUP } from '../../../../../constants/apiConstants';
+import { PnpStateInterface, pnpStateInitial } from '../../state';
+import * as PnpContext from '../../pnpStateContext';
+import { testModelDefinition } from './testData';
+import { REPOSITORY_LOCATION_TYPE } from '../../../../../constants/repositoryLocationTypes';
 
 const initialState = {
     consumerGroup: DEFAULT_CONSUMER_GROUP,
@@ -39,63 +42,60 @@ jest.mock('react-router-dom', () => ({
 
 describe('components/devices/deviceEventsPerInterface', () => {
     const refreshMock = jest.fn();
-    const deviceEventsDispatchProps: DeviceEventsDispatchProps = {
-        addNotification: jest.fn(),
-        refresh: refreshMock,
-        setComponentName: jest.fn()
-    };
 
-    const deviceEventsDataProps: DeviceEventsDataProps = {
-        connectionString: 'testString',
-        isLoading: true,
-        telemetrySchema: []
-    };
-
-    const getComponent = (overrides = {}) => {
-        const props = {
-            connectionString: '',
-            ...deviceEventsDispatchProps,
-            ...deviceEventsDataProps,
-            ...overrides,
+    const mockFetchedState = () => {
+        const pnpState: PnpStateInterface = {
+            ...pnpStateInitial(),
+            modelDefinitionWithSource: {
+                payload: {
+                    isModelValid: true,
+                    modelDefinition: testModelDefinition,
+                    source: REPOSITORY_LOCATION_TYPE.Public,
+                },
+                synchronizationStatus: SynchronizationStatus.fetched
+            }
         };
-        return <DeviceEventsPerInterfaceComponent {...props} />;
+        jest.spyOn(PnpContext, 'usePnpStateContext').mockReturnValueOnce({pnpState, dispatch: jest.fn(), getModelDefinition: jest.fn()});
     };
 
-    const telemetrySchema: TelemetrySchema[] = [{
-        parsedSchema: {
-            description: 'Temperature /Current temperature on the device',
-            required: [],
-            title: 'temp',
-            type: 'number'
-        },
-        telemetryModelDefinition: {
-            '@type': 'Telemetry',
-            'description': 'Current temperature on the device',
-            'displayName': 'Temperature',
-            'name': 'humid',
-            'schema': 'double'
-        }
-    }];
+    afterEach(() => {
+        jest.clearAllMocks();
+    });
 
     it('renders Shimmer while loading', () => {
-        const wrapper = mount(getComponent());
+        const pnpState: PnpStateInterface = {
+            ...pnpStateInitial(),
+            modelDefinitionWithSource: {
+                synchronizationStatus: SynchronizationStatus.working
+            }
+        };
+        jest.spyOn(PnpContext, 'usePnpStateContext').mockReturnValueOnce({pnpState, dispatch: jest.fn(), getModelDefinition: jest.fn()});
+        const wrapper = mount(<DeviceEventsPerInterface/>);
         expect(wrapper.find(Shimmer)).toBeDefined();
     });
 
     it('matches snapshot while interface cannot be found', () => {
-        expect(shallow(getComponent({isLoading: false, telemetrySchema: undefined}))).toMatchSnapshot();
-        const wrapper = mount(getComponent());
-        expect(wrapper.find(InterfaceNotFoundMessageBar)).toBeDefined();
+        const pnpState: PnpStateInterface = {
+            ...pnpStateInitial(),
+            modelDefinitionWithSource: {
+                payload: null,
+                synchronizationStatus: SynchronizationStatus.fetched
+            }
+        };
+        jest.spyOn(PnpContext, 'usePnpStateContext').mockReturnValueOnce({pnpState, dispatch: jest.fn(), getModelDefinition: jest.fn()});
+        expect(shallow(<DeviceEventsPerInterface/>)).toMatchSnapshot();
     });
 
     it('matches snapshot while interface definition is retrieved in electron', () => {
         appConfig.hostMode = HostMode.Electron;
-        expect(shallow(getComponent({isLoading: false, telemetrySchema}))).toMatchSnapshot();
+        mockFetchedState();
+        expect(shallow(<DeviceEventsPerInterface/>)).toMatchSnapshot();
     });
 
     it('matches snapshot while interface definition is retrieved in hosted environment', () => {
         appConfig.hostMode = HostMode.Browser;
-        expect(shallow(getComponent({isLoading: false, telemetrySchema}))).toMatchSnapshot();
+        mockFetchedState();
+        expect(shallow(<DeviceEventsPerInterface/>)).toMatchSnapshot();
     });
 
     it('renders events which body\'s value type is wrong with expected columns', () => {
@@ -111,8 +111,8 @@ describe('components/devices/deviceEventsPerInterface', () => {
 
         const realUseState = React.useState;
         jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState({ ...initialState, events }));
-
-        const wrapper = shallow(getComponent({isLoading: false, telemetrySchema}));
+        mockFetchedState();
+        const wrapper = mount(<DeviceEventsPerInterface/>);
         const errorBoundary = wrapper.find(ErrorBoundary);
         expect(errorBoundary.children().at(1).props().children.props.children).toEqual('humid (Temperature)');
         expect(errorBoundary.children().at(2).props().children.props.children).toEqual('double'); // tslint:disable-line:no-magic-numbers
@@ -130,9 +130,11 @@ describe('components/devices/deviceEventsPerInterface', () => {
               'iothub-message-schema': 'humid'
             }
         }];
+
         const realUseState = React.useState;
         jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState({ ...initialState, events }));
-        const wrapper = shallow(getComponent({isLoading: false, telemetrySchema}));
+        mockFetchedState();
+        const wrapper = mount(<DeviceEventsPerInterface/>);
 
         const errorBoundary = wrapper.find(ErrorBoundary);
         expect(errorBoundary.children().at(1).props().children.props.children).toEqual('humid (Temperature)');
@@ -152,8 +154,9 @@ describe('components/devices/deviceEventsPerInterface', () => {
         }];
         const realUseState = React.useState;
         jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState({ ...initialState, events }));
-        const wrapper = shallow(getComponent({isLoading: false, telemetrySchema}));
+        mockFetchedState();
 
+        const wrapper = shallow(<DeviceEventsPerInterface/>);
         let errorBoundary = wrapper.find(ErrorBoundary).first();
         expect(errorBoundary.children().at(1).props().children.props.children).toEqual('humid (Temperature)');
         expect(errorBoundary.children().at(2).props().children.props.children).toEqual('double'); // tslint:disable-line:no-magic-numbers
@@ -176,8 +179,9 @@ describe('components/devices/deviceEventsPerInterface', () => {
 
         const realUseState = React.useState;
         jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState({ ...initialState, events }));
-        const wrapper = shallow(getComponent({isLoading: false, telemetrySchema}));
+        mockFetchedState();
 
+        const wrapper = shallow(<DeviceEventsPerInterface/>);
         const errorBoundary = wrapper.find(ErrorBoundary);
         expect(errorBoundary.children().at(1).props().children.props.children).toEqual('--');
         expect(errorBoundary.children().at(2).props().children.props.children).toEqual('--'); // tslint:disable-line:no-magic-numbers
@@ -185,7 +189,8 @@ describe('components/devices/deviceEventsPerInterface', () => {
     });
 
     it('changes state accordingly when command bar buttons are clicked', () => {
-        const wrapper = shallow(getComponent({isLoading: false, telemetrySchema}));
+        mockFetchedState();
+        const wrapper = shallow(<DeviceEventsPerInterface/>);
         const commandBar = wrapper.find(CommandBar).first();
         // click the start button
         act(() => commandBar.props().items[0].onClick());
@@ -205,11 +210,13 @@ describe('components/devices/deviceEventsPerInterface', () => {
         // click the clear events button
         act(() => commandBar.props().items[2].onClick()); // tslint:disable-line:no-magic-numbers
         wrapper.update();
+        // tslint:disable-next-line: no-magic-numbers
         expect(wrapper.find(CommandBar).first().props().items[2].disabled).toBeTruthy();
     });
 
     it('changes state accordingly when consumer group value is changed', () => {
-        const wrapper = shallow(getComponent({isLoading: false, telemetrySchema}));
+        mockFetchedState();
+        const wrapper = shallow(<DeviceEventsPerInterface/>);
         const textField = wrapper.find(TextField).first();
         act(() => textField.props().onChange({ target: null}, 'testGroup'));
         wrapper.update();

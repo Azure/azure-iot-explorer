@@ -3,11 +3,20 @@
  * Licensed under the MIT License
  **********************************************************/
 import { JsonSchemaAdaptor } from '../../../../../shared/utils/jsonSchemaAdaptor';
-import { ModelDefinition } from '../../../../../api/models/modelDefinition';
-import { TwinWithSchema } from './deviceSettingsPerInterfacePerSetting';
+import { ModelDefinition, PropertyContent } from '../../../../../api/models/modelDefinition';
+import { ParsedJsonSchema } from '../../../../../api/models/interfaceJsonParserOutput';
+import { MetadataSection } from './deviceSettingsPerInterfacePerSetting';
 
 export interface DeviceInterfaceWithSchema {
     twinWithSchema: TwinWithSchema[];
+}
+
+export interface TwinWithSchema {
+    isComponentContainedInDigitalTwin: boolean;
+    metadata: MetadataSection;
+    reportedTwin: boolean | string | number | object;
+    settingModelDefinition: PropertyContent;
+    settingSchema: ParsedJsonSchema;
 }
 
 export const generateTwinSchemaAndInterfaceTuple = (model: ModelDefinition, digitalTwin: object, componentName: string): DeviceInterfaceWithSchema => {

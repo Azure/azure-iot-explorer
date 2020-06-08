@@ -10,22 +10,15 @@ import { ActionButton } from 'office-ui-fabric-react/lib/Button';
 import { useLocalizationContext } from '../../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../../localization/resourceKeys';
 import { getLocalizedData } from '../../../../../api/dataTransforms/modelDefinitionTransform';
-import { PropertyContent } from '../../../../../api/models/modelDefinition';
-import { ParsedJsonSchema } from '../../../../../api/models/interfaceJsonParserOutput';
 import { isValueDefined } from '../../../shared/components/dataForm';
 import { RenderSimplyTypeValue } from '../../../shared/components/simpleReportedSection';
 import { ComplexReportedFormPanel } from '../../../shared/components/complexReportedFormPanel';
 import { SemanticUnit } from '../../../../../shared/units/components/semanticUnit';
 import { EXTRA_LARGE_COLUMN_WIDTH, SMALL_COLUMN_WIDTH } from '../../../../../constants/columnWidth';
+import { TwinWithSchema } from './dataHelper';
 
 export interface DevicePropertiesDataProps {
     twinAndSchema: TwinWithSchema[];
-}
-
-export interface TwinWithSchema {
-    propertyModelDefinition: PropertyContent;
-    propertySchema: ParsedJsonSchema;
-    reportedTwin: boolean | string | number | object;
 }
 
 export const DevicePropertiesPerInterface: React.FC<DevicePropertiesDataProps> = (props: DevicePropertiesDataProps) => {

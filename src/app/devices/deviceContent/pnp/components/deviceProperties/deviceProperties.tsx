@@ -16,7 +16,7 @@ import { ROUTE_PARAMS } from '../../../../../constants/routes';
 import { usePnpStateContext } from '../../pnpStateContext';
 import { getDigitalTwinAction } from '../../actions';
 import { SynchronizationStatus } from '../../../../../api/models/synchronizationStatus';
-import { getDevicePropertyProps } from './dataHelper';
+import { generateReportedTwinSchemaAndInterfaceTuple } from './dataHelper';
 
 export const DeviceProperties: React.FC = () => {
     const { t } = useLocalizationContext();
@@ -31,10 +31,9 @@ export const DeviceProperties: React.FC = () => {
     const modelDefinitionWithSource = pnpState.modelDefinitionWithSource.payload;
     const modelDefinition = modelDefinitionWithSource && modelDefinitionWithSource.modelDefinition;
     const digitalTwin = pnpState.digitalTwin.payload;
-    const digitalTwinForSpecificComponent = digitalTwin && (digitalTwin as any)[componentName]; // tslint:disable-line: no-any
     const twinAndSchema = React.useMemo(() => {
-        return getDevicePropertyProps(modelDefinition, digitalTwinForSpecificComponent);
-    },                                  [digitalTwinForSpecificComponent, modelDefinition]);
+        return generateReportedTwinSchemaAndInterfaceTuple(modelDefinition, digitalTwin, componentName);
+    },                                  [digitalTwin, modelDefinition]);
 
     const renderProperties = () => {
         return (
