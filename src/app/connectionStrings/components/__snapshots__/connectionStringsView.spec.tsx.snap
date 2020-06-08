@@ -67,9 +67,9 @@ exports[`ConnectionStringsView matches snapshot when connection strings present 
       <Component
         connectionString="connectionString1"
         key="connectionString1"
-        onDeleteConnectionString={[MockFunction]}
+        onDeleteConnectionString={[Function]}
         onEditConnectionString={[Function]}
-        onSelectConnectionString={[MockFunction]}
+        onSelectConnectionString={[Function]}
       />
     </div>
   </div>

@@ -11,10 +11,10 @@ import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationType
 import { useLocalizationContext } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { CANCEL, NAVIGATE_BACK, FOLDER } from '../../constants/iconNames';
-import { RepositoryLocationSettings } from '../state';
 import { fetchDirectories } from '../../api/services/localRepoService';
 import { LabelWithRichCallout } from '../../shared/components/labelWithRichCallout';
 import { getRootFolder, getParentFolder } from '../../shared/utils/utils';
+import { RepositoryLocationSettings } from '../../shared/global/state';
 import './modelRepositoryLocationListItem.scss';
 
 export interface ModelRepositoryLocationListItemProps {

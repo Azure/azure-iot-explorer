@@ -3,10 +3,9 @@
  * Licensed under the MIT License
  **********************************************************/
 import { Action } from 'typescript-fsa';
-import { call, put, select } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
 import { setActiveAzureResourceAction, SetActiveAzureResourceByHostNameActionParameters } from '../actions';
 import { AccessVerificationState } from '../models/accessVerificationState';
-import { StateInterface } from '../../shared/redux/state';
 import { executeAzureResourceManagementTokenRequest } from '../../login/services/authService';
 import { appConfig, AuthMode } from '../../../appConfig/appConfig';
 import { AzureSubscription } from '../../azureResourceIdentifier/models/azureSubscription';
@@ -14,6 +13,7 @@ import { getAzureSubscriptions } from '../../azureResourceIdentifier/services/az
 import { AzureResourceIdentifier } from '../../azureResourceIdentifier/models/azureResourceIdentifier';
 import { getResourceNameFromHostName, getResourceTypeFromHostName, tryGetHostNameFromConnectionString } from '../../api/shared/hostNameUtils';
 import { getAzureResourceIdentifier } from '../../azureResourceIdentifier/services/azureResourceIdentifierService';
+import { ACTIVE_CONNECTION_STRING } from '../../constants/browserStorage';
 
 export function* setActiveAzureResourceByHostNameSaga(action: Action<SetActiveAzureResourceByHostNameActionParameters>) {
     const { hostName } = action.payload;
@@ -37,7 +37,7 @@ export function* setActiveAzureResourceByHostNameSaga(action: Action<SetActiveAz
 }
 
 export function* setActiveAzureResourceByHostNameSaga_ConnectionString(hostName: string) {
-    const connectionString  = yield select(getLastUsedConnectionString);
+    const connectionString  = yield call(localStorage.getItem, ACTIVE_CONNECTION_STRING);
     const connectionStringHostName = yield call(tryGetHostNameFromConnectionString, connectionString);
 
     if (hostName.toLowerCase() === connectionStringHostName.toLowerCase()) {
@@ -95,8 +95,4 @@ export const getAuthMode = (): AuthMode => {
 
 export const getAzureResourceManagementEndpoint = (): string => {
     return appConfig.azureResourceManagementEndpoint;
-};
-
-export const getLastUsedConnectionString = (state: StateInterface): string => {
-    return state.connectionStringsState.connectionStrings.length > 0 ? state.connectionStringsState.connectionStrings[0] : '';
 };

@@ -9,7 +9,6 @@ import { setActiveAzureResourceSaga, setActiveConnectionString } from './setActi
 import { setActiveAzureResourceAction } from '../actions';
 import { AzureResource } from '../models/azureResource';
 import { AccessVerificationState } from '../models/accessVerificationState';
-import { clearModelDefinitionsAction } from '../../devices/deviceContent/actions';
 
 describe('setActiveAzureResourceSaga', () => {
     const resource: AzureResource = {
@@ -23,13 +22,6 @@ describe('setActiveAzureResourceSaga', () => {
         expect(setActiveAzureResourceSagaGenerator.next()).toEqual({
             done: false,
             value: call(setActiveConnectionString, 'connectionString')
-        });
-    });
-
-    it('returns put effect to clear model definitions', () => {
-        expect(setActiveAzureResourceSagaGenerator.next()).toEqual({
-            done: false,
-            value: put(clearModelDefinitionsAction())
         });
     });
 

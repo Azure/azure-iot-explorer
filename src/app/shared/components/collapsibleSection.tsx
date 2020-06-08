@@ -40,9 +40,7 @@ export const CollapsibleSection: React.FC<CollapsibleSectionProps> = (props: Col
                 onClick={toggleCollapse}
                 title={t(!expanded ? ResourceKeys.collapsibleSection.open : ResourceKeys.collapsibleSection.close)}
             />
-            <LabelWithTooltip
-                tooltipText={tooltipText}
-            >
+            <LabelWithTooltip tooltipText={tooltipText}>
                 {label}
             </LabelWithTooltip>
             {expanded && children}

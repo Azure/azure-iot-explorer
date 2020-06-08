@@ -29,7 +29,6 @@ describe('collapsibleSection', () => {
     it('toggles section', () => {
         const wrapper = mount(getComponent());
         const button = wrapper.find(IconButton).at(0);
-        const iconButton = wrapper.find(IconButton).first();
         expect(wrapper.find(IconButton).first().props().title).toEqual('collapsibleSection.open');
 
         button.simulate('click');

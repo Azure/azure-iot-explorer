@@ -3,23 +3,20 @@
  * Licensed under the MIT License
  **********************************************************/
 import 'jest';
-import { Record } from 'immutable';
 import {
     getActiveAzureResourceSelector,
     getActiveAzureResourceHostNameSelector,
     getActiveAzureResourceConnectionStringSelector
 } from './selectors';
-import { getInitialState } from '../api/shared/testHelper';
 
 describe('getAzureResourceSelector', () => {
-    const state = getInitialState();
     const hostName = 'testhub.azure-devices.net';
-    state.azureResourceState = Record({
+    const state = {
         activeAzureResource: {
             accessVerificationState: null,
             hostName
         }
-    })();
+    }
 
     it('returns active azure resource', () => {
         expect(getActiveAzureResourceSelector(state)).toEqual({

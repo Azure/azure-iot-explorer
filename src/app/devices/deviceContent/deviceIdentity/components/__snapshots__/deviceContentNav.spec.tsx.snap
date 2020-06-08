@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`deviceContentNav matches snapshot when the device is edge 1`] = `
+<div
+  role="navigation"
+>
+  <StyledNavBase
+    groups={
+      Array [
+        Object {
+          "links": Array [
+            Object {
+              "key": "identity",
+              "name": "deviceContent.navBar.identity",
+              "url": "#/identity/?deviceId=test",
+            },
+            Object {
+              "key": "twin",
+              "name": "deviceContent.navBar.twin",
+              "url": "#/twin/?deviceId=test",
+            },
+            Object {
+              "key": "events",
+              "name": "deviceContent.navBar.events",
+              "url": "#/events/?deviceId=test",
+            },
+            Object {
+              "key": "methods",
+              "name": "deviceContent.navBar.methods",
+              "url": "#/methods/?deviceId=test",
+            },
+            Object {
+              "key": "cloudToDeviceMessage",
+              "name": "deviceContent.navBar.cloudToDeviceMessage",
+              "url": "#/cloudToDeviceMessage/?deviceId=test",
+            },
+          ],
+        },
+      ]
+    }
+  />
+</div>
+`;
+
+exports[`deviceContentNav matches snapshot when the device is not edge 1`] = `
+<div
+  role="navigation"
+>
+  <StyledNavBase
+    groups={
+      Array [
+        Object {
+          "links": Array [
+            Object {
+              "key": "identity",
+              "name": "deviceContent.navBar.identity",
+              "url": "#/identity/?deviceId=test",
+            },
+            Object {
+              "key": "twin",
+              "name": "deviceContent.navBar.twin",
+              "url": "#/twin/?deviceId=test",
+            },
+            Object {
+              "key": "events",
+              "name": "deviceContent.navBar.events",
+              "url": "#/events/?deviceId=test",
+            },
+            Object {
+              "key": "methods",
+              "name": "deviceContent.navBar.methods",
+              "url": "#/methods/?deviceId=test",
+            },
+            Object {
+              "key": "cloudToDeviceMessage",
+              "name": "deviceContent.navBar.cloudToDeviceMessage",
+              "url": "#/cloudToDeviceMessage/?deviceId=test",
+            },
+            Object {
+              "key": "moduleIdentity",
+              "name": "deviceContent.navBar.moduleIdentity",
+              "url": "#/moduleIdentity/?deviceId=test",
+            },
+            Object {
+              "key": "ioTPlugAndPlay",
+              "name": "deviceContent.navBar.ioTPlugAndPlay",
+              "url": "#/ioTPlugAndPlay/?deviceId=test",
+            },
+          ],
+        },
+      ]
+    }
+  />
+</div>
+`;

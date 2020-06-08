@@ -1,0 +1,265 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`deviceIdentity snapshot matches snapshot 1`] = `
+<Fragment>
+  <Component
+    disableSave={true}
+    handleSave={[Function]}
+  />
+  <Component
+    headerText="deviceIdentity.headerText"
+  />
+  <div
+    className="device-detail"
+  >
+    <Component
+      allowMask={false}
+      ariaLabel="deviceIdentity.deviceID"
+      label="deviceIdentity.deviceID"
+      labelCallout="deviceIdentity.deviceIDTooltip"
+      readOnly={true}
+      value={null}
+    />
+    <br />
+    <StyledToggleBase
+      ariaLabel="deviceIdentity.hubConnectivity.label"
+      checked={null}
+      label="deviceIdentity.hubConnectivity.label"
+      offText="deviceIdentity.hubConnectivity.disable"
+      onChange={[Function]}
+      onText="deviceIdentity.hubConnectivity.enable"
+    />
+  </div>
+</Fragment>
+`;
+
+exports[`deviceIdentity snapshot matches snapshot with CA auth type 1`] = `
+<Fragment>
+  <Component
+    disableSave={true}
+    handleSave={[Function]}
+  />
+  <Component
+    headerText="deviceIdentity.headerText"
+  />
+  <div
+    className="device-detail"
+  >
+    <Component
+      allowMask={false}
+      ariaLabel="deviceIdentity.deviceID"
+      label="deviceIdentity.deviceID"
+      labelCallout="deviceIdentity.deviceIDTooltip"
+      readOnly={true}
+      value={null}
+    />
+    <br />
+    <StyledToggleBase
+      ariaLabel="deviceIdentity.hubConnectivity.label"
+      checked={null}
+      label="deviceIdentity.hubConnectivity.label"
+      offText="deviceIdentity.hubConnectivity.disable"
+      onChange={[Function]}
+      onText="deviceIdentity.hubConnectivity.enable"
+    />
+  </div>
+</Fragment>
+`;
+
+exports[`deviceIdentity snapshot matches snapshot with SelfSigned auth type 1`] = `
+<Fragment>
+  <Component
+    disableSave={true}
+    handleSave={[Function]}
+  />
+  <Component
+    headerText="deviceIdentity.headerText"
+  />
+  <div
+    className="device-detail"
+  >
+    <Component
+      allowMask={false}
+      ariaLabel="deviceIdentity.deviceID"
+      label="deviceIdentity.deviceID"
+      labelCallout="deviceIdentity.deviceIDTooltip"
+      readOnly={true}
+      value={null}
+    />
+    <br />
+    <StyledToggleBase
+      ariaLabel="deviceIdentity.hubConnectivity.label"
+      checked={null}
+      label="deviceIdentity.hubConnectivity.label"
+      offText="deviceIdentity.hubConnectivity.disable"
+      onChange={[Function]}
+      onText="deviceIdentity.hubConnectivity.enable"
+    />
+  </div>
+</Fragment>
+`;
+
+exports[`deviceIdentity snapshot matches snapshot with SymmetricKey auth type 1`] = `
+<Fragment>
+  <Component
+    disableSave={true}
+    handleSave={[Function]}
+  />
+  <Component
+    headerText="deviceIdentity.headerText"
+  />
+  <div
+    className="device-detail"
+  >
+    <Component
+      allowMask={false}
+      ariaLabel="deviceIdentity.deviceID"
+      label="deviceIdentity.deviceID"
+      labelCallout="deviceIdentity.deviceIDTooltip"
+      readOnly={true}
+      value={null}
+    />
+    <br />
+    <StyledToggleBase
+      ariaLabel="deviceIdentity.hubConnectivity.label"
+      checked={null}
+      label="deviceIdentity.hubConnectivity.label"
+      offText="deviceIdentity.hubConnectivity.disable"
+      onChange={[Function]}
+      onText="deviceIdentity.hubConnectivity.enable"
+    />
+  </div>
+</Fragment>
+`;
+
+exports[`deviceIdentity snapshot matches snapshot with Synchronization Status of updating 1`] = `
+<Fragment>
+  <Component
+    disableSave={true}
+    handleSave={[Function]}
+  />
+  <Component
+    headerText="deviceIdentity.headerText"
+  />
+  <div
+    className="device-detail"
+  >
+    <Component
+      allowMask={false}
+      ariaLabel="deviceIdentity.deviceID"
+      label="deviceIdentity.deviceID"
+      labelCallout="deviceIdentity.deviceIDTooltip"
+      readOnly={true}
+      value={null}
+    />
+    <br />
+    <StyledToggleBase
+      ariaLabel="deviceIdentity.hubConnectivity.label"
+      checked={null}
+      label="deviceIdentity.hubConnectivity.label"
+      offText="deviceIdentity.hubConnectivity.disable"
+      onChange={[Function]}
+      onText="deviceIdentity.hubConnectivity.enable"
+    />
+  </div>
+</Fragment>
+`;
+
+exports[`deviceIdentity snapshot matches snapshot with Synchronization Status of working 1`] = `
+<Fragment>
+  <Component
+    disableSave={true}
+    handleSave={[Function]}
+  />
+  <Component
+    headerText="deviceIdentity.headerText"
+  />
+  <div
+    className="device-detail"
+  >
+    <Component
+      allowMask={false}
+      ariaLabel="deviceIdentity.deviceID"
+      label="deviceIdentity.deviceID"
+      labelCallout="deviceIdentity.deviceIDTooltip"
+      readOnly={true}
+      value={null}
+    />
+    <br />
+    <StyledToggleBase
+      ariaLabel="deviceIdentity.hubConnectivity.label"
+      checked={null}
+      label="deviceIdentity.hubConnectivity.label"
+      offText="deviceIdentity.hubConnectivity.disable"
+      onChange={[Function]}
+      onText="deviceIdentity.hubConnectivity.enable"
+    />
+  </div>
+</Fragment>
+`;
+
+exports[`deviceIdentity snapshot matches snapshot with auth type of None 1`] = `
+<Fragment>
+  <Component
+    disableSave={true}
+    handleSave={[Function]}
+  />
+  <Component
+    headerText="deviceIdentity.headerText"
+  />
+  <div
+    className="device-detail"
+  >
+    <Component
+      allowMask={false}
+      ariaLabel="deviceIdentity.deviceID"
+      label="deviceIdentity.deviceID"
+      labelCallout="deviceIdentity.deviceIDTooltip"
+      readOnly={true}
+      value={null}
+    />
+    <br />
+    <StyledToggleBase
+      ariaLabel="deviceIdentity.hubConnectivity.label"
+      checked={null}
+      label="deviceIdentity.hubConnectivity.label"
+      offText="deviceIdentity.hubConnectivity.disable"
+      onChange={[Function]}
+      onText="deviceIdentity.hubConnectivity.enable"
+    />
+  </div>
+</Fragment>
+`;
+
+exports[`deviceIdentity snapshot matches snapshot with identity wrapper 1`] = `
+<Fragment>
+  <Component
+    disableSave={true}
+    handleSave={[Function]}
+  />
+  <Component
+    headerText="deviceIdentity.headerText"
+  />
+  <div
+    className="device-detail"
+  >
+    <Component
+      allowMask={false}
+      ariaLabel="deviceIdentity.deviceID"
+      label="deviceIdentity.deviceID"
+      labelCallout="deviceIdentity.deviceIDTooltip"
+      readOnly={true}
+      value={null}
+    />
+    <br />
+    <StyledToggleBase
+      ariaLabel="deviceIdentity.hubConnectivity.label"
+      checked={null}
+      label="deviceIdentity.hubConnectivity.label"
+      offText="deviceIdentity.hubConnectivity.disable"
+      onChange={[Function]}
+      onText="deviceIdentity.hubConnectivity.enable"
+    />
+  </div>
+</Fragment>
+`;

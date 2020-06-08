@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { ResourceKeys } from '../../../localization/resourceKeys';
-import NotificationListContainer from '../../notifications/components/notificationListContainer';
+import { NotificationList } from '../../notifications/components/notificationList';
 import SettingsPane from '../../settings/components/settingsPane';
 import { useLocalizationContext } from '../contexts/localizationContext';
 import '../../css/_header.scss';
@@ -15,7 +15,7 @@ export const Header: React.FC = () => {
     return (
         <header className="header">
             <div className="title">{t(ResourceKeys.header.applicationName)}</div>
-            <div><NotificationListContainer /></div>
+            <div><NotificationList/></div>
             <div><SettingsPane/></div>
         </header>
     );

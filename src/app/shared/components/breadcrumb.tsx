@@ -3,20 +3,32 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { useSelector } from 'react-redux';
 import { Route, NavLink, useLocation, useRouteMatch } from 'react-router-dom';
 import { useLocalizationContext } from '../contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../constants/routes';
-import { getActiveAzureResourceHostNameSelector } from '../../azureResource/selectors';
+import { ACTIVE_CONNECTION_STRING } from '../../constants/browserStorage';
+import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
 import { getDeviceIdFromQueryString, getComponentNameFromQueryString } from '../utils/queryStringHelper';
 import '../../css/_breadcrumb.scss';
 
-export const Breadcrumb = () => (
-    <ul className="breadcrumb">
-        <Route path="/:path" component={BreadcrumbItemContainer} />
-    </ul>
-);
+export const Breadcrumb: React.FC = () => {
+    const [ hostName, setHostName ] = React.useState<string>('');
+
+    React.useEffect(() => {
+        const connectionString = localStorage.getItem(ACTIVE_CONNECTION_STRING);
+        const host = getConnectionInfoFromConnectionString(connectionString).hostName;
+        setHostName(host);
+    },              []);
+
+    const renderBreadcrumbItem = () => <BreadcrumbItem hostName={hostName}/>;
+
+    return (
+        <ul className="breadcrumb">
+            <Route path="/:path" component={renderBreadcrumbItem} />
+        </ul>
+    );
+};
 
 export interface BreadcrumbItemDataProps {
     hostName: string;
@@ -111,18 +123,13 @@ export const BreadcrumbItem: React.FC<BreadcrumbItemDataProps> = props => {
         );
     };
 
+    const renderNextBreadcrumb = () => <BreadcrumbItem hostName={props.hostName}/>;
+
     return(
         <>
             {renderBreadcrumbItem(getCurrentUrl())}
-            <Route path={`${url}/:path`} component={BreadcrumbItemContainer} />
+            <Route path={`${url}/:path`} render={renderNextBreadcrumb} />
         </>
 
     );
-};
-
-export const BreadcrumbItemContainer: React.FC = () => {
-    const viewProps = {
-        hostName: useSelector(getActiveAzureResourceHostNameSelector)
-    };
-    return <BreadcrumbItem {...viewProps} />;
 };

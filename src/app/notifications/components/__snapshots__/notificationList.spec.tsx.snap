@@ -6,7 +6,7 @@ exports[`notificationList matches snapshot 1`] = `
     ariaLabel="header.notifications.show"
     iconProps={
       Object {
-        "className": "new-notifications",
+        "className": false,
         "iconName": "Ringer",
       }
     }
