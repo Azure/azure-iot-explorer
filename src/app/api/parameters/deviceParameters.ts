@@ -5,8 +5,8 @@
 import { Twin } from '../models/device';
 import { DeviceIdentity } from '../models/deviceIdentity';
 import DeviceQuery from '../models/deviceQuery';
-import { InvokeMethodActionParameters } from '../../devices/deviceContent/directMethod/actions';
-import { CloudToDeviceMessageActionParameters } from '../../devices/deviceContent/cloudToDeviceMessage/actions';
+import { InvokeMethodActionParameters } from '../../devices/directMethod/actions';
+import { CloudToDeviceMessageActionParameters } from '../../devices/cloudToDeviceMessage/actions';
 
 export interface DataPlaneParameters {
     connectionString?: string;
