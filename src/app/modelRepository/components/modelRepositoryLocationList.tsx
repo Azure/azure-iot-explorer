@@ -4,8 +4,8 @@
  **********************************************************/
 import * as React from 'react';
 import { Container, Draggable } from 'react-smooth-dnd';
-import { RepositoryLocationSettings } from '../state';
 import { ModelRepositoryLocationListItem } from './modelRepositoryLocationListItem';
+import { RepositoryLocationSettings } from '../../shared/global/state';
 import { StringMap } from '../../api/models/stringMap';
 import './modelRepositoryLocationList.scss';
 

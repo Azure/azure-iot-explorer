@@ -4,7 +4,7 @@ exports[`modelRepositoryLocationView matches snapshot when locations greater tha
 <div
   className="view"
 >
-  <Prompt
+  <Component
     message="common.navigation.confirm"
     when={false}
   />
@@ -48,7 +48,7 @@ exports[`modelRepositoryLocationView matches snapshot when locations greater tha
               "items": Array [
                 Object {
                   "ariaLabel": "modelRepository.commands.addPublicSource.ariaLabel",
-                  "disabled": true,
+                  "disabled": false,
                   "iconProps": Object {
                     "iconName": "Repo",
                   },
@@ -95,7 +95,8 @@ exports[`modelRepositoryLocationView matches snapshot when locations greater tha
       repositoryLocationSettings={
         Array [
           Object {
-            "repositoryLocationType": "PUBLIC",
+            "repositoryLocationType": "LOCAL",
+            "value": null,
           },
         ]
       }
@@ -109,7 +110,7 @@ exports[`modelRepositoryLocationView matches snapshot when no locations 1`] = `
 <div
   className="view"
 >
-  <Prompt
+  <Component
     message="common.navigation.confirm"
     when={false}
   />
@@ -127,15 +128,6 @@ exports[`modelRepositoryLocationView matches snapshot when no locations 1`] = `
             "key": "help",
             "onClick": [Function],
             "text": "modelRepository.commands.help.label",
-          },
-          Object {
-            "ariaLabel": "modelRepository.commands.back.ariaLabel",
-            "iconProps": Object {
-              "iconName": "NavigateBack",
-            },
-            "key": "back",
-            "onClick": [Function],
-            "text": "modelRepository.commands.back.label",
           },
         ]
       }

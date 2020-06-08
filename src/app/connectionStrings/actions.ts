@@ -13,7 +13,6 @@ export interface UpsertConnectionStringActionPayload {
 
 const actionCreator = actionCreatorFactory(CONNECTION_STRINGS);
 
-export const addConnectionStringAction = actionCreator<string>(ADD);
 export const deleteConnectionStringAction = actionCreator<string>(DELETE);
 export const setConnectionStringsAction = actionCreator<string[]>(SET);
 export const upsertConnectionStringAction = actionCreator<UpsertConnectionStringActionPayload>(UPSERT);

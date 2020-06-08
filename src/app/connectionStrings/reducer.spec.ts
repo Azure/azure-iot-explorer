@@ -3,36 +3,8 @@
  * Licensed under the MIT License
  **********************************************************/
 import { ConnectionStringsStateInterface } from './state';
-import { addConnectionStringAction, deleteConnectionStringAction, setConnectionStringsAction, upsertConnectionStringAction } from './actions';
-import reducer from './reducer';
-
-describe('addConnectionStringAction', () => {
-    it('amends existing list of connection strings', () => {
-        const initialState: ConnectionStringsStateInterface = {
-            connectionStrings: [
-                'connectionString1'
-            ]
-        };
-
-        const action =  addConnectionStringAction('connectionString2');
-        const result = reducer(initialState, action);
-        expect(result.connectionStrings).toHaveLength(2); // tslint:disable-line:no-magic-numbers
-        expect(result.connectionStrings[1]).toEqual('connectionString2');
-    });
-
-    it('does not duplicate connection strings', () => {
-        const initialState: ConnectionStringsStateInterface = {
-            connectionStrings: [
-            'connectionString1'
-            ]
-        };
-
-        const action =  addConnectionStringAction('connectionString1');
-        const result = reducer(initialState, action);
-        expect(result.connectionStrings).toHaveLength(1);
-        expect(result.connectionStrings[0]).toEqual('connectionString1');
-    });
-});
+import { deleteConnectionStringAction, setConnectionStringsAction, upsertConnectionStringAction } from './actions';
+import { connectionStringsReducer } from './reducer';
 
 describe('deleteConnectionStringAction', () => {
     it('removes connection string from list', () => {
@@ -42,8 +14,8 @@ describe('deleteConnectionStringAction', () => {
             ]
         };
 
-        const action =  deleteConnectionStringAction('connectionString1');
-        const result = reducer(initialState, action);
+        const action = deleteConnectionStringAction('connectionString1');
+        const result = connectionStringsReducer(initialState, action);
         expect(result.connectionStrings).toHaveLength(0);
     });
 });
@@ -58,7 +30,7 @@ describe('setConnectionStringAction', () => {
         };
 
         const action =  setConnectionStringsAction(['connectionString3']);
-        const result = reducer(initialState, action);
+        const result = connectionStringsReducer(initialState, action);
         expect(result.connectionStrings).toHaveLength(1);
         expect(result.connectionStrings).toEqual(['connectionString3']);
     });
@@ -74,7 +46,7 @@ describe('upsertConnectionStringAction', () => {
         };
 
         const action =  upsertConnectionStringAction({ newConnectionString: 'newConnectionString2', connectionString: 'connectionString2'});
-        const result = reducer(initialState, action);
+        const result = connectionStringsReducer(initialState, action);
         expect(result.connectionStrings).toHaveLength(2); // tslint:disable-line:no-magic-numbers
         expect(result.connectionStrings).toEqual(['connectionString1', 'newConnectionString2']);
     });
@@ -87,7 +59,7 @@ describe('upsertConnectionStringAction', () => {
             ]
         };
         const action =  upsertConnectionStringAction({ newConnectionString: 'connectionString3' });
-        const result = reducer(initialState, action);
+        const result = connectionStringsReducer(initialState, action);
         expect(result.connectionStrings).toHaveLength(3); // tslint:disable-line:no-magic-numbers
         expect(result.connectionStrings).toEqual(['connectionString1', 'connectionString2', 'connectionString3']);
 

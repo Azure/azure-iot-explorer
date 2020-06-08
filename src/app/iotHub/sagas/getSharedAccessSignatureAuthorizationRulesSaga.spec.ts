@@ -5,7 +5,6 @@
 import { select, call, put } from 'redux-saga/effects';
 import { Map } from 'immutable';
 import { getSharedAccessSignatureAuthorizationRulesSaga, getSharedAccessSignatureAuthorizationRulesCache, getAzureResourceManagementEndpoint, cacheRetentionInMilliseconds } from './getSharedAccessSignatureAuthorizationRulesSaga';
-import { getInitialState } from '../../api/shared/testHelper';
 import { CacheWrapper } from '../../api/models/cacheWrapper';
 import { SharedAccessSignatureAuthorizationRule } from '../models/sharedAccessSignatureAuthorizationRule';
 import { AccessRights } from '../models/accessRights';
@@ -134,8 +133,7 @@ describe('getSharedAccessSignatureAuthorizationRulesCache', () => {
             payload: []
         };
 
-        const state = getInitialState();
-        state.iotHubState = {
+        const state = {
             sharedAccessSignatureAuthorizationRules: Map<string, CacheWrapper<SharedAccessSignatureAuthorizationRule[]>>([['hub1', cacheEntry]])
         };
 

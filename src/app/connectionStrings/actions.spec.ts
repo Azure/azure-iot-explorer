@@ -3,20 +3,10 @@
  * Licensed under the MIT License
  **********************************************************/
 import {
-    addConnectionStringAction,
     deleteConnectionStringAction,
     setConnectionStringsAction,
     upsertConnectionStringAction
 } from './actions';
-
-describe('addConnectionStringAction', () => {
-    it('returns CONNECTION_STRINGS/ADD action object', () => {
-        expect(addConnectionStringAction('connectionString')).toEqual({
-            payload: 'connectionString',
-            type: 'CONNECTION_STRINGS/ADD'
-        });
-    });
-});
 
 describe('deleteConnectionStringAction', () => {
     it('returns CONNECTION_STRINGS/DELETE action object', () => {

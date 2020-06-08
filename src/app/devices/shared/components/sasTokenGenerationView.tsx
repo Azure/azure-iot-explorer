@@ -13,7 +13,7 @@ import { MaskedCopyableTextField } from '../../../shared/components/maskedCopyab
 import { CollapsibleSection } from '../../../shared/components/collapsibleSection';
 import { ModuleIdentity } from '../../../api/models/moduleIdentity';
 import { SAS_EXPIRES_MINUTES } from '../../../constants/devices';
-import { generateSASTokenConnectionStringForModuleIdentity, generateSASTokenConnectionStringForDevice } from '../../deviceContent/components/deviceIdentity/deviceIdentityHelper';
+import { generateSASTokenConnectionStringForModuleIdentity, generateSASTokenConnectionStringForDevice } from '../../deviceContent/deviceIdentity/components/deviceIdentityHelper';
 import { DeviceIdentity } from '../../../api/models/deviceIdentity';
 import '../../../css/_sasToken.scss';
 

@@ -4,29 +4,32 @@
  **********************************************************/
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { ModelRepositoryLocationViewContainer, ModelRepositoryLocationView, validateRepositoryLocationSettings } from './modelRepositoryLocationView';
+import { ModelRepositoryLocationView, validateRepositoryLocationSettings } from './modelRepositoryLocationView';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
 import { ResourceKeys } from '../../../localization/resourceKeys';
+import * as GlobalStateContext from '../../shared/contexts/globalStateContext';
+import { globalStateInitial } from '../../shared/global/state';
+
+jest.mock('react-router-dom', () => ({
+    useHistory: () => ({ push: jest.fn() }),
+    useLocation: () => ({ search: '' }),
+}));
 
 describe('modelRepositoryLocationView', () => {
     it('matches snapshot when no locations', () => {
-        expect(shallow(
-            <ModelRepositoryLocationView
-                repositoryLocationSettings={[]}
-                onSaveRepositoryLocationSettings={jest.fn()}
-                onNavigateBack={jest.fn()}
-            />
-        )).toMatchSnapshot();
+        jest.spyOn(GlobalStateContext, 'useGlobalStateContext').mockReturnValueOnce({globalState: globalStateInitial(), dispatch: jest.fn()});
+        expect(shallow(<ModelRepositoryLocationView/>)).toMatchSnapshot();
     });
 
     it('matches snapshot when locations greater than 0', () => {
-        expect(shallow(
-            <ModelRepositoryLocationView
-                repositoryLocationSettings={[{repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public}]}
-                onSaveRepositoryLocationSettings={jest.fn()}
-                onNavigateBack={undefined}
-            />
-        )).toMatchSnapshot()
+        const initialState = globalStateInitial().merge({
+            modelRepositoryState: {
+                localFolderSettings: { path: '' },
+                repositoryLocations: [ REPOSITORY_LOCATION_TYPE.Local ]
+            }
+        });
+        jest.spyOn(GlobalStateContext, 'useGlobalStateContext').mockReturnValueOnce({globalState: initialState, dispatch: jest.fn()});
+        expect(shallow(<ModelRepositoryLocationView/>)).toMatchSnapshot();
     });
 });
 

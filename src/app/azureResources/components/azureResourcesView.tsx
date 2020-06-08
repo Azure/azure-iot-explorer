@@ -3,8 +3,8 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { ConnectionStringsViewContainer } from '../../connectionStrings/components/connectionStringsView';
+import { ConnectionStringsView } from '../../connectionStrings/components/connectionStringsView';
 
 export const AzureResourcesView: React.FC = () => {
-       return <ConnectionStringsViewContainer />;
+       return <ConnectionStringsView />;
 };

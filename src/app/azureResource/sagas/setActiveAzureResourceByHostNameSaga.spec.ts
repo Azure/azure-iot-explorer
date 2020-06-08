@@ -8,8 +8,7 @@ import {
     setActiveAzureResourceByHostNameSaga_ConnectionString,
     setActiveAzureResourceByHostNameSaga_ImplicitFlow,
     getAuthMode,
-    getAzureResourceManagementEndpoint,
-    getLastUsedConnectionString } from './setActiveAzureResourceByHostNameSaga';
+    getAzureResourceManagementEndpoint } from './setActiveAzureResourceByHostNameSaga';
 import { setActiveAzureResourceByHostNameAction, SetActiveAzureResourceByHostNameActionParameters, setActiveAzureResourceAction } from '../actions';
 import { AccessVerificationState } from '../models/accessVerificationState';
 import * as hostNameUtils from '../../api/shared/hostNameUtils';
@@ -18,6 +17,7 @@ import { executeAzureResourceManagementTokenRequest } from '../../login/services
 import { getAzureSubscriptions } from '../../azureResourceIdentifier/services/azureSubscriptionService';
 import { getAzureResourceIdentifier } from '../../azureResourceIdentifier/services/azureResourceIdentifierService';
 import { AzureResourceIdentifierType } from '../../azureResourceIdentifier/models/azureResourceIdentifierType';
+import { ACTIVE_CONNECTION_STRING } from '../../constants/browserStorage';
 
 describe('setActiveAzureResourceByHostNameSaga', () => {
     const parameters: SetActiveAzureResourceByHostNameActionParameters = {
@@ -99,7 +99,7 @@ describe('setActiveAzureResourceByHostNameSaga_ConnectionString', () => {
     it('yields selector to get current connection string', () => {
         expect(setActiveAzureResourceByHostNameSagaConnectionString.next()).toEqual({
             done: false,
-            value: select(getLastUsedConnectionString)
+            value: call(localStorage.getItem, ACTIVE_CONNECTION_STRING)
         });
     });
 
@@ -270,30 +270,6 @@ describe('setActiveAzureResourceByHostNameSaga_ImplicitFlow', () => {
         });
     });
 
-});
-
-describe('getLastUsedConnectionString', () => {
-    it('returns expected value when array has one or more entries', () => {
-        const state = {
-            connectionStringsState: {
-                connectionStrings: ['connection1', 'connection2']
-            }
-        };
-
-        // tslint:disable-next-line:no-any
-        expect(getLastUsedConnectionString(state as any)).toEqual('connection1');
-    });
-
-    it('returns expected value when array has no entries', () => {
-        const state = {
-            connectionStringsState: {
-                connectionStrings: []
-            }
-        };
-
-        // tslint:disable-next-line:no-any
-        expect(getLastUsedConnectionString(state as any)).toEqual('');
-    });
 });
 
 describe('getAuthMode', () => {

@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { Route, useParams } from 'react-router-dom';
-import DeviceContentContainer from '../../devices/deviceContent/components/deviceContentContainer';
+import { DeviceContent } from '../../devices/deviceContent/deviceIdentity/components/deviceContent';
 import { DeviceList } from '../../devices/deviceList/components/deviceList';
 import { AddDevice } from '../../devices/addDevice/components/addDevice';
 import { ROUTE_PARTS } from '../../constants/routes';
@@ -51,7 +51,7 @@ export const AzureResourceView: React.FC<AzureResourceViewProps> = props => {
         <>
             <Route path={`/${ROUTE_PARTS.RESOURCE}/${hostName}/${ROUTE_PARTS.DEVICES}`} component={DeviceList} exact={true}/>
             <Route path={`/${ROUTE_PARTS.RESOURCE}/${hostName}/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.ADD}`} component={AddDevice} exact={true} />
-            <Route path={`/${ROUTE_PARTS.RESOURCE}/${hostName}/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DEVICE_DETAIL}/`} component={DeviceContentContainer}/>
+            <Route path={`/${ROUTE_PARTS.RESOURCE}/${hostName}/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DEVICE_DETAIL}/`} component={DeviceContent}/>
         </>
     );
 };

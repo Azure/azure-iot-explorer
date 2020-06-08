@@ -3,11 +3,11 @@
  * Licensed under the MIT License
  **********************************************************/
 import { createSelector } from 'reselect';
-import { StateInterface } from '../shared/redux/state';
 import { AzureResource } from './models/azureResource';
+import { AzureResourceStateInterface } from './state';
 
-export const getActiveAzureResourceSelector = (state: StateInterface): AzureResource => {
-    return state.azureResourceState.activeAzureResource;
+export const getActiveAzureResourceSelector = (state: AzureResourceStateInterface): AzureResource => {
+    return state.activeAzureResource;
 };
 
 export const getActiveAzureResourceHostNameSelector = createSelector(getActiveAzureResourceSelector, resource => resource && (resource.hostName || ''));

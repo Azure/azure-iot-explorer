@@ -136,9 +136,7 @@ describe('getAuthMode', () => {
 describe('getActiveAzureResource', () => {
     it('returns expected value', () => {
         const state = {
-            azureResourceState: {
-                activeAzureResource: 'activeAzureResource'
-            }
+            activeAzureResource: 'activeAzureResource'
         };
 
         // tslint:disable-next-line:no-any
