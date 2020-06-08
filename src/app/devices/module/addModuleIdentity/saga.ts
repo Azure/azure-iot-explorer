@@ -8,7 +8,6 @@ import { addModuleIdentity } from '../../../api/services/moduleService';
 import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { addModuleIdentityAction } from './actions';
 import { ModuleIdentity } from './../../../api/models/moduleIdentity';
 
