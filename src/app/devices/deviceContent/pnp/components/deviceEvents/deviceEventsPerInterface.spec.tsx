@@ -4,7 +4,6 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import InfiniteScroll from 'react-infinite-scroller';
 import { act } from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
 import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
@@ -41,7 +40,7 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('components/devices/deviceEventsPerInterface', () => {
-    const refreshMock = jest.fn();
+    const getModelDefinitionMock = jest.fn();
 
     const mockFetchedState = () => {
         const pnpState: PnpStateInterface = {
@@ -55,7 +54,7 @@ describe('components/devices/deviceEventsPerInterface', () => {
                 synchronizationStatus: SynchronizationStatus.fetched
             }
         };
-        jest.spyOn(PnpContext, 'usePnpStateContext').mockReturnValueOnce({pnpState, dispatch: jest.fn(), getModelDefinition: jest.fn()});
+        jest.spyOn(PnpContext, 'usePnpStateContext').mockReturnValue({pnpState, dispatch: jest.fn(), getModelDefinition: getModelDefinitionMock});
     };
 
     afterEach(() => {
@@ -195,17 +194,17 @@ describe('components/devices/deviceEventsPerInterface', () => {
         // click the start button
         act(() => commandBar.props().items[0].onClick());
         wrapper.update();
-        expect(wrapper.find(InfiniteScroll).first().props().hasMore).toBeTruthy();
+        expect(wrapper.find('.device-events-container').first().props().hasMore).toBeTruthy();
 
         // click the start button again which has been toggled to stop button
         act(() => wrapper.find(CommandBar).first().props().items[0].onClick());
         wrapper.update();
-        expect(wrapper.find(InfiniteScroll).first().props().hasMore).toBeFalsy();
+        expect(wrapper.find('.device-events-container').first().props().hasMore).toBeFalsy();
 
         // click the refresh button
         act(() => commandBar.props().items[1].onClick());
         wrapper.update();
-        expect(refreshMock).toBeCalled();
+        expect(getModelDefinitionMock).toBeCalled();
 
         // click the clear events button
         act(() => commandBar.props().items[2].onClick()); // tslint:disable-line:no-magic-numbers
