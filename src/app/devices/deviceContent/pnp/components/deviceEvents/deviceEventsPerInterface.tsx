@@ -10,7 +10,7 @@ import { Spinner } from 'office-ui-fabric-react/lib/Spinner';
 import { TextField, ITextFieldProps } from 'office-ui-fabric-react/lib/TextField';
 import { Announced } from 'office-ui-fabric-react/lib/Announced';
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
-import { useLocation, useHistory, Route } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import { useLocalizationContext } from '../../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../../localization/resourceKeys';
 import { monitorEvents, stopMonitoringEvents } from '../../../../../api/services/devicesService';
@@ -18,7 +18,7 @@ import { Message, MESSAGE_SYSTEM_PROPERTIES, MESSAGE_PROPERTIES } from '../../..
 import { parseDateTimeString } from '../../../../../api/dataTransforms/transformHelper';
 import { REFRESH, STOP, START, REMOVE, NAVIGATE_BACK } from '../../../../../constants/iconNames';
 import { ParsedJsonSchema } from '../../../../../api/models/interfaceJsonParserOutput';
-import { TelemetryContent, ModelDefinition } from '../../../../../api/models/modelDefinition';
+import { TelemetryContent } from '../../../../../api/models/modelDefinition';
 import { getInterfaceIdFromQueryString, getDeviceIdFromQueryString, getComponentNameFromQueryString } from '../../../../../shared/utils/queryStringHelper';
 import { getNumberOfMapsInSchema } from '../../../../../shared/utils/twinAndJsonSchemaDataConverter';
 import { SynchronizationStatus } from '../../../../../api/models/synchronizationStatus';
@@ -34,29 +34,12 @@ import { SemanticUnit } from '../../../../../shared/units/components/semanticUni
 import { ROUTE_PARAMS } from '../../../../../constants/routes';
 import { raiseNotificationToast } from '../../../../../notifications/components/notificationToast';
 import { usePnpStateContext } from '../../pnpStateContext';
-import { JsonSchemaAdaptor } from '../../../../../shared/utils/jsonSchemaAdaptor';
 import '../../../../../css/_deviceEvents.scss';
+import { getDeviceTelemetry, TelemetrySchema } from './dataHelper';
 
 const JSON_SPACES = 2;
 const LOADING_LOCK = 50;
 const TELEMETRY_SCHEMA_PROP = MESSAGE_PROPERTIES.IOTHUB_MESSAGE_SCHEMA;
-
-export interface TelemetrySchema {
-    parsedSchema: ParsedJsonSchema;
-    telemetryModelDefinition: TelemetryContent;
-}
-
-export const getDeviceTelemetry = (modelDefinition: ModelDefinition): TelemetrySchema[] => {
-    if (!modelDefinition) {
-        return [];
-    }
-    const jsonSchemaAdaptor = new JsonSchemaAdaptor(modelDefinition);
-    const telemetryContents = jsonSchemaAdaptor.getTelemetry();
-    return telemetryContents.map(telemetry => ({
-        parsedSchema: jsonSchemaAdaptor.parseInterfaceTelemetryToJsonSchema(telemetry),
-        telemetryModelDefinition: telemetry
-    }));
-};
 
 export const DeviceEventsPerInterface: React.FC = () => {
     let timerID: any; // tslint:disable-line:no-any
@@ -71,7 +54,7 @@ export const DeviceEventsPerInterface: React.FC = () => {
     const { pnpState, getModelDefinition } = usePnpStateContext();
     const modelDefinitionWithSource = pnpState.modelDefinitionWithSource.payload;
     const modelDefinition = modelDefinitionWithSource && modelDefinitionWithSource.modelDefinition;
-    const isLoading = pnpState.modelDefinitionWithSource.synchronizationStatus = SynchronizationStatus.working;
+    const isLoading = pnpState.modelDefinitionWithSource.synchronizationStatus === SynchronizationStatus.working;
     const telemetrySchema = React.useMemo(() => getDeviceTelemetry(modelDefinition), [modelDefinition]);
 
     const [ state, setState ] = React.useState({
@@ -81,10 +64,10 @@ export const DeviceEventsPerInterface: React.FC = () => {
         loading: false,
         loadingAnnounced: undefined,
         monitoringData: false,
-        showRawEvent: false,
         startTime: new Date(new Date().getTime() - MILLISECONDS_IN_MINUTE), // set start time to one minute ago
         synchronizationStatus: SynchronizationStatus.initialized
     });
+    const [ showRawEvent, setShowRawEvent ] = React.useState(false);
 
     React.useEffect(() => {
         return () => {
@@ -191,7 +174,7 @@ export const DeviceEventsPerInterface: React.FC = () => {
         return (
             <Toggle
                 className="toggle-button"
-                checked={state.showRawEvent}
+                checked={showRawEvent}
                 ariaLabel={t(ResourceKeys.deviceEvents.toggleShowRawData.label)}
                 label={t(ResourceKeys.deviceEvents.toggleShowRawData.label)}
                 onText={t(ResourceKeys.deviceEvents.toggleShowRawData.on)}
@@ -202,10 +185,7 @@ export const DeviceEventsPerInterface: React.FC = () => {
     };
 
     const changeToggle = () => {
-        setState({
-            ...state,
-            showRawEvent: !state.showRawEvent
-        });
+        setShowRawEvent(!showRawEvent);
     };
 
     const stopMonitoring = async () => {
@@ -254,7 +234,7 @@ export const DeviceEventsPerInterface: React.FC = () => {
                 isReverse={true}
             >
             <section className="list-content">
-                {state.showRawEvent ? renderRawEvents() : renderEvents()}
+                {showRawEvent ? renderRawEvents() : renderEvents()}
             </section>
             </InfiniteScroll>
         );

@@ -9,8 +9,14 @@ import { act } from 'react-dom/test-utils';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
 import { DeviceProperties } from './deviceProperties';
-import { TwinWithSchema } from './devicePropertiesPerInterface';
 import { InterfaceNotFoundMessageBar } from '../../../shared/components/interfaceNotFoundMessageBar';
+import { TwinWithSchema } from './dataHelper';
+import { PnpStateInterface, pnpStateInitial } from '../../state';
+import * as PnpContext from '../../pnpStateContext';
+import { SynchronizationStatus } from '../../../../../api/models/synchronizationStatus';
+import { testModelDefinition, testDigitalTwin } from './testData';
+import { ModelDefinition } from './../../../../../api/models/modelDefinition';
+import { getDigitalTwinAction } from '../../actions';
 
 const interfaceId = 'urn:contoso:com:EnvironmentalSensor:1';
 const pathname = `/#/devices/deviceDetail/ioTPlugAndPlay/ioTPlugAndPlayDetail/properties/?id=device1&componentName=foo&interfaceId=${interfaceId}`;
@@ -30,6 +36,7 @@ export const twinWithSchema: TwinWithSchema = {
     },
     propertySchema: {
         description: 'Device State / The state of the device. Two states online/offline are available',
+        required: null,
         title: 'state',
         type: 'boolean'
     },
@@ -37,52 +44,60 @@ export const twinWithSchema: TwinWithSchema = {
 };
 
 describe('components/devices/deviceProperties', () => {
-    const devicePropertiesProps: DevicePropertiesDataProps = {
-        isLoading: true,
-        twinAndSchema: []
-    };
 
-    const refreshMock = jest.fn();
-    const devicePropertiesDispatchProps: DevicePropertiesDispatchProps = {
-        refresh: refreshMock,
-        setComponentName: jest.fn()
-    };
-
-    const getComponent = (overrides = {}) => {
-        const props = {
-            ...devicePropertiesProps,
-            ...devicePropertiesDispatchProps,
-            ...overrides
+    const mockFetchedState = (model: ModelDefinition) => {
+        const pnpState: PnpStateInterface = {
+            ...pnpStateInitial(),
+            digitalTwin: {
+                payload: testDigitalTwin,
+                synchronizationStatus: SynchronizationStatus.fetched
+            },
+            modelDefinitionWithSource: {
+                payload: {
+                    isModelValid: true,
+                    modelDefinition: model,
+                    source: null,
+                },
+                synchronizationStatus: SynchronizationStatus.fetched
+            }
         };
-
-        return (
-            <DeviceProperties {...props} />
-        );
+        jest.spyOn(PnpContext, 'usePnpStateContext').mockReturnValueOnce({pnpState, dispatch: jest.fn(), getModelDefinition: jest.fn()});
     };
 
     it('shows Shimmer while loading', () => {
-        const wrapper = mount(getComponent());
-
+        const pnpState: PnpStateInterface = {
+            ...pnpStateInitial(),
+            digitalTwin: {
+                synchronizationStatus: SynchronizationStatus.working
+            },
+            modelDefinitionWithSource: {
+                synchronizationStatus: SynchronizationStatus.fetched
+            }
+        };
+        jest.spyOn(PnpContext, 'usePnpStateContext').mockReturnValueOnce({pnpState, dispatch: jest.fn(), getModelDefinition: jest.fn()});
+        const wrapper = mount(<DeviceProperties/>);
         expect(wrapper.find(Shimmer)).toBeDefined();
     });
 
     it('matches snapshot while interface cannot be found', () => {
-        expect(shallow(getComponent({isLoading: false, twinWithSchema: undefined}))).toMatchSnapshot();
-        expect(shallow(getComponent()).find(InterfaceNotFoundMessageBar)).toBeDefined();
+        mockFetchedState(null);
+        expect(shallow(<DeviceProperties/>)).toMatchSnapshot();
+        expect(shallow(<DeviceProperties/>).find(InterfaceNotFoundMessageBar)).toBeDefined();
     });
 
     it('matches snapshot with one twinWithSchema', () => {
-        expect(shallow(getComponent({
-            isLoading: false,
-            twinWithSchema: [twinWithSchema]}))).toMatchSnapshot();
+        mockFetchedState(testModelDefinition);
+        expect(shallow(<DeviceProperties/>)).toMatchSnapshot();
     });
 
     it('dispatch action when refresh button is clicked', () => {
-        const wrapper = shallow(getComponent({isLoading: false}));
+        mockFetchedState(testModelDefinition);
+        const mockGetDigitalTwinActionSpy = jest.spyOn(getDigitalTwinAction, 'started');
+        const wrapper = shallow(<DeviceProperties/>);
         const commandBar = wrapper.find(CommandBar).first();
 
         act(() => commandBar.props().items[0].onClick(null));
         wrapper.update();
-        expect(refreshMock).toBeCalled();
+        expect(mockGetDigitalTwinActionSpy).toBeCalled();
     });
 });

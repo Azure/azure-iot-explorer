@@ -1,92 +1,76 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`deviceSettings matches snapshot with one twinWithSchema 1`] = `
-<Fragment>
-  <StyledCommandBarBase
-    className="command"
-    farItems={
-      Array [
-        Object {
-          "ariaLabel": "deviceSettings.command.close",
-          "iconProps": Object {
-            "iconName": "NavigateBack",
+exports[`devicePropertiesPerInterface matches snapshot 1`] = `
+<div
+  className="pnp-detail-list scrollable-lg ms-Grid"
+>
+  <div
+    className="list-detail pnp-properties"
+  >
+    <StyledWithViewportComponent
+      checkboxVisibility={2}
+      columns={
+        Array [
+          Object {
+            "fieldName": "name",
+            "isMultiline": true,
+            "isResizable": true,
+            "key": "name",
+            "maxWidth": 500,
+            "minWidth": 100,
+            "name": "deviceProperties.columns.name",
           },
-          "key": "NavigateBack",
-          "name": "deviceSettings.command.close",
-          "onClick": [Function],
-        },
-      ]
-    }
-    items={
-      Array [
-        Object {
-          "ariaLabel": "deviceSettings.command.refresh",
-          "iconProps": Object {
-            "iconName": "Refresh",
+          Object {
+            "fieldName": "schema",
+            "isMultiline": true,
+            "isResizable": true,
+            "key": "schema",
+            "maxWidth": 200,
+            "minWidth": 100,
+            "name": "deviceProperties.columns.schema",
           },
-          "key": "Refresh",
-          "name": "deviceSettings.command.refresh",
-          "onClick": [Function],
-        },
-      ]
-    }
-  />
-  <Component
-    componentName="foo"
-    deviceId={null}
-    interfaceId="urn:contoso:com:EnvironmentalSensor:1"
-    patchDigitalTwin={[Function]}
-    twinWithSchema={
-      Array [
-        Object {
-          "isComponentContainedInDigitalTwin": false,
-          "metadata": undefined,
-          "reportedTwin": undefined,
-          "settingModelDefinition": Object {
-            "@type": "Property",
-            "description": "The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)",
-            "displayName": "Brightness Level",
-            "name": "brightness",
-            "schema": "long",
-            "writable": true,
+          Object {
+            "fieldName": "unit",
+            "isMultiline": true,
+            "isResizable": true,
+            "key": "unit",
+            "maxWidth": 200,
+            "minWidth": 100,
+            "name": "deviceProperties.columns.unit",
           },
-          "settingSchema": Object {
-            "definitions": Object {},
-            "required": Array [],
-            "title": "brightness",
-            "type": Array [
-              "number",
-              "null",
-            ],
+          Object {
+            "fieldName": "value",
+            "isMultiline": true,
+            "isResizable": true,
+            "key": "value",
+            "minWidth": 150,
+            "name": "deviceProperties.columns.value",
           },
-        },
-        Object {
-          "isComponentContainedInDigitalTwin": false,
-          "metadata": undefined,
-          "reportedTwin": undefined,
-          "settingModelDefinition": Object {
-            "@type": Array [
-              "Property",
-              "SemanticType/Brightness Level",
-            ],
-            "description": "The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)",
-            "displayName": "Brightness Level",
-            "name": "brightness",
-            "schema": "long",
-            "writable": true,
+        ]
+      }
+      items={
+        Array [
+          Object {
+            "propertyModelDefinition": Object {
+              "@type": "Property",
+              "description": "Current temperature reported from the device.",
+              "displayName": "Current Temperature",
+              "name": "currentTemperature",
+              "schema": "double",
+              "writable": false,
+            },
+            "propertySchema": Object {
+              "required": null,
+              "title": "Current temperature reported from the device.",
+              "type": "number",
+            },
+            "reportedTwin": 12.5,
           },
-          "settingSchema": Object {
-            "definitions": Object {},
-            "required": Array [],
-            "title": "brightness",
-            "type": Array [
-              "number",
-              "null",
-            ],
-          },
-        },
-      ]
-    }
-  />
-</Fragment>
+        ]
+      }
+      layoutMode={1}
+      onRenderItemColumn={[Function]}
+    />
+  </div>
+</div>
 `;

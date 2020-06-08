@@ -7,17 +7,30 @@ import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 import { Overlay } from 'office-ui-fabric-react/lib/Overlay';
 import { DevicePropertiesPerInterface, DevicePropertiesDataProps } from './devicePropertiesPerInterface';
-import { twinWithSchema } from '../deviceSettings/deviceSettings.spec';
+import { testModelDefinition } from './testData';
 
 describe('devicePropertiesPerInterface', () => {
 
+    /* tslint:disable */
     const deviceSettingsProps: DevicePropertiesDataProps = {
         twinAndSchema: [{
-            propertyModelDefinition: twinWithSchema.settingModelDefinition,
-            propertySchema: twinWithSchema.settingSchema,
-            reportedTwin: twinWithSchema.reportedTwin,
+            propertyModelDefinition: {
+                "@type": "Property",
+                "displayName": "Current Temperature",
+                "description": "Current temperature reported from the device.",
+                "name": "currentTemperature",
+                "schema": "double",
+                "writable": false
+                },
+            propertySchema: {
+                title: 'Current temperature reported from the device.',
+                required: null,
+                type: 'number'
+            },
+            reportedTwin: 12.5,
         }]
     };
+    /* tslint:enable */
 
     const getComponent = (overrides = {}) => {
         const props = {

@@ -5,12 +5,13 @@
 import * as React from 'react';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import { Overlay } from 'office-ui-fabric-react/lib/Overlay';
-import { DeviceSettingsPerInterfacePerSetting, TwinWithSchema } from './deviceSettingsPerInterfacePerSetting';
+import { DeviceSettingsPerInterfacePerSetting } from './deviceSettingsPerInterfacePerSetting';
 import { useLocalizationContext } from '../../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../../localization/resourceKeys';
 import { PatchDigitalTwinActionParameters } from '../../actions';
 import { InterfaceDetailCard } from '../../../../../constants/iconNames';
 import LabelWithTooltip from '../../../../../shared/components/labelWithTooltip';
+import { TwinWithSchema } from './dataHelper';
 import '../../../../../css/_devicePnpDetailList.scss';
 
 export interface DeviceSettingDataProps {
