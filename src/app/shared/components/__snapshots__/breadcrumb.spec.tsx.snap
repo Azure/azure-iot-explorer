@@ -12,8 +12,8 @@ exports[`Breadcrumb snapshot matches snapshot 1`] = `
     </Component>
   </li>
   <Component
-    component={[Function]}
     path="/resource/:path"
+    render={[Function]}
   />
 </Fragment>
 `;

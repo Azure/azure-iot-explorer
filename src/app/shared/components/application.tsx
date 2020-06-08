@@ -4,29 +4,43 @@
  **********************************************************/
 import 'react-toastify/dist/ReactToastify.css';
 import * as React from 'react';
-import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import { AzureResourceViewContainer } from '../../azureResource/components/azureResourceViewContainer';
 import { NoMatchError } from './noMatchError';
 import { ROUTE_PARTS } from '../../constants/routes';
-import { withApplicationFrame } from './applicationFrame';
 import { HomeView } from '../../home/components/homeView';
+import { DeviceList } from '../../devices/deviceList/components/deviceList';
+import { AddDevice } from '../../devices/addDevice/components/addDevice';
+import { DeviceContent } from '../../devices/deviceContent/deviceIdentity/components/deviceContent';
+import { Breadcrumb } from './breadcrumb';
+import { Header } from './header';
+import '../../css/_application.scss';
 
 const NOTIFICATION_AUTO_CLOSE = 5000;
 
 export const Application: React.FC = () => {
     return (
-        <HashRouter>
-            <Switch>
-                <Redirect from="/" exact={true} to={`${ROUTE_PARTS.HOME}`}/>
-                <Route path={`/${ROUTE_PARTS.HOME}`} component={withApplicationFrame(HomeView)} />
-                <Route path={`/${ROUTE_PARTS.RESOURCE}/:hostName`} component={withApplicationFrame(AzureResourceViewContainer)} />
-                <Route component={NoMatchError}/>
-            </Switch>
+        <div className="app">
+            <div className="masthead">
+                <Header />
+            </div>
+            <nav className="navigation">
+                <Route component={Breadcrumb} />
+            </nav>
+            <main role="main" className="content">
+                <Switch>
+                    <Redirect from="/" exact={true} to={`${ROUTE_PARTS.HOME}`}/>
+                    <Route path={`/${ROUTE_PARTS.HOME}`} component={HomeView} />
+                    <Route path={`/${ROUTE_PARTS.RESOURCE}/:hostName/${ROUTE_PARTS.DEVICES}`} component={DeviceList} exact={true}/>
+                    <Route path={`/${ROUTE_PARTS.RESOURCE}/:hostName/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.ADD}`} component={AddDevice} exact={true} />
+                    <Route path={`/${ROUTE_PARTS.RESOURCE}/:hostName/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DEVICE_DETAIL}/`} component={DeviceContent}/>
+                    <Route component={NoMatchError}/>
+                </Switch>
+            </main>
             <ToastContainer
                 autoClose={NOTIFICATION_AUTO_CLOSE}
                 toastClassName="toast-notification"
             />
-        </HashRouter>
+        </div>
     );
 };

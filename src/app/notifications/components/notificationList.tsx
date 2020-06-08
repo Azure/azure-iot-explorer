@@ -8,26 +8,19 @@ import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel';
 import { Link } from 'office-ui-fabric-react/lib/Link';
 import { useLocalizationContext } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
-import { Notification } from '../../api/models/notification';
 import { NotificationListEntry } from './notificationListEntry';
+import { useGlobalStateContext } from '../../shared/contexts/globalStateContext';
+import { clearNotificationsAction, markAllNotificationsAsReadAction } from '../../shared/global/actions';
 import '../../css/_notification.scss';
 
-export interface NotificationListProps {
-    hasNew: boolean;
-    dismissNotifications: () => void;
-    markAllNotificationsAsRead: () => void;
-    notifications: Notification[];
-}
-
-export interface NotificationListState {
-    showList: boolean;
-}
-
-export const NotificationList: React.FC<NotificationListProps> = (props: NotificationListProps) => {
+export const NotificationList: React.FC = () => {
     const { t } = useLocalizationContext();
 
-    const { dismissNotifications, notifications, markAllNotificationsAsRead, hasNew } = props;
+    const { globalState, dispatch } = useGlobalStateContext();
+    const { hasNew, notifications } = globalState.notificationsState;
     const [ showList, setShowList ] = React.useState<boolean>(false);
+
+    const dismissNotifications = () => dispatch(clearNotificationsAction());
 
     const onRenderHeader = (): JSX.Element => {
         return (
@@ -51,7 +44,7 @@ export const NotificationList: React.FC<NotificationListProps> = (props: Notific
 
     const onToggleDisplay = () => {
         if (showList) {
-            markAllNotificationsAsRead();
+            dispatch(markAllNotificationsAsReadAction());
         }
         setShowList(!showList);
     };

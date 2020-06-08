@@ -3,7 +3,6 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { useDispatch } from 'react-redux';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import { toast, ToastType, ToastOptions, UpdateOptions } from 'react-toastify';
 import { useLocalizationContext } from '../../shared/contexts/localizationContext';
@@ -11,8 +10,9 @@ import { NotificationListEntry } from '../../notifications/components/notificati
 import { Notification } from '../../api/models/notification';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { CANCEL } from '../../constants/iconNames';
+import { useGlobalStateContext } from '../../shared/contexts/globalStateContext';
+import { addNotificationAction } from '../../shared/global/actions';
 import '../../css/_notification.scss';
-import { addNotificationAction } from '../actions';
 
 export interface CloseButtonProps {
     // tslint:disable-next-line:no-any
@@ -35,7 +35,7 @@ export const CloseButton = (props: CloseButtonProps): JSX.Element => {
 };
 
 const NotificationEntry = (props: { notification: Notification }): JSX.Element => {
-    const dispatch = useDispatch();
+    const { dispatch } = useGlobalStateContext();
 
     React.useEffect(() => {
         dispatch!(addNotificationAction(props.notification));

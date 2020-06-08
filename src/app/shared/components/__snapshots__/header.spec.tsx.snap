@@ -10,7 +10,7 @@ exports[`Header matches snapshot 1`] = `
     header.applicationName
   </div>
   <div>
-    <Connect(Component) />
+    <Component />
   </div>
   <div>
     <SettingsPane />
