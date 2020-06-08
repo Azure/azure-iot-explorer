@@ -7,7 +7,6 @@ import { Action } from 'typescript-fsa';
 import { fetchDevice, updateDevice } from '../../../api/services/devicesService';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { getDeviceIdentityAction, updateDeviceIdentityAction } from './actions';
 import { DeviceIdentity } from '../../../api/models/deviceIdentity';
 import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
