@@ -6,8 +6,8 @@ import 'jest';
 import * as React from 'react';
 import { act } from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
-import { ActionButton, IconButton, PrimaryButton } from 'office-ui-fabric-react/lib/Button';
-import { TextField } from 'office-ui-fabric-react/lib/TextField';
+import { ActionButton, IconButton, PrimaryButton } from 'office-ui-fabric-react/lib/components/Button';
+import { TextField } from 'office-ui-fabric-react/lib/components/TextField';
 import { DeviceListQuery, DeviceListQueryProps } from './deviceListQuery';
 import { DeviceQueryClause } from './deviceQueryClause';
 

@@ -9,7 +9,6 @@ import {
     GetModuleIdentityTwinActionParameters,
 } from './actions';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
-import { ModuleIdentity } from '../../../api/models/moduleIdentity';
 import { ModuleTwin } from '../../../api/models/moduleTwin';
 
 export const moduleTwinReducer = reducerWithInitialState<ModuleTwinStateType>(moduleTwinStateInitial())

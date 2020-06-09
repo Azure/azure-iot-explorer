@@ -3,8 +3,8 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { TextField } from 'office-ui-fabric-react/lib/TextField';
-import { ActionButton, IconButton, PrimaryButton } from 'office-ui-fabric-react/lib/Button';
+import { TextField } from 'office-ui-fabric-react/lib/components/TextField';
+import { ActionButton, IconButton, PrimaryButton } from 'office-ui-fabric-react/lib/components/Button';
 import { DeviceQueryClause } from './deviceQueryClause';
 import { DeviceQuery, QueryClause } from '../../../api/models/deviceQuery';
 import { ResourceKeys } from '../../../../localization/resourceKeys';

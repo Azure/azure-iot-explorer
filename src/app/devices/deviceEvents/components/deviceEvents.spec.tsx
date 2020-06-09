@@ -7,9 +7,9 @@ import * as React from 'react';
 import { act } from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
 const InfiniteScroll = require('react-infinite-scroller'); // tslint:disable-line: no-var-requires
-import { TextField } from 'office-ui-fabric-react/lib/TextField';
-import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
-import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
+import { TextField } from 'office-ui-fabric-react/lib/components/TextField';
+import { Toggle } from 'office-ui-fabric-react/lib/components/Toggle';
+import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
 import { DeviceEvents } from './deviceEvents';
 import { appConfig, HostMode } from '../../../../appConfig/appConfig';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';

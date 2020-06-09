@@ -4,10 +4,10 @@
  **********************************************************/
 import * as React from 'react';
 import { Route, useLocation, useHistory, useParams } from 'react-router-dom';
-import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
-import { Label } from 'office-ui-fabric-react/lib/Label';
-import { Dialog, DialogFooter, DialogType } from 'office-ui-fabric-react/lib/Dialog';
-import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/Button';
+import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
+import { Label } from 'office-ui-fabric-react/lib/components/Label';
+import { Dialog, DialogFooter, DialogType } from 'office-ui-fabric-react/lib/components/Dialog';
+import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/components/Button';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
 import { getDeviceIdFromQueryString, getModuleIdentityIdFromQueryString } from '../../../../shared/utils/queryStringHelper';

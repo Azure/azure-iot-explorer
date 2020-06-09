@@ -4,8 +4,8 @@
  **********************************************************/
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
-import { Label } from 'office-ui-fabric-react/lib/Label';
-import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
+import { Label } from 'office-ui-fabric-react/lib/components/Label';
+import { Toggle } from 'office-ui-fabric-react/lib/components/Toggle';
 import { useLocalizationContext } from '../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { DeviceIdentity } from '../../../api/models/deviceIdentity';

@@ -4,9 +4,9 @@
  **********************************************************/
 import * as React from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
-import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
-import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/ChoiceGroup';
-import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
+import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
+import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/components/ChoiceGroup';
+import { Checkbox } from 'office-ui-fabric-react/lib/components/Checkbox';
 import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';

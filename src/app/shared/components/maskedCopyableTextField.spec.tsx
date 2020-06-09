@@ -6,8 +6,8 @@ import * as React from 'react';
 import { act } from 'react-dom/test-utils';
 import 'jest';
 import { shallow, mount } from 'enzyme';
-import { IconButton } from 'office-ui-fabric-react/lib/Button';
-import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip';
+import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
+import { TooltipHost } from 'office-ui-fabric-react/lib/components/Tooltip';
 import { MaskedCopyableTextField } from './maskedCopyableTextField';
 
 describe('MaskedCopyableTextField', () => {

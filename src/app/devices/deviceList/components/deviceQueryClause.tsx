@@ -3,8 +3,8 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Dropdown, IDropdown, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
-import { IconButton } from 'office-ui-fabric-react/lib/Button';
+import { Dropdown, IDropdown, IDropdownOption } from 'office-ui-fabric-react/lib/components/Dropdown';
+import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
 import { QueryClause, ParameterType, DeviceCapability, DeviceStatus } from '../../../api/models/deviceQuery';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { useLocalizationContext } from '../../../shared/contexts/localizationContext';

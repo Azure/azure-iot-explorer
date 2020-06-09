@@ -2,8 +2,8 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { ComboBox } from 'office-ui-fabric-react/lib/ComboBox';
-import { DropdownMenuItemType } from 'office-ui-fabric-react/lib/Dropdown';
+import { ComboBox } from 'office-ui-fabric-react/lib/components/ComboBox';
+import { DropdownMenuItemType } from 'office-ui-fabric-react/lib/components/Dropdown';
 import * as React from 'react';
 import { WidgetProps } from 'react-jsonschema-form';
 

@@ -3,9 +3,9 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Label } from 'office-ui-fabric-react/lib/Label';
-import { Stack } from 'office-ui-fabric-react/lib/Stack';
-import { ActionButton, IconButton } from 'office-ui-fabric-react/lib/Button';
+import { Label } from 'office-ui-fabric-react/lib/components/Label';
+import { Stack } from 'office-ui-fabric-react/lib/components/Stack';
+import { ActionButton, IconButton } from 'office-ui-fabric-react/lib/components/Button';
 import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { InterfaceDetailCard } from '../../../../constants/iconNames';

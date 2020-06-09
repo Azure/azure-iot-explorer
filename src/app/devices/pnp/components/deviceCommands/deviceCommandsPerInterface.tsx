@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { IconButton } from 'office-ui-fabric-react/lib/Button';
+import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
 import { DeviceCommandsPerInterfacePerCommand, CommandSchema } from './deviceCommandsPerInterfacePerCommand';
 import { InvokeDigitalTwinInterfaceCommandActionParameters } from '../../actions';
 import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';

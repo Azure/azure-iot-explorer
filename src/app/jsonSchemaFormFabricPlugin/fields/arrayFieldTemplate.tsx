@@ -3,10 +3,10 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { DirectionalHint } from 'office-ui-fabric-react/lib/ContextualMenu';
-import { IconButton } from 'office-ui-fabric-react/lib/Button';
-import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip';
-import { Label } from 'office-ui-fabric-react/lib/Label';
+import { DirectionalHint } from 'office-ui-fabric-react/lib/components/ContextualMenu';
+import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
+import { TooltipHost } from 'office-ui-fabric-react/lib/components/Tooltip';
+import { Label } from 'office-ui-fabric-react/lib/components/Label';
 import { getId } from 'office-ui-fabric-react/lib/Utilities';
 import { ArrayFieldTemplateProps } from 'react-jsonschema-form';
 import Collapsible from 'react-collapsible';

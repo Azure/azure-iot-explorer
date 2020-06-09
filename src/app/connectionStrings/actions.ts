@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import actionCreatorFactory from 'typescript-fsa';
-import { ADD, DELETE, SET, UPSERT } from '../constants/actionTypes';
+import { DELETE, SET, UPSERT } from '../constants/actionTypes';
 
 export const CONNECTION_STRINGS = 'CONNECTION_STRINGS';
 export interface UpsertConnectionStringActionPayload {

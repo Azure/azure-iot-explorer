@@ -3,9 +3,9 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { ActionButton } from 'office-ui-fabric-react/lib/Button';
-import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel';
-import { Link } from 'office-ui-fabric-react/lib/Link';
+import { ActionButton } from 'office-ui-fabric-react/lib/components/Button';
+import { Panel, PanelType } from 'office-ui-fabric-react/lib/components/Panel';
+import { Link } from 'office-ui-fabric-react/lib/components/Link';
 import { useLocalizationContext } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { NotificationListEntry } from './notificationListEntry';

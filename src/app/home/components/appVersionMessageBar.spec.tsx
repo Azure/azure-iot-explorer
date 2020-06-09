@@ -5,7 +5,7 @@
 import 'jest';
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { MessageBar } from 'office-ui-fabric-react/lib/MessageBar';
+import { MessageBar } from 'office-ui-fabric-react/lib/components/MessageBar';
 import { AppVersionMessageBar } from './appVersionMessageBar';
 import * as AppVersionHelper from '../utils/appVersionHelper';
 import * as githubService from '../../api/services/githubService';

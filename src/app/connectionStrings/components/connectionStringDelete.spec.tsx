@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/Button';
+import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/components/Button';
 import { ConnectionStringDelete, ConnectionStringDeleteProps } from './connectionStringDelete';
 
 describe('ConnectionStringDelete', () => {

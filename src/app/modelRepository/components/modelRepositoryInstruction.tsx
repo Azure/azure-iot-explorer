@@ -3,7 +3,7 @@
 * Licensed under the MIT License
 **********************************************************/
 import * as React from 'react';
-import { Link } from 'office-ui-fabric-react/lib/Link';
+import { Link } from 'office-ui-fabric-react/lib/components/Link';
 import { NavLink } from 'react-router-dom';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { useLocalizationContext } from '../../shared/contexts/localizationContext';

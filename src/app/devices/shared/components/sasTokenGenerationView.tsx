@@ -3,9 +3,9 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
-import { Dropdown, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
-import { SpinButton } from 'office-ui-fabric-react/lib/SpinButton';
+import { PrimaryButton } from 'office-ui-fabric-react/lib/components/Button';
+import { Dropdown, IDropdownOption } from 'office-ui-fabric-react/lib/components/Dropdown';
+import { SpinButton } from 'office-ui-fabric-react/lib/components/SpinButton';
 import { Position } from 'office-ui-fabric-react/lib/utilities/positioning';
 import { useLocalizationContext } from '../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../localization/resourceKeys';

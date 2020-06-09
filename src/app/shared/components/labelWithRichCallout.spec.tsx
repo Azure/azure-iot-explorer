@@ -7,7 +7,7 @@ import { mount } from 'enzyme';
 import * as React from 'react';
 import { act } from 'react-dom/test-utils';
 import { Callout } from 'office-ui-fabric-react/lib/Callout';
-import { IconButton } from 'office-ui-fabric-react/lib/Button';
+import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
 import { LabelWithRichCallout } from './labelWithRichCallout';
 
 describe('components/shared/labelWithRichCallout', () => {
