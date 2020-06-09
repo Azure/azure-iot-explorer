@@ -5,7 +5,7 @@
 import 'jest';
 import { shallow } from 'enzyme';
 import * as React from 'react';
-import LabelWithTooltip from './labelWithTooltip';
+import { LabelWithTooltip } from './labelWithTooltip';
 
 describe('components/shared/labelWithTooltip', () => {
 

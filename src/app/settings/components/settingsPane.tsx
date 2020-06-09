@@ -14,7 +14,7 @@ import { THEME_SELECTION } from '../../constants/browserStorage';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../constants/routes';
 import '../../css/_settingsPane.scss';
 
-const SettingsPane: React.FC = () => {
+export const SettingsPane: React.FC = () => {
     const [ showPanel, setShowPanel ] = React.useState<boolean>(false);
     const [ darkTheme, setDarkTheme] = React.useState<boolean>(false);
     const { t } = useLocalizationContext();
@@ -106,5 +106,3 @@ const SettingsPane: React.FC = () => {
         </>
     );
 };
-
-export default SettingsPane;

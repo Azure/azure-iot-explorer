@@ -16,7 +16,7 @@ import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../../constants/routes';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { DeviceAuthenticationType } from '../../../../api/models/deviceAuthenticationType';
 import { MaskedCopyableTextField } from '../../../../shared/components/maskedCopyableTextField';
-import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
+import { MultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
 import { SasTokenGenerationView } from '../../../shared/components/sasTokenGenerationView';
 import { ModuleIdentityDetailHeader } from '../../shared/components/moduleIdentityDetailHeader';
 import { useAsyncSagaReducer } from '../../../../shared/hooks/useAsyncSagaReducer';

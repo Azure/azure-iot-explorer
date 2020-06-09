@@ -5,7 +5,7 @@
 import * as React from 'react';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { NotificationList } from '../../notifications/components/notificationList';
-import SettingsPane from '../../settings/components/settingsPane';
+import { SettingsPane } from '../../settings/components/settingsPane';
 import { useLocalizationContext } from '../contexts/localizationContext';
 import '../../css/_header.scss';
 

@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
-import LabelWithTooltip from './labelWithTooltip';
+import { LabelWithTooltip } from './labelWithTooltip';
 import { useLocalizationContext } from '../contexts/localizationContext';
 import { GroupedList } from '../../constants/iconNames';
 import { ResourceKeys } from '../../../localization/resourceKeys';

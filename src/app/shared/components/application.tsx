@@ -11,7 +11,7 @@ import { ROUTE_PARTS } from '../../constants/routes';
 import { HomeView } from '../../home/components/homeView';
 import { DeviceList } from '../../devices/deviceList/components/deviceList';
 import { AddDevice } from '../../devices/addDevice/components/addDevice';
-import { DeviceContent } from '../../devices/deviceContent/deviceIdentity/components/deviceContent';
+import { DeviceContent } from '../../devices/deviceIdentity/components/deviceContent';
 import { Breadcrumb } from './breadcrumb';
 import { Header } from './header';
 import '../../css/_application.scss';

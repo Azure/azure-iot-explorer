@@ -6,7 +6,7 @@ import actionCreatorFactory from 'typescript-fsa';
 import * as actionPrefixes from '../../constants/actionPrefixes';
 import * as actionTypes from '../../constants/actionTypes';
 import { BulkRegistryOperationResult } from '../../api/models/bulkRegistryOperationResult';
-import DeviceQuery from '../../api/models/deviceQuery';
+import { DeviceQuery } from '../../api/models/deviceQuery';
 import { DataPlaneResponse, Device } from '../../api/models/device';
 
 const deviceListCreator = actionCreatorFactory(actionPrefixes.DEVICELISTS);

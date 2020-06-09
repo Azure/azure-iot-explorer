@@ -13,7 +13,7 @@ exports[`Header matches snapshot 1`] = `
     <Component />
   </div>
   <div>
-    <SettingsPane />
+    <Component />
   </div>
 </header>
 `;
