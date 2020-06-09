@@ -34,7 +34,7 @@ interface Message {
     systemProperties?: {[key: string]: string};
 }
 
-export default class ServerBase {
+export class ServerBase {
     private readonly port: number;
     constructor(port: number) {
         this.port = port;

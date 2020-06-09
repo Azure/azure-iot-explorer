@@ -8,7 +8,7 @@ import { getId } from 'office-ui-fabric-react/lib/Utilities';
 import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip';
 import { Announced } from 'office-ui-fabric-react/lib/Announced';
 import { ResourceKeys } from '../../../localization/resourceKeys';
-import LabelWithTooltip from './labelWithTooltip';
+import { LabelWithTooltip } from './labelWithTooltip';
 import { LabelWithRichCallout } from './labelWithRichCallout';
 import { NotificationType } from '../../api/models/notification';
 import { useLocalizationContext } from '../contexts/localizationContext';
