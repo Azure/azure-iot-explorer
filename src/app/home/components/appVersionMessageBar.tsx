@@ -3,8 +3,8 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
-import { Link } from 'office-ui-fabric-react/lib/Link';
+import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/components/MessageBar';
+import { Link } from 'office-ui-fabric-react/lib/components/Link';
 import { useLocalizationContext } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { fetchLatestReleaseTagName, latestReleaseUrlPath } from '../../api/services/githubService';

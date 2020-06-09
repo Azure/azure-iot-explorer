@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { ActionButton } from 'office-ui-fabric-react';
+import { ActionButton } from 'office-ui-fabric-react/lib/components/Button';
 import '../../../css/_deviceListPaging.scss';
 import { useLocalizationContext } from '../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../localization/resourceKeys';

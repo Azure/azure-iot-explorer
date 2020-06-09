@@ -4,15 +4,15 @@
  **********************************************************/
 import * as React from 'react';
 import { useLocation } from 'react-router-dom';
-import { Dropdown, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
-import { TextField } from 'office-ui-fabric-react/lib/TextField';
-import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
-import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
-import { DetailsList, IColumn } from 'office-ui-fabric-react/lib/DetailsList';
-import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
-import { Selection } from 'office-ui-fabric-react/lib/Selection';
-import { Label } from 'office-ui-fabric-react/lib/Label';
-import { IContextualMenuItem } from 'office-ui-fabric-react/lib/ContextualMenu';
+import { Dropdown, IDropdownOption } from 'office-ui-fabric-react/lib/components/Dropdown';
+import { TextField } from 'office-ui-fabric-react/lib/components/TextField';
+import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
+import { Checkbox } from 'office-ui-fabric-react/lib/components/Checkbox';
+import { DetailsList, IColumn } from 'office-ui-fabric-react/lib/components/DetailsList';
+import { MarqueeSelection } from 'office-ui-fabric-react/lib/components/MarqueeSelection/MarqueeSelection';
+import { Selection } from 'office-ui-fabric-react/lib/utilities/selection/Selection';
+import { Label } from 'office-ui-fabric-react/lib/components/Label';
+import { IContextualMenuItem } from 'office-ui-fabric-react/lib/components/ContextualMenu';
 import { v4 as uuid } from 'uuid';
 import { utc } from 'moment';
 import { useLocalizationContext } from '../../../shared/contexts/localizationContext';

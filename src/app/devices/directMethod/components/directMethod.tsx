@@ -4,10 +4,10 @@
  **********************************************************/
 import * as React from 'react';
 import { useLocation } from 'react-router-dom';
-import { TextField } from 'office-ui-fabric-react/lib/TextField';
-import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
-import { Slider } from 'office-ui-fabric-react/lib/Slider';
-import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
+import { TextField } from 'office-ui-fabric-react/lib/components/TextField';
+import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
+import { Slider } from 'office-ui-fabric-react/lib/components/Slider';
+import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/components/Spinner';
 import { useLocalizationContext } from '../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';

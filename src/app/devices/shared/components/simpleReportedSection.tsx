@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { Validator, ValidationError } from 'jsonschema';
-import { Label } from 'office-ui-fabric-react/lib/Label';
+import { Label } from 'office-ui-fabric-react/lib/components/Label';
 import { ParsedJsonSchema } from '../../../api/models/interfaceJsonParserOutput';
 
 export const RenderSimplyTypeValue = (twin: any, schema: ParsedJsonSchema, errorLabel: string) => { // tslint:disable-line:no-any

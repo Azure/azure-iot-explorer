@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useLocation, useRouteMatch } from 'react-router-dom';
-import { Nav, INavLinkGroup } from 'office-ui-fabric-react/lib/Nav';
+import { Nav, INavLinkGroup } from 'office-ui-fabric-react/lib/components/Nav';
 import { useLocalizationContext } from '../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';

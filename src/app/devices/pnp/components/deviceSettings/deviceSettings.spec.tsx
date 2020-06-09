@@ -5,8 +5,8 @@
 import 'jest';
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
-import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
-import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
+import { Shimmer } from 'office-ui-fabric-react/lib/components/Shimmer';
+import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
 import { DeviceSettings } from './deviceSettings';
 import { pnpStateInitial, PnpStateInterface } from '../../state';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';

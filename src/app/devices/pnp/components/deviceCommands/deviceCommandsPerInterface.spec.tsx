@@ -6,7 +6,7 @@ import 'jest';
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
-import { IconButton } from 'office-ui-fabric-react/lib/Button';
+import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
 import { DeviceCommandsPerInterface, DeviceCommandDataProps, DeviceCommandDispatchProps } from './deviceCommandsPerInterface';
 import { DeviceCommandsPerInterfacePerCommand } from './deviceCommandsPerInterfacePerCommand';
 

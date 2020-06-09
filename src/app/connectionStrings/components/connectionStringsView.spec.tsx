@@ -5,7 +5,7 @@
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
-import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
+import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
 import { ConnectionStringsView } from './connectionStringsView';
 import { ConnectionString } from './connectionString';
 import { ConnectionStringEditView } from './connectionStringEditView';

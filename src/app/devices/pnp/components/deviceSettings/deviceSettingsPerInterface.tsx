@@ -3,8 +3,8 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { IconButton } from 'office-ui-fabric-react/lib/Button';
-import { Overlay } from 'office-ui-fabric-react/lib/Overlay';
+import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
+import { Overlay } from 'office-ui-fabric-react/lib/components/Overlay';
 import { DeviceSettingsPerInterfacePerSetting } from './deviceSettingsPerInterfacePerSetting';
 import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';

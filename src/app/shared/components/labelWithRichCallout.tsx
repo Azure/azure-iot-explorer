@@ -4,9 +4,9 @@
  **********************************************************/
 import * as React from 'react';
 import { Callout } from 'office-ui-fabric-react/lib/Callout';
-import { ILabelProps, Label } from 'office-ui-fabric-react/lib/Label';
-import { IconButton } from 'office-ui-fabric-react/lib/Button';
-import { DirectionalHint } from 'office-ui-fabric-react/lib/ContextualMenu';
+import { ILabelProps, Label } from 'office-ui-fabric-react/lib/components/Label';
+import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
+import { DirectionalHint } from 'office-ui-fabric-react/lib/components/ContextualMenu';
 import { getId } from 'office-ui-fabric-react/lib/Utilities';
 import { INFO } from '../../constants/iconNames';
 import '../../css/_labelWithTooltip.scss';

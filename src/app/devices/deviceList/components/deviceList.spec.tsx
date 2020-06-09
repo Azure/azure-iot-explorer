@@ -6,7 +6,7 @@ import 'jest';
 import { shallow } from 'enzyme';
 import { act } from 'react-dom/test-utils';
 import * as React from 'react';
-import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
+import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
 import { DeviceList } from './deviceList';
 import { deviceListStateInitial, DeviceListStateInterface } from '../state';
 import { DeviceSummary } from '../../../api/models/deviceSummary';

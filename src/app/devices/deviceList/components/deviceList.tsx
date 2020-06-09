@@ -4,13 +4,13 @@
  **********************************************************/
 import * as React from 'react';
 import { NavLink, useLocation, useHistory } from 'react-router-dom';
-import { Icon } from 'office-ui-fabric-react/lib/Icon';
-import { Label } from 'office-ui-fabric-react/lib/Label';
-import { Dialog, DialogFooter, DialogType } from 'office-ui-fabric-react/lib/Dialog';
-import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/Button';
-import { DetailsList, DetailsListLayoutMode, IColumn, Selection } from 'office-ui-fabric-react/lib/DetailsList';
-import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
-import { Announced } from 'office-ui-fabric-react/lib/Announced';
+import { Icon } from 'office-ui-fabric-react/lib/components/Icon';
+import { Label } from 'office-ui-fabric-react/lib/components/Label';
+import { Dialog, DialogFooter, DialogType } from 'office-ui-fabric-react/lib/components/Dialog';
+import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/components/Button';
+import { DetailsList, DetailsListLayoutMode, IColumn, Selection } from 'office-ui-fabric-react/lib/components/DetailsList';
+import { MarqueeSelection } from 'office-ui-fabric-react/lib/components/MarqueeSelection/MarqueeSelection';
+import { Announced } from 'office-ui-fabric-react/lib/components/Announced';
 import { useLocalizationContext } from '../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { DeviceSummary } from '../../../api/models/deviceSummary';

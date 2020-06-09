@@ -5,7 +5,7 @@
 import 'jest';
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { IconButton } from 'office-ui-fabric-react/lib/Button';
+import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
 import { CloseButton } from './notificationToast';
 
 describe('shared/components/CloseButton', () => {
