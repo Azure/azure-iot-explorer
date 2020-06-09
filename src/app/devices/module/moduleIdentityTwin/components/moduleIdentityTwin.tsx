@@ -4,8 +4,8 @@
  **********************************************************/
 import * as React from 'react';
 import { Route, useLocation, useHistory } from 'react-router-dom';
-import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
-import { SpinnerSize, Spinner } from 'office-ui-fabric-react/lib/Spinner';
+import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
+import { SpinnerSize, Spinner } from 'office-ui-fabric-react/lib/components/Spinner';
 import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
 import { useThemeContext } from '../../../../shared/contexts/themeContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';

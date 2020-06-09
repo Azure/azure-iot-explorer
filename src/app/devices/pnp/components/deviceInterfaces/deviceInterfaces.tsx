@@ -7,10 +7,6 @@ import { useTranslation } from 'react-i18next';
 import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
 import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/components/MessageBar';
 import { useLocation, useHistory } from 'react-router-dom';
-<<<<<<< HEAD:src/app/devices/deviceContent/pnp/components/deviceInterfaces/deviceInterfaces.tsx
-=======
-import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
->>>>>>> Folder rename (#306):src/app/devices/pnp/components/deviceInterfaces/deviceInterfaces.tsx
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getInterfaceIdFromQueryString, getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { InterfaceNotFoundMessageBar } from '../../../shared/components/interfaceNotFoundMessageBar';
@@ -20,11 +16,7 @@ import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinition
 import { MultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
 import { MaskedCopyableTextField } from '../../../../shared/components/maskedCopyableTextField';
 import { ROUTE_PARAMS } from '../../../../constants/routes';
-<<<<<<< HEAD:src/app/devices/deviceContent/pnp/components/deviceInterfaces/deviceInterfaces.tsx
 import { JSONEditor } from '../../../../shared/components/jsonEditor';
-=======
-import { MonacoEditorView } from '../../../../shared/components/monacoEditor';
->>>>>>> Folder rename (#306):src/app/devices/pnp/components/deviceInterfaces/deviceInterfaces.tsx
 import { ModelDefinitionSourceView } from '../../../shared/components/modelDefinitionSource';
 import { usePnpStateContext } from '../../../../shared/contexts/pnpStateContext';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';

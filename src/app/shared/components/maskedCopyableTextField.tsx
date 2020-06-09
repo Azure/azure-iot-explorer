@@ -3,10 +3,10 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { IconButton, IButton } from 'office-ui-fabric-react/lib/Button';
+import { IconButton, IButton } from 'office-ui-fabric-react/lib/components/Button';
 import { getId } from 'office-ui-fabric-react/lib/Utilities';
-import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip';
-import { Announced } from 'office-ui-fabric-react/lib/Announced';
+import { TooltipHost } from 'office-ui-fabric-react/lib/components/Tooltip';
+import { Announced } from 'office-ui-fabric-react/lib/components/Announced';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { LabelWithTooltip } from './labelWithTooltip';
 import { LabelWithRichCallout } from './labelWithRichCallout';

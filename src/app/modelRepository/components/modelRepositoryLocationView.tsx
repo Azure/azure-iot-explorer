@@ -4,8 +4,8 @@
  **********************************************************/
 import * as React from 'react';
 import { Prompt, useHistory, useLocation } from 'react-router-dom';
-import { CommandBar, ICommandBarItemProps  } from 'office-ui-fabric-react/lib/CommandBar';
-import { IContextualMenuItem } from 'office-ui-fabric-react/lib/ContextualMenu';
+import { CommandBar, ICommandBarItemProps  } from 'office-ui-fabric-react/lib/components/CommandBar';
+import { IContextualMenuItem } from 'office-ui-fabric-react/lib/components/ContextualMenu';
 import { useLocalizationContext } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { ModelRepositoryLocationList } from './modelRepositoryLocationList';
@@ -33,12 +33,6 @@ export const ModelRepositoryLocationView: React.FC = () => {
     const [ repositoryLocationSettings, setRepositoryLocationSettings ] = React.useState<RepositoryLocationSettings[]>(initialRepositoryLocationSettings);
     const [ repositoryLocationSettingsErrors, setRepositoryLocationSettingsErrors ] = React.useState<StringMap<string>>({});
     const [ dirty, setDirtyFlag ] = React.useState<boolean>(false);
-
-    const onNavigateBack = () => {
-        if (params.has(ROUTE_PARAMS.NAV_FROM)) {
-            return () => { history.goBack(); };
-        }
-    };
 
     const getCommandBarItems = (): ICommandBarItemProps[] => {
         const addItems = getCommandBarItemsAdd();

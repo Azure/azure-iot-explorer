@@ -7,7 +7,7 @@ import 'jest';
 import { act } from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
 import { ChoiceGroup } from 'office-ui-fabric-react/lib/components/ChoiceGroup';
-import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
+import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
 import { AddModuleIdentity } from './addModuleIdentity';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { MaskedCopyableTextField } from '../../../../shared/components/maskedCopyableTextField';

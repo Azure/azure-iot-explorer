@@ -3,10 +3,11 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { TooltipHost, DirectionalHint } from 'office-ui-fabric-react/lib/Tooltip';
-import { Stack } from 'office-ui-fabric-react/lib/Stack';
-import { IconButton } from 'office-ui-fabric-react/lib/Button';
-import { getId, Link } from 'office-ui-fabric-react';
+import { TooltipHost, DirectionalHint } from 'office-ui-fabric-react/lib/components/Tooltip';
+import { Stack } from 'office-ui-fabric-react/lib/components/Stack';
+import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
+import { Link } from 'office-ui-fabric-react/lib/components/Link';
+import { getId } from 'office-ui-fabric-react/lib/Utilities';
 import { useLocalizationContext } from '../contexts/localizationContext';
 
 export interface HeaderViewProps {

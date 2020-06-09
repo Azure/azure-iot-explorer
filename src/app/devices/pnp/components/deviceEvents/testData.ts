@@ -3,9 +3,6 @@
  * Licensed under the MIT License
  **********************************************************/
 import { ModelDefinition } from '../../../../api/models/modelDefinition';
-import { PnpStateInterface, pnpStateInitial } from '../../state';
-import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
-import { REPOSITORY_LOCATION_TYPE } from '../../../../constants/repositoryLocationTypes';
 
 const interfaceId = 'urn:azureiot:samplemodel:1';
 export const testComponentName = 'environmentalSensor';

@@ -4,12 +4,12 @@
  **********************************************************/
 import * as React from 'react';
 import { Validator, ValidatorResult } from 'jsonschema';
-import { CommandBar, ICommandBarItemProps } from 'office-ui-fabric-react/lib/CommandBar';
-import { Label } from 'office-ui-fabric-react/lib/Label';
-import { Spinner } from 'office-ui-fabric-react/lib/Spinner';
-import { TextField, ITextFieldProps } from 'office-ui-fabric-react/lib/TextField';
-import { Announced } from 'office-ui-fabric-react/lib/Announced';
-import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
+import { CommandBar, ICommandBarItemProps } from 'office-ui-fabric-react/lib/components/CommandBar';
+import { Label } from 'office-ui-fabric-react/lib/components/Label';
+import { Spinner } from 'office-ui-fabric-react/lib/components/Spinner';
+import { TextField, ITextFieldProps } from 'office-ui-fabric-react/lib/components/TextField';
+import { Announced } from 'office-ui-fabric-react/lib/components/Announced';
+import { Toggle } from 'office-ui-fabric-react/lib/components/Toggle';
 import { useLocation, useHistory } from 'react-router-dom';
 import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';

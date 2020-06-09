@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { IconButton } from 'office-ui-fabric-react/lib/Button';
+import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
 import { LabelWithTooltip } from './labelWithTooltip';
 import { useLocalizationContext } from '../contexts/localizationContext';
 import { GroupedList } from '../../constants/iconNames';

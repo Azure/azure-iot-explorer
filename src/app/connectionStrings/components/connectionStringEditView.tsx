@@ -3,10 +3,10 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel';
-import { TextField } from 'office-ui-fabric-react/lib/TextField';
-import { DefaultButton, PrimaryButton } from 'office-ui-fabric-react/lib/Button';
-import { Link } from 'office-ui-fabric-react/lib/Link';
+import { Panel, PanelType } from 'office-ui-fabric-react/lib/components/Panel';
+import { TextField } from 'office-ui-fabric-react/lib/components/TextField';
+import { DefaultButton, PrimaryButton } from 'office-ui-fabric-react/lib/components/Button';
+import { Link } from 'office-ui-fabric-react/lib/components/Link';
 import { ConnectionStringProperties } from './connectionStringProperties';
 import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
 import { generateConnectionStringValidationError } from '../../shared/utils/hubConnectionStringHelper';

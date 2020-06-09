@@ -5,7 +5,7 @@
 import * as React from 'react';
 import 'jest';
 import { shallow, mount } from 'enzyme';
-import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
+import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
 import { ModuleIdentityList } from './moduleIdentityList';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import * as AsyncSagaReducer from '../../../../shared/hooks/useAsyncSagaReducer';
