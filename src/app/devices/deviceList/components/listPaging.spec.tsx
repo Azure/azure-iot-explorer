@@ -5,7 +5,7 @@
 import 'jest';
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
-import { ActionButton } from 'office-ui-fabric-react';
+import { ActionButton } from 'office-ui-fabric-react/lib/components/Button';
 import { ListPaging } from './listPaging';
 
 describe('components/devices/listPaging', () => {

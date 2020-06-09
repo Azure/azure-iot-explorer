@@ -4,8 +4,8 @@
  **********************************************************/
 import * as React from 'react';
 import { useHistory } from 'react-router-dom';
-import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
-import { MessageBarButton } from 'office-ui-fabric-react/lib/Button';
+import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/components/MessageBar';
+import { MessageBarButton } from 'office-ui-fabric-react/lib/components/Button';
 import { useLocalizationContext } from '../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';

@@ -3,13 +3,13 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Label } from 'office-ui-fabric-react/lib/Label';
-import { CommandBar, ICommandBarItemProps } from 'office-ui-fabric-react/lib/CommandBar';
-import { DetailsList, IColumn, SelectionMode } from 'office-ui-fabric-react/lib/DetailsList';
-import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
-import { Announced } from 'office-ui-fabric-react/lib/Announced';
-import { Pivot, PivotItem } from 'office-ui-fabric-react/lib/Pivot';
-import { NavLink, useLocation, useRouteMatch, Route } from 'react-router-dom';
+import { Label } from 'office-ui-fabric-react/lib/components/Label';
+import { CommandBar, ICommandBarItemProps } from 'office-ui-fabric-react/lib/components/CommandBar';
+import { DetailsList, IColumn, SelectionMode } from 'office-ui-fabric-react/lib/components/DetailsList';
+import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/components/MessageBar';
+import { Announced } from 'office-ui-fabric-react/lib/components/Announced';
+import { Pivot, PivotItem } from 'office-ui-fabric-react/lib/components/Pivot';
+import { NavLink, useLocation, useRouteMatch } from 'react-router-dom';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
 import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { useLocalizationContext } from '../../../shared/contexts/localizationContext';

@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useHistory } from 'react-router-dom';
-import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
+import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
 import { ConnectionString  } from './connectionString';
 import { ConnectionStringEditView } from './connectionStringEditView';
 import { useLocalizationContext } from '../../shared/contexts/localizationContext';

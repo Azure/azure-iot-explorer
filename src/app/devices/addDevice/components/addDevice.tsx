@@ -4,11 +4,11 @@
  **********************************************************/
 import * as React from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
-import { Overlay } from 'office-ui-fabric-react/lib/Overlay';
-import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
-import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/ChoiceGroup';
-import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
-import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
+import { Overlay } from 'office-ui-fabric-react/lib/components/Overlay';
+import { Toggle } from 'office-ui-fabric-react/lib/components/Toggle';
+import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/components/ChoiceGroup';
+import { Checkbox } from 'office-ui-fabric-react/lib/components/Checkbox';
+import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
 import { useLocalizationContext } from '../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { DeviceAuthenticationType } from '../../../api/models/deviceAuthenticationType';

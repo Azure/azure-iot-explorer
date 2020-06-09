@@ -3,9 +3,9 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Label } from 'office-ui-fabric-react/lib/Label';
-import { IconButton } from 'office-ui-fabric-react/lib/Button';
-import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
+import { Label } from 'office-ui-fabric-react/lib/components/Label';
+import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
+import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/components/Spinner';
 import Form from 'react-jsonschema-form';
 import { fabricWidgets, fabricFields } from '../../../jsonSchemaFormFabricPlugin';
 import { ObjectTemplate } from '../../../jsonSchemaFormFabricPlugin/fields/objectTemplate';

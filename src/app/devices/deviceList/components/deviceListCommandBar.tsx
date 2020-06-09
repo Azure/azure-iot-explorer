@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
+import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
 import { useLocalizationContext } from '../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { ArrayOperation, REFRESH } from '../../../constants/iconNames';

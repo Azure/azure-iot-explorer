@@ -3,8 +3,8 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { IconButton } from 'office-ui-fabric-react/lib/Button';
-import { Link } from 'office-ui-fabric-react/lib/Link';
+import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
+import { Link } from 'office-ui-fabric-react/lib/components/Link';
 import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
 import { getResourceNameFromHostName } from '../../api/shared/hostNameUtils';
 import { ConnectionStringProperties } from './connectionStringProperties';

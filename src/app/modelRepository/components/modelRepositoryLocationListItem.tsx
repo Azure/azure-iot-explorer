@@ -3,10 +3,10 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { IconButton, DefaultButton, PrimaryButton } from 'office-ui-fabric-react/lib/Button';
-import { Label } from 'office-ui-fabric-react/lib/Label';
-import Dialog, { DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
-import { TextField } from 'office-ui-fabric-react/lib/TextField';
+import { IconButton, DefaultButton, PrimaryButton } from 'office-ui-fabric-react/lib/components/Button';
+import { Label } from 'office-ui-fabric-react/lib/components/Label';
+import { Dialog, DialogFooter } from 'office-ui-fabric-react/lib/components/Dialog';
+import { TextField } from 'office-ui-fabric-react/lib/components/TextField';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
 import { useLocalizationContext } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
@@ -35,7 +35,7 @@ export interface RepositoryLocationListItemState {
 export const ModelRepositoryLocationListItem: React.FC<ModelRepositoryLocationListItemProps> = (props: ModelRepositoryLocationListItemProps) => {
     const { t } = useLocalizationContext();
 
-    const { item, errorKey, index, onChangeRepositoryLocationSettingValue, onRemoveRepositoryLocationSetting } = props;
+    const { item, index, onChangeRepositoryLocationSettingValue, onRemoveRepositoryLocationSetting } = props;
     let initialCurrentFolder = '';
     if (item && item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local) {
         initialCurrentFolder = item.value || getRootFolder();

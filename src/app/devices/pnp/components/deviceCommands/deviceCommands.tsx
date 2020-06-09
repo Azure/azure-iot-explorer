@@ -3,8 +3,8 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
-import { Label } from 'office-ui-fabric-react/lib/Label';
+import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
+import { Label } from 'office-ui-fabric-react/lib/components/Label';
 import { useLocation, useHistory } from 'react-router-dom';
 import { DeviceCommandsPerInterface } from './deviceCommandsPerInterface';
 import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';

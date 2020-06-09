@@ -4,8 +4,8 @@
  **********************************************************/
 import * as React from 'react';
 import { useLocation } from 'react-router-dom';
-import { Stack } from 'office-ui-fabric-react/lib/Stack';
-import { ActionButton } from 'office-ui-fabric-react/lib/Button';
+import { Stack } from 'office-ui-fabric-react/lib/components/Stack';
+import { ActionButton } from 'office-ui-fabric-react/lib/components/Button';
 import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../../constants/routes';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';

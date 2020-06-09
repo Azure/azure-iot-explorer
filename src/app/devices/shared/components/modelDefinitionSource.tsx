@@ -3,10 +3,10 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Redirect, useHistory } from 'react-router-dom';
-import { Stack } from 'office-ui-fabric-react/lib/Stack';
-import { ActionButton } from 'office-ui-fabric-react/lib/Button';
-import { Label } from 'office-ui-fabric-react/lib/Label';
+import { useHistory } from 'react-router-dom';
+import { Stack } from 'office-ui-fabric-react/lib/components/Stack';
+import { ActionButton } from 'office-ui-fabric-react/lib/components/Button';
+import { Label } from 'office-ui-fabric-react/lib/components/Label';
 import { useLocalizationContext } from '../../../shared/contexts/localizationContext';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
 import { REPOSITORY_LOCATION_TYPE } from '../../../constants/repositoryLocationTypes';

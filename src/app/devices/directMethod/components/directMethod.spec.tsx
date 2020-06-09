@@ -6,7 +6,7 @@ import 'jest';
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
-import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
+import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
 import { DirectMethod } from './directMethod';
 import { invokeDirectMethodAction } from '../actions';
 

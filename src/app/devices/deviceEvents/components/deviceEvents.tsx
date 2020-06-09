@@ -3,12 +3,12 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { CommandBar, ICommandBarItemProps } from 'office-ui-fabric-react/lib/CommandBar';
-import { Spinner } from 'office-ui-fabric-react/lib/Spinner';
+import { CommandBar, ICommandBarItemProps } from 'office-ui-fabric-react/lib/components/CommandBar';
+import { Spinner } from 'office-ui-fabric-react/lib/components/Spinner';
 import { useLocation } from 'react-router-dom';
-import { TextField, ITextFieldProps } from 'office-ui-fabric-react/lib/TextField';
-import { Announced } from 'office-ui-fabric-react/lib/Announced';
-import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
+import { TextField, ITextFieldProps } from 'office-ui-fabric-react/lib/components/TextField';
+import { Announced } from 'office-ui-fabric-react/lib/components/Announced';
+import { Toggle } from 'office-ui-fabric-react/lib/components/Toggle';
 import { useLocalizationContext } from '../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { monitorEvents, stopMonitoringEvents } from '../../../api/services/devicesService';

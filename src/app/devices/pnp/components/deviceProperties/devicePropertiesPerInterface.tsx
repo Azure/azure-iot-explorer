@@ -3,10 +3,10 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { DetailsList, DetailsListLayoutMode, IColumn, CheckboxVisibility } from 'office-ui-fabric-react/lib/DetailsList';
-import { Label } from 'office-ui-fabric-react/lib/Label';
-import { Overlay } from 'office-ui-fabric-react/lib/Overlay';
-import { ActionButton } from 'office-ui-fabric-react/lib/Button';
+import { DetailsList, DetailsListLayoutMode, IColumn, CheckboxVisibility } from 'office-ui-fabric-react/lib/components/DetailsList';
+import { Label } from 'office-ui-fabric-react/lib/components/Label';
+import { Overlay } from 'office-ui-fabric-react/lib/components/Overlay';
+import { ActionButton } from 'office-ui-fabric-react/lib/components/Button';
 import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';

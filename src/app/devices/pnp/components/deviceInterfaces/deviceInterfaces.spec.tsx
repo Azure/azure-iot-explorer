@@ -6,7 +6,7 @@ import 'jest';
 import * as React from 'react';
 import { act } from 'react-dom/test-utils';
 import { shallow } from 'enzyme';
-import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
+import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
 import { DeviceInterfaces } from './deviceInterfaces';
 import { REPOSITORY_LOCATION_TYPE } from '../../../../constants/repositoryLocationTypes';
 import { pnpStateInitial, PnpStateInterface } from '../../state';

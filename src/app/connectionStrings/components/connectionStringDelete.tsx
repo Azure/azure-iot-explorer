@@ -3,8 +3,8 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Dialog, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
-import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/Button';
+import { Dialog, DialogFooter } from 'office-ui-fabric-react/lib/components/Dialog';
+import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/components/Button';
 import { useLocalizationContext } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import './connectionStringDelete.scss';

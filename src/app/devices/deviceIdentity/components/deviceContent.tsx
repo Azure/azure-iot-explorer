@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { Route, useLocation } from 'react-router-dom';
-import { IconButton } from 'office-ui-fabric-react/lib/Button';
+import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
 import { DeviceIdentityInformation } from './deviceIdentity';
 import { DeviceTwin } from '../../deviceTwin/components/deviceTwin';
 import { DeviceEvents } from '../../deviceEvents/components/deviceEvents';

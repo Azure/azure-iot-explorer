@@ -4,8 +4,8 @@
  **********************************************************/
 import * as React from 'react';
 import * as moment from 'moment';
-import { Icon } from 'office-ui-fabric-react/lib/Icon';
-import { Announced } from 'office-ui-fabric-react/lib/Announced';
+import { Icon } from 'office-ui-fabric-react/lib/components/Icon';
+import { Announced } from 'office-ui-fabric-react/lib/components/Announced';
 import { Notification, NotificationType } from '../../api/models/notification';
 import { useLocalizationContext } from '../../shared/contexts/localizationContext';
 import '../../css/_notification.scss';

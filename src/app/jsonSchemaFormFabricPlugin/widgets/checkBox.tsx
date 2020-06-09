@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { WidgetProps } from 'react-jsonschema-form';
-import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/ChoiceGroup';
+import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/components/ChoiceGroup';
 
 // tslint:disable-next-line:no-any
 const onChangePassthrough = (props: WidgetProps) => (event: any, value: any) => {
