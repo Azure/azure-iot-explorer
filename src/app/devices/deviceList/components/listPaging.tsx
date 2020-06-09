@@ -3,10 +3,10 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { ActionButton } from 'office-ui-fabric-react/lib/components/Button';
-import '../../../css/_deviceListPaging.scss';
-import { useLocalizationContext } from '../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
+import '../../../css/_deviceListPaging.scss';
 
 export interface ListPagingDataProps {
     continuationTokens: string[];
@@ -16,7 +16,7 @@ export interface ListPagingDispatchProps {
     fetchPage: (pageNumber: number) => void;
 }
 export const ListPaging: React.FC<ListPagingDataProps & ListPagingDispatchProps> = (props: ListPagingDataProps & ListPagingDispatchProps) => {
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
     const { continuationTokens, currentPageIndex, fetchPage } = props;
 
     const renderSection = () => {

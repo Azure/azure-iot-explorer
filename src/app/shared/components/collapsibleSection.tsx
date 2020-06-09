@@ -3,9 +3,9 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
 import { LabelWithTooltip } from './labelWithTooltip';
-import { useLocalizationContext } from '../contexts/localizationContext';
 import { GroupedList } from '../../constants/iconNames';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import '../../css/_collapsibleSection.scss';
@@ -22,7 +22,7 @@ export interface CollapsibleSectionState {
 }
 
 export const CollapsibleSection: React.FC<CollapsibleSectionProps> = (props: CollapsibleSectionProps) => {
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
 
     const { children, tooltipText, label } = props;
     const [ expanded, setExpanded ] = React.useState<boolean>(props.expanded);

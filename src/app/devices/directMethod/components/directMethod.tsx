@@ -3,12 +3,12 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { TextField } from 'office-ui-fabric-react/lib/components/TextField';
 import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
 import { Slider } from 'office-ui-fabric-react/lib/components/Slider';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/components/Spinner';
-import { useLocalizationContext } from '../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { DIRECT_METHOD } from '../../../constants/iconNames';
@@ -27,7 +27,7 @@ const EditorPromise = import('react-monaco-editor');
 const Editor = React.lazy(() => EditorPromise);
 
 export const DirectMethod: React.FC = () => {
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
     const { monacoTheme } = useThemeContext();
     const { search } = useLocation();
     const deviceId = getDeviceIdFromQueryString(search);

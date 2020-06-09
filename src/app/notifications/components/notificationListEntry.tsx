@@ -3,11 +3,11 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import * as moment from 'moment';
 import { Icon } from 'office-ui-fabric-react/lib/components/Icon';
 import { Announced } from 'office-ui-fabric-react/lib/components/Announced';
 import { Notification, NotificationType } from '../../api/models/notification';
-import { useLocalizationContext } from '../../shared/contexts/localizationContext';
 import '../../css/_notification.scss';
 
 export interface NotificationListEntryProps {
@@ -16,7 +16,7 @@ export interface NotificationListEntryProps {
 }
 
 export const NotificationListEntry: React.SFC<NotificationListEntryProps> = (props: NotificationListEntryProps) => {
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
     const { notification } = props;
     const iconName = getIconName(notification.type);
     const iconColor = getIconColor(notification.type);

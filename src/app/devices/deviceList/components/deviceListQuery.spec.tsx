@@ -11,22 +11,17 @@ import { TextField } from 'office-ui-fabric-react/lib/components/TextField';
 import { DeviceListQuery, DeviceListQueryProps } from './deviceListQuery';
 import { DeviceQueryClause } from './deviceQueryClause';
 
-describe('components/devices/DeviceListQuery', () => {
+describe('DeviceListQuery', () => {
     const mockSetQueryAndExecute = jest.fn();
     const deviceListQueryProps: DeviceListQueryProps = {
         refresh: 0,
         setQueryAndExecute: mockSetQueryAndExecute
     };
 
-    const getComponent = (overrides = {}) => {
-        const props = {
-            ...deviceListQueryProps,
-            ...overrides
-        };
-
+    const getComponent = () => {
         return (
             <DeviceListQuery
-                {...props}
+                {...deviceListQueryProps}
             />
         );
     };

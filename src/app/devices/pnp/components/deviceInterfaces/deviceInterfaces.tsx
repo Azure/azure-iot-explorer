@@ -3,10 +3,10 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
 import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/components/MessageBar';
 import { useLocation, useHistory } from 'react-router-dom';
-import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getInterfaceIdFromQueryString, getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { InterfaceNotFoundMessageBar } from '../../../shared/components/interfaceNotFoundMessageBar';
@@ -23,7 +23,7 @@ import { SynchronizationStatus } from '../../../../api/models/synchronizationSta
 import '../../../../css/_deviceInterface.scss';
 
 export const DeviceInterfaces: React.FC = () => {
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
     const { search, pathname } = useLocation();
     const history = useHistory();
     const interfaceId = getInterfaceIdFromQueryString(search);

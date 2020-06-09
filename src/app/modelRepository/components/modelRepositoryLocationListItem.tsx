@@ -3,12 +3,12 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { IconButton, DefaultButton, PrimaryButton } from 'office-ui-fabric-react/lib/components/Button';
 import { Label } from 'office-ui-fabric-react/lib/components/Label';
 import { Dialog, DialogFooter } from 'office-ui-fabric-react/lib/components/Dialog';
 import { TextField } from 'office-ui-fabric-react/lib/components/TextField';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
-import { useLocalizationContext } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { CANCEL, NAVIGATE_BACK, FOLDER } from '../../constants/iconNames';
 import { fetchDirectories } from '../../api/services/localRepoService';
@@ -33,7 +33,7 @@ export interface RepositoryLocationListItemState {
 }
 
 export const ModelRepositoryLocationListItem: React.FC<ModelRepositoryLocationListItemProps> = (props: ModelRepositoryLocationListItemProps) => {
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
 
     const { item, index, onChangeRepositoryLocationSettingValue, onRemoveRepositoryLocationSetting } = props;
     let initialCurrentFolder = '';

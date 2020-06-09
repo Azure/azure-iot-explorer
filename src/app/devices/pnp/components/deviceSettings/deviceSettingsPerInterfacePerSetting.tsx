@@ -3,10 +3,10 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Label } from 'office-ui-fabric-react/lib/components/Label';
 import { Stack } from 'office-ui-fabric-react/lib/components/Stack';
 import { ActionButton, IconButton } from 'office-ui-fabric-react/lib/components/Button';
-import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { InterfaceDetailCard } from '../../../../constants/iconNames';
 import { ComplexReportedFormPanel } from '../../../shared/components/complexReportedFormPanel';
@@ -43,7 +43,7 @@ export interface DeviceSettingDispatchProps {
 }
 
 export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataProps & DeviceSettingDispatchProps> = (props: DeviceSettingDataProps & DeviceSettingDispatchProps) => {
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
 
     const { deviceId, settingSchema, settingModelDefinition, isComponentContainedInDigitalTwin, collapsed, metadata, componentName, patchDigitalTwin, handleCollapseToggle, handleOverlayToggle } = props;
     const [ showReportedValuePanel, setShowReportedValuePanel ] = React.useState<boolean>(false);

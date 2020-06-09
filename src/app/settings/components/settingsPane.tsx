@@ -3,11 +3,11 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Panel, PanelType } from 'office-ui-fabric-react/lib/components/Panel';
 import { Link } from 'office-ui-fabric-react/lib/components/Link';
 import { DefaultButton, ActionButton } from 'office-ui-fabric-react/lib/components/Button';
 import { Toggle } from 'office-ui-fabric-react/lib/components/Toggle';
-import { useLocalizationContext } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { Theme, useThemeContext } from '../../shared/contexts/themeContext';
 import { THEME_SELECTION } from '../../constants/browserStorage';
@@ -17,7 +17,7 @@ import '../../css/_settingsPane.scss';
 export const SettingsPane: React.FC = () => {
     const [ showPanel, setShowPanel ] = React.useState<boolean>(false);
     const [ darkTheme, setDarkTheme] = React.useState<boolean>(false);
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
     const { updateTheme } = useThemeContext();
 
     React.useEffect(() => {

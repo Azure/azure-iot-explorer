@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Route, useLocation } from 'react-router-dom';
 import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
 import { DeviceIdentityInformation } from './deviceIdentity';
@@ -12,7 +13,6 @@ import { DirectMethod } from '../../directMethod/components/directMethod';
 import { CloudToDeviceMessage } from '../../cloudToDeviceMessage/components/cloudToDeviceMessage';
 import { DeviceContentNavComponent } from './deviceContentNav';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { useLocalizationContext } from '../../../shared/contexts/localizationContext';
 import { NAV } from '../../../constants/iconNames';
 import { ROUTE_PARTS } from '../../../constants/routes';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
@@ -33,7 +33,7 @@ import '../../../css/_deviceContent.scss';
 import '../../../css/_layouts.scss';
 
 export const DeviceContent: React.FC = () => {
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
     const { search } = useLocation();
     const deviceId = getDeviceIdFromQueryString(search);
 

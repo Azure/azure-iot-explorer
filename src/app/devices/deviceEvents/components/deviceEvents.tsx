@@ -3,13 +3,13 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { CommandBar, ICommandBarItemProps } from 'office-ui-fabric-react/lib/components/CommandBar';
 import { Spinner } from 'office-ui-fabric-react/lib/components/Spinner';
 import { useLocation } from 'react-router-dom';
 import { TextField, ITextFieldProps } from 'office-ui-fabric-react/lib/components/TextField';
 import { Announced } from 'office-ui-fabric-react/lib/components/Announced';
 import { Toggle } from 'office-ui-fabric-react/lib/components/Toggle';
-import { useLocalizationContext } from '../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { monitorEvents, stopMonitoringEvents } from '../../../api/services/devicesService';
 import { Message } from '../../../api/models/messages';
@@ -40,7 +40,7 @@ export interface ConfigurationSettings {
 
 export const DeviceEvents: React.FC = () => {
     let timerID: any; // tslint:disable-line:no-any
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
     const { search } = useLocation();
     const deviceId = getDeviceIdFromQueryString(search);
 
