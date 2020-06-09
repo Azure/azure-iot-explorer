@@ -5,7 +5,7 @@
 import { Record } from 'immutable';
 import { IM } from '../../shared/types/types';
 import { DeviceSummary } from './../../api/models/deviceSummary';
-import DeviceQuery from '../../api/models/deviceQuery';
+import { DeviceQuery } from '../../api/models/deviceQuery';
 import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
 
 export interface DeviceListStateInterface {

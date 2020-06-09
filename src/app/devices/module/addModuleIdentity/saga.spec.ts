@@ -7,13 +7,11 @@ import 'jest';
 import { SagaIteratorClone, cloneableGenerator } from '@redux-saga/testing-utils';
 import { call, put } from 'redux-saga/effects';
 import { addModuleIdentitySagaWorker } from './saga';
-import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { addModuleIdentityAction } from './actions';
 import * as ModuleService from '../../../api/services/moduleService';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { NotificationType } from '../../../api/models/notification';
 import { ModuleIdentity } from '../../../api/models/moduleIdentity';
-import { ModuleTwin } from '../../../api/models/moduleTwin';
 import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 
 describe('addModuleIdentitySagaWorker', () => {

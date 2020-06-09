@@ -9,7 +9,7 @@ import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { listDevicesAction } from '../actions';
 import { fetchDevices } from '../../../api/services/devicesService';
-import DeviceQuery from '../../../api/models/deviceQuery';
+import { DeviceQuery } from '../../../api/models/deviceQuery';
 import { ERROR_TYPES } from './../../../constants/apiConstants';
 import { appConfig } from '../../../../appConfig/appConfig';
 import { CUSTOM_CONTROLLER_PORT } from './../../../constants/browserStorage';

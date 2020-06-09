@@ -14,7 +14,7 @@ export interface LabelWithTooltipProps extends ILabelProps {
     tooltipText?: string;
 }
 
-export default (props: LabelWithTooltipProps) => {
+export const LabelWithTooltip = (props: LabelWithTooltipProps) => {
     const { tooltipText, style } = props;
 
     const buttonId = getId('iconbutton');

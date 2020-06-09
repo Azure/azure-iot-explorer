@@ -9,7 +9,6 @@ import { call, put } from 'redux-saga/effects';
 import { deleteDevicesSaga } from './deleteDeviceSaga';
 import * as DevicesService from '../../../api/services/devicesService';
 import { deleteDevicesAction } from '../actions';
-import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { NotificationType } from '../../../api/models/notification';
 import { BulkRegistryOperationResult } from '../../../api/models/bulkRegistryOperationResult';

@@ -15,7 +15,7 @@ import { DeviceAuthenticationType } from '../../../api/models/deviceAuthenticati
 import { DeviceIdentity } from '../../../api/models/deviceIdentity';
 import { DeviceStatus } from '../../../api/models/deviceStatus';
 import { validateKey, validateThumbprint, validateDeviceId } from '../../../shared/utils/utils';
-import LabelWithTooltip from '../../../shared/components/labelWithTooltip';
+import { LabelWithTooltip } from '../../../shared/components/labelWithTooltip';
 import { MaskedCopyableTextField } from '../../../shared/components/maskedCopyableTextField';
 import { useAsyncSagaReducer } from '../../../shared/hooks/useAsyncSagaReducer';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';

@@ -5,7 +5,7 @@
 import 'jest';
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import SettingsPane from './settingsPane';
+import { SettingsPane } from './settingsPane';
 
 describe('settingsPane', () => {
     it('matches snapshot', () => {
