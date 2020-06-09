@@ -56,7 +56,7 @@ export const DataForm: React.FC<DataFormDataProps & DataFormActionProps> = (prop
     const originalFormData = twinData.formData;
     const [ formData, setFormData ] = React.useState(originalFormData);
     const [ showPayloadDialog, setShowPlayloadDialog ] = React.useState<boolean>(false);
-    const [ parseMapTypeError, setParseMapTypeError ] = React.useState(twinData.error);
+    const parseMapTypeError = twinData.error;
     const [ payloadPreviewData, setPayloadPreviewData ] = React.useState(undefined);
     const [ stringifiedFormData, setStringifiedFormData ] = React.useState(JSON.stringify(twinData.formData, null, '\t'));
 

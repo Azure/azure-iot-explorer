@@ -35,7 +35,7 @@ export interface RepositoryLocationListItemState {
 export const ModelRepositoryLocationListItem: React.FC<ModelRepositoryLocationListItemProps> = (props: ModelRepositoryLocationListItemProps) => {
     const { t } = useLocalizationContext();
 
-    const { item, errorKey, index, onChangeRepositoryLocationSettingValue, onRemoveRepositoryLocationSetting } = props;
+    const { item, index, onChangeRepositoryLocationSettingValue, onRemoveRepositoryLocationSetting } = props;
     let initialCurrentFolder = '';
     if (item && item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local) {
         initialCurrentFolder = item.value || getRootFolder();

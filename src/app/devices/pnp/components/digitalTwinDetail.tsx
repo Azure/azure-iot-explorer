@@ -22,7 +22,7 @@ export const DigitalTwinDetail: React.FC = () => {
     const { t } = useLocalizationContext();
     const { search, pathname } = useLocation();
     const { url } = useRouteMatch();
-    const { pnpState, dispatch, getModelDefinition } = usePnpStateContext();
+    const { getModelDefinition } = usePnpStateContext();
     const deviceId = getDeviceIdFromQueryString(search);
     const interfaceId = getInterfaceIdFromQueryString(search);
     const componentName = getComponentNameFromQueryString(search);

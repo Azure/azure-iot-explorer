@@ -5,16 +5,10 @@
 import * as React from 'react';
 import { Fabric } from 'office-ui-fabric-react/lib/Fabric';
 import { Customizer } from 'office-ui-fabric-react/lib/Utilities';
-import { IPartialTheme, createTheme } from 'office-ui-fabric-react/lib/Styling';
+import { createTheme } from 'office-ui-fabric-react/lib/Styling';
 import { SCOPED_SETTINGS, THEME_DARK, THEME_LIGHT, THEME_DARK_HC, THEME_LIGHT_HC } from './app/constants/themes';
 import { Theme, MonacoTheme, ThemeContextProvider } from './app/shared/contexts/themeContext';
 import { THEME_SELECTION, HIGH_CONTRAST } from './app/constants/browserStorage';
-
-interface ThemerState {
-    theme: Theme;
-    fabricTheme: IPartialTheme;
-    monacoTheme: MonacoTheme;
-}
 
 // tslint:disable-next-line: cyclomatic-complexity
 const getThemeFromLocalStorage = () => {

@@ -10,7 +10,7 @@ import { useLocalizationContext } from '../../shared/contexts/localizationContex
 import '../../css/_layouts.scss';
 import './homeViewNavigation.scss';
 
-export const HomeViewNavigation: React.FC = props => {
+export const HomeViewNavigation: React.FC = () => {
     const { t } = useLocalizationContext();
 
     return (

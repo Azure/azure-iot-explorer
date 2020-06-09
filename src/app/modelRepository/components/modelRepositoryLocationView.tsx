@@ -34,12 +34,6 @@ export const ModelRepositoryLocationView: React.FC = () => {
     const [ repositoryLocationSettingsErrors, setRepositoryLocationSettingsErrors ] = React.useState<StringMap<string>>({});
     const [ dirty, setDirtyFlag ] = React.useState<boolean>(false);
 
-    const onNavigateBack = () => {
-        if (params.has(ROUTE_PARAMS.NAV_FROM)) {
-            return () => { history.goBack(); };
-        }
-    };
-
     const getCommandBarItems = (): ICommandBarItemProps[] => {
         const addItems = getCommandBarItemsAdd();
 
