@@ -16,7 +16,7 @@ import { ParsedJsonSchema } from '../../../api/models/interfaceJsonParserOutput'
 import { twinToFormDataConverter } from '../../../shared/utils/twinAndJsonSchemaDataConverter';
 import { CLOSE } from '../../../constants/iconNames';
 import { PropertyContent } from '../../../api/models/modelDefinition';
-import ErrorBoundary from './errorBoundary';
+import { ErrorBoundary } from './errorBoundary';
 import { getLocalizedData } from '../../../api/dataTransforms/modelDefinitionTransform';
 import { useThemeContext } from '../../../shared/contexts/themeContext';
 

@@ -23,8 +23,8 @@ import { ModelDefinitionSourceView } from '../../shared/components/modelDefiniti
 import { MaskedCopyableTextField } from '../../../shared/components/maskedCopyableTextField';
 import { MonacoEditorView } from '../../../shared/components/monacoEditor';
 import { HeaderView } from '../../../shared/components/headerView';
-import MultiLineShimmer from '../../../shared/components/multiLineShimmer';
-import { usePnpStateContext } from '../pnpStateContext';
+import { MultiLineShimmer } from '../../../shared/components/multiLineShimmer';
+import { usePnpStateContext } from '../../../shared/contexts/pnpStateContext';
 import { ModelDefinition } from '../../../api/models/modelDefinition';
 import { ComponentAndInterfaceId, JsonSchemaAdaptor } from '../../../shared/utils/jsonSchemaAdaptor';
 import '../../../css/_digitalTwinInterfaces.scss';

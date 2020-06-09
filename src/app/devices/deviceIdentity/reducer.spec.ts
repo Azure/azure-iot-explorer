@@ -3,12 +3,12 @@
  * Licensed under the MIT License
  **********************************************************/
 import 'jest';
-import { GET_DEVICE_IDENTITY, UPDATE_DEVICE_IDENTITY } from '../../../constants/actionTypes';
+import { GET_DEVICE_IDENTITY, UPDATE_DEVICE_IDENTITY } from '../../constants/actionTypes';
 import { getDeviceIdentityAction, updateDeviceIdentityAction } from './actions';
 import { deviceIdentityReducer } from './reducer';
 import { deviceIdentityStateInitial } from './state';
-import { DeviceIdentity } from '../../../api/models/deviceIdentity';
-import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
+import { DeviceIdentity } from '../../api/models/deviceIdentity';
+import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
 
 describe('deviceIdentityReducer', () => {
     const deviceId = 'testDeviceId';

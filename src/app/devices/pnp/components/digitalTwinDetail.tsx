@@ -15,7 +15,7 @@ import { DeviceCommands } from './deviceCommands/deviceCommands';
 import { DeviceInterfaces } from './deviceInterfaces/deviceInterfaces';
 import { DeviceEventsPerInterface } from './deviceEvents/deviceEventsPerInterface';
 import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString, getComponentNameFromQueryString } from '../../../shared/utils/queryStringHelper';
-import { usePnpStateContext } from '../pnpStateContext';
+import { usePnpStateContext } from '../../../shared/contexts/pnpStateContext';
 import '../../../css/_pivotHeader.scss';
 
 export const DigitalTwinDetail: React.FC = () => {

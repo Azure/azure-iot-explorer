@@ -12,7 +12,7 @@ import { ParsedCommandSchema } from '../../../../api/models/interfaceJsonParserO
 import { CommandContent } from '../../../../api/models/modelDefinition';
 import { DataForm } from '../../../shared/components/dataForm';
 import { InvokeDigitalTwinInterfaceCommandActionParameters } from '../../actions';
-import ErrorBoundary from '../../../shared/components/errorBoundary';
+import { ErrorBoundary } from '../../../shared/components/errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 
 export interface DeviceCommandDataProps extends CommandSchema {

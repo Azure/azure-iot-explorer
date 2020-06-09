@@ -16,7 +16,7 @@ import { DeviceStatus } from '../../../api/models/deviceStatus';
 import { generateKey } from '../../../shared/utils/utils';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import { MaskedCopyableTextField } from '../../../shared/components/maskedCopyableTextField';
-import MultiLineShimmer from '../../../shared/components/multiLineShimmer';
+import { MultiLineShimmer } from '../../../shared/components/multiLineShimmer';
 import { HeaderView } from '../../../shared/components/headerView';
 import { SasTokenGenerationView } from '../../shared/components/sasTokenGenerationView';
 import '../../../css/_deviceDetail.scss';

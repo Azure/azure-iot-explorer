@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { pnpStateInitial, PnpStateInterface } from './state';
+import { pnpStateInitial, PnpStateInterface } from '../../devices/pnp/state';
 
 // tslint:disable-next-line: no-any
 const PnpStateContext = React.createContext<{pnpState: PnpStateInterface, dispatch?: (action: any) => void, getModelDefinition?: () => void}>({ pnpState: pnpStateInitial()});

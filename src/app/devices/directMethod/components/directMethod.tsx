@@ -12,7 +12,7 @@ import { useLocalizationContext } from '../../../shared/contexts/localizationCon
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { DIRECT_METHOD } from '../../../constants/iconNames';
-import LabelWithTooltip from '../../../shared/components/labelWithTooltip';
+import { LabelWithTooltip } from '../../../shared/components/labelWithTooltip';
 import { useThemeContext } from '../../../shared/contexts/themeContext';
 import { HeaderView } from '../../../shared/components/headerView';
 import { useAsyncSagaReducer } from '../../../shared/hooks/useAsyncSagaReducer';

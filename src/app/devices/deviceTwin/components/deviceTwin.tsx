@@ -13,7 +13,7 @@ import { getDeviceTwinAction, updateDeviceTwinAction } from '../actions';
 import { REFRESH, SAVE } from '../../../constants/iconNames';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import { useThemeContext } from '../../../shared/contexts/themeContext';
-import MultiLineShimmer from '../../../shared/components/multiLineShimmer';
+import { MultiLineShimmer } from '../../../shared/components/multiLineShimmer';
 import { HeaderView } from '../../../shared/components/headerView';
 import { useAsyncSagaReducer } from '../../../shared/hooks/useAsyncSagaReducer';
 import { deviceTwinReducer } from '../reducer';

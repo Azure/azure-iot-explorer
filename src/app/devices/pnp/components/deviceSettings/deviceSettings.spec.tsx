@@ -10,7 +10,7 @@ import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { DeviceSettings } from './deviceSettings';
 import { pnpStateInitial, PnpStateInterface } from '../../state';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
-import * as PnpContext from '../../pnpStateContext';
+import * as PnpContext from '../../../../shared/contexts/pnpStateContext';
 import { pnpStateWithTestData } from './testData';
 
 const interfaceId = 'urn:contoso:com:EnvironmentalSensor:1';

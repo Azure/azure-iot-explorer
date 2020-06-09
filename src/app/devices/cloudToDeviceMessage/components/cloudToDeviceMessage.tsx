@@ -19,7 +19,7 @@ import { useLocalizationContext } from '../../../shared/contexts/localizationCon
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { CLOUD_TO_DEVICE_MESSAGE, ArrayOperation, ITEM, CIRCLE_ADD, CIRCLE_ADD_SOLID } from '../../../constants/iconNames';
-import LabelWithTooltip from '../../../shared/components/labelWithTooltip';
+import { LabelWithTooltip } from '../../../shared/components/labelWithTooltip';
 import { cloudToDeviceMessageAction } from '../actions';
 import { CollapsibleSection } from '../../../shared/components/collapsibleSection';
 import { MEDIUM_COLUMN_WIDTH } from '../../../constants/columnWidth';

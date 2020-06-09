@@ -10,7 +10,7 @@ import { useLocalizationContext } from '../../../../shared/contexts/localization
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { PatchDigitalTwinActionParameters } from '../../actions';
 import { InterfaceDetailCard } from '../../../../constants/iconNames';
-import LabelWithTooltip from '../../../../shared/components/labelWithTooltip';
+import { LabelWithTooltip } from '../../../../shared/components/labelWithTooltip';
 import { TwinWithSchema } from './dataHelper';
 import '../../../../css/_devicePnpDetailList.scss';
 

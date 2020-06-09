@@ -12,7 +12,7 @@ import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryString
 import { REFRESH, ArrayOperation } from '../../../../constants/iconNames';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { parseDateTimeString } from '../../../../api/dataTransforms/transformHelper';
-import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
+import { MultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../../constants/routes';
 import { HeaderView } from '../../../../shared/components/headerView';
 import { useAsyncSagaReducer } from '../../../../shared/hooks/useAsyncSagaReducer';

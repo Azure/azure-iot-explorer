@@ -10,14 +10,14 @@ import { Shimmer } from 'office-ui-fabric-react/lib/Shimmer';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { DeviceEventsPerInterface } from './deviceEventsPerInterface';
-import ErrorBoundary from '../../../shared/components/errorBoundary';
+import { ErrorBoundary } from '../../../shared/components/errorBoundary';
 import { appConfig, HostMode } from '../../../../../appConfig/appConfig';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { MILLISECONDS_IN_MINUTE } from '../../../../constants/shared';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { DEFAULT_CONSUMER_GROUP } from '../../../../constants/apiConstants';
 import { PnpStateInterface, pnpStateInitial } from '../../state';
-import * as PnpContext from '../../pnpStateContext';
+import * as PnpContext from '../../../../shared/contexts/pnpStateContext';
 import { testModelDefinition } from './testData';
 import { REPOSITORY_LOCATION_TYPE } from '../../../../constants/repositoryLocationTypes';
 

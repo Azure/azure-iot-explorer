@@ -12,9 +12,9 @@ import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString, getComponentNameFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { getDigitalTwinAction, PatchDigitalTwinActionParameters, patchDigitalTwinAction } from '../../actions';
 import { REFRESH, NAVIGATE_BACK } from '../../../../constants/iconNames';
-import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
+import { MultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
 import { ROUTE_PARAMS } from '../../../../constants/routes';
-import { usePnpStateContext } from '../../pnpStateContext';
+import { usePnpStateContext } from '../../../../shared/contexts/pnpStateContext';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { generateTwinSchemaAndInterfaceTuple } from './dataHelper';
 

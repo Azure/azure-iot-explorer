@@ -16,7 +16,7 @@ import { useLocalizationContext } from '../../../shared/contexts/localizationCon
 import { NAV } from '../../../constants/iconNames';
 import { ROUTE_PARTS } from '../../../constants/routes';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
-import MultiLineShimmer from '../../../shared/components/multiLineShimmer';
+import { MultiLineShimmer } from '../../../shared/components/multiLineShimmer';
 import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { ModuleIdentityTwin } from '../../module/moduleIdentityTwin/components/moduleIdentityTwin';
 import { AddModuleIdentity } from '../../module/addModuleIdentity/components/addModuleIdentity';

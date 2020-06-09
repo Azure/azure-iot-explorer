@@ -11,14 +11,14 @@ import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getInterfaceIdFromQueryString, getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { InterfaceNotFoundMessageBar } from '../../../shared/components/interfaceNotFoundMessageBar';
 import { REFRESH, NAVIGATE_BACK } from '../../../../constants/iconNames';
-import ErrorBoundary from '../../../shared/components/errorBoundary';
+import { ErrorBoundary } from '../../../shared/components/errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
-import MultiLineShimmer from '../../../../shared/components/multiLineShimmer';
+import { MultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
 import { MaskedCopyableTextField } from '../../../../shared/components/maskedCopyableTextField';
 import { ROUTE_PARAMS } from '../../../../constants/routes';
 import { MonacoEditorView } from '../../../../shared/components/monacoEditor';
 import { ModelDefinitionSourceView } from '../../../shared/components/modelDefinitionSource';
-import { usePnpStateContext } from '../../pnpStateContext';
+import { usePnpStateContext } from '../../../../shared/contexts/pnpStateContext';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import '../../../../css/_deviceInterface.scss';
 

@@ -19,7 +19,7 @@ import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHel
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import { MonitorEventsParameters } from '../../../api/parameters/deviceParameters';
 import { NotificationType } from '../../../api/models/notification';
-import LabelWithTooltip from '../../../shared/components/labelWithTooltip';
+import { LabelWithTooltip } from '../../../shared/components/labelWithTooltip';
 import { DEFAULT_CONSUMER_GROUP } from '../../../constants/apiConstants';
 import { MILLISECONDS_IN_MINUTE } from '../../../constants/shared';
 import { appConfig, HostMode } from '../../../../appConfig/appConfig';

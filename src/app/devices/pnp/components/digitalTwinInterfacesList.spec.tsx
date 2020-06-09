@@ -11,10 +11,10 @@ import { MessageBar } from 'office-ui-fabric-react/lib/MessageBar';
 import { Pivot } from 'office-ui-fabric-react/lib/Pivot';
 import { DigitalTwinInterfacesList } from './digitalTwinInterfacesList';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
-import MultiLineShimmer from '../../../shared/components/multiLineShimmer';
+import { MultiLineShimmer } from '../../../shared/components/multiLineShimmer';
 import { REPOSITORY_LOCATION_TYPE } from '../../../constants/repositoryLocationTypes';
 import { pnpStateInitial, PnpStateInterface } from '../state';
-import * as pnpStateContext from '../pnpStateContext';
+import * as pnpStateContext from '../../../shared/contexts/pnpStateContext';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 
 const interfaceId = 'urn:azureiot:samplemodel:1';

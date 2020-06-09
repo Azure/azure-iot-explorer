@@ -14,7 +14,7 @@ export interface MultiLineShimmerProps {
     shimmerCount?: number;
 }
 
-export default (props: MultiLineShimmerProps) => {
+export const MultiLineShimmer = (props: MultiLineShimmerProps) => {
     const shimmerCount = props.shimmerCount || SHIMMER_COUNT;
     const className = props.className || 'fixed-shimmer';
     const shimmers = [];

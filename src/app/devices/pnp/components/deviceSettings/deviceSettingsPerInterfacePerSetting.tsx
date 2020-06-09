@@ -12,7 +12,7 @@ import { InterfaceDetailCard } from '../../../../constants/iconNames';
 import { ComplexReportedFormPanel } from '../../../shared/components/complexReportedFormPanel';
 import { RenderSimplyTypeValue } from '../../../shared/components/simpleReportedSection';
 import { PatchDigitalTwinActionParameters } from '../../actions';
-import ErrorBoundary from '../../../shared/components/errorBoundary';
+import { ErrorBoundary } from '../../../shared/components/errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 import { SemanticUnit } from '../../../../shared/units/components/semanticUnit';
 import { JsonPatchOperation, PatchPayload } from '../../../../api/parameters/deviceParameters';

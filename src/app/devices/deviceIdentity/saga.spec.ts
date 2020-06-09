@@ -8,12 +8,11 @@ import { put, call } from 'redux-saga/effects';
 import { cloneableGenerator } from '@redux-saga/testing-utils';
 import { getDeviceIdentitySagaWorker, updateDeviceIdentitySagaWorker } from './saga';
 import { getDeviceIdentityAction, updateDeviceIdentityAction } from './actions';
-import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
-import * as DevicesService from '../../../api/services/devicesService';
-import { DeviceIdentity } from '../../../api/models/deviceIdentity';
-import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { NotificationType } from '../../../api/models/notification';
-import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
+import * as DevicesService from '../../api/services/devicesService';
+import { DeviceIdentity } from '../../api/models/deviceIdentity';
+import { ResourceKeys } from '../../../localization/resourceKeys';
+import { NotificationType } from '../../api/models/notification';
+import { raiseNotificationToast } from '../../notifications/components/notificationToast';
 
 describe('deviceIdentitySaga', () => {
     let getdeviceIdentitySagaGenerator;

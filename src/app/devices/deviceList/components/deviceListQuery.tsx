@@ -6,7 +6,7 @@ import * as React from 'react';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { ActionButton, IconButton, PrimaryButton } from 'office-ui-fabric-react/lib/Button';
 import { DeviceQueryClause } from './deviceQueryClause';
-import DeviceQuery, { QueryClause } from '../../../api/models/deviceQuery';
+import { DeviceQuery, QueryClause } from '../../../api/models/deviceQuery';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { useLocalizationContext } from '../../../shared/contexts/localizationContext';
 import '../../../css/_deviceListQuery.scss';

@@ -17,8 +17,8 @@ import { SUBMIT, CODE } from '../../../constants/iconNames';
 import { Exception } from '../../../shared/utils/exceptions/exception';
 import { ParsedJsonSchema } from '../../../api/models/interfaceJsonParserOutput';
 import { dataToTwinConverter, twinToFormDataConverter } from '../../../shared/utils/twinAndJsonSchemaDataConverter';
-import ErrorBoundary from './errorBoundary';
-import LabelWithTooltip from '../../../shared/components/labelWithTooltip';
+import { ErrorBoundary } from './errorBoundary';
+import { LabelWithTooltip } from '../../../shared/components/labelWithTooltip';
 import { useThemeContext } from '../../../shared/contexts/themeContext';
 import '../../../css/_dataForm.scss';
 

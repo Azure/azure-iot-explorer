@@ -7,7 +7,7 @@ import { useLocation, useRouteMatch, Route } from 'react-router-dom';
 import { ROUTE_PARTS } from '../../../constants/routes';
 import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { getDigitalTwinAction, getModelDefinitionAction } from '../actions';
-import { PnpStateContextProvider } from '../pnpStateContext';
+import { PnpStateContextProvider } from '../../../shared/contexts/pnpStateContext';
 import { DigitalTwinDetail } from './digitalTwinDetail';
 import { useAsyncSagaReducer } from '../../../shared/hooks/useAsyncSagaReducer';
 import { pnpReducer } from '../reducer';

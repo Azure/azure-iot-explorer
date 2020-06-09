@@ -6,7 +6,7 @@ import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { deviceListStateInitial, DeviceListStateType } from './state';
 import { listDevicesAction, deleteDevicesAction } from './actions';
 import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
-import DeviceQuery from '../../api/models/deviceQuery';
+import { DeviceQuery } from '../../api/models/deviceQuery';
 import { BulkRegistryOperationResult } from '../../api/models/bulkRegistryOperationResult';
 import { DataPlaneResponse, Device } from '../../api/models/device';
 import { transformDevice } from '../../api/dataTransforms/deviceSummaryTransform';

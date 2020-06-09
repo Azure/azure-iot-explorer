@@ -13,7 +13,7 @@ import { DeviceSettingsPerInterfacePerSetting, DeviceSettingDataProps, DeviceSet
 import { PropertyContent } from '../../../../api/models/modelDefinition';
 import { ParsedJsonSchema } from '../../../../api/models/interfaceJsonParserOutput';
 import { InterfaceDetailCard } from '../../../../constants/iconNames';
-import { DataForm } from '../../../deviceContent/shared/components/dataForm';
+import { DataForm } from '../../../shared/components/dataForm';
 
 describe('deviceSettingsPerInterfacePerSetting', () => {
     const name = 'state';

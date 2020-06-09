@@ -4,7 +4,7 @@
  **********************************************************/
 import { Twin } from '../models/device';
 import { DeviceIdentity } from '../models/deviceIdentity';
-import DeviceQuery from '../models/deviceQuery';
+import { DeviceQuery } from '../models/deviceQuery';
 import { InvokeMethodActionParameters } from '../../devices/directMethod/actions';
 import { CloudToDeviceMessageActionParameters } from '../../devices/cloudToDeviceMessage/actions';
 
