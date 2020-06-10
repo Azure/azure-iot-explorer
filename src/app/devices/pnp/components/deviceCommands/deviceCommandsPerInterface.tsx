@@ -3,10 +3,10 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
 import { DeviceCommandsPerInterfacePerCommand, CommandSchema } from './deviceCommandsPerInterfacePerCommand';
 import { InvokeDigitalTwinInterfaceCommandActionParameters } from '../../actions';
-import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { InterfaceDetailCard } from '../../../../constants/iconNames';
 import '../../../../css/_devicePnpDetailList.scss';
@@ -28,7 +28,7 @@ export interface DeviceCommandState {
 
 export const DeviceCommandsPerInterface: React.FC<DeviceCommandDataProps & DeviceCommandDispatchProps> = (props: DeviceCommandDataProps & DeviceCommandDispatchProps) => {
     const { commandSchemas } = props;
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
 
     const initialCollapseMap = new Map();
     for (let index = 0; index < commandSchemas.length; index ++) {

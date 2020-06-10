@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { IconButton, IButton } from 'office-ui-fabric-react/lib/components/Button';
 import { getId } from 'office-ui-fabric-react/lib/Utilities';
 import { TooltipHost } from 'office-ui-fabric-react/lib/components/Tooltip';
@@ -11,7 +12,6 @@ import { ResourceKeys } from '../../../localization/resourceKeys';
 import { LabelWithTooltip } from './labelWithTooltip';
 import { LabelWithRichCallout } from './labelWithRichCallout';
 import { NotificationType } from '../../api/models/notification';
-import { useLocalizationContext } from '../contexts/localizationContext';
 import { raiseNotificationToast } from '../../notifications/components/notificationToast';
 import '../../css/_maskedCopyableTextField.scss';
 
@@ -39,7 +39,7 @@ export const MaskedCopyableTextField: React.FC<MaskedCopyableTextFieldProps> = (
     const toggleMaskButtonTooltipHostId = getId('toggleMaskButtonTooltipHost');
     const copyButtonTooltipHostId = getId('copyButtonTooltipHost');
 
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
 
     const { setFocus, ariaLabel, error, value, allowMask, readOnly, placeholder, calloutContent, labelCallout, required, label, onTextChange } = props;
     const [ hideContents, setHideContents ] = React.useState(allowMask);

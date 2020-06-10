@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { Dropdown, IDropdownOption } from 'office-ui-fabric-react/lib/components/Dropdown';
 import { TextField } from 'office-ui-fabric-react/lib/components/TextField';
@@ -15,7 +16,6 @@ import { Label } from 'office-ui-fabric-react/lib/components/Label';
 import { IContextualMenuItem } from 'office-ui-fabric-react/lib/components/ContextualMenu';
 import { v4 as uuid } from 'uuid';
 import { utc } from 'moment';
-import { useLocalizationContext } from '../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { CLOUD_TO_DEVICE_MESSAGE, ArrayOperation, ITEM, CIRCLE_ADD, CIRCLE_ADD_SOLID } from '../../../constants/iconNames';
@@ -53,7 +53,7 @@ export const systemPropertyKeyNameMappings: Array<{keyName: string, displayName:
     }));
 
 export const CloudToDeviceMessage: React.FC = () => {
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
     const { search } = useLocation();
 
     const [ , dispatch ] = useAsyncSagaReducer(() => undefined, cloudToDeviceMessageSaga, undefined);

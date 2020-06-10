@@ -3,8 +3,8 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Route, NavLink, useLocation, useRouteMatch } from 'react-router-dom';
-import { useLocalizationContext } from '../contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../constants/routes';
 import { ACTIVE_CONNECTION_STRING } from '../../constants/browserStorage';
@@ -35,7 +35,7 @@ export interface BreadcrumbItemDataProps {
 }
 
 export const BreadcrumbItem: React.FC<BreadcrumbItemDataProps> = props => {
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
     const { search, pathname } = useLocation();
     const { url } = useRouteMatch();
     const deviceId = getDeviceIdFromQueryString(search);

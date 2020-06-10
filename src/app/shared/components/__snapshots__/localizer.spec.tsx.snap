@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`localizer matches snapshot 1`] = `
-<Component
-  i18n={Object {}}
-  t={[Function]}
-  tReady={false}
-/>
-`;

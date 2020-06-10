@@ -3,12 +3,12 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
 import { Link } from 'office-ui-fabric-react/lib/components/Link';
 import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
 import { getResourceNameFromHostName } from '../../api/shared/hostNameUtils';
 import { ConnectionStringProperties } from './connectionStringProperties';
-import { useLocalizationContext } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { ConnectionStringDelete } from './connectionStringDelete';
 import { MaskedCopyableTextField } from '../../shared/components/maskedCopyableTextField';
@@ -28,7 +28,7 @@ export const ConnectionString: React.FC<ConnectionStringProps> = props => {
     const { hostName, sharedAccessKey, sharedAccessKeyName } = connectionSettings;
     const resourceName = getResourceNameFromHostName(hostName);
     const [ confirmingDelete, setConfirmingDelete ] = React.useState<boolean>(false);
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
 
     const onEditConnectionStringClick = () => {
         onEditConnectionString(connectionString);

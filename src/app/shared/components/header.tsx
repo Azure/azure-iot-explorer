@@ -3,14 +3,14 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { NotificationList } from '../../notifications/components/notificationList';
 import { SettingsPane } from '../../settings/components/settingsPane';
-import { useLocalizationContext } from '../contexts/localizationContext';
 import '../../css/_header.scss';
 
 export const Header: React.FC = () => {
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
 
     return (
         <header className="header">

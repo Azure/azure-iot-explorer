@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Validator, ValidatorResult } from 'jsonschema';
 import { CommandBar, ICommandBarItemProps } from 'office-ui-fabric-react/lib/components/CommandBar';
 import { Label } from 'office-ui-fabric-react/lib/components/Label';
@@ -11,7 +12,6 @@ import { TextField, ITextFieldProps } from 'office-ui-fabric-react/lib/component
 import { Announced } from 'office-ui-fabric-react/lib/components/Announced';
 import { Toggle } from 'office-ui-fabric-react/lib/components/Toggle';
 import { useLocation, useHistory } from 'react-router-dom';
-import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { monitorEvents, stopMonitoringEvents } from '../../../../api/services/devicesService';
 import { Message, MESSAGE_SYSTEM_PROPERTIES, MESSAGE_PROPERTIES } from '../../../../api/models/messages';
@@ -44,7 +44,7 @@ const TELEMETRY_SCHEMA_PROP = MESSAGE_PROPERTIES.IOTHUB_MESSAGE_SCHEMA;
 export const DeviceEventsPerInterface: React.FC = () => {
     let timerID: any; // tslint:disable-line:no-any
 
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
     const { search, pathname } = useLocation();
     const history = useHistory();
     const componentName = getComponentNameFromQueryString(search);

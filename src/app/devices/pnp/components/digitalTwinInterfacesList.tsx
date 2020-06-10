@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Label } from 'office-ui-fabric-react/lib/components/Label';
 import { CommandBar, ICommandBarItemProps } from 'office-ui-fabric-react/lib/components/CommandBar';
 import { DetailsList, IColumn, SelectionMode } from 'office-ui-fabric-react/lib/components/DetailsList';
@@ -12,7 +13,6 @@ import { Pivot, PivotItem } from 'office-ui-fabric-react/lib/components/Pivot';
 import { NavLink, useLocation, useRouteMatch } from 'react-router-dom';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
 import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
-import { useLocalizationContext } from '../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import { getDigitalTwinAction } from '../actions';
@@ -60,7 +60,7 @@ export const DigitalTwinInterfacesList: React.FC = () => {
     const { search } = useLocation();
     const { url } = useRouteMatch();
     const deviceId = getDeviceIdFromQueryString(search);
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
 
     const { pnpState, dispatch, } = usePnpStateContext();
     const modelDefinitionWithSource = pnpState.modelDefinitionWithSource.payload;

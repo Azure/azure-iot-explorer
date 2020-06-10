@@ -3,12 +3,12 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { TooltipHost, DirectionalHint } from 'office-ui-fabric-react/lib/components/Tooltip';
 import { Stack } from 'office-ui-fabric-react/lib/components/Stack';
 import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
 import { Link } from 'office-ui-fabric-react/lib/components/Link';
 import { getId } from 'office-ui-fabric-react/lib/Utilities';
-import { useLocalizationContext } from '../contexts/localizationContext';
 
 export interface HeaderViewProps {
     headerText: string;
@@ -20,7 +20,7 @@ export const HeaderView: React.FC<HeaderViewProps> = props => {
     const hostId = getId('tooltip');
     const { headerText, tooltip, link } = props;
 
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
     return (
         <Stack horizontal={true}>
             <Stack.Item align="start">

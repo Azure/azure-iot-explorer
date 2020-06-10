@@ -3,11 +3,11 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Dropdown, IDropdown, IDropdownOption } from 'office-ui-fabric-react/lib/components/Dropdown';
 import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
 import { QueryClause, ParameterType, DeviceCapability, DeviceStatus } from '../../../api/models/deviceQuery';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { useLocalizationContext } from '../../../shared/contexts/localizationContext';
 import '../../../css/_deviceListQuery.scss';
 
 export interface DeviceQueryClauseProps extends QueryClause {
@@ -19,7 +19,7 @@ export interface DeviceQueryClauseActions {
 }
 
 export const DeviceQueryClause: React.FC<DeviceQueryClauseProps & DeviceQueryClauseActions> = (props: DeviceQueryClauseProps & DeviceQueryClauseActions) => {
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
 
     const parameterTypeRef = React.createRef<IDropdown>();
     const { removeClause, setClause, index, operation, parameterType, value } = props;

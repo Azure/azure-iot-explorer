@@ -3,9 +3,9 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Dialog, DialogFooter } from 'office-ui-fabric-react/lib/components/Dialog';
 import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/components/Button';
-import { useLocalizationContext } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import './connectionStringDelete.scss';
 
@@ -21,7 +21,7 @@ export interface ConnectionStringDeleteProps {
 
 export const ConnectionStringDelete: React.FC<ConnectionStringDeleteProps> = props => {
     const { connectionString, hidden, onDeleteCancel, onDeleteConfirm } = props;
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
 
     return (
         <Dialog
