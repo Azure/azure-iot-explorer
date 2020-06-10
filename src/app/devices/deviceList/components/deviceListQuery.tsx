@@ -3,12 +3,12 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { TextField } from 'office-ui-fabric-react/lib/components/TextField';
 import { ActionButton, IconButton, PrimaryButton } from 'office-ui-fabric-react/lib/components/Button';
 import { DeviceQueryClause } from './deviceQueryClause';
 import { DeviceQuery, QueryClause } from '../../../api/models/deviceQuery';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { useLocalizationContext } from '../../../shared/contexts/localizationContext';
 import '../../../css/_deviceListQuery.scss';
 
 export interface DeviceListQueryProps {
@@ -16,13 +16,8 @@ export interface DeviceListQueryProps {
     setQueryAndExecute: (query: DeviceQuery, executeQuery?: boolean) => void;
 }
 
-export interface DeviceListQueryState {
-    clauses: QueryClause[];
-    deviceId: string;
-}
-
 export const DeviceListQuery: React.FC<DeviceListQueryProps> = (props: DeviceListQueryProps) => {
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
 
     const { refresh, setQueryAndExecute } = props;
     const [ clauses, setClauses ] = React.useState([]);

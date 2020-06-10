@@ -3,10 +3,10 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/components/Spinner';
-import { useLocalizationContext } from '../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { getDeviceTwinAction, updateDeviceTwinAction } from '../actions';
@@ -25,7 +25,7 @@ const EditorPromise = import('react-monaco-editor');
 const Editor = React.lazy(() => EditorPromise);
 
 export const DeviceTwin: React.FC = () => {
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
     const { monacoTheme } = useThemeContext();
     const { search } = useLocation();
 

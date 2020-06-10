@@ -3,9 +3,9 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useLocation, useRouteMatch } from 'react-router-dom';
 import { Nav, INavLinkGroup } from 'office-ui-fabric-react/lib/components/Nav';
-import { useLocalizationContext } from '../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
 import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
@@ -20,7 +20,7 @@ export const NAV_LINK_ITEMS_NONEDGE = [...NAV_LINK_ITEMS, ROUTE_PARTS.MODULE_IDE
 
 export type DeviceContentNavProps = DeviceContentNavDataProps;
 export const DeviceContentNavComponent: React.FC<DeviceContentNavProps> =  (props: DeviceContentNavProps) => {
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
     const { isEdgeDevice } = props;
     const {  search } = useLocation();
     const { url } = useRouteMatch();

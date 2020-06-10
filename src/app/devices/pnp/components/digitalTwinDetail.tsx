@@ -3,10 +3,10 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useLocation, Route, useRouteMatch } from 'react-router-dom';
 import { Stack } from 'office-ui-fabric-react/lib/components/Stack';
 import { ActionButton } from 'office-ui-fabric-react/lib/components/Button';
-import { useLocalizationContext } from '../../../shared/contexts/localizationContext';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { DeviceSettings } from './deviceSettings/deviceSettings';
@@ -19,7 +19,7 @@ import { usePnpStateContext } from '../../../shared/contexts/pnpStateContext';
 import '../../../css/_pivotHeader.scss';
 
 export const DigitalTwinDetail: React.FC = () => {
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
     const { search, pathname } = useLocation();
     const { url } = useRouteMatch();
     const { getModelDefinition } = usePnpStateContext();

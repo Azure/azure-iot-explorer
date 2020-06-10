@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { PrimaryButton, ActionButton } from 'office-ui-fabric-react/lib/components/Button';
 import { Dialog, DialogFooter } from 'office-ui-fabric-react/lib/components/Dialog';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/components/Spinner';
@@ -11,7 +12,6 @@ import Form from 'react-jsonschema-form';
 import { Validator } from 'jsonschema';
 import { fabricWidgets, fabricFields } from '../../../jsonSchemaFormFabricPlugin';
 import { ObjectTemplate } from '../../../jsonSchemaFormFabricPlugin/fields/objectTemplate';
-import { useLocalizationContext } from '../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { SUBMIT, CODE } from '../../../constants/iconNames';
 import { Exception } from '../../../shared/utils/exceptions/exception';
@@ -48,7 +48,7 @@ export interface DataFormState {
     payloadPreviewData?: any; // tslint:disable-line: no-any
 }
 export const DataForm: React.FC<DataFormDataProps & DataFormActionProps> = (props: DataFormDataProps & DataFormActionProps) => {
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
     const { monacoTheme } = useThemeContext();
 
     const { settingSchema, schema, buttonText, handleSave, craftPayload } = props;

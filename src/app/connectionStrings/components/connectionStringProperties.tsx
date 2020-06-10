@@ -3,8 +3,8 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { MaskedCopyableTextField } from '../../shared/components/maskedCopyableTextField';
-import { useLocalizationContext } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 
 export interface ConnectionStringPropertiesProps {
@@ -16,7 +16,7 @@ export interface ConnectionStringPropertiesProps {
 
 export const ConnectionStringProperties: React.FC<ConnectionStringPropertiesProps> = props => {
     const { connectionString, hostName, sharedAccessKey, sharedAccessKeyName} = props;
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
 
     return (
         <>

@@ -3,9 +3,9 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Label } from 'office-ui-fabric-react/lib/components/Label';
 import { IconButton, PrimaryButton } from 'office-ui-fabric-react/lib/components/Button';
-import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { InterfaceDetailCard, SUBMIT } from '../../../../constants/iconNames';
 import { ParsedCommandSchema } from '../../../../api/models/interfaceJsonParserOutput';
@@ -32,7 +32,7 @@ export interface CommandSchema {
 }
 
 export const DeviceCommandsPerInterfacePerCommand: React.FC<DeviceCommandDataProps & DeviceCommandDispatchProps> = (props: DeviceCommandDataProps & DeviceCommandDispatchProps) => {
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
     const { collapsed, deviceId, componentName, commandModelDefinition, parsedSchema, handleCollapseToggle, invokeDigitalTwinInterfaceCommand  } = props;
 
     const createCollapsedSummary = () => {

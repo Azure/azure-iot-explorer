@@ -3,16 +3,16 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/components/MessageBar';
 import { Link } from 'office-ui-fabric-react/lib/components/Link';
-import { useLocalizationContext } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { fetchLatestReleaseTagName, latestReleaseUrlPath } from '../../api/services/githubService';
 import * as packageJson from '../../../../package.json';
 import { isNewReleaseVersionHigher } from '../utils/appVersionHelper';
 
 export const AppVersionMessageBar: React.FC = () => {
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
 
     const [ latestReleaseVersion, setLatestReleaseVersion ] = React.useState(undefined);
 

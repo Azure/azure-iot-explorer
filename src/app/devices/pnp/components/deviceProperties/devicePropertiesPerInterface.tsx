@@ -3,11 +3,11 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { DetailsList, DetailsListLayoutMode, IColumn, CheckboxVisibility } from 'office-ui-fabric-react/lib/components/DetailsList';
 import { Label } from 'office-ui-fabric-react/lib/components/Label';
 import { Overlay } from 'office-ui-fabric-react/lib/components/Overlay';
 import { ActionButton } from 'office-ui-fabric-react/lib/components/Button';
-import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 import { isValueDefined } from '../../../shared/components/dataForm';
@@ -22,7 +22,7 @@ export interface DevicePropertiesDataProps {
 }
 
 export const DevicePropertiesPerInterface: React.FC<DevicePropertiesDataProps> = (props: DevicePropertiesDataProps) => {
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
     const [ showOverlay, setShowOverlay ] = React.useState<boolean>(false);
     const [ showReportedValuePanel, setShowReportedValuePanel ] = React.useState<boolean>(false);
     const [ selectedItem, setSelectedItem ] = React.useState(undefined);

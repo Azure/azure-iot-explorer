@@ -3,11 +3,11 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
 import { Label } from 'office-ui-fabric-react/lib/components/Label';
 import { useLocation, useHistory } from 'react-router-dom';
 import { DeviceCommandsPerInterface } from './deviceCommandsPerInterface';
-import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString, getComponentNameFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { REFRESH, NAVIGATE_BACK } from '../../../../constants/iconNames';
@@ -22,7 +22,7 @@ export const DeviceCommands: React.FC = () => {
     // const { refresh, setComponentName, isLoading, commandSchemas } = props;
     const { search, pathname } = useLocation();
     const history = useHistory();
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
     const deviceId = getDeviceIdFromQueryString(search);
     const componentName = getComponentNameFromQueryString(search);
 

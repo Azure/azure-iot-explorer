@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/devices/DeviceQueryClause matches snapshot 1`] = `
+exports[`DeviceQueryClause matches snapshot 1`] = `
 <section
   className="search-pill active no-operator"
   key="query-0"
@@ -63,7 +63,7 @@ exports[`components/devices/DeviceQueryClause matches snapshot 1`] = `
 </section>
 `;
 
-exports[`components/devices/DeviceQueryClause matches snapshot without operation 1`] = `
+exports[`DeviceQueryClause matches snapshot without operation 1`] = `
 <section
   className="search-pill active no-operator"
   key="query-0"

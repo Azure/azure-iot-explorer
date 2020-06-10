@@ -3,9 +3,9 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
 import { toast, ToastType, ToastOptions, UpdateOptions } from 'react-toastify';
-import { useLocalizationContext } from '../../shared/contexts/localizationContext';
 import { NotificationListEntry } from '../../notifications/components/notificationListEntry';
 import { Notification } from '../../api/models/notification';
 import { ResourceKeys } from '../../../localization/resourceKeys';
@@ -20,7 +20,7 @@ export interface CloseButtonProps {
 }
 
 export const CloseButton = (props: CloseButtonProps): JSX.Element => {
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
     return (
         <IconButton
             iconProps={{

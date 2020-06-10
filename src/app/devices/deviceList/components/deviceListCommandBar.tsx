@@ -3,8 +3,8 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
-import { useLocalizationContext } from '../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { ArrayOperation, REFRESH } from '../../../constants/iconNames';
 
@@ -21,7 +21,7 @@ export interface DeviceListCommandBarActionProps {
 }
 
 export const DeviceListCommandBar: React.FC<DeviceListCommandBarDataProps & DeviceListCommandBarActionProps> = (props: DeviceListCommandBarDataProps & DeviceListCommandBarActionProps) => {
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
 
     const { disableAdd, disableDelete, disableRefresh, handleAdd, handleDelete, handleRefresh } = props;
 

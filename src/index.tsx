@@ -9,7 +9,6 @@ import { HashRouter } from 'react-router-dom';
 import { I18nextProvider } from 'react-i18next';
 import { initializeIcons } from 'office-ui-fabric-react/lib/Icons';
 import { Themer } from './themer';
-import Localizer from './app/shared/components/localizer';
 import { Application } from './app/shared/components/application';
 import { useAsyncSagaReducer } from './app/shared/hooks/useAsyncSagaReducer';
 import { globalStateInitial } from './app/shared/global/state';
@@ -28,11 +27,9 @@ const ViewHolder: React.FC = () => {
         <I18nextProvider i18n={i18n}>
             <GlobalStateProvider value={{ globalState, dispatch }}>
                 <Themer>
-                    <Localizer>
-                        <HashRouter>
-                            <Application />
-                        </HashRouter>
-                    </Localizer>
+                    <HashRouter>
+                        <Application />
+                    </HashRouter>
                 </Themer>
             </GlobalStateProvider>
         </I18nextProvider>

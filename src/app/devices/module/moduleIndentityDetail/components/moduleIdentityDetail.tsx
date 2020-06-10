@@ -3,13 +3,13 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Route, useLocation, useHistory, useParams } from 'react-router-dom';
 import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
 import { Label } from 'office-ui-fabric-react/lib/components/Label';
 import { Dialog, DialogFooter, DialogType } from 'office-ui-fabric-react/lib/components/Dialog';
 import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/components/Button';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
-import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
 import { getDeviceIdFromQueryString, getModuleIdentityIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { REFRESH, REMOVE, NAVIGATE_BACK } from '../../../../constants/iconNames';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../../constants/routes';
@@ -28,7 +28,7 @@ import '../../../../css/_deviceDetail.scss';
 import '../../../../css/_moduleIdentityDetail.scss';
 
 export const ModuleIdentityDetail: React.FC = () => {
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
     const { search, pathname } = useLocation();
     const { hostName } = useParams();
     const history = useHistory();

@@ -3,11 +3,11 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { PrimaryButton } from 'office-ui-fabric-react/lib/components/Button';
 import { Dropdown, IDropdownOption } from 'office-ui-fabric-react/lib/components/Dropdown';
 import { SpinButton } from 'office-ui-fabric-react/lib/components/SpinButton';
 import { Position } from 'office-ui-fabric-react/lib/utilities/positioning';
-import { useLocalizationContext } from '../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { MaskedCopyableTextField } from '../../../shared/components/maskedCopyableTextField';
 import { CollapsibleSection } from '../../../shared/components/collapsibleSection';
@@ -30,7 +30,7 @@ export interface SasTokenGenerationState {
 }
 
 export const SasTokenGenerationView: React.FC<SasTokenGenerationDataProps> = (props: SasTokenGenerationDataProps) => {
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
     const {activeAzureResourceHostName, moduleIdentity, deviceIdentity } = props;
 
     const [ sasTokenConnectionString, setSasTokenConnectionString ] = React.useState('');

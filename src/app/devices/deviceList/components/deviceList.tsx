@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { NavLink, useLocation, useHistory } from 'react-router-dom';
 import { Icon } from 'office-ui-fabric-react/lib/components/Icon';
 import { Label } from 'office-ui-fabric-react/lib/components/Label';
@@ -11,7 +12,6 @@ import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/compone
 import { DetailsList, DetailsListLayoutMode, IColumn, Selection } from 'office-ui-fabric-react/lib/components/DetailsList';
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/components/MarqueeSelection/MarqueeSelection';
 import { Announced } from 'office-ui-fabric-react/lib/components/Announced';
-import { useLocalizationContext } from '../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { DeviceSummary } from '../../../api/models/deviceSummary';
 import { DeviceQuery } from '../../../api/models/deviceQuery';
@@ -33,7 +33,7 @@ import '../../../css/_layouts.scss';
 
 const SHIMMER_COUNT = 10;
 export const DeviceList: React.FC = () => {
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
     const { pathname } = useLocation();
     const history = useHistory();
 

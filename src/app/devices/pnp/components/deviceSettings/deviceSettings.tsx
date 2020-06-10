@@ -3,11 +3,11 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
 import { Label } from 'office-ui-fabric-react/lib/components/Label';
 import { useLocation, useHistory } from 'react-router-dom';
 import { DeviceSettingsPerInterface } from './deviceSettingsPerInterface';
-import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString, getComponentNameFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { getDigitalTwinAction, PatchDigitalTwinActionParameters, patchDigitalTwinAction } from '../../actions';
@@ -19,7 +19,7 @@ import { SynchronizationStatus } from '../../../../api/models/synchronizationSta
 import { generateTwinSchemaAndInterfaceTuple } from './dataHelper';
 
 export const DeviceSettings: React.FC = () => {
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
     const { search, pathname } = useLocation();
     const history = useHistory();
     const deviceId = getDeviceIdFromQueryString(search);

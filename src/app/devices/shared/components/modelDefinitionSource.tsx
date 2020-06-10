@@ -3,11 +3,11 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { Stack } from 'office-ui-fabric-react/lib/components/Stack';
 import { ActionButton } from 'office-ui-fabric-react/lib/components/Button';
 import { Label } from 'office-ui-fabric-react/lib/components/Label';
-import { useLocalizationContext } from '../../../shared/contexts/localizationContext';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
 import { REPOSITORY_LOCATION_TYPE } from '../../../constants/repositoryLocationTypes';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
@@ -26,7 +26,7 @@ const getModelDefinitionSourceResourceKeys = (source: REPOSITORY_LOCATION_TYPE) 
 };
 
 export const ModelDefinitionSourceView: React.FC<ModelDefinitionSourceViewProps> = props => {
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
     const history = useHistory();
 
     const onConfigureClick = () => {
