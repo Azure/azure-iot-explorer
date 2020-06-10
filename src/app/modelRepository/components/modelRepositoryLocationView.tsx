@@ -3,10 +3,10 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Prompt, useHistory, useLocation } from 'react-router-dom';
 import { CommandBar, ICommandBarItemProps  } from 'office-ui-fabric-react/lib/components/CommandBar';
 import { IContextualMenuItem } from 'office-ui-fabric-react/lib/components/ContextualMenu';
-import { useLocalizationContext } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { ModelRepositoryLocationList } from './modelRepositoryLocationList';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
@@ -22,7 +22,7 @@ import { RepositoryLocationSettings } from '../../shared/global/state';
 import '../../css/_layouts.scss';
 
 export const ModelRepositoryLocationView: React.FC = () => {
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
     const history = useHistory();
     const { search } = useLocation();
     const params = new URLSearchParams(search);

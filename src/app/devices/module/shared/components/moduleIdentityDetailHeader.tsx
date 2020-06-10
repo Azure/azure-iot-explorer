@@ -3,17 +3,17 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { Stack } from 'office-ui-fabric-react/lib/components/Stack';
 import { ActionButton } from 'office-ui-fabric-react/lib/components/Button';
-import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../../constants/routes';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString, getModuleIdentityIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import '../../../../css/_pivotHeader.scss';
 
 export const ModuleIdentityDetailHeader: React.FC = () => {
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
     const { search, pathname } = useLocation();
 
     const NAV_LINK_ITEMS = [ROUTE_PARTS.MODULE_DETAIL, ROUTE_PARTS.MODULE_TWIN];

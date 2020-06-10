@@ -3,10 +3,10 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { NavLink, useLocation, useHistory, useRouteMatch } from 'react-router-dom';
 import { DetailsList, IColumn, SelectionMode } from 'office-ui-fabric-react/lib/components/DetailsList';
 import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
-import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { REFRESH, ArrayOperation } from '../../../../constants/iconNames';
@@ -23,7 +23,7 @@ import { getModuleIdentitiesAction } from '../actions';
 import '../../../../css/_deviceDetail.scss';
 
 export const ModuleIdentityList: React.FC = () => {
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
     const { search, pathname } = useLocation();
     const { url } = useRouteMatch();
     const history = useHistory();

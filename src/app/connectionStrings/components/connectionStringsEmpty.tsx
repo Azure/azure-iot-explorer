@@ -3,14 +3,14 @@
 * Licensed under the MIT License
 **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'office-ui-fabric-react/lib/components/Link';
 import { NavLink } from 'react-router-dom';
 import { ResourceKeys } from '../../../localization/resourceKeys';
-import { useLocalizationContext } from '../../shared/contexts/localizationContext';
 import './connectionStringsEmpty.scss';
 
 export const ConnectionStringsEmpty: React.FC = props => {
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
 
     return (
         <div className="connection-strings-empty">

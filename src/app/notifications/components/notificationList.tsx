@@ -3,10 +3,10 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { ActionButton } from 'office-ui-fabric-react/lib/components/Button';
 import { Panel, PanelType } from 'office-ui-fabric-react/lib/components/Panel';
 import { Link } from 'office-ui-fabric-react/lib/components/Link';
-import { useLocalizationContext } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { NotificationListEntry } from './notificationListEntry';
 import { useGlobalStateContext } from '../../shared/contexts/globalStateContext';
@@ -14,7 +14,7 @@ import { clearNotificationsAction, markAllNotificationsAsReadAction } from '../.
 import '../../css/_notification.scss';
 
 export const NotificationList: React.FC = () => {
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
 
     const { globalState, dispatch } = useGlobalStateContext();
     const { hasNew, notifications } = globalState.notificationsState;

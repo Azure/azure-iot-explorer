@@ -3,13 +3,13 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Label } from 'office-ui-fabric-react/lib/components/Label';
 import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/components/Spinner';
 import Form from 'react-jsonschema-form';
 import { fabricWidgets, fabricFields } from '../../../jsonSchemaFormFabricPlugin';
 import { ObjectTemplate } from '../../../jsonSchemaFormFabricPlugin/fields/objectTemplate';
-import { useLocalizationContext } from '../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { Exception } from '../../../shared/utils/exceptions/exception';
 import { ParsedJsonSchema } from '../../../api/models/interfaceJsonParserOutput';
@@ -40,7 +40,7 @@ export interface ReportedFormState {
 }
 
 export const ComplexReportedFormPanel: React.FC<ReportedFormDataProps & ReportedFormActionProps> = (props: ReportedFormDataProps & ReportedFormActionProps) => {
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
     const { monacoTheme } = useThemeContext();
 
     const { schema, modelDefinition, showPanel } = props;

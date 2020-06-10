@@ -3,11 +3,11 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
 import { ConnectionString  } from './connectionString';
 import { ConnectionStringEditView } from './connectionStringEditView';
-import { useLocalizationContext } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { CONNECTION_STRING_LIST_MAX_LENGTH } from '../../constants/browserStorage';
 import { upsertConnectionStringAction, deleteConnectionStringAction, setConnectionStringsAction } from '../actions';
@@ -22,7 +22,7 @@ import '../../css/_layouts.scss';
 import './connectionStringsView.scss';
 
 export const ConnectionStringsView: React.FC = () => {
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
     const history = useHistory();
 
     const [ localState, dispatch ] = useAsyncSagaReducer(connectionStringsReducer, connectionStringsSaga, connectionStringsStateInitial());

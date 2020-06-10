@@ -6,7 +6,7 @@ import * as React from 'react';
 import { useParams } from 'react-router-dom';
 import { Label } from 'office-ui-fabric-react/lib/components/Label';
 import { Toggle } from 'office-ui-fabric-react/lib/components/Toggle';
-import { useLocalizationContext } from '../../../shared/contexts/localizationContext';
+import { useTranslation } from 'react-i18next';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { DeviceIdentity } from '../../../api/models/deviceIdentity';
 import { getDeviceAuthenticationType, generateConnectionString, generateX509ConnectionString } from './deviceIdentityHelper';
@@ -39,7 +39,7 @@ export interface DeviceIdentityState {
 }
 
 export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & DeviceIdentityDispatchProps> = (props: DeviceIdentityDataProps & DeviceIdentityDispatchProps) => {
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
     const { hostName } = useParams();
 
     const [ state, setState ] = React.useState({

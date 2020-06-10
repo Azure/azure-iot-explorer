@@ -3,13 +3,13 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { PrimaryButton } from 'office-ui-fabric-react/lib/components/Button';
-import { useLocalizationContext } from '../contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import '../../css/_noMatchError.scss';
 
 export const NoMatchError = () => {
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
     return (
         <div className="no-match-error">
             <div className="no-match-error-description">

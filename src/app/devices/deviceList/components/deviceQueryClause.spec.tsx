@@ -9,14 +9,7 @@ import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
 import { DeviceQueryClause } from './deviceQueryClause';
 import { ParameterType, OperationType } from '../../../api/models/deviceQuery';
 
-describe('components/devices/DeviceQueryClause', () => {
-    // tslint:disable-next-line:no-any
-    const event: any = {
-        target: {
-            title: 'name',
-        }
-    };
-
+describe('DeviceQueryClause', () => {
     it('matches snapshot', () => {
         const wrapper = shallow(
             <DeviceQueryClause

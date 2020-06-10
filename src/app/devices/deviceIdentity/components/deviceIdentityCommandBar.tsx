@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { CommandBar, ICommandBarItemProps } from 'office-ui-fabric-react/lib/components/CommandBar';
-import { useLocalizationContext } from '../../../shared/contexts/localizationContext';
+import { useTranslation } from 'react-i18next';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { SAVE } from '../../../constants/iconNames';
 
@@ -20,7 +20,7 @@ export interface DeviceIdentityCommandBarActionProps {
 }
 
 export const DeviceIdentityCommandBar: React.FC<DeviceIdentityCommandBarDataProps & DeviceIdentityCommandBarActionProps> = (props: DeviceIdentityCommandBarDataProps & DeviceIdentityCommandBarActionProps) => {
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
     const { handleSave, onRegeneratePrimaryKey, onRegenerateSecondaryKey, onSwapKeys, disableSave } = props;
 
     const allowKeyManagement: boolean = !!onRegeneratePrimaryKey || !!onRegenerateSecondaryKey || !!onSwapKeys;

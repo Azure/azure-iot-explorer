@@ -3,10 +3,10 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
 import { Overlay } from 'office-ui-fabric-react/lib/components/Overlay';
 import { DeviceSettingsPerInterfacePerSetting } from './deviceSettingsPerInterfacePerSetting';
-import { useLocalizationContext } from '../../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { PatchDigitalTwinActionParameters } from '../../actions';
 import { InterfaceDetailCard } from '../../../../constants/iconNames';
@@ -33,7 +33,7 @@ export interface DeviceSettingState {
 
 // tslint:disable-next-line: cyclomatic-complexity
 export const DeviceSettingsPerInterface: React.FC<DeviceSettingDataProps & DeviceSettingDispatchProps> = (props: DeviceSettingDataProps & DeviceSettingDispatchProps) => {
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
     const { twinWithSchema } = props;
     const initialCollapseMap = new Map();
     for (let index = 0; index < twinWithSchema.length; index ++) {
