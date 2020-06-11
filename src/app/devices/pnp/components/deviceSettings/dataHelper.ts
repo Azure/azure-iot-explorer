@@ -31,7 +31,7 @@ export const generateTwinSchemaAndInterfaceTuple = (model: ModelDefinition, digi
         .map(setting => {
             return {
                 isComponentContainedInDigitalTwin: !!digitalTwinForSpecificComponent,
-                metadata: digitalTwinForSpecificComponent && digitalTwinForSpecificComponent.$metaData && digitalTwinForSpecificComponent.$metadata[setting.name],
+                metadata: digitalTwinForSpecificComponent && digitalTwinForSpecificComponent.$metadata && digitalTwinForSpecificComponent.$metadata[setting.name],
                 reportedTwin: digitalTwinForSpecificComponent && digitalTwinForSpecificComponent[setting.name],
                 settingModelDefinition: setting,
                 settingSchema: jsonSchemaAdaptor.parseInterfacePropertyToJsonSchema(setting)
