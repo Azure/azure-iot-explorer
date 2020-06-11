@@ -6,7 +6,6 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Label } from 'office-ui-fabric-react/lib/components/Label';
 import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
-import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/components/Spinner';
 import Form from 'react-jsonschema-form';
 import { fabricWidgets, fabricFields } from '../../../jsonSchemaFormFabricPlugin';
 import { ObjectTemplate } from '../../../jsonSchemaFormFabricPlugin/fields/objectTemplate';
@@ -19,9 +18,7 @@ import { PropertyContent } from '../../../api/models/modelDefinition';
 import { ErrorBoundary } from './errorBoundary';
 import { getLocalizedData } from '../../../api/dataTransforms/modelDefinitionTransform';
 import { useThemeContext } from '../../../shared/contexts/themeContext';
-
-const EditorPromise = import('react-monaco-editor');
-const Editor = React.lazy(() => EditorPromise);
+import { JSONEditor } from '../../../shared/components/jsonEditor';
 
 export interface ReportedFormDataProps {
     showPanel: boolean;
@@ -41,7 +38,7 @@ export interface ReportedFormState {
 
 export const ComplexReportedFormPanel: React.FC<ReportedFormDataProps & ReportedFormActionProps> = (props: ReportedFormDataProps & ReportedFormActionProps) => {
     const { t } = useTranslation();
-    const { monacoTheme } = useThemeContext();
+    const { editorTheme } = useThemeContext();
 
     const { schema, modelDefinition, showPanel } = props;
     const twinData = twinToFormDataConverter(props.formData, schema);
@@ -86,20 +83,7 @@ export const ComplexReportedFormPanel: React.FC<ReportedFormDataProps & Reported
         return (
             <form>
                 <Label>{t(ResourceKeys.deviceProperties.editor.label, {schema: getSettingSchema()})}</Label>
-                <div className="monaco-editor">
-                    <React.Suspense fallback={<Spinner title={'loading'} size={SpinnerSize.large} />}>
-                        <Editor
-                            language="json"
-                            options={{
-                                automaticLayout: true,
-                                readOnly: true
-                            }}
-                            height="70vh"
-                            value={JSON.stringify(formData, null, '\t')}
-                            theme={monacoTheme}
-                        />
-                    </React.Suspense>
-                </div>
+                <JSONEditor className="json-editor" content={formData}/>
             </form>
         );
     };

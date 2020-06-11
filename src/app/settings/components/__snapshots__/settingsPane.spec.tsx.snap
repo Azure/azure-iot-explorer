@@ -20,7 +20,7 @@ exports[`settingsPane matches snapshot 1`] = `
     onDismiss={[Function]}
     onRenderFooter={[Function]}
     role="dialog"
-    type={3}
+    type={1}
   >
     <header
       className="panel-header"

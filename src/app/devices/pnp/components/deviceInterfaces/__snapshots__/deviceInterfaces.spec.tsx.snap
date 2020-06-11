@@ -64,45 +64,43 @@ exports[`deviceInterfaces shows interface information when status is fetched 1`]
         value="--"
       />
       <Component
-        className="interface-definition-monaco-editor"
-        content={
-          Object {
-            "@context": "http://azureiot.com/v1/contexts/Interface.json",
-            "@id": "urn:azureiot:ModelDiscovery:DigitalTwin:1",
-            "@type": "Interface",
-            "contents": Array [
-              Object {
-                "@type": "Property",
-                "description": "Providing model and optional interfaces information on a digital twin.",
-                "displayName": "Model Information",
-                "name": "modelInformation",
-                "schema": Object {
-                  "@type": "Object",
-                  "fields": Array [
-                    Object {
-                      "name": "modelId",
-                      "schema": "string",
-                    },
-                    Object {
-                      "name": "interfaces",
-                      "schema": Object {
-                        "@type": "Map",
-                        "mapKey": Object {
-                          "name": "name",
-                          "schema": "string",
-                        },
-                        "mapValue": Object {
-                          "name": "schema",
-                          "schema": "string",
-                        },
-                      },
-                    },
-                  ],
-                },
-              },
-            ],
-          }
-        }
+        className="interface-definition-json-editor"
+        content="{
+	\\"@id\\": \\"urn:azureiot:ModelDiscovery:DigitalTwin:1\\",
+	\\"@type\\": \\"Interface\\",
+	\\"contents\\": [
+		{
+			\\"@type\\": \\"Property\\",
+			\\"name\\": \\"modelInformation\\",
+			\\"displayName\\": \\"Model Information\\",
+			\\"description\\": \\"Providing model and optional interfaces information on a digital twin.\\",
+			\\"schema\\": {
+				\\"@type\\": \\"Object\\",
+				\\"fields\\": [
+					{
+						\\"name\\": \\"modelId\\",
+						\\"schema\\": \\"string\\"
+					},
+					{
+						\\"name\\": \\"interfaces\\",
+						\\"schema\\": {
+							\\"@type\\": \\"Map\\",
+							\\"mapKey\\": {
+								\\"name\\": \\"name\\",
+								\\"schema\\": \\"string\\"
+							},
+							\\"mapValue\\": {
+								\\"name\\": \\"schema\\",
+								\\"schema\\": \\"string\\"
+							}
+						}
+					}
+				]
+			}
+		}
+	],
+	\\"@context\\": \\"http://azureiot.com/v1/contexts/Interface.json\\"
+}"
       />
     </section>
   </ErrorBoundary>

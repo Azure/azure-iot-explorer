@@ -6,7 +6,6 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { PrimaryButton, ActionButton } from 'office-ui-fabric-react/lib/components/Button';
 import { Dialog, DialogFooter } from 'office-ui-fabric-react/lib/components/Dialog';
-import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/components/Spinner';
 import { Label } from 'office-ui-fabric-react/lib/components/Label';
 import Form from 'react-jsonschema-form';
 import { Validator } from 'jsonschema';
@@ -19,11 +18,9 @@ import { ParsedJsonSchema } from '../../../api/models/interfaceJsonParserOutput'
 import { dataToTwinConverter, twinToFormDataConverter } from '../../../shared/utils/twinAndJsonSchemaDataConverter';
 import { ErrorBoundary } from './errorBoundary';
 import { LabelWithTooltip } from '../../../shared/components/labelWithTooltip';
-import { useThemeContext } from '../../../shared/contexts/themeContext';
+import { JSONEditor } from '../../../shared/components/jsonEditor';
 import '../../../css/_dataForm.scss';
 
-const EditorPromise = import('react-monaco-editor');
-const Editor = React.lazy(() => EditorPromise);
 const payloadRef = React.createRef<any>(); // tslint:disable-line:no-any
 
 export interface DataFormDataProps {
@@ -49,7 +46,6 @@ export interface DataFormState {
 }
 export const DataForm: React.FC<DataFormDataProps & DataFormActionProps> = (props: DataFormDataProps & DataFormActionProps) => {
     const { t } = useTranslation();
-    const { monacoTheme } = useThemeContext();
 
     const { settingSchema, schema, buttonText, handleSave, craftPayload } = props;
     const twinData = twinToFormDataConverter(props.formData, settingSchema);
@@ -70,21 +66,7 @@ export const DataForm: React.FC<DataFormDataProps & DataFormActionProps> = (prop
                     isBlocking: false
                 }}
             >
-                <div className="monaco-editor">
-                    <React.Suspense fallback={<Spinner title={'loading'} size={SpinnerSize.large} />}>
-                        <Editor
-                            language="json"
-                            ref={payloadRef}
-                            options={{
-                                automaticLayout: true,
-                                readOnly: true,
-                            }}
-                            height="275px"
-                            value={JSON.stringify(payloadPreviewData, null, '\t')}
-                            theme={monacoTheme}
-                        />
-                    </React.Suspense>
-                </div>
+                <JSONEditor className="json-editor" content={payloadPreviewData}/>
                 <DialogFooter>
                     <PrimaryButton
                         onClick={copyPayload}
@@ -154,21 +136,7 @@ export const DataForm: React.FC<DataFormDataProps & DataFormActionProps> = (prop
                 >
                     {t(ResourceKeys.deviceContent.value)}
                 </LabelWithTooltip>
-                <div className="monaco-editor">
-                    <React.Suspense fallback={<Spinner title={'loading'} size={SpinnerSize.large} />}>
-                        <Editor
-                            language="json"
-                            options={{
-                                automaticLayout: true,
-                                readOnly: false
-                            }}
-                            height="30vh"
-                            value={stringifiedFormData}
-                            onChange={onChangeEditor}
-                            theme={monacoTheme}
-                        />
-                    </React.Suspense>
-                </div>
+                <JSONEditor className="json-editor" content={stringifiedFormData ? JSON.parse(stringifiedFormData) : {}}/>
                 {createActionButtons()}
             </form>
         );

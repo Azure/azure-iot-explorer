@@ -35,27 +35,9 @@ exports[`devices/components/deviceTwin snapshot matches snapshot 1`] = `
   <article
     className="device-twin device-detail"
   >
-    <div
-      className="monaco-editor"
-    >
-      <Suspense
-        fallback={
-          <StyledSpinnerBase
-            size={3}
-            title="loading"
-          />
-        }
-      >
-        <lazy
-          language="json"
-          onChange={[Function]}
-          options={
-            Object {
-              "automaticLayout": true,
-              "readOnly": false,
-            }
-          }
-          value="{
+    <Component
+      className="json-editor"
+      content="{
 	\\"deviceEtag\\": \\"\\",
 	\\"deviceId\\": \\"test\\",
 	\\"etag\\": \\"AAAAAAAAAAE=\\",
@@ -75,9 +57,8 @@ exports[`devices/components/deviceTwin snapshot matches snapshot 1`] = `
 	},
 	\\"version\\": 1
 }"
-        />
-      </Suspense>
-    </div>
+      onChange={[Function]}
+    />
   </article>
 </Fragment>
 `;

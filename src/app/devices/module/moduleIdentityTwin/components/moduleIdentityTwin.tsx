@@ -17,18 +17,16 @@ import { getModuleIdentityTwinAction } from '../actions';
 import { MultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
 import { ModuleIdentityDetailHeader } from '../../shared/components/moduleIdentityDetailHeader';
 import { useAsyncSagaReducer } from '../../../../shared/hooks/useAsyncSagaReducer';
+import { JSONEditor } from '../../../../shared/components/jsonEditor';
 import { moduleTwinReducer } from '../reducer';
 import { getModuleIdentityTwinSaga } from '../saga';
 import { moduleTwinStateInitial } from '../state';
 import '../../../../css/_deviceDetail.scss';
 import '../../../../css/_moduleIdentityDetail.scss';
 
-const EditorPromise = import('react-monaco-editor');
-const Editor = React.lazy(() => EditorPromise);
-
 export const ModuleIdentityTwin: React.FC = () => {
     const { t } = useTranslation();
-    const { monacoTheme } = useThemeContext();
+    const { editorTheme } = useThemeContext();
     const { search, pathname } = useLocation();
     const history = useHistory();
     const moduleId = getModuleIdentityIdFromQueryString(search);
@@ -75,19 +73,10 @@ export const ModuleIdentityTwin: React.FC = () => {
         return (
             <>
                 {moduleIdentityTwin &&
-                    <div className="monaco-editor">
-                        <React.Suspense fallback={<Spinner title={'loading'} size={SpinnerSize.large} />}>
-                            <Editor
-                                language="json"
-                                value={JSON.stringify(moduleIdentityTwin, null, '\t')}
-                                options={{
-                                    automaticLayout: true,
-                                    readOnly: true
-                                }}
-                                theme={monacoTheme}
-                            />
-                        </React.Suspense>
-                    </div>
+                    <JSONEditor
+                        content={JSON.stringify(moduleIdentityTwin, null, '\t')}
+                        className="json-editor"
+                    />
                 }
             </>
         );
