@@ -38,26 +38,9 @@ exports[`moduleIdentityTwin snapshot matches snapshot after module twin is fetch
   <div
     className="module-identity-detail"
   >
-    <div
-      className="monaco-editor"
-    >
-      <Suspense
-        fallback={
-          <StyledSpinnerBase
-            size={3}
-            title="loading"
-          />
-        }
-      >
-        <lazy
-          language="json"
-          options={
-            Object {
-              "automaticLayout": true,
-              "readOnly": true,
-            }
-          }
-          value="{
+    <Component
+      className="json-editor"
+      content="{
 	\\"authenticationType\\": \\"sas\\",
 	\\"cloudToDeviceMessageCount\\": 0,
 	\\"connectionState\\": \\"Disconnected\\",
@@ -75,9 +58,7 @@ exports[`moduleIdentityTwin snapshot matches snapshot after module twin is fetch
 		\\"secondaryThumbprint\\": null
 	}
 }"
-        />
-      </Suspense>
-    </div>
+    />
   </div>
 </Fragment>
 `;

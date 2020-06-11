@@ -52,6 +52,6 @@ describe('dataForm', () => {
         }))).toMatchSnapshot();
 
         const wrapper = mount(getComponent());
-        expect(wrapper.find('div.monaco-editor')).toBeDefined();
+        expect(wrapper.find('div.json-editor')).toBeDefined();
     });
 });

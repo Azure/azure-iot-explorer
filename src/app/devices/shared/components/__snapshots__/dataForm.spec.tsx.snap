@@ -81,29 +81,9 @@ exports[`dataForm matches snapshot with simple type 1`] = `
     }
     onDismiss={[Function]}
   >
-    <div
-      className="monaco-editor"
-    >
-      <Suspense
-        fallback={
-          <StyledSpinnerBase
-            size={3}
-            title="loading"
-          />
-        }
-      >
-        <lazy
-          height="275px"
-          language="json"
-          options={
-            Object {
-              "automaticLayout": true,
-              "readOnly": true,
-            }
-          }
-        />
-      </Suspense>
-    </div>
+    <Component
+      className="json-editor"
+    />
     <StyledDialogFooterBase>
       <CustomizedPrimaryButton
         onClick={[Function]}
@@ -124,31 +104,10 @@ exports[`dataForm matches snapshot with unsupported type 1`] = `
     >
       deviceContent.value
     </Component>
-    <div
-      className="monaco-editor"
-    >
-      <Suspense
-        fallback={
-          <StyledSpinnerBase
-            size={3}
-            title="loading"
-          />
-        }
-      >
-        <lazy
-          height="30vh"
-          language="json"
-          onChange={[Function]}
-          options={
-            Object {
-              "automaticLayout": true,
-              "readOnly": false,
-            }
-          }
-          value="123"
-        />
-      </Suspense>
-    </div>
+    <Component
+      className="json-editor"
+      content={123}
+    />
     <CustomizedPrimaryButton
       className="submit-button"
       disabled={false}
@@ -181,29 +140,9 @@ exports[`dataForm matches snapshot with unsupported type 1`] = `
     }
     onDismiss={[Function]}
   >
-    <div
-      className="monaco-editor"
-    >
-      <Suspense
-        fallback={
-          <StyledSpinnerBase
-            size={3}
-            title="loading"
-          />
-        }
-      >
-        <lazy
-          height="275px"
-          language="json"
-          options={
-            Object {
-              "automaticLayout": true,
-              "readOnly": true,
-            }
-          }
-        />
-      </Suspense>
-    </div>
+    <Component
+      className="json-editor"
+    />
     <StyledDialogFooterBase>
       <CustomizedPrimaryButton
         onClick={[Function]}
