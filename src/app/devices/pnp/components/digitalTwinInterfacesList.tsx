@@ -21,7 +21,7 @@ import { LARGE_COLUMN_WIDTH } from '../../../constants/columnWidth';
 import { InterfaceNotFoundMessageBar } from '../../shared/components/interfaceNotFoundMessageBar';
 import { ModelDefinitionSourceView } from '../../shared/components/modelDefinitionSource';
 import { MaskedCopyableTextField } from '../../../shared/components/maskedCopyableTextField';
-import { MonacoEditorView } from '../../../shared/components/monacoEditor';
+import { JSONEditor } from '../../../shared/components/jsonEditor';
 import { HeaderView } from '../../../shared/components/headerView';
 import { MultiLineShimmer } from '../../../shared/components/multiLineShimmer';
 import { usePnpStateContext } from '../../../shared/contexts/pnpStateContext';
@@ -172,9 +172,9 @@ export const DigitalTwinInterfacesList: React.FC = () => {
                         {listView}
                     </PivotItem>
                     <PivotItem headerText={t(ResourceKeys.digitalTwin.pivot.content)}>
-                        <MonacoEditorView
-                            className="interface-definition-monaco-editor"
-                            content={modelDefinitionWithSource.modelDefinition}
+                        <JSONEditor
+                            className="interface-definition-json-editor"
+                            content={JSON.stringify(modelDefinitionWithSource.modelDefinition, null, '\t')}
                         />
                     </PivotItem>
                 </Pivot>
@@ -207,9 +207,9 @@ export const DigitalTwinInterfacesList: React.FC = () => {
                         <MessageBar messageBarType={MessageBarType.error}>
                             {t(ResourceKeys.deviceInterfaces.interfaceNotValid)}
                         </MessageBar>
-                        <MonacoEditorView
-                            className="interface-definition-monaco-editor"
-                            content={modelDefinitionWithSource.modelDefinition}
+                        <JSONEditor
+                            className="interface-definition-json-editor"
+                            content={JSON.stringify(modelDefinitionWithSource.modelDefinition, null, '\t')}
                         />
                     </>
                 }

@@ -1,7 +1,6 @@
 import * as webpack from 'webpack';
 import * as path from 'path';
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // tslint:disable-line: no-var-requires
-const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin'); // tslint:disable-line: no-var-requires
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // tslint:disable-line: no-var-requires
 
 const config: webpack.Configuration = {
@@ -54,44 +53,6 @@ const config: webpack.Configuration = {
                 template: path.resolve(__dirname, '.', 'src', 'index.html')
         }),
         // new BundleAnalyzerPlugin(),
-        new MonacoWebpackPlugin({
-            features: [
-                'accessibilityHelp',
-                'bracketMatching',
-                'caretOperations',
-                'clipboard',
-                // 'codeAction',
-                'codelens',
-                'comment',
-                'contextmenu',
-                'coreCommands',
-                'cursorUndo',
-                'dnd',
-                'find',
-                'folding',
-                'fontZoom',
-                'format',
-                'gotoError',
-                'gotoLine',
-                'hover',
-                'inPlaceReplace',
-                // 'inspectTokens',
-                // 'iPadShowKeyboard',
-                'linesOperations',
-                'links',
-                // 'parameterHints',
-                'rename',
-                'smartSelect',
-                'suggest',
-                'toggleHighContrast',
-                'toggleTabFocusMode',
-                'transpose',
-                'wordHighlighter',
-                'wordOperations',
-                'wordPartOperations'
-            ],
-            languages: ['json']
-        })
     ],
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.

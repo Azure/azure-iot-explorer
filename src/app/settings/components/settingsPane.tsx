@@ -63,7 +63,7 @@ export const SettingsPane: React.FC = () => {
                 role="dialog"
                 isOpen={showPanel}
                 onDismiss={togglePanelVisibility}
-                type={PanelType.medium}
+                type={PanelType.smallFixedFar}
                 isFooterAtBottom={true}
                 onRenderFooter={renderFooter}
                 closeButtonAriaLabel={t(ResourceKeys.common.close)}

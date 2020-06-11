@@ -7,7 +7,7 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import { Themer } from './themer';
 import { THEME_SELECTION, HIGH_CONTRAST } from './app/constants/browserStorage';
-import { Theme, MonacoTheme, ThemeContextProvider } from './app/shared/contexts/themeContext';
+import { Theme, EditorTheme, ThemeContextProvider } from './app/shared/contexts/themeContext';
 import { THEME_LIGHT, THEME_DARK, THEME_LIGHT_HC, THEME_DARK_HC } from './app/constants/themes';
 
 describe('themer', () => {
@@ -19,7 +19,7 @@ describe('themer', () => {
 
         expect(contextProvider.props().value.theme).toEqual(Theme.light);
         expect(contextProvider.props().value.fabricTheme).toEqual(THEME_LIGHT);
-        expect(contextProvider.props().value.monacoTheme).toEqual(MonacoTheme.light);
+        expect(contextProvider.props().value.editorTheme).toEqual(EditorTheme.light);
     });
 
     it('initializes to highContrastWhite when only high contrast is in storage', () => {
@@ -30,7 +30,7 @@ describe('themer', () => {
 
         expect(contextProvider.props().value.theme).toEqual(Theme.highContrastWhite);
         expect(contextProvider.props().value.fabricTheme).toEqual(THEME_LIGHT_HC);
-        expect(contextProvider.props().value.monacoTheme).toEqual(MonacoTheme.hc_black);
+        expect(contextProvider.props().value.editorTheme).toEqual(EditorTheme.hc_black);
     });
 
     it('initializes to light theme', () => {
@@ -41,7 +41,7 @@ describe('themer', () => {
 
         expect(contextProvider.props().value.theme).toEqual(Theme.light);
         expect(contextProvider.props().value.fabricTheme).toEqual(THEME_LIGHT);
-        expect(contextProvider.props().value.monacoTheme).toEqual(MonacoTheme.light);
+        expect(contextProvider.props().value.editorTheme).toEqual(EditorTheme.light);
     });
 
     it('initializes to dark theme', () => {
@@ -52,7 +52,7 @@ describe('themer', () => {
 
         expect(contextProvider.props().value.theme).toEqual(Theme.dark);
         expect(contextProvider.props().value.fabricTheme).toEqual(THEME_DARK);
-        expect(contextProvider.props().value.monacoTheme).toEqual(MonacoTheme.dark);
+        expect(contextProvider.props().value.editorTheme).toEqual(EditorTheme.dark);
     });
 
     it('initializes to high contrast white theme', () => {
@@ -63,7 +63,7 @@ describe('themer', () => {
 
         expect(contextProvider.props().value.theme).toEqual(Theme.highContrastWhite);
         expect(contextProvider.props().value.fabricTheme).toEqual(THEME_LIGHT_HC);
-        expect(contextProvider.props().value.monacoTheme).toEqual(MonacoTheme.hc_black);
+        expect(contextProvider.props().value.editorTheme).toEqual(EditorTheme.hc_black);
     });
 
     it('initializes to high contrast black theme', () => {
@@ -74,7 +74,7 @@ describe('themer', () => {
 
         expect(contextProvider.props().value.theme).toEqual(Theme.highContrastBlack);
         expect(contextProvider.props().value.fabricTheme).toEqual(THEME_DARK_HC);
-        expect(contextProvider.props().value.monacoTheme).toEqual(MonacoTheme.hc_black);
+        expect(contextProvider.props().value.editorTheme).toEqual(EditorTheme.hc_black);
     });
 
     it('initializes to high contrast white theme when light and high contrast', () => {
@@ -85,7 +85,7 @@ describe('themer', () => {
 
         expect(contextProvider.props().value.theme).toEqual(Theme.highContrastWhite);
         expect(contextProvider.props().value.fabricTheme).toEqual(THEME_LIGHT_HC);
-        expect(contextProvider.props().value.monacoTheme).toEqual(MonacoTheme.hc_black);
+        expect(contextProvider.props().value.editorTheme).toEqual(EditorTheme.hc_black);
     });
 
     it('initializes to high contrast black theme when dark and high contrast', () => {
@@ -96,7 +96,7 @@ describe('themer', () => {
 
         expect(contextProvider.props().value.theme).toEqual(Theme.highContrastBlack);
         expect(contextProvider.props().value.fabricTheme).toEqual(THEME_DARK_HC);
-        expect(contextProvider.props().value.monacoTheme).toEqual(MonacoTheme.hc_black);
+        expect(contextProvider.props().value.editorTheme).toEqual(EditorTheme.hc_black);
     });
 
     it('reverts highContrastWhite to light theme when high contrast is false', () => {
@@ -107,7 +107,7 @@ describe('themer', () => {
 
         expect(contextProvider.props().value.theme).toEqual(Theme.light);
         expect(contextProvider.props().value.fabricTheme).toEqual(THEME_LIGHT);
-        expect(contextProvider.props().value.monacoTheme).toEqual(MonacoTheme.light);
+        expect(contextProvider.props().value.editorTheme).toEqual(EditorTheme.light);
     });
 
     it('reverts highContrastBlack to dark theme when high contrast is false', () => {
@@ -118,6 +118,6 @@ describe('themer', () => {
 
         expect(contextProvider.props().value.theme).toEqual(Theme.dark);
         expect(contextProvider.props().value.fabricTheme).toEqual(THEME_DARK);
-        expect(contextProvider.props().value.monacoTheme).toEqual(MonacoTheme.dark);
+        expect(contextProvider.props().value.editorTheme).toEqual(EditorTheme.dark);
     });
 });

@@ -16,6 +16,7 @@ import { LabelWithTooltip } from '../../../shared/components/labelWithTooltip';
 import { useThemeContext } from '../../../shared/contexts/themeContext';
 import { HeaderView } from '../../../shared/components/headerView';
 import { useAsyncSagaReducer } from '../../../shared/hooks/useAsyncSagaReducer';
+import { JSONEditor } from '../../../shared/components/jsonEditor';
 import { invokeDirectMethodSaga } from '../saga';
 import { invokeDirectMethodAction } from '../actions';
 import '../../../css/_deviceDetail.scss';
@@ -23,12 +24,9 @@ import '../../../css/_deviceDetail.scss';
 const SLIDER_MAX = 300;
 const DEFAULT_TIMEOUT = 10;
 
-const EditorPromise = import('react-monaco-editor');
-const Editor = React.lazy(() => EditorPromise);
-
 export const DirectMethod: React.FC = () => {
     const { t } = useTranslation();
-    const { monacoTheme } = useThemeContext();
+    const { editorTheme } = useThemeContext();
     const { search } = useLocation();
     const deviceId = getDeviceIdFromQueryString(search);
 
@@ -98,20 +96,11 @@ export const DirectMethod: React.FC = () => {
                 >
                     {t(ResourceKeys.directMethod.payload)}
                 </LabelWithTooltip>
-                <div className="direct-method-monaco-editor">
-                    <React.Suspense fallback={<Spinner title={'loading'} size={SpinnerSize.large} />}>
-                        <Editor
-                            language="json"
-                            options={{
-                                automaticLayout: true
-                            }}
-                            height="25vh"
-                            value={payload}
-                            onChange={onEditorChange}
-                            theme={monacoTheme}
-                        />
-                    </React.Suspense>
-                </div>
+                <JSONEditor
+                    className="direct-method-json-editor"
+                    content={payload}
+                    onChange={onEditorChange}
+                />
                 <LabelWithTooltip
                     tooltipText={t(ResourceKeys.directMethod.connectionTimeoutTooltip)}
                 >
