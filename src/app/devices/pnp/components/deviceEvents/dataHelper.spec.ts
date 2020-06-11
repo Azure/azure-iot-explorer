@@ -7,7 +7,7 @@ import { testModelDefinition } from './testData';
 import { getDeviceTelemetry } from './dataHelper';
 
 describe('getDeviceTelemetry', () => {
-    it('returns interface settings tuple', () => {
+    it('returns interface events', () => {
         const result = getDeviceTelemetry(testModelDefinition)[0];
         expect(result.parsedSchema.title).toEqual('humid');
     });

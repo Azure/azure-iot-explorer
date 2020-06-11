@@ -7,7 +7,7 @@ import { testDigitalTwin, testModelDefinition, testComponentName, modelInformati
 import { generateReportedTwinSchemaAndInterfaceTuple } from './dataHelper';
 
 describe('getDevicePropertyProps', () => {
-    it('returns interface settings tuple', () => {
+    it('returns interface property tuple', () => {
         const result = generateReportedTwinSchemaAndInterfaceTuple(testModelDefinition, testDigitalTwin, testComponentName)[0];
         expect(result.propertyModelDefinition).toEqual(testModelDefinition.contents[0]);
         expect(result.reportedTwin).toEqual(modelInformationReportedValue);

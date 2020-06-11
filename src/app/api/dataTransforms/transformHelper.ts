@@ -2,7 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import * as moment from 'moment';
+import { parseISO, format } from 'date-fns';
 
 export const parseDateTimeString = (dateTimeString: string): string => {
 
@@ -18,5 +18,5 @@ export const parseDateTimeString = (dateTimeString: string): string => {
         return null;
     }
 
-    return moment.utc(dateTimeString).local().format('h:mm:ss A, MMMM DD, YYYY');
+    return format(parseISO(dateTimeString), 'h:mm:ss a, MM/dd/yyyy').toString();
 };
