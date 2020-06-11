@@ -4,7 +4,6 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import * as moment from 'moment';
 import { Icon } from 'office-ui-fabric-react/lib/components/Icon';
 import { Announced } from 'office-ui-fabric-react/lib/components/Announced';
 import { Notification, NotificationType } from '../../api/models/notification';
@@ -34,7 +33,7 @@ export const NotificationListEntry: React.SFC<NotificationListEntryProps> = (pro
                 }
 
                 <div className="message">{t(notification.text.translationKey, notification.text.translationOptions)}</div>
-                <div className="time">{moment.default(notification.issued).format('LT')}</div>
+                <div className="time">{notification.issued}</div>
             </div>
         </div>
     );

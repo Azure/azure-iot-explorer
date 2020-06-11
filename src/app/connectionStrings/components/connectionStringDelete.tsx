@@ -41,9 +41,8 @@ export const ConnectionStringDelete: React.FC<ConnectionStringDeleteProps> = pro
                     aria-label={t(ResourceKeys.connectionStrings.deleteConnection.input)}
                     cols={COLS_FOR_CONNECTION}
                     rows={ROWS_FOR_CONNECTION}
-                >
-                    {connectionString}
-                </textarea>
+                    value={connectionString}
+                />
             </div>
             <DialogFooter>
                 <PrimaryButton

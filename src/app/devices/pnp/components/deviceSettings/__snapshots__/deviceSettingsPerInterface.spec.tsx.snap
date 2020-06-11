@@ -59,6 +59,13 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
       interfaceId="urn:contoso:com:EnvironmentalSensor:1"
       isComponentContainedInDigitalTwin={true}
       key="0"
+      metadata={
+        Object {
+          "desiredValue": 456,
+          "desiredVersion": 2,
+          "lastUpdateTime": "2020-03-31T23:17:42.4813073Z",
+        }
+      }
       patchDigitalTwin={[MockFunction]}
       reportedTwin={123}
       settingModelDefinition={
@@ -86,7 +93,11 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
         Array [
           Object {
             "isComponentContainedInDigitalTwin": true,
-            "metadata": undefined,
+            "metadata": Object {
+              "desiredValue": 456,
+              "desiredVersion": 2,
+              "lastUpdateTime": "2020-03-31T23:17:42.4813073Z",
+            },
             "reportedTwin": 123,
             "settingModelDefinition": Object {
               "@type": "Property",
@@ -108,7 +119,11 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
           },
           Object {
             "isComponentContainedInDigitalTwin": true,
-            "metadata": undefined,
+            "metadata": Object {
+              "desiredValue": 456,
+              "desiredVersion": 2,
+              "lastUpdateTime": "2020-03-31T23:17:42.4813073Z",
+            },
             "reportedTwin": 123,
             "settingModelDefinition": Object {
               "@type": Array [
@@ -143,6 +158,13 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
       interfaceId="urn:contoso:com:EnvironmentalSensor:1"
       isComponentContainedInDigitalTwin={true}
       key="1"
+      metadata={
+        Object {
+          "desiredValue": 456,
+          "desiredVersion": 2,
+          "lastUpdateTime": "2020-03-31T23:17:42.4813073Z",
+        }
+      }
       patchDigitalTwin={[MockFunction]}
       reportedTwin={123}
       settingModelDefinition={
@@ -173,7 +195,11 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
         Array [
           Object {
             "isComponentContainedInDigitalTwin": true,
-            "metadata": undefined,
+            "metadata": Object {
+              "desiredValue": 456,
+              "desiredVersion": 2,
+              "lastUpdateTime": "2020-03-31T23:17:42.4813073Z",
+            },
             "reportedTwin": 123,
             "settingModelDefinition": Object {
               "@type": "Property",
@@ -195,7 +221,11 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
           },
           Object {
             "isComponentContainedInDigitalTwin": true,
-            "metadata": undefined,
+            "metadata": Object {
+              "desiredValue": 456,
+              "desiredVersion": 2,
+              "lastUpdateTime": "2020-03-31T23:17:42.4813073Z",
+            },
             "reportedTwin": 123,
             "settingModelDefinition": Object {
               "@type": Array [
