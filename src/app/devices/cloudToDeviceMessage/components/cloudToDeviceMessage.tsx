@@ -15,7 +15,6 @@ import { Selection } from 'office-ui-fabric-react/lib/utilities/selection/Select
 import { Label } from 'office-ui-fabric-react/lib/components/Label';
 import { IContextualMenuItem } from 'office-ui-fabric-react/lib/components/ContextualMenu';
 import { v4 as uuid } from 'uuid';
-import { utc } from 'moment';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { CLOUD_TO_DEVICE_MESSAGE, ArrayOperation, ITEM, CIRCLE_ADD, CIRCLE_ADD_SOLID } from '../../../constants/iconNames';
@@ -260,9 +259,9 @@ export const CloudToDeviceMessage: React.FC = () => {
         };
 
         const handleEditExpiryTime = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
-            const items = properties;
+            const items = [...properties];
             items[index] = {...items[index], value: newValue};
-            setShowExpiryError(!parseInt(newValue) || utc(parseInt(newValue)) <= utc()); // tslint:disable-line:radix
+            setShowExpiryError(!parseInt(newValue) || new Date(parseInt(newValue)) <= new Date()); // tslint:disable-line:radix
             setProperties(items);
         };
 
