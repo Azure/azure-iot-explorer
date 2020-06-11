@@ -18,10 +18,8 @@
     padding-top: 10px;
 }
 
-.direct-method-monaco-editor {
-    @include themify($themes) {
-        border: 1px solid themed('borderColor')
-    }
+.direct-method-json-editor {
+    height: 200px;
     margin-bottom: 15px;
 }
 

@@ -7,7 +7,7 @@ import { Fabric } from 'office-ui-fabric-react/lib/Fabric';
 import { Customizer } from 'office-ui-fabric-react/lib/Utilities';
 import { createTheme } from 'office-ui-fabric-react/lib/Styling';
 import { SCOPED_SETTINGS, THEME_DARK, THEME_LIGHT, THEME_DARK_HC, THEME_LIGHT_HC } from './app/constants/themes';
-import { Theme, MonacoTheme, ThemeContextProvider } from './app/shared/contexts/themeContext';
+import { Theme, EditorTheme, ThemeContextProvider } from './app/shared/contexts/themeContext';
 import { THEME_SELECTION, HIGH_CONTRAST } from './app/constants/browserStorage';
 
 // tslint:disable-next-line: cyclomatic-complexity
@@ -47,24 +47,24 @@ const getThemeState = (theme: Theme) => {
     // tslint:disable-next-line: no-any
     const themes = {} as any;
     themes[Theme.dark] = {
+        editorTheme: EditorTheme.dark,
         fabricTheme: THEME_DARK,
-        monacoTheme: MonacoTheme.dark,
         theme: Theme.dark
     };
     themes[Theme.highContrastBlack] = {
+        editorTheme: EditorTheme.hc_black,
         fabricTheme: THEME_DARK_HC,
-        monacoTheme: MonacoTheme.hc_black,
         theme: Theme.highContrastBlack
     };
 
     themes[Theme.highContrastWhite] = {
+        editorTheme: EditorTheme.hc_black,
         fabricTheme: THEME_LIGHT_HC,
-        monacoTheme: MonacoTheme.hc_black,
         theme: Theme.highContrastWhite
     };
     themes[Theme.light] = {
+        editorTheme: EditorTheme.light,
         fabricTheme: THEME_LIGHT,
-        monacoTheme: MonacoTheme.light,
         theme: Theme.light
     };
 

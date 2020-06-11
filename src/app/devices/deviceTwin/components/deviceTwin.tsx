@@ -6,27 +6,22 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
-import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/components/Spinner';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { getDeviceTwinAction, updateDeviceTwinAction } from '../actions';
 import { REFRESH, SAVE } from '../../../constants/iconNames';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
-import { useThemeContext } from '../../../shared/contexts/themeContext';
 import { MultiLineShimmer } from '../../../shared/components/multiLineShimmer';
 import { HeaderView } from '../../../shared/components/headerView';
 import { useAsyncSagaReducer } from '../../../shared/hooks/useAsyncSagaReducer';
+import { JSONEditor } from '../../../shared/components/jsonEditor';
 import { deviceTwinReducer } from '../reducer';
 import { deviceTwinSaga } from '../saga';
 import { deviceTwinStateInitial } from '../state';
 import '../../../css/_deviceTwin.scss';
 
-const EditorPromise = import('react-monaco-editor');
-const Editor = React.lazy(() => EditorPromise);
-
 export const DeviceTwin: React.FC = () => {
     const { t } = useTranslation();
-    const { monacoTheme } = useThemeContext();
     const { search } = useLocation();
 
     const [ localState, dispatch ] = useAsyncSagaReducer(deviceTwinReducer, deviceTwinSaga, deviceTwinStateInitial());
@@ -121,20 +116,11 @@ export const DeviceTwin: React.FC = () => {
         return (
             <article className="device-twin device-detail">
                 { twin &&
-                    <div className="monaco-editor">
-                        <React.Suspense fallback={<Spinner title={'loading'} size={SpinnerSize.large} />}>
-                            <Editor
-                                language="json"
-                                value={state.twin}
-                                options={{
-                                    automaticLayout: true,
-                                    readOnly: false
-                                }}
-                                onChange={onChange}
-                                theme={monacoTheme}
-                            />
-                        </React.Suspense>
-                    </div>
+                    <JSONEditor
+                        className="json-editor"
+                        content={JSON.stringify(twin, null, '\t')}
+                        onChange={onChange}
+                    />
                 }
             </article>
         );

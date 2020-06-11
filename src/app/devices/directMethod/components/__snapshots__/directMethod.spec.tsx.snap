@@ -42,30 +42,11 @@ exports[`directMethod matches snapshot 1`] = `
       >
         directMethod.payload
       </Component>
-      <div
-        className="direct-method-monaco-editor"
-      >
-        <Suspense
-          fallback={
-            <StyledSpinnerBase
-              size={3}
-              title="loading"
-            />
-          }
-        >
-          <lazy
-            height="25vh"
-            language="json"
-            onChange={[Function]}
-            options={
-              Object {
-                "automaticLayout": true,
-              }
-            }
-            value=""
-          />
-        </Suspense>
-      </div>
+      <Component
+        className="direct-method-json-editor"
+        content=""
+        onChange={[Function]}
+      />
       <Component
         tooltipText="directMethod.connectionTimeoutTooltip"
       >

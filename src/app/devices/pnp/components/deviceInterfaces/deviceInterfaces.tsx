@@ -16,7 +16,7 @@ import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinition
 import { MultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
 import { MaskedCopyableTextField } from '../../../../shared/components/maskedCopyableTextField';
 import { ROUTE_PARAMS } from '../../../../constants/routes';
-import { MonacoEditorView } from '../../../../shared/components/monacoEditor';
+import { JSONEditor } from '../../../../shared/components/jsonEditor';
 import { ModelDefinitionSourceView } from '../../../shared/components/modelDefinitionSource';
 import { usePnpStateContext } from '../../../../shared/contexts/pnpStateContext';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
@@ -100,9 +100,9 @@ export const DeviceInterfaces: React.FC = () => {
         return (
             <>
                 { modelDefinitionWithSource && modelDefinitionWithSource.modelDefinition &&
-                    <MonacoEditorView
-                        className={`${isValidInterface ? 'interface-definition-monaco-editor' : 'invalid-interface-definition-monaco-editor'}`}
-                        content={modelDefinitionWithSource.modelDefinition}
+                    <JSONEditor
+                        className={`${isValidInterface ? 'interface-definition-json-editor' : 'invalid-interface-definition-json-editor'}`}
+                        content={JSON.stringify(modelDefinitionWithSource.modelDefinition, null, '\t')}
                     />
                 }
             </>
