@@ -2,6 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
+import { format } from 'date-fns';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { setRepositoryLocationsAction, clearNotificationsAction, markAllNotificationsAsReadAction, addNotificationAction } from './actions';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
@@ -36,7 +37,7 @@ export const globalReducer = reducerWithInitialState<GlobalStateType>(globalStat
         let existingId: boolean = false;
 
         if (!payload.issued) {
-            payload.issued =  Date();
+            payload.issued = format(new Date(), 'h:mm:ss a');
         }
 
         if (payload.id) {

@@ -10,6 +10,11 @@ describe('generateTwinSchemaAndInterfaceTuple', () => {
     it('returns interface settings tuple', () => {
         expect(generateTwinSchemaAndInterfaceTuple(testModelDefinition, testDigitalTwin, testComponentName).twinWithSchema[0]).toEqual({
             isComponentContainedInDigitalTwin: true,
+            metadata: {
+                desiredValue: 456,
+                desiredVersion: 2,
+                lastUpdateTime: '2020-03-31T23:17:42.4813073Z',
+            },
             reportedTwin: 123,
             settingModelDefinition: testModelDefinition.contents[0],
             settingSchema: {

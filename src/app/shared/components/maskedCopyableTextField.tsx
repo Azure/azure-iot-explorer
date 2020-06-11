@@ -106,7 +106,7 @@ export const MaskedCopyableTextField: React.FC<MaskedCopyableTextFieldProps> = (
                         aria-label={ariaLabel}
                         id={labelIdentifier}
                         ref={visibleInputRef}
-                        value={value}
+                        value={value || ''}
                         type={(allowMask && hideContents) ? 'password' : 'text'}
                         className="input"
                         readOnly={readOnly}
@@ -119,7 +119,7 @@ export const MaskedCopyableTextField: React.FC<MaskedCopyableTextFieldProps> = (
                         style={{ position: 'absolute', opacity: 0, height: '1px', width: '1px'}}
                         tabIndex={-1}
                         ref={hiddenInputRef}
-                        value={value}
+                        value={value || ''}
                         className="input"
                         readOnly={true}
                     />
