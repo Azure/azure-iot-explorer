@@ -13,7 +13,7 @@ import { DataPlaneResponse } from '../models/device';
 import { ModuleIdentity } from '../models/moduleIdentity';
 import { ModuleTwin } from '../models/moduleTwin';
 import { dataPlaneConnectionHelper, dataPlaneResponseHelper, request, DATAPLANE_CONTROLLER_ENDPOINT, DataPlaneRequest } from './dataplaneServiceHelper';
-import { HEADERS } from '../../constants/apiConstants';
+import { HEADERS, HUB_DATA_PLANE_API_VERSION } from '../../constants/apiConstants';
 
 export interface IoTHubConnectionSettings {
     hostName?: string;
@@ -31,6 +31,7 @@ export const fetchModuleIdentities = async (parameters: FetchModuleIdentitiesPar
         const connectionInformation = dataPlaneConnectionHelper(parameters);
 
         const dataPlaneRequest: DataPlaneRequest = {
+            apiVersion:  HUB_DATA_PLANE_API_VERSION,
             hostName: connectionInformation.connectionInfo.hostName,
             httpMethod: HTTP_OPERATION_TYPES.Get,
             path: `devices/${parameters.deviceId}/modules`,
@@ -50,6 +51,7 @@ export const addModuleIdentity = async (parameters: AddModuleIdentityParameters)
         const connectionInformation = dataPlaneConnectionHelper(parameters);
 
         const dataPlaneRequest: DataPlaneRequest = {
+            apiVersion:  HUB_DATA_PLANE_API_VERSION,
             body: JSON.stringify(parameters.moduleIdentity),
             hostName: connectionInformation.connectionInfo.hostName,
             httpMethod: HTTP_OPERATION_TYPES.Put,
@@ -70,6 +72,7 @@ export const fetchModuleIdentityTwin = async (parameters: ModuleIdentityTwinPara
         const connectionInformation = dataPlaneConnectionHelper(parameters);
 
         const dataPlaneRequest: DataPlaneRequest = {
+            apiVersion:  HUB_DATA_PLANE_API_VERSION,
             hostName: connectionInformation.connectionInfo.hostName,
             httpMethod: HTTP_OPERATION_TYPES.Get,
             path: `twins/${parameters.deviceId}/modules/${parameters.moduleId}`,
@@ -89,6 +92,7 @@ export const fetchModuleIdentity = async (parameters: FetchModuleIdentityParamet
         const connectionInformation = dataPlaneConnectionHelper(parameters);
 
         const dataPlaneRequest: DataPlaneRequest = {
+            apiVersion:  HUB_DATA_PLANE_API_VERSION,
             hostName: connectionInformation.connectionInfo.hostName,
             httpMethod: HTTP_OPERATION_TYPES.Get,
             path: `devices/${parameters.deviceId}/modules/${parameters.moduleId}`,
@@ -108,6 +112,7 @@ export const deleteModuleIdentity = async (parameters: FetchModuleIdentityParame
         const connectionInformation = dataPlaneConnectionHelper(parameters);
 
         const dataPlaneRequest: DataPlaneRequest = {
+            apiVersion:  HUB_DATA_PLANE_API_VERSION,
             headers: {} as any, // tslint:disable-line: no-any
             hostName: connectionInformation.connectionInfo.hostName,
             httpMethod: HTTP_OPERATION_TYPES.Delete,

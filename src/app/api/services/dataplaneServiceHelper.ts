@@ -11,7 +11,7 @@ import { PortIsInUseError } from '../models/portIsInUseError';
 export const DATAPLANE_CONTROLLER_ENDPOINT = `${CONTROLLER_API_ENDPOINT}${DATAPLANE}`;
 
 export interface DataPlaneRequest {
-    apiVersion?: string;
+    apiVersion: string;
     body?: string;
     headers?: unknown;
     hostName: string;

@@ -10,6 +10,7 @@ import { getConnectionInfoFromConnectionString } from '../shared/utils';
 import { DataPlaneParameters } from '../parameters/deviceParameters';
 import { ModuleIdentity } from '../models/moduleIdentity';
 import { ModuleTwin } from '../models/moduleTwin';
+import { HUB_DATA_PLANE_API_VERSION } from '../../constants/apiConstants';
 
 const deviceId = 'deviceId';
 const moduleId = 'moduleId';
@@ -83,6 +84,7 @@ describe('moduleService', () => {
 
             const connectionInformation = mockDataPlaneConnectionHelper({connectionString});
             const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
+                apiVersion:  HUB_DATA_PLANE_API_VERSION,
                 hostName: connectionInformation.connectionInfo.hostName,
                 httpMethod: HTTP_OPERATION_TYPES.Get,
                 path: `devices/${deviceId}/modules`,
@@ -133,6 +135,7 @@ describe('moduleService', () => {
 
             const connectionInformation = mockDataPlaneConnectionHelper({connectionString});
             const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
+                apiVersion:  HUB_DATA_PLANE_API_VERSION,
                 body: JSON.stringify(parameters.moduleIdentity),
                 hostName: connectionInformation.connectionInfo.hostName,
                 httpMethod: HTTP_OPERATION_TYPES.Put,
@@ -185,6 +188,7 @@ describe('moduleService', () => {
 
             const connectionInformation = mockDataPlaneConnectionHelper({connectionString});
             const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
+                apiVersion:  HUB_DATA_PLANE_API_VERSION,
                 hostName: connectionInformation.connectionInfo.hostName,
                 httpMethod: HTTP_OPERATION_TYPES.Get,
                 path: `twins/${deviceId}/modules/${moduleId}`,
@@ -236,6 +240,7 @@ describe('moduleService', () => {
 
             const connectionInformation = mockDataPlaneConnectionHelper({connectionString});
             const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
+                apiVersion:  HUB_DATA_PLANE_API_VERSION,
                 hostName: connectionInformation.connectionInfo.hostName,
                 httpMethod: HTTP_OPERATION_TYPES.Get,
                 path: `devices/${deviceId}/modules/${moduleId}`,
@@ -287,6 +292,7 @@ describe('moduleService', () => {
 
             const connectionInformation = mockDataPlaneConnectionHelper({connectionString});
             const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
+                apiVersion:  HUB_DATA_PLANE_API_VERSION,
                 headers: {'If-Match': '*'},
                 hostName: connectionInformation.connectionInfo.hostName,
                 httpMethod: HTTP_OPERATION_TYPES.Delete,

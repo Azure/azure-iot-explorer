@@ -20,6 +20,7 @@ import {
 import { CONTROLLER_API_ENDPOINT,
     EVENTHUB,
     DIGITAL_TWIN_API_VERSION,
+    HUB_DATA_PLANE_API_VERSION,
     MONITOR,
     STOP,
     HEADERS,
@@ -60,11 +61,35 @@ export const fetchDeviceTwin = async (parameters: FetchDeviceTwinParameters): Pr
 
         const connectionInformation = dataPlaneConnectionHelper(parameters);
         const dataPlaneRequest: DataPlaneRequest = {
-            apiVersion: DIGITAL_TWIN_API_VERSION,
+            apiVersion: HUB_DATA_PLANE_API_VERSION,
             hostName: connectionInformation.connectionInfo.hostName,
             httpMethod: HTTP_OPERATION_TYPES.Get,
             path: `twins/${parameters.deviceId}`,
             sharedAccessSignature: connectionInformation.sasToken
+        };
+
+        const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
+        const result = await dataPlaneResponseHelper(response);
+        return result.body;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const updateDeviceTwin = async (parameters: UpdateDeviceTwinParameters): Promise<Twin> => {
+    try {
+        if (!parameters.deviceId) {
+            return;
+        }
+
+        const connectionInformation = dataPlaneConnectionHelper(parameters);
+        const dataPlaneRequest: DataPlaneRequest = {
+            apiVersion: HUB_DATA_PLANE_API_VERSION,
+            body: JSON.stringify(parameters.deviceTwin),
+            hostName: connectionInformation.connectionInfo.hostName,
+            httpMethod: HTTP_OPERATION_TYPES.Patch,
+            path: `twins/${parameters.deviceId}`,
+            sharedAccessSignature: connectionInformation.sasToken,
         };
 
         const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
@@ -151,30 +176,6 @@ export const patchDigitalTwinInterfaceProperties = async (parameters: PatchDigit
     }
 };
 
-export const updateDeviceTwin = async (parameters: UpdateDeviceTwinParameters): Promise<Twin> => {
-    try {
-        if (!parameters.deviceId) {
-            return;
-        }
-
-        const connectionInformation = dataPlaneConnectionHelper(parameters);
-        const dataPlaneRequest: DataPlaneRequest = {
-            apiVersion: DIGITAL_TWIN_API_VERSION,
-            body: JSON.stringify(parameters.deviceTwin),
-            hostName: connectionInformation.connectionInfo.hostName,
-            httpMethod: HTTP_OPERATION_TYPES.Patch,
-            path: `twins/${parameters.deviceId}`,
-            sharedAccessSignature: connectionInformation.sasToken,
-        };
-
-        const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
-        const result = await dataPlaneResponseHelper(response);
-        return result.body;
-    } catch (error) {
-        throw error;
-    }
-};
-
 export const invokeDirectMethod = async (parameters: InvokeMethodParameters): Promise<DirectMethodResult> => {
     try {
         if (!parameters.deviceId) {
@@ -183,6 +184,7 @@ export const invokeDirectMethod = async (parameters: InvokeMethodParameters): Pr
 
         const connectionInfo = dataPlaneConnectionHelper(parameters);
         const dataPlaneRequest: DataPlaneRequest = {
+            apiVersion:  HUB_DATA_PLANE_API_VERSION,
             body: JSON.stringify({
                 connectTimeoutInSeconds: parameters.connectTimeoutInSeconds,
                 methodName: parameters.methodName,
@@ -223,6 +225,7 @@ export const addDevice = async (parameters: AddDeviceParameters): Promise<Device
 
         const connectionInfo = dataPlaneConnectionHelper(parameters);
         const dataPlaneRequest: DataPlaneRequest = {
+            apiVersion:  HUB_DATA_PLANE_API_VERSION,
             body: JSON.stringify(parameters.deviceIdentity),
             hostName: connectionInfo.connectionInfo.hostName,
             httpMethod: HTTP_OPERATION_TYPES.Put,
@@ -246,6 +249,7 @@ export const updateDevice = async (parameters: UpdateDeviceParameters): Promise<
 
         const connectionInfo = dataPlaneConnectionHelper(parameters);
         const dataPlaneRequest: DataPlaneRequest = {
+            apiVersion:  HUB_DATA_PLANE_API_VERSION,
             body: JSON.stringify(parameters.deviceIdentity),
             headers: {} as any, // tslint:disable-line: no-any
             hostName: connectionInfo.connectionInfo.hostName,
@@ -272,6 +276,7 @@ export const fetchDevice = async (parameters: FetchDeviceParameters): Promise<De
 
         const connectionInfo = dataPlaneConnectionHelper(parameters);
         const dataPlaneRequest: DataPlaneRequest = {
+            apiVersion:  HUB_DATA_PLANE_API_VERSION,
             hostName: connectionInfo.connectionInfo.hostName,
             httpMethod: HTTP_OPERATION_TYPES.Get,
             path: `devices/${parameters.deviceId}`,
@@ -293,6 +298,7 @@ export const fetchDevices = async (parameters: FetchDevicesParameters): Promise<
         const queryString = buildQueryString(parameters.query);
 
         const dataPlaneRequest: DataPlaneRequest = {
+            apiVersion:  HUB_DATA_PLANE_API_VERSION,
             body: JSON.stringify({
                 query: queryString,
             }),
@@ -333,6 +339,7 @@ export const deleteDevices = async (parameters: DeleteDevicesParameters) => {
 
         const connectionInfo = dataPlaneConnectionHelper(parameters);
         const dataPlaneRequest: DataPlaneRequest = {
+            apiVersion:  HUB_DATA_PLANE_API_VERSION,
             body: JSON.stringify(deviceDeletionInstructions),
             hostName: connectionInfo.connectionInfo.hostName,
             httpMethod: HTTP_OPERATION_TYPES.Post,

@@ -6,7 +6,7 @@ import 'jest';
 import * as DevicesService from './devicesService';
 import * as DataplaneService from './dataplaneServiceHelper';
 import { HTTP_OPERATION_TYPES } from '../constants';
-import { DIGITAL_TWIN_API_VERSION, CONTROLLER_API_ENDPOINT, CLOUD_TO_DEVICE } from '../../constants/apiConstants';
+import { DIGITAL_TWIN_API_VERSION, HUB_DATA_PLANE_API_VERSION, CONTROLLER_API_ENDPOINT, CLOUD_TO_DEVICE } from '../../constants/apiConstants';
 import { CONNECTION_TIMEOUT_IN_SECONDS, RESPONSE_TIME_IN_SECONDS } from '../../constants/devices';
 import { Twin } from '../models/device';
 import { DeviceIdentity } from './../models/deviceIdentity';
@@ -98,7 +98,7 @@ describe('deviceTwinService', () => {
 
             const connectionInformation = mockDataPlaneConnectionHelper({connectionString});
             const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
-                apiVersion: DIGITAL_TWIN_API_VERSION,
+                apiVersion: HUB_DATA_PLANE_API_VERSION,
                 hostName: connectionInformation.connectionInfo.hostName,
                 httpMethod: HTTP_OPERATION_TYPES.Get,
                 path: `twins/${deviceId}`,
@@ -398,7 +398,7 @@ describe('deviceTwinService', () => {
 
             const connectionInformation = mockDataPlaneConnectionHelper({connectionString});
             const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
-                apiVersion: DIGITAL_TWIN_API_VERSION,
+                apiVersion: HUB_DATA_PLANE_API_VERSION,
                 body: JSON.stringify(twin),
                 hostName: connectionInformation.connectionInfo.hostName,
                 httpMethod: HTTP_OPERATION_TYPES.Patch,
@@ -466,6 +466,7 @@ describe('deviceTwinService', () => {
 
             const connectionInformation = mockDataPlaneConnectionHelper({connectionString});
             const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
+                apiVersion:  HUB_DATA_PLANE_API_VERSION,
                 body: JSON.stringify({
                     connectTimeoutInSeconds: parameters.connectTimeoutInSeconds,
                     methodName: parameters.methodName,
@@ -585,6 +586,7 @@ describe('deviceTwinService', () => {
 
             const connectionInformation = mockDataPlaneConnectionHelper({connectionString});
             const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
+                apiVersion:  HUB_DATA_PLANE_API_VERSION,
                 body: JSON.stringify(deviceIdentity),
                 hostName: connectionInformation.connectionInfo.hostName,
                 httpMethod: HTTP_OPERATION_TYPES.Put,
@@ -647,6 +649,7 @@ describe('deviceTwinService', () => {
 
             const connectionInformation = mockDataPlaneConnectionHelper({connectionString});
             const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
+                apiVersion:  HUB_DATA_PLANE_API_VERSION,
                 body: JSON.stringify(deviceIdentity),
                 hostName: connectionInformation.connectionInfo.hostName,
                 httpMethod: HTTP_OPERATION_TYPES.Put,
@@ -709,6 +712,7 @@ describe('deviceTwinService', () => {
 
             const connectionInformation = mockDataPlaneConnectionHelper({connectionString});
             const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
+                apiVersion:  HUB_DATA_PLANE_API_VERSION,
                 hostName: connectionInformation.connectionInfo.hostName,
                 httpMethod: HTTP_OPERATION_TYPES.Get,
                 path: `devices/${deviceId}`,
@@ -771,6 +775,7 @@ describe('deviceTwinService', () => {
             const queryString = buildQueryString(parameters.query);
 
             const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
+                apiVersion:  HUB_DATA_PLANE_API_VERSION,
                 body: JSON.stringify({
                     query: queryString,
                 }),
@@ -843,6 +848,7 @@ describe('deviceTwinService', () => {
                 };
             });
             const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
+                apiVersion:  HUB_DATA_PLANE_API_VERSION,
                 body: JSON.stringify(deviceDeletionInstructions),
                 hostName: connectionInformation.connectionInfo.hostName,
                 httpMethod: HTTP_OPERATION_TYPES.Post,
