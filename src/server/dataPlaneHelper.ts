@@ -4,7 +4,6 @@
  **********************************************************/
 import express = require('express');
 import request = require('request');
-export const API_VERSION = '2018-06-30';
 const DEVICE_STATUS_HEADER = 'x-ms-command-statuscode';
 const MULTIPLE_CHOICES = 300;
 const SUCCESS = 200;
@@ -19,7 +18,7 @@ export const generateDataPlaneRequestBody = (req: express.Request) => {
         ...req.body.headers
     };
 
-    const apiVersion = req.body.apiVersion || API_VERSION;
+    const apiVersion = req.body.apiVersion;
     const queryString = req.body.queryString ? `?${req.body.queryString}&api-version=${apiVersion}` : `?api-version=${apiVersion}`;
 
     return {
