@@ -12,7 +12,7 @@ exports[`HomeView matches snapshot 1`] = `
       <Component />
     </div>
     <div
-      className="content"
+      className="home-content"
     >
       <Switch>
         <Redirect

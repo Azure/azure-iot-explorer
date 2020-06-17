@@ -13,7 +13,7 @@ describe('connectionStrings/saga/rootSaga', () => {
     it('returns specified sagas', () => {
         expect(connectionStringsSaga().next().value).toEqual(all([
             takeEvery(deleteConnectionStringAction, deleteConnectionStringSaga),
-            takeLatest(setConnectionStringsAction, setConnectionStringsSaga),
+            takeLatest(setConnectionStringsAction.started.type, setConnectionStringsSaga),
             takeEvery(upsertConnectionStringAction, upsertConnectionStringSaga)
         ]));
     });

@@ -19,7 +19,7 @@ export const HomeView: React.FC = () => {
                 <div className="nav">
                     <HomeViewNavigation/>
                 </div>
-                <div className="content">
+                <div className="home-content">
                     <Switch>
                         <Redirect from={`/${ROUTE_PARTS.HOME}`} to={`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.RESOURCES}`} exact={true}/>
                         <Route path={`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.RESOURCES}`} component={AzureResourcesView} exact={true} />

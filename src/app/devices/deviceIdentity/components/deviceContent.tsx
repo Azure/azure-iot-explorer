@@ -101,7 +101,7 @@ export const DeviceContent: React.FC = () => {
     };
 
     const collapseToggle = () => {
-        setAppMenuVisible(true);
+        setAppMenuVisible(!appMenuVisible);
     };
 
     const createNavLinks = () => {

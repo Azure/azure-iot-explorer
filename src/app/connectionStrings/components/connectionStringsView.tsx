@@ -18,6 +18,9 @@ import { useAsyncSagaReducer } from '../../shared/hooks/useAsyncSagaReducer';
 import { connectionStringsReducer } from '../reducer';
 import { connectionStringsSaga } from '../sagas';
 import { connectionStringsStateInitial } from '../state';
+import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
+import { MultiLineShimmer } from '../../shared/components/multiLineShimmer';
+import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
 import '../../css/_layouts.scss';
 import './connectionStringsView.scss';
 
@@ -28,7 +31,8 @@ export const ConnectionStringsView: React.FC = () => {
     const [ localState, dispatch ] = useAsyncSagaReducer(connectionStringsReducer, connectionStringsSaga, connectionStringsStateInitial());
     const [ connectionStringUnderEdit, setConnectionStringUnderEdit ] = React.useState<string>(undefined);
 
-    const connectionStrings = localState.connectionStrings;
+    const connectionStrings = localState.payload;
+    const synchronizationStatus = localState.synchronizationStatus;
 
     const onUpsertConnectionString = (newConnectionString: string, connectionString?: string) => {
         dispatch(upsertConnectionStringAction({newConnectionString, connectionString}));
@@ -38,11 +42,9 @@ export const ConnectionStringsView: React.FC = () => {
         dispatch(deleteConnectionStringAction(connectionString));
     };
 
-    const onSelectConnectionString = (connectionString: string, hostName: string) => {
+    const onSelectConnectionString = (connectionString: string) => {
         const updatedConnectionStrings = formatConnectionStrings(connectionStrings, connectionString);
-
-        dispatch(setConnectionStringsAction(updatedConnectionStrings));
-        history.push(`/${ROUTE_PARTS.RESOURCE}/${hostName}/${ROUTE_PARTS.DEVICES}`);
+        dispatch(setConnectionStringsAction.started(updatedConnectionStrings));
     };
 
     const onAddConnectionStringClick = () => {
@@ -61,6 +63,19 @@ export const ConnectionStringsView: React.FC = () => {
     const onConnectionStringEditDismiss = () => {
         setConnectionStringUnderEdit(undefined);
     };
+
+    React.useEffect(() => {
+        if (synchronizationStatus === SynchronizationStatus.upserted) { // only when connection string updated successfully would navigate to device list view
+            const connectionSettings = getConnectionInfoFromConnectionString(connectionStrings[0]);
+            history.push(`/${ROUTE_PARTS.RESOURCE}/${connectionSettings.hostName}/${ROUTE_PARTS.DEVICES}`);
+        }
+    },              [synchronizationStatus]);
+
+    if (synchronizationStatus === SynchronizationStatus.updating) {
+        return (
+            <MultiLineShimmer/>
+        );
+    }
 
     return (
         <div className="view">

@@ -19,7 +19,7 @@ export interface ConnectionStringProps {
     connectionString: string;
     onEditConnectionString(connectionString: string): void;
     onDeleteConnectionString(connectionString: string): void;
-    onSelectConnectionString(connectionString: string, hostName: string): void;
+    onSelectConnectionString(connectionString: string): void;
 }
 
 export const ConnectionString: React.FC<ConnectionStringProps> = props => {
@@ -48,7 +48,7 @@ export const ConnectionString: React.FC<ConnectionStringProps> = props => {
     };
 
     const onSelectConnectionStringClick = () => {
-        onSelectConnectionString(connectionString, hostName);
+        onSelectConnectionString(connectionString);
     };
 
     return (
@@ -57,7 +57,6 @@ export const ConnectionString: React.FC<ConnectionStringProps> = props => {
                 <div className="name">
                     <Link
                         className="text"
-                        ariaLabel={t(ResourceKeys.connectionStrings.visitConnectionCommand.ariaLabel, {connectionString})}
                         onClick={onSelectConnectionStringClick}
                         title={t(ResourceKeys.connectionStrings.visitConnectionCommand.ariaLabel, {connectionString})}
                     >
@@ -100,7 +99,6 @@ export const ConnectionString: React.FC<ConnectionStringProps> = props => {
                 />
                 <Link
                     style={{marginTop: 10}}
-                    ariaLabel={t(ResourceKeys.connectionStrings.visitConnectionCommand.ariaLabel, {connectionString})}
                     onClick={onSelectConnectionStringClick}
                     title={t(ResourceKeys.connectionStrings.visitConnectionCommand.ariaLabel, {connectionString})}
                 >
