@@ -451,6 +451,7 @@
         "modelContainsNoComponents": "Model '{{modelId}}' contains no Plug and Play components",
         "componentName": "Component",
         "steps": {
+            "zero": "Your device is not recognized as a Plug and Play device. To learn more, please check out ",
             "first": "Step 1. Your device has been discovered as a Plug and Play device",
             "secondSuccess": "Step 2. We've resolved your Plug and Play model",
             "secondFailure": "Step 2. We've failed to resolve your Plug and Play model",

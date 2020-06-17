@@ -26,7 +26,7 @@ describe('ConnectionStringsView', () => {
     });
 
     it('matches snapshot when connection strings present', () => {
-        const state = connectionStringsStateInitial().merge({ connectionStrings: ['connectionString1']});
+        const state = connectionStringsStateInitial().merge({ payload: ['connectionString1']});
         jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([state, jest.fn()]);
 
         const wrapper = shallow(<ConnectionStringsView/>);
@@ -36,7 +36,7 @@ describe('ConnectionStringsView', () => {
 
     it('matches snapshot when connection string count exceeds max', () => {
         const connectionStrings = new Array(CONNECTION_STRING_LIST_MAX_LENGTH + 1).map((s, i) => `connectionString${i}`);
-        const state = connectionStringsStateInitial().merge({ connectionStrings });
+        const state = connectionStringsStateInitial().merge({ payload: connectionStrings });
         jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([state, jest.fn()]);
 
         const wrapper = shallow(<ConnectionStringsView/>);
@@ -45,7 +45,7 @@ describe('ConnectionStringsView', () => {
 
     describe('add scenario', () => {
         it('mounts edit view when add command clicked', () => {
-            const state = connectionStringsStateInitial().merge({ connectionStrings: []});
+            const state = connectionStringsStateInitial().merge({ payload: []});
             jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([state, jest.fn()]);
             const wrapper = shallow(<ConnectionStringsView/>);
             expect(wrapper.find(ConnectionStringEditView).length).toEqual(0);
@@ -65,7 +65,7 @@ describe('ConnectionStringsView', () => {
 
         it('upserts when edit view applied', () => {
             const upsertConnectionStringActionSpy = jest.spyOn(actions, 'upsertConnectionStringAction');
-            const state = connectionStringsStateInitial().merge({ connectionStrings: []});
+            const state = connectionStringsStateInitial().merge({ payload: []});
             jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([state, jest.fn()]);
             const wrapper = shallow(<ConnectionStringsView/>);
             act(() => {
@@ -86,7 +86,7 @@ describe('ConnectionStringsView', () => {
     describe('edit scenario', () => {
         const connectionString = 'HostName=test.azure-devices-int.net;SharedAccessKeyName=iothubowner;SharedAccessKey=key';
         it('mounts edit view when add command clicked', () => {
-            const state = connectionStringsStateInitial().merge({ connectionStrings: [connectionString] });
+            const state = connectionStringsStateInitial().merge({ payload: [connectionString] });
             jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([state, jest.fn()]);
             const wrapper = mount(<ConnectionStringsView/>);
 
@@ -98,7 +98,7 @@ describe('ConnectionStringsView', () => {
 
         it('upserts when edit view applied', () => {
             const upsertConnectionStringActionSpy = jest.spyOn(actions, 'upsertConnectionStringAction');
-            const state = connectionStringsStateInitial().merge({ connectionStrings: [connectionString] });
+            const state = connectionStringsStateInitial().merge({ payload: [connectionString] });
             jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([state, jest.fn()]);
             const wrapper = mount(<ConnectionStringsView/>);
 

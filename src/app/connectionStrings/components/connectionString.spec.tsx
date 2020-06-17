@@ -35,7 +35,7 @@ describe('connectionString', () => {
         const wrapper = shallow(<ConnectionString {...props}/>);
         wrapper.find(Link).first().props().onClick(undefined);
 
-        expect(onSelectConnectionString).toHaveBeenCalledWith(connectionString, 'test.azure-devices-int.net');
+        expect(onSelectConnectionString).toHaveBeenCalledWith(connectionString);
     });
 
     it('calls onSelectConnectionString when convenience link clicked', () => {
@@ -50,7 +50,7 @@ describe('connectionString', () => {
         const wrapper = shallow(<ConnectionString {...props}/>);
         wrapper.find(Link).last().props().onClick(undefined);
 
-        expect(onSelectConnectionString).toHaveBeenCalledWith(connectionString, 'test.azure-devices-int.net');
+        expect(onSelectConnectionString).toHaveBeenCalledWith(connectionString);
     });
 
     it('calls onEditConnectionString when edit button clicked', () => {
