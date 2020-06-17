@@ -3,11 +3,11 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { edit, Ace } from 'ace-builds';
+import { edit, Editor } from 'brace';
+import 'brace/mode/json'; // tslint:disable-line: no-submodule-imports
+import 'brace/theme/xcode'; // tslint:disable-line: no-submodule-imports
+import 'brace/theme/terminal'; // tslint:disable-line: no-submodule-imports
 import { useThemeContext } from '../contexts/themeContext';
-require('ace-builds/src-noconflict/mode-json'); // tslint:disable-line
-require('ace-builds/src-noconflict/theme-xcode'); // tslint:disable-line
-require('ace-builds/src-noconflict/theme-terminal'); // tslint:disable-line
 
 export interface JSONEditorProps {
     className: string;
@@ -16,10 +16,10 @@ export interface JSONEditorProps {
 }
 
 export const JSONEditor: React.FC<JSONEditorProps> = (props: JSONEditorProps) => {
-    let editor: Ace.Editor;
     const { content, className, onChange } = props;
     const { editorTheme } = useThemeContext();
     let container: HTMLElement;
+    let editor: Editor;
 
     // tslint:disable-next-line: no-any
     const onUpdate = (event: any) => {
@@ -31,13 +31,13 @@ export const JSONEditor: React.FC<JSONEditorProps> = (props: JSONEditorProps) =>
 
     React.useEffect(() => {
         if (typeof content === 'string') {
-              editor = edit(container);
-              editor.getSession().setMode('ace/mode/json');
-              editor.setTheme(`ace/theme/${editorTheme}`);
-              editor.setReadOnly(!onChange);
-              editor.setValue(content);
-              editor.on('change', onUpdate);
-              editor.clearSelection();
+            editor = edit(container);
+            editor.getSession().setMode('ace/mode/json');
+            editor.setTheme(`ace/theme/${editorTheme}`);
+            editor.setReadOnly(!onChange);
+            editor.setValue(content);
+            editor.on('change', onUpdate);
+            editor.clearSelection();
         }
     },              [content, editorTheme]);
 
