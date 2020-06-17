@@ -14,12 +14,12 @@ import '../../css/_breadcrumb.scss';
 
 export const Breadcrumb: React.FC = () => {
     const [ hostName, setHostName ] = React.useState<string>('');
+    const connectionString = localStorage.getItem(ACTIVE_CONNECTION_STRING);
 
     React.useEffect(() => {
-        const connectionString = localStorage.getItem(ACTIVE_CONNECTION_STRING);
         const host = getConnectionInfoFromConnectionString(connectionString).hostName;
         setHostName(host);
-    },              []);
+    },              [connectionString]);
 
     const renderBreadcrumbItem = () => <BreadcrumbItem hostName={hostName}/>;
 

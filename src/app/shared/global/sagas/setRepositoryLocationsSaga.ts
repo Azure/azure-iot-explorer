@@ -4,7 +4,7 @@
  **********************************************************/
 import { call } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
-import { setLocalFolderPath, setRepositoryLocations } from '../../../modelRepository/services/modelRepositoryService';
+import { setLocalFolderPath, setRepositoryLocations } from '../../../api/services/modelRepositoryService';
 import { RepositoryLocationSettings } from '../state';
 import { getLocalFolderPath, getRepositoryLocationTypes } from '../reducer';
 import { NotificationType } from '../../../api/models/notification';

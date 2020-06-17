@@ -11,7 +11,8 @@ import { raiseNotificationToast } from '../../../notifications/components/notifi
 import { getLocalFolderPath, getRepositoryLocationTypes } from '../reducer';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { setLocalFolderPath, setRepositoryLocations } from '../../../modelRepository/services/modelRepositoryService';
+import { setLocalFolderPath, setRepositoryLocations } from '../../../api/services/modelRepositoryService';
+
 
 describe('setRepositoryLocationsSaga', () => {
     const setRepositoryLocationsSagaGenerator = cloneableGenerator(setRepositoryLocationsSaga)(setRepositoryLocationsAction([]));

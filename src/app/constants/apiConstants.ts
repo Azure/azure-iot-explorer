@@ -50,7 +50,8 @@ export enum DataPlaneStatusCode{
     Accepted = 202,
     SuccessUpperBound = 299,
     NoContentSuccess = 204,
-    NotFound = 404
+    NotFound = 404,
+    InternalServerError = 500
 }
 
 export const DEFAULT_CONSUMER_GROUP = '$Default';

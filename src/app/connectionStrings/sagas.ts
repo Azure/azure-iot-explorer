@@ -11,7 +11,7 @@ import { upsertConnectionStringSaga } from './sagas/upsertConnectionStringSaga';
 export function* connectionStringsSaga() {
     yield all([
         takeEvery(deleteConnectionStringAction, deleteConnectionStringSaga),
-        takeLatest(setConnectionStringsAction, setConnectionStringsSaga),
+        takeLatest(setConnectionStringsAction.started.type, setConnectionStringsSaga),
         takeEvery(upsertConnectionStringAction, upsertConnectionStringSaga)
     ]);
 }
