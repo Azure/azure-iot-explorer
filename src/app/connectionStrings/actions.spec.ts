@@ -19,9 +19,9 @@ describe('deleteConnectionStringAction', () => {
 
 describe('setConnectionStringAction', () => {
     it('returns CONNECTION_STRINGS/SET action object', () => {
-        expect(setConnectionStringsAction([])).toEqual({
+        expect(setConnectionStringsAction.started([])).toEqual({
             payload: [],
-            type: 'CONNECTION_STRINGS/SET'
+            type: 'CONNECTION_STRINGS/SET_STARTED'
         });
     });
 });

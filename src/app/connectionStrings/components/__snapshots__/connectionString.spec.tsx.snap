@@ -11,7 +11,6 @@ exports[`connectionString matches snapshot 1`] = `
       className="name"
     >
       <StyledLinkBase
-        ariaLabel="connectionStrings.visitConnectionCommand.ariaLabel"
         className="text"
         onClick={[Function]}
         title="connectionStrings.visitConnectionCommand.ariaLabel"
@@ -61,7 +60,6 @@ exports[`connectionString matches snapshot 1`] = `
       value="HostName=test.azure-devices-int.net;SharedAccessKeyName=iothubowner;SharedAccessKey=key"
     />
     <StyledLinkBase
-      ariaLabel="connectionStrings.visitConnectionCommand.ariaLabel"
       onClick={[Function]}
       style={
         Object {

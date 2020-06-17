@@ -625,6 +625,7 @@ export class ResourceKeys {
          secondFailure : "digitalTwin.steps.secondFailure",
          secondSuccess : "digitalTwin.steps.secondSuccess",
          third : "digitalTwin.steps.third",
+         zero : "digitalTwin.steps.zero",
       },
    };
    public static directMethod = {

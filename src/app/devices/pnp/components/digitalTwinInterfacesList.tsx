@@ -10,6 +10,7 @@ import { DetailsList, IColumn, SelectionMode } from 'office-ui-fabric-react/lib/
 import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/components/MessageBar';
 import { Announced } from 'office-ui-fabric-react/lib/components/Announced';
 import { Pivot, PivotItem } from 'office-ui-fabric-react/lib/components/Pivot';
+import { Link } from 'office-ui-fabric-react/lib/components/Link';
 import { NavLink, useLocation, useRouteMatch } from 'react-router-dom';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
 import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
@@ -231,15 +232,28 @@ export const DigitalTwinInterfacesList: React.FC = () => {
             {isDigitalTwinLoading ?
                 <MultiLineShimmer/> :
                 <section className="device-detail">
-                    <h4>{t(ResourceKeys.digitalTwin.steps.first)}</h4>
-                    <MaskedCopyableTextField
-                        ariaLabel={t(ResourceKeys.digitalTwin.modelId)}
-                        label={t(ResourceKeys.digitalTwin.modelId)}
-                        value={modelId}
-                        allowMask={false}
-                        readOnly={true}
-                    />
-                    {renderModelDefinition()}
+                    {modelId ?
+                        <>
+                            <h4>{t(ResourceKeys.digitalTwin.steps.first)}</h4>
+                            <MaskedCopyableTextField
+                                ariaLabel={t(ResourceKeys.digitalTwin.modelId)}
+                                label={t(ResourceKeys.digitalTwin.modelId)}
+                                value={modelId}
+                                allowMask={false}
+                                readOnly={true}
+                            />
+                            {renderModelDefinition()}
+                        </> :
+                        <>
+                            <span>{t(ResourceKeys.digitalTwin.steps.zero)}</span>
+                            <Link
+                                href={t(ResourceKeys.settings.questions.questions.documentation.link)}
+                                target="_blank"
+                            >
+                                {t(ResourceKeys.settings.questions.questions.documentation.text)}
+                            </Link>
+                        </>
+                    }
                 </section>
             }
         </>

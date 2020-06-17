@@ -34,7 +34,6 @@ export const testDigitalTwin: any = { // tslint:disable-line: no-any
         },
         brightness: 123
     }
-
 };
 const pathname = 'resources/TestHub.azure-devices.net/devices/deviceDetail/ioTPlugAndPlay/?deviceId=testDevice';
 
@@ -56,6 +55,25 @@ describe('DigitalTwinInterfacesList', () => {
 
         const wrapper = mount(<DigitalTwinInterfacesList/>);
         expect(wrapper.find(MultiLineShimmer)).toHaveLength(1);
+    });
+
+    it('matches snapshot when empty model id is retrieved', () => {
+        const initialState: PnpStateInterface = pnpStateInitial().merge({
+            digitalTwin: {
+                payload: {
+                    $dtId: 'testDevice',
+                    $metadata: {
+                        $model: ''
+                    }
+                },
+                synchronizationStatus: SynchronizationStatus.fetched
+            }
+        });
+
+        jest.spyOn(pnpStateContext, 'usePnpStateContext').mockReturnValue({ pnpState: initialState, dispatch: jest.fn()});
+
+        const wrapper = shallow(<DigitalTwinInterfacesList/>);
+        expect(wrapper).toMatchSnapshot();
     });
 
     it('shows model id with no model definition found', () => {

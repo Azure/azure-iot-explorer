@@ -8,7 +8,7 @@ import { ModelDefinitionNotValidJsonError } from '../models/modelDefinitionNotVa
 
 export const fetchLocalFile = async (path: string, fileName: string): Promise<string> => {
     const response = await fetch(`${CONTROLLER_API_ENDPOINT}${READ_FILE}/${encodeURIComponent(path)}/${encodeURIComponent(fileName)}`);
-    if (await response.status === DataPlaneStatusCode.NoContentSuccess) {
+    if (await response.status === DataPlaneStatusCode.NoContentSuccess || response.status === DataPlaneStatusCode.InternalServerError) {
         throw new ModelDefinitionNotFound();
     }
 

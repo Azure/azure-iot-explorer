@@ -5,7 +5,7 @@
 import { Record } from 'immutable';
 import { IM } from '../types/types';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
-import { getRepositoryLocations, getLocalFolderPath } from '../../modelRepository/services/modelRepositoryService';
+import { getRepositoryLocations, getLocalFolderPath } from '../../api/services/modelRepositoryService';
 import { Notification } from '../../api/models/notification';
 
 export interface NotificationsStateInterface {

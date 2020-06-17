@@ -2,15 +2,36 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
+ @import '../../css/themes';
+
 .home-view-message-bar {
-  margin-top: -32px;
+    margin-top: -32px;
 }
 
 .home-view {
-  display: flex;
-  flex-direction: row;
+    display: inline-block;
+    width: 100%;
 
-  .nav{
-    max-width: 300px;
-  }
+    .nav{
+        overflow-y: auto;
+        display: flex;
+        flex-Direction: column;
+        width: 20%;
+        float: left;
+        @include themify($themes) {
+                border: {
+                right: {
+                    width: 1px;
+                    style: solid;
+                    color: themed('navBarBorderColor');
+                }
+                bottom: none;
+            }
+        }
+    }
+
+    .home-content {
+        margin: 0;
+        margin-left: calc(20% + 1px);
+    }
 }
