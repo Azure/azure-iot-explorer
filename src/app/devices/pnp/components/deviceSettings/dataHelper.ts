@@ -6,6 +6,7 @@ import { JsonSchemaAdaptor } from '../../../../shared/utils/jsonSchemaAdaptor';
 import { ModelDefinition, PropertyContent } from '../../../../api/models/modelDefinition';
 import { ParsedJsonSchema } from '../../../../api/models/interfaceJsonParserOutput';
 import { MetadataSection } from './deviceSettingsPerInterfacePerSetting';
+import { DEFAULT_COMPONENT_FOR_DIGITAL_TWIN } from '../../../../constants/devices';
 
 export interface DeviceInterfaceWithSchema {
     twinWithSchema: TwinWithSchema[];
@@ -25,7 +26,8 @@ export const generateTwinSchemaAndInterfaceTuple = (model: ModelDefinition, digi
     }
     const jsonSchemaAdaptor = new JsonSchemaAdaptor(model);
     const writableProperties = jsonSchemaAdaptor.getWritableProperties();
-    const digitalTwinForSpecificComponent = digitalTwin && (digitalTwin as any)[componentName]; // tslint:disable-line: no-any
+    const digitalTwinForSpecificComponent = componentName === DEFAULT_COMPONENT_FOR_DIGITAL_TWIN ?
+        digitalTwin : digitalTwin && (digitalTwin as any)[componentName]; // tslint:disable-line: no-any
 
     const settings = writableProperties
         .map(setting => {

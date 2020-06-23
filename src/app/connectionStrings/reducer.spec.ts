@@ -6,7 +6,7 @@ import { ConnectionStringsStateInterface } from './state';
 import { deleteConnectionStringAction, setConnectionStringsAction, upsertConnectionStringAction } from './actions';
 import { connectionStringsReducer } from './reducer';
 import { SynchronizationStatus } from '../api/models/synchronizationStatus';
-import { SET } from '../constants/actionTypes';
+import { SET, UPSERT } from '../constants/actionTypes';
 
 describe('deleteConnectionStringAction', () => {
     it('removes connection string from list', () => {
@@ -44,33 +44,22 @@ describe('setConnectionStringAction', () => {
 });
 
 describe('upsertConnectionStringAction', () => {
-    it('overwrites existing connection string', () => {
-        const initialState: ConnectionStringsStateInterface = {
-            payload: [
-            'connectionString1',
-            'connectionString2'
-            ],
-            synchronizationStatus: SynchronizationStatus.initialized
-        };
 
-        const action =  upsertConnectionStringAction({ newConnectionString: 'newConnectionString2', connectionString: 'connectionString2'});
-        const result = connectionStringsReducer(initialState, action);
-        expect(result.payload).toHaveLength(2); // tslint:disable-line:no-magic-numbers
-        expect(result.payload).toEqual(['connectionString1', 'newConnectionString2']);
+    const initialState: ConnectionStringsStateInterface = {
+        payload: [
+        'connectionString1',
+        'connectionString2'
+        ],
+        synchronizationStatus: SynchronizationStatus.initialized
+    };
+
+    it (`handles ${UPSERT}/ACTION_START action`, () => {
+        const action = upsertConnectionStringAction.started({newConnectionString: 'connectionString3'});
+        expect(connectionStringsReducer(initialState, action).synchronizationStatus).toEqual(SynchronizationStatus.updating);
     });
 
-    it('appends neww connection string', () => {
-        const initialState: ConnectionStringsStateInterface = {
-            payload: [
-            'connectionString1',
-            'connectionString2'
-            ],
-            synchronizationStatus: SynchronizationStatus.initialized
-        };
-        const action =  upsertConnectionStringAction({ newConnectionString: 'connectionString3' });
-        const result = connectionStringsReducer(initialState, action);
-        expect(result.payload).toHaveLength(3); // tslint:disable-line:no-magic-numbers
-        expect(result.payload).toEqual(['connectionString1', 'connectionString2', 'connectionString3']);
-
+    it (`handles ${UPSERT}/ACTION_DONE action`, () => {
+        const action =  upsertConnectionStringAction.done({ params: {newConnectionString: 'connectionString3'}, result: ['connectionString1', 'connectionString2', 'connectionString3'] });
+        expect(connectionStringsReducer(initialState, action).synchronizationStatus).toEqual(SynchronizationStatus.upserted);
     });
 });

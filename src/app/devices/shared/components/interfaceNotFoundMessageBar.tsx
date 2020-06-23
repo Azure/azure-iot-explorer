@@ -28,7 +28,7 @@ export const InterfaceNotFoundMessageBar: React.FC = () => {
     return (
         <div className="message-bar">
             <MessageBar
-                messageBarType={MessageBarType.error}
+                messageBarType={MessageBarType.info}
                 actions={
                     <MessageBarButton
                         className="configure-button"

@@ -14,7 +14,7 @@ describe('connectionStrings/saga/rootSaga', () => {
         expect(connectionStringsSaga().next().value).toEqual(all([
             takeEvery(deleteConnectionStringAction, deleteConnectionStringSaga),
             takeLatest(setConnectionStringsAction.started.type, setConnectionStringsSaga),
-            takeEvery(upsertConnectionStringAction, upsertConnectionStringSaga)
+            takeEvery(upsertConnectionStringAction.started.type, upsertConnectionStringSaga)
         ]));
     });
 });

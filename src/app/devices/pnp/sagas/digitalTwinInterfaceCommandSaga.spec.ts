@@ -12,11 +12,13 @@ import * as DigitalTwinService from '../../../api/services/digitalTwinService';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
+import { DEFAULT_COMPONENT_FOR_DIGITAL_TWIN } from '../../../constants/devices';
 
 describe('digitalTwinInterfaceCommandSaga', () => {
     let invokeDigitalTwinInterfaceCommandSagaGenerator: SagaIteratorClone;
+    let notifyMethodInvokedGeneratorWithPaylaod: SagaIteratorClone;
     let notifyMethodInvokedGenerator: SagaIteratorClone;
-    let notifyMethodInvokedGeneratorNoPayload: SagaIteratorClone;
+    let notifyMethodInvokedGeneratorOndDefaultComponent: SagaIteratorClone;
 
     const digitalTwinId = 'device_id';
     const commandName = 'command';
@@ -130,12 +132,20 @@ describe('digitalTwinInterfaceCommandSaga', () => {
 
     describe('notifyMethodInvoked', () => {
         beforeAll(() => {
-            notifyMethodInvokedGenerator = cloneableGenerator(notifyMethodInvoked)(randomNumber, invokeDigitalTwinInterfaceCommandAction.started(invokeParameters));
-            notifyMethodInvokedGeneratorNoPayload = cloneableGenerator(notifyMethodInvoked)(randomNumber, invokeDigitalTwinInterfaceCommandAction.started(null));
+            notifyMethodInvokedGeneratorWithPaylaod = cloneableGenerator(notifyMethodInvoked)(randomNumber, invokeDigitalTwinInterfaceCommandAction.started(invokeParameters));
+            notifyMethodInvokedGenerator = cloneableGenerator(notifyMethodInvoked)(randomNumber, invokeDigitalTwinInterfaceCommandAction.started({
+                ...invokeParameters,
+                commandPayload: null
+            }));
+            notifyMethodInvokedGeneratorOndDefaultComponent =  cloneableGenerator(notifyMethodInvoked)(randomNumber, invokeDigitalTwinInterfaceCommandAction.started({
+                ...invokeParameters,
+                commandPayload: null,
+                componentName: DEFAULT_COMPONENT_FOR_DIGITAL_TWIN
+            }));
         });
 
-        it('puts a notification if there is a payload', () => {
-            expect(notifyMethodInvokedGenerator.next(componentName)).toEqual({
+        it('puts a notification with payload if there is a payload', () => {
+            expect(notifyMethodInvokedGeneratorWithPaylaod.next(componentName)).toEqual({
                 done: false,
                 value: call(raiseNotificationToast, {
                     id: randomNumber,
@@ -152,11 +162,49 @@ describe('digitalTwinInterfaceCommandSaga', () => {
                 })
             });
 
+            expect(notifyMethodInvokedGeneratorWithPaylaod.next().done).toEqual(true);
+        });
+
+        it('puts a notification with no payload if there is no payload', () => {
+            expect(notifyMethodInvokedGenerator.next(componentName)).toEqual({
+                done: false,
+                value: call(raiseNotificationToast, {
+                    id: randomNumber,
+                    text: {
+                        translationKey: ResourceKeys.notifications.invokingDigitalTwinCommand,
+                        translationOptions: {
+                            commandName,
+                            componentName,
+                            deviceId: digitalTwinId,
+                            payload: 'null'
+                        },
+                    },
+                    type: NotificationType.info,
+                })
+            });
+
             expect(notifyMethodInvokedGenerator.next().done).toEqual(true);
         });
 
-        it('does nothing if no payload', () => {
-            expect(notifyMethodInvokedGeneratorNoPayload.next().done).toEqual(true);
+        it('puts a notification with no payload on default component', () => {
+            expect(notifyMethodInvokedGeneratorOndDefaultComponent.next(componentName)).toEqual({
+                done: false,
+                value: call(raiseNotificationToast, {
+                    id: randomNumber,
+                    text: {
+                        translationKey: ResourceKeys.notifications.invokingDigitalTwinCommandOnDefaultComponent,
+                        translationOptions: {
+                            commandName,
+                            componentName: DEFAULT_COMPONENT_FOR_DIGITAL_TWIN,
+                            deviceId: digitalTwinId,
+                            payload: 'null'
+                        },
+                    },
+                    type: NotificationType.info,
+                })
+            });
+
+            expect(notifyMethodInvokedGeneratorOndDefaultComponent.next().done).toEqual(true);
         });
     });
 });

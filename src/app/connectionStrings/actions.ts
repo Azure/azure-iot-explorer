@@ -15,4 +15,4 @@ const actionCreator = actionCreatorFactory(CONNECTION_STRINGS);
 
 export const deleteConnectionStringAction = actionCreator<string>(DELETE);
 export const setConnectionStringsAction = actionCreator.async<string[], string[]>(SET);
-export const upsertConnectionStringAction = actionCreator<UpsertConnectionStringActionPayload>(UPSERT);
+export const upsertConnectionStringAction = actionCreator.async<UpsertConnectionStringActionPayload, string[]>(UPSERT);

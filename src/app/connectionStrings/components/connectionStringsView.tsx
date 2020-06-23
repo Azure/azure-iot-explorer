@@ -35,7 +35,7 @@ export const ConnectionStringsView: React.FC = () => {
     const synchronizationStatus = localState.synchronizationStatus;
 
     const onUpsertConnectionString = (newConnectionString: string, connectionString?: string) => {
-        dispatch(upsertConnectionStringAction({newConnectionString, connectionString}));
+        dispatch(upsertConnectionStringAction.started({newConnectionString, connectionString}));
     };
 
     const onDeleteConnectionString = (connectionString: string) => {

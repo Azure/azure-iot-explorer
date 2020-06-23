@@ -12,6 +12,6 @@ export function* connectionStringsSaga() {
     yield all([
         takeEvery(deleteConnectionStringAction, deleteConnectionStringSaga),
         takeLatest(setConnectionStringsAction.started.type, setConnectionStringsSaga),
-        takeEvery(upsertConnectionStringAction, upsertConnectionStringSaga)
+        takeEvery(upsertConnectionStringAction.started.type, upsertConnectionStringSaga)
     ]);
 }

@@ -4,13 +4,13 @@
  **********************************************************/
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { deleteConnectionStringAction, setConnectionStringsAction, upsertConnectionStringAction, UpsertConnectionStringActionPayload } from './actions';
-import { connectionStringsStateInitial, ConnectionStringsStateInterface, ConnectionStringsStateType } from './state';
+import { connectionStringsStateInitial, ConnectionStringsStateInterface } from './state';
 import { SynchronizationStatus } from '../api/models/synchronizationStatus';
 
 export const connectionStringsReducer = reducerWithInitialState<ConnectionStringsStateInterface>(connectionStringsStateInitial())
     .case(deleteConnectionStringAction, (state: ConnectionStringsStateInterface, payload: string) => {
         const updatedState = {...state};
-        updatedState.payload = state.payload.filter(s => s !== payload);
+        updatedState.payload = state.payload && state.payload.filter(s => s !== payload);
         return updatedState;
     })
 
@@ -27,15 +27,15 @@ export const connectionStringsReducer = reducerWithInitialState<ConnectionString
         return updatedState;
     })
 
-    .case(upsertConnectionStringAction, (state: ConnectionStringsStateInterface, payload: UpsertConnectionStringActionPayload) => {
-        const { newConnectionString, connectionString } = payload;
+    .case(upsertConnectionStringAction.started, (state: ConnectionStringsStateInterface) => {
         const updatedState = {...state};
-        if (connectionString) {
-            updatedState.payload = state.payload.map(s => s === connectionString ? newConnectionString : s);
-        } else {
-            updatedState.payload = updatedState.payload.filter(s => s !== connectionString);
-            updatedState.payload.push(newConnectionString);
-        }
+        updatedState.synchronizationStatus = SynchronizationStatus.updating;
+        return updatedState;
+    })
 
+    .case(upsertConnectionStringAction.done, (state: ConnectionStringsStateInterface, payload: {params: UpsertConnectionStringActionPayload, result: string[]}) => {
+        const updatedState = {...state};
+        updatedState.payload = payload.result;
+        updatedState.synchronizationStatus = SynchronizationStatus.upserted;
         return updatedState;
     });

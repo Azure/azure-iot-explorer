@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DigitalTwinDetail matches snapshot 1`] = `
+<Fragment>
+  <Stack
+    className="pivot"
+    horizontal={true}
+  >
+    <StackItem
+      className="pivot-item "
+      key="interfaces"
+    >
+      <CustomizedActionButton
+        href="#/#/devices/deviceDetail/ioTPlugAndPlay/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1/interfaces/?deviceId=null&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1"
+      >
+        deviceContent.navBar.interfaces
+      </CustomizedActionButton>
+    </StackItem>
+    <StackItem
+      className="pivot-item "
+      key="properties"
+    >
+      <CustomizedActionButton
+        href="#/#/devices/deviceDetail/ioTPlugAndPlay/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1/properties/?deviceId=null&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1"
+      >
+        deviceContent.navBar.properties
+      </CustomizedActionButton>
+    </StackItem>
+    <StackItem
+      className="pivot-item "
+      key="settings"
+    >
+      <CustomizedActionButton
+        href="#/#/devices/deviceDetail/ioTPlugAndPlay/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1/settings/?deviceId=null&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1"
+      >
+        deviceContent.navBar.settings
+      </CustomizedActionButton>
+    </StackItem>
+    <StackItem
+      className="pivot-item "
+      key="commands"
+    >
+      <CustomizedActionButton
+        href="#/#/devices/deviceDetail/ioTPlugAndPlay/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1/commands/?deviceId=null&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1"
+      >
+        deviceContent.navBar.commands
+      </CustomizedActionButton>
+    </StackItem>
+    <StackItem
+      className="pivot-item "
+      key="events"
+    >
+      <CustomizedActionButton
+        href="#/#/devices/deviceDetail/ioTPlugAndPlay/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1/events/?deviceId=null&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1"
+      >
+        deviceContent.navBar.events
+      </CustomizedActionButton>
+    </StackItem>
+  </Stack>
+  <Component
+    component={[Function]}
+    path="/#/devices/deviceDetail/ioTPlugAndPlay/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1/settings/"
+  />
+  <Component
+    component={[Function]}
+    path="/#/devices/deviceDetail/ioTPlugAndPlay/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1/properties/"
+  />
+  <Component
+    component={[Function]}
+    path="/#/devices/deviceDetail/ioTPlugAndPlay/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1/commands/"
+  />
+  <Component
+    component={[Function]}
+    path="/#/devices/deviceDetail/ioTPlugAndPlay/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1/interfaces/"
+  />
+  <Component
+    component={[Function]}
+    path="/#/devices/deviceDetail/ioTPlugAndPlay/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1/events/"
+  />
+</Fragment>
+`;

@@ -25,7 +25,6 @@ const payloadRef = React.createRef<any>(); // tslint:disable-line:no-any
 
 export interface DataFormDataProps {
     formData: any;  // tslint:disable-line:no-any
-    componentName: string;
     settingSchema: ParsedJsonSchema;
     buttonText: string;
     schema: string; // the schema as defined in model definition

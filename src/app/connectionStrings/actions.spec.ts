@@ -28,9 +28,9 @@ describe('setConnectionStringAction', () => {
 
 describe('upsertConnectionStringAction', () => {
     it('returns CONNECTION_STRINGS/UPSERT action object', () => {
-        expect(upsertConnectionStringAction({ newConnectionString: 'new', connectionString: 'old'})).toEqual({
+        expect(upsertConnectionStringAction.started({ newConnectionString: 'new', connectionString: 'old'})).toEqual({
             payload: { newConnectionString: 'new', connectionString: 'old'},
-            type: 'CONNECTION_STRINGS/UPSERT'
+            type: 'CONNECTION_STRINGS/UPSERT_STARTED'
         });
     });
 });

@@ -9,25 +9,27 @@ import { invokeDigitalTwinInterfaceCommand } from '../../../api/services/digital
 import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
+import { DEFAULT_COMPONENT_FOR_DIGITAL_TWIN } from '../../../constants/devices';
 
 export function* invokeDigitalTwinInterfaceCommandSaga(action: Action<InvokeDigitalTwinInterfaceCommandActionParameters>) {
     const toastId: number = Math.random();
-    const { componentName, commandName, digitalTwinId } = action.payload;
+    const { componentName, commandName, digitalTwinId, commandPayload } = action.payload;
 
     try {
-        const payload = yield call(notifyMethodInvoked, toastId, action);
+        yield call(notifyMethodInvoked, toastId, action);
         const response = yield call(invokeDigitalTwinInterfaceCommand, {
             commandName,
             componentName,
             digitalTwinId,
-            payload
+            payload: commandPayload
         });
         const responseStringified = JSON.stringify(response);
 
         yield call(raiseNotificationToast, {
             id: toastId,
             text: {
-                translationKey: ResourceKeys.notifications.invokeDigitalTwinCommandOnSuccess,
+                translationKey: componentName === DEFAULT_COMPONENT_FOR_DIGITAL_TWIN ?
+                    ResourceKeys.notifications.invokeDigitalTwinCommandOnDefaultComponentOnSuccess : ResourceKeys.notifications.invokeDigitalTwinCommandOnSuccess,
                 translationOptions: {
                     commandName,
                     componentName,
@@ -43,7 +45,8 @@ export function* invokeDigitalTwinInterfaceCommandSaga(action: Action<InvokeDigi
         yield call(raiseNotificationToast, {
             id: toastId,
             text: {
-                translationKey: ResourceKeys.notifications.invokeDigitalTwinCommandOnError,
+                translationKey: componentName === DEFAULT_COMPONENT_FOR_DIGITAL_TWIN ?
+                    ResourceKeys.notifications.invokeDigitalTwinCommandOnDefaultComponentOnError : ResourceKeys.notifications.invokeDigitalTwinCommandOnError,
                 translationOptions: {
                     commandName,
                     componentName,
@@ -61,10 +64,13 @@ export function* invokeDigitalTwinInterfaceCommandSaga(action: Action<InvokeDigi
 export function* notifyMethodInvoked(toastId: number, action: Action<InvokeDigitalTwinInterfaceCommandActionParameters>) {
     if (action.payload) {
         const { commandPayload, componentName, commandName, digitalTwinId } = action.payload;
+        const translationKey = componentName === DEFAULT_COMPONENT_FOR_DIGITAL_TWIN ?
+                (commandPayload ? ResourceKeys.notifications.invokingDigitalTwinCommandWithPayloadOnDefaultComponent : ResourceKeys.notifications.invokingDigitalTwinCommandOnDefaultComponent) :
+                (commandPayload ? ResourceKeys.notifications.invokingDigitalTwinCommandWithPayload : ResourceKeys.notifications.invokingDigitalTwinCommand);
         yield call(raiseNotificationToast, {
             id: toastId,
             text: {
-                translationKey: ResourceKeys.notifications.invokingDigitalTwinCommandWithPayload,
+                translationKey,
                 translationOptions: {
                     commandName,
                     componentName,
@@ -74,7 +80,5 @@ export function* notifyMethodInvoked(toastId: number, action: Action<InvokeDigit
             },
             type: NotificationType.info,
         });
-
-        return commandPayload;
     }
 }

@@ -18,6 +18,7 @@ import { SemanticUnit } from '../../../../shared/units/components/semanticUnit';
 import { JsonPatchOperation, PatchPayload } from '../../../../api/parameters/deviceParameters';
 import { isValueDefined, DataForm } from '../../../shared/components/dataForm';
 import { TwinWithSchema } from './dataHelper';
+import { DEFAULT_COMPONENT_FOR_DIGITAL_TWIN } from '../../../../constants/devices';
 import '../../../../css/_deviceSettings.scss';
 
 export interface MetadataSection {
@@ -192,7 +193,6 @@ export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataPro
                 settingSchema={settingSchema}
                 handleSave={onSubmit}
                 craftPayload={createSettingsPayload}
-                componentName={componentName}
                 schema={getSettingSchema()}
             />
         );
@@ -212,16 +212,18 @@ export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataPro
             }];
         }
         else {
+            const path = componentName === DEFAULT_COMPONENT_FOR_DIGITAL_TWIN ?
+                `/${settingModelDefinition.name}` : `/${componentName}/${settingModelDefinition.name}`;
             const patchPayloadWithTwin = isValueDefined(twin) ? {
                 op: metadata && metadata.desiredValue ?
                     JsonPatchOperation.REPLACE : JsonPatchOperation.ADD,
-                path: `/${componentName}/${settingModelDefinition.name}`,
+                path,
                 value: twin,
             } : {
                 op: JsonPatchOperation.REMOVE,
-                path: `/${componentName}/${settingModelDefinition.name}`,
+                path,
             };
-            return  [patchPayloadWithTwin];
+            return [patchPayloadWithTwin];
         }
     };
 

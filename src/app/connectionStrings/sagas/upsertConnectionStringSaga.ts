@@ -2,10 +2,10 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { call } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
 import { CONNECTION_STRING_LIST_MAX_LENGTH } from '../../constants/browserStorage';
-import { UpsertConnectionStringActionPayload } from '../actions';
+import { UpsertConnectionStringActionPayload, upsertConnectionStringAction } from '../actions';
 import { getConnectionStrings, setConnectionStrings } from './setConnectionStringsSaga';
 
 export function* upsertConnectionStringSaga(action: Action<UpsertConnectionStringActionPayload>) {
@@ -22,4 +22,6 @@ export function* upsertConnectionStringSaga(action: Action<UpsertConnectionStrin
     }
 
     yield call(setConnectionStrings, updatedValue);
+    const updatedConnectionString = yield call(getConnectionStrings);
+    yield put(upsertConnectionStringAction.done({params: action.payload, result: updatedConnectionString.split(',')}));
 }
