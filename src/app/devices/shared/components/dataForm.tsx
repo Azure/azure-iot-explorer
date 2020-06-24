@@ -65,7 +65,7 @@ export const DataForm: React.FC<DataFormDataProps & DataFormActionProps> = (prop
                     isBlocking: false
                 }}
             >
-                <JSONEditor className="json-editor" content={payloadPreviewData}/>
+                <JSONEditor className="json-editor" content={JSON.stringify(payloadPreviewData, null, '\t')}/>
                 <DialogFooter>
                     <PrimaryButton
                         onClick={copyPayload}
