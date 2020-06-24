@@ -2,10 +2,11 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { setIconOptions } from "office-ui-fabric-react/lib/Styling";
-import * as Enzyme from "enzyme";
-import * as Adapter from "enzyme-adapter-react-16";
+import { setIconOptions } from 'office-ui-fabric-react/lib/Styling';
+import * as Enzyme from 'enzyme';
+import * as Adapter from 'enzyme-adapter-react-16';
 
+// tslint:disable-next-line: no-string-literal
 global['Headers'] = () => {};
 window.parent.fetch = jest.fn();
 
@@ -22,6 +23,6 @@ Object.defineProperty(global, 'Node', {
   value: {firstElementChild: jest.fn()}
 });
 
-jest.mock('i18next', () => ({
-  t: (key: string) => key
+jest.mock('react-i18next', () => ({
+  useTranslation: () => ({t: key => key})
 }));

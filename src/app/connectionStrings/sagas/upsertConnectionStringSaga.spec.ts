@@ -7,8 +7,9 @@ import { call, put } from 'redux-saga/effects';
 import { cloneableGenerator } from '@redux-saga/testing-utils';
 import { upsertConnectionStringAction } from '../actions';
 import { upsertConnectionStringSaga } from './upsertConnectionStringSaga';
-import { getConnectionStrings, setConnectionStrings } from './setConnectionStringsSaga';
+import { setConnectionStrings } from './setConnectionStringsSaga';
 import { CONNECTION_STRING_LIST_MAX_LENGTH } from '../../constants/browserStorage';
+import { getConnectionStrings } from './getConnectionStringsSaga';
 
 describe('upsertConnectionStringSaga', () => {
     describe('adding unlisted connection string', () => {
@@ -21,7 +22,7 @@ describe('upsertConnectionStringSaga', () => {
         });
 
         it('returns call effect to set connection strings', () => {
-            expect(upsertConnectionStringSagaGenerator.next('connectionString1')).toEqual({
+            expect(upsertConnectionStringSagaGenerator.next(['connectionString1'])).toEqual({
                 done: false,
                 value: call(setConnectionStrings, 'connectionString2,connectionString1')
             });
@@ -35,7 +36,7 @@ describe('upsertConnectionStringSaga', () => {
         });
 
         it('puts the done action', () => {
-            expect(upsertConnectionStringSagaGenerator.next('connectionString2,connectionString1')).toEqual({
+            expect(upsertConnectionStringSagaGenerator.next(['connectionString2', 'connectionString1'])).toEqual({
                 done: false,
                 value: put(upsertConnectionStringAction.done({params: {newConnectionString: 'connectionString2'}, result: ['connectionString2', 'connectionString1']}))
             });
@@ -55,7 +56,7 @@ describe('upsertConnectionStringSaga', () => {
         });
 
         it('returns call effect to set connection strings', () => {
-            expect(upsertConnectionStringSagaGenerator.next('connectionString1')).toEqual({
+            expect(upsertConnectionStringSagaGenerator.next(['connectionString1'])).toEqual({
                 done: false,
                 value: call(setConnectionStrings, 'newConnectionString1')
             });
@@ -69,7 +70,7 @@ describe('upsertConnectionStringSaga', () => {
         });
 
         it('puts the done action', () => {
-            expect(upsertConnectionStringSagaGenerator.next('newConnectionString1')).toEqual({
+            expect(upsertConnectionStringSagaGenerator.next(['newConnectionString1'])).toEqual({
                 done: false,
                 value: put(upsertConnectionStringAction.done({params: { newConnectionString: 'newConnectionString1', connectionString: 'connectionString1'}, result: ['newConnectionString1']}))
             });
@@ -88,7 +89,7 @@ describe('upsertConnectionStringSaga', () => {
         });
 
         it('returns call effect to set connection strings', () => {
-            expect(upsertConnectionStringSagaGenerator.next(undefined)).toEqual({
+            expect(upsertConnectionStringSagaGenerator.next([])).toEqual({
                 done: false,
                 value: call(setConnectionStrings, 'connectionString1')
             });
@@ -102,7 +103,7 @@ describe('upsertConnectionStringSaga', () => {
         });
 
         it('puts the done action', () => {
-            expect(upsertConnectionStringSagaGenerator.next('connectionString1')).toEqual({
+            expect(upsertConnectionStringSagaGenerator.next(['connectionString1'])).toEqual({
                 done: false,
                 value: put(upsertConnectionStringAction.done({params: { newConnectionString: 'connectionString1'}, result: ['connectionString1']}))
             });
@@ -120,7 +121,7 @@ describe('upsertConnectionStringSaga', () => {
         const connectionStringsSerialized = connectionStrings.join(',');
         const newConnectionString = `connectionString${CONNECTION_STRING_LIST_MAX_LENGTH + 1}`;
         const upsertConnectionStringSagaGenerator = cloneableGenerator(upsertConnectionStringSaga)(upsertConnectionStringAction.started({newConnectionString}));
-        const updatedConnectionStringInLocalStorage = [newConnectionString, ...connectionStrings.splice(0, CONNECTION_STRING_LIST_MAX_LENGTH - 1)].join(',');
+        const updatedConnectionString = [newConnectionString, ...connectionStrings.splice(0, CONNECTION_STRING_LIST_MAX_LENGTH - 1)];
 
         it('returns call effect to get connection strings', () => {
             expect(upsertConnectionStringSagaGenerator.next()).toEqual({
@@ -130,9 +131,9 @@ describe('upsertConnectionStringSaga', () => {
         });
 
         it('returns call effect to set connection strings', () => {
-            expect(upsertConnectionStringSagaGenerator.next(connectionStringsSerialized)).toEqual({
+            expect(upsertConnectionStringSagaGenerator.next(connectionStringsSerialized.split(','))).toEqual({
                 done: false,
-                value: call(setConnectionStrings, updatedConnectionStringInLocalStorage)
+                value: call(setConnectionStrings, updatedConnectionString.join(','))
             });
         });
 
@@ -144,9 +145,9 @@ describe('upsertConnectionStringSaga', () => {
         });
 
         it('puts the done action', () => {
-            expect(upsertConnectionStringSagaGenerator.next(updatedConnectionStringInLocalStorage)).toEqual({
+            expect(upsertConnectionStringSagaGenerator.next(updatedConnectionString)).toEqual({
                 done: false,
-                value: put(upsertConnectionStringAction.done({params: {newConnectionString}, result: updatedConnectionStringInLocalStorage.split(',')}))
+                value: put(upsertConnectionStringAction.done({params: {newConnectionString}, result: updatedConnectionString}))
             });
 
             expect(upsertConnectionStringSagaGenerator.next().done).toEqual(true);

@@ -17,4 +17,7 @@ export function* deleteConnectionStringSaga(action: Action<string>) {
         yield call(setConnectionStrings, updatedStrings.join(','));
         yield put(deleteConnectionStringAction.done({params: action.payload, result: updatedStrings}));
     }
+    else {
+        yield put(deleteConnectionStringAction.done({params: action.payload, result: []}));
+    }
 }
