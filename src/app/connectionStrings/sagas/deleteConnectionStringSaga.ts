@@ -2,16 +2,19 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { call } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
-import { getConnectionStrings, setConnectionStrings } from './setConnectionStringsSaga';
+import { setConnectionStrings } from './setConnectionStringsSaga';
+import { getConnectionStrings } from './getConnectionStringsSaga';
+import { deleteConnectionStringAction } from '../actions';
 
 export function* deleteConnectionStringSaga(action: Action<string>) {
-    const savedStrings: string = yield call(getConnectionStrings);
+    const savedStrings: string[] = yield call(getConnectionStrings);
 
-    if (savedStrings) {
-        const savedNames = savedStrings.split(',').filter(name => name !== action.payload); // remove duplicates
-        const updatedNames = savedNames.filter(s => s !== action.payload);
-        yield call(setConnectionStrings, updatedNames.join(','));
+    if (savedStrings && savedStrings.length > 0) {
+        const nonDuplicateStrings = savedStrings.filter(name => name !== action.payload); // remove duplicates
+        const updatedStrings = nonDuplicateStrings.filter(s => s !== action.payload);
+        yield call(setConnectionStrings, updatedStrings.join(','));
+        yield put(deleteConnectionStringAction.done({params: action.payload, result: updatedStrings}));
     }
 }

@@ -3,14 +3,34 @@
  * Licensed under the MIT License
  **********************************************************/
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
-import { deleteConnectionStringAction, setConnectionStringsAction, upsertConnectionStringAction, UpsertConnectionStringActionPayload } from './actions';
+import { deleteConnectionStringAction, setConnectionStringsAction, upsertConnectionStringAction, UpsertConnectionStringActionPayload, getConnectionStringAction } from './actions';
 import { connectionStringsStateInitial, ConnectionStringsStateInterface } from './state';
 import { SynchronizationStatus } from '../api/models/synchronizationStatus';
 
 export const connectionStringsReducer = reducerWithInitialState<ConnectionStringsStateInterface>(connectionStringsStateInitial())
-    .case(deleteConnectionStringAction, (state: ConnectionStringsStateInterface, payload: string) => {
+    .case(getConnectionStringAction.started, (state: ConnectionStringsStateInterface) => {
         const updatedState = {...state};
-        updatedState.payload = state.payload && state.payload.filter(s => s !== payload);
+        updatedState.synchronizationStatus = SynchronizationStatus.working;
+        return updatedState;
+    })
+
+    .case(getConnectionStringAction.done, (state: ConnectionStringsStateInterface, payload: {params: void, result: string[]}) => {
+        const updatedState = {...state};
+        updatedState.payload = payload.result;
+        updatedState.synchronizationStatus = SynchronizationStatus.fetched;
+        return updatedState;
+    })
+
+    .case(deleteConnectionStringAction.started, (state: ConnectionStringsStateInterface) => {
+        const updatedState = {...state};
+        updatedState.synchronizationStatus = SynchronizationStatus.updating;
+        return updatedState;
+    })
+
+    .case(deleteConnectionStringAction.done, (state: ConnectionStringsStateInterface, payload: {params: string, result: string[]}) => {
+        const updatedState = {...state};
+        updatedState.payload = payload.result;
+        updatedState.synchronizationStatus = SynchronizationStatus.deleted;
         return updatedState;
     })
 
