@@ -38,6 +38,7 @@ export const DELETE_MODULE_IDENTITY = 'DELETE_MODULE_IDENTITY';
 export const ADD  = 'ADD';
 export const CLEAR = 'CLEAR';
 export const DELETE = 'DELETE';
+export const GET = 'GET';
 export const READ = 'READ';
 export const SET = 'SET';
 export const UPSERT = 'UPSERT';

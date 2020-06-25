@@ -10,13 +10,6 @@ import { REPOSITORY_LOCATION_TYPE } from '../../../../constants/repositoryLocati
 const interfaceId = 'urn:azureiot:samplemodel:1';
 export const testComponentName = 'environmentalSensor';
 /* tslint:disable */
-export const testDigitalTwin: any = {
-    "$dtId": "testDevice",
-    "$metadata": {
-        "$model": interfaceId
-    }
-};
-
 export const modelInformationReportedValue = {
     "modelId": "urn:contoso:com:dcm:2",
     "interfaces": {
@@ -24,8 +17,17 @@ export const modelInformationReportedValue = {
         componentName: interfaceId
     }
 };
+
+export const testDigitalTwin: any = {
+    "$dtId": "testDevice",
+    "modelInformation": modelInformationReportedValue, // root level model information
+    "$metadata": {
+        "$model": interfaceId
+    }
+};
+
 testDigitalTwin[testComponentName] = {
-    "modelInformation": modelInformationReportedValue,
+    "modelInformation": modelInformationReportedValue,  // component level model information
     "$metadata": {
         "modelInformation": {
             "lastUpdateTime": "2020-03-31T23:17:42.4813073Z"

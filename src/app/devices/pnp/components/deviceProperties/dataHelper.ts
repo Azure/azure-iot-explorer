@@ -5,6 +5,7 @@
 import { ModelDefinition, PropertyContent } from '../../../../api/models/modelDefinition';
 import { JsonSchemaAdaptor } from '../../../../shared/utils/jsonSchemaAdaptor';
 import { ParsedJsonSchema } from '../../../../api/models/interfaceJsonParserOutput';
+import { DEFAULT_COMPONENT_FOR_DIGITAL_TWIN } from '../../../../constants/devices';
 
 export interface TwinWithSchema {
     propertyModelDefinition: PropertyContent;
@@ -18,7 +19,8 @@ export const generateReportedTwinSchemaAndInterfaceTuple = (model: ModelDefiniti
     }
     const jsonSchemaAdaptor = new JsonSchemaAdaptor(model);
     const nonWritableProperties = jsonSchemaAdaptor.getNonWritableProperties();
-    const digitalTwinForSpecificComponent = digitalTwin && (digitalTwin as any)[componentName]; // tslint:disable-line: no-any
+    const digitalTwinForSpecificComponent = componentName === DEFAULT_COMPONENT_FOR_DIGITAL_TWIN ?
+        digitalTwin : digitalTwin && (digitalTwin as any)[componentName]; // tslint:disable-line: no-any
 
     return nonWritableProperties.map(property => ({
         propertyModelDefinition: property,

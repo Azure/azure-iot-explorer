@@ -54,6 +54,9 @@ export const generateSasToken = (parameters: GenerateSasTokenParameters) => {
 
 export const getConnectionInfoFromConnectionString = (connectionString: string): IoTHubConnectionSettings => {
     const connectionObject: IoTHubConnectionSettings = {};
+    if (!connectionString) {
+        return connectionObject;
+    }
     connectionString.split(';')
     .forEach((segment: string) => {
         const keyValue = segment.split('=');

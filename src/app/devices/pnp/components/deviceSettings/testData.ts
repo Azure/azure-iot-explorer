@@ -12,11 +12,9 @@ export const testComponentName = 'environmentalSensor';
 /* tslint:disable */
 export const testDigitalTwin: any = {
     "$dtId": "testDevice",
-    "$metadata": {
-        "$model": interfaceId
-    },
+    "brightness": 1234, // root level brightness
     environmentalSensor: {
-        "brightness": 123,
+        "brightness": 123,  // component level brightness
         "$metadata": {
             "brightness": {
                 "desiredValue": 456,
@@ -24,8 +22,15 @@ export const testDigitalTwin: any = {
                 "lastUpdateTime": "2020-03-31T23:17:42.4813073Z"
             }
         }
+    },
+    "$metadata": {
+        "$model": interfaceId,
+        "brightness": {
+            "desiredValue": 5678,
+            "desiredVersion": 2,
+            "lastUpdateTime": "2020-03-31T23:17:42.4813073Z"
+        }
     }
-
 };
 
 const brightnessProperty = {

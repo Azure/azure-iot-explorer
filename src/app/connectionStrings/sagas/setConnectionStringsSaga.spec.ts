@@ -6,17 +6,9 @@ import { call, put } from 'redux-saga/effects';
 // tslint:disable-next-line: no-implicit-dependencies
 import { cloneableGenerator } from '@redux-saga/testing-utils';
 import { setConnectionStringsAction } from '../actions';
-import { getConnectionStrings, setConnectionStringsSaga, setConnectionStrings } from './setConnectionStringsSaga';
+import { setConnectionStringsSaga, setConnectionStrings } from './setConnectionStringsSaga';
 import { CONNECTION_STRING_NAME_LIST } from '../../constants/browserStorage';
 import { ACTIVE_CONNECTION_STRING } from './../../constants/browserStorage';
-
-describe('getConnectionString', () => {
-    it('returns expected value', () => {
-        const setValue = 'helloworld';
-        localStorage.setItem(CONNECTION_STRING_NAME_LIST, setValue);
-        expect(getConnectionStrings()).toEqual(setValue);
-    });
-});
 
 describe('setConnectionString', () => {
     it('sets expected value', () => {

@@ -13,7 +13,7 @@ exports[`interfaceNotFoundMessageBar matches snapshot 1`] = `
         deviceInterfaces.command.configure
       </CustomizedMessageBarButton>
     }
-    messageBarType={1}
+    messageBarType={0}
   >
     deviceInterfaces.interfaceNotFound
   </StyledMessageBarBase>

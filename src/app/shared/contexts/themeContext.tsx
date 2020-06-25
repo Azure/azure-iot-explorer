@@ -13,8 +13,8 @@ export enum Theme {
 }
 export enum EditorTheme {
     light = 'xcode',
-    dark = 'terminal',
-    hc_black = 'terminal'
+    dark = 'twilight',
+    hc_black = 'twilight'
 }
 
 export interface ThemeContextInterface {

@@ -6,7 +6,7 @@ import * as React from 'react';
 import { edit, Editor } from 'brace';
 import 'brace/mode/json'; // tslint:disable-line: no-submodule-imports
 import 'brace/theme/xcode'; // tslint:disable-line: no-submodule-imports
-import 'brace/theme/terminal'; // tslint:disable-line: no-submodule-imports
+import 'brace/theme/twilight'; // tslint:disable-line: no-submodule-imports
 import { useThemeContext } from '../contexts/themeContext';
 
 export interface JSONEditorProps {
