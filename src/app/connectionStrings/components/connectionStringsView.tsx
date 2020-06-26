@@ -23,7 +23,9 @@ import { MultiLineShimmer } from '../../shared/components/multiLineShimmer';
 import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
 import '../../css/_layouts.scss';
 import './connectionStringsView.scss';
+import { getConnectionStringAction } from './../actions';
 
+// tslint:disable-next-line: cyclomatic-complexity
 export const ConnectionStringsView: React.FC = () => {
     const { t } = useTranslation();
     const history = useHistory();
@@ -35,11 +37,11 @@ export const ConnectionStringsView: React.FC = () => {
     const synchronizationStatus = localState.synchronizationStatus;
 
     const onUpsertConnectionString = (newConnectionString: string, connectionString?: string) => {
-        dispatch(upsertConnectionStringAction({newConnectionString, connectionString}));
+        dispatch(upsertConnectionStringAction.started({newConnectionString, connectionString}));
     };
 
     const onDeleteConnectionString = (connectionString: string) => {
-        dispatch(deleteConnectionStringAction(connectionString));
+        dispatch(deleteConnectionStringAction.started(connectionString));
     };
 
     const onSelectConnectionString = (connectionString: string) => {
@@ -65,13 +67,17 @@ export const ConnectionStringsView: React.FC = () => {
     };
 
     React.useEffect(() => {
+        dispatch(getConnectionStringAction.started());
+    },              []);
+
+    React.useEffect(() => {
         if (synchronizationStatus === SynchronizationStatus.upserted) { // only when connection string updated successfully would navigate to device list view
-            const connectionSettings = getConnectionInfoFromConnectionString(connectionStrings[0]);
-            history.push(`/${ROUTE_PARTS.RESOURCE}/${connectionSettings.hostName}/${ROUTE_PARTS.DEVICES}`);
+            const hostName = getConnectionInfoFromConnectionString(connectionStrings[0]).hostName;
+            history.push(`/${ROUTE_PARTS.RESOURCE}/${hostName}/${ROUTE_PARTS.DEVICES}`);
         }
     },              [synchronizationStatus]);
 
-    if (synchronizationStatus === SynchronizationStatus.updating) {
+    if (synchronizationStatus === SynchronizationStatus.updating || synchronizationStatus === SynchronizationStatus.working) {
         return (
             <MultiLineShimmer/>
         );

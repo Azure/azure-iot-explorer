@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import actionCreatorFactory from 'typescript-fsa';
-import { DELETE, SET, UPSERT } from '../constants/actionTypes';
+import { DELETE, SET, UPSERT, GET } from '../constants/actionTypes';
 
 export const CONNECTION_STRINGS = 'CONNECTION_STRINGS';
 export interface UpsertConnectionStringActionPayload {
@@ -13,6 +13,7 @@ export interface UpsertConnectionStringActionPayload {
 
 const actionCreator = actionCreatorFactory(CONNECTION_STRINGS);
 
-export const deleteConnectionStringAction = actionCreator<string>(DELETE);
+export const getConnectionStringAction = actionCreator.async<void, string[]>(GET);
 export const setConnectionStringsAction = actionCreator.async<string[], string[]>(SET);
-export const upsertConnectionStringAction = actionCreator<UpsertConnectionStringActionPayload>(UPSERT);
+export const upsertConnectionStringAction = actionCreator.async<UpsertConnectionStringActionPayload, string[]>(UPSERT);
+export const deleteConnectionStringAction = actionCreator.async<string, string[]>(DELETE);

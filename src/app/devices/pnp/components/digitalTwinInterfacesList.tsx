@@ -28,9 +28,9 @@ import { MultiLineShimmer } from '../../../shared/components/multiLineShimmer';
 import { usePnpStateContext } from '../../../shared/contexts/pnpStateContext';
 import { ModelDefinition } from '../../../api/models/modelDefinition';
 import { ComponentAndInterfaceId, JsonSchemaAdaptor } from '../../../shared/utils/jsonSchemaAdaptor';
+import { DEFAULT_COMPONENT_FOR_DIGITAL_TWIN } from '../../../constants/devices';
 import '../../../css/_digitalTwinInterfaces.scss';
 
-export const defaultComponentKey = '$default';
 interface ModelContent {
     link: string;
     componentName: string;
@@ -49,7 +49,7 @@ const getComponentNameAndInterfaceIdArray = (modelDefinition: ModelDefinition): 
         jsonSchemaAdaptor.getCommands().length +
         jsonSchemaAdaptor.getTelemetry().length > 0) {
         components.unshift({
-            componentName: defaultComponentKey,
+            componentName: DEFAULT_COMPONENT_FOR_DIGITAL_TWIN,
             interfaceId: modelDefinition['@id']
         });
     }
@@ -83,7 +83,7 @@ export const DigitalTwinInterfacesList: React.FC = () => {
             `?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}` +
             `&${ROUTE_PARAMS.COMPONENT_NAME}=${nameToId.componentName}` +
             `&${ROUTE_PARAMS.INTERFACE_ID}=${nameToId.interfaceId}`;
-        if (nameToId.componentName === defaultComponentKey && nameToId.interfaceId === modelId) {
+        if (nameToId.componentName === DEFAULT_COMPONENT_FOR_DIGITAL_TWIN && nameToId.interfaceId === modelId) {
             return{
                 componentName: t(ResourceKeys.digitalTwin.pivot.defaultComponent),
                 interfaceId: nameToId.interfaceId,
@@ -191,7 +191,7 @@ export const DigitalTwinInterfacesList: React.FC = () => {
         if (!modelDefinitionWithSource) {
             return (
             <>
-                <h4>{t(ResourceKeys.digitalTwin.steps.secondFailure)}</h4>
+                <h4>{t(ResourceKeys.digitalTwin.steps.secondFailure, {modelId})}</h4>
                 <InterfaceNotFoundMessageBar/>
             </>);
         }

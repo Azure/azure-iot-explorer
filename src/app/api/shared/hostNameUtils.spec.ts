@@ -44,7 +44,7 @@ describe('getResourceTypeFromHostName', () => {
 
 describe('tryGetHostNameFromConnectionString', () => {
     it('returns empty string when falsy value provided', () => {
-        expect(tryGetHostNameFromConnectionString(undefined)).toEqual('');
+        expect(tryGetHostNameFromConnectionString(undefined)).toEqual(undefined);
     });
 
     it('returns expected value from getConnectionStringInfo', () => {

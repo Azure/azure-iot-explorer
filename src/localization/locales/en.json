@@ -454,7 +454,7 @@
             "zero": "Your device is not recognized as a Plug and Play device. To learn more, please check out ",
             "first": "Step 1. Your device has been discovered as a Plug and Play device",
             "secondSuccess": "Step 2. We've resolved your Plug and Play model",
-            "secondFailure": "Step 2. We've failed to resolve your Plug and Play model",
+            "secondFailure": "Step 2. We are not able to retrieve model definition for {{modelId}}",
             "third": "Step 3. Continue your Plug and Play journey by drilling down to each component",
             "explanation": "If you have defined 'Property', 'Command' or 'Telemetry' in model {{modelId}}, you would be able to see 'Default component' in the table below. If you havea defined 'Component', you would be able to see a list of components down below."
         },
@@ -489,7 +489,7 @@
         "previewPayloadButtonText": "Preview payload",
         "command" : {
             "refresh": "Refresh",
-            "submit": "Update writable property",
+            "submit": "Update desired value",
             "openReportedValuePanel": "Click to view reported",
             "openDesiredValuePanel": "Click to edit",
             "expandAll": "Expand all",
@@ -547,7 +547,7 @@
         },
         "columns": {
             "id": "Interface Id",
-            "source": "Source",
+            "source": "You model defintion has been resolved from",
             "noSource": "Failed to get interface definition",
             "displayName": "Name",
             "description": "Description"
@@ -783,6 +783,10 @@
         "invokeDigitalTwinCommandOnSuccess": "Successfully invoked the IoT Plug and Play device command '{{commandName}}' for component '{{componentName}}' on device '{{deviceId}}': {{response}}",
         "invokingDigitalTwinCommand": "Trying to invoke the IoT Plug and Play device command '{{commandName}}' for component '{{componentName}}' on device '{{deviceId}}' with no payload",
         "invokingDigitalTwinCommandWithPayload": "Trying to invoke the IoT Plug and Play device command '{{commandName}}' for component '{{componentName}}' on device '{{deviceId}}' with payload {{payload}}",
+        "invokeDigitalTwinCommandOnDefaultComponentOnError": "Failed to invoke the IoT Plug and Play device command '{{commandName}}' for for default component on device '{{deviceId}}': {{error}}",
+        "invokeDigitalTwinCommandOnDefaultComponentOnSuccess": "Successfully invoked the IoT Plug and Play device command '{{commandName}}' for default component on device '{{deviceId}}': {{response}}",
+        "invokingDigitalTwinCommandOnDefaultComponent": "Trying to invoke the IoT Plug and Play device command '{{commandName}}' for default component on device '{{deviceId}}' with no payload",
+        "invokingDigitalTwinCommandWithPayloadOnDefaultComponent": "Trying to invoke the IoT Plug and Play device command '{{commandName}}' for default component on device '{{deviceId}}' with payload {{payload}}",
         "invokeMethodOnError": "Failed to invoke method on device {{deviceId}}: {{error}}",
         "invokeMethodOnSuccess": "Successfully invoked method '{{methodName}}' on device '{{deviceId}}' with response {{response}}",
         "invokingMethod": "Trying to invoke method '{{methodName}}' on device '{{deviceId}}' with no payload",
