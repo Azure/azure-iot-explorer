@@ -3,16 +3,26 @@
  * Licensed under the MIT License
  **********************************************************/
 import {
+    getConnectionStringAction,
     deleteConnectionStringAction,
     setConnectionStringsAction,
     upsertConnectionStringAction
 } from './actions';
 
+describe('getConnectionStringAction', () => {
+    it('returns CONNECTION_STRINGS/DELETE action object', () => {
+        expect(getConnectionStringAction.started()).toEqual({
+            payload: undefined,
+            type: 'CONNECTION_STRINGS/GET_STARTED'
+        });
+    });
+});
+
 describe('deleteConnectionStringAction', () => {
     it('returns CONNECTION_STRINGS/DELETE action object', () => {
-        expect(deleteConnectionStringAction('connectionString')).toEqual({
+        expect(deleteConnectionStringAction.started('connectionString')).toEqual({
             payload: 'connectionString',
-            type: 'CONNECTION_STRINGS/DELETE'
+            type: 'CONNECTION_STRINGS/DELETE_STARTED'
         });
     });
 });
@@ -28,9 +38,9 @@ describe('setConnectionStringAction', () => {
 
 describe('upsertConnectionStringAction', () => {
     it('returns CONNECTION_STRINGS/UPSERT action object', () => {
-        expect(upsertConnectionStringAction({ newConnectionString: 'new', connectionString: 'old'})).toEqual({
+        expect(upsertConnectionStringAction.started({ newConnectionString: 'new', connectionString: 'old'})).toEqual({
             payload: { newConnectionString: 'new', connectionString: 'old'},
-            type: 'CONNECTION_STRINGS/UPSERT'
+            type: 'CONNECTION_STRINGS/UPSERT_STARTED'
         });
     });
 });

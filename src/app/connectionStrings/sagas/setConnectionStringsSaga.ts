@@ -13,10 +13,6 @@ export function* setConnectionStringsSaga(action: Action<string[]>) {
     yield put(setConnectionStringsAction.done({params: action.payload, result: action.payload}));
 }
 
-export const getConnectionStrings = (): string => {
-    return localStorage.getItem(CONNECTION_STRING_NAME_LIST);
-};
-
 export const setConnectionStrings = (value: string): void => {
     return localStorage.setItem(CONNECTION_STRING_NAME_LIST, value);
 };

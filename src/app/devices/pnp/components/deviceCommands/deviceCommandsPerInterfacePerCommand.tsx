@@ -73,7 +73,6 @@ export const DeviceCommandsPerInterfacePerCommand: React.FC<DeviceCommandDataPro
             <DataForm
                 buttonText={ResourceKeys.deviceCommands.command.submit}
                 formData={undefined}
-                componentName={componentName}
                 settingSchema={parsedSchema.requestSchema}
                 handleSave={onSubmit}
                 schema={getCommandSchema(true)}

@@ -13,6 +13,7 @@ import { CONNECTION_STRING_LIST_MAX_LENGTH } from '../../constants/browserStorag
 import * as AsyncSagaReducer from '../../shared/hooks/useAsyncSagaReducer';
 import { connectionStringsStateInitial } from '../state';
 import * as actions from '../actions';
+import { upsertConnectionStringAction } from '../actions';
 
 jest.mock('react-router-dom', () => ({
     useHistory: () => ({ push: jest.fn() })
@@ -64,7 +65,7 @@ describe('ConnectionStringsView', () => {
         });
 
         it('upserts when edit view applied', () => {
-            const upsertConnectionStringActionSpy = jest.spyOn(actions, 'upsertConnectionStringAction');
+            const upsertConnectionStringActionSpy = jest.spyOn(upsertConnectionStringAction, 'started');
             const state = connectionStringsStateInitial().merge({ payload: []});
             jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([state, jest.fn()]);
             const wrapper = shallow(<ConnectionStringsView/>);
@@ -97,7 +98,7 @@ describe('ConnectionStringsView', () => {
         });
 
         it('upserts when edit view applied', () => {
-            const upsertConnectionStringActionSpy = jest.spyOn(actions, 'upsertConnectionStringAction');
+            const upsertConnectionStringActionSpy = jest.spyOn(upsertConnectionStringAction, 'started');
             const state = connectionStringsStateInitial().merge({ payload: [connectionString] });
             jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([state, jest.fn()]);
             const wrapper = mount(<ConnectionStringsView/>);
