@@ -16,7 +16,6 @@ import {
 } from '../parameters/deviceParameters';
 import { CONTROLLER_API_ENDPOINT,
     EVENTHUB,
-    DIGITAL_TWIN_API_VERSION,
     MONITOR,
     STOP,
     HEADERS,
