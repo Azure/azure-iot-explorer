@@ -37,7 +37,7 @@ export const AddModuleIdentity: React.FC = () => {
     const history = useHistory();
     const deviceId = getDeviceIdFromQueryString(search);
 
-    const [ localState, dispatch ] = useAsyncSagaReducer(addModuleIdentityReducer, addModuleIdentitySaga, addModuleStateInitial());
+    const [ localState, dispatch ] = useAsyncSagaReducer(addModuleIdentityReducer, addModuleIdentitySaga, addModuleStateInitial(), 'addModuleState');
     const { synchronizationStatus } = localState;
     const [ authenticationType, setAuthenticationType ] = React.useState(DeviceAuthenticationType.SymmetricKey);
     const [ autoGenerateKeys, setautoGenerateKeys ] = React.useState<boolean>(true);

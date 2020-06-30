@@ -35,7 +35,7 @@ export const ModuleIdentityDetail: React.FC = () => {
     const moduleId = getModuleIdentityIdFromQueryString(search);
     const deviceId = getDeviceIdFromQueryString(search);
 
-    const [ localState, dispatch ] = useAsyncSagaReducer(moduleIdentityDetailReducer, moduleIdentityDetailSaga, moduleIdentityDetailStateInterfaceInitial());
+    const [ localState, dispatch ] = useAsyncSagaReducer(moduleIdentityDetailReducer, moduleIdentityDetailSaga, moduleIdentityDetailStateInterfaceInitial(), 'moduleIdentityDetailState');
     const synchronizationStatus = localState.synchronizationStatus;
     const moduleIdentity = localState.payload;
     const [ showDeleteConfirmation, setShowDeleteConfirmation ] = React.useState<boolean>(false);

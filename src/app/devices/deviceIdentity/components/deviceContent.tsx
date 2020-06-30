@@ -37,7 +37,7 @@ export const DeviceContent: React.FC = () => {
     const { search } = useLocation();
     const deviceId = getDeviceIdFromQueryString(search);
 
-    const [ localState, dispatch ] = useAsyncSagaReducer(deviceIdentityReducer, DeviceIdentitySaga, deviceIdentityStateInitial());
+    const [ localState, dispatch ] = useAsyncSagaReducer(deviceIdentityReducer, DeviceIdentitySaga, deviceIdentityStateInitial(), 'deviceIdentityState');
     const synchronizationStatus = localState.synchronizationStatus;
     const deviceIdentity = localState.payload;
 
