@@ -8,7 +8,6 @@ import { cloneableGenerator } from '@redux-saga/testing-utils';
 import { setConnectionStringsAction } from '../actions';
 import { setConnectionStringsSaga, setConnectionStrings } from './setConnectionStringsSaga';
 import { CONNECTION_STRING_NAME_LIST } from '../../constants/browserStorage';
-import { ACTIVE_CONNECTION_STRING } from './../../constants/browserStorage';
 
 describe('setConnectionString', () => {
     it('sets expected value', () => {
@@ -21,8 +20,6 @@ describe('setConnectionString', () => {
 
 describe('setConnectionStringsSaga', () => {
     const setConnectionStringsSagaGenerator = cloneableGenerator(setConnectionStringsSaga)(setConnectionStringsAction.started(['connectionString2']));
-    setConnectionStringsSagaGenerator.next();
-    expect(localStorage.getItem(ACTIVE_CONNECTION_STRING)).toEqual('connectionString2');
     it('returns call effect to set connection strings', () => {
         expect(setConnectionStringsSagaGenerator.next()).toEqual({
             done: false,
