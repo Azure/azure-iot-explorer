@@ -174,10 +174,12 @@ export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataPro
         );
     };
 
-    const onViewReportedValue = () => {
+    const onViewReportedValue = (event: React.MouseEvent<HTMLElement>) => {
         setShowReportedValuePanel(true);
         handleOverlayToggle();
-        handleCollapseToggle();
+        if (event) {
+            event.stopPropagation();
+        }
     };
 
     const handleDismissViewReportedPanel = () => {
