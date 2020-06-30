@@ -32,7 +32,7 @@ export const Pnp: React.FC = () => {
     const locations: RepositoryLocationSettings[] = getRepositoryLocationSettings(modelRepositoryState);
     const localFolderPath: string =  (modelRepositoryState && modelRepositoryState.localFolderSettings && modelRepositoryState.localFolderSettings.path) || '';
 
-    const [ pnpState, dispatch ] = useAsyncSagaReducer(pnpReducer, pnpSaga, pnpStateInitial());
+    const [ pnpState, dispatch ] = useAsyncSagaReducer(pnpReducer, pnpSaga, pnpStateInitial(), 'pnpState');
     const digitalTwin = pnpState.digitalTwin.payload as any; // tslint:disable-line: no-any
     const modelId = digitalTwin &&  digitalTwin.$metadata && digitalTwin.$metadata.$model;
 

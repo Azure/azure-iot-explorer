@@ -32,7 +32,7 @@ export const ModuleIdentityTwin: React.FC = () => {
     const moduleId = getModuleIdentityIdFromQueryString(search);
     const deviceId = getDeviceIdFromQueryString(search);
 
-    const [ localState, dispatch ] = useAsyncSagaReducer(moduleTwinReducer, getModuleIdentityTwinSaga, moduleTwinStateInitial());
+    const [ localState, dispatch ] = useAsyncSagaReducer(moduleTwinReducer, getModuleIdentityTwinSaga, moduleTwinStateInitial(), 'moduleIdentityTwinState');
     const moduleIdentityTwin = localState.payload;
     const moduleIdentityTwinSyncStatus = localState.synchronizationStatus;
 

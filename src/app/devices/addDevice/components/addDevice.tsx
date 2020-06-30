@@ -39,7 +39,7 @@ export const AddDevice: React.FC = () => {
     const { pathname } = useLocation();
     const history = useHistory();
 
-    const [ localState, dispatch ] = useAsyncSagaReducer(addDeviceReducer, addDeviceSaga, addDeviceStateInitial());
+    const [ localState, dispatch ] = useAsyncSagaReducer(addDeviceReducer, addDeviceSaga, addDeviceStateInitial(), 'addDeviceState');
     const { synchronizationStatus } = localState;
     const [ authenticationType, setAuthenticationType ] = React.useState(DeviceAuthenticationType.SymmetricKey);
     const [ autoGenerateKeys, setautoGenerateKeys ] = React.useState<boolean>(true);

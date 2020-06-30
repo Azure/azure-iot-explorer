@@ -24,7 +24,7 @@ export const DeviceTwin: React.FC = () => {
     const { t } = useTranslation();
     const { search } = useLocation();
 
-    const [ localState, dispatch ] = useAsyncSagaReducer(deviceTwinReducer, deviceTwinSaga, deviceTwinStateInitial());
+    const [ localState, dispatch ] = useAsyncSagaReducer(deviceTwinReducer, deviceTwinSaga, deviceTwinStateInitial(), 'deviceTwinState');
     const twin = localState.deviceTwin && localState.deviceTwin.payload;
     const twinState = localState.deviceTwin && localState.deviceTwin.synchronizationStatus;
     const deviceId = getDeviceIdFromQueryString(search);

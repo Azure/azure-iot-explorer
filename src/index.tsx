@@ -21,7 +21,7 @@ import './app/css/_index.scss';
 initializeIcons();
 
 const ViewHolder: React.FC = () => {
-    const [ globalState, dispatch ] = useAsyncSagaReducer(globalReducer, globalSaga, globalStateInitial());
+    const [ globalState, dispatch ] = useAsyncSagaReducer(globalReducer, globalSaga, globalStateInitial(), 'globalState');
 
     return (
         <I18nextProvider i18n={i18n}>

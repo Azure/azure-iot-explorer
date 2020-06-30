@@ -29,7 +29,7 @@ export const ModuleIdentityList: React.FC = () => {
     const history = useHistory();
     const deviceId = getDeviceIdFromQueryString(search);
 
-    const [ localState, dispatch ] = useAsyncSagaReducer(moduleIdentityListReducer, getModuleIdentitiesSaga, moduleIndentityListStateInitial());
+    const [ localState, dispatch ] = useAsyncSagaReducer(moduleIdentityListReducer, getModuleIdentitiesSaga, moduleIndentityListStateInitial(), 'moduleIdentityListState');
     const moduleIdentityList = localState.payload;
     const synchronizationStatus = localState.synchronizationStatus;
 

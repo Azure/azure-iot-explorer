@@ -30,7 +30,7 @@ export const ConnectionStringsView: React.FC = () => {
     const { t } = useTranslation();
     const history = useHistory();
 
-    const [ localState, dispatch ] = useAsyncSagaReducer(connectionStringsReducer, connectionStringsSaga, connectionStringsStateInitial());
+    const [ localState, dispatch ] = useAsyncSagaReducer(connectionStringsReducer, connectionStringsSaga, connectionStringsStateInitial(), 'connectionStringsState');
     const [ connectionStringUnderEdit, setConnectionStringUnderEdit ] = React.useState<string>(undefined);
 
     const connectionStrings = localState.payload;
