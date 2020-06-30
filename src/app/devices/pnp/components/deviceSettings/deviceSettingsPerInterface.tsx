@@ -89,7 +89,7 @@ export const DeviceSettingsPerInterface: React.FC<DeviceSettingDataProps & Devic
     ));
 
     return (
-        <div className="pnp-detail-list scrollable-lg">
+        <div className="pnp-detail-list pnp-properties scrollable-lg">
             <div className="list-header flex-grid-row">
                 <span className="col-sm3">{t(ResourceKeys.deviceSettings.columns.name)}</span>
                 <span className="col-sm2">{t(ResourceKeys.deviceSettings.columns.schema)}</span>
