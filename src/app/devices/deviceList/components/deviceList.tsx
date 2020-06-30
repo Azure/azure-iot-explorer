@@ -37,7 +37,7 @@ export const DeviceList: React.FC = () => {
     const { pathname } = useLocation();
     const history = useHistory();
 
-    const [ localState, dispatch ] = useAsyncSagaReducer(deviceListReducer, deviceListSaga, deviceListStateInitial());
+    const [ localState, dispatch ] = useAsyncSagaReducer(deviceListReducer, deviceListSaga, deviceListStateInitial(), 'deviceListState');
     const { devices, synchronizationStatus, deviceQuery } = localState;
     const isFetching = React.useMemo(() => synchronizationStatus === SynchronizationStatus.working, [synchronizationStatus]);
 

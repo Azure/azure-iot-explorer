@@ -34,6 +34,7 @@ export const JSONEditor: React.FC<JSONEditorProps> = (props: JSONEditorProps) =>
             editor = edit(container);
             editor.getSession().setMode('ace/mode/json');
             editor.setTheme(`ace/theme/${editorTheme}`);
+            editor.$blockScrolling = Infinity;
             editor.setReadOnly(!onChange);
             editor.setValue(content);
             editor.on('change', onUpdate);
