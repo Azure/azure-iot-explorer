@@ -3,22 +3,21 @@
  * Licensed under the MIT License
  **********************************************************/
 import { ModuleIdentity } from '../models/moduleIdentity';
-import { DataPlaneParameters } from './deviceParameters';
 
-export interface FetchModuleIdentitiesParameters extends DataPlaneParameters {
+export interface FetchModuleIdentitiesParameters {
     deviceId: string;
 }
 
-export interface AddModuleIdentityParameters extends DataPlaneParameters {
+export interface AddModuleIdentityParameters {
     moduleIdentity: ModuleIdentity;
 }
 
-export interface ModuleIdentityTwinParameters extends DataPlaneParameters {
+export interface ModuleIdentityTwinParameters {
     deviceId: string;
     moduleId: string;
 }
 
-export interface FetchModuleIdentityParameters extends DataPlaneParameters {
+export interface FetchModuleIdentityParameters {
     deviceId: string;
     moduleId: string;
 }

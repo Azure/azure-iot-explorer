@@ -16,7 +16,7 @@ export const fetchDigitalTwin = async (parameters: FetchDigitalTwinParameters) =
         return;
     }
 
-    const connectionInformation = await dataPlaneConnectionHelper(parameters);
+    const connectionInformation = await dataPlaneConnectionHelper();
     const dataPlaneRequest: DataPlaneRequest = {
         apiVersion: DIGITAL_TWIN_API_VERSION_PREVIEW,
         hostName: connectionInformation.connectionInfo.hostName,
@@ -35,7 +35,7 @@ export const patchDigitalTwinAndGetResponseCode = async (parameters: PatchDigita
         return;
     }
 
-    const connectionInformation = await dataPlaneConnectionHelper(parameters);
+    const connectionInformation = await dataPlaneConnectionHelper();
     const dataPlaneRequest: DataPlaneRequest = {
         apiVersion: DIGITAL_TWIN_API_VERSION_PREVIEW,
         body: JSON.stringify(parameters.payload),
@@ -54,7 +54,7 @@ export const invokeDigitalTwinInterfaceCommand = async (parameters: InvokeDigita
         return;
     }
 
-    const connectionInformation = await dataPlaneConnectionHelper(parameters);
+    const connectionInformation = await dataPlaneConnectionHelper();
     const connectTimeoutInSeconds = parameters.connectTimeoutInSeconds || CONNECTION_TIMEOUT_IN_SECONDS;
     const responseTimeoutInSeconds = parameters.responseTimeoutInSeconds || RESPONSE_TIME_IN_SECONDS;
     const queryString = `connectTimeoutInSeconds=${connectTimeoutInSeconds}&responseTimeoutInSeconds=${responseTimeoutInSeconds}`;
