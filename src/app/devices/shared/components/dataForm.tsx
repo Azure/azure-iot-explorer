@@ -5,7 +5,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { PrimaryButton, ActionButton } from 'office-ui-fabric-react/lib/components/Button';
-import { Dialog, DialogFooter } from 'office-ui-fabric-react/lib/components/Dialog';
+import { Dialog } from 'office-ui-fabric-react/lib/components/Dialog';
 import { Label } from 'office-ui-fabric-react/lib/components/Label';
 import Form from 'react-jsonschema-form';
 import { Validator } from 'jsonschema';
@@ -20,8 +20,6 @@ import { ErrorBoundary } from './errorBoundary';
 import { LabelWithTooltip } from '../../../shared/components/labelWithTooltip';
 import { JSONEditor } from '../../../shared/components/jsonEditor';
 import '../../../css/_dataForm.scss';
-
-const payloadRef = React.createRef<any>(); // tslint:disable-line:no-any
 
 export interface DataFormDataProps {
     formData: any;  // tslint:disable-line:no-any
@@ -53,7 +51,7 @@ export const DataForm: React.FC<DataFormDataProps & DataFormActionProps> = (prop
     const [ showPayloadDialog, setShowPlayloadDialog ] = React.useState<boolean>(false);
     const parseMapTypeError = twinData.error;
     const [ payloadPreviewData, setPayloadPreviewData ] = React.useState(undefined);
-    const [ stringifiedFormData, setStringifiedFormData ] = React.useState(JSON.stringify(twinData.formData, null, '\t'));
+    const [ stringifiedFormData ] = React.useState(JSON.stringify(twinData.formData, null, '\t'));
 
     const renderDialog = () => {
         return (
@@ -65,13 +63,10 @@ export const DataForm: React.FC<DataFormDataProps & DataFormActionProps> = (prop
                     isBlocking: false
                 }}
             >
-                <JSONEditor className="json-editor" content={JSON.stringify(payloadPreviewData, null, '\t')}/>
-                <DialogFooter>
-                    <PrimaryButton
-                        onClick={copyPayload}
-                        text={t(ResourceKeys.common.maskedCopyableTextField.copy.label)}
-                    />
-                </DialogFooter>
+                { payloadPreviewData ?
+                    <JSONEditor className="json-editor" content={JSON.stringify(payloadPreviewData, null, '\t')}/> :
+                    <span>{t(ResourceKeys.deviceSettings.noPreviewContent)}</span>
+                }
             </Dialog>
         );
     };
@@ -145,10 +140,6 @@ export const DataForm: React.FC<DataFormDataProps & DataFormActionProps> = (prop
         setFormData(data.formData);
     };
 
-    const onChangeEditor = (data: string) => {
-        setStringifiedFormData(data);
-    };
-
     const generatePayload = () => {
         return (parseMapTypeError || !settingSchema) ?
             stringifiedFormData && JSON.parse(stringifiedFormData) :
@@ -161,13 +152,6 @@ export const DataForm: React.FC<DataFormDataProps & DataFormActionProps> = (prop
     };
 
     const hidePayloadDialog = () => setShowPlayloadDialog(false);
-
-    const copyPayload = () => {
-        const editor = payloadRef.current.editor;
-        editor.setSelection(editor.getVisibleRanges()[0]);
-        editor.focus();
-        document.execCommand('copy');
-    };
 
     const stringifyNumberIfNecessary = () => {
         const value = formData;
