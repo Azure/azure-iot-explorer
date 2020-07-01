@@ -12,5 +12,6 @@ export function* getConnectionStringsSaga() {
 }
 
 export const getConnectionStrings = (): string[] => {
-    return localStorage.getItem(CONNECTION_STRING_NAME_LIST) && localStorage.getItem(CONNECTION_STRING_NAME_LIST).split(',') || [];
+    const connectionStrings = localStorage.getItem(CONNECTION_STRING_NAME_LIST);
+    return connectionStrings && connectionStrings.split(',') || [];
 };

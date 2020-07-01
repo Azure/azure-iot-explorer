@@ -52,7 +52,6 @@ describe('updateDeviceTwinSaga', () => {
         expect(updateDeviceTwinSagaGenerator.next()).toEqual({
             done: false,
             value: call(mockUpdateDeviceTwin, {
-                deviceId,
                 deviceTwin: mockTwin
             })
         });

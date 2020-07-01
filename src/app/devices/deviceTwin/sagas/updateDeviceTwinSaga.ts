@@ -14,7 +14,6 @@ import { raiseNotificationToast } from '../../../notifications/components/notifi
 export function* updateDeviceTwinSaga(action: Action<UpdateTwinActionParameters>) {
     try {
         const parameters: UpdateDeviceTwinParameters = {
-            deviceId: action.payload.deviceId,
             deviceTwin: action.payload.twin,
         };
 

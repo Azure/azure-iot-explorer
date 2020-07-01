@@ -61,17 +61,8 @@ const mockDataPlaneConnectionHelper = () => {
 describe('deviceTwinService', () => {
 
     context('fetchDeviceTwin', () => {
-        const parameters = {
-                connectionString,
-                deviceId: undefined
-        };
         it ('returns if deviceId is not specified', () => {
-            expect(DevicesService.fetchDeviceTwin(parameters)).toEqual(emptyPromise);
-        });
-
-        it ('throws if connection string is not valid', async () => {
-            await expect(DevicesService.fetchDeviceTwin({...parameters, deviceId, connectionString: undefined})).rejects.toThrow();
-            await expect(DevicesService.fetchDeviceTwin({...parameters, deviceId, connectionString: 'SharedAccessKeyName=owner;SharedAccessKey=fakeKey='})).rejects.toThrow();
+            expect(DevicesService.fetchDeviceTwin({deviceId: undefined})).toEqual(emptyPromise);
         });
 
         it('calls fetch with specified parameters and returns deviceTwin when response is 200', async () => {
@@ -98,10 +89,7 @@ describe('deviceTwinService', () => {
                 sharedAccessSignature: connectionInformation.sasToken
             };
 
-            const result = await DevicesService.fetchDeviceTwin({
-                ...parameters,
-                deviceId
-            });
+            const result = await DevicesService.fetchDeviceTwin({deviceId});
 
             const serviceRequestParams = {
                 body: JSON.stringify(dataPlaneRequest),
@@ -118,10 +106,7 @@ describe('deviceTwinService', () => {
 
         it('throws Error when promise rejects', async done => {
             window.fetch = jest.fn().mockRejectedValueOnce(new Error('Not found'));
-            await expect(DevicesService.fetchDeviceTwin({
-                ...parameters,
-                deviceId
-            })).rejects.toThrowError('Not found');
+            await expect(DevicesService.fetchDeviceTwin({deviceId})).rejects.toThrowError('Not found');
             done();
         });
     });
@@ -154,10 +139,7 @@ describe('deviceTwinService', () => {
             // tslint:enable
             jest.spyOn(window, 'fetch').mockResolvedValue(response);
 
-            const result = await DevicesService.updateDeviceTwin({
-                ...parameters,
-                deviceId
-            });
+            const result = await DevicesService.updateDeviceTwin(parameters);
 
             const connectionInformation = mockDataPlaneConnectionHelper();
             const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
@@ -185,8 +167,7 @@ describe('deviceTwinService', () => {
         it('throws Error when promise rejects', async () => {
             window.fetch = jest.fn().mockRejectedValueOnce(new Error());
             await expect(DevicesService.updateDeviceTwin({
-                ...parameters,
-                deviceId
+                ...parameters
             })).rejects.toThrow(new Error());
         });
     });

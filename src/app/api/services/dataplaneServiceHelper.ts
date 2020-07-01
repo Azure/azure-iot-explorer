@@ -2,11 +2,10 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { DataPlaneParameters } from '../parameters/deviceParameters';
 import { CONTROLLER_API_ENDPOINT, DATAPLANE, DataPlaneStatusCode, HTTP_OPERATION_TYPES } from '../../constants/apiConstants';
 import { getConnectionInfoFromConnectionString, generateSasToken } from '../shared/utils';
 import { PortIsInUseError } from '../models/portIsInUseError';
-import { ACTIVE_CONNECTION_STRING } from '../../constants/browserStorage';
+import { CONNECTION_STRING_NAME_LIST } from '../../constants/browserStorage';
 
 export const DATAPLANE_CONTROLLER_ENDPOINT = `${CONTROLLER_API_ENDPOINT}${DATAPLANE}`;
 
@@ -38,22 +37,18 @@ export const request = async (endpoint: string, parameters: any) => { // tslint:
     );
 };
 
-export const dataPlaneConnectionHelper = async (parameters: DataPlaneParameters) => {
-    let connectionString = parameters && parameters.connectionString;
-    if (!connectionString) {
-        connectionString = await localStorage.getItem(ACTIVE_CONNECTION_STRING);
-    }
-
+export const dataPlaneConnectionHelper = async () => {
+    const connectionStrings = await localStorage.getItem(CONNECTION_STRING_NAME_LIST);
+    const connectionString = connectionStrings && connectionStrings.split(',')[0];
     const connectionInfo = getConnectionInfoFromConnectionString(connectionString);
     if (!(connectionInfo && connectionInfo.hostName)) {
         return;
     }
 
-    const fullHostName = `${connectionInfo.hostName}/devices/query`;
     const sasToken = generateSasToken({
         key: connectionInfo.sharedAccessKey,
         keyName: connectionInfo.sharedAccessKeyName,
-        resourceUri: fullHostName
+        resourceUri: connectionInfo.hostName
     });
 
     return {
