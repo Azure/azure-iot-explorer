@@ -12,13 +12,13 @@ describe('dataForm', () => {
     const formData = 123;
     const settingSchema = {
         description: 'Brightness Level / The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)',
+        required: null,
         title: 'brightness',
         type: 'number'
     };
 
     const dataFormProps: DataFormDataProps = {
         buttonText: 'text',
-        componentName: 'testInterface',
         formData,
         schema: 'integer',
         settingSchema

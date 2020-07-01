@@ -487,6 +487,7 @@
     },
     "deviceSettings": {
         "previewPayloadButtonText": "Preview payload",
+        "noPreviewContent": "There is no payload to show.",
         "command" : {
             "refresh": "Refresh",
             "submit": "Update desired value",
