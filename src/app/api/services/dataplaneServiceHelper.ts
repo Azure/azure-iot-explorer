@@ -38,7 +38,8 @@ export const request = async (endpoint: string, parameters: any) => { // tslint:
 };
 
 export const dataPlaneConnectionHelper = async () => {
-    const connectionString = await localStorage.getItem(CONNECTION_STRING_NAME_LIST) && localStorage.getItem(CONNECTION_STRING_NAME_LIST).split(',')[0];
+    const connectionStrings = await localStorage.getItem(CONNECTION_STRING_NAME_LIST);
+    const connectionString = connectionStrings && connectionStrings.split(',')[0];
     const connectionInfo = getConnectionInfoFromConnectionString(connectionString);
     if (!(connectionInfo && connectionInfo.hostName)) {
         return;

@@ -14,7 +14,8 @@ import '../../css/_breadcrumb.scss';
 
 export const Breadcrumb: React.FC = () => {
     const [ hostName, setHostName ] = React.useState<string>('');
-    const connectionString = localStorage.getItem(CONNECTION_STRING_NAME_LIST) && localStorage.getItem(CONNECTION_STRING_NAME_LIST).split(',')[0];
+    const connectionStrings = localStorage.getItem(CONNECTION_STRING_NAME_LIST);
+    const connectionString = connectionStrings && connectionStrings.split(',')[0];
 
     React.useEffect(() => {
         const host = getConnectionInfoFromConnectionString(connectionString).hostName;
