@@ -49,15 +49,15 @@ export const DeviceEvents: React.FC = () => {
         customEventHubConnectionString: undefined,
         customEventHubName: undefined,
         events: [],
-        hasMore: false,
-        loading: false,
-        loadingAnnounced: undefined,
-        monitoringData: false,
         startTime: new Date(new Date().getTime() - MILLISECONDS_IN_MINUTE), // set start time to one minute ago
-        synchronizationStatus: SynchronizationStatus.initialized,
         useBuiltInEventHub: true
     });
 
+    const [ hasMore, setHasMore ] = React.useState(false);
+    const [ loading, setLoading ] = React.useState(false);
+    const [ loadingAnnounced, setLoadingAnnounced ] = React.useState(undefined);
+    const [ monitoringData, setMonitoringData ] = React.useState(false);
+    const [ synchronizationStatus, setSynchronizationStatus ] = React.useState(SynchronizationStatus.initialized);
     const [ showSystemProperties, setShowSystemProperties ] = React.useState(false);
     React.useEffect(() => {
         return () => {
@@ -76,7 +76,7 @@ export const DeviceEvents: React.FC = () => {
     const createClearCommandItem = (): ICommandBarItemProps => {
         return {
             ariaLabel: t(ResourceKeys.deviceEvents.command.clearEvents),
-            disabled: state.events.length === 0 || state.synchronizationStatus === SynchronizationStatus.updating,
+            disabled: state.events.length === 0 || synchronizationStatus === SynchronizationStatus.updating,
             iconProps: {
                 iconName: CLEAR
             },
@@ -89,7 +89,7 @@ export const DeviceEvents: React.FC = () => {
     const createSystemPropertiesCommandItem = (): ICommandBarItemProps => {
         return {
             ariaLabel: t(ResourceKeys.deviceEvents.command.showSystemProperties),
-            disabled: state.synchronizationStatus === SynchronizationStatus.updating,
+            disabled: synchronizationStatus === SynchronizationStatus.updating,
             iconProps: {
                 iconName: showSystemProperties ? CHECKED_CHECKBOX : EMPTY_CHECKBOX
             },
@@ -101,11 +101,11 @@ export const DeviceEvents: React.FC = () => {
 
     const createStartMonitoringCommandItem = (): ICommandBarItemProps => {
         if (appConfig.hostMode === HostMode.Electron) {
-            const label = state.monitoringData ? t(ResourceKeys.deviceEvents.command.stop) : t(ResourceKeys.deviceEvents.command.start);
-            const icon = state.monitoringData ? STOP : START;
+            const label = monitoringData ? t(ResourceKeys.deviceEvents.command.stop) : t(ResourceKeys.deviceEvents.command.start);
+            const icon = monitoringData ? STOP : START;
             return {
                 ariaLabel: label,
-                disabled: state.synchronizationStatus === SynchronizationStatus.updating,
+                disabled: synchronizationStatus === SynchronizationStatus.updating,
                 iconProps: {
                     iconName: icon
                 },
@@ -117,7 +117,7 @@ export const DeviceEvents: React.FC = () => {
         else {
             return {
                 ariaLabel: t(ResourceKeys.deviceEvents.command.fetch),
-                disabled: state.synchronizationStatus === SynchronizationStatus.updating || state.monitoringData,
+                disabled: synchronizationStatus === SynchronizationStatus.updating || monitoringData,
                 iconProps: {
                     iconName: START
                 },
@@ -153,7 +153,7 @@ export const DeviceEvents: React.FC = () => {
                 ariaLabel={t(ResourceKeys.deviceEvents.consumerGroups.label)}
                 underlined={true}
                 value={state.consumerGroup}
-                disabled={state.monitoringData}
+                disabled={monitoringData}
                 onChange={consumerGroupChange}
             />
         );
@@ -195,7 +195,7 @@ export const DeviceEvents: React.FC = () => {
                     onText={t(ResourceKeys.deviceEvents.toggleUseDefaultEventHub.on)}
                     offText={t(ResourceKeys.deviceEvents.toggleUseDefaultEventHub.off)}
                     onChange={toggleChange}
-                    disabled={state.monitoringData}
+                    disabled={monitoringData}
                 />
                 {!state.useBuiltInEventHub &&
                     <>
@@ -205,7 +205,7 @@ export const DeviceEvents: React.FC = () => {
                             ariaLabel={t(ResourceKeys.deviceEvents.customEventHub.connectionString.label)}
                             underlined={true}
                             value={state.customEventHubConnectionString}
-                            disabled={state.monitoringData}
+                            disabled={monitoringData}
                             onChange={customEventHubConnectionStringChange}
                             placeholder={t(ResourceKeys.deviceEvents.customEventHub.connectionString.placeHolder)}
                             errorMessage={renderError()}
@@ -217,7 +217,7 @@ export const DeviceEvents: React.FC = () => {
                             ariaLabel={t(ResourceKeys.deviceEvents.customEventHub.name.label)}
                             underlined={true}
                             value={state.customEventHubName}
-                            disabled={state.monitoringData}
+                            disabled={monitoringData}
                             onChange={customEventHubNameChange}
                             required={true}
                         />
@@ -233,35 +233,23 @@ export const DeviceEvents: React.FC = () => {
     };
 
     const onToggleStart = () => {
-        const monitoringState = state.monitoringData;
-
-        if (monitoringState) {
+        if (monitoringData) {
             stopMonitoring().then(() => {
-                setState({
-                    ...state,
-                    hasMore: false,
-                    monitoringData: false,
-                    synchronizationStatus: SynchronizationStatus.fetched
-                });
+                setHasMore(false);
+                setMonitoringData(false);
+                setSynchronizationStatus(SynchronizationStatus.fetched);
             });
-            setState({
-                ...state,
-                hasMore: false,
-                synchronizationStatus: SynchronizationStatus.updating
-            });
+            setHasMore(false);
+            setSynchronizationStatus(SynchronizationStatus.updating);
         } else {
-            setState({
-                ...state,
-                hasMore: true,
-                loading: false,
-                loadingAnnounced: undefined,
-                monitoringData: true
-            });
+            setHasMore(true);
+            setLoading(false);
+            setLoadingAnnounced(undefined);
+            setMonitoringData(true);
         }
     };
 
     const renderInfiniteScroll = () => {
-        const { hasMore } = state;
         const InfiniteScroll = require('react-infinite-scroller'); // https://github.com/CassetteRocks/react-infinite-scroller/issues/110
         return (
             <InfiniteScroll
@@ -308,13 +296,9 @@ export const DeviceEvents: React.FC = () => {
     };
 
     const fetchData = () => {
-        const { loading, monitoringData } = state;
         if (!loading && monitoringData) {
-            setState({
-                ...state,
-                loading: true,
-                loadingAnnounced: <Announced message={t(ResourceKeys.deviceEvents.infiniteScroll.loading)}/>
-            });
+            setLoading(true);
+            setLoadingAnnounced(<Announced message={t(ResourceKeys.deviceEvents.infiniteScroll.loading)}/>);
             timerID = setTimeout(
                 () => {
                     let parameters: MonitorEventsParameters = {
@@ -338,9 +322,9 @@ export const DeviceEvents: React.FC = () => {
                         setState({
                             ...state,
                             events: [...messages, ...state.events],
-                            loading: false,
                             startTime: new Date()
                         });
+                        setLoading(false);
                         stopMonitoringIfNecessary();
                     })
                     .catch (error => {
@@ -377,12 +361,9 @@ export const DeviceEvents: React.FC = () => {
         }
         else {
             stopMonitoring().then(() => {
-                setState({
-                    ...state,
-                    hasMore: false,
-                    monitoringData: false,
-                    synchronizationStatus: SynchronizationStatus.fetched
-                });
+                setHasMore(false);
+                setMonitoringData(false);
+                setSynchronizationStatus(SynchronizationStatus.fetched);
             });
         }
     };
@@ -400,7 +381,7 @@ export const DeviceEvents: React.FC = () => {
             {renderConsumerGroup()}
             {renderCustomEventHub()}
             {renderInfiniteScroll()}
-            {state.loadingAnnounced}
+            {loadingAnnounced}
         </div>
     );
 };
