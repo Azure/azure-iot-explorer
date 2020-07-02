@@ -10,7 +10,7 @@ import { ConnectionString  } from './connectionString';
 import { ConnectionStringEditView } from './connectionStringEditView';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { CONNECTION_STRING_LIST_MAX_LENGTH } from '../../constants/browserStorage';
-import { upsertConnectionStringAction, deleteConnectionStringAction, setConnectionStringsAction } from '../actions';
+import { upsertConnectionStringAction, deleteConnectionStringAction, setConnectionStringsAction, getConnectionStringAction } from '../actions';
 import { ROUTE_PARTS } from '../../constants/routes';
 import { formatConnectionStrings } from '../../shared/utils/hubConnectionStringHelper';
 import { ConnectionStringsEmpty } from './connectionStringsEmpty';
@@ -23,7 +23,6 @@ import { MultiLineShimmer } from '../../shared/components/multiLineShimmer';
 import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
 import '../../css/_layouts.scss';
 import './connectionStringsView.scss';
-import { getConnectionStringAction } from './../actions';
 
 // tslint:disable-next-line: cyclomatic-complexity
 export const ConnectionStringsView: React.FC = () => {

@@ -30,6 +30,7 @@ import { Twin, Device, DataPlaneResponse } from '../models/device';
 import { DeviceIdentity } from '../models/deviceIdentity';
 import { parseEventHubMessage } from './eventHubMessageHelper';
 import { dataPlaneConnectionHelper, dataPlaneResponseHelper, request, DATAPLANE_CONTROLLER_ENDPOINT, DataPlaneRequest } from './dataplaneServiceHelper';
+import { ApplicationClient } from '../../shared/appTelemetry/applicationInsightClient';
 
 const EVENTHUB_CONTROLLER_ENDPOINT = `${CONTROLLER_API_ENDPOINT}${EVENTHUB}`;
 export const EVENTHUB_MONITOR_ENDPOINT = `${EVENTHUB_CONTROLLER_ENDPOINT}${MONITOR}`;
@@ -262,6 +263,7 @@ export const monitorEvents = async (parameters: MonitorEventsParameters): Promis
     }
     else {
         const error = await response.json();
+        ApplicationClient.getInstance().trackEvent({name: `error: ${error}`}, {type: 'error'});
         throw new Error(error && error.name);
     }
 };

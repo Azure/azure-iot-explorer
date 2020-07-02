@@ -2,7 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { call, put, takeEvery } from 'redux-saga/effects';
+import { call, put, takeEvery, all } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
 import { NotificationType } from '../../api/models/notification';
 import { ResourceKeys } from '../../../localization/resourceKeys';
@@ -10,6 +10,7 @@ import { addDeviceAction } from './actions';
 import { addDevice } from '../../api/services/devicesService';
 import { DeviceIdentity } from '../../api/models/deviceIdentity';
 import { raiseNotificationToast } from '../../notifications/components/notificationToast';
+import { loggerSaga } from '../../shared/appTelemetry/appTelemetrySaga';
 
 export function* addDeviceSagaWorker(action: Action<DeviceIdentity>) {
     try {
@@ -48,5 +49,8 @@ export function* addDeviceSagaWorker(action: Action<DeviceIdentity>) {
 }
 
 export function* addDeviceSaga() {
-    yield takeEvery(addDeviceAction.started.type, addDeviceSagaWorker);
+    yield all([
+        yield takeEvery(addDeviceAction.started.type, addDeviceSagaWorker),
+        yield takeEvery('*', loggerSaga)
+    ]);
 }

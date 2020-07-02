@@ -10,6 +10,7 @@ import { ResourceKeys } from '../../../localization/resourceKeys';
 import { getDeviceIdentityAction, updateDeviceIdentityAction } from './actions';
 import { DeviceIdentity } from '../../api/models/deviceIdentity';
 import { raiseNotificationToast } from '../../notifications/components/notificationToast';
+import { loggerSaga } from '../../shared/appTelemetry/appTelemetrySaga';
 
 export function* getDeviceIdentitySagaWorker(action: Action<string>) {
     try {
@@ -73,5 +74,6 @@ export function* DeviceIdentitySaga() {
     yield all([
         takeLatest(getDeviceIdentityAction.started.type, getDeviceIdentitySagaWorker),
         takeEvery(updateDeviceIdentityAction.started.type, updateDeviceIdentitySagaWorker),
+        takeEvery('*', loggerSaga)
     ]);
 }

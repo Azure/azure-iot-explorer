@@ -4,7 +4,7 @@
  **********************************************************/
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { CONNECTION_STRING_LIST_MAX_LENGTH } from '../../constants/browserStorage';
-import { getConnectionInfoFromConnectionString } from './../../api/shared/utils';
+import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
 
 export const generateConnectionStringValidationError  = (value: string): string => {
     if (!value) {

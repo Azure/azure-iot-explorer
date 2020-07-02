@@ -4,7 +4,7 @@
  **********************************************************/
 import { call, put } from 'redux-saga/effects';
 import { CONNECTION_STRING_NAME_LIST } from '../../constants/browserStorage';
-import { getConnectionStringAction } from './../actions';
+import { getConnectionStringAction } from '../actions';
 
 export function* getConnectionStringsSaga() {
     const connectionStrings = yield call(getConnectionStrings);

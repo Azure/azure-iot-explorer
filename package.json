@@ -71,6 +71,7 @@
   "homepage": "https://github.com/Azure/azure-iot-explorer#readme",
   "dependencies": {
     "@azure/event-hubs": "1.0.7",
+    "@microsoft/applicationinsights-web": "2.5.5",
     "azure-iot-common": "1.10.3",
     "azure-iothub": "1.8.1",
     "body-parser": "1.18.3",

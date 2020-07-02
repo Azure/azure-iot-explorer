@@ -2,7 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { READ_FILE, GET_DIRECTORIES, CONTROLLER_API_ENDPOINT, DataPlaneStatusCode, DEFAULT_DIRECTORY } from './../../constants/apiConstants';
+import { READ_FILE, GET_DIRECTORIES, CONTROLLER_API_ENDPOINT, DataPlaneStatusCode, DEFAULT_DIRECTORY } from '../../constants/apiConstants';
 import { ModelDefinitionNotFound } from '../models/modelDefinitionNotFoundError';
 import { ModelDefinitionNotValidJsonError } from '../models/modelDefinitionNotValidJsonError';
 

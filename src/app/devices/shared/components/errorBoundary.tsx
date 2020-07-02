@@ -4,6 +4,7 @@
  **********************************************************/
 import React, { Component } from 'react';
 import { Label } from 'office-ui-fabric-react/lib/components/Label';
+import { ApplicationClient } from '../../../shared/appTelemetry/applicationInsightClient';
 
 interface ErrorBoundaryProps {
     error: string;
@@ -24,6 +25,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
         this.setState({
             hasError: true
         });
+        ApplicationClient.getInstance().trackEvent({name: `error: ${this.props.error}`}, {type: 'error'});
     }
 
     public render() {

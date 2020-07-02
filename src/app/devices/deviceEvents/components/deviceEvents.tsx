@@ -41,6 +41,7 @@ import { ParsedJsonSchema } from '../../../api/models/interfaceJsonParserOutput'
 import { TelemetryContent } from '../../../api/models/modelDefinition';
 import { getLocalizedData } from '../../../api/dataTransforms/modelDefinitionTransform';
 import { DeviceSimulationPanel } from './deviceSimulationPanel';
+import { ApplicationClient } from '../../../shared/appTelemetry/applicationInsightClient';
 import './deviceEvents.scss';
 
 const JSON_SPACES = 2;
@@ -639,7 +640,7 @@ export const DeviceEvents: React.FC = () => {
                 customEventHubName
             };
         }
-
+        ApplicationClient.getInstance().trackEvent({name: `monitoring events`}, {type: 'fetch'});
         dispatch(startEventsMonitoringAction.started(parameters));
     };
 

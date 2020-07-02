@@ -8,6 +8,7 @@ import { getDigitalTwinSaga } from './sagas/getDigitalTwinSaga';
 import { getModelDefinitionSaga } from './sagas/getModelDefinitionSaga';
 import { invokeDigitalTwinInterfaceCommandSaga } from './sagas/digitalTwinInterfaceCommandSaga';
 import { patchDigitalTwinSaga } from './sagas/patchDigitalTwinSaga';
+import { loggerSaga } from '../../shared/appTelemetry/appTelemetrySaga';
 
 export function* pnpSaga()  {
     yield all([
@@ -15,5 +16,6 @@ export function* pnpSaga()  {
         takeLatest(getModelDefinitionAction.started.type, getModelDefinitionSaga),
         takeEvery(invokeDigitalTwinInterfaceCommandAction.started.type, invokeDigitalTwinInterfaceCommandSaga),
         takeEvery(patchDigitalTwinAction.started.type, patchDigitalTwinSaga),
+        takeEvery('*', loggerSaga)
     ]);
 }

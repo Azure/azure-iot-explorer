@@ -2,7 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { call, put, takeEvery } from 'redux-saga/effects';
+import { call, put, takeEvery, all } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
 import { invokeDirectMethodAction, InvokeMethodActionParameters } from './actions';
 import { invokeDirectMethod } from '../../api/services/devicesService';
@@ -10,6 +10,7 @@ import { raiseNotificationToast } from '../../notifications/components/notificat
 import { NotificationType } from '../../api/models/notification';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { InvokeMethodParameters } from '../../api/parameters/deviceParameters';
+import { loggerSaga } from '../../shared/appTelemetry/appTelemetrySaga';
 
 export function* invokeDirectMethodSagaWorker(action: Action<InvokeMethodActionParameters>) {
     const toastId: number = Math.random();
@@ -92,5 +93,8 @@ export function* notifyMethodInvokedHelper(toastId: number, payload: InvokeMetho
 }
 
 export function* invokeDirectMethodSaga() {
-    yield takeEvery(invokeDirectMethodAction.started.type, invokeDirectMethodSagaWorker);
+    yield all([
+        takeEvery(invokeDirectMethodAction.started.type, invokeDirectMethodSagaWorker),
+        takeEvery('*', loggerSaga)
+    ]);
 }
