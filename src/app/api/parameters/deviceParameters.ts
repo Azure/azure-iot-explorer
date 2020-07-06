@@ -58,7 +58,6 @@ export interface FetchDigitalTwinParameters {
 
 export enum JsonPatchOperation {
     ADD = 'add',
-    REPLACE = 'replace',
     REMOVE = 'remove'
 }
 

@@ -217,8 +217,7 @@ export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataPro
             const path = componentName === DEFAULT_COMPONENT_FOR_DIGITAL_TWIN ?
                 `/${settingModelDefinition.name}` : `/${componentName}/${settingModelDefinition.name}`;
             const patchPayloadWithTwin = isValueDefined(twin) ? {
-                op: metadata && metadata.desiredValue ?
-                    JsonPatchOperation.REPLACE : JsonPatchOperation.ADD,
+                op: JsonPatchOperation.ADD,
                 path,
                 value: twin,
             } : {
