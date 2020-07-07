@@ -14,6 +14,7 @@ import { PropertyContent } from '../../../../api/models/modelDefinition';
 import { ParsedJsonSchema } from '../../../../api/models/interfaceJsonParserOutput';
 import { InterfaceDetailCard } from '../../../../constants/iconNames';
 import { DataForm } from '../../../shared/components/dataForm';
+import { ResourceKeys } from '../../../../../localization/resourceKeys';
 
 describe('deviceSettingsPerInterfacePerSetting', () => {
     const name = 'state';
@@ -121,7 +122,7 @@ describe('deviceSettingsPerInterfacePerSetting', () => {
         expect(handleOverlayToggle).toBeCalled();
 
         const reportedStatus = wrapper.find(Stack);
-        expect(reportedStatus.props().children[1].props.children).toEqual(`(${ackCode} ${ackDescription})`);
+        expect(reportedStatus.props().children[1].props.children).toEqual(ResourceKeys.deviceSettings.ackStatus.code);
         const form = wrapper.find(DataForm);
         expect(form.props().formData).toEqual(twinValue);
 

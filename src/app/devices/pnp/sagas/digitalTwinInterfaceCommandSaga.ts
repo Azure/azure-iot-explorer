@@ -4,13 +4,17 @@
  **********************************************************/
 import { call, put } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
+import { Validator, ValidatorResult } from 'jsonschema';
 import { invokeDigitalTwinInterfaceCommandAction, InvokeDigitalTwinInterfaceCommandActionParameters } from '../actions';
 import { invokeDigitalTwinInterfaceCommand } from '../../../api/services/digitalTwinService';
 import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { DEFAULT_COMPONENT_FOR_DIGITAL_TWIN } from '../../../constants/devices';
+import { getNumberOfMapsInSchema } from '../../../shared/utils/twinAndJsonSchemaDataConverter';
+import { ParsedJsonSchema } from '../../../api/models/interfaceJsonParserOutput';
 
+// tslint:disable-next-line: cyclomatic-complexity
 export function* invokeDigitalTwinInterfaceCommandSaga(action: Action<InvokeDigitalTwinInterfaceCommandActionParameters>) {
     const toastId: number = Math.random();
     const { componentName, commandName, digitalTwinId, commandPayload } = action.payload;
@@ -25,19 +29,25 @@ export function* invokeDigitalTwinInterfaceCommandSaga(action: Action<InvokeDigi
         });
         const responseStringified = JSON.stringify(response);
 
+        const validationResult = getValidationResult(response, action.payload.responseSchema);
         yield call(raiseNotificationToast, {
             id: toastId,
             text: {
                 translationKey: componentName === DEFAULT_COMPONENT_FOR_DIGITAL_TWIN ?
-                    ResourceKeys.notifications.invokeDigitalTwinCommandOnDefaultComponentOnSuccess : ResourceKeys.notifications.invokeDigitalTwinCommandOnSuccess,
+                    (validationResult ?
+                        ResourceKeys.notifications.invokeDigitalTwinCommandOnDefaultComponentOnSuccessButResponseIsNotValid :
+                        ResourceKeys.notifications.invokeDigitalTwinCommandOnDefaultComponentOnSuccess) :
+                    (validationResult ? ResourceKeys.notifications.invokeDigitalTwinCommandOnSuccessButResponseIsNotValid :
+                        ResourceKeys.notifications.invokeDigitalTwinCommandOnSuccess),
                 translationOptions: {
                     commandName,
                     componentName,
                     deviceId: digitalTwinId,
-                    response: responseStringified
+                    response: responseStringified,
+                    validationResult
                 },
             },
-            type: NotificationType.success
+            type: validationResult ? NotificationType.warning : NotificationType.success
         });
 
         yield put(invokeDigitalTwinInterfaceCommandAction.done({params: action.payload, result: response}));
@@ -82,3 +92,15 @@ export function* notifyMethodInvoked(toastId: number, action: Action<InvokeDigit
         });
     }
 }
+
+// tslint:disable-next-line: cyclomatic-complexity
+const getValidationResult = (response: any, schema: ParsedJsonSchema) => { // tslint:disable-line:no-any
+    const validator = new Validator();
+    let result: ValidatorResult;
+    if (schema && getNumberOfMapsInSchema(schema) <= 0) {
+        // only validate response if schema doesn't contain map type
+        result = validator.validate(response, schema);
+    }
+
+    return result && result.errors && result.errors.length !== 0 && result.errors.map(element => element.message).join(', ');
+};

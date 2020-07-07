@@ -60,6 +60,7 @@ $nav-width: 20%;
                     padding: 1px 12px 1px 12px;
                 }
                 .form-control:disabled {
+                    @include form-control-readonly;
                     border: none;
                     height: 32px;
                 }

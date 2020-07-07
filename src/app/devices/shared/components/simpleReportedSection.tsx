@@ -7,12 +7,13 @@ import { Validator, ValidationError } from 'jsonschema';
 import { Label } from 'office-ui-fabric-react/lib/components/Label';
 import { ParsedJsonSchema } from '../../../api/models/interfaceJsonParserOutput';
 
+// tslint:disable-next-line: cyclomatic-complexity
 export const RenderSimplyTypeValue = (twin: any, schema: ParsedJsonSchema, errorLabel: string) => { // tslint:disable-line:no-any
     const validator = new Validator();
     const result = validator.validate(twin, schema);
     return (
         <>
-            <Label>{twin && twin.toString()}</Label>
+            {twin && typeof(twin) === 'object' ? <Label>{JSON.stringify(twin)}</Label> : <Label>{twin && twin.toString()}</Label>}
             {result && result.errors && result.errors.length !== 0 && renderSchemaErrors(result.errors, errorLabel)}
         </>
     );
