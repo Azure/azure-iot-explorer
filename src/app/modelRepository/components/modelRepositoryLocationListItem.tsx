@@ -75,8 +75,9 @@ export const ModelRepositoryLocationListItem: React.FC<ModelRepositoryLocationLi
                         label={t(ResourceKeys.modelRepository.types.local.textBoxLabel)}
                         ariaLabel={t(ResourceKeys.modelRepository.types.local.textBoxLabel)}
                         value={currentFolder}
-                        readOnly={true}
+                        readOnly={false}
                         errorMessage={props.errorKey ? t(props.errorKey) : ''}
+                        onChange={onFolderPathChange}
                     />
                     <DefaultButton
                         className="local-folder-launch"
@@ -88,6 +89,11 @@ export const ModelRepositoryLocationListItem: React.FC<ModelRepositoryLocationLi
                 </>
             );
     };
+
+    const onFolderPathChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
+        setCurrentFolder(newValue);
+        onChangeRepositoryLocationSettingValue(index, newValue);
+   };
 
     const onShowFolderPicker = () => {
         fetchSubDirectoriesInfo(currentFolder);

@@ -32,7 +32,8 @@ exports[`components/settings/modelRepositoryLocationListItem matches snapshot fo
         className="local-folder-textbox"
         errorMessage=""
         label="modelRepository.types.local.textBoxLabel"
-        readOnly={true}
+        onChange={[Function]}
+        readOnly={false}
         value="f:/"
       />
       <CustomizedDefaultButton
@@ -138,7 +139,8 @@ exports[`components/settings/modelRepositoryLocationListItem matches snapshot fo
         className="local-folder-textbox"
         errorMessage="error"
         label="modelRepository.types.local.textBoxLabel"
-        readOnly={true}
+        onChange={[Function]}
+        readOnly={false}
         value="f:/"
       />
       <CustomizedDefaultButton
