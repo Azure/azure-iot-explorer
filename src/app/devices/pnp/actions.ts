@@ -8,6 +8,7 @@ import { GET_DIGITAL_TWIN, FETCH_MODEL_DEFINITION, INVOKE_DIGITAL_TWIN_INTERFACE
 import { ModelDefinitionWithSource } from '../../api/models/modelDefinitionWithSource';
 import { PatchPayload } from '../../api/parameters/deviceParameters';
 import { RepositoryLocationSettings } from '../../shared/global/state';
+import { ParsedJsonSchema } from '../../api/models/interfaceJsonParserOutput';
 
 const deviceContentCreator = actionCreatorFactory(DEVICECONTENT);
 const getDigitalTwinAction = deviceContentCreator.async<string, object>(GET_DIGITAL_TWIN);
@@ -32,7 +33,7 @@ export interface InvokeDigitalTwinInterfaceCommandActionParameters {
     commandName: string;
     componentName: string;
     commandPayload: boolean | number | string | object;
-    propertyKey?: string;
+    responseSchema: ParsedJsonSchema;
 }
 
 export interface GetModelDefinitionActionParameters {

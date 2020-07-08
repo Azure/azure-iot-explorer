@@ -40,7 +40,8 @@ describe('digitalTwinInterfaceCommandSaga', () => {
         commandName,
         commandPayload: payload,
         componentName,
-        digitalTwinId
+        digitalTwinId,
+        responseSchema: undefined
     };
 
     describe('invokeDigitalTwinInterfaceCommandSaga', () => {
