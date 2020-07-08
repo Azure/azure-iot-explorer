@@ -491,7 +491,7 @@
         "command" : {
             "refresh": "Refresh",
             "submit": "Update desired value",
-            "openReportedValuePanel": "Click to view reported",
+            "openReportedValuePanel": "Click to view value",
             "openDesiredValuePanel": "Click to edit",
             "expandAll": "Expand all",
             "expand": "Expand",
@@ -501,17 +501,17 @@
         },
         "headerText": "Writable properties",
         "noSettings": "ComponentName {{componentName}} contains no writable property definitions",
-        "syncStatus": {
-            "label": "Sync status : {{status}}",
-            "synced": "synced",
-            "syncing": "syncing",
-            "failed": "failed"
+        "ackStatus": {
+            "code": "Ack code: {{code}}",
+            "description": "Ack description: {{description}}",
+            "version": "Ack version: {{version}}",
+            "error": "Reported value is not conformant as ack information is required. It will prevent you from being able to update desired value."
         },
         "columns": {
             "name": "Name (Display Name / Description)",
             "schema": "Schema",
             "unit": "Unit",
-            "reportedValue": "Reported Value (Status)",
+            "reportedValue": "Reported Value (Ack metadata)",
             "reportedValueTooltip": "Reported value is updated asynchronously. Please click 'Refresh' button on the top to get latest value manually",
             "error": "value does not match schema"
         },
@@ -781,11 +781,13 @@
         "updateDeviceTwinOnError": "Failed to update device twin on device {{deviceId}}: {{error}}",
         "updateDeviceTwinOnSuccess": "Successfully updated device twin on device {{deviceId}}.",
         "invokeDigitalTwinCommandOnError": "Failed to invoke the IoT Plug and Play device command '{{commandName}}' for component '{{componentName}}' on device '{{deviceId}}': {{error}}",
-        "invokeDigitalTwinCommandOnSuccess": "Successfully invoked the IoT Plug and Play device command '{{commandName}}' for component '{{componentName}}' on device '{{deviceId}}': {{response}}",
+        "invokeDigitalTwinCommandOnSuccess": "Successfully invoked the IoT Plug and Play device command '{{commandName}}' for component '{{componentName}}' on device '{{deviceId}}': {{response}}.",
+        "invokeDigitalTwinCommandOnSuccessButResponseIsNotValid": "Successfully invoked the IoT Plug and Play device command '{{commandName}}' for component '{{componentName}}' on device '{{deviceId}}': {{response}}, but the response is not valid: {{validationResult}}.",
         "invokingDigitalTwinCommand": "Trying to invoke the IoT Plug and Play device command '{{commandName}}' for component '{{componentName}}' on device '{{deviceId}}' with no payload",
         "invokingDigitalTwinCommandWithPayload": "Trying to invoke the IoT Plug and Play device command '{{commandName}}' for component '{{componentName}}' on device '{{deviceId}}' with payload {{payload}}",
         "invokeDigitalTwinCommandOnDefaultComponentOnError": "Failed to invoke the IoT Plug and Play device command '{{commandName}}' for for default component on device '{{deviceId}}': {{error}}",
-        "invokeDigitalTwinCommandOnDefaultComponentOnSuccess": "Successfully invoked the IoT Plug and Play device command '{{commandName}}' for default component on device '{{deviceId}}': {{response}}",
+        "invokeDigitalTwinCommandOnDefaultComponentOnSuccess": "Successfully invoked the IoT Plug and Play device command '{{commandName}}' for default component on device '{{deviceId}}': {{response}}.",
+        "invokeDigitalTwinCommandOnDefaultComponentOnSuccessButResponseIsNotValid": "Successfully invoked the IoT Plug and Play device command '{{commandName}}' for default component on device '{{deviceId}}': {{response}}, but the response is not valid: {{validationResult}}.",
         "invokingDigitalTwinCommandOnDefaultComponent": "Trying to invoke the IoT Plug and Play device command '{{commandName}}' for default component on device '{{deviceId}}' with no payload",
         "invokingDigitalTwinCommandWithPayloadOnDefaultComponent": "Trying to invoke the IoT Plug and Play device command '{{commandName}}' for default component on device '{{deviceId}}' with payload {{payload}}",
         "invokeMethodOnError": "Failed to invoke method on device {{deviceId}}: {{error}}",

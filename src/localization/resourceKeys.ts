@@ -566,6 +566,12 @@ export class ResourceKeys {
       noProperties : "deviceProperties.noProperties",
    };
    public static deviceSettings = {
+      ackStatus : {
+         code : "deviceSettings.ackStatus.code",
+         description : "deviceSettings.ackStatus.description",
+         error : "deviceSettings.ackStatus.error",
+         version : "deviceSettings.ackStatus.version",
+      },
       columns : {
          error : "deviceSettings.columns.error",
          name : "deviceSettings.columns.name",
@@ -592,12 +598,6 @@ export class ResourceKeys {
          title : "deviceSettings.panel.title",
       },
       previewPayloadButtonText : "deviceSettings.previewPayloadButtonText",
-      syncStatus : {
-         failed : "deviceSettings.syncStatus.failed",
-         label : "deviceSettings.syncStatus.label",
-         synced : "deviceSettings.syncStatus.synced",
-         syncing : "deviceSettings.syncStatus.syncing",
-      },
    };
    public static deviceTwin = {
       command : {
@@ -831,8 +831,10 @@ export class ResourceKeys {
       interfaceSchemaNotSupported : "notifications.interfaceSchemaNotSupported",
       invokeDigitalTwinCommandOnDefaultComponentOnError : "notifications.invokeDigitalTwinCommandOnDefaultComponentOnError",
       invokeDigitalTwinCommandOnDefaultComponentOnSuccess : "notifications.invokeDigitalTwinCommandOnDefaultComponentOnSuccess",
+      invokeDigitalTwinCommandOnDefaultComponentOnSuccessButResponseIsNotValid : "notifications.invokeDigitalTwinCommandOnDefaultComponentOnSuccessButResponseIsNotValid",
       invokeDigitalTwinCommandOnError : "notifications.invokeDigitalTwinCommandOnError",
       invokeDigitalTwinCommandOnSuccess : "notifications.invokeDigitalTwinCommandOnSuccess",
+      invokeDigitalTwinCommandOnSuccessButResponseIsNotValid : "notifications.invokeDigitalTwinCommandOnSuccessButResponseIsNotValid",
       invokeMethodOnError : "notifications.invokeMethodOnError",
       invokeMethodOnSuccess : "notifications.invokeMethodOnSuccess",
       invokingDigitalTwinCommand : "notifications.invokingDigitalTwinCommand",

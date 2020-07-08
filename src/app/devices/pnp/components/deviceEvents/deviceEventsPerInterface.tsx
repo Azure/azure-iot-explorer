@@ -35,6 +35,7 @@ import { ROUTE_PARAMS } from '../../../../constants/routes';
 import { raiseNotificationToast } from '../../../../notifications/components/notificationToast';
 import { usePnpStateContext } from '../../../../shared/contexts/pnpStateContext';
 import { getDeviceTelemetry, TelemetrySchema } from './dataHelper';
+import { DEFAULT_COMPONENT_FOR_DIGITAL_TWIN } from '../../../../constants/devices';
 import '../../../../css/_deviceEvents.scss';
 
 const JSON_SPACES = 2;
@@ -484,6 +485,18 @@ export const DeviceEventsPerInterface: React.FC = () => {
         );
     };
 
+    const filterMessage = (message: Message) => {
+        if (!message || !message.systemProperties) {
+            return false;
+        }
+        if (componentName === DEFAULT_COMPONENT_FOR_DIGITAL_TWIN) {
+            // for default component, we only expect ${IOTHUB_INTERFACE_ID} to be in the system property not ${IOTHUB_COMPONENT_NAME}
+            return message.systemProperties[MESSAGE_SYSTEM_PROPERTIES.IOTHUB_INTERFACE_ID] === interfaceId &&
+                !message.systemProperties[MESSAGE_SYSTEM_PROPERTIES.IOTHUB_COMPONENT_NAME];
+        }
+        return message.systemProperties[MESSAGE_SYSTEM_PROPERTIES.IOTHUB_COMPONENT_NAME] === componentName;
+    };
+
     const fetchData = () => () => {
         if (!loading && monitoringData) {
             setLoading(true);
@@ -497,9 +510,7 @@ export const DeviceEventsPerInterface: React.FC = () => {
                         startTime: state.startTime})
                     .then((results: Message[]) => {
                         const messages = results && results
-                                .filter(result => result && result.systemProperties &&
-                                         (result.systemProperties[MESSAGE_SYSTEM_PROPERTIES.IOTHUB_COMPONENT_NAME] === componentName ||
-                                          result.systemProperties[MESSAGE_SYSTEM_PROPERTIES.IOTHUB_INTERFACE_ID] === interfaceId))
+                                .filter(result => filterMessage(result))
                                 .reverse().map((message: Message) => message);
                         setState({
                             ...state,

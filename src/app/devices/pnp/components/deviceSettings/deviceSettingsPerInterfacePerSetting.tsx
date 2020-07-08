@@ -93,17 +93,28 @@ export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataPro
             </div>);
     };
 
+    // tslint:disable-next-line: cyclomatic-complexity
     const renderReportedValueAndMetadata = () => {
         const ariaLabel = t(ResourceKeys.deviceSettings.columns.reportedValue);
         return (
             <div className="column-value-text col-sm4" aria-label={ariaLabel}>
-                <Stack horizontal={true}>
+                <Stack>
                     <Stack.Item align="start" className="reported-property">
                         {renderReportedValue()}
                     </Stack.Item>
-                    {metadata &&
-                        <Stack.Item align="start" className={`${isSchemaSimpleType() ? 'reported-status' : 'reported-status-complex'} `}>
-                            {metadata.ackCode && `(${metadata.ackCode} ${metadata.ackDescription})`}
+                    <Stack.Item align="start">
+                        {t(ResourceKeys.deviceSettings.ackStatus.code, {code: metadata && metadata.ackCode || '--'})}
+                    </Stack.Item>
+                    <Stack.Item align="start">
+                        {t(ResourceKeys.deviceSettings.ackStatus.description, {description: metadata && metadata.ackDescription || '--'})}
+                    </Stack.Item>
+                    <Stack.Item align="start">
+                        {t(ResourceKeys.deviceSettings.ackStatus.version, {version: metadata && metadata.ackVersion || '--'})}
+                    </Stack.Item>
+                    {/* if reported twin has value but metadata ack code or ack version is not provided, show conformant error*/}
+                    {(isValueDefined(props.reportedTwin) && (!metadata || !metadata.ackCode || !metadata.ackVersion)) &&
+                        <Stack.Item align="start" className="reported-status-error">
+                            {t(ResourceKeys.deviceSettings.ackStatus.error)}
                         </Stack.Item>
                     }
                 </Stack>
@@ -117,10 +128,12 @@ export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataPro
             <>
                 {isValueDefined(reportedTwin) ?
                     (isSchemaSimpleType() ?
-                        RenderSimplyTypeValue(
-                            reportedTwin,
-                            settingSchema,
-                            t(ResourceKeys.deviceSettings.columns.error)) :
+                        <ErrorBoundary error={t(ResourceKeys.errorBoundary.text)}>
+                            {RenderSimplyTypeValue(
+                                reportedTwin,
+                                settingSchema,
+                                t(ResourceKeys.deviceSettings.columns.error))}
+                        </ErrorBoundary> :
                         <ActionButton
                             className="column-value-button"
                             ariaDescription={t(ResourceKeys.deviceSettings.command.openReportedValuePanel)}

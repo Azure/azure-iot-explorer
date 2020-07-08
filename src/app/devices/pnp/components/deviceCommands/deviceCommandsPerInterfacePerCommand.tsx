@@ -129,7 +129,7 @@ export const DeviceCommandsPerInterfacePerCommand: React.FC<DeviceCommandDataPro
             commandPayload: data,
             componentName,
             digitalTwinId: deviceId,
-            propertyKey: commandModelDefinition.request && commandModelDefinition.request.name
+            responseSchema: parsedSchema.responseSchema
         });
     };
 

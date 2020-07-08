@@ -36,7 +36,7 @@ export const Pnp: React.FC = () => {
     const digitalTwin = pnpState.digitalTwin.payload as any; // tslint:disable-line: no-any
     const modelId = digitalTwin &&  digitalTwin.$metadata && digitalTwin.$metadata.$model;
 
-    const interfaceIdModified = React.useMemo(() => !interfaceId || interfaceId === DEFAULT_COMPONENT_FOR_DIGITAL_TWIN ? modelId : interfaceId, [modelId, interfaceId]);
+    const interfaceIdModified = React.useMemo(() => interfaceId || modelId, [modelId, interfaceId]);
     const getModelDefinition = () => dispatch(getModelDefinitionAction.started({digitalTwinId: deviceId, interfaceId: interfaceIdModified, locations, localFolderPath}));
 
     React.useEffect(() => {
