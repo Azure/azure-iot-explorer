@@ -8,7 +8,7 @@ import { mount, shallow } from 'enzyme';
 import { Label } from 'office-ui-fabric-react/lib/components/Label';
 import { Announced } from 'office-ui-fabric-react/lib/components/Announced';
 import { MessageBar } from 'office-ui-fabric-react/lib/components/MessageBar';
-import { Pivot } from 'office-ui-fabric-react/lib/components/Pivot';
+import { Pivot, PivotItem } from 'office-ui-fabric-react/lib/components/Pivot';
 import { DigitalTwinInterfacesList } from './digitalTwinInterfacesList';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { MultiLineShimmer } from '../../../shared/components/multiLineShimmer';
@@ -216,5 +216,8 @@ describe('DigitalTwinInterfacesList', () => {
         expect((list.props() as any).items[0].interfaceId).toEqual('dtmi:__DeviceManagement:DeviceInformation;1'); // tslint:disable-line:no-any
         expect((list.props() as any).items[1].interfaceId).toEqual('dtmi:__Client:SDKInformation;1'); // tslint:disable-line:no-magic-numbers, no-any
         expect((list.props() as any).items[2].interfaceId).toEqual('dtmi:__Contoso:EnvironmentalSensor;1'); // tslint:disable-line:no-magic-numbers, no-any
+
+        // tslint:disable-next-line: no-magic-numbers
+        expect(wrapper.find(PivotItem)).toHaveLength(3);
     });
 });

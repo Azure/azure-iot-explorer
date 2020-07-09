@@ -113,7 +113,7 @@ export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataPro
                     </Stack.Item>
                     {/* if reported twin has value but metadata ack code or ack version is not provided, show conformant error*/}
                     {(isValueDefined(props.reportedTwin) && (!metadata || !metadata.ackCode || !metadata.ackVersion)) &&
-                        <Stack.Item align="start" className="reported-status-error">
+                        <Stack.Item align="start" className="reported-status-info">
                             {t(ResourceKeys.deviceSettings.ackStatus.error)}
                         </Stack.Item>
                     }

@@ -619,6 +619,7 @@ export class ResourceKeys {
          components : "digitalTwin.pivot.components",
          content : "digitalTwin.pivot.content",
          defaultComponent : "digitalTwin.pivot.defaultComponent",
+         digitalTwin : "digitalTwin.pivot.digitalTwin",
       },
       steps : {
          explanation : "digitalTwin.steps.explanation",

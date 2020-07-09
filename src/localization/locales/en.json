@@ -332,7 +332,7 @@
             "pages": "Pages:"
         },
         "loadingDevice": "Loading devices",
-        "noDevice": "No devices",
+        "noDevice": "No devices to display",
         "noData": "None",
         "columns": {
             "deviceId": {
@@ -462,7 +462,8 @@
             "ariaLabel": "Model component and content pivot",
             "components" :"Components",
             "content": "Model content",
-            "defaultComponent": "Default component"
+            "defaultComponent": "Default component",
+            "digitalTwin": "Digital twin content"
         },
         "interfaceId": "Model ID"
     },
@@ -505,7 +506,7 @@
             "code": "Ack code: {{code}}",
             "description": "Ack description: {{description}}",
             "version": "Ack version: {{version}}",
-            "error": "Reported value is not conformant as ack information is required. It will prevent you from being able to update desired value."
+            "error": "Note: Reported value is not conformant. It may prevent you from being able to update desired value."
         },
         "columns": {
             "name": "Name (Display Name / Description)",
