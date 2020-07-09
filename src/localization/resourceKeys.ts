@@ -569,7 +569,6 @@ export class ResourceKeys {
       ackStatus : {
          code : "deviceSettings.ackStatus.code",
          description : "deviceSettings.ackStatus.description",
-         error : "deviceSettings.ackStatus.error",
          version : "deviceSettings.ackStatus.version",
       },
       columns : {

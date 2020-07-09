@@ -505,8 +505,7 @@
         "ackStatus": {
             "code": "Ack code: {{code}}",
             "description": "Ack description: {{description}}",
-            "version": "Ack version: {{version}}",
-            "error": "Note: Reported value is not conformant. It may prevent you from being able to update desired value."
+            "version": "Ack version: {{version}}"
         },
         "columns": {
             "name": "Name (Display Name / Description)",

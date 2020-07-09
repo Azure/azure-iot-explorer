@@ -40,8 +40,3 @@ span[class^='status-'] {
     max-width: 40%;
     min-width: 20px;
 }
-.reported-status-info {
-    @include themify($themes) {
-        color: themed('infoText');
-    }
-}
