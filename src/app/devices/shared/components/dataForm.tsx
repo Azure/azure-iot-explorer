@@ -29,18 +29,10 @@ export interface DataFormDataProps {
 }
 
 export interface DataFormActionProps {
-    handleSave: (twin: any) => () => void; // tslint:disable-line:no-any
+handleSave: (twin: any) => () => void; // tslint:disable-line:no-any
     craftPayload?: (payload: object) => object;
 }
 
-export interface DataFormState {
-    formData: any; // tslint:disable-line:no-any
-    originalFormData: any; // tslint:disable-line:no-any
-    stringifiedFormData: string;
-    parseMapTypeError?: Exception;
-    showPayloadDialog?: boolean;
-    payloadPreviewData?: any; // tslint:disable-line: no-any
-}
 export const DataForm: React.FC<DataFormDataProps & DataFormActionProps> = (props: DataFormDataProps & DataFormActionProps) => {
     const { t } = useTranslation();
 
@@ -48,10 +40,11 @@ export const DataForm: React.FC<DataFormDataProps & DataFormActionProps> = (prop
     const twinData = twinToFormDataConverter(props.formData, settingSchema);
     const originalFormData = twinData.formData;
     const [ formData, setFormData ] = React.useState(originalFormData);
+    const [ jsonEditorData, setJsonEditorData ] = React.useState(JSON.stringify(originalFormData || {}, null, '\t'));
     const [ showPayloadDialog, setShowPlayloadDialog ] = React.useState<boolean>(false);
     const parseMapTypeError = twinData.error;
     const [ payloadPreviewData, setPayloadPreviewData ] = React.useState(undefined);
-    const [ stringifiedFormData ] = React.useState(JSON.stringify(twinData.formData, null, '\t'));
+    const [ isPayloadValid, setIsPayloadValid ] = React.useState<boolean>(true);
 
     const renderDialog = () => {
         return (
@@ -94,7 +87,7 @@ export const DataForm: React.FC<DataFormDataProps & DataFormActionProps> = (prop
     };
 
     const createForm = () => {
-        if (parseMapTypeError || !settingSchema) { // Not able to parse interface definition, render raw json in editor instead
+        if (parseMapTypeError || !settingSchema || !settingSchema.type) { // Not able to parse interface definition, render raw json in editor instead
             return createJsonEditor();
         }
         else {
@@ -130,10 +123,21 @@ export const DataForm: React.FC<DataFormDataProps & DataFormActionProps> = (prop
                 >
                     {t(ResourceKeys.deviceContent.value)}
                 </LabelWithTooltip>
-                <JSONEditor className="json-editor" content={stringifiedFormData ? JSON.parse(stringifiedFormData) : {}}/>
+                <JSONEditor className="json-editor" content={jsonEditorData} onChange={onChange}/>
                 {createActionButtons()}
             </form>
         );
+    };
+
+    const onChange = (data: string) => {
+        setIsPayloadValid(true);
+        try {
+            JSON.parse(data);
+        }
+        catch  {
+            setIsPayloadValid(false);
+        }
+        setJsonEditorData(data);
     };
 
     const onChangeForm = (data: any) => { // tslint:disable-line: no-any
@@ -141,8 +145,8 @@ export const DataForm: React.FC<DataFormDataProps & DataFormActionProps> = (prop
     };
 
     const generatePayload = () => {
-        return (parseMapTypeError || !settingSchema) ?
-            stringifiedFormData && JSON.parse(stringifiedFormData) :
+        return (parseMapTypeError || !settingSchema || !settingSchema.type) ?
+            JSON.parse(jsonEditorData) :
             dataToTwinConverter(formData, settingSchema, originalFormData).twin;
     };
 
@@ -176,14 +180,14 @@ export const DataForm: React.FC<DataFormDataProps & DataFormActionProps> = (prop
                     onClick={handleSave(payload)}
                     text={t(buttonText)}
                     iconProps={{ iconName: SUBMIT }}
-                    disabled={buttonDisabled}
+                    disabled={buttonDisabled || !isPayloadValid}
                 />
                 <ActionButton
                     className="preview-payload-button"
                     onClick={createPayloadPreview}
                     text={t(ResourceKeys.deviceSettings.previewPayloadButtonText)}
                     iconProps={{ iconName: CODE }}
-                    disabled={buttonDisabled}
+                    disabled={buttonDisabled || !isPayloadValid}
                 />
             </>
         );
