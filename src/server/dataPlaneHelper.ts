@@ -32,25 +32,18 @@ export const generateDataPlaneResponse = (httpRes: request.Response, body: any, 
 };
 
 // tslint:disable-next-line:cyclomatic-complexity
-export const processDataPlaneResponse = (httpRes: request.Response, body: any): {body: {body: any, headers?: any}, statusCode?: number} => { // tslint:disable-line:no-any
+export const processDataPlaneResponse = (httpRes: request.Response, body: any): {body: {body: any, headers?: any}, statusCode: number} => { // tslint:disable-line:no-any
     try {
-        if (httpRes) {
-            if (httpRes.headers && httpRes.headers[DEVICE_STATUS_HEADER]) { // handles happy failure cases when error code is returned as a header
-                return {
-                    body: {body: body && JSON.parse(body)},
-                    statusCode: parseInt(httpRes.headers[DEVICE_STATUS_HEADER] as string) // tslint:disable-line:radix
-                };
-            }
-            else {
-                return {
-                    body: {body: body && JSON.parse(body), headers: httpRes.headers},
-                    statusCode: httpRes.statusCode
-                };
-            }
+        if (httpRes.headers && httpRes.headers[DEVICE_STATUS_HEADER]) { // handles happy failure cases when error code is returned as a header
+            return {
+                body: {body: body && JSON.parse(body)},
+                statusCode: parseInt(httpRes.headers[DEVICE_STATUS_HEADER] as string) // tslint:disable-line:radix
+            };
         }
         else {
             return {
-                body: {body: body && JSON.parse(body)}
+                body: {body: body && JSON.parse(body), headers: httpRes.headers},
+                statusCode: httpRes.statusCode
             };
         }
     }

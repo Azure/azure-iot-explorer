@@ -42,10 +42,11 @@ exports[`directMethod matches snapshot 1`] = `
       >
         directMethod.payload
       </Component>
-      <Component
-        className="direct-method-json-editor"
-        content=""
+      <StyledTextFieldBase
+        className="payload-input"
+        multiline={true}
         onChange={[Function]}
+        rows={5}
       />
       <Component
         tooltipText="directMethod.connectionTimeoutTooltip"

@@ -31,14 +31,8 @@ export interface ReportedFormActionProps {
     handleDismiss: () => void;
 }
 
-export interface ReportedFormState {
-    formData: any; // tslint:disable-line:no-any
-    parseMapTypeError?: Exception;
-}
-
 export const ComplexReportedFormPanel: React.FC<ReportedFormDataProps & ReportedFormActionProps> = (props: ReportedFormDataProps & ReportedFormActionProps) => {
     const { t } = useTranslation();
-    const { editorTheme } = useThemeContext();
 
     const { schema, modelDefinition, showPanel } = props;
     const twinData = twinToFormDataConverter(props.formData, schema);
@@ -56,7 +50,7 @@ export const ComplexReportedFormPanel: React.FC<ReportedFormDataProps & Reported
     };
 
     const createForm = () => {
-        if (parseMapTypeError || !schema) { // Not able to parse interface definition, render raw json editor instead
+        if (parseMapTypeError || !schema || !schema.type) { // Not able to parse interface definition, render raw json editor instead
             return createJsonEditor();
         }
         else {
@@ -83,7 +77,7 @@ export const ComplexReportedFormPanel: React.FC<ReportedFormDataProps & Reported
         return (
             <form>
                 <Label>{t(ResourceKeys.deviceProperties.editor.label, {schema: getSettingSchema()})}</Label>
-                <JSONEditor className="json-editor" content={formData}/>
+                <JSONEditor className="json-editor" content={JSON.stringify(formData, null, '\t')}/>
             </form>
         );
     };

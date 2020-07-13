@@ -20,12 +20,13 @@ import { MaskedCopyableTextField } from '../../../shared/components/maskedCopyab
 import { useAsyncSagaReducer } from '../../../shared/hooks/useAsyncSagaReducer';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import { SAVE, CANCEL } from '../../../constants/iconNames';
-import '../../../css/_addDevice.scss';
-import '../../../css/_layouts.scss';
 import { addDeviceSaga } from '../saga';
 import { addDeviceReducer } from '../reducer';
 import { addDeviceStateInitial } from '../state';
 import { addDeviceAction } from '../actions';
+import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
+import '../../../css/_addDevice.scss';
+import '../../../css/_layouts.scss';
 
 const initialKeyValue = {
     error: '',
@@ -55,7 +56,7 @@ export const AddDevice: React.FC = () => {
     },              [synchronizationStatus]);
 
     const navigateToDeviceList = () => {
-        const path = pathname.replace(/\/add/, ``);
+        const path = pathname.replace(/\/add/, `/${ROUTE_PARTS.DEVICE_DETAIL}/${ROUTE_PARTS.IDENTITY}/?${ROUTE_PARAMS.DEVICE_ID}=${device.id}`);
         history.push(path);
     };
 

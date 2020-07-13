@@ -12,6 +12,6 @@ export interface InvokeMethodActionParameters {
     connectTimeoutInSeconds: number;
     deviceId: string;
     methodName: string;
-    payload?: object;
+    payload?: string;
     responseTimeoutInSeconds: number;
 }

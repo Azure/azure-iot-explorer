@@ -31,16 +31,12 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
     >
       cloudToDeviceMessage.body
     </Component>
-    <div
+    <StyledTextFieldBase
       className="cloud-to-device-message-text-field"
-    >
-      <StyledTextFieldBase
-        className="cloud-to-device-message-text-field"
-        multiline={true}
-        onChange={[Function]}
-        rows={5}
-      />
-    </div>
+      multiline={true}
+      onChange={[Function]}
+      rows={5}
+    />
     <StyledCheckboxBase
       ariaLabel="cloudToDeviceMessage.addTimestamp"
       label="cloudToDeviceMessage.addTimestamp"
