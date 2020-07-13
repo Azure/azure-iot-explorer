@@ -39,7 +39,7 @@ const NotificationEntry = (props: { notification: Notification }): JSX.Element =
 
     React.useEffect(() => {
         dispatch!(addNotificationAction(props.notification));
-    },              []);
+    },              [props.notification]);
 
     return <NotificationListEntry notification={props.notification} showAnnoucement={true}/>;
 };
