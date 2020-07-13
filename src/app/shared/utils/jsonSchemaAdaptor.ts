@@ -256,8 +256,7 @@ export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
         }
 
         return {
-            required: [],
-            type: 'string'
+            required: [] // for unsupported complex type, we return a schema that matches to anything for now
         };
     }
 

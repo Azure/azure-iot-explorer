@@ -569,7 +569,6 @@ export class ResourceKeys {
       ackStatus : {
          code : "deviceSettings.ackStatus.code",
          description : "deviceSettings.ackStatus.description",
-         error : "deviceSettings.ackStatus.error",
          version : "deviceSettings.ackStatus.version",
       },
       columns : {
@@ -619,6 +618,7 @@ export class ResourceKeys {
          components : "digitalTwin.pivot.components",
          content : "digitalTwin.pivot.content",
          defaultComponent : "digitalTwin.pivot.defaultComponent",
+         digitalTwin : "digitalTwin.pivot.digitalTwin",
       },
       steps : {
          explanation : "digitalTwin.steps.explanation",

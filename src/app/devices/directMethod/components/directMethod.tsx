@@ -8,12 +8,10 @@ import { useLocation } from 'react-router-dom';
 import { TextField } from 'office-ui-fabric-react/lib/components/TextField';
 import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
 import { Slider } from 'office-ui-fabric-react/lib/components/Slider';
-import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/components/Spinner';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { DIRECT_METHOD } from '../../../constants/iconNames';
 import { LabelWithTooltip } from '../../../shared/components/labelWithTooltip';
-import { useThemeContext } from '../../../shared/contexts/themeContext';
 import { HeaderView } from '../../../shared/components/headerView';
 import { useAsyncSagaReducer } from '../../../shared/hooks/useAsyncSagaReducer';
 import { JSONEditor } from '../../../shared/components/jsonEditor';
@@ -26,7 +24,6 @@ const DEFAULT_TIMEOUT = 10;
 
 export const DirectMethod: React.FC = () => {
     const { t } = useTranslation();
-    const { editorTheme } = useThemeContext();
     const { search } = useLocation();
     const deviceId = getDeviceIdFromQueryString(search);
 
@@ -54,14 +51,13 @@ export const DirectMethod: React.FC = () => {
         );
     };
 
-    const formReady = (): boolean => !!methodName && (!payload || isValidJson(payload));
-
-    const isValidJson = (content: string) => {
+    const formReady = (): boolean => !!methodName;
+    const getPayload = (content: string) => {
+        // payload could be json or simply string
         try {
-            JSON.parse(content);
-            return true;
+            return JSON.parse(content);
         } catch {
-            return false;
+            return content;
         }
     };
 
@@ -70,7 +66,7 @@ export const DirectMethod: React.FC = () => {
             connectTimeoutInSeconds: connectionTimeOut,
             deviceId,
             methodName,
-            payload: payload ? JSON.parse(payload) : {},
+            payload: getPayload(payload),
             responseTimeoutInSeconds: responseTimeOut
         }));
     };
@@ -89,6 +85,7 @@ export const DirectMethod: React.FC = () => {
     };
 
     const renderMethodsPayloadSection = () => {
+        const textFieldRows = 5;
         return (
             <div className="method-payload">
                 <LabelWithTooltip
@@ -96,11 +93,7 @@ export const DirectMethod: React.FC = () => {
                 >
                     {t(ResourceKeys.directMethod.payload)}
                 </LabelWithTooltip>
-                <JSONEditor
-                    className="direct-method-json-editor"
-                    content={payload}
-                    onChange={onEditorChange}
-                />
+                <TextField className="payload-input" multiline={true} rows={textFieldRows} onChange={onTextFieldChange}/>
                 <LabelWithTooltip
                     tooltipText={t(ResourceKeys.directMethod.connectionTimeoutTooltip)}
                 >
@@ -129,7 +122,7 @@ export const DirectMethod: React.FC = () => {
         );
     };
 
-    const onEditorChange = (value: string) => setPayload(value);
+    const onTextFieldChange = (ev: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newText: string) => setPayload(newText);
 
     const onConnectionTimeoutChange = (value: number) => {
         setConnectionTimeOut(value);
