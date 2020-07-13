@@ -16,6 +16,9 @@
 
 .method-payload{
     padding-top: 10px;
+    .payload-input {
+        margin-bottom: 20px;
+    }
 }
 
 .direct-method-json-editor {
@@ -55,6 +58,9 @@
         @include themify($themes) {
             color: themed('linkColor');
         }
+    }
+    .no-device {
+        padding-left: 25px;
     }
 }
 

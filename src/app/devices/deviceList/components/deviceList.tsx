@@ -104,7 +104,7 @@ export const DeviceList: React.FC = () => {
                                 />
                             </MarqueeSelection> :
                             <>
-                                <h3>{t(ResourceKeys.deviceLists.noDevice)}</h3>
+                                <span className="no-device">{t(ResourceKeys.deviceLists.noDevice)}</span>
                                 <Announced
                                     message={t(ResourceKeys.deviceLists.noDevice)}
                                 />

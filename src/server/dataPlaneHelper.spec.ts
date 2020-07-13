@@ -105,7 +105,7 @@ describe('server', () => {
 
     it('generates data plane response with no httpResponse', () => {
         const response = processDataPlaneResponse(null, null);
-        expect(response.body).toEqual({body: null});
+        expect(response.body).toEqual(undefined);
     });
 
     it('generates data plane response using device status code', () => {

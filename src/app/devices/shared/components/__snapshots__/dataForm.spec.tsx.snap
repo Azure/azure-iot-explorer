@@ -101,7 +101,8 @@ exports[`dataForm matches snapshot with unsupported type 1`] = `
     </Component>
     <Component
       className="json-editor"
-      content={123}
+      content="123"
+      onChange={[Function]}
     />
     <CustomizedPrimaryButton
       className="submit-button"
