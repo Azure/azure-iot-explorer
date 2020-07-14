@@ -26,104 +26,84 @@ export interface DirectMethodResult {
 }
 
 export const fetchModuleIdentities = async (parameters: FetchModuleIdentitiesParameters): Promise<DataPlaneResponse<ModuleIdentity[]>> => {
-    try {
-        const connectionInformation = await dataPlaneConnectionHelper();
+    const connectionInformation = await dataPlaneConnectionHelper();
 
-        const dataPlaneRequest: DataPlaneRequest = {
-            apiVersion:  HUB_DATA_PLANE_API_VERSION,
-            hostName: connectionInformation.connectionInfo.hostName,
-            httpMethod: HTTP_OPERATION_TYPES.Get,
-            path: `devices/${parameters.deviceId}/modules`,
-            sharedAccessSignature: connectionInformation.sasToken,
-        };
+    const dataPlaneRequest: DataPlaneRequest = {
+        apiVersion:  HUB_DATA_PLANE_API_VERSION,
+        hostName: connectionInformation.connectionInfo.hostName,
+        httpMethod: HTTP_OPERATION_TYPES.Get,
+        path: `devices/${parameters.deviceId}/modules`,
+        sharedAccessSignature: connectionInformation.sasToken,
+    };
 
-        const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
-        const result = await dataPlaneResponseHelper(response);
-        return result.body;
-    } catch (error) {
-        throw error;
-    }
+    const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
+    const result = await dataPlaneResponseHelper(response);
+    return result && result.body;
 };
 
 export const addModuleIdentity = async (parameters: AddModuleIdentityParameters): Promise<DataPlaneResponse<ModuleIdentity>> => {
-    try {
-        const connectionInformation = await dataPlaneConnectionHelper();
+    const connectionInformation = await dataPlaneConnectionHelper();
 
-        const dataPlaneRequest: DataPlaneRequest = {
-            apiVersion:  HUB_DATA_PLANE_API_VERSION,
-            body: JSON.stringify(parameters.moduleIdentity),
-            hostName: connectionInformation.connectionInfo.hostName,
-            httpMethod: HTTP_OPERATION_TYPES.Put,
-            path: `devices/${parameters.moduleIdentity.deviceId}/modules/${parameters.moduleIdentity.moduleId}`,
-            sharedAccessSignature: connectionInformation.sasToken,
-        };
+    const dataPlaneRequest: DataPlaneRequest = {
+        apiVersion:  HUB_DATA_PLANE_API_VERSION,
+        body: JSON.stringify(parameters.moduleIdentity),
+        hostName: connectionInformation.connectionInfo.hostName,
+        httpMethod: HTTP_OPERATION_TYPES.Put,
+        path: `devices/${parameters.moduleIdentity.deviceId}/modules/${parameters.moduleIdentity.moduleId}`,
+        sharedAccessSignature: connectionInformation.sasToken,
+    };
 
-        const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
-        const result = await dataPlaneResponseHelper(response);
-        return result.body;
-    } catch (error) {
-        throw error;
-    }
+    const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
+    const result = await dataPlaneResponseHelper(response);
+    return result && result.body;
 };
 
 export const fetchModuleIdentityTwin = async (parameters: ModuleIdentityTwinParameters): Promise<DataPlaneResponse<ModuleTwin>> => {
-    try {
-        const connectionInformation = await dataPlaneConnectionHelper();
+    const connectionInformation = await dataPlaneConnectionHelper();
 
-        const dataPlaneRequest: DataPlaneRequest = {
-            apiVersion:  HUB_DATA_PLANE_API_VERSION,
-            hostName: connectionInformation.connectionInfo.hostName,
-            httpMethod: HTTP_OPERATION_TYPES.Get,
-            path: `twins/${parameters.deviceId}/modules/${parameters.moduleId}`,
-            sharedAccessSignature: connectionInformation.sasToken,
-        };
+    const dataPlaneRequest: DataPlaneRequest = {
+        apiVersion:  HUB_DATA_PLANE_API_VERSION,
+        hostName: connectionInformation.connectionInfo.hostName,
+        httpMethod: HTTP_OPERATION_TYPES.Get,
+        path: `twins/${parameters.deviceId}/modules/${parameters.moduleId}`,
+        sharedAccessSignature: connectionInformation.sasToken,
+    };
 
-        const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
-        const result = await dataPlaneResponseHelper(response);
-        return result.body;
-    } catch (error) {
-        throw error;
-    }
+    const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
+    const result = await dataPlaneResponseHelper(response);
+    return result && result.body;
 };
 
 export const fetchModuleIdentity = async (parameters: FetchModuleIdentityParameters): Promise<DataPlaneResponse<ModuleIdentity[]>> => {
-    try {
-        const connectionInformation = await dataPlaneConnectionHelper();
+    const connectionInformation = await dataPlaneConnectionHelper();
 
-        const dataPlaneRequest: DataPlaneRequest = {
-            apiVersion:  HUB_DATA_PLANE_API_VERSION,
-            hostName: connectionInformation.connectionInfo.hostName,
-            httpMethod: HTTP_OPERATION_TYPES.Get,
-            path: `devices/${parameters.deviceId}/modules/${parameters.moduleId}`,
-            sharedAccessSignature: connectionInformation.sasToken,
-        };
+    const dataPlaneRequest: DataPlaneRequest = {
+        apiVersion:  HUB_DATA_PLANE_API_VERSION,
+        hostName: connectionInformation.connectionInfo.hostName,
+        httpMethod: HTTP_OPERATION_TYPES.Get,
+        path: `devices/${parameters.deviceId}/modules/${parameters.moduleId}`,
+        sharedAccessSignature: connectionInformation.sasToken,
+    };
 
-        const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
-        const result = await dataPlaneResponseHelper(response);
-        return result.body;
-    } catch (error) {
-        throw error;
-    }
+    const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
+    const result = await dataPlaneResponseHelper(response);
+    return result && result.body;
 };
 
 export const deleteModuleIdentity = async (parameters: FetchModuleIdentityParameters): Promise<DataPlaneResponse<ModuleIdentity[]>> => {
-    try {
-        const connectionInformation = await dataPlaneConnectionHelper();
+    const connectionInformation = await dataPlaneConnectionHelper();
 
-        const dataPlaneRequest: DataPlaneRequest = {
-            apiVersion:  HUB_DATA_PLANE_API_VERSION,
-            headers: {} as any, // tslint:disable-line: no-any
-            hostName: connectionInformation.connectionInfo.hostName,
-            httpMethod: HTTP_OPERATION_TYPES.Delete,
-            path: `devices/${parameters.deviceId}/modules/${parameters.moduleId}`,
-            sharedAccessSignature: connectionInformation.sasToken,
-        };
+    const dataPlaneRequest: DataPlaneRequest = {
+        apiVersion:  HUB_DATA_PLANE_API_VERSION,
+        headers: {} as any, // tslint:disable-line: no-any
+        hostName: connectionInformation.connectionInfo.hostName,
+        httpMethod: HTTP_OPERATION_TYPES.Delete,
+        path: `devices/${parameters.deviceId}/modules/${parameters.moduleId}`,
+        sharedAccessSignature: connectionInformation.sasToken,
+    };
 
-        (dataPlaneRequest.headers as any)[HEADERS.IF_MATCH] = '*'; // tslint:disable-line: no-any
-        const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
-        await dataPlaneResponseHelper(response);
-        return;
-    } catch (error) {
-        throw error;
-    }
+    (dataPlaneRequest.headers as any)[HEADERS.IF_MATCH] = '*'; // tslint:disable-line: no-any
+    const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
+    await dataPlaneResponseHelper(response);
+    return;
 };

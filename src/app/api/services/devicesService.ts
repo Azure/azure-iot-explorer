@@ -63,7 +63,7 @@ export const fetchDeviceTwin = async (parameters: FetchDeviceTwinParameters): Pr
 
     const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
     const result = await dataPlaneResponseHelper(response);
-    return result.body;
+    return result && result.body;
 };
 
 export const updateDeviceTwin = async (parameters: UpdateDeviceTwinParameters): Promise<Twin> => {
@@ -83,7 +83,7 @@ export const updateDeviceTwin = async (parameters: UpdateDeviceTwinParameters): 
 
     const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
     const result = await dataPlaneResponseHelper(response);
-    return result.body;
+    return result && result.body;
 };
 
 export const invokeDirectMethod = async (parameters: InvokeMethodParameters): Promise<DirectMethodResult> => {
@@ -108,7 +108,7 @@ export const invokeDirectMethod = async (parameters: InvokeMethodParameters): Pr
 
     const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
     const result = await dataPlaneResponseHelper(response);
-    return result.body;
+    return result && result.body;
 };
 
 export const cloudToDeviceMessage = async (parameters: CloudToDeviceMessageParameters) => {
@@ -139,7 +139,7 @@ export const addDevice = async (parameters: AddDeviceParameters): Promise<Device
 
     const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
     const result = await dataPlaneResponseHelper(response);
-    return result.body;
+    return result && result.body;
 };
 
 export const updateDevice = async (parameters: UpdateDeviceParameters): Promise<DeviceIdentity> => {
@@ -162,7 +162,7 @@ export const updateDevice = async (parameters: UpdateDeviceParameters): Promise<
 
     const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
     const result = await dataPlaneResponseHelper(response);
-    return result.body;
+    return result && result.body;
 };
 
 export const fetchDevice = async (parameters: FetchDeviceParameters): Promise<DeviceIdentity> => {
@@ -181,7 +181,7 @@ export const fetchDevice = async (parameters: FetchDeviceParameters): Promise<De
 
     const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
     const result = await dataPlaneResponseHelper(response);
-    return result.body;
+    return result && result.body;
 };
 
 export const fetchDevices = async (parameters: FetchDevicesParameters): Promise<DataPlaneResponse<Device[]>> => {
@@ -236,7 +236,7 @@ export const deleteDevices = async (parameters: DeleteDevicesParameters) => {
 
     const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
     const result = await dataPlaneResponseHelper(response);
-    return result.body;
+    return result && result.body;
 };
 
 // tslint:disable-next-line:cyclomatic-complexity
