@@ -84,22 +84,11 @@ describe('components/devices/deviceEvents', () => {
             }
         }];
 
-        const initialState = {
-            consumerGroup: DEFAULT_CONSUMER_GROUP,
-            customEventHubConnectionString: undefined,
-            customEventHubName: undefined,
-            events,
-            hasMore: false,
-            loading: false,
-            loadingAnnounced: undefined,
-            monitoringData: false,
-            showSystemProperties: false,
-            startTime: new Date(new Date().getTime() - MILLISECONDS_IN_MINUTE), // set start time to one minute ago
-            synchronizationStatus: SynchronizationStatus.initialized,
-            useBuiltInEventHub: true
-        };
         const realUseState = React.useState;
-        jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(initialState));
+        jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(DEFAULT_CONSUMER_GROUP));
+        jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(undefined));
+        jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(undefined));
+        jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(events));
 
         const wrapper = mount(<DeviceEvents/>);
         const enqueueTime = wrapper.find('h5');

@@ -44,15 +44,12 @@ export const DeviceEvents: React.FC = () => {
     const { search } = useLocation();
     const deviceId = getDeviceIdFromQueryString(search);
 
-    const [ state, setState ] = React.useState({
-        consumerGroup: DEFAULT_CONSUMER_GROUP,
-        customEventHubConnectionString: undefined,
-        customEventHubName: undefined,
-        events: [],
-        startTime: new Date(new Date().getTime() - MILLISECONDS_IN_MINUTE), // set start time to one minute ago
-        useBuiltInEventHub: true
-    });
-
+    const [ consumerGroup, setConsumerGroup] = React.useState(DEFAULT_CONSUMER_GROUP);
+    const [ customEventHubConnectionString, setCustomEventHubConnectionString] = React.useState(undefined);
+    const [ customEventHubName, setCustomEventHubName] = React.useState(undefined);
+    const [ events, SetEvents] = React.useState([]);
+    const [ startTime, SetStartTime] = React.useState(new Date(new Date().getTime() - MILLISECONDS_IN_MINUTE));
+    const [ useBuiltInEventHub, setUseBuiltInEventHub] = React.useState(true);
     const [ hasMore, setHasMore ] = React.useState(false);
     const [ loading, setLoading ] = React.useState(false);
     const [ loadingAnnounced, setLoadingAnnounced ] = React.useState(undefined);
@@ -76,7 +73,7 @@ export const DeviceEvents: React.FC = () => {
     const createClearCommandItem = (): ICommandBarItemProps => {
         return {
             ariaLabel: t(ResourceKeys.deviceEvents.command.clearEvents),
-            disabled: state.events.length === 0 || synchronizationStatus === SynchronizationStatus.updating,
+            disabled: events.length === 0 || synchronizationStatus === SynchronizationStatus.updating,
             iconProps: {
                 iconName: CLEAR
             },
@@ -99,13 +96,16 @@ export const DeviceEvents: React.FC = () => {
         };
     };
 
+    // tslint:disable-next-line: cyclomatic-complexity
     const createStartMonitoringCommandItem = (): ICommandBarItemProps => {
         if (appConfig.hostMode === HostMode.Electron) {
             const label = monitoringData ? t(ResourceKeys.deviceEvents.command.stop) : t(ResourceKeys.deviceEvents.command.start);
             const icon = monitoringData ? STOP : START;
             return {
                 ariaLabel: label,
-                disabled: synchronizationStatus === SynchronizationStatus.updating,
+                disabled: synchronizationStatus === SynchronizationStatus.updating ||
+                    // when using custom event hub, both connection string and name need to be provided
+                    (!useBuiltInEventHub && (!customEventHubConnectionString || !customEventHubName)),
                 iconProps: {
                     iconName: icon
                 },
@@ -139,10 +139,7 @@ export const DeviceEvents: React.FC = () => {
         );
 
         const consumerGroupChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
-            setState({
-                ...state,
-                consumerGroup: newValue
-            });
+            setConsumerGroup(newValue);
         };
 
         return (
@@ -152,7 +149,7 @@ export const DeviceEvents: React.FC = () => {
                 label={t(ResourceKeys.deviceEvents.consumerGroups.label)}
                 ariaLabel={t(ResourceKeys.deviceEvents.consumerGroups.label)}
                 underlined={true}
-                value={state.consumerGroup}
+                value={consumerGroup}
                 disabled={monitoringData}
                 onChange={consumerGroupChange}
             />
@@ -161,35 +158,26 @@ export const DeviceEvents: React.FC = () => {
 
     const renderCustomEventHub = () => {
         const toggleChange = () => {
-            setState({
-                ...state,
-                useBuiltInEventHub: !state.useBuiltInEventHub
-            });
+            setUseBuiltInEventHub(!useBuiltInEventHub);
         };
 
         const customEventHubConnectionStringChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
-            setState({
-                ...state,
-                customEventHubConnectionString: newValue
-            });
+            setCustomEventHubConnectionString(newValue);
         };
 
         const renderError = () => {
-            return !isValidEventHubConnectionString(state.customEventHubConnectionString) && t(ResourceKeys.deviceEvents.customEventHub.connectionString.error);
+            return !isValidEventHubConnectionString(customEventHubConnectionString) && t(ResourceKeys.deviceEvents.customEventHub.connectionString.error);
         };
 
         const customEventHubNameChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
-            setState({
-                ...state,
-                customEventHubName: newValue
-            });
+            setCustomEventHubName(newValue);
         };
 
         return (
             <>
                 <Toggle
                     className="toggle-button"
-                    checked={state.useBuiltInEventHub}
+                    checked={useBuiltInEventHub}
                     ariaLabel={t(ResourceKeys.deviceEvents.toggleUseDefaultEventHub.label)}
                     label={t(ResourceKeys.deviceEvents.toggleUseDefaultEventHub.label)}
                     onText={t(ResourceKeys.deviceEvents.toggleUseDefaultEventHub.on)}
@@ -197,14 +185,14 @@ export const DeviceEvents: React.FC = () => {
                     onChange={toggleChange}
                     disabled={monitoringData}
                 />
-                {!state.useBuiltInEventHub &&
+                {!useBuiltInEventHub &&
                     <>
                         <TextField
                             className={'custom-event-hub-text-field'}
                             label={t(ResourceKeys.deviceEvents.customEventHub.connectionString.label)}
                             ariaLabel={t(ResourceKeys.deviceEvents.customEventHub.connectionString.label)}
                             underlined={true}
-                            value={state.customEventHubConnectionString}
+                            value={customEventHubConnectionString}
                             disabled={monitoringData}
                             onChange={customEventHubConnectionStringChange}
                             placeholder={t(ResourceKeys.deviceEvents.customEventHub.connectionString.placeHolder)}
@@ -216,7 +204,7 @@ export const DeviceEvents: React.FC = () => {
                             label={t(ResourceKeys.deviceEvents.customEventHub.name.label)}
                             ariaLabel={t(ResourceKeys.deviceEvents.customEventHub.name.label)}
                             underlined={true}
-                            value={state.customEventHubName}
+                            value={customEventHubName}
                             disabled={monitoringData}
                             onChange={customEventHubNameChange}
                             required={true}
@@ -259,7 +247,7 @@ export const DeviceEvents: React.FC = () => {
                 loadMore={fetchData}
                 hasMore={hasMore}
                 loader={renderLoader()}
-                role={state.events && state.events.length === 0 ? 'main' : 'feed'}
+                role={events && events.length === 0 ? 'main' : 'feed'}
                 isReverse={true}
             >
                 {renderEvents()}
@@ -268,8 +256,6 @@ export const DeviceEvents: React.FC = () => {
     };
 
     const renderEvents = () => {
-        const { events } = state;
-
         return (
             <div className="scrollable-telemetry">
             {
@@ -302,28 +288,25 @@ export const DeviceEvents: React.FC = () => {
             timerID = setTimeout(
                 () => {
                     let parameters: MonitorEventsParameters = {
-                        consumerGroup: state.consumerGroup,
+                        consumerGroup,
                         deviceId,
                         fetchSystemProperties: showSystemProperties,
-                        startTime: state.startTime
+                        startTime
                     };
 
-                    if (!state.useBuiltInEventHub && state.customEventHubConnectionString && state.customEventHubName) {
+                    if (!useBuiltInEventHub && customEventHubConnectionString && customEventHubName) {
                         parameters = {
                             ...parameters,
-                            customEventHubConnectionString: state.customEventHubConnectionString,
-                            customEventHubName: state.customEventHubName
+                            customEventHubConnectionString,
+                            customEventHubName
                         };
                     }
 
                     monitorEvents(parameters)
                     .then(results => {
                         const messages = results ? results.reverse().map((message: Message) => message) : [];
-                        setState({
-                            ...state,
-                            events: [...messages, ...state.events],
-                            startTime: new Date()
-                        });
+                        SetEvents([...messages, ...events]);
+                        SetStartTime(new Date());
                         setLoading(false);
                         stopMonitoringIfNecessary();
                     })
@@ -345,10 +328,7 @@ export const DeviceEvents: React.FC = () => {
     };
 
     const onClearData = () => {
-        setState({
-            ...state,
-            events: []
-        });
+        SetEvents([]);
     };
 
     const onShowSystemProperties = () => {

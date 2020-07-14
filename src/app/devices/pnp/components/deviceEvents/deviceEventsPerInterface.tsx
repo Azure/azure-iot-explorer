@@ -4,7 +4,6 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Validator, ValidatorResult } from 'jsonschema';
 import { CommandBar, ICommandBarItemProps } from 'office-ui-fabric-react/lib/components/CommandBar';
 import { Label } from 'office-ui-fabric-react/lib/components/Label';
 import { Spinner } from 'office-ui-fabric-react/lib/components/Spinner';
@@ -20,7 +19,6 @@ import { REFRESH, STOP, START, REMOVE, NAVIGATE_BACK } from '../../../../constan
 import { ParsedJsonSchema } from '../../../../api/models/interfaceJsonParserOutput';
 import { TelemetryContent } from '../../../../api/models/modelDefinition';
 import { getInterfaceIdFromQueryString, getDeviceIdFromQueryString, getComponentNameFromQueryString } from '../../../../shared/utils/queryStringHelper';
-import { getNumberOfMapsInSchema } from '../../../../shared/utils/twinAndJsonSchemaDataConverter';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { DEFAULT_CONSUMER_GROUP } from '../../../../constants/apiConstants';
 import { ErrorBoundary } from '../../../shared/components/errorBoundary';
@@ -36,6 +34,7 @@ import { raiseNotificationToast } from '../../../../notifications/components/not
 import { usePnpStateContext } from '../../../../shared/contexts/pnpStateContext';
 import { getDeviceTelemetry, TelemetrySchema } from './dataHelper';
 import { DEFAULT_COMPONENT_FOR_DIGITAL_TWIN } from '../../../../constants/devices';
+import { getSchemaValidationErrors } from '../../../../shared/utils/jsonSchemaAdaptor';
 import '../../../../css/_deviceEvents.scss';
 
 const JSON_SPACES = 2;
@@ -58,11 +57,9 @@ export const DeviceEventsPerInterface: React.FC = () => {
     const isLoading = pnpState.modelDefinitionWithSource.synchronizationStatus === SynchronizationStatus.working;
     const telemetrySchema = React.useMemo(() => getDeviceTelemetry(modelDefinition), [modelDefinition]);
 
-    const [ state, setState ] = React.useState({
-        consumerGroup: DEFAULT_CONSUMER_GROUP,
-        events: [],
-        startTime: new Date(new Date().getTime() - MILLISECONDS_IN_MINUTE), // set start time to one minute ago
-    });
+    const [ consumerGroup, setConsumerGroup] = React.useState(DEFAULT_CONSUMER_GROUP);
+    const [ events, SetEvents] = React.useState([]);
+    const [ startTime, SetStartTime] = React.useState(new Date(new Date().getTime() - MILLISECONDS_IN_MINUTE));
     const [ hasMore, setHasMore ] = React.useState(false);
     const [ loading, setLoading ] = React.useState(false);
     const [ loadingAnnounced, setLoadingAnnounced ] = React.useState(undefined);
@@ -93,7 +90,7 @@ export const DeviceEventsPerInterface: React.FC = () => {
     const createClearCommandItem = (): ICommandBarItemProps => {
         return {
             ariaLabel: t(ResourceKeys.deviceEvents.command.clearEvents),
-            disabled: state.events.length === 0 || synchronizationStatus === SynchronizationStatus.updating,
+            disabled: events.length === 0 || synchronizationStatus === SynchronizationStatus.updating,
             iconProps: {iconName: REMOVE},
             key: REMOVE,
             name: t(ResourceKeys.deviceEvents.command.clearEvents),
@@ -153,10 +150,7 @@ export const DeviceEventsPerInterface: React.FC = () => {
 
     const consumerGroupChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
         if (!!newValue) {
-            setState({
-                ...state,
-                consumerGroup: newValue
-            });
+            setConsumerGroup(newValue);
         }
     };
 
@@ -231,8 +225,6 @@ export const DeviceEventsPerInterface: React.FC = () => {
     };
 
     const renderRawEvents = () => {
-        const { events } = state;
-
         return (
             <div className="scrollable-pnp-telemetry">
             {
@@ -250,8 +242,6 @@ export const DeviceEventsPerInterface: React.FC = () => {
     };
 
     const renderEvents = () => {
-        const { events } = state;
-
         return (
             <div className="scrollable-pnp-telemetry">
                 {
@@ -436,24 +426,18 @@ export const DeviceEventsPerInterface: React.FC = () => {
         return renderMessageBodyWithValueValidation(eventBody, schema, key);
     };
 
-    // tslint:disable-next-line:cyclomatic-complexity
     const renderMessageBodyWithValueValidation = (eventBody: any, schema: ParsedJsonSchema, key: string) => { // tslint:disable-line:no-any
-        const validator = new Validator();
-        let result: ValidatorResult;
-        if (schema && getNumberOfMapsInSchema(schema) <= 0) {
-            // only validate telemetry if schema doesn't contain map type
-            result = validator.validate(eventBody[key], schema);
-        }
+        const errors = getSchemaValidationErrors(eventBody[key], schema, true);
 
         return(
             <div className="column-value-text col-sm4">
                 <Label aria-label={t(ResourceKeys.deviceEvents.columns.value)}>
                     {JSON.stringify(eventBody, undefined, JSON_SPACES)}
-                    {result && result.errors && result.errors.length !== 0 &&
+                    {errors.length !== 0 &&
                         <section className="value-validation-error" aria-label={t(ResourceKeys.deviceEvents.columns.validation.value.label)}>
                             <span>{t(ResourceKeys.deviceEvents.columns.validation.value.label)}</span>
                             <ul>
-                            {result.errors.map((element, index) =>
+                            {errors.map((element, index) =>
                                 <li key={index}>{element.message}</li>
                             )}
                             </ul>
@@ -504,18 +488,17 @@ export const DeviceEventsPerInterface: React.FC = () => {
             timerID = setTimeout(
                 () => {
                     monitorEvents({
-                        consumerGroup: state.consumerGroup,
+                        consumerGroup,
                         deviceId,
                         fetchSystemProperties: true,
-                        startTime: state.startTime})
+                        startTime
+                    })
                     .then((results: Message[]) => {
                         const messages = results && results
                                 .filter(result => filterMessage(result))
                                 .reverse().map((message: Message) => message);
-                        setState({
-                            ...state,
-                            events: [...messages, ...state.events],
-                            startTime: new Date()});
+                        SetEvents([...messages, ...events]);
+                        SetStartTime(new Date());
                         setLoading(false);
                         stopMonitoringIfNecessary();
                     })
@@ -537,10 +520,7 @@ export const DeviceEventsPerInterface: React.FC = () => {
     };
 
     const onClearData = () => {
-        setState({
-            ...state,
-            events: []
-        });
+        SetEvents([]);
     };
 
     const stopMonitoringIfNecessary = () => {
@@ -587,7 +567,7 @@ export const DeviceEventsPerInterface: React.FC = () => {
                         label={t(ResourceKeys.deviceEvents.consumerGroups.label)}
                         ariaLabel={t(ResourceKeys.deviceEvents.consumerGroups.label)}
                         underlined={true}
-                        value={state.consumerGroup}
+                        value={consumerGroup}
                         disabled={monitoringData}
                         onChange={consumerGroupChange}
                     />

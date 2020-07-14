@@ -84,7 +84,8 @@ describe('digitalTwinInterfaceCommandSaga', () => {
                                 commandName,
                                 componentName,
                                 deviceId: digitalTwinId,
-                                response: JSON.stringify(response)
+                                response: JSON.stringify(response),
+                                validationResult: false
                             },
                         },
                         type: NotificationType.success

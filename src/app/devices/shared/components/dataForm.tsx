@@ -13,12 +13,12 @@ import { fabricWidgets, fabricFields } from '../../../jsonSchemaFormFabricPlugin
 import { ObjectTemplate } from '../../../jsonSchemaFormFabricPlugin/fields/objectTemplate';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { SUBMIT, CODE } from '../../../constants/iconNames';
-import { Exception } from '../../../shared/utils/exceptions/exception';
 import { ParsedJsonSchema } from '../../../api/models/interfaceJsonParserOutput';
 import { dataToTwinConverter, twinToFormDataConverter } from '../../../shared/utils/twinAndJsonSchemaDataConverter';
 import { ErrorBoundary } from './errorBoundary';
 import { LabelWithTooltip } from '../../../shared/components/labelWithTooltip';
 import { JSONEditor } from '../../../shared/components/jsonEditor';
+import { DtdlSchemaComplexType, getSchemaValidationErrors } from '../../../shared/utils/jsonSchemaAdaptor';
 import '../../../css/_dataForm.scss';
 
 export interface DataFormDataProps {
@@ -40,7 +40,7 @@ export const DataForm: React.FC<DataFormDataProps & DataFormActionProps> = (prop
     const twinData = twinToFormDataConverter(props.formData, settingSchema);
     const originalFormData = twinData.formData;
     const [ formData, setFormData ] = React.useState(originalFormData);
-    const [ jsonEditorData, setJsonEditorData ] = React.useState(JSON.stringify(originalFormData || {}, null, '\t'));
+    const [ jsonEditorData, setJsonEditorData ] = React.useState(JSON.stringify(originalFormData || (schema === DtdlSchemaComplexType.Array ? [{}] : {}), null, '\t'));
     const [ showPayloadDialog, setShowPlayloadDialog ] = React.useState<boolean>(false);
     const parseMapTypeError = twinData.error;
     const [ payloadPreviewData, setPayloadPreviewData ] = React.useState(undefined);
@@ -65,19 +65,15 @@ export const DataForm: React.FC<DataFormDataProps & DataFormActionProps> = (prop
     };
 
     const renderMessageBodyWithValueValidation = () => {
-        const validator = new Validator();
-        const result = validator.validate(formData, settingSchema);
-
+        const errors = getSchemaValidationErrors(formData, settingSchema);
         return(
             <div className="column-value-text col-sm4">
                 <Label aria-label={t(ResourceKeys.deviceEvents.columns.value)}>
-                    {result && result.errors && result.errors.length !== 0 &&
+                    {errors.length !== 0 &&
                         <section className="value-validation-error" aria-label={t(ResourceKeys.deviceSettings.columns.error)}>
                             <span>{t(ResourceKeys.deviceSettings.columns.error)}</span>
                             <ul>
-                                {result.errors.map((element, index) =>
-                                    <li key={index}>{element.message}</li>
-                                )}
+                                {errors.map((error, index) => <li key={index}>{error.message}</li>)}
                             </ul>
                         </section>
                     }
