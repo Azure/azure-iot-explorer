@@ -27,7 +27,7 @@ export const fetchDigitalTwin = async (parameters: FetchDigitalTwinParameters) =
 
     const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
     const result = await dataPlaneResponseHelper(response);
-    return result.body;
+    return result && result.body;
 };
 
 export const patchDigitalTwinAndGetResponseCode = async (parameters: PatchDigitalTwinParameters): Promise<number> => {
@@ -49,6 +49,7 @@ export const patchDigitalTwinAndGetResponseCode = async (parameters: PatchDigita
     return getPatchResultHelper(response);
 };
 
+// tslint:disable-next-line: cyclomatic-complexity
 export const invokeDigitalTwinInterfaceCommand = async (parameters: InvokeDigitalTwinInterfaceCommandParameters) => {
     if (!parameters.digitalTwinId) {
         return;
@@ -72,7 +73,7 @@ export const invokeDigitalTwinInterfaceCommand = async (parameters: InvokeDigita
 
     const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
     const result = await dataPlaneResponseHelper(response);
-    return result.body;
+    return result && result.body;
 };
 
 // tslint:disable-next-line: cyclomatic-complexity
