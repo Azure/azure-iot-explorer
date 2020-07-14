@@ -2,9 +2,37 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
+import { Validator, ValidatorResult, ValidationError } from 'jsonschema';
 import { PropertyContent, CommandContent, EnumSchema, MapSchema, ObjectSchema, ContentType, TelemetryContent, ModelDefinition, ComponentContent } from '../../api/models/modelDefinition';
 import { ParsedCommandSchema, ParsedJsonSchema } from '../../api/models/interfaceJsonParserOutput';
 import { InterfaceSchemaNotSupportedException } from './exceptions/interfaceSchemaNotSupportedException';
+import { getNumberOfMapsInSchema } from './twinAndJsonSchemaDataConverter';
+
+// tslint:disable-next-line: cyclomatic-complexity
+export const getSchemaValidationErrors = (data: any, schema: ParsedJsonSchema, skipAllMapTypeValidation?: boolean): ValidationError[] => { // tslint:disable-line: no-any
+    const validator = new Validator();
+    let result: ValidatorResult;
+    if (skipAllMapTypeValidation) {
+        if (schema && getNumberOfMapsInSchema(schema) <= 0) {
+            // only validate data if schema doesn't contain map type
+            result = validator.validate(data, schema);
+        }
+        return result && result.errors || [];
+    }
+
+    // hide validation error 'array' specific, as we are using array in json schema temporarily to indicate map
+    const pattern = new RegExp('^.*array.*$');
+    result = validator.validate(data, schema);
+    return result && result.errors && result.errors.length > 0 &&
+        result.errors.filter(error => !pattern.test(error.message)) || [];
+};
+
+export enum DtdlSchemaComplexType {
+    Array = 'Array',
+    Enum = 'Enum',
+    Map = 'Map',
+    Object = 'Object'
+}
 
 export interface JsonSchemaAdaptorInterface {
     getComponentNameAndInterfaceIdArray: () => ComponentAndInterfaceId[];
@@ -214,7 +242,7 @@ export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
             }
         }
 
-        if (propertySchema['@type'] === 'Enum') {
+        if (propertySchema['@type'] === DtdlSchemaComplexType.Enum) {
             return propertySchema && (propertySchema as EnumSchema).enumValues ? {
                 enum: (propertySchema as EnumSchema).enumValues.map(item => item.enumValue),
                 enumNames : (propertySchema as EnumSchema).enumValues.map(item => item.name),
@@ -223,7 +251,7 @@ export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
             } : undefined;
         }
 
-        if (propertySchema['@type'] === 'Object') {
+        if (propertySchema['@type'] === DtdlSchemaComplexType.Object) {
             if (!(propertySchema as ObjectSchema).fields) {
                 return;
             }
@@ -243,7 +271,7 @@ export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
             };
         }
 
-        if (propertySchema['@type'] === 'Map') {
+        if (propertySchema['@type'] === DtdlSchemaComplexType.Map) {
             if (!(propertySchema as MapSchema).mapKey || !(propertySchema as MapSchema).mapValue) {
                 return;
             }

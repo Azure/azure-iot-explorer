@@ -4,15 +4,14 @@
  **********************************************************/
 import { call, put } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
-import { Validator, ValidatorResult } from 'jsonschema';
 import { invokeDigitalTwinInterfaceCommandAction, InvokeDigitalTwinInterfaceCommandActionParameters } from '../actions';
 import { invokeDigitalTwinInterfaceCommand } from '../../../api/services/digitalTwinService';
 import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { DEFAULT_COMPONENT_FOR_DIGITAL_TWIN } from '../../../constants/devices';
-import { getNumberOfMapsInSchema } from '../../../shared/utils/twinAndJsonSchemaDataConverter';
 import { ParsedJsonSchema } from '../../../api/models/interfaceJsonParserOutput';
+import { getSchemaValidationErrors } from '../../../shared/utils/jsonSchemaAdaptor';
 
 // tslint:disable-next-line: cyclomatic-complexity
 export function* invokeDigitalTwinInterfaceCommandSaga(action: Action<InvokeDigitalTwinInterfaceCommandActionParameters>) {
@@ -93,14 +92,7 @@ export function* notifyMethodInvoked(toastId: number, action: Action<InvokeDigit
     }
 }
 
-// tslint:disable-next-line: cyclomatic-complexity
 const getValidationResult = (response: any, schema: ParsedJsonSchema) => { // tslint:disable-line:no-any
-    const validator = new Validator();
-    let result: ValidatorResult;
-    if (schema && getNumberOfMapsInSchema(schema) <= 0) {
-        // only validate response if schema doesn't contain map type
-        result = validator.validate(response, schema);
-    }
-
-    return result && result.errors && result.errors.length !== 0 && result.errors.map(element => element.message).join(', ');
+    const errors = getSchemaValidationErrors(response, schema, true);
+    return errors.length !== 0 && errors.map(element => element.message).join(', ');
 };

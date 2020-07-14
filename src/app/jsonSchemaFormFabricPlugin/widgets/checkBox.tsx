@@ -18,6 +18,7 @@ export const FabricCheckbox = (props: WidgetProps & { label: string }) => {
       ];
 
     return(
-        <ChoiceGroup selectedKey={props.value && props.value.toString()} options={options} onChange={onChangePassthrough(props)} label={props.label} disabled={props.disabled}/>
+        // don't check 'props.value' because boolean with value 'false' would be skipped ('null' would 'false' in checkbox control, so no exception without the check)
+        <ChoiceGroup selectedKey={props.value.toString()} options={options} onChange={onChangePassthrough(props)} label={props.label} disabled={props.disabled}/>
     );
 };

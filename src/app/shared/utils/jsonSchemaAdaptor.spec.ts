@@ -12,7 +12,7 @@ import { mockModelDefinition,
     commandWithReusableSchema,
     longTypeNonWritableProperty2
 } from './mockModelDefinition';
-import { JsonSchemaAdaptor } from './jsonSchemaAdaptor';
+import { JsonSchemaAdaptor, getSchemaValidationErrors } from './jsonSchemaAdaptor';
 
 describe('parse interface model definition to Json schema', () => {
     const jsonSchemaAdaptor = new JsonSchemaAdaptor(mockModelDefinition);
@@ -173,6 +173,36 @@ describe('parse interface model definition to Json schema', () => {
                     responseSchema: undefined
                 }
             );
+        });
+    });
+
+    describe('validate data with schema', () => {
+        const testSchema = {
+            additionalProperties: true,
+            definitions: {},
+            items: {
+                description: 'Key of the map is: name',
+                properties: {
+                    age: {
+                        title: 'age',
+                        type: ['number', null]
+                    },
+                    name: {
+                        title: 'name',
+                        type: ['string']
+                    }
+                }
+            },
+            required: ['name', 'age'],
+            title: 'testMap',
+            type: 'array'
+        };
+        it('returns an empty list if map type validation is skipped', () => {
+            expect(getSchemaValidationErrors({name: 'test', age: 4}, testSchema, true)).toEqual([]);
+        });
+
+        it('returns an list not array specific if map type validation is not totally skipped', () => {
+            expect(getSchemaValidationErrors({name: 'test'}, testSchema)[0].message).toEqual('requires property \"age\"');
         });
     });
 });
