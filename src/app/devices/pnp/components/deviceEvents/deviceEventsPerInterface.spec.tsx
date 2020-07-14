@@ -13,25 +13,12 @@ import { DeviceEventsPerInterface } from './deviceEventsPerInterface';
 import { ErrorBoundary } from '../../../shared/components/errorBoundary';
 import { appConfig, HostMode } from '../../../../../appConfig/appConfig';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
-import { MILLISECONDS_IN_MINUTE } from '../../../../constants/shared';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { DEFAULT_CONSUMER_GROUP } from '../../../../constants/apiConstants';
 import { PnpStateInterface, pnpStateInitial } from '../../state';
 import * as PnpContext from '../../../../shared/contexts/pnpStateContext';
 import { testModelDefinition } from './testData';
 import { REPOSITORY_LOCATION_TYPE } from '../../../../constants/repositoryLocationTypes';
-
-const initialState = {
-    consumerGroup: DEFAULT_CONSUMER_GROUP,
-    events: [],
-    hasMore: false,
-    loading: false,
-    loadingAnnounced: undefined,
-    monitoringData: false,
-    showRawEvent: false,
-    startTime: new Date(new Date().getTime() - MILLISECONDS_IN_MINUTE), // set start time to one minute ago
-    synchronizationStatus: SynchronizationStatus.initialized
-};
 
 const pathname = `#/devices/detail/events/?id=device1`;
 jest.mock('react-router-dom', () => ({
@@ -57,8 +44,9 @@ describe('components/devices/deviceEventsPerInterface', () => {
         jest.spyOn(PnpContext, 'usePnpStateContext').mockReturnValue({pnpState, dispatch: jest.fn(), getModelDefinition: getModelDefinitionMock});
     };
 
-    afterEach(() => {
+    beforeEach(() => {
         jest.clearAllMocks();
+        jest.restoreAllMocks();
     });
 
     it('renders Shimmer while loading', () => {
@@ -109,7 +97,8 @@ describe('components/devices/deviceEventsPerInterface', () => {
         }];
 
         const realUseState = React.useState;
-        jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState({ ...initialState, events }));
+        jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(DEFAULT_CONSUMER_GROUP));
+        jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(events));
         mockFetchedState();
         const wrapper = mount(<DeviceEventsPerInterface/>);
         const errorBoundary = wrapper.find(ErrorBoundary);
@@ -131,7 +120,8 @@ describe('components/devices/deviceEventsPerInterface', () => {
         }];
 
         const realUseState = React.useState;
-        jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState({ ...initialState, events }));
+        jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(DEFAULT_CONSUMER_GROUP));
+        jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(events));
         mockFetchedState();
         const wrapper = mount(<DeviceEventsPerInterface/>);
 
@@ -152,7 +142,8 @@ describe('components/devices/deviceEventsPerInterface', () => {
             systemProperties: {}
         }];
         const realUseState = React.useState;
-        jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState({ ...initialState, events }));
+        jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(DEFAULT_CONSUMER_GROUP));
+        jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(events));
         mockFetchedState();
 
         const wrapper = shallow(<DeviceEventsPerInterface/>);
@@ -177,7 +168,8 @@ describe('components/devices/deviceEventsPerInterface', () => {
         }];
 
         const realUseState = React.useState;
-        jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState({ ...initialState, events }));
+        jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(DEFAULT_CONSUMER_GROUP));
+        jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(events));
         mockFetchedState();
 
         const wrapper = shallow(<DeviceEventsPerInterface/>);
