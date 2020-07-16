@@ -30,7 +30,7 @@ export const twinToFormDataConverter = (twin: any, settingSchema: ParsedJsonSche
         const numberOfMaps = getNumberOfMapsInSchema(settingSchema);
         if (numberOfMaps > 0) {
             if (!twin) {
-                return {formData: {twin: null}};
+                return {formData: {twin: undefined}};
             }
             const twinClone = JSON.parse(JSON.stringify(twin)); // important: needs this deep copy to prevent inital twin got changed in store
             const pathsWithKeyValuePair = findPathsTowardsMapType(settingSchema, [], numberOfMaps);
@@ -205,7 +205,7 @@ const convertJsonFormDataToTwin = (
 
                 if (parentFormData[key]) {
                     if (parentFormData[key].length  === 0) {
-                        parentFormData[key] = null; // need to specifically set it to null to remove twin information
+                        parentFormData[key] = undefined; // need to specifically set it to undefined to remove twin information
                         return formData;
                     }
 
