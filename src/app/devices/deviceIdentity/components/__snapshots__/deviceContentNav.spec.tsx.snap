@@ -10,26 +10,41 @@ exports[`deviceContentNav matches snapshot when the device is edge 1`] = `
         Object {
           "links": Array [
             Object {
+              "iconProps": Object {
+                "iconName": "Server",
+              },
               "key": "identity",
               "name": "deviceContent.navBar.identity",
               "url": "#/identity/?deviceId=test",
             },
             Object {
+              "iconProps": Object {
+                "iconName": "ReopenPages",
+              },
               "key": "twin",
               "name": "deviceContent.navBar.twin",
               "url": "#/twin/?deviceId=test",
             },
             Object {
+              "iconProps": Object {
+                "iconName": "Message",
+              },
               "key": "events",
               "name": "deviceContent.navBar.events",
               "url": "#/events/?deviceId=test",
             },
             Object {
+              "iconProps": Object {
+                "iconName": "Remote",
+              },
               "key": "methods",
               "name": "deviceContent.navBar.methods",
               "url": "#/methods/?deviceId=test",
             },
             Object {
+              "iconProps": Object {
+                "iconName": "Mail",
+              },
               "key": "cloudToDeviceMessage",
               "name": "deviceContent.navBar.cloudToDeviceMessage",
               "url": "#/cloudToDeviceMessage/?deviceId=test",
@@ -52,36 +67,57 @@ exports[`deviceContentNav matches snapshot when the device is not edge 1`] = `
         Object {
           "links": Array [
             Object {
+              "iconProps": Object {
+                "iconName": "Server",
+              },
               "key": "identity",
               "name": "deviceContent.navBar.identity",
               "url": "#/identity/?deviceId=test",
             },
             Object {
+              "iconProps": Object {
+                "iconName": "ReopenPages",
+              },
               "key": "twin",
               "name": "deviceContent.navBar.twin",
               "url": "#/twin/?deviceId=test",
             },
             Object {
+              "iconProps": Object {
+                "iconName": "Message",
+              },
               "key": "events",
               "name": "deviceContent.navBar.events",
               "url": "#/events/?deviceId=test",
             },
             Object {
+              "iconProps": Object {
+                "iconName": "Remote",
+              },
               "key": "methods",
               "name": "deviceContent.navBar.methods",
               "url": "#/methods/?deviceId=test",
             },
             Object {
+              "iconProps": Object {
+                "iconName": "Mail",
+              },
               "key": "cloudToDeviceMessage",
               "name": "deviceContent.navBar.cloudToDeviceMessage",
               "url": "#/cloudToDeviceMessage/?deviceId=test",
             },
             Object {
+              "iconProps": Object {
+                "iconName": "TFVCLogo",
+              },
               "key": "moduleIdentity",
               "name": "deviceContent.navBar.moduleIdentity",
               "url": "#/moduleIdentity/?deviceId=test",
             },
             Object {
+              "iconProps": Object {
+                "iconName": "PlugDisconnected",
+              },
               "key": "ioTPlugAndPlay",
               "name": "deviceContent.navBar.ioTPlugAndPlay",
               "url": "#/ioTPlugAndPlay/?deviceId=test",

@@ -6,7 +6,7 @@ import 'jest';
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 import { Nav } from 'office-ui-fabric-react/lib/components/Nav';
-import { DeviceContentNavComponent, DeviceContentNavDataProps, NAV_LINK_ITEMS, NAV_LINK_ITEMS_NONEDGE } from './deviceContentNav';
+import { DeviceContentNavComponent, DeviceContentNavProps, NAV_LINK_ITEMS, NAV_LINK_ITEMS_NONEDGE } from './deviceContentNav';
 
 jest.mock('react-router-dom', () => ({
     useLocation: () => ({ search: '?deviceId=test' }),
@@ -15,7 +15,7 @@ jest.mock('react-router-dom', () => ({
 
 describe('deviceContentNav', () => {
     const getComponent = (overrides = {}) => {
-        const navDataProps: DeviceContentNavDataProps = {
+        const navDataProps: DeviceContentNavProps = {
             isEdgeDevice: true
         };
 

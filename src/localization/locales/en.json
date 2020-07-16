@@ -28,7 +28,9 @@
             "no": "No"
         },
         "navigation": {
-            "confirm": "Your unsaved edits will be discarded."
+            "confirm": "Your unsaved edits will be discarded.",
+            "collapse": "Collapse navigation menu",
+            "expand": "Expand navigation menu"
         }
     },
     "collapsibleSection": {
@@ -125,8 +127,6 @@
             "cloudToDeviceMessage": "Cloud-to-device message",
             "ioTPlugAndPlay": "IoT Plug and Play components",
             "add": "Create device identity",
-            "collapse": "Collapse navigation menu",
-            "expand": "Expand navigation menu",
             "moduleIdentity": "Module identity",
             "addModuleIdentity": "Add module identity",
             "moduleDetail": "Module identity",

@@ -10,22 +10,43 @@ exports[`homeViewNavigation matches snapshot 1`] = `
     <nav
       role="navigation"
     >
-      <NavLink
-        activeClassName="nav-link-active"
-        className="nav-link"
-        title="breadcrumb.resources"
-        to="/home/resources"
-      >
-        breadcrumb.resources
-      </NavLink>
-      <NavLink
-        activeClassName="nav-link-active"
-        className="nav-link"
-        title="breadcrumb.repos"
-        to="/home/repos"
-      >
-        breadcrumb.repos
-      </NavLink>
+      <CustomizedIconButton
+        ariaLabel="common.navigation.expand"
+        iconProps={
+          Object {
+            "iconName": "GlobalNavButton",
+          }
+        }
+        onClick={[Function]}
+        tabIndex={0}
+        title="common.navigation.expand"
+      />
+      <StyledNavBase
+        groups={
+          Array [
+            Object {
+              "links": Array [
+                Object {
+                  "iconProps": Object {
+                    "iconName": "Org",
+                  },
+                  "key": "resources",
+                  "name": "breadcrumb.resources",
+                  "url": "#/home/resources",
+                },
+                Object {
+                  "iconProps": Object {
+                    "iconName": "PlugDisconnected",
+                  },
+                  "key": "repos",
+                  "name": "breadcrumb.repos",
+                  "url": "#/home/repos",
+                },
+              ],
+            },
+          ]
+        }
+      />
     </nav>
   </div>
 </div>
