@@ -110,7 +110,9 @@ export class ResourceKeys {
          },
       },
       navigation : {
+         collapse : "common.navigation.collapse",
          confirm : "common.navigation.confirm",
+         expand : "common.navigation.expand",
       },
    };
    public static connectionStrings = {
@@ -248,11 +250,9 @@ export class ResourceKeys {
          add : "deviceContent.navBar.add",
          addModuleIdentity : "deviceContent.navBar.addModuleIdentity",
          cloudToDeviceMessage : "deviceContent.navBar.cloudToDeviceMessage",
-         collapse : "deviceContent.navBar.collapse",
          commands : "deviceContent.navBar.commands",
          events : "deviceContent.navBar.events",
          eventsPerInterface : "deviceContent.navBar.eventsPerInterface",
-         expand : "deviceContent.navBar.expand",
          identity : "deviceContent.navBar.identity",
          interfaces : "deviceContent.navBar.interfaces",
          ioTPlugAndPlay : "deviceContent.navBar.ioTPlugAndPlay",

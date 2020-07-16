@@ -9,7 +9,10 @@ exports[`HomeView matches snapshot 1`] = `
     <div
       className="nav"
     >
-      <Component />
+      <Component
+        appMenuVisible={true}
+        setAppMenuVisible={[Function]}
+      />
     </div>
     <div
       className="home-content"
