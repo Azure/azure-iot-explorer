@@ -324,6 +324,7 @@ export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
         };
         // make mapKey as the first property of the object type, which is always a string
         items.properties[(propertySchema as MapSchema).mapKey.name] = {
+            pattern: '^[a-zA-Z](?:[a-zA-Z0-9_]*[a-zA-Z0-9])?$',
             type: 'string'
         };
         // make mapValue as the second property of the object type
