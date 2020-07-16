@@ -55,8 +55,8 @@ export const DeviceContent: React.FC = () => {
                         <IconButton
                             tabIndex={0}
                             iconProps={{ iconName: NAV }}
-                            title={appMenuVisible ? t(ResourceKeys.deviceContent.navBar.collapse) : t(ResourceKeys.deviceContent.navBar.expand)}
-                            ariaLabel={appMenuVisible ? t(ResourceKeys.deviceContent.navBar.collapse) : t(ResourceKeys.deviceContent.navBar.expand)}
+                            title={appMenuVisible ? t(ResourceKeys.common.navigation.collapse) : t(ResourceKeys.common.navigation.expand)}
+                            ariaLabel={appMenuVisible ? t(ResourceKeys.common.navigation.collapse) : t(ResourceKeys.common.navigation.expand)}
                             onClick={collapseToggle}
                         />
                     </div>

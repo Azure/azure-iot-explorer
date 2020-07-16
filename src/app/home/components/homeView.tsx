@@ -12,14 +12,18 @@ import { ModelRepositoryLocationView } from '../../modelRepository/components/mo
 import './homeView.scss';
 
 export const HomeView: React.FC = () => {
+    const [ appMenuVisible, setAppMenuVisible ] = React.useState(true);
     return (
         <div>
             <AppVersionMessageBar/>
             <div className="view-content home-view">
-                <div className="nav">
-                    <HomeViewNavigation/>
+                <div className={'nav' + (!appMenuVisible ? ' collapsed' : '')}>
+                    <HomeViewNavigation
+                        appMenuVisible={appMenuVisible}
+                        setAppMenuVisible={setAppMenuVisible}
+                    />
                 </div>
-                <div className="home-content">
+                <div className={'home-content' + (!appMenuVisible ? ' collapsed' : '')}>
                     <Switch>
                         <Redirect from={`/${ROUTE_PARTS.HOME}`} to={`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.RESOURCES}`} exact={true}/>
                         <Route path={`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.RESOURCES}`} component={AzureResourcesView} exact={true} />
