@@ -13,7 +13,7 @@ import { DeviceSettings } from './deviceSettings/deviceSettings';
 import { DeviceProperties } from './deviceProperties/deviceProperties';
 import { DeviceCommands } from './deviceCommands/deviceCommands';
 import { DeviceInterfaces } from './deviceInterfaces/deviceInterfaces';
-import { DeviceEventsPerInterface } from './deviceEvents/deviceEventsPerInterface';
+import { DeviceEvents } from '../../deviceEvents/components/deviceEvents';
 import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString, getComponentNameFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { usePnpStateContext } from '../../../shared/contexts/pnpStateContext';
 import '../../../css/_pivotHeader.scss';
@@ -56,7 +56,7 @@ export const DigitalTwinDetail: React.FC = () => {
             <Route path={`${url}/${ROUTE_PARTS.PROPERTIES}/`} component={DeviceProperties}/>
             <Route path={`${url}/${ROUTE_PARTS.COMMANDS}/`} component={DeviceCommands}/>
             <Route path={`${url}/${ROUTE_PARTS.INTERFACES}/`} component={DeviceInterfaces}/>
-            <Route path={`${url}/${ROUTE_PARTS.EVENTS}/`} component={DeviceEventsPerInterface}/>
+            <Route path={`${url}/${ROUTE_PARTS.EVENTS}/`} component={DeviceEvents}/>
         </>
     );
 };

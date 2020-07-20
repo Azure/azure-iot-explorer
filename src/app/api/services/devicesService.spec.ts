@@ -637,7 +637,6 @@ describe('deviceTwinService', () => {
             consumerGroup: '$Default',
             customEventHubConnectionString: undefined,
             deviceId,
-            fetchSystemProperties: undefined,
             hubConnectionString: undefined,
             startTime: undefined
         };

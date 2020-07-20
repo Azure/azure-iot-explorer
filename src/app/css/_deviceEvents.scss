@@ -20,6 +20,10 @@
                 border-top: 1px solid themed('contrastBorder');
             }
             padding: 0 25px;
+            width: 100%;
+            pre {
+                white-space: pre-wrap;
+            }
         }
     }
 
@@ -66,5 +70,44 @@
     .scrollable-telemetry {
         height: calc(100vh - 400px);
         overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .scrollable-pnp-telemetry {
+        height: calc(100vh - 490px);
+        overflow-y: auto;
+        overflow-x: hidden;
+        .column-value-text {
+            .value-validation-error {
+                @include themify($themes) {
+                    color: themed('errorText');
+                }
+                padding-top: 10px;
+                font-size: 14px;
+            }
+        }
+    }
+
+    .pnp-modeled-list {
+        @include themify($themes) {
+            background-color: themed('backgroundColor');
+        }
+        .list-header {
+            font-weight: bold;
+            border-bottom: 1px solid;
+            @include themify($themes) {
+                border-bottom-color: themed('borderColor');
+            }
+            padding-bottom: 5px;
+        }
+    }
+
+    .item-summary {
+        overflow: auto;
+        width: 100%;
+        border-bottom: 1px solid;
+        @include themify($themes) {
+            border-bottom-color: themed('borderColor');
+        }
     }
 }

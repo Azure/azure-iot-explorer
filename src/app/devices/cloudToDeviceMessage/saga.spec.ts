@@ -26,13 +26,11 @@ describe('cloudToDeviceMessageSaga', () => {
         return randomNumber;
     });
 
-    const connectionString = 'connection_string';
     const deviceId = 'device_id';
     const message = 'message';
 
     const cloudToDeviceMessageParameters: CloudToDeviceMessageParameters = {
         body: message,
-        connectionString,
         deviceId
     };
 
