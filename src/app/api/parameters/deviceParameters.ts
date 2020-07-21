@@ -4,31 +4,27 @@
  **********************************************************/
 import { Twin } from '../models/device';
 import { DeviceIdentity } from '../models/deviceIdentity';
-import DeviceQuery from '../models/deviceQuery';
-import { DigitalTwinInterfaces } from '../models/digitalTwinModels';
-import { CloudToDeviceMessageActionParameters, InvokeMethodActionParameters } from '../../devices/deviceContent/actions';
+import { DeviceQuery } from '../models/deviceQuery';
+import { InvokeMethodActionParameters } from '../../devices/directMethod/actions';
+import { CloudToDeviceMessageActionParameters } from '../../devices/cloudToDeviceMessage/actions';
 
-export interface DataPlaneParameters {
-    connectionString: string;
-}
-
-export interface FetchDeviceTwinParameters extends DataPlaneParameters {
-    deviceId: string;
-}
-
-export interface UpdateDeviceTwinParameters extends FetchDeviceTwinParameters {
+export interface UpdateDeviceTwinParameters {
     deviceTwin: Twin;
 }
 
-export type InvokeMethodParameters = InvokeMethodActionParameters & DataPlaneParameters;
-
-export type CloudToDeviceMessageParameters = CloudToDeviceMessageActionParameters & DataPlaneParameters;
-
-export interface FetchDeviceParameters extends DataPlaneParameters {
+export interface FetchDeviceTwinParameters {
     deviceId: string;
 }
 
-export interface FetchDevicesParameters extends DataPlaneParameters {
+export type InvokeMethodParameters = InvokeMethodActionParameters;
+
+export type CloudToDeviceMessageParameters = CloudToDeviceMessageActionParameters;
+
+export interface FetchDeviceParameters {
+    deviceId: string;
+}
+
+export interface FetchDevicesParameters  {
     query?: DeviceQuery;
 }
 
@@ -40,36 +36,46 @@ export interface MonitorEventsParameters {
     customEventHubConnectionString?: string;
     hubConnectionString?: string;
 
-    fetchSystemProperties?: boolean;
     startTime?: Date;
 }
 
-export interface DeleteDevicesParameters extends DataPlaneParameters {
+export interface DeleteDevicesParameters  {
     deviceIds: string[];
 }
 
-export interface AddDeviceParameters extends DataPlaneParameters {
+export interface AddDeviceParameters {
     deviceIdentity: DeviceIdentity;
 }
 
-export interface UpdateDeviceParameters extends DataPlaneParameters {
+export interface UpdateDeviceParameters {
     deviceIdentity: DeviceIdentity;
 }
 
-export interface FetchDigitalTwinInterfacePropertiesParameters extends DataPlaneParameters {
+export interface FetchDigitalTwinParameters {
+    digitalTwinId: string;
+}
+
+export enum JsonPatchOperation {
+    ADD = 'add',
+    REMOVE = 'remove'
+}
+
+export interface PatchDigitalTwinParameters {
     digitalTwinId: string; // Format of digitalTwinId is DeviceId[~ModuleId]. ModuleId is optional.
+    payload: PatchPayload[];
 }
 
-export interface InvokeDigitalTwinInterfaceCommandParameters extends DataPlaneParameters {
+export interface PatchPayload {
+    op: JsonPatchOperation;
+    path: string;
+    value?: boolean | number | string | object;
+}
+
+export interface InvokeDigitalTwinInterfaceCommandParameters {
     digitalTwinId: string; // Format of digitalTwinId is DeviceId[~ModuleId]. ModuleId is optional.
     componentName: string;
     commandName: string;
     connectTimeoutInSeconds?: number;
-    payload?: any; // tslint:disable-line:no-any
+    payload?: boolean | number | string | object;
     responseTimeoutInSeconds?: number;
-}
-
-export interface PatchDigitalTwinInterfacePropertiesParameters extends DataPlaneParameters {
-    digitalTwinId: string; // Format of digitalTwinId is DeviceId[~ModuleId]. ModuleId is optional.
-    payload: DigitalTwinInterfaces;
 }

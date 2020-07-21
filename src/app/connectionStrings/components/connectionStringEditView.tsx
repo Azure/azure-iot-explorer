@@ -3,14 +3,15 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel';
-import { TextField } from 'office-ui-fabric-react/lib/TextField';
-import { DefaultButton, PrimaryButton } from 'office-ui-fabric-react/lib/Button';
+import { useTranslation } from 'react-i18next';
+import { Panel, PanelType } from 'office-ui-fabric-react/lib/components/Panel';
+import { TextField } from 'office-ui-fabric-react/lib/components/TextField';
+import { DefaultButton, PrimaryButton } from 'office-ui-fabric-react/lib/components/Button';
+import { Link } from 'office-ui-fabric-react/lib/components/Link';
 import { ConnectionStringProperties } from './connectionStringProperties';
 import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
 import { generateConnectionStringValidationError } from '../../shared/utils/hubConnectionStringHelper';
 import { IoTHubConnectionSettings } from '../../api/services/devicesService';
-import { useLocalizationContext } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import './connectionStringEditView.scss';
 
@@ -28,7 +29,7 @@ export const ConnectionStringEditView: React.FC<ConnectionStringEditViewProps> =
     const [connectionString, setConnectionString] = React.useState<string>(connectionStringUnderEdit);
     const [connectionStringValidationKey, setConnectionStringValidationKey] = React.useState<string>(undefined);
     const [connectionSettings, setConnectionSettings] = React.useState<IoTHubConnectionSettings>(undefined);
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
 
     React.useEffect(() => {
         if (connectionString) {
@@ -136,6 +137,15 @@ export const ConnectionStringEditView: React.FC<ConnectionStringEditViewProps> =
                     required={true}
                     placeholder={t(ResourceKeys.connectionStrings.editConnection.editField.placeholder)}
                 />
+                <Link
+                    href={t(ResourceKeys.connectivityPane.connectionStringComboBox.link)}
+                    target="_blank"
+                >
+                    {t(ResourceKeys.connectivityPane.connectionStringComboBox.linkText)}
+                </Link>
+                <div>
+                    <span>{t(ResourceKeys.connectivityPane.connectionStringComboBox.warning)}</span>
+                </div>
                 {showProperties() &&
                     <div className="details">
                         <ConnectionStringProperties

@@ -3,16 +3,16 @@
  * Licensed under the MIT License
  **********************************************************/
 import 'jest';
-import { SagaIteratorClone, cloneableGenerator } from 'redux-saga/utils';
+// tslint:disable-next-line: no-submodule-imports
+import { SagaIteratorClone, cloneableGenerator } from '@redux-saga/testing-utils';
 import { call, put } from 'redux-saga/effects';
 import { deleteDevicesSaga } from './deleteDeviceSaga';
 import * as DevicesService from '../../../api/services/devicesService';
 import { deleteDevicesAction } from '../actions';
-import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
-import { addNotificationAction } from '../../../notifications/actions';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { NotificationType } from '../../../api/models/notification';
 import { BulkRegistryOperationResult } from '../../../api/models/bulkRegistryOperationResult';
+import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 
 describe('deleteDeviceSaga', () => {
     let deleteDevicesSagaGenerator: SagaIteratorClone;
@@ -38,18 +38,10 @@ describe('deleteDeviceSaga', () => {
         deleteDevicesSagaGenerator = cloneableGenerator(deleteDevicesSaga)(deleteDevicesAction.started(deviceIds));
     });
 
-    it('fetches the connection string', () => {
+    it('deletes the devices', () => {
         expect(deleteDevicesSagaGenerator.next()).toEqual({
             done: false,
-            value: call(getActiveAzureResourceConnectionStringSaga)
-        });
-    });
-
-    it('deletes the devices', () => {
-        expect(deleteDevicesSagaGenerator.next(connectionString)).toEqual({
-            done: false,
             value: call(mockDeleteDevice, {
-                connectionString,
                 deviceIds
             })
         });
@@ -59,7 +51,7 @@ describe('deleteDeviceSaga', () => {
         const success = deleteDevicesSagaGenerator.clone();
         expect(success.next(mockResult)).toEqual({
             done: false,
-            value: put(addNotificationAction.started({
+            value: call(raiseNotificationToast, {
                 text: {
                     translationKey: ResourceKeys.notifications.deleteDeviceOnSucceed,
                     translationOptions: {
@@ -67,7 +59,7 @@ describe('deleteDeviceSaga', () => {
                     },
                 },
                 type: NotificationType.success
-              }))
+              })
         });
 
         expect(success.next()).toEqual({
@@ -83,7 +75,7 @@ describe('deleteDeviceSaga', () => {
         const error = { code: -1 };
         expect(failure.throw(error)).toEqual({
             done: false,
-            value: put(addNotificationAction.started({
+            value: call(raiseNotificationToast, {
                 text: {
                     translationKey: ResourceKeys.notifications.deleteDeviceOnError,
                     translationOptions: {
@@ -92,7 +84,7 @@ describe('deleteDeviceSaga', () => {
                     },
                 },
                 type: NotificationType.error
-              }))
+              })
         });
 
         expect(failure.next(error)).toEqual({

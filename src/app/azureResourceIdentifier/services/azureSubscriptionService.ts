@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import { AzureResourceManagementEndpoint } from '../models/azureResourceManagementEndpoint';
-import { APPLICATION_JSON, HTTP_OPERATION_TYPES } from '../../api/constants';
+import { APPLICATION_JSON, HTTP_OPERATION_TYPES } from '../../constants/apiConstants';
 import { HttpError } from '../../api/models/httpError';
 import { AzureSubscription } from '../models/azureSubscription';
 

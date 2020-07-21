@@ -75,20 +75,20 @@
 .list-content{
     width: calc(100% - 2px);
     .list-item {
+        .column-value-text {
+            .column-value-button {
+                @include default-button;
+            }
+            .value-validation-error {
+                @include validation-error;
+            }
+        }
         .item-summary {
             overflow: auto;
             width: 100%;
             border-bottom: 1px solid;
             @include themify($themes) {
                 border-bottom-color: themed('borderColor');
-            }
-            .column-value-text {
-                .column-value-button {
-                    @include default-button;
-                }
-                .value-validation-error {
-                    @include validation-error;
-                }
             }
             .column-toggle {
                 padding-right: 2%;
@@ -119,7 +119,7 @@
 
         .item-detail-uncollapsed {
             box-sizing: border-box;
-            padding: 0 10px 10px 18px;
+            padding: 0 10px 10px 5px;
             @include themify($themes) {
                 background-color: themed('summaryBackground');
             }
@@ -143,7 +143,7 @@
     }
 }
 
-.non-writable-properties {
+.pnp-properties {
     dialog {
         @include themify($themes) {
             background-color: themed('backgroundColor');
@@ -178,40 +178,11 @@
     }
 }
 
-.pnp-interface-info {
-    padding: 0 25px;
-    .source {
-        float:left;
-        .no-source-error {
-            @include themify($themes) {
-                color: themed('errorText');
-            }
-        }
-    }
-    .configure-button {
-        @include default-button;
-        padding-bottom: 8px;
-        margin-top: 0px !important;
-    }
-    .interface-definition
-    {
-        padding-top: 20px;
-        .monaco-editor {
-            height: calc(100vh - 540px);
-        }
-    }
-}
-
 .ms-Panel-main {
     margin-top: 45px;
 }
 
 .scrollable-lg {
     height: calc(100vh - 245px);
-    overflow-y: auto;
-}
-
-.scrollable-pnp-telemetry {
-    height: calc(100vh - 400px);
     overflow-y: auto;
 }

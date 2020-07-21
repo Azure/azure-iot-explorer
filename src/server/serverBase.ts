@@ -2,6 +2,8 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
+import * as fs from 'fs';
+import * as path from 'path';
 import express = require('express');
 import request = require('request');
 import bodyParser = require('body-parser');
@@ -16,6 +18,7 @@ const BAD_REQUEST = 400;
 const SUCCESS = 200;
 const NOT_FOUND = 404;
 const CONFLICT = 409;
+const NO_CONTENT_SUCCESS = 204;
 const SERVER_WAIT = 3000; // how long we'll let the call for eventHub messages run in non-socket
 const receivers: ReceiveHandler[] = [];
 const IOTHUB_CONNECTION_DEVICE_ID = 'iothub-connection-device-id';
@@ -31,8 +34,8 @@ interface Message {
     systemProperties?: {[key: string]: string};
 }
 
-export default class ServerBase {
-    private port: number;
+export class ServerBase {
+    private readonly port: number;
     constructor(port: number) {
         this.port = port;
     }
@@ -50,10 +53,114 @@ export default class ServerBase {
         app.post(eventHubMonitorUri, handleEventHubMonitorPostRequest);
         app.post(eventHubStopUri, handleEventHubStopPostRequest);
         app.post(modelRepoUri, handleModelRepoPostRequest);
+        app.get(readFileUri, handleReadFileRequest);
+        app.get(getDirectoriesUri, handleGetDirectoriesRequest);
 
         app.listen(this.port);
     }
 }
+
+const readFileUri = '/api/ReadFile/:path/:file';
+// tslint:disable-next-line:cyclomatic-complexity
+export const handleReadFileRequest = (req: express.Request, res: express.Response) => {
+    try {
+        const filePath = req.params.path;
+        const expectedFileName = req.params.file;
+        if (!filePath || !expectedFileName) {
+            res.status(BAD_REQUEST).send();
+        }
+        else {
+            const fileNames = fs.readdirSync(filePath);
+            try {
+                const foundContent = findMatchingFile(filePath, fileNames, expectedFileName);
+                if (foundContent) {
+                    res.status(SUCCESS).send(foundContent);
+                }
+                else {
+                    res.status(NO_CONTENT_SUCCESS).send();
+                }
+            }
+            catch (error) {
+                res.status(NOT_FOUND).send(error.message); // couldn't find matching file, and the folder contains json files that cannot be parsed
+            }
+
+        }
+    }
+    catch (error) {
+        res.status(SERVER_ERROR).send(error);
+    }
+};
+
+// tslint:disable-next-line:cyclomatic-complexity
+const findMatchingFile = (filePath: string, fileNames: string[], expectedFileName: string): string => {
+    const filesWithParsingError = [];
+    for (const fileName of fileNames) {
+        if (isFileExtensionJson(fileName)) {
+            try {
+                const data = fs.readFileSync(`${filePath}/${fileName}`, 'utf-8');
+                if (JSON.parse(data)['@id'].toString() === expectedFileName) {
+                    return data;
+                }
+            }
+            catch (error) {
+                filesWithParsingError.push(`${fileName}: ${error.message}`); // swallow error and continue the loop
+            }
+        }
+    }
+    if (filesWithParsingError.length > 0) {
+        throw new Error(filesWithParsingError.join(', '));
+    }
+    return null;
+};
+
+const isFileExtensionJson = (fileName: string) => {
+    const i = fileName.lastIndexOf('.');
+    return i > 0 && fileName.substr(i) === '.json';
+};
+
+const getDirectoriesUri = '/api/Directories/:path';
+export const handleGetDirectoriesRequest = (req: express.Request, res: express.Response) => {
+    try {
+        const dir = req.params.path;
+        if (dir === '$DEFAULT') {
+            fetchDrivesOnWindows(res);
+        }
+        else {
+            fetchDirectories(dir, res);
+        }
+    }
+    catch (error) {
+        res.status(SERVER_ERROR).send(error);
+    }
+};
+
+const fetchDrivesOnWindows = (res: express.Response) => {
+    const exec = require('child_process').exec;
+    exec('wmic logicaldisk get name', (error: any, stdout: any, stderr: any) => { // tslint:disable-line:no-any
+        if (!error && !stderr) {
+            res.status(SUCCESS).send(stdout);
+        }
+        else {
+            res.status(SERVER_ERROR).send();
+        }
+    });
+};
+
+const fetchDirectories = (dir: string, res: express.Response) => {
+    const result: string[] = [];
+    for (const item of fs.readdirSync(dir)) {
+        try {
+            const stat = fs.statSync(path.join(dir, item));
+            if (stat.isDirectory()) {
+                result.push(item);
+            }
+        }
+        catch {
+            // some item cannot be checked by isDirectory(), swallow error and continue the loop
+        }
+    }
+    res.status(SUCCESS).send(result);
+};
 
 const dataPlaneUri = '/api/DataPlane';
 export const handleDataPlanePostRequest = (req: express.Request, res: express.Response) => {
@@ -235,7 +342,7 @@ export const eventHubProvider = async (res: any, body: any) =>  { // tslint:disa
                 res.status(NOT_FOUND).send('Nothing to return');
             }
 
-            return handleMessages(body.deviceId, client, hubInfo, partitionIds, startTime, !!body.fetchSystemProperties, body.consumerGroup);
+            return handleMessages(body.deviceId, client, hubInfo, partitionIds, startTime, body.consumerGroup);
         } else {
             res.status(CONFLICT).send('Client currently stopping');
         }
@@ -269,7 +376,7 @@ export const stopClient = async () => {
     });
 };
 
-const handleMessages = async (deviceId: string, eventHubClient: EventHubClient, hubInfo: EventHubRuntimeInformation, partitionIds: string[], startTime: number, fetchSystemProperties: boolean, consumerGroup: string) => {
+const handleMessages = async (deviceId: string, eventHubClient: EventHubClient, hubInfo: EventHubRuntimeInformation, partitionIds: string[], startTime: number, consumerGroup: string) => {
     const messages: Message[] = []; // tslint:disable-line: no-any
     const onMessage = async (eventData: any) => { // tslint:disable-line: no-any
         if (eventData && eventData.annotations && eventData.annotations[IOTHUB_CONNECTION_DEVICE_ID] === deviceId) {
@@ -278,9 +385,7 @@ const handleMessages = async (deviceId: string, eventHubClient: EventHubClient, 
                 enqueuedTime: eventData.enqueuedTimeUtc,
                 properties: eventData.applicationProperties
             };
-            if (fetchSystemProperties) {
-                message.systemProperties = eventData.annotations;
-            }
+            message.systemProperties = eventData.annotations;
             messages.push(message);
         }
     };

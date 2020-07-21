@@ -1,0 +1,19 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+ @import 'themes';
+
+.pnp-interface-info {
+    padding: 0 25px;
+    .interface-definition-json-editor
+    {
+        padding-top: 20px;
+        height: calc(100vh - 540px);
+    }
+    .invalid-interface-definition-json-editor
+    {
+        padding-top: 20px;
+        height: calc(100vh - 440px);
+    }
+}

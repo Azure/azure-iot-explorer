@@ -1,0 +1,56 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+ @import '../../css/themes';
+
+.nav-link {
+    margin-left: 1px;
+    display: block;
+    text-decoration: none;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    min-width: 275px;
+    font-size: 14px;
+    @include themify($themes) {
+        color: themed('menuLinkColor');
+    }
+}
+
+.nav-link-active {
+    @include themify($themes) {
+        border-left-color: themed('menuLinkBorder_Active');
+        background-color: themed('menuLinkBackground_Active');
+    }
+
+    border-left-style: solid;
+    border-left-width: 2px;
+}
+
+.nav-link:visited {
+    @include themify($themes) {
+        color: themed('menuLinkColor');
+    }
+}
+
+.nav-link:hover {
+    @include themify($themes) {
+        color: themed('menuLinkColor_Hover');
+        background-color: themed('menuLinkBackground_Hover');
+    }
+}
+
+.nav-link-bar {
+    border-right-width: 1px;
+    border-style: solid;
+    border-top-width: 0px;
+    border-left-width: 0px;
+    @include themify($themes) {
+        border: {
+            color: themed('navBarBorderColor');
+        }
+    }
+}

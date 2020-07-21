@@ -5,7 +5,7 @@
 import { getAzureResourceIdentifiers, getAzureResourceIdentifier } from './azureResourceIdentifierService';
 import { AzureResourceIdentifierType } from '../models/azureResourceIdentifierType';
 import { HttpError } from '../../api/models/httpError';
-import { APPLICATION_JSON, HTTP_OPERATION_TYPES } from '../../api/constants';
+import { HTTP_OPERATION_TYPES, APPLICATION_JSON } from '../../constants/apiConstants';
 
 describe('getAzureResourceIdentifiers', () => {
     it('calls fetch with specificed parameters', () => {

@@ -1,0 +1,172 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/devices/deviceProperties matches snapshot while interface cannot be found 1`] = `
+<Fragment>
+  <StyledCommandBarBase
+    className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "deviceProperties.command.close",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "deviceProperties.command.close",
+          "onClick": [Function],
+        },
+      ]
+    }
+    items={
+      Array [
+        Object {
+          "ariaLabel": "deviceProperties.command.refresh",
+          "iconProps": Object {
+            "iconName": "Refresh",
+          },
+          "key": "Refresh",
+          "name": "deviceProperties.command.refresh",
+          "onClick": [Function],
+        },
+      ]
+    }
+  />
+  <StyledLabelBase
+    className="no-pnp-content"
+  >
+    deviceProperties.noProperties
+  </StyledLabelBase>
+</Fragment>
+`;
+
+exports[`components/devices/deviceProperties matches snapshot with one twinWithSchema 1`] = `
+<Fragment>
+  <StyledCommandBarBase
+    className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "deviceProperties.command.close",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "deviceProperties.command.close",
+          "onClick": [Function],
+        },
+      ]
+    }
+    items={
+      Array [
+        Object {
+          "ariaLabel": "deviceProperties.command.refresh",
+          "iconProps": Object {
+            "iconName": "Refresh",
+          },
+          "key": "Refresh",
+          "name": "deviceProperties.command.refresh",
+          "onClick": [Function],
+        },
+      ]
+    }
+  />
+  <Component
+    twinAndSchema={
+      Array [
+        Object {
+          "propertyModelDefinition": Object {
+            "@type": "Property",
+            "description": "Providing model and optional interfaces information on a digital twin.",
+            "displayName": "Model Information",
+            "name": "modelInformation",
+            "schema": Object {
+              "@type": "Object",
+              "fields": Array [
+                Object {
+                  "name": "modelId",
+                  "schema": "string",
+                },
+                Object {
+                  "name": "interfaces",
+                  "schema": Object {
+                    "@type": "Map",
+                    "mapKey": Object {
+                      "name": "name",
+                      "schema": "string",
+                    },
+                    "mapValue": Object {
+                      "name": "schema",
+                      "schema": "string",
+                    },
+                  },
+                },
+              ],
+            },
+          },
+          "propertySchema": Object {
+            "definitions": Object {},
+            "properties": Object {
+              "interfaces": Object {
+                "additionalProperties": true,
+                "items": Object {
+                  "description": "Key of the map is: name",
+                  "properties": Object {
+                    "name": Object {
+                      "pattern": "^[a-zA-Z](?:[a-zA-Z0-9_]*[a-zA-Z0-9])?$",
+                      "type": "string",
+                    },
+                    "schema": Object {
+                      "required": Array [],
+                      "title": "schema",
+                      "type": "string",
+                    },
+                  },
+                  "required": Array [
+                    "name",
+                    "schema",
+                  ],
+                  "type": "object",
+                },
+                "required": Array [],
+                "title": "interfaces",
+                "type": "array",
+              },
+              "modelId": Object {
+                "required": Array [],
+                "title": "modelId",
+                "type": "string",
+              },
+            },
+            "required": Array [],
+            "title": "modelInformation",
+            "type": "object",
+          },
+          "reportedTwin": undefined,
+        },
+        Object {
+          "propertyModelDefinition": Object {
+            "@type": Array [
+              "Property",
+              "SemanticType/Brightness Level",
+            ],
+            "description": "The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)",
+            "displayName": "Brightness Level",
+            "name": "brightness",
+            "schema": "long",
+          },
+          "propertySchema": Object {
+            "definitions": Object {},
+            "required": Array [],
+            "title": "brightness",
+            "type": Array [
+              "number",
+              "null",
+            ],
+          },
+          "reportedTwin": undefined,
+        },
+      ]
+    }
+  />
+</Fragment>
+`;

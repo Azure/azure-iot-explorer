@@ -37,7 +37,7 @@ describe('utils', () => {
             expect(transformedDevice.cloudToDeviceMessageCount).toEqual(deviceSummary.cloudToDeviceMessageCount);
             expect(transformedDevice.connectionState).toEqual(deviceSummary.connectionState);
             expect(transformedDevice.deviceId).toEqual(deviceSummary.deviceId);
-            const isLocalTime = new RegExp(/\d+:\d+:\d+ [AP]M, July 18, 2019/);
+            const isLocalTime = new RegExp(/\d+:\d+:\d+ [AP]M, 07\/18\/2019/);
             expect(transformedDevice.iotEdge).toBeFalsy();
             expect(transformedDevice.lastActivityTime.match(isLocalTime)).toBeTruthy();
             expect(transformedDevice.status).toEqual(deviceSummary.status);

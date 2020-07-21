@@ -24,3 +24,19 @@ body {
         }
     }
 }
+
+.ms-CommandBar {
+    @include themify($themes) {
+        background: themed('backgroundColor');
+        border-bottom: 1px solid themed('borderColor');
+        .ms-Button--commandBar {
+            background: themed('backgroundColor');
+        }
+    }
+}
+
+.embedded-link {
+    @include themify($themes) {
+        color: themed('linkColor');
+    }
+}

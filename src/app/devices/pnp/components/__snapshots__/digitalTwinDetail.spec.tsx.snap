@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DigitalTwinDetail matches snapshot 1`] = `
+<Fragment>
+  <Stack
+    className="digitaltwin-pivot"
+    horizontal={true}
+  >
+    <StyledPivotBase
+      aria-label="digitalTwin.pivot.ariaLabel"
+      onLinkClick={[Function]}
+      selectedKey="interfaces"
+    >
+      <PivotItem
+        headerText="deviceContent.navBar.interfaces"
+        itemKey="interfaces"
+        key="interfaces"
+      />
+      <PivotItem
+        headerText="deviceContent.navBar.properties"
+        itemKey="properties"
+        key="properties"
+      />
+      <PivotItem
+        headerText="deviceContent.navBar.settings"
+        itemKey="settings"
+        key="settings"
+      />
+      <PivotItem
+        headerText="deviceContent.navBar.commands"
+        itemKey="commands"
+        key="commands"
+      />
+      <PivotItem
+        headerText="deviceContent.navBar.events"
+        itemKey="events"
+        key="events"
+      />
+    </StyledPivotBase>
+  </Stack>
+  <Component
+    component={[Function]}
+    path="/#/devices/deviceDetail/ioTPlugAndPlay/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1/settings/"
+  />
+  <Component
+    component={[Function]}
+    path="/#/devices/deviceDetail/ioTPlugAndPlay/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1/properties/"
+  />
+  <Component
+    component={[Function]}
+    path="/#/devices/deviceDetail/ioTPlugAndPlay/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1/commands/"
+  />
+  <Component
+    component={[Function]}
+    path="/#/devices/deviceDetail/ioTPlugAndPlay/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1/interfaces/"
+  />
+  <Component
+    component={[Function]}
+    path="/#/devices/deviceDetail/ioTPlugAndPlay/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1/events/"
+  />
+</Fragment>
+`;

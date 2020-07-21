@@ -3,13 +3,15 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { IconButton } from 'office-ui-fabric-react/lib/Button';
+import { useTranslation } from 'react-i18next';
+import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
 import { toast, ToastType, ToastOptions, UpdateOptions } from 'react-toastify';
-import { LocalizationContextConsumer, LocalizationContextInterface } from '../../shared/contexts/localizationContext';
 import { NotificationListEntry } from '../../notifications/components/notificationListEntry';
 import { Notification } from '../../api/models/notification';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { CANCEL } from '../../constants/iconNames';
+import { useGlobalStateContext } from '../../shared/contexts/globalStateContext';
+import { addNotificationAction } from '../../shared/global/actions';
 import '../../css/_notification.scss';
 
 export interface CloseButtonProps {
@@ -18,29 +20,32 @@ export interface CloseButtonProps {
 }
 
 export const CloseButton = (props: CloseButtonProps): JSX.Element => {
+    const { t } = useTranslation();
     return (
-        <LocalizationContextConsumer>
-            {(context: LocalizationContextInterface) => (
-                <IconButton
-                    iconProps={{
-                        iconName: CANCEL
-                    }}
-                    label={context.t(ResourceKeys.common.close)}
-                    ariaLabel={context.t(ResourceKeys.common.close)}
-                    style={{width: 50}}
-                    onClick={props.closeToast}
-                />
-            )}
-        </LocalizationContextConsumer>
+        <IconButton
+            iconProps={{
+                iconName: CANCEL
+            }}
+            label={t(ResourceKeys.common.close)}
+            ariaLabel={t(ResourceKeys.common.close)}
+            style={{width: 50}}
+            onClick={props.closeToast}
+        />
     );
 };
 
-const fetchComponent = (notification: Notification) => {
-    return <NotificationListEntry notification={notification} showAnnoucement={true}/>;
+const NotificationEntry = (props: { notification: Notification }): JSX.Element => {
+    const { dispatch } = useGlobalStateContext();
+
+    React.useEffect(() => {
+        dispatch!(addNotificationAction(props.notification));
+    },              [props.notification]);
+
+    return <NotificationListEntry notification={props.notification} showAnnoucement={true}/>;
 };
 
 export const raiseNotificationToast = (notification: Notification) => {
-    const component = fetchComponent(notification);
+    const component = <NotificationEntry notification={notification}/>;
     const options: ToastOptions = {
         bodyClassName: 'notification-toast-body',
         closeButton: <CloseButton />,

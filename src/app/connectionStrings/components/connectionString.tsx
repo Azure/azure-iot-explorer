@@ -3,22 +3,23 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { IconButton } from 'office-ui-fabric-react/lib/Button';
-import { Link } from 'office-ui-fabric-react/lib/Link';
+import { useTranslation } from 'react-i18next';
+import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
+import { Link } from 'office-ui-fabric-react/lib/components/Link';
 import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
 import { getResourceNameFromHostName } from '../../api/shared/hostNameUtils';
 import { ConnectionStringProperties } from './connectionStringProperties';
-import { useLocalizationContext } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { ConnectionStringDelete } from './connectionStringDelete';
-import MaskedCopyableTextFieldContainer from '../../shared/components/maskedCopyableTextFieldContainer';
+import { MaskedCopyableTextField } from '../../shared/components/maskedCopyableTextField';
+import { EDIT, REMOVE } from '../../constants/iconNames';
 import './connectionString.scss';
 
 export interface ConnectionStringProps {
     connectionString: string;
     onEditConnectionString(connectionString: string): void;
     onDeleteConnectionString(connectionString: string): void;
-    onSelectConnectionString(connectionString: string, hostName: string): void;
+    onSelectConnectionString(connectionString: string): void;
 }
 
 export const ConnectionString: React.FC<ConnectionStringProps> = props => {
@@ -27,7 +28,7 @@ export const ConnectionString: React.FC<ConnectionStringProps> = props => {
     const { hostName, sharedAccessKey, sharedAccessKeyName } = connectionSettings;
     const resourceName = getResourceNameFromHostName(hostName);
     const [ confirmingDelete, setConfirmingDelete ] = React.useState<boolean>(false);
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
 
     const onEditConnectionStringClick = () => {
         onEditConnectionString(connectionString);
@@ -47,7 +48,7 @@ export const ConnectionString: React.FC<ConnectionStringProps> = props => {
     };
 
     const onSelectConnectionStringClick = () => {
-        onSelectConnectionString(connectionString, hostName);
+        onSelectConnectionString(connectionString);
     };
 
     return (
@@ -55,9 +56,9 @@ export const ConnectionString: React.FC<ConnectionStringProps> = props => {
             <div className="commands">
                 <div className="name">
                     <Link
-                        ariaLabel={t(ResourceKeys.connectionStrings.visitConnectionCommand.ariaLabel, {connectionString})}
+                        className="text"
                         onClick={onSelectConnectionStringClick}
-                        title={resourceName}
+                        title={t(ResourceKeys.connectionStrings.visitConnectionCommand.ariaLabel, {connectionString})}
                     >
                         {resourceName}
                     </Link>
@@ -65,7 +66,7 @@ export const ConnectionString: React.FC<ConnectionStringProps> = props => {
                 <div className="actions">
                     <IconButton
                         iconProps={{
-                            iconName: 'EditSolid12'
+                            iconName: EDIT
                         }}
                         title={t(ResourceKeys.connectionStrings.editConnectionCommand.label)}
                         ariaLabel={t(ResourceKeys.connectionStrings.editConnectionCommand.ariaLabel, {connectionString})}
@@ -73,7 +74,7 @@ export const ConnectionString: React.FC<ConnectionStringProps> = props => {
                     />
                     <IconButton
                         iconProps={{
-                            iconName: 'Delete'
+                            iconName: REMOVE
                         }}
                         title={t(ResourceKeys.connectionStrings.deleteConnectionCommand.label)}
                         ariaLabel={t(ResourceKeys.connectionStrings.deleteConnectionCommand.ariaLabel, {connectionString})}
@@ -89,13 +90,20 @@ export const ConnectionString: React.FC<ConnectionStringProps> = props => {
                     sharedAccessKey={sharedAccessKey}
                     sharedAccessKeyName={sharedAccessKeyName}
                 />
-                <MaskedCopyableTextFieldContainer
+                <MaskedCopyableTextField
                     ariaLabel={t(ResourceKeys.connectionStrings.properties.connectionString.ariaLabel)}
-                    allowMask={false}
+                    allowMask={true}
                     label={t(ResourceKeys.connectionStrings.properties.connectionString.label)}
                     value={connectionString}
                     readOnly={true}
                 />
+                <Link
+                    style={{marginTop: 10}}
+                    onClick={onSelectConnectionStringClick}
+                    title={t(ResourceKeys.connectionStrings.visitConnectionCommand.ariaLabel, {connectionString})}
+                >
+                    {t(ResourceKeys.connectionStrings.visitConnectionCommand.label)}
+                </Link>
             </div>
             <ConnectionStringDelete
                 connectionString={connectionString}

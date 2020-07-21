@@ -7,9 +7,10 @@ export interface ModelDefinition {
     '@id': string;
     '@type': string;
     comment?: string | object;
-    contents: Array<PropertyContent | CommandContent | TelemetryContent>;
+    contents: Array<PropertyContent | CommandContent | TelemetryContent | ComponentContent>;
     description?: string | object;
     displayName?: string | object;
+    schemas?: Array<ObjectSchema | MapSchema | EnumSchema>;
 }
 
 export interface PropertyContent extends ContentBase {
@@ -27,6 +28,10 @@ export interface TelemetryContent extends ContentBase{
     schema: string | EnumSchema | ObjectSchema | MapSchema;
 }
 
+export interface ComponentContent extends ContentBase{
+    schema: string;
+}
+
 interface ContentBase {
     '@type': string | string[];
     name: string;
@@ -34,8 +39,7 @@ interface ContentBase {
     comment?: string | object;
     description?: string | object;
     displayName?: string | object;
-    displayUnit?: string;
-    unit?: any; // tslint:disable-line:no-any
+    unit?: string;
 }
 
 export interface Schema {
@@ -45,24 +49,35 @@ export interface Schema {
     description?: string | object;
 }
 
+interface EnumValue {
+    displayName: string | object;
+    name: string;
+    enumValue: number | string;
+}
+
 export interface EnumSchema {
     '@type': string;
-    enumValues: Array<{ displayName: string | object, name: string, enumValue: number}>;
+    valueSchema: string;
+    enumValues: EnumValue[];
+    '@id'?: string;
 }
 
 export interface ObjectSchema {
     '@type': string;
     fields: Schema[];
+    '@id'?: string;
 }
 
 export interface MapSchema {
     '@type': string;
     mapKey: Schema;
     mapValue: Schema;
+    '@id'?: string;
 }
 
 export enum ContentType{
     Command = 'command',
     Property = 'property',
-    Telemetry = 'telemetry'
+    Telemetry = 'telemetry',
+    Component = 'component'
 }

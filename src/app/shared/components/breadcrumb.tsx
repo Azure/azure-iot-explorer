@@ -3,40 +3,59 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { useSelector } from 'react-redux';
-import { Route, NavLink, RouteComponentProps } from 'react-router-dom';
-import { useLocalizationContext } from '../contexts/localizationContext';
+import { useTranslation } from 'react-i18next';
+import { Route, NavLink, useLocation, useRouteMatch } from 'react-router-dom';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../constants/routes';
-import { getActiveAzureResourceHostNameSelector } from '../../azureResource/selectors';
+import { CONNECTION_STRING_NAME_LIST } from '../../constants/browserStorage';
+import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
 import { getDeviceIdFromQueryString, getComponentNameFromQueryString } from '../utils/queryStringHelper';
 import '../../css/_breadcrumb.scss';
 
-const Breadcrumb = () => (
-    <ul className="breadcrumb">
-        <Route path="/:path" component={BreadcrumbItemContainer} />
-    </ul>
-);
+export const Breadcrumb: React.FC = () => {
+    const [ hostName, setHostName ] = React.useState<string>('');
+    const connectionStrings = localStorage.getItem(CONNECTION_STRING_NAME_LIST);
+    const connectionString = connectionStrings && connectionStrings.split(',')[0];
 
-export interface BreadcrumbItemDataProps extends RouteComponentProps{
+    React.useEffect(() => {
+        const host = getConnectionInfoFromConnectionString(connectionString).hostName;
+        setHostName(host);
+    },              [connectionString]);
+
+    const renderBreadcrumbItem = () => <BreadcrumbItem hostName={hostName}/>;
+
+    return (
+        <ul className="breadcrumb">
+            <Route path="/:path" component={renderBreadcrumbItem} />
+        </ul>
+    );
+};
+
+export interface BreadcrumbItemDataProps {
     hostName: string;
 }
 
 export const BreadcrumbItem: React.FC<BreadcrumbItemDataProps> = props => {
+    const { t } = useTranslation();
+    const { search, pathname } = useLocation();
+    const { url } = useRouteMatch();
+    const deviceId = getDeviceIdFromQueryString(search);
+    const componentName = getComponentNameFromQueryString(search);
 
     // tslint:disable-next-line:cyclomatic-complexity
     const renderBreadcrumbItem = (route: string | undefined) => {
-        const { t } = useLocalizationContext();
         if (route) {
             switch (route) {
-                case ROUTE_PARTS.RESOURCE: // redirects to login page
-                    return <li className="breadcrumb-item"><NavLink to={'/'}>{'Hubs'}</NavLink></li>;
+                case ROUTE_PARTS.HOME:
+                    return <li className="breadcrumb-item"><NavLink to={`/${ROUTE_PARTS.HOME}`}>{t(ResourceKeys.common.home)}</NavLink></li>;
+                case ROUTE_PARTS.RESOURCE:
+                    return <li className="breadcrumb-item"><NavLink to={`/${ROUTE_PARTS.HOME}`}>{t(ResourceKeys.common.home)}</NavLink></li>;
                 case props.hostName:
                     return renderTextItem(getShortHubName());
                 case ROUTE_PARTS.DEVICE_DETAIL:
-                    return renderTextItem(getDeviceIdFromQueryString(props));
+                    return renderTextItem(deviceId);
                 case ROUTE_PARTS.DIGITAL_TWINS_DETAIL:
-                    return renderTextItem(getComponentNameFromQueryString(props));
+                    return renderTextItem(componentName);
                 case ROUTE_PARTS.MODULE_IDENTITY:
                         return renderLinkItem(getLocalizedKey(route), [ROUTE_PARAMS.DEVICE_ID]);
                 case ROUTE_PARTS.DIGITAL_TWINS:
@@ -53,31 +72,29 @@ export const BreadcrumbItem: React.FC<BreadcrumbItemDataProps> = props => {
     };
 
     const getLocalizedKey = (route: string | undefined) => {
-        const { t } = useLocalizationContext();
         const resourceKey = (ResourceKeys.breadcrumb as any)[route]; // tslint:disable-line:no-any
         return resourceKey ? t(resourceKey) : route;
     };
 
     const getCurrentUrl = () => {
-        let url = props.match.url;
+        let currentUrl = url;
         if (url.endsWith('/')) {
-            url = url.slice(0, -1); // remove trailing slash
+            currentUrl = url.slice(0, -1); // remove trailing slash
         }
-        return url.split('/').pop();
+        return currentUrl.split('/').pop();
     };
 
     const renderLinkItem = (linkContent: string, searchParams?: ROUTE_PARAMS[]) => {
-        const { match } = props;
-        let href = match.url;
+        let href = url;
         if (searchParams) {
             href += '/?';
             searchParams.forEach((para, index) => {
                 switch (para) {
                     case ROUTE_PARAMS.DEVICE_ID:
-                        href += `${ROUTE_PARAMS.DEVICE_ID}=${getDeviceIdFromQueryString(props)}`;
+                        href += `${ROUTE_PARAMS.DEVICE_ID}=${deviceId}`;
                         break;
                     case ROUTE_PARAMS.COMPONENT_NAME:
-                        href += `${ROUTE_PARAMS.COMPONENT_NAME}=${getComponentNameFromQueryString(props)}`;
+                        href += `${ROUTE_PARAMS.COMPONENT_NAME}=${componentName}`;
                         break;
                     default:
                         break;
@@ -89,7 +106,7 @@ export const BreadcrumbItem: React.FC<BreadcrumbItemDataProps> = props => {
         }
         return (
             <li className="breadcrumb-item">
-                {match.isExact ?
+                {url === pathname ?
                     linkContent :
                     <NavLink to={href}>
                         {linkContent}
@@ -107,22 +124,13 @@ export const BreadcrumbItem: React.FC<BreadcrumbItemDataProps> = props => {
         );
     };
 
+    const renderNextBreadcrumb = () => <BreadcrumbItem hostName={props.hostName}/>;
+
     return(
         <>
             {renderBreadcrumbItem(getCurrentUrl())}
-            <Route path={`${props.match.url}/:path`} component={BreadcrumbItemContainer} />
+            <Route path={`${url}/:path`} render={renderNextBreadcrumb} />
         </>
 
     );
 };
-
-export type BreadcrumbItemContainerProps = RouteComponentProps;
-export const BreadcrumbItemContainer: React.FC<BreadcrumbItemContainerProps> = props => {
-    const viewProps = {
-        hostName: useSelector(getActiveAzureResourceHostNameSelector),
-        ...props
-    };
-    return <BreadcrumbItem {...viewProps} />;
-};
-
-export default Breadcrumb;

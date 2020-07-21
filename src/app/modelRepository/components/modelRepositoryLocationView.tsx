@@ -1,0 +1,205 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+import * as React from 'react';
+import { useTranslation } from 'react-i18next';
+import { Prompt, useHistory, useLocation } from 'react-router-dom';
+import { CommandBar, ICommandBarItemProps  } from 'office-ui-fabric-react/lib/components/CommandBar';
+import { IContextualMenuItem } from 'office-ui-fabric-react/lib/components/ContextualMenu';
+import { ResourceKeys } from '../../../localization/resourceKeys';
+import { ModelRepositoryLocationList } from './modelRepositoryLocationList';
+import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
+import { appConfig, HostMode } from '../../../appConfig/appConfig';
+import { StringMap } from '../../api/models/stringMap';
+import { ROUTE_PARAMS } from '../../constants/routes';
+import { SAVE, ADD, UNDO, HELP, NAVIGATE_BACK, REPO, FOLDER } from '../../constants/iconNames';
+import { ModelRepositoryInstruction } from './modelRepositoryInstruction';
+import { useGlobalStateContext } from '../../shared/contexts/globalStateContext';
+import { getRepositoryLocationSettings } from '../dataHelper';
+import { setRepositoryLocationsAction } from '../../shared/global/actions';
+import { RepositoryLocationSettings } from '../../shared/global/state';
+import '../../css/_layouts.scss';
+
+export const ModelRepositoryLocationView: React.FC = () => {
+    const { t } = useTranslation();
+    const history = useHistory();
+    const { search } = useLocation();
+    const params = new URLSearchParams(search);
+    const navigationBackAvailable = params.has(ROUTE_PARAMS.NAV_FROM);
+
+    const { globalState, dispatch } = useGlobalStateContext();
+    const initialRepositoryLocationSettings = getRepositoryLocationSettings(globalState.modelRepositoryState);
+    const [ repositoryLocationSettings, setRepositoryLocationSettings ] = React.useState<RepositoryLocationSettings[]>(initialRepositoryLocationSettings);
+    const [ repositoryLocationSettingsErrors, setRepositoryLocationSettingsErrors ] = React.useState<StringMap<string>>({});
+    const [ dirty, setDirtyFlag ] = React.useState<boolean>(false);
+
+    const getCommandBarItems = (): ICommandBarItemProps[] => {
+        const addItems = getCommandBarItemsAdd();
+
+        return [
+            {
+                ariaLabel: t(ResourceKeys.modelRepository.commands.save.ariaLabel),
+                disabled: !dirty,
+                iconProps: { iconName: SAVE },
+                key: 'save',
+                onClick: onSaveModelRepositorySettingsClick,
+                text: t(ResourceKeys.modelRepository.commands.save.label)
+            },
+            {
+                ariaLabel: t(ResourceKeys.modelRepository.commands.add.ariaLabel),
+                disabled: repositoryLocationSettings.length === addItems.length,
+                iconProps: { iconName: ADD },
+                key: 'add',
+                subMenuProps: {
+                    items: addItems
+                },
+                text: t(ResourceKeys.modelRepository.commands.add.label)
+            },
+            {
+                ariaLabel: t(ResourceKeys.modelRepository.commands.revert.ariaLabel),
+                disabled: !dirty,
+                iconProps: { iconName: UNDO },
+                key: 'revert',
+                onClick: onRevertModelRepositorySettingsClick,
+                text: t(ResourceKeys.modelRepository.commands.revert.label)
+            }
+        ];
+    };
+
+    const getCommandBarItemsFar = (): ICommandBarItemProps[] => {
+        const items: ICommandBarItemProps[] = [
+            {
+                ariaLabel: t(ResourceKeys.modelRepository.commands.help.ariaLabel),
+                iconProps: { iconName: HELP},
+                key: 'help',
+                onClick: onHelpClick,
+                text: t(ResourceKeys.modelRepository.commands.help.label)
+            }
+        ];
+
+        if (navigationBackAvailable) {
+            items.push(
+                {
+                    ariaLabel: t(ResourceKeys.modelRepository.commands.back.ariaLabel),
+                    iconProps: { iconName: NAVIGATE_BACK},
+                    key: 'back',
+                    onClick: onNavigateBackClick,
+                    text: t(ResourceKeys.modelRepository.commands.back.label)
+                }
+            );
+        }
+
+        return items;
+    };
+
+    const getCommandBarItemsAdd = (): IContextualMenuItem[] => {
+        const hostModeNotElectron: boolean = appConfig.hostMode !== HostMode.Electron;
+
+        return [
+            {
+                ariaLabel: t(ResourceKeys.modelRepository.commands.addPublicSource.ariaLabel),
+                disabled: repositoryLocationSettings.some(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Public),
+                iconProps: {
+                    iconName: REPO
+                },
+                key: REPOSITORY_LOCATION_TYPE.Public,
+                onClick: onAddRepositoryLocationPublic,
+                text: t(ResourceKeys.modelRepository.commands.addPublicSource.label),
+            },
+            {
+                ariaLabel: t(ResourceKeys.modelRepository.commands.addLocalSource.ariaLabel),
+                disabled: hostModeNotElectron || repositoryLocationSettings.some(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local),
+                iconProps: {
+                    iconName: FOLDER
+                },
+                key: REPOSITORY_LOCATION_TYPE.Local,
+                onClick: onAddRepositoryLocationLocal,
+                text: t(hostModeNotElectron ?
+                    ResourceKeys.modelRepository.commands.addLocalSource.labelInBrowser :
+                    ResourceKeys.modelRepository.commands.addLocalSource.label)
+            }
+        ];
+    };
+
+    const onHelpClick = () => {
+        window.open(t(ResourceKeys.settings.questions.questions.documentation.link), '_blank');
+    };
+
+    const onSaveModelRepositorySettingsClick = () => {
+        const errors = validateRepositoryLocationSettings(repositoryLocationSettings);
+
+        if (Object.keys(errors).length === 0) {
+            dispatch(setRepositoryLocationsAction(repositoryLocationSettings));
+            setDirtyFlag(false);
+        }
+
+        setRepositoryLocationSettingsErrors(errors);
+    };
+
+    const onNavigateBackClick = () => history.goBack();
+
+    const onRevertModelRepositorySettingsClick = () => {
+        setDirtyFlag(false);
+        setRepositoryLocationSettings(initialRepositoryLocationSettings);
+    };
+
+    const onAddRepositoryLocationPublic = () => {
+        setDirtyFlag(true);
+        setRepositoryLocationSettings([
+            ...repositoryLocationSettings,
+            {
+               repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public
+            }
+        ]);
+    };
+
+    const onAddRepositoryLocationLocal = () => {
+        setDirtyFlag(true);
+        setRepositoryLocationSettings([
+            ...repositoryLocationSettings,
+            {
+               repositoryLocationType: REPOSITORY_LOCATION_TYPE.Local
+            }
+        ]);
+    };
+
+    const onChangeRepositoryLocationSettings = (updatedRepositoryLocationSettings: RepositoryLocationSettings[]) => {
+        setDirtyFlag(true);
+        setRepositoryLocationSettingsErrors(validateRepositoryLocationSettings(updatedRepositoryLocationSettings));
+        setRepositoryLocationSettings([
+            ...updatedRepositoryLocationSettings
+        ]);
+    };
+
+    return (
+        <div className="view">
+            <Prompt when={dirty} message={t(ResourceKeys.common.navigation.confirm)}/>
+            <div className="view-command">
+                <CommandBar
+                    items={getCommandBarItems()}
+                    farItems={getCommandBarItemsFar()}
+                />
+            </div>
+            <div className="view-scroll-vertical">
+                <ModelRepositoryInstruction empty={repositoryLocationSettings.length === 0}/>
+                <ModelRepositoryLocationList
+                    repositoryLocationSettings={repositoryLocationSettings}
+                    repositoryLocationSettingsErrors={repositoryLocationSettingsErrors}
+                    onChangeRepositoryLocationSettings={onChangeRepositoryLocationSettings}
+                />
+            </div>
+        </div>
+    );
+};
+
+export const validateRepositoryLocationSettings = (repositoryLocationSettings: RepositoryLocationSettings[]): StringMap<string> => {
+    const errors: StringMap<string> = {};
+    repositoryLocationSettings.forEach(s => {
+        if (s.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local && !s.value) {
+            errors[REPOSITORY_LOCATION_TYPE.Local] = ResourceKeys.modelRepository.types.local.folderPicker.errors.mandatory;
+        }
+    });
+
+    return errors;
+};

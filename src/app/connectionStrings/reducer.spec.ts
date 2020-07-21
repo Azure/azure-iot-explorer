@@ -2,94 +2,71 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { ConnectionStringsStateInterface } from './state';
-import { addConnectionStringAction, deleteConnectionStringAction, setConnectionStringsAction, upsertConnectionStringAction } from './actions';
-import reducer from './reducer';
+import { ConnectionStringsStateInterface, connectionStringsStateInitial } from './state';
+import { getConnectionStringAction, deleteConnectionStringAction, setConnectionStringsAction, upsertConnectionStringAction } from './actions';
+import { connectionStringsReducer } from './reducer';
+import { SynchronizationStatus } from '../api/models/synchronizationStatus';
+import { SET, UPSERT, DELETE, GET } from '../constants/actionTypes';
 
-describe('addConnectionStringAction', () => {
-    it('amends existing list of connection strings', () => {
-        const initialState: ConnectionStringsStateInterface = {
-            connectionStrings: [
-                'connectionString1'
-            ]
-        };
+describe('getConnectionStringAction', () => {
+    it (`handles ${GET}/ACTION_START action`, () => {
+        const action = getConnectionStringAction.started();
 
-        const action =  addConnectionStringAction('connectionString2');
-        const result = reducer(initialState, action);
-        expect(result.connectionStrings).toHaveLength(2); // tslint:disable-line:no-magic-numbers
-        expect(result.connectionStrings[1]).toEqual('connectionString2');
+        expect(connectionStringsReducer(connectionStringsStateInitial(), action).synchronizationStatus).toEqual(SynchronizationStatus.working);
     });
 
-    it('does not duplicate connection strings', () => {
-        const initialState: ConnectionStringsStateInterface = {
-            connectionStrings: [
-            'connectionString1'
-            ]
-        };
-
-        const action =  addConnectionStringAction('connectionString1');
-        const result = reducer(initialState, action);
-        expect(result.connectionStrings).toHaveLength(1);
-        expect(result.connectionStrings[0]).toEqual('connectionString1');
+    it (`handles ${GET}/ACTION_DONE action`, () => {
+        const action =  getConnectionStringAction.done({ result: ['connectionString1'] });
+        expect(connectionStringsReducer(connectionStringsStateInitial(), action).synchronizationStatus).toEqual(SynchronizationStatus.fetched);
+        expect(connectionStringsReducer(connectionStringsStateInitial(), action).payload).toEqual(['connectionString1']);
     });
 });
 
 describe('deleteConnectionStringAction', () => {
-    it('removes connection string from list', () => {
-        const initialState: ConnectionStringsStateInterface = {
-            connectionStrings: [
-            'connectionString1'
-            ]
-        };
+    const initialState = connectionStringsStateInitial().merge({
+        payload: ['connectionString1']
+    });
 
-        const action =  deleteConnectionStringAction('connectionString1');
-        const result = reducer(initialState, action);
-        expect(result.connectionStrings).toHaveLength(0);
+    it (`handles ${DELETE}/ACTION_START action`, () => {
+        const action = deleteConnectionStringAction.started('connectionString1');
+        expect(connectionStringsReducer(initialState, action).synchronizationStatus).toEqual(SynchronizationStatus.updating);
+    });
+
+    it (`handles ${DELETE}/ACTION_DONE action`, () => {
+        const action =  deleteConnectionStringAction.done({ params: 'connectionString1', result: [] });
+        expect(connectionStringsReducer(initialState, action).synchronizationStatus).toEqual(SynchronizationStatus.deleted);
+        expect(connectionStringsReducer(initialState, action).payload).toEqual([]);
     });
 });
 
-describe('setConnectionStringAction', () => {
-    it('sets', () => {
-        const initialState: ConnectionStringsStateInterface = {
-            connectionStrings: [
-            'connectionString1',
-            'connectionString2'
-            ]
-        };
+describe('setConnectionStringsAction', () => {
+    const initialState = connectionStringsStateInitial().merge({
+        payload: ['connectionString1', 'connectionString2']
+    });
 
-        const action =  setConnectionStringsAction(['connectionString3']);
-        const result = reducer(initialState, action);
-        expect(result.connectionStrings).toHaveLength(1);
-        expect(result.connectionStrings).toEqual(['connectionString3']);
+    it (`handles ${SET}/ACTION_START action`, () => {
+        const action = setConnectionStringsAction.started(['connectionString3']);
+        expect(connectionStringsReducer(initialState, action).synchronizationStatus).toEqual(SynchronizationStatus.updating);
+    });
+
+    it (`handles ${SET}/ACTION_DONE action`, () => {
+        const action =  setConnectionStringsAction.done({ params: ['connectionString3'], result: ['connectionString3'] });
+        expect(connectionStringsReducer(initialState, action).synchronizationStatus).toEqual(SynchronizationStatus.upserted);
     });
 });
 
 describe('upsertConnectionStringAction', () => {
-    it('overwrites existing connection string', () => {
-        const initialState: ConnectionStringsStateInterface = {
-            connectionStrings: [
-            'connectionString1',
-            'connectionString2'
-            ]
-        };
-
-        const action =  upsertConnectionStringAction({ newConnectionString: 'newConnectionString2', connectionString: 'connectionString2'});
-        const result = reducer(initialState, action);
-        expect(result.connectionStrings).toHaveLength(2); // tslint:disable-line:no-magic-numbers
-        expect(result.connectionStrings).toEqual(['connectionString1', 'newConnectionString2']);
+    const initialState = connectionStringsStateInitial().merge({
+        payload: ['connectionString1', 'connectionString2']
     });
 
-    it('appends neww connection string', () => {
-        const initialState: ConnectionStringsStateInterface = {
-            connectionStrings: [
-            'connectionString1',
-            'connectionString2'
-            ]
-        };
-        const action =  upsertConnectionStringAction({ newConnectionString: 'connectionString3' });
-        const result = reducer(initialState, action);
-        expect(result.connectionStrings).toHaveLength(3); // tslint:disable-line:no-magic-numbers
-        expect(result.connectionStrings).toEqual(['connectionString1', 'connectionString2', 'connectionString3']);
+    it (`handles ${UPSERT}/ACTION_START action`, () => {
+        const action = upsertConnectionStringAction.started({newConnectionString: 'connectionString3'});
+        expect(connectionStringsReducer(initialState, action).synchronizationStatus).toEqual(SynchronizationStatus.updating);
+    });
 
+    it (`handles ${UPSERT}/ACTION_DONE action`, () => {
+        const action =  upsertConnectionStringAction.done({ params: {newConnectionString: 'connectionString3'}, result: ['connectionString1', 'connectionString2', 'connectionString3'] });
+        expect(connectionStringsReducer(initialState, action).synchronizationStatus).toEqual(SynchronizationStatus.upserted);
     });
 });

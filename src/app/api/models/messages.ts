@@ -16,8 +16,8 @@ export enum MESSAGE_SYSTEM_PROPERTIES {
     IOTHUB_CONNECTION_AUTH_GENERATION_ID = 'iothub-connection-auth-generation-id',
     IOTHUB_CONNECTION_AUTH_METHOD = 'iothub-connection-auth-method',
     IOTHUB_CONNECTION_DEVICE_ID = 'iothub-connection-device-id',
-    IOTHUB_INTERFACE_ID = 'iothub-interface-id',
-    IOTHUB_INTERFACE_NAME = 'iothub-interface-name',
+    IOTHUB_COMPONENT_NAME = 'dt-subject',
+    IOTHUB_INTERFACE_ID = 'dt-dataschema',
     IOTHUB_MESSAGE_SOURCE = 'iothub-message-source',
     IOTHUB_ENQUEUED_TIME = 'iothub-enqueuedtime'
 }

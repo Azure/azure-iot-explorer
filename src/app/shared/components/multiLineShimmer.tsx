@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Shimmer, ShimmerElementType } from 'office-ui-fabric-react/lib/Shimmer';
+import { Shimmer, ShimmerElementType } from 'office-ui-fabric-react/lib/components/Shimmer';
 import '../../css/_multilineShimmer.scss';
 
 const SHIMMER_HEIGHT = 20;
@@ -14,7 +14,7 @@ export interface MultiLineShimmerProps {
     shimmerCount?: number;
 }
 
-export default (props: MultiLineShimmerProps) => {
+export const MultiLineShimmer = (props: MultiLineShimmerProps) => {
     const shimmerCount = props.shimmerCount || SHIMMER_COUNT;
     const className = props.className || 'fixed-shimmer';
     const shimmers = [];

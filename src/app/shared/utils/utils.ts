@@ -41,3 +41,31 @@ export const validateModuleIdentityName = (key: string): boolean => {
     const pattern = new RegExp('^[A-Za-z0-9-:.+%_#*?!(),=@;$\']{0,128}$');
     return pattern.test(key);
 };
+
+const isPlatformWindows = () => {
+    return navigator.platform.indexOf('Win') > -1;
+};
+
+export const getRootFolder = (): string => {
+    return isPlatformWindows() ? null : '/';
+};
+
+// tslint:disable-next-line:cyclomatic-complexity
+export const getParentFolder = (currentFolder: string): string => {
+    const index = currentFolder.lastIndexOf('/');
+    if (isPlatformWindows()) {
+        const pattern = new RegExp(':/$'); // current folder is system drive
+        if (pattern.test(currentFolder)) {
+            return null;
+        }
+
+        let parentFolder =  index > 0 && currentFolder.substr(0, index);
+        if (parentFolder.indexOf('/') < 0) { // if parent folder is system drive, add trailing slash
+            parentFolder = `${parentFolder}/`;
+        }
+        return parentFolder;
+    }
+    else {
+        return index === 0 ? '/' : index > 0 && currentFolder.substr(0, index);
+    }
+};

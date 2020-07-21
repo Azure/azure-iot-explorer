@@ -1,15 +1,15 @@
 
-# Azure IoT explorer (preview)
+# Azure IoT Explorer (preview)
 
 [![Build Status](https://dev.azure.com/azure/azure-iot-explorer/_apis/build/status/Azure%20IoT%20Explorer%20CI%20Pipeline?branchName=master)](https://dev.azure.com/azure/azure-iot-explorer/_build/latest?definitionId=31&branchName=master)
 
 ## Table of Contents
 
-- [Getting Azure IoT explorer](#getting-azure-iot-explorer)
+- [Getting Azure IoT Explorer](#getting-azure-iot-explorer)
 - [Features](#features)
 - [Contributing](#contributing)
 
-## Getting Azure IoT explorer
+## Getting Azure IoT Explorer
 
 You can either download a pre-built version or build it yourself.
 
@@ -33,36 +33,39 @@ If you'd like to package the app yourself, please refer to the [FAQ](https://git
 
 ### Configure an IoT Hub connection
 
-- After opening the application, add the connection string for your IoT Hub, then click **Connect**.
+- Upon opening the application, add the connection string of your IoT hub. You can add multiple strings, view, update or detete them anytime by returning to Home.
 
-<img src="doc/screenshots/login.PNG" alt="login" width="800"/>
+<img src="doc/screenRecords/login.gif" alt="login" width="800"/>
 
-### Manage devices
+### Device CRUD
 
 - Click **New** to create a new device.
 - Select device(s) and click **Delete** to delete device(s). Multiple devices can be selected by clicking while dragging the mouse.
 - Devices can by queried by typing the first few characters of a device name in the query box.
 
-<img src="doc/screenshots/manage_devices.PNG" alt="manage_devices" width="800"/>
+<img src="doc/screenRecords/create_device.gif" alt="create_device" width="800"/>
 
+### Device functionalities
 - Click on the device name to see the device details and interact with the device.
+- Check out the [list of features that we support](https://github.com/Azure/azure-iot-explorer/wiki)
 
-<img src="doc/screenshots/device_details.PNG" alt="device_details" width="800"/>
+<img src="doc/screenRecords/device_features.gif" alt="device_details" width="800"/>
 
-### Manage Plug and Play devices
+### Plug and Play Preview
 
-- Open the **Settings** panel to configure how PnP Model definitions can be resolved. For more information on PnP devices, please visit [Microsoft Docs](https://docs.microsoft.com/en-us/azure/iot-pnp/overview-iot-plug-and-play).
+**If you are looking for a UI tool to get a flavor of Plug and Play, look no futher. Follow this [Microsoft Docs](https://docs.microsoft.com/en-us/azure/iot-pnp/overview-iot-plug-and-play) to get started.**
+- Once your device has gone through discovery, **IoT Plug and Play components** page would be available on device details view.
+- The model ID would be shown.
+- Follow our guidance to set up how we can retrieve model definitions. If it is already setup, We will inform you where are we resolving your model defintions from.
+- A table would show the list of components implemented by the device and the corresponding interfaces the components conform to.
+- You can go back to Home (either from device or by directly clicking the breadcrum) to change how we resolve model definitions. Note this is a global setting which would affect across the hub.
 
-<img src="doc/screenshots/settings.PNG" alt="settings" width="400"/>
-
-- Go to the device details page by clicking the name of a PnP device.
-- Click Plug and Play from the navigation. If the device is a Plug and Play device, the Device capability model ID would be shown. A table would show the list of components implemented by the device and the corresponding interfaces the components conform to.
-
-<img src="doc/screenshots/pnp_interfaces.PNG" alt="settings" width="800"/>
+<img src="doc/screenRecords/pnp_discovery.gif" alt="pnp_discovery" width="800"/>
 
 - Click the name of any component, and switch between interface, properties, commands and telemetry to start interacting with the PnP device.
 
-<img src="doc/screenshots/pnp_device_details.PNG" alt="pnp_device_details" width="800"/>
+<img src="doc/screenRecords/pnp_interaction_property.gif" alt="pnp_interaction_property" width="800"/>
+<img src="doc/screenRecords/pnp_interaction_telemetry.gif" alt="pnp_interaction_telemetry" width="800"/>
 
 ## Contributing
 

@@ -20,6 +20,8 @@ export class ResourceKeys {
       methods : "breadcrumb.methods",
       moduleIdentity : "breadcrumb.moduleIdentity",
       properties : "breadcrumb.properties",
+      repos : "breadcrumb.repos",
+      resources : "breadcrumb.resources",
       settings : "breadcrumb.settings",
       twin : "breadcrumb.twin",
    };
@@ -93,6 +95,7 @@ export class ResourceKeys {
          title : "common.confirmationDialog.title",
          yes : "common.confirmationDialog.yes",
       },
+      home : "common.home",
       learnMore : "common.learnMore",
       loading : "common.loading",
       maskedCopyableTextField : {
@@ -105,6 +108,11 @@ export class ResourceKeys {
                show : "common.maskedCopyableTextField.toggleMask.label.show",
             },
          },
+      },
+      navigation : {
+         collapse : "common.navigation.collapse",
+         confirm : "common.navigation.confirm",
+         expand : "common.navigation.expand",
       },
    };
    public static connectionStrings = {
@@ -162,6 +170,10 @@ export class ResourceKeys {
          ariaLabel : "connectionStrings.editConnectionCommand.ariaLabel",
          label : "connectionStrings.editConnectionCommand.label",
       },
+      empty : {
+         description : "connectionStrings.empty.description",
+         header : "connectionStrings.empty.header",
+      },
       properties : {
          connectionString : {
             ariaLabel : "connectionStrings.properties.connectionString.ariaLabel",
@@ -182,6 +194,7 @@ export class ResourceKeys {
       },
       visitConnectionCommand : {
          ariaLabel : "connectionStrings.visitConnectionCommand.ariaLabel",
+         label : "connectionStrings.visitConnectionCommand.label",
       },
    };
    public static connectivityPane = {
@@ -199,6 +212,7 @@ export class ResourceKeys {
          link : "connectivityPane.connectionStringComboBox.link",
          linkText : "connectivityPane.connectionStringComboBox.linkText",
          prompt : "connectivityPane.connectionStringComboBox.prompt",
+         warning : "connectivityPane.connectionStringComboBox.warning",
       },
       dropDown : {
          copyButton : "connectivityPane.dropDown.copyButton",
@@ -236,11 +250,9 @@ export class ResourceKeys {
          add : "deviceContent.navBar.add",
          addModuleIdentity : "deviceContent.navBar.addModuleIdentity",
          cloudToDeviceMessage : "deviceContent.navBar.cloudToDeviceMessage",
-         collapse : "deviceContent.navBar.collapse",
          commands : "deviceContent.navBar.commands",
          events : "deviceContent.navBar.events",
          eventsPerInterface : "deviceContent.navBar.eventsPerInterface",
-         expand : "deviceContent.navBar.expand",
          identity : "deviceContent.navBar.identity",
          interfaces : "deviceContent.navBar.interfaces",
          ioTPlugAndPlay : "deviceContent.navBar.ioTPlugAndPlay",
@@ -248,8 +260,6 @@ export class ResourceKeys {
          moduleDetail : "deviceContent.navBar.moduleDetail",
          moduleIdentity : "deviceContent.navBar.moduleIdentity",
          moduleTwin : "deviceContent.navBar.moduleTwin",
-         nonpnp : "deviceContent.navBar.nonpnp",
-         pnp : "deviceContent.navBar.pnp",
          properties : "deviceContent.navBar.properties",
          settings : "deviceContent.navBar.settings",
          twin : "deviceContent.navBar.twin",
@@ -269,6 +279,7 @@ export class ResourceKeys {
                isNotSpecified : "deviceEvents.columns.validation.key.isNotSpecified",
             },
             value : {
+               bodyIsEmpty : "deviceEvents.columns.validation.value.bodyIsEmpty",
                label : "deviceEvents.columns.validation.value.label",
             },
          },
@@ -423,6 +434,7 @@ export class ResourceKeys {
       },
       headerText : "deviceInterfaces.headerText",
       interfaceNotFound : "deviceInterfaces.interfaceNotFound",
+      interfaceNotValid : "deviceInterfaces.interfaceNotValid",
       noInterfaces : "deviceInterfaces.noInterfaces",
    };
    public static deviceLists = {
@@ -500,9 +512,7 @@ export class ResourceKeys {
                parameterType : {
                   ariaLabel : "deviceLists.query.searchPills.clause.parameterType.ariaLabel",
                   items : {
-                     capabilityModelId : "deviceLists.query.searchPills.clause.parameterType.items.capabilityModelId",
                      edge : "deviceLists.query.searchPills.clause.parameterType.items.edge",
-                     interfaceId : "deviceLists.query.searchPills.clause.parameterType.items.interfaceId",
                      lastActivityTime : "deviceLists.query.searchPills.clause.parameterType.items.lastActivityTime",
                      propertyValue : "deviceLists.query.searchPills.clause.parameterType.items.propertyValue",
                      status : "deviceLists.query.searchPills.clause.parameterType.items.status",
@@ -556,6 +566,11 @@ export class ResourceKeys {
       noProperties : "deviceProperties.noProperties",
    };
    public static deviceSettings = {
+      ackStatus : {
+         code : "deviceSettings.ackStatus.code",
+         description : "deviceSettings.ackStatus.description",
+         version : "deviceSettings.ackStatus.version",
+      },
       columns : {
          error : "deviceSettings.columns.error",
          name : "deviceSettings.columns.name",
@@ -575,24 +590,13 @@ export class ResourceKeys {
          refresh : "deviceSettings.command.refresh",
          submit : "deviceSettings.command.submit",
       },
-      desiredState : {
-         error : "deviceSettings.desiredState.error",
-         success : "deviceSettings.desiredState.success",
-         synching : "deviceSettings.desiredState.synching",
-         unknown : "deviceSettings.desiredState.unknown",
-      },
       headerText : "deviceSettings.headerText",
+      noPreviewContent : "deviceSettings.noPreviewContent",
       noSettings : "deviceSettings.noSettings",
       panel : {
          title : "deviceSettings.panel.title",
       },
       previewPayloadButtonText : "deviceSettings.previewPayloadButtonText",
-      syncStatus : {
-         failed : "deviceSettings.syncStatus.failed",
-         label : "deviceSettings.syncStatus.label",
-         synced : "deviceSettings.syncStatus.synced",
-         syncing : "deviceSettings.syncStatus.syncing",
-      },
    };
    public static deviceTwin = {
       command : {
@@ -605,9 +609,25 @@ export class ResourceKeys {
    };
    public static digitalTwin = {
       componentName : "digitalTwin.componentName",
-      dcm : "digitalTwin.dcm",
       headerText : "digitalTwin.headerText",
       interfaceId : "digitalTwin.interfaceId",
+      modelContainsNoComponents : "digitalTwin.modelContainsNoComponents",
+      modelId : "digitalTwin.modelId",
+      pivot : {
+         ariaLabel : "digitalTwin.pivot.ariaLabel",
+         components : "digitalTwin.pivot.components",
+         content : "digitalTwin.pivot.content",
+         defaultComponent : "digitalTwin.pivot.defaultComponent",
+         digitalTwin : "digitalTwin.pivot.digitalTwin",
+      },
+      steps : {
+         explanation : "digitalTwin.steps.explanation",
+         first : "digitalTwin.steps.first",
+         secondFailure : "digitalTwin.steps.secondFailure",
+         secondSuccess : "digitalTwin.steps.secondSuccess",
+         third : "digitalTwin.steps.third",
+         zero : "digitalTwin.steps.zero",
+      },
    };
    public static directMethod = {
       connectionTimeout : "directMethod.connectionTimeout",
@@ -645,6 +665,77 @@ export class ResourceKeys {
       },
       settings : {
          launch : "header.settings.launch",
+      },
+   };
+   public static modelRepository = {
+      commands : {
+         add : {
+            ariaLabel : "modelRepository.commands.add.ariaLabel",
+            label : "modelRepository.commands.add.label",
+         },
+         addLocalSource : {
+            ariaLabel : "modelRepository.commands.addLocalSource.ariaLabel",
+            label : "modelRepository.commands.addLocalSource.label",
+            labelInBrowser : "modelRepository.commands.addLocalSource.labelInBrowser",
+         },
+         addPublicSource : {
+            ariaLabel : "modelRepository.commands.addPublicSource.ariaLabel",
+            label : "modelRepository.commands.addPublicSource.label",
+         },
+         back : {
+            ariaLabel : "modelRepository.commands.back.ariaLabel",
+            label : "modelRepository.commands.back.label",
+         },
+         help : {
+            ariaLabel : "modelRepository.commands.help.ariaLabel",
+            label : "modelRepository.commands.help.label",
+         },
+         remove : {
+            ariaLabel : "modelRepository.commands.remove.ariaLabel",
+            label : "modelRepository.commands.remove.label",
+         },
+         revert : {
+            ariaLabel : "modelRepository.commands.revert.ariaLabel",
+            label : "modelRepository.commands.revert.label",
+         },
+         save : {
+            ariaLabel : "modelRepository.commands.save.ariaLabel",
+            label : "modelRepository.commands.save.label",
+         },
+      },
+      empty : {
+         description : "modelRepository.empty.description",
+         header : "modelRepository.empty.header",
+         help : "modelRepository.empty.help",
+      },
+      instruction : "modelRepository.instruction",
+      types : {
+         local : {
+            folderPicker : {
+               command : {
+                  cancel : "modelRepository.types.local.folderPicker.command.cancel",
+                  navigateToParent : "modelRepository.types.local.folderPicker.command.navigateToParent",
+                  openPicker : "modelRepository.types.local.folderPicker.command.openPicker",
+                  select : "modelRepository.types.local.folderPicker.command.select",
+               },
+               dialog : {
+                  error : "modelRepository.types.local.folderPicker.dialog.error",
+                  noFolderFoundText : "modelRepository.types.local.folderPicker.dialog.noFolderFoundText",
+                  subText : "modelRepository.types.local.folderPicker.dialog.subText",
+                  title : "modelRepository.types.local.folderPicker.dialog.title",
+               },
+               errors : {
+                  mandatory : "modelRepository.types.local.folderPicker.errors.mandatory",
+               },
+            },
+            infoText : "modelRepository.types.local.infoText",
+            label : "modelRepository.types.local.label",
+            textBoxLabel : "modelRepository.types.local.textBoxLabel",
+         },
+         notAvailable : "modelRepository.types.notAvailable",
+         public : {
+            label : "modelRepository.types.public.label",
+         },
       },
    };
    public static moduleIdentity = {
@@ -732,58 +823,55 @@ export class ResourceKeys {
       getDeviceListGenericErrorHelp : "notifications.getDeviceListGenericErrorHelp",
       getDeviceListOnError : "notifications.getDeviceListOnError",
       getDeviceTwinOnError : "notifications.getDeviceTwinOnError",
-      getDigitalTwinInterfacePropertiesOnError : "notifications.getDigitalTwinInterfacePropertiesOnError",
+      getDigitalTwinOnError : "notifications.getDigitalTwinOnError",
       getInterfaceModelOnError : "notifications.getInterfaceModelOnError",
       getModuleIdentitiesOnError : "notifications.getModuleIdentitiesOnError",
       getModuleIdentityOnError : "notifications.getModuleIdentityOnError",
       getModuleIdentityTwinOnError : "notifications.getModuleIdentityTwinOnError",
       interfaceSchemaNotSupported : "notifications.interfaceSchemaNotSupported",
+      invokeDigitalTwinCommandOnDefaultComponentOnError : "notifications.invokeDigitalTwinCommandOnDefaultComponentOnError",
+      invokeDigitalTwinCommandOnDefaultComponentOnSuccess : "notifications.invokeDigitalTwinCommandOnDefaultComponentOnSuccess",
+      invokeDigitalTwinCommandOnDefaultComponentOnSuccessButResponseIsNotValid : "notifications.invokeDigitalTwinCommandOnDefaultComponentOnSuccessButResponseIsNotValid",
       invokeDigitalTwinCommandOnError : "notifications.invokeDigitalTwinCommandOnError",
       invokeDigitalTwinCommandOnSuccess : "notifications.invokeDigitalTwinCommandOnSuccess",
+      invokeDigitalTwinCommandOnSuccessButResponseIsNotValid : "notifications.invokeDigitalTwinCommandOnSuccessButResponseIsNotValid",
       invokeMethodOnError : "notifications.invokeMethodOnError",
       invokeMethodOnSuccess : "notifications.invokeMethodOnSuccess",
       invokingDigitalTwinCommand : "notifications.invokingDigitalTwinCommand",
+      invokingDigitalTwinCommandOnDefaultComponent : "notifications.invokingDigitalTwinCommandOnDefaultComponent",
       invokingDigitalTwinCommandWithPayload : "notifications.invokingDigitalTwinCommandWithPayload",
+      invokingDigitalTwinCommandWithPayloadOnDefaultComponent : "notifications.invokingDigitalTwinCommandWithPayloadOnDefaultComponent",
       invokingMethod : "notifications.invokingMethod",
       invokingMethodWithPayload : "notifications.invokingMethodWithPayload",
-      patchDigitalTwinInterfacePropertiesOnError : "notifications.patchDigitalTwinInterfacePropertiesOnError",
-      patchDigitalTwinInterfacePropertiesOnSuccess : "notifications.patchDigitalTwinInterfacePropertiesOnSuccess",
+      modelRepoistorySettingsUpdated : "notifications.modelRepoistorySettingsUpdated",
+      parseLocalInterfaceModelOnError : "notifications.parseLocalInterfaceModelOnError",
+      patchDigitalTwinOnAccept : "notifications.patchDigitalTwinOnAccept",
+      patchDigitalTwinOnError : "notifications.patchDigitalTwinOnError",
+      patchDigitalTwinOnSuccess : "notifications.patchDigitalTwinOnSuccess",
       portIsInUseError : "notifications.portIsInUseError",
       savedToIotHubConnectionString : "notifications.savedToIotHubConnectionString",
       sendingCloudToDeviceMessage : "notifications.sendingCloudToDeviceMessage",
+      startEventMonitoringOnError : "notifications.startEventMonitoringOnError",
+      stopEventMonitoringOnError : "notifications.stopEventMonitoringOnError",
       updateDeviceOnError : "notifications.updateDeviceOnError",
       updateDeviceOnSucceed : "notifications.updateDeviceOnSucceed",
       updateDeviceTwinOnError : "notifications.updateDeviceTwinOnError",
       updateDeviceTwinOnSuccess : "notifications.updateDeviceTwinOnSuccess",
    };
    public static settings = {
-      cancel : "settings.cancel",
+      close : "settings.close",
       configuration : {
          headerText : "settings.configuration.headerText",
+         redirect : "settings.configuration.redirect",
+         redirectLink : "settings.configuration.redirectLink",
       },
       confirmationMessage : "settings.confirmationMessage",
       footerText : "settings.footerText",
       headerText : "settings.headerText",
       modelDefinitions : {
-         add : "settings.modelDefinitions.add",
          headerText : "settings.modelDefinitions.headerText",
-         helpText : "settings.modelDefinitions.helpText",
-         repositoryTypes : {
-            device : {
-               infoText : "settings.modelDefinitions.repositoryTypes.device.infoText",
-               label : "settings.modelDefinitions.repositoryTypes.device.label",
-            },
-            private : {
-               infoText : "settings.modelDefinitions.repositoryTypes.private.infoText",
-               label : "settings.modelDefinitions.repositoryTypes.private.label",
-               placeholder : "settings.modelDefinitions.repositoryTypes.private.placeholder",
-               textBoxLabel : "settings.modelDefinitions.repositoryTypes.private.textBoxLabel",
-            },
-            public : {
-               infoText : "settings.modelDefinitions.repositoryTypes.public.infoText",
-               label : "settings.modelDefinitions.repositoryTypes.public.label",
-            },
-         },
+         redirect : "settings.modelDefinitions.redirect",
+         redirectLink : "settings.modelDefinitions.redirectLink",
       },
       questions : {
          headerText : "settings.questions.headerText",
@@ -791,6 +879,11 @@ export class ResourceKeys {
             documentation : {
                link : "settings.questions.questions.documentation.link",
                text : "settings.questions.questions.documentation.text",
+            },
+            privacy : {
+               link : "settings.questions.questions.privacy.link",
+               linkText : "settings.questions.questions.privacy.linkText",
+               text : "settings.questions.questions.privacy.text",
             },
          },
       },

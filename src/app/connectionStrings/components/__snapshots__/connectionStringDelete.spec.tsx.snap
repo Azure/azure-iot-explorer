@@ -26,9 +26,8 @@ exports[`ConnectionStringDelete matches snapshot hidden 1`] = `
       cols={40}
       readOnly={true}
       rows={8}
-    >
-      connectionString
-    </textarea>
+      value="connectionString"
+    />
   </div>
   <StyledDialogFooterBase>
     <CustomizedPrimaryButton
@@ -71,9 +70,8 @@ exports[`ConnectionStringDelete matches snapshot visible 1`] = `
       cols={40}
       readOnly={true}
       rows={8}
-    >
-      connectionString
-    </textarea>
+      value="connectionString"
+    />
   </div>
   <StyledDialogFooterBase>
     <CustomizedPrimaryButton

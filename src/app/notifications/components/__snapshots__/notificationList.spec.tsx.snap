@@ -1,7 +1,32 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`notificationList matches snapshot 1`] = `
-<ContextConsumer>
-  <Component />
-</ContextConsumer>
+<Fragment>
+  <CustomizedActionButton
+    ariaLabel="header.notifications.show"
+    iconProps={
+      Object {
+        "className": false,
+        "iconName": "Ringer",
+      }
+    }
+    id="notifications"
+    onClick={[Function]}
+    text="header.notifications.show"
+  />
+  <StyledPanelBase
+    closeButtonAriaLabel="common.close"
+    isBlocking={true}
+    isOpen={false}
+    onDismiss={[Function]}
+    onRenderHeader={[Function]}
+    type={1}
+  >
+    <div>
+      <div>
+        header.notifications.panel.noNotifications
+      </div>
+    </div>
+  </StyledPanelBase>
+</Fragment>
 `;

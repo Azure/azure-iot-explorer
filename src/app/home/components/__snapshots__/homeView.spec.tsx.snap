@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HomeView matches snapshot 1`] = `
+<div>
+  <Component />
+  <div
+    className="view-content home-view"
+  >
+    <div
+      className="nav"
+    >
+      <Component
+        appMenuVisible={true}
+        setAppMenuVisible={[Function]}
+      />
+    </div>
+    <div
+      className="home-content"
+    >
+      <Switch>
+        <Redirect
+          exact={true}
+          from="/home"
+          to="/home/resources"
+        />
+        <Route
+          component={[Function]}
+          exact={true}
+          path="/home/resources"
+        />
+        <Route
+          component={[Function]}
+          exact={true}
+          path="/home/repos"
+        />
+      </Switch>
+    </div>
+  </div>
+</div>
+`;

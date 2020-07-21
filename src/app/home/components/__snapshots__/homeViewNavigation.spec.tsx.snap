@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`homeViewNavigation matches snapshot 1`] = `
+<div
+  className="nav-link-bar view"
+>
+  <div
+    className="view-scroll-vertical"
+  >
+    <nav
+      role="navigation"
+    >
+      <CustomizedIconButton
+        ariaLabel="common.navigation.expand"
+        iconProps={
+          Object {
+            "iconName": "GlobalNavButton",
+          }
+        }
+        onClick={[Function]}
+        tabIndex={0}
+        title="common.navigation.expand"
+      />
+      <StyledNavBase
+        groups={
+          Array [
+            Object {
+              "links": Array [
+                Object {
+                  "iconProps": Object {
+                    "iconName": "Org",
+                  },
+                  "key": "resources",
+                  "name": "breadcrumb.resources",
+                  "url": "#/home/resources",
+                },
+                Object {
+                  "iconProps": Object {
+                    "iconName": "PlugDisconnected",
+                  },
+                  "key": "repos",
+                  "name": "breadcrumb.repos",
+                  "url": "#/home/repos",
+                },
+              ],
+            },
+          ]
+        }
+      />
+    </nav>
+  </div>
+</div>
+`;

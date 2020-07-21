@@ -10,18 +10,17 @@
     overflow-y: auto;
     padding-left: 30px;
     padding-right: 20px;
-    width: calc(80% - 50px);
-    position: fixed;
 }
 
 .method-payload{
     padding-top: 10px;
+    .payload-input {
+        margin-bottom: 20px;
+    }
 }
 
-.direct-method-monaco-editor {
-    @include themify($themes) {
-        border: 1px solid themed('borderColor')
-    }
+.direct-method-json-editor {
+    height: 200px;
     margin-bottom: 15px;
 }
 
@@ -57,6 +56,9 @@
         @include themify($themes) {
             color: themed('linkColor');
         }
+    }
+    .no-device {
+        padding-left: 25px;
     }
 }
 

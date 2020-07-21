@@ -5,9 +5,8 @@
 import { ModelDefinition } from './modelDefinition';
 
 export interface PnPModel {
-    createdOn: string;
+    createdDate: string;
     etag: string;
-    lastUpdated: string;
     model: ModelDefinition;
     modelId: string;
     publisherId: string;

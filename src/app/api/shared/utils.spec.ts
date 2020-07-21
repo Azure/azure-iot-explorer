@@ -11,26 +11,13 @@ describe('utils', () => {
     it('builds query string', () => {
         expect(utils.buildQueryString(
             {
-                clauses: [
-                    {
-                        operation: OperationType.equals,
-                        parameterType: ParameterType.capabilityModelId,
-                        value: 'enabled'
-                    }
-                ],
-                continuationTokens: [],
-                currentPageIndex: 1,
-                deviceId: '',
-            }
-        )).toEqual(`${LIST_PLUG_AND_PLAY_DEVICES} WHERE (HAS_CAPABILITYMODEL('enabled'))`);
-        expect(utils.buildQueryString(
-            {
                 clauses: [],
                 continuationTokens: [],
                 currentPageIndex: 1,
                 deviceId: 'device1',
             }
         )).toEqual(`${LIST_PLUG_AND_PLAY_DEVICES} WHERE STARTSWITH(devices.deviceId, 'device1')`);
+
         expect(utils.buildQueryString(
             {
                 clauses: [],
@@ -39,9 +26,11 @@ describe('utils', () => {
                 deviceId: '',
             }
         )).toEqual(LIST_PLUG_AND_PLAY_DEVICES + ' ');
+
         expect(utils.buildQueryString(
             null
         )).toEqual(LIST_PLUG_AND_PLAY_DEVICES);
+
         expect(utils.buildQueryString(
             {
                 clauses: [
@@ -56,6 +45,7 @@ describe('utils', () => {
                 deviceId: '',
             }
         )).toEqual(`${LIST_PLUG_AND_PLAY_DEVICES} WHERE (${ParameterType.edge}=true)`);
+
         expect(utils.buildQueryString(
             {
                 clauses: [
@@ -75,28 +65,13 @@ describe('utils', () => {
     it('converts query object to string', () => {
         expect(utils.queryToString(
             {
-                clauses: [
-                    {
-                        operation: OperationType.equals,
-                        parameterType: ParameterType.capabilityModelId,
-                        value: 'enabled'
-                    },
-                    {
-                    }
-                ],
-                continuationTokens: [],
-                currentPageIndex: 1,
-                deviceId: '',
-            }
-        )).toEqual(`WHERE (HAS_CAPABILITYMODEL('enabled'))`);
-        expect(utils.queryToString(
-            {
                 clauses: [],
                 continuationTokens: [],
                 currentPageIndex: 1,
                 deviceId: 'device1',
             }
         )).toEqual(`WHERE STARTSWITH(devices.deviceId, 'device1')`);
+
         expect(utils.queryToString(
             {
                 clauses: [],
@@ -121,22 +96,6 @@ describe('utils', () => {
                 value: 'disabled'
             }
         ])).toEqual(`status='enabled' AND status='disabled'`);
-
-        expect(utils.clauseListToString([
-            {
-                operation: OperationType.equals,
-                parameterType: ParameterType.capabilityModelId,
-                value: 'enabled'
-            }
-        ])).toEqual(`HAS_CAPABILITYMODEL('enabled')`);
-
-        expect(utils.clauseListToString([
-            {
-                operation: OperationType.equals,
-                parameterType: ParameterType.interfaceId,
-                value: 'enabled'
-            }
-        ])).toEqual(`HAS_INTERFACE('enabled')`);
     });
 
     it('creates clause item as string', () => {
@@ -167,14 +126,6 @@ describe('utils', () => {
         expect(connectionObject.sharedAccessKey = 'key');
     });
 
-    it('gets connectionObject from repo connection string', () => {
-        const connectionObject = utils.getRepoConnectionInfoFromConnectionString('HostName=test.azureiotrepository.com;RepositoryId=123;SharedAccessKeyName=456;SharedAccessKey=key');
-        expect(connectionObject.hostName = 'test.azureiotrepository.com');
-        expect(connectionObject.repositoryId = '123');
-        expect(connectionObject.sharedAccessKeyName = '456');
-        expect(connectionObject.sharedAccessKey = 'key');
-    });
-
     it('generates hub sas token ', () => {
         const token = utils.generateSasToken({
             key: 'key',
@@ -182,12 +133,6 @@ describe('utils', () => {
             resourceUri: 'test.azureiotrepository.com'
         });
         const regex = new RegExp(/^SharedAccessSignature sr=test\.azureiotrepository\.com&sig=.*&se=.*&skn=iothubowner$/);
-        expect(regex.test(token)).toBeTruthy();
-    });
-
-    it('generates repo sas token ', () => {
-        const token = utils.generatePnpSasToken('123', 'test.azureiotrepository.com', '456', 'key');
-        const regex = new RegExp(/^SharedAccessSignature sr=test\.azureiotrepository\.com&sig=.*&se=.*&rid=123$/);
         expect(regex.test(token)).toBeTruthy();
     });
 });

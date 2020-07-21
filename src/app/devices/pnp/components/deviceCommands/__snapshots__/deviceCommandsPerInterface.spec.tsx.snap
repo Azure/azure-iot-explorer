@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/devices/deviceCommandsPerInterface matches snapshot 1`] = `
+<div
+  className="pnp-detail-list scrollable-lg"
+>
+  <div
+    className="list-header flex-grid-row"
+  >
+    <span
+      className="col-sm3"
+    >
+      deviceCommands.columns.name
+    </span>
+    <span
+      className="col-sm3"
+    >
+      deviceCommands.columns.schema.request
+    </span>
+    <span
+      className="col-sm3"
+    >
+      deviceCommands.columns.schema.response
+    </span>
+    <span
+      className="col-sm2"
+    >
+      deviceCommands.columns.type
+    </span>
+    <div
+      className="col-sm1 collapse-button"
+    >
+      <CustomizedIconButton
+        ariaLabel="deviceCommands.command.collapseAll"
+        iconProps={
+          Object {
+            "iconName": "ChevronUp",
+          }
+        }
+        onClick={[Function]}
+        title="deviceCommands.command.collapseAll"
+      />
+    </div>
+  </div>
+  <section
+    className="list-content"
+    role="list"
+  >
+    <Component
+      collapsed={false}
+      commandModelDefinition={
+        Object {
+          "@type": "Command",
+          "name": "command1",
+        }
+      }
+      commandSchemas={
+        Array [
+          Object {
+            "commandModelDefinition": Object {
+              "@type": "Command",
+              "name": "command1",
+            },
+            "parsedSchema": Object {
+              "description": "command1 description",
+              "name": "command1",
+            },
+          },
+        ]
+      }
+      componentName="urn:interfaceId"
+      deviceId="device1"
+      handleCollapseToggle={[Function]}
+      invokeDigitalTwinInterfaceCommand={[MockFunction]}
+      key="0"
+      parsedSchema={
+        Object {
+          "description": "command1 description",
+          "name": "command1",
+        }
+      }
+    />
+  </section>
+</div>
+`;

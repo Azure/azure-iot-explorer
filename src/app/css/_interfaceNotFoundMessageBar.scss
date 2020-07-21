@@ -8,10 +8,13 @@
 .message-bar {
     .ms-MessageBar {
         width: calc(100% - 2px);
-        .ms-Button {
-            @include themify($themes) {
-                color: themed('textColor');
-            }
+    }
+    .configure-button {
+        margin-top: 0px;
+        padding-top: 0px;
+        @include themify($themes) {
+            color: themed('buttonColor');
         }
+        padding: 0;
     }
 }

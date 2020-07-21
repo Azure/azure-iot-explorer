@@ -1,0 +1,242 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cloudToDeviceMessage matches snapshot 1`] = `
+<Fragment>
+  <StyledCommandBarBase
+    className="command"
+    items={
+      Array [
+        Object {
+          "ariaLabel": "cloudToDeviceMessage.sendMessageButtonText",
+          "disabled": false,
+          "iconProps": Object {
+            "iconName": "Mail",
+          },
+          "key": "Mail",
+          "name": "cloudToDeviceMessage.sendMessageButtonText",
+          "onClick": [Function],
+        },
+      ]
+    }
+  />
+  <Component
+    headerText="cloudToDeviceMessage.headerText"
+    tooltip="cloudToDeviceMessage.tooltip"
+  />
+  <div
+    className="device-detail"
+  >
+    <Component
+      tooltipText="cloudToDeviceMessage.bodyTooltip"
+    >
+      cloudToDeviceMessage.body
+    </Component>
+    <StyledTextFieldBase
+      className="cloud-to-device-message-text-field"
+      multiline={true}
+      onChange={[Function]}
+      rows={5}
+    />
+    <StyledCheckboxBase
+      ariaLabel="cloudToDeviceMessage.addTimestamp"
+      label="cloudToDeviceMessage.addTimestamp"
+      onChange={[Function]}
+      styles={
+        Object {
+          "root": Object {
+            "marginBottom": 20,
+          },
+        }
+      }
+    />
+    <Component
+      expanded={true}
+      label="cloudToDeviceMessage.properties.label"
+      tooltipText="cloudToDeviceMessage.properties.tooltip"
+    >
+      <StyledCommandBarBase
+        className="properties-section-command-bar"
+        items={
+          Array [
+            Object {
+              "ariaLabel": "cloudToDeviceMessage.properties.addCustomProperty",
+              "iconProps": Object {
+                "iconName": "CircleAddition",
+              },
+              "key": "cloudToDeviceMessage.properties.addCustomProperty",
+              "name": "cloudToDeviceMessage.properties.addCustomProperty",
+              "onClick": [Function],
+            },
+            Object {
+              "ariaLabel": "cloudToDeviceMessage.properties.addSystemProperty",
+              "iconProps": Object {
+                "iconName": "CircleAdditionSolid",
+              },
+              "key": "cloudToDeviceMessage.properties.addSystemProperty",
+              "name": "cloudToDeviceMessage.properties.addSystemProperty",
+              "subMenuProps": Object {
+                "items": Array [
+                  Object {
+                    "disabled": false,
+                    "iconProps": Object {
+                      "iconName": "LocationDot",
+                    },
+                    "key": "ack",
+                    "name": "cloudToDeviceMessage.properties.systemProperties.ack.displayName",
+                    "onClick": [Function],
+                    "secondaryText": "cloudToDeviceMessage.properties.systemProperties.ack.description",
+                  },
+                  Object {
+                    "disabled": false,
+                    "iconProps": Object {
+                      "iconName": "LocationDot",
+                    },
+                    "key": "contentType",
+                    "name": "cloudToDeviceMessage.properties.systemProperties.contentType.displayName",
+                    "onClick": [Function],
+                    "secondaryText": "cloudToDeviceMessage.properties.systemProperties.contentType.description",
+                  },
+                  Object {
+                    "disabled": false,
+                    "iconProps": Object {
+                      "iconName": "LocationDot",
+                    },
+                    "key": "contentEncoding",
+                    "name": "cloudToDeviceMessage.properties.systemProperties.contentEncoding.displayName",
+                    "onClick": [Function],
+                    "secondaryText": "cloudToDeviceMessage.properties.systemProperties.contentEncoding.description",
+                  },
+                  Object {
+                    "disabled": false,
+                    "iconProps": Object {
+                      "iconName": "LocationDot",
+                    },
+                    "key": "correlationId",
+                    "name": "cloudToDeviceMessage.properties.systemProperties.correlationId.displayName",
+                    "onClick": [Function],
+                    "secondaryText": "cloudToDeviceMessage.properties.systemProperties.correlationId.description",
+                  },
+                  Object {
+                    "disabled": false,
+                    "iconProps": Object {
+                      "iconName": "LocationDot",
+                    },
+                    "key": "expiryTimeUtc",
+                    "name": "cloudToDeviceMessage.properties.systemProperties.expiryTimeUtc.displayName",
+                    "onClick": [Function],
+                    "secondaryText": "cloudToDeviceMessage.properties.systemProperties.expiryTimeUtc.description",
+                  },
+                  Object {
+                    "disabled": false,
+                    "iconProps": Object {
+                      "iconName": "LocationDot",
+                    },
+                    "key": "lockToken",
+                    "name": "cloudToDeviceMessage.properties.systemProperties.lockToken.displayName",
+                    "onClick": [Function],
+                    "secondaryText": "cloudToDeviceMessage.properties.systemProperties.lockToken.description",
+                  },
+                  Object {
+                    "disabled": false,
+                    "iconProps": Object {
+                      "iconName": "LocationDot",
+                    },
+                    "key": "messageId",
+                    "name": "cloudToDeviceMessage.properties.systemProperties.messageId.displayName",
+                    "onClick": [Function],
+                    "secondaryText": "cloudToDeviceMessage.properties.systemProperties.messageId.description",
+                  },
+                ],
+              },
+            },
+            Object {
+              "ariaLabel": "cloudToDeviceMessage.properties.delete",
+              "disabled": true,
+              "iconProps": Object {
+                "iconName": "Delete",
+              },
+              "key": "cloudToDeviceMessage.properties.delete",
+              "name": "cloudToDeviceMessage.properties.delete",
+              "onClick": [Function],
+            },
+          ]
+        }
+      />
+      <StyledMarqueeSelectionBase
+        selection={
+          Selection {
+            "_anchoredIndex": 0,
+            "_canSelectItem": [Function],
+            "_changeEventSuppressionCount": 0,
+            "_exemptedCount": 0,
+            "_exemptedIndices": Object {},
+            "_getKey": [Function],
+            "_isModal": false,
+            "_items": Array [],
+            "_keyToIndexMap": Object {},
+            "_onSelectionChanged": [Function],
+            "_selectedItems": null,
+            "_unselectableCount": 0,
+            "_unselectableIndices": Object {},
+            "count": 0,
+            "mode": 2,
+          }
+        }
+      >
+        <StyledWithViewportComponent
+          ariaLabelForSelectAllCheckbox="cloudToDeviceMessage.properties.selectAllCheckboxAriaLabel"
+          ariaLabelForSelectionColumn="cloudToDeviceMessage.properties.toggleSelectionColumnAriaLabel"
+          checkButtonAriaLabel="cloudToDeviceMessage.properties.rowCheckBoxAriaLabel"
+          columns={
+            Array [
+              Object {
+                "isResizable": true,
+                "key": "key",
+                "maxWidth": 300,
+                "minWidth": 150,
+                "name": "cloudToDeviceMessage.properties.key",
+              },
+              Object {
+                "isResizable": true,
+                "key": "value",
+                "minWidth": 150,
+                "name": "cloudToDeviceMessage.properties.value",
+              },
+            ]
+          }
+          items={
+            Array [
+              Object {
+                "index": 0,
+                "isSystemProperty": false,
+                "keyName": "",
+                "value": "",
+              },
+            ]
+          }
+          onRenderItemColumn={[Function]}
+          selection={
+            Selection {
+              "_anchoredIndex": 0,
+              "_canSelectItem": [Function],
+              "_changeEventSuppressionCount": 0,
+              "_exemptedCount": 0,
+              "_exemptedIndices": Object {},
+              "_getKey": [Function],
+              "_isModal": false,
+              "_items": Array [],
+              "_keyToIndexMap": Object {},
+              "_onSelectionChanged": [Function],
+              "_selectedItems": null,
+              "_unselectableCount": 0,
+              "_unselectableIndices": Object {},
+              "count": 0,
+              "mode": 2,
+            }
+          }
+        />
+      </StyledMarqueeSelectionBase>
+    </Component>
+  </div>
+</Fragment>
+`;

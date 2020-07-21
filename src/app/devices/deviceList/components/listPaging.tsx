@@ -3,10 +3,10 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { ActionButton } from 'office-ui-fabric-react';
-import '../../../css/_deviceListPaging.scss';
-import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../shared/contexts/localizationContext';
+import { useTranslation } from 'react-i18next';
+import { ActionButton } from 'office-ui-fabric-react/lib/components/Button';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
+import '../../../css/_deviceListPaging.scss';
 
 export interface ListPagingDataProps {
     continuationTokens: string[];
@@ -15,53 +15,45 @@ export interface ListPagingDataProps {
 export interface ListPagingDispatchProps {
     fetchPage: (pageNumber: number) => void;
 }
-export default class ListPagingComponent extends React.Component<ListPagingDataProps & ListPagingDispatchProps> {
-    constructor(props: ListPagingDataProps & ListPagingDispatchProps) {
-        super(props);
-    }
+export const ListPaging: React.FC<ListPagingDataProps & ListPagingDispatchProps> = (props: ListPagingDataProps & ListPagingDispatchProps) => {
+    const { t } = useTranslation();
+    const { continuationTokens, currentPageIndex, fetchPage } = props;
 
-    public render() {
-        const { continuationTokens } = this.props;
+    const renderSection = () => {
         return (
-            (continuationTokens && continuationTokens.length > 0 && this.renderSection()) || <></>
+            <section role="navigation" className="grid-paging">
+                <span className="pages">{t(ResourceKeys.deviceLists.paging.pages)}</span>
+                <div role="list" className="page-list">
+                    {continuationTokens.map(renderListItem)}
+                </div>
+            </section>
         );
-    }
+    };
 
-    private readonly renderSection = () => {
-        return (
-            <LocalizationContextConsumer>
-                {(context: LocalizationContextInterface) => (
-                    <section role="navigation" className="grid-paging">
-                        <span className="pages">{context.t(ResourceKeys.deviceLists.paging.pages)}</span>
-                        <div role="list" className="page-list">
-                            {this.props.continuationTokens.map(this.renderListItem)}
-                        </div>
-                    </section>
-                )}
-            </LocalizationContextConsumer>
-        );
-    }
-
-    private readonly renderListItem = (continuationToken: string, index: number) => {
-        const fetchPage = () => {
-            this.props.fetchPage(index);
+    const renderListItem = (continuationToken: string, index: number) => {
+        const onFetchPageClick = () => {
+            fetchPage(index);
         };
 
         return (
             <div
                 key={`page_${index}`}
                 role="listitem"
-                className={index === this.props.currentPageIndex ? 'selected' : ''}
+                className={index === currentPageIndex ? 'selected' : ''}
             >
-                {index !== this.props.currentPageIndex ?
+                {index !== currentPageIndex ?
                     (<ActionButton
-                        onClick={fetchPage}
+                        onClick={onFetchPageClick}
                     >
-                        {index === this.props.continuationTokens.length - 1 ? '»' : index + 1}
+                        {index === continuationTokens.length - 1 ? '»' : index + 1}
                     </ActionButton>) :
                     (<span>{index + 1}</span>)
                 }
             </div>
         );
-    }
-}
+    };
+
+    return (
+            (continuationTokens && continuationTokens.length > 0 && renderSection()) || <></>
+        );
+};

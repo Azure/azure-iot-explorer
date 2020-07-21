@@ -4,14 +4,15 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import { IconButton } from 'office-ui-fabric-react/lib/Button';
-import { testSnapshot, mountWithLocalization } from '../utils/testHelpers';
-import CollapsibleSection, { CollapsibleSectionProps, CollapsibleSectionState } from './collapsibleSection';
+import { shallow, mount } from 'enzyme';
+import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
+import { CollapsibleSection, CollapsibleSectionProps } from './collapsibleSection';
 
 describe('collapsibleSection', () => {
 
     const getComponent = (overrides = {}) => {
         const props: CollapsibleSectionProps = {
+            children: <></>,
             expanded: false,
             label: 'Label',
             tooltipText: 'tooltip',
@@ -22,15 +23,16 @@ describe('collapsibleSection', () => {
     };
 
     it('matches snapshot', () => {
-        const component = getComponent({});
-        testSnapshot(component);
+        expect(shallow(getComponent())).toMatchSnapshot();
     });
 
     it('toggles section', () => {
-        const wrapper = mountWithLocalization(getComponent());
+        const wrapper = mount(getComponent());
         const button = wrapper.find(IconButton).at(0);
+        expect(wrapper.find(IconButton).first().props().title).toEqual('collapsibleSection.open');
+
         button.simulate('click');
         wrapper.update();
-        expect((wrapper.state() as CollapsibleSectionState).expanded).toBeTruthy();
+        expect(wrapper.find(IconButton).first().props().title).toEqual('collapsibleSection.close');
     });
 });

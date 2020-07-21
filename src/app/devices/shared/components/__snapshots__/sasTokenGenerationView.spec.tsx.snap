@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`devices/components/moduleIdentityTwin snapshot matches snapshot when no device identity is provided 1`] = `
-<CollapsibleSection
+<Component
   expanded={false}
   label="deviceIdentity.authenticationType.sasToken.label"
   tooltipText="deviceIdentity.authenticationType.sasToken.toolTip"
@@ -50,7 +50,7 @@ exports[`devices/components/moduleIdentityTwin snapshot matches snapshot when no
       step={1}
       value="5"
     />
-    <Connect(MaskedCopyableTextField)
+    <Component
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.sasToken.textField.ariaLabel"
       label="deviceIdentity.authenticationType.sasToken.textField.label"
@@ -65,11 +65,11 @@ exports[`devices/components/moduleIdentityTwin snapshot matches snapshot when no
       title="deviceIdentity.authenticationType.sasToken.generateButton.title"
     />
   </div>
-</CollapsibleSection>
+</Component>
 `;
 
 exports[`devices/components/moduleIdentityTwin snapshot matches snapshot when no device identity is provided 2`] = `
-<CollapsibleSection
+<Component
   expanded={false}
   label="deviceIdentity.authenticationType.sasToken.label"
   tooltipText="deviceIdentity.authenticationType.sasToken.toolTip"
@@ -118,7 +118,7 @@ exports[`devices/components/moduleIdentityTwin snapshot matches snapshot when no
       step={1}
       value="5"
     />
-    <Connect(MaskedCopyableTextField)
+    <Component
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.sasToken.textField.ariaLabel"
       label="deviceIdentity.authenticationType.sasToken.textField.label"
@@ -133,5 +133,5 @@ exports[`devices/components/moduleIdentityTwin snapshot matches snapshot when no
       title="deviceIdentity.authenticationType.sasToken.generateButton.title"
     />
   </div>
-</CollapsibleSection>
+</Component>
 `;

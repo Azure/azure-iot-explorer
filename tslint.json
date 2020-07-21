@@ -109,7 +109,6 @@
                 "html-webpack-plugin",
                 "webpack-bundle-analyzer",
                 "webpack-shell-plugin",
-                "monaco-editor-webpack-plugin",
                 "mini-css-extract-plugin",
                 "optimize-css-assets-webpack-plugin",
                 "terser-webpack-plugin"
@@ -144,6 +143,7 @@
         "no-switch-case-fall-through": true,
         "no-this-assignment": true,
         "no-trailing-whitespace": true,
+        "no-unused-variable": true,
         "no-unnecessary-initializer": true,
         "no-unsafe-finally": true,
         "no-unused-expression": true,

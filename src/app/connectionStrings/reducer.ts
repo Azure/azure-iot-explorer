@@ -3,40 +3,59 @@
  * Licensed under the MIT License
  **********************************************************/
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
-import { addConnectionStringAction, deleteConnectionStringAction, setConnectionStringsAction, upsertConnectionStringAction, UpsertConnectionStringActionPayload } from './actions';
-import { connectionStringsStateInitial, ConnectionStringsStateInterface } from './state';
+import { deleteConnectionStringAction, setConnectionStringsAction, upsertConnectionStringAction, UpsertConnectionStringActionPayload, getConnectionStringAction } from './actions';
+import { connectionStringsStateInitial, ConnectionStringsStateType } from './state';
+import { SynchronizationStatus } from '../api/models/synchronizationStatus';
 
-const reducer = reducerWithInitialState<ConnectionStringsStateInterface>(connectionStringsStateInitial())
-    .case(addConnectionStringAction, (state: ConnectionStringsStateInterface, payload: string) => {
-        const updatedState = {...state};
-        updatedState.connectionStrings = updatedState.connectionStrings.filter(s => s !== payload);
-        updatedState.connectionStrings.push(payload);
-        return updatedState;
+export const connectionStringsReducer = reducerWithInitialState<ConnectionStringsStateType>(connectionStringsStateInitial())
+    .case(getConnectionStringAction.started, (state: ConnectionStringsStateType) => {
+        return state.merge({
+            synchronizationStatus: SynchronizationStatus.working
+        });
     })
 
-    .case(deleteConnectionStringAction, (state: ConnectionStringsStateInterface, payload: string) => {
-        const updatedState = {...state};
-        updatedState.connectionStrings = state.connectionStrings.filter(s => s !== payload);
-        return updatedState;
+    .case(getConnectionStringAction.done, (state: ConnectionStringsStateType, payload: {params: void, result: string[]}) => {
+        return state.merge({
+            payload: payload.result,
+            synchronizationStatus: SynchronizationStatus.fetched
+        });
     })
 
-    .case(setConnectionStringsAction, (state: ConnectionStringsStateInterface, payload: string[]) => {
-        const updatedState = {...state};
-        updatedState.connectionStrings = payload;
-        return updatedState;
+    .case(deleteConnectionStringAction.started, (state: ConnectionStringsStateType) => {
+        return state.merge({
+            synchronizationStatus: SynchronizationStatus.updating
+        });
     })
 
-    .case(upsertConnectionStringAction, (state: ConnectionStringsStateInterface, payload: UpsertConnectionStringActionPayload) => {
-        const { newConnectionString, connectionString } = payload;
-        const updatedState = {...state};
-        if (connectionString) {
-            updatedState.connectionStrings = state.connectionStrings.map(s => s === connectionString ? newConnectionString : s);
-        } else {
-            updatedState.connectionStrings = updatedState.connectionStrings.filter(s => s !== connectionString);
-            updatedState.connectionStrings.push(newConnectionString);
-        }
+    .case(deleteConnectionStringAction.done, (state: ConnectionStringsStateType, payload: {params: string, result: string[]}) => {
+        return state.merge({
+            payload: payload.result,
+            synchronizationStatus: SynchronizationStatus.deleted
+        });
+    })
 
-        return updatedState;
+    .case(setConnectionStringsAction.started, (state: ConnectionStringsStateType) => {
+        return state.merge({
+            synchronizationStatus: SynchronizationStatus.updating
+        });
+    })
+
+    .case(setConnectionStringsAction.done, (state: ConnectionStringsStateType, payload: {params: string[], result: string[]}) => {
+        return state.merge({
+            payload: payload.result,
+            synchronizationStatus: SynchronizationStatus.upserted
+        });
+    })
+
+    .case(upsertConnectionStringAction.started, (state: ConnectionStringsStateType) => {
+        return state.merge({
+            synchronizationStatus: SynchronizationStatus.updating
+        });
+    })
+
+    .case(upsertConnectionStringAction.done, (state: ConnectionStringsStateType, payload: {params: UpsertConnectionStringActionPayload, result: string[]}) => {
+        return state.merge({
+            payload: payload.result,
+            synchronizationStatus: SynchronizationStatus.upserted
+        });
     });
-
-export default reducer;

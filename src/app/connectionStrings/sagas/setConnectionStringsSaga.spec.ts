@@ -2,19 +2,12 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { call } from 'redux-saga/effects';
-import { cloneableGenerator } from 'redux-saga/utils';
+import { call, put } from 'redux-saga/effects';
+// tslint:disable-next-line: no-implicit-dependencies
+import { cloneableGenerator } from '@redux-saga/testing-utils';
 import { setConnectionStringsAction } from '../actions';
-import { getConnectionStrings, setConnectionStringsSaga, setConnectionStrings } from './setConnectionStringsSaga';
+import { setConnectionStringsSaga, setConnectionStrings } from './setConnectionStringsSaga';
 import { CONNECTION_STRING_NAME_LIST } from '../../constants/browserStorage';
-
-describe('getConnectionString', () => {
-    it('returns expected value', () => {
-        const setValue = 'helloworld';
-        localStorage.setItem(CONNECTION_STRING_NAME_LIST, setValue);
-        expect(getConnectionStrings()).toEqual(setValue);
-    });
-});
 
 describe('setConnectionString', () => {
     it('sets expected value', () => {
@@ -26,7 +19,7 @@ describe('setConnectionString', () => {
 });
 
 describe('setConnectionStringsSaga', () => {
-    const setConnectionStringsSagaGenerator = cloneableGenerator(setConnectionStringsSaga)(setConnectionStringsAction(['connectionString2']));
+    const setConnectionStringsSagaGenerator = cloneableGenerator(setConnectionStringsSaga)(setConnectionStringsAction.started(['connectionString2']));
     it('returns call effect to set connection strings', () => {
         expect(setConnectionStringsSagaGenerator.next()).toEqual({
             done: false,
@@ -34,9 +27,12 @@ describe('setConnectionStringsSaga', () => {
         });
     });
 
-    it('finishes', () => {
-        expect(setConnectionStringsSagaGenerator.next()).toEqual({
-            done: true,
+    it('puts the done action', () => {
+        expect(setConnectionStringsSagaGenerator.next(['connectionString2'])).toEqual({
+            done: false,
+            value: put(setConnectionStringsAction.done({params: ['connectionString2'], result: ['connectionString2']}))
         });
+
+        expect(setConnectionStringsSagaGenerator.next().done).toEqual(true);
     });
 });

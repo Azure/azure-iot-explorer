@@ -3,26 +3,34 @@
  * Licensed under the MIT License
  **********************************************************/
 import 'jest';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import * as React from 'react';
+import { act } from 'react-dom/test-utils';
 import { Callout } from 'office-ui-fabric-react/lib/Callout';
-import { IconButton } from 'office-ui-fabric-react/lib/Button';
-import LabelWithRichCallout, { LabelWithRichCalloutState } from './labelWithRichCallout';
+import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
+import { LabelWithRichCallout } from './labelWithRichCallout';
 
 describe('components/shared/labelWithRichCallout', () => {
 
     it('matches snapshot when tooltip specified', () => {
-        const wrapper = shallow(
+        const wrapper = mount(
             <LabelWithRichCallout
                 calloutContent={<></>}
             >
                 {'labelText'}
             </LabelWithRichCallout>
         );
+
         expect(wrapper).toMatchSnapshot();
-        wrapper.find(IconButton).props().onClick(null);
-        expect((wrapper.state() as LabelWithRichCalloutState).showCallout).toBeTruthy();
-        wrapper.find(Callout).props().onDismiss(null);
-        expect((wrapper.state() as LabelWithRichCalloutState).showCallout).toBeFalsy();
+
+        act(() => wrapper.find(IconButton).props().onClick(undefined));
+        wrapper.update();
+        const callout = wrapper.find(Callout);
+        expect(callout).toBeDefined();
+
+        act((() => callout.props().onDismiss(null));
+        wrapper.update();
+        const updatedCallout = wrapper.find(Callout);
+        expect(updatedCallout.length).toEqual(0);
     });
 });

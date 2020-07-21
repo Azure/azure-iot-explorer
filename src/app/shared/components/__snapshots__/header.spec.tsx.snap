@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`shared/components/header matches snapshot when settings is not visible 1`] = `
+exports[`Header matches snapshot 1`] = `
 <header
   className="header"
 >
@@ -10,19 +10,10 @@ exports[`shared/components/header matches snapshot when settings is not visible 
     header.applicationName
   </div>
   <div>
-    <Connect(NotificationList) />
+    <Component />
   </div>
-  <CustomizedActionButton
-    ariaLabel="header.settings.launch"
-    className=""
-    iconProps={
-      Object {
-        "iconName": "PlugConnected",
-      }
-    }
-    id="settings"
-    onClick={[Function]}
-    text="header.settings.launch"
-  />
+  <div>
+    <Component />
+  </div>
 </header>
 `;

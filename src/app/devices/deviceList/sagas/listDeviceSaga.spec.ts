@@ -3,18 +3,18 @@
  * Licensed under the MIT License
  **********************************************************/
 import 'jest';
-import { SagaIteratorClone, cloneableGenerator } from 'redux-saga/utils';
+// tslint:disable-next-line: no-implicit-dependencies
+import { SagaIteratorClone, cloneableGenerator } from '@redux-saga/testing-utils';
 import { call, put } from 'redux-saga/effects';
 import { listDevicesSaga } from './listDeviceSaga';
-import DeviceQuery from '../../../api/models/deviceQuery';
+import { DeviceQuery } from '../../../api/models/deviceQuery';
 import * as DevicesService from '../../../api/services/devicesService';
 import { listDevicesAction } from '../actions';
-import { getActiveAzureResourceConnectionStringSaga } from '../../../azureResource/sagas/getActiveAzureResourceConnectionStringSaga';
 import { DeviceIdentity } from '../../../api/models/deviceIdentity';
-import { addNotificationAction } from '../../../notifications/actions';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { NotificationType } from '../../../api/models/notification';
-import { ERROR_TYPES } from '../../../api/constants';
+import { ERROR_TYPES } from '../../../constants/apiConstants';
+import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 
 describe('listDeviceSaga', () => {
     let listDevicesSagaGenerator: SagaIteratorClone;
@@ -49,18 +49,10 @@ describe('listDeviceSaga', () => {
         listDevicesSagaGenerator = cloneableGenerator(listDevicesSaga)(listDevicesAction.started(query));
     });
 
-    it('fetches the connection string', () => {
+    it('fetches the devices', () => {
         expect(listDevicesSagaGenerator.next()).toEqual({
             done: false,
-            value: call(getActiveAzureResourceConnectionStringSaga)
-        });
-    });
-
-    it('fetches the devices', () => {
-        expect(listDevicesSagaGenerator.next(connectionString)).toEqual({
-            done: false,
             value: call(mockFetchDevices, {
-                connectionString,
                 query
             })
         });
@@ -82,7 +74,7 @@ describe('listDeviceSaga', () => {
         const error = { message: 'failed' };
         expect(failure.throw(error)).toEqual({
             done: false,
-            value: put(addNotificationAction.started({
+            value: call(raiseNotificationToast, {
                 text: {
                     translationKey: ResourceKeys.notifications.getDeviceListOnError,
                     translationOptions: {
@@ -90,7 +82,7 @@ describe('listDeviceSaga', () => {
                   },
                 },
                 type: NotificationType.error,
-            }))
+            })
         });
 
         expect(failure.next(error)).toEqual({
@@ -105,7 +97,7 @@ describe('listDeviceSaga', () => {
         const error = { name: ERROR_TYPES.PORT_IS_IN_USE };
         expect(failure.throw(error)).toEqual({
             done: false,
-            value: put(addNotificationAction.started({
+            value: call(raiseNotificationToast, {
                 text: {
                     translationKey: ResourceKeys.notifications.portIsInUseError,
                     translationOptions: {
@@ -113,7 +105,7 @@ describe('listDeviceSaga', () => {
                   },
                 },
                 type: NotificationType.error,
-            }))
+            })
         });
 
         expect(failure.next(error)).toEqual({

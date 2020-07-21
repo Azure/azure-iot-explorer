@@ -4,21 +4,14 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import { IconButton } from 'office-ui-fabric-react/lib/Button';
-import DeviceQueryClause from './deviceQueryClause';
-import { testWithLocalizationContext } from '../../../shared/utils/testHelpers';
+import { shallow } from 'enzyme';
+import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
+import { DeviceQueryClause } from './deviceQueryClause';
 import { ParameterType, OperationType } from '../../../api/models/deviceQuery';
 
-describe('components/devices/DeviceQueryClause', () => {
-    // tslint:disable-next-line:no-any
-    const event: any = {
-        target: {
-            title: 'name',
-        }
-    };
-
+describe('DeviceQueryClause', () => {
     it('matches snapshot', () => {
-        const wrapper = testWithLocalizationContext(
+        const wrapper = shallow(
             <DeviceQueryClause
                 operation={OperationType.equals}
                 parameterType={ParameterType.status}
@@ -33,21 +26,7 @@ describe('components/devices/DeviceQueryClause', () => {
     });
 
     it('matches snapshot without operation', () => {
-        const wrapper = testWithLocalizationContext(
-            <DeviceQueryClause
-                parameterType={ParameterType.capabilityModelId}
-                value="enabled"
-                index={0}
-                removeClause={jest.fn()}
-                setClause={jest.fn()}
-            />
-        );
-
-        expect(wrapper).toMatchSnapshot();
-    });
-
-    it('matches snapshot without operation', () => {
-        const wrapper = testWithLocalizationContext(
+        const wrapper = shallow(
             <DeviceQueryClause
                 parameterType={ParameterType.edge}
                 value="true"
@@ -62,9 +41,9 @@ describe('components/devices/DeviceQueryClause', () => {
 
     it('calls removeClause', () => {
         const removeClause = jest.fn();
-        const wrapper = testWithLocalizationContext(
+        const wrapper = shallow(
             <DeviceQueryClause
-                parameterType={ParameterType.capabilityModelId}
+                parameterType={ParameterType.edge}
                 value="enabled"
                 index={0}
                 removeClause={removeClause}

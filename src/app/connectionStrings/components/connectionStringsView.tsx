@@ -3,33 +3,51 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { RouteComponentProps } from 'react-router-dom';
-import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
+import { useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router-dom';
+import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
 import { ConnectionString  } from './connectionString';
 import { ConnectionStringEditView } from './connectionStringEditView';
-import { useLocalizationContext } from '../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { CONNECTION_STRING_LIST_MAX_LENGTH } from '../../constants/browserStorage';
-import { StateInterface } from '../../shared/redux/state';
 import { upsertConnectionStringAction, deleteConnectionStringAction, setConnectionStringsAction } from '../actions';
-import { setActiveAzureResourceByConnectionStringAction } from '../../azureResource/actions';
 import { ROUTE_PARTS } from '../../constants/routes';
 import { formatConnectionStrings } from '../../shared/utils/hubConnectionStringHelper';
+import { ConnectionStringsEmpty } from './connectionStringsEmpty';
+import { useAsyncSagaReducer } from '../../shared/hooks/useAsyncSagaReducer';
+import { connectionStringsReducer } from '../reducer';
+import { connectionStringsSaga } from '../sagas';
+import { connectionStringsStateInitial } from '../state';
+import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
+import { MultiLineShimmer } from '../../shared/components/multiLineShimmer';
+import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
 import '../../css/_layouts.scss';
 import './connectionStringsView.scss';
+import { getConnectionStringAction } from './../actions';
 
-export interface ConnectionStringsViewProps {
-    connectionStrings: string[];
-    onDeleteConnectionString(connectionString: string): void;
-    onUpsertConnectionString(newConnectionString: string, connectionString: string): void;
-    onSelectConnectionString(connectionString: string, hostName: string): void;
-}
+// tslint:disable-next-line: cyclomatic-complexity
+export const ConnectionStringsView: React.FC = () => {
+    const { t } = useTranslation();
+    const history = useHistory();
 
-export const ConnectionStringsView: React.FC<ConnectionStringsViewProps> = props => {
+    const [ localState, dispatch ] = useAsyncSagaReducer(connectionStringsReducer, connectionStringsSaga, connectionStringsStateInitial(), 'connectionStringsState');
     const [ connectionStringUnderEdit, setConnectionStringUnderEdit ] = React.useState<string>(undefined);
-    const { connectionStrings, onDeleteConnectionString, onUpsertConnectionString, onSelectConnectionString } = props;
-    const { t } = useLocalizationContext();
+
+    const connectionStrings = localState.payload;
+    const synchronizationStatus = localState.synchronizationStatus;
+
+    const onUpsertConnectionString = (newConnectionString: string, connectionString?: string) => {
+        dispatch(upsertConnectionStringAction.started({newConnectionString, connectionString}));
+    };
+
+    const onDeleteConnectionString = (connectionString: string) => {
+        dispatch(deleteConnectionStringAction.started(connectionString));
+    };
+
+    const onSelectConnectionString = (connectionString: string) => {
+        const updatedConnectionStrings = formatConnectionStrings(connectionStrings, connectionString);
+        dispatch(setConnectionStringsAction.started(updatedConnectionStrings));
+    };
 
     const onAddConnectionStringClick = () => {
         setConnectionStringUnderEdit('');
@@ -48,6 +66,23 @@ export const ConnectionStringsView: React.FC<ConnectionStringsViewProps> = props
         setConnectionStringUnderEdit(undefined);
     };
 
+    React.useEffect(() => {
+        dispatch(getConnectionStringAction.started());
+    },              []);
+
+    React.useEffect(() => {
+        if (synchronizationStatus === SynchronizationStatus.upserted) { // only when connection string updated successfully would navigate to device list view
+            const hostName = getConnectionInfoFromConnectionString(connectionStrings[0]).hostName;
+            history.push(`/${ROUTE_PARTS.RESOURCE}/${hostName}/${ROUTE_PARTS.DEVICES}`);
+        }
+    },              [synchronizationStatus]);
+
+    if (synchronizationStatus === SynchronizationStatus.updating || synchronizationStatus === SynchronizationStatus.working) {
+        return (
+            <MultiLineShimmer/>
+        );
+    }
+
     return (
         <div className="view">
             <div className="view-command">
@@ -64,7 +99,7 @@ export const ConnectionStringsView: React.FC<ConnectionStringsViewProps> = props
                     ]}
                 />
             </div>
-            <div className="view-content view-scroll-vertical">
+            <div className="view-scroll-vertical">
                 <div className="connection-strings">
                     {connectionStrings.map(connectionString =>
                         <ConnectionString
@@ -76,6 +111,11 @@ export const ConnectionStringsView: React.FC<ConnectionStringsViewProps> = props
                         />
                     )}
                 </div>
+
+                {(!connectionStrings || connectionStrings.length === 0) &&
+                    <ConnectionStringsEmpty/>
+                }
+
             </div>
             {connectionStringUnderEdit !== undefined &&
                 <ConnectionStringEditView
@@ -86,39 +126,5 @@ export const ConnectionStringsView: React.FC<ConnectionStringsViewProps> = props
                 />
             }
         </div>
-    );
-};
-
-export const ConnectionStringsViewContainer: React.FC<RouteComponentProps> = props => {
-    const connectionStrings = useSelector((state: StateInterface) => state.connectionStringsState.connectionStrings);
-    const dispatch = useDispatch();
-
-    const onUpsertConnectionString = (newConnectionString: string, connectionString?: string) => {
-        dispatch(upsertConnectionStringAction({newConnectionString, connectionString}));
-    };
-
-    const onDeleteConnectionString = (connectionString: string) => {
-        dispatch(deleteConnectionStringAction(connectionString));
-    };
-
-    const onSelectConnectionString = (connectionString: string, hostName: string) => {
-        const updatedConnectionStrings = formatConnectionStrings(connectionStrings, connectionString);
-
-        dispatch(setConnectionStringsAction(updatedConnectionStrings));
-        dispatch(setActiveAzureResourceByConnectionStringAction({
-            connectionString,
-            hostName
-        }));
-
-        props.history.push(`/${ROUTE_PARTS.RESOURCE}/${hostName}/${ROUTE_PARTS.DEVICES}`);
-    };
-
-    return (
-        <ConnectionStringsView
-            onUpsertConnectionString={onUpsertConnectionString}
-            onDeleteConnectionString={onDeleteConnectionString}
-            onSelectConnectionString={onSelectConnectionString}
-            connectionStrings={connectionStrings}
-        />
     );
 };

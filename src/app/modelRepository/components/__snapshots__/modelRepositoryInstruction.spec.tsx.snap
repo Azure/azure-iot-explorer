@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ModelRepositoryInstruction matches snapshot 1`] = `
+<div
+  className="model-repository-empty"
+>
+  <h3
+    aria-level={1}
+    role="heading"
+  >
+    modelRepository.empty.header
+  </h3>
+  <div>
+    <span>
+      modelRepository.empty.description
+    </span>
+    <NavLink
+      className="embedded-link"
+      to="/home/repos"
+    >
+      Home.
+    </NavLink>
+  </div>
+  <h3
+    aria-level={1}
+    role="heading"
+  >
+    settings.questions.headerText
+  </h3>
+  <StyledLinkBase
+    href="settings.questions.questions.documentation.link"
+    target="_blank"
+  >
+    modelRepository.empty.help
+  </StyledLinkBase>
+  <div
+    className="privacy-statement"
+  >
+    <span>
+      settings.questions.questions.privacy.text
+    </span>
+    <StyledLinkBase
+      href="settings.questions.questions.privacy.link"
+      target="_blank"
+    >
+      settings.questions.questions.privacy.linkText
+    </StyledLinkBase>
+  </div>
+</div>
+`;
+
+exports[`ModelRepositoryInstruction matches snapshot 2`] = `
+<div
+  className="model-repository-instruction"
+>
+  modelRepository.instruction
+  <div
+    className="privacy-statement"
+  >
+    <span>
+      settings.questions.questions.privacy.text
+    </span>
+    <StyledLinkBase
+      href="settings.questions.questions.privacy.link"
+      target="_blank"
+    >
+      settings.questions.questions.privacy.linkText
+    </StyledLinkBase>
+  </div>
+</div>
+`;

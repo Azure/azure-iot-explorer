@@ -8,6 +8,7 @@
     },
     "common": {
         "close": "Close",
+        "home": "Home",
         "learnMore": "Learn more",
         "loading": "Loading...",
         "maskedCopyableTextField": {
@@ -25,6 +26,11 @@
             "title": "Confirmation",
             "yes": "Yes",
             "no": "No"
+        },
+        "navigation": {
+            "confirm": "Your unsaved edits will be discarded.",
+            "collapse": "Collapse navigation menu",
+            "expand": "Expand navigation menu"
         }
     },
     "collapsibleSection": {
@@ -32,7 +38,7 @@
         "close": "Collapse"
     },
     "header": {
-        "applicationName": "Azure IoT explorer (preview)",
+        "applicationName": "Azure IoT Explorer (preview)",
         "search": {
             "watermark": "Find on page"
         },
@@ -55,28 +61,14 @@
     "settings": {
         "headerText": "Settings",
         "configuration": {
-            "headerText": "App configurations"
+            "headerText": "App configurations",
+            "redirect": "Looking for connection settings?",
+            "redirectLink": "Please visit Home."
         },
         "modelDefinitions": {
-            "add": "Add module definition source",
-            "headerText": "Plug and Play configurations",
-            "helpText": "We'll look for your model definition in the following order. Please drag and drop to change it.",
-            "repositoryTypes": {
-                "public": {
-                    "label":"Public repository",
-                    "infoText": ""
-                },
-                "private": {
-                    "label":"Company repository",
-                    "infoText": "",
-                    "textBoxLabel": "Company model repository connection string",
-                    "placeholder": "Please fill in this required field in order to proceed"
-                },
-                "device": {
-                    "label":"On the connected device",
-                    "infoText": ""
-                }
-            }
+            "headerText": "Plug and Play configuration",
+            "redirect": "Looking for Plug and Play settings?",
+            "redirectLink": "Please visit Home."
         },
         "questions": {
             "headerText": "Help:",
@@ -84,12 +76,17 @@
                 "documentation": {
                     "text":"IoT Plug and Play documentation",
                     "link": "https://aka.ms/azure-iot-explorer-documentation"
+                },
+                "privacy": {
+                    "text": "Before enabling us to retrieve model definition from local folder, please read ",
+                    "linkText": "Microsoft Privacy Statement",
+                    "link": "https://privacy.microsoft.com/en-us/privacystatement"
                 }
             }
         },
         "footerText": "You can come back to Settings and make changes later.",
         "save": "Save and Connect",
-        "cancel": "Close",
+        "close": "Close",
         "confirmationMessage": "Are you sure you want to close without saving?",
         "theme": {
             "headerText": "Application theme",
@@ -111,7 +108,9 @@
         "properties": "Properties (non-writable)",
         "settings": "Properties (writable)",
         "commands": "Commands",
-        "ioTPlugAndPlay": "IoT Plug and Play components"
+        "ioTPlugAndPlay": "IoT Plug and Play components",
+        "resources": "IoT hubs",
+        "repos": "IoT Plug and Play Settings"
     },
     "deviceContent": {
         "start": "Select a device to start",
@@ -121,17 +120,13 @@
             "properties": "Properties (non-writable)",
             "settings": "Properties (writable)",
             "commands": "Commands",
-            "interfaces": "Interface",
             "events": "Telemetry",
             "eventsPerInterface": "Telemetry",
+            "interfaces": "Interface",
             "methods": "Direct method",
             "cloudToDeviceMessage": "Cloud-to-device message",
-            "pnp": "IoT Plug and Play (preview)",
             "ioTPlugAndPlay": "IoT Plug and Play components",
-            "nonpnp": "DEVICE",
             "add": "Create device identity",
-            "collapse": "Collapse navigation menu",
-            "expand": "Expand navigation menu",
             "moduleIdentity": "Module identity",
             "addModuleIdentity": "Add module identity",
             "moduleDetail": "Module identity",
@@ -140,8 +135,12 @@
         "value": "Value"
     },
     "connectionStrings": {
+        "empty": {
+            "header": "No connections to display",
+            "description": "You will need to add an IoT hub connection string. Connection strings are saved to application storage and can be edited or removed at any time by returning"
+        },
         "addConnectionCommand": {
-            "label": "Add Connection",
+            "label": "Add connection",
             "ariaLabel": "Add connection string"
         },
         "deleteConnectionCommand": {
@@ -157,7 +156,8 @@
             "ariaLabel": "Copy connection string {{connectionString}}"
         },
         "visitConnectionCommand": {
-            "ariaLabel": "View resource: {{connection string}}"
+            "label": "View devices in this hub",
+            "ariaLabel": "View resource: {{connectionString}}"
         },
         "deleteConnection": {
             "title": "Confirm Delete",
@@ -185,12 +185,12 @@
                 }
             },
             "title": {
-                "add": "Add Connection String",
-                "edit": "Edit Connection String"
+                "add": "Add connection string",
+                "edit": "Edit connection string"
             },
             "editField": {
-                "label": "Connection String",
-                "ariaLabel": "Connection String",
+                "label": "Connection string",
+                "ariaLabel": "Connection string",
                 "placeholder": "enter a connection string"
             },
             "validations": {
@@ -199,15 +199,15 @@
         },
         "properties": {
             "hostName": {
-                "label": "Host Name",
+                "label": "Host name",
                 "ariaLabel": "Host name for {{connection string}}"
             },
             "sharedAccessPolicyName": {
-                "label": "Shared Access Policy Name",
+                "label": "Shared access policy name",
                 "ariaLabel": "Shared Access Policy Name for {{connection string}}"
             },
             "sharedAccessPolicyKey": {
-                "label": "Shared Access Policy Key",
+                "label": "Shared access policy key",
                 "ariaLabel": "Shared Access Policy Key for {{connection string}}"
             },
             "connectionString": {
@@ -222,7 +222,7 @@
             "ariaLabel": "Select or type an Iot hub connection string",
             "ariaLabelRemove": "Remove connection to host {{hostName}}",
             "link": "https://aka.ms/iot-connection-strings",
-            "linkText": "Where do I get an IoT hub connection string",
+            "linkText": "Where do I get an IoT hub connection string?",
             "item": {
                 "ariaLabel": "Connection to host {{hostName}} with shared access key for {{sharedAccessKeyName}}"
             },
@@ -231,7 +231,8 @@
                 "required": "Connection string is required",
                 "invalid": "Invalid connection string"
             },
-            "prompt": "Select a saved connection string or paste a new connection string here"
+            "prompt": "Select a saved connection string or paste a new connection string here",
+            "warning": "Please do not save your hub connection string to any unsafe locations"
         },
         "notes": "The most recent connection strings will be saved in application storage. You can open Settings at any time to remove saved connection strings or change other configuration options.",
         "saveButton": {
@@ -331,7 +332,7 @@
             "pages": "Pages:"
         },
         "loadingDevice": "Loading devices",
-        "noDevice": "No devices",
+        "noDevice": "No devices to display",
         "noData": "None",
         "columns": {
             "deviceId": {
@@ -395,8 +396,6 @@
                         "title":"Parameter type",
                         "ariaLabel": "Type of query clause",
                         "items": {
-                            "capabilityModelId":"Capability model ID",
-                            "interfaceId": "Interface ID",
                             "propertyValue": "Property value",
                             "status": "Status",
                             "lastActivityTime": "Last activity time",
@@ -448,9 +447,25 @@
     },
     "digitalTwin": {
         "headerText": "IoT Plug and Play components",
-        "dcm": "Device capability model ID: {{modelId}}",
+        "modelId": "Model ID",
+        "modelContainsNoComponents": "Model '{{modelId}}' contains no Plug and Play components",
         "componentName": "Component",
-        "interfaceId": "Interface"
+        "steps": {
+            "zero": "Your device is not recognized as a Plug and Play device. To learn more, please check out ",
+            "first": "Step 1. Your device has been discovered as a Plug and Play device",
+            "secondSuccess": "Step 2. We've resolved your Plug and Play model",
+            "secondFailure": "Step 2. We are not able to retrieve model definition for {{modelId}}",
+            "third": "Step 3. Continue your Plug and Play journey by drilling down to each component",
+            "explanation": "If you have defined 'Property', 'Command' or 'Telemetry' in model {{modelId}}, you would be able to see 'Default component' in the table below. If you havea defined 'Component', you would be able to see a list of components down below."
+        },
+        "pivot": {
+            "ariaLabel": "Model component and content pivot",
+            "components" :"Components",
+            "content": "Model content",
+            "defaultComponent": "Default component",
+            "digitalTwin": "Digital twin content"
+        },
+        "interfaceId": "Model ID"
     },
     "deviceProperties": {
         "command" : {
@@ -473,10 +488,11 @@
     },
     "deviceSettings": {
         "previewPayloadButtonText": "Preview payload",
+        "noPreviewContent": "There is no payload to show.",
         "command" : {
             "refresh": "Refresh",
-            "submit": "Update writable property",
-            "openReportedValuePanel": "Click to view reported",
+            "submit": "Update desired value",
+            "openReportedValuePanel": "Click to view value",
             "openDesiredValuePanel": "Click to edit",
             "expandAll": "Expand all",
             "expand": "Expand",
@@ -486,23 +502,16 @@
         },
         "headerText": "Writable properties",
         "noSettings": "ComponentName {{componentName}} contains no writable property definitions",
-        "syncStatus": {
-            "label": "Sync status : {{status}}",
-            "synced": "synced",
-            "syncing": "syncing",
-            "failed": "failed"
-        },
-        "desiredState": {
-            "success": "Success",
-            "synching": "Synching...",
-            "error": "Error",
-            "unknown": "Status Code: {{code}}"
+        "ackStatus": {
+            "code": "Ack code: {{code}}",
+            "description": "Ack description: {{description}}",
+            "version": "Ack version: {{version}}"
         },
         "columns": {
             "name": "Name (Display Name / Description)",
             "schema": "Schema",
             "unit": "Unit",
-            "reportedValue": "Reported Value (Status)",
+            "reportedValue": "Reported Value (Ack metadata)",
             "reportedValueTooltip": "Reported value is updated asynchronously. Please click 'Refresh' button on the top to get latest value manually",
             "error": "value does not match schema"
         },
@@ -539,14 +548,15 @@
         },
         "columns": {
             "id": "Interface Id",
-            "source": "Source",
+            "source": "You model defintion has been resolved from",
             "noSource": "Failed to get interface definition",
             "displayName": "Name",
             "description": "Description"
         },
         "headerText": "Interface",
         "noInterfaces": "No interfaces",
-        "interfaceNotFound": "We are not able to retrieve interface model definition. Please click 'Configure' button below to see how we resolve model definition."
+        "interfaceNotFound": "We are not able to retrieve any valid interface model definition. Please click 'Configure' button below to see how we resolve model definition.",
+        "interfaceNotValid": "Model definition is not valid. Please update the model definition and then proceed."
     },
     "deviceEvents": {
         "command" : {
@@ -599,7 +609,8 @@
                     "doesNotMatch": "Key mismatch. Expected key is {{expectedKey}}, but received is {{receivedKey}}"
                 },
                 "value": {
-                    "label": "value does not match schema"
+                    "label": "value does not match schema",
+                    "bodyIsEmpty": "Telemetry body is empty"
                 }
             }
         },
@@ -763,15 +774,22 @@
         "getDeviceListOnError": "Failed to retrieve device list: {{error}}",
         "getDeviceListGenericErrorHelp": "Failed to retrieve device list. It is possibly due to an invalid IoT hub connection string",
         "getDeviceTwinOnError": "Failed to get device {{deviceId}}'s twin: {{error}}",
-        "getDigitalTwinInterfacePropertiesOnError": "Failed to get properties of the IoT Plug and Play device {{deviceId}}: {{error}}",
+        "getDigitalTwinOnError": "Failed to get properties of the IoT Plug and Play device {{deviceId}}: {{error}}",
         "getModuleIdentitiesOnError": "Failed to get module identities of device {{deviceId}}: {{error}}",
-        "getInterfaceModelOnError": "Failed to get interface model definition {{interfaceId}}",
+        "getInterfaceModelOnError": "Failed to get interface model definition {{interfaceId}} from any of the sources configured",
+        "parseLocalInterfaceModelOnError": "{{interfaceId}} cannot be retrieved from local folder. Here is a list of json files with errors that we encountered while parsing: {{files}}. Please note that trailing comma is not allowed in json files.",
         "updateDeviceTwinOnError": "Failed to update device twin on device {{deviceId}}: {{error}}",
         "updateDeviceTwinOnSuccess": "Successfully updated device twin on device {{deviceId}}.",
         "invokeDigitalTwinCommandOnError": "Failed to invoke the IoT Plug and Play device command '{{commandName}}' for component '{{componentName}}' on device '{{deviceId}}': {{error}}",
-        "invokeDigitalTwinCommandOnSuccess": "Successfully invoked the IoT Plug and Play device command '{{commandName}}' for component '{{componentName}}' on device '{{deviceId}}': {{response}}",
+        "invokeDigitalTwinCommandOnSuccess": "Successfully invoked the IoT Plug and Play device command '{{commandName}}' for component '{{componentName}}' on device '{{deviceId}}': {{response}}.",
+        "invokeDigitalTwinCommandOnSuccessButResponseIsNotValid": "Successfully invoked the IoT Plug and Play device command '{{commandName}}' for component '{{componentName}}' on device '{{deviceId}}': {{response}}, but the response is not valid: {{validationResult}}.",
         "invokingDigitalTwinCommand": "Trying to invoke the IoT Plug and Play device command '{{commandName}}' for component '{{componentName}}' on device '{{deviceId}}' with no payload",
         "invokingDigitalTwinCommandWithPayload": "Trying to invoke the IoT Plug and Play device command '{{commandName}}' for component '{{componentName}}' on device '{{deviceId}}' with payload {{payload}}",
+        "invokeDigitalTwinCommandOnDefaultComponentOnError": "Failed to invoke the IoT Plug and Play device command '{{commandName}}' for for default component on device '{{deviceId}}': {{error}}",
+        "invokeDigitalTwinCommandOnDefaultComponentOnSuccess": "Successfully invoked the IoT Plug and Play device command '{{commandName}}' for default component on device '{{deviceId}}': {{response}}.",
+        "invokeDigitalTwinCommandOnDefaultComponentOnSuccessButResponseIsNotValid": "Successfully invoked the IoT Plug and Play device command '{{commandName}}' for default component on device '{{deviceId}}': {{response}}, but the response is not valid: {{validationResult}}.",
+        "invokingDigitalTwinCommandOnDefaultComponent": "Trying to invoke the IoT Plug and Play device command '{{commandName}}' for default component on device '{{deviceId}}' with no payload",
+        "invokingDigitalTwinCommandWithPayloadOnDefaultComponent": "Trying to invoke the IoT Plug and Play device command '{{commandName}}' for default component on device '{{deviceId}}' with payload {{payload}}",
         "invokeMethodOnError": "Failed to invoke method on device {{deviceId}}: {{error}}",
         "invokeMethodOnSuccess": "Successfully invoked method '{{methodName}}' on device '{{deviceId}}' with response {{response}}",
         "invokingMethod": "Trying to invoke method '{{methodName}}' on device '{{deviceId}}' with no payload",
@@ -783,8 +801,9 @@
         "addDeviceOnError": "Failed to add device {{deviceId}}: {{error}}",
         "updateDeviceOnSucceed": "Successfully updated device {{deviceId}}",
         "updateDeviceOnError": "Failed to update device {{deviceId}}: {{error}}",
-        "patchDigitalTwinInterfacePropertiesOnError": "Failed to update desired properties of the IoT Plug and Play device {{deviceId}}: {{error}}",
-        "patchDigitalTwinInterfacePropertiesOnSuccess": "Successfully updated desired properties of the IoT Plug and Play device {{deviceId}}.",
+        "patchDigitalTwinOnError": "Failed to update desired properties of the IoT Plug and Play device {{deviceId}} with response code {{error}}",
+        "patchDigitalTwinOnSuccess": "Successfully updated desired properties of the IoT Plug and Play device {{deviceId}}.",
+        "patchDigitalTwinOnAccept": "The request to updated desired properties of the IoT Plug and Play device {{deviceId}} has been accepted.",
         "cloudToDeviceMessageOnError": "Failed to send message to device {{deviceId}}: {{error}}",
         "cloudToDeviceMessageOnSuccess": "Successfully send message '{{message}}' to device '{{deviceId}}'",
         "sendingCloudToDeviceMessage": "Trying to send message '{{message}}' to device '{{deviceId}}'",
@@ -795,7 +814,10 @@
         "getModuleIdentityOnError": "Failed to get module identity {{moduleId}}: {{error}}",
         "deleteModuleIdentityOnSuccess": "Successfully deleted module {{moduleId}}",
         "deleteModuleIdentityOnError": "Failed to delete module identity {{moduleId}}: {{error}}",
-        "portIsInUseError": "The port {{portNumber}} is in use. To configure a custom port value, set system environment variable 'AZURE_IOT_EXPLORER_PORT' to an available port number. To learn more, visit https://github.com/Azure/azure-iot-explorer/wiki/FAQ "
+        "portIsInUseError": "The port {{portNumber}} is in use. To configure a custom port value, set system environment variable 'AZURE_IOT_EXPLORER_PORT' to an available port number. To learn more, visit https://github.com/Azure/azure-iot-explorer/wiki/FAQ ",
+        "modelRepoistorySettingsUpdated": "Model repository locations successfully updated.",
+        "startEventMonitoringOnError": "Faile to start monitoring device telemetry: {{error}}",
+        "stopEventMonitoringOnError": "Faile to stop monitoring device telemetry: {{error}}"
     },
     "errorBoundary": {
         "text": "Something went wrong"
@@ -808,6 +830,77 @@
         "collapse": {
             "open": "Open for more information",
             "close": "Collapse"
+        }
+    },
+    "modelRepository" : {
+        "empty": {
+            "header": "No model repository locations to display",
+            "description": "Model repository locations specify where the application looks to find Plug and Play model definitions. Locations are saved to application storage and can be edited or removed at any time by returning",
+            "help": "What is Plug and Play Preview"
+        },
+        "instruction": "We'll look for your model definition in the following order. Please drag and drop to change it. Click 'Add' to enable more ways we can resolve your model definitions.",
+        "commands": {
+            "save": {
+                "label": "Save",
+                "ariaLabel": "Save"
+            },
+            "revert": {
+                "label": "Revert",
+                "ariaLabel": "Revert to last saved"
+            },
+            "add": {
+                "label": "Add",
+                "ariaLabel": "Add model source"
+            },
+            "addPublicSource" : {
+                "label": "Public repository",
+                "ariaLabel": "Public repository model source"
+            },
+            "addLocalSource": {
+                "label": "Local folder",
+                "labelInBrowser":"Local folder (This is only enabled in the desktop version from: https://github.com/Azure/azure-iot-explorer/releases)",
+                "ariaLabel": "Add local folder as model source"
+            },
+            "remove": {
+                "label": "Remove",
+                "ariaLabel": "remove"
+            },
+            "back": {
+                "label": "Go back",
+                "ariaLabel": "Go back to last location"
+            },
+            "help": {
+                "label": "Help",
+                "ariaLabel": "Open browser tab to IoT Plug and Play documentation"
+                }
+        },
+        "types": {
+            "public" : {
+                "label": "Public Repository"
+            },
+            "local": {
+                "label": "Local Folder",
+                "infoText": "Use your local folder as a model repository. The model definition files you wish to use should have a json extension. The first JSON file with an '@id' property matching the digital twin model identifier (DTMI) will be retrieved.",
+                "textBoxLabel": "Selected folder",
+                "folderPicker": {
+                    "command": {
+                        "openPicker": "Pick a folder",
+                        "navigateToParent": "Navigate back to parent folder",
+                        "select": "Select",
+                        "cancel": "Cancel"
+                    },
+                    "errors": {
+                        "mandatory": "Please specify a folder."
+                    },
+                    "dialog": {
+                        "title": "Select a folder as a local model repository",
+                        "subText": "Selected folder: {{folder}}",
+                        "noFolderFoundText": "No folders found.",
+                        "error": "Failed to retrieve folder information."
+                    }
+                }
+            },
+            "notAvailable": "--"
         }
     }
 }

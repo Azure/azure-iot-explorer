@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/devices/DeviceQueryClause matches snapshot 1`] = `
+exports[`DeviceQueryClause matches snapshot 1`] = `
 <section
   className="search-pill active no-operator"
   key="query-0"
@@ -23,14 +23,6 @@ exports[`components/devices/DeviceQueryClause matches snapshot 1`] = `
         Object {
           "key": "status",
           "text": "deviceLists.query.searchPills.clause.parameterType.items.status",
-        },
-        Object {
-          "key": "dcm",
-          "text": "deviceLists.query.searchPills.clause.parameterType.items.capabilityModelId",
-        },
-        Object {
-          "key": "interface",
-          "text": "deviceLists.query.searchPills.clause.parameterType.items.interfaceId",
         },
       ]
     }
@@ -71,7 +63,7 @@ exports[`components/devices/DeviceQueryClause matches snapshot 1`] = `
 </section>
 `;
 
-exports[`components/devices/DeviceQueryClause matches snapshot without operation 1`] = `
+exports[`DeviceQueryClause matches snapshot without operation 1`] = `
 <section
   className="search-pill active no-operator"
   key="query-0"
@@ -94,74 +86,6 @@ exports[`components/devices/DeviceQueryClause matches snapshot without operation
         Object {
           "key": "status",
           "text": "deviceLists.query.searchPills.clause.parameterType.items.status",
-        },
-        Object {
-          "key": "dcm",
-          "text": "deviceLists.query.searchPills.clause.parameterType.items.capabilityModelId",
-        },
-        Object {
-          "key": "interface",
-          "text": "deviceLists.query.searchPills.clause.parameterType.items.interfaceId",
-        },
-      ]
-    }
-    title="deviceLists.query.searchPills.clause.parameterType.title"
-  />
-  <StyledTextFieldBase
-    ariaLabel="deviceLists.query.searchPills.clause.value.title"
-    className="clause-value"
-    onChange={[Function]}
-    placeholder="deviceLists.query.searchPills.clause.value.placeholder"
-    required={true}
-    title="deviceLists.query.searchPills.clause.value.title"
-  />
-  <CustomizedIconButton
-    ariaLabel="deviceLists.query.searchPills.clause.remove.ariaLabel"
-    className="remove-pill"
-    data={0}
-    iconProps={
-      Object {
-        "iconName": "Clear",
-      }
-    }
-    onClick={[Function]}
-    title="deviceLists.query.searchPills.clause.remove.title"
-    type="button"
-  />
-</section>
-`;
-
-exports[`components/devices/DeviceQueryClause matches snapshot without operation 2`] = `
-<section
-  className="search-pill active no-operator"
-  key="query-0"
->
-  <StyledWithResponsiveMode
-    ariaLabel="deviceLists.query.searchPills.clause.parameterType.ariaLabel"
-    className="parameter-type"
-    componentRef={
-      Object {
-        "current": null,
-      }
-    }
-    onChange={[Function]}
-    options={
-      Array [
-        Object {
-          "key": "capabilities.iotEdge",
-          "text": "deviceLists.query.searchPills.clause.parameterType.items.edge",
-        },
-        Object {
-          "key": "status",
-          "text": "deviceLists.query.searchPills.clause.parameterType.items.status",
-        },
-        Object {
-          "key": "dcm",
-          "text": "deviceLists.query.searchPills.clause.parameterType.items.capabilityModelId",
-        },
-        Object {
-          "key": "interface",
-          "text": "deviceLists.query.searchPills.clause.parameterType.items.interfaceId",
         },
       ]
     }

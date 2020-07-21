@@ -3,32 +3,27 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
-import { LocalizationContextConsumer, LocalizationContextInterface } from '../contexts/localizationContext';
+import { useTranslation } from 'react-i18next';
+import { PrimaryButton } from 'office-ui-fabric-react/lib/components/Button';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import '../../css/_noMatchError.scss';
 
-export const NoMatchError = () => (
-    <div className="no-match-error">
-        <LocalizationContextConsumer>
-            {(context: LocalizationContextInterface) => (
-                <>
-                <div className="no-match-error-description">
-                    <h2>{context.t(ResourceKeys.noMatchError.title)}</h2>
-                    <p>{context.t(ResourceKeys.noMatchError.description)}</p>
-                </div>
-                <div className="no-match-error-button">
-                    <PrimaryButton
-                        ariaDescription={context.t(ResourceKeys.noMatchError.goHome)}
-                        href={'#'}
-                    >
-                        {context.t(ResourceKeys.noMatchError.goHome)}
-                    </PrimaryButton>
-                </div>
-                </>
-            )}
-        </LocalizationContextConsumer>
-    </div>
-);
-
-export default NoMatchError;
+export const NoMatchError = () => {
+    const { t } = useTranslation();
+    return (
+        <div className="no-match-error">
+            <div className="no-match-error-description">
+                <h2>{t(ResourceKeys.noMatchError.title)}</h2>
+                <p>{t(ResourceKeys.noMatchError.description)}</p>
+            </div>
+            <div className="no-match-error-button">
+                <PrimaryButton
+                    ariaDescription={t(ResourceKeys.noMatchError.goHome)}
+                    href={'#'}
+                >
+                    {t(ResourceKeys.noMatchError.goHome)}
+                </PrimaryButton>
+            </div>
+        </div>
+    );
+};

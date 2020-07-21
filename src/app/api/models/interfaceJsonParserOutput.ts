@@ -3,24 +3,27 @@
  * Licensed under the MIT License
  **********************************************************/
 export interface ParsedJsonSchema {
-    type: string;
+    required: string[];
 
     additionalProperties?: boolean; // use this props as a workaround to indicate whether parsed property is map type
     default?: {};
+    definitions?: any; // tslint:disable-line: no-any
     description?: string;
-    enum?: number[] ;
+    enum?: Array<number | string>;
     enumNames?: string[];
     format?: string;
     items?: any; // tslint:disable-line: no-any
     pattern?: string;
     properties?: {};
-    required?: string[];
     title?: string;
+    type?: string | string[];
+    $ref?: any; // tslint:disable-line: no-any
 }
 
 export interface ParsedCommandSchema {
-    description: string;
     name: string;
+
+    description?: string;
     requestSchema?: ParsedJsonSchema;
     responseSchema?: ParsedJsonSchema;
 }

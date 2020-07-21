@@ -5,10 +5,7 @@
 import express = require('express');
 import request = require('request');
 const DEVICE_STATUS_HEADER = 'x-ms-command-statuscode';
-const MULTIPLE_CHOICES = 300;
-const SUCCESS = 200;
 const SERVER_ERROR = 500;
-const NO_CONTENT_SUCCESS = 204;
 
 export const generateDataPlaneRequestBody = (req: express.Request) => {
     const headers = {
@@ -35,38 +32,18 @@ export const generateDataPlaneResponse = (httpRes: request.Response, body: any, 
 };
 
 // tslint:disable-next-line:cyclomatic-complexity
-export const processDataPlaneResponse = (httpRes: request.Response, body: any): {body: {body: any, headers?: any}, statusCode?: number} => { // tslint:disable-line:no-any
+export const processDataPlaneResponse = (httpRes: request.Response, body: any): {body: {body: any, headers?: any}, statusCode: number} => { // tslint:disable-line:no-any
     try {
-        if (httpRes) {
-            if (httpRes.headers && httpRes.headers[DEVICE_STATUS_HEADER]) { // handles happy failure cases when error code is returned as a header
-                return {
-                    body: {body: JSON.parse(body)},
-                    statusCode: parseInt(httpRes.headers[DEVICE_STATUS_HEADER] as string) // tslint:disable-line:radix
-                };
-            }
-            else {
-                if (httpRes.statusCode === NO_CONTENT_SUCCESS) {
-                    return {
-                        body: undefined,
-                        statusCode: httpRes.statusCode
-                    };
-                }
-                if (httpRes.statusCode >= SUCCESS && httpRes.statusCode < MULTIPLE_CHOICES) {
-                    return {
-                        body: {body: JSON.parse(body), headers: httpRes.headers},
-                        statusCode: httpRes.statusCode
-                    };
-                } else {
-                    return {
-                        body: {body: JSON.parse(body)},
-                        statusCode: httpRes.statusCode
-                    };
-                }
-            }
+        if (httpRes.headers && httpRes.headers[DEVICE_STATUS_HEADER]) { // handles happy failure cases when error code is returned as a header
+            return {
+                body: {body: body && JSON.parse(body)},
+                statusCode: parseInt(httpRes.headers[DEVICE_STATUS_HEADER] as string) // tslint:disable-line:radix
+            };
         }
         else {
             return {
-                body: {body: JSON.parse(body)}
+                body: {body: body && JSON.parse(body), headers: httpRes.headers},
+                statusCode: httpRes.statusCode
             };
         }
     }

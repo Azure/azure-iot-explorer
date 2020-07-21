@@ -1,0 +1,144 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`dataForm matches snapshot with simple type 1`] = `
+<Fragment>
+  <ErrorBoundary
+    error="errorBoundary.text"
+  >
+    <Form
+      ArrayFieldTemplate={[Function]}
+      ErrorList={[Function]}
+      FieldTemplate={[Function]}
+      ObjectFieldTemplate={[Function]}
+      className="value-section"
+      disabled={false}
+      formData={123}
+      liveValidate={false}
+      noHtml5Validate={false}
+      noValidate={false}
+      omitExtraData={false}
+      onChange={[Function]}
+      safeRenderCompletion={false}
+      schema={
+        Object {
+          "description": "Brightness Level / The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)",
+          "required": null,
+          "title": "brightness",
+          "type": "number",
+        }
+      }
+      showErrorList={false}
+      uiSchema={
+        Object {
+          "ui:description": "Brightness Level / The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)",
+          "ui:disabled": false,
+        }
+      }
+      widgets={
+        Object {
+          "CheckboxWidget": [Function],
+          "DateWidget": [Function],
+          "SelectWidget": [Function],
+        }
+      }
+    >
+      <div
+        className="column-value-text col-sm4"
+      >
+        <StyledLabelBase
+          aria-label="deviceEvents.columns.value"
+        />
+      </div>
+      <CustomizedPrimaryButton
+        className="submit-button"
+        disabled={false}
+        iconProps={
+          Object {
+            "iconName": "CloudUpload",
+          }
+        }
+        text="text"
+      />
+      <CustomizedActionButton
+        className="preview-payload-button"
+        disabled={false}
+        iconProps={
+          Object {
+            "iconName": "Code",
+          }
+        }
+        onClick={[Function]}
+        text="deviceSettings.previewPayloadButtonText"
+      />
+    </Form>
+  </ErrorBoundary>
+  <StyledWithResponsiveMode
+    hidden={true}
+    modalProps={
+      Object {
+        "className": "delete-dialog",
+        "isBlocking": false,
+      }
+    }
+    onDismiss={[Function]}
+  >
+    <span>
+      deviceSettings.noPreviewContent
+    </span>
+  </StyledWithResponsiveMode>
+</Fragment>
+`;
+
+exports[`dataForm matches snapshot with unsupported type 1`] = `
+<Fragment>
+  <form
+    className="json-editor"
+  >
+    <Component
+      tooltipText="notifications.interfaceSchemaNotSupported"
+    >
+      deviceContent.value
+    </Component>
+    <Component
+      className="json-editor"
+      content="123"
+      onChange={[Function]}
+    />
+    <CustomizedPrimaryButton
+      className="submit-button"
+      disabled={false}
+      iconProps={
+        Object {
+          "iconName": "CloudUpload",
+        }
+      }
+      text="text"
+    />
+    <CustomizedActionButton
+      className="preview-payload-button"
+      disabled={false}
+      iconProps={
+        Object {
+          "iconName": "Code",
+        }
+      }
+      onClick={[Function]}
+      text="deviceSettings.previewPayloadButtonText"
+    />
+  </form>
+  <StyledWithResponsiveMode
+    hidden={true}
+    modalProps={
+      Object {
+        "className": "delete-dialog",
+        "isBlocking": false,
+      }
+    }
+    onDismiss={[Function]}
+  >
+    <span>
+      deviceSettings.noPreviewContent
+    </span>
+  </StyledWithResponsiveMode>
+</Fragment>
+`;

@@ -3,147 +3,110 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { RouteComponentProps, withRouter, NavLink, Route } from 'react-router-dom';
-import { Icon } from 'office-ui-fabric-react/lib/Icon';
-import { Label } from 'office-ui-fabric-react/lib/Label';
-import { Dialog, DialogFooter, DialogType } from 'office-ui-fabric-react/lib/Dialog';
-import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/Button';
-import { DetailsList, DetailsListLayoutMode, IColumn, Selection } from 'office-ui-fabric-react/lib/DetailsList';
-import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
-import { Announced } from 'office-ui-fabric-react/lib/Announced';
-import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../shared/contexts/localizationContext';
+import { useTranslation } from 'react-i18next';
+import { NavLink, useLocation, useHistory } from 'react-router-dom';
+import { Icon } from 'office-ui-fabric-react/lib/components/Icon';
+import { Label } from 'office-ui-fabric-react/lib/components/Label';
+import { Dialog, DialogFooter, DialogType } from 'office-ui-fabric-react/lib/components/Dialog';
+import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/components/Button';
+import { DetailsList, DetailsListLayoutMode, IColumn, Selection } from 'office-ui-fabric-react/lib/components/DetailsList';
+import { MarqueeSelection } from 'office-ui-fabric-react/lib/components/MarqueeSelection/MarqueeSelection';
+import { Announced } from 'office-ui-fabric-react/lib/components/Announced';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { DeviceSummary } from '../../../api/models/deviceSummary';
-import DeviceQuery from '../../../api/models/deviceQuery';
-import DeviceListCommandBar from './deviceListCommandBar';
-import Breadcrumb from '../../../shared/components/breadcrumb';
-import DeviceListQuery from './deviceListQuery';
-import ListPaging from './listPaging';
+import { DeviceQuery } from '../../../api/models/deviceQuery';
+import { DeviceListCommandBar } from './deviceListCommandBar';
+import { DeviceListQuery } from './deviceListQuery';
+import { ListPaging } from './listPaging';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
 import { CHECK } from '../../../constants/iconNames';
-import MultiLineShimmer from '../../../shared/components/multiLineShimmer';
+import { useAsyncSagaReducer } from '../../../shared/hooks/useAsyncSagaReducer';
+import { deviceListReducer } from '../reducer';
+import { MultiLineShimmer } from '../../../shared/components/multiLineShimmer';
+import { deviceListSaga } from '../saga';
+import { deviceListStateInitial } from '../state';
+import { listDevicesAction, deleteDevicesAction } from '../actions';
+import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import { LARGE_COLUMN_WIDTH, EXTRA_SMALL_COLUMN_WIDTH, SMALL_COLUMN_WIDTH, MEDIUM_COLUMN_WIDTH } from '../../../constants/columnWidth';
 import '../../../css/_deviceList.scss';
 import '../../../css/_layouts.scss';
 
-export interface DeviceListDataProps {
-    devices?: DeviceSummary[];
-    isFetching: boolean;
-    query?: DeviceQuery;
-}
-
-export interface DeviceListDispatchProps {
-    listDevices: (query?: DeviceQuery) => void;
-    deleteDevices: (deviceIds: string[]) => void;
-}
-
-interface DeviceListState {
-    selectedDeviceIds: string[];
-    showDeleteConfirmation: boolean;
-    refreshQuery: number;
-}
-
 const SHIMMER_COUNT = 10;
-class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceListDispatchProps & RouteComponentProps, DeviceListState> {
-    constructor(props: DeviceListDataProps & DeviceListDispatchProps & RouteComponentProps) {
-        super(props);
+export const DeviceList: React.FC = () => {
+    const { t } = useTranslation();
+    const { pathname } = useLocation();
+    const history = useHistory();
 
-        this.state = {
-            refreshQuery: 0,
-            selectedDeviceIds: [],
-            showDeleteConfirmation: false
-        };
+    const [ localState, dispatch ] = useAsyncSagaReducer(deviceListReducer, deviceListSaga, deviceListStateInitial(), 'deviceListState');
+    const { devices, synchronizationStatus, deviceQuery } = localState;
+    const isFetching = React.useMemo(() => synchronizationStatus === SynchronizationStatus.working, [synchronizationStatus]);
 
-        this.selection = new Selection({
-            onSelectionChanged: () => {
-                this.setState({
-                    selectedDeviceIds: this.selection.getSelection() && this.selection.getSelection().map(selection => (selection as DeviceSummary).deviceId)
-                });
-            }
-          });
-    }
+    const [ refreshQuery, setRefreshQuery ] = React.useState<number>(0);
+    const [ selectedDeviceIds, setSelectedDeviceIds ] = React.useState([]);
+    const [ showDeleteConfirmation, setShowDeleteConfirmation ] = React.useState<boolean>(false);
+    const selection = new Selection({
+        onSelectionChanged: () => {
+            setSelectedDeviceIds(selection.getSelection() && selection.getSelection().map(selectedItem => (selectedItem as DeviceSummary).deviceId));
+        }
+    });
 
-    private selection: Selection;
+    React.useEffect(() => {
+        setQueryAndExecute(deviceQuery);
+    },              []);
 
-    public render() {
-        return (
-            <LocalizationContextConsumer>
-                {(context: LocalizationContextInterface) => (
-                    <div className="view">
-                        <div className="view-command">
-                            {this.showCommandBar()}
-                        </div>
-                        <div className="view-content view-scroll-vertical">
-                            <DeviceListQuery
-                                refresh={this.state.refreshQuery}
-                                setQueryAndExecute={this.setQueryAndExecute}
-                            />
-                            {this.showDeviceList(context)}
-                            {this.state.showDeleteConfirmation && this.deleteConfirmationDialog(context)}
-                        </div>
-                    </div>
-                )}
-            </LocalizationContextConsumer>
-        );
-    }
-
-    private readonly setQueryAndExecute = (query: DeviceQuery) => {
-        this.props.listDevices({
+    const setQueryAndExecute = (query: DeviceQuery) => {
+        dispatch(listDevicesAction.started({
             clauses: query.clauses,
             continuationTokens: query.continuationTokens,
             currentPageIndex: 0,
             deviceId: query.deviceId
-        });
-    }
+        }));
+    };
 
-    public componentDidMount() {
-        this.props.listDevices(this.props.query);
-    }
-
-    private readonly showCommandBar = () => {
+    const showCommandBar = () => {
         return (
             <DeviceListCommandBar
-                disableAdd={this.props.isFetching}
-                disableRefresh={this.props.isFetching}
-                disableDelete={this.state.selectedDeviceIds.length === 0}
-                handleAdd={this.handleAdd}
-                handleRefresh={this.refresh}
-                handleDelete={this.deleteConfirmation}
+                disableAdd={isFetching}
+                disableRefresh={isFetching}
+                disableDelete={selectedDeviceIds.length === 0}
+                handleAdd={handleAdd}
+                handleRefresh={refresh}
+                handleDelete={deleteConfirmation}
             />
         );
-    }
+    };
 
-    private readonly refresh = () => {
-        this.props.listDevices({
+    const refresh = () => {
+        dispatch(listDevicesAction.started({
             clauses: [],
             continuationTokens: [],
             currentPageIndex: 0,
             deviceId: ''
-        });
-        this.setState({refreshQuery: this.state.refreshQuery + 1});
-    }
+        }));
+        setRefreshQuery(refreshQuery + 1);
+    };
 
-    private readonly showDeviceList = (context: LocalizationContextInterface) => {
+    const showDeviceList = () => {
         return (
             <>
-                {this.showPaging()}
+                {showPaging()}
                 <div className="list-detail">
-                    {this.props.isFetching ?
+                    {isFetching ?
                         <MultiLineShimmer shimmerCount={SHIMMER_COUNT}/> :
-                        (this.props.devices && this.props.devices.length !== 0 ?
-                            <MarqueeSelection selection={this.selection}>
+                        (devices && devices.length !== 0 ?
+                            <MarqueeSelection selection={selection}>
                                 <DetailsList
-                                    onRenderItemColumn={this.renderItemColumn(context)}
-                                    items={!this.props.isFetching && this.props.devices}
-                                    columns={this.getColumns(context)}
+                                    onRenderItemColumn={renderItemColumn()}
+                                    items={!isFetching && devices}
+                                    columns={getColumns()}
                                     layoutMode={DetailsListLayoutMode.justified}
-                                    selection={this.selection}
+                                    selection={selection}
                                 />
                             </MarqueeSelection> :
                             <>
-                                <h3>{context.t(ResourceKeys.deviceLists.noDevice)}</h3>
+                                <span className="no-device">{t(ResourceKeys.deviceLists.noDevice)}</span>
                                 <Announced
-                                    message={context.t(ResourceKeys.deviceLists.noDevice)}
+                                    message={t(ResourceKeys.deviceLists.noDevice)}
                                 />
                             </>
                         )
@@ -151,40 +114,40 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
                 </div>
             </>
         );
-    }
+    };
 
-    private readonly showPaging = () => {
+    const showPaging = () => {
         return (
             <ListPaging
-                continuationTokens={this.props.query && this.props.query.continuationTokens}
-                currentPageIndex={this.props.query && this.props.query.currentPageIndex}
-                fetchPage={this.fetchPage}
+                continuationTokens={deviceQuery && deviceQuery.continuationTokens}
+                currentPageIndex={deviceQuery && deviceQuery.currentPageIndex}
+                fetchPage={fetchPage}
             />
         );
-    }
+    };
 
-    private readonly getColumns = (context: LocalizationContextInterface): IColumn[] => {
+    const getColumns = (): IColumn[] => {
         return [
             { fieldName: 'id', isMultiline: true, isResizable: true, key: 'id',
-                maxWidth: LARGE_COLUMN_WIDTH, minWidth: 100, name: context.t(ResourceKeys.deviceLists.columns.deviceId.label) },
+                maxWidth: LARGE_COLUMN_WIDTH, minWidth: 100, name: t(ResourceKeys.deviceLists.columns.deviceId.label) },
             { fieldName: 'status', isResizable: true, key: 'status',
-                maxWidth: EXTRA_SMALL_COLUMN_WIDTH, minWidth: 100, name: context.t(ResourceKeys.deviceLists.columns.status.label)},
+                maxWidth: EXTRA_SMALL_COLUMN_WIDTH, minWidth: 100, name: t(ResourceKeys.deviceLists.columns.status.label)},
             { fieldName: 'connection', isResizable: true, key: 'connection',
-                maxWidth: SMALL_COLUMN_WIDTH, minWidth: 100, name: context.t(ResourceKeys.deviceLists.columns.connection) },
+                maxWidth: SMALL_COLUMN_WIDTH, minWidth: 100, name: t(ResourceKeys.deviceLists.columns.connection) },
             { fieldName: 'authenticationType',  isMultiline: true, isResizable: true, key: 'authenticationType',
-                maxWidth: SMALL_COLUMN_WIDTH,  minWidth: 100, name: context.t(ResourceKeys.deviceLists.columns.authenticationType)},
+                maxWidth: SMALL_COLUMN_WIDTH,  minWidth: 100, name: t(ResourceKeys.deviceLists.columns.authenticationType)},
             { fieldName: 'statusUpdatedTime', isMultiline: true, isResizable: true, key: 'statusUpdatedTime',
-                maxWidth: MEDIUM_COLUMN_WIDTH, minWidth: 100, name: context.t(ResourceKeys.deviceLists.columns.statusUpdatedTime)},
+                maxWidth: MEDIUM_COLUMN_WIDTH, minWidth: 100, name: t(ResourceKeys.deviceLists.columns.statusUpdatedTime)},
             {  fieldName: 'edge', isResizable: true, key: 'edge',
-                minWidth: 100, name: context.t(ResourceKeys.deviceLists.columns.isEdgeDevice.label)},
+                minWidth: 100, name: t(ResourceKeys.deviceLists.columns.isEdgeDevice.label)},
         ];
-    }
+    };
 
     // tslint:disable-next-line:cyclomatic-complexity
-    private readonly renderItemColumn = (context: LocalizationContextInterface) => (item: DeviceSummary, index: number, column: IColumn) => {
+    const renderItemColumn = () => (item: DeviceSummary, index: number, column: IColumn) => {
         switch (column.key) {
             case 'id':
-                const path = this.props.location.pathname.replace(/\/devices\/.*/, `/${ROUTE_PARTS.DEVICES}`);
+                const path = pathname.replace(/\/devices\/.*/, `/${ROUTE_PARTS.DEVICES}`);
                 return (
                     <NavLink key={column.key} to={`${path}/${ROUTE_PARTS.DEVICE_DETAIL}/${ROUTE_PARTS.IDENTITY}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(item.deviceId)}`}>
                         {item.deviceId}
@@ -229,34 +192,33 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
                         key={column.key}
                         iconName={isEdge && CHECK}
                         ariaLabel={isEdge ?
-                            context.t(ResourceKeys.deviceLists.columns.isEdgeDevice.yes) : context.t(ResourceKeys.deviceLists.columns.isEdgeDevice.no)}
+                            t(ResourceKeys.deviceLists.columns.isEdgeDevice.yes) : t(ResourceKeys.deviceLists.columns.isEdgeDevice.no)}
                     />
                 );
             default:
                 return;
         }
-    }
+    };
 
-    private readonly fetchPage = (pageNumber: number) => {
-        const { query } = this.props;
-        return this.props.listDevices({
-            clauses: query.clauses,
-            continuationTokens: query.continuationTokens,
+    const fetchPage = (pageNumber: number) => {
+        dispatch(listDevicesAction.started({
+            clauses: deviceQuery.clauses,
+            continuationTokens: deviceQuery.continuationTokens,
             currentPageIndex: pageNumber,
-            deviceId: query.deviceId
-        });
-    }
+            deviceId: deviceQuery.deviceId
+        }));
+    };
 
-    private readonly deleteConfirmationDialog = (context: LocalizationContextInterface) => {
+    const deleteConfirmationDialog = () => {
         return (
             <div role="dialog">
                 <Dialog
                     className="delete-dialog"
-                    hidden={!this.state.showDeleteConfirmation}
-                    onDismiss={this.closeDeleteDialog}
+                    hidden={!showDeleteConfirmation}
+                    onDismiss={closeDeleteDialog}
                     dialogContentProps={{
-                        subText: context.t(ResourceKeys.deviceLists.commands.delete.confirmationDialog.subText),
-                        title: context.t(ResourceKeys.deviceLists.commands.delete.confirmationDialog.title),
+                        subText: t(ResourceKeys.deviceLists.commands.delete.confirmationDialog.subText),
+                        title: t(ResourceKeys.deviceLists.commands.delete.confirmationDialog.title),
                         type: DialogType.close,
                     }}
                     modalProps={{
@@ -264,44 +226,47 @@ class DeviceListComponent extends React.Component<DeviceListDataProps & DeviceLi
                     }}
                 >
                     <ul className="deleting-devices">
-                        {this.state.selectedDeviceIds && this.state.selectedDeviceIds.map(deviceId =>
+                        {selectedDeviceIds && selectedDeviceIds.map(deviceId =>
                             <li key={`deleting_${deviceId}`}>{deviceId}</li>
                         )}
                     </ul>
                     <DialogFooter>
-                        <PrimaryButton onClick={this.handleDelete} text={context.t(ResourceKeys.deviceLists.commands.delete.confirmationDialog.confirm)} />
-                        <DefaultButton onClick={this.closeDeleteDialog} text={context.t(ResourceKeys.deviceLists.commands.delete.confirmationDialog.cancel)} />
+                        <PrimaryButton onClick={handleDelete} text={t(ResourceKeys.deviceLists.commands.delete.confirmationDialog.confirm)} />
+                        <DefaultButton onClick={closeDeleteDialog} text={t(ResourceKeys.deviceLists.commands.delete.confirmationDialog.cancel)} />
                     </DialogFooter>
                 </Dialog>
             </div>
         );
-    }
+    };
 
-    private readonly deleteConfirmation = () => {
-        this.setState({
-            showDeleteConfirmation: true
-        });
-    }
+    const deleteConfirmation = () => setShowDeleteConfirmation(true);
+    const closeDeleteDialog = () => setShowDeleteConfirmation(false);
 
-    private readonly closeDeleteDialog = () => {
-        this.setState({
-            showDeleteConfirmation: false
-        });
-    }
+    const handleAdd = () => {
+        const path = pathname.replace(/\/devices\/.*/, `/${ROUTE_PARTS.DEVICES}`);
+        history.push(`${path}/${ROUTE_PARTS.ADD}`);
+    };
 
-    private readonly handleAdd = () => {
-        const path = this.props.location.pathname.replace(/\/devices\/.*/, `/${ROUTE_PARTS.DEVICES}`);
-        this.props.history.push(`${path}/${ROUTE_PARTS.ADD}`);
-    }
-
-    private readonly handleDelete = () => {
-        this.props.deleteDevices(this.state.selectedDeviceIds);
-        this.setState({
-            showDeleteConfirmation: false
-        });
+    const handleDelete = () => {
+        dispatch(deleteDevicesAction.started(selectedDeviceIds));
+        setShowDeleteConfirmation(false);
         // clear selection
-        this.selection.setItems([]);
-    }
-}
+        selection.setItems([]);
+    };
 
-export default withRouter(DeviceListComponent);
+    return (
+        <div className="view">
+            <div className="view-command">
+                {showCommandBar()}
+            </div>
+            <div className="view-content view-scroll-vertical">
+                <DeviceListQuery
+                    refresh={refreshQuery}
+                    setQueryAndExecute={setQueryAndExecute}
+                />
+                {showDeviceList()}
+                {showDeleteConfirmation && deleteConfirmationDialog()}
+            </div>
+        </div>
+    );
+};

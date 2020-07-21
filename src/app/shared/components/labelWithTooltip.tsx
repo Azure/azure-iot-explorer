@@ -3,9 +3,9 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { TooltipHost, DirectionalHint } from 'office-ui-fabric-react/lib/Tooltip';
-import { Label, ILabelProps } from 'office-ui-fabric-react/lib/Label';
-import { IconButton } from 'office-ui-fabric-react/lib/Button';
+import { TooltipHost, DirectionalHint } from 'office-ui-fabric-react/lib/components/Tooltip';
+import { Label, ILabelProps } from 'office-ui-fabric-react/lib/components/Label';
+import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
 import { getId } from 'office-ui-fabric-react/lib/Utilities';
 import { INFO } from '../../constants/iconNames';
 import '../../css/_labelWithTooltip.scss';
@@ -14,7 +14,7 @@ export interface LabelWithTooltipProps extends ILabelProps {
     tooltipText?: string;
 }
 
-export default (props: LabelWithTooltipProps) => {
+export const LabelWithTooltip = (props: LabelWithTooltipProps) => {
     const { tooltipText, style } = props;
 
     const buttonId = getId('iconbutton');

@@ -1,16 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`azureResourcesView matches snapshot 1`] = `
-<Component
-  history={[MockFunction]}
-  location={[MockFunction]}
-  match={
-    Object {
-      "params": Object {
-        "hostName": "hostName",
-      },
-      "url": "currentUrl",
-    }
-  }
-/>
-`;
+exports[`azureResourcesView matches snapshot 1`] = `<Component />`;

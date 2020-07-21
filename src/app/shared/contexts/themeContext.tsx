@@ -11,19 +11,24 @@ export enum Theme {
     highContrastBlack = 'highContrastBlack',
     highContrastWhite = 'highContrastWhite'
 }
-export enum MonacoTheme {
-    light = 'vs-light',
-    dark = 'vs-dark',
-    hc_black = 'hc-black'
+export enum EditorTheme {
+    light = 'xcode',
+    dark = 'twilight',
+    hc_black = 'twilight'
 }
 
 export interface ThemeContextInterface {
     theme: Theme;
-    monacoTheme: MonacoTheme;
+    editorTheme: EditorTheme;
     fabricTheme: IPartialTheme;
     updateTheme: (isDarkTheme: boolean) => void;
 }
 
-export const ThemeContext = React.createContext({});
+export const ThemeContext = React.createContext({
+    editorTheme: undefined,
+    fabricTheme: undefined,
+    theme: undefined,
+    updateTheme: (isDarkTheme: boolean) => undefined
+});
 export const ThemeContextProvider = ThemeContext.Provider;
-export const ThemeContextConsumer = ThemeContext.Consumer;
+export const useThemeContext = () => React.useContext(ThemeContext);

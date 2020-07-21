@@ -26,17 +26,19 @@ export const dataToTwinConverter = (formData: any, settingSchema: ParsedJsonSche
 };
 
 export const twinToFormDataConverter = (twin: any, settingSchema: ParsedJsonSchema): {formData: any, error?: Exception} => { // tslint:disable-line:no-any
-    if (!twin) {
-        return {formData: twin};
-    }
-
     try {
         const numberOfMaps = getNumberOfMapsInSchema(settingSchema);
         if (numberOfMaps > 0) {
+            if (!twin) {
+                return {formData: {twin: undefined}};
+            }
             const twinClone = JSON.parse(JSON.stringify(twin)); // important: needs this deep copy to prevent inital twin got changed in store
             const pathsWithKeyValuePair = findPathsTowardsMapType(settingSchema, [], numberOfMaps);
             const formData = convertTwinToJsonFormData(twinClone, pathsWithKeyValuePair, settingSchema.title);
             return {formData};
+        }
+        if (!twin) {
+            return {formData: twin};
         }
     }catch (ex) {
         return {formData: twin, error: ex};
@@ -105,7 +107,7 @@ export const findPathsTowardsMapType = (
 };
 
 export const getNumberOfMapsInSchema = (settingSchema: ParsedJsonSchema): number => {
-    const hasMatch = JSON.stringify(settingSchema).match(/additionalProperties/g);
+    const hasMatch = settingSchema && JSON.stringify(settingSchema).match(/additionalProperties/g);
     return hasMatch ? hasMatch.length : 0;
 };
 
@@ -203,27 +205,35 @@ const convertJsonFormDataToTwin = (
 
                 if (parentFormData[key]) {
                     if (parentFormData[key].length  === 0) {
-                        parentFormData[key] = null; // need to specifically set it to null to remove twin information
+                        parentFormData[key] = undefined; // need to specifically set it to undefined to remove twin information
                         return formData;
                     }
 
                     let deletedKeys: string[] = [];
-                    if (originalFormData && dummyOriginalFormData[key] &&  dummyOriginalFormData[key].length !== parentFormData[key].length) {
+                    if (originalFormData &&
+                        dummyOriginalFormData[key] &&
+                        dummyOriginalFormData[key].length > 0 &&
+                        parentFormData[key] &&
+                        parentFormData[key].length > 0 &&
+                        dummyOriginalFormData[key].length !== parentFormData[key].length) {
                         // find keys that have been deleted from the orignal form and specifically set its value to null
                         const oldKeys: string[] = dummyOriginalFormData[key].map((item: any) => item[mapKeyName]); // tslint:disable-line:no-any
                         const newKeys: string[] = parentFormData[key].map((item: any) => item[mapKeyName]); // tslint:disable-line:no-any
                         deletedKeys = oldKeys.filter((oldKey: string) => newKeys.indexOf(oldKey) === -1);
                     }
 
-                    parentFormData[key].forEach((keyValue: any) => { // tslint:disable-line: no-any
-                        try {
-                            newFormNode[keyValue[mapKeyName]] = keyValue[mapValueName];
-                        }
-                        catch {
-                            return;
-                        }
-                    });
-                    if (deletedKeys) {
+                    if (parentFormData[key] && parentFormData[key].length > 0) {
+                        parentFormData[key].forEach((keyValue: any) => { // tslint:disable-line: no-any
+                            try {
+                                newFormNode[keyValue[mapKeyName]] = keyValue[mapValueName];
+                            }
+                            catch {
+                                return;
+                            }
+                        });
+                    }
+
+                    if (deletedKeys && deletedKeys.length > 0) {
                         deletedKeys.forEach(deletedKey => {
                             newFormNode[deletedKey] = null;
                         });

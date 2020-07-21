@@ -2,14 +2,14 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { utc } from 'moment';
-import { DatePicker, IDatePickerProps } from 'office-ui-fabric-react/lib/DatePicker';
+import { DatePicker, IDatePickerProps } from 'office-ui-fabric-react/lib/components/DatePicker';
 import * as React from 'react';
 import { WidgetProps } from 'react-jsonschema-form';
+import { parseISO, toDate, format } from 'date-fns';
 
 const onChangePassthrough = (props: WidgetProps) => (date: Date) => {
     props.onChange(
-        utc(date).format('YYYY-MM-DD')
+        format(date, 'yyyy-MM-dd')
     );
 };
 
@@ -18,7 +18,7 @@ export const FabricDatePicker = (props: WidgetProps & { options: { fabricProps: 
         <DatePicker
             disabled={props.disabled}
             onSelectDate={onChangePassthrough(props)}
-            value={utc(props.value).toDate()}
+            value={toDate(parseISO(props.value))}
             placeholder={props.placeholder}
             {...props.options.fabricProps}
         />

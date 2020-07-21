@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import 'jest';
-import { generateKey, validateKey, validateThumbprint, validateDeviceId } from './utils';
+import { generateKey, validateKey, validateThumbprint, validateDeviceId, getRootFolder, getParentFolder } from './utils';
 
 describe('utils', () => {
     // tslint:disable-next-line:no-any
@@ -49,6 +49,32 @@ describe('utils', () => {
         it('validates device ID', () => {
             expect(validateDeviceId('123')).toBeTruthy();
             expect(validateDeviceId('12 3')).toBeFalsy();
+        });
+    });
+
+    describe('folder utils', () => {
+        let platformGetter;
+        beforeEach(() => {
+            platformGetter = jest.spyOn(window.navigator, 'platform', 'get');
+        });
+
+        it('returns root folder', () => {
+            platformGetter.mockReturnValue('Win32');
+            expect(getRootFolder()).toEqual(null);
+
+            platformGetter.mockReturnValue('MacIntel');
+            expect(getRootFolder()).toEqual('/');
+        });
+
+        it('returns parent folder', () => {
+            platformGetter.mockReturnValue('Win32');
+            expect(getParentFolder('C:/')).toEqual(null);
+            expect(getParentFolder('C:/Documents')).toEqual('C:/');
+            expect(getParentFolder('C:/Documents/files')).toEqual('C:/Documents');
+
+            platformGetter.mockReturnValue('MacIntel');
+            expect(getParentFolder('/Users')).toEqual('/');
+            expect(getParentFolder('/Users/User1')).toEqual('/Users');
         });
     });
 });

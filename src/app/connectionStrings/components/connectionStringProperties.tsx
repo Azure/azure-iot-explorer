@@ -3,8 +3,8 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import MaskedCopyableTextFieldContainer from '../../shared/components/maskedCopyableTextFieldContainer';
-import { useLocalizationContext } from '../../shared/contexts/localizationContext';
+import { useTranslation } from 'react-i18next';
+import { MaskedCopyableTextField } from '../../shared/components/maskedCopyableTextField';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 
 export interface ConnectionStringPropertiesProps {
@@ -16,11 +16,11 @@ export interface ConnectionStringPropertiesProps {
 
 export const ConnectionStringProperties: React.FC<ConnectionStringPropertiesProps> = props => {
     const { connectionString, hostName, sharedAccessKey, sharedAccessKeyName} = props;
-    const { t } = useLocalizationContext();
+    const { t } = useTranslation();
 
     return (
         <>
-            <MaskedCopyableTextFieldContainer
+            <MaskedCopyableTextField
                 ariaLabel={t(ResourceKeys.connectionStrings.properties.hostName.ariaLabel, {connectionString})}
                 allowMask={false}
                 label={t(ResourceKeys.connectionStrings.properties.hostName.label)}
@@ -28,7 +28,7 @@ export const ConnectionStringProperties: React.FC<ConnectionStringPropertiesProp
                 readOnly={true}
             />
 
-            <MaskedCopyableTextFieldContainer
+            <MaskedCopyableTextField
                 ariaLabel={t(ResourceKeys.connectionStrings.properties.sharedAccessPolicyName.ariaLabel, {connectionString})}
                 allowMask={false}
                 label={t(ResourceKeys.connectionStrings.properties.sharedAccessPolicyName.label)}
@@ -36,9 +36,9 @@ export const ConnectionStringProperties: React.FC<ConnectionStringPropertiesProp
                 readOnly={true}
             />
 
-            <MaskedCopyableTextFieldContainer
+            <MaskedCopyableTextField
                 ariaLabel={t(ResourceKeys.connectionStrings.properties.sharedAccessPolicyKey.ariaLabel, {connectionString})}
-                allowMask={false}
+                allowMask={true}
                 label={t(ResourceKeys.connectionStrings.properties.sharedAccessPolicyKey.label)}
                 value={sharedAccessKey}
                 readOnly={true}

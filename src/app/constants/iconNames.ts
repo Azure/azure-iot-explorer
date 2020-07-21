@@ -2,6 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
+export const ADD = 'Add';
 export const ACCEPT = 'Accept';
 export const CANCEL = 'Cancel';
 export const CHECK = 'SkypeCheck';
@@ -13,6 +14,9 @@ export const CLOSE = 'ChromeClose';
 export const CODE = 'Code';
 export const COPY = 'Copy';
 export const EMPTY_CHECKBOX = 'Checkbox';
+export const EDIT = 'EditSolid12';
+export const FOLDER = 'OpenFolderHorizontal';
+export const HELP = 'Help';
 export const INFO = 'Info';
 export const NAV = 'GlobalNavButton';
 export const REFRESH = 'Refresh';
@@ -28,6 +32,8 @@ export const DIRECT_METHOD = 'Remote';
 export const CLOUD_TO_DEVICE_MESSAGE = 'Mail';
 export const ITEM = 'LocationDot';
 export const NAVIGATE_BACK = 'NavigateBack';
+export const REPO = 'Repo';
+export const UNDO = 'Undo';
 
 export enum GroupedList {
     OPEN = 'ChevronDown',

@@ -1,0 +1,14 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+@import 'themes';
+
+.no-component {
+    margin-left: 9px;
+}
+
+.interface-definition-json-editor {
+    padding-top: 20px;
+    height: calc(100vh - 650px);
+}

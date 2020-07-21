@@ -1,0 +1,206 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`modelRepositoryLocationView matches snapshot when locations greater than 0 1`] = `
+<div
+  className="view"
+>
+  <Component
+    message="common.navigation.confirm"
+    when={false}
+  />
+  <div
+    className="view-command"
+  >
+    <StyledCommandBarBase
+      farItems={
+        Array [
+          Object {
+            "ariaLabel": "modelRepository.commands.help.ariaLabel",
+            "iconProps": Object {
+              "iconName": "Help",
+            },
+            "key": "help",
+            "onClick": [Function],
+            "text": "modelRepository.commands.help.label",
+          },
+        ]
+      }
+      items={
+        Array [
+          Object {
+            "ariaLabel": "modelRepository.commands.save.ariaLabel",
+            "disabled": true,
+            "iconProps": Object {
+              "iconName": "Save",
+            },
+            "key": "save",
+            "onClick": [Function],
+            "text": "modelRepository.commands.save.label",
+          },
+          Object {
+            "ariaLabel": "modelRepository.commands.add.ariaLabel",
+            "disabled": false,
+            "iconProps": Object {
+              "iconName": "Add",
+            },
+            "key": "add",
+            "subMenuProps": Object {
+              "items": Array [
+                Object {
+                  "ariaLabel": "modelRepository.commands.addPublicSource.ariaLabel",
+                  "disabled": false,
+                  "iconProps": Object {
+                    "iconName": "Repo",
+                  },
+                  "key": "PUBLIC",
+                  "onClick": [Function],
+                  "text": "modelRepository.commands.addPublicSource.label",
+                },
+                Object {
+                  "ariaLabel": "modelRepository.commands.addLocalSource.ariaLabel",
+                  "disabled": true,
+                  "iconProps": Object {
+                    "iconName": "OpenFolderHorizontal",
+                  },
+                  "key": "LOCAL",
+                  "onClick": [Function],
+                  "text": "modelRepository.commands.addLocalSource.labelInBrowser",
+                },
+              ],
+            },
+            "text": "modelRepository.commands.add.label",
+          },
+          Object {
+            "ariaLabel": "modelRepository.commands.revert.ariaLabel",
+            "disabled": true,
+            "iconProps": Object {
+              "iconName": "Undo",
+            },
+            "key": "revert",
+            "onClick": [Function],
+            "text": "modelRepository.commands.revert.label",
+          },
+        ]
+      }
+    />
+  </div>
+  <div
+    className="view-scroll-vertical"
+  >
+    <Component
+      empty={false}
+    />
+    <Component
+      onChangeRepositoryLocationSettings={[Function]}
+      repositoryLocationSettings={
+        Array [
+          Object {
+            "repositoryLocationType": "LOCAL",
+            "value": null,
+          },
+        ]
+      }
+      repositoryLocationSettingsErrors={Object {}}
+    />
+  </div>
+</div>
+`;
+
+exports[`modelRepositoryLocationView matches snapshot when no locations 1`] = `
+<div
+  className="view"
+>
+  <Component
+    message="common.navigation.confirm"
+    when={false}
+  />
+  <div
+    className="view-command"
+  >
+    <StyledCommandBarBase
+      farItems={
+        Array [
+          Object {
+            "ariaLabel": "modelRepository.commands.help.ariaLabel",
+            "iconProps": Object {
+              "iconName": "Help",
+            },
+            "key": "help",
+            "onClick": [Function],
+            "text": "modelRepository.commands.help.label",
+          },
+        ]
+      }
+      items={
+        Array [
+          Object {
+            "ariaLabel": "modelRepository.commands.save.ariaLabel",
+            "disabled": true,
+            "iconProps": Object {
+              "iconName": "Save",
+            },
+            "key": "save",
+            "onClick": [Function],
+            "text": "modelRepository.commands.save.label",
+          },
+          Object {
+            "ariaLabel": "modelRepository.commands.add.ariaLabel",
+            "disabled": false,
+            "iconProps": Object {
+              "iconName": "Add",
+            },
+            "key": "add",
+            "subMenuProps": Object {
+              "items": Array [
+                Object {
+                  "ariaLabel": "modelRepository.commands.addPublicSource.ariaLabel",
+                  "disabled": false,
+                  "iconProps": Object {
+                    "iconName": "Repo",
+                  },
+                  "key": "PUBLIC",
+                  "onClick": [Function],
+                  "text": "modelRepository.commands.addPublicSource.label",
+                },
+                Object {
+                  "ariaLabel": "modelRepository.commands.addLocalSource.ariaLabel",
+                  "disabled": true,
+                  "iconProps": Object {
+                    "iconName": "OpenFolderHorizontal",
+                  },
+                  "key": "LOCAL",
+                  "onClick": [Function],
+                  "text": "modelRepository.commands.addLocalSource.labelInBrowser",
+                },
+              ],
+            },
+            "text": "modelRepository.commands.add.label",
+          },
+          Object {
+            "ariaLabel": "modelRepository.commands.revert.ariaLabel",
+            "disabled": true,
+            "iconProps": Object {
+              "iconName": "Undo",
+            },
+            "key": "revert",
+            "onClick": [Function],
+            "text": "modelRepository.commands.revert.label",
+          },
+        ]
+      }
+    />
+  </div>
+  <div
+    className="view-scroll-vertical"
+  >
+    <Component
+      empty={true}
+    />
+    <Component
+      onChangeRepositoryLocationSettings={[Function]}
+      repositoryLocationSettings={Array []}
+      repositoryLocationSettingsErrors={Object {}}
+    />
+  </div>
+</div>
+`;

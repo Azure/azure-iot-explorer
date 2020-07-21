@@ -1,0 +1,117 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/devices/deviceCommands matches snapshot while interface cannot be found 1`] = `
+<Fragment>
+  <StyledCommandBarBase
+    className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "deviceCommands.command.close",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "deviceCommands.command.close",
+          "onClick": [Function],
+        },
+      ]
+    }
+    items={
+      Array [
+        Object {
+          "ariaLabel": "deviceCommands.command.refresh",
+          "iconProps": Object {
+            "iconName": "Refresh",
+          },
+          "key": "Refresh",
+          "name": "deviceCommands.command.refresh",
+          "onClick": [Function],
+        },
+      ]
+    }
+  />
+  <StyledLabelBase
+    className="no-pnp-content"
+  >
+    deviceCommands.noCommands
+  </StyledLabelBase>
+</Fragment>
+`;
+
+exports[`components/devices/deviceCommands matches snapshot with a commandSchema 1`] = `
+<Fragment>
+  <StyledCommandBarBase
+    className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "deviceCommands.command.close",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "deviceCommands.command.close",
+          "onClick": [Function],
+        },
+      ]
+    }
+    items={
+      Array [
+        Object {
+          "ariaLabel": "deviceCommands.command.refresh",
+          "iconProps": Object {
+            "iconName": "Refresh",
+          },
+          "key": "Refresh",
+          "name": "deviceCommands.command.refresh",
+          "onClick": [Function],
+        },
+      ]
+    }
+  />
+  <Component
+    commandSchemas={
+      Array [
+        Object {
+          "commandModelDefinition": Object {
+            "@type": "Command",
+            "commandType": "synchronous",
+            "description": "This command will begin blinking the LED for given time interval.",
+            "name": "blink",
+            "request": Object {
+              "name": "blinkRequest",
+              "schema": "long",
+            },
+            "response": Object {
+              "name": "blinkResponse",
+              "schema": "string",
+            },
+          },
+          "parsedSchema": Object {
+            "name": "blink",
+            "requestSchema": Object {
+              "definitions": Object {},
+              "required": Array [],
+              "title": "blinkRequest",
+              "type": Array [
+                "number",
+                "null",
+              ],
+            },
+            "responseSchema": Object {
+              "definitions": Object {},
+              "required": Array [],
+              "title": "blinkResponse",
+              "type": "string",
+            },
+          },
+        },
+      ]
+    }
+    componentName="foo"
+    deviceId={null}
+    invokeDigitalTwinInterfaceCommand={[Function]}
+  />
+</Fragment>
+`;

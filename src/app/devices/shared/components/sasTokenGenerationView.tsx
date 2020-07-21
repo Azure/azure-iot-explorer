@@ -3,17 +3,17 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
-import { Dropdown, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
-import { SpinButton } from 'office-ui-fabric-react/lib/SpinButton';
+import { useTranslation } from 'react-i18next';
+import { PrimaryButton } from 'office-ui-fabric-react/lib/components/Button';
+import { Dropdown, IDropdownOption } from 'office-ui-fabric-react/lib/components/Dropdown';
+import { SpinButton } from 'office-ui-fabric-react/lib/components/SpinButton';
 import { Position } from 'office-ui-fabric-react/lib/utilities/positioning';
-import { LocalizationContextConsumer, LocalizationContextInterface } from '../../../shared/contexts/localizationContext';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
-import MaskedCopyableTextFieldContainer from '../../../shared/components/maskedCopyableTextFieldContainer';
-import CollapsibleSection from '../../../shared/components/collapsibleSection';
+import { MaskedCopyableTextField } from '../../../shared/components/maskedCopyableTextField';
+import { CollapsibleSection } from '../../../shared/components/collapsibleSection';
 import { ModuleIdentity } from '../../../api/models/moduleIdentity';
 import { SAS_EXPIRES_MINUTES } from '../../../constants/devices';
-import { generateSASTokenConnectionStringForModuleIdentity, generateSASTokenConnectionStringForDevice } from '../../deviceContent/components/deviceIdentity/deviceIdentityHelper';
+import { generateSASTokenConnectionStringForModuleIdentity, generateSASTokenConnectionStringForDevice } from '../../deviceIdentity/components/deviceIdentityHelper';
 import { DeviceIdentity } from '../../../api/models/deviceIdentity';
 import '../../../css/_sasToken.scss';
 
@@ -29,135 +29,66 @@ export interface SasTokenGenerationState {
     sasTokenSelectedKey: string;
 }
 
-export default class SasTokenGenerationView extends React.Component<SasTokenGenerationDataProps, SasTokenGenerationState> {
+export const SasTokenGenerationView: React.FC<SasTokenGenerationDataProps> = (props: SasTokenGenerationDataProps) => {
+    const { t } = useTranslation();
+    const {activeAzureResourceHostName, moduleIdentity, deviceIdentity } = props;
 
-    constructor(props: SasTokenGenerationDataProps) {
-        super(props);
+    const [ sasTokenConnectionString, setSasTokenConnectionString ] = React.useState('');
+    const [ sasTokenExpiration, setSasTokenExpiration ] = React.useState(SAS_EXPIRES_MINUTES);
+    const [ sasTokenSelectedKey, setSasTokenSelectedKey ] = React.useState('');
 
-        this.state = {
-            sasTokenConnectionString: '',
-            sasTokenExpiration: SAS_EXPIRES_MINUTES,
-            sasTokenSelectedKey: '',
-        };
-    }
+    const renderKeyDropdown = () => {
 
-    public render(): JSX.Element {
-
-        const { moduleIdentity, deviceIdentity } = this.props;
-
-        if (!moduleIdentity && !deviceIdentity) {
-            return (<></>);
-        }
-
-        const { sasTokenSelectedKey, sasTokenExpiration } = this.state;
-        const position = Position && Position.top || 0;
-
-        return (
-            <LocalizationContextConsumer>
-                {(context: LocalizationContextInterface) => (
-                    <CollapsibleSection
-                        expanded={false}
-                        label={context.t(ResourceKeys.deviceIdentity.authenticationType.sasToken.label)}
-                        tooltipText={context.t(ResourceKeys.deviceIdentity.authenticationType.sasToken.toolTip)}
-                    >
-                        <div className="sas-token-section">
-                            {this.renderKeyDropdown(context)}
-                            <SpinButton
-                                className={'sas-token-expiration-field'}
-                                label={context.t(ResourceKeys.deviceIdentity.authenticationType.sasToken.expiration)}
-                                labelPosition={position}
-                                min={0}
-                                max={Number.MAX_SAFE_INTEGER}
-                                onBlur={this.onExpirationChanged}
-                                onIncrement={this.onExpirationIncrement}
-                                onDecrement={this.onExpirationDecrement}
-                                value={`${sasTokenExpiration}`}
-                            />
-                            <MaskedCopyableTextFieldContainer
-                                ariaLabel={context.t(ResourceKeys.deviceIdentity.authenticationType.sasToken.textField.ariaLabel)}
-                                label={context.t(ResourceKeys.deviceIdentity.authenticationType.sasToken.textField.label)}
-                                value={this.state.sasTokenConnectionString}
-                                allowMask={true}
-                                readOnly={true}
-                            />
-                            <PrimaryButton
-                                className={'sas-token-generate-button'}
-                                title={context.t(ResourceKeys.deviceIdentity.authenticationType.sasToken.generateButton.title)}
-                                text={context.t(ResourceKeys.deviceIdentity.authenticationType.sasToken.generateButton.text)}
-                                onClick={this.onGenerateSASClicked}
-                                disabled={sasTokenSelectedKey === ''}
-                            />
-                        </div>
-                    </CollapsibleSection>
-                )}
-            </LocalizationContextConsumer>
-        );
-    }
-
-    private readonly renderKeyDropdown = (context: LocalizationContextInterface) => {
-        const { moduleIdentity, deviceIdentity } = this.props;
         const authentication = moduleIdentity ? moduleIdentity.authentication : deviceIdentity.authentication;
         const options: IDropdownOption[] = [
             {
                 key: authentication.symmetricKey.primaryKey,
-                text: context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryKey)
+                text: t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryKey)
             },
             {
                 key: authentication.symmetricKey.secondaryKey,
-                text: context.t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryKey)
+                text: t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryKey)
             }
         ];
 
         return (
             <Dropdown
                 className={'sas-token-key-field'}
-                label={context.t(ResourceKeys.deviceIdentity.authenticationType.sasToken.symmetricKey)}
-                selectedKey={this.state.sasTokenSelectedKey || undefined}
+                label={t(ResourceKeys.deviceIdentity.authenticationType.sasToken.symmetricKey)}
+                selectedKey={sasTokenSelectedKey || undefined}
                 options={options}
-                onChange={this.onSelectedKeyChanged}
+                onChange={onSelectedKeyChanged}
                 required={true}
             />
         );
-    }
+    };
 
-    private readonly onSelectedKeyChanged = (event: React.FormEvent<HTMLDivElement>, item: IDropdownOption): void => {
-        this.setState({
-            sasTokenSelectedKey: item.key as string
-        });
-    }
+    const onSelectedKeyChanged = (event: React.FormEvent<HTMLDivElement>, item: IDropdownOption): void => {
+        setSasTokenSelectedKey(item.key as string);
+    };
 
-    private readonly onExpirationChanged = (event: React.FocusEvent<HTMLInputElement>) => {
+    const onExpirationChanged = (event: React.FocusEvent<HTMLInputElement>) => {
         const numValue = + event.target.value;
-        const sasTokenExpiration = !!numValue && numValue >= 0 && numValue <= Number.MAX_SAFE_INTEGER ? numValue : 0;
+        const newSasTokenExpiration = !!numValue && numValue >= 0 && numValue <= Number.MAX_SAFE_INTEGER ? numValue : 0;
+        setSasTokenExpiration(newSasTokenExpiration);
+    };
 
-        this.setState({
-            sasTokenExpiration
-        });
-    }
-
-    private readonly onExpirationIncrement = (value: string) => {
+    const onExpirationIncrement = (value: string) => {
         const numValue = (+value);
 
-        const sasTokenExpiration = numValue < Number.MAX_SAFE_INTEGER ? numValue + 1 : Number.MAX_SAFE_INTEGER;
-        this.setState({
-            sasTokenExpiration
-        });
-    }
+        const newSasTokenExpiration = numValue < Number.MAX_SAFE_INTEGER ? numValue + 1 : Number.MAX_SAFE_INTEGER;
+        setSasTokenExpiration(newSasTokenExpiration);
+    };
 
-    private readonly onExpirationDecrement = (value: string) => {
+    const onExpirationDecrement = (value: string) => {
         const numValue = (+value);
 
-        const sasTokenExpiration = numValue > 0 ? numValue - 1 : 0;
-        this.setState({
-            sasTokenExpiration
-        });
-    }
+        const newSasTokenExpiration = numValue > 0 ? numValue - 1 : 0;
+        setSasTokenExpiration(newSasTokenExpiration);
+    };
 
-    private readonly onGenerateSASClicked = () => {
-        const { activeAzureResourceHostName, moduleIdentity, deviceIdentity } = this.props;
-        const { sasTokenExpiration, sasTokenSelectedKey } = this.state;
-
-        const sasTokenConnectionString = moduleIdentity ? generateSASTokenConnectionStringForModuleIdentity(
+    const onGenerateSASClicked = () => {
+        const newSasTokenConnectionString = moduleIdentity ? generateSASTokenConnectionStringForModuleIdentity(
             activeAzureResourceHostName,
             moduleIdentity.deviceId,
             moduleIdentity.moduleId,
@@ -170,8 +101,49 @@ export default class SasTokenGenerationView extends React.Component<SasTokenGene
             sasTokenSelectedKey
         );
 
-        this.setState({
-            sasTokenConnectionString
-        });
+        setSasTokenConnectionString(newSasTokenConnectionString);
+    };
+
+    if (!moduleIdentity && !deviceIdentity) {
+        return (<></>);
     }
-}
+
+    const position = Position && Position.top || 0;
+
+    return (
+        <CollapsibleSection
+            expanded={false}
+            label={t(ResourceKeys.deviceIdentity.authenticationType.sasToken.label)}
+            tooltipText={t(ResourceKeys.deviceIdentity.authenticationType.sasToken.toolTip)}
+        >
+            <div className="sas-token-section">
+                {renderKeyDropdown()}
+                <SpinButton
+                    className={'sas-token-expiration-field'}
+                    label={t(ResourceKeys.deviceIdentity.authenticationType.sasToken.expiration)}
+                    labelPosition={position}
+                    min={0}
+                    max={Number.MAX_SAFE_INTEGER}
+                    onBlur={onExpirationChanged}
+                    onIncrement={onExpirationIncrement}
+                    onDecrement={onExpirationDecrement}
+                    value={`${sasTokenExpiration}`}
+                />
+                <MaskedCopyableTextField
+                    ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.sasToken.textField.ariaLabel)}
+                    label={t(ResourceKeys.deviceIdentity.authenticationType.sasToken.textField.label)}
+                    value={sasTokenConnectionString}
+                    allowMask={true}
+                    readOnly={true}
+                />
+                <PrimaryButton
+                    className={'sas-token-generate-button'}
+                    title={t(ResourceKeys.deviceIdentity.authenticationType.sasToken.generateButton.title)}
+                    text={t(ResourceKeys.deviceIdentity.authenticationType.sasToken.generateButton.text)}
+                    onClick={onGenerateSASClicked}
+                    disabled={sasTokenSelectedKey === ''}
+                />
+            </div>
+        </CollapsibleSection>
+    );
+};

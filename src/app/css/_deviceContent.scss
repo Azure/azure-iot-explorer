@@ -16,11 +16,12 @@ $nav-width: 20%;
     .device-content-nav-bar.collapsed {
         width:$nav-collapsed-width;
 
-        .nav-links {
+        .ms-Nav-linkText {
             display:none;
         }
     }
     .device-content-nav-bar {
+        transition: all 0.5s;
         overflow-y: auto;
         display: flex;
         flex-Direction: column;
@@ -28,7 +29,7 @@ $nav-width: 20%;
         height: calc(100vh - 131px);
         float: left;
         @include themify($themes) {
-                border: {
+            border: {
                 right: {
                     width: 1px;
                     style: solid;
@@ -39,6 +40,7 @@ $nav-width: 20%;
         }
     }
     .device-content-detail {
+        transition: margin-left .5s;
         margin: 0;
         margin-left: $nav-width;
         .form-group {
@@ -60,28 +62,20 @@ $nav-width: 20%;
                     padding: 1px 12px 1px 12px;
                 }
                 .form-control:disabled {
-                    border: none;                    
+                    @include form-control-readonly;
+                    border: none;
                     height: 32px;
                 }
             }
         }
         .each-property {
             margin-bottom: 10px;
-        } 
-        .ms-CommandBar {
-            @include themify($themes) {
-                background: themed('backgroundColor');
-                border-bottom: 1px solid themed('borderColor');
-                .ms-Button--commandBar {
-                    background: themed('backgroundColor');
-                }
-            }
         }
         h3 {
             font-size: 20px;
             padding-left: 26px;
         }
-        
+
     }
     .device-content-detail.collapsed {
         margin-left: $nav-collapsed-width;

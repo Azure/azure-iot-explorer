@@ -25,7 +25,7 @@ exports[`ConnectionStringsView matches snapshot when connection string count exc
     />
   </div>
   <div
-    className="view-content view-scroll-vertical"
+    className="view-scroll-vertical"
   >
     <div
       className="connection-strings"
@@ -59,7 +59,7 @@ exports[`ConnectionStringsView matches snapshot when connection strings present 
     />
   </div>
   <div
-    className="view-content view-scroll-vertical"
+    className="view-scroll-vertical"
   >
     <div
       className="connection-strings"
@@ -67,9 +67,9 @@ exports[`ConnectionStringsView matches snapshot when connection strings present 
       <Component
         connectionString="connectionString1"
         key="connectionString1"
-        onDeleteConnectionString={[MockFunction]}
+        onDeleteConnectionString={[Function]}
         onEditConnectionString={[Function]}
-        onSelectConnectionString={[MockFunction]}
+        onSelectConnectionString={[Function]}
       />
     </div>
   </div>
@@ -101,11 +101,12 @@ exports[`ConnectionStringsView matches snapshot when no connection strings 1`] =
     />
   </div>
   <div
-    className="view-content view-scroll-vertical"
+    className="view-scroll-vertical"
   >
     <div
       className="connection-strings"
     />
+    <Component />
   </div>
 </div>
 `;

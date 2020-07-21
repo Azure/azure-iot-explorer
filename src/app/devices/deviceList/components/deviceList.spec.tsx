@@ -4,24 +4,22 @@
  **********************************************************/
 import 'jest';
 import { shallow } from 'enzyme';
+import { act } from 'react-dom/test-utils';
 import * as React from 'react';
-import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
-import DeviceListComponent, { DeviceListDataProps, DeviceListDispatchProps } from './deviceList';
-import { testSnapshot, mountWithLocalization } from '../../../shared/utils/testHelpers';
+import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
+import { DeviceList } from './deviceList';
+import { deviceListStateInitial, DeviceListStateInterface } from '../state';
 import { DeviceSummary } from '../../../api/models/deviceSummary';
+import { DeviceListCommandBar } from './deviceListCommandBar';
+import * as AsyncSagaReducer from '../../../shared/hooks/useAsyncSagaReducer';
+import { listDevicesAction } from '../actions';
 
 const pathname = `/`;
 
-const location: any = { // tslint:disable-line:no-any
-    pathname
-};
-const routerprops: any = { // tslint:disable-line:no-any
-    history: {
-        location
-    },
-    location,
-    match: {}
-};
+jest.mock('react-router-dom', () => ({
+    useHistory: () => ({ push: jest.fn() }),
+    useLocation: () => ({ pathname })
+}));
 
 const devices: DeviceSummary[] = [
     {
@@ -36,44 +34,37 @@ const devices: DeviceSummary[] = [
     }
 ];
 
-const deviceListDataProps: DeviceListDataProps = {
-
-    devices,
-    isFetching: false
+const initialState: DeviceListStateInterface = {
+    ...deviceListStateInitial(),
+    devices
 };
 
-const mockListDevices = jest.fn();
-const deviceListDispatchProps: DeviceListDispatchProps = {
-    deleteDevices: jest.fn(),
-    listDevices: mockListDevices
-};
+describe('DeviceList', () => {
+    beforeEach(() => {
+        jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([initialState, jest.fn()]);
+    });
 
-const getComponent = (overrides = {}) => {
-    const props = {
-        ...deviceListDataProps,
-        ...deviceListDispatchProps,
-        ...routerprops,
-        ...overrides
-    };
+    afterEach(() => {
+        jest.clearAllMocks();
+    });
 
-    return (
-        <DeviceListComponent {...props} />
-    );
-};
-
-describe('components/devices/DeviceList', () => {
     it('matches snapshot', () => {
-        testSnapshot(getComponent());
-        const wrapper = mountWithLocalization(getComponent(), true, true);
-        const deviceList = wrapper.find(DeviceListComponent);
+        const listDevicesActionSpy = jest.spyOn(listDevicesAction, 'started');
+        const wrapper = shallow(<DeviceList/>);
 
-        const commandBar = deviceList.find(CommandBar).first();
+        expect(wrapper).toMatchSnapshot();
+        const commandBar = wrapper.find(DeviceListCommandBar).first();
         // click the refresh button
-        commandBar.props().items[1].onClick(null);
+        act(() => commandBar.props().handleRefresh());
         wrapper.update();
-        expect(mockListDevices).toBeCalled();
+        expect(listDevicesActionSpy).lastCalledWith({
+            clauses: [],
+            continuationTokens: [],
+            currentPageIndex: 0,
+            deviceId: ''
+        });
 
         // delete button is disabled by default
-        expect(commandBar.props().items[2].disabled).toBeTruthy(); // tslint:disable-line:no-magic-numbers
+        expect(wrapper.find(DeviceListCommandBar).first().props().disableDelete).toBeTruthy(); // tslint:disable-line:no-magic-numbers
     });
 });

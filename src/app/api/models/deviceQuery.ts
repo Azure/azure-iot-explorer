@@ -2,7 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-export default interface DeviceQuery {
+export interface DeviceQuery {
     deviceId: string;
     clauses: QueryClause[];
     continuationTokens: string[];
@@ -17,12 +17,8 @@ export interface QueryClause {
 }
 
 export enum ParameterType {
-    // non pnp
     edge = 'capabilities.iotEdge',
     status = 'status',
-    // pnp
-    capabilityModelId = 'dcm',
-    interfaceId = 'interface',
 }
 
 export enum OperationType {

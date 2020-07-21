@@ -4,23 +4,14 @@
  **********************************************************/
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { CONNECTION_STRING_LIST_MAX_LENGTH } from '../../constants/browserStorage';
-import { getConnectionInfoFromConnectionString, getRepoConnectionInfoFromConnectionString } from './../../api/shared/utils';
+import { getConnectionInfoFromConnectionString } from './../../api/shared/utils';
 
 export const generateConnectionStringValidationError  = (value: string): string => {
     if (!value) {
         return ResourceKeys.connectivityPane.connectionStringComboBox.errorMessages.required;
     }
 
-    if (isRepoConnectionString(value)) {
-        return ResourceKeys.connectivityPane.connectionStringComboBox.errorMessages.invalid;
-    }
-
     return isHubConnectionString(value) ? null : ResourceKeys.connectivityPane.connectionStringComboBox.errorMessages.invalid;
-};
-
-const isRepoConnectionString = (value: string) => {
-    const connectionObject = getRepoConnectionInfoFromConnectionString(value);
-    return connectionObject.repositoryId;
 };
 
 const isHubConnectionString = (value: string) => {

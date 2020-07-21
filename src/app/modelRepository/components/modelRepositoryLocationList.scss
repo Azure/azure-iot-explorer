@@ -1,0 +1,56 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+ @import '../../css/themes';
+
+.location-list {
+    margin-left: 20px;
+    max-width: 500px;
+    .item {
+        display: grid;
+        grid-template-columns: 40px 1fr;
+        grid-template-areas: "numbering item";
+        .numbering {
+            @include themify($themes) {
+                color: themed('numbering') !important;
+            }
+            font-size: 32px;
+            line-height: 37px;
+            margin-top: 10px;
+            margin-right: 33px;
+            grid-area: numbering;
+        }
+
+        .location-item {
+            @include themify($themes) {
+                border: {
+                    width: 1px;
+                    style: solid;
+                    color: themed('navBarBorderColor');
+                }
+                box-shadow: themed('shadow');
+            }
+            grid-area: item;
+            position: relative;
+            list-style: none;
+            margin-bottom: 8px;
+            margin-top: 8px;
+            border-radius: 2px;
+
+            padding: {
+                bottom: 14px;
+                left: 22px;
+                top: 14px;
+                right: 12px;
+            }
+            .remove-button {
+                height: 16px;
+                width: 16px;
+                position: absolute;
+                right: 12px;
+                top: 15px;
+            }
+        }
+    }
+}

@@ -28,10 +28,10 @@
          border: 1px solid themed('borderColor')
       }
       @include themify($themes) {
-         border-bottom: 1px solid themed('backgroundColor')
+         border-bottom: 2px solid themed('backgroundColor')
       }
 
-      font-size: 16px;
+      font-size: 20px;
       border-top-left-radius: 5px;
       border-top-right-radius: 5px;
       padding-top: 10px;
@@ -40,7 +40,10 @@
       margin-bottom: -1px;
       text-overflow: ellipsis;
       overflow: hidden;
-      width: 400px;
+      width: 300px;
+      .text {
+         font-size: 20px;
+      }
    }
 
    .properties {
@@ -54,3 +57,4 @@
 
    }
 }
+
