@@ -22,6 +22,7 @@ import { testModelDefinition } from '../../pnp/components/deviceEvents/testData'
 import { REPOSITORY_LOCATION_TYPE } from '../../../constants/repositoryLocationTypes';
 import { ErrorBoundary } from '../../shared/components/errorBoundary';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
+import * as TransformHelper from '../../../api/dataTransforms/transformHelper';
 
 const pathname = `#/devices/detail/events/?id=device1`;
 const currentTime = new Date();
@@ -56,6 +57,9 @@ describe('deviceEvents', () => {
             jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(undefined));
             jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(false));
             jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(false));
+            jest.spyOn(TransformHelper, 'parseDateTimeString').mockImplementationOnce(parameters => {
+                return '9:44:58 PM, 10/14/2019';
+            });
         });
 
         afterEach(() => {
@@ -152,6 +156,9 @@ describe('deviceEvents', () => {
             jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(undefined));
             jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(false));
             jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(true));
+            jest.spyOn(TransformHelper, 'parseDateTimeString').mockImplementationOnce(parameters => {
+                return '9:44:58 PM, 10/14/2019';
+            });
         });
 
         afterEach(() => {
