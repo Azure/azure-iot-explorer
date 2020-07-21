@@ -49,7 +49,7 @@ If you'd like to package the app yourself, please refer to the [FAQ](https://git
 - Click on the device name to see the device details and interact with the device.
 - Check out the [list of features that we support](https://github.com/Azure/azure-iot-explorer/wiki)
 
-<img src="doc/screenshots/device_details.JPG" alt="device_details" width="800"/>
+<img src="doc/screenRecords/device_features.gif" alt="device_details" width="800"/>
 
 ### Plug and Play Preview
 
@@ -64,7 +64,8 @@ If you'd like to package the app yourself, please refer to the [FAQ](https://git
 
 - Click the name of any component, and switch between interface, properties, commands and telemetry to start interacting with the PnP device.
 
-<img src="doc/screenRecords/pnp_interaction.gif" alt="pnp_interaction" width="800"/>
+<img src="doc/screenRecords/pnp_interaction_property.gif" alt="pnp_interaction_property" width="800"/>
+<img src="doc/screenRecords/pnp_interaction_telemetry.gif" alt="pnp_interaction_telemetry" width="800"/>
 
 ## Contributing
 
