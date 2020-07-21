@@ -6,8 +6,6 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Route, useLocation, useHistory } from 'react-router-dom';
 import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
-import { SpinnerSize, Spinner } from 'office-ui-fabric-react/lib/components/Spinner';
-import { useThemeContext } from '../../../../shared/contexts/themeContext';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString, getModuleIdentityIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { REFRESH, NAVIGATE_BACK } from '../../../../constants/iconNames';
@@ -26,7 +24,6 @@ import '../../../../css/_moduleIdentityDetail.scss';
 
 export const ModuleIdentityTwin: React.FC = () => {
     const { t } = useTranslation();
-    const { editorTheme } = useThemeContext();
     const { search, pathname } = useLocation();
     const history = useHistory();
     const moduleId = getModuleIdentityIdFromQueryString(search);

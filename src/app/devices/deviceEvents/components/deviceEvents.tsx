@@ -40,7 +40,7 @@ import { getSchemaValidationErrors } from '../../../shared/utils/jsonSchemaAdapt
 import { ParsedJsonSchema } from '../../../api/models/interfaceJsonParserOutput';
 import { TelemetryContent } from '../../../api/models/modelDefinition';
 import { getLocalizedData } from '../../../api/dataTransforms/modelDefinitionTransform';
-import '../../../css/_deviceEvents.scss';
+import './deviceEvents.scss';
 
 const JSON_SPACES = 2;
 const LOADING_LOCK = 2000;
@@ -314,7 +314,7 @@ export const DeviceEvents: React.FC = () => {
     const renderRawEvents = () => {
         const filteredEvents = componentName ? events.filter(result => filterMessage(result)) : events;
         return (
-            <div className={componentName ? 'scrollable-pnp-telemetry' : 'scrollable-telemetry'}>
+            <>
             {
                 filteredEvents && filteredEvents.map((event: Message, index) => {
                     const modifiedEvents = showSystemProperties ? event : {
@@ -330,14 +330,14 @@ export const DeviceEvents: React.FC = () => {
                     );
                 })
             }
-            </div>
+            </>
         );
     };
 
     //#region pnp specific render
     const renderPnpModeledEvents = () => {
         return (
-            <div className={componentName ? 'scrollable-pnp-telemetry' : 'scrollable-telemetry'}>
+            <>
                 {
                     events && events.length > 0 &&
                     <>
@@ -362,7 +362,7 @@ export const DeviceEvents: React.FC = () => {
                         </section>
                     </>
                 }
-            </div>
+            </>
         );
     };
 
@@ -636,6 +636,9 @@ export const DeviceEvents: React.FC = () => {
         return <MultiLineShimmer/>;
     }
 
+    const className = componentName ?
+        'scrollable-pnp-telemetry' + (!useBuiltInEventHub ? ' scrollable-pnp-telemetry-custom' : '') :
+        'scrollable-telemetry' + (!useBuiltInEventHub ? ' scrollable-telemetry-custom' : '');
     return (
         <div className="device-events" key="device-events">
             <CommandBar
@@ -651,7 +654,9 @@ export const DeviceEvents: React.FC = () => {
             {renderCustomEventHub()}
             <div className="device-events-container">
                 {renderLoader()}
-                {showPnpModeledEvents ? renderPnpModeledEvents() : renderRawEvents()}
+                <div className={className}>
+                    {showPnpModeledEvents ? renderPnpModeledEvents() : renderRawEvents()}
+                </div>
             </div>
             {loadingAnnounced}
         </div>

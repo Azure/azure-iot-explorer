@@ -4,9 +4,9 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation, Route, useRouteMatch } from 'react-router-dom';
+import { useLocation, Route, useRouteMatch, useHistory } from 'react-router-dom';
 import { Stack } from 'office-ui-fabric-react/lib/components/Stack';
-import { ActionButton } from 'office-ui-fabric-react/lib/components/Button';
+import { Pivot, PivotItem } from 'office-ui-fabric-react/lib/components/Pivot';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { DeviceSettings } from './deviceSettings/deviceSettings';
@@ -16,11 +16,12 @@ import { DeviceInterfaces } from './deviceInterfaces/deviceInterfaces';
 import { DeviceEvents } from '../../deviceEvents/components/deviceEvents';
 import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString, getComponentNameFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { usePnpStateContext } from '../../../shared/contexts/pnpStateContext';
-import '../../../css/_pivotHeader.scss';
+import './digitalTwinDetail.scss';
 
 export const DigitalTwinDetail: React.FC = () => {
     const { t } = useTranslation();
     const { search, pathname } = useLocation();
+    const history = useHistory();
     const { url } = useRouteMatch();
     const { getModelDefinition } = usePnpStateContext();
     const deviceId = getDeviceIdFromQueryString(search);
@@ -33,24 +34,31 @@ export const DigitalTwinDetail: React.FC = () => {
         getModelDefinition();
     },              []);
 
+    const [selectedKey, setSelectedKey] = React.useState((NAV_LINK_ITEMS_PNP.find(item => pathname.indexOf(item) > 0) || ROUTE_PARTS.INTERFACES).toString());
+    const path = pathname.replace(/\/ioTPlugAndPlayDetail\/.*/, `/${ROUTE_PARTS.DIGITAL_TWINS_DETAIL}`);
     const pivotItems = NAV_LINK_ITEMS_PNP.map(nav =>  {
         const text = t((ResourceKeys.deviceContent.navBar as any)[nav]); // tslint:disable-line:no-any
-        const path = pathname.replace(/\/ioTPlugAndPlayDetail\/.*/, `/${ROUTE_PARTS.DIGITAL_TWINS_DETAIL}`);
-        const linkUrl = `#${path}/${nav}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}&${ROUTE_PARAMS.COMPONENT_NAME}=${componentName}&${ROUTE_PARAMS.INTERFACE_ID}=${interfaceId}`;
-        const isCurrentPivot = pathname.indexOf(nav) > 0;
-        return (
-            <Stack.Item className={`pivot-item ${isCurrentPivot ? 'pivot-item-active' : ''}`} key={nav}>
-                <ActionButton href={linkUrl} >
-                    {text}
-                </ActionButton>
-            </Stack.Item>
-        );
+        return (<PivotItem key={nav} headerText={text} itemKey={nav} />);
     });
+    const handleLinkClick = (item: PivotItem) => {
+        setSelectedKey(item.props.itemKey);
+        const linkUrl = `${path}/${item.props.itemKey}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}&${ROUTE_PARAMS.COMPONENT_NAME}=${componentName}&${ROUTE_PARAMS.INTERFACE_ID}=${interfaceId}`;
+        history.push(linkUrl);
+    };
+    const pivot = (
+        <Pivot
+            aria-label={t(ResourceKeys.digitalTwin.pivot.ariaLabel)}
+            selectedKey={selectedKey}
+            onLinkClick={handleLinkClick}
+        >
+            {pivotItems}
+        </Pivot>
+    );
 
     return (
         <>
-            <Stack horizontal={true} className="pivot">
-                {pivotItems}
+            <Stack horizontal={true} className="digitaltwin-pivot">
+                {pivot}
             </Stack>
             <Route path={`${url}/${ROUTE_PARTS.SETTINGS}/`} component={DeviceSettings}/>
             <Route path={`${url}/${ROUTE_PARTS.PROPERTIES}/`} component={DeviceProperties}/>

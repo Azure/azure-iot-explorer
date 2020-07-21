@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 
-@import 'themes';
+@import '../../../css/themes';
 
 .device-events {
     .device-events-container {
@@ -68,13 +68,21 @@
     }
 
     .scrollable-telemetry {
-        height: calc(100vh - 400px);
+        height: calc(100vh - 390px);
         overflow-y: auto;
         overflow-x: hidden;
     }
 
+    .scrollable-telemetry-custom {
+        height: calc(100vh - 482px) !important;
+    }
+
+    .scrollable-pnp-telemetry-custom {
+        height: calc(100vh - 525px) !important;
+    }
+
     .scrollable-pnp-telemetry {
-        height: calc(100vh - 490px);
+        height: calc(100vh - 433px);
         overflow-y: auto;
         overflow-x: hidden;
         .column-value-text {

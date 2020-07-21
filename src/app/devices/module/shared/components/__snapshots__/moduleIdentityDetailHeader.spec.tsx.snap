@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ModuleIdentityDetailHeader matches snapshot 1`] = `
+<Stack
+  className="module-pivot"
+  horizontal={true}
+>
+  <StyledPivotBase
+    aria-label="digitalTwin.pivot.ariaLabel"
+    onLinkClick={[Function]}
+    selectedKey="moduleDetail"
+  >
+    <PivotItem
+      headerText="deviceContent.navBar.moduleDetail"
+      itemKey="moduleDetail"
+      key="moduleDetail"
+    />
+    <PivotItem
+      headerText="deviceContent.navBar.moduleTwin"
+      itemKey="moduleTwin"
+      key="moduleTwin"
+    />
+  </StyledPivotBase>
+</Stack>
+`;
