@@ -851,6 +851,8 @@ export class ResourceKeys {
       portIsInUseError : "notifications.portIsInUseError",
       savedToIotHubConnectionString : "notifications.savedToIotHubConnectionString",
       sendingCloudToDeviceMessage : "notifications.sendingCloudToDeviceMessage",
+      startEventMonitoringOnError : "notifications.startEventMonitoringOnError",
+      stopEventMonitoringOnError : "notifications.stopEventMonitoringOnError",
       updateDeviceOnError : "notifications.updateDeviceOnError",
       updateDeviceOnSucceed : "notifications.updateDeviceOnSucceed",
       updateDeviceTwinOnError : "notifications.updateDeviceTwinOnError",

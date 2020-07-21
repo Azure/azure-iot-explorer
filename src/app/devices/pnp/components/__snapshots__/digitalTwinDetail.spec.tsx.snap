@@ -3,59 +3,40 @@
 exports[`DigitalTwinDetail matches snapshot 1`] = `
 <Fragment>
   <Stack
-    className="pivot"
+    className="digitaltwin-pivot"
     horizontal={true}
   >
-    <StackItem
-      className="pivot-item "
-      key="interfaces"
+    <StyledPivotBase
+      aria-label="digitalTwin.pivot.ariaLabel"
+      onLinkClick={[Function]}
+      selectedKey="interfaces"
     >
-      <CustomizedActionButton
-        href="#/#/devices/deviceDetail/ioTPlugAndPlay/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1/interfaces/?deviceId=null&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1"
-      >
-        deviceContent.navBar.interfaces
-      </CustomizedActionButton>
-    </StackItem>
-    <StackItem
-      className="pivot-item "
-      key="properties"
-    >
-      <CustomizedActionButton
-        href="#/#/devices/deviceDetail/ioTPlugAndPlay/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1/properties/?deviceId=null&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1"
-      >
-        deviceContent.navBar.properties
-      </CustomizedActionButton>
-    </StackItem>
-    <StackItem
-      className="pivot-item "
-      key="settings"
-    >
-      <CustomizedActionButton
-        href="#/#/devices/deviceDetail/ioTPlugAndPlay/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1/settings/?deviceId=null&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1"
-      >
-        deviceContent.navBar.settings
-      </CustomizedActionButton>
-    </StackItem>
-    <StackItem
-      className="pivot-item "
-      key="commands"
-    >
-      <CustomizedActionButton
-        href="#/#/devices/deviceDetail/ioTPlugAndPlay/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1/commands/?deviceId=null&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1"
-      >
-        deviceContent.navBar.commands
-      </CustomizedActionButton>
-    </StackItem>
-    <StackItem
-      className="pivot-item "
-      key="events"
-    >
-      <CustomizedActionButton
-        href="#/#/devices/deviceDetail/ioTPlugAndPlay/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1/events/?deviceId=null&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1"
-      >
-        deviceContent.navBar.events
-      </CustomizedActionButton>
-    </StackItem>
+      <PivotItem
+        headerText="deviceContent.navBar.interfaces"
+        itemKey="interfaces"
+        key="interfaces"
+      />
+      <PivotItem
+        headerText="deviceContent.navBar.properties"
+        itemKey="properties"
+        key="properties"
+      />
+      <PivotItem
+        headerText="deviceContent.navBar.settings"
+        itemKey="settings"
+        key="settings"
+      />
+      <PivotItem
+        headerText="deviceContent.navBar.commands"
+        itemKey="commands"
+        key="commands"
+      />
+      <PivotItem
+        headerText="deviceContent.navBar.events"
+        itemKey="events"
+        key="events"
+      />
+    </StyledPivotBase>
   </Stack>
   <Component
     component={[Function]}

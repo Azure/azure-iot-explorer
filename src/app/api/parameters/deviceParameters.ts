@@ -36,7 +36,6 @@ export interface MonitorEventsParameters {
     customEventHubConnectionString?: string;
     hubConnectionString?: string;
 
-    fetchSystemProperties?: boolean;
     startTime?: Date;
 }
 

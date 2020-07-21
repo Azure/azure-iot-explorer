@@ -342,7 +342,7 @@ export const eventHubProvider = async (res: any, body: any) =>  { // tslint:disa
                 res.status(NOT_FOUND).send('Nothing to return');
             }
 
-            return handleMessages(body.deviceId, client, hubInfo, partitionIds, startTime, !!body.fetchSystemProperties, body.consumerGroup);
+            return handleMessages(body.deviceId, client, hubInfo, partitionIds, startTime, body.consumerGroup);
         } else {
             res.status(CONFLICT).send('Client currently stopping');
         }
@@ -376,7 +376,7 @@ export const stopClient = async () => {
     });
 };
 
-const handleMessages = async (deviceId: string, eventHubClient: EventHubClient, hubInfo: EventHubRuntimeInformation, partitionIds: string[], startTime: number, fetchSystemProperties: boolean, consumerGroup: string) => {
+const handleMessages = async (deviceId: string, eventHubClient: EventHubClient, hubInfo: EventHubRuntimeInformation, partitionIds: string[], startTime: number, consumerGroup: string) => {
     const messages: Message[] = []; // tslint:disable-line: no-any
     const onMessage = async (eventData: any) => { // tslint:disable-line: no-any
         if (eventData && eventData.annotations && eventData.annotations[IOTHUB_CONNECTION_DEVICE_ID] === deviceId) {
@@ -385,9 +385,7 @@ const handleMessages = async (deviceId: string, eventHubClient: EventHubClient, 
                 enqueuedTime: eventData.enqueuedTimeUtc,
                 properties: eventData.applicationProperties
             };
-            if (fetchSystemProperties) {
-                message.systemProperties = eventData.annotations;
-            }
+            message.systemProperties = eventData.annotations;
             messages.push(message);
         }
     };

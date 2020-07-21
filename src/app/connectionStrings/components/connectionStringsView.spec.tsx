@@ -12,7 +12,6 @@ import { ConnectionStringEditView } from './connectionStringEditView';
 import { CONNECTION_STRING_LIST_MAX_LENGTH } from '../../constants/browserStorage';
 import * as AsyncSagaReducer from '../../shared/hooks/useAsyncSagaReducer';
 import { connectionStringsStateInitial } from '../state';
-import * as actions from '../actions';
 import { upsertConnectionStringAction } from '../actions';
 
 jest.mock('react-router-dom', () => ({

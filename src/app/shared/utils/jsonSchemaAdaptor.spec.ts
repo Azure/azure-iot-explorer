@@ -106,6 +106,7 @@ describe('parse interface model definition to Json schema', () => {
                                 type: 'string',
                             },
                             telemetryName: {
+                                pattern: '^[a-zA-Z](?:[a-zA-Z0-9_]*[a-zA-Z0-9])?$',
                                 type: 'string',
                             },
                         },
