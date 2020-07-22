@@ -637,7 +637,7 @@
         "responseTimeoutTooltip": "Number of seconds to wait until a result is received from the Direct method.",
         "invokeMethodButtonText": "Invoke method",
         "payload" : "Payload",
-        "payloadTooltip" : "The payload for the Direct method to invoke on this device which needs to be in JSON format",
+        "payloadTooltip" : "The payload for the Direct method to invoke on the device",
         "result" : "Result"
     },
     "cloudToDeviceMessage": {
