@@ -157,6 +157,14 @@ else {
     app.on('ready', () => {
         createWindow();
         createMenu();
+        process.on('uncaughtException', err => {
+            const messageBoxOptions = {
+                    message: err && err.message || 'Something went wrong. Please try restart the app.',
+                    title: 'Error in controller process',
+                    type: 'error',
+                };
+            electron.dialog.showMessageBox(messageBoxOptions);
+        });
     });
 }
 

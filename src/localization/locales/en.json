@@ -814,7 +814,7 @@
         "getModuleIdentityOnError": "Failed to get module identity {{moduleId}}: {{error}}",
         "deleteModuleIdentityOnSuccess": "Successfully deleted module {{moduleId}}",
         "deleteModuleIdentityOnError": "Failed to delete module identity {{moduleId}}: {{error}}",
-        "portIsInUseError": "The port {{portNumber}} is in use. To configure a custom port value, set system environment variable 'AZURE_IOT_EXPLORER_PORT' to an available port number. To learn more, visit https://github.com/Azure/azure-iot-explorer/wiki/FAQ ",
+        "portIsInUseError": "The port {{portNumber}} is in use. To get around with the issue, configure a custom port by setting the system environment variable 'AZURE_IOT_EXPLORER_PORT' to an available port number. To learn more, please visit https://github.com/Azure/azure-iot-explorer/wiki/FAQ",
         "modelRepoistorySettingsUpdated": "Model repository locations successfully updated.",
         "startEventMonitoringOnError": "Faile to start monitoring device telemetry: {{error}}",
         "stopEventMonitoringOnError": "Faile to stop monitoring device telemetry: {{error}}"

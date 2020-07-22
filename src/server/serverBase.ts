@@ -56,7 +56,11 @@ export class ServerBase {
         app.get(readFileUri, handleReadFileRequest);
         app.get(getDirectoriesUri, handleGetDirectoriesRequest);
 
-        app.listen(this.port);
+        app.listen(this.port).on('error', () => { throw new Error(
+           `Failed to start the app on port ${this.port} as it is in use.
+            You can still view static pages, but request cannot be made to the services if the port is still occupied.
+            To get around with the issue, configure a custom port by setting the system environment variable 'AZURE_IOT_EXPLORER_PORT' to an available port number.
+            To learn more, please visit https://github.com/Azure/azure-iot-explorer/wiki/FAQ`); });
     }
 }
 
