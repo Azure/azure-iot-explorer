@@ -105,7 +105,7 @@ describe('server', () => {
 
     it('generates data plane response with no httpResponse', () => {
         const response = processDataPlaneResponse(null, null);
-        expect(response.body).toEqual(undefined);
+        expect(response.body).toEqual(`Cannot read property 'headers' of null`);
     });
 
     it('generates data plane response using device status code', () => {

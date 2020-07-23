@@ -57,24 +57,19 @@ export const fetchModelDefinition = async (parameters: FetchModelParameters): Pr
 };
 
 export const validateModelDefinitions = async (modelDefinitions: string) => {
-    try {
-        const apiVersionQueryString = `?${API_VERSION}${MODEL_REPO_API_VERSION}`;
-        const controllerRequest: RequestInitWithUri = {
-            body: modelDefinitions,
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'x-ms-client-request-id': 'azure iot explorer: validate model definition'
-            },
-            method: HTTP_OPERATION_TYPES.Post,
-            uri: `https://${PUBLIC_REPO_HOSTNAME}/models/validate${apiVersionQueryString}`
-        };
+    const apiVersionQueryString = `?${API_VERSION}${MODEL_REPO_API_VERSION}`;
+    const controllerRequest: RequestInitWithUri = {
+        body: modelDefinitions,
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'x-ms-client-request-id': 'azure iot explorer: validate model definition'
+        },
+        method: HTTP_OPERATION_TYPES.Post,
+        uri: `https://${PUBLIC_REPO_HOSTNAME}/models/validate${apiVersionQueryString}`
+    };
 
-        return (await request(controllerRequest)).ok;
-    }
-    catch (error) {
-        throw new Error(error);
-    }
+    return (await request(controllerRequest)).ok;
 };
 
 export interface RequestInitWithUri extends RequestInit {

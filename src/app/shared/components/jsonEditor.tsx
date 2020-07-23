@@ -39,6 +39,7 @@ export const JSONEditor: React.FC<JSONEditorProps> = (props: JSONEditorProps) =>
             editor.setValue(content);
             editor.on('change', onUpdate);
             editor.clearSelection();
+            editor.setShowPrintMargin(false);
         }
     },              [content, editorTheme]);
 

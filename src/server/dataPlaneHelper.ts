@@ -47,9 +47,9 @@ export const processDataPlaneResponse = (httpRes: request.Response, body: any): 
             };
         }
     }
-    catch {
+    catch (error) {
         return {
-            body: undefined,
+            body: error.message,
             statusCode: SERVER_ERROR
         };
     }

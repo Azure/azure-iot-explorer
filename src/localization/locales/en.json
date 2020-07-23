@@ -66,8 +66,8 @@
             "redirectLink": "Please visit Home."
         },
         "modelDefinitions": {
-            "headerText": "Plug and Play configuration",
-            "redirect": "Looking for Plug and Play settings?",
+            "headerText": "IoT Plug and Play configuration",
+            "redirect": "Looking for IoT Plug and Play settings?",
             "redirectLink": "Please visit Home."
         },
         "questions": {
@@ -105,7 +105,7 @@
         "cloudToDeviceMessage": "Cloud-to-device message",
         "moduleIdentity": "Module identity",
         "interfaces": "Interface",
-        "properties": "Properties (non-writable)",
+        "properties": "Properties (read-only)",
         "settings": "Properties (writable)",
         "commands": "Commands",
         "ioTPlugAndPlay": "IoT Plug and Play components",
@@ -117,7 +117,7 @@
         "navBar": {
             "identity": "Device identity",
             "twin": "Device twin",
-            "properties": "Properties (non-writable)",
+            "properties": "Properties (read-only)",
             "settings": "Properties (writable)",
             "commands": "Commands",
             "events": "Telemetry",
@@ -448,14 +448,14 @@
     "digitalTwin": {
         "headerText": "IoT Plug and Play components",
         "modelId": "Model ID",
-        "modelContainsNoComponents": "Model '{{modelId}}' contains no Plug and Play components",
+        "modelContainsNoComponents": "Model '{{modelId}}' contains no IoT Plug and Play components",
         "componentName": "Component",
         "steps": {
-            "zero": "Your device is not recognized as a Plug and Play device. To learn more, please check out ",
-            "first": "Step 1. Your device has been discovered as a Plug and Play device",
-            "secondSuccess": "Step 2. We've resolved your Plug and Play model",
+            "zero": "Your device is not recognized as a IoT Plug and Play device. To learn more, please check out ",
+            "first": "Step 1. Your device has been discovered as a IoT Plug and Play device",
+            "secondSuccess": "Step 2. We've resolved your IoT Plug and Play model",
             "secondFailure": "Step 2. We are not able to retrieve model definition for {{modelId}}",
-            "third": "Step 3. Continue your Plug and Play journey by drilling down to each component",
+            "third": "Step 3. Continue your IoT Plug and Play journey by drilling down to each component",
             "explanation": "If you have defined 'Property', 'Command' or 'Telemetry' in model {{modelId}}, you would be able to see 'Default component' in the table below. If you havea defined 'Component', you would be able to see a list of components down below."
         },
         "pivot": {
@@ -473,8 +473,8 @@
             "openReportedValuePanel": "Click to view value",
             "close": "Back"
         },
-        "headerText": "Non-writable properties",
-        "noProperties": "ComponentName {{componentName}} contains no non-writable property definitions",
+        "headerText": "Read-only properties",
+        "noProperties": "ComponentName {{componentName}} contains no read-only property definitions",
         "columns": {
             "name": "Name (Display Name / Description)",
             "value": "Value",
@@ -835,8 +835,8 @@
     "modelRepository" : {
         "empty": {
             "header": "No model repository locations to display",
-            "description": "Model repository locations specify where the application looks to find Plug and Play model definitions. Locations are saved to application storage and can be edited or removed at any time by returning",
-            "help": "What is Plug and Play Preview"
+            "description": "Model repository locations specify where the application looks to find IoT Plug and Play model definitions. Locations are saved to application storage and can be edited or removed at any time by returning",
+            "help": "What is IoT Plug and Play Preview"
         },
         "instruction": "We'll look for your model definition in the following order. Please drag and drop to change it. Click 'Add' to enable more ways we can resolve your model definitions.",
         "commands": {
