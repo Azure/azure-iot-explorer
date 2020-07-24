@@ -5,7 +5,7 @@
 import 'jest';
 import * as utils from './utils';
 import { ParameterType, OperationType, DeviceCapability, DeviceStatus } from '../models/deviceQuery';
-import { LIST_PLUG_AND_PLAY_DEVICES } from '../../constants/devices';
+import { LIST_IOT_DEVICES } from '../../constants/devices';
 
 describe('utils', () => {
     it('builds query string', () => {
@@ -16,7 +16,7 @@ describe('utils', () => {
                 currentPageIndex: 1,
                 deviceId: 'device1',
             }
-        )).toEqual(`${LIST_PLUG_AND_PLAY_DEVICES} WHERE STARTSWITH(devices.deviceId, 'device1')`);
+        )).toEqual(`${LIST_IOT_DEVICES} WHERE STARTSWITH(devices.deviceId, 'device1')`);
 
         expect(utils.buildQueryString(
             {
@@ -25,11 +25,11 @@ describe('utils', () => {
                 currentPageIndex: 1,
                 deviceId: '',
             }
-        )).toEqual(LIST_PLUG_AND_PLAY_DEVICES + ' ');
+        )).toEqual(LIST_IOT_DEVICES + ' ');
 
         expect(utils.buildQueryString(
             null
-        )).toEqual(LIST_PLUG_AND_PLAY_DEVICES);
+        )).toEqual(LIST_IOT_DEVICES);
 
         expect(utils.buildQueryString(
             {
@@ -44,7 +44,7 @@ describe('utils', () => {
                 currentPageIndex: 1,
                 deviceId: '',
             }
-        )).toEqual(`${LIST_PLUG_AND_PLAY_DEVICES} WHERE (${ParameterType.edge}=true)`);
+        )).toEqual(`${LIST_IOT_DEVICES} WHERE (${ParameterType.edge}=true)`);
 
         expect(utils.buildQueryString(
             {
@@ -59,7 +59,7 @@ describe('utils', () => {
                 currentPageIndex: 1,
                 deviceId: '',
             }
-        )).toEqual(`${LIST_PLUG_AND_PLAY_DEVICES} WHERE (${ParameterType.status}='enabled')`);
+        )).toEqual(`${LIST_IOT_DEVICES} WHERE (${ParameterType.status}='enabled')`);
     });
 
     it('converts query object to string', () => {
@@ -108,15 +108,6 @@ describe('utils', () => {
         expect(utils.escapeValue(`'enabled'`)).toEqual(`'enabled'`);
         expect(utils.escapeValue('enabled')).toEqual(`'enabled'`);
         expect(utils.escapeValue(`o'really`)).toEqual(`'o'really'`);
-    });
-
-    it('coverts pnp query clauses', () => {
-        expect(utils.toPnPClause(utils.PnPQueryPrefix.HAS_CAPABILITY_MODEL, 'urn:contoso:com:EnvironmentalSensor:1')).toEqual(
-            `HAS_CAPABILITYMODEL('urn:contoso:com:EnvironmentalSensor', 1)`
-        );
-        expect(utils.toPnPClause(utils.PnPQueryPrefix.HAS_INTERFACE, 'urn:contoso:com:EnvironmentalSensor')).toEqual(
-            `HAS_INTERFACE('urn:contoso:com:EnvironmentalSensor')`
-        );
     });
 
     it('gets connectionObject from hub connection string', () => {

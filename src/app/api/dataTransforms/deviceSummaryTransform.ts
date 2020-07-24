@@ -14,6 +14,7 @@ export const transformDevice = (device: Device): DeviceSummary => {
         deviceId: device.DeviceId,
         iotEdge: device.IotEdge,
         lastActivityTime: parseDateTimeString(device.LastActivityTime),
+        modelId: device.ModelId,
         status: device.Status,
         statusUpdatedTime: parseDateTimeString(device.StatusUpdatedTime)
     };

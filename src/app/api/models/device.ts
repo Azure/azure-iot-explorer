@@ -11,6 +11,7 @@ export interface Device {
     AuthenticationType: string;
     IotEdge: boolean;
     ConnectionState: string;
+    ModelId: string;
 }
 
 export interface DataPlaneResponse<T> {

@@ -11,4 +11,5 @@ export interface DeviceSummary {
     authenticationType: string;
     connectionState: string;
     iotEdge: boolean;
+    modelId: string;
 }

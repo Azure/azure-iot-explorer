@@ -138,6 +138,8 @@ export const DeviceList: React.FC = () => {
                 maxWidth: SMALL_COLUMN_WIDTH,  minWidth: 100, name: t(ResourceKeys.deviceLists.columns.authenticationType)},
             { fieldName: 'statusUpdatedTime', isMultiline: true, isResizable: true, key: 'statusUpdatedTime',
                 maxWidth: MEDIUM_COLUMN_WIDTH, minWidth: 100, name: t(ResourceKeys.deviceLists.columns.statusUpdatedTime)},
+            { fieldName: 'modelId', isMultiline: true, isResizable: true, key: 'modelId',
+                maxWidth: LARGE_COLUMN_WIDTH, minWidth: 100, name: t(ResourceKeys.deviceLists.columns.isPnpDevice)},
             {  fieldName: 'edge', isResizable: true, key: 'edge',
                 minWidth: 100, name: t(ResourceKeys.deviceLists.columns.isEdgeDevice.label)},
         ];
@@ -194,6 +196,14 @@ export const DeviceList: React.FC = () => {
                         ariaLabel={isEdge ?
                             t(ResourceKeys.deviceLists.columns.isEdgeDevice.yes) : t(ResourceKeys.deviceLists.columns.isEdgeDevice.no)}
                     />
+                );
+            case 'modelId':
+                return (
+                    <Label
+                        key={column.key}
+                    >
+                        {item.modelId}
+                    </Label>
                 );
             default:
                 return;

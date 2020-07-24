@@ -35,8 +35,15 @@ export const generateDataPlaneResponse = (httpRes: request.Response, body: any, 
 export const processDataPlaneResponse = (httpRes: request.Response, body: any): {body: {body: any, headers?: any}, statusCode: number} => { // tslint:disable-line:no-any
     try {
         if (httpRes.headers && httpRes.headers[DEVICE_STATUS_HEADER]) { // handles happy failure cases when error code is returned as a header
+            let deviceResponseBody;
+            try {
+                deviceResponseBody = body && JSON.parse(body);
+            }
+            catch {
+                throw new Error('Failed to parse response from device. The response is expected to be a JSON document up to 128 KB. Learn more: https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-direct-methods#method-lifecycle.');
+            }
             return {
-                body: {body: body && JSON.parse(body)},
+                body: {body: deviceResponseBody},
                 statusCode: parseInt(httpRes.headers[DEVICE_STATUS_HEADER] as string) // tslint:disable-line:radix
             };
         }
@@ -49,7 +56,7 @@ export const processDataPlaneResponse = (httpRes: request.Response, body: any): 
     }
     catch (error) {
         return {
-            body: error.message,
+            body: {body: {Message: error.message}},
             statusCode: SERVER_ERROR
         };
     }
