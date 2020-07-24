@@ -17,6 +17,7 @@ describe('utils', () => {
                 DeviceId: 'test',
                 IotEdge: false,
                 LastActivityTime: '2019-07-18T10:01:20.0568390Z',
+                ModelId: 'dtmi:com:example:Thermostat;1',
                 Status: 'Enabled',
                 StatusUpdatedTime: null,
 
@@ -28,6 +29,7 @@ describe('utils', () => {
                 deviceId: 'test',
                 iotEdge: false,
                 lastActivityTime: '3:01:20 AM, July 18, 2019',
+                modelId: 'dtmi:com:example:Thermostat;1',
                 status: 'Enabled',
                 statusUpdatedTime: null,
             };
@@ -42,6 +44,7 @@ describe('utils', () => {
             expect(transformedDevice.lastActivityTime.match(isLocalTime)).toBeTruthy();
             expect(transformedDevice.status).toEqual(deviceSummary.status);
             expect(transformedDevice.statusUpdatedTime).toEqual(deviceSummary.statusUpdatedTime);
+            expect(transformedDevice.modelId).toEqual(deviceSummary.modelId);
         });
     });
 });

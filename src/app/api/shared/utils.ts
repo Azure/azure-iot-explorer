@@ -4,7 +4,7 @@
  **********************************************************/
 import { createHmac } from 'crypto';
 import { IoTHubConnectionSettings } from '../services/devicesService';
-import { LIST_PLUG_AND_PLAY_DEVICES, SAS_EXPIRES_MINUTES } from '../../constants/devices';
+import { LIST_IOT_DEVICES, SAS_EXPIRES_MINUTES } from '../../constants/devices';
 import { DeviceQuery, QueryClause, ParameterType, OperationType } from '../models/deviceQuery';
 import { MILLISECONDS_PER_SECOND, SECONDS_PER_MINUTE } from '../../constants/shared';
 
@@ -81,8 +81,8 @@ export const getConnectionInfoFromConnectionString = (connectionString: string):
 
 export const buildQueryString = (query: DeviceQuery) => {
     return query ?
-        `${LIST_PLUG_AND_PLAY_DEVICES} ${queryToString(query)}` :
-        LIST_PLUG_AND_PLAY_DEVICES;
+        `${LIST_IOT_DEVICES} ${queryToString(query)}` :
+        LIST_IOT_DEVICES;
 };
 
 export const queryToString = (query: DeviceQuery) => {
@@ -125,17 +125,6 @@ export const escapeValue = (value: string) => {
         return `'${value}'`;
     }
     return value;
-};
-
-export const toPnPClause = (pnpFunctionName: string, value: string): string => {
-    const urnVersionRegEx = new RegExp(/:[0-9]+$/);
-    if (urnVersionRegEx.test(value)) {
-        const urnVersion = urnVersionRegEx.exec(value)[0].replace(':', '');
-        const urnName = value.replace(urnVersionRegEx, '');
-
-        return `${pnpFunctionName}(${escapeValue(urnName)}, ${urnVersion})`;
-    }
-    return `${pnpFunctionName}('${value}')`; // when provided value is not urn with version, pass it in as string
 };
 
 export const toEdgeClause = (edgeFunctionName: string, value: string): string => {

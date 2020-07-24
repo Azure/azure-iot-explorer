@@ -97,6 +97,15 @@ exports[`DeviceList matches snapshot 1`] = `
                 "name": "deviceLists.columns.statusUpdatedTime",
               },
               Object {
+                "fieldName": "modelId",
+                "isMultiline": true,
+                "isResizable": true,
+                "key": "modelId",
+                "maxWidth": 400,
+                "minWidth": 100,
+                "name": "deviceLists.columns.isPnpDevice",
+              },
+              Object {
                 "fieldName": "edge",
                 "isResizable": true,
                 "key": "edge",

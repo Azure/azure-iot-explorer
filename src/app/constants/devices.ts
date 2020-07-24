@@ -2,7 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-export const LIST_PLUG_AND_PLAY_DEVICES = `
+export const LIST_IOT_DEVICES = `
     SELECT deviceId as DeviceId,
     status as Status,
     lastActivityTime as LastActivityTime,
@@ -10,7 +10,8 @@ export const LIST_PLUG_AND_PLAY_DEVICES = `
     authenticationType as AuthenticationType,
     cloudToDeviceMessageCount as CloudToDeviceMessageCount,
     connectionState as ConnectionState,
-    capabilities.iotEdge as IotEdge
+    capabilities.iotEdge as IotEdge,
+    modelId as ModelId
     FROM devices`;
 export const DEVICE_TWIN_QUERY_STRING = ' SELECT * FROM devices WHERE deviceId = {deviceId}';
 
