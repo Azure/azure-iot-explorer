@@ -6,6 +6,7 @@ import * as React from 'react';
 import { Validator, ValidationError } from 'jsonschema';
 import { Label } from 'office-ui-fabric-react/lib/components/Label';
 import { ParsedJsonSchema } from '../../../api/models/interfaceJsonParserOutput';
+import { isValueDefined } from './dataForm';
 
 // tslint:disable-next-line: cyclomatic-complexity
 export const RenderSimplyTypeValue = (twin: any, schema: ParsedJsonSchema, errorLabel: string) => { // tslint:disable-line:no-any
@@ -13,7 +14,10 @@ export const RenderSimplyTypeValue = (twin: any, schema: ParsedJsonSchema, error
     const result = validator.validate(twin, schema);
     return (
         <>
-            {twin && typeof(twin) === 'object' ? <Label>{JSON.stringify(twin)}</Label> : <Label>{twin && twin.toString()}</Label>}
+            {isValueDefined(twin) ?
+                (typeof(twin) === 'object' ? <Label>{JSON.stringify(twin)}</Label> : <Label>{twin.toString()}</Label>) :
+                <Label>--</Label>
+            }
             {result && result.errors && result.errors.length !== 0 && renderSchemaErrors(result.errors, errorLabel)}
         </>
     );

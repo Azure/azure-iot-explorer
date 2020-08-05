@@ -10,7 +10,6 @@ import { Overlay } from 'office-ui-fabric-react/lib/components/Overlay';
 import { ActionButton } from 'office-ui-fabric-react/lib/components/Button';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
-import { isValueDefined } from '../../../shared/components/dataForm';
 import { RenderSimplyTypeValue } from '../../../shared/components/simpleReportedSection';
 import { ComplexReportedFormPanel } from '../../../shared/components/complexReportedFormPanel';
 import { SemanticUnit } from '../../../../shared/units/components/semanticUnit';
@@ -84,8 +83,8 @@ export const DevicePropertiesPerInterface: React.FC<DevicePropertiesDataProps> =
         const ariaLabel = t(ResourceKeys.deviceProperties.columns.value);
         return (
             <div aria-label={ariaLabel}>
-                {isValueDefined(item.reportedTwin) ?
-                    (isSchemaSimpleType(item) ?
+                {
+                    isSchemaSimpleType(item) ?
                         RenderSimplyTypeValue(
                             item.reportedTwin,
                             item.propertySchema,
@@ -97,7 +96,6 @@ export const DevicePropertiesPerInterface: React.FC<DevicePropertiesDataProps> =
                         >
                             {t(ResourceKeys.deviceProperties.command.openReportedValuePanel)}
                         </ActionButton>
-                    ) : <Label>--</Label>
                 }
             </div>
         );

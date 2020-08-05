@@ -120,8 +120,8 @@ export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataPro
         const { reportedTwin } = props;
         return (
             <>
-                {isValueDefined(reportedTwin) ?
-                    (isSchemaSimpleType() ?
+                {
+                    isSchemaSimpleType() ?
                         <ErrorBoundary error={t(ResourceKeys.errorBoundary.text)}>
                             {RenderSimplyTypeValue(
                                 reportedTwin,
@@ -135,7 +135,6 @@ export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataPro
                         >
                             {t(ResourceKeys.deviceSettings.command.openReportedValuePanel)}
                         </ActionButton>
-                    ) : <Label>--</Label>
                 }
             </>
         );

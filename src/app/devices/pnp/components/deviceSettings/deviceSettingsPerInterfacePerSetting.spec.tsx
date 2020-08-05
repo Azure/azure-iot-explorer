@@ -22,7 +22,7 @@ describe('deviceSettingsPerInterfacePerSetting', () => {
     const displayName = 'Device State';
     const handleCollapseToggle = jest.fn();
     let schema = 'boolean';
-    let twinValue: any = true;  // tslint:disable-line:no-any
+    let twinValue: any = false;  // tslint:disable-line:no-any
 
     const propertyModelDefinition: PropertyContent = {
         '@type': 'Property',
@@ -76,7 +76,7 @@ describe('deviceSettingsPerInterfacePerSetting', () => {
         expect(schemaLabel.props().children).toEqual(schema);
 
         const valueLabel = wrapper.find(Label).at(3); // tslint:disable-line:no-magic-numbers
-        expect(valueLabel.props().children).toEqual('true');
+        expect(valueLabel.props().children).toEqual('false');
     });
 
     it('renders when there is a writable property of complex type with sync status', () => {
