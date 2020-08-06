@@ -42,9 +42,9 @@ export const DataForm: React.FC<DataFormDataProps & DataFormActionProps> = (prop
     const [ formData, setFormData ] = React.useState(originalFormData);
     const [ jsonEditorData, setJsonEditorData ] = React.useState(JSON.stringify(originalFormData || (schema === DtdlSchemaComplexType.Array ? [{}] : {}), null, '\t'));
     const [ showPayloadDialog, setShowPlayloadDialog ] = React.useState<boolean>(false);
-    const parseMapTypeError = twinData.error;
     const [ payloadPreviewData, setPayloadPreviewData ] = React.useState(undefined);
     const [ isPayloadValid, setIsPayloadValid ] = React.useState<boolean>(true);
+    const parsingSchemaFailed = React.useMemo(() => twinData.error || !settingSchema || (!settingSchema.type && !settingSchema.$ref), [twinData, settingSchema]);
 
     const renderDialog = () => {
         return (
@@ -83,7 +83,7 @@ export const DataForm: React.FC<DataFormDataProps & DataFormActionProps> = (prop
     };
 
     const createForm = () => {
-        if (parseMapTypeError || !settingSchema || (!settingSchema.type && !settingSchema.$ref)) { // Not able to parse interface definition, render raw json in editor instead
+        if (parsingSchemaFailed) { // Not able to parse interface definition, render raw json in editor instead
             return createJsonEditor();
         }
         else {
@@ -141,7 +141,7 @@ export const DataForm: React.FC<DataFormDataProps & DataFormActionProps> = (prop
     };
 
     const generatePayload = () => {
-        return (parseMapTypeError || !settingSchema || (!settingSchema.type && !settingSchema.$ref)) ?
+        return (parsingSchemaFailed) ?
             JSON.parse(jsonEditorData) :
             dataToTwinConverter(formData, settingSchema, originalFormData).twin;
     };

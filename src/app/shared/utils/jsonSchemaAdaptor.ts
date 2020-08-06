@@ -191,10 +191,7 @@ export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
                     };
                 }
                 else {
-                    return {
-                        required: [],
-                        type: 'string'
-                    };
+                    throw new InterfaceSchemaNotSupportedException();
                 }
             }
             else {

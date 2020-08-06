@@ -9,7 +9,8 @@ import { mockModelDefinition,
     mapTypeTelemetry,
     enumbTypeProperty,
     schema,
-    commandWithReusableSchema,
+    commandWithReusableSchemaInline,
+    commandWithReusableSchemaNotInline,
     longTypeNonWritableProperty2
 } from './mockModelDefinition';
 import { JsonSchemaAdaptor, getSchemaValidationErrors } from './jsonSchemaAdaptor';
@@ -127,10 +128,10 @@ describe('parse interface model definition to Json schema', () => {
 
     describe('parses content with reusable schema', () => {
         const jsonSchemaAdaptorWithResuableSchema = new JsonSchemaAdaptor({...mockModelDefinition, schemas: schema});
-        it('parses command with reusable schema', () => {
-            expect(jsonSchemaAdaptorWithResuableSchema.parseInterfaceCommandToJsonSchema(commandWithReusableSchema)).toEqual(
+        it('parses command with reusable schema inline', () => {
+            expect(jsonSchemaAdaptorWithResuableSchema.parseInterfaceCommandToJsonSchema(commandWithReusableSchemaInline)).toEqual(
                 {
-                    name: commandWithReusableSchema.name,
+                    name: commandWithReusableSchemaInline.name,
                     requestSchema: {
                         definitions: {
                             'dtmi:example:schema;1' : {
@@ -158,21 +159,26 @@ describe('parse interface model definition to Json schema', () => {
                             }
                         },
                         properties: {
-                            sensor0: {
+                            sensor: {
                                 $ref: '#/definitions/dtmi:example:schema;1',
                                 required: [],
-                                title: 'sensor0'
-                            },
-                            sensor1: {
-                                required: [],
-                                title: 'sensor1',
-                                type: 'string'
+                                title: 'sensor'
                             }
                         },
                         required: [],
                         title: 'commandWithReusableSchema',
                         type: 'object'
                     },
+                    responseSchema: undefined
+                }
+            );
+        });
+
+        it('parses command with reusable schema not inline', () => {
+            expect(jsonSchemaAdaptorWithResuableSchema.parseInterfaceCommandToJsonSchema(commandWithReusableSchemaNotInline)).toEqual(
+                {
+                    name: commandWithReusableSchemaNotInline.name,
+                    requestSchema: undefined,
                     responseSchema: undefined
                 }
             );

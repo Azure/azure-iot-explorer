@@ -37,7 +37,7 @@ export const ComplexReportedFormPanel: React.FC<ReportedFormDataProps & Reported
     const { schema, modelDefinition, showPanel } = props;
     const twinData = twinToFormDataConverter(props.formData, schema);
     const formData = twinData.formData;
-    const parseMapTypeError = twinData.error;
+    const parsingSchemaFailed = React.useMemo(() => twinData.error || !schema || (!schema.type && !schema.$ref), [twinData, schema]);
 
     const createTitle = () => {
         const displayName = getLocalizedData(modelDefinition.displayName);
@@ -50,7 +50,7 @@ export const ComplexReportedFormPanel: React.FC<ReportedFormDataProps & Reported
     };
 
     const createForm = () => {
-        if (parseMapTypeError || !schema || (!schema.type && !schema.$ref)) { // Not able to parse interface definition, render raw json editor instead
+        if (parsingSchemaFailed) { // Not able to parse interface definition, render raw json editor instead
             return createJsonEditor();
         }
         else {
