@@ -61,13 +61,14 @@ describe('parse interface model definition to Json schema', () => {
                     name: timeTypeCommand.name,
                     requestSchema: {
                         definitions: {},
-                        pattern: '^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(.[0-9]+)?(Z)?$',
+                        format: 'date-time',
                         required: [],
                         title: timeTypeCommand.request.name,
                         type: 'string',
                     },
                     responseSchema: {
                         definitions: {},
+                        pattern: '^(-?)P(?=\\d|T\\d)(?:(\\d+)Y)?(?:(\\d+)M)?(?:(\\d+)([DW]))?(?:T(?:(\\d+)H)?(?:(\\d+)M)?(?:(\\d+(?:\\.\\d+)?)S)?)?$',
                         required: [],
                         title: timeTypeCommand.response.name,
                         type: 'string',
@@ -135,6 +136,7 @@ describe('parse interface model definition to Json schema', () => {
                             'dtmi:example:schema;1' : {
                                 properties: {
                                     sensor0: {
+                                        pattern: '^([\\d]{2}:){2}[\\d]{2}(.[\\d]+)?(Z)?([+|-][\\d]{2}:[\\d]{2})?$',
                                         required: [],
                                         title: 'sensor0',
                                         type: 'string'

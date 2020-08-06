@@ -50,7 +50,7 @@ export const ComplexReportedFormPanel: React.FC<ReportedFormDataProps & Reported
     };
 
     const createForm = () => {
-        if (parseMapTypeError || !schema || !schema.type) { // Not able to parse interface definition, render raw json editor instead
+        if (parseMapTypeError || !schema || (!schema.type && !schema.$ref)) { // Not able to parse interface definition, render raw json editor instead
             return createJsonEditor();
         }
         else {

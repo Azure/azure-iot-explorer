@@ -1,6 +1,6 @@
 {
   "name": "azure-iot-explorer",
-  "version": "0.11.2",
+  "version": "0.11.3",
   "description": "This project welcomes contributions and suggestions. Most contributions require you to agree to a\r Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us\r the rights to use your contribution. For details, visit https://cla.microsoft.com.",
   "main": "public/electron.js",
   "build": {
@@ -140,7 +140,7 @@
     "jest-trx-results-processor": "0.0.7",
     "mini-css-extract-plugin": "0.8.0",
     "node-sass": "4.13.1",
-    "nodemon": "2.0.2",
+    "nodemon": "2.0.4",
     "optimize-css-assets-webpack-plugin": "5.0.3",
     "sass-loader": "7.1.0",
     "source-map-loader": "0.2.4",

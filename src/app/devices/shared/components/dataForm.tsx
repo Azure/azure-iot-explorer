@@ -83,7 +83,7 @@ export const DataForm: React.FC<DataFormDataProps & DataFormActionProps> = (prop
     };
 
     const createForm = () => {
-        if (parseMapTypeError || !settingSchema || !settingSchema.type) { // Not able to parse interface definition, render raw json in editor instead
+        if (parseMapTypeError || !settingSchema || (!settingSchema.type && !settingSchema.$ref)) { // Not able to parse interface definition, render raw json in editor instead
             return createJsonEditor();
         }
         else {
@@ -141,7 +141,7 @@ export const DataForm: React.FC<DataFormDataProps & DataFormActionProps> = (prop
     };
 
     const generatePayload = () => {
-        return (parseMapTypeError || !settingSchema || !settingSchema.type) ?
+        return (parseMapTypeError || !settingSchema || (!settingSchema.type && !settingSchema.$ref)) ?
             JSON.parse(jsonEditorData) :
             dataToTwinConverter(formData, settingSchema, originalFormData).twin;
     };
