@@ -191,10 +191,7 @@ export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
                     };
                 }
                 else {
-                    return {
-                        required: [],
-                        type: 'string'
-                    };
+                    throw new InterfaceSchemaNotSupportedException();
                 }
             }
             else {
@@ -213,7 +210,7 @@ export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
                         };
                     case 'datetime':
                         return {
-                            pattern: '^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(.[0-9]+)?(Z)?$', // regex for ISO 8601
+                            format: 'date-time',
                             required: [],
                             type: 'string',
                         };
@@ -229,8 +226,18 @@ export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
                             required: [],
                             type: ['integer', 'null']
                         };
-                    case 'time': // todo: no widget for 'time' type
-                    case 'duration': // todo: no widget for 'duration' type
+                    case 'time':
+                        return {
+                            pattern: '^([\\d]{2}:){2}[\\d]{2}(.[\\d]+)?(Z)?([+|-][\\d]{2}:[\\d]{2})?$', // time regex in ISO 8601
+                            required: [],
+                            type: 'string',
+                        };
+                    case 'duration':
+                        return {
+                            pattern: '^(-?)P(?=\\d|T\\d)(?:(\\d+)Y)?(?:(\\d+)M)?(?:(\\d+)([DW]))?(?:T(?:(\\d+)H)?(?:(\\d+)M)?(?:(\\d+(?:\\.\\d+)?)S)?)?$', // duration regex in ISO 8601
+                            required: [],
+                            type: 'string',
+                        };
                     case 'string':
                         return {
                             required: [],

@@ -63,7 +63,7 @@ export const timeTypeCommand = {
     }
 };
 
-export const commandWithReusableSchema = {
+export const commandWithReusableSchemaInline = {
     "@type": [
         "Command",
         "SemanticType/Humidity"
@@ -76,11 +76,28 @@ export const commandWithReusableSchema = {
             "@type": "Object",
             "fields": [
                 {
-                    "name": "sensor0",
+                    "name": "sensor",
                     "schema": "dtmi:example:schema;1"
-                },
+                }
+            ]
+        }
+    }
+};
+
+export const commandWithReusableSchemaNotInline = {
+    "@type": [
+        "Command",
+        "SemanticType/Humidity"
+    ],
+    "name": "reboot2",
+    "commandType": "asynchronous",
+    "request": {
+        "name": "commandWithReusableSchema",
+        "schema": {
+            "@type": "Object",
+            "fields": [
                 {
-                    "name": "sensor1",
+                    "name": "sensor",
                     "schema": "dtmi:example:schema;2"
                 }
             ]
