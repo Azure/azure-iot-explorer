@@ -29,6 +29,7 @@ import { usePnpStateContext } from '../../../shared/contexts/pnpStateContext';
 import { ModelDefinition } from '../../../api/models/modelDefinition';
 import { ComponentAndInterfaceId, JsonSchemaAdaptor } from '../../../shared/utils/jsonSchemaAdaptor';
 import { DEFAULT_COMPONENT_FOR_DIGITAL_TWIN } from '../../../constants/devices';
+import { ErrorBoundary } from '../../shared/components/errorBoundary';
 import '../../../css/_digitalTwinInterfaces.scss';
 
 interface ModelContent {
@@ -170,7 +171,9 @@ export const DigitalTwinInterfacesList: React.FC = () => {
                 <h5>{t(ResourceKeys.digitalTwin.steps.explanation, {modelId})}</h5>
                 <Pivot aria-label={t(ResourceKeys.digitalTwin.pivot.ariaLabel)}>
                     <PivotItem headerText={t(ResourceKeys.digitalTwin.pivot.components)}>
-                        {listView}
+                        <ErrorBoundary error={t(ResourceKeys.deviceInterfaces.interfaceListFailedToRender)}>
+                            {listView}
+                        </ErrorBoundary>
                     </PivotItem>
                     <PivotItem headerText={t(ResourceKeys.digitalTwin.pivot.content)}>
                         <JSONEditor

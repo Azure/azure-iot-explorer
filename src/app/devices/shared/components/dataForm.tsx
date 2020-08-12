@@ -8,7 +8,6 @@ import { PrimaryButton, ActionButton } from 'office-ui-fabric-react/lib/componen
 import { Dialog } from 'office-ui-fabric-react/lib/components/Dialog';
 import { Label } from 'office-ui-fabric-react/lib/components/Label';
 import Form from 'react-jsonschema-form';
-import { Validator } from 'jsonschema';
 import { fabricWidgets, fabricFields } from '../../../jsonSchemaFormFabricPlugin';
 import { ObjectTemplate } from '../../../jsonSchemaFormFabricPlugin/fields/objectTemplate';
 import { ResourceKeys } from '../../../../localization/resourceKeys';

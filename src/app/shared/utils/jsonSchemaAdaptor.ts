@@ -73,7 +73,7 @@ export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
         const componentContents = this.model && this.model.contents && this.model.contents.filter((item: ComponentContent) => this.filterComponent(item)) as ComponentContent[];
         return componentContents && componentContents.map(componentContent => ({
             componentName: componentContent.name,
-            interfaceId: componentContent.schema
+            interfaceId: typeof componentContent.schema === 'string' ? componentContent.schema : `${this.model['@id']}/${componentContent.schema['@id']}`
         })) || [];
     }
 
