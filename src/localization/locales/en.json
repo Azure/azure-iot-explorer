@@ -557,7 +557,7 @@
         "noInterfaces": "No interfaces",
         "interfaceNotFound": "We are not able to retrieve any valid interface model definition. Please click 'Configure' button below to see how we resolve model definition.",
         "interfaceNotValid": "Model definition is not valid. Please update the model definition and then proceed.",
-        "interfaceListFailedToRender": "Failed to parse component list from the model definition. It may contain definition that we don't support at this point."
+        "interfaceListFailedToRender": "Failed to parse component list from the model definition. It may contain definitions that we don't support at this point. Please visit our wiki to check the scope of DTDL we support: https://github.com/Azure/azure-iot-explorer/wiki"
     },
     "deviceEvents": {
         "command" : {
