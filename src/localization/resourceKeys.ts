@@ -433,6 +433,7 @@ export class ResourceKeys {
          refresh : "deviceInterfaces.command.refresh",
       },
       headerText : "deviceInterfaces.headerText",
+      interfaceListFailedToRender : "deviceInterfaces.interfaceListFailedToRender",
       interfaceNotFound : "deviceInterfaces.interfaceNotFound",
       interfaceNotValid : "deviceInterfaces.interfaceNotValid",
       noInterfaces : "deviceInterfaces.noInterfaces",
