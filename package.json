@@ -145,7 +145,7 @@
     "sass-loader": "7.1.0",
     "source-map-loader": "0.2.4",
     "style-loader": "0.23.1",
-    "terser-webpack-plugin": "4.1.0",
+    "terser-webpack-plugin": "1.4.5",
     "ts-jest": "26.2.0",
     "tslint": "5.11.0",
     "tslint-loader": "3.5.4",
