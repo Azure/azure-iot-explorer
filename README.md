@@ -38,7 +38,7 @@ If you'd like to package the app yourself, please refer to the [FAQ](https://git
 
 ### Configure an IoT Hub connection
 
-- Upon opening the application, add the connection string of your IoT hub. You can add multiple strings, view, update or detete them anytime by returning to Home.
+- Upon opening the application, add the connection string of your IoT hub. You can add multiple strings, view, update or delete them anytime by returning to Home.
 
 <img src="doc/screenRecords/login.gif" alt="login" width="800"/>
 
@@ -61,9 +61,9 @@ If you'd like to package the app yourself, please refer to the [FAQ](https://git
 **If you are looking for a UI tool to get a flavor of Plug and Play, look no futher. Follow this [Microsoft Docs](https://docs.microsoft.com/en-us/azure/iot-pnp/overview-iot-plug-and-play) to get started.**
 - Once your device has gone through discovery, **IoT Plug and Play components** page would be available on device details view.
 - The model ID would be shown.
-- Follow our guidance to set up how we can retrieve model definitions. If it is already setup, We will inform you where are we resolving your model defintions from.
+- Follow our guidance to set up how we can retrieve model definitions. If it is already setup, We will inform you where are we resolving your model definitions from.
 - A table would show the list of components implemented by the device and the corresponding interfaces the components conform to.
-- You can go back to Home (either from device or by directly clicking the breadcrum) to change how we resolve model definitions. Note this is a global setting which would affect across the hub.
+- You can go back to Home (either from device or by directly clicking the breadcrumb) to change how we resolve model definitions. Note this is a global setting which would affect across the hub.
 
 <img src="doc/screenRecords/pnp_discovery.gif" alt="pnp_discovery" width="800"/>
 
