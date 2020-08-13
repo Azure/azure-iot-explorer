@@ -78,7 +78,7 @@
                     "link": "https://aka.ms/azure-iot-explorer-documentation"
                 },
                 "privacy": {
-                    "text": "Before enabling us to retrieve model definition from local folder, please read ",
+                    "text": "Before enabling us to retrieve model definition from a local folder, please read ",
                     "linkText": "Microsoft Privacy Statement",
                     "link": "https://privacy.microsoft.com/en-us/privacystatement"
                 }
@@ -456,7 +456,7 @@
             "secondSuccess": "Step 2. We've resolved your IoT Plug and Play model",
             "secondFailure": "Step 2. We are not able to retrieve model definition for {{modelId}}",
             "third": "Step 3. Continue your IoT Plug and Play journey by drilling down to each component",
-            "explanation": "If you have defined 'Property', 'Command' or 'Telemetry' in model {{modelId}}, you would be able to see 'Default component' in the table below. If you havea defined 'Component', you would be able to see a list of components down below."
+            "explanation": "If you have defined 'Property', 'Command' or 'Telemetry' in model {{modelId}}, you would be able to see 'Default component' in the table below. If you have defined 'Component', you would be able to see a list of components down below."
         },
         "pivot": {
             "ariaLabel": "Model component and content pivot",
@@ -548,7 +548,7 @@
         },
         "columns": {
             "id": "Interface Id",
-            "source": "You model defintion has been resolved from",
+            "source": "You model definition has been resolved from",
             "noSource": "Failed to get interface definition",
             "displayName": "Name",
             "description": "Description"
@@ -817,8 +817,8 @@
         "deleteModuleIdentityOnError": "Failed to delete module identity {{moduleId}}: {{error}}",
         "portIsInUseError": "The port {{portNumber}} is in use. To get around with the issue, configure a custom port by setting the system environment variable 'AZURE_IOT_EXPLORER_PORT' to an available port number. To learn more, please visit https://github.com/Azure/azure-iot-explorer/wiki/FAQ",
         "modelRepoistorySettingsUpdated": "Model repository locations successfully updated.",
-        "startEventMonitoringOnError": "Faile to start monitoring device telemetry: {{error}}",
-        "stopEventMonitoringOnError": "Faile to stop monitoring device telemetry: {{error}}"
+        "startEventMonitoringOnError": "Failed to start monitoring device telemetry: {{error}}",
+        "stopEventMonitoringOnError": "Failed to stop monitoring device telemetry: {{error}}"
     },
     "errorBoundary": {
         "text": "Something went wrong"
@@ -839,7 +839,7 @@
             "description": "Model repository locations specify where the application looks to find IoT Plug and Play model definitions. Locations are saved to application storage and can be edited or removed at any time by returning",
             "help": "What is IoT Plug and Play Preview"
         },
-        "instruction": "We'll look for your model definition in the following order. Please drag and drop to change it. Click 'Add' to enable more ways we can resolve your model definitions.",
+        "instruction": "We'll look for your model definition in the following order. Please drag and drop to change it. Click 'Add' to enable more ways to can resolve your model definitions.",
         "commands": {
             "save": {
                 "label": "Save",
