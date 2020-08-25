@@ -2,6 +2,8 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
+export type ComplexSchema = ObjectSchema | MapSchema | EnumSchema | ArraySchema;
+
 export interface ModelDefinition {
     '@context': string;
     '@id': string;
@@ -10,11 +12,11 @@ export interface ModelDefinition {
     contents: Array<PropertyContent | CommandContent | TelemetryContent | ComponentContent>;
     description?: string | object;
     displayName?: string | object;
-    schemas?: Array<ObjectSchema | MapSchema | EnumSchema>;
+    schemas?: ComplexSchema[];
 }
 
 export interface PropertyContent extends ContentBase {
-    schema: string | EnumSchema | ObjectSchema | MapSchema;
+    schema: string | ComplexSchema;
     writable?: boolean;
 }
 
@@ -25,7 +27,7 @@ export interface CommandContent extends ContentBase{
 }
 
 export interface TelemetryContent extends ContentBase{
-    schema: string | EnumSchema | ObjectSchema | MapSchema;
+    schema: string | ComplexSchema;
 }
 
 export interface ComponentContent extends ContentBase{
@@ -44,7 +46,7 @@ interface ContentBase {
 
 export interface Schema {
     name: string;
-    schema: string | EnumSchema | ObjectSchema | MapSchema;
+    schema: string | ComplexSchema;
     displayName?: string | object;
     description?: string | object;
 }
@@ -72,6 +74,12 @@ export interface MapSchema {
     '@type': string;
     mapKey: Schema;
     mapValue: Schema;
+    '@id'?: string;
+}
+
+export interface ArraySchema {
+    '@type': string;
+    elementSchema: string | ComplexSchema;
     '@id'?: string;
 }
 

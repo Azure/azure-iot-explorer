@@ -11,7 +11,8 @@ import { mockModelDefinition,
     schema,
     commandWithReusableSchemaInline,
     commandWithReusableSchemaNotInline,
-    longTypeNonWritableProperty2
+    longTypeNonWritableProperty2,
+    arrayTypeTelemetry
 } from './mockModelDefinition';
 import { JsonSchemaAdaptor, getSchemaValidationErrors } from './jsonSchemaAdaptor';
 
@@ -32,7 +33,7 @@ describe('parse interface model definition to Json schema', () => {
         });
 
         it('returns a list of telemetry', () => {
-            expect(jsonSchemaAdaptor.getTelemetry()).toEqual([mapTypeTelemetry]);
+            expect(jsonSchemaAdaptor.getTelemetry()).toEqual([mapTypeTelemetry, arrayTypeTelemetry]);
         });
     });
 
@@ -124,6 +125,34 @@ describe('parse interface model definition to Json schema', () => {
                 }
             );
         });
+    });
+
+    it('parses array type telemetry', () => {
+        expect(jsonSchemaAdaptor.parseInterfaceTelemetryToJsonSchema(arrayTypeTelemetry)).toEqual(
+            {
+                definitions: {},
+                items: {
+                    properties: {
+                        dateField: {
+                            format: 'date',
+                            required: [],
+                            title: 'dateField',
+                            type: 'string',
+                        },
+                        stringField: {
+                            required: [],
+                            title: 'stringField',
+                            type: 'string',
+                        },
+                    },
+                    required:  [],
+                    type: 'object',
+                },
+                required: [],
+                title: arrayTypeTelemetry.name,
+                type: 'array'
+            }
+        );
     });
 
     describe('parses content with reusable schema', () => {
