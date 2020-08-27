@@ -10,14 +10,12 @@ import Form from 'react-jsonschema-form';
 import { fabricWidgets, fabricFields } from '../../../jsonSchemaFormFabricPlugin';
 import { ObjectTemplate } from '../../../jsonSchemaFormFabricPlugin/fields/objectTemplate';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { Exception } from '../../../shared/utils/exceptions/exception';
 import { ParsedJsonSchema } from '../../../api/models/interfaceJsonParserOutput';
 import { twinToFormDataConverter } from '../../../shared/utils/twinAndJsonSchemaDataConverter';
 import { CLOSE } from '../../../constants/iconNames';
 import { PropertyContent } from '../../../api/models/modelDefinition';
 import { ErrorBoundary } from './errorBoundary';
 import { getLocalizedData } from '../../../api/dataTransforms/modelDefinitionTransform';
-import { useThemeContext } from '../../../shared/contexts/themeContext';
 import { JSONEditor } from '../../../shared/components/jsonEditor';
 
 export interface ReportedFormDataProps {

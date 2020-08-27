@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import { Validator, ValidatorResult, ValidationError } from 'jsonschema';
-import { PropertyContent, CommandContent, EnumSchema, MapSchema, ObjectSchema, ContentType, TelemetryContent, ModelDefinition, ComponentContent } from '../../api/models/modelDefinition';
+import { PropertyContent, CommandContent, EnumSchema, MapSchema, ObjectSchema, ContentType, TelemetryContent, ModelDefinition, ComponentContent, ArraySchema, ComplexSchema } from '../../api/models/modelDefinition';
 import { ParsedCommandSchema, ParsedJsonSchema } from '../../api/models/interfaceJsonParserOutput';
 import { InterfaceSchemaNotSupportedException } from './exceptions/interfaceSchemaNotSupportedException';
 import { getNumberOfMapsInSchema } from './twinAndJsonSchemaDataConverter';
@@ -181,7 +181,7 @@ export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
     }
 
     // tslint:disable-next-line: cyclomatic-complexity
-    private readonly parseInterfaceContentSchemaHelper = (propertySchema: string | EnumSchema | ObjectSchema | MapSchema): ParsedJsonSchema  => {
+    private readonly parseInterfaceContentSchemaHelper = (propertySchema: string | ComplexSchema): ParsedJsonSchema  => {
         if (typeof(propertySchema) === 'string') {
             if (propertySchema.startsWith('dtmi')) {
                 if (Object.keys(this.definitions).includes(propertySchema)) {
@@ -286,7 +286,19 @@ export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
                 additionalProperties: true,
                 items: this.parseInterfaceMapTypePropertyItems(propertySchema),
                 required: [],
-                type: 'array' // there is no map type in json schema, instead we use an array of object type to present it
+                type: 'array'
+                // there is no map type in json schema, instead we use an array of object type to represent it, along with additionalProperties set to true
+            };
+        }
+
+        if (propertySchema['@type'] === DtdlSchemaComplexType.Array) {
+            if (!(propertySchema as ArraySchema).elementSchema) {
+                return;
+            }
+            return {
+                items: this.parseInterfaceContentSchemaHelper((propertySchema as ArraySchema).elementSchema),
+                required: [],
+                type: 'array'
             };
         }
 
@@ -320,7 +332,7 @@ export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
         }
     }
 
-    private readonly parseInterfaceMapTypePropertyItems = (propertySchema: string | EnumSchema | ObjectSchema | MapSchema): ParsedJsonSchema => {
+    private readonly parseInterfaceMapTypePropertyItems = (propertySchema: string | ComplexSchema): ParsedJsonSchema => {
         const parsedMapValue = this.parseInterfaceContentHelper({...(propertySchema as MapSchema).mapValue, '@type': null});
         // there is no map type in json schema, instead we use an object type to present every single key value pair
         const items = {

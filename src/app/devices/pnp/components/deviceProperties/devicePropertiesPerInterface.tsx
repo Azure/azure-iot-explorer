@@ -89,13 +89,14 @@ export const DevicePropertiesPerInterface: React.FC<DevicePropertiesDataProps> =
                             item.reportedTwin,
                             item.propertySchema,
                             t(ResourceKeys.deviceProperties.columns.error)) :
-                        <ActionButton
-                            className="column-value-button"
-                            ariaDescription={t(ResourceKeys.deviceProperties.command.openReportedValuePanel)}
-                            onClick={onViewReportedValue(item)}
-                        >
-                            {t(ResourceKeys.deviceProperties.command.openReportedValuePanel)}
-                        </ActionButton>
+                        item.reportedTwin ?
+                            <ActionButton
+                                className="column-value-button"
+                                ariaDescription={t(ResourceKeys.deviceProperties.command.openReportedValuePanel)}
+                                onClick={onViewReportedValue(item)}
+                            >
+                                {t(ResourceKeys.deviceProperties.command.openReportedValuePanel)}
+                            </ActionButton> : <Label>--</Label>
                 }
             </div>
         );

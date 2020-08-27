@@ -121,6 +121,28 @@ export const mapTypeTelemetry = {
     }
 };
 
+export const arrayTypeTelemetry = {
+    "@type": "Telemetry",
+    "name": "temperature",
+    "schema": {
+      "@type": "Array",
+      "elementSchema": {
+        "@type": "Object",
+        "fields": [
+            {
+                "name": "stringField",
+                "schema": "string"
+            },
+            {
+                "name": "dateField",
+                "schema": "date"
+            }
+        ]
+      }
+    },
+    "description": "root level telemetry"
+};
+
 export const schema = [
     {
         "@id": "dtmi:example:schema;1",
@@ -160,6 +182,9 @@ export const mockModelDefinition = {
         },
         {
             ...mapTypeTelemetry
+        },
+        {
+            ...arrayTypeTelemetry
         }
     ],
     "@context": "dtmi:dtdl:context;2"
