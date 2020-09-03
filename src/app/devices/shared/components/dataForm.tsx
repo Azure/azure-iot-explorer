@@ -142,7 +142,7 @@ export const DataForm: React.FC<DataFormDataProps & DataFormActionProps> = (prop
     const generatePayload = () => {
         return (parsingSchemaFailed) ?
             JSON.parse(jsonEditorData) :
-            dataToTwinConverter(formData, settingSchema, originalFormData).twin;
+            dataToTwinConverter(formData, settingSchema).twin;
     };
 
     const createPayloadPreview = () => {

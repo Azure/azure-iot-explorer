@@ -6,7 +6,7 @@ import { ParsedJsonSchema } from '../../api/models/interfaceJsonParserOutput';
 import { ParseNestedMapNotSupportedException } from './exceptions/parseNestedMapNotSupportedException';
 import { Exception } from './exceptions/exception';
 
-export const dataToTwinConverter = (formData: any, settingSchema: ParsedJsonSchema, originalFormData?: any): {twin: any, error?: Exception} => { // tslint:disable-line:no-any
+export const dataToTwinConverter = (formData: any, settingSchema: ParsedJsonSchema): {twin: any, error?: Exception} => { // tslint:disable-line:no-any
     if (!formData) {
         return {twin: formData};
     }
@@ -16,7 +16,7 @@ export const dataToTwinConverter = (formData: any, settingSchema: ParsedJsonSche
         if (numberOfMaps > 0) {
             const formDataClone = JSON.parse(JSON.stringify(formData)); // important: needs this deep copy to prevent formData got changed
             const pathsWithKeyValuePair = findPathsTowardsMapType(settingSchema, [], numberOfMaps);
-            return {twin: convertJsonFormDataToTwin(pathsWithKeyValuePair, settingSchema.title, formDataClone, originalFormData)};
+            return {twin: convertJsonFormDataToTwin(pathsWithKeyValuePair, settingSchema.title, formDataClone)};
         }
     } catch (ex) {
         return ({twin: formData, error: ex});
@@ -167,16 +167,13 @@ Use all the paths found in settingSchema to modify form data, and form data of a
 const convertJsonFormDataToTwin = (
     pathWithKeyValuePairs: PathTowardsMapWithKeyNameAndValueName[],
     parentKey: string,
-    formData: any, originalFormData?: any): any => {  // tslint:disable-line:no-any
+    formData: any): any => {  // tslint:disable-line:no-any
     if (!pathWithKeyValuePairs || pathWithKeyValuePairs.length === 0) {
         return;
     }
 
     const newFormData: any = {}; // tslint:disable-line:no-any
     newFormData[parentKey] = formData; // add a dummy head to the formData
-
-    let dummyOriginalFormData: any = {}; // tslint:disable-line:no-any
-    dummyOriginalFormData[parentKey] = originalFormData; // add a dummy head to the formData
 
     try {
         pathWithKeyValuePairs.forEach(pathWithPair => {
@@ -192,12 +189,6 @@ const convertJsonFormDataToTwin = (
                 }
             });
 
-            if (originalFormData) {
-                pathWithPair.path.forEach(element => {
-                    dummyOriginalFormData = dummyOriginalFormData[element];
-                });
-            }
-
             if (canFindRightKeyToModify) {
                 const mapKeyName = pathWithPair.keyName;
                 const mapValueName = pathWithPair.valueName;
@@ -209,19 +200,6 @@ const convertJsonFormDataToTwin = (
                         return formData;
                     }
 
-                    let deletedKeys: string[] = [];
-                    if (originalFormData &&
-                        dummyOriginalFormData[key] &&
-                        dummyOriginalFormData[key].length > 0 &&
-                        parentFormData[key] &&
-                        parentFormData[key].length > 0 &&
-                        dummyOriginalFormData[key].length !== parentFormData[key].length) {
-                        // find keys that have been deleted from the orignal form and specifically set its value to null
-                        const oldKeys: string[] = dummyOriginalFormData[key].map((item: any) => item[mapKeyName]); // tslint:disable-line:no-any
-                        const newKeys: string[] = parentFormData[key].map((item: any) => item[mapKeyName]); // tslint:disable-line:no-any
-                        deletedKeys = oldKeys.filter((oldKey: string) => newKeys.indexOf(oldKey) === -1);
-                    }
-
                     if (parentFormData[key] && parentFormData[key].length > 0) {
                         parentFormData[key].forEach((keyValue: any) => { // tslint:disable-line: no-any
                             try {
@@ -230,12 +208,6 @@ const convertJsonFormDataToTwin = (
                             catch {
                                 return;
                             }
-                        });
-                    }
-
-                    if (deletedKeys && deletedKeys.length > 0) {
-                        deletedKeys.forEach(deletedKey => {
-                            newFormNode[deletedKey] = null;
                         });
                     }
                     parentFormData[key] = newFormNode;
