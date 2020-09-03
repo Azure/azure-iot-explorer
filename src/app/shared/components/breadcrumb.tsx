@@ -7,20 +7,12 @@ import { useTranslation } from 'react-i18next';
 import { Route, NavLink, useLocation, useRouteMatch } from 'react-router-dom';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../constants/routes';
-import { CONNECTION_STRING_NAME_LIST } from '../../constants/browserStorage';
-import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
 import { getDeviceIdFromQueryString, getComponentNameFromQueryString } from '../utils/queryStringHelper';
+import { getHubInformationFromLocalStorage } from '../hooks/localStorageInformationRetriever';
 import '../../css/_breadcrumb.scss';
 
 export const Breadcrumb: React.FC = () => {
-    const [ hostName, setHostName ] = React.useState<string>('');
-    const connectionStrings = localStorage.getItem(CONNECTION_STRING_NAME_LIST);
-    const connectionString = connectionStrings && connectionStrings.split(',')[0];
-
-    React.useEffect(() => {
-        const host = getConnectionInfoFromConnectionString(connectionString).hostName;
-        setHostName(host);
-    },              [connectionString]);
+    const [ , hostName] = getHubInformationFromLocalStorage();
 
     const renderBreadcrumbItem = () => <BreadcrumbItem hostName={hostName}/>;
 

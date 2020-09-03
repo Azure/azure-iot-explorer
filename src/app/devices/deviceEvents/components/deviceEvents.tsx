@@ -14,7 +14,7 @@ import { Label } from 'office-ui-fabric-react/lib/components/Label';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { Message, MESSAGE_SYSTEM_PROPERTIES, MESSAGE_PROPERTIES } from '../../../api/models/messages';
 import { parseDateTimeString } from '../../../api/dataTransforms/transformHelper';
-import { CLEAR, CHECKED_CHECKBOX, EMPTY_CHECKBOX, START, STOP, NAVIGATE_BACK, REFRESH, REMOVE } from '../../../constants/iconNames';
+import { CLEAR, CHECKED_CHECKBOX, EMPTY_CHECKBOX, START, STOP, NAVIGATE_BACK, REFRESH, REMOVE, CODE } from '../../../constants/iconNames';
 import { getDeviceIdFromQueryString, getComponentNameFromQueryString, getInterfaceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import { MonitorEventsParameters } from '../../../api/parameters/deviceParameters';
@@ -40,6 +40,7 @@ import { getSchemaValidationErrors } from '../../../shared/utils/jsonSchemaAdapt
 import { ParsedJsonSchema } from '../../../api/models/interfaceJsonParserOutput';
 import { TelemetryContent } from '../../../api/models/modelDefinition';
 import { getLocalizedData } from '../../../api/dataTransforms/modelDefinitionTransform';
+import { DeviceSimulationPanel } from './deviceSimulationPanel';
 import './deviceEvents.scss';
 
 const JSON_SPACES = 2;
@@ -77,6 +78,9 @@ export const DeviceEvents: React.FC = () => {
     const isLoading = pnpState.modelDefinitionWithSource.synchronizationStatus === SynchronizationStatus.working;
     const telemetrySchema = React.useMemo(() => getDeviceTelemetry(modelDefinition), [modelDefinition]);
     const [ showPnpModeledEvents, setShowPnpModeledEvents ] = React.useState(false);
+
+    // simulation specific
+    const [ showSimulationPanel, setShowSimulationPanel ] = React.useState(false);
 
     React.useEffect(() => {
         return () => {
@@ -123,7 +127,8 @@ export const DeviceEvents: React.FC = () => {
         else {
             return [createStartMonitoringCommandItem(),
                 createSystemPropertiesCommandItem(),
-                createClearCommandItem()
+                createClearCommandItem(),
+                createSimulationCommandItem()
             ];
         }
     };
@@ -195,6 +200,18 @@ export const DeviceEvents: React.FC = () => {
                 onClick: onToggleStart
             };
         }
+    };
+
+    const createSimulationCommandItem = (): ICommandBarItemProps => {
+        return {
+            ariaLabel: t(ResourceKeys.deviceEvents.command.clearEvents),
+            iconProps: {
+                iconName: CODE
+            },
+            key: t(ResourceKeys.deviceEvents.command.simulate),
+            name: t(ResourceKeys.deviceEvents.command.simulate),
+            onClick: onToggleSimulationPanel
+        };
     };
 
     const renderConsumerGroup = () => {
@@ -632,6 +649,10 @@ export const DeviceEvents: React.FC = () => {
         setShowPnpModeledEvents(!showPnpModeledEvents);
     };
 
+    const onToggleSimulationPanel = () => {
+        setShowSimulationPanel(!showSimulationPanel);
+    };
+
     if (isLoading) {
         return <MultiLineShimmer/>;
     }
@@ -639,6 +660,7 @@ export const DeviceEvents: React.FC = () => {
     const className = componentName ?
         'scrollable-pnp-telemetry' + (!useBuiltInEventHub ? ' scrollable-pnp-telemetry-custom' : '') :
         'scrollable-telemetry' + (!useBuiltInEventHub ? ' scrollable-telemetry-custom' : '');
+
     return (
         <div className="device-events" key="device-events">
             <CommandBar
@@ -652,6 +674,10 @@ export const DeviceEvents: React.FC = () => {
             />
             {renderConsumerGroup()}
             {renderCustomEventHub()}
+            <DeviceSimulationPanel
+                showSimulationPanel={showSimulationPanel}
+                onToggleSimulationPanel={onToggleSimulationPanel}
+            />
             <div className="device-events-container">
                 {renderLoader()}
                 <div className={className}>

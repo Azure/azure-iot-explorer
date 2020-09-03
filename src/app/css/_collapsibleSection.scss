@@ -5,12 +5,15 @@
  @import 'themes';
  
  .collapsible-section {
-    padding-bottom: 20px;
+    padding-bottom: 5px;
     @include themify($themes) {
         border: 1px solid themed('borderColor')
     }
     .collapsible-section-icon {
         float: left;
         margin-right: 5px;
+    }
+    .collapsible-section-children {
+        margin: 0px 10px;
     }
 }

@@ -291,6 +291,7 @@ export class ResourceKeys {
          fetch : "deviceEvents.command.fetch",
          refresh : "deviceEvents.command.refresh",
          showSystemProperties : "deviceEvents.command.showSystemProperties",
+         simulate : "deviceEvents.command.simulate",
          start : "deviceEvents.command.start",
          stop : "deviceEvents.command.stop",
       },
@@ -323,6 +324,44 @@ export class ResourceKeys {
          placeHolder : "deviceEvents.interfaceDropDown.placeHolder",
       },
       noEvent : "deviceEvents.noEvent",
+      simulation : {
+         advanced : {
+            body : {
+               label : "deviceEvents.simulation.advanced.body.label",
+               tooltip : "deviceEvents.simulation.advanced.body.tooltip",
+            },
+            copyLabel : "deviceEvents.simulation.advanced.copyLabel",
+            instruction : "deviceEvents.simulation.advanced.instruction",
+            label : "deviceEvents.simulation.advanced.label",
+            properties : {
+               addProperty : "deviceEvents.simulation.advanced.properties.addProperty",
+               delete : "deviceEvents.simulation.advanced.properties.delete",
+               key : "deviceEvents.simulation.advanced.properties.key",
+               keyDup : "deviceEvents.simulation.advanced.properties.keyDup",
+               rowCheckBoxAriaLabel : "deviceEvents.simulation.advanced.properties.rowCheckBoxAriaLabel",
+               selectAllCheckboxAriaLabel : "deviceEvents.simulation.advanced.properties.selectAllCheckboxAriaLabel",
+               toggleSelectionColumnAriaLabel : "deviceEvents.simulation.advanced.properties.toggleSelectionColumnAriaLabel",
+               value : "deviceEvents.simulation.advanced.properties.value",
+            },
+            tooltiop : "deviceEvents.simulation.advanced.tooltiop",
+         },
+         basic : {
+            copyLabel : "deviceEvents.simulation.basic.copyLabel",
+            instruction : "deviceEvents.simulation.basic.instruction",
+            label : "deviceEvents.simulation.basic.label",
+            tooltiop : "deviceEvents.simulation.basic.tooltiop",
+         },
+         cloudShell : {
+            imageDescription : "deviceEvents.simulation.cloudShell.imageDescription",
+            textDescription : "deviceEvents.simulation.cloudShell.textDescription",
+         },
+         header : "deviceEvents.simulation.header",
+         prerequisite : {
+            instruction : "deviceEvents.simulation.prerequisite.instruction",
+            label : "deviceEvents.simulation.prerequisite.label",
+            tooltiop : "deviceEvents.simulation.prerequisite.tooltiop",
+         },
+      },
       toggleShowRawData : {
          label : "deviceEvents.toggleShowRawData.label",
          off : "deviceEvents.toggleShowRawData.off",

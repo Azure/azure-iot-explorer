@@ -81,7 +81,7 @@ describe('deviceEvents', () => {
             const wrapper = mount(<DeviceEvents/>);
             const commandBar = wrapper.find(CommandBar).first();
             // tslint:disable-next-line: no-magic-numbers
-            expect(commandBar.props().items.length).toEqual(3);
+            expect(commandBar.props().items.length).toEqual(4);
 
             // click the start button
             const startEventsMonitoringSpy = jest.spyOn(startEventsMonitoringAction, 'started');

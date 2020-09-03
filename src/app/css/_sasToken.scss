@@ -5,8 +5,6 @@
 @import 'themes';
 
 .sas-token-section {
-    margin: 0px 10px;
-
     .ms-Dropdown-title {
         @include themify($themes){
             background-color: themed('inputComponentBackgroundColor');
