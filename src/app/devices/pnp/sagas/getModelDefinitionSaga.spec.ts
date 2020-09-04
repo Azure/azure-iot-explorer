@@ -11,7 +11,6 @@ import { getModelDefinitionSaga,
     getModelDefinitionFromPublicRepo,
     getModelDefinitionFromLocalFile,
     validateModelDefinitionHelper,
-    getSplitedInterfaceId,
     getFlattenedModel
 } from './getModelDefinitionSaga';
 import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
@@ -137,11 +136,6 @@ describe('modelDefinition sagas', () => {
         describe('getModelDefinitionFromPublicRepo ', () => {
             const getModelDefinitionFromPublicRepoGenerator = cloneableGenerator(getModelDefinitionFromPublicRepo)(action);
 
-            expect(getModelDefinitionFromPublicRepoGenerator.next()).toEqual({
-                done: false,
-                value: call(getSplitedInterfaceId, action.payload.interfaceId)
-            });
-
             expect(getModelDefinitionFromPublicRepoGenerator.next([action.payload.interfaceId])).toEqual({
                 done: false,
                 value: call(fetchModelDefinition, {
@@ -150,34 +144,19 @@ describe('modelDefinition sagas', () => {
                 })
             });
 
-            expect(getModelDefinitionFromPublicRepoGenerator.next(modelDefinition)).toEqual({
-                done: false,
-                value: call(getFlattenedModel, modelDefinition, [action.payload.interfaceId])
-            });
-
-            expect(getModelDefinitionFromPublicRepoGenerator.next().done).toEqual(true);
+            expect(getModelDefinitionFromPublicRepoGenerator.next(modelDefinition).done).toEqual(true);
         });
 
         describe('getModelDefinitionFromLocalFile ', () => {
             const getModelDefinitionFromLocalFolderGenerator = cloneableGenerator(getModelDefinitionFromLocalFile)
                 (action);
 
-            expect(getModelDefinitionFromLocalFolderGenerator.next()).toEqual({
-                done: false,
-                value: call(getSplitedInterfaceId, action.payload.interfaceId)
-            });
-
             expect(getModelDefinitionFromLocalFolderGenerator.next([action.payload.interfaceId])).toEqual({
                 done: false,
                 value: call(fetchLocalFile, 'f:', action.payload.interfaceId)
             });
 
-            expect(getModelDefinitionFromLocalFolderGenerator.next(modelDefinition)).toEqual({
-                done: false,
-                value: call(getFlattenedModel, modelDefinition, [action.payload.interfaceId])
-            });
-
-            expect(getModelDefinitionFromLocalFolderGenerator.next().done).toEqual(true);
+            expect(getModelDefinitionFromLocalFolderGenerator.next(modelDefinition).done).toEqual(true);
         });
 
         describe('getModelDefinition', () => {
@@ -201,12 +180,7 @@ describe('modelDefinition sagas', () => {
         });
 
         describe('getFlattenedModel ', () => {
-            const getFlattenedModelGenerator = cloneableGenerator(getFlattenedModel)(modelDefinition, [interfaceId]);
-
-            expect(getFlattenedModelGenerator.next()).toEqual({
-                done: true,
-                value: modelDefinition
-            });
+            expect(getFlattenedModel(modelDefinition, [interfaceId])).toEqual(modelDefinition);
         });
     });
 
@@ -251,11 +225,6 @@ describe('modelDefinition sagas', () => {
         describe('getModelDefinitionFromPublicRepo ', () => {
             const getModelDefinitionFromPublicRepoGenerator = cloneableGenerator(getModelDefinitionFromPublicRepo)(action);
 
-            expect(getModelDefinitionFromPublicRepoGenerator.next()).toEqual({
-                done: false,
-                value: call(getSplitedInterfaceId, action.payload.interfaceId)
-            });
-
             expect(getModelDefinitionFromPublicRepoGenerator.next([interfaceId, schemaId])).toEqual({
                 done: false,
                 value: call(fetchModelDefinition, {
@@ -264,43 +233,23 @@ describe('modelDefinition sagas', () => {
                 })
             });
 
-            expect(getModelDefinitionFromPublicRepoGenerator.next(modelDefinition)).toEqual({
-                done: false,
-                value: call(getFlattenedModel, modelDefinition, [interfaceId, schemaId])
-            });
-
-            expect(getModelDefinitionFromPublicRepoGenerator.next().done).toEqual(true);
+            expect(getModelDefinitionFromPublicRepoGenerator.next(modelDefinition).done).toEqual(true);
         });
 
         describe('getModelDefinitionFromLocalFile ', () => {
             const getModelDefinitionFromLocalFolderGenerator = cloneableGenerator(getModelDefinitionFromLocalFile)
                 (action);
 
-            expect(getModelDefinitionFromLocalFolderGenerator.next()).toEqual({
-                done: false,
-                value: call(getSplitedInterfaceId, action.payload.interfaceId)
-            });
-
             expect(getModelDefinitionFromLocalFolderGenerator.next([interfaceId, schemaId])).toEqual({
                 done: false,
                 value: call(fetchLocalFile, 'f:', interfaceId)
             });
 
-            expect(getModelDefinitionFromLocalFolderGenerator.next(modelDefinition)).toEqual({
-                done: false,
-                value: call(getFlattenedModel, modelDefinition, [interfaceId, schemaId])
-            });
-
-            expect(getModelDefinitionFromLocalFolderGenerator.next().done).toEqual(true);
+            expect(getModelDefinitionFromLocalFolderGenerator.next(modelDefinition).done).toEqual(true);
         });
 
         describe('getFlattenedModel ', () => {
-            const getFlattenedModelGenerator = cloneableGenerator(getFlattenedModel)(modelDefinition, [interfaceId, schemaId]);
-
-            expect(getFlattenedModelGenerator.next()).toEqual({
-                done: true,
-                value: modelDefinition.contents[0]
-            });
+            expect(getFlattenedModel(modelDefinition, [interfaceId, schemaId])).toEqual(modelDefinition.contents[0]);
         });
     });
 });

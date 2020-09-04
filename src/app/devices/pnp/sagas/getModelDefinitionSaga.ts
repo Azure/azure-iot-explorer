@@ -75,38 +75,38 @@ export function* validateModelDefinitionHelper(modelDefinition: ModelDefinition,
     }
 }
 
-export function* getSplitedInterfaceId(fullName: string) {
+export const getSplitInterfaceId = (fullName: string) => {
     // when component definition is inline, interfaceId is compose of parent file name and inline schema id concatenated with a slash
     return fullName.split('/');
-}
+};
 
-export function* getFlattenedModel(model: ModelDefinition, splitedInterfaceId: string[]) {
-    if (splitedInterfaceId.length === 1) {
+export const getFlattenedModel = (model: ModelDefinition, splitInterfaceId: string[]) => {
+    if (splitInterfaceId.length === 1) {
         return model;
     }
     else {
         // for inline component, the flattened model is defined under contents array's with matching schema @id
         const components = model.contents.filter((content: any) => // tslint:disable-line: no-any
-            content['@type'] === 'Component' && typeof content.schema !== 'string' && content.schema['@id'] === splitedInterfaceId[1]);
+            content['@type'] === 'Component' && typeof content.schema !== 'string' && content.schema['@id'] === splitInterfaceId[1]);
         return components[0];
     }
-}
+};
 
 export function* getModelDefinitionFromPublicRepo(action: Action<GetModelDefinitionActionParameters>) {
-    const splitedInterfaceId = yield call(getSplitedInterfaceId, action.payload.interfaceId);
+    const splitInterfaceId = getSplitInterfaceId(action.payload.interfaceId);
     const parameters: FetchModelParameters = {
-        id: splitedInterfaceId[0],
+        id: splitInterfaceId[0],
         token: ''
     };
     const model = yield call(fetchModelDefinition, parameters);
-    return yield call(getFlattenedModel, model, splitedInterfaceId);
+    return getFlattenedModel(model, splitInterfaceId);
 }
 
 export function* getModelDefinitionFromLocalFile(action: Action<GetModelDefinitionActionParameters>) {
     const path = (action.payload.localFolderPath || '').replace(/\/$/, ''); // remove trailing slash
-    const splitedInterfaceId = yield call(getSplitedInterfaceId, action.payload.interfaceId);
-    const model = yield call(fetchLocalFile, path, splitedInterfaceId[0]);
-    return yield call(getFlattenedModel, model, splitedInterfaceId);
+    const splitInterfaceId = getSplitInterfaceId(action.payload.interfaceId);
+    const model = yield call(fetchLocalFile, path, splitInterfaceId[0]);
+    return getFlattenedModel(model, splitInterfaceId);
 }
 
 export function* getModelDefinition(action: Action<GetModelDefinitionActionParameters>, location: RepositoryLocationSettings) {

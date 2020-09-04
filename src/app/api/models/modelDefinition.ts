@@ -5,6 +5,12 @@
 export type ComplexSchema = ObjectSchema | MapSchema | EnumSchema | ArraySchema;
 export type ContentTypeUnion = PropertyContent | CommandContent | TelemetryContent | ComponentContent;
 
+interface ModelSchema {
+    '@type': string;
+    '@id': string;
+    contents: ContentTypeUnion[];
+}
+
 export interface ModelDefinition {
     '@context': string;
     '@id': string;
@@ -14,11 +20,7 @@ export interface ModelDefinition {
     description?: string | object;
     displayName?: string | object;
     schemas?: ComplexSchema[];
-    schema?: {
-        '@type': string;
-        '@id': string;
-        contents: ContentTypeUnion[];
-    };
+    schema?: ModelSchema;
 }
 
 export interface PropertyContent extends ContentBase {
@@ -37,11 +39,7 @@ export interface TelemetryContent extends ContentBase{
 }
 
 export interface ComponentContent extends ContentBase{
-    schema: string | {
-        '@type': string;
-        '@id': string;
-        contents: ContentTypeUnion[];
-    };
+    schema: string | ModelSchema;
 }
 
 interface ContentBase {
