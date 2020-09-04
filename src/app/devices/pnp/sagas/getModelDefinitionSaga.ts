@@ -75,17 +75,38 @@ export function* validateModelDefinitionHelper(modelDefinition: ModelDefinition,
     }
 }
 
-export function* getModelDefinitionFromPublicRepo(action: Action<GetModelDefinitionActionParameters>, location: RepositoryLocationSettings) {
+export function* getSplitedInterfaceId(fullName: string) {
+    // when component definition is inline, interfaceId is compose of parent file name and inline schema id concatenated with a slash
+    return fullName.split('/');
+}
+
+export function* getFlattenedModel(model: ModelDefinition, splitedInterfaceId: string[]) {
+    if (splitedInterfaceId.length === 1) {
+        return model;
+    }
+    else {
+        // for inline component, the flattened model is defined under contents array's with matching schema @id
+        const components = model.contents.filter((content: any) => // tslint:disable-line: no-any
+            content['@type'] === 'Component' && typeof content.schema !== 'string' && content.schema['@id'] === splitedInterfaceId[1]);
+        return components[0];
+    }
+}
+
+export function* getModelDefinitionFromPublicRepo(action: Action<GetModelDefinitionActionParameters>) {
+    const splitedInterfaceId = yield call(getSplitedInterfaceId, action.payload.interfaceId);
     const parameters: FetchModelParameters = {
-        id: action.payload.interfaceId,
+        id: splitedInterfaceId[0],
         token: ''
     };
-    return yield call(fetchModelDefinition, parameters);
+    const model = yield call(fetchModelDefinition, parameters);
+    return yield call(getFlattenedModel, model, splitedInterfaceId);
 }
 
 export function* getModelDefinitionFromLocalFile(action: Action<GetModelDefinitionActionParameters>) {
     const path = (action.payload.localFolderPath || '').replace(/\/$/, ''); // remove trailing slash
-    return yield call(fetchLocalFile, path, action.payload.interfaceId);
+    const splitedInterfaceId = yield call(getSplitedInterfaceId, action.payload.interfaceId);
+    const model = yield call(fetchLocalFile, path, splitedInterfaceId[0]);
+    return yield call(getFlattenedModel, model, splitedInterfaceId);
 }
 
 export function* getModelDefinition(action: Action<GetModelDefinitionActionParameters>, location: RepositoryLocationSettings) {
@@ -93,6 +114,6 @@ export function* getModelDefinition(action: Action<GetModelDefinitionActionParam
         case REPOSITORY_LOCATION_TYPE.Local:
             return yield call(getModelDefinitionFromLocalFile, action);
         default:
-            return yield call(getModelDefinitionFromPublicRepo, action, location);
+            return yield call(getModelDefinitionFromPublicRepo, action);
     }
 }
