@@ -128,13 +128,14 @@ export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataPro
                                 settingSchema,
                                 t(ResourceKeys.deviceSettings.columns.error))}
                         </ErrorBoundary> :
+                        reportedTwin ?
                         <ActionButton
                             className="column-value-button"
                             ariaDescription={t(ResourceKeys.deviceSettings.command.openReportedValuePanel)}
                             onClick={onViewReportedValue}
                         >
                             {t(ResourceKeys.deviceSettings.command.openReportedValuePanel)}
-                        </ActionButton>
+                        </ActionButton> : <Label>--</Label>
                 }
             </>
         );
