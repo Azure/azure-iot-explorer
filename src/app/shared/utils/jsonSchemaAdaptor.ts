@@ -54,8 +54,16 @@ export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
     private readonly model: ModelDefinition;
     private readonly definitions: any; // tslint:disable-line: no-any
 
+    // tslint:disable-next-line: cyclomatic-complexity
     constructor(model: ModelDefinition) {
-        this.model = model;
+        // preprocess model to flatten if content is within schema
+        if (model && !model.contents && model.schema) {
+            this.model = JSON.parse(JSON.stringify(model)); // important: needs this deep copy to prevent model got changed
+            this.model.contents = model.schema.contents;
+        }
+        else {
+            this.model = model;
+        }
         const reusableSchema = model && model.schemas || [];
         this.definitions = {} as any; // tslint:disable-line: no-any
         reusableSchema.forEach(schema => {

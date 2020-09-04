@@ -3,16 +3,24 @@
  * Licensed under the MIT License
  **********************************************************/
 export type ComplexSchema = ObjectSchema | MapSchema | EnumSchema | ArraySchema;
+export type ContentTypeUnion = PropertyContent | CommandContent | TelemetryContent | ComponentContent;
+
+interface ModelSchema {
+    '@type': string;
+    '@id': string;
+    contents: ContentTypeUnion[];
+}
 
 export interface ModelDefinition {
     '@context': string;
     '@id': string;
     '@type': string;
     comment?: string | object;
-    contents: Array<PropertyContent | CommandContent | TelemetryContent | ComponentContent>;
+    contents?: ContentTypeUnion[];
     description?: string | object;
     displayName?: string | object;
     schemas?: ComplexSchema[];
+    schema?: ModelSchema;
 }
 
 export interface PropertyContent extends ContentBase {
@@ -31,7 +39,7 @@ export interface TelemetryContent extends ContentBase{
 }
 
 export interface ComponentContent extends ContentBase{
-    schema: string;
+    schema: string | ModelSchema;
 }
 
 interface ContentBase {
@@ -42,6 +50,7 @@ interface ContentBase {
     description?: string | object;
     displayName?: string | object;
     unit?: string;
+    '@id'?: string;
 }
 
 export interface Schema {
