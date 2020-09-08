@@ -124,6 +124,7 @@
     "@types/webpack-merge": "4.1.5",
     "awesome-typescript-loader": "5.2.1",
     "concurrently": "4.1.0",
+    "copy-webpack-plugin": "6.1.0",
     "css-loader": "1.0.0",
     "electron": "7.2.4",
     "electron-builder": "22.8.0",

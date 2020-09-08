@@ -40,10 +40,10 @@ export const DeviceSimulationPanel: React.FC<DeviceSimulationPanelProps> = props
     const deviceId = getDeviceIdFromQueryString(search);
 
     const [ hubConnectionString, ] = getHubInformationFromLocalStorage();
-    const [ simulationBody, setSimulationBody ] = React.useState('');
+    const [ simulationBody, setSimulationBody ] = React.useState<string>('');
     const [ propertyIndex, setPropertyIndex ] = React.useState<number>(0);
-    const [ selectedIndices, setSelectedIndices ] = React.useState(new Set());
-    const [ properties, setProperties ] = React.useState([{index: 0, keyName: '', value: ''}]);
+    const [ selectedIndices, setSelectedIndices ] = React.useState<Set<number>>(new Set());
+    const [ properties, setProperties ] = React.useState<PropertyItem[]>([{index: 0, keyName: '', value: ''}]);
     const selection = new Selection({
         onSelectionChanged: () => onSelectionChanged()
     });
@@ -59,7 +59,7 @@ export const DeviceSimulationPanel: React.FC<DeviceSimulationPanelProps> = props
                 headerText={t(ResourceKeys.deviceEvents.simulation.header)}
             >
                 <a onClick={onclick} target="_blank">
-                    <img className="cloudShellButton"  alt={t(ResourceKeys.deviceEvents.simulation.cloudShell.imageDescription)} src="https://shell.azure.com/images/launchcloudshell.png" />
+                    <img className="cloudShellButton"  alt={t(ResourceKeys.deviceEvents.simulation.cloudShell.imageDescription)} src="images/launchcloudshell.png" />
                 </a>
                 <Label>{t(ResourceKeys.deviceEvents.simulation.cloudShell.textDescription)}</Label>
                 <CollapsibleSection
