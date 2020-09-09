@@ -16,7 +16,7 @@ exports[`deviceSimulationPanel matches snapshot  1`] = `
     <img
       alt="deviceEvents.simulation.cloudShell.imageDescription"
       className="cloudShellButton"
-      src="https://shell.azure.com/images/launchcloudshell.png"
+      src="images/launchcloudshell.png"
     />
   </a>
   <StyledLabelBase>
