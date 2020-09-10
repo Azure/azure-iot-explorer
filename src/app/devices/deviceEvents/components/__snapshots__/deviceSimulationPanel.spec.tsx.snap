@@ -1,0 +1,176 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`deviceSimulationPanel matches snapshot  1`] = `
+<StyledPanelBase
+  closeButtonAriaLabel="common.close"
+  headerText="deviceEvents.simulation.header"
+  isBlocking={false}
+  isOpen={true}
+  onDismiss={[MockFunction]}
+  type={3}
+>
+  <a
+    onClick={[Function]}
+    target="_blank"
+  >
+    <img
+      alt="deviceEvents.simulation.cloudShell.imageDescription"
+      className="cloudShellButton"
+      src="images/launchcloudshell.png"
+    />
+  </a>
+  <StyledLabelBase>
+    deviceEvents.simulation.cloudShell.textDescription
+  </StyledLabelBase>
+  <Component
+    expanded={true}
+    label="deviceEvents.simulation.prerequisite.label"
+    tooltipText="deviceEvents.simulation.prerequisite.tooltiop"
+  >
+    <span>
+      deviceEvents.simulation.prerequisite.instruction
+    </span>
+  </Component>
+  <Component
+    expanded={true}
+    label="deviceEvents.simulation.basic.label"
+    tooltipText="deviceEvents.simulation.basic.tooltiop"
+  >
+    <span>
+      deviceEvents.simulation.basic.instruction
+    </span>
+    <Component
+      allowMask={false}
+      ariaLabel="deviceEvents.simulation.basic.copyLabel"
+      label="deviceEvents.simulation.basic.copyLabel"
+      readOnly={true}
+      value="az iot device simulate --device-id device1 --login \\"\\""
+    />
+  </Component>
+  <Component
+    expanded={false}
+    label="deviceEvents.simulation.advanced.label"
+    tooltipText="deviceEvents.simulation.advanced.tooltiop"
+  >
+    <span>
+      deviceEvents.simulation.advanced.instruction
+    </span>
+    <Component
+      tooltipText="deviceEvents.simulation.advanced.body.tooltip"
+    >
+      deviceEvents.simulation.advanced.body.label
+    </Component>
+    <StyledTextFieldBase
+      multiline={true}
+      onChange={[Function]}
+      rows={5}
+    />
+    <StyledCommandBarBase
+      className="properties-section-command-bar"
+      items={
+        Array [
+          Object {
+            "ariaLabel": "deviceEvents.simulation.advanced.properties.addProperty",
+            "iconProps": Object {
+              "iconName": "CircleAddition",
+            },
+            "key": "deviceEvents.simulation.advanced.properties.addProperty",
+            "name": "deviceEvents.simulation.advanced.properties.addProperty",
+            "onClick": [Function],
+          },
+          Object {
+            "ariaLabel": "deviceEvents.simulation.advanced.properties.delete",
+            "disabled": true,
+            "iconProps": Object {
+              "iconName": "Delete",
+            },
+            "key": "deviceEvents.simulation.advanced.properties.delete",
+            "name": "deviceEvents.simulation.advanced.properties.delete",
+            "onClick": [Function],
+          },
+        ]
+      }
+    />
+    <StyledMarqueeSelectionBase
+      selection={
+        Selection {
+          "_anchoredIndex": 0,
+          "_canSelectItem": [Function],
+          "_changeEventSuppressionCount": 0,
+          "_exemptedCount": 0,
+          "_exemptedIndices": Object {},
+          "_getKey": [Function],
+          "_isModal": false,
+          "_items": Array [],
+          "_keyToIndexMap": Object {},
+          "_onSelectionChanged": [Function],
+          "_selectedItems": null,
+          "_unselectableCount": 0,
+          "_unselectableIndices": Object {},
+          "count": 0,
+          "mode": 2,
+        }
+      }
+    >
+      <StyledWithViewportComponent
+        ariaLabelForSelectAllCheckbox="deviceEvents.simulation.advanced.properties.selectAllCheckboxAriaLabel"
+        ariaLabelForSelectionColumn="deviceEvents.simulation.advanced.properties.toggleSelectionColumnAriaLabel"
+        checkButtonAriaLabel="deviceEvents.simulation.advanced.properties.rowCheckBoxAriaLabel"
+        columns={
+          Array [
+            Object {
+              "isResizable": true,
+              "key": "key",
+              "maxWidth": 300,
+              "minWidth": 150,
+              "name": "deviceEvents.simulation.advanced.properties.key",
+            },
+            Object {
+              "isResizable": true,
+              "key": "value",
+              "minWidth": 150,
+              "name": "deviceEvents.simulation.advanced.properties.value",
+            },
+          ]
+        }
+        items={
+          Array [
+            Object {
+              "index": 0,
+              "keyName": "",
+              "value": "",
+            },
+          ]
+        }
+        onRenderItemColumn={[Function]}
+        selection={
+          Selection {
+            "_anchoredIndex": 0,
+            "_canSelectItem": [Function],
+            "_changeEventSuppressionCount": 0,
+            "_exemptedCount": 0,
+            "_exemptedIndices": Object {},
+            "_getKey": [Function],
+            "_isModal": false,
+            "_items": Array [],
+            "_keyToIndexMap": Object {},
+            "_onSelectionChanged": [Function],
+            "_selectedItems": null,
+            "_unselectableCount": 0,
+            "_unselectableIndices": Object {},
+            "count": 0,
+            "mode": 2,
+          }
+        }
+      />
+    </StyledMarqueeSelectionBase>
+    <Component
+      allowMask={false}
+      ariaLabel="deviceEvents.simulation.advanced.copyLabel"
+      label="deviceEvents.simulation.advanced.copyLabel"
+      readOnly={true}
+      value="az iot device simulate --device-id device1 --login \\"\\""
+    />
+  </Component>
+</StyledPanelBase>
+`;

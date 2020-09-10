@@ -39,6 +39,15 @@ exports[`deviceEvents deviceEvents in non-pnp context matches snapshot in electr
           "name": "deviceEvents.command.clearEvents",
           "onClick": [Function],
         },
+        Object {
+          "ariaLabel": "deviceEvents.command.clearEvents",
+          "iconProps": Object {
+            "iconName": "Code",
+          },
+          "key": "deviceEvents.command.simulate",
+          "name": "deviceEvents.command.simulate",
+          "onClick": [Function],
+        },
       ]
     }
   />
@@ -65,6 +74,10 @@ exports[`deviceEvents deviceEvents in non-pnp context matches snapshot in electr
     offText="deviceEvents.toggleUseDefaultEventHub.off"
     onChange={[Function]}
     onText="deviceEvents.toggleUseDefaultEventHub.on"
+  />
+  <Component
+    onToggleSimulationPanel={[Function]}
+    showSimulationPanel={false}
   />
   <div
     className="device-events-container"
@@ -136,6 +149,15 @@ exports[`deviceEvents deviceEvents in non-pnp context matches snapshot in hosted
           "name": "deviceEvents.command.clearEvents",
           "onClick": [Function],
         },
+        Object {
+          "ariaLabel": "deviceEvents.command.clearEvents",
+          "iconProps": Object {
+            "iconName": "Code",
+          },
+          "key": "deviceEvents.command.simulate",
+          "name": "deviceEvents.command.simulate",
+          "onClick": [Function],
+        },
       ]
     }
   />
@@ -162,6 +184,10 @@ exports[`deviceEvents deviceEvents in non-pnp context matches snapshot in hosted
     offText="deviceEvents.toggleUseDefaultEventHub.off"
     onChange={[Function]}
     onText="deviceEvents.toggleUseDefaultEventHub.on"
+  />
+  <Component
+    onToggleSimulationPanel={[Function]}
+    showSimulationPanel={false}
   />
   <div
     className="device-events-container"
@@ -233,6 +259,15 @@ exports[`deviceEvents deviceEvents in pnp context matches snapshot while interfa
           "name": "deviceEvents.command.clearEvents",
           "onClick": [Function],
         },
+        Object {
+          "ariaLabel": "deviceEvents.command.clearEvents",
+          "iconProps": Object {
+            "iconName": "Code",
+          },
+          "key": "deviceEvents.command.simulate",
+          "name": "deviceEvents.command.simulate",
+          "onClick": [Function],
+        },
       ]
     }
   />
@@ -259,6 +294,10 @@ exports[`deviceEvents deviceEvents in pnp context matches snapshot while interfa
     offText="deviceEvents.toggleUseDefaultEventHub.off"
     onChange={[Function]}
     onText="deviceEvents.toggleUseDefaultEventHub.on"
+  />
+  <Component
+    onToggleSimulationPanel={[Function]}
+    showSimulationPanel={false}
   />
   <div
     className="device-events-container"
@@ -309,6 +348,15 @@ exports[`deviceEvents deviceEvents in pnp context matches snapshot while interfa
           "name": "deviceEvents.command.clearEvents",
           "onClick": [Function],
         },
+        Object {
+          "ariaLabel": "deviceEvents.command.clearEvents",
+          "iconProps": Object {
+            "iconName": "Code",
+          },
+          "key": "deviceEvents.command.simulate",
+          "name": "deviceEvents.command.simulate",
+          "onClick": [Function],
+        },
       ]
     }
   />
@@ -335,6 +383,10 @@ exports[`deviceEvents deviceEvents in pnp context matches snapshot while interfa
     offText="deviceEvents.toggleUseDefaultEventHub.off"
     onChange={[Function]}
     onText="deviceEvents.toggleUseDefaultEventHub.on"
+  />
+  <Component
+    onToggleSimulationPanel={[Function]}
+    showSimulationPanel={false}
   />
   <div
     className="device-events-container"
@@ -385,6 +437,15 @@ exports[`deviceEvents deviceEvents in pnp context matches snapshot while interfa
           "name": "deviceEvents.command.clearEvents",
           "onClick": [Function],
         },
+        Object {
+          "ariaLabel": "deviceEvents.command.clearEvents",
+          "iconProps": Object {
+            "iconName": "Code",
+          },
+          "key": "deviceEvents.command.simulate",
+          "name": "deviceEvents.command.simulate",
+          "onClick": [Function],
+        },
       ]
     }
   />
@@ -411,6 +472,10 @@ exports[`deviceEvents deviceEvents in pnp context matches snapshot while interfa
     offText="deviceEvents.toggleUseDefaultEventHub.off"
     onChange={[Function]}
     onText="deviceEvents.toggleUseDefaultEventHub.on"
+  />
+  <Component
+    onToggleSimulationPanel={[Function]}
+    showSimulationPanel={false}
   />
   <div
     className="device-events-container"

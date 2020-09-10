@@ -20,5 +20,8 @@ exports[`collapsibleSection matches snapshot 1`] = `
   >
     Label
   </Component>
+  <div
+    className="collapsible-section-children"
+  />
 </div>
 `;

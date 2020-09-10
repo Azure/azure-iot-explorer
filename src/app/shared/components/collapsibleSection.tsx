@@ -43,7 +43,9 @@ export const CollapsibleSection: React.FC<CollapsibleSectionProps> = (props: Col
             <LabelWithTooltip tooltipText={tooltipText}>
                 {label}
             </LabelWithTooltip>
-            {expanded && children}
+            <div className="collapsible-section-children">
+                {expanded && children}
+            </div>
         </div>
     );
 };

@@ -567,7 +567,8 @@
             "start": "Start",
             "stop": "Stop",
             "fetch": "Retrieve events",
-            "close": "Back"
+            "close": "Back",
+            "simulate": "Simulation device"
         },
         "consumerGroups": {
             "label": "Consumer group",
@@ -625,7 +626,45 @@
             "on": "Yes",
             "off": "No"
         },
-        "error": "Failed to monitor events. {{error}}"
+        "error": "Failed to monitor events. {{error}}",
+        "simulation": {
+            "header": "Simulate a device using CLI in Azure Cloud Shell",
+            "cloudShell": {
+                "imageDescription": "Launch Azure Cloud Shell",
+                "textDescription": "Click Launch Cloud Shell, paste the commands below to simulate a device sending telemetry. You will be able to start monitoring events from the built-in event hub."
+            },
+            "prerequisite": {
+                "label": "Prerequisite",
+                "tooltiop": "If you have not used Azure Cloud Shell before",
+                "instruction": "Follow the instructions in Azure Cloud Shell to pick a subscription and set up a storage if you haven't used Cloud Shell before. If you have encountered error 'az iot: 'device' is not in the 'az iot' command group', use command 'az extension add --name azure-iot' to install Azure IoT CLI extension."
+            },
+            "basic": {
+                "label": "Basic scenario",
+                "tooltiop": "Zero input basic scenario",
+                "instruction": "Simply copy paste the following command to Azure Cloud Shell. It will start simulating device {{deviceId}} as it's sending messages to IoT Hub. You can click 'Start' button from the Telemetry page to start monitoring the events.",
+                "copyLabel": "Simulating device {{deviceId}}"
+            },
+            "advanced": {
+                "label": "Advance scenario",
+                "tooltiop": "For advanced users to simulate events' body or properties",
+                "instruction": "Enter the desired message body and/or properties, and copy paste the generated command to Azure Cloud Shell. It will start simulating device {{deviceId}} as it's sending messages to IoT Hub. You can click 'Start' button from the Telemetry page to start monitoring the events.",
+                "copyLabel": "Simulating device {{deviceId}}",
+                "body": {
+                    "label": "Provide event body",
+                    "tooltip": "If left empty, the default value would be: 'Ping from Az CLI IoT Extension'."
+                },
+                "properties": {
+                    "key": "Key",
+                    "keyDup": "Key must be unique",
+                    "value": "Value",
+                    "addProperty": "Add a property",
+                    "delete": "Delete",
+                    "toggleSelectionColumnAriaLabel": "Toggle selection",
+                    "selectAllCheckboxAriaLabel": "Toggle selection for all",
+                    "rowCheckBoxAriaLabel": "Row checkbox"
+                }
+            }
+        }
     },
     "directMethod": {
         "headerText": "Direct method",
