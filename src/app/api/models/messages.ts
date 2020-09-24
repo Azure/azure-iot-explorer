@@ -12,6 +12,7 @@ export interface Message {
 export enum MESSAGE_PROPERTIES {
     IOTHUB_MESSAGE_SCHEMA = 'iothub-message-schema'
 }
+
 export enum MESSAGE_SYSTEM_PROPERTIES {
     IOTHUB_CONNECTION_AUTH_GENERATION_ID = 'iothub-connection-auth-generation-id',
     IOTHUB_CONNECTION_AUTH_METHOD = 'iothub-connection-auth-method',
@@ -21,3 +22,5 @@ export enum MESSAGE_SYSTEM_PROPERTIES {
     IOTHUB_MESSAGE_SOURCE = 'iothub-message-source',
     IOTHUB_ENQUEUED_TIME = 'iothub-enqueuedtime'
 }
+
+export const IOTHUB_MESSAGE_SOURCE_TELEMETRY = 'telemetry';
