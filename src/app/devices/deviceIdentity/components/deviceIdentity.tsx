@@ -30,14 +30,6 @@ export interface DeviceIdentityDataProps {
     synchronizationStatus: SynchronizationStatus;
 }
 
-export interface DeviceIdentityState {
-    identity: DeviceIdentity;
-    isDirty: boolean;
-    sasTokenExpiration: number;
-    sasTokenConnectionString: string;
-    sasTokenSelectedKey: string;
-}
-
 export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & DeviceIdentityDispatchProps> = (props: DeviceIdentityDataProps & DeviceIdentityDispatchProps) => {
     const { t } = useTranslation();
     const { hostName } = useParams();

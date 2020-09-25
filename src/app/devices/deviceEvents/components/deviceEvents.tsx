@@ -12,7 +12,7 @@ import { Announced } from 'office-ui-fabric-react/lib/components/Announced';
 import { Toggle } from 'office-ui-fabric-react/lib/components/Toggle';
 import { Label } from 'office-ui-fabric-react/lib/components/Label';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { Message, MESSAGE_SYSTEM_PROPERTIES, MESSAGE_PROPERTIES } from '../../../api/models/messages';
+import { Message, MESSAGE_SYSTEM_PROPERTIES, MESSAGE_PROPERTIES, IOTHUB_MESSAGE_SOURCE_TELEMETRY } from '../../../api/models/messages';
 import { parseDateTimeString } from '../../../api/dataTransforms/transformHelper';
 import { CLEAR, CHECKED_CHECKBOX, EMPTY_CHECKBOX, START, STOP, NAVIGATE_BACK, REFRESH, REMOVE, CODE } from '../../../constants/iconNames';
 import { getDeviceIdFromQueryString, getComponentNameFromQueryString, getInterfaceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
@@ -316,8 +316,14 @@ export const DeviceEvents: React.FC = () => {
         }
     };
 
+    // tslint:disable-next-line: cyclomatic-complexity
     const filterMessage = (message: Message) => {
         if (!message || !message.systemProperties) {
+            return false;
+        }
+        if (message.systemProperties[MESSAGE_SYSTEM_PROPERTIES.IOTHUB_MESSAGE_SOURCE] &&
+            message.systemProperties[MESSAGE_SYSTEM_PROPERTIES.IOTHUB_MESSAGE_SOURCE].toLowerCase() !== IOTHUB_MESSAGE_SOURCE_TELEMETRY) {
+            // filter out telemetry sent from other sources
             return false;
         }
         if (componentName === DEFAULT_COMPONENT_FOR_DIGITAL_TWIN) {
