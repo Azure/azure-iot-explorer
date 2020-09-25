@@ -4,7 +4,7 @@
  **********************************************************/
 import { ModelDefinition } from '../../../../api/models/modelDefinition';
 
-const interfaceId = 'urn:azureiot:samplemodel:1';
+const interfaceId = 'urn:azureiot:samplemodel;1';
 export const testComponentName = 'environmentalSensor';
 /* tslint:disable */
 export const testModelDefinition: ModelDefinition = {
