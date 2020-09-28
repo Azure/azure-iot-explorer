@@ -359,10 +359,11 @@ export const DeviceEvents: React.FC = () => {
 
     //#region pnp specific render
     const renderPnpModeledEvents = () => {
+        const filteredEvents = componentName ? events.filter(result => filterMessage(result)) : events;
         return (
             <>
                 {
-                    events && events.length > 0 &&
+                    filteredEvents && filteredEvents.length > 0 &&
                     <>
                         <div className="pnp-modeled-list">
                             <div className="list-header list-header-uncollapsible flex-grid-row">
@@ -375,7 +376,7 @@ export const DeviceEvents: React.FC = () => {
                         </div>
                         <section role="feed">
                         {
-                            events.map((event: Message, index) => {
+                            filteredEvents.map((event: Message, index) => {
                                 return !event.systemProperties ? renderEventsWithNoSystemProperties(event, index) :
                                     event.systemProperties[TELEMETRY_SCHEMA_PROP] ?
                                         renderEventsWithSchemaProperty(event, index) :
