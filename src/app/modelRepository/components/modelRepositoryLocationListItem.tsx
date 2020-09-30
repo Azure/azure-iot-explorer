@@ -32,6 +32,7 @@ export interface RepositoryLocationListItemState {
     showError: boolean;
 }
 
+// tslint:disable-next-line: cyclomatic-complexity
 export const ModelRepositoryLocationListItem: React.FC<ModelRepositoryLocationListItemProps> = (props: ModelRepositoryLocationListItemProps) => {
     const { t } = useTranslation();
 
@@ -40,9 +41,14 @@ export const ModelRepositoryLocationListItem: React.FC<ModelRepositoryLocationLi
     if (item && item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local) {
         initialCurrentFolder = item.value || getRootFolder();
     }
+    let initialConfigurableRepositoryPath = '';
+    if (item && item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Configurable) {
+        initialConfigurableRepositoryPath = item.value;
+    }
 
     const [ subFolders, setSubFolders ] = React.useState([]);
     const [ currentFolder, setCurrentFolder ] = React.useState(initialCurrentFolder);
+    const [ currentConfigurableRepositoryPath, setCurrentConfigurableRepositoryPath ] = React.useState(initialConfigurableRepositoryPath);
     const [ showError, setShowError ] = React.useState<boolean>(false);
     const [ showFolderPicker, setShowFolderPicker ] = React.useState<boolean>(false);
 
@@ -55,6 +61,9 @@ export const ModelRepositoryLocationListItem: React.FC<ModelRepositoryLocationLi
                     && <Label>{t(ResourceKeys.modelRepository.types.public.label)}</Label>}
                 {item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local &&
                    renderLocalFolderItem()
+                }
+                {item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Configurable &&
+                    renderConfigurableRepoItem()
                 }
             </div>);
     };
@@ -89,6 +98,36 @@ export const ModelRepositoryLocationListItem: React.FC<ModelRepositoryLocationLi
                 </>
             );
     };
+
+    const renderConfigurableRepoItem = () => {
+        return(
+            <>
+                <div className="labelSection">
+                    <LabelWithRichCallout
+                        calloutContent={t(ResourceKeys.modelRepository.types.configurable.infoText)}
+                        required={true}
+                    >
+                        {t(ResourceKeys.modelRepository.types.configurable.label)}
+                    </LabelWithRichCallout>
+                </div>
+                <TextField
+                    className="local-folder-textbox"
+                    label={t(ResourceKeys.modelRepository.types.configurable.textBoxLabel)}
+                    ariaLabel={t(ResourceKeys.modelRepository.types.configurable.textBoxLabel)}
+                    value={currentConfigurableRepositoryPath}
+                    readOnly={false}
+                    errorMessage={props.errorKey ? t(props.errorKey) : ''}
+                    onChange={repositoryEndpointChange}
+                    prefix="https://"
+                />
+            </>
+        );
+    };
+
+    const repositoryEndpointChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
+        setCurrentConfigurableRepositoryPath(newValue);
+        onChangeRepositoryLocationSettingValue(index, newValue);
+   };
 
     const onFolderPathChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
         setCurrentFolder(newValue);

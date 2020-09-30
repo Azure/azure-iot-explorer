@@ -16,12 +16,13 @@ import { PnPModel } from '../models/metamodelMetadata';
 import { getHeaderValue } from '../shared/fetchUtils';
 
 export const convertModelIdentifier = (id: string) => {
-    return `${id.split(':').join('/').replace(';', '-')}.json`;
+    return `${id.toLowerCase().split(':').join('/').replace(';', '-')}.json`;
 };
 
 export const fetchModel = async (parameters: FetchModelParameters): Promise<PnPModel> => {
     const modelIdentifier = encodeURIComponent(convertModelIdentifier(parameters.id));
-    const resourceUrl = `https://${PUBLIC_REPO_HOSTNAME}/${modelIdentifier}`;
+    const hostName = parameters.url || PUBLIC_REPO_HOSTNAME;
+    const resourceUrl = `https://${hostName}/${modelIdentifier}`;
 
     const controllerRequest: RequestInitWithUri = {
         headers: {

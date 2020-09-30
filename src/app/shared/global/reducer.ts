@@ -13,8 +13,10 @@ export const globalReducer = reducerWithInitialState<GlobalStateType>(globalStat
     .case(setRepositoryLocationsAction, (state: GlobalStateType, payload: RepositoryLocationSettings[]) => {
         const locationTypes = getRepositoryLocationTypes(payload);
         const localFolderPath = getLocalFolderPath(payload);
+        const configurableRepositoryPath = getConfigurableRepositoryPath(payload);
 
         const updatedState = {...state.modelRepositoryState};
+        updatedState.configurableRepositorySettings = { path: configurableRepositoryPath };
         updatedState.localFolderSettings = { path: localFolderPath };
         updatedState.repositoryLocations = locationTypes;
 
@@ -70,11 +72,22 @@ export const getRepositoryLocationTypes = (locations: RepositoryLocationSettings
 
 export const getLocalFolderPath = (locations: RepositoryLocationSettings[]): string => {
     let localFolderSetting = '';
-    locations.forEach(s => {
-        if (s.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local) {
-            localFolderSetting = s.value || '';
+    locations.forEach(location => {
+        if (location.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local) {
+            localFolderSetting = location.value || '';
         }
     });
 
     return localFolderSetting;
+};
+
+export const getConfigurableRepositoryPath = (locations: RepositoryLocationSettings[]): string => {
+    let repositoryPath = '';
+    locations.forEach(location => {
+        if (location.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Configurable) {
+            repositoryPath = location.value || '';
+        }
+    });
+
+    return repositoryPath;
 };

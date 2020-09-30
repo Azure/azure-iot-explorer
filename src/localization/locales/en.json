@@ -896,6 +896,10 @@
                 "label": "Public repository",
                 "ariaLabel": "Public repository model source"
             },
+            "addConfigurableRepoSource" : {
+                "label": "Configurable repository",
+                "ariaLabel": "Configurable repository model source"
+            },
             "addLocalSource": {
                 "label": "Local folder",
                 "labelInBrowser":"Local folder (This is only enabled in the desktop version from: https://github.com/Azure/azure-iot-explorer/releases)",
@@ -917,6 +921,11 @@
         "types": {
             "public" : {
                 "label": "Public Repository"
+            },
+            "configurable" : {
+                "label": "Configurable Repository",
+                "infoText": "Configure your own repository endpoint",
+                "textBoxLabel": "Repository endpoint"
             },
             "local": {
                 "label": "Local Folder",

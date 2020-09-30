@@ -4,9 +4,9 @@
  **********************************************************/
 import { call } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
-import { setLocalFolderPath, setRepositoryLocations } from '../../../api/services/modelRepositoryService';
+import { setConfigurableRepositoryPath, setLocalFolderPath, setRepositoryLocations } from '../../../api/services/modelRepositoryService';
 import { RepositoryLocationSettings } from '../state';
-import { getLocalFolderPath, getRepositoryLocationTypes } from '../reducer';
+import { getConfigurableRepositoryPath, getLocalFolderPath, getRepositoryLocationTypes } from '../reducer';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
@@ -14,6 +14,9 @@ import { raiseNotificationToast } from '../../../notifications/components/notifi
 export function* setRepositoryLocationsSaga(action: Action<RepositoryLocationSettings[]>) {
     const localFolderPath = yield call(getLocalFolderPath, action.payload);
     yield call(setLocalFolderPath, localFolderPath);
+
+    const configurableRepositoryPath = yield call(getConfigurableRepositoryPath, action.payload);
+    yield call(setConfigurableRepositoryPath, configurableRepositoryPath);
 
     const locations = yield call(getRepositoryLocationTypes, action.payload);
     yield call(setRepositoryLocations, locations);
