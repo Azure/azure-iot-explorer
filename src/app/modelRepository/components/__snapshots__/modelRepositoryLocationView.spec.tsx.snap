@@ -57,6 +57,16 @@ exports[`modelRepositoryLocationView matches snapshot when locations greater tha
                   "text": "modelRepository.commands.addPublicSource.label",
                 },
                 Object {
+                  "ariaLabel": "modelRepository.commands.addConfigurableRepoSource.label",
+                  "disabled": false,
+                  "iconProps": Object {
+                    "iconName": "Repo",
+                  },
+                  "key": "CONFIGURABLE",
+                  "onClick": [Function],
+                  "text": "modelRepository.commands.addConfigurableRepoSource.label",
+                },
+                Object {
                   "ariaLabel": "modelRepository.commands.addLocalSource.ariaLabel",
                   "disabled": true,
                   "iconProps": Object {
@@ -161,6 +171,16 @@ exports[`modelRepositoryLocationView matches snapshot when no locations 1`] = `
                   "key": "PUBLIC",
                   "onClick": [Function],
                   "text": "modelRepository.commands.addPublicSource.label",
+                },
+                Object {
+                  "ariaLabel": "modelRepository.commands.addConfigurableRepoSource.label",
+                  "disabled": false,
+                  "iconProps": Object {
+                    "iconName": "Repo",
+                  },
+                  "key": "CONFIGURABLE",
+                  "onClick": [Function],
+                  "text": "modelRepository.commands.addConfigurableRepoSource.label",
                 },
                 Object {
                   "ariaLabel": "modelRepository.commands.addLocalSource.ariaLabel",

@@ -15,7 +15,7 @@ describe('digitalTwinsModelService', () => {
         };
 
         it('converts model id to required format', () => {
-            expect(DigitalTwinsModelService.convertModelIdentifier(parameters.id)).toEqual('urn/azureiot/ModelDiscovery/ModelInformation-1.json');
+            expect(DigitalTwinsModelService.convertModelIdentifier(parameters.id)).toEqual('urn/azureiot/modeldiscovery/modelinformation-1.json');
         });
 
         it('calls fetch with specified parameters and returns model when response is 200', async () => {

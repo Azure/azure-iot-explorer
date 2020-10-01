@@ -11,7 +11,7 @@ import { getModelDefinitionSaga,
     getModelDefinitionFromPublicRepo,
     getModelDefinitionFromLocalFile,
     validateModelDefinitionHelper,
-    getFlattenedModel
+    getFlattenedModel, getModelDefinitionFromConfigurableRepo
 } from './getModelDefinitionSaga';
 import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 import { NotificationType } from '../../../api/models/notification';
@@ -29,7 +29,6 @@ describe('modelDefinition sagas', () => {
         const params: GetModelDefinitionActionParameters = {
             digitalTwinId,
             interfaceId,
-            localFolderPath: 'f:/',
             locations: [{ repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public }],
         };
         const action = getModelDefinitionAction.started(params);
@@ -153,7 +152,7 @@ describe('modelDefinition sagas', () => {
 
             expect(getModelDefinitionFromLocalFolderGenerator.next([action.payload.interfaceId])).toEqual({
                 done: false,
-                value: call(fetchLocalFile, 'f:', action.payload.interfaceId)
+                value: call(fetchLocalFile, '', action.payload.interfaceId)
             });
 
             expect(getModelDefinitionFromLocalFolderGenerator.next(modelDefinition).done).toEqual(true);
@@ -192,7 +191,6 @@ describe('modelDefinition sagas', () => {
         const params: GetModelDefinitionActionParameters = {
             digitalTwinId,
             interfaceId: fullInterfaceId,
-            localFolderPath: 'f:/',
             locations: [{ repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public }],
         };
         const action = getModelDefinitionAction.started(params);
@@ -238,7 +236,11 @@ describe('modelDefinition sagas', () => {
 
         describe('getModelDefinitionFromLocalFile ', () => {
             const getModelDefinitionFromLocalFolderGenerator = cloneableGenerator(getModelDefinitionFromLocalFile)
-                (action);
+                (getModelDefinitionAction.started({
+                    digitalTwinId,
+                    interfaceId,
+                    locations: [{ repositoryLocationType: REPOSITORY_LOCATION_TYPE.Local, value: 'f:' }],
+                }));
 
             expect(getModelDefinitionFromLocalFolderGenerator.next([interfaceId, schemaId])).toEqual({
                 done: false,
@@ -246,6 +248,26 @@ describe('modelDefinition sagas', () => {
             });
 
             expect(getModelDefinitionFromLocalFolderGenerator.next(modelDefinition).done).toEqual(true);
+        });
+
+        describe('getModelDefinitionFromConfigurableRepo ', () => {
+            const getModelDefinitionFromConfigurableRepoGenerator = cloneableGenerator(getModelDefinitionFromConfigurableRepo)
+                (getModelDefinitionAction.started({
+                    digitalTwinId,
+                    interfaceId,
+                    locations: [{ repositoryLocationType: REPOSITORY_LOCATION_TYPE.Configurable, value: 'devicemodeltest.azureedge.net' }],
+                }));
+
+            expect(getModelDefinitionFromConfigurableRepoGenerator.next([interfaceId, schemaId])).toEqual({
+                done: false,
+                value: call(fetchModelDefinition, {
+                    id: interfaceId,
+                    token: '',
+                    url: 'devicemodeltest.azureedge.net'
+                })
+            });
+
+            expect(getModelDefinitionFromConfigurableRepoGenerator.next(modelDefinition).done).toEqual(true);
         });
 
         describe('getFlattenedModel ', () => {
