@@ -6,7 +6,7 @@
 
 $ErrorActionPreference = 'Stop';
 $toolsDir   = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
-$url        = 'https://github.com/Azure/azure-iot-explorer/releases/download/v0.11.1/Azure.IoT.Explorer.preview.0.11.1.msi'
+$url        = 'https://github.com/Azure/azure-iot-explorer/releases/download/v0.13.0/Azure.IoT.Explorer.preview.0.13.0.msi'
 
 $packageArgs = @{
   packageName   = $env:ChocolateyPackageName

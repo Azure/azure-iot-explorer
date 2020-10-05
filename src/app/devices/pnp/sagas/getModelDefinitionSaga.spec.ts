@@ -25,7 +25,7 @@ import { ModelDefinition } from './../../../api/models/modelDefinition';
 describe('modelDefinition sagas', () => {
     describe('modelDefinition saga flow with no inline component', () => {
         const digitalTwinId = 'device_id';
-        const interfaceId = 'interface_id';
+        const interfaceId = 'urn:azureiot:ModelDiscovery:DigitalTwin:1';
         const params: GetModelDefinitionActionParameters = {
             digitalTwinId,
             interfaceId,
@@ -185,7 +185,7 @@ describe('modelDefinition sagas', () => {
 
     describe('modelDefinition saga flow with inline component', () => {
         const digitalTwinId = 'device_id';
-        const interfaceId = 'interface_id';
+        const interfaceId = 'urn:azureiot:ModelDiscovery:DigitalTwin:1';
         const schemaId = 'dtmi:com:rido:inlineTests:inlineComp;2';
         const fullInterfaceId = `${interfaceId}/${schemaId}`;
         const params: GetModelDefinitionActionParameters = {
@@ -197,7 +197,7 @@ describe('modelDefinition sagas', () => {
         /* tslint:disable */
         const modelDefinition: ModelDefinition = {
             "@context": "dtmi:dtdl:context;2",
-            "@id": "dtmi:com:rido:inlineTests;2",
+            "@id": "urn:azureiot:ModelDiscovery:DigitalTwin:1",
             "@type": "Interface",
             "contents": [
               {

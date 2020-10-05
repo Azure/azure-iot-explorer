@@ -876,7 +876,7 @@
         "empty": {
             "header": "No model repository locations to display",
             "description": "Model repository locations specify where the application looks to find IoT Plug and Play model definitions. Locations are saved to application storage and can be edited or removed at any time by returning",
-            "help": "What is IoT Plug and Play Preview"
+            "help": "What is IoT Plug and Play"
         },
         "instruction": "We'll look for your model definition in the following order. Please drag and drop to change it. Click 'Add' to enable more ways to can resolve your model definitions.",
         "commands": {

@@ -15,6 +15,7 @@ import { fetchLocalFile } from '../../../api/services/localRepoService';
 import { ModelDefinition } from '../../../api/models/modelDefinition';
 import { ModelDefinitionNotValidJsonError } from '../../../api/models/modelDefinitionNotValidJsonError';
 import { GetModelDefinitionActionParameters, getModelDefinitionAction } from '../actions';
+import { ModelIdCasingNotMatchingException } from '../../../shared/utils/exceptions/modelIdCasingNotMatchingException';
 
 export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionParameters>) {
     const { locations, interfaceId } = action.payload;
@@ -92,6 +93,12 @@ export const getFlattenedModel = (model: ModelDefinition, splitInterfaceId: stri
     }
 };
 
+export const checkModelIdCasing = (model: ModelDefinition, id: string) => {
+    if (model['@id'] !== id) {
+        throw new ModelIdCasingNotMatchingException();
+    }
+};
+
 export function* getModelDefinitionFromPublicRepo(action: Action<GetModelDefinitionActionParameters>) {
     const splitInterfaceId = getSplitInterfaceId(action.payload.interfaceId);
     const parameters: FetchModelParameters = {
@@ -99,6 +106,7 @@ export function* getModelDefinitionFromPublicRepo(action: Action<GetModelDefinit
         token: ''
     };
     const model = yield call(fetchModelDefinition, parameters);
+    checkModelIdCasing(model, splitInterfaceId[0]);
     return getFlattenedModel(model, splitInterfaceId);
 }
 
@@ -113,6 +121,7 @@ export function* getModelDefinitionFromConfigurableRepo(action: Action<GetModelD
         url
     };
     const model = yield call(fetchModelDefinition, parameters);
+    checkModelIdCasing(model, splitInterfaceId[0]);
     return getFlattenedModel(model, splitInterfaceId);
 }
 
