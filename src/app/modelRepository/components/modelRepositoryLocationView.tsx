@@ -108,6 +108,16 @@ export const ModelRepositoryLocationView: React.FC = () => {
                 text: t(ResourceKeys.modelRepository.commands.addPublicSource.label),
             },
             {
+                ariaLabel: t(ResourceKeys.modelRepository.commands.addConfigurableRepoSource.label),
+                disabled: repositoryLocationSettings.some(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Configurable),
+                iconProps: {
+                    iconName: REPO
+                },
+                key: REPOSITORY_LOCATION_TYPE.Configurable,
+                onClick: onAddRepositoryLocationConfigurable,
+                text: t(ResourceKeys.modelRepository.commands.addConfigurableRepoSource.label)
+            },
+            {
                 ariaLabel: t(ResourceKeys.modelRepository.commands.addLocalSource.ariaLabel),
                 disabled: hostModeNotElectron || repositoryLocationSettings.some(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local),
                 iconProps: {
@@ -150,6 +160,16 @@ export const ModelRepositoryLocationView: React.FC = () => {
             ...repositoryLocationSettings,
             {
                repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public
+            }
+        ]);
+    };
+
+    const onAddRepositoryLocationConfigurable = () => {
+        setDirtyFlag(true);
+        setRepositoryLocationSettings([
+            ...repositoryLocationSettings,
+            {
+               repositoryLocationType: REPOSITORY_LOCATION_TYPE.Configurable
             }
         ]);
     };

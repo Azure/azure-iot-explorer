@@ -18,7 +18,7 @@ import { testModelDefinition, testDigitalTwin } from './testData';
 import { ModelDefinition } from '../../../../api/models/modelDefinition';
 import { getDigitalTwinAction } from '../../actions';
 
-const interfaceId = 'urn:contoso:com:EnvironmentalSensor:1';
+const interfaceId = 'urn:contoso:com:EnvironmentalSensor;1';
 const pathname = `/#/devices/deviceDetail/ioTPlugAndPlay/ioTPlugAndPlayDetail/properties/?id=device1&componentName=foo&interfaceId=${interfaceId}`;
 
 jest.mock('react-router-dom', () => ({

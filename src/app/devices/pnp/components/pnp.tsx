@@ -17,10 +17,8 @@ import { RepositoryLocationSettings } from '../../../shared/global/state';
 import { useGlobalStateContext } from '../../../shared/contexts/globalStateContext';
 import { getRepositoryLocationSettings } from '../../../modelRepository/dataHelper';
 import { DigitalTwinInterfacesList } from './digitalTwinInterfacesList';
-import { DEFAULT_COMPONENT_FOR_DIGITAL_TWIN } from '../../../constants/devices';
 import '../../../css/_digitalTwinInterfaces.scss';
 
-// tslint:disable-next-line: cyclomatic-complexity
 export const Pnp: React.FC = () => {
     const { search } = useLocation();
     const { url } = useRouteMatch();
@@ -30,14 +28,13 @@ export const Pnp: React.FC = () => {
     const { globalState } = useGlobalStateContext();
     const { modelRepositoryState } = globalState;
     const locations: RepositoryLocationSettings[] = getRepositoryLocationSettings(modelRepositoryState);
-    const localFolderPath: string =  (modelRepositoryState && modelRepositoryState.localFolderSettings && modelRepositoryState.localFolderSettings.path) || '';
 
     const [ pnpState, dispatch ] = useAsyncSagaReducer(pnpReducer, pnpSaga, pnpStateInitial(), 'pnpState');
     const digitalTwin = pnpState.digitalTwin.payload as any; // tslint:disable-line: no-any
     const modelId = digitalTwin &&  digitalTwin.$metadata && digitalTwin.$metadata.$model;
 
     const interfaceIdModified = React.useMemo(() => interfaceId || modelId, [modelId, interfaceId]);
-    const getModelDefinition = () => dispatch(getModelDefinitionAction.started({digitalTwinId: deviceId, interfaceId: interfaceIdModified, locations, localFolderPath}));
+    const getModelDefinition = () => dispatch(getModelDefinitionAction.started({digitalTwinId: deviceId, interfaceId: interfaceIdModified, locations}));
 
     React.useEffect(() => {
         dispatch(getDigitalTwinAction.started(deviceId));

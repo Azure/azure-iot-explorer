@@ -10,14 +10,18 @@ describe('digitalTwinsModelService', () => {
     context('fetchModel', () => {
         const parameters = {
             expand: undefined,
-            id: 'urn:azureiot:ModelDiscovery:ModelInformation:1',
+            id: 'urn:azureiot:ModelDiscovery:ModelInformation;1',
             token: 'SharedAccessSignature sr=canary-repo.azureiotrepository.com&sig=123&rid=repositoryId'
         };
+
+        it('converts model id to required format', () => {
+            expect(DigitalTwinsModelService.convertModelIdentifier(parameters.id)).toEqual('urn/azureiot/modeldiscovery/modelinformation-1.json');
+        });
 
         it('calls fetch with specified parameters and returns model when response is 200', async () => {
             // tslint:disable
             const model = {
-                '@id': 'urn:azureiot:Client:SDKInformation:1',
+                '@id': 'urn:azureiot:Client:SDKInformation;1',
                 '@type': 'Interface',
                 'displayName': 'Digital Twin Client SDK Information',
                 'contents': [
@@ -54,12 +58,8 @@ describe('digitalTwinsModelService', () => {
             jest.spyOn(window, 'fetch').mockResolvedValue(response);
 
             const result = await DigitalTwinsModelService.fetchModel(parameters);
-
-            const expandQueryString = parameters.expand ? `&expand=true` : ``;
-            const apiVersionQuerySTring = `?${API_VERSION}${MODEL_REPO_API_VERSION}`;
-            const queryString = `${apiVersionQuerySTring}${expandQueryString}`;
-            const modelIdentifier = encodeURIComponent(parameters.id);
-            const resourceUrl = `https://${PUBLIC_REPO_HOSTNAME}/models/${modelIdentifier}${queryString}`;
+            const modelIdentifier = encodeURIComponent(DigitalTwinsModelService.convertModelIdentifier(parameters.id));
+            const resourceUrl = `https://${PUBLIC_REPO_HOSTNAME}/${modelIdentifier}`;
 
             const controllerRequest = {
                 headers: {

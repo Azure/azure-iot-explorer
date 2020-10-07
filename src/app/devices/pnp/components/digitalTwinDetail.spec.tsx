@@ -10,7 +10,7 @@ import * as pnpStateContext from '../../../shared/contexts/pnpStateContext';
 import { PnpStateInterface, pnpStateInitial } from '../state';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 
-const search = '?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1';
+const search = '?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1;1';
 const pathname = `/#/devices/deviceDetail/ioTPlugAndPlay/${search}`;
 jest.mock('react-router-dom', () => ({
     useHistory: () => ({ push: jest.fn() }),

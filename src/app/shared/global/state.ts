@@ -5,7 +5,7 @@
 import { Record } from 'immutable';
 import { IM } from '../types/types';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
-import { getRepositoryLocations, getLocalFolderPath } from '../../api/services/modelRepositoryService';
+import { getRepositoryLocations, getLocalFolderPath, getConfigurableRepositoryPath } from '../../api/services/modelRepositoryService';
 import { Notification } from '../../api/models/notification';
 
 export interface NotificationsStateInterface {
@@ -22,9 +22,14 @@ export interface LocalFolderSettings {
     path: string;
 }
 
+export interface ConfigurableRepositorySettings {
+    path: string;
+}
+
 export interface ModelRepositoryStateInterface {
     repositoryLocations: REPOSITORY_LOCATION_TYPE[];
     localFolderSettings: LocalFolderSettings;
+    configurableRepositorySettings: LocalFolderSettings;
 }
 
 export interface GlobalStateInterface {
@@ -36,6 +41,9 @@ export type GlobalStateType = IM<GlobalStateInterface>;
 
 export const globalStateInitial = Record<GlobalStateInterface>({
     modelRepositoryState: {
+        configurableRepositorySettings: {
+            path: getConfigurableRepositoryPath()
+        },
         localFolderSettings: {
             path: getLocalFolderPath()
         },

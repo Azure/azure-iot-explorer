@@ -18,7 +18,7 @@ const pathname = `/#/devices/deviceDetail/ioTPlugAndPlay/ioTPlugAndPlayDetail/co
 
 jest.mock('react-router-dom', () => ({
     useHistory: () => ({ push: jest.fn() }),
-    useLocation: () => ({ search: '?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1', pathname }),
+    useLocation: () => ({ search: '?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1;1', pathname }),
 }));
 
 describe('components/devices/deviceCommands', () => {

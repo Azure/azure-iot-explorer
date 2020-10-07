@@ -231,9 +231,21 @@ exports[`components/settings/modelRepositoryLocationListItem matches snapshot fo
     <div
       className="item-details"
     >
-      <StyledLabelBase>
-        modelRepository.types.public.label
-      </StyledLabelBase>
+      <div
+        className="labelSection"
+      >
+        <StyledLabelBase>
+          modelRepository.types.public.label
+        </StyledLabelBase>
+      </div>
+      <StyledTextFieldBase
+        ariaLabel="modelRepository.types.configurable.textBoxLabel"
+        className="local-folder-textbox"
+        label="modelRepository.types.configurable.textBoxLabel"
+        prefix="https://"
+        readOnly={true}
+        value="devicemodels.azure.com"
+      />
     </div>
     <CustomizedIconButton
       ariaLabel="modelRepository.commands.remove.ariaLabel"

@@ -2,8 +2,11 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-export enum REPOSITORY_LOCATION_TYPE {
-    Configurable = 'CONFIGURABLE',
-    Public = 'PUBLIC',
-    Local = 'LOCAL'
+import { Exception } from './exception';
+
+export class ModelIdCasingNotMatchingException extends Exception  {
+
+    protected setTypeName() {
+        this.type = 'modelIdCasingNotMatchingException';
+    }
 }
