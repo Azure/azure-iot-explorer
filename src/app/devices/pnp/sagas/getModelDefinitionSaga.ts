@@ -15,6 +15,7 @@ import { fetchLocalFile } from '../../../api/services/localRepoService';
 import { ModelDefinition } from '../../../api/models/modelDefinition';
 import { ModelDefinitionNotValidJsonError } from '../../../api/models/modelDefinitionNotValidJsonError';
 import { GetModelDefinitionActionParameters, getModelDefinitionAction } from '../actions';
+import { ModelIdCasingNotMatchingException } from '../../../shared/utils/exceptions/modelIdCasingNotMatchingException';
 
 export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionParameters>) {
     const { locations, interfaceId } = action.payload;
@@ -92,6 +93,12 @@ export const getFlattenedModel = (model: ModelDefinition, splitInterfaceId: stri
     }
 };
 
+export const checkModelIdCasing = (model: ModelDefinition, id: string) => {
+    if (model['@id'] !== id) {
+        throw new ModelIdCasingNotMatchingException();
+    }
+};
+
 export function* getModelDefinitionFromPublicRepo(action: Action<GetModelDefinitionActionParameters>) {
     const splitInterfaceId = getSplitInterfaceId(action.payload.interfaceId);
     const parameters: FetchModelParameters = {
@@ -99,11 +106,29 @@ export function* getModelDefinitionFromPublicRepo(action: Action<GetModelDefinit
         token: ''
     };
     const model = yield call(fetchModelDefinition, parameters);
+    checkModelIdCasing(model, splitInterfaceId[0]);
+    return getFlattenedModel(model, splitInterfaceId);
+}
+
+export function* getModelDefinitionFromConfigurableRepo(action: Action<GetModelDefinitionActionParameters>) {
+    const configurableRepoUrls = action.payload.locations.filter(location => location.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Configurable);
+    const configurableRepoUrl = configurableRepoUrls && configurableRepoUrls[0] && configurableRepoUrls[0].value || '';
+    const url = configurableRepoUrl.replace(/\/$/, ''); // remove trailing slash
+    const splitInterfaceId = getSplitInterfaceId(action.payload.interfaceId);
+    const parameters: FetchModelParameters = {
+        id: splitInterfaceId[0],
+        token: '',
+        url
+    };
+    const model = yield call(fetchModelDefinition, parameters);
+    checkModelIdCasing(model, splitInterfaceId[0]);
     return getFlattenedModel(model, splitInterfaceId);
 }
 
 export function* getModelDefinitionFromLocalFile(action: Action<GetModelDefinitionActionParameters>) {
-    const path = (action.payload.localFolderPath || '').replace(/\/$/, ''); // remove trailing slash
+    const localFolderPaths = action.payload.locations.filter(location => location.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local);
+    const localFolderPath = localFolderPaths && localFolderPaths[0] && localFolderPaths[0].value || '';
+    const path = localFolderPath.replace(/\/$/, ''); // remove trailing slash
     const splitInterfaceId = getSplitInterfaceId(action.payload.interfaceId);
     const model = yield call(fetchLocalFile, path, splitInterfaceId[0]);
     return getFlattenedModel(model, splitInterfaceId);
@@ -113,6 +138,8 @@ export function* getModelDefinition(action: Action<GetModelDefinitionActionParam
     switch (location.repositoryLocationType) {
         case REPOSITORY_LOCATION_TYPE.Local:
             return yield call(getModelDefinitionFromLocalFile, action);
+        case REPOSITORY_LOCATION_TYPE.Configurable:
+            return yield call(getModelDefinitionFromConfigurableRepo, action);
         default:
             return yield call(getModelDefinitionFromPublicRepo, action);
     }

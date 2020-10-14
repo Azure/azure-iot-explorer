@@ -13,7 +13,7 @@ import { SynchronizationStatus } from '../../../../api/models/synchronizationSta
 import * as PnpContext from '../../../../shared/contexts/pnpStateContext';
 import { pnpStateWithTestData } from './testData';
 
-const interfaceId = 'urn:contoso:com:EnvironmentalSensor:1';
+const interfaceId = 'urn:contoso:com:EnvironmentalSensor;1';
 const pathname = `/#/devices/deviceDetail/ioTPlugAndPlay/ioTPlugAndPlayDetail/settings/?id=device1&componentName=foo&interfaceId=${interfaceId}`;
 
 jest.mock('react-router-dom', () => ({

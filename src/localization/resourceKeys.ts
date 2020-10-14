@@ -713,6 +713,10 @@ export class ResourceKeys {
             ariaLabel : "modelRepository.commands.add.ariaLabel",
             label : "modelRepository.commands.add.label",
          },
+         addConfigurableRepoSource : {
+            ariaLabel : "modelRepository.commands.addConfigurableRepoSource.ariaLabel",
+            label : "modelRepository.commands.addConfigurableRepoSource.label",
+         },
          addLocalSource : {
             ariaLabel : "modelRepository.commands.addLocalSource.ariaLabel",
             label : "modelRepository.commands.addLocalSource.label",
@@ -750,6 +754,11 @@ export class ResourceKeys {
       },
       instruction : "modelRepository.instruction",
       types : {
+         configurable : {
+            infoText : "modelRepository.types.configurable.infoText",
+            label : "modelRepository.types.configurable.label",
+            textBoxLabel : "modelRepository.types.configurable.textBoxLabel",
+         },
          local : {
             folderPicker : {
                command : {

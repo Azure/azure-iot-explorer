@@ -56,7 +56,7 @@ If you'd like to package the app yourself, please refer to the [FAQ](https://git
 
 <img src="doc/screenRecords/device_features.gif" alt="device_details" width="800"/>
 
-### Plug and Play Preview
+### Plug and Play
 
 **If you are looking for a UI tool to get a flavor of Plug and Play, look no futher. Follow this [Microsoft Docs](https://docs.microsoft.com/en-us/azure/iot-pnp/overview-iot-plug-and-play) to get started.**
 - Once your device has gone through discovery, **IoT Plug and Play components** page would be available on device details view.

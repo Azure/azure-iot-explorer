@@ -27,7 +27,7 @@ describe('pnpReducer', () => {
     describe('interface scenarios', () => {
         /* tslint:disable */
         const modelDefinition: ModelDefinition = {
-            "@id": "urn:azureiot:ModelDiscovery:ModelInformation:1",
+            "@id": "urn:azureiot:ModelDiscovery:ModelInformation;1",
             "@type": "Interface",
             "displayName": "Model Information",
             "contents": [
@@ -74,7 +74,7 @@ describe('pnpReducer', () => {
 
         const getModelDefinitionActionParams: GetModelDefinitionActionParameters = {
             digitalTwinId: 'testDevice',
-            interfaceId: 'urn:azureiot:ModelDiscovery:ModelInformation:1',
+            interfaceId: 'urn:azureiot:ModelDiscovery:ModelInformation;1',
             locations: []
         };
 
@@ -119,7 +119,7 @@ describe('pnpReducer', () => {
               }
             },
             "$metadata": {
-              "$model": "urn:azureiot:samplemodel:1"
+              "$model": "urn:azureiot:samplemodel;1"
             }
         };
         /* tslint:enable */

@@ -12,10 +12,19 @@ export const getRepositoryLocationSettings = (modelRepositoryState: ModelReposit
     return modelRepositoryState.repositoryLocations.map(item => {
         return {
             repositoryLocationType: item,
-            value:
-                (item === REPOSITORY_LOCATION_TYPE.Local &&
-                    modelRepositoryState.localFolderSettings &&
-                    modelRepositoryState.localFolderSettings.path) || null
+            value: getRepositorySettingValue(modelRepositoryState, item)
         };
     });
+};
+
+// tslint:disable-next-line: cyclomatic-complexity
+const getRepositorySettingValue = (modelRepositoryState: ModelRepositoryStateInterface, item: REPOSITORY_LOCATION_TYPE) => {
+    switch (item) {
+        case REPOSITORY_LOCATION_TYPE.Local:
+            return modelRepositoryState.localFolderSettings && modelRepositoryState.localFolderSettings.path || null;
+        case REPOSITORY_LOCATION_TYPE.Configurable:
+            return modelRepositoryState.configurableRepositorySettings && modelRepositoryState.configurableRepositorySettings.path || null;
+        default:
+            return null;
+        }
 };

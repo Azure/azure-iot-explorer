@@ -10,7 +10,7 @@ describe('localRepoService', () => {
         it('returns file content when response is 200', async done => {
             // tslint:disable
             const content = {
-                "@id": "urn:FlyYing:EnvironmentalSensor:1",
+                "@id": "urn:FlyYing:EnvironmentalSensor;1",
                 "@type": "Interface",
                 "displayName": "Environmental Sensor",
                 "description": "Provides functionality to report temperature, humidity. Provides telemetry, commands and read-write properties",

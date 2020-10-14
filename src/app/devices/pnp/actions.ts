@@ -40,5 +40,4 @@ export interface GetModelDefinitionActionParameters {
     digitalTwinId: string;
     interfaceId: string;
     locations: RepositoryLocationSettings[];
-    localFolderPath?: string;
 }

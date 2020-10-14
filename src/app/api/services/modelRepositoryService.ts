@@ -3,11 +3,15 @@
  * Licensed under the MIT License
  **********************************************************/
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
-import { REPO_LOCATIONS, LOCAL_FILE_EXPLORER_PATH_NAME } from '../../constants/browserStorage';
+import { REPO_LOCATIONS, LOCAL_FILE_EXPLORER_PATH_NAME, CONFIGURABLE_REPOSITORY_PATH_NAME } from '../../constants/browserStorage';
 import { appConfig, HostMode } from '../../../appConfig/appConfig';
 
 export const getLocalFolderPath = () => {
     return appConfig.hostMode === HostMode.Electron ? localStorage.getItem(LOCAL_FILE_EXPLORER_PATH_NAME) || '' : null;
+};
+
+export const getConfigurableRepositoryPath = () => {
+    return appConfig.hostMode === HostMode.Electron ? localStorage.getItem(CONFIGURABLE_REPOSITORY_PATH_NAME) || '' : null;
 };
 
 export const getRepositoryLocations = () => {
@@ -26,6 +30,10 @@ export const getRepositoryLocations = () => {
 
 export const setLocalFolderPath = (localFolderPath: string) => {
     localStorage.setItem(LOCAL_FILE_EXPLORER_PATH_NAME, localFolderPath);
+};
+
+export const setConfigurableRepositoryPath = (configurableRepositoryPath: string) => {
+    localStorage.setItem(CONFIGURABLE_REPOSITORY_PATH_NAME, configurableRepositoryPath);
 };
 
 export const setRepositoryLocations = (locations: REPOSITORY_LOCATION_TYPE[]) => {

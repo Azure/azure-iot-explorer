@@ -4,6 +4,6 @@
  **********************************************************/
 export interface FetchModelParameters {
     id: string;
-    expand?: boolean;
     token?: string;
+    url?: string;
 }

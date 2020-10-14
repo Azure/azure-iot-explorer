@@ -8,7 +8,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>azure-iot-explorer</id>
-    <version>0.11.1-preview</version>
+    <version>0.13.0-preview</version>
     <packageSourceUrl>https://github.com/Azure/azure-iot-explorer</packageSourceUrl>
     <owners>Paul Montgomery; Ying Xue</owners>
     <title>Azure IoT explorer</title>

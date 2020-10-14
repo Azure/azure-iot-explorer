@@ -7,7 +7,7 @@ import { PnpStateInterface, pnpStateInitial } from '../../state';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { REPOSITORY_LOCATION_TYPE } from '../../../../constants/repositoryLocationTypes';
 
-const interfaceId = 'urn:contoso:com:environmentalsensor:1';
+const interfaceId = 'urn:contoso:com:environmentalsensor;1';
 /* tslint:disable */
 export const testModelDefinition: ModelDefinition = {
     "@id": interfaceId,

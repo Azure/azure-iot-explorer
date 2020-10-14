@@ -8,11 +8,10 @@ import { cloneableGenerator } from '@redux-saga/testing-utils';
 import { setRepositoryLocationsSaga } from './setRepositoryLocationsSaga';
 import { setRepositoryLocationsAction } from '../actions';
 import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
-import { getLocalFolderPath, getRepositoryLocationTypes } from '../reducer';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { setLocalFolderPath, setRepositoryLocations } from '../../../api/services/modelRepositoryService';
-
+import { setConfigurableRepositoryPath, setLocalFolderPath, setRepositoryLocations } from '../../../api/services/modelRepositoryService';
+import { getConfigurableRepositoryPath, getLocalFolderPath, getRepositoryLocationTypes } from '../reducer';
 
 describe('setRepositoryLocationsSaga', () => {
     const setRepositoryLocationsSagaGenerator = cloneableGenerator(setRepositoryLocationsSaga)(setRepositoryLocationsAction([]));
@@ -28,6 +27,20 @@ describe('setRepositoryLocationsSaga', () => {
         expect(setRepositoryLocationsSagaGenerator.next('folder')).toEqual({
             done: false,
             value: call(setLocalFolderPath, 'folder')
+        });
+    });
+
+    it('issues call effect getConfigurableRepositoryPath', () => {
+        expect(setRepositoryLocationsSagaGenerator.next()).toEqual({
+            done: false,
+            value: call(getConfigurableRepositoryPath, [])
+        });
+    });
+
+    it('issues call effect to setConfigurableRepositoryPath', () => {
+        expect(setRepositoryLocationsSagaGenerator.next('devicemodeltest.azureedge.net')).toEqual({
+            done: false,
+            value: call(setConfigurableRepositoryPath, 'devicemodeltest.azureedge.net')
         });
     });
 

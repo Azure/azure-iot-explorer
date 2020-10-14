@@ -17,7 +17,7 @@ import { pnpStateInitial, PnpStateInterface } from '../state';
 import * as pnpStateContext from '../../../shared/contexts/pnpStateContext';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 
-const interfaceId = 'urn:azureiot:samplemodel:1';
+const interfaceId = 'urn:azureiot:samplemodel;1';
 
 export const testDigitalTwin: any = { // tslint:disable-line: no-any
     $dtId: 'testDevice',

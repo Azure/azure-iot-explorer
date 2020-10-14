@@ -15,12 +15,14 @@ import {
 import { PnPModel } from '../models/metamodelMetadata';
 import { getHeaderValue } from '../shared/fetchUtils';
 
+export const convertModelIdentifier = (id: string) => {
+    return `${id.toLowerCase().split(':').join('/').replace(';', '-')}.json`;
+};
+
 export const fetchModel = async (parameters: FetchModelParameters): Promise<PnPModel> => {
-    const expandQueryString = parameters.expand ? `&expand=true` : ``;
-    const apiVersionQuerySTring = `?${API_VERSION}${MODEL_REPO_API_VERSION}`;
-    const queryString = `${apiVersionQuerySTring}${expandQueryString}`;
-    const modelIdentifier = encodeURIComponent(parameters.id);
-    const resourceUrl = `https://${PUBLIC_REPO_HOSTNAME}/models/${modelIdentifier}${queryString}`;
+    const modelIdentifier = encodeURIComponent(convertModelIdentifier(parameters.id));
+    const hostName = parameters.url || PUBLIC_REPO_HOSTNAME;
+    const resourceUrl = `https://${hostName}/${modelIdentifier}`;
 
     const controllerRequest: RequestInitWithUri = {
         headers: {
