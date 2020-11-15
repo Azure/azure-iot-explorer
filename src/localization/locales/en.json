@@ -645,7 +645,7 @@
                 "copyLabel": "Simulating device {{deviceId}}"
             },
             "advanced": {
-                "label": "Advance scenario",
+                "label": "Advanced scenario",
                 "tooltiop": "For advanced users to simulate events' body or properties",
                 "instruction": "Enter the desired message body and/or properties, and copy paste the generated command to Azure Cloud Shell. It will start simulating device {{deviceId}} as it's sending messages to IoT Hub. You can click 'Start' button from the Telemetry page to start monitoring the events.",
                 "copyLabel": "Simulating device {{deviceId}}",
