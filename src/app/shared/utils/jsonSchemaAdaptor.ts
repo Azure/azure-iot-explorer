@@ -27,6 +27,20 @@ export const getSchemaValidationErrors = (data: any, schema: ParsedJsonSchema, s
         result.errors.filter(error => !pattern.test(error.message)) || [];
 };
 
+// tslint:disable-next-line: no-any
+export const getSchemaType = (schema: any): string => {
+    return typeof schema === 'string' ?
+        schema :
+        typeof schema['@type'] === 'string' ? schema['@type'] : '--';
+};
+
+// tslint:disable-next-line: no-any
+export const isSchemaSimpleType = (schema: any): boolean => {
+    return schema &&
+        (typeof schema === 'string' ||
+        typeof schema['@type'] === 'string' && schema['@type'].toLowerCase() === 'enum');
+};
+
 export enum DtdlSchemaComplexType {
     Array = 'Array',
     Enum = 'Enum',

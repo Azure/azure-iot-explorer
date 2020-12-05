@@ -19,6 +19,7 @@ import { JsonPatchOperation, PatchPayload } from '../../../../api/parameters/dev
 import { isValueDefined, DataForm } from '../../../shared/components/dataForm';
 import { TwinWithSchema } from './dataHelper';
 import { DEFAULT_COMPONENT_FOR_DIGITAL_TWIN } from '../../../../constants/devices';
+import { getSchemaType, isSchemaSimpleType } from '../../../../shared/utils/jsonSchemaAdaptor';
 import '../../../../css/_deviceSettings.scss';
 
 export interface MetadataSection {
@@ -49,12 +50,6 @@ export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataPro
     const { deviceId, settingSchema, settingModelDefinition, isComponentContainedInDigitalTwin, collapsed, metadata, componentName, patchDigitalTwin, handleCollapseToggle, handleOverlayToggle } = props;
     const [ showReportedValuePanel, setShowReportedValuePanel ] = React.useState<boolean>(false);
 
-    const isSchemaSimpleType = () => {
-        return settingSchema && (
-            typeof settingModelDefinition.schema === 'string' ||
-            settingModelDefinition.schema['@type'].toLowerCase() === 'enum');
-    };
-
     const createCollapsedSummary = () => {
         return (
             <header className={`flex-grid-row item-summary ${collapsed ? '' : 'item-summary-uncollapsed'}`} onClick={handleCollapseToggle}>
@@ -78,9 +73,7 @@ export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataPro
 
     const renderPropertySchema = () => {
         const ariaLabel = t(ResourceKeys.deviceProperties.columns.schema);
-        const schemaType = typeof settingModelDefinition.schema === 'string' ?
-            settingModelDefinition.schema :
-            settingModelDefinition.schema['@type'];
+        const schemaType = getSchemaType(settingModelDefinition.schema);
         return <div className="col-sm2"><Label aria-label={ariaLabel}>{schemaType}</Label></div>;
     };
 
@@ -119,25 +112,23 @@ export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataPro
     const renderReportedValue = () => {
         const { reportedTwin } = props;
         return (
-            <>
+            <ErrorBoundary error={t(ResourceKeys.errorBoundary.text)}>
                 {
-                    isSchemaSimpleType() ?
-                        <ErrorBoundary error={t(ResourceKeys.errorBoundary.text)}>
-                            {RenderSimplyTypeValue(
-                                reportedTwin,
-                                settingSchema,
-                                t(ResourceKeys.deviceSettings.columns.error))}
-                        </ErrorBoundary> :
+                    settingSchema && isSchemaSimpleType(settingModelDefinition.schema) ?
+                        RenderSimplyTypeValue(
+                            reportedTwin,
+                            settingSchema,
+                            t(ResourceKeys.deviceSettings.columns.error)) :
                         reportedTwin ?
-                        <ActionButton
-                            className="column-value-button"
-                            ariaDescription={t(ResourceKeys.deviceSettings.command.openReportedValuePanel)}
-                            onClick={onViewReportedValue}
-                        >
-                            {t(ResourceKeys.deviceSettings.command.openReportedValuePanel)}
-                        </ActionButton> : <Label>--</Label>
+                            <ActionButton
+                                className="column-value-button"
+                                ariaDescription={t(ResourceKeys.deviceSettings.command.openReportedValuePanel)}
+                                onClick={onViewReportedValue}
+                            >
+                                {t(ResourceKeys.deviceSettings.command.openReportedValuePanel)}
+                            </ActionButton> : <Label>--</Label>
                 }
-            </>
+            </ErrorBoundary>
         );
     };
 
@@ -157,12 +148,6 @@ export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataPro
                 {!collapsed && createForm()}
             </section>
         );
-    };
-
-    const getSettingSchema = () => {
-        return typeof settingModelDefinition.schema === 'string' ?
-            settingModelDefinition.schema :
-            settingModelDefinition.schema['@type'];
     };
 
     const createReportedValuePanel = () => {
@@ -202,7 +187,7 @@ export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataPro
                 settingSchema={settingSchema}
                 handleSave={onSubmit}
                 craftPayload={createSettingsPayload}
-                schema={getSettingSchema()}
+                schema={getSchemaType(settingModelDefinition.schema)}
             />
         );
     };

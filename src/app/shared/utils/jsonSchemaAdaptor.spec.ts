@@ -14,7 +14,11 @@ import { mockModelDefinition,
     longTypeNonWritableProperty2,
     arrayTypeTelemetry
 } from './mockModelDefinition';
-import { JsonSchemaAdaptor, getSchemaValidationErrors } from './jsonSchemaAdaptor';
+import { JsonSchemaAdaptor,
+    getSchemaValidationErrors,
+    getSchemaType,
+    isSchemaSimpleType
+} from './jsonSchemaAdaptor';
 
 describe('parse interface model definition to Json schema', () => {
     const jsonSchemaAdaptor = new JsonSchemaAdaptor(mockModelDefinition);
@@ -241,6 +245,77 @@ describe('parse interface model definition to Json schema', () => {
 
         it('returns an list not array specific if map type validation is not totally skipped', () => {
             expect(getSchemaValidationErrors({name: 'test'}, testSchema)[0].message).toEqual('requires property \"age\"');
+        });
+    });
+
+    describe('returns schema type', () => {
+        it('returns simple schema type', () => {
+            expect(getSchemaType('boolean')).toEqual('boolean');
+        });
+
+        it('returns complex schema type', () => {
+            expect(getSchemaType({
+                '@type': 'Map',
+                'mapKey': {
+                    name: 'telemetryName',
+                    schema: 'string'
+                },
+                'mapValue': {
+                    name: 'telemetryConfig',
+                    schema: 'integer'
+                }
+            })).toEqual('Map');
+        });
+
+        it('returns invalid schema type', () => {
+            expect(getSchemaType(['boolean'])).toEqual('--');
+        });
+    });
+
+    describe('checks if schema is simple type', () => {
+        it('returns is simple schema type', () => {
+            expect(isSchemaSimpleType('boolean')).toEqual(true);
+            expect(isSchemaSimpleType({
+                '@id': 'dtmi:txs:cellular:RoamingStatus:ldbrgbd9;1',
+                '@type': 'Enum',
+                'displayName': {
+                    en: 'Enum'
+                },
+                'valueSchema': 'integer',
+                'enumValues': [{
+                    '@id': 'dtmi:txs:cellular:RoamingStatus:ldbrgbd9:Home;1',
+                    '@type': 'EnumValue',
+                    'displayName': {
+                        en: 'Home'
+                    },
+                    'enumValue': 0,
+                    'name': 'Home'
+                },
+                {
+                    '@id': 'dtmi:txs:cellular:RoamingStatus:ldbrgbd9:Roaming;1',
+                    '@type': 'EnumValue',
+                    'displayName': {
+                        en: 'Roaming'
+                    },
+                    'enumValue': 1,
+                    'name': 'Roaming'
+                }]
+            })).toEqual(true);
+        });
+
+        it('returns is complex schema type', () => {
+            expect(isSchemaSimpleType({
+                '@type': 'Map',
+                'mapKey': {
+                    name: 'telemetryName',
+                    schema: 'string'
+                },
+                'mapValue': {
+                    name: 'telemetryConfig',
+                    schema: 'integer'
+                }
+            })).toEqual(false);
+            expect(isSchemaSimpleType(['boolean'])).toEqual(false);
         });
     });
 });
