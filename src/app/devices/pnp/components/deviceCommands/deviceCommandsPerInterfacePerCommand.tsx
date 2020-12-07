@@ -14,6 +14,7 @@ import { DataForm } from '../../../shared/components/dataForm';
 import { InvokeDigitalTwinInterfaceCommandActionParameters } from '../../actions';
 import { ErrorBoundary } from '../../../shared/components/errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
+import { getSchemaType } from '../../../../shared/utils/jsonSchemaAdaptor';
 
 export interface DeviceCommandDataProps extends CommandSchema {
     collapsed: boolean;
@@ -88,9 +89,7 @@ export const DeviceCommandsPerInterfacePerCommand: React.FC<DeviceCommandDataPro
             return '--';
         }
         else {
-            return typeof schema.schema === 'string' ?
-            schema.schema :
-            schema.schema['@type'];
+            return getSchemaType(schema.schema);
         }
     };
 

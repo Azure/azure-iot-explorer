@@ -41,6 +41,7 @@ describe('utils', () => {
     describe('validateThumbprint', () => {
         it('validates device thumbprint', () => {
             expect(validateThumbprint('ca92f024e1acab505b138ebfe1425efa91e3ed78')).toBeTruthy();
+            expect(validateThumbprint('A0:F7:88:0B:5C:5A:00:BF:55:71:B8:2F:95:47:7B:AA:94:C1:E5:2B')).toBeTruthy();
             expect(validateThumbprint('123')).toBeFalsy();
         });
     });

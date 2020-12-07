@@ -36,7 +36,7 @@ import { ROUTE_PARAMS } from '../../../constants/routes';
 import { MultiLineShimmer } from '../../../shared/components/multiLineShimmer';
 import { ErrorBoundary } from '../../shared/components/errorBoundary';
 import { SemanticUnit } from '../../../shared/units/components/semanticUnit';
-import { getSchemaValidationErrors } from '../../../shared/utils/jsonSchemaAdaptor';
+import { getSchemaType, getSchemaValidationErrors } from '../../../shared/utils/jsonSchemaAdaptor';
 import { ParsedJsonSchema } from '../../../api/models/interfaceJsonParserOutput';
 import { TelemetryContent } from '../../../api/models/modelDefinition';
 import { getLocalizedData } from '../../../api/dataTransforms/modelDefinitionTransform';
@@ -489,10 +489,7 @@ export const DeviceEvents: React.FC = () => {
         return(
             <div className="col-sm2">
                 <Label aria-label={t(ResourceKeys.deviceEvents.columns.schema)}>
-                    {telemetryModelDefinition ?
-                        (typeof telemetryModelDefinition.schema === 'string' ?
-                        telemetryModelDefinition.schema :
-                        telemetryModelDefinition.schema['@type']) : '--'}
+                    {telemetryModelDefinition ? getSchemaType(telemetryModelDefinition.schema) : '--'}
                 </Label>
             </div>
         );

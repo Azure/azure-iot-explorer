@@ -15,6 +15,7 @@ import { ComplexReportedFormPanel } from '../../../shared/components/complexRepo
 import { SemanticUnit } from '../../../../shared/units/components/semanticUnit';
 import { EXTRA_LARGE_COLUMN_WIDTH, SMALL_COLUMN_WIDTH } from '../../../../constants/columnWidth';
 import { TwinWithSchema } from './dataHelper';
+import { getSchemaType, isSchemaSimpleType } from '../../../../shared/utils/jsonSchemaAdaptor';
 
 export interface DevicePropertiesDataProps {
     twinAndSchema: TwinWithSchema[];
@@ -62,9 +63,7 @@ export const DevicePropertiesPerInterface: React.FC<DevicePropertiesDataProps> =
     const renderPropertySchema = (item: TwinWithSchema) => {
         const ariaLabel = t(ResourceKeys.deviceProperties.columns.schema);
         const propertyModelDefinition = item.propertyModelDefinition;
-        const schemaType = typeof propertyModelDefinition.schema === 'string' ?
-            propertyModelDefinition.schema :
-            propertyModelDefinition.schema['@type'];
+        const schemaType = getSchemaType(propertyModelDefinition.schema);
         return <Label aria-label={ariaLabel}>{schemaType}</Label>;
     };
 
@@ -84,7 +83,7 @@ export const DevicePropertiesPerInterface: React.FC<DevicePropertiesDataProps> =
         return (
             <div aria-label={ariaLabel}>
                 {
-                    isSchemaSimpleType(item) ?
+                    item.propertySchema && isSchemaSimpleType(item.propertyModelDefinition.schema) ?
                         RenderSimplyTypeValue(
                             item.reportedTwin,
                             item.propertySchema,
@@ -106,12 +105,6 @@ export const DevicePropertiesPerInterface: React.FC<DevicePropertiesDataProps> =
         setSelectedItem(item);
         setShowOverlay(true);
         setShowReportedValuePanel(true);
-    };
-
-    const isSchemaSimpleType = (item: TwinWithSchema) => {
-        return item.propertySchema &&
-            (typeof item.propertyModelDefinition.schema === 'string' ||
-            item.propertyModelDefinition.schema['@type'].toLowerCase() === 'enum');
     };
 
     const createReportedValuePanel = () => {

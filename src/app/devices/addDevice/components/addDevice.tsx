@@ -14,7 +14,7 @@ import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { DeviceAuthenticationType } from '../../../api/models/deviceAuthenticationType';
 import { DeviceIdentity } from '../../../api/models/deviceIdentity';
 import { DeviceStatus } from '../../../api/models/deviceStatus';
-import { validateKey, validateThumbprint, validateDeviceId } from '../../../shared/utils/utils';
+import { validateKey, validateThumbprint, validateDeviceId, processThumbprint } from '../../../shared/utils/utils';
 import { LabelWithTooltip } from '../../../shared/components/labelWithTooltip';
 import { MaskedCopyableTextField } from '../../../shared/components/maskedCopyableTextField';
 import { useAsyncSagaReducer } from '../../../shared/hooks/useAsyncSagaReducer';
@@ -322,8 +322,8 @@ export const AddDevice: React.FC = () => {
                 } : null,
                 type: authenticationType.toString(),
                 x509Thumbprint: authenticationType === DeviceAuthenticationType.SelfSigned ? {
-                    primaryThumbprint: primaryKey.thumbprint,
-                    secondaryThumbprint: secondaryKey.thumbprint
+                    primaryThumbprint: processThumbprint(primaryKey.thumbprint),
+                    secondaryThumbprint: processThumbprint(secondaryKey.thumbprint)
                 } : null,
             },
             capabilities: {

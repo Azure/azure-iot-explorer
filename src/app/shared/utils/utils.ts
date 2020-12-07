@@ -28,8 +28,13 @@ export const validateKey = (key: string): boolean => {
 };
 
 export const validateThumbprint = (key: string): boolean => {
-    const pattern = new RegExp('^[A-Fa-f0-9]{40}$');
-    return pattern.test(key);
+    const pattern1 = new RegExp('^[A-Fa-f0-9]{40}$');
+    const pattern2 = new RegExp('^([A-Fa-f0-9]{2}\:){19}[A-Fa-f0-9]{2}$'); // OpenSSL to generated cert format
+    return pattern1.test(key) || pattern2.test(key);
+};
+
+export const processThumbprint = (key: string): string => {
+    return key.replace(/\:/g, '');
 };
 
 export const validateDeviceId = (key: string): boolean => {

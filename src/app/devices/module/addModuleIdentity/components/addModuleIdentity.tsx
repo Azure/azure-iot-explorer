@@ -16,7 +16,7 @@ import { ROUTE_PARAMS } from '../../../../constants/routes';
 import { MaskedCopyableTextField } from '../../../../shared/components/maskedCopyableTextField';
 import { HeaderView } from '../../../../shared/components/headerView';
 import { DeviceAuthenticationType } from '../../../../api/models/deviceAuthenticationType';
-import { validateThumbprint, validateKey, validateModuleIdentityName } from '../../../../shared/utils/utils';
+import { validateThumbprint, validateKey, validateModuleIdentityName, processThumbprint } from '../../../../shared/utils/utils';
 import { useAsyncSagaReducer } from '../../../../shared/hooks/useAsyncSagaReducer';
 import { addModuleIdentityReducer } from '../reducer';
 import { addModuleIdentitySaga } from '../saga';
@@ -211,8 +211,8 @@ export const AddModuleIdentity: React.FC = () => {
                 } : null,
                 type: authenticationType.toString(),
                 x509Thumbprint: authenticationType === DeviceAuthenticationType.SelfSigned ? {
-                    primaryThumbprint: primaryKey.thumbprint,
-                    secondaryThumbprint: secondaryKey.thumbprint
+                    primaryThumbprint: processThumbprint(primaryKey.thumbprint),
+                    secondaryThumbprint: processThumbprint(secondaryKey.thumbprint)
                 } : null,
             },
             deviceId,

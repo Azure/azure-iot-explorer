@@ -17,6 +17,7 @@ import { PropertyContent } from '../../../api/models/modelDefinition';
 import { ErrorBoundary } from './errorBoundary';
 import { getLocalizedData } from '../../../api/dataTransforms/modelDefinitionTransform';
 import { JSONEditor } from '../../../shared/components/jsonEditor';
+import { getSchemaType } from '../../../shared/utils/jsonSchemaAdaptor';
 
 export interface ReportedFormDataProps {
     showPanel: boolean;
@@ -74,16 +75,10 @@ export const ComplexReportedFormPanel: React.FC<ReportedFormDataProps & Reported
     const createJsonEditor = () => {
         return (
             <form>
-                <Label>{t(ResourceKeys.deviceProperties.editor.label, {schema: getSettingSchema()})}</Label>
+                <Label>{t(ResourceKeys.deviceProperties.editor.label, {schema: getSchemaType(modelDefinition.schema)})}</Label>
                 <JSONEditor className="json-editor" content={JSON.stringify(formData, null, '\t')}/>
             </form>
         );
-    };
-
-    const getSettingSchema = () => {
-        return typeof modelDefinition.schema === 'string' ?
-            modelDefinition.schema :
-            modelDefinition.schema['@type'];
     };
 
     return (
