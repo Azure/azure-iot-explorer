@@ -538,7 +538,6 @@ export class ResourceKeys {
             add : {
                ariaLabel : "deviceLists.query.searchPills.add.ariaLabel",
                text : "deviceLists.query.searchPills.add.text",
-               title : "deviceLists.query.searchPills.add.title",
             },
             clause : {
                operationType : {
@@ -558,7 +557,7 @@ export class ResourceKeys {
                      status : "deviceLists.query.searchPills.clause.parameterType.items.status",
                      statusUpdateTime : "deviceLists.query.searchPills.clause.parameterType.items.statusUpdateTime",
                   },
-                  title : "deviceLists.query.searchPills.clause.parameterType.title",
+                  placeholder : "deviceLists.query.searchPills.clause.parameterType.placeholder",
                },
                remove : {
                   ariaLabel : "deviceLists.query.searchPills.clause.remove.ariaLabel",
@@ -575,13 +574,11 @@ export class ResourceKeys {
                      enabled : "deviceLists.query.searchPills.clause.value.deviceStatus.enabled",
                   },
                   placeholder : "deviceLists.query.searchPills.clause.value.placeholder",
-                  title : "deviceLists.query.searchPills.clause.value.title",
                },
             },
             search : {
                ariaLabel : "deviceLists.query.searchPills.search.ariaLabel",
                text : "deviceLists.query.searchPills.search.text",
-               title : "deviceLists.query.searchPills.search.title",
             },
          },
       },

@@ -35,7 +35,7 @@ describe('cloudToDeviceMessage', () => {
         const mockSendCloudToDeviceMessageSpy = jest.spyOn(cloudToDeviceMessageAction, 'started');
         const wrapper = mount(<CloudToDeviceMessage/>);
         const bodyTextField = wrapper.find(TextField).first();
-        act(() => bodyTextField.instance().props.onChange({ target: null}, 'hello world'));
+        act(() => bodyTextField.props().onChange(undefined, 'hello world'));
         wrapper.update();
         const commandBar = wrapper.find(CommandBar).first();
         act(() => commandBar.props().items[0].onClick());
@@ -47,7 +47,7 @@ describe('cloudToDeviceMessage', () => {
         const mockSendCloudToDeviceMessageSpy = jest.spyOn(cloudToDeviceMessageAction, 'started');
         const wrapper = mount(<CloudToDeviceMessage/>);
         const checkbox = wrapper.find(Checkbox).first();
-        act(() => checkbox.instance().props.onChange({ target: null}, true));
+        act(() => checkbox.props().onChange(undefined, true));
         wrapper.update();
         const commandBar = wrapper.find(CommandBar).first();
         const currentTime = new Date().toLocaleString();
@@ -62,18 +62,22 @@ describe('cloudToDeviceMessage', () => {
         const commandBar = wrapper.find(CommandBar).at(1);
         // click the add custom property, which would add an entry to the editable grid
         act(() => commandBar.props().items[0].onClick(null));
-
         wrapper.update();
+
         const keyInput = wrapper.find(TextField).at(1);
-        act(() => keyInput.instance().props.onChange({ target: null}, 'foo'));
-        const valueInput = wrapper.find(TextField).at(2); // tslint:disable-line:no-magic-numbers
-        act(() => valueInput.instance().props.onChange({ target: null}, 'bar'));
-
+        act(() => keyInput.props().onChange(undefined, 'foo'));
         wrapper.update();
+        expect(wrapper.find(TextField).at(1).props().value).toEqual('foo');
+
+        const valueInput = wrapper.find(TextField).at(2);
+        act(() => valueInput.props().onChange(undefined, 'bar'));
+        wrapper.update();
+        expect(wrapper.find(TextField).at(2).props().value).toEqual('bar');
+
         const updatedCommandBar = wrapper.find(CommandBar).first();
         act(() => updatedCommandBar.props().items[0].onClick());
         wrapper.update();
-        expect(mockSendCloudToDeviceMessageSpy.mock.calls[0][0].properties).toContainEqual({isSystemProperty: false, key: 'foo', value: 'bar' });
+        expect(mockSendCloudToDeviceMessageSpy.mock.calls[0][0].properties[0]).toEqual({isSystemProperty: false, key: 'foo', value: 'bar' });
     });
 
     it('adds system properties', () => {
@@ -91,7 +95,7 @@ describe('cloudToDeviceMessage', () => {
         const updatedCommandBar = wrapper.find(CommandBar).first();
         act(() => updatedCommandBar.props().items[0].onClick());
         wrapper.update();
-        expect(mockSendCloudToDeviceMessageSpy.mock.calls[0][0].properties).toContainEqual({ isSystemProperty: true, key: 'ack', value: 'full' });
+        expect(mockSendCloudToDeviceMessageSpy.mock.calls[0][0].properties[0]).toEqual({ isSystemProperty: true, key: 'ack', value: 'full' });
     });
 
     it('disables send message button where there is duplicate keys', () => {

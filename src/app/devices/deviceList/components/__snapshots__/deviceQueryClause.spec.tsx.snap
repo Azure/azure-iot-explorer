@@ -26,10 +26,10 @@ exports[`DeviceQueryClause matches snapshot 1`] = `
         },
       ]
     }
-    title="deviceLists.query.searchPills.clause.parameterType.title"
+    placeholder="deviceLists.query.searchPills.clause.parameterType.placeholder"
   />
   <StyledWithResponsiveMode
-    ariaLabel="deviceLists.query.searchPills.clause.value.title"
+    ariaLabel="deviceLists.query.searchPills.clause.value.placeholder"
     className="clause-value"
     onChange={[Function]}
     options={
@@ -44,8 +44,8 @@ exports[`DeviceQueryClause matches snapshot 1`] = `
         },
       ]
     }
+    placeholder="deviceLists.query.searchPills.clause.value.placeholder"
     selectedKey="enabled"
-    title="deviceLists.query.searchPills.clause.value.title"
   />
   <CustomizedIconButton
     ariaLabel="deviceLists.query.searchPills.clause.remove.ariaLabel"
@@ -57,7 +57,6 @@ exports[`DeviceQueryClause matches snapshot 1`] = `
       }
     }
     onClick={[Function]}
-    title="deviceLists.query.searchPills.clause.remove.title"
     type="button"
   />
 </section>
@@ -89,10 +88,10 @@ exports[`DeviceQueryClause matches snapshot without operation 1`] = `
         },
       ]
     }
-    title="deviceLists.query.searchPills.clause.parameterType.title"
+    placeholder="deviceLists.query.searchPills.clause.parameterType.placeholder"
   />
   <StyledWithResponsiveMode
-    ariaLabel="deviceLists.query.searchPills.clause.value.title"
+    ariaLabel="deviceLists.query.searchPills.clause.value.placeholder"
     className="clause-value"
     onChange={[Function]}
     options={
@@ -109,8 +108,8 @@ exports[`DeviceQueryClause matches snapshot without operation 1`] = `
         },
       ]
     }
+    placeholder="deviceLists.query.searchPills.clause.value.placeholder"
     selectedKey="true"
-    title="deviceLists.query.searchPills.clause.value.title"
   />
   <CustomizedIconButton
     ariaLabel="deviceLists.query.searchPills.clause.remove.ariaLabel"
@@ -122,7 +121,6 @@ exports[`DeviceQueryClause matches snapshot without operation 1`] = `
       }
     }
     onClick={[Function]}
-    title="deviceLists.query.searchPills.clause.remove.title"
     type="button"
   />
 </section>

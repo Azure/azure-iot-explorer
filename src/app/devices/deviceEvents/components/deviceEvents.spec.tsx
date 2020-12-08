@@ -104,7 +104,7 @@ describe('deviceEvents', () => {
         it('changes state accordingly when consumer group value is changed', () => {
             const wrapper = mount(<DeviceEvents/>);
             const textField = wrapper.find(TextField).first();
-            act(() => textField.instance().props.onChange({ target: null}, 'testGroup'));
+            act(() => textField.props().onChange(undefined, 'testGroup'));
             wrapper.update();
             expect(wrapper.find(TextField).first().props().value).toEqual('testGroup');
         });
@@ -113,7 +113,7 @@ describe('deviceEvents', () => {
             const wrapper = mount(<DeviceEvents/>);
             expect(wrapper.find('.custom-event-hub-text-field').length).toEqual(0);
             const toggle = wrapper.find(Toggle).at(0);
-            act(() => toggle.instance().props.onChange({ target: null}, false));
+            act(() => toggle.props().onChange(undefined, false));
             wrapper.update();
             // tslint:disable-next-line: no-magic-numbers
             expect(wrapper.find('.custom-event-hub-text-field').length).toEqual(6);

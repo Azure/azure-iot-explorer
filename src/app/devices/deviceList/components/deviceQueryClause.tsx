@@ -78,7 +78,7 @@ export const DeviceQueryClause: React.FC<DeviceQueryClauseProps & DeviceQueryCla
                         text: t((ResourceKeys.deviceLists.query.searchPills.clause.parameterType.items as any)[parameter])// tslint:disable-line: no-any
                     }))}
                 onChange={onTypeChange}
-                title={t(ResourceKeys.deviceLists.query.searchPills.clause.parameterType.title)}
+                placeholder={t(ResourceKeys.deviceLists.query.searchPills.clause.parameterType.placeholder)}
                 ariaLabel={t(ResourceKeys.deviceLists.query.searchPills.clause.parameterType.ariaLabel)}
                 componentRef={parameterTypeRef}
             />
@@ -110,8 +110,8 @@ export const DeviceQueryClause: React.FC<DeviceQueryClauseProps & DeviceQueryCla
                         className="clause-value"
                         options={renderEdgeDropdownOptions()}
                         onChange={onValueDropdownChange}
-                        title={t(ResourceKeys.deviceLists.query.searchPills.clause.value.title)}
-                        ariaLabel={t(ResourceKeys.deviceLists.query.searchPills.clause.value.title)}
+                        placeholder={t(ResourceKeys.deviceLists.query.searchPills.clause.value.placeholder)}
+                        ariaLabel={t(ResourceKeys.deviceLists.query.searchPills.clause.value.placeholder)}
                         selectedKey={value || ''}
                     />
                 );
@@ -121,8 +121,8 @@ export const DeviceQueryClause: React.FC<DeviceQueryClauseProps & DeviceQueryCla
                         className="clause-value"
                         options={renderStatusDropdownOptions()}
                         onChange={onValueDropdownChange}
-                        title={t(ResourceKeys.deviceLists.query.searchPills.clause.value.title)}
-                        ariaLabel={t(ResourceKeys.deviceLists.query.searchPills.clause.value.title)}
+                        placeholder={t(ResourceKeys.deviceLists.query.searchPills.clause.value.placeholder)}
+                        ariaLabel={t(ResourceKeys.deviceLists.query.searchPills.clause.value.placeholder)}
                         selectedKey={value || ''}
                     />
                 );
@@ -143,7 +143,6 @@ export const DeviceQueryClause: React.FC<DeviceQueryClauseProps & DeviceQueryCla
                 iconProps={{ iconName: 'Clear' }}
                 type="button"
                 onClick={remove}
-                title={t(ResourceKeys.deviceLists.query.searchPills.clause.remove.title)}
                 ariaLabel={t(ResourceKeys.deviceLists.query.searchPills.clause.remove.ariaLabel)}
             />
         </section>

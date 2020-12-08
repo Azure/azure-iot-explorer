@@ -382,18 +382,16 @@
             },
             "searchPills": {
                 "add": {
-                    "title": "Add query parameter",
                     "ariaLabel": "Add query parameter",
                     "text": "Add query parameter"
                 },
                 "search": {
-                    "title": "Search",
                     "ariaLabel": "Execute search with specified clauses and without device Id.",
                     "text": "Search"
                 },
                 "clause": {
                     "parameterType": {
-                        "title":"Parameter type",
+                        "placeholder":"Parameter type",
                         "ariaLabel": "Type of query clause",
                         "items": {
                             "propertyValue": "Property value",
@@ -412,9 +410,8 @@
                         }
                     },
                     "value": {
-                        "placeholder": "Enter value...",
+                        "placeholder": "Select value",
                         "ariaLabel": "Enter a value for this clause",
-                        "title": "Enter value...",
                         "deviceCapability": {
                             "edge": "is Edge device",
                             "nonEdge": "is not Edge device"

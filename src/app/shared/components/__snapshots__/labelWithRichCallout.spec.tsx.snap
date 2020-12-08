@@ -22,6 +22,8 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
               "elevation64": "0 25.6px 57.6px 0 rgba(0, 0, 0, 0.22), 0 4.8px 14.4px 0 rgba(0, 0, 0, 0.18)",
               "elevation8": "0 3.2px 7.2px 0 rgba(0, 0, 0, 0.132), 0 0.6px 1.8px 0 rgba(0, 0, 0, 0.108)",
               "roundedCorner2": "2px",
+              "roundedCorner4": "4px",
+              "roundedCorner6": "6px",
             },
             "fonts": Object {
               "large": Object {
@@ -175,7 +177,8 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
               "accentButtonText": "#ffffff",
               "actionLink": "#323130",
               "actionLinkHovered": "#201f1e",
-              "blockingBackground": "rgba(250, 65, 0, .2)",
+              "blockingBackground": "#FDE7E9",
+              "blockingIcon": "#FDE7E9",
               "bodyBackground": "#ffffff",
               "bodyBackgroundChecked": "#edebe9",
               "bodyBackgroundHovered": "#f3f2f1",
@@ -200,6 +203,9 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
               "buttonTextDisabled": "#a19f9d",
               "buttonTextHovered": "#201f1e",
               "buttonTextPressed": "#201f1e",
+              "cardShadow": "0 1.6px 3.6px 0 rgba(0, 0, 0, 0.132), 0 0.3px 0.9px 0 rgba(0, 0, 0, 0.108)",
+              "cardShadowHovered": "0 3.2px 7.2px 0 rgba(0, 0, 0, 0.132), 0 0.6px 1.8px 0 rgba(0, 0, 0, 0.108)",
+              "cardStandoutBackground": "#ffffff",
               "defaultStateBackground": "#faf9f8",
               "disabledBackground": "#f3f2f1",
               "disabledBodySubtext": "#c8c6c4",
@@ -207,9 +213,12 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
               "disabledBorder": "#c8c6c4",
               "disabledSubtext": "#d2d0ce",
               "disabledText": "#a19f9d",
-              "errorBackground": "rgba(245, 135, 145, .2)",
+              "errorBackground": "#FDE7E9",
+              "errorIcon": "#A80000",
               "errorText": "#a4262c",
               "focusBorder": "#605e5c",
+              "infoBackground": "#f3f2f1",
+              "infoIcon": "#605e5c",
               "inputBackground": "#ffffff",
               "inputBackgroundChecked": "#0078d4",
               "inputBackgroundCheckedHovered": "#005a9e",
@@ -243,6 +252,9 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
               "menuItemBackgroundPressed": "#edebe9",
               "menuItemText": "#323130",
               "menuItemTextHovered": "#201f1e",
+              "messageLink": "#005A9E",
+              "messageLinkHovered": "#004578",
+              "messageText": "#323130",
               "primaryButtonBackground": "#0078d4",
               "primaryButtonBackgroundDisabled": "#f3f2f1",
               "primaryButtonBackgroundHovered": "#106ebe",
@@ -252,14 +264,18 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
               "primaryButtonTextDisabled": "#d2d0ce",
               "primaryButtonTextHovered": "#ffffff",
               "primaryButtonTextPressed": "#ffffff",
+              "severeWarningBackground": "#FED9CC",
+              "severeWarningIcon": "#D83B01",
               "smallInputBorder": "#605e5c",
-              "successBackground": "rgba(95, 210, 85, .2)",
+              "successBackground": "#DFF6DD",
+              "successIcon": "#107C10",
               "successText": "#107C10",
               "variantBorder": "#edebe9",
               "variantBorderHovered": "#a19f9d",
-              "warningBackground": "rgba(255, 200, 10, .2)",
+              "warningBackground": "#FFF4CE",
               "warningHighlight": "#ffb900",
-              "warningText": "#333333",
+              "warningIcon": "#797775",
+              "warningText": "#323130",
             },
             "spacing": Object {
               "l1": "20px",
@@ -272,7 +288,7 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
         }
       >
         <label
-          className="ms-Label root-49"
+          className="ms-Label root-52"
         >
           labelText
         </label>
@@ -284,7 +300,7 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
           "iconName": "Info",
         }
       }
-      id="iconbutton1"
+      id="iconbutton0"
       onClick={[Function]}
     >
       <IconButton
@@ -293,7 +309,7 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
             "iconName": "Info",
           }
         }
-        id="iconbutton1"
+        id="iconbutton0"
         onClick={[Function]}
         theme={
           Object {
@@ -304,6 +320,8 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
               "elevation64": "0 25.6px 57.6px 0 rgba(0, 0, 0, 0.22), 0 4.8px 14.4px 0 rgba(0, 0, 0, 0.18)",
               "elevation8": "0 3.2px 7.2px 0 rgba(0, 0, 0, 0.132), 0 0.6px 1.8px 0 rgba(0, 0, 0, 0.108)",
               "roundedCorner2": "2px",
+              "roundedCorner4": "4px",
+              "roundedCorner6": "6px",
             },
             "fonts": Object {
               "large": Object {
@@ -457,7 +475,8 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
               "accentButtonText": "#ffffff",
               "actionLink": "#323130",
               "actionLinkHovered": "#201f1e",
-              "blockingBackground": "rgba(250, 65, 0, .2)",
+              "blockingBackground": "#FDE7E9",
+              "blockingIcon": "#FDE7E9",
               "bodyBackground": "#ffffff",
               "bodyBackgroundChecked": "#edebe9",
               "bodyBackgroundHovered": "#f3f2f1",
@@ -482,6 +501,9 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
               "buttonTextDisabled": "#a19f9d",
               "buttonTextHovered": "#201f1e",
               "buttonTextPressed": "#201f1e",
+              "cardShadow": "0 1.6px 3.6px 0 rgba(0, 0, 0, 0.132), 0 0.3px 0.9px 0 rgba(0, 0, 0, 0.108)",
+              "cardShadowHovered": "0 3.2px 7.2px 0 rgba(0, 0, 0, 0.132), 0 0.6px 1.8px 0 rgba(0, 0, 0, 0.108)",
+              "cardStandoutBackground": "#ffffff",
               "defaultStateBackground": "#faf9f8",
               "disabledBackground": "#f3f2f1",
               "disabledBodySubtext": "#c8c6c4",
@@ -489,9 +511,12 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
               "disabledBorder": "#c8c6c4",
               "disabledSubtext": "#d2d0ce",
               "disabledText": "#a19f9d",
-              "errorBackground": "rgba(245, 135, 145, .2)",
+              "errorBackground": "#FDE7E9",
+              "errorIcon": "#A80000",
               "errorText": "#a4262c",
               "focusBorder": "#605e5c",
+              "infoBackground": "#f3f2f1",
+              "infoIcon": "#605e5c",
               "inputBackground": "#ffffff",
               "inputBackgroundChecked": "#0078d4",
               "inputBackgroundCheckedHovered": "#005a9e",
@@ -525,6 +550,9 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
               "menuItemBackgroundPressed": "#edebe9",
               "menuItemText": "#323130",
               "menuItemTextHovered": "#201f1e",
+              "messageLink": "#005A9E",
+              "messageLinkHovered": "#004578",
+              "messageText": "#323130",
               "primaryButtonBackground": "#0078d4",
               "primaryButtonBackgroundDisabled": "#f3f2f1",
               "primaryButtonBackgroundHovered": "#106ebe",
@@ -534,14 +562,18 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
               "primaryButtonTextDisabled": "#d2d0ce",
               "primaryButtonTextHovered": "#ffffff",
               "primaryButtonTextPressed": "#ffffff",
+              "severeWarningBackground": "#FED9CC",
+              "severeWarningIcon": "#D83B01",
               "smallInputBorder": "#605e5c",
-              "successBackground": "rgba(95, 210, 85, .2)",
+              "successBackground": "#DFF6DD",
+              "successIcon": "#107C10",
               "successText": "#107C10",
               "variantBorder": "#edebe9",
               "variantBorderHovered": "#a19f9d",
-              "warningBackground": "rgba(255, 200, 10, .2)",
+              "warningBackground": "#FFF4CE",
               "warningHighlight": "#ffb900",
-              "warningText": "#333333",
+              "warningIcon": "#797775",
+              "warningText": "#323130",
             },
             "spacing": Object {
               "l1": "20px",
@@ -560,7 +592,7 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
               "iconName": "Info",
             }
           }
-          id="iconbutton1"
+          id="iconbutton0"
           onClick={[Function]}
           onRenderDescription={[Function]}
           onRenderText={[Function]}
@@ -584,10 +616,14 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                 "lineHeight": "16px",
                 "margin": "0 4px",
                 "textAlign": "center",
-                "verticalAlign": "middle",
               },
               "iconDisabled": Object {
                 "color": "#a19f9d",
+                "selectors": Object {
+                  "@media screen and (-ms-high-contrast: active)": Object {
+                    "color": "GrayText",
+                  },
+                },
               },
               "label": Object {
                 "display": "block",
@@ -601,10 +637,14 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                 "lineHeight": "16px",
                 "margin": "0 4px",
                 "textAlign": "center",
-                "verticalAlign": "middle",
               },
               "menuIconDisabled": Object {
                 "color": "#a19f9d",
+                "selectors": Object {
+                  "@media screen and (-ms-high-contrast: active)": Object {
+                    "color": "GrayText",
+                  },
+                },
               },
               "root": Array [
                 Object {
@@ -621,7 +661,6 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                       "right": 2,
                       "selectors": Object {
                         "@media screen and (-ms-high-contrast: active)": Object {
-                          "border": "none",
                           "bottom": -2,
                           "left": -2,
                           "outlineColor": "ButtonText",
@@ -661,7 +700,6 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                   "textAlign": "center",
                   "textDecoration": "none",
                   "userSelect": "none",
-                  "verticalAlign": "top",
                 },
                 Object {
                   "backgroundColor": "transparent",
@@ -695,7 +733,6 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                       "right": 2,
                       "selectors": Object {
                         "@media screen and (-ms-high-contrast: active)": Object {
-                          "border": "none",
                           "bottom": -2,
                           "left": -2,
                           "outlineColor": "ButtonText",
@@ -723,10 +760,6 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                     },
                     ":hover": Object {
                       "outline": 0,
-                    },
-                    "@media screen and (-ms-high-contrast: active)": Object {
-                      "borderColor": "grayText",
-                      "color": "grayText",
                     },
                   },
                 },
@@ -809,13 +842,21 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                       "selectors": Object {
                         "@media screen and (-ms-high-contrast: active)": Object {
                           "MsHighContrastAdjust": "none",
-                          "backgroundColor": "WindowText",
-                          "color": "Window",
+                          "backgroundColor": "Window",
+                          "border": "1px solid WindowText",
+                          "borderRightWidth": "0",
+                          "color": "WindowText",
                         },
                       },
                     },
                     ".ms-Button--primary + .ms-Button": Object {
                       "border": "none",
+                      "selectors": Object {
+                        "@media screen and (-ms-high-contrast: active)": Object {
+                          "border": "1px solid WindowText",
+                          "borderLeftWidth": "0",
+                        },
+                      },
                     },
                   },
                 },
@@ -855,6 +896,9 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                     "borderColor": "GrayText",
                     "color": "GrayText",
                   },
+                  "@media screen and (forced-colors: active)": Object {
+                    "forcedColorAdjust": "none",
+                  },
                 },
               },
               "splitButtonContainerFocused": Object {
@@ -871,6 +915,7 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                     },
                   },
                   ".ms-Button.is-disabled": Object {
+                    "color": "#a19f9d",
                     "selectors": Object {
                       "@media screen and (-ms-high-contrast: active)": Object {
                         "backgroundColor": "Window",
@@ -947,6 +992,13 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                       },
                     },
                   },
+                  ".ms-Button-menuIcon": Object {
+                    "selectors": Object {
+                      "@media screen and (-ms-high-contrast: active)": Object {
+                        "color": "GrayText",
+                      },
+                    },
+                  },
                   ":hover": Object {
                     "cursor": "default",
                   },
@@ -972,6 +1024,8 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                 "elevation64": "0 25.6px 57.6px 0 rgba(0, 0, 0, 0.22), 0 4.8px 14.4px 0 rgba(0, 0, 0, 0.18)",
                 "elevation8": "0 3.2px 7.2px 0 rgba(0, 0, 0, 0.132), 0 0.6px 1.8px 0 rgba(0, 0, 0, 0.108)",
                 "roundedCorner2": "2px",
+                "roundedCorner4": "4px",
+                "roundedCorner6": "6px",
               },
               "fonts": Object {
                 "large": Object {
@@ -1125,7 +1179,8 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                 "accentButtonText": "#ffffff",
                 "actionLink": "#323130",
                 "actionLinkHovered": "#201f1e",
-                "blockingBackground": "rgba(250, 65, 0, .2)",
+                "blockingBackground": "#FDE7E9",
+                "blockingIcon": "#FDE7E9",
                 "bodyBackground": "#ffffff",
                 "bodyBackgroundChecked": "#edebe9",
                 "bodyBackgroundHovered": "#f3f2f1",
@@ -1150,6 +1205,9 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                 "buttonTextDisabled": "#a19f9d",
                 "buttonTextHovered": "#201f1e",
                 "buttonTextPressed": "#201f1e",
+                "cardShadow": "0 1.6px 3.6px 0 rgba(0, 0, 0, 0.132), 0 0.3px 0.9px 0 rgba(0, 0, 0, 0.108)",
+                "cardShadowHovered": "0 3.2px 7.2px 0 rgba(0, 0, 0, 0.132), 0 0.6px 1.8px 0 rgba(0, 0, 0, 0.108)",
+                "cardStandoutBackground": "#ffffff",
                 "defaultStateBackground": "#faf9f8",
                 "disabledBackground": "#f3f2f1",
                 "disabledBodySubtext": "#c8c6c4",
@@ -1157,9 +1215,12 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                 "disabledBorder": "#c8c6c4",
                 "disabledSubtext": "#d2d0ce",
                 "disabledText": "#a19f9d",
-                "errorBackground": "rgba(245, 135, 145, .2)",
+                "errorBackground": "#FDE7E9",
+                "errorIcon": "#A80000",
                 "errorText": "#a4262c",
                 "focusBorder": "#605e5c",
+                "infoBackground": "#f3f2f1",
+                "infoIcon": "#605e5c",
                 "inputBackground": "#ffffff",
                 "inputBackgroundChecked": "#0078d4",
                 "inputBackgroundCheckedHovered": "#005a9e",
@@ -1193,6 +1254,9 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                 "menuItemBackgroundPressed": "#edebe9",
                 "menuItemText": "#323130",
                 "menuItemTextHovered": "#201f1e",
+                "messageLink": "#005A9E",
+                "messageLinkHovered": "#004578",
+                "messageText": "#323130",
                 "primaryButtonBackground": "#0078d4",
                 "primaryButtonBackgroundDisabled": "#f3f2f1",
                 "primaryButtonBackgroundHovered": "#106ebe",
@@ -1202,14 +1266,18 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                 "primaryButtonTextDisabled": "#d2d0ce",
                 "primaryButtonTextHovered": "#ffffff",
                 "primaryButtonTextPressed": "#ffffff",
+                "severeWarningBackground": "#FED9CC",
+                "severeWarningIcon": "#D83B01",
                 "smallInputBorder": "#605e5c",
-                "successBackground": "rgba(95, 210, 85, .2)",
+                "successBackground": "#DFF6DD",
+                "successIcon": "#107C10",
                 "successText": "#107C10",
                 "variantBorder": "#edebe9",
                 "variantBorderHovered": "#a19f9d",
-                "warningBackground": "rgba(255, 200, 10, .2)",
+                "warningBackground": "#FFF4CE",
                 "warningHighlight": "#ffb900",
-                "warningText": "#333333",
+                "warningIcon": "#797775",
+                "warningText": "#323130",
               },
               "spacing": Object {
                 "l1": "20px",
@@ -1223,9 +1291,9 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
           variantClassName="ms-Button--icon"
         >
           <button
-            className="ms-Button ms-Button--icon root-50"
+            className="ms-Button ms-Button--icon root-53"
             data-is-focusable={true}
-            id="iconbutton1"
+            id="iconbutton0"
             onClick={[Function]}
             onKeyDown={[Function]}
             onKeyPress={[Function]}
@@ -1235,22 +1303,28 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
             type="button"
           >
             <span
-              className="ms-Button-flexContainer flexContainer-51"
+              className="ms-Button-flexContainer flexContainer-54"
               data-automationid="splitbuttonprimary"
             >
               <Component
-                className="ms-Button-icon icon-53"
+                className="ms-Button-icon icon-56"
                 iconName="Info"
               >
                 <i
                   aria-hidden={true}
-                  className="ms-Icon root-37 ms-Button-icon icon-53"
+                  className="ms-Icon root-37 ms-Button-icon icon-56"
                   data-icon-name="Info"
                   role="presentation"
+                  style={
+                    Object {
+                      "fontFamily": undefined,
+                    }
+                  }
                 />
               </Component>
             </span>
           </button>
+          <Component />
         </BaseButton>
       </IconButton>
     </CustomizedIconButton>

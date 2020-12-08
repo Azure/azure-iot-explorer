@@ -43,6 +43,7 @@ export const ModelDefinitionSourceView: React.FC<ModelDefinitionSourceViewProps>
                 <ActionButton
                     className="configure-button"
                     onClick={onConfigureClick}
+                    iconProps={{iconName: 'Settings'}}
                 >
                     {t(ResourceKeys.deviceInterfaces.command.configure)}
                 </ActionButton>
