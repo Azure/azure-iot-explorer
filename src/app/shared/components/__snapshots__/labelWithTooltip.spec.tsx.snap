@@ -23,21 +23,21 @@ exports[`components/shared/labelWithTooltip matches snapshot when tooltip specif
     calloutProps={
       Object {
         "gapSpace": 0,
-        "target": "#iconbutton1",
+        "target": "#iconbutton0",
       }
     }
     content="calloutText"
     directionalHint={12}
-    id="tooltip2"
+    id="tooltip1"
   >
     <CustomizedIconButton
-      aria-labelledby="tooltip2"
+      aria-labelledby="tooltip1"
       iconProps={
         Object {
           "iconName": "Info",
         }
       }
-      id="iconbutton1"
+      id="iconbutton0"
     />
   </StyledTooltipHostBase>
 </div>

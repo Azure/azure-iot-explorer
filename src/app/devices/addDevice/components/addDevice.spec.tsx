@@ -79,7 +79,7 @@ describe('addDevice', () => {
         const wrapper = mount(<AddDevice/>);
 
         act(() => wrapper.find(MaskedCopyableTextField).first().props().onTextChange('test-device'));
-        act(() => wrapper.find(Toggle).first().instance().props.onChange({ target: null}, false));
+        act(() => wrapper.find(Toggle).first().props().onChange(undefined, false));
         wrapper.update();
 
         expect(wrapper.find(MaskedCopyableTextField).first().props().value).toEqual('test-device');

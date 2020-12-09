@@ -72,7 +72,7 @@ exports[`dataForm matches snapshot with simple type 1`] = `
       />
     </Form>
   </ErrorBoundary>
-  <StyledWithResponsiveMode
+  <Dialog
     hidden={true}
     modalProps={
       Object {
@@ -85,7 +85,7 @@ exports[`dataForm matches snapshot with simple type 1`] = `
     <span>
       deviceSettings.noPreviewContent
     </span>
-  </StyledWithResponsiveMode>
+  </Dialog>
 </Fragment>
 `;
 
@@ -126,7 +126,7 @@ exports[`dataForm matches snapshot with unsupported type 1`] = `
       text="deviceSettings.previewPayloadButtonText"
     />
   </form>
-  <StyledWithResponsiveMode
+  <Dialog
     hidden={true}
     modalProps={
       Object {
@@ -139,6 +139,6 @@ exports[`dataForm matches snapshot with unsupported type 1`] = `
     <span>
       deviceSettings.noPreviewContent
     </span>
-  </StyledWithResponsiveMode>
+  </Dialog>
 </Fragment>
 `;

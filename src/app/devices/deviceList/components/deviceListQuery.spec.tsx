@@ -33,7 +33,7 @@ describe('DeviceListQuery', () => {
     it('sets device id', () => {
         const wrapper = mount(getComponent());
         const textField = wrapper.find(TextField).first();
-        act(() => textField.instance().props.onChange({ target: null}, 'testDevice'));
+        act(() => textField.props().onChange(undefined, 'testDevice'));
         wrapper.update();
 
         expect(wrapper.find(TextField).props().value).toEqual('testDevice');

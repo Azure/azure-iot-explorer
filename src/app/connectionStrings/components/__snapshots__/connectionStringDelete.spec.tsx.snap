@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ConnectionStringDelete matches snapshot hidden 1`] = `
-<StyledWithResponsiveMode
+<Dialog
   dialogContentProps={
     Object {
       "title": "connectionStrings.deleteConnection.title",
@@ -41,11 +41,11 @@ exports[`ConnectionStringDelete matches snapshot hidden 1`] = `
       text="connectionStrings.deleteConnection.no.label"
     />
   </StyledDialogFooterBase>
-</StyledWithResponsiveMode>
+</Dialog>
 `;
 
 exports[`ConnectionStringDelete matches snapshot visible 1`] = `
-<StyledWithResponsiveMode
+<Dialog
   dialogContentProps={
     Object {
       "title": "connectionStrings.deleteConnection.title",
@@ -85,5 +85,5 @@ exports[`ConnectionStringDelete matches snapshot visible 1`] = `
       text="connectionStrings.deleteConnection.no.label"
     />
   </StyledDialogFooterBase>
-</StyledWithResponsiveMode>
+</Dialog>
 `;

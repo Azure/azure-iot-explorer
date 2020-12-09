@@ -49,7 +49,6 @@ exports[`DeviceListQuery matches snapshot 1`] = `
         }
       }
       onClick={[Function]}
-      title="deviceLists.query.searchPills.add.title"
       type="button"
     >
       deviceLists.query.searchPills.add.text

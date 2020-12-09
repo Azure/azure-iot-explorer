@@ -123,7 +123,6 @@ export const DeviceListQuery: React.FC<DeviceListQueryProps> = (props: DeviceLis
                 {clauses && clauses.length > 0 && <PrimaryButton
                     className="search-pill"
                     onClick={setQueryFromQueryPillsAndExecute}
-                    title={t(ResourceKeys.deviceLists.query.searchPills.search.title)}
                     ariaLabel={t(ResourceKeys.deviceLists.query.searchPills.search.ariaLabel)}
                 >
                     {t(ResourceKeys.deviceLists.query.searchPills.search.text)}
@@ -133,7 +132,6 @@ export const DeviceListQuery: React.FC<DeviceListQueryProps> = (props: DeviceLis
                     iconProps={{ iconName: 'Filter' }}
                     type="button"
                     onClick={onAddClause}
-                    title={t(ResourceKeys.deviceLists.query.searchPills.add.title)}
                     ariaLabel={t(ResourceKeys.deviceLists.query.searchPills.add.ariaLabel)}
                 >
                     {t(ResourceKeys.deviceLists.query.searchPills.add.text)}

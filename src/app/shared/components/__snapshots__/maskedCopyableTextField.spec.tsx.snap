@@ -8,7 +8,7 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
     className="labelSection"
   >
     <Component
-      htmlFor="maskedCopyableTextField1"
+      htmlFor="maskedCopyableTextField0"
     >
       label1
     </Component>
@@ -22,7 +22,7 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
       <input
         aria-label="ariaLabel1"
         className="input"
-        id="maskedCopyableTextField1"
+        id="maskedCopyableTextField0"
         onChange={[Function]}
         readOnly={true}
         type="text"
@@ -49,10 +49,10 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
     >
       <StyledTooltipHostBase
         content="common.maskedCopyableTextField.copy.label"
-        id="copyButtonTooltipHost3"
+        id="copyButtonTooltipHost2"
       >
         <CustomizedIconButton
-          aria-labelledby="copyButtonTooltipHost3"
+          aria-labelledby="copyButtonTooltipHost2"
           componentRef={
             Object {
               "current": null,
@@ -79,7 +79,7 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
     className="labelSection"
   >
     <Component
-      htmlFor="maskedCopyableTextField4"
+      htmlFor="maskedCopyableTextField3"
     >
       label1
     </Component>
@@ -93,7 +93,7 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
       <input
         aria-label="ariaLabel1"
         className="input"
-        id="maskedCopyableTextField4"
+        id="maskedCopyableTextField3"
         onChange={[Function]}
         readOnly={true}
         type="password"
@@ -116,10 +116,10 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
       />
       <StyledTooltipHostBase
         content="common.maskedCopyableTextField.toggleMask.label.show"
-        id="toggleMaskButtonTooltipHost5"
+        id="toggleMaskButtonTooltipHost4"
       >
         <CustomizedIconButton
-          aria-labelledby="toggleMaskButtonTooltipHost5"
+          aria-labelledby="toggleMaskButtonTooltipHost4"
           iconProps={
             Object {
               "iconName": "RedEye",
@@ -134,10 +134,10 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
     >
       <StyledTooltipHostBase
         content="common.maskedCopyableTextField.copy.label"
-        id="copyButtonTooltipHost6"
+        id="copyButtonTooltipHost5"
       >
         <CustomizedIconButton
-          aria-labelledby="copyButtonTooltipHost6"
+          aria-labelledby="copyButtonTooltipHost5"
           componentRef={
             Object {
               "current": null,
@@ -164,7 +164,7 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
     className="labelSection"
   >
     <Component
-      htmlFor="maskedCopyableTextField7"
+      htmlFor="maskedCopyableTextField6"
     >
       label1
     </Component>
@@ -178,7 +178,7 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
       <input
         aria-label="ariaLabel1"
         className="input"
-        id="maskedCopyableTextField7"
+        id="maskedCopyableTextField6"
         onChange={[Function]}
         readOnly={true}
         type="password"
@@ -201,10 +201,10 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
       />
       <StyledTooltipHostBase
         content="common.maskedCopyableTextField.toggleMask.label.show"
-        id="toggleMaskButtonTooltipHost8"
+        id="toggleMaskButtonTooltipHost7"
       >
         <CustomizedIconButton
-          aria-labelledby="toggleMaskButtonTooltipHost8"
+          aria-labelledby="toggleMaskButtonTooltipHost7"
           iconProps={
             Object {
               "iconName": "RedEye",
@@ -219,10 +219,10 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
     >
       <StyledTooltipHostBase
         content="common.maskedCopyableTextField.copy.label"
-        id="copyButtonTooltipHost9"
+        id="copyButtonTooltipHost8"
       >
         <CustomizedIconButton
-          aria-labelledby="copyButtonTooltipHost9"
+          aria-labelledby="copyButtonTooltipHost8"
           componentRef={
             Object {
               "current": null,
@@ -249,7 +249,7 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when error messag
     className="labelSection"
   >
     <Component
-      htmlFor="maskedCopyableTextField10"
+      htmlFor="maskedCopyableTextField9"
     >
       label1
     </Component>
@@ -263,7 +263,7 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when error messag
       <input
         aria-label="ariaLabel1"
         className="input"
-        id="maskedCopyableTextField10"
+        id="maskedCopyableTextField9"
         onChange={[Function]}
         readOnly={true}
         type="password"
@@ -286,10 +286,10 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when error messag
       />
       <StyledTooltipHostBase
         content="common.maskedCopyableTextField.toggleMask.label.show"
-        id="toggleMaskButtonTooltipHost11"
+        id="toggleMaskButtonTooltipHost10"
       >
         <CustomizedIconButton
-          aria-labelledby="toggleMaskButtonTooltipHost11"
+          aria-labelledby="toggleMaskButtonTooltipHost10"
           iconProps={
             Object {
               "iconName": "RedEye",
@@ -304,10 +304,10 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when error messag
     >
       <StyledTooltipHostBase
         content="common.maskedCopyableTextField.copy.label"
-        id="copyButtonTooltipHost12"
+        id="copyButtonTooltipHost11"
       >
         <CustomizedIconButton
-          aria-labelledby="copyButtonTooltipHost12"
+          aria-labelledby="copyButtonTooltipHost11"
           componentRef={
             Object {
               "current": null,
