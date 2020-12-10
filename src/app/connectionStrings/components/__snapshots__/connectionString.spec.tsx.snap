@@ -59,17 +59,21 @@ exports[`connectionString matches snapshot 1`] = `
       readOnly={true}
       value="HostName=test.azure-devices-int.net;SharedAccessKeyName=iothubowner;SharedAccessKey=key"
     />
-    <StyledLinkBase
-      onClick={[Function]}
-      style={
+    <div
+      className="expiration-warning"
+    >
+      connectionStrings.expirationWarning
+    </div>
+    <CustomizedActionButton
+      iconProps={
         Object {
-          "marginTop": 10,
+          "iconName": "Forward",
         }
       }
-      title="connectionStrings.visitConnectionCommand.ariaLabel"
+      onClick={[Function]}
     >
       connectionStrings.visitConnectionCommand.label
-    </StyledLinkBase>
+    </CustomizedActionButton>
   </div>
   <Component
     connectionString="HostName=test.azure-devices-int.net;SharedAccessKeyName=iothubowner;SharedAccessKey=key"

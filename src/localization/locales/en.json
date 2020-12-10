@@ -215,7 +215,7 @@
                 "ariaLabel": "Connection String"
             }
         },
-        "expirationWarning": "Your hub connection string is expiring in less than 3 days. Please edit the connection string (by copying and pasting again) to extend, or you would have to re-add it once it expires."
+        "expirationWarning": "Your hub connection string is expiring in less than {{numberOfDays}} day(s). Please edit the connection string (by copying and pasting again) to extend, or you would have to re-add it once it expires."
     },
     "connectivityPane": {
         "header": "App configurations",
@@ -856,8 +856,8 @@
         "modelRepoistorySettingsUpdated": "Model repository locations successfully updated.",
         "startEventMonitoringOnError": "Failed to start monitoring device telemetry: {{error}}",
         "stopEventMonitoringOnError": "Failed to stop monitoring device telemetry: {{error}}",
-        "connectionStringsWithoutExpiryRemovalWarning": "Due to security requirments, your old hub connection strings have been removed. The new connection string being added would automatically have an expiration date one year from now.",
-        "connectionStringsWithExpiryRemovalWarning": "Due to security requirments, your hub connection strings stored more than a year ago have been removed."
+        "connectionStringsWithoutExpiryRemovalWarning": "Due to security requirments, previously stored hub connection strings have been removed. The new connection string being added would automatically have an expiration date one year from now.",
+        "connectionStringsWithExpiryRemovalWarning": "Due to security requirments, one or more hub connection strings stored more than a year ago have been removed."
     },
     "errorBoundary": {
         "text": "Something went wrong"

@@ -3,18 +3,18 @@
  * Licensed under the MIT License
  **********************************************************/
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
-import { deleteConnectionStringAction, setConnectionStringsAction, upsertConnectionStringAction, getConnectionStringAction } from './actions';
+import { deleteConnectionStringAction, setConnectionStringsAction, upsertConnectionStringAction, getConnectionStringsAction } from './actions';
 import { connectionStringsStateInitial, ConnectionStringsStateType, ConnectionStringWithExpiry } from './state';
 import { SynchronizationStatus } from '../api/models/synchronizationStatus';
 
 export const connectionStringsReducer = reducerWithInitialState<ConnectionStringsStateType>(connectionStringsStateInitial())
-    .case(getConnectionStringAction.started, (state: ConnectionStringsStateType) => {
+    .case(getConnectionStringsAction.started, (state: ConnectionStringsStateType) => {
         return state.merge({
             synchronizationStatus: SynchronizationStatus.working
         });
     })
 
-    .case(getConnectionStringAction.done, (state: ConnectionStringsStateType, payload: {params: void, result: ConnectionStringWithExpiry[]}) => {
+    .case(getConnectionStringsAction.done, (state: ConnectionStringsStateType, payload: {params: void, result: ConnectionStringWithExpiry[]}) => {
         return state.merge({
             payload: payload.result,
             synchronizationStatus: SynchronizationStatus.fetched

@@ -15,6 +15,7 @@ import { MaskedCopyableTextField } from '../../shared/components/maskedCopyableT
 import { EDIT, REMOVE } from '../../constants/iconNames';
 import { ConnectionStringWithExpiry } from '../state';
 import { CONNECTION_STRING_EXPIRATION_WARNING_IN_DAYS } from '../../constants/browserStorage';
+import { getDaysBeforeHubConnectionStringExpires } from '../../shared/utils/hubConnectionStringHelper';
 import './connectionString.scss';
 
 export interface ConnectionStringProps {
@@ -27,8 +28,7 @@ export interface ConnectionStringProps {
 export const ConnectionString: React.FC<ConnectionStringProps> = props => {
     const { connectionStringWithExpiry, onEditConnectionString, onDeleteConnectionString, onSelectConnectionString } = props;
     const connectionString = connectionStringWithExpiry.connectionString;
-    const expiryWarningDate = new Date(connectionStringWithExpiry.expiration);
-    expiryWarningDate.setDate(expiryWarningDate.getDate() - CONNECTION_STRING_EXPIRATION_WARNING_IN_DAYS);
+    const daysTillExpire = getDaysBeforeHubConnectionStringExpires(connectionStringWithExpiry);
     const connectionSettings = getConnectionInfoFromConnectionString(connectionString);
     const { hostName, sharedAccessKey, sharedAccessKeyName } = connectionSettings;
     const resourceName = getResourceNameFromHostName(hostName);
@@ -102,7 +102,10 @@ export const ConnectionString: React.FC<ConnectionStringProps> = props => {
                     value={connectionString}
                     readOnly={true}
                 />
-                {new Date() > expiryWarningDate && <div className="expiration-warning">{t(ResourceKeys.connectionStrings.expirationWarning)}</div>}
+                {daysTillExpire <= CONNECTION_STRING_EXPIRATION_WARNING_IN_DAYS &&
+                    <div className="expiration-warning">
+                        {t(ResourceKeys.connectionStrings.expirationWarning, { numberOfDays: daysTillExpire})}
+                    </div>}
                 <ActionButton
                     onClick={onSelectConnectionStringClick}
                     iconProps={{iconName: 'Forward'}}

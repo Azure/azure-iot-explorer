@@ -6,7 +6,7 @@ import { CONTROLLER_API_ENDPOINT, DATAPLANE, DataPlaneStatusCode, HTTP_OPERATION
 import { getConnectionInfoFromConnectionString, generateSasToken } from '../shared/utils';
 import { PortIsInUseError } from '../models/portIsInUseError';
 import { CONNECTION_STRING_LIST } from '../../constants/browserStorage';
-import { getActiveConnectionString } from '../../shared/hooks/localStorageInformationRetriever';
+import { getActiveConnectionString } from '../../shared/utils/hubConnectionStringHelper';
 
 export const DATAPLANE_CONTROLLER_ENDPOINT = `${CONTROLLER_API_ENDPOINT}${DATAPLANE}`;
 

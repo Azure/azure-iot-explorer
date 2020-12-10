@@ -3,15 +3,15 @@
  * Licensed under the MIT License
  **********************************************************/
 import {
-    getConnectionStringAction,
+    getConnectionStringsAction,
     deleteConnectionStringAction,
     setConnectionStringsAction,
     upsertConnectionStringAction
 } from './actions';
 
-describe('getConnectionStringAction', () => {
+describe('getConnectionStringsAction', () => {
     it('returns CONNECTION_STRINGS/DELETE action object', () => {
-        expect(getConnectionStringAction.started()).toEqual({
+        expect(getConnectionStringsAction.started()).toEqual({
             payload: undefined,
             type: 'CONNECTION_STRINGS/GET_STARTED'
         });
@@ -38,8 +38,12 @@ describe('setConnectionStringAction', () => {
 
 describe('upsertConnectionStringAction', () => {
     it('returns CONNECTION_STRINGS/UPSERT action object', () => {
-        expect(upsertConnectionStringAction.started({ newConnectionString: 'new', connectionString: 'old'})).toEqual({
-            payload: { newConnectionString: 'new', connectionString: 'old'},
+        const stringWithExpiry = {
+            connectionString: 'connectionString1',
+            expiration: (new Date(0)).toUTCString()
+        };
+        expect(upsertConnectionStringAction.started(stringWithExpiry)).toEqual({
+            payload: stringWithExpiry,
             type: 'CONNECTION_STRINGS/UPSERT_STARTED'
         });
     });

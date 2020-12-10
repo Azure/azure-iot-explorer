@@ -29,7 +29,128 @@ exports[`ConnectionStringsView matches snapshot when connection string count exc
   >
     <div
       className="connection-strings"
-    />
+    >
+      <Component
+        connectionStringWithExpiry={
+          Object {
+            "connectionString": "connectionString10",
+            "expiration": "Thu, 01 Jan 1970 00:00:00 GMT",
+          }
+        }
+        key="connectionString10"
+        onDeleteConnectionString={[Function]}
+        onEditConnectionString={[Function]}
+        onSelectConnectionString={[Function]}
+      />
+      <Component
+        connectionStringWithExpiry={
+          Object {
+            "connectionString": "connectionString9",
+            "expiration": "Thu, 01 Jan 1970 00:00:00 GMT",
+          }
+        }
+        key="connectionString9"
+        onDeleteConnectionString={[Function]}
+        onEditConnectionString={[Function]}
+        onSelectConnectionString={[Function]}
+      />
+      <Component
+        connectionStringWithExpiry={
+          Object {
+            "connectionString": "connectionString8",
+            "expiration": "Thu, 01 Jan 1970 00:00:00 GMT",
+          }
+        }
+        key="connectionString8"
+        onDeleteConnectionString={[Function]}
+        onEditConnectionString={[Function]}
+        onSelectConnectionString={[Function]}
+      />
+      <Component
+        connectionStringWithExpiry={
+          Object {
+            "connectionString": "connectionString7",
+            "expiration": "Thu, 01 Jan 1970 00:00:00 GMT",
+          }
+        }
+        key="connectionString7"
+        onDeleteConnectionString={[Function]}
+        onEditConnectionString={[Function]}
+        onSelectConnectionString={[Function]}
+      />
+      <Component
+        connectionStringWithExpiry={
+          Object {
+            "connectionString": "connectionString6",
+            "expiration": "Thu, 01 Jan 1970 00:00:00 GMT",
+          }
+        }
+        key="connectionString6"
+        onDeleteConnectionString={[Function]}
+        onEditConnectionString={[Function]}
+        onSelectConnectionString={[Function]}
+      />
+      <Component
+        connectionStringWithExpiry={
+          Object {
+            "connectionString": "connectionString5",
+            "expiration": "Thu, 01 Jan 1970 00:00:00 GMT",
+          }
+        }
+        key="connectionString5"
+        onDeleteConnectionString={[Function]}
+        onEditConnectionString={[Function]}
+        onSelectConnectionString={[Function]}
+      />
+      <Component
+        connectionStringWithExpiry={
+          Object {
+            "connectionString": "connectionString4",
+            "expiration": "Thu, 01 Jan 1970 00:00:00 GMT",
+          }
+        }
+        key="connectionString4"
+        onDeleteConnectionString={[Function]}
+        onEditConnectionString={[Function]}
+        onSelectConnectionString={[Function]}
+      />
+      <Component
+        connectionStringWithExpiry={
+          Object {
+            "connectionString": "connectionString3",
+            "expiration": "Thu, 01 Jan 1970 00:00:00 GMT",
+          }
+        }
+        key="connectionString3"
+        onDeleteConnectionString={[Function]}
+        onEditConnectionString={[Function]}
+        onSelectConnectionString={[Function]}
+      />
+      <Component
+        connectionStringWithExpiry={
+          Object {
+            "connectionString": "connectionString2",
+            "expiration": "Thu, 01 Jan 1970 00:00:00 GMT",
+          }
+        }
+        key="connectionString2"
+        onDeleteConnectionString={[Function]}
+        onEditConnectionString={[Function]}
+        onSelectConnectionString={[Function]}
+      />
+      <Component
+        connectionStringWithExpiry={
+          Object {
+            "connectionString": "connectionString1",
+            "expiration": "Thu, 01 Jan 1970 00:00:00 GMT",
+          }
+        }
+        key="connectionString1"
+        onDeleteConnectionString={[Function]}
+        onEditConnectionString={[Function]}
+        onSelectConnectionString={[Function]}
+      />
+    </div>
   </div>
 </div>
 `;
@@ -65,7 +186,12 @@ exports[`ConnectionStringsView matches snapshot when connection strings present 
       className="connection-strings"
     >
       <Component
-        connectionString="connectionString1"
+        connectionStringWithExpiry={
+          Object {
+            "connectionString": "connectionString1",
+            "expiration": "Thu, 01 Jan 1970 00:00:00 GMT",
+          }
+        }
         key="connectionString1"
         onDeleteConnectionString={[Function]}
         onEditConnectionString={[Function]}

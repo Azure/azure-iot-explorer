@@ -61,6 +61,7 @@ exports[`DeviceList matches snapshot 1`] = `
                 "maxWidth": 400,
                 "minWidth": 100,
                 "name": "deviceLists.columns.deviceId.label",
+                "onRender": [Function],
               },
               Object {
                 "fieldName": "status",
@@ -69,6 +70,7 @@ exports[`DeviceList matches snapshot 1`] = `
                 "maxWidth": 100,
                 "minWidth": 100,
                 "name": "deviceLists.columns.status.label",
+                "onRender": [Function],
               },
               Object {
                 "fieldName": "connection",
@@ -77,6 +79,7 @@ exports[`DeviceList matches snapshot 1`] = `
                 "maxWidth": 200,
                 "minWidth": 100,
                 "name": "deviceLists.columns.connection",
+                "onRender": [Function],
               },
               Object {
                 "fieldName": "authenticationType",
@@ -86,6 +89,7 @@ exports[`DeviceList matches snapshot 1`] = `
                 "maxWidth": 200,
                 "minWidth": 100,
                 "name": "deviceLists.columns.authenticationType",
+                "onRender": [Function],
               },
               Object {
                 "fieldName": "statusUpdatedTime",
@@ -95,6 +99,7 @@ exports[`DeviceList matches snapshot 1`] = `
                 "maxWidth": 300,
                 "minWidth": 100,
                 "name": "deviceLists.columns.statusUpdatedTime",
+                "onRender": [Function],
               },
               Object {
                 "fieldName": "modelId",
@@ -104,6 +109,7 @@ exports[`DeviceList matches snapshot 1`] = `
                 "maxWidth": 400,
                 "minWidth": 100,
                 "name": "deviceLists.columns.isPnpDevice",
+                "onRender": [Function],
               },
               Object {
                 "fieldName": "edge",
@@ -111,6 +117,7 @@ exports[`DeviceList matches snapshot 1`] = `
                 "key": "edge",
                 "minWidth": 100,
                 "name": "deviceLists.columns.isEdgeDevice.label",
+                "onRender": [Function],
               },
             ]
           }
@@ -129,7 +136,6 @@ exports[`DeviceList matches snapshot 1`] = `
             ]
           }
           layoutMode={1}
-          onRenderItemColumn={[Function]}
           selection={
             Selection {
               "_anchoredIndex": 0,

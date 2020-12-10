@@ -6,14 +6,14 @@ import { call, put } from 'redux-saga/effects';
 import { NotificationType } from '../../api/models/notification';
 import { raiseNotificationToast } from '../../notifications/components/notificationToast';
 import { CONNECTION_STRING_LIST, CONNECTION_STRING_NAME_LIST } from '../../constants/browserStorage';
-import { getConnectionStringAction } from './../actions';
+import { getConnectionStringsAction } from './../actions';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { ConnectionStringWithExpiry } from '../state';
 import { setConnectionStrings } from './setConnectionStringsSaga';
 
 export function* getConnectionStringsSaga() {
     const connectionStrings = yield call(getConnectionStrings);
-    yield put(getConnectionStringAction.done({result: connectionStrings}));
+    yield put(getConnectionStringsAction.done({result: connectionStrings}));
 }
 
 export function* getConnectionStrings() {

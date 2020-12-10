@@ -11,9 +11,10 @@ import { ConnectionStringDelete } from './connectionStringDelete';
 
 describe('connectionString', () => {
     const connectionString = 'HostName=test.azure-devices-int.net;SharedAccessKeyName=iothubowner;SharedAccessKey=key';
+    const connectionStringWithExpiry = {connectionString, expiration: (new Date(0)).toUTCString()};
     it('matches snapshot', () => {
         const props: ConnectionStringProps = {
-            connectionString,
+            connectionStringWithExpiry,
             onDeleteConnectionString: jest.fn(),
             onEditConnectionString: jest.fn(),
             onSelectConnectionString: jest.fn()
@@ -26,7 +27,7 @@ describe('connectionString', () => {
     it('calls onSelectConnectionString when link clicked', () => {
         const onSelectConnectionString = jest.fn();
         const props: ConnectionStringProps = {
-            connectionString,
+            connectionStringWithExpiry,
             onDeleteConnectionString: jest.fn(),
             onEditConnectionString: jest.fn(),
             onSelectConnectionString
@@ -41,7 +42,7 @@ describe('connectionString', () => {
     it('calls onSelectConnectionString when convenience link clicked', () => {
         const onSelectConnectionString = jest.fn();
         const props: ConnectionStringProps = {
-            connectionString,
+            connectionStringWithExpiry,
             onDeleteConnectionString: jest.fn(),
             onEditConnectionString: jest.fn(),
             onSelectConnectionString
@@ -56,7 +57,7 @@ describe('connectionString', () => {
     it('calls onEditConnectionString when edit button clicked', () => {
         const onEditConnectionString = jest.fn();
         const props: ConnectionStringProps = {
-            connectionString,
+            connectionStringWithExpiry,
             onDeleteConnectionString: jest.fn(),
             onEditConnectionString,
             onSelectConnectionString: jest.fn()
@@ -71,7 +72,7 @@ describe('connectionString', () => {
     describe('delete scenario', () => {
         it('launches delete confirmation when delete clicked', () => {
             const props: ConnectionStringProps = {
-                connectionString,
+                connectionStringWithExpiry,
                 onDeleteConnectionString: jest.fn(),
                 onEditConnectionString: jest.fn(),
                 onSelectConnectionString: jest.fn()
@@ -88,7 +89,7 @@ describe('connectionString', () => {
         it('calls onDeleteConnectionString when ConnectionStringDelete confirmed', () => {
             const onDeleteConnectionString = jest.fn();
             const props: ConnectionStringProps = {
-                connectionString,
+                connectionStringWithExpiry,
                 onDeleteConnectionString,
                 onEditConnectionString: jest.fn(),
                 onSelectConnectionString: jest.fn()
@@ -106,7 +107,7 @@ describe('connectionString', () => {
 
         it('hides delete confirmation when ConnnectionStringDelete canceled', () => {
             const props: ConnectionStringProps = {
-                connectionString,
+                connectionStringWithExpiry,
                 onDeleteConnectionString: jest.fn(),
                 onEditConnectionString: jest.fn(),
                 onSelectConnectionString: jest.fn()

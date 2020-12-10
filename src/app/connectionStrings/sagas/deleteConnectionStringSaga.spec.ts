@@ -11,6 +11,11 @@ import { setConnectionStrings } from './setConnectionStringsSaga';
 import { getConnectionStrings } from './getConnectionStringsSaga';
 
 describe('deleteConnectionStringSaga', () => {
+    const savedStringsWithExpiry = [{
+        connectionString: 'connectionString1',
+        expiration: (new Date()).toUTCString()
+    }];
+
     describe('removing unlisted connection string', () => {
         const deleteConnectionStringSagaGenerator = cloneableGenerator(deleteConnectionStringSaga)(deleteConnectionStringAction.started('connectionString2'));
         it('returns call effect to get connection strings', () => {
@@ -21,16 +26,16 @@ describe('deleteConnectionStringSaga', () => {
         });
 
         it('returns call effect to set connection strings', () => {
-            expect(deleteConnectionStringSagaGenerator.next(['connectionString1'])).toEqual({
+            expect(deleteConnectionStringSagaGenerator.next(savedStringsWithExpiry)).toEqual({
                 done: false,
-                value: call(setConnectionStrings, 'connectionString1')
+                value: call(setConnectionStrings, savedStringsWithExpiry)
             });
         });
 
         it('puts the done action', () => {
-            expect(deleteConnectionStringSagaGenerator.next(['connectionString1'])).toEqual({
+            expect(deleteConnectionStringSagaGenerator.next([savedStringsWithExpiry])).toEqual({
                 done: false,
-                value: put(deleteConnectionStringAction.done({params: 'connectionString2', result: ['connectionString1']}))
+                value: put(deleteConnectionStringAction.done({params: 'connectionString2', result: savedStringsWithExpiry}))
             });
 
             expect(deleteConnectionStringSagaGenerator.next().done).toEqual(true);
@@ -47,9 +52,9 @@ describe('deleteConnectionStringSaga', () => {
         });
 
         it('returns call effect to set connection strings', () => {
-            expect(deleteConnectionStringSagaGenerator.next(['connectionString1'])).toEqual({
+            expect(deleteConnectionStringSagaGenerator.next(savedStringsWithExpiry)).toEqual({
                 done: false,
-                value: call(setConnectionStrings, '')
+                value: call(setConnectionStrings, [])
             });
         });
 

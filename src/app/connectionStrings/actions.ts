@@ -8,7 +8,7 @@ import { ConnectionStringWithExpiry } from './state';
 
 const actionCreator = actionCreatorFactory('CONNECTION_STRINGS');
 
-export const getConnectionStringAction = actionCreator.async<void, ConnectionStringWithExpiry[]>(GET);
+export const getConnectionStringsAction = actionCreator.async<void, ConnectionStringWithExpiry[]>(GET);
 export const setConnectionStringsAction = actionCreator.async<ConnectionStringWithExpiry[], ConnectionStringWithExpiry[]>(SET);
 export const upsertConnectionStringAction = actionCreator.async<ConnectionStringWithExpiry, ConnectionStringWithExpiry[]>(UPSERT);
 export const deleteConnectionStringAction = actionCreator.async<string, ConnectionStringWithExpiry[]>(DELETE);

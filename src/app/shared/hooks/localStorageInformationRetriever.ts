@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { CONNECTION_STRING_LIST } from '../../constants/browserStorage';
 import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
+import { getActiveConnectionString } from '../utils/hubConnectionStringHelper';
 
 interface LocalStorageInformation {
     hubConnectionString: string;
@@ -19,12 +20,4 @@ export const getHubInformationFromLocalStorage = (): LocalStorageInformation => 
     },              [connectionString]);
 
     return {hubConnectionString, hostName};
-};
-
-export const getActiveConnectionString = (connectionStrings: string): string => {
-    if (!connectionStrings) {
-        return;
-    }
-    const parsedStrings = JSON.parse(connectionStrings);
-    return parsedStrings && parsedStrings[0] && parsedStrings[0].connectionString;
 };

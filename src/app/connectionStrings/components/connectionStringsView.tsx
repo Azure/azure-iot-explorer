@@ -9,10 +9,10 @@ import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
 import { ConnectionString  } from './connectionString';
 import { ConnectionStringEditView } from './connectionStringEditView';
 import { ResourceKeys } from '../../../localization/resourceKeys';
-import { CONNECTION_STRING_EXPIRATION_IN_YEAR, CONNECTION_STRING_LIST_MAX_LENGTH } from '../../constants/browserStorage';
+import { CONNECTION_STRING_LIST_MAX_LENGTH } from '../../constants/browserStorage';
 import { upsertConnectionStringAction, deleteConnectionStringAction, setConnectionStringsAction } from '../actions';
 import { ROUTE_PARTS } from '../../constants/routes';
-import { formatConnectionStrings } from '../../shared/utils/hubConnectionStringHelper';
+import { formatConnectionStrings, getExpiryDateInUtcString } from '../../shared/utils/hubConnectionStringHelper';
 import { ConnectionStringsEmpty } from './connectionStringsEmpty';
 import { useAsyncSagaReducer } from '../../shared/hooks/useAsyncSagaReducer';
 import { connectionStringsReducer } from '../reducer';
@@ -21,7 +21,7 @@ import { connectionStringsStateInitial, ConnectionStringWithExpiry } from '../st
 import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
 import { MultiLineShimmer } from '../../shared/components/multiLineShimmer';
 import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
-import { getConnectionStringAction } from './../actions';
+import { getConnectionStringsAction } from './../actions';
 import '../../css/_layouts.scss';
 import './connectionStringsView.scss';
 
@@ -42,11 +42,9 @@ export const ConnectionStringsView: React.FC = () => {
             dispatch(deleteConnectionStringAction.started(connectionString));
         }
 
-        const oneYearFromNow = new Date();
-        oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + CONNECTION_STRING_EXPIRATION_IN_YEAR);
         const stringWithExpiry: ConnectionStringWithExpiry = {
             connectionString: newConnectionString,
-            expiration: oneYearFromNow.toUTCString()
+            expiration: getExpiryDateInUtcString()
         };
         dispatch(upsertConnectionStringAction.started(stringWithExpiry));
     };
@@ -78,7 +76,7 @@ export const ConnectionStringsView: React.FC = () => {
     };
 
     React.useEffect(() => {
-        dispatch(getConnectionStringAction.started());
+        dispatch(getConnectionStringsAction.started());
     },              []);
 
     React.useEffect(() => {
