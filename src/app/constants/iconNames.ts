@@ -55,8 +55,6 @@ export enum ArrayOperation {
 }
 
 export enum Heading {
-    SETTINGS_OPEN = 'PlugDisconnected',
-    SETTINGS_CLOSED = 'PlugConnected',
     MESSAGE = 'SkypeMessage',
     HELP = 'Help'
 }

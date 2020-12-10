@@ -7,14 +7,14 @@ import { Action } from 'typescript-fsa';
 import { setConnectionStrings } from './setConnectionStringsSaga';
 import { getConnectionStrings } from './getConnectionStringsSaga';
 import { deleteConnectionStringAction } from '../actions';
+import { ConnectionStringWithExpiry } from '../state';
 
 export function* deleteConnectionStringSaga(action: Action<string>) {
-    const savedStrings: string[] = yield call(getConnectionStrings);
+    const savedStrings: ConnectionStringWithExpiry[] = yield call(getConnectionStrings);
 
     if (savedStrings && savedStrings.length > 0) {
-        const nonDuplicateStrings = savedStrings.filter(name => name !== action.payload); // remove duplicates
-        const updatedStrings = nonDuplicateStrings.filter(s => s !== action.payload);
-        yield call(setConnectionStrings, updatedStrings.join(','));
+        const updatedStrings = savedStrings.filter(s => s.connectionString !== action.payload);
+        yield call(setConnectionStrings, updatedStrings);
         yield put(deleteConnectionStringAction.done({params: action.payload, result: updatedStrings}));
     }
     else {

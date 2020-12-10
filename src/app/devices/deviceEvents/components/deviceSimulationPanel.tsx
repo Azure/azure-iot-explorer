@@ -39,7 +39,7 @@ export const DeviceSimulationPanel: React.FC<DeviceSimulationPanelProps> = props
 
     const deviceId = getDeviceIdFromQueryString(search);
 
-    const [ hubConnectionString, ] = getHubInformationFromLocalStorage();
+    const hubConnectionString = getHubInformationFromLocalStorage().hubConnectionString;
     const [ simulationBody, setSimulationBody ] = React.useState<string>('');
     const [ propertyIndex, setPropertyIndex ] = React.useState<number>(0);
     const [ selectedIndices, setSelectedIndices ] = React.useState<Set<number>>(new Set());

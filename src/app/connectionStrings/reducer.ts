@@ -3,8 +3,8 @@
  * Licensed under the MIT License
  **********************************************************/
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
-import { deleteConnectionStringAction, setConnectionStringsAction, upsertConnectionStringAction, UpsertConnectionStringActionPayload, getConnectionStringAction } from './actions';
-import { connectionStringsStateInitial, ConnectionStringsStateType } from './state';
+import { deleteConnectionStringAction, setConnectionStringsAction, upsertConnectionStringAction, getConnectionStringAction } from './actions';
+import { connectionStringsStateInitial, ConnectionStringsStateType, ConnectionStringWithExpiry } from './state';
 import { SynchronizationStatus } from '../api/models/synchronizationStatus';
 
 export const connectionStringsReducer = reducerWithInitialState<ConnectionStringsStateType>(connectionStringsStateInitial())
@@ -14,7 +14,7 @@ export const connectionStringsReducer = reducerWithInitialState<ConnectionString
         });
     })
 
-    .case(getConnectionStringAction.done, (state: ConnectionStringsStateType, payload: {params: void, result: string[]}) => {
+    .case(getConnectionStringAction.done, (state: ConnectionStringsStateType, payload: {params: void, result: ConnectionStringWithExpiry[]}) => {
         return state.merge({
             payload: payload.result,
             synchronizationStatus: SynchronizationStatus.fetched
@@ -27,7 +27,7 @@ export const connectionStringsReducer = reducerWithInitialState<ConnectionString
         });
     })
 
-    .case(deleteConnectionStringAction.done, (state: ConnectionStringsStateType, payload: {params: string, result: string[]}) => {
+    .case(deleteConnectionStringAction.done, (state: ConnectionStringsStateType, payload: {params: string, result: ConnectionStringWithExpiry[]}) => {
         return state.merge({
             payload: payload.result,
             synchronizationStatus: SynchronizationStatus.deleted
@@ -40,7 +40,7 @@ export const connectionStringsReducer = reducerWithInitialState<ConnectionString
         });
     })
 
-    .case(setConnectionStringsAction.done, (state: ConnectionStringsStateType, payload: {params: string[], result: string[]}) => {
+    .case(setConnectionStringsAction.done, (state: ConnectionStringsStateType, payload: {params: ConnectionStringWithExpiry[], result: ConnectionStringWithExpiry[]}) => {
         return state.merge({
             payload: payload.result,
             synchronizationStatus: SynchronizationStatus.upserted
@@ -53,7 +53,7 @@ export const connectionStringsReducer = reducerWithInitialState<ConnectionString
         });
     })
 
-    .case(upsertConnectionStringAction.done, (state: ConnectionStringsStateType, payload: {params: UpsertConnectionStringActionPayload, result: string[]}) => {
+    .case(upsertConnectionStringAction.done, (state: ConnectionStringsStateType, payload: {params: ConnectionStringWithExpiry, result: ConnectionStringWithExpiry[]}) => {
         return state.merge({
             payload: payload.result,
             synchronizationStatus: SynchronizationStatus.upserted

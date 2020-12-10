@@ -174,6 +174,7 @@ export class ResourceKeys {
          description : "connectionStrings.empty.description",
          header : "connectionStrings.empty.header",
       },
+      expirationWarning : "connectionStrings.expirationWarning",
       properties : {
          connectionString : {
             ariaLabel : "connectionStrings.properties.connectionString.ariaLabel",
@@ -860,6 +861,8 @@ export class ResourceKeys {
       addModuleIdentityOnSucceed : "notifications.addModuleIdentityOnSucceed",
       cloudToDeviceMessageOnError : "notifications.cloudToDeviceMessageOnError",
       cloudToDeviceMessageOnSuccess : "notifications.cloudToDeviceMessageOnSuccess",
+      connectionStringsWithExpiryRemovalWarning : "notifications.connectionStringsWithExpiryRemovalWarning",
+      connectionStringsWithoutExpiryRemovalWarning : "notifications.connectionStringsWithoutExpiryRemovalWarning",
       copiedToClipboard : "notifications.copiedToClipboard",
       deleteDeviceOnError : "notifications.deleteDeviceOnError",
       deleteDeviceOnSucceed : "notifications.deleteDeviceOnSucceed",

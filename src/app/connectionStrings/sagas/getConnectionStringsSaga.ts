@@ -3,15 +3,44 @@
  * Licensed under the MIT License
  **********************************************************/
 import { call, put } from 'redux-saga/effects';
-import { CONNECTION_STRING_NAME_LIST } from '../../constants/browserStorage';
+import { NotificationType } from '../../api/models/notification';
+import { raiseNotificationToast } from '../../notifications/components/notificationToast';
+import { CONNECTION_STRING_LIST, CONNECTION_STRING_NAME_LIST } from '../../constants/browserStorage';
 import { getConnectionStringAction } from './../actions';
+import { ResourceKeys } from '../../../localization/resourceKeys';
+import { ConnectionStringWithExpiry } from '../state';
+import { setConnectionStrings } from './setConnectionStringsSaga';
 
 export function* getConnectionStringsSaga() {
     const connectionStrings = yield call(getConnectionStrings);
     yield put(getConnectionStringAction.done({result: connectionStrings}));
 }
 
-export const getConnectionStrings = (): string[] => {
+export function* getConnectionStrings() {
     const connectionStrings = localStorage.getItem(CONNECTION_STRING_NAME_LIST);
-    return connectionStrings && connectionStrings.split(',') || [];
-};
+    if (connectionStrings) {
+        // due to security requirements, we are removing old hub connection strings added with no expiry
+        yield call(raiseNotificationToast, {
+            text: {
+                translationKey: ResourceKeys.notifications.connectionStringsWithoutExpiryRemovalWarning
+            },
+            type: NotificationType.warning
+        });
+        localStorage.setItem(CONNECTION_STRING_NAME_LIST, '');
+    }
+
+    const connectionStringsWithExpiry = localStorage.getItem(CONNECTION_STRING_LIST);
+    // check expiration, delete and notify
+    const result: ConnectionStringWithExpiry[] = connectionStringsWithExpiry && JSON.parse(connectionStringsWithExpiry) || [];
+    const filteredResult = result.filter(s => new Date() < new Date(s.expiration));
+    if (filteredResult.length < result.length) {
+        yield call(raiseNotificationToast, {
+            text: {
+                translationKey: ResourceKeys.notifications.connectionStringsWithExpiryRemovalWarning
+            },
+            type: NotificationType.warning
+        });
+        yield call(setConnectionStrings, filteredResult);
+    }
+    return filteredResult;
+}

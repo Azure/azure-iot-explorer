@@ -5,7 +5,8 @@
 import { CONTROLLER_API_ENDPOINT, DATAPLANE, DataPlaneStatusCode, HTTP_OPERATION_TYPES } from '../../constants/apiConstants';
 import { getConnectionInfoFromConnectionString, generateSasToken } from '../shared/utils';
 import { PortIsInUseError } from '../models/portIsInUseError';
-import { CONNECTION_STRING_NAME_LIST } from '../../constants/browserStorage';
+import { CONNECTION_STRING_LIST } from '../../constants/browserStorage';
+import { getActiveConnectionString } from '../../shared/hooks/localStorageInformationRetriever';
 
 export const DATAPLANE_CONTROLLER_ENDPOINT = `${CONTROLLER_API_ENDPOINT}${DATAPLANE}`;
 
@@ -38,8 +39,8 @@ export const request = async (endpoint: string, parameters: any) => { // tslint:
 };
 
 export const dataPlaneConnectionHelper = async () => {
-    const connectionStrings = await localStorage.getItem(CONNECTION_STRING_NAME_LIST);
-    const connectionString = connectionStrings && connectionStrings.split(',')[0];
+    const connectionStrings = await localStorage.getItem(CONNECTION_STRING_LIST);
+    const connectionString = getActiveConnectionString(connectionStrings);
     const connectionInfo = getConnectionInfoFromConnectionString(connectionString);
     if (!(connectionInfo && connectionInfo.hostName)) {
         return;

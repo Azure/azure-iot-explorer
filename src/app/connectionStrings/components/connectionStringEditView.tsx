@@ -13,13 +13,14 @@ import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
 import { generateConnectionStringValidationError } from '../../shared/utils/hubConnectionStringHelper';
 import { IoTHubConnectionSettings } from '../../api/services/devicesService';
 import { ResourceKeys } from '../../../localization/resourceKeys';
+import { ConnectionStringWithExpiry } from '../state';
 import './connectionStringEditView.scss';
 
 const LINES_FOR_CONNECTION = 8;
 
 export interface ConnectionStringEditViewProps {
-    connectionStringUnderEdit?: string;
-    connectionStrings: string[];
+    connectionStringUnderEdit: string;
+    connectionStrings: ConnectionStringWithExpiry[];
     onDismiss(): void;
     onCommit(newConnectionString: string): void;
 }
@@ -59,9 +60,10 @@ export const ConnectionStringEditView: React.FC<ConnectionStringEditViewProps> =
         }
 
         // check for duplicates and validate || after setting values (so properties display)
-        validationKey = (connectionStrings.indexOf(updatedConnectionString) >= 0  && updatedConnectionString !== connectionStringUnderEdit) ?
-        ResourceKeys.connectionStrings.editConnection.validations.duplicate :
-        validationKey;
+        validationKey = (connectionStrings.filter(s => s.connectionString === updatedConnectionString).length > 0 &&
+            updatedConnectionString !== connectionStringUnderEdit) ?
+            ResourceKeys.connectionStrings.editConnection.validations.duplicate :
+            validationKey;
 
         setConnectionStringValidationKey(validationKey);
     };

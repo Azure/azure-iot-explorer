@@ -54,7 +54,11 @@
       border-bottom-right-radius: 5px;
       border-top-right-radius: 5px;
       padding: 10px;
+   }
 
+   .expiration-warning {
+      @include themify($themes) {
+         color: themed('notificationWarningColor')
+      }
    }
 }
-

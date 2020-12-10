@@ -5,24 +5,24 @@
 import { call, put } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
 import { CONNECTION_STRING_LIST_MAX_LENGTH } from '../../constants/browserStorage';
-import { UpsertConnectionStringActionPayload, upsertConnectionStringAction } from '../actions';
+import { upsertConnectionStringAction } from '../actions';
 import { setConnectionStrings } from './setConnectionStringsSaga';
 import { getConnectionStrings } from './getConnectionStringsSaga';
+import { ConnectionStringWithExpiry } from '../state';
 
-export function* upsertConnectionStringSaga(action: Action<UpsertConnectionStringActionPayload>) {
-    const savedStrings: string[] = yield call(getConnectionStrings);
-    let updatedValue: string;
+export function* upsertConnectionStringSaga(action: Action<ConnectionStringWithExpiry>) {
+    const savedStrings: ConnectionStringWithExpiry[] = yield call(getConnectionStrings);
+    let updatedValues: ConnectionStringWithExpiry[];
 
     if (savedStrings) {
-        const nonDuplicateStrings = savedStrings.filter(name => name !== action.payload.connectionString); // remove duplicates
-        const updatedStrings = [action.payload.newConnectionString, ...nonDuplicateStrings].slice(0, CONNECTION_STRING_LIST_MAX_LENGTH);
-        updatedValue = updatedStrings.join(',');
+        const nonDuplicateStrings = savedStrings.filter(s => s.connectionString !== action.payload.connectionString); // remove duplicates
+        updatedValues = [action.payload, ...nonDuplicateStrings].slice(0, CONNECTION_STRING_LIST_MAX_LENGTH);
     }
     else {
-        updatedValue = action.payload.newConnectionString;
+        updatedValues = [action.payload];
     }
 
-    yield call(setConnectionStrings, updatedValue);
+    yield call(setConnectionStrings, updatedValues);
     const updatedConnectionString = yield call(getConnectionStrings);
     yield put(upsertConnectionStringAction.done({params: action.payload, result: updatedConnectionString}));
 }
