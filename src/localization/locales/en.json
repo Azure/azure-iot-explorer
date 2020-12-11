@@ -215,7 +215,7 @@
                 "ariaLabel": "Connection String"
             }
         },
-        "expirationWarning": "Your hub connection string is expiring in less than {{numberOfDays}} day(s). Please edit the connection string (by copying and pasting again) to extend, or you would have to re-add it once it expires."
+        "expirationWarning": "Your hub connection string is expiring in less than {{numberOfDays}} day(s). Please edit the connection string (by copying and pasting again) to extend, or you will have to re-add it once it expires."
     },
     "connectivityPane": {
         "header": "App configurations",

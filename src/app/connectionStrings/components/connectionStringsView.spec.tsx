@@ -37,21 +37,6 @@ describe('ConnectionStringsView', () => {
 
     });
 
-    it('matches snapshot when connection string count exceeds max', () => {
-        const connectionStrings = [];
-        for (let i = CONNECTION_STRING_LIST_MAX_LENGTH; i > 0; i--) {
-            connectionStrings.push({
-                connectionString: `connectionString${i}`,
-                expiration: (new Date(0)).toUTCString()
-            });
-        }
-        const state = connectionStringsStateInitial().merge({ payload: connectionStrings });
-        jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([state, jest.fn()]);
-
-        const wrapper = shallow(<ConnectionStringsView/>);
-        expect(wrapper).toMatchSnapshot();
-    });
-
     describe('add scenario', () => {
         it('mounts edit view when add command clicked', () => {
             const state = connectionStringsStateInitial().merge({ payload: []});
