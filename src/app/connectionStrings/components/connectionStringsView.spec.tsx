@@ -9,7 +9,6 @@ import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
 import { ConnectionStringsView } from './connectionStringsView';
 import { ConnectionString } from './connectionString';
 import { ConnectionStringEditView } from './connectionStringEditView';
-import { CONNECTION_STRING_LIST_MAX_LENGTH } from '../../constants/browserStorage';
 import * as AsyncSagaReducer from '../../shared/hooks/useAsyncSagaReducer';
 import { connectionStringsStateInitial } from '../state';
 import { deleteConnectionStringAction, upsertConnectionStringAction } from '../actions';

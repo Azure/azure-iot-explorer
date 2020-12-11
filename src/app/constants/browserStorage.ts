@@ -5,8 +5,7 @@
 export const CONNECTION_STRING_LIST_MAX_LENGTH = 10;
 export const CONNECTION_STRING_EXPIRATION_IN_YEAR = 1;
 export const CONNECTION_STRING_EXPIRATION_WARNING_IN_DAYS = 3;
-export const CONNECTION_STRING_NAME_LIST = 'CONNECTION_STRING_NAME_LIST'; // DEPRECATED: store hub connection strings in localStorage separated by comma
-export const CONNECTION_STRING_LIST = 'CONNECTION_STRING_LIST'; // store stringified array of ConnectionStringWithExpiry objects
+export const CONNECTION_STRING_NAME_LIST = 'CONNECTION_STRING_NAME_LIST'; // store stringified array of ConnectionStringWithExpiry objects
 export const REPO_LOCATIONS = 'REPO_LOCATIONS'; // store repo locations in localStorage separated by comma
 export const THEME_SELECTION = 'THEME_SELECTION';
 export const HIGH_CONTRAST = 'HIGH_CONTRAST';

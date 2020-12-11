@@ -5,7 +5,7 @@
 import { call, put } from 'redux-saga/effects';
 // tslint:disable-next-line: no-implicit-dependencies
 import { cloneableGenerator } from '@redux-saga/testing-utils';
-import { CONNECTION_STRING_LIST, CONNECTION_STRING_NAME_LIST } from '../../constants/browserStorage';
+import { CONNECTION_STRING_NAME_LIST } from '../../constants/browserStorage';
 import { getConnectionStringsAction } from '../actions';
 import { getConnectionStrings, getConnectionStringsSaga } from './getConnectionStringsSaga';
 import { raiseNotificationToast } from '../../notifications/components/notificationToast';
@@ -60,7 +60,7 @@ describe('getConnectionString', () => {
             connectionString: 'connectionString1',
             expiration: (new Date(0)).toUTCString()
         }];
-        localStorage.setItem(CONNECTION_STRING_LIST, JSON.stringify(stringsWithExpiry));
+        localStorage.setItem(CONNECTION_STRING_NAME_LIST, JSON.stringify(stringsWithExpiry));
         expect(getConnectionStringsGenerator.next(JSON.stringify(stringsWithExpiry))).toEqual({
             done: false,
             value: call(raiseNotificationToast, {

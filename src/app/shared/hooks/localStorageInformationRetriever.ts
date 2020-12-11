@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { CONNECTION_STRING_LIST } from '../../constants/browserStorage';
+import { CONNECTION_STRING_NAME_LIST } from '../../constants/browserStorage';
 import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
 import { getActiveConnectionString } from '../utils/hubConnectionStringHelper';
 
@@ -11,7 +11,7 @@ interface LocalStorageInformation {
 export const getHubInformationFromLocalStorage = (): LocalStorageInformation => {
     const [ hubConnectionString, setHubConnectionString ] = React.useState<string>('');
     const [ hostName, setHostName ] = React.useState<string>('');
-    const connectionStrings = localStorage.getItem(CONNECTION_STRING_LIST);
+    const connectionStrings = localStorage.getItem(CONNECTION_STRING_NAME_LIST);
     const connectionString = getActiveConnectionString(connectionStrings);
 
     React.useEffect(() => {

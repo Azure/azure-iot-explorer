@@ -43,8 +43,7 @@ export const isValidEventHubConnectionString = (connectionString: string): boole
 };
 
 export const getDaysBeforeHubConnectionStringExpires = (connectionStringWithExpiry: ConnectionStringWithExpiry) => {
-    // tslint:disable-next-line: no-magic-numbers
-    const millisecondsPerDay = 24 * 60 * 60 * 1000;
+    const millisecondsPerDay = 86400000;
     return Math.floor((Date.parse(connectionStringWithExpiry.expiration) - Date.parse((new Date()).toUTCString()) ) / millisecondsPerDay);
 };
 
@@ -58,6 +57,12 @@ export const getActiveConnectionString = (connectionStrings: string): string => 
     if (!connectionStrings) {
         return;
     }
-    const parsedStrings = JSON.parse(connectionStrings);
-    return parsedStrings && parsedStrings[0] && parsedStrings[0].connectionString;
+
+    try {
+        const parsedStrings = JSON.parse(connectionStrings);
+        return parsedStrings && parsedStrings[0] && parsedStrings[0].connectionString;
+    }
+    catch {
+        return;
+    }
 };

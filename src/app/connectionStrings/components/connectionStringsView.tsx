@@ -81,7 +81,7 @@ export const ConnectionStringsView: React.FC = () => {
 
     React.useEffect(() => {
         if (synchronizationStatus === SynchronizationStatus.upserted) { // only when connection string updated successfully would navigate to device list view
-            const hostName = getConnectionInfoFromConnectionString(connectionStringsWithExpiry[0].connectionString).hostName;
+            const hostName = getConnectionInfoFromConnectionString(connectionStringsWithExpiry[0] && connectionStringsWithExpiry[0].connectionString).hostName;
             history.push(`/${ROUTE_PARTS.RESOURCE}/${hostName}/${ROUTE_PARTS.DEVICES}`);
         }
     },              [synchronizationStatus]);

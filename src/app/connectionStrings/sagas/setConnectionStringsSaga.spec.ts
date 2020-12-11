@@ -7,7 +7,7 @@ import { call, put } from 'redux-saga/effects';
 import { cloneableGenerator } from '@redux-saga/testing-utils';
 import { setConnectionStringsAction } from '../actions';
 import { setConnectionStringsSaga, setConnectionStrings } from './setConnectionStringsSaga';
-import { CONNECTION_STRING_LIST } from '../../constants/browserStorage';
+import { CONNECTION_STRING_NAME_LIST } from '../../constants/browserStorage';
 
 const stringsWithExpiry = [{
     connectionString: 'connectionString1',
@@ -18,7 +18,7 @@ describe('setConnectionString', () => {
     it('sets expected value', () => {
         setConnectionStrings(stringsWithExpiry);
 
-        expect(localStorage.getItem(CONNECTION_STRING_LIST)).toEqual(JSON.stringify(stringsWithExpiry));
+        expect(localStorage.getItem(CONNECTION_STRING_NAME_LIST)).toEqual(JSON.stringify(stringsWithExpiry));
     });
 });
 
