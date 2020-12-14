@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
+import { IconButton, ActionButton } from 'office-ui-fabric-react/lib/components/Button';
 import { Link } from 'office-ui-fabric-react/lib/components/Link';
 import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
 import { getResourceNameFromHostName } from '../../api/shared/hostNameUtils';
@@ -13,17 +13,22 @@ import { ResourceKeys } from '../../../localization/resourceKeys';
 import { ConnectionStringDelete } from './connectionStringDelete';
 import { MaskedCopyableTextField } from '../../shared/components/maskedCopyableTextField';
 import { EDIT, REMOVE } from '../../constants/iconNames';
+import { ConnectionStringWithExpiry } from '../state';
+import { CONNECTION_STRING_EXPIRATION_WARNING_IN_DAYS } from '../../constants/browserStorage';
+import { getDaysBeforeHubConnectionStringExpires } from '../../shared/utils/hubConnectionStringHelper';
 import './connectionString.scss';
 
 export interface ConnectionStringProps {
-    connectionString: string;
+    connectionStringWithExpiry: ConnectionStringWithExpiry;
     onEditConnectionString(connectionString: string): void;
     onDeleteConnectionString(connectionString: string): void;
     onSelectConnectionString(connectionString: string): void;
 }
 
 export const ConnectionString: React.FC<ConnectionStringProps> = props => {
-    const { connectionString, onEditConnectionString, onDeleteConnectionString, onSelectConnectionString } = props;
+    const { connectionStringWithExpiry, onEditConnectionString, onDeleteConnectionString, onSelectConnectionString } = props;
+    const connectionString = connectionStringWithExpiry.connectionString;
+    const daysTillExpire = getDaysBeforeHubConnectionStringExpires(connectionStringWithExpiry);
     const connectionSettings = getConnectionInfoFromConnectionString(connectionString);
     const { hostName, sharedAccessKey, sharedAccessKeyName } = connectionSettings;
     const resourceName = getResourceNameFromHostName(hostName);
@@ -97,13 +102,16 @@ export const ConnectionString: React.FC<ConnectionStringProps> = props => {
                     value={connectionString}
                     readOnly={true}
                 />
-                <Link
-                    style={{marginTop: 10}}
+                {daysTillExpire <= CONNECTION_STRING_EXPIRATION_WARNING_IN_DAYS &&
+                    <div className="expiration-warning">
+                        {t(ResourceKeys.connectionStrings.expirationWarning, { numberOfDays: daysTillExpire})}
+                    </div>}
+                <ActionButton
                     onClick={onSelectConnectionStringClick}
-                    title={t(ResourceKeys.connectionStrings.visitConnectionCommand.ariaLabel, {connectionString})}
+                    iconProps={{iconName: 'Forward'}}
                 >
                     {t(ResourceKeys.connectionStrings.visitConnectionCommand.label)}
-                </Link>
+                </ActionButton>
             </div>
             <ConnectionStringDelete
                 connectionString={connectionString}

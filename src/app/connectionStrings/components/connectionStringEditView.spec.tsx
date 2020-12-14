@@ -95,7 +95,7 @@ describe('ConnectionStringEdit', () => {
         it('disables commit when duplicate validation', () => {
             const props: ConnectionStringEditViewProps = {
                 connectionStringUnderEdit: '',
-                connectionStrings: [connectionString],
+                connectionStrings: [{connectionString, expiration: (new Date(0)).toUTCString()}],
                 onCommit: jest.fn(),
                 onDismiss: jest.fn()
             };

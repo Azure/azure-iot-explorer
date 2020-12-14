@@ -12,7 +12,7 @@ import { getHubInformationFromLocalStorage } from '../hooks/localStorageInformat
 import '../../css/_breadcrumb.scss';
 
 export const Breadcrumb: React.FC = () => {
-    const [ , hostName] = getHubInformationFromLocalStorage();
+    const hostName = getHubInformationFromLocalStorage().hostName;
 
     const renderBreadcrumbItem = () => <BreadcrumbItem hostName={hostName}/>;
 

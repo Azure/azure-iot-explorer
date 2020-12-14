@@ -1,39 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ConnectionStringsView matches snapshot when connection string count exceeds max 1`] = `
-<div
-  className="view"
->
-  <div
-    className="view-command"
-  >
-    <StyledCommandBarBase
-      items={
-        Array [
-          Object {
-            "ariaLabel": "connectionStrings.addConnectionCommand.ariaLabel",
-            "disabled": true,
-            "iconProps": Object {
-              "iconName": "Add",
-            },
-            "key": "add",
-            "onClick": [Function],
-            "text": "connectionStrings.addConnectionCommand.label",
-          },
-        ]
-      }
-    />
-  </div>
-  <div
-    className="view-scroll-vertical"
-  >
-    <div
-      className="connection-strings"
-    />
-  </div>
-</div>
-`;
-
 exports[`ConnectionStringsView matches snapshot when connection strings present 1`] = `
 <div
   className="view"
@@ -65,7 +31,12 @@ exports[`ConnectionStringsView matches snapshot when connection strings present 
       className="connection-strings"
     >
       <Component
-        connectionString="connectionString1"
+        connectionStringWithExpiry={
+          Object {
+            "connectionString": "connectionString1",
+            "expiration": "Thu, 01 Jan 1970 00:00:00 GMT",
+          }
+        }
         key="connectionString1"
         onDeleteConnectionString={[Function]}
         onEditConnectionString={[Function]}

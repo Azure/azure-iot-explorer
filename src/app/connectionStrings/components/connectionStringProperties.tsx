@@ -42,7 +42,6 @@ export const ConnectionStringProperties: React.FC<ConnectionStringPropertiesProp
                 label={t(ResourceKeys.connectionStrings.properties.sharedAccessPolicyKey.label)}
                 value={sharedAccessKey}
                 readOnly={true}
-
             />
         </>
     );

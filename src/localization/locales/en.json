@@ -214,7 +214,8 @@
                 "label": "Connection String",
                 "ariaLabel": "Connection String"
             }
-        }
+        },
+        "expirationWarning": "Your hub connection string is expiring in less than {{numberOfDays}} day(s). Please edit the connection string (by copying and pasting again) to extend, or you will have to re-add it once it expires."
     },
     "connectivityPane": {
         "header": "App configurations",
@@ -854,7 +855,9 @@
         "portIsInUseError": "The port {{portNumber}} is in use. To get around with the issue, configure a custom port by setting the system environment variable 'AZURE_IOT_EXPLORER_PORT' to an available port number. To learn more, please visit https://github.com/Azure/azure-iot-explorer/wiki/FAQ",
         "modelRepoistorySettingsUpdated": "Model repository locations successfully updated.",
         "startEventMonitoringOnError": "Failed to start monitoring device telemetry: {{error}}",
-        "stopEventMonitoringOnError": "Failed to stop monitoring device telemetry: {{error}}"
+        "stopEventMonitoringOnError": "Failed to stop monitoring device telemetry: {{error}}",
+        "connectionStringsWithoutExpiryRemovalWarning": "Due to security requirments, previously stored hub connection strings have been removed. The new connection string being added would automatically have an expiration date one year from now.",
+        "connectionStringsWithExpiryRemovalWarning": "Due to security requirments, one or more hub connection strings stored more than a year ago have been removed."
     },
     "errorBoundary": {
         "text": "Something went wrong"

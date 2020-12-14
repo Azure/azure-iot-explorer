@@ -9,16 +9,18 @@ import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
 import { ConnectionStringsView } from './connectionStringsView';
 import { ConnectionString } from './connectionString';
 import { ConnectionStringEditView } from './connectionStringEditView';
-import { CONNECTION_STRING_LIST_MAX_LENGTH } from '../../constants/browserStorage';
 import * as AsyncSagaReducer from '../../shared/hooks/useAsyncSagaReducer';
 import { connectionStringsStateInitial } from '../state';
-import { upsertConnectionStringAction } from '../actions';
+import { deleteConnectionStringAction, upsertConnectionStringAction } from '../actions';
+import * as HubConnectionStringHelper from '../../shared/utils/hubConnectionStringHelper';
 
 jest.mock('react-router-dom', () => ({
     useHistory: () => ({ push: jest.fn() })
 }));
 
 describe('ConnectionStringsView', () => {
+    const connectionStringWithExpiry = {connectionString: 'connectionString1', expiration: (new Date(0)).toUTCString()};
+
     it('matches snapshot when no connection strings', () => {
         jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([connectionStringsStateInitial(), jest.fn()]);
         const wrapper = shallow(<ConnectionStringsView/>);
@@ -26,21 +28,12 @@ describe('ConnectionStringsView', () => {
     });
 
     it('matches snapshot when connection strings present', () => {
-        const state = connectionStringsStateInitial().merge({ payload: ['connectionString1']});
+        const state = connectionStringsStateInitial().merge({ payload: [connectionStringWithExpiry]});
         jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([state, jest.fn()]);
 
         const wrapper = shallow(<ConnectionStringsView/>);
         expect(wrapper).toMatchSnapshot();
 
-    });
-
-    it('matches snapshot when connection string count exceeds max', () => {
-        const connectionStrings = new Array(CONNECTION_STRING_LIST_MAX_LENGTH + 1).map((s, i) => `connectionString${i}`);
-        const state = connectionStringsStateInitial().merge({ payload: connectionStrings });
-        jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([state, jest.fn()]);
-
-        const wrapper = shallow(<ConnectionStringsView/>);
-        expect(wrapper).toMatchSnapshot();
     });
 
     describe('add scenario', () => {
@@ -67,6 +60,8 @@ describe('ConnectionStringsView', () => {
             const upsertConnectionStringActionSpy = jest.spyOn(upsertConnectionStringAction, 'started');
             const state = connectionStringsStateInitial().merge({ payload: []});
             jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([state, jest.fn()]);
+            jest.spyOn(HubConnectionStringHelper, 'getExpiryDateInUtcString').mockReturnValue((new Date(0)).toUTCString());
+
             const wrapper = shallow(<ConnectionStringsView/>);
             act(() => {
                 wrapper.find(CommandBar).props().items[0].onClick(undefined);
@@ -78,7 +73,7 @@ describe('ConnectionStringsView', () => {
             act(() => connectionStringEditView.props().onCommit('newConnectionString'));
             wrapper.update();
 
-            expect(upsertConnectionStringActionSpy).toHaveBeenCalledWith({ newConnectionString: 'newConnectionString', connectionString: '' });
+            expect(upsertConnectionStringActionSpy).toHaveBeenCalledWith({ connectionString: 'newConnectionString', expiration: (new Date(0)).toUTCString() });
             expect(wrapper.find(ConnectionStringEditView).length).toEqual(0);
         });
     });
@@ -86,7 +81,7 @@ describe('ConnectionStringsView', () => {
     describe('edit scenario', () => {
         const connectionString = 'HostName=test.azure-devices-int.net;SharedAccessKeyName=iothubowner;SharedAccessKey=key';
         it('mounts edit view when add command clicked', () => {
-            const state = connectionStringsStateInitial().merge({ payload: [connectionString] });
+            const state = connectionStringsStateInitial().merge({ payload: [connectionStringWithExpiry] });
             jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([state, jest.fn()]);
             const wrapper = mount(<ConnectionStringsView/>);
 
@@ -98,8 +93,10 @@ describe('ConnectionStringsView', () => {
 
         it('upserts when edit view applied', () => {
             const upsertConnectionStringActionSpy = jest.spyOn(upsertConnectionStringAction, 'started');
-            const state = connectionStringsStateInitial().merge({ payload: [connectionString] });
+            const deleteConnectionStringActionSpy = jest.spyOn(deleteConnectionStringAction, 'started');
+            const state = connectionStringsStateInitial().merge({ payload: [connectionStringWithExpiry] });
             jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([state, jest.fn()]);
+            jest.spyOn(HubConnectionStringHelper, 'getExpiryDateInUtcString').mockReturnValue((new Date(0)).toUTCString());
             const wrapper = mount(<ConnectionStringsView/>);
 
             act(() => wrapper.find(ConnectionString).first().props().onEditConnectionString(connectionString));
@@ -109,7 +106,8 @@ describe('ConnectionStringsView', () => {
             act(() => connectionStringEditView.props().onCommit('newConnectionString'));
             wrapper.update();
 
-            expect(upsertConnectionStringActionSpy).toHaveBeenCalledWith({ newConnectionString: 'newConnectionString', connectionString });
+            expect(deleteConnectionStringActionSpy).toHaveBeenCalledWith(connectionString);
+            expect(upsertConnectionStringActionSpy).toHaveBeenCalledWith({ connectionString: 'newConnectionString', expiration: (new Date(0)).toUTCString() });
             expect(wrapper.find(ConnectionStringEditView).length).toEqual(0);
         });
     });

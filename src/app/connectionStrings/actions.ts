@@ -4,16 +4,11 @@
  **********************************************************/
 import actionCreatorFactory from 'typescript-fsa';
 import { DELETE, SET, UPSERT, GET } from '../constants/actionTypes';
+import { ConnectionStringWithExpiry } from './state';
 
-export const CONNECTION_STRINGS = 'CONNECTION_STRINGS';
-export interface UpsertConnectionStringActionPayload {
-    newConnectionString: string;
-    connectionString?: string;
-}
+const actionCreator = actionCreatorFactory('CONNECTION_STRINGS');
 
-const actionCreator = actionCreatorFactory(CONNECTION_STRINGS);
-
-export const getConnectionStringAction = actionCreator.async<void, string[]>(GET);
-export const setConnectionStringsAction = actionCreator.async<string[], string[]>(SET);
-export const upsertConnectionStringAction = actionCreator.async<UpsertConnectionStringActionPayload, string[]>(UPSERT);
-export const deleteConnectionStringAction = actionCreator.async<string, string[]>(DELETE);
+export const getConnectionStringsAction = actionCreator.async<void, ConnectionStringWithExpiry[]>(GET);
+export const setConnectionStringsAction = actionCreator.async<ConnectionStringWithExpiry[], ConnectionStringWithExpiry[]>(SET);
+export const upsertConnectionStringAction = actionCreator.async<ConnectionStringWithExpiry, ConnectionStringWithExpiry[]>(UPSERT);
+export const deleteConnectionStringAction = actionCreator.async<string, ConnectionStringWithExpiry[]>(DELETE);

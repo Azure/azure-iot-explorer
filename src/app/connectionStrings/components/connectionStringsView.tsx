@@ -12,18 +12,18 @@ import { ResourceKeys } from '../../../localization/resourceKeys';
 import { CONNECTION_STRING_LIST_MAX_LENGTH } from '../../constants/browserStorage';
 import { upsertConnectionStringAction, deleteConnectionStringAction, setConnectionStringsAction } from '../actions';
 import { ROUTE_PARTS } from '../../constants/routes';
-import { formatConnectionStrings } from '../../shared/utils/hubConnectionStringHelper';
+import { formatConnectionStrings, getExpiryDateInUtcString } from '../../shared/utils/hubConnectionStringHelper';
 import { ConnectionStringsEmpty } from './connectionStringsEmpty';
 import { useAsyncSagaReducer } from '../../shared/hooks/useAsyncSagaReducer';
 import { connectionStringsReducer } from '../reducer';
 import { connectionStringsSaga } from '../sagas';
-import { connectionStringsStateInitial } from '../state';
+import { connectionStringsStateInitial, ConnectionStringWithExpiry } from '../state';
 import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
 import { MultiLineShimmer } from '../../shared/components/multiLineShimmer';
 import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
+import { getConnectionStringsAction } from './../actions';
 import '../../css/_layouts.scss';
 import './connectionStringsView.scss';
-import { getConnectionStringAction } from './../actions';
 
 // tslint:disable-next-line: cyclomatic-complexity
 export const ConnectionStringsView: React.FC = () => {
@@ -33,11 +33,20 @@ export const ConnectionStringsView: React.FC = () => {
     const [ localState, dispatch ] = useAsyncSagaReducer(connectionStringsReducer, connectionStringsSaga, connectionStringsStateInitial(), 'connectionStringsState');
     const [ connectionStringUnderEdit, setConnectionStringUnderEdit ] = React.useState<string>(undefined);
 
-    const connectionStrings = localState.payload;
+    const connectionStringsWithExpiry = localState.payload;
     const synchronizationStatus = localState.synchronizationStatus;
 
-    const onUpsertConnectionString = (newConnectionString: string, connectionString?: string) => {
-        dispatch(upsertConnectionStringAction.started({newConnectionString, connectionString}));
+    const onUpsertConnectionString = (newConnectionString: string, connectionString: string) => {
+        if (newConnectionString !== connectionString) {
+            // replacing a connection string with new connection string
+            dispatch(deleteConnectionStringAction.started(connectionString));
+        }
+
+        const stringWithExpiry: ConnectionStringWithExpiry = {
+            connectionString: newConnectionString,
+            expiration: getExpiryDateInUtcString()
+        };
+        dispatch(upsertConnectionStringAction.started(stringWithExpiry));
     };
 
     const onDeleteConnectionString = (connectionString: string) => {
@@ -45,7 +54,7 @@ export const ConnectionStringsView: React.FC = () => {
     };
 
     const onSelectConnectionString = (connectionString: string) => {
-        const updatedConnectionStrings = formatConnectionStrings(connectionStrings, connectionString);
+        const updatedConnectionStrings = formatConnectionStrings(connectionStringsWithExpiry, connectionString);
         dispatch(setConnectionStringsAction.started(updatedConnectionStrings));
     };
 
@@ -67,12 +76,12 @@ export const ConnectionStringsView: React.FC = () => {
     };
 
     React.useEffect(() => {
-        dispatch(getConnectionStringAction.started());
+        dispatch(getConnectionStringsAction.started());
     },              []);
 
     React.useEffect(() => {
         if (synchronizationStatus === SynchronizationStatus.upserted) { // only when connection string updated successfully would navigate to device list view
-            const hostName = getConnectionInfoFromConnectionString(connectionStrings[0]).hostName;
+            const hostName = getConnectionInfoFromConnectionString(connectionStringsWithExpiry[0] && connectionStringsWithExpiry[0].connectionString).hostName;
             history.push(`/${ROUTE_PARTS.RESOURCE}/${hostName}/${ROUTE_PARTS.DEVICES}`);
         }
     },              [synchronizationStatus]);
@@ -90,7 +99,7 @@ export const ConnectionStringsView: React.FC = () => {
                     items={[
                         {
                             ariaLabel: t(ResourceKeys.connectionStrings.addConnectionCommand.ariaLabel),
-                            disabled: connectionStrings.length >= CONNECTION_STRING_LIST_MAX_LENGTH,
+                            disabled: connectionStringsWithExpiry.length >= CONNECTION_STRING_LIST_MAX_LENGTH,
                             iconProps: { iconName: 'Add' },
                             key: 'add',
                             onClick: onAddConnectionStringClick,
@@ -101,10 +110,10 @@ export const ConnectionStringsView: React.FC = () => {
             </div>
             <div className="view-scroll-vertical">
                 <div className="connection-strings">
-                    {connectionStrings.map(connectionString =>
+                    {connectionStringsWithExpiry.map(connectionStringWithExpiry =>
                         <ConnectionString
-                            key={connectionString}
-                            connectionString={connectionString}
+                            key={connectionStringWithExpiry.connectionString}
+                            connectionStringWithExpiry={connectionStringWithExpiry}
                             onEditConnectionString={onEditConnectionStringClick}
                             onDeleteConnectionString={onDeleteConnectionString}
                             onSelectConnectionString={onSelectConnectionString}
@@ -112,7 +121,7 @@ export const ConnectionStringsView: React.FC = () => {
                     )}
                 </div>
 
-                {(!connectionStrings || connectionStrings.length === 0) &&
+                {(!connectionStringsWithExpiry || connectionStringsWithExpiry.length === 0) &&
                     <ConnectionStringsEmpty/>
                 }
 
@@ -120,7 +129,7 @@ export const ConnectionStringsView: React.FC = () => {
             {connectionStringUnderEdit !== undefined &&
                 <ConnectionStringEditView
                     connectionStringUnderEdit={connectionStringUnderEdit}
-                    connectionStrings={connectionStrings}
+                    connectionStrings={connectionStringsWithExpiry}
                     onDismiss={onConnectionStringEditDismiss}
                     onCommit={onConnectionStringEditCommit}
                 />
