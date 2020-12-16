@@ -4,35 +4,28 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { CommandBar, ICommandBarItemProps } from 'office-ui-fabric-react/lib/components/CommandBar';
-import { Spinner } from 'office-ui-fabric-react/lib/components/Spinner';
-import { useLocation, useHistory } from 'react-router-dom';
-import { TextField, ITextFieldProps } from 'office-ui-fabric-react/lib/components/TextField';
-import { Announced } from 'office-ui-fabric-react/lib/components/Announced';
-import { Toggle } from 'office-ui-fabric-react/lib/components/Toggle';
+import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/components/Spinner';
+import { useLocation } from 'react-router-dom';
 import { Label } from 'office-ui-fabric-react/lib/components/Label';
+import { Stack } from 'office-ui-fabric-react/lib/components/Stack';
+import { MessageBarType, MessageBar } from 'office-ui-fabric-react/lib/components/MessageBar';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { Message, MESSAGE_SYSTEM_PROPERTIES, MESSAGE_PROPERTIES, IOTHUB_MESSAGE_SOURCE_TELEMETRY } from '../../../api/models/messages';
 import { parseDateTimeString } from '../../../api/dataTransforms/transformHelper';
-import { CLEAR, CHECKED_CHECKBOX, EMPTY_CHECKBOX, START, STOP, NAVIGATE_BACK, REFRESH, REMOVE, CODE } from '../../../constants/iconNames';
 import { getDeviceIdFromQueryString, getComponentNameFromQueryString, getInterfaceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import { MonitorEventsParameters } from '../../../api/parameters/deviceParameters';
-import { LabelWithTooltip } from '../../../shared/components/labelWithTooltip';
 import { DEFAULT_CONSUMER_GROUP } from '../../../constants/apiConstants';
-import { MILLISECONDS_IN_MINUTE } from '../../../constants/shared';
 import { appConfig, HostMode } from '../../../../appConfig/appConfig';
 import { HeaderView } from '../../../shared/components/headerView';
-import { isValidEventHubConnectionString } from '../../../shared/utils/hubConnectionStringHelper';
 import { useAsyncSagaReducer } from '../../../shared/hooks/useAsyncSagaReducer';
 import { deviceEventsReducer } from '../reducers';
 import { EventMonitoringSaga } from '../saga';
 import { deviceEventsStateInitial } from '../state';
-import { startEventsMonitoringAction, stopEventsMonitoringAction, clearMonitoringEventsAction } from './../actions';
+import { startEventsMonitoringAction, stopEventsMonitoringAction } from './../actions';
 import { DEFAULT_COMPONENT_FOR_DIGITAL_TWIN } from '../../../constants/devices';
 import { usePnpStateContext } from '../../../shared/contexts/pnpStateContext';
 import { getDeviceTelemetry, TelemetrySchema } from '../../pnp/components/deviceEvents/dataHelper';
-import { ROUTE_PARAMS } from '../../../constants/routes';
 import { MultiLineShimmer } from '../../../shared/components/multiLineShimmer';
 import { ErrorBoundary } from '../../shared/components/errorBoundary';
 import { SemanticUnit } from '../../../shared/units/components/semanticUnit';
@@ -41,6 +34,10 @@ import { ParsedJsonSchema } from '../../../api/models/interfaceJsonParserOutput'
 import { TelemetryContent } from '../../../api/models/modelDefinition';
 import { getLocalizedData } from '../../../api/dataTransforms/modelDefinitionTransform';
 import { DeviceSimulationPanel } from './deviceSimulationPanel';
+import { Commands } from './commands';
+import { CustomEventHub } from './customEventHub';
+import { ConsumerGroup } from './consumerGroup';
+import { StartTime } from './startTime';
 import './deviceEvents.scss';
 
 const JSON_SPACES = 2;
@@ -48,8 +45,7 @@ const LOADING_LOCK = 2000;
 
 export const DeviceEvents: React.FC = () => {
     const { t } = useTranslation();
-    const { search, pathname } = useLocation();
-    const history = useHistory();
+    const { search } = useLocation();
     const deviceId = getDeviceIdFromQueryString(search);
 
     const [ localState, dispatch ] = useAsyncSagaReducer(deviceEventsReducer, EventMonitoringSaga, deviceEventsStateInitial(), 'deviceEventsState');
@@ -58,21 +54,23 @@ export const DeviceEvents: React.FC = () => {
 
     // event hub settings
     const [ consumerGroup, setConsumerGroup] = React.useState(DEFAULT_CONSUMER_GROUP);
-    const [ customEventHubConnectionString, setCustomEventHubConnectionString] = React.useState(undefined);
-    const [ customEventHubName, setCustomEventHubName] = React.useState(undefined);
-    const [ startTime, SetStartTime] = React.useState(new Date(new Date().getTime() - MILLISECONDS_IN_MINUTE));
-    const [ useBuiltInEventHub, setUseBuiltInEventHub] = React.useState(true);
-    const [ showSystemProperties, setShowSystemProperties ] = React.useState(false);
+    const [ specifyStartTime, setSpecifyStartTime] = React.useState<boolean>(false);
+    const [ startTime, setStartTime] = React.useState<Date>();
+    const [ useBuiltInEventHub, setUseBuiltInEventHub] = React.useState<boolean>(true);
+    const [ customEventHubConnectionString, setCustomEventHubConnectionString] = React.useState<string>(undefined);
+    const [ customEventHubName, setCustomEventHubName] = React.useState<string>(undefined);
+    const [ showSystemProperties, setShowSystemProperties ] = React.useState<boolean>(false);
 
     // event message state
-    const [ loadingAnnounced, setLoadingAnnounced ] = React.useState(undefined);
-    const [ monitoringData, setMonitoringData ] = React.useState(false);
+    const [ monitoringData, setMonitoringData ] = React.useState<boolean>(false);
+    const [ startDisabled, setStartDisabled ] = React.useState<boolean>(false);
+    const [ hasError, setHasError ] = React.useState<boolean>(false);
 
     // pnp events specific
     const TELEMETRY_SCHEMA_PROP = MESSAGE_PROPERTIES.IOTHUB_MESSAGE_SCHEMA;
     const componentName = getComponentNameFromQueryString(search); // if component name exist, we are in pnp context
     const interfaceId = getInterfaceIdFromQueryString(search);
-    const { pnpState, getModelDefinition } = usePnpStateContext();
+    const { pnpState, } = usePnpStateContext();
     const modelDefinitionWithSource = pnpState.modelDefinitionWithSource.payload;
     const modelDefinition = modelDefinitionWithSource && modelDefinitionWithSource.modelDefinition;
     const isLoading = pnpState.modelDefinitionWithSource.synchronizationStatus === SynchronizationStatus.working;
@@ -90,10 +88,24 @@ export const DeviceEvents: React.FC = () => {
 
     // tslint:disable-next-line: cyclomatic-complexity
     React.useEffect(() => {
+        if (synchronizationStatus === SynchronizationStatus.updating ||
+            // when specifying start time, valid time need to be provided
+            (specifyStartTime && (!startTime || hasError)) ||
+            // when using custom event hub, both valid connection string and name need to be provided
+            (!useBuiltInEventHub && (!customEventHubConnectionString || !customEventHubName || hasError))) {
+            setStartDisabled(true);
+        }
+        else {
+            setStartDisabled(false);
+        }
+    },              [hasError, synchronizationStatus, useBuiltInEventHub, customEventHubConnectionString, customEventHubName, specifyStartTime, startTime]);
+
+    // tslint:disable-next-line: cyclomatic-complexity
+    React.useEffect(() => {
         if (synchronizationStatus === SynchronizationStatus.fetched) {
             if (appConfig.hostMode === HostMode.Electron) {
                 if (monitoringData) {
-                    SetStartTime(new Date());
+                    setStartTime(new Date());
                     setTimeout(() => {
                         fetchData();
                     },         LOADING_LOCK);
@@ -107,7 +119,6 @@ export const DeviceEvents: React.FC = () => {
             }
         }
         if (synchronizationStatus === SynchronizationStatus.upserted) {
-            SetStartTime(new Date());
             setMonitoringData(false);
         }
         if (monitoringData && synchronizationStatus === SynchronizationStatus.failed) {
@@ -115,205 +126,69 @@ export const DeviceEvents: React.FC = () => {
         }
     },              [synchronizationStatus]);
 
-    const createCommandBarItems = (): ICommandBarItemProps[] => {
-        if (componentName) {
-            return [createStartMonitoringCommandItem(),
-                createPnpModeledEventsCommandItem(),
-                createSystemPropertiesCommandItem(),
-                createRefreshCommandItem(),
-                createClearCommandItem()
-            ];
-        }
-        else {
-            return [createStartMonitoringCommandItem(),
-                createSystemPropertiesCommandItem(),
-                createClearCommandItem(),
-                createSimulationCommandItem()
-            ];
-        }
-    };
-
-    const createClearCommandItem = (): ICommandBarItemProps => {
-        return {
-            ariaLabel: t(ResourceKeys.deviceEvents.command.clearEvents),
-            iconProps: {
-                iconName: REMOVE
-            },
-            key: CLEAR,
-            name: t(ResourceKeys.deviceEvents.command.clearEvents),
-            onClick: onClearData
-        };
-    };
-
-    const createSystemPropertiesCommandItem = (): ICommandBarItemProps => {
-        return {
-            ariaLabel: t(ResourceKeys.deviceEvents.command.showSystemProperties),
-            disabled: synchronizationStatus === SynchronizationStatus.updating || showPnpModeledEvents,
-            iconProps: {
-                iconName: showSystemProperties ? CHECKED_CHECKBOX : EMPTY_CHECKBOX
-            },
-            key: CHECKED_CHECKBOX,
-            name: t(ResourceKeys.deviceEvents.command.showSystemProperties),
-            onClick: onShowSystemProperties
-        };
-    };
-
-    const createPnpModeledEventsCommandItem = (): ICommandBarItemProps => {
-        return {
-            ariaLabel: 'Show modeled events',
-            iconProps: {
-                iconName: showPnpModeledEvents ? CHECKED_CHECKBOX : EMPTY_CHECKBOX
-            },
-            key: EMPTY_CHECKBOX,
-            name: 'Show modeled events',
-            onClick: onShowPnpModeledEvents
-        };
-    };
-
-    // tslint:disable-next-line: cyclomatic-complexity
-    const createStartMonitoringCommandItem = (): ICommandBarItemProps => {
-        if (appConfig.hostMode === HostMode.Electron) {
-            const label = monitoringData ? t(ResourceKeys.deviceEvents.command.stop) : t(ResourceKeys.deviceEvents.command.start);
-            const icon = monitoringData ? STOP : START;
-            return {
-                ariaLabel: label,
-                disabled: synchronizationStatus === SynchronizationStatus.updating ||
-                    // when using custom event hub, both connection string and name need to be provided
-                    (!useBuiltInEventHub && (!customEventHubConnectionString || !customEventHubName)),
-                iconProps: {
-                    iconName: icon
-                },
-                key: icon,
-                name: label,
-                onClick: onToggleStart
-            };
-        }
-        else {
-            return {
-                ariaLabel: t(ResourceKeys.deviceEvents.command.fetch),
-                disabled: synchronizationStatus === SynchronizationStatus.updating || monitoringData,
-                iconProps: {
-                    iconName: START
-                },
-                key: START,
-                name: t(ResourceKeys.deviceEvents.command.fetch),
-                onClick: onToggleStart
-            };
-        }
-    };
-
-    const createSimulationCommandItem = (): ICommandBarItemProps => {
-        return {
-            ariaLabel: t(ResourceKeys.deviceEvents.command.clearEvents),
-            iconProps: {
-                iconName: CODE
-            },
-            key: t(ResourceKeys.deviceEvents.command.simulate),
-            name: t(ResourceKeys.deviceEvents.command.simulate),
-            onClick: onToggleSimulationPanel
-        };
+    const renderCommands = () => {
+        return (
+            <Commands
+                startDisabled={startDisabled}
+                synchronizationStatus={synchronizationStatus}
+                monitoringData={monitoringData}
+                showSystemProperties={showSystemProperties}
+                showPnpModeledEvents={showPnpModeledEvents}
+                showSimulationPanel={showSimulationPanel}
+                setMonitoringData={setMonitoringData}
+                setShowSystemProperties={setShowSystemProperties}
+                setShowPnpModeledEvents={setShowPnpModeledEvents}
+                setShowSimulationPanel={setShowSimulationPanel}
+                dispatch={dispatch}
+                fetchData={fetchData}
+            />
+        );
     };
 
     const renderConsumerGroup = () => {
-        const renderConsumerGroupLabel = (textFieldProps: ITextFieldProps) => (
-            <LabelWithTooltip
-                className={'consumer-group-label'}
-                tooltipText={t(ResourceKeys.deviceEvents.consumerGroups.tooltip)}
-            >
-                {textFieldProps.label}
-            </LabelWithTooltip>
-        );
-
-        const consumerGroupChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
-            setConsumerGroup(newValue);
-        };
-
         return (
-            <TextField
-                className={'consumer-group-text-field'}
-                onRenderLabel={renderConsumerGroupLabel}
-                label={t(ResourceKeys.deviceEvents.consumerGroups.label)}
-                ariaLabel={t(ResourceKeys.deviceEvents.consumerGroups.label)}
-                underlined={true}
-                value={consumerGroup}
-                disabled={monitoringData}
-                onChange={consumerGroupChange}
+            <div className="horizontal-item">
+                <ConsumerGroup
+                    monitoringData={monitoringData}
+                    consumerGroup={consumerGroup}
+                    setConsumerGroup={setConsumerGroup}
+                />
+            </div>
+        );
+    };
+
+    const renderStartTimePicker = () => {
+        return (
+            <StartTime
+                monitoringData={monitoringData}
+                specifyStartTime={specifyStartTime}
+                startTime={startTime}
+                setSpecifyStartTime={setSpecifyStartTime}
+                setStartTime={setStartTime}
+                setHasError={setHasError}
             />
         );
     };
 
     const renderCustomEventHub = () => {
-        const toggleChange = () => {
-            setUseBuiltInEventHub(!useBuiltInEventHub);
-        };
-
-        const customEventHubConnectionStringChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
-            setCustomEventHubConnectionString(newValue);
-        };
-
-        const renderError = () => {
-            return !isValidEventHubConnectionString(customEventHubConnectionString) && t(ResourceKeys.deviceEvents.customEventHub.connectionString.error);
-        };
-
-        const customEventHubNameChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
-            setCustomEventHubName(newValue);
-        };
-
         return (
-            <>
-                <Toggle
-                    className="toggle-button"
-                    checked={useBuiltInEventHub}
-                    ariaLabel={t(ResourceKeys.deviceEvents.toggleUseDefaultEventHub.label)}
-                    label={t(ResourceKeys.deviceEvents.toggleUseDefaultEventHub.label)}
-                    onText={t(ResourceKeys.deviceEvents.toggleUseDefaultEventHub.on)}
-                    offText={t(ResourceKeys.deviceEvents.toggleUseDefaultEventHub.off)}
-                    onChange={toggleChange}
-                    disabled={monitoringData}
+            <div className="horizontal-item">
+                <CustomEventHub
+                    monitoringData={monitoringData}
+                    useBuiltInEventHub={useBuiltInEventHub}
+                    customEventHubName={customEventHubName}
+                    customEventHubConnectionString={customEventHubConnectionString}
+                    setUseBuiltInEventHub={setUseBuiltInEventHub}
+                    setCustomEventHubName={setCustomEventHubName}
+                    setCustomEventHubConnectionString={setCustomEventHubConnectionString}
+                    setHasError={setHasError}
                 />
-                {!useBuiltInEventHub &&
-                    <>
-                        <TextField
-                            className={'custom-event-hub-text-field'}
-                            label={t(ResourceKeys.deviceEvents.customEventHub.connectionString.label)}
-                            ariaLabel={t(ResourceKeys.deviceEvents.customEventHub.connectionString.label)}
-                            underlined={true}
-                            value={customEventHubConnectionString}
-                            disabled={monitoringData}
-                            onChange={customEventHubConnectionStringChange}
-                            placeholder={t(ResourceKeys.deviceEvents.customEventHub.connectionString.placeHolder)}
-                            errorMessage={renderError()}
-                            required={true}
-                        />
-                        <TextField
-                            className={'custom-event-hub-text-field'}
-                            label={t(ResourceKeys.deviceEvents.customEventHub.name.label)}
-                            ariaLabel={t(ResourceKeys.deviceEvents.customEventHub.name.label)}
-                            underlined={true}
-                            value={customEventHubName}
-                            disabled={monitoringData}
-                            onChange={customEventHubNameChange}
-                            required={true}
-                        />
-                    </>
-                }
-            </>
+            </div>
         );
     };
 
     const stopMonitoring = () => {
         dispatch(stopEventsMonitoringAction.started());
-    };
-
-    const onToggleStart = () => {
-        if (monitoringData) {
-            setMonitoringData(false);
-            setLoadingAnnounced(undefined);
-        } else {
-            fetchData();
-            setMonitoringData(true);
-            setLoadingAnnounced(<Announced message={t(ResourceKeys.deviceEvents.infiniteScroll.loading)}/>);
-        }
     };
 
     // tslint:disable-next-line: cyclomatic-complexity
@@ -582,43 +457,20 @@ export const DeviceEvents: React.FC = () => {
             telemetryModelDefinition
         };
     };
-
-    const createRefreshCommandItem = (): ICommandBarItemProps => {
-        return {
-            ariaLabel: t(ResourceKeys.deviceEvents.command.refresh),
-            disabled: synchronizationStatus === SynchronizationStatus.updating,
-            iconProps: {iconName: REFRESH},
-            key: REFRESH,
-            name: t(ResourceKeys.deviceEvents.command.refresh),
-            onClick: getModelDefinition
-        };
-    };
-
-    const createNavigateBackCommandItem = (): ICommandBarItemProps => {
-        return {
-            ariaLabel: t(ResourceKeys.deviceEvents.command.close),
-            iconProps: {iconName: NAVIGATE_BACK},
-            key: NAVIGATE_BACK,
-            name: t(ResourceKeys.deviceEvents.command.close),
-            onClick: handleClose
-        };
-    };
-
-    const handleClose = () => {
-        const path = pathname.replace(/\/ioTPlugAndPlayDetail\/events\/.*/, ``);
-        history.push(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
-    };
     //#endregion
 
     const renderLoader = (): JSX.Element => {
         return (
             <>
-                {monitoringData && (
-                    <div key="loading" className="events-loader">
-                        <Spinner/>
-                        <h4>{t(ResourceKeys.deviceEvents.infiniteScroll.loading)}</h4>
-                    </div>
-                )}
+                {monitoringData &&
+                    <MessageBar
+                        messageBarType={MessageBarType.info}
+                    >
+                        <Stack horizontal={true} tokens={{childrenGap: 10}}>
+                            <div>{t(ResourceKeys.deviceEvents.infiniteScroll.loading)}</div>
+                            {<Spinner size={SpinnerSize.small}/>}
+                        </Stack>
+                    </MessageBar>}
             </>
         );
     };
@@ -641,18 +493,6 @@ export const DeviceEvents: React.FC = () => {
         dispatch(startEventsMonitoringAction.started(parameters));
     };
 
-    const onClearData = () => {
-        dispatch(clearMonitoringEventsAction());
-    };
-
-    const onShowSystemProperties = () => {
-        setShowSystemProperties(!showSystemProperties);
-    };
-
-    const onShowPnpModeledEvents = () => {
-        setShowPnpModeledEvents(!showPnpModeledEvents);
-    };
-
     const onToggleSimulationPanel = () => {
         setShowSimulationPanel(!showSimulationPanel);
     };
@@ -661,22 +501,15 @@ export const DeviceEvents: React.FC = () => {
         return <MultiLineShimmer/>;
     }
 
-    const className = componentName ?
-        'scrollable-pnp-telemetry' + (!useBuiltInEventHub ? ' scrollable-pnp-telemetry-custom' : '') :
-        'scrollable-telemetry' + (!useBuiltInEventHub ? ' scrollable-telemetry-custom' : '');
-
     return (
         <div className="device-events" key="device-events">
-            <CommandBar
-                className="command"
-                items={createCommandBarItems()}
-                farItems={componentName && [createNavigateBackCommandItem()]}
-            />
+            {renderCommands()}
             <HeaderView
                 headerText={ResourceKeys.deviceEvents.headerText}
                 tooltip={ResourceKeys.deviceEvents.tooltip}
             />
             {renderConsumerGroup()}
+            {renderStartTimePicker()}
             {renderCustomEventHub()}
             <DeviceSimulationPanel
                 showSimulationPanel={showSimulationPanel}
@@ -684,11 +517,10 @@ export const DeviceEvents: React.FC = () => {
             />
             <div className="device-events-container">
                 {renderLoader()}
-                <div className={className}>
+                <div className={componentName ? 'scrollable-pnp-telemetry' : 'scrollable-telemetry'}>
                     {showPnpModeledEvents ? renderPnpModeledEvents() : renderRawEvents()}
                 </div>
             </div>
-            {loadingAnnounced}
         </div>
     );
 };

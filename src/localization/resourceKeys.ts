@@ -363,10 +363,20 @@ export class ResourceKeys {
             tooltiop : "deviceEvents.simulation.prerequisite.tooltiop",
          },
       },
+      startTime : {
+         error : "deviceEvents.startTime.error",
+         label : "deviceEvents.startTime.label",
+         tooltip : "deviceEvents.startTime.tooltip",
+      },
       toggleShowRawData : {
          label : "deviceEvents.toggleShowRawData.label",
          off : "deviceEvents.toggleShowRawData.off",
          on : "deviceEvents.toggleShowRawData.on",
+      },
+      toggleSpecifyStartingTime : {
+         label : "deviceEvents.toggleSpecifyStartingTime.label",
+         off : "deviceEvents.toggleSpecifyStartingTime.off",
+         on : "deviceEvents.toggleSpecifyStartingTime.on",
       },
       toggleUseDefaultEventHub : {
          label : "deviceEvents.toggleUseDefaultEventHub.label",

@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`startTime matches snapshot 1`] = `
+<Stack
+  horizontal={true}
+  horizontalAlign="space-between"
+>
+  <StyledToggleBase
+    ariaLabel="deviceEvents.toggleSpecifyStartingTime.label"
+    checked={true}
+    className="stack-first-column"
+    disabled={true}
+    label={
+      <Unknown
+        className="consumer-group-label"
+        tooltipText="deviceEvents.startTime.tooltip"
+      >
+        deviceEvents.toggleSpecifyStartingTime.label
+      </Unknown>
+    }
+    offText="deviceEvents.toggleSpecifyStartingTime.off"
+    onChange={[Function]}
+    onText="deviceEvents.toggleSpecifyStartingTime.on"
+  />
+  <div
+    className="stack-second-column"
+  >
+    <StyledTextFieldBase
+      ariaLabel="deviceEvents.startTime.label"
+      className="custom-text-field"
+      disabled={true}
+      label="deviceEvents.startTime.label"
+      onChange={[Function]}
+      placeholder="yyyy/mm/dd/hh/mm/ss"
+      required={true}
+      underlined={true}
+    />
+  </div>
+</Stack>
+`;
