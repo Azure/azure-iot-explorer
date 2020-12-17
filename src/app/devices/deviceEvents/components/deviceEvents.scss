@@ -7,17 +7,13 @@
 
 .device-events {
     .device-events-container {
-        margin-left: 15px;
-        .events-loader {
-            padding: 0 25px;
-            .ms-Spinner {
-                float: left;
-                padding-right: 5px;
-            }
+        @include themify($themes) {
+            border-top: 1px solid themed('contrastBorder');
         }
+        margin-left: 15px;
         .device-events-content {
             @include themify($themes) {
-                border-top: 1px solid themed('contrastBorder');
+                border-bottom: 1px solid themed('contrastBorder');
             }
             padding: 0 25px;
             width: 100%;
@@ -42,7 +38,7 @@
         @include themify($themes) {
             color: themed('textColor');
         }
-        width: 80%;
+        width: 85%;
     }
 
     .custom-event-hub-label {
@@ -53,36 +49,14 @@
         }
     }
 
-    .custom-event-hub-text-field {
-        display: grid;
-        padding-left: 24px;
-        padding-bottom: 10px;
-        @include themify($themes) {
-            color: themed('textColor');
-        }
-        width: 80%;
-    }
-
-    .toggle-button {
-        padding-left: 24px;
-    }
-
     .scrollable-telemetry {
-        height: calc(100vh - 390px);
+        height: calc(100vh - 480px);
         overflow-y: auto;
         overflow-x: hidden;
     }
 
-    .scrollable-telemetry-custom {
-        height: calc(100vh - 482px) !important;
-    }
-
-    .scrollable-pnp-telemetry-custom {
-        height: calc(100vh - 525px) !important;
-    }
-
     .scrollable-pnp-telemetry {
-        height: calc(100vh - 433px);
+        height: calc(100vh - 520px);
         overflow-y: auto;
         overflow-x: hidden;
         .column-value-text {
@@ -117,5 +91,23 @@
         @include themify($themes) {
             border-bottom-color: themed('borderColor');
         }
+    }
+
+    .stack-first-column {
+        padding-left: 24px;
+        min-width: 22%;
+    }
+
+    .stack-second-column {
+        .custom-text-field {
+            display: grid;
+            padding-left: 24px;
+            padding-bottom: 10px;
+            @include themify($themes) {
+                color: themed('textColor');
+            }
+            width: 80%;
+        }
+        width: 100%;
     }
 }

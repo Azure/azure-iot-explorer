@@ -1,190 +1,56 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`deviceEvents deviceEvents in non-pnp context matches snapshot in electron 1`] = `
+exports[`deviceEvents deviceEvents in non-pnp context matches snapshot 1`] = `
 <div
   className="device-events"
   key="device-events"
 >
-  <StyledCommandBarBase
-    className="command"
-    farItems={null}
-    items={
-      Array [
-        Object {
-          "ariaLabel": "deviceEvents.command.start",
-          "disabled": false,
-          "iconProps": Object {
-            "iconName": "Play",
-          },
-          "key": "Play",
-          "name": "deviceEvents.command.start",
-          "onClick": [Function],
-        },
-        Object {
-          "ariaLabel": "deviceEvents.command.showSystemProperties",
-          "disabled": false,
-          "iconProps": Object {
-            "iconName": "Checkbox",
-          },
-          "key": "CheckboxComposite",
-          "name": "deviceEvents.command.showSystemProperties",
-          "onClick": [Function],
-        },
-        Object {
-          "ariaLabel": "deviceEvents.command.clearEvents",
-          "iconProps": Object {
-            "iconName": "Delete",
-          },
-          "key": "Clear",
-          "name": "deviceEvents.command.clearEvents",
-          "onClick": [Function],
-        },
-        Object {
-          "ariaLabel": "deviceEvents.command.clearEvents",
-          "iconProps": Object {
-            "iconName": "Code",
-          },
-          "key": "deviceEvents.command.simulate",
-          "name": "deviceEvents.command.simulate",
-          "onClick": [Function],
-        },
-      ]
-    }
+  <Component
+    dispatch={[MockFunction]}
+    fetchData={[Function]}
+    monitoringData={false}
+    setMonitoringData={[Function]}
+    setShowPnpModeledEvents={[Function]}
+    setShowSimulationPanel={[Function]}
+    setShowSystemProperties={[Function]}
+    showPnpModeledEvents={false}
+    showSimulationPanel={false}
+    showSystemProperties={false}
+    startDisabled={false}
+    synchronizationStatus={1}
   />
   <Component
     headerText="deviceEvents.headerText"
     tooltip="deviceEvents.tooltip"
-  />
-  <StyledTextFieldBase
-    ariaLabel="deviceEvents.consumerGroups.label"
-    className="consumer-group-text-field"
-    disabled={false}
-    label="deviceEvents.consumerGroups.label"
-    onChange={[Function]}
-    onRenderLabel={[Function]}
-    underlined={true}
-    value="$Default"
-  />
-  <StyledToggleBase
-    ariaLabel="deviceEvents.toggleUseDefaultEventHub.label"
-    checked={true}
-    className="toggle-button"
-    disabled={false}
-    label="deviceEvents.toggleUseDefaultEventHub.label"
-    offText="deviceEvents.toggleUseDefaultEventHub.off"
-    onChange={[Function]}
-    onText="deviceEvents.toggleUseDefaultEventHub.on"
-  />
-  <Component
-    onToggleSimulationPanel={[Function]}
-    showSimulationPanel={false}
   />
   <div
-    className="device-events-container"
+    className="horizontal-item"
   >
-    <div
-      className="scrollable-telemetry"
-    >
-      <article
-        className="device-events-content"
-        key="0"
-      >
-        <h5>
-          9:44:58 PM, 10/14/2019
-          :
-        </h5>
-        <pre>
-          {
-  "body": {
-    "humid": 123
-  },
-  "enqueuedTime": "2019-10-14T21:44:58.397Z",
-  "properties": {
-    "iothub-message-schema": "humid"
-  }
-}
-        </pre>
-      </article>
-    </div>
+    <Component
+      consumerGroup="$Default"
+      monitoringData={false}
+      setConsumerGroup={[Function]}
+    />
   </div>
-</div>
-`;
-
-exports[`deviceEvents deviceEvents in non-pnp context matches snapshot in hosted environment 1`] = `
-<div
-  className="device-events"
-  key="device-events"
->
-  <StyledCommandBarBase
-    className="command"
-    farItems={null}
-    items={
-      Array [
-        Object {
-          "ariaLabel": "deviceEvents.command.fetch",
-          "disabled": false,
-          "iconProps": Object {
-            "iconName": "Play",
-          },
-          "key": "Play",
-          "name": "deviceEvents.command.fetch",
-          "onClick": [Function],
-        },
-        Object {
-          "ariaLabel": "deviceEvents.command.showSystemProperties",
-          "disabled": false,
-          "iconProps": Object {
-            "iconName": "Checkbox",
-          },
-          "key": "CheckboxComposite",
-          "name": "deviceEvents.command.showSystemProperties",
-          "onClick": [Function],
-        },
-        Object {
-          "ariaLabel": "deviceEvents.command.clearEvents",
-          "iconProps": Object {
-            "iconName": "Delete",
-          },
-          "key": "Clear",
-          "name": "deviceEvents.command.clearEvents",
-          "onClick": [Function],
-        },
-        Object {
-          "ariaLabel": "deviceEvents.command.clearEvents",
-          "iconProps": Object {
-            "iconName": "Code",
-          },
-          "key": "deviceEvents.command.simulate",
-          "name": "deviceEvents.command.simulate",
-          "onClick": [Function],
-        },
-      ]
-    }
-  />
   <Component
-    headerText="deviceEvents.headerText"
-    tooltip="deviceEvents.tooltip"
+    monitoringData={false}
+    setHasError={[Function]}
+    setSpecifyStartTime={[Function]}
+    setStartTime={[Function]}
+    specifyStartTime={false}
   />
-  <StyledTextFieldBase
-    ariaLabel="deviceEvents.consumerGroups.label"
-    className="consumer-group-text-field"
-    disabled={false}
-    label="deviceEvents.consumerGroups.label"
-    onChange={[Function]}
-    onRenderLabel={[Function]}
-    underlined={true}
-    value="$Default"
-  />
-  <StyledToggleBase
-    ariaLabel="deviceEvents.toggleUseDefaultEventHub.label"
-    checked={true}
-    className="toggle-button"
-    disabled={false}
-    label="deviceEvents.toggleUseDefaultEventHub.label"
-    offText="deviceEvents.toggleUseDefaultEventHub.off"
-    onChange={[Function]}
-    onText="deviceEvents.toggleUseDefaultEventHub.on"
-  />
+  <div
+    className="horizontal-item"
+  >
+    <Component
+      monitoringData={false}
+      setCustomEventHubConnectionString={[Function]}
+      setCustomEventHubName={[Function]}
+      setHasError={[Function]}
+      setUseBuiltInEventHub={[Function]}
+      useBuiltInEventHub={false}
+    />
+  </div>
   <Component
     onToggleSimulationPanel={[Function]}
     showSimulationPanel={false}
@@ -225,76 +91,52 @@ exports[`deviceEvents deviceEvents in pnp context matches snapshot while interfa
   className="device-events"
   key="device-events"
 >
-  <StyledCommandBarBase
-    className="command"
-    farItems={null}
-    items={
-      Array [
-        Object {
-          "ariaLabel": "deviceEvents.command.fetch",
-          "disabled": false,
-          "iconProps": Object {
-            "iconName": "Play",
-          },
-          "key": "Play",
-          "name": "deviceEvents.command.fetch",
-          "onClick": [Function],
-        },
-        Object {
-          "ariaLabel": "deviceEvents.command.showSystemProperties",
-          "disabled": true,
-          "iconProps": Object {
-            "iconName": "Checkbox",
-          },
-          "key": "CheckboxComposite",
-          "name": "deviceEvents.command.showSystemProperties",
-          "onClick": [Function],
-        },
-        Object {
-          "ariaLabel": "deviceEvents.command.clearEvents",
-          "iconProps": Object {
-            "iconName": "Delete",
-          },
-          "key": "Clear",
-          "name": "deviceEvents.command.clearEvents",
-          "onClick": [Function],
-        },
-        Object {
-          "ariaLabel": "deviceEvents.command.clearEvents",
-          "iconProps": Object {
-            "iconName": "Code",
-          },
-          "key": "deviceEvents.command.simulate",
-          "name": "deviceEvents.command.simulate",
-          "onClick": [Function],
-        },
-      ]
-    }
+  <Component
+    dispatch={[Function]}
+    fetchData={[Function]}
+    monitoringData={false}
+    setMonitoringData={[Function]}
+    setShowPnpModeledEvents={[Function]}
+    setShowSimulationPanel={[Function]}
+    setShowSystemProperties={[Function]}
+    showPnpModeledEvents={true}
+    showSimulationPanel={false}
+    showSystemProperties={false}
+    startDisabled={false}
+    synchronizationStatus={2}
   />
   <Component
     headerText="deviceEvents.headerText"
     tooltip="deviceEvents.tooltip"
   />
-  <StyledTextFieldBase
-    ariaLabel="deviceEvents.consumerGroups.label"
-    className="consumer-group-text-field"
-    disabled={false}
-    label="deviceEvents.consumerGroups.label"
-    onChange={[Function]}
-    onRenderLabel={[Function]}
-    underlined={true}
-    value="$Default"
+  <div
+    className="horizontal-item"
+  >
+    <Component
+      consumerGroup="$Default"
+      monitoringData={false}
+      setConsumerGroup={[Function]}
+    />
+  </div>
+  <Component
+    monitoringData={false}
+    setHasError={[Function]}
+    setSpecifyStartTime={[Function]}
+    setStartTime={[Function]}
+    specifyStartTime={false}
   />
-  <StyledToggleBase
-    ariaLabel="deviceEvents.toggleUseDefaultEventHub.label"
-    checked={true}
-    className="toggle-button"
-    disabled={false}
-    label="deviceEvents.toggleUseDefaultEventHub.label"
-    offText="deviceEvents.toggleUseDefaultEventHub.off"
-    onChange={[Function]}
-    onText="deviceEvents.toggleUseDefaultEventHub.on"
-  />
+  <div
+    className="horizontal-item"
+  >
+    <Component
+      monitoringData={false}
+      setCustomEventHubConnectionString={[Function]}
+      setCustomEventHubName={[Function]}
+      setHasError={[Function]}
+      setUseBuiltInEventHub={[Function]}
+      useBuiltInEventHub={false}
+    />
+  </div>
   <Component
     onToggleSimulationPanel={[Function]}
     showSimulationPanel={false}
@@ -309,170 +151,57 @@ exports[`deviceEvents deviceEvents in pnp context matches snapshot while interfa
 </div>
 `;
 
-exports[`deviceEvents deviceEvents in pnp context matches snapshot while interface definition is retrieved in electron 1`] = `
+exports[`deviceEvents deviceEvents in pnp context matches snapshot while interface definition is retrieved 1`] = `
 <div
   className="device-events"
   key="device-events"
 >
-  <StyledCommandBarBase
-    className="command"
-    farItems={null}
-    items={
-      Array [
-        Object {
-          "ariaLabel": "deviceEvents.command.start",
-          "disabled": false,
-          "iconProps": Object {
-            "iconName": "Play",
-          },
-          "key": "Play",
-          "name": "deviceEvents.command.start",
-          "onClick": [Function],
-        },
-        Object {
-          "ariaLabel": "deviceEvents.command.showSystemProperties",
-          "disabled": true,
-          "iconProps": Object {
-            "iconName": "Checkbox",
-          },
-          "key": "CheckboxComposite",
-          "name": "deviceEvents.command.showSystemProperties",
-          "onClick": [Function],
-        },
-        Object {
-          "ariaLabel": "deviceEvents.command.clearEvents",
-          "iconProps": Object {
-            "iconName": "Delete",
-          },
-          "key": "Clear",
-          "name": "deviceEvents.command.clearEvents",
-          "onClick": [Function],
-        },
-        Object {
-          "ariaLabel": "deviceEvents.command.clearEvents",
-          "iconProps": Object {
-            "iconName": "Code",
-          },
-          "key": "deviceEvents.command.simulate",
-          "name": "deviceEvents.command.simulate",
-          "onClick": [Function],
-        },
-      ]
-    }
+  <Component
+    dispatch={[Function]}
+    fetchData={[Function]}
+    monitoringData={false}
+    setMonitoringData={[Function]}
+    setShowPnpModeledEvents={[Function]}
+    setShowSimulationPanel={[Function]}
+    setShowSystemProperties={[Function]}
+    showPnpModeledEvents={true}
+    showSimulationPanel={false}
+    showSystemProperties={false}
+    startDisabled={false}
+    synchronizationStatus={2}
   />
   <Component
     headerText="deviceEvents.headerText"
     tooltip="deviceEvents.tooltip"
-  />
-  <StyledTextFieldBase
-    ariaLabel="deviceEvents.consumerGroups.label"
-    className="consumer-group-text-field"
-    disabled={false}
-    label="deviceEvents.consumerGroups.label"
-    onChange={[Function]}
-    onRenderLabel={[Function]}
-    underlined={true}
-    value="$Default"
-  />
-  <StyledToggleBase
-    ariaLabel="deviceEvents.toggleUseDefaultEventHub.label"
-    checked={true}
-    className="toggle-button"
-    disabled={false}
-    label="deviceEvents.toggleUseDefaultEventHub.label"
-    offText="deviceEvents.toggleUseDefaultEventHub.off"
-    onChange={[Function]}
-    onText="deviceEvents.toggleUseDefaultEventHub.on"
-  />
-  <Component
-    onToggleSimulationPanel={[Function]}
-    showSimulationPanel={false}
   />
   <div
-    className="device-events-container"
+    className="horizontal-item"
   >
-    <div
-      className="scrollable-telemetry"
+    <Component
+      consumerGroup="$Default"
+      monitoringData={false}
+      setConsumerGroup={[Function]}
     />
   </div>
-</div>
-`;
-
-exports[`deviceEvents deviceEvents in pnp context matches snapshot while interface definition is retrieved in hosted environment 1`] = `
-<div
-  className="device-events"
-  key="device-events"
->
-  <StyledCommandBarBase
-    className="command"
-    farItems={null}
-    items={
-      Array [
-        Object {
-          "ariaLabel": "deviceEvents.command.fetch",
-          "disabled": false,
-          "iconProps": Object {
-            "iconName": "Play",
-          },
-          "key": "Play",
-          "name": "deviceEvents.command.fetch",
-          "onClick": [Function],
-        },
-        Object {
-          "ariaLabel": "deviceEvents.command.showSystemProperties",
-          "disabled": true,
-          "iconProps": Object {
-            "iconName": "Checkbox",
-          },
-          "key": "CheckboxComposite",
-          "name": "deviceEvents.command.showSystemProperties",
-          "onClick": [Function],
-        },
-        Object {
-          "ariaLabel": "deviceEvents.command.clearEvents",
-          "iconProps": Object {
-            "iconName": "Delete",
-          },
-          "key": "Clear",
-          "name": "deviceEvents.command.clearEvents",
-          "onClick": [Function],
-        },
-        Object {
-          "ariaLabel": "deviceEvents.command.clearEvents",
-          "iconProps": Object {
-            "iconName": "Code",
-          },
-          "key": "deviceEvents.command.simulate",
-          "name": "deviceEvents.command.simulate",
-          "onClick": [Function],
-        },
-      ]
-    }
-  />
   <Component
-    headerText="deviceEvents.headerText"
-    tooltip="deviceEvents.tooltip"
+    monitoringData={false}
+    setHasError={[Function]}
+    setSpecifyStartTime={[Function]}
+    setStartTime={[Function]}
+    specifyStartTime={false}
   />
-  <StyledTextFieldBase
-    ariaLabel="deviceEvents.consumerGroups.label"
-    className="consumer-group-text-field"
-    disabled={false}
-    label="deviceEvents.consumerGroups.label"
-    onChange={[Function]}
-    onRenderLabel={[Function]}
-    underlined={true}
-    value="$Default"
-  />
-  <StyledToggleBase
-    ariaLabel="deviceEvents.toggleUseDefaultEventHub.label"
-    checked={true}
-    className="toggle-button"
-    disabled={false}
-    label="deviceEvents.toggleUseDefaultEventHub.label"
-    offText="deviceEvents.toggleUseDefaultEventHub.off"
-    onChange={[Function]}
-    onText="deviceEvents.toggleUseDefaultEventHub.on"
-  />
+  <div
+    className="horizontal-item"
+  >
+    <Component
+      monitoringData={false}
+      setCustomEventHubConnectionString={[Function]}
+      setCustomEventHubName={[Function]}
+      setHasError={[Function]}
+      setUseBuiltInEventHub={[Function]}
+      useBuiltInEventHub={false}
+    />
+  </div>
   <Component
     onToggleSimulationPanel={[Function]}
     showSimulationPanel={false}

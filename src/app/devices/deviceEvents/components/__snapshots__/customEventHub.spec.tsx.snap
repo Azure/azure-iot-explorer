@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`customEventHub matches snapshot 1`] = `
+<Stack
+  horizontal={true}
+  horizontalAlign="space-between"
+>
+  <StyledToggleBase
+    ariaLabel="deviceEvents.toggleUseDefaultEventHub.label"
+    checked={false}
+    className="stack-first-column"
+    disabled={true}
+    label="deviceEvents.toggleUseDefaultEventHub.label"
+    offText="deviceEvents.toggleUseDefaultEventHub.off"
+    onChange={[Function]}
+    onText="deviceEvents.toggleUseDefaultEventHub.on"
+  />
+  <Stack
+    className="stack-second-column"
+    horizontal={false}
+  >
+    <StyledTextFieldBase
+      ariaLabel="deviceEvents.customEventHub.connectionString.label"
+      className="custom-text-field"
+      disabled={true}
+      label="deviceEvents.customEventHub.connectionString.label"
+      onChange={[Function]}
+      placeholder="deviceEvents.customEventHub.connectionString.placeHolder"
+      required={true}
+      underlined={true}
+    />
+    <StyledTextFieldBase
+      ariaLabel="deviceEvents.customEventHub.name.label"
+      className="custom-text-field"
+      disabled={true}
+      label="deviceEvents.customEventHub.name.label"
+      onChange={[Function]}
+      required={true}
+      underlined={true}
+    />
+  </Stack>
+</Stack>
+`;

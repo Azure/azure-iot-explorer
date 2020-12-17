@@ -25,7 +25,6 @@ import { ResourceKeys } from '../../../../localization/resourceKeys';
 import * as TransformHelper from '../../../api/dataTransforms/transformHelper';
 
 const pathname = `#/devices/detail/events/?id=device1`;
-const currentTime = new Date();
 jest.mock('react-router-dom', () => ({
     useHistory: () => ({ push: jest.fn() }),
     useLocation: () => ({ search: `?deviceId=device1`, pathname, push: jest.fn() })
@@ -42,19 +41,23 @@ describe('deviceEvents', () => {
             'iothub-message-schema': 'humid'
             }
         }];
+
         beforeEach(() => {
             jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([{
                 payload: events,
                 synchronizationStatus: SynchronizationStatus.fetched
             }, jest.fn()]);
+
             const realUseState = React.useState;
             jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(DEFAULT_CONSUMER_GROUP));
-            jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(undefined));
-            jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(undefined));
-            jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(currentTime));
-            jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(true));
             jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(false));
             jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(undefined));
+            jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(false));
+            jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(undefined));
+            jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(undefined));
+            jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(false));
+            jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(false));
+            jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(false));
             jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(false));
             jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(false));
             jest.spyOn(TransformHelper, 'parseDateTimeString').mockImplementationOnce(parameters => {
@@ -67,13 +70,7 @@ describe('deviceEvents', () => {
             jest.restoreAllMocks();
         });
 
-        it('matches snapshot in electron', () => {
-            appConfig.hostMode = HostMode.Electron;
-            expect(shallow(<DeviceEvents/>)).toMatchSnapshot();
-        });
-
-        it('matches snapshot in hosted environment', () => {
-            appConfig.hostMode = HostMode.Browser;
+        it('matches snapshot', () => {
             expect(shallow(<DeviceEvents/>)).toMatchSnapshot();
         });
 
@@ -90,15 +87,8 @@ describe('deviceEvents', () => {
             expect(startEventsMonitoringSpy.mock.calls[0][0]).toEqual({
                 consumerGroup: DEFAULT_CONSUMER_GROUP,
                 deviceId: 'device1',
-                startTime: currentTime
+                startTime: undefined
             });
-
-            // click the show system property button
-            expect(commandBar.props().items[1].iconProps.iconName).toEqual('Checkbox');
-            act(() => commandBar.props().items[1].onClick(null)); // tslint:disable-line:no-magic-numbers
-            wrapper.update();
-            const updatedCommandBar = wrapper.find(CommandBar).first();
-            expect(updatedCommandBar.props().items[1].iconProps.iconName).toEqual('CheckboxComposite');
         });
 
         it('changes state accordingly when consumer group value is changed', () => {
@@ -107,16 +97,6 @@ describe('deviceEvents', () => {
             act(() => textField.props().onChange(undefined, 'testGroup'));
             wrapper.update();
             expect(wrapper.find(TextField).first().props().value).toEqual('testGroup');
-        });
-
-        it('changes state accordingly when custom event hub boolean value is changed', () => {
-            const wrapper = mount(<DeviceEvents/>);
-            expect(wrapper.find('.custom-event-hub-text-field').length).toEqual(0);
-            const toggle = wrapper.find(Toggle).at(0);
-            act(() => toggle.props().onChange(undefined, false));
-            wrapper.update();
-            // tslint:disable-next-line: no-magic-numbers
-            expect(wrapper.find('.custom-event-hub-text-field').length).toEqual(6);
         });
 
         it('renders events', () => {
@@ -148,12 +128,14 @@ describe('deviceEvents', () => {
         beforeEach(() => {
             const realUseState = React.useState;
             jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(DEFAULT_CONSUMER_GROUP));
-            jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(undefined));
-            jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(undefined));
-            jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(currentTime));
-            jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(true));
             jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(false));
             jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(undefined));
+            jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(false));
+            jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(undefined));
+            jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(undefined));
+            jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(false));
+            jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(false));
+            jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(false));
             jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(false));
             jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(true));
             jest.spyOn(TransformHelper, 'parseDateTimeString').mockImplementationOnce(parameters => {
@@ -190,14 +172,7 @@ describe('deviceEvents', () => {
             expect(shallow(<DeviceEvents/>)).toMatchSnapshot();
         });
 
-        it('matches snapshot while interface definition is retrieved in electron', () => {
-            appConfig.hostMode = HostMode.Electron;
-            mockFetchedState();
-            expect(shallow(<DeviceEvents/>)).toMatchSnapshot();
-        });
-
-        it('matches snapshot while interface definition is retrieved in hosted environment', () => {
-            appConfig.hostMode = HostMode.Browser;
+        it('matches snapshot while interface definition is retrieved', () => {
             mockFetchedState();
             expect(shallow(<DeviceEvents/>)).toMatchSnapshot();
         });
