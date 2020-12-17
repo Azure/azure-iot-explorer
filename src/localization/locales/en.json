@@ -101,6 +101,7 @@
         "identity": "Device identity",
         "twin": "Device twin",
         "events": "Telemetry",
+        "eventsPerInterface": "Telemetry",
         "methods": "Direct method",
         "cloudToDeviceMessage": "Cloud-to-device message",
         "moduleIdentity": "Module identity",
@@ -110,28 +111,14 @@
         "commands": "Commands",
         "ioTPlugAndPlay": "IoT Plug and Play components",
         "resources": "IoT hubs",
-        "repos": "IoT Plug and Play Settings"
+        "repos": "IoT Plug and Play Settings",
+        "moduleDetail": "Module detail",
+        "moduleTwin": "Module twin",
+        "moduleMethod": "Module direct method",
+        "addModuleIdentity": "Add module identity"
     },
     "deviceContent": {
         "start": "Select a device to start",
-        "navBar": {
-            "identity": "Device identity",
-            "twin": "Device twin",
-            "properties": "Properties (read-only)",
-            "settings": "Properties (writable)",
-            "commands": "Commands",
-            "events": "Telemetry",
-            "eventsPerInterface": "Telemetry",
-            "interfaces": "Interface",
-            "methods": "Direct method",
-            "cloudToDeviceMessage": "Cloud-to-device message",
-            "ioTPlugAndPlay": "IoT Plug and Play components",
-            "add": "Create device identity",
-            "moduleIdentity": "Module identity",
-            "addModuleIdentity": "Add module identity",
-            "moduleDetail": "Module identity",
-            "moduleTwin": "Module twin"
-        },
         "value": "Value"
     },
     "connectionStrings": {
@@ -842,6 +829,10 @@
         "invokeMethodOnSuccess": "Successfully invoked method '{{methodName}}' on device '{{deviceId}}' with response {{response}}",
         "invokingMethod": "Trying to invoke method '{{methodName}}' on device '{{deviceId}}' with no payload",
         "invokingMethodWithPayload": "Trying to invoke method '{{methodName}}' on device '{{deviceId}}' with payload {{payload}}",
+        "invokeModuleMethodOnError": "Failed to invoke method on device {{deviceId}} module {{moduleId}}: {{error}}",
+        "invokeModuleMethodOnSuccess": "Successfully invoked method '{{methodName}}' on device '{{deviceId}}'  module {{moduleId}} with response {{response}}",
+        "invokingModuleMethod": "Trying to invoke method '{{methodName}}' on device '{{deviceId}}'  module {{moduleId}} with no payload",
+        "invokingModuleMethodWithPayload": "Trying to invoke method '{{methodName}}' on device '{{deviceId}}'  module {{moduleId}} with payload {{payload}}",
         "interfaceSchemaNotSupported": "Property schema '{{schema}}' is not yet supported in UI forms. Please use the JSON editor below to view and update value",
         "deleteDeviceOnSucceed": "Successfully deleted {{count}} device(s)",
         "deleteDeviceOnError": "Failed to delete {{count}} device(s): {{error}}",

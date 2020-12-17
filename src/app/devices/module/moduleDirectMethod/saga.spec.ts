@@ -17,6 +17,7 @@ import { NotificationType } from '../../api/models/notification';
 describe('directMethodSaga', () => {
     let invokeDirectMethodSagaGenerator: SagaIteratorClone;
     let notifyMethodInvokedGenerator: SagaIteratorClone;
+    let notifyMethodInvokedGeneratorNoPayload: SagaIteratorClone;
 
     const mockInvokeDirectMethod = jest.spyOn(DevicesService, 'invokeDirectMethod').mockImplementation(parameters => {
         return null;
@@ -44,12 +45,16 @@ describe('directMethodSaga', () => {
         responseTimeoutInSeconds
     };
 
+    const invokeMethodParametersNoPayload: InvokeMethodParameters = {...invokeMethodParameters};
+    invokeMethodParametersNoPayload.payload = undefined;
+
     beforeAll(() => {
         invokeDirectMethodSagaGenerator = cloneableGenerator(invokeDirectMethodSagaWorker)(invokeDirectMethodAction.started(invokeMethodParameters));
     });
 
     beforeEach(() => {
         notifyMethodInvokedGenerator = cloneableGenerator(notifyMethodInvokedHelper)(randomNumber, invokeMethodParameters);
+        notifyMethodInvokedGeneratorNoPayload = cloneableGenerator(notifyMethodInvokedHelper)(randomNumber, invokeMethodParametersNoPayload);
     });
 
     describe('notifyMethodInvokedHelper', () => {
@@ -71,6 +76,25 @@ describe('directMethodSaga', () => {
             });
 
             expect(notifyMethodInvokedGenerator.next().done).toEqual(true);
+        });
+
+        it('puts a notification with payload if there is no payload', () => {
+            expect(notifyMethodInvokedGeneratorNoPayload.next()).toEqual({
+                done: false,
+                value: call(raiseNotificationToast, {
+                    id: randomNumber,
+                    text: {
+                        translationKey: ResourceKeys.notifications.invokingMethod,
+                        translationOptions: {
+                            deviceId,
+                            methodName
+                        },
+                    },
+                    type: NotificationType.info,
+                })
+            });
+
+            expect(notifyMethodInvokedGeneratorNoPayload.next().done).toEqual(true);
         });
     });
 

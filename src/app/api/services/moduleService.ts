@@ -6,7 +6,8 @@ import {
     FetchModuleIdentitiesParameters,
     AddModuleIdentityParameters,
     ModuleIdentityTwinParameters,
-    FetchModuleIdentityParameters
+    FetchModuleIdentityParameters,
+    InvokeModuleMethodParameters
 } from '../parameters/moduleParameters';
 import { DataPlaneResponse } from '../models/device';
 import { ModuleIdentity } from '../models/moduleIdentity';
@@ -106,4 +107,29 @@ export const deleteModuleIdentity = async (parameters: FetchModuleIdentityParame
     const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
     await dataPlaneResponseHelper(response);
     return;
+};
+
+export const invokeModuleDirectMethod = async (parameters: InvokeModuleMethodParameters): Promise<DirectMethodResult> => {
+    if (!parameters.deviceId) {
+        return;
+    }
+
+    const connectionInfo = await dataPlaneConnectionHelper();
+    const dataPlaneRequest: DataPlaneRequest = {
+        apiVersion: HUB_DATA_PLANE_API_VERSION,
+        body: JSON.stringify({
+            connectTimeoutInSeconds: parameters.connectTimeoutInSeconds,
+            methodName: parameters.methodName,
+            payload: parameters.payload,
+            responseTimeoutInSeconds: parameters.responseTimeoutInSeconds,
+        }),
+        hostName: connectionInfo.connectionInfo.hostName,
+        httpMethod: HTTP_OPERATION_TYPES.Post,
+        path: `twins/${parameters.deviceId}/modules/${parameters.moduleId}/methods`,
+        sharedAccessSignature: connectionInfo.sasToken,
+    };
+
+    const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
+    const result = await dataPlaneResponseHelper(response);
+    return result && result.body;
 };

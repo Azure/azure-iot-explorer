@@ -14,7 +14,7 @@ exports[`deviceContentNav matches snapshot when the device is edge 1`] = `
                 "iconName": "Server",
               },
               "key": "identity",
-              "name": "deviceContent.navBar.identity",
+              "name": "breadcrumb.identity",
               "url": "#/identity/?deviceId=test",
             },
             Object {
@@ -22,7 +22,7 @@ exports[`deviceContentNav matches snapshot when the device is edge 1`] = `
                 "iconName": "ReopenPages",
               },
               "key": "twin",
-              "name": "deviceContent.navBar.twin",
+              "name": "breadcrumb.twin",
               "url": "#/twin/?deviceId=test",
             },
             Object {
@@ -30,7 +30,7 @@ exports[`deviceContentNav matches snapshot when the device is edge 1`] = `
                 "iconName": "Message",
               },
               "key": "events",
-              "name": "deviceContent.navBar.events",
+              "name": "breadcrumb.events",
               "url": "#/events/?deviceId=test",
             },
             Object {
@@ -38,7 +38,7 @@ exports[`deviceContentNav matches snapshot when the device is edge 1`] = `
                 "iconName": "Remote",
               },
               "key": "methods",
-              "name": "deviceContent.navBar.methods",
+              "name": "breadcrumb.methods",
               "url": "#/methods/?deviceId=test",
             },
             Object {
@@ -46,7 +46,7 @@ exports[`deviceContentNav matches snapshot when the device is edge 1`] = `
                 "iconName": "Mail",
               },
               "key": "cloudToDeviceMessage",
-              "name": "deviceContent.navBar.cloudToDeviceMessage",
+              "name": "breadcrumb.cloudToDeviceMessage",
               "url": "#/cloudToDeviceMessage/?deviceId=test",
             },
           ],
@@ -71,7 +71,7 @@ exports[`deviceContentNav matches snapshot when the device is not edge 1`] = `
                 "iconName": "Server",
               },
               "key": "identity",
-              "name": "deviceContent.navBar.identity",
+              "name": "breadcrumb.identity",
               "url": "#/identity/?deviceId=test",
             },
             Object {
@@ -79,7 +79,7 @@ exports[`deviceContentNav matches snapshot when the device is not edge 1`] = `
                 "iconName": "ReopenPages",
               },
               "key": "twin",
-              "name": "deviceContent.navBar.twin",
+              "name": "breadcrumb.twin",
               "url": "#/twin/?deviceId=test",
             },
             Object {
@@ -87,7 +87,7 @@ exports[`deviceContentNav matches snapshot when the device is not edge 1`] = `
                 "iconName": "Message",
               },
               "key": "events",
-              "name": "deviceContent.navBar.events",
+              "name": "breadcrumb.events",
               "url": "#/events/?deviceId=test",
             },
             Object {
@@ -95,7 +95,7 @@ exports[`deviceContentNav matches snapshot when the device is not edge 1`] = `
                 "iconName": "Remote",
               },
               "key": "methods",
-              "name": "deviceContent.navBar.methods",
+              "name": "breadcrumb.methods",
               "url": "#/methods/?deviceId=test",
             },
             Object {
@@ -103,7 +103,7 @@ exports[`deviceContentNav matches snapshot when the device is not edge 1`] = `
                 "iconName": "Mail",
               },
               "key": "cloudToDeviceMessage",
-              "name": "deviceContent.navBar.cloudToDeviceMessage",
+              "name": "breadcrumb.cloudToDeviceMessage",
               "url": "#/cloudToDeviceMessage/?deviceId=test",
             },
             Object {
@@ -111,7 +111,7 @@ exports[`deviceContentNav matches snapshot when the device is not edge 1`] = `
                 "iconName": "TFVCLogo",
               },
               "key": "moduleIdentity",
-              "name": "deviceContent.navBar.moduleIdentity",
+              "name": "breadcrumb.moduleIdentity",
               "url": "#/moduleIdentity/?deviceId=test",
             },
             Object {
@@ -119,7 +119,7 @@ exports[`deviceContentNav matches snapshot when the device is not edge 1`] = `
                 "iconName": "PlugDisconnected",
               },
               "key": "ioTPlugAndPlay",
-              "name": "deviceContent.navBar.ioTPlugAndPlay",
+              "name": "breadcrumb.ioTPlugAndPlay",
               "url": "#/ioTPlugAndPlay/?deviceId=test",
             },
           ],

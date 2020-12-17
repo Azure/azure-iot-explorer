@@ -37,7 +37,7 @@ export const DigitalTwinDetail: React.FC = () => {
     const [selectedKey, setSelectedKey] = React.useState((NAV_LINK_ITEMS_PNP.find(item => pathname.indexOf(item) > 0) || ROUTE_PARTS.INTERFACES).toString());
     const path = pathname.replace(/\/ioTPlugAndPlayDetail\/.*/, `/${ROUTE_PARTS.DIGITAL_TWINS_DETAIL}`);
     const pivotItems = NAV_LINK_ITEMS_PNP.map(nav =>  {
-        const text = t((ResourceKeys.deviceContent.navBar as any)[nav]); // tslint:disable-line:no-any
+        const text = t((ResourceKeys.breadcrumb as any)[nav]); // tslint:disable-line:no-any
         return (<PivotItem key={nav} headerText={text} itemKey={nav} />);
     });
     const handleLinkClick = (item: PivotItem) => {

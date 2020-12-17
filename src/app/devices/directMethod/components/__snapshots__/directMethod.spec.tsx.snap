@@ -23,56 +23,14 @@ exports[`directMethod matches snapshot 1`] = `
     headerText="directMethod.headerText"
     tooltip="directMethod.tooltip"
   />
-  <div
-    className="device-detail"
-  >
-    <StyledTextFieldBase
-      ariaLabel="directMethod.methodName"
-      label="directMethod.methodName"
-      onChange={[Function]}
-      placeholder="directMethod.methodNamePlaceHolder"
-      required={true}
-      value=""
-    />
-    <div
-      className="method-payload"
-    >
-      <Component
-        tooltipText="directMethod.payloadTooltip"
-      >
-        directMethod.payload
-      </Component>
-      <StyledTextFieldBase
-        className="payload-input"
-        multiline={true}
-        onChange={[Function]}
-        rows={5}
-      />
-      <Component
-        tooltipText="directMethod.connectionTimeoutTooltip"
-      >
-        directMethod.connectionTimeout
-      </Component>
-      <StyledSliderBase
-        ariaLabel="directMethod.connectionTimeout"
-        max={300}
-        min={0}
-        onChange={[Function]}
-        value={10}
-      />
-      <Component
-        tooltipText="directMethod.responseTimeoutTooltip"
-      >
-        directMethod.responseTimeout
-      </Component>
-      <StyledSliderBase
-        ariaLabel="directMethod.responseTimeout"
-        max={300}
-        min={10}
-        onChange={[Function]}
-        value={10}
-      />
-    </div>
-  </div>
+  <Component
+    connectionTimeOut={10}
+    methodName=""
+    responseTimeOut={10}
+    setConnectionTimeOut={[Function]}
+    setMethodName={[Function]}
+    setPayload={[Function]}
+    setResponseTimeOut={[Function]}
+  />
 </Fragment>
 `;

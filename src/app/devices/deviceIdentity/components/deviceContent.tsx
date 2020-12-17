@@ -22,6 +22,7 @@ import { ModuleIdentityTwin } from '../../module/moduleIdentityTwin/components/m
 import { AddModuleIdentity } from '../../module/addModuleIdentity/components/addModuleIdentity';
 import { ModuleIdentityList } from '../../module/moduleIdentityList/components/moduleIdentityList';
 import { ModuleIdentityDetail } from '../../module/moduleIndentityDetail/components/moduleIdentityDetail';
+import { ModuleDirectMethod } from '../../module/moduleDirectMethod/components/moduleDirectMethod';
 import { useAsyncSagaReducer } from '../../../shared/hooks/useAsyncSagaReducer';
 import { deviceIdentityReducer } from '../reducer';
 import { DeviceIdentitySaga } from '../saga';
@@ -96,6 +97,7 @@ export const DeviceContent: React.FC = () => {
                 <Route exact={true} path={`${currentRoutePath}/${ROUTE_PARTS.MODULE_IDENTITY}/${ROUTE_PARTS.ADD}`} component={AddModuleIdentity}/>
                 <Route exact={true} path={`${currentRoutePath}/${ROUTE_PARTS.MODULE_IDENTITY}/${ROUTE_PARTS.MODULE_DETAIL}`} component={ModuleIdentityDetail}/>
                 <Route exact={true} path={`${currentRoutePath}/${ROUTE_PARTS.MODULE_IDENTITY}/${ROUTE_PARTS.MODULE_TWIN}`} component={ModuleIdentityTwin}/>
+                <Route exact={true} path={`${currentRoutePath}/${ROUTE_PARTS.MODULE_IDENTITY}/${ROUTE_PARTS.MODULE_METHOD}`} component={ModuleDirectMethod}/>
             </div>
         );
     };

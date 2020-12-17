@@ -57,37 +57,19 @@ export function* invokeDirectMethodSagaWorker(action: Action<InvokeMethodActionP
 
 export function* notifyMethodInvokedHelper(toastId: number, payload: InvokeMethodParameters) {
     if (payload) {
-        if ( payload.payload !== undefined) { // payload could be boolean value false
-            yield call(raiseNotificationToast, {
-                id: toastId,
-                text: {
-                    translationKey: ResourceKeys.notifications.invokingMethodWithPayload,
-                    translationOptions: {
-                        deviceId: payload.deviceId,
-                        methodName: payload.methodName,
-                        payload: JSON.stringify(payload.payload),
-                    },
+        yield call(raiseNotificationToast, {
+            id: toastId,
+            text: {
+                translationKey: ResourceKeys.notifications.invokingMethodWithPayload,
+                translationOptions: {
+                    deviceId: payload.deviceId,
+                    methodName: payload.methodName,
+                    payload: JSON.stringify(payload.payload),
                 },
-                type: NotificationType.info
-            });
-            return payload.payload;
-        }
-        else
-        {
-            yield call(raiseNotificationToast, {
-                id: toastId,
-                text: {
-                    translationKey: ResourceKeys.notifications.invokingMethod,
-                    translationOptions: {
-                        deviceId: payload.deviceId,
-                        methodName: payload.methodName,
-                    },
-                },
-                type: NotificationType.info,
-            });
-
-            return;
-        }
+            },
+            type: NotificationType.info
+        });
+        return payload.payload;
     }
 }
 
