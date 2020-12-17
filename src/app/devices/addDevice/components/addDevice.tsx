@@ -51,11 +51,16 @@ export const AddDevice: React.FC = () => {
 
     React.useEffect(() => {
         if (synchronizationStatus === SynchronizationStatus.upserted) { // only when device has been added successfully would navigate to list view
-            navigateToDeviceList();
+            navigateToDeviceIdentity();
         }
     },              [synchronizationStatus]);
 
     const navigateToDeviceList = () => {
+        const path = pathname.replace(/\/add/, `/`);
+        history.push(path);
+    };
+
+    const navigateToDeviceIdentity = () => {
         const path = pathname.replace(/\/add/, `/${ROUTE_PARTS.DEVICE_DETAIL}/${ROUTE_PARTS.IDENTITY}/?${ROUTE_PARAMS.DEVICE_ID}=${device.id}`);
         history.push(path);
     };
