@@ -95,10 +95,20 @@ describe('ModuleIdentityDetail', () => {
 
         it('matches snapshot after certificateAuthority module identity is fetched', () => {
             const initialState = {
-                payload: selfSignedModuleIdentity,
+                payload: certificateAuthorityModuleIdentity,
                 synchronizationStatus: SynchronizationStatus.fetched
             };
             jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValueOnce([initialState, jest.fn()]);
+            expect(shallow(<ModuleIdentityDetail/>)).toMatchSnapshot();
+        });
+
+        it('matches snapshot showing delete confirmation', () => {
+            const initialState = {
+                payload: certificateAuthorityModuleIdentity,
+                synchronizationStatus: SynchronizationStatus.fetched
+            };
+            jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValueOnce([initialState, jest.fn()]);
+            jest.spyOn(React, 'useState').mockImplementationOnce(() => React.useState(true));
             expect(shallow(<ModuleIdentityDetail/>)).toMatchSnapshot();
         });
     });

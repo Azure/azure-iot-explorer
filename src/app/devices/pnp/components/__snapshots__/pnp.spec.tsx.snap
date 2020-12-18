@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`pnp matches snapshot 1`] = `
+<ContextProvider
+  value={
+    Object {
+      "dispatch": [Function],
+      "getModelDefinition": [Function],
+      "pnpState": Immutable.Record {
+        "digitalTwin": Object {
+          "payload": null,
+          "synchronizationStatus": 2,
+        },
+        "modelDefinitionWithSource": Object {
+          "payload": null,
+          "synchronizationStatus": 2,
+        },
+      },
+    }
+  }
+>
+  <Component
+    component={[Function]}
+    exact={true}
+    path="/#/devices/deviceDetail/ioTPlugAndPlay/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1;1"
+  />
+  <Component
+    component={[Function]}
+    path="/#/devices/deviceDetail/ioTPlugAndPlay/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1;1/ioTPlugAndPlayDetail"
+  />
+</ContextProvider>
+`;
