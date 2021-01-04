@@ -17,21 +17,23 @@ export const ModuleIdentityDetailHeader: React.FC = () => {
     const { search, pathname } = useLocation();
     const history = useHistory();
 
-    const NAV_LINK_ITEMS = [ROUTE_PARTS.MODULE_DETAIL, ROUTE_PARTS.MODULE_TWIN];
+    const NAV_LINK_ITEMS = [ROUTE_PARTS.MODULE_DETAIL, ROUTE_PARTS.MODULE_TWIN, ROUTE_PARTS.MODULE_METHOD];
     const deviceId = getDeviceIdFromQueryString(search);
     const moduleId = getModuleIdentityIdFromQueryString(search);
 
     const [selectedKey, setSelectedKey] = React.useState((NAV_LINK_ITEMS.find(item => pathname.indexOf(item) > 0) || ROUTE_PARTS.MODULE_DETAIL).toString());
     const path = pathname.replace(/\/moduleIdentity\/.*/, `/${ROUTE_PARTS.MODULE_IDENTITY}`);
     const pivotItems = NAV_LINK_ITEMS.map(nav =>  {
-        const text = t((ResourceKeys.deviceContent.navBar as any)[nav]); // tslint:disable-line:no-any
+        const text = t((ResourceKeys.breadcrumb as any)[nav]); // tslint:disable-line:no-any
         return (<PivotItem key={nav} headerText={text} itemKey={nav} />);
     });
+
     const handleLinkClick = (item: PivotItem) => {
         setSelectedKey(item.props.itemKey);
         const url = `${path}/${item.props.itemKey}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}&${ROUTE_PARAMS.MODULE_ID}=${encodeURIComponent(moduleId)}`;
         history.push(url);
     };
+
     const pivot = (
         <Pivot
             aria-label={t(ResourceKeys.digitalTwin.pivot.ariaLabel)}

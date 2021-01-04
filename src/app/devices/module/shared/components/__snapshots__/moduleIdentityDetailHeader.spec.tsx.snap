@@ -11,14 +11,19 @@ exports[`ModuleIdentityDetailHeader matches snapshot 1`] = `
     selectedKey="moduleDetail"
   >
     <PivotItem
-      headerText="deviceContent.navBar.moduleDetail"
+      headerText="breadcrumb.moduleDetail"
       itemKey="moduleDetail"
       key="moduleDetail"
     />
     <PivotItem
-      headerText="deviceContent.navBar.moduleTwin"
+      headerText="breadcrumb.moduleTwin"
       itemKey="moduleTwin"
       key="moduleTwin"
+    />
+    <PivotItem
+      headerText="breadcrumb.moduleMethod"
+      itemKey="moduleMethod"
+      key="moduleMethod"
     />
   </StyledPivotBase>
 </Stack>

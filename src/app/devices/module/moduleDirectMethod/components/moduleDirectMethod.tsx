@@ -4,30 +4,38 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation } from 'react-router-dom';
+import { Route, useLocation, useHistory } from 'react-router-dom';
 import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
-import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
-import { DIRECT_METHOD } from '../../../constants/iconNames';
-import { HeaderView } from '../../../shared/components/headerView';
-import { useAsyncSagaReducer } from '../../../shared/hooks/useAsyncSagaReducer';
-import { invokeDirectMethodSaga } from '../saga';
-import { invokeDirectMethodAction } from '../actions';
-import { DirectMethodForm } from './directMethodForm';
-import '../../../css/_deviceDetail.scss';
+import { ResourceKeys } from '../../../../../localization/resourceKeys';
+import { getDeviceIdFromQueryString, getModuleIdentityIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
+import { DIRECT_METHOD, NAVIGATE_BACK } from '../../../../constants/iconNames';
+import { useAsyncSagaReducer } from '../../../../shared/hooks/useAsyncSagaReducer';
+import { invokeModuleDirectMethodSaga } from '../saga';
+import { invokeModuleDirectMethodAction } from '../actions';
+import { DirectMethodForm } from '../../../../devices/directMethod/components/directMethodForm';
+import { ModuleIdentityDetailHeader } from '../../shared/components/moduleIdentityDetailHeader';
+import { ROUTE_PARAMS, ROUTE_PARTS } from '../../../../constants/routes';
+import '../../../../css/_deviceDetail.scss';
 
 const DEFAULT_TIMEOUT = 10;
 
-export const DirectMethod: React.FC = () => {
+export const ModuleDirectMethod: React.FC = () => {
     const { t } = useTranslation();
-    const { search } = useLocation();
+    const { search, pathname } = useLocation();
+    const history = useHistory();
     const deviceId = getDeviceIdFromQueryString(search);
+    const moduleId = getModuleIdentityIdFromQueryString(search);
 
-    const [ , dispatch ] = useAsyncSagaReducer(() => undefined, invokeDirectMethodSaga, undefined);
+    const [ , dispatch ] = useAsyncSagaReducer(() => undefined, invokeModuleDirectMethodSaga, undefined);
     const [connectionTimeOut, setConnectionTimeOut] = React.useState<number>(DEFAULT_TIMEOUT);
     const [methodName, setMethodName] = React.useState<string>('');
     const [payload, setPayload] = React.useState<string>('');
     const [responseTimeOut, setResponseTimeOut] = React.useState<number>(DEFAULT_TIMEOUT);
+
+    const navigateToModuleList = () => {
+        const path = pathname.replace(/\/moduleIdentity\/moduleMethod\/.*/, `/${ROUTE_PARTS.MODULE_IDENTITY}`);
+        history.push(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
+    };
 
     const showCommandBar = () => {
         return (
@@ -41,6 +49,15 @@ export const DirectMethod: React.FC = () => {
                         key: DIRECT_METHOD,
                         name: t(ResourceKeys.directMethod.invokeMethodButtonText),
                         onClick: onInvokeMethodClickHandler
+                    }
+                ]}
+                farItems={[
+                    {
+                        ariaLabel: t(ResourceKeys.moduleIdentity.detail.command.back),
+                        iconProps: {iconName: NAVIGATE_BACK},
+                        key: NAVIGATE_BACK,
+                        name: t(ResourceKeys.moduleIdentity.detail.command.back),
+                        onClick: navigateToModuleList
                     }
                 ]}
             />
@@ -58,10 +75,11 @@ export const DirectMethod: React.FC = () => {
     };
 
     const onInvokeMethodClickHandler = () => {
-        dispatch(invokeDirectMethodAction.started({
+        dispatch(invokeModuleDirectMethodAction.started({
             connectTimeoutInSeconds: connectionTimeOut,
             deviceId,
             methodName,
+            moduleId,
             payload: getPayload(payload),
             responseTimeoutInSeconds: responseTimeOut
         }));
@@ -70,10 +88,7 @@ export const DirectMethod: React.FC = () => {
     return (
         <>
             {showCommandBar()}
-            <HeaderView
-                headerText={ResourceKeys.directMethod.headerText}
-                tooltip={ResourceKeys.directMethod.tooltip}
-            />
+            <Route component={ModuleIdentityDetailHeader} />
             <DirectMethodForm
                 methodName={methodName}
                 connectionTimeOut={connectionTimeOut}

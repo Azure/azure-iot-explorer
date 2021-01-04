@@ -1,9 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`directMethod matches snapshot 1`] = `
+exports[`moduleDirectMethod matches snapshot 1`] = `
 <Fragment>
   <StyledCommandBarBase
     className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.back",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "moduleIdentity.detail.command.back",
+          "onClick": [Function],
+        },
+      ]
+    }
     items={
       Array [
         Object {
@@ -20,8 +33,7 @@ exports[`directMethod matches snapshot 1`] = `
     }
   />
   <Component
-    headerText="directMethod.headerText"
-    tooltip="directMethod.tooltip"
+    component={[Function]}
   />
   <Component
     connectionTimeOut={10}

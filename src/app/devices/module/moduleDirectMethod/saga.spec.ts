@@ -5,20 +5,20 @@
 import 'jest';
 // tslint:disable-next-line: no-implicit-dependencies
 import { cloneableGenerator, SagaIteratorClone } from '@redux-saga/testing-utils';
-import { call, put } from 'redux-saga/effects';
-import * as DevicesService from '../../api/services/devicesService';
-import { invokeDirectMethodSagaWorker, notifyMethodInvokedHelper } from './saga';
-import { invokeDirectMethodAction } from './actions';
-import { InvokeMethodParameters } from '../../api/parameters/deviceParameters';
-import { raiseNotificationToast } from '../../notifications/components/notificationToast';
-import { ResourceKeys } from '../../../localization/resourceKeys';
-import { NotificationType } from '../../api/models/notification';
+import { call, put, takeEvery } from 'redux-saga/effects';
+import * as ModuleService from '../../../api/services/moduleService';
+import { invokeModuleDirectMethodSaga, invokeModuleDirectMethodSagaWorker, notifyModuleMethodInvokedHelper } from './saga';
+import { invokeModuleDirectMethodAction } from './actions';
+import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
+import { ResourceKeys } from '../../../../localization/resourceKeys';
+import { NotificationType } from '../../../api/models/notification';
+import { InvokeModuleMethodParameters } from '../../../api/parameters/moduleParameters';
 
-describe('directMethodSaga', () => {
+describe('directMethodSagaWorker', () => {
     let invokeDirectMethodSagaGenerator: SagaIteratorClone;
     let notifyMethodInvokedGenerator: SagaIteratorClone;
 
-    const mockInvokeDirectMethod = jest.spyOn(DevicesService, 'invokeDirectMethod').mockImplementation(parameters => {
+    const mockInvokeDirectMethod = jest.spyOn(ModuleService, 'invokeModuleDirectMethod').mockImplementation(parameters => {
         return null;
     });
 
@@ -30,26 +30,28 @@ describe('directMethodSaga', () => {
 
     const connectTimeoutInSeconds = 10;
     const deviceId = 'device_id';
+    const moduleId = 'module_id';
     const methodName = 'test';
     const payload = {
         body: 'test'
     };
     const responseTimeoutInSeconds = 10;
 
-    const invokeMethodParameters: InvokeMethodParameters = {
+    const invokeModuleMethodParameters: InvokeModuleMethodParameters = {
         connectTimeoutInSeconds,
         deviceId,
         methodName,
+        moduleId,
         payload,
         responseTimeoutInSeconds
     };
 
     beforeAll(() => {
-        invokeDirectMethodSagaGenerator = cloneableGenerator(invokeDirectMethodSagaWorker)(invokeDirectMethodAction.started(invokeMethodParameters));
+        invokeDirectMethodSagaGenerator = cloneableGenerator(invokeModuleDirectMethodSagaWorker)(invokeModuleDirectMethodAction.started(invokeModuleMethodParameters));
     });
 
     beforeEach(() => {
-        notifyMethodInvokedGenerator = cloneableGenerator(notifyMethodInvokedHelper)(randomNumber, invokeMethodParameters);
+        notifyMethodInvokedGenerator = cloneableGenerator(notifyModuleMethodInvokedHelper)(randomNumber, invokeModuleMethodParameters);
     });
 
     describe('notifyMethodInvokedHelper', () => {
@@ -59,10 +61,11 @@ describe('directMethodSaga', () => {
                 value: call(raiseNotificationToast, {
                     id: randomNumber,
                     text: {
-                        translationKey: ResourceKeys.notifications.invokingMethodWithPayload,
+                        translationKey: ResourceKeys.notifications.invokingModuleMethodWithPayload,
                         translationOptions: {
                             deviceId,
                             methodName,
+                            moduleId,
                             payload: JSON.stringify(payload),
                         },
                     },
@@ -78,7 +81,7 @@ describe('directMethodSaga', () => {
         it('notifies that the method is being invoked', () => {
             expect(invokeDirectMethodSagaGenerator.next(randomNumber)).toEqual({
                 done: false,
-                value: call(notifyMethodInvokedHelper, randomNumber, invokeMethodParameters)
+                value: call(notifyModuleMethodInvokedHelper, randomNumber, invokeModuleMethodParameters)
             });
         });
 
@@ -87,7 +90,7 @@ describe('directMethodSaga', () => {
 
             expect(success.next()).toEqual({
                 done: false,
-                value: call(mockInvokeDirectMethod, invokeMethodParameters)
+                value: call(mockInvokeDirectMethod, invokeModuleMethodParameters)
             });
 
             const response = 'hello';
@@ -97,10 +100,11 @@ describe('directMethodSaga', () => {
                 value: call(raiseNotificationToast, {
                     id: randomNumber,
                     text: {
-                        translationKey: ResourceKeys.notifications.invokeMethodOnSuccess,
+                        translationKey: ResourceKeys.notifications.invokeModuleMethodOnSuccess,
                         translationOptions: {
                             deviceId,
                             methodName,
+                            moduleId,
                             response
                         },
                     },
@@ -110,8 +114,8 @@ describe('directMethodSaga', () => {
 
             expect(success.next()).toEqual({
                 done: false,
-                value: put(invokeDirectMethodAction.done({
-                    params: invokeMethodParameters,
+                value: put(invokeModuleDirectMethodAction.done({
+                    params: invokeModuleMethodParameters,
                     result: response
                 }))
             });
@@ -126,10 +130,11 @@ describe('directMethodSaga', () => {
                 value: call(raiseNotificationToast, {
                     id: randomNumber,
                     text: {
-                        translationKey: ResourceKeys.notifications.invokeMethodOnError,
+                        translationKey: ResourceKeys.notifications.invokeModuleMethodOnError,
                         translationOptions: {
                             deviceId,
-                            error
+                            error,
+                            moduleId
                         },
                     },
                     type: NotificationType.error
@@ -138,14 +143,22 @@ describe('directMethodSaga', () => {
 
             expect(failed.next(error)).toEqual({
                 done: false,
-                value: put(invokeDirectMethodAction.failed({
+                value: put(invokeModuleDirectMethodAction.failed({
                     error,
-                    params: invokeMethodParameters
+                    params: invokeModuleMethodParameters
                 }))
             });
 
             expect(failed.next().done).toEqual(true);
         });
 
+    });
+});
+
+describe('directMethodSaga', () => {
+    it('returns specified sagas', () => {
+        expect(invokeModuleDirectMethodSaga().next().value).toEqual(
+            takeEvery(invokeModuleDirectMethodAction.started.type, invokeModuleDirectMethodSagaWorker)
+        );
     });
 });

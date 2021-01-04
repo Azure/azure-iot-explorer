@@ -24,6 +24,7 @@ describe('modelRepositoryLocationView', () => {
     it('matches snapshot when locations greater than 0', () => {
         const initialState = globalStateInitial().merge({
             modelRepositoryState: {
+                configurableRepositorySettings: { path: '' },
                 localFolderSettings: { path: '' },
                 repositoryLocations: [ REPOSITORY_LOCATION_TYPE.Local ]
             }

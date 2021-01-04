@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`notificationListEntry matches snapshot 1`] = `
+<div
+  className="notification-list-entry"
+>
+  <StyledAnnouncedBase
+    message="test"
+  />
+  <div
+    className="success"
+  >
+    <Icon
+      iconName="Completed"
+      style={
+        Object {
+          "fontSize": 18,
+        }
+      }
+    />
+  </div>
+  <div
+    className="body"
+  >
+    <div
+      className="message"
+    >
+      test
+    </div>
+    <div
+      className="time"
+    />
+  </div>
+</div>
+`;

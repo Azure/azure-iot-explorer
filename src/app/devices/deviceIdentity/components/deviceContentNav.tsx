@@ -38,7 +38,7 @@ export const DeviceContentNavComponent: React.FC<DeviceContentNavProps> =  (prop
     const navLinks = navItems.map((nav: string) => ({
         iconProps: { iconName: navIcons[nav] },
         key: nav,
-        name: t((ResourceKeys.deviceContent.navBar as any)[nav]), // tslint:disable-line:no-any
+        name: t((ResourceKeys.breadcrumb as any)[nav]), // tslint:disable-line:no-any
         url: `#${url}/${nav}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`
     }));
 

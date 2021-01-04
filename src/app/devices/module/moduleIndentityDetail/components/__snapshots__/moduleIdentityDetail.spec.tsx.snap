@@ -57,24 +57,8 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after certificateAuthori
       value="moduleId"
     />
     <StyledLabelBase>
-      moduleIdentity.authenticationType.selfSigned.text
+      moduleIdentity.authenticationType.ca.text
     </StyledLabelBase>
-    <Component
-      allowMask={true}
-      ariaLabel="moduleIdentity.authenticationType.selfSigned.primaryThumbprint"
-      label="moduleIdentity.authenticationType.selfSigned.primaryThumbprint"
-      labelCallout="moduleIdentity.authenticationType.selfSigned.primaryThumbprintTooltip"
-      readOnly={true}
-      value="thumbprint1"
-    />
-    <Component
-      allowMask={true}
-      ariaLabel="moduleIdentity.authenticationType.selfSigned.secondaryThumbprint"
-      label="moduleIdentity.authenticationType.selfSigned.secondaryThumbprint"
-      labelCallout="moduleIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip"
-      readOnly={true}
-      value="thumbprint2"
-    />
   </div>
 </Fragment>
 `;
@@ -321,6 +305,99 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after self signed module
       readOnly={true}
       value="thumbprint2"
     />
+  </div>
+</Fragment>
+`;
+
+exports[`ModuleIdentityDetail snapshot matches snapshot showing delete confirmation 1`] = `
+<Fragment>
+  <StyledCommandBarBase
+    className="command"
+    farItems={
+      Array [
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.back",
+          "iconProps": Object {
+            "iconName": "NavigateBack",
+          },
+          "key": "NavigateBack",
+          "name": "moduleIdentity.detail.command.back",
+          "onClick": [Function],
+        },
+      ]
+    }
+    items={
+      Array [
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.refresh",
+          "disabled": false,
+          "iconProps": Object {
+            "iconName": "Refresh",
+          },
+          "key": "Refresh",
+          "name": "moduleIdentity.detail.command.refresh",
+          "onClick": [Function],
+        },
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.delete",
+          "disabled": false,
+          "iconProps": Object {
+            "iconName": "Delete",
+          },
+          "key": "Delete",
+          "name": "moduleIdentity.detail.command.delete",
+          "onClick": [Function],
+        },
+      ]
+    }
+  />
+  <Component
+    component={[Function]}
+  />
+  <div
+    className="module-identity-detail"
+  >
+    <Component
+      allowMask={false}
+      ariaLabel="moduleIdentity.moduleId"
+      label="moduleIdentity.moduleId"
+      labelCallout="moduleIdentity.moduleIdTooltip"
+      readOnly={true}
+      value="moduleId"
+    />
+    <StyledLabelBase>
+      moduleIdentity.authenticationType.ca.text
+    </StyledLabelBase>
+    <div
+      role="dialog"
+    >
+      <Dialog
+        dialogContentProps={
+          Object {
+            "title": "moduleIdentity.detail.deleteConfirmation",
+            "type": 2,
+          }
+        }
+        hidden={false}
+        modalProps={
+          Object {
+            "isBlocking": true,
+          }
+        }
+        onDismiss={[Function]}
+      >
+        <StyledDialogFooterBase>
+          <CustomizedPrimaryButton
+            onClick={[Function]}
+            text="deviceLists.commands.delete.confirmationDialog.confirm"
+          />
+          <CustomizedDefaultButton
+            onClick={[Function]}
+            text="deviceLists.commands.delete.confirmationDialog.cancel"
+          />
+        </StyledDialogFooterBase>
+      </Dialog>
+    </div>
   </div>
 </Fragment>
 `;

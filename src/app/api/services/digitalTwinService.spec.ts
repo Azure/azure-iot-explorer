@@ -8,7 +8,7 @@ import * as DataplaneService from './dataplaneServiceHelper';
 import { HTTP_OPERATION_TYPES, DIGITAL_TWIN_API_VERSION_PREVIEW } from '../../constants/apiConstants';
 import { CONNECTION_TIMEOUT_IN_SECONDS, RESPONSE_TIME_IN_SECONDS } from '../../constants/devices';
 import { getConnectionInfoFromConnectionString } from '../shared/utils';
-import { DataPlaneParameters, JsonPatchOperation } from '../parameters/deviceParameters';
+import { JsonPatchOperation } from '../parameters/deviceParameters';
 
 const deviceId = 'deviceId';
 const connectionString = 'HostName=test-string.azure-devices.net;SharedAccessKeyName=owner;SharedAccessKey=fakeKey=';
@@ -20,12 +20,8 @@ const headers = new Headers({
 // tslint:disable-next-line:no-empty
 const emptyPromise = new Promise(() => {});
 const sasToken = 'testSasToken';
-const mockDataPlaneConnectionHelper = (parameters: DataPlaneParameters) => {
-    if (!parameters || !parameters.connectionString) {
-        return;
-    }
-
-    const connectionInfo = getConnectionInfoFromConnectionString(parameters.connectionString);
+const connectionInfo = getConnectionInfoFromConnectionString(connectionString);
+const mockDataPlaneConnectionHelper = () => {
     if (!(connectionInfo && connectionInfo.hostName)) {
         return;
     }
@@ -38,6 +34,12 @@ const mockDataPlaneConnectionHelper = (parameters: DataPlaneParameters) => {
 describe('digitalTwinService', () => {
 
     context('invokeDigitalTwinInterfaceCommand', () => {
+
+        beforeEach(() => {
+            jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockResolvedValue({
+                connectionInfo: getConnectionInfoFromConnectionString(parameters.connectionString), connectionString, sasToken});
+        });
+
         const parameters = {
             commandName: 'commandName',
             componentName,
@@ -50,9 +52,6 @@ describe('digitalTwinService', () => {
         });
 
         it('calls fetch with specified parameters and invokes DigitalTwinInterfaceCommand when response is 200', async () => {
-            jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockReturnValue({
-                connectionInfo: getConnectionInfoFromConnectionString(parameters.connectionString), sasToken});
-
             // tslint:disable
             const responseBody = {
                 description: 'Invoked'
@@ -74,7 +73,7 @@ describe('digitalTwinService', () => {
                 digitalTwinId: deviceId
             });
 
-            const connectionInformation = mockDataPlaneConnectionHelper({connectionString});
+            const connectionInformation = mockDataPlaneConnectionHelper();
             const queryString = `connectTimeoutInSeconds=${CONNECTION_TIMEOUT_IN_SECONDS}&responseTimeoutInSeconds=${RESPONSE_TIME_IN_SECONDS}`;
             const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
                 apiVersion: DIGITAL_TWIN_API_VERSION_PREVIEW,
@@ -127,7 +126,7 @@ describe('digitalTwinService', () => {
             digitalTwinId: undefined,
             payload: [
                 {
-                    op: JsonPatchOperation.REPLACE,
+                    op: JsonPatchOperation.ADD,
                     path: '/environmentalSensor/state',
                     value: false
                 }]
@@ -137,9 +136,6 @@ describe('digitalTwinService', () => {
         });
 
         it('calls fetch with specified parameters', async () => {
-            jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockReturnValue({
-                connectionInfo: getConnectionInfoFromConnectionString(parameters.connectionString), sasToken});
-
             // tslint:disable
             const response = {
                 json: () => {
@@ -158,7 +154,7 @@ describe('digitalTwinService', () => {
                 digitalTwinId: deviceId
             });
 
-            const connectionInformation = mockDataPlaneConnectionHelper({connectionString});
+            const connectionInformation = mockDataPlaneConnectionHelper();
             const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
                 apiVersion: DIGITAL_TWIN_API_VERSION_PREVIEW,
                 body: JSON.stringify(parameters.payload),
