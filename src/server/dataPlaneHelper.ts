@@ -34,6 +34,9 @@ export const generateDataPlaneResponse = (httpRes: request.Response, body: any, 
 // tslint:disable-next-line:cyclomatic-complexity
 export const processDataPlaneResponse = (httpRes: request.Response, body: any): {body: {body: any, headers?: any}, statusCode: number} => { // tslint:disable-line:no-any
     try {
+        if(!httpRes) {
+            throw new Error('Failed to get any response from iot hub service.');
+        }
         if (httpRes.headers && httpRes.headers[DEVICE_STATUS_HEADER]) { // handles happy failure cases when error code is returned as a header
             let deviceResponseBody;
             try {
