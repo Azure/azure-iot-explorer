@@ -154,7 +154,7 @@ export const DataForm: React.FC<DataFormDataProps & DataFormActionProps> = (prop
 
     const stringifyNumberIfNecessary = () => {
         const value = formData;
-        return typeof value === 'number' && value === 0 ? '0' : value; // javascript takes 0 as false, and json schema form would show it as undefined
+        return typeof value === 'number' && value === 0 && schema !== DtdlSchemaComplexType.Enum ? '0' : value; // javascript takes 0 as false, and json schema form would show it as undefined
     };
 
     const createActionButtons = () => {

@@ -2,8 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { ComboBox } from 'office-ui-fabric-react/lib/components/ComboBox';
-import { DropdownMenuItemType } from 'office-ui-fabric-react/lib/components/Dropdown';
+import { Dropdown, DropdownMenuItemType } from 'office-ui-fabric-react/lib/components/Dropdown';
 import * as React from 'react';
 import { WidgetProps } from 'react-jsonschema-form';
 
@@ -20,10 +19,10 @@ const onChangePassthrough = (props: WidgetProps & { children?: React.ReactNode; 
     props.onChange(value.key);
 };
 
-export const FabricSelect: React.StatelessComponent<WidgetProps> = props => {
+export const FabricSelect = (props: WidgetProps & { children?: React.ReactNode; }) => {
     const options = props.options as Options;
     return (
-        <ComboBox
+        <Dropdown
             selectedKey={props.value}
             disabled={props.disabled}
             placeholder={props.placeholder}
