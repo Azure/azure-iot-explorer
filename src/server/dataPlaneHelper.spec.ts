@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import express = require('express');
-import { generateDataPlaneRequestBody, API_VERSION, processDataPlaneResponse } from './dataPlaneHelper'; // note: remove auto-generated dataPlaneHelper.js in order to run this test
+import { generateDataPlaneRequestBody, processDataPlaneResponse } from './dataPlaneHelper'; // note: remove auto-generated dataPlaneHelper.js in order to run this test
 
 describe('server', () => {
     const hostName = 'testHub.private.azure-devices-int.net';
@@ -30,33 +30,6 @@ describe('server', () => {
                 },
                 method: 'POST',
                 uri: `https://${hostName}/%2FdigitalTwins%2FtestDevice%2Finterfaces%2Fsensor%2Fcommands%2Fturnon?${queryString}&api-version=2019-07-01-preview`,
-            }
-        );
-    });
-
-    it('generates data plane request without API version or query string specified in body', () => {
-        const req =  {
-            body: {
-                body: '{"query":"\\n    SELECT deviceId as DeviceId,\\n    status as Status,\\n    FROM devices WHERE STARTSWITH(devices.deviceId, \'test\')"}',
-                headers: { 'x-ms-max-item-count': 20 },
-                hostName,
-                httpMethod: 'POST',
-                path: 'devices/query',
-                sharedAccessSignature: `SharedAccessSignature sr=${hostName}%2Fdevices%2Fquery&sig=123&se=456&skn=iothubowner`
-            }
-        };
-        const requestBody = generateDataPlaneRequestBody(req as express.Request);
-        expect(requestBody).toEqual(
-            {
-                body: '{"query":"\\n    SELECT deviceId as DeviceId,\\n    status as Status,\\n    FROM devices WHERE STARTSWITH(devices.deviceId, \'test\')"}',
-                headers: {
-                    'Accept': 'application/json',
-                    'Authorization': req.body.sharedAccessSignature,
-                    'Content-Type': 'application/json',
-                    'x-ms-max-item-count': 20
-                },
-                method: 'POST',
-                uri: `https://${hostName}/devices%2Fquery?api-version=${API_VERSION}`,
             }
         );
     });
@@ -105,7 +78,7 @@ describe('server', () => {
 
     it('generates data plane response with no httpResponse', () => {
         const response = processDataPlaneResponse(null, null);
-        expect(response.body).toEqual({body: {Message: `Cannot read property 'headers' of null`}});
+        expect(response.body).toEqual({body: {Message: 'Failed to get any response from iot hub service.'}});
     });
 
     it('generates data plane response using device status code', () => {
