@@ -5,7 +5,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 import { NotificationListEntry, getIconName, getIconColor } from './notificationListEntry';
-import { Notification, NotificationType } from '../../api/models/notification';
+import { NotificationType } from '../../api/models/notification';
 
 describe('notificationListEntry', () => {
 

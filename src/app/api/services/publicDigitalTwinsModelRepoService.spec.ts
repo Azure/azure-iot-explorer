@@ -7,6 +7,36 @@ import { API_VERSION, MODEL_REPO_API_VERSION, HTTP_OPERATION_TYPES, PUBLIC_REPO_
 
 describe('digitalTwinsModelService', () => {
 
+    const model = {
+        '@id': 'urn:azureiot:ModelDiscovery:ModelInformation;1',
+        '@type': 'Interface',
+        'displayName': 'Digital Twin Client SDK Information',
+        'contents': [
+            {
+                '@type': 'Property',
+                'name': 'language',
+                'displayName': 'SDK Language',
+                'schema': 'string',
+                'description': 'The language for the Digital Twin client SDK. For example, Java.'
+            },
+            {
+                '@type': 'Property',
+                'name': 'version',
+                'displayName': 'SDK Version',
+                'schema': 'string',
+                'description': 'Version of the Digital Twin client SDK. For example, 1.3.45.'
+            },
+            {
+                '@type': 'Property',
+                'name': 'vendor',
+                'displayName': 'SDK Vendor',
+                'schema': 'string',
+                'description': 'Name of the vendor who authored the SDK.  For example, Microsoft.'
+            }
+        ],
+        '@context': 'http://azureiot.com/v1/contexts/IoTModel.json'
+    };
+
     context('fetchModel', () => {
         const parameters = {
             expand: undefined,
@@ -20,35 +50,6 @@ describe('digitalTwinsModelService', () => {
 
         it('calls fetch with specified parameters and returns model when response is 200', async () => {
             // tslint:disable
-            const model = {
-                '@id': 'urn:azureiot:Client:SDKInformation;1',
-                '@type': 'Interface',
-                'displayName': 'Digital Twin Client SDK Information',
-                'contents': [
-                    {
-                        '@type': 'Property',
-                        'name': 'language',
-                        'displayName': 'SDK Language',
-                        'schema': 'string',
-                        'description': 'The language for the Digital Twin client SDK. For example, Java.'
-                    },
-                    {
-                        '@type': 'Property',
-                        'name': 'version',
-                        'displayName': 'SDK Version',
-                        'schema': 'string',
-                        'description': 'Version of the Digital Twin client SDK. For example, 1.3.45.'
-                    },
-                    {
-                        '@type': 'Property',
-                        'name': 'vendor',
-                        'displayName': 'SDK Vendor',
-                        'schema': 'string',
-                        'description': 'Name of the vendor who authored the SDK.  For example, Microsoft.'
-                    }
-                ],
-                '@context': 'http://azureiot.com/v1/contexts/IoTModel.json'
-            };
             const response = {
                 json: () => model,
                 headers: {has: () => {}},
@@ -87,6 +88,29 @@ describe('digitalTwinsModelService', () => {
                 createdDate: '',
                 etag: '',
                 model,
+                modelId: '',
+                publisherId: '',
+                publisherName: ''
+            });
+        });
+
+        it('calls fetch and returns model in array when response is 200', async () => {
+            const testModel = [model];
+            // tslint:disable
+            const response = {
+                json: () => testModel,
+                headers: {has: () => {}},
+                ok: true
+            } as any;
+            // tslint:enable
+            jest.spyOn(window, 'fetch').mockResolvedValue(response);
+
+            const result = await DigitalTwinsModelService.fetchModel(parameters);
+
+            expect(result).toEqual({
+                createdDate: '',
+                etag: '',
+                model: testModel[0],
                 modelId: '',
                 publisherId: '',
                 publisherName: ''

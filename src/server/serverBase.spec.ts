@@ -144,4 +144,37 @@ describe('serverBase', () => {
             expect(message.lockToken).toEqual('6');
         });
     });
+
+    context('findMatchingFile', () => {
+        const model = {
+            '@id': 'urn:azureiot:ModelDiscovery:ModelInformation;1',
+            '@type': 'Interface',
+            'displayName': 'Digital Twin Client SDK Information',
+            'contents': [
+                {
+                    '@type': 'Property',
+                    'name': 'language',
+                    'displayName': 'SDK Language',
+                    'schema': 'string',
+                    'description': 'The language for the Digital Twin client SDK. For example, Java.'
+                }
+            ],
+            '@context': 'http://azureiot.com/v1/contexts/IoTModel.json'
+        };
+
+        it('returns null when @id and expected file name does not match', async () => {
+            jest.spyOn(ServerBase, 'readFileFromLocal').mockReturnValue(JSON.stringify(model));
+            expect(ServerBase.findMatchingFile('', ['test.json'], 'urn:azureiot:test:ModelInformation;1')).toEqual(null);
+        });
+
+        it('returns model when @id and expected file name matches', async () => {
+            jest.spyOn(ServerBase, 'readFileFromLocal').mockReturnValue(JSON.stringify(model));
+            expect(ServerBase.findMatchingFile('', ['test.json'], 'urn:azureiot:ModelDiscovery:ModelInformation;1')).toEqual(JSON.stringify(model));
+        });
+
+        it('returns model when @id and expected file name matches and model is an array', async () => {
+            jest.spyOn(ServerBase, 'readFileFromLocal').mockReturnValue(JSON.stringify([model]));
+            expect(ServerBase.findMatchingFile('', ['test.json'], 'urn:azureiot:ModelDiscovery:ModelInformation;1')).toEqual(model);
+        });
+    });
 });

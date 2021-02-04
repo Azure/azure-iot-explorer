@@ -19,10 +19,12 @@ export const NotificationListEntry: React.SFC<NotificationListEntryProps> = (pro
     const { notification } = props;
     const iconName = getIconName(notification.type);
     const iconColor = getIconColor(notification.type);
+    const message = t(notification.text.translationKey, notification.text.translationOptions);
+    const readingFriendlyMessage = message.split('. ');
 
     return (
         <div className="notification-list-entry">
-            {props.showAnnoucement && <Announced message={t(notification.text.translationKey, notification.text.translationOptions)}/>}
+            {props.showAnnoucement && <Announced message={message}/>}
             <div className={iconColor}>
                 <Icon style={{fontSize: 18}} iconName={iconName} />
             </div>
@@ -31,8 +33,7 @@ export const NotificationListEntry: React.SFC<NotificationListEntryProps> = (pro
                 {notification.title &&
                     <div className="title">{t(notification.title.translationKey, notification.title.translationOptions)}</div>
                 }
-
-                <div className="message">{t(notification.text.translationKey, notification.text.translationOptions)}</div>
+                {readingFriendlyMessage.map((m: React.ReactNode) => (<div className="message">{m + '.'}<br/></div>))}
                 <div className="time">{notification.issued}</div>
             </div>
         </div>

@@ -96,14 +96,26 @@ export const handleReadFileRequest = (req: express.Request, res: express.Respons
 };
 
 // tslint:disable-next-line:cyclomatic-complexity
-const findMatchingFile = (filePath: string, fileNames: string[], expectedFileName: string): string => {
+export const findMatchingFile = (filePath: string, fileNames: string[], expectedFileName: string): string => {
     const filesWithParsingError = [];
     for (const fileName of fileNames) {
         if (isFileExtensionJson(fileName)) {
             try {
-                const data = fs.readFileSync(`${filePath}/${fileName}`, 'utf-8');
-                if (JSON.parse(data)['@id'].toString() === expectedFileName) {
-                    return data;
+                const data = readFileFromLocal(filePath, fileName);
+                const parsedData = JSON.parse(data);
+                if (parsedData) {
+                    if (Array.isArray(parsedData)) { // if parsedData is array, it is using expanded dtdl format
+                        for (const pd of parsedData) {
+                            if (pd['@id']?.toString() === expectedFileName) {
+                                return pd;
+                            }
+                        }
+                    }
+                    else {
+                        if (parsedData['@id']?.toString() === expectedFileName) {
+                            return data;
+                        }
+                    }
                 }
             }
             catch (error) {
@@ -116,6 +128,10 @@ const findMatchingFile = (filePath: string, fileNames: string[], expectedFileNam
     }
     return null;
 };
+
+export const readFileFromLocal = (filePath: string, fileName: string) => {
+    return fs.readFileSync(`${filePath}/${fileName}`, 'utf-8');
+}
 
 const isFileExtensionJson = (fileName: string) => {
     const i = fileName.lastIndexOf('.');
@@ -381,7 +397,7 @@ export const stopClient = async () => {
 };
 
 const handleMessages = async (deviceId: string, eventHubClient: EventHubClient, hubInfo: EventHubRuntimeInformation, partitionIds: string[], startTime: number, consumerGroup: string) => {
-    const messages: Message[] = []; // tslint:disable-line: no-any
+    const messages: Message[] = [];
     const onMessage = async (eventData: any) => { // tslint:disable-line: no-any
         if (eventData && eventData.annotations && eventData.annotations[IOTHUB_CONNECTION_DEVICE_ID] === deviceId) {
             const message: Message = {

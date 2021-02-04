@@ -19,6 +19,7 @@ export const convertModelIdentifier = (id: string) => {
     return `${id.toLowerCase().split(':').join('/').replace(';', '-')}.json`;
 };
 
+// tslint:disable-next-line:cyclomatic-complexity
 export const fetchModel = async (parameters: FetchModelParameters): Promise<PnPModel> => {
     const modelIdentifier = encodeURIComponent(convertModelIdentifier(parameters.id));
     const hostName = parameters.url || PUBLIC_REPO_HOSTNAME;
@@ -39,14 +40,28 @@ export const fetchModel = async (parameters: FetchModelParameters): Promise<PnPM
         throw new Error(response.statusText);
     }
 
-    const model =  await response.json() as ModelDefinition;
-    return {
+    const modelInJson = await response.json();
+    const partialResult =  {
         createdDate: getHeaderValue(response, HEADERS.MODEL_CREATED_DATE),
         etag: getHeaderValue(response, HEADERS.ETAG),
-        model,
         modelId: getHeaderValue(response, HEADERS.MODEL_ID),
         publisherId: getHeaderValue(response, HEADERS.MODEL_PUBLISHER_ID),
         publisherName: getHeaderValue(response, HEADERS.MODEL_PUBLISHER_NAME)
+    };
+
+    if (Array.isArray(modelInJson)) { // if modelInJson is array, it is using expanded dtdl format
+        for (const model of modelInJson) {
+            if (model['@id']?.toString() === parameters.id) {
+                return {
+                    ...partialResult,
+                    model
+                };
+            }
+        }
+    }
+    return {
+        ...partialResult,
+        model: modelInJson
     };
 };
 
