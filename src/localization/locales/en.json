@@ -553,7 +553,7 @@
             "stop": "Stop",
             "fetch": "Retrieve events",
             "close": "Back",
-            "simulate": "Simulation device"
+            "simulate": "Simulate a device"
         },
         "consumerGroups": {
             "label": "Consumer group",

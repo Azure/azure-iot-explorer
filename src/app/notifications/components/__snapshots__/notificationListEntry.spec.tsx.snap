@@ -25,7 +25,8 @@ exports[`notificationListEntry matches snapshot 1`] = `
     <div
       className="message"
     >
-      test
+      test.
+      <br />
     </div>
     <div
       className="time"
