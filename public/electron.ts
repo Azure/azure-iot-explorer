@@ -2,10 +2,10 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { app, Menu, BrowserWindow, dialog } from 'electron';
+import { app, Menu, BrowserWindow, dialog, ipcMain, nativeTheme } from 'electron';
 import * as path from 'path';
 import { generateMenu } from './menu';
-import { PLATFORMS } from './constants';
+import { PLATFORMS, MESSAGE_CHANNELS } from './constants';
 
 class Main {
     private static application: Electron.App;
@@ -14,14 +14,15 @@ class Main {
 
     public static start() {
         Main.application = app;
-        Main.setErrorBoundary();
-        Main.setApplicationLock();
-
         Main.application.on('window-all-closed', Main.onAllWindowClosed);
         Main.application.on('ready', Main.onReady);
         Main.application.on('activate', Main.onActivate);
         Main.application.on('second-instance', Main.onSecondInstance);
     }
+
+    private static setMessageHandlers(): void {
+        ipcMain.handle(MESSAGE_CHANNELS.SETTING_HIGH_CONTRAST, Main.onSettingsHighContrast);
+    };
 
     private static setApplicationLock(): void {
         const lock = Main.application.requestSingleInstanceLock();
@@ -45,7 +46,7 @@ class Main {
             if (this.mainWindow.isMinimized()) {
                 this.mainWindow.restore();
             }
-            this.mainWindow.focus();
+            Main.mainWindow.focus();
         }
     }
 
@@ -75,20 +76,30 @@ class Main {
         Menu.setApplicationMenu(menu);
     }
 
-    private static async createMainWindow(): Promise<void> {
-        Main.mainWindow = new BrowserWindow({
+    private static createMainWindow(): void {
+        this.mainWindow = new BrowserWindow({
             width: 900,
             height: 1200,
             webPreferences: {
-                nodeIntegration: false, // is default value after Electron v5
+                nodeIntegration: false,
                 contextIsolation: true, // protect against prototype pollution
                 enableRemoteModule: false, // turn off remote
-                // preload: __dirname  + '/contextBridge.js' // use a preload script
+                preload: __dirname + '/contextBridge.js' // use a preload script
             },
         });
 
+        Main.mainWindow.loadFile(this.target);
         Main.mainWindow.on('closed', Main.onWindowClosed);
-        await Main.mainWindow.loadFile(this.target);
+
+        Main.setErrorBoundary();
+        Main.setApplicationLock();
+        Main.setMessageHandlers();
+    }
+
+    private static onSettingsHighContrast(): Promise<boolean> {
+        console.log('here we are in native');
+        const highContrast = nativeTheme.shouldUseHighContrastColors;
+        return Promise.resolve(highContrast);
     }
 }
 
