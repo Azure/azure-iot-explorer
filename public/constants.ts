@@ -7,5 +7,7 @@ export const PLATFORMS = {
 };
 
 export const MESSAGE_CHANNELS = {
-    SETTING_HIGH_CONTRAST: 'highContrast'
+    DIRECTORY_GET_DIRECTORIES: 'directory_getDirectories',
+    MODEL_REPOSITORY_GET_DEFINITION: 'model_definition',
+    SETTING_HIGH_CONTRAST: 'setting_highContrast',
 };

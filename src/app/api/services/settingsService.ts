@@ -31,7 +31,8 @@ export const getSettingsInterfaceForBrowser = (): SettingsInterface => {
 // high contrast either comes from native app or storage;
 export const getHighContrastSetting = async (): Promise<boolean> => {
     const settings = getSettingsInterface();
-    return settings.useHighContrast();
+    const useHighContrast = await settings.useHighContrast();
+    return useHighContrast;
 };
 
 // theme settings stored in local storage;

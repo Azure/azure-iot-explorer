@@ -6,6 +6,9 @@ import { app, Menu, BrowserWindow, dialog, ipcMain, nativeTheme } from 'electron
 import * as path from 'path';
 import { generateMenu } from './factories/menuFactory';
 import { PLATFORMS, MESSAGE_CHANNELS } from './constants';
+import { onSettingsHighContrast } from './handlers/settingsHandler';
+import { onGetInterfaceDefinition } from './handlers/modelRepositoryHandler';
+import { onGetDirectories } from './handlers/directoryHandler';
 
 class Main {
     private static application: Electron.App;
@@ -21,7 +24,9 @@ class Main {
     }
 
     private static setMessageHandlers(): void {
-        ipcMain.handle(MESSAGE_CHANNELS.SETTING_HIGH_CONTRAST, Main.onSettingsHighContrast);
+        Main.registerHandler(MESSAGE_CHANNELS.SETTING_HIGH_CONTRAST, onSettingsHighContrast);
+        Main.registerHandler(MESSAGE_CHANNELS.MODEL_REPOSITORY_GET_DEFINITION, onGetInterfaceDefinition);
+        Main.registerHandler(MESSAGE_CHANNELS.DIRECTORY_GET_DIRECTORIES, onGetDirectories);
     }
 
     private static setApplicationLock(): void {
@@ -96,9 +101,16 @@ class Main {
         Main.setMessageHandlers();
     }
 
-    private static async onSettingsHighContrast(): Promise<boolean> {
-        const highContrast = nativeTheme.shouldUseHighContrastColors;
-        return Promise.resolve(highContrast);
+    // tslint:disable-next-line: no-any
+    private static registerHandler(channel: string, handler: (event: Electron.IpcMainInvokeEvent, ...args: any[]) => any) {
+        ipcMain.handle(channel, async (...args) => {
+            try {
+                return {result: await Promise.resolve(handler(...args))};
+            } catch (e) {
+                const error = {name: e.name, message: e.message, extra: {...e}};
+                return {error};
+            }
+        });
     }
 }
 
