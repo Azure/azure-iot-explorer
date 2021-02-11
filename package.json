@@ -9,7 +9,7 @@
     "files": [
       "dist/**/*",
       "package.json",
-      "public/electron.js"
+      "public/**/*"
     ],
     "directories": {
       "buildResources": "icon"

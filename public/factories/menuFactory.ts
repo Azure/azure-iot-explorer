@@ -2,13 +2,12 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { app, Menu, MenuItem, BrowserWindow, MenuItemConstructorOptions, shell } from "electron";
-import { PLATFORMS } from './constants';
+import { app, Menu, MenuItem, BrowserWindow, MenuItemConstructorOptions, shell } from 'electron';
+import { PLATFORMS } from '../constants';
 
 export interface GenerateMenuParameters {
     platform: string;
 }
-
 export const generateMenu = (params: GenerateMenuParameters): Menu => {
     const template: MenuItemConstructorOptions[] = [
         generateFileMenu(params),
@@ -44,7 +43,7 @@ export const generateEditMenu = (params: GenerateMenuParameters): MenuItemConstr
             { role: 'selectAll' }
         ]
     };
-}
+};
 
 export const generateViewMenu = (params: GenerateMenuParameters): MenuItemConstructorOptions => {
     return {
@@ -58,7 +57,7 @@ export const generateViewMenu = (params: GenerateMenuParameters): MenuItemConstr
             { role: 'togglefullscreen' }
         ]
     };
-}
+};
 
 export const generateWindowMenu = ({platform}: GenerateMenuParameters): MenuItemConstructorOptions => {
     return {
@@ -72,7 +71,7 @@ export const generateWindowMenu = ({platform}: GenerateMenuParameters): MenuItem
             { role: 'close' }
         ]
     };
-}
+};
 
 export const generateHelpMenu = (params: GenerateMenuParameters): MenuItemConstructorOptions => {
     return {
@@ -80,7 +79,7 @@ export const generateHelpMenu = (params: GenerateMenuParameters): MenuItemConstr
         submenu: [
             {
                 accelerator: 'CommandOrControl+Shift+I',
-                click: (menuItem: MenuItem, browserWindow: BrowserWindow, event: Event) => {
+                click: (menuItem: MenuItem, browserWindow: BrowserWindow) => {
                     browserWindow.webContents.toggleDevTools();
                 },
                 label: 'Toggle Developer Tools'
@@ -99,5 +98,4 @@ export const generateHelpMenu = (params: GenerateMenuParameters): MenuItemConstr
             }
         ]
     };
-}
-
+};

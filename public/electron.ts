@@ -4,13 +4,13 @@
  **********************************************************/
 import { app, Menu, BrowserWindow, dialog, ipcMain, nativeTheme } from 'electron';
 import * as path from 'path';
-import { generateMenu } from './menu';
+import { generateMenu } from './factories/menuFactory';
 import { PLATFORMS, MESSAGE_CHANNELS } from './constants';
 
 class Main {
     private static application: Electron.App;
     private static mainWindow: BrowserWindow;
-    private static target = path.join(__dirname, '/../dist/index.html');
+    private static readonly target = path.join(__dirname, '/../dist/index.html');
 
     public static start() {
         Main.application = app;
@@ -32,7 +32,7 @@ class Main {
     }
 
     private static setErrorBoundary(): void {
-        process.on('uncaughtException', (error: Error) =>
+        process.on('uncaughtException', async (error: Error) =>
             dialog.showMessageBox({
                 message: error?.message || 'Something went wrong. Please try restarting the app.',
                 title: 'Error in controller process',
@@ -42,11 +42,11 @@ class Main {
     }
 
     private static onSecondInstance(): void {
-        if (Main.mainWindow) {
+        if (this.mainWindow) {
             if (this.mainWindow.isMinimized()) {
                 this.mainWindow.restore();
             }
-            Main.mainWindow.focus();
+            this.mainWindow.focus();
         }
     }
 
@@ -77,18 +77,18 @@ class Main {
     }
 
     private static createMainWindow(): void {
-        this.mainWindow = new BrowserWindow({
-            width: 900,
+        Main.mainWindow = new BrowserWindow({
             height: 1200,
+            width: 900,
             webPreferences: {
-                nodeIntegration: false,
                 contextIsolation: true, // protect against prototype pollution
                 enableRemoteModule: false, // turn off remote
+                nodeIntegration: false,
                 preload: __dirname + '/contextBridge.js' // use a preload script
             },
         });
 
-        Main.mainWindow.loadFile(this.target);
+        Main.mainWindow.loadFile(Main.target);
         Main.mainWindow.on('closed', Main.onWindowClosed);
 
         Main.setErrorBoundary();
@@ -96,10 +96,9 @@ class Main {
         Main.setMessageHandlers();
     }
 
-    private static onSettingsHighContrast(): Promise<boolean> {
-        console.log('here we are in native');
+    private static async onSettingsHighContrast(): Promise<boolean> {
         const highContrast = nativeTheme.shouldUseHighContrastColors;
-        return Promise.resolve(highContrast);
+        return Promise.resolve(true);
     }
 }
 

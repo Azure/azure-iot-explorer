@@ -1,9 +1,9 @@
-import { ipcRenderer, contextBridge } from 'electron';
-import { MESSAGE_CHANNELS, API_KEY } from './constants';
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+import { contextBridge } from 'electron';
+import { generateSettingsInterface } from './factories/settingsInterface';
 
-contextBridge.exposeInMainWorld(API_KEY, {
-    useHighContrast: async (): Promise<boolean> => {
-        const result = await ipcRenderer.invoke(MESSAGE_CHANNELS.SETTING_HIGH_CONTRAST);
-        return result;
-    }
-});
+export const SETTINGS_INTERFACE_KEY: string = 'settings';
+contextBridge.exposeInMainWorld(SETTINGS_INTERFACE_KEY, generateSettingsInterface());
