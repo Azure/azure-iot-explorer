@@ -42,11 +42,11 @@ class Main {
     }
 
     private static onSecondInstance(): void {
-        if (this.mainWindow) {
-            if (this.mainWindow.isMinimized()) {
-                this.mainWindow.restore();
+        if (Main.mainWindow) {
+            if (Main.mainWindow.isMinimized()) {
+                Main.mainWindow.restore();
             }
-            this.mainWindow.focus();
+            Main.mainWindow.focus();
         }
     }
 
