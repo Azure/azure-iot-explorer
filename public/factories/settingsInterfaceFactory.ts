@@ -4,7 +4,7 @@
  **********************************************************/
 import { ipcRenderer } from 'electron';
 import { MESSAGE_CHANNELS } from '../constants';
-import type { SettingsInterface } from '../interfaces/settingsInterface';
+import { SettingsInterface } from '../interfaces/settingsInterface';
 
 export const generateSettingsInterface = (): SettingsInterface => {
     return {

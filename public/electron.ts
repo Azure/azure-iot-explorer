@@ -22,7 +22,7 @@ class Main {
 
     private static setMessageHandlers(): void {
         ipcMain.handle(MESSAGE_CHANNELS.SETTING_HIGH_CONTRAST, Main.onSettingsHighContrast);
-    };
+    }
 
     private static setApplicationLock(): void {
         const lock = Main.application.requestSingleInstanceLock();
@@ -98,7 +98,7 @@ class Main {
 
     private static async onSettingsHighContrast(): Promise<boolean> {
         const highContrast = nativeTheme.shouldUseHighContrastColors;
-        return Promise.resolve(true);
+        return Promise.resolve(highContrast);
     }
 }
 

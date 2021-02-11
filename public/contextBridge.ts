@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import { contextBridge } from 'electron';
-import { generateSettingsInterface } from './factories/settingsInterface';
+import { generateSettingsInterface } from './factories/settingsInterfaceFactory';
 
 export const SETTINGS_INTERFACE_KEY: string = 'settings';
 contextBridge.exposeInMainWorld(SETTINGS_INTERFACE_KEY, generateSettingsInterface());
