@@ -9,6 +9,7 @@ import { PLATFORMS, MESSAGE_CHANNELS } from './constants';
 import { onSettingsHighContrast } from './handlers/settingsHandler';
 import { onGetInterfaceDefinition } from './handlers/modelRepositoryHandler';
 import { onGetDirectories } from './handlers/directoryHandler';
+import '../dist/server/serverElectron';
 
 class Main {
     private static application: Electron.App;
