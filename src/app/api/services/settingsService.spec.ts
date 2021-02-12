@@ -2,11 +2,10 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { appConfig, HostMode } from '../../../appConfig/appConfig';
 import { THEME_SELECTION } from '../../constants/browserStorage';
 import { Theme } from '../../shared/contexts/themeContext';
 import { getDarkModeSetting, getHighContrastSetting, setDarkModeSetting } from './settingsService';
-import { getSettingsInterfaceForBrowser } from '../shared/interfaceUtils';
+import * as interfaceUtils from '../shared/interfaceUtils';
 
 describe('getDarkModeSettings', () => {
     it('returns expected setting when dark', () => {
@@ -42,8 +41,12 @@ describe('setDarkModeSetting', () => {
 });
 
 describe('getHighContrastSetting', () => {
-    it('returns expected value', () => {
-        appConfig.hostMode = HostMode.Browser;
-        expect(getHighContrastSetting()).toEqual(getSettingsInterfaceForBrowser().useHighContrast());
+    it('returns expected value', async () => {
+        jest.spyOn(interfaceUtils, 'getSettingsInterface').mockReturnValue({
+            useHighContrast: async () => Promise.resolve(true)
+        });
+
+        const result = await getHighContrastSetting();
+        expect(result).toEqual(true);
     });
 });

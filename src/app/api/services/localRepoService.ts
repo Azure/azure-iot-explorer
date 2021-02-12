@@ -8,8 +8,9 @@ import { MODEL_PARSE_ERROR, ModelParseErrorData } from '../../../../public/inter
 import { ContextBridgeError } from '../../../../public/utils/errorHelper';
 import { getLocalModelRepositoryInterface, getDirectoryInterface } from '../shared/interfaceUtils';
 
-
 export const fetchLocalFile = async (path: string, fileName: string): Promise<object> => {
+    // tslint:disable-next-line: no-console
+    console.log('here');
     const api = getLocalModelRepositoryInterface();
 
     try {

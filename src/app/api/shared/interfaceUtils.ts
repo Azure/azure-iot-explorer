@@ -14,14 +14,8 @@ export const NOT_AVAILABLE = 'Feature is not available in this configuration';
 
 export const getSettingsInterface = (): SettingsInterface => {
     return appConfig.hostMode === HostMode.Electron ?
-        getSettingsInterfaceForElectron() :
+        getElectronInterface(API_INTERFACES.SETTINGS) :
         getSettingsInterfaceForBrowser();
-};
-
-export const getSettingsInterfaceForElectron = (): SettingsInterface => {
-    // tslint:disable-next-line: no-any no-string-literal
-    const api = (window as any)[API_INTERFACES.SETTINGS];
-    return api as SettingsInterface;
 };
 
 export const getSettingsInterfaceForBrowser = (): SettingsInterface => {
@@ -37,18 +31,15 @@ export const getDeviceInterface = (): DeviceInterface => {
     if (appConfig.hostMode !== HostMode.Electron) {
         throw new Error(NOT_AVAILABLE);
     }
-    // tslint:disable-next-line: no-any no-string-literal
-    const api = (window as any)[API_INTERFACES.DEVICE];
-    return api as DeviceInterface;
+    return getElectronInterface(API_INTERFACES.DEVICE);
 };
 
 export const getLocalModelRepositoryInterface = (): ModelRepositoryInterface => {
     if (appConfig.hostMode !== HostMode.Electron) {
         throw new Error(NOT_AVAILABLE);
     }
-    // tslint:disable-next-line: no-any no-string-literal
-    const api = (window as any)[API_INTERFACES.MODEL_DEFINITION];
-    return api as ModelRepositoryInterface;
+
+    return getElectronInterface(API_INTERFACES.MODEL_DEFINITION);
 };
 
 export const getDirectoryInterface = (): DirectoryInterface => {
@@ -56,7 +47,11 @@ export const getDirectoryInterface = (): DirectoryInterface => {
         throw new Error(NOT_AVAILABLE);
     }
 
+    return getElectronInterface(API_INTERFACES.DIRECTORY);
+};
+
+export const getElectronInterface = <T>(name: string): T => {
     // tslint:disable-next-line: no-any no-string-literal
-    const api = (window as any)[API_INTERFACES.DIRECTORY];
-    return api as DirectoryInterface;
+    const api = (window as any)[name];
+    return api as T;
 };
