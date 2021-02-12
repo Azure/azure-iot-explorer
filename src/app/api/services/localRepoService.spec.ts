@@ -2,8 +2,10 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { fetchLocalFile} from './localRepoService';
+import { DEFAULT_DIRECTORY } from './../../constants/apiConstants';
+import { fetchLocalFile, fetchDirectories } from './localRepoService';
 import { ModelDefinitionNotFound } from '../models/modelDefinitionNotFoundError';
+import { ModelDefinitionNotValidJsonError } from '../models/modelDefinitionNotValidJsonError';
 import { MODEL_PARSE_ERROR } from '../../../../public/interfaces/modelRepositoryInterface';
 import * as interfaceUtils from '../shared/interfaceUtils';
 
@@ -30,7 +32,7 @@ describe('fetchLocalFile', () => {
 
         const getInterfaceDefinition = jest.fn().mockResolvedValue(content);
         jest.spyOn(interfaceUtils, 'getLocalModelRepositoryInterface').mockReturnValue({
-            getInterfaceDefinition: jest.fn()
+            getInterfaceDefinition
         });
 
         const result = await fetchLocalFile('f:', 'test.json');
@@ -38,60 +40,58 @@ describe('fetchLocalFile', () => {
         expect(result).toEqual(content);
     });
 
-    // it('throws error when getInterfaceDefinition throws', async () => {
-    //     const error = new Error('bad');
-    //     const getInterfaceDefinition = jest.fn().mockImplementation(() => {throw error})
-    //     jest.spyOn(interfaceUtils, 'getLocalModelRepositoryInterface').mockReturnValue({
-    //         getInterfaceDefinition
-    //     });
+    it('throws error when getInterfaceDefinition throws', async () => {
+        const error = new Error('bad');
+        const getInterfaceDefinition = jest.fn().mockImplementation(() => {throw error})
+        jest.spyOn(interfaceUtils, 'getLocalModelRepositoryInterface').mockReturnValue({
+            getInterfaceDefinition
+        });
 
-    //     await expect(fetchLocalFile('f:', 'test.json')).rejects.toThrow(error);
-    // });
+        try {
+           await fetchLocalFile('f:', 'test.json');
+           expect(true).toEqual(false);
+        } catch(e) {
+            expect(e instanceof ModelDefinitionNotFound).toEqual(true);
+        }
+    });
 
-    // it('throws ModelDefinitionError on MODEL_PARSE_ERROR', async () => {
-    //     const error = new Error(MODEL_PARSE_ERROR);
-    //     const getInterfaceDefinition = jest.fn().mockImplementation(() => {throw { message: MODEL_PARSE_ERROR, data: { fileNames: ['file1', 'file2']}}})
-    //     jest.spyOn(interfaceUtils, 'getLocalModelRepositoryInterface').mockReturnValue({
-    //         getInterfaceDefinition
-    //     });
+    it('throws ModelDefinitionError on MODEL_PARSE_ERROR', async () => {
+        const fileNames = ['file1', 'file2'];
+        const getInterfaceDefinition = jest.fn().mockImplementation(() => {throw { message: MODEL_PARSE_ERROR, data: { fileNames }}})
+        jest.spyOn(interfaceUtils, 'getLocalModelRepositoryInterface').mockReturnValue({
+            getInterfaceDefinition
+        });
 
-    //     await expect(fetchLocalFile('f:', 'test.json')).rejects.toThrowError('M')
-    // });
+        try {
+            await fetchLocalFile('f:', 'test.json');
+            expect(true).toEqual(false);
+         } catch(e) {
+            expect(e instanceof ModelDefinitionNotValidJsonError).toEqual(true);
+            expect(e.message).toEqual(JSON.stringify(fileNames));
+         }
+    });
 });
 
-    // context('fetchDirectories', () => {
-    //     it('returns array of drives when path is not provided', async done => {
-    //         // tslint:disable
-    //         const content = `Name  \r\n  C:    \r\n D:    \r\n \r\n  \r\n  `;
-    //         const response = {
-    //             status: 200,
-    //             text: () => content,
-    //             headers: {},
-    //             ok: true
-    //         } as any;
-    //         // tslint:enable
-    //         jest.spyOn(window, 'fetch').mockResolvedValue(response);
+describe('fetchDirectories', () => {
+    it('calls api.fetchDirectories with expected parameters when path is falsy', async () => {
+        const getDirectories = jest.fn().mockResolvedValue(['a','b','c']);
+        jest.spyOn(interfaceUtils, 'getDirectoryInterface').mockReturnValue({
+            getDirectories
+        });
 
-    //         const result = await LocalRepoService.fetchDirectories('');
-    //         expect(result).toEqual(['C:/', 'D:/']);
-    //         done();
-    //     });
+        const result = await fetchDirectories('');
+        expect(result).toEqual(['a', 'b', 'c']);
+        expect(getDirectories).toHaveBeenCalledWith({ path: DEFAULT_DIRECTORY });
+    });
 
-    //     it('returns array of folders when path is provided', async done => {
-    //         // tslint:disable
-    //         const content = ["documents", "pictures"];
-    //         const response = {
-    //             status: 200,
-    //             json: () => content,
-    //             headers: {},
-    //             ok: true
-    //         } as any;
-    //         // tslint:enable
-    //         jest.spyOn(window, 'fetch').mockResolvedValue(response);
+    it('calls api.fetchDirectories with expected parameters when path is truthy', async () => {
+        const getDirectories = jest.fn().mockResolvedValue(['a','b','c']);
+        jest.spyOn(interfaceUtils, 'getDirectoryInterface').mockReturnValue({
+            getDirectories
+        });
 
-    //         const result = await LocalRepoService.fetchDirectories('C:/');
-    //         expect(result).toEqual(['documents', 'pictures']);
-    //         done();
-    //     });
-    // });
-
+        const result = await fetchDirectories('path');
+        expect(result).toEqual(['a', 'b', 'c']);
+        expect(getDirectories).toHaveBeenCalledWith({ path: 'path'});
+    });
+});

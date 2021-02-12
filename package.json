@@ -2,14 +2,14 @@
   "name": "azure-iot-explorer",
   "version": "0.13.5",
   "description": "This project welcomes contributions and suggestions. Most contributions require you to agree to a\r Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us\r the rights to use your contribution. For details, visit https://cla.microsoft.com.",
-  "main": "public/electron.js",
+  "main": "host/electron.js",
   "build": {
     "appId": "com.microsoft.azure.iot.pnp.ui",
     "productName": "Azure IoT Explorer (preview)",
     "files": [
       "dist/**/*",
       "package.json",
-      "public/**/*"
+      "host/**/*"
     ],
     "directories": {
       "buildResources": "icon"
@@ -50,7 +50,7 @@
     "package:mac": "npm install && npm rebuild node-sass && npm run build && electron-builder -m",
     "preinstall": "npx npm-force-resolutions",
     "webpack:compile": "tsc --target es6 --module CommonJS --moduleResolution node ./webpack.common.ts webpack.electron.ts webpack.dev.ts",
-    "server:compile": "tsc ./src/server/serverElectron.ts ./src/server/serverLocal.ts --skipLibCheck --lib es2015 --inlineSourceMap --outDir ./dist/server/",
+    "server:compile": "tsc ./src/server/serverLocal.ts --skipLibCheck --lib es2015 --inlineSourceMap --outDir ./dist/server/",
     "start": "concurrently \"npm run start:web\" \"npm run start:server\"",
     "start:server": "npm run server:compile && nodemon --inspect ./dist/server/serverLocal.js",
     "start:web": "npm run localization && npm run webpack:compile && webpack-dev-server --config webpack.dev.js --mode development --hot --open --port 3000 --host 127.0.0.1",

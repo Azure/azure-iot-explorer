@@ -5,21 +5,24 @@
 import { IpcMainInvokeEvent } from 'electron';
 import * as fs from 'fs';
 import * as path from 'path';
+import * as util from 'util';
+import * as child_process from 'child_process';
 import { GetDirectoriesParameters } from '../interfaces/directoryInterface';
 
-export const onGetDirectories = (event: IpcMainInvokeEvent, params: GetDirectoriesParameters): string[] => {
+export const onGetDirectories = async (event: IpcMainInvokeEvent, params: GetDirectoriesParameters): Promise<string[]> => {
     return params.path === '$DEFAULT' ?
-        fetchDrivesOnWindows() :
-        fetchDirectories(params.path);
+        await fetchDrivesOnWindows() :
+        Promise.resolve(fetchDirectories(params.path));
 };
 
-const fetchDrivesOnWindows = (): string[] => {
-    const exec = require('child_process').exec;
-    exec('wmic logicaldisk get name', (error: any, stdout: any, stderr: any) => { // tslint:disable-line:no-any
-        if (!error && !stderr) {
-            return stdout as string[];
-        }
-    });
+const fetchDrivesOnWindows = async (): Promise<string[]> => {
+    const promise = util.promisify(child_process.exec);
+    const {stdout} = await promise('wmic logicaldisk get name')
+    if (stdout) {
+        const drives = stdout.split(/\r\n/).map(drive => drive.trim()).filter(drive => drive !== '');
+        drives.shift(); // remove header
+        return drives
+    }
 
     throw new Error();
 };
