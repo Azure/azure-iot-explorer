@@ -4,7 +4,7 @@
  **********************************************************/
 import { MESSAGE_CHANNELS } from '../constants';
 import { ModelRepositoryInterface, GetInterfaceDefinitionParameters, GetDirectoriesParameters } from '../interfaces/modelRepositoryInterface';
-import { invokeInMainWorld } from '../contextBridge';
+import { invokeInMainWorld } from '../utils/invokeHelper';
 
 export const generateModelRepositoryInterface = (): ModelRepositoryInterface => {
     return {

@@ -4,7 +4,7 @@
  **********************************************************/
 import { MESSAGE_CHANNELS } from '../constants';
 import { SettingsInterface } from '../interfaces/settingsInterface';
-import { invokeInMainWorld } from '../contextBridge';
+import { invokeInMainWorld } from '../utils/invokeHelper';
 
 export const generateSettingsInterface = (): SettingsInterface => {
     return {

@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import { SettingsInterface } from '../../../../public/interfaces/settingsInterface';
+import { API_INTERFACES } from '../../../../public/constants';
 import { appConfig, HostMode } from '../../../appConfig/appConfig';
 import { THEME_SELECTION, HIGH_CONTRAST } from '../../constants/browserStorage';
 import { Theme } from '../../shared/contexts/themeContext';
@@ -14,8 +15,8 @@ export const getSettingsInterface = (): SettingsInterface => {
 };
 
 export const getSettingsInterfaceForElectron = (): SettingsInterface => {
-     // tslint:disable-next-line: no-any
-    const api = (window as any).settings;
+    // tslint:disable-next-line: no-any no-string-literal
+    const api = (window as any)[API_INTERFACES.SETTINGS];
     return api as SettingsInterface;
 };
 

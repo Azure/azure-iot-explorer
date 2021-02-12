@@ -3,13 +3,13 @@
  * Licensed under the MIT License
  **********************************************************/
 import { MESSAGE_CHANNELS } from '../constants';
-import { DirectoryInterface, GetDirectoriesParameters } from '../interfaces/directoryInterface';
+import { DeviceInterface, SendMessageToDeviceParameters } from '../interfaces/deviceInterface';
 import { invokeInMainWorld } from '../utils/invokeHelper';
 
-export const generateDirectoryInterface = (): DirectoryInterface => {
+export const generateDeviceInterface = (): DeviceInterface => {
     return {
-        getDirectories: async (params: GetDirectoriesParameters): Promise<string[]> => {
-            return invokeInMainWorld<string[]>(MESSAGE_CHANNELS.DIRECTORY_GET_DIRECTORIES, params);
+        sendMessageToDeviceParameters: async (params: SendMessageToDeviceParameters): Promise<void> => {
+            return invokeInMainWorld<void>(MESSAGE_CHANNELS.DEVICE_SEND_MESSAGE, params);
         },
     };
 };
