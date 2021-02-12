@@ -7,16 +7,21 @@ import { Client } from 'azure-iothub';
 import { Message as CloudToDeviceMessage } from 'azure-iot-common';
 import { SendMessageToDeviceParameters, MessageProperty } from '../interfaces/deviceInterface';
 
-export const sendMessageToDevice = async (event: IpcMainInvokeEvent, params: SendMessageToDeviceParameters): Promise<void> => {
+export const onSendMessageToDevice = async (event: IpcMainInvokeEvent, params: SendMessageToDeviceParameters): Promise<void> => {
     const { deviceId, messageProperties, messageBody, connectionString } = params;
     const hubClient = Client.fromConnectionString(connectionString);
+
     try {
         const message = new CloudToDeviceMessage(messageBody);
         addPropertiesToCloudToDeviceMessage(message, messageProperties || []);
 
         await hubClient.open();
         await hubClient.send(deviceId, message);
+        // tslint:disable-next-line: no-console
+        console.log('sent');
     } finally {
+        // tslint:disable-next-line: no-console
+        console.log('closing');
         await hubClient.close();
     }
 };

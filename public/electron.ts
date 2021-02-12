@@ -2,13 +2,14 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { app, Menu, BrowserWindow, dialog, ipcMain, nativeTheme } from 'electron';
+import { app, Menu, BrowserWindow, dialog, ipcMain } from 'electron';
 import * as path from 'path';
 import { generateMenu } from './factories/menuFactory';
 import { PLATFORMS, MESSAGE_CHANNELS } from './constants';
 import { onSettingsHighContrast } from './handlers/settingsHandler';
 import { onGetInterfaceDefinition } from './handlers/modelRepositoryHandler';
 import { onGetDirectories } from './handlers/directoryHandler';
+import { onSendMessageToDevice } from './handlers/deviceHandler';
 import '../dist/server/serverElectron';
 
 class Main {
@@ -28,6 +29,7 @@ class Main {
         Main.registerHandler(MESSAGE_CHANNELS.SETTING_HIGH_CONTRAST, onSettingsHighContrast);
         Main.registerHandler(MESSAGE_CHANNELS.MODEL_REPOSITORY_GET_DEFINITION, onGetInterfaceDefinition);
         Main.registerHandler(MESSAGE_CHANNELS.DIRECTORY_GET_DIRECTORIES, onGetDirectories);
+        Main.registerHandler(MESSAGE_CHANNELS.DEVICE_SEND_MESSAGE, onSendMessageToDevice);
     }
 
     private static setApplicationLock(): void {
@@ -103,7 +105,7 @@ class Main {
     }
 
     // tslint:disable-next-line: no-any
-    private static registerHandler(channel: string, handler: (event: Electron.IpcMainInvokeEvent, ...args: any[]) => any) {
+    private static registerHandler(channel: string, handler: (...args: any[]) => any) {
         ipcMain.handle(channel, async (...args) => {
             try {
                 return {result: await Promise.resolve(handler(...args))};
