@@ -3,6 +3,9 @@
  * Licensed under the MIT License
  **********************************************************/
 export const MODEL_PARSE_ERROR = 'modelParseError';
+export interface ModelParseErrorData {
+    fileNames: string[];
+}
 
 export interface GetDirectoriesParameters {
     path: string;

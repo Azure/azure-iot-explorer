@@ -17,11 +17,7 @@ export const onSendMessageToDevice = async (event: IpcMainInvokeEvent, params: S
 
         await hubClient.open();
         await hubClient.send(deviceId, message);
-        // tslint:disable-next-line: no-console
-        console.log('sent');
     } finally {
-        // tslint:disable-next-line: no-console
-        console.log('closing');
         await hubClient.close();
     }
 };

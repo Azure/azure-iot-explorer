@@ -13,7 +13,7 @@ export const onGetInterfaceDefinition = (event: IpcMainInvokeEvent, { interfaceI
     }
 
     const fileNames = fs.readdirSync(path);
-    let parseErrors = 0;
+    const parseErrors: string[] = [];
     for (const fileName of fileNames) {
         if (!isFileExtensionJson(fileName)) {
             break;
@@ -25,12 +25,15 @@ export const onGetInterfaceDefinition = (event: IpcMainInvokeEvent, { interfaceI
                 return definition;
             }
         } catch {
-            parseErrors += 1;
+            parseErrors.push(fileName);
         }
     }
 
-    if (parseErrors > 0) {
-        throw new Error(MODEL_PARSE_ERROR);
+    if (parseErrors.length > 0) {
+        const error = new Error(MODEL_PARSE_ERROR);
+        // tslint:disable-next-line: no-any
+        (error as any).fileNames = fileNames;
+        throw error;
     }
 };
 

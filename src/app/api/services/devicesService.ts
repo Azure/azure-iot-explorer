@@ -30,6 +30,8 @@ import { Twin, Device, DataPlaneResponse } from '../models/device';
 import { DeviceIdentity } from '../models/deviceIdentity';
 import { parseEventHubMessage } from './eventHubMessageHelper';
 import { dataPlaneConnectionHelper, dataPlaneResponseHelper, request, DATAPLANE_CONTROLLER_ENDPOINT, DataPlaneRequest } from './dataplaneServiceHelper';
+import { DeviceInterface } from '../../../../public/interfaces/deviceInterface';
+import { API_INTERFACES } from '../../../../public/constants';
 
 const EVENTHUB_CONTROLLER_ENDPOINT = `${CONTROLLER_API_ENDPOINT}${EVENTHUB}`;
 export const EVENTHUB_MONITOR_ENDPOINT = `${EVENTHUB_CONTROLLER_ENDPOINT}${MONITOR}`;
@@ -113,13 +115,15 @@ export const invokeDirectMethod = async (parameters: InvokeMethodParameters): Pr
 
 export const cloudToDeviceMessage = async (parameters: CloudToDeviceMessageParameters) => {
     const connectionInfo = await dataPlaneConnectionHelper();
-    const cloudToDeviceRequest = {
-        ...parameters,
-        connectionString: connectionInfo.connectionString
-    };
 
-    const response = await request(`${CONTROLLER_API_ENDPOINT}${CLOUD_TO_DEVICE}`, cloudToDeviceRequest);
-    await dataPlaneResponseHelper(response);
+    // tslint:disable-next-line: no-any
+    const api = (window as any)[API_INTERFACES.DEVICE] as DeviceInterface;
+    await api.sendMessageToDeviceParameters({
+        connectionString: connectionInfo.connectionString,
+        deviceId: parameters.deviceId,
+        messageBody: parameters.body,
+        messageProperties: parameters.properties
+    });
 };
 
 export const addDevice = async (parameters: AddDeviceParameters): Promise<DeviceIdentity> => {

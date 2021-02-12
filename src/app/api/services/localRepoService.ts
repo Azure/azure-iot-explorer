@@ -5,18 +5,34 @@
 import { READ_FILE, GET_DIRECTORIES, CONTROLLER_API_ENDPOINT, DataPlaneStatusCode, DEFAULT_DIRECTORY } from './../../constants/apiConstants';
 import { ModelDefinitionNotFound } from '../models/modelDefinitionNotFoundError';
 import { ModelDefinitionNotValidJsonError } from '../models/modelDefinitionNotValidJsonError';
+import { ModelRepositoryInterface, MODEL_PARSE_ERROR, ModelParseErrorData } from '../../../../public/interfaces/modelRepositoryInterface';
+import { API_INTERFACES } from '../../../../public/constants';
+import { ContextBridgeError } from '../../../../public/utils/errorHelper';
 
-export const fetchLocalFile = async (path: string, fileName: string): Promise<string> => {
-    const response = await fetch(`${CONTROLLER_API_ENDPOINT}${READ_FILE}/${encodeURIComponent(path)}/${encodeURIComponent(fileName)}`);
-    if (await response.status === DataPlaneStatusCode.NoContentSuccess || response.status === DataPlaneStatusCode.InternalServerError) {
+export const getModelRepositoryInterface = (): ModelRepositoryInterface => {
+    // tslint:disable-next-line: no-any no-string-literal
+    const api = (window as any)[API_INTERFACES.MODEL_DEFINITION];
+    return api as ModelRepositoryInterface;
+};
+
+export const fetchLocalFile = async (path: string, fileName: string): Promise<object> => {
+    const api = getModelRepositoryInterface();
+
+    try {
+        const result = await api.getInterfaceDefinition({
+            interfaceId: fileName,
+            path
+        });
+
+        return result;
+    } catch (error) {
+        if (error.message === MODEL_PARSE_ERROR) {
+            const fileNames = (error as ContextBridgeError<ModelParseErrorData>).data.fileNames;
+            throw new ModelDefinitionNotValidJsonError(JSON.stringify(fileNames));
+        }
+
         throw new ModelDefinitionNotFound();
     }
-
-    if (await response.status === DataPlaneStatusCode.NotFound) {
-        throw new ModelDefinitionNotValidJsonError(await response.text());
-    }
-
-    return response.json();
 };
 
 export const fetchDirectories = async (path: string): Promise<string[]> => {

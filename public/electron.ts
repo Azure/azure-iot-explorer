@@ -10,6 +10,7 @@ import { onSettingsHighContrast } from './handlers/settingsHandler';
 import { onGetInterfaceDefinition } from './handlers/modelRepositoryHandler';
 import { onGetDirectories } from './handlers/directoryHandler';
 import { onSendMessageToDevice } from './handlers/deviceHandler';
+import { formatError } from './utils/errorHelper';
 import '../dist/server/serverElectron';
 
 class Main {
@@ -110,8 +111,8 @@ class Main {
             try {
                 return {result: await Promise.resolve(handler(...args))};
             } catch (e) {
-                const error = {name: e.name, message: e.message, extra: {...e}};
-                return {error};
+               const error = formatError(e);
+               return {error};
             }
         });
     }
