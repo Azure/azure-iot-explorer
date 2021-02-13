@@ -16,5 +16,5 @@ export interface SendMessageToDeviceParameters {
 }
 
 export interface DeviceInterface {
-    sendMessageToDeviceParameters(params: SendMessageToDeviceParameters): Promise<void>;
+    sendMessageToDevice(params: SendMessageToDeviceParameters): Promise<void>;
 }

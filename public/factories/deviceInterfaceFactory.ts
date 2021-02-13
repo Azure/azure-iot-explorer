@@ -8,7 +8,7 @@ import { invokeInMainWorld } from '../utils/invokeHelper';
 
 export const generateDeviceInterface = (): DeviceInterface => {
     return {
-        sendMessageToDeviceParameters: async (params: SendMessageToDeviceParameters): Promise<void> => {
+        sendMessageToDevice: async (params: SendMessageToDeviceParameters): Promise<void> => {
             return invokeInMainWorld<void>(MESSAGE_CHANNELS.DEVICE_SEND_MESSAGE, params);
         },
     };
