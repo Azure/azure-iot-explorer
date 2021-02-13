@@ -21,7 +21,7 @@ const fetchDrivesOnWindows = async (): Promise<string[]> => {
     if (stdout) {
         const drives = stdout.split(/\r\n/).map(drive => drive.trim()).filter(drive => drive !== '');
         drives.shift(); // remove header
-        return drives
+        return drives.map(drive => `${drive}/`);
     }
 
     throw new Error();
