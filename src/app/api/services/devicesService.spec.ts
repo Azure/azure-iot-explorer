@@ -5,7 +5,7 @@
 import 'jest';
 import * as DevicesService from './devicesService';
 import * as DataplaneService from './dataplaneServiceHelper';
-import { HTTP_OPERATION_TYPES, HUB_DATA_PLANE_API_VERSION} from '../../constants/apiConstants';
+import { HTTP_OPERATION_TYPES, HUB_DATA_PLANE_API_VERSION } from '../../constants/apiConstants';
 import { Twin } from '../models/device';
 import { DeviceIdentity } from './../models/deviceIdentity';
 import { buildQueryString, getConnectionInfoFromConnectionString } from '../shared/utils';
