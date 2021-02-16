@@ -6,95 +6,41 @@ import * as React from 'react';
 import { Fabric } from 'office-ui-fabric-react/lib/Fabric';
 import { Customizer } from 'office-ui-fabric-react/lib/Utilities';
 import { createTheme } from 'office-ui-fabric-react/lib/Styling';
-import { SCOPED_SETTINGS, THEME_DARK, THEME_LIGHT, THEME_DARK_HC, THEME_LIGHT_HC } from './app/constants/themes';
-import { Theme, EditorTheme, ThemeContextProvider } from './app/shared/contexts/themeContext';
-import { THEME_SELECTION, HIGH_CONTRAST } from './app/constants/browserStorage';
+import { SCOPED_SETTINGS } from './app/constants/themes';
+import { getDarkModeSetting, getHighContrastSetting, setDarkModeSetting } from './app/api/services/settingsService';
+import { Theme, ThemeContextProvider, ThemeProperties } from './app/shared/contexts/themeContext';
 
-// tslint:disable-next-line: cyclomatic-complexity
-const getThemeFromLocalStorage = () => {
-    let theme: Theme = localStorage.getItem(THEME_SELECTION) as Theme;
-    const isHighContrast = localStorage.getItem(HIGH_CONTRAST) === 'true';
-
-    if (theme) {
-        // standardize theme based on high-contrast setting
-        if (isHighContrast) {
-            if (theme === Theme.dark) {
-                theme = Theme.highContrastBlack;
-            }
-            if (theme === Theme.light) {
-                theme = Theme.highContrastWhite;
-            }
-        } else {
-            if (theme === Theme.highContrastBlack) {
-                theme = Theme.dark;
-            }
-            if (theme === Theme.highContrastWhite) {
-                theme = Theme.light;
-            }
-        }
+export const getTheme = (isDarkMode: boolean, isHighContrast: boolean): Theme => {
+    if (isHighContrast) {
+        return isDarkMode ? Theme.highContrastBlack : Theme.highContrastWhite;
     } else {
-        if (isHighContrast) {
-            theme = Theme.highContrastWhite;
-        } else {
-            theme = Theme.light;
-        }
+        return isDarkMode ? Theme.dark : Theme.light;
     }
-
-    return theme;
 };
 
-const getThemeState = (theme: Theme) => {
-    // tslint:disable-next-line: no-any
-    const themes = {} as any;
-    themes[Theme.dark] = {
-        editorTheme: EditorTheme.dark,
-        fabricTheme: THEME_DARK,
-        theme: Theme.dark
-    };
-    themes[Theme.highContrastBlack] = {
-        editorTheme: EditorTheme.hc_black,
-        fabricTheme: THEME_DARK_HC,
-        theme: Theme.highContrastBlack
+export const Themer: React.FC = ({ children }) => {
+    const [ themeProperties, setThemeProperties ] = React.useState<ThemeProperties>(ThemeProperties[Theme.light]);
+    const currentTheme = createTheme(themeProperties.fabricTheme);
+
+    const initialize = async () => {
+        const darkMode: boolean = getDarkModeSetting();
+        const highContrast: boolean = await getHighContrastSetting();
+        const theme = getTheme(darkMode, highContrast);
+        setThemeProperties(ThemeProperties[theme]);
     };
 
-    themes[Theme.highContrastWhite] = {
-        editorTheme: EditorTheme.hc_black,
-        fabricTheme: THEME_LIGHT_HC,
-        theme: Theme.highContrastWhite
+    const updateThemeHandler = async (isDarkMode: boolean) => {
+        const newTheme = getTheme(isDarkMode, (themeProperties.theme === Theme.highContrastBlack || themeProperties.theme === Theme.highContrastWhite));
+        setThemeProperties(ThemeProperties[newTheme]);
+        setDarkModeSetting(isDarkMode);
     };
-    themes[Theme.light] = {
-        editorTheme: EditorTheme.light,
-        fabricTheme: THEME_LIGHT,
-        theme: Theme.light
-    };
-
-    return themes[theme];
-};
-
-export const Themer: React.FC = props => {
-    const theme = getThemeFromLocalStorage();
-    const [ state, setState ] = React.useState(getThemeState(theme));
 
     React.useEffect(() => {
-        setBodyClass(theme);
-    },              []);
+        initialize();
+    }, []); // tslint:disable-line: align
 
-    const selectTheme = (isDarkMode: boolean, isHighContrast: boolean) => {
-        return isDarkMode && isHighContrast ?
-            Theme.highContrastBlack :
-            isHighContrast ? Theme.highContrastWhite :
-            isDarkMode ? Theme.dark : Theme.light;
-    };
-
-    const updateThemeHandler = (isDarkMode: boolean) => {
-        const isHighContrast = localStorage.getItem(HIGH_CONTRAST) === 'true';
-        const newTheme = selectTheme(isDarkMode, isHighContrast);
-        setBodyClass(newTheme);
-        setState(getThemeState(newTheme));
-        localStorage.setItem(THEME_SELECTION, newTheme);
-    };
-
-    const setBodyClass = (bodyTheme: Theme) => {
+    React.useLayoutEffect(() => {
+        const bodyTheme = themeProperties.theme;
         for (const removedTheme in Theme) {
             if (bodyTheme !== removedTheme) {
                 document.body.classList.remove(`theme-${removedTheme}`);
@@ -103,15 +49,13 @@ export const Themer: React.FC = props => {
         if (!document.body.classList.contains(`theme-${bodyTheme}`)) {
             document.body.classList.add(`theme-${bodyTheme}`);
         }
-    };
-
-    const currentTheme = createTheme(state.fabricTheme);
+    }, [themeProperties]);  // tslint:disable-line: align
 
     return (
         <Customizer settings={{ theme: { ...currentTheme } }} scopedSettings={{ ...SCOPED_SETTINGS }}>
             <Fabric>
-                <ThemeContextProvider value={{ ...state, updateTheme: updateThemeHandler }}>
-                    {props.children}
+                <ThemeContextProvider value={{ ...themeProperties, updateTheme: updateThemeHandler }}>
+                    {children}
                 </ThemeContextProvider>
             </Fabric>
         </Customizer>

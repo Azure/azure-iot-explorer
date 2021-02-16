@@ -348,6 +348,6 @@ src/server/*.js
 
 # js files compiles in the app directore used by server.ts
 src/app/**/*.js
-
-electron.js
+host/**/*.js
+public/**/*.js
 webpack.*.js
