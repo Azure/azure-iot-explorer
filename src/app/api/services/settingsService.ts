@@ -8,8 +8,8 @@ import { getSettingsInterface } from '../shared/interfaceUtils';
 
 // high contrast either comes from native app or storage;
 export const getHighContrastSetting = async (): Promise<boolean> => {
-    const settings = getSettingsInterface();
-    const useHighContrast = await settings.useHighContrast();
+    const api = getSettingsInterface();
+    const useHighContrast = await api.useHighContrast();
     return useHighContrast;
 };
 
