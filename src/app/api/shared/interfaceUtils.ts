@@ -6,6 +6,7 @@ import { SettingsInterface } from '../../../../public/interfaces/settingsInterfa
 import { DeviceInterface } from '../../../../public/interfaces/deviceInterface';
 import { DirectoryInterface } from '../../../../public/interfaces/directoryInterface';
 import { ModelRepositoryInterface } from '../../../../public/interfaces/modelRepositoryInterface';
+import { EventHubInterface } from './../../../../public/interfaces/eventHubInterface';
 import { API_INTERFACES } from '../../../../public/constants';
 import { appConfig, HostMode } from '../../../appConfig/appConfig';
 import { HIGH_CONTRAST } from '../../constants/browserStorage';
@@ -48,6 +49,14 @@ export const getDirectoryInterface = (): DirectoryInterface => {
     }
 
     return getElectronInterface(API_INTERFACES.DIRECTORY);
+};
+
+export const getEventHubInterface = (): EventHubInterface => {
+    if (appConfig.hostMode !== HostMode.Electron) {
+        throw new Error(NOT_AVAILABLE);
+    }
+
+    return getElectronInterface(API_INTERFACES.EVENTHUB);
 };
 
 export const getElectronInterface = <T>(name: string): T => {

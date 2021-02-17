@@ -1,0 +1,127 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+import { IpcMainInvokeEvent } from 'electron';
+import { EventHubClient, EventPosition, ReceiveHandler } from '@azure/event-hubs';
+import { Message, StartEventHubMonitoringParameters } from '../interfaces/eventHubInterface';
+
+let client: EventHubClient = null;
+let messages: Message[] = [];
+let receivers: ReceiveHandler[] = [];
+let connectionString: string = ''; // would equal `${hubConnectionString}` or `${customEventHubConnectionString}/${customEventHubName}`
+
+const IOTHUB_CONNECTION_DEVICE_ID = 'iothub-connection-device-id';
+
+export const onStartMonitoring = async (event: IpcMainInvokeEvent, params: StartEventHubMonitoringParameters) => {
+    return eventHubProvider(params).then(result => {
+        return result;
+    });
+}
+
+export const onStopMonitoring = async () => {
+    try {
+        return stopClient();
+    } catch (error) {
+        // swallow the error as we set client to null anyways
+    }
+}
+
+const eventHubProvider = async (params: StartEventHubMonitoringParameters) =>  {
+    if (needToCreateNewEventHubClient(params)) // hub has changed, reinitialize everything
+    {
+        client = params.customEventHubConnectionString ?
+            await EventHubClient.createFromConnectionString(params.customEventHubConnectionString, params.customEventHubName) :
+            await EventHubClient.createFromIotHubConnectionString(params.hubConnectionString);
+
+        connectionString = params.customEventHubConnectionString ?
+            `${params.customEventHubConnectionString}/${params.customEventHubName}` :
+            params.hubConnectionString;
+        receivers = [];
+        messages = [];
+    }
+
+    return handleMessages(client, params);
+};
+
+const handleMessages = async (eventHubClient: EventHubClient, params: StartEventHubMonitoringParameters) => {
+    if (params.startListeners || !receivers) {
+        const partitionIds = await client.getPartitionIds();
+        const hubInfo = await client.getHubRuntimeInformation();
+        const startTime = params.startTime ? Date.parse(params.startTime) : Date.now();
+
+        partitionIds && partitionIds.forEach(async (partitionId: string) => {
+            const receiveOptions =  {
+                consumerGroup: params.consumerGroup,
+                enableReceiverRuntimeMetric: true,
+                eventPosition: EventPosition.fromEnqueuedTime(startTime),
+                name: `${hubInfo.path}_${partitionId}`,
+            };
+
+            const receiver = eventHubClient.receive(
+                partitionId,
+                onMessage(params.deviceId),
+                (err: object) => {},
+                receiveOptions);
+            receivers.push(receiver);
+        });
+    }
+
+    let results: Message[] = [];
+    messages.forEach(message => {
+        if (!results.some(result => result.systemProperties?.['x-opt-sequence-number'] === message.systemProperties?.['x-opt-sequence-number'])) {
+            // if user click stop/start too refrequently, it's possible duplicate receivers are created before the cleanup happens as it's async
+            // remove duplicate messages before proper cleanup is finished
+            results.push(message);
+        }
+    })
+    messages = []; // empty the array everytime the result is returned
+    return results;
+};
+
+const stopClient = async () => {
+    return stopReceivers().then(() => {
+        return client && client.close().catch(error => {
+            console.log(`client cleanup error: ${error}`); // swallow the error as we will cleanup anyways
+        });
+    }).finally (() => {
+        client = null;
+        receivers = [];
+    });
+};
+
+const stopReceivers = async () => {
+    return Promise.all(
+        receivers.map(receiver => {
+            if (receiver && (receiver.isReceiverOpen === undefined || receiver.isReceiverOpen)) {
+                return stopReceiver(receiver);
+            } else {
+                return null;
+            }
+        })
+    );
+};
+
+const stopReceiver = async (receiver: ReceiveHandler) => {
+    receiver.stop().catch((err: object) => {
+        throw new Error(`receivers cleanup error: ${err}`);
+    });
+}
+
+const needToCreateNewEventHubClient = (parmas: StartEventHubMonitoringParameters): boolean => {
+    return !client ||
+        parmas.hubConnectionString && parmas.hubConnectionString !== connectionString  ||
+        parmas.customEventHubConnectionString && `${parmas.customEventHubConnectionString}/${parmas.customEventHubName}` !== connectionString;
+}
+
+const onMessage = (deviceId: string) => async (eventData: any) => {
+    if (eventData && eventData.annotations && eventData.annotations[IOTHUB_CONNECTION_DEVICE_ID] === deviceId) {
+        const message: Message = {
+            body: eventData.body,
+            enqueuedTime: eventData.enqueuedTimeUtc.toString(),
+            properties: eventData.applicationProperties
+        };
+        message.systemProperties = eventData.annotations;
+        messages.push(message);
+    }
+};

@@ -41,7 +41,7 @@ import { StartTime } from './startTime';
 import './deviceEvents.scss';
 
 const JSON_SPACES = 2;
-const LOADING_LOCK = 2000;
+const LOADING_LOCK = 8000;
 
 export const DeviceEvents: React.FC = () => {
     const { t } = useTranslation();
@@ -107,7 +107,7 @@ export const DeviceEvents: React.FC = () => {
                 if (monitoringData) {
                     setStartTime(new Date());
                     setTimeout(() => {
-                        fetchData();
+                        fetchData(false)();
                     },         LOADING_LOCK);
                 }
                 else {
@@ -140,7 +140,7 @@ export const DeviceEvents: React.FC = () => {
                 setShowPnpModeledEvents={setShowPnpModeledEvents}
                 setShowSimulationPanel={setShowSimulationPanel}
                 dispatch={dispatch}
-                fetchData={fetchData}
+                fetchData={fetchData(true)}
             />
         );
     };
@@ -222,7 +222,7 @@ export const DeviceEvents: React.FC = () => {
                     };
                     return (
                         <article key={index} className="device-events-content">
-                            {<h5>{parseDateTimeString(modifiedEvents.enqueuedTime)}:</h5>}
+                            {<h5>{modifiedEvents.enqueuedTime}:</h5>}
                             <pre>{JSON.stringify(modifiedEvents, undefined, JSON_SPACES)}</pre>
                         </article>
                     );
@@ -475,10 +475,11 @@ export const DeviceEvents: React.FC = () => {
         );
     };
 
-    const fetchData = () => {
+    const fetchData = (startListeners: boolean) => () => {
         let parameters: MonitorEventsParameters = {
             consumerGroup,
             deviceId,
+            startListeners,
             startTime
         };
 
