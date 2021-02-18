@@ -33,7 +33,7 @@ export const NotificationListEntry: React.SFC<NotificationListEntryProps> = (pro
                 {notification.title &&
                     <div className="title">{t(notification.title.translationKey, notification.title.translationOptions)}</div>
                 }
-                {readingFriendlyMessage.map((m: React.ReactNode) => (<div className="message">{m + '.'}<br/></div>))}
+                {readingFriendlyMessage.map((m: React.ReactNode, index: number) => (<div className="message" key={index}>{m + '.'}<br/></div>))}
                 <div className="time">{notification.issued}</div>
             </div>
         </div>

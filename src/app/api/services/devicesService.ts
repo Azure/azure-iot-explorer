@@ -14,10 +14,7 @@ import {
     UpdateDeviceParameters,
     CloudToDeviceMessageParameters
 } from '../parameters/deviceParameters';
-import { CONTROLLER_API_ENDPOINT,
-    EVENTHUB,
-    MONITOR,
-    STOP,
+import {
     HEADERS,
     HTTP_OPERATION_TYPES,
     HUB_DATA_PLANE_API_VERSION
@@ -29,9 +26,6 @@ import { DeviceIdentity } from '../models/deviceIdentity';
 import { dataPlaneConnectionHelper, dataPlaneResponseHelper, request, DATAPLANE_CONTROLLER_ENDPOINT, DataPlaneRequest } from './dataplaneServiceHelper';
 import { getDeviceInterface, getEventHubInterface } from '../shared/interfaceUtils';
 
-const EVENTHUB_CONTROLLER_ENDPOINT = `${CONTROLLER_API_ENDPOINT}${EVENTHUB}`;
-export const EVENTHUB_MONITOR_ENDPOINT = `${EVENTHUB_CONTROLLER_ENDPOINT}${MONITOR}`;
-export const EVENTHUB_STOP_ENDPOINT = `${EVENTHUB_CONTROLLER_ENDPOINT}${STOP}`;
 const PAGE_SIZE = 100;
 
 export interface IoTHubConnectionSettings {
