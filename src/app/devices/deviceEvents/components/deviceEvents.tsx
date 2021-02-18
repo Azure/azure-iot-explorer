@@ -342,7 +342,7 @@ export const DeviceEvents: React.FC = () => {
         return(
             <div className="col-sm2">
                 <Label aria-label={t(ResourceKeys.deviceEvents.columns.timestamp)}>
-                    {enqueuedTime && parseDateTimeString(enqueuedTime)}
+                    {enqueuedTime}
                 </Label>
             </div>
         );

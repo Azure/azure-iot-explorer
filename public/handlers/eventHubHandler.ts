@@ -10,6 +10,7 @@ let client: EventHubClient = null;
 let messages: Message[] = [];
 let receivers: ReceiveHandler[] = [];
 let connectionString: string = ''; // would equal `${hubConnectionString}` or `${customEventHubConnectionString}/${customEventHubName}`
+let deviceId: string = '';
 
 const IOTHUB_CONNECTION_DEVICE_ID = 'iothub-connection-device-id';
 
@@ -28,8 +29,9 @@ export const onStopMonitoring = async () => {
 }
 
 const eventHubProvider = async (params: StartEventHubMonitoringParameters) =>  {
-    if (needToCreateNewEventHubClient(params)) // hub has changed, reinitialize everything
+    if (needToCreateNewEventHubClient(params))
     {
+        // hub has changed, reinitialize client, receivers and mesages
         client = params.customEventHubConnectionString ?
             await EventHubClient.createFromConnectionString(params.customEventHubConnectionString, params.customEventHubName) :
             await EventHubClient.createFromIotHubConnectionString(params.hubConnectionString);
@@ -40,11 +42,12 @@ const eventHubProvider = async (params: StartEventHubMonitoringParameters) =>  {
         receivers = [];
         messages = [];
     }
+    updateDeviceIdIfNecessary(params);
 
-    return handleMessages(client, params);
+    return listeningToMessages(client, params);
 };
 
-const handleMessages = async (eventHubClient: EventHubClient, params: StartEventHubMonitoringParameters) => {
+const listeningToMessages = async (eventHubClient: EventHubClient, params: StartEventHubMonitoringParameters) => {
     if (params.startListeners || !receivers) {
         const partitionIds = await client.getPartitionIds();
         const hubInfo = await client.getHubRuntimeInformation();
@@ -60,13 +63,17 @@ const handleMessages = async (eventHubClient: EventHubClient, params: StartEvent
 
             const receiver = eventHubClient.receive(
                 partitionId,
-                onMessage(params.deviceId),
+                onMessageReceived,
                 (err: object) => {},
                 receiveOptions);
             receivers.push(receiver);
         });
     }
 
+    return handleMessages();
+};
+
+const handleMessages = () => {
     let results: Message[] = [];
     messages.forEach(message => {
         if (!results.some(result => result.systemProperties?.['x-opt-sequence-number'] === message.systemProperties?.['x-opt-sequence-number'])) {
@@ -77,7 +84,7 @@ const handleMessages = async (eventHubClient: EventHubClient, params: StartEvent
     })
     messages = []; // empty the array everytime the result is returned
     return results;
-};
+}
 
 const stopClient = async () => {
     return stopReceivers().then(() => {
@@ -114,7 +121,15 @@ const needToCreateNewEventHubClient = (parmas: StartEventHubMonitoringParameters
         parmas.customEventHubConnectionString && `${parmas.customEventHubConnectionString}/${parmas.customEventHubName}` !== connectionString;
 }
 
-const onMessage = (deviceId: string) => async (eventData: any) => {
+const updateDeviceIdIfNecessary = (parmas: StartEventHubMonitoringParameters) => {
+    if( !deviceId || parmas.deviceId !== deviceId)
+    {
+        deviceId = parmas.deviceId;
+        messages = [];
+    }
+}
+
+const onMessageReceived = async (eventData: any) => {
     if (eventData && eventData.annotations && eventData.annotations[IOTHUB_CONNECTION_DEVICE_ID] === deviceId) {
         const message: Message = {
             body: eventData.body,

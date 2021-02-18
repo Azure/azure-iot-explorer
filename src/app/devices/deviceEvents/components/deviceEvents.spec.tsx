@@ -7,11 +7,9 @@ import * as React from 'react';
 import { act } from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
 import { TextField } from 'office-ui-fabric-react/lib/components/TextField';
-import { Toggle } from 'office-ui-fabric-react/lib/components/Toggle';
 import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
 import { Shimmer } from 'office-ui-fabric-react/lib/components/Shimmer';
 import { DeviceEvents } from './deviceEvents';
-import { appConfig, HostMode } from '../../../../appConfig/appConfig';
 import { DEFAULT_CONSUMER_GROUP } from '../../../constants/apiConstants';
 import { startEventsMonitoringAction } from '../actions';
 import * as AsyncSagaReducer from '../../../shared/hooks/useAsyncSagaReducer';
@@ -36,7 +34,7 @@ describe('deviceEvents', () => {
             body: {
                 humid: 123
             },
-            enqueuedTime: '2019-10-14T21:44:58.397Z',
+            enqueuedTime: 'Wed Feb 17 2021 16:06:00 GMT-0800 (Pacific Standard Time)',
             properties: {
             'iothub-message-schema': 'humid'
             }
@@ -87,6 +85,7 @@ describe('deviceEvents', () => {
             expect(startEventsMonitoringSpy.mock.calls[0][0]).toEqual({
                 consumerGroup: DEFAULT_CONSUMER_GROUP,
                 deviceId: 'device1',
+                startListeners: true,
                 startTime: undefined
             });
         });
@@ -182,7 +181,7 @@ describe('deviceEvents', () => {
                 body: {
                     humid: '123' // intentionally set a value which type is double
                 },
-                enqueuedTime: '2019-10-14T21:44:58.397Z',
+                enqueuedTime: 'Wed Feb 17 2021 16:06:00 GMT-0800 (Pacific Standard Time)',
                 systemProperties: {
                 'iothub-message-schema': 'humid'
                 }
@@ -206,7 +205,7 @@ describe('deviceEvents', () => {
                 body: {
                     'non-matching-key': 0
                 },
-                enqueuedTime: '2019-10-14T21:44:58.397Z',
+                enqueuedTime: 'Wed Feb 17 2021 16:06:00 GMT-0800 (Pacific Standard Time)',
                 systemProperties: {
                 'iothub-message-schema': 'humid'
                 }
@@ -231,7 +230,7 @@ describe('deviceEvents', () => {
                     'humid': 0,
                     'humid-foo': 'test'
                 },
-                enqueuedTime: '2019-10-14T21:44:58.397Z',
+                enqueuedTime: 'Wed Feb 17 2021 16:06:00 GMT-0800 (Pacific Standard Time)',
                 systemProperties: {}
             }];
             jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([{
@@ -258,7 +257,7 @@ describe('deviceEvents', () => {
                 body: {
                     'non-matching-key': 0
                 },
-                enqueuedTime: '2019-10-14T21:44:58.397Z'
+                enqueuedTime: 'Wed Feb 17 2021 16:06:00 GMT-0800 (Pacific Standard Time)'
             }];
             jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([{
                 payload: events,
