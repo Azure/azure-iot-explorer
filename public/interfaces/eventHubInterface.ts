@@ -2,6 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
+import { Message as MessageInterface } from '../../src/app/api/models/messages';
 export interface StartEventHubMonitoringParameters {
     deviceId: string;
     consumerGroup: string;
@@ -13,12 +14,7 @@ export interface StartEventHubMonitoringParameters {
     hubConnectionString?: string;
 }
 
-export interface Message {
-    body: any; // tslint:disable-line:no-any
-    enqueuedTime: string;
-    properties?: any; // tslint:disable-line:no-any
-    systemProperties?: {[key: string]: string};
-}
+export type Message = MessageInterface;
 
 export interface EventHubInterface {
     startEventHubMonitoring(params: StartEventHubMonitoringParameters): Promise<Message[]>;
