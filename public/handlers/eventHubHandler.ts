@@ -14,13 +14,13 @@ let deviceId: string = '';
 
 const IOTHUB_CONNECTION_DEVICE_ID = 'iothub-connection-device-id';
 
-export const onStartMonitoring = async (event: IpcMainInvokeEvent, params: StartEventHubMonitoringParameters) => {
+export const onStartMonitoring = async (event: IpcMainInvokeEvent, params: StartEventHubMonitoringParameters): Promise<Message[]>=> {
     return eventHubProvider(params).then(result => {
         return result;
     });
 }
 
-export const onStopMonitoring = async () => {
+export const onStopMonitoring = async (): Promise<void> => {
     try {
         return stopClient();
     } catch (error) {
