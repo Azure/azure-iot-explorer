@@ -20,7 +20,6 @@ export const OBJECTMODEL_PARAMETER = '/objectmodel?interfaceId=';
 export const API_MODEL = '/Models';
 export const MODEL_ID_REF = '/ref:modelId?';
 export const MODEL_ID = 'modelId=';
-export const API_VERSION = 'api-version=';
 export const AND = '&';
 export const PUBLIC_REPO_HOSTNAME = 'devicemodels.azure.com';
 
@@ -29,7 +28,6 @@ export const MONITOR = '/monitor';
 export const STOP = '/stop';
 
 export const DIGITAL_TWIN_API_VERSION_PREVIEW = '2020-09-30';
-export const MODEL_REPO_API_VERSION = '2020-05-01-preview';
 export const HUB_DATA_PLANE_API_VERSION = '2020-06-30-preview';
 
 export const HEADERS = {
