@@ -610,58 +610,40 @@ describe('deviceTwinService', () => {
             customEventHubConnectionString: undefined,
             deviceId,
             hubConnectionString: undefined,
+            startListeners: true,
             startTime: undefined
         };
-        it ('returns if hubConnectionString is not specified', () => {
-            expect(DevicesService.monitorEvents(parameters)).toEqual(emptyPromise);
-        });
 
-        it('calls fetch with specified parameters and invokes monitorEvents when response is 200', async () => {
+        it('calls startEventHubMonitoring with expected parameters', async () => {
             jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockResolvedValue({
                 connectionInfo: getConnectionInfoFromConnectionString(connectionString), connectionString, sasToken});
-            // tslint:disable
-            const responseBody = [{'body':{'temp':0},'enqueuedTime':'2019-09-06T17:47:11.334Z','properties':{'iothub-message-schema':'temp'}}];
-            const response = {
-                json: () => responseBody,
-                status: 200
-            } as any;
-            // tslint:enable
-            jest.spyOn(window, 'fetch').mockResolvedValue(response);
 
-            const result = await DevicesService.monitorEvents(parameters);
+            const startEventHubMonitoring = jest.fn();
+            jest.spyOn(interfaceUtils, 'getEventHubInterface').mockReturnValue({
+                startEventHubMonitoring,
+                stopEventHubMonitoring: jest.fn()
+            });
 
-            const eventHubRequestParameters = {
+            await DevicesService.monitorEvents(parameters);
+            expect(startEventHubMonitoring).toBeCalledWith({
                 ...parameters,
                 hubConnectionString: connectionString,
                 startTime: parameters.startTime && parameters.startTime.toISOString()
-            };
-
-            const serviceRequestParams = {
-                body: JSON.stringify(eventHubRequestParameters),
-                cache: 'no-cache',
-                credentials: 'include',
-                headers,
-                method: HTTP_OPERATION_TYPES.Post,
-                mode: 'cors',
-            };
-
-            expect(fetch).toBeCalledWith(DevicesService.EVENTHUB_MONITOR_ENDPOINT, serviceRequestParams);
-            expect(result).toEqual(responseBody);
+            });
         });
     });
 
     context('stopMonitoringEvents', () => {
-        it('calls fetch with specified parameters', () => {
-            DevicesService.stopMonitoringEvents();
-            const serviceRequestParams = {
-                body: JSON.stringify({}),
-                cache: 'no-cache',
-                credentials: 'include',
-                headers,
-                method: HTTP_OPERATION_TYPES.Post,
-                mode: 'cors',
-            };
-            expect(fetch).toBeCalledWith(DevicesService.EVENTHUB_STOP_ENDPOINT, serviceRequestParams);
+        it('calls stopEventHubMonitoring', async () => {
+
+            const stopEventHubMonitoring = jest.fn();
+            jest.spyOn(interfaceUtils, 'getEventHubInterface').mockReturnValue({
+                startEventHubMonitoring: jest.fn(),
+                stopEventHubMonitoring
+            });
+
+            await DevicesService.stopMonitoringEvents();
+            expect(stopEventHubMonitoring).toBeCalled();
         });
     });
 });

@@ -2,7 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { appConfig, HostMode, H } from '../../../appConfig/appConfig';
+import { appConfig, HostMode } from '../../../appConfig/appConfig';
 import { HIGH_CONTRAST } from '../../constants/browserStorage';
 import { API_INTERFACES } from '../../../../public/constants';
 import * as interfaceUtils from './interfaceUtils';
@@ -91,5 +91,20 @@ describe('getLocalModelRepositoryInterface', () => {
 
         interfaceUtils.getLocalModelRepositoryInterface()
         expect(factory).toHaveBeenLastCalledWith(API_INTERFACES.MODEL_DEFINITION);
+    });
+});
+
+describe('getEventHubInterface', () => {
+    it('throws exception when mode is not electron', () => {
+        appConfig.hostMode = HostMode.Browser;
+        expect(() => interfaceUtils.getEventHubInterface()).toThrowError(interfaceUtils.NOT_AVAILABLE);
+    });
+
+    it('calls expected factory when mode is electron', () => {
+        appConfig.hostMode = HostMode.Electron;
+        const factory = jest.spyOn(interfaceUtils, 'getElectronInterface');
+
+        interfaceUtils.getEventHubInterface()
+        expect(factory).toHaveBeenLastCalledWith(API_INTERFACES.EVENTHUB);
     });
 });

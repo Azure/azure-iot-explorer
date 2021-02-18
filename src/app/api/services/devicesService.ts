@@ -19,18 +19,15 @@ import { CONTROLLER_API_ENDPOINT,
     MONITOR,
     STOP,
     HEADERS,
-    CLOUD_TO_DEVICE,
     HTTP_OPERATION_TYPES,
-    DataPlaneStatusCode,
     HUB_DATA_PLANE_API_VERSION
 } from '../../constants/apiConstants';
 import { buildQueryString } from '../shared/utils';
 import { Message } from '../models/messages';
 import { Twin, Device, DataPlaneResponse } from '../models/device';
 import { DeviceIdentity } from '../models/deviceIdentity';
-import { parseEventHubMessage } from './eventHubMessageHelper';
 import { dataPlaneConnectionHelper, dataPlaneResponseHelper, request, DATAPLANE_CONTROLLER_ENDPOINT, DataPlaneRequest } from './dataplaneServiceHelper';
-import { getDeviceInterface } from '../shared/interfaceUtils';
+import { getDeviceInterface, getEventHubInterface } from '../shared/interfaceUtils';
 
 const EVENTHUB_CONTROLLER_ENDPOINT = `${CONTROLLER_API_ENDPOINT}${EVENTHUB}`;
 export const EVENTHUB_MONITOR_ENDPOINT = `${EVENTHUB_CONTROLLER_ENDPOINT}${MONITOR}`;
@@ -243,12 +240,14 @@ export const deleteDevices = async (parameters: DeleteDevicesParameters) => {
 
 // tslint:disable-next-line:cyclomatic-complexity
 export const monitorEvents = async (parameters: MonitorEventsParameters): Promise<Message[]> => {
+    const api = getEventHubInterface();
+
     let requestParameters = {
         ...parameters,
         startTime: parameters.startTime && parameters.startTime.toISOString()
     };
 
-    // if either of the info about custom event hub is not provided, use default hub connection string to connect to event hub
+    // if no custom event hub info is provided, use default hub connection string to connect to event hub
     if (!parameters.customEventHubConnectionString || !parameters.customEventHubName) {
         const connectionInfo = await dataPlaneConnectionHelper();
         requestParameters = {
@@ -257,17 +256,11 @@ export const monitorEvents = async (parameters: MonitorEventsParameters): Promis
         };
     }
 
-    const response = await request(EVENTHUB_MONITOR_ENDPOINT, requestParameters);
-    if (response.status === DataPlaneStatusCode.SuccessLowerBound) {
-        const messages = await response.json() as Message[];
-        return  messages && messages.length && messages.length !== 0 && messages.map(message => parseEventHubMessage(message)) || [];
-    }
-    else {
-        const error = await response.json();
-        throw new Error(error && error.name);
-    }
+    const result = await api.startEventHubMonitoring(requestParameters);
+    return result;
 };
 
 export const stopMonitoringEvents = async (): Promise<void> => {
-    await request(EVENTHUB_STOP_ENDPOINT, {});
+    const api = getEventHubInterface();
+    await api.stopEventHubMonitoring();
 };
