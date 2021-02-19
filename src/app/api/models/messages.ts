@@ -2,12 +2,8 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-export interface Message {
-    body: any; // tslint:disable-line:no-any
-    enqueuedTime: string;
-    properties?: any; // tslint:disable-line:no-any
-    systemProperties?: {[key: string]: string};
-}
+import { Message as MessageInterface } from '../../../../public/interfaces/eventHubInterface';
+export type Message = MessageInterface;
 
 export enum MESSAGE_PROPERTIES {
     IOTHUB_MESSAGE_SCHEMA = 'iothub-message-schema'
