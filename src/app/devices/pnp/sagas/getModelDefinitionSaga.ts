@@ -4,7 +4,7 @@
  **********************************************************/
 import { call, put } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
-import { fetchModelDefinition, validateModelDefinitions } from '../../../api/services/publicDigitalTwinsModelRepoService';
+import { fetchModelDefinition } from '../../../api/services/publicDigitalTwinsModelRepoService';
 import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
@@ -65,15 +65,6 @@ export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionP
 
 export function* validateModelDefinitionHelper(modelDefinition: ModelDefinition, location: RepositoryLocationSettings) {
     return true; // commenting out validating model until it aligns with local parser
-    try {
-            if (location.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Public) {
-                return true;
-            }
-            return yield call(validateModelDefinitions, JSON.stringify([modelDefinition]));
-        }
-        catch {
-            return false;
-    }
 }
 
 export const getSplitInterfaceId = (fullName: string) => {
