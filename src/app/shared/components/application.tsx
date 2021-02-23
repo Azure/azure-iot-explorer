@@ -14,6 +14,7 @@ import { AddDevice } from '../../devices/addDevice/components/addDevice';
 import { DeviceContent } from '../../devices/deviceIdentity/components/deviceContent';
 import { Breadcrumb } from './breadcrumb';
 import { Header } from './header';
+import { IotHub } from '../../iotHub/components/iotHub';
 import '../../css/_application.scss';
 
 const NOTIFICATION_AUTO_CLOSE = 5000;
@@ -31,6 +32,7 @@ export const Application: React.FC = () => {
                 <Switch>
                     <Redirect from="/" exact={true} to={`${ROUTE_PARTS.HOME}`}/>
                     <Route path={`/${ROUTE_PARTS.HOME}`} component={HomeView} />
+                    <Route path={'/microsoft.devices/'} component={IotHub} />
                     <Route path={`/${ROUTE_PARTS.RESOURCE}/:hostName/${ROUTE_PARTS.DEVICES}`} component={DeviceList} exact={true}/>
                     <Route path={`/${ROUTE_PARTS.RESOURCE}/:hostName/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.ADD}`} component={AddDevice} exact={true} />
                     <Route path={`/${ROUTE_PARTS.RESOURCE}/:hostName/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DEVICE_DETAIL}/`} component={DeviceContent}/>
