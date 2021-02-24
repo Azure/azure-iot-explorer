@@ -3,8 +3,8 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { useParams, useRouteMatch, Switch, Route, useLocation } from 'react-router-dom';
-import { useBreadcrumbContext } from '../hooks/useNavContext';
+import { useParams, useRouteMatch, Switch, Route } from 'react-router-dom';
+import { useBreadcrumbEntry } from '../../navigation/hooks/useBreadcrumbEntry';
 
 export const IotHub: React.FC = () => {
     const { url }  = useRouteMatch();
@@ -22,6 +22,8 @@ export const IotHub: React.FC = () => {
 
 export const IotHubViews: React.FC = () => {
     const { url}  = useRouteMatch();
+    useBreadcrumbEntry({ name: 'Devices', suffix: 'devices'});
+
     return (
         <Switch>
             <Route path={`${url}/devices`} render={(DeviceList)} exact={true}/>
@@ -38,12 +40,16 @@ export const DeviceList = () => {
 };
 
 export const AddDevice = () => {
+    useBreadcrumbEntry({ name: 'Add Device'});
+
     return (
         <div>Add Device</div>
     );
 };
 
 export const DeviceContent = () => {
+    useBreadcrumbEntry({ name: 'my device'});
+
     return (
         <div>DeviceContent</div>
     );
@@ -55,54 +61,26 @@ export const NotFound = () => {
     );
 };
 
-export interface BreadcrumbAnchorProps {
-    name: string;
-    link?: boolean;
-}
-
-export const BreadcrumbAnchor: React.FC<BreadcrumbAnchorProps> = ({ link, name, children}) => {
-    const { registerEntry, unregisterEntry } = useBreadcrumbContext();
-    const { path, url } = useRouteMatch();
-    const { search } = useLocation();
-
-    // tslint:disable-next-line: no-console
-    console.log('path ' + path);
-    // tslint:disable-next-line: no-console
-    console.log('url ' + url);
-
-    // tslint:disable-next-line: no-console
-    console.log('search ' + search);
-
-    React.useEffect(() => {
-        registerEntry({ name, link, path, search, url });
-        return () => {
-            unregisterEntry({ name, link, path, search, url });
-        };
-    }, [url, search]); // tslint:disable-line: align
-
-    return (
-        <>{children}</>
-    );
-};
-
 export const Host = () => {
     const { hostName } = useParams<{hostName: string}>();
+    useBreadcrumbEntry({ name: hostName });
 
     return (
         <>
             <div>Host</div>
-            <BreadcrumbAnchor name={hostName}>
-                <IotHubViews/>
-            </BreadcrumbAnchor>
+            <IotHubViews/>
         </>
     );
 };
 
 export const Resource = () => {
+    const { resourceName } = useParams<{resourceName: string}>();
+    useBreadcrumbEntry({ name: resourceName });
+
     return (
-        <BreadcrumbAnchor name="resource">
+        <>
             <div>Resource</div>
             <IotHubViews/>
-        </BreadcrumbAnchor>
+        </>
     );
 };

@@ -22,6 +22,7 @@ import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
 import { MultiLineShimmer } from '../../shared/components/multiLineShimmer';
 import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
 import { getConnectionStringsAction } from './../actions';
+import { useBreadcrumbEntry } from '../../navigation/hooks/useBreadcrumbEntry';
 import '../../css/_layouts.scss';
 import './connectionStringsView.scss';
 
@@ -29,6 +30,7 @@ import './connectionStringsView.scss';
 export const ConnectionStringsView: React.FC = () => {
     const { t } = useTranslation();
     const history = useHistory();
+    useBreadcrumbEntry({name: t(ResourceKeys.breadcrumb.resources)});
 
     const [ localState, dispatch ] = useAsyncSagaReducer(connectionStringsReducer, connectionStringsSaga, connectionStringsStateInitial(), 'connectionStringsState');
     const [ connectionStringUnderEdit, setConnectionStringUnderEdit ] = React.useState<string>(undefined);
