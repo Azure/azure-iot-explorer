@@ -3,18 +3,14 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { useParams, useRouteMatch, Switch, Route } from 'react-router-dom';
+import { useParams, useRouteMatch, Switch, Route, useLocation } from 'react-router-dom';
+import { useBreadcrumbContext } from '../hooks/useNavContext';
 
 export const IotHub: React.FC = () => {
-    const { id } = useParams<{id: string}>();
-    const { url}  = useRouteMatch();
-
-    // tslint:disable-next-line: no-console
-    console.log('url' + url);
+    const { url }  = useRouteMatch();
 
     return (
         <>
-            <div>Here we are</div>
             <Switch>
                 <Route path={`${url}/host/:hostName`} component={Host} />
                 <Route path={`${url}/resource/:subscription/:resourceGroup/:resourceName`} component={Resource} />
@@ -59,30 +55,54 @@ export const NotFound = () => {
     );
 };
 
+export interface BreadcrumbAnchorProps {
+    name: string;
+    link?: boolean;
+}
+
+export const BreadcrumbAnchor: React.FC<BreadcrumbAnchorProps> = ({ link, name, children}) => {
+    const { registerEntry, unregisterEntry } = useBreadcrumbContext();
+    const { path, url } = useRouteMatch();
+    const { search } = useLocation();
+
+    // tslint:disable-next-line: no-console
+    console.log('path ' + path);
+    // tslint:disable-next-line: no-console
+    console.log('url ' + url);
+
+    // tslint:disable-next-line: no-console
+    console.log('search ' + search);
+
+    React.useEffect(() => {
+        registerEntry({ name, link, path, search, url });
+        return () => {
+            unregisterEntry({ name, link, path, search, url });
+        };
+    }, [url, search]); // tslint:disable-line: align
+
+    return (
+        <>{children}</>
+    );
+};
+
 export const Host = () => {
-    const match = useRouteMatch();
-    // tslint:disable-next-line: no-console
-    console.log('host path' + match.path);
-    // tslint:disable-next-line: no-console
-    console.log('host url' + match.url);
+    const { hostName } = useParams<{hostName: string}>();
+
     return (
         <>
             <div>Host</div>
-            <IotHubViews/>
+            <BreadcrumbAnchor name={hostName}>
+                <IotHubViews/>
+            </BreadcrumbAnchor>
         </>
     );
 };
 
 export const Resource = () => {
-    const match = useRouteMatch();
-    // tslint:disable-next-line: no-console
-    console.log('resource path' + match.path);
-    // tslint:disable-next-line: no-console
-    console.log('resource url' + match.url);
     return (
-        <>
+        <BreadcrumbAnchor name="resource">
             <div>Resource</div>
             <IotHubViews/>
-        </>
+        </BreadcrumbAnchor>
     );
 };

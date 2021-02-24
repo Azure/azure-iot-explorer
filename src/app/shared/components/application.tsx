@@ -14,35 +14,44 @@ import { AddDevice } from '../../devices/addDevice/components/addDevice';
 import { DeviceContent } from '../../devices/deviceIdentity/components/deviceContent';
 import { Breadcrumb } from './breadcrumb';
 import { Header } from './header';
-import { IotHub } from '../../iotHub/components/iotHub';
+import { IotHub, BreadcrumbAnchor } from '../../iotHub/components/iotHub';
 import '../../css/_application.scss';
+
+import { useBreadcrumbNavigation, BreadcrumbContext } from '../../iotHub/hooks/useNavContext';
 
 const NOTIFICATION_AUTO_CLOSE = 5000;
 
 export const Application: React.FC = () => {
+    const breadcrumbs = useBreadcrumbNavigation();
+    // tslint:disable-next-line: no-console
+    console.log('length' + breadcrumbs.stack.length);
+
     return (
         <div className="app">
-            <div className="masthead">
-                <Header />
-            </div>
-            <nav className="navigation">
-                <Route component={Breadcrumb} />
-            </nav>
-            <main role="main" className="content">
-                <Switch>
-                    <Redirect from="/" exact={true} to={`${ROUTE_PARTS.HOME}`}/>
-                    <Route path={`/${ROUTE_PARTS.HOME}`} component={HomeView} />
-                    <Route path={'/microsoft.devices/'} component={IotHub} />
-                    <Route path={`/${ROUTE_PARTS.RESOURCE}/:hostName/${ROUTE_PARTS.DEVICES}`} component={DeviceList} exact={true}/>
-                    <Route path={`/${ROUTE_PARTS.RESOURCE}/:hostName/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.ADD}`} component={AddDevice} exact={true} />
-                    <Route path={`/${ROUTE_PARTS.RESOURCE}/:hostName/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DEVICE_DETAIL}/`} component={DeviceContent}/>
-                    <Route component={NoMatchError}/>
-                </Switch>
-            </main>
-            <ToastContainer
-                autoClose={NOTIFICATION_AUTO_CLOSE}
-                toastClassName="toast-notification"
-            />
+            <BreadcrumbContext.Provider value={breadcrumbs}>
+                <div className="masthead">
+                    <Header />
+                </div>
+                <nav className="navigation">
+                    <Route component={Breadcrumb} />
+                </nav>
+                <main role="main" className="content">
+                        <BreadcrumbAnchor name="Home" link={true}/>
+                        <Switch>
+                            <Redirect from="/" exact={true} to={`${ROUTE_PARTS.HOME}`}/>
+                            <Route path={`/${ROUTE_PARTS.HOME}`} component={HomeView} />
+                            <Route path={'/microsoft.devices/'} component={IotHub} />
+                            <Route path={`/${ROUTE_PARTS.RESOURCE}/:hostName/${ROUTE_PARTS.DEVICES}`} component={DeviceList} exact={true}/>
+                            <Route path={`/${ROUTE_PARTS.RESOURCE}/:hostName/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.ADD}`} component={AddDevice} exact={true} />
+                            <Route path={`/${ROUTE_PARTS.RESOURCE}/:hostName/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DEVICE_DETAIL}/`} component={DeviceContent}/>
+                            <Route component={NoMatchError}/>
+                        </Switch>
+                </main>
+                <ToastContainer
+                    autoClose={NOTIFICATION_AUTO_CLOSE}
+                    toastClassName="toast-notification"
+                />
+            </BreadcrumbContext.Provider>
         </div>
     );
 };

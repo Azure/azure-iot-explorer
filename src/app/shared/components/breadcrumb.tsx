@@ -9,20 +9,24 @@ import { ResourceKeys } from '../../../localization/resourceKeys';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../constants/routes';
 import { getDeviceIdFromQueryString, getComponentNameFromQueryString } from '../utils/queryStringHelper';
 import { getHubInformationFromLocalStorage } from '../hooks/localStorageInformationRetriever';
+import { useBreadcrumbContext } from '../../iotHub/hooks/useNavContext';
 import '../../css/_breadcrumb.scss';
 
 export const Breadcrumb: React.FC = () => {
-    const hostName = getHubInformationFromLocalStorage().hostName;
-
-    const renderBreadcrumbItem = () => <BreadcrumbItem hostName={hostName}/>;
+    const { stack } = useBreadcrumbContext();
 
     return (
         <ul className="breadcrumb">
-            <Route path="/:path" component={renderBreadcrumbItem} />
+            {stack.map(s =>
+                <li className="breadcrumb-item" key={s.path}>
+                     <NavLink to={`${s.url}${s.search || ''}`}>
+                        {s.name}
+                    </NavLink>
+                </li>)
+            }
         </ul>
     );
 };
-
 export interface BreadcrumbItemDataProps {
     hostName: string;
 }
