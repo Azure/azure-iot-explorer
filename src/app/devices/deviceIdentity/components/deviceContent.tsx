@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Route, useLocation } from 'react-router-dom';
+import { Route, useLocation, useRouteMatch } from 'react-router-dom';
 import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
 import { DeviceIdentityInformation } from './deviceIdentity';
 import { DeviceTwin } from '../../deviceTwin/components/deviceTwin';
@@ -28,6 +28,7 @@ import { deviceIdentityReducer } from '../reducer';
 import { DeviceIdentitySaga } from '../saga';
 import { deviceIdentityStateInitial } from '../state';
 import { getDeviceIdentityAction, updateDeviceIdentityAction } from '../actions';
+import { useBreadcrumbEntry } from '../../../navigation/hooks/useBreadcrumbEntry';
 import { DeviceIdentity } from '../../../api/models/deviceIdentity';
 import { Pnp } from '../../pnp/components/pnp';
 import '../../../css/_deviceContent.scss';
@@ -36,7 +37,9 @@ import '../../../css/_layouts.scss';
 export const DeviceContent: React.FC = () => {
     const { t } = useTranslation();
     const { search } = useLocation();
+    const { url } = useRouteMatch();
     const deviceId = getDeviceIdFromQueryString(search);
+    useBreadcrumbEntry({name: deviceId });
 
     const [ localState, dispatch ] = useAsyncSagaReducer(deviceIdentityReducer, DeviceIdentitySaga, deviceIdentityStateInitial(), 'deviceIdentityState');
     const synchronizationStatus = localState.synchronizationStatus;
@@ -83,21 +86,20 @@ export const DeviceContent: React.FC = () => {
     };
 
     const renderDeviceContentDetail = () => {
-        const currentRoutePath = `/${ROUTE_PARTS.RESOURCE}/:hostName/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DEVICE_DETAIL}`;
         return (
             <div className={'device-content-detail' + (!appMenuVisible ? ' collapsed' : '')}>
-                <Route path={`${currentRoutePath}/${ROUTE_PARTS.IDENTITY}`} component={createDeviceIdentityComponent} />
-                <Route path={`${currentRoutePath}/${ROUTE_PARTS.TWIN}`} component={DeviceTwin} />
-                <Route path={`${currentRoutePath}/${ROUTE_PARTS.EVENTS}`} component={DeviceEvents}/>
-                <Route path={`${currentRoutePath}/${ROUTE_PARTS.METHODS}`} component={DirectMethod} />
-                <Route path={`${currentRoutePath}/${ROUTE_PARTS.CLOUD_TO_DEVICE_MESSAGE}`} component={CloudToDeviceMessage} />
-                <Route path={`${currentRoutePath}/${ROUTE_PARTS.DIGITAL_TWINS}`} component={Pnp} />
+                <Route path={`${url}/${ROUTE_PARTS.IDENTITY}`} render={createDeviceIdentityComponent} />
+                <Route path={`${url}/${ROUTE_PARTS.TWIN}`} component={DeviceTwin} />
+                <Route path={`${url}/${ROUTE_PARTS.EVENTS}`} component={DeviceEvents}/>
+                <Route path={`${url}/${ROUTE_PARTS.METHODS}`} component={DirectMethod} />
+                <Route path={`${url}/${ROUTE_PARTS.CLOUD_TO_DEVICE_MESSAGE}`} component={CloudToDeviceMessage} />
+                <Route path={`${url}/${ROUTE_PARTS.DIGITAL_TWINS}`} component={Pnp} />
                 {/* module Routes */}
-                <Route exact={true} path={`${currentRoutePath}/${ROUTE_PARTS.MODULE_IDENTITY}`} component={ModuleIdentityList}/>
-                <Route exact={true} path={`${currentRoutePath}/${ROUTE_PARTS.MODULE_IDENTITY}/${ROUTE_PARTS.ADD}`} component={AddModuleIdentity}/>
-                <Route exact={true} path={`${currentRoutePath}/${ROUTE_PARTS.MODULE_IDENTITY}/${ROUTE_PARTS.MODULE_DETAIL}`} component={ModuleIdentityDetail}/>
-                <Route exact={true} path={`${currentRoutePath}/${ROUTE_PARTS.MODULE_IDENTITY}/${ROUTE_PARTS.MODULE_TWIN}`} component={ModuleIdentityTwin}/>
-                <Route exact={true} path={`${currentRoutePath}/${ROUTE_PARTS.MODULE_IDENTITY}/${ROUTE_PARTS.MODULE_METHOD}`} component={ModuleDirectMethod}/>
+                <Route exact={true} path={`${url}/${ROUTE_PARTS.MODULE_IDENTITY}`} component={ModuleIdentityList}/>
+                <Route exact={true} path={`${url}/${ROUTE_PARTS.MODULE_IDENTITY}/${ROUTE_PARTS.ADD}`} component={AddModuleIdentity}/>
+                <Route exact={true} path={`${url}/${ROUTE_PARTS.MODULE_IDENTITY}/${ROUTE_PARTS.MODULE_DETAIL}`} component={ModuleIdentityDetail}/>
+                <Route exact={true} path={`${url}/${ROUTE_PARTS.MODULE_IDENTITY}/${ROUTE_PARTS.MODULE_TWIN}`} component={ModuleIdentityTwin}/>
+                <Route exact={true} path={`${url}/${ROUTE_PARTS.MODULE_IDENTITY}/${ROUTE_PARTS.MODULE_METHOD}`} component={ModuleDirectMethod}/>
             </div>
         );
     };

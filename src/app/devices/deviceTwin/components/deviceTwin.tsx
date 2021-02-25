@@ -18,6 +18,7 @@ import { JSONEditor } from '../../../shared/components/jsonEditor';
 import { deviceTwinReducer } from '../reducer';
 import { deviceTwinSaga } from '../saga';
 import { deviceTwinStateInitial } from '../state';
+import { useBreadcrumbEntry } from '../../../navigation/hooks/useBreadcrumbEntry';
 import '../../../css/_deviceTwin.scss';
 
 export const DeviceTwin: React.FC = () => {
@@ -34,6 +35,8 @@ export const DeviceTwin: React.FC = () => {
         needsRefresh: false,
         twin: JSON.stringify(twin, null, '\t')
     });
+
+    useBreadcrumbEntry({name: 'twin'});
 
     React.useEffect(() => {
         dispatch(getDeviceTwinAction.started(deviceId));

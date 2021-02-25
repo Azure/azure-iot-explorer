@@ -19,6 +19,7 @@ import { MaskedCopyableTextField } from '../../../shared/components/maskedCopyab
 import { MultiLineShimmer } from '../../../shared/components/multiLineShimmer';
 import { HeaderView } from '../../../shared/components/headerView';
 import { SasTokenGenerationView } from '../../shared/components/sasTokenGenerationView';
+import { useBreadcrumbEntry } from '../../../navigation/hooks/useBreadcrumbEntry';
 import '../../../css/_deviceDetail.scss';
 
 export interface DeviceIdentityDispatchProps {
@@ -33,6 +34,7 @@ export interface DeviceIdentityDataProps {
 export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & DeviceIdentityDispatchProps> = (props: DeviceIdentityDataProps & DeviceIdentityDispatchProps) => {
     const { t } = useTranslation();
     const { hostName } = useParams();
+    useBreadcrumbEntry({ name: t(ResourceKeys.breadcrumb.identity)});
 
     const [ state, setState ] = React.useState({
         identity: props.deviceIdentity,

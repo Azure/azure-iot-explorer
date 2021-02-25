@@ -4,9 +4,14 @@
  **********************************************************/
 import * as React from 'react';
 import { BreadcrumbEntry } from '../model';
-import { BreadcrumbContextType } from './useBreadcrumbContext';
 
-export const useBreadcrumbs = (): BreadcrumbContextType => {
+export interface UseBreadcrumbsResult {
+    stack: BreadcrumbEntry[];
+    registerEntry(entry: BreadcrumbEntry): void;
+    unregisterEntry(entry: BreadcrumbEntry): void;
+}
+
+export const useBreadcrumbs = (): UseBreadcrumbsResult => {
     const [stack, setStack] = React.useState<BreadcrumbEntry[]>([]);
 
     const registerEntry = React.useCallback((entry: BreadcrumbEntry) => {

@@ -12,14 +12,17 @@ export interface UseBreadcrumbEntryProps {
     suffix?: string;
 }
 
-export const useBreadcrumbEntry = ({ name, link, suffix}: UseBreadcrumbEntryProps) => {
+export const useBreadcrumbEntry = ({ name, link, suffix }: UseBreadcrumbEntryProps) => {
     const { registerEntry, unregisterEntry } = useBreadcrumbContext();
     const { path, url } = useRouteMatch();
+
+    // tslint:disable-next-line: no-console
+    console.log('url' + url);
 
     React.useEffect(() => {
         registerEntry({ name, link, path, suffix, url });
         return () => {
             unregisterEntry({ name, link, path, suffix, url });
         };
-    }, [ url, suffix ]); // tslint:disable-line: align
+    }, [ url, suffix, name, link ]); // tslint:disable-line: align
 };

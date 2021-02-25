@@ -7,12 +7,9 @@ import * as React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
-import { NoMatchError } from './noMatchError';
+import { NoMatchError } from '../../navigation/components/noMatchError';
 import { ROUTE_PARTS } from '../../constants/routes';
 import { HomeView } from '../../home/components/homeView';
-import { DeviceList } from '../../devices/deviceList/components/deviceList';
-import { AddDevice } from '../../devices/addDevice/components/addDevice';
-import { DeviceContent } from '../../devices/deviceIdentity/components/deviceContent';
 import { Breadcrumb } from '../../navigation/components/breadcrumb';
 import { useBreadcrumbEntry } from '../../navigation/hooks/useBreadcrumbEntry';
 import { IotHub } from '../../iotHub/components/iotHub';
@@ -39,9 +36,6 @@ export const Application: React.FC = () => {
                     <Redirect from="/" exact={true} to={`${ROUTE_PARTS.HOME}`}/>
                     <Route path={`/${ROUTE_PARTS.HOME}`} component={HomeView} />
                     <Route path={'/microsoft.devices/'} component={IotHub} />
-                    <Route path={`/${ROUTE_PARTS.RESOURCE}/:hostName/${ROUTE_PARTS.DEVICES}`} component={DeviceList} exact={true}/>
-                    <Route path={`/${ROUTE_PARTS.RESOURCE}/:hostName/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.ADD}`} component={AddDevice} exact={true} />
-                    <Route path={`/${ROUTE_PARTS.RESOURCE}/:hostName/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DEVICE_DETAIL}/`} component={DeviceContent}/>
                     <Route component={NoMatchError}/>
                 </Switch>
             </main>

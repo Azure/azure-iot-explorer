@@ -13,7 +13,7 @@ export const Breadcrumb: React.FC = () => {
     return (
         <ul className="breadcrumb">
             {stack.map((s, i) =>
-                <BreadcrumbEntry key={s.path} {...{...s, link: i !== stack.length - 1}}/>
+                <BreadcrumbEntry key={s.path} {...{...s, link: s.link && i !== stack.length - 1}}/>
             )}
         </ul>
     );
