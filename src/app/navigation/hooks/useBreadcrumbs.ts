@@ -15,6 +15,8 @@ export const useBreadcrumbs = (): UseBreadcrumbsResult => {
     const [stack, setStack] = React.useState<BreadcrumbEntry[]>([]);
 
     const registerEntry = React.useCallback((entry: BreadcrumbEntry) => {
+        // tslint:disable-next-line: no-console
+        console.log('stacking' + JSON.stringify(entry));
         setStack(currentState => {
             const newStack = [...currentState.filter(s => entry.path !== s.path), entry];
             const sortedStack = newStack.sort((a, b) => a.path.length - b.path.length);
@@ -24,6 +26,8 @@ export const useBreadcrumbs = (): UseBreadcrumbsResult => {
     }, []); // tslint:disable-line: align
 
     const unregisterEntry = React.useCallback((entry: BreadcrumbEntry) => {
+        // tslint:disable-next-line: no-console
+        console.log('UNstacking' + JSON.stringify(entry));
         setStack(currentState => {
             const newStack = currentState.filter(s => entry.path !== s.path);
             return newStack;

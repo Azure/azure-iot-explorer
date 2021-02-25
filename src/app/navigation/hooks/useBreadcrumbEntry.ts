@@ -24,5 +24,5 @@ export const useBreadcrumbEntry = ({ name, link, suffix }: UseBreadcrumbEntryPro
         return () => {
             unregisterEntry({ name, link, path, suffix, url });
         };
-    }, [ url, suffix, name, link ]); // tslint:disable-line: align
+    }, [ suffix, name, link ]); // tslint:disable-line: align
 };

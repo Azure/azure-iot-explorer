@@ -8,24 +8,23 @@ import { useRouteMatch, Route } from 'react-router-dom';
 import { DeviceList } from '../../devices/deviceList/components/deviceList';
 import { AddDevice } from '../../devices/addDevice/components/addDevice';
 import { DeviceContent } from '../../devices/deviceIdentity/components/deviceContent';
-import { useBreadcrumbEntry } from '../../navigation/hooks/useBreadcrumbEntry';
-import { BreadcrumbWrapper } from '../../navigation/components/breadcrumbWrapper';
+import { BreadcrumbRoute } from '../../navigation/components/breadcrumbRoute';
 import { ROUTE_PARTS } from '../../constants/routes';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 
 export const IotHubDevices: React.FC = () => {
-    const { url }  = useRouteMatch();
     const { t } = useTranslation();
-    useBreadcrumbEntry({ name: t(ResourceKeys.breadcrumb.devices), link: true });
+    const { url }  = useRouteMatch();
 
     return (
        <>
             <Route path={`${url}`} component={(DeviceList)} exact={true}/>
-            <Route path={`${url}/${ROUTE_PARTS.ADD}`} exact={true}>
-                <BreadcrumbWrapper name={t(ResourceKeys.breadcrumb.add)}>
+            <BreadcrumbRoute
+                breadcrumbProps={{ name: t(ResourceKeys.breadcrumb.add) }}
+                routeProps={{path: `${url}/${ROUTE_PARTS.ADD}`, exact: true }}
+            >
                     <AddDevice/>
-                </BreadcrumbWrapper>
-            </Route>
+            </BreadcrumbRoute>
             <Route path={`${url}/${ROUTE_PARTS.DEVICE_DETAIL}`} component={DeviceContent}/>
        </>
     );
