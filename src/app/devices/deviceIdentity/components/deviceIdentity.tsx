@@ -32,7 +32,7 @@ export interface DeviceIdentityDataProps {
 
 export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & DeviceIdentityDispatchProps> = (props: DeviceIdentityDataProps & DeviceIdentityDispatchProps) => {
     const { t } = useTranslation();
-    const { hostName } = useParams();
+    const { hostName } = useParams<{ hostName: string}>();
 
     const { deviceIdentity, synchronizationStatus } = props;
     const [ state, setState ] = React.useState({

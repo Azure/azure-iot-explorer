@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Route, useLocation, useRouteMatch } from 'react-router-dom';
+import { useLocation, useRouteMatch } from 'react-router-dom';
 import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
 import { DeviceIdentityInformation } from './deviceIdentity';
 import { DeviceTwin } from '../../deviceTwin/components/deviceTwin';
@@ -14,25 +14,22 @@ import { CloudToDeviceMessage } from '../../cloudToDeviceMessage/components/clou
 import { DeviceContentNavComponent } from './deviceContentNav';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { NAV } from '../../../constants/iconNames';
-import { ROUTE_PARTS } from '../../../constants/routes';
+import { ROUTE_PARAMS, ROUTE_PARTS } from '../../../constants/routes';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import { MultiLineShimmer } from '../../../shared/components/multiLineShimmer';
 import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
-import { ModuleIdentityTwin } from '../../module/moduleIdentityTwin/components/moduleIdentityTwin';
-import { AddModuleIdentity } from '../../module/addModuleIdentity/components/addModuleIdentity';
-import { ModuleIdentityList } from '../../module/moduleIdentityList/components/moduleIdentityList';
-import { ModuleIdentityDetail } from '../../module/moduleIndentityDetail/components/moduleIdentityDetail';
-import { ModuleDirectMethod } from '../../module/moduleDirectMethod/components/moduleDirectMethod';
 import { useAsyncSagaReducer } from '../../../shared/hooks/useAsyncSagaReducer';
 import { deviceIdentityReducer } from '../reducer';
 import { DeviceIdentitySaga } from '../saga';
 import { deviceIdentityStateInitial } from '../state';
 import { getDeviceIdentityAction, updateDeviceIdentityAction } from '../actions';
 import { useBreadcrumbEntry } from '../../../navigation/hooks/useBreadcrumbEntry';
+import { BreadcrumbRoute } from '../../../navigation/components/breadcrumbRoute';
 import { DeviceIdentity } from '../../../api/models/deviceIdentity';
 import { Pnp } from '../../pnp/components/pnp';
 import '../../../css/_deviceContent.scss';
 import '../../../css/_layouts.scss';
+import { DeviceModules } from './deviceModules';
 
 export const DeviceContent: React.FC = () => {
     const { t } = useTranslation();
@@ -88,18 +85,47 @@ export const DeviceContent: React.FC = () => {
     const renderDeviceContentDetail = () => {
         return (
             <div className={'device-content-detail' + (!appMenuVisible ? ' collapsed' : '')}>
-                <Route path={`${url}/${ROUTE_PARTS.IDENTITY}`} render={createDeviceIdentityComponent} />
-                <Route path={`${url}/${ROUTE_PARTS.TWIN}`} component={DeviceTwin} />
-                <Route path={`${url}/${ROUTE_PARTS.EVENTS}`} component={DeviceEvents}/>
-                <Route path={`${url}/${ROUTE_PARTS.METHODS}`} component={DirectMethod} />
-                <Route path={`${url}/${ROUTE_PARTS.CLOUD_TO_DEVICE_MESSAGE}`} component={CloudToDeviceMessage} />
-                <Route path={`${url}/${ROUTE_PARTS.DIGITAL_TWINS}`} component={Pnp} />
-                {/* module Routes */}
-                <Route exact={true} path={`${url}/${ROUTE_PARTS.MODULE_IDENTITY}`} component={ModuleIdentityList}/>
-                <Route exact={true} path={`${url}/${ROUTE_PARTS.MODULE_IDENTITY}/${ROUTE_PARTS.ADD}`} component={AddModuleIdentity}/>
-                <Route exact={true} path={`${url}/${ROUTE_PARTS.MODULE_IDENTITY}/${ROUTE_PARTS.MODULE_DETAIL}`} component={ModuleIdentityDetail}/>
-                <Route exact={true} path={`${url}/${ROUTE_PARTS.MODULE_IDENTITY}/${ROUTE_PARTS.MODULE_TWIN}`} component={ModuleIdentityTwin}/>
-                <Route exact={true} path={`${url}/${ROUTE_PARTS.MODULE_IDENTITY}/${ROUTE_PARTS.MODULE_METHOD}`} component={ModuleDirectMethod}/>
+                <BreadcrumbRoute
+                    path={`${url}/${ROUTE_PARTS.IDENTITY}`}
+                    breadcrumb={{ name: t(ResourceKeys.breadcrumb.identity)}}
+                    children={createDeviceIdentityComponent()}
+                />
+
+                <BreadcrumbRoute
+                    path={`${url}/${ROUTE_PARTS.TWIN}`}
+                    breadcrumb={{ name: t(ResourceKeys.breadcrumb.twin)}}
+                    children={<DeviceTwin/>}
+                />
+
+                <BreadcrumbRoute
+                    path={`${url}/${ROUTE_PARTS.EVENTS}`}
+                    breadcrumb={{name: t(ResourceKeys.breadcrumb.events)}}
+                    children={<DeviceEvents/>}
+                />
+
+                <BreadcrumbRoute
+                    path={`${url}/${ROUTE_PARTS.METHODS}`}
+                    breadcrumb={{name: t(ResourceKeys.breadcrumb.methods)}}
+                    children={<DirectMethod/>}
+                />
+
+                <BreadcrumbRoute
+                    path={`${url}/${ROUTE_PARTS.CLOUD_TO_DEVICE_MESSAGE}`}
+                    breadcrumb={{name: t(ResourceKeys.breadcrumb.cloudToDeviceMessage)}}
+                    children={<CloudToDeviceMessage/>}
+                />
+
+                <BreadcrumbRoute
+                    path={`${url}/${ROUTE_PARTS.DIGITAL_TWINS}`}
+                    breadcrumb={{name: t(ResourceKeys.breadcrumb.ioTPlugAndPlay), suffix: `?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`}}
+                    children={<Pnp/>}
+                />
+
+                <BreadcrumbRoute
+                    path={`${url}/${ROUTE_PARTS.MODULE_IDENTITY}`}
+                    breadcrumb={{name: t(ResourceKeys.breadcrumb.moduleIdentity), suffix: `?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}` }}
+                    children={<DeviceModules/>}
+                />
             </div>
         );
     };

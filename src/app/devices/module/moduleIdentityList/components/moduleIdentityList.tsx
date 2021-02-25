@@ -35,7 +35,7 @@ export const ModuleIdentityList: React.FC = () => {
 
     React.useEffect(() => {
         dispatch(getModuleIdentitiesAction.started(deviceId));
-    },              []);
+    },              [deviceId]);
 
     const showCommandBar = () => {
         return (
