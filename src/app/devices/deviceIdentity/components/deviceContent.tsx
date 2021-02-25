@@ -39,7 +39,7 @@ export const DeviceContent: React.FC = () => {
     const { search } = useLocation();
     const { url } = useRouteMatch();
     const deviceId = getDeviceIdFromQueryString(search);
-    useBreadcrumbEntry({name: deviceId });
+    useBreadcrumbEntry({name: deviceId, disableLink: true});
 
     const [ localState, dispatch ] = useAsyncSagaReducer(deviceIdentityReducer, DeviceIdentitySaga, deviceIdentityStateInitial(), 'deviceIdentityState');
     const synchronizationStatus = localState.synchronizationStatus;

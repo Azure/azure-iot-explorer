@@ -20,11 +20,11 @@ export const IotHubDevices: React.FC = () => {
        <>
             <Route path={`${url}`} component={(DeviceList)} exact={true}/>
             <BreadcrumbRoute
-                breadcrumbProps={{ name: t(ResourceKeys.breadcrumb.add) }}
-                routeProps={{path: `${url}/${ROUTE_PARTS.ADD}`, exact: true }}
-            >
-                    <AddDevice/>
-            </BreadcrumbRoute>
+                breadcrumb={{ name: t(ResourceKeys.breadcrumb.add) }}
+                path={`${url}/${ROUTE_PARTS.ADD}`}
+                exact={true}
+                children={<AddDevice/>}
+            />
             <Route path={`${url}/${ROUTE_PARTS.DEVICE_DETAIL}`} component={DeviceContent}/>
        </>
     );

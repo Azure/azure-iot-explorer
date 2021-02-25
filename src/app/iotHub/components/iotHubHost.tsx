@@ -20,18 +20,17 @@ export const IotHubHost = () => {
     const { url } = useRouteMatch();
     const { t } = useTranslation();
 
-    useBreadcrumbEntry({ name: getShortHostName(hostName), link: false });
+    useBreadcrumbEntry({ name: getShortHostName(hostName), disableLink: true});
     // putting redirects in separate host / resource views with intention to remove from resource once root view ready
 
     return (
         <>
             <Redirect from={url} to={`${url}/${ROUTE_PARTS.DEVICES}`} />
             <BreadcrumbRoute
-                breadcrumbProps={{ name: t(ResourceKeys.breadcrumb.devices), link: true }}
-                routeProps={{path: `${url}/${ROUTE_PARTS.DEVICES}`}}
-            >
-                <IotHubDevices/>
-            </BreadcrumbRoute>
+                breadcrumb={{ name: t(ResourceKeys.breadcrumb.devices)}}
+                path={`${url}/${ROUTE_PARTS.DEVICES}`}
+                children={<IotHubDevices/>}
+            />
         </>
     );
 };

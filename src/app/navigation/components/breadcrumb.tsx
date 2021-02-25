@@ -3,18 +3,18 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { useBreadcrumbContext } from '../hooks/useBreadcrumbContext';
-import { BreadcrumbEntry } from './breadcrumbEntry';
-import '../../css/_breadcrumb.scss';
+import { NavLink } from 'react-router-dom';
+import { BreadcrumbEntry as BreadcrumbEntryProps } from '../model';
 
-export const Breadcrumb: React.FC = () => {
-    const { stack } = useBreadcrumbContext();
-
+export const Breadcrumb: React.FC<BreadcrumbEntryProps> = ({ disableLink, url, suffix, name }) => {
     return (
-        <ul className="breadcrumb">
-            {stack.map((s, i) =>
-                <BreadcrumbEntry key={s.path} {...{...s, link: s.link && i !== stack.length - 1}}/>
-            )}
-        </ul>
+        <li className="breadcrumb-item">
+            {disableLink && <>{name}</>}
+            {!disableLink &&
+                <NavLink to={`${url}${suffix || ''}`}>
+                    {name}
+                </NavLink>
+            }
+        </li>
     );
 };

@@ -16,4 +16,5 @@ export const BreadcrumbContext = React.createContext<BreadcrumbContextType>({
     stack: [],
     unregisterEntry: () => {} // tslint:disable-line: no-empty
 });
+
 export const useBreadcrumbContext = () => React.useContext<BreadcrumbContextType>(BreadcrumbContext);

@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { NoMatchError } from '../../navigation/components/noMatchError';
 import { ROUTE_PARTS } from '../../constants/routes';
 import { HomeView } from '../../home/components/homeView';
-import { Breadcrumb } from '../../navigation/components/breadcrumb';
+import { Breadcrumbs } from '../../navigation/components/breadcrumbs';
 import { useBreadcrumbEntry } from '../../navigation/hooks/useBreadcrumbEntry';
 import { IotHub } from '../../iotHub/components/iotHub';
 import { ResourceKeys } from '../../../localization/resourceKeys';
@@ -21,7 +21,7 @@ const NOTIFICATION_AUTO_CLOSE = 5000;
 
 export const Application: React.FC = () => {
     const { t } = useTranslation();
-    useBreadcrumbEntry({ link: true, name: t(ResourceKeys.common.home), suffix: 'home' });
+    useBreadcrumbEntry({ name: t(ResourceKeys.common.home), suffix: 'home' });
 
     return (
         <div className="app">
@@ -29,7 +29,7 @@ export const Application: React.FC = () => {
                 <Header />
             </div>
             <nav className="navigation">
-                <Route component={Breadcrumb} />
+                <Breadcrumbs/>
             </nav>
             <main role="main" className="content">
                 <Switch>
