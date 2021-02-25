@@ -8,16 +8,16 @@ import { Route, useLocation, useHistory } from 'react-router-dom';
 import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString, getModuleIdentityIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
-import { REFRESH, NAVIGATE_BACK } from '../../../../constants/iconNames';
+import { REFRESH, NAVIGATE_BACK, SAVE } from '../../../../constants/iconNames';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../../constants/routes';
-import { getModuleIdentityTwinAction } from '../actions';
+import { getModuleIdentityTwinAction, updateModuleIdentityTwinAction } from '../actions';
 import { MultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
 import { ModuleIdentityDetailHeader } from '../../shared/components/moduleIdentityDetailHeader';
 import { useAsyncSagaReducer } from '../../../../shared/hooks/useAsyncSagaReducer';
 import { JSONEditor } from '../../../../shared/components/jsonEditor';
 import { moduleTwinReducer } from '../reducer';
-import { getModuleIdentityTwinSaga } from '../saga';
+import { moduleIdentityTwinSaga } from '../saga';
 import { moduleTwinStateInitial } from '../state';
 import '../../../../css/_deviceDetail.scss';
 import '../../../../css/_moduleIdentityDetail.scss';
@@ -29,15 +29,29 @@ export const ModuleIdentityTwin: React.FC = () => {
     const moduleId = getModuleIdentityIdFromQueryString(search);
     const deviceId = getDeviceIdFromQueryString(search);
 
-    const [ localState, dispatch ] = useAsyncSagaReducer(moduleTwinReducer, getModuleIdentityTwinSaga, moduleTwinStateInitial(), 'moduleIdentityTwinState');
+    const [ localState, dispatch ] = useAsyncSagaReducer(moduleTwinReducer, moduleIdentityTwinSaga, moduleTwinStateInitial(), 'moduleIdentityTwinState');
     const moduleIdentityTwin = localState.payload;
     const moduleIdentityTwinSyncStatus = localState.synchronizationStatus;
+    const [ state, setState ] = React.useState({
+        isDirty: false,
+        isTwinValid: true,
+        twin: JSON.stringify(moduleIdentityTwin, null, '\t')
+    });
 
     React.useEffect(() => {
         retrieveData();
-    },              [moduleId]);
+    },              [deviceId, moduleId]);
 
     const retrieveData = () => dispatch(getModuleIdentityTwinAction.started({ deviceId, moduleId }));
+
+    const handleSave = () => {
+        setState({
+            ...state,
+            isDirty: false,
+            isTwinValid: true
+        });
+        dispatch(updateModuleIdentityTwinAction.started(JSON.parse(state.twin)));
+    };
 
     const showCommandBar = () => {
         return (
@@ -51,6 +65,14 @@ export const ModuleIdentityTwin: React.FC = () => {
                         key: REFRESH,
                         name: t(ResourceKeys.moduleIdentity.detail.command.refresh),
                         onClick: retrieveData
+                    },
+                    {
+                        ariaLabel: t(ResourceKeys.moduleIdentity.detail.command.save),
+                        disabled: !state.isDirty || !state.isTwinValid,
+                        iconProps: {iconName: SAVE},
+                        key: SAVE,
+                        name: t(ResourceKeys.moduleIdentity.detail.command.save),
+                        onClick: handleSave
                     }
                 ]}
                 farItems={[
@@ -67,16 +89,37 @@ export const ModuleIdentityTwin: React.FC = () => {
     };
 
     const showModuleTwin = () => {
+        if (moduleIdentityTwinSyncStatus === SynchronizationStatus.working || moduleIdentityTwinSyncStatus === SynchronizationStatus.updating) {
+            return <MultiLineShimmer className="module-identity-detail"/>;
+        }
+
         return (
             <>
                 {moduleIdentityTwin &&
                     <JSONEditor
                         content={JSON.stringify(moduleIdentityTwin, null, '\t')}
                         className="json-editor"
+                        onChange={onChange}
                     />
                 }
             </>
         );
+    };
+
+    const onChange = (data: string) => {
+        let isTwinValid = true;
+        try {
+            JSON.parse(data);
+        }
+        catch  {
+            isTwinValid = false;
+        }
+        setState({
+            ...state,
+            isDirty: true,
+            isTwinValid,
+            twin: data
+        });
     };
 
     const navigateToModuleList = () => {

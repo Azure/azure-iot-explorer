@@ -7,17 +7,13 @@ import { Action } from 'typescript-fsa';
 import { updateDeviceTwin } from '../../../api/services/devicesService';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { UpdateTwinActionParameters, updateDeviceTwinAction } from '../actions';
-import { UpdateDeviceTwinParameters } from '../../../api/parameters/deviceParameters';
+import { updateDeviceTwinAction } from '../actions';
 import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
+import { Twin } from '../../../api/models/device';
 
-export function* updateDeviceTwinSaga(action: Action<UpdateTwinActionParameters>) {
+export function* updateDeviceTwinSaga(action: Action<Twin>) {
     try {
-        const parameters: UpdateDeviceTwinParameters = {
-            deviceTwin: action.payload.twin,
-        };
-
-        const twin = yield call(updateDeviceTwin, parameters);
+        const twin = yield call(updateDeviceTwin, action.payload);
 
         yield call(raiseNotificationToast, {
             text: {

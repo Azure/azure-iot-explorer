@@ -59,22 +59,6 @@ export const addModuleIdentity = async (parameters: AddModuleIdentityParameters)
     return result && result.body;
 };
 
-export const fetchModuleIdentityTwin = async (parameters: ModuleIdentityTwinParameters): Promise<DataPlaneResponse<ModuleTwin>> => {
-    const connectionInformation = await dataPlaneConnectionHelper();
-
-    const dataPlaneRequest: DataPlaneRequest = {
-        apiVersion:  HUB_DATA_PLANE_API_VERSION,
-        hostName: connectionInformation.connectionInfo.hostName,
-        httpMethod: HTTP_OPERATION_TYPES.Get,
-        path: `twins/${parameters.deviceId}/modules/${parameters.moduleId}`,
-        sharedAccessSignature: connectionInformation.sasToken,
-    };
-
-    const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
-    const result = await dataPlaneResponseHelper(response);
-    return result && result.body;
-};
-
 export const fetchModuleIdentity = async (parameters: FetchModuleIdentityParameters): Promise<DataPlaneResponse<ModuleIdentity[]>> => {
     const connectionInformation = await dataPlaneConnectionHelper();
 
@@ -127,6 +111,39 @@ export const invokeModuleDirectMethod = async (parameters: InvokeModuleMethodPar
         httpMethod: HTTP_OPERATION_TYPES.Post,
         path: `twins/${parameters.deviceId}/modules/${parameters.moduleId}/methods`,
         sharedAccessSignature: connectionInfo.sasToken,
+    };
+
+    const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
+    const result = await dataPlaneResponseHelper(response);
+    return result && result.body;
+};
+
+export const fetchModuleIdentityTwin = async (parameters: ModuleIdentityTwinParameters): Promise<DataPlaneResponse<ModuleTwin>> => {
+    const connectionInformation = await dataPlaneConnectionHelper();
+
+    const dataPlaneRequest: DataPlaneRequest = {
+        apiVersion:  HUB_DATA_PLANE_API_VERSION,
+        hostName: connectionInformation.connectionInfo.hostName,
+        httpMethod: HTTP_OPERATION_TYPES.Get,
+        path: `twins/${parameters.deviceId}/modules/${parameters.moduleId}`,
+        sharedAccessSignature: connectionInformation.sasToken,
+    };
+
+    const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
+    const result = await dataPlaneResponseHelper(response);
+    return result && result.body;
+};
+
+export const updateModuleIdentityTwin = async (parameters: ModuleTwin): Promise<DataPlaneResponse<ModuleTwin>> => {
+    const connectionInformation = await dataPlaneConnectionHelper();
+
+    const dataPlaneRequest: DataPlaneRequest = {
+        apiVersion:  HUB_DATA_PLANE_API_VERSION,
+        body: JSON.stringify(parameters),
+        hostName: connectionInformation.connectionInfo.hostName,
+        httpMethod: HTTP_OPERATION_TYPES.Patch,
+        path: `twins/${parameters.deviceId}/modules/${parameters.moduleId}`,
+        sharedAccessSignature: connectionInformation.sasToken,
     };
 
     const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);

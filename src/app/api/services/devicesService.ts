@@ -4,7 +4,6 @@
  **********************************************************/
 import {
     FetchDeviceTwinParameters,
-    UpdateDeviceTwinParameters,
     InvokeMethodParameters,
     FetchDevicesParameters,
     MonitorEventsParameters,
@@ -66,18 +65,14 @@ export const fetchDeviceTwin = async (parameters: FetchDeviceTwinParameters): Pr
     return result && result.body;
 };
 
-export const updateDeviceTwin = async (parameters: UpdateDeviceTwinParameters): Promise<Twin> => {
-    if (!parameters.deviceTwin) {
-        return;
-    }
-
+export const updateDeviceTwin = async (parameters: Twin): Promise<Twin> => {
     const connectionInformation = await dataPlaneConnectionHelper();
     const dataPlaneRequest: DataPlaneRequest = {
         apiVersion: HUB_DATA_PLANE_API_VERSION,
-        body: JSON.stringify(parameters.deviceTwin),
+        body: JSON.stringify(parameters),
         hostName: connectionInformation.connectionInfo.hostName,
         httpMethod: HTTP_OPERATION_TYPES.Patch,
-        path: `twins/${parameters.deviceTwin.deviceId}`,
+        path: `twins/${parameters.deviceId}`,
         sharedAccessSignature: connectionInformation.sasToken,
     };
 

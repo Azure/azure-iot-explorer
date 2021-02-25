@@ -6,6 +6,7 @@ import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { moduleTwinStateInitial, ModuleTwinStateType } from './state';
 import {
     getModuleIdentityTwinAction,
+    updateModuleIdentityTwinAction,
     GetModuleIdentityTwinActionParameters,
 } from './actions';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
@@ -24,6 +25,22 @@ export const moduleTwinReducer = reducerWithInitialState<ModuleTwinStateType>(mo
         });
     })
     .case(getModuleIdentityTwinAction.failed, (state: ModuleTwinStateType) => {
+        return state.merge({
+            synchronizationStatus: SynchronizationStatus.failed
+        });
+    })
+    .case(updateModuleIdentityTwinAction.started, (state: ModuleTwinStateType) => {
+        return state.merge({
+            synchronizationStatus: SynchronizationStatus.updating
+        });
+    })
+    .case(updateModuleIdentityTwinAction.done, (state: ModuleTwinStateType, payload: {params: ModuleTwin} & {result: ModuleTwin}) => {
+        return state.merge({
+            payload: payload.result,
+            synchronizationStatus: SynchronizationStatus.upserted
+        });
+    })
+    .case(updateModuleIdentityTwinAction.failed, (state: ModuleTwinStateType) => {
         return state.merge({
             synchronizationStatus: SynchronizationStatus.failed
         });

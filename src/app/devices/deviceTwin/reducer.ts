@@ -4,7 +4,7 @@
  **********************************************************/
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { deviceTwinStateInitial, DeviceTwinStateType, DeviceTwinStateInterface } from './state';
-import { getDeviceTwinAction, updateDeviceTwinAction, UpdateTwinActionParameters } from './actions';
+import { getDeviceTwinAction, updateDeviceTwinAction } from './actions';
 import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
 import { Twin } from '../../api/models/device';
 
@@ -39,7 +39,7 @@ export const deviceTwinReducer = reducerWithInitialState<DeviceTwinStateInterfac
             }
         });
     })
-    .case(updateDeviceTwinAction.done, (state: DeviceTwinStateType, payload: {params: UpdateTwinActionParameters, result: Twin}) => {
+    .case(updateDeviceTwinAction.done, (state: DeviceTwinStateType, payload: {params: Twin, result: Twin}) => {
         return state.merge({
             deviceTwin: {
                 payload: payload.result,

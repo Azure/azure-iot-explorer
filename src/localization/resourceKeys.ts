@@ -828,6 +828,7 @@ export class ResourceKeys {
             back : "moduleIdentity.detail.command.back",
             delete : "moduleIdentity.detail.command.delete",
             refresh : "moduleIdentity.detail.command.refresh",
+            save : "moduleIdentity.detail.command.save",
          },
          deleteConfirmation : "moduleIdentity.detail.deleteConfirmation",
          headerText : "moduleIdentity.detail.headerText",
@@ -905,6 +906,7 @@ export class ResourceKeys {
       updateDeviceOnSucceed : "notifications.updateDeviceOnSucceed",
       updateDeviceTwinOnError : "notifications.updateDeviceTwinOnError",
       updateDeviceTwinOnSuccess : "notifications.updateDeviceTwinOnSuccess",
+      updateModuleIdentityTwinOnError : "notifications.updateModuleIdentityTwinOnError",
    };
    public static settings = {
       close : "settings.close",
