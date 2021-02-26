@@ -11,6 +11,7 @@ import { ROUTE_PARTS } from '../../constants/routes';
 import { BreadcrumbRoute } from '../../navigation/components/breadcrumbRoute';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { getShortHostName } from '../utils';
+import { IotHubContext } from '../hooks/useIotHubContext';
 
 export const IotHubHost = () => {
     const { hostName } = useParams<{hostName: string}>();
@@ -19,13 +20,15 @@ export const IotHubHost = () => {
     useBreadcrumbEntry({ name: getShortHostName(hostName), disableLink: true});
 
     return (
-        <Switch>
-            <BreadcrumbRoute
-                breadcrumb={{ name: t(ResourceKeys.breadcrumb.devices)}}
-                path={`${url}/${ROUTE_PARTS.DEVICES}`}
-                children={<IotHubDevices/>}
-            />
-            <Redirect from={url} to={`${url}/${ROUTE_PARTS.DEVICES}`} />
-        </Switch>
+        <IotHubContext.Provider value={{hostName}}>
+            <Switch>
+                <BreadcrumbRoute
+                    breadcrumb={{ name: t(ResourceKeys.breadcrumb.devices)}}
+                    path={`${url}/${ROUTE_PARTS.DEVICES}`}
+                    children={<IotHubDevices/>}
+                />
+                <Redirect from={url} to={`${url}/${ROUTE_PARTS.DEVICES}`} />
+            </Switch>
+        </IotHubContext.Provider>
     );
 };

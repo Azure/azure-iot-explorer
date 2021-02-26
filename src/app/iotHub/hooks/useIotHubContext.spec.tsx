@@ -4,18 +4,18 @@
  **********************************************************/
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { useBreadcrumbContext, BreadcrumbContext } from './useBreadcrumbContext';
+import { useIotHubContext, IotHubContext } from './useIotHubContext';
 
 const TestComponent: React.FC = () => {
-    useBreadcrumbContext();
+    useIotHubContext();
     return <></>;
 };
 
-describe('useBreadcrumbContext', () => {
+describe('useIotHubContext', () => {
     it('calls context with expected value', () => {
         const spy = jest.spyOn(React, 'useContext');
 
         mount(<TestComponent/>);
-        expect(spy).toHaveBeenCalledWith(BreadcrumbContext);
+        expect(spy).toHaveBeenCalledWith(IotHubContext)
     });
 });

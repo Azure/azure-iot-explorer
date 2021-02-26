@@ -3,7 +3,6 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { useParams } from 'react-router-dom';
 import { Label } from 'office-ui-fabric-react/lib/components/Label';
 import { Toggle } from 'office-ui-fabric-react/lib/components/Toggle';
 import { useTranslation } from 'react-i18next';
@@ -19,6 +18,7 @@ import { MaskedCopyableTextField } from '../../../shared/components/maskedCopyab
 import { MultiLineShimmer } from '../../../shared/components/multiLineShimmer';
 import { HeaderView } from '../../../shared/components/headerView';
 import { SasTokenGenerationView } from '../../shared/components/sasTokenGenerationView';
+import { useIotHubContext } from '../../../iotHub/hooks/useIotHubContext';
 import '../../../css/_deviceDetail.scss';
 
 export interface DeviceIdentityDispatchProps {
@@ -32,7 +32,7 @@ export interface DeviceIdentityDataProps {
 
 export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & DeviceIdentityDispatchProps> = (props: DeviceIdentityDataProps & DeviceIdentityDispatchProps) => {
     const { t } = useTranslation();
-    const { hostName } = useParams<{ hostName: string}>();
+    const { hostName } = useIotHubContext();
 
     const { deviceIdentity, synchronizationStatus } = props;
     const [ state, setState ] = React.useState({

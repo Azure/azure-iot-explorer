@@ -17,7 +17,6 @@ export const IotHubResource = () => {
     const { t } = useTranslation();
     useBreadcrumbEntry({ name: resourceName });
 
-    // putting redirects in separate host / resource views with intention to remove from resource once root view ready
     return (
         <Switch>
             <BreadcrumbRoute
