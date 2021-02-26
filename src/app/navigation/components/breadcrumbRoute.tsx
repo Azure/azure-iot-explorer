@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Route, RouteProps, useRouteMatch } from 'react-router-dom';
+import { Route, RouteProps } from 'react-router-dom';
 import { BreadcrumbWrapper, BreadcrumbWrapperProps } from './breadcrumbWrapper';
 
 export type ConstrainedRouteProps = Pick<RouteProps, 'location' | 'path' | 'exact' | 'sensitive' | 'strict'>;
