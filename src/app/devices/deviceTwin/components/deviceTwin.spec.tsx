@@ -15,6 +15,7 @@ import { getDeviceTwinAction, updateDeviceTwinAction } from '../actions';
 
 jest.mock('react-router-dom', () => ({
     useLocation: () => ({ search: '?deviceId=test' }),
+    useRouteMatch: () => ({ url: 'url', path: 'path'})
 }));
 
 // tslint:disable

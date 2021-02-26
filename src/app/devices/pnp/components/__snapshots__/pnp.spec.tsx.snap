@@ -25,8 +25,14 @@ exports[`pnp matches snapshot 1`] = `
     path="/#/devices/deviceDetail/ioTPlugAndPlay/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1;1"
   />
   <Component
-    component={[Function]}
+    breadcrumb={
+      Object {
+        "name": "foo",
+      }
+    }
     path="/#/devices/deviceDetail/ioTPlugAndPlay/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1;1/ioTPlugAndPlayDetail"
-  />
+  >
+    <Component />
+  </Component>
 </ContextProvider>
 `;
