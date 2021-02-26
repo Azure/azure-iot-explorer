@@ -10,10 +10,7 @@ import { IotHubDevices } from './iotHubDevices';
 import { ROUTE_PARTS } from '../../constants/routes';
 import { BreadcrumbRoute } from '../../navigation/components/breadcrumbRoute';
 import { ResourceKeys } from '../../../localization/resourceKeys';
-
-export const getShortHostName = (name: string) => {
-    return name && name.replace(/\..*/, '');
-};
+import { getShortHostName } from '../utils';
 
 export const IotHubHost = () => {
     const { hostName } = useParams<{hostName: string}>();

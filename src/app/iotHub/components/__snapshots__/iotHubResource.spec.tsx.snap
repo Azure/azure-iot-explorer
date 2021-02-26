@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`IotHubResource matches snapshot 1`] = `
+<Component>
+  <Component
+    breadcrumb={
+      Object {
+        "name": "breadcrumb.devices",
+      }
+    }
+    path="/devices"
+  >
+    <Component />
+  </Component>
+  <Component
+    from=""
+    to="/devices"
+  />
+</Component>
+`;
