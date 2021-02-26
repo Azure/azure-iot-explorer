@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DeviceModules matches snapshot 1`] = `
+<Fragment>
+  <Component
+    component={[Function]}
+    exact={true}
+    path=""
+  />
+  <Component
+    breadcrumb={
+      Object {
+        "name": "breadcrumb.addModuleIdentity",
+      }
+    }
+    exact={true}
+    path="/add"
+  >
+    <Component />
+  </Component>
+  <Component
+    breadcrumb={
+      Object {
+        "name": "mod1",
+        "suffix": "?moduleId=mod1",
+      }
+    }
+    exact={true}
+    path="/moduleDetail"
+  >
+    <Component />
+  </Component>
+  <Component
+    breadcrumb={
+      Object {
+        "name": "mod1",
+        "suffix": "?moduleId=mod1",
+      }
+    }
+    exact={true}
+    path="/moduleTwin"
+  >
+    <Component />
+  </Component>
+  <Component
+    breadcrumb={
+      Object {
+        "name": "mod1",
+        "suffix": "?moduleId=mod1",
+      }
+    }
+    exact={true}
+    path="/moduleMethod"
+  >
+    <Component />
+  </Component>
+</Fragment>
+`;
