@@ -29,6 +29,16 @@ exports[`moduleIdentityTwin snapshot matches snapshot after module twin is fetch
           "name": "moduleIdentity.detail.command.refresh",
           "onClick": [Function],
         },
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.save",
+          "disabled": true,
+          "iconProps": Object {
+            "iconName": "Save",
+          },
+          "key": "Save",
+          "name": "moduleIdentity.detail.command.save",
+          "onClick": [Function],
+        },
       ]
     }
   />
@@ -58,6 +68,7 @@ exports[`moduleIdentityTwin snapshot matches snapshot after module twin is fetch
 		\\"secondaryThumbprint\\": null
 	}
 }"
+      onChange={[Function]}
     />
   </div>
 </Fragment>
@@ -90,6 +101,16 @@ exports[`moduleIdentityTwin snapshot matches snapshot while loading 1`] = `
           },
           "key": "Refresh",
           "name": "moduleIdentity.detail.command.refresh",
+          "onClick": [Function],
+        },
+        Object {
+          "ariaLabel": "moduleIdentity.detail.command.save",
+          "disabled": true,
+          "iconProps": Object {
+            "iconName": "Save",
+          },
+          "key": "Save",
+          "name": "moduleIdentity.detail.command.save",
           "onClick": [Function],
         },
       ]

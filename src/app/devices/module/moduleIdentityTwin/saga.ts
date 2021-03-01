@@ -7,7 +7,7 @@ import { getModuleIdentityTwinAction, updateModuleIdentityTwinAction } from './a
 import { getModuleIdentityTwinSaga } from './sagas/getModuleIdentityTwinSaga';
 import { updateModuleIdentityTwinSaga } from './sagas/updateModuleIdentityTwinSaga';
 
-export function* moduleIdentityTwinSaga() {
+export function* moduleIdentityTwinSagas() {
     yield all([
         takeLatest(getModuleIdentityTwinAction.started.type, getModuleIdentityTwinSaga),
         takeEvery(updateModuleIdentityTwinAction.started.type, updateModuleIdentityTwinSaga)

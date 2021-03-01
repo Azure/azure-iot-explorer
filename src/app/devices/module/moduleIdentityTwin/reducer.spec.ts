@@ -3,8 +3,8 @@
  * Licensed under the MIT License
  **********************************************************/
 import 'jest';
-import { GET_MODULE_IDENTITY_TWIN } from '../../../constants/actionTypes';
-import { getModuleIdentityTwinAction } from './actions';
+import { GET_MODULE_IDENTITY_TWIN, UPDATE_MODULE_IDENTITY_TWIN } from '../../../constants/actionTypes';
+import { getModuleIdentityTwinAction, updateModuleIdentityTwinAction } from './actions';
 import { moduleTwinReducer } from './reducer';
 import { moduleTwinStateInitial } from './state';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
@@ -49,6 +49,25 @@ describe('moduleTwinReducer', () => {
                 deviceId,
                 moduleId
             }});
+            expect(moduleTwinReducer(moduleTwinStateInitial(), action).synchronizationStatus).toEqual(SynchronizationStatus.failed);
+        });
+    });
+
+    context(`${UPDATE_MODULE_IDENTITY_TWIN}`, () => {
+        it (`handles ${UPDATE_MODULE_IDENTITY_TWIN}/ACTION_START action`, () => {
+            const action = updateModuleIdentityTwinAction.started(moduleTwin);
+            expect(moduleTwinReducer(moduleTwinStateInitial(), action).synchronizationStatus).toEqual(SynchronizationStatus.updating);
+        });
+
+        it (`handles ${UPDATE_MODULE_IDENTITY_TWIN}/ACTION_DONE action`, () => {
+            const action = updateModuleIdentityTwinAction.done({params: moduleTwin, result: moduleTwin});
+
+            expect(moduleTwinReducer(moduleTwinStateInitial(), action).payload).toEqual(moduleTwin);
+            expect(moduleTwinReducer(moduleTwinStateInitial(), action).synchronizationStatus).toEqual(SynchronizationStatus.upserted);
+        });
+
+        it (`handles ${UPDATE_MODULE_IDENTITY_TWIN}/ACTION_FAILED action`, () => {
+            const action = updateModuleIdentityTwinAction.failed({error: -1, params: moduleTwin});
             expect(moduleTwinReducer(moduleTwinStateInitial(), action).synchronizationStatus).toEqual(SynchronizationStatus.failed);
         });
     });

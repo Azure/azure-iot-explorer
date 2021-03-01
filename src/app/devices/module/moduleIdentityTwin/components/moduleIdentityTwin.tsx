@@ -17,7 +17,7 @@ import { ModuleIdentityDetailHeader } from '../../shared/components/moduleIdenti
 import { useAsyncSagaReducer } from '../../../../shared/hooks/useAsyncSagaReducer';
 import { JSONEditor } from '../../../../shared/components/jsonEditor';
 import { moduleTwinReducer } from '../reducer';
-import { moduleIdentityTwinSaga } from '../saga';
+import { moduleIdentityTwinSagas } from '../saga';
 import { moduleTwinStateInitial } from '../state';
 import '../../../../css/_deviceDetail.scss';
 import '../../../../css/_moduleIdentityDetail.scss';
@@ -29,7 +29,7 @@ export const ModuleIdentityTwin: React.FC = () => {
     const moduleId = getModuleIdentityIdFromQueryString(search);
     const deviceId = getDeviceIdFromQueryString(search);
 
-    const [ localState, dispatch ] = useAsyncSagaReducer(moduleTwinReducer, moduleIdentityTwinSaga, moduleTwinStateInitial(), 'moduleIdentityTwinState');
+    const [ localState, dispatch ] = useAsyncSagaReducer(moduleTwinReducer, moduleIdentityTwinSagas, moduleTwinStateInitial(), 'moduleIdentityTwinState');
     const moduleIdentityTwin = localState.payload;
     const moduleIdentityTwinSyncStatus = localState.synchronizationStatus;
     const [ state, setState ] = React.useState({
