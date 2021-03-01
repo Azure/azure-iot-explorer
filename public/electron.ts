@@ -65,6 +65,10 @@ class Main {
     private static onReady(): void {
         Main.createMainWindow();
         Main.createMenu();
+
+        require('electron-reload')(__dirname, {
+            electron: path.join(__dirname, '..', 'node_modules', '.bin', 'electron')
+        });
     }
 
     private static onActivate(): void {
