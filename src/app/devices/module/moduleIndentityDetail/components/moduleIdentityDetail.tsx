@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Route, useLocation, useHistory, useParams } from 'react-router-dom';
+import { Route, useLocation, useHistory } from 'react-router-dom';
 import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
 import { Label } from 'office-ui-fabric-react/lib/components/Label';
 import { Dialog, DialogFooter, DialogType } from 'office-ui-fabric-react/lib/components/Dialog';
@@ -24,13 +24,14 @@ import { moduleIdentityDetailReducer } from '../reducer';
 import { moduleIdentityDetailSaga } from '../saga';
 import { moduleIdentityDetailStateInterfaceInitial } from '../state';
 import { deleteModuleIdentityAction, getModuleIdentityAction } from '../actions';
+import { useIotHubContext } from '../../../../iotHub/hooks/useIotHubContext';
 import '../../../../css/_deviceDetail.scss';
 import '../../../../css/_moduleIdentityDetail.scss';
 
 export const ModuleIdentityDetail: React.FC = () => {
     const { t } = useTranslation();
     const { search, pathname } = useLocation();
-    const { hostName } = useParams();
+    const { hostName } = useIotHubContext();
     const history = useHistory();
     const moduleId = getModuleIdentityIdFromQueryString(search);
     const deviceId = getDeviceIdFromQueryString(search);

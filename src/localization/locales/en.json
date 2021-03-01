@@ -104,7 +104,7 @@
         "eventsPerInterface": "Telemetry",
         "methods": "Direct method",
         "cloudToDeviceMessage": "Cloud-to-device message",
-        "moduleIdentity": "Module identity",
+        "moduleIdentity": "Module identities",
         "interfaces": "Interface",
         "properties": "Properties (read-only)",
         "settings": "Properties (writable)",

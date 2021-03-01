@@ -15,7 +15,8 @@ import { deleteConnectionStringAction, upsertConnectionStringAction } from '../a
 import * as HubConnectionStringHelper from '../../shared/utils/hubConnectionStringHelper';
 
 jest.mock('react-router-dom', () => ({
-    useHistory: () => ({ push: jest.fn() })
+    useHistory: () => ({ push: jest.fn() }),
+    useRouteMatch: () => ({ url: 'url', path: 'path'})
 }));
 
 describe('ConnectionStringsView', () => {

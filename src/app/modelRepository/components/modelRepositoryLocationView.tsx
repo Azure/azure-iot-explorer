@@ -19,12 +19,15 @@ import { useGlobalStateContext } from '../../shared/contexts/globalStateContext'
 import { getRepositoryLocationSettings } from '../dataHelper';
 import { setRepositoryLocationsAction } from '../../shared/global/actions';
 import { RepositoryLocationSettings } from '../../shared/global/state';
+import { useBreadcrumbEntry } from '../../navigation/hooks/useBreadcrumbEntry';
 import '../../css/_layouts.scss';
 
 export const ModelRepositoryLocationView: React.FC = () => {
     const { t } = useTranslation();
     const history = useHistory();
     const { search } = useLocation();
+    useBreadcrumbEntry({ name: t(ResourceKeys.breadcrumb.ioTPlugAndPlay)});
+
     const params = new URLSearchParams(search);
     const navigationBackAvailable = params.has(ROUTE_PARAMS.NAV_FROM);
 

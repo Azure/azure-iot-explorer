@@ -5,7 +5,7 @@
 import * as React from 'react';
 import { useLocation, useRouteMatch, Route } from 'react-router-dom';
 import { ROUTE_PARTS } from '../../../constants/routes';
-import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
+import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString, getComponentNameFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { getDigitalTwinAction, getModelDefinitionAction } from '../actions';
 import { PnpStateContextProvider } from '../../../shared/contexts/pnpStateContext';
 import { DigitalTwinDetail } from './digitalTwinDetail';
@@ -17,6 +17,7 @@ import { RepositoryLocationSettings } from '../../../shared/global/state';
 import { useGlobalStateContext } from '../../../shared/contexts/globalStateContext';
 import { getRepositoryLocationSettings } from '../../../modelRepository/dataHelper';
 import { DigitalTwinInterfacesList } from './digitalTwinInterfacesList';
+import { BreadcrumbRoute } from '../../../navigation/components/breadcrumbRoute';
 import '../../../css/_digitalTwinInterfaces.scss';
 
 export const Pnp: React.FC = () => {
@@ -24,6 +25,7 @@ export const Pnp: React.FC = () => {
     const { url } = useRouteMatch();
     const deviceId = getDeviceIdFromQueryString(search);
     const interfaceId = getInterfaceIdFromQueryString(search);
+    const componentName = getComponentNameFromQueryString(search);
 
     const { globalState } = useGlobalStateContext();
     const { modelRepositoryState } = globalState;
@@ -49,7 +51,11 @@ export const Pnp: React.FC = () => {
     return (
         <PnpStateContextProvider value={{ pnpState, dispatch, getModelDefinition }}>
             <Route path={url} exact={true} component={DigitalTwinInterfacesList}/>
-            <Route path={`${url}/${ROUTE_PARTS.DIGITAL_TWINS_DETAIL}`} component={DigitalTwinDetail}/>
+            <BreadcrumbRoute
+                path={`${url}/${ROUTE_PARTS.DIGITAL_TWINS_DETAIL}`}
+                breadcrumb={{name: componentName}}
+                children={<DigitalTwinDetail/>}
+            />
         </PnpStateContextProvider>
     );
 };

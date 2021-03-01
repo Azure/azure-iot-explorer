@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Breadcrumbs matches snapshot 1`] = `
+<ul
+  className="breadcrumb"
+>
+  <Component
+    disableLink={true}
+    key="path1"
+    name="name1"
+    path="path1"
+    suffix=""
+    url="url1"
+  />
+  <Component
+    disableLink={false}
+    key="path2"
+    name="name2"
+    path="path2"
+    suffix=""
+    url="url2"
+  />
+  <Component
+    disableLink={true}
+    key="path3"
+    name="name3"
+    path="path3"
+    suffix=""
+    url="url3"
+  />
+</ul>
+`;

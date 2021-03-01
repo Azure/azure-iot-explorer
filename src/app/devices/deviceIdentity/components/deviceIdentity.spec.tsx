@@ -11,10 +11,7 @@ import { Toggle } from 'office-ui-fabric-react/lib/components/Toggle';
 import { DeviceIdentityInformation } from './deviceIdentity';
 import { DeviceAuthenticationType } from '../../../api/models/deviceAuthenticationType';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
-
-jest.mock('react-router-dom', () => ({
-    useParams: () => ({ hostName: 'hostName' })
-}));
+import * as IotHubContext from '../../../iotHub/hooks/useIotHubContext';
 
 const mockUpdateDevice = jest.fn();
 const componentProps = {
@@ -32,6 +29,8 @@ const getComponent = (overrides = {}) => {
 };
 
 describe('deviceIdentity', () => {
+    jest.spyOn(IotHubContext, 'useIotHubContext').mockReturnValue({ hostName: 'hostName'});
+
     context('snapshot', () => {
         it('matches snapshot', () => {
             expect(shallow(getComponent())).toMatchSnapshot();
