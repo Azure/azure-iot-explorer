@@ -1,6 +1,6 @@
 {
     "developmentMode": true,
-    "hostMode": "electron",
+    "hostMode": "debug",
     "authMode": "connectionString",
     "authServiceSettings": {
         "authority": "https://login.microsoftonline.com/common",

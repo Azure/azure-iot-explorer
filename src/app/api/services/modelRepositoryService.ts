@@ -7,11 +7,11 @@ import { REPO_LOCATIONS, LOCAL_FILE_EXPLORER_PATH_NAME, CONFIGURABLE_REPOSITORY_
 import { appConfig, HostMode } from '../../../appConfig/appConfig';
 
 export const getLocalFolderPath = () => {
-    return appConfig.hostMode === HostMode.Electron ? localStorage.getItem(LOCAL_FILE_EXPLORER_PATH_NAME) || '' : null;
+    return appConfig.hostMode !== HostMode.Browser ? localStorage.getItem(LOCAL_FILE_EXPLORER_PATH_NAME) || '' : null;
 };
 
 export const getConfigurableRepositoryPath = () => {
-    return appConfig.hostMode === HostMode.Electron ? localStorage.getItem(CONFIGURABLE_REPOSITORY_PATH_NAME) || '' : null;
+    return appConfig.hostMode !== HostMode.Browser ? localStorage.getItem(CONFIGURABLE_REPOSITORY_PATH_NAME) || '' : null;
 };
 
 export const getRepositoryLocations = () => {
@@ -20,7 +20,7 @@ export const getRepositoryLocations = () => {
             .filter(location => Object.values(REPOSITORY_LOCATION_TYPE).indexOf(location.toUpperCase() as REPOSITORY_LOCATION_TYPE) > -1)
             .map(location => location.toUpperCase() as REPOSITORY_LOCATION_TYPE);
 
-        if (appConfig.hostMode !== HostMode.Electron) { // do now show local folder option in browser version
+        if (appConfig.hostMode === HostMode.Browser) { // do not show local folder option in browser version
             locations = locations.filter(location => location !== REPOSITORY_LOCATION_TYPE.Local);
         }
         return locations;
