@@ -31,14 +31,14 @@ export const getSettingsInterfaceForBrowser = (): SettingsInterface => {
 
 export const getDeviceInterface = (): DeviceInterface => {
     if (appConfig.hostMode !== HostMode.Electron) {
-        throw new RbacModeNotReadyError();
+        throw new RbacModeNotReadyError(NOT_AVAILABLE);
     }
     return getElectronInterface(API_INTERFACES.DEVICE);
 };
 
 export const getLocalModelRepositoryInterface = (): ModelRepositoryInterface => {
     if (appConfig.hostMode !== HostMode.Electron) {
-        throw new RbacModeNotReadyError();
+        throw new RbacModeNotReadyError(NOT_AVAILABLE);
     }
 
     return getElectronInterface(API_INTERFACES.MODEL_DEFINITION);
@@ -46,7 +46,7 @@ export const getLocalModelRepositoryInterface = (): ModelRepositoryInterface => 
 
 export const getDirectoryInterface = (): DirectoryInterface => {
     if (appConfig.hostMode !== HostMode.Electron) {
-        throw new RbacModeNotReadyError();
+        throw new RbacModeNotReadyError(NOT_AVAILABLE);
     }
 
     return getElectronInterface(API_INTERFACES.DIRECTORY);
@@ -54,7 +54,7 @@ export const getDirectoryInterface = (): DirectoryInterface => {
 
 export const getEventHubInterface = (): EventHubInterface => {
     if (appConfig.hostMode !== HostMode.Electron) {
-        throw new RbacModeNotReadyError();
+        throw new RbacModeNotReadyError(NOT_AVAILABLE);
     }
 
     return getElectronInterface(API_INTERFACES.EVENTHUB);
