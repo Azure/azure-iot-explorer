@@ -32,7 +32,6 @@ export const DeviceTwin: React.FC = () => {
     const [ state, setState ] = React.useState({
         isDirty: false,
         isTwinValid: true,
-        needsRefresh: false,
         twin: JSON.stringify(twin, null, '\t')
     });
 
@@ -40,29 +39,7 @@ export const DeviceTwin: React.FC = () => {
 
     React.useEffect(() => {
         dispatch(getDeviceTwinAction.started(deviceId));
-    },              []);
-
-    // tslint:disable-next-line:cyclomatic-complexity
-    React.useEffect(() => {
-        if (twin && twinState !== SynchronizationStatus.working && twinState !== SynchronizationStatus.updating) {
-            if (!state.isDirty) {
-                if (state.needsRefresh && twinState === SynchronizationStatus.upserted) {
-                    setState ({
-                        ...state,
-                        needsRefresh: false,
-                        twin: JSON.stringify(twin, null, '\t')
-                    });
-                }
-                else {
-                    setState({
-                        ...state,
-                        twin: JSON.stringify(twin, null, '\t')
-                    });
-                }
-            }
-        }
-
-    },              [state.isDirty, state.needsRefresh, twinState]) ;
+    },              [deviceId]);
 
     const showCommandBar = () => {
         return (
@@ -90,11 +67,6 @@ export const DeviceTwin: React.FC = () => {
     };
 
     const handleRefresh = () => {
-        setState({
-            ...state,
-            isDirty: false,
-            needsRefresh: false
-        });
         dispatch(getDeviceTwinAction.started(deviceId));
     };
 
@@ -102,17 +74,13 @@ export const DeviceTwin: React.FC = () => {
         setState({
             ...state,
             isDirty: false,
-            isTwinValid: true,
-            needsRefresh: true
+            isTwinValid: true
         });
-        dispatch(updateDeviceTwinAction.started({
-            deviceId,
-            twin: JSON.parse(state.twin)
-        }));
+        dispatch(updateDeviceTwinAction.started(JSON.parse(state.twin)));
     };
 
     const renderTwinViewer = () => {
-        if (twinState === SynchronizationStatus.working) {
+        if (twinState === SynchronizationStatus.working || twinState === SynchronizationStatus.updating) {
             return <MultiLineShimmer className="device-detail"/>;
         }
 

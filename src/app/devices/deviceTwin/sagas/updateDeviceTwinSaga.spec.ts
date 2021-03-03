@@ -38,10 +38,7 @@ describe('updateDeviceTwinSaga', () => {
     };
 
     beforeAll(() => {
-        updateDeviceTwinSagaGenerator = cloneableGenerator(updateDeviceTwinSaga)(updateDeviceTwinAction.started({
-            deviceId,
-            twin: mockTwin
-        }));
+        updateDeviceTwinSagaGenerator = cloneableGenerator(updateDeviceTwinSaga)(updateDeviceTwinAction.started(mockTwin));
     });
 
     const mockUpdateDeviceTwin = jest.spyOn(DevicesService, 'updateDeviceTwin').mockImplementationOnce(parameters => {
@@ -51,9 +48,7 @@ describe('updateDeviceTwinSaga', () => {
     it('updates the device twin', () => {
         expect(updateDeviceTwinSagaGenerator.next()).toEqual({
             done: false,
-            value: call(mockUpdateDeviceTwin, {
-                deviceTwin: mockTwin
-            })
+            value: call(mockUpdateDeviceTwin, mockTwin)
         });
     });
 
@@ -73,7 +68,7 @@ describe('updateDeviceTwinSaga', () => {
         });
         expect(success.next()).toEqual({
             done: false,
-            value: put(updateDeviceTwinAction.done({params: { deviceId, twin: mockTwin}, result: mockTwin}))
+            value: put(updateDeviceTwinAction.done({params: mockTwin, result: mockTwin}))
         });
         expect(success.next().done).toEqual(true);
     });
@@ -97,7 +92,7 @@ describe('updateDeviceTwinSaga', () => {
 
         expect(failure.next(error)).toEqual({
             done: false,
-            value: put(updateDeviceTwinAction.failed({params: { deviceId, twin: mockTwin}, error}))
+            value: put(updateDeviceTwinAction.failed({params: mockTwin, error}))
         });
         expect(failure.next().done).toEqual(true);
     });

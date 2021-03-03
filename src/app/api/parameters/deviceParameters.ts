@@ -2,15 +2,10 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { Twin } from '../models/device';
 import { DeviceIdentity } from '../models/deviceIdentity';
 import { DeviceQuery } from '../models/deviceQuery';
 import { InvokeMethodActionParameters } from '../../devices/directMethod/actions';
 import { CloudToDeviceMessageActionParameters } from '../../devices/cloudToDeviceMessage/actions';
-
-export interface UpdateDeviceTwinParameters {
-    deviceTwin: Twin;
-}
 
 export interface FetchDeviceTwinParameters {
     deviceId: string;

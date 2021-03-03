@@ -64,27 +64,18 @@ describe('deviceTwinReducer', () => {
     });
 
     it (`handles ${UPDATE_TWIN}/ACTION_START action`, () => {
-        const action = updateDeviceTwinAction.started({
-            deviceId,
-            twin: result
-        });
+        const action = updateDeviceTwinAction.started(result);
         expect(deviceTwinReducer(fetchedState, action).deviceTwin.synchronizationStatus).toEqual(SynchronizationStatus.updating);
     });
 
     it (`handles ${UPDATE_TWIN}/ACTION_DONE action`, () => {
-        const action = updateDeviceTwinAction.done({params: {
-            deviceId,
-            twin: result
-        }, result});
+        const action = updateDeviceTwinAction.done({params: result, result});
         expect(deviceTwinReducer(fetchedState, action).deviceTwin.payload).toEqual(result);
         expect(deviceTwinReducer(fetchedState, action).deviceTwin.synchronizationStatus).toEqual(SynchronizationStatus.upserted);
     });
 
     it (`handles ${UPDATE_TWIN}/ACTION_FAILED action`, () => {
-        const action = updateDeviceTwinAction.failed({error: -1, params: {
-            deviceId,
-            twin: result
-        }});
+        const action = updateDeviceTwinAction.failed({error: -1, params: result});
         expect(deviceTwinReducer(fetchedState, action).deviceTwin.synchronizationStatus).toEqual(SynchronizationStatus.failed);
     });
 });

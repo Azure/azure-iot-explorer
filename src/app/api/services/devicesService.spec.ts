@@ -113,18 +113,9 @@ describe('deviceTwinService', () => {
     });
 
     context('updateDeviceTwin', () => {
-        const parameters = {
-            connectionString,
-            deviceId: undefined,
-            deviceTwin: twin
-        };
-        it ('returns if deviceId is not specified', () => {
-            expect(DevicesService.updateDeviceTwin(parameters)).toEqual(emptyPromise);
-        });
-
         it('calls fetch with specified parameters and invokes updateDeviceTwin when response is 200', async () => {
             jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockResolvedValue({
-                connectionInfo: getConnectionInfoFromConnectionString(parameters.connectionString), connectionString, sasToken});
+                connectionInfo, connectionString, sasToken});
 
             // tslint:disable
             const responseBody = twin;
@@ -140,7 +131,7 @@ describe('deviceTwinService', () => {
             // tslint:enable
             jest.spyOn(window, 'fetch').mockResolvedValue(response);
 
-            const result = await DevicesService.updateDeviceTwin(parameters);
+            const result = await DevicesService.updateDeviceTwin(twin);
 
             const connectionInformation = mockDataPlaneConnectionHelper();
             const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
@@ -167,9 +158,7 @@ describe('deviceTwinService', () => {
 
         it('throws Error when promise rejects', async () => {
             window.fetch = jest.fn().mockRejectedValueOnce(new Error());
-            await expect(DevicesService.updateDeviceTwin({
-                ...parameters
-            })).rejects.toThrow(new Error());
+            await expect(DevicesService.updateDeviceTwin(twin)).rejects.toThrow(new Error());
         });
     });
 

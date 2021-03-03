@@ -792,7 +792,8 @@
             "command" : {
                 "back": "Back",
                 "refresh": "Refresh",
-                "delete": "Delete"
+                "delete": "Delete",
+                "save": "Save"
             },
             "twin": "Module identity twin",
             "deleteConfirmation": "Are you certain you wish to delete this module identity?"
@@ -848,6 +849,7 @@
         "addModuleIdentityOnSucceed": "Successfully added module identity {{moduleId}}",
         "addModuleIdentityOnError": "Failed to add  module identity {{moduleId}}: {{error}}",
         "getModuleIdentityTwinOnError": "Failed to get module identity twin for module {{moduleId}}: {{error}}",
+        "updateModuleIdentityTwinOnError": "Failed to update module identity twin for module {{moduleId}}: {{error}}",
         "getModuleIdentityOnError": "Failed to get module identity {{moduleId}}: {{error}}",
         "deleteModuleIdentityOnSuccess": "Successfully deleted module {{moduleId}}",
         "deleteModuleIdentityOnError": "Failed to delete module identity {{moduleId}}: {{error}}",

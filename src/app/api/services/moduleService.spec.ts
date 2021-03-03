@@ -379,4 +379,54 @@ describe('moduleService', () => {
             })).rejects.toThrow(new Error());
         });
     });
+
+    context('updateModuleTwin', () => {
+        it('calls fetch with specified parameters and invokes updateDeviceTwin when response is 200', async () => {
+            jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockResolvedValue({
+                connectionInfo, connectionString, sasToken});
+
+            // tslint:disable
+            const responseBody = moduleTwin;
+            const response = {
+                json: () => {
+                    return {
+                        body: responseBody,
+                        headers:{}
+                        }
+                    },
+                status: 200
+            } as any;
+            // tslint:enable
+            jest.spyOn(window, 'fetch').mockResolvedValue(response);
+
+            const result = await ModuleService.updateModuleIdentityTwin(moduleTwin);
+
+            const connectionInformation = mockDataPlaneConnectionHelper();
+            const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
+                apiVersion: HUB_DATA_PLANE_API_VERSION,
+                body: JSON.stringify(moduleTwin),
+                hostName: connectionInformation.connectionInfo.hostName,
+                httpMethod: HTTP_OPERATION_TYPES.Patch,
+                path: `twins/${deviceId}/modules/${moduleId}`,
+                sharedAccessSignature: connectionInformation.sasToken
+            };
+
+            const serviceRequestParams = {
+                body: JSON.stringify(dataPlaneRequest),
+                cache: 'no-cache',
+                credentials: 'include',
+                headers,
+                method: HTTP_OPERATION_TYPES.Post,
+                mode: 'cors',
+            };
+
+            expect(fetch).toBeCalledWith(DataplaneService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
+            expect(result).toEqual(responseBody);
+        });
+
+        it('throws Error when promise rejects', async () => {
+            window.fetch = jest.fn().mockRejectedValueOnce(new Error());
+            await expect(ModuleService.updateModuleIdentityTwin(moduleTwin)).rejects.toThrow(new Error());
+        });
+    });
 });

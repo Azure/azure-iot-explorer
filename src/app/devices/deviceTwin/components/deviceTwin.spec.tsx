@@ -63,7 +63,6 @@ describe('devices/components/deviceTwin', () => {
             jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState({
                 isDirty: true,
                 isTwinValid: true,
-                needsRefresh: false,
                 twin: JSON.stringify(twin)
             }));
 
@@ -75,7 +74,7 @@ describe('devices/components/deviceTwin', () => {
             commandBar = wrapper.find(CommandBar).first();
             act(() => commandBar.props().items[1].onClick(null));
             wrapper.update();
-            expect(mockUpdateDeviceTwin.mock.calls[0][0]).toEqual({deviceId: 'test', twin});
+            expect(mockUpdateDeviceTwin.mock.calls[0][0]).toEqual(twin);
         });
     });
 });
