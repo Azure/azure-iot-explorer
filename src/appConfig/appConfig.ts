@@ -7,7 +7,8 @@ export enum AuthMode {
 
 export enum HostMode {
     Browser = 'browser',
-    Electron = 'electron'
+    Electron = 'electron',
+    Debug = 'debug'
 }
 
 export interface AppConfigInterface {

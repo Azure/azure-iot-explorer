@@ -97,7 +97,7 @@ export const ModelRepositoryLocationView: React.FC = () => {
     };
 
     const getCommandBarItemsAdd = (): IContextualMenuItem[] => {
-        const hostModeNotElectron: boolean = appConfig.hostMode !== HostMode.Electron;
+        const hostModeBrowser: boolean = appConfig.hostMode === HostMode.Browser;
 
         return [
             {
@@ -122,13 +122,13 @@ export const ModelRepositoryLocationView: React.FC = () => {
             },
             {
                 ariaLabel: t(ResourceKeys.modelRepository.commands.addLocalSource.ariaLabel),
-                disabled: hostModeNotElectron || repositoryLocationSettings.some(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local),
+                disabled: hostModeBrowser || repositoryLocationSettings.some(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local),
                 iconProps: {
                     iconName: FOLDER
                 },
                 key: REPOSITORY_LOCATION_TYPE.Local,
                 onClick: onAddRepositoryLocationLocal,
-                text: t(hostModeNotElectron ?
+                text: t(hostModeBrowser ?
                     ResourceKeys.modelRepository.commands.addLocalSource.labelInBrowser :
                     ResourceKeys.modelRepository.commands.addLocalSource.label)
             }
