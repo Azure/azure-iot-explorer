@@ -109,7 +109,7 @@ export const Commands: React.FC<CommandsProps> = ({
 
     // tslint:disable-next-line: cyclomatic-complexity
     const createStartMonitoringCommandItem = (): ICommandBarItemProps => {
-        if (appConfig.hostMode === HostMode.Electron) {
+        if (appConfig.hostMode !== HostMode.Browser) {
             const label = monitoringData ? t(ResourceKeys.deviceEvents.command.stop) : t(ResourceKeys.deviceEvents.command.start);
             const icon = monitoringData ? STOP : START;
             return {

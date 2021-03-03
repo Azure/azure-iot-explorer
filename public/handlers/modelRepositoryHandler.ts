@@ -8,7 +8,7 @@ import { GetInterfaceDefinitionParameters, MODEL_PARSE_ERROR } from '../interfac
 
 // tslint:disable-next-line: cyclomatic-complexity
 export const onGetInterfaceDefinition = (event: IpcMainInvokeEvent, { interfaceId, path }: GetInterfaceDefinitionParameters): object | undefined => {
-    if (!interfaceId || path) {
+    if (!interfaceId || !path) {
         throw new Error();
     }
 
@@ -40,13 +40,13 @@ export const onGetInterfaceDefinition = (event: IpcMainInvokeEvent, { interfaceI
 export const getInterfaceDefinition = (filePath: string, fileName: string, interfaceId: string): object | undefined => {
     const data = readFileFromLocal(filePath, fileName);
     const parsedData = JSON.parse(data);
-    if (Array.isArray(data)) {
+    if (Array.isArray(parsedData)) {
         for (const pd of parsedData) {
             if (pd['@id']?.toString() === interfaceId) {
                 return pd;
             }
         }
-    } else if (data['@id']?.toString() === interfaceId)  {
+    } else if (parsedData['@id']?.toString() === interfaceId)  {
         return parsedData;
     }
 };

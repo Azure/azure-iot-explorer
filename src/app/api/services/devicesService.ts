@@ -25,6 +25,7 @@ import { Twin, Device, DataPlaneResponse } from '../models/device';
 import { DeviceIdentity } from '../models/deviceIdentity';
 import { dataPlaneConnectionHelper, dataPlaneResponseHelper, request, DATAPLANE_CONTROLLER_ENDPOINT, DataPlaneRequest } from './dataplaneServiceHelper';
 import { getDeviceInterface, getEventHubInterface } from '../shared/interfaceUtils';
+import { parseEventHubMessage } from './eventHubMessageHelper';
 
 const PAGE_SIZE = 100;
 
@@ -234,8 +235,6 @@ export const deleteDevices = async (parameters: DeleteDevicesParameters) => {
 
 // tslint:disable-next-line:cyclomatic-complexity
 export const monitorEvents = async (parameters: MonitorEventsParameters): Promise<Message[]> => {
-    const api = getEventHubInterface();
-
     let requestParameters = {
         ...parameters,
         startTime: parameters.startTime && parameters.startTime.toISOString()
@@ -250,8 +249,9 @@ export const monitorEvents = async (parameters: MonitorEventsParameters): Promis
         };
     }
 
+    const api = getEventHubInterface();
     const result = await api.startEventHubMonitoring(requestParameters);
-    return result;
+    return result && result.length && result.length !== 0 && result.map(message => parseEventHubMessage(message)) || [];
 };
 
 export const stopMonitoringEvents = async (): Promise<void> => {

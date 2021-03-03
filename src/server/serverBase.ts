@@ -10,22 +10,21 @@ import bodyParser = require('body-parser');
 import cors = require('cors');
 import { Client as HubClient } from 'azure-iothub';
 import { Message as CloudToDeviceMessage } from 'azure-iot-common';
-import { EventHubClient, EventPosition, delay, EventHubRuntimeInformation, ReceiveHandler } from '@azure/event-hubs';
+import { EventHubClient, EventPosition, ReceiveHandler } from '@azure/event-hubs';
 import { generateDataPlaneRequestBody, generateDataPlaneResponse } from './dataPlaneHelper';
 
 const SERVER_ERROR = 500;
 const BAD_REQUEST = 400;
 const SUCCESS = 200;
 const NOT_FOUND = 404;
-const CONFLICT = 409;
 const NO_CONTENT_SUCCESS = 204;
-const SERVER_WAIT = 3000; // how long we'll let the call for eventHub messages run in non-socket
-const receivers: ReceiveHandler[] = [];
 const IOTHUB_CONNECTION_DEVICE_ID = 'iothub-connection-device-id';
 
 let client: EventHubClient = null;
-let connectionString: string = ''; // would be the same as connection string or in the format of `${connectionString}/${hubName}`
-let eventHubClientStopping = false;
+let messages: Message[] = [];
+let receivers: ReceiveHandler[] = [];
+let connectionString: string = ''; // would equal `${hubConnectionString}` or `${customEventHubConnectionString}/${customEventHubName}`
+let deviceId: string = '';
 
 interface Message {
     body: any; // tslint:disable-line:no-any
@@ -236,13 +235,10 @@ export const handleEventHubMonitorPostRequest = (req: express.Request, res: expr
             res.status(BAD_REQUEST).send();
         }
 
-        if (!eventHubClientStopping) {
-            eventHubProvider(res, req.body).then(result => {
-                res.status(SUCCESS).send(result);
-            });
-        } else {
-            res.status(CONFLICT).send('Client currently stopping');
-        }
+
+        eventHubProvider(req.body).then(result => {
+            res.status(SUCCESS).send(result);
+        });
     } catch (error) {
         res.status(SERVER_ERROR).send(error);
     }
@@ -255,13 +251,9 @@ export const handleEventHubStopPostRequest = (req: express.Request, res: express
             res.status(BAD_REQUEST).send();
         }
 
-        eventHubClientStopping = true;
-        stopClient().then(() => {
-            eventHubClientStopping = false;
-            res.status(SUCCESS).send();
-        });
+        stopClient();
+        res.status(SUCCESS).send();
     } catch (error) {
-        eventHubClientStopping = false;
         res.status(SERVER_ERROR).send(error);
     }
 };
@@ -333,51 +325,80 @@ export const addPropertiesToCloudToDeviceMessage = (message: CloudToDeviceMessag
     }
 };
 
-// tslint:disable-next-line:cyclomatic-complexity
-export const eventHubProvider = async (res: any, body: any) =>  { // tslint:disable-line: no-any
-    try {
-        if (!eventHubClientStopping) {
-            if (!client ||
-                body.hubConnectionString && body.hubConnectionString !== connectionString  ||
-                body.customEventHubConnectionString && `${body.customEventHubConnectionString}/${body.customEventHubName}` !== connectionString)
-            {
-                client = body.customEventHubConnectionString ?
-                    await EventHubClient.createFromConnectionString(body.customEventHubConnectionString, body.customEventHubName) :
-                    await EventHubClient.createFromIotHubConnectionString(body.hubConnectionString);
+export const eventHubProvider = async (params: any) =>  {
+    if (needToCreateNewEventHubClient(params))
+    {
+        // hub has changed, reinitialize client, receivers and mesages
+        client = params.customEventHubConnectionString ?
+            await EventHubClient.createFromConnectionString(params.customEventHubConnectionString, params.customEventHubName) :
+            await EventHubClient.createFromIotHubConnectionString(params.hubConnectionString);
 
-                connectionString = body.customEventHubConnectionString ?
-                    `${body.customEventHubConnectionString}/${body.customEventHubName}` :
-                    body.hubConnectionString;
-            }
-
-            const partitionIds = await client.getPartitionIds();
-
-            const hubInfo = await client.getHubRuntimeInformation();
-
-            const startTime = body.startTime ?
-                Date.parse(body.startTime) :
-                Date.now();
-
-            if (!partitionIds) {
-                res.status(NOT_FOUND).send('Nothing to return');
-            }
-
-            return handleMessages(body.deviceId, client, hubInfo, partitionIds, startTime, body.consumerGroup);
-        } else {
-            res.status(CONFLICT).send('Client currently stopping');
-        }
-    } catch (error) {
-        res.status(SERVER_ERROR).send(error);
+        connectionString = params.customEventHubConnectionString ?
+            `${params.customEventHubConnectionString}/${params.customEventHubName}` :
+            params.hubConnectionString;
+        receivers = [];
+        messages = [];
     }
+    updateDeviceIdIfNecessary(params);
+
+    return listeningToMessages(client, params);
+};
+
+const listeningToMessages = async (eventHubClient: EventHubClient, params: any) => {
+    if (params.startListeners || !receivers) {
+        const partitionIds = await client.getPartitionIds();
+        const hubInfo = await client.getHubRuntimeInformation();
+        const startTime = params.startTime ? Date.parse(params.startTime) : Date.now();
+
+        partitionIds && partitionIds.forEach(async (partitionId: string) => {
+            const receiveOptions =  {
+                consumerGroup: params.consumerGroup,
+                enableReceiverRuntimeMetric: true,
+                eventPosition: EventPosition.fromEnqueuedTime(startTime),
+                name: `${hubInfo.path}_${partitionId}`,
+            };
+
+            const receiver = eventHubClient.receive(
+                partitionId,
+                onMessageReceived,
+                (err: object) => {},
+                receiveOptions);
+            receivers.push(receiver);
+        });
+    }
+
+    return handleMessages();
+};
+
+const handleMessages = () => {
+    let results: Message[] = [];
+    messages.forEach(message => {
+        if (!results.some(result => result.systemProperties?.['x-opt-sequence-number'] === message.systemProperties?.['x-opt-sequence-number'])) {
+            // if user click stop/start too refrequently, it's possible duplicate receivers are created before the cleanup happens as it's async
+            // remove duplicate messages before proper cleanup is finished
+            results.push(message);
+        }
+    })
+    messages = []; // empty the array everytime the result is returned
+    return results;
+}
+
+export const stopClient = async () => {
+    return stopReceivers().then(() => {
+        return client && client.close().catch(error => {
+            console.log(`client cleanup error: ${error}`); // swallow the error as we will cleanup anyways
+        });
+    }).finally (() => {
+        client = null;
+        receivers = [];
+    });
 };
 
 const stopReceivers = async () => {
     return Promise.all(
         receivers.map(receiver => {
             if (receiver && (receiver.isReceiverOpen === undefined || receiver.isReceiverOpen)) {
-                return receiver.stop().catch((err: object) => {
-                    console.log(`receivers cleanup error: ${err}`); // tslint:disable-line: no-console
-                });
+                return stopReceiver(receiver);
             } else {
                 return null;
             }
@@ -385,66 +406,34 @@ const stopReceivers = async () => {
     );
 };
 
-export const stopClient = async () => {
-    return stopReceivers().then(() => {
-        return client && client.close().then(() => {
-            client = null;
-        }).catch(error => {
-            console.log(`client cleanup error: ${error}`); // tslint:disable-line: no-console
-            client = null;
-        });
+const stopReceiver = async (receiver: ReceiveHandler) => {
+    receiver.stop().catch((err: object) => {
+        throw new Error(`receivers cleanup error: ${err}`);
     });
-};
+}
 
-const handleMessages = async (deviceId: string, eventHubClient: EventHubClient, hubInfo: EventHubRuntimeInformation, partitionIds: string[], startTime: number, consumerGroup: string) => {
-    const messages: Message[] = [];
-    const onMessage = async (eventData: any) => { // tslint:disable-line: no-any
-        if (eventData && eventData.annotations && eventData.annotations[IOTHUB_CONNECTION_DEVICE_ID] === deviceId) {
-            const message: Message = {
-                body: eventData.body,
-                enqueuedTime: eventData.enqueuedTimeUtc,
-                properties: eventData.applicationProperties
-            };
-            message.systemProperties = eventData.annotations;
-            messages.push(message);
-        }
-    };
+const needToCreateNewEventHubClient = (parmas: any): boolean => {
+    return !client ||
+        parmas.hubConnectionString && parmas.hubConnectionString !== connectionString  ||
+        parmas.customEventHubConnectionString && `${parmas.customEventHubConnectionString}/${parmas.customEventHubName}` !== connectionString;
+}
 
-    partitionIds.forEach(async (partitionId: string) => {
-        const receiveOptions =  {
-            consumerGroup,
-            enableReceiverRuntimeMetric: true,
-            eventPosition: EventPosition.fromEnqueuedTime(startTime),
-            name: `${hubInfo.path}_${partitionId}`,
+const updateDeviceIdIfNecessary = (parmas: any) => {
+    if( !deviceId || parmas.deviceId !== deviceId)
+    {
+        deviceId = parmas.deviceId;
+        messages = [];
+    }
+}
+
+const onMessageReceived = async (eventData: any) => {
+    if (eventData && eventData.annotations && eventData.annotations[IOTHUB_CONNECTION_DEVICE_ID] === deviceId) {
+        const message: Message = {
+            body: eventData.body,
+            enqueuedTime: eventData.enqueuedTimeUtc.toString(),
+            properties: eventData.applicationProperties
         };
-        let receiver: ReceiveHandler;
-        try {
-            receiver = eventHubClient.receive(
-                partitionId,
-                onMessage,
-                (err: object) => {
-                    console.log(err); // tslint:disable-line: no-console
-                },
-                receiveOptions);
-            receivers.push(receiver);
-            await delay(SERVER_WAIT).then(() => {
-                receiver.stop().catch(err => {
-                    console.log(`couldn't stop receiver on partition[${partitionId}]: ${err}`); // tslint:disable-line: no-console
-                });
-            });
-        }
-        catch (ex) {
-            if (receiver) {
-                receiver.stop().catch(err => {
-                    console.log(`failed to stop receiver: ${err}`); // tslint:disable-line: no-console
-                });
-            }
-            console.log(`receiver fail: ${ex}`); // tslint:disable-line: no-console
-        }
-    });
-    await delay(SERVER_WAIT).then(() => {
-        stopReceivers();
-    });
-
-    return messages;
+        message.systemProperties = eventData.annotations;
+        messages.push(message);
+    }
 };

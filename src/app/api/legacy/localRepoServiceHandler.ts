@@ -4,14 +4,14 @@
  **********************************************************/
 import { GetInterfaceDefinitionParameters, ModelRepositoryInterface } from '../../../../public/interfaces/modelRepositoryInterface';
 import { DirectoryInterface, GetDirectoriesParameters } from '../../../../public/interfaces/directoryInterface';
-import { READ_FILE, CONTROLLER_API_ENDPOINT, DataPlaneStatusCode, GET_DIRECTORIES, DEFAULT_DIRECTORY } from './../../constants/apiConstants';
+import { READ_FILE, CONTROLLER_API_ENDPOINT, DataPlaneStatusCode, GET_DIRECTORIES, DEFAULT_DIRECTORY } from '../../constants/apiConstants';
 import { ModelDefinitionNotFound } from '../models/modelDefinitionNotFoundError';
 import { ModelDefinitionNotValidJsonError } from '../models/modelDefinitionNotValidJsonError';
 
 export class LocalRepoServiceHandler implements DirectoryInterface, ModelRepositoryInterface {
     public getDirectories = async (params: GetDirectoriesParameters): Promise<string[]> => {
-        const response = await fetch(`${CONTROLLER_API_ENDPOINT}${GET_DIRECTORIES}/${encodeURIComponent(params.path || DEFAULT_DIRECTORY)}`);
-        if (!params.path) {
+        const response = await fetch(`${CONTROLLER_API_ENDPOINT}${GET_DIRECTORIES}/${encodeURIComponent(params.path)}`);
+        if (params.path === DEFAULT_DIRECTORY) {
             // only possible when platform is windows, expecting drives to be returned
             const responseText = await response.text();
             const drives = responseText.split(/\r\n/).map(drive => drive.trim()).filter(drive => drive !== '');

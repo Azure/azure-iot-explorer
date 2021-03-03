@@ -50,11 +50,6 @@ describe('browserSettingsApi', () => {
 });
 
 describe('getDeviceInterface', () => {
-    it('throws exception when mode is not electron', () => {
-        appConfig.hostMode = HostMode.Browser;
-        expect(() => interfaceUtils.getDeviceInterface()).toThrowError(interfaceUtils.NOT_AVAILABLE);
-    });
-
     it('calls expected factory when mode is electron', () => {
         appConfig.hostMode = HostMode.Electron;
         const factory = jest.spyOn(interfaceUtils, 'getElectronInterface');
@@ -65,11 +60,6 @@ describe('getDeviceInterface', () => {
 });
 
 describe('getDirectoryInterface', () => {
-    it('throws exception when mode is not electron', () => {
-        appConfig.hostMode = HostMode.Browser;
-        expect(() => interfaceUtils.getDirectoryInterface()).toThrowError(interfaceUtils.NOT_AVAILABLE);
-    });
-
     it('calls expected factory when mode is electron', () => {
         appConfig.hostMode = HostMode.Electron;
         const factory = jest.spyOn(interfaceUtils, 'getElectronInterface');
@@ -80,11 +70,6 @@ describe('getDirectoryInterface', () => {
 });
 
 describe('getLocalModelRepositoryInterface', () => {
-    it('throws exception when mode is not electron', () => {
-        appConfig.hostMode = HostMode.Browser;
-        expect(() => interfaceUtils.getLocalModelRepositoryInterface()).toThrowError(interfaceUtils.NOT_AVAILABLE);
-    });
-
     it('calls expected factory when mode is electron', () => {
         appConfig.hostMode = HostMode.Electron;
         const factory = jest.spyOn(interfaceUtils, 'getElectronInterface');
@@ -95,11 +80,6 @@ describe('getLocalModelRepositoryInterface', () => {
 });
 
 describe('getEventHubInterface', () => {
-    it('throws exception when mode is not electron', () => {
-        appConfig.hostMode = HostMode.Browser;
-        expect(() => interfaceUtils.getEventHubInterface()).toThrowError(interfaceUtils.NOT_AVAILABLE);
-    });
-
     it('calls expected factory when mode is electron', () => {
         appConfig.hostMode = HostMode.Electron;
         const factory = jest.spyOn(interfaceUtils, 'getElectronInterface');
