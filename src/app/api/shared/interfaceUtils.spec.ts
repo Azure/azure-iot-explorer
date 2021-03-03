@@ -50,11 +50,6 @@ describe('browserSettingsApi', () => {
 });
 
 describe('getDeviceInterface', () => {
-    it('does not throw exception when mode is not electron', () => {
-        appConfig.hostMode = HostMode.Browser;
-        expect(() => interfaceUtils.getDeviceInterface()).not.toThrow();
-    });
-
     it('calls expected factory when mode is electron', () => {
         appConfig.hostMode = HostMode.Electron;
         const factory = jest.spyOn(interfaceUtils, 'getElectronInterface');
@@ -65,11 +60,6 @@ describe('getDeviceInterface', () => {
 });
 
 describe('getDirectoryInterface', () => {
-    it('does not throw exception when mode is not electron', () => {
-        appConfig.hostMode = HostMode.Browser;
-        expect(() => interfaceUtils.getDirectoryInterface()).not.toThrow();
-    });
-
     it('calls expected factory when mode is electron', () => {
         appConfig.hostMode = HostMode.Electron;
         const factory = jest.spyOn(interfaceUtils, 'getElectronInterface');
@@ -80,11 +70,6 @@ describe('getDirectoryInterface', () => {
 });
 
 describe('getLocalModelRepositoryInterface', () => {
-    it('does not throw exception when mode is not electron', () => {
-        appConfig.hostMode = HostMode.Browser;
-        expect(() => interfaceUtils.getLocalModelRepositoryInterface()).not.toThrow();
-    });
-
     it('calls expected factory when mode is electron', () => {
         appConfig.hostMode = HostMode.Electron;
         const factory = jest.spyOn(interfaceUtils, 'getElectronInterface');
@@ -95,11 +80,6 @@ describe('getLocalModelRepositoryInterface', () => {
 });
 
 describe('getEventHubInterface', () => {
-    it('does not throw exception when mode is not electron', () => {
-        appConfig.hostMode = HostMode.Browser;
-        expect(() => interfaceUtils.getEventHubInterface()).not.toThrow();
-    });
-
     it('calls expected factory when mode is electron', () => {
         appConfig.hostMode = HostMode.Electron;
         const factory = jest.spyOn(interfaceUtils, 'getElectronInterface');
