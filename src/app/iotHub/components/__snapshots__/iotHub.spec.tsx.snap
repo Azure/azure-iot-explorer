@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`IotHub matches snapshot 1`] = `
+<Fragment>
+  <Component
+    component={[Function]}
+    path="/host/:hostName"
+  />
+  <Component
+    component={[Function]}
+    path="/resource/:subscription/:resourceGroup/:resourceName"
+  />
+</Fragment>
+`;

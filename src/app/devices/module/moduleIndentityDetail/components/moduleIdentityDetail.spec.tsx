@@ -8,12 +8,12 @@ import { shallow } from 'enzyme';
 import { ModuleIdentityDetail } from './moduleIdentityDetail';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import * as AsyncSagaReducer from '../../../../shared/hooks/useAsyncSagaReducer';
+import * as IotHubContext from '../../../../iotHub/hooks/useIotHubContext';
 
 const pathname = 'http://127.0.0.1:3000/#/resources/testhub.azure-devices.net/devices/deviceDetail/moduleIdentity/moduleDetail/?deviceId=newdevice&moduleId=moduleId';
 jest.mock('react-router-dom', () => ({
     useHistory: () => ({ push: jest.fn() }),
     useLocation: () => ({ search: '?deviceId=newdevice&moduleId=moduleId', pathname }),
-    useParams: () => ({ hostName: 'hostName' })
 }));
 
 const deviceId = 'deviceId';
@@ -60,6 +60,8 @@ const certificateAuthorityModuleIdentity = {
 };
 
 describe('ModuleIdentityDetail', () => {
+    jest.spyOn(IotHubContext, 'useIotHubContext').mockReturnValue({ hostName: 'hostName'});
+
     context('snapshot', () => {
         it('matches snapshot while loading', () => {
             jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValueOnce([{synchronizationStatus: SynchronizationStatus.working}, jest.fn()]);

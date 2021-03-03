@@ -66,7 +66,7 @@ exports[`deviceEvents deviceEvents in non-pnp context matches snapshot 1`] = `
         key="0"
       >
         <h5>
-          9:44:58 PM, 10/14/2019
+          Wed Feb 17 2021 16:06:00 GMT-0800 (Pacific Standard Time)
           :
         </h5>
         <pre>
@@ -74,7 +74,7 @@ exports[`deviceEvents deviceEvents in non-pnp context matches snapshot 1`] = `
   "body": {
     "humid": 123
   },
-  "enqueuedTime": "2019-10-14T21:44:58.397Z",
+  "enqueuedTime": "Wed Feb 17 2021 16:06:00 GMT-0800 (Pacific Standard Time)",
   "properties": {
     "iothub-message-schema": "humid"
   }

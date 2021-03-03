@@ -7,7 +7,7 @@ import { Route, Redirect, Switch } from 'react-router-dom';
 import { ROUTE_PARTS } from '../../constants/routes';
 import { AppVersionMessageBar } from './appVersionMessageBar';
 import { HomeViewNavigation } from './homeViewNavigation';
-import { AzureResourcesView } from '../../azureResources/components/azureResourcesView';
+import { ConnectionStringsView } from '../../connectionStrings/components/connectionStringsView';
 import { ModelRepositoryLocationView } from '../../modelRepository/components/modelRepositoryLocationView';
 import './homeView.scss';
 
@@ -26,7 +26,7 @@ export const HomeView: React.FC = () => {
                 <div className={'home-content' + (!appMenuVisible ? ' collapsed' : '')}>
                     <Switch>
                         <Redirect from={`/${ROUTE_PARTS.HOME}`} to={`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.RESOURCES}`} exact={true}/>
-                        <Route path={`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.RESOURCES}`} component={AzureResourcesView} exact={true} />
+                        <Route path={`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.RESOURCES}`} component={ConnectionStringsView} exact={true} />
                         <Route path={`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.MODEL_REPOS}`} component={ModelRepositoryLocationView} exact={true} />
                     </Switch>
                 </div>

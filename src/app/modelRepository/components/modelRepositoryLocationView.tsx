@@ -19,12 +19,15 @@ import { useGlobalStateContext } from '../../shared/contexts/globalStateContext'
 import { getRepositoryLocationSettings } from '../dataHelper';
 import { setRepositoryLocationsAction } from '../../shared/global/actions';
 import { RepositoryLocationSettings } from '../../shared/global/state';
+import { useBreadcrumbEntry } from '../../navigation/hooks/useBreadcrumbEntry';
 import '../../css/_layouts.scss';
 
 export const ModelRepositoryLocationView: React.FC = () => {
     const { t } = useTranslation();
     const history = useHistory();
     const { search } = useLocation();
+    useBreadcrumbEntry({ name: t(ResourceKeys.breadcrumb.ioTPlugAndPlay)});
+
     const params = new URLSearchParams(search);
     const navigationBackAvailable = params.has(ROUTE_PARAMS.NAV_FROM);
 
@@ -94,7 +97,7 @@ export const ModelRepositoryLocationView: React.FC = () => {
     };
 
     const getCommandBarItemsAdd = (): IContextualMenuItem[] => {
-        const hostModeNotElectron: boolean = appConfig.hostMode !== HostMode.Electron;
+        const hostModeBrowser: boolean = appConfig.hostMode === HostMode.Browser;
 
         return [
             {
@@ -119,13 +122,13 @@ export const ModelRepositoryLocationView: React.FC = () => {
             },
             {
                 ariaLabel: t(ResourceKeys.modelRepository.commands.addLocalSource.ariaLabel),
-                disabled: hostModeNotElectron || repositoryLocationSettings.some(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local),
+                disabled: hostModeBrowser || repositoryLocationSettings.some(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local),
                 iconProps: {
                     iconName: FOLDER
                 },
                 key: REPOSITORY_LOCATION_TYPE.Local,
                 onClick: onAddRepositoryLocationLocal,
-                text: t(hostModeNotElectron ?
+                text: t(hostModeBrowser ?
                     ResourceKeys.modelRepository.commands.addLocalSource.labelInBrowser :
                     ResourceKeys.modelRepository.commands.addLocalSource.label)
             }

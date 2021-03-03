@@ -5,11 +5,12 @@
 import 'jest';
 import * as DevicesService from './devicesService';
 import * as DataplaneService from './dataplaneServiceHelper';
-import { CONTROLLER_API_ENDPOINT, CLOUD_TO_DEVICE, HTTP_OPERATION_TYPES, HUB_DATA_PLANE_API_VERSION} from '../../constants/apiConstants';
+import { HTTP_OPERATION_TYPES, HUB_DATA_PLANE_API_VERSION } from '../../constants/apiConstants';
 import { Twin } from '../models/device';
 import { DeviceIdentity } from './../models/deviceIdentity';
 import { buildQueryString, getConnectionInfoFromConnectionString } from '../shared/utils';
 import { MonitorEventsParameters } from '../parameters/deviceParameters';
+import * as interfaceUtils from '../shared/interfaceUtils';
 
 const deviceId = 'deviceId';
 const connectionString = 'HostName=test-string.azure-devices.net;SharedAccessKeyName=owner;SharedAccessKey=fakeKey=';
@@ -247,53 +248,24 @@ describe('deviceTwinService', () => {
 
     context('cloudToDeviceMessage', () => {
         const parameters = {
-            body: '',
-            deviceId: undefined,
-            properties: undefined
+            body: 'body',
+            deviceId: 'deviceId',
+            properties: []
         };
 
-        it('calls fetch with specified parameters', async () => {
-            // tslint:disable
-            const responseBody = {description: 'invoked'};
-            const response = {
-                json: () => {
-                    return {
-                        body: responseBody,
-                        headers:{}
-                        }
-                    },
-                status: 200
-            } as any;
-            // tslint:enable
-            jest.spyOn(window, 'fetch').mockResolvedValue(response);
-
-            await DevicesService.cloudToDeviceMessage({
-                ...parameters,
-                deviceId
+        it('calls sendMessageToDevice with expected parameters', async () => {
+            const sendMessageToDevice = jest.fn();
+            jest.spyOn(interfaceUtils, 'getDeviceInterface').mockReturnValue({
+                sendMessageToDevice
             });
-            expect(fetch).toBeCalledWith(`${CONTROLLER_API_ENDPOINT}${CLOUD_TO_DEVICE}`, {
-                body: JSON.stringify({
-                    ...parameters,
-                    connectionString,
-                    deviceId
-                }),
-                cache: 'no-cache',
-                credentials: 'include',
-                headers: new Headers({
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                }),
-                method: HTTP_OPERATION_TYPES.Post,
-                mode: 'cors',
-            });
-        });
 
-        it('throws Error when promise rejects', async () => {
-            window.fetch = jest.fn().mockRejectedValueOnce(new Error('error'));
-            await expect(DevicesService.cloudToDeviceMessage({
-                ...parameters,
-                deviceId
-            })).rejects.toThrow(new Error('error'));
+            await DevicesService.cloudToDeviceMessage(parameters);
+            expect(sendMessageToDevice).toBeCalledWith({
+                connectionString,
+                deviceId: 'deviceId',
+                messageBody: 'body',
+                messageProperties: []
+            });
         });
     });
 
@@ -638,58 +610,40 @@ describe('deviceTwinService', () => {
             customEventHubConnectionString: undefined,
             deviceId,
             hubConnectionString: undefined,
+            startListeners: true,
             startTime: undefined
         };
-        it ('returns if hubConnectionString is not specified', () => {
-            expect(DevicesService.monitorEvents(parameters)).toEqual(emptyPromise);
-        });
 
-        it('calls fetch with specified parameters and invokes monitorEvents when response is 200', async () => {
+        it('calls startEventHubMonitoring with expected parameters', async () => {
             jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockResolvedValue({
                 connectionInfo: getConnectionInfoFromConnectionString(connectionString), connectionString, sasToken});
-            // tslint:disable
-            const responseBody = [{'body':{'temp':0},'enqueuedTime':'2019-09-06T17:47:11.334Z','properties':{'iothub-message-schema':'temp'}}];
-            const response = {
-                json: () => responseBody,
-                status: 200
-            } as any;
-            // tslint:enable
-            jest.spyOn(window, 'fetch').mockResolvedValue(response);
 
-            const result = await DevicesService.monitorEvents(parameters);
+            const startEventHubMonitoring = jest.fn();
+            jest.spyOn(interfaceUtils, 'getEventHubInterface').mockReturnValue({
+                startEventHubMonitoring,
+                stopEventHubMonitoring: jest.fn()
+            });
 
-            const eventHubRequestParameters = {
+            await DevicesService.monitorEvents(parameters);
+            expect(startEventHubMonitoring).toBeCalledWith({
                 ...parameters,
                 hubConnectionString: connectionString,
                 startTime: parameters.startTime && parameters.startTime.toISOString()
-            };
-
-            const serviceRequestParams = {
-                body: JSON.stringify(eventHubRequestParameters),
-                cache: 'no-cache',
-                credentials: 'include',
-                headers,
-                method: HTTP_OPERATION_TYPES.Post,
-                mode: 'cors',
-            };
-
-            expect(fetch).toBeCalledWith(DevicesService.EVENTHUB_MONITOR_ENDPOINT, serviceRequestParams);
-            expect(result).toEqual(responseBody);
+            });
         });
     });
 
     context('stopMonitoringEvents', () => {
-        it('calls fetch with specified parameters', () => {
-            DevicesService.stopMonitoringEvents();
-            const serviceRequestParams = {
-                body: JSON.stringify({}),
-                cache: 'no-cache',
-                credentials: 'include',
-                headers,
-                method: HTTP_OPERATION_TYPES.Post,
-                mode: 'cors',
-            };
-            expect(fetch).toBeCalledWith(DevicesService.EVENTHUB_STOP_ENDPOINT, serviceRequestParams);
+        it('calls stopEventHubMonitoring', async () => {
+
+            const stopEventHubMonitoring = jest.fn();
+            jest.spyOn(interfaceUtils, 'getEventHubInterface').mockReturnValue({
+                startEventHubMonitoring: jest.fn(),
+                stopEventHubMonitoring
+            });
+
+            await DevicesService.stopMonitoringEvents();
+            expect(stopEventHubMonitoring).toBeCalled();
         });
     });
 });

@@ -2,14 +2,14 @@
   "name": "azure-iot-explorer",
   "version": "0.13.5",
   "description": "This project welcomes contributions and suggestions. Most contributions require you to agree to a\r Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us\r the rights to use your contribution. For details, visit https://cla.microsoft.com.",
-  "main": "public/electron.js",
+  "main": "host/electron.js",
   "build": {
     "appId": "com.microsoft.azure.iot.pnp.ui",
     "productName": "Azure IoT Explorer (preview)",
     "files": [
       "dist/**/*",
       "package.json",
-      "public/electron.js"
+      "host/**/*"
     ],
     "directories": {
       "buildResources": "icon"
@@ -44,7 +44,7 @@
     "import-semantic-units": "tsc ./scripts/importSemanticUnitTypes.ts --skipLibCheck && node ./scripts/importSemanticUnitTypes.js",
     "docker": "docker pull electronuserland/electron-builder && docker run --rm -ti --mount source=$(pwd),target=/project,type=bind electronuserland/electron-builder:latest",
     "electron": "electron .",
-    "electron:compile": "tsc ./public/electron.ts --skipLibCheck --lib es2015 --inlineSourceMap",
+    "electron:compile": "tsc --project ./public/tsconfig.json",
     "package:win": "npm run clean && npm install && npm rebuild node-sass && npm run build && electron-builder -w",
     "package:linux": "npm run clean:linux && npm install && npm rebuild node-sass && npm run build && electron-builder -l",
     "package:mac": "npm install && npm rebuild node-sass && npm run build && electron-builder -m",
@@ -126,7 +126,7 @@
     "concurrently": "5.3.0",
     "copy-webpack-plugin": "6.1.0",
     "css-loader": "1.0.0",
-    "electron": "9.4.0",
+    "electron": "11.2.1",
     "electron-builder": "22.8.0",
     "enzyme": "3.11.0",
     "enzyme-adapter-react-16": "1.15.1",

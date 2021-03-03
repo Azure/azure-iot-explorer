@@ -13,6 +13,7 @@ import { globalStateInitial } from '../../shared/global/state';
 jest.mock('react-router-dom', () => ({
     useHistory: () => ({ push: jest.fn() }),
     useLocation: () => ({ search: '' }),
+    useRouteMatch: () => ({ url: 'url', path: 'path'})
 }));
 
 describe('modelRepositoryLocationView', () => {

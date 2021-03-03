@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BreadcrumbRoute matches snapshot 1`] = `
+<Route
+  breadcrumb={
+    Object {
+      "name": "name",
+    }
+  }
+  exact={true}
+  path="path"
+>
+  <Component
+    name="name"
+  />
+</Route>
+`;

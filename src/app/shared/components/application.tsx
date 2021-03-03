@@ -6,34 +6,36 @@ import 'react-toastify/dist/ReactToastify.css';
 import * as React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import { NoMatchError } from './noMatchError';
+import { useTranslation } from 'react-i18next';
+import { NoMatchError } from '../../navigation/components/noMatchError';
 import { ROUTE_PARTS } from '../../constants/routes';
 import { HomeView } from '../../home/components/homeView';
-import { DeviceList } from '../../devices/deviceList/components/deviceList';
-import { AddDevice } from '../../devices/addDevice/components/addDevice';
-import { DeviceContent } from '../../devices/deviceIdentity/components/deviceContent';
-import { Breadcrumb } from './breadcrumb';
+import { Breadcrumbs } from '../../navigation/components/breadcrumbs';
+import { useBreadcrumbEntry } from '../../navigation/hooks/useBreadcrumbEntry';
+import { IotHub } from '../../iotHub/components/iotHub';
+import { ResourceKeys } from '../../../localization/resourceKeys';
 import { Header } from './header';
 import '../../css/_application.scss';
 
 const NOTIFICATION_AUTO_CLOSE = 5000;
 
 export const Application: React.FC = () => {
+    const { t } = useTranslation();
+    useBreadcrumbEntry({ name: t(ResourceKeys.common.home), suffix: 'home' });
+
     return (
         <div className="app">
             <div className="masthead">
                 <Header />
             </div>
             <nav className="navigation">
-                <Route component={Breadcrumb} />
+                <Breadcrumbs/>
             </nav>
             <main role="main" className="content">
                 <Switch>
                     <Redirect from="/" exact={true} to={`${ROUTE_PARTS.HOME}`}/>
                     <Route path={`/${ROUTE_PARTS.HOME}`} component={HomeView} />
-                    <Route path={`/${ROUTE_PARTS.RESOURCE}/:hostName/${ROUTE_PARTS.DEVICES}`} component={DeviceList} exact={true}/>
-                    <Route path={`/${ROUTE_PARTS.RESOURCE}/:hostName/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.ADD}`} component={AddDevice} exact={true} />
-                    <Route path={`/${ROUTE_PARTS.RESOURCE}/:hostName/${ROUTE_PARTS.DEVICES}/${ROUTE_PARTS.DEVICE_DETAIL}/`} component={DeviceContent}/>
+                    <Route path={'/microsoft.devices/'} component={IotHub} />
                     <Route component={NoMatchError}/>
                 </Switch>
             </main>

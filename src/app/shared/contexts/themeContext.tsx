@@ -4,6 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { IPartialTheme } from 'office-ui-fabric-react/lib/Styling';
+import { THEME_DARK, THEME_LIGHT, THEME_DARK_HC, THEME_LIGHT_HC } from '../../constants/themes';
 
 export enum Theme {
     light = 'light',
@@ -17,14 +18,40 @@ export enum EditorTheme {
     hc_black = 'twilight'
 }
 
-export interface ThemeContextInterface {
+export interface ThemeProperties {
     theme: Theme;
     editorTheme: EditorTheme;
     fabricTheme: IPartialTheme;
+}
+
+export interface ThemeContextInterface extends ThemeProperties {
     updateTheme: (isDarkTheme: boolean) => void;
 }
 
-export const ThemeContext = React.createContext({
+export const ThemeProperties: Record<Theme, ThemeProperties> = {
+    [Theme.dark]: {
+        editorTheme: EditorTheme.dark,
+        fabricTheme: THEME_DARK,
+        theme: Theme.dark
+    },
+    [Theme.highContrastBlack]: {
+        editorTheme: EditorTheme.hc_black,
+        fabricTheme: THEME_DARK_HC,
+        theme: Theme.highContrastBlack
+    },
+    [Theme.highContrastWhite]: {
+        editorTheme: EditorTheme.hc_black,
+        fabricTheme: THEME_LIGHT_HC,
+        theme: Theme.highContrastWhite
+    },
+    [Theme.light]: {
+        editorTheme: EditorTheme.light,
+        fabricTheme: THEME_LIGHT,
+        theme: Theme.light
+    }
+};
+
+export const ThemeContext = React.createContext<ThemeContextInterface>({
     editorTheme: undefined,
     fabricTheme: undefined,
     theme: undefined,

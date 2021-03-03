@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Breadcrumb matches snapshot when link is disabled 1`] = `
+<li
+  className="breadcrumb-item"
+>
+  name
+</li>
+`;
+
+exports[`Breadcrumb matches snapshot when link is enabled 1`] = `
+<li
+  className="breadcrumb-item"
+>
+  <NavLink
+    to="url"
+  >
+    name
+  </NavLink>
+</li>
+`;
+
+exports[`Breadcrumb matches snapshot when suffix is truthy 1`] = `
+<li
+  className="breadcrumb-item"
+>
+  <NavLink
+    to="urlsuffix"
+  >
+    name
+  </NavLink>
+</li>
+`;

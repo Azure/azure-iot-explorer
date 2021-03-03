@@ -31,11 +31,11 @@ export interface FetchDevicesParameters  {
 export interface MonitorEventsParameters {
     deviceId: string;
     consumerGroup: string;
+    startListeners: boolean;
 
     customEventHubName?: string;
     customEventHubConnectionString?: string;
     hubConnectionString?: string;
-
     startTime?: Date;
 }
 
