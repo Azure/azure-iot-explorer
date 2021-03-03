@@ -17,7 +17,6 @@ const SERVER_ERROR = 500;
 const BAD_REQUEST = 400;
 const SUCCESS = 200;
 const NOT_FOUND = 404;
-const CONFLICT = 409;
 const NO_CONTENT_SUCCESS = 204;
 const IOTHUB_CONNECTION_DEVICE_ID = 'iothub-connection-device-id';
 
