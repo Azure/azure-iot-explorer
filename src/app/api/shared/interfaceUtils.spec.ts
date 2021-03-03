@@ -50,9 +50,9 @@ describe('browserSettingsApi', () => {
 });
 
 describe('getDeviceInterface', () => {
-    it('throws exception when mode is not electron', () => {
+    it('does not throw exception when mode is not electron', () => {
         appConfig.hostMode = HostMode.Browser;
-        expect(() => interfaceUtils.getDeviceInterface()).toThrowError(interfaceUtils.NOT_AVAILABLE);
+        expect(() => interfaceUtils.getDeviceInterface()).not.toThrow();
     });
 
     it('calls expected factory when mode is electron', () => {
@@ -65,9 +65,9 @@ describe('getDeviceInterface', () => {
 });
 
 describe('getDirectoryInterface', () => {
-    it('throws exception when mode is not electron', () => {
+    it('does not throw exception when mode is not electron', () => {
         appConfig.hostMode = HostMode.Browser;
-        expect(() => interfaceUtils.getDirectoryInterface()).toThrowError(interfaceUtils.NOT_AVAILABLE);
+        expect(() => interfaceUtils.getDirectoryInterface()).not.toThrow();
     });
 
     it('calls expected factory when mode is electron', () => {
@@ -80,9 +80,9 @@ describe('getDirectoryInterface', () => {
 });
 
 describe('getLocalModelRepositoryInterface', () => {
-    it('throws exception when mode is not electron', () => {
+    it('does not throw exception when mode is not electron', () => {
         appConfig.hostMode = HostMode.Browser;
-        expect(() => interfaceUtils.getLocalModelRepositoryInterface()).toThrowError(interfaceUtils.NOT_AVAILABLE);
+        expect(() => interfaceUtils.getLocalModelRepositoryInterface()).not.toThrow();
     });
 
     it('calls expected factory when mode is electron', () => {
@@ -95,9 +95,9 @@ describe('getLocalModelRepositoryInterface', () => {
 });
 
 describe('getEventHubInterface', () => {
-    it('throws exception when mode is not electron', () => {
+    it('does not throw exception when mode is not electron', () => {
         appConfig.hostMode = HostMode.Browser;
-        expect(() => interfaceUtils.getEventHubInterface()).toThrowError(interfaceUtils.NOT_AVAILABLE);
+        expect(() => interfaceUtils.getEventHubInterface()).not.toThrow();
     });
 
     it('calls expected factory when mode is electron', () => {

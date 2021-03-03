@@ -4,6 +4,7 @@
  **********************************************************/
 import * as DigitalTwinsModelService from './publicDigitalTwinsModelRepoService';
 import { HTTP_OPERATION_TYPES, PUBLIC_REPO_HOSTNAME } from '../../constants/apiConstants';
+import { appConfig, HostMode } from '../../../appConfig/appConfig';
 
 describe('digitalTwinsModelService', () => {
 
@@ -49,6 +50,7 @@ describe('digitalTwinsModelService', () => {
         });
 
         it('calls fetch with specified parameters and returns model when response is 200', async () => {
+            appConfig.hostMode = HostMode.Electron;
             // tslint:disable
             const response = {
                 json: () => model,

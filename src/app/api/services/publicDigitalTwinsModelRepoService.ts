@@ -6,10 +6,10 @@ import { ModelDefinition } from '../models/modelDefinition';
 import { FetchModelParameters } from '../parameters/repoParameters';
 import {
     HEADERS,
-    PUBLIC_REPO_HOSTNAME,
     HTTP_OPERATION_TYPES } from '../../constants/apiConstants';
 import { PnPModel } from '../models/metamodelMetadata';
 import { getHeaderValue } from '../shared/fetchUtils';
+import { getPublicDigitalTwinsModelInterface } from '../shared/interfaceUtils';
 
 export const fetchModelDefinition = async (parameters: FetchModelParameters): Promise<ModelDefinition> => {
     const result = await fetchModel({
@@ -20,20 +20,8 @@ export const fetchModelDefinition = async (parameters: FetchModelParameters): Pr
 };
 
 export const fetchModel = async (parameters: FetchModelParameters): Promise<PnPModel> => {
-    const modelIdentifier = encodeURIComponent(convertModelIdentifier(parameters.id));
-    const hostName = parameters.url || PUBLIC_REPO_HOSTNAME;
-    const resourceUrl = `https://${hostName}/${modelIdentifier}`;
-
-    const response = await fetch(
-        resourceUrl,
-        {
-            headers: new Headers({
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            }),
-            method: HTTP_OPERATION_TYPES.Get
-        }
-    );
+    const api = getPublicDigitalTwinsModelInterface();
+    const response = await api.getModelDefinition(parameters);
 
     if (!response.ok) {
         throw new Error(response.statusText);

@@ -103,7 +103,7 @@ export const DeviceEvents: React.FC = () => {
     // tslint:disable-next-line: cyclomatic-complexity
     React.useEffect(() => {
         if (synchronizationStatus === SynchronizationStatus.fetched) {
-            if (appConfig.hostMode === HostMode.Electron) {
+            if (appConfig.hostMode !== HostMode.Browser) {
                 if (monitoringData) {
                     setStartTime(new Date());
                     setTimeout(() => {
