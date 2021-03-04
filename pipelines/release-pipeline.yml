@@ -15,10 +15,9 @@ stages:
         vmImage: 'vs2017-win2016'
       steps:
       - task: ea576cd4-c61f-48f8-97e7-a3cb07b90a6f@2
-        displayName: 'CredScan'
+        displayName: 'CredScan V2'
         inputs:
-          scanFolder: '$(Build.SourcesDirectory)'
-          outputFormat: sarif
+          toolMajorVersion: 'V2'
 
   - stage: 'package'
     displayName: 'Package for all platforms'
