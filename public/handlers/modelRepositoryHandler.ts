@@ -16,7 +16,7 @@ export const onGetInterfaceDefinition = (event: IpcMainInvokeEvent, { interfaceI
     const parseErrors: string[] = [];
     for (const fileName of fileNames) {
         if (!isFileExtensionJson(fileName)) {
-            break;
+            continue;
         }
 
         try {
