@@ -46,17 +46,6 @@ export interface UpdateDeviceParameters {
     deviceIdentity: DeviceIdentity;
 }
 
-export enum JsonPatchOperation {
-    ADD = 'add',
-    REMOVE = 'remove'
-}
-
-export interface PatchPayload {
-    op: JsonPatchOperation;
-    path: string;
-    value?: boolean | number | string | object;
-}
-
 export interface InvokeDigitalTwinInterfaceCommandParameters {
     digitalTwinId: string; // Format of digitalTwinId is DeviceId[~ModuleId]. ModuleId is optional.
     componentName: string;

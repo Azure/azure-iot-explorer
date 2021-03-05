@@ -19,22 +19,30 @@ import { SynchronizationStatus } from '../../../api/models/synchronizationStatus
 
 const interfaceId = 'urn:azureiot:samplemodel;1';
 
-export const testDigitalTwin: any = { // tslint:disable-line: no-any
-    $dtId: 'testDevice',
-    $metadata: {
-        $model: interfaceId
-    },
-    environmentalSensor: {
-        $metadata: {
-            brightness: {
-                desiredValue: 456,
-                desiredVersion: 2,
-                lastUpdateTime: '2020-03-31T23:17:42.4813073Z'
+/* tslint:disable */
+const deviceTwin: any = {
+    "deviceId": "testDevice",
+    "modelId": interfaceId,
+    "properties" : {
+        desired: {
+            environmentalSensor: {
+                brightness: 456,
+                __t: 'c'
             }
         },
-        brightness: 123
+        reported: {
+            environmentalSensor: {
+                brightness: {
+                    value: 123,
+                    dv: 2
+                },
+                __t: 'c'
+            }
+        }
     }
 };
+/* tslint:enable */
+
 const pathname = 'resources/TestHub.azure-devices.net/devices/deviceDetail/ioTPlugAndPlay/?deviceId=testDevice';
 
 jest.mock('react-router-dom', () => ({
@@ -46,7 +54,7 @@ jest.mock('react-router-dom', () => ({
 describe('DigitalTwinInterfacesList', () => {
     it('shows shimmer when model id is not retrieved', () => {
         const initialState: PnpStateInterface = pnpStateInitial().merge({
-            digitalTwin: {
+            twin: {
                 synchronizationStatus: SynchronizationStatus.working
             }
         });
@@ -59,13 +67,11 @@ describe('DigitalTwinInterfacesList', () => {
 
     it('matches snapshot when empty model id is retrieved', () => {
         const initialState: PnpStateInterface = pnpStateInitial().merge({
-            digitalTwin: {
+            twin: {
                 payload: {
-                    $dtId: 'testDevice',
-                    $metadata: {
-                        $model: ''
-                    }
-                },
+                    deviceId: 'testDevice',
+                    moduleId: ''
+                } as any,
                 synchronizationStatus: SynchronizationStatus.fetched
             }
         });
@@ -78,8 +84,8 @@ describe('DigitalTwinInterfacesList', () => {
 
     it('shows model id with no model definition found', () => {
         const initialState: PnpStateInterface = pnpStateInitial().merge({
-            digitalTwin: {
-                payload: testDigitalTwin,
+            twin: {
+                payload: deviceTwin,
                 synchronizationStatus: SynchronizationStatus.fetched
             },
             modelDefinitionWithSource: {
@@ -101,8 +107,8 @@ describe('DigitalTwinInterfacesList', () => {
 
     it('shows model id with null model definition found', () => {
         const initialState: PnpStateInterface = pnpStateInitial().merge({
-            digitalTwin: {
-                payload: testDigitalTwin,
+            twin: {
+                payload: deviceTwin,
                 synchronizationStatus: SynchronizationStatus.fetched
             },
             modelDefinitionWithSource: {
@@ -133,8 +139,8 @@ describe('DigitalTwinInterfacesList', () => {
 
     it('shows model id with valid model definition found but has no component', () => {
         const initialState: PnpStateInterface = pnpStateInitial().merge({
-            digitalTwin: {
-                payload: testDigitalTwin,
+            twin: {
+                payload: deviceTwin,
                 synchronizationStatus: SynchronizationStatus.fetched
             },
             modelDefinitionWithSource: {
@@ -171,8 +177,8 @@ describe('DigitalTwinInterfacesList', () => {
 
     it('shows model id with valid model definition found and has components', () => {
         const initialState: PnpStateInterface = pnpStateInitial().merge({
-            digitalTwin: {
-                payload: testDigitalTwin,
+            twin: {
+                payload: deviceTwin,
                 synchronizationStatus: SynchronizationStatus.fetched
             },
             modelDefinitionWithSource: {

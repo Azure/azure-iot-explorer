@@ -22,7 +22,6 @@ describe('deviceSettingsPerInterfacePerSetting', () => {
     const displayName = 'Device State';
     const handleCollapseToggle = jest.fn();
     let schema = 'boolean';
-    let twinValue: any = false;  // tslint:disable-line:no-any
 
     const propertyModelDefinition: PropertyContent = {
         '@type': 'Property',
@@ -44,7 +43,7 @@ describe('deviceSettingsPerInterfacePerSetting', () => {
     const deviceSettingDispatchProps: DeviceSettingDispatchProps = {
         handleCollapseToggle,
         handleOverlayToggle,
-        patchDigitalTwin: jest.fn()
+        patchTwin: jest.fn()
     };
 
     let deviceSettingDataProps: DeviceSettingDataProps = {
@@ -52,9 +51,9 @@ describe('deviceSettingsPerInterfacePerSetting', () => {
         componentName: 'sensor',
         deviceId: 'deviceId',
         interfaceId: 'urn:interfaceId',
-        isComponentContainedInDigitalTwin: false,
-        metadata: {desiredValue: twinValue} as any,         // tslint:disable-line: no-any
-        reportedTwin: twinValue,
+        reportedSection: {
+            value: false
+        },
         settingModelDefinition: propertyModelDefinition,
         settingSchema: propertySchema
     };
@@ -81,7 +80,7 @@ describe('deviceSettingsPerInterfacePerSetting', () => {
 
     it('renders when there is a writable property of complex type with sync status', () => {
         schema = 'Object';
-        twinValue = {
+        const twinValue = {
             test: 'value'
         };
         propertyModelDefinition.schema = {
@@ -94,9 +93,12 @@ describe('deviceSettingsPerInterfacePerSetting', () => {
         deviceSettingDataProps = {
             ...deviceSettingDataProps,
             collapsed: false,
-            // tslint:disable-next-line: no-any
-            metadata: { ackCode, ackDescription, desiredValue: twinValue } as any,
-            reportedTwin: twinValue,
+            reportedSection: {
+                value: twinValue,
+                ac: ackCode,
+                ad: ackDescription
+            },
+            desiredValue: twinValue,
             settingModelDefinition: propertyModelDefinition,
             settingSchema: propertySchema
         };

@@ -18,21 +18,19 @@ export const modelInformationReportedValue = {
     }
 };
 
-export const testDigitalTwin: any = {
-    "$dtId": "testDevice",
-    "modelInformation": modelInformationReportedValue, // root level model information
-    "$metadata": {
-        "$model": interfaceId
+export const testTwin: any = {
+    "deviceId": "testDevice",
+    "$modelId": interfaceId,
+    properties: {
+        reported: {
+            modelInformation: modelInformationReportedValue
+        }
     }
 };
 
-testDigitalTwin[testComponentName] = {
+testTwin.properties.reported[testComponentName] = {
     "modelInformation": modelInformationReportedValue,  // component level model information
-    "$metadata": {
-        "modelInformation": {
-            "lastUpdateTime": "2020-03-31T23:17:42.4813073Z"
-        }
-    }
+    "__t": "c"
 };
 
 const sampleSenmanticProperty = {
@@ -96,7 +94,7 @@ export const pnpStateWithTestData: PnpStateInterface = {
         },
     },
     twin: {
-        payload: testDigitalTwin,
+        payload: testTwin,
         synchronizationStatus: SynchronizationStatus.fetched
     }
 }

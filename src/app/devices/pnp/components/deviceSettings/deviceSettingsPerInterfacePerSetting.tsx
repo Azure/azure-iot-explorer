@@ -100,9 +100,6 @@ export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataPro
     };
 
     const renderReportedValue = () => {
-        if (!reportedSection?.value) {
-            return <Label>--</Label>;
-        }
         return (
             <ErrorBoundary error={t(ResourceKeys.errorBoundary.text)}>
                 {
@@ -111,13 +108,14 @@ export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataPro
                             reportedSection?.value,
                             settingSchema,
                             t(ResourceKeys.deviceSettings.columns.error)) :
-                        <ActionButton
-                            className="column-value-button"
-                            ariaDescription={t(ResourceKeys.deviceSettings.command.openReportedValuePanel)}
-                            onClick={onViewReportedValue}
-                        >
-                            {t(ResourceKeys.deviceSettings.command.openReportedValuePanel)}
-                        </ActionButton>
+                        reportedSection?.value ?
+                            <ActionButton
+                                className="column-value-button"
+                                ariaDescription={t(ResourceKeys.deviceSettings.command.openReportedValuePanel)}
+                                onClick={onViewReportedValue}
+                            >
+                                {t(ResourceKeys.deviceSettings.command.openReportedValuePanel)}
+                            </ActionButton> : <Label>--</Label>
                 }
             </ErrorBoundary>
         );

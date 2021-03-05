@@ -10,25 +10,32 @@ import { REPOSITORY_LOCATION_TYPE } from '../../../../constants/repositoryLocati
 const interfaceId = 'urn:azureiot:samplemodel;1';
 export const testComponentName = 'environmentalSensor';
 /* tslint:disable */
-export const testDigitalTwin: any = {
-    "$dtId": "testDevice",
-    "brightness": 1234, // root level brightness
-    environmentalSensor: {
-        "brightness": 123,  // component level brightness
-        "$metadata": {
-            "brightness": {
-                "desiredValue": 456,
-                "desiredVersion": 2,
-                "lastUpdateTime": "2020-03-31T23:17:42.4813073Z"
+export const testTwin: any = {
+    "deviceId": "testDevice",
+    properties: {
+        desired: {
+            "brightness": 5678, // root level brightness,
+            environmentalSensor: {
+                "__t": "c",
+                "brightness": 456,  // component level brightness
             }
-        }
-    },
-    "$metadata": {
-        "$model": interfaceId,
-        "brightness": {
-            "desiredValue": 5678,
-            "desiredVersion": 2,
-            "lastUpdateTime": "2020-03-31T23:17:42.4813073Z"
+        },
+        reported: {
+            "brightness": {
+                "value": 1234,
+                "ac": 200,
+                "ad": "success",
+                "av": 2
+            },
+            environmentalSensor: {
+                "__t": "c",
+                "brightness": {
+                    "value": 123,
+                    "ac": 200,
+                    "ad": "success",
+                    "av": 2
+                }
+            }
         }
     }
 };
@@ -75,7 +82,7 @@ export const pnpStateWithTestData: PnpStateInterface = {
         },
     },
     twin: {
-        payload: testDigitalTwin,
+        payload: testTwin,
         synchronizationStatus: SynchronizationStatus.fetched
     }
 }
