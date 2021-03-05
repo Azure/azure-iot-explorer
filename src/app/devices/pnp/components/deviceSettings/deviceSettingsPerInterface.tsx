@@ -8,11 +8,11 @@ import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
 import { Overlay } from 'office-ui-fabric-react/lib/components/Overlay';
 import { DeviceSettingsPerInterfacePerSetting } from './deviceSettingsPerInterfacePerSetting';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
-import { PatchDigitalTwinActionParameters } from '../../actions';
 import { InterfaceDetailCard } from '../../../../constants/iconNames';
 import { LabelWithTooltip } from '../../../../shared/components/labelWithTooltip';
 import { TwinWithSchema } from './dataHelper';
 import '../../../../css/_devicePnpDetailList.scss';
+import { Twin } from '../../../../api/models/device';
 
 export interface DeviceSettingDataProps {
     deviceId: string;
@@ -22,7 +22,7 @@ export interface DeviceSettingDataProps {
 }
 
 export interface DeviceSettingDispatchProps {
-    patchDigitalTwin: (parameters: PatchDigitalTwinActionParameters) => void;
+    patchTwin: (parameters: Twin) => void;
 }
 
 export interface DeviceSettingState {

@@ -14,7 +14,7 @@ import { REFRESH, NAVIGATE_BACK } from '../../../../constants/iconNames';
 import { MultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
 import { ROUTE_PARAMS } from '../../../../constants/routes';
 import { usePnpStateContext } from '../../../../shared/contexts/pnpStateContext';
-import { getDigitalTwinAction } from '../../actions';
+import { getDeviceTwinAction } from '../../actions';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { generateReportedTwinSchemaAndInterfaceTuple } from './dataHelper';
 
@@ -26,14 +26,14 @@ export const DeviceProperties: React.FC = () => {
     const deviceId = getDeviceIdFromQueryString(search);
 
     const { pnpState, dispatch, getModelDefinition } = usePnpStateContext();
-    const isLoading = pnpState.digitalTwin.synchronizationStatus === SynchronizationStatus.working ||
+    const isLoading = pnpState.twin.synchronizationStatus === SynchronizationStatus.working ||
     pnpState.modelDefinitionWithSource.synchronizationStatus === SynchronizationStatus.working;
     const modelDefinitionWithSource = pnpState.modelDefinitionWithSource.payload;
     const modelDefinition = modelDefinitionWithSource && modelDefinitionWithSource.modelDefinition;
-    const digitalTwin = pnpState.digitalTwin.payload;
+    const twin = pnpState.twin.payload;
     const twinAndSchema = React.useMemo(() => {
-        return generateReportedTwinSchemaAndInterfaceTuple(modelDefinition, digitalTwin, componentName);
-    },                                  [digitalTwin, modelDefinition]);
+        return generateReportedTwinSchemaAndInterfaceTuple(modelDefinition, twin, componentName);
+    },                                  [twin, modelDefinition]);
 
     const renderProperties = () => {
         return (
@@ -47,7 +47,7 @@ export const DeviceProperties: React.FC = () => {
     };
 
     const handleRefresh = () => {
-        dispatch(getDigitalTwinAction.started(deviceId));
+        dispatch(getDeviceTwinAction.started(deviceId));
         getModelDefinition();
     };
 

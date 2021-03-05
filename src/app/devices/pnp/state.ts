@@ -7,18 +7,20 @@ import { IM } from '../../shared/types/types';
 import { ModelDefinitionWithSource } from '../../api/models/modelDefinitionWithSource';
 import { SynchronizationWrapper } from '../../api/models/synchronizationWrapper';
 import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
+import { Twin } from '../../api/models/device';
+import { ModuleTwin } from '../../api/models/moduleTwin';
 
 export interface PnpStateInterface {
-    digitalTwin: SynchronizationWrapper<object>;
+    twin: SynchronizationWrapper<Twin | ModuleTwin>;
     modelDefinitionWithSource: SynchronizationWrapper<ModelDefinitionWithSource>;
 }
 
 export const pnpStateInitial = Record<PnpStateInterface>({
-    digitalTwin: {
+    modelDefinitionWithSource: {
         payload: null,
         synchronizationStatus: SynchronizationStatus.initialized
     },
-    modelDefinitionWithSource: {
+    twin: {
         payload: null,
         synchronizationStatus: SynchronizationStatus.initialized
     }

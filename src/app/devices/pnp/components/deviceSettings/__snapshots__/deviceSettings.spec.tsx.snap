@@ -35,13 +35,12 @@ exports[`deviceSettings matches snapshot with one twinWithSchema 1`] = `
     componentName="foo"
     deviceId={null}
     interfaceId="urn:contoso:com:EnvironmentalSensor;1"
-    patchDigitalTwin={[Function]}
+    patchTwin={[Function]}
     twinWithSchema={
       Array [
         Object {
-          "isComponentContainedInDigitalTwin": false,
-          "metadata": undefined,
-          "reportedTwin": undefined,
+          "desiredValue": undefined,
+          "reportedSection": undefined,
           "settingModelDefinition": Object {
             "@type": "Property",
             "description": "The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)",
@@ -61,9 +60,8 @@ exports[`deviceSettings matches snapshot with one twinWithSchema 1`] = `
           },
         },
         Object {
-          "isComponentContainedInDigitalTwin": false,
-          "metadata": undefined,
-          "reportedTwin": undefined,
+          "desiredValue": undefined,
+          "reportedSection": undefined,
           "settingModelDefinition": Object {
             "@type": Array [
               "Property",

@@ -10,13 +10,14 @@ import { useLocation, useHistory } from 'react-router-dom';
 import { DeviceSettingsPerInterface } from './deviceSettingsPerInterface';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString, getComponentNameFromQueryString } from '../../../../shared/utils/queryStringHelper';
-import { getDigitalTwinAction, PatchDigitalTwinActionParameters, patchDigitalTwinAction } from '../../actions';
+import { getDeviceTwinAction, updateDeviceTwinAction } from '../../actions';
 import { REFRESH, NAVIGATE_BACK } from '../../../../constants/iconNames';
 import { MultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
 import { ROUTE_PARAMS } from '../../../../constants/routes';
 import { usePnpStateContext } from '../../../../shared/contexts/pnpStateContext';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { generateTwinSchemaAndInterfaceTuple } from './dataHelper';
+import { Twin } from '../../../../api/models/device';
 
 export const DeviceSettings: React.FC = () => {
     const { t } = useTranslation();
@@ -27,16 +28,16 @@ export const DeviceSettings: React.FC = () => {
     const interfaceId = getInterfaceIdFromQueryString(search);
 
     const { pnpState, dispatch, getModelDefinition } = usePnpStateContext();
-    const isLoading = (pnpState.digitalTwin.synchronizationStatus === SynchronizationStatus.working)
-     || (pnpState.modelDefinitionWithSource.synchronizationStatus === SynchronizationStatus.working);
+    const isLoading = (pnpState.twin.synchronizationStatus === SynchronizationStatus.working)
+        || (pnpState.modelDefinitionWithSource.synchronizationStatus === SynchronizationStatus.working);
     const modelDefinitionWithSource = pnpState.modelDefinitionWithSource && pnpState.modelDefinitionWithSource.payload;
     const modelDefinition = modelDefinitionWithSource && modelDefinitionWithSource.modelDefinition;
-    const digitalTwin = pnpState.digitalTwin.payload;
+    const twin = pnpState.twin.payload;
     const twinWithSchema = React.useMemo(() => {
-        return generateTwinSchemaAndInterfaceTuple(modelDefinition, digitalTwin, componentName).twinWithSchema;
-    },                                   [modelDefinition, digitalTwin]);
+        return generateTwinSchemaAndInterfaceTuple(modelDefinition, twin, componentName);
+    },                                   [modelDefinition, twin]);
 
-    const patchDigitalTwin = (parameters: PatchDigitalTwinActionParameters) => dispatch(patchDigitalTwinAction.started(parameters));
+    const patchTwin = (parameters: Twin) => dispatch(updateDeviceTwinAction.started(parameters));
 
     const renderProperties = () => {
         return (
@@ -45,7 +46,7 @@ export const DeviceSettings: React.FC = () => {
                     <Label className="no-pnp-content">{t(ResourceKeys.deviceSettings.noSettings, {componentName})}</Label> :
                     <DeviceSettingsPerInterface
                         componentName={componentName}
-                        patchDigitalTwin={patchDigitalTwin}
+                        patchTwin={patchTwin}
                         interfaceId={interfaceId}
                         twinWithSchema={twinWithSchema}
                         deviceId={deviceId}
@@ -56,7 +57,7 @@ export const DeviceSettings: React.FC = () => {
     };
 
     const onRefresh = () => {
-        dispatch(getDigitalTwinAction.started(deviceId));
+        dispatch(getDeviceTwinAction.started(deviceId));
         getModelDefinition();
     };
 

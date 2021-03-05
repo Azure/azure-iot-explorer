@@ -21,4 +21,5 @@ export interface ModuleTwin {
         desired?: object,
         reported?: object;
     };
+    modelId?: string;
 }

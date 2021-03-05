@@ -3,17 +3,17 @@
  * Licensed under the MIT License
  **********************************************************/
 import { takeEvery, takeLatest, all } from 'redux-saga/effects';
-import { getDigitalTwinAction, getModelDefinitionAction, invokeDigitalTwinInterfaceCommandAction, patchDigitalTwinAction } from './actions';
-import { getDigitalTwinSaga } from './sagas/getDigitalTwinSaga';
+import { getDeviceTwinAction, getModelDefinitionAction, invokeDigitalTwinInterfaceCommandAction, updateDeviceTwinAction } from './actions';
 import { getModelDefinitionSaga } from './sagas/getModelDefinitionSaga';
 import { invokeDigitalTwinInterfaceCommandSaga } from './sagas/digitalTwinInterfaceCommandSaga';
-import { patchDigitalTwinSaga } from './sagas/patchDigitalTwinSaga';
+import { getDeviceTwinSaga } from '../deviceTwin/sagas/getDeviceTwinSaga';
+import { updateDeviceTwinSaga } from '../deviceTwin/sagas/updateDeviceTwinSaga';
 
 export function* pnpSaga()  {
     yield all([
-        takeLatest(getDigitalTwinAction.started.type, getDigitalTwinSaga),
+        takeLatest(getDeviceTwinAction.started.type, getDeviceTwinSaga),
         takeLatest(getModelDefinitionAction.started.type, getModelDefinitionSaga),
         takeEvery(invokeDigitalTwinInterfaceCommandAction.started.type, invokeDigitalTwinInterfaceCommandSaga),
-        takeEvery(patchDigitalTwinAction.started.type, patchDigitalTwinSaga),
+        takeEvery(updateDeviceTwinAction.started.type, updateDeviceTwinSaga),
     ]);
 }

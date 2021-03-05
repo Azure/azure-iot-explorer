@@ -4,14 +4,13 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { PrimaryButton, ActionButton } from 'office-ui-fabric-react/lib/components/Button';
-import { Dialog } from 'office-ui-fabric-react/lib/components/Dialog';
+import { PrimaryButton } from 'office-ui-fabric-react/lib/components/Button';
 import { Label } from 'office-ui-fabric-react/lib/components/Label';
 import Form from 'react-jsonschema-form';
 import { fabricWidgets, fabricFields } from '../../../jsonSchemaFormFabricPlugin';
 import { ObjectTemplate } from '../../../jsonSchemaFormFabricPlugin/fields/objectTemplate';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { SUBMIT, CODE } from '../../../constants/iconNames';
+import { SUBMIT } from '../../../constants/iconNames';
 import { ParsedJsonSchema } from '../../../api/models/interfaceJsonParserOutput';
 import { dataToTwinConverter, twinToFormDataConverter } from '../../../shared/utils/twinAndJsonSchemaDataConverter';
 import { ErrorBoundary } from './errorBoundary';
@@ -29,39 +28,18 @@ export interface DataFormDataProps {
 
 export interface DataFormActionProps {
     handleSave: (twin: any) => () => void; // tslint:disable-line:no-any
-    craftPayload?: (payload: object) => object;
 }
 
 export const DataForm: React.FC<DataFormDataProps & DataFormActionProps> = (props: DataFormDataProps & DataFormActionProps) => {
     const { t } = useTranslation();
 
-    const { settingSchema, schema, buttonText, handleSave, craftPayload } = props;
+    const { settingSchema, schema, buttonText, handleSave } = props;
     const twinData = twinToFormDataConverter(props.formData, settingSchema);
     const originalFormData = twinData.formData;
     const [ formData, setFormData ] = React.useState(originalFormData);
     const [ jsonEditorData, setJsonEditorData ] = React.useState(JSON.stringify(originalFormData || (schema === DtdlSchemaComplexType.Array ? [{}] : {}), null, '\t'));
-    const [ showPayloadDialog, setShowPlayloadDialog ] = React.useState<boolean>(false);
-    const [ payloadPreviewData, setPayloadPreviewData ] = React.useState(undefined);
     const [ isPayloadValid, setIsPayloadValid ] = React.useState<boolean>(true);
     const parsingSchemaFailed = React.useMemo(() => twinData.error || !settingSchema || (!settingSchema.type && !settingSchema.$ref), [twinData, settingSchema]);
-
-    const renderDialog = () => {
-        return (
-            <Dialog
-                hidden={!showPayloadDialog}
-                onDismiss={hidePayloadDialog}
-                modalProps={{
-                    className: 'delete-dialog',
-                    isBlocking: false
-                }}
-            >
-                { payloadPreviewData ?
-                    <JSONEditor className="json-editor" content={JSON.stringify(payloadPreviewData, null, '\t')}/> :
-                    <span>{t(ResourceKeys.deviceSettings.noPreviewContent)}</span>
-                }
-            </Dialog>
-        );
-    };
 
     const renderMessageBodyWithValueValidation = () => {
         const errors = getSchemaValidationErrors(formData, settingSchema);
@@ -145,13 +123,6 @@ export const DataForm: React.FC<DataFormDataProps & DataFormActionProps> = (prop
             dataToTwinConverter(formData, settingSchema).twin;
     };
 
-    const createPayloadPreview = () => {
-        setPayloadPreviewData(craftPayload ? craftPayload(generatePayload()) : generatePayload());
-        setShowPlayloadDialog(true);
-    };
-
-    const hidePayloadDialog = () => setShowPlayloadDialog(false);
-
     const stringifyNumberIfNecessary = () => {
         const value = formData;
         return typeof value === 'number' && value === 0 && schema !== DtdlSchemaComplexType.Enum ? '0' : value; // javascript takes 0 as false, and json schema form would show it as undefined
@@ -177,13 +148,6 @@ export const DataForm: React.FC<DataFormDataProps & DataFormActionProps> = (prop
                     iconProps={{ iconName: SUBMIT }}
                     disabled={buttonDisabled || !isPayloadValid}
                 />
-                <ActionButton
-                    className="preview-payload-button"
-                    onClick={createPayloadPreview}
-                    text={t(ResourceKeys.deviceSettings.previewPayloadButtonText)}
-                    iconProps={{ iconName: CODE }}
-                    disabled={buttonDisabled || !isPayloadValid}
-                />
             </>
         );
     };
@@ -191,7 +155,6 @@ export const DataForm: React.FC<DataFormDataProps & DataFormActionProps> = (prop
     return (
         <>
             {createForm()}
-            {renderDialog()}
         </>
     );
 };

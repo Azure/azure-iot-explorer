@@ -7,11 +7,11 @@ exports[`pnp matches snapshot 1`] = `
       "dispatch": [Function],
       "getModelDefinition": [Function],
       "pnpState": Immutable.Record {
-        "digitalTwin": Object {
+        "modelDefinitionWithSource": Object {
           "payload": null,
           "synchronizationStatus": 2,
         },
-        "modelDefinitionWithSource": Object {
+        "twin": Object {
           "payload": null,
           "synchronizationStatus": 2,
         },

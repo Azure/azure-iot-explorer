@@ -40,4 +40,5 @@ export interface Twin {
         desired?: object,
         reported?: object;
     };
+    modelId?: string;
 }

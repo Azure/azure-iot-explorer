@@ -59,33 +59,8 @@ exports[`dataForm matches snapshot with simple type 1`] = `
         }
         text="text"
       />
-      <CustomizedActionButton
-        className="preview-payload-button"
-        disabled={false}
-        iconProps={
-          Object {
-            "iconName": "Code",
-          }
-        }
-        onClick={[Function]}
-        text="deviceSettings.previewPayloadButtonText"
-      />
     </Form>
   </ErrorBoundary>
-  <Dialog
-    hidden={true}
-    modalProps={
-      Object {
-        "className": "delete-dialog",
-        "isBlocking": false,
-      }
-    }
-    onDismiss={[Function]}
-  >
-    <span>
-      deviceSettings.noPreviewContent
-    </span>
-  </Dialog>
 </Fragment>
 `;
 
@@ -114,31 +89,6 @@ exports[`dataForm matches snapshot with unsupported type 1`] = `
       }
       text="text"
     />
-    <CustomizedActionButton
-      className="preview-payload-button"
-      disabled={false}
-      iconProps={
-        Object {
-          "iconName": "Code",
-        }
-      }
-      onClick={[Function]}
-      text="deviceSettings.previewPayloadButtonText"
-    />
   </form>
-  <Dialog
-    hidden={true}
-    modalProps={
-      Object {
-        "className": "delete-dialog",
-        "isBlocking": false,
-      }
-    }
-    onDismiss={[Function]}
-  >
-    <span>
-      deviceSettings.noPreviewContent
-    </span>
-  </Dialog>
 </Fragment>
 `;

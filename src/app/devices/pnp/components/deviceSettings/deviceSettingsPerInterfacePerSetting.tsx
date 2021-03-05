@@ -11,25 +11,15 @@ import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { InterfaceDetailCard } from '../../../../constants/iconNames';
 import { ComplexReportedFormPanel } from '../../../shared/components/complexReportedFormPanel';
 import { RenderSimplyTypeValue } from '../../../shared/components/simpleReportedSection';
-import { PatchDigitalTwinActionParameters } from '../../actions';
 import { ErrorBoundary } from '../../../shared/components/errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 import { SemanticUnit } from '../../../../shared/units/components/semanticUnit';
-import { JsonPatchOperation, PatchPayload } from '../../../../api/parameters/deviceParameters';
 import { isValueDefined, DataForm } from '../../../shared/components/dataForm';
 import { TwinWithSchema } from './dataHelper';
 import { DEFAULT_COMPONENT_FOR_DIGITAL_TWIN } from '../../../../constants/devices';
 import { getSchemaType, isSchemaSimpleType } from '../../../../shared/utils/jsonSchemaAdaptor';
 import '../../../../css/_deviceSettings.scss';
-
-export interface MetadataSection {
-    desiredValue?: boolean | string | number | object;
-    desiredVersion?: number;
-    ackVersion?: number;
-    ackCode?: number;
-    ackDescription?: string;
-    lastUpdatedTime?: string;
-}
+import { Twin } from '../../../../api/models/device';
 
 export interface DeviceSettingDataProps extends TwinWithSchema {
     collapsed: boolean;
@@ -41,18 +31,18 @@ export interface DeviceSettingDataProps extends TwinWithSchema {
 export interface DeviceSettingDispatchProps {
     handleCollapseToggle: () => void;
     handleOverlayToggle: () => void;
-    patchDigitalTwin: (parameters: PatchDigitalTwinActionParameters) => void;
+    patchTwin: (parameters: Partial<Twin>) => void;
 }
 
 export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataProps & DeviceSettingDispatchProps> = (props: DeviceSettingDataProps & DeviceSettingDispatchProps) => {
     const { t } = useTranslation();
 
-    const { deviceId, settingSchema, settingModelDefinition, isComponentContainedInDigitalTwin, collapsed, metadata, componentName, patchDigitalTwin, handleCollapseToggle, handleOverlayToggle } = props;
+    const { settingSchema, settingModelDefinition, collapsed, reportedSection, handleOverlayToggle } = props;
     const [ showReportedValuePanel, setShowReportedValuePanel ] = React.useState<boolean>(false);
 
     const createCollapsedSummary = () => {
         return (
-            <header className={`flex-grid-row item-summary ${collapsed ? '' : 'item-summary-uncollapsed'}`} onClick={handleCollapseToggle}>
+            <header className={`flex-grid-row item-summary ${collapsed ? '' : 'item-summary-uncollapsed'}`} onClick={props.handleCollapseToggle}>
                 {renderPropertyName()}
                 {renderPropertySchema()}
                 {renderPropertyUnit()}
@@ -96,13 +86,13 @@ export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataPro
                         {renderReportedValue()}
                     </Stack.Item>
                     <Stack.Item align="start">
-                        {t(ResourceKeys.deviceSettings.ackStatus.code, {code: metadata && metadata.ackCode || '--'})}
+                        {t(ResourceKeys.deviceSettings.ackStatus.code, {code: reportedSection?.ac || '--'})}
                     </Stack.Item>
                     <Stack.Item align="start">
-                        {t(ResourceKeys.deviceSettings.ackStatus.description, {description: metadata && metadata.ackDescription || '--'})}
+                        {t(ResourceKeys.deviceSettings.ackStatus.description, {description: reportedSection?.ad || '--'})}
                     </Stack.Item>
                     <Stack.Item align="start">
-                        {t(ResourceKeys.deviceSettings.ackStatus.version, {version: metadata && metadata.ackVersion || '--'})}
+                        {t(ResourceKeys.deviceSettings.ackStatus.version, {version: reportedSection?.av || '--'})}
                     </Stack.Item>
                 </Stack>
             </div>
@@ -110,23 +100,24 @@ export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataPro
     };
 
     const renderReportedValue = () => {
-        const { reportedTwin } = props;
+        if (!reportedSection?.value) {
+            return <Label>--</Label>;
+        }
         return (
             <ErrorBoundary error={t(ResourceKeys.errorBoundary.text)}>
                 {
                     settingSchema && isSchemaSimpleType(settingModelDefinition.schema) ?
                         RenderSimplyTypeValue(
-                            reportedTwin,
+                            reportedSection?.value,
                             settingSchema,
                             t(ResourceKeys.deviceSettings.columns.error)) :
-                        reportedTwin ?
-                            <ActionButton
-                                className="column-value-button"
-                                ariaDescription={t(ResourceKeys.deviceSettings.command.openReportedValuePanel)}
-                                onClick={onViewReportedValue}
-                            >
-                                {t(ResourceKeys.deviceSettings.command.openReportedValuePanel)}
-                            </ActionButton> : <Label>--</Label>
+                        <ActionButton
+                            className="column-value-button"
+                            ariaDescription={t(ResourceKeys.deviceSettings.command.openReportedValuePanel)}
+                            onClick={onViewReportedValue}
+                        >
+                            {t(ResourceKeys.deviceSettings.command.openReportedValuePanel)}
+                        </ActionButton>
                 }
             </ErrorBoundary>
         );
@@ -151,7 +142,7 @@ export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataPro
     };
 
     const createReportedValuePanel = () => {
-        const { reportedTwin, settingModelDefinition : modelDefinition, settingSchema : schema } = props;
+        const { settingModelDefinition : modelDefinition, settingSchema : schema } = props;
         return (
             <div role="dialog">
                 {showReportedValuePanel &&
@@ -159,7 +150,7 @@ export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataPro
                         schema={schema}
                         modelDefinition={modelDefinition}
                         showPanel={showReportedValuePanel}
-                        formData={reportedTwin}
+                        formData={reportedSection?.value}
                         handleDismiss={handleDismissViewReportedPanel}
                     />}
             </div>
@@ -180,51 +171,41 @@ export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataPro
     };
 
     const createForm = () => {
+        const { desiredValue } = props;
         return (
             <DataForm
                 buttonText={ResourceKeys.deviceSettings.command.submit}
-                formData={metadata && metadata.desiredValue}
+                formData={desiredValue}
                 settingSchema={settingSchema}
                 handleSave={onSubmit}
-                craftPayload={createSettingsPayload}
                 schema={getSchemaType(settingModelDefinition.schema)}
             />
         );
     };
 
-    // tslint:disable-next-line: cyclomatic-complexity
-    const createSettingsPayload = (twin: boolean | number | string | object): PatchPayload[] => {
-        if (!isComponentContainedInDigitalTwin) {
-            const value: any = { // tslint:disable-line: no-any
-                $metadata: {}
-            };
-            value[settingModelDefinition.name] = twin;
-            return[{
-                op: JsonPatchOperation.ADD,
-                path: `/${componentName}`,
-                value
-            }];
+    const createSettingsPayload = (twin: boolean | number | string | object): Partial<Twin> => {
+        const { componentName, deviceId } = props;
+        const desired = {} as any; // tslint:disable-line: no-any
+        const value = isValueDefined(twin) ? twin : null;
+        if (componentName === DEFAULT_COMPONENT_FOR_DIGITAL_TWIN) {
+            desired[settingModelDefinition.name] = value;
         }
         else {
-            const path = componentName === DEFAULT_COMPONENT_FOR_DIGITAL_TWIN ?
-                `/${settingModelDefinition.name}` : `/${componentName}/${settingModelDefinition.name}`;
-            const patchPayloadWithTwin = isValueDefined(twin) ? {
-                op: JsonPatchOperation.ADD,
-                path,
-                value: twin,
-            } : {
-                op: JsonPatchOperation.REMOVE,
-                path,
-            };
-            return [patchPayloadWithTwin];
+            const componentValue = {__t: 'c'} as any; // tslint:disable-line: no-any
+            componentValue[settingModelDefinition.name] = value;
+            desired[componentName] = componentValue;
         }
+
+        return {
+            deviceId,
+            properties: {
+                desired
+            }
+        };
     };
 
     const onSubmit = (twin: boolean | number | string | object) => () => {
-        patchDigitalTwin({
-            digitalTwinId: deviceId,
-            payload: createSettingsPayload(twin)
-        });
+        props.patchTwin(createSettingsPayload(twin));
     };
 
     return (

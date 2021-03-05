@@ -626,12 +626,10 @@ export class ResourceKeys {
          submit : "deviceSettings.command.submit",
       },
       headerText : "deviceSettings.headerText",
-      noPreviewContent : "deviceSettings.noPreviewContent",
       noSettings : "deviceSettings.noSettings",
       panel : {
          title : "deviceSettings.panel.title",
       },
-      previewPayloadButtonText : "deviceSettings.previewPayloadButtonText",
    };
    public static deviceTwin = {
       command : {

@@ -74,7 +74,7 @@ export const pnpStateWithTestData: PnpStateInterface = {
             isModelValid: true
         },
     },
-    digitalTwin: {
+    twin: {
         payload: testDigitalTwin,
         synchronizationStatus: SynchronizationStatus.fetched
     }
