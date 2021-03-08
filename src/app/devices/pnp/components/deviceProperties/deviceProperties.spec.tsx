@@ -14,9 +14,9 @@ import { TwinWithSchema } from './dataHelper';
 import { PnpStateInterface, pnpStateInitial } from '../../state';
 import * as PnpContext from '../../../../shared/contexts/pnpStateContext';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
-import { testModelDefinition, testDigitalTwin } from './testData';
+import { testModelDefinition, testTwin } from './testData';
 import { ModelDefinition } from '../../../../api/models/modelDefinition';
-import { getDigitalTwinAction } from '../../actions';
+import { getDeviceTwinAction } from '../../actions';
 
 const interfaceId = 'urn:contoso:com:EnvironmentalSensor;1';
 const pathname = `/#/devices/deviceDetail/ioTPlugAndPlay/ioTPlugAndPlayDetail/properties/?id=device1&componentName=foo&interfaceId=${interfaceId}`;
@@ -48,8 +48,8 @@ describe('components/devices/deviceProperties', () => {
     const mockFetchedState = (model: ModelDefinition) => {
         const pnpState: PnpStateInterface = {
             ...pnpStateInitial(),
-            digitalTwin: {
-                payload: testDigitalTwin,
+            twin: {
+                payload: testTwin,
                 synchronizationStatus: SynchronizationStatus.fetched
             },
             modelDefinitionWithSource: {
@@ -67,7 +67,7 @@ describe('components/devices/deviceProperties', () => {
     it('shows Shimmer while loading', () => {
         const pnpState: PnpStateInterface = {
             ...pnpStateInitial(),
-            digitalTwin: {
+            twin: {
                 synchronizationStatus: SynchronizationStatus.working
             },
             modelDefinitionWithSource: {
@@ -92,7 +92,7 @@ describe('components/devices/deviceProperties', () => {
 
     it('dispatch action when refresh button is clicked', () => {
         mockFetchedState(testModelDefinition);
-        const mockGetDigitalTwinActionSpy = jest.spyOn(getDigitalTwinAction, 'started');
+        const mockGetDigitalTwinActionSpy = jest.spyOn(getDeviceTwinAction, 'started');
         const wrapper = shallow(<DeviceProperties/>);
         const commandBar = wrapper.find(CommandBar).first();
 

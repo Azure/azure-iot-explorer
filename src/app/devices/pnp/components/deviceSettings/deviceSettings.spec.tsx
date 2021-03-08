@@ -25,7 +25,7 @@ describe('deviceSettings', () => {
     it('matches snapshot while loading', () => {
         const pnpState: PnpStateInterface = {
             ...pnpStateInitial(),
-            digitalTwin: {
+            twin: {
                 synchronizationStatus: SynchronizationStatus.working
             }
         };

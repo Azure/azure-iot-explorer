@@ -4,29 +4,24 @@
  **********************************************************/
 import actionCreatorFactory from 'typescript-fsa';
 import { DEVICECONTENT } from '../../constants/actionPrefixes';
-import { GET_DIGITAL_TWIN, FETCH_MODEL_DEFINITION, INVOKE_DIGITAL_TWIN_INTERFACE_COMMAND, PATCH_DIGITAL_TWIN } from '../../constants/actionTypes';
+import { FETCH_MODEL_DEFINITION, INVOKE_DIGITAL_TWIN_INTERFACE_COMMAND, GET_TWIN, UPDATE_TWIN } from '../../constants/actionTypes';
 import { ModelDefinitionWithSource } from '../../api/models/modelDefinitionWithSource';
-import { PatchPayload } from '../../api/parameters/deviceParameters';
 import { RepositoryLocationSettings } from '../../shared/global/state';
 import { ParsedJsonSchema } from '../../api/models/interfaceJsonParserOutput';
+import { Twin } from '../../api/models/device';
 
 const deviceContentCreator = actionCreatorFactory(DEVICECONTENT);
-const getDigitalTwinAction = deviceContentCreator.async<string, object>(GET_DIGITAL_TWIN);
 const getModelDefinitionAction = deviceContentCreator.async<GetModelDefinitionActionParameters, ModelDefinitionWithSource>(FETCH_MODEL_DEFINITION);
 const invokeDigitalTwinInterfaceCommandAction = deviceContentCreator.async<InvokeDigitalTwinInterfaceCommandActionParameters, string>(INVOKE_DIGITAL_TWIN_INTERFACE_COMMAND);
-const patchDigitalTwinAction = deviceContentCreator.async<PatchDigitalTwinActionParameters, object>(PATCH_DIGITAL_TWIN);
+const getDeviceTwinAction = deviceContentCreator.async<string, Twin>(GET_TWIN);
+const updateDeviceTwinAction = deviceContentCreator.async<Partial<Twin>, Twin>(UPDATE_TWIN);
 
 export {
-    getDigitalTwinAction,
     getModelDefinitionAction,
     invokeDigitalTwinInterfaceCommandAction,
-    patchDigitalTwinAction
+    getDeviceTwinAction,
+    updateDeviceTwinAction
 };
-
-export interface PatchDigitalTwinActionParameters {
-    digitalTwinId: string;
-    payload: PatchPayload[];
-}
 
 export interface InvokeDigitalTwinInterfaceCommandActionParameters {
     digitalTwinId: string;

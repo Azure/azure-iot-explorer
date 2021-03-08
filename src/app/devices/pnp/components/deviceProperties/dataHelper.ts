@@ -5,7 +5,9 @@
 import { ModelDefinition, PropertyContent } from '../../../../api/models/modelDefinition';
 import { JsonSchemaAdaptor } from '../../../../shared/utils/jsonSchemaAdaptor';
 import { ParsedJsonSchema } from '../../../../api/models/interfaceJsonParserOutput';
-import { DEFAULT_COMPONENT_FOR_DIGITAL_TWIN } from '../../../../constants/devices';
+import { ModuleTwin } from '../../../../api/models/moduleTwin';
+import { Twin } from '../../../../api/models/device';
+import { getReportedPropertiesForSpecficComponent } from '../deviceSettings/dataHelper';
 
 export interface TwinWithSchema {
     propertyModelDefinition: PropertyContent;
@@ -13,19 +15,17 @@ export interface TwinWithSchema {
     reportedTwin: boolean | string | number | object;
 }
 
-export const generateReportedTwinSchemaAndInterfaceTuple = (model: ModelDefinition, digitalTwin: object, componentName: string): TwinWithSchema[] => {
+export const generateReportedTwinSchemaAndInterfaceTuple = (model: ModelDefinition, twin: Twin | ModuleTwin, componentName: string): TwinWithSchema[] => {
     if (!model) {
         return [];
     }
     const jsonSchemaAdaptor = new JsonSchemaAdaptor(model);
     const nonWritableProperties = jsonSchemaAdaptor.getNonWritableProperties();
-    const digitalTwinForSpecificComponent = componentName === DEFAULT_COMPONENT_FOR_DIGITAL_TWIN ?
-        digitalTwin : digitalTwin && (digitalTwin as any)[componentName]; // tslint:disable-line: no-any
 
     return nonWritableProperties.map(property => ({
         propertyModelDefinition: property,
         propertySchema: jsonSchemaAdaptor.parseInterfacePropertyToJsonSchema(property),
         // digitalTwinForSpecificComponent is required to always have a $metadata key
-        reportedTwin: digitalTwinForSpecificComponent && digitalTwinForSpecificComponent.$metadata && digitalTwinForSpecificComponent[property.name]
+        reportedTwin: getReportedPropertiesForSpecficComponent(twin, componentName)?.[property.name]
     }));
 };

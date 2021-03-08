@@ -11,10 +11,10 @@ import { Overlay } from 'office-ui-fabric-react/lib/components/Overlay';
 import { DeviceSettingsPerInterface, DeviceSettingDataProps, DeviceSettingDispatchProps } from './deviceSettingsPerInterface';
 import { DeviceSettingsPerInterfacePerSetting } from './deviceSettingsPerInterfacePerSetting';
 import { generateTwinSchemaAndInterfaceTuple } from './dataHelper';
-import { testModelDefinition, testDigitalTwin, testComponentName } from './testData';
+import { testModelDefinition, testTwin, testComponentName } from './testData';
 
 describe('components/devices/deviceSettingsPerInterface', () => {
-    const twinWithSchema = generateTwinSchemaAndInterfaceTuple(testModelDefinition, testDigitalTwin, testComponentName).twinWithSchema;
+    const twinWithSchema = generateTwinSchemaAndInterfaceTuple(testModelDefinition, testTwin, testComponentName);
     const deviceSettingsProps: DeviceSettingDataProps = {
         componentName: testComponentName,
         deviceId: 'testDevice',
@@ -23,7 +23,7 @@ describe('components/devices/deviceSettingsPerInterface', () => {
     };
 
     const deviceSettingsDispatchProps: DeviceSettingDispatchProps = {
-        patchDigitalTwin: jest.fn()
+        patchTwin: jest.fn()
     };
 
     const getComponent = (overrides = {}) => {

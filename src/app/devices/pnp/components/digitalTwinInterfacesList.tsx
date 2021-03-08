@@ -16,7 +16,7 @@ import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
 import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
-import { getDigitalTwinAction } from '../actions';
+import { getDeviceTwinAction } from '../actions';
 import { REFRESH } from '../../../constants/iconNames';
 import { LARGE_COLUMN_WIDTH } from '../../../constants/columnWidth';
 import { InterfaceNotFoundMessageBar } from '../../shared/components/interfaceNotFoundMessageBar';
@@ -67,16 +67,16 @@ export const DigitalTwinInterfacesList: React.FC = () => {
     const { pnpState, dispatch, } = usePnpStateContext();
     const modelDefinitionWithSource = pnpState.modelDefinitionWithSource.payload;
     const modelDefinition = modelDefinitionWithSource && modelDefinitionWithSource.modelDefinition;
-    const digitalTwin = pnpState.digitalTwin.payload as any; // tslint:disable-line: no-any
-    const digitalTwinSynchronizationStatus = pnpState.digitalTwin.synchronizationStatus;
+    const twin = pnpState.twin.payload;
+    const twinSynchronizationStatus = pnpState.twin.synchronizationStatus;
     const modelDefinitionSynchronizationStatus = pnpState.modelDefinitionWithSource.synchronizationStatus;
     const isModelDefinitionLoading = modelDefinitionSynchronizationStatus === SynchronizationStatus.working;
-    const isDigitalTwinLoading = digitalTwinSynchronizationStatus === SynchronizationStatus.working;
-    const modelId = digitalTwin &&  digitalTwin.$metadata && digitalTwin.$metadata.$model;
+    const isTwinLoading = twinSynchronizationStatus === SynchronizationStatus.working;
+    const modelId = twin?.modelId;
     const componentNameToIds = getComponentNameAndInterfaceIdArray(modelDefinition);
 
     const onRefresh = (ev?: React.MouseEvent<HTMLElement, MouseEvent> | React.KeyboardEvent<HTMLElement>) => {
-        dispatch(getDigitalTwinAction.started(deviceId));
+        dispatch(getDeviceTwinAction.started(deviceId));
     };
 
     const modelContents: ModelContent[]  = componentNameToIds && componentNameToIds.map(nameToId => {
@@ -103,7 +103,7 @@ export const DigitalTwinInterfacesList: React.FC = () => {
         return [
             {
                 ariaLabel: t(ResourceKeys.deviceEvents.command.refresh),
-                disabled: isDigitalTwinLoading,
+                disabled: isTwinLoading,
                 iconProps: {iconName: REFRESH},
                 key: REFRESH,
                 name: t(ResourceKeys.deviceEvents.command.refresh),
@@ -184,7 +184,7 @@ export const DigitalTwinInterfacesList: React.FC = () => {
                     <PivotItem headerText={t(ResourceKeys.digitalTwin.pivot.digitalTwin)}>
                         <JSONEditor
                             className="interface-definition-json-editor"
-                            content={JSON.stringify(digitalTwin, null, '\t')}
+                            content={JSON.stringify(twin, null, '\t')}
                         />
                     </PivotItem>
                 </Pivot>
@@ -238,7 +238,7 @@ export const DigitalTwinInterfacesList: React.FC = () => {
                 link={ResourceKeys.settings.questions.questions.documentation.link}
                 tooltip={ResourceKeys.settings.questions.questions.documentation.text}
             />
-            {isDigitalTwinLoading ?
+            {isTwinLoading ?
                 <MultiLineShimmer/> :
                 <section className="device-detail">
                     {modelId ?

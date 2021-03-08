@@ -8,7 +8,6 @@ import * as DataplaneService from './dataplaneServiceHelper';
 import { HTTP_OPERATION_TYPES, DIGITAL_TWIN_API_VERSION_PREVIEW } from '../../constants/apiConstants';
 import { CONNECTION_TIMEOUT_IN_SECONDS, RESPONSE_TIME_IN_SECONDS } from '../../constants/devices';
 import { getConnectionInfoFromConnectionString } from '../shared/utils';
-import { JsonPatchOperation } from '../parameters/deviceParameters';
 
 const deviceId = 'deviceId';
 const connectionString = 'HostName=test-string.azure-devices.net;SharedAccessKeyName=owner;SharedAccessKey=fakeKey=';
@@ -104,87 +103,6 @@ describe('digitalTwinService', () => {
                 ...parameters,
                 digitalTwinId: deviceId
             })).rejects.toThrow('Internal server error');
-        });
-    });
-
-    context('patchDigitalTwin', () => {
-        const payload = {
-            interfaces: {
-                Sensor: {
-                    properties: {
-                        name: {
-                            desired: {
-                                value: 123
-                            }
-                        }
-                    }
-                }
-            }
-        };
-        const parameters = {
-            connectionString,
-            digitalTwinId: undefined,
-            payload: [
-                {
-                    op: JsonPatchOperation.ADD,
-                    path: '/environmentalSensor/state',
-                    value: false
-                }]
-        };
-        it ('returns if digitalTwinId is not specified', () => {
-            expect(DigitalTwinService.patchDigitalTwinAndGetResponseCode(parameters)).toEqual(emptyPromise);
-        });
-
-        it('calls fetch with specified parameters', async () => {
-            // tslint:disable
-            const response = {
-                json: () => {
-                    return {
-                        body: {},
-                        headers:{}
-                        }
-                    },
-                status: 200
-            } as any;
-            // tslint:enable
-            jest.spyOn(window, 'fetch').mockResolvedValue(response);
-
-            const result = await DigitalTwinService.patchDigitalTwinAndGetResponseCode({
-                ...parameters,
-                digitalTwinId: deviceId
-            });
-
-            const connectionInformation = mockDataPlaneConnectionHelper();
-            const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
-                apiVersion: DIGITAL_TWIN_API_VERSION_PREVIEW,
-                body: JSON.stringify(parameters.payload),
-                hostName: connectionInformation.connectionInfo.hostName,
-                httpMethod: HTTP_OPERATION_TYPES.Patch,
-                path: `/digitalTwins/${deviceId}`,
-                sharedAccessSignature: connectionInformation.sasToken
-            };
-
-            const serviceRequestParams = {
-                body: JSON.stringify(dataPlaneRequest),
-                cache: 'no-cache',
-                credentials: 'include',
-                headers,
-                method: HTTP_OPERATION_TYPES.Post,
-                mode: 'cors',
-            };
-
-            expect(fetch).toBeCalledWith(DataplaneService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
-            // tslint:disable-next-line: no-magic-numbers
-            expect(result).toEqual(200);
-        });
-
-        it('throws Error when promise rejects', async () => {
-            window.fetch = jest.fn().mockRejectedValueOnce(new Error());
-
-            await expect(DigitalTwinService.patchDigitalTwinAndGetResponseCode({
-                ...parameters,
-                digitalTwinId: deviceId
-            })).rejects.toThrow(new Error());
         });
     });
 });

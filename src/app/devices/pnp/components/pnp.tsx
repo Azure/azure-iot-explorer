@@ -6,7 +6,7 @@ import * as React from 'react';
 import { useLocation, useRouteMatch, Route } from 'react-router-dom';
 import { ROUTE_PARTS } from '../../../constants/routes';
 import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString, getComponentNameFromQueryString } from '../../../shared/utils/queryStringHelper';
-import { getDigitalTwinAction, getModelDefinitionAction } from '../actions';
+import { getDeviceTwinAction, getModelDefinitionAction } from '../actions';
 import { PnpStateContextProvider } from '../../../shared/contexts/pnpStateContext';
 import { DigitalTwinDetail } from './digitalTwinDetail';
 import { useAsyncSagaReducer } from '../../../shared/hooks/useAsyncSagaReducer';
@@ -32,14 +32,14 @@ export const Pnp: React.FC = () => {
     const locations: RepositoryLocationSettings[] = getRepositoryLocationSettings(modelRepositoryState);
 
     const [ pnpState, dispatch ] = useAsyncSagaReducer(pnpReducer, pnpSaga, pnpStateInitial(), 'pnpState');
-    const digitalTwin = pnpState.digitalTwin.payload as any; // tslint:disable-line: no-any
-    const modelId = digitalTwin &&  digitalTwin.$metadata && digitalTwin.$metadata.$model;
+    const twin = pnpState.twin.payload;
+    const modelId = twin?.modelId;
 
     const interfaceIdModified = React.useMemo(() => interfaceId || modelId, [modelId, interfaceId]);
     const getModelDefinition = () => dispatch(getModelDefinitionAction.started({digitalTwinId: deviceId, interfaceId: interfaceIdModified, locations}));
 
     React.useEffect(() => {
-        dispatch(getDigitalTwinAction.started(deviceId));
+        dispatch(getDeviceTwinAction.started(deviceId));
     },              []);
 
     React.useEffect(() => {

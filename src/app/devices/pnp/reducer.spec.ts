@@ -5,15 +5,14 @@
 import 'jest';
 import {
     FETCH_MODEL_DEFINITION,
-    PATCH_DIGITAL_TWIN,
-    GET_DIGITAL_TWIN
+    GET_TWIN,
+    UPDATE_TWIN
   } from '../../constants/actionTypes';
 import {
     getModelDefinitionAction,
-    patchDigitalTwinAction,
-    getDigitalTwinAction,
-    GetModelDefinitionActionParameters,
-    PatchDigitalTwinActionParameters
+    getDeviceTwinAction,
+    updateDeviceTwinAction,
+    GetModelDefinitionActionParameters
 } from './actions';
 import { pnpReducer } from './reducer';
 import { pnpStateInitial  } from './state';
@@ -63,14 +62,6 @@ describe('pnpReducer', () => {
             "@context": "http://azureiot.com/v1/contexts/Interface.json"
         }
         /* tslint:enable */
-        const modelDefinitionWithSource = {
-            payload: {
-                isModelValid: true,
-                modelDefinition,
-                source: REPOSITORY_LOCATION_TYPE.Public
-            },
-            synchronizationStatus: SynchronizationStatus.fetched,
-        };
 
         const getModelDefinitionActionParams: GetModelDefinitionActionParameters = {
             digitalTwinId: 'testDevice',
@@ -105,66 +96,60 @@ describe('pnpReducer', () => {
         });
     });
 
-    describe('digitalTwin scenarios', () => {
+    describe('twin scenarios', () => {
 
         /* tslint:disable */
-        const digitalTwin = {
-            "$dtId": "testDevice",
-            "environmentalSensor": {
-              "state": true,
-              "$metadata": {
-                "state": {
-                  "lastUpdateTime": "2020-03-31T23:17:42.4813073Z"
+        const deviceTwin: any = {
+            "deviceId": "testDevice",
+            "modelId": "urn:azureiot:samplemodel;1",
+            "properties" : {
+                desired: {
+                    environmentalSensor: {
+                        state: true,
+                        __t: 'c'
+                    }
                 }
-              }
-            },
-            "$metadata": {
-              "$model": "urn:azureiot:samplemodel;1"
             }
         };
         /* tslint:enable */
 
-        it (`handles ${GET_DIGITAL_TWIN}/ACTION_START action`, () => {
-            const action = getDigitalTwinAction.started(deviceId);
-            expect(pnpReducer(pnpStateInitial(), action).digitalTwin.synchronizationStatus).toEqual(SynchronizationStatus.working);
+        it (`handles ${GET_TWIN}/ACTION_START action`, () => {
+            const action = getDeviceTwinAction.started(deviceId);
+            expect(pnpReducer(pnpStateInitial(), action).twin.synchronizationStatus).toEqual(SynchronizationStatus.working);
         });
 
-        it (`handles ${GET_DIGITAL_TWIN}/ACTION_DONE action`, () => {
-            const action = getDigitalTwinAction.done({params: deviceId, result: digitalTwin});
-            expect(pnpReducer(pnpStateInitial(), action).digitalTwin.payload).toEqual(digitalTwin);
+        it (`handles ${GET_TWIN}/ACTION_DONE action`, () => {
+            const action = getDeviceTwinAction.done({params: deviceId, result: deviceTwin});
+            expect(pnpReducer(pnpStateInitial(), action).twin.payload).toEqual(deviceTwin);
         });
 
-        it (`handles ${GET_DIGITAL_TWIN}/ACTION_FAILED action`, () => {
-            const action = getDigitalTwinAction.failed({error: -1, params: deviceId});
-            expect(pnpReducer(pnpStateInitial(), action).digitalTwin.synchronizationStatus).toEqual(SynchronizationStatus.failed);
+        it (`handles ${GET_TWIN}/ACTION_FAILED action`, () => {
+            const action = getDeviceTwinAction.failed({error: -1, params: deviceId});
+            expect(pnpReducer(pnpStateInitial(), action).twin.synchronizationStatus).toEqual(SynchronizationStatus.failed);
         });
 
         let initialState = pnpStateInitial();
         initialState = initialState.merge({
-            digitalTwin: {
-                payload: digitalTwin,
+            twin: {
+                payload: deviceTwin as any,
                 synchronizationStatus: SynchronizationStatus.fetched
             }
         });
-        digitalTwin.environmentalSensor.state = false;
-        const parameters: PatchDigitalTwinActionParameters =  {
-            digitalTwinId: deviceId,
-            payload: []
-        };
+        deviceTwin.properties.desired.environmentalSensor.state = false;
 
-        it (`handles ${PATCH_DIGITAL_TWIN}/ACTION_START action`, () => {
-            const action = patchDigitalTwinAction.started(parameters);
-            expect(pnpReducer(initialState, action).digitalTwin.synchronizationStatus).toEqual(SynchronizationStatus.updating);
+        it (`handles ${UPDATE_TWIN}/ACTION_START action`, () => {
+            const action = updateDeviceTwinAction.started(deviceTwin);
+            expect(pnpReducer(initialState, action).twin.synchronizationStatus).toEqual(SynchronizationStatus.updating);
         });
 
-        it (`handles ${PATCH_DIGITAL_TWIN}/ACTION_DONE action`, () => {
-            const action = patchDigitalTwinAction.done({params: parameters, result: digitalTwin});
-            expect(pnpReducer(initialState, action).digitalTwin.payload).toEqual(digitalTwin);
+        it (`handles ${UPDATE_TWIN}/ACTION_DONE action`, () => {
+            const action = updateDeviceTwinAction.done({params: deviceTwin, result: deviceTwin});
+            expect(pnpReducer(initialState, action).twin.payload).toEqual(deviceTwin);
         });
 
-        it (`handles ${PATCH_DIGITAL_TWIN}/ACTION_FAILED action`, () => {
-            const action = patchDigitalTwinAction.failed({error: -1, params: parameters});
-            expect(pnpReducer(initialState, action).digitalTwin.synchronizationStatus).toEqual(SynchronizationStatus.failed);
+        it (`handles ${UPDATE_TWIN}/ACTION_FAILED action`, () => {
+            const action = updateDeviceTwinAction.failed({error: -1, params: deviceTwin});
+            expect(pnpReducer(initialState, action).twin.synchronizationStatus).toEqual(SynchronizationStatus.failed);
         });
     });
 });

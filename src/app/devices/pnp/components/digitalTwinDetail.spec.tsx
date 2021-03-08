@@ -21,7 +21,7 @@ jest.mock('react-router-dom', () => ({
 describe('DigitalTwinDetail', () => {
     it('matches snapshot', () => {
         const initialState: PnpStateInterface = pnpStateInitial().merge({
-            digitalTwin: {
+            twin: {
                 synchronizationStatus: SynchronizationStatus.working
             }
         });

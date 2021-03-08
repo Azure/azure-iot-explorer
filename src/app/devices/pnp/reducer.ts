@@ -6,13 +6,13 @@ import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { PnpStateType, pnpStateInitial } from './state';
 import {
     getModelDefinitionAction,
-    patchDigitalTwinAction,
-    PatchDigitalTwinActionParameters,
     GetModelDefinitionActionParameters,
-    getDigitalTwinAction
+    getDeviceTwinAction,
+    updateDeviceTwinAction,
 } from './actions';
 import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
 import { ModelDefinitionWithSource } from '../../api/models/modelDefinitionWithSource';
+import { Twin } from '../../api/models/device';
 
 export const pnpReducer = reducerWithInitialState<PnpStateType>(pnpStateInitial())
     .case(getModelDefinitionAction.started, (state: PnpStateType) => {
@@ -38,48 +38,48 @@ export const pnpReducer = reducerWithInitialState<PnpStateType>(pnpStateInitial(
             }
         });
     })
-    .case(getDigitalTwinAction.started, (state: PnpStateType) => {
+    .case(getDeviceTwinAction.started, (state: PnpStateType) => {
         return state.merge({
-            digitalTwin: {
+            twin: {
                 synchronizationStatus: SynchronizationStatus.working
             }
         });
     })
-    .case(getDigitalTwinAction.done, (state: PnpStateType, payload: {params: string, result: object}) => {
+    .case(getDeviceTwinAction.done, (state: PnpStateType, payload: {params: string, result: Twin}) => {
         return state.merge({
-            digitalTwin: {
+            twin: {
                 payload: payload.result,
                 synchronizationStatus: SynchronizationStatus.fetched
             }
         });
     })
-    .case(getDigitalTwinAction.failed, (state: PnpStateType) => {
+    .case(getDeviceTwinAction.failed, (state: PnpStateType) => {
         return state.merge({
-            digitalTwin: {
+            twin: {
                 synchronizationStatus: SynchronizationStatus.failed
             }
         });
     })
-    .case(patchDigitalTwinAction.started, (state: PnpStateType) => {
+    .case(updateDeviceTwinAction.started, (state: PnpStateType) => {
         return state.merge({
-            digitalTwin: {
-                payload: state.digitalTwin.payload,
+            twin: {
+                payload: state.twin.payload,
                 synchronizationStatus: SynchronizationStatus.updating
             }
         });
     })
-    .case(patchDigitalTwinAction.done, (state: PnpStateType, payload: {params: PatchDigitalTwinActionParameters, result: object}) => {
+    .case(updateDeviceTwinAction.done, (state: PnpStateType, payload: {params: Twin, result: Twin}) => {
         return state.merge({
-            digitalTwin: {
+            twin: {
                 payload: payload.result,
                 synchronizationStatus: SynchronizationStatus.upserted
             }
         });
     })
-    .case(patchDigitalTwinAction.failed, (state: PnpStateType) => {
+    .case(updateDeviceTwinAction.failed, (state: PnpStateType) => {
         return state.merge({
-            digitalTwin: {
-                payload: state.digitalTwin.payload,
+            twin: {
+                payload: state.twin.payload,
                 synchronizationStatus: SynchronizationStatus.failed
             }
         });
