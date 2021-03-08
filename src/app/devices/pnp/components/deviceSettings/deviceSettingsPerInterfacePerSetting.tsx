@@ -140,13 +140,12 @@ export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataPro
     };
 
     const createReportedValuePanel = () => {
-        const { settingModelDefinition : modelDefinition, settingSchema : schema } = props;
         return (
             <div role="dialog">
                 {showReportedValuePanel &&
                     <ComplexReportedFormPanel
-                        schema={schema}
-                        modelDefinition={modelDefinition}
+                        schema={settingSchema}
+                        modelDefinition={settingModelDefinition}
                         showPanel={showReportedValuePanel}
                         formData={reportedSection?.value}
                         handleDismiss={handleDismissViewReportedPanel}
