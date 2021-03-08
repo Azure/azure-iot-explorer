@@ -6,21 +6,20 @@ import 'jest';
 import { call, put } from 'redux-saga/effects';
 // tslint:disable-next-line: no-implicit-dependencies
 import { SagaIteratorClone, cloneableGenerator } from '@redux-saga/testing-utils';
-import { invokeDigitalTwinInterfaceCommandSaga, notifyMethodInvoked } from './digitalTwinInterfaceCommandSaga';
-import { invokeDigitalTwinInterfaceCommandAction, InvokeDigitalTwinInterfaceCommandActionParameters } from '../actions';
-import * as DigitalTwinService from '../../../api/services/digitalTwinService';
+import { invokeCommandSaga, notifyMethodInvoked } from './invokeCommandSaga';
+import { invokeCommandAction, InvokeCommandActionParameters } from '../actions';
+import * as DeviceService from '../../../api/services/devicesService';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
-import { DEFAULT_COMPONENT_FOR_DIGITAL_TWIN } from '../../../constants/devices';
+import { CONNECTION_TIMEOUT_IN_SECONDS, RESPONSE_TIME_IN_SECONDS } from '../../../constants/devices';
 
 describe('digitalTwinInterfaceCommandSaga', () => {
     let invokeDigitalTwinInterfaceCommandSagaGenerator: SagaIteratorClone;
     let notifyMethodInvokedGeneratorWithPaylaod: SagaIteratorClone;
     let notifyMethodInvokedGenerator: SagaIteratorClone;
-    let notifyMethodInvokedGeneratorOndDefaultComponent: SagaIteratorClone;
 
-    const digitalTwinId = 'device_id';
+    const deviceId = 'device_id';
     const commandName = 'command';
     const componentName = 'interface_name';
     const payload = {};
@@ -36,39 +35,35 @@ describe('digitalTwinInterfaceCommandSaga', () => {
         result: true
     });
 
-    const invokeParameters: InvokeDigitalTwinInterfaceCommandActionParameters = {
-        commandName,
-        commandPayload: payload,
-        componentName,
-        digitalTwinId,
+    const invokeParameters: InvokeCommandActionParameters = {
+        connectTimeoutInSeconds: CONNECTION_TIMEOUT_IN_SECONDS,
+        methodName: commandName,
+        payload: payload,
+        deviceId,
+        responseTimeoutInSeconds: RESPONSE_TIME_IN_SECONDS,
         responseSchema: undefined
     };
 
     describe('invokeDigitalTwinInterfaceCommandSaga', () => {
         beforeAll(() => {
-            invokeDigitalTwinInterfaceCommandSagaGenerator = cloneableGenerator(invokeDigitalTwinInterfaceCommandSaga)(invokeDigitalTwinInterfaceCommandAction.started(invokeParameters));
+            invokeDigitalTwinInterfaceCommandSagaGenerator = cloneableGenerator(invokeCommandSaga)(invokeCommandAction.started(invokeParameters));
         });
 
-        const mockInvokeDigitalTwinInterfaceCommand = jest.spyOn(DigitalTwinService, 'invokeDigitalTwinInterfaceCommand').mockImplementationOnce(parameters => {
+        const mockInvokeCommand = jest.spyOn(DeviceService, 'invokeDirectMethod').mockImplementationOnce(parameters => {
             return null;
         });
 
         it('notifies of method invokation', () => {
             expect(invokeDigitalTwinInterfaceCommandSagaGenerator.next()).toEqual({
                 done: false,
-                value: call(notifyMethodInvoked, randomNumber, invokeDigitalTwinInterfaceCommandAction.started(invokeParameters))
+                value: call(notifyMethodInvoked, randomNumber, invokeCommandAction.started(invokeParameters))
             });
         });
 
         it('invokes the command', () => {
             expect(invokeDigitalTwinInterfaceCommandSagaGenerator.next(payload)).toEqual({
                 done: false,
-                value: call(mockInvokeDigitalTwinInterfaceCommand, {
-                    commandName,
-                    componentName,
-                    digitalTwinId,
-                    payload
-                })
+                value: call(mockInvokeCommand, invokeParameters)
             });
         });
 
@@ -82,8 +77,7 @@ describe('digitalTwinInterfaceCommandSaga', () => {
                             translationKey: ResourceKeys.notifications.invokeDigitalTwinCommandOnSuccess,
                             translationOptions: {
                                 commandName,
-                                componentName,
-                                deviceId: digitalTwinId,
+                                deviceId,
                                 response: JSON.stringify(response),
                                 validationResult: false
                             },
@@ -93,7 +87,7 @@ describe('digitalTwinInterfaceCommandSaga', () => {
             });
             expect(success.next()).toEqual({
                 done: false,
-                value: put(invokeDigitalTwinInterfaceCommandAction.done({
+                value: put(invokeCommandAction.done({
                     params: invokeParameters,
                     result: response
                 }))
@@ -112,8 +106,7 @@ describe('digitalTwinInterfaceCommandSaga', () => {
                         translationKey: ResourceKeys.notifications.invokeDigitalTwinCommandOnError,
                         translationOptions: {
                             commandName,
-                            componentName,
-                            deviceId: digitalTwinId,
+                            deviceId,
                             error,
                         },
                     },
@@ -123,7 +116,7 @@ describe('digitalTwinInterfaceCommandSaga', () => {
 
             expect(failure.next(error)).toEqual({
                 done: false,
-                value: put(invokeDigitalTwinInterfaceCommandAction.failed({
+                value: put(invokeCommandAction.failed({
                     error,
                     params: invokeParameters
                 }))
@@ -134,15 +127,10 @@ describe('digitalTwinInterfaceCommandSaga', () => {
 
     describe('notifyMethodInvoked', () => {
         beforeAll(() => {
-            notifyMethodInvokedGeneratorWithPaylaod = cloneableGenerator(notifyMethodInvoked)(randomNumber, invokeDigitalTwinInterfaceCommandAction.started(invokeParameters));
-            notifyMethodInvokedGenerator = cloneableGenerator(notifyMethodInvoked)(randomNumber, invokeDigitalTwinInterfaceCommandAction.started({
+            notifyMethodInvokedGeneratorWithPaylaod = cloneableGenerator(notifyMethodInvoked)(randomNumber, invokeCommandAction.started(invokeParameters));
+            notifyMethodInvokedGenerator = cloneableGenerator(notifyMethodInvoked)(randomNumber, invokeCommandAction.started({
                 ...invokeParameters,
-                commandPayload: null
-            }));
-            notifyMethodInvokedGeneratorOndDefaultComponent =  cloneableGenerator(notifyMethodInvoked)(randomNumber, invokeDigitalTwinInterfaceCommandAction.started({
-                ...invokeParameters,
-                commandPayload: null,
-                componentName: DEFAULT_COMPONENT_FOR_DIGITAL_TWIN
+                payload: null
             }));
         });
 
@@ -155,8 +143,7 @@ describe('digitalTwinInterfaceCommandSaga', () => {
                         translationKey: ResourceKeys.notifications.invokingDigitalTwinCommandWithPayload,
                         translationOptions: {
                             commandName,
-                            componentName,
-                            deviceId: digitalTwinId,
+                            deviceId,
                             payload: JSON.stringify(payload),
                         },
                     },
@@ -176,8 +163,7 @@ describe('digitalTwinInterfaceCommandSaga', () => {
                         translationKey: ResourceKeys.notifications.invokingDigitalTwinCommand,
                         translationOptions: {
                             commandName,
-                            componentName,
-                            deviceId: digitalTwinId,
+                            deviceId,
                             payload: 'null'
                         },
                     },
@@ -186,27 +172,6 @@ describe('digitalTwinInterfaceCommandSaga', () => {
             });
 
             expect(notifyMethodInvokedGenerator.next().done).toEqual(true);
-        });
-
-        it('puts a notification with no payload on default component', () => {
-            expect(notifyMethodInvokedGeneratorOndDefaultComponent.next(componentName)).toEqual({
-                done: false,
-                value: call(raiseNotificationToast, {
-                    id: randomNumber,
-                    text: {
-                        translationKey: ResourceKeys.notifications.invokingDigitalTwinCommandOnDefaultComponent,
-                        translationOptions: {
-                            commandName,
-                            componentName: DEFAULT_COMPONENT_FOR_DIGITAL_TWIN,
-                            deviceId: digitalTwinId,
-                            payload: 'null'
-                        },
-                    },
-                    type: NotificationType.info,
-                })
-            });
-
-            expect(notifyMethodInvokedGeneratorOndDefaultComponent.next().done).toEqual(true);
         });
     });
 });

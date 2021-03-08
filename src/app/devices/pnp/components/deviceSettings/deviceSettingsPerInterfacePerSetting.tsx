@@ -14,7 +14,7 @@ import { RenderSimplyTypeValue } from '../../../shared/components/simpleReported
 import { ErrorBoundary } from '../../../shared/components/errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 import { SemanticUnit } from '../../../../shared/units/components/semanticUnit';
-import { isValueDefined, DataForm } from '../../../shared/components/dataForm';
+import { DataForm } from '../../../shared/components/dataForm';
 import { TwinWithSchema } from './dataHelper';
 import { DEFAULT_COMPONENT_FOR_DIGITAL_TWIN } from '../../../../constants/devices';
 import { getSchemaType, isSchemaSimpleType } from '../../../../shared/utils/jsonSchemaAdaptor';
@@ -183,13 +183,12 @@ export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataPro
     const createSettingsPayload = (twin: boolean | number | string | object): Partial<Twin> => {
         const { componentName, deviceId } = props;
         const desired = {} as any; // tslint:disable-line: no-any
-        const value = isValueDefined(twin) ? twin : null;
         if (componentName === DEFAULT_COMPONENT_FOR_DIGITAL_TWIN) {
-            desired[settingModelDefinition.name] = value;
+            desired[settingModelDefinition.name] = twin;
         }
         else {
             const componentValue = {__t: 'c'} as any; // tslint:disable-line: no-any
-            componentValue[settingModelDefinition.name] = value;
+            componentValue[settingModelDefinition.name] = twin;
             desired[componentName] = componentValue;
         }
 
