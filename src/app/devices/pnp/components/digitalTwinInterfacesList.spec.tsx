@@ -224,6 +224,6 @@ describe('DigitalTwinInterfacesList', () => {
         expect((list.props() as any).items[2].interfaceId).toEqual('dtmi:__Contoso:EnvironmentalSensor;1'); // tslint:disable-line:no-magic-numbers, no-any
 
         // tslint:disable-next-line: no-magic-numbers
-        expect(wrapper.find(PivotItem)).toHaveLength(3);
+        expect(wrapper.find(PivotItem)).toHaveLength(2);
     });
 });
