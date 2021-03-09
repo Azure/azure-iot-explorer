@@ -45,12 +45,3 @@ export interface AddDeviceParameters {
 export interface UpdateDeviceParameters {
     deviceIdentity: DeviceIdentity;
 }
-
-export interface InvokeDigitalTwinInterfaceCommandParameters {
-    digitalTwinId: string; // Format of digitalTwinId is DeviceId[~ModuleId]. ModuleId is optional.
-    componentName: string;
-    commandName: string;
-    connectTimeoutInSeconds?: number;
-    payload?: boolean | number | string | object;
-    responseTimeoutInSeconds?: number;
-}

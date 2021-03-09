@@ -25,7 +25,6 @@ export const generateReportedTwinSchemaAndInterfaceTuple = (model: ModelDefiniti
     return nonWritableProperties.map(property => ({
         propertyModelDefinition: property,
         propertySchema: jsonSchemaAdaptor.parseInterfacePropertyToJsonSchema(property),
-        // digitalTwinForSpecificComponent is required to always have a $metadata key
         reportedTwin: getReportedPropertiesForSpecficComponent(twin, componentName)?.[property.name]
     }));
 };

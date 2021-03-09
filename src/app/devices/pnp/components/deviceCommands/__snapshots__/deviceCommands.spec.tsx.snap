@@ -111,7 +111,7 @@ exports[`components/devices/deviceCommands matches snapshot with a commandSchema
     }
     componentName="foo"
     deviceId={null}
-    invokeDigitalTwinInterfaceCommand={[Function]}
+    invokeCommand={[Function]}
   />
 </Fragment>
 `;

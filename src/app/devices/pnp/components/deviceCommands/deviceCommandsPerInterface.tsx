@@ -6,7 +6,7 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
 import { DeviceCommandsPerInterfacePerCommand, CommandSchema } from './deviceCommandsPerInterfacePerCommand';
-import { InvokeDigitalTwinInterfaceCommandActionParameters } from '../../actions';
+import { InvokeCommandActionParameters } from '../../actions';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { InterfaceDetailCard } from '../../../../constants/iconNames';
 import '../../../../css/_devicePnpDetailList.scss';
@@ -18,7 +18,7 @@ export interface DeviceCommandDataProps {
 }
 
 export interface DeviceCommandDispatchProps {
-    invokeDigitalTwinInterfaceCommand: (parameters: InvokeDigitalTwinInterfaceCommandActionParameters) => void;
+    invokeCommand: (parameters: InvokeCommandActionParameters) => void;
 }
 
 export interface DeviceCommandState {

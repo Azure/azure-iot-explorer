@@ -15,7 +15,7 @@ import { MultiLineShimmer } from '../../../../shared/components/multiLineShimmer
 import { ROUTE_PARAMS } from '../../../../constants/routes';
 import { usePnpStateContext } from '../../../../shared/contexts/pnpStateContext';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
-import { InvokeDigitalTwinInterfaceCommandActionParameters, invokeDigitalTwinInterfaceCommandAction } from '../../actions';
+import { InvokeCommandActionParameters, invokeCommandAction } from '../../actions';
 import { getDeviceCommandPairs } from './dataHelper';
 
 export const DeviceCommands: React.FC = () => {
@@ -31,7 +31,7 @@ export const DeviceCommands: React.FC = () => {
     const modelDefinition = pnpState.modelDefinitionWithSource.payload && pnpState.modelDefinitionWithSource.payload.modelDefinition;
     const commandSchemas = React.useMemo(() => getDeviceCommandPairs(modelDefinition).commandSchemas, [modelDefinition]);
 
-    const invokeDigitalTwinInterfaceCommand = (parameters: InvokeDigitalTwinInterfaceCommandActionParameters) => dispatch(invokeDigitalTwinInterfaceCommandAction.started(parameters));
+    const invokeCommand = (parameters: InvokeCommandActionParameters) => dispatch(invokeCommandAction.started(parameters));
 
     const renderCommandsPerInterface = () => {
         return (
@@ -39,7 +39,7 @@ export const DeviceCommands: React.FC = () => {
                 {!commandSchemas || commandSchemas.length === 0 ?
                     <Label className="no-pnp-content">{t(ResourceKeys.deviceCommands.noCommands, {componentName})}</Label> :
                     <DeviceCommandsPerInterface
-                        invokeDigitalTwinInterfaceCommand={invokeDigitalTwinInterfaceCommand}
+                        invokeCommand={invokeCommand}
                         commandSchemas={commandSchemas}
                         componentName={componentName}
                         deviceId={deviceId}

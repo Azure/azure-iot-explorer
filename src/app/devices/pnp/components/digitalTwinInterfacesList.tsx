@@ -181,12 +181,6 @@ export const DigitalTwinInterfacesList: React.FC = () => {
                             content={JSON.stringify(modelDefinitionWithSource.modelDefinition, null, '\t')}
                         />
                     </PivotItem>
-                    <PivotItem headerText={t(ResourceKeys.digitalTwin.pivot.digitalTwin)}>
-                        <JSONEditor
-                            className="interface-definition-json-editor"
-                            content={JSON.stringify(twin, null, '\t')}
-                        />
-                    </PivotItem>
                 </Pivot>
             </>
         );

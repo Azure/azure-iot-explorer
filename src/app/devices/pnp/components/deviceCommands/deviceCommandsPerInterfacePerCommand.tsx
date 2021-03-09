@@ -11,10 +11,11 @@ import { InterfaceDetailCard, SUBMIT } from '../../../../constants/iconNames';
 import { ParsedCommandSchema } from '../../../../api/models/interfaceJsonParserOutput';
 import { CommandContent } from '../../../../api/models/modelDefinition';
 import { DataForm } from '../../../shared/components/dataForm';
-import { InvokeDigitalTwinInterfaceCommandActionParameters } from '../../actions';
+import { InvokeCommandActionParameters } from '../../actions';
 import { ErrorBoundary } from '../../../shared/components/errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 import { getSchemaType } from '../../../../shared/utils/jsonSchemaAdaptor';
+import { CONNECTION_TIMEOUT_IN_SECONDS, DEFAULT_COMPONENT_FOR_DIGITAL_TWIN, RESPONSE_TIME_IN_SECONDS } from '../../../../constants/devices';
 
 export interface DeviceCommandDataProps extends CommandSchema {
     collapsed: boolean;
@@ -24,7 +25,7 @@ export interface DeviceCommandDataProps extends CommandSchema {
 
 export interface DeviceCommandDispatchProps {
     handleCollapseToggle: () => void;
-    invokeDigitalTwinInterfaceCommand: (parameters: InvokeDigitalTwinInterfaceCommandActionParameters) => void;
+    invokeCommand: (parameters: InvokeCommandActionParameters) => void;
 }
 
 export interface CommandSchema {
@@ -34,7 +35,7 @@ export interface CommandSchema {
 
 export const DeviceCommandsPerInterfacePerCommand: React.FC<DeviceCommandDataProps & DeviceCommandDispatchProps> = (props: DeviceCommandDataProps & DeviceCommandDispatchProps) => {
     const { t } = useTranslation();
-    const { collapsed, deviceId, componentName, commandModelDefinition, parsedSchema, handleCollapseToggle, invokeDigitalTwinInterfaceCommand  } = props;
+    const { collapsed, deviceId, componentName, commandModelDefinition, parsedSchema, handleCollapseToggle, invokeCommand  } = props;
 
     const createCollapsedSummary = () => {
         return (
@@ -123,12 +124,13 @@ export const DeviceCommandsPerInterfacePerCommand: React.FC<DeviceCommandDataPro
     };
 
     const onSubmit = (data: any) => () => { // tslint:disable-line:no-any
-        invokeDigitalTwinInterfaceCommand({
-            commandName: commandModelDefinition.name,
-            commandPayload: data,
-            componentName,
-            digitalTwinId: deviceId,
-            responseSchema: parsedSchema.responseSchema
+        invokeCommand({
+            connectTimeoutInSeconds: CONNECTION_TIMEOUT_IN_SECONDS,
+            deviceId,
+            methodName: componentName === DEFAULT_COMPONENT_FOR_DIGITAL_TWIN ? commandModelDefinition.name : `${componentName}*${commandModelDefinition.name}`,
+            payload: data,
+            responseSchema: parsedSchema.responseSchema,
+            responseTimeoutInSeconds: RESPONSE_TIME_IN_SECONDS
         });
     };
 
