@@ -7,12 +7,15 @@ import { PnpStateType, pnpStateInitial } from './state';
 import {
     getModelDefinitionAction,
     GetModelDefinitionActionParameters,
+    getModuleTwinAction,
     getDeviceTwinAction,
     updateDeviceTwinAction,
+    updateModuleTwinAction
 } from './actions';
 import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
 import { ModelDefinitionWithSource } from '../../api/models/modelDefinitionWithSource';
 import { Twin } from '../../api/models/device';
+import { GetModuleIdentityTwinActionParameters } from '../module/moduleIdentityTwin/actions';
 
 export const pnpReducer = reducerWithInitialState<PnpStateType>(pnpStateInitial())
     .case(getModelDefinitionAction.started, (state: PnpStateType) => {
@@ -77,6 +80,52 @@ export const pnpReducer = reducerWithInitialState<PnpStateType>(pnpStateInitial(
         });
     })
     .case(updateDeviceTwinAction.failed, (state: PnpStateType) => {
+        return state.merge({
+            twin: {
+                payload: state.twin.payload,
+                synchronizationStatus: SynchronizationStatus.failed
+            }
+        });
+    })
+    .case(getModuleTwinAction.started, (state: PnpStateType) => {
+        return state.merge({
+            twin: {
+                synchronizationStatus: SynchronizationStatus.working
+            }
+        });
+    })
+    .case(getModuleTwinAction.done, (state: PnpStateType, payload: {params: GetModuleIdentityTwinActionParameters, result: Twin}) => {
+        return state.merge({
+            twin: {
+                payload: payload.result,
+                synchronizationStatus: SynchronizationStatus.fetched
+            }
+        });
+    })
+    .case(getModuleTwinAction.failed, (state: PnpStateType) => {
+        return state.merge({
+            twin: {
+                synchronizationStatus: SynchronizationStatus.failed
+            }
+        });
+    })
+    .case(updateModuleTwinAction.started, (state: PnpStateType) => {
+        return state.merge({
+            twin: {
+                payload: state.twin.payload,
+                synchronizationStatus: SynchronizationStatus.updating
+            }
+        });
+    })
+    .case(updateModuleTwinAction.done, (state: PnpStateType, payload: {params: Twin, result: Twin}) => {
+        return state.merge({
+            twin: {
+                payload: payload.result,
+                synchronizationStatus: SynchronizationStatus.upserted
+            }
+        });
+    })
+    .case(updateModuleTwinAction.failed, (state: PnpStateType) => {
         return state.merge({
             twin: {
                 payload: state.twin.payload,

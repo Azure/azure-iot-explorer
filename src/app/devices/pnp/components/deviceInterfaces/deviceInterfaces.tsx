@@ -8,18 +8,18 @@ import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
 import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/components/MessageBar';
 import { useLocation, useHistory } from 'react-router-dom';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
-import { getInterfaceIdFromQueryString, getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
+import { getInterfaceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { InterfaceNotFoundMessageBar } from '../../../shared/components/interfaceNotFoundMessageBar';
 import { REFRESH, NAVIGATE_BACK } from '../../../../constants/iconNames';
 import { ErrorBoundary } from '../../../shared/components/errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 import { MultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
 import { MaskedCopyableTextField } from '../../../../shared/components/maskedCopyableTextField';
-import { ROUTE_PARAMS } from '../../../../constants/routes';
 import { JSONEditor } from '../../../../shared/components/jsonEditor';
 import { ModelDefinitionSourceView } from '../../../shared/components/modelDefinitionSource';
 import { usePnpStateContext } from '../../../../shared/contexts/pnpStateContext';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
+import { getBackUrl } from '../../utils';
 import '../../../../css/_deviceInterface.scss';
 
 export const DeviceInterfaces: React.FC = () => {
@@ -27,7 +27,6 @@ export const DeviceInterfaces: React.FC = () => {
     const { search, pathname } = useLocation();
     const history = useHistory();
     const interfaceId = getInterfaceIdFromQueryString(search);
-    const deviceId = getDeviceIdFromQueryString(search);
 
     const { pnpState, getModelDefinition } = usePnpStateContext();
     const modelDefinitionWithSource = pnpState.modelDefinitionWithSource.payload;
@@ -111,7 +110,7 @@ export const DeviceInterfaces: React.FC = () => {
 
     const handleClose = () => {
         const path = pathname.replace(/\/ioTPlugAndPlayDetail\/interfaces\/.*/, ``);
-        history.push(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
+        history.push(getBackUrl(path, search));
     };
 
     return (isLoading ? <MultiLineShimmer/> : (

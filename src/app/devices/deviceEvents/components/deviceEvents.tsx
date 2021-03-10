@@ -11,7 +11,6 @@ import { Stack } from 'office-ui-fabric-react/lib/components/Stack';
 import { MessageBarType, MessageBar } from 'office-ui-fabric-react/lib/components/MessageBar';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { Message, MESSAGE_SYSTEM_PROPERTIES, MESSAGE_PROPERTIES, IOTHUB_MESSAGE_SOURCE_TELEMETRY } from '../../../api/models/messages';
-import { parseDateTimeString } from '../../../api/dataTransforms/transformHelper';
 import { getDeviceIdFromQueryString, getComponentNameFromQueryString, getInterfaceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import { MonitorEventsParameters } from '../../../api/parameters/deviceParameters';

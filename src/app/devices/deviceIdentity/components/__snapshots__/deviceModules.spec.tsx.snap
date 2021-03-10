@@ -54,5 +54,17 @@ exports[`DeviceModules matches snapshot 1`] = `
   >
     <Component />
   </Component>
+  <Component
+    breadcrumb={
+      Object {
+        "disableLink": true,
+        "name": "mod1",
+        "suffix": "?moduleId=mod1",
+      }
+    }
+    path="/modulePnp"
+  >
+    <Component />
+  </Component>
 </Fragment>
 `;

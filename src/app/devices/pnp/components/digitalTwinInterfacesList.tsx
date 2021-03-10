@@ -11,12 +11,11 @@ import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/component
 import { Announced } from 'office-ui-fabric-react/lib/components/Announced';
 import { Pivot, PivotItem } from 'office-ui-fabric-react/lib/components/Pivot';
 import { Link } from 'office-ui-fabric-react/lib/components/Link';
-import { NavLink, useLocation, useRouteMatch } from 'react-router-dom';
+import { NavLink, useLocation, useRouteMatch, Route } from 'react-router-dom';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
-import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
+import { getDeviceIdFromQueryString, getModuleIdentityIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
-import { getDeviceTwinAction } from '../actions';
 import { REFRESH } from '../../../constants/iconNames';
 import { LARGE_COLUMN_WIDTH } from '../../../constants/columnWidth';
 import { InterfaceNotFoundMessageBar } from '../../shared/components/interfaceNotFoundMessageBar';
@@ -31,6 +30,8 @@ import { ComponentAndInterfaceId, JsonSchemaAdaptor } from '../../../shared/util
 import { DEFAULT_COMPONENT_FOR_DIGITAL_TWIN } from '../../../constants/devices';
 import { ErrorBoundary } from '../../shared/components/errorBoundary';
 import '../../../css/_digitalTwinInterfaces.scss';
+import { dispatchGetTwinAction } from '../utils';
+import { ModuleIdentityDetailHeader } from '../../module/shared/components/moduleIdentityDetailHeader';
 
 interface ModelContent {
     link: string;
@@ -62,6 +63,7 @@ export const DigitalTwinInterfacesList: React.FC = () => {
     const { search } = useLocation();
     const { url } = useRouteMatch();
     const deviceId = getDeviceIdFromQueryString(search);
+    const moduleId = getModuleIdentityIdFromQueryString(search);
     const { t } = useTranslation();
 
     const { pnpState, dispatch, } = usePnpStateContext();
@@ -76,14 +78,18 @@ export const DigitalTwinInterfacesList: React.FC = () => {
     const componentNameToIds = getComponentNameAndInterfaceIdArray(modelDefinition);
 
     const onRefresh = (ev?: React.MouseEvent<HTMLElement, MouseEvent> | React.KeyboardEvent<HTMLElement>) => {
-        dispatch(getDeviceTwinAction.started(deviceId));
+        dispatchGetTwinAction(search, dispatch);
     };
 
     const modelContents: ModelContent[]  = componentNameToIds && componentNameToIds.map(nameToId => {
-        const link = `${url}${ROUTE_PARTS.DIGITAL_TWINS_DETAIL}/${ROUTE_PARTS.INTERFACES}/` +
+        let link = `${url}${ROUTE_PARTS.DIGITAL_TWINS_DETAIL}/${ROUTE_PARTS.INTERFACES}/` +
             `?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}` +
             `&${ROUTE_PARAMS.COMPONENT_NAME}=${nameToId.componentName}` +
             `&${ROUTE_PARAMS.INTERFACE_ID}=${nameToId.interfaceId}`;
+        if (moduleId) {
+            link += `&${ROUTE_PARAMS.MODULE_ID}=${moduleId}`;
+        }
+
         if (nameToId.componentName === DEFAULT_COMPONENT_FOR_DIGITAL_TWIN && nameToId.interfaceId === modelId) {
             return{
                 componentName: t(ResourceKeys.digitalTwin.pivot.defaultComponent),
@@ -223,6 +229,7 @@ export const DigitalTwinInterfacesList: React.FC = () => {
 
     return (
         <>
+            {moduleId && <Route component={ModuleIdentityDetailHeader} />}
             <CommandBar
                 className="command"
                 items={createCommandBarItems()}
@@ -237,7 +244,7 @@ export const DigitalTwinInterfacesList: React.FC = () => {
                 <section className="device-detail">
                     {modelId ?
                         <>
-                            <h4>{t(ResourceKeys.digitalTwin.steps.first)}</h4>
+                            <h4>{moduleId ? t(ResourceKeys.digitalTwin.steps.firstModule) : t(ResourceKeys.digitalTwin.steps.first)}</h4>
                             <MaskedCopyableTextField
                                 ariaLabel={t(ResourceKeys.digitalTwin.modelId)}
                                 label={t(ResourceKeys.digitalTwin.modelId)}

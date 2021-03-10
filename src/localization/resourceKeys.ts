@@ -23,6 +23,7 @@ export class ResourceKeys {
       moduleDetail : "breadcrumb.moduleDetail",
       moduleIdentity : "breadcrumb.moduleIdentity",
       moduleMethod : "breadcrumb.moduleMethod",
+      modulePnp : "breadcrumb.modulePnp",
       moduleTwin : "breadcrumb.moduleTwin",
       properties : "breadcrumb.properties",
       repos : "breadcrumb.repos",
@@ -656,6 +657,7 @@ export class ResourceKeys {
       steps : {
          explanation : "digitalTwin.steps.explanation",
          first : "digitalTwin.steps.first",
+         firstModule : "digitalTwin.steps.firstModule",
          secondFailure : "digitalTwin.steps.secondFailure",
          secondSuccess : "digitalTwin.steps.secondSuccess",
          third : "digitalTwin.steps.third",
@@ -900,6 +902,7 @@ export class ResourceKeys {
       updateDeviceTwinOnError : "notifications.updateDeviceTwinOnError",
       updateDeviceTwinOnSuccess : "notifications.updateDeviceTwinOnSuccess",
       updateModuleIdentityTwinOnError : "notifications.updateModuleIdentityTwinOnError",
+      updateModuleIdentityTwinOnSuccess : "notifications.updateModuleIdentityTwinOnSuccess",
    };
    public static settings = {
       close : "settings.close",

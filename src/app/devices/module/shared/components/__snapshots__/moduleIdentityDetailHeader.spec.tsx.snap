@@ -25,6 +25,11 @@ exports[`ModuleIdentityDetailHeader matches snapshot 1`] = `
       itemKey="moduleMethod"
       key="moduleMethod"
     />
+    <PivotItem
+      headerText="breadcrumb.modulePnp"
+      itemKey="modulePnp"
+      key="modulePnp"
+    />
   </StyledPivotBase>
 </Stack>
 `;

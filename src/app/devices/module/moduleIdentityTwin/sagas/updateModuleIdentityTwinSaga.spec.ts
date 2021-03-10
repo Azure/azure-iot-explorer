@@ -53,6 +53,19 @@ describe('updateModuleIdentityTwinSaga', () => {
         const success = updateModuleIdentityTwinSagaGenerator.clone();
         expect(success.next(moduleIdentityTwin)).toEqual({
             done: false,
+            value: call(raiseNotificationToast, {
+                text: {
+                    translationKey: ResourceKeys.notifications.updateModuleIdentityTwinOnSuccess,
+                    translationOptions: {
+                        moduleId: moduleIdentityTwin.moduleId
+                    },
+                },
+                type: NotificationType.success
+            })
+        });
+
+        expect(success.next()).toEqual({
+            done: false,
             value: put(updateModuleIdentityTwinAction.done({params: moduleIdentityTwin, result: moduleIdentityTwin}))
         });
         expect(success.next().done).toEqual(true);

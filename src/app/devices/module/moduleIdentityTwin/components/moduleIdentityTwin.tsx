@@ -129,8 +129,8 @@ export const ModuleIdentityTwin: React.FC = () => {
 
     return (
         <>
-            {showCommandBar()}
             <Route component={ModuleIdentityDetailHeader} />
+            {showCommandBar()}
             <div className="module-identity-detail">
                 {moduleIdentityTwinSyncStatus === SynchronizationStatus.working ?
                     <MultiLineShimmer/> :

@@ -5,8 +5,8 @@
 import * as React from 'react';
 import { useLocation, useRouteMatch, Route } from 'react-router-dom';
 import { ROUTE_PARTS } from '../../../constants/routes';
-import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString, getComponentNameFromQueryString } from '../../../shared/utils/queryStringHelper';
-import { getDeviceTwinAction, getModelDefinitionAction } from '../actions';
+import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString, getComponentNameFromQueryString, getModuleIdentityIdFromQueryString } from '../../../shared/utils/queryStringHelper';
+import { getModelDefinitionAction } from '../actions';
 import { PnpStateContextProvider } from '../../../shared/contexts/pnpStateContext';
 import { DigitalTwinDetail } from './digitalTwinDetail';
 import { useAsyncSagaReducer } from '../../../shared/hooks/useAsyncSagaReducer';
@@ -19,11 +19,13 @@ import { getRepositoryLocationSettings } from '../../../modelRepository/dataHelp
 import { DigitalTwinInterfacesList } from './digitalTwinInterfacesList';
 import { BreadcrumbRoute } from '../../../navigation/components/breadcrumbRoute';
 import '../../../css/_digitalTwinInterfaces.scss';
+import { dispatchGetTwinAction } from '../utils';
 
 export const Pnp: React.FC = () => {
     const { search } = useLocation();
     const { url } = useRouteMatch();
     const deviceId = getDeviceIdFromQueryString(search);
+    const moduleId = getModuleIdentityIdFromQueryString(search);
     const interfaceId = getInterfaceIdFromQueryString(search);
     const componentName = getComponentNameFromQueryString(search);
 
@@ -39,8 +41,8 @@ export const Pnp: React.FC = () => {
     const getModelDefinition = () => dispatch(getModelDefinitionAction.started({digitalTwinId: deviceId, interfaceId: interfaceIdModified, locations}));
 
     React.useEffect(() => {
-        dispatch(getDeviceTwinAction.started(deviceId));
-    },              []);
+        dispatchGetTwinAction(search, dispatch);
+    },              [deviceId, moduleId]);
 
     React.useEffect(() => {
         if (interfaceIdModified && deviceId) {

@@ -16,6 +16,7 @@ import { Twin } from '../../../../api/models/device';
 
 export interface DeviceSettingDataProps {
     deviceId: string;
+    moduleId: string;
     interfaceId: string;
     componentName: string;
     twinWithSchema: TwinWithSchema[];

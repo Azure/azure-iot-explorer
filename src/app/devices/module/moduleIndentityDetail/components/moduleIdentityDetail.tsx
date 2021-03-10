@@ -243,8 +243,8 @@ export const ModuleIdentityDetail: React.FC = () => {
 
     return (
         <>
-            {showCommandBar()}
             <Route component={ModuleIdentityDetailHeader} />
+            {showCommandBar()}
             <div className="module-identity-detail">
                 {showModuleId()}
                 {isFetching ?
