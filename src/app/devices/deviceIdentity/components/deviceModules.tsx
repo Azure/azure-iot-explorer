@@ -55,7 +55,7 @@ export const DeviceModules: React.FC = () => {
 
             <BreadcrumbRoute
                 path={`${url}/${ROUTE_PARTS.MODULE_PNP}`}
-                breadcrumb={{name: moduleId, suffix: search}}
+                breadcrumb={{name: moduleId, disableLink: true, suffix: search}}
                 children={<Pnp/>}
             />
         </>

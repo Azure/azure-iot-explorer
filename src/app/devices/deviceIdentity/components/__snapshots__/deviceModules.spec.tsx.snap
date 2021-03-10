@@ -57,6 +57,7 @@ exports[`DeviceModules matches snapshot 1`] = `
   <Component
     breadcrumb={
       Object {
+        "disableLink": true,
         "name": "mod1",
         "suffix": "?moduleId=mod1",
       }
