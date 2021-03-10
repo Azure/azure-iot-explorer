@@ -15,6 +15,16 @@ export function* updateModuleIdentityTwinSaga(action: Action<ModuleTwin>) {
     try {
         const moduleIdentityTwin = yield call(updateModuleIdentityTwin, action.payload);
 
+        yield call(raiseNotificationToast, {
+            text: {
+                translationKey: ResourceKeys.notifications.updateModuleIdentityTwinOnSuccess,
+                translationOptions: {
+                    moduleId: action.payload.moduleId
+                },
+            },
+            type: NotificationType.success
+          });
+
         yield put(updateModuleIdentityTwinAction.done({params: action.payload, result: moduleIdentityTwin}));
     } catch (error) {
         yield call(raiseNotificationToast, {

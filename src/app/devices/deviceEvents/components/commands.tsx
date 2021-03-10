@@ -11,10 +11,10 @@ import { CLEAR, CHECKED_CHECKBOX, EMPTY_CHECKBOX, START, STOP, NAVIGATE_BACK, RE
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import { appConfig, HostMode } from '../../../../appConfig/appConfig';
 import { clearMonitoringEventsAction } from './../actions';
-import { ROUTE_PARAMS } from '../../../constants/routes';
 import { getComponentNameFromQueryString, getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { usePnpStateContext } from '../../../shared/contexts/pnpStateContext';
 import './deviceEvents.scss';
+import { getBackUrl } from '../../pnp/utils';
 
 export interface CommandsProps {
     startDisabled: boolean;
@@ -172,7 +172,7 @@ export const Commands: React.FC<CommandsProps> = ({
 
     const handleClose = () => {
         const path = pathname.replace(/\/ioTPlugAndPlayDetail\/events\/.*/, ``);
-        history.push(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
+        history.push(getBackUrl(path, search));
     };
 
     const onToggleStart = () => {

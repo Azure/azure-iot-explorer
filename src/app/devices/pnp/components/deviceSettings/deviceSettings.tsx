@@ -9,21 +9,22 @@ import { Label } from 'office-ui-fabric-react/lib/components/Label';
 import { useLocation, useHistory } from 'react-router-dom';
 import { DeviceSettingsPerInterface } from './deviceSettingsPerInterface';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
-import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString, getComponentNameFromQueryString } from '../../../../shared/utils/queryStringHelper';
-import { getDeviceTwinAction, updateDeviceTwinAction } from '../../actions';
+import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString, getComponentNameFromQueryString, getModuleIdentityIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
+import { updateDeviceTwinAction, updateModuleTwinAction } from '../../actions';
 import { REFRESH, NAVIGATE_BACK } from '../../../../constants/iconNames';
 import { MultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
-import { ROUTE_PARAMS } from '../../../../constants/routes';
 import { usePnpStateContext } from '../../../../shared/contexts/pnpStateContext';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { generateTwinSchemaAndInterfaceTuple } from './dataHelper';
 import { Twin } from '../../../../api/models/device';
+import { dispatchGetTwinAction, getBackUrl } from '../../utils';
 
 export const DeviceSettings: React.FC = () => {
     const { t } = useTranslation();
     const { search, pathname } = useLocation();
     const history = useHistory();
     const deviceId = getDeviceIdFromQueryString(search);
+    const moduleId = getModuleIdentityIdFromQueryString(search);
     const componentName = getComponentNameFromQueryString(search);
     const interfaceId = getInterfaceIdFromQueryString(search);
 
@@ -37,7 +38,14 @@ export const DeviceSettings: React.FC = () => {
         return generateTwinSchemaAndInterfaceTuple(modelDefinition, twin, componentName);
     },                                   [modelDefinition, twin]);
 
-    const patchTwin = (parameters: Twin) => dispatch(updateDeviceTwinAction.started(parameters));
+    const patchTwin = (parameters: Twin) => {
+        if (moduleId) {
+            dispatch(updateModuleTwinAction.started(parameters));
+        }
+        else {
+            dispatch(updateDeviceTwinAction.started(parameters));
+        }
+    };
 
     const renderProperties = () => {
         return (
@@ -50,6 +58,7 @@ export const DeviceSettings: React.FC = () => {
                         interfaceId={interfaceId}
                         twinWithSchema={twinWithSchema}
                         deviceId={deviceId}
+                        moduleId={moduleId}
                     />
                 }
             </>
@@ -57,13 +66,13 @@ export const DeviceSettings: React.FC = () => {
     };
 
     const onRefresh = () => {
-        dispatch(getDeviceTwinAction.started(deviceId));
+        dispatchGetTwinAction(search, dispatch);
         getModelDefinition();
     };
 
     const handleClose = () => {
         const path = pathname.replace(/\/ioTPlugAndPlayDetail\/settings\/.*/, ``);
-        history.push(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
+        history.push(getBackUrl(path, search));
     };
 
     if (isLoading) {

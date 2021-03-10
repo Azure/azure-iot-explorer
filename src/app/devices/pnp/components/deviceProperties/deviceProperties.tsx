@@ -8,22 +8,20 @@ import { useLocation, useHistory } from 'react-router-dom';
 import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
 import { Label } from 'office-ui-fabric-react/lib/components/Label';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
-import { getDeviceIdFromQueryString, getComponentNameFromQueryString } from '../../../../shared/utils/queryStringHelper';
+import { getComponentNameFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { DevicePropertiesPerInterface } from './devicePropertiesPerInterface';
 import { REFRESH, NAVIGATE_BACK } from '../../../../constants/iconNames';
 import { MultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
-import { ROUTE_PARAMS } from '../../../../constants/routes';
 import { usePnpStateContext } from '../../../../shared/contexts/pnpStateContext';
-import { getDeviceTwinAction } from '../../actions';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { generateReportedTwinSchemaAndInterfaceTuple } from './dataHelper';
+import { dispatchGetTwinAction, getBackUrl } from '../../utils';
 
 export const DeviceProperties: React.FC = () => {
     const { t } = useTranslation();
     const { pathname, search } = useLocation();
     const history = useHistory();
     const componentName = getComponentNameFromQueryString(search);
-    const deviceId = getDeviceIdFromQueryString(search);
 
     const { pnpState, dispatch, getModelDefinition } = usePnpStateContext();
     const isLoading = pnpState.twin.synchronizationStatus === SynchronizationStatus.working ||
@@ -47,13 +45,13 @@ export const DeviceProperties: React.FC = () => {
     };
 
     const handleRefresh = () => {
-        dispatch(getDeviceTwinAction.started(deviceId));
+        dispatchGetTwinAction(search, dispatch);
         getModelDefinition();
     };
 
     const handleClose = () => {
         const path = pathname.replace(/\/ioTPlugAndPlayDetail\/properties\/.*/, ``);
-        history.push(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
+        history.push(getBackUrl(path, search));
     };
 
     if (isLoading) {

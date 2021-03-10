@@ -14,7 +14,7 @@ import { DeviceProperties } from './deviceProperties/deviceProperties';
 import { DeviceCommands } from './deviceCommands/deviceCommands';
 import { DeviceInterfaces } from './deviceInterfaces/deviceInterfaces';
 import { DeviceEvents } from '../../deviceEvents/components/deviceEvents';
-import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString, getComponentNameFromQueryString } from '../../../shared/utils/queryStringHelper';
+import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString, getComponentNameFromQueryString, getModuleIdentityIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { usePnpStateContext } from '../../../shared/contexts/pnpStateContext';
 import './digitalTwinDetail.scss';
 
@@ -25,10 +25,13 @@ export const DigitalTwinDetail: React.FC = () => {
     const { url } = useRouteMatch();
     const { getModelDefinition } = usePnpStateContext();
     const deviceId = getDeviceIdFromQueryString(search);
+    const moduleId = getModuleIdentityIdFromQueryString(search);
     const interfaceId = getInterfaceIdFromQueryString(search);
     const componentName = getComponentNameFromQueryString(search);
 
-    const NAV_LINK_ITEMS_PNP = [ROUTE_PARTS.INTERFACES, ROUTE_PARTS.PROPERTIES, ROUTE_PARTS.SETTINGS, ROUTE_PARTS.COMMANDS, ROUTE_PARTS.EVENTS];
+    // todo: add commands and events back once pnp is wired up with module
+    const NAV_LINK_ITEMS_PNP = moduleId ? [ROUTE_PARTS.INTERFACES, ROUTE_PARTS.PROPERTIES, ROUTE_PARTS.SETTINGS] :
+    [ROUTE_PARTS.INTERFACES, ROUTE_PARTS.PROPERTIES, ROUTE_PARTS.SETTINGS, ROUTE_PARTS.COMMANDS, ROUTE_PARTS.EVENTS];
 
     React.useEffect(() => {
         getModelDefinition();
@@ -42,7 +45,13 @@ export const DigitalTwinDetail: React.FC = () => {
     });
     const handleLinkClick = (item: PivotItem) => {
         setSelectedKey(item.props.itemKey);
-        const linkUrl = `${path}/${item.props.itemKey}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}&${ROUTE_PARAMS.COMPONENT_NAME}=${componentName}&${ROUTE_PARAMS.INTERFACE_ID}=${interfaceId}`;
+        let linkUrl = `${path}/${item.props.itemKey}/?` +
+            `${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}` +
+            `&${ROUTE_PARAMS.COMPONENT_NAME}=${componentName}` +
+            `&${ROUTE_PARAMS.INTERFACE_ID}=${interfaceId}`;
+        if (moduleId) {
+            linkUrl += `&${ROUTE_PARAMS.MODULE_ID}=${moduleId}`;
+        }
         history.push(linkUrl);
     };
     const pivot = (

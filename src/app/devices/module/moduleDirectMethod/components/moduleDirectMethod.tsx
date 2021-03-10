@@ -87,8 +87,8 @@ export const ModuleDirectMethod: React.FC = () => {
 
     return (
         <>
-            {showCommandBar()}
             <Route component={ModuleIdentityDetailHeader} />
+            {showCommandBar()}
             <DirectMethodForm
                 methodName={methodName}
                 connectionTimeOut={connectionTimeOut}

@@ -20,10 +20,12 @@ import { DEFAULT_COMPONENT_FOR_DIGITAL_TWIN } from '../../../../constants/device
 import { getSchemaType, isSchemaSimpleType } from '../../../../shared/utils/jsonSchemaAdaptor';
 import '../../../../css/_deviceSettings.scss';
 import { Twin } from '../../../../api/models/device';
+import { ModuleTwin } from '../../../../api/models/moduleTwin';
 
 export interface DeviceSettingDataProps extends TwinWithSchema {
     collapsed: boolean;
     deviceId: string;
+    moduleId: string;
     interfaceId: string;
     componentName: string;
 }
@@ -180,8 +182,8 @@ export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataPro
         );
     };
 
-    const createSettingsPayload = (twin: boolean | number | string | object): Partial<Twin> => {
-        const { componentName, deviceId } = props;
+    const createSettingsPayload = (twin: boolean | number | string | object): Partial<Twin | ModuleTwin> => {
+        const { componentName, deviceId, moduleId } = props;
         const desired = {} as any; // tslint:disable-line: no-any
         if (componentName === DEFAULT_COMPONENT_FOR_DIGITAL_TWIN) {
             desired[settingModelDefinition.name] = twin;
@@ -194,6 +196,7 @@ export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataPro
 
         return {
             deviceId,
+            moduleId,
             properties: {
                 desired
             }

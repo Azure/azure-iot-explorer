@@ -12,11 +12,11 @@ import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString, getComponentNameFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { REFRESH, NAVIGATE_BACK } from '../../../../constants/iconNames';
 import { MultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
-import { ROUTE_PARAMS } from '../../../../constants/routes';
 import { usePnpStateContext } from '../../../../shared/contexts/pnpStateContext';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { InvokeCommandActionParameters, invokeCommandAction } from '../../actions';
 import { getDeviceCommandPairs } from './dataHelper';
+import { getBackUrl } from '../../utils';
 
 export const DeviceCommands: React.FC = () => {
     // const { refresh, setComponentName, isLoading, commandSchemas } = props;
@@ -52,7 +52,7 @@ export const DeviceCommands: React.FC = () => {
     const handleRefresh = () => getModelDefinition();
     const handleClose = () => {
         const path = pathname.replace(/\/ioTPlugAndPlayDetail\/commands\/.*/, ``);
-        history.push(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
+        history.push(getBackUrl(path, search));
     };
 
     if (isLoading) {

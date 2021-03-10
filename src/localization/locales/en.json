@@ -115,7 +115,8 @@
         "moduleDetail": "Module detail",
         "moduleTwin": "Module twin",
         "moduleMethod": "Module direct method",
-        "addModuleIdentity": "Add module identity"
+        "addModuleIdentity": "Add module identity",
+        "modulePnp": "IoT Plug and Play components"
     },
     "deviceContent": {
         "start": "Select a device to start",
@@ -437,6 +438,7 @@
         "componentName": "Component",
         "steps": {
             "zero": "Your device is not recognized as a IoT Plug and Play device. To learn more, please check out ",
+            "firstModule": "Step1. Your module has been discovered as a Plug and Play module",
             "first": "Step 1. Your device has been discovered as a IoT Plug and Play device",
             "secondSuccess": "Step 2. We've resolved your IoT Plug and Play model",
             "secondFailure": "Step 2. We are not able to retrieve model definition for {{modelId}}",
@@ -843,6 +845,7 @@
         "addModuleIdentityOnError": "Failed to add  module identity {{moduleId}}: {{error}}",
         "getModuleIdentityTwinOnError": "Failed to get module identity twin for module {{moduleId}}: {{error}}",
         "updateModuleIdentityTwinOnError": "Failed to update module identity twin for module {{moduleId}}: {{error}}",
+        "updateModuleIdentityTwinOnSuccess": "Successfully updated module identity twin for module {{moduleId}}",
         "getModuleIdentityOnError": "Failed to get module identity {{moduleId}}: {{error}}",
         "deleteModuleIdentityOnSuccess": "Successfully deleted module {{moduleId}}",
         "deleteModuleIdentityOnError": "Failed to delete module identity {{moduleId}}: {{error}}",

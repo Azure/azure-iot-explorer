@@ -17,7 +17,7 @@ export const ModuleIdentityDetailHeader: React.FC = () => {
     const { search, pathname } = useLocation();
     const history = useHistory();
 
-    const NAV_LINK_ITEMS = [ROUTE_PARTS.MODULE_DETAIL, ROUTE_PARTS.MODULE_TWIN, ROUTE_PARTS.MODULE_METHOD];
+    const NAV_LINK_ITEMS = [ROUTE_PARTS.MODULE_DETAIL, ROUTE_PARTS.MODULE_TWIN, ROUTE_PARTS.MODULE_METHOD, ROUTE_PARTS.MODULE_PNP];
     const deviceId = getDeviceIdFromQueryString(search);
     const moduleId = getModuleIdentityIdFromQueryString(search);
 
