@@ -2,6 +2,9 @@
 
 exports[`moduleDirectMethod matches snapshot 1`] = `
 <Fragment>
+  <Component
+    component={[Function]}
+  />
   <StyledCommandBarBase
     className="command"
     farItems={
@@ -31,9 +34,6 @@ exports[`moduleDirectMethod matches snapshot 1`] = `
         },
       ]
     }
-  />
-  <Component
-    component={[Function]}
   />
   <Component
     connectionTimeOut={10}

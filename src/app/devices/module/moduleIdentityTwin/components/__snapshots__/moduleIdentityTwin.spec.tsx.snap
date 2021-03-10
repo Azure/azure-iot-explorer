@@ -2,6 +2,9 @@
 
 exports[`moduleIdentityTwin snapshot matches snapshot after module twin is fetched 1`] = `
 <Fragment>
+  <Component
+    component={[Function]}
+  />
   <StyledCommandBarBase
     className="command"
     farItems={
@@ -42,9 +45,6 @@ exports[`moduleIdentityTwin snapshot matches snapshot after module twin is fetch
       ]
     }
   />
-  <Component
-    component={[Function]}
-  />
   <div
     className="module-identity-detail"
   >
@@ -76,6 +76,9 @@ exports[`moduleIdentityTwin snapshot matches snapshot after module twin is fetch
 
 exports[`moduleIdentityTwin snapshot matches snapshot while loading 1`] = `
 <Fragment>
+  <Component
+    component={[Function]}
+  />
   <StyledCommandBarBase
     className="command"
     farItems={
@@ -115,9 +118,6 @@ exports[`moduleIdentityTwin snapshot matches snapshot while loading 1`] = `
         },
       ]
     }
-  />
-  <Component
-    component={[Function]}
   />
   <div
     className="module-identity-detail"

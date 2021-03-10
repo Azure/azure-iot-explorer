@@ -35,6 +35,7 @@ exports[`deviceSettings matches snapshot with one twinWithSchema 1`] = `
     componentName="foo"
     deviceId={null}
     interfaceId="urn:contoso:com:EnvironmentalSensor;1"
+    moduleId={null}
     patchTwin={[Function]}
     twinWithSchema={
       Array [
