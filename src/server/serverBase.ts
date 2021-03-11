@@ -2,6 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
+// this file is the legacy controller for local development, until we move server side code to use electron's IPC pattern and enable electron hot reloading
 import * as fs from 'fs';
 import * as path from 'path';
 import express = require('express');
