@@ -28,10 +28,7 @@ export const DigitalTwinDetail: React.FC = () => {
     const moduleId = getModuleIdentityIdFromQueryString(search);
     const interfaceId = getInterfaceIdFromQueryString(search);
     const componentName = getComponentNameFromQueryString(search);
-
-    // todo: add commands and events back once pnp is wired up with module
-    const NAV_LINK_ITEMS_PNP = moduleId ? [ROUTE_PARTS.INTERFACES, ROUTE_PARTS.PROPERTIES, ROUTE_PARTS.SETTINGS] :
-    [ROUTE_PARTS.INTERFACES, ROUTE_PARTS.PROPERTIES, ROUTE_PARTS.SETTINGS, ROUTE_PARTS.COMMANDS, ROUTE_PARTS.EVENTS];
+    const NAV_LINK_ITEMS_PNP = [ROUTE_PARTS.INTERFACES, ROUTE_PARTS.PROPERTIES, ROUTE_PARTS.SETTINGS, ROUTE_PARTS.COMMANDS, ROUTE_PARTS.EVENTS];
 
     React.useEffect(() => {
         getModelDefinition();

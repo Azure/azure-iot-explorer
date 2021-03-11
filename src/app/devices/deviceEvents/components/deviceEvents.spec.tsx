@@ -85,6 +85,7 @@ describe('deviceEvents', () => {
             expect(startEventsMonitoringSpy.mock.calls[0][0]).toEqual({
                 consumerGroup: DEFAULT_CONSUMER_GROUP,
                 deviceId: 'device1',
+                moduleId: null,
                 startListeners: true,
                 startTime: undefined
             });

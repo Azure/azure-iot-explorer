@@ -14,7 +14,7 @@ import { GetModuleIdentityTwinActionParameters } from '../module/moduleIdentityT
 
 const deviceContentCreator = actionCreatorFactory(DEVICECONTENT);
 const getModelDefinitionAction = deviceContentCreator.async<GetModelDefinitionActionParameters, ModelDefinitionWithSource>(FETCH_MODEL_DEFINITION);
-const invokeCommandAction = deviceContentCreator.async<InvokeMethodActionParameters, string>(INVOKE_DEVICE_METHOD);
+const invokeCommandAction = deviceContentCreator.async<InvokeCommandActionParameters, string>(INVOKE_DEVICE_METHOD);
 const getDeviceTwinAction = deviceContentCreator.async<string, Twin>(GET_TWIN);
 const updateDeviceTwinAction = deviceContentCreator.async<Partial<Twin>, Twin>(UPDATE_TWIN);
 const getModuleTwinAction = deviceContentCreator.async<GetModuleIdentityTwinActionParameters, Twin>(GET_MODULE_IDENTITY_TWIN);
@@ -29,8 +29,9 @@ export {
     updateModuleTwinAction
 };
 
-export interface InvokeCommandActionParameters extends InvokeMethodActionParameters{
+export interface InvokeCommandActionParameters extends InvokeMethodActionParameters {
     responseSchema: ParsedJsonSchema;
+    moduleId: string;
 }
 
 export interface GetModelDefinitionActionParameters {

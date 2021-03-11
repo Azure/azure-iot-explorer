@@ -18,13 +18,6 @@ const BAD_REQUEST = 400;
 const SUCCESS = 200;
 const NOT_FOUND = 404;
 const NO_CONTENT_SUCCESS = 204;
-const IOTHUB_CONNECTION_DEVICE_ID = 'iothub-connection-device-id';
-
-let client: EventHubClient = null;
-let messages: Message[] = [];
-let receivers: ReceiveHandler[] = [];
-let connectionString: string = ''; // would equal `${hubConnectionString}` or `${customEventHubConnectionString}/${customEventHubName}`
-let deviceId: string = '';
 
 interface Message {
     body: any; // tslint:disable-line:no-any
@@ -229,6 +222,14 @@ export const handleCloudToDevicePostRequest = (req: express.Request, res: expres
 };
 
 const eventHubMonitorUri = '/api/EventHub/monitor';
+const IOTHUB_CONNECTION_DEVICE_ID = 'iothub-connection-device-id';
+const IOTHUB_CONNECTION_MODULE_ID = 'iothub-connection-module-id';
+let client: EventHubClient = null;
+let messages: Message[] = [];
+let receivers: ReceiveHandler[] = [];
+let connectionString: string = ''; // would equal `${hubConnectionString}` or `${customEventHubConnectionString}/${customEventHubName}`
+let deviceId: string = '';
+let moduleId: string = '';
 export const handleEventHubMonitorPostRequest = (req: express.Request, res: express.Response) => {
     try {
         if (!req.body) {
@@ -339,7 +340,7 @@ export const eventHubProvider = async (params: any) =>  {
         receivers = [];
         messages = [];
     }
-    updateDeviceIdIfNecessary(params);
+    updateEntityIdIfNecessary(params);
 
     return listeningToMessages(client, params);
 };
@@ -418,22 +419,27 @@ const needToCreateNewEventHubClient = (parmas: any): boolean => {
         parmas.customEventHubConnectionString && `${parmas.customEventHubConnectionString}/${parmas.customEventHubName}` !== connectionString;
 }
 
-const updateDeviceIdIfNecessary = (parmas: any) => {
-    if( !deviceId || parmas.deviceId !== deviceId)
-    {
+const updateEntityIdIfNecessary = (parmas: any) => {
+    if (!deviceId || parmas.deviceId !== deviceId) {
         deviceId = parmas.deviceId;
+        messages = [];
+    }
+    if (parmas.moduleId !== moduleId) {
+        moduleId = parmas.moduleId;
         messages = [];
     }
 }
 
 const onMessageReceived = async (eventData: any) => {
-    if (eventData && eventData.annotations && eventData.annotations[IOTHUB_CONNECTION_DEVICE_ID] === deviceId) {
-        const message: Message = {
-            body: eventData.body,
-            enqueuedTime: eventData.enqueuedTimeUtc.toString(),
-            properties: eventData.applicationProperties
-        };
-        message.systemProperties = eventData.annotations;
-        messages.push(message);
+    if (eventData?.annotations?.[IOTHUB_CONNECTION_DEVICE_ID] === deviceId) {
+        if (!moduleId || eventData?.annotations?.[IOTHUB_CONNECTION_MODULE_ID] === moduleId) {
+            const message: Message = {
+                body: eventData.body,
+                enqueuedTime: eventData.enqueuedTimeUtc.toString(),
+                properties: eventData.applicationProperties
+            };
+            message.systemProperties = eventData.annotations;
+            messages.push(message);
+        }
     }
 };

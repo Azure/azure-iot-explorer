@@ -12,6 +12,7 @@ import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryString
 import { REFRESH, ArrayOperation } from '../../../../constants/iconNames';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { parseDateTimeString } from '../../../../api/dataTransforms/transformHelper';
+import { ModuleIdentity } from '../../../../api/models/moduleIdentity';
 import { MultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../../constants/routes';
 import { HeaderView } from '../../../../shared/components/headerView';
@@ -89,6 +90,10 @@ export const ModuleIdentityList: React.FC = () => {
         );
     };
 
+    const getModuleDetailPageUrl = (item: ModuleIdentity) => {
+        return `${url.endsWith('/') ? url : url + '/'}${ROUTE_PARTS.MODULE_DETAIL}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}&${ROUTE_PARAMS.MODULE_ID}=${item.moduleId}`;
+    };
+
     const getColumns = (): IColumn[] => {
         const columns: IColumn[] = [
             {
@@ -102,7 +107,7 @@ export const ModuleIdentityList: React.FC = () => {
                 onRender: item => (
                 <NavLink
                     key={item.key}
-                    to={`${url}${ROUTE_PARTS.MODULE_DETAIL}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}&${ROUTE_PARAMS.MODULE_ID}=${item.moduleId}`}
+                    to={getModuleDetailPageUrl(item)}
                 >
                     {item.moduleId}
                 </NavLink>

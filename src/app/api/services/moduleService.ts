@@ -94,7 +94,7 @@ export const deleteModuleIdentity = async (parameters: FetchModuleIdentityParame
 };
 
 export const invokeModuleDirectMethod = async (parameters: InvokeModuleMethodParameters): Promise<DirectMethodResult> => {
-    if (!parameters.deviceId) {
+    if (!parameters.deviceId || !parameters.moduleId) {
         return;
     }
 

@@ -112,6 +112,7 @@ exports[`components/devices/deviceCommands matches snapshot with a commandSchema
     componentName="foo"
     deviceId={null}
     invokeCommand={[Function]}
+    moduleId={null}
   />
 </Fragment>
 `;

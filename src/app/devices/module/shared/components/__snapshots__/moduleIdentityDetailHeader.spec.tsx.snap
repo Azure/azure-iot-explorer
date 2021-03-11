@@ -26,6 +26,11 @@ exports[`ModuleIdentityDetailHeader matches snapshot 1`] = `
       key="moduleMethod"
     />
     <PivotItem
+      headerText="breadcrumb.moduleEvents"
+      itemKey="moduleEvents"
+      key="moduleEvents"
+    />
+    <PivotItem
       headerText="breadcrumb.modulePnp"
       itemKey="modulePnp"
       key="modulePnp"

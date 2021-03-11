@@ -21,6 +21,7 @@ export class ResourceKeys {
       ioTPlugAndPlay : "breadcrumb.ioTPlugAndPlay",
       methods : "breadcrumb.methods",
       moduleDetail : "breadcrumb.moduleDetail",
+      moduleEvents : "breadcrumb.moduleEvents",
       moduleIdentity : "breadcrumb.moduleIdentity",
       moduleMethod : "breadcrumb.moduleMethod",
       modulePnp : "breadcrumb.modulePnp",

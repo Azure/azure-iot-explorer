@@ -9,7 +9,7 @@ import { Label } from 'office-ui-fabric-react/lib/components/Label';
 import { useLocation, useHistory } from 'react-router-dom';
 import { DeviceCommandsPerInterface } from './deviceCommandsPerInterface';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
-import { getDeviceIdFromQueryString, getComponentNameFromQueryString } from '../../../../shared/utils/queryStringHelper';
+import { getDeviceIdFromQueryString, getComponentNameFromQueryString, getModuleIdentityIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { REFRESH, NAVIGATE_BACK } from '../../../../constants/iconNames';
 import { MultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
 import { usePnpStateContext } from '../../../../shared/contexts/pnpStateContext';
@@ -19,11 +19,11 @@ import { getDeviceCommandPairs } from './dataHelper';
 import { getBackUrl } from '../../utils';
 
 export const DeviceCommands: React.FC = () => {
-    // const { refresh, setComponentName, isLoading, commandSchemas } = props;
     const { search, pathname } = useLocation();
     const history = useHistory();
     const { t } = useTranslation();
     const deviceId = getDeviceIdFromQueryString(search);
+    const moduleId = getModuleIdentityIdFromQueryString(search);
     const componentName = getComponentNameFromQueryString(search);
 
     const { pnpState, dispatch, getModelDefinition } = usePnpStateContext();
@@ -43,6 +43,7 @@ export const DeviceCommands: React.FC = () => {
                         commandSchemas={commandSchemas}
                         componentName={componentName}
                         deviceId={deviceId}
+                        moduleId={moduleId}
                     />
                 }
             </>

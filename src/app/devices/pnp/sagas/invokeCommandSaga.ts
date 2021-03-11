@@ -6,6 +6,7 @@ import { call, put } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
 import { invokeCommandAction, InvokeCommandActionParameters } from '../actions';
 import { invokeDirectMethod } from '../../../api/services/devicesService';
+import { invokeModuleDirectMethod } from '../../../api/services/moduleService';
 import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
@@ -17,7 +18,8 @@ export function* invokeCommandSaga(action: Action<InvokeCommandActionParameters>
 
     try {
         yield call(notifyMethodInvoked, toastId, action);
-        const response = yield call(invokeDirectMethod, action.payload);
+        const response = action.payload.moduleId ? yield call(invokeModuleDirectMethod, action.payload) :
+            yield call(invokeDirectMethod, action.payload);
         const responseStringified = JSON.stringify(response);
 
         const validationResult = getValidationResult(response, action.payload.responseSchema);
@@ -25,7 +27,7 @@ export function* invokeCommandSaga(action: Action<InvokeCommandActionParameters>
             id: toastId,
             text: {
                 translationKey: validationResult ? ResourceKeys.notifications.invokeDigitalTwinCommandOnSuccessButResponseIsNotValid :
-                        ResourceKeys.notifications.invokeDigitalTwinCommandOnSuccess,
+                    ResourceKeys.notifications.invokeDigitalTwinCommandOnSuccess,
                 translationOptions: {
                     commandName: action.payload.methodName,
                     deviceId: action.payload.deviceId,
