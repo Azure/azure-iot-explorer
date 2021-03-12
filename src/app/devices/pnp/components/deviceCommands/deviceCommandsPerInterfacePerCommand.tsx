@@ -20,6 +20,7 @@ import { CONNECTION_TIMEOUT_IN_SECONDS, DEFAULT_COMPONENT_FOR_DIGITAL_TWIN, RESP
 export interface DeviceCommandDataProps extends CommandSchema {
     collapsed: boolean;
     deviceId: string;
+    moduleId: string;
     componentName: string;
 }
 
@@ -35,7 +36,7 @@ export interface CommandSchema {
 
 export const DeviceCommandsPerInterfacePerCommand: React.FC<DeviceCommandDataProps & DeviceCommandDispatchProps> = (props: DeviceCommandDataProps & DeviceCommandDispatchProps) => {
     const { t } = useTranslation();
-    const { collapsed, deviceId, componentName, commandModelDefinition, parsedSchema, handleCollapseToggle, invokeCommand  } = props;
+    const { collapsed, deviceId, moduleId, componentName, commandModelDefinition, parsedSchema, handleCollapseToggle, invokeCommand  } = props;
 
     const createCollapsedSummary = () => {
         return (
@@ -128,6 +129,7 @@ export const DeviceCommandsPerInterfacePerCommand: React.FC<DeviceCommandDataPro
             connectTimeoutInSeconds: CONNECTION_TIMEOUT_IN_SECONDS,
             deviceId,
             methodName: componentName === DEFAULT_COMPONENT_FOR_DIGITAL_TWIN ? commandModelDefinition.name : `${componentName}*${commandModelDefinition.name}`,
+            moduleId,
             payload: data,
             responseSchema: parsedSchema.responseSchema,
             responseTimeoutInSeconds: RESPONSE_TIME_IN_SECONDS

@@ -11,8 +11,8 @@ import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
 import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import '../../../css/_deviceContentNav.scss';
 
-export const NAV_LINK_ITEMS = [ROUTE_PARTS.IDENTITY, ROUTE_PARTS.TWIN, ROUTE_PARTS.EVENTS, ROUTE_PARTS.METHODS, ROUTE_PARTS.CLOUD_TO_DEVICE_MESSAGE];
-export const NAV_LINK_ITEMS_NONEDGE = [...NAV_LINK_ITEMS, ROUTE_PARTS.MODULE_IDENTITY, ROUTE_PARTS.DIGITAL_TWINS];
+export const NAV_LINK_ITEMS = [ROUTE_PARTS.IDENTITY, ROUTE_PARTS.TWIN, ROUTE_PARTS.EVENTS, ROUTE_PARTS.METHODS, ROUTE_PARTS.CLOUD_TO_DEVICE_MESSAGE, ROUTE_PARTS.MODULE_IDENTITY];
+export const NAV_LINK_ITEMS_NONEDGE = [...NAV_LINK_ITEMS, ROUTE_PARTS.DIGITAL_TWINS];
 // tslint:disable-next-line: no-any
 const navIcons = {} as any;
 navIcons[ROUTE_PARTS.IDENTITY] = 'Server';

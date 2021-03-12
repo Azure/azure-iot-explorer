@@ -116,7 +116,8 @@
         "moduleTwin": "Module twin",
         "moduleMethod": "Module direct method",
         "addModuleIdentity": "Add module identity",
-        "modulePnp": "IoT Plug and Play components"
+        "modulePnp": "IoT Plug and Play components",
+        "moduleEvents": "Telemetry"
     },
     "deviceContent": {
         "start": "Select a device to start",
@@ -816,11 +817,11 @@
         "parseLocalInterfaceModelOnError": "{{interfaceId}} cannot be retrieved from local folder. Here is a list of json files with errors that we encountered while parsing: {{files}}. Please note that trailing comma is not allowed in json files.",
         "updateDeviceTwinOnError": "Failed to update device twin on device {{deviceId}}: {{error}}",
         "updateDeviceTwinOnSuccess": "Successfully updated device twin on device {{deviceId}}.",
-        "invokeDigitalTwinCommandOnError": "Failed to invoke the IoT Plug and Play device command '{{commandName}}' on device '{{deviceId}}': {{error}}",
-        "invokeDigitalTwinCommandOnSuccess": "Successfully invoked the IoT Plug and Play device command '{{commandName}}' on device '{{deviceId}}': {{response}}.",
-        "invokingDigitalTwinCommand": "Trying to invoke the IoT Plug and Play device command '{{commandName}}' on device '{{deviceId}}' with no payload",
-        "invokingDigitalTwinCommandWithPayload": "Trying to invoke the IoT Plug and Play device command '{{commandName}}' on device '{{deviceId}}' with payload {{payload}}",
-        "invokeDigitalTwinCommandOnSuccessButResponseIsNotValid": "Successfully invoked the IoT Plug and Play device command '{{commandName}}' on device '{{deviceId}}': {{response}}, but the response is not valid: {{validationResult}}",
+        "invokeDigitalTwinCommandOnError": "Failed to invoke the IoT Plug and Play command '{{commandName}}' on device '{{deviceId}}': {{error}}",
+        "invokeDigitalTwinCommandOnSuccess": "Successfully invoked the IoT Plug and Play command '{{commandName}}' on device '{{deviceId}}': {{response}}.",
+        "invokingDigitalTwinCommand": "Trying to invoke the IoT Plug and Play command '{{commandName}}' on device '{{deviceId}}' with no payload",
+        "invokingDigitalTwinCommandWithPayload": "Trying to invoke the IoT Plug and Play command '{{commandName}}' on device '{{deviceId}}' with payload {{payload}}",
+        "invokeDigitalTwinCommandOnSuccessButResponseIsNotValid": "Successfully invoked the IoT Plug and Play command '{{commandName}}' on device '{{deviceId}}': {{response}}. But the response is not valid: {{validationResult}}",
         "invokeMethodOnError": "Failed to invoke method on device {{deviceId}}: {{error}}",
         "invokeMethodOnSuccess": "Successfully invoked method '{{methodName}}' on device '{{deviceId}}' with response {{response}}",
         "invokingMethodWithPayload": "Trying to invoke method '{{methodName}}' on device '{{deviceId}}' with payload {{payload}}",

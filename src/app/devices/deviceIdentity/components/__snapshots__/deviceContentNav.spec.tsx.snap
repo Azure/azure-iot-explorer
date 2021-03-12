@@ -49,6 +49,14 @@ exports[`deviceContentNav matches snapshot when the device is edge 1`] = `
               "name": "breadcrumb.cloudToDeviceMessage",
               "url": "#/cloudToDeviceMessage/?deviceId=test",
             },
+            Object {
+              "iconProps": Object {
+                "iconName": "TFVCLogo",
+              },
+              "key": "moduleIdentity",
+              "name": "breadcrumb.moduleIdentity",
+              "url": "#/moduleIdentity/?deviceId=test",
+            },
           ],
         },
       ]

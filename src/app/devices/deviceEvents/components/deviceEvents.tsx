@@ -5,13 +5,13 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/components/Spinner';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Route } from 'react-router-dom';
 import { Label } from 'office-ui-fabric-react/lib/components/Label';
 import { Stack } from 'office-ui-fabric-react/lib/components/Stack';
 import { MessageBarType, MessageBar } from 'office-ui-fabric-react/lib/components/MessageBar';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { Message, MESSAGE_SYSTEM_PROPERTIES, MESSAGE_PROPERTIES, IOTHUB_MESSAGE_SOURCE_TELEMETRY } from '../../../api/models/messages';
-import { getDeviceIdFromQueryString, getComponentNameFromQueryString, getInterfaceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
+import { getDeviceIdFromQueryString, getComponentNameFromQueryString, getInterfaceIdFromQueryString, getModuleIdentityIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import { MonitorEventsParameters } from '../../../api/parameters/deviceParameters';
 import { DEFAULT_CONSUMER_GROUP } from '../../../constants/apiConstants';
@@ -37,6 +37,7 @@ import { Commands } from './commands';
 import { CustomEventHub } from './customEventHub';
 import { ConsumerGroup } from './consumerGroup';
 import { StartTime } from './startTime';
+import { ModuleIdentityDetailHeader } from '../../module/shared/components/moduleIdentityDetailHeader';
 import './deviceEvents.scss';
 
 const JSON_SPACES = 2;
@@ -46,6 +47,7 @@ export const DeviceEvents: React.FC = () => {
     const { t } = useTranslation();
     const { search } = useLocation();
     const deviceId = getDeviceIdFromQueryString(search);
+    const moduleId = getModuleIdentityIdFromQueryString(search);
 
     const [ localState, dispatch ] = useAsyncSagaReducer(deviceEventsReducer, EventMonitoringSaga, deviceEventsStateInitial(), 'deviceEventsState');
     const synchronizationStatus = localState.synchronizationStatus;
@@ -478,6 +480,7 @@ export const DeviceEvents: React.FC = () => {
         let parameters: MonitorEventsParameters = {
             consumerGroup,
             deviceId,
+            moduleId,
             startListeners,
             startTime
         };
@@ -503,6 +506,7 @@ export const DeviceEvents: React.FC = () => {
 
     return (
         <div className="device-events" key="device-events">
+            {moduleId && !componentName && <Route component={ModuleIdentityDetailHeader} />}
             {renderCommands()}
             <HeaderView
                 headerText={ResourceKeys.deviceEvents.headerText}

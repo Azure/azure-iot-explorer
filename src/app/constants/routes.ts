@@ -21,6 +21,7 @@ export enum ROUTE_PARTS {
     MODULE_METHOD = 'moduleMethod',
     MODULE_PNP = 'modulePnp',
     MODULE_TWIN = 'moduleTwin',
+    MODULE_EVENTS = 'moduleEvents',
     PROPERTIES = 'properties',
     SETTINGS = 'settings',
     TWIN = 'twin',

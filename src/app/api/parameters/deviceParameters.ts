@@ -25,6 +25,7 @@ export interface FetchDevicesParameters  {
 
 export interface MonitorEventsParameters {
     deviceId: string;
+    moduleId: string;
     consumerGroup: string;
     startListeners: boolean;
 

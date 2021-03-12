@@ -11,8 +11,10 @@ let messages: Message[] = [];
 let receivers: ReceiveHandler[] = [];
 let connectionString: string = ''; // would equal `${hubConnectionString}` or `${customEventHubConnectionString}/${customEventHubName}`
 let deviceId: string = '';
+let moduleId: string = '';
 
 const IOTHUB_CONNECTION_DEVICE_ID = 'iothub-connection-device-id';
+const IOTHUB_CONNECTION_MODULE_ID = 'iothub-connection-module-id';
 
 export const onStartMonitoring = async (event: IpcMainInvokeEvent, params: StartEventHubMonitoringParameters): Promise<Message[]>=> {
     return eventHubProvider(params).then(result => {
@@ -42,7 +44,7 @@ const eventHubProvider = async (params: StartEventHubMonitoringParameters) =>  {
         receivers = [];
         messages = [];
     }
-    updateDeviceIdIfNecessary(params);
+    updateEntityIdIfNecessary(params);
 
     return listeningToMessages(client, params);
 };
@@ -121,22 +123,27 @@ const needToCreateNewEventHubClient = (parmas: StartEventHubMonitoringParameters
         parmas.customEventHubConnectionString && `${parmas.customEventHubConnectionString}/${parmas.customEventHubName}` !== connectionString;
 }
 
-const updateDeviceIdIfNecessary = (parmas: StartEventHubMonitoringParameters) => {
-    if( !deviceId || parmas.deviceId !== deviceId)
-    {
+const updateEntityIdIfNecessary = (parmas: StartEventHubMonitoringParameters) => {
+    if( !deviceId || parmas.deviceId !== deviceId) {
         deviceId = parmas.deviceId;
+        messages = [];
+    }
+    if (parmas.moduleId !== moduleId) {
+        moduleId = parmas.moduleId;
         messages = [];
     }
 }
 
 const onMessageReceived = async (eventData: any) => {
     if (eventData && eventData.annotations && eventData.annotations[IOTHUB_CONNECTION_DEVICE_ID] === deviceId) {
-        const message: Message = {
-            body: eventData.body,
-            enqueuedTime: eventData.enqueuedTimeUtc.toString(),
-            properties: eventData.applicationProperties
-        };
-        message.systemProperties = eventData.annotations;
-        messages.push(message);
+        if (!moduleId || eventData?.annotations?.[IOTHUB_CONNECTION_MODULE_ID] === moduleId) {
+            const message: Message = {
+                body: eventData.body,
+                enqueuedTime: eventData.enqueuedTimeUtc.toString(),
+                properties: eventData.applicationProperties
+            };
+            message.systemProperties = eventData.annotations;
+            messages.push(message);
+        }
     }
 };

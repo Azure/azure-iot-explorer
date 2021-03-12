@@ -4,6 +4,7 @@
  **********************************************************/
 export interface StartEventHubMonitoringParameters {
     deviceId: string;
+    moduleId: string;
     consumerGroup: string;
     startTime: string;
     startListeners: boolean;
