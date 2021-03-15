@@ -37,7 +37,6 @@ import { Commands } from './commands';
 import { CustomEventHub } from './customEventHub';
 import { ConsumerGroup } from './consumerGroup';
 import { StartTime } from './startTime';
-import { ModuleIdentityDetailHeader } from '../../module/shared/components/moduleIdentityDetailHeader';
 import './deviceEvents.scss';
 
 const JSON_SPACES = 2;
@@ -506,7 +505,6 @@ export const DeviceEvents: React.FC = () => {
 
     return (
         <div className="device-events" key="device-events">
-            {moduleId && !componentName && <Route component={ModuleIdentityDetailHeader} />}
             {renderCommands()}
             <HeaderView
                 headerText={ResourceKeys.deviceEvents.headerText}

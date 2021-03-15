@@ -13,7 +13,6 @@ import { useAsyncSagaReducer } from '../../../../shared/hooks/useAsyncSagaReduce
 import { invokeModuleDirectMethodSaga } from '../saga';
 import { invokeModuleDirectMethodAction } from '../actions';
 import { DirectMethodForm } from '../../../../devices/directMethod/components/directMethodForm';
-import { ModuleIdentityDetailHeader } from '../../shared/components/moduleIdentityDetailHeader';
 import { ROUTE_PARAMS, ROUTE_PARTS } from '../../../../constants/routes';
 import '../../../../css/_deviceDetail.scss';
 
@@ -87,7 +86,6 @@ export const ModuleDirectMethod: React.FC = () => {
 
     return (
         <>
-            <Route component={ModuleIdentityDetailHeader} />
             {showCommandBar()}
             <DirectMethodForm
                 methodName={methodName}

@@ -18,7 +18,6 @@ import { DeviceAuthenticationType } from '../../../../api/models/deviceAuthentic
 import { MaskedCopyableTextField } from '../../../../shared/components/maskedCopyableTextField';
 import { MultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
 import { SasTokenGenerationView } from '../../../shared/components/sasTokenGenerationView';
-import { ModuleIdentityDetailHeader } from '../../shared/components/moduleIdentityDetailHeader';
 import { useAsyncSagaReducer } from '../../../../shared/hooks/useAsyncSagaReducer';
 import { moduleIdentityDetailReducer } from '../reducer';
 import { moduleIdentityDetailSaga } from '../saga';
@@ -243,7 +242,6 @@ export const ModuleIdentityDetail: React.FC = () => {
 
     return (
         <>
-            <Route component={ModuleIdentityDetailHeader} />
             {showCommandBar()}
             <div className="module-identity-detail">
                 {showModuleId()}
