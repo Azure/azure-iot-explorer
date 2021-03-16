@@ -50,15 +50,6 @@ export const ModuleDirectMethod: React.FC = () => {
                         onClick: onInvokeMethodClickHandler
                     }
                 ]}
-                farItems={[
-                    {
-                        ariaLabel: t(ResourceKeys.moduleIdentity.detail.command.back),
-                        iconProps: {iconName: NAVIGATE_BACK},
-                        key: NAVIGATE_BACK,
-                        name: t(ResourceKeys.moduleIdentity.detail.command.back),
-                        onClick: navigateToModuleList
-                    }
-                ]}
             />
         );
     };

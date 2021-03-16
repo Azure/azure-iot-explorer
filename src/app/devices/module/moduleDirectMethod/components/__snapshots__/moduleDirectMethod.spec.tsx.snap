@@ -2,24 +2,8 @@
 
 exports[`moduleDirectMethod matches snapshot 1`] = `
 <Fragment>
-  <Component
-    component={[Function]}
-  />
   <StyledCommandBarBase
     className="command"
-    farItems={
-      Array [
-        Object {
-          "ariaLabel": "moduleIdentity.detail.command.back",
-          "iconProps": Object {
-            "iconName": "NavigateBack",
-          },
-          "key": "NavigateBack",
-          "name": "moduleIdentity.detail.command.back",
-          "onClick": [Function],
-        },
-      ]
-    }
     items={
       Array [
         Object {
