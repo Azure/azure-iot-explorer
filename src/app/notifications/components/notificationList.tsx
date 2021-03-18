@@ -4,92 +4,77 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { ActionButton } from 'office-ui-fabric-react/lib/components/Button';
-import { Panel, PanelType } from 'office-ui-fabric-react/lib/components/Panel';
-import { Link } from 'office-ui-fabric-react/lib/components/Link';
+import { useHistory, useLocation } from 'react-router-dom';
+import { CommandBar, ICommandBarItemProps } from 'office-ui-fabric-react/lib/components/CommandBar';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { NotificationListEntry } from './notificationListEntry';
 import { useGlobalStateContext } from '../../shared/contexts/globalStateContext';
-import { clearNotificationsAction, markAllNotificationsAsReadAction } from '../../shared/global/actions';
+import { clearNotificationsAction } from '../../shared/global/actions';
+import { useBreadcrumbEntry } from '../../navigation/hooks/useBreadcrumbEntry';
+import { ROUTE_PARAMS } from '../../constants/routes';
+import { CANCEL, NAVIGATE_BACK } from '../../constants/iconNames';
 import '../../css/_notification.scss';
 
 export const NotificationList: React.FC = () => {
     const { t } = useTranslation();
 
     const { globalState, dispatch } = useGlobalStateContext();
-    const { hasNew, notifications } = globalState.notificationsState;
-    const [ showList, setShowList ] = React.useState<boolean>(false);
+    const { notifications } = globalState.notificationsState;
+    const history = useHistory();
+    const { search } = useLocation();
+    const params = new URLSearchParams(search);
+    const navigationBackAvailable = params.has(ROUTE_PARAMS.NAV_FROM);
+    useBreadcrumbEntry({name:  t(ResourceKeys.breadcrumb.notificationCenter)});
 
     const dismissNotifications = () => dispatch(clearNotificationsAction());
 
-    const onRenderHeader = (): JSX.Element => {
-        return (
-            <div className="notification-list-header">
-                <h2>{t(ResourceKeys.header.notifications.panel.title)}</h2>
+    const onNavigateBackClick = () => history.goBack();
 
-                {notifications.length > 0 &&
-                    <div className="commands">
-                        <Link onClick={dismissNotifications}>{t(ResourceKeys.header.notifications.dismiss)}</Link>
-                    </div>
+    const getCommandBarItems = (): ICommandBarItemProps[] => {
+        const items = [
+            {
+                ariaLabel: t(ResourceKeys.modelRepository.commands.back.ariaLabel),
+                disabled: notifications.length === 0,
+                iconProps: { iconName: CANCEL},
+                key: 'back',
+                onClick: dismissNotifications,
+                text: t(ResourceKeys.header.notifications.dismiss)
+            }
+        ];
+
+        if (navigationBackAvailable) {
+            items.push(
+                {
+                    ariaLabel: t(ResourceKeys.modelRepository.commands.back.ariaLabel),
+                    disabled: false,
+                    iconProps: { iconName: NAVIGATE_BACK},
+                    key: 'back',
+                    onClick: onNavigateBackClick,
+                    text: t(ResourceKeys.modelRepository.commands.back.label)
                 }
-
-                <hr className="notification-list-divider" />
-            </div>
-        );
-    };
-
-    const onCloseDisplay = () => {
-        setShowList(false);
-    };
-
-    const onToggleDisplay = () => {
-        if (showList) {
-            dispatch(markAllNotificationsAsReadAction());
+            );
         }
-        setShowList(!showList);
+
+        return items;
     };
 
     return (
         <>
-            <ActionButton
-                id="notifications"
-                iconProps={
-                    {
-                        className: hasNew && 'new-notifications',
-                        iconName: 'Ringer'
-                    }
-                }
-                onClick={onToggleDisplay}
-                text={t(ResourceKeys.header.notifications.show)}
-                ariaLabel={t(showList ?
-                    ResourceKeys.header.notifications.hide :
-                    ResourceKeys.header.notifications.show)}
+            <CommandBar
+                items={getCommandBarItems()}
             />
-
-            <Panel
-                isOpen={showList}
-                type={PanelType.smallFixedFar}
-                isBlocking={true}
-                onRenderHeader={onRenderHeader}
-                onDismiss={onCloseDisplay}
-                closeButtonAriaLabel={t(ResourceKeys.common.close)}
-            >
-                <div>
-                    {notifications.length === 0 &&
-                        <div>{t(ResourceKeys.header.notifications.panel.noNotifications)}</div>
-                    }
-
-                    {notifications.map((notification, index) => {
-                            return (
-                                <div key={index}>
-                                    <NotificationListEntry notification={notification} showAnnoucement={false} />
-                                    <hr className="notification-list-divider" />
-                                </div>);
-                        })
-                    }
-
-                </div>
-            </Panel>
+            <div>
+                {notifications.length === 0 &&
+                    <div className="notification-list-entry">{t(ResourceKeys.header.notifications.panel.noNotifications)}</div>
+                }
+                {notifications.map((notification, index) => {
+                    return (
+                        <div key={index}>
+                            <NotificationListEntry notification={notification} showAnnoucement={false} />
+                        </div>);
+                    })
+                }
+            </div>
         </>
     );
 };

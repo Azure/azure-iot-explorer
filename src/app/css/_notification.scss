@@ -20,29 +20,14 @@
     }
 }
 
-.notification-list-divider {
-    height: 0px;
-    border: 0;
-    @include themify($themes) {
-        border-top: 1px solid themed('notificationBorderColor');
-    }
-}
-
-.notification-list-header {
-    margin-left: 40px;
-    margin-right: 40px;
-    .commands {
-        text-align: right;
-    }
-}
-
 .notification-list-entry {
     display: flex;
-    width: 250px;
+    // width: 250px;
     margin-top: 10px;
     margin-right: 5px;
     padding-top: 5px;
     padding-bottom: 5px;
+    padding-left: 10px;
 
     .success {
         @include themify($themes) {
@@ -69,10 +54,9 @@
     }
 
     .body {
-        width: 225px;
         padding-left: 10px;
         text-overflow: ellipsis;
-        
+
         .title {
             font-weight: 550;
             text-overflow: ellipsis;

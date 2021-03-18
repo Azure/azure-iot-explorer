@@ -43,12 +43,13 @@
             "watermark": "Find on page"
         },
         "notifications": {
-            "hide":"Hide notifications",
             "show": "Notifications",
-            "dismiss": "dismiss all",
+            "dismiss": "Dismiss",
             "panel": {
                 "title": "Notifications",
-                "noNotifications": "No new notifications for this session"
+                "noNotifications": "There are new notifications for this session",
+                "redirect": "Looking for notifications?",
+                "redirectLink": "Please vist Notification Center"
             }
         },
         "questions": {
@@ -117,7 +118,8 @@
         "moduleMethod": "Module direct method",
         "addModuleIdentity": "Add module identity",
         "modulePnp": "IoT Plug and Play components",
-        "moduleEvents": "Telemetry"
+        "moduleEvents": "Telemetry",
+        "notificationCenter": "Notification Center"
     },
     "deviceContent": {
         "start": "Select a device to start",

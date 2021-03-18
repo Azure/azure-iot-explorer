@@ -26,6 +26,7 @@ export class ResourceKeys {
       moduleMethod : "breadcrumb.moduleMethod",
       modulePnp : "breadcrumb.modulePnp",
       moduleTwin : "breadcrumb.moduleTwin",
+      notificationCenter : "breadcrumb.notificationCenter",
       properties : "breadcrumb.properties",
       repos : "breadcrumb.repos",
       resources : "breadcrumb.resources",
@@ -686,9 +687,10 @@ export class ResourceKeys {
       applicationName : "header.applicationName",
       notifications : {
          dismiss : "header.notifications.dismiss",
-         hide : "header.notifications.hide",
          panel : {
             noNotifications : "header.notifications.panel.noNotifications",
+            redirect : "header.notifications.panel.redirect",
+            redirectLink : "header.notifications.panel.redirectLink",
             title : "header.notifications.panel.title",
          },
          show : "header.notifications.show",
