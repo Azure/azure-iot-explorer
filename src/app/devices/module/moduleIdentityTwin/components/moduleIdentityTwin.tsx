@@ -13,7 +13,6 @@ import { SynchronizationStatus } from '../../../../api/models/synchronizationSta
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../../constants/routes';
 import { getModuleIdentityTwinAction, updateModuleIdentityTwinAction } from '../actions';
 import { MultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
-import { ModuleIdentityDetailHeader } from '../../shared/components/moduleIdentityDetailHeader';
 import { useAsyncSagaReducer } from '../../../../shared/hooks/useAsyncSagaReducer';
 import { JSONEditor } from '../../../../shared/components/jsonEditor';
 import { moduleTwinReducer } from '../reducer';
@@ -75,15 +74,6 @@ export const ModuleIdentityTwin: React.FC = () => {
                         onClick: handleSave
                     }
                 ]}
-                farItems={[
-                    {
-                        ariaLabel: t(ResourceKeys.moduleIdentity.detail.command.back),
-                        iconProps: {iconName: NAVIGATE_BACK},
-                        key: NAVIGATE_BACK,
-                        name: t(ResourceKeys.moduleIdentity.detail.command.back),
-                        onClick: navigateToModuleList
-                    }
-                ]}
             />
         );
     };
@@ -129,7 +119,6 @@ export const ModuleIdentityTwin: React.FC = () => {
 
     return (
         <>
-            <Route component={ModuleIdentityDetailHeader} />
             {showCommandBar()}
             <div className="module-identity-detail">
                 {moduleIdentityTwinSyncStatus === SynchronizationStatus.working ?

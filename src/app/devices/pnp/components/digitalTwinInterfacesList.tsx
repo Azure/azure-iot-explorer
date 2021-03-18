@@ -31,7 +31,6 @@ import { DEFAULT_COMPONENT_FOR_DIGITAL_TWIN } from '../../../constants/devices';
 import { ErrorBoundary } from '../../shared/components/errorBoundary';
 import '../../../css/_digitalTwinInterfaces.scss';
 import { dispatchGetTwinAction } from '../utils';
-import { ModuleIdentityDetailHeader } from '../../module/shared/components/moduleIdentityDetailHeader';
 
 interface ModelContent {
     link: string;
@@ -229,7 +228,6 @@ export const DigitalTwinInterfacesList: React.FC = () => {
 
     return (
         <>
-            {moduleId && <Route component={ModuleIdentityDetailHeader} />}
             <CommandBar
                 className="command"
                 items={createCommandBarItems()}

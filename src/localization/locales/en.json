@@ -791,7 +791,7 @@
         "detail" : {
             "headerText": "Module identity detail",
             "command" : {
-                "back": "Back",
+                "back": "Back to device",
                 "refresh": "Refresh",
                 "delete": "Delete",
                 "save": "Save"
