@@ -47,9 +47,9 @@
             "dismiss": "Clear all notifications",
             "panel": {
                 "title": "Notifications",
-                "noNotifications": "There are new notifications for this session",
+                "noNotifications": "There are no new notifications for this session.",
                 "redirect": "Looking for notifications?",
-                "redirectLink": "Please vist Notification Center"
+                "redirectLink": "Please visit Notification Center"
             }
         },
         "questions": {

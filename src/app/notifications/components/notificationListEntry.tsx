@@ -27,8 +27,7 @@ export const NotificationListEntry: React.SFC<NotificationListEntryProps> = (pro
     const iconColor = getIconColor(notification.type);
     const message = t(notification.text.translationKey, notification.text.translationOptions);
     const friendlyMessage = <>{message.split('. ').map((m: React.ReactNode, index: number) => (<div className="message" key={index}>{m + '.'}<br/></div>))}</>;
-    const longMessageLength = 200;
-    const shortMessageLength = 150;
+    const longMessageLength = 300;
 
     const navigateToNotificationCenter = () => {
         const path = `/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.NOTIFICATIONS}?${ROUTE_PARAMS.NAV_FROM}`;
@@ -51,7 +50,7 @@ export const NotificationListEntry: React.SFC<NotificationListEntryProps> = (pro
                         {message?.length < longMessageLength ?
                             friendlyMessage :
                             <>
-                                <div className="message">{`${message.substring(0, shortMessageLength)}...`}</div>
+                                <div className="message">{`${message.substring(0, longMessageLength)}...`}</div>
                                 <Link onClick={navigateToNotificationCenter}>{'Go to notification center'}</Link>
                             </>
                         }

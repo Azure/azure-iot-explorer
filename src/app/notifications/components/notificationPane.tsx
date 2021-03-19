@@ -9,11 +9,15 @@ import { Link } from 'office-ui-fabric-react/lib/components/Link';
 import { ActionButton } from 'office-ui-fabric-react/lib/components/Button';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../constants/routes';
+import { useGlobalStateContext } from '../../shared/contexts/globalStateContext';
 import '../../css/_headerPane.scss';
 
 export const NotificationPane: React.FC = () => {
-    const [ showPanel, setShowPanel ] = React.useState<boolean>(false);
     const { t } = useTranslation();
+
+    const [ showPanel, setShowPanel ] = React.useState<boolean>(false);
+    const { globalState } = useGlobalStateContext();
+    const { hasNew } = globalState.notificationsState;
 
     const togglePanelVisibility = () => {
         setShowPanel(!showPanel);
@@ -22,7 +26,10 @@ export const NotificationPane: React.FC = () => {
     return (
         <>
             <ActionButton
-                iconProps={{iconName: 'Ringer'}}
+                iconProps={{
+                    className: hasNew && 'new-notifications',
+                    iconName: 'Ringer'
+                }}
                 onClick={togglePanelVisibility}
                 text={t(ResourceKeys.header.notifications.show)}
                 ariaLabel={t(ResourceKeys.header.notifications.show)}
