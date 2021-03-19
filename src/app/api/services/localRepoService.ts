@@ -18,6 +18,9 @@ export const fetchLocalFile = async (path: string, fileName: string): Promise<ob
             path
         });
 
+        if (!result) {
+            throw new ModelDefinitionNotFound();
+        }
         return result;
     } catch (error) {
         if (error.message === MODEL_PARSE_ERROR) {

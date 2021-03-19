@@ -202,12 +202,14 @@ export const ModelRepositoryLocationListItem: React.FC<ModelRepositoryLocationLi
         return (
             <div role="dialog">
                 <Dialog
-                    className="folder-picker-dialog"
                     hidden={!showFolderPicker}
                     title={t(ResourceKeys.modelRepository.types.local.folderPicker.dialog.title)}
-                    subText={currentFolder && t(ResourceKeys.modelRepository.types.local.folderPicker.dialog.subText, {folder: currentFolder})}
                     modalProps={{
-                        isBlocking: false,
+                        className: 'folder-picker-dialog',
+                        isBlocking: false
+                    }}
+                    dialogContentProps={{
+                        subText: currentFolder && t(ResourceKeys.modelRepository.types.local.folderPicker.dialog.subText, {folder: currentFolder})
                     }}
                     onDismiss={dismissFolderPicker}
                 >

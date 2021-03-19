@@ -266,7 +266,6 @@ export const DeviceList: React.FC = () => {
         return (
             <div role="dialog">
                 <Dialog
-                    className="delete-dialog"
                     hidden={!showDeleteConfirmation}
                     onDismiss={closeDeleteDialog}
                     dialogContentProps={{
@@ -275,7 +274,8 @@ export const DeviceList: React.FC = () => {
                         type: DialogType.close,
                     }}
                     modalProps={{
-                        isBlocking: true,
+                        className: 'delete-dialog',
+                        isBlocking: true
                     }}
                 >
                     <ul className="deleting-devices">
