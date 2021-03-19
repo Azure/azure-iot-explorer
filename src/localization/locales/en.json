@@ -44,7 +44,7 @@
         },
         "notifications": {
             "show": "Notifications",
-            "dismiss": "Dismiss",
+            "dismiss": "Clear all notifications",
             "panel": {
                 "title": "Notifications",
                 "noNotifications": "There are new notifications for this session",
@@ -441,6 +441,7 @@
         "componentName": "Component",
         "steps": {
             "zero": "Your device is not recognized as a IoT Plug and Play device. To learn more, please check out ",
+            "zeroModule": "Your module is not recognized as a IoT Plug and Play module. To learn more, please check out ",
             "firstModule": "Step1. Your module has been discovered as a Plug and Play module",
             "first": "Step 1. Your device has been discovered as a IoT Plug and Play device",
             "secondSuccess": "Step 2. We've resolved your IoT Plug and Play model",
@@ -856,8 +857,8 @@
         "modelRepoistorySettingsUpdated": "Model repository locations successfully updated.",
         "startEventMonitoringOnError": "Failed to start monitoring device telemetry: {{error}}",
         "stopEventMonitoringOnError": "Failed to stop monitoring device telemetry: {{error}}",
-        "connectionStringsWithoutExpiryRemovalWarning": "Due to security requirments, previously stored hub connection strings have been removed. The new connection string being added would automatically have an expiration date one year from now.",
-        "connectionStringsWithExpiryRemovalWarning": "Due to security requirments, one or more hub connection strings stored more than a year ago have been removed."
+        "connectionStringsWithoutExpiryRemovalWarning": "Due to security requirements, previously stored hub connection strings have been removed. The new connection string being added would automatically have an expiration date one year from now.",
+        "connectionStringsWithExpiryRemovalWarning": "Due to security requirements, one or more hub connection strings stored more than a year ago have been removed."
     },
     "errorBoundary": {
         "text": "Something went wrong"

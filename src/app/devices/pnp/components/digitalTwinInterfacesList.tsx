@@ -253,7 +253,7 @@ export const DigitalTwinInterfacesList: React.FC = () => {
                             {renderModelDefinition()}
                         </> :
                         <>
-                            <span>{t(ResourceKeys.digitalTwin.steps.zero)}</span>
+                            <span>{moduleId ? t(ResourceKeys.digitalTwin.steps.zeroModule) : t(ResourceKeys.digitalTwin.steps.zero)}</span>
                             <Link
                                 href={t(ResourceKeys.settings.questions.questions.documentation.link)}
                                 target="_blank"

@@ -105,7 +105,7 @@ export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataPro
         return (
             <ErrorBoundary error={t(ResourceKeys.errorBoundary.text)}>
                 {
-                    settingSchema && isSchemaSimpleType(settingModelDefinition.schema) ?
+                    settingSchema && isSchemaSimpleType(settingModelDefinition.schema, settingSchema.$ref) ?
                         RenderSimplyTypeValue(
                             reportedSection?.value,
                             settingSchema,

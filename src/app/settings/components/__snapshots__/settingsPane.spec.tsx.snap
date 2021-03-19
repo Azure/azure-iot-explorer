@@ -13,9 +13,10 @@ exports[`settingsPane matches snapshot 1`] = `
     text="header.settings.launch"
   />
   <StyledPanelBase
-    className="settingsPane"
+    className="headerPane"
     closeButtonAriaLabel="common.close"
     isFooterAtBottom={true}
+    isLightDismiss={true}
     isOpen={false}
     onDismiss={[Function]}
     onRenderFooter={[Function]}

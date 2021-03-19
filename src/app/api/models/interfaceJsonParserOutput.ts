@@ -17,7 +17,7 @@ export interface ParsedJsonSchema {
     properties?: {};
     title?: string;
     type?: string | string[];
-    $ref?: any; // tslint:disable-line: no-any
+    $ref?: string;
 }
 
 export interface ParsedCommandSchema {

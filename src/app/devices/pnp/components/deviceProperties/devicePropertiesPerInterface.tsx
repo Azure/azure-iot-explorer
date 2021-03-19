@@ -83,7 +83,7 @@ export const DevicePropertiesPerInterface: React.FC<DevicePropertiesDataProps> =
         return (
             <div aria-label={ariaLabel}>
                 {
-                    item.propertySchema && isSchemaSimpleType(item.propertyModelDefinition.schema) ?
+                    item.propertySchema && isSchemaSimpleType(item.propertyModelDefinition.schema, item.propertySchema.$ref) ?
                         RenderSimplyTypeValue(
                             item.reportedTwin,
                             item.propertySchema,

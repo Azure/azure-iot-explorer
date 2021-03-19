@@ -42,6 +42,14 @@ exports[`homeViewNavigation matches snapshot 1`] = `
                   "name": "breadcrumb.repos",
                   "url": "#/home/repos",
                 },
+                Object {
+                  "iconProps": Object {
+                    "iconName": "Ringer",
+                  },
+                  "key": "notifications",
+                  "name": "breadcrumb.notificationCenter",
+                  "url": "#/home/notifications",
+                },
               ],
             },
           ]
