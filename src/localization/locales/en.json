@@ -43,12 +43,13 @@
             "watermark": "Find on page"
         },
         "notifications": {
-            "hide":"Hide notifications",
             "show": "Notifications",
-            "dismiss": "dismiss all",
+            "dismiss": "Clear all notifications",
             "panel": {
                 "title": "Notifications",
-                "noNotifications": "No new notifications for this session"
+                "noNotifications": "There are no new notifications for this session.",
+                "redirect": "Looking for notifications?",
+                "redirectLink": "Please visit Notification Center"
             }
         },
         "questions": {
@@ -117,7 +118,8 @@
         "moduleMethod": "Module direct method",
         "addModuleIdentity": "Add module identity",
         "modulePnp": "IoT Plug and Play components",
-        "moduleEvents": "Telemetry"
+        "moduleEvents": "Telemetry",
+        "notificationCenter": "Notification Center"
     },
     "deviceContent": {
         "start": "Select a device to start",
@@ -439,6 +441,7 @@
         "componentName": "Component",
         "steps": {
             "zero": "Your device is not recognized as a IoT Plug and Play device. To learn more, please check out ",
+            "zeroModule": "Your module is not recognized as a IoT Plug and Play module. To learn more, please check out ",
             "firstModule": "Step1. Your module has been discovered as a Plug and Play module",
             "first": "Step 1. Your device has been discovered as a IoT Plug and Play device",
             "secondSuccess": "Step 2. We've resolved your IoT Plug and Play model",
@@ -818,7 +821,7 @@
         "updateDeviceTwinOnError": "Failed to update device twin on device {{deviceId}}: {{error}}",
         "updateDeviceTwinOnSuccess": "Successfully updated device twin on device {{deviceId}}.",
         "invokeDigitalTwinCommandOnError": "Failed to invoke the IoT Plug and Play command '{{commandName}}' on device '{{deviceId}}': {{error}}",
-        "invokeDigitalTwinCommandOnSuccess": "Successfully invoked the IoT Plug and Play command '{{commandName}}' on device '{{deviceId}}': {{response}}.",
+        "invokeDigitalTwinCommandOnSuccess": "Successfully invoked the IoT Plug and Play command '{{commandName}}' on device '{{deviceId}}': {{response}}",
         "invokingDigitalTwinCommand": "Trying to invoke the IoT Plug and Play command '{{commandName}}' on device '{{deviceId}}' with no payload",
         "invokingDigitalTwinCommandWithPayload": "Trying to invoke the IoT Plug and Play command '{{commandName}}' on device '{{deviceId}}' with payload {{payload}}",
         "invokeDigitalTwinCommandOnSuccessButResponseIsNotValid": "Successfully invoked the IoT Plug and Play command '{{commandName}}' on device '{{deviceId}}': {{response}}. But the response is not valid: {{validationResult}}",
@@ -854,8 +857,8 @@
         "modelRepoistorySettingsUpdated": "Model repository locations successfully updated.",
         "startEventMonitoringOnError": "Failed to start monitoring device telemetry: {{error}}",
         "stopEventMonitoringOnError": "Failed to stop monitoring device telemetry: {{error}}",
-        "connectionStringsWithoutExpiryRemovalWarning": "Due to security requirments, previously stored hub connection strings have been removed. The new connection string being added would automatically have an expiration date one year from now.",
-        "connectionStringsWithExpiryRemovalWarning": "Due to security requirments, one or more hub connection strings stored more than a year ago have been removed."
+        "connectionStringsWithoutExpiryRemovalWarning": "Due to security requirements, previously stored hub connection strings have been removed. The new connection string being added would automatically have an expiration date one year from now.",
+        "connectionStringsWithExpiryRemovalWarning": "Due to security requirements, one or more hub connection strings stored more than a year ago have been removed."
     },
     "errorBoundary": {
         "text": "Something went wrong"

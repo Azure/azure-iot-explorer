@@ -9,6 +9,12 @@ import * as GlobalStateContext from '../../shared/contexts/globalStateContext';
 import { globalStateInitial } from '../../shared/global/state';
 import { NotificationType } from '../../api/models/notification';
 
+jest.mock('react-router-dom', () => ({
+    useHistory: () => ({ push: jest.fn() }),
+    useLocation: () => ({ search: '?deviceId=testDevice' }),
+    useRouteMatch: () => ({ url: 'url', path: 'path'})
+}));
+
 describe('notificationList', () => {
     it('matches snapshot where there is no notifications', () => {
         jest.spyOn(GlobalStateContext, 'useGlobalStateContext').mockReturnValueOnce({globalState: globalStateInitial(), dispatch: jest.fn()});

@@ -46,15 +46,19 @@ exports[`components/settings/modelRepositoryLocationListItem matches snapshot fo
         role="dialog"
       >
         <Dialog
-          className="folder-picker-dialog"
+          dialogContentProps={
+            Object {
+              "subText": "modelRepository.types.local.folderPicker.dialog.subText",
+            }
+          }
           hidden={true}
           modalProps={
             Object {
+              "className": "folder-picker-dialog",
               "isBlocking": false,
             }
           }
           onDismiss={[Function]}
-          subText="modelRepository.types.local.folderPicker.dialog.subText"
           title="modelRepository.types.local.folderPicker.dialog.title"
         >
           <div
@@ -153,15 +157,19 @@ exports[`components/settings/modelRepositoryLocationListItem matches snapshot fo
         role="dialog"
       >
         <Dialog
-          className="folder-picker-dialog"
+          dialogContentProps={
+            Object {
+              "subText": "modelRepository.types.local.folderPicker.dialog.subText",
+            }
+          }
           hidden={true}
           modalProps={
             Object {
+              "className": "folder-picker-dialog",
               "isBlocking": false,
             }
           }
           onDismiss={[Function]}
-          subText="modelRepository.types.local.folderPicker.dialog.subText"
           title="modelRepository.types.local.folderPicker.dialog.title"
         >
           <div

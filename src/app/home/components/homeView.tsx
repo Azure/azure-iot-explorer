@@ -9,6 +9,7 @@ import { AppVersionMessageBar } from './appVersionMessageBar';
 import { HomeViewNavigation } from './homeViewNavigation';
 import { ConnectionStringsView } from '../../connectionStrings/components/connectionStringsView';
 import { ModelRepositoryLocationView } from '../../modelRepository/components/modelRepositoryLocationView';
+import { NotificationList } from './../../notifications/components/notificationList';
 import './homeView.scss';
 
 export const HomeView: React.FC = () => {
@@ -28,6 +29,7 @@ export const HomeView: React.FC = () => {
                         <Redirect from={`/${ROUTE_PARTS.HOME}`} to={`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.RESOURCES}`} exact={true}/>
                         <Route path={`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.RESOURCES}`} component={ConnectionStringsView} exact={true} />
                         <Route path={`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.MODEL_REPOS}`} component={ModelRepositoryLocationView} exact={true} />
+                        <Route path={`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.NOTIFICATIONS}`} component={NotificationList} exact={true} />
                     </Switch>
                 </div>
             </div>

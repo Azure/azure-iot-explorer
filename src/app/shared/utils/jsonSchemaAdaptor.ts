@@ -35,7 +35,10 @@ export const getSchemaType = (schema: any): string => {
 };
 
 // tslint:disable-next-line: no-any
-export const isSchemaSimpleType = (schema: any): boolean => {
+export const isSchemaSimpleType = (schema: any, ref: string): boolean => {
+    if (ref) {
+        return false;
+    }
     return schema &&
         (typeof schema === 'string' ||
         typeof schema['@type'] === 'string' && schema['@type'].toLowerCase() === 'enum');

@@ -7,6 +7,12 @@ import { shallow } from 'enzyme';
 import { NotificationListEntry, getIconName, getIconColor } from './notificationListEntry';
 import { NotificationType } from '../../api/models/notification';
 
+const pathname = '/devices/add';
+jest.mock('react-router-dom', () => ({
+    useHistory: () => ({ push: jest.fn() }),
+    useLocation: () => ({ pathname })
+}));
+
 describe('notificationListEntry', () => {
 
     it('matches snapshot', () => {

@@ -12,19 +12,6 @@ exports[`modelRepositoryLocationView matches snapshot when locations greater tha
     className="view-command"
   >
     <StyledCommandBarBase
-      farItems={
-        Array [
-          Object {
-            "ariaLabel": "modelRepository.commands.help.ariaLabel",
-            "iconProps": Object {
-              "iconName": "Help",
-            },
-            "key": "help",
-            "onClick": [Function],
-            "text": "modelRepository.commands.help.label",
-          },
-        ]
-      }
       items={
         Array [
           Object {
@@ -90,6 +77,15 @@ exports[`modelRepositoryLocationView matches snapshot when locations greater tha
             "onClick": [Function],
             "text": "modelRepository.commands.revert.label",
           },
+          Object {
+            "ariaLabel": "modelRepository.commands.help.ariaLabel",
+            "iconProps": Object {
+              "iconName": "Help",
+            },
+            "key": "help",
+            "onClick": [Function],
+            "text": "modelRepository.commands.help.label",
+          },
         ]
       }
     />
@@ -128,19 +124,6 @@ exports[`modelRepositoryLocationView matches snapshot when no locations 1`] = `
     className="view-command"
   >
     <StyledCommandBarBase
-      farItems={
-        Array [
-          Object {
-            "ariaLabel": "modelRepository.commands.help.ariaLabel",
-            "iconProps": Object {
-              "iconName": "Help",
-            },
-            "key": "help",
-            "onClick": [Function],
-            "text": "modelRepository.commands.help.label",
-          },
-        ]
-      }
       items={
         Array [
           Object {
@@ -205,6 +188,15 @@ exports[`modelRepositoryLocationView matches snapshot when no locations 1`] = `
             "key": "revert",
             "onClick": [Function],
             "text": "modelRepository.commands.revert.label",
+          },
+          Object {
+            "ariaLabel": "modelRepository.commands.help.ariaLabel",
+            "iconProps": Object {
+              "iconName": "Help",
+            },
+            "key": "help",
+            "onClick": [Function],
+            "text": "modelRepository.commands.help.label",
           },
         ]
       }

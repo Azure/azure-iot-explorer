@@ -36,6 +36,12 @@ export const HomeViewNavigation: React.FC<HomeViewNavigationProps> = props => {
             name: t(ResourceKeys.breadcrumb.repos),
             url: `#/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.MODEL_REPOS}`
         },
+        {
+            iconProps: { iconName: 'Ringer' },
+            key: ROUTE_PARTS.NOTIFICATIONS,
+            name: t(ResourceKeys.breadcrumb.notificationCenter),
+            url: `#/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.NOTIFICATIONS}`
+        },
     ];
     return (
         <div className="nav-link-bar view">

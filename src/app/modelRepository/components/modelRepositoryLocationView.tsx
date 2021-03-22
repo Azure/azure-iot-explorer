@@ -40,7 +40,7 @@ export const ModelRepositoryLocationView: React.FC = () => {
     const getCommandBarItems = (): ICommandBarItemProps[] => {
         const addItems = getCommandBarItemsAdd();
 
-        return [
+        const items = [
             {
                 ariaLabel: t(ResourceKeys.modelRepository.commands.save.ariaLabel),
                 disabled: !dirty,
@@ -66,12 +66,7 @@ export const ModelRepositoryLocationView: React.FC = () => {
                 key: 'revert',
                 onClick: onRevertModelRepositorySettingsClick,
                 text: t(ResourceKeys.modelRepository.commands.revert.label)
-            }
-        ];
-    };
-
-    const getCommandBarItemsFar = (): ICommandBarItemProps[] => {
-        const items: ICommandBarItemProps[] = [
+            },
             {
                 ariaLabel: t(ResourceKeys.modelRepository.commands.help.ariaLabel),
                 iconProps: { iconName: HELP},
@@ -201,7 +196,6 @@ export const ModelRepositoryLocationView: React.FC = () => {
             <div className="view-command">
                 <CommandBar
                     items={getCommandBarItems()}
-                    farItems={getCommandBarItemsFar()}
                 />
             </div>
             <div className="view-scroll-vertical">

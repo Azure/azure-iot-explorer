@@ -12,7 +12,7 @@ import { ResourceKeys } from '../../../localization/resourceKeys';
 import { Theme, useThemeContext } from '../../shared/contexts/themeContext';
 import { THEME_SELECTION } from '../../constants/browserStorage';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../constants/routes';
-import '../../css/_settingsPane.scss';
+import '../../css/_headerPane.scss';
 
 export const SettingsPane: React.FC = () => {
     const [ showPanel, setShowPanel ] = React.useState<boolean>(false);
@@ -37,7 +37,7 @@ export const SettingsPane: React.FC = () => {
 
     const renderFooter = () => {
         return (
-            <footer className="settings-footer">
+            <footer className="header-footer">
                 <section className="footer-buttons">
                     <DefaultButton
                         type="reset"
@@ -59,9 +59,10 @@ export const SettingsPane: React.FC = () => {
             />
 
             <Panel
-                className="settingsPane"
+                className="headerPane"
                 role="dialog"
                 isOpen={showPanel}
+                isLightDismiss={true}
                 onDismiss={togglePanelVisibility}
                 type={PanelType.smallFixedFar}
                 isFooterAtBottom={true}

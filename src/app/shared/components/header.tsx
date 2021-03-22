@@ -5,8 +5,8 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { ResourceKeys } from '../../../localization/resourceKeys';
-import { NotificationList } from '../../notifications/components/notificationList';
 import { SettingsPane } from '../../settings/components/settingsPane';
+import { NotificationPane } from '../../notifications/components/notificationPane';
 import '../../css/_header.scss';
 
 export const Header: React.FC = () => {
@@ -15,7 +15,7 @@ export const Header: React.FC = () => {
     return (
         <header className="header">
             <div className="title">{t(ResourceKeys.header.applicationName)}</div>
-            <div><NotificationList/></div>
+            <div><NotificationPane/></div>
             <div><SettingsPane/></div>
         </header>
     );

@@ -15,6 +15,7 @@ export enum ROUTE_PARTS {
     IDENTITY = 'identity',
     INTERFACES = 'interfaces',
     IOT_HUB = 'microsoft.devices',
+    NOTIFICATIONS = 'notifications',
     METHODS = 'methods',
     MODULE_IDENTITY = 'moduleIdentity',
     MODULE_DETAIL = 'moduleDetail',

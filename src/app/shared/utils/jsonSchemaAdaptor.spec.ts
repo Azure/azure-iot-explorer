@@ -274,7 +274,7 @@ describe('parse interface model definition to Json schema', () => {
 
     describe('checks if schema is simple type', () => {
         it('returns is simple schema type', () => {
-            expect(isSchemaSimpleType('boolean')).toEqual(true);
+            expect(isSchemaSimpleType('boolean', undefined)).toEqual(true);
             expect(isSchemaSimpleType({
                 '@id': 'dtmi:txs:cellular:RoamingStatus:ldbrgbd9;1',
                 '@type': 'Enum',
@@ -300,7 +300,7 @@ describe('parse interface model definition to Json schema', () => {
                     'enumValue': 1,
                     'name': 'Roaming'
                 }]
-            })).toEqual(true);
+            }, undefined)).toEqual(true);
         });
 
         it('returns is complex schema type', () => {
@@ -314,8 +314,9 @@ describe('parse interface model definition to Json schema', () => {
                     name: 'telemetryConfig',
                     schema: 'integer'
                 }
-            })).toEqual(false);
-            expect(isSchemaSimpleType(['boolean'])).toEqual(false);
+            }, undefined)).toEqual(false);
+            expect(isSchemaSimpleType(['boolean'], undefined)).toEqual(false);
+            expect(isSchemaSimpleType('dtmi:impinj:R700:System:Time:TimeInfo;1', '#/definitions/dtmi:impinj:R700:System:Time:TimeInfo;1')).toEqual(false);
         });
     });
 });

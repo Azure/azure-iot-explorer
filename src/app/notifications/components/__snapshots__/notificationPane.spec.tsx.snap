@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`notificationPane matches snapshot 1`] = `
+<Fragment>
+  <CustomizedActionButton
+    ariaLabel="header.notifications.show"
+    iconProps={
+      Object {
+        "className": false,
+        "iconName": "Ringer",
+      }
+    }
+    onClick={[Function]}
+    text="header.notifications.show"
+  />
+  <StyledPanelBase
+    className="headerPane"
+    closeButtonAriaLabel="common.close"
+    isFooterAtBottom={true}
+    isLightDismiss={true}
+    isOpen={false}
+    onDismiss={[Function]}
+    role="dialog"
+    type={1}
+  >
+    <header
+      className="panel-header"
+    >
+      <h2>
+        header.notifications.panel.title
+      </h2>
+    </header>
+    <section
+      aria-label="header.notifications.panel.title"
+    >
+      <span>
+        header.notifications.panel.redirect
+      </span>
+      <StyledLinkBase
+        className="home-link"
+        href="#/home/notifications?from"
+        onClick={[Function]}
+      >
+        header.notifications.panel.redirectLink
+      </StyledLinkBase>
+    </section>
+  </StyledPanelBase>
+</Fragment>
+`;

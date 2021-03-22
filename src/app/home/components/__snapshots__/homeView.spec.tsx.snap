@@ -33,6 +33,11 @@ exports[`HomeView matches snapshot 1`] = `
           exact={true}
           path="/home/repos"
         />
+        <Route
+          component={[Function]}
+          exact={true}
+          path="/home/notifications"
+        />
       </Switch>
     </div>
   </div>

@@ -4,7 +4,7 @@
  **********************************************************/
 @import 'themes';
 
-.settingsPane {
+.headerPane {
     .ms-Panel-scrollableContent {
         overflow-x: hidden;
     }
@@ -42,7 +42,7 @@
         }
     }
 
-    .settings-footer {
+    .header-footer {
         .footer-buttons {
             h3[role="heading"] {
                 font-weight: normal;
