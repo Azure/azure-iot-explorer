@@ -9,7 +9,7 @@ import { Nav } from 'office-ui-fabric-react/lib/components/Nav';
 import { DeviceContentNavComponent, DeviceContentNavProps, NAV_LINK_ITEMS_DEVICE, NAV_LINK_ITEMS_NONEDGE_DEVICE } from './deviceContentNav';
 
 jest.mock('react-router-dom', () => ({
-    useLocation: () => ({ search: '?deviceId=test' }),
+    useLocation: () => ({ search: '?deviceId=test', pathname: '' }),
     useRouteMatch: () => ({ url: '' })
 }));
 

@@ -39,6 +39,7 @@ export const DeviceContentNavComponent: React.FC<DeviceContentNavProps> =  (prop
     const { isEdgeDevice } = props;
     const { search, pathname } = useLocation();
     const { url } = useRouteMatch();
+    const [ selectedRoute, setSelectedRoute] = React.useState<string>();
     const deviceId = getDeviceIdFromQueryString(search);
     const moduleId = getModuleIdentityIdFromQueryString(search);
 
@@ -77,9 +78,14 @@ export const DeviceContentNavComponent: React.FC<DeviceContentNavProps> =  (prop
 
     const groups: INavLinkGroup[] = [{ links: navLinks }];
 
+    React.useEffect(() => {
+        const currentRoute = navItems.find(nav => pathname.includes(nav));
+        setSelectedRoute(currentRoute);
+    }, [pathname]); // tslint:disable-line: align
+
     return (
         <div role="navigation">
-            <Nav groups={groups}/>
+            <Nav groups={groups} selectedKey={selectedRoute}/>
         </div>
     );
 };
