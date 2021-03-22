@@ -79,7 +79,7 @@ describe('digitalTwinInterfaceCommandSaga', () => {
                                 commandName,
                                 deviceId,
                                 response: JSON.stringify(response),
-                                validationResult: false
+                                validationResult: null
                             },
                         },
                         type: NotificationType.success

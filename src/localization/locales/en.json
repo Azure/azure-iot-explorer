@@ -821,7 +821,7 @@
         "updateDeviceTwinOnError": "Failed to update device twin on device {{deviceId}}: {{error}}",
         "updateDeviceTwinOnSuccess": "Successfully updated device twin on device {{deviceId}}.",
         "invokeDigitalTwinCommandOnError": "Failed to invoke the IoT Plug and Play command '{{commandName}}' on device '{{deviceId}}': {{error}}",
-        "invokeDigitalTwinCommandOnSuccess": "Successfully invoked the IoT Plug and Play command '{{commandName}}' on device '{{deviceId}}': {{response}}.",
+        "invokeDigitalTwinCommandOnSuccess": "Successfully invoked the IoT Plug and Play command '{{commandName}}' on device '{{deviceId}}': {{response}}",
         "invokingDigitalTwinCommand": "Trying to invoke the IoT Plug and Play command '{{commandName}}' on device '{{deviceId}}' with no payload",
         "invokingDigitalTwinCommandWithPayload": "Trying to invoke the IoT Plug and Play command '{{commandName}}' on device '{{deviceId}}' with payload {{payload}}",
         "invokeDigitalTwinCommandOnSuccessButResponseIsNotValid": "Successfully invoked the IoT Plug and Play command '{{commandName}}' on device '{{deviceId}}': {{response}}. But the response is not valid: {{validationResult}}",
