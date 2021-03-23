@@ -1,0 +1,954 @@
+﻿{
+  "azureResource": {
+    "access": {
+      "unauthorized": "您沒有此資源的存取權",
+      "failed": "無法驗證此資源的存取權",
+      "verifying": "正在驗證此資源的存取權"
+    }
+  },
+  "common": {
+    "close": "關閉",
+    "home": "首頁",
+    "learnMore": "深入了解",
+    "loading": "載入中...",
+    "maskedCopyableTextField": {
+      "toggleMask": {
+        "label": {
+          "show": "顯示內容",
+          "hide": "隱藏內容"
+        }
+      },
+      "copy": {
+        "label": "複製目錄"
+      }
+    },
+    "confirmationDialog": {
+      "title": "確認",
+      "yes": "是",
+      "no": "否"
+    },
+    "navigation": {
+      "confirm": "將會捨棄您未儲存的編輯。",
+      "collapse": "摺疊導覽功能表",
+      "expand": "展開導覽功能表"
+    }
+  },
+  "collapsibleSection": {
+    "open": "開啟",
+    "close": "摺疊"
+  },
+  "header": {
+    "applicationName": "Azure IoT Explorer (預覽)",
+    "search": {
+      "watermark": "在頁面上尋找"
+    },
+    "notifications": {
+      "hide": "隱藏通知",
+      "show": "通知",
+      "dismiss": "全部關閉",
+      "panel": {
+        "title": "通知",
+        "noNotifications": "沒有任何您目前工作階段的通知"
+      }
+    },
+    "questions": {
+      "launch": "開啟 ???"
+    },
+    "settings": {
+      "launch": "設定"
+    }
+  },
+  "settings": {
+    "headerText": "設定",
+    "configuration": {
+      "headerText": "應用程式組態",
+      "redirect": "正在尋找連線設定嗎?",
+      "redirectLink": "請造訪首頁。"
+    },
+    "modelDefinitions": {
+      "headerText": "IoT 隨插即用組態",
+      "redirect": "正在尋找 IoT 隨插即用設定嗎?",
+      "redirectLink": "請造訪首頁。"
+    },
+    "questions": {
+      "headerText": "說明:",
+      "questions": {
+        "documentation": {
+          "text": "IoT 隨插即用文件",
+          "link": "https://aka.ms/azure-iot-explorer-documentation"
+        },
+        "privacy": {
+          "text": "在允許我們從本機資料夾擷取模型定義之前，請先閱讀 ",
+          "linkText": "Microsoft 隱私權聲明",
+          "link": "https://privacy.microsoft.com/en-us/privacystatement"
+        }
+      }
+    },
+    "footerText": "您可以稍後回到 [設定] 進行變更。",
+    "save": "儲存並連線",
+    "close": "關閉",
+    "confirmationMessage": "您確定要關閉而不儲存嗎?",
+    "theme": {
+      "headerText": "應用程式佈景主題",
+      "label": "佈景主題",
+      "darkTheme": "深色",
+      "lightTheme": "淺色"
+    }
+  },
+  "breadcrumb": {
+    "devices": "裝置",
+    "add": "建立新身分識別",
+    "identity": "裝置身分識別",
+    "twin": "裝置對應項",
+    "events": "遙測",
+    "eventsPerInterface": "遙測",
+    "methods": "直接方法",
+    "cloudToDeviceMessage": "雲端至裝置訊息",
+    "moduleIdentity": "模組身分識別",
+    "interfaces": "介面",
+    "properties": "屬性 (唯讀)",
+    "settings": "屬性 (可寫入)",
+    "commands": "命令",
+    "ioTPlugAndPlay": "IoT 隨插即用元件",
+    "resources": "IoT 中樞",
+    "repos": "IoT 隨插即用設定",
+    "moduleDetail": "模組詳細資料",
+    "moduleTwin": "模組對應項",
+    "moduleMethod": "模組直接方法",
+    "addModuleIdentity": "新增模組身分識別"
+  },
+  "deviceContent": {
+    "start": "選取要啟動的裝置",
+    "value": "值"
+  },
+  "connectionStrings": {
+    "empty": {
+      "header": "沒有連線可供顯示",
+      "description": "您必須新增 IoT 中樞連接字串。連接字串會儲存到應用程式儲存體，返回即可隨時加以編輯或移除"
+    },
+    "addConnectionCommand": {
+      "label": "新增連線",
+      "ariaLabel": "新增連接字串"
+    },
+    "deleteConnectionCommand": {
+      "label": "刪除連線",
+      "ariaLabel": "刪除連接字串 {{connectionString}}"
+    },
+    "editConnectionCommand": {
+      "label": "編輯連線",
+      "ariaLabel": "編輯連接字串 {{connectionString}}"
+    },
+    "copyConnectionCommand": {
+      "label": "複製連線",
+      "ariaLabel": "複製連接字串 {{connectionString}}"
+    },
+    "visitConnectionCommand": {
+      "label": "檢視此中樞中的裝置",
+      "ariaLabel": "檢視資源: {{connectionString}}"
+    },
+    "deleteConnection": {
+      "title": "確認刪除",
+      "body": "刪除下列連接字串?",
+      "input": "要刪除的連接字串",
+      "yes": {
+        "ariaLabel": "是，刪除 {{connectionString}}",
+        "label": "是"
+      },
+      "no": {
+        "ariaLabel": "否，不刪除 {{connectionString}}",
+        "label": "否"
+      }
+    },
+    "editConnection": {
+      "save": {
+        "label": "儲存",
+        "ariaLabel": "儲存連接字串"
+      },
+      "cancel": {
+        "label": "取消",
+        "ariaLabel": {
+          "add": "取消加入連接字串",
+          "edit": "取消編輯連接字串"
+        }
+      },
+      "title": {
+        "add": "新增連接字串",
+        "edit": "編輯連接字串"
+      },
+      "editField": {
+        "label": "連接字串",
+        "ariaLabel": "連接字串",
+        "placeholder": "輸入連接字串"
+      },
+      "validations": {
+        "duplicate": "指定的連接字串已經列過。"
+      }
+    },
+    "properties": {
+      "hostName": {
+        "label": "主機名稱",
+        "ariaLabel": "{{connection string}} 的主機名稱"
+      },
+      "sharedAccessPolicyName": {
+        "label": "共用存取原則名稱",
+        "ariaLabel": "{{connection string}} 的共用存取原則名稱"
+      },
+      "sharedAccessPolicyKey": {
+        "label": "共用存取原則金鑰",
+        "ariaLabel": "{{connection string}} 的共用存取原則金鑰"
+      },
+      "connectionString": {
+        "label": "連接字串",
+        "ariaLabel": "連接字串"
+      }
+    },
+    "expirationWarning": "您的中樞連接字串即將在 {{numberOfDays}} 天內到期。請編輯連接字串 (再次複製和貼上) 以便延長，否則一旦過期，將必須重新加入。"
+  },
+  "connectivityPane": {
+    "header": "應用程式組態",
+    "connectionStringComboBox": {
+      "ariaLabel": "選取或輸入 Iot 中樞連接字串",
+      "ariaLabelRemove": "移除與主機 {{hostName}} 的連線",
+      "link": "https://aka.ms/iot-connection-strings",
+      "linkText": "在哪裡取得 IoT 中樞連接字串?",
+      "item": {
+        "ariaLabel": "與主機 {{hostName}} 的連線及 {{sharedAccessKeyName}} 的共用存取金鑰"
+      },
+      "label": "選取或輸入 IoT 中樞連接字串",
+      "errorMessages": {
+        "required": "需要連接字串",
+        "invalid": "無效的連接字串"
+      },
+      "prompt": "選取儲存的連接字串或在這裡貼上新的連接字串",
+      "warning": "請勿將您的中樞連接字串儲存到任何不安全的位置"
+    },
+    "notes": "最新的連接字串將會儲存在應用程式儲存體中。您可以隨時開啟 [設定]，以移除儲存的連接字串或變更其他組態選項。",
+    "saveButton": {
+      "label": "連線"
+    },
+    "dropDown": {
+      "newEntry": "(新增) 新增 IoT 中樞連接字串",
+      "copyButton": "將連接字串複製到剪貼簿"
+    }
+  },
+  "deviceIdentity": {
+    "headerText": "裝置身分識別",
+    "deviceID": "裝置識別碼",
+    "deviceIDTooltip": "用於裝置驗證及存取控制的裝置身分識別",
+    "authenticationType": {
+      "text": "驗證類型",
+      "symmetricKey": {
+        "autoGenerate": "自動產生金鑰",
+        "type": "對稱金鑰",
+        "primaryKey": "主要金鑰",
+        "secondaryKey": "次要金鑰",
+        "primaryConnectionString": "主要連接字串",
+        "primaryConnectionStringTooltip": "用於 API 呼叫並以主要金鑰為基礎的連接字串，可讓裝置與 IoT 中樞通訊",
+        "primaryKeyTooltip": "以 base64 格式儲存的主要對稱共用存取金鑰",
+        "secondaryConnectionString": "次要連接字串",
+        "secondaryConnectionStringTooltip": "用於 API 呼叫並以次要金鑰為基礎的連接字串，可讓裝置與 IoT 中樞通訊",
+        "secondaryKeyTooltip": "以 base64 格式儲存的次要對稱共用存取金鑰",
+        "generatePrimaryKey": "產生主要金鑰",
+        "generateSecondaryKey": "產生次要金鑰"
+      },
+      "ca": {
+        "type": "已簽署的 X.509 CA",
+        "text": "此裝置正透過 CA 憑證進行驗證。",
+        "connectionString": "連接字串",
+        "connectionStringTooltip": "用於 API 呼叫的連接字串，可讓裝置與 IoT 中樞通訊"
+      },
+      "selfSigned": {
+        "type": "已自我簽署的 X.509",
+        "text": "此裝置正使用 X.509 憑證進行驗證。",
+        "primaryThumbprint": "主要指紋",
+        "primaryThumbprintTooltip": "主要的 X.509 指紋，代表 X.509 憑證的 SHA-1 或 SHA-256 雜湊。SHA-1 不接受 40 以外的十六進位字元指紋值，SHA-256 不接受 64 以外的十六進位字元指紋值。",
+        "secondaryThumbprint": "次要指紋",
+        "secondaryThumbprintTooltip": "次要的 X.509 指紋，代表 X.509 憑證的 SHA-1 或 SHA-256 雜湊。SHA-1 不接受 40 以外的十六進位字元指紋值，SHA-256 不接受 64 以外的十六進位字元指紋值。",
+        "connectionString": "連接字串",
+        "connectionStringTooltip": "用於 API 呼叫的連接字串，可讓裝置與 IoT 中樞通訊"
+      },
+      "sasToken": {
+        "label": "連接字串與 SAS 權杖",
+        "toolTip": "使用 SAS 權杖產生連接字串",
+        "symmetricKey": "對稱金鑰",
+        "expiration": "到期時間 (分鐘)",
+        "textField": {
+          "label": "SAS 權杖連接字串",
+          "ariaLabel": "SAS 權杖連接字串"
+        },
+        "generateButton": {
+          "title": "產生",
+          "text": "產生"
+        }
+      }
+    },
+    "hubConnectivity": {
+      "label": "將這個裝置連線至 IoT 中樞",
+      "tooltip": "啟用或停用裝置與 IoT 中樞的裝置互動",
+      "enable": "啟用",
+      "enabled": "已啟用",
+      "disable": "停用",
+      "disabled": "已停用"
+    },
+    "commands": {
+      "save": "儲存",
+      "manageKeys": {
+        "label": "管理金鑰",
+        "ariaLabel": "管理裝置的金鑰"
+      },
+      "regeneratePrimary": {
+        "ariaLabel": "重新產生主要金鑰",
+        "label": "重新產生主要金鑰"
+      },
+      "regenerateSecondary": {
+        "ariaLabel": "重新產生次要金鑰",
+        "label": "重新產生次要金鑰"
+      },
+      "swapKeys": {
+        "ariaLabel": "交換金鑰",
+        "label": "交換金鑰"
+      }
+    },
+    "validation": {
+      "invalidDeviceId": "裝置識別碼中有無效的字元",
+      "invalidKey": "金鑰無效",
+      "invalidThumbprint": "指紋無效"
+    }
+  },
+  "deviceLists": {
+    "paging": {
+      "pages": "頁面:"
+    },
+    "loadingDevice": "正在載入裝置",
+    "noDevice": "沒有裝置可供顯示",
+    "noData": "無",
+    "columns": {
+      "deviceId": {
+        "label": "裝置識別碼",
+        "infoText": "用於裝置驗證及存取控制的裝置身分識別"
+      },
+      "status": {
+        "label": "狀態",
+        "infoText": "裝置的目前狀態"
+      },
+      "connection": "連線狀態",
+      "lastActivityTime": "上次活動時間",
+      "statusUpdatedTime": "上次狀態更新時間",
+      "cloudToDeviceMessageCount": "雲端至裝置訊息計數",
+      "authenticationType": "驗證類型",
+      "isEdgeDevice": {
+        "label": "Edge 裝置",
+        "yes": "是 Edge 裝置",
+        "no": "不是 Edge 裝置"
+      },
+      "isPnpDevice": "IoT 隨插即用裝置",
+      "interfaces": "介面"
+    },
+    "commands": {
+      "add": "新增",
+      "close": "取消",
+      "delete": {
+        "buttonText": "刪除",
+        "confirmationDialog": {
+          "title": "從 IoT 中樞刪除?",
+          "subText": "請仔細檢閱。您即將從您的 IoT 中樞移除下列裝置，並且可能會對其他使用相同中樞或裝置的使用者造成影響。",
+          "confirm": "刪除",
+          "cancel": "取消"
+        }
+      },
+      "refresh": "重新整理",
+      "save": "建立"
+    },
+    "query": {
+      "deviceId": {
+        "placeholder": "依裝置識別碼查詢...",
+        "ariaLabel": "依裝置識別碼查詢",
+        "searchButton": {
+          "title": "搜尋",
+          "ariaLabel": "依裝置識別碼且無其他子句來執行搜尋"
+        }
+      },
+      "searchPills": {
+        "add": {
+          "ariaLabel": "新增查詢參數",
+          "text": "新增查詢參數"
+        },
+        "search": {
+          "ariaLabel": "以指定的子句且無裝置識別碼來執行搜尋。",
+          "text": "搜尋"
+        },
+        "clause": {
+          "parameterType": {
+            "placeholder": "參數類型",
+            "ariaLabel": "查詢子句類型",
+            "items": {
+              "propertyValue": "屬性值",
+              "status": "狀態",
+              "lastActivityTime": "上次活動時間",
+              "statusUpdateTime": "狀態更新時間",
+              "edge": "Edge"
+            }
+          },
+          "operationType": {
+            "title": "作業類型",
+            "ariaLabel": "為此子句選擇比較類型",
+            "options": {
+              "equals": "等於",
+              "notEquals": "不等於"
+            }
+          },
+          "value": {
+            "placeholder": "選取值",
+            "ariaLabel": "輸入此子句的值",
+            "deviceCapability": {
+              "edge": "是 Edge 裝置",
+              "nonEdge": "不是 Edge 裝置"
+            },
+            "deviceStatus": {
+              "enabled": "已啟用",
+              "disabled": "已停用"
+            }
+          },
+          "remove": {
+            "title": "移除",
+            "ariaLabel": "移除此子句"
+          }
+        }
+      }
+    },
+    "messageBar": {
+      "message": "{{version}} 已經發行。",
+      "link": "請按一下這裡以下載。"
+    }
+  },
+  "deviceTwin": {
+    "notFound": "找不到裝置對應項資料",
+    "headerText": "裝置對應項",
+    "command": {
+      "refresh": "重新整理",
+      "save": "儲存"
+    },
+    "tooltip": "您可以將標籤及所需屬性新增到此處的裝置對應項。若要移除標籤或所需屬性，請將要移除的項目值設為 'null'。"
+  },
+  "digitalTwin": {
+    "headerText": "IoT 隨插即用元件",
+    "modelId": "模型識別碼",
+    "modelContainsNoComponents": "模型 '{{modelId}}' 未包含 IoT 隨插即用元件",
+    "componentName": "元件",
+    "steps": {
+      "zero": "您的裝置無法辨識為 IoT 隨插即用裝置。若要深入了解，請查看 ",
+      "first": "步驟 1:  已發現您的裝置為 IoT 隨插即用裝置",
+      "secondSuccess": "步驟 2:  我們已解析您的 IoT 隨插即用模型",
+      "secondFailure": "步驟 2:  我們無法擷取 {{modelId}} 的模型定義",
+      "third": "步驟 3:  向下切入每個元件，以繼續您的 IoT 隨插即用設定程序",
+      "explanation": "如果您已定義模型 {{modelId}} 的 'Property'、'Command' 或 'Telemetry'，則可以在下列資料表中查看 'Default component'。如果您已定義 'Component'，則可以查看下面的元件清單。"
+    },
+    "pivot": {
+      "ariaLabel": "模型元件和內容樞紐",
+      "components": "元件",
+      "content": "模型內容",
+      "defaultComponent": "預設元件",
+      "digitalTwin": "數位對應項內容"
+    },
+    "interfaceId": "模型識別碼"
+  },
+  "deviceProperties": {
+    "command": {
+      "refresh": "重新整理",
+      "openReportedValuePanel": "按一下以檢視值",
+      "close": "上一步"
+    },
+    "headerText": "唯讀屬性",
+    "noProperties": "ComponentName {{componentName}} 未包含唯讀屬性定義",
+    "columns": {
+      "name": "名稱 (顯示名稱/描述)",
+      "value": "值",
+      "schema": "結構描述",
+      "unit": "單位",
+      "error": "值與結構描述不相符"
+    },
+    "editor": {
+      "label": "UI 形式尚未支援屬性結構描述 '{{schema}}'。請使用下列 JSON 編輯器檢視回報的值"
+    }
+  },
+  "deviceSettings": {
+    "previewPayloadButtonText": "預覽承載",
+    "noPreviewContent": "沒有承載可顯示。",
+    "command": {
+      "refresh": "重新整理",
+      "submit": "更新需要的值",
+      "openReportedValuePanel": "按一下以檢視值",
+      "openDesiredValuePanel": "按一下以編輯",
+      "expandAll": "全部展開",
+      "expand": "展開",
+      "collapseAll": "全部摺疊",
+      "collapse": "摺疊",
+      "close": "上一步"
+    },
+    "headerText": "可寫入的屬性",
+    "noSettings": "ComponentName {{componentName}} 未包含可寫入的屬性定義",
+    "ackStatus": {
+      "code": "Ack 程式碼: {{code}}",
+      "description": "Ack 描述: {{description}}",
+      "version": "Ack 版本: {{version}}"
+    },
+    "columns": {
+      "name": "名稱 (顯示名稱/描述)",
+      "schema": "結構描述",
+      "unit": "單位",
+      "reportedValue": "回報的值 (Ack 中繼資料)",
+      "reportedValueTooltip": "回報的值將以非同步方式更新。請按一下頂端的 [重新整理] 按鈕，手動取得最新的值",
+      "error": "值與結構描述不相符"
+    },
+    "panel": {
+      "title": "回報的值"
+    }
+  },
+  "deviceCommands": {
+    "command": {
+      "refresh": "重新整理",
+      "submit": "傳送命令",
+      "expandAll": "全部展開",
+      "expand": "展開",
+      "collapseAll": "全部摺疊",
+      "collapse": "摺疊",
+      "close": "上一步"
+    },
+    "headerText": "命令",
+    "noCommands": "ComponentName {{componentName}} 未包含命令定義",
+    "columns": {
+      "name": "名稱 (顯示名稱/描述)",
+      "schema": {
+        "request": "要求結構描述",
+        "response": "回應結構描述"
+      },
+      "type": "命令類型"
+    }
+  },
+  "deviceInterfaces": {
+    "command": {
+      "refresh": "重新整理",
+      "configure": "設定",
+      "close": "上一步"
+    },
+    "columns": {
+      "id": "介面識別碼",
+      "source": "您的模型定義已從下列位置解析",
+      "noSource": "無法取得介面定義",
+      "displayName": "名稱",
+      "description": "描述"
+    },
+    "headerText": "介面",
+    "noInterfaces": "沒有介面",
+    "interfaceNotFound": "我們無法擷取任何有效的介面模型定義。請按一下下面的 [設定] 按鈕，了解我們如何解析模型定義。",
+    "interfaceNotValid": "模型定義無效。請更新模型定義，然後再繼續。",
+    "interfaceListFailedToRender": "無法從模型定義剖析元件清單。可能包含我們目前不支援的定義。請造訪我們的 Wiki 查看我們支援的 DTDL 範圍: https://github.com/Azure/azure-iot-explorer/wiki"
+  },
+  "deviceEvents": {
+    "command": {
+      "refresh": "重新整理",
+      "clearEvents": "清除事件",
+      "showSystemProperties": "顯示系統屬性",
+      "start": "啟動",
+      "stop": "停止",
+      "fetch": "擷取事件",
+      "close": "上一步",
+      "simulate": "模擬裝置"
+    },
+    "consumerGroups": {
+      "label": "取用者群組",
+      "tooltip": "應用程式會使用取用者群組從 IoT 中樞提取資料。若要變更目前的取用者群組，請停止監視遙測。"
+    },
+    "startTime": {
+      "error": "請輸入日期時間格式為 yyyy/mm/dd/hh/mm/ss",
+      "label": "開始時間",
+      "tooltip": "表示應用於讀取事件中樞訊息的本機加入佇列時間。若未指定，則加入佇列的時間會是您按下 [啟動] 按鈕的時間。"
+    },
+    "customEventHub": {
+      "connectionString": {
+        "label": "自訂事件中樞連接字串",
+        "placeHolder": "Endpoint=sb://<FQDN>/;SharedAccessKeyName=<KeyName>;SharedAccessKey=<KeyValue>",
+        "error": "事件中樞連接字串格式應看起來像 'Endpoint=sb://<FQDN>/;SharedAccessKeyName=<KeyName>;SharedAccessKey=<KeyValue>'"
+      },
+      "name": {
+        "label": "自訂事件中樞名稱"
+      }
+    },
+    "headerText": "遙測",
+    "noEvent": "ComponentName {{componentName}} 未包含遙測定義",
+    "tooltip": "您可以監視裝置傳送到 IoT 中樞的遙測",
+    "interfaceDropDown": {
+      "label": "選取介面以篩選遙測",
+      "placeHolder": "選取介面"
+    },
+    "infiniteScroll": {
+      "loading": "正在接收事件..."
+    },
+    "event": {
+      "body": "本文: ",
+      "enqueuedTime": "加入佇列的時間: ",
+      "properties": "屬性: "
+    },
+    "columns": {
+      "displayName": "名稱",
+      "timestamp": "加入佇列時間",
+      "schema": "結構描述",
+      "unit": "單位",
+      "value": "值",
+      "validation": {
+        "key": {
+          "isNotSpecified": "此遙測 '{{key}}' 不在模型中。您可以考慮加以模型化。",
+          "doesNotMatch": "金鑰不符。加密的金鑰為 {{expectedKey}}，但收到的是 {{receivedKey}}"
+        },
+        "value": {
+          "label": "值與結構描述不相符",
+          "bodyIsEmpty": "遙測本文為空白"
+        }
+      }
+    },
+    "toggleShowRawData": {
+      "label": "顯示原始遙測資料",
+      "on": "開啟",
+      "off": "關閉"
+    },
+    "toggleUseDefaultEventHub": {
+      "label": "使用內建的事件中樞",
+      "on": "是",
+      "off": "否"
+    },
+    "toggleSpecifyStartingTime": {
+      "label": "指定加入佇列時間",
+      "on": "是",
+      "off": "否"
+    },
+    "error": "無法監視事件。{{error}}",
+    "simulation": {
+      "header": "在 Azure Cloud Shell 使用 CLI 模擬裝置",
+      "cloudShell": {
+        "imageDescription": "啟動 Azure Cloud Shell",
+        "textDescription": "按一下 [啟動 Cloud Shell]，貼上下列命令，以模擬裝置傳送遙測。您將能開始從內建的事件中樞監視事件。"
+      },
+      "prerequisite": {
+        "label": "必要條件",
+        "tooltiop": "不曾使用過 Azure Cloud Shell",
+        "instruction": "如果您不曾使用過 Cloud Shell，請依照 Azure Cloud Shell 中的指示執行，挑選訂閱並設定儲存體。如果您遇到錯誤 'az iot: 'device' is not in the 'az iot' command group'，請使用命令 'az extension add --name azure-iot' 來安裝 Azure IoT CLI 延伸模組。"
+      },
+      "basic": {
+        "label": "基本案例",
+        "tooltiop": "零值輸入基本案例",
+        "instruction": "只要將下列命令複製貼到 Azure Cloud Shell，隨即將會在裝置 {{deviceId}} 傳送訊息到 IoT 中樞時開始模擬裝置。您可以按一下 [遙測] 頁面中的 [啟動] 按鈕，開始監視事件。",
+        "copyLabel": "正在模擬裝置 {{deviceId}}"
+      },
+      "advanced": {
+        "label": "進階案例",
+        "tooltiop": "進階使用者模擬事件的本文或屬性",
+        "instruction": "輸入所需的訊息本文及/或屬性，然後將產生的命令複製貼到 Azure Cloud Shell。隨即將會在裝置 {{deviceId}} 傳送訊息到 IoT 中樞時開始模擬裝置。您可以按一下 [遙測] 頁面中的 [啟動] 按鈕，開始監視事件。",
+        "copyLabel": "正在模擬裝置 {{deviceId}}",
+        "body": {
+          "label": "提供事件本文",
+          "tooltip": "如果保留空白，則預設值會是: 'Ping from Az CLI IoT Extension'。"
+        },
+        "properties": {
+          "key": "索引鍵",
+          "keyDup": "索引鍵必須是唯一的",
+          "value": "值",
+          "addProperty": "新增屬性",
+          "delete": "刪除",
+          "toggleSelectionColumnAriaLabel": "切換選取範圍",
+          "selectAllCheckboxAriaLabel": "將選取範圍切換為全部",
+          "rowCheckBoxAriaLabel": "資料列核取方塊"
+        }
+      }
+    }
+  },
+  "directMethod": {
+    "headerText": "直接方法",
+    "tooltip": "您可以將直接方法傳送到裝置。直接方法具有名稱、承載及可設定的連線與方法逾時。",
+    "methodName": "方法名稱",
+    "methodNamePlaceHolder": "要在這部裝置上叫用的直接方法名稱",
+    "connectionTimeout": "連線逾時 (秒)",
+    "connectionTimeoutTooltip": "成功建立連線前的等待秒數。",
+    "responseTimeout": "回應逾時 (秒)",
+    "responseTimeoutTooltip": "從直接方法擷取結果前的等待秒數。",
+    "invokeMethodButtonText": "叫用方法",
+    "payload": "承載",
+    "payloadTooltip": "要在裝置上叫用的直接方法承載",
+    "result": "結果"
+  },
+  "cloudToDeviceMessage": {
+    "headerText": "雲端至裝置訊息",
+    "tooltip": "您可以將訊息傳送到 IoT 中樞中的裝置。訊息的本文及選擇性屬性都會組織成索引鍵/值字串組的集合。",
+    "sendMessageButtonText": "傳送訊息到裝置",
+    "body": "訊息本文",
+    "bodyTooltip": "要傳送到裝置的訊息本文。",
+    "addTimestamp": "將訊息本文加上時間戳記",
+    "properties": {
+      "label": "屬性",
+      "systemProperties": {
+        "ack": {
+          "displayName": "ack",
+          "description": "要求的意見反應類型。",
+          "full": "完整 (無論哪種情況，IoT 中樞都會產生意見反應訊息)",
+          "positive": "正面 (如果 c2d 訊息達到已完成的狀態，IoT 中樞就會產生意見反應訊息)",
+          "negative": "負面 (如果 c2d 訊息達到無效信件的狀態，IoT 中樞就會產生意見反應訊息)"
+        },
+        "contentType": {
+          "displayName": "content-type",
+          "description": "與訊息本文相關聯的內容類型。"
+        },
+        "contentEncoding": {
+          "displayName": "content-encoding",
+          "description": "與訊息本文相關聯的內容編碼。",
+          "utf8": "utf-8",
+          "utf16": "utf-16",
+          "utf32": "utf-32"
+        },
+        "correlationId": {
+          "displayName": "correlation-id",
+          "description": "與訊息相關聯的相互關聯識別碼。"
+        },
+        "expiryTimeUtc": {
+          "displayName": "expiry-time-utc",
+          "description": "自 unix epoch 算起的到期時間 (UTC) (毫秒)",
+          "error": "到期時間必須是整數，並且晚於現在"
+        },
+        "lockToken": {
+          "displayName": "lock-token",
+          "description": "用於放棄、拒絕或接受訊息。"
+        },
+        "messageId": {
+          "displayName": "message-id",
+          "description": "訊息識別碼。如果未提供訊息識別碼，則會產生 UUID。"
+        }
+      },
+      "key": "索引鍵",
+      "keyDup": "索引鍵必須是唯一的",
+      "value": "值",
+      "addCustomProperty": "新增自訂屬性",
+      "addSystemProperty": "新增系統屬性",
+      "delete": "刪除",
+      "tooltip": "要傳送到此裝置之訊息的屬性。",
+      "toggleSelectionColumnAriaLabel": "切換選取範圍",
+      "selectAllCheckboxAriaLabel": "將選取範圍切換為全部",
+      "rowCheckBoxAriaLabel": "資料列核取方塊"
+    },
+    "output": "輸出"
+  },
+  "moduleIdentity": {
+    "headerText": "模組身分識別",
+    "tooltip": "您最多可以建立 20 個模組身分識別。每個模組身分識別都會以隱含方式產生模組對應項",
+    "link": "https://aka.ms/iot-hub-module-twin",
+    "addModuleHeaderText": "新增模組身分識別",
+    "command": {
+      "add": "新增",
+      "refresh": "重新整理",
+      "cancel": "取消",
+      "save": "建立"
+    },
+    "columns": {
+      "moduleId": "模組身分識別",
+      "connectionState": "連線狀態",
+      "connectionStateLastUpdated": "連線狀態上次更新時間",
+      "lastActivityTime": "上次活動時間"
+    },
+    "noModules": "此裝置沒有模組身分識別。",
+    "errorFetching": "因為發生錯誤，所以無法載入此資訊。",
+    "moduleId": "模組身分識別名稱",
+    "moduleIdTooltip": "用於裝置驗證及存取控制的模組身分識別名稱。",
+    "authenticationType": {
+      "text": "驗證類型",
+      "symmetricKey": {
+        "autoGenerate": "自動產生金鑰",
+        "type": "對稱金鑰",
+        "primaryKey": "主要金鑰",
+        "secondaryKey": "次要金鑰",
+        "primaryConnectionString": "主要連接字串",
+        "primaryKeyTooltip": "以 base64 格式儲存的主要對稱共用存取金鑰",
+        "secondaryConnectionString": "次要連接字串",
+        "secondaryKeyTooltip": "以 base64 格式儲存的次要對稱共用存取金鑰",
+        "generatePrimaryKey": "產生主要金鑰",
+        "generateSecondaryKey": "產生次要金鑰"
+      },
+      "ca": {
+        "type": "已簽署的 X.509 CA",
+        "text": "此裝置正透過 CA 憑證進行驗證。"
+      },
+      "selfSigned": {
+        "type": "已自我簽署的 X.509",
+        "text": "此裝置正使用 X.509 憑證進行驗證。",
+        "primaryThumbprint": "主要指紋",
+        "primaryThumbprintTooltip": "主要的 X.509 指紋，代表 X.509 憑證的 SHA-1 或 SHA-256 雜湊。SHA-1 不接受 40 以外的十六進位字元指紋值，SHA-256 不接受 64 以外的十六進位字元指紋值。",
+        "secondaryThumbprint": "次要指紋",
+        "secondaryThumbprintTooltip": "次要的 X.509 指紋，代表 X.509 憑證的 SHA-1 或 SHA-256 雜湊。SHA-1 不接受 40 以外的十六進位字元指紋值，SHA-256 不接受 64 以外的十六進位字元指紋值。"
+      }
+    },
+    "validation": {
+      "invalidModuleIdentityName": "模組身分識別名稱包含無效的字元",
+      "invalidKey": "金鑰無效",
+      "invalidThumbprint": "指紋無效"
+    },
+    "detail": {
+      "headerText": "模組身分識別詳細資料",
+      "command": {
+        "back": "上一步",
+        "refresh": "重新整理",
+        "delete": "刪除"
+      },
+      "twin": "模組身分識別對應項",
+      "deleteConfirmation": "確定要刪除此模組身分識別嗎?"
+    }
+  },
+  "noMatchError": {
+    "title": "404 - 找不到",
+    "description": "您要尋找的頁面無法使用。",
+    "goHome": "前往首頁"
+  },
+  "notifications": {
+    "savedToIotHubConnectionString": "已成功儲存 IoT 中樞 {{hostName}} 的連接字串",
+    "getDeviceIdentityOnError": "無法取得裝置 {{deviceId}} 的身分識別: {{error}}",
+    "getDeviceListOnError": "無法擷取裝置清單: {{error}}",
+    "getDeviceListGenericErrorHelp": "無法擷取裝置清單。可能是因為 IoT 中樞連接字串無效",
+    "getDeviceTwinOnError": "無法取得裝置 {{deviceId}} 的對應項: {{error}}",
+    "getDigitalTwinOnError": "無法取得 IoT 隨插即用裝置 {{deviceId}} 的屬性: {{error}}",
+    "getModuleIdentitiesOnError": "無法取得裝置 {{deviceId}} 的模組身分識別: {{error}}",
+    "getInterfaceModelOnError": "無法從設定的任何來源取得介面模型定義 {{interfaceId}}",
+    "parseLocalInterfaceModelOnError": "無法從本機資料夾擷取 {{interfaceId}}。這裡提供 json 檔案清單，其中包含我們在剖析時所遇到的錯誤: {{files}}。請注意，json 檔案的結尾不允許有逗號。",
+    "updateDeviceTwinOnError": "無法在裝置 {{deviceId}} 上更新裝置對應項: {{error}}",
+    "updateDeviceTwinOnSuccess": "已成功在裝置 {{deviceId}} 上更新裝置對應項。",
+    "invokeDigitalTwinCommandOnError": "無法叫用 IoT 隨插即用裝置命令 '{{commandName}}' 用於元件 '{{componentName}}' (在裝置 '{{deviceId}}' 上): {{error}}",
+    "invokeDigitalTwinCommandOnSuccess": "已成功叫用 IoT 隨插即用裝置命令 '{{commandName}}' 用於元件 '{{componentName}}' (在裝置 '{{deviceId}}' 上): {{response}}。",
+    "invokeDigitalTwinCommandOnSuccessButResponseIsNotValid": "已成功叫用 IoT 隨插即用裝置命令 '{{commandName}}' 用於元件 '{{componentName}}' (在裝置 '{{deviceId}}' 上): {{response}}，但回應無效: {{validationResult}}。",
+    "invokingDigitalTwinCommand": "嘗試叫用 IoT 隨插即用裝置命令 '{{commandName}}' 用於元件 '{{componentName}}' (裝置 '{{deviceId}}' 沒有承載)",
+    "invokingDigitalTwinCommandWithPayload": "嘗試叫用 IoT 隨插即用裝置命令 '{{commandName}}' 用於元件 '{{componentName}}' (裝置 '{{deviceId}}' 具有承載 {{payload}})",
+    "invokeDigitalTwinCommandOnDefaultComponentOnError": "無法叫用 IoT 隨插即用裝置命令 '{{commandName}}' 用於裝置 '{{deviceId}}' 的預設元件: {{error}}",
+    "invokeDigitalTwinCommandOnDefaultComponentOnSuccess": "已成功叫用 IoT 隨插即用裝置命令 '{{commandName}}' 用於裝置 '{{deviceId}}' 的預設元件: {{response}}。",
+    "invokeDigitalTwinCommandOnDefaultComponentOnSuccessButResponseIsNotValid": "已成功叫用 IoT 隨插即用裝置命令 '{{commandName}}' 用於裝置 '{{deviceId}}' 的預設元件: {{response}}，但回應無效: {{validationResult}}。",
+    "invokingDigitalTwinCommandOnDefaultComponent": "嘗試叫用 IoT 隨插即用裝置命令 '{{commandName}}' 用於裝置 '{{deviceId}}' (沒有承載) 的預設元件",
+    "invokingDigitalTwinCommandWithPayloadOnDefaultComponent": "嘗試叫用 IoT 隨插即用裝置命令 '{{commandName}}' 用於裝置 '{{deviceId}}' (具有承載 {{payload}}) 的預設元件",
+    "invokeMethodOnError": "無法在裝置 {{deviceId}} 上叫用方法: {{error}}",
+    "invokeMethodOnSuccess": "已成功叫用方法 '{{methodName}}'，在裝置 '{{deviceId}}' 上，回應為 {{response}}",
+    "invokingMethodWithPayload": "嘗試叫用方法 '{{methodName}}' (所在裝置 '{{deviceId}}' 具有承載 {{payload}})",
+    "invokeModuleMethodOnError": "無法在裝置 {{deviceId}} 模組 {{moduleId}} 上叫用方法: {{error}}",
+    "invokeModuleMethodOnSuccess": "已成功叫用方法 '{{methodName}}'，在裝置 '{{deviceId}}' 模組 {{moduleId}} 上，回應為 {{response}}",
+    "invokingModuleMethodWithPayload": "嘗試叫用方法 '{{methodName}}' (所在裝置 '{{deviceId}}' 模組 {{moduleId}} 具有承載 {{payload}})",
+    "interfaceSchemaNotSupported": "UI 形式尚未支援屬性結構描述 '{{schema}}'。請使用下列 JSON 編輯器檢視和更新值",
+    "deleteDeviceOnSucceed": "已成功刪除 {{count}} 個裝置",
+    "deleteDeviceOnError": "無法刪除 {{count}} 個裝置: {{error}}",
+    "addDeviceOnSucceed": "已成功新增裝置 {{deviceId}}",
+    "addDeviceOnError": "無法新增裝置 {{deviceId}}: {{error}}",
+    "updateDeviceOnSucceed": "已成功更新裝置 {{deviceId}}",
+    "updateDeviceOnError": "無法更新裝置 {{deviceId}}: {{error}}",
+    "patchDigitalTwinOnError": "無法更新 IoT 隨插即用裝置 {{deviceId}} 的所需屬性，回應碼為 {{error}}",
+    "patchDigitalTwinOnSuccess": "已成功更新 IoT 隨插即用裝置 {{deviceId}} 的所需屬性。",
+    "patchDigitalTwinOnAccept": "已接受更新 IoT 隨插即用裝置 {{deviceId}} 所需屬性的要求。",
+    "cloudToDeviceMessageOnError": "無法將訊息傳送到裝置 {{deviceId}}: {{error}}",
+    "cloudToDeviceMessageOnSuccess": "已成功將訊息 '{{message}}' 傳送到裝置 '{{deviceId}}'",
+    "sendingCloudToDeviceMessage": "嘗試將訊息 '{{message}}' 傳送到裝置 '{{deviceId}}'",
+    "copiedToClipboard": "內容已複製到剪貼簿",
+    "addModuleIdentityOnSucceed": "已成功新增模組身分識別 {{moduleId}}",
+    "addModuleIdentityOnError": "無法新增模組身分識別 {{moduleId}}: {{error}}",
+    "getModuleIdentityTwinOnError": "無法取得模型 {{moduleId}} 的模組身分識別對應項: {{error}}",
+    "getModuleIdentityOnError": "無法取得模組身分識別 {{moduleId}}: {{error}}",
+    "deleteModuleIdentityOnSuccess": "已成功刪除模組 {{moduleId}}",
+    "deleteModuleIdentityOnError": "無法刪除模組身分識別 {{moduleId}}: {{error}}",
+    "portIsInUseError": "連接埠 {{portNumber}} 使用中。若要解決問題，請將系統環境變數 'AZURE_IOT_EXPLORER_PORT' 設定為可用的連接埠號碼，以設定自訂連接埠。若要深入了解，請造訪 https://github.com/Azure/azure-iot-explorer/wiki/FAQ",
+    "modelRepoistorySettingsUpdated": "已成功更新模型存放庫位置。",
+    "startEventMonitoringOnError": "無法開始監視裝置遙測: {{error}}",
+    "stopEventMonitoringOnError": "無法停止監視裝置遙測: {{error}}",
+    "connectionStringsWithoutExpiryRemovalWarning": "由於安全性需求，先前儲存的中樞連接字串已經移除。要新增的連接字串會從現在算起的一年後自動到期。",
+    "connectionStringsWithExpiryRemovalWarning": "由於安全性需求，一或多個存放超過一年的中樞連接字串已經移除。"
+  },
+  "errorBoundary": {
+    "text": "發生錯誤"
+  },
+  "template": {
+    "array": {
+      "add": "新增項目",
+      "remove": "移除目前項目"
+    },
+    "collapse": {
+      "open": "開啟以取得詳細資訊",
+      "close": "摺疊"
+    }
+  },
+  "modelRepository": {
+    "empty": {
+      "header": "沒有模型存放庫位置可顯示",
+      "description": "模型存放庫位置會指定應用程式要尋找 IoT 隨插即用模型定義的位置。位置會儲存到應用程式儲存體，返回即可隨時加以編輯或移除",
+      "help": "什麼是 IoT 隨插即用"
+    },
+    "instruction": "我們會依照下列順序尋找您的模型定義。請拖放加以變更。按一下 [新增] 即可啟用更多方式來解析您的模型定義。",
+    "commands": {
+      "save": {
+        "label": "儲存",
+        "ariaLabel": "儲存"
+      },
+      "revert": {
+        "label": "還原",
+        "ariaLabel": "還原為上次儲存"
+      },
+      "add": {
+        "label": "新增",
+        "ariaLabel": "新增模型來源"
+      },
+      "addPublicSource": {
+        "label": "公用存放庫",
+        "ariaLabel": "公用存放庫模型來源"
+      },
+      "addConfigurableRepoSource": {
+        "label": "可設定的存放庫",
+        "ariaLabel": "可設定的存放庫模型來源"
+      },
+      "addLocalSource": {
+        "label": "本機資料夾",
+        "labelInBrowser": "本機資料夾 (這只有在桌面版本才會啟用: https://github.com/Azure/azure-iot-explorer/releases)",
+        "ariaLabel": "將本機資料夾新增為模型來源"
+      },
+      "remove": {
+        "label": "移除",
+        "ariaLabel": "移除"
+      },
+      "back": {
+        "label": "返回",
+        "ariaLabel": "返回最後位置"
+      },
+      "help": {
+        "label": "說明",
+        "ariaLabel": "開啟瀏覽器索引標籤至 IoT 隨插即用文件"
+      }
+    },
+    "types": {
+      "public": {
+        "label": "公用存放庫"
+      },
+      "configurable": {
+        "label": "可設定的存放庫",
+        "infoText": "設定您自己的存放庫端點",
+        "textBoxLabel": "存放庫端點"
+      },
+      "local": {
+        "label": "本機資料夾",
+        "infoText": "將您的本機資料夾當做模型存放庫使用。您要使用的模型定義檔案應具有 json 副檔名。將會擷取第一個具有 '@id' 屬性且符合數位對應項模型識別碼 (DTMI) 的 JSON 檔案。",
+        "textBoxLabel": "選取的資料夾",
+        "folderPicker": {
+          "command": {
+            "openPicker": "挑選資料夾",
+            "navigateToParent": "返回瀏覽父資料夾",
+            "select": "選取",
+            "cancel": "取消"
+          },
+          "errors": {
+            "mandatory": "請指定資料夾。"
+          },
+          "dialog": {
+            "title": "選取資料夾做為本機模型存放庫",
+            "subText": "選取的資料夾: {{folder}}",
+            "noFolderFoundText": "找不到資料夾。",
+            "error": "無法擷取資料夾資訊。"
+          }
+        }
+      },
+      "notAvailable": "--"
+    }
+  }
+}

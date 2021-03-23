@@ -1,0 +1,954 @@
+﻿{
+  "azureResource": {
+    "access": {
+      "unauthorized": "このリソースに対するアクセス権がありません",
+      "failed": "このリソースに対するアクセス権を検証できません",
+      "verifying": "このリソースに対するアクセス権の検証"
+    }
+  },
+  "common": {
+    "close": "閉じる",
+    "home": "ホーム",
+    "learnMore": "詳細を見る",
+    "loading": "読み込み中...",
+    "maskedCopyableTextField": {
+      "toggleMask": {
+        "label": {
+          "show": "コンテンツを表示",
+          "hide": "コンテンツを非表示"
+        }
+      },
+      "copy": {
+        "label": "コンテンツをコピー"
+      }
+    },
+    "confirmationDialog": {
+      "title": "確認",
+      "yes": "はい",
+      "no": "いいえ"
+    },
+    "navigation": {
+      "confirm": "保存していない編集は破棄されます",
+      "collapse": "ナビゲーション メニューを非表示",
+      "expand": "ナビゲーション メニューを表示"
+    }
+  },
+  "collapsibleSection": {
+    "open": "開く",
+    "close": "折りたたむ"
+  },
+  "header": {
+    "applicationName": "Azure IoT エクスプローラー (プレビュー)",
+    "search": {
+      "watermark": "ページで見つける"
+    },
+    "notifications": {
+      "hide": "通知を非表示",
+      "show": "通知",
+      "dismiss": "すべて無視",
+      "panel": {
+        "title": "通知",
+        "noNotifications": "このセッションの新しい通知はありません"
+      }
+    },
+    "questions": {
+      "launch": "開きますか?"
+    },
+    "settings": {
+      "launch": "設定"
+    }
+  },
+  "settings": {
+    "headerText": "設定",
+    "configuration": {
+      "headerText": "アプリの構成",
+      "redirect": "接続設定を探していますか?",
+      "redirectLink": "ホームにアクセスしてください。"
+    },
+    "modelDefinitions": {
+      "headerText": "IoT プラグ アンド プレイの構成",
+      "redirect": "IoT プラグ アンド プレイの設定を探していますか?",
+      "redirectLink": "ホームにアクセスしてください。"
+    },
+    "questions": {
+      "headerText": "ヘルプ:",
+      "questions": {
+        "documentation": {
+          "text": "IoT プラグ アンド プレイのドキュメント",
+          "link": "https://aka.ms/azure-iot-explorer-documentation"
+        },
+        "privacy": {
+          "text": "ローカル フォルダからのモデル定義の取得を有効化する前に、次のドキュメントをお読みください ",
+          "linkText": "プライバシー ステートメント",
+          "link": "https://privacy.microsoft.com/en-us/privacystatement"
+        }
+      }
+    },
+    "footerText": "[設定] に戻って後から変更できます。",
+    "save": "保存して接続",
+    "close": "閉じる",
+    "confirmationMessage": "保存しないで続行してよろしいですか?",
+    "theme": {
+      "headerText": "アプリケーションのテーマ",
+      "label": "テーマ",
+      "darkTheme": "ダーク",
+      "lightTheme": "ライト"
+    }
+  },
+  "breadcrumb": {
+    "devices": "デバイス",
+    "add": "新しい ID を作成",
+    "identity": "デバイス ID",
+    "twin": "デバイス ツイン",
+    "events": "テレメトリ",
+    "eventsPerInterface": "テレメトリ",
+    "methods": "ダイレクト メソッド",
+    "cloudToDeviceMessage": "cloud-to-device メッセージ",
+    "moduleIdentity": "モジュール ID",
+    "interfaces": "インターフェイス",
+    "properties": "プロパティ (読み取り専用)",
+    "settings": "プロパティ (書き込み可能)",
+    "commands": "コマンド",
+    "ioTPlugAndPlay": "IoT プラグ アンド プレイのコンポーネント",
+    "resources": "IoT Hub",
+    "repos": "IoT プラグ アンド プレイの設定",
+    "moduleDetail": "モジュールの詳細",
+    "moduleTwin": "モジュール ツイン",
+    "moduleMethod": "モジュール ダイレクト メソッド",
+    "addModuleIdentity": "モジュール ID を追加"
+  },
+  "deviceContent": {
+    "start": "デバイスを選択して開始",
+    "value": "値"
+  },
+  "connectionStrings": {
+    "empty": {
+      "header": "表示する接続がありません",
+      "description": "IoT Hub 接続文字列を追加する必要があります。接続文字列がアプリケーション ストレージに保存されました。戻るといつでも編集したり削除したりできます。"
+    },
+    "addConnectionCommand": {
+      "label": "接続を追加",
+      "ariaLabel": "接続文字列を追加"
+    },
+    "deleteConnectionCommand": {
+      "label": "接続を削除",
+      "ariaLabel": "次の接続文字列を削除: {{connectionString}}"
+    },
+    "editConnectionCommand": {
+      "label": "接続を編集",
+      "ariaLabel": "次の接続文字列を編集: {{connectionString}}"
+    },
+    "copyConnectionCommand": {
+      "label": "接続をコピー",
+      "ariaLabel": "次の接続文字列をコピー: {{connectionString}}"
+    },
+    "visitConnectionCommand": {
+      "label": "このハブのデバイスを表示",
+      "ariaLabel": "次のリソースを表示: {{connectionString}}"
+    },
+    "deleteConnection": {
+      "title": "削除を確認",
+      "body": "以下の接続文字列を削除しますか?",
+      "input": "削除する接続文字列",
+      "yes": {
+        "ariaLabel": "はい、{{connectionString}} を削除します",
+        "label": "はい"
+      },
+      "no": {
+        "ariaLabel": "いいえ、{{connectionString}} は削除しません",
+        "label": "いいえ"
+      }
+    },
+    "editConnection": {
+      "save": {
+        "label": "保存",
+        "ariaLabel": "接続文字列を保存"
+      },
+      "cancel": {
+        "label": "キャンセル",
+        "ariaLabel": {
+          "add": "接続文字列の追加をキャンセル",
+          "edit": "接続文字列の編集をキャンセル"
+        }
+      },
+      "title": {
+        "add": "接続文字列を追加",
+        "edit": "接続文字列を編集"
+      },
+      "editField": {
+        "label": "接続文字列",
+        "ariaLabel": "接続文字列",
+        "placeholder": "接続文字列を入力"
+      },
+      "validations": {
+        "duplicate": "指定された接続文字列はすでにリスト表示されています。"
+      }
+    },
+    "properties": {
+      "hostName": {
+        "label": "ホスト名",
+        "ariaLabel": "{{connection string}} のホスト名"
+      },
+      "sharedAccessPolicyName": {
+        "label": "共有アクセス ポリシー名",
+        "ariaLabel": "{{connection string}} の共有アクセス ポリシー名"
+      },
+      "sharedAccessPolicyKey": {
+        "label": "共有アクセス ポリシー キー",
+        "ariaLabel": "{{connection string}} の共有アクセス ポリシー キー"
+      },
+      "connectionString": {
+        "label": "接続文字列",
+        "ariaLabel": "接続文字列"
+      }
+    },
+    "expirationWarning": "ハブ接続文字列は {{numberOfDays}} 日未満で期限切れになります。接続文字列を編集 (コピーして貼り付け) して期限を延長するか、期限切れ後に再追加する必要があります。"
+  },
+  "connectivityPane": {
+    "header": "アプリの構成",
+    "connectionStringComboBox": {
+      "ariaLabel": "IoT Hub 接続文字列を選択または入力",
+      "ariaLabelRemove": "ホスト {{hostName}} への接続を削除",
+      "link": "https://aka.ms/iot-connection-strings",
+      "linkText": "どこで IoT Hub 接続文字列を取得できますか?",
+      "item": {
+        "ariaLabel": "{{sharedAccessKeyName}} の共有アクセス キーを使用して、ホスト {{hostName}} へ接続"
+      },
+      "label": "IoT Hub 接続文字列を選択または入力",
+      "errorMessages": {
+        "required": "接続文字列が必要です",
+        "invalid": "無効な接続文字列"
+      },
+      "prompt": "保存した接続文字列を選択するか、新しい接続文字列をここに貼り付け",
+      "warning": "ハブ接続文字列を安全ではない場所に保存しないでください"
+    },
+    "notes": "前回の接続文字列はアプリケーション ストレージに保存されます。[設定] を開くことで、いつでも保存した接続文字列の削除やその他の構成オプションの変更を実行できます。",
+    "saveButton": {
+      "label": "接続"
+    },
+    "dropDown": {
+      "newEntry": "(新機能) IoT Hub 接続文字列を追加",
+      "copyButton": "接続文字列をクリップボードにコピー"
+    }
+  },
+  "deviceIdentity": {
+    "headerText": "デバイス ID",
+    "deviceID": "デバイス ID",
+    "deviceIDTooltip": "デバイス認証とアクセス制御に使用するデバイス ID",
+    "authenticationType": {
+      "text": "認証タイプ",
+      "symmetricKey": {
+        "autoGenerate": "自動生成キー",
+        "type": "対称キー",
+        "primaryKey": "プライマリ キー",
+        "secondaryKey": "セカンダリ キー",
+        "primaryConnectionString": "プライマリ接続文字列",
+        "primaryConnectionStringTooltip": "API 呼び出しに使用するプライマリ キーに基づく接続文字列。これによって、デバイスは IoT Hub と通信できます。",
+        "primaryKeyTooltip": "base64 形式で保存されているプライマリ対称共有アクセス キー",
+        "secondaryConnectionString": "セカンダリ接続文字列",
+        "secondaryConnectionStringTooltip": "API 呼び出しで使用されるセカンダリ キーに基づく接続文字列。これによって、デバイスは IoT Hub と通信できます。",
+        "secondaryKeyTooltip": "base64 形式で保存されているセカンダリ対称共有アクセス キー",
+        "generatePrimaryKey": "プライマリ キーを生成",
+        "generateSecondaryKey": "セカンダリ キーを生成"
+      },
+      "ca": {
+        "type": "X.509 CA 署名済み",
+        "text": "このデバイスは、CA 認証によって認証済みです。",
+        "connectionString": "接続文字列",
+        "connectionStringTooltip": "API 呼び出しで使用される接続文字列。これによって、デバイスは IoT Hub と通信できます。"
+      },
+      "selfSigned": {
+        "type": "X.509 自己署名済み",
+        "text": "このデバイスは、X.509 証明書を使用して認証済みです。",
+        "primaryThumbprint": "プライマリ拇印",
+        "primaryThumbprintTooltip": "X.509 証明書の SHA-1 または SHA-256 ハッシュを表すプライマリ X.509 拇印。SHA-1 の 40 進数文字、SHA-256 の 64 進数文字以外の拇印の値は利用できません。",
+        "secondaryThumbprint": "セカンダリ拇印",
+        "secondaryThumbprintTooltip": "X.509 証明書の SHA-1 または SHA-256 ハッシュを表すセカンダリ X.509 拇印。SHA-1 の 40 進数文字、SHA-256 の 64 進数文字以外の拇印の値は利用できません。",
+        "connectionString": "接続文字列",
+        "connectionStringTooltip": "API 呼び出しで使用される接続文字列。これによって、デバイスは IoT Hub と通信できます。"
+      },
+      "sasToken": {
+        "label": "SAS トークンの接続文字列",
+        "toolTip": "SAS トークンを使用して接続文字列を生成",
+        "symmetricKey": "対称キー",
+        "expiration": "期限 (分)",
+        "textField": {
+          "label": "SAS トークン接続文字列",
+          "ariaLabel": "SAS トークン接続文字列"
+        },
+        "generateButton": {
+          "title": "生成",
+          "text": "生成"
+        }
+      }
+    },
+    "hubConnectivity": {
+      "label": "このデバイスを IoT Hub に接続",
+      "tooltip": "デバイスの IoT Hub との同期を有効化または無効化",
+      "enable": "有効化",
+      "enabled": "有効化済み",
+      "disable": "無効化",
+      "disabled": "無効化済み"
+    },
+    "commands": {
+      "save": "保存",
+      "manageKeys": {
+        "label": "キーを管理",
+        "ariaLabel": "デバイスのキーを管理"
+      },
+      "regeneratePrimary": {
+        "ariaLabel": "プライマリ キーを再生成",
+        "label": "プライマリ キーを再生成"
+      },
+      "regenerateSecondary": {
+        "ariaLabel": "セカンダリ キーを再生成",
+        "label": "セカンダリ キーを再生成"
+      },
+      "swapKeys": {
+        "ariaLabel": "キーを切り替え",
+        "label": "キーを切り替え"
+      }
+    },
+    "validation": {
+      "invalidDeviceId": "デバイス ID の無効な文字",
+      "invalidKey": "無効なキー",
+      "invalidThumbprint": "無効な拇印"
+    }
+  },
+  "deviceLists": {
+    "paging": {
+      "pages": "ページ:"
+    },
+    "loadingDevice": "デバイスを読み込み中",
+    "noDevice": "表示するデバイスがありません",
+    "noData": "なし",
+    "columns": {
+      "deviceId": {
+        "label": "デバイス ID",
+        "infoText": "デバイス認証とアクセス制御に使用するデバイス ID"
+      },
+      "status": {
+        "label": "状態",
+        "infoText": "デバイスの現在の状態"
+      },
+      "connection": "接続状態",
+      "lastActivityTime": "前回の活動時間",
+      "statusUpdatedTime": "前回の状態更新時間",
+      "cloudToDeviceMessageCount": "Cloud-to-device メッセージ数",
+      "authenticationType": "認証タイプ",
+      "isEdgeDevice": {
+        "label": "Edge デバイス",
+        "yes": "Edge デバイスです",
+        "no": "Edge デバイスではありません"
+      },
+      "isPnpDevice": "IoT プラグ アンド プレイのデバイス",
+      "interfaces": "インターフェイス"
+    },
+    "commands": {
+      "add": "新規",
+      "close": "キャンセル",
+      "delete": {
+        "buttonText": "削除",
+        "confirmationDialog": {
+          "title": "IoT Hub から削除しますか?",
+          "subText": "よく確認してください。以下のデバイスを IoT Hub から削除しようとしています。同じ Hub またはデバイスを使用する他のコンテンツに影響する可能性があります。",
+          "confirm": "削除",
+          "cancel": "キャンセル"
+        }
+      },
+      "refresh": "更新",
+      "save": "作成"
+    },
+    "query": {
+      "deviceId": {
+        "placeholder": "デバイス ID でクエリ...",
+        "ariaLabel": "デバイス ID でクエリ",
+        "searchButton": {
+          "title": "検索",
+          "ariaLabel": "追加の句なしで、デバイス ID で検索を実行"
+        }
+      },
+      "searchPills": {
+        "add": {
+          "ariaLabel": "クエリ パラメータを追加",
+          "text": "クエリ パラメータを追加"
+        },
+        "search": {
+          "ariaLabel": "デバイス ID なしで、指定された句で検索を実行",
+          "text": "検索"
+        },
+        "clause": {
+          "parameterType": {
+            "placeholder": "パラメータ タイプ",
+            "ariaLabel": "クエリ句のタイプ",
+            "items": {
+              "propertyValue": "プロパティ値",
+              "status": "状態",
+              "lastActivityTime": "前回の活動時間",
+              "statusUpdateTime": "状態更新時間",
+              "edge": "Edge"
+            }
+          },
+          "operationType": {
+            "title": "操作のタイプ",
+            "ariaLabel": "この句の比較型を選択",
+            "options": {
+              "equals": "等しい",
+              "notEquals": "等しくない"
+            }
+          },
+          "value": {
+            "placeholder": "値を選択",
+            "ariaLabel": "この句の値を入力",
+            "deviceCapability": {
+              "edge": "Edge デバイスです",
+              "nonEdge": "Edge デバイスではありません"
+            },
+            "deviceStatus": {
+              "enabled": "有効化済み",
+              "disabled": "無効化済み"
+            }
+          },
+          "remove": {
+            "title": "削除",
+            "ariaLabel": "この句を削除"
+          }
+        }
+      }
+    },
+    "messageBar": {
+      "message": "{{version}} はリリース済みです。",
+      "link": "ここをクリックしてダウンロードしてください。"
+    }
+  },
+  "deviceTwin": {
+    "notFound": "デバイス ツインのデータはありません",
+    "headerText": "デバイス ツイン",
+    "command": {
+      "refresh": "更新",
+      "save": "保存"
+    },
+    "tooltip": "ここから、タグと目的のプロパティをデバイス ツインへ追加できます。タグや目的のプロパティを削除するには、削除する項目の値を設定して「なし」にします。"
+  },
+  "digitalTwin": {
+    "headerText": "IoT プラグ アンド プレイのコンポーネント",
+    "modelId": "モデル ID",
+    "modelContainsNoComponents": "モデル「{{modelId}}」には、IoT プラグ アンド プレイのコンポーネントが含まれておりません。",
+    "componentName": "構成要素",
+    "steps": {
+      "zero": "お使いのデバイスは、IoT プラグ アンド プレイのデバイスとして認識されていません。詳細については、こちらを確認してください ",
+      "first": "ステップ 1.お使いのデバイスは、IoT プラグ アンド プレイのデバイスとして検出されています",
+      "secondSuccess": "ステップ 2.IoT プラグ アンド プレイのモデルを解決しました",
+      "secondFailure": "ステップ 2.{{modelId}} のモデル定義を取得できません",
+      "third": "ステップ 3.各コンポーネントまで特定して、IoT プラグ アンド プレイのジャーニーを続行",
+      "explanation": "モデル {{modelId}} の「プロパティ」、「コマンド」、または「テレメトリ」を定義済みの場合は、以下の表から「デフォルトのコンポーネント」を確認できます。「コンポーネント」を定義済みの場合は、以下からコンポーネントの一覧を確認できます。"
+    },
+    "pivot": {
+      "ariaLabel": "モデルのコンポーネントとコンテンツ ピボット",
+      "components": "コンポーネント",
+      "content": "モデルのコンテンツ",
+      "defaultComponent": "デフォルトのコンポーネント",
+      "digitalTwin": "デジタル ツインのコンテンツ"
+    },
+    "interfaceId": "モデル ID"
+  },
+  "deviceProperties": {
+    "command": {
+      "refresh": "更新",
+      "openReportedValuePanel": "クリックして値を表示",
+      "close": "戻る"
+    },
+    "headerText": "読み取り専用プロパティ",
+    "noProperties": "ComponentName {{componentName}} には、読み取り専用プロパティの定義は含まれません",
+    "columns": {
+      "name": "名前 (名前/説明を表示)",
+      "value": "値",
+      "schema": "スキーマ",
+      "unit": "数量",
+      "error": "値がスキーマと一致しません"
+    },
+    "editor": {
+      "label": "プロパティ スキーマ「{{schema}}」は、まだ UI フォームではサポートされていません。以下の JSON エディタを使用して、報告値を表示してください"
+    }
+  },
+  "deviceSettings": {
+    "previewPayloadButtonText": "ペイロードをプレビュー",
+    "noPreviewContent": "表示するペイロードがありません。",
+    "command": {
+      "refresh": "更新",
+      "submit": "目的の値を更新",
+      "openReportedValuePanel": "クリックして値を表示",
+      "openDesiredValuePanel": "クリックして編集",
+      "expandAll": "すべて表示",
+      "expand": "展開する",
+      "collapseAll": "すべて非表示",
+      "collapse": "折りたたむ",
+      "close": "戻る"
+    },
+    "headerText": "書き込み可能プロパティ",
+    "noSettings": "ComponentName {{componentName}} には、書き込み可能プロパティの定義は含まれません",
+    "ackStatus": {
+      "code": "Ack コード: {{code}}",
+      "description": "Ack 説明: {{description}}",
+      "version": "Ack バージョン: {{version}}"
+    },
+    "columns": {
+      "name": "名前 (名前/説明を表示)",
+      "schema": "スキーマ",
+      "unit": "数量",
+      "reportedValue": "報告値 (Ack メタデータ)",
+      "reportedValueTooltip": "報告値は非同期で更新されます。上部にある [更新] ボタンをクリックして、最新の値を手動で取得してください",
+      "error": "値がスキーマと一致しません"
+    },
+    "panel": {
+      "title": "報告値"
+    }
+  },
+  "deviceCommands": {
+    "command": {
+      "refresh": "更新",
+      "submit": "コマンドを送信",
+      "expandAll": "すべて表示",
+      "expand": "展開する",
+      "collapseAll": "すべて非表示",
+      "collapse": "折りたたむ",
+      "close": "戻る"
+    },
+    "headerText": "コマンド",
+    "noCommands": "ComponentName {{componentName}} には、コマンドの定義は含まれません",
+    "columns": {
+      "name": "名前 (名前/説明を表示)",
+      "schema": {
+        "request": "スキーマをリクエスト",
+        "response": "スキーマに応答"
+      },
+      "type": "コマンドのタイプ"
+    }
+  },
+  "deviceInterfaces": {
+    "command": {
+      "refresh": "更新",
+      "configure": "構成",
+      "close": "戻る"
+    },
+    "columns": {
+      "id": "インターフェイス ID",
+      "source": "お使いのモデル定義は解決されています",
+      "noSource": "インターフェイスの定義を取得できませんでした",
+      "displayName": "名前",
+      "description": "説明"
+    },
+    "headerText": "インターフェイス",
+    "noInterfaces": "インターフェイスなし",
+    "interfaceNotFound": "有効なインターフェイス モデル定義を取得できません。以下の [構成] ボタンをクリックして、モデル定義を解決する方法を確認してください。",
+    "interfaceNotValid": "モデル定義は有効ではありません。モデル定義を更新してから進めてください。",
+    "interfaceListFailedToRender": "モデル定義からコンポーネント一覧を解析できませんでした。現時点ではサポート対象外の定義を含んでいる可能性があります。wiki (https://github.com/Azure/azure-iot-explorer/wiki) にアクセスして、DTDL のサポート対象範囲を確認してください。"
+  },
+  "deviceEvents": {
+    "command": {
+      "refresh": "更新",
+      "clearEvents": "イベントを消去",
+      "showSystemProperties": "システム プロパティを表示",
+      "start": "開始",
+      "stop": "停止",
+      "fetch": "イベントを取得",
+      "close": "戻る",
+      "simulate": "デバイスをシミュレート"
+    },
+    "consumerGroups": {
+      "label": "コンシューマー グループ",
+      "tooltip": "IoT Hub からデータをプルするために、コンシューマー グループはアプリケーションによって使用されます。現在のコンシューマー グループを変更するには、テレメトリの監視を停止します。"
+    },
+    "startTime": {
+      "error": "日時の形式は、西暦/月/日/時/分/秒で入力してください",
+      "label": "開始時間",
+      "tooltip": "イベント ハブのメッセージを読み込む際に使用する必要がある、ローカル エンキュー時間を示します。指定しない場合、エンキュー時間は [開始] ボタン クリック時になります。"
+    },
+    "customEventHub": {
+      "connectionString": {
+        "label": "イベント ハブ接続文字列をカスタマイズ",
+        "placeHolder": "Endpoint=sb://<FQDN>/;SharedAccessKeyName=<KeyName>;SharedAccessKey=<KeyValue>",
+        "error": "イベントハブ接続文字列の形式は、「Endpoint=sb://<FQDN>/;SharedAccessKeyName=<KeyName>;SharedAccessKey=<KeyValue>」のようになります。"
+      },
+      "name": {
+        "label": "イベント ハブ名をカスタマイズ"
+      }
+    },
+    "headerText": "テレメトリ",
+    "noEvent": "ComponentName {{componentName}} には、テレメトリの定義は含まれません",
+    "tooltip": "デバイスが IoT Hub に送信したテレメトリを監視できます",
+    "interfaceDropDown": {
+      "label": "テレメトリをフィルタリングするインターフェイスを選択",
+      "placeHolder": "インターフェイスを選択"
+    },
+    "infiniteScroll": {
+      "loading": "イベントを取得中..."
+    },
+    "event": {
+      "body": "本文: ",
+      "enqueuedTime": "エンキュー時間: ",
+      "properties": "プロパティ: "
+    },
+    "columns": {
+      "displayName": "名前",
+      "timestamp": "エンキュー時間",
+      "schema": "スキーマ",
+      "unit": "数量",
+      "value": "値",
+      "validation": {
+        "key": {
+          "isNotSpecified": "このテレメトリ「{{key}}」は、モデルにはありません。このモデル作成を実行できます。",
+          "doesNotMatch": "キー不一致。必要なキーは {{expectedKey}} ですが、取得したキーは {{receivedKey}} です"
+        },
+        "value": {
+          "label": "値がスキーマと一致しません",
+          "bodyIsEmpty": "テレメトリ本文が空欄です"
+        }
+      }
+    },
+    "toggleShowRawData": {
+      "label": "テレメトリの生データを表示",
+      "on": "オン",
+      "off": "オフ"
+    },
+    "toggleUseDefaultEventHub": {
+      "label": "組み込みのイベント ハブを使用",
+      "on": "はい",
+      "off": "いいえ"
+    },
+    "toggleSpecifyStartingTime": {
+      "label": "エンキュー時間を指定",
+      "on": "はい",
+      "off": "いいえ"
+    },
+    "error": "イベントを監視できませんでした。{{error}}",
+    "simulation": {
+      "header": "Azure Cloud Shell で CLI を使用するデバイスをシミュレート",
+      "cloudShell": {
+        "imageDescription": "Azure Cloud Shell を起動",
+        "textDescription": "[Cloud Shell を起動] をクリックして以下にコマンドを貼り付けて、テレメトリを送信するデバイスをシミュレートします。組込みのイベント ハブからイベントの監視を開始できるようになります。"
+      },
+      "prerequisite": {
+        "label": "前提条件",
+        "tooltiop": "Azure Cloud Shell を使用したことがない",
+        "instruction": "Cloud Shell を初めて使用する場合は、Azure Cloud Shell のインストラクションに従って、サブスクリプションを選択してストレージをセットアップします。エラー メッセージ「az iot: 『デバイス』が『az iot』コマンド グループにありません」が表示された場合は、「az extension add --name azure-iot」コマンドを使用して、Azure IoT CLI 拡張子をインストールします。"
+      },
+      "basic": {
+        "label": "基本シナリオ",
+        "tooltiop": "0 入力の基本シナリオ",
+        "instruction": "以下のコマンドを Azure Cloud Shell にコピーして貼り付けるだけです。実行すると、デバイス {{deviceId}} のシミュレーションが開始されて IoT Hub へメッセージが送信されます。[テレメトリ] ページの [開始] ボタンをクリックして、イベントの監視を開始できます。",
+        "copyLabel": "デバイス {{deviceId}} のシミュレーション"
+      },
+      "advanced": {
+        "label": "上級シナリオ",
+        "tooltiop": "上級ユーザー向けの、イベントの本文またはプロパティのシミュレート機能",
+        "instruction": "目的のメッセージの本文やプロパティを入力して、生成されたコマンドを Azure Cloud Shell にコピーして貼り付けます。実行すると、デバイス {{deviceId}} のシミュレーションが開始されて IoT Hub へメッセージが送信されます。[テレメトリ] ページの [開始] ボタンをクリックして、イベントの監視を開始できます。",
+        "copyLabel": "デバイス {{deviceId}} のシミュレーション",
+        "body": {
+          "label": "イベント本文を入力",
+          "tooltip": "空欄の場合は、次のデフォルト値が入力されます:  「Az CLI IoT 拡張子から ping を実行」。"
+        },
+        "properties": {
+          "key": "キー",
+          "keyDup": "キーは一意にする必要があります",
+          "value": "値",
+          "addProperty": "プロパティを追加",
+          "delete": "削除",
+          "toggleSelectionColumnAriaLabel": "選択を切り替え",
+          "selectAllCheckboxAriaLabel": "すべての選択を切り替え",
+          "rowCheckBoxAriaLabel": "行チェックボックス"
+        }
+      }
+    }
+  },
+  "directMethod": {
+    "headerText": "ダイレクト メソッド",
+    "tooltip": "ダイレクト メソッドをデバイスに送信できます。ダイレクト メソッドには、名前、ペイロード、構成可能接続、方法のタイムアウトが含まれます。",
+    "methodName": "方法名",
+    "methodNamePlaceHolder": "このデバイスで呼び出すダイレクト メソッドの名前",
+    "connectionTimeout": "接続タイムアウト (秒)",
+    "connectionTimeoutTooltip": "接続の正常な確立までに待機する秒数。",
+    "responseTimeout": "応答タイムアウト (秒)",
+    "responseTimeoutTooltip": "ダイレクト メソッドから結果を受信するまでに待機する秒数。",
+    "invokeMethodButtonText": "呼び出しメソッド",
+    "payload": "ペイロード",
+    "payloadTooltip": "このデバイスで呼び出すダイレクト メソッドのペイロード",
+    "result": "結果"
+  },
+  "cloudToDeviceMessage": {
+    "headerText": "cloud-to-device メッセージ",
+    "tooltip": "メッセージを IoT Hub のデバイスに送信できます。キーと値の文字列のペアのコレクションとして、メッセージには本文とオプションのプロパティが含まれます。",
+    "sendMessageButtonText": "メッセージをデバイスに送信",
+    "body": "メッセージ本文",
+    "bodyTooltip": "デバイスに送信するメッセージの本文。",
+    "addTimestamp": "タイムスタンプをメッセージ本文に追加",
+    "properties": {
+      "label": "プロパティ",
+      "systemProperties": {
+        "ack": {
+          "displayName": "ack",
+          "description": "リクエストされたフィードバックのタイプ。",
+          "full": "フル (いずれの場合も、IoT Hub はフィードバック メッセージを生成します)",
+          "positive": "正 (c2d メッセージが完了状態の場合、IoT Hub はフィードバック メッセージを生成します)",
+          "negative": "負 (c2d メッセージが配信不能状態の場合、IoT Hub はフィードバック メッセージを生成します)"
+        },
+        "contentType": {
+          "displayName": "content-type",
+          "description": "メッセージ本文に関連するコンテンツのタイプ。"
+        },
+        "contentEncoding": {
+          "displayName": "content-encoding",
+          "description": "メッセージ本文に関連するコンテンツのエンコード。",
+          "utf8": "utf-8",
+          "utf16": "utf-16",
+          "utf32": "utf-32"
+        },
+        "correlationId": {
+          "displayName": "correlation-id",
+          "description": "メッセージに関連するコンテンツの関連付け ID。"
+        },
+        "expiryTimeUtc": {
+          "displayName": "expiry-time-utc",
+          "description": "UNIX エポック開始時からの有効期限 (UTC; ミリ秒)",
+          "error": "有効期限は整数で、現在の時刻より大きくする必要があります"
+        },
+        "lockToken": {
+          "displayName": "lock-token",
+          "description": "メッセージを破棄、拒否、または受け入れる際に使用します。"
+        },
+        "messageId": {
+          "displayName": "message-id",
+          "description": "メッセージ ID。メッセージ ID を入力していない場合は、UUID が生成されます。"
+        }
+      },
+      "key": "キー",
+      "keyDup": "キーは一意にする必要があります",
+      "value": "値",
+      "addCustomProperty": "カスタム プロパティを追加",
+      "addSystemProperty": "システム プロパティを追加",
+      "delete": "削除",
+      "tooltip": "このデバイスに送信されるメッセージのプロパティ。",
+      "toggleSelectionColumnAriaLabel": "選択を切り替え",
+      "selectAllCheckboxAriaLabel": "すべての選択を切り替え",
+      "rowCheckBoxAriaLabel": "行チェックボックス"
+    },
+    "output": "出力"
+  },
+  "moduleIdentity": {
+    "headerText": "モジュール ID",
+    "tooltip": "最大 20 個のモジュール ID を作成できます。各モジュール ID は、モジュール ツインを暗示的に生成します",
+    "link": "https://aka.ms/iot-hub-module-twin",
+    "addModuleHeaderText": "モジュール ID を追加",
+    "command": {
+      "add": "追加",
+      "refresh": "更新",
+      "cancel": "キャンセル",
+      "save": "作成"
+    },
+    "columns": {
+      "moduleId": "モジュール ID",
+      "connectionState": "接続状態",
+      "connectionStateLastUpdated": "前回更新時の接続状態",
+      "lastActivityTime": "前回の活動時間"
+    },
+    "noModules": "このデバイスのモジュール ID はありません。",
+    "errorFetching": "この情報の読み込みを妨げるエラーが発生しました。",
+    "moduleId": "モジュール ID 名",
+    "moduleIdTooltip": "認証とアクセス制御に使用するモジュール ID 名",
+    "authenticationType": {
+      "text": "認証タイプ",
+      "symmetricKey": {
+        "autoGenerate": "自動生成キー",
+        "type": "対称キー",
+        "primaryKey": "プライマリ キー",
+        "secondaryKey": "セカンダリ キー",
+        "primaryConnectionString": "プライマリ接続文字列",
+        "primaryKeyTooltip": "base64 形式で保存されているプライマリ対称共有アクセス キー",
+        "secondaryConnectionString": "セカンダリ接続文字列",
+        "secondaryKeyTooltip": "base64 形式で保存されているセカンダリ対称共有アクセス キー",
+        "generatePrimaryKey": "プライマリ キーを生成",
+        "generateSecondaryKey": "セカンダリ キーを生成"
+      },
+      "ca": {
+        "type": "X.509 CA 署名済み",
+        "text": "このデバイスは、CA 認証によって認証済みです。"
+      },
+      "selfSigned": {
+        "type": "X.509 自己署名済み",
+        "text": "このデバイスは、X.509 証明書を使用して認証済みです。",
+        "primaryThumbprint": "プライマリ拇印",
+        "primaryThumbprintTooltip": "X.509 証明書の SHA-1 または SHA-256 ハッシュを表すプライマリ X.509 拇印。SHA-1 の 40 進数文字、SHA-256 の 64 進数文字以外の拇印の値は利用できません。",
+        "secondaryThumbprint": "セカンダリ拇印",
+        "secondaryThumbprintTooltip": "X.509 証明書の SHA-1 または SHA-256 ハッシュを表すセカンダリ X.509 拇印。SHA-1 の 40 進数文字、SHA-256 の 64 進数文字以外の拇印の値は利用できません。"
+      }
+    },
+    "validation": {
+      "invalidModuleIdentityName": "モジュール ID 名の無効な文字",
+      "invalidKey": "無効なキー",
+      "invalidThumbprint": "無効な拇印"
+    },
+    "detail": {
+      "headerText": "モジュール ID の詳細",
+      "command": {
+        "back": "戻る",
+        "refresh": "更新",
+        "delete": "削除"
+      },
+      "twin": "モジュール ID ツイン",
+      "deleteConfirmation": "このモジュール ID を削除してもよろしいですか?"
+    }
+  },
+  "noMatchError": {
+    "title": "404 - 見つかりません",
+    "description": "お探しのページは利用できません。",
+    "goHome": "ホームページに移動"
+  },
+  "notifications": {
+    "savedToIotHubConnectionString": "IoT Hub {{hostName}} の接続文字列を正常に保存しました",
+    "getDeviceIdentityOnError": "デバイス {{deviceId}} の ID を取得できませんでした: {{error}}",
+    "getDeviceListOnError": "次のデバイス リストを取得できませんでした: {{error}}",
+    "getDeviceListGenericErrorHelp": "デバイス リストを取得できませんでした。無効な IoT Hub 接続文字列が原因の可能性があります",
+    "getDeviceTwinOnError": "デバイス {{deviceId}} のツインを取得できませんでした: {{error}}",
+    "getDigitalTwinOnError": "IoT プラグ アンド プレイのデバイス {{deviceId}} のプロパティを取得できませんでした: {{error}}",
+    "getModuleIdentitiesOnError": "デバイス {{deviceId}} のモジュール ID を取得できませんでした: {{error}}",
+    "getInterfaceModelOnError": "インターフェイス モジュールの定義 {{interfaceId}} を、すべての構成されたソースから取得できませんでした。",
+    "parseLocalInterfaceModelOnError": "{{interfaceId}} はローカル フォルダから取得できません。解析中に発生したエラーを含む JSON ファイルのリスト:  {{files}}。末尾のコンマは JSON ファイルでは使用できないことにご注意ください。",
+    "updateDeviceTwinOnError": "デバイス {{deviceId}} のデバイス ツインを更新できませんでした: {{error}}",
+    "updateDeviceTwinOnSuccess": "デバイス {{deviceId}} のデバイス ツインを正常に更新しました。",
+    "invokeDigitalTwinCommandOnError": "デバイス「{{deviceId}}」にあるコンポーネント「{{componentName}}」に関する IoT プラグ アンド プレイのデバイス コマンド「{{commandName}}」を呼び出せませんでした: {{error}}",
+    "invokeDigitalTwinCommandOnSuccess": "デバイス「{{deviceId}}」にあるコンポーネント「{{componentName}}」に関する IoT プラグ アンド プレイのデバイス コマンド「{{commandName}}」を正常に呼び出しました:  {{response}}。",
+    "invokeDigitalTwinCommandOnSuccessButResponseIsNotValid": "デバイス「{{deviceId}}」にあるコンポーネント「{{componentName}}」に関する IoT プラグ アンド プレイのデバイス コマンド「{{commandName}}」を正常に呼び出しました:  {{response}}、応答は有効ではありません:  {{validationResult}}。",
+    "invokingDigitalTwinCommand": "ペイロードを使用しないで、デバイス「{{deviceId}}」にあるコンポーネント「{{componentName}}」に関する IoT プラグ アンド プレイのデバイス コマンド「{{commandName}}」の呼び出しを試行しています",
+    "invokingDigitalTwinCommandWithPayload": "ペイロード {{payload}} で、デバイス「{{deviceId}}」にあるコンポーネント「{{componentName}}」に関する IoT プラグ アンド プレイのデバイス コマンド「{{commandName}}」の呼び出しを試行しています",
+    "invokeDigitalTwinCommandOnDefaultComponentOnError": "デバイス「{{deviceId}}」にあるデフォルトのコンポーネントに関する IoT プラグ アンド プレイのデバイス コマンド「{{commandName}}」を呼び出せませんでした: {{error}}",
+    "invokeDigitalTwinCommandOnDefaultComponentOnSuccess": "デバイス「{{deviceId}}」にあるデフォルトのコンポーネントに関する IoT プラグ アンド プレイのデバイス コマンド「{{commandName}}」を正常に呼び出しました:  {{response}}。",
+    "invokeDigitalTwinCommandOnDefaultComponentOnSuccessButResponseIsNotValid": "デバイス「{{deviceId}}」にあるデフォルトのコンポーネントに関する IoT プラグ アンド プレイのデバイス コマンド「{{commandName}}」を正常に呼び出しました:  {{response}}、応答は有効ではありません:  {{validationResult}}。",
+    "invokingDigitalTwinCommandOnDefaultComponent": "ペイロードを使用しないで、デバイス「{{deviceId}}」にあるデフォルトのコンポーネントに関する IoT プラグ アンド プレイのデバイス コマンド「{{commandName}}」の呼び出しを試行しています",
+    "invokingDigitalTwinCommandWithPayloadOnDefaultComponent": "ペイロード {{payload}} で、デバイス「{{deviceId}}」にあるデフォルトのコンポーネントに関する IoT プラグ アンド プレイのデバイス コマンド「{{commandName}}」の呼び出しを試行しています",
+    "invokeMethodOnError": "デバイス {{deviceId}} のメソッドを呼び出せませんでした: {{error}}",
+    "invokeMethodOnSuccess": "応答 {{response}} で、デバイス「{{deviceId}}」のメソッド「{{methodName}}」を正常に呼び出しました",
+    "invokingMethodWithPayload": "ペイロード {{payload}} で、デバイス「{{deviceId}}」のメソッド「{{methodName}}」の呼び出しを試行しています",
+    "invokeModuleMethodOnError": "デバイス {{deviceId}} のモジュール {{moduleId}} のメソッドを呼び出せませんでした: {{error}}",
+    "invokeModuleMethodOnSuccess": "応答 {{response}} で、デバイス「{{deviceId}}」のモジュール「{{moduleId}}」のメソッド「{{methodName}}」を正常に呼び出しました",
+    "invokingModuleMethodWithPayload": "ペイロード {{payload}} で、デバイス「{{deviceId}}」のモジュール {{moduleId}} のメソッド「{{methodName}}」の呼び出しを試行しています",
+    "interfaceSchemaNotSupported": "プロパティ スキーマ「{{schema}}」は、まだ UI フォームではサポートされていません。以下の JSON エディタを使用して、値を表示して更新してください",
+    "deleteDeviceOnSucceed": "{{count}} デバイスを正常に削除しました",
+    "deleteDeviceOnError": "{{count}} デバイスを削除できませんでした: {{error}}",
+    "addDeviceOnSucceed": "{{deviceId}} デバイスを正常に追加しました",
+    "addDeviceOnError": "{{deviceId}} デバイスを追加できませんでした: {{error}}",
+    "updateDeviceOnSucceed": "{{deviceId}} デバイスを正常に更新しました",
+    "updateDeviceOnError": "{{deviceId}} デバイスを更新できませんでした: {{error}}",
+    "patchDigitalTwinOnError": "応答コード {{error}} で、IoT プラグ アンド プレイのデバイス {{deviceId}} の目的のプロパティを更新できませんでした",
+    "patchDigitalTwinOnSuccess": "IoT プラグ アンド プレイのデバイス {{deviceId}} の目的のプロパティを正常に更新しました。",
+    "patchDigitalTwinOnAccept": "IoT プラグ アンド プレイのデバイス {{deviceId}} の目的のプロパティを更新するリクエストは承諾されました。",
+    "cloudToDeviceMessageOnError": "メッセージをデバイス {{deviceId}} に送信できませんでした: {{error}}",
+    "cloudToDeviceMessageOnSuccess": "メッセージ「{{message}}」をデバイス「{{deviceId}}」に正常に送信しました",
+    "sendingCloudToDeviceMessage": "メッセージ「{{message}}」のデバイス「{{deviceId}}」への送信を試行中",
+    "copiedToClipboard": "クリップボードにコピーしたコンテンツ",
+    "addModuleIdentityOnSucceed": "モジュール ID {{moduleId}} を正常に追加しました",
+    "addModuleIdentityOnError": "モジュール ID {{moduleId}} を追加できませんでした: {{error}}",
+    "getModuleIdentityTwinOnError": "モジュール {{moduleId}} のモジュール ID ツインを取得できませんでした: {{error}}",
+    "getModuleIdentityOnError": "モジュール ID {{moduleId}} を取得できませんでした: {{error}}",
+    "deleteModuleIdentityOnSuccess": "モジュール {{moduleId}} を正常に削除しました",
+    "deleteModuleIdentityOnError": "モジュール ID {{moduleId}} を削除できませんでした: {{error}}",
+    "portIsInUseError": "ポート {{portNumber}} は使用中です。問題を回避するには、システム環境変数「AZURE_IOT_EXPLORER_PORT」を設定して、カスタムポートに利用可能なポート番号を構成してください。詳細については、https://github.com/Azure/azure-iot-explorer/wiki/FAQ にアクセスしてください",
+    "modelRepoistorySettingsUpdated": "モデル リポジトリの場所を正常に更新しました。",
+    "startEventMonitoringOnError": "デバイス テレメトリの監視を開始できませんでした: {{error}}",
+    "stopEventMonitoringOnError": "デバイス テレメトリの監視を停止できませんでした: {{error}}",
+    "connectionStringsWithoutExpiryRemovalWarning": "セキュリティ要件によって、前回保存したハブ接続文字列が削除されました。追加される新しい接続文字列の期限日は、自動的に現時点から 1 年後の日付になります。",
+    "connectionStringsWithExpiryRemovalWarning": "セキュリティ要件によって、1 年以上前に保存した 1 個以上のハブ接続文字列が削除されました。"
+  },
+  "errorBoundary": {
+    "text": "問題が発生しました"
+  },
+  "template": {
+    "array": {
+      "add": "エントリを追加",
+      "remove": "現在のエントリを削除"
+    },
+    "collapse": {
+      "open": "詳細を開く",
+      "close": "折りたたむ"
+    }
+  },
+  "modelRepository": {
+    "empty": {
+      "header": "表示するモデル リポジトリの場所はありません",
+      "description": "モデル リポジトリの場所では、IoT プラグ アンド プレイのモデル定義を検索できる場所を指定します。場所がアプリケーション ストレージに保存されました。戻るといつでも編集したり削除したりできます。",
+      "help": "IoT プラグ アンド プレイについて"
+    },
+    "instruction": "次の順番でモデル定義を検索します。ドラッグ & ドロップして変更してください。[追加] をクリックして、モデル定義を解決できるより多くの方法を有効化します。",
+    "commands": {
+      "save": {
+        "label": "保存",
+        "ariaLabel": "保存"
+      },
+      "revert": {
+        "label": "元に戻す",
+        "ariaLabel": "前回の保存に戻す"
+      },
+      "add": {
+        "label": "追加",
+        "ariaLabel": "モデル ソースを追加"
+      },
+      "addPublicSource": {
+        "label": "リポジトリを公開",
+        "ariaLabel": "リポジトリのモデル ソースを公開"
+      },
+      "addConfigurableRepoSource": {
+        "label": "構成可能なリポジトリ",
+        "ariaLabel": "構成可能なリポジトリのモデル ソース"
+      },
+      "addLocalSource": {
+        "label": "ローカル フォルダ",
+        "labelInBrowser": "ローカル フォルダ (https://github.com/Azure/azure-iot-explorer/releases のデスクトップ バージョンでのみ利用可能)",
+        "ariaLabel": "ローカル フォルダをモデル ソースとして追加"
+      },
+      "remove": {
+        "label": "削除",
+        "ariaLabel": "削除"
+      },
+      "back": {
+        "label": "戻る",
+        "ariaLabel": "前回の場所に戻る"
+      },
+      "help": {
+        "label": "ヘルプ",
+        "ariaLabel": "ブラウザ タブを開いて、IoT プラグ アンド プレイのドキュメントに移動"
+      }
+    },
+    "types": {
+      "public": {
+        "label": "リポジトリを公開"
+      },
+      "configurable": {
+        "label": "構成可能なリポジトリ",
+        "infoText": "リポジトリのエンドポイントを構成",
+        "textBoxLabel": "リポジトリのエンドポイント"
+      },
+      "local": {
+        "label": "ローカル フォルダ",
+        "infoText": "ローカル フォルダをモデル リポジトリとして使用します。使用するモデル定義ファイルは、JSON 拡張子を含んでいる必要があります。デジタル ツイン モデル ID (DTMI) と一致する「@id」プロパティを含む最初の JSON ファイルは、取得されます。",
+        "textBoxLabel": "選択済みフォルダ",
+        "folderPicker": {
+          "command": {
+            "openPicker": "フォルダを選択",
+            "navigateToParent": "親フォルダに戻る",
+            "select": "選択",
+            "cancel": "キャンセル"
+          },
+          "errors": {
+            "mandatory": "フォルダを指定してください。"
+          },
+          "dialog": {
+            "title": "フォルダをローカルのモデル リポジトリとして選択します。",
+            "subText": "選択済みフォルダ: {{folder}}",
+            "noFolderFoundText": "フォルダは見つかりませんでした。",
+            "error": "フォルダ情報を取得できませんでした。"
+          }
+        }
+      },
+      "notAvailable": "--"
+    }
+  }
+}

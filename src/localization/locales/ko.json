@@ -1,0 +1,954 @@
+﻿{
+  "azureResource": {
+    "access": {
+      "unauthorized": "이 리소스에 액세스할 수 있는 권한이 없습니다.",
+      "failed": "이 리소스 액세스 권한을 확인할 수 없습니다.",
+      "verifying": "이 리소스 액세스 권한을 확인하는 중입니다."
+    }
+  },
+  "common": {
+    "close": "닫기",
+    "home": "홈",
+    "learnMore": "자세한 내용",
+    "loading": "로드 중...",
+    "maskedCopyableTextField": {
+      "toggleMask": {
+        "label": {
+          "show": "콘텐츠 표시",
+          "hide": "콘텐츠 숨기기"
+        }
+      },
+      "copy": {
+        "label": "콘텐츠 복사"
+      }
+    },
+    "confirmationDialog": {
+      "title": "확인",
+      "yes": "예",
+      "no": "아니요"
+    },
+    "navigation": {
+      "confirm": "저장하지 않은 편집 내용은 삭제됩니다.",
+      "collapse": "탐색 메뉴 축소",
+      "expand": "탐색 메뉴 확장"
+    }
+  },
+  "collapsibleSection": {
+    "open": "열기",
+    "close": "축소"
+  },
+  "header": {
+    "applicationName": "Azure IoT Explorer(미리 보기)",
+    "search": {
+      "watermark": "페이지에서 찾기"
+    },
+    "notifications": {
+      "hide": "알림 숨기기",
+      "show": "알림",
+      "dismiss": "모두 해제",
+      "panel": {
+        "title": "알림",
+        "noNotifications": "이 세션에 대한 새 알림이 없습니다."
+      }
+    },
+    "questions": {
+      "launch": "??? 열기"
+    },
+    "settings": {
+      "launch": "설정"
+    }
+  },
+  "settings": {
+    "headerText": "설정",
+    "configuration": {
+      "headerText": "앱 구성",
+      "redirect": "연결 설정을 찾고 계신가요?",
+      "redirectLink": "홈으로 이동하세요."
+    },
+    "modelDefinitions": {
+      "headerText": "IoT 플러그 앤 플레이 구성",
+      "redirect": "IoT 플러그 앤 플레이 설정을 찾고 계신가요?",
+      "redirectLink": "홈으로 이동하세요."
+    },
+    "questions": {
+      "headerText": "도움말:",
+      "questions": {
+        "documentation": {
+          "text": "IoT 플러그 앤 플레이 설명서",
+          "link": "https://aka.ms/azure-iot-explorer-documentation"
+        },
+        "privacy": {
+          "text": "로컬 폴더에서 모델 정의를 검색할 수 있도록 허용하기 전에 다음 내용을 확인해 주세요. ",
+          "linkText": "Microsoft 개인정보처리방침",
+          "link": "https://privacy.microsoft.com/en-us/privacystatement"
+        }
+      }
+    },
+    "footerText": "나중에 설정으로 다시 이동하여 해당 설정을 변경할 수 있습니다.",
+    "save": "저장 후 연결",
+    "close": "닫기",
+    "confirmationMessage": "저장하지 않고 닫으시겠어요?",
+    "theme": {
+      "headerText": "애플리케이션 테마",
+      "label": "테마",
+      "darkTheme": "어둡게",
+      "lightTheme": "밝게"
+    }
+  },
+  "breadcrumb": {
+    "devices": "디바이스",
+    "add": "새 ID 만들기",
+    "identity": "디바이스 ID",
+    "twin": "디바이스 쌍",
+    "events": "원격 분석",
+    "eventsPerInterface": "원격 분석",
+    "methods": "직접 메서드",
+    "cloudToDeviceMessage": "클라우드-디바이스 메시지",
+    "moduleIdentity": "모듈 ID",
+    "interfaces": "인터페이스",
+    "properties": "속성(읽기 전용)",
+    "settings": "속성(쓰기 가능)",
+    "commands": "명령",
+    "ioTPlugAndPlay": "IoT 플러그 앤 플레이 구성 요소",
+    "resources": "IoT 허브",
+    "repos": "IoT 플러그 앤 플레이 설정",
+    "moduleDetail": "모듈 세부 정보",
+    "moduleTwin": "모듈 쌍",
+    "moduleMethod": "모듈 직접 메서드",
+    "addModuleIdentity": "모듈 ID 추가"
+  },
+  "deviceContent": {
+    "start": "시작하려면 디바이스를 선택하세요.",
+    "value": "값"
+  },
+  "connectionStrings": {
+    "empty": {
+      "header": "표시할 연결 없음",
+      "description": "IoT 허브 연결 문자열을 추가해야 합니다. 연결 문자열은 애플리케이션 스토리지에 저장되며, 언제든지 다음 위치로 돌아가서 편집하거나 제거할 수 있습니다."
+    },
+    "addConnectionCommand": {
+      "label": "연결 추가",
+      "ariaLabel": "연결 문자열 추가"
+    },
+    "deleteConnectionCommand": {
+      "label": "연결 삭제",
+      "ariaLabel": "연결 문자열 {{connectionString}} 삭제"
+    },
+    "editConnectionCommand": {
+      "label": "연결 편집",
+      "ariaLabel": "연결 문자열 {{connectionString}} 편집"
+    },
+    "copyConnectionCommand": {
+      "label": "연결 복사",
+      "ariaLabel": "연결 문자열 {{connectionString}} 복사"
+    },
+    "visitConnectionCommand": {
+      "label": "이 허브의 디바이스 보기",
+      "ariaLabel": "리소스 보기: {{connectionString}}"
+    },
+    "deleteConnection": {
+      "title": "삭제 확인",
+      "body": "다음 연결 문자열을 삭제하시겠어요?",
+      "input": "삭제할 연결 문자열",
+      "yes": {
+        "ariaLabel": "예, {{connectionString}}을(를) 삭제합니다.",
+        "label": "예"
+      },
+      "no": {
+        "ariaLabel": "아니요, {{connectionString}}을(를) 삭제하지 않습니다.",
+        "label": "아니요"
+      }
+    },
+    "editConnection": {
+      "save": {
+        "label": "저장",
+        "ariaLabel": "연결 문자열 저장"
+      },
+      "cancel": {
+        "label": "취소",
+        "ariaLabel": {
+          "add": "연결 문자열 추가 취소",
+          "edit": "연결 문자열 편집 취소"
+        }
+      },
+      "title": {
+        "add": "연결 문자열 추가",
+        "edit": "연결 문자열 편집"
+      },
+      "editField": {
+        "label": "연결 문자열",
+        "ariaLabel": "연결 문자열",
+        "placeholder": "연결 문자열 입력"
+      },
+      "validations": {
+        "duplicate": "지정한 연결 문자열은 목록에 이미 있습니다."
+      }
+    },
+    "properties": {
+      "hostName": {
+        "label": "호스트 이름",
+        "ariaLabel": "{{connection string}}의 호스트 이름"
+      },
+      "sharedAccessPolicyName": {
+        "label": "공유 액세스 정책 이름",
+        "ariaLabel": "{{connection string}}의 공유 액세스 정책 이름"
+      },
+      "sharedAccessPolicyKey": {
+        "label": "공유 액세스 정책 키",
+        "ariaLabel": "{{connection string}}의 공유 액세스 정책 키"
+      },
+      "connectionString": {
+        "label": "연결 문자열",
+        "ariaLabel": "연결 문자열"
+      }
+    },
+    "expirationWarning": "허브 연결 문자열 만료까지 남은 기간이 {{numberOfDays}}일 미만입니다. 연결 문자열을 복사한 후 다시 붙여넣는 방식으로 편집하여 사용 기간을 연장하세요. 연결 문자열이 만료되면 다시 추가해야 합니다."
+  },
+  "connectivityPane": {
+    "header": "앱 구성",
+    "connectionStringComboBox": {
+      "ariaLabel": "IoT 허브 연결 문자열 선택 또는 입력",
+      "ariaLabelRemove": "{{hostName}} 호스트에 대한 연결 제거",
+      "link": "https://aka.ms/iot-connection-strings",
+      "linkText": "IoT 허브 연결 문자열을 확인할 수 있는 위치",
+      "item": {
+        "ariaLabel": "{{sharedAccessKeyName}}의 공유 액세스 키를 사용하는 {{hostName}} 호스트에 대한 연결"
+      },
+      "label": "IoT 허브 연결 문자열 선택 또는 입력",
+      "errorMessages": {
+        "required": "연결 문자열은 필수 항목입니다.",
+        "invalid": "잘못된 연결 문자열"
+      },
+      "prompt": "저장된 연결 문자열을 선택하거나 새 연결 문자열을 여기에 붙여넣으세요.",
+      "warning": "안전하지 않은 위치에 허브 연결 문자열을 저장하지 마세요."
+    },
+    "notes": "최신 연결 문자열이 애플리케이션 스토리지에 저장됩니다. 언제든지 설정을 열어 저장된 연결 문자열을 제거하거나 기타 구성 옵션을 변경할 수 있습니다.",
+    "saveButton": {
+      "label": "연결"
+    },
+    "dropDown": {
+      "newEntry": "(신규) IoT 허브 연결 문자열 추가",
+      "copyButton": "클립보드에 연결 문자열 복사"
+    }
+  },
+  "deviceIdentity": {
+    "headerText": "디바이스 ID",
+    "deviceID": "디바이스 ID",
+    "deviceIDTooltip": "디바이스 인증 및 액세스 제어에 사용되는 디바이스 ID",
+    "authenticationType": {
+      "text": "인증 유형",
+      "symmetricKey": {
+        "autoGenerate": "키 자동 생성",
+        "type": "대칭 키",
+        "primaryKey": "기본 키",
+        "secondaryKey": "보조 키",
+        "primaryConnectionString": "기본 연결 문자열",
+        "primaryConnectionStringTooltip": "API 호출에서 사용되는 기본 키 기반 연결 문자열. 디바이스는 이 연결 문자열을 사용하여 IoT 허브와 통신할 수 있습니다.",
+        "primaryKeyTooltip": "base64 형식으로 저장되는 기본 대칭 공유 액세스 키",
+        "secondaryConnectionString": "보조 연결 문자열",
+        "secondaryConnectionStringTooltip": "API 호출에서 사용되는 보조 키 기반 연결 문자열. 디바이스는 이 연결 문자열을 사용하여 IoT 허브와 통신할 수 있습니다.",
+        "secondaryKeyTooltip": "base64 형식으로 저장되는 보조 대칭 공유 액세스 키",
+        "generatePrimaryKey": "기본 키 생성",
+        "generateSecondaryKey": "보조 키 생성"
+      },
+      "ca": {
+        "type": "X.509 CA 서명",
+        "text": "CA 인증서를 사용하여 이 디바이스를 인증하는 중입니다.",
+        "connectionString": "연결 문자열",
+        "connectionStringTooltip": "API 호출에서 사용되는 연결 문자열. 디바이스는 이 연결 문자열을 사용하여 IoT 허브와 통신할 수 있습니다."
+      },
+      "selfSigned": {
+        "type": "X.509 자체 서명",
+        "text": "X.509 인증서를 사용하여 이 디바이스를 인증하는 중입니다.",
+        "primaryThumbprint": "기본 지문",
+        "primaryThumbprintTooltip": "X.509 인증서의 SHA-1 또는 SHA-256 해시를 나타내는 기본 X.509 지문입니다. SHA-1의 경우 16진수 문자 40자, SHA-256의 경우 16진수 문자 64자 이외의 지문 값은 사용할 수 없습니다.",
+        "secondaryThumbprint": "보조 지문",
+        "secondaryThumbprintTooltip": "X.509 인증서의 SHA-1 또는 SHA-256 해시를 나타내는 보조 X.509 지문입니다. SHA-1의 경우 16진수 문자 40자, SHA-256의 경우 16진수 문자 64자 이외의 지문 값은 사용할 수 없습니다.",
+        "connectionString": "연결 문자열",
+        "connectionStringTooltip": "API 호출에서 사용되는 연결 문자열. 디바이스는 이 연결 문자열을 사용하여 IoT 허브와 통신할 수 있습니다."
+      },
+      "sasToken": {
+        "label": "SAS 토큰이 포함된 연결 문자열",
+        "toolTip": "SAS 토큰을 사용하여 연결 문자열 생성",
+        "symmetricKey": "대칭 키",
+        "expiration": "만료(분)",
+        "textField": {
+          "label": "SAS 토큰 연결 문자열",
+          "ariaLabel": "SAS 토큰 연결 문자열"
+        },
+        "generateButton": {
+          "title": "생성",
+          "text": "생성"
+        }
+      }
+    },
+    "hubConnectivity": {
+      "label": "IoT 허브에 이 디바이스 연결",
+      "tooltip": "IoT 허브와의 디바이스 상호 작용 사용 또는 사용 안 함",
+      "enable": "사용",
+      "enabled": "사용",
+      "disable": "사용 안 함",
+      "disabled": "사용 안 함"
+    },
+    "commands": {
+      "save": "저장",
+      "manageKeys": {
+        "label": "키 관리",
+        "ariaLabel": "디바이스용 키 관리"
+      },
+      "regeneratePrimary": {
+        "ariaLabel": "기본 키 다시 생성",
+        "label": "기본 키 다시 생성"
+      },
+      "regenerateSecondary": {
+        "ariaLabel": "보조 키 다시 생성",
+        "label": "보조 키 다시 생성"
+      },
+      "swapKeys": {
+        "ariaLabel": "키 바꾸기",
+        "label": "키 바꾸기"
+      }
+    },
+    "validation": {
+      "invalidDeviceId": "디바이스 ID에 잘못된 문자가 있습니다.",
+      "invalidKey": "잘못된 키",
+      "invalidThumbprint": "잘못된 지문"
+    }
+  },
+  "deviceLists": {
+    "paging": {
+      "pages": "페이지:"
+    },
+    "loadingDevice": "디바이스 로드 중",
+    "noDevice": "표시할 디바이스 없음",
+    "noData": "없음",
+    "columns": {
+      "deviceId": {
+        "label": "디바이스 ID",
+        "infoText": "디바이스 인증 및 액세스 제어에 사용되는 디바이스 ID"
+      },
+      "status": {
+        "label": "상태",
+        "infoText": "디바이스의 현재 상태"
+      },
+      "connection": "연결 상태",
+      "lastActivityTime": "마지막 활동 시간",
+      "statusUpdatedTime": "마지막 상태 업데이트 시간",
+      "cloudToDeviceMessageCount": "클라우드-디바이스 메시지 수",
+      "authenticationType": "인증 유형",
+      "isEdgeDevice": {
+        "label": "Edge 디바이스",
+        "yes": "Edge 디바이스임",
+        "no": "Edge 디바이스가 아님"
+      },
+      "isPnpDevice": "IoT 플러그 앤 플레이 디바이스",
+      "interfaces": "인터페이스"
+    },
+    "commands": {
+      "add": "새로 만들기",
+      "close": "취소",
+      "delete": {
+        "buttonText": "삭제",
+        "confirmationDialog": {
+          "title": "IoT 허브에서 삭제하시겠어요?",
+          "subText": "이 작업을 수행하면 IoT 허브에서 다음 디바이스가 제거됩니다. 그러면 같은 허브나 디바이스를 사용 중인 다른 사용자가 영향을 받을 수도 있습니다.",
+          "confirm": "삭제",
+          "cancel": "취소"
+        }
+      },
+      "refresh": "새로 고침",
+      "save": "만들기"
+    },
+    "query": {
+      "deviceId": {
+        "placeholder": "디바이스 ID로 쿼리...",
+        "ariaLabel": "디바이스 ID로 쿼리",
+        "searchButton": {
+          "title": "검색",
+          "ariaLabel": "디바이스 ID(추가 절 없음)로 검색을 실행합니다."
+        }
+      },
+      "searchPills": {
+        "add": {
+          "ariaLabel": "쿼리 매개 변수 추가",
+          "text": "쿼리 매개 변수 추가"
+        },
+        "search": {
+          "ariaLabel": "지정한 절(디바이스 ID 미포함)로 검색을 실행합니다.",
+          "text": "검색"
+        },
+        "clause": {
+          "parameterType": {
+            "placeholder": "매개 변수 유형",
+            "ariaLabel": "쿼리 절 유형",
+            "items": {
+              "propertyValue": "속성 값",
+              "status": "상태",
+              "lastActivityTime": "마지막 활동 시간",
+              "statusUpdateTime": "상태 업데이트 시간",
+              "edge": "Edge"
+            }
+          },
+          "operationType": {
+            "title": "작업 유형",
+            "ariaLabel": "이 절에 사용할 비교 유형을 선택하세요.",
+            "options": {
+              "equals": "같음",
+              "notEquals": "같지 않음"
+            }
+          },
+          "value": {
+            "placeholder": "값 선택",
+            "ariaLabel": "이 절의 값을 입력하세요.",
+            "deviceCapability": {
+              "edge": "Edge 디바이스임",
+              "nonEdge": "Edge 디바이스가 아님"
+            },
+            "deviceStatus": {
+              "enabled": "사용",
+              "disabled": "사용 안 함"
+            }
+          },
+          "remove": {
+            "title": "제거",
+            "ariaLabel": "이 절 제거"
+          }
+        }
+      }
+    },
+    "messageBar": {
+      "message": "{{version}}이(가) 릴리스되었습니다.",
+      "link": "다운로드하려면 여기를 클릭하세요."
+    }
+  },
+  "deviceTwin": {
+    "notFound": "디바이스 쌍 데이터 없음",
+    "headerText": "디바이스 쌍",
+    "command": {
+      "refresh": "새로 고침",
+      "save": "저장"
+    },
+    "tooltip": "여기서 디바이스 쌍에 태그 및 원하는 속성을 추가할 수 있습니다. 태그 또는 원하는 속성을 제거하려면 제거할 항목의 값을 'null'로 설정하세요."
+  },
+  "digitalTwin": {
+    "headerText": "IoT 플러그 앤 플레이 구성 요소",
+    "modelId": "모델 ID",
+    "modelContainsNoComponents": "'{{modelId}}' 모델에 IoT 플러그 앤 플레이 구성 요소가 없습니다.",
+    "componentName": "구성 요소",
+    "steps": {
+      "zero": "디바이스가 IoT 플러그 앤 플레이 디바이스로 인식되지 않습니다. 자세히 알아보려면 다음 단계를 확인해 보세요. ",
+      "first": "1단계. 디바이스가 IoT 플러그 앤 플레이 디바이스로 검색되었습니다.",
+      "secondSuccess": "2단계. IoT 플러그 앤 플레이 모델이 확인되었습니다.",
+      "secondFailure": "2단계. {{modelId}}의 모델 정의를 검색할 수 없습니다.",
+      "third": "3단계. 각 구성 요소를 드릴다운하여 IoT 플러그 앤 플레이 설정 과정을 계속 진행합니다.",
+      "explanation": "{{modelId}} 모델에서 '속성', '명령' 또는 '원격 분석'을 정의했다면 아래 표에 '기본 구성 요소'가 표시됩니다. '구성 요소'를 정의했다면 아래에 구성 요소 목록이 표시됩니다."
+    },
+    "pivot": {
+      "ariaLabel": "모델 구성 요소 및 콘텐츠 피벗",
+      "components": "구성 요소",
+      "content": "모델 콘텐츠",
+      "defaultComponent": "기본 구성 요소",
+      "digitalTwin": "디지털 트윈 콘텐츠"
+    },
+    "interfaceId": "모델 ID"
+  },
+  "deviceProperties": {
+    "command": {
+      "refresh": "새로 고침",
+      "openReportedValuePanel": "클릭하여 값 확인",
+      "close": "뒤로"
+    },
+    "headerText": "읽기 전용 속성",
+    "noProperties": "ComponentName {{componentName}}에 읽기 전용 속성 정의가 없습니다.",
+    "columns": {
+      "name": "이름(표시 이름/설명)",
+      "value": "값",
+      "schema": "스키마",
+      "unit": "단위",
+      "error": "값이 스키마와 일치하지 않음"
+    },
+    "editor": {
+      "label": "'{{schema}}' 속성 스키마는 UI 양식에서 아직 지원되지 않습니다. 보고된 값을 확인하려면 아래 JSON 편집기를 사용하세요."
+    }
+  },
+  "deviceSettings": {
+    "previewPayloadButtonText": "페이로드 미리 보기",
+    "noPreviewContent": "표시할 페이로드가 없습니다.",
+    "command": {
+      "refresh": "새로 고침",
+      "submit": "원하는 값 업데이트",
+      "openReportedValuePanel": "클릭하여 값 확인",
+      "openDesiredValuePanel": "클릭하여 편집",
+      "expandAll": "모두 확대",
+      "expand": "확장",
+      "collapseAll": "모두 축소",
+      "collapse": "축소",
+      "close": "뒤로"
+    },
+    "headerText": "쓰기 가능 속성",
+    "noSettings": "ComponentName {{componentName}}에 쓰기 가능 속성 정의가 없습니다.",
+    "ackStatus": {
+      "code": "승인 코드: {{code}}",
+      "description": "승인 설명: {{description}}",
+      "version": "승인 버전: {{version}}"
+    },
+    "columns": {
+      "name": "이름(표시 이름/설명)",
+      "schema": "스키마",
+      "unit": "단위",
+      "reportedValue": "보고된 값(승인 메타데이터)",
+      "reportedValueTooltip": "보고된 값은 비동기식으로 업데이트됩니다. 최신 값을 수동으로 가져오려면 상단의 '새로 고침' 단추를 클릭하세요.",
+      "error": "값이 스키마와 일치하지 않음"
+    },
+    "panel": {
+      "title": "보고된 값"
+    }
+  },
+  "deviceCommands": {
+    "command": {
+      "refresh": "새로 고침",
+      "submit": "명령 보내기",
+      "expandAll": "모두 확대",
+      "expand": "확장",
+      "collapseAll": "모두 축소",
+      "collapse": "축소",
+      "close": "뒤로"
+    },
+    "headerText": "명령",
+    "noCommands": "ComponentName {{componentName}}에 명령 정의가 없습니다.",
+    "columns": {
+      "name": "이름(표시 이름/설명)",
+      "schema": {
+        "request": "요청 스키마",
+        "response": "응답 스키마"
+      },
+      "type": "명령 유형"
+    }
+  },
+  "deviceInterfaces": {
+    "command": {
+      "refresh": "새로 고침",
+      "configure": "구성",
+      "close": "뒤로"
+    },
+    "columns": {
+      "id": "인터페이스 ID",
+      "source": "모델 정의가 확인된 위치:",
+      "noSource": "인터페이스 정의를 가져오지 못했습니다.",
+      "displayName": "이름",
+      "description": "설명"
+    },
+    "headerText": "인터페이스",
+    "noInterfaces": "인터페이스 없음",
+    "interfaceNotFound": "유효한 인터페이스 모델 정의를 검색할 수 없습니다. 모델 정의 확인 방법을 살펴보려면 아래의 '구성' 단추를 클릭하세요.",
+    "interfaceNotValid": "모델 정의가 유효하지 않습니다. 모델 정의를 업데이트한 후에 계속 진행하세요.",
+    "interfaceListFailedToRender": "모델 정의에서 구성 요소 목록을 구문 분석하지 못했습니다. 현재 지원되지 않는 정의가 포함되어 있을 수 있습니다. Wiki(https://github.com/Azure/azure-iot-explorer/wiki)를 방문하여 지원되는 DTDL 범위를 확인해 보세요."
+  },
+  "deviceEvents": {
+    "command": {
+      "refresh": "새로 고침",
+      "clearEvents": "이벤트 지우기",
+      "showSystemProperties": "시스템 속성 표시",
+      "start": "시작",
+      "stop": "중지",
+      "fetch": "이벤트 검색",
+      "close": "뒤로",
+      "simulate": "디바이스 시뮬레이트"
+    },
+    "consumerGroups": {
+      "label": "소비자 그룹",
+      "tooltip": "소비자 그룹은 애플리케이션에서 IoT 허브의 데이터를 끌어오는 데 사용됩니다. 현재 소비자 그룹을 변경하려면 원격 분석 모니터링을 중지하세요."
+    },
+    "startTime": {
+      "error": "날짜/시간 형식(yyyy/mm/dd/hh/mm/ss)을 입력하세요.",
+      "label": "시작 시간",
+      "tooltip": "이벤트 허브에서 메시지를 읽는 데 사용해야 하는 로컬 큐에 넣기 시간을 나타냅니다. 이 시간을 지정하지 않으면 '시작' 단추를 클릭하는 시점이 큐에 넣기 시간으로 설정됩니다."
+    },
+    "customEventHub": {
+      "connectionString": {
+        "label": "사용자 지정 이벤트 허브 연결 문자열",
+        "placeHolder": "Endpoint=sb://<FQDN>/;SharedAccessKeyName=<KeyName>;SharedAccessKey=<KeyValue>",
+        "error": "이벤트 허브 연결 문자열은 'Endpoint=sb://<FQDN>/;SharedAccessKeyName=<KeyName>;SharedAccessKey=<KeyValue>' 형식이어야 합니다."
+      },
+      "name": {
+        "label": "사용자 지정 이벤트 허브 이름"
+      }
+    },
+    "headerText": "원격 분석",
+    "noEvent": "ComponentName {{componentName}}에 원격 분석 정의가 없습니다.",
+    "tooltip": "디바이스가 IoT 허브로 전송하는 원격 분석을 모니터링할 수 있습니다.",
+    "interfaceDropDown": {
+      "label": "원격 분석을 필터링할 인터페이스 선택",
+      "placeHolder": "인터페이스 선택"
+    },
+    "infiniteScroll": {
+      "loading": "이벤트 수신 중..."
+    },
+    "event": {
+      "body": "본문: ",
+      "enqueuedTime": "큐에 넣은 시간: ",
+      "properties": "속성: "
+    },
+    "columns": {
+      "displayName": "이름",
+      "timestamp": "큐에 넣기 시간",
+      "schema": "스키마",
+      "unit": "단위",
+      "value": "값",
+      "validation": {
+        "key": {
+          "isNotSpecified": "이 원격 분석 '{{key}}'이(가) 모델에 없습니다. 해당 원격 분석을 모델링할 수 있습니다.",
+          "doesNotMatch": "키가 일치하지 않습니다. 필요한 키는 {{expectedKey}}인데 수신된 키는 {{receivedKey}}입니다."
+        },
+        "value": {
+          "label": "값이 스키마와 일치하지 않음",
+          "bodyIsEmpty": "원격 분석 본문이 비어 있습니다."
+        }
+      }
+    },
+    "toggleShowRawData": {
+      "label": "원시 원격 분석 데이터 표시",
+      "on": "켜기",
+      "off": "끄기"
+    },
+    "toggleUseDefaultEventHub": {
+      "label": "기본 제공 이벤트 허브 사용",
+      "on": "예",
+      "off": "아니요"
+    },
+    "toggleSpecifyStartingTime": {
+      "label": "큐에 넣기 시간 지정",
+      "on": "예",
+      "off": "아니요"
+    },
+    "error": "이벤트를 모니터링하지 못했습니다. {{error}}",
+    "simulation": {
+      "header": "Azure Cloud Shell에서 CLI를 사용하여 디바이스 시뮬레이트",
+      "cloudShell": {
+        "imageDescription": "Azure Cloud Shell 시작",
+        "textDescription": "Cloud Shell 시작을 클릭하고 아래 명령을 붙여넣어 원격 분석을 전송하는 디바이스를 시뮬레이트하세요. 기본 제공 이벤트 허브에서 이벤트 모니터링을 시작할 수 있습니다."
+      },
+      "prerequisite": {
+        "label": "필수 구성 요소",
+        "tooltiop": "Azure Cloud Shell을 사용해 본 적이 없는 경우",
+        "instruction": "Azure Cloud Shell을 사용해 본 적이 없는 경우 Azure Cloud Shell의 지침에 따라 구독을 선택하고 스토리지를 설정하세요. 'az iot: 'device'이(가) 'az iot' 명령 그룹에 없음' 오류가 발생한 경우에는 'az extension add --name azure-iot' 명령을 사용하여 Azure IoT CLI 확장을 설치하세요."
+      },
+      "basic": {
+        "label": "기본 시나리오",
+        "tooltiop": "0 입력 기본 시나리오",
+        "instruction": "아래 명령을 복사하여 Azure Cloud Shell에 붙여넣으세요. 그러면 IoT 허브로 메시지를 전송하는 {{deviceId}} 디바이스 시뮬레이트가 시작됩니다. 원격 분석 페이지에서 '시작' 단추를 클릭하여 이벤트 모니터링을 시작할 수 있습니다.",
+        "copyLabel": "{{deviceId}} 디바이스 시뮬레이트 중"
+      },
+      "advanced": {
+        "label": "고급 시나리오",
+        "tooltiop": "이벤트 본문 또는 속성 시뮬레이트(고급 사용자용)",
+        "instruction": "원하는 메시지 본문 및/또는 속성을 입력한 다음 생성된 명령을 복사하여 Azure Cloud Shell에 붙여넣으세요. 그러면 IoT 허브로 메시지를 전송하는 {{deviceId}} 디바이스 시뮬레이트가 시작됩니다. 원격 분석 페이지에서 '시작' 단추를 클릭하여 이벤트 모니터링을 시작할 수 있습니다.",
+        "copyLabel": "{{deviceId}} 디바이스 시뮬레이트 중",
+        "body": {
+          "label": "이벤트 본문 입력",
+          "tooltip": "비워 두는 경우 'Ping from Az CLI IoT Extension'이 기본값으로 입력됩니다."
+        },
+        "properties": {
+          "key": "키",
+          "keyDup": "키는 고유해야 합니다.",
+          "value": "값",
+          "addProperty": "속성 추가",
+          "delete": "삭제",
+          "toggleSelectionColumnAriaLabel": "선택 영역 전환",
+          "selectAllCheckboxAriaLabel": "모든 항목에 대한 선택 영역 전환",
+          "rowCheckBoxAriaLabel": "행 확인란"
+        }
+      }
+    }
+  },
+  "directMethod": {
+    "headerText": "직접 메서드",
+    "tooltip": "디바이스로 직접 메서드를 전송할 수 있습니다. 직접 메서드에는 이름, 페이로드, 그리고 구성 가능한 연결 및 메서드 시간 제한이 포함되어 있습니다.",
+    "methodName": "메서드 이름",
+    "methodNamePlaceHolder": "이 디바이스에서 호출할 직접 메서드의 이름",
+    "connectionTimeout": "연결 시간 제한(초)",
+    "connectionTimeoutTooltip": "연결이 정상 설정될 때까지 대기할 시간(초)입니다.",
+    "responseTimeout": "응답 시간 제한(초)",
+    "responseTimeoutTooltip": "직접 메서드에서 결과가 수신될 때까지 대기할 시간(초)입니다.",
+    "invokeMethodButtonText": "메서드 호출",
+    "payload": "페이로드",
+    "payloadTooltip": "디바이스에서 호출할 직접 메서드의 페이로드",
+    "result": "결과"
+  },
+  "cloudToDeviceMessage": {
+    "headerText": "클라우드-디바이스 메시지",
+    "tooltip": "IoT 허브에서 디바이스로 메시지를 전송할 수 있습니다. 메시지에는 키/값 문자열 쌍 컬렉션으로 구성된 속성(선택 사항)과 본문이 모두 포함되어 있습니다.",
+    "sendMessageButtonText": "디바이스로 메시지 전송",
+    "body": "메시지 본문",
+    "bodyTooltip": "디바이스로 전송할 메시지의 본문입니다.",
+    "addTimestamp": "메시지 본문에 타임스탬프 추가",
+    "properties": {
+      "label": "속성",
+      "systemProperties": {
+        "ack": {
+          "displayName": "ack",
+          "description": "요청한 피드백 유형입니다.",
+          "full": "전체(두 경우 모두 IoT 허브에서 피드백 메시지를 생성함)",
+          "positive": "긍정(c2d 메시지가 완료됨 상태가 되면 IoT 허브에서 피드백 메시지를 생성함)",
+          "negative": "부정(c2d 메시지가 배달 못 함 상태가 되면 IoT 허브에서 피드백 메시지를 생성함)"
+        },
+        "contentType": {
+          "displayName": "content-type",
+          "description": "메시지 본문과 연결된 콘텐츠 형식입니다."
+        },
+        "contentEncoding": {
+          "displayName": "content-encoding",
+          "description": "메시지 본문과 연결된 콘텐츠 인코딩입니다.",
+          "utf8": "utf-8",
+          "utf16": "utf-16",
+          "utf32": "utf-32"
+        },
+        "correlationId": {
+          "displayName": "correlation-id",
+          "description": "메시지와 연결된 상관 관계 ID입니다."
+        },
+        "expiryTimeUtc": {
+          "displayName": "expiry-time-utc",
+          "description": "Unix Epoch 이후의 만료 시간(UTC, 밀리초)입니다.",
+          "error": "만료 시간은 정수여야 하며 현재 이후여야 합니다."
+        },
+        "lockToken": {
+          "displayName": "lock-token",
+          "description": "메시지 중단, 거부 또는 수락에 사용됩니다."
+        },
+        "messageId": {
+          "displayName": "message-id",
+          "description": "메시지 ID입니다. 메시지 ID를 입력하지 않으면 UUID가 생성됩니다."
+        }
+      },
+      "key": "키",
+      "keyDup": "키는 고유해야 합니다.",
+      "value": "값",
+      "addCustomProperty": "사용자 지정 속성 추가",
+      "addSystemProperty": "시스템 속성 추가",
+      "delete": "삭제",
+      "tooltip": "이 디바이스로 전송할 메시지의 속성입니다.",
+      "toggleSelectionColumnAriaLabel": "선택 영역 전환",
+      "selectAllCheckboxAriaLabel": "모든 항목에 대한 선택 영역 전환",
+      "rowCheckBoxAriaLabel": "행 확인란"
+    },
+    "output": "출력"
+  },
+  "moduleIdentity": {
+    "headerText": "모듈 ID",
+    "tooltip": "모듈 ID는 20개까지 만들 수 있습니다. 각 모듈 ID는 모듈 쌍을 암시적으로 생성합니다.",
+    "link": "https://aka.ms/iot-hub-module-twin",
+    "addModuleHeaderText": "모듈 ID 추가",
+    "command": {
+      "add": "추가",
+      "refresh": "새로 고침",
+      "cancel": "취소",
+      "save": "만들기"
+    },
+    "columns": {
+      "moduleId": "모듈 ID",
+      "connectionState": "연결 상태",
+      "connectionStateLastUpdated": "연결 상태 마지막 업데이트 시간",
+      "lastActivityTime": "마지막 활동 시간"
+    },
+    "noModules": "이 디바이스의 모듈 ID가 없습니다.",
+    "errorFetching": "오류가 발생하여 이 정보를 로드하지 못했습니다.",
+    "moduleId": "모듈 ID 이름",
+    "moduleIdTooltip": "인증 및 액세스 제어에 사용되는 모듈 ID 이름입니다.",
+    "authenticationType": {
+      "text": "인증 유형",
+      "symmetricKey": {
+        "autoGenerate": "키 자동 생성",
+        "type": "대칭 키",
+        "primaryKey": "기본 키",
+        "secondaryKey": "보조 키",
+        "primaryConnectionString": "기본 연결 문자열",
+        "primaryKeyTooltip": "base64 형식으로 저장되는 기본 대칭 공유 액세스 키",
+        "secondaryConnectionString": "보조 연결 문자열",
+        "secondaryKeyTooltip": "base64 형식으로 저장되는 보조 대칭 공유 액세스 키",
+        "generatePrimaryKey": "기본 키 생성",
+        "generateSecondaryKey": "보조 키 생성"
+      },
+      "ca": {
+        "type": "X.509 CA 서명",
+        "text": "CA 인증서를 사용하여 이 디바이스를 인증하는 중입니다."
+      },
+      "selfSigned": {
+        "type": "X.509 자체 서명",
+        "text": "X.509 인증서를 사용하여 이 디바이스를 인증하는 중입니다.",
+        "primaryThumbprint": "기본 지문",
+        "primaryThumbprintTooltip": "X.509 인증서의 SHA-1 또는 SHA-256 해시를 나타내는 기본 X.509 지문입니다. SHA-1의 경우 16진수 문자 40자, SHA-256의 경우 16진수 문자 64자 이외의 지문 값은 사용할 수 없습니다.",
+        "secondaryThumbprint": "보조 지문",
+        "secondaryThumbprintTooltip": "X.509 인증서의 SHA-1 또는 SHA-256 해시를 나타내는 보조 X.509 지문입니다. SHA-1의 경우 16진수 문자 40자, SHA-256의 경우 16진수 문자 64자 이외의 지문 값은 사용할 수 없습니다."
+      }
+    },
+    "validation": {
+      "invalidModuleIdentityName": "모듈 ID 이름에 잘못된 문자가 있습니다.",
+      "invalidKey": "잘못된 키",
+      "invalidThumbprint": "잘못된 지문"
+    },
+    "detail": {
+      "headerText": "모듈 ID 세부 정보",
+      "command": {
+        "back": "뒤로",
+        "refresh": "새로 고침",
+        "delete": "삭제"
+      },
+      "twin": "모듈 ID 쌍",
+      "deleteConfirmation": "이 모듈 ID를 삭제하시겠어요?"
+    }
+  },
+  "noMatchError": {
+    "title": "404 - 찾을 수 없음",
+    "description": "찾으시는 페이지가 없습니다.",
+    "goHome": "홈 페이지로 이동"
+  },
+  "notifications": {
+    "savedToIotHubConnectionString": "IoT 허브 {{hostName}}의 연결 문자열을 저장했습니다.",
+    "getDeviceIdentityOnError": "{{deviceId}} 디바이스의 ID를 가져오지 못했습니다. {{error}}",
+    "getDeviceListOnError": "디바이스 목록을 검색하지 못했습니다. {{error}}",
+    "getDeviceListGenericErrorHelp": "디바이스 목록을 검색하지 못했습니다. IoT 허브 연결 문자열이 잘못되었기 때문일 수 있습니다.",
+    "getDeviceTwinOnError": "{{deviceId}} 디바이스의 쌍을 가져오지 못했습니다. {{error}}",
+    "getDigitalTwinOnError": "IoT 플러그 앤 플레이 디바이스 {{deviceId}}의 속성을 가져오지 못했습니다. {{error}}",
+    "getModuleIdentitiesOnError": "{{deviceId}} 디바이스의 모듈 ID를 가져오지 못했습니다. {{error}}",
+    "getInterfaceModelOnError": "구성된 원본에서 인터페이스 모델 정의 {{interfaceId}}을(를) 가져오지 못했습니다.",
+    "parseLocalInterfaceModelOnError": "로컬 폴더에서 {{interfaceId}}을(를) 검색할 수 없습니다. 구문 분석 중에 확인된 오류가 있는 json 파일 목록은 다음과 같습니다. {{files}}. json 파일에서는 후행 쉼표를 사용할 수 없습니다.",
+    "updateDeviceTwinOnError": "{{deviceId}} 디바이스에서 디바이스 쌍을 업데이트하지 못했습니다. {{error}}",
+    "updateDeviceTwinOnSuccess": "{{deviceId}} 디바이스에서 디바이스 쌍을 업데이트했습니다.",
+    "invokeDigitalTwinCommandOnError": "'{{deviceId}}': {{error}} 디바이스에서 {{componentName}}' 구성 요소에 대해 IoT 플러그 앤 플레이 디바이스 명령 '{{commandName}}'을(를) 호출하지 못했습니다.",
+    "invokeDigitalTwinCommandOnSuccess": "'{{deviceId}}' 디바이스에서 {{componentName}}' 구성 요소에 대해 IoT 플러그 앤 플레이 디바이스 명령 '{{commandName}}'을(를) 호출했습니다. {{response}}.",
+    "invokeDigitalTwinCommandOnSuccessButResponseIsNotValid": "'{{deviceId}}' 디바이스에서 {{componentName}}' 구성 요소에 대해 IoT 플러그 앤 플레이 디바이스 명령 '{{commandName}}'을(를) 호출했습니다. {{response}}. 그러나 응답이 유효하지 않습니다. {{validationResult}}.",
+    "invokingDigitalTwinCommand": "페이로드 없이 '{{deviceId}}' 디바이스에서 {{componentName}}' 구성 요소에 대해 IoT 플러그 앤 플레이 디바이스 명령 '{{commandName}}'을(를) 호출하려고 합니다.",
+    "invokingDigitalTwinCommandWithPayload": "{{payload}} 페이로드를 사용하여 '{{deviceId}}' 디바이스에서 {{componentName}}' 구성 요소에 대해 IoT 플러그 앤 플레이 디바이스 명령 '{{commandName}}'을(를) 호출하려고 합니다.",
+    "invokeDigitalTwinCommandOnDefaultComponentOnError": "‘{{deviceId}}': {{error}} 디바이스에서 기본 구성 요소에 대해 IoT 플러그 앤 플레이 디바이스 명령 '{{commandName}}'을(를) 호출하지 못했습니다.",
+    "invokeDigitalTwinCommandOnDefaultComponentOnSuccess": "'{{deviceId}}' 디바이스에서 기본 구성 요소에 대해 IoT 플러그 앤 플레이 디바이스 명령 '{{commandName}}'을(를) 호출했습니다. {{response}}.",
+    "invokeDigitalTwinCommandOnDefaultComponentOnSuccessButResponseIsNotValid": "'{{deviceId}}' 디바이스에서 기본 구성 요소에 대해 IoT 플러그 앤 플레이 디바이스 명령 '{{commandName}}'을(를) 호출했습니다. {{response}}. 그러나 응답이 유효하지 않습니다. {{validationResult}}.",
+    "invokingDigitalTwinCommandOnDefaultComponent": "페이로드 없이 '{{deviceId}}' 디바이스에서 기본 구성 요소에 대해 IoT 플러그 앤 플레이 디바이스 명령 '{{commandName}}'을(를) 호출하려고 합니다.",
+    "invokingDigitalTwinCommandWithPayloadOnDefaultComponent": "{{payload}} 페이로드를 사용하여 '{{deviceId}}' 디바이스에서 기본 구성 요소에 대해 IoT 플러그 앤 플레이 디바이스 명령 '{{commandName}}'을(를) 호출하려고 합니다.",
+    "invokeMethodOnError": "{{deviceId}} 디바이스에서 메서드를 호출하지 못했습니다. {{error}}",
+    "invokeMethodOnSuccess": "'{{deviceId}}' 디바이스에서 '{{methodName}}' 메서드를 호출했습니다(응답: {{response}}).",
+    "invokingMethodWithPayload": "{{payload}} 페이로드를 사용하여 '{{deviceId}}' 디바이스에서 '{{methodName}}' 메서드를 호출하려고 합니다.",
+    "invokeModuleMethodOnError": "디바이스 {{deviceId}} 모듈 {{moduleId}}에서 메서드를 호출하지 못했습니다. {{error}}",
+    "invokeModuleMethodOnSuccess": "디바이스 '{{deviceId}}' 모듈 {{moduleId}}에서 '{{methodName}}' 메서드를 호출했습니다(응답: {{response}}).",
+    "invokingModuleMethodWithPayload": "{{payload}} 페이로드를 사용하여 디바이스 '{{deviceId}}' 모듈 {{moduleId}}에서 '{{methodName}}' 메서드를 호출하려고 합니다.",
+    "interfaceSchemaNotSupported": "'{{schema}}' 속성 스키마는 UI 양식에서 아직 지원되지 않습니다. 값을 확인하고 업데이트하려면 아래 JSON 편집기를 사용하세요.",
+    "deleteDeviceOnSucceed": "{{count}} 디바이스를 삭제했습니다.",
+    "deleteDeviceOnError": "{{count}}개 디바이스를 삭제하지 못했습니다. {{error}}",
+    "addDeviceOnSucceed": "{{deviceId}} 디바이스를 추가했습니다.",
+    "addDeviceOnError": "{{deviceId}} 디바이스를 추가하지 못했습니다. {{error}}",
+    "updateDeviceOnSucceed": "{{deviceId}} 디바이스를 업데이트했습니다.",
+    "updateDeviceOnError": "{{deviceId}} 디바이스를 업데이트하지 못했습니다. {{error}}",
+    "patchDigitalTwinOnError": "IoT 플러그 앤 플레이 디바이스 {{deviceId}}의 원하는 속성을 업데이트하지 못했습니다(응답 코드: {{error}}).",
+    "patchDigitalTwinOnSuccess": "IoT 플러그 앤 플레이 디바이스 {{deviceId}}의 원하는 속성을 업데이트했습니다.",
+    "patchDigitalTwinOnAccept": "IoT 플러그 앤 플레이 디바이스 {{deviceId}}의 원하는 속성을 업데이트 요청이 수락되었습니다.",
+    "cloudToDeviceMessageOnError": "{{deviceId}} 디바이스로 메시지를 전송하지 못했습니다. {{error}}",
+    "cloudToDeviceMessageOnSuccess": "'{{deviceId}}' 디바이스로 '{{message}}' 메시지를 전송했습니다.",
+    "sendingCloudToDeviceMessage": "'{{deviceId}}' 디바이스로 '{{message}}' 메시지를 전송하려고 합니다.",
+    "copiedToClipboard": "클립보드에 내용을 복사했습니다.",
+    "addModuleIdentityOnSucceed": "모듈 ID({{moduleId}})를 추가했습니다.",
+    "addModuleIdentityOnError": "모듈 ID({{moduleId}})를 추가하지 못했습니다. {{error}}",
+    "getModuleIdentityTwinOnError": "{{moduleId}} 모듈의 모듈 ID 쌍을 가져오지 못했습니다. {{error}}",
+    "getModuleIdentityOnError": "모듈 ID({{moduleId}})를 가져오지 못했습니다. {{error}}",
+    "deleteModuleIdentityOnSuccess": "{{moduleId}} 모듈을 삭제했습니다.",
+    "deleteModuleIdentityOnError": "모듈 ID({{moduleId}})를 삭제하지 못했습니다. {{error}}",
+    "portIsInUseError": "{{portNumber}} 포트는 사용 중입니다. 문제를 해결하려면 시스템 환경 변수 'AZURE_IOT_EXPLORER_PORT'를 사용 가능한 포트 번호로 설정하여 사용자 지정 포트를 구성하세요. 자세히 알아보려면 https://github.com/Azure/azure-iot-explorer/wiki/FAQ를 방문하세요.",
+    "modelRepoistorySettingsUpdated": "모델 리포지토리 위치를 업데이트했습니다.",
+    "startEventMonitoringOnError": "디바이스 원격 분석 모니터링을 시작하지 못했습니다. {{error}}",
+    "stopEventMonitoringOnError": "디바이스 원격 분석 모니터링을 중지하지 못했습니다. {{error}}",
+    "connectionStringsWithoutExpiryRemovalWarning": "보안 요구 사항으로 인해 이전에 저장한 허브 연결 문자열이 제거되었습니다. 새로 추가하는 연결 문자열의 만료 날짜는 오늘로부터 1년 후로 자동 설정됩니다.",
+    "connectionStringsWithExpiryRemovalWarning": "보안 요구 사항으로 인해 저장한 지 1년이 넘은 허브 연결 문자열이 하나 이상 제거되었습니다."
+  },
+  "errorBoundary": {
+    "text": "문제가 발생했습니다."
+  },
+  "template": {
+    "array": {
+      "add": "항목 추가",
+      "remove": "현재 항목 제거"
+    },
+    "collapse": {
+      "open": "열어서 자세한 내용 확인",
+      "close": "축소"
+    }
+  },
+  "modelRepository": {
+    "empty": {
+      "header": "표시할 모델 리포지토리 위치 없음",
+      "description": "모델 리포지토리 위치에 따라 애플리케이션이 IoT 플러그 앤 플레이 모델 정의를 찾기 위해 확인하는 위치가 지정됩니다. 위치는 애플리케이션 스토리지에 저장되며, 언제든지 다음 위치로 돌아가서 편집하거나 제거할 수 있습니다.",
+      "help": "IoT 플러그 앤 플레이란?"
+    },
+    "instruction": "모델 정의 검색 순서는 다음과 같습니다. 순서를 변경하려면 정의를 끌어서 원하는 위치에 놓으세요. 모델 정의를 확인할 수 있는 다른 방법을 사용하도록 설정하려면 '추가'를 클릭하세요.",
+    "commands": {
+      "save": {
+        "label": "저장",
+        "ariaLabel": "저장"
+      },
+      "revert": {
+        "label": "되돌리기",
+        "ariaLabel": "마지막으로 저장된 상태로 되돌리기"
+      },
+      "add": {
+        "label": "추가",
+        "ariaLabel": "모델 원본 추가"
+      },
+      "addPublicSource": {
+        "label": "공용 리포지토리",
+        "ariaLabel": "공용 리포지토리 모델 원본"
+      },
+      "addConfigurableRepoSource": {
+        "label": "구성 가능 리포지토리",
+        "ariaLabel": "구성 가능 리포지토리 모델 원본"
+      },
+      "addLocalSource": {
+        "label": "로컬 폴더",
+        "labelInBrowser": "로컬 폴더(https://github.com/Azure/azure-iot-explorer/releases에서 제공되는 데스크톱 버전에서만 사용 가능함)",
+        "ariaLabel": "로컬 폴더를 모델 원본으로 추가"
+      },
+      "remove": {
+        "label": "제거",
+        "ariaLabel": "제거"
+      },
+      "back": {
+        "label": "돌아가기",
+        "ariaLabel": "마지막 위치로 돌아가기"
+      },
+      "help": {
+        "label": "도움말",
+        "ariaLabel": "브라우저 탭을 열어 IoT 플러그 앤 플레이 설명서 표시"
+      }
+    },
+    "types": {
+      "public": {
+        "label": "공용 리포지토리"
+      },
+      "configurable": {
+        "label": "구성 가능 리포지토리",
+        "infoText": "자체 리포지토리 엔드포인트 구성",
+        "textBoxLabel": "리포지토리 엔드포인트"
+      },
+      "local": {
+        "label": "로컬 폴더",
+        "infoText": "로컬 폴더를 모델 리포지토리로 사용합니다. 사용하려는 모델 정의 파일의 확장명은 json이어야 합니다. '@id' 속성이 DTMI(디지털 트윈 모델 식별자)와 일치하는 첫 번째 JSON 파일을 검색합니다.",
+        "textBoxLabel": "선택한 폴더",
+        "folderPicker": {
+          "command": {
+            "openPicker": "폴더 선택",
+            "navigateToParent": "부모 폴더로 돌아가기",
+            "select": "선택",
+            "cancel": "취소"
+          },
+          "errors": {
+            "mandatory": "폴더를 지정하세요."
+          },
+          "dialog": {
+            "title": "로컬 모델 리포지토리로 사용할 폴더 선택",
+            "subText": "선택한 폴더: {{folder}}",
+            "noFolderFoundText": "폴더가 없습니다.",
+            "error": "폴더 정보를 검색하지 못했습니다."
+          }
+        }
+      },
+      "notAvailable": "--"
+    }
+  }
+}
