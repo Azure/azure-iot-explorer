@@ -85,16 +85,12 @@ export const generateHelpMenu = (params: GenerateMenuParameters): MenuItemConstr
                 label: 'Toggle Developer Tools'
             },
             { type: 'separator' },
+            { role: 'about' },
             {
                 click: () => {
-                    const version = app.getVersion();
-                    if (!!version) {
-                    shell.openExternal(`https://github.com/Azure/azure-iot-explorer/releases/tag/v${version}`);
-                    } else {
-                            shell.openExternal(`https://github.com/Azure/azure-iot-explorer/releases`);
-                    }
+                    shell.openExternal('https://github.com/Azure/azure-iot-explorer');
                 },
-                role: 'about'
+                label: `Go to Azure IoT Explorer's GitHub repository`
             }
         ]
     };
