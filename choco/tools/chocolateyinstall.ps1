@@ -6,7 +6,7 @@
 
 $ErrorActionPreference = 'Stop';
 $toolsDir   = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
-$url        = 'https://github.com/Azure/azure-iot-explorer/releases/download/v0.13.0/Azure.IoT.Explorer.preview.0.13.0.msi'
+$url        = 'https://github.com/Azure/azure-iot-explorer/releases/download/v0.14.1/Azure.IoT.Explorer.preview.0.14.1.msi'
 
 $packageArgs = @{
   packageName   = $env:ChocolateyPackageName
@@ -17,7 +17,7 @@ $packageArgs = @{
 
   softwareName  = 'Azure IoT explorer'
 
-  checksum      = 'CD4050AC2C5040D0802B2CED27A5BDF6B1D9C2F23C223D8FF4AA4284CF353A06'
+  checksum      = 'EE12A9D206DBA1A38B68453F3B3D225212BDF53E035A35681070BA47705BF1D1'
   checksumType  = 'sha256'
 
   silentArgs    = "/qn /norestart"
