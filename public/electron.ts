@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import { app, Menu, BrowserWindow, dialog, ipcMain } from 'electron';
+import * as windowState from 'electron-window-state';
 import * as path from 'path';
 import { generateMenu } from './factories/menuFactory';
 import { PLATFORMS, MESSAGE_CHANNELS } from './constants';
@@ -89,10 +90,14 @@ class Main {
     }
 
     private static createMainWindow(): void {
+        const mainWindowState = windowState({
+            defaultHeight: 1200,
+            defaultWidth: 900
+        });
         Main.mainWindow = new BrowserWindow({
-            height: 1200,
-            width: 900,
-            webPreferences: {
+            height: mainWindowState.height,
+            width: mainWindowState.width,
+            webPreferences: { // tslint:disable-line:object-literal-sort-keys
                 contextIsolation: true, // protect against prototype pollution
                 enableRemoteModule: false, // turn off remote
                 nodeIntegration: false,
@@ -100,7 +105,19 @@ class Main {
             },
         });
 
+        mainWindowState.manage(Main.mainWindow);
+
         Main.mainWindow.loadFile(Main.target);
+        try {
+            const customPort = parseInt(process.env.AZURE_IOT_EXPLORER_PORT); // tslint:disable-line:radix
+            if (customPort) {
+                Main.mainWindow.webContents.executeJavaScript(`localStorage.setItem("CUSTOM_CONTROLLER_PORT", ${customPort});`);
+            } else {
+                Main.mainWindow.webContents.executeJavaScript(`localStorage.setItem("CUSTOM_CONTROLLER_PORT", ${customPort});`);
+            }
+        } catch {
+            // nothing
+        }
         Main.mainWindow.on('closed', Main.onWindowClosed);
 
         Main.setErrorBoundary();
@@ -112,10 +129,10 @@ class Main {
     private static registerHandler(channel: string, handler: (...args: any[]) => any) {
         ipcMain.handle(channel, async (...args) => {
             try {
-                return {result: await Promise.resolve(handler(...args))};
+                return { result: await Promise.resolve(handler(...args)) };
             } catch (e) {
-               const error = formatError(e);
-               return {error};
+                const error = formatError(e);
+                return { error };
             }
         });
     }
