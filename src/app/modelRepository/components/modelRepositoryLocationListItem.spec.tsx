@@ -6,7 +6,7 @@ import 'jest';
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 import { act } from 'react-dom/test-utils';
-import Dialog from 'office-ui-fabric-react/lib/components/Dialog';
+import { Dialog } from 'office-ui-fabric-react';
 import { ModelRepositoryLocationListItem } from './modelRepositoryLocationListItem';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
 import { ResourceKeys } from '../../../localization/resourceKeys';

@@ -288,7 +288,7 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
         }
       >
         <label
-          className="ms-Label root-52"
+          className="ms-Label root-40"
         >
           labelText
         </label>
@@ -620,7 +620,7 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
               "iconDisabled": Object {
                 "color": "#a19f9d",
                 "selectors": Object {
-                  "@media screen and (-ms-high-contrast: active)": Object {
+                  "@media screen and (-ms-high-contrast: active), (forced-colors: active)": Object {
                     "color": "GrayText",
                   },
                 },
@@ -641,7 +641,7 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
               "menuIconDisabled": Object {
                 "color": "#a19f9d",
                 "selectors": Object {
-                  "@media screen and (-ms-high-contrast: active)": Object {
+                  "@media screen and (-ms-high-contrast: active), (forced-colors: active)": Object {
                     "color": "GrayText",
                   },
                 },
@@ -660,7 +660,7 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                       "position": "absolute",
                       "right": 2,
                       "selectors": Object {
-                        "@media screen and (-ms-high-contrast: active)": Object {
+                        "@media screen and (-ms-high-contrast: active), (forced-colors: active)": Object {
                           "bottom": -2,
                           "left": -2,
                           "outlineColor": "ButtonText",
@@ -732,7 +732,7 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                       "position": "absolute",
                       "right": 2,
                       "selectors": Object {
-                        "@media screen and (-ms-high-contrast: active)": Object {
+                        "@media screen and (-ms-high-contrast: active), (forced-colors: active)": Object {
                           "bottom": -2,
                           "left": -2,
                           "outlineColor": "ButtonText",
@@ -778,7 +778,7 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                 "backgroundColor": "#f3f2f1",
                 "color": "#106ebe",
                 "selectors": Object {
-                  "@media screen and (-ms-high-contrast: active)": Object {
+                  "@media screen and (-ms-high-contrast: active), (forced-colors: active)": Object {
                     "borderColor": "Highlight",
                     "color": "Highlight",
                   },
@@ -811,7 +811,7 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                       "position": "absolute",
                       "right": 3,
                       "selectors": Object {
-                        "@media screen and (-ms-high-contrast: active)": Object {
+                        "@media screen and (-ms-high-contrast: active), (forced-colors: active)": Object {
                           "border": "none",
                           "bottom": -2,
                           "left": -2,
@@ -840,7 +840,7 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                       "borderBottomRightRadius": "0",
                       "borderTopRightRadius": "0",
                       "selectors": Object {
-                        "@media screen and (-ms-high-contrast: active)": Object {
+                        "@media screen and (-ms-high-contrast: active), (forced-colors: active)": Object {
                           "MsHighContrastAdjust": "none",
                           "backgroundColor": "Window",
                           "border": "1px solid WindowText",
@@ -852,7 +852,7 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                     ".ms-Button--primary + .ms-Button": Object {
                       "border": "none",
                       "selectors": Object {
-                        "@media screen and (-ms-high-contrast: active)": Object {
+                        "@media screen and (-ms-high-contrast: active), (forced-colors: active)": Object {
                           "border": "1px solid WindowText",
                           "borderLeftWidth": "0",
                         },
@@ -865,7 +865,7 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                 "selectors": Object {
                   ".ms-Button--primary": Object {
                     "selectors": Object {
-                      "@media screen and (-ms-high-contrast: active)": Object {
+                      "@media screen and (-ms-high-contrast: active), (forced-colors: active)": Object {
                         "MsHighContrastAdjust": "none",
                         "backgroundColor": "WindowText",
                         "color": "Window",
@@ -878,7 +878,7 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                 "selectors": Object {
                   ".ms-Button--primary": Object {
                     "selectors": Object {
-                      "@media screen and (-ms-high-contrast: active)": Object {
+                      "@media screen and (-ms-high-contrast: active), (forced-colors: active)": Object {
                         "MsHighContrastAdjust": "none",
                         "backgroundColor": "WindowText",
                         "color": "Window",
@@ -891,7 +891,7 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                 "border": "none",
                 "outline": "none",
                 "selectors": Object {
-                  "@media screen and (-ms-high-contrast: active)": Object {
+                  "@media screen and (-ms-high-contrast: active), (forced-colors: active)": Object {
                     "backgroundColor": "Window",
                     "borderColor": "GrayText",
                     "color": "GrayText",
@@ -908,7 +908,7 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                 "selectors": Object {
                   ".ms-Button--primary": Object {
                     "selectors": Object {
-                      "@media screen and (-ms-high-contrast: active)": Object {
+                      "@media screen and (-ms-high-contrast: active), (forced-colors: active)": Object {
                         "backgroundColor": "Highlight",
                         "color": "Window",
                       },
@@ -917,7 +917,7 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                   ".ms-Button.is-disabled": Object {
                     "color": "#a19f9d",
                     "selectors": Object {
-                      "@media screen and (-ms-high-contrast: active)": Object {
+                      "@media screen and (-ms-high-contrast: active), (forced-colors: active)": Object {
                         "backgroundColor": "Window",
                         "borderColor": "GrayText",
                         "color": "GrayText",
@@ -931,7 +931,7 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                 "position": "absolute",
                 "right": 31,
                 "selectors": Object {
-                  "@media screen and (-ms-high-contrast: active)": Object {
+                  "@media screen and (-ms-high-contrast: active), (forced-colors: active)": Object {
                     "backgroundColor": "WindowText",
                   },
                 },
@@ -943,7 +943,7 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                 "position": "absolute",
                 "right": 31,
                 "selectors": Object {
-                  "@media screen and (-ms-high-contrast: active)": Object {
+                  "@media screen and (-ms-high-contrast: active), (forced-colors: active)": Object {
                     "backgroundColor": "GrayText",
                   },
                 },
@@ -985,7 +985,7 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                 "selectors": Object {
                   ".ms-Button--primary": Object {
                     "selectors": Object {
-                      "@media screen and (-ms-high-contrast: active)": Object {
+                      "@media screen and (-ms-high-contrast: active), (forced-colors: active)": Object {
                         "backgroundColor": "Window",
                         "borderColor": "GrayText",
                         "color": "GrayText",
@@ -994,7 +994,7 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                   },
                   ".ms-Button-menuIcon": Object {
                     "selectors": Object {
-                      "@media screen and (-ms-high-contrast: active)": Object {
+                      "@media screen and (-ms-high-contrast: active), (forced-colors: active)": Object {
                         "color": "GrayText",
                       },
                     },
@@ -1002,7 +1002,7 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                   ":hover": Object {
                     "cursor": "default",
                   },
-                  "@media screen and (-ms-high-contrast: active)": Object {
+                  "@media screen and (-ms-high-contrast: active), (forced-colors: active)": Object {
                     "backgroundColor": "Window",
                     "border": "1px solid GrayText",
                     "color": "GrayText",
@@ -1291,7 +1291,7 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
           variantClassName="ms-Button--icon"
         >
           <button
-            className="ms-Button ms-Button--icon root-53"
+            className="ms-Button ms-Button--icon root-41"
             data-is-focusable={true}
             id="iconbutton0"
             onClick={[Function]}
@@ -1303,16 +1303,16 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
             type="button"
           >
             <span
-              className="ms-Button-flexContainer flexContainer-54"
+              className="ms-Button-flexContainer flexContainer-42"
               data-automationid="splitbuttonprimary"
             >
               <Component
-                className="ms-Button-icon icon-56"
+                className="ms-Button-icon icon-44"
                 iconName="Info"
               >
                 <i
                   aria-hidden={true}
-                  className="ms-Icon root-37 ms-Button-icon icon-56"
+                  className="ms-Icon root-37 ms-Button-icon icon-44"
                   data-icon-name="Info"
                   role="presentation"
                   style={
