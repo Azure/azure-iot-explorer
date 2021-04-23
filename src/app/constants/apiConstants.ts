@@ -44,7 +44,7 @@ export const HEADERS = {
     REQUEST_ID: 'x-ms-request-id'
 };
 
-export enum DataPlaneStatusCode{
+export enum DataPlaneStatusCode {
     SuccessLowerBound = 200,
     Accepted = 202,
     SuccessUpperBound = 299,
@@ -57,10 +57,19 @@ export const DEFAULT_CONSUMER_GROUP = '$Default';
 
 const localIp = 'http://127.0.0.1';
 const apiPath = '/api';
+
+const getPort = () => {
+    const customPort = parseInt(localStorage.getItem(CUSTOM_CONTROLLER_PORT), 10);
+    if (customPort && !isNaN(customPort)) {
+        return customPort;
+    }
+    return appConfig.controllerPort;
+};
+
 export const CONTROLLER_API_ENDPOINT =
-    appConfig.hostMode ===  HostMode.Browser ?
+    appConfig.hostMode === HostMode.Browser ?
         `${localIp}:${appConfig.controllerPort}${apiPath}` :
-        `${localIp}:${localStorage.getItem(CUSTOM_CONTROLLER_PORT) || appConfig.controllerPort}${apiPath}`;
+        `${localIp}:${getPort()}${apiPath}`;
 
 export enum HTTP_OPERATION_TYPES {
     Delete = 'DELETE',

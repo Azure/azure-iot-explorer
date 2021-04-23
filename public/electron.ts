@@ -110,10 +110,10 @@ class Main {
         Main.mainWindow.loadFile(Main.target);
         try {
             const customPort = parseInt(process.env.AZURE_IOT_EXPLORER_PORT); // tslint:disable-line:radix
-            if (customPort) {
+            if (customPort && !isNaN(customPort)) {
                 Main.mainWindow.webContents.executeJavaScript(`localStorage.setItem("CUSTOM_CONTROLLER_PORT", ${customPort});`);
             } else {
-                Main.mainWindow.webContents.executeJavaScript(`localStorage.setItem("CUSTOM_CONTROLLER_PORT", ${customPort});`);
+                Main.mainWindow.webContents.executeJavaScript(`localStorage.removeItem("CUSTOM_CONTROLLER_PORT");`);
             }
         } catch {
             // nothing
