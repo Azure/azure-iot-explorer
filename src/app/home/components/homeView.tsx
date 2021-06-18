@@ -15,7 +15,7 @@ import './homeView.scss';
 export const HomeView: React.FC = () => {
     const [ appMenuVisible, setAppMenuVisible ] = React.useState(true);
     return (
-        <div>
+        <>
             <AppVersionMessageBar/>
             <div className="view-content home-view">
                 <div className={'nav' + (!appMenuVisible ? ' collapsed' : '')}>
@@ -33,6 +33,6 @@ export const HomeView: React.FC = () => {
                     </Switch>
                 </div>
             </div>
-        </div>
+        </>
     );
 };

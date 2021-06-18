@@ -46,16 +46,14 @@ export const HomeViewNavigation: React.FC<HomeViewNavigationProps> = props => {
     return (
         <div className="nav-link-bar view">
             <div className="view-scroll-vertical">
-                <nav role="navigation">
-                    <IconButton
-                        tabIndex={0}
-                        iconProps={{ iconName: NAV }}
-                        title={appMenuVisible ? t(ResourceKeys.common.navigation.collapse) : t(ResourceKeys.common.navigation.expand)}
-                        ariaLabel={appMenuVisible ? t(ResourceKeys.common.navigation.collapse) : t(ResourceKeys.common.navigation.expand)}
-                        onClick={collapseToggle}
-                    />
-                    <Nav groups={[{ links: navLinks }]}/>
-                </nav>
+                <IconButton
+                    tabIndex={0}
+                    iconProps={{ iconName: NAV }}
+                    title={appMenuVisible ? t(ResourceKeys.common.navigation.collapse) : t(ResourceKeys.common.navigation.expand)}
+                    ariaLabel={appMenuVisible ? t(ResourceKeys.common.navigation.collapse) : t(ResourceKeys.common.navigation.expand)}
+                    onClick={collapseToggle}
+                />
+                <Nav groups={[{ links: navLinks }]} />
             </div>
         </div>
     );

@@ -5,16 +5,34 @@
 @import 'variables';
 @import 'themes';
 
+@media screen and (min-width: $screenSize) {
+    .header {
+        display: grid;
+        grid-template-areas: 'title search notifications settings questions';
+        grid-template-columns: 1fr 150px 100px;
+        line-height: 20px;
+        height: 45px;
+        .title {
+            margin-top: 10px;
+        }
+    }
+}
+@media screen and (max-width: $screenSize) {
+    .header {
+        margin-bottom: 3px;
+        padding-bottom: 3px;
+        .title {
+            padding-bottom: 5px;
+        }
+    }
+}
+
 .header {
-    display: grid;
-    grid-template-areas: 'title search notifications settings questions';
-    grid-template-columns: 1fr 150px 100px;
-    line-height: 20px;
     width: 100%;
-    height: 45px;
+
     .title {
         grid-area: title;
-        margin-top: 10px;
+
         margin-left: 10px;
         font-size: 18px;
         font-weight: 600;

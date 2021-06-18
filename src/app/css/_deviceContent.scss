@@ -2,51 +2,75 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-@import 'variables';
-@import 'mixins';
-@import 'themes';
+@import "variables";
+@import "mixins";
+@import "themes";
 
 $nav-collapsed-width: 40px;
 $nav-width: 20%;
+
+@media screen and (min-width: $screenSize) {
+    .device-content {
+        .device-content-nav-bar {
+            display: flex;
+            flex-direction: column;
+            width: $nav-width;
+            height: calc(100vh - 131px);
+            float: left;
+            overflow-y: auto;
+            @include themify($themes) {
+                border: {
+                    right: {
+                        width: 1px;
+                        style: solid;
+                        color: themed("navBarBorderColor");
+                    }
+                    bottom: none;
+                }
+            }
+        }
+        .device-content-nav-bar.collapsed {
+            width: $nav-collapsed-width;
+
+            .ms-Nav-linkText {
+                display: none;
+            }
+        }
+
+        .device-content-detail {
+            transition: margin-left 0.5s;
+            margin-left: $nav-width;
+        }
+
+        .device-content-detail.collapsed {
+            margin-left: $nav-collapsed-width;
+        }
+    }
+}
+
+@media screen and (max-width: $screenSize) {
+    .device-content {
+        .device-content-nav-bar.collapsed {
+            .nav-links {
+                display: none;
+            }
+        }
+    }
+}
 
 .device-content {
     display: inline-block;
     width: 100%;
 
-    .device-content-nav-bar.collapsed {
-        width:$nav-collapsed-width;
-
-        .ms-Nav-linkText {
-            display:none;
-        }
-    }
     .device-content-nav-bar {
         transition: all 0.5s;
-        overflow-y: auto;
-        display: flex;
-        flex-Direction: column;
-        width: $nav-width;
-        height: calc(100vh - 131px);
-        float: left;
-        @include themify($themes) {
-            border: {
-                right: {
-                    width: 1px;
-                    style: solid;
-                    color: themed('navBarBorderColor');
-                }
-                bottom: none;
-            }
-        }
     }
     .device-content-detail {
-        transition: margin-left .5s;
         margin: 0;
-        margin-left: $nav-width;
         .form-group {
             .fieldChildren {
                 display: flex;
-                flex-Direction: row;
+                flex-direction: row;
                 width: 100%;
                 .ms-Dropdown-container {
                     flex: 1;
@@ -75,10 +99,6 @@ $nav-width: 20%;
             font-size: 20px;
             padding-left: 26px;
         }
-
-    }
-    .device-content-detail.collapsed {
-        margin-left: $nav-collapsed-width;
     }
 
     .device-property {
@@ -96,7 +116,7 @@ $nav-width: 20%;
 
         .ms-Overlay {
             @include themify($themes) {
-                background-color: themed('blockingColor');
+                background-color: themed("blockingColor");
             }
         }
     }
@@ -117,4 +137,4 @@ $nav-width: 20%;
 
 .ms-Shimmer-container {
     margin-top: 20px;
- }
+}
