@@ -1,5 +1,13 @@
-.device-twin {
-    .json-editor {
-        height: calc(100vh - 300px);
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+@import "variables";
+
+@media screen and (min-width: $screenSize) {
+    .device-twin {
+        .json-editor {
+            height: calc(100vh - 300px);
+        }
     }
 }

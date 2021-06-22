@@ -5,6 +5,12 @@
  @import 'variables';
  @import 'themes';
 
+ @media screen and (max-width: $screenSize) {
+    .maskedCopyableTextField {
+        max-width: 92vw;
+    }
+ }
+
 .maskedCopyableTextField {
     margin-bottom: 5px;
     .labelSection {

@@ -147,7 +147,7 @@ export const DeviceContent: React.FC = () => {
     };
 
     return (
-        <div>
+        <>
             {deviceId &&
                 <div className="edit-content">
                     <div className="device-content">
@@ -156,6 +156,6 @@ export const DeviceContent: React.FC = () => {
                     </div>
                 </div>
             }
-        </div>
+        </>
     );
 };

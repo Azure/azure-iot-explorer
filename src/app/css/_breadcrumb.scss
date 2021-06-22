@@ -3,13 +3,29 @@
  * Licensed under the MIT License
  **********************************************************/
  @import 'themes';
+@import 'variables';
 
+@media screen and (max-width: $screenSize) {
+    .breadcrumb {
+        max-width: 95vw;
+        .breadcrumb-item {
+            display: inline-block;
+        }
+    }
+}
+
+@media screen and (min-width: $screenSize) {
+    .breadcrumb {
+        .breadcrumb-item {
+            display: inline;
+        }
+    }
+}
 .breadcrumb {
     padding-inline-start: 0px;
     padding-left: 10px;
     font-size: 20px;
     .breadcrumb-item {
-        display: inline;
         a {
             @include themify($themes) {
                 color: themed('linkColor');

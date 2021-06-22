@@ -3,17 +3,32 @@
  * Licensed under the MIT License
  **********************************************************/
  @import 'themes';
+ @import 'variables';
+
+ @media screen and (min-width: $screenSize) {
+     .pnp-interface-info {
+        .interface-definition-json-editor
+        {
+            padding-top: 20px;
+            height: calc(100vh - 540px);
+        }
+        .invalid-interface-definition-json-editor
+        {
+            padding-top: 20px;
+            height: calc(100vh - 440px);
+        }
+     }
+ }
+ @media screen and (max-width: $screenSize) {
+     .interface-definition-json-editor {
+         min-height: 100vh;
+     }
+     .invalid-interface-definition-json-editor {
+        min-height: 100vh;
+     }
+
+ }
 
 .pnp-interface-info {
     padding: 0 25px;
-    .interface-definition-json-editor
-    {
-        padding-top: 20px;
-        height: calc(100vh - 540px);
-    }
-    .invalid-interface-definition-json-editor
-    {
-        padding-top: 20px;
-        height: calc(100vh - 440px);
-    }
 }

@@ -2,8 +2,24 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-
+@import '../../../css/variables';
 @import '../../../css/themes';
+
+@media screen and (min-width: $screenSize) {
+    .device-events {
+        .scrollable-telemetry {
+            height: calc(100vh - 480px);
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .scrollable-pnp-telemetry {
+            height: calc(100vh - 520px);
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+    }
+}
 
 .device-events {
     .device-events-container {
@@ -49,16 +65,7 @@
         }
     }
 
-    .scrollable-telemetry {
-        height: calc(100vh - 480px);
-        overflow-y: auto;
-        overflow-x: hidden;
-    }
-
     .scrollable-pnp-telemetry {
-        height: calc(100vh - 520px);
-        overflow-y: auto;
-        overflow-x: hidden;
         .column-value-text {
             .value-validation-error {
                 @include themify($themes) {

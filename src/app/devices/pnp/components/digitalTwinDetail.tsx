@@ -56,6 +56,7 @@ export const DigitalTwinDetail: React.FC = () => {
             aria-label={t(ResourceKeys.digitalTwin.pivot.ariaLabel)}
             selectedKey={selectedKey}
             onLinkClick={handleLinkClick}
+//            overflowBehavior="menu" // needs updated Fluent
         >
             {pivotItems}
         </Pivot>
