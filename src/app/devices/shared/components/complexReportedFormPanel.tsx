@@ -4,8 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Label } from 'office-ui-fabric-react/lib/components/Label';
-import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
+import { Label, IconButton } from '@fluentui/react';
 import Form from 'react-jsonschema-form';
 import { fabricWidgets, fabricFields } from '../../../jsonSchemaFormFabricPlugin';
 import { ObjectTemplate } from '../../../jsonSchemaFormFabricPlugin/fields/objectTemplate';

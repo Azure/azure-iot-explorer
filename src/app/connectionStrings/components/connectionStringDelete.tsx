@@ -4,8 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Dialog, DialogFooter } from 'office-ui-fabric-react/lib/components/Dialog';
-import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/components/Button';
+import { Dialog, DialogFooter, PrimaryButton, DefaultButton } from '@fluentui/react';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import './connectionStringDelete.scss';
 
@@ -19,7 +18,7 @@ export interface ConnectionStringDeleteProps {
     onDeleteCancel(): void;
 }
 
-export const ConnectionStringDelete: React.FC<ConnectionStringDeleteProps> = props => {
+export const ConnectionStringDelete: React.FC<ConnectionStringDeleteProps> = (props: ConnectionStringDeleteProps) => {
     const { connectionString, hidden, onDeleteCancel, onDeleteConfirm } = props;
     const { t } = useTranslation();
 

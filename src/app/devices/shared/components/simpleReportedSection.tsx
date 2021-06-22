@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { Validator, ValidationError } from 'jsonschema';
-import { Label } from 'office-ui-fabric-react/lib/components/Label';
+import { Label } from '@fluentui/react';
 import { ParsedJsonSchema } from '../../../api/models/interfaceJsonParserOutput';
 import { isValueDefined } from './dataForm';
 

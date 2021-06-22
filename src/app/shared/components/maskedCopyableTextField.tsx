@@ -4,10 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { IconButton, IButton } from 'office-ui-fabric-react/lib/components/Button';
-import { getId } from 'office-ui-fabric-react/lib/Utilities';
-import { TooltipHost } from 'office-ui-fabric-react/lib/components/Tooltip';
-import { Announced } from 'office-ui-fabric-react/lib/components/Announced';
+import { IconButton, IButton, getId, TooltipHost, Announced } from '@fluentui/react';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { LabelWithTooltip } from './labelWithTooltip';
 import { LabelWithRichCallout } from './labelWithRichCallout';
@@ -42,23 +39,25 @@ export const MaskedCopyableTextField: React.FC<MaskedCopyableTextFieldProps> = (
     const { t } = useTranslation();
 
     const { setFocus, ariaLabel, error, value, allowMask, readOnly, placeholder, calloutContent, labelCallout, required, label, onTextChange } = props;
-    const [ hideContents, setHideContents ] = React.useState(allowMask);
+    const [hideContents, setHideContents] = React.useState(allowMask);
 
-    React.useEffect(() => {
-        if (setFocus) {
-            const node = visibleInputRef.current;
-            if (node) {
-                node.focus();
+    React.useEffect(
+        () => {
+            if (setFocus) {
+                const node = visibleInputRef.current;
+                if (node) {
+                    node.focus();
+                }
             }
-        }
-    },              [setFocus]);
+        },
+        [setFocus]);
 
     const renderLabelSection = () => {
         if (calloutContent) {
             return (<LabelWithRichCallout calloutContent={calloutContent} htmlFor={labelIdentifier} required={required}>{label}</LabelWithRichCallout>);
         }
 
-        return(<LabelWithTooltip tooltipText={labelCallout} htmlFor={labelIdentifier} required={required}>{label}</LabelWithTooltip>);
+        return (<LabelWithTooltip tooltipText={labelCallout} htmlFor={labelIdentifier} required={required}>{label}</LabelWithTooltip>);
     };
 
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -116,7 +115,7 @@ export const MaskedCopyableTextField: React.FC<MaskedCopyableTextFieldProps> = (
                     />
                     <input
                         aria-hidden={true}
-                        style={{ position: 'absolute', opacity: 0, height: '1px', width: '1px'}}
+                        style={{ position: 'absolute', opacity: 0, height: '1px', width: '1px' }}
                         tabIndex={-1}
                         ref={hiddenInputRef}
                         value={value || ''}
@@ -158,7 +157,7 @@ export const MaskedCopyableTextField: React.FC<MaskedCopyableTextFieldProps> = (
             {error &&
                 <>
                     <div className="errorSection" aria-live={'assertive'}>{error}</div>
-                    <Announced message={error}/>
+                    <Announced message={error} />
                 </>
             }
 

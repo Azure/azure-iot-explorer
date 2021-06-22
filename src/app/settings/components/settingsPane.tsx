@@ -4,10 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Panel, PanelType } from 'office-ui-fabric-react/lib/components/Panel';
-import { Link } from 'office-ui-fabric-react/lib/components/Link';
-import { DefaultButton, ActionButton } from 'office-ui-fabric-react/lib/components/Button';
-import { Toggle } from 'office-ui-fabric-react/lib/components/Toggle';
+import { Panel, PanelType, Link, DefaultButton, ActionButton, Toggle } from '@fluentui/react';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { Theme, useThemeContext } from '../../shared/contexts/themeContext';
 import { THEME_SELECTION } from '../../constants/browserStorage';

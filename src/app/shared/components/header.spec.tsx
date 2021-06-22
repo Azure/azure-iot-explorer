@@ -4,7 +4,6 @@
  **********************************************************/
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { ActionButton } from 'office-ui-fabric-react/lib/components/Button';
 import { Header } from './header';
 
 describe('Header', () => {

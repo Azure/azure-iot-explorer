@@ -4,10 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { DetailsList, DetailsListLayoutMode, IColumn, CheckboxVisibility } from 'office-ui-fabric-react/lib/components/DetailsList';
-import { Label } from 'office-ui-fabric-react/lib/components/Label';
-import { Overlay } from 'office-ui-fabric-react/lib/components/Overlay';
-import { ActionButton } from 'office-ui-fabric-react/lib/components/Button';
+import { DetailsList, DetailsListLayoutMode, IColumn, CheckboxVisibility, Label, Overlay, ActionButton } from '@fluentui/react';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 import { RenderSimplyTypeValue } from '../../../shared/components/simpleReportedSection';
@@ -23,9 +20,9 @@ export interface DevicePropertiesDataProps {
 
 export const DevicePropertiesPerInterface: React.FC<DevicePropertiesDataProps> = (props: DevicePropertiesDataProps) => {
     const { t } = useTranslation();
-    const [ showOverlay, setShowOverlay ] = React.useState<boolean>(false);
-    const [ showReportedValuePanel, setShowReportedValuePanel ] = React.useState<boolean>(false);
-    const [ selectedItem, setSelectedItem ] = React.useState(undefined);
+    const [showOverlay, setShowOverlay] = React.useState<boolean>(false);
+    const [showReportedValuePanel, setShowReportedValuePanel] = React.useState<boolean>(false);
+    const [selectedItem, setSelectedItem] = React.useState(undefined);
 
     const getColumns = (): IColumn[] => {
         return [
@@ -111,7 +108,7 @@ export const DevicePropertiesPerInterface: React.FC<DevicePropertiesDataProps> =
         if (!selectedItem) {
             return;
         }
-        const { reportedTwin, propertyModelDefinition : modelDefinition, propertySchema : schema } = selectedItem;
+        const { reportedTwin, propertyModelDefinition: modelDefinition, propertySchema: schema } = selectedItem;
         return (
             <div role="dialog">
                 {showReportedValuePanel &&
@@ -141,7 +138,7 @@ export const DevicePropertiesPerInterface: React.FC<DevicePropertiesDataProps> =
                     columns={getColumns()}
                     layoutMode={DetailsListLayoutMode.justified}
                 />
-                {showOverlay && <Overlay/>}
+                {showOverlay && <Overlay />}
                 {createReportedValuePanel()}
             </div>
         </div>

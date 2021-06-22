@@ -5,8 +5,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useHistory } from 'react-router-dom';
-import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
-import { Label } from 'office-ui-fabric-react/lib/components/Label';
+import { CommandBar, Label } from '@fluentui/react';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getComponentNameFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { DevicePropertiesPerInterface } from './devicePropertiesPerInterface';

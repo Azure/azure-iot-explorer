@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
+import { IconButton } from '@fluentui/react';
 import { toast, ToastType, ToastOptions, UpdateOptions } from 'react-toastify';
 import { NotificationListEntry } from '../../notifications/components/notificationListEntry';
 import { Notification } from '../../api/models/notification';

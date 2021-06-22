@@ -3,11 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Callout } from 'office-ui-fabric-react/lib/Callout';
-import { ILabelProps, Label } from 'office-ui-fabric-react/lib/components/Label';
-import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
-import { DirectionalHint } from 'office-ui-fabric-react/lib/components/ContextualMenu';
-import { getId } from 'office-ui-fabric-react/lib/Utilities';
+import { Callout, ILabelProps, Label, IconButton, DirectionalHint, getId } from '@fluentui/react';
 import { INFO } from '../../constants/iconNames';
 import '../../css/_labelWithTooltip.scss';
 

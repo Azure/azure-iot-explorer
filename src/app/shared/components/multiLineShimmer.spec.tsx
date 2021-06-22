@@ -5,7 +5,7 @@
 import 'jest';
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { Shimmer } from 'office-ui-fabric-react/lib/components/Shimmer';
+import { Shimmer } from '@fluentui/react';
 import { MultiLineShimmer } from './multiLineShimmer';
 
 describe('shared/components/multiLineShimmer', () => {

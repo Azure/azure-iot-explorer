@@ -5,8 +5,7 @@
 import 'jest';
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
-import { Shimmer } from 'office-ui-fabric-react/lib/components/Shimmer';
-import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
+import { Shimmer, CommandBar } from '@fluentui/react';
 import { DeviceCommands } from './deviceCommands';
 import * as PnpContext from '../../../../shared/contexts/pnpStateContext';
 import { InterfaceNotFoundMessageBar } from '../../../shared/components/interfaceNotFoundMessageBar';

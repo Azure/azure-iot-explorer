@@ -5,8 +5,7 @@
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
-import { TextField } from 'office-ui-fabric-react/lib/components/TextField';
-import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/components/Button';
+import { TextField, PrimaryButton, DefaultButton } from '@fluentui/react';
 import { ConnectionStringEditView, ConnectionStringEditViewProps } from './connectionStringEditView';
 
 describe('ConnectionStringEdit', () => {

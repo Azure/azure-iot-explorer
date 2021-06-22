@@ -5,9 +5,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useHistory } from 'react-router-dom';
-import { Icon } from 'office-ui-fabric-react/lib/components/Icon';
-import { Announced } from 'office-ui-fabric-react/lib/components/Announced';
-import { Link } from 'office-ui-fabric-react/lib/components/Link';
+import { Icon, Announced, Link } from '@fluentui/react';
 import { Notification, NotificationType } from '../../api/models/notification';
 import { ROUTE_PARAMS, ROUTE_PARTS } from '../../constants/routes';
 import '../../css/_notification.scss';

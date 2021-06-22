@@ -5,7 +5,7 @@
 import 'jest';
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { PrimaryButton } from 'office-ui-fabric-react/lib/components/Button';
+import { PrimaryButton } from '@fluentui/react';
 import { NoMatchError } from './noMatchError';
 
 describe('shared/components/noMatchError', () => {

@@ -4,8 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { TextField } from 'office-ui-fabric-react/lib/components/TextField';
-import { ActionButton, IconButton, PrimaryButton } from 'office-ui-fabric-react/lib/components/Button';
+import { TextField, ActionButton, IconButton, PrimaryButton } from '@fluentui/react';
 import { DeviceQueryClause } from './deviceQueryClause';
 import { DeviceQuery, QueryClause } from '../../../api/models/deviceQuery';
 import { ResourceKeys } from '../../../../localization/resourceKeys';

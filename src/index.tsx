@@ -7,7 +7,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { HashRouter } from 'react-router-dom';
 import { I18nextProvider } from 'react-i18next';
-import { initializeIcons } from 'office-ui-fabric-react/lib/Icons';
+import { initializeIcons } from '@fluentui/react';
 import { Themer } from './themer';
 import { Application } from './app/shared/components/application';
 import { useAsyncSagaReducer } from './app/shared/hooks/useAsyncSagaReducer';

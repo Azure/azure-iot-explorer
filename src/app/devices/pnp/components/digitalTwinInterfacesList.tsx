@@ -4,14 +4,8 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Label } from 'office-ui-fabric-react/lib/components/Label';
-import { CommandBar, ICommandBarItemProps } from 'office-ui-fabric-react/lib/components/CommandBar';
-import { DetailsList, IColumn, SelectionMode } from 'office-ui-fabric-react/lib/components/DetailsList';
-import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/components/MessageBar';
-import { Announced } from 'office-ui-fabric-react/lib/components/Announced';
-import { Pivot, PivotItem } from 'office-ui-fabric-react/lib/components/Pivot';
-import { Link } from 'office-ui-fabric-react/lib/components/Link';
-import { NavLink, useLocation, useRouteMatch, Route } from 'react-router-dom';
+import { Label, CommandBar, ICommandBarItemProps, DetailsList, IColumn, SelectionMode, MessageBar, MessageBarType, Announced, Pivot, PivotItem, Link } from '@fluentui/react';
+import { NavLink, useLocation, useRouteMatch } from 'react-router-dom';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
 import { getDeviceIdFromQueryString, getModuleIdentityIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { ResourceKeys } from '../../../../localization/resourceKeys';

@@ -4,8 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
-import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/components/MessageBar';
+import { CommandBar, MessageBar, MessageBarType } from '@fluentui/react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getInterfaceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';

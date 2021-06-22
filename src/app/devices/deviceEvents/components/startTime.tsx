@@ -4,9 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { TextField } from 'office-ui-fabric-react/lib/components/TextField';
-import { Toggle } from 'office-ui-fabric-react/lib/components/Toggle';
-import { Stack } from 'office-ui-fabric-react/lib/components/Stack';
+import { TextField, Toggle, Stack } from '@fluentui/react';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { LabelWithTooltip } from '../../../shared/components/labelWithTooltip';
 import './deviceEvents.scss';

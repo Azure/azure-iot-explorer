@@ -4,8 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Nav, INavLink } from 'office-ui-fabric-react/lib/components/Nav';
-import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
+import { Nav, INavLink, IconButton } from '@fluentui/react';
 import { NAV } from '../../constants/iconNames';
 import { ROUTE_PARTS } from '../../constants/routes';
 import { ResourceKeys } from '../../../localization/resourceKeys';

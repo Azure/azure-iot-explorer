@@ -4,9 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Label } from 'office-ui-fabric-react/lib/components/Label';
-import { Stack } from 'office-ui-fabric-react/lib/components/Stack';
-import { ActionButton, IconButton } from 'office-ui-fabric-react/lib/components/Button';
+import { Label, Stack, ActionButton, IconButton } from '@fluentui/react';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { InterfaceDetailCard } from '../../../../constants/iconNames';
 import { ComplexReportedFormPanel } from '../../../shared/components/complexReportedFormPanel';

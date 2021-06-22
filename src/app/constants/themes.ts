@@ -2,7 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { IPartialTheme } from 'office-ui-fabric-react/lib/Styling';
+import { IPartialTheme } from '@fluentui/react';
 
 export const THEME_DARK: IPartialTheme =  {
     palette: {

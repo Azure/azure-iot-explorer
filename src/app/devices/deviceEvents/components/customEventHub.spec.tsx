@@ -6,8 +6,7 @@ import 'jest';
 import * as React from 'react';
 import { act } from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
-import { Toggle } from 'office-ui-fabric-react/lib/components/Toggle';
-import { TextField } from 'office-ui-fabric-react/lib/components/TextField';
+import { Toggle, TextField } from '@fluentui/react';
 import { CustomEventHub } from './customEventHub';
 
 const search = '?deviceId=test&componentName=DEFAULT_COMPONENT&interfaceId=dtmi:com:example:Thermostat;1';

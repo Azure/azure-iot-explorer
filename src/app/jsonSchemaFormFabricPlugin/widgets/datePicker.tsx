@@ -2,7 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { DatePicker, IDatePickerProps } from 'office-ui-fabric-react/lib/components/DatePicker';
+import { DatePicker, IDatePickerProps } from '@fluentui/react';
 import * as React from 'react';
 import { WidgetProps } from 'react-jsonschema-form';
 import { parseISO, toDate, format } from 'date-fns';

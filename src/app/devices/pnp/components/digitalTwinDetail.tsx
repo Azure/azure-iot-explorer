@@ -5,8 +5,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, Route, useRouteMatch, useHistory } from 'react-router-dom';
-import { Stack } from 'office-ui-fabric-react/lib/components/Stack';
-import { Pivot, PivotItem } from 'office-ui-fabric-react/lib/components/Pivot';
+import { Stack, Pivot, PivotItem } from '@fluentui/react';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { DeviceSettings } from './deviceSettings/deviceSettings';

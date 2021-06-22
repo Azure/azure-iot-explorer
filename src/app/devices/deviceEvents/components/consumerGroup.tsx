@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { ITextFieldProps, TextField } from 'office-ui-fabric-react/lib/components/TextField';
+import { ITextFieldProps, TextField } from '@fluentui/react';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { LabelWithTooltip } from '../../../shared/components/labelWithTooltip';
 import './deviceEvents.scss';

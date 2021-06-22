@@ -5,9 +5,8 @@
 import 'jest';
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
-import { Overlay } from 'office-ui-fabric-react/lib/components/Overlay';
+import { Overlay } from '@fluentui/react';
 import { DevicePropertiesPerInterface, DevicePropertiesDataProps } from './devicePropertiesPerInterface';
-import { testModelDefinition } from './testData';
 
 describe('devicePropertiesPerInterface', () => {
 

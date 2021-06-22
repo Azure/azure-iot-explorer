@@ -5,13 +5,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { NavLink, useLocation, useHistory } from 'react-router-dom';
-import { Icon } from 'office-ui-fabric-react/lib/components/Icon';
-import { Label } from 'office-ui-fabric-react/lib/components/Label';
-import { Dialog, DialogFooter, DialogType } from 'office-ui-fabric-react/lib/components/Dialog';
-import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/components/Button';
-import { DetailsList, DetailsListLayoutMode, IColumn, Selection } from 'office-ui-fabric-react/lib/components/DetailsList';
-import { MarqueeSelection } from 'office-ui-fabric-react/lib/components/MarqueeSelection/MarqueeSelection';
-import { Announced } from 'office-ui-fabric-react/lib/components/Announced';
+import { Icon, Label, Dialog, DialogFooter, DialogType, PrimaryButton, DefaultButton, DetailsList, DetailsListLayoutMode, IColumn, Selection, MarqueeSelection, Announced } from '@fluentui/react';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { DeviceSummary } from '../../../api/models/deviceSummary';
 import { DeviceQuery } from '../../../api/models/deviceQuery';

@@ -5,7 +5,7 @@
 import 'jest';
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
-import { Nav } from 'office-ui-fabric-react/lib/components/Nav';
+import { Nav } from '@fluentui/react';
 import { DeviceContentNavComponent, DeviceContentNavProps, NAV_LINK_ITEMS_DEVICE, NAV_LINK_ITEMS_NONEDGE_DEVICE } from './deviceContentNav';
 
 jest.mock('react-router-dom', () => ({

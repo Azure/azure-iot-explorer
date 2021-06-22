@@ -4,8 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
-import { Overlay } from 'office-ui-fabric-react/lib/components/Overlay';
+import { IconButton, Overlay } from '@fluentui/react';
 import { DeviceSettingsPerInterfacePerSetting } from './deviceSettingsPerInterfacePerSetting';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { InterfaceDetailCard } from '../../../../constants/iconNames';

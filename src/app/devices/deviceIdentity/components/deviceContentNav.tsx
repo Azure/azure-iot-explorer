@@ -5,7 +5,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useRouteMatch } from 'react-router-dom';
-import { Nav, INavLinkGroup, INavLink } from 'office-ui-fabric-react/lib/components/Nav';
+import { Nav, INavLinkGroup, INavLink } from '@fluentui/react';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
 import { NAVIGATE_BACK } from '../../../constants/iconNames';
@@ -79,7 +79,8 @@ export const DeviceContentNavComponent: React.FC<DeviceContentNavProps> =  (prop
     const groups: INavLinkGroup[] = [{ links: navLinks }];
 
     React.useEffect(() => {
-        const currentRoute = navItems.find(nav => pathname.includes(nav));
+        const foundRoutes = navItems.filter(nav => pathname.includes(nav));
+        const currentRoute = foundRoutes && foundRoutes.length > 0 ? foundRoutes[foundRoutes.length - 1] : ''; // because PnP has its own 'events' route.
         setSelectedRoute(currentRoute);
     }, [pathname]); // tslint:disable-line: align
 

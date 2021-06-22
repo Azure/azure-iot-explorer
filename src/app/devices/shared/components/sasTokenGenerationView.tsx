@@ -4,10 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { PrimaryButton } from 'office-ui-fabric-react/lib/components/Button';
-import { Dropdown, IDropdownOption } from 'office-ui-fabric-react/lib/components/Dropdown';
-import { SpinButton } from 'office-ui-fabric-react/lib/components/SpinButton';
-import { Position } from 'office-ui-fabric-react/lib/utilities/positioning';
+import { PrimaryButton, Dropdown, IDropdownOption, SpinButton, Position } from '@fluentui/react';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { MaskedCopyableTextField } from '../../../shared/components/maskedCopyableTextField';
 import { CollapsibleSection } from '../../../shared/components/collapsibleSection';

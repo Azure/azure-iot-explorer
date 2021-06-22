@@ -4,10 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Panel, PanelType } from 'office-ui-fabric-react/lib/components/Panel';
-import { TextField } from 'office-ui-fabric-react/lib/components/TextField';
-import { DefaultButton, PrimaryButton } from 'office-ui-fabric-react/lib/components/Button';
-import { Link } from 'office-ui-fabric-react/lib/components/Link';
+import { Panel, PanelType, TextField, DefaultButton, PrimaryButton, Link } from '@fluentui/react';
 import { ConnectionStringProperties } from './connectionStringProperties';
 import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
 import { generateConnectionStringValidationError } from '../../shared/utils/hubConnectionStringHelper';
@@ -25,7 +22,7 @@ export interface ConnectionStringEditViewProps {
     onCommit(newConnectionString: string): void;
 }
 
-export const ConnectionStringEditView: React.FC<ConnectionStringEditViewProps> = props => {
+export const ConnectionStringEditView: React.FC<ConnectionStringEditViewProps> = (props: ConnectionStringEditViewProps) => {
     const {connectionStringUnderEdit, connectionStrings, onDismiss, onCommit} = props;
     const [connectionString, setConnectionString] = React.useState<string>(connectionStringUnderEdit);
     const [connectionStringValidationKey, setConnectionStringValidationKey] = React.useState<string>(undefined);

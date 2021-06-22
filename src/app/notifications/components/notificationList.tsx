@@ -5,7 +5,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useLocation } from 'react-router-dom';
-import { CommandBar, ICommandBarItemProps } from 'office-ui-fabric-react/lib/components/CommandBar';
+import { CommandBar, ICommandBarItemProps } from '@fluentui/react';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { NotificationListEntry } from './notificationListEntry';
 import { useGlobalStateContext } from '../../shared/contexts/globalStateContext';

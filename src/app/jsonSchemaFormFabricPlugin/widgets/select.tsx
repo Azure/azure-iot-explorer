@@ -2,7 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { Dropdown, DropdownMenuItemType } from 'office-ui-fabric-react/lib/components/Dropdown';
+import { Dropdown, DropdownMenuItemType } from '@fluentui/react';
 import * as React from 'react';
 import { WidgetProps } from 'react-jsonschema-form';
 
