@@ -3,7 +3,16 @@
  * Licensed under the MIT License
  **********************************************************/
  @import '../../../css/themes';
+ @import '../../../css/variables';
 
- .digitaltwin-pivot {
-    padding-left: 22px;
+ @media screen and (min-width: $screenSize) {
+   .digitaltwin-pivot {
+      padding-left: 22px;
+   }
+ }
+
+ @media screen and (max-width: $screenSize) {
+    .digitaltwin-pivot {
+       width: 95vw;
+    }
  }

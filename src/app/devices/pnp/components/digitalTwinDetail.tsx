@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation, Route, useRouteMatch, useHistory } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import { Stack, Pivot, PivotItem } from '@fluentui/react';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
@@ -21,7 +21,6 @@ export const DigitalTwinDetail: React.FC = () => {
     const { t } = useTranslation();
     const { search, pathname } = useLocation();
     const history = useHistory();
-    const { url } = useRouteMatch();
     const { getModelDefinition } = usePnpStateContext();
     const deviceId = getDeviceIdFromQueryString(search);
     const moduleId = getModuleIdentityIdFromQueryString(search);
@@ -29,16 +28,14 @@ export const DigitalTwinDetail: React.FC = () => {
     const componentName = getComponentNameFromQueryString(search);
     const NAV_LINK_ITEMS_PNP = [ROUTE_PARTS.INTERFACES, ROUTE_PARTS.PROPERTIES, ROUTE_PARTS.SETTINGS, ROUTE_PARTS.COMMANDS, ROUTE_PARTS.EVENTS];
 
-    React.useEffect(() => {
-        getModelDefinition();
-    },              []);
+    React.useEffect(
+        () => {
+            getModelDefinition();
+        },
+        []);
 
     const [selectedKey, setSelectedKey] = React.useState((NAV_LINK_ITEMS_PNP.find(item => pathname.indexOf(item) > 0) || ROUTE_PARTS.INTERFACES).toString());
     const path = pathname.replace(/\/ioTPlugAndPlayDetail\/.*/, `/${ROUTE_PARTS.DIGITAL_TWINS_DETAIL}`);
-    const pivotItems = NAV_LINK_ITEMS_PNP.map(nav =>  {
-        const text = t((ResourceKeys.breadcrumb as any)[nav]); // tslint:disable-line:no-any
-        return (<PivotItem key={nav} headerText={text} itemKey={nav} />);
-    });
     const handleLinkClick = (item: PivotItem) => {
         setSelectedKey(item.props.itemKey);
         let linkUrl = `${path}/${item.props.itemKey}/?` +
@@ -50,27 +47,29 @@ export const DigitalTwinDetail: React.FC = () => {
         }
         history.push(linkUrl);
     };
-    const pivot = (
+
+    return (
         <Pivot
             aria-label={t(ResourceKeys.digitalTwin.pivot.ariaLabel)}
             selectedKey={selectedKey}
             onLinkClick={handleLinkClick}
-//            overflowBehavior="menu" // needs updated Fluent
+            overflowBehavior="menu"
         >
-            {pivotItems}
+            <PivotItem key={ROUTE_PARTS.INTERFACES} headerText={t(ResourceKeys.breadcrumb.interfaces)} itemKey={ROUTE_PARTS.INTERFACES}>
+                <DeviceInterfaces />
+            </PivotItem>
+            <PivotItem key={ROUTE_PARTS.PROPERTIES} headerText={t(ResourceKeys.breadcrumb.properties)} itemKey={ROUTE_PARTS.PROPERTIES}>
+                <DeviceProperties />
+            </PivotItem>
+            <PivotItem key={ROUTE_PARTS.SETTINGS} headerText={t(ResourceKeys.breadcrumb.settings)} itemKey={ROUTE_PARTS.SETTINGS}>
+                <DeviceSettings />
+            </PivotItem>
+            <PivotItem key={ROUTE_PARTS.COMMANDS} headerText={t(ResourceKeys.breadcrumb.commands)} itemKey={ROUTE_PARTS.COMMANDS}>
+                <DeviceCommands />
+            </PivotItem>
+            <PivotItem key={ROUTE_PARTS.EVENTS} headerText={t(ResourceKeys.breadcrumb.events)} itemKey={ROUTE_PARTS.EVENTS}>
+                <DeviceEvents />
+            </PivotItem>
         </Pivot>
-    );
-
-    return (
-        <>
-            <Stack horizontal={true} className="digitaltwin-pivot">
-                {pivot}
-            </Stack>
-            <Route path={`${url}/${ROUTE_PARTS.SETTINGS}/`} component={DeviceSettings}/>
-            <Route path={`${url}/${ROUTE_PARTS.PROPERTIES}/`} component={DeviceProperties}/>
-            <Route path={`${url}/${ROUTE_PARTS.COMMANDS}/`} component={DeviceCommands}/>
-            <Route path={`${url}/${ROUTE_PARTS.INTERFACES}/`} component={DeviceInterfaces}/>
-            <Route path={`${url}/${ROUTE_PARTS.EVENTS}/`} component={DeviceEvents}/>
-        </>
     );
 };

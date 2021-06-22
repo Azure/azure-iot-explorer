@@ -15,6 +15,7 @@ $nav-width: 20%;
             display: flex;
             flex-direction: column;
             width: $nav-width;
+            max-width: 300px;
             height: calc(100vh - 131px);
             float: left;
             overflow-y: auto;
