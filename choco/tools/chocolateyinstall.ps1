@@ -6,7 +6,7 @@
 
 $ErrorActionPreference = 'Stop';
 $toolsDir   = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
-$url        = 'https://github.com/Azure/azure-iot-explorer/releases/download/v0.14.1/Azure.IoT.Explorer.preview.0.14.1.msi'
+$url        = 'https://github.com/Azure/azure-iot-explorer/releases/download/v0.14.4/Azure.IoT.Explorer.preview.0.14.4.msi'
 
 $packageArgs = @{
   packageName   = $env:ChocolateyPackageName
@@ -17,7 +17,7 @@ $packageArgs = @{
 
   softwareName  = 'Azure IoT explorer'
 
-  checksum      = 'EE12A9D206DBA1A38B68453F3B3D225212BDF53E035A35681070BA47705BF1D1'
+  checksum      = '' # Get this value after file is published.
   checksumType  = 'sha256'
 
   silentArgs    = "/qn /norestart"
