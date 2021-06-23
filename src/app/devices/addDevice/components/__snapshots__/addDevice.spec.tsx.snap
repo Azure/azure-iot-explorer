@@ -56,7 +56,7 @@ exports[`addDevice matches snapshot 1`] = `
       <div
         className="authentication"
       >
-        <StyledChoiceGroupBase
+        <StyledChoiceGroup
           label="deviceIdentity.authenticationType.text"
           onChange={[Function]}
           options={

@@ -288,7 +288,7 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
         }
       >
         <label
-          className="ms-Label root-40"
+          className="ms-Label root-53"
         >
           labelText
         </label>
@@ -753,7 +753,6 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                   "borderColor": "#f3f2f1",
                   "color": "#a19f9d",
                   "cursor": "default",
-                  "pointerEvents": "none",
                   "selectors": Object {
                     ":focus": Object {
                       "outline": 0,
@@ -795,6 +794,7 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                 "overflow": "hidden",
                 "padding": 0,
                 "position": "absolute",
+                "whiteSpace": "nowrap",
                 "width": 1,
               },
               "splitButtonContainer": Array [
@@ -846,6 +846,7 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                           "border": "1px solid WindowText",
                           "borderRightWidth": "0",
                           "color": "WindowText",
+                          "forcedColorAdjust": "none",
                         },
                       },
                     },
@@ -869,6 +870,7 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                         "MsHighContrastAdjust": "none",
                         "backgroundColor": "WindowText",
                         "color": "Window",
+                        "forcedColorAdjust": "none",
                       },
                     },
                   },
@@ -882,6 +884,7 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                         "MsHighContrastAdjust": "none",
                         "backgroundColor": "WindowText",
                         "color": "Window",
+                        "forcedColorAdjust": "none",
                       },
                     },
                   },
@@ -892,11 +895,10 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                 "outline": "none",
                 "selectors": Object {
                   "@media screen and (-ms-high-contrast: active), (forced-colors: active)": Object {
+                    "MsHighContrastAdjust": "none",
                     "backgroundColor": "Window",
                     "borderColor": "GrayText",
                     "color": "GrayText",
-                  },
-                  "@media screen and (forced-colors: active)": Object {
                     "forcedColorAdjust": "none",
                   },
                 },
@@ -958,6 +960,11 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                 "justifyContent": "center",
               },
               "splitButtonMenuButton": Object {
+                "@media screen and (-ms-high-contrast: active), (forced-colors: active)": Object {
+                  ".ms-Button-menuIcon": Object {
+                    "color": "WindowText",
+                  },
+                },
                 "border": "1px solid #8a8886",
                 "borderBottomRightRadius": "2px",
                 "borderLeft": "none",
@@ -1006,6 +1013,35 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                     "backgroundColor": "Window",
                     "border": "1px solid GrayText",
                     "color": "GrayText",
+                  },
+                },
+              },
+              "splitButtonMenuFocused": Object {
+                "outline": "transparent",
+                "position": "relative",
+                "selectors": Object {
+                  ".ms-Fabric--isFocusVisible &:focus:after": Object {
+                    "border": "1px solid #ffffff",
+                    "bottom": 3,
+                    "content": "\\"\\"",
+                    "left": 3,
+                    "outline": "1px solid #605e5c",
+                    "position": "absolute",
+                    "right": 3,
+                    "selectors": Object {
+                      "@media screen and (-ms-high-contrast: active), (forced-colors: active)": Object {
+                        "border": "none",
+                        "bottom": -2,
+                        "left": -2,
+                        "right": -2,
+                        "top": -2,
+                      },
+                    },
+                    "top": 3,
+                    "zIndex": 1,
+                  },
+                  "::-moz-focus-inner": Object {
+                    "border": "0",
                   },
                 },
               },
@@ -1291,7 +1327,7 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
           variantClassName="ms-Button--icon"
         >
           <button
-            className="ms-Button ms-Button--icon root-41"
+            className="ms-Button ms-Button--icon root-54"
             data-is-focusable={true}
             id="iconbutton0"
             onClick={[Function]}
@@ -1303,28 +1339,27 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
             type="button"
           >
             <span
-              className="ms-Button-flexContainer flexContainer-42"
+              className="ms-Button-flexContainer flexContainer-55"
               data-automationid="splitbuttonprimary"
             >
-              <Component
-                className="ms-Button-icon icon-44"
+              <FontIcon
+                className="ms-Button-icon icon-57"
                 iconName="Info"
               >
                 <i
                   aria-hidden={true}
-                  className="ms-Icon root-37 ms-Button-icon icon-44"
+                  className="ms-Icon root-37 ms-Button-icon icon-57"
                   data-icon-name="Info"
-                  role="presentation"
                   style={
                     Object {
                       "fontFamily": undefined,
                     }
                   }
                 />
-              </Component>
+              </FontIcon>
             </span>
           </button>
-          <Component />
+          <FocusRects />
         </BaseButton>
       </IconButton>
     </CustomizedIconButton>
