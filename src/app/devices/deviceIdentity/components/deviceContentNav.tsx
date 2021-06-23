@@ -80,7 +80,7 @@ export const DeviceContentNavComponent: React.FC<DeviceContentNavProps> =  (prop
 
     React.useEffect(() => {
         const foundRoutes = navItems.filter(nav => pathname.includes(nav));
-        const currentRoute = foundRoutes && foundRoutes.length > 0 ? foundRoutes[foundRoutes.length - 1] : ''; // because PnP has its own 'events' route.
+        const currentRoute = foundRoutes?.[foundRoutes.length - 1] ?? ''; // because PnP has its own 'events' route.
         setSelectedRoute(currentRoute);
     }, [pathname]); // tslint:disable-line: align
 
