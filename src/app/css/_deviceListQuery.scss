@@ -2,20 +2,102 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-@import 'themes';
+@import "themes";
+@import "variables";
+
+@media screen and (min-width: $screenSize) {
+    .deviceList-query {
+        width: calc(100vw - 24px);
+        padding-left: 24px;
+        overflow: auto;
+        word-wrap: break-word;
+
+        .deviceId-search {
+            .search-box {
+                float: left;
+                width: calc(33vw - 45px);
+            }
+        }
+        .clauses {
+            width: calc(67vw - 24px);
+            float: right;
+
+            .search-pill {
+                margin: {
+                    left: 3px;
+                    bottom: 3px;
+                    right: 3px;
+                    top: 0px;
+                }
+                .parameter-type {
+                    width: 170px;
+                }
+                .operation-type {
+                    width: 60px;
+                }
+                .clause-value {
+                    max-width: 150px;
+                }
+            }
+
+            .search-pill.active {
+                min-width: 380px;
+            }
+            .search-pill.no-operator {
+                .parameter-type {
+                    float: left;
+                    max-width: 190px;
+                    line-height: 20px;
+                    font-size: 10px;
+                }
+                .clause-value {
+                    float: left;
+                    max-width: 190px;
+                    line-height: 20px;
+                    font-size: 10px;
+                    .ms-Dropdown {
+                        min-width: 140px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: $screenSize) {
+    .deviceList-query {
+        width: 95vw;
+        padding-left: 3px;
+        .deviceId-search {
+            .ms-TextField {
+                float: left;
+                width: 84vw;
+            }
+        }
+        .clauses {
+            section.search-pill {
+                margin-top: 3px;
+                margin-bottom: 3px;
+                width: 90vw;
+                .parameter-type {
+                    width: 40vw;
+                }
+                .clause-value {
+                    width: 38vw;
+                }
+            }
+        }
+    }
+}
 
 .deviceList-query {
-    width: calc(100vw - 24px);
-    padding-left: 24px;
-    overflow: auto;
-    word-wrap: break-word;
     display: inline-block;
     margin-top: 10px;
     margin-bottom: 10px;
 
     .deviceId-search {
         @include themify($themes) {
-            border-color: themed('searchBorderColor');
+            border-color: themed("searchBorderColor");
         }
         float: left;
         height: 32px;
@@ -25,47 +107,35 @@
             radius: 2px;
             radius: 2px;
         }
-        .search-box {
-            float: left;
-            width: calc(33vw - 45px);
 
-        }
         .search-button {
             padding-top: 1px;
             max-width: 32px;
             padding-bottom: 1px;
             @include themify($themes) {
                 border: {
-                    left: 1px solid themed('borderColor');
+                    left: 1px solid themed("borderColor");
                     right: none;
                 }
             }
         }
         .search-button:disabled {
             @include themify($themes) {
-                background-color: themed('searchButtonDisabledBackground');
+                background-color: themed("searchButtonDisabledBackground");
             }
         }
     }
     .clauses {
-        width: calc(67vw - 24px);
-        float: right;
         .search-pill {
             @include themify($themes) {
-                border-color: themed('searchBorderColor');
+                border-color: themed("searchBorderColor");
             }
-            float:left;
+            float: left;
             padding: {
                 top: 0px;
                 bottom: 0px;
                 left: 4px;
                 right: 4px;
-            }
-            margin: {
-                left: 3px;
-                bottom: 3px;
-                right: 3px;
-                top: 0px;
             }
             line-height: 26px;
             height: 32px;
@@ -76,44 +146,40 @@
             }
             .parameter-type {
                 float: left;
-                width: 170px;
                 line-height: 20px;
                 font-size: 10px;
             }
             .operation-type {
                 float: left;
-                width: 60px;
                 line-height: 20px;
                 font-size: 12px;
             }
             .clause-value {
                 float: left;
-                max-width: 150px;
                 line-height: 20px;
                 font-size: 12px;
             }
             .remove-pill {
                 margin-left: 10px;
-                width: 35px;
+                width: 20px;
                 height: 26px;
                 float: right;
             }
         }
         .search-pill:hover {
             @include themify($themes) {
-                border-color: themed('searchBorderHoverColor');
+                border-color: themed("searchBorderHoverColor");
             }
         }
         .search-pill.error {
             @include themify($themes) {
-                border-color: themed('searchBorderErrorColor');
+                border-color: themed("searchBorderErrorColor");
             }
         }
         .search-pill.active {
             padding-left: 10px;
             padding-top: 5px;
             padding-bottom: 2px;
-            min-width: 380px;
             max-height: 27px;
             .ms-Button-icon {
                 font-size: 15px;
@@ -122,7 +188,7 @@
                 height: 24px;
                 .ms-Dropdown {
                     height: 24px;
-                    .ms-Dropdown-input{
+                    .ms-Dropdown-input {
                         height: 20px;
                     }
                 }
@@ -144,23 +210,6 @@
                 .ms-Dropdown-caretDownWrapper {
                     height: 26px;
                     line-height: 24px;
-                }
-            }
-        }
-        .search-pill.no-operator {
-            .parameter-type {
-                float: left;
-                max-width: 190px;
-                line-height: 20px;
-                font-size: 10px;
-            }
-            .clause-value {
-                float: left;
-                max-width: 190px;
-                line-height: 20px;
-                font-size: 10px;
-                .ms-Dropdown {
-                    min-width: 140px;
                 }
             }
         }
