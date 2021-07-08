@@ -3,9 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Fabric } from 'office-ui-fabric-react/lib/Fabric';
-import { Customizer } from 'office-ui-fabric-react/lib/Utilities';
-import { createTheme } from 'office-ui-fabric-react/lib/Styling';
+import { Fabric, Customizer, createTheme } from '@fluentui/react';
 import { SCOPED_SETTINGS } from './app/constants/themes';
 import { getDarkModeSetting, getHighContrastSetting, setDarkModeSetting } from './app/api/services/settingsService';
 import { Theme, ThemeContextProvider, ThemeProperties } from './app/shared/contexts/themeContext';

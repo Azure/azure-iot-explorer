@@ -1,6 +1,6 @@
 {
   "name": "azure-iot-explorer",
-  "version": "0.14.3",
+  "version": "0.14.4",
   "description": "This project welcomes contributions and suggestions. Most contributions require you to agree to a\r Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us\r the rights to use your contribution. For details, visit https://cla.microsoft.com.",
   "main": "host/electron.js",
   "build": {
@@ -70,6 +70,7 @@
   "homepage": "https://github.com/Azure/azure-iot-explorer#readme",
   "dependencies": {
     "@azure/event-hubs": "1.0.7",
+    "@fluentui/react": "8.20.2",
     "azure-iot-common": "1.10.3",
     "azure-iothub": "1.8.1",
     "body-parser": "1.18.3",
@@ -82,8 +83,6 @@
     "immutable": "4.0.0-rc.12",
     "jsonschema": "1.2.4",
     "msal": "1.2.0",
-    "office-ui-fabric-core": "10.1.0",
-    "office-ui-fabric-react": "7.152.1",
     "react": "16.13.1",
     "react-collapsible": "2.3.2",
     "react-dom": "16.13.1",
@@ -187,7 +186,6 @@
     },
     "testRegex": "(\\.|/)(spec)\\.(tsx?)$",
     "moduleNameMapper": {
-      "^office-ui-fabric-react/lib": "<rootDir>/node_modules/office-ui-fabric-react/lib-commonjs",
       "^.+\\.(scss)$": "<rootDir>/scss-stub.js",
       ".+\\appconfig.ENV.json": "<rootDir>/src/appConfig/appConfig.dev.json"
     },

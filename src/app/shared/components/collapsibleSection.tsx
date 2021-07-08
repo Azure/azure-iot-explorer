@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
+import { IconButton } from '@fluentui/react';
 import { LabelWithTooltip } from './labelWithTooltip';
 import { GroupedList } from '../../constants/iconNames';
 import { ResourceKeys } from '../../../localization/resourceKeys';

@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { ITextFieldProps, TextField } from 'office-ui-fabric-react/lib/components/TextField';
+import { ITextFieldProps, TextField } from '@fluentui/react';
 import { Widget } from 'react-jsonschema-form';
 
 // tslint:disable-next-line:no-any

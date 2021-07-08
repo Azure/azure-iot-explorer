@@ -5,8 +5,7 @@
  import 'jest';
  import * as React from 'react';
  import { shallow, mount } from 'enzyme';
- import { Panel } from 'office-ui-fabric-react/lib/components/Panel';
- import { ActionButton } from 'office-ui-fabric-react/lib/components/Button';
+ import { Panel, ActionButton } from '@fluentui/react';
  import { act } from 'react-dom/test-utils';
  import { NotificationPane } from './notificationPane';
 

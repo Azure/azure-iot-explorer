@@ -5,7 +5,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
-import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
+import { CommandBar } from '@fluentui/react';
 import { ConnectionString  } from './connectionString';
 import { ConnectionStringEditView } from './connectionStringEditView';
 import { ResourceKeys } from '../../../localization/resourceKeys';

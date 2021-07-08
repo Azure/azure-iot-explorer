@@ -5,7 +5,7 @@ exports[`DeviceQueryClause matches snapshot 1`] = `
   className="search-pill active no-operator"
   key="query-0"
 >
-  <StyledWithResponsiveMode
+  <Dropdown
     ariaLabel="deviceLists.query.searchPills.clause.parameterType.ariaLabel"
     className="parameter-type"
     componentRef={
@@ -28,7 +28,7 @@ exports[`DeviceQueryClause matches snapshot 1`] = `
     }
     placeholder="deviceLists.query.searchPills.clause.parameterType.placeholder"
   />
-  <StyledWithResponsiveMode
+  <Dropdown
     ariaLabel="deviceLists.query.searchPills.clause.value.placeholder"
     className="clause-value"
     onChange={[Function]}
@@ -67,7 +67,7 @@ exports[`DeviceQueryClause matches snapshot without operation 1`] = `
   className="search-pill active no-operator"
   key="query-0"
 >
-  <StyledWithResponsiveMode
+  <Dropdown
     ariaLabel="deviceLists.query.searchPills.clause.parameterType.ariaLabel"
     className="parameter-type"
     componentRef={
@@ -90,7 +90,7 @@ exports[`DeviceQueryClause matches snapshot without operation 1`] = `
     }
     placeholder="deviceLists.query.searchPills.clause.parameterType.placeholder"
   />
-  <StyledWithResponsiveMode
+  <Dropdown
     ariaLabel="deviceLists.query.searchPills.clause.value.placeholder"
     className="clause-value"
     onChange={[Function]}

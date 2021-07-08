@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { ActionButton } from 'office-ui-fabric-react/lib/components/Button';
+import { ActionButton } from '@fluentui/react';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import '../../../css/_deviceListPaging.scss';
 

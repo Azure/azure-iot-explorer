@@ -5,7 +5,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
-import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
+import { CommandBar } from '@fluentui/react';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { getDeviceTwinAction, updateDeviceTwinAction } from '../actions';

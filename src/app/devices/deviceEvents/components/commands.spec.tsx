@@ -6,7 +6,7 @@ import 'jest';
 import * as React from 'react';
 import { act } from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
-import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
+import { CommandBar } from '@fluentui/react';
 import { Commands } from './commands';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import { appConfig, HostMode } from '../../../../appConfig/appConfig';

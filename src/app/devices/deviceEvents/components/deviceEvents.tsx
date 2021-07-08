@@ -4,11 +4,8 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/components/Spinner';
-import { useLocation, Route } from 'react-router-dom';
-import { Label } from 'office-ui-fabric-react/lib/components/Label';
-import { Stack } from 'office-ui-fabric-react/lib/components/Stack';
-import { MessageBarType, MessageBar } from 'office-ui-fabric-react/lib/components/MessageBar';
+import { Spinner, SpinnerSize, Label, Stack, MessageBarType, MessageBar } from '@fluentui/react';
+import { useLocation } from 'react-router-dom';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { Message, MESSAGE_SYSTEM_PROPERTIES, MESSAGE_PROPERTIES, IOTHUB_MESSAGE_SOURCE_TELEMETRY } from '../../../api/models/messages';
 import { getDeviceIdFromQueryString, getComponentNameFromQueryString, getInterfaceIdFromQueryString, getModuleIdentityIdFromQueryString } from '../../../shared/utils/queryStringHelper';

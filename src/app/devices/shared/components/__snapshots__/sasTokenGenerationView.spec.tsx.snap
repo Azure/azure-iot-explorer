@@ -9,7 +9,7 @@ exports[`devices/components/moduleIdentityTwin snapshot matches snapshot when no
   <div
     className="sas-token-section"
   >
-    <StyledWithResponsiveMode
+    <Dropdown
       className="sas-token-key-field"
       label="deviceIdentity.authenticationType.sasToken.symmetricKey"
       onChange={[Function]}
@@ -27,19 +27,8 @@ exports[`devices/components/moduleIdentityTwin snapshot matches snapshot when no
       }
       required={true}
     />
-    <CustomizedSpinButton
+    <StyledSpinButton
       className="sas-token-expiration-field"
-      decrementButtonIcon={
-        Object {
-          "iconName": "ChevronDownSmall",
-        }
-      }
-      disabled={false}
-      incrementButtonIcon={
-        Object {
-          "iconName": "ChevronUpSmall",
-        }
-      }
       label="deviceIdentity.authenticationType.sasToken.expiration"
       labelPosition={0}
       max={9007199254740991}
@@ -47,7 +36,6 @@ exports[`devices/components/moduleIdentityTwin snapshot matches snapshot when no
       onBlur={[Function]}
       onDecrement={[Function]}
       onIncrement={[Function]}
-      step={1}
       value="5"
     />
     <Component
@@ -77,7 +65,7 @@ exports[`devices/components/moduleIdentityTwin snapshot matches snapshot when no
   <div
     className="sas-token-section"
   >
-    <StyledWithResponsiveMode
+    <Dropdown
       className="sas-token-key-field"
       label="deviceIdentity.authenticationType.sasToken.symmetricKey"
       onChange={[Function]}
@@ -95,19 +83,8 @@ exports[`devices/components/moduleIdentityTwin snapshot matches snapshot when no
       }
       required={true}
     />
-    <CustomizedSpinButton
+    <StyledSpinButton
       className="sas-token-expiration-field"
-      decrementButtonIcon={
-        Object {
-          "iconName": "ChevronDownSmall",
-        }
-      }
-      disabled={false}
-      incrementButtonIcon={
-        Object {
-          "iconName": "ChevronUpSmall",
-        }
-      }
       label="deviceIdentity.authenticationType.sasToken.expiration"
       labelPosition={0}
       max={9007199254740991}
@@ -115,7 +92,6 @@ exports[`devices/components/moduleIdentityTwin snapshot matches snapshot when no
       onBlur={[Function]}
       onDecrement={[Function]}
       onIncrement={[Function]}
-      step={1}
       value="5"
     />
     <Component

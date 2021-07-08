@@ -4,8 +4,8 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Route, useLocation, useHistory } from 'react-router-dom';
-import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
+import { useLocation, useHistory } from 'react-router-dom';
+import { CommandBar } from '@fluentui/react';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString, getModuleIdentityIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { DIRECT_METHOD, NAVIGATE_BACK } from '../../../../constants/iconNames';

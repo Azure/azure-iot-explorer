@@ -5,8 +5,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { NavLink, useLocation, useHistory, useRouteMatch } from 'react-router-dom';
-import { DetailsList, IColumn, SelectionMode } from 'office-ui-fabric-react/lib/components/DetailsList';
-import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
+import { DetailsList, IColumn, SelectionMode, CommandBar } from '@fluentui/react';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { REFRESH, ArrayOperation } from '../../../../constants/iconNames';

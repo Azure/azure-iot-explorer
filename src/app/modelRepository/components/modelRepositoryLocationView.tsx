@@ -5,8 +5,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Prompt, useHistory, useLocation } from 'react-router-dom';
-import { CommandBar, ICommandBarItemProps  } from 'office-ui-fabric-react/lib/components/CommandBar';
-import { IContextualMenuItem } from 'office-ui-fabric-react/lib/components/ContextualMenu';
+import { CommandBar, ICommandBarItemProps, IContextualMenuItem } from '@fluentui/react';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { ModelRepositoryLocationList } from './modelRepositoryLocationList';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';

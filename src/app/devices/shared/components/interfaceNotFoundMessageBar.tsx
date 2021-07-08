@@ -5,8 +5,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
-import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/components/MessageBar';
-import { MessageBarButton } from 'office-ui-fabric-react/lib/components/Button';
+import { MessageBar, MessageBarType, MessageBarButton } from '@fluentui/react';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
 import '../../../css/_interfaceNotFoundMessageBar.scss';

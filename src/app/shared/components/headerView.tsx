@@ -4,11 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { TooltipHost, DirectionalHint } from 'office-ui-fabric-react/lib/components/Tooltip';
-import { Stack } from 'office-ui-fabric-react/lib/components/Stack';
-import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
-import { Link } from 'office-ui-fabric-react/lib/components/Link';
-import { getId } from 'office-ui-fabric-react/lib/Utilities';
+import { TooltipHost, DirectionalHint, Stack, IconButton, Link, getId } from '@fluentui/react';
 
 export interface HeaderViewProps {
     headerText: string;

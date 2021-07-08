@@ -5,10 +5,7 @@
 import 'jest';
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
-import { Label } from 'office-ui-fabric-react/lib/components/Label';
-import { Announced } from 'office-ui-fabric-react/lib/components/Announced';
-import { MessageBar } from 'office-ui-fabric-react/lib/components/MessageBar';
-import { Pivot, PivotItem } from 'office-ui-fabric-react/lib/components/Pivot';
+import { Label , Announced, MessageBar,Pivot, PivotItem } from '@fluentui/react';
 import { DigitalTwinInterfacesList } from './digitalTwinInterfacesList';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { MultiLineShimmer } from '../../../shared/components/multiLineShimmer';

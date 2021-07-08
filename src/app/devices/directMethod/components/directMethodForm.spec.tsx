@@ -6,8 +6,7 @@ import 'jest';
 import * as React from 'react';
 import { act } from 'react-dom/test-utils';
 import { mount } from 'enzyme';
-import { TextField } from 'office-ui-fabric-react/lib/components/TextField';
-import { Slider } from 'office-ui-fabric-react/lib/components/Slider';
+import { TextField, Slider } from '@fluentui/react';
 import { DirectMethodForm } from './directMethodForm';
 
 describe('directMethodForm', () => {

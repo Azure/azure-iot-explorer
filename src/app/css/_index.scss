@@ -5,10 +5,15 @@
 @import 'variables';
 @import 'themes';
 
+@media screen and (min-width: $screenSize) {
+
 body {
-    margin: 0;
     height: 100vh;
     overflow: hidden;
+}
+}
+body {
+    margin: 0;
 }
 
 .ms-Fabric {

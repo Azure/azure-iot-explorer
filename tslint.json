@@ -133,7 +133,7 @@
         "no-string-literal": true,
         "no-string-throw": true,
         "no-submodule-imports": [true,
-            "office-ui-fabric-react",
+            "@fluent/react",
             "redux-saga/effects",
             "redux-saga/utils",
             "redux-devtools-extension",

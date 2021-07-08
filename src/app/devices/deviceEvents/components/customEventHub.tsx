@@ -4,9 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Toggle } from 'office-ui-fabric-react/lib/components/Toggle';
-import { TextField } from 'office-ui-fabric-react/lib/components/TextField';
-import { Stack } from 'office-ui-fabric-react/lib/components/Stack';
+import { Toggle, TextField, Stack } from '@fluentui/react';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { isValidEventHubConnectionString } from '../../../shared/utils/hubConnectionStringHelper';
 import './deviceEvents.scss';

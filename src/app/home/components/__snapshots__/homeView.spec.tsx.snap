@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`HomeView matches snapshot 1`] = `
-<div>
+<Fragment>
   <Component />
   <div
     className="view-content home-view"
@@ -41,5 +41,5 @@ exports[`HomeView matches snapshot 1`] = `
       </Switch>
     </div>
   </div>
-</div>
+</Fragment>
 `;

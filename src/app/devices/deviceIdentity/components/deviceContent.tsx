@@ -5,7 +5,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useRouteMatch } from 'react-router-dom';
-import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
+import { IconButton } from '@fluentui/react';
 import { DeviceIdentityInformation } from './deviceIdentity';
 import { DeviceTwin } from '../../deviceTwin/components/deviceTwin';
 import { DeviceEvents } from '../../deviceEvents/components/deviceEvents';
@@ -36,35 +36,35 @@ export const DeviceContent: React.FC = () => {
     const { search } = useLocation();
     const { url } = useRouteMatch();
     const deviceId = getDeviceIdFromQueryString(search);
-    useBreadcrumbEntry({name: deviceId, disableLink: true});
+    useBreadcrumbEntry({ name: deviceId, disableLink: true });
 
-    const [ localState, dispatch ] = useAsyncSagaReducer(deviceIdentityReducer, DeviceIdentitySaga, deviceIdentityStateInitial(), 'deviceIdentityState');
+    const [localState, dispatch] = useAsyncSagaReducer(deviceIdentityReducer, DeviceIdentitySaga, deviceIdentityStateInitial(), 'deviceIdentityState');
     const synchronizationStatus = localState.synchronizationStatus;
     const deviceIdentity = localState.payload;
 
-    const [ appMenuVisible, setAppMenuVisible ] = React.useState(true);
+    const [appMenuVisible, setAppMenuVisible] = React.useState(true);
 
-    React.useEffect(() => {
-        dispatch(getDeviceIdentityAction.started(deviceId));
-    },              [deviceId]);
+    React.useEffect(
+        () => {
+            dispatch(getDeviceIdentityAction.started(deviceId));
+        },
+        [deviceId]);
 
     const renderNav = () => {
         return (
             <div className={'device-content-nav-bar' + (!appMenuVisible ? ' collapsed' : '')}>
-                <nav>
-                    <div className="navToggle">
-                        <IconButton
-                            tabIndex={0}
-                            iconProps={{ iconName: NAV }}
-                            title={appMenuVisible ? t(ResourceKeys.common.navigation.collapse) : t(ResourceKeys.common.navigation.expand)}
-                            ariaLabel={appMenuVisible ? t(ResourceKeys.common.navigation.collapse) : t(ResourceKeys.common.navigation.expand)}
-                            onClick={collapseToggle}
-                        />
-                    </div>
-                    <div className="nav-links">
-                        {createNavLinks()}
-                    </div>
-                </nav>
+                <div className="navToggle">
+                    <IconButton
+                        tabIndex={0}
+                        iconProps={{ iconName: NAV }}
+                        title={appMenuVisible ? t(ResourceKeys.common.navigation.collapse) : t(ResourceKeys.common.navigation.expand)}
+                        ariaLabel={appMenuVisible ? t(ResourceKeys.common.navigation.collapse) : t(ResourceKeys.common.navigation.expand)}
+                        onClick={collapseToggle}
+                    />
+                </div>
+                <div className="nav-links">
+                    {createNavLinks()}
+                </div>
             </div>
         );
     };
@@ -87,44 +87,44 @@ export const DeviceContent: React.FC = () => {
             <div className={'device-content-detail' + (!appMenuVisible ? ' collapsed' : '')}>
                 <BreadcrumbRoute
                     path={`${url}/${ROUTE_PARTS.IDENTITY}`}
-                    breadcrumb={{ name: t(ResourceKeys.breadcrumb.identity)}}
+                    breadcrumb={{ name: t(ResourceKeys.breadcrumb.identity) }}
                     children={createDeviceIdentityComponent()}
                 />
 
                 <BreadcrumbRoute
                     path={`${url}/${ROUTE_PARTS.TWIN}`}
-                    breadcrumb={{ name: t(ResourceKeys.breadcrumb.twin)}}
-                    children={<DeviceTwin/>}
+                    breadcrumb={{ name: t(ResourceKeys.breadcrumb.twin) }}
+                    children={<DeviceTwin />}
                 />
 
                 <BreadcrumbRoute
                     path={`${url}/${ROUTE_PARTS.EVENTS}`}
-                    breadcrumb={{name: t(ResourceKeys.breadcrumb.events)}}
-                    children={<DeviceEvents/>}
+                    breadcrumb={{ name: t(ResourceKeys.breadcrumb.events) }}
+                    children={<DeviceEvents />}
                 />
 
                 <BreadcrumbRoute
                     path={`${url}/${ROUTE_PARTS.METHODS}`}
-                    breadcrumb={{name: t(ResourceKeys.breadcrumb.methods)}}
-                    children={<DirectMethod/>}
+                    breadcrumb={{ name: t(ResourceKeys.breadcrumb.methods) }}
+                    children={<DirectMethod />}
                 />
 
                 <BreadcrumbRoute
                     path={`${url}/${ROUTE_PARTS.CLOUD_TO_DEVICE_MESSAGE}`}
-                    breadcrumb={{name: t(ResourceKeys.breadcrumb.cloudToDeviceMessage)}}
-                    children={<CloudToDeviceMessage/>}
+                    breadcrumb={{ name: t(ResourceKeys.breadcrumb.cloudToDeviceMessage) }}
+                    children={<CloudToDeviceMessage />}
                 />
 
                 <BreadcrumbRoute
                     path={`${url}/${ROUTE_PARTS.DIGITAL_TWINS}`}
-                    breadcrumb={{name: t(ResourceKeys.breadcrumb.ioTPlugAndPlay), suffix: `?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`}}
-                    children={<Pnp/>}
+                    breadcrumb={{ name: t(ResourceKeys.breadcrumb.ioTPlugAndPlay), suffix: `?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}` }}
+                    children={<Pnp />}
                 />
 
                 <BreadcrumbRoute
                     path={`${url}/${ROUTE_PARTS.MODULE_IDENTITY}`}
-                    breadcrumb={{name: t(ResourceKeys.breadcrumb.moduleIdentity), suffix: `?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}` }}
-                    children={<DeviceModules/>}
+                    breadcrumb={{ name: t(ResourceKeys.breadcrumb.moduleIdentity), suffix: `?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}` }}
+                    children={<DeviceModules />}
                 />
             </div>
         );
@@ -137,7 +137,7 @@ export const DeviceContent: React.FC = () => {
     const createNavLinks = () => {
         return (
             synchronizationStatus === SynchronizationStatus.working ?
-                <MultiLineShimmer/> :
+                <MultiLineShimmer /> :
                 (
                     <DeviceContentNavComponent
                         isEdgeDevice={deviceIdentity && deviceIdentity.capabilities && deviceIdentity.capabilities.iotEdge}
@@ -147,7 +147,7 @@ export const DeviceContent: React.FC = () => {
     };
 
     return (
-        <div>
+        <>
             {deviceId &&
                 <div className="edit-content">
                     <div className="device-content">
@@ -156,6 +156,6 @@ export const DeviceContent: React.FC = () => {
                     </div>
                 </div>
             }
-        </div>
+        </>
     );
 };

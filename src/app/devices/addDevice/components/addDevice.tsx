@@ -5,11 +5,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useHistory } from 'react-router-dom';
-import { Overlay } from 'office-ui-fabric-react/lib/components/Overlay';
-import { Toggle } from 'office-ui-fabric-react/lib/components/Toggle';
-import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/components/ChoiceGroup';
-import { Checkbox } from 'office-ui-fabric-react/lib/components/Checkbox';
-import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
+import { Overlay, Toggle, ChoiceGroup, IChoiceGroupOption, Checkbox, CommandBar } from '@fluentui/react';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { DeviceAuthenticationType } from '../../../api/models/deviceAuthenticationType';
 import { DeviceIdentity } from '../../../api/models/deviceIdentity';

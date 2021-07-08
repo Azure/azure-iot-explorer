@@ -4,7 +4,7 @@ exports[`interfaceNotFoundMessageBar matches snapshot 1`] = `
 <div
   className="message-bar"
 >
-  <StyledMessageBarBase
+  <StyledMessageBar
     actions={
       <CustomizedMessageBarButton
         className="configure-button"
@@ -16,6 +16,6 @@ exports[`interfaceNotFoundMessageBar matches snapshot 1`] = `
     messageBarType={0}
   >
     deviceInterfaces.interfaceNotFound
-  </StyledMessageBarBase>
+  </StyledMessageBar>
 </div>
 `;

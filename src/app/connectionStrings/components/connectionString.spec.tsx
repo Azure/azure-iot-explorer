@@ -4,8 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
-import { Link } from 'office-ui-fabric-react/lib/components/Link';
+import { IconButton, Link } from '@fluentui/react';
 import { ConnectionString, ConnectionStringProps } from './connectionString';
 import { ConnectionStringDelete } from './connectionStringDelete';
 

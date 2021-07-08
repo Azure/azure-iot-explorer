@@ -1,62 +1,46 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DigitalTwinDetail matches snapshot 1`] = `
-<Fragment>
-  <Stack
-    className="digitaltwin-pivot"
-    horizontal={true}
+<StyledPivot
+  aria-label="digitalTwin.pivot.ariaLabel"
+  onLinkClick={[Function]}
+  overflowBehavior="menu"
+  selectedKey="interfaces"
+>
+  <PivotItem
+    headerText="breadcrumb.interfaces"
+    itemKey="interfaces"
+    key="interfaces"
   >
-    <StyledPivotBase
-      aria-label="digitalTwin.pivot.ariaLabel"
-      onLinkClick={[Function]}
-      selectedKey="interfaces"
-    >
-      <PivotItem
-        headerText="breadcrumb.interfaces"
-        itemKey="interfaces"
-        key="interfaces"
-      />
-      <PivotItem
-        headerText="breadcrumb.properties"
-        itemKey="properties"
-        key="properties"
-      />
-      <PivotItem
-        headerText="breadcrumb.settings"
-        itemKey="settings"
-        key="settings"
-      />
-      <PivotItem
-        headerText="breadcrumb.commands"
-        itemKey="commands"
-        key="commands"
-      />
-      <PivotItem
-        headerText="breadcrumb.events"
-        itemKey="events"
-        key="events"
-      />
-    </StyledPivotBase>
-  </Stack>
-  <Component
-    component={[Function]}
-    path="/#/devices/deviceDetail/ioTPlugAndPlay/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1;1/settings/"
-  />
-  <Component
-    component={[Function]}
-    path="/#/devices/deviceDetail/ioTPlugAndPlay/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1;1/properties/"
-  />
-  <Component
-    component={[Function]}
-    path="/#/devices/deviceDetail/ioTPlugAndPlay/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1;1/commands/"
-  />
-  <Component
-    component={[Function]}
-    path="/#/devices/deviceDetail/ioTPlugAndPlay/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1;1/interfaces/"
-  />
-  <Component
-    component={[Function]}
-    path="/#/devices/deviceDetail/ioTPlugAndPlay/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1;1/events/"
-  />
-</Fragment>
+    <Component />
+  </PivotItem>
+  <PivotItem
+    headerText="breadcrumb.properties"
+    itemKey="properties"
+    key="properties"
+  >
+    <Component />
+  </PivotItem>
+  <PivotItem
+    headerText="breadcrumb.settings"
+    itemKey="settings"
+    key="settings"
+  >
+    <Component />
+  </PivotItem>
+  <PivotItem
+    headerText="breadcrumb.commands"
+    itemKey="commands"
+    key="commands"
+  >
+    <Component />
+  </PivotItem>
+  <PivotItem
+    headerText="breadcrumb.events"
+    itemKey="events"
+    key="events"
+  >
+    <Component />
+  </PivotItem>
+</StyledPivot>
 `;

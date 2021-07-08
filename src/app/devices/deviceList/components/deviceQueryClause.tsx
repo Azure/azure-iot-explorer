@@ -4,8 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Dropdown, IDropdown, IDropdownOption } from 'office-ui-fabric-react/lib/components/Dropdown';
-import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
+import { Dropdown, IDropdown, IDropdownOption, IconButton } from '@fluentui/react';
 import { QueryClause, ParameterType, DeviceCapability, DeviceStatus } from '../../../api/models/deviceQuery';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import '../../../css/_deviceListQuery.scss';

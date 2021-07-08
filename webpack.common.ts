@@ -31,7 +31,7 @@ const config: webpack.Configuration = {
         splitChunks: {
             cacheGroups: {
                 vendor: {
-                    test: /[\\/]node_modules[\\/]((?!(monaco-editor)|(office-ui-fabric-core)).*)[\\/]/,
+                    test: /[\\/]node_modules[\\/]((?!(monaco-editor)|(@fluentui)).*)[\\/]/,
                     name(module: any) { // tslint:disable-line:no-any
                         const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
                         // npm package names are URL-safe, but some servers don't like @ symbols

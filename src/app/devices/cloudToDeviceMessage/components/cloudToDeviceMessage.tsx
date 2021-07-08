@@ -5,15 +5,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
-import { Dropdown, IDropdownOption } from 'office-ui-fabric-react/lib/components/Dropdown';
-import { TextField } from 'office-ui-fabric-react/lib/components/TextField';
-import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
-import { Checkbox } from 'office-ui-fabric-react/lib/components/Checkbox';
-import { DetailsList, IColumn } from 'office-ui-fabric-react/lib/components/DetailsList';
-import { MarqueeSelection } from 'office-ui-fabric-react/lib/components/MarqueeSelection/MarqueeSelection';
-import { Selection } from 'office-ui-fabric-react/lib/utilities/selection/Selection';
-import { Label } from 'office-ui-fabric-react/lib/components/Label';
-import { IContextualMenuItem } from 'office-ui-fabric-react/lib/components/ContextualMenu';
+import { Dropdown, IDropdownOption, TextField, CommandBar, Checkbox, DetailsList, IColumn, MarqueeSelection, Selection, Label, IContextualMenuItem } from '@fluentui/react';
 import { v4 as uuid } from 'uuid';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';

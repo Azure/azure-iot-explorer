@@ -4,8 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Nav, INavLink } from 'office-ui-fabric-react/lib/components/Nav';
-import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
+import { Nav, INavLink, IconButton } from '@fluentui/react';
 import { NAV } from '../../constants/iconNames';
 import { ROUTE_PARTS } from '../../constants/routes';
 import { ResourceKeys } from '../../../localization/resourceKeys';
@@ -46,16 +45,14 @@ export const HomeViewNavigation: React.FC<HomeViewNavigationProps> = props => {
     return (
         <div className="nav-link-bar view">
             <div className="view-scroll-vertical">
-                <nav role="navigation">
-                    <IconButton
-                        tabIndex={0}
-                        iconProps={{ iconName: NAV }}
-                        title={appMenuVisible ? t(ResourceKeys.common.navigation.collapse) : t(ResourceKeys.common.navigation.expand)}
-                        ariaLabel={appMenuVisible ? t(ResourceKeys.common.navigation.collapse) : t(ResourceKeys.common.navigation.expand)}
-                        onClick={collapseToggle}
-                    />
-                    <Nav groups={[{ links: navLinks }]}/>
-                </nav>
+                <IconButton
+                    tabIndex={0}
+                    iconProps={{ iconName: NAV }}
+                    title={appMenuVisible ? t(ResourceKeys.common.navigation.collapse) : t(ResourceKeys.common.navigation.expand)}
+                    ariaLabel={appMenuVisible ? t(ResourceKeys.common.navigation.collapse) : t(ResourceKeys.common.navigation.expand)}
+                    onClick={collapseToggle}
+                />
+                <Nav groups={[{ links: navLinks }]} />
             </div>
         </div>
     );

@@ -4,8 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { IconButton, ActionButton } from 'office-ui-fabric-react/lib/components/Button';
-import { Link } from 'office-ui-fabric-react/lib/components/Link';
+import { IconButton, ActionButton, Link } from '@fluentui/react';
 import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
 import { getResourceNameFromHostName } from '../../api/shared/hostNameUtils';
 import { ConnectionStringProperties } from './connectionStringProperties';
@@ -25,7 +24,7 @@ export interface ConnectionStringProps {
     onSelectConnectionString(connectionString: string): void;
 }
 
-export const ConnectionString: React.FC<ConnectionStringProps> = props => {
+export const ConnectionString: React.FC<ConnectionStringProps> = (props: ConnectionStringProps) => {
     const { connectionStringWithExpiry, onEditConnectionString, onDeleteConnectionString, onSelectConnectionString } = props;
     const connectionString = connectionStringWithExpiry.connectionString;
     const daysTillExpire = getDaysBeforeHubConnectionStringExpires(connectionStringWithExpiry);

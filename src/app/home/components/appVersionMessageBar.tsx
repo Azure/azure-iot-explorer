@@ -4,8 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/components/MessageBar';
-import { Link } from 'office-ui-fabric-react/lib/components/Link';
+import { MessageBar, MessageBarType, Link } from '@fluentui/react';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { fetchLatestReleaseTagName, latestReleaseUrlPath } from '../../api/services/githubService';
 import * as packageJson from '../../../../package.json';

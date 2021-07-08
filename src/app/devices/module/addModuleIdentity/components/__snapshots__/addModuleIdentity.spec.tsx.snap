@@ -49,7 +49,7 @@ exports[`devices/components/addModuleIdentity snapshot matches snapshot while lo
     <div
       className="authentication"
     >
-      <StyledChoiceGroupBase
+      <StyledChoiceGroup
         label="moduleIdentity.authenticationType.text"
         onChange={[Function]}
         options={

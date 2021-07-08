@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { ObjectFieldTemplateProps } from 'react-jsonschema-form';
-import { Label } from 'office-ui-fabric-react/lib/components/Label';
+import { Label } from '@fluentui/react';
 import '../css/_objectTemplate.scss';
 
 export const ObjectTemplate = (props: ObjectFieldTemplateProps) => {

@@ -5,7 +5,7 @@
 import 'jest';
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
-import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
+import { IconButton } from '@fluentui/react';
 import { CollapsibleSection, CollapsibleSectionProps } from './collapsibleSection';
 
 describe('collapsibleSection', () => {

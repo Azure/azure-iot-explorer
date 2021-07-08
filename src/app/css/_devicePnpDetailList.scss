@@ -2,21 +2,21 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-@import 'themes';
-@import 'variables';
+@import "themes";
+@import "variables";
 
 @mixin default-button {
     margin-top: 3px;
     padding-top: 0px;
     @include themify($themes) {
-        color: themed('buttonColor');
+        color: themed("buttonColor");
     }
     padding: 0;
 }
 
 @mixin validation-error {
     @include themify($themes) {
-        color: themed('errorText');
+        color: themed("errorText");
     }
     padding-top: 10px;
     font-size: 14px;
@@ -25,13 +25,13 @@
 .pnp-detail-list {
     margin-left: 15px;
     @include themify($themes) {
-        background-color: themed('backgroundColor');
+        background-color: themed("backgroundColor");
     }
     .list-header {
         font-weight: bold;
         border-bottom: 1px solid;
         @include themify($themes) {
-            border-bottom-color: themed('borderColor');
+            border-bottom-color: themed("borderColor");
         }
         padding-bottom: 5px;
         .column-toggle {
@@ -72,7 +72,7 @@
     }
 }
 
-.list-content{
+.list-content {
     width: calc(100% - 2px);
     .list-item {
         .column-value-text {
@@ -88,7 +88,7 @@
             width: 100%;
             border-bottom: 1px solid;
             @include themify($themes) {
-                border-bottom-color: themed('borderColor');
+                border-bottom-color: themed("borderColor");
             }
             .column-toggle {
                 padding-right: 2%;
@@ -100,7 +100,7 @@
 
         .item-summary-uncollapsed {
             @include themify($themes) {
-                background-color: themed('summaryBackground');
+                background-color: themed("summaryBackground");
             }
             border-bottom: none;
         }
@@ -111,7 +111,7 @@
 
         .item-detail {
             @include themify($themes) {
-                border-bottom-color: 1px solid themed('itemDetailBottomBorderColor');
+                border-bottom-color: 1px solid themed("itemDetailBottomBorderColor");
             }
             width: 100%;
             float: left;
@@ -121,11 +121,11 @@
             box-sizing: border-box;
             padding: 0 10px 10px 5px;
             @include themify($themes) {
-                background-color: themed('summaryBackground');
+                background-color: themed("summaryBackground");
             }
             border-bottom: 1px solid;
             @include themify($themes) {
-                border-bottom-color: themed('borderColor');
+                border-bottom-color: themed("borderColor");
             }
 
             .value-section {
@@ -146,8 +146,8 @@
 .pnp-properties {
     dialog {
         @include themify($themes) {
-            background-color: themed('backgroundColor');
-            box-shadow: 0px 0px 50px themed('boxShadowColor');
+            background-color: themed("backgroundColor");
+            box-shadow: 0px 0px 50px themed("boxShadowColor");
         }
         width: 50%;
         position: fixed;
@@ -168,12 +168,12 @@
                 margin: 0px;
                 font-size: 18px;
                 @include themify($themes) {
-                    color: themed('textColor');
+                    color: themed("textColor");
                 }
             }
         }
     }
-    .close-dialog-icon{
+    .close-dialog-icon {
         float: right;
     }
 }
@@ -182,7 +182,9 @@
     margin-top: 45px;
 }
 
-.scrollable-lg {
-    height: calc(100vh - 245px);
-    overflow-y: auto;
+@media screen and (min-width: $screenSize) {
+    .scrollable-lg {
+        height: calc(100vh - 245px);
+        overflow-y: auto;
+    }
 }

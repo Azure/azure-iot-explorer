@@ -5,7 +5,7 @@
 import 'jest';
 import * as React from 'react';
 import { act } from 'react-dom/test-utils';
-import { MessageBarButton } from 'office-ui-fabric-react/lib/components/Button';
+import { MessageBarButton } from '@fluentui/react';
 import { shallow, mount } from 'enzyme';
 import { InterfaceNotFoundMessageBar } from './interfaceNotFoundMessageBar';
 

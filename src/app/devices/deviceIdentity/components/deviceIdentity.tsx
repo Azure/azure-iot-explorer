@@ -3,8 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Label } from 'office-ui-fabric-react/lib/components/Label';
-import { Toggle } from 'office-ui-fabric-react/lib/components/Toggle';
+import { Label, Toggle } from '@fluentui/react';
 import { useTranslation } from 'react-i18next';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { DeviceIdentity } from '../../../api/models/deviceIdentity';

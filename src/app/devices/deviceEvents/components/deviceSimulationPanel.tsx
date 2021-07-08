@@ -5,13 +5,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
-import { TextField } from 'office-ui-fabric-react/lib/components/TextField';
-import { Panel, PanelType } from 'office-ui-fabric-react/lib/components/Panel';
-import { Label } from 'office-ui-fabric-react/lib/components/Label';
-import { DetailsList, IColumn } from 'office-ui-fabric-react/lib/components/DetailsList';
-import { MarqueeSelection } from 'office-ui-fabric-react/lib/components/MarqueeSelection/MarqueeSelection';
-import { Selection } from 'office-ui-fabric-react/lib/utilities/selection/Selection';
-import { CommandBar } from 'office-ui-fabric-react/lib/components/CommandBar';
+import { TextField, Panel, PanelType, Label, DetailsList, IColumn, MarqueeSelection, Selection, CommandBar } from '@fluentui/react';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { LabelWithTooltip } from '../../../shared/components/labelWithTooltip';

@@ -19,10 +19,5 @@
         "removeComments": false,
         "sourceMap": true,
         "target": "ES5"
-    },
-    "paths": {
-        "office-ui-fabric-react/lib*": [
-          "office-ui-fabric-react/lib-commonjs*"
-        ]
     }
 }

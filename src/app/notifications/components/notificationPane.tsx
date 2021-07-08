@@ -4,9 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Panel, PanelType } from 'office-ui-fabric-react/lib/components/Panel';
-import { Link } from 'office-ui-fabric-react/lib/components/Link';
-import { ActionButton } from 'office-ui-fabric-react/lib/components/Button';
+import { Panel, PanelType, Link, ActionButton } from '@fluentui/react';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../constants/routes';
 import { useGlobalStateContext } from '../../shared/contexts/globalStateContext';

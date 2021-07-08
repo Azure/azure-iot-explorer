@@ -4,8 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { TextField } from 'office-ui-fabric-react/lib/components/TextField';
-import { Slider } from 'office-ui-fabric-react/lib/components/Slider';
+import { TextField, Slider } from '@fluentui/react';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { LabelWithTooltip } from '../../../shared/components/labelWithTooltip';
 import '../../../css/_deviceDetail.scss';

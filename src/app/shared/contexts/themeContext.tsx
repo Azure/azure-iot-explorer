@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { IPartialTheme } from 'office-ui-fabric-react/lib/Styling';
+import { IPartialTheme } from '@fluentui/react';
 import { THEME_DARK, THEME_LIGHT, THEME_DARK_HC, THEME_LIGHT_HC } from '../../constants/themes';
 
 export enum Theme {

@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
+import { IconButton } from '@fluentui/react';
 import { DeviceCommandsPerInterfacePerCommand, CommandSchema } from './deviceCommandsPerInterfacePerCommand';
 import { InvokeCommandActionParameters } from '../../actions';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';

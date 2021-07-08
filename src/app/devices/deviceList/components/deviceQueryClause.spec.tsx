@@ -5,7 +5,7 @@
 import 'jest';
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { IconButton } from 'office-ui-fabric-react/lib/components/Button';
+import { IconButton } from '@fluentui/react';
 import { DeviceQueryClause } from './deviceQueryClause';
 import { ParameterType, OperationType } from '../../../api/models/deviceQuery';
 
