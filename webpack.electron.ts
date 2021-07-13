@@ -24,7 +24,7 @@ const config: webpack.Configuration = merge(common, {
                     { loader: 'style-loader'},
                     MiniCssExtractPlugin.loader,
                     { loader: 'css-loader', options: { sourceMap: false}},
-                    { loader: 'sass-loader', options: {sourceMap: false}}]
+                    { loader: 'sass-loader', options: {sourceMap: false, implementation: require('sass')}}]
             }
         ]
     },
