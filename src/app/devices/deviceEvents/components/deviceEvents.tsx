@@ -45,23 +45,23 @@ export const DeviceEvents: React.FC = () => {
     const deviceId = getDeviceIdFromQueryString(search);
     const moduleId = getModuleIdentityIdFromQueryString(search);
 
-    const [ localState, dispatch ] = useAsyncSagaReducer(deviceEventsReducer, EventMonitoringSaga, deviceEventsStateInitial(), 'deviceEventsState');
+    const [localState, dispatch] = useAsyncSagaReducer(deviceEventsReducer, EventMonitoringSaga, deviceEventsStateInitial(), 'deviceEventsState');
     const synchronizationStatus = localState.synchronizationStatus;
     const events = localState.payload;
 
     // event hub settings
-    const [ consumerGroup, setConsumerGroup] = React.useState(DEFAULT_CONSUMER_GROUP);
-    const [ specifyStartTime, setSpecifyStartTime] = React.useState<boolean>(false);
-    const [ startTime, setStartTime] = React.useState<Date>();
-    const [ useBuiltInEventHub, setUseBuiltInEventHub] = React.useState<boolean>(true);
-    const [ customEventHubConnectionString, setCustomEventHubConnectionString] = React.useState<string>(undefined);
-    const [ customEventHubName, setCustomEventHubName] = React.useState<string>(undefined);
-    const [ showSystemProperties, setShowSystemProperties ] = React.useState<boolean>(false);
+    const [consumerGroup, setConsumerGroup] = React.useState(DEFAULT_CONSUMER_GROUP);
+    const [specifyStartTime, setSpecifyStartTime] = React.useState<boolean>(false);
+    const [startTime, setStartTime] = React.useState<Date>();
+    const [useBuiltInEventHub, setUseBuiltInEventHub] = React.useState<boolean>(true);
+    const [customEventHubConnectionString, setCustomEventHubConnectionString] = React.useState<string>(undefined);
+    const [customEventHubName, setCustomEventHubName] = React.useState<string>(undefined);
+    const [showSystemProperties, setShowSystemProperties] = React.useState<boolean>(false);
 
     // event message state
-    const [ monitoringData, setMonitoringData ] = React.useState<boolean>(false);
-    const [ startDisabled, setStartDisabled ] = React.useState<boolean>(false);
-    const [ hasError, setHasError ] = React.useState<boolean>(false);
+    const [monitoringData, setMonitoringData] = React.useState<boolean>(false);
+    const [startDisabled, setStartDisabled] = React.useState<boolean>(false);
+    const [hasError, setHasError] = React.useState<boolean>(false);
 
     // pnp events specific
     const TELEMETRY_SCHEMA_PROP = MESSAGE_PROPERTIES.IOTHUB_MESSAGE_SCHEMA;
@@ -72,56 +72,62 @@ export const DeviceEvents: React.FC = () => {
     const modelDefinition = modelDefinitionWithSource && modelDefinitionWithSource.modelDefinition;
     const isLoading = pnpState.modelDefinitionWithSource.synchronizationStatus === SynchronizationStatus.working;
     const telemetrySchema = React.useMemo(() => getDeviceTelemetry(modelDefinition), [modelDefinition]);
-    const [ showPnpModeledEvents, setShowPnpModeledEvents ] = React.useState(false);
+    const [showPnpModeledEvents, setShowPnpModeledEvents] = React.useState(false);
 
     // simulation specific
-    const [ showSimulationPanel, setShowSimulationPanel ] = React.useState(false);
+    const [showSimulationPanel, setShowSimulationPanel] = React.useState(false);
 
-    React.useEffect(() => {
-        return () => {
-            stopMonitoring();
-        };
-    },              []);
+    React.useEffect(
+        () => {
+            return () => {
+                stopMonitoring();
+            };
+        },
+        []);
 
-    // tslint:disable-next-line: cyclomatic-complexity
-    React.useEffect(() => {
-        if (synchronizationStatus === SynchronizationStatus.updating ||
-            // when specifying start time, valid time need to be provided
-            (specifyStartTime && (!startTime || hasError)) ||
-            // when using custom event hub, both valid connection string and name need to be provided
-            (!useBuiltInEventHub && (!customEventHubConnectionString || !customEventHubName || hasError))) {
-            setStartDisabled(true);
-        }
-        else {
-            setStartDisabled(false);
-        }
-    },              [hasError, synchronizationStatus, useBuiltInEventHub, customEventHubConnectionString, customEventHubName, specifyStartTime, startTime]);
+    React.useEffect(    // tslint:disable-next-line: cyclomatic-complexity
+        () => {
+            if (synchronizationStatus === SynchronizationStatus.updating ||
+                // when specifying start time, valid time need to be provided
+                (specifyStartTime && (!startTime || hasError)) ||
+                // when using custom event hub, both valid connection string and name need to be provided
+                (!useBuiltInEventHub && (!customEventHubConnectionString || !customEventHubName || hasError))) {
+                setStartDisabled(true);
+            }
+            else {
+                setStartDisabled(false);
+            }
+        },
+        [hasError, synchronizationStatus, useBuiltInEventHub, customEventHubConnectionString, customEventHubName, specifyStartTime, startTime]);
 
-    // tslint:disable-next-line: cyclomatic-complexity
-    React.useEffect(() => {
-        if (synchronizationStatus === SynchronizationStatus.fetched) {
-            if (appConfig.hostMode !== HostMode.Browser) {
-                if (monitoringData) {
-                    setStartTime(new Date());
-                    setTimeout(() => {
-                        fetchData(false)();
-                    },         LOADING_LOCK);
+    React.useEffect(// tslint:disable-next-line: cyclomatic-complexity
+        () => {
+            if (synchronizationStatus === SynchronizationStatus.fetched) {
+                if (appConfig.hostMode !== HostMode.Browser) {
+                    if (monitoringData) {
+                        setStartTime(new Date());
+                        setTimeout(
+                            () => {
+                                fetchData(false)();
+                            },
+                            LOADING_LOCK);
+                    }
+                    else {
+                        stopMonitoring();
+                    }
                 }
                 else {
                     stopMonitoring();
                 }
             }
-            else {
+            if (synchronizationStatus === SynchronizationStatus.upserted) {
+                setMonitoringData(false);
+            }
+            if (monitoringData && synchronizationStatus === SynchronizationStatus.failed) {
                 stopMonitoring();
             }
-        }
-        if (synchronizationStatus === SynchronizationStatus.upserted) {
-            setMonitoringData(false);
-        }
-        if (monitoringData && synchronizationStatus === SynchronizationStatus.failed) {
-            stopMonitoring();
-        }
-    },              [synchronizationStatus]);
+        },
+        [synchronizationStatus]);
 
     const renderCommands = () => {
         return (
@@ -210,21 +216,21 @@ export const DeviceEvents: React.FC = () => {
         const filteredEvents = componentName ? events.filter(result => filterMessage(result)) : events;
         return (
             <>
-            {
-                filteredEvents && filteredEvents.map((event: Message, index) => {
-                    const modifiedEvents = showSystemProperties ? event : {
-                        body: event.body,
-                        enqueuedTime: event.enqueuedTime,
-                        properties: event.properties
-                    };
-                    return (
-                        <article key={index} className="device-events-content">
-                            {<h5>{modifiedEvents.enqueuedTime}:</h5>}
-                            <pre>{JSON.stringify(modifiedEvents, undefined, JSON_SPACES)}</pre>
-                        </article>
-                    );
-                })
-            }
+                {
+                    filteredEvents && filteredEvents.map((event: Message, index) => {
+                        const modifiedEvents = showSystemProperties ? event : {
+                            body: event.body,
+                            enqueuedTime: event.enqueuedTime,
+                            properties: event.properties
+                        };
+                        return (
+                            <article key={index} className="device-events-content">
+                                {<h5>{modifiedEvents.enqueuedTime}:</h5>}
+                                <pre>{JSON.stringify(modifiedEvents, undefined, JSON_SPACES)}</pre>
+                            </article>
+                        );
+                    })
+                }
             </>
         );
     };
@@ -247,14 +253,14 @@ export const DeviceEvents: React.FC = () => {
                             </div>
                         </div>
                         <section role="feed">
-                        {
-                            filteredEvents.map((event: Message, index) => {
-                                return !event.systemProperties ? renderEventsWithNoSystemProperties(event, index) :
-                                    event.systemProperties[TELEMETRY_SCHEMA_PROP] ?
-                                        renderEventsWithSchemaProperty(event, index) :
-                                        renderEventsWithNoSchemaProperty(event, index);
-                            })
-                        }
+                            {
+                                filteredEvents.map((event: Message, index) => {
+                                    return !event.systemProperties ? renderEventsWithNoSystemProperties(event, index) :
+                                        event.systemProperties[TELEMETRY_SCHEMA_PROP] ?
+                                            renderEventsWithSchemaProperty(event, index) :
+                                            renderEventsWithNoSchemaProperty(event, index);
+                                })
+                            }
                         </section>
                     </>
                 }
@@ -262,7 +268,7 @@ export const DeviceEvents: React.FC = () => {
         );
     };
 
-    const renderEventsWithNoSystemProperties = (event: Message, index: number, ) => {
+    const renderEventsWithNoSystemProperties = (event: Message, index: number) => {
         return (
             <article className="list-item event-list-item" role="article" key={index}>
                 <section className="flex-grid-row item-summary">
@@ -336,7 +342,7 @@ export const DeviceEvents: React.FC = () => {
     };
 
     const renderTimestamp = (enqueuedTime: string) => {
-        return(
+        return (
             <div className="col-sm2">
                 <Label aria-label={t(ResourceKeys.deviceEvents.columns.timestamp)}>
                     {enqueuedTime}
@@ -347,7 +353,7 @@ export const DeviceEvents: React.FC = () => {
 
     const renderEventName = (telemetryModelDefinition?: TelemetryContent) => {
         const displayName = telemetryModelDefinition ? getLocalizedData(telemetryModelDefinition.displayName) : '';
-        return(
+        return (
             <div className="col-sm2">
                 <Label aria-label={t(ResourceKeys.deviceEvents.columns.displayName)}>
                     {telemetryModelDefinition ?
@@ -358,7 +364,7 @@ export const DeviceEvents: React.FC = () => {
     };
 
     const renderEventSchema = (telemetryModelDefinition?: TelemetryContent) => {
-        return(
+        return (
             <div className="col-sm2">
                 <Label aria-label={t(ResourceKeys.deviceEvents.columns.schema)}>
                     {telemetryModelDefinition ? getSchemaType(telemetryModelDefinition.schema) : '--'}
@@ -368,10 +374,10 @@ export const DeviceEvents: React.FC = () => {
     };
 
     const renderEventUnit = (telemetryModelDefinition?: TelemetryContent) => {
-        return(
+        return (
             <div className="col-sm2">
                 <Label aria-label={t(ResourceKeys.deviceEvents.columns.unit)}>
-                    <SemanticUnit unitHost={telemetryModelDefinition}/>
+                    <SemanticUnit unitHost={telemetryModelDefinition} />
                 </Label>
             </div>
         );
@@ -381,7 +387,7 @@ export const DeviceEvents: React.FC = () => {
     const renderMessageBodyWithSchema = (eventBody: any, schema: ParsedJsonSchema, key: string) => { // tslint:disable-line:no-any
         if (key && !schema) { // DTDL doesn't contain corresponding key
             const labelContent = t(ResourceKeys.deviceEvents.columns.validation.key.isNotSpecified, { key });
-            return(
+            return (
                 <div className="column-value-text col-sm4">
                     <span aria-label={t(ResourceKeys.deviceEvents.columns.value)}>
                         {JSON.stringify(eventBody, undefined, JSON_SPACES)}
@@ -398,7 +404,7 @@ export const DeviceEvents: React.FC = () => {
                 expectedKey: key,
                 receivedKey: Object.keys(eventBody)[0]
             }) : t(ResourceKeys.deviceEvents.columns.validation.value.bodyIsEmpty);
-            return(
+            return (
                 <div className="column-value-text col-sm4">
                     <span aria-label={t(ResourceKeys.deviceEvents.columns.value)}>
                         {JSON.stringify(eventBody, undefined, JSON_SPACES)}
@@ -416,7 +422,7 @@ export const DeviceEvents: React.FC = () => {
     const renderMessageBodyWithValueValidation = (eventBody: any, schema: ParsedJsonSchema, key: string) => { // tslint:disable-line:no-any
         const errors = getSchemaValidationErrors(eventBody[key], schema, true);
 
-        return(
+        return (
             <div className="column-value-text col-sm4">
                 <Label aria-label={t(ResourceKeys.deviceEvents.columns.value)}>
                     {JSON.stringify(eventBody, undefined, JSON_SPACES)}
@@ -424,9 +430,9 @@ export const DeviceEvents: React.FC = () => {
                         <section className="value-validation-error" aria-label={t(ResourceKeys.deviceEvents.columns.validation.value.label)}>
                             <span>{t(ResourceKeys.deviceEvents.columns.validation.value.label)}</span>
                             <ul>
-                            {errors.map((element, index) =>
-                                <li key={index}>{element.message}</li>
-                            )}
+                                {errors.map((element, index) =>
+                                    <li key={index}>{element.message}</li>
+                                )}
                             </ul>
                         </section>
                     }
@@ -436,7 +442,7 @@ export const DeviceEvents: React.FC = () => {
     };
 
     const renderMessageBodyWithNoSchema = (eventBody: any) => { // tslint:disable-line:no-any
-        return(
+        return (
             <div className="column-value-text col-sm4">
                 <Label aria-label={t(ResourceKeys.deviceEvents.columns.value)}>
                     {JSON.stringify(eventBody, undefined, JSON_SPACES)}
@@ -447,7 +453,7 @@ export const DeviceEvents: React.FC = () => {
 
     const getModelDefinitionAndSchema = (key: string): TelemetrySchema => {
         const matchingSchema = telemetrySchema.filter(schema => schema.telemetryModelDefinition.name === key);
-        const telemetryModelDefinition =  matchingSchema && matchingSchema.length !== 0 && matchingSchema[0].telemetryModelDefinition;
+        const telemetryModelDefinition = matchingSchema && matchingSchema.length !== 0 && matchingSchema[0].telemetryModelDefinition;
         const parsedSchema = matchingSchema && matchingSchema.length !== 0 && matchingSchema[0].parsedSchema;
         return {
             parsedSchema,
@@ -463,9 +469,9 @@ export const DeviceEvents: React.FC = () => {
                     <MessageBar
                         messageBarType={MessageBarType.info}
                     >
-                        <Stack horizontal={true} tokens={{childrenGap: 10}}>
+                        <Stack horizontal={true} tokens={{ childrenGap: 10 }}>
                             <div>{t(ResourceKeys.deviceEvents.infiniteScroll.loading)}</div>
-                            {<Spinner size={SpinnerSize.small}/>}
+                            {<Spinner size={SpinnerSize.small} />}
                         </Stack>
                     </MessageBar>}
             </>
@@ -497,11 +503,11 @@ export const DeviceEvents: React.FC = () => {
     };
 
     if (isLoading) {
-        return <MultiLineShimmer/>;
+        return <MultiLineShimmer />;
     }
 
     return (
-        <div className="device-events" key="device-events">
+        <Stack className="device-events" key="device-events">
             {renderCommands()}
             <HeaderView
                 headerText={ResourceKeys.deviceEvents.headerText}
@@ -520,6 +526,6 @@ export const DeviceEvents: React.FC = () => {
                     {showPnpModeledEvents ? renderPnpModeledEvents() : renderRawEvents()}
                 </div>
             </div>
-        </div>
+        </Stack>
     );
 };

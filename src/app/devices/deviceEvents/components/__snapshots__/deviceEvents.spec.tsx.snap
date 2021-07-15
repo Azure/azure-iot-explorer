@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`deviceEvents deviceEvents in non-pnp context matches snapshot 1`] = `
-<div
+<Stack
   className="device-events"
   key="device-events"
 >
@@ -83,11 +83,11 @@ exports[`deviceEvents deviceEvents in non-pnp context matches snapshot 1`] = `
       </article>
     </div>
   </div>
-</div>
+</Stack>
 `;
 
 exports[`deviceEvents deviceEvents in pnp context matches snapshot while interface cannot be found 1`] = `
-<div
+<Stack
   className="device-events"
   key="device-events"
 >
@@ -148,11 +148,11 @@ exports[`deviceEvents deviceEvents in pnp context matches snapshot while interfa
       className="scrollable-telemetry"
     />
   </div>
-</div>
+</Stack>
 `;
 
 exports[`deviceEvents deviceEvents in pnp context matches snapshot while interface definition is retrieved 1`] = `
-<div
+<Stack
   className="device-events"
   key="device-events"
 >
@@ -213,5 +213,5 @@ exports[`deviceEvents deviceEvents in pnp context matches snapshot while interfa
       className="scrollable-telemetry"
     />
   </div>
-</div>
+</Stack>
 `;
