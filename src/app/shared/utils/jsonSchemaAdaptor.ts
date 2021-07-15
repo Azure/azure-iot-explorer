@@ -95,7 +95,7 @@ export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
     }
 
     public getComponentNameAndInterfaceIdArray = (): ComponentAndInterfaceId[] => {
-        const componentContents = this.model && this.model.contents && this.model.contents.filter((item: ComponentContent) => this.filterComponent(item)) as ComponentContent[];
+        const componentContents = this.getModelContents().filter((item: ComponentContent) => this.filterComponent(item)) as ComponentContent[];
         return componentContents && componentContents.map(componentContent => ({
             componentName: componentContent.name,
             interfaceId: typeof componentContent.schema === 'string' ? componentContent.schema : `${this.model['@id']}/${componentContent.schema['@id']}`
@@ -104,34 +104,34 @@ export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
 
     public getWritableProperties = () => {
         const filterWritablePropeties = (content: PropertyContent) =>  {
-                if (typeof content['@type'] === 'string') {
+            if (typeof content['@type'] === 'string') {
                 return content['@type'].toLowerCase() === ContentType.Property && content.writable === true;
             }
             else {
                 return content['@type'].some((entry: string) => entry.toLowerCase() === ContentType.Property) && content.writable === true;
             }
         };
-        return this.model && this.model.contents && this.model.contents.filter((item: PropertyContent) => filterWritablePropeties(item)) as PropertyContent[] || [];
+        return this.getModelContents().filter((item: PropertyContent) => filterWritablePropeties(item)) as PropertyContent[] || [];
     }
 
     public getNonWritableProperties = () => {
         const filterNonWritablePropeties = (content: PropertyContent) =>  {
             if (typeof content['@type'] === 'string') {
-            return content['@type'].toLowerCase() === ContentType.Property && !content.writable;
-        }
-        else {
-            return content['@type'].some((entry: string) => entry.toLowerCase() === ContentType.Property) && !content.writable;
-        }
-    };
-        return this.model && this.model.contents && this.model.contents.filter((item: PropertyContent) => filterNonWritablePropeties(item)) as PropertyContent[] || [];
+                return content['@type'].toLowerCase() === ContentType.Property && !content.writable;
+            }
+            else {
+                return content['@type'].some((entry: string) => entry.toLowerCase() === ContentType.Property) && !content.writable;
+            }
+        };
+        return this.getModelContents().filter((item: PropertyContent) => filterNonWritablePropeties(item)) as PropertyContent[] || [];
     }
 
     public getCommands = () => {
-        return this.model && this.model.contents && this.model.contents.filter((item: CommandContent) => this.filterCommand(item)) as CommandContent[] || [];
+        return this.getModelContents().filter((item: CommandContent) => this.filterCommand(item)) as CommandContent[] || [];
     }
 
     public getTelemetry = () => {
-        return this.model && this.model.contents && this.model.contents.filter((item: TelemetryContent) => this.filterTelemetry(item)) as TelemetryContent[] || [];
+        return this.getModelContents().filter((item: TelemetryContent) => this.filterTelemetry(item)) as TelemetryContent[] || [];
     }
 
     public parseInterfacePropertyToJsonSchema = (property: PropertyContent): ParsedJsonSchema => {
@@ -165,6 +165,15 @@ export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
             };
         } catch {
             return; // swallow the error and let UI render JSON editor for types which are not supported yet
+        }
+    }
+
+    private readonly getModelContents = () => {
+        if (this.model && this.model.contents) {
+            return Array.isArray(this.model.contents) ? this.model.contents : [this.model.contents];
+        }
+        else {
+            return [];
         }
     }
 
