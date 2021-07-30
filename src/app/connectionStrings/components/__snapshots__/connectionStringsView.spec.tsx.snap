@@ -20,10 +20,31 @@ exports[`ConnectionStringsView matches snapshot when connection strings present 
             "onClick": [Function],
             "text": "connectionStrings.addConnectionCommand.label",
           },
+          Object {
+            "ariaLabel": "connectionStrings.addConnectionCommand.ariaLabel",
+            "disabled": false,
+            "iconProps": Object {
+              "iconName": "Add",
+            },
+            "key": "login",
+            "onClick": [Function],
+            "text": "login",
+          },
+          Object {
+            "ariaLabel": "connectionStrings.addConnectionCommand.ariaLabel",
+            "disabled": false,
+            "iconProps": Object {
+              "iconName": "Add",
+            },
+            "key": "logout",
+            "onClick": [Function],
+            "text": "logout",
+          },
         ]
       }
     />
   </div>
+  have not login
   <div
     className="view-scroll-vertical"
   >
@@ -67,10 +88,31 @@ exports[`ConnectionStringsView matches snapshot when no connection strings 1`] =
             "onClick": [Function],
             "text": "connectionStrings.addConnectionCommand.label",
           },
+          Object {
+            "ariaLabel": "connectionStrings.addConnectionCommand.ariaLabel",
+            "disabled": false,
+            "iconProps": Object {
+              "iconName": "Add",
+            },
+            "key": "login",
+            "onClick": [Function],
+            "text": "login",
+          },
+          Object {
+            "ariaLabel": "connectionStrings.addConnectionCommand.ariaLabel",
+            "disabled": false,
+            "iconProps": Object {
+              "iconName": "Add",
+            },
+            "key": "logout",
+            "onClick": [Function],
+            "text": "logout",
+          },
         ]
       }
     />
   </div>
+  have not login
   <div
     className="view-scroll-vertical"
   >
