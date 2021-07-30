@@ -8,6 +8,7 @@ export const PLATFORMS = {
 
 export const MESSAGE_CHANNELS = {
     AUTHENTICATION_LOGIN: 'authentication_login',
+    AUTHENTICATION_LOGOUT: 'authentication_logout',
     DEVICE_SEND_MESSAGE: 'device_sendMessage',
     DIRECTORY_GET_DIRECTORIES: 'directory_getDirectories',
     EVENTHUB_START_MONITORING: 'eventhub_startMonitoring',

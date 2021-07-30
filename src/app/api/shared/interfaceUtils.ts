@@ -74,6 +74,10 @@ export const getPublicDigitalTwinsModelInterface = (): PublicDigitalTwinsModelIn
 };
 
 export const getAuthenticationInterface = (): AuthenticationInterface => {
+    if (appConfig.hostMode !== HostMode.Electron) {
+        throw new Error(NOT_AVAILABLE);
+    }
+
     return getElectronInterface(API_INTERFACES.AUTHENTICATION);
 };
 

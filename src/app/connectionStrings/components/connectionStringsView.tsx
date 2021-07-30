@@ -23,9 +23,9 @@ import { MultiLineShimmer } from '../../shared/components/multiLineShimmer';
 import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
 import { getConnectionStringsAction } from './../actions';
 import { useBreadcrumbEntry } from '../../navigation/hooks/useBreadcrumbEntry';
+import { login, logout } from '../../api/services/authenticationService';
 import '../../css/_layouts.scss';
 import './connectionStringsView.scss';
-import { login } from '../../api/services/authenticationService';
 
 // tslint:disable-next-line: cyclomatic-complexity
 export const ConnectionStringsView: React.FC = () => {
@@ -35,6 +35,7 @@ export const ConnectionStringsView: React.FC = () => {
 
     const [ localState, dispatch ] = useAsyncSagaReducer(connectionStringsReducer, connectionStringsSaga, connectionStringsStateInitial(), 'connectionStringsState');
     const [ connectionStringUnderEdit, setConnectionStringUnderEdit ] = React.useState<string>(undefined);
+    const [ temp, setTemp ] = React.useState<string>('have not login');
 
     const connectionStringsWithExpiry = localState.payload;
     const synchronizationStatus = localState.synchronizationStatus;
@@ -78,8 +79,27 @@ export const ConnectionStringsView: React.FC = () => {
         setConnectionStringUnderEdit(undefined);
     };
 
-    const onLogin = () => {
-        login();
+    const onLogin = async () => {
+        try {
+            console.log('connectionStringView calling service.login'); // tslint:disable-line
+            const result = await login();
+            localStorage.setItem('temp', result.accessToken);
+            console.log(result); // tslint:disable-line
+            setTemp(result.accessToken);
+        }
+        catch {
+            setTemp('failed to login');
+        }
+    };
+
+    const onLogout = async () => {
+        try {
+            console.log('connectionStringView calling service.logout'); // tslint:disable-line
+            await logout();
+        }
+        catch {
+            setTemp('failed to logout');
+        }
     };
 
     React.useEffect(() => {
@@ -117,12 +137,21 @@ export const ConnectionStringsView: React.FC = () => {
                             disabled: connectionStringsWithExpiry.length >= CONNECTION_STRING_LIST_MAX_LENGTH,
                             iconProps: { iconName: 'Add' },
                             key: 'login',
-                            onClick: onLogin,
+                            onClick: async () => {await onLogin();}, // tslint:disable-line
                             text: 'login'
+                        },
+                        {
+                            ariaLabel: t(ResourceKeys.connectionStrings.addConnectionCommand.ariaLabel),
+                            disabled: connectionStringsWithExpiry.length >= CONNECTION_STRING_LIST_MAX_LENGTH,
+                            iconProps: { iconName: 'Add' },
+                            key: 'logout',
+                            onClick: async () => {await onLogout();}, // tslint:disable-line
+                            text: 'logout'
                         }
                     ]}
                 />
             </div>
+            {temp}
             <div className="view-scroll-vertical">
                 <div className="connection-strings">
                     {connectionStringsWithExpiry.map(connectionStringWithExpiry =>

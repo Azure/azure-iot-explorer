@@ -10,17 +10,17 @@ import {
     AuthorizationCodeRequest,
     AuthorizationUrlRequest,
     AuthenticationResult,
-    SilentFlowRequest } from "@azure/msal-node";
-import { BrowserWindow } from "electron";
-import { CustomFileProtocolListener } from "./authCustomProtocol";
-import { AuthCodeListener } from "./authCodeListener";
+    SilentFlowRequest } from '@azure/msal-node';
+import { BrowserWindow } from 'electron';
+import { CustomFileProtocolListener } from './authCustomProtocol';
+import { AuthCodeListener } from './authCodeListener';
 
 const CUSTOM_FILE_PROTOCOL_NAME = "msal";
 
 const MSAL_CONFIG: Configuration = {
     auth: {
-        clientId: '29f411f1-b2cf-4043-8ac8-2185d7316811',
-        authority: "https://login.microsoftonline.com/common",
+        clientId: '67ccd9d7-f5c7-475c-9da0-9700c24b2e66',
+        authority: 'https://login.microsoftonline.com/common'
     },
     system: {
         loggerOptions: {
@@ -53,10 +53,10 @@ export class AuthProvider {
 
     /**
      * Initialize request objects used by this AuthModule.
-     */
+    */
     private setRequestObjects(): void {
-        const requestScopes =  ['openid', 'profile', 'User.Read'];
-        const redirectUri = "msal://redirect";
+        const requestScopes =  ['openid', 'profile'];
+        const redirectUri = 'https://login.microsoftonline.com/oauth2/nativeclient';
 
         const baseSilentRequest = {
             account: null,
@@ -116,7 +116,7 @@ export class AuthProvider {
         return authResult;
     }
 
-    async login(authWindow: BrowserWindow): Promise<AccountInfo> {
+    async login(authWindow: BrowserWindow): Promise<AuthenticationResult> {
         const authResult = await this.getTokenInteractive(authWindow, this.authCodeUrlParams);
         return this.handleResponse(authResult);
     }
@@ -133,6 +133,7 @@ export class AuthProvider {
         if (this.account) {
             await this.clientApplication.getTokenCache().removeAccount(this.account);
             this.account = null;
+            console.log('logging out');
         }
     }
 
@@ -143,7 +144,10 @@ export class AuthProvider {
                 try {
                     const parsedUrl = new URL(responseUrl);
                     const authCode = parsedUrl.searchParams.get('code');
-                    resolve(authCode);
+                    if(authCode)
+                    {
+                        resolve(authCode);
+                    }
                 } catch (err) {
                     reject(err);
                 }
@@ -151,10 +155,10 @@ export class AuthProvider {
         });
     }
 
-        /**
+    /**
      * Handles the response from a popup or redirect. If response is null, will check if we have any accounts and attempt to sign in.
      * @param response
-     */
+    */
     private async handleResponse(response: AuthenticationResult) {
         if (response !== null) {
             this.account = response.account;
@@ -162,7 +166,7 @@ export class AuthProvider {
             this.account = await this.getAccount();
         }
 
-        return this.account;
+        return response;
     }
 
     /**
@@ -170,20 +174,20 @@ export class AuthProvider {
      * TODO: Add account chooser code
      *
      * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-common/docs/Accounts.md
-     */
+    */
     private async getAccount(): Promise<AccountInfo> {
         // need to call getAccount here?
         const cache = this.clientApplication.getTokenCache();
         const currentAccounts = await cache.getAllAccounts();
 
         if (currentAccounts === null) {
-            console.log("No accounts detected");
+            console.log('No accounts detected');
             return null;
         }
 
         if (currentAccounts.length > 1) {
             // Add choose account code here
-            console.log("Multiple accounts detected, need to add choose account code.");
+            console.log('Multiple accounts detected, need to add choose account code.');
             return currentAccounts[0];
         } else if (currentAccounts.length === 1) {
             return currentAccounts[0];
