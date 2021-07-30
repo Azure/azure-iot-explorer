@@ -25,6 +25,7 @@ import { getConnectionStringsAction } from './../actions';
 import { useBreadcrumbEntry } from '../../navigation/hooks/useBreadcrumbEntry';
 import '../../css/_layouts.scss';
 import './connectionStringsView.scss';
+import { login } from '../../api/services/authenticationService';
 
 // tslint:disable-next-line: cyclomatic-complexity
 export const ConnectionStringsView: React.FC = () => {
@@ -77,6 +78,10 @@ export const ConnectionStringsView: React.FC = () => {
         setConnectionStringUnderEdit(undefined);
     };
 
+    const onLogin = () => {
+        login();
+    };
+
     React.useEffect(() => {
         dispatch(getConnectionStringsAction.started());
     },              []);
@@ -106,6 +111,14 @@ export const ConnectionStringsView: React.FC = () => {
                             key: 'add',
                             onClick: onAddConnectionStringClick,
                             text: t(ResourceKeys.connectionStrings.addConnectionCommand.label)
+                        },
+                        {
+                            ariaLabel: t(ResourceKeys.connectionStrings.addConnectionCommand.ariaLabel),
+                            disabled: connectionStringsWithExpiry.length >= CONNECTION_STRING_LIST_MAX_LENGTH,
+                            iconProps: { iconName: 'Add' },
+                            key: 'login',
+                            onClick: onLogin,
+                            text: 'login'
                         }
                     ]}
                 />

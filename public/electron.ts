@@ -13,12 +13,14 @@ import { onGetDirectories } from './handlers/directoryHandler';
 import { onSendMessageToDevice } from './handlers/deviceHandler';
 import { onStartMonitoring, onStopMonitoring } from './handlers/eventHubHandler';
 import { formatError } from './utils/errorHelper';
+import { AuthProvider } from './utils/authProvider';
 import '../dist/server/serverElectron';
 
 class Main {
     private static application: Electron.App;
     private static mainWindow: BrowserWindow;
     private static readonly target = path.join(__dirname, '/../dist/index.html');
+    private static authProvider: AuthProvider;
 
     public static start() {
         Main.application = app;
@@ -35,6 +37,16 @@ class Main {
         Main.registerHandler(MESSAGE_CHANNELS.DEVICE_SEND_MESSAGE, onSendMessageToDevice);
         Main.registerHandler(MESSAGE_CHANNELS.EVENTHUB_START_MONITORING, onStartMonitoring);
         Main.registerHandler(MESSAGE_CHANNELS.EVENTHUB_STOP_MONITORING, onStopMonitoring);
+        Main.registerHandler(MESSAGE_CHANNELS.AUTHENTICATION_LOGIN, Main.onLogin);
+    }
+
+    private static async loadTarget(redirect?: string): Promise<void> {
+        this.mainWindow.loadFile(Main.target, { query: {redirect: redirect || ''} });
+    }
+
+    private static async onLogin(): Promise<void> {
+        await Main.authProvider.login(Main.mainWindow)
+        await Main.loadTarget();
     }
 
     private static setApplicationLock(): void {
@@ -66,6 +78,7 @@ class Main {
     private static onReady(): void {
         Main.createMainWindow();
         Main.createMenu();
+        Main.authProvider = new AuthProvider();
     }
 
     private static onActivate(): void {
