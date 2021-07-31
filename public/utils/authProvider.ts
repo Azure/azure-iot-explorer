@@ -1,9 +1,7 @@
-/*
+/***********************************************************
  * Copyright (c) Microsoft Corporation. All rights reserved.
- * Licensed under the MIT License.
- */
-
-
+ * Licensed under the MIT License
+ **********************************************************/
 import {
     PublicClientApplication,
     Configuration,
@@ -12,17 +10,14 @@ import {
     AuthorizationCodeRequest,
     AuthorizationUrlRequest,
     AuthenticationResult,
-    SilentFlowRequest } from "@azure/msal-node";
-import { BrowserWindow } from "electron";
+    SilentFlowRequest } from '@azure/msal-node';
+import { BrowserWindow } from 'electron';
 
 const MSAL_CONFIG: Configuration = {
     auth: {
         clientId: '67ccd9d7-f5c7-475c-9da0-9700c24b2e66',
-        authority: "https://login.microsoftonline.com/common",
+        authority: 'https://login.microsoftonline.com/common',
     },
-    // cache: {
-    //     cachePlugin
-    // },
     system: {
         loggerOptions: {
             loggerCallback(loglevel, message, containsPii) {
@@ -56,7 +51,7 @@ export class AuthProvider {
      */
     private setRequestObjects(): void {
         const requestScopes =  ['openid', 'profile'];
-        const redirectUri = "https://login.microsoftonline.com/oauth2/nativeclient";
+        const redirectUri = 'https://login.microsoftonline.com/oauth2/nativeclient';
 
         const baseSilentRequest = {
             account: null,
@@ -101,7 +96,7 @@ export class AuthProvider {
         try {
             return await this.clientApplication.acquireTokenSilent(tokenRequest);
         } catch (error) {
-            console.log("Silent token acquisition failed, acquiring token using redirect");
+            console.log('Silent token acquisition failed, acquiring token using redirect');
             return await this.getTokenInteractive(authWindow, this.authCodeRequest);
         }
     }
@@ -114,7 +109,7 @@ export class AuthProvider {
         return authResult;
     }
 
-    async login(authWindow: BrowserWindow): Promise<AuthenticationResult> {
+    async login(authWindow: BrowserWindow): Promise<void> {
         const authResult = await this.getTokenInteractive(authWindow, this.authCodeUrlParams);
         return this.handleResponse(authResult);
     }
@@ -151,18 +146,16 @@ export class AuthProvider {
         });
     }
 
-        /**
+    /**
      * Handles the response from a popup or redirect. If response is null, will check if we have any accounts and attempt to sign in.
      * @param response
-     */
+    */
     private async handleResponse(response: AuthenticationResult) {
         if (response !== null) {
             this.account = response.account;
         } else {
             this.account = await this.getAccount();
         }
-
-        return response;
     }
 
     /**
@@ -170,20 +163,20 @@ export class AuthProvider {
      * TODO: Add account chooser code
      *
      * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-common/docs/Accounts.md
-     */
+    */
     private async getAccount(): Promise<AccountInfo> {
         // need to call getAccount here?
         const cache = this.clientApplication.getTokenCache();
         const currentAccounts = await cache.getAllAccounts();
 
         if (currentAccounts === null) {
-            console.log("No accounts detected");
+            console.log('No accounts detected');
             return null;
         }
 
         if (currentAccounts.length > 1) {
             // Add choose account code here
-            console.log("Multiple accounts detected, need to add choose account code.");
+            console.log('Multiple accounts detected, need to add choose account code.');
             return currentAccounts[0];
         } else if (currentAccounts.length === 1) {
             return currentAccounts[0];

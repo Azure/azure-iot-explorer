@@ -5,7 +5,6 @@
 import { app, Menu, BrowserWindow, dialog, ipcMain } from 'electron';
 import * as windowState from 'electron-window-state';
 import * as path from 'path';
-import { AuthenticationResult } from '@azure/msal-node';
 import { generateMenu } from './factories/menuFactory';
 import { PLATFORMS, MESSAGE_CHANNELS } from './constants';
 import { onSettingsHighContrast } from './handlers/settingsHandler';
@@ -40,22 +39,26 @@ class Main {
         Main.registerHandler(MESSAGE_CHANNELS.EVENTHUB_STOP_MONITORING, onStopMonitoring);
         Main.registerHandler(MESSAGE_CHANNELS.AUTHENTICATION_LOGIN, Main.onLogin);
         Main.registerHandler(MESSAGE_CHANNELS.AUTHENTICATION_LOGOUT, Main.onLogout);
+        Main.registerHandler(MESSAGE_CHANNELS.AUTHENTICATION_GET_PROFILE_TOKEN, Main.onGetProfileToken);
     }
 
     private static async loadTarget(redirect?: string): Promise<void> {
-        this.mainWindow.loadFile(Main.target, { query: {redirect: redirect || ''} });
+        Main.mainWindow.loadFile(Main.target, { query: {redirect: redirect || ''} });
     }
 
-    private static async onLogin(): Promise<AuthenticationResult> { // to be moved to a handler
-        const authenticationResult = await Main.authProvider.login(Main.mainWindow)
+    private static async onLogin(): Promise<void> {
+        await Main.authProvider.login(Main.mainWindow)
         await Main.loadTarget();
-        console.log(authenticationResult);
-        return authenticationResult;
     }
 
-    private static async onLogout(): Promise<void> { // to be moved to a handler
+    private static async onLogout(): Promise<void> {
         await Main.authProvider.logout();
         await Main.loadTarget();
+    }
+
+    private static async onGetProfileToken(): Promise<string> {
+        const token = await Main.authProvider.getProfileToken(Main.mainWindow);
+        return token;
     }
 
     private static setApplicationLock(): void {
@@ -143,7 +146,7 @@ class Main {
 
         Main.setErrorBoundary();
         Main.setApplicationLock();
-        
+
         Main.authProvider = new AuthProvider();
         Main.setMessageHandlers();
     }

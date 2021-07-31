@@ -23,7 +23,7 @@ import { MultiLineShimmer } from '../../shared/components/multiLineShimmer';
 import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
 import { getConnectionStringsAction } from './../actions';
 import { useBreadcrumbEntry } from '../../navigation/hooks/useBreadcrumbEntry';
-import { login, logout } from '../../api/services/authenticationService';
+import { getProfileToken, login, logout } from '../../api/services/authenticationService';
 import '../../css/_layouts.scss';
 import './connectionStringsView.scss';
 
@@ -82,13 +82,20 @@ export const ConnectionStringsView: React.FC = () => {
     const onLogin = async () => {
         try {
             console.log('connectionStringView calling service.login'); // tslint:disable-line
-            const result = await login();
-            localStorage.setItem('temp', result.accessToken);
-            console.log(result); // tslint:disable-line
-            setTemp(result.accessToken);
+            await login();
         }
         catch {
             setTemp('failed to login');
+        }
+    };
+
+    const onGetProfileToken = async () => {
+        try {
+            const token = await getProfileToken();
+            setTemp(token);
+        }
+        catch {
+            setTemp('failed to get profile token');
         }
     };
 
@@ -144,6 +151,14 @@ export const ConnectionStringsView: React.FC = () => {
                             ariaLabel: t(ResourceKeys.connectionStrings.addConnectionCommand.ariaLabel),
                             disabled: connectionStringsWithExpiry.length >= CONNECTION_STRING_LIST_MAX_LENGTH,
                             iconProps: { iconName: 'Add' },
+                            key: 'getToken',
+                            onClick: async () => {await onGetProfileToken();}, // tslint:disable-line
+                            text: 'get token'
+                        },
+                        {
+                            ariaLabel: t(ResourceKeys.connectionStrings.addConnectionCommand.ariaLabel),
+                            disabled: connectionStringsWithExpiry.length >= CONNECTION_STRING_LIST_MAX_LENGTH,
+                            iconProps: { iconName: 'Add' },
                             key: 'logout',
                             onClick: async () => {await onLogout();}, // tslint:disable-line
                             text: 'logout'
@@ -151,8 +166,8 @@ export const ConnectionStringsView: React.FC = () => {
                     ]}
                 />
             </div>
-            {temp}
             <div className="view-scroll-vertical">
+                {temp}
                 <div className="connection-strings">
                     {connectionStringsWithExpiry.map(connectionStringWithExpiry =>
                         <ConnectionString
