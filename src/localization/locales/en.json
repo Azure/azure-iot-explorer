@@ -952,5 +952,11 @@
             },
             "notAvailable": "--"
         }
+    },
+    "authentication": {
+        "command": {
+            "login": "Login through Azure AD",
+            "logout": "Logout"
+        }
     }
 }

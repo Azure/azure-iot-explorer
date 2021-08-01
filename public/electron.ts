@@ -57,7 +57,7 @@ class Main {
     }
 
     private static async onGetProfileToken(): Promise<string> {
-        const token = await Main.authProvider.getProfileToken(Main.mainWindow);
+        const token = await Main.authProvider.getProfileTokenIfPresent();
         return token;
     }
 

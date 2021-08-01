@@ -21,30 +21,18 @@ exports[`ConnectionStringsView matches snapshot when connection strings present 
             "text": "connectionStrings.addConnectionCommand.label",
           },
           Object {
-            "ariaLabel": "connectionStrings.addConnectionCommand.ariaLabel",
-            "disabled": false,
+            "ariaLabel": "authentication.command.login",
             "iconProps": Object {
-              "iconName": "Add",
+              "iconName": "Signin",
             },
-            "key": "login",
+            "key": "signin",
             "onClick": [Function],
-            "text": "login",
-          },
-          Object {
-            "ariaLabel": "connectionStrings.addConnectionCommand.ariaLabel",
-            "disabled": false,
-            "iconProps": Object {
-              "iconName": "Add",
-            },
-            "key": "logout",
-            "onClick": [Function],
-            "text": "logout",
+            "text": "authentication.command.login",
           },
         ]
       }
     />
   </div>
-  have not login
   <div
     className="view-scroll-vertical"
   >
@@ -89,30 +77,18 @@ exports[`ConnectionStringsView matches snapshot when no connection strings 1`] =
             "text": "connectionStrings.addConnectionCommand.label",
           },
           Object {
-            "ariaLabel": "connectionStrings.addConnectionCommand.ariaLabel",
-            "disabled": false,
+            "ariaLabel": "authentication.command.login",
             "iconProps": Object {
-              "iconName": "Add",
+              "iconName": "Signin",
             },
-            "key": "login",
+            "key": "signin",
             "onClick": [Function],
-            "text": "login",
-          },
-          Object {
-            "ariaLabel": "connectionStrings.addConnectionCommand.ariaLabel",
-            "disabled": false,
-            "iconProps": Object {
-              "iconName": "Add",
-            },
-            "key": "logout",
-            "onClick": [Function],
-            "text": "logout",
+            "text": "authentication.command.login",
           },
         ]
       }
     />
   </div>
-  have not login
   <div
     className="view-scroll-vertical"
   >

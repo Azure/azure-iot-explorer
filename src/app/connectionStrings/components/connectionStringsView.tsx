@@ -23,7 +23,7 @@ import { MultiLineShimmer } from '../../shared/components/multiLineShimmer';
 import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
 import { getConnectionStringsAction } from './../actions';
 import { useBreadcrumbEntry } from '../../navigation/hooks/useBreadcrumbEntry';
-import { getProfileToken, login, logout } from '../../api/services/authenticationService';
+import { useAuthenticationState } from '../../shared/authentication/hooks/authenticationStateHook';
 import '../../css/_layouts.scss';
 import './connectionStringsView.scss';
 
@@ -32,10 +32,10 @@ export const ConnectionStringsView: React.FC = () => {
     const { t } = useTranslation();
     const history = useHistory();
     useBreadcrumbEntry({name: t(ResourceKeys.breadcrumb.resources)});
+    const [ {token} , {getToken, login, logout}] = useAuthenticationState();
 
     const [ localState, dispatch ] = useAsyncSagaReducer(connectionStringsReducer, connectionStringsSaga, connectionStringsStateInitial(), 'connectionStringsState');
     const [ connectionStringUnderEdit, setConnectionStringUnderEdit ] = React.useState<string>(undefined);
-    const [ temp, setTemp ] = React.useState<string>('have not login');
 
     const connectionStringsWithExpiry = localState.payload;
     const synchronizationStatus = localState.synchronizationStatus;
@@ -79,38 +79,9 @@ export const ConnectionStringsView: React.FC = () => {
         setConnectionStringUnderEdit(undefined);
     };
 
-    const onLogin = async () => {
-        try {
-            console.log('connectionStringView calling service.login'); // tslint:disable-line
-            await login();
-        }
-        catch {
-            setTemp('failed to login');
-        }
-    };
-
-    const onGetProfileToken = async () => {
-        try {
-            const token = await getProfileToken();
-            setTemp(token);
-        }
-        catch {
-            setTemp('failed to get profile token');
-        }
-    };
-
-    const onLogout = async () => {
-        try {
-            console.log('connectionStringView calling service.logout'); // tslint:disable-line
-            await logout();
-        }
-        catch {
-            setTemp('failed to logout');
-        }
-    };
-
     React.useEffect(() => {
         dispatch(getConnectionStringsAction.started());
+        getToken();
     },              []);
 
     React.useEffect(() => {
@@ -126,48 +97,40 @@ export const ConnectionStringsView: React.FC = () => {
         );
     }
 
+    const getCommandBarItems = () => {
+        const items = [{
+                ariaLabel: t(ResourceKeys.connectionStrings.addConnectionCommand.ariaLabel),
+                disabled: connectionStringsWithExpiry.length >= CONNECTION_STRING_LIST_MAX_LENGTH,
+                iconProps: { iconName: 'Add' },
+                key: 'add',
+                onClick: onAddConnectionStringClick,
+                text: t(ResourceKeys.connectionStrings.addConnectionCommand.label)
+        }];
+        return !token ? [...items, {
+                ariaLabel: t(ResourceKeys.authentication.command.login),
+                iconProps: { iconName: 'Signin' },
+                key: 'signin',
+                onClick: login,
+                text: t(ResourceKeys.authentication.command.login)
+            }] :
+            [...items, {
+                ariaLabel: t(ResourceKeys.authentication.command.logout),
+                iconProps: { iconName: 'Signout' },
+                key: 'signout',
+                onClick: logout,
+                text: t(ResourceKeys.authentication.command.logout)
+            }];
+    };
+
     return (
         <div className="view">
             <div className="view-command">
                 <CommandBar
-                    items={[
-                        {
-                            ariaLabel: t(ResourceKeys.connectionStrings.addConnectionCommand.ariaLabel),
-                            disabled: connectionStringsWithExpiry.length >= CONNECTION_STRING_LIST_MAX_LENGTH,
-                            iconProps: { iconName: 'Add' },
-                            key: 'add',
-                            onClick: onAddConnectionStringClick,
-                            text: t(ResourceKeys.connectionStrings.addConnectionCommand.label)
-                        },
-                        {
-                            ariaLabel: t(ResourceKeys.connectionStrings.addConnectionCommand.ariaLabel),
-                            disabled: connectionStringsWithExpiry.length >= CONNECTION_STRING_LIST_MAX_LENGTH,
-                            iconProps: { iconName: 'Add' },
-                            key: 'login',
-                            onClick: async () => {await onLogin();}, // tslint:disable-line
-                            text: 'login'
-                        },
-                        {
-                            ariaLabel: t(ResourceKeys.connectionStrings.addConnectionCommand.ariaLabel),
-                            disabled: connectionStringsWithExpiry.length >= CONNECTION_STRING_LIST_MAX_LENGTH,
-                            iconProps: { iconName: 'Add' },
-                            key: 'getToken',
-                            onClick: async () => {await onGetProfileToken();}, // tslint:disable-line
-                            text: 'get token'
-                        },
-                        {
-                            ariaLabel: t(ResourceKeys.connectionStrings.addConnectionCommand.ariaLabel),
-                            disabled: connectionStringsWithExpiry.length >= CONNECTION_STRING_LIST_MAX_LENGTH,
-                            iconProps: { iconName: 'Add' },
-                            key: 'logout',
-                            onClick: async () => {await onLogout();}, // tslint:disable-line
-                            text: 'logout'
-                        }
-                    ]}
+                    items={getCommandBarItems()}
                 />
             </div>
             <div className="view-scroll-vertical">
-                {temp}
+                {token}
                 <div className="connection-strings">
                     {connectionStringsWithExpiry.map(connectionStringWithExpiry =>
                         <ConnectionString

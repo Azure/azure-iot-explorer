@@ -75,8 +75,20 @@ export class AuthProvider {
         };
     }
 
-    async getProfileToken(authWindow: BrowserWindow): Promise<string> {
-        return await this.getToken(authWindow, this.silentProfileRequest);
+    async getProfileTokenIfPresent(): Promise<string> {
+        let authResponse: AuthenticationResult;
+        const account = this.account || await this.getAccount();
+
+        if (account) {
+            this.silentProfileRequest.account = account;
+            try {
+                authResponse = await this.clientApplication.acquireTokenSilent(this.silentProfileRequest);
+            } catch (error) {
+                // do nothing
+            }
+        }
+
+        return authResponse?.accessToken || null;
     }
 
     async getToken(authWindow: BrowserWindow, request: SilentFlowRequest): Promise<string> {
