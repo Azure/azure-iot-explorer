@@ -23,7 +23,7 @@ import { MultiLineShimmer } from '../../shared/components/multiLineShimmer';
 import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
 import { getConnectionStringsAction } from './../actions';
 import { useBreadcrumbEntry } from '../../navigation/hooks/useBreadcrumbEntry';
-import { useAuthenticationState } from '../../shared/authentication/hooks/authenticationStateHook';
+import { useAuthenticationStateContext } from '../../shared/contexts/authenticationStateContext';
 import '../../css/_layouts.scss';
 import './connectionStringsView.scss';
 
@@ -32,7 +32,7 @@ export const ConnectionStringsView: React.FC = () => {
     const { t } = useTranslation();
     const history = useHistory();
     useBreadcrumbEntry({name: t(ResourceKeys.breadcrumb.resources)});
-    const [ {token} , {getToken, login, logout}] = useAuthenticationState();
+    const [ {token}, {login, logout, getToken}] =  useAuthenticationStateContext();
 
     const [ localState, dispatch ] = useAsyncSagaReducer(connectionStringsReducer, connectionStringsSaga, connectionStringsStateInitial(), 'connectionStringsState');
     const [ connectionStringUnderEdit, setConnectionStringUnderEdit ] = React.useState<string>(undefined);
