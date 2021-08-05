@@ -1,10 +1,32 @@
 trigger: none
 
+parameters:
+- name: linuxImage
+  type: string
+  default: 'ubuntu-18.04'
+  values:
+  - 'ubuntu-16.04'
+  - 'ubuntu-18.04'
+  - 'ubuntu-latest'
+- name: windowsImage
+  type: string
+  default: 'vs2017-win2016'
+  values:
+  - 'vs2017-win2016'
+  - 'windows-2019'
+  - 'windows-latest'
+- name: macImage
+  type: string
+  default: 'macOS-10.15'
+  values:
+  - 'macOS-10.15'
+  - 'macOS-latest'
+
 stages:
   - stage: 'build'
     displayName: 'Build and Test'
     pool:
-      vmImage: 'ubuntu-16.04'
+      vmImage: ${{ parameters.linuxImage }}
     jobs:
     - job: build_and_test
       displayName: 'Build and Test Source'
@@ -12,7 +34,7 @@ stages:
       - template: .\build-and-test-template.yml
     - job: scan
       pool:
-        vmImage: 'vs2017-win2016'
+        vmImage: ${{ parameters.windowsImage }}
       steps:
       - task: ea576cd4-c61f-48f8-97e7-a3cb07b90a6f@2
         displayName: 'CredScan V2'
@@ -27,7 +49,7 @@ stages:
       displayName: "Package for Windows"
 
       pool:
-        vmImage: 'vs2017-win2016'
+        vmImage: ${{ parameters.windowsImage }}
 
       steps:
       - task: NodeTool@0
@@ -51,7 +73,7 @@ stages:
       displayName: "Package for MacOS"
 
       pool:
-        vmImage: 'macOS-10.15'
+        vmImage: ${{ parameters.macImage }}
 
       steps:
       - task: NodeTool@0
@@ -74,7 +96,7 @@ stages:
     - job: packageLinux
       displayName: "Package for Linux"
       pool:
-          vmImage: 'ubuntu-16.04'
+          vmImage: ${{ parameters.linuxImage }}
 
       steps:
         - task: NodeTool@0
@@ -98,7 +120,7 @@ stages:
     displayName: 'CodeSign and Release'
     dependsOn: 'package'
     pool:
-      vmImage: 'ubuntu-16.04'
+      vmImage: ${{ parameters.linuxImage }}
     jobs:
 
     - job: signWindows
