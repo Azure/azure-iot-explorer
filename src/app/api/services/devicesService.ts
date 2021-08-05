@@ -248,8 +248,3 @@ export const monitorEvents = async (parameters: MonitorEventsParameters): Promis
     const result = await api.startEventHubMonitoring(requestParameters);
     return result && result.length && result.length !== 0 && result.map(message => parseEventHubMessage(message)) || [];
 };
-
-export const stopMonitoringEvents = async (): Promise<void> => {
-    const api = getEventHubInterface();
-    await api.stopEventHubMonitoring();
-};

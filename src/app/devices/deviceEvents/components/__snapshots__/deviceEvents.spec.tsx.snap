@@ -45,7 +45,6 @@ exports[`deviceEvents deviceEvents in non-pnp context matches snapshot 1`] = `
     <Component
       monitoringData={false}
       setCustomEventHubConnectionString={[Function]}
-      setCustomEventHubName={[Function]}
       setHasError={[Function]}
       setUseBuiltInEventHub={[Function]}
       useBuiltInEventHub={false}
@@ -131,7 +130,6 @@ exports[`deviceEvents deviceEvents in pnp context matches snapshot while interfa
     <Component
       monitoringData={false}
       setCustomEventHubConnectionString={[Function]}
-      setCustomEventHubName={[Function]}
       setHasError={[Function]}
       setUseBuiltInEventHub={[Function]}
       useBuiltInEventHub={false}
@@ -196,7 +194,6 @@ exports[`deviceEvents deviceEvents in pnp context matches snapshot while interfa
     <Component
       monitoringData={false}
       setCustomEventHubConnectionString={[Function]}
-      setCustomEventHubName={[Function]}
       setHasError={[Function]}
       setUseBuiltInEventHub={[Function]}
       useBuiltInEventHub={false}
