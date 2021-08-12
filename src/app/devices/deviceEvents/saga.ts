@@ -4,10 +4,10 @@
  **********************************************************/
 import { call, put, all, takeLatest, takeEvery } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
-import { monitorEvents, stopMonitoringEvents } from '../../api/services/devicesService';
+import { monitorEvents } from '../../api/services/devicesService';
 import { NotificationType } from '../../api/models/notification';
 import { ResourceKeys } from '../../../localization/resourceKeys';
-import { startEventsMonitoringAction, stopEventsMonitoringAction } from './actions';
+import { startEventsMonitoringAction } from './actions';
 import { raiseNotificationToast } from '../../notifications/components/notificationToast';
 import { MonitorEventsParameters } from '../../api/parameters/deviceParameters';
 
@@ -29,27 +29,8 @@ export function* startEventsMonitoringSagaWorker(action: Action<MonitorEventsPar
     }
 }
 
-export function* stopEventsMonitoringSagaWorker() {
-    try {
-        yield call(stopMonitoringEvents);
-        yield put(stopEventsMonitoringAction.done({}));
-    } catch (error) {
-        yield call(raiseNotificationToast, {
-            text: {
-                translationKey: ResourceKeys.notifications.stopEventMonitoringOnError,
-                translationOptions: {
-                    error,
-                },
-            },
-            type: NotificationType.error
-          });
-        yield put(stopEventsMonitoringAction.failed({error}));
-    }
-}
-
 export function* EventMonitoringSaga() {
     yield all([
         takeEvery(startEventsMonitoringAction.started.type, startEventsMonitoringSagaWorker),
-        takeLatest(stopEventsMonitoringAction.started.type, stopEventsMonitoringSagaWorker),
     ]);
 }

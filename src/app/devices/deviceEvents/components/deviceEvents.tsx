@@ -55,7 +55,6 @@ export const DeviceEvents: React.FC = () => {
     const [startTime, setStartTime] = React.useState<Date>();
     const [useBuiltInEventHub, setUseBuiltInEventHub] = React.useState<boolean>(true);
     const [customEventHubConnectionString, setCustomEventHubConnectionString] = React.useState<string>(undefined);
-    const [customEventHubName, setCustomEventHubName] = React.useState<string>(undefined);
     const [showSystemProperties, setShowSystemProperties] = React.useState<boolean>(false);
 
     // event message state
@@ -77,44 +76,31 @@ export const DeviceEvents: React.FC = () => {
     // simulation specific
     const [showSimulationPanel, setShowSimulationPanel] = React.useState(false);
 
-    React.useEffect(
-        () => {
-            return () => {
-                stopMonitoring();
-            };
-        },
-        []);
-
     React.useEffect(    // tslint:disable-next-line: cyclomatic-complexity
         () => {
             if (synchronizationStatus === SynchronizationStatus.updating ||
                 // when specifying start time, valid time need to be provided
                 (specifyStartTime && (!startTime || hasError)) ||
                 // when using custom event hub, both valid connection string and name need to be provided
-                (!useBuiltInEventHub && (!customEventHubConnectionString || !customEventHubName || hasError))) {
+                (!useBuiltInEventHub && (!customEventHubConnectionString || hasError))) {
                 setStartDisabled(true);
             }
             else {
                 setStartDisabled(false);
             }
         },
-        [hasError, synchronizationStatus, useBuiltInEventHub, customEventHubConnectionString, customEventHubName, specifyStartTime, startTime]);
+        [hasError, synchronizationStatus, useBuiltInEventHub, customEventHubConnectionString, specifyStartTime, startTime]);
 
     React.useEffect(// tslint:disable-next-line: cyclomatic-complexity
         () => {
             if (synchronizationStatus === SynchronizationStatus.fetched) {
-                if (appConfig.hostMode !== HostMode.Browser) {
-                    if (monitoringData) {
-                        setStartTime(new Date());
-                        setTimeout(
-                            () => {
-                                fetchData(false)();
-                            },
-                            LOADING_LOCK);
-                    }
-                    else {
-                        stopMonitoring();
-                    }
+                if (monitoringData) {
+                    setStartTime(new Date());
+                    setTimeout(
+                        () => {
+                            fetchData();
+                        },
+                        LOADING_LOCK);
                 }
                 else {
                     stopMonitoring();
@@ -143,7 +129,7 @@ export const DeviceEvents: React.FC = () => {
                 setShowPnpModeledEvents={setShowPnpModeledEvents}
                 setShowSimulationPanel={setShowSimulationPanel}
                 dispatch={dispatch}
-                fetchData={fetchData(true)}
+                fetchData={fetchData}
             />
         );
     };
@@ -179,10 +165,8 @@ export const DeviceEvents: React.FC = () => {
                 <CustomEventHub
                     monitoringData={monitoringData}
                     useBuiltInEventHub={useBuiltInEventHub}
-                    customEventHubName={customEventHubName}
                     customEventHubConnectionString={customEventHubConnectionString}
                     setUseBuiltInEventHub={setUseBuiltInEventHub}
-                    setCustomEventHubName={setCustomEventHubName}
                     setCustomEventHubConnectionString={setCustomEventHubConnectionString}
                     setHasError={setHasError}
                 />
@@ -191,7 +175,7 @@ export const DeviceEvents: React.FC = () => {
     };
 
     const stopMonitoring = () => {
-        dispatch(stopEventsMonitoringAction.started());
+        dispatch(stopEventsMonitoringAction());
     };
 
     // tslint:disable-next-line: cyclomatic-complexity
@@ -478,20 +462,18 @@ export const DeviceEvents: React.FC = () => {
         );
     };
 
-    const fetchData = (startListeners: boolean) => () => {
+    const fetchData = () => {
         let parameters: MonitorEventsParameters = {
             consumerGroup,
             deviceId,
             moduleId,
-            startListeners,
             startTime
         };
 
         if (!useBuiltInEventHub) {
             parameters = {
                 ...parameters,
-                customEventHubConnectionString,
-                customEventHubName
+                customEventHubConnectionString
             };
         }
 

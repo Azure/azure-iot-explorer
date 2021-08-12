@@ -10,7 +10,6 @@ export const MESSAGE_CHANNELS = {
     DEVICE_SEND_MESSAGE: 'device_sendMessage',
     DIRECTORY_GET_DIRECTORIES: 'directory_getDirectories',
     EVENTHUB_START_MONITORING: 'eventhub_startMonitoring',
-    EVENTHUB_STOP_MONITORING: 'eventhub_stopMonitoring',
     MODEL_REPOSITORY_GET_DEFINITION: 'model_definition',
     SETTING_HIGH_CONTRAST: 'setting_highContrast',
 };

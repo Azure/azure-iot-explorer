@@ -12,7 +12,7 @@ import { DEFAULT_CONSUMER_GROUP } from './../../constants/apiConstants';
 
 describe('deviceEventsReducer', () => {
     const deviceId = 'testDeviceId';
-    const params = {consumerGroup: DEFAULT_CONSUMER_GROUP, deviceId, startTime: new Date()};
+    const params = {consumerGroup: DEFAULT_CONSUMER_GROUP, deviceId, moduleId: undefined, startTime: new Date()};
     const events = [{
         body: {
             humid: '123' // intentionally set a value which type is double
@@ -44,21 +44,8 @@ describe('deviceEventsReducer', () => {
         synchronizationStatus: SynchronizationStatus.fetched
     });
 
-    it (`handles ${STOP_EVENTS_MONITORING}/ACTION_START action`, () => {
-        const action = stopEventsMonitoringAction.started();
-        expect(deviceEventsReducer(deviceEventsStateInitial(), action).synchronizationStatus).toEqual(SynchronizationStatus.updating);
-        expect(deviceEventsReducer(deviceEventsStateInitial(), action).payload).toEqual([]);
-    });
-
-    it (`handles ${STOP_EVENTS_MONITORING}/ACTION_DONE action`, () => {
-        const action = stopEventsMonitoringAction.done({});
+    it (`handles ${STOP_EVENTS_MONITORING} action`, () => {
+        const action = stopEventsMonitoringAction();
         expect(deviceEventsReducer(deviceEventsStateInitial(), action).synchronizationStatus).toEqual(SynchronizationStatus.upserted);
-        expect(deviceEventsReducer(deviceEventsStateInitial(), action).payload).toEqual([]);
-    });
-
-    it (`handles ${STOP_EVENTS_MONITORING}/ACTION_FAILED action`, () => {
-        const action = stopEventsMonitoringAction.failed({error: -1});
-        expect(deviceEventsReducer(deviceEventsStateInitial(), action).synchronizationStatus).toEqual(SynchronizationStatus.failed);
-        expect(deviceEventsReducer(deviceEventsStateInitial(), action).payload).toEqual([]);
     });
 });

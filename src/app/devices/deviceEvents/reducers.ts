@@ -4,11 +4,7 @@
  **********************************************************/
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { DeviceEventsStateInterface, deviceEventsStateInitial, DeviceEventsStateType } from './state';
-import {
-    startEventsMonitoringAction,
-    stopEventsMonitoringAction,
-    clearMonitoringEventsAction
-} from './actions';
+import { startEventsMonitoringAction, clearMonitoringEventsAction, stopEventsMonitoringAction } from './actions';
 import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
 import { MonitorEventsParameters } from '../../api/parameters/deviceParameters';
 import { Message } from '../../api/models/messages';
@@ -36,19 +32,9 @@ export const deviceEventsReducer = reducerWithInitialState<DeviceEventsStateInte
             synchronizationStatus: SynchronizationStatus.failed
         });
     })
-    .case(stopEventsMonitoringAction.started, (state: DeviceEventsStateType) => {
-        return state.merge({
-            synchronizationStatus: SynchronizationStatus.updating
-        });
-    })
-    .case(stopEventsMonitoringAction.done, (state: DeviceEventsStateType) => {
+    .case(stopEventsMonitoringAction, (state: DeviceEventsStateType) => {
         return state.merge({
             synchronizationStatus: SynchronizationStatus.upserted
-        });
-    })
-    .case(stopEventsMonitoringAction.failed, (state: DeviceEventsStateType) => {
-        return state.merge({
-            synchronizationStatus: SynchronizationStatus.failed
         });
     })
     .case(clearMonitoringEventsAction, (state: DeviceEventsStateType) => {

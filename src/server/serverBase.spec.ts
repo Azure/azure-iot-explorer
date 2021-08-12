@@ -58,26 +58,6 @@ describe('serverBase', () => {
         });
     });
 
-    context('handleEventHubStopPostRequest ', () => {
-        it('returns 400 if body is not provided', async () => {
-            const req = mockRequest();
-            const res = mockResponse();
-
-            await ServerBase.handleEventHubStopPostRequest (req, res);
-            expect(res.status).toHaveBeenCalledWith(400); // tslint:disable-line:no-magic-numbers
-        });
-
-        it('calls stopClient when body is provided', async () => {
-            const req = mockRequest('testBody');
-            const res = mockResponse();
-            const promise = {then: jest.fn()} as any;  // tslint:disable-line:no-any
-            jest.spyOn(ServerBase, 'stopClient').mockReturnValue(promise);
-
-            await ServerBase.handleEventHubStopPostRequest(req, res);
-            expect(ServerBase.stopClient).toBeCalled();
-        });
-    });
-
     context('handleModelRepoPostRequest', () => {
         it('returns 400 if body is not provided', async () => {
             const req = mockRequest();
