@@ -12,8 +12,7 @@ import { NAVIGATE_BACK } from '../../../constants/iconNames';
 import { getDeviceIdFromQueryString, getModuleIdentityIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import '../../../css/_deviceContentNav.scss';
 
-export const NAV_LINK_ITEMS_DEVICE = [ROUTE_PARTS.IDENTITY, ROUTE_PARTS.TWIN, ROUTE_PARTS.EVENTS, ROUTE_PARTS.METHODS, ROUTE_PARTS.CLOUD_TO_DEVICE_MESSAGE, ROUTE_PARTS.MODULE_IDENTITY];
-export const NAV_LINK_ITEMS_NONEDGE_DEVICE = [...NAV_LINK_ITEMS_DEVICE, ROUTE_PARTS.DIGITAL_TWINS];
+export const NAV_LINK_ITEMS_DEVICE = [ROUTE_PARTS.IDENTITY, ROUTE_PARTS.TWIN, ROUTE_PARTS.EVENTS, ROUTE_PARTS.METHODS, ROUTE_PARTS.CLOUD_TO_DEVICE_MESSAGE, ROUTE_PARTS.MODULE_IDENTITY, ROUTE_PARTS.DIGITAL_TWINS];
 export const NAV_LINK_ITEMS_MODULE = [ROUTE_PARTS.MODULE_DETAIL, ROUTE_PARTS.MODULE_TWIN, ROUTE_PARTS.MODULE_METHOD, ROUTE_PARTS.MODULE_EVENTS, ROUTE_PARTS.MODULE_PNP];
 // tslint:disable-next-line: no-any
 const navIcons = {} as any;
@@ -43,7 +42,7 @@ export const DeviceContentNavComponent: React.FC<DeviceContentNavProps> =  (prop
     const deviceId = getDeviceIdFromQueryString(search);
     const moduleId = getModuleIdentityIdFromQueryString(search);
 
-    const navItems = moduleId ? NAV_LINK_ITEMS_MODULE : (isEdgeDevice ? NAV_LINK_ITEMS_DEVICE : NAV_LINK_ITEMS_NONEDGE_DEVICE);
+    const navItems = moduleId ? NAV_LINK_ITEMS_MODULE : NAV_LINK_ITEMS_DEVICE;
     const navLinks: INavLink[] = [];
 
     if (moduleId) {
