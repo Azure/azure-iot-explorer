@@ -29,13 +29,8 @@ navIcons[ROUTE_PARTS.MODULE_METHOD] = 'Remote';
 navIcons[ROUTE_PARTS.MODULE_EVENTS] = 'Message';
 navIcons[ROUTE_PARTS.MODULE_PNP] = 'PlugDisconnected';
 
-export interface DeviceContentNavProps {
-    isEdgeDevice: boolean;
-}
-
-export const DeviceContentNavComponent: React.FC<DeviceContentNavProps> =  (props: DeviceContentNavProps) => {
+export const DeviceContentNavComponent: React.FC = () => {
     const { t } = useTranslation();
-    const { isEdgeDevice } = props;
     const { search, pathname } = useLocation();
     const { url } = useRouteMatch();
     const [ selectedRoute, setSelectedRoute] = React.useState<string>();

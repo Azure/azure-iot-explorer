@@ -1,5 +1,78 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`deviceContentNav matches snapshot for any device 1`] = `
+<div
+  role="navigation"
+>
+  <StyledNavBase
+    groups={
+      Array [
+        Object {
+          "links": Array [
+            Object {
+              "iconProps": Object {
+                "iconName": "Server",
+              },
+              "key": "identity",
+              "name": "breadcrumb.identity",
+              "url": "#/identity/?deviceId=test",
+            },
+            Object {
+              "iconProps": Object {
+                "iconName": "ReopenPages",
+              },
+              "key": "twin",
+              "name": "breadcrumb.twin",
+              "url": "#/twin/?deviceId=test",
+            },
+            Object {
+              "iconProps": Object {
+                "iconName": "Message",
+              },
+              "key": "events",
+              "name": "breadcrumb.events",
+              "url": "#/events/?deviceId=test",
+            },
+            Object {
+              "iconProps": Object {
+                "iconName": "Remote",
+              },
+              "key": "methods",
+              "name": "breadcrumb.methods",
+              "url": "#/methods/?deviceId=test",
+            },
+            Object {
+              "iconProps": Object {
+                "iconName": "Mail",
+              },
+              "key": "cloudToDeviceMessage",
+              "name": "breadcrumb.cloudToDeviceMessage",
+              "url": "#/cloudToDeviceMessage/?deviceId=test",
+            },
+            Object {
+              "iconProps": Object {
+                "iconName": "TFVCLogo",
+              },
+              "key": "moduleIdentity",
+              "name": "breadcrumb.moduleIdentity",
+              "url": "#/moduleIdentity/?deviceId=test",
+            },
+            Object {
+              "iconProps": Object {
+                "iconName": "PlugDisconnected",
+              },
+              "key": "ioTPlugAndPlay",
+              "name": "breadcrumb.ioTPlugAndPlay",
+              "url": "#/ioTPlugAndPlay/?deviceId=test",
+            },
+          ],
+        },
+      ]
+    }
+  />
+</div>
+`;
+
 exports[`deviceContentNav matches snapshot when the device is edge 1`] = `
 <div
   role="navigation"

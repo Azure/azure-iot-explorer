@@ -6,7 +6,7 @@ import 'jest';
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 import { Nav } from '@fluentui/react';
-import { DeviceContentNavComponent, DeviceContentNavProps, NAV_LINK_ITEMS_DEVICE } from './deviceContentNav';
+import { DeviceContentNavComponent, NAV_LINK_ITEMS_DEVICE } from './deviceContentNav';
 
 jest.mock('react-router-dom', () => ({
     useLocation: () => ({ search: '?deviceId=test', pathname: '' }),
@@ -16,7 +16,6 @@ jest.mock('react-router-dom', () => ({
 describe('deviceContentNav', () => {
     const getComponent = (overrides = {}) => {
         const props = {
-            ...DeviceContentNavProps,
             ...overrides,
         };
 

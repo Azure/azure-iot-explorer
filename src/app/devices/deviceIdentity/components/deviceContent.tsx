@@ -139,9 +139,7 @@ export const DeviceContent: React.FC = () => {
             synchronizationStatus === SynchronizationStatus.working ?
                 <MultiLineShimmer /> :
                 (
-                    <DeviceContentNavComponent
-                        isEdgeDevice={deviceIdentity && deviceIdentity.capabilities && deviceIdentity.capabilities.iotEdge}
-                    />
+                    <DeviceContentNavComponent />
                 )
         );
     };
