@@ -1,8 +1,8 @@
 import * as webpack from 'webpack';
 import * as path from 'path';
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // tslint:disable-line: no-var-requires
-const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // tslint:disable-line: no-var-requires
 const CopyPlugin = require('copy-webpack-plugin'); // tslint:disable-line: no-var-requires
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
 
 const config: webpack.Configuration = {
     entry: {
@@ -22,7 +22,10 @@ const config: webpack.Configuration = {
 
             },
             {
-                loader: 'file-loader?name=images/[name].[ext]',
+                loader: 'file-loader',
+                options: {
+                    name: 'images/[name].[ext]'
+                },
                 test: /\.(jpe?g|png|gif|svg)$/i
             }
         ]
@@ -61,7 +64,8 @@ const config: webpack.Configuration = {
                 to: 'images',
               }
             ]
-        })
+        }),
+        new NodePolyfillPlugin()
     ],
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
