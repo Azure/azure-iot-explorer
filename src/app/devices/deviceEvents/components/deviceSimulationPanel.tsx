@@ -173,7 +173,7 @@ export const DeviceSimulationPanel: React.FC<DeviceSimulationPanelProps> = props
             case 'value':
                 return renderItemValueColumn(item, column);
             default:
-                return;
+                return <></>;
         }
     };
 

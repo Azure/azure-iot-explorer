@@ -8,7 +8,7 @@ exports[`homeViewNavigation matches snapshot 1`] = `
     className="view-scroll-vertical"
   >
     <CustomizedIconButton
-      ariaLabel="common.navigation.expand"
+      ariaLabel="common.navigation.collapse"
       iconProps={
         Object {
           "iconName": "GlobalNavButton",
@@ -16,7 +16,7 @@ exports[`homeViewNavigation matches snapshot 1`] = `
       }
       onClick={[Function]}
       tabIndex={0}
-      title="common.navigation.expand"
+      title="common.navigation.collapse"
     />
     <StyledNavBase
       groups={

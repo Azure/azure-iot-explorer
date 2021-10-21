@@ -13,7 +13,6 @@ import * as DevicesService from '../../api/services/devicesService';
 import { raiseNotificationToast } from '../../notifications/components/notificationToast';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { NotificationType } from '../../api/models/notification';
-import { DeviceSummary } from '../../api/models/deviceSummary';
 
 describe('addDeviceSaga', () => {
     let addDeviceSagaGenerator: SagaIteratorClone;
@@ -29,17 +28,6 @@ describe('addDeviceSaga', () => {
         lastActivityTime: '',
         status: 'Enabled',
         statusReason: '',
-        statusUpdatedTime: ''
-    };
-
-    const mockResult: DeviceSummary = {
-        authenticationType: 'SAS',
-        cloudToDeviceMessageCount: '',
-        connectionState: 'Connected',
-        deviceId,
-        iotEdge: true,
-        lastActivityTime: '',
-        status: 'Enabled',
         statusUpdatedTime: ''
     };
 
@@ -62,7 +50,7 @@ describe('addDeviceSaga', () => {
 
     it('puts the successful action', () => {
         const success = addDeviceSagaGenerator.clone();
-        expect(success.next(mockResult)).toEqual({
+        expect(success.next(mockDevice)).toEqual({
             done: false,
             value: call(raiseNotificationToast, {
                 text: {
@@ -77,7 +65,7 @@ describe('addDeviceSaga', () => {
 
         expect(success.next()).toEqual({
             done: false,
-            value: put(addDeviceAction.done({params: mockDevice, result: mockResult}))
+            value: put(addDeviceAction.done({params: mockDevice, result: mockDevice}))
         });
 
         expect(success.next().done).toEqual(true);

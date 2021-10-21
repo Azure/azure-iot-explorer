@@ -28,6 +28,7 @@ const devices: DeviceSummary[] = [
         deviceId: 'testDeviceId',
         iotEdge: false,
         lastActivityTime: '0001-01-01T00:00:00Z',
+        modelId: 'modelId',
         status: 'Enabled',
         statusUpdatedTime: '0001-01-01T00:00:00Z'
     }

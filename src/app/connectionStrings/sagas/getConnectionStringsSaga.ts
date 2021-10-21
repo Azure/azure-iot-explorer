@@ -49,4 +49,5 @@ export function* getConnectionStrings() {
             return [];
         }
     }
+    return [];
 }

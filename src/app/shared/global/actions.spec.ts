@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import { setRepositoryLocationsAction, clearNotificationsAction, addNotificationAction } from './actions';
-import { NotificationType } from '../../api/models/notification';
+import { NotificationType, Notification } from '../../api/models/notification';
 
 describe('setSettingsRepositoryLocationsAction', () => {
     it('returns MODEL_REPOSITORY/SET action object', () => {

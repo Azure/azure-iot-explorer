@@ -27,7 +27,7 @@ describe('components/shared/labelWithRichCallout', () => {
         const callout = wrapper.find(Callout);
         expect(callout).toBeDefined();
 
-        act((() => callout.props().onDismiss(null));
+        act((() => callout.props().onDismiss(null)));
         wrapper.update();
         const updatedCallout = wrapper.find(Callout);
         expect(updatedCallout.length).toEqual(0);

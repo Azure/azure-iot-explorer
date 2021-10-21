@@ -137,7 +137,7 @@ export const DigitalTwinInterfacesList: React.FC = () => {
                     </Label>
                 );
             default:
-                return;
+                return <></>;
         }
     };
 

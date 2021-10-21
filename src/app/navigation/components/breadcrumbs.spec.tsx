@@ -16,7 +16,7 @@ describe('Breadcrumbs', () => {
                 { name: 'name3', url: 'url3', path: 'path3', suffix: ''},
             ],
             registerEntry: jest.fn(),
-            unregisterEntry: jest.fn());
+            unregisterEntry: jest.fn()});
 
             expect(shallow(
             <Breadcrumbs/>

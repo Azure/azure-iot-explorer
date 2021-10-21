@@ -40,6 +40,7 @@ describe('digitalTwinInterfaceCommandSaga', () => {
         methodName: commandName,
         payload: payload,
         deviceId,
+        moduleId: undefined,
         responseTimeoutInSeconds: RESPONSE_TIME_IN_SECONDS,
         responseSchema: undefined
     };

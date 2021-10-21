@@ -8,7 +8,6 @@ import { HomeViewNavigation } from './homeViewNavigation';
 
 describe('homeViewNavigation', () => {
     it('matches snapshot', () => {
-        expect(shallow(<HomeViewNavigation />)).toMatchSnapshot();
-
+        expect(shallow(<HomeViewNavigation appMenuVisible={true} setAppMenuVisible={jest.fn()}/>)).toMatchSnapshot();
     });
 });

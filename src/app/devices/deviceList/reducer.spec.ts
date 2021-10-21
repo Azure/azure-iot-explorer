@@ -3,14 +3,13 @@
  * Licensed under the MIT License
  **********************************************************/
 import 'jest';
-import { Record, Map as ImmutableMap, fromJS } from 'immutable';
+import { Map as ImmutableMap, fromJS } from 'immutable';
 import { listDevicesAction, deleteDevicesAction } from './actions';
 import { deviceListReducer } from './reducer';
-import { DeviceListStateInterface, deviceListStateInitial } from './state';
+import { deviceListStateInitial } from './state';
 import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
 import { DeviceSummary } from '../../api/models/deviceSummary';
 import { Device, DataPlaneResponse } from '../../api/models/device';
-import { SynchronizationWrapper } from '../../api/models/SynchronizationWrapper';
 
 describe('deviceListStateReducer', () => {
     const deviceId = 'testDeviceId';
@@ -21,6 +20,7 @@ describe('deviceListStateReducer', () => {
         deviceId,
         iotEdge: false,
         lastActivityTime: null,
+        modelId: 'moduleId',
         status: 'Enabled',
         statusUpdatedTime: null,
     };
@@ -31,6 +31,7 @@ describe('deviceListStateReducer', () => {
         DeviceId: deviceId,
         IotEdge: false,
         LastActivityTime: null,
+        ModelId: 'moduleId',
         Status: 'Enabled',
         StatusUpdatedTime: null,
     };

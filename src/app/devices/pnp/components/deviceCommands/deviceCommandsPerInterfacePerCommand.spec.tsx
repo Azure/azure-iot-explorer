@@ -12,7 +12,7 @@ import { DataForm } from '../../../shared/components/dataForm';
 describe('components/devices/deviceCommandsPerInterfacePerCommand', () => {
     const deviceCommandsDispatchProps: DeviceCommandDispatchProps = {
         handleCollapseToggle: jest.fn(),
-        invokeDigitalTwinInterfaceCommand: jest.fn()
+        invokeCommand: jest.fn()
     };
     const deviceCommandDataProps: DeviceCommandDataProps = {
         collapsed: true,
@@ -22,6 +22,7 @@ describe('components/devices/deviceCommandsPerInterfacePerCommand', () => {
         },
         componentName: 'sensor',
         deviceId: 'deviceId',
+        moduleId: 'moduleId',
         parsedSchema: {
             description: 'command1 description',
             name: 'command1'

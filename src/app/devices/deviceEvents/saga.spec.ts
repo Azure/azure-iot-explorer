@@ -6,8 +6,8 @@ import 'jest';
 import { put, call } from 'redux-saga/effects';
 // tslint:disable-next-line: no-implicit-dependencies
 import { cloneableGenerator } from '@redux-saga/testing-utils';
-import { startEventsMonitoringSagaWorker, stopEventsMonitoringSagaWorker } from './saga';
-import { startEventsMonitoringAction, stopEventsMonitoringAction } from './actions';
+import { startEventsMonitoringSagaWorker } from './saga';
+import { startEventsMonitoringAction } from './actions';
 import * as DevicesService from '../../api/services/devicesService';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { NotificationType } from '../../api/models/notification';
@@ -21,7 +21,12 @@ describe('deviceMonitoringSaga', () => {
         return null;
     });
     const deviceId = 'test_id';
-    const params = {consumerGroup: DEFAULT_CONSUMER_GROUP, deviceId, startTime: new Date()};
+    const params = {
+        consumerGroup: DEFAULT_CONSUMER_GROUP,
+        deviceId,
+        moduleId: 'moduelId',
+        startTime: new Date()
+    };
 
     beforeEach(() => {
         startEventsMonitoringSagaGenerator = cloneableGenerator(startEventsMonitoringSagaWorker)(startEventsMonitoringAction.started(params));

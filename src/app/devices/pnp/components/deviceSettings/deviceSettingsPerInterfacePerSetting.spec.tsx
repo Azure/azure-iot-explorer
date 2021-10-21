@@ -49,6 +49,7 @@ describe('deviceSettingsPerInterfacePerSetting', () => {
         componentName: 'sensor',
         deviceId: 'deviceId',
         interfaceId: 'urn:interfaceId',
+        moduleId: 'moduleId',
         reportedSection: {
             value: false
         },

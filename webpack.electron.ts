@@ -29,7 +29,18 @@ const config: webpack.Configuration = merge(common, {
     },
 
     optimization: {
-        minimizer: [new TerserPlugin(), new CssMinimizerPlugin()]
+        minimizer: [
+            new TerserPlugin(),
+            new CssMinimizerPlugin({
+                minimizerOptions: {         
+                    preset: [
+                        "default",
+                        {
+                            discardComments: { removeAll: true },
+                        },
+                    ],
+                },
+            })]
     },
 
     plugins: [
