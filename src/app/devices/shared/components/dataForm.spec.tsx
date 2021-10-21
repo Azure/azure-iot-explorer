@@ -25,7 +25,6 @@ describe('dataForm', () => {
     };
 
     const dataFormDispatchProps: DataFormActionProps = {
-        craftPayload: jest.fn(),
         handleSave: jest.fn()
     };
 

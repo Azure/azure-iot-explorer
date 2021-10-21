@@ -105,10 +105,9 @@ describe('deviceTwinService', () => {
             expect(result).toEqual(twin);
         });
 
-        it('throws Error when promise rejects', async done => {
+        it('throws Error when promise rejects', () => {
             window.fetch = jest.fn().mockRejectedValueOnce(new Error('Not found'));
-            await expect(DevicesService.fetchDeviceTwin({deviceId})).rejects.toThrowError('Not found');
-            done();
+            expect(DevicesService.fetchDeviceTwin({deviceId})).rejects.toThrowError('Not found');
         });
     });
 

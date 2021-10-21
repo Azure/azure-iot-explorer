@@ -12,7 +12,7 @@ import { DeviceCommandsPerInterfacePerCommand } from './deviceCommandsPerInterfa
 
 describe('components/devices/deviceCommandsPerInterface', () => {
     const deviceCommandsDispatchProps: DeviceCommandDispatchProps = {
-        invokeDigitalTwinInterfaceCommand: jest.fn()
+        invokeCommand: jest.fn()
     };
     const deviceCommandDataProps: DeviceCommandDataProps = {
         commandSchemas: [
@@ -28,7 +28,8 @@ describe('components/devices/deviceCommandsPerInterface', () => {
             }
         ],
         componentName: 'urn:interfaceId',
-        deviceId: 'device1'
+        deviceId: 'device1',
+        moduleId: 'moduleId'
     };
 
     const getComponent = (overrides = {}) => {

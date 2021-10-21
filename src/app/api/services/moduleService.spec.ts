@@ -102,10 +102,9 @@ describe('moduleService', () => {
             expect(result).toEqual(moduleIdentity);
         });
 
-        it('throws Error when promise rejects', async done => {
+        it('throws Error when promise rejects', () => {
             window.fetch = jest.fn().mockRejectedValueOnce(new Error('Not found'));
-            await expect(ModuleService.fetchModuleIdentities(parameters)).rejects.toThrowError('Not found');
-            done();
+            expect(ModuleService.fetchModuleIdentities(parameters)).rejects.toThrowError('Not found');
         });
     });
 
@@ -151,10 +150,9 @@ describe('moduleService', () => {
             expect(result).toEqual(moduleIdentity);
         });
 
-        it('throws Error when promise rejects', async done => {
+        it('throws Error when promise rejects', () => {
             window.fetch = jest.fn().mockRejectedValueOnce(new Error('Not found'));
-            await expect(ModuleService.addModuleIdentity(parameters)).rejects.toThrowError('Not found');
-            done();
+            expect(ModuleService.addModuleIdentity(parameters)).rejects.toThrowError('Not found');
         });
     });
 
@@ -200,10 +198,9 @@ describe('moduleService', () => {
             expect(result).toEqual(moduleTwin);
         });
 
-        it('throws Error when promise rejects', async done => {
+        it('throws Error when promise rejects', () => {
             window.fetch = jest.fn().mockRejectedValueOnce(new Error('Not found'));
-            await expect(ModuleService.fetchModuleIdentityTwin(parameters)).rejects.toThrowError('Not found');
-            done();
+            expect(ModuleService.fetchModuleIdentityTwin(parameters)).rejects.toThrowError('Not found');
         });
     });
 
@@ -249,10 +246,9 @@ describe('moduleService', () => {
             expect(result).toEqual(moduleIdentity);
         });
 
-        it('throws Error when promise rejects', async done => {
+        it('throws Error when promise rejects', () => {
             window.fetch = jest.fn().mockRejectedValueOnce(new Error('Not found'));
-            await expect(ModuleService.fetchModuleIdentity(parameters)).rejects.toThrowError('Not found');
-            done();
+            expect(ModuleService.fetchModuleIdentity(parameters)).rejects.toThrowError('Not found');
         });
     });
 
@@ -299,10 +295,9 @@ describe('moduleService', () => {
             expect(result).toEqual(undefined);
         });
 
-        it('throws Error when promise rejects', async done => {
+        it('throws Error when promise rejects', () => {
             window.fetch = jest.fn().mockRejectedValueOnce(new Error('Not found'));
-            await expect(ModuleService.deleteModuleIdentity(parameters)).rejects.toThrowError('Not found');
-            done();
+            expect(ModuleService.deleteModuleIdentity(parameters)).rejects.toThrowError('Not found');
         });
     });
 
@@ -371,9 +366,9 @@ describe('moduleService', () => {
             expect(result).toEqual(responseBody);
         });
 
-        it('throws Error when promise rejects', async () => {
+        it('throws Error when promise rejects', () => {
             window.fetch = jest.fn().mockRejectedValueOnce(new Error());
-            await expect(ModuleService.invokeModuleDirectMethod({
+            expect(ModuleService.invokeModuleDirectMethod({
                 ...parameters,
                 deviceId
             })).rejects.toThrow(new Error());

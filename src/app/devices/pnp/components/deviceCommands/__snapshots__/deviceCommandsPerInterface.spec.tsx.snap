@@ -71,8 +71,9 @@ exports[`components/devices/deviceCommandsPerInterface matches snapshot 1`] = `
       componentName="urn:interfaceId"
       deviceId="device1"
       handleCollapseToggle={[Function]}
-      invokeDigitalTwinInterfaceCommand={[MockFunction]}
+      invokeCommand={[MockFunction]}
       key="0"
+      moduleId="moduleId"
       parsedSchema={
         Object {
           "description": "command1 description",

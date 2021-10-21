@@ -11,7 +11,7 @@ describe('githubService', () => {
             expect(fetch).toBeCalledWith(GithubService.latestReleaseApiPath);
         });
 
-        it('returns tag name when response is 200', async done => {
+        it('returns tag name when response is 200', async () => {
             // tslint:disable
             const releaseInfo = {
                 'url': 'https://api.github.com/repos/Azure/azure-iot-explorer/releases/20791117',
@@ -43,10 +43,9 @@ describe('githubService', () => {
 
             const result = await GithubService.fetchLatestReleaseTagName();
             expect(result).toEqual('v0.10.6');
-            done();
         });
 
-        it('returns tag name as undefined when response is not 200', async done => {
+        it('returns tag name as undefined when response is not 200', async () => {
             // tslint:disable
             const response = {
                 ok: false,
@@ -57,7 +56,6 @@ describe('githubService', () => {
 
             const result = await GithubService.fetchLatestReleaseTagName();
             expect(result).toEqual(undefined);
-            done();
         });
     });
 });
