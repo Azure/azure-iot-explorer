@@ -750,7 +750,8 @@
             "moduleId": "Module Id",
             "connectionState": "Connection state",
             "connectionStateLastUpdated": "Connection state last updated time",
-            "lastActivityTime": "Last activity time"
+            "lastActivityTime": "Last activity time",
+            "modelId": "IoT Plug and Play module"
         },
         "noModules": "There are no module identities for this device.",
         "errorFetching": "An error prevented this information from being loaded.",

@@ -816,6 +816,7 @@ export class ResourceKeys {
          connectionState : "moduleIdentity.columns.connectionState",
          connectionStateLastUpdated : "moduleIdentity.columns.connectionStateLastUpdated",
          lastActivityTime : "moduleIdentity.columns.lastActivityTime",
+         modelId : "moduleIdentity.columns.modelId",
          moduleId : "moduleIdentity.columns.moduleId",
       },
       command : {
