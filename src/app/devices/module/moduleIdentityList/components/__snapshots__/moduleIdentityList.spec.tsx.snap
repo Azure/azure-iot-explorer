@@ -74,11 +74,20 @@ exports[`ModuleIdentityList snapshot matches snapshot when fetch failed 1`] = `
             Object {
               "ariaLabel": "moduleIdentity.columns.lastActivityTime",
               "fieldName": "lastActivityTime",
+              "isResizable": true,
               "key": "lastActivityTime",
               "maxWidth": 250,
               "minWidth": 150,
               "name": "moduleIdentity.columns.lastActivityTime",
               "onRender": [Function],
+            },
+            Object {
+              "ariaLabel": "moduleIdentity.columns.modelId",
+              "fieldName": "modelId",
+              "key": "modelId",
+              "maxWidth": 250,
+              "minWidth": 150,
+              "name": "moduleIdentity.columns.modelId",
             },
           ]
         }
@@ -165,11 +174,20 @@ exports[`ModuleIdentityList snapshot matches snapshot while loading 1`] = `
             Object {
               "ariaLabel": "moduleIdentity.columns.lastActivityTime",
               "fieldName": "lastActivityTime",
+              "isResizable": true,
               "key": "lastActivityTime",
               "maxWidth": 250,
               "minWidth": 150,
               "name": "moduleIdentity.columns.lastActivityTime",
               "onRender": [Function],
+            },
+            Object {
+              "ariaLabel": "moduleIdentity.columns.modelId",
+              "fieldName": "modelId",
+              "key": "modelId",
+              "maxWidth": 250,
+              "minWidth": 150,
+              "name": "moduleIdentity.columns.modelId",
             },
           ]
         }
@@ -256,11 +274,20 @@ exports[`ModuleIdentityList snapshot matches snapshot with moduleIdentityList 1`
             Object {
               "ariaLabel": "moduleIdentity.columns.lastActivityTime",
               "fieldName": "lastActivityTime",
+              "isResizable": true,
               "key": "lastActivityTime",
               "maxWidth": 250,
               "minWidth": 150,
               "name": "moduleIdentity.columns.lastActivityTime",
               "onRender": [Function],
+            },
+            Object {
+              "ariaLabel": "moduleIdentity.columns.modelId",
+              "fieldName": "modelId",
+              "key": "modelId",
+              "maxWidth": 250,
+              "minWidth": 150,
+              "name": "moduleIdentity.columns.modelId",
             },
           ]
         }

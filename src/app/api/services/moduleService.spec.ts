@@ -81,10 +81,13 @@ describe('moduleService', () => {
             const connectionInformation = mockDataPlaneConnectionHelper();
             const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
                 apiVersion:  HUB_DATA_PLANE_API_VERSION,
+                body: JSON.stringify({
+                    query: `SELECT * FROM devices.modules WHERE deviceId in ['${parameters.deviceId}']`,
+                }),
                 hostName: connectionInformation.connectionInfo.hostName,
-                httpMethod: HTTP_OPERATION_TYPES.Get,
-                path: `devices/${deviceId}/modules`,
-                sharedAccessSignature: connectionInformation.sasToken
+                httpMethod: HTTP_OPERATION_TYPES.Post,
+                path: 'devices/query',
+                sharedAccessSignature: connectionInformation.sasToken,
             };
 
             const result = await ModuleService.fetchModuleIdentities(parameters);

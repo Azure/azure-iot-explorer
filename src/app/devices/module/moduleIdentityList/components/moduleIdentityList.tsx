@@ -134,11 +134,20 @@ export const ModuleIdentityList: React.FC = () => {
             {
                 ariaLabel: t(ResourceKeys.moduleIdentity.columns.lastActivityTime),
                 fieldName: 'lastActivityTime',
+                isResizable: true,
                 key: 'lastActivityTime',
                 maxWidth: 250,
                 minWidth: 150,
                 name: t(ResourceKeys.moduleIdentity.columns.lastActivityTime),
                 onRender: item => parseDateTimeString(item.lastActivityTime) || '--'
+            },
+            {
+                ariaLabel: t(ResourceKeys.moduleIdentity.columns.modelId),
+                fieldName: 'modelId',
+                key: 'modelId',
+                maxWidth: 250,
+                minWidth: 150,
+                name: t(ResourceKeys.moduleIdentity.columns.modelId)
             }];
 
         return columns;
