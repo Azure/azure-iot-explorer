@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import { IpcMainInvokeEvent } from 'electron';
-import { EventHubConsumerClient, ReceivedEventData, earliestEventPosition } from '@azure/event-hubs';
+import { EventHubConsumerClient, ReceivedEventData } from '@azure/event-hubs';
 import { Message, StartEventHubMonitoringParameters } from '../interfaces/eventHubInterface';
 import { convertIotHubToEventHubsConnectionString } from '../utils/eventHubHelper';
 
@@ -56,7 +56,7 @@ const eventHubProvider = async (params: any) =>  {
                 console.log(err);
             }
         },
-        { startPosition: params.startTime ? { enqueuedOn: new Date(params.startTime).getTime() } : earliestEventPosition }
+        { startPosition: { enqueuedOn: params.startTime ? new Date(params.startTime).getTime() : new Date().getTime() }}
     );
 
     // Wait for a few seconds to receive events before closing

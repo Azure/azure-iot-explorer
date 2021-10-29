@@ -11,7 +11,7 @@ import bodyParser = require('body-parser');
 import cors = require('cors');
 import { Client as HubClient } from 'azure-iothub';
 import { Message as CloudToDeviceMessage } from 'azure-iot-common';
-import { EventHubConsumerClient, ReceivedEventData, earliestEventPosition } from '@azure/event-hubs';
+import { EventHubConsumerClient, ReceivedEventData } from '@azure/event-hubs';
 import { generateDataPlaneRequestBody, generateDataPlaneResponse } from './dataPlaneHelper';
 import { convertIotHubToEventHubsConnectionString } from './eventHubHelper';
 
@@ -345,7 +345,7 @@ export const eventHubProvider = async (params: any) =>  {
                 console.log(err);
             }
         },
-        { startPosition: params.startTime ? { enqueuedOn: new Date(params.startTime).getTime() } : earliestEventPosition }
+        { startPosition: { enqueuedOn: params.startTime ? new Date(params.startTime).getTime() : new Date().getTime() }}
     );
 
     // Wait for a few seconds to receive events before closing

@@ -20,7 +20,7 @@ export const deviceEventsReducer = reducerWithInitialState<DeviceEventsStateInte
         let filteredMessages = messages;
         if (state.payload.length > 0 && messages.length > 0) {
             // filter overlaped messages returned from event hub
-            filteredMessages = messages.filter(message => message.enqueuedTime > state.payload[0].enqueuedTime);
+            filteredMessages = messages.filter(message => new Date(message.enqueuedTime) >= payload.params.startTime || state.payload[0].enqueuedTime);
         }
         return state.merge({
             payload: [...filteredMessages, ...state.payload],
