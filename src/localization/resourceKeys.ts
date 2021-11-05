@@ -450,6 +450,12 @@ export class ResourceKeys {
          label : "deviceIdentity.hubConnectivity.label",
          tooltip : "deviceIdentity.hubConnectivity.tooltip",
       },
+      qrCode : {
+         callToAction : "deviceIdentity.qrCode.callToAction",
+         headerText : "deviceIdentity.qrCode.headerText",
+         label : "deviceIdentity.qrCode.label",
+         toolTip : "deviceIdentity.qrCode.toolTip",
+      },
       validation : {
          invalidDeviceId : "deviceIdentity.validation.invalidDeviceId",
          invalidKey : "deviceIdentity.validation.invalidKey",

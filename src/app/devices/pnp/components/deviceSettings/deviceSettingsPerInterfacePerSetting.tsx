@@ -19,6 +19,7 @@ import { getSchemaType, isSchemaSimpleType } from '../../../../shared/utils/json
 import '../../../../css/_deviceSettings.scss';
 import { Twin } from '../../../../api/models/device';
 import { ModuleTwin } from '../../../../api/models/moduleTwin';
+import { EnumSchema } from '../../../../api/models/modelDefinition';
 
 export interface DeviceSettingDataProps extends TwinWithSchema {
     collapsed: boolean;
@@ -99,16 +100,22 @@ export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataPro
         );
     };
 
+    // tslint:disable-next-line:cyclomatic-complexity
     const renderReportedValue = () => {
+        const reportedValue = reportedSection?.value !== undefined ? reportedSection.value : reportedSection;
+        let displayValue = (settingModelDefinition?.schema as EnumSchema)?.enumValues?.find(item => item.enumValue === reportedValue)?.displayName || reportedValue;
+        // tslint:disable-next-line:no-any
+        displayValue = (displayValue as any)?.en || displayValue;
         return (
             <ErrorBoundary error={t(ResourceKeys.errorBoundary.text)}>
                 {
                     settingSchema && isSchemaSimpleType(settingModelDefinition.schema, settingSchema.$ref) ?
                         RenderSimplyTypeValue(
-                            reportedSection?.value,
+                            reportedValue,
                             settingSchema,
+                            displayValue,
                             t(ResourceKeys.deviceSettings.columns.error)) :
-                        reportedSection?.value ?
+                        reportedValue ?
                             <ActionButton
                                 className="column-value-button"
                                 ariaDescription={t(ResourceKeys.deviceSettings.command.openReportedValuePanel)}
@@ -172,7 +179,7 @@ export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataPro
         return (
             <DataForm
                 buttonText={ResourceKeys.deviceSettings.command.submit}
-                formData={desiredValue}
+                formData={desiredValue !== undefined ? desiredValue : reportedSection?.value}
                 settingSchema={settingSchema}
                 handleSave={onSubmit}
                 schema={getSchemaType(settingModelDefinition.schema)}

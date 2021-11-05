@@ -6,12 +6,15 @@ import 'jest';
 import { call, put } from 'redux-saga/effects';
 // tslint:disable-next-line: no-implicit-dependencies
 import { SagaIteratorClone, cloneableGenerator } from '@redux-saga/testing-utils';
-import { getModelDefinitionSaga,
+import {
+    getModelDefinitionSaga,
     getModelDefinition,
     getModelDefinitionFromPublicRepo,
     getModelDefinitionFromLocalFile,
     validateModelDefinitionHelper,
-    getFlattenedModel, getModelDefinitionFromConfigurableRepo
+    getFlattenedModel,
+    getModelDefinitionFromConfigurableRepo,
+    expandFromExtendedModel
 } from './getModelDefinitionSaga';
 import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 import { NotificationType } from '../../../api/models/notification';
@@ -87,10 +90,15 @@ describe('modelDefinition sagas', () => {
                     call(validateModelDefinitionHelper, modelDefinition, { repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public })
                 );
             });
+            it('checks for extends', () => {
+                expect(getModelDefinitionSagaGenerator.next(true).value).toEqual(
+                    call(expandFromExtendedModel, action, { repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public}, modelDefinition)
+                );
+            });
 
             it('puts the successful action', () => {
                 const success = getModelDefinitionSagaGenerator.clone();
-                expect(success.next(true)).toEqual({
+                expect(success.next()).toEqual({
                     done: false,
                     value: put((getModelDefinitionAction.done({
                         params,

@@ -15,6 +15,7 @@ export interface ModelDefinition {
     '@context': string;
     '@id': string;
     '@type': string;
+    extends?: string | string[];
     comment?: string | object;
     contents?: ContentTypeUnion[];
     description?: string | object;

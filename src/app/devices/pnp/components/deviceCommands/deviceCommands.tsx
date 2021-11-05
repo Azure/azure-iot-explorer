@@ -28,7 +28,8 @@ export const DeviceCommands: React.FC = () => {
     const { pnpState, dispatch, getModelDefinition } = usePnpStateContext();
     const isLoading = pnpState.modelDefinitionWithSource.synchronizationStatus === SynchronizationStatus.working;
     const modelDefinition = pnpState.modelDefinitionWithSource.payload && pnpState.modelDefinitionWithSource.payload.modelDefinition;
-    const commandSchemas = React.useMemo(() => getDeviceCommandPairs(modelDefinition).commandSchemas, [modelDefinition]);
+    const extendedModelDefinition = pnpState.modelDefinitionWithSource.payload && pnpState.modelDefinitionWithSource.payload.extendedModel;
+    const commandSchemas = React.useMemo(() => getDeviceCommandPairs(extendedModelDefinition || modelDefinition).commandSchemas, [extendedModelDefinition, modelDefinition]);
 
     const invokeCommand = (parameters: InvokeCommandActionParameters) => dispatch(invokeCommandAction.started(parameters));
 

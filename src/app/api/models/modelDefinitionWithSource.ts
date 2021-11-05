@@ -7,6 +7,7 @@ import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationType
 
 export interface ModelDefinitionWithSource {
     modelDefinition: ModelDefinition;
+    extendedModel?: ModelDefinition;
     source: REPOSITORY_LOCATION_TYPE;
     isModelValid: boolean;
 }

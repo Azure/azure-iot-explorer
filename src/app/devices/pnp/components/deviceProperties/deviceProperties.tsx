@@ -27,10 +27,11 @@ export const DeviceProperties: React.FC = () => {
     pnpState.modelDefinitionWithSource.synchronizationStatus === SynchronizationStatus.working;
     const modelDefinitionWithSource = pnpState.modelDefinitionWithSource.payload;
     const modelDefinition = modelDefinitionWithSource && modelDefinitionWithSource.modelDefinition;
+    const extendedModelDefinition = modelDefinitionWithSource && modelDefinitionWithSource.extendedModel;
     const twin = pnpState.twin.payload;
     const twinAndSchema = React.useMemo(() => {
-        return generateReportedTwinSchemaAndInterfaceTuple(modelDefinition, twin, componentName);
-    },                                  [twin, modelDefinition]);
+        return generateReportedTwinSchemaAndInterfaceTuple(extendedModelDefinition || modelDefinition, twin, componentName);
+    },                                  [twin, modelDefinition, extendedModelDefinition]);
 
     const renderProperties = () => {
         return (

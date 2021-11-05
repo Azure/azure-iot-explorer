@@ -317,6 +317,12 @@
             "invalidDeviceId": "Invalid characters in device ID",
             "invalidKey": "Invalid key",
             "invalidThumbprint": "Invalid thumbprint"
+        },
+        "qrCode": {
+            "label": "Connect your phone as an IoT device",
+            "toolTip": "Use the IoT mobile app and a QR code to turn your mobile device into a Plug and Play IoT device",
+            "headerText": "Connect your smartphone to Azure IoT",
+            "callToAction": "Download the 'Phone as IoT Device' app and use your phone’s camera to scan the QR code. Your phone will become an IoT Plug And Play device, giving you access to your phone's sensors for telemetry."
         }
     },
     "deviceLists": {

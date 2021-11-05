@@ -2,7 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { call, put } from 'redux-saga/effects';
+import { call, CallEffect, put } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
 import { fetchModelDefinition } from '../../../api/services/publicDigitalTwinsModelRepoService';
 import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
@@ -22,12 +22,13 @@ export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionP
     let errorCount = 0;
     for (const location of locations) { // try to get model definition in order according to user's location settings
         try {
-            const modelDefinition = yield call(getModelDefinition, action, location);
-            const isModelValid = yield call(validateModelDefinitionHelper, modelDefinition, location);
+            const modelDefinition: ModelDefinition = yield call(getModelDefinition, action, location);
+            const isModelValid: boolean = yield call(validateModelDefinitionHelper, modelDefinition, location);
+            const extendedModel: ModelDefinition = yield call(expandFromExtendedModel, action, location, modelDefinition);
             yield put(getModelDefinitionAction.done(
                 {
                     params: action.payload,
-                    result: {isModelValid, modelDefinition, source: location.repositoryLocationType}
+                    result: { isModelValid, modelDefinition, extendedModel, source: location.repositoryLocationType }
                 }));
             break; // found the model definition, break
         }
@@ -44,7 +45,7 @@ export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionP
                     type: NotificationType.error
                 });
             }
-            errorCount ++;
+            errorCount++;
             // continue the loop
         }
     }
@@ -59,7 +60,7 @@ export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionP
             type: NotificationType.error
         });
 
-        yield put(getModelDefinitionAction.failed({params: action.payload, error: undefined}));
+        yield put(getModelDefinitionAction.failed({ params: action.payload, error: undefined }));
     }
 }
 
@@ -134,4 +135,35 @@ export function* getModelDefinition(action: Action<GetModelDefinitionActionParam
         default:
             return yield call(getModelDefinitionFromPublicRepo, action);
     }
+}
+
+// tslint:disable-next-line
+export function* expandFromExtendedModel(action: any, location: RepositoryLocationSettings, model: ModelDefinition): Generator<CallEffect<any>, ModelDefinition, ModelDefinition> {
+    const extendsVal = model.extends;
+    if (extendsVal) {
+        if (typeof (extendsVal) === 'string') {
+            const newAction: Action<GetModelDefinitionActionParameters> = { ...action };
+            newAction.payload.interfaceId = extendsVal;
+            let baseModel: ModelDefinition = yield call(getModelDefinition, newAction, location);
+            if (baseModel.extends) {
+                baseModel = yield call(expandFromExtendedModel, newAction, location, baseModel);
+            }
+            model.contents = model.contents.concat(baseModel.contents);
+            return model;
+        }
+        else if (Array.isArray(extendsVal)) {
+            const extendedModel = { ...model };
+            for (const newInterface of extendsVal) {
+                const newAction: Action<GetModelDefinitionActionParameters> = { ...action };
+                newAction.payload.interfaceId = newInterface;
+                let baseModel: ModelDefinition = yield call(getModelDefinition, newAction, location);
+                if (baseModel.extends) {
+                    baseModel = yield call(expandFromExtendedModel, newAction, location, baseModel);
+                }
+                extendedModel.contents = extendedModel.contents.concat(baseModel.contents);
+            }
+            return extendedModel;
+        }
+    }
+    return undefined;
 }

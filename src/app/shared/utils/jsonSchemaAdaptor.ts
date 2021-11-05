@@ -286,7 +286,8 @@ export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
         if (propertySchema['@type'] === DtdlSchemaComplexType.Enum) {
             return propertySchema && (propertySchema as EnumSchema).enumValues ? {
                 enum: (propertySchema as EnumSchema).enumValues.map(item => item.enumValue),
-                enumNames : (propertySchema as EnumSchema).enumValues.map(item => item.name),
+                // tslint:disable-next-line:no-any
+                enumNames : (propertySchema as EnumSchema).enumValues.map(item => (typeof(item.displayName) !== 'string' && item.displayName as any)?.en || item.displayName || item.name),
                 required: [],
                 type: (propertySchema as EnumSchema).enumValues.some(item => typeof item.enumValue === 'string') ? 'string' : 'number',
             } : undefined;

@@ -73,7 +73,7 @@ describe('deviceSettingsPerInterfacePerSetting', () => {
         expect(schemaLabel.props().children).toEqual(schema);
 
         const valueLabel = wrapper.find(Label).at(3); // tslint:disable-line:no-magic-numbers
-        expect(valueLabel.props().children).toEqual('false');
+        expect(valueLabel.props().children).toEqual('{\"value\":false}');
     });
 
     it('renders when there is a writable property of complex type with sync status', () => {

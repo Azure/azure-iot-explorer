@@ -1,0 +1,15 @@
+.qrCodeGeneration {
+    text-align: center;
+    .storeLinks {
+        padding-top: 20px;
+    }
+    .qrCode {
+        padding:5px;
+        background-color: white;
+        width: 200px;
+        height: 200px;
+        border-radius: 8px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
