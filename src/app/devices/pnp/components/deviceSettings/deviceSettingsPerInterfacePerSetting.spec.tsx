@@ -49,6 +49,7 @@ describe('deviceSettingsPerInterfacePerSetting', () => {
         componentName: 'sensor',
         deviceId: 'deviceId',
         interfaceId: 'urn:interfaceId',
+        moduleId: '',
         reportedSection: {
             value: false
         },
@@ -73,7 +74,7 @@ describe('deviceSettingsPerInterfacePerSetting', () => {
         expect(schemaLabel.props().children).toEqual(schema);
 
         const valueLabel = wrapper.find(Label).at(3); // tslint:disable-line:no-magic-numbers
-        expect(valueLabel.props().children).toEqual('{\"value\":false}');
+        expect(valueLabel.props().children).toEqual('false');
     });
 
     it('renders when there is a writable property of complex type with sync status', () => {
@@ -91,12 +92,12 @@ describe('deviceSettingsPerInterfacePerSetting', () => {
         deviceSettingDataProps = {
             ...deviceSettingDataProps,
             collapsed: false,
-            reportedSection: {
-                value: twinValue,
-                ac: ackCode,
-                ad: ackDescription
-            },
             desiredValue: twinValue,
+            reportedSection: {
+                ac: ackCode,
+                ad: ackDescription,
+                value: twinValue
+            },
             settingModelDefinition: propertyModelDefinition,
             settingSchema: propertySchema
         };
