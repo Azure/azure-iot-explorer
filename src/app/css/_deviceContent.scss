@@ -40,7 +40,8 @@ $nav-width: 20%;
 
         .device-content-detail {
             transition: margin-left 0.5s;
-            margin-left: $nav-width;
+            margin: 0;
+            margin-left: 300px;
         }
 
         .device-content-detail.collapsed {
@@ -48,9 +49,19 @@ $nav-width: 20%;
         }
     }
 }
+@media screen and (min-width: $screenSize) and (max-width: 1500px) {
+    .device-content{
+        .device-content-detail{
+            margin-left: $nav-width;
+        }
+    }
+}
 
 @media screen and (max-width: $screenSize) {
     .device-content {
+        .device-content-detail{
+            margin:0;
+        }
         .device-content-nav-bar.collapsed {
             .nav-links {
                 display: none;

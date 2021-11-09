@@ -72,11 +72,18 @@ export const DevicePropertiesPerInterface: React.FC<DevicePropertiesDataProps> =
             </Label>);
     };
 
+    // tslint:disable-next-line:cyclomatic-complexity
     const renderPropertyReportedValue = (item: TwinWithSchema) => {
         if (!item) {
             return;
         }
         const ariaLabel = t(ResourceKeys.deviceProperties.columns.value);
+        // tslint:disable-next-line:no-any
+        const reportedValue = (item.reportedTwin as any)?.value || item.reportedTwin;
+        // tslint:disable-next-line:no-any
+        let displayValue = (item.propertyModelDefinition.schema as any)?.enumValues?.find((value: { enumValue: any; }) => value.enumValue === reportedValue)?.displayName || reportedValue;
+        // tslint:disable-next-line:no-any
+        displayValue = (displayValue as any)?.en || displayValue;
         return (
             <div aria-label={ariaLabel}>
                 {
@@ -84,6 +91,7 @@ export const DevicePropertiesPerInterface: React.FC<DevicePropertiesDataProps> =
                         RenderSimplyTypeValue(
                             item.reportedTwin,
                             item.propertySchema,
+                            displayValue,
                             t(ResourceKeys.deviceProperties.columns.error)) :
                         item.reportedTwin ?
                             <ActionButton

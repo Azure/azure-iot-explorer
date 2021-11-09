@@ -49,6 +49,7 @@ describe('deviceSettingsPerInterfacePerSetting', () => {
         componentName: 'sensor',
         deviceId: 'deviceId',
         interfaceId: 'urn:interfaceId',
+        moduleId: '',
         reportedSection: {
             value: false
         },
@@ -91,12 +92,12 @@ describe('deviceSettingsPerInterfacePerSetting', () => {
         deviceSettingDataProps = {
             ...deviceSettingDataProps,
             collapsed: false,
-            reportedSection: {
-                value: twinValue,
-                ac: ackCode,
-                ad: ackDescription
-            },
             desiredValue: twinValue,
+            reportedSection: {
+                ac: ackCode,
+                ad: ackDescription,
+                value: twinValue
+            },
             settingModelDefinition: propertyModelDefinition,
             settingSchema: propertySchema
         };

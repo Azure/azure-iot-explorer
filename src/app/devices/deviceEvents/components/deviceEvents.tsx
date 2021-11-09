@@ -69,8 +69,9 @@ export const DeviceEvents: React.FC = () => {
     const { pnpState, } = usePnpStateContext();
     const modelDefinitionWithSource = pnpState.modelDefinitionWithSource.payload;
     const modelDefinition = modelDefinitionWithSource && modelDefinitionWithSource.modelDefinition;
+    const extendedModelDefinition = modelDefinitionWithSource && modelDefinitionWithSource.extendedModel;
     const isLoading = pnpState.modelDefinitionWithSource.synchronizationStatus === SynchronizationStatus.working;
-    const telemetrySchema = React.useMemo(() => getDeviceTelemetry(modelDefinition), [modelDefinition]);
+    const telemetrySchema = React.useMemo(() => getDeviceTelemetry(extendedModelDefinition || modelDefinition), [extendedModelDefinition, modelDefinition]);
     const [showPnpModeledEvents, setShowPnpModeledEvents] = React.useState(false);
 
     // simulation specific

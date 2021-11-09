@@ -1,6 +1,6 @@
 {
   "name": "azure-iot-explorer",
-  "version": "0.14.7",
+  "version": "0.14.8",
   "description": "This project welcomes contributions and suggestions. Most contributions require you to agree to a\r Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us\r the rights to use your contribution. For details, visit https://cla.microsoft.com.",
   "main": "host/electron.js",
   "build": {
@@ -88,6 +88,7 @@
     "react-dom": "16.13.1",
     "react-i18next": "11.11.1",
     "react-jsonschema-form": "1.7.0",
+    "react-qr-code": "^2.0.1",
     "react-router-dom": "5.2.0",
     "react-smooth-dnd": "0.11.0",
     "react-toastify": "4.4.0",
