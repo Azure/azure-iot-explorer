@@ -3,7 +3,7 @@ name: Node CI
 on:
     pull_request:
         branches:
-            - master
+            - main
             - dev
 
 jobs:
