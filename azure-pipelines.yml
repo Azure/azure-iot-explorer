@@ -4,7 +4,7 @@ trigger:
 jobs:
   - job: Build_and_Test
     pool:
-      vmImage: 'ubuntu-16.04'
+      vmImage: 'ubuntu-latest'
     steps:
     - template: ./pipelines/build-and-test-template.yml
 
