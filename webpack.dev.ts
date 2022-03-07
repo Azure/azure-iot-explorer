@@ -16,8 +16,8 @@ const config: webpack.Configuration = merge(common, {
 
     module: {
         rules: [
-            // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
-            { test: /\.tsx?$/, loader: 'awesome-typescript-loader', exclude: /node_modules/ },
+            // All files with a '.ts' or '.tsx' extension will be handled by 'ts-loader'.
+            { test: /\.tsx?$/, loader: 'ts-loader', exclude: /node_modules/ },
 
             // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
             { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader', exclude: /node_modules/ },
