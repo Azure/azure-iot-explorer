@@ -39,16 +39,10 @@ export interface GenerateSasTokenParameters {
 export const generateSasToken = (parameters: GenerateSasTokenParameters) => {
     let token = null;
     if (!!parameters.resourceUri && !!parameters.key) {
-        console.log('generating sas token for parameters');
-        console.dir(parameters);
         const encodedUri = encodeURIComponent(parameters.resourceUri);
-        console.log(`resourceURI = ${encodedUri}`)
         const expires = Math.ceil((Date.now() / MILLISECONDS_PER_SECOND) + (parameters.expiration || SAS_EXPIRES_MINUTES) * SECONDS_PER_MINUTE);
-        console.log(`expires = ${expires}`);
         const toSign = encodedUri + '\n' + expires;
-        console.log(`toSign = ${toSign}`);
-
-        const hmac = createHmac('sha256', parameters.key);
+        const hmac = createHmac('sha256', Buffer.from(parameters.key, 'base64'));
         hmac.update(toSign);
         const base64UriEncoded = encodeURIComponent(hmac.digest('base64'));
 

@@ -2,10 +2,14 @@ import * as webpack from 'webpack';
 import * as path from 'path';
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // tslint:disable-line: no-var-requires
 const CopyPlugin = require('copy-webpack-plugin'); // tslint:disable-line: no-var-requires
-
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin'); // tslint:disable-line: no-var-requires
 const config: webpack.Configuration = {
     entry: {
         main: ['./src/index.tsx']
+    },
+    output: {
+        filename: '[name].[contenthash].js',
+        path: path.resolve(__dirname, '.', 'dist'),
     },
     module: {
         rules: [
@@ -47,12 +51,8 @@ const config: webpack.Configuration = {
             minSize: 0,
         },
     },
-    output: {
-        filename: '[name].[hash].js',
-        path: path.resolve(__dirname, 'dist'),
-        publicPath: ''
-    },
     plugins: [
+        new NodePolyfillPlugin(),
         new HtmlWebpackPlugin({
                 template: path.resolve(__dirname, '.', 'src', 'index.html')
         }),
@@ -68,12 +68,8 @@ const config: webpack.Configuration = {
     ],
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
-        extensions: ['.ts', '.tsx', '.js', '.json'],
-        fallback: {
-            crypto: require.resolve('crypto-browserify'),
-            stream: false
-        }
-    },
+        extensions: ['.ts', '.tsx', '.js', '.json']
+    }
 };
 
 export default config;
