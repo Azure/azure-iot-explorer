@@ -2,7 +2,8 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { createHmac } from 'crypto';
+import createHmac from 'create-hmac';
+import { Buffer } from 'buffer';
 import { IoTHubConnectionSettings } from '../services/devicesService';
 import { LIST_IOT_DEVICES, SAS_EXPIRES_MINUTES } from '../../constants/devices';
 import { DeviceQuery, QueryClause, ParameterType, OperationType } from '../models/deviceQuery';
@@ -34,16 +35,20 @@ export interface GenerateSasTokenParameters {
      */
     keyName?: string;
 }
-
+// tslint:disable
 export const generateSasToken = (parameters: GenerateSasTokenParameters) => {
     let token = null;
     if (!!parameters.resourceUri && !!parameters.key) {
+        console.log('generating sas token for parameters');
+        console.dir(parameters);
         const encodedUri = encodeURIComponent(parameters.resourceUri);
-
+        console.log(`resourceURI = ${encodedUri}`)
         const expires = Math.ceil((Date.now() / MILLISECONDS_PER_SECOND) + (parameters.expiration || SAS_EXPIRES_MINUTES) * SECONDS_PER_MINUTE);
+        console.log(`expires = ${expires}`);
         const toSign = encodedUri + '\n' + expires;
+        console.log(`toSign = ${toSign}`);
 
-        const hmac = createHmac('sha256', new Buffer(parameters.key, 'base64'));
+        const hmac = createHmac('sha256', parameters.key);
         hmac.update(toSign);
         const base64UriEncoded = encodeURIComponent(hmac.digest('base64'));
 

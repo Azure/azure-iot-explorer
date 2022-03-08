@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import { call, put, all, takeLatest, takeEvery } from 'redux-saga/effects';
+import { SagaIterator } from 'redux-saga';
 import { Action } from 'typescript-fsa';
 import { fetchDevice, updateDevice } from '../../api/services/devicesService';
 import { NotificationType } from '../../api/models/notification';
@@ -11,7 +12,7 @@ import { getDeviceIdentityAction, updateDeviceIdentityAction } from './actions';
 import { DeviceIdentity } from '../../api/models/deviceIdentity';
 import { raiseNotificationToast } from '../../notifications/components/notificationToast';
 
-export function* getDeviceIdentitySagaWorker(action: Action<string>) {
+export function* getDeviceIdentitySagaWorker(action: Action<string>): SagaIterator {
     try {
         const parameters = {
             deviceId: action.payload,
@@ -35,7 +36,7 @@ export function* getDeviceIdentitySagaWorker(action: Action<string>) {
     }
 }
 
-export function* updateDeviceIdentitySagaWorker(action: Action<DeviceIdentity>) {
+export function* updateDeviceIdentitySagaWorker(action: Action<DeviceIdentity>): SagaIterator {
     try {
         const parameters = {
             deviceIdentity: action.payload,
@@ -69,7 +70,7 @@ export function* updateDeviceIdentitySagaWorker(action: Action<DeviceIdentity>) 
     }
 }
 
-export function* DeviceIdentitySaga() {
+export function* DeviceIdentitySaga(): SagaIterator {
     yield all([
         takeLatest(getDeviceIdentityAction.started.type, getDeviceIdentitySagaWorker),
         takeEvery(updateDeviceIdentityAction.started.type, updateDeviceIdentitySagaWorker),

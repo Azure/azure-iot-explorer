@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import { call, put } from 'redux-saga/effects';
+import { SagaIterator } from 'redux-saga';
 import { Action } from 'typescript-fsa';
 import { updateModuleIdentityTwin } from '../../../../api/services/moduleService';
 import { raiseNotificationToast } from '../../../../notifications/components/notificationToast';
@@ -11,7 +12,7 @@ import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { updateModuleIdentityTwinAction } from '../actions';
 import { ModuleTwin } from '../../../../api/models/moduleTwin';
 
-export function* updateModuleIdentityTwinSaga(action: Action<ModuleTwin>) {
+export function* updateModuleIdentityTwinSaga(action: Action<ModuleTwin>): SagaIterator {
     try {
         const moduleIdentityTwin = yield call(updateModuleIdentityTwin, action.payload);
 

@@ -2,12 +2,17 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import * as webpack from 'webpack';
-import * as merge from 'webpack-merge';
+import { Configuration as WebpackConfig, NormalModuleReplacementPlugin } from 'webpack';
+import { Configuration as WebpackDevServerConfig } from "webpack-dev-server";
+import { merge } from 'webpack-merge';
 import common from './webpack.common';
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // tslint:disable-line: no-var-requires
 
-const config: webpack.Configuration = merge(common, {
+interface Config extends WebpackConfig {
+    devServer?: WebpackDevServerConfig
+}
+
+const config: Config = merge(common, {
 
     mode: 'development',
 
@@ -40,7 +45,7 @@ const config: webpack.Configuration = merge(common, {
             filename: '[name].css',
             ignoreOrder: false, // Enable to remove warnings about conflicting order
         }),
-        new webpack.NormalModuleReplacementPlugin(
+        new NormalModuleReplacementPlugin(
             /(.*)appConfig.ENV(\.*)/,
             resource => resource.request = resource.request.replace(/ENV/, 'dev')
         )

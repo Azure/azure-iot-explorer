@@ -1,7 +1,6 @@
 import * as webpack from 'webpack';
 import * as path from 'path';
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // tslint:disable-line: no-var-requires
-const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // tslint:disable-line: no-var-requires
 const CopyPlugin = require('copy-webpack-plugin'); // tslint:disable-line: no-var-requires
 
 const config: webpack.Configuration = {
@@ -22,23 +21,27 @@ const config: webpack.Configuration = {
 
             },
             {
-                loader: 'file-loader?name=images/[name].[ext]',
+                loader:'file-loader',
+                options: {
+                    name: '?name=images/[name].[ext]',
+                },
                 test: /\.(jpe?g|png|gif|svg)$/i
             }
         ]
     },
     optimization: {
         splitChunks: {
-            cacheGroups: {
-                vendor: {
-                    test: /[\\/]node_modules[\\/]((?!(monaco-editor)|(@fluentui)).*)[\\/]/,
-                    name(module: any) { // tslint:disable-line:no-any
-                        const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
-                        // npm package names are URL-safe, but some servers don't like @ symbols
-                        return `npm.${packageName.replace('@', '')}`;
-                    },
-                },
-            },
+            // cacheGroups: {
+            //     defaultVendors: {
+            //         test: /[\\/]node_modules[\\/]((?!(monaco-editor)|(@fluentui)).*)[\\/]/,
+            //         name(module: any) { // tslint:disable-line:no-any
+            //             console.log(module.context);
+            //             const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+            //             // npm package names are URL-safe, but some servers don't like @ symbols
+            //             return `npm.${packageName.replace('@', '')}`;
+            //         },
+            //     },
+            // },
             chunks: 'all',
             maxInitialRequests: Infinity,
             minSize: 0,
@@ -46,7 +49,7 @@ const config: webpack.Configuration = {
     },
     output: {
         filename: '[name].[hash].js',
-        path: path.resolve(__dirname, '.', 'dist'),
+        path: path.resolve(__dirname, 'dist'),
         publicPath: ''
     },
     plugins: [
@@ -65,7 +68,11 @@ const config: webpack.Configuration = {
     ],
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
-        extensions: ['.ts', '.tsx', '.js', '.json']
+        extensions: ['.ts', '.tsx', '.js', '.json'],
+        fallback: {
+            crypto: require.resolve('crypto-browserify'),
+            stream: false
+        }
     },
 };
 

@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import { call, put, takeEvery } from 'redux-saga/effects';
+import { SagaIterator } from 'redux-saga';
 import { Action } from 'typescript-fsa';
 import { NotificationType } from '../../api/models/notification';
 import { ResourceKeys } from '../../../localization/resourceKeys';
@@ -11,7 +12,7 @@ import { addDevice } from '../../api/services/devicesService';
 import { DeviceIdentity } from '../../api/models/deviceIdentity';
 import { raiseNotificationToast } from '../../notifications/components/notificationToast';
 
-export function* addDeviceSagaWorker(action: Action<DeviceIdentity>) {
+export function* addDeviceSagaWorker(action: Action<DeviceIdentity>): SagaIterator {
     try {
         const parameters = {
             deviceIdentity: action.payload

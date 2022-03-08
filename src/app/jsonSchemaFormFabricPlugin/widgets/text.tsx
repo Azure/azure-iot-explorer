@@ -22,5 +22,5 @@ const FabricTextHighOrder = (highOrderProps?: ITextFieldProps) => (props: ITextF
     );
 };
 
-export const FabricText: Widget = FabricTextHighOrder();
-export const FabricTextArea: Widget = FabricTextHighOrder({ multiline: true });
+export const FabricText = FabricTextHighOrder();
+export const FabricTextArea = FabricTextHighOrder({ multiline: true });
