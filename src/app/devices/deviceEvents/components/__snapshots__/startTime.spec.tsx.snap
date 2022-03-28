@@ -11,12 +11,12 @@ exports[`startTime matches snapshot 1`] = `
     className="stack-first-column"
     disabled={true}
     label={
-      <Unknown
+      <LabelWithTooltip
         className="consumer-group-label"
         tooltipText="deviceEvents.startTime.tooltip"
       >
         deviceEvents.toggleSpecifyStartingTime.label
-      </Unknown>
+      </LabelWithTooltip>
     }
     offText="deviceEvents.toggleSpecifyStartingTime.off"
     onChange={[Function]}

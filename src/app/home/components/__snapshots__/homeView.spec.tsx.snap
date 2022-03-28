@@ -2,14 +2,14 @@
 
 exports[`HomeView matches snapshot 1`] = `
 <Fragment>
-  <Component />
+  <AppVersionMessageBar />
   <div
     className="view-content home-view"
   >
     <div
       className="nav"
     >
-      <Component
+      <HomeViewNavigation
         appMenuVisible={true}
         setAppMenuVisible={[Function]}
       />

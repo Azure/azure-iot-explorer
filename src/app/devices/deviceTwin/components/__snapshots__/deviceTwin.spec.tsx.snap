@@ -28,14 +28,14 @@ exports[`devices/components/deviceTwin snapshot matches snapshot 1`] = `
       ]
     }
   />
-  <Component
+  <HeaderView
     headerText="deviceTwin.headerText"
     tooltip="deviceTwin.tooltip"
   />
   <article
     className="device-twin device-detail"
   >
-    <Component
+    <JSONEditor
       className="json-editor"
       content="{
 	\\"deviceEtag\\": \\"\\",

@@ -5,7 +5,7 @@ exports[`deviceEvents deviceEvents in non-pnp context matches snapshot 1`] = `
   className="device-events"
   key="device-events"
 >
-  <Component
+  <Commands
     dispatch={[MockFunction]}
     fetchData={[Function]}
     monitoringData={false}
@@ -19,20 +19,20 @@ exports[`deviceEvents deviceEvents in non-pnp context matches snapshot 1`] = `
     startDisabled={false}
     synchronizationStatus={1}
   />
-  <Component
+  <HeaderView
     headerText="deviceEvents.headerText"
     tooltip="deviceEvents.tooltip"
   />
   <div
     className="horizontal-item"
   >
-    <Component
+    <ConsumerGroup
       consumerGroup="$Default"
       monitoringData={false}
       setConsumerGroup={[Function]}
     />
   </div>
-  <Component
+  <StartTime
     monitoringData={false}
     setHasError={[Function]}
     setSpecifyStartTime={[Function]}
@@ -42,7 +42,7 @@ exports[`deviceEvents deviceEvents in non-pnp context matches snapshot 1`] = `
   <div
     className="horizontal-item"
   >
-    <Component
+    <CustomEventHub
       monitoringData={false}
       setCustomEventHubConnectionString={[Function]}
       setHasError={[Function]}
@@ -50,7 +50,7 @@ exports[`deviceEvents deviceEvents in non-pnp context matches snapshot 1`] = `
       useBuiltInEventHub={false}
     />
   </div>
-  <Component
+  <DeviceSimulationPanel
     onToggleSimulationPanel={[Function]}
     showSimulationPanel={false}
   />
@@ -90,7 +90,7 @@ exports[`deviceEvents deviceEvents in pnp context matches snapshot while interfa
   className="device-events"
   key="device-events"
 >
-  <Component
+  <Commands
     dispatch={[Function]}
     fetchData={[Function]}
     monitoringData={false}
@@ -104,20 +104,20 @@ exports[`deviceEvents deviceEvents in pnp context matches snapshot while interfa
     startDisabled={false}
     synchronizationStatus={2}
   />
-  <Component
+  <HeaderView
     headerText="deviceEvents.headerText"
     tooltip="deviceEvents.tooltip"
   />
   <div
     className="horizontal-item"
   >
-    <Component
+    <ConsumerGroup
       consumerGroup="$Default"
       monitoringData={false}
       setConsumerGroup={[Function]}
     />
   </div>
-  <Component
+  <StartTime
     monitoringData={false}
     setHasError={[Function]}
     setSpecifyStartTime={[Function]}
@@ -127,7 +127,7 @@ exports[`deviceEvents deviceEvents in pnp context matches snapshot while interfa
   <div
     className="horizontal-item"
   >
-    <Component
+    <CustomEventHub
       monitoringData={false}
       setCustomEventHubConnectionString={[Function]}
       setHasError={[Function]}
@@ -135,7 +135,7 @@ exports[`deviceEvents deviceEvents in pnp context matches snapshot while interfa
       useBuiltInEventHub={false}
     />
   </div>
-  <Component
+  <DeviceSimulationPanel
     onToggleSimulationPanel={[Function]}
     showSimulationPanel={false}
   />
@@ -154,7 +154,7 @@ exports[`deviceEvents deviceEvents in pnp context matches snapshot while interfa
   className="device-events"
   key="device-events"
 >
-  <Component
+  <Commands
     dispatch={[Function]}
     fetchData={[Function]}
     monitoringData={false}
@@ -168,20 +168,20 @@ exports[`deviceEvents deviceEvents in pnp context matches snapshot while interfa
     startDisabled={false}
     synchronizationStatus={2}
   />
-  <Component
+  <HeaderView
     headerText="deviceEvents.headerText"
     tooltip="deviceEvents.tooltip"
   />
   <div
     className="horizontal-item"
   >
-    <Component
+    <ConsumerGroup
       consumerGroup="$Default"
       monitoringData={false}
       setConsumerGroup={[Function]}
     />
   </div>
-  <Component
+  <StartTime
     monitoringData={false}
     setHasError={[Function]}
     setSpecifyStartTime={[Function]}
@@ -191,7 +191,7 @@ exports[`deviceEvents deviceEvents in pnp context matches snapshot while interfa
   <div
     className="horizontal-item"
   >
-    <Component
+    <CustomEventHub
       monitoringData={false}
       setCustomEventHubConnectionString={[Function]}
       setHasError={[Function]}
@@ -199,7 +199,7 @@ exports[`deviceEvents deviceEvents in pnp context matches snapshot while interfa
       useBuiltInEventHub={false}
     />
   </div>
-  <Component
+  <DeviceSimulationPanel
     onToggleSimulationPanel={[Function]}
     showSimulationPanel={false}
   />

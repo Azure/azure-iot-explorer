@@ -25,11 +25,11 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
     <span
       className="col-sm4 reported-value"
     >
-      <Component
+      <LabelWithTooltip
         tooltipText="deviceSettings.columns.reportedValueTooltip"
       >
         deviceSettings.columns.reportedValue
-      </Component>
+      </LabelWithTooltip>
     </span>
     <div
       className="col-sm1 collapse-button"
@@ -50,7 +50,7 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
     className="list-content"
     role="list"
   >
-    <Component
+    <DeviceSettingsPerInterfacePerSetting
       collapsed={false}
       componentName="environmentalSensor"
       desiredValue={456}
@@ -149,7 +149,7 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
         ]
       }
     />
-    <Component
+    <DeviceSettingsPerInterfacePerSetting
       collapsed={false}
       componentName="environmentalSensor"
       desiredValue={456}

@@ -19,11 +19,11 @@ exports[`directMethod matches snapshot 1`] = `
       ]
     }
   />
-  <Component
+  <HeaderView
     headerText="directMethod.headerText"
     tooltip="directMethod.tooltip"
   />
-  <Component
+  <DirectMethodForm
     connectionTimeOut={10}
     methodName=""
     responseTimeOut={10}

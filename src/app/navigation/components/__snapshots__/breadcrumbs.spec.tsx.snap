@@ -4,7 +4,7 @@ exports[`Breadcrumbs matches snapshot 1`] = `
 <ul
   className="breadcrumb"
 >
-  <Component
+  <Breadcrumb
     disableLink={true}
     key="path1"
     name="name1"
@@ -12,7 +12,7 @@ exports[`Breadcrumbs matches snapshot 1`] = `
     suffix=""
     url="url1"
   />
-  <Component
+  <Breadcrumb
     disableLink={false}
     key="path2"
     name="name2"
@@ -20,7 +20,7 @@ exports[`Breadcrumbs matches snapshot 1`] = `
     suffix=""
     url="url2"
   />
-  <Component
+  <Breadcrumb
     disableLink={true}
     key="path3"
     name="name3"

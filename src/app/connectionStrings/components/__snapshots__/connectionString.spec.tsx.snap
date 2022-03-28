@@ -46,13 +46,13 @@ exports[`connectionString matches snapshot 1`] = `
   <div
     className="properties"
   >
-    <Component
+    <ConnectionStringProperties
       connectionString="HostName=test.azure-devices-int.net;SharedAccessKeyName=iothubowner;SharedAccessKey=key"
       hostName="test.azure-devices-int.net"
       sharedAccessKey="key"
       sharedAccessKeyName="iothubowner"
     />
-    <Component
+    <MaskedCopyableTextField
       allowMask={true}
       ariaLabel="connectionStrings.properties.connectionString.ariaLabel"
       label="connectionStrings.properties.connectionString.label"
@@ -75,7 +75,7 @@ exports[`connectionString matches snapshot 1`] = `
       connectionStrings.visitConnectionCommand.label
     </CustomizedActionButton>
   </div>
-  <Component
+  <ConnectionStringDelete
     connectionString="HostName=test.azure-devices-int.net;SharedAccessKeyName=iothubowner;SharedAccessKey=key"
     hidden={true}
     onDeleteCancel={[Function]}

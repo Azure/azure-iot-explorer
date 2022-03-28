@@ -7,7 +7,7 @@ exports[`IotHubDevices matches snapshot 1`] = `
     exact={true}
     path=""
   />
-  <Component
+  <BreadcrumbRoute
     breadcrumb={
       Object {
         "name": "breadcrumb.add",
@@ -16,8 +16,8 @@ exports[`IotHubDevices matches snapshot 1`] = `
     exact={true}
     path="/add"
   >
-    <Component />
-  </Component>
+    <AddDevice />
+  </BreadcrumbRoute>
   <Component
     component={[Function]}
     path="/deviceDetail"

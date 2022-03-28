@@ -41,7 +41,7 @@ exports[`addDevice matches snapshot 1`] = `
     <div
       className="form"
     >
-      <Component
+      <MaskedCopyableTextField
         allowMask={false}
         ariaLabel="deviceIdentity.deviceID"
         error=""
@@ -88,11 +88,11 @@ exports[`addDevice matches snapshot 1`] = `
       <div
         className="connectivity"
       >
-        <Component
+        <LabelWithTooltip
           tooltipText="deviceIdentity.hubConnectivity.tooltip"
         >
           deviceIdentity.hubConnectivity.label
-        </Component>
+        </LabelWithTooltip>
         <StyledToggleBase
           ariaLabel="deviceIdentity.hubConnectivity.label"
           checked={true}

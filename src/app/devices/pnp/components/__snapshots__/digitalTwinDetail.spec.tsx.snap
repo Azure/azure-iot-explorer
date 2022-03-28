@@ -12,35 +12,35 @@ exports[`DigitalTwinDetail matches snapshot 1`] = `
     itemKey="interfaces"
     key="interfaces"
   >
-    <Component />
+    <DeviceInterfaces />
   </PivotItem>
   <PivotItem
     headerText="breadcrumb.properties"
     itemKey="properties"
     key="properties"
   >
-    <Component />
+    <DeviceProperties />
   </PivotItem>
   <PivotItem
     headerText="breadcrumb.settings"
     itemKey="settings"
     key="settings"
   >
-    <Component />
+    <DeviceSettings />
   </PivotItem>
   <PivotItem
     headerText="breadcrumb.commands"
     itemKey="commands"
     key="commands"
   >
-    <Component />
+    <DeviceCommands />
   </PivotItem>
   <PivotItem
     headerText="breadcrumb.events"
     itemKey="events"
     key="events"
   >
-    <Component />
+    <DeviceEvents />
   </PivotItem>
 </StyledPivot>
 `;

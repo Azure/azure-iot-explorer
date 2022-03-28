@@ -15,11 +15,11 @@ exports[`collapsibleSection matches snapshot 1`] = `
     onClick={[Function]}
     title="collapsibleSection.open"
   />
-  <Component
+  <LabelWithTooltip
     tooltipText="tooltip"
   >
     Label
-  </Component>
+  </LabelWithTooltip>
   <div
     className="collapsible-section-children"
   />

@@ -10,7 +10,7 @@ exports[`BreadcrumbRoute matches snapshot 1`] = `
   exact={true}
   path="path"
 >
-  <Component
+  <BreadcrumbWrapper
     name="name"
   />
 </Route>

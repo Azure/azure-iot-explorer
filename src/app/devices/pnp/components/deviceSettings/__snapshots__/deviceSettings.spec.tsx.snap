@@ -31,7 +31,7 @@ exports[`deviceSettings matches snapshot with one twinWithSchema 1`] = `
       ]
     }
   />
-  <Component
+  <DeviceSettingsPerInterface
     componentName="foo"
     deviceId={null}
     interfaceId="urn:contoso:com:EnvironmentalSensor;1"

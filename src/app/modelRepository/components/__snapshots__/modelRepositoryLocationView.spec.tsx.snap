@@ -93,10 +93,10 @@ exports[`modelRepositoryLocationView matches snapshot when locations greater tha
   <div
     className="view-scroll-vertical"
   >
-    <Component
+    <ModelRepositoryInstruction
       empty={false}
     />
-    <Component
+    <ModelRepositoryLocationList
       onChangeRepositoryLocationSettings={[Function]}
       repositoryLocationSettings={
         Array [
@@ -205,10 +205,10 @@ exports[`modelRepositoryLocationView matches snapshot when no locations 1`] = `
   <div
     className="view-scroll-vertical"
   >
-    <Component
+    <ModelRepositoryInstruction
       empty={true}
     />
-    <Component
+    <ModelRepositoryLocationList
       onChangeRepositoryLocationSettings={[Function]}
       repositoryLocationSettings={Array []}
       repositoryLocationSettingsErrors={Object {}}

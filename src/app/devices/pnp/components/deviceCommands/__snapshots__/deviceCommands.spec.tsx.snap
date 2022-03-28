@@ -70,7 +70,7 @@ exports[`components/devices/deviceCommands matches snapshot with a commandSchema
       ]
     }
   />
-  <Component
+  <DeviceCommandsPerInterface
     commandSchemas={
       Array [
         Object {

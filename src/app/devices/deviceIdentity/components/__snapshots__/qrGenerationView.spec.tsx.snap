@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DeviceModules matches snapshot 1`] = `
-<Component
+<CollapsibleSection
   expanded={false}
   label="deviceIdentity.qrCode.label"
   tooltipText="deviceIdentity.qrCode.toolTip"
@@ -46,5 +46,5 @@ exports[`DeviceModules matches snapshot 1`] = `
       </div>
     </section>
   </div>
-</Component>
+</CollapsibleSection>
 `;

@@ -7,11 +7,11 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
   <div
     className="labelSection"
   >
-    <Component
+    <LabelWithTooltip
       htmlFor="maskedCopyableTextField0"
     >
       label1
-    </Component>
+    </LabelWithTooltip>
   </div>
   <div
     className="controlSection"
@@ -78,11 +78,11 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
   <div
     className="labelSection"
   >
-    <Component
+    <LabelWithTooltip
       htmlFor="maskedCopyableTextField3"
     >
       label1
-    </Component>
+    </LabelWithTooltip>
   </div>
   <div
     className="controlSection"
@@ -163,11 +163,11 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
   <div
     className="labelSection"
   >
-    <Component
+    <LabelWithTooltip
       htmlFor="maskedCopyableTextField6"
     >
       label1
-    </Component>
+    </LabelWithTooltip>
   </div>
   <div
     className="controlSection"
@@ -248,11 +248,11 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when error messag
   <div
     className="labelSection"
   >
-    <Component
+    <LabelWithTooltip
       htmlFor="maskedCopyableTextField9"
     >
       label1
-    </Component>
+    </LabelWithTooltip>
   </div>
   <div
     className="controlSection"

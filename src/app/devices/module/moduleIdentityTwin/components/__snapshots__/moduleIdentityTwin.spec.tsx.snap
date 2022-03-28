@@ -32,7 +32,7 @@ exports[`moduleIdentityTwin snapshot matches snapshot after module twin is fetch
   <div
     className="module-identity-detail"
   >
-    <Component
+    <JSONEditor
       className="json-editor"
       content="{
 	\\"authenticationType\\": \\"sas\\",
@@ -90,7 +90,7 @@ exports[`moduleIdentityTwin snapshot matches snapshot while loading 1`] = `
   <div
     className="module-identity-detail"
   >
-    <Component />
+    <MultiLineShimmer />
   </div>
 </Fragment>
 `;
