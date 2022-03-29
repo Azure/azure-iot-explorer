@@ -13,14 +13,10 @@ const config: webpack.Configuration = {
     },
     module: {
         rules: [
+            { test: /\.tsx?$/, loader: 'ts-loader', exclude: /node_modules/ },
             {
-                enforce: 'pre',
                 exclude: /node_modules/,
                 loader: 'tslint-loader',
-                options: {
-                    emitErrors: true,
-                    failOnHint: true
-                },
                 test: /\.tsx?$/
 
             },
@@ -35,17 +31,6 @@ const config: webpack.Configuration = {
     },
     optimization: {
         splitChunks: {
-            // cacheGroups: {
-            //     defaultVendors: {
-            //         test: /[\\/]node_modules[\\/]((?!(monaco-editor)|(@fluentui)).*)[\\/]/,
-            //         name(module: any) { // tslint:disable-line:no-any
-            //             console.log(module.context);
-            //             const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
-            //             // npm package names are URL-safe, but some servers don't like @ symbols
-            //             return `npm.${packageName.replace('@', '')}`;
-            //         },
-            //     },
-            // },
             chunks: 'all',
             maxInitialRequests: Infinity,
             minSize: 0,

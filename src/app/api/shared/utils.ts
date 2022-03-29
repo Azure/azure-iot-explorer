@@ -2,7 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import createHmac from 'create-hmac';
+import { createHmac } from 'crypto';
 import { Buffer } from 'buffer';
 import { IoTHubConnectionSettings } from '../services/devicesService';
 import { LIST_IOT_DEVICES, SAS_EXPIRES_MINUTES } from '../../constants/devices';

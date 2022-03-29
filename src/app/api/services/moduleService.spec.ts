@@ -320,7 +320,7 @@ describe('moduleService', () => {
             responseTimeoutInSeconds : 10,
         };
         it ('returns if deviceId is not specified', () => {
-            expect(ModuleService.invokeModuleDirectMethod(parameters)).toEqual(new Promise(() => {}));
+            expect(ModuleService.invokeModuleDirectMethod(parameters)).resolves.toBe(undefined);
         });
 
         it('calls fetch with specified parameters and invokes invokeDirectMethod when response is 200', async () => {
