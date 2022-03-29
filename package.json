@@ -5,7 +5,7 @@
   "main": "host/electron.js",
   "build": {
     "appId": "com.microsoft.azure.iot.pnp.ui",
-    "productName": "Azure IoT Explorer (preview)",
+    "productName": "Azure IoT Explorer Preview",
     "files": [
       "dist/**/*",
       "package.json",
@@ -123,8 +123,8 @@
     "copy-webpack-plugin": "^6.4.0",
     "css-loader": "^6.7.0",
     "css-minimizer-webpack-plugin": "^3.4.1",
-    "electron": "11.5.0",
-    "electron-builder": "22.8.0",
+    "electron": "^18.0.0",
+    "electron-builder": "^22.14.13",
     "enzyme": "3.11.0",
     "enzyme-adapter-react-16": "1.15.1",
     "enzyme-to-json": "3.3.5",

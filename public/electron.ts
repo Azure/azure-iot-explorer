@@ -98,7 +98,6 @@ class Main {
             width: mainWindowState.width,
             webPreferences: { // tslint:disable-line:object-literal-sort-keys
                 contextIsolation: true, // protect against prototype pollution
-                enableRemoteModule: false, // turn off remote
                 nodeIntegration: false,
                 preload: __dirname + '/contextBridge.js' // use a preload script
             },
