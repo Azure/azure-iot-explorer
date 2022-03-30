@@ -5,14 +5,12 @@ parameters:
   type: string
   default: 'ubuntu-18.04'
   values:
-  - 'ubuntu-16.04'
   - 'ubuntu-18.04'
   - 'ubuntu-latest'
 - name: windowsImage
   type: string
-  default: 'vs2017-win2016'
+  default: 'windows-2019'
   values:
-  - 'vs2017-win2016'
   - 'windows-2019'
   - 'windows-latest'
 - name: macImage
@@ -52,9 +50,7 @@ stages:
         vmImage: ${{ parameters.windowsImage }}
 
       steps:
-      - task: NodeTool@0
-        inputs:
-          versionSpec: '12.x'
+      - template: '.\common\install-node.yml'
           
       - template: '.\build-windows.yml'
 
@@ -74,11 +70,9 @@ stages:
 
       pool:
         vmImage: ${{ parameters.macImage }}
-
+      
       steps:
-      - task: NodeTool@0
-        inputs:
-          versionSpec: '12.x'
+      - template: '.\common\install-node.yml'
           
       - template: '.\build-mac.yml'
 
@@ -99,22 +93,20 @@ stages:
           vmImage: ${{ parameters.linuxImage }}
 
       steps:
-        - task: NodeTool@0
-          inputs:
-            versionSpec: '12.x'
-            
-        - template: '.\build-linux.yml'
+      - template: '.\common\install-node.yml'
+          
+      - template: '.\build-linux.yml'
 
-        - task: CopyFiles@2
-          displayName: 'ArtifactIgnore'
-          inputs:
-            SourceFolder: '$(Build.SourcesDirectory)/'
-            Contents: '.artifactignore'
-            TargetFolder: '$(Build.SourcesDirectory)/dist/'
+      - task: CopyFiles@2
+        displayName: 'ArtifactIgnore'
+        inputs:
+          SourceFolder: '$(Build.SourcesDirectory)/'
+          Contents: '.artifactignore'
+          TargetFolder: '$(Build.SourcesDirectory)/dist/'
 
-        - publish: $(Build.SourcesDirectory)/dist/
-          displayName: 'Staging artifact for signing'
-          artifact: Linux
+      - publish: $(Build.SourcesDirectory)/dist/
+        displayName: 'Staging artifact for signing'
+        artifact: Linux
 
   - stage: 'codeSign'
     displayName: 'CodeSign and Release'
