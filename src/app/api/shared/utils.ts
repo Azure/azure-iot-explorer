@@ -35,7 +35,7 @@ export interface GenerateSasTokenParameters {
      */
     keyName?: string;
 }
-// tslint:disable
+
 export const generateSasToken = (parameters: GenerateSasTokenParameters) => {
     let token = null;
     if (!!parameters.resourceUri && !!parameters.key) {
