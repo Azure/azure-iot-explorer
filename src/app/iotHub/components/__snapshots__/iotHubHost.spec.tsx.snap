@@ -9,7 +9,7 @@ exports[`IotHubHost matches snapshot 1`] = `
   }
 >
   <Component>
-    <Component
+    <BreadcrumbRoute
       breadcrumb={
         Object {
           "name": "breadcrumb.devices",
@@ -17,8 +17,8 @@ exports[`IotHubHost matches snapshot 1`] = `
       }
       path="/devices"
     >
-      <Component />
-    </Component>
+      <IotHubDevices />
+    </BreadcrumbRoute>
     <Component
       from=""
       to="/devices"

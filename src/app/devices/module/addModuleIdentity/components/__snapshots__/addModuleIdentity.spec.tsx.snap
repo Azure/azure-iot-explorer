@@ -28,13 +28,13 @@ exports[`devices/components/addModuleIdentity snapshot matches snapshot while lo
       ]
     }
   />
-  <Component
+  <HeaderView
     headerText="moduleIdentity.headerText"
   />
   <div
     className="device-detail"
   >
-    <Component
+    <MaskedCopyableTextField
       allowMask={false}
       ariaLabel="moduleIdentity.moduleId"
       error=""

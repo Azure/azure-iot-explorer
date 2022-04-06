@@ -19,7 +19,7 @@ exports[`DigitalTwinInterfacesList matches snapshot when empty model id is retri
       ]
     }
   />
-  <Component
+  <HeaderView
     headerText="digitalTwin.headerText"
     link="settings.questions.questions.documentation.link"
     tooltip="settings.questions.questions.documentation.text"

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`deviceInterfaces shows Shimmer when status is working 1`] = `<Component />`;
+exports[`deviceInterfaces shows Shimmer when status is working 1`] = `<MultiLineShimmer />`;
 
 exports[`deviceInterfaces shows interface information when status is fetched 1`] = `
 <Fragment>
@@ -39,31 +39,31 @@ exports[`deviceInterfaces shows interface information when status is fetched 1`]
     <section
       className="pnp-interface-info scrollable-lg"
     >
-      <Component
+      <ModelDefinitionSourceView
         source="PUBLIC"
       />
-      <Component
+      <MaskedCopyableTextField
         allowMask={false}
         ariaLabel="deviceInterfaces.columns.id"
         label="deviceInterfaces.columns.id"
         readOnly={true}
         value={null}
       />
-      <Component
+      <MaskedCopyableTextField
         allowMask={false}
         ariaLabel="deviceInterfaces.columns.displayName"
         label="deviceInterfaces.columns.displayName"
         readOnly={true}
         value="--"
       />
-      <Component
+      <MaskedCopyableTextField
         allowMask={false}
         ariaLabel="deviceInterfaces.columns.description"
         label="deviceInterfaces.columns.description"
         readOnly={true}
         value="--"
       />
-      <Component
+      <JSONEditor
         className="interface-definition-json-editor"
         content="{
 	\\"@id\\": \\"urn:azureiot:ModelDiscovery:DigitalTwin:1\\",

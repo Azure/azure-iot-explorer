@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import { call, put } from 'redux-saga/effects';
+import { SagaIterator } from 'redux-saga';
 import { Action } from 'typescript-fsa';
 import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 import { NotificationType } from '../../../api/models/notification';
@@ -10,7 +11,7 @@ import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { deleteDevicesAction } from '../actions';
 import { deleteDevices } from '../../../api/services/devicesService';
 
-export function* deleteDevicesSaga(action: Action<string[]>) {
+export function* deleteDevicesSaga(action: Action<string[]>): SagaIterator {
     try {
         const parameters = {
             deviceIds: action.payload,

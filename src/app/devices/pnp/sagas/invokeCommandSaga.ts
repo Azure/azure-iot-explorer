@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import { call, put } from 'redux-saga/effects';
+import { SagaIterator } from 'redux-saga';
 import { Action } from 'typescript-fsa';
 import { invokeCommandAction, InvokeCommandActionParameters } from '../actions';
 import { invokeDirectMethod } from '../../../api/services/devicesService';
@@ -13,7 +14,7 @@ import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { ParsedJsonSchema } from '../../../api/models/interfaceJsonParserOutput';
 import { getSchemaValidationErrors } from '../../../shared/utils/jsonSchemaAdaptor';
 
-export function* invokeCommandSaga(action: Action<InvokeCommandActionParameters>) {
+export function* invokeCommandSaga(action: Action<InvokeCommandActionParameters>): SagaIterator {
     const toastId: number = Math.random();
 
     try {

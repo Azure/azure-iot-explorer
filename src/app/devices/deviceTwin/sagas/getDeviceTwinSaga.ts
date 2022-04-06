@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import { call, put } from 'redux-saga/effects';
+import { SagaIterator } from 'redux-saga';
 import { Action } from 'typescript-fsa';
 import { fetchDeviceTwin } from '../../../api/services/devicesService';
 import { NotificationType } from '../../../api/models/notification';
@@ -10,7 +11,7 @@ import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getDeviceTwinAction } from '../actions';
 import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 
-export function* getDeviceTwinSaga(action: Action<string>) {
+export function* getDeviceTwinSaga(action: Action<string>): SagaIterator {
     try {
         const parameters = {
             deviceId: action.payload,

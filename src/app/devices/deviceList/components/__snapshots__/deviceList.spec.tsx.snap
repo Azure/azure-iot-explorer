@@ -7,7 +7,7 @@ exports[`DeviceList matches snapshot 1`] = `
   <div
     className="view-command"
   >
-    <Component
+    <DeviceListCommandBar
       disableAdd={false}
       disableDelete={true}
       disableRefresh={false}
@@ -19,11 +19,11 @@ exports[`DeviceList matches snapshot 1`] = `
   <div
     className="view-content view-scroll-vertical"
   >
-    <Component
+    <DeviceListQuery
       refresh={0}
       setQueryAndExecute={[Function]}
     />
-    <Component
+    <ListPaging
       fetchPage={[Function]}
     />
     <div
@@ -41,6 +41,7 @@ exports[`DeviceList matches snapshot 1`] = `
             "_isModal": false,
             "_items": Array [],
             "_keyToIndexMap": Object {},
+            "_onItemsChanged": undefined,
             "_onSelectionChanged": [Function],
             "_selectedItems": null,
             "_unselectableCount": 0,
@@ -147,6 +148,7 @@ exports[`DeviceList matches snapshot 1`] = `
               "_isModal": false,
               "_items": Array [],
               "_keyToIndexMap": Object {},
+              "_onItemsChanged": undefined,
               "_onSelectionChanged": [Function],
               "_selectedItems": null,
               "_unselectableCount": 0,

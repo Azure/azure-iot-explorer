@@ -288,7 +288,7 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
         }
       >
         <label
-          className="ms-Label root-53"
+          className="ms-Label root-109"
         >
           labelText
         </label>
@@ -1327,7 +1327,7 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
           variantClassName="ms-Button--icon"
         >
           <button
-            className="ms-Button ms-Button--icon root-54"
+            className="ms-Button ms-Button--icon root-110"
             data-is-focusable={true}
             id="iconbutton0"
             onClick={[Function]}
@@ -1339,16 +1339,16 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
             type="button"
           >
             <span
-              className="ms-Button-flexContainer flexContainer-55"
+              className="ms-Button-flexContainer flexContainer-111"
               data-automationid="splitbuttonprimary"
             >
               <FontIcon
-                className="ms-Button-icon icon-57"
+                className="ms-Button-icon icon-113"
                 iconName="Info"
               >
                 <i
                   aria-hidden={true}
-                  className="ms-Icon root-37 ms-Button-icon icon-57"
+                  className="ms-Icon root-105 ms-Button-icon icon-113"
                   data-icon-name="Info"
                   style={
                     Object {

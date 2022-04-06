@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import { call, put } from 'redux-saga/effects';
+import { SagaIterator } from 'redux-saga';
 import { NotificationType } from '../../api/models/notification';
 import { raiseNotificationToast } from '../../notifications/components/notificationToast';
 import { CONNECTION_STRING_NAME_LIST } from '../../constants/browserStorage';
@@ -11,13 +12,13 @@ import { ResourceKeys } from '../../../localization/resourceKeys';
 import { ConnectionStringWithExpiry } from '../state';
 import { setConnectionStrings } from './setConnectionStringsSaga';
 
-export function* getConnectionStringsSaga() {
+export function* getConnectionStringsSaga(): SagaIterator {
     const connectionStrings = yield call(getConnectionStrings);
     yield put(getConnectionStringsAction.done({result: connectionStrings}));
 }
 
 // tslint:disable-next-line: cyclomatic-complexity
-export function* getConnectionStrings() {
+export function* getConnectionStrings(): SagaIterator {
     const connectionStrings = localStorage.getItem(CONNECTION_STRING_NAME_LIST);
     if (connectionStrings) {
         try {

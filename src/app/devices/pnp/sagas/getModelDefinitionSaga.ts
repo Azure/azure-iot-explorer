@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import { call, CallEffect, put } from 'redux-saga/effects';
+import { SagaIterator } from 'redux-saga';
 import { Action } from 'typescript-fsa';
 import { fetchModelDefinition } from '../../../api/services/publicDigitalTwinsModelRepoService';
 import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
@@ -17,7 +18,7 @@ import { ModelDefinitionNotValidJsonError } from '../../../api/models/modelDefin
 import { GetModelDefinitionActionParameters, getModelDefinitionAction } from '../actions';
 import { ModelIdCasingNotMatchingException } from '../../../shared/utils/exceptions/modelIdCasingNotMatchingException';
 
-export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionParameters>) {
+export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionParameters>): SagaIterator {
     const { locations, interfaceId } = action.payload;
     let errorCount = 0;
     for (const location of locations) { // try to get model definition in order according to user's location settings
@@ -64,7 +65,7 @@ export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionP
     }
 }
 
-export function* validateModelDefinitionHelper(modelDefinition: ModelDefinition, location: RepositoryLocationSettings) {
+export function* validateModelDefinitionHelper(modelDefinition: ModelDefinition, location: RepositoryLocationSettings): SagaIterator {
     return true; // commenting out validating model until it aligns with local parser
 }
 
@@ -91,7 +92,7 @@ export const checkModelIdCasing = (model: ModelDefinition, id: string) => {
     }
 };
 
-export function* getModelDefinitionFromPublicRepo(action: Action<GetModelDefinitionActionParameters>) {
+export function* getModelDefinitionFromPublicRepo(action: Action<GetModelDefinitionActionParameters>): SagaIterator {
     const splitInterfaceId = getSplitInterfaceId(action.payload.interfaceId);
     const parameters: FetchModelParameters = {
         id: splitInterfaceId[0],
@@ -102,7 +103,7 @@ export function* getModelDefinitionFromPublicRepo(action: Action<GetModelDefinit
     return getFlattenedModel(model, splitInterfaceId);
 }
 
-export function* getModelDefinitionFromConfigurableRepo(action: Action<GetModelDefinitionActionParameters>) {
+export function* getModelDefinitionFromConfigurableRepo(action: Action<GetModelDefinitionActionParameters>): SagaIterator {
     const configurableRepoUrls = action.payload.locations.filter(location => location.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Configurable);
     const configurableRepoUrl = configurableRepoUrls && configurableRepoUrls[0] && configurableRepoUrls[0].value || '';
     const url = configurableRepoUrl.replace(/\/$/, ''); // remove trailing slash
@@ -117,7 +118,7 @@ export function* getModelDefinitionFromConfigurableRepo(action: Action<GetModelD
     return getFlattenedModel(model, splitInterfaceId);
 }
 
-export function* getModelDefinitionFromLocalFile(action: Action<GetModelDefinitionActionParameters>) {
+export function* getModelDefinitionFromLocalFile(action: Action<GetModelDefinitionActionParameters>): SagaIterator {
     const localFolderPaths = action.payload.locations.filter(location => location.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local);
     const localFolderPath = localFolderPaths && localFolderPaths[0] && localFolderPaths[0].value || '';
     const path = localFolderPath.replace(/\/$/, ''); // remove trailing slash
@@ -126,7 +127,7 @@ export function* getModelDefinitionFromLocalFile(action: Action<GetModelDefiniti
     return getFlattenedModel(model, splitInterfaceId);
 }
 
-export function* getModelDefinition(action: Action<GetModelDefinitionActionParameters>, location: RepositoryLocationSettings) {
+export function* getModelDefinition(action: Action<GetModelDefinitionActionParameters>, location: RepositoryLocationSettings): SagaIterator {
     switch (location.repositoryLocationType) {
         case REPOSITORY_LOCATION_TYPE.Local:
             return yield call(getModelDefinitionFromLocalFile, action);

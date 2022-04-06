@@ -19,7 +19,7 @@ exports[`moduleDirectMethod matches snapshot 1`] = `
       ]
     }
   />
-  <Component
+  <DirectMethodForm
     connectionTimeOut={10}
     methodName=""
     responseTimeOut={10}

@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import { call, put, takeEvery } from 'redux-saga/effects';
+import { SagaIterator } from 'redux-saga';
 import { Action } from 'typescript-fsa';
 import { cloudToDeviceMessageAction, CloudToDeviceMessageActionParameters } from './actions';
 import { cloudToDeviceMessage } from '../../api/services/devicesService';
@@ -11,7 +12,7 @@ import { NotificationType } from '../../api/models/notification';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { CloudToDeviceMessageParameters } from '../../api/parameters/deviceParameters';
 
-export function* cloudToDeviceMessageSagaWorker(action: Action<CloudToDeviceMessageActionParameters>) {
+export function* cloudToDeviceMessageSagaWorker(action: Action<CloudToDeviceMessageActionParameters>): SagaIterator {
     const toastId: number = Math.random();
 
     try {
@@ -63,6 +64,6 @@ export function* cloudToDeviceMessageSagaWorker(action: Action<CloudToDeviceMess
     }
 }
 
-export function* cloudToDeviceMessageSaga() {
+export function* cloudToDeviceMessageSaga(): SagaIterator {
     yield takeEvery(cloudToDeviceMessageAction.started.type, cloudToDeviceMessageSagaWorker);
 }

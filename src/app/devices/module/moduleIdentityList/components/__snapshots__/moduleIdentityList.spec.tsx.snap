@@ -28,7 +28,7 @@ exports[`ModuleIdentityList snapshot matches snapshot when fetch failed 1`] = `
       ]
     }
   />
-  <Component
+  <HeaderView
     headerText="moduleIdentity.headerText"
     link="moduleIdentity.link"
     tooltip="moduleIdentity.tooltip"
@@ -128,7 +128,7 @@ exports[`ModuleIdentityList snapshot matches snapshot while loading 1`] = `
       ]
     }
   />
-  <Component
+  <HeaderView
     headerText="moduleIdentity.headerText"
     link="moduleIdentity.link"
     tooltip="moduleIdentity.tooltip"
@@ -195,7 +195,7 @@ exports[`ModuleIdentityList snapshot matches snapshot while loading 1`] = `
         selectionMode={0}
       />
     </div>
-    <Component />
+    <MultiLineShimmer />
   </div>
 </Fragment>
 `;
@@ -228,7 +228,7 @@ exports[`ModuleIdentityList snapshot matches snapshot with moduleIdentityList 1`
       ]
     }
   />
-  <Component
+  <HeaderView
     headerText="moduleIdentity.headerText"
     link="moduleIdentity.link"
     tooltip="moduleIdentity.tooltip"
@@ -303,7 +303,7 @@ exports[`ModuleIdentityList snapshot matches snapshot with moduleIdentityList 1`
         selectionMode={0}
       />
     </div>
-    <Component />
+    <MultiLineShimmer />
   </div>
 </Fragment>
 `;

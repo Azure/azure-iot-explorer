@@ -7,7 +7,7 @@ exports[`DeviceModules matches snapshot 1`] = `
     exact={true}
     path=""
   />
-  <Component
+  <BreadcrumbRoute
     breadcrumb={
       Object {
         "name": "breadcrumb.addModuleIdentity",
@@ -16,9 +16,9 @@ exports[`DeviceModules matches snapshot 1`] = `
     exact={true}
     path="/add"
   >
-    <Component />
-  </Component>
-  <Component
+    <AddModuleIdentity />
+  </BreadcrumbRoute>
+  <BreadcrumbRoute
     breadcrumb={
       Object {
         "name": "mod1",
@@ -28,9 +28,9 @@ exports[`DeviceModules matches snapshot 1`] = `
     exact={true}
     path="/moduleDetail"
   >
-    <Component />
-  </Component>
-  <Component
+    <ModuleIdentityDetail />
+  </BreadcrumbRoute>
+  <BreadcrumbRoute
     breadcrumb={
       Object {
         "name": "mod1",
@@ -40,9 +40,9 @@ exports[`DeviceModules matches snapshot 1`] = `
     exact={true}
     path="/moduleTwin"
   >
-    <Component />
-  </Component>
-  <Component
+    <ModuleIdentityTwin />
+  </BreadcrumbRoute>
+  <BreadcrumbRoute
     breadcrumb={
       Object {
         "name": "mod1",
@@ -52,9 +52,9 @@ exports[`DeviceModules matches snapshot 1`] = `
     exact={true}
     path="/moduleMethod"
   >
-    <Component />
-  </Component>
-  <Component
+    <ModuleDirectMethod />
+  </BreadcrumbRoute>
+  <BreadcrumbRoute
     breadcrumb={
       Object {
         "name": "mod1",
@@ -63,9 +63,9 @@ exports[`DeviceModules matches snapshot 1`] = `
     }
     path="/moduleEvents"
   >
-    <Component />
-  </Component>
-  <Component
+    <DeviceEvents />
+  </BreadcrumbRoute>
+  <BreadcrumbRoute
     breadcrumb={
       Object {
         "disableLink": true,
@@ -75,7 +75,7 @@ exports[`DeviceModules matches snapshot 1`] = `
     }
     path="/modulePnp"
   >
-    <Component />
-  </Component>
+    <Pnp />
+  </BreadcrumbRoute>
 </Fragment>
 `;

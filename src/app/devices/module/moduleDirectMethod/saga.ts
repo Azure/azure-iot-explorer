@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import { call, put, takeEvery } from 'redux-saga/effects';
+import { SagaIterator } from 'redux-saga';
 import { Action } from 'typescript-fsa';
 import { invokeModuleDirectMethodAction, InvokeModuleMethodActionParameters } from './actions';
 import { invokeModuleDirectMethod } from '../../../api/services/moduleService';
@@ -11,7 +12,7 @@ import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { InvokeModuleMethodParameters } from '../../../api/parameters/moduleParameters';
 
-export function* invokeModuleDirectMethodSagaWorker(action: Action<InvokeModuleMethodActionParameters>) {
+export function* invokeModuleDirectMethodSagaWorker(action: Action<InvokeModuleMethodActionParameters>): SagaIterator {
     const toastId: number = Math.random();
 
     try {

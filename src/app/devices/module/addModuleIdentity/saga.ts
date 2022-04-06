@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import { call, put, takeEvery } from 'redux-saga/effects';
+import { SagaIterator } from 'redux-saga';
 import { Action } from 'typescript-fsa';
 import { addModuleIdentity } from '../../../api/services/moduleService';
 import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
@@ -11,7 +12,7 @@ import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { addModuleIdentityAction } from './actions';
 import { ModuleIdentity } from './../../../api/models/moduleIdentity';
 
-export function* addModuleIdentitySagaWorker(action: Action<ModuleIdentity>) {
+export function* addModuleIdentitySagaWorker(action: Action<ModuleIdentity>): SagaIterator {
     try {
         const parameters = {
             moduleIdentity: action.payload,

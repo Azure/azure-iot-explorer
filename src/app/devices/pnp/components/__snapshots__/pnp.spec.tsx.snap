@@ -24,7 +24,7 @@ exports[`pnp matches snapshot 1`] = `
     exact={true}
     path="/#/devices/deviceDetail/ioTPlugAndPlay/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1;1"
   />
-  <Component
+  <BreadcrumbRoute
     breadcrumb={
       Object {
         "name": "foo",
@@ -32,7 +32,7 @@ exports[`pnp matches snapshot 1`] = `
     }
     path="/#/devices/deviceDetail/ioTPlugAndPlay/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1;1/ioTPlugAndPlayDetail"
   >
-    <Component />
-  </Component>
+    <DigitalTwinDetail />
+  </BreadcrumbRoute>
 </ContextProvider>
 `;

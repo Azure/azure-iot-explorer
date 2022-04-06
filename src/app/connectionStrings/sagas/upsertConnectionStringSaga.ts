@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import { call, put } from 'redux-saga/effects';
+import { SagaIterator } from 'redux-saga';
 import { Action } from 'typescript-fsa';
 import { CONNECTION_STRING_LIST_MAX_LENGTH } from '../../constants/browserStorage';
 import { upsertConnectionStringAction } from '../actions';
@@ -10,7 +11,7 @@ import { setConnectionStrings } from './setConnectionStringsSaga';
 import { getConnectionStrings } from './getConnectionStringsSaga';
 import { ConnectionStringWithExpiry } from '../state';
 
-export function* upsertConnectionStringSaga(action: Action<ConnectionStringWithExpiry>) {
+export function* upsertConnectionStringSaga(action: Action<ConnectionStringWithExpiry>): SagaIterator {
     const savedStrings: ConnectionStringWithExpiry[] = yield call(getConnectionStrings);
     let updatedValues: ConnectionStringWithExpiry[];
 
