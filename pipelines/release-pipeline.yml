@@ -81,7 +81,7 @@ stages:
       displayName: "Package for MacOS"
 
       pool:
-        vmImage: ${{ parameters.macImage }}
+        vmImage: macos-latest
       
       steps:
       - template: '.\common\install-node.yml'
