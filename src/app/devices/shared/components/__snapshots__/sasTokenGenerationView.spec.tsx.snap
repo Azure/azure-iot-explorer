@@ -72,11 +72,11 @@ exports[`devices/components/moduleIdentityTwin snapshot matches snapshot when no
       options={
         Array [
           Object {
-            "key": "key1",
+            "key": "mock_key_1",
             "text": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
           },
           Object {
-            "key": "key2",
+            "key": "mock_key_2",
             "text": "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
           },
         ]

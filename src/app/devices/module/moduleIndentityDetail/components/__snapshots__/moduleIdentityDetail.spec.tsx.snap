@@ -137,7 +137,7 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after sas module identit
       label="moduleIdentity.authenticationType.symmetricKey.primaryKey"
       labelCallout="moduleIdentity.authenticationType.symmetricKey.primaryKeyTooltip"
       readOnly={true}
-      value="key1"
+      value="mock_key_1"
     />
     <MaskedCopyableTextField
       allowMask={true}
@@ -145,21 +145,21 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after sas module identit
       label="moduleIdentity.authenticationType.symmetricKey.secondaryKey"
       labelCallout="moduleIdentity.authenticationType.symmetricKey.secondaryKeyTooltip"
       readOnly={true}
-      value="key2"
+      value="mock_key_2"
     />
     <MaskedCopyableTextField
       allowMask={true}
       ariaLabel="moduleIdentity.authenticationType.symmetricKey.primaryConnectionString"
       label="moduleIdentity.authenticationType.symmetricKey.primaryConnectionString"
       readOnly={true}
-      value="HostName=hostName;DeviceId=newdevice;ModuleId=moduleId;SharedAccessKey=key1"
+      value="HostName=hostName;DeviceId=newdevice;ModuleId=moduleId;SharedAccessKey=mock_key_1"
     />
     <MaskedCopyableTextField
       allowMask={true}
       ariaLabel="moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString"
       label="moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString"
       readOnly={true}
-      value="HostName=hostName;DeviceId=newdevice;ModuleId=moduleId;SharedAccessKey=key2"
+      value="HostName=hostName;DeviceId=newdevice;ModuleId=moduleId;SharedAccessKey=mock_key_2"
     />
     <SasTokenGenerationView
       activeAzureResourceHostName="hostName"
@@ -167,8 +167,8 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after sas module identit
         Object {
           "authentication": Object {
             "symmetricKey": Object {
-              "primaryKey": "key1",
-              "secondaryKey": "key2",
+              "primaryKey": "mock_key_1",
+              "secondaryKey": "mock_key_2",
             },
             "type": "sas",
             "x509Thumbprint": null,

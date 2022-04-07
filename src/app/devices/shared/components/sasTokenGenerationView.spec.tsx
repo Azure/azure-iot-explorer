@@ -26,8 +26,8 @@ const moduleId = 'testModule';
 const moduleIdentity: ModuleIdentity = {
     authentication: {
         symmetricKey: {
-            primaryKey: 'key1',
-            secondaryKey: 'key2'
+            primaryKey: 'mock_key_1',
+            secondaryKey: 'mock_key_2'
         },
         type: 'sas',
         x509Thumbprint: null

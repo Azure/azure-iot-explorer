@@ -5,6 +5,7 @@ steps:
     inputs:
       outputFormat: 'pre'
       scanFolder: '$(Build.SourcesDirectory)'
+      suppressionsFile: '$(Build.SourcesDirectory)/.config/CredScanSuppressions.json'
 
   # policheck
   - task: securedevelopmentteam.vss-secure-development-tools.build-task-policheck.PoliCheck@1
