@@ -131,7 +131,7 @@
     "file-loader": "2.0.0",
     "html-webpack-plugin": "5.5.0",
     "is-svg": "4.3.2",
-    "jest": "26.4.2",j
+    "jest": "26.4.2",
     "jest-trx-results-processor": "0.0.7",
     "lodash": "4.17.21",
     "mini-css-extract-plugin": "2.6.0",
