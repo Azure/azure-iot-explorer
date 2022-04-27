@@ -305,6 +305,10 @@ stages:
       demands:
       - ImageOverride -equals $(linuxVmImage)
     jobs:
+    - deployment: 'StageRelease'
+      displayName: 'Stage GitHub Release'
+      environment: 'production'
+
     - job: publishRelease
       displayName: 'Publish artifacts and draft GitHub Release'
       steps:
