@@ -13,6 +13,30 @@ parameters:
   displayName: 'Linux build agent image'
   type: string
   default: 'LinuxBuildAgentImage'
+- name: linuxTestImage
+  displayName: 'Linux test agent image'
+  type: string
+  default: 'ubuntu-latest'
+  values:
+  - 'ubuntu-18.04'
+  - 'ubuntu-20.04'
+  - 'ubuntu-latest'
+- name: windowsTestImage
+  displayName: 'Windows test agent image'
+  type: string
+  default: 'windows-latest'
+  values:
+  - 'windows-2019'
+  - 'windows-2022'
+  - 'windows-latest'
+- name: macBuildImage
+  displayName: 'MacOS test agent image'
+  type: string
+  default: 'macOS-latest'
+  values:
+  - 'macOS-10.15'
+  - 'macOS-11'
+  - 'macOS-latest'
 - name: release
   displayName: 'Publish Release'
   type: boolean
@@ -31,14 +55,14 @@ stages:
     - job: SDL_checks
       displayName: 'SDL checks'
       pool:
-        vmImage: windows-latest
+        vmImage: ${{ parameters.windowsTestImage }}
       steps:
         - template: 'common/sdl-checks.yml'
   - stage: 'Test'
     displayName: 'Build and Test'
     dependsOn: [SDL]
     pool:
-      vmImage: ubuntu-latest
+      vmImage: ${{ parameters.linuxTestImage }}
     jobs:
     - job: build_and_test
       displayName: 'Build and Test Source'
@@ -81,7 +105,7 @@ stages:
       displayName: "Package for MacOS"
 
       pool:
-        vmImage: macos-latest
+        vmImage: ${{ parameters.macBuildImage }}
       
       steps:
       - template: '.\common\install-node.yml'
