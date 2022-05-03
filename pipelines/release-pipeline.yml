@@ -1,58 +1,94 @@
 trigger: none
 
 parameters:
-- name: linuxImage
+- name: buildAgentPoolVar
+  displayName: 'Build agent pool'
   type: string
-  default: 'ubuntu-18.04'
+  default: 'BuildAgentPool'
+- name: windowsBuildAgentVmImageVar
+  displayName: 'Windows build agent image'
+  type: string
+  default: 'WindowsBuildAgentImage'
+- name: linuxBuildAgentVmImageVar
+  displayName: 'Linux build agent image'
+  type: string
+  default: 'LinuxBuildAgentImage'
+- name: linuxTestImage
+  displayName: 'Linux test agent image'
+  type: string
+  default: 'ubuntu-latest'
   values:
   - 'ubuntu-18.04'
+  - 'ubuntu-20.04'
   - 'ubuntu-latest'
-- name: windowsImage
+- name: windowsTestImage
+  displayName: 'Windows test agent image'
   type: string
-  default: 'windows-2019'
+  default: 'windows-latest'
   values:
   - 'windows-2019'
+  - 'windows-2022'
   - 'windows-latest'
-- name: macImage
+- name: macBuildImage
+  displayName: 'MacOS test agent image'
   type: string
-  default: 'macOS-10.15'
+  default: 'macOS-latest'
   values:
   - 'macOS-10.15'
+  - 'macOS-11'
   - 'macOS-latest'
+- name: release
+  displayName: 'Publish Release'
+  type: boolean
+  default: false
+
+variables:
+  - name: winVmImage
+    value: $[variables.${{ parameters.windowsBuildAgentVmImageVar }}]
+  - name: linuxVmImage
+    value: $[variables.${{ parameters.linuxBuildAgentVmImageVar }}]
 
 stages:
-  - stage: 'build'
+  - stage: 'SDL'
+    displayName: 'SDL Stage'
+    jobs:
+    - job: SDL_checks
+      displayName: 'SDL checks'
+      pool:
+        vmImage: ${{ parameters.windowsTestImage }}
+      steps:
+        - template: 'common/sdl-checks.yml'
+  - stage: 'Test'
     displayName: 'Build and Test'
+    dependsOn: [SDL]
     pool:
-      vmImage: ${{ parameters.linuxImage }}
+      vmImage: ${{ parameters.linuxTestImage }}
     jobs:
     - job: build_and_test
       displayName: 'Build and Test Source'
       steps:
       - template: .\build-and-test-template.yml
-    - job: scan
-      pool:
-        vmImage: ${{ parameters.windowsImage }}
-      steps:
-      - task: ea576cd4-c61f-48f8-97e7-a3cb07b90a6f@2
-        displayName: 'CredScan V2'
-        inputs:
-          toolMajorVersion: 'V2'
-
-  - stage: 'package'
+  - stage: 'Package'
     displayName: 'Package for all platforms'
-    dependsOn: 'build'
+    dependsOn: [SDL, Test]
     jobs:
     - job: packageWindows
       displayName: "Package for Windows"
-
       pool:
-        vmImage: ${{ parameters.windowsImage }}
+        name: $[variables.${{ parameters.buildAgentPoolVar }}]
+        vmImage: $(winVmImage)
+        demands:
+          - ImageOverride -equals $(winVmImage)
 
       steps:
       - template: '.\common\install-node.yml'
           
       - template: '.\build-windows.yml'
+
+      - task: AzureArtifacts.manifest-generator-task.manifest-generator-task.ManifestGeneratorTask@0
+        displayName: 'Generate Software Manifest'
+        inputs:
+          BuildDropPath: '$(Build.SourcesDirectory)/dist/'
 
       - task: CopyFiles@2
         displayName: 'ArtifactIgnore'
@@ -69,12 +105,17 @@ stages:
       displayName: "Package for MacOS"
 
       pool:
-        vmImage: ${{ parameters.macImage }}
+        vmImage: ${{ parameters.macBuildImage }}
       
       steps:
       - template: '.\common\install-node.yml'
           
       - template: '.\build-mac.yml'
+
+      - task: AzureArtifacts.manifest-generator-task.manifest-generator-task.ManifestGeneratorTask@0
+        displayName: 'Generate Software Manifest'
+        inputs:
+          BuildDropPath: '$(Build.SourcesDirectory)/dist/'
 
       - task: CopyFiles@2
         displayName: 'ArtifactIgnore'
@@ -90,12 +131,19 @@ stages:
     - job: packageLinux
       displayName: "Package for Linux"
       pool:
-          vmImage: ${{ parameters.linuxImage }}
-
+        name: $[variables.${{ parameters.buildAgentPoolVar }}]
+        vmImage: $(linuxVmImage)
+        demands:
+        - ImageOverride -equals $(linuxVmImage)
       steps:
       - template: '.\common\install-node.yml'
           
       - template: '.\build-linux.yml'
+
+      - task: AzureArtifacts.manifest-generator-task.manifest-generator-task.ManifestGeneratorTask@0
+        displayName: 'Generate Software Manifest'
+        inputs:
+          BuildDropPath: '$(Build.SourcesDirectory)/dist/'
 
       - task: CopyFiles@2
         displayName: 'ArtifactIgnore'
@@ -107,12 +155,14 @@ stages:
       - publish: $(Build.SourcesDirectory)/dist/
         displayName: 'Staging artifact for signing'
         artifact: Linux
-
-  - stage: 'codeSign'
-    displayName: 'CodeSign and Release'
-    dependsOn: 'package'
+  - stage: 'CodeSign'
+    displayName: 'CodeSign Packages'
+    dependsOn: [SDL, Test, Package]
     pool:
-      vmImage: ${{ parameters.linuxImage }}
+      name: $[variables.${{ parameters.buildAgentPoolVar }}]
+      vmImage: $(linuxVmImage)
+      demands:
+      - ImageOverride -equals $(linuxVmImage)
     jobs:
 
     - job: signWindows
@@ -269,12 +319,22 @@ stages:
         displayName: 'Staging signed artifact for release'
         artifact: Linux_Signed
 
+  - stage: 'Release'
+    displayName: 'Publish Release'
+    condition: ${{ parameters.release }}
+    dependsOn: [SDL, Test, Package, CodeSign]
+    pool:
+      name: $[variables.${{ parameters.buildAgentPoolVar }}]
+      vmImage: $(linuxVmImage)
+      demands:
+      - ImageOverride -equals $(linuxVmImage)
+    jobs:
+    - deployment: 'StageRelease'
+      displayName: 'Stage GitHub Release'
+      environment: 'production'
+
     - job: publishRelease
       displayName: 'Publish artifacts and draft GitHub Release'
-      dependsOn:
-      - signWindows
-      - signMac
-      - signLinux
       steps:
       - download: current
         artifact: Windows_Signed
