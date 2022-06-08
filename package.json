@@ -128,7 +128,6 @@
     "enzyme": "3.11.0",
     "enzyme-adapter-react-16": "1.15.1",
     "enzyme-to-json": "3.3.5",
-    "file-loader": "2.0.0",
     "html-webpack-plugin": "5.5.0",
     "is-svg": "4.3.2",
     "jest": "26.4.2",
