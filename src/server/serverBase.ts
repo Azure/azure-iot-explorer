@@ -234,8 +234,8 @@ export const handleEventHubMonitorPostRequest = (req: express.Request, res: expr
     try {
         if (!req.body) {
             res.status(BAD_REQUEST).send();
+            return;
         }
-
         eventHubProvider(req.body).then(() => {
             res.status(SUCCESS).send(messages);
             messages = [];
@@ -317,7 +317,7 @@ export const eventHubProvider = async (params: any) =>  {
         connectionString = params.customEventHubConnectionString;
     }
     else {
-        if (params.hubConnectionString != hubConnectionString) {
+        if (params?.hubConnectionString && params.hubConnectionString != hubConnectionString) {
             connectionString = await convertIotHubToEventHubsConnectionString(params.hubConnectionString);
             // save strings for future use
             hubConnectionString = params.hubConnectionString;

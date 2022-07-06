@@ -17,7 +17,7 @@ import { globalReducer } from './app/shared/global/reducer';
 import { globalSaga } from './app/shared/global/saga';
 import { useBreadcrumbs } from './app/navigation/hooks/useBreadcrumbs';
 import { BreadcrumbContext } from './app/navigation/hooks/useBreadcrumbContext';
-import { i18n } from './i18n';
+import i18n from './i18n';
 import './app/css/_index.scss';
 
 initializeIcons();

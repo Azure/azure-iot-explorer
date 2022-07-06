@@ -261,7 +261,7 @@ stages:
               {
                 "KeyCode" : "CP-401337-Apple",
                 "OperationCode" : "MacAppNotarize",
-                "Parameters" : {"BundleId":"com.microsoft.Azure.IoTExplorer"},
+                "Parameters" : {"BundleId":"com.microsoft.azure.iot.pnp.ui"},
                 "ToolName" : "sign",
                 "ToolVersion" : "1.0"
               }

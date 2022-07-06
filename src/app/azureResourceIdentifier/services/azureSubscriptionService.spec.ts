@@ -9,6 +9,13 @@ import { APPLICATION_JSON } from '../../constants/apiConstants';
 
 describe('getAzureSubscriptions', () => {
     it('calls fetch with expected parameters', () => {
+        const fetch = jest.spyOn(window, 'fetch').mockResolvedValue({
+            json: () => {
+                return {};
+            },
+            ok: true,
+
+        } as any); // tslint:disable-line:no-any
         getAzureSubscriptions({
             azureResourceManagementEndpoint: {
                 authorizationToken: 'token',

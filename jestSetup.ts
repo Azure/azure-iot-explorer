@@ -7,8 +7,8 @@ import * as Enzyme from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';
 
 // tslint:disable-next-line: no-string-literal
-global['Headers'] = () => {};
-window.parent.fetch = jest.fn();
+global.Headers = jest.fn();
+window.fetch = jest.fn();
 
 // suppress icon warnings.
 setIconOptions({
