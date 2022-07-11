@@ -25,6 +25,8 @@ import { getConnectionStringsAction } from './../actions';
 import { useBreadcrumbEntry } from '../../navigation/hooks/useBreadcrumbEntry';
 import '../../css/_layouts.scss';
 import './connectionStringsView.scss';
+import { AppInsightsClient } from '../../shared/appTelemetry/appInsightsClient';
+import { TELEMETRY_PAGE_NAMES } from '../../../app/constants/telemetry';
 
 // tslint:disable-next-line: cyclomatic-complexity
 export const ConnectionStringsView: React.FC = () => {
@@ -80,6 +82,10 @@ export const ConnectionStringsView: React.FC = () => {
     React.useEffect(() => {
         dispatch(getConnectionStringsAction.started());
     },              []);
+
+    React.useEffect(() => {
+        AppInsightsClient.getInstance().trackPageView({name: TELEMETRY_PAGE_NAMES.HUBS});
+    }, []); // tslint:disable-line: align
 
     React.useEffect(() => {
         if (synchronizationStatus === SynchronizationStatus.upserted) { // only when connection string updated successfully would navigate to device list view

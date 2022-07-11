@@ -16,6 +16,8 @@ import { SynchronizationStatus } from '../../../../api/models/synchronizationSta
 import { InvokeCommandActionParameters, invokeCommandAction } from '../../actions';
 import { getDeviceCommandPairs } from './dataHelper';
 import { getBackUrl } from '../../utils';
+import { AppInsightsClient } from '../../../../shared/appTelemetry/appInsightsClient';
+import { TELEMETRY_PAGE_NAMES } from '../../../../../app/constants/telemetry';
 
 export const DeviceCommands: React.FC = () => {
     const { search, pathname } = useLocation();
@@ -55,6 +57,10 @@ export const DeviceCommands: React.FC = () => {
         const path = pathname.replace(/\/ioTPlugAndPlayDetail\/commands\/.*/, ``);
         history.push(getBackUrl(path, search));
     };
+
+    React.useEffect(() => {
+        AppInsightsClient.getInstance().trackPageView({name: TELEMETRY_PAGE_NAMES.PNP_COMMANDS});
+    }, []); // tslint:disable-line: align
 
     if (isLoading) {
         return (

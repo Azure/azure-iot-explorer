@@ -18,6 +18,8 @@ import { HeaderView } from '../../../shared/components/headerView';
 import { useAsyncSagaReducer } from '../../../shared/hooks/useAsyncSagaReducer';
 import { cloudToDeviceMessageSaga } from '../saga';
 import '../../../css/_deviceDetail.scss';
+import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
+import { TELEMETRY_PAGE_NAMES } from '../../../../app/constants/telemetry';
 
 interface PropertyItem {
     isSystemProperty: boolean;
@@ -58,6 +60,10 @@ export const CloudToDeviceMessage: React.FC = () => {
     const selection = new Selection({
         onSelectionChanged: () => onSelectionChanged()
     });
+
+    React.useEffect(() => {
+        AppInsightsClient.getInstance().trackPageView({name: TELEMETRY_PAGE_NAMES.CLOUD_TO_DEVICE_MESSAGE});
+    }, []); // tslint:disable-line: align
 
     const showCommandBar = () => {
         // if properties has duplicate keys excluding white space, disable send message button

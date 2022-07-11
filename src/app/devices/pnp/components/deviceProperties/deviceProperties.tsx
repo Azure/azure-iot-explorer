@@ -15,6 +15,8 @@ import { usePnpStateContext } from '../../../../shared/contexts/pnpStateContext'
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { generateReportedTwinSchemaAndInterfaceTuple } from './dataHelper';
 import { dispatchGetTwinAction, getBackUrl } from '../../utils';
+import { AppInsightsClient } from '../../../../shared/appTelemetry/appInsightsClient';
+import { TELEMETRY_PAGE_NAMES } from '../../../../../app/constants/telemetry';
 
 export const DeviceProperties: React.FC = () => {
     const { t } = useTranslation();
@@ -57,6 +59,10 @@ export const DeviceProperties: React.FC = () => {
     if (isLoading) {
         return  <MultiLineShimmer/>;
     }
+
+    React.useEffect(() => {
+        AppInsightsClient.getInstance().trackPageView({name: TELEMETRY_PAGE_NAMES.PNP_PROPERTIES});
+    }, []); // tslint:disable-line: align
 
     return (
         <>

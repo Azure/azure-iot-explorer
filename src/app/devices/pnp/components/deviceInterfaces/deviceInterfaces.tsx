@@ -20,6 +20,8 @@ import { usePnpStateContext } from '../../../../shared/contexts/pnpStateContext'
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { getBackUrl } from '../../utils';
 import '../../../../css/_deviceInterface.scss';
+import { AppInsightsClient } from '../../../../shared/appTelemetry/appInsightsClient';
+import { TELEMETRY_PAGE_NAMES } from '../../../../../app/constants/telemetry';
 
 export const DeviceInterfaces: React.FC = () => {
     const { t } = useTranslation();
@@ -111,6 +113,10 @@ export const DeviceInterfaces: React.FC = () => {
         const path = pathname.replace(/\/ioTPlugAndPlayDetail\/interfaces\/.*/, ``);
         history.push(getBackUrl(path, search));
     };
+
+    React.useEffect(() => {
+        AppInsightsClient.getInstance().trackPageView({name: TELEMETRY_PAGE_NAMES.PNP_INTERFACES});
+    }, []); // tslint:disable-line: align
 
     return (isLoading ? <MultiLineShimmer/> : (
         <>
