@@ -32,7 +32,7 @@ export const DirectMethod: React.FC = () => {
     const [responseTimeOut, setResponseTimeOut] = React.useState<number>(DEFAULT_TIMEOUT);
 
     React.useEffect(() => {
-        AppInsightsClient.getInstance().trackPageView({name: TELEMETRY_PAGE_NAMES.DIRECT_METHOD});
+        AppInsightsClient.getInstance().trackPageView({name: TELEMETRY_PAGE_NAMES.DEVICE_DIRECT_METHOD});
     }, []); // tslint:disable-line: align
 
     const showCommandBar = () => {
