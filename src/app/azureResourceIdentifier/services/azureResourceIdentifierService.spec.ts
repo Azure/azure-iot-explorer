@@ -9,6 +9,12 @@ import { HTTP_OPERATION_TYPES, APPLICATION_JSON } from '../../constants/apiConst
 
 describe('getAzureResourceIdentifiers', () => {
     it('calls fetch with specificed parameters', () => {
+        const fetch = jest.spyOn(window, "fetch").mockResolvedValue({
+            json: () => {
+                return {};
+            },
+            ok: true,
+        } as any); 
         getAzureResourceIdentifiers({
             azureResourceManagementEndpoint: {
                 authorizationToken: 'token',
@@ -266,6 +272,12 @@ describe('getAzureResourceIdentifiers', () => {
 
 describe('getAzureResourceIdentifier', () => {
     it('calls fetch with specificed parameters', () => {
+        const fetch = jest.spyOn(window, "fetch").mockResolvedValue({
+            json: () => {
+                return {};
+            },
+            ok: true,
+        } as any); 
         getAzureResourceIdentifier({
             azureResourceManagementEndpoint: {
                 authorizationToken: 'token',

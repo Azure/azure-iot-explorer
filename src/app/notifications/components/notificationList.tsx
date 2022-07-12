@@ -14,6 +14,8 @@ import { useBreadcrumbEntry } from '../../navigation/hooks/useBreadcrumbEntry';
 import { ROUTE_PARAMS } from '../../constants/routes';
 import { CANCEL, NAVIGATE_BACK } from '../../constants/iconNames';
 import '../../css/_notification.scss';
+import { AppInsightsClient } from '../../shared/appTelemetry/appInsightsClient';
+import { TELEMETRY_PAGE_NAMES } from '../../../app/constants/telemetry';
 
 export const NotificationList: React.FC = () => {
     const { t } = useTranslation();
@@ -57,6 +59,10 @@ export const NotificationList: React.FC = () => {
 
         return items;
     };
+
+    React.useEffect(() => {
+        AppInsightsClient.getInstance().trackPageView({name: TELEMETRY_PAGE_NAMES.NOTIFICATION_LIST});
+    }, []); // tslint:disable-line: align
 
     return (
         <>

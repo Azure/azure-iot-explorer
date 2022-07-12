@@ -25,6 +25,8 @@ import { DEFAULT_COMPONENT_FOR_DIGITAL_TWIN } from '../../../constants/devices';
 import { ErrorBoundary } from '../../shared/components/errorBoundary';
 import '../../../css/_digitalTwinInterfaces.scss';
 import { dispatchGetTwinAction } from '../utils';
+import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
+import { TELEMETRY_PAGE_NAMES } from '../../../../app/constants/telemetry';
 
 interface ModelContent {
     link: string;
@@ -219,6 +221,10 @@ export const DigitalTwinInterfacesList: React.FC = () => {
             </>
         );
     };
+
+    React.useEffect(() => {
+        AppInsightsClient.getInstance().trackPageView({name: TELEMETRY_PAGE_NAMES.PNP_HOME});
+    }, []); // tslint:disable-line: align
 
     return (
         <>

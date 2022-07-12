@@ -20,6 +20,8 @@ import { moduleIdentityTwinSagas } from '../saga';
 import { moduleTwinStateInitial } from '../state';
 import '../../../../css/_deviceDetail.scss';
 import '../../../../css/_moduleIdentityDetail.scss';
+import { AppInsightsClient } from '../../../../shared/appTelemetry/appInsightsClient';
+import { TELEMETRY_PAGE_NAMES } from '../../../../../app/constants/telemetry';
 
 export const ModuleIdentityTwin: React.FC = () => {
     const { t } = useTranslation();
@@ -40,6 +42,10 @@ export const ModuleIdentityTwin: React.FC = () => {
     React.useEffect(() => {
         retrieveData();
     },              [deviceId, moduleId]);
+
+    React.useEffect(() => {
+        AppInsightsClient.getInstance().trackPageView({name: TELEMETRY_PAGE_NAMES.MODULE_TWIN});
+    }, []); // tslint:disable-line: align
 
     const retrieveData = () => dispatch(getModuleIdentityTwinAction.started({ deviceId, moduleId }));
 

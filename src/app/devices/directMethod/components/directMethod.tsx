@@ -15,6 +15,8 @@ import { invokeDirectMethodSaga } from '../saga';
 import { invokeDirectMethodAction } from '../actions';
 import { DirectMethodForm } from './directMethodForm';
 import '../../../css/_deviceDetail.scss';
+import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
+import { TELEMETRY_PAGE_NAMES } from '../../../../app/constants/telemetry';
 
 const DEFAULT_TIMEOUT = 10;
 
@@ -28,6 +30,10 @@ export const DirectMethod: React.FC = () => {
     const [methodName, setMethodName] = React.useState<string>('');
     const [payload, setPayload] = React.useState<string>('');
     const [responseTimeOut, setResponseTimeOut] = React.useState<number>(DEFAULT_TIMEOUT);
+
+    React.useEffect(() => {
+        AppInsightsClient.getInstance().trackPageView({name: TELEMETRY_PAGE_NAMES.DEVICE_DIRECT_METHOD});
+    }, []); // tslint:disable-line: align
 
     const showCommandBar = () => {
         return (

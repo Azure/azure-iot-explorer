@@ -24,6 +24,8 @@ import { SynchronizationStatus } from '../../../api/models/synchronizationStatus
 import { LARGE_COLUMN_WIDTH, EXTRA_SMALL_COLUMN_WIDTH, SMALL_COLUMN_WIDTH, MEDIUM_COLUMN_WIDTH } from '../../../constants/columnWidth';
 import '../../../css/_deviceList.scss';
 import '../../../css/_layouts.scss';
+import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
+import { TELEMETRY_PAGE_NAMES } from '../../../../app/constants/telemetry';
 
 const SHIMMER_COUNT = 10;
 export const DeviceList: React.FC = () => {
@@ -43,6 +45,10 @@ export const DeviceList: React.FC = () => {
             setSelectedDeviceIds(selection.getSelection() && selection.getSelection().map(selectedItem => (selectedItem as DeviceSummary).deviceId));
         }
     });
+
+    React.useEffect(() => {
+        AppInsightsClient.getInstance().trackPageView({name: TELEMETRY_PAGE_NAMES.DEVICE_LIST});
+    }, []); // tslint:disable-line: align
 
     React.useEffect(() => {
         setQueryAndExecute(deviceQuery);

@@ -10,6 +10,7 @@ const config: webpack.Configuration = {
     output: {
         filename: '[name].[contenthash].js',
         path: path.resolve(__dirname, '.', 'dist'),
+        assetModuleFilename: 'images/[name].[ext]'
     },
     module: {
         rules: [
@@ -21,11 +22,8 @@ const config: webpack.Configuration = {
 
             },
             {
-                loader:'file-loader',
-                options: {
-                    name: '?name=images/[name].[ext]',
-                },
-                test: /\.(jpe?g|png|gif|svg)$/i
+                test: /\.(jpe?g|png|gif|svg)$/i,
+                type: 'asset/resource'
             }
         ]
     },
