@@ -68,7 +68,6 @@ export const DigitalTwinDetail: React.FC = () => {
                 <DeviceCommands />
             </PivotItem>
             <PivotItem key={ROUTE_PARTS.EVENTS} headerText={t(ResourceKeys.breadcrumb.events)} itemKey={ROUTE_PARTS.EVENTS}>
-                {/* // TODO: same component as general telemetry */}
                 <DeviceEvents />
             </PivotItem>
         </Pivot>

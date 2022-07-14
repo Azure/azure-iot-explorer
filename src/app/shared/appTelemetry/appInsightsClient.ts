@@ -1,5 +1,5 @@
 import { ApplicationInsights } from '@microsoft/applicationinsights-web';
-import { appConfig, HostMode } from '../../../appConfig/appConfig';
+import { appConfig, AppInsightsConnString } from '../../../appConfig/appConfig';
 export class AppInsightsClient {
     private static instance: ApplicationInsights;
 
@@ -7,7 +7,7 @@ export class AppInsightsClient {
         if (!AppInsightsClient.instance) {
             const appInsights = new ApplicationInsights({ config: {
                 autoTrackPageVisitTime: true,
-                connectionString: appConfig.telemetryConnString,
+                connectionString: appConfig.telemetryConnString ? appConfig.telemetryConnString : AppInsightsConnString.Prod,
             } });
             appInsights.loadAppInsights();
             appInsights.trackEvent({name: `INIT`}, {type: 'init'});

@@ -28,5 +28,3 @@ export enum TELEMETRY_PAGE_NAMES {
 export enum TELEMETRY_ACTIONS {
     ADD = 'add',
 }
-
-// TODO: see ROUTE_PARTS for reference
