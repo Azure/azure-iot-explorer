@@ -80,7 +80,11 @@ export const DeviceEvents: React.FC = () => {
     const [showSimulationPanel, setShowSimulationPanel] = React.useState(false);
 
     React.useEffect(() => {
-        AppInsightsClient.getInstance().trackPageView({name: TELEMETRY_PAGE_NAMES.DEVICE_TELEMETRY});
+        if (componentName) {
+            AppInsightsClient.getInstance().trackPageView({name: TELEMETRY_PAGE_NAMES.PNP_TELEMETRY});
+        } else {
+            AppInsightsClient.getInstance().trackPageView({name: TELEMETRY_PAGE_NAMES.DEVICE_TELEMETRY});
+        }
     }, []); // tslint:disable-line: align
 
     React.useEffect(    // tslint:disable-next-line: cyclomatic-complexity
