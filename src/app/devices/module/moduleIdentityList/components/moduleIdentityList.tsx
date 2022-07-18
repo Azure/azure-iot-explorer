@@ -40,7 +40,7 @@ export const ModuleIdentityList: React.FC = () => {
     },              [deviceId]);
 
     React.useEffect(() => {
-        AppInsightsClient.getInstance().trackPageView({name: TELEMETRY_PAGE_NAMES.MODULE_LIST});
+        AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.MODULE_LIST});
     }, []); // tslint:disable-line: align
 
     const showCommandBar = () => {

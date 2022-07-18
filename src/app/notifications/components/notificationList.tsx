@@ -61,7 +61,7 @@ export const NotificationList: React.FC = () => {
     };
 
     React.useEffect(() => {
-        AppInsightsClient.getInstance().trackPageView({name: TELEMETRY_PAGE_NAMES.NOTIFICATION_LIST});
+        AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.NOTIFICATION_LIST});
     }, []); // tslint:disable-line: align
 
     return (

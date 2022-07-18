@@ -40,7 +40,7 @@ export const DeviceTwin: React.FC = () => {
     useBreadcrumbEntry({name: 'twin'});
 
     React.useEffect(() => {
-        AppInsightsClient.getInstance().trackPageView({name: TELEMETRY_PAGE_NAMES.DEVICE_TWIN});
+        AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.DEVICE_TWIN});
     }, []); // tslint:disable-line: align
 
     React.useEffect(() => {

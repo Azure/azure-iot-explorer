@@ -223,7 +223,7 @@ export const DigitalTwinInterfacesList: React.FC = () => {
     };
 
     React.useEffect(() => {
-        AppInsightsClient.getInstance().trackPageView({name: TELEMETRY_PAGE_NAMES.PNP_HOME});
+        AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.PNP_HOME});
     }, []); // tslint:disable-line: align
 
     return (

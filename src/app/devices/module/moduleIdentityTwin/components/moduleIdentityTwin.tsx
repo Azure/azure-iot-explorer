@@ -44,7 +44,7 @@ export const ModuleIdentityTwin: React.FC = () => {
     },              [deviceId, moduleId]);
 
     React.useEffect(() => {
-        AppInsightsClient.getInstance().trackPageView({name: TELEMETRY_PAGE_NAMES.MODULE_TWIN});
+        AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.MODULE_TWIN});
     }, []); // tslint:disable-line: align
 
     const retrieveData = () => dispatch(getModuleIdentityTwinAction.started({ deviceId, moduleId }));

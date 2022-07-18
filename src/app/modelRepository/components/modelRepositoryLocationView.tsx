@@ -192,7 +192,7 @@ export const ModelRepositoryLocationView: React.FC = () => {
     };
 
     React.useEffect(() => {
-        AppInsightsClient.getInstance().trackPageView({name: TELEMETRY_PAGE_NAMES.PNP_REPO_SETTINGS});
+        AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.PNP_REPO_SETTINGS});
     }, []); // tslint:disable-line: align
 
     return (

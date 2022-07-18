@@ -59,7 +59,7 @@ export const DeviceCommands: React.FC = () => {
     };
 
     React.useEffect(() => {
-        AppInsightsClient.getInstance().trackPageView({name: TELEMETRY_PAGE_NAMES.PNP_COMMANDS});
+        AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.PNP_COMMANDS});
     }, []); // tslint:disable-line: align
 
     if (isLoading) {

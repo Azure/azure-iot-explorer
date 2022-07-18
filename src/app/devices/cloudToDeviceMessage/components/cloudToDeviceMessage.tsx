@@ -62,7 +62,7 @@ export const CloudToDeviceMessage: React.FC = () => {
     });
 
     React.useEffect(() => {
-        AppInsightsClient.getInstance().trackPageView({name: TELEMETRY_PAGE_NAMES.CLOUD_TO_DEVICE_MESSAGE});
+        AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.CLOUD_TO_DEVICE_MESSAGE});
     }, []); // tslint:disable-line: align
 
     const showCommandBar = () => {

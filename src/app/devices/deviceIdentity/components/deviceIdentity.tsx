@@ -43,7 +43,7 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
     });
 
     React.useEffect(() => {
-        AppInsightsClient.getInstance().trackPageView({name: TELEMETRY_PAGE_NAMES.DEVICE_IDENTITY});
+        AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.DEVICE_IDENTITY});
     }, []); // tslint:disable-line: align
 
     React.useEffect(() => {

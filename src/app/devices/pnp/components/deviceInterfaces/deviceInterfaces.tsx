@@ -115,7 +115,7 @@ export const DeviceInterfaces: React.FC = () => {
     };
 
     React.useEffect(() => {
-        AppInsightsClient.getInstance().trackPageView({name: TELEMETRY_PAGE_NAMES.PNP_INTERFACES});
+        AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.PNP_INTERFACES});
     }, []); // tslint:disable-line: align
 
     return (isLoading ? <MultiLineShimmer/> : (

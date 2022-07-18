@@ -84,7 +84,7 @@ export const ConnectionStringsView: React.FC = () => {
     },              []);
 
     React.useEffect(() => {
-        AppInsightsClient.getInstance().trackPageView({name: TELEMETRY_PAGE_NAMES.HUBS});
+        AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.HUBS});
     }, []); // tslint:disable-line: align
 
     React.useEffect(() => {

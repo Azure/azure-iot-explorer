@@ -47,7 +47,7 @@ export const DeviceList: React.FC = () => {
     });
 
     React.useEffect(() => {
-        AppInsightsClient.getInstance().trackPageView({name: TELEMETRY_PAGE_NAMES.DEVICE_LIST});
+        AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.DEVICE_LIST});
     }, []); // tslint:disable-line: align
 
     React.useEffect(() => {

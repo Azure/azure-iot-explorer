@@ -81,9 +81,9 @@ export const DeviceEvents: React.FC = () => {
 
     React.useEffect(() => {
         if (componentName) {
-            AppInsightsClient.getInstance().trackPageView({name: TELEMETRY_PAGE_NAMES.PNP_TELEMETRY});
+            AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.PNP_TELEMETRY});
         } else {
-            AppInsightsClient.getInstance().trackPageView({name: TELEMETRY_PAGE_NAMES.DEVICE_TELEMETRY});
+            AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.DEVICE_TELEMETRY});
         }
     }, []); // tslint:disable-line: align
 

@@ -9,9 +9,14 @@ export class AppInsightsClient {
                 autoTrackPageVisitTime: true,
                 connectionString: appConfig.telemetryConnString
             } });
-            appInsights.loadAppInsights();
-            appInsights.trackEvent({name: `INIT`}, {type: 'init'});
-            AppInsightsClient.instance = appInsights;
+            try {
+                appInsights.loadAppInsights();
+                appInsights.trackEvent({name: `INIT`}, {type: 'init'});
+            } catch (e) {
+                // tslint:disable-next-line:no-console
+                console.log(e);
+                AppInsightsClient.instance = appInsights;
+            }
         }
 
         return AppInsightsClient.instance;

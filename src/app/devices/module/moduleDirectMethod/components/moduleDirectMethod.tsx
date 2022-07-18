@@ -78,7 +78,7 @@ export const ModuleDirectMethod: React.FC = () => {
     };
 
     React.useEffect(() => {
-        AppInsightsClient.getInstance().trackPageView({name: TELEMETRY_PAGE_NAMES.MODULE_DIRECT_METHOD});
+        AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.MODULE_DIRECT_METHOD});
     }, []); // tslint:disable-line: align
 
     return (

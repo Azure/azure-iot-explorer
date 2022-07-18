@@ -53,7 +53,7 @@ export const ModuleIdentityDetail: React.FC = () => {
     },              [isDeleted]);
 
     React.useEffect(() => {
-        AppInsightsClient.getInstance().trackPageView({name: TELEMETRY_PAGE_NAMES.MODULE_IDENTITY});
+        AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.MODULE_IDENTITY});
     }, []); // tslint:disable-line: align
 
     const retrieveData = () => dispatch(getModuleIdentityAction.started({ deviceId, moduleId }));
