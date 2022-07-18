@@ -21,6 +21,7 @@ export interface AppConfigInterface {
     };
     azureResourceManagementEndpoint?: string;
     controllerPort: number;
+    telemetryConnString: string;
 }
 
 export const appConfig = config as AppConfigInterface;

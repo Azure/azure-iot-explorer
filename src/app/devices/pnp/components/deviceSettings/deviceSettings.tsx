@@ -17,6 +17,8 @@ import { SynchronizationStatus } from '../../../../api/models/synchronizationSta
 import { generateTwinSchemaAndInterfaceTuple } from './dataHelper';
 import { Twin } from '../../../../api/models/device';
 import { dispatchGetTwinAction, getBackUrl } from '../../utils';
+import { AppInsightsClient } from '../../../../shared/appTelemetry/appInsightsClient';
+import { TELEMETRY_PAGE_NAMES } from '../../../../../app/constants/telemetry';
 
 // tslint:disable-next-line:cyclomatic-complexity
 export const DeviceSettings: React.FC = () => {
@@ -75,6 +77,10 @@ export const DeviceSettings: React.FC = () => {
         const path = pathname.replace(/\/ioTPlugAndPlayDetail\/settings\/.*/, ``);
         history.push(getBackUrl(path, search));
     };
+
+    React.useEffect(() => {
+        AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.PNP_DEVICE_SETTINGS});
+    }, []); // tslint:disable-line: align
 
     if (isLoading) {
         return (

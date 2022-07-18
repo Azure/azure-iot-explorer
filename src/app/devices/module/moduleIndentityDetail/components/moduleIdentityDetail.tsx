@@ -23,6 +23,8 @@ import { deleteModuleIdentityAction, getModuleIdentityAction } from '../actions'
 import { useIotHubContext } from '../../../../iotHub/hooks/useIotHubContext';
 import '../../../../css/_deviceDetail.scss';
 import '../../../../css/_moduleIdentityDetail.scss';
+import { AppInsightsClient } from '../../../../shared/appTelemetry/appInsightsClient';
+import { TELEMETRY_PAGE_NAMES } from '../../../../../app/constants/telemetry';
 
 export const ModuleIdentityDetail: React.FC = () => {
     const { t } = useTranslation();
@@ -49,6 +51,10 @@ export const ModuleIdentityDetail: React.FC = () => {
             navigateToModuleList();
         }
     },              [isDeleted]);
+
+    React.useEffect(() => {
+        AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.MODULE_IDENTITY});
+    }, []); // tslint:disable-line: align
 
     const retrieveData = () => dispatch(getModuleIdentityAction.started({ deviceId, moduleId }));
 

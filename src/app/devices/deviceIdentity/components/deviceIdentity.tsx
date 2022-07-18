@@ -20,6 +20,8 @@ import { SasTokenGenerationView } from '../../shared/components/sasTokenGenerati
 import { useIotHubContext } from '../../../iotHub/hooks/useIotHubContext';
 import { QrGenerationView } from './qrGenerationView';
 import '../../../css/_deviceDetail.scss';
+import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
+import { TELEMETRY_PAGE_NAMES } from '../../../../app/constants/telemetry';
 
 export interface DeviceIdentityDispatchProps {
     updateDeviceIdentity: (deviceIdentity: DeviceIdentity) => void;
@@ -39,6 +41,10 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
         identity: props.deviceIdentity,
         isDirty: false,
     });
+
+    React.useEffect(() => {
+        AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.DEVICE_IDENTITY});
+    }, []); // tslint:disable-line: align
 
     React.useEffect(() => {
         if (synchronizationStatus === SynchronizationStatus.fetched) {

@@ -35,6 +35,8 @@ import { CustomEventHub } from './customEventHub';
 import { ConsumerGroup } from './consumerGroup';
 import { StartTime } from './startTime';
 import './deviceEvents.scss';
+import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
+import { TELEMETRY_PAGE_NAMES } from '../../../../app/constants/telemetry';
 
 const JSON_SPACES = 2;
 const LOADING_LOCK = 8000;
@@ -76,6 +78,14 @@ export const DeviceEvents: React.FC = () => {
 
     // simulation specific
     const [showSimulationPanel, setShowSimulationPanel] = React.useState(false);
+
+    React.useEffect(() => {
+        if (componentName) {
+            AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.PNP_TELEMETRY});
+        } else {
+            AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.DEVICE_TELEMETRY});
+        }
+    }, []); // tslint:disable-line: align
 
     React.useEffect(    // tslint:disable-next-line: cyclomatic-complexity
         () => {

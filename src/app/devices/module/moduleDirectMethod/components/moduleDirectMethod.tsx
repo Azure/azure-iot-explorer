@@ -15,6 +15,8 @@ import { invokeModuleDirectMethodAction } from '../actions';
 import { DirectMethodForm } from '../../../../devices/directMethod/components/directMethodForm';
 import { ROUTE_PARAMS, ROUTE_PARTS } from '../../../../constants/routes';
 import '../../../../css/_deviceDetail.scss';
+import { AppInsightsClient } from '../../../../shared/appTelemetry/appInsightsClient';
+import { TELEMETRY_PAGE_NAMES } from '../../../../../app/constants/telemetry';
 
 const DEFAULT_TIMEOUT = 10;
 
@@ -74,6 +76,10 @@ export const ModuleDirectMethod: React.FC = () => {
             responseTimeoutInSeconds: responseTimeOut
         }));
     };
+
+    React.useEffect(() => {
+        AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.MODULE_DIRECT_METHOD});
+    }, []); // tslint:disable-line: align
 
     return (
         <>
