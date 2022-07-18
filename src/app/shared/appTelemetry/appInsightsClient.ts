@@ -12,10 +12,10 @@ export class AppInsightsClient {
             try {
                 appInsights.loadAppInsights();
                 appInsights.trackEvent({name: `INIT`}, {type: 'init'});
+                AppInsightsClient.instance = appInsights;
             } catch (e) {
                 // tslint:disable-next-line:no-console
                 console.log(e);
-                AppInsightsClient.instance = appInsights;
             }
         }
 
