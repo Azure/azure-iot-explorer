@@ -27,5 +27,5 @@ export enum TELEMETRY_PAGE_NAMES {
 
 export enum TELEMETRY_EVENTS {
     FETCH_DEVICES = 'fetch_devices',
-    INIT = "init"
+    INIT = 'init'
 }

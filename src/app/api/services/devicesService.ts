@@ -198,14 +198,10 @@ export const fetchDevices = async (parameters: FetchDevicesParameters): Promise<
     }
 
     const insights = AppInsightsClient.getInstance();
-    if (insights) {
-        insights.startTrackEvent(TELEMETRY_EVENTS.FETCH_DEVICES);
-    }
+    insights?.startTrackEvent(TELEMETRY_EVENTS.FETCH_DEVICES);
     const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
-    if (insights) {
-        insights.stopTrackEvent(TELEMETRY_EVENTS.FETCH_DEVICES, {url: response.url, status: response.status.toString(), statusText: response.statusText});
-        insights.flush();
-    }
+    insights?.stopTrackEvent(TELEMETRY_EVENTS.FETCH_DEVICES, {url: response.url, status: response.status.toString(), statusText: response.statusText});
+    insights?.flush();
     const result = await dataPlaneResponseHelper(response);
     return result;
 };
