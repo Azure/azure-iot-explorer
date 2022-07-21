@@ -25,6 +25,8 @@ import { DeviceIdentity } from '../models/deviceIdentity';
 import { dataPlaneConnectionHelper, dataPlaneResponseHelper, request, DATAPLANE_CONTROLLER_ENDPOINT, DataPlaneRequest } from './dataplaneServiceHelper';
 import { getDeviceInterface, getEventHubInterface } from '../shared/interfaceUtils';
 import { parseEventHubMessage } from './eventHubMessageHelper';
+import { AppInsightsClient } from '../../shared/appTelemetry/appInsightsClient';
+import { TELEMETRY_EVENTS } from '../../constants/telemetry';
 
 const PAGE_SIZE = 100;
 
@@ -195,7 +197,15 @@ export const fetchDevices = async (parameters: FetchDevicesParameters): Promise<
         (dataPlaneRequest.headers as any)[HEADERS.CONTINUATION_TOKEN] = parameters.query.continuationTokens[parameters.query.currentPageIndex]; // tslint:disable-line: no-any
     }
 
+    const insights = AppInsightsClient.getInstance();
+    if (insights) {
+        insights.startTrackEvent(TELEMETRY_EVENTS.FETCH_DEVICES);
+    }
     const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
+    if (insights) {
+        insights.stopTrackEvent(TELEMETRY_EVENTS.FETCH_DEVICES, {url: response.url, status: response.status.toString(), statusText: response.statusText});
+        insights.flush();
+    }
     const result = await dataPlaneResponseHelper(response);
     return result;
 };
