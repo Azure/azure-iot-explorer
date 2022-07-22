@@ -27,4 +27,6 @@ export enum TELEMETRY_PAGE_NAMES {
 
 export enum TELEMETRY_ACTIONS {
     ADD = 'add',
+    UPDATE_BANNER_DISPLAYED = 'update_banner:displayed',
+    UPDATE_BANNER_CLICKED = 'update_banner:clicked'
 }
