@@ -296,6 +296,9 @@ export class ResourceKeys {
             label : "deviceEvents.customEventHub.connectionString.label",
             placeHolder : "deviceEvents.customEventHub.connectionString.placeHolder",
          },
+         name : {
+            label : "deviceEvents.customEventHub.name.label",
+         },
       },
       error : "deviceEvents.error",
       event : {
@@ -904,6 +907,7 @@ export class ResourceKeys {
       savedToIotHubConnectionString : "notifications.savedToIotHubConnectionString",
       sendingCloudToDeviceMessage : "notifications.sendingCloudToDeviceMessage",
       startEventMonitoringOnError : "notifications.startEventMonitoringOnError",
+      stopEventMonitoringOnError : "notifications.stopEventMonitoringOnError",
       updateDeviceOnError : "notifications.updateDeviceOnError",
       updateDeviceOnSucceed : "notifications.updateDeviceOnSucceed",
       updateDeviceTwinOnError : "notifications.updateDeviceTwinOnError",

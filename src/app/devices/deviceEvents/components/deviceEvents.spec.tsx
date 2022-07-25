@@ -50,6 +50,7 @@ describe('deviceEvents', () => {
             jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(undefined));
             jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(false));
             jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(undefined));
+            jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(undefined));
             jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(false));
             jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(false));
             jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(false));
@@ -83,6 +84,7 @@ describe('deviceEvents', () => {
                 consumerGroup: DEFAULT_CONSUMER_GROUP,
                 deviceId: 'device1',
                 moduleId: null,
+                startListeners: true,
                 startTime: undefined
             });
         });
@@ -127,6 +129,7 @@ describe('deviceEvents', () => {
             jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(false));
             jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(undefined));
             jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(false));
+            jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(undefined));
             jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(undefined));
             jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(false));
             jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(false));

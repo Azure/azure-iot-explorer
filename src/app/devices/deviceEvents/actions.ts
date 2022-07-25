@@ -10,5 +10,5 @@ import { MonitorEventsParameters } from '../../api/parameters/deviceParameters';
 
 const deviceContentCreator = actionCreatorFactory(DEVICECONTENT);
 export const startEventsMonitoringAction = deviceContentCreator.async<MonitorEventsParameters, Message[]>(START_EVENTS_MONITORING);
-export const stopEventsMonitoringAction = deviceContentCreator(STOP_EVENTS_MONITORING);
+export const stopEventsMonitoringAction = deviceContentCreator.async<void, void>(STOP_EVENTS_MONITORING);
 export const clearMonitoringEventsAction = deviceContentCreator(CLEAR_MONITORING_EVENTS);

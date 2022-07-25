@@ -598,6 +598,7 @@ describe('deviceTwinService', () => {
             customEventHubConnectionString: undefined,
             deviceId,
             hubConnectionString: undefined,
+            startListeners: true,
             moduleId: undefined,
             startTime: undefined
         };
@@ -608,7 +609,8 @@ describe('deviceTwinService', () => {
 
             const startEventHubMonitoring = jest.fn();
             jest.spyOn(interfaceUtils, 'getEventHubInterface').mockReturnValue({
-                startEventHubMonitoring
+                startEventHubMonitoring,
+                stopEventHubMonitoring: jest.fn()
             });
 
             await DevicesService.monitorEvents(parameters);
@@ -617,6 +619,21 @@ describe('deviceTwinService', () => {
                 hubConnectionString: connectionString,
                 startTime: parameters.startTime && parameters.startTime.toISOString()
             });
+        });
+    });
+
+
+    context('stopMonitoringEvents', () => {
+        it('calls stopEventHubMonitoring', async () => {
+
+            const stopEventHubMonitoring = jest.fn();
+            jest.spyOn(interfaceUtils, 'getEventHubInterface').mockReturnValue({
+                startEventHubMonitoring: jest.fn(),
+                stopEventHubMonitoring
+            });
+
+            await DevicesService.stopMonitoringEvents();
+            expect(stopEventHubMonitoring).toBeCalled();
         });
     });
 });

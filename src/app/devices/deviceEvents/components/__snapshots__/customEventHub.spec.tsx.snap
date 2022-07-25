@@ -29,6 +29,15 @@ exports[`customEventHub matches snapshot 1`] = `
       required={true}
       underlined={true}
     />
+    <StyledTextFieldBase
+      ariaLabel="deviceEvents.customEventHub.name.label"
+      className="custom-text-field"
+      disabled={true}
+      label="deviceEvents.customEventHub.name.label"
+      onChange={[Function]}
+      required={true}
+      underlined={true}
+    />
   </Stack>
 </Stack>
 `;
