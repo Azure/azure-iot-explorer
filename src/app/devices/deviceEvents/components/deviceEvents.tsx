@@ -34,6 +34,8 @@ import { Commands } from './commands';
 import { CustomEventHub } from './customEventHub';
 import { ConsumerGroup } from './consumerGroup';
 import { StartTime } from './startTime';
+import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
+import { TELEMETRY_PAGE_NAMES } from '../../../../app/constants/telemetry';
 import './deviceEvents.scss';
 
 const JSON_SPACES = 2;
@@ -84,6 +86,14 @@ export const DeviceEvents: React.FC = () => {
             };
         },
         []);
+
+    React.useEffect(() => {
+        if (componentName) {
+            AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.PNP_TELEMETRY});
+        } else {
+            AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.DEVICE_TELEMETRY});
+        }
+    }, []); // tslint:disable-line: align
 
     React.useEffect(    // tslint:disable-next-line: cyclomatic-complexity
         () => {
