@@ -10,6 +10,9 @@ export const generateEventHubInterface = (): EventHubInterface => {
     return {
         startEventHubMonitoring: async (params: StartEventHubMonitoringParameters): Promise<Message[]> => {
             return invokeInMainWorld<Message[]>(MESSAGE_CHANNELS.EVENTHUB_START_MONITORING, params);
+        },
+        stopEventHubMonitoring: async (): Promise<void> => {
+            return invokeInMainWorld<void>(MESSAGE_CHANNELS.EVENTHUB_STOP_MONITORING);
         }
     };
 };

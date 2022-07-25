@@ -7,6 +7,7 @@ export interface StartEventHubMonitoringParameters {
     moduleId: string;
     consumerGroup: string;
     startTime: string;
+    startListeners: boolean;
 
     customEventHubName?: string;
     customEventHubConnectionString?: string;
@@ -22,4 +23,5 @@ export interface Message {
 
 export interface EventHubInterface {
     startEventHubMonitoring(params: StartEventHubMonitoringParameters): Promise<Message[]>;
+    stopEventHubMonitoring(): Promise<void>;
 }

@@ -2,13 +2,13 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { call, put, all, takeEvery } from 'redux-saga/effects';
+import { call, put, all, takeEvery, takeLatest } from 'redux-saga/effects';
 import { SagaIterator } from 'redux-saga';
 import { Action } from 'typescript-fsa';
-import { monitorEvents } from '../../api/services/devicesService';
+import { monitorEvents, stopMonitoringEvents } from '../../api/services/devicesService';
 import { NotificationType } from '../../api/models/notification';
 import { ResourceKeys } from '../../../localization/resourceKeys';
-import { startEventsMonitoringAction } from './actions';
+import { startEventsMonitoringAction, stopEventsMonitoringAction } from './actions';
 import { raiseNotificationToast } from '../../notifications/components/notificationToast';
 import { MonitorEventsParameters } from '../../api/parameters/deviceParameters';
 
@@ -30,8 +30,27 @@ export function* startEventsMonitoringSagaWorker(action: Action<MonitorEventsPar
     }
 }
 
+export function* stopEventsMonitoringSagaWorker() {
+    try {
+        yield call(stopMonitoringEvents);
+        yield put(stopEventsMonitoringAction.done({}));
+    } catch (error) {
+        yield call(raiseNotificationToast, {
+            text: {
+                translationKey: ResourceKeys.notifications.stopEventMonitoringOnError,
+                translationOptions: {
+                    error,
+                },
+            },
+            type: NotificationType.error
+          });
+        yield put(stopEventsMonitoringAction.failed({error}));
+    }
+}
+
 export function* EventMonitoringSaga() {
     yield all([
         takeEvery(startEventsMonitoringAction.started.type, startEventsMonitoringSagaWorker),
+        takeLatest(stopEventsMonitoringAction.started.type, stopEventsMonitoringSagaWorker),
     ]);
 }
