@@ -26,7 +26,7 @@ export const AppVersionMessageBar: React.FC = () => {
     const hasNewerRelease = () => {
         try {
             if (!latestReleaseVersion) { return false; }
-            const semanticVersion = '0.14.10'; // latestReleaseVersion.replace(/^v/, '');
+            const semanticVersion = latestReleaseVersion.replace(/^v/, '');
             return isNewReleaseVersionHigher(semanticVersion, packageJson.version);
         }
         catch {
