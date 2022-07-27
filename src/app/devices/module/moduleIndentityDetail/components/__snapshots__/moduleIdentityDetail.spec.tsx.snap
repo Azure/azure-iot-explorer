@@ -30,7 +30,7 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after certificateAuthori
     }
   />
   <div
-    className="module-identity-detail"
+    className="device-detail"
   >
     <MaskedCopyableTextField
       allowMask={false}
@@ -77,7 +77,7 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after module identity is
     }
   />
   <div
-    className="module-identity-detail"
+    className="device-detail"
   >
     <MaskedCopyableTextField
       allowMask={false}
@@ -121,7 +121,7 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after sas module identit
     }
   />
   <div
-    className="module-identity-detail"
+    className="device-detail"
   >
     <MaskedCopyableTextField
       allowMask={false}
@@ -212,7 +212,7 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after self signed module
     }
   />
   <div
-    className="module-identity-detail"
+    className="device-detail"
   >
     <MaskedCopyableTextField
       allowMask={false}
@@ -275,7 +275,7 @@ exports[`ModuleIdentityDetail snapshot matches snapshot showing delete confirmat
     }
   />
   <div
-    className="module-identity-detail"
+    className="device-detail"
   >
     <MaskedCopyableTextField
       allowMask={false}
@@ -352,7 +352,7 @@ exports[`ModuleIdentityDetail snapshot matches snapshot while loading 1`] = `
     }
   />
   <div
-    className="module-identity-detail"
+    className="device-detail"
   >
     <MaskedCopyableTextField
       allowMask={false}

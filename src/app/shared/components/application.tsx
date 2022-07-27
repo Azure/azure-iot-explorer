@@ -24,15 +24,15 @@ export const Application: React.FC = () => {
     useBreadcrumbEntry({ name: t(ResourceKeys.common.home), suffix: 'home' });
 
     return (
-        <div className="app">
-            <div className="masthead">
+        <div className="container">
+            <div className="header">
                 <Header />
             </div>
-            <nav className="navigation">
+            <div className="topnav">
                 <Breadcrumbs/>
-            </nav>
-            <main role="main" className="content">
-                <Switch>
+            </div>
+            <main className="main">
+            <Switch>
                     <Redirect from="/" exact={true} to={`${ROUTE_PARTS.HOME}`}/>
                     <Route path={`/${ROUTE_PARTS.HOME}`} component={HomeView} />
                     <Route path={'/microsoft.devices/'} component={IotHub} />

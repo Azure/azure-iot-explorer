@@ -69,7 +69,7 @@ export const NotificationList: React.FC = () => {
             <CommandBar
                 items={getCommandBarItems()}
             />
-            <div>
+            <div className="view-scroll-vertical">
                 {notifications.length === 0 &&
                     <div className="notification-list-entry">{t(ResourceKeys.header.notifications.panel.noNotifications)}</div>
                 }

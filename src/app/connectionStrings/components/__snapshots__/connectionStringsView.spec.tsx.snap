@@ -24,9 +24,7 @@ exports[`ConnectionStringsView matches snapshot when connection strings present 
       }
     />
   </div>
-  <div
-    className="view-scroll-vertical"
-  >
+  <div>
     <div
       className="connection-strings"
     >
@@ -71,9 +69,7 @@ exports[`ConnectionStringsView matches snapshot when no connection strings 1`] =
       }
     />
   </div>
-  <div
-    className="view-scroll-vertical"
-  >
+  <div>
     <div
       className="connection-strings"
     />

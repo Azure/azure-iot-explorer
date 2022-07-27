@@ -116,7 +116,7 @@ export const ConnectionStringsView: React.FC = () => {
                     ]}
                 />
             </div>
-            <div className="view-scroll-vertical">
+            <div>
                 <div className="connection-strings">
                     {connectionStringsWithExpiry.map(connectionStringWithExpiry =>
                         <ConnectionString

@@ -12,7 +12,6 @@ import { getDeviceIdFromQueryString, getComponentNameFromQueryString, getInterfa
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import { MonitorEventsParameters } from '../../../api/parameters/deviceParameters';
 import { DEFAULT_CONSUMER_GROUP } from '../../../constants/apiConstants';
-import { appConfig, HostMode } from '../../../../appConfig/appConfig';
 import { HeaderView } from '../../../shared/components/headerView';
 import { useAsyncSagaReducer } from '../../../shared/hooks/useAsyncSagaReducer';
 import { deviceEventsReducer } from '../reducers';
