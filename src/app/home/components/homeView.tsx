@@ -10,14 +10,13 @@ import { HomeViewNavigation } from './homeViewNavigation';
 import { ConnectionStringsView } from '../../connectionStrings/components/connectionStringsView';
 import { ModelRepositoryLocationView } from '../../modelRepository/components/modelRepositoryLocationView';
 import { NotificationList } from './../../notifications/components/notificationList';
-import '../../css/_mainWithNav.scss';
 
 export const HomeView: React.FC = () => {
     const [ appMenuVisible, setAppMenuVisible ] = React.useState(true);
     return (
         <>
             <AppVersionMessageBar/>
-            <div className={'appContentWithLeftNav' + (!appMenuVisible ? ' collapsed' : '')}>
+            <div className={'mainarea' + (!appMenuVisible ? ' collapsed' : '')}>
                 <div className={'mainleftnav' + (!appMenuVisible ? ' collapsed' : '')}>
                     <HomeViewNavigation
                         appMenuVisible={appMenuVisible}

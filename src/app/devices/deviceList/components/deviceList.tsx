@@ -308,18 +308,14 @@ export const DeviceList: React.FC = () => {
     };
 
     return (
-        <div className="view">
-            <div className="view-command">
-                {showCommandBar()}
-            </div>
-            <div className="view-content view-scroll-vertical">
-                <DeviceListQuery
-                    refresh={refreshQuery}
-                    setQueryAndExecute={setQueryAndExecute}
-                />
-                {showDeviceList()}
-                {showDeleteConfirmation && deleteConfirmationDialog()}
-            </div>
+        <div>
+            {showCommandBar()}
+            <DeviceListQuery
+                refresh={refreshQuery}
+                setQueryAndExecute={setQueryAndExecute}
+            />
+            {showDeviceList()}
+            {showDeleteConfirmation && deleteConfirmationDialog()}
         </div>
     );
 };

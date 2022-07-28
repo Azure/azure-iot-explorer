@@ -10,21 +10,21 @@
         .interface-definition-json-editor
         {
             padding-top: 20px;
-            height: 30vh;
+            min-height: 20vh;
         }
         .invalid-interface-definition-json-editor
         {
             padding-top: 20px;
-            height: 30vh;
+            min-height: 20vh;
         }
      }
  }
  @media screen and (max-width: $screenSize) {
      .interface-definition-json-editor {
-         min-height: 100vh;
+         min-height: 50vh;
      }
      .invalid-interface-definition-json-editor {
-        min-height: 100vh;
+        min-height: 50vh;
      }
 
  }

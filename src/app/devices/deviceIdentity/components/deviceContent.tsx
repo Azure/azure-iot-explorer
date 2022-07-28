@@ -143,7 +143,7 @@ export const DeviceContent: React.FC = () => {
     return (
         <>
             {deviceId &&
-                <div className={'device-content appContentWithLeftNav' + (!appMenuVisible ? ' collapsed' : '')}>
+                <div className={'device-content mainarea' + (!appMenuVisible ? ' collapsed' : '')}>
                     {renderNav()}
                     {renderDeviceContentDetail()}
                 </div>

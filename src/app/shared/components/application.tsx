@@ -16,6 +16,7 @@ import { IotHub } from '../../iotHub/components/iotHub';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { Header } from './header';
 import '../../css/_application.scss';
+import '../../css/_mainArea.scss';
 
 const NOTIFICATION_AUTO_CLOSE = 5000;
 

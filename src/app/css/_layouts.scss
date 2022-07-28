@@ -6,19 +6,8 @@
 @import "themes";
 
 @media screen and (min-width: $screenSize) {
-    .view-scroll-vertical {
-        overflow-y: auto;
-        overflow-x: hidden;
-    }
     .ms-Callout {
         max-width: 800px;
-    }
-}
-
-.view-content {
-    height: 90vh;
-    @include themify($themes) {
-        border-top: 1px solid themed("viewContentBorderColor");
     }
 }
 

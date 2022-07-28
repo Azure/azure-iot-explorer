@@ -4,7 +4,7 @@ exports[`HomeView matches snapshot 1`] = `
 <Fragment>
   <AppVersionMessageBar />
   <div
-    className="appContentWithLeftNav"
+    className="mainarea"
   >
     <div
       className="mainleftnav"

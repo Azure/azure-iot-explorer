@@ -10,8 +10,3 @@
     background-color: $light-gray;
     cursor: not-allowed;
 }
-
-@mixin commandBar {
-    display: flex;
-    height: 40px;
-}

@@ -196,14 +196,12 @@ export const ModelRepositoryLocationView: React.FC = () => {
     }, []); // tslint:disable-line: align
 
     return (
-        <div className="view">
+        <div>
             <Prompt when={dirty} message={t(ResourceKeys.common.navigation.confirm)}/>
-            <div className="view-command">
-                <CommandBar
-                    items={getCommandBarItems()}
-                />
-            </div>
-            <div className="view-scroll-vertical">
+            <CommandBar
+                items={getCommandBarItems()}
+            />
+            <div>
                 <ModelRepositoryInstruction empty={repositoryLocationSettings.length === 0}/>
                 <ModelRepositoryLocationList
                     repositoryLocationSettings={repositoryLocationSettings}

@@ -16,6 +16,7 @@
     .header {
         grid-area: header;
     }
+
     .topnav {
         grid-area: nav;
         @include themify($themes) {
@@ -24,7 +25,10 @@
             }
         }
     }
+
     .main {
         grid-area: content;
+        overflow-y: auto;
+        overflow-x: hidden;
     }
 }

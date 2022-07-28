@@ -1,0 +1,78 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+ @import "variables";
+ @import "themes";
+
+ @media screen and (min-width: $screenSize) {
+    .mainarea {
+        height: 100%;
+        display: grid;
+        grid-template-columns: 1fr 4fr;
+        grid-template-areas:
+            "leftnav content";
+
+        .mainleftnav {
+            grid-area: leftnav;
+        }
+
+        .mainleftnav.collapsed {
+            .ms-Nav-linkText {
+                display: none;
+            }
+        }
+
+        .maincontent {
+            grid-area: content;
+            @include themify($themes) {
+                border: {
+                    left: 1px solid themed("borderColor");
+                }
+            }
+        }
+    }
+
+    .mainarea.collapsed {
+        grid-template-columns: 1fr 15fr;
+    }
+}
+
+@media screen and (max-width: $screenSize) {
+    .mainContainer {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "leftnav"
+            "content";
+    }
+
+    .maincontent {
+        grid-area: content;
+        @include themify($themes) {
+            border: {
+                top: 1px solid themed("borderColor");
+            }
+        }
+        height: auto !important;
+    }
+
+    .mainleftnav {
+        grid-area: leftnav;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .mainleftnav.collapsed {
+        .ms-Nav-linkText {
+            display: block;
+        }
+    }
+
+    .mainContainer.collapsed {
+        grid-template-columns: 1fr;
+    }
+
+    .collapsibleButton {
+        display: none;
+    }
+}
