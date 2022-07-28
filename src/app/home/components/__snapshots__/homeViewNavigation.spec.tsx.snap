@@ -4,20 +4,8 @@ exports[`homeViewNavigation matches snapshot 1`] = `
 <div
   className="nav-link-bar view"
 >
-  <div
-    className="view-scroll-vertical"
-  >
-    <CustomizedIconButton
-      ariaLabel="common.navigation.expand"
-      iconProps={
-        Object {
-          "iconName": "GlobalNavButton",
-        }
-      }
-      onClick={[Function]}
-      tabIndex={0}
-      title="common.navigation.expand"
-    />
+  <div>
+    <CollapsibleButton />
     <StyledNavBase
       groups={
         Array [

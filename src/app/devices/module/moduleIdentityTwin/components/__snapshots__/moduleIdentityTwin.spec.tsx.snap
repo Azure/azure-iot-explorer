@@ -30,7 +30,7 @@ exports[`moduleIdentityTwin snapshot matches snapshot after module twin is fetch
     }
   />
   <div
-    className="module-identity-detail"
+    className="device-detail"
   >
     <JSONEditor
       className="json-editor"
@@ -88,7 +88,7 @@ exports[`moduleIdentityTwin snapshot matches snapshot while loading 1`] = `
     }
   />
   <div
-    className="module-identity-detail"
+    className="device-detail"
   >
     <MultiLineShimmer />
   </div>

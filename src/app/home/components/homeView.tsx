@@ -10,21 +10,20 @@ import { HomeViewNavigation } from './homeViewNavigation';
 import { ConnectionStringsView } from '../../connectionStrings/components/connectionStringsView';
 import { ModelRepositoryLocationView } from '../../modelRepository/components/modelRepositoryLocationView';
 import { NotificationList } from './../../notifications/components/notificationList';
-import './homeView.scss';
 
 export const HomeView: React.FC = () => {
     const [ appMenuVisible, setAppMenuVisible ] = React.useState(true);
     return (
         <>
             <AppVersionMessageBar/>
-            <div className="view-content home-view">
-                <div className={'nav' + (!appMenuVisible ? ' collapsed' : '')}>
+            <div className={'mainarea' + (!appMenuVisible ? ' collapsed' : '')}>
+                <div className={'mainleftnav' + (!appMenuVisible ? ' collapsed' : '')}>
                     <HomeViewNavigation
                         appMenuVisible={appMenuVisible}
                         setAppMenuVisible={setAppMenuVisible}
                     />
                 </div>
-                <div className={'home-content' + (!appMenuVisible ? ' collapsed' : '')}>
+                <div className="maincontent">
                     <Switch>
                         <Redirect from={`/${ROUTE_PARTS.HOME}`} to={`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.RESOURCES}`} exact={true}/>
                         <Route path={`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.RESOURCES}`} component={ConnectionStringsView} exact={true} />

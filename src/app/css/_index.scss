@@ -6,11 +6,9 @@
 @import 'themes';
 
 @media screen and (min-width: $screenSize) {
-
-body {
-    height: 100vh;
-    overflow: hidden;
-}
+    body {
+        overflow: hidden;
+    }
 }
 body {
     margin: 0;

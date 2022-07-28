@@ -35,7 +35,6 @@ export const AppVersionMessageBar: React.FC = () => {
     return hasNewerRelease() ?
         (
             <MessageBar
-                className="home-view-message-bar"
                 messageBarType={MessageBarType.info}
             >
                 {t(ResourceKeys.deviceLists.messageBar.message, {version: latestReleaseVersion})}

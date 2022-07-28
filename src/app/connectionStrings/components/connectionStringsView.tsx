@@ -101,22 +101,20 @@ export const ConnectionStringsView: React.FC = () => {
     }
 
     return (
-        <div className="view">
-            <div className="view-command">
-                <CommandBar
-                    items={[
-                        {
-                            ariaLabel: t(ResourceKeys.connectionStrings.addConnectionCommand.ariaLabel),
-                            disabled: connectionStringsWithExpiry.length >= CONNECTION_STRING_LIST_MAX_LENGTH,
-                            iconProps: { iconName: 'Add' },
-                            key: 'add',
-                            onClick: onAddConnectionStringClick,
-                            text: t(ResourceKeys.connectionStrings.addConnectionCommand.label)
-                        }
-                    ]}
-                />
-            </div>
-            <div className="view-scroll-vertical">
+        <div>
+            <CommandBar
+                items={[
+                    {
+                        ariaLabel: t(ResourceKeys.connectionStrings.addConnectionCommand.ariaLabel),
+                        disabled: connectionStringsWithExpiry.length >= CONNECTION_STRING_LIST_MAX_LENGTH,
+                        iconProps: { iconName: 'Add' },
+                        key: 'add',
+                        onClick: onAddConnectionStringClick,
+                        text: t(ResourceKeys.connectionStrings.addConnectionCommand.label)
+                    }
+                ]}
+            />
+            <div>
                 <div className="connection-strings">
                     {connectionStringsWithExpiry.map(connectionStringWithExpiry =>
                         <ConnectionString

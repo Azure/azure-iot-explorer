@@ -354,11 +354,9 @@ export const AddDevice: React.FC = () => {
     };
 
     return (
-        <form onSubmit={onSaveHandler} className="view add-device">
-            <div className="view-command">
-                {showCommandBar()}
-            </div>
-            <div className="view-content view-scroll-vertical">
+        <form onSubmit={onSaveHandler} className="add-device">
+            {showCommandBar()}
+            <div>
                 <div className="form">
                     {showDeviceId()}
                     {showAuthentication()}

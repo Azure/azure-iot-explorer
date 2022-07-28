@@ -206,6 +206,7 @@ export const DeviceEvents: React.FC = () => {
 
     // tslint:disable-next-line: cyclomatic-complexity
     const filterMessage = (message: Message) => {
+        return true;
         if (!message || !message.systemProperties) {
             return false;
         }
@@ -532,7 +533,7 @@ export const DeviceEvents: React.FC = () => {
             />
             <div className="device-events-container">
                 {renderLoader()}
-                <div className={componentName ? 'scrollable-pnp-telemetry' : 'scrollable-telemetry'}>
+                <div className={componentName ? 'pnp-telemetry' : ''}>
                     {showPnpModeledEvents ? renderPnpModeledEvents() : renderRawEvents()}
                 </div>
             </div>

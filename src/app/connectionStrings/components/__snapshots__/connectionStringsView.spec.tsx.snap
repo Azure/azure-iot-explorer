@@ -1,32 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ConnectionStringsView matches snapshot when connection strings present 1`] = `
-<div
-  className="view"
->
-  <div
-    className="view-command"
-  >
-    <StyledCommandBarBase
-      items={
-        Array [
-          Object {
-            "ariaLabel": "connectionStrings.addConnectionCommand.ariaLabel",
-            "disabled": false,
-            "iconProps": Object {
-              "iconName": "Add",
-            },
-            "key": "add",
-            "onClick": [Function],
-            "text": "connectionStrings.addConnectionCommand.label",
+<div>
+  <StyledCommandBarBase
+    items={
+      Array [
+        Object {
+          "ariaLabel": "connectionStrings.addConnectionCommand.ariaLabel",
+          "disabled": false,
+          "iconProps": Object {
+            "iconName": "Add",
           },
-        ]
-      }
-    />
-  </div>
-  <div
-    className="view-scroll-vertical"
-  >
+          "key": "add",
+          "onClick": [Function],
+          "text": "connectionStrings.addConnectionCommand.label",
+        },
+      ]
+    }
+  />
+  <div>
     <div
       className="connection-strings"
     >
@@ -48,32 +40,24 @@ exports[`ConnectionStringsView matches snapshot when connection strings present 
 `;
 
 exports[`ConnectionStringsView matches snapshot when no connection strings 1`] = `
-<div
-  className="view"
->
-  <div
-    className="view-command"
-  >
-    <StyledCommandBarBase
-      items={
-        Array [
-          Object {
-            "ariaLabel": "connectionStrings.addConnectionCommand.ariaLabel",
-            "disabled": false,
-            "iconProps": Object {
-              "iconName": "Add",
-            },
-            "key": "add",
-            "onClick": [Function],
-            "text": "connectionStrings.addConnectionCommand.label",
+<div>
+  <StyledCommandBarBase
+    items={
+      Array [
+        Object {
+          "ariaLabel": "connectionStrings.addConnectionCommand.ariaLabel",
+          "disabled": false,
+          "iconProps": Object {
+            "iconName": "Add",
           },
-        ]
-      }
-    />
-  </div>
-  <div
-    className="view-scroll-vertical"
-  >
+          "key": "add",
+          "onClick": [Function],
+          "text": "connectionStrings.addConnectionCommand.label",
+        },
+      ]
+    }
+  />
+  <div>
     <div
       className="connection-strings"
     />
