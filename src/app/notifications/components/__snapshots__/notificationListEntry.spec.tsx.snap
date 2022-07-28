@@ -36,15 +36,15 @@ exports[`notificationListEntry matches snapshot 1`] = `
         onClick={[Function]}
         style={
           Object {
-            "flex": "3",
+            "flex": "5",
           }
         }
       >
         <Icon
-          className="notificationEntry-Ringer alignCenter"
+          className="notificationEntry-Ringer"
           iconName="Ringer"
         />
-        Notification center
+        header.notifications.title
       </StyledLinkBase>
       <CopyButton
         isFlex={true}

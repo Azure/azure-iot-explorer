@@ -9,6 +9,7 @@ import { Icon, Announced, Link, IconButton } from '@fluentui/react';
 import { Notification, NotificationType } from '../../api/models/notification';
 import { ROUTE_PARAMS, ROUTE_PARTS } from '../../constants/routes';
 import '../../css/_notification.scss';
+import { ResourceKeys } from '../../../localization/resourceKeys';
 
 export interface NotificationListEntryProps {
     notification: Notification;
@@ -41,8 +42,8 @@ export const NotificationListEntry: React.SFC<NotificationListEntryProps> = (pro
         return (
             <IconButton
                 iconProps={{ iconName: 'copy' }}
-                title={'copy'}
-                ariaLabel={'copy'}
+                title={t(ResourceKeys.header.notifications.copy)}
+                ariaLabel={t(ResourceKeys.header.notifications.copy)}
                 onClick={copyToClipboard}
                 style={buttonProps.isFlex ? {flex: '1'} : {}}
             />
@@ -76,9 +77,9 @@ export const NotificationListEntry: React.SFC<NotificationListEntryProps> = (pro
                             </>
                         }
                         <div className="notificationEntry-flexContainer">
-                            <Link onClick={navigateToNotificationCenter} style={{flex: '3'}}>
-                                <Icon className="notificationEntry-Ringer alignCenter" iconName={'Ringer'} />
-                                {'Notification center'}
+                            <Link onClick={navigateToNotificationCenter} style={{flex: '5'}}>
+                                <Icon className="notificationEntry-Ringer" iconName={'Ringer'} />
+                                {t(ResourceKeys.header.notifications.title)}
                             </Link>
                             <CopyButton isFlex={true}/>
                         </div>
