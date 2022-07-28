@@ -5,10 +5,11 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useHistory } from 'react-router-dom';
-import { Icon, Announced, Link } from '@fluentui/react';
+import { Icon, Announced, Link, IconButton } from '@fluentui/react';
 import { Notification, NotificationType } from '../../api/models/notification';
 import { ROUTE_PARAMS, ROUTE_PARTS } from '../../constants/routes';
 import '../../css/_notification.scss';
+import './NotificationListEntry.scss';
 
 export interface NotificationListEntryProps {
     notification: Notification;
@@ -20,6 +21,7 @@ export const NotificationListEntry: React.SFC<NotificationListEntryProps> = (pro
     const { notification } = props;
     const { pathname } = useLocation();
     const history = useHistory();
+    const calloutRef = React.createRef<HTMLDivElement>();
 
     const iconName = getIconName(notification.type);
     const iconColor = getIconColor(notification.type);
@@ -30,6 +32,22 @@ export const NotificationListEntry: React.SFC<NotificationListEntryProps> = (pro
     const navigateToNotificationCenter = () => {
         const path = `/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.NOTIFICATIONS}?${ROUTE_PARAMS.NAV_FROM}`;
         history.push(path);
+    };
+
+    const copyToClipboard = () => {
+        navigator.clipboard.writeText(message);
+    };
+
+    const CopyButton = (buttonProps: { isFlex: boolean }): JSX.Element => {
+        return (
+            <IconButton
+                iconProps={{ iconName: 'copy' }}
+                title={'copy'}
+                ariaLabel={'copy'}
+                onClick={copyToClipboard}
+                style={buttonProps.isFlex ? {flex: '1'} : {}}
+            />
+        );
     };
 
     return (
@@ -43,18 +61,31 @@ export const NotificationListEntry: React.SFC<NotificationListEntryProps> = (pro
                 {notification.title &&
                     <div className="title">{t(notification.title.translationKey, notification.title.translationOptions)}</div>
                 }
-                {pathname.endsWith(ROUTE_PARTS.NOTIFICATIONS) ? friendlyMessage :
+                {pathname.endsWith(ROUTE_PARTS.NOTIFICATIONS) ?
+                    <>
+                        {friendlyMessage}
+                        <div className="notificationEntry-flexContainer">
+                            <div className="time alignCenter">{notification.issued}</div>
+                            <CopyButton isFlex={false}/>
+                        </div>
+                    </> :
                     <>
                         {message?.length < longMessageLength ?
                             friendlyMessage :
                             <>
                                 <div className="message">{`${message.substring(0, longMessageLength)}...`}</div>
-                                <Link onClick={navigateToNotificationCenter}>{'Go to notification center'}</Link>
                             </>
                         }
+                        <div className="notificationEntry-flexContainer">
+                            <Link onClick={navigateToNotificationCenter} style={{flex: '3'}}>
+                                <Icon className="notificationEntry-Ringer alignCenter" iconName={'Ringer'} />
+                                {'Notification center'}
+                            </Link>
+                            <CopyButton isFlex={true}/>
+                        </div>
+                        <div className="time">{notification.issued}</div>
                     </>
                 }
-                <div className="time">{notification.issued}</div>
             </div>
         </div>
     );

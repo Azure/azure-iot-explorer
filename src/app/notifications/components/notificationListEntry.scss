@@ -1,0 +1,17 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+.notificationEntry-flexContainer {
+    display: flex;
+    flex-flow: row;
+}
+
+.notificationEntry-Ringer {
+    font-size: 18px;
+    padding-right: 5px;
+}
+
+.alignCenter {
+    align-self: center;
+}

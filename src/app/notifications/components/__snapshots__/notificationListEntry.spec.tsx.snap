@@ -30,6 +30,27 @@ exports[`notificationListEntry matches snapshot 1`] = `
       <br />
     </div>
     <div
+      className="notificationEntry-flexContainer"
+    >
+      <StyledLinkBase
+        onClick={[Function]}
+        style={
+          Object {
+            "flex": "3",
+          }
+        }
+      >
+        <Icon
+          className="notificationEntry-Ringer alignCenter"
+          iconName="Ringer"
+        />
+        Notification center
+      </StyledLinkBase>
+      <CopyButton
+        isFlex={true}
+      />
+    </div>
+    <div
       className="time"
     />
   </div>
