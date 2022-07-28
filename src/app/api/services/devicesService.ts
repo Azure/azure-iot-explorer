@@ -175,6 +175,7 @@ export const fetchDevice = async (parameters: FetchDeviceParameters): Promise<De
     return result && result.body;
 };
 
+// tslint:disable-next-line:cyclomatic-complexity
 export const fetchDevices = async (parameters: FetchDevicesParameters): Promise<DataPlaneResponse<Device[]>> => {
     const connectionInformation = await dataPlaneConnectionHelper();
     const queryString = buildQueryString(parameters.query);
@@ -197,13 +198,15 @@ export const fetchDevices = async (parameters: FetchDevicesParameters): Promise<
         (dataPlaneRequest.headers as any)[HEADERS.CONTINUATION_TOKEN] = parameters.query.continuationTokens[parameters.query.currentPageIndex]; // tslint:disable-line: no-any
     }
 
-    const insights = AppInsightsClient.getInstance();
-    insights?.startTrackEvent(TELEMETRY_EVENTS.FETCH_DEVICES);
-    const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
-    insights?.stopTrackEvent(TELEMETRY_EVENTS.FETCH_DEVICES, {url: response.url, status: response.status.toString(), statusText: response.statusText});
-    insights?.flush();
-    const result = await dataPlaneResponseHelper(response);
-    return result;
+    try {
+        const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
+        AppInsightsClient.getInstance()?.trackEvent({name: TELEMETRY_EVENTS.FETCH_DEVICES}, {status: response.status.toString(), statusText: response.statusText});
+        const result = await dataPlaneResponseHelper(response);
+        return result;
+    } catch (e) {
+        AppInsightsClient.getInstance()?.trackEvent({name: TELEMETRY_EVENTS.FETCH_DEVICES}, {status: 'N/A', statusText: e.toString()});
+        throw (e);
+    }
 };
 
 export const deleteDevices = async (parameters: DeleteDevicesParameters) => {
