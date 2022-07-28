@@ -44,13 +44,15 @@
         },
         "notifications": {
             "show": "Notifications",
+            "title": "Notification center",
             "dismiss": "Clear all notifications",
             "panel": {
                 "title": "Notifications",
                 "noNotifications": "There are no new notifications for this session.",
                 "redirect": "Looking for notifications?",
                 "redirectLink": "Please visit Notification Center"
-            }
+            },
+            "copy": "Copy"
         },
         "questions": {
             "launch": "Open ???"

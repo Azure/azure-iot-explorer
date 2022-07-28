@@ -693,6 +693,7 @@ export class ResourceKeys {
    public static header = {
       applicationName : "header.applicationName",
       notifications : {
+         copy : "header.notifications.copy",
          dismiss : "header.notifications.dismiss",
          panel : {
             noNotifications : "header.notifications.panel.noNotifications",
@@ -701,6 +702,7 @@ export class ResourceKeys {
             title : "header.notifications.panel.title",
          },
          show : "header.notifications.show",
+         title : "header.notifications.title",
       },
       questions : {
          launch : "header.questions.launch",
