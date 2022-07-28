@@ -18,7 +18,7 @@ export const HomeView: React.FC = () => {
         <>
             <AppVersionMessageBar/>
             <div className={'appContentWithLeftNav' + (!appMenuVisible ? ' collapsed' : '')}>
-                <div className={'nav' + (!appMenuVisible ? ' collapsed' : '')}>
+                <div className={'mainleftnav' + (!appMenuVisible ? ' collapsed' : '')}>
                     <HomeViewNavigation
                         appMenuVisible={appMenuVisible}
                         setAppMenuVisible={setAppMenuVisible}

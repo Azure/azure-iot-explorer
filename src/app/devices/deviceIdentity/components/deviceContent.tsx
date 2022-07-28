@@ -5,7 +5,6 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useRouteMatch } from 'react-router-dom';
-import { IconButton } from '@fluentui/react';
 import { DeviceIdentityInformation } from './deviceIdentity';
 import { DeviceTwin } from '../../deviceTwin/components/deviceTwin';
 import { DeviceEvents } from '../../deviceEvents/components/deviceEvents';
@@ -14,7 +13,6 @@ import { CloudToDeviceMessage } from '../../cloudToDeviceMessage/components/clou
 import { DeviceContentNavComponent } from './deviceContentNav';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { ROUTE_PARAMS, ROUTE_PARTS } from '../../../constants/routes';
-import { NAV } from '../../../constants/iconNames';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import { MultiLineShimmer } from '../../../shared/components/multiLineShimmer';
 import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
@@ -27,9 +25,10 @@ import { useBreadcrumbEntry } from '../../../navigation/hooks/useBreadcrumbEntry
 import { BreadcrumbRoute } from '../../../navigation/components/breadcrumbRoute';
 import { DeviceIdentity } from '../../../api/models/deviceIdentity';
 import { Pnp } from '../../pnp/components/pnp';
+import { DeviceModules } from './deviceModules';
+import { CollapsibleButton } from '../../../shared/components/collapsibleButton';
 import '../../../css/_deviceContent.scss';
 import '../../../css/_layouts.scss';
-import { DeviceModules } from './deviceModules';
 
 export const DeviceContent: React.FC = () => {
     const { t } = useTranslation();
@@ -52,14 +51,11 @@ export const DeviceContent: React.FC = () => {
 
     const renderNav = () => {
         return (
-            <div className={'nav' + (!appMenuVisible ? ' collapsed' : '')}>
+            <div className={'mainleftnav' + (!appMenuVisible ? ' collapsed' : '')}>
                 <div className="nav-links">
-                    <IconButton
-                        tabIndex={0}
-                        iconProps={{ iconName: NAV }}
-                        title={appMenuVisible ? t(ResourceKeys.common.navigation.collapse) : t(ResourceKeys.common.navigation.expand)}
-                        ariaLabel={appMenuVisible ? t(ResourceKeys.common.navigation.collapse) : t(ResourceKeys.common.navigation.expand)}
-                        onClick={collapseToggle}
+                    <CollapsibleButton
+                        appMenuVisible={appMenuVisible}
+                        setAppMenuVisible={setAppMenuVisible}
                     />
                     {createNavLinks()}
                 </div>

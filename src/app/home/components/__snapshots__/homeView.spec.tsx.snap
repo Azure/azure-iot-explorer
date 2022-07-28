@@ -7,7 +7,7 @@ exports[`HomeView matches snapshot 1`] = `
     className="appContentWithLeftNav"
   >
     <div
-      className="nav"
+      className="mainleftnav"
     >
       <HomeViewNavigation
         appMenuVisible={true}
