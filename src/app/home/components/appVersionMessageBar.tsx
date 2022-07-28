@@ -10,7 +10,7 @@ import { fetchLatestReleaseTagName, latestReleaseUrlPath } from '../../api/servi
 import * as packageJson from '../../../../package.json';
 import { isNewReleaseVersionHigher } from '../utils/appVersionHelper';
 import { AppInsightsClient } from '../../shared/appTelemetry/appInsightsClient';
-import { TELEMETRY_ACTIONS } from '../../constants/telemetry';
+import { TELEMETRY_EVENTS } from '../../constants/telemetry';
 
 export const AppVersionMessageBar: React.FC = () => {
     const { t } = useTranslation();
@@ -35,12 +35,12 @@ export const AppVersionMessageBar: React.FC = () => {
     };
 
     const onBannerClicked = () => {
-        AppInsightsClient.getInstance()?.trackEvent({name: TELEMETRY_ACTIONS.UPDATE_BANNER_CLICKED});
+        AppInsightsClient.getInstance()?.trackEvent({name: TELEMETRY_EVENTS.UPDATE_BANNER_CLICKED});
     };
 
     React.useEffect(() => {
         if (hasNewerRelease()) {
-            AppInsightsClient.getInstance()?.trackEvent({name: TELEMETRY_ACTIONS.UPDATE_BANNER_DISPLAYED});
+            AppInsightsClient.getInstance()?.trackEvent({name: TELEMETRY_EVENTS.UPDATE_BANNER_DISPLAYED});
         }
     }, [hasNewerRelease]);  // tslint:disable-line: align
 

@@ -1,4 +1,5 @@
 import { ApplicationInsights } from '@microsoft/applicationinsights-web';
+import { TELEMETRY_EVENTS } from '../../constants/telemetry';
 import { appConfig } from '../../../appConfig/appConfig';
 export class AppInsightsClient {
     private static instance: ApplicationInsights;
@@ -11,7 +12,7 @@ export class AppInsightsClient {
             } });
             try {
                 appInsights.loadAppInsights();
-                appInsights.trackEvent({name: `INIT`}, {type: 'init'});
+                appInsights.trackEvent({name: TELEMETRY_EVENTS.INIT});
                 AppInsightsClient.instance = appInsights;
             } catch (e) {
                 // tslint:disable-next-line:no-console
