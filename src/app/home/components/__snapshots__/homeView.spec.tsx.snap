@@ -9,10 +9,13 @@ exports[`HomeView matches snapshot 1`] = `
     <div
       className="nav"
     >
-      <HomeViewNavigation />
+      <HomeViewNavigation
+        appMenuVisible={true}
+        setAppMenuVisible={[Function]}
+      />
     </div>
     <div
-      className="content"
+      className="maincontent"
     >
       <Switch>
         <Redirect

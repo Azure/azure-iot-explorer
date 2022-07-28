@@ -16,10 +16,18 @@
         grid-area: leftnav;
         overflow-y: auto;
         overflow-x: hidden;
+        transition: all 0.5s;
     }
-    .content {
+
+    .nav.collapsed {
+        .ms-Nav-linkText {
+            display: none;
+        }
+    }
+
+    .maincontent {
         grid-area: content;
-        height: 80vh;
+        height: 90vh;
         @include themify($themes) {
             border: {
                 left: 1px solid themed("borderColor");
@@ -27,7 +35,12 @@
         }
         overflow-y: auto;
         overflow-x: hidden;
+        transition: margin-left 0.5s;
     }
+}
+
+.appContentWithLeftNav.collapsed {
+    grid-template-columns: 1fr 11fr;
 }
 
 @media screen and (max-width: $screenSize) {
@@ -39,8 +52,7 @@
             "content";
     }
 
-    .content {
-
+    .maincontent {
         @include themify($themes) {
             border: {
                 top: 1px solid themed("borderColor");

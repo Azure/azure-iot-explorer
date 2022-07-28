@@ -16,6 +16,7 @@
 }
 
 .view-content {
+    height: 90vh;
     @include themify($themes) {
         border-top: 1px solid themed("viewContentBorderColor");
     }

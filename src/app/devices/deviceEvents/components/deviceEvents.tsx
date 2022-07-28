@@ -12,6 +12,7 @@ import { getDeviceIdFromQueryString, getComponentNameFromQueryString, getInterfa
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import { MonitorEventsParameters } from '../../../api/parameters/deviceParameters';
 import { DEFAULT_CONSUMER_GROUP } from '../../../constants/apiConstants';
+import { appConfig, HostMode } from '../../../../appConfig/appConfig';
 import { HeaderView } from '../../../shared/components/headerView';
 import { useAsyncSagaReducer } from '../../../shared/hooks/useAsyncSagaReducer';
 import { deviceEventsReducer } from '../reducers';
@@ -33,7 +34,6 @@ import { Commands } from './commands';
 import { CustomEventHub } from './customEventHub';
 import { ConsumerGroup } from './consumerGroup';
 import { StartTime } from './startTime';
-import { appConfig, HostMode } from '../../../../appConfig/appConfig';
 import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
 import { TELEMETRY_PAGE_NAMES } from '../../../../app/constants/telemetry';
 import './deviceEvents.scss';
@@ -533,7 +533,7 @@ export const DeviceEvents: React.FC = () => {
             />
             <div className="device-events-container">
                 {renderLoader()}
-                <div className={componentName ? 'scrollable-pnp-telemetry' : ''}>
+                <div className={componentName ? 'pnp-telemetry' : ''}>
                     {showPnpModeledEvents ? renderPnpModeledEvents() : renderRawEvents()}
                 </div>
             </div>
