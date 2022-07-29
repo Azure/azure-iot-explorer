@@ -13,7 +13,7 @@ export class AppInsightsClient {
             } });
             try {
                 appInsights.loadAppInsights();
-                // TODO: test on domain joined computer
+                // tslint:disable-next-line:no-console
                 console.log('INTERNAL: ' + verifyMicrosoftInternalDomain());
                 appInsights.trackEvent({name: TELEMETRY_EVENTS.INIT});
                 AppInsightsClient.instance = appInsights;
@@ -30,7 +30,7 @@ export class AppInsightsClient {
 // TODO: move to a better place
 const verifyMicrosoftInternalDomain = (): boolean => {
     const msftInternalDomains = ['redmond.corp.microsoft.com', 'northamerica.corp.microsoft.com', 'fareast.corp.microsoft.com', 'ntdev.corp.microsoft.com', 'wingroup.corp.microsoft.com', 'southpacific.corp.microsoft.com', 'wingroup.windeploy.ntdev.microsoft.com', 'ddnet.microsoft.com', 'europe.corp.microsoft.com'];
-    const userDnsDomain = process.env.USERDNSDOMAIN;
+    const userDnsDomain = process.env.userdnsdomain;
     if (!userDnsDomain) {
         return false;
     }
