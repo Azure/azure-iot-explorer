@@ -2,17 +2,17 @@
 
 exports[`deviceIdentity snapshot matches snapshot 1`] = `
 <Fragment>
-  <Component
+  <DeviceIdentityCommandBar
     disableSave={true}
     handleSave={[Function]}
   />
-  <Component
+  <HeaderView
     headerText="deviceIdentity.headerText"
   />
   <div
     className="device-detail"
   >
-    <Component
+    <MaskedCopyableTextField
       allowMask={false}
       ariaLabel="deviceIdentity.deviceID"
       label="deviceIdentity.deviceID"
@@ -35,17 +35,17 @@ exports[`deviceIdentity snapshot matches snapshot 1`] = `
 
 exports[`deviceIdentity snapshot matches snapshot with CA auth type 1`] = `
 <Fragment>
-  <Component
+  <DeviceIdentityCommandBar
     disableSave={true}
     handleSave={[Function]}
   />
-  <Component
+  <HeaderView
     headerText="deviceIdentity.headerText"
   />
   <div
     className="device-detail"
   >
-    <Component
+    <MaskedCopyableTextField
       allowMask={false}
       ariaLabel="deviceIdentity.deviceID"
       label="deviceIdentity.deviceID"
@@ -68,17 +68,17 @@ exports[`deviceIdentity snapshot matches snapshot with CA auth type 1`] = `
 
 exports[`deviceIdentity snapshot matches snapshot with SelfSigned auth type 1`] = `
 <Fragment>
-  <Component
+  <DeviceIdentityCommandBar
     disableSave={true}
     handleSave={[Function]}
   />
-  <Component
+  <HeaderView
     headerText="deviceIdentity.headerText"
   />
   <div
     className="device-detail"
   >
-    <Component
+    <MaskedCopyableTextField
       allowMask={false}
       ariaLabel="deviceIdentity.deviceID"
       label="deviceIdentity.deviceID"
@@ -101,17 +101,17 @@ exports[`deviceIdentity snapshot matches snapshot with SelfSigned auth type 1`] 
 
 exports[`deviceIdentity snapshot matches snapshot with SymmetricKey auth type 1`] = `
 <Fragment>
-  <Component
+  <DeviceIdentityCommandBar
     disableSave={true}
     handleSave={[Function]}
   />
-  <Component
+  <HeaderView
     headerText="deviceIdentity.headerText"
   />
   <div
     className="device-detail"
   >
-    <Component
+    <MaskedCopyableTextField
       allowMask={false}
       ariaLabel="deviceIdentity.deviceID"
       label="deviceIdentity.deviceID"
@@ -134,17 +134,17 @@ exports[`deviceIdentity snapshot matches snapshot with SymmetricKey auth type 1`
 
 exports[`deviceIdentity snapshot matches snapshot with Synchronization Status of updating 1`] = `
 <Fragment>
-  <Component
+  <DeviceIdentityCommandBar
     disableSave={true}
     handleSave={[Function]}
   />
-  <Component
+  <HeaderView
     headerText="deviceIdentity.headerText"
   />
   <div
     className="device-detail"
   >
-    <Component
+    <MaskedCopyableTextField
       allowMask={false}
       ariaLabel="deviceIdentity.deviceID"
       label="deviceIdentity.deviceID"
@@ -167,17 +167,17 @@ exports[`deviceIdentity snapshot matches snapshot with Synchronization Status of
 
 exports[`deviceIdentity snapshot matches snapshot with Synchronization Status of working 1`] = `
 <Fragment>
-  <Component
+  <DeviceIdentityCommandBar
     disableSave={true}
     handleSave={[Function]}
   />
-  <Component
+  <HeaderView
     headerText="deviceIdentity.headerText"
   />
   <div
     className="device-detail"
   >
-    <Component
+    <MaskedCopyableTextField
       allowMask={false}
       ariaLabel="deviceIdentity.deviceID"
       label="deviceIdentity.deviceID"
@@ -200,17 +200,17 @@ exports[`deviceIdentity snapshot matches snapshot with Synchronization Status of
 
 exports[`deviceIdentity snapshot matches snapshot with auth type of None 1`] = `
 <Fragment>
-  <Component
+  <DeviceIdentityCommandBar
     disableSave={true}
     handleSave={[Function]}
   />
-  <Component
+  <HeaderView
     headerText="deviceIdentity.headerText"
   />
   <div
     className="device-detail"
   >
-    <Component
+    <MaskedCopyableTextField
       allowMask={false}
       ariaLabel="deviceIdentity.deviceID"
       label="deviceIdentity.deviceID"
@@ -233,17 +233,17 @@ exports[`deviceIdentity snapshot matches snapshot with auth type of None 1`] = `
 
 exports[`deviceIdentity snapshot matches snapshot with identity wrapper 1`] = `
 <Fragment>
-  <Component
+  <DeviceIdentityCommandBar
     disableSave={true}
     handleSave={[Function]}
   />
-  <Component
+  <HeaderView
     headerText="deviceIdentity.headerText"
   />
   <div
     className="device-detail"
   >
-    <Component
+    <MaskedCopyableTextField
       allowMask={false}
       ariaLabel="deviceIdentity.deviceID"
       label="deviceIdentity.deviceID"

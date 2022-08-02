@@ -46,7 +46,7 @@ exports[`components/devices/deviceCommandsPerInterface matches snapshot 1`] = `
     className="list-content"
     role="list"
   >
-    <Component
+    <DeviceCommandsPerInterfacePerCommand
       collapsed={false}
       commandModelDefinition={
         Object {

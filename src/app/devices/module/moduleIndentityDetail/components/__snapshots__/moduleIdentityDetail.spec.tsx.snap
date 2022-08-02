@@ -30,9 +30,9 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after certificateAuthori
     }
   />
   <div
-    className="module-identity-detail"
+    className="device-detail"
   >
-    <Component
+    <MaskedCopyableTextField
       allowMask={false}
       ariaLabel="moduleIdentity.moduleId"
       label="moduleIdentity.moduleId"
@@ -77,9 +77,9 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after module identity is
     }
   />
   <div
-    className="module-identity-detail"
+    className="device-detail"
   >
-    <Component
+    <MaskedCopyableTextField
       allowMask={false}
       ariaLabel="moduleIdentity.moduleId"
       label="moduleIdentity.moduleId"
@@ -121,9 +121,9 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after sas module identit
     }
   />
   <div
-    className="module-identity-detail"
+    className="device-detail"
   >
-    <Component
+    <MaskedCopyableTextField
       allowMask={false}
       ariaLabel="moduleIdentity.moduleId"
       label="moduleIdentity.moduleId"
@@ -131,44 +131,44 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after sas module identit
       readOnly={true}
       value="moduleId"
     />
-    <Component
+    <MaskedCopyableTextField
       allowMask={true}
       ariaLabel="moduleIdentity.authenticationType.symmetricKey.primaryKey"
       label="moduleIdentity.authenticationType.symmetricKey.primaryKey"
       labelCallout="moduleIdentity.authenticationType.symmetricKey.primaryKeyTooltip"
       readOnly={true}
-      value="key1"
+      value="mock_key_1"
     />
-    <Component
+    <MaskedCopyableTextField
       allowMask={true}
       ariaLabel="moduleIdentity.authenticationType.symmetricKey.secondaryKey"
       label="moduleIdentity.authenticationType.symmetricKey.secondaryKey"
       labelCallout="moduleIdentity.authenticationType.symmetricKey.secondaryKeyTooltip"
       readOnly={true}
-      value="key2"
+      value="mock_key_2"
     />
-    <Component
+    <MaskedCopyableTextField
       allowMask={true}
       ariaLabel="moduleIdentity.authenticationType.symmetricKey.primaryConnectionString"
       label="moduleIdentity.authenticationType.symmetricKey.primaryConnectionString"
       readOnly={true}
-      value="HostName=hostName;DeviceId=newdevice;ModuleId=moduleId;SharedAccessKey=key1"
+      value="HostName=hostName;DeviceId=newdevice;ModuleId=moduleId;SharedAccessKey=mock_key_1"
     />
-    <Component
+    <MaskedCopyableTextField
       allowMask={true}
       ariaLabel="moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString"
       label="moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString"
       readOnly={true}
-      value="HostName=hostName;DeviceId=newdevice;ModuleId=moduleId;SharedAccessKey=key2"
+      value="HostName=hostName;DeviceId=newdevice;ModuleId=moduleId;SharedAccessKey=mock_key_2"
     />
-    <Component
+    <SasTokenGenerationView
       activeAzureResourceHostName="hostName"
       moduleIdentity={
         Object {
           "authentication": Object {
             "symmetricKey": Object {
-              "primaryKey": "key1",
-              "secondaryKey": "key2",
+              "primaryKey": "mock_key_1",
+              "secondaryKey": "mock_key_2",
             },
             "type": "sas",
             "x509Thumbprint": null,
@@ -212,9 +212,9 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after self signed module
     }
   />
   <div
-    className="module-identity-detail"
+    className="device-detail"
   >
-    <Component
+    <MaskedCopyableTextField
       allowMask={false}
       ariaLabel="moduleIdentity.moduleId"
       label="moduleIdentity.moduleId"
@@ -225,7 +225,7 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after self signed module
     <StyledLabelBase>
       moduleIdentity.authenticationType.selfSigned.text
     </StyledLabelBase>
-    <Component
+    <MaskedCopyableTextField
       allowMask={true}
       ariaLabel="moduleIdentity.authenticationType.selfSigned.primaryThumbprint"
       label="moduleIdentity.authenticationType.selfSigned.primaryThumbprint"
@@ -233,7 +233,7 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after self signed module
       readOnly={true}
       value="thumbprint1"
     />
-    <Component
+    <MaskedCopyableTextField
       allowMask={true}
       ariaLabel="moduleIdentity.authenticationType.selfSigned.secondaryThumbprint"
       label="moduleIdentity.authenticationType.selfSigned.secondaryThumbprint"
@@ -275,9 +275,9 @@ exports[`ModuleIdentityDetail snapshot matches snapshot showing delete confirmat
     }
   />
   <div
-    className="module-identity-detail"
+    className="device-detail"
   >
-    <Component
+    <MaskedCopyableTextField
       allowMask={false}
       ariaLabel="moduleIdentity.moduleId"
       label="moduleIdentity.moduleId"
@@ -352,9 +352,9 @@ exports[`ModuleIdentityDetail snapshot matches snapshot while loading 1`] = `
     }
   />
   <div
-    className="module-identity-detail"
+    className="device-detail"
   >
-    <Component
+    <MaskedCopyableTextField
       allowMask={false}
       ariaLabel="moduleIdentity.moduleId"
       label="moduleIdentity.moduleId"
@@ -362,7 +362,7 @@ exports[`ModuleIdentityDetail snapshot matches snapshot while loading 1`] = `
       readOnly={true}
       value="moduleId"
     />
-    <Component />
+    <MultiLineShimmer />
   </div>
 </Fragment>
 `;

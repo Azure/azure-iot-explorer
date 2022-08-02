@@ -7,6 +7,6 @@ import { getProfileToken } from '../../../api/services/authenticationService';
 import { getAuthenticatinTokenAction } from '../actions';
 
 export function* getTokenSaga() {
-    const token = yield call(getProfileToken);
+    const token: string = yield call(getProfileToken);
     yield put(getAuthenticatinTokenAction.done({result: token}));
 }

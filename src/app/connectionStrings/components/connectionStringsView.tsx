@@ -26,6 +26,8 @@ import { useBreadcrumbEntry } from '../../navigation/hooks/useBreadcrumbEntry';
 import { useAuthenticationStateContext } from '../../shared/contexts/authenticationStateContext';
 import '../../css/_layouts.scss';
 import './connectionStringsView.scss';
+import { AppInsightsClient } from '../../shared/appTelemetry/appInsightsClient';
+import { TELEMETRY_PAGE_NAMES } from '../../../app/constants/telemetry';
 
 // tslint:disable-next-line: cyclomatic-complexity
 export const ConnectionStringsView: React.FC = () => {
@@ -85,6 +87,10 @@ export const ConnectionStringsView: React.FC = () => {
     },              []);
 
     React.useEffect(() => {
+        AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.HUBS});
+    }, []); // tslint:disable-line: align
+
+    React.useEffect(() => {
         if (synchronizationStatus === SynchronizationStatus.upserted) { // only when connection string updated successfully would navigate to device list view
             const hostName = getConnectionInfoFromConnectionString(connectionStringsWithExpiry[0] && connectionStringsWithExpiry[0].connectionString).hostName;
             history.push(`/${ROUTE_PARTS.IOT_HUB}/${ROUTE_PARTS.HOST_NAME}/${hostName}/`);
@@ -123,31 +129,25 @@ export const ConnectionStringsView: React.FC = () => {
     };
 
     return (
-        <div className="view">
-            <div className="view-command">
-                <CommandBar
-                    items={getCommandBarItems()}
-                />
+        <div>
+            <CommandBar
+                items={getCommandBarItems()}
+            />
+            <div className="connection-strings">
+                {connectionStringsWithExpiry.map(connectionStringWithExpiry =>
+                    <ConnectionString
+                        key={connectionStringWithExpiry.connectionString}
+                        connectionStringWithExpiry={connectionStringWithExpiry}
+                        onEditConnectionString={onEditConnectionStringClick}
+                        onDeleteConnectionString={onDeleteConnectionString}
+                        onSelectConnectionString={onSelectConnectionString}
+                    />
+                )}
             </div>
-            <div className="view-scroll-vertical">
-                {token}
-                <div className="connection-strings">
-                    {connectionStringsWithExpiry.map(connectionStringWithExpiry =>
-                        <ConnectionString
-                            key={connectionStringWithExpiry.connectionString}
-                            connectionStringWithExpiry={connectionStringWithExpiry}
-                            onEditConnectionString={onEditConnectionStringClick}
-                            onDeleteConnectionString={onDeleteConnectionString}
-                            onSelectConnectionString={onSelectConnectionString}
-                        />
-                    )}
-                </div>
 
-                {(!connectionStringsWithExpiry || connectionStringsWithExpiry.length === 0) &&
-                    <ConnectionStringsEmpty/>
-                }
-
-            </div>
+            {(!connectionStringsWithExpiry || connectionStringsWithExpiry.length === 0) &&
+                <ConnectionStringsEmpty/>
+            }
             {connectionStringUnderEdit !== undefined &&
                 <ConnectionStringEditView
                     connectionStringUnderEdit={connectionStringUnderEdit}

@@ -28,7 +28,7 @@ exports[`ModuleIdentityList snapshot matches snapshot when fetch failed 1`] = `
       ]
     }
   />
-  <Component
+  <HeaderView
     headerText="moduleIdentity.headerText"
     link="moduleIdentity.link"
     tooltip="moduleIdentity.tooltip"
@@ -74,11 +74,20 @@ exports[`ModuleIdentityList snapshot matches snapshot when fetch failed 1`] = `
             Object {
               "ariaLabel": "moduleIdentity.columns.lastActivityTime",
               "fieldName": "lastActivityTime",
+              "isResizable": true,
               "key": "lastActivityTime",
               "maxWidth": 250,
               "minWidth": 150,
               "name": "moduleIdentity.columns.lastActivityTime",
               "onRender": [Function],
+            },
+            Object {
+              "ariaLabel": "moduleIdentity.columns.modelId",
+              "fieldName": "modelId",
+              "key": "modelId",
+              "maxWidth": 250,
+              "minWidth": 150,
+              "name": "moduleIdentity.columns.modelId",
             },
           ]
         }
@@ -119,7 +128,7 @@ exports[`ModuleIdentityList snapshot matches snapshot while loading 1`] = `
       ]
     }
   />
-  <Component
+  <HeaderView
     headerText="moduleIdentity.headerText"
     link="moduleIdentity.link"
     tooltip="moduleIdentity.tooltip"
@@ -165,11 +174,20 @@ exports[`ModuleIdentityList snapshot matches snapshot while loading 1`] = `
             Object {
               "ariaLabel": "moduleIdentity.columns.lastActivityTime",
               "fieldName": "lastActivityTime",
+              "isResizable": true,
               "key": "lastActivityTime",
               "maxWidth": 250,
               "minWidth": 150,
               "name": "moduleIdentity.columns.lastActivityTime",
               "onRender": [Function],
+            },
+            Object {
+              "ariaLabel": "moduleIdentity.columns.modelId",
+              "fieldName": "modelId",
+              "key": "modelId",
+              "maxWidth": 250,
+              "minWidth": 150,
+              "name": "moduleIdentity.columns.modelId",
             },
           ]
         }
@@ -177,7 +195,7 @@ exports[`ModuleIdentityList snapshot matches snapshot while loading 1`] = `
         selectionMode={0}
       />
     </div>
-    <Component />
+    <MultiLineShimmer />
   </div>
 </Fragment>
 `;
@@ -210,7 +228,7 @@ exports[`ModuleIdentityList snapshot matches snapshot with moduleIdentityList 1`
       ]
     }
   />
-  <Component
+  <HeaderView
     headerText="moduleIdentity.headerText"
     link="moduleIdentity.link"
     tooltip="moduleIdentity.tooltip"
@@ -256,11 +274,20 @@ exports[`ModuleIdentityList snapshot matches snapshot with moduleIdentityList 1`
             Object {
               "ariaLabel": "moduleIdentity.columns.lastActivityTime",
               "fieldName": "lastActivityTime",
+              "isResizable": true,
               "key": "lastActivityTime",
               "maxWidth": 250,
               "minWidth": 150,
               "name": "moduleIdentity.columns.lastActivityTime",
               "onRender": [Function],
+            },
+            Object {
+              "ariaLabel": "moduleIdentity.columns.modelId",
+              "fieldName": "modelId",
+              "key": "modelId",
+              "maxWidth": 250,
+              "minWidth": 150,
+              "name": "moduleIdentity.columns.modelId",
             },
           ]
         }
@@ -276,7 +303,7 @@ exports[`ModuleIdentityList snapshot matches snapshot with moduleIdentityList 1`
         selectionMode={0}
       />
     </div>
-    <Component />
+    <MultiLineShimmer />
   </div>
 </Fragment>
 `;

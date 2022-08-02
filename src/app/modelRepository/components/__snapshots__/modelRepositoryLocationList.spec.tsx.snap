@@ -12,7 +12,7 @@ exports[`components/settings/modelRepositoryLocationList matches snapshot with e
     <n
       key="PUBLIC"
     >
-      <Component
+      <ModelRepositoryLocationListItem
         index={0}
         item={
           Object {
@@ -26,7 +26,7 @@ exports[`components/settings/modelRepositoryLocationList matches snapshot with e
     <n
       key="LOCAL"
     >
-      <Component
+      <ModelRepositoryLocationListItem
         index={1}
         item={
           Object {
@@ -65,7 +65,7 @@ exports[`components/settings/modelRepositoryLocationList matches snapshot with p
     <n
       key="PUBLIC"
     >
-      <Component
+      <ModelRepositoryLocationListItem
         index={0}
         item={
           Object {

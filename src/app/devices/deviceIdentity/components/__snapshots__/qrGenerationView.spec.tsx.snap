@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DeviceModules matches snapshot 1`] = `
+<CollapsibleSection
+  expanded={false}
+  label="deviceIdentity.qrCode.label"
+  tooltipText="deviceIdentity.qrCode.toolTip"
+>
+  <div
+    className="qrCodeGeneration"
+  >
+    <h1>
+      deviceIdentity.qrCode.headerText
+    </h1>
+    <p>
+      deviceIdentity.qrCode.callToAction
+    </p>
+    <section
+      className="storeLinks"
+    >
+      <StyledLinkBase
+        href="https://play.google.com/store/apps/details?id=com.iot_pnp"
+        target="_blank"
+      >
+        <img
+          src="images/qrCodes/playstore.png"
+        />
+      </StyledLinkBase>
+      <StyledLinkBase
+        href="https://apps.apple.com/app/iot-plug-and-play/id1563783687"
+        target="_blank"
+      >
+        <img
+          src="images/qrCodes/appstore.png"
+        />
+      </StyledLinkBase>
+    </section>
+    <section>
+      <div
+        className="qrCode"
+      >
+        <Memo(QRCode)
+          size={200}
+          value="eyJkZXZpY2VJZCI6InNvbWVfZGV2aWNlIiwiZGV2aWNlS2V5IjoiaW52YWxpZF9kZXZpY2Vfa2V5IiwiaG9zdE5hbWUiOiJpbnZhbGlkX2hvc3QifQ=="
+        />
+      </div>
+    </section>
+  </div>
+</CollapsibleSection>
+`;

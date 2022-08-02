@@ -1,35 +1,133 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DeviceList matches snapshot 1`] = `
-<div
-  className="view"
->
+<div>
+  <DeviceListCommandBar
+    disableAdd={false}
+    disableDelete={true}
+    disableRefresh={false}
+    handleAdd={[Function]}
+    handleDelete={[Function]}
+    handleRefresh={[Function]}
+  />
+  <DeviceListQuery
+    refresh={0}
+    setQueryAndExecute={[Function]}
+  />
+  <ListPaging
+    fetchPage={[Function]}
+  />
   <div
-    className="view-command"
+    className="list-detail"
   >
-    <Component
-      disableAdd={false}
-      disableDelete={true}
-      disableRefresh={false}
-      handleAdd={[Function]}
-      handleDelete={[Function]}
-      handleRefresh={[Function]}
-    />
-  </div>
-  <div
-    className="view-content view-scroll-vertical"
-  >
-    <Component
-      refresh={0}
-      setQueryAndExecute={[Function]}
-    />
-    <Component
-      fetchPage={[Function]}
-    />
-    <div
-      className="list-detail"
+    <StyledMarqueeSelectionBase
+      selection={
+        Selection {
+          "_anchoredIndex": 0,
+          "_canSelectItem": [Function],
+          "_changeEventSuppressionCount": 0,
+          "_exemptedCount": 0,
+          "_exemptedIndices": Object {},
+          "_getKey": [Function],
+          "_isModal": false,
+          "_items": Array [],
+          "_keyToIndexMap": Object {},
+          "_onItemsChanged": undefined,
+          "_onSelectionChanged": [Function],
+          "_selectedItems": null,
+          "_unselectableCount": 0,
+          "_unselectableIndices": Object {},
+          "count": 0,
+          "mode": 2,
+        }
+      }
     >
-      <StyledMarqueeSelectionBase
+      <StyledWithViewportComponent
+        columns={
+          Array [
+            Object {
+              "fieldName": "id",
+              "isMultiline": true,
+              "isResizable": true,
+              "key": "id",
+              "maxWidth": 400,
+              "minWidth": 100,
+              "name": "deviceLists.columns.deviceId.label",
+              "onRender": [Function],
+            },
+            Object {
+              "fieldName": "status",
+              "isResizable": true,
+              "key": "status",
+              "maxWidth": 100,
+              "minWidth": 100,
+              "name": "deviceLists.columns.status.label",
+              "onRender": [Function],
+            },
+            Object {
+              "fieldName": "connection",
+              "isResizable": true,
+              "key": "connection",
+              "maxWidth": 200,
+              "minWidth": 100,
+              "name": "deviceLists.columns.connection",
+              "onRender": [Function],
+            },
+            Object {
+              "fieldName": "authenticationType",
+              "isMultiline": true,
+              "isResizable": true,
+              "key": "authenticationType",
+              "maxWidth": 200,
+              "minWidth": 100,
+              "name": "deviceLists.columns.authenticationType",
+              "onRender": [Function],
+            },
+            Object {
+              "fieldName": "statusUpdatedTime",
+              "isMultiline": true,
+              "isResizable": true,
+              "key": "statusUpdatedTime",
+              "maxWidth": 300,
+              "minWidth": 100,
+              "name": "deviceLists.columns.statusUpdatedTime",
+              "onRender": [Function],
+            },
+            Object {
+              "fieldName": "modelId",
+              "isMultiline": true,
+              "isResizable": true,
+              "key": "modelId",
+              "maxWidth": 400,
+              "minWidth": 100,
+              "name": "deviceLists.columns.isPnpDevice",
+              "onRender": [Function],
+            },
+            Object {
+              "fieldName": "edge",
+              "isResizable": true,
+              "key": "edge",
+              "minWidth": 100,
+              "name": "deviceLists.columns.isEdgeDevice.label",
+              "onRender": [Function],
+            },
+          ]
+        }
+        items={
+          Array [
+            Object {
+              "authenticationType": "sas",
+              "cloudToDeviceMessageCount": "0",
+              "connectionState": "connected",
+              "deviceId": "testDeviceId",
+              "iotEdge": false,
+              "lastActivityTime": "0001-01-01T00:00:00Z",
+              "status": "Enabled",
+              "statusUpdatedTime": "0001-01-01T00:00:00Z",
+            },
+          ]
+        }
+        layoutMode={1}
         selection={
           Selection {
             "_anchoredIndex": 0,
@@ -41,6 +139,7 @@ exports[`DeviceList matches snapshot 1`] = `
             "_isModal": false,
             "_items": Array [],
             "_keyToIndexMap": Object {},
+            "_onItemsChanged": undefined,
             "_onSelectionChanged": [Function],
             "_selectedItems": null,
             "_unselectableCount": 0,
@@ -49,115 +148,8 @@ exports[`DeviceList matches snapshot 1`] = `
             "mode": 2,
           }
         }
-      >
-        <StyledWithViewportComponent
-          columns={
-            Array [
-              Object {
-                "fieldName": "id",
-                "isMultiline": true,
-                "isResizable": true,
-                "key": "id",
-                "maxWidth": 400,
-                "minWidth": 100,
-                "name": "deviceLists.columns.deviceId.label",
-                "onRender": [Function],
-              },
-              Object {
-                "fieldName": "status",
-                "isResizable": true,
-                "key": "status",
-                "maxWidth": 100,
-                "minWidth": 100,
-                "name": "deviceLists.columns.status.label",
-                "onRender": [Function],
-              },
-              Object {
-                "fieldName": "connection",
-                "isResizable": true,
-                "key": "connection",
-                "maxWidth": 200,
-                "minWidth": 100,
-                "name": "deviceLists.columns.connection",
-                "onRender": [Function],
-              },
-              Object {
-                "fieldName": "authenticationType",
-                "isMultiline": true,
-                "isResizable": true,
-                "key": "authenticationType",
-                "maxWidth": 200,
-                "minWidth": 100,
-                "name": "deviceLists.columns.authenticationType",
-                "onRender": [Function],
-              },
-              Object {
-                "fieldName": "statusUpdatedTime",
-                "isMultiline": true,
-                "isResizable": true,
-                "key": "statusUpdatedTime",
-                "maxWidth": 300,
-                "minWidth": 100,
-                "name": "deviceLists.columns.statusUpdatedTime",
-                "onRender": [Function],
-              },
-              Object {
-                "fieldName": "modelId",
-                "isMultiline": true,
-                "isResizable": true,
-                "key": "modelId",
-                "maxWidth": 400,
-                "minWidth": 100,
-                "name": "deviceLists.columns.isPnpDevice",
-                "onRender": [Function],
-              },
-              Object {
-                "fieldName": "edge",
-                "isResizable": true,
-                "key": "edge",
-                "minWidth": 100,
-                "name": "deviceLists.columns.isEdgeDevice.label",
-                "onRender": [Function],
-              },
-            ]
-          }
-          items={
-            Array [
-              Object {
-                "authenticationType": "sas",
-                "cloudToDeviceMessageCount": "0",
-                "connectionState": "connected",
-                "deviceId": "testDeviceId",
-                "iotEdge": false,
-                "lastActivityTime": "0001-01-01T00:00:00Z",
-                "status": "Enabled",
-                "statusUpdatedTime": "0001-01-01T00:00:00Z",
-              },
-            ]
-          }
-          layoutMode={1}
-          selection={
-            Selection {
-              "_anchoredIndex": 0,
-              "_canSelectItem": [Function],
-              "_changeEventSuppressionCount": 0,
-              "_exemptedCount": 0,
-              "_exemptedIndices": Object {},
-              "_getKey": [Function],
-              "_isModal": false,
-              "_items": Array [],
-              "_keyToIndexMap": Object {},
-              "_onSelectionChanged": [Function],
-              "_selectedItems": null,
-              "_unselectableCount": 0,
-              "_unselectableIndices": Object {},
-              "count": 0,
-              "mode": 2,
-            }
-          }
-        />
-      </StyledMarqueeSelectionBase>
-    </div>
+      />
+    </StyledMarqueeSelectionBase>
   </div>
 </div>
 `;

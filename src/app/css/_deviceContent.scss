@@ -9,65 +9,8 @@
 $nav-collapsed-width: 40px;
 $nav-width: 20%;
 
-@media screen and (min-width: $screenSize) {
-    .device-content {
-        .device-content-nav-bar {
-            display: flex;
-            flex-direction: column;
-            width: $nav-width;
-            max-width: 300px;
-            height: calc(100vh - 131px);
-            float: left;
-            overflow-y: auto;
-            @include themify($themes) {
-                border: {
-                    right: {
-                        width: 1px;
-                        style: solid;
-                        color: themed("navBarBorderColor");
-                    }
-                    bottom: none;
-                }
-            }
-        }
-        .device-content-nav-bar.collapsed {
-            width: $nav-collapsed-width;
-
-            .ms-Nav-linkText {
-                display: none;
-            }
-        }
-
-        .device-content-detail {
-            transition: margin-left 0.5s;
-            margin-left: $nav-width;
-        }
-
-        .device-content-detail.collapsed {
-            margin-left: $nav-collapsed-width;
-        }
-    }
-}
-
-@media screen and (max-width: $screenSize) {
-    .device-content {
-        .device-content-nav-bar.collapsed {
-            .nav-links {
-                display: none;
-            }
-        }
-    }
-}
-
 .device-content {
-    display: inline-block;
-    width: 100%;
-
-    .device-content-nav-bar {
-        transition: all 0.5s;
-    }
     .device-content-detail {
-        margin: 0;
         .form-group {
             .fieldChildren {
                 display: flex;
@@ -99,39 +42,6 @@ $nav-width: 20%;
         h3 {
             font-size: 20px;
             padding-left: 26px;
-        }
-    }
-
-    .device-property {
-        margin-bottom: 50px;
-        .commandBar {
-            @include commandBar;
-            .syncBlock {
-                padding-left: 30px;
-                margin-top: -10px;
-                .labelFont {
-                    font-weight: bold;
-                }
-            }
-        }
-
-        .ms-Overlay {
-            @include themify($themes) {
-                background-color: themed("blockingColor");
-            }
-        }
-    }
-
-    .device-command {
-        margin: 0px 0px 50px 3px;
-        .commandBar {
-            @include commandBar;
-            .commandTypeBlock {
-                padding-left: 30px;
-                .labelFont {
-                    font-weight: bold;
-                }
-            }
         }
     }
 }

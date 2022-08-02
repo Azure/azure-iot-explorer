@@ -20,6 +20,8 @@ import { setRepositoryLocationsAction } from '../../shared/global/actions';
 import { RepositoryLocationSettings } from '../../shared/global/state';
 import { useBreadcrumbEntry } from '../../navigation/hooks/useBreadcrumbEntry';
 import '../../css/_layouts.scss';
+import { AppInsightsClient } from '../../shared/appTelemetry/appInsightsClient';
+import { TELEMETRY_PAGE_NAMES } from '../../../app/constants/telemetry';
 
 export const ModelRepositoryLocationView: React.FC = () => {
     const { t } = useTranslation();
@@ -189,15 +191,17 @@ export const ModelRepositoryLocationView: React.FC = () => {
         ]);
     };
 
+    React.useEffect(() => {
+        AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.PNP_REPO_SETTINGS});
+    }, []); // tslint:disable-line: align
+
     return (
-        <div className="view">
+        <div>
             <Prompt when={dirty} message={t(ResourceKeys.common.navigation.confirm)}/>
-            <div className="view-command">
-                <CommandBar
-                    items={getCommandBarItems()}
-                />
-            </div>
-            <div className="view-scroll-vertical">
+            <CommandBar
+                items={getCommandBarItems()}
+            />
+            <div>
                 <ModelRepositoryInstruction empty={repositoryLocationSettings.length === 0}/>
                 <ModelRepositoryLocationList
                     repositoryLocationSettings={repositoryLocationSettings}

@@ -102,3 +102,17 @@
     }
     height: 2px;
 }
+
+.notificationEntry-flexContainer {
+    display: flex;
+    flex-flow: row;
+}
+
+.notificationEntry-Ringer {
+    font-size: 18px;
+    padding-right: 5px;
+}
+
+.alignCenter {
+    align-self: center;
+}

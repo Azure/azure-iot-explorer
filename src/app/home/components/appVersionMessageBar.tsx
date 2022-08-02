@@ -9,6 +9,8 @@ import { ResourceKeys } from '../../../localization/resourceKeys';
 import { fetchLatestReleaseTagName, latestReleaseUrlPath } from '../../api/services/githubService';
 import * as packageJson from '../../../../package.json';
 import { isNewReleaseVersionHigher } from '../utils/appVersionHelper';
+import { AppInsightsClient } from '../../shared/appTelemetry/appInsightsClient';
+import { TELEMETRY_EVENTS } from '../../constants/telemetry';
 
 export const AppVersionMessageBar: React.FC = () => {
     const { t } = useTranslation();
@@ -32,14 +34,23 @@ export const AppVersionMessageBar: React.FC = () => {
         }
     };
 
+    const onBannerClicked = () => {
+        AppInsightsClient.getInstance()?.trackEvent({name: TELEMETRY_EVENTS.UPDATE_BANNER_CLICKED});
+    };
+
+    React.useEffect(() => {
+        if (hasNewerRelease()) {
+            AppInsightsClient.getInstance()?.trackEvent({name: TELEMETRY_EVENTS.UPDATE_BANNER_DISPLAYED});
+        }
+    }, [hasNewerRelease]);  // tslint:disable-line: align
+
     return hasNewerRelease() ?
-        (
+       (
             <MessageBar
-                className="home-view-message-bar"
                 messageBarType={MessageBarType.info}
             >
                 {t(ResourceKeys.deviceLists.messageBar.message, {version: latestReleaseVersion})}
-                <Link href={latestReleaseUrlPath} target="_blank">
+                <Link href={latestReleaseUrlPath} target="_blank" onClick={onBannerClicked}>
                     {t(ResourceKeys.deviceLists.messageBar.link)}
                 </Link>
             </MessageBar>

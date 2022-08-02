@@ -69,12 +69,12 @@ exports[`dataForm matches snapshot with unsupported type 1`] = `
   <form
     className="json-editor"
   >
-    <Component
+    <LabelWithTooltip
       tooltipText="notifications.interfaceSchemaNotSupported"
     >
       deviceContent.value
-    </Component>
-    <Component
+    </LabelWithTooltip>
+    <JSONEditor
       className="json-editor"
       content="123"
       onChange={[Function]}

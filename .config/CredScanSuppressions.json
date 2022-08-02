@@ -1,0 +1,9 @@
+{
+    "tool": "Credential Scanner",
+    "suppressions": [
+      {
+        "placeholder": "mock_key_?",
+        "_justification": "Secret placeholder for fake key credentials"
+      }
+    ]
+  }

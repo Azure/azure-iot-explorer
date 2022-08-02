@@ -22,7 +22,7 @@ exports[`deviceSimulationPanel matches snapshot  1`] = `
   <StyledLabelBase>
     deviceEvents.simulation.cloudShell.textDescription
   </StyledLabelBase>
-  <Component
+  <CollapsibleSection
     expanded={true}
     label="deviceEvents.simulation.prerequisite.label"
     tooltipText="deviceEvents.simulation.prerequisite.tooltiop"
@@ -30,8 +30,8 @@ exports[`deviceSimulationPanel matches snapshot  1`] = `
     <span>
       deviceEvents.simulation.prerequisite.instruction
     </span>
-  </Component>
-  <Component
+  </CollapsibleSection>
+  <CollapsibleSection
     expanded={true}
     label="deviceEvents.simulation.basic.label"
     tooltipText="deviceEvents.simulation.basic.tooltiop"
@@ -39,15 +39,15 @@ exports[`deviceSimulationPanel matches snapshot  1`] = `
     <span>
       deviceEvents.simulation.basic.instruction
     </span>
-    <Component
+    <MaskedCopyableTextField
       allowMask={false}
       ariaLabel="deviceEvents.simulation.basic.copyLabel"
       label="deviceEvents.simulation.basic.copyLabel"
       readOnly={true}
       value="az iot device simulate --device-id device1 --login \\"\\""
     />
-  </Component>
-  <Component
+  </CollapsibleSection>
+  <CollapsibleSection
     expanded={false}
     label="deviceEvents.simulation.advanced.label"
     tooltipText="deviceEvents.simulation.advanced.tooltiop"
@@ -55,11 +55,11 @@ exports[`deviceSimulationPanel matches snapshot  1`] = `
     <span>
       deviceEvents.simulation.advanced.instruction
     </span>
-    <Component
+    <LabelWithTooltip
       tooltipText="deviceEvents.simulation.advanced.body.tooltip"
     >
       deviceEvents.simulation.advanced.body.label
-    </Component>
+    </LabelWithTooltip>
     <StyledTextFieldBase
       multiline={true}
       onChange={[Function]}
@@ -103,6 +103,7 @@ exports[`deviceSimulationPanel matches snapshot  1`] = `
           "_isModal": false,
           "_items": Array [],
           "_keyToIndexMap": Object {},
+          "_onItemsChanged": undefined,
           "_onSelectionChanged": [Function],
           "_selectedItems": null,
           "_unselectableCount": 0,
@@ -154,6 +155,7 @@ exports[`deviceSimulationPanel matches snapshot  1`] = `
             "_isModal": false,
             "_items": Array [],
             "_keyToIndexMap": Object {},
+            "_onItemsChanged": undefined,
             "_onSelectionChanged": [Function],
             "_selectedItems": null,
             "_unselectableCount": 0,
@@ -164,13 +166,13 @@ exports[`deviceSimulationPanel matches snapshot  1`] = `
         }
       />
     </StyledMarqueeSelectionBase>
-    <Component
+    <MaskedCopyableTextField
       allowMask={false}
       ariaLabel="deviceEvents.simulation.advanced.copyLabel"
       label="deviceEvents.simulation.advanced.copyLabel"
       readOnly={true}
       value="az iot device simulate --device-id device1 --login \\"\\""
     />
-  </Component>
+  </CollapsibleSection>
 </StyledPanelBase>
 `;

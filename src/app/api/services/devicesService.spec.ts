@@ -20,7 +20,6 @@ const headers = new Headers({
     'Content-Type': 'application/json'
 });
 // tslint:disable
-const emptyPromise = new Promise(() => {});
 const twin: Twin = {
     deviceId,
     deviceEtag: '',
@@ -63,7 +62,7 @@ describe('deviceTwinService', () => {
 
     context('fetchDeviceTwin', () => {
         it ('returns if deviceId is not specified', () => {
-            expect(DevicesService.fetchDeviceTwin({deviceId: undefined})).toEqual(emptyPromise);
+            expect(DevicesService.fetchDeviceTwin({deviceId: undefined})).resolves.toBe(undefined);
         });
 
         it('calls fetch with specified parameters and returns deviceTwin when response is 200', async () => {
@@ -172,7 +171,7 @@ describe('deviceTwinService', () => {
             responseTimeoutInSeconds : 10,
         };
         it ('returns if deviceId is not specified', () => {
-            expect(DevicesService.invokeDirectMethod(parameters)).toEqual(emptyPromise);
+            expect(DevicesService.invokeDirectMethod(parameters)).resolves.toBe(undefined);
         });
 
         it('calls fetch with specified parameters and invokes invokeDirectMethod when response is 200', async () => {
@@ -264,7 +263,7 @@ describe('deviceTwinService', () => {
             deviceIdentity: undefined
         };
         it ('returns if deviceIdentity is not specified', () => {
-            expect(DevicesService.addDevice(parameters)).toEqual(emptyPromise);
+            expect(DevicesService.addDevice(parameters)).resolves.toBe(undefined);
         });
 
         it('calls fetch with specified parameters and invokes addDevice when response is 200', async () => {
@@ -327,7 +326,7 @@ describe('deviceTwinService', () => {
             deviceIdentity: undefined
         };
         it ('returns if deviceIdentity is not specified', () => {
-            expect(DevicesService.updateDevice(parameters)).toEqual(emptyPromise);
+            expect(DevicesService.updateDevice(parameters)).resolves.toBe(undefined);
         });
 
         it('calls fetch with specified parameters and invokes updateDevice when response is 200', async () => {
@@ -390,7 +389,7 @@ describe('deviceTwinService', () => {
             deviceId: undefined
         };
         it ('returns if deviceId is not specified', () => {
-            expect(DevicesService.fetchDevice(parameters)).toEqual(emptyPromise);
+            expect(DevicesService.fetchDevice(parameters)).resolves.toBe(undefined);
         });
 
         it('calls fetch with specified parameters and invokes fetchDevice when response is 200', async () => {
@@ -516,7 +515,7 @@ describe('deviceTwinService', () => {
             deviceIds: undefined
         };
         it ('returns if deviceId is not specified', () => {
-            expect(DevicesService.deleteDevices(parameters)).toEqual(emptyPromise);
+            expect(DevicesService.deleteDevices(parameters)).resolves.toBe(undefined);
         });
 
         it('calls fetch with specified parameters and invokes deleteDevices when response is 200', async () => {
@@ -600,6 +599,7 @@ describe('deviceTwinService', () => {
             deviceId,
             hubConnectionString: undefined,
             startListeners: true,
+            moduleId: undefined,
             startTime: undefined
         };
 
@@ -621,6 +621,7 @@ describe('deviceTwinService', () => {
             });
         });
     });
+
 
     context('stopMonitoringEvents', () => {
         it('calls stopEventHubMonitoring', async () => {

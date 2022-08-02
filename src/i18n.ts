@@ -4,7 +4,7 @@ import resources from './localization/resources';
 const defaultLanguage = 'en';
 const fallbackLanguage = 'en';
 
-export const i18n = i18next.init({
+i18next.init({
     fallbackLng: fallbackLanguage,
     interpolation: { escapeValue: false },
     lng: defaultLanguage,
@@ -13,3 +13,5 @@ export const i18n = i18next.init({
     },
     resources,
 });
+
+export default i18next;

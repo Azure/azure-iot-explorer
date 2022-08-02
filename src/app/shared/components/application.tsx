@@ -18,6 +18,7 @@ import { Header } from './header';
 import { AuthenticationtateContextProvider } from '../contexts/authenticationStateContext';
 import { useAuthenticationState } from '../authentication/hooks/authenticationStateHook';
 import '../../css/_application.scss';
+import '../../css/_mainArea.scss';
 
 const NOTIFICATION_AUTO_CLOSE = 5000;
 
@@ -27,16 +28,16 @@ export const Application: React.FC = () => {
     const [ authenticationState , authenticationApi] = useAuthenticationState();
 
     return (
-        <div className="app">
-            <div className="masthead">
+        <div className="container">
+            <div className="header">
                 <Header />
             </div>
-            <nav className="navigation">
+            <div className="topnav">
                 <Breadcrumbs/>
-            </nav>
-            <main role="main" className="content">
+            </div>
+            <main className="main">
                 <AuthenticationtateContextProvider value={[authenticationState, authenticationApi]}>
-                    <Switch>
+                <Switch>
                         <Redirect from="/" exact={true} to={`${ROUTE_PARTS.HOME}`}/>
                         <Route path={`/${ROUTE_PARTS.HOME}`} component={HomeView} />
                         <Route path={'/microsoft.devices/'} component={IotHub} />

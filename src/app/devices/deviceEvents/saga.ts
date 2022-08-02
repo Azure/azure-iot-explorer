@@ -2,7 +2,8 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { call, put, all, takeLatest, takeEvery } from 'redux-saga/effects';
+import { call, put, all, takeEvery, takeLatest } from 'redux-saga/effects';
+import { SagaIterator } from 'redux-saga';
 import { Action } from 'typescript-fsa';
 import { monitorEvents, stopMonitoringEvents } from '../../api/services/devicesService';
 import { NotificationType } from '../../api/models/notification';
@@ -11,7 +12,7 @@ import { startEventsMonitoringAction, stopEventsMonitoringAction } from './actio
 import { raiseNotificationToast } from '../../notifications/components/notificationToast';
 import { MonitorEventsParameters } from '../../api/parameters/deviceParameters';
 
-export function* startEventsMonitoringSagaWorker(action: Action<MonitorEventsParameters>) {
+export function* startEventsMonitoringSagaWorker(action: Action<MonitorEventsParameters>): SagaIterator {
     try {
         const messages = yield call(monitorEvents, action.payload);
         yield put(startEventsMonitoringAction.done({params: action.payload, result: messages}));

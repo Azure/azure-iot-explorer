@@ -21,6 +21,8 @@ import { getModuleIdentitiesSaga } from '../saga';
 import { moduleIdentityListReducer } from '../reducer';
 import { getModuleIdentitiesAction } from '../actions';
 import '../../../../css/_deviceDetail.scss';
+import { AppInsightsClient } from '../../../../shared/appTelemetry/appInsightsClient';
+import { TELEMETRY_PAGE_NAMES } from '../../../../../app/constants/telemetry';
 
 export const ModuleIdentityList: React.FC = () => {
     const { t } = useTranslation();
@@ -36,6 +38,10 @@ export const ModuleIdentityList: React.FC = () => {
     React.useEffect(() => {
         dispatch(getModuleIdentitiesAction.started(deviceId));
     },              [deviceId]);
+
+    React.useEffect(() => {
+        AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.MODULE_LIST});
+    }, []); // tslint:disable-line: align
 
     const showCommandBar = () => {
         return (
@@ -134,11 +140,20 @@ export const ModuleIdentityList: React.FC = () => {
             {
                 ariaLabel: t(ResourceKeys.moduleIdentity.columns.lastActivityTime),
                 fieldName: 'lastActivityTime',
+                isResizable: true,
                 key: 'lastActivityTime',
                 maxWidth: 250,
                 minWidth: 150,
                 name: t(ResourceKeys.moduleIdentity.columns.lastActivityTime),
                 onRender: item => parseDateTimeString(item.lastActivityTime) || '--'
+            },
+            {
+                ariaLabel: t(ResourceKeys.moduleIdentity.columns.modelId),
+                fieldName: 'modelId',
+                key: 'modelId',
+                maxWidth: 250,
+                minWidth: 150,
+                name: t(ResourceKeys.moduleIdentity.columns.modelId)
             }];
 
         return columns;

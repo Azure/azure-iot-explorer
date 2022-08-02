@@ -1,19 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Header matches snapshot 1`] = `
-<header
-  className="header"
->
+<header>
   <div
     className="title"
   >
     header.applicationName
   </div>
-  <div>
-    <Component />
-  </div>
-  <div>
-    <Component />
+  <div
+    className="settings"
+  >
+    <SettingsPane />
   </div>
 </header>
 `;

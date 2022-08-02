@@ -15,4 +15,5 @@ export interface ModuleIdentity {
     lastActivityTime?: string;
     managedBy?: string;
     moduleId: string;
+    modelId?: string;
 }

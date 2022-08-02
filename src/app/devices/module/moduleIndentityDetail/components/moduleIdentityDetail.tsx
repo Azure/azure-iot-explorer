@@ -21,8 +21,9 @@ import { moduleIdentityDetailSaga } from '../saga';
 import { moduleIdentityDetailStateInterfaceInitial } from '../state';
 import { deleteModuleIdentityAction, getModuleIdentityAction } from '../actions';
 import { useIotHubContext } from '../../../../iotHub/hooks/useIotHubContext';
+import { AppInsightsClient } from '../../../../shared/appTelemetry/appInsightsClient';
+import { TELEMETRY_PAGE_NAMES } from '../../../../../app/constants/telemetry';
 import '../../../../css/_deviceDetail.scss';
-import '../../../../css/_moduleIdentityDetail.scss';
 
 export const ModuleIdentityDetail: React.FC = () => {
     const { t } = useTranslation();
@@ -49,6 +50,10 @@ export const ModuleIdentityDetail: React.FC = () => {
             navigateToModuleList();
         }
     },              [isDeleted]);
+
+    React.useEffect(() => {
+        AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.MODULE_IDENTITY});
+    }, []); // tslint:disable-line: align
 
     const retrieveData = () => dispatch(getModuleIdentityAction.started({ deviceId, moduleId }));
 
@@ -231,7 +236,7 @@ export const ModuleIdentityDetail: React.FC = () => {
     return (
         <>
             {showCommandBar()}
-            <div className="module-identity-detail">
+            <div className="device-detail">
                 {showModuleId()}
                 {isFetching ?
                     <MultiLineShimmer/> :

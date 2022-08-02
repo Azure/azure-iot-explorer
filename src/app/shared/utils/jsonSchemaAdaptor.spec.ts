@@ -90,7 +90,7 @@ describe('parse interface model definition to Json schema', () => {
                 {
                     definitions: {},
                     enum: ['1', '2'],
-                    enumNames : ['offline', 'online'],
+                    enumNames : ['Offline', 'Online'],
                     required: [],
                     title: enumbTypeProperty.name,
                     type: 'string'

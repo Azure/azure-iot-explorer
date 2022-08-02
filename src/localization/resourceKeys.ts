@@ -459,6 +459,12 @@ export class ResourceKeys {
          label : "deviceIdentity.hubConnectivity.label",
          tooltip : "deviceIdentity.hubConnectivity.tooltip",
       },
+      qrCode : {
+         callToAction : "deviceIdentity.qrCode.callToAction",
+         headerText : "deviceIdentity.qrCode.headerText",
+         label : "deviceIdentity.qrCode.label",
+         toolTip : "deviceIdentity.qrCode.toolTip",
+      },
       validation : {
          invalidDeviceId : "deviceIdentity.validation.invalidDeviceId",
          invalidKey : "deviceIdentity.validation.invalidKey",
@@ -693,6 +699,7 @@ export class ResourceKeys {
    public static header = {
       applicationName : "header.applicationName",
       notifications : {
+         copy : "header.notifications.copy",
          dismiss : "header.notifications.dismiss",
          panel : {
             noNotifications : "header.notifications.panel.noNotifications",
@@ -701,6 +708,7 @@ export class ResourceKeys {
             title : "header.notifications.panel.title",
          },
          show : "header.notifications.show",
+         title : "header.notifications.title",
       },
       questions : {
          launch : "header.questions.launch",
@@ -825,6 +833,7 @@ export class ResourceKeys {
          connectionState : "moduleIdentity.columns.connectionState",
          connectionStateLastUpdated : "moduleIdentity.columns.connectionStateLastUpdated",
          lastActivityTime : "moduleIdentity.columns.lastActivityTime",
+         modelId : "moduleIdentity.columns.modelId",
          moduleId : "moduleIdentity.columns.moduleId",
       },
       command : {

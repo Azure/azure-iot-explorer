@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import { call, put } from 'redux-saga/effects';
+import { SagaIterator } from 'redux-saga';
 import { Action } from 'typescript-fsa';
 import { updateDeviceTwin } from '../../../api/services/devicesService';
 import { NotificationType } from '../../../api/models/notification';
@@ -11,7 +12,7 @@ import { updateDeviceTwinAction } from '../actions';
 import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 import { Twin } from '../../../api/models/device';
 
-export function* updateDeviceTwinSaga(action: Action<Twin>) {
+export function* updateDeviceTwinSaga(action: Action<Twin>): SagaIterator {
     try {
         const twin = yield call(updateDeviceTwin, action.payload);
 

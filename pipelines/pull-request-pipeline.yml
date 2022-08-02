@@ -3,7 +3,7 @@ trigger: none
 jobs:
   - job: Verify_Build_and_Test
     pool:
-      vmImage: 'ubuntu-16.04'
+      vmImage: 'ubuntu-18.04'
     steps:
     - template: ./build-and-test-template.yml
 

@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import { createHmac } from 'crypto';
+import { Buffer } from 'buffer';
 import { IoTHubConnectionSettings } from '../services/devicesService';
 import { LIST_IOT_DEVICES, SAS_EXPIRES_MINUTES } from '../../constants/devices';
 import { DeviceQuery, QueryClause, ParameterType, OperationType } from '../models/deviceQuery';
@@ -39,11 +40,9 @@ export const generateSasToken = (parameters: GenerateSasTokenParameters) => {
     let token = null;
     if (!!parameters.resourceUri && !!parameters.key) {
         const encodedUri = encodeURIComponent(parameters.resourceUri);
-
         const expires = Math.ceil((Date.now() / MILLISECONDS_PER_SECOND) + (parameters.expiration || SAS_EXPIRES_MINUTES) * SECONDS_PER_MINUTE);
         const toSign = encodedUri + '\n' + expires;
-
-        const hmac = createHmac('sha256', new Buffer(parameters.key, 'base64'));
+        const hmac = createHmac('sha256', Buffer.from(parameters.key, 'base64'));
         hmac.update(toSign);
         const base64UriEncoded = encodeURIComponent(hmac.digest('base64'));
 

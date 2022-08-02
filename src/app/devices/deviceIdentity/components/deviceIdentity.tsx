@@ -18,7 +18,10 @@ import { MultiLineShimmer } from '../../../shared/components/multiLineShimmer';
 import { HeaderView } from '../../../shared/components/headerView';
 import { SasTokenGenerationView } from '../../shared/components/sasTokenGenerationView';
 import { useIotHubContext } from '../../../iotHub/hooks/useIotHubContext';
+import { QrGenerationView } from './qrGenerationView';
 import '../../../css/_deviceDetail.scss';
+import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
+import { TELEMETRY_PAGE_NAMES } from '../../../../app/constants/telemetry';
 
 export interface DeviceIdentityDispatchProps {
     updateDeviceIdentity: (deviceIdentity: DeviceIdentity) => void;
@@ -34,10 +37,14 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
     const { hostName } = useIotHubContext();
 
     const { deviceIdentity, synchronizationStatus } = props;
-    const [ state, setState ] = React.useState({
+    const [state, setState] = React.useState({
         identity: props.deviceIdentity,
         isDirty: false,
     });
+
+    React.useEffect(() => {
+        AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.DEVICE_IDENTITY});
+    }, []); // tslint:disable-line: align
 
     React.useEffect(() => {
         if (synchronizationStatus === SynchronizationStatus.fetched) {
@@ -56,9 +63,9 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
 
         if (props.deviceIdentity &&
             props.deviceIdentity.authentication.type === DeviceAuthenticationType.SymmetricKey) {
-                onSwapKeys = swapKeys;
-                onGeneratePrimaryKey = generatePrimaryKey;
-                onGenerateSecondaryKey = generateSecondaryKey;
+            onSwapKeys = swapKeys;
+            onGeneratePrimaryKey = generatePrimaryKey;
+            onGenerateSecondaryKey = generateSecondaryKey;
         }
 
         return (
@@ -82,7 +89,7 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
         return (
             <>
                 {props.synchronizationStatus === SynchronizationStatus.working || props.synchronizationStatus === SynchronizationStatus.updating ?
-                    <MultiLineShimmer/> :
+                    <MultiLineShimmer /> :
                     <>
                         <MaskedCopyableTextField
                             ariaLabel={t(ResourceKeys.deviceIdentity.deviceID)}
@@ -93,7 +100,7 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
                             labelCallout={t(ResourceKeys.deviceIdentity.deviceIDTooltip)}
                         />
                         {renderDeviceAuthProperties()}
-                        <br/>
+                        <br />
                         {authType === DeviceAuthenticationType.SymmetricKey && renderSasTokenSection()}
                         {renderHubRelatedInformation()}
                     </>
@@ -104,10 +111,18 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
 
     const renderSasTokenSection = () => {
         return (
-            <SasTokenGenerationView
-                activeAzureResourceHostName={hostName}
-                deviceIdentity={state.identity}
-            />
+            <>
+                <SasTokenGenerationView
+                    activeAzureResourceHostName={hostName}
+                    deviceIdentity={state.identity}
+                />
+                <br />
+                <QrGenerationView
+                    hostName={hostName}
+                    deviceId={state.identity.deviceId}
+                    deviceKey={state.identity.authentication.symmetricKey.primaryKey}
+                />
+            </>
         );
     };
 
@@ -261,8 +276,8 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
 
     const swapKeys = () => {
         const identityDeepCopy: DeviceIdentity = JSON.parse(JSON.stringify(state.identity));
-        const originalPrimaryKey  = identityDeepCopy.authentication.symmetricKey.primaryKey;
-        const originalSecondaryKey  = identityDeepCopy.authentication.symmetricKey.secondaryKey;
+        const originalPrimaryKey = identityDeepCopy.authentication.symmetricKey.primaryKey;
+        const originalSecondaryKey = identityDeepCopy.authentication.symmetricKey.secondaryKey;
 
         identityDeepCopy.authentication.symmetricKey.primaryKey = originalSecondaryKey;
         identityDeepCopy.authentication.symmetricKey.secondaryKey = originalPrimaryKey;
@@ -277,7 +292,8 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
     const changeToggle = (event: React.MouseEvent<HTMLElement>, checked?: boolean) => {
         const identity = {
             ...state.identity,
-            status: checked ? DeviceStatus.Enabled.toString() : DeviceStatus.Disabled.toString()};
+            status: checked ? DeviceStatus.Enabled.toString() : DeviceStatus.Disabled.toString()
+        };
         setState({
             ...state,
             identity,

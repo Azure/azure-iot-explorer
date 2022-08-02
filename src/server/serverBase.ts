@@ -235,6 +235,7 @@ export const handleEventHubMonitorPostRequest = (req: express.Request, res: expr
     try {
         if (!req.body) {
             res.status(BAD_REQUEST).send();
+            return;
         }
 
 
@@ -251,6 +252,7 @@ export const handleEventHubStopPostRequest = (req: express.Request, res: express
     try {
         if (!req.body) {
             res.status(BAD_REQUEST).send();
+            return;
         }
 
         stopClient();

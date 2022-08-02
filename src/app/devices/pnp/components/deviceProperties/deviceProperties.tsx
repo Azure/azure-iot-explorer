@@ -15,6 +15,8 @@ import { usePnpStateContext } from '../../../../shared/contexts/pnpStateContext'
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { generateReportedTwinSchemaAndInterfaceTuple } from './dataHelper';
 import { dispatchGetTwinAction, getBackUrl } from '../../utils';
+import { AppInsightsClient } from '../../../../shared/appTelemetry/appInsightsClient';
+import { TELEMETRY_PAGE_NAMES } from '../../../../../app/constants/telemetry';
 
 export const DeviceProperties: React.FC = () => {
     const { t } = useTranslation();
@@ -27,10 +29,11 @@ export const DeviceProperties: React.FC = () => {
     pnpState.modelDefinitionWithSource.synchronizationStatus === SynchronizationStatus.working;
     const modelDefinitionWithSource = pnpState.modelDefinitionWithSource.payload;
     const modelDefinition = modelDefinitionWithSource && modelDefinitionWithSource.modelDefinition;
+    const extendedModelDefinition = modelDefinitionWithSource && modelDefinitionWithSource.extendedModel;
     const twin = pnpState.twin.payload;
     const twinAndSchema = React.useMemo(() => {
-        return generateReportedTwinSchemaAndInterfaceTuple(modelDefinition, twin, componentName);
-    },                                  [twin, modelDefinition]);
+        return generateReportedTwinSchemaAndInterfaceTuple(extendedModelDefinition || modelDefinition, twin, componentName);
+    },                                  [twin, modelDefinition, extendedModelDefinition]);
 
     const renderProperties = () => {
         return (
@@ -56,6 +59,10 @@ export const DeviceProperties: React.FC = () => {
     if (isLoading) {
         return  <MultiLineShimmer/>;
     }
+
+    React.useEffect(() => {
+        AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.PNP_PROPERTIES});
+    }, []); // tslint:disable-line: align
 
     return (
         <>

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`devices/components/moduleIdentityTwin snapshot matches snapshot when no device identity is provided 1`] = `
-<Component
+<CollapsibleSection
   expanded={false}
   label="deviceIdentity.authenticationType.sasToken.label"
   tooltipText="deviceIdentity.authenticationType.sasToken.toolTip"
@@ -38,7 +38,7 @@ exports[`devices/components/moduleIdentityTwin snapshot matches snapshot when no
       onIncrement={[Function]}
       value="5"
     />
-    <Component
+    <MaskedCopyableTextField
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.sasToken.textField.ariaLabel"
       label="deviceIdentity.authenticationType.sasToken.textField.label"
@@ -53,11 +53,11 @@ exports[`devices/components/moduleIdentityTwin snapshot matches snapshot when no
       title="deviceIdentity.authenticationType.sasToken.generateButton.title"
     />
   </div>
-</Component>
+</CollapsibleSection>
 `;
 
 exports[`devices/components/moduleIdentityTwin snapshot matches snapshot when no device identity is provided 2`] = `
-<Component
+<CollapsibleSection
   expanded={false}
   label="deviceIdentity.authenticationType.sasToken.label"
   tooltipText="deviceIdentity.authenticationType.sasToken.toolTip"
@@ -72,11 +72,11 @@ exports[`devices/components/moduleIdentityTwin snapshot matches snapshot when no
       options={
         Array [
           Object {
-            "key": "key1",
+            "key": "mock_key_1",
             "text": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
           },
           Object {
-            "key": "key2",
+            "key": "mock_key_2",
             "text": "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
           },
         ]
@@ -94,7 +94,7 @@ exports[`devices/components/moduleIdentityTwin snapshot matches snapshot when no
       onIncrement={[Function]}
       value="5"
     />
-    <Component
+    <MaskedCopyableTextField
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.sasToken.textField.ariaLabel"
       label="deviceIdentity.authenticationType.sasToken.textField.label"
@@ -109,5 +109,5 @@ exports[`devices/components/moduleIdentityTwin snapshot matches snapshot when no
       title="deviceIdentity.authenticationType.sasToken.generateButton.title"
     />
   </div>
-</Component>
+</CollapsibleSection>
 `;

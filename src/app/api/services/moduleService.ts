@@ -31,9 +31,12 @@ export const fetchModuleIdentities = async (parameters: FetchModuleIdentitiesPar
 
     const dataPlaneRequest: DataPlaneRequest = {
         apiVersion:  HUB_DATA_PLANE_API_VERSION,
+        body: JSON.stringify({
+            query: `SELECT * FROM devices.modules WHERE deviceId in ['${parameters.deviceId}']`,
+        }),
         hostName: connectionInformation.connectionInfo.hostName,
-        httpMethod: HTTP_OPERATION_TYPES.Get,
-        path: `devices/${parameters.deviceId}/modules`,
+        httpMethod: HTTP_OPERATION_TYPES.Post,
+        path: 'devices/query',
         sharedAccessSignature: connectionInformation.sasToken,
     };
 

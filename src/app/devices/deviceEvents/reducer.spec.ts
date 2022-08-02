@@ -12,14 +12,14 @@ import { DEFAULT_CONSUMER_GROUP } from './../../constants/apiConstants';
 
 describe('deviceEventsReducer', () => {
     const deviceId = 'testDeviceId';
-    const params = {consumerGroup: DEFAULT_CONSUMER_GROUP, deviceId, startTime: new Date()};
+    const params = {consumerGroup: DEFAULT_CONSUMER_GROUP, deviceId, moduleId:undefined, startTime: new Date()};
     const events = [{
         body: {
             humid: '123' // intentionally set a value which type is double
         },
         enqueuedTime: '2019-10-14T21:44:58.397Z',
         systemProperties: {
-          'iothub-message-schema': 'humid'
+        'iothub-message-schema': 'humid'
         }
     }];
     it (`handles ${START_EVENTS_MONITORING}/ACTION_START action`, () => {

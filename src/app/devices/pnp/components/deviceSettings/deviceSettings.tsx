@@ -17,7 +17,10 @@ import { SynchronizationStatus } from '../../../../api/models/synchronizationSta
 import { generateTwinSchemaAndInterfaceTuple } from './dataHelper';
 import { Twin } from '../../../../api/models/device';
 import { dispatchGetTwinAction, getBackUrl } from '../../utils';
+import { AppInsightsClient } from '../../../../shared/appTelemetry/appInsightsClient';
+import { TELEMETRY_PAGE_NAMES } from '../../../../../app/constants/telemetry';
 
+// tslint:disable-next-line:cyclomatic-complexity
 export const DeviceSettings: React.FC = () => {
     const { t } = useTranslation();
     const { search, pathname } = useLocation();
@@ -32,10 +35,11 @@ export const DeviceSettings: React.FC = () => {
         || (pnpState.modelDefinitionWithSource.synchronizationStatus === SynchronizationStatus.working);
     const modelDefinitionWithSource = pnpState.modelDefinitionWithSource && pnpState.modelDefinitionWithSource.payload;
     const modelDefinition = modelDefinitionWithSource && modelDefinitionWithSource.modelDefinition;
+    const extendedModelDefinition = modelDefinitionWithSource && modelDefinitionWithSource.extendedModel;
     const twin = pnpState.twin.payload;
     const twinWithSchema = React.useMemo(() => {
-        return generateTwinSchemaAndInterfaceTuple(modelDefinition, twin, componentName);
-    },                                   [modelDefinition, twin]);
+        return generateTwinSchemaAndInterfaceTuple(extendedModelDefinition || modelDefinition, twin, componentName);
+    },                                   [modelDefinition, twin, extendedModelDefinition]);
 
     const patchTwin = (parameters: Twin) => {
         if (moduleId) {
@@ -73,6 +77,10 @@ export const DeviceSettings: React.FC = () => {
         const path = pathname.replace(/\/ioTPlugAndPlayDetail\/settings\/.*/, ``);
         history.push(getBackUrl(path, search));
     };
+
+    React.useEffect(() => {
+        AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.PNP_DEVICE_SETTINGS});
+    }, []); // tslint:disable-line: align
 
     if (isLoading) {
         return (

@@ -16,12 +16,8 @@ import { DEFAULT_CONSUMER_GROUP } from '../../constants/apiConstants';
 
 describe('deviceMonitoringSaga', () => {
     let startEventsMonitoringSagaGenerator;
-    let stopEventsMonitoringSagaGenerator;
 
     const mockMonitorEventsFn = jest.spyOn(DevicesService, 'monitorEvents').mockImplementationOnce(parameters => {
-        return null;
-    });
-    const mockStopMonitorEventsFn = jest.spyOn(DevicesService, 'stopMonitoringEvents').mockImplementationOnce(() => {
         return null;
     });
     const deviceId = 'test_id';
@@ -29,7 +25,6 @@ describe('deviceMonitoringSaga', () => {
 
     beforeEach(() => {
         startEventsMonitoringSagaGenerator = cloneableGenerator(startEventsMonitoringSagaWorker)(startEventsMonitoringAction.started(params));
-        stopEventsMonitoringSagaGenerator = cloneableGenerator(stopEventsMonitoringSagaWorker)();
     });
 
     it('start device events monitoring', () => {
@@ -76,52 +71,6 @@ describe('deviceMonitoringSaga', () => {
             value: put(startEventsMonitoringAction.failed({
                 error,
                 params
-            }))
-        });
-
-        expect(failed.next().done).toEqual(true);
-    });
-
-    it('stop device events monitoring', () => {
-        // call for device id
-        expect(stopEventsMonitoringSagaGenerator.next()).toEqual({
-            done: false,
-            value: call(mockStopMonitorEventsFn)
-        });
-
-        // add to store
-        expect(stopEventsMonitoringSagaGenerator.next([])).toEqual({
-            done: false,
-            value: put(stopEventsMonitoringAction.done({}))
-        });
-
-        // success
-        const success = stopEventsMonitoringSagaGenerator.clone();
-        expect(success.next()).toEqual({
-            done: true
-        });
-
-        // failure
-        const failed = stopEventsMonitoringSagaGenerator.clone();
-        const error = { code: -1 };
-
-        expect(failed.throw(error)).toEqual({
-            done: false,
-            value: call(raiseNotificationToast, {
-                text: {
-                    translationKey: ResourceKeys.notifications.stopEventMonitoringOnError,
-                    translationOptions: {
-                        error
-                    },
-                },
-                type: NotificationType.error
-            })
-        });
-
-        expect(failed.next([])).toEqual({
-            done: false,
-            value: put(stopEventsMonitoringAction.failed({
-                error
             }))
         });
 

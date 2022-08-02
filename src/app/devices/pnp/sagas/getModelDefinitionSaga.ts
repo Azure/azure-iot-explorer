@@ -2,7 +2,8 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { call, put } from 'redux-saga/effects';
+import { call, CallEffect, put } from 'redux-saga/effects';
+import { SagaIterator } from 'redux-saga';
 import { Action } from 'typescript-fsa';
 import { fetchModelDefinition } from '../../../api/services/publicDigitalTwinsModelRepoService';
 import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
@@ -17,17 +18,18 @@ import { ModelDefinitionNotValidJsonError } from '../../../api/models/modelDefin
 import { GetModelDefinitionActionParameters, getModelDefinitionAction } from '../actions';
 import { ModelIdCasingNotMatchingException } from '../../../shared/utils/exceptions/modelIdCasingNotMatchingException';
 
-export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionParameters>) {
+export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionParameters>): SagaIterator {
     const { locations, interfaceId } = action.payload;
     let errorCount = 0;
     for (const location of locations) { // try to get model definition in order according to user's location settings
         try {
-            const modelDefinition = yield call(getModelDefinition, action, location);
-            const isModelValid = yield call(validateModelDefinitionHelper, modelDefinition, location);
+            const modelDefinition: ModelDefinition = yield call(getModelDefinition, action, location);
+            const isModelValid: boolean = yield call(validateModelDefinitionHelper, modelDefinition, location);
+            const extendedModel: ModelDefinition = yield call(expandFromExtendedModel, action, location, modelDefinition);
             yield put(getModelDefinitionAction.done(
                 {
                     params: action.payload,
-                    result: {isModelValid, modelDefinition, source: location.repositoryLocationType}
+                    result: { isModelValid, modelDefinition, extendedModel, source: location.repositoryLocationType }
                 }));
             break; // found the model definition, break
         }
@@ -44,7 +46,7 @@ export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionP
                     type: NotificationType.error
                 });
             }
-            errorCount ++;
+            errorCount++;
             // continue the loop
         }
     }
@@ -59,11 +61,11 @@ export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionP
             type: NotificationType.error
         });
 
-        yield put(getModelDefinitionAction.failed({params: action.payload, error: undefined}));
+        yield put(getModelDefinitionAction.failed({ params: action.payload, error: undefined }));
     }
 }
 
-export function* validateModelDefinitionHelper(modelDefinition: ModelDefinition, location: RepositoryLocationSettings) {
+export function* validateModelDefinitionHelper(modelDefinition: ModelDefinition, location: RepositoryLocationSettings): SagaIterator {
     return true; // commenting out validating model until it aligns with local parser
 }
 
@@ -90,7 +92,7 @@ export const checkModelIdCasing = (model: ModelDefinition, id: string) => {
     }
 };
 
-export function* getModelDefinitionFromPublicRepo(action: Action<GetModelDefinitionActionParameters>) {
+export function* getModelDefinitionFromPublicRepo(action: Action<GetModelDefinitionActionParameters>): SagaIterator {
     const splitInterfaceId = getSplitInterfaceId(action.payload.interfaceId);
     const parameters: FetchModelParameters = {
         id: splitInterfaceId[0],
@@ -101,7 +103,7 @@ export function* getModelDefinitionFromPublicRepo(action: Action<GetModelDefinit
     return getFlattenedModel(model, splitInterfaceId);
 }
 
-export function* getModelDefinitionFromConfigurableRepo(action: Action<GetModelDefinitionActionParameters>) {
+export function* getModelDefinitionFromConfigurableRepo(action: Action<GetModelDefinitionActionParameters>): SagaIterator {
     const configurableRepoUrls = action.payload.locations.filter(location => location.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Configurable);
     const configurableRepoUrl = configurableRepoUrls && configurableRepoUrls[0] && configurableRepoUrls[0].value || '';
     const url = configurableRepoUrl.replace(/\/$/, ''); // remove trailing slash
@@ -116,7 +118,7 @@ export function* getModelDefinitionFromConfigurableRepo(action: Action<GetModelD
     return getFlattenedModel(model, splitInterfaceId);
 }
 
-export function* getModelDefinitionFromLocalFile(action: Action<GetModelDefinitionActionParameters>) {
+export function* getModelDefinitionFromLocalFile(action: Action<GetModelDefinitionActionParameters>): SagaIterator {
     const localFolderPaths = action.payload.locations.filter(location => location.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local);
     const localFolderPath = localFolderPaths && localFolderPaths[0] && localFolderPaths[0].value || '';
     const path = localFolderPath.replace(/\/$/, ''); // remove trailing slash
@@ -125,7 +127,7 @@ export function* getModelDefinitionFromLocalFile(action: Action<GetModelDefiniti
     return getFlattenedModel(model, splitInterfaceId);
 }
 
-export function* getModelDefinition(action: Action<GetModelDefinitionActionParameters>, location: RepositoryLocationSettings) {
+export function* getModelDefinition(action: Action<GetModelDefinitionActionParameters>, location: RepositoryLocationSettings): SagaIterator {
     switch (location.repositoryLocationType) {
         case REPOSITORY_LOCATION_TYPE.Local:
             return yield call(getModelDefinitionFromLocalFile, action);
@@ -134,4 +136,35 @@ export function* getModelDefinition(action: Action<GetModelDefinitionActionParam
         default:
             return yield call(getModelDefinitionFromPublicRepo, action);
     }
+}
+
+// tslint:disable-next-line
+export function* expandFromExtendedModel(action: any, location: RepositoryLocationSettings, model: ModelDefinition): Generator<CallEffect<any>, ModelDefinition, ModelDefinition> {
+    const extendsVal = model.extends;
+    if (extendsVal) {
+        if (typeof (extendsVal) === 'string') {
+            const newAction: Action<GetModelDefinitionActionParameters> = { ...action };
+            newAction.payload.interfaceId = extendsVal;
+            let baseModel: ModelDefinition = yield call(getModelDefinition, newAction, location);
+            if (baseModel.extends) {
+                baseModel = yield call(expandFromExtendedModel, newAction, location, baseModel);
+            }
+            model.contents = model.contents.concat(baseModel.contents);
+            return model;
+        }
+        else if (Array.isArray(extendsVal)) {
+            const extendedModel = { ...model };
+            for (const newInterface of extendsVal) {
+                const newAction: Action<GetModelDefinitionActionParameters> = { ...action };
+                newAction.payload.interfaceId = newInterface;
+                let baseModel: ModelDefinition = yield call(getModelDefinition, newAction, location);
+                if (baseModel.extends) {
+                    baseModel = yield call(expandFromExtendedModel, newAction, location, baseModel);
+                }
+                extendedModel.contents = extendedModel.contents.concat(baseModel.contents);
+            }
+            return extendedModel;
+        }
+    }
+    return undefined;
 }

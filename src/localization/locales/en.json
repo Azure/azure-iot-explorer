@@ -44,13 +44,15 @@
         },
         "notifications": {
             "show": "Notifications",
+            "title": "Notification center",
             "dismiss": "Clear all notifications",
             "panel": {
                 "title": "Notifications",
                 "noNotifications": "There are no new notifications for this session.",
                 "redirect": "Looking for notifications?",
                 "redirectLink": "Please visit Notification Center"
-            }
+            },
+            "copy": "Copy"
         },
         "questions": {
             "launch": "Open ???"
@@ -81,7 +83,7 @@
                 "privacy": {
                     "text": "Before enabling us to retrieve model definition from a local folder, please read ",
                     "linkText": "Microsoft Privacy Statement",
-                    "link": "https://privacy.microsoft.com/en-us/privacystatement"
+                    "link": "http://go.microsoft.com/fwlink/?LinkId=521839"
                 }
             }
         },
@@ -317,6 +319,12 @@
             "invalidDeviceId": "Invalid characters in device ID",
             "invalidKey": "Invalid key",
             "invalidThumbprint": "Invalid thumbprint"
+        },
+        "qrCode": {
+            "label": "Connect your phone as an IoT device",
+            "toolTip": "Use the IoT mobile app and a QR code to turn your mobile device into a Plug and Play IoT device",
+            "headerText": "Connect your smartphone to Azure IoT",
+            "callToAction": "Download the 'Phone as IoT Device' app and use your phone’s camera to scan the QR code. Your phone will become an IoT Plug And Play device, giving you access to your phone's sensors for telemetry."
         }
     },
     "deviceLists": {
@@ -753,7 +761,8 @@
             "moduleId": "Module Id",
             "connectionState": "Connection state",
             "connectionStateLastUpdated": "Connection state last updated time",
-            "lastActivityTime": "Last activity time"
+            "lastActivityTime": "Last activity time",
+            "modelId": "IoT Plug and Play module"
         },
         "noModules": "There are no module identities for this device.",
         "errorFetching": "An error prevented this information from being loaded.",
@@ -861,7 +870,7 @@
         "connectionStringsWithExpiryRemovalWarning": "Due to security requirements, one or more hub connection strings stored more than a year ago have been removed."
     },
     "errorBoundary": {
-        "text": "Something went wrong"
+        "text": "Something unexpected went wrong. Help us identify the issue by opening the bug at https://github.com/Azure/azure-iot-explorer/issues"
     },
     "template": {
         "array":{
