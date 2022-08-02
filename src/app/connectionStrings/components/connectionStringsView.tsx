@@ -23,6 +23,7 @@ import { MultiLineShimmer } from '../../shared/components/multiLineShimmer';
 import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
 import { getConnectionStringsAction } from './../actions';
 import { useBreadcrumbEntry } from '../../navigation/hooks/useBreadcrumbEntry';
+import { useAuthenticationStateContext } from '../../shared/contexts/authenticationStateContext';
 import '../../css/_layouts.scss';
 import './connectionStringsView.scss';
 import { AppInsightsClient } from '../../shared/appTelemetry/appInsightsClient';
@@ -33,6 +34,7 @@ export const ConnectionStringsView: React.FC = () => {
     const { t } = useTranslation();
     const history = useHistory();
     useBreadcrumbEntry({name: t(ResourceKeys.breadcrumb.resources)});
+    const [ {token}, {login, logout, getToken}] =  useAuthenticationStateContext();
 
     const [ localState, dispatch ] = useAsyncSagaReducer(connectionStringsReducer, connectionStringsSaga, connectionStringsStateInitial(), 'connectionStringsState');
     const [ connectionStringUnderEdit, setConnectionStringUnderEdit ] = React.useState<string>(undefined);
@@ -81,6 +83,7 @@ export const ConnectionStringsView: React.FC = () => {
 
     React.useEffect(() => {
         dispatch(getConnectionStringsAction.started());
+        getToken();
     },              []);
 
     React.useEffect(() => {
@@ -100,38 +103,51 @@ export const ConnectionStringsView: React.FC = () => {
         );
     }
 
+    const getCommandBarItems = () => {
+        const items = [{
+                ariaLabel: t(ResourceKeys.connectionStrings.addConnectionCommand.ariaLabel),
+                disabled: connectionStringsWithExpiry.length >= CONNECTION_STRING_LIST_MAX_LENGTH,
+                iconProps: { iconName: 'Add' },
+                key: 'add',
+                onClick: onAddConnectionStringClick,
+                text: t(ResourceKeys.connectionStrings.addConnectionCommand.label)
+        }];
+        return !token ? [...items, {
+                ariaLabel: t(ResourceKeys.authentication.command.login),
+                iconProps: { iconName: 'Signin' },
+                key: 'signin',
+                onClick: login,
+                text: t(ResourceKeys.authentication.command.login)
+            }] :
+            [...items, {
+                ariaLabel: t(ResourceKeys.authentication.command.logout),
+                iconProps: { iconName: 'Signout' },
+                key: 'signout',
+                onClick: logout,
+                text: t(ResourceKeys.authentication.command.logout)
+            }];
+    };
+
     return (
         <div>
             <CommandBar
-                items={[
-                    {
-                        ariaLabel: t(ResourceKeys.connectionStrings.addConnectionCommand.ariaLabel),
-                        disabled: connectionStringsWithExpiry.length >= CONNECTION_STRING_LIST_MAX_LENGTH,
-                        iconProps: { iconName: 'Add' },
-                        key: 'add',
-                        onClick: onAddConnectionStringClick,
-                        text: t(ResourceKeys.connectionStrings.addConnectionCommand.label)
-                    }
-                ]}
+                items={getCommandBarItems()}
             />
-            <div>
-                <div className="connection-strings">
-                    {connectionStringsWithExpiry.map(connectionStringWithExpiry =>
-                        <ConnectionString
-                            key={connectionStringWithExpiry.connectionString}
-                            connectionStringWithExpiry={connectionStringWithExpiry}
-                            onEditConnectionString={onEditConnectionStringClick}
-                            onDeleteConnectionString={onDeleteConnectionString}
-                            onSelectConnectionString={onSelectConnectionString}
-                        />
-                    )}
-                </div>
-
-                {(!connectionStringsWithExpiry || connectionStringsWithExpiry.length === 0) &&
-                    <ConnectionStringsEmpty/>
-                }
-
+            <div className="connection-strings">
+                {connectionStringsWithExpiry.map(connectionStringWithExpiry =>
+                    <ConnectionString
+                        key={connectionStringWithExpiry.connectionString}
+                        connectionStringWithExpiry={connectionStringWithExpiry}
+                        onEditConnectionString={onEditConnectionStringClick}
+                        onDeleteConnectionString={onDeleteConnectionString}
+                        onSelectConnectionString={onSelectConnectionString}
+                    />
+                )}
             </div>
+
+            {(!connectionStringsWithExpiry || connectionStringsWithExpiry.length === 0) &&
+                <ConnectionStringsEmpty/>
+            }
             {connectionStringUnderEdit !== undefined &&
                 <ConnectionStringEditView
                     connectionStringUnderEdit={connectionStringUnderEdit}
