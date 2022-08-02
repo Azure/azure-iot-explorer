@@ -74,3 +74,14 @@ export const getParentFolder = (currentFolder: string): string => {
         return index === 0 ? '/' : index > 0 && currentFolder.substr(0, index);
     }
 };
+
+export const isMicrosoftInternalDomain = (): boolean => {
+    const msftInternalDomains = ['redmond.corp.microsoft.com', 'northamerica.corp.microsoft.com', 'fareast.corp.microsoft.com', 'ntdev.corp.microsoft.com', 'wingroup.corp.microsoft.com', 'southpacific.corp.microsoft.com', 'wingroup.windeploy.ntdev.microsoft.com', 'ddnet.microsoft.com', 'europe.corp.microsoft.com'];
+    const userDnsDomain = process.env.userdnsdomain;
+    if (!userDnsDomain) {
+        return false;
+    }
+
+    const domain = userDnsDomain.toLowerCase();
+    return msftInternalDomains.some(msftDomain => domain === msftDomain);
+};
