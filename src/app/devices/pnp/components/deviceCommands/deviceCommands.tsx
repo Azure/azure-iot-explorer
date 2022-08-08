@@ -17,7 +17,7 @@ import { InvokeCommandActionParameters, invokeCommandAction } from '../../action
 import { getDeviceCommandPairs } from './dataHelper';
 import { getBackUrl } from '../../utils';
 import { AppInsightsClient } from '../../../../shared/appTelemetry/appInsightsClient';
-import { TELEMETRY_PAGE_NAMES } from '../../../../../app/constants/telemetry';
+import { TELEMETRY_PAGE_NAMES, TELEMETRY_USER_ACTIONS } from '../../../../../app/constants/telemetry';
 
 export const DeviceCommands: React.FC = () => {
     const { search, pathname } = useLocation();
@@ -33,7 +33,10 @@ export const DeviceCommands: React.FC = () => {
     const extendedModelDefinition = pnpState.modelDefinitionWithSource.payload && pnpState.modelDefinitionWithSource.payload.extendedModel;
     const commandSchemas = React.useMemo(() => getDeviceCommandPairs(extendedModelDefinition || modelDefinition).commandSchemas, [extendedModelDefinition, modelDefinition]);
 
-    const invokeCommand = (parameters: InvokeCommandActionParameters) => dispatch(invokeCommandAction.started(parameters));
+    const invokeCommand = (parameters: InvokeCommandActionParameters) => {
+        AppInsightsClient.trackUserAction(TELEMETRY_USER_ACTIONS.PNP_SEND_COMMAND);
+        dispatch(invokeCommandAction.started(parameters));
+    };
 
     const renderCommandsPerInterface = () => {
         return (
