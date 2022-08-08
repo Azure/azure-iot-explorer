@@ -18,7 +18,7 @@ import { generateTwinSchemaAndInterfaceTuple } from './dataHelper';
 import { Twin } from '../../../../api/models/device';
 import { dispatchGetTwinAction, getBackUrl } from '../../utils';
 import { AppInsightsClient } from '../../../../shared/appTelemetry/appInsightsClient';
-import { TELEMETRY_PAGE_NAMES } from '../../../../../app/constants/telemetry';
+import { TELEMETRY_PAGE_NAMES, TELEMETRY_USER_ACTIONS } from '../../../../../app/constants/telemetry';
 
 // tslint:disable-next-line:cyclomatic-complexity
 export const DeviceSettings: React.FC = () => {
@@ -42,6 +42,7 @@ export const DeviceSettings: React.FC = () => {
     },                                   [modelDefinition, twin, extendedModelDefinition]);
 
     const patchTwin = (parameters: Twin) => {
+        AppInsightsClient.trackUserAction(TELEMETRY_USER_ACTIONS.PNP_UPDATE_PROPERTY);
         if (moduleId) {
             dispatch(updateModuleTwinAction.started(parameters));
         }

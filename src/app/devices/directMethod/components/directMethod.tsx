@@ -16,7 +16,7 @@ import { invokeDirectMethodAction } from '../actions';
 import { DirectMethodForm } from './directMethodForm';
 import '../../../css/_deviceDetail.scss';
 import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
-import { TELEMETRY_PAGE_NAMES } from '../../../../app/constants/telemetry';
+import { TELEMETRY_PAGE_NAMES, TELEMETRY_USER_ACTIONS } from '../../../../app/constants/telemetry';
 
 const DEFAULT_TIMEOUT = 10;
 
@@ -64,6 +64,7 @@ export const DirectMethod: React.FC = () => {
     };
 
     const onInvokeMethodClickHandler = () => {
+        AppInsightsClient.trackUserAction(TELEMETRY_USER_ACTIONS.DEVICE_INVOKE_DIRECT_METHOD);
         dispatch(invokeDirectMethodAction.started({
             connectTimeoutInSeconds: connectionTimeOut,
             deviceId,
