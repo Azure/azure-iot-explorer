@@ -17,28 +17,30 @@ exports[`HomeView matches snapshot 1`] = `
     <div
       className="maincontent"
     >
-      <Switch>
-        <Redirect
-          exact={true}
-          from="/home"
-          to="/home/resources"
-        />
-        <Route
-          component={[Function]}
-          exact={true}
-          path="/home/resources"
-        />
-        <Route
-          component={[Function]}
-          exact={true}
-          path="/home/repos"
-        />
-        <Route
-          component={[Function]}
-          exact={true}
-          path="/home/notifications"
-        />
-      </Switch>
+      <AuthenticationStateContextProvider>
+        <Switch>
+          <Redirect
+            exact={true}
+            from="/home"
+            to="/home/resources"
+          />
+          <Route
+            component={[Function]}
+            exact={true}
+            path="/home/resources"
+          />
+          <Route
+            component={[Function]}
+            exact={true}
+            path="/home/repos"
+          />
+          <Route
+            component={[Function]}
+            exact={true}
+            path="/home/notifications"
+          />
+        </Switch>
+      </AuthenticationStateContextProvider>
     </div>
   </div>
 </Fragment>

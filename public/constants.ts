@@ -7,6 +7,9 @@ export const PLATFORMS = {
 };
 
 export const MESSAGE_CHANNELS = {
+    AUTHENTICATION_GET_PROFILE_TOKEN: 'authentication_get_profile_token',
+    AUTHENTICATION_LOGIN: 'authentication_login',
+    AUTHENTICATION_LOGOUT: 'authentication_logout',
     DEVICE_SEND_MESSAGE: 'device_sendMessage',
     DIRECTORY_GET_DIRECTORIES: 'directory_getDirectories',
     EVENTHUB_START_MONITORING: 'eventhub_startMonitoring',
@@ -16,6 +19,7 @@ export const MESSAGE_CHANNELS = {
 };
 
 export const API_INTERFACES = {
+    AUTHENTICATION: 'api_authentication',
     DEVICE: 'api_device',
     DIRECTORY: 'api_directory',
     EVENTHUB: 'api_eventhub',
