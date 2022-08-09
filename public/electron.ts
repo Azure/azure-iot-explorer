@@ -11,7 +11,7 @@ import { onSettingsHighContrast } from './handlers/settingsHandler';
 import { onGetInterfaceDefinition } from './handlers/modelRepositoryHandler';
 import { onGetDirectories } from './handlers/directoryHandler';
 import { onSendMessageToDevice } from './handlers/deviceHandler';
-import { onStartMonitoring } from './handlers/eventHubHandler';
+import { onStartMonitoring, onStopMonitoring } from './handlers/eventHubHandler';
 import { formatError } from './utils/errorHelper';
 import '../dist/server/serverElectron';
 
@@ -34,6 +34,7 @@ class Main {
         Main.registerHandler(MESSAGE_CHANNELS.DIRECTORY_GET_DIRECTORIES, onGetDirectories);
         Main.registerHandler(MESSAGE_CHANNELS.DEVICE_SEND_MESSAGE, onSendMessageToDevice);
         Main.registerHandler(MESSAGE_CHANNELS.EVENTHUB_START_MONITORING, onStartMonitoring);
+        Main.registerHandler(MESSAGE_CHANNELS.EVENTHUB_STOP_MONITORING, onStopMonitoring);
     }
 
     private static setApplicationLock(): void {

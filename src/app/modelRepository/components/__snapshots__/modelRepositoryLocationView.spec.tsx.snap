@@ -1,98 +1,90 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`modelRepositoryLocationView matches snapshot when locations greater than 0 1`] = `
-<div
-  className="view"
->
+<div>
   <Component
     message="common.navigation.confirm"
     when={false}
   />
-  <div
-    className="view-command"
-  >
-    <StyledCommandBarBase
-      items={
-        Array [
-          Object {
-            "ariaLabel": "modelRepository.commands.save.ariaLabel",
-            "disabled": true,
-            "iconProps": Object {
-              "iconName": "Save",
-            },
-            "key": "save",
-            "onClick": [Function],
-            "text": "modelRepository.commands.save.label",
+  <StyledCommandBarBase
+    items={
+      Array [
+        Object {
+          "ariaLabel": "modelRepository.commands.save.ariaLabel",
+          "disabled": true,
+          "iconProps": Object {
+            "iconName": "Save",
           },
-          Object {
-            "ariaLabel": "modelRepository.commands.add.ariaLabel",
-            "disabled": false,
-            "iconProps": Object {
-              "iconName": "Add",
-            },
-            "key": "add",
-            "subMenuProps": Object {
-              "items": Array [
-                Object {
-                  "ariaLabel": "modelRepository.commands.addPublicSource.ariaLabel",
-                  "disabled": false,
-                  "iconProps": Object {
-                    "iconName": "Repo",
-                  },
-                  "key": "PUBLIC",
-                  "onClick": [Function],
-                  "text": "modelRepository.commands.addPublicSource.label",
+          "key": "save",
+          "onClick": [Function],
+          "text": "modelRepository.commands.save.label",
+        },
+        Object {
+          "ariaLabel": "modelRepository.commands.add.ariaLabel",
+          "disabled": false,
+          "iconProps": Object {
+            "iconName": "Add",
+          },
+          "key": "add",
+          "subMenuProps": Object {
+            "items": Array [
+              Object {
+                "ariaLabel": "modelRepository.commands.addPublicSource.ariaLabel",
+                "disabled": false,
+                "iconProps": Object {
+                  "iconName": "Repo",
                 },
-                Object {
-                  "ariaLabel": "modelRepository.commands.addConfigurableRepoSource.label",
-                  "disabled": false,
-                  "iconProps": Object {
-                    "iconName": "Repo",
-                  },
-                  "key": "CONFIGURABLE",
-                  "onClick": [Function],
-                  "text": "modelRepository.commands.addConfigurableRepoSource.label",
+                "key": "PUBLIC",
+                "onClick": [Function],
+                "text": "modelRepository.commands.addPublicSource.label",
+              },
+              Object {
+                "ariaLabel": "modelRepository.commands.addConfigurableRepoSource.label",
+                "disabled": false,
+                "iconProps": Object {
+                  "iconName": "Repo",
                 },
-                Object {
-                  "ariaLabel": "modelRepository.commands.addLocalSource.ariaLabel",
-                  "disabled": true,
-                  "iconProps": Object {
-                    "iconName": "OpenFolderHorizontal",
-                  },
-                  "key": "LOCAL",
-                  "onClick": [Function],
-                  "text": "modelRepository.commands.addLocalSource.label",
+                "key": "CONFIGURABLE",
+                "onClick": [Function],
+                "text": "modelRepository.commands.addConfigurableRepoSource.label",
+              },
+              Object {
+                "ariaLabel": "modelRepository.commands.addLocalSource.ariaLabel",
+                "disabled": true,
+                "iconProps": Object {
+                  "iconName": "OpenFolderHorizontal",
                 },
-              ],
-            },
-            "text": "modelRepository.commands.add.label",
+                "key": "LOCAL",
+                "onClick": [Function],
+                "text": "modelRepository.commands.addLocalSource.label",
+              },
+            ],
           },
-          Object {
-            "ariaLabel": "modelRepository.commands.revert.ariaLabel",
-            "disabled": true,
-            "iconProps": Object {
-              "iconName": "Undo",
-            },
-            "key": "revert",
-            "onClick": [Function],
-            "text": "modelRepository.commands.revert.label",
+          "text": "modelRepository.commands.add.label",
+        },
+        Object {
+          "ariaLabel": "modelRepository.commands.revert.ariaLabel",
+          "disabled": true,
+          "iconProps": Object {
+            "iconName": "Undo",
           },
-          Object {
-            "ariaLabel": "modelRepository.commands.help.ariaLabel",
-            "iconProps": Object {
-              "iconName": "Help",
-            },
-            "key": "help",
-            "onClick": [Function],
-            "text": "modelRepository.commands.help.label",
+          "key": "revert",
+          "onClick": [Function],
+          "text": "modelRepository.commands.revert.label",
+        },
+        Object {
+          "ariaLabel": "modelRepository.commands.help.ariaLabel",
+          "iconProps": Object {
+            "iconName": "Help",
           },
-        ]
-      }
-    />
-  </div>
-  <div
-    className="view-scroll-vertical"
-  >
+          "key": "help",
+          "onClick": [Function],
+          "text": "modelRepository.commands.help.label",
+        },
+      ]
+    }
+  />
+  <div>
     <ModelRepositoryInstruction
       empty={false}
     />
@@ -113,98 +105,90 @@ exports[`modelRepositoryLocationView matches snapshot when locations greater tha
 `;
 
 exports[`modelRepositoryLocationView matches snapshot when no locations 1`] = `
-<div
-  className="view"
->
+<div>
   <Component
     message="common.navigation.confirm"
     when={false}
   />
-  <div
-    className="view-command"
-  >
-    <StyledCommandBarBase
-      items={
-        Array [
-          Object {
-            "ariaLabel": "modelRepository.commands.save.ariaLabel",
-            "disabled": true,
-            "iconProps": Object {
-              "iconName": "Save",
-            },
-            "key": "save",
-            "onClick": [Function],
-            "text": "modelRepository.commands.save.label",
+  <StyledCommandBarBase
+    items={
+      Array [
+        Object {
+          "ariaLabel": "modelRepository.commands.save.ariaLabel",
+          "disabled": true,
+          "iconProps": Object {
+            "iconName": "Save",
           },
-          Object {
-            "ariaLabel": "modelRepository.commands.add.ariaLabel",
-            "disabled": false,
-            "iconProps": Object {
-              "iconName": "Add",
-            },
-            "key": "add",
-            "subMenuProps": Object {
-              "items": Array [
-                Object {
-                  "ariaLabel": "modelRepository.commands.addPublicSource.ariaLabel",
-                  "disabled": false,
-                  "iconProps": Object {
-                    "iconName": "Repo",
-                  },
-                  "key": "PUBLIC",
-                  "onClick": [Function],
-                  "text": "modelRepository.commands.addPublicSource.label",
+          "key": "save",
+          "onClick": [Function],
+          "text": "modelRepository.commands.save.label",
+        },
+        Object {
+          "ariaLabel": "modelRepository.commands.add.ariaLabel",
+          "disabled": false,
+          "iconProps": Object {
+            "iconName": "Add",
+          },
+          "key": "add",
+          "subMenuProps": Object {
+            "items": Array [
+              Object {
+                "ariaLabel": "modelRepository.commands.addPublicSource.ariaLabel",
+                "disabled": false,
+                "iconProps": Object {
+                  "iconName": "Repo",
                 },
-                Object {
-                  "ariaLabel": "modelRepository.commands.addConfigurableRepoSource.label",
-                  "disabled": false,
-                  "iconProps": Object {
-                    "iconName": "Repo",
-                  },
-                  "key": "CONFIGURABLE",
-                  "onClick": [Function],
-                  "text": "modelRepository.commands.addConfigurableRepoSource.label",
+                "key": "PUBLIC",
+                "onClick": [Function],
+                "text": "modelRepository.commands.addPublicSource.label",
+              },
+              Object {
+                "ariaLabel": "modelRepository.commands.addConfigurableRepoSource.label",
+                "disabled": false,
+                "iconProps": Object {
+                  "iconName": "Repo",
                 },
-                Object {
-                  "ariaLabel": "modelRepository.commands.addLocalSource.ariaLabel",
-                  "disabled": false,
-                  "iconProps": Object {
-                    "iconName": "OpenFolderHorizontal",
-                  },
-                  "key": "LOCAL",
-                  "onClick": [Function],
-                  "text": "modelRepository.commands.addLocalSource.label",
+                "key": "CONFIGURABLE",
+                "onClick": [Function],
+                "text": "modelRepository.commands.addConfigurableRepoSource.label",
+              },
+              Object {
+                "ariaLabel": "modelRepository.commands.addLocalSource.ariaLabel",
+                "disabled": false,
+                "iconProps": Object {
+                  "iconName": "OpenFolderHorizontal",
                 },
-              ],
-            },
-            "text": "modelRepository.commands.add.label",
+                "key": "LOCAL",
+                "onClick": [Function],
+                "text": "modelRepository.commands.addLocalSource.label",
+              },
+            ],
           },
-          Object {
-            "ariaLabel": "modelRepository.commands.revert.ariaLabel",
-            "disabled": true,
-            "iconProps": Object {
-              "iconName": "Undo",
-            },
-            "key": "revert",
-            "onClick": [Function],
-            "text": "modelRepository.commands.revert.label",
+          "text": "modelRepository.commands.add.label",
+        },
+        Object {
+          "ariaLabel": "modelRepository.commands.revert.ariaLabel",
+          "disabled": true,
+          "iconProps": Object {
+            "iconName": "Undo",
           },
-          Object {
-            "ariaLabel": "modelRepository.commands.help.ariaLabel",
-            "iconProps": Object {
-              "iconName": "Help",
-            },
-            "key": "help",
-            "onClick": [Function],
-            "text": "modelRepository.commands.help.label",
+          "key": "revert",
+          "onClick": [Function],
+          "text": "modelRepository.commands.revert.label",
+        },
+        Object {
+          "ariaLabel": "modelRepository.commands.help.ariaLabel",
+          "iconProps": Object {
+            "iconName": "Help",
           },
-        ]
-      }
-    />
-  </div>
-  <div
-    className="view-scroll-vertical"
-  >
+          "key": "help",
+          "onClick": [Function],
+          "text": "modelRepository.commands.help.label",
+        },
+      ]
+    }
+  />
+  <div>
     <ModelRepositoryInstruction
       empty={true}
     />

@@ -7,8 +7,6 @@
 
 @media screen and (min-width: $screenSize) {
     .device-detail {
-        height: calc(100vh - 244px);
-        overflow-y: auto;
         padding-left: 30px;
         padding-right: 20px;
     }

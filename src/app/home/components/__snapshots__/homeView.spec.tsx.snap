@@ -4,10 +4,10 @@ exports[`HomeView matches snapshot 1`] = `
 <Fragment>
   <AppVersionMessageBar />
   <div
-    className="view-content home-view"
+    className="mainarea"
   >
     <div
-      className="nav"
+      className="mainleftnav"
     >
       <HomeViewNavigation
         appMenuVisible={true}
@@ -15,7 +15,7 @@ exports[`HomeView matches snapshot 1`] = `
       />
     </div>
     <div
-      className="home-content"
+      className="maincontent"
     >
       <Switch>
         <Redirect

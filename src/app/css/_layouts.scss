@@ -6,51 +6,8 @@
 @import "themes";
 
 @media screen and (min-width: $screenSize) {
-    .view {
-        width: 100%;
-        display: grid;
-        height: calc(100vh - #{$mastheadHeight} - #{$navigationHeight});
-        grid-template-rows: auto 1fr;
-        grid-template-columns: 1fr;
-        display: -ms-grid;
-        -ms-grid-columns: 1fr;
-        -ms-grid-rows: auto 1fr;
-        row-gap: 0;
-    }
-
-    .view-command {
-        min-height: 40px;
-        width: 100%;
-        grid-row: 1;
-        grid-column: 1;
-        -ms-grid-row: 1;
-        -ms-grid-column: 1;
-    }
-    .view-content {
-        grid-row: 2;
-        grid-column: 1;
-        -ms-grid-row: 2;
-        -ms-grid-column: 1;
-    }
-
-    .view-scroll-vertical {
-        overflow-y: auto;
-        overflow-x: hidden;
-    }
     .ms-Callout {
         max-width: 800px;
-    }
-}
-
-.view-content {
-    @include themify($themes) {
-        border-top: 1px solid themed("viewContentBorderColor");
-    }
-}
-
-.edit-content {
-    @include themify($themes) {
-        border-top: 1px solid themed("editContentBorderColor");
     }
 }
 

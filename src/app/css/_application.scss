@@ -2,59 +2,33 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-@import "../../../node_modules/@fluentui/react/dist/css/fabric.min.css";
-@import "variables";
-@import "themes";
+ @import "themes";
 
-@media screen and (min-width: $screenSize) {
-    .app {
-        height: 100vh;
-        overflow-y: hidden;
-        display: grid;
-        grid-template-rows: $mastheadHeight $navigationHeight 1fr;
-        grid-template-columns: 1fr;
-        display: -ms-grid;
-        -ms-grid-template-rows: $mastheadHeight $navigationHeight 1fr;
-        -ms-grid-columns: 1fr;
+.container {
+    display: grid;
+    height: 100vh;
+    grid-template-rows: 0.2fr 0.8fr 9fr;
+    grid-template-areas:
+        "header"
+        "nav"
+        "content";
 
-        .masthead {
-            grid-row: 1;
-            grid-column: 1;
-            -ms-grid-row: 1;
-            -ms-grid-column: 1;
-        }
-        .navigation {
-            grid-row: 2;
-            grid-column: 1;
-            -ms-grid-row: 2;
-            -ms-grid-column: 1;
-        }
-        .content {
-            grid-row: 3;
-            grid-column: 1;
-            -ms-grid-row: 3;
-            -ms-grid-column: 1;
+    .header {
+        grid-area: header;
+    }
+
+    .topnav {
+        grid-area: nav;
+        @include themify($themes) {
+            border: {
+                bottom: 1px solid themed("borderColor");
+            }
         }
     }
-}
-.app {
-    font-family: "Segoe UI", "Arial" !important;
-    font-size: 14px !important;
-    width: 100%;
-    @include themify($themes) {
-        color: themed("textColor");
-        background: themed("backgroundColor");
-    }
 
-    .masthead {
-        width: 100%;
-    }
-
-    .navigation {
-        width: 100%;
-    }
-
-    .content {
-        width: 100%;
+    .main {
+        grid-area: content;
+        overflow-y: auto;
+        overflow-x: hidden;
     }
 }

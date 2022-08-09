@@ -4,10 +4,10 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Nav, INavLink, IconButton } from '@fluentui/react';
-import { NAV } from '../../constants/iconNames';
+import { Nav, INavLink } from '@fluentui/react';
 import { ROUTE_PARTS } from '../../constants/routes';
 import { ResourceKeys } from '../../../localization/resourceKeys';
+import { CollapsibleButton } from '../../shared/components/collapsibleButton';
 import '../../css/_layouts.scss';
 import './homeViewNavigation.scss';
 
@@ -15,12 +15,10 @@ export interface HomeViewNavigationProps {
     appMenuVisible: boolean;
     setAppMenuVisible: (appMenuVisible: boolean) => void;
 }
+
 export const HomeViewNavigation: React.FC<HomeViewNavigationProps> = props => {
     const { t } = useTranslation();
     const { appMenuVisible, setAppMenuVisible } = props;
-    const collapseToggle = () => {
-        setAppMenuVisible(!appMenuVisible);
-    };
 
     const navLinks: INavLink[] = [
         {
@@ -44,13 +42,10 @@ export const HomeViewNavigation: React.FC<HomeViewNavigationProps> = props => {
     ];
     return (
         <div className="nav-link-bar view">
-            <div className="view-scroll-vertical">
-                <IconButton
-                    tabIndex={0}
-                    iconProps={{ iconName: NAV }}
-                    title={appMenuVisible ? t(ResourceKeys.common.navigation.collapse) : t(ResourceKeys.common.navigation.expand)}
-                    ariaLabel={appMenuVisible ? t(ResourceKeys.common.navigation.collapse) : t(ResourceKeys.common.navigation.expand)}
-                    onClick={collapseToggle}
+            <div>
+                <CollapsibleButton
+                    appMenuVisible={appMenuVisible}
+                    setAppMenuVisible={setAppMenuVisible}
                 />
                 <Nav groups={[{ links: navLinks }]} />
             </div>

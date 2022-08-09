@@ -44,13 +44,15 @@
         },
         "notifications": {
             "show": "Notifications",
+            "title": "Notification center",
             "dismiss": "Clear all notifications",
             "panel": {
                 "title": "Notifications",
                 "noNotifications": "There are no new notifications for this session.",
                 "redirect": "Looking for notifications?",
                 "redirectLink": "Please visit Notification Center"
-            }
+            },
+            "copy": "Copy"
         },
         "questions": {
             "launch": "Open ???"
@@ -572,13 +574,16 @@
         "startTime": {
             "error": "Please enter datetime format in yyyy/mm/dd/hh/mm/ss",
             "label": "Start time",
-            "tooltip": "Indicates the local enqueue time that should be used to read messages from the event hub. If not specified, you will be receiving events from the first event which has not expired due to the retention policy."
+            "tooltip": "Indicates the local enqueue time that should be used to read messages from the event hub. If not specified, the enqueue time would be the moment you click on the 'Start' button."
         },
         "customEventHub": {
             "connectionString": {
                 "label": "Custom event hub connection string",
                 "placeHolder": "Endpoint=sb://<FQDN>/;SharedAccessKeyName=<KeyName>;SharedAccessKey=<KeyValue>",
                 "error": "Event hub connection string format should look like 'Endpoint=sb://<FQDN>/;SharedAccessKeyName=<KeyName>;SharedAccessKey=<KeyValue>'"
+            },
+            "name": {
+                "label": "Custom event hub name"
             }
         },
         "headerText": "Telemetry",
@@ -860,6 +865,7 @@
         "portIsInUseError": "The port {{portNumber}} is in use. To get around with the issue, configure a custom port by setting the system environment variable 'AZURE_IOT_EXPLORER_PORT' to an available port number. To learn more, please visit https://github.com/Azure/azure-iot-explorer/wiki/FAQ",
         "modelRepoistorySettingsUpdated": "Model repository locations successfully updated.",
         "startEventMonitoringOnError": "Failed to start monitoring device telemetry: {{error}}",
+        "stopEventMonitoringOnError": "Failed to stop monitoring device telemetry: {{error}}",
         "connectionStringsWithoutExpiryRemovalWarning": "Due to security requirements, previously stored hub connection strings have been removed. The new connection string being added would automatically have an expiration date one year from now.",
         "connectionStringsWithExpiryRemovalWarning": "Due to security requirements, one or more hub connection strings stored more than a year ago have been removed."
     },

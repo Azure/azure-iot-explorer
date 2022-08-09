@@ -296,6 +296,9 @@ export class ResourceKeys {
             label : "deviceEvents.customEventHub.connectionString.label",
             placeHolder : "deviceEvents.customEventHub.connectionString.placeHolder",
          },
+         name : {
+            label : "deviceEvents.customEventHub.name.label",
+         },
       },
       error : "deviceEvents.error",
       event : {
@@ -690,6 +693,7 @@ export class ResourceKeys {
    public static header = {
       applicationName : "header.applicationName",
       notifications : {
+         copy : "header.notifications.copy",
          dismiss : "header.notifications.dismiss",
          panel : {
             noNotifications : "header.notifications.panel.noNotifications",
@@ -698,6 +702,7 @@ export class ResourceKeys {
             title : "header.notifications.panel.title",
          },
          show : "header.notifications.show",
+         title : "header.notifications.title",
       },
       questions : {
          launch : "header.questions.launch",
@@ -904,6 +909,7 @@ export class ResourceKeys {
       savedToIotHubConnectionString : "notifications.savedToIotHubConnectionString",
       sendingCloudToDeviceMessage : "notifications.sendingCloudToDeviceMessage",
       startEventMonitoringOnError : "notifications.startEventMonitoringOnError",
+      stopEventMonitoringOnError : "notifications.stopEventMonitoringOnError",
       updateDeviceOnError : "notifications.updateDeviceOnError",
       updateDeviceOnSucceed : "notifications.updateDeviceOnSucceed",
       updateDeviceTwinOnError : "notifications.updateDeviceTwinOnError",

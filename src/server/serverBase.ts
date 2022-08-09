@@ -11,9 +11,8 @@ import bodyParser = require('body-parser');
 import cors = require('cors');
 import { Client as HubClient } from 'azure-iothub';
 import { Message as CloudToDeviceMessage } from 'azure-iot-common';
-import { EventHubConsumerClient, ReceivedEventData } from '@azure/event-hubs';
+import { EventHubClient, EventPosition, ReceiveHandler } from '@azure/event-hubs';
 import { generateDataPlaneRequestBody, generateDataPlaneResponse } from './dataPlaneHelper';
-import { convertIotHubToEventHubsConnectionString } from './eventHubHelper';
 
 const SERVER_ERROR = 500;
 const BAD_REQUEST = 400;
@@ -45,6 +44,7 @@ export class ServerBase {
         app.post(dataPlaneUri, handleDataPlanePostRequest);
         app.post(cloudToDeviceUri, handleCloudToDevicePostRequest);
         app.post(eventHubMonitorUri, handleEventHubMonitorPostRequest);
+        app.post(eventHubStopUri, handleEventHubStopPostRequest);
         app.post(modelRepoUri, handleModelRepoPostRequest);
         app.get(readFileUri, handleReadFileRequest);
         app.get(getDirectoriesUri, handleGetDirectoriesRequest);
@@ -225,21 +225,38 @@ export const handleCloudToDevicePostRequest = (req: express.Request, res: expres
 const eventHubMonitorUri = '/api/EventHub/monitor';
 const IOTHUB_CONNECTION_DEVICE_ID = 'iothub-connection-device-id';
 const IOTHUB_CONNECTION_MODULE_ID = 'iothub-connection-module-id';
-let hubConnectionString = '';
-let eventHubCompatibleConnectionString = '';
-let deviceId = '';
-let moduleId = '';
+let client: EventHubClient = null;
 let messages: Message[] = [];
+let receivers: ReceiveHandler[] = [];
+let connectionString: string = ''; // would equal `${hubConnectionString}` or `${customEventHubConnectionString}/${customEventHubName}`
+let deviceId: string = '';
+let moduleId: string = '';
 export const handleEventHubMonitorPostRequest = (req: express.Request, res: express.Response) => {
     try {
         if (!req.body) {
             res.status(BAD_REQUEST).send();
             return;
         }
-        eventHubProvider(req.body).then(() => {
-            res.status(SUCCESS).send(messages);
-            messages = [];
+
+
+        eventHubProvider(req.body).then(result => {
+            res.status(SUCCESS).send(result);
         });
+    } catch (error) {
+        res.status(SERVER_ERROR).send(error);
+    }
+};
+
+const eventHubStopUri = '/api/EventHub/stop';
+export const handleEventHubStopPostRequest = (req: express.Request, res: express.Response) => {
+    try {
+        if (!req.body) {
+            res.status(BAD_REQUEST).send();
+            return;
+        }
+
+        stopClient();
+        res.status(SUCCESS).send();
     } catch (error) {
         res.status(SERVER_ERROR).send(error);
     }
@@ -267,6 +284,7 @@ export const handleModelRepoPostRequest = (req: express.Request, res: express.Re
             }
         });
     } catch (error) {
+        stopReceivers();
         res.status(SERVER_ERROR).send(error);
     }
 };
@@ -312,61 +330,119 @@ export const addPropertiesToCloudToDeviceMessage = (message: CloudToDeviceMessag
 };
 
 export const eventHubProvider = async (params: any) =>  {
-    let connectionString = '';
-    if (params.customEventHubConnectionString) {
-        connectionString = params.customEventHubConnectionString;
+    if (needToCreateNewEventHubClient(params))
+    {
+        // hub has changed, reinitialize client, receivers and mesages
+        client = params.customEventHubConnectionString ?
+            await EventHubClient.createFromConnectionString(params.customEventHubConnectionString, params.customEventHubName) :
+            await EventHubClient.createFromIotHubConnectionString(params.hubConnectionString);
+
+        connectionString = params.customEventHubConnectionString ?
+            `${params.customEventHubConnectionString}/${params.customEventHubName}` :
+            params.hubConnectionString;
+        receivers = [];
+        messages = [];
     }
-    else {
-        if (params?.hubConnectionString && params.hubConnectionString != hubConnectionString) {
-            connectionString = await convertIotHubToEventHubsConnectionString(params.hubConnectionString);
-            // save strings for future use
-            hubConnectionString = params.hubConnectionString;
-            eventHubCompatibleConnectionString = connectionString;
+    updateEntityIdIfNecessary(params);
 
-        }
-        else {
-            connectionString = eventHubCompatibleConnectionString;
-        }
-    }
-
-    if (deviceId != params.deviceId || moduleId != params.moduleId) {
-        messages = []; // clear the messages when switching identites
-        deviceId = params.deviceId;
-        moduleId = params.moduleId;
-    }
-
-    const client = new EventHubConsumerClient(params.consumerGroup, connectionString); 
-    const subscription = client.subscribe(
-        {
-            processEvents: async (events) => {
-                handleMessages(events, params)
-            },
-            processError: async (err) => {
-                console.log(err);
-            }
-        },
-        { startPosition: { enqueuedOn: params.startTime ? new Date(params.startTime).getTime() : new Date().getTime() }}
-    );
-
-    // Wait for a few seconds to receive events before closing
-    setTimeout(async () => {
-        await subscription.close();
-        await client.close();
-    }, 3 * 1000);
+    return listeningToMessages(client, params);
 };
 
-const handleMessages = (events: ReceivedEventData[], params: any) => {
-    events.forEach(event => {
-        if (event?.systemProperties?.[IOTHUB_CONNECTION_DEVICE_ID] === params.deviceId) {
-            if (!params.moduleId || event?.systemProperties?.[IOTHUB_CONNECTION_MODULE_ID] === params.moduleId) {
-                const message: Message = {
-                    body: event.body,
-                    enqueuedTime: event.enqueuedTimeUtc.toString(),
-                    properties: event.properties
-                };
-                message.systemProperties = event.systemProperties;
-                messages.push(message);
-            }
+const listeningToMessages = async (eventHubClient: EventHubClient, params: any) => {
+    if (params.startListeners || !receivers) {
+        const partitionIds = await client.getPartitionIds();
+        const hubInfo = await client.getHubRuntimeInformation();
+        const startTime = params.startTime ? Date.parse(params.startTime) : Date.now();
+
+        partitionIds && partitionIds.forEach(async (partitionId: string) => {
+            const receiveOptions =  {
+                consumerGroup: params.consumerGroup,
+                enableReceiverRuntimeMetric: true,
+                eventPosition: EventPosition.fromEnqueuedTime(startTime),
+                name: `${hubInfo.path}_${partitionId}`,
+            };
+
+            const receiver = eventHubClient.receive(
+                partitionId,
+                onMessageReceived,
+                (err: object) => {},
+                receiveOptions);
+            receivers.push(receiver);
+        });
+    }
+
+    return handleMessages();
+};
+
+const handleMessages = () => {
+    let results: Message[] = [];
+    messages.forEach(message => {
+        if (!results.some(result => result.systemProperties?.['x-opt-sequence-number'] === message.systemProperties?.['x-opt-sequence-number'])) {
+            // if user click stop/start too refrequently, it's possible duplicate receivers are created before the cleanup happens as it's async
+            // remove duplicate messages before proper cleanup is finished
+            results.push(message);
         }
+    })
+    messages = []; // empty the array everytime the result is returned
+    return results;
+}
+
+export const stopClient = async () => {
+    return stopReceivers().then(() => {
+        return client && client.close().catch(error => {
+            console.log(`client cleanup error: ${error}`); // swallow the error as we will cleanup anyways
+        });
+    }).finally (() => {
+        client = null;
+        receivers = [];
+    });
+};
+
+const stopReceivers = async () => {
+    return Promise.all(
+        receivers.map(receiver => {
+            if (receiver && (receiver.isReceiverOpen === undefined || receiver.isReceiverOpen)) {
+                return stopReceiver(receiver);
+            } else {
+                return null;
+            }
+        })
+    );
+};
+
+const stopReceiver = async (receiver: ReceiveHandler) => {
+    receiver.stop().catch((err: object) => {
+        throw new Error(`receivers cleanup error: ${err}`);
     });
 }
+
+const needToCreateNewEventHubClient = (parmas: any): boolean => {
+    return !client ||
+        parmas.hubConnectionString && parmas.hubConnectionString !== connectionString  ||
+        parmas.customEventHubConnectionString && `${parmas.customEventHubConnectionString}/${parmas.customEventHubName}` !== connectionString;
+}
+
+const updateEntityIdIfNecessary = (parmas: any) => {
+    if (!deviceId || parmas.deviceId !== deviceId) {
+        deviceId = parmas.deviceId;
+        messages = [];
+    }
+    if (parmas.moduleId !== moduleId) {
+        moduleId = parmas.moduleId;
+        messages = [];
+    }
+}
+
+const onMessageReceived = async (eventData: any) => {
+    if (eventData?.annotations?.[IOTHUB_CONNECTION_DEVICE_ID] === deviceId) {
+        if (!moduleId || eventData?.annotations?.[IOTHUB_CONNECTION_MODULE_ID] === moduleId) {
+            const message: Message = {
+                body: eventData.body,
+                enqueuedTime: eventData.enqueuedTimeUtc.toString(),
+                properties: eventData.applicationProperties
+            };
+            message.systemProperties = eventData.annotations;
+            messages.push(message);
+        }
+    }
+};

@@ -22,8 +22,10 @@ describe('customEventHub', () => {
             <CustomEventHub
                 monitoringData={true}
                 useBuiltInEventHub={false}
+                customEventHubName={undefined}
                 customEventHubConnectionString={undefined}
                 setUseBuiltInEventHub={jest.fn()}
+                setCustomEventHubName={jest.fn()}
                 setCustomEventHubConnectionString={jest.fn()}
                 setHasError={jest.fn()}
             />)).toMatchSnapshot();
@@ -31,13 +33,16 @@ describe('customEventHub', () => {
 
     it('specifies custom strings', () => {
         const mockSetUseBuiltInEventHub = jest.fn();
+        const mockSetCustomEventHubName = jest.fn();
         const mockSetCustomEventHubConnectionString = jest.fn();
         const wrapper = mount(
             <CustomEventHub
                 monitoringData={true}
                 useBuiltInEventHub={false}
+                customEventHubName={undefined}
                 customEventHubConnectionString={undefined}
                 setUseBuiltInEventHub={mockSetUseBuiltInEventHub}
+                setCustomEventHubName={mockSetCustomEventHubName}
                 setCustomEventHubConnectionString={mockSetCustomEventHubConnectionString}
                 setHasError={jest.fn()}
             />);
@@ -47,7 +52,9 @@ describe('customEventHub', () => {
         expect(mockSetUseBuiltInEventHub).toBeCalledWith(true);
 
         act(() => wrapper.find(TextField).first().props().onChange(undefined, 'connectionString'));
+        act(() => wrapper.find(TextField).at(1).props().onChange(undefined, 'hubName'));
         wrapper.update();
         expect(mockSetCustomEventHubConnectionString).toBeCalledWith('connectionString');
+        expect(mockSetCustomEventHubName).toBeCalledWith('hubName');
     });
 });
