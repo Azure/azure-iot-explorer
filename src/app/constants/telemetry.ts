@@ -44,5 +44,5 @@ export enum TELEMETRY_USER_ACTIONS {
     MODULE_INVOKE_DIRECT_METHOD = 'module_invoke_direct_method',
     PNP_SEND_COMMAND = 'pnp_send_command',
     PNP_UPDATE_PROPERTY = 'pnp_update_property',
-    START_PNP_TELEMETRY = 'start_pnp_telemetry'
+    PNP_START_TELEMETRY = 'pnp_start_telemetry'
 }
