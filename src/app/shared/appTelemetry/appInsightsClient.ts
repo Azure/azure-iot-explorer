@@ -1,5 +1,5 @@
 import { ApplicationInsights } from '@microsoft/applicationinsights-web';
-import { TELEMETRY_EVENTS } from '../../constants/telemetry';
+import { TELEMETRY_EVENTS, TELEMETRY_USER_ACTIONS } from '../../constants/telemetry';
 import { appConfig } from '../../../appConfig/appConfig';
 import { isMicrosoftInternalDomain } from '../utils/utils';
 
@@ -23,5 +23,9 @@ export class AppInsightsClient {
         }
 
         return AppInsightsClient.instance;
+    }
+
+    public static trackUserAction(userAction: TELEMETRY_USER_ACTIONS) {
+        AppInsightsClient.getInstance()?.trackEvent({name: TELEMETRY_EVENTS.USER_ACTION}, {action: userAction});
     }
 }

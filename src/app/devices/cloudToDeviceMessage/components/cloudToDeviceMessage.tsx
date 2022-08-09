@@ -19,7 +19,7 @@ import { useAsyncSagaReducer } from '../../../shared/hooks/useAsyncSagaReducer';
 import { cloudToDeviceMessageSaga } from '../saga';
 import '../../../css/_deviceDetail.scss';
 import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
-import { TELEMETRY_PAGE_NAMES } from '../../../../app/constants/telemetry';
+import { TELEMETRY_PAGE_NAMES, TELEMETRY_USER_ACTIONS } from '../../../../app/constants/telemetry';
 
 interface PropertyItem {
     isSystemProperty: boolean;
@@ -388,6 +388,8 @@ export const CloudToDeviceMessage: React.FC = () => {
             // populate a random message id
             newProperties.push({key: SystemProperties.MESSAGE_ID, value: uuid(), isSystemProperty: true});
         }
+
+        AppInsightsClient.trackUserAction(TELEMETRY_USER_ACTIONS.SEND_C2D_MESSAGE);
 
         const timeStamp = new Date().toLocaleString();
         dispatch(cloudToDeviceMessageAction.started({

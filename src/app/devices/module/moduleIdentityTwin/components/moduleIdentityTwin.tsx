@@ -19,7 +19,7 @@ import { moduleIdentityTwinSagas } from '../saga';
 import { moduleTwinStateInitial } from '../state';
 import '../../../../css/_deviceDetail.scss';
 import { AppInsightsClient } from '../../../../shared/appTelemetry/appInsightsClient';
-import { TELEMETRY_PAGE_NAMES } from '../../../../../app/constants/telemetry';
+import { TELEMETRY_PAGE_NAMES, TELEMETRY_USER_ACTIONS } from '../../../../../app/constants/telemetry';
 
 export const ModuleIdentityTwin: React.FC = () => {
     const { t } = useTranslation();
@@ -53,6 +53,7 @@ export const ModuleIdentityTwin: React.FC = () => {
             isDirty: false,
             isTwinValid: true
         });
+        AppInsightsClient.trackUserAction(TELEMETRY_USER_ACTIONS.UPDATE_MODULE_TWIN);
         dispatch(updateModuleIdentityTwinAction.started(JSON.parse(state.twin)));
     };
 
