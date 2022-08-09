@@ -184,7 +184,7 @@ export const Commands: React.FC<CommandsProps> = ({
             fetchData();
             setMonitoringData(true);
             if (componentName) {
-                AppInsightsClient.trackUserAction(TELEMETRY_USER_ACTIONS.START_PNP_TELEMETRY);
+                AppInsightsClient.trackUserAction(TELEMETRY_USER_ACTIONS.PNP_START_TELEMETRY);
             } else {
                 AppInsightsClient.trackUserAction(TELEMETRY_USER_ACTIONS.START_DEVICE_TELEMETRY);
             }
