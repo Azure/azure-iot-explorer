@@ -21,9 +21,9 @@ const MSAL_CONFIG: Configuration = {
     system: {
         loggerOptions: {
             loggerCallback(loglevel, message, containsPii) {
-                console.log(message);
+                console.log(message);
             },
-            piiLoggingEnabled: false,
+            piiLoggingEnabled: false,
             logLevel: LogLevel.Verbose,
         }
     }
@@ -35,7 +35,7 @@ export class AuthProvider {
     private authCodeUrlParams: AuthorizationUrlRequest;
     private authCodeRequest: AuthorizationCodeRequest;
     private silentProfileRequest: SilentFlowRequest;
-    
+
     constructor() {
         this.clientApplication = new PublicClientApplication(MSAL_CONFIG);
         this.account = null;
@@ -50,7 +50,7 @@ export class AuthProvider {
      * Initialize request objects used by this AuthModule.
      */
     private setRequestObjects(): void {
-        const requestScopes =  ['openid', 'profile'];
+        const requestScopes =  ['openid', 'profile', 'https://management.azure.com/user_impersonation'];
         const redirectUri = 'https://login.microsoftonline.com/oauth2/nativeclient';
 
         const baseSilentRequest = {

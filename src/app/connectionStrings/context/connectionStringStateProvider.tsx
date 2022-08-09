@@ -6,7 +6,7 @@ import { useAsyncSagaReducer } from '../../shared/hooks/useAsyncSagaReducer';
 import { ConnectionStringStateContext } from './connectionStringStateContext';
 import { deleteConnectionStringAction, getConnectionStringsAction, setConnectionStringsAction, upsertConnectionStringAction } from '../actions';
 
-export interface AuthenticationInterface {
+export interface ConnectionStringInterface {
     getConnectionStrings(): void;
     setConnectionStrings(connectionStringInfoList: ConnectionStringWithExpiry[]): void;
     upsertConnectionString(connectionStringInfo: ConnectionStringWithExpiry): void;
@@ -16,7 +16,7 @@ export interface AuthenticationInterface {
 export const ConnectionStringStateContextProvider: React.FC = props => {
     const [ state, dispatch ] = useAsyncSagaReducer(connectionStringsReducer, connectionStringsSaga, connectionStringsStateInitial(), 'connectionStringsState');
 
-    const authtenticationApi: AuthenticationInterface = {
+    const connectionStringApi: ConnectionStringInterface = {
         deleteConnectionString: (connectionString: string) => dispatch(deleteConnectionStringAction.started(connectionString)),
         getConnectionStrings: () => dispatch(getConnectionStringsAction.started()),
         setConnectionStrings: (connectionStringInfoList: ConnectionStringWithExpiry[]) => dispatch(setConnectionStringsAction.started(connectionStringInfoList)),
@@ -24,7 +24,7 @@ export const ConnectionStringStateContextProvider: React.FC = props => {
     };
 
     return (
-        <ConnectionStringStateContext.Provider value={[state, authtenticationApi]}>
+        <ConnectionStringStateContext.Provider value={[state, connectionStringApi]}>
             {props.children}
         </ConnectionStringStateContext.Provider>
     );

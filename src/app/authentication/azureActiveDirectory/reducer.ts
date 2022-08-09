@@ -26,10 +26,16 @@ export const azureActiveDirectoryReducer = reducerWithInitialState<AzureActiveDi
             formState: 'failed'
         };
     })
+    .case(loginAction.started, (state: AzureActiveDirectoryStateInterface) => {
+        return {
+            ...state,
+            formState: 'working',
+        };
+    })
     .case(loginAction.done, (state: AzureActiveDirectoryStateInterface) => {
         return {
             ...state,
-            formState: 'loggedIn',
+            formState: 'idle',
         };
     })
     .case(loginAction.failed, (state: AzureActiveDirectoryStateInterface) => {
@@ -38,15 +44,21 @@ export const azureActiveDirectoryReducer = reducerWithInitialState<AzureActiveDi
             formState: 'failed'
         };
     })
+    .case(logoutAction.started, (state: AzureActiveDirectoryStateInterface) => {
+        return {
+            ...state,
+            formState: 'working',
+        };
+    })
     .case(logoutAction.done, (state: AzureActiveDirectoryStateInterface) => {
         return {
             ...state,
-            formState: 'loggedOut',
+            formState: 'idle',
         };
     })
     .case(logoutAction.failed, (state: AzureActiveDirectoryStateInterface) => {
         return {
             ...state,
-            formState: 'loggedOut'
+            formState: 'failed'
         };
     });

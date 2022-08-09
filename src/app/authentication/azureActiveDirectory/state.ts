@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 export interface AzureActiveDirectoryStateInterface {
-    formState: 'initialized' | 'loggedIn' | 'loggedOut' | 'working' | 'failed' | 'idle';
+    formState: 'initialized' | 'working' | 'failed' | 'idle';
     token: string;
 }
 
