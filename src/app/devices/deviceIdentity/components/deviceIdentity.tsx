@@ -18,7 +18,6 @@ import { MultiLineShimmer } from '../../../shared/components/multiLineShimmer';
 import { HeaderView } from '../../../shared/components/headerView';
 import { SasTokenGenerationView } from '../../shared/components/sasTokenGenerationView';
 import { useIotHubContext } from '../../../iotHub/hooks/useIotHubContext';
-import { QrGenerationView } from './qrGenerationView';
 import '../../../css/_deviceDetail.scss';
 import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
 import { TELEMETRY_PAGE_NAMES } from '../../../../app/constants/telemetry';
@@ -111,18 +110,10 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
 
     const renderSasTokenSection = () => {
         return (
-            <>
-                <SasTokenGenerationView
-                    activeAzureResourceHostName={hostName}
-                    deviceIdentity={state.identity}
-                />
-                <br />
-                <QrGenerationView
-                    hostName={hostName}
-                    deviceId={state.identity.deviceId}
-                    deviceKey={state.identity.authentication.symmetricKey.primaryKey}
-                />
-            </>
+            <SasTokenGenerationView
+                activeAzureResourceHostName={hostName}
+                deviceIdentity={state.identity}
+            />
         );
     };
 
