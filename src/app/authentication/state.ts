@@ -12,7 +12,7 @@ export interface AuthenticationStateInterface {
     preference: string;
 }
 
-export const getInitialAuthenticateState = (): AuthenticationStateInterface => ({
+export const getInitialAuthenticationState = (): AuthenticationStateInterface => ({
     formState: 'initialized',
     preference: undefined
 });

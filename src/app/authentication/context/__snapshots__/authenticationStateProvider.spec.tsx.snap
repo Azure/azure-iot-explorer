@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AuthenticationStateContextProvider matches snapshot 1`] = `
+<ContextProvider
+  value={
+    Array [
+      Object {
+        "formState": "initialized",
+        "preference": undefined,
+      },
+      Object {
+        "getLoginPreference": [Function],
+        "setLoginPreference": [Function],
+      },
+    ]
+  }
+>
+  <span>
+    test
+  </span>
+</ContextProvider>
+`;

@@ -3,15 +3,17 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { getInitialAuthenticateState, AuthenticationStateInterface } from '../state';
-import { AuthtenticationInterface } from './authenticationStateProvider';
+import { getInitialAuthenticationState, AuthenticationStateInterface } from '../state';
+import { AuthenticationInterface } from './authenticationStateProvider';
 
-export const AuthenticationStateContext = React.createContext<[AuthenticationStateInterface, AuthtenticationInterface]>
+export const getInitialAuthenticationOps = (): AuthenticationInterface => ({
+    getLoginPreference: () => undefined,
+    setLoginPreference: () => undefined
+});
+
+export const AuthenticationStateContext = React.createContext<[AuthenticationStateInterface, AuthenticationInterface]>
     ([
-        getInitialAuthenticateState(),
-        {
-            getLoginPreference: () => undefined,
-            setLoginPreference: () => undefined
-        }
+        getInitialAuthenticationState(),
+        getInitialAuthenticationOps()
     ]);
 export const useAuthenticationStateContext = () => React.useContext(AuthenticationStateContext);

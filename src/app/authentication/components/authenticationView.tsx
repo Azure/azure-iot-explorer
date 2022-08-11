@@ -20,17 +20,20 @@ export const AuthenticationView: React.FC = () => {
 
     return (
         <>
-            {formState === 'working' && <MultiLineShimmer/>}
-            {!preference && <AuthenticationSelection/>}
-            {preference === AuthenticationMethodPreference.AzureAD &&
-                <AzureActiveDirectoryStateContextProvider>
-                    <HubSelection/>
-                </AzureActiveDirectoryStateContextProvider>
-            }
-            {preference === AuthenticationMethodPreference.ConnectionString &&
-                <ConnectionStringStateContextProvider>
-                    <ConnectionStringsView/>
-                </ConnectionStringStateContextProvider>
+            {formState === 'working' ? <MultiLineShimmer/> :
+                <>
+                    {!preference && <AuthenticationSelection/>}
+                    {preference === AuthenticationMethodPreference.AzureAD &&
+                        <AzureActiveDirectoryStateContextProvider>
+                            <HubSelection/>
+                        </AzureActiveDirectoryStateContextProvider>
+                    }
+                    {preference === AuthenticationMethodPreference.ConnectionString &&
+                        <ConnectionStringStateContextProvider>
+                            <ConnectionStringsView/>
+                        </ConnectionStringStateContextProvider>
+                    }
+                </>
             }
         </>
     );

@@ -4,16 +4,16 @@
  **********************************************************/
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { getLoginPreferenceAction, setLoginPreferenceAction } from './actions';
-import { getInitialAuthenticateState, AuthenticationStateInterface, AuthenticationMethodPreference } from './state';
+import { getInitialAuthenticationState, AuthenticationStateInterface } from './state';
 
-export const authenticationReducer = reducerWithInitialState<AuthenticationStateInterface>(getInitialAuthenticateState())
+export const authenticationReducer = reducerWithInitialState<AuthenticationStateInterface>(getInitialAuthenticationState())
     .case(getLoginPreferenceAction.started, (state: AuthenticationStateInterface) => {
         return {
             ...state,
             formState: 'working'
         };
     })
-    .case(getLoginPreferenceAction.done, (state: AuthenticationStateInterface, payload: {params: void, result: AuthenticationMethodPreference}) => {
+    .case(getLoginPreferenceAction.done, (state: AuthenticationStateInterface, payload: {params: void, result: string}) => {
         return {
             ...state,
             formState: 'idle',
@@ -32,7 +32,7 @@ export const authenticationReducer = reducerWithInitialState<AuthenticationState
             formState: 'working'
         };
     })
-    .case(setLoginPreferenceAction.done, (state: AuthenticationStateInterface, payload: {params: AuthenticationMethodPreference}) => {
+    .case(setLoginPreferenceAction.done, (state: AuthenticationStateInterface, payload: {params: string}) => {
         return {
             ...state,
             formState: 'idle',

@@ -11,15 +11,15 @@ import { ResourceKeys } from '../../../localization/resourceKeys';
 import './AuthenticationSelection.scss';
 
 export const AuthenticationSelection: React.FC = () => {
-    const [, api] = useAuthenticationStateContext();
+    const [, { setLoginPreference }] = useAuthenticationStateContext();
     const { t } = useTranslation();
 
     const connectViaConnectionString = () => {
-        api.setLoginPreference(AuthenticationMethodPreference.ConnectionString);
+        setLoginPreference(AuthenticationMethodPreference.ConnectionString);
     };
 
     const loginViaAad = () => {
-        api.setLoginPreference(AuthenticationMethodPreference.AzureAD);
+        setLoginPreference(AuthenticationMethodPreference.AzureAD);
     };
 
     return (

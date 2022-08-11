@@ -4,9 +4,9 @@
  **********************************************************/
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { getUserProfileTokenAction, loginAction, logoutAction } from './actions';
-import { getInitialAzureActiveDirectoryStateInitial, AzureActiveDirectoryStateInterface } from './state';
+import { getInitialAzureActiveDirectoryState, AzureActiveDirectoryStateInterface } from './state';
 
-export const azureActiveDirectoryReducer = reducerWithInitialState<AzureActiveDirectoryStateInterface>(getInitialAzureActiveDirectoryStateInitial())
+export const azureActiveDirectoryReducer = reducerWithInitialState<AzureActiveDirectoryStateInterface>(getInitialAzureActiveDirectoryState())
     .case(getUserProfileTokenAction.started, (state: AzureActiveDirectoryStateInterface) => {
         return {
             ...state,

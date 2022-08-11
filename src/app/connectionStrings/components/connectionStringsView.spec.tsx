@@ -22,7 +22,7 @@ describe('ConnectionStringsView', () => {
 
     it('matches snapshot when no connection strings', () => {
         jest.spyOn(connectionStringContext, 'useConnectionStringContext').mockReturnValue(
-            [connectionStringsStateInitial(), {...connectionStringContext.getInitialConnectionStringOps()}]);
+            [connectionStringsStateInitial(), connectionStringContext.getInitialConnectionStringOps()]);
         const wrapper = shallow(<ConnectionStringsView/>);
         expect(wrapper).toMatchSnapshot();
     });
@@ -30,7 +30,7 @@ describe('ConnectionStringsView', () => {
     it('matches snapshot when connection strings present', () => {
         const state = connectionStringsStateInitial().merge({ payload: [connectionStringWithExpiry]});
         jest.spyOn(connectionStringContext, 'useConnectionStringContext').mockReturnValue(
-            [state, {...connectionStringContext.getInitialConnectionStringOps()}]);
+            [state, connectionStringContext.getInitialConnectionStringOps()]);
 
         const wrapper = shallow(<ConnectionStringsView/>);
         expect(wrapper).toMatchSnapshot();
@@ -42,7 +42,7 @@ describe('ConnectionStringsView', () => {
         it('mounts edit view when add command clicked', () => {
             const state = connectionStringsStateInitial().merge({ payload: [connectionStringWithExpiry] });
             jest.spyOn(connectionStringContext, 'useConnectionStringContext').mockReturnValue(
-                [state, {...connectionStringContext.getInitialConnectionStringOps()}]);
+                [state, connectionStringContext.getInitialConnectionStringOps()]);
             const wrapper = mount(<ConnectionStringsView/>);
 
             act(() => wrapper.find(ConnectionString).props().onEditConnectionString(connectionString));

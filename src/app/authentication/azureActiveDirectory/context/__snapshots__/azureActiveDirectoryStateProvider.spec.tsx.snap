@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AzureActiveDirectoryStateContextProvider matches snapshot 1`] = `
+<ContextProvider
+  value={
+    Array [
+      Object {
+        "formState": "initialized",
+        "token": undefined,
+      },
+      Object {
+        "getToken": [Function],
+        "login": [Function],
+        "logout": [Function],
+      },
+    ]
+  }
+>
+  <span>
+    test
+  </span>
+</ContextProvider>
+`;

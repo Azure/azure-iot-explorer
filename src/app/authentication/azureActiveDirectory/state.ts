@@ -7,7 +7,7 @@ export interface AzureActiveDirectoryStateInterface {
     token: string;
 }
 
-export const getInitialAzureActiveDirectoryStateInitial = (): AzureActiveDirectoryStateInterface => ({
+export const getInitialAzureActiveDirectoryState = (): AzureActiveDirectoryStateInterface => ({
     formState: 'initialized',
     token: undefined
 });

@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { getInitialAzureActiveDirectoryStateInitial } from '../state';
-import { azureActiveDirectoryReducer } from '../reducer';
+import { getInitialAzureActiveDirectoryState } from '../state';
+import { azureActiveDirectoryReducer } from '../reducers';
 import { useAsyncSagaReducer } from '../../../shared/hooks/useAsyncSagaReducer';
 import { AzureActiveDirectoryStateContext } from './azureActiveDirectoryStateContext';
 import { getUserProfileTokenAction, loginAction, logoutAction } from '../actions';
@@ -13,7 +13,7 @@ export interface AzureActiveDirectoryInterface {
 }
 
 export const AzureActiveDirectoryStateContextProvider: React.FC = props => {
-    const [state, dispatch] = useAsyncSagaReducer(azureActiveDirectoryReducer, azureActiveDirectorySaga, getInitialAzureActiveDirectoryStateInitial(), 'azureActiveDirectoryState');
+    const [state, dispatch] = useAsyncSagaReducer(azureActiveDirectoryReducer, azureActiveDirectorySaga, getInitialAzureActiveDirectoryState(), 'azureActiveDirectoryState');
 
     const azureActiveDirectoryApi: AzureActiveDirectoryInterface = {
         getToken: () => dispatch(getUserProfileTokenAction.started()),
