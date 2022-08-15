@@ -17,32 +17,24 @@ export interface ModelRepositoryInstructionDataProps {
 export const ModelRepositoryInstruction: React.FC<ModelRepositoryInstructionDataProps> = props => {
     const { t } = useTranslation();
 
-    if (props.empty) {
-        return (
-            <div className="model-repository-empty">
-                <h3 role="heading" aria-level={1}>{t(ResourceKeys.modelRepository.empty.header)}</h3>
-                <div>
-                    <span>{t(ResourceKeys.modelRepository.empty.description)}</span>
-                    <NavLink to={`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.MODEL_REPOS}`} className="embedded-link">Home.</NavLink>
-                </div>
-
-                <h3 role="heading" aria-level={1}>{t(ResourceKeys.settings.questions.headerText)}</h3>
-                <Link
-                    href={t(ResourceKeys.settings.questions.questions.documentation.link)}
-                    target="_blank"
-                >
-                    {t(ResourceKeys.modelRepository.empty.help)}
-                </Link>
-                {RenderPrivaryStatement()}
-            </div>);
-    }
-
     return (
         <div className="model-repository-instruction">
+            <div>
+                <span>{t(ResourceKeys.modelRepository.description.description)}</span>
+                <NavLink to={`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.MODEL_REPOS}`} className="embedded-link">Home.</NavLink>
+            </div>
+
+            <h3 role="heading" aria-level={1}>{t(ResourceKeys.settings.questions.headerText)}</h3>
+            <Link
+                href={t(ResourceKeys.settings.questions.questions.documentation.link)}
+                target="_blank"
+            >
+                {t(ResourceKeys.modelRepository.description.help)}
+            </Link>
+            <h3 role="heading" aria-level={1}>{t(ResourceKeys.modelRepository.description.header)}</h3>
             {t(ResourceKeys.modelRepository.instruction)}
             {RenderPrivaryStatement()}
-        </div>
-    );
+        </div>);
 };
 
 const RenderPrivaryStatement = () => {
