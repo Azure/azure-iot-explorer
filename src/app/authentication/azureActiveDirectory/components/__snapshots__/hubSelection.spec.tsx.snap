@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HubSelection matches snapshot when page is loading 1`] = `
+<div>
+  <AzureActiveDirectoryCommandBar />
+  <MultiLineShimmer />
+</div>
+`;
+
+exports[`HubSelection matches snapshot when token is present 1`] = `
+<div>
+  <AzureActiveDirectoryCommandBar />
+  token
+</div>
+`;

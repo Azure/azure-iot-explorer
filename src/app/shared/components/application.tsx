@@ -33,7 +33,7 @@ export const Application: React.FC = () => {
                 <Breadcrumbs/>
             </div>
             <main className="main">
-            <Switch>
+                <Switch>
                     <Redirect from="/" exact={true} to={`${ROUTE_PARTS.HOME}`}/>
                     <Route path={`/${ROUTE_PARTS.HOME}`} component={HomeView} />
                     <Route path={'/microsoft.devices/'} component={IotHub} />
