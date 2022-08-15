@@ -754,10 +754,10 @@ export class ResourceKeys {
             label : "modelRepository.commands.save.label",
          },
       },
-      empty : {
-         description : "modelRepository.empty.description",
-         header : "modelRepository.empty.header",
-         help : "modelRepository.empty.help",
+      description : {
+         description : "modelRepository.description.description",
+         header : "modelRepository.description.header",
+         help : "modelRepository.description.help",
       },
       instruction : "modelRepository.instruction",
       types : {
