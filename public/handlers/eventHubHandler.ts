@@ -5,6 +5,7 @@
 import { IpcMainInvokeEvent } from 'electron';
 import { EventHubClient, EventPosition, ReceiveHandler } from '@azure/event-hubs';
 import { Message, StartEventHubMonitoringParameters } from '../interfaces/eventHubInterface';
+import { convertIotHubToEventHubsConnectionString } from '../utils/connStringHelper';
 
 let client: EventHubClient = null;
 let messages: Message[] = [];
@@ -36,7 +37,7 @@ const eventHubProvider = async (params: StartEventHubMonitoringParameters) =>  {
         // hub has changed, reinitialize client, receivers and mesages
         client = params.customEventHubConnectionString ?
             await EventHubClient.createFromConnectionString(params.customEventHubConnectionString, params.customEventHubName) :
-            await EventHubClient.createFromIotHubConnectionString(params.hubConnectionString);
+            await EventHubClient.createFromConnectionString(await convertIotHubToEventHubsConnectionString(params.hubConnectionString), params.customEventHubName);
 
         connectionString = params.customEventHubConnectionString ?
             `${params.customEventHubConnectionString}/${params.customEventHubName}` :

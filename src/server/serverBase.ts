@@ -13,6 +13,7 @@ import { Client as HubClient } from 'azure-iothub';
 import { Message as CloudToDeviceMessage } from 'azure-iot-common';
 import { EventHubClient, EventPosition, ReceiveHandler } from '@azure/event-hubs';
 import { generateDataPlaneRequestBody, generateDataPlaneResponse } from './dataPlaneHelper';
+import { convertIotHubToEventHubsConnectionString } from './eventHubHelper';
 
 const SERVER_ERROR = 500;
 const BAD_REQUEST = 400;
@@ -335,7 +336,7 @@ export const eventHubProvider = async (params: any) =>  {
         // hub has changed, reinitialize client, receivers and mesages
         client = params.customEventHubConnectionString ?
             await EventHubClient.createFromConnectionString(params.customEventHubConnectionString, params.customEventHubName) :
-            await EventHubClient.createFromIotHubConnectionString(params.hubConnectionString);
+            await EventHubClient.createFromConnectionString(await convertIotHubToEventHubsConnectionString(params.hubConnectionString), params.customEventHubName);
 
         connectionString = params.customEventHubConnectionString ?
             `${params.customEventHubConnectionString}/${params.customEventHubName}` :
