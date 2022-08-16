@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HubList matches snapshot when there are list items 1`] = `
+<Fragment>
+  <StyledWithViewportComponent
+    columns={
+      Array [
+        Object {
+          "isResizable": true,
+          "key": "name",
+          "maxWidth": 400,
+          "minWidth": 150,
+          "name": "authentication.azureActiveDirectory.hubList.columns.name",
+          "onRender": [Function],
+        },
+        Object {
+          "isResizable": true,
+          "key": "id",
+          "maxWidth": 400,
+          "minWidth": 150,
+          "name": "authentication.azureActiveDirectory.hubList.columns.location",
+          "onRender": [Function],
+        },
+      ]
+    }
+    items={
+      Array [
+        Object {
+          "id": "id",
+          "location": "westus",
+          "name": "hub",
+        },
+      ]
+    }
+    selectionMode={0}
+  />
+</Fragment>
+`;
+
+exports[`HubList matches snapshot when there are no list items 1`] = `
+<Fragment>
+  <StyledWithViewportComponent
+    columns={
+      Array [
+        Object {
+          "isResizable": true,
+          "key": "name",
+          "maxWidth": 400,
+          "minWidth": 150,
+          "name": "authentication.azureActiveDirectory.hubList.columns.name",
+          "onRender": [Function],
+        },
+        Object {
+          "isResizable": true,
+          "key": "id",
+          "maxWidth": 400,
+          "minWidth": 150,
+          "name": "authentication.azureActiveDirectory.hubList.columns.location",
+          "onRender": [Function],
+        },
+      ]
+    }
+    items={Array []}
+    selectionMode={0}
+  />
+  authentication.azureActiveDirectory.hubList.noItemText
+</Fragment>
+`;

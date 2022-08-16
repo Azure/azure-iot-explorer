@@ -2,8 +2,8 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { AzureResourceIdentifierType } from '../../azureResourceIdentifier/models/azureResourceIdentifierType';
-import { AzureResourceHostNameType } from '../../azureResourceIdentifier/models/azureResourceHostNameType';
+import { AzureResourceIdentifierType } from '../models/azureResourceIdentifierType';
+import { AzureResourceHostNameType } from '../models/azureResourceHostNameType';
 import { getConnectionInfoFromConnectionString } from './utils';
 
 export const getResourceNameFromHostName = (hostName: string): string | undefined => {

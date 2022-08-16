@@ -1,3 +1,7 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { CommandBar } from '@fluentui/react';
@@ -24,19 +28,19 @@ export const AzureActiveDirectoryCommandBar: React.FC = () => {
             text: t(ResourceKeys.authentication.autheSelection.switchAuthType)
         }];
 
-        return !token ? [{
+        return token ? [{
+            ariaLabel: t(ResourceKeys.authentication.azureActiveDirectory.command.logout),
+            iconProps: { iconName: 'Signout' },
+            key: 'signout',
+            onClick: logout,
+            text: t(ResourceKeys.authentication.azureActiveDirectory.command.logout)
+            }, ...items] :
+            [{
                 ariaLabel: t(ResourceKeys.authentication.azureActiveDirectory.command.login),
                 iconProps: { iconName: 'Signin' },
                 key: 'signin',
                 onClick: login,
                 text: t(ResourceKeys.authentication.azureActiveDirectory.command.login)
-            }, ...items] :
-            [{
-                ariaLabel: t(ResourceKeys.authentication.azureActiveDirectory.command.logout),
-                iconProps: { iconName: 'Signout' },
-                key: 'signout',
-                onClick: logout,
-                text: t(ResourceKeys.authentication.azureActiveDirectory.command.logout)
             }, ...items];
     };
 

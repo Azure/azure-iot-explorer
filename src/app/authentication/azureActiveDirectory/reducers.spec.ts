@@ -3,10 +3,65 @@
  * Licensed under the MIT License
  **********************************************************/
 import { azureActiveDirectoryReducer } from './reducers';
-import { getUserProfileTokenAction, loginAction, logoutAction } from './actions';
+import { loginAction, logoutAction, getIotHubsBySubscriptionAction, getSubscriptionListAction, getUserProfileTokenAction, getIoTHubKeyAction } from './actions';
 import { getInitialAzureActiveDirectoryState } from './state';
+import { SubscriptionState } from '../../api/models/azureSubscription';
 
 describe('azureActiveDirectoryReducer', () => {
+    context('AAD/GET_IOTHUBS', () => {
+        it('handles AAD/GET_IOTHUBS_STARTED action', ()=> {
+            const action = getIotHubsBySubscriptionAction.started('subscriptionId');
+            expect(azureActiveDirectoryReducer(getInitialAzureActiveDirectoryState(), action).formState).toEqual('working');
+        });
+
+        it('handles AAD/GET_IOTHUBS_DONE action', ()=> {
+            const iotHub = {
+                name: 'hub',
+                location: 'westus',
+                id: 'id'
+            }
+            const action = getIotHubsBySubscriptionAction.done({params: 'subscriptionId', result: [iotHub]});
+            expect(azureActiveDirectoryReducer(getInitialAzureActiveDirectoryState(), action)).toEqual({
+                ...getInitialAzureActiveDirectoryState(),
+                formState: 'idle',
+                iotHubs: [iotHub]
+            });
+        });
+
+        it('handles AAD/GET_IOTHUBS_FAILED action', ()=> {
+            const action = getIotHubsBySubscriptionAction.failed({params: 'subscriptionId', error: {}});
+            expect(azureActiveDirectoryReducer(getInitialAzureActiveDirectoryState(), action).formState).toEqual('failed');
+        });
+    });
+
+    context('AAD/GET_SUBSCRIPTIONS', () => {
+        it('handles AAD/GET_SUBSCRIPTIONS_STARTED action', ()=> {
+            const action = getSubscriptionListAction.started();
+            expect(azureActiveDirectoryReducer(getInitialAzureActiveDirectoryState(), action).formState).toEqual('working');
+        });
+
+        it('handles AAD/GET_SUBSCRIPTIONS_DONE action', ()=> {
+            const sub = {
+                displayName: 'test',
+                id: 'id',
+                tenantId: 'id',
+                state: SubscriptionState.Disabled,
+                subscriptionId: 'id'
+            }
+            const action = getSubscriptionListAction.done({result: [sub]});
+            expect(azureActiveDirectoryReducer(getInitialAzureActiveDirectoryState(), action)).toEqual({
+                ...getInitialAzureActiveDirectoryState(),
+                formState: 'idle',
+                subscriptions: [sub]
+            });
+        });
+
+        it('handles AAD/GET_SUBSCRIPTIONS_FAILED action', ()=> {
+            const action = getSubscriptionListAction.failed({error: {}});
+            expect(azureActiveDirectoryReducer(getInitialAzureActiveDirectoryState(), action).formState).toEqual('failed');
+        });
+    });
+
     context('AAD/GET_TOKEN', () => {
         it('handles AAD/GET_TOKEN_STARTED action', ()=> {
             const action = getUserProfileTokenAction.started();
@@ -14,15 +69,38 @@ describe('azureActiveDirectoryReducer', () => {
         });
 
         it('handles AAD/GET_TOKEN_DONE action', ()=> {
-            const action = getUserProfileTokenAction.done({result: 'user_token_123'});
+            const action = getUserProfileTokenAction.done({result: 'token'});
             expect(azureActiveDirectoryReducer(getInitialAzureActiveDirectoryState(), action)).toEqual({
+                ...getInitialAzureActiveDirectoryState(),
                 formState: 'idle',
-                token: 'user_token_123'
+                token: 'token'
             });
         });
 
         it('handles AAD/GET_TOKEN_FAILED action', ()=> {
             const action = getUserProfileTokenAction.failed({error: {}});
+            expect(azureActiveDirectoryReducer(getInitialAzureActiveDirectoryState(), action).formState).toEqual('failed');
+        });
+    });
+
+    context('AAD/GET_HUBKEY', () => {
+        const params = {hubId: 'hubid', hubName: 'test'};
+        it('handles AAD/GET_HUBKEY_STARTED action', ()=> {
+            const action = getIoTHubKeyAction.started(params);
+            expect(azureActiveDirectoryReducer(getInitialAzureActiveDirectoryState(), action).formState).toEqual('working');
+        });
+
+        it('handles AAD/GET_HUBKEY_DONE action', ()=> {
+            const action = getIoTHubKeyAction.done({params, result: 'key'});
+            expect(azureActiveDirectoryReducer(getInitialAzureActiveDirectoryState(), action)).toEqual({
+                ...getInitialAzureActiveDirectoryState(),
+                formState: 'keyPicked',
+                iotHubKey: 'key'
+            });
+        });
+
+        it('handles AAD/GET_HUBKEY_FAILED action', ()=> {
+            const action = getIoTHubKeyAction.failed({params, error: {}});
             expect(azureActiveDirectoryReducer(getInitialAzureActiveDirectoryState(), action).formState).toEqual('failed');
         });
     });
@@ -35,9 +113,7 @@ describe('azureActiveDirectoryReducer', () => {
 
         it('handles AAD/LOGIN_DONE action', ()=> {
             const action = loginAction.done({});
-            expect(azureActiveDirectoryReducer(getInitialAzureActiveDirectoryState(), action)).toEqual({
-                formState: 'idle'
-            });
+            expect(azureActiveDirectoryReducer(getInitialAzureActiveDirectoryState(), action).formState).toEqual('idle');
         });
 
         it('handles AAD/LOGIN_FAILED action', ()=> {
@@ -54,9 +130,7 @@ describe('azureActiveDirectoryReducer', () => {
 
         it('handles AAD/LOGOUT_DONE action', ()=> {
             const action = logoutAction.done({});
-            expect(azureActiveDirectoryReducer(getInitialAzureActiveDirectoryState(), action)).toEqual({
-                formState: 'idle'
-            });
+            expect(azureActiveDirectoryReducer(getInitialAzureActiveDirectoryState(), action).formState).toEqual('idle');
         });
 
         it('handles AAD/LOGOUT_FAILED action', ()=> {

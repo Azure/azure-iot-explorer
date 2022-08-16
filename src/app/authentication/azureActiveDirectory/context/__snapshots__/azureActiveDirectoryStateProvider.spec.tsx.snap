@@ -6,9 +6,15 @@ exports[`AzureActiveDirectoryStateContextProvider matches snapshot 1`] = `
     Array [
       Object {
         "formState": "initialized",
+        "iotHubKey": undefined,
+        "iotHubs": Array [],
+        "subscriptions": Array [],
         "token": undefined,
       },
       Object {
+        "getIotHubKey": [Function],
+        "getIotHubs": [Function],
+        "getSubscriptions": [Function],
         "getToken": [Function],
         "login": [Function],
         "logout": [Function],

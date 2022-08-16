@@ -7,6 +7,9 @@ import { getInitialAzureActiveDirectoryState, AzureActiveDirectoryStateInterface
 import { AzureActiveDirectoryInterface } from './azureActiveDirectoryStateProvider';
 
 export const getInitialAzureActiveDirectoryOps = (): AzureActiveDirectoryInterface => ({
+    getIotHubKey: () => undefined,
+    getIotHubs: () => undefined,
+    getSubscriptions: () => undefined,
     getToken: () => undefined,
     login: () => undefined,
     logout: () => undefined

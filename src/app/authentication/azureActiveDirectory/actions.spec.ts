@@ -2,9 +2,10 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
- import { getUserProfileTokenAction, loginAction, logoutAction } from './actions';
+import { getUserProfileTokenAction, getSubscriptionListAction, getIotHubsBySubscriptionAction, loginAction, logoutAction, getIoTHubKeyAction } from './actions';
 
 describe('actions', () => {
+
     context('getUserProfileTokenAction', () => {
 
         it('returns AAD/GET_TOKEN_STARTED action object', () => {
@@ -17,6 +18,52 @@ describe('actions', () => {
 
         it('returns AAD/GET_TOKEN_FAILED action object', () => {
             expect(getUserProfileTokenAction.failed({error: {}}).type).toEqual('AAD/GET_TOKEN_FAILED');
+        });
+    });
+
+    context('getSubscriptionListAction', () => {
+
+        it('returns AAD/GET_SUBSCRIPTIONS_STARTED action object', () => {
+            expect(getSubscriptionListAction.started().type).toEqual('AAD/GET_SUBSCRIPTIONS_STARTED');
+        });
+
+        it('returns AAD/GET_SUBSCRIPTIONS_DONE action object', () => {
+            expect(getSubscriptionListAction.done({result: []}).type).toEqual('AAD/GET_SUBSCRIPTIONS_DONE');
+        });
+
+        it('returns AAD/GET_SUBSCRIPTIONS_FAILED action object', () => {
+            expect(getSubscriptionListAction.failed({error: {}}).type).toEqual('AAD/GET_SUBSCRIPTIONS_FAILED');
+        });
+    });
+
+    context('getIotHubsBySubscriptionAction', () => {
+
+        it('returns AAD/GET_IOTHUBS_STARTED action object', () => {
+            expect(getIotHubsBySubscriptionAction.started('subscriptionId').type).toEqual('AAD/GET_IOTHUBS_STARTED');
+        });
+
+        it('returns AAD/GET_IOTHUBS_DONE action object', () => {
+            expect(getIotHubsBySubscriptionAction.done({params: 'subscriptionId', result: []}).type).toEqual('AAD/GET_IOTHUBS_DONE');
+        });
+
+        it('returns AAD/GET_IOTHUBS_FAILED action object', () => {
+            expect(getIotHubsBySubscriptionAction.failed({params: 'subscriptionId', error: {}}).type).toEqual('AAD/GET_IOTHUBS_FAILED');
+        });
+    });
+
+    context('getIoTHubKeyAction', () => {
+
+        const params = {hubId: 'hubid', hubName: 'test'};
+        it('returns AAD/GET_HUBKEYSTARTED action object', () => {
+            expect(getIoTHubKeyAction.started(params).type).toEqual('AAD/GET_HUBKEY_STARTED');
+        });
+
+        it('returns AAD/GET_HUBKEY_DONE action object', () => {
+            expect(getIoTHubKeyAction.done({params, result: 'key'}).type).toEqual('AAD/GET_HUBKEY_DONE');
+        });
+
+        it('returns AAD/GET_HUBKEY_FAILED action object', () => {
+            expect(getIoTHubKeyAction.failed({params, error: {}}).type).toEqual('AAD/GET_HUBKEY_FAILED');
         });
     });
 

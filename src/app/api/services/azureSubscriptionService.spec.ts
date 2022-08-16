@@ -1,4 +1,3 @@
-import { HTTP_OPERATION_TYPES } from './../../constants/apiConstants';
 /***********************************************************
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
@@ -6,6 +5,7 @@ import { HTTP_OPERATION_TYPES } from './../../constants/apiConstants';
 import { getAzureSubscriptions } from './azureSubscriptionService';
 import { HttpError } from '../../api/models/httpError';
 import { APPLICATION_JSON } from '../../constants/apiConstants';
+import { HTTP_OPERATION_TYPES } from './../../constants/apiConstants';
 
 describe('getAzureSubscriptions', () => {
     it('calls fetch with expected parameters', () => {
@@ -17,10 +17,8 @@ describe('getAzureSubscriptions', () => {
 
         } as any); // tslint:disable-line:no-any
         getAzureSubscriptions({
-            azureResourceManagementEndpoint: {
-                authorizationToken: 'token',
-                endpoint: 'managementEndpoint'
-            },
+            authorizationToken: 'token',
+            endpoint: 'managementEndpoint'
         });
 
         const resourceUrl = `https://managementEndpoint/subscriptions?api-version=2019-06-01`;
@@ -47,11 +45,9 @@ describe('getAzureSubscriptions', () => {
         } as any); // tslint:disable-line:no-any
 
         await expect(getAzureSubscriptions({
-            azureResourceManagementEndpoint: {
-                authorizationToken: 'token',
-                endpoint: 'managementEndpoint'
-            },
-        })).rejects.toThrow(httpError);
+            authorizationToken: 'token',
+            endpoint: 'managementEndpoint'
+        })).rejects.toThrow();
     });
 
     it('returns expected data', async () => {
@@ -75,10 +71,8 @@ describe('getAzureSubscriptions', () => {
         } as any); // tslint:disable-line:no-any
 
         const result = await getAzureSubscriptions({
-            azureResourceManagementEndpoint: {
-                authorizationToken: 'token',
-                endpoint: 'managementEndpoint'
-            },
+            authorizationToken: 'token',
+            endpoint: 'managementEndpoint'
         });
 
         expect(result).toHaveLength(2); // tslint:disable-line:no-magic-numbers

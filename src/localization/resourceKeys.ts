@@ -17,9 +17,28 @@ export class ResourceKeys {
             login : "authentication.azureActiveDirectory.command.login",
             logout : "authentication.azureActiveDirectory.command.logout",
          },
+         hubList : {
+            backButton : "authentication.azureActiveDirectory.hubList.backButton",
+            columns : {
+               location : "authentication.azureActiveDirectory.hubList.columns.location",
+               name : "authentication.azureActiveDirectory.hubList.columns.name",
+            },
+            noItemText : "authentication.azureActiveDirectory.hubList.noItemText",
+         },
          notification : {
+            getIotHubKeyError : "authentication.azureActiveDirectory.notification.getIotHubKeyError",
+            getIotHubListError : "authentication.azureActiveDirectory.notification.getIotHubListError",
+            getsubscriptionListError : "authentication.azureActiveDirectory.notification.getsubscriptionListError",
             loginError : "authentication.azureActiveDirectory.notification.loginError",
             logoutError : "authentication.azureActiveDirectory.notification.logoutError",
+         },
+         subscriptionList : {
+            columns : {
+               id : "authentication.azureActiveDirectory.subscriptionList.columns.id",
+               name : "authentication.azureActiveDirectory.subscriptionList.columns.name",
+               state : "authentication.azureActiveDirectory.subscriptionList.columns.state",
+            },
+            noItemText : "authentication.azureActiveDirectory.subscriptionList.noItemText",
          },
       },
    };

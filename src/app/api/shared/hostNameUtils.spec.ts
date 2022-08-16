@@ -2,8 +2,8 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import {  getResourceNameFromHostName, getResourceTypeFromHostName, tryGetHostNameFromConnectionString } from './hostNameUtils';
-import { AzureResourceIdentifierType } from '../../azureResourceIdentifier/models/azureResourceIdentifierType';
+import { getResourceNameFromHostName, getResourceTypeFromHostName, tryGetHostNameFromConnectionString } from './hostNameUtils';
+import { AzureResourceIdentifierType } from '../models/azureResourceIdentifierType';
 import * as utils from './utils';
 
 describe('getResourceNameFromHostName', () => {

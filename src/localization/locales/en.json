@@ -964,7 +964,26 @@
             },
             "notification": {
                 "loginError": "Failed to login",
-                "logoutError": "Failed to logout"
+                "logoutError": "Failed to logout",
+                "getsubscriptionListError": "Failed to get subscription list: {{error}}",
+                "getIotHubListError": "Failed to get IoT hubs under subscription {{id}} list: {{error}}",
+                "getIotHubKeyError": "Failed to get an IoT hub key with proper rights to enable full functionality of the IoT Explorer: {{error}}"
+            },
+            "subscriptionList": {
+                "columns": {
+                    "id": "Id",
+                    "name": "Subscription name",
+                    "state": "State"
+                },
+                "noItemText": "There are no subscriptions to show."
+            },
+            "hubList": {
+                "columns": {
+                    "location": "Location",
+                    "name": "IoT Hub name"
+                },
+                "backButton": "Back to subscription list",
+                "noItemText": "There are no IoT hubs under this subscription."
             }
         }
 

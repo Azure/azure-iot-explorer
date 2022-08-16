@@ -3,8 +3,10 @@
  * Licensed under the MIT License
  **********************************************************/
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
-import { getUserProfileTokenAction, loginAction, logoutAction } from './actions';
+import { getUserProfileTokenAction, loginAction, logoutAction, getSubscriptionListAction, getIotHubsBySubscriptionAction, getIoTHubKeyAction, GetIotHubKeyActionParmas } from './actions';
 import { getInitialAzureActiveDirectoryState, AzureActiveDirectoryStateInterface } from './state';
+import { AzureSubscription } from '../../api/models/azureSubscription';
+import { IotHubDescription } from '../../api/models/iotHubDescription';
 
 export const azureActiveDirectoryReducer = reducerWithInitialState<AzureActiveDirectoryStateInterface>(getInitialAzureActiveDirectoryState())
     .case(getUserProfileTokenAction.started, (state: AzureActiveDirectoryStateInterface) => {
@@ -57,6 +59,63 @@ export const azureActiveDirectoryReducer = reducerWithInitialState<AzureActiveDi
         };
     })
     .case(logoutAction.failed, (state: AzureActiveDirectoryStateInterface) => {
+        return {
+            ...state,
+            formState: 'failed'
+        };
+    })
+    .case(getSubscriptionListAction.started, (state: AzureActiveDirectoryStateInterface) => {
+        return {
+            ...state,
+            formState: 'working'
+        };
+    })
+    .case(getSubscriptionListAction.done, (state: AzureActiveDirectoryStateInterface, payload: {result: AzureSubscription[]}) => {
+        return {
+            ...state,
+            formState: 'idle',
+            subscriptions: payload.result
+        };
+    })
+    .case(getSubscriptionListAction.failed, (state: AzureActiveDirectoryStateInterface) => {
+        return {
+            ...state,
+            formState: 'failed'
+        };
+    })
+    .case(getIotHubsBySubscriptionAction.started, (state: AzureActiveDirectoryStateInterface) => {
+        return {
+            ...state,
+            formState: 'working'
+        };
+    })
+    .case(getIotHubsBySubscriptionAction.done, (state: AzureActiveDirectoryStateInterface, payload: {params: string, result: IotHubDescription[]}) => {
+        return {
+            ...state,
+            formState: 'idle',
+            iotHubs: payload.result
+        };
+    })
+    .case(getIotHubsBySubscriptionAction.failed, (state: AzureActiveDirectoryStateInterface) => {
+        return {
+            ...state,
+            formState: 'failed'
+        };
+    })
+    .case(getIoTHubKeyAction.started, (state: AzureActiveDirectoryStateInterface) => {
+        return {
+            ...state,
+            formState: 'working'
+        };
+    })
+    .case(getIoTHubKeyAction.done, (state: AzureActiveDirectoryStateInterface, payload: {params: GetIotHubKeyActionParmas, result: string}) => {
+        return {
+            ...state,
+            formState: 'keyPicked',
+            iotHubKey: payload.result
+        };
+    })
+    .case(getIoTHubKeyAction.failed, (state: AzureActiveDirectoryStateInterface) => {
         return {
             ...state,
             formState: 'failed'
