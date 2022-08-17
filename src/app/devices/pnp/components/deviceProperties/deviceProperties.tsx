@@ -56,13 +56,13 @@ export const DeviceProperties: React.FC = () => {
         history.push(getBackUrl(path, search));
     };
 
-    if (isLoading) {
-        return  <MultiLineShimmer/>;
-    }
-
     React.useEffect(() => {
         AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.PNP_PROPERTIES});
     }, []); // tslint:disable-line: align
+
+    if (isLoading) {
+        return  <MultiLineShimmer/>;
+    }
 
     return (
         <>
