@@ -102,9 +102,9 @@ export const DataForm: React.FC<DataFormDataProps & DataFormActionProps> = (prop
     };
 
     const onChange = (data: string) => {
-        setIsPayloadValid(true);
         try {
             JSON.parse(data);
+            setIsPayloadValid(true);
         }
         catch  {
             setIsPayloadValid(false);

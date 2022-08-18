@@ -535,6 +535,18 @@
                 "response": "Response schema"
             },
             "type": "Command type"
+        },
+        "confirmSend": {
+            "title": "Confirm Send",
+            "body":"One or more fields are empty or invalid, do you still want to send this command?",
+            "yes": {
+                "label": "Send Anyway",
+                "ariaLabel": "Send command anyway"
+            },
+            "no": {
+                "label": "Cancel",
+                "ariaLabel": "Cancel command"
+            }
         }
     },
     "deviceInterfaces": {
