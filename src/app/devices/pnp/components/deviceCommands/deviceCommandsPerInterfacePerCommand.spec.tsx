@@ -8,11 +8,12 @@ import * as React from 'react';
 import { Label } from '@fluentui/react';
 import { DeviceCommandsPerInterfacePerCommand, DeviceCommandDataProps, DeviceCommandDispatchProps } from './deviceCommandsPerInterfacePerCommand';
 import { DataForm } from '../../../shared/components/dataForm';
+import { SendCommandConfirmation } from './sendCommandConfirmation';
 
 describe('components/devices/deviceCommandsPerInterfacePerCommand', () => {
     const deviceCommandsDispatchProps: DeviceCommandDispatchProps = {
         handleCollapseToggle: jest.fn(),
-        invokeDigitalTwinInterfaceCommand: jest.fn()
+        invokeCommand: jest.fn()
     };
     const deviceCommandDataProps: DeviceCommandDataProps = {
         collapsed: true,
@@ -96,4 +97,112 @@ describe('components/devices/deviceCommandsPerInterfacePerCommand', () => {
         expect(dataForm).toBeDefined();
         expect(dataForm.props().buttonText).toEqual('deviceCommands.command.submit');
     });
+
+    describe('send confirmation scenario', () => {
+        it('launches send confirmation when showConfirmationDialog is true', () => {
+            jest.spyOn(React, 'useState').mockImplementationOnce(() => React.useState(true));
+            const wrapper = getComponent({
+                collapsed: false,
+                commandModelDefinition: {
+                    '@type': 'Command',
+                    'commandType': 'synchronous',
+                    'description': 'Command description for testing',
+                    'displayName': 'Command Number 1',
+                    'name': 'command1',
+                    'request': {
+                        name: 'interval',
+                        schema: 'long'
+                    }
+                },
+                parsedSchema: {
+                    description: 'Command description for testing',
+                    name: 'command1',
+                    requestSchema: {
+                        description: '',
+                        title: 'interval',
+                        type: 'number'
+                    }
+                }
+            });
+    
+            const sendCommandConfirmation = wrapper.find(SendCommandConfirmation);
+            expect(sendCommandConfirmation.props().hidden).toEqual(false);
+        });
+
+        it('calls onConfirmSendCommand when SendCommandConfirmation confirmed', () => {
+            const onConfirmSendCommand = jest.fn();
+            jest.spyOn(React, 'useState').mockImplementationOnce(() => React.useState(true));
+
+            const wrapper = getComponent({
+                collapsed: false,
+                commandModelDefinition: {
+                    '@type': 'Command',
+                    'commandType': 'synchronous',
+                    'description': 'Command description for testing',
+                    'displayName': 'Command Number 1',
+                    'name': 'command1',
+                    'request': {
+                        name: 'interval',
+                        schema: 'long'
+                    }
+                },
+                parsedSchema: {
+                    description: 'Command description for testing',
+                    name: 'command1',
+                    requestSchema: {
+                        description: '',
+                        title: 'interval',
+                        type: 'number'
+                    }
+                }
+            });
+    
+
+            const sendCommandConfirmation = wrapper.find(SendCommandConfirmation);
+            sendCommandConfirmation.props().onSendConfirm = onConfirmSendCommand;
+            sendCommandConfirmation.props().onSendConfirm();
+            wrapper.update();
+
+            expect(onConfirmSendCommand).toHaveBeenCalled();
+        });
+
+        it('calls onCancelSendCommand when SendCommandConfirmation canceled', () => {
+            const onCancelSendCommand = jest.fn();
+            jest.spyOn(React, 'useState').mockImplementationOnce(() => React.useState(true));
+
+            const wrapper = getComponent({
+                collapsed: false,
+                commandModelDefinition: {
+                    '@type': 'Command',
+                    'commandType': 'synchronous',
+                    'description': 'Command description for testing',
+                    'displayName': 'Command Number 1',
+                    'name': 'command1',
+                    'request': {
+                        name: 'interval',
+                        schema: 'long'
+                    }
+                },
+                parsedSchema: {
+                    description: 'Command description for testing',
+                    name: 'command1',
+                    requestSchema: {
+                        description: '',
+                        title: 'interval',
+                        type: 'number'
+                    }
+                }
+            });
+    
+
+            const sendCommandConfirmation = wrapper.find(SendCommandConfirmation);
+            sendCommandConfirmation.props().onSendCancel = onCancelSendCommand;
+            sendCommandConfirmation.props().onSendCancel();
+            wrapper.update();
+
+
+            expect(onCancelSendCommand).toHaveBeenCalled();
+        });
+    });
+
 });

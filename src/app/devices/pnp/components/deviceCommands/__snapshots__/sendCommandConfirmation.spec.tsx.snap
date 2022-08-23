@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SendCommandConfirmation matches snapshot hidden 1`] = `
+<Dialog
+  dialogContentProps={
+    Object {
+      "title": "deviceCommands.confirmSend.title",
+    }
+  }
+  hidden={true}
+  modalProps={
+    Object {
+      "isBlocking": true,
+    }
+  }
+  onDismiss={[MockFunction]}
+>
+  <div>
+    deviceCommands.confirmSend.body
+  </div>
+  <StyledDialogFooterBase>
+    <CustomizedPrimaryButton
+      ariaLabel="deviceCommands.confirmSend.yes.ariaLabel"
+      onClick={[MockFunction]}
+      text="deviceCommands.confirmSend.yes.label"
+    />
+    <CustomizedDefaultButton
+      ariaLabel="deviceCommands.confirmSend.no.ariaLabel"
+      onClick={[MockFunction]}
+      text="deviceCommands.confirmSend.no.label"
+    />
+  </StyledDialogFooterBase>
+</Dialog>
+`;
+
+exports[`SendCommandConfirmation matches snapshot visible 1`] = `
+<Dialog
+  dialogContentProps={
+    Object {
+      "title": "deviceCommands.confirmSend.title",
+    }
+  }
+  hidden={false}
+  modalProps={
+    Object {
+      "isBlocking": true,
+    }
+  }
+  onDismiss={[MockFunction]}
+>
+  <div>
+    deviceCommands.confirmSend.body
+  </div>
+  <StyledDialogFooterBase>
+    <CustomizedPrimaryButton
+      ariaLabel="deviceCommands.confirmSend.yes.ariaLabel"
+      onClick={[MockFunction]}
+      text="deviceCommands.confirmSend.yes.label"
+    />
+    <CustomizedDefaultButton
+      ariaLabel="deviceCommands.confirmSend.no.ariaLabel"
+      onClick={[MockFunction]}
+      text="deviceCommands.confirmSend.no.label"
+    />
+  </StyledDialogFooterBase>
+</Dialog>
+`;

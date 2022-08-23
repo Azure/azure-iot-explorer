@@ -15,7 +15,7 @@ import { ErrorBoundary } from '../../../shared/components/errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 import { getSchemaType } from '../../../../shared/utils/jsonSchemaAdaptor';
 import { CONNECTION_TIMEOUT_IN_SECONDS, DEFAULT_COMPONENT_FOR_DIGITAL_TWIN, RESPONSE_TIME_IN_SECONDS } from '../../../../constants/devices';
-import { ConfirmSend } from './confirmSend';
+import { SendCommandConfirmation } from './sendCommandConfirmation';
 
 export interface DeviceCommandDataProps extends CommandSchema {
     collapsed: boolean;
@@ -37,8 +37,8 @@ export interface CommandSchema {
 export const DeviceCommandsPerInterfacePerCommand: React.FC<DeviceCommandDataProps & DeviceCommandDispatchProps> = (props: DeviceCommandDataProps & DeviceCommandDispatchProps) => {
     const { t } = useTranslation();
     const { collapsed, deviceId, moduleId, componentName, commandModelDefinition, parsedSchema, handleCollapseToggle, invokeCommand  } = props;
-    const [ confirmingSend, setConfirmingSend ] = React.useState<boolean>(false);
-    const [ confirmingSendData, setConfirmingSendData ] = React.useState({});
+    const [ showConfirmationDialog, setShowConfirmationDialog ] = React.useState<boolean>(false);
+    const [ confirmationCmdData, setConfirmationCmdData ] = React.useState({});
 
     const createCollapsedSummary = () => {
         return (
@@ -140,8 +140,8 @@ export const DeviceCommandsPerInterfacePerCommand: React.FC<DeviceCommandDataPro
         };
 
         if (hasUndefinedFields(data)) {
-            setConfirmingSend(true);
-            setConfirmingSendData(data);
+            setShowConfirmationDialog(true);
+            setConfirmationCmdData(data);
         } else {
             invokeCommand({
                 connectTimeoutInSeconds: CONNECTION_TIMEOUT_IN_SECONDS,
@@ -159,18 +159,18 @@ export const DeviceCommandsPerInterfacePerCommand: React.FC<DeviceCommandDataPro
         handleCollapseToggle();
     };
 
-    const onSendCancel = () => {
-        setConfirmingSend(false);
+    const onCancelSendCommand = () => {
+        setShowConfirmationDialog(false);
     };
 
-    const onSendConfirm = () => {
-        setConfirmingSend(false);
+    const onConfirmSendCommand = () => {
+        setShowConfirmationDialog(false);
         invokeCommand({
             connectTimeoutInSeconds: CONNECTION_TIMEOUT_IN_SECONDS,
             deviceId,
             methodName: componentName === DEFAULT_COMPONENT_FOR_DIGITAL_TWIN ? commandModelDefinition.name : `${componentName}*${commandModelDefinition.name}`,
             moduleId,
-            payload: confirmingSendData,
+            payload: confirmationCmdData,
             responseSchema: parsedSchema.responseSchema,
             responseTimeoutInSeconds: RESPONSE_TIME_IN_SECONDS
         });
@@ -182,10 +182,10 @@ export const DeviceCommandsPerInterfacePerCommand: React.FC<DeviceCommandDataPro
                 {createCollapsedSummary()}
                 {createUncollapsedCard()}
             </ErrorBoundary>
-            <ConfirmSend
-                hidden={!confirmingSend}
-                onSendCancel={onSendCancel}
-                onSendConfirm={onSendConfirm}
+            <SendCommandConfirmation
+                hidden={!showConfirmationDialog}
+                onSendCancel={onCancelSendCommand}
+                onSendConfirm={onConfirmSendCommand}
             />
         </article>
     );

@@ -206,7 +206,6 @@ export const DeviceEvents: React.FC = () => {
 
     // tslint:disable-next-line: cyclomatic-complexity
     const filterMessage = (message: Message) => {
-        return true;
         if (!message || !message.systemProperties) {
             return false;
         }

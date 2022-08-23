@@ -7,13 +7,13 @@
  import { Dialog, DialogFooter, PrimaryButton, DefaultButton } from '@fluentui/react';
  import { ResourceKeys } from '../../../../../localization/resourceKeys';
 
- export interface ConnectionStringDeleteProps {
+ export interface SendCommandConfirmationProps {
      hidden: boolean;
      onSendConfirm(): void;
      onSendCancel(): void;
  }
 
- export const ConfirmSend: React.FC<ConnectionStringDeleteProps> = (props: ConnectionStringDeleteProps) => {
+ export const SendCommandConfirmation: React.FC<SendCommandConfirmationProps> = (props: SendCommandConfirmationProps) => {
      const { hidden, onSendCancel, onSendConfirm } = props;
      const { t } = useTranslation();
 
