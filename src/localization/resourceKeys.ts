@@ -251,6 +251,18 @@ export class ResourceKeys {
          refresh : "deviceCommands.command.refresh",
          submit : "deviceCommands.command.submit",
       },
+      confirmSend : {
+         body : "deviceCommands.confirmSend.body",
+         no : {
+            ariaLabel : "deviceCommands.confirmSend.no.ariaLabel",
+            label : "deviceCommands.confirmSend.no.label",
+         },
+         title : "deviceCommands.confirmSend.title",
+         yes : {
+            ariaLabel : "deviceCommands.confirmSend.yes.ariaLabel",
+            label : "deviceCommands.confirmSend.yes.label",
+         },
+      },
       headerText : "deviceCommands.headerText",
       noCommands : "deviceCommands.noCommands",
    };

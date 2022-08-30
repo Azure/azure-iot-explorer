@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Label, IconButton, PrimaryButton } from '@fluentui/react';
+import { Label, IconButton, PrimaryButton, Dialog } from '@fluentui/react';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { InterfaceDetailCard, SUBMIT } from '../../../../constants/iconNames';
 import { ParsedCommandSchema } from '../../../../api/models/interfaceJsonParserOutput';
@@ -15,6 +15,7 @@ import { ErrorBoundary } from '../../../shared/components/errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 import { getSchemaType } from '../../../../shared/utils/jsonSchemaAdaptor';
 import { CONNECTION_TIMEOUT_IN_SECONDS, DEFAULT_COMPONENT_FOR_DIGITAL_TWIN, RESPONSE_TIME_IN_SECONDS } from '../../../../constants/devices';
+import { SendCommandConfirmation } from './sendCommandConfirmation';
 
 export interface DeviceCommandDataProps extends CommandSchema {
     collapsed: boolean;
@@ -36,6 +37,8 @@ export interface CommandSchema {
 export const DeviceCommandsPerInterfacePerCommand: React.FC<DeviceCommandDataProps & DeviceCommandDispatchProps> = (props: DeviceCommandDataProps & DeviceCommandDispatchProps) => {
     const { t } = useTranslation();
     const { collapsed, deviceId, moduleId, componentName, commandModelDefinition, parsedSchema, handleCollapseToggle, invokeCommand  } = props;
+    const [ showConfirmationDialog, setShowConfirmationDialog ] = React.useState<boolean>(false);
+    const [ confirmationCmdData, setConfirmationCmdData ] = React.useState({});
 
     const createCollapsedSummary = () => {
         return (
@@ -124,19 +127,53 @@ export const DeviceCommandsPerInterfacePerCommand: React.FC<DeviceCommandDataPro
     };
 
     const onSubmit = (data: any) => () => { // tslint:disable-line:no-any
+        const hasUndefinedFields = (requestData: any) => { // tslint:disable-line:no-any
+            if (requestData === undefined) {
+                return true;
+            }
+
+            for (const field in requestData) {
+                if (data[field] === undefined) {
+                    return true;
+                }
+            }
+        };
+
+        if (hasUndefinedFields(data)) {
+            setShowConfirmationDialog(true);
+            setConfirmationCmdData(data);
+        } else {
+            invokeCommand({
+                connectTimeoutInSeconds: CONNECTION_TIMEOUT_IN_SECONDS,
+                deviceId,
+                methodName: componentName === DEFAULT_COMPONENT_FOR_DIGITAL_TWIN ? commandModelDefinition.name : `${componentName}*${commandModelDefinition.name}`,
+                moduleId,
+                payload: data,
+                responseSchema: parsedSchema.responseSchema,
+                responseTimeoutInSeconds: RESPONSE_TIME_IN_SECONDS
+            });
+        }
+    };
+
+    const handleToggleCollapse = () => {
+        handleCollapseToggle();
+    };
+
+    const onCancelSendCommand = () => {
+        setShowConfirmationDialog(false);
+    };
+
+    const onConfirmSendCommand = () => {
+        setShowConfirmationDialog(false);
         invokeCommand({
             connectTimeoutInSeconds: CONNECTION_TIMEOUT_IN_SECONDS,
             deviceId,
             methodName: componentName === DEFAULT_COMPONENT_FOR_DIGITAL_TWIN ? commandModelDefinition.name : `${componentName}*${commandModelDefinition.name}`,
             moduleId,
-            payload: data,
+            payload: confirmationCmdData,
             responseSchema: parsedSchema.responseSchema,
             responseTimeoutInSeconds: RESPONSE_TIME_IN_SECONDS
         });
-    };
-
-    const handleToggleCollapse = () => {
-        handleCollapseToggle();
     };
 
     return (
@@ -145,6 +182,11 @@ export const DeviceCommandsPerInterfacePerCommand: React.FC<DeviceCommandDataPro
                 {createCollapsedSummary()}
                 {createUncollapsedCard()}
             </ErrorBoundary>
+            <SendCommandConfirmation
+                hidden={!showConfirmationDialog}
+                onSendCancel={onCancelSendCommand}
+                onSendConfirm={onConfirmSendCommand}
+            />
         </article>
     );
 };
