@@ -984,6 +984,9 @@
                 },
                 "backButton": "Back to subscription list",
                 "noItemText": "There are no IoT hubs under this subscription."
+            },
+            "filter": {
+                "placeHolder": "Filter by name"
             }
         }
 

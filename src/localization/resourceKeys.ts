@@ -17,6 +17,9 @@ export class ResourceKeys {
             login : "authentication.azureActiveDirectory.command.login",
             logout : "authentication.azureActiveDirectory.command.logout",
          },
+         filter : {
+            placeHolder : "authentication.azureActiveDirectory.filter.placeHolder",
+         },
          hubList : {
             backButton : "authentication.azureActiveDirectory.hubList.backButton",
             columns : {

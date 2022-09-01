@@ -5,6 +5,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { DetailsList, IColumn, Link, SelectionMode } from '@fluentui/react';
+import { FilterTextBox, FilterType } from './filterTextBox';
 import { useAzureActiveDirectoryStateContext } from '../context/azureActiveDirectoryStateContext';
 import { AzureSubscription } from '../../../api/models/azureSubscription';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
@@ -16,7 +17,12 @@ export interface SubscriptionListPros {
 
 export const SubscriptionList: React.FC<SubscriptionListPros> = props => {
     const { t } = useTranslation();
-    const [ { formState, subscriptions }, {  getIotHubs}] =  useAzureActiveDirectoryStateContext();
+    const [ { formState, subscriptions }, { getIotHubs } ] =  useAzureActiveDirectoryStateContext();
+    const [ filteredSubscriptions, setFilteredSubscriptions ] = React.useState<AzureSubscription[]>([]);
+
+    React.useEffect(() => {
+        setFilteredSubscriptions(subscriptions);
+    },              [subscriptions]);
 
     const renderHubList = (subscriptionId: string) => () => {
         getIotHubs(subscriptionId);
@@ -53,14 +59,22 @@ export const SubscriptionList: React.FC<SubscriptionListPros> = props => {
             }];
     };
 
+    const setFilteredList = (listValue: AzureSubscription[]) => {
+        setFilteredSubscriptions(listValue);
+    };
+
     return (
         <>
+            <FilterTextBox
+                filterType={FilterType.Subscription}
+                setFilteredList={setFilteredList}
+            />
             <DetailsList
-                items={subscriptions}
+                items={filteredSubscriptions}
                 columns={getColumns()}
                 selectionMode={SelectionMode.none}
             />
-            {formState === 'idle' && subscriptions?.length === 0 && t(ResourceKeys.authentication.azureActiveDirectory.subscriptionList.noItemText)}
+            {formState === 'idle' && filteredSubscriptions?.length === 0 && t(ResourceKeys.authentication.azureActiveDirectory.subscriptionList.noItemText)}
         </>
     );
 };

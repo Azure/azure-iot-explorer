@@ -12,11 +12,13 @@ import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { LARGE_COLUMN_WIDTH } from '../../../constants/columnWidth';
 import { getConnectionInfoFromConnectionString } from '../../../api/shared/utils';
 import { ROUTE_PARTS } from '../../../constants/routes';
+import { FilterTextBox, FilterType } from './filterTextBox';
 
 export const HubList: React.FC = () => {
     const { t } = useTranslation();
     const history = useHistory();
     const [ { formState, iotHubs, iotHubKey }, { getIotHubKey }] =  useAzureActiveDirectoryStateContext();
+    const [ filteredHubs, setFilteredHubs ] = React.useState<IotHubDescription[]>([]);
 
     React.useEffect(() => {
         if (formState === 'keyPicked') { // only when connection string got picked successfully would navigate to device list view
@@ -24,6 +26,10 @@ export const HubList: React.FC = () => {
             history.push(`/${ROUTE_PARTS.IOT_HUB}/${ROUTE_PARTS.HOST_NAME}/${hostName}/`);
         }
     },              [formState]);
+
+    React.useEffect(() => {
+        setFilteredHubs(iotHubs);
+    },              [iotHubs]);
 
     const getHubKey = (hubId: string, hubName: string) => () => {
         getIotHubKey(hubId, hubName);
@@ -53,14 +59,22 @@ export const HubList: React.FC = () => {
             }];
     };
 
+    const setFilteredList = (listValue: IotHubDescription[]) => {
+        setFilteredHubs(listValue);
+    };
+
     return (
         <>
+            <FilterTextBox
+                filterType={FilterType.IoTHub}
+                setFilteredList={setFilteredList}
+            />
             <DetailsList
-                items={iotHubs}
+                items={filteredHubs}
                 columns={getColumns()}
                 selectionMode={SelectionMode.none}
             />
-            {formState === 'idle' && iotHubs?.length === 0 && t(ResourceKeys.authentication.azureActiveDirectory.hubList.noItemText)}
+            {formState === 'idle' && filteredHubs?.length === 0 && t(ResourceKeys.authentication.azureActiveDirectory.hubList.noItemText)}
         </>
     );
 };
