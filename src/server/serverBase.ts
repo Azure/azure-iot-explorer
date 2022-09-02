@@ -49,6 +49,7 @@ export class ServerBase {
         app.post(modelRepoUri, handleModelRepoPostRequest);
         app.get(readFileUri, handleReadFileRequest);
         app.get(getDirectoriesUri, handleGetDirectoriesRequest);
+        app.get(getProtoFilesUri, handleGetProtoFilesRequest);
 
         app.listen(this.port).on('error', () => { throw new Error(
            `Failed to start the app on port ${this.port} as it is in use.
@@ -175,6 +176,74 @@ const fetchDirectories = (dir: string, res: express.Response) => {
     }
     res.status(SUCCESS).send(result);
 };
+
+const getProtoFilesUri = '/api/ProtoFiles/:path';
+export const handleGetProtoFilesRequest = (req: express.Request, res: express.Response) => {
+    try {
+        const dir = req.params.path;
+        if (dir === '$DEFAULT') {
+            fetchDrivesOnWindows(res);
+        }
+        else {
+            fetchProtoFiles(dir, res);
+        }
+    }
+    catch (error) {
+        res.status(SERVER_ERROR).send(error);
+    }
+};
+
+const fetchProtoFiles = (dir: string, res: express.Response) => {
+    const result: string[] = [];
+    for (const item of fs.readdirSync(dir)) {
+        try {
+            const stat = fs.statSync(path.join(dir, item));
+            if (stat.isDirectory()) {
+                result.push(item);
+            }
+            if (stat.isFile && item.endsWith('.proto')) {
+                result.push(item);
+            }
+        }
+        catch {
+            // some item cannot be checked by isDirectory(), swallow error and continue the loop
+        }
+    }
+    res.status(SUCCESS).send(result);
+};
+
+// const readProtoFileUri = '/api/ReadProtoFile/:path/:file';
+// // tslint:disable-next-line:cyclomatic-complexity
+// export const handleReadProtoFileRequest = (req: express.Request, res: express.Response) => {
+//     try {
+//         const filePath = req.params.path;
+//         const expectedFileName = req.params.file;
+//         if (!filePath || !expectedFileName) {
+//             res.status(BAD_REQUEST).send();
+//         }
+//         else {
+//             const fileNames = fs.readdirSync(filePath);
+//             try {
+//                 const foundContent = findMatchingFile(filePath, fileNames, expectedFileName);
+//                 if (foundContent) {
+//                     res.status(SUCCESS).send(foundContent);
+//                 }
+//                 else {
+//                     res.status(NO_CONTENT_SUCCESS).send();
+//                 }
+//             }
+//             catch (error) {
+//                 res.status(NOT_FOUND).send(error.message); // couldn't find matching file, and the folder contains json files that cannot be parsed
+//             }
+
+//         }
+//     }
+//     catch (error) {
+//         res.status(SERVER_ERROR).send(error);
+//     }
+// };
+
+
 
 const dataPlaneUri = '/api/DataPlane';
 export const handleDataPlanePostRequest = (req: express.Request, res: express.Response) => {

@@ -10,13 +10,17 @@
         @include themify($themes) {
             border-top: 1px solid themed('contrastBorder');
         }
+
         margin-left: 15px;
+
         .device-events-content {
             @include themify($themes) {
                 border-bottom: 1px solid themed('contrastBorder');
             }
+
             padding: 0 25px;
             width: 100%;
+
             pre {
                 white-space: pre-wrap;
             }
@@ -26,6 +30,7 @@
     .consumer-group-label {
         font-weight: 600;
         font-size: 14px;
+
         @include themify($themes) {
             color: themed('textColor');
         }
@@ -35,15 +40,18 @@
         display: grid;
         padding-left: 24px;
         padding-bottom: 10px;
+
         @include themify($themes) {
             color: themed('textColor');
         }
+
         width: 85%;
     }
 
     .custom-event-hub-label {
         font-weight: 600;
         font-size: 14px;
+
         @include themify($themes) {
             color: themed('textColor');
         }
@@ -55,6 +63,7 @@
                 @include themify($themes) {
                     color: themed('errorText');
                 }
+
                 padding-top: 10px;
                 font-size: 14px;
             }
@@ -65,12 +74,15 @@
         @include themify($themes) {
             background-color: themed('backgroundColor');
         }
+
         .list-header {
             font-weight: bold;
             border-bottom: 1px solid;
+
             @include themify($themes) {
                 border-bottom-color: themed('borderColor');
             }
+
             padding-bottom: 5px;
         }
     }
@@ -79,6 +91,7 @@
         overflow: auto;
         width: 100%;
         border-bottom: 1px solid;
+
         @include themify($themes) {
             border-bottom-color: themed('borderColor');
         }
@@ -94,11 +107,72 @@
             display: grid;
             padding-left: 24px;
             padding-bottom: 10px;
+
             @include themify($themes) {
                 color: themed('textColor');
             }
+
             width: 80%;
         }
+
         width: 100%;
+    }
+
+    // TODO: rename for proto file picker
+    .folder-picker-dialog {
+        .ms-Dialog-main {
+            min-width: 50vw;
+            max-width: 356px;
+            min-height: 30vh;
+        }
+
+        .folder-links {
+            height: 30vh;
+            overflow: auto;
+        }
+
+        .ms-Dialog-header {
+            word-wrap: break-word;
+        }
+
+        .labelSection {
+            text-overflow: ellipsis;
+        }
+
+        .folder-button {
+            width: 100%;
+            text-align: left;
+            border: none;
+            margin-bottom: 10px;
+        }
+
+        .selected-file {
+            @include themify($themes) {
+                background-color: themed('backgroundColor');
+            }
+        }
+
+        .no-folders-text {
+            margin-left: 22px;
+        }
+    }
+
+    .local-folder-launch {
+        margin-top: 5px;
+        float: right;
+    }
+
+    .local-folder-textbox {
+        .ms-Label {
+            float: left;
+            margin-bottom: 10px;
+            margin-right: 5px;
+        }
+
+        .ms-TextField-field {
+            @include themify($themes) {
+                background-color: themed('maskedCopyableReadonlyBackground');
+            }
+        }
     }
 }

@@ -6,6 +6,7 @@ import { DeviceIdentity } from '../models/deviceIdentity';
 import { DeviceQuery } from '../models/deviceQuery';
 import { InvokeMethodActionParameters } from '../../devices/directMethod/actions';
 import { CloudToDeviceMessageActionParameters } from '../../devices/cloudToDeviceMessage/actions';
+import { Type } from 'protobufjs';
 
 export interface FetchDeviceTwinParameters {
     deviceId: string;
@@ -33,6 +34,7 @@ export interface MonitorEventsParameters {
     customEventHubConnectionString?: string;
     hubConnectionString?: string;
     startTime?: Date;
+    decoderPrototype?: Type;
 }
 
 export interface DeleteDevicesParameters  {

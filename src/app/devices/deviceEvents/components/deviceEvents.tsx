@@ -3,8 +3,9 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { load, Type } from 'protobufjs';
 import { useTranslation } from 'react-i18next';
-import { Spinner, SpinnerSize, Label, Stack, MessageBarType, MessageBar } from '@fluentui/react';
+import { Spinner, SpinnerSize, Label, Stack, MessageBarType, MessageBar, DefaultButton, Dialog, DialogFooter, PrimaryButton, TextField } from '@fluentui/react';
 import { useLocation } from 'react-router-dom';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { Message, MESSAGE_SYSTEM_PROPERTIES, MESSAGE_PROPERTIES, IOTHUB_MESSAGE_SOURCE_TELEMETRY } from '../../../api/models/messages';
@@ -37,6 +38,10 @@ import { StartTime } from './startTime';
 import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
 import { TELEMETRY_PAGE_NAMES } from '../../../../app/constants/telemetry';
 import './deviceEvents.scss';
+import { LabelWithRichCallout } from '../../../shared/components/labelWithRichCallout';
+import { NAVIGATE_BACK, FOLDER } from '../../../constants/iconNames';
+import { getRootFolder, getParentFolder } from '../../../shared/utils/utils';
+import { fetchProtoFiles } from '../../../api/services/protoFileService';
 
 const JSON_SPACES = 2;
 const LOADING_LOCK = 8000;
@@ -79,6 +84,15 @@ export const DeviceEvents: React.FC = () => {
     // simulation specific
     const [showSimulationPanel, setShowSimulationPanel] = React.useState(false);
 
+    // // message decoder specific
+    const [decoderProtoFile, setDecoderProtoFile] = React.useState('');
+    const [selectedProtoFile, setSelectedProtoFile] = React.useState('');
+    const [decoderPrototype, setDecoderPrototype] = React.useState<Type | undefined>(undefined);
+    const [subFiles, setSubFiles] = React.useState([]);
+    const [currentFolder, setCurrentFolder] = React.useState('');
+    const [showError, setShowError] = React.useState<boolean>(false);
+    const [showFilePicker, setShowFilePicker] = React.useState<boolean>(false);
+
     React.useEffect(
         () => {
             return () => {
@@ -89,9 +103,9 @@ export const DeviceEvents: React.FC = () => {
 
     React.useEffect(() => {
         if (componentName) {
-            AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.PNP_TELEMETRY});
+            AppInsightsClient.getInstance()?.trackPageView({ name: TELEMETRY_PAGE_NAMES.PNP_TELEMETRY });
         } else {
-            AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.DEVICE_TELEMETRY});
+            AppInsightsClient.getInstance()?.trackPageView({ name: TELEMETRY_PAGE_NAMES.DEVICE_TELEMETRY });
         }
     }, []); // tslint:disable-line: align
 
@@ -138,6 +152,18 @@ export const DeviceEvents: React.FC = () => {
             }
         },
         [synchronizationStatus]);
+
+    React.useEffect(() => {
+        if (decoderProtoFile) {
+            (async () => {
+                const prototype: Type = await load(decoderProtoFile) // TODO: read file into node env first
+                    .then(root => {
+                        return root.lookupType('testpackage.TestMessage'); // TODO: get type name from user or use root? (https://thecodebarbarian.com/working-with-protobufs-in-node-js.html#:~:text=Working%20with%20Protobufs%20in%20Node.js%201%20Hello%2C%20Protobuf.,Protobufs%20in%20HTTP.%20...%204%20Moving%20On.%20)
+                    });
+                setDecoderPrototype(prototype);
+            })();
+        }
+    }, [decoderProtoFile]); // tslint:disable-line: align
 
     const renderCommands = () => {
         return (
@@ -206,7 +232,6 @@ export const DeviceEvents: React.FC = () => {
 
     // tslint:disable-next-line: cyclomatic-complexity
     const filterMessage = (message: Message) => {
-        return true;
         if (!message || !message.systemProperties) {
             return false;
         }
@@ -492,6 +517,7 @@ export const DeviceEvents: React.FC = () => {
     const fetchData = (startListeners: boolean) => () => {
         let parameters: MonitorEventsParameters = {
             consumerGroup,
+            decoderPrototype,
             deviceId,
             moduleId,
             startListeners,
@@ -517,6 +543,127 @@ export const DeviceEvents: React.FC = () => {
         return <MultiLineShimmer />;
     }
 
+    // TODO: change all ResourceKeys.modelRepository
+    const renderCustomDecoder = () => (
+        <>
+            <div className="labelSection">
+                <LabelWithRichCallout
+                    calloutContent={t(ResourceKeys.modelRepository.types.local.infoText)}
+                    required={true}
+                >
+                    {t(ResourceKeys.modelRepository.types.local.label)}
+                </LabelWithRichCallout>
+            </div>
+            <TextField
+                className="local-folder-textbox"
+                label={t(ResourceKeys.modelRepository.types.local.textBoxLabel)}
+                ariaLabel={t(ResourceKeys.modelRepository.types.local.textBoxLabel)}
+                value={decoderProtoFile}
+                readOnly={false}
+                // errorMessage={props.errorKey ? t(props.errorKey) : ''}
+                onChange={onFolderPathChange}
+            />
+            <DefaultButton
+                className="local-folder-launch"
+                text={t(ResourceKeys.modelRepository.types.local.folderPicker.command.openPicker)}
+                ariaLabel={t(ResourceKeys.modelRepository.types.local.folderPicker.command.openPicker)}
+                onClick={onShowFolderPicker}
+            />
+            {renderFilePicker()}
+        </>);
+
+    const onShowFolderPicker = () => {
+        fetchSubFileInfo(currentFolder);
+        setShowFilePicker(true);
+    };
+
+    const dismissFilePicker = () => {
+        setShowFilePicker(false);
+    };
+
+    const onFolderPathChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
+        setCurrentFolder(newValue);
+    };
+
+    const onSelectFile = () => {
+        setDecoderProtoFile(selectedProtoFile);
+        setShowFilePicker(false);
+    };
+
+    const onClickFileName = (file: string) => () => {
+        const newPath = currentFolder ? `${currentFolder.replace(/\/$/, '')}/${file}` : file;
+        if (file.endsWith('.proto')) {
+            setSelectedProtoFile(newPath);
+        } else {
+            setSelectedProtoFile(undefined);
+            setCurrentFolder(newPath);
+            fetchSubFileInfo(newPath);
+        }
+    };
+
+    const onNavigateBack = () => {
+        const parentFolder = getParentFolder(currentFolder);
+        setCurrentFolder(parentFolder);
+        fetchSubFileInfo(parentFolder);
+    };
+
+    const fetchSubFileInfo = (folderName: string) => {
+        fetchProtoFiles(folderName).then(result => {
+            setShowError(false);
+            setSubFiles(result);
+        }).catch(error => {
+            setShowError(true);
+        });
+    };
+
+    const renderFilePicker = () => {
+        return (
+            <div role="dialog">
+                <Dialog
+                    hidden={!showFilePicker}
+                    title={t(ResourceKeys.modelRepository.types.local.folderPicker.dialog.title)}
+                    modalProps={{
+                        className: 'folder-picker-dialog',
+                        isBlocking: false
+                    }}
+                    dialogContentProps={{
+                        subText: currentFolder && t(ResourceKeys.modelRepository.types.local.folderPicker.dialog.subText, { folder: currentFolder })
+                    }}
+                    onDismiss={dismissFilePicker}
+                >
+                    <div className="folder-links">
+                        <DefaultButton
+                            className="folder-button"
+                            iconProps={{ iconName: NAVIGATE_BACK }}
+                            text={t(ResourceKeys.modelRepository.types.local.folderPicker.command.navigateToParent)}
+                            ariaLabel={t(ResourceKeys.modelRepository.types.local.folderPicker.command.navigateToParent)}
+                            onClick={onNavigateBack}
+                            disabled={currentFolder === getRootFolder()}
+                        />
+                        {showError ? <div className="no-folders-text">{t(ResourceKeys.modelRepository.types.local.folderPicker.dialog.error)}</div> :
+                            subFiles && subFiles.length > 0 ?
+                                subFiles.map(file => {
+                                    const protoFile = file.endsWith('.proto');
+                                    return <DefaultButton
+                                        className="folder-button" // TODO: highlight if current selectedProtoFile
+                                        iconProps={protoFile ? {} : { iconName: FOLDER }}
+                                        key={file}
+                                        text={file}
+                                        onClick={onClickFileName(file)}
+                                    />;
+                                })
+                                :
+                                <div className="no-folders-text">{t(ResourceKeys.modelRepository.types.local.folderPicker.dialog.noFolderFoundText)}</div>}
+                    </div>
+                    <DialogFooter>
+                        <PrimaryButton onClick={onSelectFile} text={t(ResourceKeys.modelRepository.types.local.folderPicker.command.select)} disabled={!selectedProtoFile} />
+                        <DefaultButton onClick={dismissFilePicker} text={t(ResourceKeys.modelRepository.types.local.folderPicker.command.cancel)} />
+                    </DialogFooter>
+                </Dialog>
+            </div>
+        );
+    };
+
     return (
         <Stack className="device-events" key="device-events">
             {renderCommands()}
@@ -527,6 +674,7 @@ export const DeviceEvents: React.FC = () => {
             {renderConsumerGroup()}
             {renderStartTimePicker()}
             {renderCustomEventHub()}
+            {renderCustomDecoder()}
             <DeviceSimulationPanel
                 showSimulationPanel={showSimulationPanel}
                 onToggleSimulationPanel={onToggleSimulationPanel}

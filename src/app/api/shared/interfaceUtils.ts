@@ -14,6 +14,8 @@ import { LocalRepoServiceHandler } from '../legacy/localRepoServiceHandler';
 import { DevicesServiceHandler } from '../legacy/devicesServiceHandler';
 import { EventHubServiceHandler } from '../legacy/eventHubServiceHandler';
 import { PublicDigitalTwinsModelRepoHelper, PublicDigitalTwinsModelInterface } from '../services/publicDigitalTwinsModelRepoHelper';
+import { ProtoFileInterface } from 'public/interfaces/protoFileInterface';
+import { ProtoFileServiceHandler } from '../legacy/protoFileServiceHandler';
 
 export const NOT_AVAILABLE = 'Feature is not available in this configuration';
 
@@ -54,6 +56,16 @@ export const getDirectoryInterface = (): DirectoryInterface => {
 
     return getElectronInterface(API_INTERFACES.DIRECTORY);
 };
+
+export const getProtoFileInterface = (): ProtoFileInterface => {
+    if (appConfig.hostMode !== HostMode.Electron) {
+        return new ProtoFileServiceHandler();
+    }
+
+    // TODO: add proto file stuff to electron api/interface
+    // return getElectronInterface(API_INTERFACES.DIRECTORY);
+
+}
 
 export const getEventHubInterface = (): EventHubInterface => {
     if (appConfig.hostMode !== HostMode.Electron) {
