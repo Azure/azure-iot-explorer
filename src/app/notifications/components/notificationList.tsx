@@ -15,7 +15,7 @@ import { ROUTE_PARAMS } from '../../constants/routes';
 import { CANCEL, NAVIGATE_BACK } from '../../constants/iconNames';
 import '../../css/_notification.scss';
 import { AppInsightsClient } from '../../shared/appTelemetry/appInsightsClient';
-import { TELEMETRY_PAGE_NAMES } from '../../../app/constants/telemetry';
+import { TELEMETRY_PAGE_NAMES } from '../../constants/appTelemetry';
 
 export const NotificationList: React.FC = () => {
     const { t } = useTranslation();

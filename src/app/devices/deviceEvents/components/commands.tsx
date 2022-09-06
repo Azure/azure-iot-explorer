@@ -16,7 +16,7 @@ import { usePnpStateContext } from '../../../shared/contexts/pnpStateContext';
 import './deviceEvents.scss';
 import { getBackUrl } from '../../pnp/utils';
 import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
-import { TELEMETRY_USER_ACTIONS } from '../../../../app/constants/telemetry';
+import { TELEMETRY_USER_ACTIONS } from '../../../constants/appTelemetry';
 
 export interface CommandsProps {
     startDisabled: boolean;

@@ -22,7 +22,7 @@ import { moduleIdentityListReducer } from '../reducer';
 import { getModuleIdentitiesAction } from '../actions';
 import '../../../../css/_deviceDetail.scss';
 import { AppInsightsClient } from '../../../../shared/appTelemetry/appInsightsClient';
-import { TELEMETRY_PAGE_NAMES } from '../../../../../app/constants/telemetry';
+import { TELEMETRY_PAGE_NAMES } from '../../../../constants/appTelemetry';
 
 export const ModuleIdentityList: React.FC = () => {
     const { t } = useTranslation();

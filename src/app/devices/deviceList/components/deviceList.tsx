@@ -23,7 +23,7 @@ import { listDevicesAction, deleteDevicesAction } from '../actions';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import { LARGE_COLUMN_WIDTH, EXTRA_SMALL_COLUMN_WIDTH, SMALL_COLUMN_WIDTH, MEDIUM_COLUMN_WIDTH } from '../../../constants/columnWidth';
 import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
-import { TELEMETRY_PAGE_NAMES } from '../../../../app/constants/telemetry';
+import { TELEMETRY_PAGE_NAMES } from '../../../constants/appTelemetry';
 import '../../../css/_deviceList.scss';
 import '../../../css/_layouts.scss';
 

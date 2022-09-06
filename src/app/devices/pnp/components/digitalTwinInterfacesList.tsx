@@ -26,7 +26,7 @@ import { ErrorBoundary } from '../../shared/components/errorBoundary';
 import '../../../css/_digitalTwinInterfaces.scss';
 import { dispatchGetTwinAction } from '../utils';
 import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
-import { TELEMETRY_PAGE_NAMES } from '../../../../app/constants/telemetry';
+import { TELEMETRY_PAGE_NAMES } from '../../../constants/appTelemetry';
 
 interface ModelContent {
     link: string;

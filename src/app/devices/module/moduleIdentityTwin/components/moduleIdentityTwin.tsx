@@ -19,7 +19,7 @@ import { moduleIdentityTwinSagas } from '../saga';
 import { moduleTwinStateInitial } from '../state';
 import '../../../../css/_deviceDetail.scss';
 import { AppInsightsClient } from '../../../../shared/appTelemetry/appInsightsClient';
-import { TELEMETRY_PAGE_NAMES, TELEMETRY_USER_ACTIONS } from '../../../../../app/constants/telemetry';
+import { TELEMETRY_PAGE_NAMES, TELEMETRY_USER_ACTIONS } from '../../../../constants/appTelemetry';
 
 export const ModuleIdentityTwin: React.FC = () => {
     const { t } = useTranslation();
