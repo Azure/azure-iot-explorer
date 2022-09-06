@@ -15,7 +15,7 @@ export const invokeInMainWorld = async <T>(channel: string, ...args: Array<unkno
     // using customer invoker that returns the original error if handler throws.
     const { error, result } =  await ipcRenderer.invoke(channel, ...args);
     if (error) {
-        throw error;
+        throw new Error(JSON.stringify(error.message));
     }
 
     return result;
