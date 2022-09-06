@@ -36,12 +36,13 @@ import { CustomEventHub } from './customEventHub';
 import { ConsumerGroup } from './consumerGroup';
 import { StartTime } from './startTime';
 import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
-import { TELEMETRY_PAGE_NAMES } from '../../../../app/constants/telemetry';
+import { TELEMETRY_PAGE_NAMES } from '../../../constants/appTelemetry';
 import './deviceEvents.scss';
 import { LabelWithRichCallout } from '../../../shared/components/labelWithRichCallout';
 import { NAVIGATE_BACK, FOLDER } from '../../../constants/iconNames';
 import { getRootFolder, getParentFolder } from '../../../shared/utils/utils';
-import { fetchProtoFiles } from '../../../api/services/protoFileService';
+import { fetchProtoFiles, loadProtoFile } from '../../../api/services/protoFileService';
+import { PROTO_DECODER_FILE } from '../../../constants/messageDecoder';
 
 const JSON_SPACES = 2;
 const LOADING_LOCK = 8000;
@@ -92,6 +93,7 @@ export const DeviceEvents: React.FC = () => {
     const [currentFolder, setCurrentFolder] = React.useState('');
     const [showError, setShowError] = React.useState<boolean>(false);
     const [showFilePicker, setShowFilePicker] = React.useState<boolean>(false);
+    const [decoderType, setDecoderType] = React.useState<string>('');
 
     React.useEffect(
         () => {
@@ -152,18 +154,6 @@ export const DeviceEvents: React.FC = () => {
             }
         },
         [synchronizationStatus]);
-
-    React.useEffect(() => {
-        if (decoderProtoFile) {
-            (async () => {
-                const prototype: Type = await load(decoderProtoFile) // TODO: read file into node env first
-                    .then(root => {
-                        return root.lookupType('testpackage.TestMessage'); // TODO: get type name from user or use root? (https://thecodebarbarian.com/working-with-protobufs-in-node-js.html#:~:text=Working%20with%20Protobufs%20in%20Node.js%201%20Hello%2C%20Protobuf.,Protobufs%20in%20HTTP.%20...%204%20Moving%20On.%20)
-                    });
-                setDecoderPrototype(prototype);
-            })();
-        }
-    }, [decoderProtoFile]); // tslint:disable-line: align
 
     const renderCommands = () => {
         return (
@@ -559,7 +549,7 @@ export const DeviceEvents: React.FC = () => {
                 label={t(ResourceKeys.modelRepository.types.local.textBoxLabel)}
                 ariaLabel={t(ResourceKeys.modelRepository.types.local.textBoxLabel)}
                 value={decoderProtoFile}
-                readOnly={false}
+                readOnly={true}
                 // errorMessage={props.errorKey ? t(props.errorKey) : ''}
                 onChange={onFolderPathChange}
             />
@@ -570,7 +560,39 @@ export const DeviceEvents: React.FC = () => {
                 onClick={onShowFolderPicker}
             />
             {renderFilePicker()}
+            <TextField
+                className="local-folder-textbox"
+                label={'protobuf type'/*t(ResourceKeys.modelRepository.types.local.textBoxLabel)*/}
+                ariaLabel={t(ResourceKeys.modelRepository.types.local.textBoxLabel)}
+                value={decoderType}
+                readOnly={false}
+                onChange={onDecoderTypeChange}
+            />
+            <DefaultButton
+                className="local-folder-launch"
+                text={'Save'/*t(ResourceKeys.modelRepository.types.local.folderPicker.command.openPicker)*/}
+                ariaLabel={t(ResourceKeys.modelRepository.types.local.folderPicker.command.openPicker)}
+                onClick={onSaveDecoder}
+            />
+
         </>);
+
+    const onSaveDecoder = () => { 
+        if (decoderProtoFile && decoderType) {
+            (async () => {
+                await loadProtoFile(decoderProtoFile); // TODO: causes page refresh
+                // const prototype: Type = await load(PROTO_DECODER_FILE)
+                //     .then(root => {
+                //         return root.lookupType(decoderType); // TODO: get type name from user or use root? (https://thecodebarbarian.com/working-with-protobufs-in-node-js.html#:~:text=Working%20with%20Protobufs%20in%20Node.js%201%20Hello%2C%20Protobuf.,Protobufs%20in%20HTTP.%20...%204%20Moving%20On.%20)
+                //     });
+                // setDecoderPrototype(prototype);
+            })();
+        }
+    };
+
+    const onDecoderTypeChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
+        setDecoderType(newValue);
+    };
 
     const onShowFolderPicker = () => {
         fetchSubFileInfo(currentFolder);

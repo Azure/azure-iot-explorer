@@ -2,8 +2,8 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
- import { ProtoFileInterface, GetProtoFilesParameters } from '../../../../public/interfaces/protoFileInterface';
- import { READ_FILE, CONTROLLER_API_ENDPOINT, DEFAULT_DIRECTORY, GET_PROTO_FILES } from '../../constants/apiConstants';
+ import { ProtoFileInterface, GetProtoFilesParameters, LoadProtoFileParameters } from '../../../../public/interfaces/protoFileInterface';
+ import { LOAD_PROTO_FILE, CONTROLLER_API_ENDPOINT, DEFAULT_DIRECTORY, GET_PROTO_FILES } from '../../constants/apiConstants';
 
 export class ProtoFileServiceHandler implements ProtoFileInterface {
     public getProtoFiles = async (params: GetProtoFilesParameters): Promise<string[]> => {
@@ -20,4 +20,7 @@ export class ProtoFileServiceHandler implements ProtoFileInterface {
         }
     }
 
+    public loadProtoFile = async (params: LoadProtoFileParameters) => {
+        await fetch(`${CONTROLLER_API_ENDPOINT}${LOAD_PROTO_FILE}/${encodeURIComponent(params.path)}`);
+    }
 }

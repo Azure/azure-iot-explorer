@@ -10,3 +10,8 @@ import { getProtoFileInterface } from "../shared/interfaceUtils";
     const result = await api.getProtoFiles({path: path || DEFAULT_DIRECTORY});
     return result;
 };
+
+export const loadProtoFile = async (path: string) => {
+    const api = getProtoFileInterface();
+    await api.loadProtoFile({path: path});
+};
