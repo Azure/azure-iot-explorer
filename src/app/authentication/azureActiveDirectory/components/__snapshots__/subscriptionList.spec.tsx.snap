@@ -2,6 +2,10 @@
 
 exports[`SubscriptionList matches snapshot when there are list items 1`] = `
 <Fragment>
+  <FilterTextBox
+    filterType={0}
+    setFilteredList={[Function]}
+  />
   <StyledWithViewportComponent
     columns={
       Array [
@@ -31,17 +35,7 @@ exports[`SubscriptionList matches snapshot when there are list items 1`] = `
         },
       ]
     }
-    items={
-      Array [
-        Object {
-          "displayName": "test",
-          "id": "id",
-          "state": "Disabled",
-          "subscriptionId": "id",
-          "tenantId": "id",
-        },
-      ]
-    }
+    items={Array []}
     selectionMode={0}
   />
 </Fragment>
@@ -49,6 +43,10 @@ exports[`SubscriptionList matches snapshot when there are list items 1`] = `
 
 exports[`SubscriptionList matches snapshot when there are no list items 1`] = `
 <Fragment>
+  <FilterTextBox
+    filterType={0}
+    setFilteredList={[Function]}
+  />
   <StyledWithViewportComponent
     columns={
       Array [

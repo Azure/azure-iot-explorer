@@ -3,7 +3,7 @@
 
 CI Pipeline [![Build Status](https://dev.azure.com/azure/azure-iot-explorer/_apis/build/status/Azure%20IoT%20Explorer%20CI%20Pipeline?branchName=main)](https://dev.azure.com/azure/azure-iot-explorer/_build/latest?definitionId=31&branchName=main)
 
-Release Pipeline [![Build Status](https://msazure.visualstudio.com/One/_apis/build/status/Custom/Azure_IOT/Portal/Azure.azure-iot-explorer?branchName=features%2FRBAC)](https://msazure.visualstudio.com/One/_build/latest?definitionId=118522&branchName=features%2FRBAC)
+Release Pipeline [![Build Status](https://dev.azure.com/azureiotdevxp/azure-iot-explorer/_apis/build/status/official/PROD%20-%20Release%20-%20Azure%20IoT%20Explorer?branchName=main)](https://dev.azure.com/azureiotdevxp/azure-iot-explorer/_build/latest?definitionId=95&branchName=main)
 
 ## Table of Contents
 

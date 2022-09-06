@@ -22,7 +22,7 @@ export interface FilterTextBoxPros {
 
 export const FilterTextBox: React.FC<FilterTextBoxPros> = props => {
     const { t } = useTranslation();
-    const [ { subscriptions, iotHubs }, ] =  useAzureActiveDirectoryStateContext();
+    const [{ subscriptions, iotHubs }, ] =  useAzureActiveDirectoryStateContext();
     const [ filterValue, setFilterValue ] = React.useState('');
 
     const onValueChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {

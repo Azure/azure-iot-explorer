@@ -2,6 +2,10 @@
 
 exports[`HubList matches snapshot when there are list items 1`] = `
 <Fragment>
+  <FilterTextBox
+    filterType={1}
+    setFilteredList={[Function]}
+  />
   <StyledWithViewportComponent
     columns={
       Array [
@@ -23,15 +27,7 @@ exports[`HubList matches snapshot when there are list items 1`] = `
         },
       ]
     }
-    items={
-      Array [
-        Object {
-          "id": "id",
-          "location": "westus",
-          "name": "hub",
-        },
-      ]
-    }
+    items={Array []}
     selectionMode={0}
   />
 </Fragment>
@@ -39,6 +35,10 @@ exports[`HubList matches snapshot when there are list items 1`] = `
 
 exports[`HubList matches snapshot when there are no list items 1`] = `
 <Fragment>
+  <FilterTextBox
+    filterType={1}
+    setFilteredList={[Function]}
+  />
   <StyledWithViewportComponent
     columns={
       Array [

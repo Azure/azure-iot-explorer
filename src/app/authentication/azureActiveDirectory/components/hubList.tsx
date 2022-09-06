@@ -17,7 +17,7 @@ import { FilterTextBox, FilterType } from './filterTextBox';
 export const HubList: React.FC = () => {
     const { t } = useTranslation();
     const history = useHistory();
-    const [ { formState, iotHubs, iotHubKey }, { getIotHubKey }] =  useAzureActiveDirectoryStateContext();
+    const [{ formState, iotHubs, iotHubKey }, { getIotHubKey }] =  useAzureActiveDirectoryStateContext();
     const [ filteredHubs, setFilteredHubs ] = React.useState<IotHubDescription[]>([]);
 
     React.useEffect(() => {

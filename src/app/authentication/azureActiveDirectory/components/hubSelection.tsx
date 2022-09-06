@@ -12,7 +12,7 @@ import { BackButton } from './backButton';
 import './hubSelection.scss';
 
 export const HubSelection: React.FC = () => {
-    const [ { token, formState }, { getToken, getSubscriptions }] =  useAzureActiveDirectoryStateContext();
+    const [{ token, formState }, { getToken, getSubscriptions }] =  useAzureActiveDirectoryStateContext();
     const [ showHubList, setShowHubList ] = React.useState<boolean>(false);
 
     const renderSubscriptionList = () => {

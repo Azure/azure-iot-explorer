@@ -17,7 +17,7 @@ export interface SubscriptionListPros {
 
 export const SubscriptionList: React.FC<SubscriptionListPros> = props => {
     const { t } = useTranslation();
-    const [ { formState, subscriptions }, { getIotHubs } ] =  useAzureActiveDirectoryStateContext();
+    const [{ formState, subscriptions }, { getIotHubs } ] =  useAzureActiveDirectoryStateContext();
     const [ filteredSubscriptions, setFilteredSubscriptions ] = React.useState<AzureSubscription[]>([]);
 
     React.useEffect(() => {

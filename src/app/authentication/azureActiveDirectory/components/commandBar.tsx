@@ -13,7 +13,7 @@ import { useAzureActiveDirectoryStateContext } from '../context/azureActiveDirec
 export const AzureActiveDirectoryCommandBar: React.FC = () => {
     const { t } = useTranslation();
     const [ , { setLoginPreference } ] = useAuthenticationStateContext();
-    const [ { token }, { logout, login }] =  useAzureActiveDirectoryStateContext();
+    const [{ token }, { logout, login }] =  useAzureActiveDirectoryStateContext();
 
     const switchAuth = () => {
         setLoginPreference('');
