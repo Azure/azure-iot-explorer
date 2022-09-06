@@ -331,12 +331,27 @@ export const addPropertiesToCloudToDeviceMessage = (message: CloudToDeviceMessag
 };
 
 export const eventHubProvider = async (params: any) =>  {
+    await initializeEventHubClient(params);
+    updateEntityIdIfNecessary(params);
+
+    return listeningToMessages(client, params);
+};
+
+const initializeEventHubClient = async (params: any) =>  {
     if (needToCreateNewEventHubClient(params))
     {
         // hub has changed, reinitialize client, receivers and mesages
-        client = params.customEventHubConnectionString ?
-            await EventHubClient.createFromConnectionString(params.customEventHubConnectionString, params.customEventHubName) :
-            await EventHubClient.createFromConnectionString(await convertIotHubToEventHubsConnectionString(params.hubConnectionString), params.customEventHubName);
+        if (params.customEventHubConnectionString) {
+            client = await EventHubClient.createFromConnectionString(params.customEventHubConnectionString, params.customEventHubName);
+        }
+        else {
+            try {
+                client = await EventHubClient.createFromConnectionString(await convertIotHubToEventHubsConnectionString(params.hubConnectionString));
+            }
+            catch {
+                client = await EventHubClient.createFromIotHubConnectionString(params.hubConnectionString);
+            }
+        }
 
         connectionString = params.customEventHubConnectionString ?
             `${params.customEventHubConnectionString}/${params.customEventHubName}` :
@@ -344,9 +359,6 @@ export const eventHubProvider = async (params: any) =>  {
         receivers = [];
         messages = [];
     }
-    updateEntityIdIfNecessary(params);
-
-    return listeningToMessages(client, params);
 };
 
 const listeningToMessages = async (eventHubClient: EventHubClient, params: any) => {
