@@ -89,7 +89,7 @@ export const ModuleIdentityTwin: React.FC = () => {
         }
 
         return (
-            <>
+            <article className="device-twin">
                 {moduleIdentityTwin &&
                     <JSONEditor
                         content={JSON.stringify(moduleIdentityTwin, null, '\t')}
@@ -97,7 +97,7 @@ export const ModuleIdentityTwin: React.FC = () => {
                         onChange={onChange}
                     />
                 }
-            </>
+            </article>
         );
     };
 

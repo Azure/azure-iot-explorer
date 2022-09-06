@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Label, IconButton } from '@fluentui/react';
+import { Label, Panel, PanelType } from '@fluentui/react';
 import Form from 'react-jsonschema-form';
 import { fabricWidgets, fabricFields } from '../../../jsonSchemaFormFabricPlugin';
 import { ObjectTemplate } from '../../../jsonSchemaFormFabricPlugin/fields/objectTemplate';
@@ -81,14 +81,9 @@ export const ComplexReportedFormPanel: React.FC<ReportedFormDataProps & Reported
     };
 
     return (
-        <dialog open={showPanel} role="dialog">
-            <IconButton
-                className="close-dialog-icon"
-                iconProps={{ iconName: CLOSE }}
-                onClick={props.handleDismiss}
-            />
+        <Panel isOpen={showPanel} onDismiss={props.handleDismiss} type={PanelType.medium} isLightDismiss={true}>
             {createTitle()}
             {createForm()}
-        </dialog>
+        </Panel>
     );
 };

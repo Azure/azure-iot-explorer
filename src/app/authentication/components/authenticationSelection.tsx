@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { useAuthenticationStateContext } from '../context/authenticationStateContext';
 import { AuthenticationMethodPreference } from '../state';
 import { ResourceKeys } from '../../../localization/resourceKeys';
-import './AuthenticationSelection.scss';
+import './authenticationSelection.scss';
 
 export const AuthenticationSelection: React.FC = () => {
     const [, { setLoginPreference }] = useAuthenticationStateContext();

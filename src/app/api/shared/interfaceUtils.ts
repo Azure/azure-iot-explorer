@@ -13,7 +13,6 @@ import { appConfig, HostMode } from '../../../appConfig/appConfig';
 import { HIGH_CONTRAST } from '../../constants/browserStorage';
 import { LocalRepoServiceHandler } from '../legacy/localRepoServiceHandler';
 import { DevicesServiceHandler } from '../legacy/devicesServiceHandler';
-import { PublicDigitalTwinsModelRepoHandler } from '../legacy/publicDigitalTwinsModelRepoHandler';
 import { EventHubServiceHandler } from '../legacy/eventHubServiceHandler';
 import { PublicDigitalTwinsModelRepoHelper, PublicDigitalTwinsModelInterface } from '../services/publicDigitalTwinsModelRepoHelper';
 
@@ -66,10 +65,6 @@ export const getEventHubInterface = (): EventHubInterface => {
 };
 
 export const getPublicDigitalTwinsModelInterface = (): PublicDigitalTwinsModelInterface => {
-    if (appConfig.hostMode !== HostMode.Electron) {
-        return new PublicDigitalTwinsModelRepoHandler();
-    }
-
     return new PublicDigitalTwinsModelRepoHelper();
 };
 

@@ -279,6 +279,18 @@ export class ResourceKeys {
          refresh : "deviceCommands.command.refresh",
          submit : "deviceCommands.command.submit",
       },
+      confirmSend : {
+         body : "deviceCommands.confirmSend.body",
+         no : {
+            ariaLabel : "deviceCommands.confirmSend.no.ariaLabel",
+            label : "deviceCommands.confirmSend.no.label",
+         },
+         title : "deviceCommands.confirmSend.title",
+         yes : {
+            ariaLabel : "deviceCommands.confirmSend.yes.ariaLabel",
+            label : "deviceCommands.confirmSend.yes.label",
+         },
+      },
       headerText : "deviceCommands.headerText",
       noCommands : "deviceCommands.noCommands",
    };
@@ -782,10 +794,10 @@ export class ResourceKeys {
             label : "modelRepository.commands.save.label",
          },
       },
-      empty : {
-         description : "modelRepository.empty.description",
-         header : "modelRepository.empty.header",
-         help : "modelRepository.empty.help",
+      description : {
+         description : "modelRepository.description.description",
+         header : "modelRepository.description.header",
+         help : "modelRepository.description.help",
       },
       instruction : "modelRepository.instruction",
       types : {
