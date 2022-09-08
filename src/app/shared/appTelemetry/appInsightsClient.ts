@@ -1,5 +1,5 @@
 import { ApplicationInsights } from '@microsoft/applicationinsights-web';
-import { TELEMETRY_EVENTS, TELEMETRY_USER_ACTIONS } from '../../../app/constants/telemetry';
+import { TELEMETRY_EVENTS, TELEMETRY_USER_ACTIONS } from '../../constants/telemetry';
 import { appConfig } from '../../../appConfig/appConfig';
 import { isMicrosoftInternalDomain } from '../utils/utils';
 

@@ -24,7 +24,7 @@ import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
 import '../../../css/_addDevice.scss';
 import '../../../css/_layouts.scss';
 import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
-import { TELEMETRY_USER_ACTIONS } from '../../../../app/constants/telemetry';
+import { TELEMETRY_USER_ACTIONS } from '../../../constants/telemetry';
 
 const initialKeyValue = {
     error: '',
