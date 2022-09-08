@@ -21,7 +21,7 @@ import { deviceTwinStateInitial } from '../state';
 import { useBreadcrumbEntry } from '../../../navigation/hooks/useBreadcrumbEntry';
 import '../../../css/_deviceTwin.scss';
 import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
-import { TELEMETRY_PAGE_NAMES, TELEMETRY_USER_ACTIONS } from '../../../constants/appTelemetry';
+import { TELEMETRY_PAGE_NAMES, TELEMETRY_USER_ACTIONS } from '../../../constants/telemetry';
 
 export const DeviceTwin: React.FC = () => {
     const { t } = useTranslation();

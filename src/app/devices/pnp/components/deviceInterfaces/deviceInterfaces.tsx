@@ -21,7 +21,7 @@ import { SynchronizationStatus } from '../../../../api/models/synchronizationSta
 import { getBackUrl } from '../../utils';
 import '../../../../css/_deviceInterface.scss';
 import { AppInsightsClient } from '../../../../shared/appTelemetry/appInsightsClient';
-import { TELEMETRY_PAGE_NAMES } from '../../../../constants/appTelemetry';
+import { TELEMETRY_PAGE_NAMES } from '../../../../constants/telemetry';
 
 export const DeviceInterfaces: React.FC = () => {
     const { t } = useTranslation();

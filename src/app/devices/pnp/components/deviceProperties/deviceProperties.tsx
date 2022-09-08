@@ -16,7 +16,7 @@ import { SynchronizationStatus } from '../../../../api/models/synchronizationSta
 import { generateReportedTwinSchemaAndInterfaceTuple } from './dataHelper';
 import { dispatchGetTwinAction, getBackUrl } from '../../utils';
 import { AppInsightsClient } from '../../../../shared/appTelemetry/appInsightsClient';
-import { TELEMETRY_PAGE_NAMES } from '../../../../constants/appTelemetry';
+import { TELEMETRY_PAGE_NAMES } from '../../../../constants/telemetry';
 
 export const DeviceProperties: React.FC = () => {
     const { t } = useTranslation();

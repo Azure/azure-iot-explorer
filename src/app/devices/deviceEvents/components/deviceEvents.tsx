@@ -36,7 +36,7 @@ import { CustomEventHub } from './customEventHub';
 import { ConsumerGroup } from './consumerGroup';
 import { StartTime } from './startTime';
 import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
-import { TELEMETRY_PAGE_NAMES } from '../../../constants/appTelemetry';
+import { TELEMETRY_PAGE_NAMES } from '../../../constants/telemetry';
 import './deviceEvents.scss';
 
 const JSON_SPACES = 2;
@@ -50,7 +50,7 @@ export const DeviceEvents: React.FC = () => {
 
     const [localState, dispatch] = useAsyncSagaReducer(deviceEventsReducer, EventMonitoringSaga, deviceEventsStateInitial(), 'deviceEventsState');
     const synchronizationStatus = localState.synchronizationStatus;
-    const events = localState.payload; // TODO: decode events if decoder
+    const events = localState.payload;
 
     // event hub settings
     const [consumerGroup, setConsumerGroup] = React.useState(DEFAULT_CONSUMER_GROUP);
@@ -82,12 +82,7 @@ export const DeviceEvents: React.FC = () => {
 
     // // message decoder specific
     const [decoderProtoFile, setDecoderProtoFile] = React.useState<File>();
-    const [selectedProtoFile, setSelectedProtoFile] = React.useState('');
     const [decoderPrototype, setDecoderPrototype] = React.useState<Type | undefined>(undefined);
-    const [subFiles, setSubFiles] = React.useState([]);
-    const [currentFolder, setCurrentFolder] = React.useState('');
-    const [showError, setShowError] = React.useState<boolean>(false);
-    const [showFilePicker, setShowFilePicker] = React.useState<boolean>(false);
     const [decoderType, setDecoderType] = React.useState<string>('');
 
     React.useEffect(
@@ -529,30 +524,27 @@ export const DeviceEvents: React.FC = () => {
     }
 
     // TODO: change all ResourceKeys.modelRepository
+    // TODO: style
     const renderCustomDecoder = () => (
-        <>
-            <form onSubmit={onSaveDecoder}>
-                <Label>Decoder File{/*TODO: ResourceKey */}</Label>
-                <input type="file" id="protoFile" name="protoFile" accept=".proto" onChange={handleProtoFileChange} />
-                <Label>Decoder Type{/*TODO: ResourceKey */}</Label>
-                <TextField
-                    className="local-folder-textbox"
-                    value={decoderType}
-                    readOnly={false}
-                    onChange={handleDecoderTypeChange}
-                />
-                <PrimaryButton
-                    className="local-folder-launch"
-                    type="submit"
-                    text={'Save'/*t(ResourceKeys.modelRepository.types.local.folderPicker.command.openPicker)*/}
-                    ariaLabel={t(ResourceKeys.modelRepository.types.local.folderPicker.command.openPicker)}
-                />
-            </form>
-        </>);
+        <form onSubmit={onSaveDecoder}>
+            <Label>Decoder File{/*TODO: ResourceKey */}</Label>
+            <input type="file" id="protoFile" name="protoFile" accept=".proto" onChange={handleProtoFileChange} />
+            <Label>Decoder Type{/*TODO: ResourceKey */}</Label>
+            <TextField
+                value={decoderType}
+                readOnly={false}
+                onChange={handleDecoderTypeChange}
+            />
+            <PrimaryButton
+                type="submit"
+                text={'Save'/*t(ResourceKeys.modelRepository.types.local.folderPicker.command.openPicker)*/}
+                ariaLabel={t(ResourceKeys.modelRepository.types.local.folderPicker.command.openPicker)}
+            />
+        </form>);
 
     const handleProtoFileChange = (event: React.FormEvent<HTMLInputElement>) => {
         setDecoderProtoFile(event.currentTarget.files[0]);
-    }
+    };
 
     const handleDecoderTypeChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
         setDecoderType(newValue);
@@ -560,19 +552,18 @@ export const DeviceEvents: React.FC = () => {
 
     const onSaveDecoder = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        console.log("SAVE");
         // TODO: error message for empty fields or failed to parse file
         // TODO: only create fr once?
         if (decoderProtoFile && decoderType) {
             const fr = new FileReader();
-            fr.onload = (event) => {
-                const fileContents = event.target.result;
+            fr.onload = e => {
+                const fileContents = e.target.result;
                 if (fileContents instanceof ArrayBuffer) {
                     return; // shouldn't happen because fr is only reading as text
                 }
                 const prototype = parse(fileContents).root.lookupType(decoderType);
                 setDecoderPrototype(prototype);
-            }
+            };
             fr.readAsText(decoderProtoFile);
         }
     };

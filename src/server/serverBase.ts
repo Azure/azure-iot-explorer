@@ -176,9 +176,6 @@ const fetchDirectories = (dir: string, res: express.Response) => {
     res.status(SUCCESS).send(result);
 };
 
-
-
-
 const dataPlaneUri = '/api/DataPlane';
 export const handleDataPlanePostRequest = (req: express.Request, res: express.Response) => {
     try {
