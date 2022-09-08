@@ -12,8 +12,6 @@ export const MODELREPO = '/ModelRepo';
 export const CLOUD_TO_DEVICE = '/CloudToDevice';
 export const READ_FILE = '/ReadFile';
 export const GET_DIRECTORIES = '/Directories';
-export const GET_PROTO_FILES = '/ProtoFiles';
-export const LOAD_PROTO_FILE = '/LoadProtoFile';
 export const DEFAULT_DIRECTORY = '$DEFAULT';
 
 // model repo .net controller

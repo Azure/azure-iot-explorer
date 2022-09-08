@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { load, Type } from 'protobufjs';
+import { parse, Type } from 'protobufjs';
 import { useTranslation } from 'react-i18next';
 import { Spinner, SpinnerSize, Label, Stack, MessageBarType, MessageBar, DefaultButton, Dialog, DialogFooter, PrimaryButton, TextField } from '@fluentui/react';
 import { useLocation } from 'react-router-dom';
@@ -38,11 +38,6 @@ import { StartTime } from './startTime';
 import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
 import { TELEMETRY_PAGE_NAMES } from '../../../constants/appTelemetry';
 import './deviceEvents.scss';
-import { LabelWithRichCallout } from '../../../shared/components/labelWithRichCallout';
-import { NAVIGATE_BACK, FOLDER } from '../../../constants/iconNames';
-import { getRootFolder, getParentFolder } from '../../../shared/utils/utils';
-import { fetchProtoFiles, loadProtoFile } from '../../../api/services/protoFileService';
-import { PROTO_DECODER_FILE } from '../../../constants/messageDecoder';
 
 const JSON_SPACES = 2;
 const LOADING_LOCK = 8000;
@@ -55,7 +50,7 @@ export const DeviceEvents: React.FC = () => {
 
     const [localState, dispatch] = useAsyncSagaReducer(deviceEventsReducer, EventMonitoringSaga, deviceEventsStateInitial(), 'deviceEventsState');
     const synchronizationStatus = localState.synchronizationStatus;
-    const events = localState.payload;
+    const events = localState.payload; // TODO: decode events if decoder
 
     // event hub settings
     const [consumerGroup, setConsumerGroup] = React.useState(DEFAULT_CONSUMER_GROUP);
@@ -86,7 +81,7 @@ export const DeviceEvents: React.FC = () => {
     const [showSimulationPanel, setShowSimulationPanel] = React.useState(false);
 
     // // message decoder specific
-    const [decoderProtoFile, setDecoderProtoFile] = React.useState('');
+    const [decoderProtoFile, setDecoderProtoFile] = React.useState<File>();
     const [selectedProtoFile, setSelectedProtoFile] = React.useState('');
     const [decoderPrototype, setDecoderPrototype] = React.useState<Type | undefined>(undefined);
     const [subFiles, setSubFiles] = React.useState([]);
@@ -536,154 +531,50 @@ export const DeviceEvents: React.FC = () => {
     // TODO: change all ResourceKeys.modelRepository
     const renderCustomDecoder = () => (
         <>
-            <div className="labelSection">
-                <LabelWithRichCallout
-                    calloutContent={t(ResourceKeys.modelRepository.types.local.infoText)}
-                    required={true}
-                >
-                    {t(ResourceKeys.modelRepository.types.local.label)}
-                </LabelWithRichCallout>
-            </div>
-            <TextField
-                className="local-folder-textbox"
-                label={t(ResourceKeys.modelRepository.types.local.textBoxLabel)}
-                ariaLabel={t(ResourceKeys.modelRepository.types.local.textBoxLabel)}
-                value={decoderProtoFile}
-                readOnly={true}
-                // errorMessage={props.errorKey ? t(props.errorKey) : ''}
-                onChange={onFolderPathChange}
-            />
-            <DefaultButton
-                className="local-folder-launch"
-                text={t(ResourceKeys.modelRepository.types.local.folderPicker.command.openPicker)}
-                ariaLabel={t(ResourceKeys.modelRepository.types.local.folderPicker.command.openPicker)}
-                onClick={onShowFolderPicker}
-            />
-            {renderFilePicker()}
-            <TextField
-                className="local-folder-textbox"
-                label={'protobuf type'/*t(ResourceKeys.modelRepository.types.local.textBoxLabel)*/}
-                ariaLabel={t(ResourceKeys.modelRepository.types.local.textBoxLabel)}
-                value={decoderType}
-                readOnly={false}
-                onChange={onDecoderTypeChange}
-            />
-            <DefaultButton
-                className="local-folder-launch"
-                text={'Save'/*t(ResourceKeys.modelRepository.types.local.folderPicker.command.openPicker)*/}
-                ariaLabel={t(ResourceKeys.modelRepository.types.local.folderPicker.command.openPicker)}
-                onClick={onSaveDecoder}
-            />
-
+            <form onSubmit={onSaveDecoder}>
+                <Label>Decoder File{/*TODO: ResourceKey */}</Label>
+                <input type="file" id="protoFile" name="protoFile" accept=".proto" onChange={handleProtoFileChange} />
+                <Label>Decoder Type{/*TODO: ResourceKey */}</Label>
+                <TextField
+                    className="local-folder-textbox"
+                    value={decoderType}
+                    readOnly={false}
+                    onChange={handleDecoderTypeChange}
+                />
+                <PrimaryButton
+                    className="local-folder-launch"
+                    type="submit"
+                    text={'Save'/*t(ResourceKeys.modelRepository.types.local.folderPicker.command.openPicker)*/}
+                    ariaLabel={t(ResourceKeys.modelRepository.types.local.folderPicker.command.openPicker)}
+                />
+            </form>
         </>);
 
-    const onSaveDecoder = () => { 
-        if (decoderProtoFile && decoderType) {
-            (async () => {
-                await loadProtoFile(decoderProtoFile); // TODO: causes page refresh
-                // const prototype: Type = await load(PROTO_DECODER_FILE)
-                //     .then(root => {
-                //         return root.lookupType(decoderType); // TODO: get type name from user or use root? (https://thecodebarbarian.com/working-with-protobufs-in-node-js.html#:~:text=Working%20with%20Protobufs%20in%20Node.js%201%20Hello%2C%20Protobuf.,Protobufs%20in%20HTTP.%20...%204%20Moving%20On.%20)
-                //     });
-                // setDecoderPrototype(prototype);
-            })();
-        }
-    };
+    const handleProtoFileChange = (event: React.FormEvent<HTMLInputElement>) => {
+        setDecoderProtoFile(event.currentTarget.files[0]);
+    }
 
-    const onDecoderTypeChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
+    const handleDecoderTypeChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
         setDecoderType(newValue);
     };
 
-    const onShowFolderPicker = () => {
-        fetchSubFileInfo(currentFolder);
-        setShowFilePicker(true);
-    };
-
-    const dismissFilePicker = () => {
-        setShowFilePicker(false);
-    };
-
-    const onFolderPathChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
-        setCurrentFolder(newValue);
-    };
-
-    const onSelectFile = () => {
-        setDecoderProtoFile(selectedProtoFile);
-        setShowFilePicker(false);
-    };
-
-    const onClickFileName = (file: string) => () => {
-        const newPath = currentFolder ? `${currentFolder.replace(/\/$/, '')}/${file}` : file;
-        if (file.endsWith('.proto')) {
-            setSelectedProtoFile(newPath);
-        } else {
-            setSelectedProtoFile(undefined);
-            setCurrentFolder(newPath);
-            fetchSubFileInfo(newPath);
+    const onSaveDecoder = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        console.log("SAVE");
+        // TODO: error message for empty fields or failed to parse file
+        // TODO: only create fr once?
+        if (decoderProtoFile && decoderType) {
+            const fr = new FileReader();
+            fr.onload = (event) => {
+                const fileContents = event.target.result;
+                if (fileContents instanceof ArrayBuffer) {
+                    return; // shouldn't happen because fr is only reading as text
+                }
+                const prototype = parse(fileContents).root.lookupType(decoderType);
+                setDecoderPrototype(prototype);
+            }
+            fr.readAsText(decoderProtoFile);
         }
-    };
-
-    const onNavigateBack = () => {
-        const parentFolder = getParentFolder(currentFolder);
-        setCurrentFolder(parentFolder);
-        fetchSubFileInfo(parentFolder);
-    };
-
-    const fetchSubFileInfo = (folderName: string) => {
-        fetchProtoFiles(folderName).then(result => {
-            setShowError(false);
-            setSubFiles(result);
-        }).catch(error => {
-            setShowError(true);
-        });
-    };
-
-    const renderFilePicker = () => {
-        return (
-            <div role="dialog">
-                <Dialog
-                    hidden={!showFilePicker}
-                    title={t(ResourceKeys.modelRepository.types.local.folderPicker.dialog.title)}
-                    modalProps={{
-                        className: 'folder-picker-dialog',
-                        isBlocking: false
-                    }}
-                    dialogContentProps={{
-                        subText: currentFolder && t(ResourceKeys.modelRepository.types.local.folderPicker.dialog.subText, { folder: currentFolder })
-                    }}
-                    onDismiss={dismissFilePicker}
-                >
-                    <div className="folder-links">
-                        <DefaultButton
-                            className="folder-button"
-                            iconProps={{ iconName: NAVIGATE_BACK }}
-                            text={t(ResourceKeys.modelRepository.types.local.folderPicker.command.navigateToParent)}
-                            ariaLabel={t(ResourceKeys.modelRepository.types.local.folderPicker.command.navigateToParent)}
-                            onClick={onNavigateBack}
-                            disabled={currentFolder === getRootFolder()}
-                        />
-                        {showError ? <div className="no-folders-text">{t(ResourceKeys.modelRepository.types.local.folderPicker.dialog.error)}</div> :
-                            subFiles && subFiles.length > 0 ?
-                                subFiles.map(file => {
-                                    const protoFile = file.endsWith('.proto');
-                                    return <DefaultButton
-                                        className="folder-button" // TODO: highlight if current selectedProtoFile
-                                        iconProps={protoFile ? {} : { iconName: FOLDER }}
-                                        key={file}
-                                        text={file}
-                                        onClick={onClickFileName(file)}
-                                    />;
-                                })
-                                :
-                                <div className="no-folders-text">{t(ResourceKeys.modelRepository.types.local.folderPicker.dialog.noFolderFoundText)}</div>}
-                    </div>
-                    <DialogFooter>
-                        <PrimaryButton onClick={onSelectFile} text={t(ResourceKeys.modelRepository.types.local.folderPicker.command.select)} disabled={!selectedProtoFile} />
-                        <DefaultButton onClick={dismissFilePicker} text={t(ResourceKeys.modelRepository.types.local.folderPicker.command.cancel)} />
-                    </DialogFooter>
-                </Dialog>
-            </div>
-        );
     };
 
     return (

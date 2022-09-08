@@ -49,8 +49,6 @@ export class ServerBase {
         app.post(modelRepoUri, handleModelRepoPostRequest);
         app.get(readFileUri, handleReadFileRequest);
         app.get(getDirectoriesUri, handleGetDirectoriesRequest);
-        app.get(getProtoFilesUri, handleGetProtoFilesRequest);
-        app.get(loadProtoFileUri, handleLoadProtoFileRequest);
 
         app.listen(this.port).on('error', () => { throw new Error(
            `Failed to start the app on port ${this.port} as it is in use.
@@ -178,65 +176,6 @@ const fetchDirectories = (dir: string, res: express.Response) => {
     res.status(SUCCESS).send(result);
 };
 
-const getProtoFilesUri = '/api/ProtoFiles/:path';
-export const handleGetProtoFilesRequest = (req: express.Request, res: express.Response) => {
-    try {
-        const dir = req.params.path;
-        if (dir === '$DEFAULT') {
-            fetchDrivesOnWindows(res);
-        }
-        else {
-            fetchProtoFiles(dir, res);
-        }
-    }
-    catch (error) {
-        res.status(SERVER_ERROR).send(error);
-    }
-};
-
-const fetchProtoFiles = (dir: string, res: express.Response) => {
-    const result: string[] = [];
-    for (const item of fs.readdirSync(dir)) {
-        try {
-            const stat = fs.statSync(path.join(dir, item));
-            if (stat.isDirectory()) {
-                result.push(item);
-            }
-            if (stat.isFile && item.endsWith('.proto')) {
-                result.push(item);
-            }
-        }
-        catch {
-            // some item cannot be checked by isDirectory(), swallow error and continue the loop
-        }
-    }
-    res.status(SUCCESS).send(result);
-};
-
-const loadProtoFileUri = '/api/LoadProtoFile/:path'
-// tslint:disable-next-line:cyclomatic-complexity
-export const handleLoadProtoFileRequest = (req: express.Request, res: express.Response) => {
-    try {
-        const filePath = req.params.path;
-        if (!filePath) {
-            res.status(BAD_REQUEST).send();
-        }
-        else {
-            try {
-                const contents = fs.readFileSync(filePath, 'utf-8');
-                fs.writeFileSync('public/decoder.proto', contents);
-                res.status(SUCCESS).send();
-            }
-            catch (error) {
-                res.status(NOT_FOUND).send(error.message);
-            }
-
-        }
-    }
-    catch (error) {
-        res.status(SERVER_ERROR).send(error);
-    }
-};
 
 
 
