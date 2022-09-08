@@ -10,17 +10,13 @@
         @include themify($themes) {
             border-top: 1px solid themed('contrastBorder');
         }
-
         margin-left: 15px;
-
         .device-events-content {
             @include themify($themes) {
                 border-bottom: 1px solid themed('contrastBorder');
             }
-
             padding: 0 25px;
             width: 100%;
-
             pre {
                 white-space: pre-wrap;
             }
@@ -30,7 +26,6 @@
     .consumer-group-label {
         font-weight: 600;
         font-size: 14px;
-
         @include themify($themes) {
             color: themed('textColor');
         }
@@ -40,18 +35,15 @@
         display: grid;
         padding-left: 24px;
         padding-bottom: 10px;
-
         @include themify($themes) {
             color: themed('textColor');
         }
-
         width: 85%;
     }
 
     .custom-event-hub-label {
         font-weight: 600;
         font-size: 14px;
-
         @include themify($themes) {
             color: themed('textColor');
         }
@@ -63,7 +55,6 @@
                 @include themify($themes) {
                     color: themed('errorText');
                 }
-
                 padding-top: 10px;
                 font-size: 14px;
             }
@@ -74,15 +65,12 @@
         @include themify($themes) {
             background-color: themed('backgroundColor');
         }
-
         .list-header {
             font-weight: bold;
             border-bottom: 1px solid;
-
             @include themify($themes) {
                 border-bottom-color: themed('borderColor');
             }
-
             padding-bottom: 5px;
         }
     }
@@ -91,7 +79,6 @@
         overflow: auto;
         width: 100%;
         border-bottom: 1px solid;
-
         @include themify($themes) {
             border-bottom-color: themed('borderColor');
         }
@@ -107,14 +94,11 @@
             display: grid;
             padding-left: 24px;
             padding-bottom: 10px;
-
             @include themify($themes) {
                 color: themed('textColor');
             }
-
             width: 80%;
         }
-
         width: 100%;
     }
 }

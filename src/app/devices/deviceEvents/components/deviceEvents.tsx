@@ -5,7 +5,7 @@
 import * as React from 'react';
 import { parse, Type } from 'protobufjs';
 import { useTranslation } from 'react-i18next';
-import { Spinner, SpinnerSize, Label, Stack, MessageBarType, MessageBar, DefaultButton, Dialog, DialogFooter, PrimaryButton, TextField } from '@fluentui/react';
+import { Spinner, SpinnerSize, Label, Stack, MessageBarType, MessageBar, PrimaryButton, TextField } from '@fluentui/react';
 import { useLocation } from 'react-router-dom';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { Message, MESSAGE_SYSTEM_PROPERTIES, MESSAGE_PROPERTIES, IOTHUB_MESSAGE_SOURCE_TELEMETRY } from '../../../api/models/messages';
