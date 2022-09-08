@@ -20,7 +20,7 @@ import { SasTokenGenerationView } from '../../shared/components/sasTokenGenerati
 import { useIotHubContext } from '../../../iotHub/hooks/useIotHubContext';
 import '../../../css/_deviceDetail.scss';
 import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
-import { TELEMETRY_PAGE_NAMES } from '../../../constants/telemetry';
+import { TELEMETRY_PAGE_NAMES } from '../../../../app/constants/telemetry';
 
 export interface DeviceIdentityDispatchProps {
     updateDeviceIdentity: (deviceIdentity: DeviceIdentity) => void;

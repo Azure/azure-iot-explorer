@@ -10,7 +10,7 @@ import { fetchLatestReleaseTagName, latestReleaseUrlPath } from '../../api/servi
 import * as packageJson from '../../../../package.json';
 import { isNewReleaseVersionHigher } from '../utils/appVersionHelper';
 import { AppInsightsClient } from '../../shared/appTelemetry/appInsightsClient';
-import { TELEMETRY_EVENTS } from '../../constants/telemetry';
+import { TELEMETRY_EVENTS } from '../../../app/constants/telemetry';
 
 export const AppVersionMessageBar: React.FC = () => {
     const { t } = useTranslation();

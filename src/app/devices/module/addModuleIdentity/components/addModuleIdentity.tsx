@@ -22,7 +22,7 @@ import { addModuleStateInitial } from '../state';
 import { addModuleIdentityAction } from '../actions';
 import '../../../../css/_deviceDetail.scss';
 import { AppInsightsClient } from '../../../../shared/appTelemetry/appInsightsClient';
-import { TELEMETRY_USER_ACTIONS } from '../../../../constants/telemetry';
+import { TELEMETRY_USER_ACTIONS } from '../../../../../app/constants/telemetry';
 
 const initialKeyValue = {
     error: '',

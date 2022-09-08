@@ -22,7 +22,7 @@ import { moduleIdentityDetailStateInterfaceInitial } from '../state';
 import { deleteModuleIdentityAction, getModuleIdentityAction } from '../actions';
 import { useIotHubContext } from '../../../../iotHub/hooks/useIotHubContext';
 import { AppInsightsClient } from '../../../../shared/appTelemetry/appInsightsClient';
-import { TELEMETRY_PAGE_NAMES } from '../../../../constants/telemetry';
+import { TELEMETRY_PAGE_NAMES } from '../../../../../app/constants/telemetry';
 import '../../../../css/_deviceDetail.scss';
 
 export const ModuleIdentityDetail: React.FC = () => {

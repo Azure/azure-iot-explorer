@@ -26,7 +26,7 @@ import { dataPlaneConnectionHelper, dataPlaneResponseHelper, request, DATAPLANE_
 import { getDeviceInterface, getEventHubInterface } from '../shared/interfaceUtils';
 import { parseEventHubMessage } from './eventHubMessageHelper';
 import { AppInsightsClient } from '../../shared/appTelemetry/appInsightsClient';
-import { TELEMETRY_EVENTS } from '../../constants/telemetry';
+import { TELEMETRY_EVENTS } from '../../../app/constants/telemetry';
 
 const PAGE_SIZE = 100;
 

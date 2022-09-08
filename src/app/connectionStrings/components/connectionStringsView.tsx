@@ -26,7 +26,7 @@ import { useBreadcrumbEntry } from '../../navigation/hooks/useBreadcrumbEntry';
 import '../../css/_layouts.scss';
 import './connectionStringsView.scss';
 import { AppInsightsClient } from '../../shared/appTelemetry/appInsightsClient';
-import { TELEMETRY_PAGE_NAMES } from '../../constants/telemetry';
+import { TELEMETRY_PAGE_NAMES } from '../../../app/constants/telemetry';
 
 // tslint:disable-next-line: cyclomatic-complexity
 export const ConnectionStringsView: React.FC = () => {
