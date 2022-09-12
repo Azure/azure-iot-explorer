@@ -48,7 +48,6 @@ exports[`AuthenticationSelection matches snapshot 1`] = `
           }
         }
         onClick={[Function]}
-        secondaryText="authentication.autheSelection.selection.comingSoon"
       >
         authentication.autheSelection.selection.azureActiveDirectory
       </CustomizedCompoundButton>

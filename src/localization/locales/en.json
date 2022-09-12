@@ -964,8 +964,7 @@
             "subText": "Choose an authentication method and connect to an Azure IoT hub",
             "selection": {
                 "azureActiveDirectory": "Connect via Azure Active Directory",
-                "connectionString": "Connect via IoT Hub connection string",
-                "comingSoon": "Coming soon"
+                "connectionString": "Connect via IoT Hub connection string"
             },
             "switchAuthType": "Switch authentication method"
         },
