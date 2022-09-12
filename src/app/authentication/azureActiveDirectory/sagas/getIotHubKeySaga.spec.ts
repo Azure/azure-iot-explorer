@@ -23,7 +23,7 @@ describe('getIotHubKeySaga', () => {
     const params = {hubId: 'hubid', hubName: 'test'};
     const authRules = [{
         keyName: 'iothubowner',
-        primaryKey: 'key12345',
+        primaryKey: '',
         rights: 'RegistryWrite, ServiceConnect, DeviceConnect'
     }]
     const sagaGenerator = cloneableGenerator(getIotHubKeySaga)(getIoTHubKeyAction.started(params));

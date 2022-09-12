@@ -40,7 +40,6 @@ export const AuthenticationSelection: React.FC = () => {
                         iconProps={{ iconName: 'AADLogo' }}
                         className="auth-selection-tile"
                         onClick={loginViaAad}
-                        secondaryText={t(ResourceKeys.authentication.autheSelection.selection.comingSoon)}
                     >
                         {t(ResourceKeys.authentication.autheSelection.selection.azureActiveDirectory)}
                     </CompoundButton>
