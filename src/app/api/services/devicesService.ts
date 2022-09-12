@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import {
+    CloudToDeviceMessageParameters,
     FetchDeviceTwinParameters,
     InvokeMethodParameters,
     FetchDevicesParameters,
@@ -10,8 +11,7 @@ import {
     FetchDeviceParameters,
     DeleteDevicesParameters,
     AddDeviceParameters,
-    UpdateDeviceParameters,
-    CloudToDeviceMessageParameters
+    UpdateDeviceParameters
 } from '../parameters/deviceParameters';
 import {
     HEADERS,
@@ -23,8 +23,9 @@ import { Message } from '../models/messages';
 import { Twin, Device, DataPlaneResponse } from '../models/device';
 import { DeviceIdentity } from '../models/deviceIdentity';
 import { dataPlaneConnectionHelper, dataPlaneResponseHelper, request, DATAPLANE_CONTROLLER_ENDPOINT, DataPlaneRequest } from './dataplaneServiceHelper';
-import { getDeviceInterface, getEventHubInterface } from '../shared/interfaceUtils';
+import { getEventHubInterface } from '../shared/interfaceUtils';
 import { parseEventHubMessage } from './eventHubMessageHelper';
+import { HttpError } from '../models/httpError';
 
 const PAGE_SIZE = 100;
 
@@ -99,16 +100,30 @@ export const invokeDirectMethod = async (parameters: InvokeMethodParameters): Pr
     return result && result.body;
 };
 
-export const cloudToDeviceMessage = async (parameters: CloudToDeviceMessageParameters) => {
+export const cloudToDeviceMessage = async (params: CloudToDeviceMessageParameters) => {
+    const { deviceId, body, properties } = params;
     const connectionInfo = await dataPlaneConnectionHelper();
-    const api = getDeviceInterface();
+    const authorization = connectionInfo.sasToken;
+    const uri = `https://${connectionInfo.connectionInfo.hostName}/devices/${encodeURIComponent(deviceId)}/messages/deviceBound?api-version=${HUB_DATA_PLANE_API_VERSION}`;
 
-    await api.sendMessageToDevice({
-        connectionString: connectionInfo.connectionString,
-        deviceId: parameters.deviceId,
-        messageBody: parameters.body,
-        messageProperties: parameters.properties
-    });
+    const formattedProperties: Record<string, string> = {};
+    properties.forEach(s => formattedProperties[`iothub-app-${s.key}`] = s.value);
+
+    const requestParams: RequestInit = {
+        body,
+        cache: 'no-cache',
+        headers: {
+            ...formattedProperties,
+            authorization,
+            ['Content-Encoding']: 'utf-8'
+        },
+        method: HTTP_OPERATION_TYPES.Post
+    };
+
+    const response = await fetch(uri, requestParams);
+    if (!response.ok) {
+        throw new HttpError(response.status);
+    }
 };
 
 export const addDevice = async (parameters: AddDeviceParameters): Promise<DeviceIdentity> => {

@@ -82,7 +82,7 @@ describe('deviceTwinService', () => {
 
             const connectionInformation = mockDataPlaneConnectionHelper();
             const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
-                apiVersion: HUB_DATA_PLANE_API_VERSION,
+                apiVersion:  HUB_DATA_PLANE_API_VERSION,
                 hostName: connectionInformation.connectionInfo.hostName,
                 httpMethod: HTTP_OPERATION_TYPES.Get,
                 path: `twins/${deviceId}`,
@@ -242,18 +242,31 @@ describe('deviceTwinService', () => {
         };
 
         it('calls sendMessageToDevice with expected parameters', async () => {
-            const sendMessageToDevice = jest.fn();
-            jest.spyOn(interfaceUtils, 'getDeviceInterface').mockReturnValue({
-                sendMessageToDevice
-            });
+
+            jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockResolvedValue({
+                connectionInfo, connectionString, sasToken});
+                
+            const fetch = jest.spyOn(window, "fetch").mockResolvedValue({
+                json: () => {
+                    return {};
+                },
+                ok: true,
+            } as any); 
 
             await DevicesService.cloudToDeviceMessage(parameters);
-            expect(sendMessageToDevice).toBeCalledWith({
-                connectionString,
-                deviceId: 'deviceId',
-                messageBody: 'body',
-                messageProperties: []
-            });
+    
+            const resourceUrl = `https://test-string.azure-devices.net/devices/deviceId/messages/deviceBound?api-version=2020-06-30-preview`;
+            const serviceRequestParams = {
+                body: 'body',
+                cache: 'no-cache',
+                headers: {
+                    'authorization': `testSasToken`,
+                    ['Content-Encoding']: 'utf-8'
+                },
+                method: HTTP_OPERATION_TYPES.Post
+            };
+    
+            expect(fetch).toHaveBeenLastCalledWith(resourceUrl, serviceRequestParams);
         });
     });
 
@@ -290,7 +303,7 @@ describe('deviceTwinService', () => {
 
             const connectionInformation = mockDataPlaneConnectionHelper();
             const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
-                apiVersion:  HUB_DATA_PLANE_API_VERSION,
+                apiVersion: HUB_DATA_PLANE_API_VERSION,
                 body: JSON.stringify(deviceIdentity),
                 hostName: connectionInformation.connectionInfo.hostName,
                 httpMethod: HTTP_OPERATION_TYPES.Put,

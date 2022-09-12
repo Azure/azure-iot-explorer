@@ -7,7 +7,6 @@ export const PLATFORMS = {
 };
 
 export const MESSAGE_CHANNELS = {
-    DEVICE_SEND_MESSAGE: 'device_sendMessage',
     DIRECTORY_GET_DIRECTORIES: 'directory_getDirectories',
     EVENTHUB_START_MONITORING: 'eventhub_startMonitoring',
     EVENTHUB_STOP_MONITORING: 'eventhub_stopMonitoring',
