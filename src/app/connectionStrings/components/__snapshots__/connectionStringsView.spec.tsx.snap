@@ -2,66 +2,36 @@
 
 exports[`ConnectionStringsView matches snapshot when connection strings present 1`] = `
 <div>
-  <StyledCommandBarBase
-    items={
-      Array [
-        Object {
-          "ariaLabel": "connectionStrings.addConnectionCommand.ariaLabel",
-          "disabled": false,
-          "iconProps": Object {
-            "iconName": "Add",
-          },
-          "key": "add",
-          "onClick": [Function],
-          "text": "connectionStrings.addConnectionCommand.label",
-        },
-      ]
-    }
+  <ConnectionStringCommandBar
+    onAddConnectionStringClick={[Function]}
   />
-  <div>
-    <div
-      className="connection-strings"
-    >
-      <ConnectionString
-        connectionStringWithExpiry={
-          Object {
-            "connectionString": "connectionString1",
-            "expiration": "Thu, 01 Jan 1970 00:00:00 GMT",
-          }
+  <div
+    className="connection-strings"
+  >
+    <ConnectionString
+      connectionStringWithExpiry={
+        Object {
+          "connectionString": "connectionString1",
+          "expiration": "Thu, 01 Jan 1970 00:00:00 GMT",
         }
-        key="connectionString1"
-        onDeleteConnectionString={[Function]}
-        onEditConnectionString={[Function]}
-        onSelectConnectionString={[Function]}
-      />
-    </div>
+      }
+      key="connectionString1"
+      onDeleteConnectionString={[Function]}
+      onEditConnectionString={[Function]}
+      onSelectConnectionString={[Function]}
+    />
   </div>
 </div>
 `;
 
 exports[`ConnectionStringsView matches snapshot when no connection strings 1`] = `
 <div>
-  <StyledCommandBarBase
-    items={
-      Array [
-        Object {
-          "ariaLabel": "connectionStrings.addConnectionCommand.ariaLabel",
-          "disabled": false,
-          "iconProps": Object {
-            "iconName": "Add",
-          },
-          "key": "add",
-          "onClick": [Function],
-          "text": "connectionStrings.addConnectionCommand.label",
-        },
-      ]
-    }
+  <ConnectionStringCommandBar
+    onAddConnectionStringClick={[Function]}
   />
-  <div>
-    <div
-      className="connection-strings"
-    />
-    <ConnectionStringsEmpty />
-  </div>
+  <div
+    className="connection-strings"
+  />
+  <ConnectionStringsEmpty />
 </div>
 `;

@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AuthenticationSelection matches snapshot 1`] = `
+<div
+  className="auth-slection-container"
+>
+  <Stack
+    tokens={
+      Object {
+        "childrenGap": 10,
+      }
+    }
+  >
+    <h3
+      aria-level={1}
+      role="heading"
+    >
+      authentication.autheSelection.header
+    </h3>
+    <span>
+      authentication.autheSelection.subText
+    </span>
+    <Stack
+      horizontal={true}
+      tokens={
+        Object {
+          "childrenGap": 80,
+        }
+      }
+    >
+      <CustomizedCompoundButton
+        className="auth-selection-tile"
+        iconProps={
+          Object {
+            "iconName": "Permissions",
+          }
+        }
+        onClick={[Function]}
+        primary={true}
+      >
+        authentication.autheSelection.selection.connectionString
+      </CustomizedCompoundButton>
+      <CustomizedCompoundButton
+        className="auth-selection-tile"
+        iconProps={
+          Object {
+            "iconName": "AADLogo",
+          }
+        }
+        onClick={[Function]}
+        secondaryText="authentication.autheSelection.selection.comingSoon"
+      >
+        authentication.autheSelection.selection.azureActiveDirectory
+      </CustomizedCompoundButton>
+    </Stack>
+  </Stack>
+</div>
+`;

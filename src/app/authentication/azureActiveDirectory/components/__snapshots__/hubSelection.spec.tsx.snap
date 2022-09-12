@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HubSelection matches snapshot when hub list is shown 1`] = `
+<Fragment>
+  <AzureActiveDirectoryCommandBar />
+  <div
+    className="hub-selection-list"
+  >
+    <BackButton
+      backToSubscription={[Function]}
+    />
+    <HubList />
+  </div>
+</Fragment>
+`;
+
+exports[`HubSelection matches snapshot when page is loading 1`] = `
+<Fragment>
+  <AzureActiveDirectoryCommandBar />
+  <MultiLineShimmer />
+</Fragment>
+`;
+
+exports[`HubSelection matches snapshot when token is present 1`] = `
+<Fragment>
+  <AzureActiveDirectoryCommandBar />
+  <div
+    className="hub-selection-list"
+  >
+    <SubscriptionList
+      renderHubList={[Function]}
+    />
+  </div>
+</Fragment>
+`;

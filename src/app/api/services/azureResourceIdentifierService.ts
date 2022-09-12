@@ -2,15 +2,15 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { ContinuingResultSet } from '../../api/models/continuingResultSet';
+import { ContinuingResultSet } from '../models/continuingResultSet';
 import { AzureResourceIdentifier } from '../models/azureResourceIdentifier';
 import { AzureResourceIdentifierType } from '../models/azureResourceIdentifierType';
 import { AzureResourceIdentifierQuery } from '../models/azureResourceIdentifierQuery';
 import { AzureResourceIdentifierQueryResult } from '../models/azureResourceIdentifierQueryResult';
 import { APPLICATION_JSON, HTTP_OPERATION_TYPES } from '../../constants/apiConstants';
 import { AzureResourceManagementEndpoint } from '../models/azureResourceManagementEndpoint';
-import { HttpError } from '../../api/models/httpError';
-import { mapPropertyArrayToObject } from '../../api/shared/mapUtils';
+import { HttpError } from '../models/httpError';
+import { mapPropertyArrayToObject } from '../shared/mapUtils';
 
 const azureResourceManagementAPIVersion = '2019-04-01';
 const azureResourceManagementQueryFields = [

@@ -2,8 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-export interface AzureSubscription {
-    id: string;
-    tenantId: string;
-    subscriptionId: string;
+export interface AzureResourceManagementEndpoint {
+   authorizationToken: string;
+   endpoint: string;
 }

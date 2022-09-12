@@ -3,5 +3,6 @@
     "hostMode": "electron",
     "authMode": "connectionString",
     "controllerPort": 8081,
+    "azureResourceManagementEndpoint": "management.azure.com",
     "telemetryConnString": "InstrumentationKey=7ff6989f-09a7-439b-9492-071d8430f64a;IngestionEndpoint=https://westus2-2.in.applicationinsights.azure.com/;LiveEndpoint=https://westus2.livediagnostics.monitor.azure.com/"
 }
