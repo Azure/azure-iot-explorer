@@ -18,6 +18,10 @@ const realUseState = React.useState;
 jest
   .spyOn(React, 'useState')
   .mockImplementationOnce(() => realUseState('v10.0.0'));
+jest
+  .spyOn(React, 'useState')
+  .mockImplementationOnce(() => realUseState(true));
+
 
 describe('components/devices/appVersionMessageBar', () => {
     it('shows and hides message bar', () => {
