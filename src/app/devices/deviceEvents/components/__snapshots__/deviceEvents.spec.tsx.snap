@@ -59,7 +59,7 @@ exports[`deviceEvents deviceEvents in non-pnp context matches snapshot 1`] = `
     className="device-events-container"
   >
     <div
-      className="scrollable-telemetry"
+      className=""
     >
       <article
         className="device-events-content"
@@ -145,7 +145,7 @@ exports[`deviceEvents deviceEvents in pnp context matches snapshot while interfa
     className="device-events-container"
   >
     <div
-      className="scrollable-telemetry"
+      className=""
     />
   </div>
 </Stack>
@@ -210,7 +210,7 @@ exports[`deviceEvents deviceEvents in pnp context matches snapshot while interfa
     className="device-events-container"
   >
     <div
-      className="scrollable-telemetry"
+      className=""
     />
   </div>
 </Stack>

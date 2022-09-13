@@ -2,17 +2,11 @@
 
 exports[`ModelRepositoryInstruction matches snapshot 1`] = `
 <div
-  className="model-repository-empty"
+  className="model-repository-instruction"
 >
-  <h3
-    aria-level={1}
-    role="heading"
-  >
-    modelRepository.empty.header
-  </h3>
   <div>
     <span>
-      modelRepository.empty.description
+      modelRepository.description.description
     </span>
     <NavLink
       className="embedded-link"
@@ -31,8 +25,15 @@ exports[`ModelRepositoryInstruction matches snapshot 1`] = `
     href="settings.questions.questions.documentation.link"
     target="_blank"
   >
-    modelRepository.empty.help
+    modelRepository.description.help
   </StyledLinkBase>
+  <h3
+    aria-level={1}
+    role="heading"
+  >
+    modelRepository.description.header
+  </h3>
+  modelRepository.instruction
   <div
     className="privacy-statement"
   >
@@ -53,6 +54,35 @@ exports[`ModelRepositoryInstruction matches snapshot 2`] = `
 <div
   className="model-repository-instruction"
 >
+  <div>
+    <span>
+      modelRepository.description.description
+    </span>
+    <NavLink
+      className="embedded-link"
+      to="/home/repos"
+    >
+      Home.
+    </NavLink>
+  </div>
+  <h3
+    aria-level={1}
+    role="heading"
+  >
+    settings.questions.headerText
+  </h3>
+  <StyledLinkBase
+    href="settings.questions.questions.documentation.link"
+    target="_blank"
+  >
+    modelRepository.description.help
+  </StyledLinkBase>
+  <h3
+    aria-level={1}
+    role="heading"
+  >
+    modelRepository.description.header
+  </h3>
   modelRepository.instruction
   <div
     className="privacy-statement"

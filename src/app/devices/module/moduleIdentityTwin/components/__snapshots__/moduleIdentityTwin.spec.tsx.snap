@@ -30,11 +30,14 @@ exports[`moduleIdentityTwin snapshot matches snapshot after module twin is fetch
     }
   />
   <div
-    className="module-identity-detail"
+    className="device-detail"
   >
-    <JSONEditor
-      className="json-editor"
-      content="{
+    <article
+      className="device-twin"
+    >
+      <JSONEditor
+        className="json-editor"
+        content="{
 	\\"authenticationType\\": \\"sas\\",
 	\\"cloudToDeviceMessageCount\\": 0,
 	\\"connectionState\\": \\"Disconnected\\",
@@ -52,8 +55,9 @@ exports[`moduleIdentityTwin snapshot matches snapshot after module twin is fetch
 		\\"secondaryThumbprint\\": null
 	}
 }"
-      onChange={[Function]}
-    />
+        onChange={[Function]}
+      />
+    </article>
   </div>
 </Fragment>
 `;
@@ -88,7 +92,7 @@ exports[`moduleIdentityTwin snapshot matches snapshot while loading 1`] = `
     }
   />
   <div
-    className="module-identity-detail"
+    className="device-detail"
   >
     <MultiLineShimmer />
   </div>

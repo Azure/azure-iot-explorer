@@ -7,7 +7,7 @@
 @media screen and (min-width: $screenSize) {
     .device-twin {
         .json-editor {
-            height: calc(100vh - 300px);
+            min-height: 50vh;
         }
     }
 }

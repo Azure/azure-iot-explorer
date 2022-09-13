@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BackButton matches snapshot  1`] = `
+<CustomizedActionButton
+  iconProps={
+    Object {
+      "iconName": "back",
+    }
+  }
+  onClick={[MockFunction]}
+>
+  authentication.azureActiveDirectory.hubList.backButton
+</CustomizedActionButton>
+`;

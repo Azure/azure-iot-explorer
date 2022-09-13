@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AzureActiveDirectoryCommandBar matches snapshot when token is not present 1`] = `
+<StyledCommandBarBase
+  items={
+    Array [
+      Object {
+        "ariaLabel": "authentication.azureActiveDirectory.command.login",
+        "iconProps": Object {
+          "iconName": "Signin",
+        },
+        "key": "signin",
+        "onClick": [Function],
+        "text": "authentication.azureActiveDirectory.command.login",
+      },
+      Object {
+        "ariaLabel": "authentication.autheSelection.switchAuthType",
+        "iconProps": Object {
+          "iconName": "NavigateBack",
+        },
+        "key": "switch",
+        "onClick": [Function],
+        "text": "authentication.autheSelection.switchAuthType",
+      },
+    ]
+  }
+/>
+`;
+
+exports[`AzureActiveDirectoryCommandBar matches snapshot when token is present 1`] = `
+<StyledCommandBarBase
+  items={
+    Array [
+      Object {
+        "ariaLabel": "authentication.azureActiveDirectory.command.logout",
+        "iconProps": Object {
+          "iconName": "Signout",
+        },
+        "key": "signout",
+        "onClick": [Function],
+        "text": "authentication.azureActiveDirectory.command.logout",
+      },
+      Object {
+        "ariaLabel": "authentication.autheSelection.switchAuthType",
+        "iconProps": Object {
+          "iconName": "NavigateBack",
+        },
+        "key": "switch",
+        "onClick": [Function],
+        "text": "authentication.autheSelection.switchAuthType",
+      },
+    ]
+  }
+/>
+`;

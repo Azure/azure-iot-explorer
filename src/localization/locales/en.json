@@ -44,13 +44,15 @@
         },
         "notifications": {
             "show": "Notifications",
+            "title": "Notification center",
             "dismiss": "Clear all notifications",
             "panel": {
                 "title": "Notifications",
                 "noNotifications": "There are no new notifications for this session.",
                 "redirect": "Looking for notifications?",
                 "redirectLink": "Please visit Notification Center"
-            }
+            },
+            "copy": "Copy"
         },
         "questions": {
             "launch": "Open ???"
@@ -209,30 +211,14 @@
         "expirationWarning": "Your hub connection string is expiring in less than {{numberOfDays}} day(s). Please edit the connection string (by copying and pasting again) to extend, or you will have to re-add it once it expires."
     },
     "connectivityPane": {
-        "header": "App configurations",
         "connectionStringComboBox": {
-            "ariaLabel": "Select or type an Iot hub connection string",
-            "ariaLabelRemove": "Remove connection to host {{hostName}}",
             "link": "https://aka.ms/iot-connection-strings",
             "linkText": "Where do I get an IoT hub connection string?",
-            "item": {
-                "ariaLabel": "Connection to host {{hostName}} with shared access key for {{sharedAccessKeyName}}"
-            },
-            "label": "Select or type an IoT hub connection string",
             "errorMessages": {
                 "required": "Connection string is required",
                 "invalid": "Invalid connection string"
             },
-            "prompt": "Select a saved connection string or paste a new connection string here",
             "warning": "Please do not save your hub connection string to any unsafe locations"
-        },
-        "notes": "The most recent connection strings will be saved in application storage. You can open Settings at any time to remove saved connection strings or change other configuration options.",
-        "saveButton": {
-            "label": "Connect"
-        },
-        "dropDown": {
-            "newEntry": "(New) Add a IoT hub connection string",
-            "copyButton": "Copy connection string to clipboard"
         }
     },
     "deviceIdentity": {
@@ -533,6 +519,18 @@
                 "response": "Response schema"
             },
             "type": "Command type"
+        },
+        "confirmSend": {
+            "title": "Confirm Send",
+            "body":"One or more fields are empty or invalid, do you still want to send this command?",
+            "yes": {
+                "label": "Send Anyway",
+                "ariaLabel": "Send command anyway"
+            },
+            "no": {
+                "label": "Cancel",
+                "ariaLabel": "Cancel command"
+            }
         }
     },
     "deviceInterfaces": {
@@ -881,8 +879,8 @@
         }
     },
     "modelRepository" : {
-        "empty": {
-            "header": "No model repository locations to display",
+        "description": {
+            "header": "Model Repository Locations:",
             "description": "Model repository locations specify where the application looks to find IoT Plug and Play model definitions. Locations are saved to application storage and can be edited or removed at any time by returning",
             "help": "What is IoT Plug and Play"
         },
@@ -959,5 +957,49 @@
             },
             "notAvailable": "--"
         }
+    },
+    "authentication": {
+        "autheSelection": {
+            "header": "Welcome to Azure IoT Explorer, a cross-platform UI for interacting with devices attached to Azure IoT Hub",
+            "subText": "Choose an authentication method and connect to an Azure IoT hub",
+            "selection": {
+                "azureActiveDirectory": "Connect via Azure Active Directory",
+                "connectionString": "Connect via IoT Hub connection string"
+            },
+            "switchAuthType": "Switch authentication method"
+        },
+        "azureActiveDirectory" : {
+            "command": {
+                "login": "Login",
+                "logout": "Logout"
+            },
+            "notification": {
+                "loginError": "Failed to login",
+                "logoutError": "Failed to logout",
+                "getsubscriptionListError": "Failed to get subscription list: {{error}}",
+                "getIotHubListError": "Failed to get IoT hubs under subscription {{id}} list: {{error}}",
+                "getIotHubKeyError": "Failed to get an IoT hub key with proper rights to enable full functionality of the IoT Explorer: {{error}}"
+            },
+            "subscriptionList": {
+                "columns": {
+                    "id": "Id",
+                    "name": "Subscription name",
+                    "state": "State"
+                },
+                "noItemText": "There are no subscriptions to show."
+            },
+            "hubList": {
+                "columns": {
+                    "location": "Location",
+                    "name": "IoT Hub name"
+                },
+                "backButton": "Back to subscription list",
+                "noItemText": "There are no IoT hubs under this subscription."
+            },
+            "filter": {
+                "placeHolder": "Filter by name"
+            }
+        }
+
     }
 }

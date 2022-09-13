@@ -10,7 +10,6 @@ import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString, getModuleIdentityIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { REFRESH, SAVE } from '../../../../constants/iconNames';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
-import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../../constants/routes';
 import { getModuleIdentityTwinAction, updateModuleIdentityTwinAction } from '../actions';
 import { MultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
 import { useAsyncSagaReducer } from '../../../../shared/hooks/useAsyncSagaReducer';
@@ -19,9 +18,8 @@ import { moduleTwinReducer } from '../reducer';
 import { moduleIdentityTwinSagas } from '../saga';
 import { moduleTwinStateInitial } from '../state';
 import '../../../../css/_deviceDetail.scss';
-import '../../../../css/_moduleIdentityDetail.scss';
 import { AppInsightsClient } from '../../../../shared/appTelemetry/appInsightsClient';
-import { TELEMETRY_PAGE_NAMES } from '../../../../../app/constants/telemetry';
+import { TELEMETRY_PAGE_NAMES, TELEMETRY_USER_ACTIONS } from '../../../../../app/constants/telemetry';
 
 export const ModuleIdentityTwin: React.FC = () => {
     const { t } = useTranslation();
@@ -55,6 +53,7 @@ export const ModuleIdentityTwin: React.FC = () => {
             isDirty: false,
             isTwinValid: true
         });
+        AppInsightsClient.trackUserAction(TELEMETRY_USER_ACTIONS.UPDATE_MODULE_TWIN);
         dispatch(updateModuleIdentityTwinAction.started(JSON.parse(state.twin)));
     };
 
@@ -86,11 +85,11 @@ export const ModuleIdentityTwin: React.FC = () => {
 
     const showModuleTwin = () => {
         if (moduleIdentityTwinSyncStatus === SynchronizationStatus.working || moduleIdentityTwinSyncStatus === SynchronizationStatus.updating) {
-            return <MultiLineShimmer className="module-identity-detail"/>;
+            return <MultiLineShimmer/>;
         }
 
         return (
-            <>
+            <article className="device-twin">
                 {moduleIdentityTwin &&
                     <JSONEditor
                         content={JSON.stringify(moduleIdentityTwin, null, '\t')}
@@ -98,7 +97,7 @@ export const ModuleIdentityTwin: React.FC = () => {
                         onChange={onChange}
                     />
                 }
-            </>
+            </article>
         );
     };
 
@@ -118,15 +117,10 @@ export const ModuleIdentityTwin: React.FC = () => {
         });
     };
 
-    const navigateToModuleList = () => {
-        const path = pathname.replace(/\/moduleIdentity\/moduleTwin\/.*/, `/${ROUTE_PARTS.MODULE_IDENTITY}`);
-        history.push(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
-    };
-
     return (
         <>
             {showCommandBar()}
-            <div className="module-identity-detail">
+            <div className="device-detail">
                 {moduleIdentityTwinSyncStatus === SynchronizationStatus.working ?
                     <MultiLineShimmer/> :
                     showModuleTwin()

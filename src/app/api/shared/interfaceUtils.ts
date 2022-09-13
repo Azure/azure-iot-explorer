@@ -7,12 +7,12 @@ import { DeviceInterface } from '../../../../public/interfaces/deviceInterface';
 import { DirectoryInterface } from '../../../../public/interfaces/directoryInterface';
 import { ModelRepositoryInterface } from '../../../../public/interfaces/modelRepositoryInterface';
 import { EventHubInterface } from './../../../../public/interfaces/eventHubInterface';
+import { AuthenticationInterface } from './../../../../public/interfaces/authenticationInterface';
 import { API_INTERFACES } from '../../../../public/constants';
 import { appConfig, HostMode } from '../../../appConfig/appConfig';
 import { HIGH_CONTRAST } from '../../constants/browserStorage';
 import { LocalRepoServiceHandler } from '../legacy/localRepoServiceHandler';
 import { DevicesServiceHandler } from '../legacy/devicesServiceHandler';
-import { PublicDigitalTwinsModelRepoHandler } from '../legacy/publicDigitalTwinsModelRepoHandler';
 import { EventHubServiceHandler } from '../legacy/eventHubServiceHandler';
 import { PublicDigitalTwinsModelRepoHelper, PublicDigitalTwinsModelInterface } from '../services/publicDigitalTwinsModelRepoHelper';
 
@@ -65,11 +65,15 @@ export const getEventHubInterface = (): EventHubInterface => {
 };
 
 export const getPublicDigitalTwinsModelInterface = (): PublicDigitalTwinsModelInterface => {
+    return new PublicDigitalTwinsModelRepoHelper();
+};
+
+export const getAuthenticationInterface = (): AuthenticationInterface => {
     if (appConfig.hostMode !== HostMode.Electron) {
-        return new PublicDigitalTwinsModelRepoHandler();
+        throw new Error(NOT_AVAILABLE);
     }
 
-    return new PublicDigitalTwinsModelRepoHelper();
+    return getElectronInterface(API_INTERFACES.AUTHENTICATION);
 };
 
 export const getElectronInterface = <T>(name: string): T => {

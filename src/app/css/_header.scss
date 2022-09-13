@@ -1,24 +1,30 @@
 /***********************************************************
- * Copyright (c) Microsoft Corporation. All rights reserved.
- * Licensed under the MIT License
- **********************************************************/
+* Copyright (c) Microsoft Corporation. All rights reserved.
+* Licensed under the MIT License
+**********************************************************/
 @import 'variables';
 @import 'themes';
 
 @media screen and (min-width: $screenSize) {
-    .header {
+    header {
+        padding-bottom: 5px;
         display: grid;
-        grid-template-areas: 'title search notifications settings questions';
-        grid-template-columns: 1fr 150px 100px;
-        line-height: 20px;
-        height: 45px;
+        grid-template-areas: 'title . settings';
+        grid-template-columns: 1fr 3.5fr 0.3fr;
         .title {
-            margin-top: 10px;
+            grid-area: title;
+            padding-bottom: 5px;
         }
+
+        .settings {
+            grid-area: settings;
+        }
+
     }
 }
+
 @media screen and (max-width: $screenSize) {
-    .header {
+    header {
         margin-bottom: 3px;
         padding-bottom: 3px;
         .title {
@@ -28,8 +34,6 @@
 }
 
 .header {
-    width: 100%;
-
     .title {
         grid-area: title;
 

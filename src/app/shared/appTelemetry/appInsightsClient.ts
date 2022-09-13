@@ -1,5 +1,8 @@
 import { ApplicationInsights } from '@microsoft/applicationinsights-web';
+import { TELEMETRY_EVENTS, TELEMETRY_USER_ACTIONS } from '../../constants/telemetry';
 import { appConfig } from '../../../appConfig/appConfig';
+import { isMicrosoftInternalDomain } from '../utils/utils';
+
 export class AppInsightsClient {
     private static instance: ApplicationInsights;
 
@@ -11,7 +14,7 @@ export class AppInsightsClient {
             } });
             try {
                 appInsights.loadAppInsights();
-                appInsights.trackEvent({name: `INIT`}, {type: 'init'});
+                appInsights.trackEvent({name: TELEMETRY_EVENTS.INTERNAL_USER}, {isInternal: isMicrosoftInternalDomain()});
                 AppInsightsClient.instance = appInsights;
             } catch (e) {
                 // tslint:disable-next-line:no-console
@@ -20,5 +23,9 @@ export class AppInsightsClient {
         }
 
         return AppInsightsClient.instance;
+    }
+
+    public static trackUserAction(userAction: TELEMETRY_USER_ACTIONS) {
+        AppInsightsClient.getInstance()?.trackEvent({name: TELEMETRY_EVENTS.USER_ACTION}, {action: userAction});
     }
 }

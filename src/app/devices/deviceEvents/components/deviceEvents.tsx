@@ -532,7 +532,7 @@ export const DeviceEvents: React.FC = () => {
             />
             <div className="device-events-container">
                 {renderLoader()}
-                <div className={componentName ? 'scrollable-pnp-telemetry' : 'scrollable-telemetry'}>
+                <div className={componentName ? 'pnp-telemetry' : ''}>
                     {showPnpModeledEvents ? renderPnpModeledEvents() : renderRawEvents()}
                 </div>
             </div>

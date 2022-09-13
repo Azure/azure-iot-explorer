@@ -15,6 +15,8 @@ import { getComponentNameFromQueryString, getDeviceIdFromQueryString } from '../
 import { usePnpStateContext } from '../../../shared/contexts/pnpStateContext';
 import './deviceEvents.scss';
 import { getBackUrl } from '../../pnp/utils';
+import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
+import { TELEMETRY_USER_ACTIONS } from '../../../../app/constants/telemetry';
 
 export interface CommandsProps {
     startDisabled: boolean;
@@ -181,6 +183,11 @@ export const Commands: React.FC<CommandsProps> = ({
         } else {
             fetchData();
             setMonitoringData(true);
+            if (componentName) {
+                AppInsightsClient.trackUserAction(TELEMETRY_USER_ACTIONS.PNP_START_TELEMETRY);
+            } else {
+                AppInsightsClient.trackUserAction(TELEMETRY_USER_ACTIONS.START_DEVICE_TELEMETRY);
+            }
         }
     };
 

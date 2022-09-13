@@ -5,61 +5,55 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
-import { CommandBar } from '@fluentui/react';
 import { ConnectionString  } from './connectionString';
 import { ConnectionStringEditView } from './connectionStringEditView';
 import { ResourceKeys } from '../../../localization/resourceKeys';
-import { CONNECTION_STRING_LIST_MAX_LENGTH } from '../../constants/browserStorage';
-import { upsertConnectionStringAction, deleteConnectionStringAction, setConnectionStringsAction } from '../actions';
 import { ROUTE_PARTS } from '../../constants/routes';
 import { formatConnectionStrings, getExpiryDateInUtcString } from '../../shared/utils/hubConnectionStringHelper';
 import { ConnectionStringsEmpty } from './connectionStringsEmpty';
-import { useAsyncSagaReducer } from '../../shared/hooks/useAsyncSagaReducer';
-import { connectionStringsReducer } from '../reducer';
-import { connectionStringsSaga } from '../sagas';
-import { connectionStringsStateInitial, ConnectionStringWithExpiry } from '../state';
+import {  ConnectionStringWithExpiry } from '../state';
 import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
 import { MultiLineShimmer } from '../../shared/components/multiLineShimmer';
 import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
-import { getConnectionStringsAction } from './../actions';
 import { useBreadcrumbEntry } from '../../navigation/hooks/useBreadcrumbEntry';
+import { AppInsightsClient } from '../../shared/appTelemetry/appInsightsClient';
+import { TELEMETRY_PAGE_NAMES } from '../../constants/telemetry';
+import { useConnectionStringContext } from '../context/connectionStringStateContext';
+import { ConnectionStringCommandBar } from './commandBar';
 import '../../css/_layouts.scss';
 import './connectionStringsView.scss';
-import { AppInsightsClient } from '../../shared/appTelemetry/appInsightsClient';
-import { TELEMETRY_PAGE_NAMES } from '../../../app/constants/telemetry';
 
 // tslint:disable-next-line: cyclomatic-complexity
 export const ConnectionStringsView: React.FC = () => {
     const { t } = useTranslation();
     const history = useHistory();
     useBreadcrumbEntry({name: t(ResourceKeys.breadcrumb.resources)});
-
-    const [ localState, dispatch ] = useAsyncSagaReducer(connectionStringsReducer, connectionStringsSaga, connectionStringsStateInitial(), 'connectionStringsState');
+    const [ state, api ] = useConnectionStringContext();
     const [ connectionStringUnderEdit, setConnectionStringUnderEdit ] = React.useState<string>(undefined);
 
-    const connectionStringsWithExpiry = localState.payload;
-    const synchronizationStatus = localState.synchronizationStatus;
+    const connectionStringsWithExpiry = state.payload;
+    const synchronizationStatus = state.synchronizationStatus;
 
     const onUpsertConnectionString = (newConnectionString: string, connectionString: string) => {
         if (newConnectionString !== connectionString) {
             // replacing a connection string with new connection string
-            dispatch(deleteConnectionStringAction.started(connectionString));
+            api.deleteConnectionString(connectionString);
         }
 
         const stringWithExpiry: ConnectionStringWithExpiry = {
             connectionString: newConnectionString,
             expiration: getExpiryDateInUtcString()
         };
-        dispatch(upsertConnectionStringAction.started(stringWithExpiry));
+        api.upsertConnectionString(stringWithExpiry);
     };
 
     const onDeleteConnectionString = (connectionString: string) => {
-        dispatch(deleteConnectionStringAction.started(connectionString));
+        api.deleteConnectionString(connectionString);
     };
 
     const onSelectConnectionString = (connectionString: string) => {
         const updatedConnectionStrings = formatConnectionStrings(connectionStringsWithExpiry, connectionString);
-        dispatch(setConnectionStringsAction.started(updatedConnectionStrings));
+        api.setConnectionStrings(updatedConnectionStrings);
     };
 
     const onAddConnectionStringClick = () => {
@@ -80,7 +74,7 @@ export const ConnectionStringsView: React.FC = () => {
     };
 
     React.useEffect(() => {
-        dispatch(getConnectionStringsAction.started());
+        api.getConnectionStrings();
     },              []);
 
     React.useEffect(() => {
@@ -101,39 +95,22 @@ export const ConnectionStringsView: React.FC = () => {
     }
 
     return (
-        <div className="view">
-            <div className="view-command">
-                <CommandBar
-                    items={[
-                        {
-                            ariaLabel: t(ResourceKeys.connectionStrings.addConnectionCommand.ariaLabel),
-                            disabled: connectionStringsWithExpiry.length >= CONNECTION_STRING_LIST_MAX_LENGTH,
-                            iconProps: { iconName: 'Add' },
-                            key: 'add',
-                            onClick: onAddConnectionStringClick,
-                            text: t(ResourceKeys.connectionStrings.addConnectionCommand.label)
-                        }
-                    ]}
-                />
+        <div>
+            <ConnectionStringCommandBar onAddConnectionStringClick={onAddConnectionStringClick}/>
+            <div className="connection-strings">
+                {connectionStringsWithExpiry.map(connectionStringWithExpiry =>
+                    <ConnectionString
+                        key={connectionStringWithExpiry.connectionString}
+                        connectionStringWithExpiry={connectionStringWithExpiry}
+                        onEditConnectionString={onEditConnectionStringClick}
+                        onDeleteConnectionString={onDeleteConnectionString}
+                        onSelectConnectionString={onSelectConnectionString}
+                    />
+                )}
             </div>
-            <div className="view-scroll-vertical">
-                <div className="connection-strings">
-                    {connectionStringsWithExpiry.map(connectionStringWithExpiry =>
-                        <ConnectionString
-                            key={connectionStringWithExpiry.connectionString}
-                            connectionStringWithExpiry={connectionStringWithExpiry}
-                            onEditConnectionString={onEditConnectionStringClick}
-                            onDeleteConnectionString={onDeleteConnectionString}
-                            onSelectConnectionString={onSelectConnectionString}
-                        />
-                    )}
-                </div>
-
-                {(!connectionStringsWithExpiry || connectionStringsWithExpiry.length === 0) &&
-                    <ConnectionStringsEmpty/>
-                }
-
-            </div>
+            {(!connectionStringsWithExpiry || connectionStringsWithExpiry.length === 0) &&
+                <ConnectionStringsEmpty/>
+            }
             {connectionStringUnderEdit !== undefined &&
                 <ConnectionStringEditView
                     connectionStringUnderEdit={connectionStringUnderEdit}

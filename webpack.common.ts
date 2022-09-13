@@ -47,7 +47,14 @@ const config: webpack.Configuration = {
                 to: 'images',
               }
             ]
-        })
+        }),
+        new webpack.DefinePlugin({
+            process: {
+              env: {
+                userdnsdomain: JSON.stringify(process.env.userdnsdomain),
+              },
+            },
+          })
     ],
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.

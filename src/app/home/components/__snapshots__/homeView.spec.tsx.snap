@@ -4,10 +4,10 @@ exports[`HomeView matches snapshot 1`] = `
 <Fragment>
   <AppVersionMessageBar />
   <div
-    className="view-content home-view"
+    className="mainarea"
   >
     <div
-      className="nav"
+      className="mainleftnav"
     >
       <HomeViewNavigation
         appMenuVisible={true}
@@ -15,30 +15,32 @@ exports[`HomeView matches snapshot 1`] = `
       />
     </div>
     <div
-      className="home-content"
+      className="maincontent"
     >
-      <Switch>
-        <Redirect
-          exact={true}
-          from="/home"
-          to="/home/resources"
-        />
-        <Route
-          component={[Function]}
-          exact={true}
-          path="/home/resources"
-        />
-        <Route
-          component={[Function]}
-          exact={true}
-          path="/home/repos"
-        />
-        <Route
-          component={[Function]}
-          exact={true}
-          path="/home/notifications"
-        />
-      </Switch>
+      <AuthenticationStateContextProvider>
+        <Switch>
+          <Redirect
+            exact={true}
+            from="/home"
+            to="/home/resources"
+          />
+          <Route
+            component={[Function]}
+            exact={true}
+            path="/home/resources"
+          />
+          <Route
+            component={[Function]}
+            exact={true}
+            path="/home/repos"
+          />
+          <Route
+            component={[Function]}
+            exact={true}
+            path="/home/notifications"
+          />
+        </Switch>
+      </AuthenticationStateContextProvider>
     </div>
   </div>
 </Fragment>

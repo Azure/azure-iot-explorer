@@ -5,7 +5,6 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useRouteMatch } from 'react-router-dom';
-import { IconButton } from '@fluentui/react';
 import { DeviceIdentityInformation } from './deviceIdentity';
 import { DeviceTwin } from '../../deviceTwin/components/deviceTwin';
 import { DeviceEvents } from '../../deviceEvents/components/deviceEvents';
@@ -13,7 +12,6 @@ import { DirectMethod } from '../../directMethod/components/directMethod';
 import { CloudToDeviceMessage } from '../../cloudToDeviceMessage/components/cloudToDeviceMessage';
 import { DeviceContentNavComponent } from './deviceContentNav';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { NAV } from '../../../constants/iconNames';
 import { ROUTE_PARAMS, ROUTE_PARTS } from '../../../constants/routes';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import { MultiLineShimmer } from '../../../shared/components/multiLineShimmer';
@@ -27,9 +25,10 @@ import { useBreadcrumbEntry } from '../../../navigation/hooks/useBreadcrumbEntry
 import { BreadcrumbRoute } from '../../../navigation/components/breadcrumbRoute';
 import { DeviceIdentity } from '../../../api/models/deviceIdentity';
 import { Pnp } from '../../pnp/components/pnp';
+import { DeviceModules } from './deviceModules';
+import { CollapsibleButton } from '../../../shared/components/collapsibleButton';
 import '../../../css/_deviceContent.scss';
 import '../../../css/_layouts.scss';
-import { DeviceModules } from './deviceModules';
 
 export const DeviceContent: React.FC = () => {
     const { t } = useTranslation();
@@ -52,17 +51,12 @@ export const DeviceContent: React.FC = () => {
 
     const renderNav = () => {
         return (
-            <div className={'device-content-nav-bar' + (!appMenuVisible ? ' collapsed' : '')}>
-                <div className="navToggle">
-                    <IconButton
-                        tabIndex={0}
-                        iconProps={{ iconName: NAV }}
-                        title={appMenuVisible ? t(ResourceKeys.common.navigation.collapse) : t(ResourceKeys.common.navigation.expand)}
-                        ariaLabel={appMenuVisible ? t(ResourceKeys.common.navigation.collapse) : t(ResourceKeys.common.navigation.expand)}
-                        onClick={collapseToggle}
-                    />
-                </div>
+            <div className={'mainleftnav' + (!appMenuVisible ? ' collapsed' : '')}>
                 <div className="nav-links">
+                    <CollapsibleButton
+                        appMenuVisible={appMenuVisible}
+                        setAppMenuVisible={setAppMenuVisible}
+                    />
                     {createNavLinks()}
                 </div>
             </div>
@@ -84,7 +78,7 @@ export const DeviceContent: React.FC = () => {
 
     const renderDeviceContentDetail = () => {
         return (
-            <div className={'device-content-detail' + (!appMenuVisible ? ' collapsed' : '')}>
+            <div className="device-content-detail maincontent">
                 <BreadcrumbRoute
                     path={`${url}/${ROUTE_PARTS.IDENTITY}`}
                     breadcrumb={{ name: t(ResourceKeys.breadcrumb.identity) }}
@@ -149,11 +143,9 @@ export const DeviceContent: React.FC = () => {
     return (
         <>
             {deviceId &&
-                <div className="edit-content">
-                    <div className="device-content">
-                        {renderNav()}
-                        {renderDeviceContentDetail()}
-                    </div>
+                <div className={'device-content mainarea' + (!appMenuVisible ? ' collapsed' : '')}>
+                    {renderNav()}
+                    {renderDeviceContentDetail()}
                 </div>
             }
         </>

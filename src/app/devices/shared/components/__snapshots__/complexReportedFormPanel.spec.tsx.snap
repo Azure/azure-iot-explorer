@@ -1,19 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`complexReportedFormPanel matches snapshot without twinWithSchema 1`] = `
-<dialog
-  open={false}
-  role="dialog"
+<StyledPanelBase
+  isLightDismiss={true}
+  isOpen={false}
+  onDismiss={[MockFunction]}
+  type={3}
 >
-  <CustomizedIconButton
-    className="close-dialog-icon"
-    iconProps={
-      Object {
-        "iconName": "ChromeClose",
-      }
-    }
-    onClick={[MockFunction]}
-  />
   <div
     className="panel-title"
   >
@@ -68,5 +61,5 @@ exports[`complexReportedFormPanel matches snapshot without twinWithSchema 1`] = 
       <br />
     </Form>
   </ErrorBoundary>
-</dialog>
+</StyledPanelBase>
 `;

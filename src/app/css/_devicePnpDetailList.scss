@@ -73,7 +73,6 @@
 }
 
 .list-content {
-    width: calc(100% - 2px);
     .list-item {
         .column-value-text {
             .column-value-button {
@@ -153,11 +152,10 @@
         position: fixed;
         top: 0;
         padding: 15px;
-        height: calc(100% - #{$mastheadHeight});
+        height: 100vh;
         left: calc(50% - 30px);
         border: none;
         overflow: auto;
-        margin-top: $mastheadHeight;
         z-index: 1;
 
         .panel-title {
@@ -175,16 +173,5 @@
     }
     .close-dialog-icon {
         float: right;
-    }
-}
-
-.ms-Panel-main {
-    margin-top: 45px;
-}
-
-@media screen and (min-width: $screenSize) {
-    .scrollable-lg {
-        height: calc(100vh - 245px);
-        overflow-y: auto;
     }
 }

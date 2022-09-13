@@ -23,6 +23,8 @@ import { addDeviceAction } from '../actions';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
 import '../../../css/_addDevice.scss';
 import '../../../css/_layouts.scss';
+import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
+import { TELEMETRY_USER_ACTIONS } from '../../../constants/telemetry';
 
 const initialKeyValue = {
     error: '',
@@ -350,15 +352,14 @@ export const AddDevice: React.FC = () => {
         // Prevent page refresh
         event.preventDefault();
         const deviceIdentity = getDeviceIdentity();
+        AppInsightsClient.trackUserAction(TELEMETRY_USER_ACTIONS.ADD_DEVICE);
         dispatch(addDeviceAction.started(deviceIdentity));
     };
 
     return (
-        <form onSubmit={onSaveHandler} className="view add-device">
-            <div className="view-command">
-                {showCommandBar()}
-            </div>
-            <div className="view-content view-scroll-vertical">
+        <form onSubmit={onSaveHandler} className="add-device">
+            {showCommandBar()}
+            <div>
                 <div className="form">
                     {showDeviceId()}
                     {showAuthentication()}

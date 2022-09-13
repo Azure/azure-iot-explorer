@@ -25,6 +25,23 @@ export enum TELEMETRY_PAGE_NAMES {
 
 }
 
-export enum TELEMETRY_ACTIONS {
-    ADD = 'add',
+export enum TELEMETRY_EVENTS {
+    FETCH_DEVICES = 'fetch_devices',
+    INTERNAL_USER = 'internal_user',
+    UPDATE_BANNER = 'update_banner',
+    USER_ACTION = 'user_action'
+}
+
+export enum TELEMETRY_USER_ACTIONS {
+    UPDATE_DEVICE_TWIN = 'update_device_twin',
+    START_DEVICE_TELEMETRY = 'start_device_telemetry',
+    DEVICE_INVOKE_DIRECT_METHOD = 'device_invoke_direct_method',
+    SEND_C2D_MESSAGE = 'send_c2d_message',
+    ADD_DEVICE = 'add_device',
+    ADD_MODULE = 'add_module',
+    UPDATE_MODULE_TWIN = 'update_module_twin',
+    MODULE_INVOKE_DIRECT_METHOD = 'module_invoke_direct_method',
+    PNP_SEND_COMMAND = 'pnp_send_command',
+    PNP_UPDATE_PROPERTY = 'pnp_update_property',
+    PNP_START_TELEMETRY = 'pnp_start_telemetry'
 }

@@ -5,8 +5,9 @@
 import { CONTROLLER_API_ENDPOINT, DATAPLANE, DataPlaneStatusCode, HTTP_OPERATION_TYPES } from '../../constants/apiConstants';
 import { getConnectionInfoFromConnectionString, generateSasToken } from '../shared/utils';
 import { PortIsInUseError } from '../models/portIsInUseError';
-import { CONNECTION_STRING_NAME_LIST } from '../../constants/browserStorage';
+import { AUTHENTICATION_METHOD_PREFERENCE, CONNECTION_STRING_NAME_LIST, CONNECTION_STRING_THROUGH_AAD } from '../../constants/browserStorage';
 import { getActiveConnectionString } from '../../shared/utils/hubConnectionStringHelper';
+import { AuthenticationMethodPreference } from '../../authentication/state';
 
 export const DATAPLANE_CONTROLLER_ENDPOINT = `${CONTROLLER_API_ENDPOINT}${DATAPLANE}`;
 
@@ -38,9 +39,18 @@ export const request = async (endpoint: string, parameters: any) => { // tslint:
     );
 };
 
+export const getConnectionStringHelper = async () => {
+    const authSelection = await localStorage.getItem(AUTHENTICATION_METHOD_PREFERENCE);
+    if (authSelection === AuthenticationMethodPreference.ConnectionString) {
+        return getActiveConnectionString(await localStorage.getItem(CONNECTION_STRING_NAME_LIST));
+    }
+    else {
+        return localStorage.getItem(CONNECTION_STRING_THROUGH_AAD);
+    }
+};
+
 export const dataPlaneConnectionHelper = async () => {
-    const connectionStrings = await localStorage.getItem(CONNECTION_STRING_NAME_LIST);
-    const connectionString = getActiveConnectionString(connectionStrings);
+    const connectionString = await getConnectionStringHelper();
     const connectionInfo = getConnectionInfoFromConnectionString(connectionString);
     if (!(connectionInfo && connectionInfo.hostName)) {
         return;

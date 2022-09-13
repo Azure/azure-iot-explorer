@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { DetailsList, DetailsListLayoutMode, IColumn, CheckboxVisibility, Label, Overlay, ActionButton } from '@fluentui/react';
+import { DetailsList, DetailsListLayoutMode, IColumn, CheckboxVisibility, Label, Overlay, ActionButton, Dialog, Panel, PanelType } from '@fluentui/react';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 import { RenderSimplyTypeValue } from '../../../shared/components/simpleReportedSection';
@@ -118,16 +118,15 @@ export const DevicePropertiesPerInterface: React.FC<DevicePropertiesDataProps> =
         }
         const { reportedTwin, propertyModelDefinition: modelDefinition, propertySchema: schema } = selectedItem;
         return (
-            <div role="dialog">
-                {showReportedValuePanel &&
+            <Panel type={PanelType.medium} isOpen={showReportedValuePanel} isLightDismiss={true}>
                     <ComplexReportedFormPanel
                         showPanel={showReportedValuePanel}
                         formData={reportedTwin}
                         handleDismiss={removeOverlay}
                         schema={schema}
                         modelDefinition={modelDefinition}
-                    />}
-            </div>
+                    />
+            </Panel>
         );
     };
 

@@ -21,6 +21,8 @@ import { addModuleIdentitySaga } from '../saga';
 import { addModuleStateInitial } from '../state';
 import { addModuleIdentityAction } from '../actions';
 import '../../../../css/_deviceDetail.scss';
+import { AppInsightsClient } from '../../../../shared/appTelemetry/appInsightsClient';
+import { TELEMETRY_USER_ACTIONS } from '../../../../constants/telemetry';
 
 const initialKeyValue = {
     error: '',
@@ -201,6 +203,7 @@ export const AddModuleIdentity: React.FC = () => {
     };
 
     const handleSave = () => {
+        AppInsightsClient.trackUserAction(TELEMETRY_USER_ACTIONS.ADD_MODULE);
         dispatch(addModuleIdentityAction.started({
             authentication: {
                 symmetricKey: authenticationType === DeviceAuthenticationType.SymmetricKey ? {
