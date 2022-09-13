@@ -10,7 +10,6 @@ import { PLATFORMS, MESSAGE_CHANNELS } from './constants';
 import { onSettingsHighContrast } from './handlers/settingsHandler';
 import { onGetInterfaceDefinition } from './handlers/modelRepositoryHandler';
 import { onGetDirectories } from './handlers/directoryHandler';
-import { onSendMessageToDevice } from './handlers/deviceHandler';
 import { onStartMonitoring, onStopMonitoring } from './handlers/eventHubHandler';
 import { formatError } from './utils/errorHelper';
 import { AuthProvider } from './utils/authProvider';
@@ -34,7 +33,6 @@ class Main {
         Main.registerHandler(MESSAGE_CHANNELS.SETTING_HIGH_CONTRAST, onSettingsHighContrast);
         Main.registerHandler(MESSAGE_CHANNELS.MODEL_REPOSITORY_GET_DEFINITION, onGetInterfaceDefinition);
         Main.registerHandler(MESSAGE_CHANNELS.DIRECTORY_GET_DIRECTORIES, onGetDirectories);
-        Main.registerHandler(MESSAGE_CHANNELS.DEVICE_SEND_MESSAGE, onSendMessageToDevice);
         Main.registerHandler(MESSAGE_CHANNELS.EVENTHUB_START_MONITORING, onStartMonitoring);
         Main.registerHandler(MESSAGE_CHANNELS.EVENTHUB_STOP_MONITORING, onStopMonitoring);
         Main.registerHandler(MESSAGE_CHANNELS.AUTHENTICATION_LOGIN, Main.onLogin);
