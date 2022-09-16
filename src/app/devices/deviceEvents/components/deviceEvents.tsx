@@ -38,6 +38,7 @@ import { StartTime } from './startTime';
 import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
 import { TELEMETRY_PAGE_NAMES } from '../../../../app/constants/telemetry';
 import './deviceEvents.scss';
+import { DeviceDecoderPanel } from './deviceDecoderPanel';
 
 const JSON_SPACES = 2;
 const LOADING_LOCK = 8000;
@@ -49,8 +50,9 @@ export const DeviceEvents: React.FC = () => {
     const moduleId = getModuleIdentityIdFromQueryString(search);
 
     const [localState, dispatch] = useAsyncSagaReducer(deviceEventsReducer, EventMonitoringSaga, deviceEventsStateInitial(), 'deviceEventsState');
-    const synchronizationStatus = localState.synchronizationStatus;
-    const events = localState.payload;
+    const synchronizationStatus = localState.message.synchronizationStatus;
+    const events = localState.message.payload ? localState.message.payload : [] ;
+    const decoderPrototype = localState.decoder.payload?.decoderPrototype;
 
     // event hub settings
     const [consumerGroup, setConsumerGroup] = React.useState(DEFAULT_CONSUMER_GROUP);
@@ -80,10 +82,8 @@ export const DeviceEvents: React.FC = () => {
     // simulation specific
     const [showSimulationPanel, setShowSimulationPanel] = React.useState(false);
 
-    // // message decoder specific
-    const [decoderProtoFile, setDecoderProtoFile] = React.useState<File>();
-    const [decoderPrototype, setDecoderPrototype] = React.useState<Type | undefined>(undefined);
-    const [decoderType, setDecoderType] = React.useState<string>('');
+    // message decoder specific
+    const [showDecoderPanel, setShowDecoderPanel] = React.useState(false);
 
     React.useEffect(
         () => {
@@ -143,7 +143,7 @@ export const DeviceEvents: React.FC = () => {
                 stopMonitoring();
             }
         },
-        [synchronizationStatus]);
+        [synchronizationStatus, decoderPrototype]);
 
     const renderCommands = () => {
         return (
@@ -154,10 +154,12 @@ export const DeviceEvents: React.FC = () => {
                 showSystemProperties={showSystemProperties}
                 showPnpModeledEvents={showPnpModeledEvents}
                 showSimulationPanel={showSimulationPanel}
+                showDecoderPanel={showDecoderPanel}
                 setMonitoringData={setMonitoringData}
                 setShowSystemProperties={setShowSystemProperties}
                 setShowPnpModeledEvents={setShowPnpModeledEvents}
                 setShowSimulationPanel={setShowSimulationPanel}
+                setShowDecoderPanel={setShowDecoderPanel}
                 dispatch={dispatch}
                 fetchData={fetchData(true)}
             />
@@ -229,11 +231,11 @@ export const DeviceEvents: React.FC = () => {
     };
 
     const renderRawEvents = () => {
-        const filteredEvents = componentName ? events.filter(result => filterMessage(result)) : events;
+        const filteredEvents = componentName ? events?.filter(result => filterMessage(result)) : events;
         return (
             <>
                 {
-                    filteredEvents && filteredEvents.map((event: Message, index) => {
+                    filteredEvents && filteredEvents?.map((event: Message, index) => {
                         const modifiedEvents = showSystemProperties ? event : {
                             body: event.body,
                             enqueuedTime: event.enqueuedTime,
@@ -519,54 +521,13 @@ export const DeviceEvents: React.FC = () => {
         setShowSimulationPanel(!showSimulationPanel);
     };
 
+    const onToggleDecoderPanel = () => {
+        setShowDecoderPanel(!showDecoderPanel);
+    };
+
     if (isLoading) {
         return <MultiLineShimmer />;
     }
-
-    // TODO: change all ResourceKeys.modelRepository
-    // TODO: style
-    const renderCustomDecoder = () => (
-        <form onSubmit={onSaveDecoder}>
-            <Label>Decoder File{/*TODO: ResourceKey */}</Label>
-            <input type="file" id="protoFile" name="protoFile" accept=".proto" onChange={handleProtoFileChange} />
-            <Label>Decoder Type{/*TODO: ResourceKey */}</Label>
-            <TextField
-                value={decoderType}
-                readOnly={false}
-                onChange={handleDecoderTypeChange}
-            />
-            <PrimaryButton
-                type="submit"
-                text={'Save'/*t(ResourceKeys.modelRepository.types.local.folderPicker.command.openPicker)*/}
-                ariaLabel={t(ResourceKeys.modelRepository.types.local.folderPicker.command.openPicker)}
-            />
-        </form>);
-
-    const handleProtoFileChange = (event: React.FormEvent<HTMLInputElement>) => {
-        setDecoderProtoFile(event.currentTarget.files[0]);
-    };
-
-    const handleDecoderTypeChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
-        setDecoderType(newValue);
-    };
-
-    const onSaveDecoder = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        // TODO: error message for empty fields or failed to parse file
-        // TODO: only create fr once?
-        if (decoderProtoFile && decoderType) {
-            const fr = new FileReader();
-            fr.onload = e => {
-                const fileContents = e.target.result;
-                if (fileContents instanceof ArrayBuffer) {
-                    return; // shouldn't happen because fr is only reading as text
-                }
-                const prototype = parse(fileContents).root.lookupType(decoderType);
-                setDecoderPrototype(prototype);
-            };
-            fr.readAsText(decoderProtoFile);
-        }
-    };
 
     return (
         <Stack className="device-events" key="device-events">
@@ -578,10 +539,14 @@ export const DeviceEvents: React.FC = () => {
             {renderConsumerGroup()}
             {renderStartTimePicker()}
             {renderCustomEventHub()}
-            {renderCustomDecoder()}
             <DeviceSimulationPanel
                 showSimulationPanel={showSimulationPanel}
                 onToggleSimulationPanel={onToggleSimulationPanel}
+            />
+            <DeviceDecoderPanel
+                showDecoderPanel={showDecoderPanel}
+                onToggleDecoderPanel={onToggleDecoderPanel}
+                dispatch={dispatch}
             />
             <div className="device-events-container">
                 {renderLoader()}

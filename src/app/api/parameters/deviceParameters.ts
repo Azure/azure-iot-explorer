@@ -2,11 +2,11 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
+import { Type } from 'protobufjs';
 import { DeviceIdentity } from '../models/deviceIdentity';
 import { DeviceQuery } from '../models/deviceQuery';
 import { InvokeMethodActionParameters } from '../../devices/directMethod/actions';
 import { CloudToDeviceMessageActionParameters } from '../../devices/cloudToDeviceMessage/actions';
-import { Type } from 'protobufjs';
 
 export interface FetchDeviceTwinParameters {
     deviceId: string;
@@ -47,4 +47,14 @@ export interface AddDeviceParameters {
 
 export interface UpdateDeviceParameters {
     deviceIdentity: DeviceIdentity;
+}
+
+export interface ValidateDecoderInfoParameters {
+    decoderFile?: File;
+    decoderPrototype?: Type;
+}
+
+export interface SetDecoderInfoParameters {
+    decoderFile?: File;
+    decoderType?: string;
 }

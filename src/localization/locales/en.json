@@ -866,6 +866,7 @@
         "modelRepoistorySettingsUpdated": "Model repository locations successfully updated.",
         "startEventMonitoringOnError": "Failed to start monitoring device telemetry: {{error}}",
         "stopEventMonitoringOnError": "Failed to stop monitoring device telemetry: {{error}}",
+        "updateCustomDecoderOnError": "Failed to upload custom decode prototype: {{error}}, please try again.",
         "connectionStringsWithoutExpiryRemovalWarning": "Due to security requirements, previously stored hub connection strings have been removed. The new connection string being added would automatically have an expiration date one year from now.",
         "connectionStringsWithExpiryRemovalWarning": "Due to security requirements, one or more hub connection strings stored more than a year ago have been removed."
     },

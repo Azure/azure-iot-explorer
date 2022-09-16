@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { useLocation, useHistory } from 'react-router-dom';
 import { CommandBar, ICommandBarItemProps } from '@fluentui/react';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { CLEAR, CHECKED_CHECKBOX, EMPTY_CHECKBOX, START, STOP, NAVIGATE_BACK, REFRESH, REMOVE, CODE } from '../../../constants/iconNames';
+import { CLEAR, CHECKED_CHECKBOX, EMPTY_CHECKBOX, START, STOP, NAVIGATE_BACK, REFRESH, REMOVE, CODE, UPLOAD } from '../../../constants/iconNames';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import { appConfig, HostMode } from '../../../../appConfig/appConfig';
 import { clearMonitoringEventsAction } from './../actions';
@@ -25,10 +25,12 @@ export interface CommandsProps {
     showSystemProperties: boolean;
     showPnpModeledEvents: boolean;
     showSimulationPanel: boolean;
+    showDecoderPanel: boolean;
     setMonitoringData: (monitoringData: boolean) => void;
     setShowSystemProperties: (showSystemProperties: boolean) => void;
     setShowPnpModeledEvents: (showPnpModeledEvents: boolean) => void;
     setShowSimulationPanel: (showSimulationPanel: boolean) => void;
+    setShowDecoderPanel: (showDecoderPanel: boolean) => void;
     dispatch(action: any): void; // tslint:disable-line: no-any
     fetchData(): void;
 }
@@ -40,10 +42,12 @@ export const Commands: React.FC<CommandsProps> = ({
     showSystemProperties,
     showPnpModeledEvents,
     showSimulationPanel,
+    showDecoderPanel,
     setMonitoringData,
     setShowSystemProperties,
     setShowPnpModeledEvents,
     setShowSimulationPanel,
+    setShowDecoderPanel,
     dispatch,
     fetchData}) => {
 
@@ -67,7 +71,8 @@ export const Commands: React.FC<CommandsProps> = ({
             return [createStartMonitoringCommandItem(),
                 createSystemPropertiesCommandItem(),
                 createClearCommandItem(),
-                createSimulationCommandItem()
+                createSimulationCommandItem(),
+                createDecoderCommandItem()
             ];
         }
     };
@@ -172,6 +177,19 @@ export const Commands: React.FC<CommandsProps> = ({
         };
     };
 
+    // TODO: add to resource string
+    const createDecoderCommandItem = (): ICommandBarItemProps => {
+        return {
+            ariaLabel: 'Customize Decode prototype',
+            iconProps: {
+                iconName: UPLOAD
+            },
+            key: UPLOAD,
+            name: 'Customize Decode prototype',
+            onClick: onToggleDecoderPanel
+        };
+    };
+
     const handleClose = () => {
         const path = pathname.replace(/\/ioTPlugAndPlayDetail\/events\/.*/, ``);
         history.push(getBackUrl(path, search));
@@ -205,6 +223,10 @@ export const Commands: React.FC<CommandsProps> = ({
 
     const onToggleSimulationPanel = () => {
         setShowSimulationPanel(!showSimulationPanel);
+    };
+
+    const onToggleDecoderPanel = () => {
+        setShowDecoderPanel(!showDecoderPanel);
     };
 
     return (

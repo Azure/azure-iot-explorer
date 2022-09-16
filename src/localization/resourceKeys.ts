@@ -910,6 +910,7 @@ export class ResourceKeys {
       sendingCloudToDeviceMessage : "notifications.sendingCloudToDeviceMessage",
       startEventMonitoringOnError : "notifications.startEventMonitoringOnError",
       stopEventMonitoringOnError : "notifications.stopEventMonitoringOnError",
+      updateCustomDecoderOnError : "notifications.updateCustomDecoderOnError",
       updateDeviceOnError : "notifications.updateDeviceOnError",
       updateDeviceOnSucceed : "notifications.updateDeviceOnSucceed",
       updateDeviceTwinOnError : "notifications.updateDeviceTwinOnError",
