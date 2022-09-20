@@ -346,10 +346,10 @@ const initializeEventHubClient = async (params: any) =>  {
         }
         else {
             try {
-                client = await EventHubClient.createFromConnectionString(await convertIotHubToEventHubsConnectionString(params.hubConnectionString));
+                client = await EventHubClient.createFromIotHubConnectionString(params.hubConnectionString);
             }
             catch {
-                client = await EventHubClient.createFromIotHubConnectionString(params.hubConnectionString);
+                client = await EventHubClient.createFromConnectionString(await convertIotHubToEventHubsConnectionString(params.hubConnectionString));
             }
         }
 
