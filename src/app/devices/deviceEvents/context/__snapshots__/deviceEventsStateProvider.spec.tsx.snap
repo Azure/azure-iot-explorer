@@ -6,15 +6,15 @@ exports[`DeviceEventsStateContextProvider matches snapshot 1`] = `
     Array [
       Object {
         "contentType": Object {
-          "isContentTypeCustomized": false,
+          "decodeType": "JSON",
         },
         "formMode": "initialized",
         "message": Array [],
       },
       Object {
         "clearEventsMonitoring": [Function],
-        "removeDecoderInfo": [Function],
         "setDecoderInfo": [Function],
+        "setDefaultDecodeInfo": [Function],
         "startEventsMonitoring": [Function],
         "stopEventsMonitoring": [Function],
       },

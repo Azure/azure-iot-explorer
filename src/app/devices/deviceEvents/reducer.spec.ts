@@ -3,8 +3,8 @@
  * Licensed under the MIT License
  **********************************************************/
 import 'jest';
-import { SET_DECODE_INFO, START_EVENTS_MONITORING, STOP_EVENTS_MONITORING } from '../../constants/actionTypes';
-import { setDecoderInfoAction, startEventsMonitoringAction, stopEventsMonitoringAction } from './actions';
+import { SET_DECODE_INFO, SET_DEFAULT_DECODE_INFO, START_EVENTS_MONITORING, STOP_EVENTS_MONITORING } from '../../constants/actionTypes';
+import { setDecoderInfoAction, setDefaultDecodeInfoAction, startEventsMonitoringAction, stopEventsMonitoringAction } from './actions';
 import { deviceEventsReducer } from './reducers';
 import { getInitialDeviceEventsState } from './state';
 import { DEFAULT_CONSUMER_GROUP } from './../../constants/apiConstants';
@@ -22,7 +22,7 @@ describe('deviceEventsReducer', () => {
         'iothub-message-schema': 'humid'
         }
     }];
-    const decoderParams = {decoderFile: new File([], ''), decoderType: 'decoderType', isContentTypeCustomized: true};
+    const decoderParams = {decoderFile: new File([], ''), decoderPrototype: 'decoderPrototype', decodeType: 'Protobuf'};
     it (`handles ${START_EVENTS_MONITORING}/ACTION_START action`, () => {
         const action = startEventsMonitoringAction.started(params);
         expect(deviceEventsReducer(getInitialDeviceEventsState(), action).formMode).toEqual('working');
@@ -63,12 +63,17 @@ describe('deviceEventsReducer', () => {
     });
 
     it (`handles ${SET_DECODE_INFO}/ACTION_DONE action`, () => {
-        const action = setDecoderInfoAction.done({params: decoderParams, result: {isContentTypeCustomized: true, decoderProtoFile: new File([], ''), decoderPrototype: new Type('')}});
+        const action = setDecoderInfoAction.done({params: decoderParams, result: {decodeType: 'Protobuf', decoderProtoFile: new File([], ''), decoderPrototype: new Type('')}});
         expect(deviceEventsReducer(getInitialDeviceEventsState(), action).formMode).toEqual('setDecoderSucceeded');
     });
 
     it (`handles ${SET_DECODE_INFO}/ACTION_FAILED action`, () => {
         const action = setDecoderInfoAction.failed({params: decoderParams, error: {}});
         expect(deviceEventsReducer(getInitialDeviceEventsState(), action).formMode).toEqual('setDecoderFailed');
+    });
+
+    it (`handles ${SET_DEFAULT_DECODE_INFO} action`, () => {
+        const action = setDefaultDecodeInfoAction();
+        expect(deviceEventsReducer(getInitialDeviceEventsState(), action).contentType.decodeType).toEqual('JSON');
     });
 });

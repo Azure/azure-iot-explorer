@@ -64,7 +64,28 @@ exports[`deviceEvents deviceEvents in non-pnp context matches snapshot 1`] = `
   >
     <div
       className=""
-    />
+    >
+      <article
+        className="device-events-content"
+        key="0"
+      >
+        <h5>
+          Wed Feb 17 2021 16:06:00 GMT-0800 (Pacific Standard Time)
+          :
+        </h5>
+        <pre>
+          {
+  "body": {
+    "humid": 123
+  },
+  "enqueuedTime": "Wed Feb 17 2021 16:06:00 GMT-0800 (Pacific Standard Time)",
+  "properties": {
+    "iothub-message-schema": "humid"
+  }
+}
+        </pre>
+      </article>
+    </div>
   </div>
 </Stack>
 `;

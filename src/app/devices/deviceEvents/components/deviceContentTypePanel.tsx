@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { TextField, Panel, PanelType, Label, PrimaryButton, FontIcon, IconButton, Stack, Dropdown, IDropdownOption } from '@fluentui/react';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { useDeviceEventsStateContext } from '../context/deviceEventsStateContext';
+import { DecodeType } from '../state';
 
 export interface DeviceContentTypePanelProps {
     showContentTypePanel: boolean;
@@ -16,9 +17,9 @@ export interface DeviceContentTypePanelProps {
 export const DeviceContentTypePanel: React.FC<DeviceContentTypePanelProps> = props => {
     const { t } = useTranslation();
     const [decoderProtoFile, setDecoderProtoFile] = React.useState<File>();
-    const [decoderType, setDecoderType] = React.useState<string>('');
+    const [decoderPrototype, setDecoderPrototype] = React.useState<string>('');
     const [ state, api ] = useDeviceEventsStateContext();
-    const [isContentTypeCustomized, setIsContentTypeCustomized] = React.useState<boolean>(state.contentType.isContentTypeCustomized);
+    const [decodeType, setDecodeType] = React.useState<DecodeType>(state.contentType.decodeType);
 
     React.useEffect(() => {
         if (state.formMode === 'setDecoderSucceeded') {
@@ -28,7 +29,7 @@ export const DeviceContentTypePanel: React.FC<DeviceContentTypePanelProps> = pro
 
     const onSaveContentType = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        api.setDecoderInfo({decoderFile: decoderProtoFile, decoderType, isContentTypeCustomized});
+        api.setDecoderInfo({decoderFile: decoderProtoFile, decoderPrototype, decodeType});
     };
 
     const handleProtoFileChange = (event: React.FormEvent<HTMLInputElement>) => {
@@ -36,7 +37,7 @@ export const DeviceContentTypePanel: React.FC<DeviceContentTypePanelProps> = pro
     };
 
     const handleDecoderTypeChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
-        setDecoderType(newValue);
+        setDecoderPrototype(newValue);
     };
 
     const formDecodeProtptypeName = (value: string) => {
@@ -45,18 +46,23 @@ export const DeviceContentTypePanel: React.FC<DeviceContentTypePanelProps> = pro
     };
 
     const OnRemoveDecodePrototype = () => {
-        api.removeDecoderInfo();
+        api.setDefaultDecodeInfo();
         setDecoderProtoFile(null);
-        setDecoderType('');
+        setDecoderPrototype('');
     };
 
     const options: IDropdownOption[] = [
-        { key: 'json', text: 'JSON' },
-        { key: 'protobuf', text: 'Protobuf' }
+        { key: 'JSON', text: 'JSON' },
+        { key: 'Protobuf', text: 'Protobuf' }
     ];
 
     const onDropdownSelectedKeyChanged = (event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption): void => {
-        setIsContentTypeCustomized(option.key === 'protobuf');
+        if (option.key === 'JSON') {
+            setDecodeType('JSON');
+        }
+        else if (option.key === 'Protobuf') {
+            setDecodeType('Protobuf');
+        }
     };
 
     return (
@@ -75,10 +81,10 @@ export const DeviceContentTypePanel: React.FC<DeviceContentTypePanelProps> = pro
                         required={true}
                         label={t(ResourceKeys.deviceEvents.customizeContentType.contentTypeOption.label)}
                         options={options}
-                        defaultSelectedKey={isContentTypeCustomized ? 'protobuf' : 'json'}
+                        defaultSelectedKey={decodeType}
                         onChange={onDropdownSelectedKeyChanged}
                     />
-                    {isContentTypeCustomized &&
+                    {decodeType !== 'JSON' &&
                         <>
                             <Label>{t(ResourceKeys.deviceEvents.customizeContentType.protobuf.file.label)}</Label>
                             <input

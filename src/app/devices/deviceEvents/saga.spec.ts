@@ -82,7 +82,7 @@ describe('deviceMonitoringSaga', () => {
 
 describe('setDecoderInfoSaga', () => {
     let setDecoderInfoSagaGenerator;
-    const params = {decoderFile: new File([], ''), decoderType: 'decoderType', isContentTypeCustomized: true};
+    const params = {decoderFile: new File([], ''), decoderPrototype: 'decoderPrototype', decodeType: 'Protobuf'};
     
     beforeEach(() => {
         setDecoderInfoSagaGenerator = cloneableGenerator(setDecoderInfoSagaWorker)(setDecoderInfoAction.started(params));
@@ -99,7 +99,7 @@ describe('setDecoderInfoSaga', () => {
             done: false,
             value: put(setDecoderInfoAction.done({
                 params,
-                result: {isContentTypeCustomized: true, decoderProtoFile: new File([], ''), decoderPrototype: new Type('')}
+                result: {decodeType: 'Protobuf', decoderProtoFile: new File([], ''), decoderPrototype: new Type('')}
             }))
         });
 

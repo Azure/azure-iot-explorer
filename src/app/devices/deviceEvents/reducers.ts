@@ -9,7 +9,7 @@ import {
     stopEventsMonitoringAction,
     clearMonitoringEventsAction,
     setDecoderInfoAction,
-    removeDecoderInfoAction
+    setDefaultDecodeInfoAction
 } from './actions';
 import { MonitorEventsParameters, SetDecoderInfoParameters } from '../../api/parameters/deviceParameters';
 import { Message } from '../../api/models/messages';
@@ -74,9 +74,9 @@ export const deviceEventsReducer = reducerWithInitialState<DeviceEventsStateInte
         return {
             ...state,
             contentType: {
+                decodeType: payload.result.decodeType,
                 decoderProtoFile: payload.result.decoderProtoFile,
                 decoderPrototype: payload.result.decoderPrototype,
-                isContentTypeCustomized: payload.result.isContentTypeCustomized
             },
             formMode: 'setDecoderSucceeded'
         };
@@ -87,11 +87,11 @@ export const deviceEventsReducer = reducerWithInitialState<DeviceEventsStateInte
             formMode: 'setDecoderFailed'
         };
     })
-    .case(removeDecoderInfoAction, (state: DeviceEventsStateInterface) => {
+    .case(setDefaultDecodeInfoAction, (state: DeviceEventsStateInterface) => {
         return {
             ...state,
             contentType: {
-                isContentTypeCustomized: false
+                decodeType: 'JSON'
             }
         };
     });

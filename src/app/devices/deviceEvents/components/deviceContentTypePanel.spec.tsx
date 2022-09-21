@@ -22,7 +22,7 @@ describe('DeviceDecoderPanel', () => {
 
     it('matches snapshot with customize content type option', () => {
         jest.spyOn(deviceEventsStateContext, 'useDeviceEventsStateContext').mockReturnValue(
-            [{...getInitialDeviceEventsState(), contentType: {isContentTypeCustomized: true}},
+            [{...getInitialDeviceEventsState(), contentType: {decodeType: 'Protobuf'}},
                 deviceEventsStateContext.getInitialDeviceEventsOps()]);
         expect(shallow(
             <DeviceContentTypePanel
@@ -34,7 +34,7 @@ describe('DeviceDecoderPanel', () => {
     it('expect setDecoderInfo called when save is clicked with correct input', () => {
         const setDecoderInfo = jest.fn();
         jest.spyOn(deviceEventsStateContext, 'useDeviceEventsStateContext').mockReturnValue(
-            [{...getInitialDeviceEventsState(), contentType: {isContentTypeCustomized: true, decoderProtoFile: new File([], '')}},
+            [{...getInitialDeviceEventsState(), contentType: {decodeType: 'Protobuf', decoderProtoFile: new File([], '')}},
                 {...deviceEventsStateContext.getInitialDeviceEventsOps(), setDecoderInfo}]);
         const wrapper = mount(
             <DeviceContentTypePanel

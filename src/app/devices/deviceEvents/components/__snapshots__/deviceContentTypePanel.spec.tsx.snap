@@ -20,18 +20,18 @@ exports[`DeviceDecoderPanel matches snapshot with customize content type option 
       }
     >
       <Dropdown
-        defaultSelectedKey="protobuf"
+        defaultSelectedKey="Protobuf"
         disabled={false}
         label="deviceEvents.customizeContentType.contentTypeOption.label"
         onChange={[Function]}
         options={
           Array [
             Object {
-              "key": "json",
+              "key": "JSON",
               "text": "JSON",
             },
             Object {
-              "key": "protobuf",
+              "key": "Protobuf",
               "text": "Protobuf",
             },
           ]
@@ -88,18 +88,18 @@ exports[`DeviceDecoderPanel matches snapshot with default json option 1`] = `
       }
     >
       <Dropdown
-        defaultSelectedKey="json"
+        defaultSelectedKey="JSON"
         disabled={false}
         label="deviceEvents.customizeContentType.contentTypeOption.label"
         onChange={[Function]}
         options={
           Array [
             Object {
-              "key": "json",
+              "key": "JSON",
               "text": "JSON",
             },
             Object {
-              "key": "protobuf",
+              "key": "Protobuf",
               "text": "Protobuf",
             },
           ]

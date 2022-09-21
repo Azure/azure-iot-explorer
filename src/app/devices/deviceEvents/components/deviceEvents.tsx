@@ -45,7 +45,7 @@ export const DeviceEvents: React.FC = () => {
     const moduleId = getModuleIdentityIdFromQueryString(search);
     const [ state, api ] = useDeviceEventsStateContext();
 
-    const events = state.message ;
+    const events = state.message;
     const decoderPrototype = state.contentType.decoderPrototype;
 
     // event hub settings
@@ -227,7 +227,7 @@ export const DeviceEvents: React.FC = () => {
         return (
             <>
                 {
-                    filteredEvents && filteredEvents?.map((event: Message, index) => {
+                    filteredEvents && filteredEvents.map((event: Message, index) => {
                         const modifiedEvents = showSystemProperties ? event : {
                             body: event.body,
                             enqueuedTime: event.enqueuedTime,

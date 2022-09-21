@@ -8,8 +8,8 @@ import { DeviceEventsInterface } from './deviceEventsStateProvider';
 
 export const getInitialDeviceEventsOps = (): DeviceEventsInterface => ({
     clearEventsMonitoring: () => undefined,
-    removeDecoderInfo: () => undefined,
     setDecoderInfo: () => undefined,
+    setDefaultDecodeInfo: () => undefined,
     startEventsMonitoring: () => undefined,
     stopEventsMonitoring: () => undefined
 });

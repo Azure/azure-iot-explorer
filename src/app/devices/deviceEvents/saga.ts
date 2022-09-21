@@ -52,8 +52,8 @@ export function* stopEventsMonitoringSagaWorker() {
 
 export function* setDecoderInfoSagaWorker(action: Action<SetDecoderInfoParameters>): SagaIterator {
     try {
-        const prototype: Type = action.payload.isContentTypeCustomized ? yield call(setDecoderInfo, action.payload) : null;
-        yield put(setDecoderInfoAction.done({params: action.payload, result: {isContentTypeCustomized: action.payload.isContentTypeCustomized, decoderProtoFile: action.payload.decoderFile, decoderPrototype: prototype}}));
+        const prototype: Type = yield call(setDecoderInfo, action.payload);
+        yield put(setDecoderInfoAction.done({params: action.payload, result: {decodeType: action.payload.decodeType, decoderProtoFile: action.payload.decoderFile, decoderPrototype: prototype}}));
     } catch (error) {
         yield call(raiseNotificationToast, {
             text: {

@@ -62,6 +62,10 @@ describe('deviceEvents', () => {
         });
 
         it('matches snapshot', () => {
+            const startEventsMonitoring = jest.fn();
+            jest.spyOn(deviceEventsStateContext, 'useDeviceEventsStateContext').mockReturnValue(
+                [{...getInitialDeviceEventsState(), message: events},
+                    {...deviceEventsStateContext.getInitialDeviceEventsOps(), startEventsMonitoring}]);
             expect(shallow(<DeviceEvents/>)).toMatchSnapshot();
         });
 
