@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConnectionStringCommandBar matches snapshot 1`] = `
+<StyledCommandBarBase
+  items={
+    Array [
+      Object {
+        "ariaLabel": "connectionStrings.addConnectionCommand.ariaLabel",
+        "disabled": false,
+        "iconProps": Object {
+          "iconName": "Add",
+        },
+        "key": "add",
+        "onClick": [MockFunction],
+        "text": "connectionStrings.addConnectionCommand.label",
+      },
+      Object {
+        "ariaLabel": "authentication.autheSelection.switchAuthType",
+        "iconProps": Object {
+          "iconName": "NavigateBack",
+        },
+        "key": "switch",
+        "onClick": [Function],
+        "text": "authentication.autheSelection.switchAuthType",
+      },
+    ]
+  }
+/>
+`;

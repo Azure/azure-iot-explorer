@@ -2,8 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-
- export interface AzureResourceManagementEndpoint {
-    authorizationToken: string;
-    endpoint: string;
- }
+.hub-selection-list {
+    margin-left: 20px;
+    margin-top: 10px;
+}

@@ -2,25 +2,8 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { IpcMainInvokeEvent } from 'electron';
-import { Client } from 'azure-iothub';
 import { Message as CloudToDeviceMessage } from 'azure-iot-common';
-import { SendMessageToDeviceParameters, MessageProperty } from '../interfaces/deviceInterface';
-
-export const onSendMessageToDevice = async (event: IpcMainInvokeEvent, params: SendMessageToDeviceParameters): Promise<void> => {
-    const { deviceId, messageProperties, messageBody, connectionString } = params;
-    const hubClient = Client.fromConnectionString(connectionString);
-
-    try {
-        const message = new CloudToDeviceMessage(messageBody);
-        addPropertiesToCloudToDeviceMessage(message, messageProperties || []);
-
-        await hubClient.open();
-        await hubClient.send(deviceId, message);
-    } finally {
-        await hubClient.close();
-    }
-};
+import { MessageProperty } from '../interfaces/deviceInterface';
 
 // tslint:disable-next-line:cyclomatic-complexity
 export const addPropertiesToCloudToDeviceMessage = (message: CloudToDeviceMessage, properties: MessageProperty[]) => {

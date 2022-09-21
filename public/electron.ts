@@ -10,15 +10,16 @@ import { PLATFORMS, MESSAGE_CHANNELS } from './constants';
 import { onSettingsHighContrast } from './handlers/settingsHandler';
 import { onGetInterfaceDefinition } from './handlers/modelRepositoryHandler';
 import { onGetDirectories } from './handlers/directoryHandler';
-import { onSendMessageToDevice } from './handlers/deviceHandler';
 import { onStartMonitoring, onStopMonitoring } from './handlers/eventHubHandler';
 import { formatError } from './utils/errorHelper';
+import { AuthProvider } from './utils/authProvider';
 import '../dist/server/serverElectron';
 
 class Main {
     private static application: Electron.App;
     private static mainWindow: BrowserWindow;
     private static readonly target = path.join(__dirname, '/../dist/index.html');
+    private static authProvider: AuthProvider;
 
     public static start() {
         Main.application = app;
@@ -32,9 +33,30 @@ class Main {
         Main.registerHandler(MESSAGE_CHANNELS.SETTING_HIGH_CONTRAST, onSettingsHighContrast);
         Main.registerHandler(MESSAGE_CHANNELS.MODEL_REPOSITORY_GET_DEFINITION, onGetInterfaceDefinition);
         Main.registerHandler(MESSAGE_CHANNELS.DIRECTORY_GET_DIRECTORIES, onGetDirectories);
-        Main.registerHandler(MESSAGE_CHANNELS.DEVICE_SEND_MESSAGE, onSendMessageToDevice);
         Main.registerHandler(MESSAGE_CHANNELS.EVENTHUB_START_MONITORING, onStartMonitoring);
         Main.registerHandler(MESSAGE_CHANNELS.EVENTHUB_STOP_MONITORING, onStopMonitoring);
+        Main.registerHandler(MESSAGE_CHANNELS.AUTHENTICATION_LOGIN, Main.onLogin);
+        Main.registerHandler(MESSAGE_CHANNELS.AUTHENTICATION_LOGOUT, Main.onLogout);
+        Main.registerHandler(MESSAGE_CHANNELS.AUTHENTICATION_GET_PROFILE_TOKEN, Main.onGetProfileToken);
+    }
+
+    private static async loadTarget(redirect?: string): Promise<void> {
+        Main.mainWindow.loadFile(Main.target, { query: {redirect: redirect || ''} });
+    }
+
+    private static async onLogin(): Promise<void> {
+        await Main.authProvider.login(Main.mainWindow)
+        await Main.loadTarget();
+    }
+
+    private static async onLogout(): Promise<void> {
+        await Main.authProvider.logout();
+        await Main.loadTarget();
+    }
+
+    private static async onGetProfileToken(): Promise<string> {
+        const token = await Main.authProvider.getProfileTokenIfPresent();
+        return token;
     }
 
     private static setApplicationLock(): void {
@@ -121,6 +143,8 @@ class Main {
 
         Main.setErrorBoundary();
         Main.setApplicationLock();
+
+        Main.authProvider = new AuthProvider();
         Main.setMessageHandlers();
     }
 

@@ -3,7 +3,7 @@
 
 CI Pipeline [![Build Status](https://dev.azure.com/azure/azure-iot-explorer/_apis/build/status/Azure%20IoT%20Explorer%20CI%20Pipeline?branchName=main)](https://dev.azure.com/azure/azure-iot-explorer/_build/latest?definitionId=31&branchName=main)
 
-Release Pipeline [![Build Status](https://msazure.visualstudio.com/One/_apis/build/status/Custom/Azure_IOT/Portal/Azure.azure-iot-explorer?branchName=features%2FRBAC)](https://msazure.visualstudio.com/One/_build/latest?definitionId=118522&branchName=features%2FRBAC)
+Release Pipeline [![Build Status](https://dev.azure.com/azureiotdevxp/azure-iot-explorer/_apis/build/status/official/PROD%20-%20Release%20-%20Azure%20IoT%20Explorer?branchName=main)](https://dev.azure.com/azureiotdevxp/azure-iot-explorer/_build/latest?definitionId=95&branchName=main)
 
 ## Table of Contents
 
@@ -40,7 +40,10 @@ If you'd like to package the app yourself, please refer to the [FAQ](https://git
 
 ### Configure an IoT Hub connection
 
-- Upon opening the application, add the connection string of your IoT hub. You can add multiple strings, view, update or delete them anytime by returning to Home.
+- Upon opening the application, choose an authentication method and connect to an Azure IoT hub.
+- If you picked **Connect via IoT Hub connection string**, you can add multiple strings, view, update or delete them anytime by returning to Home.
+- If you picked **Connect via Azure Active Directory**, you will be redirected to login in through AAD, from where you will be able to pick a subscription, and then pick an IoT hub.
+- You can switch back and forth between these two authentication methods.
 
 <img src="doc/screenRecords/login.gif" alt="login" width="800"/>
 

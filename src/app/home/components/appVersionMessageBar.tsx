@@ -16,6 +16,7 @@ export const AppVersionMessageBar: React.FC = () => {
     const { t } = useTranslation();
 
     const [ latestReleaseVersion, setLatestReleaseVersion ] = React.useState(undefined);
+    const [ hasNewerRelease, setHasNewerRelease ] = React.useState(false);
 
     React.useEffect(() => {
         fetchLatestReleaseTagName().then(tagName => {
@@ -23,34 +24,32 @@ export const AppVersionMessageBar: React.FC = () => {
         });
     },              []);
 
-    const hasNewerRelease = () => {
+    React.useEffect(() => {
         try {
-            if (!latestReleaseVersion) { return false; }
+            if (!latestReleaseVersion) { setHasNewerRelease(false); }
             const semanticVersion = latestReleaseVersion.replace(/^v/, '');
-            return isNewReleaseVersionHigher(semanticVersion, packageJson.version);
+            setHasNewerRelease(isNewReleaseVersionHigher(semanticVersion, packageJson.version));
         }
         catch {
-            return false;
+            setHasNewerRelease(false);
         }
-    };
-
-    const onBannerClicked = () => {
-        AppInsightsClient.getInstance()?.trackEvent({name: TELEMETRY_EVENTS.UPDATE_BANNER_CLICKED});
-    };
+    }, [latestReleaseVersion]); // tslint:disable-line: align
 
     React.useEffect(() => {
-        if (hasNewerRelease()) {
-            AppInsightsClient.getInstance()?.trackEvent({name: TELEMETRY_EVENTS.UPDATE_BANNER_DISPLAYED});
+        if (hasNewerRelease) {
+            AppInsightsClient.getInstance()?.trackEvent({name: TELEMETRY_EVENTS.UPDATE_BANNER}, {displayed: true});
+        } else {
+            AppInsightsClient.getInstance()?.trackEvent({name: TELEMETRY_EVENTS.UPDATE_BANNER}, {displayed: false});
         }
     }, [hasNewerRelease]);  // tslint:disable-line: align
 
-    return hasNewerRelease() ?
+    return hasNewerRelease ?
        (
             <MessageBar
                 messageBarType={MessageBarType.info}
             >
                 {t(ResourceKeys.deviceLists.messageBar.message, {version: latestReleaseVersion})}
-                <Link href={latestReleaseUrlPath} target="_blank" onClick={onBannerClicked}>
+                <Link href={latestReleaseUrlPath} target="_blank">
                     {t(ResourceKeys.deviceLists.messageBar.link)}
                 </Link>
             </MessageBar>

@@ -4,17 +4,14 @@
  **********************************************************/
 import { AzureResourceManagementEndpoint } from '../models/azureResourceManagementEndpoint';
 import { APPLICATION_JSON, HTTP_OPERATION_TYPES } from '../../constants/apiConstants';
-import { HttpError } from '../../api/models/httpError';
 import { AzureSubscription } from '../models/azureSubscription';
+import { throwHttpErrorWhenResponseNotOk } from '../shared/fetchUtils';
 
 const azureSubscriptionAPIVersion = '2019-06-01';
-export interface GetSubscriptionsParameters {
-    azureResourceManagementEndpoint: AzureResourceManagementEndpoint;
-}
+export type GetSubscriptionsParameters = AzureResourceManagementEndpoint;
 
 export const getAzureSubscriptions = async (parameters: GetSubscriptionsParameters): Promise<AzureSubscription[]> => {
-    const { azureResourceManagementEndpoint } = parameters;
-    const { authorizationToken, endpoint } = azureResourceManagementEndpoint;
+    const { authorizationToken, endpoint } = parameters;
 
     const resourceUrl = `https://${endpoint}/subscriptions?api-version=${azureSubscriptionAPIVersion}`;
     const serviceRequestParams: RequestInit = {
@@ -26,9 +23,7 @@ export const getAzureSubscriptions = async (parameters: GetSubscriptionsParamete
         method: HTTP_OPERATION_TYPES.Get
     };
     const response = await fetch(resourceUrl, serviceRequestParams);
-    if (!response.ok) {
-        throw new HttpError(response.status);
-    }
+    await throwHttpErrorWhenResponseNotOk(response);
 
     const responseBody = await response.json() as { value: AzureSubscription[] };
     return responseBody.value;

@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AuthenticationView matches snapshot when page is loading 1`] = `
+<Fragment>
+  <MultiLineShimmer />
+</Fragment>
+`;
+
+exports[`AuthenticationView matches snapshot when preference is aad 1`] = `
+<Fragment>
+  <AzureActiveDirectoryStateContextProvider>
+    <HubSelection />
+  </AzureActiveDirectoryStateContextProvider>
+</Fragment>
+`;
+
+exports[`AuthenticationView matches snapshot when preference is connection string 1`] = `
+<Fragment>
+  <ConnectionStringStateContextProvider>
+    <ConnectionStringsView />
+  </ConnectionStringStateContextProvider>
+</Fragment>
+`;
+
+exports[`AuthenticationView matches snapshot when preference not set 1`] = `
+<Fragment>
+  <AuthenticationSelection />
+</Fragment>
+`;

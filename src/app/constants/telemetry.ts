@@ -28,8 +28,7 @@ export enum TELEMETRY_PAGE_NAMES {
 export enum TELEMETRY_EVENTS {
     FETCH_DEVICES = 'fetch_devices',
     INTERNAL_USER = 'internal_user',
-    UPDATE_BANNER_DISPLAYED = 'update_banner:displayed',
-    UPDATE_BANNER_CLICKED = 'update_banner:clicked',
+    UPDATE_BANNER = 'update_banner',
     USER_ACTION = 'user_action'
 }
 
