@@ -40,7 +40,9 @@ exports[`DigitalTwinDetail matches snapshot 1`] = `
     itemKey="events"
     key="events"
   >
-    <DeviceEvents />
+    <DeviceEventsStateContextProvider>
+      <DeviceEvents />
+    </DeviceEventsStateContextProvider>
   </PivotItem>
 </StyledPivot>
 `;
