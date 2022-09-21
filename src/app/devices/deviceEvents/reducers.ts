@@ -3,91 +3,95 @@
  * Licensed under the MIT License
  **********************************************************/
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
-import { DeviceEventsStateInterface, deviceEventsStateInitial, DeviceEventsStateType } from './state';
+import { getInitialDeviceEventsState, DeviceEventsStateInterface, DecoderState } from './state';
 import {
     startEventsMonitoringAction,
     stopEventsMonitoringAction,
     clearMonitoringEventsAction,
     setDecoderInfoAction,
-    validateDecoderInfoAction
+    removeDecoderInfoAction
 } from './actions';
-import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
-import { MonitorEventsParameters, SetDecoderInfoParameters, ValidateDecoderInfoParameters } from '../../api/parameters/deviceParameters';
+import { MonitorEventsParameters, SetDecoderInfoParameters } from '../../api/parameters/deviceParameters';
 import { Message } from '../../api/models/messages';
 
-export const deviceEventsReducer = reducerWithInitialState<DeviceEventsStateInterface>(deviceEventsStateInitial())
-    .case(startEventsMonitoringAction.started, (state: DeviceEventsStateType) => {
-        return state.merge({
-            message: {
-                synchronizationStatus: SynchronizationStatus.working
-            }
-        });
+export const deviceEventsReducer = reducerWithInitialState<DeviceEventsStateInterface>(getInitialDeviceEventsState())
+    .case(startEventsMonitoringAction.started, (state: DeviceEventsStateInterface) => {
+        return {
+            ...state,
+            formMode: 'working'
+        };
     })
-    .case(startEventsMonitoringAction.done, (state: DeviceEventsStateType, payload: {params: MonitorEventsParameters, result: Message[]}) => {
+    .case(startEventsMonitoringAction.done, (state: DeviceEventsStateInterface, payload: {params: MonitorEventsParameters, result: Message[]}) => {
         const messages = payload.result ? payload.result.reverse().map((message: Message) => message) : [];
         let filteredMessages = messages;
-        if (state.message.payload?.length > 0 && messages.length > 0) {
+        if (state.message.length > 0 && messages.length > 0) {
             // filter overlaped messages returned from event hub
-            filteredMessages = messages.filter(message => message.enqueuedTime > state.message.payload[0].enqueuedTime);
+            filteredMessages = messages.filter(message => message.enqueuedTime > state.message[0].enqueuedTime);
         }
-        return state.merge({
-            message: {
-                payload: [...filteredMessages, ...state.message.payload],
-                synchronizationStatus: SynchronizationStatus.fetched
-            }
-        });
+        return {
+            ...state,
+            formMode: 'fetched',
+            message: [...filteredMessages, ...state.message]
+        };
     })
-    .case(startEventsMonitoringAction.failed, (state: DeviceEventsStateType) => {
-        return state.merge({
-            message: {
-                synchronizationStatus: SynchronizationStatus.failed
-            }
-        });
+    .case(startEventsMonitoringAction.failed, (state: DeviceEventsStateInterface) => {
+        return {
+            ...state,
+            formMode: 'failed'
+        };
     })
-    .case(stopEventsMonitoringAction.started, (state: DeviceEventsStateType) => {
-        return state.merge({
-            message: {
-                synchronizationStatus: SynchronizationStatus.updating
-            }
-        });
+    .case(stopEventsMonitoringAction.started, (state: DeviceEventsStateInterface) => {
+        return {
+            ...state,
+            formMode: 'updating'
+        };
     })
-    .case(stopEventsMonitoringAction.done, (state: DeviceEventsStateType) => {
-        return state.merge({
-            message: {
-                synchronizationStatus: SynchronizationStatus.upserted
-            }
-        });
+    .case(stopEventsMonitoringAction.done, (state: DeviceEventsStateInterface) => {
+        return {
+            ...state,
+            formMode: 'upserted'
+        };
     })
-    .case(stopEventsMonitoringAction.failed, (state: DeviceEventsStateType) => {
-        return state.merge({
-            message: {
-                synchronizationStatus: SynchronizationStatus.failed
-            }
-        });
+    .case(stopEventsMonitoringAction.failed, (state: DeviceEventsStateInterface) => {
+        return {
+            ...state,
+            formMode: 'failed'
+        };
     })
-    .case(clearMonitoringEventsAction, (state: DeviceEventsStateType) => {
-        return state.merge({
-            message: {
-                payload: [],
-                synchronizationStatus: SynchronizationStatus.upserted
-            }
-        });
+    .case(clearMonitoringEventsAction, (state: DeviceEventsStateInterface) => {
+        return {
+            ...state,
+            message: []
+        };
     })
-    .case(validateDecoderInfoAction, (state: DeviceEventsStateType, payload: ValidateDecoderInfoParameters) => {
-        const hasError = (payload.decoderPrototype === undefined);
-        return state.merge({
+    .case(setDecoderInfoAction.started, (state: DeviceEventsStateInterface) => {
+        return {
+            ...state,
+            formMode: 'working'
+        };
+    })
+    .case(setDecoderInfoAction.done, (state: DeviceEventsStateInterface, payload: {params: SetDecoderInfoParameters, result: DecoderState}) => {
+        return {
+            ...state,
             decoder: {
-                payload: {
-                    decoderProtoFile: payload.decoderFile,
-                    decoderPrototype: payload.decoderPrototype,
-                    hasError,
-                },
-                synchronizationStatus: SynchronizationStatus.updating
+                decoderProtoFile: payload.result.decoderProtoFile,
+                decoderPrototype: payload.result.decoderPrototype,
+                isDecoderCustomized: payload.result.isDecoderCustomized
+            },
+            formMode: 'setDecoderSucceeded'
+        };
+    })
+    .case(setDecoderInfoAction.failed, (state: DeviceEventsStateInterface) => {
+        return {
+            ...state,
+            formMode: 'setDecoderFailed'
+        };
+    })
+    .case(removeDecoderInfoAction, (state: DeviceEventsStateInterface) => {
+        return {
+            ...state,
+            decoder: {
+                isDecoderCustomized: false
             }
-        });
+        };
     });
-    // .case(setDecoderInfoAction, (state: DeviceEventsStateType, payload: SetDecoderInfoParameters) => {
-    //     return state.merge({
-    //         decoderProtoFile: payload.decoderFile
-    //     });
-    // });

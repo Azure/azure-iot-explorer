@@ -565,7 +565,8 @@
             "stop": "Stop",
             "fetch": "Retrieve events",
             "close": "Back",
-            "simulate": "Simulate a device"
+            "simulate": "Simulate a device",
+            "customizeContentType": "Customize Content Type"
         },
         "consumerGroups": {
             "label": "Consumer group",
@@ -671,6 +672,23 @@
                     "rowCheckBoxAriaLabel": "Row checkbox"
                 }
             }
+        },
+        "customizeContentType": {
+            "header": "Update Content Type",
+            "contentTypeOption": {
+                "label": "Content Type"
+            },
+            "protobuf": {
+                "file": {
+                    "label": "Decoder File",
+                    "removeFile": "Close"
+                },
+                "type": {
+                    "label": "Decoder Type",
+                    "placeholder": "Please enter protocol buffer decoder type"
+                }
+            },
+            "save": "Save"
         }
     },
     "directMethod": {

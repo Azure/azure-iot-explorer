@@ -89,7 +89,7 @@ exports[`commands matches snapshot in hosted environment 1`] = `
     Array [
       Object {
         "ariaLabel": "deviceEvents.command.fetch",
-        "disabled": true,
+        "disabled": false,
         "iconProps": Object {
           "iconName": "Play",
         },
@@ -108,7 +108,7 @@ exports[`commands matches snapshot in hosted environment 1`] = `
       },
       Object {
         "ariaLabel": "deviceEvents.command.showSystemProperties",
-        "disabled": true,
+        "disabled": false,
         "iconProps": Object {
           "iconName": "Checkbox",
         },
@@ -118,7 +118,7 @@ exports[`commands matches snapshot in hosted environment 1`] = `
       },
       Object {
         "ariaLabel": "deviceEvents.command.refresh",
-        "disabled": true,
+        "disabled": false,
         "iconProps": Object {
           "iconName": "Refresh",
         },

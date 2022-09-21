@@ -6,13 +6,15 @@ import 'jest';
 import { put, call } from 'redux-saga/effects';
 // tslint:disable-next-line: no-implicit-dependencies
 import { cloneableGenerator } from '@redux-saga/testing-utils';
-import { startEventsMonitoringSagaWorker, stopEventsMonitoringSagaWorker } from './saga';
-import { startEventsMonitoringAction, stopEventsMonitoringAction } from './actions';
+import { setDecoderInfoSagaWorker, startEventsMonitoringSagaWorker, stopEventsMonitoringSagaWorker } from './saga';
+import { setDecoderInfoAction, startEventsMonitoringAction, stopEventsMonitoringAction } from './actions';
 import * as DevicesService from '../../api/services/devicesService';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { NotificationType } from '../../api/models/notification';
 import { raiseNotificationToast } from '../../notifications/components/notificationToast';
 import { DEFAULT_CONSUMER_GROUP } from '../../constants/apiConstants';
+import { setDecoderInfo } from './utils';
+import { Type } from 'protobufjs';
 
 describe('deviceMonitoringSaga', () => {
     let startEventsMonitoringSagaGenerator;

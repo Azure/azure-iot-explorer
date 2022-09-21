@@ -2,34 +2,27 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { Record } from 'immutable';
 import { Type } from 'protobufjs';
-import { IM } from '../../shared/types/types';
-import { SynchronizationWrapper } from '../../api/models/synchronizationWrapper';
 import { Message } from '../../api/models/messages';
-import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
+
+export type FormMode = 'fetched' | 'initialized' | 'upserted' | 'working' | 'failed' | 'updating' | 'setDecoderSucceeded' | 'setDecoderFailed';
 
 export interface DecoderState {
+    isDecoderCustomized: boolean;
     decoderProtoFile?: File;
     decoderPrototype?: Type;
-    hasError?: boolean;
 }
-
-export interface MessagaState extends SynchronizationWrapper<Message[]>{}
 
 export interface DeviceEventsStateInterface {
-    message: MessagaState;
-    decoder: SynchronizationWrapper<DecoderState>;
+    message: Message[];
+    decoder: DecoderState;
+    formMode: FormMode;
 }
 
-export const deviceEventsStateInitial = Record<DeviceEventsStateInterface>({
+export const getInitialDeviceEventsState = (): DeviceEventsStateInterface => ({
     decoder: {
-        payload: null,
-        synchronizationStatus: SynchronizationStatus.initialized
+        isDecoderCustomized: false
     },
-    message: {
-        payload: [],
-        synchronizationStatus: SynchronizationStatus.initialized
-    }
+    formMode: 'initialized',
+    message: []
 });
-export type DeviceEventsStateType = IM<DeviceEventsStateInterface>;

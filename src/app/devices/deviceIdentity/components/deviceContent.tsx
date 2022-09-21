@@ -29,6 +29,7 @@ import { DeviceModules } from './deviceModules';
 import { CollapsibleButton } from '../../../shared/components/collapsibleButton';
 import '../../../css/_deviceContent.scss';
 import '../../../css/_layouts.scss';
+import { DeviceEventsStateContextProvider } from '../../deviceEvents/context/deviceEventsStateProvider';
 
 export const DeviceContent: React.FC = () => {
     const { t } = useTranslation();
@@ -91,11 +92,13 @@ export const DeviceContent: React.FC = () => {
                     children={<DeviceTwin />}
                 />
 
-                <BreadcrumbRoute
-                    path={`${url}/${ROUTE_PARTS.EVENTS}`}
-                    breadcrumb={{ name: t(ResourceKeys.breadcrumb.events) }}
-                    children={<DeviceEvents />}
-                />
+                <DeviceEventsStateContextProvider>
+                    <BreadcrumbRoute
+                        path={`${url}/${ROUTE_PARTS.EVENTS}`}
+                        breadcrumb={{ name: t(ResourceKeys.breadcrumb.events) }}
+                        children={<DeviceEvents />}
+                    />
+                </DeviceEventsStateContextProvider>
 
                 <BreadcrumbRoute
                     path={`${url}/${ROUTE_PARTS.METHODS}`}

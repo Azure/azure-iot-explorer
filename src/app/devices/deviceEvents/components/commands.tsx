@@ -8,19 +8,17 @@ import { useLocation, useHistory } from 'react-router-dom';
 import { CommandBar, ICommandBarItemProps } from '@fluentui/react';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { CLEAR, CHECKED_CHECKBOX, EMPTY_CHECKBOX, START, STOP, NAVIGATE_BACK, REFRESH, REMOVE, CODE, UPLOAD } from '../../../constants/iconNames';
-import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import { appConfig, HostMode } from '../../../../appConfig/appConfig';
-import { clearMonitoringEventsAction } from './../actions';
-import { getComponentNameFromQueryString, getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
+import { getComponentNameFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { usePnpStateContext } from '../../../shared/contexts/pnpStateContext';
 import './deviceEvents.scss';
 import { getBackUrl } from '../../pnp/utils';
 import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
 import { TELEMETRY_USER_ACTIONS } from '../../../../app/constants/telemetry';
+import { useDeviceEventsStateContext } from '../context/deviceEventsStateContext';
 
 export interface CommandsProps {
     startDisabled: boolean;
-    synchronizationStatus: SynchronizationStatus;
     monitoringData: boolean;
     showSystemProperties: boolean;
     showPnpModeledEvents: boolean;
@@ -31,13 +29,11 @@ export interface CommandsProps {
     setShowPnpModeledEvents: (showPnpModeledEvents: boolean) => void;
     setShowSimulationPanel: (showSimulationPanel: boolean) => void;
     setShowDecoderPanel: (showDecoderPanel: boolean) => void;
-    dispatch(action: any): void; // tslint:disable-line: no-any
     fetchData(): void;
 }
 
 export const Commands: React.FC<CommandsProps> = ({
     startDisabled,
-    synchronizationStatus,
     monitoringData,
     showSystemProperties,
     showPnpModeledEvents,
@@ -48,7 +44,6 @@ export const Commands: React.FC<CommandsProps> = ({
     setShowPnpModeledEvents,
     setShowSimulationPanel,
     setShowDecoderPanel,
-    dispatch,
     fetchData}) => {
 
     const {t} = useTranslation();
@@ -56,7 +51,7 @@ export const Commands: React.FC<CommandsProps> = ({
     const history = useHistory();
     const { pnpState, getModelDefinition } = usePnpStateContext();
     const componentName = getComponentNameFromQueryString(search); // if component name exist, we are in pnp context
-    const deviceId = getDeviceIdFromQueryString(search);
+    const [ state, api ] = useDeviceEventsStateContext();
 
     const createCommandBarItems = (): ICommandBarItemProps[] => {
         if (componentName) {
@@ -92,7 +87,7 @@ export const Commands: React.FC<CommandsProps> = ({
     const createSystemPropertiesCommandItem = (): ICommandBarItemProps => {
         return {
             ariaLabel: t(ResourceKeys.deviceEvents.command.showSystemProperties),
-            disabled: synchronizationStatus === SynchronizationStatus.updating || showPnpModeledEvents,
+            disabled: state.formMode === 'updating' || showPnpModeledEvents,
             iconProps: {
                 iconName: showSystemProperties ? CHECKED_CHECKBOX : EMPTY_CHECKBOX
             },
@@ -133,7 +128,7 @@ export const Commands: React.FC<CommandsProps> = ({
         else {
             return {
                 ariaLabel: t(ResourceKeys.deviceEvents.command.fetch),
-                disabled: synchronizationStatus === SynchronizationStatus.updating || monitoringData,
+                disabled: state.formMode === 'updating' || monitoringData,
                 iconProps: {
                     iconName: START
                 },
@@ -159,7 +154,7 @@ export const Commands: React.FC<CommandsProps> = ({
     const createRefreshCommandItem = (): ICommandBarItemProps => {
         return {
             ariaLabel: t(ResourceKeys.deviceEvents.command.refresh),
-            disabled: synchronizationStatus === SynchronizationStatus.updating,
+            disabled: state.formMode === 'updating',
             iconProps: {iconName: REFRESH},
             key: REFRESH,
             name: t(ResourceKeys.deviceEvents.command.refresh),
@@ -180,12 +175,14 @@ export const Commands: React.FC<CommandsProps> = ({
     // TODO: add to resource string
     const createDecoderCommandItem = (): ICommandBarItemProps => {
         return {
-            ariaLabel: 'Customize Decode prototype',
+            ariaLabel: t(ResourceKeys.deviceEvents.command.customizeContentType),
+            disabled: state.formMode !== 'upserted' && state.formMode !== 'initialized'
+                        && state.formMode !== 'setDecoderSucceeded' && state.formMode !== 'setDecoderFailed',
             iconProps: {
                 iconName: UPLOAD
             },
             key: UPLOAD,
-            name: 'Customize Decode prototype',
+            name: t(ResourceKeys.deviceEvents.command.customizeContentType),
             onClick: onToggleDecoderPanel
         };
     };
@@ -210,7 +207,7 @@ export const Commands: React.FC<CommandsProps> = ({
     };
 
     const onClearData = () => {
-        dispatch(clearMonitoringEventsAction());
+        api.clearEventsMonitoring();
     };
 
     const onShowSystemProperties = () => {

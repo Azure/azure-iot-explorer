@@ -279,6 +279,7 @@ export class ResourceKeys {
       command : {
          clearEvents : "deviceEvents.command.clearEvents",
          close : "deviceEvents.command.close",
+         customizeContentType : "deviceEvents.command.customizeContentType",
          fetch : "deviceEvents.command.fetch",
          refresh : "deviceEvents.command.refresh",
          showSystemProperties : "deviceEvents.command.showSystemProperties",
@@ -299,6 +300,23 @@ export class ResourceKeys {
          name : {
             label : "deviceEvents.customEventHub.name.label",
          },
+      },
+      customizeContentType : {
+         contentTypeOption : {
+            label : "deviceEvents.customizeContentType.contentTypeOption.label",
+         },
+         header : "deviceEvents.customizeContentType.header",
+         protobuf : {
+            file : {
+               label : "deviceEvents.customizeContentType.protobuf.file.label",
+               removeFile : "deviceEvents.customizeContentType.protobuf.file.removeFile",
+            },
+            type : {
+               label : "deviceEvents.customizeContentType.protobuf.type.label",
+               placeholder : "deviceEvents.customizeContentType.protobuf.type.placeholder",
+            },
+         },
+         save : "deviceEvents.customizeContentType.save",
       },
       error : "deviceEvents.error",
       event : {

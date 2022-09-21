@@ -49,12 +49,8 @@ export interface UpdateDeviceParameters {
     deviceIdentity: DeviceIdentity;
 }
 
-export interface ValidateDecoderInfoParameters {
-    decoderFile?: File;
-    decoderPrototype?: Type;
-}
-
 export interface SetDecoderInfoParameters {
+    isDecoderCustomized: boolean;
     decoderFile?: File;
     decoderType?: string;
 }

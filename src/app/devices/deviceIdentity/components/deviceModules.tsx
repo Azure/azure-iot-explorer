@@ -16,6 +16,7 @@ import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getModuleIdentityIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { Pnp } from '../../pnp/components/pnp';
 import { DeviceEvents } from '../../deviceEvents/components/deviceEvents';
+import { DeviceEventsStateContextProvider } from '../../deviceEvents/context/deviceEventsStateProvider';
 
 export const DeviceModules: React.FC = () => {
     const { url } = useRouteMatch();
@@ -54,12 +55,13 @@ export const DeviceModules: React.FC = () => {
                 children={<ModuleDirectMethod/>}
             />
 
-            <BreadcrumbRoute
-                path={`${url}/${ROUTE_PARTS.MODULE_EVENTS}`}
-                breadcrumb={{name: moduleId, suffix: search}}
-                children={<DeviceEvents/>}
-            />
-
+            <DeviceEventsStateContextProvider>
+                <BreadcrumbRoute
+                    path={`${url}/${ROUTE_PARTS.MODULE_EVENTS}`}
+                    breadcrumb={{name: moduleId, suffix: search}}
+                    children={<DeviceEvents/>}
+                />
+            </DeviceEventsStateContextProvider>
             <BreadcrumbRoute
                 path={`${url}/${ROUTE_PARTS.MODULE_PNP}`}
                 breadcrumb={{name: moduleId, disableLink: true, suffix: search}}

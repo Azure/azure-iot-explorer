@@ -19,18 +19,10 @@ export const parseEventHubMessage = async (message: Message, decoderPrototype?: 
     // if message body's type is buffer, convert to string
     if (message.body.type === 'Buffer') {
         if (decoderPrototype) {
-            try {
-                return {
-                    ...message,
-                    body: decoderPrototype.decode(message.body.data)
-                };
-            } catch (err) {
-                // TODO: put in toast instead
-                return {
-                    ...message,
-                    body: `error decoding message: ${err.message}`
-                };
-            }
+            return {
+                ...message,
+                body: decoderPrototype.decode(message.body.data)
+            };
         }
 
         return {

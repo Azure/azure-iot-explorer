@@ -9,10 +9,10 @@ import { Type } from 'protobufjs';
 import { monitorEvents, stopMonitoringEvents } from '../../api/services/devicesService';
 import { NotificationType } from '../../api/models/notification';
 import { ResourceKeys } from '../../../localization/resourceKeys';
-import { setDecoderInfoAction, setDecoderPrototypeAction, startEventsMonitoringAction, stopEventsMonitoringAction, validateDecoderInfoAction } from './actions';
+import { setDecoderInfoAction, startEventsMonitoringAction, stopEventsMonitoringAction } from './actions';
 import { raiseNotificationToast } from '../../notifications/components/notificationToast';
-import { MonitorEventsParameters, SetDecoderInfoParameters, ValidateDecoderInfoParameters } from '../../api/parameters/deviceParameters';
-import { validateDecoderInfo } from './utils';
+import { MonitorEventsParameters, SetDecoderInfoParameters } from '../../api/parameters/deviceParameters';
+import { setDecoderInfo } from './utils';
 
 export function* startEventsMonitoringSagaWorker(action: Action<MonitorEventsParameters>): SagaIterator {
     try {
@@ -50,10 +50,10 @@ export function* stopEventsMonitoringSagaWorker() {
     }
 }
 
-export function* validateDecoderInfoSagaWorker(action: Action<SetDecoderInfoParameters>) {
+export function* setDecoderInfoSagaWorker(action: Action<SetDecoderInfoParameters>) {
     try {
-        const prototype: Type = yield call(validateDecoderInfo, action.payload);
-        yield put(validateDecoderInfoAction({decoderFile: action.payload.decoderFile, decoderPrototype: prototype}));
+        const prototype: Type = action.payload.isDecoderCustomized ? yield call(setDecoderInfo, action.payload) : null;
+        yield put(setDecoderInfoAction.done({params: action.payload, result: {isDecoderCustomized: action.payload.isDecoderCustomized, decoderProtoFile: action.payload.decoderFile, decoderPrototype: prototype}}));
     } catch (error) {
         yield call(raiseNotificationToast, {
             text: {
@@ -64,13 +64,14 @@ export function* validateDecoderInfoSagaWorker(action: Action<SetDecoderInfoPara
             },
             type: NotificationType.error
           });
+        yield put(setDecoderInfoAction.failed({params: action.payload, error}));
     }
 }
 
 export function* EventMonitoringSaga() {
     yield all([
-        takeEvery(startEventsMonitoringAction.started.type, startEventsMonitoringSagaWorker),
-        takeLatest(stopEventsMonitoringAction.started.type, stopEventsMonitoringSagaWorker),
-        takeLatest(setDecoderInfoAction, validateDecoderInfoSagaWorker)
+        takeEvery(startEventsMonitoringAction.started, startEventsMonitoringSagaWorker),
+        takeLatest(stopEventsMonitoringAction.started, stopEventsMonitoringSagaWorker),
+        takeLatest(setDecoderInfoAction.started, setDecoderInfoSagaWorker)
     ]);
 }

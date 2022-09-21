@@ -3,9 +3,8 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { parse, Type } from 'protobufjs';
 import { useTranslation } from 'react-i18next';
-import { Spinner, SpinnerSize, Label, Stack, MessageBarType, MessageBar, PrimaryButton, TextField } from '@fluentui/react';
+import { Spinner, SpinnerSize, Label, Stack, MessageBarType, MessageBar } from '@fluentui/react';
 import { useLocation } from 'react-router-dom';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { Message, MESSAGE_SYSTEM_PROPERTIES, MESSAGE_PROPERTIES, IOTHUB_MESSAGE_SOURCE_TELEMETRY } from '../../../api/models/messages';
@@ -15,11 +14,7 @@ import { MonitorEventsParameters } from '../../../api/parameters/deviceParameter
 import { DEFAULT_CONSUMER_GROUP } from '../../../constants/apiConstants';
 import { appConfig, HostMode } from '../../../../appConfig/appConfig';
 import { HeaderView } from '../../../shared/components/headerView';
-import { useAsyncSagaReducer } from '../../../shared/hooks/useAsyncSagaReducer';
-import { deviceEventsReducer } from '../reducers';
-import { EventMonitoringSaga } from '../saga';
-import { deviceEventsStateInitial } from '../state';
-import { startEventsMonitoringAction, stopEventsMonitoringAction } from './../actions';
+import { useDeviceEventsStateContext } from '../context/deviceEventsStateContext';
 import { DEFAULT_COMPONENT_FOR_DIGITAL_TWIN } from '../../../constants/devices';
 import { usePnpStateContext } from '../../../shared/contexts/pnpStateContext';
 import { getDeviceTelemetry, TelemetrySchema } from '../../pnp/components/deviceEvents/dataHelper';
@@ -48,11 +43,10 @@ export const DeviceEvents: React.FC = () => {
     const { search } = useLocation();
     const deviceId = getDeviceIdFromQueryString(search);
     const moduleId = getModuleIdentityIdFromQueryString(search);
+    const [ state, api ] = useDeviceEventsStateContext();
 
-    const [localState, dispatch] = useAsyncSagaReducer(deviceEventsReducer, EventMonitoringSaga, deviceEventsStateInitial(), 'deviceEventsState');
-    const synchronizationStatus = localState.message.synchronizationStatus;
-    const events = localState.message.payload ? localState.message.payload : [] ;
-    const decoderPrototype = localState.decoder.payload?.decoderPrototype;
+    const events = state.message ;
+    const decoderPrototype = state.decoder.decoderPrototype;
 
     // event hub settings
     const [consumerGroup, setConsumerGroup] = React.useState(DEFAULT_CONSUMER_GROUP);
@@ -103,7 +97,7 @@ export const DeviceEvents: React.FC = () => {
 
     React.useEffect(    // tslint:disable-next-line: cyclomatic-complexity
         () => {
-            if (synchronizationStatus === SynchronizationStatus.updating ||
+            if (state.formMode === 'updating' ||
                 // when specifying start time, valid time need to be provided
                 (specifyStartTime && (!startTime || hasError)) ||
                 // when using custom event hub, both valid connection string and name need to be provided
@@ -114,11 +108,11 @@ export const DeviceEvents: React.FC = () => {
                 setStartDisabled(false);
             }
         },
-        [hasError, synchronizationStatus, useBuiltInEventHub, customEventHubConnectionString, customEventHubName, specifyStartTime, startTime]);
+        [hasError, state.formMode, useBuiltInEventHub, customEventHubConnectionString, customEventHubName, specifyStartTime, startTime]);
 
     React.useEffect(// tslint:disable-next-line: cyclomatic-complexity
         () => {
-            if (synchronizationStatus === SynchronizationStatus.fetched) {
+            if (state.formMode === 'fetched') {
                 if (appConfig.hostMode !== HostMode.Browser) {
                     if (monitoringData) {
                         setStartTime(new Date());
@@ -136,20 +130,19 @@ export const DeviceEvents: React.FC = () => {
                     stopMonitoring();
                 }
             }
-            if (synchronizationStatus === SynchronizationStatus.upserted) {
+            if (state.formMode === 'upserted') {
                 setMonitoringData(false);
             }
-            if (monitoringData && synchronizationStatus === SynchronizationStatus.failed) {
+            if (monitoringData && state.formMode === 'failed') {
                 stopMonitoring();
             }
         },
-        [synchronizationStatus, decoderPrototype]);
+        [state.formMode]);
 
     const renderCommands = () => {
         return (
             <Commands
                 startDisabled={startDisabled}
-                synchronizationStatus={synchronizationStatus}
                 monitoringData={monitoringData}
                 showSystemProperties={showSystemProperties}
                 showPnpModeledEvents={showPnpModeledEvents}
@@ -160,7 +153,6 @@ export const DeviceEvents: React.FC = () => {
                 setShowPnpModeledEvents={setShowPnpModeledEvents}
                 setShowSimulationPanel={setShowSimulationPanel}
                 setShowDecoderPanel={setShowDecoderPanel}
-                dispatch={dispatch}
                 fetchData={fetchData(true)}
             />
         );
@@ -209,7 +201,7 @@ export const DeviceEvents: React.FC = () => {
     };
 
     const stopMonitoring = () => {
-        dispatch(stopEventsMonitoringAction.started());
+        api.stopEventsMonitoring();
     };
 
     // tslint:disable-next-line: cyclomatic-complexity
@@ -514,7 +506,7 @@ export const DeviceEvents: React.FC = () => {
             };
         }
 
-        dispatch(startEventsMonitoringAction.started(parameters));
+        api.startEventsMonitoring(parameters);
     };
 
     const onToggleSimulationPanel = () => {
@@ -546,7 +538,6 @@ export const DeviceEvents: React.FC = () => {
             <DeviceDecoderPanel
                 showDecoderPanel={showDecoderPanel}
                 onToggleDecoderPanel={onToggleDecoderPanel}
-                dispatch={dispatch}
             />
             <div className="device-events-container">
                 {renderLoader()}
