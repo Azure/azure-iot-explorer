@@ -8,8 +8,9 @@ import { act } from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
 import { CommandBar } from '@fluentui/react';
 import { Commands } from './commands';
-import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import { appConfig, HostMode } from '../../../../appConfig/appConfig';
+import * as deviceEventsStateContext from '../context/deviceEventsStateContext';
+import { getInitialDeviceEventsState } from '../state';
 
 const search = '?deviceId=test&componentName=DEFAULT_COMPONENT&interfaceId=dtmi:com:example:Thermostat;1';
 const pathname = `#devices/deviceDetail/ioTPlugAndPlay/ioTPlugAndPlayDetail/events/${search}`;
@@ -21,38 +22,42 @@ jest.mock('react-router-dom', () => ({
 describe('commands', () => {
     it('matches snapshot in electron', () => {
         appConfig.hostMode = HostMode.Electron;
+        jest.spyOn(deviceEventsStateContext, 'useDeviceEventsStateContext').mockReturnValue(
+            [getInitialDeviceEventsState(), deviceEventsStateContext.getInitialDeviceEventsOps()]);
         expect(shallow(
             <Commands
                 startDisabled={true}
-                synchronizationStatus={SynchronizationStatus.fetched}
                 monitoringData={true}
+                showContentTypePanel={true}
                 showSystemProperties={true}
                 showPnpModeledEvents={true}
                 showSimulationPanel={true}
+                setShowContentTypePanel={jest.fn()}
                 setMonitoringData={jest.fn()}
                 setShowSystemProperties={jest.fn()}
                 setShowPnpModeledEvents={jest.fn()}
                 setShowSimulationPanel={jest.fn()}
-                dispatch={jest.fn()}
                 fetchData={jest.fn()}
             />)).toMatchSnapshot();
     });
 
     it('matches snapshot in hosted environment', () => {
         appConfig.hostMode = HostMode.Browser;
+        jest.spyOn(deviceEventsStateContext, 'useDeviceEventsStateContext').mockReturnValue(
+            [getInitialDeviceEventsState(), deviceEventsStateContext.getInitialDeviceEventsOps()]);
         expect(shallow(
             <Commands
                 startDisabled={false}
-                synchronizationStatus={SynchronizationStatus.updating}
                 monitoringData={false}
+                showContentTypePanel={true}
                 showSystemProperties={false}
                 showPnpModeledEvents={false}
                 showSimulationPanel={false}
+                setShowContentTypePanel={jest.fn()}
                 setMonitoringData={jest.fn()}
                 setShowSystemProperties={jest.fn()}
                 setShowPnpModeledEvents={jest.fn()}
                 setShowSimulationPanel={jest.fn()}
-                dispatch={jest.fn()}
                 fetchData={jest.fn()}
             />)).toMatchSnapshot();
     });
@@ -61,20 +66,21 @@ describe('commands', () => {
         const mockSetMonitoringData = jest.fn();
         const mockSetShowPnpModeledEvents = jest.fn();
         const mockSetShowSystemProperties = jest.fn();
-        const mockDispatch = jest.fn();
+        jest.spyOn(deviceEventsStateContext, 'useDeviceEventsStateContext').mockReturnValue(
+            [getInitialDeviceEventsState(), deviceEventsStateContext.getInitialDeviceEventsOps()]);
         const wrapper = mount(
             <Commands
                 startDisabled={false}
-                synchronizationStatus={SynchronizationStatus.fetched}
                 monitoringData={true}
+                showContentTypePanel={true}
                 showSystemProperties={true}
                 showPnpModeledEvents={true}
                 showSimulationPanel={true}
                 setMonitoringData={mockSetMonitoringData}
+                setShowContentTypePanel={jest.fn()}
                 setShowSystemProperties={mockSetShowSystemProperties}
                 setShowPnpModeledEvents={mockSetShowPnpModeledEvents}
                 setShowSimulationPanel={jest.fn()}
-                dispatch={jest.fn()}
                 fetchData={jest.fn()}
             />);
 

@@ -3,12 +3,12 @@
  * Licensed under the MIT License
  **********************************************************/
 import 'jest';
-import { START_EVENTS_MONITORING, STOP_EVENTS_MONITORING } from '../../constants/actionTypes';
-import { startEventsMonitoringAction, stopEventsMonitoringAction } from './actions';
+import { SET_DECODE_INFO, SET_DEFAULT_DECODE_INFO, START_EVENTS_MONITORING, STOP_EVENTS_MONITORING } from '../../constants/actionTypes';
+import { setDecoderInfoAction, setDefaultDecodeInfoAction, startEventsMonitoringAction, stopEventsMonitoringAction } from './actions';
 import { deviceEventsReducer } from './reducers';
-import { deviceEventsStateInitial } from './state';
-import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
+import { getInitialDeviceEventsState } from './state';
 import { DEFAULT_CONSUMER_GROUP } from './../../constants/apiConstants';
+import { Type } from 'protobufjs';
 
 describe('deviceEventsReducer', () => {
     const deviceId = 'testDeviceId';
@@ -22,43 +22,58 @@ describe('deviceEventsReducer', () => {
         'iothub-message-schema': 'humid'
         }
     }];
+    const decoderParams = {decoderFile: new File([], ''), decoderPrototype: 'decoderPrototype', decodeType: 'Protobuf'};
     it (`handles ${START_EVENTS_MONITORING}/ACTION_START action`, () => {
         const action = startEventsMonitoringAction.started(params);
-        expect(deviceEventsReducer(deviceEventsStateInitial(), action).synchronizationStatus).toEqual(SynchronizationStatus.working);
+        expect(deviceEventsReducer(getInitialDeviceEventsState(), action).formMode).toEqual('working');
     });
 
     it (`handles ${START_EVENTS_MONITORING}/ACTION_DONE action`, () => {
         const action = startEventsMonitoringAction.done({params, result: events});
-        expect(deviceEventsReducer(deviceEventsStateInitial(), action).payload).toEqual(events);
-        expect(deviceEventsReducer(deviceEventsStateInitial(), action).synchronizationStatus).toEqual(SynchronizationStatus.fetched);
+        expect(deviceEventsReducer(getInitialDeviceEventsState(), action).message).toEqual(events);
+        expect(deviceEventsReducer(getInitialDeviceEventsState(), action).formMode).toEqual('fetched');
     });
 
     it (`handles ${START_EVENTS_MONITORING}/ACTION_FAILED action`, () => {
         const action = startEventsMonitoringAction.failed({error: -1, params});
-        expect(deviceEventsReducer(deviceEventsStateInitial(), action).synchronizationStatus).toEqual(SynchronizationStatus.failed);
-    });
-
-    let initialState = deviceEventsStateInitial();
-    initialState = initialState.merge({
-        payload: events,
-        synchronizationStatus: SynchronizationStatus.fetched
+        expect(deviceEventsReducer(getInitialDeviceEventsState(), action).formMode).toEqual('failed');
     });
 
     it (`handles ${STOP_EVENTS_MONITORING}/ACTION_START action`, () => {
         const action = stopEventsMonitoringAction.started();
-        expect(deviceEventsReducer(deviceEventsStateInitial(), action).synchronizationStatus).toEqual(SynchronizationStatus.updating);
-        expect(deviceEventsReducer(deviceEventsStateInitial(), action).payload).toEqual([]);
+        expect(deviceEventsReducer(getInitialDeviceEventsState(), action).formMode).toEqual('updating');
+        expect(deviceEventsReducer(getInitialDeviceEventsState(), action).message).toEqual([]);
     });
 
     it (`handles ${STOP_EVENTS_MONITORING}/ACTION_DONE action`, () => {
         const action = stopEventsMonitoringAction.done({});
-        expect(deviceEventsReducer(deviceEventsStateInitial(), action).synchronizationStatus).toEqual(SynchronizationStatus.upserted);
-        expect(deviceEventsReducer(deviceEventsStateInitial(), action).payload).toEqual([]);
+        expect(deviceEventsReducer(getInitialDeviceEventsState(), action).formMode).toEqual('upserted');
+        expect(deviceEventsReducer(getInitialDeviceEventsState(), action).message).toEqual([]);
     });
 
     it (`handles ${STOP_EVENTS_MONITORING}/ACTION_FAILED action`, () => {
         const action = stopEventsMonitoringAction.failed({error: -1});
-        expect(deviceEventsReducer(deviceEventsStateInitial(), action).synchronizationStatus).toEqual(SynchronizationStatus.failed);
-        expect(deviceEventsReducer(deviceEventsStateInitial(), action).payload).toEqual([]);
+        expect(deviceEventsReducer(getInitialDeviceEventsState(), action).formMode).toEqual('failed');
+        expect(deviceEventsReducer(getInitialDeviceEventsState(), action).message).toEqual([]);
+    });
+
+    it (`handles ${SET_DECODE_INFO}/ACTION_START action`, () => {
+        const action = setDecoderInfoAction.started(decoderParams);
+        expect(deviceEventsReducer(getInitialDeviceEventsState(), action).formMode).toEqual('working');
+    });
+
+    it (`handles ${SET_DECODE_INFO}/ACTION_DONE action`, () => {
+        const action = setDecoderInfoAction.done({params: decoderParams, result: {decodeType: 'Protobuf', decoderProtoFile: new File([], ''), decoderPrototype: new Type('')}});
+        expect(deviceEventsReducer(getInitialDeviceEventsState(), action).formMode).toEqual('setDecoderSucceeded');
+    });
+
+    it (`handles ${SET_DECODE_INFO}/ACTION_FAILED action`, () => {
+        const action = setDecoderInfoAction.failed({params: decoderParams, error: {}});
+        expect(deviceEventsReducer(getInitialDeviceEventsState(), action).formMode).toEqual('setDecoderFailed');
+    });
+
+    it (`handles ${SET_DEFAULT_DECODE_INFO} action`, () => {
+        const action = setDefaultDecodeInfoAction();
+        expect(deviceEventsReducer(getInitialDeviceEventsState(), action).contentType.decodeType).toEqual('JSON');
     });
 });

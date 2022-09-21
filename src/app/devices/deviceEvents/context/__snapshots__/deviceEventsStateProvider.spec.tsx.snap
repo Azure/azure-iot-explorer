@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DeviceEventsStateContextProvider matches snapshot 1`] = `
+<ContextProvider
+  value={
+    Array [
+      Object {
+        "contentType": Object {
+          "decodeType": "JSON",
+        },
+        "formMode": "initialized",
+        "message": Array [],
+      },
+      Object {
+        "clearEventsMonitoring": [Function],
+        "setDecoderInfo": [Function],
+        "setDefaultDecodeInfo": [Function],
+        "startEventsMonitoring": [Function],
+        "stopEventsMonitoring": [Function],
+      },
+    ]
+  }
+>
+  <span>
+    test
+  </span>
+</ContextProvider>
+`;

@@ -7,7 +7,7 @@ import { parseEventHubMessage } from './eventHubMessageHelper';
 describe('eventHubMessageHelper', () => {
 
     context('parseEventHubMessage', () => {
-        it('converts body data if type if Buffer', () => {
+        it('converts body data if type if Buffer', async () => {
             /* tslint:disable */
             const message = {
                 body: {
@@ -23,15 +23,15 @@ describe('eventHubMessageHelper', () => {
                 properties: {}
             };
             /* tslint:enable */
-            expect(parseEventHubMessage(message)).toEqual({
+            expect(await parseEventHubMessage(message)).toEqual({
                 body: 'test',
                 enqueuedTime: '2019-10-16T23:47:07.517Z',
                 properties: {}
             });
         });
 
-        it('leaves body data intact if type if not Buffer', () => {
-            expect(parseEventHubMessage(null)).toEqual(null);
+        it('leaves body data intact if type if not Buffer', async () => {
+            expect(await parseEventHubMessage(null)).toEqual(null);
 
             /* tslint:disable */
             const message = {
@@ -44,7 +44,7 @@ describe('eventHubMessageHelper', () => {
                 properties: {}
             };
             /* tslint:enable */
-            expect(parseEventHubMessage(message)).toEqual(message);
+            expect(await parseEventHubMessage(message)).toEqual(message);
         });
     });
 });

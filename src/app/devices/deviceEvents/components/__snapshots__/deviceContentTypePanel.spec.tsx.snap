@@ -1,0 +1,118 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DeviceDecoderPanel matches snapshot with customize content type option 1`] = `
+<StyledPanelBase
+  closeButtonAriaLabel="common.close"
+  headerText="deviceEvents.customizeContentType.header"
+  isBlocking={false}
+  isOpen={true}
+  onDismiss={[MockFunction]}
+  type={3}
+>
+  <form
+    onSubmit={[Function]}
+  >
+    <Stack
+      tokens={
+        Object {
+          "childrenGap": 10,
+        }
+      }
+    >
+      <Dropdown
+        defaultSelectedKey="Protobuf"
+        disabled={false}
+        label="deviceEvents.customizeContentType.contentTypeOption.label"
+        onChange={[Function]}
+        options={
+          Array [
+            Object {
+              "key": "JSON",
+              "text": "JSON",
+            },
+            Object {
+              "key": "Protobuf",
+              "text": "Protobuf",
+            },
+          ]
+        }
+        required={true}
+      />
+      <StyledLabelBase>
+        deviceEvents.customizeContentType.protobuf.file.label
+      </StyledLabelBase>
+      <input
+        accept=".proto"
+        disabled={false}
+        id="protoFile"
+        name="protoFile"
+        onChange={[Function]}
+        required={true}
+        type="file"
+      />
+      <StyledTextFieldBase
+        disabled={false}
+        label="deviceEvents.customizeContentType.protobuf.type.label"
+        onChange={[Function]}
+        placeholder="deviceEvents.customizeContentType.protobuf.type.placeholder"
+        readOnly={false}
+      />
+      <CustomizedPrimaryButton
+        ariaLabel="deviceEvents.customizeContentType.save"
+        disabled={false}
+        text="deviceEvents.customizeContentType.save"
+        type="submit"
+      />
+    </Stack>
+  </form>
+</StyledPanelBase>
+`;
+
+exports[`DeviceDecoderPanel matches snapshot with default json option 1`] = `
+<StyledPanelBase
+  closeButtonAriaLabel="common.close"
+  headerText="deviceEvents.customizeContentType.header"
+  isBlocking={false}
+  isOpen={true}
+  onDismiss={[MockFunction]}
+  type={3}
+>
+  <form
+    onSubmit={[Function]}
+  >
+    <Stack
+      tokens={
+        Object {
+          "childrenGap": 10,
+        }
+      }
+    >
+      <Dropdown
+        defaultSelectedKey="JSON"
+        disabled={false}
+        label="deviceEvents.customizeContentType.contentTypeOption.label"
+        onChange={[Function]}
+        options={
+          Array [
+            Object {
+              "key": "JSON",
+              "text": "JSON",
+            },
+            Object {
+              "key": "Protobuf",
+              "text": "Protobuf",
+            },
+          ]
+        }
+        required={true}
+      />
+      <CustomizedPrimaryButton
+        ariaLabel="deviceEvents.customizeContentType.save"
+        disabled={false}
+        text="deviceEvents.customizeContentType.save"
+        type="submit"
+      />
+    </Stack>
+  </form>
+</StyledPanelBase>
+`;

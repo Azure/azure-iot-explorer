@@ -86,6 +86,7 @@
     "immutable": "4.0.0-rc.12",
     "jsonschema": "1.2.4",
     "msal": "1.2.0",
+    "protobufjs": "^7.0.0",
     "react": "16.14.0",
     "react-collapsible": "2.3.2",
     "react-dom": "16.13.1",

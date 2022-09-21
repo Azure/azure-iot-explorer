@@ -54,17 +54,19 @@ exports[`DeviceModules matches snapshot 1`] = `
   >
     <ModuleDirectMethod />
   </BreadcrumbRoute>
-  <BreadcrumbRoute
-    breadcrumb={
-      Object {
-        "name": "mod1",
-        "suffix": "?moduleId=mod1",
+  <DeviceEventsStateContextProvider>
+    <BreadcrumbRoute
+      breadcrumb={
+        Object {
+          "name": "mod1",
+          "suffix": "?moduleId=mod1",
+        }
       }
-    }
-    path="/moduleEvents"
-  >
-    <DeviceEvents />
-  </BreadcrumbRoute>
+      path="/moduleEvents"
+    >
+      <DeviceEvents />
+    </BreadcrumbRoute>
+  </DeviceEventsStateContextProvider>
   <BreadcrumbRoute
     breadcrumb={
       Object {

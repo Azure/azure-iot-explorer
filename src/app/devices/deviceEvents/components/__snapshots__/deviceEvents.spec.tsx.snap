@@ -6,18 +6,18 @@ exports[`deviceEvents deviceEvents in non-pnp context matches snapshot 1`] = `
   key="device-events"
 >
   <Commands
-    dispatch={[MockFunction]}
     fetchData={[Function]}
     monitoringData={false}
     setMonitoringData={[Function]}
+    setShowContentTypePanel={[Function]}
     setShowPnpModeledEvents={[Function]}
     setShowSimulationPanel={[Function]}
     setShowSystemProperties={[Function]}
+    showContentTypePanel={false}
     showPnpModeledEvents={false}
     showSimulationPanel={false}
     showSystemProperties={false}
     startDisabled={false}
-    synchronizationStatus={1}
   />
   <HeaderView
     headerText="deviceEvents.headerText"
@@ -54,6 +54,10 @@ exports[`deviceEvents deviceEvents in non-pnp context matches snapshot 1`] = `
   <DeviceSimulationPanel
     onToggleSimulationPanel={[Function]}
     showSimulationPanel={false}
+  />
+  <DeviceContentTypePanel
+    onToggleContentTypePanel={[Function]}
+    showContentTypePanel={false}
   />
   <div
     className="device-events-container"
@@ -92,18 +96,18 @@ exports[`deviceEvents deviceEvents in pnp context matches snapshot while interfa
   key="device-events"
 >
   <Commands
-    dispatch={[Function]}
     fetchData={[Function]}
     monitoringData={false}
     setMonitoringData={[Function]}
+    setShowContentTypePanel={[Function]}
     setShowPnpModeledEvents={[Function]}
     setShowSimulationPanel={[Function]}
     setShowSystemProperties={[Function]}
+    showContentTypePanel={false}
     showPnpModeledEvents={true}
     showSimulationPanel={false}
     showSystemProperties={false}
     startDisabled={false}
-    synchronizationStatus={2}
   />
   <HeaderView
     headerText="deviceEvents.headerText"
@@ -140,6 +144,10 @@ exports[`deviceEvents deviceEvents in pnp context matches snapshot while interfa
   <DeviceSimulationPanel
     onToggleSimulationPanel={[Function]}
     showSimulationPanel={false}
+  />
+  <DeviceContentTypePanel
+    onToggleContentTypePanel={[Function]}
+    showContentTypePanel={false}
   />
   <div
     className="device-events-container"
@@ -157,18 +165,18 @@ exports[`deviceEvents deviceEvents in pnp context matches snapshot while interfa
   key="device-events"
 >
   <Commands
-    dispatch={[Function]}
     fetchData={[Function]}
     monitoringData={false}
     setMonitoringData={[Function]}
+    setShowContentTypePanel={[Function]}
     setShowPnpModeledEvents={[Function]}
     setShowSimulationPanel={[Function]}
     setShowSystemProperties={[Function]}
+    showContentTypePanel={false}
     showPnpModeledEvents={true}
     showSimulationPanel={false}
     showSystemProperties={false}
     startDisabled={false}
-    synchronizationStatus={2}
   />
   <HeaderView
     headerText="deviceEvents.headerText"
@@ -205,6 +213,10 @@ exports[`deviceEvents deviceEvents in pnp context matches snapshot while interfa
   <DeviceSimulationPanel
     onToggleSimulationPanel={[Function]}
     showSimulationPanel={false}
+  />
+  <DeviceContentTypePanel
+    onToggleContentTypePanel={[Function]}
+    showContentTypePanel={false}
   />
   <div
     className="device-events-container"

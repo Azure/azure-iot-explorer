@@ -16,6 +16,7 @@ import { DeviceEvents } from '../../deviceEvents/components/deviceEvents';
 import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString, getComponentNameFromQueryString, getModuleIdentityIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { usePnpStateContext } from '../../../shared/contexts/pnpStateContext';
 import './digitalTwinDetail.scss';
+import { DeviceEventsStateContextProvider } from '../../deviceEvents/context/deviceEventsStateProvider';
 
 export const DigitalTwinDetail: React.FC = () => {
     const { t } = useTranslation();
@@ -68,7 +69,9 @@ export const DigitalTwinDetail: React.FC = () => {
                 <DeviceCommands />
             </PivotItem>
             <PivotItem key={ROUTE_PARTS.EVENTS} headerText={t(ResourceKeys.breadcrumb.events)} itemKey={ROUTE_PARTS.EVENTS}>
-                <DeviceEvents />
+                <DeviceEventsStateContextProvider>
+                    <DeviceEvents />
+                </DeviceEventsStateContextProvider>
             </PivotItem>
         </Pivot>
     );

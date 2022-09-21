@@ -9,8 +9,6 @@ import { shallow, mount } from 'enzyme';
 import { TextField, CommandBar, Shimmer } from '@fluentui/react';
 import { DeviceEvents } from './deviceEvents';
 import { DEFAULT_CONSUMER_GROUP } from '../../../constants/apiConstants';
-import { startEventsMonitoringAction } from '../actions';
-import * as AsyncSagaReducer from '../../../shared/hooks/useAsyncSagaReducer';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import * as pnpStateContext from '../../../shared/contexts/pnpStateContext';
 import { pnpStateInitial, PnpStateInterface } from '../../pnp/state';
@@ -19,6 +17,8 @@ import { REPOSITORY_LOCATION_TYPE } from '../../../constants/repositoryLocationT
 import { ErrorBoundary } from '../../shared/components/errorBoundary';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import * as TransformHelper from '../../../api/dataTransforms/transformHelper';
+import * as deviceEventsStateContext from '../context/deviceEventsStateContext';
+import { getInitialDeviceEventsState } from '../state';
 
 const pathname = `#/devices/detail/events/?id=device1`;
 jest.mock('react-router-dom', () => ({
@@ -39,11 +39,6 @@ describe('deviceEvents', () => {
         }];
 
         beforeEach(() => {
-            jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([{
-                payload: events,
-                synchronizationStatus: SynchronizationStatus.fetched
-            }, jest.fn()]);
-
             const realUseState = React.useState;
             jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(DEFAULT_CONSUMER_GROUP));
             jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(false));
@@ -67,20 +62,27 @@ describe('deviceEvents', () => {
         });
 
         it('matches snapshot', () => {
+            const startEventsMonitoring = jest.fn();
+            jest.spyOn(deviceEventsStateContext, 'useDeviceEventsStateContext').mockReturnValue(
+                [{...getInitialDeviceEventsState(), message: events},
+                    {...deviceEventsStateContext.getInitialDeviceEventsOps(), startEventsMonitoring}]);
             expect(shallow(<DeviceEvents/>)).toMatchSnapshot();
         });
 
         it('changes state accordingly when command bar buttons are clicked', () => {
+            const startEventsMonitoring = jest.fn();
+            jest.spyOn(deviceEventsStateContext, 'useDeviceEventsStateContext').mockReturnValue(
+                [getInitialDeviceEventsState(),
+                    {...deviceEventsStateContext.getInitialDeviceEventsOps(), startEventsMonitoring}]);
             const wrapper = mount(<DeviceEvents/>);
             const commandBar = wrapper.find(CommandBar).first();
             // tslint:disable-next-line: no-magic-numbers
-            expect(commandBar.props().items.length).toEqual(4);
+            expect(commandBar.props().items.length).toEqual(5);
 
             // click the start button
-            const startEventsMonitoringSpy = jest.spyOn(startEventsMonitoringAction, 'started');
             act(() => commandBar.props().items[0].onClick(null));
             wrapper.update();
-            expect(startEventsMonitoringSpy.mock.calls[0][0]).toEqual({
+            expect(startEventsMonitoring).toBeCalledWith({
                 consumerGroup: DEFAULT_CONSUMER_GROUP,
                 deviceId: 'device1',
                 moduleId: null,
@@ -98,6 +100,9 @@ describe('deviceEvents', () => {
         });
 
         it('renders events', () => {
+            jest.spyOn(deviceEventsStateContext, 'useDeviceEventsStateContext').mockReturnValue(
+                [{...getInitialDeviceEventsState(), message: events},
+                    {...deviceEventsStateContext.getInitialDeviceEventsOps()}]);
             jest.spyOn(pnpStateContext, 'usePnpStateContext').mockReturnValue({ pnpState: pnpStateInitial(), dispatch: jest.fn()});
             const wrapper = mount(<DeviceEvents/>);
             const rawTelemetry = wrapper.find('article');
@@ -185,10 +190,9 @@ describe('deviceEvents', () => {
                 'iothub-message-schema': 'humid'
                 }
             }];
-            jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([{
-                payload: events,
-                synchronizationStatus: SynchronizationStatus.fetched
-            }, jest.fn()]);
+            jest.spyOn(deviceEventsStateContext, 'useDeviceEventsStateContext').mockReturnValue(
+                [{...getInitialDeviceEventsState(), message: events, formMode: 'fetched'},
+                    {...deviceEventsStateContext.getInitialDeviceEventsOps()}]);
             mockFetchedState();
 
             const wrapper = mount(<DeviceEvents/>);
@@ -209,10 +213,10 @@ describe('deviceEvents', () => {
                 'iothub-message-schema': 'humid'
                 }
             }];
-            jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([{
-                payload: events,
-                synchronizationStatus: SynchronizationStatus.fetched
-            }, jest.fn()]);
+            mockFetchedState();
+            jest.spyOn(deviceEventsStateContext, 'useDeviceEventsStateContext').mockReturnValue(
+                [{...getInitialDeviceEventsState(), message: events, formMode: 'fetched'},
+                    {...deviceEventsStateContext.getInitialDeviceEventsOps()}]);
             mockFetchedState();
 
             const wrapper = mount(<DeviceEvents/>);
@@ -232,10 +236,9 @@ describe('deviceEvents', () => {
                 enqueuedTime: 'Wed Feb 17 2021 16:06:00 GMT-0800 (Pacific Standard Time)',
                 systemProperties: {}
             }];
-            jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([{
-                payload: events,
-                synchronizationStatus: SynchronizationStatus.fetched
-            }, jest.fn()]);
+            jest.spyOn(deviceEventsStateContext, 'useDeviceEventsStateContext').mockReturnValue(
+                [{...getInitialDeviceEventsState(), message: events, formMode: 'fetched'},
+                    {...deviceEventsStateContext.getInitialDeviceEventsOps()}]);
             mockFetchedState();
 
             const wrapper = shallow(<DeviceEvents/>);
@@ -258,10 +261,9 @@ describe('deviceEvents', () => {
                 },
                 enqueuedTime: 'Wed Feb 17 2021 16:06:00 GMT-0800 (Pacific Standard Time)'
             }];
-            jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([{
-                payload: events,
-                synchronizationStatus: SynchronizationStatus.fetched
-            }, jest.fn()]);
+            jest.spyOn(deviceEventsStateContext, 'useDeviceEventsStateContext').mockReturnValue(
+                [{...getInitialDeviceEventsState(), message: events, formMode: 'fetched'},
+                    {...deviceEventsStateContext.getInitialDeviceEventsOps()}]);
             mockFetchedState();
 
             const wrapper = shallow(<DeviceEvents/>);

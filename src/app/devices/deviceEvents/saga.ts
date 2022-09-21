@@ -5,12 +5,14 @@
 import { call, put, all, takeEvery, takeLatest } from 'redux-saga/effects';
 import { SagaIterator } from 'redux-saga';
 import { Action } from 'typescript-fsa';
+import { Type } from 'protobufjs';
 import { monitorEvents, stopMonitoringEvents } from '../../api/services/devicesService';
 import { NotificationType } from '../../api/models/notification';
 import { ResourceKeys } from '../../../localization/resourceKeys';
-import { startEventsMonitoringAction, stopEventsMonitoringAction } from './actions';
+import { setDecoderInfoAction, startEventsMonitoringAction, stopEventsMonitoringAction } from './actions';
 import { raiseNotificationToast } from '../../notifications/components/notificationToast';
-import { MonitorEventsParameters } from '../../api/parameters/deviceParameters';
+import { MonitorEventsParameters, SetDecoderInfoParameters } from '../../api/parameters/deviceParameters';
+import { setDecoderInfo } from './utils';
 
 export function* startEventsMonitoringSagaWorker(action: Action<MonitorEventsParameters>): SagaIterator {
     try {
@@ -48,9 +50,28 @@ export function* stopEventsMonitoringSagaWorker() {
     }
 }
 
+export function* setDecoderInfoSagaWorker(action: Action<SetDecoderInfoParameters>): SagaIterator {
+    try {
+        const prototype: Type = yield call(setDecoderInfo, action.payload);
+        yield put(setDecoderInfoAction.done({params: action.payload, result: {decodeType: action.payload.decodeType, decoderProtoFile: action.payload.decoderFile, decoderPrototype: prototype}}));
+    } catch (error) {
+        yield call(raiseNotificationToast, {
+            text: {
+                translationKey: ResourceKeys.notifications.updateCustomDecoderOnError,
+                translationOptions: {
+                    error: error.message,
+                },
+            },
+            type: NotificationType.error
+          });
+        yield put(setDecoderInfoAction.failed({params: action.payload, error}));
+    }
+}
+
 export function* EventMonitoringSaga() {
     yield all([
-        takeEvery(startEventsMonitoringAction.started.type, startEventsMonitoringSagaWorker),
-        takeLatest(stopEventsMonitoringAction.started.type, stopEventsMonitoringSagaWorker),
+        takeEvery(startEventsMonitoringAction.started, startEventsMonitoringSagaWorker),
+        takeLatest(stopEventsMonitoringAction.started, stopEventsMonitoringSagaWorker),
+        takeLatest(setDecoderInfoAction.started, setDecoderInfoSagaWorker)
     ]);
 }

@@ -14,11 +14,7 @@ import { MonitorEventsParameters } from '../../../api/parameters/deviceParameter
 import { DEFAULT_CONSUMER_GROUP } from '../../../constants/apiConstants';
 import { appConfig, HostMode } from '../../../../appConfig/appConfig';
 import { HeaderView } from '../../../shared/components/headerView';
-import { useAsyncSagaReducer } from '../../../shared/hooks/useAsyncSagaReducer';
-import { deviceEventsReducer } from '../reducers';
-import { EventMonitoringSaga } from '../saga';
-import { deviceEventsStateInitial } from '../state';
-import { startEventsMonitoringAction, stopEventsMonitoringAction } from './../actions';
+import { useDeviceEventsStateContext } from '../context/deviceEventsStateContext';
 import { DEFAULT_COMPONENT_FOR_DIGITAL_TWIN } from '../../../constants/devices';
 import { usePnpStateContext } from '../../../shared/contexts/pnpStateContext';
 import { getDeviceTelemetry, TelemetrySchema } from '../../pnp/components/deviceEvents/dataHelper';
@@ -37,6 +33,7 @@ import { StartTime } from './startTime';
 import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
 import { TELEMETRY_PAGE_NAMES } from '../../../../app/constants/telemetry';
 import './deviceEvents.scss';
+import { DeviceContentTypePanel } from './deviceContentTypePanel';
 
 const JSON_SPACES = 2;
 const LOADING_LOCK = 8000;
@@ -46,10 +43,10 @@ export const DeviceEvents: React.FC = () => {
     const { search } = useLocation();
     const deviceId = getDeviceIdFromQueryString(search);
     const moduleId = getModuleIdentityIdFromQueryString(search);
+    const [ state, api ] = useDeviceEventsStateContext();
 
-    const [localState, dispatch] = useAsyncSagaReducer(deviceEventsReducer, EventMonitoringSaga, deviceEventsStateInitial(), 'deviceEventsState');
-    const synchronizationStatus = localState.synchronizationStatus;
-    const events = localState.payload;
+    const events = state.message;
+    const decoderPrototype = state.contentType.decoderPrototype;
 
     // event hub settings
     const [consumerGroup, setConsumerGroup] = React.useState(DEFAULT_CONSUMER_GROUP);
@@ -79,6 +76,9 @@ export const DeviceEvents: React.FC = () => {
     // simulation specific
     const [showSimulationPanel, setShowSimulationPanel] = React.useState(false);
 
+    // message content type specific
+    const [showContentTypePanel, setShowContentTypePanel] = React.useState(false);
+
     React.useEffect(
         () => {
             return () => {
@@ -89,15 +89,15 @@ export const DeviceEvents: React.FC = () => {
 
     React.useEffect(() => {
         if (componentName) {
-            AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.PNP_TELEMETRY});
+            AppInsightsClient.getInstance()?.trackPageView({ name: TELEMETRY_PAGE_NAMES.PNP_TELEMETRY });
         } else {
-            AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.DEVICE_TELEMETRY});
+            AppInsightsClient.getInstance()?.trackPageView({ name: TELEMETRY_PAGE_NAMES.DEVICE_TELEMETRY });
         }
     }, []); // tslint:disable-line: align
 
     React.useEffect(    // tslint:disable-next-line: cyclomatic-complexity
         () => {
-            if (synchronizationStatus === SynchronizationStatus.updating ||
+            if (state.formMode === 'updating' ||
                 // when specifying start time, valid time need to be provided
                 (specifyStartTime && (!startTime || hasError)) ||
                 // when using custom event hub, both valid connection string and name need to be provided
@@ -108,11 +108,11 @@ export const DeviceEvents: React.FC = () => {
                 setStartDisabled(false);
             }
         },
-        [hasError, synchronizationStatus, useBuiltInEventHub, customEventHubConnectionString, customEventHubName, specifyStartTime, startTime]);
+        [hasError, state.formMode, useBuiltInEventHub, customEventHubConnectionString, customEventHubName, specifyStartTime, startTime]);
 
     React.useEffect(// tslint:disable-next-line: cyclomatic-complexity
         () => {
-            if (synchronizationStatus === SynchronizationStatus.fetched) {
+            if (state.formMode === 'fetched') {
                 if (appConfig.hostMode !== HostMode.Browser) {
                     if (monitoringData) {
                         setStartTime(new Date());
@@ -130,29 +130,29 @@ export const DeviceEvents: React.FC = () => {
                     stopMonitoring();
                 }
             }
-            if (synchronizationStatus === SynchronizationStatus.upserted) {
+            if (state.formMode === 'upserted') {
                 setMonitoringData(false);
             }
-            if (monitoringData && synchronizationStatus === SynchronizationStatus.failed) {
+            if (monitoringData && state.formMode === 'failed') {
                 stopMonitoring();
             }
         },
-        [synchronizationStatus]);
+        [state.formMode]);
 
     const renderCommands = () => {
         return (
             <Commands
                 startDisabled={startDisabled}
-                synchronizationStatus={synchronizationStatus}
                 monitoringData={monitoringData}
                 showSystemProperties={showSystemProperties}
                 showPnpModeledEvents={showPnpModeledEvents}
                 showSimulationPanel={showSimulationPanel}
+                showContentTypePanel={showContentTypePanel}
                 setMonitoringData={setMonitoringData}
                 setShowSystemProperties={setShowSystemProperties}
                 setShowPnpModeledEvents={setShowPnpModeledEvents}
                 setShowSimulationPanel={setShowSimulationPanel}
-                dispatch={dispatch}
+                setShowContentTypePanel={setShowContentTypePanel}
                 fetchData={fetchData(true)}
             />
         );
@@ -201,7 +201,7 @@ export const DeviceEvents: React.FC = () => {
     };
 
     const stopMonitoring = () => {
-        dispatch(stopEventsMonitoringAction.started());
+        api.stopEventsMonitoring();
     };
 
     // tslint:disable-next-line: cyclomatic-complexity
@@ -223,7 +223,7 @@ export const DeviceEvents: React.FC = () => {
     };
 
     const renderRawEvents = () => {
-        const filteredEvents = componentName ? events.filter(result => filterMessage(result)) : events;
+        const filteredEvents = componentName ? events?.filter(result => filterMessage(result)) : events;
         return (
             <>
                 {
@@ -491,6 +491,7 @@ export const DeviceEvents: React.FC = () => {
     const fetchData = (startListeners: boolean) => () => {
         let parameters: MonitorEventsParameters = {
             consumerGroup,
+            decoderPrototype,
             deviceId,
             moduleId,
             startListeners,
@@ -505,11 +506,15 @@ export const DeviceEvents: React.FC = () => {
             };
         }
 
-        dispatch(startEventsMonitoringAction.started(parameters));
+        api.startEventsMonitoring(parameters);
     };
 
     const onToggleSimulationPanel = () => {
         setShowSimulationPanel(!showSimulationPanel);
+    };
+
+    const onToggleContentTypePanel = () => {
+        setShowContentTypePanel(!showContentTypePanel);
     };
 
     if (isLoading) {
@@ -529,6 +534,10 @@ export const DeviceEvents: React.FC = () => {
             <DeviceSimulationPanel
                 showSimulationPanel={showSimulationPanel}
                 onToggleSimulationPanel={onToggleSimulationPanel}
+            />
+            <DeviceContentTypePanel
+                showContentTypePanel={showContentTypePanel}
+                onToggleContentTypePanel={onToggleContentTypePanel}
             />
             <div className="device-events-container">
                 {renderLoader()}
