@@ -23,12 +23,12 @@ export interface CommandsProps {
     showSystemProperties: boolean;
     showPnpModeledEvents: boolean;
     showSimulationPanel: boolean;
-    showDecoderPanel: boolean;
+    showContentTypePanel: boolean;
     setMonitoringData: (monitoringData: boolean) => void;
     setShowSystemProperties: (showSystemProperties: boolean) => void;
     setShowPnpModeledEvents: (showPnpModeledEvents: boolean) => void;
     setShowSimulationPanel: (showSimulationPanel: boolean) => void;
-    setShowDecoderPanel: (showDecoderPanel: boolean) => void;
+    setShowContentTypePanel: (showDecoderPanel: boolean) => void;
     fetchData(): void;
 }
 
@@ -38,12 +38,12 @@ export const Commands: React.FC<CommandsProps> = ({
     showSystemProperties,
     showPnpModeledEvents,
     showSimulationPanel,
-    showDecoderPanel,
+    showContentTypePanel,
     setMonitoringData,
     setShowSystemProperties,
     setShowPnpModeledEvents,
     setShowSimulationPanel,
-    setShowDecoderPanel,
+    setShowContentTypePanel,
     fetchData}) => {
 
     const {t} = useTranslation();
@@ -67,7 +67,7 @@ export const Commands: React.FC<CommandsProps> = ({
                 createSystemPropertiesCommandItem(),
                 createClearCommandItem(),
                 createSimulationCommandItem(),
-                createDecoderCommandItem()
+                createContentTypeCommandItem()
             ];
         }
     };
@@ -172,8 +172,7 @@ export const Commands: React.FC<CommandsProps> = ({
         };
     };
 
-    // TODO: add to resource string
-    const createDecoderCommandItem = (): ICommandBarItemProps => {
+    const createContentTypeCommandItem = (): ICommandBarItemProps => {
         return {
             ariaLabel: t(ResourceKeys.deviceEvents.command.customizeContentType),
             disabled: state.formMode !== 'upserted' && state.formMode !== 'initialized'
@@ -183,7 +182,7 @@ export const Commands: React.FC<CommandsProps> = ({
             },
             key: UPLOAD,
             name: t(ResourceKeys.deviceEvents.command.customizeContentType),
-            onClick: onToggleDecoderPanel
+            onClick: onToggleContentTypePanel
         };
     };
 
@@ -222,8 +221,8 @@ export const Commands: React.FC<CommandsProps> = ({
         setShowSimulationPanel(!showSimulationPanel);
     };
 
-    const onToggleDecoderPanel = () => {
-        setShowDecoderPanel(!showDecoderPanel);
+    const onToggleContentTypePanel = () => {
+        setShowContentTypePanel(!showContentTypePanel);
     };
 
     return (

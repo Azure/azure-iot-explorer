@@ -8,27 +8,27 @@ import { TextField, Panel, PanelType, Label, PrimaryButton, FontIcon, IconButton
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { useDeviceEventsStateContext } from '../context/deviceEventsStateContext';
 
-export interface DeviceDecoderPanelProps {
-    showDecoderPanel: boolean;
-    onToggleDecoderPanel: () => void;
+export interface DeviceContentTypePanelProps {
+    showContentTypePanel: boolean;
+    onToggleContentTypePanel: () => void;
 }
 
-export const DeviceDecoderPanel: React.FC<DeviceDecoderPanelProps> = props => {
+export const DeviceContentTypePanel: React.FC<DeviceContentTypePanelProps> = props => {
     const { t } = useTranslation();
     const [decoderProtoFile, setDecoderProtoFile] = React.useState<File>();
     const [decoderType, setDecoderType] = React.useState<string>('');
     const [ state, api ] = useDeviceEventsStateContext();
-    const [isDecoderCustomized, setIsDecoderCustomized] = React.useState<boolean>(state.decoder.isDecoderCustomized);
+    const [isContentTypeCustomized, setIsContentTypeCustomized] = React.useState<boolean>(state.contentType.isContentTypeCustomized);
 
     React.useEffect(() => {
         if (state.formMode === 'setDecoderSucceeded') {
-            props.onToggleDecoderPanel();
+            props.onToggleContentTypePanel();
         }
     },              [state.formMode]);
 
-    const onSaveDecoder = (event: React.FormEvent<HTMLFormElement>) => {
+    const onSaveContentType = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        api.setDecoderInfo({decoderFile: decoderProtoFile, decoderType, isDecoderCustomized});
+        api.setDecoderInfo({decoderFile: decoderProtoFile, decoderType, isContentTypeCustomized});
     };
 
     const handleProtoFileChange = (event: React.FormEvent<HTMLInputElement>) => {
@@ -56,29 +56,29 @@ export const DeviceDecoderPanel: React.FC<DeviceDecoderPanelProps> = props => {
     ];
 
     const onDropdownSelectedKeyChanged = (event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption): void => {
-        setIsDecoderCustomized(option.key === 'protobuf');
+        setIsContentTypeCustomized(option.key === 'protobuf');
     };
 
     return (
         <Panel
-            isOpen={props.showDecoderPanel}
+            isOpen={props.showContentTypePanel}
             type={PanelType.medium}
             isBlocking={false}
-            onDismiss={props.onToggleDecoderPanel}
+            onDismiss={props.onToggleContentTypePanel}
             closeButtonAriaLabel={t(ResourceKeys.common.close)}
             headerText={t(ResourceKeys.deviceEvents.customizeContentType.header)}
         >
-            <form onSubmit={onSaveDecoder}>
+            <form onSubmit={onSaveContentType}>
                 <Stack tokens={{childrenGap: 10}}>
                     <Dropdown
                         disabled={state.formMode === 'working'}
                         required={true}
                         label={t(ResourceKeys.deviceEvents.customizeContentType.contentTypeOption.label)}
                         options={options}
-                        defaultSelectedKey={isDecoderCustomized ? 'protobuf' : 'json'}
+                        defaultSelectedKey={isContentTypeCustomized ? 'protobuf' : 'json'}
                         onChange={onDropdownSelectedKeyChanged}
                     />
-                    {isDecoderCustomized &&
+                    {isContentTypeCustomized &&
                         <>
                             <Label>{t(ResourceKeys.deviceEvents.customizeContentType.protobuf.file.label)}</Label>
                             <input
@@ -86,11 +86,11 @@ export const DeviceDecoderPanel: React.FC<DeviceDecoderPanelProps> = props => {
                                 id="protoFile"
                                 name="protoFile"
                                 accept=".proto"
-                                required={state.decoder.decoderProtoFile === undefined}
+                                required={state.contentType.decoderProtoFile === undefined}
                                 disabled={state.formMode === 'working'}
                                 onChange={handleProtoFileChange}
                             />
-                            {state.decoder.decoderProtoFile &&
+                            {state.contentType.decoderProtoFile &&
                                 <div style={{display: 'flex', alignItems: 'center'}}>
                                     <IconButton
                                         iconProps={{ iconName: 'ChromeClose', style: {fontSize: 12} }}
@@ -100,11 +100,11 @@ export const DeviceDecoderPanel: React.FC<DeviceDecoderPanelProps> = props => {
                                         disabled={state.formMode === 'working'}
                                     />
                                     <FontIcon aria-label="FileCode" iconName="FileCode" />
-                                    {state.decoder.decoderProtoFile?.name}
+                                    {state.contentType.decoderProtoFile?.name}
                                 </div>
                             }
                             <TextField
-                                defaultValue={formDecodeProtptypeName(state.decoder.decoderPrototype?.fullName)}
+                                defaultValue={formDecodeProtptypeName(state.contentType.decoderPrototype?.fullName)}
                                 disabled={state.formMode === 'working'}
                                 label={t(ResourceKeys.deviceEvents.customizeContentType.protobuf.type.label)}
                                 readOnly={false}

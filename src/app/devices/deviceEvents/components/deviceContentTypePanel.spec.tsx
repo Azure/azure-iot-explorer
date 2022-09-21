@@ -5,43 +5,41 @@
 import 'jest';
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
-import { DeviceDecoderPanel } from './deviceDecoderPanel';
+import { DeviceContentTypePanel } from './deviceContentTypePanel';
 import * as deviceEventsStateContext from '../context/deviceEventsStateContext';
 import { getInitialDeviceEventsState } from '../state';
-import { PrimaryButton } from '@fluentui/react';
-import { act } from 'react-dom/test-utils';
 
 describe('DeviceDecoderPanel', () => {
     it('matches snapshot with default json option', () => {
         jest.spyOn(deviceEventsStateContext, 'useDeviceEventsStateContext').mockReturnValue(
             [getInitialDeviceEventsState(), deviceEventsStateContext.getInitialDeviceEventsOps()]);
         expect(shallow(
-            <DeviceDecoderPanel
-                showDecoderPanel={true}
-                onToggleDecoderPanel={jest.fn()}
+            <DeviceContentTypePanel
+                showContentTypePanel={true}
+                onToggleContentTypePanel={jest.fn()}
             />)).toMatchSnapshot();
     });
 
     it('matches snapshot with customize content type option', () => {
         jest.spyOn(deviceEventsStateContext, 'useDeviceEventsStateContext').mockReturnValue(
-            [{...getInitialDeviceEventsState(), decoder: {isDecoderCustomized: true}},
+            [{...getInitialDeviceEventsState(), contentType: {isContentTypeCustomized: true}},
                 deviceEventsStateContext.getInitialDeviceEventsOps()]);
         expect(shallow(
-            <DeviceDecoderPanel
-                showDecoderPanel={true}
-                onToggleDecoderPanel={jest.fn()}
+            <DeviceContentTypePanel
+                showContentTypePanel={true}
+                onToggleContentTypePanel={jest.fn()}
             />)).toMatchSnapshot();
     });
 
     it('expect setDecoderInfo called when save is clicked with correct input', () => {
         const setDecoderInfo = jest.fn();
         jest.spyOn(deviceEventsStateContext, 'useDeviceEventsStateContext').mockReturnValue(
-            [{...getInitialDeviceEventsState(), decoder: {isDecoderCustomized: true, decoderProtoFile: new File([], '')}},
+            [{...getInitialDeviceEventsState(), contentType: {isContentTypeCustomized: true, decoderProtoFile: new File([], '')}},
                 {...deviceEventsStateContext.getInitialDeviceEventsOps(), setDecoderInfo}]);
         const wrapper = mount(
-            <DeviceDecoderPanel
-                showDecoderPanel={true}
-                onToggleDecoderPanel={jest.fn()}
+            <DeviceContentTypePanel
+                showContentTypePanel={true}
+                onToggleContentTypePanel={jest.fn()}
             />);
         const form = wrapper.find('form');
         form.simulate('submit');

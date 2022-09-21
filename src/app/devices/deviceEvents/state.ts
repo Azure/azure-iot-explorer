@@ -7,21 +7,21 @@ import { Message } from '../../api/models/messages';
 
 export type FormMode = 'fetched' | 'initialized' | 'upserted' | 'working' | 'failed' | 'updating' | 'setDecoderSucceeded' | 'setDecoderFailed';
 
-export interface DecoderState {
-    isDecoderCustomized: boolean;
+export interface ContentTypeState {
+    isContentTypeCustomized: boolean;
     decoderProtoFile?: File;
     decoderPrototype?: Type;
 }
 
 export interface DeviceEventsStateInterface {
     message: Message[];
-    decoder: DecoderState;
+    contentType: ContentTypeState;
     formMode: FormMode;
 }
 
 export const getInitialDeviceEventsState = (): DeviceEventsStateInterface => ({
-    decoder: {
-        isDecoderCustomized: false
+    contentType: {
+        isContentTypeCustomized: false
     },
     formMode: 'initialized',
     message: []

@@ -9,11 +9,11 @@ exports[`deviceEvents deviceEvents in non-pnp context matches snapshot 1`] = `
     fetchData={[Function]}
     monitoringData={false}
     setMonitoringData={[Function]}
-    setShowDecoderPanel={[Function]}
+    setShowContentTypePanel={[Function]}
     setShowPnpModeledEvents={[Function]}
     setShowSimulationPanel={[Function]}
     setShowSystemProperties={[Function]}
-    showDecoderPanel={false}
+    showContentTypePanel={false}
     showPnpModeledEvents={false}
     showSimulationPanel={false}
     showSystemProperties={false}
@@ -55,9 +55,9 @@ exports[`deviceEvents deviceEvents in non-pnp context matches snapshot 1`] = `
     onToggleSimulationPanel={[Function]}
     showSimulationPanel={false}
   />
-  <DeviceDecoderPanel
-    onToggleDecoderPanel={[Function]}
-    showDecoderPanel={false}
+  <DeviceContentTypePanel
+    onToggleContentTypePanel={[Function]}
+    showContentTypePanel={false}
   />
   <div
     className="device-events-container"
@@ -78,11 +78,11 @@ exports[`deviceEvents deviceEvents in pnp context matches snapshot while interfa
     fetchData={[Function]}
     monitoringData={false}
     setMonitoringData={[Function]}
-    setShowDecoderPanel={[Function]}
+    setShowContentTypePanel={[Function]}
     setShowPnpModeledEvents={[Function]}
     setShowSimulationPanel={[Function]}
     setShowSystemProperties={[Function]}
-    showDecoderPanel={false}
+    showContentTypePanel={false}
     showPnpModeledEvents={true}
     showSimulationPanel={false}
     showSystemProperties={false}
@@ -124,9 +124,9 @@ exports[`deviceEvents deviceEvents in pnp context matches snapshot while interfa
     onToggleSimulationPanel={[Function]}
     showSimulationPanel={false}
   />
-  <DeviceDecoderPanel
-    onToggleDecoderPanel={[Function]}
-    showDecoderPanel={false}
+  <DeviceContentTypePanel
+    onToggleContentTypePanel={[Function]}
+    showContentTypePanel={false}
   />
   <div
     className="device-events-container"
@@ -147,11 +147,11 @@ exports[`deviceEvents deviceEvents in pnp context matches snapshot while interfa
     fetchData={[Function]}
     monitoringData={false}
     setMonitoringData={[Function]}
-    setShowDecoderPanel={[Function]}
+    setShowContentTypePanel={[Function]}
     setShowPnpModeledEvents={[Function]}
     setShowSimulationPanel={[Function]}
     setShowSystemProperties={[Function]}
-    showDecoderPanel={false}
+    showContentTypePanel={false}
     showPnpModeledEvents={true}
     showSimulationPanel={false}
     showSystemProperties={false}
@@ -193,9 +193,9 @@ exports[`deviceEvents deviceEvents in pnp context matches snapshot while interfa
     onToggleSimulationPanel={[Function]}
     showSimulationPanel={false}
   />
-  <DeviceDecoderPanel
-    onToggleDecoderPanel={[Function]}
-    showDecoderPanel={false}
+  <DeviceContentTypePanel
+    onToggleContentTypePanel={[Function]}
+    showContentTypePanel={false}
   />
   <div
     className="device-events-container"

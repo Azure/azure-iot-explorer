@@ -33,7 +33,7 @@ import { StartTime } from './startTime';
 import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
 import { TELEMETRY_PAGE_NAMES } from '../../../../app/constants/telemetry';
 import './deviceEvents.scss';
-import { DeviceDecoderPanel } from './deviceDecoderPanel';
+import { DeviceContentTypePanel } from './deviceContentTypePanel';
 
 const JSON_SPACES = 2;
 const LOADING_LOCK = 8000;
@@ -46,7 +46,7 @@ export const DeviceEvents: React.FC = () => {
     const [ state, api ] = useDeviceEventsStateContext();
 
     const events = state.message ;
-    const decoderPrototype = state.decoder.decoderPrototype;
+    const decoderPrototype = state.contentType.decoderPrototype;
 
     // event hub settings
     const [consumerGroup, setConsumerGroup] = React.useState(DEFAULT_CONSUMER_GROUP);
@@ -76,8 +76,8 @@ export const DeviceEvents: React.FC = () => {
     // simulation specific
     const [showSimulationPanel, setShowSimulationPanel] = React.useState(false);
 
-    // message decoder specific
-    const [showDecoderPanel, setShowDecoderPanel] = React.useState(false);
+    // message content type specific
+    const [showContentTypePanel, setShowContentTypePanel] = React.useState(false);
 
     React.useEffect(
         () => {
@@ -147,12 +147,12 @@ export const DeviceEvents: React.FC = () => {
                 showSystemProperties={showSystemProperties}
                 showPnpModeledEvents={showPnpModeledEvents}
                 showSimulationPanel={showSimulationPanel}
-                showDecoderPanel={showDecoderPanel}
+                showContentTypePanel={showContentTypePanel}
                 setMonitoringData={setMonitoringData}
                 setShowSystemProperties={setShowSystemProperties}
                 setShowPnpModeledEvents={setShowPnpModeledEvents}
                 setShowSimulationPanel={setShowSimulationPanel}
-                setShowDecoderPanel={setShowDecoderPanel}
+                setShowContentTypePanel={setShowContentTypePanel}
                 fetchData={fetchData(true)}
             />
         );
@@ -513,8 +513,8 @@ export const DeviceEvents: React.FC = () => {
         setShowSimulationPanel(!showSimulationPanel);
     };
 
-    const onToggleDecoderPanel = () => {
-        setShowDecoderPanel(!showDecoderPanel);
+    const onToggleContentTypePanel = () => {
+        setShowContentTypePanel(!showContentTypePanel);
     };
 
     if (isLoading) {
@@ -535,9 +535,9 @@ export const DeviceEvents: React.FC = () => {
                 showSimulationPanel={showSimulationPanel}
                 onToggleSimulationPanel={onToggleSimulationPanel}
             />
-            <DeviceDecoderPanel
-                showDecoderPanel={showDecoderPanel}
-                onToggleDecoderPanel={onToggleDecoderPanel}
+            <DeviceContentTypePanel
+                showContentTypePanel={showContentTypePanel}
+                onToggleContentTypePanel={onToggleContentTypePanel}
             />
             <div className="device-events-container">
                 {renderLoader()}

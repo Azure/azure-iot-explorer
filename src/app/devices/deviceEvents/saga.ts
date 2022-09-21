@@ -50,10 +50,10 @@ export function* stopEventsMonitoringSagaWorker() {
     }
 }
 
-export function* setDecoderInfoSagaWorker(action: Action<SetDecoderInfoParameters>) {
+export function* setDecoderInfoSagaWorker(action: Action<SetDecoderInfoParameters>): SagaIterator {
     try {
-        const prototype: Type = action.payload.isDecoderCustomized ? yield call(setDecoderInfo, action.payload) : null;
-        yield put(setDecoderInfoAction.done({params: action.payload, result: {isDecoderCustomized: action.payload.isDecoderCustomized, decoderProtoFile: action.payload.decoderFile, decoderPrototype: prototype}}));
+        const prototype: Type = action.payload.isContentTypeCustomized ? yield call(setDecoderInfo, action.payload) : null;
+        yield put(setDecoderInfoAction.done({params: action.payload, result: {isContentTypeCustomized: action.payload.isContentTypeCustomized, decoderProtoFile: action.payload.decoderFile, decoderPrototype: prototype}}));
     } catch (error) {
         yield call(raiseNotificationToast, {
             text: {

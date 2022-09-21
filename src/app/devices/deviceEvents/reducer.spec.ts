@@ -22,7 +22,7 @@ describe('deviceEventsReducer', () => {
         'iothub-message-schema': 'humid'
         }
     }];
-    const decoderParams = {decoderFile: new File([], ''), decoderType: 'decoderType', isDecoderCustomized: true};
+    const decoderParams = {decoderFile: new File([], ''), decoderType: 'decoderType', isContentTypeCustomized: true};
     it (`handles ${START_EVENTS_MONITORING}/ACTION_START action`, () => {
         const action = startEventsMonitoringAction.started(params);
         expect(deviceEventsReducer(getInitialDeviceEventsState(), action).formMode).toEqual('working');
@@ -63,7 +63,7 @@ describe('deviceEventsReducer', () => {
     });
 
     it (`handles ${SET_DECODE_INFO}/ACTION_DONE action`, () => {
-        const action = setDecoderInfoAction.done({params: decoderParams, result: {isDecoderCustomized: true, decoderProtoFile: new File([], ''), decoderPrototype: new Type('')}});
+        const action = setDecoderInfoAction.done({params: decoderParams, result: {isContentTypeCustomized: true, decoderProtoFile: new File([], ''), decoderPrototype: new Type('')}});
         expect(deviceEventsReducer(getInitialDeviceEventsState(), action).formMode).toEqual('setDecoderSucceeded');
     });
 

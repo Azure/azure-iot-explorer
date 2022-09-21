@@ -5,8 +5,8 @@ exports[`DeviceEventsStateContextProvider matches snapshot 1`] = `
   value={
     Array [
       Object {
-        "decoder": Object {
-          "isDecoderCustomized": false,
+        "contentType": Object {
+          "isContentTypeCustomized": false,
         },
         "formMode": "initialized",
         "message": Array [],

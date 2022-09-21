@@ -9,8 +9,6 @@ import { shallow, mount } from 'enzyme';
 import { TextField, CommandBar, Shimmer } from '@fluentui/react';
 import { DeviceEvents } from './deviceEvents';
 import { DEFAULT_CONSUMER_GROUP } from '../../../constants/apiConstants';
-import { startEventsMonitoringAction } from '../actions';
-import * as AsyncSagaReducer from '../../../shared/hooks/useAsyncSagaReducer';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import * as pnpStateContext from '../../../shared/contexts/pnpStateContext';
 import { pnpStateInitial, PnpStateInterface } from '../../pnp/state';

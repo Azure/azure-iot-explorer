@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
-import { getInitialDeviceEventsState, DeviceEventsStateInterface, DecoderState } from './state';
+import { getInitialDeviceEventsState, DeviceEventsStateInterface, ContentTypeState } from './state';
 import {
     startEventsMonitoringAction,
     stopEventsMonitoringAction,
@@ -70,13 +70,13 @@ export const deviceEventsReducer = reducerWithInitialState<DeviceEventsStateInte
             formMode: 'working'
         };
     })
-    .case(setDecoderInfoAction.done, (state: DeviceEventsStateInterface, payload: {params: SetDecoderInfoParameters, result: DecoderState}) => {
+    .case(setDecoderInfoAction.done, (state: DeviceEventsStateInterface, payload: {params: SetDecoderInfoParameters, result: ContentTypeState}) => {
         return {
             ...state,
-            decoder: {
+            contentType: {
                 decoderProtoFile: payload.result.decoderProtoFile,
                 decoderPrototype: payload.result.decoderPrototype,
-                isDecoderCustomized: payload.result.isDecoderCustomized
+                isContentTypeCustomized: payload.result.isContentTypeCustomized
             },
             formMode: 'setDecoderSucceeded'
         };
@@ -90,8 +90,8 @@ export const deviceEventsReducer = reducerWithInitialState<DeviceEventsStateInte
     .case(removeDecoderInfoAction, (state: DeviceEventsStateInterface) => {
         return {
             ...state,
-            decoder: {
-                isDecoderCustomized: false
+            contentType: {
+                isContentTypeCustomized: false
             }
         };
     });

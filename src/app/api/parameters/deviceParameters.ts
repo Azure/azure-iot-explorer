@@ -50,7 +50,7 @@ export interface UpdateDeviceParameters {
 }
 
 export interface SetDecoderInfoParameters {
-    isDecoderCustomized: boolean;
+    isContentTypeCustomized: boolean;
     decoderFile?: File;
     decoderType?: string;
 }

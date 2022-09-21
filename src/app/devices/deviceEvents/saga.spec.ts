@@ -79,3 +79,61 @@ describe('deviceMonitoringSaga', () => {
         expect(failed.next().done).toEqual(true);
     });
 });
+
+describe('setDecoderInfoSaga', () => {
+    let setDecoderInfoSagaGenerator;
+    const params = {decoderFile: new File([], ''), decoderType: 'decoderType', isContentTypeCustomized: true};
+    
+    beforeEach(() => {
+        setDecoderInfoSagaGenerator = cloneableGenerator(setDecoderInfoSagaWorker)(setDecoderInfoAction.started(params));
+    });
+
+    it('yield to set Decoder information', () => {
+        // call for device id
+        expect(setDecoderInfoSagaGenerator.next()).toEqual({
+            done: false,
+            value: call(setDecoderInfo, params)
+        });
+
+        expect(setDecoderInfoSagaGenerator.next(new Type(''))).toEqual({
+            done: false,
+            value: put(setDecoderInfoAction.done({
+                params,
+                result: {isContentTypeCustomized: true, decoderProtoFile: new File([], ''), decoderPrototype: new Type('')}
+            }))
+        });
+
+        // success
+        const success = setDecoderInfoSagaGenerator.clone();
+        expect(success.next()).toEqual({
+            done: true
+        });
+
+        // failure
+        const failed = setDecoderInfoSagaGenerator.clone();
+        const error = { code: -1, message: 'this is a error' };
+
+        expect(failed.throw(error)).toEqual({
+            done: false,
+            value: call(raiseNotificationToast, {
+                text: {
+                    translationKey: ResourceKeys.notifications.updateCustomDecoderOnError,
+                    translationOptions: {
+                        error: error.message
+                    },
+                },
+                type: NotificationType.error
+            })
+        });
+
+        expect(failed.next()).toEqual({
+            done: false,
+            value: put(setDecoderInfoAction.failed({
+                error,
+                params
+            }))
+        });
+
+        expect(failed.next().done).toEqual(true);
+    });
+});
