@@ -18,10 +18,6 @@ import { AmqpError, Connection, ReceiverEvents, parseConnectionString } from "rh
 import * as rheaPromise from "rhea-promise";
 import { ErrorNameConditionMapper as AMQPError } from "@azure/core-amqp";
 
-// Load the .env file if it exists
-import * as dotenv from "dotenv";
-dotenv.config();
-
 /**
  * Type guard for AmqpError.
  * @param err - An unknown error.
@@ -29,8 +25,6 @@ dotenv.config();
 function isAmqpError(err: any): err is AmqpError {
     return rheaPromise.isAmqpError(err);
 }
-
-    const consumerGroup = process.env["CONSUMER_GROUP_NAME"] || "";
 
 // This code is modified from https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-security#security-tokens.
 function generateSasToken(
