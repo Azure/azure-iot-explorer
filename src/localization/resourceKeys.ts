@@ -6,7 +6,6 @@ export class ResourceKeys {
          header : "authentication.autheSelection.header",
          selection : {
             azureActiveDirectory : "authentication.autheSelection.selection.azureActiveDirectory",
-            comingSoon : "authentication.autheSelection.selection.comingSoon",
             connectionString : "authentication.autheSelection.selection.connectionString",
          },
          subText : "authentication.autheSelection.subText",
