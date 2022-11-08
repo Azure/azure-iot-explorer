@@ -449,7 +449,6 @@ const onMessageReceived = async (eventData: any) => {
                 enqueuedTime: eventData.enqueuedTimeUtc.toString(),
                 properties: eventData.applicationProperties
             };
-            console.log(eventData.annotations)
             message.systemProperties = eventData.annotations;
             messages.push(message);
         }

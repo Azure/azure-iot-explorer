@@ -62,9 +62,9 @@ function generateSasToken(
  */
 export async function convertIotHubToEventHubsConnectionString(connectionString: string): Promise<string> {
     const { HostName, SharedAccessKeyName, SharedAccessKey } = parseConnectionString<{
-    HostName: string;
-    SharedAccessKeyName: string;
-    SharedAccessKey: string;
+        HostName: string;
+        SharedAccessKeyName: string;
+        SharedAccessKey: string;
     }>(connectionString);
 
     // Verify that the required info is in the connection string.
@@ -125,7 +125,7 @@ export async function convertIotHubToEventHubsConnectionString(connectionString:
                 reject(error);
             }
             connection.close().catch(() => {
-                /* ignore error */
+            /* ignore error */
             });
         });
     });
