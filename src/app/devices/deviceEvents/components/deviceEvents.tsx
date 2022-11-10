@@ -110,34 +110,34 @@ export const DeviceEvents: React.FC = () => {
         },
         [hasError, state.formMode, useBuiltInEventHub, customEventHubConnectionString, customEventHubName, specifyStartTime, startTime]);
 
-    React.useEffect(// tslint:disable-next-line: cyclomatic-complexity
-        () => {
-            if (state.formMode === 'fetched') {
-                if (appConfig.hostMode !== HostMode.Browser) {
-                    if (monitoringData) {
-                        setStartTime(new Date());
-                        setTimeout(
-                            () => {
-                                fetchData(false)();
-                            },
-                            LOADING_LOCK);
-                    }
-                    else {
-                        stopMonitoring();
-                    }
-                }
-                else {
-                    stopMonitoring();
-                }
-            }
-            if (state.formMode === 'upserted') {
-                setMonitoringData(false);
-            }
-            if (monitoringData && state.formMode === 'failed') {
-                stopMonitoring();
-            }
-        },
-        [state.formMode]);
+    // React.useEffect(// tslint:disable-next-line: cyclomatic-complexity
+    //     () => {
+    //         if (state.formMode === 'fetched') {
+    //             if (appConfig.hostMode !== HostMode.Browser) {
+    //                 if (monitoringData) {
+    //                     setStartTime(new Date());
+    //                     setTimeout(
+    //                         () => {
+    //                             fetchData(false)();
+    //                         },
+    //                         LOADING_LOCK);
+    //                 }
+    //                 else {
+    //                     stopMonitoring();
+    //                 }
+    //             }
+    //             else {
+    //                 stopMonitoring();
+    //             }
+    //         }
+    //         if (state.formMode === 'upserted') {
+    //             setMonitoringData(false);
+    //         }
+    //         if (monitoringData && state.formMode === 'failed') {
+    //             stopMonitoring();
+    //         }
+    //     },
+    //     [state.formMode]);
 
     const renderCommands = () => {
         return (
