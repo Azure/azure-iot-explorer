@@ -244,29 +244,52 @@ describe('deviceTwinService', () => {
         it('calls sendMessageToDevice with expected parameters', async () => {
 
             jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockResolvedValue({
-                connectionInfo, connectionString, sasToken});
-                
-            const fetch = jest.spyOn(window, "fetch").mockResolvedValue({
-                json: () => {
-                    return {};
-                },
-                ok: true,
-            } as any); 
+                connectionInfo: getConnectionInfoFromConnectionString(connectionString), connectionString, sasToken});
 
-            await DevicesService.cloudToDeviceMessage(parameters);
-    
-            const resourceUrl = `https://test-string.azure-devices.net/devices/deviceId/messages/deviceBound?api-version=2020-06-30-preview`;
-            const serviceRequestParams = {
+            // tslint:disable
+            const responseBody = {description: 'sent'};
+            const response = {
+                json: () => {
+                    return {
+                        body: responseBody,
+                        headers:{}
+                        }
+                    },
+                status: 200
+            } as any;
+            // tslint:enable
+            jest.spyOn(window, 'fetch').mockResolvedValue(response);
+
+            const result = await DevicesService.cloudToDeviceMessage({
+                ...parameters,
+                deviceId
+            });
+
+            const connectionInformation = mockDataPlaneConnectionHelper();
+            const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
+                apiVersion: HUB_DATA_PLANE_API_VERSION,
                 body: 'body',
-                cache: 'no-cache',
                 headers: {
                     'authorization': `testSasToken`,
                     ['Content-Encoding']: 'utf-8'
                 },
-                method: HTTP_OPERATION_TYPES.Post
+                hostName: connectionInformation.connectionInfo.hostName,
+                httpMethod: HTTP_OPERATION_TYPES.Post,
+                path: `devices/${encodeURIComponent(deviceId)}/messages/deviceBound`,
+                sharedAccessSignature: sasToken,
             };
-    
-            expect(fetch).toHaveBeenLastCalledWith(resourceUrl, serviceRequestParams);
+
+            const serviceRequestParams = {
+                body: JSON.stringify(dataPlaneRequest),
+                cache: 'no-cache',
+                credentials: 'include',
+                headers,
+                method: HTTP_OPERATION_TYPES.Post,
+                mode: 'cors',
+            };
+
+            expect(fetch).toBeCalledWith(DataplaneService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
+            expect(result).toEqual(responseBody);
         });
     });
 
