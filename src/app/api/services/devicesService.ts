@@ -106,26 +106,25 @@ export const cloudToDeviceMessage = async (params: CloudToDeviceMessageParameter
     const { deviceId, body, properties } = params;
     const connectionInfo = await dataPlaneConnectionHelper();
     const authorization = connectionInfo.sasToken;
-    const uri = `https://${connectionInfo.connectionInfo.hostName}/devices/${encodeURIComponent(deviceId)}/messages/deviceBound?api-version=${HUB_DATA_PLANE_API_VERSION}`;
-
     const formattedProperties: Record<string, string> = {};
     properties.forEach(s => formattedProperties[`iothub-app-${s.key}`] = s.value);
-
-    const requestParams: RequestInit = {
+    const dataPlaneRequest: DataPlaneRequest = {
+        apiVersion: HUB_DATA_PLANE_API_VERSION,
         body,
-        cache: 'no-cache',
         headers: {
             ...formattedProperties,
             authorization,
             ['Content-Encoding']: 'utf-8'
         },
-        method: HTTP_OPERATION_TYPES.Post
+        hostName: connectionInfo.connectionInfo.hostName,
+        httpMethod: HTTP_OPERATION_TYPES.Post,
+        path: `devices/${encodeURIComponent(deviceId)}/messages/deviceBound`,
+        sharedAccessSignature: connectionInfo.sasToken,
     };
 
-    const response = await fetch(uri, requestParams);
-    if (!response.ok) {
-        throw new HttpError(response.status);
-    }
+    const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
+    const result = await dataPlaneResponseHelper(response);
+    return result && result.body;
 };
 
 export const addDevice = async (parameters: AddDeviceParameters): Promise<DeviceIdentity> => {
