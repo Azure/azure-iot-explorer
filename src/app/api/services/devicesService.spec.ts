@@ -242,8 +242,7 @@ describe('deviceTwinService', () => {
         };
 
         it('calls sendMessageToDevice with expected parameters', async () => {
-    
-            // expect(fetch).toHaveBeenLastCalledWith(resourceUrl, serviceRequestParams);
+
             jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockResolvedValue({
                 connectionInfo: getConnectionInfoFromConnectionString(connectionString), connectionString, sasToken});
 
