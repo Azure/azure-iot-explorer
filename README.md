@@ -19,11 +19,6 @@ You can either download a pre-built version or build it yourself.
 
 Go to the [Releases](https://github.com/Azure/azure-iot-explorer/releases) tab, download the installer corresponding to your platform and install.
 
-### Install via Chocolatey
-Chocolatey is a means to deploy and configure software for Windows operating systems via scripting.
-
-After installing [Chocolatey](chocolatey.org), run `choco install azure-iot-explorer --pre`.
-
 ### Run it locally and build it yourself
 
 1. Open a Node capable command prompt
