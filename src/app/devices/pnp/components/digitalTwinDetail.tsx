@@ -51,6 +51,7 @@ export const DigitalTwinDetail: React.FC = () => {
 
     return (
         <Pivot
+            className="digitaltwin-pivot"
             aria-label={t(ResourceKeys.digitalTwin.pivot.ariaLabel)}
             selectedKey={selectedKey}
             onLinkClick={handleLinkClick}

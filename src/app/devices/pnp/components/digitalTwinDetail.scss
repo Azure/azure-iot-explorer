@@ -5,14 +5,23 @@
  @import '../../../css/themes';
  @import '../../../css/variables';
 
- @media screen and (min-width: $screenSize) {
-   .digitaltwin-pivot {
-      padding-left: 22px;
-   }
- }
+.digitaltwin-pivot {
+   height: 100%;
+   flex-direction: column;
+   display: flex;
 
- @media screen and (max-width: $screenSize) {
-    .digitaltwin-pivot {
-       width: 95vw;
-    }
- }
+   .ms-Pivot {
+      min-height: 45px;
+      height: 5%;
+  }
+
+  div[class^='itemContainer']{
+      height: 90%;
+  }
+
+  div[class^='itemContainer']>div{
+      height: 100%;
+      flex-direction: column;
+      display: flex;
+   }
+}

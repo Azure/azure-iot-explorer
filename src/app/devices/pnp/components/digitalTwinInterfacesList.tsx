@@ -176,7 +176,7 @@ export const DigitalTwinInterfacesList: React.FC = () => {
                             {listView}
                         </ErrorBoundary>
                     </PivotItem>
-                    <PivotItem headerText={t(ResourceKeys.digitalTwin.pivot.content)}>
+                    <PivotItem headerText={t(ResourceKeys.digitalTwin.pivot.content)} className="modelContent">
                         <JSONEditor
                             className="interface-definition-json-editor"
                             content={JSON.stringify(modelDefinitionWithSource.modelDefinition, null, '\t')}
@@ -194,30 +194,34 @@ export const DigitalTwinInterfacesList: React.FC = () => {
 
         if (!modelDefinitionWithSource) {
             return (
-            <>
+            <div className="step-two">
                 <h4>{t(ResourceKeys.digitalTwin.steps.secondFailure, {modelId})}</h4>
                 <InterfaceNotFoundMessageBar/>
-            </>);
+            </div>);
         }
 
         return (
             <>
-                <h4>{t(ResourceKeys.digitalTwin.steps.secondSuccess)}</h4>
-                <ModelDefinitionSourceView
-                    source={modelDefinitionWithSource.source}
-                />
-                {modelDefinitionWithSource.isModelValid ?
-                    renderComponentList() :
-                    <>
-                        <MessageBar messageBarType={MessageBarType.error}>
-                            {t(ResourceKeys.deviceInterfaces.interfaceNotValid)}
-                        </MessageBar>
-                        <JSONEditor
-                            className="interface-definition-json-editor"
-                            content={JSON.stringify(modelDefinitionWithSource.modelDefinition, null, '\t')}
-                        />
-                    </>
-                }
+                <div className="step-two">
+                    <h4>{t(ResourceKeys.digitalTwin.steps.secondSuccess)}</h4>
+                    <ModelDefinitionSourceView
+                        source={modelDefinitionWithSource.source}
+                    />
+                </div>
+                <div className="step-three">
+                    {modelDefinitionWithSource.isModelValid ?
+                        renderComponentList() :
+                        <>
+                            <MessageBar messageBarType={MessageBarType.error}>
+                                {t(ResourceKeys.deviceInterfaces.interfaceNotValid)}
+                            </MessageBar>
+                            <JSONEditor
+                                className="interface-definition-json-editor"
+                                content={JSON.stringify(modelDefinitionWithSource.modelDefinition, null, '\t')}
+                            />
+                        </>
+                    }
+                </div>
             </>
         );
     };
@@ -240,28 +244,32 @@ export const DigitalTwinInterfacesList: React.FC = () => {
             {isTwinLoading ?
                 <MultiLineShimmer/> :
                 <section className="device-detail">
-                    {modelId ?
-                        <>
-                            <h4>{moduleId ? t(ResourceKeys.digitalTwin.steps.firstModule) : t(ResourceKeys.digitalTwin.steps.first)}</h4>
-                            <MaskedCopyableTextField
-                                ariaLabel={t(ResourceKeys.digitalTwin.modelId)}
-                                label={t(ResourceKeys.digitalTwin.modelId)}
-                                value={modelId}
-                                allowMask={false}
-                                readOnly={true}
-                            />
-                            {renderModelDefinition()}
-                        </> :
-                        <>
-                            <span>{moduleId ? t(ResourceKeys.digitalTwin.steps.zeroModule) : t(ResourceKeys.digitalTwin.steps.zero)}</span>
-                            <Link
-                                href={t(ResourceKeys.settings.questions.questions.documentation.link)}
-                                target="_blank"
-                            >
-                                {t(ResourceKeys.settings.questions.questions.documentation.text)}
-                            </Link>
-                        </>
-                    }
+                    <div className="digitalTwin-steps">
+                        {modelId ?
+                            <>
+                                <div className="step-one">
+                                    <h4>{moduleId ? t(ResourceKeys.digitalTwin.steps.firstModule) : t(ResourceKeys.digitalTwin.steps.first)}</h4>
+                                    <MaskedCopyableTextField
+                                        ariaLabel={t(ResourceKeys.digitalTwin.modelId)}
+                                        label={t(ResourceKeys.digitalTwin.modelId)}
+                                        value={modelId}
+                                        allowMask={false}
+                                        readOnly={true}
+                                    />
+                                </div>
+                                {renderModelDefinition()}
+                            </> :
+                            <>
+                                <span>{moduleId ? t(ResourceKeys.digitalTwin.steps.zeroModule) : t(ResourceKeys.digitalTwin.steps.zero)}</span>
+                                <Link
+                                    href={t(ResourceKeys.settings.questions.questions.documentation.link)}
+                                    target="_blank"
+                                >
+                                    {t(ResourceKeys.settings.questions.questions.documentation.text)}
+                                </Link>
+                            </>
+                        }
+                    </div>
                 </section>
             }
         </>

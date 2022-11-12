@@ -8,17 +8,18 @@ import { TooltipHost, DirectionalHint, Stack, IconButton, Link, getId } from '@f
 
 export interface HeaderViewProps {
     headerText: string;
+    className?: string;
     tooltip?: string;
     link?: string;
 }
 
 export const HeaderView: React.FC<HeaderViewProps> = props => {
     const hostId = getId('tooltip');
-    const { headerText, tooltip, link } = props;
+    const { className, headerText, tooltip, link } = props;
 
     const { t } = useTranslation();
     return (
-        <Stack horizontal={true}>
+        <Stack horizontal={true} className={className ? className : ''}>
             <Stack.Item align="start">
                 <h3>{t(headerText)}</h3>
             </Stack.Item>

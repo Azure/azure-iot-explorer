@@ -11,6 +11,8 @@ $nav-width: 20%;
 
 .device-content {
     .device-content-detail {
+        display: flex;
+        flex-direction: column;
         .form-group {
             .fieldChildren {
                 display: flex;

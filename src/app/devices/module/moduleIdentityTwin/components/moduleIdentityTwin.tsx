@@ -60,7 +60,7 @@ export const ModuleIdentityTwin: React.FC = () => {
     const showCommandBar = () => {
         return (
             <CommandBar
-                className="command"
+                className="command device-detail-command"
                 items={[
                     {
                         ariaLabel: t(ResourceKeys.moduleIdentity.detail.command.refresh),
@@ -89,7 +89,7 @@ export const ModuleIdentityTwin: React.FC = () => {
         }
 
         return (
-            <article className="device-twin">
+            <article className="device-twin device-detail">
                 {moduleIdentityTwin &&
                     <JSONEditor
                         content={JSON.stringify(moduleIdentityTwin, null, '\t')}
@@ -120,12 +120,10 @@ export const ModuleIdentityTwin: React.FC = () => {
     return (
         <>
             {showCommandBar()}
-            <div className="device-detail">
-                {moduleIdentityTwinSyncStatus === SynchronizationStatus.working ?
-                    <MultiLineShimmer/> :
-                    showModuleTwin()
-                }
-            </div>
+            {moduleIdentityTwinSyncStatus === SynchronizationStatus.working ?
+                <MultiLineShimmer/> :
+                showModuleTwin()
+            }
         </>
     );
 };

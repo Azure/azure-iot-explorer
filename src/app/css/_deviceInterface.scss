@@ -6,18 +6,36 @@
  @import 'variables';
 
  @media screen and (min-width: $screenSize) {
-     .pnp-interface-info {
-        .interface-definition-json-editor
-        {
-            padding-top: 20px;
-            min-height: 20vh;
+    .pnp-interface-info {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    
+        .pnp-interface-info-detail {
+            flex-grow: 0;
         }
-        .invalid-interface-definition-json-editor
-        {
-            padding-top: 20px;
-            min-height: 20vh;
+    
+        .pnp-interface-info-editor {
+            flex-grow: 1;
+    
+            article {
+                height: 100%;
+    
+                .interface-definition-json-editor
+                {
+                    height: 100%;
+                }
+                .invalid-interface-definition-json-editor {
+                    height: 100%;
+                }
+            }
         }
-     }
+    }
+    
+    .deviceInterface-command {
+        flex-grow: 0;
+    }
+
  }
  @media screen and (max-width: $screenSize) {
      .interface-definition-json-editor {
