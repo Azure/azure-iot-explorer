@@ -89,11 +89,23 @@ export const deviceEventsReducer = reducerWithInitialState<DeviceEventsStateInte
             }
         };
     })
+    .case(setEventsMessagesAction.started, (state: DeviceEventsStateInterface) => {
+        return {
+            ...state,
+            formMode: 'working'
+        };
+    })
     .case(setEventsMessagesAction.done, (state: DeviceEventsStateInterface, payload: { params: Message[], result: Message[]}) => {
         const messages = payload.result ? payload.result.reverse().map((message: Message) => message) : [];
         return {
             ...state,
             formMode: 'fetched',
             message: [...messages, ...state.message]
+        };
+    })
+    .case(setEventsMessagesAction.failed, (state: DeviceEventsStateInterface) => {
+        return {
+            ...state,
+            formMode: 'failed'
         };
     });

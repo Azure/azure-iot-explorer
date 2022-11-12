@@ -21,15 +21,6 @@ export function* setEventsSagaWorker(action: Action<Message[]>): SagaIterator {
         const result = yield call(parseEvents, {messages: action.payload, decoderPrototype: state.contentType.decoderPrototype});
         yield put(setEventsMessagesAction.done({params: action.payload, result}));
     } catch (error) {
-        yield call(raiseNotificationToast, {
-            text: {
-                translationKey: ResourceKeys.notifications.startEventMonitoringOnError,
-                translationOptions: {
-                    error,
-                },
-            },
-            type: NotificationType.error
-          });
         yield put(setEventsMessagesAction.failed({params: action.payload, error}));
     }
 }

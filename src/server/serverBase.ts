@@ -55,7 +55,7 @@ export class ServerBase {
         //initialize a simple http server
         const server = http.createServer(app);
 
-        //start our server
+        //start the server
         server.listen(this.port).on('error', () => { throw new Error(
            `Failed to start the app on port ${this.port} as it is in use.
             You can still view static pages, but requests cannot be made to the services if the port is still occupied.
@@ -221,18 +221,6 @@ const initializeEventHubClient = async (params: any) =>  {
         },
         { startPosition: params.startTime ? { enqueuedOn: new Date(params.startTime).getTime() } : { enqueuedOn: new Date() } }
     );
-
-    // subscription = client.subscribe(
-    //     {
-    //         processEvents: async (events) => {
-    //             handleMessages(events, params)
-    //         },
-    //         processError: async (err) => {
-    //             console.log(err);
-    //         }
-    //     },
-    //     { startPosition: params.startTime ? { enqueuedOn: new Date(params.startTime).getTime() } : earliestEventPosition }
-    // );
 };
 
 const handleMessages = (events: ReceivedEventData[], params: any) => {
@@ -250,7 +238,6 @@ const handleMessages = (events: ReceivedEventData[], params: any) => {
             }
         }
     });
-    console.log(messages);
     ws.send(JSON.stringify(messages));
 }
 
@@ -258,4 +245,4 @@ export const stopClient = async () => {
     console.log('stop client');
     await subscription?.close();
     await client?.close();
-};
+}

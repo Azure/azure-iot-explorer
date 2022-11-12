@@ -7,7 +7,6 @@ export interface StartEventHubMonitoringParameters {
     moduleId: string;
     consumerGroup: string;
     startTime: string;
-    startListeners: boolean;
 
     customEventHubConnectionString?: string;
     hubConnectionString?: string;
@@ -18,9 +17,4 @@ export interface Message {
     enqueuedTime: string;
     properties?: any; // tslint:disable-line:no-any
     systemProperties?: {[key: string]: string};
-}
-
-export interface EventHubInterface {
-    startEventHubMonitoring(params: StartEventHubMonitoringParameters): Promise<Message[]>;
-    stopEventHubMonitoring(): Promise<void>;
 }

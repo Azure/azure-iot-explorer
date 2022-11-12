@@ -10,7 +10,7 @@ import { Twin } from '../models/device';
 import { DeviceIdentity } from './../models/deviceIdentity';
 import { buildQueryString, getConnectionInfoFromConnectionString } from '../shared/utils';
 import { MonitorEventsParameters } from '../parameters/deviceParameters';
-import * as interfaceUtils from '../shared/interfaceUtils';
+import { EVENTHUB_MONITOR_ENDPOINT, EVENTHUB_STOP_ENDPOINT } from '../handlers/eventHubServiceHandler';
 
 const deviceId = 'deviceId';
 const connectionString = 'HostName=test-string.azure-devices.net;SharedAccessKeyName=owner;SharedAccessKey=fakeKey=';
@@ -59,6 +59,9 @@ const mockDataPlaneConnectionHelper = () => {
 };
 
 describe('deviceTwinService', () => {
+    afterEach(() => {
+        jest.clearAllMocks();
+    });
 
     context('fetchDeviceTwin', () => {
         it ('returns if deviceId is not specified', () => {
@@ -391,6 +394,7 @@ describe('deviceTwinService', () => {
             const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
                 apiVersion:  HUB_DATA_PLANE_API_VERSION,
                 body: JSON.stringify(deviceIdentity),
+                headers: {'If-Match': `"null"`},
                 hostName: connectionInformation.connectionInfo.hostName,
                 httpMethod: HTTP_OPERATION_TYPES.Put,
                 path: `devices/${deviceId}`,
@@ -631,45 +635,76 @@ describe('deviceTwinService', () => {
     context('monitorEvents', () => {
         const parameters: MonitorEventsParameters = {
             consumerGroup: '$Default',
-            customEventHubConnectionString: undefined,
+            customEventHubConnectionString: 'customConnectionString',
             deviceId,
-            hubConnectionString: undefined,
-            startListeners: true,
-            moduleId: undefined,
-            startTime: undefined
+            moduleId: ''
         };
 
-        it('calls startEventHubMonitoring with expected parameters', async () => {
-            jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockResolvedValue({
-                connectionInfo: getConnectionInfoFromConnectionString(connectionString), connectionString, sasToken});
-
-            const startEventHubMonitoring = jest.fn();
-            jest.spyOn(interfaceUtils, 'getEventHubInterface').mockReturnValue({
-                startEventHubMonitoring,
-                stopEventHubMonitoring: jest.fn()
-            });
+        it('calls fetch with specified parameters', async () => {
+            // tslint:disable
+            const response = {
+                json: () => {
+                    return {
+                        headers:{}
+                        }
+                    },
+                status: 200
+            } as any;
+            // tslint:enable
+            jest.spyOn(window, 'fetch').mockResolvedValue(response);
 
             await DevicesService.monitorEvents(parameters);
-            expect(startEventHubMonitoring).toBeCalledWith({
-                ...parameters,
-                hubConnectionString: connectionString,
-                startTime: parameters.startTime && parameters.startTime.toISOString()
+            expect(fetch).toBeCalledWith(EVENTHUB_MONITOR_ENDPOINT, {
+                body: JSON.stringify(parameters),
+                cache: 'no-cache',
+                credentials: 'include',
+                headers: new Headers({
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                }),
+                method: HTTP_OPERATION_TYPES.Post,
+                mode: 'cors',
             });
+        });
+
+        it('throws Error when promise rejects', async () => {
+            window.fetch = jest.fn().mockRejectedValueOnce(new Error());
+            await expect(DevicesService.monitorEvents(parameters)).rejects.toThrow(new Error());
         });
     });
 
 
     context('stopMonitoringEvents', () => {
-        it('calls stopEventHubMonitoring', async () => {
-
-            const stopEventHubMonitoring = jest.fn();
-            jest.spyOn(interfaceUtils, 'getEventHubInterface').mockReturnValue({
-                startEventHubMonitoring: jest.fn(),
-                stopEventHubMonitoring
-            });
+        it('calls fetch with specified parameters', async () => {
+            // tslint:disable
+            const response = {
+                json: () => {
+                    return {
+                        headers:{}
+                        }
+                    },
+                status: 200
+            } as any;
+            // tslint:enable
+            jest.spyOn(window, 'fetch').mockResolvedValue(response);
 
             await DevicesService.stopMonitoringEvents();
-            expect(stopEventHubMonitoring).toBeCalled();
+            expect(fetch).toBeCalledWith(EVENTHUB_STOP_ENDPOINT, {
+                body: JSON.stringify({}),
+                cache: 'no-cache',
+                credentials: 'include',
+                headers: new Headers({
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                }),
+                method: HTTP_OPERATION_TYPES.Post,
+                mode: 'cors',
+            });
+        });
+
+        it('throws Error when promise rejects', async () => {
+            window.fetch = jest.fn().mockRejectedValueOnce(new Error());
+            await expect(DevicesService.stopMonitoringEvents()).rejects.toThrow(new Error());
         });
     });
 });

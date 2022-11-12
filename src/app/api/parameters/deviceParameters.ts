@@ -29,7 +29,6 @@ export interface MonitorEventsParameters {
     deviceId: string;
     moduleId: string;
     consumerGroup: string;
-    startListeners: boolean;
 
     customEventHubConnectionString?: string;
     hubConnectionString?: string;

@@ -15,6 +15,7 @@ exports[`DeviceEventsStateContextProvider matches snapshot 1`] = `
         "clearEventsMonitoring": [Function],
         "setDecoderInfo": [Function],
         "setDefaultDecodeInfo": [Function],
+        "setEvents": [Function],
         "startEventsMonitoring": [Function],
         "stopEventsMonitoring": [Function],
       },
