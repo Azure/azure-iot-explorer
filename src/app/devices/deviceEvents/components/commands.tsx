@@ -8,14 +8,13 @@ import { useLocation, useHistory } from 'react-router-dom';
 import { CommandBar, ICommandBarItemProps } from '@fluentui/react';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { CLEAR, CHECKED_CHECKBOX, EMPTY_CHECKBOX, START, STOP, NAVIGATE_BACK, REFRESH, REMOVE, CODE, UPLOAD } from '../../../constants/iconNames';
-import { appConfig, HostMode } from '../../../../appConfig/appConfig';
 import { getComponentNameFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { usePnpStateContext } from '../../../shared/contexts/pnpStateContext';
-import './deviceEvents.scss';
 import { getBackUrl } from '../../pnp/utils';
 import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
 import { TELEMETRY_USER_ACTIONS } from '../../../../app/constants/telemetry';
 import { useDeviceEventsStateContext } from '../context/deviceEventsStateContext';
+import './deviceEvents.scss';
 
 export interface CommandsProps {
     startDisabled: boolean;
@@ -30,6 +29,7 @@ export interface CommandsProps {
     setShowSimulationPanel: (showSimulationPanel: boolean) => void;
     setShowContentTypePanel: (showDecoderPanel: boolean) => void;
     fetchData(): void;
+    stopFetching(): void;
 }
 
 export const Commands: React.FC<CommandsProps> = ({
@@ -44,12 +44,13 @@ export const Commands: React.FC<CommandsProps> = ({
     setShowPnpModeledEvents,
     setShowSimulationPanel,
     setShowContentTypePanel,
-    fetchData}) => {
+    fetchData,
+    stopFetching}) => {
 
     const {t} = useTranslation();
     const { search, pathname } = useLocation();
     const history = useHistory();
-    const { pnpState, getModelDefinition } = usePnpStateContext();
+    const { getModelDefinition } = usePnpStateContext();
     const componentName = getComponentNameFromQueryString(search); // if component name exist, we are in pnp context
     const [ state, api ] = useDeviceEventsStateContext();
 
@@ -111,32 +112,18 @@ export const Commands: React.FC<CommandsProps> = ({
 
     // tslint:disable-next-line: cyclomatic-complexity
     const createStartMonitoringCommandItem = (): ICommandBarItemProps => {
-        if (appConfig.hostMode !== HostMode.Browser) {
-            const label = monitoringData ? t(ResourceKeys.deviceEvents.command.stop) : t(ResourceKeys.deviceEvents.command.start);
-            const icon = monitoringData ? STOP : START;
-            return {
-                ariaLabel: label,
-                disabled: startDisabled,
-                iconProps: {
-                    iconName: icon
-                },
-                key: icon,
-                name: label,
-                onClick: onToggleStart
-            };
-        }
-        else {
-            return {
-                ariaLabel: t(ResourceKeys.deviceEvents.command.fetch),
-                disabled: state.formMode === 'updating' || monitoringData,
-                iconProps: {
-                    iconName: START
-                },
-                key: START,
-                name: t(ResourceKeys.deviceEvents.command.fetch),
-                onClick: onToggleStart
-            };
-        }
+        const label = monitoringData ? t(ResourceKeys.deviceEvents.command.stop) : t(ResourceKeys.deviceEvents.command.start);
+        const icon = monitoringData ? STOP : START;
+        return {
+            ariaLabel: label,
+            disabled: startDisabled,
+            iconProps: {
+                iconName: icon
+            },
+            key: icon,
+            name: label,
+            onClick: onToggleStart
+        };
     };
 
     const createSimulationCommandItem = (): ICommandBarItemProps => {
@@ -194,6 +181,7 @@ export const Commands: React.FC<CommandsProps> = ({
     const onToggleStart = () => {
         if (monitoringData) {
             setMonitoringData(false);
+            stopFetching();
         } else {
             fetchData();
             setMonitoringData(true);

@@ -9,7 +9,6 @@ export interface StartEventHubMonitoringParameters {
     startTime: string;
     startListeners: boolean;
 
-    customEventHubName?: string;
     customEventHubConnectionString?: string;
     hubConnectionString?: string;
 }

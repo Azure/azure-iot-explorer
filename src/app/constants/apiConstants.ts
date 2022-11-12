@@ -9,7 +9,7 @@ import { CUSTOM_CONTROLLER_PORT } from './browserStorage';
 export const DATAPLANE = '/DataPlane';
 export const EVENTHUB = '/EventHub';
 export const MODELREPO = '/ModelRepo';
-export const CLOUD_TO_DEVICE = '/CloudToDevice';
+
 export const READ_FILE = '/ReadFile';
 export const GET_DIRECTORIES = '/Directories';
 export const DEFAULT_DIRECTORY = '$DEFAULT';
@@ -58,7 +58,7 @@ export const DEFAULT_CONSUMER_GROUP = '$Default';
 const localIp = 'http://127.0.0.1';
 const apiPath = '/api';
 
-const getPort = () => {
+export const getPort = () => {
     const customPort = parseInt(localStorage.getItem(CUSTOM_CONTROLLER_PORT), 10);
     if (customPort && !isNaN(customPort)) {
         return customPort;

@@ -10,6 +10,7 @@ export const getInitialDeviceEventsOps = (): DeviceEventsInterface => ({
     clearEventsMonitoring: () => undefined,
     setDecoderInfo: () => undefined,
     setDefaultDecodeInfo: () => undefined,
+    setEvents: () => undefined,
     startEventsMonitoring: () => undefined,
     stopEventsMonitoring: () => undefined
 });

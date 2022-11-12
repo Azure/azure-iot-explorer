@@ -11,8 +11,7 @@ import { Message, MESSAGE_SYSTEM_PROPERTIES, MESSAGE_PROPERTIES, IOTHUB_MESSAGE_
 import { getDeviceIdFromQueryString, getComponentNameFromQueryString, getInterfaceIdFromQueryString, getModuleIdentityIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import { MonitorEventsParameters } from '../../../api/parameters/deviceParameters';
-import { DEFAULT_CONSUMER_GROUP } from '../../../constants/apiConstants';
-import { appConfig, HostMode } from '../../../../appConfig/appConfig';
+import { DEFAULT_CONSUMER_GROUP, getPort } from '../../../constants/apiConstants';
 import { HeaderView } from '../../../shared/components/headerView';
 import { useDeviceEventsStateContext } from '../context/deviceEventsStateContext';
 import { DEFAULT_COMPONENT_FOR_DIGITAL_TWIN } from '../../../constants/devices';
@@ -32,11 +31,11 @@ import { ConsumerGroup } from './consumerGroup';
 import { StartTime } from './startTime';
 import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
 import { TELEMETRY_PAGE_NAMES } from '../../../../app/constants/telemetry';
-import './deviceEvents.scss';
 import { DeviceContentTypePanel } from './deviceContentTypePanel';
+import './deviceEvents.scss';
 
 const JSON_SPACES = 2;
-const LOADING_LOCK = 8000;
+const client = new WebSocket(`ws://127.0.0.1:${getPort()}`);
 
 export const DeviceEvents: React.FC = () => {
     const { t } = useTranslation();
@@ -54,7 +53,6 @@ export const DeviceEvents: React.FC = () => {
     const [startTime, setStartTime] = React.useState<Date>();
     const [useBuiltInEventHub, setUseBuiltInEventHub] = React.useState<boolean>(true);
     const [customEventHubConnectionString, setCustomEventHubConnectionString] = React.useState<string>(undefined);
-    const [customEventHubName, setCustomEventHubName] = React.useState<string>(undefined);
     const [showSystemProperties, setShowSystemProperties] = React.useState<boolean>(false);
 
     // event message state
@@ -88,6 +86,14 @@ export const DeviceEvents: React.FC = () => {
         []);
 
     React.useEffect(() => {
+        client.onmessage = message => {
+            console.log(message); // tslint:disable-line:no-console
+            console.log(JSON.parse(message.data)); // tslint:disable-line:no-console
+            api.setEvents(JSON.parse(message.data));
+        };
+    }, []); // tslint:disable-line: align
+
+    React.useEffect(() => {
         if (componentName) {
             AppInsightsClient.getInstance()?.trackPageView({ name: TELEMETRY_PAGE_NAMES.PNP_TELEMETRY });
         } else {
@@ -101,43 +107,14 @@ export const DeviceEvents: React.FC = () => {
                 // when specifying start time, valid time need to be provided
                 (specifyStartTime && (!startTime || hasError)) ||
                 // when using custom event hub, both valid connection string and name need to be provided
-                (!useBuiltInEventHub && (!customEventHubConnectionString || !customEventHubName || hasError))) {
+                (!useBuiltInEventHub && (!customEventHubConnectionString || hasError))) {
                 setStartDisabled(true);
             }
             else {
                 setStartDisabled(false);
             }
         },
-        [hasError, state.formMode, useBuiltInEventHub, customEventHubConnectionString, customEventHubName, specifyStartTime, startTime]);
-
-    // React.useEffect(// tslint:disable-next-line: cyclomatic-complexity
-    //     () => {
-    //         if (state.formMode === 'fetched') {
-    //             if (appConfig.hostMode !== HostMode.Browser) {
-    //                 if (monitoringData) {
-    //                     setStartTime(new Date());
-    //                     setTimeout(
-    //                         () => {
-    //                             fetchData(false)();
-    //                         },
-    //                         LOADING_LOCK);
-    //                 }
-    //                 else {
-    //                     stopMonitoring();
-    //                 }
-    //             }
-    //             else {
-    //                 stopMonitoring();
-    //             }
-    //         }
-    //         if (state.formMode === 'upserted') {
-    //             setMonitoringData(false);
-    //         }
-    //         if (monitoringData && state.formMode === 'failed') {
-    //             stopMonitoring();
-    //         }
-    //     },
-    //     [state.formMode]);
+        [hasError, state.formMode, useBuiltInEventHub, customEventHubConnectionString, specifyStartTime, startTime]);
 
     const renderCommands = () => {
         return (
@@ -154,6 +131,7 @@ export const DeviceEvents: React.FC = () => {
                 setShowSimulationPanel={setShowSimulationPanel}
                 setShowContentTypePanel={setShowContentTypePanel}
                 fetchData={fetchData(true)}
+                stopFetching={stopMonitoring}
             />
         );
     };
@@ -189,10 +167,8 @@ export const DeviceEvents: React.FC = () => {
                 <CustomEventHub
                     monitoringData={monitoringData}
                     useBuiltInEventHub={useBuiltInEventHub}
-                    customEventHubName={customEventHubName}
                     customEventHubConnectionString={customEventHubConnectionString}
                     setUseBuiltInEventHub={setUseBuiltInEventHub}
-                    setCustomEventHubName={setCustomEventHubName}
                     setCustomEventHubConnectionString={setCustomEventHubConnectionString}
                     setHasError={setHasError}
                 />
@@ -489,6 +465,8 @@ export const DeviceEvents: React.FC = () => {
     };
 
     const fetchData = (startListeners: boolean) => () => {
+        client.onopen = () => { // intentionally blank
+        };
         let parameters: MonitorEventsParameters = {
             consumerGroup,
             decoderPrototype,
@@ -501,11 +479,9 @@ export const DeviceEvents: React.FC = () => {
         if (!useBuiltInEventHub) {
             parameters = {
                 ...parameters,
-                customEventHubConnectionString,
-                customEventHubName
+                customEventHubConnectionString
             };
         }
-
         api.startEventsMonitoring(parameters);
     };
 
