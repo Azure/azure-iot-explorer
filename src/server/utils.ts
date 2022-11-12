@@ -70,6 +70,6 @@ const isFileExtensionJson = (fileName: string) => {
     return i > 0 && fileName.substr(i) === '.json';
 };
 
- const readFileFromLocal = (filePath: string, fileName: string) => {
+export const readFileFromLocal = (filePath: string, fileName: string) => {
     return fs.readFileSync(`${filePath}/${fileName}`, 'utf-8');
 }

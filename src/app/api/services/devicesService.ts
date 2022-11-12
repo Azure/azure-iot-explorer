@@ -27,7 +27,7 @@ import { dataPlaneConnectionHelper, dataPlaneResponseHelper, request, DATAPLANE_
 import { parseEventHubMessage } from './eventHubMessageHelper';
 import { AppInsightsClient } from '../../shared/appTelemetry/appInsightsClient';
 import { TELEMETRY_EVENTS } from '../../constants/telemetry';
-import { EventHubServiceHandler } from '../handlers/eventHubServiceHandler';
+import { startEventHubMonitoring, stopEventHubMonitoring } from '../handlers/eventHubServiceHandler';
 
 const PAGE_SIZE = 100;
 
@@ -251,7 +251,6 @@ export const deleteDevices = async (parameters: DeleteDevicesParameters) => {
     return result && result.body;
 };
 
-// tslint:disable-next-line:cyclomatic-complexity
 export const monitorEvents = async (parameters: MonitorEventsParameters): Promise<void> => {
     let requestParameters = {
         ...parameters,
@@ -267,16 +266,14 @@ export const monitorEvents = async (parameters: MonitorEventsParameters): Promis
         };
     }
 
-    const api = new EventHubServiceHandler();
-    await api.startEventHubMonitoring(requestParameters);
+    await startEventHubMonitoring(requestParameters);
 };
 
 export const parseEvents = async (params: {messages: Message[], decoderPrototype?: Type}): Promise<Message[]> => {
     const { messages, decoderPrototype } = params;
-    return Promise.all(messages.map(message => parseEventHubMessage(message, decoderPrototype)) || []);
+    return Promise.all(messages?.map(message => parseEventHubMessage(message, decoderPrototype)) || []);
 };
 
 export const stopMonitoringEvents = async (): Promise<void> => {
-    const api = new EventHubServiceHandler();
-    await api.stopEventHubMonitoring();
+    await stopEventHubMonitoring();
 };

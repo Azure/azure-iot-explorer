@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Loader matches snapshot when loading 1`] = `
+<Fragment>
+  <StyledMessageBar
+    messageBarType={0}
+  >
+    <Stack
+      horizontal={true}
+      tokens={
+        Object {
+          "childrenGap": 10,
+        }
+      }
+    >
+      <div>
+        deviceEvents.infiniteScroll.loading
+      </div>
+      <StyledSpinnerBase
+        size={1}
+      />
+    </Stack>
+  </StyledMessageBar>
+</Fragment>
+`;
+
+exports[`Loader matches snapshot when not loading 1`] = `<Fragment />`;

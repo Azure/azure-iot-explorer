@@ -49,16 +49,6 @@ describe('browserSettingsApi', () => {
     });
 });
 
-describe('getDeviceInterface', () => {
-    it('calls expected factory when mode is electron', () => {
-        appConfig.hostMode = HostMode.Electron;
-        const factory = jest.spyOn(interfaceUtils, 'getElectronInterface');
-
-        interfaceUtils.getDeviceInterface();
-        expect(factory).toHaveBeenLastCalledWith(API_INTERFACES.DEVICE);
-    });
-});
-
 describe('getDirectoryInterface', () => {
     it('calls expected factory when mode is electron', () => {
         appConfig.hostMode = HostMode.Electron;
@@ -79,12 +69,3 @@ describe('getLocalModelRepositoryInterface', () => {
     });
 });
 
-describe('getEventHubInterface', () => {
-    it('calls expected factory when mode is electron', () => {
-        appConfig.hostMode = HostMode.Electron;
-        const factory = jest.spyOn(interfaceUtils, 'getElectronInterface');
-
-        interfaceUtils.getEventHubInterface()
-        expect(factory).toHaveBeenLastCalledWith(API_INTERFACES.EVENTHUB);
-    });
-});

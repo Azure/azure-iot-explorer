@@ -38,6 +38,7 @@ describe('commands', () => {
                 setShowPnpModeledEvents={jest.fn()}
                 setShowSimulationPanel={jest.fn()}
                 fetchData={jest.fn()}
+                stopFetching={jest.fn()}
             />)).toMatchSnapshot();
     });
 
@@ -59,6 +60,7 @@ describe('commands', () => {
                 setShowPnpModeledEvents={jest.fn()}
                 setShowSimulationPanel={jest.fn()}
                 fetchData={jest.fn()}
+                stopFetching={jest.fn()}
             />)).toMatchSnapshot();
     });
 
@@ -82,6 +84,7 @@ describe('commands', () => {
                 setShowPnpModeledEvents={mockSetShowPnpModeledEvents}
                 setShowSimulationPanel={jest.fn()}
                 fetchData={jest.fn()}
+                stopFetching={jest.fn()}
             />);
 
             expect(wrapper.find(CommandBar).props().items.length).toEqual(5);

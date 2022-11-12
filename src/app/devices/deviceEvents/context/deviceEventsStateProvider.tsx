@@ -16,9 +16,9 @@ export interface DeviceEventsInterface {
     clearEventsMonitoring(): void;
     setDecoderInfo(params: SetDecoderInfoParameters): void;
     setDefaultDecodeInfo(): void;
+    setEvents(messages: Message[]): void;
     startEventsMonitoring(params: MonitorEventsParameters): void;
     stopEventsMonitoring(): void;
-    setEvents(messages: Message[]): void;
 }
 
 export const DeviceEventsStateContextProvider: React.FC = props => {
@@ -28,9 +28,9 @@ export const DeviceEventsStateContextProvider: React.FC = props => {
         clearEventsMonitoring: () => dispatch(clearMonitoringEventsAction()),
         setDecoderInfo: (params: SetDecoderInfoParameters) => dispatch(setDecoderInfoAction.started(params)),
         setDefaultDecodeInfo: () => dispatch(setDefaultDecodeInfoAction()),
+        setEvents: (messages: Message[]) => dispatch(setEventsMessagesAction.started(messages)),
         startEventsMonitoring: (params: MonitorEventsParameters) => dispatch(startEventsMonitoringAction.started(params)),
-        stopEventsMonitoring: () => dispatch(stopEventsMonitoringAction.started()),
-        setEvents: (messages: Message[]) => dispatch(setEventsMessagesAction.started(messages))
+        stopEventsMonitoring: () => dispatch(stopEventsMonitoringAction.started())
     };
 
     return (

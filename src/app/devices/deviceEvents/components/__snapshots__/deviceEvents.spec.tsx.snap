@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`deviceEvents deviceEvents in non-pnp context matches snapshot 1`] = `
+exports[`deviceEvents matches snapshot after loaded 1`] = `
 <Stack
   className="device-events"
   key="device-events"
@@ -18,6 +18,7 @@ exports[`deviceEvents deviceEvents in non-pnp context matches snapshot 1`] = `
     showSimulationPanel={false}
     showSystemProperties={false}
     startDisabled={false}
+    stopFetching={[Function]}
   />
   <HeaderView
     headerText="deviceEvents.headerText"
@@ -45,10 +46,9 @@ exports[`deviceEvents deviceEvents in non-pnp context matches snapshot 1`] = `
     <CustomEventHub
       monitoringData={false}
       setCustomEventHubConnectionString={[Function]}
-      setCustomEventHubName={[Function]}
       setHasError={[Function]}
       setUseBuiltInEventHub={[Function]}
-      useBuiltInEventHub={false}
+      useBuiltInEventHub={true}
     />
   </div>
   <DeviceSimulationPanel
@@ -62,168 +62,15 @@ exports[`deviceEvents deviceEvents in non-pnp context matches snapshot 1`] = `
   <div
     className="device-events-container"
   >
-    <div
-      className=""
-    >
-      <article
-        className="device-events-content"
-        key="0"
-      >
-        <h5>
-          Wed Feb 17 2021 16:06:00 GMT-0800 (Pacific Standard Time)
-          :
-        </h5>
-        <pre>
-          {
-  "body": {
-    "humid": 123
-  },
-  "enqueuedTime": "Wed Feb 17 2021 16:06:00 GMT-0800 (Pacific Standard Time)",
-  "properties": {
-    "iothub-message-schema": "humid"
-  }
-}
-        </pre>
-      </article>
-    </div>
-  </div>
-</Stack>
-`;
-
-exports[`deviceEvents deviceEvents in pnp context matches snapshot while interface cannot be found 1`] = `
-<Stack
-  className="device-events"
-  key="device-events"
->
-  <Commands
-    fetchData={[Function]}
-    monitoringData={false}
-    setMonitoringData={[Function]}
-    setShowContentTypePanel={[Function]}
-    setShowPnpModeledEvents={[Function]}
-    setShowSimulationPanel={[Function]}
-    setShowSystemProperties={[Function]}
-    showContentTypePanel={false}
-    showPnpModeledEvents={true}
-    showSimulationPanel={false}
-    showSystemProperties={false}
-    startDisabled={false}
-  />
-  <HeaderView
-    headerText="deviceEvents.headerText"
-    tooltip="deviceEvents.tooltip"
-  />
-  <div
-    className="horizontal-item"
-  >
-    <ConsumerGroup
-      consumerGroup="$Default"
+    <Loader
       monitoringData={false}
-      setConsumerGroup={[Function]}
     />
-  </div>
-  <StartTime
-    monitoringData={false}
-    setHasError={[Function]}
-    setSpecifyStartTime={[Function]}
-    setStartTime={[Function]}
-    specifyStartTime={false}
-  />
-  <div
-    className="horizontal-item"
-  >
-    <CustomEventHub
-      monitoringData={false}
-      setCustomEventHubConnectionString={[Function]}
-      setCustomEventHubName={[Function]}
-      setHasError={[Function]}
-      setUseBuiltInEventHub={[Function]}
-      useBuiltInEventHub={false}
-    />
-  </div>
-  <DeviceSimulationPanel
-    onToggleSimulationPanel={[Function]}
-    showSimulationPanel={false}
-  />
-  <DeviceContentTypePanel
-    onToggleContentTypePanel={[Function]}
-    showContentTypePanel={false}
-  />
-  <div
-    className="device-events-container"
-  >
-    <div
-      className=""
+    <EventsContent
+      showPnpModeledEvents={false}
+      showSystemProperties={false}
     />
   </div>
 </Stack>
 `;
 
-exports[`deviceEvents deviceEvents in pnp context matches snapshot while interface definition is retrieved 1`] = `
-<Stack
-  className="device-events"
-  key="device-events"
->
-  <Commands
-    fetchData={[Function]}
-    monitoringData={false}
-    setMonitoringData={[Function]}
-    setShowContentTypePanel={[Function]}
-    setShowPnpModeledEvents={[Function]}
-    setShowSimulationPanel={[Function]}
-    setShowSystemProperties={[Function]}
-    showContentTypePanel={false}
-    showPnpModeledEvents={true}
-    showSimulationPanel={false}
-    showSystemProperties={false}
-    startDisabled={false}
-  />
-  <HeaderView
-    headerText="deviceEvents.headerText"
-    tooltip="deviceEvents.tooltip"
-  />
-  <div
-    className="horizontal-item"
-  >
-    <ConsumerGroup
-      consumerGroup="$Default"
-      monitoringData={false}
-      setConsumerGroup={[Function]}
-    />
-  </div>
-  <StartTime
-    monitoringData={false}
-    setHasError={[Function]}
-    setSpecifyStartTime={[Function]}
-    setStartTime={[Function]}
-    specifyStartTime={false}
-  />
-  <div
-    className="horizontal-item"
-  >
-    <CustomEventHub
-      monitoringData={false}
-      setCustomEventHubConnectionString={[Function]}
-      setCustomEventHubName={[Function]}
-      setHasError={[Function]}
-      setUseBuiltInEventHub={[Function]}
-      useBuiltInEventHub={false}
-    />
-  </div>
-  <DeviceSimulationPanel
-    onToggleSimulationPanel={[Function]}
-    showSimulationPanel={false}
-  />
-  <DeviceContentTypePanel
-    onToggleContentTypePanel={[Function]}
-    showContentTypePanel={false}
-  />
-  <div
-    className="device-events-container"
-  >
-    <div
-      className=""
-    />
-  </div>
-</Stack>
-`;
+exports[`deviceEvents matches snapshot when loading 1`] = `<MultiLineShimmer />`;

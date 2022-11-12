@@ -55,10 +55,11 @@ export enum DataPlaneStatusCode {
 
 export const DEFAULT_CONSUMER_GROUP = '$Default';
 
+const wsIp = 'ws://127.0.0.1';
 const localIp = 'http://127.0.0.1';
 const apiPath = '/api';
 
-export const getPort = () => {
+const getPort = () => {
     const customPort = parseInt(localStorage.getItem(CUSTOM_CONTROLLER_PORT), 10);
     if (customPort && !isNaN(customPort)) {
         return customPort;
@@ -70,6 +71,8 @@ export const CONTROLLER_API_ENDPOINT =
     appConfig.hostMode === HostMode.Browser ?
         `${localIp}:${appConfig.controllerPort}${apiPath}` :
         `${localIp}:${getPort()}${apiPath}`;
+
+export const WEBSOCKET_ENDPOINT = `${wsIp}:${getPort()}`;
 
 export enum HTTP_OPERATION_TYPES {
     Delete = 'DELETE',
