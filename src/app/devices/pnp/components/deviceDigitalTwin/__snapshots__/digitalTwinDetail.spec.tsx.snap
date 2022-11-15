@@ -3,6 +3,7 @@
 exports[`DigitalTwinDetail matches snapshot 1`] = `
 <StyledPivot
   aria-label="digitalTwin.pivot.ariaLabel"
+  className="digitaltwin-pivot"
   onLinkClick={[Function]}
   overflowBehavior="menu"
   selectedKey="interfaces"

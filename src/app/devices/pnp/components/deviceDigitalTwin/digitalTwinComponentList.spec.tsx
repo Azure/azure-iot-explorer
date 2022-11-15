@@ -5,14 +5,12 @@
 import 'jest';
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
-import { Label , Announced, MessageBar,Pivot, PivotItem } from '@fluentui/react';
-import { DigitalTwinInterfacesList } from './digitalTwinInterfacesList';
-import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { MultiLineShimmer } from '../../../shared/components/multiLineShimmer';
-import { REPOSITORY_LOCATION_TYPE } from '../../../constants/repositoryLocationTypes';
-import { pnpStateInitial, PnpStateInterface } from '../state';
-import * as pnpStateContext from '../../../shared/contexts/pnpStateContext';
-import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
+import { Announced, Pivot, PivotItem } from '@fluentui/react';
+import { DigitalTwinComponentList } from './digitalTwinComponentList';
+import { REPOSITORY_LOCATION_TYPE } from '../../../../constants/repositoryLocationTypes';
+import { pnpStateInitial, PnpStateInterface } from '../../state';
+import * as pnpStateContext from '../../../../shared/contexts/pnpStateContext';
+import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 
 const interfaceId = 'urn:azureiot:samplemodel;1';
 
@@ -48,20 +46,7 @@ jest.mock('react-router-dom', () => ({
     useRouteMatch: () => ({ url: pathname })
 }));
 
-describe('DigitalTwinInterfacesList', () => {
-    it('shows shimmer when model id is not retrieved', () => {
-        const initialState: PnpStateInterface = pnpStateInitial().merge({
-            twin: {
-                synchronizationStatus: SynchronizationStatus.working
-            }
-        });
-
-        jest.spyOn(pnpStateContext, 'usePnpStateContext').mockReturnValue({ pnpState: initialState, dispatch: jest.fn()});
-
-        const wrapper = mount(<DigitalTwinInterfacesList/>);
-        expect(wrapper.find(MultiLineShimmer)).toHaveLength(1);
-    });
-
+describe('DigitalTwinComponentList', () => {
     it('matches snapshot when empty model id is retrieved', () => {
         const initialState: PnpStateInterface = pnpStateInitial().merge({
             twin: {
@@ -70,68 +55,27 @@ describe('DigitalTwinInterfacesList', () => {
                     moduleId: ''
                 } as any,
                 synchronizationStatus: SynchronizationStatus.fetched
-            }
-        });
-
-        jest.spyOn(pnpStateContext, 'usePnpStateContext').mockReturnValue({ pnpState: initialState, dispatch: jest.fn()});
-
-        const wrapper = shallow(<DigitalTwinInterfacesList/>);
-        expect(wrapper).toMatchSnapshot();
-    });
-
-    it('shows model id with no model definition found', () => {
-        const initialState: PnpStateInterface = pnpStateInitial().merge({
-            twin: {
-                payload: deviceTwin,
-                synchronizationStatus: SynchronizationStatus.fetched
-            },
-            modelDefinitionWithSource: {
-                payload: null,
-                synchronizationStatus: SynchronizationStatus.fetched
-            }
-        });
-        jest.spyOn(pnpStateContext, 'usePnpStateContext').mockReturnValue({ pnpState: initialState, dispatch: jest.fn()});
-
-        const wrapper = mount(<DigitalTwinInterfacesList/>);
-        const labels = wrapper.find(Label);
-        expect(labels).toHaveLength(1);
-        expect(labels.first().props().children).toEqual(ResourceKeys.digitalTwin.modelId);
-
-        const h4 = wrapper.find('h4');
-        expect(h4).toHaveLength(2); // tslint:disable-line:no-magic-numbers
-        expect(h4.at(1).props().children).toEqual(ResourceKeys.digitalTwin.steps.secondFailure);
-    });
-
-    it('shows model id with null model definition found', () => {
-        const initialState: PnpStateInterface = pnpStateInitial().merge({
-            twin: {
-                payload: deviceTwin,
-                synchronizationStatus: SynchronizationStatus.fetched
             },
             modelDefinitionWithSource: {
                 payload: {
-                    isModelValid: false,
-                    modelDefinition: null,
-                    source: REPOSITORY_LOCATION_TYPE.Local
+                    isModelValid: true,
+                    modelDefinition: {
+                        '@context': 'dtmi:dtdl:context;2',
+                        '@id': 'dtmi:plugnplay:hube2e:cm;1',
+                        '@type': 'Interface',
+                        'contents': [],
+                        'displayName': 'IoT Hub E2E Tests',
+                    },
+                    source: REPOSITORY_LOCATION_TYPE.Public
                 },
                 synchronizationStatus: SynchronizationStatus.fetched
             }
         });
+
         jest.spyOn(pnpStateContext, 'usePnpStateContext').mockReturnValue({ pnpState: initialState, dispatch: jest.fn()});
 
-        const wrapper = mount(<DigitalTwinInterfacesList/>);
-
-        const h4 = wrapper.find('h4');
-        expect(h4).toHaveLength(2); // tslint:disable-line:no-magic-numbers
-        expect(h4.at(1).props().children).toEqual(ResourceKeys.digitalTwin.steps.secondSuccess);
-
-        const labels = wrapper.find(Label);
-        expect(labels).toHaveLength(2); // tslint:disable-line:no-magic-numbers
-        expect(labels.at(1).props().children).toEqual([ResourceKeys.deviceInterfaces.columns.source, ': ', ResourceKeys.modelRepository.types.local.label]);
-
-        const messageBar = wrapper.find(MessageBar);
-        expect(messageBar).toHaveLength(1);
-        expect(messageBar.first().props().children).toEqual(ResourceKeys.deviceInterfaces.interfaceNotValid);
+        const wrapper = shallow(<DigitalTwinComponentList/>);
+        expect(wrapper).toMatchSnapshot();
     });
 
     it('shows model id with valid model definition found but has no component', () => {
@@ -157,16 +101,7 @@ describe('DigitalTwinInterfacesList', () => {
         });
 
         jest.spyOn(pnpStateContext, 'usePnpStateContext').mockReturnValue({ pnpState: initialState, dispatch: jest.fn()});
-        const wrapper = mount(<DigitalTwinInterfacesList/>);
-
-        const h4 = wrapper.find('h4');
-        expect(h4).toHaveLength(3); // tslint:disable-line:no-magic-numbers
-        expect(h4.at(2).props().children).toEqual(ResourceKeys.digitalTwin.steps.third); // tslint:disable-line:no-magic-numbers
-        expect(wrapper.find('h5').first().props().children).toEqual(ResourceKeys.digitalTwin.steps.explanation);
-
-        const labels = wrapper.find(Label);
-        expect(labels).toHaveLength(3); // tslint:disable-line:no-magic-numbers
-        expect(labels.at(1).props().children).toEqual([ResourceKeys.deviceInterfaces.columns.source, ': ', ResourceKeys.modelRepository.types.public.label]);
+        const wrapper = mount(<DigitalTwinComponentList/>);
 
         expect(wrapper.find(Announced)).toHaveLength(1);
         expect(wrapper.find(Pivot)).toHaveLength(1);
@@ -211,7 +146,7 @@ describe('DigitalTwinInterfacesList', () => {
         });
 
         jest.spyOn(pnpStateContext, 'usePnpStateContext').mockReturnValue({ pnpState: initialState, dispatch: jest.fn()});
-        const wrapper = shallow(<DigitalTwinInterfacesList/>);
+        const wrapper = shallow(<DigitalTwinComponentList/>);
 
         expect(wrapper.find(Announced)).toHaveLength(0);
 

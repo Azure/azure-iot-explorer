@@ -5,7 +5,7 @@ exports[`deviceInterfaces shows Shimmer when status is working 1`] = `<MultiLine
 exports[`deviceInterfaces shows interface information when status is fetched 1`] = `
 <Fragment>
   <StyledCommandBarBase
-    className="command"
+    className="command deviceInterface-command"
     farItems={
       Array [
         Object {
@@ -39,33 +39,40 @@ exports[`deviceInterfaces shows interface information when status is fetched 1`]
     <section
       className="pnp-interface-info scrollable-lg"
     >
-      <ModelDefinitionSourceView
-        source="PUBLIC"
-      />
-      <MaskedCopyableTextField
-        allowMask={false}
-        ariaLabel="deviceInterfaces.columns.id"
-        label="deviceInterfaces.columns.id"
-        readOnly={true}
-        value={null}
-      />
-      <MaskedCopyableTextField
-        allowMask={false}
-        ariaLabel="deviceInterfaces.columns.displayName"
-        label="deviceInterfaces.columns.displayName"
-        readOnly={true}
-        value="--"
-      />
-      <MaskedCopyableTextField
-        allowMask={false}
-        ariaLabel="deviceInterfaces.columns.description"
-        label="deviceInterfaces.columns.description"
-        readOnly={true}
-        value="--"
-      />
-      <JSONEditor
-        className="interface-definition-json-editor"
-        content="{
+      <div
+        className="pnp-interface-info-detail"
+      >
+        <ModelDefinitionSourceView
+          source="PUBLIC"
+        />
+        <MaskedCopyableTextField
+          allowMask={false}
+          ariaLabel="deviceInterfaces.columns.id"
+          label="deviceInterfaces.columns.id"
+          readOnly={true}
+          value={null}
+        />
+        <MaskedCopyableTextField
+          allowMask={false}
+          ariaLabel="deviceInterfaces.columns.displayName"
+          label="deviceInterfaces.columns.displayName"
+          readOnly={true}
+          value="--"
+        />
+        <MaskedCopyableTextField
+          allowMask={false}
+          ariaLabel="deviceInterfaces.columns.description"
+          label="deviceInterfaces.columns.description"
+          readOnly={true}
+          value="--"
+        />
+      </div>
+      <div
+        className="pnp-interface-info-editor"
+      >
+        <JSONEditor
+          className="interface-definition-json-editor"
+          content="{
 	\\"@id\\": \\"urn:azureiot:ModelDiscovery:DigitalTwin:1\\",
 	\\"@type\\": \\"Interface\\",
 	\\"contents\\": [
@@ -101,7 +108,8 @@ exports[`deviceInterfaces shows interface information when status is fetched 1`]
 	],
 	\\"@context\\": \\"http://azureiot.com/v1/contexts/Interface.json\\"
 }"
-      />
+        />
+      </div>
     </section>
   </ErrorBoundary>
 </Fragment>

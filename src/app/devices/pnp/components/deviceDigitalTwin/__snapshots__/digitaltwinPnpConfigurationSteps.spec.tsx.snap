@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DigitaltwinPnpConfigurationSteps matches snapshot when empty model id is retrieved 1`] = `
+<section
+  className="device-detail"
+>
+  <div
+    className="digitalTwin-steps"
+  >
+    <span>
+      digitalTwin.steps.zero
+    </span>
+    <StyledLinkBase
+      href="settings.questions.questions.documentation.link"
+      target="_blank"
+    >
+      settings.questions.questions.documentation.text
+    </StyledLinkBase>
+  </div>
+</section>
+`;
+
+exports[`DigitaltwinPnpConfigurationSteps matches snapshot when there is empty model id 1`] = `
+<section
+  className="device-detail"
+>
+  <div
+    className="digitalTwin-steps"
+  >
+    <span>
+      digitalTwin.steps.zero
+    </span>
+    <StyledLinkBase
+      href="settings.questions.questions.documentation.link"
+      target="_blank"
+    >
+      settings.questions.questions.documentation.text
+    </StyledLinkBase>
+  </div>
+</section>
+`;
+
+exports[`DigitaltwinPnpConfigurationSteps matches snapshot when there is model id 1`] = `
+<section
+  className="device-detail"
+>
+  <div
+    className="digitalTwin-steps"
+  >
+    <DigitalTwinModelId />
+    <DigitalTwinModelDefinition />
+  </div>
+</section>
+`;

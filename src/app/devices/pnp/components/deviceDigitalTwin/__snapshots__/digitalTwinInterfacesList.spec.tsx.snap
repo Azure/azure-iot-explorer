@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DigitalTwinInterfacesList matches snapshot 1`] = `
+<Fragment>
+  <Command />
+  <HeaderView
+    headerText="digitalTwin.headerText"
+    link="settings.questions.questions.documentation.link"
+    tooltip="settings.questions.questions.documentation.text"
+  />
+  <DigitaltwinPnpConfigurationSteps />
+</Fragment>
+`;
