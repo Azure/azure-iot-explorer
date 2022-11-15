@@ -63,7 +63,7 @@ export const DeviceInterfaces: React.FC = () => {
     // tslint:disable-next-line: cyclomatic-complexity
     const renderInterfaceInfoDetail = (isValidInterface: boolean) => {
         return (
-            <>
+            <div className="pnp-interface-info-detail">
                 <ModelDefinitionSourceView
                     source={modelDefinitionWithSource.source}
                 />
@@ -92,20 +92,20 @@ export const DeviceInterfaces: React.FC = () => {
                         />
                     </>
                 }
-            </>
+            </div>
         );
     };
 
     const renderInterfaceViewer = (isValidInterface: boolean) => {
         return (
-            <>
+            <div className="pnp-interface-info-editor">
                 { modelDefinitionWithSource && modelDefinitionWithSource.modelDefinition &&
                     <JSONEditor
                         className={`${isValidInterface ? 'interface-definition-json-editor' : 'invalid-interface-definition-json-editor'}`}
                         content={JSON.stringify(modelDefinitionWithSource.modelDefinition, null, '\t')}
                     />
                 }
-            </>
+            </div>
         );
     };
 
@@ -121,7 +121,7 @@ export const DeviceInterfaces: React.FC = () => {
     return (isLoading ? <MultiLineShimmer/> : (
         <>
             <CommandBar
-                className="command"
+                className="command deviceInterface-command"
                 items={[
                     {
                         ariaLabel: t(ResourceKeys.deviceInterfaces.command.refresh),

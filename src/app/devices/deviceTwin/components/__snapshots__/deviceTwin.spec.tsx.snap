@@ -3,7 +3,7 @@
 exports[`devices/components/deviceTwin snapshot matches snapshot 1`] = `
 <Fragment>
   <StyledCommandBarBase
-    className="command"
+    className="command device-detail-command"
     items={
       Array [
         Object {
@@ -29,6 +29,7 @@ exports[`devices/components/deviceTwin snapshot matches snapshot 1`] = `
     }
   />
   <HeaderView
+    className="device-detail-header"
     headerText="deviceTwin.headerText"
     tooltip="deviceTwin.tooltip"
   />

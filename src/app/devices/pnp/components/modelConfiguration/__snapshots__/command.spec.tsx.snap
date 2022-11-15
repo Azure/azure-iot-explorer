@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Command matches snapshot 1`] = `
+<StyledCommandBarBase
+  className="command"
+  items={
+    Array [
+      Object {
+        "ariaLabel": "deviceEvents.command.refresh",
+        "disabled": true,
+        "iconProps": Object {
+          "iconName": "Refresh",
+        },
+        "key": "Refresh",
+        "name": "deviceEvents.command.refresh",
+        "onClick": [Function],
+      },
+    ]
+  }
+/>
+`;

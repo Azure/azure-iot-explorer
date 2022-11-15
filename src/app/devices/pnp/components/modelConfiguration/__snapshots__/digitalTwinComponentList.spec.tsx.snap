@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DigitalTwinComponentList matches snapshot when empty model id is retrieved 1`] = `
+<Fragment>
+  <h4>
+    digitalTwin.steps.third
+  </h4>
+  <h5>
+    digitalTwin.steps.explanation
+  </h5>
+  <StyledPivot
+    aria-label="digitalTwin.pivot.ariaLabel"
+  >
+    <PivotItem
+      headerText="digitalTwin.pivot.components"
+    >
+      <ErrorBoundary
+        error="deviceInterfaces.interfaceListFailedToRender"
+      >
+        <StyledLabelBase
+          className="no-component"
+        >
+          digitalTwin.modelContainsNoComponents
+        </StyledLabelBase>
+        <StyledAnnouncedBase
+          message="digitalTwin.modelContainsNoComponents"
+        />
+      </ErrorBoundary>
+    </PivotItem>
+    <PivotItem
+      className="modelContent"
+      headerText="digitalTwin.pivot.content"
+    >
+      <JSONEditor
+        className="interface-definition-json-editor"
+        content="{
+	\\"@context\\": \\"dtmi:dtdl:context;2\\",
+	\\"@id\\": \\"dtmi:plugnplay:hube2e:cm;1\\",
+	\\"@type\\": \\"Interface\\",
+	\\"contents\\": [],
+	\\"displayName\\": \\"IoT Hub E2E Tests\\"
+}"
+      />
+    </PivotItem>
+  </StyledPivot>
+</Fragment>
+`;

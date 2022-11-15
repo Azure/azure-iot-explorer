@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DigitalTwinModelId matches snapshot when empty model id is retrieved 1`] = `
+<div
+  className="step-one"
+>
+  <h4>
+    digitalTwin.steps.first
+  </h4>
+  <MaskedCopyableTextField
+    allowMask={false}
+    ariaLabel="digitalTwin.modelId"
+    label="digitalTwin.modelId"
+    readOnly={true}
+  />
+</div>
+`;
+
+exports[`DigitalTwinModelId matches snapshot when model id is retrieved 1`] = `
+<div
+  className="step-one"
+>
+  <h4>
+    digitalTwin.steps.first
+  </h4>
+  <MaskedCopyableTextField
+    allowMask={false}
+    ariaLabel="digitalTwin.modelId"
+    label="digitalTwin.modelId"
+    readOnly={true}
+  />
+</div>
+`;

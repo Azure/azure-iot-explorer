@@ -5,6 +5,9 @@
 import { getDeviceIdFromQueryString, getModuleIdentityIdFromQueryString } from '../../shared/utils/queryStringHelper';
 import { ROUTE_PARAMS } from '../../constants/routes';
 import { getDeviceTwinAction, getModuleTwinAction } from './actions';
+import { ModelDefinition } from '../../api/models/modelDefinition';
+import { ComponentAndInterfaceId, JsonSchemaAdaptor } from '../../shared/utils/jsonSchemaAdaptor';
+import { DEFAULT_COMPONENT_FOR_DIGITAL_TWIN } from '../../constants/devices';
 
 export const getBackUrl = (path: string, search: string) => {
     const deviceId = getDeviceIdFromQueryString(search);
@@ -25,4 +28,23 @@ export const dispatchGetTwinAction = (search: string, dispatch: (action: any) =>
     else {
         dispatch(getDeviceTwinAction.started(deviceId));
     }
+};
+
+export const getComponentNameAndInterfaceIdArray = (modelDefinition: ModelDefinition): ComponentAndInterfaceId[] => {
+    if (!modelDefinition) {
+        return [];
+    }
+    const jsonSchemaAdaptor = new JsonSchemaAdaptor(modelDefinition);
+    const components = jsonSchemaAdaptor.getComponentNameAndInterfaceIdArray();
+    // check if model contains no-component items
+    if (jsonSchemaAdaptor.getNonWritableProperties().length +
+        jsonSchemaAdaptor.getWritableProperties().length +
+        jsonSchemaAdaptor.getCommands().length +
+        jsonSchemaAdaptor.getTelemetry().length > 0) {
+        components.unshift({
+            componentName: DEFAULT_COMPONENT_FOR_DIGITAL_TWIN,
+            interfaceId: modelDefinition['@id']
+        });
+    }
+    return components;
 };

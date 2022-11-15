@@ -6,17 +6,17 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useHistory } from 'react-router-dom';
 import { Stack, Pivot, PivotItem } from '@fluentui/react';
-import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
-import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { DeviceSettings } from './deviceSettings/deviceSettings';
-import { DeviceProperties } from './deviceProperties/deviceProperties';
-import { DeviceCommands } from './deviceCommands/deviceCommands';
-import { DeviceInterfaces } from './deviceInterfaces/deviceInterfaces';
-import { DeviceEvents } from '../../deviceEvents/components/deviceEvents';
-import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString, getComponentNameFromQueryString, getModuleIdentityIdFromQueryString } from '../../../shared/utils/queryStringHelper';
-import { usePnpStateContext } from '../../../shared/contexts/pnpStateContext';
+import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../../constants/routes';
+import { ResourceKeys } from '../../../../../localization/resourceKeys';
+import { DeviceSettings } from '../deviceSettings/deviceSettings';
+import { DeviceProperties } from '../deviceProperties/deviceProperties';
+import { DeviceCommands } from '../deviceCommands/deviceCommands';
+import { DeviceInterfaces } from '../deviceInterfaces/deviceInterfaces';
+import { DeviceEvents } from '../../../deviceEvents/components/deviceEvents';
+import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString, getComponentNameFromQueryString, getModuleIdentityIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
+import { usePnpStateContext } from '../../../../shared/contexts/pnpStateContext';
 import './digitalTwinDetail.scss';
-import { DeviceEventsStateContextProvider } from '../../deviceEvents/context/deviceEventsStateProvider';
+import { DeviceEventsStateContextProvider } from '../../../deviceEvents/context/deviceEventsStateProvider';
 
 export const DigitalTwinDetail: React.FC = () => {
     const { t } = useTranslation();
@@ -51,6 +51,7 @@ export const DigitalTwinDetail: React.FC = () => {
 
     return (
         <Pivot
+            className="digitaltwin-pivot"
             aria-label={t(ResourceKeys.digitalTwin.pivot.ariaLabel)}
             selectedKey={selectedKey}
             onLinkClick={handleLinkClick}

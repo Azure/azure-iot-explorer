@@ -1,0 +1,27 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+ @import '../../../../css/themes';
+ @import '../../../../css/variables';
+
+.digitaltwin-pivot {
+   height: 100%;
+   flex-direction: column;
+   display: flex;
+
+   .ms-Pivot {
+      min-height: 45px;
+      height: 5%;
+  }
+
+  div[class^='itemContainer']{
+      height: 90%;
+  }
+
+  div[class^='itemContainer']>div{
+      height: 100%;
+      flex-direction: column;
+      display: flex;
+   }
+}

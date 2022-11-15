@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DigitalTwinModelDefinition matches snapshot 1`] = `
+<Fragment>
+  <div
+    className="step-two"
+  >
+    <h4>
+      digitalTwin.steps.secondFailure
+    </h4>
+    <InterfaceNotFoundMessageBar />
+  </div>
+</Fragment>
+`;
+
+exports[`DigitalTwinModelDefinition matches snapshot when empty model id is retrieved 1`] = `
+<Fragment>
+  <div
+    className="step-two"
+  >
+    <h4>
+      digitalTwin.steps.secondFailure
+    </h4>
+    <InterfaceNotFoundMessageBar />
+  </div>
+</Fragment>
+`;

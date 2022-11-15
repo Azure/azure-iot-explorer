@@ -3,7 +3,7 @@
 exports[`moduleIdentityTwin snapshot matches snapshot after module twin is fetched 1`] = `
 <Fragment>
   <StyledCommandBarBase
-    className="command"
+    className="command device-detail-command"
     items={
       Array [
         Object {
@@ -29,15 +29,12 @@ exports[`moduleIdentityTwin snapshot matches snapshot after module twin is fetch
       ]
     }
   />
-  <div
-    className="device-detail"
+  <article
+    className="device-twin device-detail"
   >
-    <article
-      className="device-twin"
-    >
-      <JSONEditor
-        className="json-editor"
-        content="{
+    <JSONEditor
+      className="json-editor"
+      content="{
 	\\"authenticationType\\": \\"sas\\",
 	\\"cloudToDeviceMessageCount\\": 0,
 	\\"connectionState\\": \\"Disconnected\\",
@@ -55,17 +52,16 @@ exports[`moduleIdentityTwin snapshot matches snapshot after module twin is fetch
 		\\"secondaryThumbprint\\": null
 	}
 }"
-        onChange={[Function]}
-      />
-    </article>
-  </div>
+      onChange={[Function]}
+    />
+  </article>
 </Fragment>
 `;
 
 exports[`moduleIdentityTwin snapshot matches snapshot while loading 1`] = `
 <Fragment>
   <StyledCommandBarBase
-    className="command"
+    className="command device-detail-command"
     items={
       Array [
         Object {
@@ -91,10 +87,6 @@ exports[`moduleIdentityTwin snapshot matches snapshot while loading 1`] = `
       ]
     }
   />
-  <div
-    className="device-detail"
-  >
-    <MultiLineShimmer />
-  </div>
+  <MultiLineShimmer />
 </Fragment>
 `;

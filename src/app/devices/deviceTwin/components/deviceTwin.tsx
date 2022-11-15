@@ -50,7 +50,7 @@ export const DeviceTwin: React.FC = () => {
     const showCommandBar = () => {
         return (
             <CommandBar
-                className="command"
+                className="command device-detail-command"
                 items={[
                     {
                         ariaLabel: t(ResourceKeys.deviceTwin.command.refresh),
@@ -124,6 +124,7 @@ export const DeviceTwin: React.FC = () => {
         <>
             {showCommandBar()}
             <HeaderView
+                className="device-detail-header"
                 headerText={ResourceKeys.deviceTwin.headerText}
                 tooltip={ResourceKeys.deviceTwin.tooltip}
             />
