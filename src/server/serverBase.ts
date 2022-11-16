@@ -243,10 +243,10 @@ const handleMessages = (events: ReceivedEventData[], params: any) => {
     if (messages.length >= 1) {
         ws.send(JSON.stringify(messages));
     }
-}
+};
 
 export const stopClient = async () => {
     console.log('stop client');
     await subscription?.close();
     await client?.close();
-}
+};
