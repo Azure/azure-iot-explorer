@@ -3,17 +3,13 @@
  * Licensed under the MIT License
  **********************************************************/
 import { SettingsInterface } from '../../../../public/interfaces/settingsInterface';
-import { DeviceInterface } from '../../../../public/interfaces/deviceInterface';
 import { DirectoryInterface } from '../../../../public/interfaces/directoryInterface';
 import { ModelRepositoryInterface } from '../../../../public/interfaces/modelRepositoryInterface';
-import { EventHubInterface } from './../../../../public/interfaces/eventHubInterface';
 import { AuthenticationInterface } from './../../../../public/interfaces/authenticationInterface';
 import { API_INTERFACES } from '../../../../public/constants';
 import { appConfig, HostMode } from '../../../appConfig/appConfig';
 import { HIGH_CONTRAST } from '../../constants/browserStorage';
-import { LocalRepoServiceHandler } from '../legacy/localRepoServiceHandler';
-import { DevicesServiceHandler } from '../legacy/devicesServiceHandler';
-import { EventHubServiceHandler } from '../legacy/eventHubServiceHandler';
+import { LocalRepoServiceHandler } from '../handlers/localRepoServiceHandler';
 import { PublicDigitalTwinsModelRepoHelper, PublicDigitalTwinsModelInterface } from '../services/publicDigitalTwinsModelRepoHelper';
 
 export const NOT_AVAILABLE = 'Feature is not available in this configuration';
@@ -33,13 +29,6 @@ export const getSettingsInterfaceForBrowser = (): SettingsInterface => {
     });
 };
 
-export const getDeviceInterface = (): DeviceInterface => {
-    if (appConfig.hostMode !== HostMode.Electron) {
-        return new DevicesServiceHandler();
-    }
-    return getElectronInterface(API_INTERFACES.DEVICE);
-};
-
 export const getLocalModelRepositoryInterface = (): ModelRepositoryInterface => {
     if (appConfig.hostMode !== HostMode.Electron) {
         return new LocalRepoServiceHandler();
@@ -54,14 +43,6 @@ export const getDirectoryInterface = (): DirectoryInterface => {
     }
 
     return getElectronInterface(API_INTERFACES.DIRECTORY);
-};
-
-export const getEventHubInterface = (): EventHubInterface => {
-    if (appConfig.hostMode !== HostMode.Electron) {
-        return new EventHubServiceHandler();
-    }
-
-    return getElectronInterface(API_INTERFACES.EVENTHUB);
 };
 
 export const getPublicDigitalTwinsModelInterface = (): PublicDigitalTwinsModelInterface => {

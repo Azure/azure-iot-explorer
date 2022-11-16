@@ -12,10 +12,8 @@ import './deviceEvents.scss';
 export interface CustomEventHubProps {
     monitoringData: boolean;
     useBuiltInEventHub: boolean;
-    customEventHubName: string;
     customEventHubConnectionString: string;
     setUseBuiltInEventHub: (monitoringData: boolean) => void;
-    setCustomEventHubName: (customEventHubName: string) => void;
     setCustomEventHubConnectionString: (customEventHubConnectionString: string) => void;
     setHasError: (hasError: boolean) => void;
 }
@@ -23,10 +21,8 @@ export interface CustomEventHubProps {
 export const CustomEventHub: React.FC<CustomEventHubProps> = ({
     monitoringData,
     useBuiltInEventHub,
-    customEventHubName,
     customEventHubConnectionString,
     setUseBuiltInEventHub,
-    setCustomEventHubName,
     setCustomEventHubConnectionString,
     setHasError}) => {
 
@@ -50,10 +46,6 @@ export const CustomEventHub: React.FC<CustomEventHubProps> = ({
 
     const customEventHubConnectionStringChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
         setCustomEventHubConnectionString(newValue);
-    };
-
-    const customEventHubNameChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
-        setCustomEventHubName(newValue);
     };
 
     return (
@@ -80,16 +72,6 @@ export const CustomEventHub: React.FC<CustomEventHubProps> = ({
                         onChange={customEventHubConnectionStringChange}
                         placeholder={t(ResourceKeys.deviceEvents.customEventHub.connectionString.placeHolder)}
                         errorMessage={error}
-                        required={true}
-                    />
-                    <TextField
-                        className="custom-text-field"
-                        label={t(ResourceKeys.deviceEvents.customEventHub.name.label)}
-                        ariaLabel={t(ResourceKeys.deviceEvents.customEventHub.name.label)}
-                        underlined={true}
-                        value={customEventHubName}
-                        disabled={monitoringData}
-                        onChange={customEventHubNameChange}
                         required={true}
                     />
                 </Stack>

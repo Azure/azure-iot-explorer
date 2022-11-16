@@ -19,11 +19,11 @@ import { Type } from 'protobufjs';
 describe('deviceMonitoringSaga', () => {
     let startEventsMonitoringSagaGenerator;
 
-    const mockMonitorEventsFn = jest.spyOn(DevicesService, 'monitorEvents').mockImplementationOnce(parameters => {
+    const mockMonitorEventsFn = jest.spyOn(DevicesService, 'monitorEvents').mockImplementationOnce(() => {
         return null;
     });
     const deviceId = 'test_id';
-    const params = {consumerGroup: DEFAULT_CONSUMER_GROUP, deviceId, startTime: new Date()};
+    const params = {consumerGroup: DEFAULT_CONSUMER_GROUP, deviceId, moduleId: ''};
 
     beforeEach(() => {
         startEventsMonitoringSagaGenerator = cloneableGenerator(startEventsMonitoringSagaWorker)(startEventsMonitoringAction.started(params));
@@ -40,8 +40,7 @@ describe('deviceMonitoringSaga', () => {
         expect(startEventsMonitoringSagaGenerator.next([])).toEqual({
             done: false,
             value: put(startEventsMonitoringAction.done({
-                params,
-                result: []
+                params
             }))
         });
 
@@ -83,7 +82,7 @@ describe('deviceMonitoringSaga', () => {
 describe('setDecoderInfoSaga', () => {
     let setDecoderInfoSagaGenerator;
     const params = {decoderFile: new File([], ''), decoderPrototype: 'decoderPrototype', decodeType: 'Protobuf'};
-    
+
     beforeEach(() => {
         setDecoderInfoSagaGenerator = cloneableGenerator(setDecoderInfoSagaWorker)(setDecoderInfoAction.started(params));
     });

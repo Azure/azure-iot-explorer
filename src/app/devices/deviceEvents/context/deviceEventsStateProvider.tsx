@@ -6,15 +6,17 @@ import * as React from 'react';
 import { getInitialDeviceEventsState } from '../state';
 import { deviceEventsReducer } from '../reducers';
 import { DeviceEventsStateContext } from './deviceEventsStateContext';
-import { startEventsMonitoringAction, stopEventsMonitoringAction, clearMonitoringEventsAction, setDecoderInfoAction, setDefaultDecodeInfoAction } from '../actions';
+import { startEventsMonitoringAction, stopEventsMonitoringAction, clearMonitoringEventsAction, setDecoderInfoAction, setDefaultDecodeInfoAction, setEventsMessagesAction } from '../actions';
 import { EventMonitoringSaga } from '../saga';
 import { useAsyncSagaReducer } from '../../../shared/hooks/useAsyncSagaReducer';
 import { MonitorEventsParameters, SetDecoderInfoParameters } from '../../../api/parameters/deviceParameters';
+import { Message } from '../../../api/models/messages';
 
 export interface DeviceEventsInterface {
     clearEventsMonitoring(): void;
     setDecoderInfo(params: SetDecoderInfoParameters): void;
     setDefaultDecodeInfo(): void;
+    setEvents(messages: Message[]): void;
     startEventsMonitoring(params: MonitorEventsParameters): void;
     stopEventsMonitoring(): void;
 }
@@ -26,6 +28,7 @@ export const DeviceEventsStateContextProvider: React.FC = props => {
         clearEventsMonitoring: () => dispatch(clearMonitoringEventsAction()),
         setDecoderInfo: (params: SetDecoderInfoParameters) => dispatch(setDecoderInfoAction.started(params)),
         setDefaultDecodeInfo: () => dispatch(setDefaultDecodeInfoAction()),
+        setEvents: (messages: Message[]) => dispatch(setEventsMessagesAction.started(messages)),
         startEventsMonitoring: (params: MonitorEventsParameters) => dispatch(startEventsMonitoringAction.started(params)),
         stopEventsMonitoring: () => dispatch(stopEventsMonitoringAction.started())
     };

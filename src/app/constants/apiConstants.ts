@@ -9,7 +9,7 @@ import { CUSTOM_CONTROLLER_PORT } from './browserStorage';
 export const DATAPLANE = '/DataPlane';
 export const EVENTHUB = '/EventHub';
 export const MODELREPO = '/ModelRepo';
-export const CLOUD_TO_DEVICE = '/CloudToDevice';
+
 export const READ_FILE = '/ReadFile';
 export const GET_DIRECTORIES = '/Directories';
 export const DEFAULT_DIRECTORY = '$DEFAULT';
@@ -55,6 +55,7 @@ export enum DataPlaneStatusCode {
 
 export const DEFAULT_CONSUMER_GROUP = '$Default';
 
+const wsIp = 'ws://127.0.0.1';
 const localIp = 'http://127.0.0.1';
 const apiPath = '/api';
 
@@ -70,6 +71,8 @@ export const CONTROLLER_API_ENDPOINT =
     appConfig.hostMode === HostMode.Browser ?
         `${localIp}:${appConfig.controllerPort}${apiPath}` :
         `${localIp}:${getPort()}${apiPath}`;
+
+export const WEBSOCKET_ENDPOINT = `${wsIp}:${getPort()}`;
 
 export enum HTTP_OPERATION_TYPES {
     Delete = 'DELETE',

@@ -336,9 +336,6 @@ export class ResourceKeys {
             label : "deviceEvents.customEventHub.connectionString.label",
             placeHolder : "deviceEvents.customEventHub.connectionString.placeHolder",
          },
-         name : {
-            label : "deviceEvents.customEventHub.name.label",
-         },
       },
       customizeContentType : {
          contentTypeOption : {

@@ -2,6 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
+import { Type } from 'protobufjs';
 import {
     CloudToDeviceMessageParameters,
     FetchDeviceTwinParameters,
@@ -23,11 +24,10 @@ import { Message } from '../models/messages';
 import { Twin, Device, DataPlaneResponse } from '../models/device';
 import { DeviceIdentity } from '../models/deviceIdentity';
 import { dataPlaneConnectionHelper, dataPlaneResponseHelper, request, DATAPLANE_CONTROLLER_ENDPOINT, DataPlaneRequest } from './dataplaneServiceHelper';
-import { getEventHubInterface } from '../shared/interfaceUtils';
 import { parseEventHubMessage } from './eventHubMessageHelper';
-import { HttpError } from '../models/httpError';
 import { AppInsightsClient } from '../../shared/appTelemetry/appInsightsClient';
 import { TELEMETRY_EVENTS } from '../../constants/telemetry';
+import { startEventHubMonitoring, stopEventHubMonitoring } from '../handlers/eventHubServiceHandler';
 
 const PAGE_SIZE = 100;
 
@@ -251,15 +251,14 @@ export const deleteDevices = async (parameters: DeleteDevicesParameters) => {
     return result && result.body;
 };
 
-// tslint:disable-next-line:cyclomatic-complexity
-export const monitorEvents = async (parameters: MonitorEventsParameters): Promise<Message[]> => {
+export const monitorEvents = async (parameters: MonitorEventsParameters): Promise<void> => {
     let requestParameters = {
         ...parameters,
         startTime: parameters.startTime && parameters.startTime.toISOString()
     };
 
     // if no custom event hub info is provided, use default hub connection string to connect to event hub
-    if (!parameters.customEventHubConnectionString || !parameters.customEventHubName) {
+    if (!parameters.customEventHubConnectionString) {
         const connectionInfo = await dataPlaneConnectionHelper();
         requestParameters = {
             ...requestParameters,
@@ -267,12 +266,14 @@ export const monitorEvents = async (parameters: MonitorEventsParameters): Promis
         };
     }
 
-    const api = getEventHubInterface();
-    const result = await api.startEventHubMonitoring(requestParameters);
-    return result && result.length && result.length !== 0 && Promise.all(result.map(message => parseEventHubMessage(message, parameters.decoderPrototype)) || []);
+    await startEventHubMonitoring(requestParameters);
+};
+
+export const parseEvents = async (params: {messages: Message[], decoderPrototype?: Type}): Promise<Message[]> => {
+    const { messages, decoderPrototype } = params;
+    return Promise.all(messages?.map(message => parseEventHubMessage(message, decoderPrototype)) || []);
 };
 
 export const stopMonitoringEvents = async (): Promise<void> => {
-    const api = getEventHubInterface();
-    await api.stopEventHubMonitoring();
+    await stopEventHubMonitoring();
 };

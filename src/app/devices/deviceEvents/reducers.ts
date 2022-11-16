@@ -9,7 +9,8 @@ import {
     stopEventsMonitoringAction,
     clearMonitoringEventsAction,
     setDecoderInfoAction,
-    setDefaultDecodeInfoAction
+    setDefaultDecodeInfoAction,
+    setEventsMessagesAction
 } from './actions';
 import { MonitorEventsParameters, SetDecoderInfoParameters } from '../../api/parameters/deviceParameters';
 import { Message } from '../../api/models/messages';
@@ -21,17 +22,10 @@ export const deviceEventsReducer = reducerWithInitialState<DeviceEventsStateInte
             formMode: 'working'
         };
     })
-    .case(startEventsMonitoringAction.done, (state: DeviceEventsStateInterface, payload: {params: MonitorEventsParameters, result: Message[]}) => {
-        const messages = payload.result ? payload.result.reverse().map((message: Message) => message) : [];
-        let filteredMessages = messages;
-        if (state.message.length > 0 && messages.length > 0) {
-            // filter overlaped messages returned from event hub
-            filteredMessages = messages.filter(message => message.enqueuedTime > state.message[0].enqueuedTime);
-        }
+    .case(startEventsMonitoringAction.done, (state: DeviceEventsStateInterface, payload: {params: MonitorEventsParameters}) => {
         return {
             ...state,
             formMode: 'fetched',
-            message: [...filteredMessages, ...state.message]
         };
     })
     .case(startEventsMonitoringAction.failed, (state: DeviceEventsStateInterface) => {
@@ -93,5 +87,29 @@ export const deviceEventsReducer = reducerWithInitialState<DeviceEventsStateInte
             contentType: {
                 decodeType: 'JSON'
             }
+        };
+    })
+    .case(setEventsMessagesAction.started, (state: DeviceEventsStateInterface) => {
+        return {
+            ...state,
+            formMode: 'working'
+        };
+    })
+    .case(setEventsMessagesAction.done, (state: DeviceEventsStateInterface, payload: { params: Message[], result: Message[]}) => {
+        let messages = payload.result ? payload.result.reverse().map((message: Message) => message) : [];
+        if (state.message.length > 0 && messages.length > 0) {
+            // filter overlapped messages returned from event hub
+            messages = messages.filter(message => message.enqueuedTime > state.message[0].enqueuedTime);
+        }
+        return {
+            ...state,
+            formMode: 'fetched',
+            message: [...messages, ...state.message]
+        };
+    })
+    .case(setEventsMessagesAction.failed, (state: DeviceEventsStateInterface) => {
+        return {
+            ...state,
+            formMode: 'failed'
         };
     });

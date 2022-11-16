@@ -1,0 +1,133 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EventsContent EventsContent in non-pnp context matches snapshot 1`] = `
+<div
+  className=""
+>
+  <article
+    className="device-events-content"
+    key="0"
+  >
+    <h5>
+      Wed Feb 17 2021 16:06:00 GMT-0800 (Pacific Standard Time)
+      :
+    </h5>
+    <pre>
+      {
+  "body": {
+    "humid": 123
+  },
+  "enqueuedTime": "Wed Feb 17 2021 16:06:00 GMT-0800 (Pacific Standard Time)",
+  "properties": {
+    "iothub-message-schema": "humid"
+  }
+}
+    </pre>
+  </article>
+</div>
+`;
+
+exports[`EventsContent EventsContent in pnp context matches snapshot while interface definition is retrieved 1`] = `
+<div
+  className=""
+>
+  <div
+    className="pnp-modeled-list"
+  >
+    <div
+      className="list-header list-header-uncollapsible flex-grid-row"
+    >
+      <span
+        className="col-sm2"
+      >
+        deviceEvents.columns.timestamp
+      </span>
+      <span
+        className="col-sm2"
+      >
+        deviceEvents.columns.displayName
+      </span>
+      <span
+        className="col-sm2"
+      >
+        deviceEvents.columns.schema
+      </span>
+      <span
+        className="col-sm2"
+      >
+        deviceEvents.columns.unit
+      </span>
+      <span
+        className="col-sm4"
+      >
+        deviceEvents.columns.value
+      </span>
+    </div>
+  </div>
+  <section
+    role="feed"
+  >
+    <article
+      className="list-item event-list-item"
+      key="0"
+      role="article"
+    >
+      <section
+        className="flex-grid-row item-summary"
+      >
+        <ErrorBoundary
+          error="errorBoundary.text"
+        >
+          <div
+            className="col-sm2"
+          >
+            <StyledLabelBase
+              aria-label="deviceEvents.columns.timestamp"
+            >
+              Wed Feb 17 2021 16:06:00 GMT-0800 (Pacific Standard Time)
+            </StyledLabelBase>
+          </div>
+          <div
+            className="col-sm2"
+          >
+            <StyledLabelBase
+              aria-label="deviceEvents.columns.displayName"
+            >
+              --
+            </StyledLabelBase>
+          </div>
+          <div
+            className="col-sm2"
+          >
+            <StyledLabelBase
+              aria-label="deviceEvents.columns.schema"
+            >
+              --
+            </StyledLabelBase>
+          </div>
+          <div
+            className="col-sm2"
+          >
+            <StyledLabelBase
+              aria-label="deviceEvents.columns.unit"
+            >
+              <SemanticUnit />
+            </StyledLabelBase>
+          </div>
+          <div
+            className="column-value-text col-sm4"
+          >
+            <StyledLabelBase
+              aria-label="deviceEvents.columns.value"
+            >
+              {
+  "humid": 123
+}
+            </StyledLabelBase>
+          </div>
+        </ErrorBoundary>
+      </section>
+    </article>
+  </section>
+</div>
+`;

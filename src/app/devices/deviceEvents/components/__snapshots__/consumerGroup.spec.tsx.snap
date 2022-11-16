@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConsumerGroup matches snapshot 1`] = `
+<StyledTextFieldBase
+  ariaLabel="deviceEvents.consumerGroups.label"
+  className="consumer-group-text-field"
+  disabled={true}
+  label="deviceEvents.consumerGroups.label"
+  onChange={[Function]}
+  onRenderLabel={[Function]}
+  underlined={true}
+  value="$Default"
+/>
+`;
