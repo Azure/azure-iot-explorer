@@ -234,11 +234,15 @@ const handleMessages = (events: ReceivedEventData[], params: any) => {
                     properties: event.properties
                 };
                 message.systemProperties = event.systemProperties;
+                if (messages.find(item => item.enqueuedTime >= message.enqueuedTime))
+                    return; // do not push message if enqueuedTime is earlier than any existing message
                 messages.push(message);
             }
         }
     });
-    ws.send(JSON.stringify(messages));
+    if (messages.length >= 1) {
+        ws.send(JSON.stringify(messages));
+    }
 }
 
 export const stopClient = async () => {

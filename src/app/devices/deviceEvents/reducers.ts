@@ -96,7 +96,11 @@ export const deviceEventsReducer = reducerWithInitialState<DeviceEventsStateInte
         };
     })
     .case(setEventsMessagesAction.done, (state: DeviceEventsStateInterface, payload: { params: Message[], result: Message[]}) => {
-        const messages = payload.result ? payload.result.reverse().map((message: Message) => message) : [];
+        let messages = payload.result ? payload.result.reverse().map((message: Message) => message) : [];
+        if (state.message.length > 0 && messages.length > 0) {
+            // filter overlapped messages returned from event hub
+            messages = messages.filter(message => message.enqueuedTime > state.message[0].enqueuedTime);
+        }
         return {
             ...state,
             formMode: 'fetched',
