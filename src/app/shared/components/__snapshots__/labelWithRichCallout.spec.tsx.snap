@@ -690,9 +690,10 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                   "boxSizing": "border-box",
                   "cursor": "pointer",
                   "display": "inline-block",
+                  "margin": 0,
                   "padding": "0 16px",
                   "selectors": Object {
-                    ":active > *": Object {
+                    ":active > span": Object {
                       "left": 0,
                       "position": "relative",
                       "top": 0,
@@ -837,12 +838,20 @@ exports[`components/shared/labelWithRichCallout matches snapshot when tooltip sp
                       "borderBottomRightRadius": "0",
                       "borderRight": "none",
                       "borderTopRightRadius": "0",
+                      "flexGrow": "1",
                     },
                     ".ms-Button--primary": Object {
                       "border": "none",
                       "borderBottomRightRadius": "0",
                       "borderTopRightRadius": "0",
+                      "flexGrow": "1",
                       "selectors": Object {
+                        ":active": Object {
+                          "border": "none",
+                        },
+                        ":hover": Object {
+                          "border": "none",
+                        },
                         "@media screen and (-ms-high-contrast: active), screen and (forced-colors: active)": Object {
                           "MsHighContrastAdjust": "none",
                           "backgroundColor": "Window",
