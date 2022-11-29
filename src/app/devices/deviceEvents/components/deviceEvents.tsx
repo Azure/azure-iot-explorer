@@ -73,11 +73,11 @@ export const DeviceEvents: React.FC = () => {
 
     React.useEffect(
         () => {
-            client.onmessage = message => {
-                if (monitoringData) {
+            if (monitoringData) {
+                client.onmessage = message => {
                     api.setEvents(JSON.parse(message.data));
-                }
-            };
+                };
+            }
         },
         [monitoringData]);
 
