@@ -84,6 +84,6 @@ export function* EventMonitoringSaga() {
         takeEvery(startEventsMonitoringAction.started, startEventsMonitoringSagaWorker),
         takeLatest(stopEventsMonitoringAction.started, stopEventsMonitoringSagaWorker),
         takeLatest(setDecoderInfoAction.started, setDecoderInfoSagaWorker),
-        takeLatest(setEventsMessagesAction.started, setEventsSagaWorker)
+        takeEvery(setEventsMessagesAction.started, setEventsSagaWorker)
     ]);
 }

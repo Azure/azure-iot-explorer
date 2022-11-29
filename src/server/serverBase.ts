@@ -21,12 +21,15 @@ const BAD_REQUEST = 400;
 const NOT_FOUND = 404;
 const NO_CONTENT_SUCCESS = 204;
 
+let messages: Message[] = [];
 let wss: WebSocket.Server;
 let ws: WebSocket.WebSocket;
+let timerId: NodeJS.Timer;
 
 interface Message {
     body: any; // tslint:disable-line:no-any
     enqueuedTime: string;
+    sequenceNumber: number;
     properties?: any; // tslint:disable-line:no-any
     systemProperties?: {[key: string]: string};
 }
@@ -219,34 +222,43 @@ const initializeEventHubClient = async (params: any) =>  {
                 console.log(err);
             }
         },
-        { startPosition: params.startTime ? { enqueuedOn: new Date(params.startTime).getTime() } : { enqueuedOn: new Date() } }
+    );
+
+    timerId = setInterval(() => {
+        ws?.send(JSON.stringify(messages));
+        messages = [];
+      },
+      800 // send messages to client in a 0.8 sec interval
     );
 };
 
 const handleMessages = (events: ReceivedEventData[], params: any) => {
-    const messages: Message[] = [];
     events.forEach(event => {
         if (event?.systemProperties?.[IOTHUB_CONNECTION_DEVICE_ID] === params.deviceId) {
             if (!params.moduleId || event?.systemProperties?.[IOTHUB_CONNECTION_MODULE_ID] === params.moduleId) {
                 const message: Message = {
                     body: event.body,
                     enqueuedTime: event.enqueuedTimeUtc.toString(),
-                    properties: event.properties
+                    properties: event.properties,
+                    sequenceNumber: event.sequenceNumber
                 };
                 message.systemProperties = event.systemProperties;
-                if (messages.find(item => item.enqueuedTime >= message.enqueuedTime))
-                    return; // do not push message if enqueuedTime is earlier than any existing message
+                if (messages.find(item => item.sequenceNumber === message.sequenceNumber))
+                    return; // do not push message if the same sequence already exist
                 messages.push(message);
             }
         }
     });
-    if (messages.length >= 1) {
-        ws.send(JSON.stringify(messages));
-    }
 };
 
 export const stopClient = async () => {
     console.log('stop client');
+    if (messages.length >= 1) {
+        // send left over messages if any
+        ws?.send(JSON.stringify(messages));
+        messages = [];
+    }
+    clearInterval(timerId);
     await subscription?.close();
     await client?.close();
 };
