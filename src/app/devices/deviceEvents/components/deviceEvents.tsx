@@ -68,11 +68,18 @@ export const DeviceEvents: React.FC = () => {
     React.useEffect(
         () => {
             client = new WebSocket(WEBSOCKET_ENDPOINT);
-            client.onmessage = message => {
-                api.setEvents(JSON.parse(message.data));
-            };
         },
         []);
+
+    React.useEffect(
+        () => {
+            if (monitoringData) {
+                client.onmessage = message => {
+                    api.setEvents(JSON.parse(message.data));
+                };
+            }
+        },
+        [monitoringData]);
 
     React.useEffect(    // tslint:disable-next-line: cyclomatic-complexity
         () => {
