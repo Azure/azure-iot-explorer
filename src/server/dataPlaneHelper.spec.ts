@@ -2,8 +2,8 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import express = require('express');
-import { generateDataPlaneRequestBody, processDataPlaneResponse } from './dataPlaneHelper'; // note: remove auto-generated dataPlaneHelper.js in order to run this test
+import  * as express from 'express';
+import { generateDataPlaneRequestBody, processDataPlaneResponse } from './dataPlaneHelper';
 
 describe('server', () => {
     const hostName = 'testHub.private.azure-devices-int.net';
@@ -22,66 +22,21 @@ describe('server', () => {
         const requestBody = generateDataPlaneRequestBody(req as express.Request);
         expect(requestBody).toEqual(
             {
-                body: undefined,
-                headers: {
-                    'Accept': 'application/json',
-                    'Authorization': req.body.sharedAccessSignature,
-                    'Content-Type': 'application/json'
-                },
-                method: 'POST',
-                uri: `https://${hostName}/%2FdigitalTwins%2FtestDevice%2Finterfaces%2Fsensor%2Fcommands%2Fturnon?${queryString}&api-version=2019-07-01-preview`,
+                url: `https://${hostName}/%2FdigitalTwins%2FtestDevice%2Finterfaces%2Fsensor%2Fcommands%2Fturnon?${queryString}&api-version=2019-07-01-preview`,
+                request: {
+                    body: undefined,
+                    headers: {
+                        'Accept': 'application/json',
+                        'Authorization': req.body.sharedAccessSignature,
+                        'Content-Type': 'application/json'
+                    },
+                    method: 'POST',
+                }
             }
         );
     });
 
-    it('generates data plane response with success', () => {
-        // tslint:disable
-        const res: any =  {
-            headers: {
-                'content-length': '10319',
-                'content-type': 'application/json; charset=utf-8',
-                vary: 'Origin',
-                server: 'Microsoft-HTTPAPI/2.0',
-                'iothub-errorcode': 'ServerError',
-                date: 'Thu, 29 Aug 2019 00:49:10 GMT',
-                connection: 'close'
-            },
-            statusCode: 200
-        };
-        // tslint:enable
-        const response = processDataPlaneResponse(res, null);
-        // tslint:disable-next-line:no-magic-numbers
-        expect(response.statusCode).toEqual(200);
-        expect(response.body).toEqual({body: null, headers: res.headers});
-    });
-
-    it('generates data plane response with error', () => {
-        // tslint:disable
-        const res: any =  {
-            headers: {
-                'content-length': '10319',
-                'content-type': 'application/json; charset=utf-8',
-                vary: 'Origin',
-                server: 'Microsoft-HTTPAPI/2.0',
-                'iothub-errorcode': 'ServerError',
-                date: 'Thu, 29 Aug 2019 00:49:10 GMT',
-                connection: 'close'
-            },
-            statusCode: 500
-        };
-        // tslint:enable
-        const response = processDataPlaneResponse(res, null);
-        // tslint:disable-next-line:no-magic-numbers
-        expect(response.statusCode).toEqual(500);
-        expect(response.body).toEqual({body: null, headers: res.headers});
-    });
-
-    it('generates data plane response with no httpResponse', () => {
-        const response = processDataPlaneResponse(null, null);
-        expect(response.body).toEqual({body: {Message: 'Failed to get any response from iot hub service.'}});
-    });
-
-    it('generates data plane response using device status code', () => {
+    it('generates data plane response with success', async () => {
         // tslint:disable
         const res: any =  {
             headers: {
@@ -92,12 +47,65 @@ describe('server', () => {
                 'iothub-errorcode': 'ServerError',
                 date: 'Thu, 29 Aug 2019 00:49:10 GMT',
                 connection: 'close',
-                'x-ms-command-statuscode': '404'
+                get: () => { return false}
             },
-            statusCode: 200
+            status: 200,
+            json: () => {return new Promise((resolve, reject) => {resolve(null)})}
         };
         // tslint:enable
-        const response = processDataPlaneResponse(res, null);
+        const response = await processDataPlaneResponse(res);
+        // tslint:disable-next-line:no-magic-numbers
+        expect(response.statusCode).toEqual(200);
+        expect(response.body).toEqual({body: null, headers: res.headers});
+    });
+
+    it('generates data plane response with error', async () => {
+        // tslint:disable
+        const res: any =  {
+            headers: {
+                'content-length': '10319',
+                'content-type': 'application/json; charset=utf-8',
+                vary: 'Origin',
+                server: 'Microsoft-HTTPAPI/2.0',
+                'iothub-errorcode': 'ServerError',
+                date: 'Thu, 29 Aug 2019 00:49:10 GMT',
+                connection: 'close',
+                get: () => { return false}
+            },
+            status: 500,
+            json: () => {return new Promise((resolve, reject) => {resolve(null)})}
+        };
+        // tslint:enable
+        const response = await processDataPlaneResponse(res);
+        // tslint:disable-next-line:no-magic-numbers
+        expect(response.statusCode).toEqual(500);
+        expect(response.body).toEqual({body: null, headers: res.headers});
+    });
+
+    it('generates data plane response with no httpResponse', async () => {
+        const response = await processDataPlaneResponse(null);
+        expect(response.body).toEqual({body: {Message: 'Failed to get any response from iot hub service.'}});
+    });
+
+    it('generates data plane response using device status code', async () => {
+        // tslint:disable
+        const res: any =  {
+            headers: {
+                'content-length': '10319',
+                'content-type': 'application/json; charset=utf-8',
+                vary: 'Origin',
+                server: 'Microsoft-HTTPAPI/2.0',
+                'iothub-errorcode': 'ServerError',
+                date: 'Thu, 29 Aug 2019 00:49:10 GMT',
+                connection: 'close',
+                'x-ms-command-statuscode': '404',
+                get: () => { return 404}
+            },
+            status: 200,
+            json: () => (null)
+        };
+        // tslint:enable
+        const response = await processDataPlaneResponse(res);
         // tslint:disable-next-line:no-magic-numbers
         expect(response.statusCode).toEqual(404);
         expect(response.body).toEqual({body: null});

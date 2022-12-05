@@ -6,10 +6,10 @@
 import * as fs from 'fs';
 import * as http from 'http';
 import * as WebSocket from 'ws';
-import express = require('express');
-import request = require('request');
-import bodyParser = require('body-parser');
-import cors = require('cors');
+import * as express from 'express';
+import * as bodyParser from 'body-parser';
+import * as cors from 'cors';
+import fetch from 'node-fetch';
 import { EventHubConsumerClient, Subscription, ReceivedEventData } from '@azure/event-hubs';
 import { generateDataPlaneRequestBody, generateDataPlaneResponse } from './dataPlaneHelper';
 import { convertIotHubToEventHubsConnectionString } from './eventHubHelper';
@@ -126,18 +126,15 @@ export const handleGetDirectoriesRequest = (req: express.Request, res: express.R
 };
 
 const dataPlaneUri = '/api/DataPlane';
-export const handleDataPlanePostRequest = (req: express.Request, res: express.Response) => {
+export const handleDataPlanePostRequest = async (req: express.Request, res: express.Response) => {
     try {
         if (!req.body) {
             res.status(BAD_REQUEST).send();
         }
         else {
-            request(
-                generateDataPlaneRequestBody(req),
-                (err, httpRes, body) => {
-                    generateDataPlaneResponse(httpRes, body, res);
-                }
-            );
+            const dataPlaneRequest = generateDataPlaneRequestBody(req);
+            const response = fetch(dataPlaneRequest.url, dataPlaneRequest.request);
+            await generateDataPlaneResponse(await response, res);
         }
     }
     catch (error) {
@@ -181,26 +178,19 @@ export const handleEventHubStopPostRequest = (req: express.Request, res: express
 };
 
 const modelRepoUri = '/api/ModelRepo';
-export const handleModelRepoPostRequest = (req: express.Request, res: express.Response) => {
+export const handleModelRepoPostRequest = async (req: express.Request, res: express.Response) => {
+    if (!req.body) {
+        res.status(BAD_REQUEST).send();
+    }
+    const controllerRequest = req.body;
     try {
-        if (!req.body) {
-            res.status(BAD_REQUEST).send();
-        }
-        const controllerRequest = req.body;
-        request(
-        {
-            body: controllerRequest.body || null,
-            headers: controllerRequest.headers || null,
-            method: controllerRequest.method || 'GET',
-            uri: controllerRequest.uri
-        },
-        (err, httpsres, body) => {
-            if (!!err) {
-                res.status(SERVER_ERROR).send(err);
-            } else {
-                res.status((httpsres && httpsres.statusCode) || SUCCESS).send((httpsres && httpsres.body) || {}); //tslint:disable-line
-            }
-        });
+        const response = await fetch(controllerRequest.uri,
+            {
+                body: controllerRequest.body || null,
+                headers: controllerRequest.headers || null,
+                method: controllerRequest.method || 'GET',
+            });
+        res.status((response && response.status) || SUCCESS).send(await response.json() || {}); //tslint:disable-line
     } catch (error) {
         res.status(SERVER_ERROR).send(error);
     }
