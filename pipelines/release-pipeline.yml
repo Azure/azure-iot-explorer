@@ -171,7 +171,7 @@ stages:
       - download: current
         artifact: Windows
       
-      - task: EsrpCodeSigning@1
+      - task: EsrpCodeSigning@2
         displayName: 'Sign Windows MSI package'
         inputs:
           ConnectedServiceName: 'Azure IoT Explorer CodeSign'
@@ -225,7 +225,7 @@ stages:
       - download: current
         artifact: Mac
 
-      - task: EsrpCodeSigning@1
+      - task: EsrpCodeSigning@2
         displayName: 'Sign MacOS DMG'
         inputs:
           ConnectedServiceName: 'Azure IoT Explorer CodeSign'
@@ -249,7 +249,7 @@ stages:
           MaxRetryAttempts: '5'
           VerboseLogin: false
 
-      - task: EsrpCodeSigning@1
+      - task: EsrpCodeSigning@2
         displayName: 'Sign MacOS DMG - Notarized'
         inputs:
           ConnectedServiceName: 'Azure IoT Explorer CodeSign'
@@ -288,7 +288,7 @@ stages:
       - download: current
         artifact: Linux
 
-      - task: EsrpCodeSigning@1
+      - task: EsrpCodeSigning@2
         displayName: 'Sign Linux DEB package'
         inputs:
           ConnectedServiceName: 'Azure IoT Explorer CodeSign'

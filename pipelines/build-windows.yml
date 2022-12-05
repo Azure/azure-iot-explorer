@@ -8,7 +8,7 @@ steps:
 - script: 'npm run pack:win'
   displayName: 'Pre-package for electron'
 
-- task: EsrpCodeSigning@1
+- task: EsrpCodeSigning@2
   inputs:
     ConnectedServiceName: 'Azure IoT Explorer CodeSign'
     FolderPath: '$(Build.SourcesDirectory)/dist/win-unpacked'
