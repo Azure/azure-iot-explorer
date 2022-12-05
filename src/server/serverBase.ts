@@ -9,7 +9,6 @@ import * as WebSocket from 'ws';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
-import fetch, { Response } from 'node-fetch';
 import { EventHubConsumerClient, Subscription, ReceivedEventData } from '@azure/event-hubs';
 import { generateDataPlaneRequestBody, generateDataPlaneResponse } from './dataPlaneHelper';
 import { convertIotHubToEventHubsConnectionString } from './eventHubHelper';
@@ -130,8 +129,8 @@ export const handleDataPlanePostRequest = async (req: express.Request, res: expr
         }
         else {
             const dataPlaneRequest = generateDataPlaneRequestBody(req);
-            const response: Response = await fetch(dataPlaneRequest.url, dataPlaneRequest.request);
-            await generateDataPlaneResponse(response, res);
+            const response = import('node-fetch').then(({ default: fetch }) => fetch(dataPlaneRequest.url, dataPlaneRequest.request));
+            await generateDataPlaneResponse(await response, res);
         }
     }
     catch (error) {
@@ -181,12 +180,12 @@ export const handleModelRepoPostRequest = async (req: express.Request, res: expr
     }
     const controllerRequest = req.body;
     try {
-        const response = await fetch(controllerRequest.uri,
+        const response = await import('node-fetch').then(({ default: fetch }) => fetch(controllerRequest.uri,
             {
                 body: controllerRequest.body || null,
                 headers: controllerRequest.headers || null,
                 method: controllerRequest.method || 'GET',
-            });
+            }));
         res.status((response && response.status) || SUCCESS).send(await response.json() || {}); //tslint:disable-line
     } catch (error) {
         res.status(SERVER_ERROR).send(error);
