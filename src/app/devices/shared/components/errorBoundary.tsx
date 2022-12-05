@@ -2,7 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import React, { Component } from 'react';
+import * as React from 'react';
 import { Label } from '@fluentui/react';
 
 interface ErrorBoundaryProps {
@@ -12,7 +12,7 @@ interface ErrorBoundaryState {
     hasError: boolean;
 }
 
-export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState>{
+export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState>{
     constructor(props: ErrorBoundaryProps) {
         super(props);
         this.state = {

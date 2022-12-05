@@ -7,7 +7,6 @@
         "target": "es5",
         "jsx": "react",
         "resolveJsonModule": true,
-        "esModuleInterop": true,
         "lib": ["es5", "es6", "dom"],
         "allowJs": true,
         "moduleResolution": "node",
