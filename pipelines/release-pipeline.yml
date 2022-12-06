@@ -355,7 +355,7 @@ stages:
           Contents: |
             **/*.deb
             **/*.msi
-            **/*.dmg
+          # **/*.dmg - removed mac artifact until we fix a codesign / packaging issue
           flattenFolders: true
           TargetFolder: $(Pipeline.Workspace)/release
 
