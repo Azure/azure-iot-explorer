@@ -1,6 +1,6 @@
 {
   "name": "azure-iot-explorer",
-  "version": "0.15.3",
+  "version": "0.15.4",
   "description": "This project welcomes contributions and suggestions. Most contributions require you to agree to a\r Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us\r the rights to use your contribution. For details, visit https://cla.microsoft.com.",
   "main": "host/electron.js",
   "build": {
@@ -76,7 +76,7 @@
     "@microsoft/applicationinsights-web": "2.8.4",
     "azure-iot-common": "1.12.14",
     "azure-iothub": "1.14.7",
-    "body-parser": "1.19.2",
+    "body-parser": "1.20.1",
     "brace": "0.11.1",
     "cors": "2.8.5",
     "crypto-browserify": "3.12.0",
