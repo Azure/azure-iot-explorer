@@ -273,6 +273,7 @@ stages:
     
       - task: CopyFiles@2
         displayName: 'ArtifactIgnore'
+        condition: succeededOrFailed()
         inputs:
           SourceFolder: $(Build.SourcesDirectory)/
           Contents: '.artifactignore'
