@@ -20,7 +20,7 @@ describe('Utils', () => {
                     'description': 'The language for the Digital Twin client SDK. For example, Java.'
                 }
             ],
-            '@context': 'http://azureiot.com/v1/contexts/IoTModel.json'
+            '@context': 'https://azureiot.com/v1/contexts/IoTModel.json'
         };
 
         it('returns null when @id and expected file name does not match', async () => {

@@ -54,7 +54,7 @@ describe('deviceInterfaces', () => {
                 }
             }
         ],
-        "@context": "http://azureiot.com/v1/contexts/Interface.json"
+        "@context": "https://azureiot.com/v1/contexts/Interface.json"
     };
     /* tslint:enable */
 

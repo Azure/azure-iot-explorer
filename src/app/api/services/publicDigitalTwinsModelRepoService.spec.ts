@@ -35,7 +35,7 @@ describe('digitalTwinsModelService', () => {
                 'description': 'Name of the vendor who authored the SDK.  For example, Microsoft.'
             }
         ],
-        '@context': 'http://azureiot.com/v1/contexts/IoTModel.json'
+        '@context': 'https://azureiot.com/v1/contexts/IoTModel.json'
     };
 
     context('fetchModel', () => {

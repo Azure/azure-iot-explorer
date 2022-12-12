@@ -106,7 +106,7 @@ exports[`deviceInterfaces shows interface information when status is fetched 1`]
 			}
 		}
 	],
-	\\"@context\\": \\"http://azureiot.com/v1/contexts/Interface.json\\"
+	\\"@context\\": \\"https://azureiot.com/v1/contexts/Interface.json\\"
 }"
         />
       </div>
