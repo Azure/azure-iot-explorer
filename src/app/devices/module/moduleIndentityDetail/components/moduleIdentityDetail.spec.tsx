@@ -10,7 +10,7 @@ import { SynchronizationStatus } from '../../../../api/models/synchronizationSta
 import * as AsyncSagaReducer from '../../../../shared/hooks/useAsyncSagaReducer';
 import * as IotHubContext from '../../../../iotHub/hooks/useIotHubContext';
 
-const pathname = 'http://127.0.0.1:3000/#/resources/testhub.azure-devices.net/devices/deviceDetail/moduleIdentity/moduleDetail/?deviceId=newdevice&moduleId=moduleId';
+const pathname = 'https://127.0.0.1:3000/#/resources/testhub.azure-devices.net/devices/deviceDetail/moduleIdentity/moduleDetail/?deviceId=newdevice&moduleId=moduleId';
 jest.mock('react-router-dom', () => ({
     useHistory: () => ({ push: jest.fn() }),
     useLocation: () => ({ search: '?deviceId=newdevice&moduleId=moduleId', pathname }),

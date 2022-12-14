@@ -80,7 +80,7 @@ export const testModelDefinition: ModelDefinition = {
         },
         sampleSenmanticProperty
     ],
-    "@context": "http://azureiot.com/v1/contexts/Interface.json"
+    "@context": "https://azureiot.com/v1/contexts/Interface.json"
 }
 
 export const pnpStateWithTestData: PnpStateInterface = {

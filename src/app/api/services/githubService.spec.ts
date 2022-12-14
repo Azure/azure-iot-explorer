@@ -21,7 +21,7 @@ describe('githubService', () => {
                 'id': 20791117,
                 'node_id': 'MDc6UmVsZWFzZTIwNzkxMTE3',
                 'tag_name': 'v0.10.6',
-                'target_commitish': '0dfff276ad1da3fd33453be1e1b28dc0687c3ff8',
+                'target_commitish': 'sometoken',
                 'name': 'Version 0.10.6',
                 'draft': false,
                 'author': {},

@@ -64,7 +64,7 @@ const sampleSenmanticProperty = {
 export const testModelDefinition: ModelDefinition = {
     '@id': interfaceId,
     '@type': 'Interface',
-    '@context': 'http://azureiot.com/v1/contexts/Interface.json',
+    '@context': 'https://azureiot.com/v1/contexts/Interface.json',
     displayName: 'Environmental Sensor',
     description: 'Provides functionality to report temperature, humidity. Provides telemetry, commands and read-write properties',
     comment: 'Requires temperature and humidity sensors.',

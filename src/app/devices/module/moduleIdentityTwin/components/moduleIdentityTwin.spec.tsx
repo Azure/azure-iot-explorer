@@ -11,7 +11,7 @@ import { SynchronizationStatus } from '../../../../api/models/synchronizationSta
 import { ModuleTwin } from '../../../../api/models/moduleTwin';
 import { moduleTwinStateInitial } from '../state';
 
-const pathname = 'http://127.0.0.1:3000/#/resources/testhub.azure-devices.net/devices/deviceDetail/moduleIdentity/moduleTwin/?deviceId=newdevice&moduleId=moduleId';
+const pathname = 'https://127.0.0.1:3000/#/resources/testhub.azure-devices.net/devices/deviceDetail/moduleIdentity/moduleTwin/?deviceId=newdevice&moduleId=moduleId';
 jest.mock('react-router-dom', () => ({
     useHistory: () => ({ push: jest.fn() }),
     useLocation: () => ({ search: '?deviceId=newdevice&moduleId=moduleId', pathname }),

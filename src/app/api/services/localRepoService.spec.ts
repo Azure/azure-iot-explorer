@@ -15,7 +15,7 @@ describe('fetchLocalFile', () => {
         const content = {
             "@id": "urn:FlyYing:EnvironmentalSensor;1",
             "@type": "Interface",
-            "@context": "http://azureiot.com/v1/contexts/IoTModel.json",
+            "@context": "https://azureiot.com/v1/contexts/IoTModel.json",
             displayName: "Environmental Sensor",
             description: "Provides functionality to report temperature, humidity. Provides telemetry, commands and read-write properties",
             comment: "Requires temperature and humidity sensors.",
