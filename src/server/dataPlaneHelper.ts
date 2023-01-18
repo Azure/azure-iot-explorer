@@ -52,6 +52,12 @@ export const processDataPlaneResponse = async (dataPlaneResponse: Response) => {
                 statusCode: parseInt(dataPlaneResponse.headers.get(DEVICE_STATUS_HEADER) as string)
             };
         }
+        else if (dataPlaneResponse.status === 204) {
+            return {
+                body: {body: null, headers: dataPlaneResponse.headers},
+                statusCode: dataPlaneResponse.status
+            };
+        }
         else {
             return {
                 body: {body: await dataPlaneResponse.json(), headers: dataPlaneResponse.headers},

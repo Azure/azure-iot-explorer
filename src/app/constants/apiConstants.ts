@@ -30,7 +30,7 @@ export const STOP = '/stop';
 
 export const DIGITAL_TWIN_API_VERSION_PREVIEW = '2020-09-30';
 export const MODEL_REPO_API_VERSION = '2020-05-01-preview';
-export const HUB_DATA_PLANE_API_VERSION = '2020-06-30-preview';
+export const HUB_DATA_PLANE_API_VERSION = '2020-09-30';
 
 export const HEADERS = {
     CONTINUATION_TOKEN: 'x-ms-continuation',
