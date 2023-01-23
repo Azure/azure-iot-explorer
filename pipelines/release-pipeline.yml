@@ -44,7 +44,7 @@ parameters:
 - name: build_mac
   displayName: 'Build a MacOS Release'
   type: boolean
-  default: true
+  default: false # Currently not building for Mac, so default is false
 - name: build_linux
   displayName: 'Build a Linux Release'
   type: boolean
