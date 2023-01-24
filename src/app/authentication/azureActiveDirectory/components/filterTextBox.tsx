@@ -9,6 +9,7 @@ import { useAzureActiveDirectoryStateContext } from '../context/azureActiveDirec
 import { AzureSubscription } from '../../../api/models/azureSubscription';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { IotHubDescription } from '../../../api/models/iotHubDescription';
+import './filterTextBox.scss';
 
 export enum FilterType {
     Subscription,
@@ -36,13 +37,15 @@ export const FilterTextBox: React.FC<FilterTextBoxPros> = props => {
     };
 
     return (
-        <TextField
-            placeholder={t(ResourceKeys.authentication.azureActiveDirectory.filter.placeHolder)}
-            ariaLabel={t(ResourceKeys.authentication.azureActiveDirectory.filter.placeHolder)}
-            iconProps={{ iconName: 'Filter' }}
-            role="searchbox"
-            value={filterValue}
-            onChange={onValueChange}
-        />
+        <div className="filter-box">
+            <TextField
+                placeholder={t(ResourceKeys.authentication.azureActiveDirectory.filter.placeHolder)}
+                ariaLabel={t(ResourceKeys.authentication.azureActiveDirectory.filter.placeHolder)}
+                iconProps={{ iconName: 'Filter' }}
+                role="searchbox"
+                value={filterValue}
+                onChange={onValueChange}
+            />
+        </div>
     );
 };

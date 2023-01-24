@@ -975,9 +975,9 @@
         }
     },
     "authentication": {
-        "autheSelection": {
+        "authSelection": {
             "header": "Welcome to Azure IoT Explorer, a cross-platform UI for interacting with devices attached to Azure IoT Hub",
-            "subText": "Choose an authentication method and connect to an Azure IoT hub",
+            "subText": "Choose an authentication method and connect to an Azure IoT hub. IoT Hub uses permissions to grant access to each IoT hub endpoint. Permissions limit the access to an IoT hub based on functionality. <0>Learn more</0>",
             "selection": {
                 "azureActiveDirectory": "Connect via Azure Active Directory",
                 "connectionString": "Connect via IoT Hub connection string"

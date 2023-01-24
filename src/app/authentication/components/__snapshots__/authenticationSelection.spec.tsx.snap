@@ -15,11 +15,22 @@ exports[`AuthenticationSelection matches snapshot 1`] = `
       aria-level={1}
       role="heading"
     >
-      authentication.autheSelection.header
+      authentication.authSelection.header
     </h3>
-    <span>
-      authentication.autheSelection.subText
-    </span>
+    <div>
+      <Component
+        components={
+          Array [
+            <StyledLinkBase
+              href="https://aka.ms/iothubPermissions"
+              target="_blank"
+            />,
+          ]
+        }
+      >
+        authentication.authSelection.subText
+      </Component>
+    </div>
     <Stack
       horizontal={true}
       tokens={
@@ -38,7 +49,7 @@ exports[`AuthenticationSelection matches snapshot 1`] = `
         onClick={[Function]}
         primary={true}
       >
-        authentication.autheSelection.selection.connectionString
+        authentication.authSelection.selection.connectionString
       </CustomizedCompoundButton>
       <CustomizedCompoundButton
         className="auth-selection-tile"
@@ -49,7 +60,7 @@ exports[`AuthenticationSelection matches snapshot 1`] = `
         }
         onClick={[Function]}
       >
-        authentication.autheSelection.selection.azureActiveDirectory
+        authentication.authSelection.selection.azureActiveDirectory
       </CustomizedCompoundButton>
     </Stack>
   </Stack>

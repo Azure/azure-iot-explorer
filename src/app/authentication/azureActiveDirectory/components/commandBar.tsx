@@ -21,11 +21,11 @@ export const AzureActiveDirectoryCommandBar: React.FC = () => {
 
     const getCommandBarItems = () => {
         const items = [{
-            ariaLabel: t(ResourceKeys.authentication.autheSelection.switchAuthType),
+            ariaLabel: t(ResourceKeys.authentication.authSelection.switchAuthType),
             iconProps: { iconName: NAVIGATE_BACK },
             key: 'switch',
             onClick: switchAuth,
-            text: t(ResourceKeys.authentication.autheSelection.switchAuthType)
+            text: t(ResourceKeys.authentication.authSelection.switchAuthType)
         }];
 
         return token ? [{

@@ -14,13 +14,13 @@ exports[`AzureActiveDirectoryCommandBar matches snapshot when token is not prese
         "text": "authentication.azureActiveDirectory.command.login",
       },
       Object {
-        "ariaLabel": "authentication.autheSelection.switchAuthType",
+        "ariaLabel": "authentication.authSelection.switchAuthType",
         "iconProps": Object {
           "iconName": "NavigateBack",
         },
         "key": "switch",
         "onClick": [Function],
-        "text": "authentication.autheSelection.switchAuthType",
+        "text": "authentication.authSelection.switchAuthType",
       },
     ]
   }
@@ -41,13 +41,13 @@ exports[`AzureActiveDirectoryCommandBar matches snapshot when token is present 1
         "text": "authentication.azureActiveDirectory.command.logout",
       },
       Object {
-        "ariaLabel": "authentication.autheSelection.switchAuthType",
+        "ariaLabel": "authentication.authSelection.switchAuthType",
         "iconProps": Object {
           "iconName": "NavigateBack",
         },
         "key": "switch",
         "onClick": [Function],
-        "text": "authentication.autheSelection.switchAuthType",
+        "text": "authentication.authSelection.switchAuthType",
       },
     ]
   }
