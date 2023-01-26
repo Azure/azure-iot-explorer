@@ -1,16 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FilterTextBox matches snapshot 1`] = `
-<StyledTextFieldBase
-  ariaLabel="authentication.azureActiveDirectory.filter.placeHolder"
-  iconProps={
-    Object {
-      "iconName": "Filter",
+<div
+  className="filter-box"
+>
+  <StyledTextFieldBase
+    ariaLabel="authentication.azureActiveDirectory.filter.placeHolder"
+    iconProps={
+      Object {
+        "iconName": "Filter",
+      }
     }
-  }
-  onChange={[Function]}
-  placeholder="authentication.azureActiveDirectory.filter.placeHolder"
-  role="searchbox"
-  value=""
-/>
+    onChange={[Function]}
+    placeholder="authentication.azureActiveDirectory.filter.placeHolder"
+    role="searchbox"
+    value=""
+  />
+</div>
 `;

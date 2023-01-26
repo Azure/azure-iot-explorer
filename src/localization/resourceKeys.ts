@@ -2,14 +2,14 @@
 /* tslint:disable */
 export class ResourceKeys {
     public static authentication = {
-      autheSelection : {
-         header : "authentication.autheSelection.header",
+      authSelection : {
+         header : "authentication.authSelection.header",
          selection : {
-            azureActiveDirectory : "authentication.autheSelection.selection.azureActiveDirectory",
-            connectionString : "authentication.autheSelection.selection.connectionString",
+            azureActiveDirectory : "authentication.authSelection.selection.azureActiveDirectory",
+            connectionString : "authentication.authSelection.selection.connectionString",
          },
-         subText : "authentication.autheSelection.subText",
-         switchAuthType : "authentication.autheSelection.switchAuthType",
+         subText : "authentication.authSelection.subText",
+         switchAuthType : "authentication.authSelection.switchAuthType",
       },
       azureActiveDirectory : {
          command : {

@@ -1,0 +1,12 @@
+/***********************************************************
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License
+ **********************************************************/
+@import '../../../css/themes';
+@import '../../../css/variables';
+
+.filter-box {
+    @include themify($themes) {
+        border-color: themed("searchBorderColor");
+    }
+}
