@@ -98,7 +98,7 @@
 
 .notification-toast-progress-bar {
     @include themify($themes) {
-        background: themed('notificationProgressBackground');
+        background: themed('notificationProgressBackground') !important;
     }
     height: 2px;
 }

@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { TextField } from '@fluentui/react';
+import { TextField, Announced } from '@fluentui/react';
 import { useAzureActiveDirectoryStateContext } from '../context/azureActiveDirectoryStateContext';
 import { AzureSubscription } from '../../../api/models/azureSubscription';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
@@ -25,14 +25,19 @@ export const FilterTextBox: React.FC<FilterTextBoxPros> = props => {
     const { t } = useTranslation();
     const [{ subscriptions, iotHubs }, ] =  useAzureActiveDirectoryStateContext();
     const [ filterValue, setFilterValue ] = React.useState('');
+    const [ searchResultCount, setSearchResultCount] = React.useState(0);
 
     const onValueChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
         setFilterValue(newValue);
         if (props.filterType === FilterType.IoTHub) {
-            props.setFilteredList(iotHubs.filter(item => item.name.toLowerCase().includes(newValue.toLowerCase())));
+            const filtered = iotHubs.filter(item => item.name.toLowerCase().includes(newValue.toLowerCase()));
+            props.setFilteredList(filtered);
+            setSearchResultCount(filtered.length);
         }
         else {
-            props.setFilteredList(subscriptions.filter(item => item.displayName.toLowerCase().includes(newValue.toLowerCase())));
+            const filtered = subscriptions.filter(item => item.displayName.toLowerCase().includes(newValue.toLowerCase()));
+            props.setFilteredList(filtered);
+            setSearchResultCount(filtered.length);
         }
     };
 
@@ -46,6 +51,7 @@ export const FilterTextBox: React.FC<FilterTextBoxPros> = props => {
                 value={filterValue}
                 onChange={onValueChange}
             />
+            {filterValue && <Announced message={`${searchResultCount.toString()} results found`}/>}
         </div>
     );
 };

@@ -4,12 +4,11 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { IconButton, IButton, getId, TooltipHost, Announced } from '@fluentui/react';
+import { IconButton, getId, TooltipHost, Announced } from '@fluentui/react';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { LabelWithTooltip } from './labelWithTooltip';
 import { LabelWithRichCallout } from './labelWithRichCallout';
-import { NotificationType } from '../../api/models/notification';
-import { raiseNotificationToast } from '../../notifications/components/notificationToast';
+import { CopyButton } from './copyButton';
 import '../../css/_maskedCopyableTextField.scss';
 
 export interface MaskedCopyableTextFieldProps {
@@ -31,10 +30,8 @@ export interface MaskedCopyableTextFieldProps {
 export const MaskedCopyableTextField: React.FC<MaskedCopyableTextFieldProps> = (props: MaskedCopyableTextFieldProps) => {
     const hiddenInputRef = React.createRef<HTMLInputElement>();
     const visibleInputRef = React.createRef<HTMLInputElement>();
-    const copyButtonRef = React.createRef<IButton>();
     const labelIdentifier = getId('maskedCopyableTextField');
     const toggleMaskButtonTooltipHostId = getId('toggleMaskButtonTooltipHost');
-    const copyButtonTooltipHostId = getId('copyButtonTooltipHost');
 
     const { t } = useTranslation();
 
@@ -70,28 +67,6 @@ export const MaskedCopyableTextField: React.FC<MaskedCopyableTextFieldProps> = (
     };
 
     const toggleDisplay = () => setHideContents(!hideContents);
-
-    const copyToClipboard = () => {
-        const node = hiddenInputRef.current;
-        if (node) {
-            node.select();
-            document.execCommand('copy');
-
-            // set focus back to copy button
-            const copyButtonNode = copyButtonRef.current;
-            if (copyButtonNode) {
-                copyButtonNode.focus();
-            }
-
-            // add notification
-            raiseNotificationToast({
-                text: {
-                    translationKey: ResourceKeys.notifications.copiedToClipboard
-                },
-                type: NotificationType.info
-            });
-        }
-    };
 
     return (
         <div className="maskedCopyableTextField">
@@ -140,17 +115,7 @@ export const MaskedCopyableTextField: React.FC<MaskedCopyableTextFieldProps> = (
                 </div>
 
                 <div className="copySection">
-                    <TooltipHost
-                        content={t(ResourceKeys.common.maskedCopyableTextField.copy.label)}
-                        id={copyButtonTooltipHostId}
-                    >
-                        <IconButton
-                            iconProps={{ iconName: 'copy' }}
-                            aria-labelledby={copyButtonTooltipHostId}
-                            onClick={copyToClipboard}
-                            componentRef={copyButtonRef}
-                        />
-                    </TooltipHost>
+                    <CopyButton copyText={value} />
                 </div>
             </div>
 
@@ -160,7 +125,6 @@ export const MaskedCopyableTextField: React.FC<MaskedCopyableTextFieldProps> = (
                     <Announced message={error} />
                 </>
             }
-
         </div>
     );
 };

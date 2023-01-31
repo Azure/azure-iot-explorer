@@ -5,7 +5,7 @@ exports[`collapsibleSection matches snapshot 1`] = `
   className="collapsible-section"
 >
   <CustomizedIconButton
-    ariaLabel="collapsibleSection.open"
+    ariaLabel="collapsibleSection.open Label"
     className="collapsible-section-icon"
     iconProps={
       Object {

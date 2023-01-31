@@ -20,6 +20,9 @@
             },
             "copy": {
                 "label": "Copy Contents"
+            },
+            "copied": {
+                "label": "Content copied to clipboard"
             }
         },
         "confirmationDialog": {
@@ -288,15 +291,18 @@
             },
             "regeneratePrimary": {
                 "ariaLabel": "Regenerate primary key",
-                "label": "Regenerate primary key"
+                "label": "Regenerate primary key",
+                "generated": "Primary key generated. Click 'Save' to commit changes."
             },
             "regenerateSecondary": {
                 "ariaLabel": "Regenerate secondary key",
-                "label": "Regenerate secondary key"
+                "label": "Regenerate secondary key",
+                "generated": "Secondary key generated. Click 'Save' to commit changes."
             },
             "swapKeys": {
                 "ariaLabel": "Swap keys",
-                "label": "Swap keys"
+                "label": "Swap keys",
+                "swapped": "Primary and secondary key swapped. Click 'Save' to commit changes."
             }
         },
         "validation": {
@@ -864,7 +870,6 @@
         "cloudToDeviceMessageOnError": "Failed to send message to device {{deviceId}}: {{error}}",
         "cloudToDeviceMessageOnSuccess": "Successfully send message '{{message}}' to device '{{deviceId}}'",
         "sendingCloudToDeviceMessage": "Trying to send message '{{message}}' to device '{{deviceId}}'",
-        "copiedToClipboard": "Content copied to clipboard",
         "addModuleIdentityOnSucceed": "Successfully added module identity {{moduleId}}",
         "addModuleIdentityOnError": "Failed to add  module identity {{moduleId}}: {{error}}",
         "getModuleIdentityTwinOnError": "Failed to get module identity twin for module {{moduleId}}: {{error}}",

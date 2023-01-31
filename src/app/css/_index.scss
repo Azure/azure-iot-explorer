@@ -43,3 +43,17 @@ body {
         color: themed('linkColor');
     }
 }
+
+a:link, a:visited, a:hover, a:active {
+    text-decoration: none;
+    @include themify($themes) {
+        color: themed('linkColor');
+    }
+}
+
+input::placeholder {
+    opacity: 0.5;
+    @include themify($themes) {
+        color: themed('disabledText') !important;
+    }
+}
