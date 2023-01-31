@@ -9,7 +9,7 @@ import { ResourceKeys } from '../../../localization/resourceKeys';
 import { Theme, useThemeContext } from '../../shared/contexts/themeContext';
 import { THEME_SELECTION } from '../../constants/browserStorage';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../constants/routes';
-import '../../css/_headerPane.scss';
+import './settingsPane.scss';
 
 export const SettingsPane: React.FC = () => {
     const [ showPanel, setShowPanel ] = React.useState<boolean>(false);

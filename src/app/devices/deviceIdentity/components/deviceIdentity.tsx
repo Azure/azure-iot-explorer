@@ -18,9 +18,11 @@ import { MultiLineShimmer } from '../../../shared/components/multiLineShimmer';
 import { HeaderView } from '../../../shared/components/headerView';
 import { SasTokenGenerationView } from '../../shared/components/sasTokenGenerationView';
 import { useIotHubContext } from '../../../iotHub/hooks/useIotHubContext';
-import '../../../css/_deviceDetail.scss';
 import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
 import { TELEMETRY_PAGE_NAMES } from '../../../../app/constants/telemetry';
+import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
+import { NotificationType } from '../../../api/models/notification';
+import '../../../css/_deviceDetail.scss';
 
 export interface DeviceIdentityDispatchProps {
     updateDeviceIdentity: (deviceIdentity: DeviceIdentity) => void;
@@ -253,6 +255,12 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
             identity: identityDeepCopy,
             isDirty: true
         });
+        raiseNotificationToast({
+            text: {
+                translationKey: ResourceKeys.deviceIdentity.commands.regeneratePrimary.generated
+            },
+            type: NotificationType.info
+        });
     };
 
     const generateSecondaryKey = () => {
@@ -262,6 +270,12 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
             ...state,
             identity: identityDeepCopy,
             isDirty: true
+        });
+        raiseNotificationToast({
+            text: {
+                translationKey: ResourceKeys.deviceIdentity.commands.regenerateSecondary.generated
+            },
+            type: NotificationType.info
         });
     };
 
@@ -277,6 +291,12 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
             ...state,
             identity: identityDeepCopy,
             isDirty: true
+        });
+        raiseNotificationToast({
+            text: {
+                translationKey: ResourceKeys.deviceIdentity.commands.swapKeys.swapped
+            },
+            type: NotificationType.info
         });
     };
 

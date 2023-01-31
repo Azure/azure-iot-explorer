@@ -8,13 +8,13 @@ import { IconButton } from '@fluentui/react';
 import { LabelWithTooltip } from './labelWithTooltip';
 import { GroupedList } from '../../constants/iconNames';
 import { ResourceKeys } from '../../../localization/resourceKeys';
-import '../../css/_collapsibleSection.scss';
+import './collapsibleSection.scss';
 
 export interface CollapsibleSectionProps {
     expanded?: boolean;
     label: string;
     tooltipText: string;
-    children: any;     // tslint:disable-line: no-any
+    children: any; // tslint:disable-line: no-any
 }
 
 export interface CollapsibleSectionState {
@@ -35,8 +35,8 @@ export const CollapsibleSection: React.FC<CollapsibleSectionProps> = (props: Col
                 className="collapsible-section-icon"
                 iconProps={{iconName: expanded ? GroupedList.CLOSE : GroupedList.OPEN}}
                 ariaLabel={!expanded ?
-                    t(ResourceKeys.collapsibleSection.open) :
-                    t(ResourceKeys.collapsibleSection.close)}
+                    `${t(ResourceKeys.collapsibleSection.open)} ${label}` :
+                    `${t(ResourceKeys.collapsibleSection.close)} ${label}`}
                 onClick={toggleCollapse}
                 title={t(!expanded ? ResourceKeys.collapsibleSection.open : ResourceKeys.collapsibleSection.close)}
             />

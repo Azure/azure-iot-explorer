@@ -2,8 +2,6 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-@import 'themes';
-
 .headerPane {
     .ms-Panel-scrollableContent {
         overflow-x: hidden;
@@ -26,27 +24,8 @@
         line-height: 20px;
     }
 
-    .helptext {
-        font-size: 12px;
-        line-height: 19px;
-        text-decoration-line: underline;
-    }
-
-    .faq {
-        padding: {
-            left: 0px;
-            bottom: 20px;
-        }
-        .faq-item {
-            list-style-type: none;
-        }
-    }
-
     .header-footer {
         .footer-buttons {
-            h3[role="heading"] {
-                font-weight: normal;
-            }
             button[type="submit"] {
                 margin-right: 18px;
             }

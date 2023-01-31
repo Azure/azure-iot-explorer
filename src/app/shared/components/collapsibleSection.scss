@@ -2,9 +2,9 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
- @import 'themes';
- 
- .collapsible-section {
+@import '../../css/themes';
+
+.collapsible-section {
     padding-bottom: 5px;
     @include themify($themes) {
         border: 1px solid themed('borderColor')

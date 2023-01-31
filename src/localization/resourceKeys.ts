@@ -150,6 +150,9 @@ export class ResourceKeys {
       learnMore : "common.learnMore",
       loading : "common.loading",
       maskedCopyableTextField : {
+         copied : {
+            label : "common.maskedCopyableTextField.copied.label",
+         },
          copy : {
             label : "common.maskedCopyableTextField.copy.label",
          },
@@ -484,16 +487,19 @@ export class ResourceKeys {
          },
          regeneratePrimary : {
             ariaLabel : "deviceIdentity.commands.regeneratePrimary.ariaLabel",
+            generated : "deviceIdentity.commands.regeneratePrimary.generated",
             label : "deviceIdentity.commands.regeneratePrimary.label",
          },
          regenerateSecondary : {
             ariaLabel : "deviceIdentity.commands.regenerateSecondary.ariaLabel",
+            generated : "deviceIdentity.commands.regenerateSecondary.generated",
             label : "deviceIdentity.commands.regenerateSecondary.label",
          },
          save : "deviceIdentity.commands.save",
          swapKeys : {
             ariaLabel : "deviceIdentity.commands.swapKeys.ariaLabel",
             label : "deviceIdentity.commands.swapKeys.label",
+            swapped : "deviceIdentity.commands.swapKeys.swapped",
          },
       },
       deviceID : "deviceIdentity.deviceID",
@@ -928,7 +934,6 @@ export class ResourceKeys {
       cloudToDeviceMessageOnSuccess : "notifications.cloudToDeviceMessageOnSuccess",
       connectionStringsWithExpiryRemovalWarning : "notifications.connectionStringsWithExpiryRemovalWarning",
       connectionStringsWithoutExpiryRemovalWarning : "notifications.connectionStringsWithoutExpiryRemovalWarning",
-      copiedToClipboard : "notifications.copiedToClipboard",
       deleteDeviceOnError : "notifications.deleteDeviceOnError",
       deleteDeviceOnSucceed : "notifications.deleteDeviceOnSucceed",
       deleteModuleIdentityOnError : "notifications.deleteModuleIdentityOnError",

@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`copyToClipboard matches snapshot 1`] = `
+<Fragment>
+  <div>
+    <input
+      aria-hidden={true}
+      className="input"
+      readOnly={true}
+      style={
+        Object {
+          "height": "1px",
+          "opacity": 0,
+          "position": "absolute",
+          "width": "1px",
+        }
+      }
+      tabIndex={-1}
+      value="text"
+    />
+    <CustomizedIconButton
+      componentRef={
+        Object {
+          "current": null,
+        }
+      }
+      iconProps={
+        Object {
+          "iconName": "copy",
+        }
+      }
+      onClick={[Function]}
+      onFocus={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    />
+  </div>
+</Fragment>
+`;
+
+exports[`copyToClipboard matches snapshot disabled 1`] = `
+<Fragment>
+  <div>
+    <input
+      aria-hidden={true}
+      className="input"
+      disabled={true}
+      readOnly={true}
+      style={
+        Object {
+          "height": "1px",
+          "opacity": 0,
+          "position": "absolute",
+          "width": "1px",
+        }
+      }
+      tabIndex={-1}
+      value="text"
+    />
+    <CustomizedIconButton
+      componentRef={
+        Object {
+          "current": null,
+        }
+      }
+      iconProps={
+        Object {
+          "iconName": "copy",
+        }
+      }
+      onClick={[Function]}
+      onFocus={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    />
+  </div>
+</Fragment>
+`;
