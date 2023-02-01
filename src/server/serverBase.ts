@@ -215,7 +215,9 @@ const initializeEventHubClient = async (params: any) =>  {
     );
 
     timerId = setInterval(() => {
-        ws?.send(JSON.stringify(messages));
+        if (ws.readyState === 1) {
+            ws?.send(JSON.stringify(messages));
+        }
         messages = [];
       },
       800 // send messages to client in a 0.8 sec interval
