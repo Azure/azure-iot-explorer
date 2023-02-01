@@ -124,7 +124,8 @@
         "addModuleIdentity": "Add module identity",
         "modulePnp": "IoT Plug and Play components",
         "moduleEvents": "Telemetry",
-        "notificationCenter": "Notification Center"
+        "notificationCenter": "Notification Center",
+        "navigate": "navigating to the following page"
     },
     "deviceContent": {
         "start": "Select a device to start",
@@ -562,7 +563,13 @@
         "command" : {
             "refresh": "Refresh",
             "clearEvents": "Clear events",
-            "showSystemProperties": "Show system properties",
+            "showSystemProperties": {
+                "label": "Show system properties",
+                "announce": {
+                    "show": "Show system properties of the telemetries",
+                    "hide": "Hide system properties of the telemetries"
+                }
+            },
             "start": "Start",
             "stop": "Stop",
             "fetch": "Retrieve events",
@@ -934,15 +941,15 @@
             },
             "remove": {
                 "label": "Remove",
-                "ariaLabel": "remove"
+                "ariaLabel": "Remove"
             },
             "back": {
                 "label": "Go back",
-                "ariaLabel": "Go back to last location"
+                "ariaLabel": "Go back"
             },
             "help": {
                 "label": "Help",
-                "ariaLabel": "Open browser tab to IoT Plug and Play documentation"
+                "ariaLabel": "Help"
                 }
         },
         "types": {
@@ -1018,7 +1025,8 @@
                 "noItemText": "There are no IoT hubs under this subscription."
             },
             "filter": {
-                "placeHolder": "Filter by name"
+                "placeHolder": "Filter by name",
+                "result": "results found."
             }
         }
 

@@ -51,7 +51,7 @@ export const FilterTextBox: React.FC<FilterTextBoxPros> = props => {
                 value={filterValue}
                 onChange={onValueChange}
             />
-            {filterValue && <Announced message={`${searchResultCount.toString()} results found`}/>}
+            {filterValue && <Announced message={`${searchResultCount.toString()} ${t(ResourceKeys.authentication.azureActiveDirectory.filter.result)}`}/>}
         </div>
     );
 };

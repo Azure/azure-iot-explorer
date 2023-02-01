@@ -16,7 +16,6 @@ import { DataForm } from '../../../shared/components/dataForm';
 import { TwinWithSchema } from './dataHelper';
 import { DEFAULT_COMPONENT_FOR_DIGITAL_TWIN } from '../../../../constants/devices';
 import { getSchemaType, isSchemaSimpleType } from '../../../../shared/utils/jsonSchemaAdaptor';
-import '../../../../css/_deviceSettings.scss';
 import { Twin } from '../../../../api/models/device';
 import { ModuleTwin } from '../../../../api/models/moduleTwin';
 import { EnumSchema } from '../../../../api/models/modelDefinition';
@@ -83,7 +82,7 @@ export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataPro
         return (
             <div className="column-value-text col-sm4" aria-label={ariaLabel}>
                 <Stack>
-                    <Stack.Item align="start" className="reported-property">
+                    <Stack.Item align="start" style={{maxWidth: '40%', minWidth: 20}}>
                         {renderReportedValue()}
                     </Stack.Item>
                     <Stack.Item align="start">

@@ -5,7 +5,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useRouteMatch } from 'react-router-dom';
-import { Nav, INavLinkGroup, INavLink } from '@fluentui/react';
+import { Nav, INavLinkGroup, INavLink, Announced } from '@fluentui/react';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
 import { NAVIGATE_BACK } from '../../../constants/iconNames';
@@ -87,6 +87,7 @@ export const DeviceContentNavComponent: React.FC<DeviceContentNavProps> =  (prop
     return (
         <div role="navigation">
             <Nav groups={groups} selectedKey={selectedRoute}/>
+            {selectedRoute && <Announced message={`${t(ResourceKeys.breadcrumb.navigate)} ${selectedRoute}`}/>}
         </div>
     );
 };

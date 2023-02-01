@@ -5,7 +5,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useHistory } from 'react-router-dom';
-import { CommandBar, ICommandBarItemProps } from '@fluentui/react';
+import { Announced, CommandBar, ICommandBarItemProps } from '@fluentui/react';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { CLEAR, CHECKED_CHECKBOX, EMPTY_CHECKBOX, START, STOP, NAVIGATE_BACK, REFRESH, REMOVE, CODE, UPLOAD } from '../../../constants/iconNames';
 import { getComponentNameFromQueryString } from '../../../shared/utils/queryStringHelper';
@@ -87,13 +87,13 @@ export const Commands: React.FC<CommandsProps> = ({
 
     const createSystemPropertiesCommandItem = (): ICommandBarItemProps => {
         return {
-            ariaLabel: t(ResourceKeys.deviceEvents.command.showSystemProperties),
+            ariaLabel: t(ResourceKeys.deviceEvents.command.showSystemProperties.label),
             disabled: state.formMode === 'updating' || showPnpModeledEvents,
             iconProps: {
                 iconName: showSystemProperties ? CHECKED_CHECKBOX : EMPTY_CHECKBOX
             },
             key: CHECKED_CHECKBOX,
-            name: t(ResourceKeys.deviceEvents.command.showSystemProperties),
+            name: t(ResourceKeys.deviceEvents.command.showSystemProperties.label),
             onClick: onShowSystemProperties
         };
     };
@@ -128,7 +128,7 @@ export const Commands: React.FC<CommandsProps> = ({
 
     const createSimulationCommandItem = (): ICommandBarItemProps => {
         return {
-            ariaLabel: t(ResourceKeys.deviceEvents.command.clearEvents),
+            ariaLabel: t(ResourceKeys.deviceEvents.command.simulate),
             iconProps: {
                 iconName: CODE
             },
@@ -214,9 +214,12 @@ export const Commands: React.FC<CommandsProps> = ({
     };
 
     return (
-        <CommandBar
-            items={createCommandBarItems()}
-            farItems={componentName && [createNavigateBackCommandItem()]}
-        />
+        <>
+            <CommandBar
+                items={createCommandBarItems()}
+                farItems={componentName && [createNavigateBackCommandItem()]}
+            />
+            <Announced message={showSystemProperties ? t(ResourceKeys.deviceEvents.command.showSystemProperties.announce.show) : t(ResourceKeys.deviceEvents.command.showSystemProperties.announce.hide)} />
+        </>
     );
 };

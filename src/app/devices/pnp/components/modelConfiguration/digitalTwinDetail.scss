@@ -6,22 +6,21 @@
  @import '../../../../css/variables';
 
 .digitaltwin-pivot {
-   height: 100%;
-   flex-direction: column;
-   display: flex;
+    height: 100%;
+    flex-direction: column;
+    display: flex;
 
-   .ms-Pivot {
-      min-height: 45px;
-      height: 5%;
-  }
+    .ms-Pivot {
+        min-height: 45px;
+    }
 
-  div[class^='itemContainer']{
-      height: 90%;
-  }
+    div[class^='itemContainer']{
+        height: 90%;
+    }
 
-  div[class^='itemContainer']>div{
-      height: 100%;
-      flex-direction: column;
-      display: flex;
-   }
+    div[class^='itemContainer']>div{
+        height: 100%;
+        flex-direction: column;
+        display: flex;
+    }
 }

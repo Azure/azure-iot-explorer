@@ -52,7 +52,7 @@ export const DeviceSimulationPanel: React.FC<DeviceSimulationPanelProps> = props
                 closeButtonAriaLabel={t(ResourceKeys.common.close)}
                 headerText={t(ResourceKeys.deviceEvents.simulation.header)}
             >
-                <a onClick={onclick} target="_blank">
+                <a target="_blank" role="link" href="https://shell.azure.com">
                     <img className="cloudShellButton"  alt={t(ResourceKeys.deviceEvents.simulation.cloudShell.imageDescription)} src="images/launchcloudshell.png" />
                 </a>
                 <Label>{t(ResourceKeys.deviceEvents.simulation.cloudShell.textDescription)}</Label>
@@ -263,10 +263,6 @@ export const DeviceSimulationPanel: React.FC<DeviceSimulationPanelProps> = props
             returnValue += ` --properties \"${commandProperties}\"`;
         }
         return returnValue;
-    };
-
-    const onclick = () => {
-        window.open('https://shell.azure.com');
     };
 
     return renderSimulationPanel();
