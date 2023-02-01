@@ -18,6 +18,7 @@ export class ResourceKeys {
          },
          filter : {
             placeHolder : "authentication.azureActiveDirectory.filter.placeHolder",
+            result : "authentication.azureActiveDirectory.filter.result",
          },
          hubList : {
             backButton : "authentication.azureActiveDirectory.hubList.backButton",
@@ -69,6 +70,7 @@ export class ResourceKeys {
       moduleMethod : "breadcrumb.moduleMethod",
       modulePnp : "breadcrumb.modulePnp",
       moduleTwin : "breadcrumb.moduleTwin",
+      navigate : "breadcrumb.navigate",
       notificationCenter : "breadcrumb.notificationCenter",
       properties : "breadcrumb.properties",
       repos : "breadcrumb.repos",
@@ -324,7 +326,13 @@ export class ResourceKeys {
          customizeContentType : "deviceEvents.command.customizeContentType",
          fetch : "deviceEvents.command.fetch",
          refresh : "deviceEvents.command.refresh",
-         showSystemProperties : "deviceEvents.command.showSystemProperties",
+         showSystemProperties : {
+            announce : {
+               hide : "deviceEvents.command.showSystemProperties.announce.hide",
+               show : "deviceEvents.command.showSystemProperties.announce.show",
+            },
+            label : "deviceEvents.command.showSystemProperties.label",
+         },
          simulate : "deviceEvents.command.simulate",
          start : "deviceEvents.command.start",
          stop : "deviceEvents.command.stop",

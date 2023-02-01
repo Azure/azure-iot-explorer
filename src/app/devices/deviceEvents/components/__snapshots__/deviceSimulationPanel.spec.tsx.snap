@@ -10,7 +10,8 @@ exports[`deviceSimulationPanel matches snapshot  1`] = `
   type={3}
 >
   <a
-    onClick={[Function]}
+    href="https://shell.azure.com"
+    role="link"
     target="_blank"
   >
     <img
