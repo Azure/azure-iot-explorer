@@ -256,7 +256,7 @@ export const DeviceSimulationPanel: React.FC<DeviceSimulationPanelProps> = props
     const convertToCliCommand = () => {
         let returnValue = `az iot device simulate --device-id ${deviceId} --login \"${hubConnectionString}\"`;
         if (simulationBody) {
-            returnValue += ` --data \"${simulationBody}\"`;
+            returnValue += ` --data \'${simulationBody}\'`;
         }
         const commandProperties = convertToCliPropertyFormat();
         if (commandProperties !== '') {
