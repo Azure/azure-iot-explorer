@@ -11,14 +11,14 @@ import { CANCEL, NAVIGATE_BACK, FOLDER } from '../../constants/iconNames';
 import { fetchDirectories } from '../../api/services/localRepoService';
 import { LabelWithRichCallout } from '../../shared/components/labelWithRichCallout';
 import { getRootFolder, getParentFolder } from '../../shared/utils/utils';
-import { RepositoryLocationSettings } from '../../shared/global/state';
+import { ModelRepositoryConfiguration } from '../../shared/modelRepository/state';
 import { PUBLIC_REPO_HOSTNAME } from '../../constants/apiConstants';
 import './modelRepositoryLocationListItem.scss';
 
 export interface ModelRepositoryLocationListItemProps {
     errorKey?: string;
     index: number;
-    item: RepositoryLocationSettings;
+    item: ModelRepositoryConfiguration;
     onChangeRepositoryLocationSettingValue: (index: number, path: string) => void;
     onRemoveRepositoryLocationSetting: (index: number) => void;
 }

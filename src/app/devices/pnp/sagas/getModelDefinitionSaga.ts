@@ -10,7 +10,6 @@ import { raiseNotificationToast } from '../../../notifications/components/notifi
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { FetchModelParameters } from '../../../api/parameters/repoParameters';
-import { RepositoryLocationSettings } from '../../../shared/global/state';
 import { REPOSITORY_LOCATION_TYPE } from '../../../constants/repositoryLocationTypes';
 import { fetchLocalFile } from '../../../api/services/localRepoService';
 import { ModelDefinition } from '../../../api/models/modelDefinition';
@@ -19,17 +18,17 @@ import { GetModelDefinitionActionParameters, getModelDefinitionAction } from '..
 import { ModelIdCasingNotMatchingException } from '../../../shared/utils/exceptions/modelIdCasingNotMatchingException';
 
 export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionParameters>): SagaIterator {
-    const { locations, interfaceId } = action.payload;
+    const { locations: configurations, interfaceId } = action.payload;
     let errorCount = 0;
-    for (const location of locations) { // try to get model definition in order according to user's location settings
+    for (const configuration of configurations) { // try to get model definition in order according to user's location settings
         try {
-            const modelDefinition: ModelDefinition = yield call(getModelDefinition, action, location);
-            const isModelValid: boolean = yield call(validateModelDefinitionHelper, modelDefinition, location);
-            const extendedModel: ModelDefinition = yield call(expandFromExtendedModel, action, location, modelDefinition);
+            const modelDefinition: ModelDefinition = yield call(getModelDefinition, action, configuration.repositoryLocationType);
+            const isModelValid: boolean = yield call(validateModelDefinitionHelper, modelDefinition, configuration.repositoryLocationType);
+            const extendedModel: ModelDefinition = yield call(expandFromExtendedModel, action, configuration.repositoryLocationType, modelDefinition);
             yield put(getModelDefinitionAction.done(
                 {
                     params: action.payload,
-                    result: { isModelValid, modelDefinition, extendedModel, source: location.repositoryLocationType }
+                    result: { isModelValid, modelDefinition, extendedModel, source: configuration.repositoryLocationType }
                 }));
             break; // found the model definition, break
         }
@@ -50,7 +49,7 @@ export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionP
             // continue the loop
         }
     }
-    if (errorCount === locations.length) {
+    if (errorCount === configurations.length) {
         yield call(raiseNotificationToast, {
             text: {
                 translationKey: ResourceKeys.notifications.getInterfaceModelOnError,
@@ -65,7 +64,7 @@ export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionP
     }
 }
 
-export function* validateModelDefinitionHelper(modelDefinition: ModelDefinition, location: RepositoryLocationSettings): SagaIterator {
+export function* validateModelDefinitionHelper(modelDefinition: ModelDefinition, location: REPOSITORY_LOCATION_TYPE): SagaIterator {
     return true; // commenting out validating model until it aligns with local parser
 }
 
@@ -127,8 +126,8 @@ export function* getModelDefinitionFromLocalFile(action: Action<GetModelDefiniti
     return getFlattenedModel(model, splitInterfaceId);
 }
 
-export function* getModelDefinition(action: Action<GetModelDefinitionActionParameters>, location: RepositoryLocationSettings): SagaIterator {
-    switch (location.repositoryLocationType) {
+export function* getModelDefinition(action: Action<GetModelDefinitionActionParameters>, location: REPOSITORY_LOCATION_TYPE): SagaIterator {
+    switch (location) {
         case REPOSITORY_LOCATION_TYPE.Local:
             return yield call(getModelDefinitionFromLocalFile, action);
         case REPOSITORY_LOCATION_TYPE.Configurable:
@@ -139,7 +138,7 @@ export function* getModelDefinition(action: Action<GetModelDefinitionActionParam
 }
 
 // tslint:disable-next-line
-export function* expandFromExtendedModel(action: any, location: RepositoryLocationSettings, model: ModelDefinition): Generator<CallEffect<any>, ModelDefinition, ModelDefinition> {
+export function* expandFromExtendedModel(action: any, location: REPOSITORY_LOCATION_TYPE, model: ModelDefinition): Generator<CallEffect<any>, ModelDefinition, ModelDefinition> {
     const extendsVal = model.extends;
     if (extendsVal) {
         if (typeof (extendsVal) === 'string') {

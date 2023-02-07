@@ -5,14 +5,14 @@
 import * as React from 'react';
 import { Container, Draggable } from 'react-smooth-dnd';
 import { ModelRepositoryLocationListItem } from './modelRepositoryLocationListItem';
-import { RepositoryLocationSettings } from '../../shared/global/state';
+import { ModelRepositoryConfiguration } from '../../shared/modelRepository/state';
 import { StringMap } from '../../api/models/stringMap';
 import './modelRepositoryLocationList.scss';
 
 export interface ModelRepositoryLocationListProps {
-    repositoryLocationSettings: RepositoryLocationSettings[];
+    repositoryLocationSettings: ModelRepositoryConfiguration[];
     repositoryLocationSettingsErrors: StringMap<string>;
-    onChangeRepositoryLocationSettings(settings: RepositoryLocationSettings[]): void;
+    onChangeRepositoryLocationSettings(settings: ModelRepositoryConfiguration[]): void;
 }
 
 export const ModelRepositoryLocationList: React.FC<ModelRepositoryLocationListProps> = props => {
@@ -46,7 +46,7 @@ export const ModelRepositoryLocationList: React.FC<ModelRepositoryLocationListPr
         onChangeRepositoryLocationSettings(updatedRepositoryLocationSettings);
     };
 
-    const renderModelRepositoryLocationListItem = (item: RepositoryLocationSettings, index: number) => {
+    const renderModelRepositoryLocationListItem = (item: ModelRepositoryConfiguration, index: number) => {
         return (
                 <Draggable key={item.repositoryLocationType} >
                     <ModelRepositoryLocationListItem

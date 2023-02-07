@@ -11,7 +11,7 @@ import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHel
 import { LabelWithTooltip } from '../../../shared/components/labelWithTooltip';
 import { CollapsibleSection } from '../../../shared/components/collapsibleSection';
 import { MaskedCopyableTextField } from '../../../shared/components/maskedCopyableTextField';
-import { getHubInformationFromLocalStorage } from '../../../shared/hooks/localStorageInformationRetriever';
+import { getHubInformationFromLocalStorage } from '../hooks/localStorageInformationRetriever';
 import { CIRCLE_ADD, ArrayOperation } from '../../../constants/iconNames';
 import { MEDIUM_COLUMN_WIDTH } from '../../../constants/columnWidth';
 import './deviceSimulationPanel.scss';

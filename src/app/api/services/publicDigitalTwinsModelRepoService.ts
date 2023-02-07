@@ -4,9 +4,7 @@
  **********************************************************/
 import { ModelDefinition } from '../models/modelDefinition';
 import { FetchModelParameters } from '../parameters/repoParameters';
-import {
-    HEADERS,
-    HTTP_OPERATION_TYPES } from '../../constants/apiConstants';
+import { HEADERS } from '../../constants/apiConstants';
 import { PnPModel } from '../models/metamodelMetadata';
 import { getHeaderValue } from '../shared/fetchUtils';
 import { getPublicDigitalTwinsModelInterface } from '../shared/interfaceUtils';

@@ -10,8 +10,7 @@ import { NotificationListEntry } from '../../notifications/components/notificati
 import { Notification } from '../../api/models/notification';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { CANCEL } from '../../constants/iconNames';
-import { useGlobalStateContext } from '../../shared/contexts/globalStateContext';
-import { addNotificationAction } from '../../shared/global/actions';
+import { useNotificationsContext } from '../context/notificationsStateContext';
 import '../../css/_notification.scss';
 
 export interface CloseButtonProps {
@@ -35,13 +34,13 @@ export const CloseButton = (props: CloseButtonProps): JSX.Element => {
 };
 
 const NotificationEntry = (props: { notification: Notification }): JSX.Element => {
-    const { dispatch } = useGlobalStateContext();
+    const [ , {addNotification}] = useNotificationsContext();
 
     React.useEffect(() => {
-        dispatch!(addNotificationAction(props.notification));
+        addNotification(props.notification);
     },              [props.notification]);
 
-    return <NotificationListEntry notification={props.notification} showAnnoucement={true}/>;
+    return <NotificationListEntry notification={props.notification} showAnnouncement={true}/>;
 };
 
 export const raiseNotificationToast = (notification: Notification) => {

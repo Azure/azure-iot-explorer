@@ -5,5 +5,6 @@
 export enum REPOSITORY_LOCATION_TYPE {
     Configurable = 'CONFIGURABLE',
     Public = 'PUBLIC',
-    Local = 'LOCAL'
+    Local = 'LOCAL',
+    LocalDMR = 'LOCAL_DMR'
 }

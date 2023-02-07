@@ -32,7 +32,7 @@ describe('modelDefinition sagas', () => {
         const params: GetModelDefinitionActionParameters = {
             digitalTwinId,
             interfaceId,
-            locations: [{ repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public }],
+            locations: [{ repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public, value: '' }],
         };
         const action = getModelDefinitionAction.started(params);
         /* tslint:disable */
@@ -83,16 +83,16 @@ describe('modelDefinition sagas', () => {
 
             it('fetches the model definition', () => {
                 expect(getModelDefinitionSagaGenerator.next().value).toEqual(
-                    call(getModelDefinition, action, { repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public })
+                    call(getModelDefinition, action, REPOSITORY_LOCATION_TYPE.Public)
                 );
 
                 expect(getModelDefinitionSagaGenerator.next(modelDefinition).value).toEqual(
-                    call(validateModelDefinitionHelper, modelDefinition, { repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public })
+                    call(validateModelDefinitionHelper, modelDefinition, REPOSITORY_LOCATION_TYPE.Public)
                 );
             });
             it('checks for extends', () => {
                 expect(getModelDefinitionSagaGenerator.next(true).value).toEqual(
-                    call(expandFromExtendedModel, action, { repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public}, modelDefinition)
+                    call(expandFromExtendedModel, action, REPOSITORY_LOCATION_TYPE.Public, modelDefinition)
                 );
             });
 
@@ -168,7 +168,7 @@ describe('modelDefinition sagas', () => {
 
         describe('getModelDefinition', () => {
             it('getModelDefinition from public repo', () => {
-                const getModelDefinitionFromPublicRepoGenerator = cloneableGenerator(getModelDefinition)(action, {repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public});
+                const getModelDefinitionFromPublicRepoGenerator = cloneableGenerator(getModelDefinition)(action, REPOSITORY_LOCATION_TYPE.Public);
                 expect(getModelDefinitionFromPublicRepoGenerator.next()).toEqual({
                     done: false,
                     value: call(getModelDefinitionFromPublicRepo, action)
@@ -177,7 +177,7 @@ describe('modelDefinition sagas', () => {
             });
 
             it('getModelDefinition from local', () => {
-                const getModelDefinitionFromDeviceGenerator = cloneableGenerator(getModelDefinition)(action,  {repositoryLocationType: REPOSITORY_LOCATION_TYPE.Local});
+                const getModelDefinitionFromDeviceGenerator = cloneableGenerator(getModelDefinition)(action,  REPOSITORY_LOCATION_TYPE.Local);
                 expect(getModelDefinitionFromDeviceGenerator.next()).toEqual({
                     done: false,
                     value: call(getModelDefinitionFromLocalFile, action)
@@ -199,7 +199,7 @@ describe('modelDefinition sagas', () => {
         const params: GetModelDefinitionActionParameters = {
             digitalTwinId,
             interfaceId: fullInterfaceId,
-            locations: [{ repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public }],
+            locations: [{ repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public, value: '' }],
         };
         const action = getModelDefinitionAction.started(params);
         /* tslint:disable */

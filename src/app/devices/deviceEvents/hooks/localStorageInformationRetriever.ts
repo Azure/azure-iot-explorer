@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { CONNECTION_STRING_NAME_LIST } from '../../constants/browserStorage';
-import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
-import { getActiveConnectionString } from '../utils/hubConnectionStringHelper';
+import { CONNECTION_STRING_NAME_LIST } from '../../../constants/browserStorage';
+import { getConnectionInfoFromConnectionString } from '../../../api/shared/utils';
+import { getActiveConnectionString } from '../../../shared/utils/hubConnectionStringHelper';
 
 interface LocalStorageInformation {
     hubConnectionString: string;

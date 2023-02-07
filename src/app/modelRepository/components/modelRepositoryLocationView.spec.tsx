@@ -7,8 +7,9 @@ import { shallow } from 'enzyme';
 import { ModelRepositoryLocationView, validateRepositoryLocationSettings } from './modelRepositoryLocationView';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
 import { ResourceKeys } from '../../../localization/resourceKeys';
-import * as GlobalStateContext from '../../shared/contexts/globalStateContext';
-import { globalStateInitial } from '../../shared/global/state';
+import * as ModelRepositoryContext from '../../shared/modelRepository/context/modelRepositoryStateContext';
+import { getInitialModelRepositoryState } from '../../shared/modelRepository/state';
+import { getInitialModelRepositoryActions } from '../../shared/modelRepository/interface';
 
 jest.mock('react-router-dom', () => ({
     useHistory: () => ({ push: jest.fn() }),
@@ -18,19 +19,19 @@ jest.mock('react-router-dom', () => ({
 
 describe('modelRepositoryLocationView', () => {
     it('matches snapshot when no locations', () => {
-        jest.spyOn(GlobalStateContext, 'useGlobalStateContext').mockReturnValueOnce({globalState: globalStateInitial(), dispatch: jest.fn()});
+        jest.spyOn(ModelRepositoryContext, 'useModelRepositoryContext').mockReturnValueOnce([getInitialModelRepositoryState(), getInitialModelRepositoryActions()]);
         expect(shallow(<ModelRepositoryLocationView/>)).toMatchSnapshot();
     });
 
     it('matches snapshot when locations greater than 0', () => {
-        const initialState = globalStateInitial().merge({
-            modelRepositoryState: {
-                configurableRepositorySettings: { path: '' },
-                localFolderSettings: { path: '' },
-                repositoryLocations: [ REPOSITORY_LOCATION_TYPE.Local ]
+        const initialState = [
+            ...getInitialModelRepositoryState(),
+            {
+                repositoryLocationType: REPOSITORY_LOCATION_TYPE.Configurable,
+                value: 'd:/'
             }
-        });
-        jest.spyOn(GlobalStateContext, 'useGlobalStateContext').mockReturnValueOnce({globalState: initialState, dispatch: jest.fn()});
+        ];
+        jest.spyOn(ModelRepositoryContext, 'useModelRepositoryContext').mockReturnValueOnce([initialState, getInitialModelRepositoryActions()]);
         expect(shallow(<ModelRepositoryLocationView/>)).toMatchSnapshot();
     });
 });
@@ -38,7 +39,7 @@ describe('modelRepositoryLocationView', () => {
 describe('validateRepositoryLocationSettings', () => {
     it('adds validation error when local repository lacks value', () => {
         const result = validateRepositoryLocationSettings([
-            {repositoryLocationType: REPOSITORY_LOCATION_TYPE.Local}
+            {repositoryLocationType: REPOSITORY_LOCATION_TYPE.Local, value: ''}
         ]);
 
         expect(result[REPOSITORY_LOCATION_TYPE.Local]).toEqual(ResourceKeys.modelRepository.types.local.folderPicker.errors.mandatory);
@@ -46,7 +47,7 @@ describe('validateRepositoryLocationSettings', () => {
 
     it('passes public repository', () => {
         const result = validateRepositoryLocationSettings([
-            {repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public}
+            {repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public, value: ''}
         ]);
 
         expect(result[REPOSITORY_LOCATION_TYPE.Public]).toBeFalsy();

@@ -7,10 +7,10 @@ import { Route, Redirect, Switch } from 'react-router-dom';
 import { ROUTE_PARTS } from '../../constants/routes';
 import { AppVersionMessageBar } from './appVersionMessageBar';
 import { HomeViewNavigation } from './homeViewNavigation';
+import { AuthenticationStateContextProvider } from '../../authentication/context/authenticationStateProvider';
 import { AuthenticationView } from '../../authentication/components/authenticationView';
 import { ModelRepositoryLocationView } from '../../modelRepository/components/modelRepositoryLocationView';
-import { NotificationList } from './../../notifications/components/notificationList';
-import { AuthenticationStateContextProvider } from '../../authentication/context/authenticationStateProvider';
+import { NotificationList } from '../../notifications/components/notificationList';
 
 export const HomeView: React.FC = () => {
     const [ appMenuVisible, setAppMenuVisible ] = React.useState(true);

@@ -5,9 +5,10 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 import { NotificationList } from './notificationList';
-import * as GlobalStateContext from '../../shared/contexts/globalStateContext';
-import { globalStateInitial } from '../../shared/global/state';
+import * as NotificationsContext from '../context/notificationsStateContext';
 import { NotificationType } from '../../api/models/notification';
+import { getInitialNotificationsState } from '../state';
+import { getInitialNotificationsActions } from '../interface';
 
 jest.mock('react-router-dom', () => ({
     useHistory: () => ({ push: jest.fn() }),
@@ -16,24 +17,23 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('notificationList', () => {
-    it('matches snapshot where there is no notifications', () => {
-        jest.spyOn(GlobalStateContext, 'useGlobalStateContext').mockReturnValueOnce({globalState: globalStateInitial(), dispatch: jest.fn()});
+    it('matches snapshot where there are no notifications', () => {
+        jest.spyOn(NotificationsContext, 'useNotificationsContext').mockReturnValueOnce([getInitialNotificationsState(), getInitialNotificationsActions()]);
         expect(shallow(<NotificationList/>)).toMatchSnapshot();
     });
 
     it('matches snapshot where there is no notifications', () => {
-        const initialState = globalStateInitial().merge({
-            notificationsState: {
-                hasNew: true,
-                notifications: [{
-                    text: {
-                        translationKey: 'test'
-                    },
-                    type: NotificationType.success
-                }]
-            }
-        });
-        jest.spyOn(GlobalStateContext, 'useGlobalStateContext').mockReturnValueOnce({globalState: initialState, dispatch: jest.fn()});
+        const initialState = {
+            ...getInitialNotificationsState(),
+            hasNew: true,
+            notifications: [{
+                text: {
+                    translationKey: 'test'
+                },
+                type: NotificationType.success
+            }]
+        };
+        jest.spyOn(NotificationsContext, 'useNotificationsContext').mockReturnValueOnce([initialState, getInitialNotificationsActions()]);
         expect(shallow(<NotificationList/>)).toMatchSnapshot();
     });
 });

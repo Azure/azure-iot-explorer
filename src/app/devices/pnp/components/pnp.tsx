@@ -13,13 +13,11 @@ import { useAsyncSagaReducer } from '../../../shared/hooks/useAsyncSagaReducer';
 import { pnpReducer } from '../reducer';
 import { pnpSaga } from '../saga';
 import { pnpStateInitial } from '../state';
-import { RepositoryLocationSettings } from '../../../shared/global/state';
-import { useGlobalStateContext } from '../../../shared/contexts/globalStateContext';
-import { getRepositoryLocationSettings } from '../../../modelRepository/dataHelper';
+import { useModelRepositoryContext } from '../../../shared/modelRepository/context/modelRepositoryStateContext';
 import { DigitalTwinInterfacesList } from './modelConfiguration/digitalTwinInterfacesList';
 import { BreadcrumbRoute } from '../../../navigation/components/breadcrumbRoute';
-import '../../../css/_digitalTwinInterfaces.scss';
 import { dispatchGetTwinAction } from '../utils';
+import '../../../css/_digitalTwinInterfaces.scss';
 
 export const Pnp: React.FC = () => {
     const { search } = useLocation();
@@ -29,16 +27,13 @@ export const Pnp: React.FC = () => {
     const interfaceId = getInterfaceIdFromQueryString(search);
     const componentName = getComponentNameFromQueryString(search);
 
-    const { globalState } = useGlobalStateContext();
-    const { modelRepositoryState } = globalState;
-    const locations: RepositoryLocationSettings[] = getRepositoryLocationSettings(modelRepositoryState);
-
+    const [ modelRepositoryState ] = useModelRepositoryContext();
     const [ pnpState, dispatch ] = useAsyncSagaReducer(pnpReducer, pnpSaga, pnpStateInitial(), 'pnpState');
     const twin = pnpState.twin.payload;
     const modelId = twin?.modelId;
 
     const interfaceIdModified = React.useMemo(() => interfaceId || modelId, [modelId, interfaceId]);
-    const getModelDefinition = () => dispatch(getModelDefinitionAction.started({digitalTwinId: deviceId, interfaceId: interfaceIdModified, locations}));
+    const getModelDefinition = () => dispatch(getModelDefinitionAction.started({digitalTwinId: deviceId, interfaceId: interfaceIdModified, locations: modelRepositoryState}));
 
     React.useEffect(() => {
         dispatchGetTwinAction(search, dispatch);
