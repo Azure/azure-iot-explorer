@@ -12,7 +12,7 @@ import { MonitorEventsParameters } from '../../../api/parameters/deviceParameter
 import { DEFAULT_CONSUMER_GROUP, WEBSOCKET_ENDPOINT } from '../../../constants/apiConstants';
 import { HeaderView } from '../../../shared/components/headerView';
 import { useDeviceEventsStateContext } from '../context/deviceEventsStateContext';
-import { usePnpStateContext } from '../../../shared/contexts/pnpStateContext';
+import { usePnpStateContext } from '../../pnp/context/pnpStateContext';
 import { MultiLineShimmer } from '../../../shared/components/multiLineShimmer';
 import { DeviceSimulationPanel } from './deviceSimulationPanel';
 import { Commands } from './commands';

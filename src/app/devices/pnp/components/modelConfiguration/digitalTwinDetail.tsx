@@ -14,7 +14,7 @@ import { DeviceCommands } from '../deviceCommands/deviceCommands';
 import { DeviceInterfaces } from '../deviceInterfaces/deviceInterfaces';
 import { DeviceEvents } from '../../../deviceEvents/components/deviceEvents';
 import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString, getComponentNameFromQueryString, getModuleIdentityIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
-import { usePnpStateContext } from '../../../../shared/contexts/pnpStateContext';
+import { usePnpStateContext } from '../../context/pnpStateContext';
 import { DeviceEventsStateContextProvider } from '../../../deviceEvents/context/deviceEventsStateProvider';
 import './digitalTwinDetail.scss';
 

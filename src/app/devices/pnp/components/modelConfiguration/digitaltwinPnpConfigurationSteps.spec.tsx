@@ -7,7 +7,7 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import { DigitaltwinPnpConfigurationSteps } from './digitaltwinPnpConfigurationSteps';
 import { pnpStateInitial, PnpStateInterface } from '../../state';
-import * as pnpStateContext from '../../../../shared/contexts/pnpStateContext';
+import * as pnpStateContext from '../../context/pnpStateContext';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 
 const interfaceId = 'urn:azureiot:samplemodel;1';

@@ -7,12 +7,12 @@ import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { HeaderView } from '../../../../shared/components/headerView';
 import { MultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
-import { usePnpStateContext } from '../../../../shared/contexts/pnpStateContext';
-import '../../../../css/_digitalTwinInterfaces.scss';
+import { usePnpStateContext } from '../../context/pnpStateContext';
 import { AppInsightsClient } from '../../../../shared/appTelemetry/appInsightsClient';
 import { TELEMETRY_PAGE_NAMES } from '../../../../constants/telemetry';
 import { Command } from './command';
 import { DigitaltwinPnpConfigurationSteps } from './digitaltwinPnpConfigurationSteps';
+import '../../../../css/_digitalTwinInterfaces.scss';
 
 // tslint:disable-next-line: cyclomatic-complexity
 export const DigitalTwinInterfacesList: React.FC = () => {

@@ -6,10 +6,10 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
-import { usePnpStateContext } from '../../../../shared/contexts/pnpStateContext';
-import './digitalTwinDetail.scss';
+import { usePnpStateContext } from '../../context/pnpStateContext';
 import { MaskedCopyableTextField } from '../../../../shared/components/maskedCopyableTextField';
 import { getModuleIdentityIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
+import './digitalTwinDetail.scss';
 
 export const DigitalTwinModelId: React.FC = () => {
     const { t } = useTranslation();

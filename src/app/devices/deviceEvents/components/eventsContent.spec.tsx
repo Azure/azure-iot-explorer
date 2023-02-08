@@ -8,7 +8,7 @@ import { shallow, mount } from 'enzyme';
 import { REPOSITORY_LOCATION_TYPE } from '../../../constants/repositoryLocationTypes';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
-import * as pnpStateContext from '../../../shared/contexts/pnpStateContext';
+import * as pnpStateContext from '../../pnp/context/pnpStateContext';
 import { ErrorBoundary } from '../../shared/components/errorBoundary';
 import { pnpStateInitial, PnpStateInterface } from '../../pnp/state';
 import { testModelDefinition } from '../../pnp/components/deviceEvents/testData';

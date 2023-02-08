@@ -6,17 +6,12 @@ import * as React from 'react';
 import { useLocation, useRouteMatch, Route } from 'react-router-dom';
 import { ROUTE_PARTS } from '../../../constants/routes';
 import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString, getComponentNameFromQueryString, getModuleIdentityIdFromQueryString } from '../../../shared/utils/queryStringHelper';
-import { getModelDefinitionAction } from '../actions';
-import { PnpStateContextProvider } from '../../../shared/contexts/pnpStateContext';
+import { PnpStateContextProvider } from '../context/pnpStateContext';
 import { DigitalTwinDetail } from './modelConfiguration/digitalTwinDetail';
-import { useAsyncSagaReducer } from '../../../shared/hooks/useAsyncSagaReducer';
-import { pnpReducer } from '../reducer';
-import { pnpSaga } from '../saga';
-import { pnpStateInitial } from '../state';
-import { useModelRepositoryContext } from '../../../shared/modelRepository/context/modelRepositoryStateContext';
 import { DigitalTwinInterfacesList } from './modelConfiguration/digitalTwinInterfacesList';
 import { BreadcrumbRoute } from '../../../navigation/components/breadcrumbRoute';
 import { dispatchGetTwinAction } from '../utils';
+import { usePnpContext } from '../hooks/usePnpContext';
 import '../../../css/_digitalTwinInterfaces.scss';
 
 export const Pnp: React.FC = () => {
@@ -27,13 +22,10 @@ export const Pnp: React.FC = () => {
     const interfaceId = getInterfaceIdFromQueryString(search);
     const componentName = getComponentNameFromQueryString(search);
 
-    const [ modelRepositoryState ] = useModelRepositoryContext();
-    const [ pnpState, dispatch ] = useAsyncSagaReducer(pnpReducer, pnpSaga, pnpStateInitial(), 'pnpState');
+    const { pnpState, dispatch, getModelDefinition } = usePnpContext();
     const twin = pnpState.twin.payload;
     const modelId = twin?.modelId;
-
     const interfaceIdModified = React.useMemo(() => interfaceId || modelId, [modelId, interfaceId]);
-    const getModelDefinition = () => dispatch(getModelDefinitionAction.started({digitalTwinId: deviceId, interfaceId: interfaceIdModified, locations: modelRepositoryState}));
 
     React.useEffect(() => {
         dispatchGetTwinAction(search, dispatch);

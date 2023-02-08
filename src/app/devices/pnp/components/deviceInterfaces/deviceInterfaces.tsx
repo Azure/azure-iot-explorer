@@ -16,12 +16,12 @@ import { MultiLineShimmer } from '../../../../shared/components/multiLineShimmer
 import { MaskedCopyableTextField } from '../../../../shared/components/maskedCopyableTextField';
 import { JSONEditor } from '../../../../shared/components/jsonEditor';
 import { ModelDefinitionSourceView } from '../../../shared/components/modelDefinitionSource';
-import { usePnpStateContext } from '../../../../shared/contexts/pnpStateContext';
+import { usePnpStateContext } from '../../context/pnpStateContext';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { getBackUrl } from '../../utils';
-import '../../../../css/_deviceInterface.scss';
 import { AppInsightsClient } from '../../../../shared/appTelemetry/appInsightsClient';
 import { TELEMETRY_PAGE_NAMES } from '../../../../../app/constants/telemetry';
+import '../../../../css/_deviceInterface.scss';
 
 export const DeviceInterfaces: React.FC = () => {
     const { t } = useTranslation();

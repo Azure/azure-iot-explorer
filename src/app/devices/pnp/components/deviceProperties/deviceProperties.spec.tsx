@@ -11,7 +11,7 @@ import { DeviceProperties } from './deviceProperties';
 import { InterfaceNotFoundMessageBar } from '../../../shared/components/interfaceNotFoundMessageBar';
 import { TwinWithSchema } from './dataHelper';
 import { PnpStateInterface, pnpStateInitial } from '../../state';
-import * as PnpContext from '../../../../shared/contexts/pnpStateContext';
+import * as PnpContext from '../../context/pnpStateContext';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { testModelDefinition, testTwin } from './testData';
 import { ModelDefinition } from '../../../../api/models/modelDefinition';

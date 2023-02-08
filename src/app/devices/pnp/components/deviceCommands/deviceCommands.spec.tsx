@@ -7,7 +7,7 @@ import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 import { Shimmer, CommandBar } from '@fluentui/react';
 import { DeviceCommands } from './deviceCommands';
-import * as PnpContext from '../../../../shared/contexts/pnpStateContext';
+import * as PnpContext from '../../context/pnpStateContext';
 import { InterfaceNotFoundMessageBar } from '../../../shared/components/interfaceNotFoundMessageBar';
 import { PnpStateInterface, pnpStateInitial } from '../../state';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
