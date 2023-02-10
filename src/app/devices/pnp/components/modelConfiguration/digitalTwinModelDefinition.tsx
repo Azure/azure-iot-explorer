@@ -6,14 +6,14 @@ import * as React from 'react';
 import { MessageBar, MessageBarType } from '@fluentui/react';
 import { useTranslation } from 'react-i18next';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
-import { usePnpStateContext } from '../../../../shared/contexts/pnpStateContext';
-import './digitalTwinDetail.scss';
+import { usePnpStateContext } from '../../context/pnpStateContext';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { ModelDefinitionSourceView } from '../../../shared/components/modelDefinitionSource';
 import { InterfaceNotFoundMessageBar } from '../../../shared/components/interfaceNotFoundMessageBar';
 import { MultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
 import { JSONEditor } from '../../../../shared/components/jsonEditor';
 import { DigitalTwinComponentList } from './digitalTwinComponentList';
+import './digitalTwinDetail.scss';
 
 export const DigitalTwinModelDefinition: React.FC = () => {
     const { t } = useTranslation();

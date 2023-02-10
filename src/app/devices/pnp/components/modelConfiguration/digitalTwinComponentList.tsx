@@ -7,8 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { NavLink, useLocation, useRouteMatch } from 'react-router-dom';
 import { Announced, DetailsList, IColumn, Label, Pivot, PivotItem, SelectionMode } from '@fluentui/react';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
-import { usePnpStateContext } from '../../../../shared/contexts/pnpStateContext';
-import './digitalTwinDetail.scss';
+import { usePnpStateContext } from '../../context/pnpStateContext';
 import { getComponentNameAndInterfaceIdArray } from '../../utils';
 import { getDeviceIdFromQueryString, getModuleIdentityIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { ROUTE_PARAMS, ROUTE_PARTS } from '../../../../constants/routes';
@@ -16,6 +15,7 @@ import { DEFAULT_COMPONENT_FOR_DIGITAL_TWIN } from '../../../../constants/device
 import { LARGE_COLUMN_WIDTH } from '../../../../constants/columnWidth';
 import { ErrorBoundary } from '../../../shared/components/errorBoundary';
 import { JSONEditor } from '../../../../shared/components/jsonEditor';
+import './digitalTwinDetail.scss';
 
 interface ModelContent {
     link: string;

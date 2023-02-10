@@ -830,6 +830,9 @@ export class ResourceKeys {
       instruction : "modelRepository.instruction",
       types : {
          configurable : {
+            errors : {
+               mandatory : "modelRepository.types.configurable.errors.mandatory",
+            },
             infoText : "modelRepository.types.configurable.infoText",
             label : "modelRepository.types.configurable.label",
             textBoxLabel : "modelRepository.types.configurable.textBoxLabel",
@@ -967,7 +970,7 @@ export class ResourceKeys {
       invokingDigitalTwinCommandWithPayload : "notifications.invokingDigitalTwinCommandWithPayload",
       invokingMethodWithPayload : "notifications.invokingMethodWithPayload",
       invokingModuleMethodWithPayload : "notifications.invokingModuleMethodWithPayload",
-      modelRepoistorySettingsUpdated : "notifications.modelRepoistorySettingsUpdated",
+      modelRepositorySettingsUpdated : "notifications.modelRepositorySettingsUpdated",
       parseLocalInterfaceModelOnError : "notifications.parseLocalInterfaceModelOnError",
       patchDigitalTwinOnAccept : "notifications.patchDigitalTwinOnAccept",
       patchDigitalTwinOnError : "notifications.patchDigitalTwinOnError",

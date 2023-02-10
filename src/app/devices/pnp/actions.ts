@@ -6,7 +6,7 @@ import actionCreatorFactory from 'typescript-fsa';
 import { DEVICECONTENT } from '../../constants/actionPrefixes';
 import { FETCH_MODEL_DEFINITION, INVOKE_DEVICE_METHOD, GET_TWIN, UPDATE_TWIN, GET_MODULE_IDENTITY_TWIN, UPDATE_MODULE_IDENTITY_TWIN } from '../../constants/actionTypes';
 import { ModelDefinitionWithSource } from '../../api/models/modelDefinitionWithSource';
-import { RepositoryLocationSettings } from '../../shared/global/state';
+import { ModelRepositoryConfiguration } from '../../shared/modelRepository/state';
 import { ParsedJsonSchema } from '../../api/models/interfaceJsonParserOutput';
 import { Twin } from '../../api/models/device';
 import { InvokeMethodActionParameters } from '../directMethod/actions';
@@ -37,5 +37,5 @@ export interface InvokeCommandActionParameters extends InvokeMethodActionParamet
 export interface GetModelDefinitionActionParameters {
     digitalTwinId: string;
     interfaceId: string;
-    locations: RepositoryLocationSettings[];
+    locations: ModelRepositoryConfiguration[];
 }

@@ -14,14 +14,12 @@ import { StringMap } from '../../api/models/stringMap';
 import { ROUTE_PARAMS } from '../../constants/routes';
 import { SAVE, ADD, UNDO, HELP, NAVIGATE_BACK, REPO, FOLDER } from '../../constants/iconNames';
 import { ModelRepositoryInstruction } from './modelRepositoryInstruction';
-import { useGlobalStateContext } from '../../shared/contexts/globalStateContext';
-import { getRepositoryLocationSettings } from '../dataHelper';
-import { setRepositoryLocationsAction } from '../../shared/global/actions';
-import { RepositoryLocationSettings } from '../../shared/global/state';
+import { ModelRepositoryStateInterface } from '../../shared/modelRepository/state';
+import { useModelRepositoryContext } from '../../shared/modelRepository/context/modelRepositoryStateContext';
 import { useBreadcrumbEntry } from '../../navigation/hooks/useBreadcrumbEntry';
-import '../../css/_layouts.scss';
 import { AppInsightsClient } from '../../shared/appTelemetry/appInsightsClient';
-import { TELEMETRY_PAGE_NAMES } from '../../../app/constants/telemetry';
+import { TELEMETRY_PAGE_NAMES } from '../../constants/telemetry';
+import '../../css/_layouts.scss';
 
 export const ModelRepositoryLocationView: React.FC = () => {
     const { t } = useTranslation();
@@ -32,9 +30,8 @@ export const ModelRepositoryLocationView: React.FC = () => {
     const params = new URLSearchParams(search);
     const navigationBackAvailable = params.has(ROUTE_PARAMS.NAV_FROM);
 
-    const { globalState, dispatch } = useGlobalStateContext();
-    const initialRepositoryLocationSettings = getRepositoryLocationSettings(globalState.modelRepositoryState);
-    const [ repositoryLocationSettings, setRepositoryLocationSettings ] = React.useState<RepositoryLocationSettings[]>(initialRepositoryLocationSettings);
+    const [ modelRepositoryState, { setRepositoryLocations } ] = useModelRepositoryContext();
+    const [ repositoryLocationSettings, setRepositoryLocationSettings ] = React.useState<ModelRepositoryStateInterface>(modelRepositoryState);
     const [ repositoryLocationSettingsErrors, setRepositoryLocationSettingsErrors ] = React.useState<StringMap<string>>({});
     const [ dirty, setDirtyFlag ] = React.useState<boolean>(false);
 
@@ -139,7 +136,7 @@ export const ModelRepositoryLocationView: React.FC = () => {
         const errors = validateRepositoryLocationSettings(repositoryLocationSettings);
 
         if (Object.keys(errors).length === 0) {
-            dispatch(setRepositoryLocationsAction(repositoryLocationSettings));
+            setRepositoryLocations(repositoryLocationSettings);
             setDirtyFlag(false);
         }
 
@@ -150,7 +147,7 @@ export const ModelRepositoryLocationView: React.FC = () => {
 
     const onRevertModelRepositorySettingsClick = () => {
         setDirtyFlag(false);
-        setRepositoryLocationSettings(initialRepositoryLocationSettings);
+        setRepositoryLocationSettings(modelRepositoryState);
     };
 
     const onAddRepositoryLocationPublic = () => {
@@ -158,7 +155,8 @@ export const ModelRepositoryLocationView: React.FC = () => {
         setRepositoryLocationSettings([
             ...repositoryLocationSettings,
             {
-               repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public
+               repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public,
+               value: ''
             }
         ]);
     };
@@ -168,7 +166,8 @@ export const ModelRepositoryLocationView: React.FC = () => {
         setRepositoryLocationSettings([
             ...repositoryLocationSettings,
             {
-               repositoryLocationType: REPOSITORY_LOCATION_TYPE.Configurable
+               repositoryLocationType: REPOSITORY_LOCATION_TYPE.Configurable,
+               value: ''
             }
         ]);
     };
@@ -178,12 +177,13 @@ export const ModelRepositoryLocationView: React.FC = () => {
         setRepositoryLocationSettings([
             ...repositoryLocationSettings,
             {
-               repositoryLocationType: REPOSITORY_LOCATION_TYPE.Local
+               repositoryLocationType: REPOSITORY_LOCATION_TYPE.Local,
+               value: ''
             }
         ]);
     };
 
-    const onChangeRepositoryLocationSettings = (updatedRepositoryLocationSettings: RepositoryLocationSettings[]) => {
+    const onChangeRepositoryLocationSettings = (updatedRepositoryLocationSettings: ModelRepositoryStateInterface) => {
         setDirtyFlag(true);
         setRepositoryLocationSettingsErrors(validateRepositoryLocationSettings(updatedRepositoryLocationSettings));
         setRepositoryLocationSettings([
@@ -213,11 +213,14 @@ export const ModelRepositoryLocationView: React.FC = () => {
     );
 };
 
-export const validateRepositoryLocationSettings = (repositoryLocationSettings: RepositoryLocationSettings[]): StringMap<string> => {
+export const validateRepositoryLocationSettings = (repositoryLocationSettings: ModelRepositoryStateInterface): StringMap<string> => {
     const errors: StringMap<string> = {};
     repositoryLocationSettings.forEach(s => {
         if (s.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local && !s.value) {
             errors[REPOSITORY_LOCATION_TYPE.Local] = ResourceKeys.modelRepository.types.local.folderPicker.errors.mandatory;
+        }
+        if (s.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Configurable && !s.value) {
+            errors[REPOSITORY_LOCATION_TYPE.Configurable] = ResourceKeys.modelRepository.types.configurable.errors.mandatory;
         }
     });
 

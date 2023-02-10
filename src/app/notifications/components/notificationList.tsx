@@ -8,29 +8,23 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { CommandBar, ICommandBarItemProps } from '@fluentui/react';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { NotificationListEntry } from './notificationListEntry';
-import { useGlobalStateContext } from '../../shared/contexts/globalStateContext';
-import { clearNotificationsAction } from '../../shared/global/actions';
 import { useBreadcrumbEntry } from '../../navigation/hooks/useBreadcrumbEntry';
 import { ROUTE_PARAMS } from '../../constants/routes';
 import { CANCEL, NAVIGATE_BACK } from '../../constants/iconNames';
-import '../../css/_notification.scss';
 import { AppInsightsClient } from '../../shared/appTelemetry/appInsightsClient';
-import { TELEMETRY_PAGE_NAMES } from '../../../app/constants/telemetry';
+import { TELEMETRY_PAGE_NAMES } from '../../constants/telemetry';
+import { useNotificationsContext } from '../context/notificationsStateContext';
+import '../../css/_notification.scss';
 
 export const NotificationList: React.FC = () => {
     const { t } = useTranslation();
-
-    const { globalState, dispatch } = useGlobalStateContext();
-    const { notifications } = globalState.notificationsState;
     const history = useHistory();
     const { search } = useLocation();
     const params = new URLSearchParams(search);
     const navigationBackAvailable = params.has(ROUTE_PARAMS.NAV_FROM);
+
+    const [ {notifications}, {clearNotifications} ] = useNotificationsContext();
     useBreadcrumbEntry({name:  t(ResourceKeys.breadcrumb.notificationCenter)});
-
-    const dismissNotifications = () => dispatch(clearNotificationsAction());
-
-    const onNavigateBackClick = () => history.goBack();
 
     const getCommandBarItems = (): ICommandBarItemProps[] => {
         const items = [
@@ -39,7 +33,7 @@ export const NotificationList: React.FC = () => {
                 disabled: notifications.length === 0,
                 iconProps: { iconName: CANCEL},
                 key: 'back',
-                onClick: dismissNotifications,
+                onClick: clearNotifications,
                 text: t(ResourceKeys.header.notifications.dismiss)
             }
         ];
@@ -51,7 +45,7 @@ export const NotificationList: React.FC = () => {
                     disabled: false,
                     iconProps: { iconName: NAVIGATE_BACK},
                     key: 'back',
-                    onClick: onNavigateBackClick,
+                    onClick: history.goBack,
                     text: t(ResourceKeys.modelRepository.commands.back.label)
                 }
             );
@@ -76,7 +70,7 @@ export const NotificationList: React.FC = () => {
                 {notifications.map((notification, index) => {
                     return (
                         <div key={index}>
-                            <NotificationListEntry notification={notification} showAnnoucement={false} />
+                            <NotificationListEntry notification={notification} showAnnouncement={false} />
                         </div>);
                     })
                 }

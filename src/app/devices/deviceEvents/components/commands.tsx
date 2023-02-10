@@ -9,7 +9,7 @@ import { Announced, CommandBar, ICommandBarItemProps } from '@fluentui/react';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { CLEAR, CHECKED_CHECKBOX, EMPTY_CHECKBOX, START, STOP, NAVIGATE_BACK, REFRESH, REMOVE, CODE, UPLOAD } from '../../../constants/iconNames';
 import { getComponentNameFromQueryString } from '../../../shared/utils/queryStringHelper';
-import { usePnpStateContext } from '../../../shared/contexts/pnpStateContext';
+import { usePnpStateContext } from '../../pnp/context/pnpStateContext';
 import { getBackUrl } from '../../pnp/utils';
 import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
 import { TELEMETRY_USER_ACTIONS } from '../../../../app/constants/telemetry';

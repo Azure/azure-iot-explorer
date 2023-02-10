@@ -23,7 +23,7 @@ describe('notificationListEntry', () => {
                     },
                     type: NotificationType.success
                 }}
-            showAnnoucement={true}
+            showAnnouncement={true}
         />)).toMatchSnapshot();
     });
 

@@ -30,7 +30,7 @@ exports[`modelRepositoryLocationView matches snapshot when locations greater tha
             "items": Array [
               Object {
                 "ariaLabel": "modelRepository.commands.addPublicSource.ariaLabel",
-                "disabled": false,
+                "disabled": true,
                 "iconProps": Object {
                   "iconName": "Repo",
                 },
@@ -40,7 +40,7 @@ exports[`modelRepositoryLocationView matches snapshot when locations greater tha
               },
               Object {
                 "ariaLabel": "modelRepository.commands.addConfigurableRepoSource.label",
-                "disabled": false,
+                "disabled": true,
                 "iconProps": Object {
                   "iconName": "Repo",
                 },
@@ -50,7 +50,7 @@ exports[`modelRepositoryLocationView matches snapshot when locations greater tha
               },
               Object {
                 "ariaLabel": "modelRepository.commands.addLocalSource.ariaLabel",
-                "disabled": true,
+                "disabled": false,
                 "iconProps": Object {
                   "iconName": "OpenFolderHorizontal",
                 },
@@ -93,8 +93,12 @@ exports[`modelRepositoryLocationView matches snapshot when locations greater tha
       repositoryLocationSettings={
         Array [
           Object {
-            "repositoryLocationType": "LOCAL",
-            "value": null,
+            "repositoryLocationType": "PUBLIC",
+            "value": "",
+          },
+          Object {
+            "repositoryLocationType": "CONFIGURABLE",
+            "value": "d:/",
           },
         ]
       }
@@ -134,7 +138,7 @@ exports[`modelRepositoryLocationView matches snapshot when no locations 1`] = `
             "items": Array [
               Object {
                 "ariaLabel": "modelRepository.commands.addPublicSource.ariaLabel",
-                "disabled": false,
+                "disabled": true,
                 "iconProps": Object {
                   "iconName": "Repo",
                 },
@@ -190,11 +194,18 @@ exports[`modelRepositoryLocationView matches snapshot when no locations 1`] = `
   />
   <div>
     <ModelRepositoryInstruction
-      empty={true}
+      empty={false}
     />
     <ModelRepositoryLocationList
       onChangeRepositoryLocationSettings={[Function]}
-      repositoryLocationSettings={Array []}
+      repositoryLocationSettings={
+        Array [
+          Object {
+            "repositoryLocationType": "PUBLIC",
+            "value": "",
+          },
+        ]
+      }
       repositoryLocationSettingsErrors={Object {}}
     />
   </div>

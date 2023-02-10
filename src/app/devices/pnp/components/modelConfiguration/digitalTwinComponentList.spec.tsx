@@ -9,7 +9,7 @@ import { Announced, Pivot, PivotItem } from '@fluentui/react';
 import { DigitalTwinComponentList } from './digitalTwinComponentList';
 import { REPOSITORY_LOCATION_TYPE } from '../../../../constants/repositoryLocationTypes';
 import { pnpStateInitial, PnpStateInterface } from '../../state';
-import * as pnpStateContext from '../../../../shared/contexts/pnpStateContext';
+import * as pnpStateContext from '../../context/pnpStateContext';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 
 const interfaceId = 'urn:azureiot:samplemodel;1';

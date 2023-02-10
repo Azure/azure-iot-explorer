@@ -11,7 +11,7 @@ import { DeviceInterfaces } from './deviceInterfaces';
 import { REPOSITORY_LOCATION_TYPE } from '../../../../constants/repositoryLocationTypes';
 import { pnpStateInitial, PnpStateInterface } from '../../state';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
-import * as PnpContext from '../../../../shared/contexts/pnpStateContext';
+import * as PnpContext from '../../context/pnpStateContext';
 
 jest.mock('react-router-dom', () => ({
     useHistory: () => ({ push: jest.fn() }),

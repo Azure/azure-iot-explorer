@@ -8,12 +8,12 @@ import { useLocation, useHistory } from 'react-router-dom';
 import { Icon, Announced, Link, IconButton } from '@fluentui/react';
 import { Notification, NotificationType } from '../../api/models/notification';
 import { ROUTE_PARAMS, ROUTE_PARTS } from '../../constants/routes';
-import '../../css/_notification.scss';
 import { ResourceKeys } from '../../../localization/resourceKeys';
+import '../../css/_notification.scss';
 
 export interface NotificationListEntryProps {
     notification: Notification;
-    showAnnoucement: boolean;
+    showAnnouncement: boolean;
 }
 
 export const NotificationListEntry: React.SFC<NotificationListEntryProps> = (props: NotificationListEntryProps) => {
@@ -21,7 +21,6 @@ export const NotificationListEntry: React.SFC<NotificationListEntryProps> = (pro
     const { notification } = props;
     const { pathname } = useLocation();
     const history = useHistory();
-    const calloutRef = React.createRef<HTMLDivElement>();
 
     const iconName = getIconName(notification.type);
     const iconColor = getIconColor(notification.type);
@@ -52,7 +51,7 @@ export const NotificationListEntry: React.SFC<NotificationListEntryProps> = (pro
 
     return (
         <div className="notification-list-entry">
-            {props.showAnnoucement && <Announced message={message}/>}
+            {props.showAnnouncement && <Announced message={message}/>}
             <div className={iconColor}>
                 <Icon style={{fontSize: 18}} iconName={iconName} />
             </div>

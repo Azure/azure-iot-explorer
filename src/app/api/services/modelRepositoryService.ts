@@ -3,39 +3,28 @@
  * Licensed under the MIT License
  **********************************************************/
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
-import { REPO_LOCATIONS, LOCAL_FILE_EXPLORER_PATH_NAME, CONFIGURABLE_REPOSITORY_PATH_NAME } from '../../constants/browserStorage';
-import { appConfig, HostMode } from '../../../appConfig/appConfig';
+import { REPO_CONFIGURATIONS } from '../../constants/browserStorage';
+import { ModelRepositoryStateInterface } from '../../shared/modelRepository/state';
 
-export const getLocalFolderPath = () => {
-    return appConfig.hostMode !== HostMode.Browser ? localStorage.getItem(LOCAL_FILE_EXPLORER_PATH_NAME) || '' : null;
-};
+export const getRepositoryConfigurations = () => {
+    const defaultSettings = [{
+        repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public,
+        value: ''
+    }];
 
-export const getConfigurableRepositoryPath = () => {
-    return appConfig.hostMode !== HostMode.Browser ? localStorage.getItem(CONFIGURABLE_REPOSITORY_PATH_NAME) || '' : null;
-};
-
-export const getRepositoryLocations = () => {
-    if (localStorage.getItem(REPO_LOCATIONS)) {
-        let locations = localStorage.getItem(REPO_LOCATIONS).split(',')
-            .filter(location => Object.values(REPOSITORY_LOCATION_TYPE).indexOf(location.toUpperCase() as REPOSITORY_LOCATION_TYPE) > -1)
-            .map(location => location.toUpperCase() as REPOSITORY_LOCATION_TYPE);
-
-        if (appConfig.hostMode === HostMode.Browser) { // do not show local folder option in browser version
-            locations = locations.filter(location => location !== REPOSITORY_LOCATION_TYPE.Local);
+    if (localStorage.getItem(REPO_CONFIGURATIONS)) {
+        try {
+            const result = JSON.parse(localStorage.getItem(REPO_CONFIGURATIONS));
+            return Array.isArray(result) ? result : defaultSettings;
         }
-        return locations;
+        catch {
+            return defaultSettings;
+        }
     }
-    return [];
+
+    return defaultSettings;
 };
 
-export const setLocalFolderPath = (localFolderPath: string) => {
-    localStorage.setItem(LOCAL_FILE_EXPLORER_PATH_NAME, localFolderPath);
-};
-
-export const setConfigurableRepositoryPath = (configurableRepositoryPath: string) => {
-    localStorage.setItem(CONFIGURABLE_REPOSITORY_PATH_NAME, configurableRepositoryPath);
-};
-
-export const setRepositoryLocations = (locations: REPOSITORY_LOCATION_TYPE[]) => {
-    localStorage.setItem(REPO_LOCATIONS, locations.join(','));
+export const setRepositoryConfigurations = (config: ModelRepositoryStateInterface) => {
+    localStorage.setItem(REPO_CONFIGURATIONS, JSON.stringify(config));
 };

@@ -6,7 +6,7 @@ import 'jest';
 import * as React from 'react';
 import { shallow } from 'enzyme';
 import { DigitalTwinDetail } from './digitalTwinDetail';
-import * as pnpStateContext from '../../../../shared/contexts/pnpStateContext';
+import * as pnpStateContext from '../../context/pnpStateContext';
 import { PnpStateInterface, pnpStateInitial } from '../../state';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 

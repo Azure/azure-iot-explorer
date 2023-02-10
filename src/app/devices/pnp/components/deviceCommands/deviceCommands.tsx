@@ -11,7 +11,7 @@ import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString, getComponentNameFromQueryString, getModuleIdentityIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { REFRESH, NAVIGATE_BACK } from '../../../../constants/iconNames';
 import { MultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
-import { usePnpStateContext } from '../../../../shared/contexts/pnpStateContext';
+import { usePnpStateContext } from '../../context/pnpStateContext';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { InvokeCommandActionParameters, invokeCommandAction } from '../../actions';
 import { getDeviceCommandPairs } from './dataHelper';

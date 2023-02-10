@@ -9,7 +9,7 @@ import { Shimmer, CommandBar } from '@fluentui/react';
 import { DeviceSettings } from './deviceSettings';
 import { pnpStateInitial, PnpStateInterface } from '../../state';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
-import * as PnpContext from '../../../../shared/contexts/pnpStateContext';
+import * as PnpContext from '../../context/pnpStateContext';
 import { pnpStateWithTestData } from './testData';
 
 const interfaceId = 'urn:contoso:com:EnvironmentalSensor;1';

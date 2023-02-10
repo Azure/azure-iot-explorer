@@ -12,7 +12,7 @@ import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString, getComponent
 import { updateDeviceTwinAction, updateModuleTwinAction } from '../../actions';
 import { REFRESH, NAVIGATE_BACK } from '../../../../constants/iconNames';
 import { MultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
-import { usePnpStateContext } from '../../../../shared/contexts/pnpStateContext';
+import { usePnpStateContext } from '../../context/pnpStateContext';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { generateTwinSchemaAndInterfaceTuple } from './dataHelper';
 import { Twin } from '../../../../api/models/device';

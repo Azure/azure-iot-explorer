@@ -7,11 +7,11 @@ import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { CommandBar, ICommandBarItemProps } from '@fluentui/react';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
-import { usePnpStateContext } from '../../../../shared/contexts/pnpStateContext';
-import './digitalTwinDetail.scss';
+import { usePnpStateContext } from '../../context/pnpStateContext';
 import { REFRESH } from '../../../../constants/iconNames';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { dispatchGetTwinAction } from '../../utils';
+import './digitalTwinDetail.scss';
 
 export const Command: React.FC = () => {
     const { t } = useTranslation();

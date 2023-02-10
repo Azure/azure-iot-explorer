@@ -11,7 +11,7 @@ import { Message, MESSAGE_SYSTEM_PROPERTIES, MESSAGE_PROPERTIES, IOTHUB_MESSAGE_
 import { getComponentNameFromQueryString, getInterfaceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { useDeviceEventsStateContext } from '../context/deviceEventsStateContext';
 import { DEFAULT_COMPONENT_FOR_DIGITAL_TWIN } from '../../../constants/devices';
-import { usePnpStateContext } from '../../../shared/contexts/pnpStateContext';
+import { usePnpStateContext } from '../../pnp/context/pnpStateContext';
 import { getDeviceTelemetry, TelemetrySchema } from '../../pnp/components/deviceEvents/dataHelper';
 import { ErrorBoundary } from '../../shared/components/errorBoundary';
 import { SemanticUnit } from '../../../shared/units/components/semanticUnit';

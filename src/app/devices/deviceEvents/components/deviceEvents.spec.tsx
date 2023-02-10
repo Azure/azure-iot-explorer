@@ -7,7 +7,7 @@ import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 import { DeviceEvents } from './deviceEvents';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
-import * as pnpStateContext from '../../../shared/contexts/pnpStateContext';
+import * as pnpStateContext from '../../pnp/context/pnpStateContext';
 import { pnpStateInitial, PnpStateInterface } from '../../pnp/state';
 const pathname = `#/devices/detail/events/?id=device1`;
 jest.mock('react-router-dom', () => ({

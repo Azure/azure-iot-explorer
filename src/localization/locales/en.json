@@ -886,7 +886,7 @@
         "deleteModuleIdentityOnSuccess": "Successfully deleted module {{moduleId}}",
         "deleteModuleIdentityOnError": "Failed to delete module identity {{moduleId}}: {{error}}",
         "portIsInUseError": "The port {{portNumber}} is in use. To get around with the issue, configure a custom port by setting the system environment variable 'AZURE_IOT_EXPLORER_PORT' to an available port number. To learn more, please visit https://github.com/Azure/azure-iot-explorer/wiki/FAQ",
-        "modelRepoistorySettingsUpdated": "Model repository locations successfully updated.",
+        "modelRepositorySettingsUpdated": "Model repository locations successfully updated.",
         "startEventMonitoringOnError": "Failed to start monitoring device telemetry: {{error}}",
         "stopEventMonitoringOnError": "Failed to stop monitoring device telemetry: {{error}}",
         "updateCustomDecoderOnError": "Failed to upload custom decode prototype: {{error}}, please try again.",
@@ -959,7 +959,10 @@
             "configurable" : {
                 "label": "Configurable Repository",
                 "infoText": "Configure your own repository endpoint",
-                "textBoxLabel": "Repository endpoint"
+                "textBoxLabel": "Repository endpoint",
+                "errors": {
+                    "mandatory": "Please specify the endpoint."
+                }
             },
             "local": {
                 "label": "Local Folder",
