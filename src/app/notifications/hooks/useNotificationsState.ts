@@ -12,8 +12,8 @@ import { NotificationsInterface } from '../interface';
 export const useNotificationState = (): [NotificationsStateInterface, NotificationsInterface] => {
     const [state, dispatch] = React.useReducer(notificationsReducer, getInitialNotificationsState());
     return [state, {
-        addNotification: (item: Notification)=> dispatch(addNotificationAction(item)),
+        addNotification: (item: Notification) => dispatch(addNotificationAction(item)),
         clearNotifications: () => dispatch(clearNotificationsAction),
         markAllAsRead: () => dispatch(markAllNotificationsAsReadAction)
-    }]
+    }];
 };

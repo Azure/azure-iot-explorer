@@ -792,10 +792,13 @@ export class ResourceKeys {
             ariaLabel : "modelRepository.commands.addConfigurableRepoSource.ariaLabel",
             label : "modelRepository.commands.addConfigurableRepoSource.label",
          },
+         addLocalDMRSource : {
+            ariaLabel : "modelRepository.commands.addLocalDMRSource.ariaLabel",
+            label : "modelRepository.commands.addLocalDMRSource.label",
+         },
          addLocalSource : {
             ariaLabel : "modelRepository.commands.addLocalSource.ariaLabel",
             label : "modelRepository.commands.addLocalSource.label",
-            labelInBrowser : "modelRepository.commands.addLocalSource.labelInBrowser",
          },
          addPublicSource : {
             ariaLabel : "modelRepository.commands.addPublicSource.ariaLabel",
@@ -830,12 +833,13 @@ export class ResourceKeys {
       instruction : "modelRepository.instruction",
       types : {
          configurable : {
-            errors : {
-               mandatory : "modelRepository.types.configurable.errors.mandatory",
-            },
             infoText : "modelRepository.types.configurable.infoText",
             label : "modelRepository.types.configurable.label",
             textBoxLabel : "modelRepository.types.configurable.textBoxLabel",
+         },
+         dmr : {
+            infoText : "modelRepository.types.dmr.infoText",
+            label : "modelRepository.types.dmr.label",
          },
          local : {
             folderPicker : {
@@ -851,16 +855,15 @@ export class ResourceKeys {
                   subText : "modelRepository.types.local.folderPicker.dialog.subText",
                   title : "modelRepository.types.local.folderPicker.dialog.title",
                },
-               errors : {
-                  mandatory : "modelRepository.types.local.folderPicker.errors.mandatory",
-               },
             },
             infoText : "modelRepository.types.local.infoText",
             label : "modelRepository.types.local.label",
             textBoxLabel : "modelRepository.types.local.textBoxLabel",
          },
+         mandatory : "modelRepository.types.mandatory",
          notAvailable : "modelRepository.types.notAvailable",
          public : {
+            infoText : "modelRepository.types.public.infoText",
             label : "modelRepository.types.public.label",
          },
       },

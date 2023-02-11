@@ -11,7 +11,7 @@ export interface NotificationsInterface {
 }
 
 export const getInitialNotificationsActions = (): NotificationsInterface => ({
-    clearNotifications: () => undefined,
     addNotification: () => undefined,
+    clearNotifications: () => undefined,
     markAllAsRead: () => undefined
 });

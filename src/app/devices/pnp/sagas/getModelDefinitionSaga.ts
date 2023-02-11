@@ -11,7 +11,7 @@ import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { FetchModelParameters } from '../../../api/parameters/repoParameters';
 import { REPOSITORY_LOCATION_TYPE } from '../../../constants/repositoryLocationTypes';
-import { fetchLocalFile } from '../../../api/services/localRepoService';
+import { fetchLocalFile, fetchLocalFileNaive } from '../../../api/services/localRepoService';
 import { ModelDefinition } from '../../../api/models/modelDefinition';
 import { ModelDefinitionNotValidJsonError } from '../../../api/models/modelDefinitionNotValidJsonError';
 import { GetModelDefinitionActionParameters, getModelDefinitionAction } from '../actions';
@@ -126,10 +126,26 @@ export function* getModelDefinitionFromLocalFile(action: Action<GetModelDefiniti
     return getFlattenedModel(model, splitInterfaceId);
 }
 
+export function* getModelDefinitionFromLocalDMR(action: Action<GetModelDefinitionActionParameters>): SagaIterator {
+    const localFolderPaths = action.payload.locations.filter(location => location.repositoryLocationType === REPOSITORY_LOCATION_TYPE.LocalDMR);
+    const localFolderPath = localFolderPaths && localFolderPaths[0] && localFolderPaths[0].value || '';
+    const path = localFolderPath.replace(/\/$/, ''); // remove trailing slash
+    const splitInterfaceId = getSplitInterfaceId(action.payload.interfaceId);
+
+    // convert dtmi name to follow drm convention
+    // for example: dtmi:com:example:Thermostat;1 -> dtmi/com/example/thermostat-1.json
+    const fullPath = path.substring(0, path.lastIndexOf('/') + 1) + `${splitInterfaceId[0].toLowerCase().replace(/:/g, '/').replace(';', '-')}.json`;
+    // path will be converted to for example: original path/dtmi/com/example, file name will be thermostat-1.json
+    const model = yield call(fetchLocalFileNaive, fullPath.substring(0, fullPath.lastIndexOf('/')), fullPath.substring(fullPath.lastIndexOf('/') + 1, fullPath.length));
+    return getFlattenedModel(model, splitInterfaceId);
+}
+
 export function* getModelDefinition(action: Action<GetModelDefinitionActionParameters>, location: REPOSITORY_LOCATION_TYPE): SagaIterator {
     switch (location) {
         case REPOSITORY_LOCATION_TYPE.Local:
             return yield call(getModelDefinitionFromLocalFile, action);
+        case REPOSITORY_LOCATION_TYPE.LocalDMR:
+            return yield call(getModelDefinitionFromLocalDMR, action);
         case REPOSITORY_LOCATION_TYPE.Configurable:
             return yield call(getModelDefinitionFromConfigurableRepo, action);
         default:

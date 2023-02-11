@@ -9,7 +9,7 @@ import { AppVersionMessageBar } from './appVersionMessageBar';
 import { HomeViewNavigation } from './homeViewNavigation';
 import { AuthenticationStateContextProvider } from '../../authentication/context/authenticationStateProvider';
 import { AuthenticationView } from '../../authentication/components/authenticationView';
-import { ModelRepositoryLocationView } from '../../modelRepository/components/modelRepositoryLocationView';
+import { ModelRepositoryLocationView } from '../../modelRepository/view';
 import { NotificationList } from '../../notifications/components/notificationList';
 
 export const HomeView: React.FC = () => {

@@ -21,10 +21,9 @@ import { addDeviceReducer } from '../reducer';
 import { addDeviceStateInitial } from '../state';
 import { addDeviceAction } from '../actions';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
-import '../../../css/_addDevice.scss';
-import '../../../css/_layouts.scss';
 import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
 import { TELEMETRY_USER_ACTIONS } from '../../../constants/telemetry';
+import '../../../css/_addDevice.scss';
 
 const initialKeyValue = {
     error: '',

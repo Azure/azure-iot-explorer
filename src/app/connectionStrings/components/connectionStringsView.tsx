@@ -20,7 +20,6 @@ import { AppInsightsClient } from '../../shared/appTelemetry/appInsightsClient';
 import { TELEMETRY_PAGE_NAMES } from '../../constants/telemetry';
 import { useConnectionStringContext } from '../context/connectionStringStateContext';
 import { ConnectionStringCommandBar } from './commandBar';
-import '../../css/_layouts.scss';
 import './connectionStringsView.scss';
 
 // tslint:disable-next-line: cyclomatic-complexity

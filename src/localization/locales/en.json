@@ -936,8 +936,11 @@
             },
             "addLocalSource": {
                 "label": "Local folder",
-                "labelInBrowser":"Local folder (This is only enabled in the desktop version from: https://github.com/Azure/azure-iot-explorer/releases)",
                 "ariaLabel": "Add local folder as model source"
+            },
+            "addLocalDMRSource": {
+                "label": "Local repository",
+                "ariaLabel": "Add local repository as model source"
             },
             "remove": {
                 "label": "Remove",
@@ -954,15 +957,13 @@
         },
         "types": {
             "public" : {
-                "label": "Public Repository"
+                "label": "Public Repository",
+                "infoText": "The <0>iot-plugandplay-models GitHub repository</0> includes DTDL models that are made publicly available on https://devicemodels.azure.com."
             },
             "configurable" : {
                 "label": "Configurable Repository",
-                "infoText": "Configure your own repository endpoint",
-                "textBoxLabel": "Repository endpoint",
-                "errors": {
-                    "mandatory": "Please specify the endpoint."
-                }
+                "infoText": "Configure your own repository endpoint.",
+                "textBoxLabel": "Repository endpoint"
             },
             "local": {
                 "label": "Local Folder",
@@ -975,9 +976,6 @@
                         "select": "Select",
                         "cancel": "Cancel"
                     },
-                    "errors": {
-                        "mandatory": "Please specify a folder."
-                    },
                     "dialog": {
                         "title": "Select a folder as a local model repository",
                         "subText": "Selected folder: {{folder}}",
@@ -986,7 +984,12 @@
                     }
                 }
             },
-            "notAvailable": "--"
+            "dmr": {
+                "label": "Local Repository",
+                "infoText": "Use your local folder as a model repository following the <0>resolution convention spec</0>. Please configure the file path to be your local DTMI root folder."
+            },
+            "notAvailable": "--",
+            "mandatory": "Input is required."
         }
     },
     "authentication": {

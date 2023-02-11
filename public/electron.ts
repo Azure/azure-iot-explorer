@@ -8,8 +8,6 @@ import * as path from 'path';
 import { generateMenu } from './factories/menuFactory';
 import { PLATFORMS, MESSAGE_CHANNELS } from './constants';
 import { onSettingsHighContrast } from './handlers/settingsHandler';
-import { onGetInterfaceDefinition } from './handlers/modelRepositoryHandler';
-import { onGetDirectories } from './handlers/directoryHandler';
 import { formatError } from './utils/errorHelper';
 import { AuthProvider } from './utils/authProvider';
 import '../dist/server/serverElectron';
@@ -30,8 +28,6 @@ class Main {
 
     private static setMessageHandlers(): void {
         Main.registerHandler(MESSAGE_CHANNELS.SETTING_HIGH_CONTRAST, onSettingsHighContrast);
-        Main.registerHandler(MESSAGE_CHANNELS.MODEL_REPOSITORY_GET_DEFINITION, onGetInterfaceDefinition);
-        Main.registerHandler(MESSAGE_CHANNELS.DIRECTORY_GET_DIRECTORIES, onGetDirectories);
         Main.registerHandler(MESSAGE_CHANNELS.AUTHENTICATION_LOGIN, Main.onLogin);
         Main.registerHandler(MESSAGE_CHANNELS.AUTHENTICATION_LOGOUT, Main.onLogout);
         Main.registerHandler(MESSAGE_CHANNELS.AUTHENTICATION_GET_PROFILE_TOKEN, Main.onGetProfileToken);

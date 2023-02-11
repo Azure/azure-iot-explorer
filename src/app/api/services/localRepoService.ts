@@ -4,36 +4,31 @@
  **********************************************************/
 import { DEFAULT_DIRECTORY } from './../../constants/apiConstants';
 import { ModelDefinitionNotFound } from '../models/modelDefinitionNotFoundError';
-import { ModelDefinitionNotValidJsonError } from '../models/modelDefinitionNotValidJsonError';
-import { MODEL_PARSE_ERROR, ModelParseErrorData } from '../../../../public/interfaces/modelRepositoryInterface';
-import { ContextBridgeError } from '../../../../public/utils/errorHelper';
-import { getLocalModelRepositoryInterface, getDirectoryInterface } from '../shared/interfaceUtils';
+import { getDirectories, getInterfaceDefinition, getInterfaceDefinitionNaive } from '../handlers/localRepoServiceHandler';
 
 export const fetchLocalFile = async (path: string, fileName: string): Promise<object> => {
-    const api = getLocalModelRepositoryInterface();
-
     try {
-        const result = await api.getInterfaceDefinition({
+        return await getInterfaceDefinition({
             interfaceId: fileName,
             path
         });
-
-        if (!result) {
-            throw new ModelDefinitionNotFound();
-        }
-        return result;
     } catch (error) {
-        if (error.message === MODEL_PARSE_ERROR) {
-            const fileNames = (error as ContextBridgeError<ModelParseErrorData>).data.fileNames;
-            throw new ModelDefinitionNotValidJsonError(JSON.stringify(fileNames));
-        }
+        throw new ModelDefinitionNotFound();
+    }
+};
 
+export const fetchLocalFileNaive = async (path: string, fileName: string): Promise<object> => {
+    try {
+        return await getInterfaceDefinitionNaive({
+            interfaceId: fileName,
+            path
+        });
+    } catch (error) {
         throw new ModelDefinitionNotFound();
     }
 };
 
 export const fetchDirectories = async (path: string): Promise<string[]> => {
-    const api = getDirectoryInterface();
-    const result = await api.getDirectories({path: path || DEFAULT_DIRECTORY});
+    const result = await getDirectories({path: path || DEFAULT_DIRECTORY});
     return result;
 };

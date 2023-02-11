@@ -13,5 +13,5 @@ export const useModelRepositoryState = (): [ModelRepositoryStateInterface, Model
     const [state, dispatch] = useAsyncSagaReducer(modelRepositoryReducer, modelRepositorySaga, getInitialModelRepositoryState(), 'modelRepo');
     return [state, {
         setRepositoryLocations: (settings: ModelRepositoryStateInterface) => dispatch(setRepositoryLocationsAction.started(settings)),
-    }]
+    }];
 };

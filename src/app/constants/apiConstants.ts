@@ -11,6 +11,7 @@ export const EVENTHUB = '/EventHub';
 export const MODELREPO = '/ModelRepo';
 
 export const READ_FILE = '/ReadFile';
+export const READ_FILE_NAIVE = '/ReadFileNaive';
 export const GET_DIRECTORIES = '/Directories';
 export const DEFAULT_DIRECTORY = '$DEFAULT';
 

@@ -13,7 +13,7 @@ import fetch from 'node-fetch';
 import { EventHubConsumerClient, Subscription, ReceivedEventData } from '@azure/event-hubs';
 import { generateDataPlaneRequestBody, generateDataPlaneResponse } from './dataPlaneHelper';
 import { convertIotHubToEventHubsConnectionString } from './eventHubHelper';
-import { fetchDirectories, fetchDrivesOnWindows, findMatchingFile } from './utils';
+import { fetchDirectories, fetchDrivesOnWindows, findMatchingFile, readFileFromLocal } from './utils';
 
 export const SERVER_ERROR = 500;
 export const SUCCESS = 200;
@@ -53,6 +53,7 @@ export class ServerBase {
         app.post(eventHubStopUri, handleEventHubStopPostRequest);
         app.post(modelRepoUri, handleModelRepoPostRequest);
         app.get(readFileUri, handleReadFileRequest);
+        app.get(readFileNaiveUri, handleReadFileNaiveRequest);
         app.get(getDirectoriesUri, handleGetDirectoriesRequest);
 
         //initialize a simple http server
@@ -96,6 +97,33 @@ export const handleReadFileRequest = (req: express.Request, res: express.Respons
                 }
                 else {
                     res.status(NO_CONTENT_SUCCESS).send();
+                }
+            }
+            catch (error) {
+                res.status(NOT_FOUND).send(error.message); // couldn't find matching file, and the folder contains json files that cannot be parsed
+            }
+
+        }
+    }
+    catch (error) {
+        res.status(SERVER_ERROR).send(error);
+    }
+};
+
+const readFileNaiveUri = '/api/ReadFileNaive/:path/:file';
+// tslint:disable-next-line:cyclomatic-complexity
+export const handleReadFileNaiveRequest = (req: express.Request, res: express.Response) => {
+    try {
+        const filePath = req.params.path;
+        const expectedFileName = req.params.file;
+        if (!filePath || !expectedFileName) {
+            res.status(BAD_REQUEST).send();
+        }
+        else {
+            try {
+                const data = readFileFromLocal(filePath, expectedFileName);
+                if (data) {
+                    res.status(SUCCESS).send(data);
                 }
             }
             catch (error) {

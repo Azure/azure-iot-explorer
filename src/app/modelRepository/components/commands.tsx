@@ -4,36 +4,27 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Prompt, useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { CommandBar, ICommandBarItemProps, IContextualMenuItem } from '@fluentui/react';
 import { ResourceKeys } from '../../../localization/resourceKeys';
-import { ModelRepositoryLocationList } from './modelRepositoryLocationList';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
-import { appConfig, HostMode } from '../../../appConfig/appConfig';
 import { StringMap } from '../../api/models/stringMap';
 import { ROUTE_PARAMS } from '../../constants/routes';
 import { SAVE, ADD, UNDO, HELP, NAVIGATE_BACK, REPO, FOLDER } from '../../constants/iconNames';
-import { ModelRepositoryInstruction } from './modelRepositoryInstruction';
 import { ModelRepositoryStateInterface } from '../../shared/modelRepository/state';
+import { ModelRepositoryFormType } from '../hooks/useModelRepositoryForm';
 import { useModelRepositoryContext } from '../../shared/modelRepository/context/modelRepositoryStateContext';
-import { useBreadcrumbEntry } from '../../navigation/hooks/useBreadcrumbEntry';
-import { AppInsightsClient } from '../../shared/appTelemetry/appInsightsClient';
-import { TELEMETRY_PAGE_NAMES } from '../../constants/telemetry';
-import '../../css/_layouts.scss';
 
-export const ModelRepositoryLocationView: React.FC = () => {
+export const Commands: React.FC<{formState: ModelRepositoryFormType}> = ({formState}) => {
     const { t } = useTranslation();
     const history = useHistory();
     const { search } = useLocation();
-    useBreadcrumbEntry({ name: t(ResourceKeys.breadcrumb.ioTPlugAndPlay)});
+    const [{repositoryLocationSettings, dirty}, {setRepositoryLocationSettings, setRepositoryLocationSettingsErrors, setDirtyFlag}] = formState;
 
     const params = new URLSearchParams(search);
     const navigationBackAvailable = params.has(ROUTE_PARAMS.NAV_FROM);
 
     const [ modelRepositoryState, { setRepositoryLocations } ] = useModelRepositoryContext();
-    const [ repositoryLocationSettings, setRepositoryLocationSettings ] = React.useState<ModelRepositoryStateInterface>(modelRepositoryState);
-    const [ repositoryLocationSettingsErrors, setRepositoryLocationSettingsErrors ] = React.useState<StringMap<string>>({});
-    const [ dirty, setDirtyFlag ] = React.useState<boolean>(false);
 
     const getCommandBarItems = (): ICommandBarItemProps[] => {
         const addItems = getCommandBarItemsAdd();
@@ -90,8 +81,6 @@ export const ModelRepositoryLocationView: React.FC = () => {
     };
 
     const getCommandBarItemsAdd = (): IContextualMenuItem[] => {
-        const hostModeBrowser: boolean = appConfig.hostMode === HostMode.Browser;
-
         return [
             {
                 ariaLabel: t(ResourceKeys.modelRepository.commands.addPublicSource.ariaLabel),
@@ -100,7 +89,7 @@ export const ModelRepositoryLocationView: React.FC = () => {
                     iconName: REPO
                 },
                 key: REPOSITORY_LOCATION_TYPE.Public,
-                onClick: onAddRepositoryLocationPublic,
+                onClick: onAddRepositoryLocation(REPOSITORY_LOCATION_TYPE.Public),
                 text: t(ResourceKeys.modelRepository.commands.addPublicSource.label),
             },
             {
@@ -110,20 +99,28 @@ export const ModelRepositoryLocationView: React.FC = () => {
                     iconName: REPO
                 },
                 key: REPOSITORY_LOCATION_TYPE.Configurable,
-                onClick: onAddRepositoryLocationConfigurable,
+                onClick: onAddRepositoryLocation(REPOSITORY_LOCATION_TYPE.Configurable),
                 text: t(ResourceKeys.modelRepository.commands.addConfigurableRepoSource.label)
             },
             {
                 ariaLabel: t(ResourceKeys.modelRepository.commands.addLocalSource.ariaLabel),
-                disabled: hostModeBrowser || repositoryLocationSettings.some(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local),
+                disabled: repositoryLocationSettings.some(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local),
                 iconProps: {
                     iconName: FOLDER
                 },
                 key: REPOSITORY_LOCATION_TYPE.Local,
-                onClick: onAddRepositoryLocationLocal,
-                text: t(hostModeBrowser ?
-                    ResourceKeys.modelRepository.commands.addLocalSource.labelInBrowser :
-                    ResourceKeys.modelRepository.commands.addLocalSource.label)
+                onClick: onAddRepositoryLocation(REPOSITORY_LOCATION_TYPE.Local),
+                text: t(ResourceKeys.modelRepository.commands.addLocalSource.label)
+            },
+            {
+                ariaLabel: t(ResourceKeys.modelRepository.commands.addLocalDMRSource.ariaLabel),
+                disabled: repositoryLocationSettings.some(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.LocalDMR),
+                iconProps: {
+                    iconName: FOLDER
+                },
+                key: REPOSITORY_LOCATION_TYPE.LocalDMR,
+                onClick: onAddRepositoryLocation(REPOSITORY_LOCATION_TYPE.LocalDMR),
+                text: t(ResourceKeys.modelRepository.commands.addLocalDMRSource.label)
             }
         ];
     };
@@ -150,77 +147,31 @@ export const ModelRepositoryLocationView: React.FC = () => {
         setRepositoryLocationSettings(modelRepositoryState);
     };
 
-    const onAddRepositoryLocationPublic = () => {
+    const onAddRepositoryLocation = (repositoryLocationType: REPOSITORY_LOCATION_TYPE) => () => {
         setDirtyFlag(true);
         setRepositoryLocationSettings([
             ...repositoryLocationSettings,
             {
-               repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public,
+               repositoryLocationType,
                value: ''
             }
         ]);
     };
-
-    const onAddRepositoryLocationConfigurable = () => {
-        setDirtyFlag(true);
-        setRepositoryLocationSettings([
-            ...repositoryLocationSettings,
-            {
-               repositoryLocationType: REPOSITORY_LOCATION_TYPE.Configurable,
-               value: ''
-            }
-        ]);
-    };
-
-    const onAddRepositoryLocationLocal = () => {
-        setDirtyFlag(true);
-        setRepositoryLocationSettings([
-            ...repositoryLocationSettings,
-            {
-               repositoryLocationType: REPOSITORY_LOCATION_TYPE.Local,
-               value: ''
-            }
-        ]);
-    };
-
-    const onChangeRepositoryLocationSettings = (updatedRepositoryLocationSettings: ModelRepositoryStateInterface) => {
-        setDirtyFlag(true);
-        setRepositoryLocationSettingsErrors(validateRepositoryLocationSettings(updatedRepositoryLocationSettings));
-        setRepositoryLocationSettings([
-            ...updatedRepositoryLocationSettings
-        ]);
-    };
-
-    React.useEffect(() => {
-        AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.PNP_REPO_SETTINGS});
-    }, []); // tslint:disable-line: align
 
     return (
-        <div>
-            <Prompt when={dirty} message={t(ResourceKeys.common.navigation.confirm)}/>
-            <CommandBar
-                items={getCommandBarItems()}
-            />
-            <div>
-                <ModelRepositoryInstruction empty={repositoryLocationSettings.length === 0}/>
-                <ModelRepositoryLocationList
-                    repositoryLocationSettings={repositoryLocationSettings}
-                    repositoryLocationSettingsErrors={repositoryLocationSettingsErrors}
-                    onChangeRepositoryLocationSettings={onChangeRepositoryLocationSettings}
-                />
-            </div>
-        </div>
+        <CommandBar
+            items={getCommandBarItems()}
+        />
     );
 };
 
 export const validateRepositoryLocationSettings = (repositoryLocationSettings: ModelRepositoryStateInterface): StringMap<string> => {
     const errors: StringMap<string> = {};
     repositoryLocationSettings.forEach(s => {
-        if (s.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local && !s.value) {
-            errors[REPOSITORY_LOCATION_TYPE.Local] = ResourceKeys.modelRepository.types.local.folderPicker.errors.mandatory;
-        }
-        if (s.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Configurable && !s.value) {
-            errors[REPOSITORY_LOCATION_TYPE.Configurable] = ResourceKeys.modelRepository.types.configurable.errors.mandatory;
+        if (!s.value) {
+            if (s.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local || s.repositoryLocationType === REPOSITORY_LOCATION_TYPE.LocalDMR || s.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Configurable) {
+                errors[s.repositoryLocationType] = ResourceKeys.modelRepository.types.mandatory;
+            }
         }
     });
 
