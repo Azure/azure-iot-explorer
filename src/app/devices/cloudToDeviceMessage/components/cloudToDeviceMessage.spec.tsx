@@ -32,7 +32,7 @@ describe('cloudToDeviceMessage', () => {
         const mockSendCloudToDeviceMessageSpy = jest.spyOn(cloudToDeviceMessageAction, 'started');
         const wrapper = mount(<CloudToDeviceMessage/>);
         const bodyTextField = wrapper.find(TextField).first();
-        act(() => bodyTextField.props().onChange(undefined, 'hello world'));
+        act(() => bodyTextField.props().onChange?.(undefined as any, 'hello world'));
         wrapper.update();
         const commandBar = wrapper.find(CommandBar).first();
         act(() => commandBar.props().items[0].onClick());
@@ -44,7 +44,7 @@ describe('cloudToDeviceMessage', () => {
         const mockSendCloudToDeviceMessageSpy = jest.spyOn(cloudToDeviceMessageAction, 'started');
         const wrapper = mount(<CloudToDeviceMessage/>);
         const checkbox = wrapper.find(Checkbox).first();
-        act(() => checkbox.props().onChange(undefined, true));
+        act(() => checkbox.props().onChange?.(undefined as any, true));
         wrapper.update();
         const commandBar = wrapper.find(CommandBar).first();
         const currentTime = new Date().toLocaleString();
@@ -62,12 +62,12 @@ describe('cloudToDeviceMessage', () => {
         wrapper.update();
 
         const keyInput = wrapper.find(TextField).at(1);
-        act(() => keyInput.props().onChange(undefined, 'foo'));
+        act(() => keyInput.props().onChange?.(undefined as any, 'foo'));
         wrapper.update();
         expect(wrapper.find(TextField).at(1).props().value).toEqual('foo');
 
         const valueInput = wrapper.find(TextField).at(2);
-        act(() => valueInput.props().onChange(undefined, 'bar'));
+        act(() => valueInput.props().onChange?.(undefined as any, 'bar'));
         wrapper.update();
         expect(wrapper.find(TextField).at(2).props().value).toEqual('bar');
 

@@ -986,7 +986,7 @@
             },
             "dmr": {
                 "label": "Local Repository",
-                "infoText": "Use your local folder as a model repository following the <0>resolution convention spec</0>. Please configure the file path to be your local DTMI root folder."
+                "infoText": "Use your local folder as a model repository following the <0>resolution convention spec</0>. Please configure the file path to be your local DTMI folder."
             },
             "notAvailable": "--",
             "mandatory": "Input is required."

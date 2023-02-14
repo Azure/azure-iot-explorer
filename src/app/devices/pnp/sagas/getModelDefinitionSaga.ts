@@ -15,7 +15,7 @@ import { fetchLocalFile, fetchLocalFileNaive } from '../../../api/services/local
 import { ModelDefinition } from '../../../api/models/modelDefinition';
 import { ModelDefinitionNotValidJsonError } from '../../../api/models/modelDefinitionNotValidJsonError';
 import { GetModelDefinitionActionParameters, getModelDefinitionAction } from '../actions';
-import { ModelIdCasingNotMatchingException } from '../../../shared/utils/exceptions/modelIdCasingNotMatchingException';
+import { checkModelIdCasing, getDmrParams, getFlattenedModel, getLocationSettingValue, getSplitInterfaceId } from './utils';
 
 export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionParameters>): SagaIterator {
     const { locations: configurations, interfaceId } = action.payload;
@@ -23,12 +23,11 @@ export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionP
     for (const configuration of configurations) { // try to get model definition in order according to user's location settings
         try {
             const modelDefinition: ModelDefinition = yield call(getModelDefinition, action, configuration.repositoryLocationType);
-            const isModelValid: boolean = yield call(validateModelDefinitionHelper, modelDefinition, configuration.repositoryLocationType);
             const extendedModel: ModelDefinition = yield call(expandFromExtendedModel, action, configuration.repositoryLocationType, modelDefinition);
             yield put(getModelDefinitionAction.done(
                 {
                     params: action.payload,
-                    result: { isModelValid, modelDefinition, extendedModel, source: configuration.repositoryLocationType }
+                    result: { isModelValid: true, modelDefinition, extendedModel, source: configuration.repositoryLocationType }
                 }));
             break; // found the model definition, break
         }
@@ -64,33 +63,6 @@ export function* getModelDefinitionSaga(action: Action<GetModelDefinitionActionP
     }
 }
 
-export function* validateModelDefinitionHelper(modelDefinition: ModelDefinition, location: REPOSITORY_LOCATION_TYPE): SagaIterator {
-    return true; // commenting out validating model until it aligns with local parser
-}
-
-export const getSplitInterfaceId = (fullName: string) => {
-    // when component definition is inline, interfaceId is compose of parent file name and inline schema id concatenated with a slash
-    return fullName.split('/');
-};
-
-export const getFlattenedModel = (model: ModelDefinition, splitInterfaceId: string[]) => {
-    if (splitInterfaceId.length === 1) {
-        return model;
-    }
-    else {
-        // for inline component, the flattened model is defined under contents array's with matching schema @id
-        const components = model.contents.filter((content: any) => // tslint:disable-line: no-any
-            content['@type'] === 'Component' && typeof content.schema !== 'string' && content.schema['@id'] === splitInterfaceId[1]);
-        return components[0];
-    }
-};
-
-export const checkModelIdCasing = (model: ModelDefinition, id: string) => {
-    if (model['@id'] !== id) {
-        throw new ModelIdCasingNotMatchingException();
-    }
-};
-
 export function* getModelDefinitionFromPublicRepo(action: Action<GetModelDefinitionActionParameters>): SagaIterator {
     const splitInterfaceId = getSplitInterfaceId(action.payload.interfaceId);
     const parameters: FetchModelParameters = {
@@ -103,9 +75,7 @@ export function* getModelDefinitionFromPublicRepo(action: Action<GetModelDefinit
 }
 
 export function* getModelDefinitionFromConfigurableRepo(action: Action<GetModelDefinitionActionParameters>): SagaIterator {
-    const configurableRepoUrls = action.payload.locations.filter(location => location.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Configurable);
-    const configurableRepoUrl = configurableRepoUrls && configurableRepoUrls[0] && configurableRepoUrls[0].value || '';
-    const url = configurableRepoUrl.replace(/\/$/, ''); // remove trailing slash
+    const url = getLocationSettingValue(action.payload.locations, REPOSITORY_LOCATION_TYPE.Configurable);
     const splitInterfaceId = getSplitInterfaceId(action.payload.interfaceId);
     const parameters: FetchModelParameters = {
         id: splitInterfaceId[0],
@@ -118,25 +88,17 @@ export function* getModelDefinitionFromConfigurableRepo(action: Action<GetModelD
 }
 
 export function* getModelDefinitionFromLocalFile(action: Action<GetModelDefinitionActionParameters>): SagaIterator {
-    const localFolderPaths = action.payload.locations.filter(location => location.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local);
-    const localFolderPath = localFolderPaths && localFolderPaths[0] && localFolderPaths[0].value || '';
-    const path = localFolderPath.replace(/\/$/, ''); // remove trailing slash
+    const path = getLocationSettingValue(action.payload.locations, REPOSITORY_LOCATION_TYPE.Local);
     const splitInterfaceId = getSplitInterfaceId(action.payload.interfaceId);
     const model = yield call(fetchLocalFile, path, splitInterfaceId[0]);
     return getFlattenedModel(model, splitInterfaceId);
 }
 
 export function* getModelDefinitionFromLocalDMR(action: Action<GetModelDefinitionActionParameters>): SagaIterator {
-    const localFolderPaths = action.payload.locations.filter(location => location.repositoryLocationType === REPOSITORY_LOCATION_TYPE.LocalDMR);
-    const localFolderPath = localFolderPaths && localFolderPaths[0] && localFolderPaths[0].value || '';
-    const path = localFolderPath.replace(/\/$/, ''); // remove trailing slash
+    const path = getLocationSettingValue(action.payload.locations, REPOSITORY_LOCATION_TYPE.LocalDMR);
     const splitInterfaceId = getSplitInterfaceId(action.payload.interfaceId);
-
-    // convert dtmi name to follow drm convention
-    // for example: dtmi:com:example:Thermostat;1 -> dtmi/com/example/thermostat-1.json
-    const fullPath = path.substring(0, path.lastIndexOf('/') + 1) + `${splitInterfaceId[0].toLowerCase().replace(/:/g, '/').replace(';', '-')}.json`;
-    // path will be converted to for example: original path/dtmi/com/example, file name will be thermostat-1.json
-    const model = yield call(fetchLocalFileNaive, fullPath.substring(0, fullPath.lastIndexOf('/')), fullPath.substring(fullPath.lastIndexOf('/') + 1, fullPath.length));
+    const {folderPath, fileName} = getDmrParams(path, splitInterfaceId[0]);
+    const model = yield call(fetchLocalFileNaive, folderPath, fileName);
     return getFlattenedModel(model, splitInterfaceId);
 }
 

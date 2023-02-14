@@ -3,16 +3,15 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Trans, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { DefaultButton, PrimaryButton, Dialog, DialogFooter, TextField, Link } from '@fluentui/react';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { NAVIGATE_BACK, FOLDER } from '../../constants/iconNames';
 import { fetchDirectories } from '../../api/services/localRepoService';
 import { getRootFolder, getParentFolder } from '../../shared/utils/utils';
-import { ModelRepositoryConfiguration, ModelRepositoryStateInterface } from '../../shared/modelRepository/state';
+import { ModelRepositoryConfiguration } from '../../shared/modelRepository/state';
 import { ModelRepositoryFormType } from '../hooks/useModelRepositoryForm';
-import { validateRepositoryLocationSettings } from './commands';
 import { ListItemLocalLabel } from './listItemLocalLabel';
 
 export interface ListItemLocalProps {
@@ -25,7 +24,7 @@ export interface ListItemLocalProps {
 // tslint:disable-next-line: cyclomatic-complexity
 export const ListItemLocal: React.FC<ListItemLocalProps> = ({ item, index, repoType, formState }) => {
     const { t } = useTranslation();
-    const [{repositoryLocationSettings, repositoryLocationSettingsErrors }, {setRepositoryLocationSettings, setRepositoryLocationSettingsErrors, setDirtyFlag}] = formState;
+    const [{repositoryLocationSettings, repositoryLocationSettingsErrors }, {setRepositoryLocationSettings, setDirtyFlag}] = formState;
     const errorKey = repositoryLocationSettingsErrors[item.repositoryLocationType];
 
     let initialCurrentFolder = '';
@@ -42,14 +41,6 @@ export const ListItemLocal: React.FC<ListItemLocalProps> = ({ item, index, repoT
         setCurrentFolder(initialCurrentFolder);
     }, [initialCurrentFolder]); // tslint:disable-line: align
 
-    const onChangeRepositoryLocationSettings = (updatedRepositoryLocationSettings: ModelRepositoryStateInterface) => {
-        setDirtyFlag(true);
-        setRepositoryLocationSettingsErrors(validateRepositoryLocationSettings(updatedRepositoryLocationSettings));
-        setRepositoryLocationSettings([
-            ...updatedRepositoryLocationSettings
-        ]);
-    };
-
     const onChangeRepositoryLocationSettingValue = (value: string) => {
         const updatedRepositoryLocationSettings = repositoryLocationSettings.map((setting, i) => {
             if (i === index) {
@@ -61,7 +52,8 @@ export const ListItemLocal: React.FC<ListItemLocalProps> = ({ item, index, repoT
             }
         });
 
-        onChangeRepositoryLocationSettings(updatedRepositoryLocationSettings);
+        setDirtyFlag(true);
+        setRepositoryLocationSettings(updatedRepositoryLocationSettings);
     };
 
     const onFolderPathChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {

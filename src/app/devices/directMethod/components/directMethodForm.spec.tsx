@@ -17,7 +17,7 @@ describe('directMethodForm', () => {
         const mockResponseTimeOut = jest.fn();
         const wrapper = mount(
             <DirectMethodForm
-                methodName={undefined}
+                methodName={undefined as any}
                 connectionTimeOut={0}
                 responseTimeOut={0}
                 setMethodName={mockSetMethodName}
@@ -26,20 +26,20 @@ describe('directMethodForm', () => {
                 setResponseTimeOut={mockResponseTimeOut}
             />);
 
-        act(() => wrapper.find(TextField).first().props().onChange(undefined, 'testMethod'));
+        act(() => wrapper.find(TextField).first().props().onChange?.(undefined as any, 'testMethod'));
         wrapper.update();
         expect(mockSetMethodName).toBeCalledWith('testMethod');
 
-        act(() => wrapper.find(TextField).at(1).props().onChange(undefined, 'payload'));
+        act(() => wrapper.find(TextField).at(1).props().onChange?.(undefined as any, 'payload'));
         wrapper.update();
         expect(mockSetPayload).toBeCalledWith('payload');
 
-        act(() => wrapper.find(Slider).first().props().onChange(10));
+        act(() => wrapper.find(Slider).first().props().onChange?.(10));
         wrapper.update();
         expect(mockConnectionTimeOut).toBeCalledWith(10);
         expect(mockResponseTimeOut).toBeCalledWith(10);
 
-        act(() => wrapper.find(Slider).at(1).props().onChange(20));
+        act(() => wrapper.find(Slider).at(1).props().onChange?.(20));
         wrapper.update();
         expect(mockResponseTimeOut).toBeCalledWith(20);
     });

@@ -1,0 +1,117 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`view matches snapshot when locations greater than 0 1`] = `
+<div>
+  <Component
+    message="common.navigation.confirm"
+    when={false}
+  />
+  <Commands
+    formState={
+      Array [
+        Object {
+          "dirty": false,
+          "repositoryLocationSettings": Array [
+            Object {
+              "repositoryLocationType": "PUBLIC",
+              "value": "",
+            },
+            Object {
+              "repositoryLocationType": "CONFIGURABLE",
+              "value": "d:/",
+            },
+          ],
+          "repositoryLocationSettingsErrors": Object {},
+        },
+        Object {
+          "setDirtyFlag": [Function],
+          "setRepositoryLocationSettings": [Function],
+          "setRepositoryLocationSettingsErrors": [Function],
+        },
+      ]
+    }
+  />
+  <div>
+    <ModelRepositoryInstruction />
+    <ModelRepositoryLocationList
+      formState={
+        Array [
+          Object {
+            "dirty": false,
+            "repositoryLocationSettings": Array [
+              Object {
+                "repositoryLocationType": "PUBLIC",
+                "value": "",
+              },
+              Object {
+                "repositoryLocationType": "CONFIGURABLE",
+                "value": "d:/",
+              },
+            ],
+            "repositoryLocationSettingsErrors": Object {},
+          },
+          Object {
+            "setDirtyFlag": [Function],
+            "setRepositoryLocationSettings": [Function],
+            "setRepositoryLocationSettingsErrors": [Function],
+          },
+        ]
+      }
+    />
+  </div>
+</div>
+`;
+
+exports[`view matches snapshot when no locations 1`] = `
+<div>
+  <Component
+    message="common.navigation.confirm"
+    when={false}
+  />
+  <Commands
+    formState={
+      Array [
+        Object {
+          "dirty": false,
+          "repositoryLocationSettings": Array [
+            Object {
+              "repositoryLocationType": "PUBLIC",
+              "value": "",
+            },
+          ],
+          "repositoryLocationSettingsErrors": Object {},
+        },
+        Object {
+          "setDirtyFlag": [Function],
+          "setRepositoryLocationSettings": [Function],
+          "setRepositoryLocationSettingsErrors": [Function],
+        },
+      ]
+    }
+  />
+  <div>
+    <ModelRepositoryInstruction />
+    <ModelRepositoryLocationList
+      formState={
+        Array [
+          Object {
+            "dirty": false,
+            "repositoryLocationSettings": Array [
+              Object {
+                "repositoryLocationType": "PUBLIC",
+                "value": "",
+              },
+            ],
+            "repositoryLocationSettingsErrors": Object {},
+          },
+          Object {
+            "setDirtyFlag": [Function],
+            "setRepositoryLocationSettings": [Function],
+            "setRepositoryLocationSettingsErrors": [Function],
+          },
+        ]
+      }
+    />
+  </div>
+</div>
+`;

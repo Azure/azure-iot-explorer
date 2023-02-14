@@ -6,19 +6,10 @@ import * as React from 'react';
 import { useModelRepositoryContext } from '../../shared/modelRepository/context/modelRepositoryStateContext';
 import { StringMap } from '../../api/models/stringMap';
 import { ModelRepositoryStateInterface } from '../../shared/modelRepository/state';
+import { ModelRepositoryFormStateInterface } from '../state';
+import { ModelRepositoryFormOpsInterface } from '../interface';
 
-export type ModelRepositoryFormType = [{
-        dirty: boolean;
-        repositoryLocationSettings: ModelRepositoryStateInterface;
-        repositoryLocationSettingsErrors: StringMap<string>;
-    },
-    {
-        setDirtyFlag: (dirty: boolean) => void;
-        setRepositoryLocationSettings: (settings: ModelRepositoryStateInterface) => void;
-        setRepositoryLocationSettingsErrors: (errors: StringMap<string> ) => void;
-    }
-];
-
+export type ModelRepositoryFormType = [ModelRepositoryFormStateInterface, ModelRepositoryFormOpsInterface];
 export const useModelRepositoryForm = (): ModelRepositoryFormType => {
     const [ modelRepositoryState, ] = useModelRepositoryContext();
     const [ repositoryLocationSettings, setRepositoryLocationSettings ] = React.useState<ModelRepositoryStateInterface>(modelRepositoryState);

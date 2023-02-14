@@ -111,7 +111,6 @@ export const handleReadFileRequest = (req: express.Request, res: express.Respons
 };
 
 const readFileNaiveUri = '/api/ReadFileNaive/:path/:file';
-// tslint:disable-next-line:cyclomatic-complexity
 export const handleReadFileNaiveRequest = (req: express.Request, res: express.Response) => {
     try {
         const filePath = req.params.path;
@@ -120,16 +119,9 @@ export const handleReadFileNaiveRequest = (req: express.Request, res: express.Re
             res.status(BAD_REQUEST).send();
         }
         else {
-            try {
-                const data = readFileFromLocal(filePath, expectedFileName);
-                if (data) {
-                    res.status(SUCCESS).send(data);
-                }
-            }
-            catch (error) {
-                res.status(NOT_FOUND).send(error.message); // couldn't find matching file, and the folder contains json files that cannot be parsed
-            }
-
+            const data = readFileFromLocal(filePath, expectedFileName);
+            JSON.parse(data); // try parse the data to validate json format
+            res.status(SUCCESS).send(data);
         }
     }
     catch (error) {

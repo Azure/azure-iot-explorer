@@ -132,7 +132,7 @@ describe('deviceIdentity', () => {
                     }
                 })
             );
-            act(() => wrapper.find(Toggle).first().props().onChange(undefined, false));
+            act(() => wrapper.find(Toggle).first().props().onChange?.(undefined as any, false));
             wrapper.update();
 
             const commandBar = wrapper.find(CommandBar).first();

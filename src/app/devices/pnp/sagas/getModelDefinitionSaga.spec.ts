@@ -11,9 +11,8 @@ import {
     getModelDefinition,
     getModelDefinitionFromPublicRepo,
     getModelDefinitionFromLocalFile,
-    validateModelDefinitionHelper,
-    getFlattenedModel,
     getModelDefinitionFromConfigurableRepo,
+    getModelDefinitionFromLocalDMR,
     expandFromExtendedModel
 } from './getModelDefinitionSaga';
 import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
@@ -21,58 +20,19 @@ import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getModelDefinitionAction, GetModelDefinitionActionParameters } from '../actions';
 import { REPOSITORY_LOCATION_TYPE } from '../../../constants/repositoryLocationTypes';
-import { fetchLocalFile } from '../../../api/services/localRepoService';
+import { fetchLocalFile, fetchLocalFileNaive } from '../../../api/services/localRepoService';
 import { fetchModelDefinition } from '../../../api/services/publicDigitalTwinsModelRepoService';
-import { ModelDefinition } from './../../../api/models/modelDefinition';
+import { interfaceId, modelDefinition, modelDefinitionWithInlineComp, schemaId} from './testData';
 
 describe('modelDefinition sagas', () => {
     describe('modelDefinition saga flow with no inline component', () => {
         const digitalTwinId = 'device_id';
-        const interfaceId = 'urn:azureiot:ModelDiscovery:DigitalTwin:1';
         const params: GetModelDefinitionActionParameters = {
             digitalTwinId,
             interfaceId,
             locations: [{ repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public, value: '' }],
         };
         const action = getModelDefinitionAction.started(params);
-        /* tslint:disable */
-        const modelDefinition = {
-            "@id": "urn:azureiot:ModelDiscovery:DigitalTwin:1",
-            "@type": "Interface",
-            "contents": [
-                {
-                    "@type": "Property",
-                    "name": "modelInformation",
-                    "displayName": "Model Information",
-                    "description": "Providing model and optional interfaces information on a digital twin.",
-                    "schema": {
-                        "@type": "Object",
-                        "fields": [
-                            {
-                                "name": "modelId",
-                                "schema": "string"
-                            },
-                            {
-                                "name": "interfaces",
-                                "schema": {
-                                    "@type": "Map",
-                                    "mapKey": {
-                                        "name": "name",
-                                        "schema": "string"
-                                    },
-                                    "mapValue": {
-                                        "name": "schema",
-                                        "schema": "string"
-                                    }
-                                }
-                            }
-                        ]
-                    }
-                }
-            ],
-            "@context": "https://azureiot.com/v1/contexts/Interface.json"
-        };
-        /* tslint:enable */
 
         describe('getModelDefinitionSaga', () => {
             let getModelDefinitionSagaGenerator: SagaIteratorClone;
@@ -85,13 +45,10 @@ describe('modelDefinition sagas', () => {
                 expect(getModelDefinitionSagaGenerator.next().value).toEqual(
                     call(getModelDefinition, action, REPOSITORY_LOCATION_TYPE.Public)
                 );
-
-                expect(getModelDefinitionSagaGenerator.next(modelDefinition).value).toEqual(
-                    call(validateModelDefinitionHelper, modelDefinition, REPOSITORY_LOCATION_TYPE.Public)
-                );
             });
+
             it('checks for extends', () => {
-                expect(getModelDefinitionSagaGenerator.next(true).value).toEqual(
+                expect(getModelDefinitionSagaGenerator.next(modelDefinition).value).toEqual(
                     call(expandFromExtendedModel, action, REPOSITORY_LOCATION_TYPE.Public, modelDefinition)
                 );
             });
@@ -166,6 +123,23 @@ describe('modelDefinition sagas', () => {
             expect(getModelDefinitionFromLocalFolderGenerator.next(modelDefinition).done).toEqual(true);
         });
 
+        describe('getModelDefinitionFromLocalDMR ', () => {
+            const getModelDefinitionFromPublicRepoGenerator = cloneableGenerator(getModelDefinitionFromLocalDMR)(
+                getModelDefinitionAction.started({
+                    digitalTwinId,
+                    interfaceId,
+                    locations: [{ repositoryLocationType: REPOSITORY_LOCATION_TYPE.LocalDMR, value: 'f:/dtmi' }],
+                })
+            );
+
+            expect(getModelDefinitionFromPublicRepoGenerator.next([interfaceId])).toEqual({
+                done: false,
+                value: call(fetchLocalFileNaive, 'f:/dtmi/com/example', 'thermostat-1.json')
+            });
+
+            expect(getModelDefinitionFromPublicRepoGenerator.next(modelDefinition).done).toEqual(true);
+        });
+
         describe('getModelDefinition', () => {
             it('getModelDefinition from public repo', () => {
                 const getModelDefinitionFromPublicRepoGenerator = cloneableGenerator(getModelDefinition)(action, REPOSITORY_LOCATION_TYPE.Public);
@@ -185,16 +159,11 @@ describe('modelDefinition sagas', () => {
                 expect(getModelDefinitionFromDeviceGenerator.next().done).toEqual(true);
             });
         });
-
-        describe('getFlattenedModel ', () => {
-            expect(getFlattenedModel(modelDefinition, [interfaceId])).toEqual(modelDefinition);
-        });
     });
 
     describe('modelDefinition saga flow with inline component', () => {
         const digitalTwinId = 'device_id';
         const interfaceId = 'urn:azureiot:ModelDiscovery:DigitalTwin:1';
-        const schemaId = 'dtmi:com:rido:inlineTests:inlineComp;2';
         const fullInterfaceId = `${interfaceId}/${schemaId}`;
         const params: GetModelDefinitionActionParameters = {
             digitalTwinId,
@@ -202,31 +171,7 @@ describe('modelDefinition sagas', () => {
             locations: [{ repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public, value: '' }],
         };
         const action = getModelDefinitionAction.started(params);
-        /* tslint:disable */
-        const modelDefinition: ModelDefinition = {
-            "@context": "dtmi:dtdl:context;2",
-            "@id": "urn:azureiot:ModelDiscovery:DigitalTwin:1",
-            "@type": "Interface",
-            "contents": [
-              {
-                "@id": "dtmi:com:rido:inlineComp;2",
-                "@type": "Component",
-                "name": "inLineComponent",
-                "schema": {
-                  "@type": "Interface",
-                  "@id": schemaId,
-                  "contents": [
-                    {
-                      "@type" : "Property",
-                      "name" : "inlineProp",
-                      "schema" : "string"
-                    }
-                  ]
-                }
-              }
-            ]
-          };
-        /* tslint:enable */
+        const modelDefinition = modelDefinitionWithInlineComp;
 
         describe('getModelDefinitionFromPublicRepo ', () => {
             const getModelDefinitionFromPublicRepoGenerator = cloneableGenerator(getModelDefinitionFromPublicRepo)(action);
@@ -276,10 +221,6 @@ describe('modelDefinition sagas', () => {
             });
 
             expect(getModelDefinitionFromConfigurableRepoGenerator.next(modelDefinition).done).toEqual(true);
-        });
-
-        describe('getFlattenedModel ', () => {
-            expect(getFlattenedModel(modelDefinition, [interfaceId, schemaId])).toEqual(modelDefinition.contents[0]);
         });
     });
 });

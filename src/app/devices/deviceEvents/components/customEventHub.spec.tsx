@@ -43,11 +43,11 @@ describe('customEventHub', () => {
                 setHasError={jest.fn()}
             />);
 
-        act(() => wrapper.find(Toggle).first().props().onChange(undefined, false));
+        act(() => wrapper.find(Toggle).first().props().onChange?.(undefined as any, false));
         wrapper.update();
         expect(mockSetUseBuiltInEventHub).toBeCalledWith(true);
 
-        act(() => wrapper.find(TextField).first().props().onChange(undefined, 'connectionString'));
+        act(() => wrapper.find(TextField).first().props().onChange?.(undefined as any, 'connectionString'));
         wrapper.update();
         expect(mockSetCustomEventHubConnectionString).toBeCalledWith('connectionString');
     });

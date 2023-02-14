@@ -8,9 +8,8 @@ import { IconButton } from '@fluentui/react';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { CANCEL } from '../../constants/iconNames';
-import { ModelRepositoryConfiguration, ModelRepositoryStateInterface } from '../../shared/modelRepository/state';
+import { ModelRepositoryConfiguration } from '../../shared/modelRepository/state';
 import { ModelRepositoryFormType } from '../hooks/useModelRepositoryForm';
-import { validateRepositoryLocationSettings } from './commands';
 import { ListItemPublicRepo } from './listItemPublicRepo';
 import { ListItemConfigurableRepo } from './listItemConfigurableRepo';
 import { ListItemLocal } from './listItemLocal';
@@ -24,20 +23,14 @@ export interface ModelRepositoryLocationListItemProps {
 
 export const ModelRepositoryLocationListItem: React.FC<ModelRepositoryLocationListItemProps> = ({index, item, formState}) => {
     const { t } = useTranslation();
-    const [{repositoryLocationSettings }, {setRepositoryLocationSettings, setRepositoryLocationSettingsErrors, setDirtyFlag}] = formState;
+    const [{repositoryLocationSettings }, {setRepositoryLocationSettings, setDirtyFlag}] = formState;
 
     const onRemove = () => {
         const updatedRepositoryLocationSettings = [...repositoryLocationSettings];
         updatedRepositoryLocationSettings.splice(index, 1);
-        onChangeRepositoryLocationSettings(updatedRepositoryLocationSettings);
-    };
 
-    const onChangeRepositoryLocationSettings = (updatedRepositoryLocationSettings: ModelRepositoryStateInterface) => {
         setDirtyFlag(true);
-        setRepositoryLocationSettingsErrors(validateRepositoryLocationSettings(updatedRepositoryLocationSettings));
-        setRepositoryLocationSettings([
-            ...updatedRepositoryLocationSettings
-        ]);
+        setRepositoryLocationSettings(updatedRepositoryLocationSettings);
     };
 
     const renderItemDetail = () => {

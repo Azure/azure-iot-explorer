@@ -7,9 +7,8 @@ import { useTranslation } from 'react-i18next';
 import { TextField } from '@fluentui/react';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
 import { ResourceKeys } from '../../../localization/resourceKeys';
-import { ModelRepositoryConfiguration, ModelRepositoryStateInterface } from '../../shared/modelRepository/state';
+import { ModelRepositoryConfiguration } from '../../shared/modelRepository/state';
 import { ModelRepositoryFormType } from '../hooks/useModelRepositoryForm';
-import { validateRepositoryLocationSettings } from './commands';
 
 export interface ListItemConfigurableRepoProps{
     index: number;
@@ -19,7 +18,7 @@ export interface ListItemConfigurableRepoProps{
 
 export const ListItemConfigurableRepo: React.FC<ListItemConfigurableRepoProps> = ({index, item, formState}) => {
     const { t } = useTranslation();
-    const [{repositoryLocationSettings, repositoryLocationSettingsErrors }, {setRepositoryLocationSettings, setRepositoryLocationSettingsErrors, setDirtyFlag}] = formState;
+    const [{repositoryLocationSettings, repositoryLocationSettingsErrors }, {setRepositoryLocationSettings, setDirtyFlag}] = formState;
     const errorKey = repositoryLocationSettingsErrors[item.repositoryLocationType];
 
     let initialConfigurableRepositoryPath = '';
@@ -32,14 +31,6 @@ export const ListItemConfigurableRepo: React.FC<ListItemConfigurableRepoProps> =
         setCurrentConfigurableRepositoryPath(initialConfigurableRepositoryPath);
     }, [initialConfigurableRepositoryPath]); // tslint:disable-line: align
 
-    const onChangeRepositoryLocationSettings = (updatedRepositoryLocationSettings: ModelRepositoryStateInterface) => {
-        setDirtyFlag(true);
-        setRepositoryLocationSettingsErrors(validateRepositoryLocationSettings(updatedRepositoryLocationSettings));
-        setRepositoryLocationSettings([
-            ...updatedRepositoryLocationSettings
-        ]);
-    };
-
     const onChangeRepositoryLocationSettingValue = (value: string) => {
         const updatedRepositoryLocationSettings = repositoryLocationSettings.map((setting, i) => {
             if (i === index) {
@@ -51,7 +42,8 @@ export const ListItemConfigurableRepo: React.FC<ListItemConfigurableRepoProps> =
             }
         });
 
-        onChangeRepositoryLocationSettings(updatedRepositoryLocationSettings);
+        setDirtyFlag(true);
+        setRepositoryLocationSettings(updatedRepositoryLocationSettings);
     };
 
     const repositoryEndpointChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
