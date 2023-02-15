@@ -5,7 +5,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { NavLink, useLocation, useHistory, useRouteMatch } from 'react-router-dom';
-import { DetailsList, IColumn, SelectionMode, CommandBar } from '@fluentui/react';
+import { DetailsList, IColumn, SelectionMode, CommandBar, Label } from '@fluentui/react';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { REFRESH, ArrayOperation } from '../../../../constants/iconNames';
@@ -20,9 +20,9 @@ import { moduleIndentityListStateInitial } from '../state';
 import { getModuleIdentitiesSaga } from '../saga';
 import { moduleIdentityListReducer } from '../reducer';
 import { getModuleIdentitiesAction } from '../actions';
-import '../../../../css/_deviceDetail.scss';
 import { AppInsightsClient } from '../../../../shared/appTelemetry/appInsightsClient';
 import { TELEMETRY_PAGE_NAMES } from '../../../../../app/constants/telemetry';
+import '../../../../css/_deviceDetail.scss';
 
 export const ModuleIdentityList: React.FC = () => {
     const { t } = useTranslation();
@@ -110,12 +110,12 @@ export const ModuleIdentityList: React.FC = () => {
                 minWidth: 50,
                 name: t(ResourceKeys.moduleIdentity.columns.moduleId),
                 onRender: item => (
-                <NavLink
-                    key={item.key}
-                    to={getModuleDetailPageUrl(item)}
-                >
-                    {item.moduleId}
-                </NavLink>
+                    <NavLink
+                        key={item.key}
+                        to={getModuleDetailPageUrl(item)}
+                    >
+                        {item.moduleId}
+                    </NavLink>
                 )
             },
             {
@@ -125,7 +125,14 @@ export const ModuleIdentityList: React.FC = () => {
                 key: 'connectionState',
                 maxWidth: 200,
                 minWidth: 50,
-                name: t(ResourceKeys.moduleIdentity.columns.connectionState)
+                name: t(ResourceKeys.moduleIdentity.columns.connectionState),
+                onRender: item => (
+                    <Label
+                        key={item.key}
+                    >
+                        {item.connectionState}
+                    </Label>
+                )
             },
             {
                 ariaLabel: t(ResourceKeys.moduleIdentity.columns.connectionStateLastUpdated),
@@ -135,7 +142,13 @@ export const ModuleIdentityList: React.FC = () => {
                 maxWidth: 250,
                 minWidth: 150,
                 name: t(ResourceKeys.moduleIdentity.columns.connectionStateLastUpdated),
-                onRender: item => parseDateTimeString(item.connectionStateUpdatedTime) || '--'
+                onRender: item => (
+                    <Label
+                        key={item.key}
+                    >
+                        {parseDateTimeString(item.connectionStateUpdatedTime) || '--'}
+                    </Label>
+                )
             },
             {
                 ariaLabel: t(ResourceKeys.moduleIdentity.columns.lastActivityTime),
@@ -145,7 +158,13 @@ export const ModuleIdentityList: React.FC = () => {
                 maxWidth: 250,
                 minWidth: 150,
                 name: t(ResourceKeys.moduleIdentity.columns.lastActivityTime),
-                onRender: item => parseDateTimeString(item.lastActivityTime) || '--'
+                onRender: item => (
+                    <Label
+                        key={item.key}
+                    >
+                        {parseDateTimeString(item.lastActivityTime) || '--'}
+                    </Label>
+                )
             },
             {
                 ariaLabel: t(ResourceKeys.moduleIdentity.columns.modelId),
@@ -153,7 +172,14 @@ export const ModuleIdentityList: React.FC = () => {
                 key: 'modelId',
                 maxWidth: 250,
                 minWidth: 150,
-                name: t(ResourceKeys.moduleIdentity.columns.modelId)
+                name: t(ResourceKeys.moduleIdentity.columns.modelId),
+                onRender: item => (
+                    <Label
+                        key={item.key}
+                    >
+                        {item.modelId || '--'}
+                    </Label>
+                )
             }];
 
         return columns;

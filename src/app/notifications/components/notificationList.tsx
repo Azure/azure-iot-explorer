@@ -29,7 +29,7 @@ export const NotificationList: React.FC = () => {
     const getCommandBarItems = (): ICommandBarItemProps[] => {
         const items = [
             {
-                ariaLabel: t(ResourceKeys.modelRepository.commands.back.ariaLabel),
+                ariaLabel: t(ResourceKeys.header.notifications.dismiss),
                 disabled: notifications.length === 0,
                 iconProps: { iconName: CANCEL},
                 key: 'back',

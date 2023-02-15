@@ -244,8 +244,6 @@ export const DeviceList: React.FC = () => {
                         <Icon
                             key={column.key}
                             iconName={isEdge && CHECK}
-                            ariaLabel={isEdge ?
-                                t(ResourceKeys.deviceLists.columns.isEdgeDevice.yes) : t(ResourceKeys.deviceLists.columns.isEdgeDevice.no)}
                         />
                     );
                 }
