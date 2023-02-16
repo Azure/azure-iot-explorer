@@ -19,6 +19,7 @@ exports[`copyToClipboard matches snapshot 1`] = `
       value="text"
     />
     <CustomizedIconButton
+      ariaLabel="common.maskedCopyableTextField.copy.label"
       componentRef={
         Object {
           "current": null,
@@ -58,6 +59,7 @@ exports[`copyToClipboard matches snapshot disabled 1`] = `
       value="text"
     />
     <CustomizedIconButton
+      ariaLabel="common.maskedCopyableTextField.copy.label"
       componentRef={
         Object {
           "current": null,

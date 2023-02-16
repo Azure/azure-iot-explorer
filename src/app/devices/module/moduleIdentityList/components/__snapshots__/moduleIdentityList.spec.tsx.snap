@@ -60,6 +60,7 @@ exports[`ModuleIdentityList snapshot matches snapshot when fetch failed 1`] = `
               "maxWidth": 200,
               "minWidth": 50,
               "name": "moduleIdentity.columns.connectionState",
+              "onRender": [Function],
             },
             Object {
               "ariaLabel": "moduleIdentity.columns.connectionStateLastUpdated",
@@ -88,6 +89,7 @@ exports[`ModuleIdentityList snapshot matches snapshot when fetch failed 1`] = `
               "maxWidth": 250,
               "minWidth": 150,
               "name": "moduleIdentity.columns.modelId",
+              "onRender": [Function],
             },
           ]
         }
@@ -160,6 +162,7 @@ exports[`ModuleIdentityList snapshot matches snapshot while loading 1`] = `
               "maxWidth": 200,
               "minWidth": 50,
               "name": "moduleIdentity.columns.connectionState",
+              "onRender": [Function],
             },
             Object {
               "ariaLabel": "moduleIdentity.columns.connectionStateLastUpdated",
@@ -188,6 +191,7 @@ exports[`ModuleIdentityList snapshot matches snapshot while loading 1`] = `
               "maxWidth": 250,
               "minWidth": 150,
               "name": "moduleIdentity.columns.modelId",
+              "onRender": [Function],
             },
           ]
         }
@@ -260,6 +264,7 @@ exports[`ModuleIdentityList snapshot matches snapshot with moduleIdentityList 1`
               "maxWidth": 200,
               "minWidth": 50,
               "name": "moduleIdentity.columns.connectionState",
+              "onRender": [Function],
             },
             Object {
               "ariaLabel": "moduleIdentity.columns.connectionStateLastUpdated",
@@ -288,6 +293,7 @@ exports[`ModuleIdentityList snapshot matches snapshot with moduleIdentityList 1`
               "maxWidth": 250,
               "minWidth": 150,
               "name": "moduleIdentity.columns.modelId",
+              "onRender": [Function],
             },
           ]
         }

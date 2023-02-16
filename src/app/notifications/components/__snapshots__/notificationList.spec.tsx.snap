@@ -6,7 +6,7 @@ exports[`notificationList matches snapshot where there are no notifications 1`] 
     items={
       Array [
         Object {
-          "ariaLabel": "modelRepository.commands.back.ariaLabel",
+          "ariaLabel": "header.notifications.dismiss",
           "disabled": true,
           "iconProps": Object {
             "iconName": "Cancel",
@@ -34,7 +34,7 @@ exports[`notificationList matches snapshot where there is no notifications 1`] =
     items={
       Array [
         Object {
-          "ariaLabel": "modelRepository.commands.back.ariaLabel",
+          "ariaLabel": "header.notifications.dismiss",
           "disabled": false,
           "iconProps": Object {
             "iconName": "Cancel",
