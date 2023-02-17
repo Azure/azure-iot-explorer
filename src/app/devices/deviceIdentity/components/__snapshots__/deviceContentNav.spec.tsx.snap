@@ -2,6 +2,7 @@
 
 exports[`deviceContentNav matches snapshot when the device is edge 1`] = `
 <div
+  className="nav-link-left"
   role="navigation"
 >
   <StyledNavBase
@@ -67,6 +68,7 @@ exports[`deviceContentNav matches snapshot when the device is edge 1`] = `
 
 exports[`deviceContentNav matches snapshot when the device is not edge 1`] = `
 <div
+  className="nav-link-left"
   role="navigation"
 >
   <StyledNavBase

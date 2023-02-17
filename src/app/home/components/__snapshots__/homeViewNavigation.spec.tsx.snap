@@ -2,44 +2,43 @@
 
 exports[`homeViewNavigation matches snapshot 1`] = `
 <div
-  className="nav-link-bar view"
+  className="nav-link-left"
+  role="navigation"
 >
-  <div>
-    <CollapsibleButton />
-    <StyledNavBase
-      groups={
-        Array [
-          Object {
-            "links": Array [
-              Object {
-                "iconProps": Object {
-                  "iconName": "Org",
-                },
-                "key": "resources",
-                "name": "breadcrumb.resources",
-                "url": "#/home/resources",
+  <CollapsibleButton />
+  <StyledNavBase
+    groups={
+      Array [
+        Object {
+          "links": Array [
+            Object {
+              "iconProps": Object {
+                "iconName": "Org",
               },
-              Object {
-                "iconProps": Object {
-                  "iconName": "PlugDisconnected",
-                },
-                "key": "repos",
-                "name": "breadcrumb.repos",
-                "url": "#/home/repos",
+              "key": "resources",
+              "name": "breadcrumb.resources",
+              "url": "#/home/resources",
+            },
+            Object {
+              "iconProps": Object {
+                "iconName": "PlugDisconnected",
               },
-              Object {
-                "iconProps": Object {
-                  "iconName": "Ringer",
-                },
-                "key": "notifications",
-                "name": "breadcrumb.notificationCenter",
-                "url": "#/home/notifications",
+              "key": "repos",
+              "name": "breadcrumb.repos",
+              "url": "#/home/repos",
+            },
+            Object {
+              "iconProps": Object {
+                "iconName": "Ringer",
               },
-            ],
-          },
-        ]
-      }
-    />
-  </div>
+              "key": "notifications",
+              "name": "breadcrumb.notificationCenter",
+              "url": "#/home/notifications",
+            },
+          ],
+        },
+      ]
+    }
+  />
 </div>
 `;

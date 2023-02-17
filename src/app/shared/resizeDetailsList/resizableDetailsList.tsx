@@ -47,7 +47,6 @@ export const ResizableDetailsList: React.FC<IDetailsListProps> = props => {
     const resizableColumns = columns.map(column => ({ ...column, onColumnClick, columnActionsMode: ColumnActionsMode.hasDropdown, isResizable: true}));
     return (
         <>
-
             <DetailsList
                 ariaLabelForSelectionColumn={ariaLabelForSelectionColumn}
                 ariaLabelForSelectAllCheckbox={ariaLabelForSelectAllCheckbox}
