@@ -3,31 +3,32 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { DefaultButton, Dialog, DialogFooter, DialogType, IColumn, ITextField, PrimaryButton, TextField } from '@fluentui/react';
+import { useTranslation } from 'react-i18next';
+import { DefaultButton, Dialog, DialogFooter, DialogType, IColumn, IDetailsList, ITextField, PrimaryButton, TextField } from '@fluentui/react';
+import { ResourceKeys } from '../../../localization/resourceKeys';
 
 interface ResizeDetailsListDialog {
-    columnToEdit: any; // tslint:disable-line: no-any
-    detailsListRef: any; // tslint:disable-line: no-any
+    columnToEdit: React.MutableRefObject<IColumn>;
+    detailsListRef: React.MutableRefObject<IDetailsList>;
     isDialogHidden: boolean;
     setIsDialogHidden: (isDialogHidden: boolean) => void;
 }
 
 export const ResizeDetailsListDialog: React.FC<ResizeDetailsListDialog> = ({columnToEdit, detailsListRef, isDialogHidden, setIsDialogHidden}) => {
+    const { t } = useTranslation();
     const textfieldRef = React.useRef<ITextField>(null);
     const input = React.useRef<number | null>(null);
 
     const resizeDialogContentProps = {
         closeButtonAriaLabel: 'Close',
-        subText: 'Enter desired column width pixels:',
-        title: 'Resize Column',
+        subText: t(ResourceKeys.resizableDetailsList.content.subText),
+        title: t(ResourceKeys.resizableDetailsList.content.title),
         type: DialogType.normal
     };
 
-    const dialogStyles = { main: { maxWidth: 450 } };
     const modalProps = {
         isBlocking: false,
-        styles: dialogStyles,
-        subtitleAriaId: 'Dialog sub',
+        styles: { main: { maxWidth: 450 } },
         titleAriaId: 'Dialog'
     };
 
@@ -57,11 +58,11 @@ export const ResizeDetailsListDialog: React.FC<ResizeDetailsListDialog> = ({colu
         >
             <TextField
                 componentRef={textfieldRef}
-                ariaLabel={'Enter column width'}
+                ariaLabel={t(ResourceKeys.resizableDetailsList.content.subText)}
             />
             <DialogFooter>
-                <PrimaryButton onClick={confirmDialog} text={'Resize'} />
-                <DefaultButton onClick={hideDialog} text="Cancel" />
+                <PrimaryButton onClick={confirmDialog} text={t(ResourceKeys.resizableDetailsList.buttons.resize)} />
+                <DefaultButton onClick={hideDialog} text={t(ResourceKeys.resizableDetailsList.buttons.cancel)} />
             </DialogFooter>
         </Dialog>
     );

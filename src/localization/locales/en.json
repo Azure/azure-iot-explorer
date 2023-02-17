@@ -40,6 +40,17 @@
         "open": "Open",
         "close": "Collapse"
     },
+    "resizableDetailsList": {
+        "content": {
+            "closeButtonAriaLabel": "Close",
+            "subText": "Enter desired column width pixels:",
+            "title": "Resize Column"
+        },
+        "buttons": {
+            "resize": "Resize",
+            "cancel": "Cancel"
+        }
+    },
     "header": {
         "applicationName": "Azure IoT Explorer (preview)",
         "search": {

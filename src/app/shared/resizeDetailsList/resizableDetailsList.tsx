@@ -3,10 +3,13 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { ColumnActionsMode, ContextualMenu, DetailsList, IColumn, IContextualMenuProps, IDetailsList, IDetailsListProps } from '@fluentui/react';
-import { ResizeDetailsListDialog } from './resizeDetailsListDialog';
+import { ResizeDetailsListDialog } from './dialog';
+import { ResourceKeys } from '../../../localization/resourceKeys';
 
 export const ResizableDetailsList: React.FC<IDetailsListProps> = props => {
+    const { t } = useTranslation();
     const { ariaLabelForSelectionColumn, ariaLabelForSelectAllCheckbox, checkButtonAriaLabel,
             items, columns, selection, selectionMode, layoutMode, checkboxVisibility, className, onRenderItemColumn } = props;
 
@@ -23,7 +26,7 @@ export const ResizableDetailsList: React.FC<IDetailsListProps> = props => {
 
     const getContextualMenuProps = (ev: React.MouseEvent<HTMLElement>, column: IColumn): IContextualMenuProps => {
         const menuItems = [
-            { key: 'resize', text: 'Resize', onClick: () => resizeColumn(column) },
+            { key: 'resize', text: t(ResourceKeys.resizableDetailsList.buttons.resize), onClick: () => resizeColumn(column) },
         ];
 
         return {
