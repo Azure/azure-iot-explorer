@@ -59,6 +59,7 @@ export const CopyButton: React.FC<CopyButtonProps> = ({ copyText, disabled }) =>
                     onMouseEnter={enableCallout}
                     onMouseLeave={dismissCallout}
                     componentRef={focusRef}
+                    ariaLabel={t(ResourceKeys.common.maskedCopyableTextField.copy.label)}
                 />
             </div>
             {calloutVisible && (

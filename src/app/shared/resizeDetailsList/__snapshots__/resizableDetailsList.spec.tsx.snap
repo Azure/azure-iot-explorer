@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResizableDetailsList matches snapshot 1`] = `
+<Fragment>
+  <StyledWithViewportComponent
+    columns={Array []}
+    componentRef={
+      Object {
+        "current": null,
+      }
+    }
+    items={Array []}
+    onRenderItemColumn={[MockFunction]}
+    selectionMode={0}
+  />
+  <ResizeDetailsListDialog
+    columnToEdit={
+      Object {
+        "current": null,
+      }
+    }
+    detailsListRef={
+      Object {
+        "current": null,
+      }
+    }
+    isDialogHidden={true}
+    setIsDialogHidden={[Function]}
+  />
+</Fragment>
+`;

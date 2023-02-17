@@ -5,7 +5,8 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { NavLink, useLocation, useHistory } from 'react-router-dom';
-import { Icon, Label, Dialog, DialogFooter, DialogType, PrimaryButton, DefaultButton, DetailsList, DetailsListLayoutMode, IColumn, Selection, MarqueeSelection, Announced } from '@fluentui/react';
+import { Icon, Label, Dialog, DialogFooter, DialogType, PrimaryButton, DefaultButton, DetailsListLayoutMode, IColumn, Selection, MarqueeSelection, Announced } from '@fluentui/react';
+import { ResizableDetailsList } from '../../../shared/resizeDetailsList/resizableDetailsList';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { DeviceSummary } from '../../../api/models/deviceSummary';
 import { DeviceQuery } from '../../../api/models/deviceQuery';
@@ -21,7 +22,6 @@ import { deviceListSaga } from '../saga';
 import { deviceListStateInitial } from '../state';
 import { listDevicesAction, deleteDevicesAction } from '../actions';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
-import { LARGE_COLUMN_WIDTH, EXTRA_SMALL_COLUMN_WIDTH, SMALL_COLUMN_WIDTH, MEDIUM_COLUMN_WIDTH } from '../../../constants/columnWidth';
 import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
 import { TELEMETRY_PAGE_NAMES } from '../../../../app/constants/telemetry';
 import '../../../css/_deviceList.scss';
@@ -95,11 +95,12 @@ export const DeviceList: React.FC = () => {
                         <MultiLineShimmer shimmerCount={SHIMMER_COUNT}/> :
                         (devices && devices.length !== 0 ?
                             <MarqueeSelection selection={selection}>
-                                <DetailsList
+                                <ResizableDetailsList
                                     items={!isFetching && devices}
                                     columns={getColumns()}
                                     layoutMode={DetailsListLayoutMode.justified}
                                     selection={selection}
+                                    onRenderItemColumn={onRenderItemColumn}
                                 />
                             </MarqueeSelection> :
                             <>
@@ -125,130 +126,116 @@ export const DeviceList: React.FC = () => {
         );
     };
 
+    // tslint:disable-next-line: cyclomatic-complexity
+    const onRenderItemColumn = (item: DeviceSummary, index: number, column: IColumn): JSX.Element | string => {
+        switch (column.key) {
+            case 'id':
+                const path = pathname.replace(/\/devices\/.*/, `/${ROUTE_PARTS.DEVICES}`);
+                return (
+                    <NavLink key={column.key} to={`${path}/${ROUTE_PARTS.DEVICE_DETAIL}/${ROUTE_PARTS.IDENTITY}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(item.deviceId)}`}>
+                        {item.deviceId}
+                    </NavLink>
+                );
+            case 'status':
+                return (
+                    <Label
+                        key={column.key}
+                    >
+                        {item.status}
+                    </Label>
+                );
+            case 'connection':
+                return (
+                    <Label
+                        key={column.key}
+                    >
+                        {item.connectionState}
+                    </Label>
+                );
+            case 'authenticationType':
+                return (
+                    <Label
+                        key={column.key}
+                    >
+                        {item.authenticationType}
+                    </Label>
+                );
+            case 'statusUpdatedTime':
+                return (
+                    <Label
+                        key={column.key}
+                    >
+                        {item.statusUpdatedTime || '--'}
+                    </Label>
+                );
+            case 'modelId':
+                return (
+                    <Label
+                        key={column.key}
+                    >
+                        {item.modelId}
+                    </Label>
+                );
+            case 'edge':
+                const isEdge = item.iotEdge;
+                return (
+                    <Icon
+                        key={column.key}
+                        iconName={isEdge && CHECK}
+                    />
+            );
+            default:
+                return;
+        }
+    };
+
     const getColumns = (): IColumn[] => {
         return [
             {
                 fieldName: 'id',
                 isMultiline: true,
-                isResizable: true,
                 key: 'id',
-                maxWidth: LARGE_COLUMN_WIDTH,
-                minWidth: 100,
+                minWidth: 200,
                 name: t(ResourceKeys.deviceLists.columns.deviceId.label),
-                onRender: (item: DeviceSummary, index: number, column: IColumn) => {
-                    const path = pathname.replace(/\/devices\/.*/, `/${ROUTE_PARTS.DEVICES}`);
-                    return (
-                        <NavLink key={column.key} to={`${path}/${ROUTE_PARTS.DEVICE_DETAIL}/${ROUTE_PARTS.IDENTITY}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(item.deviceId)}`}>
-                            {item.deviceId}
-                        </NavLink>
-                    );
-                }
             },
             {
                 fieldName: 'status',
-                isResizable: true,
                 key: 'status',
-                maxWidth: EXTRA_SMALL_COLUMN_WIDTH,
                 minWidth: 100,
-                name: t(ResourceKeys.deviceLists.columns.status.label),
-                onRender: (item: DeviceSummary, index: number, column: IColumn) => {
-                    return (
-                        <Label
-                            key={column.key}
-                        >
-                            {item.status}
-                        </Label>
-                    );
-                }
+                name: t(ResourceKeys.deviceLists.columns.status.label)
             },
             {
                 fieldName: 'connection',
-                isResizable: true,
                 key: 'connection',
-                maxWidth: SMALL_COLUMN_WIDTH,
                 minWidth: 100,
-                name: t(ResourceKeys.deviceLists.columns.connection),
-                onRender: (item: DeviceSummary, index: number, column: IColumn) => {
-                    return (
-                        <Label
-                            key={column.key}
-                        >
-                            {item.connectionState}
-                        </Label>
-                    );
-                }
+                name: t(ResourceKeys.deviceLists.columns.connection)
             },
             {
                 fieldName: 'authenticationType',
                 isMultiline: true,
-                isResizable: true,
                 key: 'authenticationType',
-                maxWidth: SMALL_COLUMN_WIDTH,
                 minWidth: 100,
-                name: t(ResourceKeys.deviceLists.columns.authenticationType),
-                onRender: (item: DeviceSummary, index: number, column: IColumn) => {
-                    return (
-                        <Label
-                            key={column.key}
-                        >
-                            {item.authenticationType}
-                        </Label>
-                    );
-                }
+                name: t(ResourceKeys.deviceLists.columns.authenticationType)
             },
             {
                 fieldName: 'statusUpdatedTime',
                 isMultiline: true,
-                isResizable: true,
                 key: 'statusUpdatedTime',
-                maxWidth: MEDIUM_COLUMN_WIDTH,
                 minWidth: 100,
                 name: t(ResourceKeys.deviceLists.columns.statusUpdatedTime),
-                onRender: (item: DeviceSummary, index: number, column: IColumn) => {
-                    return (
-                        <Label
-                            key={column.key}
-                        >
-                            {item.statusUpdatedTime || '--'}
-                        </Label>
-                    );
-                }
             },
             {
                 fieldName: 'modelId',
                 isMultiline: true,
-                isResizable: true,
                 key: 'modelId',
-                maxWidth: LARGE_COLUMN_WIDTH,
-                minWidth: 100,
-                name: t(ResourceKeys.deviceLists.columns.isPnpDevice),
-                onRender: (item: DeviceSummary, index: number, column: IColumn) => {
-                    return (
-                        <Label
-                            key={column.key}
-                        >
-                            {item.modelId}
-                        </Label>
-                    );
-                }
+                minWidth: 120,
+                name: t(ResourceKeys.deviceLists.columns.isPnpDevice)
             },
             {
                 fieldName: 'edge',
-                isResizable: true,
                 key: 'edge',
                 minWidth: 100,
-                name: t(ResourceKeys.deviceLists.columns.isEdgeDevice.label),
-                onRender: (item: DeviceSummary, index: number, column: IColumn) => {
-                    const isEdge = item.iotEdge;
-                    return (
-                        <Icon
-                            key={column.key}
-                            iconName={isEdge && CHECK}
-                            ariaLabel={isEdge ?
-                                t(ResourceKeys.deviceLists.columns.isEdgeDevice.yes) : t(ResourceKeys.deviceLists.columns.isEdgeDevice.no)}
-                        />
-                    );
-                }
+                name: t(ResourceKeys.deviceLists.columns.isEdgeDevice.label)
             },
         ];
     };

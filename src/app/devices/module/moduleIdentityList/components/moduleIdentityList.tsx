@@ -5,7 +5,8 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { NavLink, useLocation, useHistory, useRouteMatch } from 'react-router-dom';
-import { DetailsList, IColumn, SelectionMode, CommandBar } from '@fluentui/react';
+import { IColumn, SelectionMode, CommandBar, Label } from '@fluentui/react';
+import { ResizableDetailsList } from '../../../../shared/resizeDetailsList/resizableDetailsList';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { REFRESH, ArrayOperation } from '../../../../constants/iconNames';
@@ -20,9 +21,9 @@ import { moduleIndentityListStateInitial } from '../state';
 import { getModuleIdentitiesSaga } from '../saga';
 import { moduleIdentityListReducer } from '../reducer';
 import { getModuleIdentitiesAction } from '../actions';
-import '../../../../css/_deviceDetail.scss';
 import { AppInsightsClient } from '../../../../shared/appTelemetry/appInsightsClient';
 import { TELEMETRY_PAGE_NAMES } from '../../../../../app/constants/telemetry';
+import '../../../../css/_deviceDetail.scss';
 
 export const ModuleIdentityList: React.FC = () => {
     const { t } = useTranslation();
@@ -81,10 +82,11 @@ export const ModuleIdentityList: React.FC = () => {
         return (
             <div className="device-detail">
                  <div className="list-detail">
-                    <DetailsList
+                    <ResizableDetailsList
                         columns={getColumns()}
                         items={moduleIdentityList}
                         selectionMode={SelectionMode.none}
+                        onRenderItemColumn={renderItemColumn}
                     />
                 </div>
 
@@ -99,29 +101,68 @@ export const ModuleIdentityList: React.FC = () => {
         return `${url.endsWith('/') ? url : url + '/'}${ROUTE_PARTS.MODULE_DETAIL}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}&${ROUTE_PARAMS.MODULE_ID}=${item.moduleId}`;
     };
 
+    // tslint:disable-next-line: cyclomatic-complexity
+    const renderItemColumn = (item: ModuleIdentity, index: number, column: IColumn) => {
+        switch (column.key) {
+            case 'moduleId':
+                return (
+                <NavLink
+                    key={column.key}
+                    to={getModuleDetailPageUrl(item)}
+                >
+                    {item.moduleId}
+                </NavLink>
+                );
+            case 'connectionState':
+                return (
+                    <Label
+                        key={column.key}
+                    >
+                        {item.connectionState}
+                    </Label>
+                );
+            case 'connectionStateLastUpdated':
+                return (
+                    <Label
+                        key={column.key}
+                    >
+                        {parseDateTimeString(item.connectionStateUpdatedTime) || '--'}
+                    </Label>
+                );
+            case 'lastActivityTime':
+                return (
+                    <Label
+                        key={column.key}
+                    >
+                        {parseDateTimeString(item.lastActivityTime) || '--'}
+                    </Label>
+                );
+            case 'modelId':
+                return (
+                    <Label
+                        key={column.key}
+                    >
+                        {item.modelId || '--'}
+                    </Label>
+                );
+            default:
+                return;
+        }
+    };
+
     const getColumns = (): IColumn[] => {
         const columns: IColumn[] = [
             {
                 ariaLabel: t(ResourceKeys.moduleIdentity.columns.moduleId),
                 fieldName: 'moduleId',
-                isResizable: true,
                 key: 'moduleId',
                 maxWidth: 200,
                 minWidth: 50,
                 name: t(ResourceKeys.moduleIdentity.columns.moduleId),
-                onRender: item => (
-                <NavLink
-                    key={item.key}
-                    to={getModuleDetailPageUrl(item)}
-                >
-                    {item.moduleId}
-                </NavLink>
-                )
             },
             {
                 ariaLabel: t(ResourceKeys.moduleIdentity.columns.connectionState),
                 fieldName: 'connectionState',
-                isResizable: true,
                 key: 'connectionState',
                 maxWidth: 200,
                 minWidth: 50,
@@ -130,22 +171,18 @@ export const ModuleIdentityList: React.FC = () => {
             {
                 ariaLabel: t(ResourceKeys.moduleIdentity.columns.connectionStateLastUpdated),
                 fieldName: 'connectionStateLastUpdated',
-                isResizable: true,
                 key: 'connectionStateLastUpdated',
                 maxWidth: 250,
                 minWidth: 150,
-                name: t(ResourceKeys.moduleIdentity.columns.connectionStateLastUpdated),
-                onRender: item => parseDateTimeString(item.connectionStateUpdatedTime) || '--'
+                name: t(ResourceKeys.moduleIdentity.columns.connectionStateLastUpdated)
             },
             {
                 ariaLabel: t(ResourceKeys.moduleIdentity.columns.lastActivityTime),
                 fieldName: 'lastActivityTime',
-                isResizable: true,
                 key: 'lastActivityTime',
                 maxWidth: 250,
                 minWidth: 150,
-                name: t(ResourceKeys.moduleIdentity.columns.lastActivityTime),
-                onRender: item => parseDateTimeString(item.lastActivityTime) || '--'
+                name: t(ResourceKeys.moduleIdentity.columns.lastActivityTime)
             },
             {
                 ariaLabel: t(ResourceKeys.moduleIdentity.columns.modelId),

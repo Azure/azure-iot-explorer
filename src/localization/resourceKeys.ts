@@ -988,6 +988,17 @@ export class ResourceKeys {
       updateModuleIdentityTwinOnError : "notifications.updateModuleIdentityTwinOnError",
       updateModuleIdentityTwinOnSuccess : "notifications.updateModuleIdentityTwinOnSuccess",
    };
+   public static resizableDetailsList = {
+      buttons : {
+         cancel : "resizableDetailsList.buttons.cancel",
+         resize : "resizableDetailsList.buttons.resize",
+      },
+      content : {
+         closeButtonAriaLabel : "resizableDetailsList.content.closeButtonAriaLabel",
+         subText : "resizableDetailsList.content.subText",
+         title : "resizableDetailsList.content.title",
+      },
+   };
    public static settings = {
       close : "settings.close",
       configuration : {

@@ -10,7 +10,7 @@ import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
 import { NAVIGATE_BACK } from '../../../constants/iconNames';
 import { getDeviceIdFromQueryString, getModuleIdentityIdFromQueryString } from '../../../shared/utils/queryStringHelper';
-import '../../../css/_deviceContentNav.scss';
+import './deviceContentNav.scss';
 
 export const NAV_LINK_ITEMS_DEVICE = [ROUTE_PARTS.IDENTITY, ROUTE_PARTS.TWIN, ROUTE_PARTS.EVENTS, ROUTE_PARTS.METHODS, ROUTE_PARTS.CLOUD_TO_DEVICE_MESSAGE, ROUTE_PARTS.MODULE_IDENTITY];
 export const NAV_LINK_ITEMS_NONEDGE_DEVICE = [...NAV_LINK_ITEMS_DEVICE, ROUTE_PARTS.DIGITAL_TWINS];
@@ -85,7 +85,7 @@ export const DeviceContentNavComponent: React.FC<DeviceContentNavProps> =  (prop
     }, [pathname]); // tslint:disable-line: align
 
     return (
-        <div role="navigation">
+        <div role="navigation" className="nav-link-left">
             <Nav groups={groups} selectedKey={selectedRoute}/>
             {selectedRoute && <Announced message={`${t(ResourceKeys.breadcrumb.navigate)} ${selectedRoute}`}/>}
         </div>

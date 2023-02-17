@@ -39,23 +39,20 @@ exports[`ModuleIdentityList snapshot matches snapshot when fetch failed 1`] = `
     <div
       className="list-detail"
     >
-      <StyledWithViewportComponent
+      <ResizableDetailsList
         columns={
           Array [
             Object {
               "ariaLabel": "moduleIdentity.columns.moduleId",
               "fieldName": "moduleId",
-              "isResizable": true,
               "key": "moduleId",
               "maxWidth": 200,
               "minWidth": 50,
               "name": "moduleIdentity.columns.moduleId",
-              "onRender": [Function],
             },
             Object {
               "ariaLabel": "moduleIdentity.columns.connectionState",
               "fieldName": "connectionState",
-              "isResizable": true,
               "key": "connectionState",
               "maxWidth": 200,
               "minWidth": 50,
@@ -64,22 +61,18 @@ exports[`ModuleIdentityList snapshot matches snapshot when fetch failed 1`] = `
             Object {
               "ariaLabel": "moduleIdentity.columns.connectionStateLastUpdated",
               "fieldName": "connectionStateLastUpdated",
-              "isResizable": true,
               "key": "connectionStateLastUpdated",
               "maxWidth": 250,
               "minWidth": 150,
               "name": "moduleIdentity.columns.connectionStateLastUpdated",
-              "onRender": [Function],
             },
             Object {
               "ariaLabel": "moduleIdentity.columns.lastActivityTime",
               "fieldName": "lastActivityTime",
-              "isResizable": true,
               "key": "lastActivityTime",
               "maxWidth": 250,
               "minWidth": 150,
               "name": "moduleIdentity.columns.lastActivityTime",
-              "onRender": [Function],
             },
             Object {
               "ariaLabel": "moduleIdentity.columns.modelId",
@@ -92,6 +85,7 @@ exports[`ModuleIdentityList snapshot matches snapshot when fetch failed 1`] = `
           ]
         }
         items={Array []}
+        onRenderItemColumn={[Function]}
         selectionMode={0}
       />
     </div>
@@ -139,23 +133,20 @@ exports[`ModuleIdentityList snapshot matches snapshot while loading 1`] = `
     <div
       className="list-detail"
     >
-      <StyledWithViewportComponent
+      <ResizableDetailsList
         columns={
           Array [
             Object {
               "ariaLabel": "moduleIdentity.columns.moduleId",
               "fieldName": "moduleId",
-              "isResizable": true,
               "key": "moduleId",
               "maxWidth": 200,
               "minWidth": 50,
               "name": "moduleIdentity.columns.moduleId",
-              "onRender": [Function],
             },
             Object {
               "ariaLabel": "moduleIdentity.columns.connectionState",
               "fieldName": "connectionState",
-              "isResizable": true,
               "key": "connectionState",
               "maxWidth": 200,
               "minWidth": 50,
@@ -164,22 +155,18 @@ exports[`ModuleIdentityList snapshot matches snapshot while loading 1`] = `
             Object {
               "ariaLabel": "moduleIdentity.columns.connectionStateLastUpdated",
               "fieldName": "connectionStateLastUpdated",
-              "isResizable": true,
               "key": "connectionStateLastUpdated",
               "maxWidth": 250,
               "minWidth": 150,
               "name": "moduleIdentity.columns.connectionStateLastUpdated",
-              "onRender": [Function],
             },
             Object {
               "ariaLabel": "moduleIdentity.columns.lastActivityTime",
               "fieldName": "lastActivityTime",
-              "isResizable": true,
               "key": "lastActivityTime",
               "maxWidth": 250,
               "minWidth": 150,
               "name": "moduleIdentity.columns.lastActivityTime",
-              "onRender": [Function],
             },
             Object {
               "ariaLabel": "moduleIdentity.columns.modelId",
@@ -192,6 +179,7 @@ exports[`ModuleIdentityList snapshot matches snapshot while loading 1`] = `
           ]
         }
         items={Array []}
+        onRenderItemColumn={[Function]}
         selectionMode={0}
       />
     </div>
@@ -239,23 +227,20 @@ exports[`ModuleIdentityList snapshot matches snapshot with moduleIdentityList 1`
     <div
       className="list-detail"
     >
-      <StyledWithViewportComponent
+      <ResizableDetailsList
         columns={
           Array [
             Object {
               "ariaLabel": "moduleIdentity.columns.moduleId",
               "fieldName": "moduleId",
-              "isResizable": true,
               "key": "moduleId",
               "maxWidth": 200,
               "minWidth": 50,
               "name": "moduleIdentity.columns.moduleId",
-              "onRender": [Function],
             },
             Object {
               "ariaLabel": "moduleIdentity.columns.connectionState",
               "fieldName": "connectionState",
-              "isResizable": true,
               "key": "connectionState",
               "maxWidth": 200,
               "minWidth": 50,
@@ -264,22 +249,18 @@ exports[`ModuleIdentityList snapshot matches snapshot with moduleIdentityList 1`
             Object {
               "ariaLabel": "moduleIdentity.columns.connectionStateLastUpdated",
               "fieldName": "connectionStateLastUpdated",
-              "isResizable": true,
               "key": "connectionStateLastUpdated",
               "maxWidth": 250,
               "minWidth": 150,
               "name": "moduleIdentity.columns.connectionStateLastUpdated",
-              "onRender": [Function],
             },
             Object {
               "ariaLabel": "moduleIdentity.columns.lastActivityTime",
               "fieldName": "lastActivityTime",
-              "isResizable": true,
               "key": "lastActivityTime",
               "maxWidth": 250,
               "minWidth": 150,
               "name": "moduleIdentity.columns.lastActivityTime",
-              "onRender": [Function],
             },
             Object {
               "ariaLabel": "moduleIdentity.columns.modelId",
@@ -300,6 +281,7 @@ exports[`ModuleIdentityList snapshot matches snapshot with moduleIdentityList 1`
             },
           ]
         }
+        onRenderItemColumn={[Function]}
         selectionMode={0}
       />
     </div>

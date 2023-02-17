@@ -114,21 +114,18 @@ exports[`deviceSimulationPanel matches snapshot  1`] = `
         }
       }
     >
-      <StyledWithViewportComponent
+      <ResizableDetailsList
         ariaLabelForSelectAllCheckbox="deviceEvents.simulation.advanced.properties.selectAllCheckboxAriaLabel"
         ariaLabelForSelectionColumn="deviceEvents.simulation.advanced.properties.toggleSelectionColumnAriaLabel"
         checkButtonAriaLabel="deviceEvents.simulation.advanced.properties.rowCheckBoxAriaLabel"
         columns={
           Array [
             Object {
-              "isResizable": true,
               "key": "key",
-              "maxWidth": 300,
               "minWidth": 150,
               "name": "deviceEvents.simulation.advanced.properties.key",
             },
             Object {
-              "isResizable": true,
               "key": "value",
               "minWidth": 150,
               "name": "deviceEvents.simulation.advanced.properties.value",

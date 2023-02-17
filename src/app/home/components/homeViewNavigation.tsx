@@ -41,14 +41,12 @@ export const HomeViewNavigation: React.FC<HomeViewNavigationProps> = props => {
         },
     ];
     return (
-        <div className="nav-link-bar view">
-            <div>
-                <CollapsibleButton
-                    appMenuVisible={appMenuVisible}
-                    setAppMenuVisible={setAppMenuVisible}
-                />
-                <Nav groups={[{ links: navLinks }]} />
-            </div>
+        <div role="navigation" className="nav-link-left">
+            <CollapsibleButton
+                appMenuVisible={appMenuVisible}
+                setAppMenuVisible={setAppMenuVisible}
+            />
+            <Nav groups={[{ links: navLinks }]} />
         </div>
     );
 };

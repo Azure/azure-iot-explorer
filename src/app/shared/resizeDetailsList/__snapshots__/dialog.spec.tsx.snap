@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResizeDetailsListDialog matches snapshot 1`] = `
+<Dialog
+  dialogContentProps={
+    Object {
+      "closeButtonAriaLabel": "Close",
+      "subText": "resizableDetailsList.content.subText",
+      "title": "resizableDetailsList.content.title",
+      "type": 0,
+    }
+  }
+  hidden={true}
+  modalProps={
+    Object {
+      "isBlocking": false,
+      "styles": Object {
+        "main": Object {
+          "maxWidth": 450,
+        },
+      },
+      "titleAriaId": "Dialog",
+    }
+  }
+  onDismiss={[Function]}
+>
+  <StyledTextFieldBase
+    ariaLabel="resizableDetailsList.content.subText"
+    componentRef={
+      Object {
+        "current": null,
+      }
+    }
+  />
+  <StyledDialogFooterBase>
+    <CustomizedPrimaryButton
+      onClick={[Function]}
+      text="resizableDetailsList.buttons.resize"
+    />
+    <CustomizedDefaultButton
+      onClick={[Function]}
+      text="resizableDetailsList.buttons.cancel"
+    />
+  </StyledDialogFooterBase>
+</Dialog>
+`;
+
+exports[`ResizeDetailsListDialog matches snapshot when dialog is shown 1`] = `
+<Dialog
+  dialogContentProps={
+    Object {
+      "closeButtonAriaLabel": "Close",
+      "subText": "resizableDetailsList.content.subText",
+      "title": "resizableDetailsList.content.title",
+      "type": 0,
+    }
+  }
+  hidden={false}
+  modalProps={
+    Object {
+      "isBlocking": false,
+      "styles": Object {
+        "main": Object {
+          "maxWidth": 450,
+        },
+      },
+      "titleAriaId": "Dialog",
+    }
+  }
+  onDismiss={[Function]}
+>
+  <StyledTextFieldBase
+    ariaLabel="resizableDetailsList.content.subText"
+    componentRef={
+      Object {
+        "current": null,
+      }
+    }
+  />
+  <StyledDialogFooterBase>
+    <CustomizedPrimaryButton
+      onClick={[Function]}
+      text="resizableDetailsList.buttons.resize"
+    />
+    <CustomizedDefaultButton
+      onClick={[Function]}
+      text="resizableDetailsList.buttons.cancel"
+    />
+  </StyledDialogFooterBase>
+</Dialog>
+`;

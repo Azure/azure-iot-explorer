@@ -5,14 +5,14 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { NavLink, useLocation, useRouteMatch } from 'react-router-dom';
-import { Announced, DetailsList, IColumn, Label, Pivot, PivotItem, SelectionMode } from '@fluentui/react';
+import { Announced, IColumn, Label, Pivot, PivotItem, SelectionMode } from '@fluentui/react';
+import { ResizableDetailsList } from '../../../../shared/resizeDetailsList/resizableDetailsList';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { usePnpStateContext } from '../../context/pnpStateContext';
 import { getComponentNameAndInterfaceIdArray } from '../../utils';
 import { getDeviceIdFromQueryString, getModuleIdentityIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { ROUTE_PARAMS, ROUTE_PARTS } from '../../../../constants/routes';
 import { DEFAULT_COMPONENT_FOR_DIGITAL_TWIN } from '../../../../constants/devices';
-import { LARGE_COLUMN_WIDTH } from '../../../../constants/columnWidth';
 import { ErrorBoundary } from '../../../shared/components/errorBoundary';
 import { JSONEditor } from '../../../../shared/components/jsonEditor';
 import './digitalTwinDetail.scss';
@@ -62,14 +62,24 @@ export const DigitalTwinComponentList: React.FC = () => {
 
     const getColumns = (): IColumn[] => {
         return [
-            { fieldName: 'componentName', isMultiline: true, isResizable: true, key: 'name',
-                maxWidth: LARGE_COLUMN_WIDTH, minWidth: 100, name: t(ResourceKeys.digitalTwin.componentName) },
-            { fieldName: 'interfaceId', isMultiline: true, isResizable: true, key: 'id',
-                maxWidth: LARGE_COLUMN_WIDTH, minWidth: 100, name: t(ResourceKeys.digitalTwin.interfaceId)}
+            {
+                fieldName: 'componentName',
+                isMultiline: true,
+                key: 'name',
+                minWidth: 100,
+                name: t(ResourceKeys.digitalTwin.componentName)
+            },
+            {
+                fieldName: 'interfaceId',
+                isMultiline: true,
+                key: 'id',
+                minWidth: 100,
+                name: t(ResourceKeys.digitalTwin.interfaceId)
+            }
         ];
     };
 
-    const renderItemColumn = () => (item: ModelContent, index: number, column: IColumn) => {
+    const renderItemColumn = (item: ModelContent, index: number, column: IColumn) => {
         switch (column.key) {
             case 'name':
                 return (
@@ -95,8 +105,8 @@ export const DigitalTwinComponentList: React.FC = () => {
             {
                 modelContents.length !== 0 ?
                     <div className="list-detail">
-                        <DetailsList
-                            onRenderItemColumn={renderItemColumn()}
+                        <ResizableDetailsList
+                            onRenderItemColumn={renderItemColumn}
                             className="component-list"
                             items={modelContents}
                             columns={getColumns()}

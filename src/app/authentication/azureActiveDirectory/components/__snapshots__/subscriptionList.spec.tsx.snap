@@ -6,36 +6,28 @@ exports[`SubscriptionList matches snapshot when there are list items 1`] = `
     filterType={0}
     setFilteredList={[Function]}
   />
-  <StyledWithViewportComponent
+  <ResizableDetailsList
     columns={
       Array [
         Object {
-          "isResizable": true,
           "key": "name",
-          "maxWidth": 400,
           "minWidth": 150,
           "name": "authentication.azureActiveDirectory.subscriptionList.columns.name",
-          "onRender": [Function],
         },
         Object {
-          "isResizable": true,
           "key": "id",
-          "maxWidth": 400,
           "minWidth": 150,
           "name": "authentication.azureActiveDirectory.subscriptionList.columns.id",
-          "onRender": [Function],
         },
         Object {
-          "isResizable": true,
           "key": "state",
-          "maxWidth": 400,
           "minWidth": 150,
           "name": "authentication.azureActiveDirectory.subscriptionList.columns.state",
-          "onRender": [Function],
         },
       ]
     }
     items={Array []}
+    onRenderItemColumn={[Function]}
     selectionMode={0}
   />
 </Fragment>
@@ -47,36 +39,28 @@ exports[`SubscriptionList matches snapshot when there are no list items 1`] = `
     filterType={0}
     setFilteredList={[Function]}
   />
-  <StyledWithViewportComponent
+  <ResizableDetailsList
     columns={
       Array [
         Object {
-          "isResizable": true,
           "key": "name",
-          "maxWidth": 400,
           "minWidth": 150,
           "name": "authentication.azureActiveDirectory.subscriptionList.columns.name",
-          "onRender": [Function],
         },
         Object {
-          "isResizable": true,
           "key": "id",
-          "maxWidth": 400,
           "minWidth": 150,
           "name": "authentication.azureActiveDirectory.subscriptionList.columns.id",
-          "onRender": [Function],
         },
         Object {
-          "isResizable": true,
           "key": "state",
-          "maxWidth": 400,
           "minWidth": 150,
           "name": "authentication.azureActiveDirectory.subscriptionList.columns.state",
-          "onRender": [Function],
         },
       ]
     }
     items={Array []}
+    onRenderItemColumn={[Function]}
     selectionMode={0}
   />
   authentication.azureActiveDirectory.subscriptionList.noItemText
