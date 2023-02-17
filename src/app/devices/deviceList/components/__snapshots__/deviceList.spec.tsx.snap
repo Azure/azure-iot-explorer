@@ -42,74 +42,54 @@ exports[`DeviceList matches snapshot 1`] = `
         }
       }
     >
-      <StyledWithViewportComponent
+      <ResizableDetailsList
         columns={
           Array [
             Object {
               "fieldName": "id",
               "isMultiline": true,
-              "isResizable": true,
               "key": "id",
-              "maxWidth": 400,
-              "minWidth": 100,
+              "minWidth": 200,
               "name": "deviceLists.columns.deviceId.label",
-              "onRender": [Function],
             },
             Object {
               "fieldName": "status",
-              "isResizable": true,
               "key": "status",
-              "maxWidth": 100,
               "minWidth": 100,
               "name": "deviceLists.columns.status.label",
-              "onRender": [Function],
             },
             Object {
               "fieldName": "connection",
-              "isResizable": true,
               "key": "connection",
-              "maxWidth": 200,
               "minWidth": 100,
               "name": "deviceLists.columns.connection",
-              "onRender": [Function],
             },
             Object {
               "fieldName": "authenticationType",
               "isMultiline": true,
-              "isResizable": true,
               "key": "authenticationType",
-              "maxWidth": 200,
               "minWidth": 100,
               "name": "deviceLists.columns.authenticationType",
-              "onRender": [Function],
             },
             Object {
               "fieldName": "statusUpdatedTime",
               "isMultiline": true,
-              "isResizable": true,
               "key": "statusUpdatedTime",
-              "maxWidth": 300,
               "minWidth": 100,
               "name": "deviceLists.columns.statusUpdatedTime",
-              "onRender": [Function],
             },
             Object {
               "fieldName": "modelId",
               "isMultiline": true,
-              "isResizable": true,
               "key": "modelId",
-              "maxWidth": 400,
-              "minWidth": 100,
+              "minWidth": 120,
               "name": "deviceLists.columns.isPnpDevice",
-              "onRender": [Function],
             },
             Object {
               "fieldName": "edge",
-              "isResizable": true,
               "key": "edge",
               "minWidth": 100,
               "name": "deviceLists.columns.isEdgeDevice.label",
-              "onRender": [Function],
             },
           ]
         }
@@ -128,6 +108,7 @@ exports[`DeviceList matches snapshot 1`] = `
           ]
         }
         layoutMode={1}
+        onRenderItemColumn={[Function]}
         selection={
           Selection {
             "_anchoredIndex": 0,

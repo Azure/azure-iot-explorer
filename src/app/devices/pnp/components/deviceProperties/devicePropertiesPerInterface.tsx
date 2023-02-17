@@ -4,13 +4,13 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { DetailsList, DetailsListLayoutMode, IColumn, CheckboxVisibility, Label, Overlay, ActionButton, Dialog, Panel, PanelType } from '@fluentui/react';
+import { DetailsListLayoutMode, IColumn, CheckboxVisibility, Label, Overlay, ActionButton, Panel, PanelType } from '@fluentui/react';
+import { ResizableDetailsList } from '../../../../shared/resizeDetailsList/resizableDetailsList';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 import { RenderSimplyTypeValue } from '../../../shared/components/simpleReportedSection';
 import { ComplexReportedFormPanel } from '../../../shared/components/complexReportedFormPanel';
 import { SemanticUnit } from '../../../../shared/units/components/semanticUnit';
-import { EXTRA_LARGE_COLUMN_WIDTH, SMALL_COLUMN_WIDTH } from '../../../../constants/columnWidth';
 import { TwinWithSchema } from './dataHelper';
 import { getSchemaType, isSchemaSimpleType } from '../../../../shared/utils/jsonSchemaAdaptor';
 
@@ -26,14 +26,14 @@ export const DevicePropertiesPerInterface: React.FC<DevicePropertiesDataProps> =
 
     const getColumns = (): IColumn[] => {
         return [
-            { key: 'name', name: t(ResourceKeys.deviceProperties.columns.name), fieldName: 'name', minWidth: 100, maxWidth: EXTRA_LARGE_COLUMN_WIDTH, isResizable: true, isMultiline: true },
-            { key: 'schema', name: t(ResourceKeys.deviceProperties.columns.schema), fieldName: 'schema', minWidth: 100, maxWidth: SMALL_COLUMN_WIDTH, isResizable: true, isMultiline: true },
-            { key: 'unit', name: t(ResourceKeys.deviceProperties.columns.unit), fieldName: 'unit', minWidth: 100, maxWidth: SMALL_COLUMN_WIDTH, isResizable: true, isMultiline: true },
-            { key: 'value', name: t(ResourceKeys.deviceProperties.columns.value), fieldName: 'value', minWidth: 150, isResizable: true, isMultiline: true }
+            { key: 'name', name: t(ResourceKeys.deviceProperties.columns.name), fieldName: 'name', minWidth: 100, isMultiline: true },
+            { key: 'schema', name: t(ResourceKeys.deviceProperties.columns.schema), fieldName: 'schema', minWidth: 100, isMultiline: true },
+            { key: 'unit', name: t(ResourceKeys.deviceProperties.columns.unit), fieldName: 'unit', minWidth: 100, isMultiline: true },
+            { key: 'value', name: t(ResourceKeys.deviceProperties.columns.value), fieldName: 'value', minWidth: 150, isMultiline: true }
         ];
     };
 
-    const renderItemColumn = () => (item: TwinWithSchema, index: number, column: IColumn) => {
+    const renderItemColumn = (item: TwinWithSchema, index: number, column: IColumn) => {
         switch (column.key) {
             case 'name':
                 return renderPropertyName(item);
@@ -138,9 +138,9 @@ export const DevicePropertiesPerInterface: React.FC<DevicePropertiesDataProps> =
     return (
         <div className="pnp-detail-list scrollable-lg ms-Grid">
             <div className="list-detail pnp-properties">
-                <DetailsList
+                <ResizableDetailsList
                     checkboxVisibility={CheckboxVisibility.hidden}
-                    onRenderItemColumn={renderItemColumn()}
+                    onRenderItemColumn={renderItemColumn}
                     items={props.twinAndSchema}
                     columns={getColumns()}
                     layoutMode={DetailsListLayoutMode.justified}

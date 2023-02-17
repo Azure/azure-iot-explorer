@@ -184,21 +184,18 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
           }
         }
       >
-        <StyledWithViewportComponent
+        <ResizableDetailsList
           ariaLabelForSelectAllCheckbox="cloudToDeviceMessage.properties.selectAllCheckboxAriaLabel"
           ariaLabelForSelectionColumn="cloudToDeviceMessage.properties.toggleSelectionColumnAriaLabel"
           checkButtonAriaLabel="cloudToDeviceMessage.properties.rowCheckBoxAriaLabel"
           columns={
             Array [
               Object {
-                "isResizable": true,
                 "key": "key",
-                "maxWidth": 300,
                 "minWidth": 150,
                 "name": "cloudToDeviceMessage.properties.key",
               },
               Object {
-                "isResizable": true,
                 "key": "value",
                 "minWidth": 150,
                 "name": "cloudToDeviceMessage.properties.value",

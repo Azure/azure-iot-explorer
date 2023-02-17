@@ -4,12 +4,12 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { DetailsList, IColumn, Link, SelectionMode } from '@fluentui/react';
+import { IColumn, Label, Link, SelectionMode } from '@fluentui/react';
 import { FilterTextBox, FilterType } from './filterTextBox';
 import { useAzureActiveDirectoryStateContext } from '../context/azureActiveDirectoryStateContext';
 import { AzureSubscription } from '../../../api/models/azureSubscription';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { LARGE_COLUMN_WIDTH } from '../../../constants/columnWidth';
+import { ResizableDetailsList } from '../../../shared/resizeDetailsList/resizableDetailsList';
 
 export interface SubscriptionListPros {
     renderHubList: () => void;
@@ -30,33 +30,51 @@ export const SubscriptionList: React.FC<SubscriptionListPros> = props => {
     };
 
     const getColumns = (): IColumn[] => {
-        const columnProps = {
-            isResizable: true,
-            maxWidth: LARGE_COLUMN_WIDTH,
-            minWidth: 150
-        };
-
         return [
             {
-                ...columnProps,
                 key: 'name',
-                name: t(ResourceKeys.authentication.azureActiveDirectory.subscriptionList.columns.name),
-                onRender: (item: AzureSubscription) => (
-                    <Link key={item.displayName} onClick={renderHubList(item.subscriptionId)}>
-                        {item.displayName}
-                    </Link>)
-            },
-            {   ...columnProps,
-                key: 'id',
-                name: t(ResourceKeys.authentication.azureActiveDirectory.subscriptionList.columns.id),
-                onRender: item => item.subscriptionId
+                minWidth: 150,
+                name: t(ResourceKeys.authentication.azureActiveDirectory.subscriptionList.columns.name)
             },
             {
-                ...columnProps,
+                key: 'id',
+                minWidth: 150,
+                name: t(ResourceKeys.authentication.azureActiveDirectory.subscriptionList.columns.id)
+            },
+            {
                 key: 'state',
-                name: t(ResourceKeys.authentication.azureActiveDirectory.subscriptionList.columns.state),
-                onRender: item => item.state
+                minWidth: 150,
+                name: t(ResourceKeys.authentication.azureActiveDirectory.subscriptionList.columns.state)
             }];
+    };
+
+    const renderItemColumn = (item: AzureSubscription, index: number, column: IColumn) => {
+        switch (column.key) {
+            case 'name':
+                return (
+                    <Link key={item.displayName} onClick={renderHubList(item.subscriptionId)}>
+                        {item.displayName}
+                    </Link>
+                );
+            case 'id':
+                return (
+                    <Label
+                        key={column.key}
+                    >
+                        {item.subscriptionId}
+                    </Label>
+                );
+            case 'state':
+                return (
+                    <Label
+                        key={column.key}
+                    >
+                        {item.state}
+                    </Label>
+                );
+            default:
+                return;
+        }
     };
 
     const setFilteredList = (listValue: AzureSubscription[]) => {
@@ -69,10 +87,11 @@ export const SubscriptionList: React.FC<SubscriptionListPros> = props => {
                 filterType={FilterType.Subscription}
                 setFilteredList={setFilteredList}
             />
-            <DetailsList
+            <ResizableDetailsList
                 items={filteredSubscriptions}
                 columns={getColumns()}
                 selectionMode={SelectionMode.none}
+                onRenderItemColumn={renderItemColumn}
             />
             {formState === 'idle' && filteredSubscriptions?.length === 0 && t(ResourceKeys.authentication.azureActiveDirectory.subscriptionList.noItemText)}
         </>

@@ -5,21 +5,21 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
-import { Dropdown, IDropdownOption, TextField, CommandBar, Checkbox, DetailsList, IColumn, MarqueeSelection, Selection, Label, IContextualMenuItem } from '@fluentui/react';
 import { v4 as uuid } from 'uuid';
+import { Dropdown, IDropdownOption, TextField, CommandBar, Checkbox, IColumn, MarqueeSelection, Selection, Label, IContextualMenuItem } from '@fluentui/react';
+import { ResizableDetailsList } from '../../../shared/resizeDetailsList/resizableDetailsList';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { CLOUD_TO_DEVICE_MESSAGE, ArrayOperation, ITEM, CIRCLE_ADD, CIRCLE_ADD_SOLID } from '../../../constants/iconNames';
 import { LabelWithTooltip } from '../../../shared/components/labelWithTooltip';
 import { cloudToDeviceMessageAction } from '../actions';
 import { CollapsibleSection } from '../../../shared/components/collapsibleSection';
-import { MEDIUM_COLUMN_WIDTH } from '../../../constants/columnWidth';
 import { HeaderView } from '../../../shared/components/headerView';
 import { useAsyncSagaReducer } from '../../../shared/hooks/useAsyncSagaReducer';
 import { cloudToDeviceMessageSaga } from '../saga';
-import '../../../css/_deviceDetail.scss';
 import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
 import { TELEMETRY_PAGE_NAMES, TELEMETRY_USER_ACTIONS } from '../../../../app/constants/telemetry';
+import '../../../css/_deviceDetail.scss';
 
 interface PropertyItem {
     isSystemProperty: boolean;
@@ -150,10 +150,10 @@ export const CloudToDeviceMessage: React.FC = () => {
                     ]}
                 />
                 <MarqueeSelection selection={selection}>
-                    <DetailsList
+                    <ResizableDetailsList
                         items={properties}
                         columns={getColumns()}
-                        onRenderItemColumn={renderItemColumn()}
+                        onRenderItemColumn={renderItemColumn}
                         ariaLabelForSelectionColumn={t(ResourceKeys.cloudToDeviceMessage.properties.toggleSelectionColumnAriaLabel)}
                         ariaLabelForSelectAllCheckbox={t(ResourceKeys.cloudToDeviceMessage.properties.selectAllCheckboxAriaLabel)}
                         checkButtonAriaLabel={t(ResourceKeys.cloudToDeviceMessage.properties.rowCheckBoxAriaLabel)}
@@ -167,14 +167,11 @@ export const CloudToDeviceMessage: React.FC = () => {
     const getColumns = (): IColumn[] => {
         return [
             {
-                isResizable: true,
                 key: 'key',
-                maxWidth: MEDIUM_COLUMN_WIDTH,
                 minWidth: 150,
                 name: t(ResourceKeys.cloudToDeviceMessage.properties.key),
             },
             {
-                isResizable: true,
                 key: 'value',
                 minWidth: 150,
                 name: t(ResourceKeys.cloudToDeviceMessage.properties.value),
@@ -212,7 +209,7 @@ export const CloudToDeviceMessage: React.FC = () => {
         );
     };
 
-    const renderItemColumn = () => (item: PropertyItem, index: number, column: IColumn) => {
+    const renderItemColumn = (item: PropertyItem, index: number, column: IColumn) => {
         const handleEditCustomPropertyKey = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
             const items = [...properties];
             items[index] = {...items[index], keyName: newValue};

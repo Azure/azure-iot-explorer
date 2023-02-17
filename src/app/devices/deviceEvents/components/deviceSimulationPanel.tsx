@@ -5,7 +5,8 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
-import { TextField, Panel, PanelType, Label, DetailsList, IColumn, MarqueeSelection, Selection, CommandBar } from '@fluentui/react';
+import { TextField, Panel, PanelType, Label, IColumn, MarqueeSelection, Selection, CommandBar } from '@fluentui/react';
+import { ResizableDetailsList } from '../../../shared/resizeDetailsList/resizableDetailsList';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { LabelWithTooltip } from '../../../shared/components/labelWithTooltip';
@@ -13,7 +14,6 @@ import { CollapsibleSection } from '../../../shared/components/collapsibleSectio
 import { MaskedCopyableTextField } from '../../../shared/components/maskedCopyableTextField';
 import { getHubInformationFromLocalStorage } from '../hooks/localStorageInformationRetriever';
 import { CIRCLE_ADD, ArrayOperation } from '../../../constants/iconNames';
-import { MEDIUM_COLUMN_WIDTH } from '../../../constants/columnWidth';
 import './deviceSimulationPanel.scss';
 
 export interface DeviceSimulationPanelProps {
@@ -139,10 +139,10 @@ export const DeviceSimulationPanel: React.FC<DeviceSimulationPanelProps> = props
                     ]}
                 />
                 <MarqueeSelection selection={selection}>
-                    <DetailsList
+                    <ResizableDetailsList
                         items={properties}
                         columns={getColumns()}
-                        onRenderItemColumn={renderItemColumn()}
+                        onRenderItemColumn={renderItemColumn}
                         ariaLabelForSelectionColumn={t(ResourceKeys.deviceEvents.simulation.advanced.properties.toggleSelectionColumnAriaLabel)}
                         ariaLabelForSelectAllCheckbox={t(ResourceKeys.deviceEvents.simulation.advanced.properties.selectAllCheckboxAriaLabel)}
                         checkButtonAriaLabel={t(ResourceKeys.deviceEvents.simulation.advanced.properties.rowCheckBoxAriaLabel)}
@@ -153,7 +153,7 @@ export const DeviceSimulationPanel: React.FC<DeviceSimulationPanelProps> = props
         );
     };
 
-    const renderItemColumn = () => (item: PropertyItem, index: number, column: IColumn) => {
+    const renderItemColumn = (item: PropertyItem, index: number, column: IColumn) => {
         const handleEditCustomPropertyKey = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
             const items = [...properties];
             items[index] = {...items[index], keyName: newValue};
@@ -207,14 +207,11 @@ export const DeviceSimulationPanel: React.FC<DeviceSimulationPanelProps> = props
     const getColumns = (): IColumn[] => {
         return [
             {
-                isResizable: true,
                 key: 'key',
-                maxWidth: MEDIUM_COLUMN_WIDTH,
                 minWidth: 150,
                 name: t(ResourceKeys.deviceEvents.simulation.advanced.properties.key),
             },
             {
-                isResizable: true,
                 key: 'value',
                 minWidth: 150,
                 name: t(ResourceKeys.deviceEvents.simulation.advanced.properties.value),

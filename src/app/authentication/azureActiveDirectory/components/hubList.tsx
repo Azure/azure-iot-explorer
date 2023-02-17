@@ -5,11 +5,11 @@
 import * as React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { DetailsList, IColumn, Link, SelectionMode } from '@fluentui/react';
+import { IColumn, Label, Link, SelectionMode } from '@fluentui/react';
+import { ResizableDetailsList } from '../../../shared/resizeDetailsList/resizableDetailsList';
 import { useAzureActiveDirectoryStateContext } from '../context/azureActiveDirectoryStateContext';
 import { IotHubDescription } from '../../../api/models/iotHubDescription';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { LARGE_COLUMN_WIDTH } from '../../../constants/columnWidth';
 import { getConnectionInfoFromConnectionString } from '../../../api/shared/utils';
 import { ROUTE_PARTS } from '../../../constants/routes';
 import { FilterTextBox, FilterType } from './filterTextBox';
@@ -36,27 +36,38 @@ export const HubList: React.FC = () => {
     };
 
     const getColumns = (): IColumn[] => {
-        const columnProps = {
-            isResizable: true,
-            maxWidth: LARGE_COLUMN_WIDTH,
-            minWidth: 150
-        };
-
         return [
             {
-                ...columnProps,
                 key: 'name',
-                name: t(ResourceKeys.authentication.azureActiveDirectory.hubList.columns.name),
-                onRender: (item: IotHubDescription) => (
+                minWidth: 150,
+                name: t(ResourceKeys.authentication.azureActiveDirectory.hubList.columns.name)
+            },
+            {
+                key: 'id',
+                minWidth: 150,
+                name: t(ResourceKeys.authentication.azureActiveDirectory.hubList.columns.location)
+            }];
+    };
+
+    const renderItemColumn = (item: IotHubDescription, index: number, column: IColumn) => {
+        switch (column.key) {
+            case 'name':
+                return (
                     <Link key={item.name} onClick={getHubKey(item.id, item.name)}>
                         {item.name}
-                    </Link>)
-            },
-            {   ...columnProps,
-                key: 'id',
-                name: t(ResourceKeys.authentication.azureActiveDirectory.hubList.columns.location),
-                onRender: item => item.location
-            }];
+                    </Link>
+                );
+            case 'id':
+                return (
+                    <Label
+                        key={column.key}
+                    >
+                        {item.location}
+                    </Label>
+                );
+            default:
+                return;
+        }
     };
 
     const setFilteredList = (listValue: IotHubDescription[]) => {
@@ -69,10 +80,11 @@ export const HubList: React.FC = () => {
                 filterType={FilterType.IoTHub}
                 setFilteredList={setFilteredList}
             />
-            <DetailsList
+            <ResizableDetailsList
                 items={filteredHubs}
                 columns={getColumns()}
                 selectionMode={SelectionMode.none}
+                onRenderItemColumn={renderItemColumn}
             />
             {formState === 'idle' && filteredHubs?.length === 0 && t(ResourceKeys.authentication.azureActiveDirectory.hubList.noItemText)}
         </>
