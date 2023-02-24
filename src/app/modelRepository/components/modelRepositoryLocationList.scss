@@ -5,8 +5,8 @@
  @import '../../css/themes';
 
 .location-list {
-    margin-left: 20px;
-    max-width: 500px;
+    margin: 0 40px 0 20px;
+    max-width: 650px;
     .item {
         display: grid;
         grid-template-columns: 40px 1fr;
@@ -38,6 +38,17 @@
             margin-top: 8px;
             border-radius: 2px;
 
+            .labelSection {
+                .label{
+                    text-overflow: ellipsis;
+                    font-weight: 700;
+                }
+                .description {
+                    font-style: italic;
+                    font-size: smaller;
+                }
+                padding-bottom: 10px;
+            }
             padding: {
                 bottom: 14px;
                 left: 22px;

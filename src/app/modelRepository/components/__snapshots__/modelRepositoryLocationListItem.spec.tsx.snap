@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/settings/modelRepositoryLocationListItem matches snapshot for local 1`] = `
+exports[`ModelRepositoryLocationListItem matches snapshot for configurable repo 1`] = `
 <div
   className="item"
   role="list"
@@ -8,7 +8,7 @@ exports[`components/settings/modelRepositoryLocationListItem matches snapshot fo
   <div
     className="numbering"
   >
-    1
+    2
   </div>
   <div
     className="location-item"
@@ -17,84 +17,34 @@ exports[`components/settings/modelRepositoryLocationListItem matches snapshot fo
     <div
       className="item-details"
     >
-      <div
-        className="labelSection"
-      >
-        <Memo()
-          calloutContent="modelRepository.types.local.infoText"
-          required={true}
-        >
-          modelRepository.types.local.label
-        </Memo()>
-      </div>
-      <StyledTextFieldBase
-        ariaLabel="modelRepository.types.local.textBoxLabel"
-        className="local-folder-textbox"
-        errorMessage=""
-        label="modelRepository.types.local.textBoxLabel"
-        onChange={[Function]}
-        readOnly={false}
-        value="f:/"
-      />
-      <CustomizedDefaultButton
-        ariaLabel="modelRepository.types.local.folderPicker.command.openPicker"
-        className="local-folder-launch"
-        onClick={[Function]}
-        text="modelRepository.types.local.folderPicker.command.openPicker"
-      />
-      <div
-        role="dialog"
-      >
-        <Dialog
-          dialogContentProps={
+      <ListItemConfigurableRepo
+        formState={
+          Array [
             Object {
-              "subText": "modelRepository.types.local.folderPicker.dialog.subText",
-            }
-          }
-          hidden={true}
-          modalProps={
-            Object {
-              "className": "folder-picker-dialog",
-              "isBlocking": false,
-            }
-          }
-          onDismiss={[Function]}
-          title="modelRepository.types.local.folderPicker.dialog.title"
-        >
-          <div
-            className="folder-links"
-          >
-            <CustomizedDefaultButton
-              ariaLabel="modelRepository.types.local.folderPicker.command.navigateToParent"
-              className="folder-button"
-              disabled={false}
-              iconProps={
+              "dirty": false,
+              "repositoryLocationSettings": Array [
                 Object {
-                  "iconName": "NavigateBack",
-                }
-              }
-              onClick={[Function]}
-              text="modelRepository.types.local.folderPicker.command.navigateToParent"
-            />
-            <div
-              className="no-folders-text"
-            >
-              modelRepository.types.local.folderPicker.dialog.noFolderFoundText
-            </div>
-          </div>
-          <StyledDialogFooterBase>
-            <CustomizedPrimaryButton
-              disabled={false}
-              onClick={[Function]}
-              text="modelRepository.types.local.folderPicker.command.select"
-            />
-            <CustomizedDefaultButton
-              onClick={[Function]}
-              text="modelRepository.types.local.folderPicker.command.cancel"
-            />
-          </StyledDialogFooterBase>
-        </Dialog>
-      </div>
+                  "repositoryLocationType": "PUBLIC",
+                  "value": "",
+                },
+              ],
+              "repositoryLocationSettingsErrors": Object {},
+            },
+            Object {
+              "setDirtyFlag": [Function],
+              "setRepositoryLocationSettings": [Function],
+              "setRepositoryLocationSettingsErrors": [Function],
+            },
+          ]
+        }
+        index={1}
+        item={
+          Object {
+            "repositoryLocationType": "CONFIGURABLE",
+            "value": "test.com",
+          }
+        }
+      />
     </div>
     <CustomizedIconButton
       ariaLabel="modelRepository.commands.remove.ariaLabel"
@@ -111,7 +61,7 @@ exports[`components/settings/modelRepositoryLocationListItem matches snapshot fo
 </div>
 `;
 
-exports[`components/settings/modelRepositoryLocationListItem matches snapshot for local with error 1`] = `
+exports[`ModelRepositoryLocationListItem matches snapshot for local folder 1`] = `
 <div
   className="item"
   role="list"
@@ -119,7 +69,7 @@ exports[`components/settings/modelRepositoryLocationListItem matches snapshot fo
   <div
     className="numbering"
   >
-    1
+    3
   </div>
   <div
     className="location-item"
@@ -128,84 +78,35 @@ exports[`components/settings/modelRepositoryLocationListItem matches snapshot fo
     <div
       className="item-details"
     >
-      <div
-        className="labelSection"
-      >
-        <Memo()
-          calloutContent="modelRepository.types.local.infoText"
-          required={true}
-        >
-          modelRepository.types.local.label
-        </Memo()>
-      </div>
-      <StyledTextFieldBase
-        ariaLabel="modelRepository.types.local.textBoxLabel"
-        className="local-folder-textbox"
-        errorMessage="error"
-        label="modelRepository.types.local.textBoxLabel"
-        onChange={[Function]}
-        readOnly={false}
-        value="f:/"
-      />
-      <CustomizedDefaultButton
-        ariaLabel="modelRepository.types.local.folderPicker.command.openPicker"
-        className="local-folder-launch"
-        onClick={[Function]}
-        text="modelRepository.types.local.folderPicker.command.openPicker"
-      />
-      <div
-        role="dialog"
-      >
-        <Dialog
-          dialogContentProps={
+      <ListItemLocal
+        formState={
+          Array [
             Object {
-              "subText": "modelRepository.types.local.folderPicker.dialog.subText",
-            }
-          }
-          hidden={true}
-          modalProps={
-            Object {
-              "className": "folder-picker-dialog",
-              "isBlocking": false,
-            }
-          }
-          onDismiss={[Function]}
-          title="modelRepository.types.local.folderPicker.dialog.title"
-        >
-          <div
-            className="folder-links"
-          >
-            <CustomizedDefaultButton
-              ariaLabel="modelRepository.types.local.folderPicker.command.navigateToParent"
-              className="folder-button"
-              disabled={false}
-              iconProps={
+              "dirty": false,
+              "repositoryLocationSettings": Array [
                 Object {
-                  "iconName": "NavigateBack",
-                }
-              }
-              onClick={[Function]}
-              text="modelRepository.types.local.folderPicker.command.navigateToParent"
-            />
-            <div
-              className="no-folders-text"
-            >
-              modelRepository.types.local.folderPicker.dialog.noFolderFoundText
-            </div>
-          </div>
-          <StyledDialogFooterBase>
-            <CustomizedPrimaryButton
-              disabled={false}
-              onClick={[Function]}
-              text="modelRepository.types.local.folderPicker.command.select"
-            />
-            <CustomizedDefaultButton
-              onClick={[Function]}
-              text="modelRepository.types.local.folderPicker.command.cancel"
-            />
-          </StyledDialogFooterBase>
-        </Dialog>
-      </div>
+                  "repositoryLocationType": "PUBLIC",
+                  "value": "",
+                },
+              ],
+              "repositoryLocationSettingsErrors": Object {},
+            },
+            Object {
+              "setDirtyFlag": [Function],
+              "setRepositoryLocationSettings": [Function],
+              "setRepositoryLocationSettingsErrors": [Function],
+            },
+          ]
+        }
+        index={2}
+        item={
+          Object {
+            "repositoryLocationType": "LOCAL",
+            "value": "c:/models",
+          }
+        }
+        repoType="LOCAL"
+      />
     </div>
     <CustomizedIconButton
       ariaLabel="modelRepository.commands.remove.ariaLabel"
@@ -222,7 +123,69 @@ exports[`components/settings/modelRepositoryLocationListItem matches snapshot fo
 </div>
 `;
 
-exports[`components/settings/modelRepositoryLocationListItem matches snapshot for public 1`] = `
+exports[`ModelRepositoryLocationListItem matches snapshot for local repo 1`] = `
+<div
+  className="item"
+  role="list"
+>
+  <div
+    className="numbering"
+  >
+    4
+  </div>
+  <div
+    className="location-item"
+    role="listitem"
+  >
+    <div
+      className="item-details"
+    >
+      <ListItemLocal
+        formState={
+          Array [
+            Object {
+              "dirty": false,
+              "repositoryLocationSettings": Array [
+                Object {
+                  "repositoryLocationType": "PUBLIC",
+                  "value": "",
+                },
+              ],
+              "repositoryLocationSettingsErrors": Object {},
+            },
+            Object {
+              "setDirtyFlag": [Function],
+              "setRepositoryLocationSettings": [Function],
+              "setRepositoryLocationSettingsErrors": [Function],
+            },
+          ]
+        }
+        index={3}
+        item={
+          Object {
+            "repositoryLocationType": "DMR",
+            "value": "c:/dtmi",
+          }
+        }
+        repoType="DMR"
+      />
+    </div>
+    <CustomizedIconButton
+      ariaLabel="modelRepository.commands.remove.ariaLabel"
+      className="remove-button"
+      iconProps={
+        Object {
+          "iconName": "Cancel",
+        }
+      }
+      onClick={[Function]}
+      title="modelRepository.commands.remove.label"
+    />
+  </div>
+</div>
+`;
+
+exports[`ModelRepositoryLocationListItem matches snapshot for public repo 1`] = `
 <div
   className="item"
   role="list"
@@ -239,21 +202,7 @@ exports[`components/settings/modelRepositoryLocationListItem matches snapshot fo
     <div
       className="item-details"
     >
-      <div
-        className="labelSection"
-      >
-        <StyledLabelBase>
-          modelRepository.types.public.label
-        </StyledLabelBase>
-      </div>
-      <StyledTextFieldBase
-        ariaLabel="modelRepository.types.configurable.textBoxLabel"
-        className="local-folder-textbox"
-        label="modelRepository.types.configurable.textBoxLabel"
-        prefix="https://"
-        readOnly={true}
-        value="devicemodels.azure.com"
-      />
+      <ListItemPublicRepo />
     </div>
     <CustomizedIconButton
       ariaLabel="modelRepository.commands.remove.ariaLabel"

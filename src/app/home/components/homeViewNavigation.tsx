@@ -8,7 +8,6 @@ import { Nav, INavLink } from '@fluentui/react';
 import { ROUTE_PARTS } from '../../constants/routes';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { CollapsibleButton } from '../../shared/components/collapsibleButton';
-import '../../css/_layouts.scss';
 import './homeViewNavigation.scss';
 
 export interface HomeViewNavigationProps {

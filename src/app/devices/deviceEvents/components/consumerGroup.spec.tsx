@@ -18,7 +18,7 @@ describe('ConsumerGroup', () => {
         const setConsumerGroup = jest.fn();
         const wrapper = mount(<ConsumerGroup monitoringData={false} consumerGroup={''} setConsumerGroup={setConsumerGroup}/>);
         const textField = wrapper.find(TextField).first();
-        act(() => textField.props().onChange(undefined, 'testGroup'));
+        act(() => textField.props().onChange?.(undefined as any, 'testGroup'));
         expect(setConsumerGroup).toBeCalledWith('testGroup');
     });
 });

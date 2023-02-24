@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ListItemConfigurableRepo matches snapshot 1`] = `
+<Fragment>
+  <div
+    className="labelSection"
+  >
+    <div
+      className="label"
+    >
+      modelRepository.types.configurable.label
+    </div>
+    <div
+      className="description"
+    >
+      modelRepository.types.configurable.infoText
+    </div>
+  </div>
+  <StyledTextFieldBase
+    ariaLabel="modelRepository.types.configurable.textBoxLabel"
+    className="local-folder-textbox"
+    errorMessage=""
+    label="modelRepository.types.configurable.textBoxLabel"
+    onChange={[Function]}
+    prefix="https://"
+    readOnly={false}
+    value="test.com"
+  />
+</Fragment>
+`;

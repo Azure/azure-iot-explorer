@@ -50,12 +50,12 @@ describe('devices/components/addModuleIdentity', () => {
 
             // uncheck auto generate
             const autoGenerateButton = wrapper.find('.autoGenerateButton').first();
-            act(() => autoGenerateButton.props().onChange(undefined));
+            act(() => autoGenerateButton.props().onChange?.(undefined as any));
             wrapper.update();
             expect(wrapper.find(MaskedCopyableTextField).length).toEqual(3); // tslint:disable-line:no-magic-numbers
 
-            act(() => wrapper.find(MaskedCopyableTextField).at(1).props().onTextChange('test-key1'));
-            act(() => wrapper.find(MaskedCopyableTextField).at(2).props().onTextChange('test-key2')); // tslint:disable-line:no-magic-numbers
+            act(() => wrapper.find(MaskedCopyableTextField).at(1).props().onTextChange?.('test-key1'));
+            act(() => wrapper.find(MaskedCopyableTextField).at(2).props().onTextChange?.('test-key2')); // tslint:disable-line:no-magic-numbers
             wrapper.update();
             const fields = wrapper.find(MaskedCopyableTextField);
             expect(fields.at(1).props().value).toEqual('test-key1');
@@ -68,12 +68,12 @@ describe('devices/components/addModuleIdentity', () => {
             const wrapper = mount(<AddModuleIdentity/>);
 
             const choiceGroup = wrapper.find(ChoiceGroup).first();
-            act(() => choiceGroup.props().onChange(undefined, { key: DeviceAuthenticationType.SelfSigned, text: 'text' } ));
+            act(() => choiceGroup.props().onChange?.(undefined as any, { key: DeviceAuthenticationType.SelfSigned, text: 'text' } ));
             wrapper.update();
             expect(wrapper.find(MaskedCopyableTextField).length).toEqual(3);  // tslint:disable-line:no-magic-numbers
 
-            act(() => wrapper.find(MaskedCopyableTextField).at(1).props().onTextChange('test-thumbprint1'));
-            act(() => wrapper.find(MaskedCopyableTextField).last().props().onTextChange('test-thumbprint2'));
+            act(() => wrapper.find(MaskedCopyableTextField).at(1).props().onTextChange?.('test-thumbprint1'));
+            act(() => wrapper.find(MaskedCopyableTextField).last().props().onTextChange?.('test-thumbprint2'));
             wrapper.update();
             const fields = wrapper.find(MaskedCopyableTextField);
             expect(fields.at(1).props().value).toEqual('test-thumbprint1');

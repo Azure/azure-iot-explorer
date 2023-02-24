@@ -84,7 +84,7 @@ describe('ConnectionStringEdit', () => {
             };
 
             const wrapper = mount(<ConnectionStringEditView {...props}/>);
-            act(() => wrapper.find(TextField).props().onChange(undefined, 'badConnectionString'));
+            act(() => wrapper.find(TextField).props().onChange?.(undefined as any, 'badConnectionString'));
             wrapper.update();
 
             const disabled = wrapper.find(PrimaryButton).props().disabled;
@@ -100,7 +100,7 @@ describe('ConnectionStringEdit', () => {
             };
 
             const wrapper = mount(<ConnectionStringEditView {...props}/>);
-            act(() => wrapper.find(TextField).props().onChange(undefined, connectionString));
+            act(() => wrapper.find(TextField).props().onChange?.(undefined as any, connectionString));
             wrapper.update();
 
             const disabled = wrapper.find(PrimaryButton).props().disabled;
@@ -117,12 +117,12 @@ describe('ConnectionStringEdit', () => {
             };
 
             const wrapper = mount(<ConnectionStringEditView {...props}/>);
-            act(() => wrapper.find(TextField).props().onChange(undefined, connectionString));
+            act(() => wrapper.find(TextField).props().onChange?.(undefined as any, connectionString));
             wrapper.update();
 
             const commitButton = wrapper.find(PrimaryButton);
             expect(commitButton.props().disabled).toEqual(false);
-            commitButton.props().onClick(undefined);
+            commitButton.props().onClick?.(undefined as any);
 
             expect(onCommit).toHaveBeenCalled();
         });

@@ -43,11 +43,11 @@ describe('startTime', () => {
                 setHasError={MockSetHasError}
             />);
 
-        act(() => wrapper.find(Toggle).first().props().onChange(undefined, false));
+        act(() => wrapper.find(Toggle).first().props().onChange?.(undefined as any, false));
         wrapper.update();
         expect(mockSetSpecifyStartTime).toBeCalledWith(false);
 
-        act(() => wrapper.find(TextField).props().onChange(undefined, '2020/12/16/12/58/00'));
+        act(() => wrapper.find(TextField).props().onChange?.(undefined as any, '2020/12/16/12/58/00'));
         wrapper.update();
         expect(mockSetStartTime).toBeCalledTimes(2);
         expect(mockSetStartTime.mock.calls[1][0]).toEqual(new Date(2020, 11, 16, 12, 58, 0));

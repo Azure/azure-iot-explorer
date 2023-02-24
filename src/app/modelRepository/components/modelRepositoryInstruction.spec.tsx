@@ -8,7 +8,6 @@ import { ModelRepositoryInstruction } from './modelRepositoryInstruction';
 
 describe('ModelRepositoryInstruction', () => {
     it('matches snapshot', () => {
-        expect(shallow(<ModelRepositoryInstruction empty={true}/>)).toMatchSnapshot();
-        expect(shallow(<ModelRepositoryInstruction empty={false}/>)).toMatchSnapshot();
+        expect(shallow(<ModelRepositoryInstruction/>)).toMatchSnapshot();
     });
 });

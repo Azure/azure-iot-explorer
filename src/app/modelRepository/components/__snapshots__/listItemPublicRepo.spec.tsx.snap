@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ListItemPublicRepo matches snapshot 1`] = `
+<Fragment>
+  <div
+    className="labelSection"
+  >
+    <div
+      className="label"
+    >
+      modelRepository.types.public.label
+    </div>
+    <div
+      className="description"
+    >
+      <Component
+        components={
+          Array [
+            <StyledLinkBase
+              href="https://github.com/Azure/iot-plugandplay-models"
+              target="_blank"
+            />,
+          ]
+        }
+      >
+        modelRepository.types.public.infoText
+      </Component>
+    </div>
+  </div>
+  <StyledTextFieldBase
+    ariaLabel="modelRepository.types.configurable.textBoxLabel"
+    className="local-folder-textbox"
+    label="modelRepository.types.configurable.textBoxLabel"
+    prefix="https://"
+    readOnly={true}
+    value="devicemodels.azure.com"
+  />
+</Fragment>
+`;

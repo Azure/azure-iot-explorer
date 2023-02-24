@@ -25,7 +25,6 @@ import { SynchronizationStatus } from '../../../api/models/synchronizationStatus
 import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
 import { TELEMETRY_PAGE_NAMES } from '../../../../app/constants/telemetry';
 import '../../../css/_deviceList.scss';
-import '../../../css/_layouts.scss';
 
 const SHIMMER_COUNT = 10;
 export const DeviceList: React.FC = () => {

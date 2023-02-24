@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ListItemLocalLabel matches snapshot when repo type equals Local 1`] = `
+<Fragment>
+  <div
+    className="labelSection"
+  >
+    <div
+      className="label"
+    >
+      modelRepository.types.local.label
+    </div>
+    <div
+      className="description"
+    >
+      modelRepository.types.local.infoText
+    </div>
+  </div>
+</Fragment>
+`;
+
+exports[`ListItemLocalLabel matches snapshot when repo type equals LocalDMR 1`] = `
+<Fragment>
+  <div
+    className="labelSection"
+  >
+    <div
+      className="label"
+    >
+      modelRepository.types.dmr.label
+    </div>
+    <div
+      className="description"
+    >
+      <Component
+        components={
+          Array [
+            <StyledLinkBase
+              href="https://github.com/Azure/iot-plugandplay-models-tools/wiki/Resolution-Convention"
+              target="_blank"
+            />,
+          ]
+        }
+      >
+        modelRepository.types.dmr.infoText
+      </Component>
+    </div>
+  </div>
+</Fragment>
+`;

@@ -12,6 +12,7 @@ import i18n from './i18n';
 import { Application } from './app/shared/components/application';
 import { GlobalContextProvider } from './app/shared/global/context/globalContext';
 import './app/css/_index.scss';
+import './app/css/_layouts.scss';
 
 initializeIcons();
 

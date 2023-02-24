@@ -27,9 +27,8 @@ import { DeviceIdentity } from '../../../api/models/deviceIdentity';
 import { Pnp } from '../../pnp/components/pnp';
 import { DeviceModules } from './deviceModules';
 import { CollapsibleButton } from '../../../shared/components/collapsibleButton';
-import '../../../css/_deviceContent.scss';
-import '../../../css/_layouts.scss';
 import { DeviceEventsStateContextProvider } from '../../deviceEvents/context/deviceEventsStateProvider';
+import '../../../css/_deviceContent.scss';
 
 export const DeviceContent: React.FC = () => {
     const { t } = useTranslation();
