@@ -31,7 +31,6 @@ export const ModelRepositoryInstruction: React.FC = () => {
                 <span>{t(ResourceKeys.modelRepository.description.description)}</span>
                 <NavLink to={`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.MODEL_REPOS}`} className="embedded-link">Home.</NavLink>
             </div>
-
             <h3 role="heading" aria-level={1}>{t(ResourceKeys.settings.questions.headerText)}</h3>
             <Link
                 href={t(ResourceKeys.settings.questions.questions.documentation.link)}
@@ -39,7 +38,6 @@ export const ModelRepositoryInstruction: React.FC = () => {
             >
                 {t(ResourceKeys.modelRepository.description.help)}
             </Link>
-
             <h3 role="heading" aria-level={1}>{t(ResourceKeys.modelRepository.description.header)}</h3>
             {t(ResourceKeys.modelRepository.instruction)}
             {privacyStatement}

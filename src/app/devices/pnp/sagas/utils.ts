@@ -28,7 +28,6 @@ export const checkModelIdCasing = (model: ModelDefinition, id: string) => {
 
 export const getLocationSettingValue = (locations: ModelRepositoryConfiguration[], type: REPOSITORY_LOCATION_TYPE): string => {
     const filteredValue = locations.filter(location => location.repositoryLocationType === type)?.[0]?.value || '';
-    // const localFolderPath = localFolderPaths && localFolderPaths[0] && localFolderPaths[0].value || '';
     return filteredValue.replace(/\/$/, ''); // remove trailing slash
 };
 
