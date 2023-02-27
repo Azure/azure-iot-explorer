@@ -38,6 +38,6 @@ describe('utils ', () => {
     });
 
     it('gets expected dmr params', () => {
-        expect(getDmrParams('d:/test/dtmi', interfaceId)).toEqual({folderPath: 'd:/test/dtmi/com/example', fileName: 'thermostat-1.json'});
+        expect(getDmrParams('d:/test/', interfaceId)).toEqual({folderPath: 'd:/test/dtmi/com/example', fileName: 'thermostat-1.json'});
     });
 });

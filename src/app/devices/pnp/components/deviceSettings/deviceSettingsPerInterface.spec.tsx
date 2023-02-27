@@ -18,7 +18,8 @@ describe('components/devices/deviceSettingsPerInterface', () => {
         componentName: testComponentName,
         deviceId: 'testDevice',
         interfaceId: 'urn:contoso:com:EnvironmentalSensor;1',
-        twinWithSchema
+        twinWithSchema,
+        moduleId: ''
     };
 
     const deviceSettingsDispatchProps: DeviceSettingDispatchProps = {

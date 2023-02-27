@@ -34,7 +34,7 @@ export const getLocationSettingValue = (locations: ModelRepositoryConfiguration[
 export const getDmrParams = (path: string, interfaceId: string): {folderPath: string, fileName: string} => {
     // convert dtmi name to follow drm convention
     // for example: dtmi:com:example:Thermostat;1 -> dtmi/com/example/thermostat-1.json
-    const fullPath = path.substring(0, path.lastIndexOf('/') + 1) + `${interfaceId.toLowerCase().replace(/:/g, '/').replace(';', '-')}.json`;
-    // path will be converted to for example: original path/dtmi/com/example, file name will be thermostat-1.json
+    const fullPath = `${path.replace(/\/$/, '')}/${interfaceId.toLowerCase().replace(/:/g, '/').replace(';', '-')}.json`;
+    // folderPath will be converted to for example: ${path}/dtmi/com/example, and fileName will be thermostat-1.json
     return {folderPath: fullPath.substring(0, fullPath.lastIndexOf('/')), fileName: fullPath.substring(fullPath.lastIndexOf('/') + 1, fullPath.length)};
 };

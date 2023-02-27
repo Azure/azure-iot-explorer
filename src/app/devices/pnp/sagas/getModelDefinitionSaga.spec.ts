@@ -128,7 +128,7 @@ describe('modelDefinition sagas', () => {
                 getModelDefinitionAction.started({
                     digitalTwinId,
                     interfaceId,
-                    locations: [{ repositoryLocationType: REPOSITORY_LOCATION_TYPE.LocalDMR, value: 'f:/dtmi' }],
+                    locations: [{ repositoryLocationType: REPOSITORY_LOCATION_TYPE.LocalDMR, value: 'f:/' }],
                 })
             );
 
