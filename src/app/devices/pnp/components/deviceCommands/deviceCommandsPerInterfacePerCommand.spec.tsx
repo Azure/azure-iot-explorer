@@ -26,7 +26,8 @@ describe('components/devices/deviceCommandsPerInterfacePerCommand', () => {
         parsedSchema: {
             description: 'command1 description',
             name: 'command1'
-        }
+        },
+        moduleId: ''
     };
 
     const getComponent = (overrides = {}) => {
@@ -124,7 +125,7 @@ describe('components/devices/deviceCommandsPerInterfacePerCommand', () => {
                     }
                 }
             });
-    
+
             const sendCommandConfirmation = wrapper.find(SendCommandConfirmation);
             expect(sendCommandConfirmation.props().hidden).toEqual(false);
         });
@@ -156,7 +157,6 @@ describe('components/devices/deviceCommandsPerInterfacePerCommand', () => {
                     }
                 }
             });
-    
 
             const sendCommandConfirmation = wrapper.find(SendCommandConfirmation);
             sendCommandConfirmation.props().onSendConfirm = onConfirmSendCommand;
@@ -193,13 +193,11 @@ describe('components/devices/deviceCommandsPerInterfacePerCommand', () => {
                     }
                 }
             });
-    
 
             const sendCommandConfirmation = wrapper.find(SendCommandConfirmation);
             sendCommandConfirmation.props().onSendCancel = onCancelSendCommand;
             sendCommandConfirmation.props().onSendCancel();
             wrapper.update();
-
 
             expect(onCancelSendCommand).toHaveBeenCalled();
         });

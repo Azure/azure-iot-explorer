@@ -21,8 +21,8 @@ describe('addDeviceSaga', () => {
     const connectionString = 'connection_string';
     const deviceId = 'device_id';
     const mockDevice: DeviceIdentity = {
-        authentication: null,
-        capabilities: null,
+        authentication: null as any,
+        capabilities: null as any,
         cloudToDeviceMessageCount: 1,
         deviceId,
         etag: 'etag',
@@ -39,6 +39,7 @@ describe('addDeviceSaga', () => {
         deviceId,
         iotEdge: true,
         lastActivityTime: '',
+        modelId: '',
         status: 'Enabled',
         statusUpdatedTime: ''
     };
@@ -77,7 +78,7 @@ describe('addDeviceSaga', () => {
 
         expect(success.next()).toEqual({
             done: false,
-            value: put(addDeviceAction.done({params: mockDevice, result: mockResult}))
+            value: put(addDeviceAction.done({params: mockDevice, result: mockResult as any}))
         });
 
         expect(success.next().done).toEqual(true);

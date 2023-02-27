@@ -59,6 +59,7 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
       handleOverlayToggle={[Function]}
       interfaceId="urn:contoso:com:EnvironmentalSensor;1"
       key="0"
+      moduleId=""
       patchTwin={[MockFunction]}
       reportedSection={
         Object {
@@ -158,6 +159,7 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
       handleOverlayToggle={[Function]}
       interfaceId="urn:contoso:com:EnvironmentalSensor;1"
       key="1"
+      moduleId=""
       patchTwin={[MockFunction]}
       reportedSection={
         Object {
