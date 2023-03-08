@@ -27,10 +27,7 @@ export const ModelRepositoryInstruction: React.FC = () => {
 
     return (
         <div className="model-repository-instruction">
-            <div>
-                <span>{t(ResourceKeys.modelRepository.description.description)}</span>
-                <NavLink to={`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.MODEL_REPOS}`} className="embedded-link">Home.</NavLink>
-            </div>
+            <span>{t(ResourceKeys.modelRepository.description.description)}</span>
             <h3 role="heading" aria-level={1}>{t(ResourceKeys.settings.questions.headerText)}</h3>
             <Link
                 href={t(ResourceKeys.settings.questions.questions.documentation.link)}
