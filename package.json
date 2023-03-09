@@ -1,6 +1,6 @@
 {
   "name": "azure-iot-explorer",
-  "version": "0.15.7",
+  "version": "0.15.8",
   "description": "This project welcomes contributions and suggestions. Most contributions require you to agree to a\r Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us\r the rights to use your contribution. For details, visit https://cla.microsoft.com.",
   "main": "host/electron.js",
   "build": {
@@ -74,6 +74,8 @@
     "@azure/msal-node": "1.14.6",
     "@fluentui/react": "8.101.2",
     "@microsoft/applicationinsights-web": "2.8.4",
+    "@rjsf/fluent-ui": "5.2.1",
+    "@rjsf/validator-ajv8": "5.2.1",
     "azure-iot-common": "1.12.14",
     "azure-iothub": "1.16.1",
     "body-parser": "1.20.1",

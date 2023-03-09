@@ -151,9 +151,9 @@ describe('DigitalTwinComponentList', () => {
         expect(wrapper.find(Announced)).toHaveLength(0);
 
         const list = wrapper.find('.component-list');
-        expect((list.props() as any).items[0].interfaceId).toEqual('dtmi:__DeviceManagement:DeviceInformation;1'); // tslint:disable-line:no-any
-        expect((list.props() as any).items[1].interfaceId).toEqual('dtmi:__Client:SDKInformation;1'); // tslint:disable-line:no-magic-numbers, no-any
-        expect((list.props() as any).items[2].interfaceId).toEqual('dtmi:__Contoso:EnvironmentalSensor;1'); // tslint:disable-line:no-magic-numbers, no-any
+        expect((list.props() as any).items[0].modelId).toEqual('dtmi:__DeviceManagement:DeviceInformation;1'); // tslint:disable-line:no-any
+        expect((list.props() as any).items[1].modelId).toEqual('dtmi:__Client:SDKInformation;1'); // tslint:disable-line:no-magic-numbers, no-any
+        expect((list.props() as any).items[2].modelId).toEqual('dtmi:__Contoso:EnvironmentalSensor;1'); // tslint:disable-line:no-magic-numbers, no-any
 
         // tslint:disable-next-line: no-magic-numbers
         expect(wrapper.find(PivotItem)).toHaveLength(2);

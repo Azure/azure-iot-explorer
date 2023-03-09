@@ -5,13 +5,11 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Label, Panel, PanelType } from '@fluentui/react';
-import Form from 'react-jsonschema-form';
-import { fabricWidgets, fabricFields } from '../../../jsonSchemaFormFabricPlugin';
-import { ObjectTemplate } from '../../../jsonSchemaFormFabricPlugin/fields/objectTemplate';
+import Form from '@rjsf/fluent-ui';
+import validator from '@rjsf/validator-ajv8';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { ParsedJsonSchema } from '../../../api/models/interfaceJsonParserOutput';
 import { twinToFormDataConverter } from '../../../shared/utils/twinAndJsonSchemaDataConverter';
-import { CLOSE } from '../../../constants/iconNames';
 import { PropertyContent } from '../../../api/models/modelDefinition';
 import { ErrorBoundary } from './errorBoundary';
 import { getLocalizedData } from '../../../api/dataTransforms/modelDefinitionTransform';
@@ -60,9 +58,7 @@ export const ComplexReportedFormPanel: React.FC<ReportedFormDataProps & Reported
                         schema={props.schema as any} // tslint:disable-line: no-any
                         showErrorList={false}
                         uiSchema={{'ui:description': props.schema.description, 'ui:disabled': true}}
-                        widgets={fabricWidgets}
-                        {...fabricFields}
-                        ObjectFieldTemplate={ObjectTemplate}
+                        validator={validator}
                     >
                         <br/>
                     </Form>

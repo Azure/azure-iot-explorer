@@ -52,7 +52,7 @@ export enum DtdlSchemaComplexType {
 }
 
 export interface JsonSchemaAdaptorInterface {
-    getComponentNameAndInterfaceIdArray: () => ComponentAndInterfaceId[];
+    getComponentNameToModelIdMapping: () => ComponentToModelId[];
     getWritableProperties: () => PropertyContent[];
     getNonWritableProperties: () => PropertyContent[];
     getCommands: () => CommandContent[];
@@ -62,9 +62,9 @@ export interface JsonSchemaAdaptorInterface {
     parseInterfaceTelemetryToJsonSchema: (telemetry: TelemetryContent) => ParsedJsonSchema;
 }
 
-export interface ComponentAndInterfaceId {
+export interface ComponentToModelId {
     componentName: string;
-    interfaceId: string;
+    modelId: string;
 }
 
 export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
@@ -94,11 +94,11 @@ export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
         });
     }
 
-    public getComponentNameAndInterfaceIdArray = (): ComponentAndInterfaceId[] => {
+    public getComponentNameToModelIdMapping = (): ComponentToModelId[] => {
         const componentContents = this.getModelContents().filter((item: ComponentContent) => this.filterComponent(item)) as ComponentContent[];
         return componentContents && componentContents.map(componentContent => ({
             componentName: componentContent.name,
-            interfaceId: typeof componentContent.schema === 'string' ? componentContent.schema : `${this.model['@id']}/${componentContent.schema['@id']}`
+            modelId: typeof componentContent.schema === 'string' ? componentContent.schema : `${this.model['@id']}/${componentContent.schema['@id']}`
         })) || [];
     }
 

@@ -5,9 +5,8 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { PrimaryButton, Label } from '@fluentui/react';
-import Form from 'react-jsonschema-form';
-import { fabricWidgets, fabricFields } from '../../../jsonSchemaFormFabricPlugin';
-import { ObjectTemplate } from '../../../jsonSchemaFormFabricPlugin/fields/objectTemplate';
+import Form from '@rjsf/fluent-ui';
+import validator from '@rjsf/validator-ajv8';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { SUBMIT } from '../../../constants/iconNames';
 import { ParsedJsonSchema } from '../../../api/models/interfaceJsonParserOutput';
@@ -63,19 +62,24 @@ export const DataForm: React.FC<DataFormDataProps & DataFormActionProps> = (prop
             return createJsonEditor();
         }
         else {
+            let uiSchema: any = {'ui:description': settingSchema.description, 'ui:disabled': false}; // tslint:disable-line: no-any
+            if (settingSchema.type === 'boolean') {
+                uiSchema = {
+                    ...uiSchema,
+                    'ui:widget': 'radio'
+                };
+            }
             return (
                 <ErrorBoundary error={t(ResourceKeys.errorBoundary.text)}>
                     <Form
                         className="value-section"
-                        formData={stringifyNumberIfNecessary()}
+                        formData={formData}
                         liveValidate={false}
                         onChange={onChangeForm}
                         schema={settingSchema as any} // tslint:disable-line: no-any
                         showErrorList={false}
-                        uiSchema={{'ui:description': settingSchema.description, 'ui:disabled': false}}
-                        widgets={fabricWidgets}
-                        {...fabricFields}
-                        ObjectFieldTemplate={ObjectTemplate}
+                        uiSchema={uiSchema}
+                        validator={validator}
                     >
                         {renderMessageBodyWithValueValidation()}
                         {createActionButtons()}
@@ -113,18 +117,18 @@ export const DataForm: React.FC<DataFormDataProps & DataFormActionProps> = (prop
     };
 
     const onChangeForm = (data: any) => { // tslint:disable-line: no-any
-        setFormData(data.formData);
+        if (settingSchema.type === 'boolean') {
+            setFormData(data.formData === '0' ? true : false);
+        }
+        else {
+            setFormData(data.formData);
+        }
     };
 
     const generatePayload = () => {
         return (parsingSchemaFailed) ?
             JSON.parse(jsonEditorData) :
             dataToTwinConverter(formData, settingSchema).twin;
-    };
-
-    const stringifyNumberIfNecessary = () => {
-        const value = formData;
-        return typeof value === 'number' && value === 0 && schema !== DtdlSchemaComplexType.Enum ? '0' : value; // javascript takes 0 as false, and json schema form would show it as undefined
     };
 
     const createActionButtons = () => {
@@ -139,15 +143,13 @@ export const DataForm: React.FC<DataFormDataProps & DataFormActionProps> = (prop
         }
 
         return (
-            <>
-                <PrimaryButton
-                    className="submit-button"
-                    onClick={handleSave(payload)}
-                    text={t(buttonText)}
-                    iconProps={{ iconName: SUBMIT }}
-                    disabled={buttonDisabled || !isPayloadValid}
-                />
-            </>
+            <PrimaryButton
+                className="submit-button"
+                onClick={handleSave(payload)}
+                text={t(buttonText)}
+                iconProps={{ iconName: SUBMIT }}
+                disabled={buttonDisabled || !isPayloadValid}
+            />
         );
     };
 
