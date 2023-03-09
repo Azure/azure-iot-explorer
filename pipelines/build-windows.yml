@@ -1,5 +1,5 @@
 steps:
-- script: 'npm ci'
+- script: 'npm ci --force'
   displayName: 'Install packages'
 
 - script: 'npm run build'
