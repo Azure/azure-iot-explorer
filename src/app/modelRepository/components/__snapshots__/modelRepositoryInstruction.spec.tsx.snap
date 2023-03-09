@@ -4,17 +4,9 @@ exports[`ModelRepositoryInstruction matches snapshot 1`] = `
 <div
   className="model-repository-instruction"
 >
-  <div>
-    <span>
-      modelRepository.description.description
-    </span>
-    <NavLink
-      className="embedded-link"
-      to="/home/repos"
-    >
-      Home.
-    </NavLink>
-  </div>
+  <span>
+    modelRepository.description.description
+  </span>
   <h3
     aria-level={1}
     role="heading"
