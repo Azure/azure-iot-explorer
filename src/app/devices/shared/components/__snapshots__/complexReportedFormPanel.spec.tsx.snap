@@ -5,7 +5,7 @@ exports[`complexReportedFormPanel matches snapshot without twinWithSchema 1`] = 
   isLightDismiss={true}
   isOpen={false}
   onDismiss={[MockFunction]}
-  type={3}
+  type={4}
 >
   <div
     className="panel-title"

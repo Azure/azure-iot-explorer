@@ -276,7 +276,7 @@ export const EventsContent: React.FC<EventsContentProps> = ({showSystemPropertie
     };
 
     const renderMessageBodyWithValueValidation = (eventBody: any, schema: ParsedJsonSchema, key: string) => { // tslint:disable-line:no-any
-        const errors = getSchemaValidationErrors(eventBody[key], schema, true);
+        const errors = getSchemaValidationErrors(eventBody[key], schema);
 
         return (
             <div className="column-value-text col-sm4">

@@ -5,16 +5,15 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Label, Panel, PanelType } from '@fluentui/react';
-import Form from '@rjsf/fluent-ui';
+import { Form as MaterialForm } from '@rjsf/material-ui';
+import { Form as FluentForm } from '@rjsf/fluent-ui';
 import validator from '@rjsf/validator-ajv8';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { ParsedJsonSchema } from '../../../api/models/interfaceJsonParserOutput';
-import { twinToFormDataConverter } from '../../../shared/utils/twinAndJsonSchemaDataConverter';
 import { PropertyContent } from '../../../api/models/modelDefinition';
 import { ErrorBoundary } from './errorBoundary';
 import { getLocalizedData } from '../../../api/dataTransforms/modelDefinitionTransform';
-import { JSONEditor } from '../../../shared/components/jsonEditor';
-import { getSchemaType } from '../../../shared/utils/jsonSchemaAdaptor';
+import { containsMapsInSchema } from './dataForm';
 
 export interface ReportedFormDataProps {
     showPanel: boolean;
@@ -29,11 +28,7 @@ export interface ReportedFormActionProps {
 
 export const ComplexReportedFormPanel: React.FC<ReportedFormDataProps & ReportedFormActionProps> = (props: ReportedFormDataProps & ReportedFormActionProps) => {
     const { t } = useTranslation();
-
-    const { schema, modelDefinition, showPanel } = props;
-    const twinData = twinToFormDataConverter(props.formData, schema);
-    const formData = twinData.formData;
-    const parsingSchemaFailed = React.useMemo(() => twinData.error || !schema || (!schema.type && !schema.$ref), [twinData, schema]);
+    const { modelDefinition, showPanel, formData } = props;
 
     const createTitle = () => {
         const displayName = getLocalizedData(modelDefinition.displayName);
@@ -46,38 +41,46 @@ export const ComplexReportedFormPanel: React.FC<ReportedFormDataProps & Reported
     };
 
     const createForm = () => {
-        if (parsingSchemaFailed) { // Not able to parse interface definition, render raw json editor instead
-            return createJsonEditor();
-        }
-        else {
-            return (
-                <ErrorBoundary error={t(ResourceKeys.errorBoundary.text)}>
-                    <Form
-                        formData={formData}
-                        liveValidate={true}
-                        schema={props.schema as any} // tslint:disable-line: no-any
-                        showErrorList={false}
-                        uiSchema={{'ui:description': props.schema.description, 'ui:disabled': true}}
-                        validator={validator}
-                    >
-                        <br/>
-                    </Form>
-                </ErrorBoundary>
+        const uiSchema: any = {'ui:description': props.schema?.description, 'ui:disabled': true}; // tslint:disable-line: no-any
+        let form: JSX.Element;
+        if (containsMapsInSchema(props.schema)) { // FluentForm does not support map (additionalProperties yet)
+            form = (
+                <MaterialForm
+                    formData={formData}
+                    liveValidate={true}
+                    schema={props.schema as any} // tslint:disable-line: no-any
+                    showErrorList={false}
+                    uiSchema={uiSchema}
+                    validator={validator}
+                >
+                    <br/>
+                </MaterialForm>
             );
         }
-    };
+        else {
+            form = (
+                <FluentForm
+                    formData={formData}
+                    liveValidate={true}
+                    schema={props.schema as any} // tslint:disable-line: no-any
+                    showErrorList={false}
+                    uiSchema={uiSchema}
+                    validator={validator}
+                >
+                    <br/>
+                </FluentForm>
+            );
+        }
 
-    const createJsonEditor = () => {
         return (
-            <form>
-                <Label>{t(ResourceKeys.deviceProperties.editor.label, {schema: getSchemaType(modelDefinition.schema)})}</Label>
-                <JSONEditor className="json-editor" content={JSON.stringify(formData, null, '\t')}/>
-            </form>
+            <ErrorBoundary error={t(ResourceKeys.errorBoundary.text)}>
+                {form}
+            </ErrorBoundary>
         );
     };
 
     return (
-        <Panel isOpen={showPanel} onDismiss={props.handleDismiss} type={PanelType.medium} isLightDismiss={true}>
+        <Panel isOpen={showPanel} onDismiss={props.handleDismiss} type={PanelType.large} isLightDismiss={true}>
             {createTitle()}
             {createForm()}
         </Panel>

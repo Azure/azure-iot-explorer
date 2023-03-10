@@ -3,9 +3,9 @@
  * Licensed under the MIT License
  **********************************************************/
 export interface ParsedJsonSchema {
-    required: string[];
+    required?: string[];
 
-    additionalProperties?: boolean; // use this props as a workaround to indicate whether parsed property is map type
+    additionalProperties?: ParsedJsonSchema;
     default?: {};
     definitions?: any; // tslint:disable-line: no-any
     description?: string;

@@ -75,6 +75,7 @@
     "@fluentui/react": "8.101.2",
     "@microsoft/applicationinsights-web": "2.8.4",
     "@rjsf/fluent-ui": "5.2.1",
+    "@rjsf/material-ui": "5.2.1",
     "@rjsf/validator-ajv8": "5.2.1",
     "azure-iot-common": "1.12.14",
     "azure-iothub": "1.16.1",

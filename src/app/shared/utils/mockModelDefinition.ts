@@ -24,7 +24,7 @@ export const longTypeNonWritableProperty2 = {
     "schema": "long"
 };
 
-export const enumbTypeProperty = {
+export const enumTypeProperty = {
     "@type": [
         "Property",
         "SemanticType/Humidity"

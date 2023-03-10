@@ -6,36 +6,27 @@ import { Validator, ValidatorResult, ValidationError } from 'jsonschema';
 import { PropertyContent, CommandContent, EnumSchema, MapSchema, ObjectSchema, ContentType, TelemetryContent, ModelDefinition, ComponentContent, ArraySchema, ComplexSchema } from '../../api/models/modelDefinition';
 import { ParsedCommandSchema, ParsedJsonSchema } from '../../api/models/interfaceJsonParserOutput';
 import { InterfaceSchemaNotSupportedException } from './exceptions/interfaceSchemaNotSupportedException';
-import { getNumberOfMapsInSchema } from './twinAndJsonSchemaDataConverter';
 
-// tslint:disable-next-line: cyclomatic-complexity
-export const getSchemaValidationErrors = (data: any, schema: ParsedJsonSchema, skipAllMapTypeValidation?: boolean): ValidationError[] => { // tslint:disable-line: no-any
+export const getSchemaValidationErrors = (data: any, schema: ParsedJsonSchema): ValidationError[] => { // tslint:disable-line: no-any
     const validator = new Validator();
     let result: ValidatorResult;
-    if (skipAllMapTypeValidation) {
-        if (schema && getNumberOfMapsInSchema(schema) <= 0) {
-            // only validate data if schema doesn't contain map type
-            result = validator.validate(data, schema);
-        }
-        return result && result.errors || [];
-    }
 
-    // hide validation error 'array' specific, as we are using array in json schema temporarily to indicate map
-    const pattern = new RegExp('^.*array.*$');
-    result = validator.validate(data, schema);
-    return result && result.errors && result.errors.length > 0 &&
-        result.errors.filter(error => !pattern.test(error.message)) || [];
+    try {
+        result = validator.validate(data, schema);
+        return result?.errors || [];
+    }
+    catch {
+        return [];
+    }
 };
 
-// tslint:disable-next-line: no-any
-export const getSchemaType = (schema: any): string => {
+export const getSchemaType = (schema: any): string => { // tslint:disable-line: no-any
     return typeof schema === 'string' ?
         schema :
         typeof schema['@type'] === 'string' ? schema['@type'] : '--';
 };
 
-// tslint:disable-next-line: no-any
-export const isSchemaSimpleType = (schema: any, ref: string): boolean => {
+export const isSchemaSimpleType = (schema: any, ref: string): boolean => { // tslint:disable-line: no-any
     if (ref) {
         return false;
     }
@@ -103,7 +94,7 @@ export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
     }
 
     public getWritableProperties = () => {
-        const filterWritablePropeties = (content: PropertyContent) =>  {
+        const filterWritableProperties = (content: PropertyContent) =>  {
             if (typeof content['@type'] === 'string') {
                 return content['@type'].toLowerCase() === ContentType.Property && content.writable === true;
             }
@@ -111,11 +102,11 @@ export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
                 return content['@type'].some((entry: string) => entry.toLowerCase() === ContentType.Property) && content.writable === true;
             }
         };
-        return this.getModelContents().filter((item: PropertyContent) => filterWritablePropeties(item)) as PropertyContent[] || [];
+        return this.getModelContents().filter((item: PropertyContent) => filterWritableProperties(item)) as PropertyContent[] || [];
     }
 
     public getNonWritableProperties = () => {
-        const filterNonWritablePropeties = (content: PropertyContent) =>  {
+        const filterNonWritableProperties = (content: PropertyContent) =>  {
             if (typeof content['@type'] === 'string') {
                 return content['@type'].toLowerCase() === ContentType.Property && !content.writable;
             }
@@ -123,7 +114,7 @@ export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
                 return content['@type'].some((entry: string) => entry.toLowerCase() === ContentType.Property) && !content.writable;
             }
         };
-        return this.getModelContents().filter((item: PropertyContent) => filterNonWritablePropeties(item)) as PropertyContent[] || [];
+        return this.getModelContents().filter((item: PropertyContent) => filterNonWritableProperties(item)) as PropertyContent[] || [];
     }
 
     public getCommands = () => {
@@ -318,11 +309,9 @@ export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
                 return;
             }
             return {
-                additionalProperties: true,
-                items: this.parseInterfaceMapTypePropertyItems(propertySchema),
-                required: [],
-                type: 'array'
-                // there is no map type in json schema, instead we use an array of object type to represent it, along with additionalProperties set to true
+                additionalProperties: this.parseInterfaceContentSchemaHelper((propertySchema as MapSchema).mapValue.schema),
+                description: `key's name: ${(propertySchema as MapSchema).mapKey.name}, value's name: ${(propertySchema as MapSchema).mapValue.name}`,
+                type: 'object'
             };
         }
 
@@ -365,26 +354,5 @@ export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
         catch {
             return;  // swallow the error and let UI render JSON editor for types which are not supported yet
         }
-    }
-
-    private readonly parseInterfaceMapTypePropertyItems = (propertySchema: string | ComplexSchema): ParsedJsonSchema => {
-        const parsedMapValue = this.parseInterfaceContentHelper({...(propertySchema as MapSchema).mapValue, '@type': null});
-        // there is no map type in json schema, instead we use an object type to present every single key value pair
-        const items = {
-            description: '',
-            properties: {} as any, // tslint:disable-line: no-any
-            required: [] as string[],
-            type: 'object'
-        };
-        // make mapKey as the first property of the object type, which is always a string
-        items.properties[(propertySchema as MapSchema).mapKey.name] = {
-            pattern: '^[a-zA-Z](?:[a-zA-Z0-9_]*[a-zA-Z0-9])?$',
-            type: 'string'
-        };
-        // make mapValue as the second property of the object type
-        items.properties[(propertySchema as MapSchema).mapValue.name] = parsedMapValue;
-        items.required.push(...[(propertySchema as MapSchema).mapKey.name, (propertySchema as MapSchema).mapValue.name]);
-        items.description = `Key of the map is: ${(propertySchema as MapSchema).mapKey.name}`;
-        return items;
     }
 }
