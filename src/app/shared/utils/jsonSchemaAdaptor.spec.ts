@@ -7,7 +7,7 @@ import { mockModelDefinition,
     longTypeNonWritableProperty,
     timeTypeCommand,
     mapTypeTelemetry,
-    enumbTypeProperty,
+    enumTypeProperty,
     schema,
     commandWithReusableSchemaInline,
     commandWithReusableSchemaNotInline,
@@ -15,7 +15,6 @@ import { mockModelDefinition,
     arrayTypeTelemetry
 } from './mockModelDefinition';
 import { JsonSchemaAdaptor,
-    getSchemaValidationErrors,
     getSchemaType,
     isSchemaSimpleType
 } from './jsonSchemaAdaptor';
@@ -86,13 +85,13 @@ describe('parse interface model definition to Json schema', () => {
 
     describe('parses complex content', () => {
         it('parses enum type property', () => {
-            expect(jsonSchemaAdaptor.parseInterfacePropertyToJsonSchema(enumbTypeProperty)).toEqual(
+            expect(jsonSchemaAdaptor.parseInterfacePropertyToJsonSchema(enumTypeProperty)).toEqual(
                 {
                     definitions: {},
                     enum: ['1', '2'],
                     enumNames : ['Offline', 'Online'],
                     required: [],
-                    title: enumbTypeProperty.name,
+                    title: enumTypeProperty.name,
                     type: 'string'
                 }
             );
@@ -101,31 +100,15 @@ describe('parse interface model definition to Json schema', () => {
         it('parses map type telemetry', () => {
             expect(jsonSchemaAdaptor.parseInterfaceTelemetryToJsonSchema(mapTypeTelemetry)).toEqual(
                 {
-                    additionalProperties: true,
-                    definitions: {},
-                    items: {
-                        description: 'Key of the map is: telemetryName',
-                        properties: {
-                            telemetryConfig: {
-                                format: 'date',
-                                required: [],
-                                title: 'telemetryConfig',
-                                type: 'string',
-                            },
-                            telemetryName: {
-                                pattern: '^[a-zA-Z](?:[a-zA-Z0-9_]*[a-zA-Z0-9])?$',
-                                type: 'string',
-                            },
-                        },
-                        required:  [
-                            'telemetryName',
-                            'telemetryConfig',
-                        ],
-                        type: 'object',
+                    additionalProperties: {
+                        format: 'date',
+                        required: [],
+                        type: 'string'
                     },
-                    required: [],
+                    description: "key's name: telemetryName, value's name: telemetryConfig",
+                    definitions: {},
                     title: mapTypeTelemetry.name,
-                    type: 'array'
+                    type: 'object'
                 }
             );
         });
@@ -215,36 +198,6 @@ describe('parse interface model definition to Json schema', () => {
                     responseSchema: undefined
                 }
             );
-        });
-    });
-
-    describe('validate data with schema', () => {
-        const testSchema = {
-            additionalProperties: true,
-            definitions: {},
-            items: {
-                description: 'Key of the map is: name',
-                properties: {
-                    age: {
-                        title: 'age',
-                        type: ['number', null]
-                    },
-                    name: {
-                        title: 'name',
-                        type: ['string']
-                    }
-                }
-            },
-            required: ['name', 'age'],
-            title: 'testMap',
-            type: 'array'
-        };
-        it('returns an empty list if map type validation is skipped', () => {
-            expect(getSchemaValidationErrors({name: 'test', age: 4}, testSchema, true)).toEqual([]);
-        });
-
-        it('returns an list not array specific if map type validation is not totally skipped', () => {
-            expect(getSchemaValidationErrors({name: 'test'}, testSchema)[0].message).toEqual('requires property \"age\"');
         });
     });
 

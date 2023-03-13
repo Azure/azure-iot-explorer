@@ -12,7 +12,7 @@ describe('dataForm', () => {
     const formData = 123;
     const settingSchema = {
         description: 'Brightness Level / The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)',
-        required: null,
+        required: [],
         title: 'brightness',
         type: 'number'
     };
@@ -25,7 +25,6 @@ describe('dataForm', () => {
     };
 
     const dataFormDispatchProps: DataFormActionProps = {
-        craftPayload: jest.fn(),
         handleSave: jest.fn()
     };
 
@@ -44,14 +43,5 @@ describe('dataForm', () => {
 
         const wrapper = mount(getComponent());
         expect(wrapper.find(Form)).toBeDefined();
-    });
-
-    it('matches snapshot with unsupported type', () => {
-        expect(shallow(getComponent({
-            settingSchema: undefined
-        }))).toMatchSnapshot();
-
-        const wrapper = mount(getComponent());
-        expect(wrapper.find('div.json-editor')).toBeDefined();
     });
 });

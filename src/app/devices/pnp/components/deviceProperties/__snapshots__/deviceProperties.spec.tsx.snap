@@ -107,29 +107,13 @@ exports[`components/devices/deviceProperties matches snapshot with one twinWithS
             "definitions": Object {},
             "properties": Object {
               "interfaces": Object {
-                "additionalProperties": true,
-                "items": Object {
-                  "description": "Key of the map is: name",
-                  "properties": Object {
-                    "name": Object {
-                      "pattern": "^[a-zA-Z](?:[a-zA-Z0-9_]*[a-zA-Z0-9])?$",
-                      "type": "string",
-                    },
-                    "schema": Object {
-                      "required": Array [],
-                      "title": "schema",
-                      "type": "string",
-                    },
-                  },
-                  "required": Array [
-                    "name",
-                    "schema",
-                  ],
-                  "type": "object",
+                "additionalProperties": Object {
+                  "required": Array [],
+                  "type": "string",
                 },
-                "required": Array [],
+                "description": "key's name: name, value's name: schema",
                 "title": "interfaces",
-                "type": "array",
+                "type": "object",
               },
               "modelId": Object {
                 "required": Array [],

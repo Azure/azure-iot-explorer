@@ -25,6 +25,6 @@ jobs:
         - name: npm install, build, and test
           timeout-minutes: 15
           run: |
-              npm ci
+              npm ci --force
               npm run build --if-present
               npm test

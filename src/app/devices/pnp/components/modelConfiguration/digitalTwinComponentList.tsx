@@ -20,7 +20,7 @@ import './digitalTwinDetail.scss';
 interface ModelContent {
     link: string;
     componentName: string;
-    interfaceId: string;
+    modelId: string;
 }
 
 export const DigitalTwinComponentList: React.FC = () => {
@@ -40,16 +40,16 @@ export const DigitalTwinComponentList: React.FC = () => {
         let link = `${url}${ROUTE_PARTS.DIGITAL_TWINS_DETAIL}/${ROUTE_PARTS.INTERFACES}/` +
             `?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}` +
             `&${ROUTE_PARAMS.COMPONENT_NAME}=${nameToId.componentName}` +
-            `&${ROUTE_PARAMS.INTERFACE_ID}=${nameToId.interfaceId}`;
+            `&${ROUTE_PARAMS.INTERFACE_ID}=${nameToId.modelId}`;
         if (moduleId) {
             link += `&${ROUTE_PARAMS.MODULE_ID}=${moduleId}`;
         }
 
-        if (nameToId.componentName === DEFAULT_COMPONENT_FOR_DIGITAL_TWIN && nameToId.interfaceId === modelId) {
+        if (nameToId.componentName === DEFAULT_COMPONENT_FOR_DIGITAL_TWIN && nameToId.modelId === modelId) {
             return{
                 componentName: t(ResourceKeys.digitalTwin.pivot.defaultComponent),
-                interfaceId: nameToId.interfaceId,
-                link
+                link,
+                modelId: nameToId.modelId
             };
         }
         else {
@@ -92,7 +92,7 @@ export const DigitalTwinComponentList: React.FC = () => {
                     <Label
                         key={column.key}
                     >
-                        {item.interfaceId}
+                        {item.modelId}
                     </Label>
                 );
             default:

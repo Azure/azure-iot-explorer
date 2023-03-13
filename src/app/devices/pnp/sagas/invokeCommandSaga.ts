@@ -78,6 +78,6 @@ export function* notifyMethodInvoked(toastId: number, action: Action<InvokeComma
 }
 
 const getValidationResult = (response: any, schema: ParsedJsonSchema) => { // tslint:disable-line:no-any
-    const errors = getSchemaValidationErrors(response?.payload, schema, true);
+    const errors = getSchemaValidationErrors(response?.payload, schema);
     return errors.length !== 0 ? errors.map(element => element.message).join(', ') : null;
 };
