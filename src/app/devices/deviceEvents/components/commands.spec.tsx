@@ -8,7 +8,6 @@ import { act } from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
 import { CommandBar } from '@fluentui/react';
 import { Commands } from './commands';
-import { appConfig, HostMode } from '../../../../appConfig/appConfig';
 import * as deviceEventsStateContext from '../context/deviceEventsStateContext';
 import { getInitialDeviceEventsState } from '../state';
 
@@ -20,30 +19,7 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('commands', () => {
-    it('matches snapshot in electron', () => {
-        appConfig.hostMode = HostMode.Electron;
-        jest.spyOn(deviceEventsStateContext, 'useDeviceEventsStateContext').mockReturnValue(
-            [getInitialDeviceEventsState(), deviceEventsStateContext.getInitialDeviceEventsOps()]);
-        expect(shallow(
-            <Commands
-                startDisabled={true}
-                monitoringData={true}
-                showContentTypePanel={true}
-                showSystemProperties={true}
-                showPnpModeledEvents={true}
-                showSimulationPanel={true}
-                setShowContentTypePanel={jest.fn()}
-                setMonitoringData={jest.fn()}
-                setShowSystemProperties={jest.fn()}
-                setShowPnpModeledEvents={jest.fn()}
-                setShowSimulationPanel={jest.fn()}
-                fetchData={jest.fn()}
-                stopFetching={jest.fn()}
-            />)).toMatchSnapshot();
-    });
-
-    it('matches snapshot in hosted environment', () => {
-        appConfig.hostMode = HostMode.Browser;
+    it('matches snapshot', () => {
         jest.spyOn(deviceEventsStateContext, 'useDeviceEventsStateContext').mockReturnValue(
             [getInitialDeviceEventsState(), deviceEventsStateContext.getInitialDeviceEventsOps()]);
         expect(shallow(
@@ -51,12 +27,10 @@ describe('commands', () => {
                 startDisabled={false}
                 monitoringData={false}
                 showContentTypePanel={true}
-                showSystemProperties={false}
                 showPnpModeledEvents={false}
                 showSimulationPanel={false}
                 setShowContentTypePanel={jest.fn()}
                 setMonitoringData={jest.fn()}
-                setShowSystemProperties={jest.fn()}
                 setShowPnpModeledEvents={jest.fn()}
                 setShowSimulationPanel={jest.fn()}
                 fetchData={jest.fn()}
@@ -67,7 +41,6 @@ describe('commands', () => {
     it('makes expected calls', () => {
         const mockSetMonitoringData = jest.fn();
         const mockSetShowPnpModeledEvents = jest.fn();
-        const mockSetShowSystemProperties = jest.fn();
         jest.spyOn(deviceEventsStateContext, 'useDeviceEventsStateContext').mockReturnValue(
             [getInitialDeviceEventsState(), deviceEventsStateContext.getInitialDeviceEventsOps()]);
         const wrapper = mount(
@@ -75,19 +48,17 @@ describe('commands', () => {
                 startDisabled={false}
                 monitoringData={true}
                 showContentTypePanel={true}
-                showSystemProperties={true}
                 showPnpModeledEvents={true}
                 showSimulationPanel={true}
                 setMonitoringData={mockSetMonitoringData}
                 setShowContentTypePanel={jest.fn()}
-                setShowSystemProperties={mockSetShowSystemProperties}
                 setShowPnpModeledEvents={mockSetShowPnpModeledEvents}
                 setShowSimulationPanel={jest.fn()}
                 fetchData={jest.fn()}
                 stopFetching={jest.fn()}
             />);
 
-            expect(wrapper.find(CommandBar).props().items.length).toEqual(5);
+            expect(wrapper.find(CommandBar).props().items.length).toEqual(4);
             act(() => {
                 wrapper.find(CommandBar).props().items[0].onClick(undefined);
             });
@@ -99,12 +70,5 @@ describe('commands', () => {
             });
             wrapper.update();
             expect(mockSetShowPnpModeledEvents).toBeCalledWith(false);
-
-
-            act(() => {
-                wrapper.find(CommandBar).props().items[2].onClick(undefined);
-            });
-            wrapper.update();
-            expect(mockSetShowSystemProperties).toBeCalledWith(false);
     });
 });

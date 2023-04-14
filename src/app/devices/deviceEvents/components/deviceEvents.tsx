@@ -22,6 +22,7 @@ import { StartTime } from './startTime';
 import { DeviceContentTypePanel } from './deviceContentTypePanel';
 import { Loader } from './loader';
 import { EventsContent } from './eventsContent';
+import { SystemPropertyCheckBox } from './systemPropertyCheckBox';
 import './deviceEvents.scss';
 
 let client: WebSocket;
@@ -96,17 +97,19 @@ export const DeviceEvents: React.FC = () => {
         },
         [hasError, state.formMode, useBuiltInEventHub, customEventHubConnectionString, specifyStartTime, startTime]);
 
+    const onSystemPropertyCheckBoxChange = (ev?: React.FormEvent<HTMLElement | HTMLInputElement>, checked?: boolean) => {
+        setShowSystemProperties(!!checked);
+    };
+
     const renderCommands = () => {
         return (
             <Commands
                 startDisabled={startDisabled}
                 monitoringData={monitoringData}
-                showSystemProperties={showSystemProperties}
                 showPnpModeledEvents={showPnpModeledEvents}
                 showSimulationPanel={showSimulationPanel}
                 showContentTypePanel={showContentTypePanel}
                 setMonitoringData={setMonitoringData}
-                setShowSystemProperties={setShowSystemProperties}
                 setShowPnpModeledEvents={setShowPnpModeledEvents}
                 setShowSimulationPanel={setShowSimulationPanel}
                 setShowContentTypePanel={setShowContentTypePanel}
@@ -211,6 +214,11 @@ export const DeviceEvents: React.FC = () => {
                 onToggleContentTypePanel={onToggleContentTypePanel}
             />
             <div className="device-events-container">
+                <SystemPropertyCheckBox
+                     showSystemProperties={showSystemProperties}
+                     showPnpModeledEvents={showPnpModeledEvents}
+                     setShowSystemProperties={onSystemPropertyCheckBoxChange}
+                />
                 <Loader monitoringData={monitoringData}/>
                 <EventsContent showPnpModeledEvents={showPnpModeledEvents} showSystemProperties={showSystemProperties}/>
             </div>
