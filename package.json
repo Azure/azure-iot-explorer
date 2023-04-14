@@ -156,7 +156,7 @@
     "tslint-origin-ordered-imports-rule": "1.1.2",
     "tslint-react": "3.6.0",
     "typescript": "4.6.3",
-    "webpack": "5.70.0",
+    "webpack": "5.76.0",
     "webpack-bundle-analyzer": "4.5.0",
     "webpack-cli": "4.10.0",
     "webpack-dev-server": "4.8.1",
