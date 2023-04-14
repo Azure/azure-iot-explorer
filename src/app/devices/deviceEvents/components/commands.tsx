@@ -5,7 +5,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useHistory } from 'react-router-dom';
-import { Announced, CommandBar, ICommandBarItemProps } from '@fluentui/react';
+import { CommandBar, ICommandBarItemProps } from '@fluentui/react';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { CLEAR, CHECKED_CHECKBOX, EMPTY_CHECKBOX, START, STOP, NAVIGATE_BACK, REFRESH, REMOVE, CODE, UPLOAD } from '../../../constants/iconNames';
 import { getComponentNameFromQueryString } from '../../../shared/utils/queryStringHelper';
@@ -19,12 +19,10 @@ import './deviceEvents.scss';
 export interface CommandsProps {
     startDisabled: boolean;
     monitoringData: boolean;
-    showSystemProperties: boolean;
     showPnpModeledEvents: boolean;
     showSimulationPanel: boolean;
     showContentTypePanel: boolean;
     setMonitoringData: (monitoringData: boolean) => void;
-    setShowSystemProperties: (showSystemProperties: boolean) => void;
     setShowPnpModeledEvents: (showPnpModeledEvents: boolean) => void;
     setShowSimulationPanel: (showSimulationPanel: boolean) => void;
     setShowContentTypePanel: (showDecoderPanel: boolean) => void;
@@ -35,12 +33,10 @@ export interface CommandsProps {
 export const Commands: React.FC<CommandsProps> = ({
     startDisabled,
     monitoringData,
-    showSystemProperties,
     showPnpModeledEvents,
     showSimulationPanel,
     showContentTypePanel,
     setMonitoringData,
-    setShowSystemProperties,
     setShowPnpModeledEvents,
     setShowSimulationPanel,
     setShowContentTypePanel,
@@ -58,14 +54,12 @@ export const Commands: React.FC<CommandsProps> = ({
         if (componentName) {
             return [createStartMonitoringCommandItem(),
                 createPnpModeledEventsCommandItem(),
-                createSystemPropertiesCommandItem(),
                 createRefreshCommandItem(),
                 createClearCommandItem()
             ];
         }
         else {
             return [createStartMonitoringCommandItem(),
-                createSystemPropertiesCommandItem(),
                 createClearCommandItem(),
                 createSimulationCommandItem(),
                 createContentTypeCommandItem()
@@ -82,19 +76,6 @@ export const Commands: React.FC<CommandsProps> = ({
             key: CLEAR,
             name: t(ResourceKeys.deviceEvents.command.clearEvents),
             onClick: onClearData
-        };
-    };
-
-    const createSystemPropertiesCommandItem = (): ICommandBarItemProps => {
-        return {
-            ariaLabel: t(ResourceKeys.deviceEvents.command.showSystemProperties.label),
-            disabled: state.formMode === 'updating' || showPnpModeledEvents,
-            iconProps: {
-                iconName: showSystemProperties ? CHECKED_CHECKBOX : EMPTY_CHECKBOX
-            },
-            key: CHECKED_CHECKBOX,
-            name: t(ResourceKeys.deviceEvents.command.showSystemProperties.label),
-            onClick: onShowSystemProperties
         };
     };
 
@@ -197,10 +178,6 @@ export const Commands: React.FC<CommandsProps> = ({
         api.clearEventsMonitoring();
     };
 
-    const onShowSystemProperties = () => {
-        setShowSystemProperties(!showSystemProperties);
-    };
-
     const onShowPnpModeledEvents = () => {
         setShowPnpModeledEvents(!showPnpModeledEvents);
     };
@@ -219,7 +196,6 @@ export const Commands: React.FC<CommandsProps> = ({
                 items={createCommandBarItems()}
                 farItems={componentName && [createNavigateBackCommandItem()]}
             />
-            <Announced message={showSystemProperties ? t(ResourceKeys.deviceEvents.command.showSystemProperties.announce.show) : t(ResourceKeys.deviceEvents.command.showSystemProperties.announce.hide)} />
         </>
     );
 };
