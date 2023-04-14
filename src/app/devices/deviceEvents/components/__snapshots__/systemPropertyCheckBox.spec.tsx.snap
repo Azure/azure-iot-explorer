@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SystemPropertyCheckBox matches snapshot 1`] = `
+<StyledCheckboxBase
+  ariaLabel="deviceEvents.command.showSystemProperties.label"
+  checked={true}
+  disabled={true}
+  label="deviceEvents.command.showSystemProperties.label"
+  onChange={[MockFunction]}
+  styles={
+    Object {
+      "root": Object {
+        "paddingTop": 10,
+      },
+    }
+  }
+/>
+`;

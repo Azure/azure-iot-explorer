@@ -1,81 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`commands matches snapshot in electron 1`] = `
-<Fragment>
-  <StyledCommandBarBase
-    farItems={
-      Array [
-        Object {
-          "ariaLabel": "deviceEvents.command.close",
-          "iconProps": Object {
-            "iconName": "NavigateBack",
-          },
-          "key": "NavigateBack",
-          "name": "deviceEvents.command.close",
-          "onClick": [Function],
-        },
-      ]
-    }
-    items={
-      Array [
-        Object {
-          "ariaLabel": "deviceEvents.command.stop",
-          "disabled": true,
-          "iconProps": Object {
-            "iconName": "StopSolid",
-          },
-          "key": "StopSolid",
-          "name": "deviceEvents.command.stop",
-          "onClick": [Function],
-        },
-        Object {
-          "ariaLabel": "Show modeled events",
-          "iconProps": Object {
-            "iconName": "CheckboxComposite",
-          },
-          "key": "Checkbox",
-          "name": "Show modeled events",
-          "onClick": [Function],
-        },
-        Object {
-          "ariaLabel": "deviceEvents.command.showSystemProperties.label",
-          "disabled": true,
-          "iconProps": Object {
-            "iconName": "CheckboxComposite",
-          },
-          "key": "CheckboxComposite",
-          "name": "deviceEvents.command.showSystemProperties.label",
-          "onClick": [Function],
-        },
-        Object {
-          "ariaLabel": "deviceEvents.command.refresh",
-          "disabled": false,
-          "iconProps": Object {
-            "iconName": "Refresh",
-          },
-          "key": "Refresh",
-          "name": "deviceEvents.command.refresh",
-          "onClick": undefined,
-        },
-        Object {
-          "ariaLabel": "deviceEvents.command.clearEvents",
-          "iconProps": Object {
-            "iconName": "Delete",
-          },
-          "key": "Clear",
-          "name": "deviceEvents.command.clearEvents",
-          "onClick": [Function],
-        },
-      ]
-    }
-  />
-  <StyledAnnouncedBase
-    message="deviceEvents.command.showSystemProperties.announce.show"
-  />
-</Fragment>
-`;
-
-exports[`commands matches snapshot in hosted environment 1`] = `
+exports[`commands matches snapshot 1`] = `
 <Fragment>
   <StyledCommandBarBase
     farItems={
@@ -113,16 +38,6 @@ exports[`commands matches snapshot in hosted environment 1`] = `
           "onClick": [Function],
         },
         Object {
-          "ariaLabel": "deviceEvents.command.showSystemProperties.label",
-          "disabled": false,
-          "iconProps": Object {
-            "iconName": "Checkbox",
-          },
-          "key": "CheckboxComposite",
-          "name": "deviceEvents.command.showSystemProperties.label",
-          "onClick": [Function],
-        },
-        Object {
           "ariaLabel": "deviceEvents.command.refresh",
           "disabled": false,
           "iconProps": Object {
@@ -143,9 +58,6 @@ exports[`commands matches snapshot in hosted environment 1`] = `
         },
       ]
     }
-  />
-  <StyledAnnouncedBase
-    message="deviceEvents.command.showSystemProperties.announce.hide"
   />
 </Fragment>
 `;

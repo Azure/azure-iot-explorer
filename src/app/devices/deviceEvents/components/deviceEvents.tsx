@@ -22,8 +22,8 @@ import { StartTime } from './startTime';
 import { DeviceContentTypePanel } from './deviceContentTypePanel';
 import { Loader } from './loader';
 import { EventsContent } from './eventsContent';
+import { SystemPropertyCheckBox } from './systemPropertyCheckBox';
 import './deviceEvents.scss';
-import { SystemPropertyCheckBox } from './systemPropertyCheckbox';
 
 let client: WebSocket;
 export const DeviceEvents: React.FC = () => {

@@ -12,11 +12,9 @@ exports[`deviceEvents matches snapshot after loaded 1`] = `
     setShowContentTypePanel={[Function]}
     setShowPnpModeledEvents={[Function]}
     setShowSimulationPanel={[Function]}
-    setShowSystemProperties={[Function]}
     showContentTypePanel={false}
     showPnpModeledEvents={false}
     showSimulationPanel={false}
-    showSystemProperties={false}
     startDisabled={false}
     stopFetching={[Function]}
   />
@@ -62,6 +60,11 @@ exports[`deviceEvents matches snapshot after loaded 1`] = `
   <div
     className="device-events-container"
   >
+    <SystemPropertyCheckBox
+      setShowSystemProperties={[Function]}
+      showPnpModeledEvents={false}
+      showSystemProperties={false}
+    />
     <Loader
       monitoringData={false}
     />
