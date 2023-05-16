@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import 'jest';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import * as React from 'react';
 import { act } from 'react-dom/test-utils';
 import { Callout, IconButton } from '@fluentui/react';
@@ -11,7 +11,18 @@ import { LabelWithRichCallout } from './labelWithRichCallout';
 
 describe('components/shared/labelWithRichCallout', () => {
 
-    it('matches snapshot when tooltip specified', () => {
+    it('matches snapshot', () => {
+        const wrapper = shallow(
+            <LabelWithRichCallout
+                calloutContent={<></>}
+            >
+                {'labelText'}
+            </LabelWithRichCallout>
+        );
+        expect(wrapper).toMatchSnapshot();
+    });
+
+    it('calls expected functions', () => {
         const wrapper = mount(
             <LabelWithRichCallout
                 calloutContent={<></>}
@@ -19,8 +30,6 @@ describe('components/shared/labelWithRichCallout', () => {
                 {'labelText'}
             </LabelWithRichCallout>
         );
-
-        expect(wrapper).toMatchSnapshot();
 
         act(() => wrapper.find(IconButton).props().onClick(undefined));
         wrapper.update();
