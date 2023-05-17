@@ -51,6 +51,12 @@ a:link, a:visited, a:hover, a:active {
     }
 }
 
+a:focus-visible {
+    @include themify($themes) {
+        outline: 1px solid themed('linkColor');
+    }
+}
+
 input::placeholder {
     opacity: 0.5;
     @include themify($themes) {

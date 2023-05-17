@@ -15,6 +15,9 @@
 
         .mainleftnav {
             grid-area: leftnav;
+            .ms-Nav-groupContent {
+                margin-top: 12px;
+            }
         }
 
         .mainleftnav.collapsed {
