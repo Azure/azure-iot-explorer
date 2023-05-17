@@ -98,7 +98,6 @@ export const ModuleIdentityDetail: React.FC = () => {
                 label={t(ResourceKeys.moduleIdentity.moduleId)}
                 value={moduleId}
                 allowMask={false}
-                readOnly={true}
                 labelCallout={t(ResourceKeys.moduleIdentity.moduleIdTooltip)}
             />
         );
@@ -128,7 +127,6 @@ export const ModuleIdentityDetail: React.FC = () => {
                     label={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.primaryKey)}
                     value={moduleIdentity.authentication.symmetricKey.primaryKey}
                     allowMask={true}
-                    readOnly={true}
                     labelCallout={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.primaryKeyTooltip)}
                 />
 
@@ -137,7 +135,6 @@ export const ModuleIdentityDetail: React.FC = () => {
                     label={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryKey)}
                     value={moduleIdentity.authentication.symmetricKey.secondaryKey}
                     allowMask={true}
-                    readOnly={true}
                     labelCallout={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryKeyTooltip)}
                 />
 
@@ -146,7 +143,6 @@ export const ModuleIdentityDetail: React.FC = () => {
                     label={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.primaryConnectionString)}
                     value={generateConnectionString(moduleIdentity.authentication.symmetricKey.primaryKey)}
                     allowMask={true}
-                    readOnly={true}
                 />
 
                 <MaskedCopyableTextField
@@ -154,7 +150,6 @@ export const ModuleIdentityDetail: React.FC = () => {
                     label={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString)}
                     value={generateConnectionString(moduleIdentity.authentication.symmetricKey.secondaryKey)}
                     allowMask={true}
-                    readOnly={true}
                 />
 
                 {renderSasTokenSection()}
@@ -173,7 +168,6 @@ export const ModuleIdentityDetail: React.FC = () => {
                     label={t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.primaryThumbprint)}
                     value={moduleIdentity.authentication.x509Thumbprint.primaryThumbprint}
                     allowMask={true}
-                    readOnly={true}
                     labelCallout={t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.primaryThumbprintTooltip)}
                 />
                 <MaskedCopyableTextField
@@ -181,7 +175,6 @@ export const ModuleIdentityDetail: React.FC = () => {
                     label={t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.secondaryThumbprint)}
                     value={moduleIdentity.authentication.x509Thumbprint.secondaryThumbprint}
                     allowMask={true}
-                    readOnly={true}
                     labelCallout={t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip)}
                 />
             </>

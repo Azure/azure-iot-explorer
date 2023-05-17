@@ -131,7 +131,6 @@ export const SasTokenGenerationView: React.FC<SasTokenGenerationDataProps> = (pr
                     label={t(ResourceKeys.deviceIdentity.authenticationType.sasToken.textField.label)}
                     value={sasTokenConnectionString}
                     allowMask={true}
-                    readOnly={true}
                 />
                 <PrimaryButton
                     className={'sas-token-generate-button'}

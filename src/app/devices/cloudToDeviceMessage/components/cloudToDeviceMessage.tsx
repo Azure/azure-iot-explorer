@@ -238,7 +238,7 @@ export const CloudToDeviceMessage: React.FC = () => {
             case 'value':
                 return renderItemValueColumn(item, column);
             default:
-                return;
+                return <></>;
         }
     };
 

@@ -61,17 +61,4 @@
             background-color: themed('maskedCopyableReadonlyBackground');
         }
     }
-
-    .error {
-        @include themify($themes) {
-            border-color: themed('errorBorder');
-        }
-    }
-
-    .errorSection {
-        @include themify($themes) {
-            color: themed('errorText');
-        }
-        font-size: $textSize;
-    }
 }

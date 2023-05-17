@@ -96,7 +96,7 @@ export const DigitalTwinComponentList: React.FC = () => {
                     </Label>
                 );
             default:
-                return;
+                return <></>;
         }
     };
 

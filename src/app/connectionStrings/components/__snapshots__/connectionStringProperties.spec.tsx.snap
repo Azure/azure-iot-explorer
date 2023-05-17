@@ -6,21 +6,18 @@ exports[`ConnectionSTringProperties matches snapshot 1`] = `
     allowMask={false}
     ariaLabel="connectionStrings.properties.hostName.ariaLabel"
     label="connectionStrings.properties.hostName.label"
-    readOnly={true}
     value="hostName"
   />
   <MaskedCopyableTextField
     allowMask={false}
     ariaLabel="connectionStrings.properties.sharedAccessPolicyName.ariaLabel"
     label="connectionStrings.properties.sharedAccessPolicyName.label"
-    readOnly={true}
     value="sharedAccessKeyName"
   />
   <MaskedCopyableTextField
     allowMask={true}
     ariaLabel="connectionStrings.properties.sharedAccessPolicyKey.ariaLabel"
     label="connectionStrings.properties.sharedAccessPolicyKey.label"
-    readOnly={true}
     value="sharedAccessKey"
   />
 </Fragment>

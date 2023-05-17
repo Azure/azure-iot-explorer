@@ -184,7 +184,7 @@ export const DeviceList: React.FC = () => {
                     />
             );
             default:
-                return;
+                return <></>;
         }
     };
 

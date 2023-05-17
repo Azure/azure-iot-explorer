@@ -66,7 +66,7 @@ export const HubList: React.FC = () => {
                     </Label>
                 );
             default:
-                return;
+                return <></>;
         }
     };
 

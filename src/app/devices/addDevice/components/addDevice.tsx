@@ -5,14 +5,13 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useHistory } from 'react-router-dom';
-import { Overlay, Toggle, ChoiceGroup, IChoiceGroupOption, Checkbox, CommandBar } from '@fluentui/react';
+import { Overlay, Toggle, ChoiceGroup, IChoiceGroupOption, Checkbox, CommandBar, TextField } from '@fluentui/react';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { DeviceAuthenticationType } from '../../../api/models/deviceAuthenticationType';
 import { DeviceIdentity } from '../../../api/models/deviceIdentity';
 import { DeviceStatus } from '../../../api/models/deviceStatus';
 import { validateKey, validateThumbprint, validateDeviceId, processThumbprint } from '../../../shared/utils/utils';
 import { LabelWithTooltip } from '../../../shared/components/labelWithTooltip';
-import { MaskedCopyableTextField } from '../../../shared/components/maskedCopyableTextField';
 import { useAsyncSagaReducer } from '../../../shared/hooks/useAsyncSagaReducer';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import { SAVE, CANCEL } from '../../../constants/iconNames';
@@ -64,17 +63,14 @@ export const AddDevice: React.FC = () => {
 
     const showDeviceId = () => {
         return (
-            <MaskedCopyableTextField
+            <TextField
                 ariaLabel={t(ResourceKeys.deviceIdentity.deviceID)}
                 label={t(ResourceKeys.deviceIdentity.deviceID)}
                 value={device.id}
                 required={true}
-                onTextChange={changeDeviceId}
-                allowMask={false}
-                readOnly={false}
-                error={!!device.error ? t(device.error) : ''}
-                labelCallout={t(ResourceKeys.deviceIdentity.deviceIDTooltip)}
-                setFocus={true}
+                onChange={changeDeviceId}
+                errorMessage={!!device.error ? t(device.error) : ''}
+                description={t(ResourceKeys.deviceIdentity.deviceIDTooltip)}
             />
         );
     };
@@ -109,27 +105,27 @@ export const AddDevice: React.FC = () => {
     const renderSymmetricKeySection = () => {
         return (
             <>
-                <MaskedCopyableTextField
+                <TextField
                     ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryKey)}
                     label={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryKey)}
                     value={primaryKey.value}
                     required={true}
-                    onTextChange={changePrimaryKey}
-                    allowMask={true}
-                    readOnly={false}
-                    error={!!primaryKey.error ? t(primaryKey.error) : ''}
-                    labelCallout={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryKeyTooltip)}
+                    onChange={changePrimaryKey}
+                    type={'password'}
+                    canRevealPassword={true}
+                    errorMessage={!!primaryKey.error ? t(primaryKey.error) : ''}
+                    description={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryKeyTooltip)}
                 />
-                <MaskedCopyableTextField
+                <TextField
                     ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryKey)}
                     label={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryKey)}
                     value={secondaryKey.value}
                     required={true}
-                    onTextChange={changeSecondaryKey}
-                    allowMask={true}
-                    readOnly={false}
-                    error={!!secondaryKey.error ? t(secondaryKey.error) : ''}
-                    labelCallout={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryKeyTooltip)}
+                    onChange={changeSecondaryKey}
+                    type={'password'}
+                    canRevealPassword={true}
+                    errorMessage={!!secondaryKey.error ? t(secondaryKey.error) : ''}
+                    description={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryKeyTooltip)}
                 />
             </>
         );
@@ -138,27 +134,27 @@ export const AddDevice: React.FC = () => {
     const renderSelfSignedSection = () => {
         return (
             <>
-                <MaskedCopyableTextField
+                <TextField
                     ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.primaryThumbprint)}
                     label={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.primaryThumbprint)}
                     value={primaryKey.thumbprint}
                     required={true}
-                    onTextChange={changePrimaryThumbprint}
-                    allowMask={true}
-                    readOnly={false}
-                    error={!!primaryKey.thumbprintError ? t(primaryKey.thumbprintError) : ''}
-                    labelCallout={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.primaryThumbprintTooltip)}
+                    onChange={changePrimaryThumbprint}
+                    type={'password'}
+                    canRevealPassword={true}
+                    errorMessage={!!primaryKey.thumbprintError ? t(primaryKey.thumbprintError) : ''}
+                    description={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.primaryThumbprintTooltip)}
                 />
-                <MaskedCopyableTextField
+                <TextField
                     ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.secondaryThumbprint)}
                     label={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.secondaryThumbprint)}
                     value={secondaryKey.thumbprint}
                     required={true}
-                    onTextChange={changeSecondaryThumbprint}
-                    allowMask={true}
-                    readOnly={false}
-                    error={!!secondaryKey.thumbprintError ? t(secondaryKey.thumbprintError) : ''}
-                    labelCallout={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip)}
+                    onChange={changeSecondaryThumbprint}
+                    type={'password'}
+                    canRevealPassword={true}
+                    errorMessage={!!secondaryKey.thumbprintError ? t(secondaryKey.thumbprintError) : ''}
+                    description={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip)}
                 />
             </>
         );
@@ -237,7 +233,7 @@ export const AddDevice: React.FC = () => {
         );
     };
 
-    const changeDeviceId = (newValue?: string) => {
+    const changeDeviceId = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
         const deviceIdError = getDeviceIdValidationMessage(newValue);
         setDevice({
             error: deviceIdError,
@@ -259,7 +255,7 @@ export const AddDevice: React.FC = () => {
         }
     };
 
-    const changePrimaryKey = (newValue?: string) => {
+    const changePrimaryKey = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
         const primaryKeyError = getSymmetricKeyValidationMessage(newValue);
         setPrimaryKey({
             ...primaryKey,
@@ -268,7 +264,7 @@ export const AddDevice: React.FC = () => {
         });
     };
 
-    const changeSecondaryKey = (newValue?: string) => {
+    const changeSecondaryKey = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
         const secondaryKeyError = getSymmetricKeyValidationMessage(newValue);
         setSecondaryKey({
             ...secondaryKey,
@@ -277,7 +273,7 @@ export const AddDevice: React.FC = () => {
         });
     };
 
-    const changePrimaryThumbprint = (newValue?: string) => {
+    const changePrimaryThumbprint = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
         const primaryThumbprintError = getThumbprintValidationMessage(newValue);
         setPrimaryKey({
             ...primaryKey,
@@ -286,7 +282,7 @@ export const AddDevice: React.FC = () => {
         });
     };
 
-    const changeSecondaryThumbprint = (newValue?: string) => {
+    const changeSecondaryThumbprint = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
         const secondaryThumbprintError = getThumbprintValidationMessage(newValue);
         setSecondaryKey({
             ...secondaryKey,

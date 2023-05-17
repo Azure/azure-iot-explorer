@@ -37,7 +37,6 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after certificateAuthori
       ariaLabel="moduleIdentity.moduleId"
       label="moduleIdentity.moduleId"
       labelCallout="moduleIdentity.moduleIdTooltip"
-      readOnly={true}
       value="moduleId"
     />
     <StyledLabelBase>
@@ -84,7 +83,6 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after module identity is
       ariaLabel="moduleIdentity.moduleId"
       label="moduleIdentity.moduleId"
       labelCallout="moduleIdentity.moduleIdTooltip"
-      readOnly={true}
       value="moduleId"
     />
   </div>
@@ -128,7 +126,6 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after sas module identit
       ariaLabel="moduleIdentity.moduleId"
       label="moduleIdentity.moduleId"
       labelCallout="moduleIdentity.moduleIdTooltip"
-      readOnly={true}
       value="moduleId"
     />
     <MaskedCopyableTextField
@@ -136,7 +133,6 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after sas module identit
       ariaLabel="moduleIdentity.authenticationType.symmetricKey.primaryKey"
       label="moduleIdentity.authenticationType.symmetricKey.primaryKey"
       labelCallout="moduleIdentity.authenticationType.symmetricKey.primaryKeyTooltip"
-      readOnly={true}
       value="mock_key_1"
     />
     <MaskedCopyableTextField
@@ -144,21 +140,18 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after sas module identit
       ariaLabel="moduleIdentity.authenticationType.symmetricKey.secondaryKey"
       label="moduleIdentity.authenticationType.symmetricKey.secondaryKey"
       labelCallout="moduleIdentity.authenticationType.symmetricKey.secondaryKeyTooltip"
-      readOnly={true}
       value="mock_key_2"
     />
     <MaskedCopyableTextField
       allowMask={true}
       ariaLabel="moduleIdentity.authenticationType.symmetricKey.primaryConnectionString"
       label="moduleIdentity.authenticationType.symmetricKey.primaryConnectionString"
-      readOnly={true}
       value="HostName=hostName;DeviceId=newdevice;ModuleId=moduleId;SharedAccessKey=mock_key_1"
     />
     <MaskedCopyableTextField
       allowMask={true}
       ariaLabel="moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString"
       label="moduleIdentity.authenticationType.symmetricKey.secondaryConnectionString"
-      readOnly={true}
       value="HostName=hostName;DeviceId=newdevice;ModuleId=moduleId;SharedAccessKey=mock_key_2"
     />
     <SasTokenGenerationView
@@ -219,7 +212,6 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after self signed module
       ariaLabel="moduleIdentity.moduleId"
       label="moduleIdentity.moduleId"
       labelCallout="moduleIdentity.moduleIdTooltip"
-      readOnly={true}
       value="moduleId"
     />
     <StyledLabelBase>
@@ -230,7 +222,6 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after self signed module
       ariaLabel="moduleIdentity.authenticationType.selfSigned.primaryThumbprint"
       label="moduleIdentity.authenticationType.selfSigned.primaryThumbprint"
       labelCallout="moduleIdentity.authenticationType.selfSigned.primaryThumbprintTooltip"
-      readOnly={true}
       value="thumbprint1"
     />
     <MaskedCopyableTextField
@@ -238,7 +229,6 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after self signed module
       ariaLabel="moduleIdentity.authenticationType.selfSigned.secondaryThumbprint"
       label="moduleIdentity.authenticationType.selfSigned.secondaryThumbprint"
       labelCallout="moduleIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip"
-      readOnly={true}
       value="thumbprint2"
     />
   </div>
@@ -282,7 +272,6 @@ exports[`ModuleIdentityDetail snapshot matches snapshot showing delete confirmat
       ariaLabel="moduleIdentity.moduleId"
       label="moduleIdentity.moduleId"
       labelCallout="moduleIdentity.moduleIdTooltip"
-      readOnly={true}
       value="moduleId"
     />
     <StyledLabelBase>
@@ -359,7 +348,6 @@ exports[`ModuleIdentityDetail snapshot matches snapshot while loading 1`] = `
       ariaLabel="moduleIdentity.moduleId"
       label="moduleIdentity.moduleId"
       labelCallout="moduleIdentity.moduleIdTooltip"
-      readOnly={true}
       value="moduleId"
     />
     <MultiLineShimmer />

@@ -12,11 +12,10 @@ exports[`deviceIdentity snapshot matches snapshot 1`] = `
   <div
     className="device-detail"
   >
-    <MaskedCopyableTextField
-      allowMask={false}
+    <StyledTextFieldBase
       ariaLabel="deviceIdentity.deviceID"
+      description="deviceIdentity.deviceIDTooltip"
       label="deviceIdentity.deviceID"
-      labelCallout="deviceIdentity.deviceIDTooltip"
       readOnly={true}
       value={null}
     />
@@ -45,11 +44,10 @@ exports[`deviceIdentity snapshot matches snapshot with CA auth type 1`] = `
   <div
     className="device-detail"
   >
-    <MaskedCopyableTextField
-      allowMask={false}
+    <StyledTextFieldBase
       ariaLabel="deviceIdentity.deviceID"
+      description="deviceIdentity.deviceIDTooltip"
       label="deviceIdentity.deviceID"
-      labelCallout="deviceIdentity.deviceIDTooltip"
       readOnly={true}
       value={null}
     />
@@ -78,11 +76,10 @@ exports[`deviceIdentity snapshot matches snapshot with SelfSigned auth type 1`] 
   <div
     className="device-detail"
   >
-    <MaskedCopyableTextField
-      allowMask={false}
+    <StyledTextFieldBase
       ariaLabel="deviceIdentity.deviceID"
+      description="deviceIdentity.deviceIDTooltip"
       label="deviceIdentity.deviceID"
-      labelCallout="deviceIdentity.deviceIDTooltip"
       readOnly={true}
       value={null}
     />
@@ -111,11 +108,10 @@ exports[`deviceIdentity snapshot matches snapshot with SymmetricKey auth type 1`
   <div
     className="device-detail"
   >
-    <MaskedCopyableTextField
-      allowMask={false}
+    <StyledTextFieldBase
       ariaLabel="deviceIdentity.deviceID"
+      description="deviceIdentity.deviceIDTooltip"
       label="deviceIdentity.deviceID"
-      labelCallout="deviceIdentity.deviceIDTooltip"
       readOnly={true}
       value={null}
     />
@@ -144,11 +140,10 @@ exports[`deviceIdentity snapshot matches snapshot with Synchronization Status of
   <div
     className="device-detail"
   >
-    <MaskedCopyableTextField
-      allowMask={false}
+    <StyledTextFieldBase
       ariaLabel="deviceIdentity.deviceID"
+      description="deviceIdentity.deviceIDTooltip"
       label="deviceIdentity.deviceID"
-      labelCallout="deviceIdentity.deviceIDTooltip"
       readOnly={true}
       value={null}
     />
@@ -177,11 +172,10 @@ exports[`deviceIdentity snapshot matches snapshot with Synchronization Status of
   <div
     className="device-detail"
   >
-    <MaskedCopyableTextField
-      allowMask={false}
+    <StyledTextFieldBase
       ariaLabel="deviceIdentity.deviceID"
+      description="deviceIdentity.deviceIDTooltip"
       label="deviceIdentity.deviceID"
-      labelCallout="deviceIdentity.deviceIDTooltip"
       readOnly={true}
       value={null}
     />
@@ -210,11 +204,10 @@ exports[`deviceIdentity snapshot matches snapshot with auth type of None 1`] = `
   <div
     className="device-detail"
   >
-    <MaskedCopyableTextField
-      allowMask={false}
+    <StyledTextFieldBase
       ariaLabel="deviceIdentity.deviceID"
+      description="deviceIdentity.deviceIDTooltip"
       label="deviceIdentity.deviceID"
-      labelCallout="deviceIdentity.deviceIDTooltip"
       readOnly={true}
       value={null}
     />
@@ -243,11 +236,10 @@ exports[`deviceIdentity snapshot matches snapshot with identity wrapper 1`] = `
   <div
     className="device-detail"
   >
-    <MaskedCopyableTextField
-      allowMask={false}
+    <StyledTextFieldBase
       ariaLabel="deviceIdentity.deviceID"
+      description="deviceIdentity.deviceIDTooltip"
       label="deviceIdentity.deviceID"
-      labelCallout="deviceIdentity.deviceIDTooltip"
       readOnly={true}
       value={null}
     />

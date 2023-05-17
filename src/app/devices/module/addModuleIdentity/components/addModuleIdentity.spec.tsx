@@ -6,10 +6,9 @@ import * as React from 'react';
 import 'jest';
 import { act } from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
-import { ChoiceGroup, CommandBar } from '@fluentui/react';
+import { ChoiceGroup, CommandBar, TextField } from '@fluentui/react';
 import { AddModuleIdentity } from './addModuleIdentity';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
-import { MaskedCopyableTextField } from '../../../../shared/components/maskedCopyableTextField';
 import { DeviceAuthenticationType } from '../../../../api/models/deviceAuthenticationType';
 import * as AsyncSagaReducer from '../../../../shared/hooks/useAsyncSagaReducer';
 import { addModuleIdentityAction } from '../actions';
@@ -46,22 +45,22 @@ describe('devices/components/addModuleIdentity', () => {
 
         it('renders symmetric key input field if not auto generating keys', () => {
             const wrapper = mount(<AddModuleIdentity/>);
-            expect(wrapper.find(MaskedCopyableTextField).length).toEqual(1);
+            expect(wrapper.find(TextField).length).toEqual(1);
 
             // uncheck auto generate
             const autoGenerateButton = wrapper.find('.autoGenerateButton').first();
             act(() => autoGenerateButton.props().onChange?.(undefined as any));
             wrapper.update();
-            expect(wrapper.find(MaskedCopyableTextField).length).toEqual(3); // tslint:disable-line:no-magic-numbers
+            expect(wrapper.find(TextField).length).toEqual(3); // tslint:disable-line:no-magic-numbers
 
-            act(() => wrapper.find(MaskedCopyableTextField).at(1).props().onTextChange?.('test-key1'));
-            act(() => wrapper.find(MaskedCopyableTextField).at(2).props().onTextChange?.('test-key2')); // tslint:disable-line:no-magic-numbers
+            act(() => wrapper.find(TextField).at(1).props().onChange?.(undefined as any, 'test-key1'));
+            act(() => wrapper.find(TextField).at(2).props().onChange?.(undefined as any, 'test-key2')); // tslint:disable-line:no-magic-numbers
             wrapper.update();
-            const fields = wrapper.find(MaskedCopyableTextField);
+            const fields = wrapper.find(TextField);
             expect(fields.at(1).props().value).toEqual('test-key1');
-            expect(fields.at(1).props().error).toEqual('moduleIdentity.validation.invalidKey');
+            expect(fields.at(1).props().errorMessage).toEqual('moduleIdentity.validation.invalidKey');
             expect(fields.last().props().value).toEqual('test-key2');
-            expect(fields.last().props().error).toEqual('moduleIdentity.validation.invalidKey');
+            expect(fields.last().props().errorMessage).toEqual('moduleIdentity.validation.invalidKey');
         });
 
         it('renders selfSigned input field', () => {
@@ -70,16 +69,16 @@ describe('devices/components/addModuleIdentity', () => {
             const choiceGroup = wrapper.find(ChoiceGroup).first();
             act(() => choiceGroup.props().onChange?.(undefined as any, { key: DeviceAuthenticationType.SelfSigned, text: 'text' } ));
             wrapper.update();
-            expect(wrapper.find(MaskedCopyableTextField).length).toEqual(3);  // tslint:disable-line:no-magic-numbers
+            expect(wrapper.find(TextField).length).toEqual(3);  // tslint:disable-line:no-magic-numbers
 
-            act(() => wrapper.find(MaskedCopyableTextField).at(1).props().onTextChange?.('test-thumbprint1'));
-            act(() => wrapper.find(MaskedCopyableTextField).last().props().onTextChange?.('test-thumbprint2'));
+            act(() => wrapper.find(TextField).at(1).props().onChange?.(undefined as any, 'test-thumbprint1'));
+            act(() => wrapper.find(TextField).last().props().onChange?.(undefined as any, 'test-thumbprint2'));
             wrapper.update();
-            const fields = wrapper.find(MaskedCopyableTextField);
+            const fields = wrapper.find(TextField);
             expect(fields.at(1).props().value).toEqual('test-thumbprint1');
-            expect(fields.at(1).props().error).toEqual('moduleIdentity.validation.invalidThumbprint');
+            expect(fields.at(1).props().errorMessage).toEqual('moduleIdentity.validation.invalidThumbprint');
             expect(fields.last().props().value).toEqual('test-thumbprint2');
-            expect(fields.last().props().error).toEqual('moduleIdentity.validation.invalidThumbprint');
+            expect(fields.last().props().errorMessage).toEqual('moduleIdentity.validation.invalidThumbprint');
         });
     });
 });

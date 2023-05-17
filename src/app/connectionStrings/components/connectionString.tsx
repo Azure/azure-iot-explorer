@@ -99,7 +99,6 @@ export const ConnectionString: React.FC<ConnectionStringProps> = (props: Connect
                     allowMask={true}
                     label={t(ResourceKeys.connectionStrings.properties.connectionString.label)}
                     value={connectionString}
-                    readOnly={true}
                 />
                 {daysTillExpire <= CONNECTION_STRING_EXPIRATION_WARNING_IN_DAYS &&
                     <div className="expiration-warning">

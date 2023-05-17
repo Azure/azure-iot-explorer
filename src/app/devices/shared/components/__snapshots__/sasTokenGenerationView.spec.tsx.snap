@@ -42,7 +42,6 @@ exports[`devices/components/moduleIdentityTwin snapshot matches snapshot when no
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.sasToken.textField.ariaLabel"
       label="deviceIdentity.authenticationType.sasToken.textField.label"
-      readOnly={true}
       value=""
     />
     <CustomizedPrimaryButton
@@ -98,7 +97,6 @@ exports[`devices/components/moduleIdentityTwin snapshot matches snapshot when no
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.sasToken.textField.ariaLabel"
       label="deviceIdentity.authenticationType.sasToken.textField.label"
-      readOnly={true}
       value=""
     />
     <CustomizedPrimaryButton
