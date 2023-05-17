@@ -44,7 +44,7 @@ export const DevicePropertiesPerInterface: React.FC<DevicePropertiesDataProps> =
             case 'value':
                 return renderPropertyReportedValue(item);
             default:
-                return;
+                return <></>;
         }
     };
 
@@ -75,7 +75,7 @@ export const DevicePropertiesPerInterface: React.FC<DevicePropertiesDataProps> =
     // tslint:disable-next-line:cyclomatic-complexity
     const renderPropertyReportedValue = (item: TwinWithSchema) => {
         if (!item) {
-            return;
+            return <></>;
         }
         const ariaLabel = t(ResourceKeys.deviceProperties.columns.value);
         // tslint:disable-next-line:no-any
@@ -114,7 +114,7 @@ export const DevicePropertiesPerInterface: React.FC<DevicePropertiesDataProps> =
 
     const createReportedValuePanel = () => {
         if (!selectedItem) {
-            return;
+            return <></>;
         }
         const { reportedTwin, propertyModelDefinition: modelDefinition, propertySchema: schema } = selectedItem;
         return (

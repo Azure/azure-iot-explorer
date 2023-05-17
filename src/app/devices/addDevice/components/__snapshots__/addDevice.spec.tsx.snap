@@ -35,16 +35,13 @@ exports[`addDevice matches snapshot 1`] = `
     <div
       className="form"
     >
-      <MaskedCopyableTextField
-        allowMask={false}
+      <StyledTextFieldBase
         ariaLabel="deviceIdentity.deviceID"
-        error=""
+        description="deviceIdentity.deviceIDTooltip"
+        errorMessage=""
         label="deviceIdentity.deviceID"
-        labelCallout="deviceIdentity.deviceIDTooltip"
-        onTextChange={[Function]}
-        readOnly={false}
+        onChange={[Function]}
         required={true}
-        setFocus={true}
         value=""
       />
       <div

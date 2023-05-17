@@ -27,7 +27,6 @@ export const DigitalTwinModelId: React.FC = () => {
                 label={t(ResourceKeys.digitalTwin.modelId)}
                 value={modelId}
                 allowMask={false}
-                readOnly={true}
             />
         </div>
     );

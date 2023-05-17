@@ -146,7 +146,7 @@ export const ModuleIdentityList: React.FC = () => {
                     </Label>
                 );
             default:
-                return;
+                return <></>;
         }
     };
 

@@ -25,7 +25,6 @@ export const ConnectionStringProperties: React.FC<ConnectionStringPropertiesProp
                 allowMask={false}
                 label={t(ResourceKeys.connectionStrings.properties.hostName.label)}
                 value={hostName}
-                readOnly={true}
             />
 
             <MaskedCopyableTextField
@@ -33,7 +32,6 @@ export const ConnectionStringProperties: React.FC<ConnectionStringPropertiesProp
                 allowMask={false}
                 label={t(ResourceKeys.connectionStrings.properties.sharedAccessPolicyName.label)}
                 value={sharedAccessKeyName}
-                readOnly={true}
             />
 
             <MaskedCopyableTextField
@@ -41,7 +39,6 @@ export const ConnectionStringProperties: React.FC<ConnectionStringPropertiesProp
                 allowMask={true}
                 label={t(ResourceKeys.connectionStrings.properties.sharedAccessPolicyKey.label)}
                 value={sharedAccessKey}
-                readOnly={true}
             />
         </>
     );

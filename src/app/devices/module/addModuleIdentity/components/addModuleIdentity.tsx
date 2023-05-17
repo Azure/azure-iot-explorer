@@ -5,13 +5,12 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useHistory } from 'react-router-dom';
-import { CommandBar, ChoiceGroup, IChoiceGroupOption, Checkbox } from '@fluentui/react';
+import { CommandBar, ChoiceGroup, IChoiceGroupOption, Checkbox, TextField } from '@fluentui/react';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { CANCEL, SAVE } from '../../../../constants/iconNames';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { ROUTE_PARAMS } from '../../../../constants/routes';
-import { MaskedCopyableTextField } from '../../../../shared/components/maskedCopyableTextField';
 import { HeaderView } from '../../../../shared/components/headerView';
 import { DeviceAuthenticationType } from '../../../../api/models/deviceAuthenticationType';
 import { validateThumbprint, validateKey, validateModuleIdentityName, processThumbprint } from '../../../../shared/utils/utils';
@@ -20,9 +19,9 @@ import { addModuleIdentityReducer } from '../reducer';
 import { addModuleIdentitySaga } from '../saga';
 import { addModuleStateInitial } from '../state';
 import { addModuleIdentityAction } from '../actions';
-import '../../../../css/_deviceDetail.scss';
 import { AppInsightsClient } from '../../../../shared/appTelemetry/appInsightsClient';
 import { TELEMETRY_USER_ACTIONS } from '../../../../constants/telemetry';
+import '../../../../css/_deviceDetail.scss';
 
 const initialKeyValue = {
     error: '',
@@ -78,17 +77,14 @@ export const AddModuleIdentity: React.FC = () => {
 
     const showModuleId = () => {
         return (
-            <MaskedCopyableTextField
+            <TextField
                 ariaLabel={t(ResourceKeys.moduleIdentity.moduleId)}
                 label={t(ResourceKeys.moduleIdentity.moduleId)}
                 value={module.id}
                 required={true}
-                onTextChange={changeModuleIdentityName}
-                allowMask={false}
-                readOnly={false}
-                error={!!module.error ? t(module.error) : ''}
-                labelCallout={t(ResourceKeys.moduleIdentity.moduleIdTooltip)}
-                setFocus={true}
+                onChange={changeModuleIdentityName}
+                errorMessage={!!module.error ? t(module.error) : ''}
+                description={t(ResourceKeys.moduleIdentity.moduleIdTooltip)}
             />
         );
     };
@@ -123,27 +119,27 @@ export const AddModuleIdentity: React.FC = () => {
     const renderSymmetricKeySection = () => {
         return (
             <>
-                <MaskedCopyableTextField
+                <TextField
                     ariaLabel={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.primaryKey)}
                     label={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.primaryKey)}
                     value={primaryKey.value}
                     required={true}
-                    onTextChange={changePrimaryKey}
-                    allowMask={true}
-                    readOnly={false}
-                    error={!!primaryKey.error ? t(primaryKey.error) : ''}
-                    labelCallout={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.primaryKeyTooltip)}
+                    onChange={changePrimaryKey}
+                    type={'password'}
+                    canRevealPassword={true}
+                    errorMessage={!!primaryKey.error ? t(primaryKey.error) : ''}
+                    description={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.primaryKeyTooltip)}
                 />
-                <MaskedCopyableTextField
+                <TextField
                     ariaLabel={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryKey)}
                     label={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryKey)}
                     value={secondaryKey.value}
                     required={true}
-                    onTextChange={changeSecondaryKey}
-                    allowMask={true}
-                    readOnly={false}
-                    error={!!secondaryKey.error ? t(secondaryKey.error) : ''}
-                    labelCallout={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryKeyTooltip)}
+                    onChange={changeSecondaryKey}
+                    type={'password'}
+                    canRevealPassword={true}
+                    errorMessage={!!secondaryKey.error ? t(secondaryKey.error) : ''}
+                    description={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryKeyTooltip)}
                 />
             </>
         );
@@ -152,27 +148,28 @@ export const AddModuleIdentity: React.FC = () => {
     const renderSelfSignedSection = () => {
         return (
             <>
-                <MaskedCopyableTextField
+                <TextField
                     ariaLabel={t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.primaryThumbprint)}
                     label={t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.primaryThumbprint)}
                     value={primaryKey.thumbprint}
                     required={true}
-                    onTextChange={changePrimaryThumbprint}
-                    allowMask={true}
-                    readOnly={false}
-                    error={!!primaryKey.thumbprintError ? t(primaryKey.thumbprintError) : ''}
-                    labelCallout={t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.primaryThumbprintTooltip)}
+                    onChange={changePrimaryThumbprint}
+                    type={'password'}
+                    canRevealPassword={true}
+                    errorMessage={!!primaryKey.thumbprintError ? t(primaryKey.thumbprintError) : ''}
+                    description={t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.primaryThumbprintTooltip)}
                 />
-                <MaskedCopyableTextField
+                <TextField
                     ariaLabel={t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.secondaryThumbprint)}
                     label={t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.secondaryThumbprint)}
                     value={secondaryKey.thumbprint}
                     required={true}
-                    onTextChange={changeSecondaryThumbprint}
-                    allowMask={true}
+                    onChange={changeSecondaryThumbprint}
+                    type={'password'}
+                    canRevealPassword={true}
                     readOnly={false}
-                    error={!!secondaryKey.thumbprintError ? t(secondaryKey.thumbprintError) : ''}
-                    labelCallout={t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip)}
+                    errorMessage={!!secondaryKey.thumbprintError ? t(secondaryKey.thumbprintError) : ''}
+                    description={t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip)}
                 />
             </>
         );
@@ -254,7 +251,7 @@ export const AddModuleIdentity: React.FC = () => {
             validateThumbprint(secondaryKey.thumbprint);
     };
 
-    const changeModuleIdentityName = (newValue?: string) => {
+    const changeModuleIdentityName = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
         const moduleIdError = getModuleIdentityNameValidationMessage(newValue);
         setModule({
             error: moduleIdError,
@@ -274,7 +271,7 @@ export const AddModuleIdentity: React.FC = () => {
         }
     };
 
-    const changePrimaryKey = (newValue?: string) => {
+    const changePrimaryKey = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
         const primaryKeyError = getSymmetricKeyValidationMessage(newValue);
         setPrimaryKey({
             ...primaryKey,
@@ -283,7 +280,7 @@ export const AddModuleIdentity: React.FC = () => {
         });
     };
 
-    const changeSecondaryKey = (newValue?: string) => {
+    const changeSecondaryKey = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
         const secondaryKeyError = getSymmetricKeyValidationMessage(newValue);
         setSecondaryKey({
             ...secondaryKey,
@@ -292,7 +289,7 @@ export const AddModuleIdentity: React.FC = () => {
         });
     };
 
-    const changePrimaryThumbprint = (newValue?: string) => {
+    const changePrimaryThumbprint = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
         const primaryThumbprintError = getThumbprintValidationMessage(newValue);
         setPrimaryKey({
             ...primaryKey,
@@ -301,7 +298,7 @@ export const AddModuleIdentity: React.FC = () => {
         });
     };
 
-    const changeSecondaryThumbprint = (newValue?: string) => {
+    const changeSecondaryThumbprint = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
         const secondaryThumbprintError = getThumbprintValidationMessage(newValue);
         setSecondaryKey({
             ...secondaryKey,

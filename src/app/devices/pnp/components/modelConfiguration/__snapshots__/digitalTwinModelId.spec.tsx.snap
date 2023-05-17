@@ -11,7 +11,6 @@ exports[`DigitalTwinModelId matches snapshot when empty model id is retrieved 1`
     allowMask={false}
     ariaLabel="digitalTwin.modelId"
     label="digitalTwin.modelId"
-    readOnly={true}
   />
 </div>
 `;
@@ -27,7 +26,6 @@ exports[`DigitalTwinModelId matches snapshot when model id is retrieved 1`] = `
     allowMask={false}
     ariaLabel="digitalTwin.modelId"
     label="digitalTwin.modelId"
-    readOnly={true}
   />
 </div>
 `;

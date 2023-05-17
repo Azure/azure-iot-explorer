@@ -74,7 +74,6 @@ export const DeviceSimulationPanel: React.FC<DeviceSimulationPanelProps> = props
                         label={t(ResourceKeys.deviceEvents.simulation.basic.copyLabel, {deviceId})}
                         value={`az iot device simulate --device-id ${deviceId} --login \"${hubConnectionString}\"`}
                         allowMask={false}
-                        readOnly={true}
                     />
                 </CollapsibleSection>
                 <CollapsibleSection
@@ -90,7 +89,6 @@ export const DeviceSimulationPanel: React.FC<DeviceSimulationPanelProps> = props
                         label={t(ResourceKeys.deviceEvents.simulation.advanced.copyLabel, {deviceId})}
                         value={convertToCliCommand()}
                         allowMask={false}
-                        readOnly={true}
                     />
                 </CollapsibleSection>
             </Panel>
@@ -173,7 +171,7 @@ export const DeviceSimulationPanel: React.FC<DeviceSimulationPanelProps> = props
             case 'value':
                 return renderItemValueColumn(item, column);
             default:
-                return;
+                return <></>;
         }
     };
 

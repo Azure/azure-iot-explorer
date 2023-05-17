@@ -16,14 +16,9 @@ export interface MaskedCopyableTextFieldProps {
     calloutContent?: JSX.Element;
     label: string;
     labelCallout?: string;
-    error?: string;
     value: string;
     allowMask: boolean;
-    readOnly: boolean;
-    required?: boolean;
-    onTextChange?(text: string): void;
     placeholder?: string;
-    setFocus?: boolean;
 }
 
 // tslint:disable-next-line: cyclomatic-complexity
@@ -35,35 +30,15 @@ export const MaskedCopyableTextField: React.FC<MaskedCopyableTextFieldProps> = (
 
     const { t } = useTranslation();
 
-    const { setFocus, ariaLabel, error, value, allowMask, readOnly, placeholder, calloutContent, labelCallout, required, label, onTextChange } = props;
+    const { ariaLabel, value, allowMask, placeholder, calloutContent, labelCallout, label } = props;
     const [hideContents, setHideContents] = React.useState(allowMask);
-
-    React.useEffect(
-        () => {
-            if (setFocus) {
-                const node = visibleInputRef.current;
-                if (node) {
-                    node.focus();
-                }
-            }
-        },
-        [setFocus]);
 
     const renderLabelSection = () => {
         if (calloutContent) {
-            return (<LabelWithRichCallout calloutContent={calloutContent} htmlFor={labelIdentifier} required={required}>{label}</LabelWithRichCallout>);
+            return (<LabelWithRichCallout calloutContent={calloutContent} htmlFor={labelIdentifier}>{label}</LabelWithRichCallout>);
         }
 
-        return (<LabelWithTooltip tooltipText={labelCallout} htmlFor={labelIdentifier} required={required}>{label}</LabelWithTooltip>);
-    };
-
-    const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const text = event.target.value;
-        setHideContents(false);
-
-        if (onTextChange) {
-            onTextChange(text);
-        }
+        return (<LabelWithTooltip tooltipText={labelCallout} htmlFor={labelIdentifier}>{label}</LabelWithTooltip>);
     };
 
     const toggleDisplay = () => setHideContents(!hideContents);
@@ -75,7 +50,7 @@ export const MaskedCopyableTextField: React.FC<MaskedCopyableTextFieldProps> = (
             </div>
 
             <div className="controlSection">
-                <div className={`borderedSection ${error ? 'error' : ''} ${readOnly ? 'readOnly' : ''}`}>
+                <div className="borderedSection readOnly">
                     <input
                         aria-label={ariaLabel}
                         id={labelIdentifier}
@@ -83,10 +58,8 @@ export const MaskedCopyableTextField: React.FC<MaskedCopyableTextFieldProps> = (
                         value={value || ''}
                         type={(allowMask && hideContents) ? 'password' : 'text'}
                         className="input"
-                        readOnly={readOnly}
-                        onChange={onChange}
+                        readOnly={true}
                         placeholder={placeholder}
-                        required={props.required}
                     />
                     <input
                         aria-hidden={true}
@@ -118,13 +91,6 @@ export const MaskedCopyableTextField: React.FC<MaskedCopyableTextFieldProps> = (
                     <CopyButton copyText={value} />
                 </div>
             </div>
-
-            {error &&
-                <>
-                    <div className="errorSection" aria-live={'assertive'}>{error}</div>
-                    <Announced message={error} />
-                </>
-            }
         </div>
     );
 };

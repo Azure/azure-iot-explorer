@@ -56,7 +56,6 @@ exports[`connectionString matches snapshot 1`] = `
       allowMask={true}
       ariaLabel="connectionStrings.properties.connectionString.ariaLabel"
       label="connectionStrings.properties.connectionString.label"
-      readOnly={true}
       value="HostName=test.azure-devices-int.net;SharedAccessKeyName=iothubowner;SharedAccessKey=key"
     />
     <div

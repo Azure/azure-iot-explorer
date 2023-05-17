@@ -72,7 +72,6 @@ export const DeviceInterfaces: React.FC = () => {
                     label={t(ResourceKeys.deviceInterfaces.columns.id)}
                     value={interfaceId}
                     allowMask={false}
-                    readOnly={true}
                 />
                 {isValidInterface &&
                     <>
@@ -81,14 +80,12 @@ export const DeviceInterfaces: React.FC = () => {
                             label={t(ResourceKeys.deviceInterfaces.columns.displayName)}
                             value={modelDefinitionWithSource.modelDefinition && getLocalizedData(modelDefinitionWithSource.modelDefinition.displayName) || '--'}
                             allowMask={false}
-                            readOnly={true}
                         />
                         <MaskedCopyableTextField
                             ariaLabel={t(ResourceKeys.deviceInterfaces.columns.description)}
                             label={t(ResourceKeys.deviceInterfaces.columns.description)}
                             value={modelDefinitionWithSource.modelDefinition && getLocalizedData(modelDefinitionWithSource.modelDefinition.description) || '--'}
                             allowMask={false}
-                            readOnly={true}
                         />
                     </>
                 }

@@ -34,16 +34,13 @@ exports[`devices/components/addModuleIdentity snapshot matches snapshot while lo
   <div
     className="device-detail"
   >
-    <MaskedCopyableTextField
-      allowMask={false}
+    <StyledTextFieldBase
       ariaLabel="moduleIdentity.moduleId"
-      error=""
+      description="moduleIdentity.moduleIdTooltip"
+      errorMessage=""
       label="moduleIdentity.moduleId"
-      labelCallout="moduleIdentity.moduleIdTooltip"
-      onTextChange={[Function]}
-      readOnly={false}
+      onChange={[Function]}
       required={true}
-      setFocus={true}
       value=""
     />
     <div

@@ -44,7 +44,6 @@ exports[`deviceSimulationPanel matches snapshot  1`] = `
       allowMask={false}
       ariaLabel="deviceEvents.simulation.basic.copyLabel"
       label="deviceEvents.simulation.basic.copyLabel"
-      readOnly={true}
       value="az iot device simulate --device-id device1 --login \\"\\""
     />
   </CollapsibleSection>
@@ -168,7 +167,6 @@ exports[`deviceSimulationPanel matches snapshot  1`] = `
       allowMask={false}
       ariaLabel="deviceEvents.simulation.advanced.copyLabel"
       label="deviceEvents.simulation.advanced.copyLabel"
-      readOnly={true}
       value="az iot device simulate --device-id device1 --login \\"\\""
     />
   </CollapsibleSection>

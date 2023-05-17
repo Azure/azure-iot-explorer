@@ -49,21 +49,18 @@ exports[`deviceInterfaces shows interface information when status is fetched 1`]
           allowMask={false}
           ariaLabel="deviceInterfaces.columns.id"
           label="deviceInterfaces.columns.id"
-          readOnly={true}
           value={null}
         />
         <MaskedCopyableTextField
           allowMask={false}
           ariaLabel="deviceInterfaces.columns.displayName"
           label="deviceInterfaces.columns.displayName"
-          readOnly={true}
           value="--"
         />
         <MaskedCopyableTextField
           allowMask={false}
           ariaLabel="deviceInterfaces.columns.description"
           label="deviceInterfaces.columns.description"
-          readOnly={true}
           value="--"
         />
       </div>

@@ -18,8 +18,6 @@ describe('MaskedCopyableTextField', () => {
                     ariaLabel="ariaLabel1"
                     label="label1"
                     value="value1"
-                    onTextChange={jest.fn()}
-                    readOnly={true}
                 />
             )).toMatchSnapshot();
         });
@@ -31,35 +29,6 @@ describe('MaskedCopyableTextField', () => {
                     ariaLabel="ariaLabel1"
                     label="label1"
                     value="value1"
-                    onTextChange={jest.fn()}
-                    readOnly={true}
-                />
-            )).toMatchSnapshot();
-        });
-
-        it('it matches snapshot when allowMask = true', () => {
-            expect(shallow(
-                <MaskedCopyableTextField
-                    allowMask={true}
-                    ariaLabel="ariaLabel1"
-                    label="label1"
-                    value="value1"
-                    onTextChange={jest.fn()}
-                    readOnly={true}
-                />
-            )).toMatchSnapshot();
-        });
-
-        it('it matches snapshot when error message specified', () => {
-            expect(shallow(
-                <MaskedCopyableTextField
-                    allowMask={true}
-                    ariaLabel="ariaLabel1"
-                    error="error"
-                    label="label1"
-                    value="value1"
-                    onTextChange={jest.fn()}
-                    readOnly={true}
                 />
             )).toMatchSnapshot();
         });
@@ -73,8 +42,6 @@ describe('MaskedCopyableTextField', () => {
                     ariaLabel="ariaLabel1"
                     label="label1"
                     value="value1"
-                    onTextChange={jest.fn()}
-                    readOnly={true}
                 />);
 
             expect(wrapper.find(TooltipHost).first().props().content).toEqual('common.maskedCopyableTextField.toggleMask.label.show');
@@ -94,35 +61,13 @@ describe('MaskedCopyableTextField', () => {
                     ariaLabel="ariaLabel1"
                     label="label1"
                     value="value1"
-                    onTextChange={jest.fn()}
-                    readOnly={true}
                 />);
 
             const clipboardButton = wrapper.find(IconButton).first();
-            clipboardButton.props().onClick(undefined);
+            act(() => clipboardButton.props().onClick(undefined));
 
             expect(document.execCommand).toHaveBeenLastCalledWith('copy');
             done();
-        });
-    });
-
-    describe('change to input', () => {
-        it('call onTextChange prop', () => {
-            const onTextChange = jest.fn();
-            const wrapper = mount(
-                <MaskedCopyableTextField
-                    allowMask={false}
-                    ariaLabel="ariaLabel1"
-                    label="label1"
-                    value="value1"
-                    onTextChange={onTextChange}
-                    readOnly={true}
-                />);
-
-            const input = wrapper.find('input').first();
-            input.simulate('change', { target: { value: 'hello world' } });
-
-            expect(onTextChange).toHaveBeenCalledTimes(1);
         });
     });
 });

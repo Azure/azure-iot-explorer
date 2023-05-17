@@ -73,7 +73,7 @@ export const SubscriptionList: React.FC<SubscriptionListPros> = props => {
                     </Label>
                 );
             default:
-                return;
+                return <></>;
         }
     };
 

@@ -17,13 +17,12 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
     className="controlSection"
   >
     <div
-      className="borderedSection  readOnly"
+      className="borderedSection readOnly"
     >
       <input
         aria-label="ariaLabel1"
         className="input"
         id="maskedCopyableTextField0"
-        onChange={[Function]}
         readOnly={true}
         type="text"
         value="value1"
@@ -72,13 +71,12 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
     className="controlSection"
   >
     <div
-      className="borderedSection  readOnly"
+      className="borderedSection readOnly"
     >
       <input
         aria-label="ariaLabel1"
         className="input"
         id="maskedCopyableTextField2"
-        onChange={[Function]}
         readOnly={true}
         type="password"
         value="value1"
@@ -121,152 +119,5 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
       />
     </div>
   </div>
-</div>
-`;
-
-exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = true 2`] = `
-<div
-  className="maskedCopyableTextField"
->
-  <div
-    className="labelSection"
-  >
-    <LabelWithTooltip
-      htmlFor="maskedCopyableTextField4"
-    >
-      label1
-    </LabelWithTooltip>
-  </div>
-  <div
-    className="controlSection"
-  >
-    <div
-      className="borderedSection  readOnly"
-    >
-      <input
-        aria-label="ariaLabel1"
-        className="input"
-        id="maskedCopyableTextField4"
-        onChange={[Function]}
-        readOnly={true}
-        type="password"
-        value="value1"
-      />
-      <input
-        aria-hidden={true}
-        className="input"
-        readOnly={true}
-        style={
-          Object {
-            "height": "1px",
-            "opacity": 0,
-            "position": "absolute",
-            "width": "1px",
-          }
-        }
-        tabIndex={-1}
-        value="value1"
-      />
-      <StyledTooltipHostBase
-        content="common.maskedCopyableTextField.toggleMask.label.show"
-        id="toggleMaskButtonTooltipHost5"
-      >
-        <CustomizedIconButton
-          aria-labelledby="toggleMaskButtonTooltipHost5"
-          iconProps={
-            Object {
-              "iconName": "RedEye",
-            }
-          }
-          onClick={[Function]}
-        />
-      </StyledTooltipHostBase>
-    </div>
-    <div
-      className="copySection"
-    >
-      <CopyButton
-        copyText="value1"
-      />
-    </div>
-  </div>
-</div>
-`;
-
-exports[`MaskedCopyableTextField snapshots it matches snapshot when error message specified 1`] = `
-<div
-  className="maskedCopyableTextField"
->
-  <div
-    className="labelSection"
-  >
-    <LabelWithTooltip
-      htmlFor="maskedCopyableTextField6"
-    >
-      label1
-    </LabelWithTooltip>
-  </div>
-  <div
-    className="controlSection"
-  >
-    <div
-      className="borderedSection error readOnly"
-    >
-      <input
-        aria-label="ariaLabel1"
-        className="input"
-        id="maskedCopyableTextField6"
-        onChange={[Function]}
-        readOnly={true}
-        type="password"
-        value="value1"
-      />
-      <input
-        aria-hidden={true}
-        className="input"
-        readOnly={true}
-        style={
-          Object {
-            "height": "1px",
-            "opacity": 0,
-            "position": "absolute",
-            "width": "1px",
-          }
-        }
-        tabIndex={-1}
-        value="value1"
-      />
-      <StyledTooltipHostBase
-        content="common.maskedCopyableTextField.toggleMask.label.show"
-        id="toggleMaskButtonTooltipHost7"
-      >
-        <CustomizedIconButton
-          aria-labelledby="toggleMaskButtonTooltipHost7"
-          iconProps={
-            Object {
-              "iconName": "RedEye",
-            }
-          }
-          onClick={[Function]}
-        />
-      </StyledTooltipHostBase>
-    </div>
-    <div
-      className="copySection"
-    >
-      <CopyButton
-        copyText="value1"
-      />
-    </div>
-  </div>
-  <div
-    aria-live="assertive"
-    className="errorSection"
-  >
-    error
-  </div>
-  <StyledAnnouncedBase
-    message="error"
-  />
 </div>
 `;
