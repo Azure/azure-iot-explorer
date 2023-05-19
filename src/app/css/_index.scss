@@ -57,6 +57,12 @@ a:focus-visible {
     }
 }
 
+input:focus-visible {
+    @include themify($themes) {
+        outline: 1px solid themed('linkColor');
+    }
+}
+
 input::placeholder {
     opacity: 0.5;
     @include themify($themes) {
