@@ -136,7 +136,7 @@
     "enzyme-adapter-react-16": "1.15.1",
     "enzyme-to-json": "3.3.5",
     "html-webpack-plugin": "5.5.0",
-    "is-svg": "4.3.2",
+    "is-svg": "4.4.0",
     "jest": "26.6.3",
     "jest-plugin-context": "2.9.0",
     "jest-trx-results-processor": "0.0.7",
