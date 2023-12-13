@@ -40,7 +40,7 @@ export const DeviceContentTypePanel: React.FC<DeviceContentTypePanelProps> = pro
         setDecoderPrototype(newValue);
     };
 
-    const formDecodeProtptypeName = (value: string) => {
+    const formDecodePrototypeName = (value: string) => {
         // Type start with '.', therefore removing it
         return value?.substring(1);
     };
@@ -110,7 +110,7 @@ export const DeviceContentTypePanel: React.FC<DeviceContentTypePanelProps> = pro
                                 </div>
                             }
                             <TextField
-                                defaultValue={formDecodeProtptypeName(state.contentType.decoderPrototype?.fullName)}
+                                defaultValue={formDecodePrototypeName(state.contentType.decoderPrototype?.fullName)}
                                 disabled={state.formMode === 'working'}
                                 label={t(ResourceKeys.deviceEvents.customizeContentType.protobuf.type.label)}
                                 readOnly={false}
