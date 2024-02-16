@@ -113,6 +113,7 @@ export const AddDevice: React.FC = () => {
                     onChange={changePrimaryKey}
                     type={'password'}
                     canRevealPassword={true}
+                    revealPasswordAriaLabel={t(ResourceKeys.common.revealPassword)}
                     errorMessage={!!primaryKey.error ? t(primaryKey.error) : ''}
                     description={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryKeyTooltip)}
                 />
@@ -124,6 +125,7 @@ export const AddDevice: React.FC = () => {
                     onChange={changeSecondaryKey}
                     type={'password'}
                     canRevealPassword={true}
+                    revealPasswordAriaLabel={t(ResourceKeys.common.revealPassword)}
                     errorMessage={!!secondaryKey.error ? t(secondaryKey.error) : ''}
                     description={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryKeyTooltip)}
                 />
@@ -142,6 +144,7 @@ export const AddDevice: React.FC = () => {
                     onChange={changePrimaryThumbprint}
                     type={'password'}
                     canRevealPassword={true}
+                    revealPasswordAriaLabel={t(ResourceKeys.common.revealPassword)}
                     errorMessage={!!primaryKey.thumbprintError ? t(primaryKey.thumbprintError) : ''}
                     description={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.primaryThumbprintTooltip)}
                 />
@@ -153,6 +156,7 @@ export const AddDevice: React.FC = () => {
                     onChange={changeSecondaryThumbprint}
                     type={'password'}
                     canRevealPassword={true}
+                    revealPasswordAriaLabel={t(ResourceKeys.common.revealPassword)}
                     errorMessage={!!secondaryKey.thumbprintError ? t(secondaryKey.thumbprintError) : ''}
                     description={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip)}
                 />

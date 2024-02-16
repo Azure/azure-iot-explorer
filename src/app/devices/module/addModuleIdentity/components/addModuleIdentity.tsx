@@ -127,6 +127,7 @@ export const AddModuleIdentity: React.FC = () => {
                     onChange={changePrimaryKey}
                     type={'password'}
                     canRevealPassword={true}
+                    revealPasswordAriaLabel={t(ResourceKeys.common.revealPassword)}
                     errorMessage={!!primaryKey.error ? t(primaryKey.error) : ''}
                     description={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.primaryKeyTooltip)}
                 />
@@ -138,6 +139,7 @@ export const AddModuleIdentity: React.FC = () => {
                     onChange={changeSecondaryKey}
                     type={'password'}
                     canRevealPassword={true}
+                    revealPasswordAriaLabel={t(ResourceKeys.common.revealPassword)}
                     errorMessage={!!secondaryKey.error ? t(secondaryKey.error) : ''}
                     description={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryKeyTooltip)}
                 />
@@ -156,6 +158,7 @@ export const AddModuleIdentity: React.FC = () => {
                     onChange={changePrimaryThumbprint}
                     type={'password'}
                     canRevealPassword={true}
+                    revealPasswordAriaLabel={t(ResourceKeys.common.revealPassword)}
                     errorMessage={!!primaryKey.thumbprintError ? t(primaryKey.thumbprintError) : ''}
                     description={t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.primaryThumbprintTooltip)}
                 />
@@ -167,6 +170,7 @@ export const AddModuleIdentity: React.FC = () => {
                     onChange={changeSecondaryThumbprint}
                     type={'password'}
                     canRevealPassword={true}
+                    revealPasswordAriaLabel={t(ResourceKeys.common.revealPassword)}
                     readOnly={false}
                     errorMessage={!!secondaryKey.thumbprintError ? t(secondaryKey.thumbprintError) : ''}
                     description={t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip)}
