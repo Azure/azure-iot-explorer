@@ -11,6 +11,7 @@
         "home": "Home",
         "learnMore": "Learn more",
         "loading": "Loading...",
+        "revealPassword": "Show content",
         "maskedCopyableTextField": {
             "toggleMask": {
                 "label": {

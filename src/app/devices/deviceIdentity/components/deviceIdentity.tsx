@@ -131,6 +131,7 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
                             value={state.identity.authentication.x509Thumbprint.primaryThumbprint}
                             type={'password'}
                             canRevealPassword={true}
+                            revealPasswordAriaLabel={t(ResourceKeys.common.revealPassword)}
                             readOnly={true}
                             description={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.primaryThumbprintTooltip)}
                         />
@@ -140,6 +141,7 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
                             value={state.identity.authentication.x509Thumbprint.secondaryThumbprint}
                             type={'password'}
                             canRevealPassword={true}
+                            revealPasswordAriaLabel={t(ResourceKeys.common.revealPassword)}
                             readOnly={true}
                             description={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip)}
                         />
@@ -149,6 +151,7 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
                             value={generateX509ConnectionString(hostName, identity.deviceId)}
                             type={'password'}
                             canRevealPassword={true}
+                            revealPasswordAriaLabel={t(ResourceKeys.common.revealPassword)}
                             readOnly={true}
                             description={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.connectionStringTooltip)}
                         />
@@ -164,6 +167,7 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
                             value={generateX509ConnectionString(hostName, identity.deviceId)}
                             type={'password'}
                             canRevealPassword={true}
+                            revealPasswordAriaLabel={t(ResourceKeys.common.revealPassword)}
                             readOnly={true}
                             description={t(ResourceKeys.deviceIdentity.authenticationType.ca.connectionStringTooltip)}
                         />
@@ -178,6 +182,7 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
                             value={state.identity.authentication.symmetricKey.primaryKey}
                             type={'password'}
                             canRevealPassword={true}
+                            revealPasswordAriaLabel={t(ResourceKeys.common.revealPassword)}
                             onChange={changePrimaryKey}
                             description={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryKeyTooltip)}
                         />
@@ -188,6 +193,7 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
                             value={state.identity.authentication.symmetricKey.secondaryKey}
                             type={'password'}
                             canRevealPassword={true}
+                            revealPasswordAriaLabel={t(ResourceKeys.common.revealPassword)}
                             onChange={changeSecondaryKey}
                             description={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryKeyTooltip)}
                         />
@@ -198,6 +204,7 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
                             value={generateConnectionString(hostName, identity.deviceId, identity.authentication.symmetricKey.primaryKey)}
                             type={'password'}
                             canRevealPassword={true}
+                            revealPasswordAriaLabel={t(ResourceKeys.common.revealPassword)}
                             readOnly={true}
                             description={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionStringTooltip)}
                         />
@@ -208,6 +215,7 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
                             value={generateConnectionString(hostName, identity.deviceId, identity.authentication.symmetricKey.secondaryKey)}
                             type={'password'}
                             canRevealPassword={true}
+                            revealPasswordAriaLabel={t(ResourceKeys.common.revealPassword)}
                             readOnly={true}
                             description={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryConnectionStringTooltip)}
                         />

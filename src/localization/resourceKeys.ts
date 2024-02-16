@@ -170,6 +170,7 @@ export class ResourceKeys {
          confirm : "common.navigation.confirm",
          expand : "common.navigation.expand",
       },
+      revealPassword : "common.revealPassword",
    };
    public static connectionStrings = {
       addConnectionCommand : {
