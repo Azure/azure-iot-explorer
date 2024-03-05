@@ -5,21 +5,17 @@
 import { call, put, all, takeLatest, takeEvery } from 'redux-saga/effects';
 import { SagaIterator } from 'redux-saga';
 import { Action } from 'typescript-fsa';
+import { ResourceKeys } from '../../../localization/resourceKeys';
 import { fetchDevice, updateDevice } from '../../api/services/devicesService';
 import { NotificationType } from '../../api/models/notification';
-import { ResourceKeys } from '../../../localization/resourceKeys';
-import { getDeviceIdentityAction, updateDeviceIdentityAction } from './actions';
-import { DeviceIdentity } from '../../api/models/deviceIdentity';
+import { FetchDeviceParameters, UpdateDeviceParameters } from '../../api/parameters/deviceParameters';
 import { raiseNotificationToast } from '../../notifications/components/notificationToast';
+import { getDeviceIdentityAction, updateDeviceIdentityAction } from './actions';
 
-export function* getDeviceIdentitySagaWorker(action: Action<string>): SagaIterator {
+export function* getDeviceIdentitySagaWorker(action: Action<FetchDeviceParameters>): SagaIterator {
     try {
-        const parameters = {
-            deviceId: action.payload,
-        };
-
-        const devieIdentity = yield call(fetchDevice, parameters);
-        yield put(getDeviceIdentityAction.done({params: action.payload, result: devieIdentity}));
+        const deviceIdentity = yield call(fetchDevice, action.payload);
+        yield put(getDeviceIdentityAction.done({params: action.payload, result: deviceIdentity}));
     } catch (error) {
         yield call(raiseNotificationToast, {
             text: {
@@ -36,30 +32,26 @@ export function* getDeviceIdentitySagaWorker(action: Action<string>): SagaIterat
     }
 }
 
-export function* updateDeviceIdentitySagaWorker(action: Action<DeviceIdentity>): SagaIterator {
+export function* updateDeviceIdentitySagaWorker(action: Action<UpdateDeviceParameters>): SagaIterator {
     try {
-        const parameters = {
-            deviceIdentity: action.payload,
-        };
-
-        const devieIdentity = yield call(updateDevice, parameters);
+        const deviceIdentity = yield call(updateDevice, action.payload);
         yield call(raiseNotificationToast, {
             text: {
                 translationKey: ResourceKeys.notifications.updateDeviceOnSucceed,
                 translationOptions: {
-                   deviceId: action.payload.deviceId,
+                   deviceId: action.payload.deviceIdentity.deviceId,
                 },
             },
             type: NotificationType.success
           });
 
-        yield put(updateDeviceIdentityAction.done({params: action.payload, result: devieIdentity}));
+        yield put(updateDeviceIdentityAction.done({params: action.payload, result: deviceIdentity}));
     } catch (error) {
         yield call(raiseNotificationToast, {
             text: {
                 translationKey: ResourceKeys.notifications.updateDeviceOnError,
                 translationOptions: {
-                    deviceId: action.payload.deviceId,
+                    deviceId: action.payload.deviceIdentity.deviceId,
                     error,
                 },
             },

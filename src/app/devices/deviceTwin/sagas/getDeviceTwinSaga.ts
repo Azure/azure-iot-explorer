@@ -8,16 +8,13 @@ import { Action } from 'typescript-fsa';
 import { fetchDeviceTwin } from '../../../api/services/devicesService';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { getDeviceTwinAction } from '../actions';
 import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
+import { FetchDeviceTwinParameters } from '../../../api/parameters/deviceParameters';
+import { getDeviceTwinAction } from '../actions';
 
-export function* getDeviceTwinSaga(action: Action<string>): SagaIterator {
+export function* getDeviceTwinSaga(action: Action<FetchDeviceTwinParameters>): SagaIterator {
     try {
-        const parameters = {
-            deviceId: action.payload,
-        };
-
-        const twin = yield call(fetchDeviceTwin, parameters);
+        const twin = yield call(fetchDeviceTwin, action.payload);
 
         yield put(getDeviceTwinAction.done({params: action.payload, result: twin}));
     } catch (error) {

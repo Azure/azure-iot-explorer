@@ -22,6 +22,7 @@ import { addDeviceAction } from '../actions';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
 import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
 import { TELEMETRY_USER_ACTIONS } from '../../../constants/telemetry';
+import { useConnectionStringContext } from '../../../connectionStrings/context/connectionStringContext';
 import '../../../css/_addDevice.scss';
 
 const initialKeyValue = {
@@ -35,6 +36,7 @@ export const AddDevice: React.FC = () => {
     const { t } = useTranslation();
     const { pathname } = useLocation();
     const history = useHistory();
+    const [ {connectionString} ] = useConnectionStringContext();
 
     const [ localState, dispatch ] = useAsyncSagaReducer(addDeviceReducer, addDeviceSaga, addDeviceStateInitial(), 'addDeviceState');
     const { synchronizationStatus } = localState;
@@ -348,7 +350,7 @@ export const AddDevice: React.FC = () => {
         event.preventDefault();
         const deviceIdentity = getDeviceIdentity();
         AppInsightsClient.trackUserAction(TELEMETRY_USER_ACTIONS.ADD_DEVICE);
-        dispatch(addDeviceAction.started(deviceIdentity));
+        dispatch(addDeviceAction.started({connectionString, deviceIdentity}));
     };
 
     return (

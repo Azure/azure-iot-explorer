@@ -7,7 +7,8 @@ import {
     AddModuleIdentityParameters,
     ModuleIdentityTwinParameters,
     FetchModuleIdentityParameters,
-    InvokeModuleMethodParameters
+    InvokeModuleMethodParameters,
+    UpdateModuleIdentityTwinParameters
 } from '../parameters/moduleParameters';
 import { DataPlaneResponse } from '../models/device';
 import { ModuleIdentity } from '../models/moduleIdentity';
@@ -27,7 +28,7 @@ export interface DirectMethodResult {
 }
 
 export const fetchModuleIdentities = async (parameters: FetchModuleIdentitiesParameters): Promise<DataPlaneResponse<ModuleIdentity[]>> => {
-    const connectionInformation = await dataPlaneConnectionHelper('todo');
+    const connectionInformation = await dataPlaneConnectionHelper(parameters.connectionString);
 
     const dataPlaneRequest: DataPlaneRequest = {
         apiVersion:  HUB_DATA_PLANE_API_VERSION,
@@ -46,7 +47,7 @@ export const fetchModuleIdentities = async (parameters: FetchModuleIdentitiesPar
 };
 
 export const addModuleIdentity = async (parameters: AddModuleIdentityParameters): Promise<DataPlaneResponse<ModuleIdentity>> => {
-    const connectionInformation = await dataPlaneConnectionHelper('todo');
+    const connectionInformation = await dataPlaneConnectionHelper(parameters.connectionString);
 
     const dataPlaneRequest: DataPlaneRequest = {
         apiVersion:  HUB_DATA_PLANE_API_VERSION,
@@ -63,7 +64,7 @@ export const addModuleIdentity = async (parameters: AddModuleIdentityParameters)
 };
 
 export const fetchModuleIdentity = async (parameters: FetchModuleIdentityParameters): Promise<DataPlaneResponse<ModuleIdentity[]>> => {
-    const connectionInformation = await dataPlaneConnectionHelper('todo');
+    const connectionInformation = await dataPlaneConnectionHelper(parameters.connectionString);
 
     const dataPlaneRequest: DataPlaneRequest = {
         apiVersion:  HUB_DATA_PLANE_API_VERSION,
@@ -79,7 +80,7 @@ export const fetchModuleIdentity = async (parameters: FetchModuleIdentityParamet
 };
 
 export const deleteModuleIdentity = async (parameters: FetchModuleIdentityParameters): Promise<DataPlaneResponse<ModuleIdentity[]>> => {
-    const connectionInformation = await dataPlaneConnectionHelper('todo');
+    const connectionInformation = await dataPlaneConnectionHelper(parameters.connectionString);
 
     const dataPlaneRequest: DataPlaneRequest = {
         apiVersion:  HUB_DATA_PLANE_API_VERSION,
@@ -101,7 +102,7 @@ export const invokeModuleDirectMethod = async (parameters: InvokeModuleMethodPar
         return;
     }
 
-    const connectionInfo = await dataPlaneConnectionHelper('todo');
+    const connectionInfo = await dataPlaneConnectionHelper(parameters.connectionString);
     const dataPlaneRequest: DataPlaneRequest = {
         apiVersion: HUB_DATA_PLANE_API_VERSION,
         body: JSON.stringify({
@@ -122,7 +123,7 @@ export const invokeModuleDirectMethod = async (parameters: InvokeModuleMethodPar
 };
 
 export const fetchModuleIdentityTwin = async (parameters: ModuleIdentityTwinParameters): Promise<DataPlaneResponse<ModuleTwin>> => {
-    const connectionInformation = await dataPlaneConnectionHelper('todo');
+    const connectionInformation = await dataPlaneConnectionHelper(parameters.connectionString);
 
     const dataPlaneRequest: DataPlaneRequest = {
         apiVersion:  HUB_DATA_PLANE_API_VERSION,
@@ -137,15 +138,15 @@ export const fetchModuleIdentityTwin = async (parameters: ModuleIdentityTwinPara
     return result && result.body;
 };
 
-export const updateModuleIdentityTwin = async (parameters: ModuleTwin): Promise<DataPlaneResponse<ModuleTwin>> => {
-    const connectionInformation = await dataPlaneConnectionHelper('todo');
+export const updateModuleIdentityTwin = async (parameters: UpdateModuleIdentityTwinParameters): Promise<DataPlaneResponse<ModuleTwin>> => {
+    const connectionInformation = await dataPlaneConnectionHelper(parameters.connectionString);
 
     const dataPlaneRequest: DataPlaneRequest = {
         apiVersion:  HUB_DATA_PLANE_API_VERSION,
-        body: JSON.stringify(parameters),
+        body: JSON.stringify(parameters.moduleTwin),
         hostName: connectionInformation.connectionInfo.hostName,
         httpMethod: HTTP_OPERATION_TYPES.Patch,
-        path: `twins/${parameters.deviceId}/modules/${parameters.moduleId}`,
+        path: `twins/${parameters.moduleTwin.deviceId}/modules/${parameters.moduleTwin.moduleId}`,
         sharedAccessSignature: connectionInformation.sasToken,
     };
 

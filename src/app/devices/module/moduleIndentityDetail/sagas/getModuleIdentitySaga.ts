@@ -8,17 +8,14 @@ import { Action } from 'typescript-fsa';
 import { fetchModuleIdentity } from '../../../../api/services/moduleService';
 import { raiseNotificationToast } from '../../../../notifications/components/notificationToast';
 import { NotificationType } from '../../../../api/models/notification';
+import { FetchModuleIdentityParameters } from '../../../../api/parameters/moduleParameters';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
-import { GetModuleIdentityActionParameters, getModuleIdentityAction } from '../actions';
+import { getModuleIdentityAction } from '../actions';
 
-export function* getModuleIdentitySaga(action: Action<GetModuleIdentityActionParameters>): SagaIterator {
+export function* getModuleIdentitySaga(action: Action<FetchModuleIdentityParameters>): SagaIterator {
     try {
-        const parameters = {
-            deviceId: action.payload.deviceId,
-            moduleId: action.payload.moduleId
-        };
 
-        const moduleIdentity = yield call(fetchModuleIdentity, parameters);
+        const moduleIdentity = yield call(fetchModuleIdentity, action.payload);
 
         yield put(getModuleIdentityAction.done({params: action.payload, result: moduleIdentity}));
     } catch (error) {

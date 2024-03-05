@@ -18,7 +18,8 @@ import { generateTwinSchemaAndInterfaceTuple } from './dataHelper';
 import { Twin } from '../../../../api/models/device';
 import { dispatchGetTwinAction, getBackUrl } from '../../utils';
 import { AppInsightsClient } from '../../../../shared/appTelemetry/appInsightsClient';
-import { TELEMETRY_PAGE_NAMES, TELEMETRY_USER_ACTIONS } from '../../../../../app/constants/telemetry';
+import { TELEMETRY_PAGE_NAMES, TELEMETRY_USER_ACTIONS } from '../../../..//constants/telemetry';
+import { useConnectionStringContext } from '../../../../connectionStrings/context/connectionStringContext';
 
 // tslint:disable-next-line:cyclomatic-complexity
 export const DeviceSettings: React.FC = () => {
@@ -31,6 +32,7 @@ export const DeviceSettings: React.FC = () => {
     const interfaceId = getInterfaceIdFromQueryString(search);
 
     const { pnpState, dispatch, getModelDefinition } = usePnpStateContext();
+    const [ {connectionString} ] = useConnectionStringContext();
     const isLoading = (pnpState.twin.synchronizationStatus === SynchronizationStatus.working)
         || (pnpState.modelDefinitionWithSource.synchronizationStatus === SynchronizationStatus.working);
     const modelDefinitionWithSource = pnpState.modelDefinitionWithSource && pnpState.modelDefinitionWithSource.payload;
@@ -44,10 +46,10 @@ export const DeviceSettings: React.FC = () => {
     const patchTwin = (parameters: Twin) => {
         AppInsightsClient.trackUserAction(TELEMETRY_USER_ACTIONS.PNP_UPDATE_PROPERTY);
         if (moduleId) {
-            dispatch(updateModuleTwinAction.started(parameters));
+            dispatch(updateModuleTwinAction.started({connectionString, moduleTwin: {...parameters, moduleId}}));
         }
         else {
-            dispatch(updateDeviceTwinAction.started(parameters));
+            dispatch(updateDeviceTwinAction.started({connectionString, twin: parameters}));
         }
     };
 
@@ -70,7 +72,7 @@ export const DeviceSettings: React.FC = () => {
     };
 
     const onRefresh = () => {
-        dispatchGetTwinAction(search, dispatch);
+        dispatchGetTwinAction(search, connectionString, dispatch);
         getModelDefinition();
     };
 

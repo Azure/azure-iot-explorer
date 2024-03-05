@@ -5,11 +5,7 @@
 import actionCreatorFactory from 'typescript-fsa';
 import { DEVICECONTENT } from '../../constants/actionPrefixes';
 import { CLOUD_TO_DEVICE_MESSAGE } from '../../constants/actionTypes';
+import { CloudToDeviceMessageParameters } from '../../api/parameters/deviceParameters';
 
-export const cloudToDeviceMessageAction = actionCreatorFactory(DEVICECONTENT).async<CloudToDeviceMessageActionParameters, string>(CLOUD_TO_DEVICE_MESSAGE);
+export const cloudToDeviceMessageAction = actionCreatorFactory(DEVICECONTENT).async<CloudToDeviceMessageParameters, string>(CLOUD_TO_DEVICE_MESSAGE);
 
-export interface CloudToDeviceMessageActionParameters {
-    deviceId: string;
-    body: string;
-    properties?: Array<{key: string, value: string, isSystemProperty: boolean}>;
-}

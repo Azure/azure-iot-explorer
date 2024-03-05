@@ -5,13 +5,6 @@
 import actionCreatorFactory from 'typescript-fsa';
 import { DEVICECONTENT } from '../../constants/actionPrefixes';
 import { INVOKE_DEVICE_METHOD } from '../../constants/actionTypes';
+import { InvokeMethodParameters } from '../../api/parameters/deviceParameters';
 
-export const invokeDirectMethodAction = actionCreatorFactory(DEVICECONTENT).async<InvokeMethodActionParameters, string>(INVOKE_DEVICE_METHOD);
-
-export interface InvokeMethodActionParameters {
-    connectTimeoutInSeconds: number;
-    deviceId: string;
-    methodName: string;
-    payload?: any; // tslint:disable-line:no-any
-    responseTimeoutInSeconds: number;
-}
+export const invokeDirectMethodAction = actionCreatorFactory(DEVICECONTENT).async<InvokeMethodParameters, string>(INVOKE_DEVICE_METHOD);

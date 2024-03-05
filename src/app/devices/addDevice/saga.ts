@@ -9,22 +9,18 @@ import { NotificationType } from '../../api/models/notification';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { addDeviceAction } from './actions';
 import { addDevice } from '../../api/services/devicesService';
-import { DeviceIdentity } from '../../api/models/deviceIdentity';
+import { AddDeviceParameters } from '../../api/parameters/deviceParameters';
 import { raiseNotificationToast } from '../../notifications/components/notificationToast';
 
-export function* addDeviceSagaWorker(action: Action<DeviceIdentity>): SagaIterator {
+export function* addDeviceSagaWorker(action: Action<AddDeviceParameters>): SagaIterator {
     try {
-        const parameters = {
-            deviceIdentity: action.payload
-        };
-
-        const result = yield call(addDevice, parameters);
+        const result = yield call(addDevice, action.payload);
 
         yield call(raiseNotificationToast, {
             text: {
                 translationKey: ResourceKeys.notifications.addDeviceOnSucceed,
                 translationOptions: {
-                    deviceId: action.payload.deviceId
+                    deviceId: action.payload.deviceIdentity.deviceId
                 },
             },
             type: NotificationType.success
@@ -37,7 +33,7 @@ export function* addDeviceSagaWorker(action: Action<DeviceIdentity>): SagaIterat
             text: {
                 translationKey: ResourceKeys.notifications.addDeviceOnError,
                 translationOptions: {
-                    deviceId: action.payload.deviceId,
+                    deviceId: action.payload.deviceIdentity.deviceId,
                     error,
                 },
             },

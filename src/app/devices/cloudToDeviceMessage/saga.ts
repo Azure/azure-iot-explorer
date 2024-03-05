@@ -5,14 +5,14 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { SagaIterator } from 'redux-saga';
 import { Action } from 'typescript-fsa';
-import { cloudToDeviceMessageAction, CloudToDeviceMessageActionParameters } from './actions';
+import { cloudToDeviceMessageAction } from './actions';
 import { cloudToDeviceMessage } from '../../api/services/devicesService';
 import { raiseNotificationToast } from '../../notifications/components/notificationToast';
 import { NotificationType } from '../../api/models/notification';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { CloudToDeviceMessageParameters } from '../../api/parameters/deviceParameters';
 
-export function* cloudToDeviceMessageSagaWorker(action: Action<CloudToDeviceMessageActionParameters>): SagaIterator {
+export function* cloudToDeviceMessageSagaWorker(action: Action<CloudToDeviceMessageParameters>): SagaIterator {
     const toastId: number = Math.random();
 
     try {

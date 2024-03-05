@@ -9,16 +9,16 @@ import { ModelDefinitionWithSource } from '../../api/models/modelDefinitionWithS
 import { ModelRepositoryConfiguration } from '../../shared/modelRepository/state';
 import { ParsedJsonSchema } from '../../api/models/interfaceJsonParserOutput';
 import { Twin } from '../../api/models/device';
-import { InvokeMethodActionParameters } from '../directMethod/actions';
-import { GetModuleIdentityTwinActionParameters } from '../module/moduleIdentityTwin/actions';
+import { FetchDeviceTwinParameters, InvokeMethodParameters, UpdateDeviceTwinParameters } from '../../api/parameters/deviceParameters';
+import { ModuleIdentityTwinParameters, UpdateModuleIdentityTwinParameters } from '../../api/parameters/moduleParameters';
 
 const deviceContentCreator = actionCreatorFactory(DEVICECONTENT);
 const getModelDefinitionAction = deviceContentCreator.async<GetModelDefinitionActionParameters, ModelDefinitionWithSource>(FETCH_MODEL_DEFINITION);
 const invokeCommandAction = deviceContentCreator.async<InvokeCommandActionParameters, string>(INVOKE_DEVICE_METHOD);
-const getDeviceTwinAction = deviceContentCreator.async<string, Twin>(GET_TWIN);
-const updateDeviceTwinAction = deviceContentCreator.async<Partial<Twin>, Twin>(UPDATE_TWIN);
-const getModuleTwinAction = deviceContentCreator.async<GetModuleIdentityTwinActionParameters, Twin>(GET_MODULE_IDENTITY_TWIN);
-const updateModuleTwinAction = deviceContentCreator.async<Partial<Twin>, Twin>(UPDATE_MODULE_IDENTITY_TWIN);
+const getDeviceTwinAction = deviceContentCreator.async<FetchDeviceTwinParameters, Twin>(GET_TWIN);
+const updateDeviceTwinAction = deviceContentCreator.async<Partial<UpdateDeviceTwinParameters>, Twin>(UPDATE_TWIN);
+const getModuleTwinAction = deviceContentCreator.async<ModuleIdentityTwinParameters, Twin>(GET_MODULE_IDENTITY_TWIN);
+const updateModuleTwinAction = deviceContentCreator.async<Partial<UpdateModuleIdentityTwinParameters>, Twin>(UPDATE_MODULE_IDENTITY_TWIN);
 
 export {
     getModelDefinitionAction,
@@ -29,9 +29,10 @@ export {
     updateModuleTwinAction
 };
 
-export interface InvokeCommandActionParameters extends InvokeMethodActionParameters {
+export interface InvokeCommandActionParameters extends InvokeMethodParameters {
     responseSchema: ParsedJsonSchema;
     moduleId: string;
+    connectionString: string;
 }
 
 export interface GetModelDefinitionActionParameters {

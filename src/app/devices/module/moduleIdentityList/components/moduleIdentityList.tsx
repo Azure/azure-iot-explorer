@@ -22,7 +22,8 @@ import { getModuleIdentitiesSaga } from '../saga';
 import { moduleIdentityListReducer } from '../reducer';
 import { getModuleIdentitiesAction } from '../actions';
 import { AppInsightsClient } from '../../../../shared/appTelemetry/appInsightsClient';
-import { TELEMETRY_PAGE_NAMES } from '../../../../../app/constants/telemetry';
+import { TELEMETRY_PAGE_NAMES } from '../../../../constants/telemetry';
+import { useConnectionStringContext } from '../../../../connectionStrings/context/connectionStringContext';
 import '../../../../css/_deviceDetail.scss';
 
 export const ModuleIdentityList: React.FC = () => {
@@ -31,13 +32,14 @@ export const ModuleIdentityList: React.FC = () => {
     const { url } = useRouteMatch();
     const history = useHistory();
     const deviceId = getDeviceIdFromQueryString(search);
+    const [ {connectionString} ] = useConnectionStringContext();
 
     const [ localState, dispatch ] = useAsyncSagaReducer(moduleIdentityListReducer, getModuleIdentitiesSaga, moduleIndentityListStateInitial(), 'moduleIdentityListState');
     const moduleIdentityList = localState.payload;
     const synchronizationStatus = localState.synchronizationStatus;
 
     React.useEffect(() => {
-        dispatch(getModuleIdentitiesAction.started(deviceId));
+        dispatch(getModuleIdentitiesAction.started({connectionString, deviceId}));
     },              [deviceId]);
 
     React.useEffect(() => {
@@ -75,7 +77,7 @@ export const ModuleIdentityList: React.FC = () => {
     };
 
     const handleRefresh = () => {
-        dispatch(getModuleIdentitiesAction.started(deviceId));
+        dispatch(getModuleIdentitiesAction.started({connectionString, deviceId}));
     };
 
     const renderGrid = () => {

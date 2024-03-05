@@ -7,6 +7,7 @@ import { deviceTwinStateInitial, DeviceTwinStateType, DeviceTwinStateInterface }
 import { getDeviceTwinAction, updateDeviceTwinAction } from './actions';
 import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
 import { Twin } from '../../api/models/device';
+import { FetchDeviceTwinParameters, UpdateDeviceTwinParameters } from '../../api/parameters/deviceParameters';
 
 export const deviceTwinReducer = reducerWithInitialState<DeviceTwinStateInterface>(deviceTwinStateInitial())
     .case(getDeviceTwinAction.started, (state: DeviceTwinStateType) => {
@@ -16,7 +17,7 @@ export const deviceTwinReducer = reducerWithInitialState<DeviceTwinStateInterfac
             }
         });
     })
-    .case(getDeviceTwinAction.done, (state: DeviceTwinStateType, payload: {params: string, result: Twin}) => {
+    .case(getDeviceTwinAction.done, (state: DeviceTwinStateType, payload: {params: FetchDeviceTwinParameters, result: Twin}) => {
         return state.merge({
             deviceTwin: {
                 payload: payload.result,
@@ -39,7 +40,7 @@ export const deviceTwinReducer = reducerWithInitialState<DeviceTwinStateInterfac
             }
         });
     })
-    .case(updateDeviceTwinAction.done, (state: DeviceTwinStateType, payload: {params: Twin, result: Twin}) => {
+    .case(updateDeviceTwinAction.done, (state: DeviceTwinStateType, payload: {params: UpdateDeviceTwinParameters, result: Twin}) => {
         return state.merge({
             deviceTwin: {
                 payload: payload.result,

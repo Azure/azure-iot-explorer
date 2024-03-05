@@ -12,8 +12,8 @@ import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHel
 import { LabelWithTooltip } from '../../../shared/components/labelWithTooltip';
 import { CollapsibleSection } from '../../../shared/components/collapsibleSection';
 import { MaskedCopyableTextField } from '../../../shared/components/maskedCopyableTextField';
-import { getHubInformationFromLocalStorage } from '../hooks/localStorageInformationRetriever';
 import { CIRCLE_ADD, ArrayOperation } from '../../../constants/iconNames';
+import { useConnectionStringContext } from '../../../connectionStrings/context/connectionStringContext';
 import './deviceSimulationPanel.scss';
 
 export interface DeviceSimulationPanelProps {
@@ -33,7 +33,7 @@ export const DeviceSimulationPanel: React.FC<DeviceSimulationPanelProps> = props
 
     const deviceId = getDeviceIdFromQueryString(search);
 
-    const hubConnectionString = getHubInformationFromLocalStorage().hubConnectionString;
+    const [{connectionString: hubConnectionString}] = useConnectionStringContext();
     const [ simulationBody, setSimulationBody ] = React.useState<string>('');
     const [ propertyIndex, setPropertyIndex ] = React.useState<number>(0);
     const [ selectedIndices, setSelectedIndices ] = React.useState<Set<number>>(new Set());

@@ -8,17 +8,16 @@ import { call, put } from 'redux-saga/effects';
 import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { listDevicesAction, ListDevicesActionParams } from '../actions';
+import { listDevicesAction } from '../actions';
 import { fetchDevices } from '../../../api/services/devicesService';
-import { DeviceQuery } from '../../../api/models/deviceQuery';
 import { ERROR_TYPES } from './../../../constants/apiConstants';
 import { appConfig } from '../../../../appConfig/appConfig';
 import { CUSTOM_CONTROLLER_PORT } from './../../../constants/browserStorage';
+import { FetchDevicesParameters } from '../../../api/parameters/deviceParameters';
 
-export function* listDevicesSaga(action: Action<ListDevicesActionParams>): SagaIterator {
+export function* listDevicesSaga(action: Action<FetchDevicesParameters>): SagaIterator {
     try {
-        const parameters = action.payload;
-        const response = yield call(fetchDevices, parameters);
+        const response = yield call(fetchDevices, action.payload);
         yield put(listDevicesAction.done({params: action.payload, result: response}));
     } catch (error) {
         let text;

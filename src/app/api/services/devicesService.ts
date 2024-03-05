@@ -12,7 +12,8 @@ import {
     FetchDeviceParameters,
     DeleteDevicesParameters,
     AddDeviceParameters,
-    UpdateDeviceParameters
+    UpdateDeviceParameters,
+    UpdateDeviceTwinParameters
 } from '../parameters/deviceParameters';
 import {
     HEADERS,
@@ -47,7 +48,7 @@ export const fetchDeviceTwin = async (parameters: FetchDeviceTwinParameters): Pr
         return;
     }
 
-    const connectionInformation = await dataPlaneConnectionHelper('todo');
+    const connectionInformation = await dataPlaneConnectionHelper(parameters.connectionString);
     const dataPlaneRequest: DataPlaneRequest = {
         apiVersion: HUB_DATA_PLANE_API_VERSION,
         hostName: connectionInformation.connectionInfo.hostName,
@@ -61,14 +62,14 @@ export const fetchDeviceTwin = async (parameters: FetchDeviceTwinParameters): Pr
     return result && result.body;
 };
 
-export const updateDeviceTwin = async (parameters: Twin, connectionString: string): Promise<Twin> => {
-    const connectionInformation = await dataPlaneConnectionHelper(connectionString);
+export const updateDeviceTwin = async (parameters: UpdateDeviceTwinParameters): Promise<Twin> => {
+    const connectionInformation = await dataPlaneConnectionHelper(parameters.connectionString);
     const dataPlaneRequest: DataPlaneRequest = {
         apiVersion: HUB_DATA_PLANE_API_VERSION,
-        body: JSON.stringify(parameters),
+        body: JSON.stringify(parameters.twin),
         hostName: connectionInformation.connectionInfo.hostName,
         httpMethod: HTTP_OPERATION_TYPES.Patch,
-        path: `twins/${parameters.deviceId}`,
+        path: `twins/${parameters.twin.deviceId}`,
         sharedAccessSignature: connectionInformation.sasToken,
     };
 
@@ -82,7 +83,7 @@ export const invokeDirectMethod = async (parameters: InvokeMethodParameters): Pr
         return;
     }
 
-    const connectionInfo = await dataPlaneConnectionHelper('todo');
+    const connectionInfo = await dataPlaneConnectionHelper(parameters.connectionString);
     const dataPlaneRequest: DataPlaneRequest = {
         apiVersion: HUB_DATA_PLANE_API_VERSION,
         body: JSON.stringify({
@@ -103,8 +104,8 @@ export const invokeDirectMethod = async (parameters: InvokeMethodParameters): Pr
 };
 
 export const cloudToDeviceMessage = async (params: CloudToDeviceMessageParameters) => {
-    const { deviceId, body, properties } = params;
-    const connectionInfo = await dataPlaneConnectionHelper('todo');
+    const { deviceId, body, properties, connectionString } = params;
+    const connectionInfo = await dataPlaneConnectionHelper(connectionString);
     const authorization = connectionInfo.sasToken;
     const formattedProperties: Record<string, string> = {};
     properties.forEach(s => formattedProperties[`iothub-app-${s.key}`] = s.value);
@@ -132,7 +133,7 @@ export const addDevice = async (parameters: AddDeviceParameters): Promise<Device
         return;
     }
 
-    const connectionInfo = await dataPlaneConnectionHelper('todo');
+    const connectionInfo = await dataPlaneConnectionHelper(parameters.connectionString);
     const dataPlaneRequest: DataPlaneRequest = {
         apiVersion: HUB_DATA_PLANE_API_VERSION,
         body: JSON.stringify(parameters.deviceIdentity),
@@ -152,7 +153,7 @@ export const updateDevice = async (parameters: UpdateDeviceParameters): Promise<
         return;
     }
 
-    const connectionInfo = await dataPlaneConnectionHelper('todo');
+    const connectionInfo = await dataPlaneConnectionHelper(parameters.connectionString);
     const dataPlaneRequest: DataPlaneRequest = {
         apiVersion: HUB_DATA_PLANE_API_VERSION,
         body: JSON.stringify(parameters.deviceIdentity),
@@ -175,7 +176,7 @@ export const fetchDevice = async (parameters: FetchDeviceParameters): Promise<De
         return;
     }
 
-    const connectionInfo = await dataPlaneConnectionHelper('todo');
+    const connectionInfo = await dataPlaneConnectionHelper(parameters.connectionString);
     const dataPlaneRequest: DataPlaneRequest = {
         apiVersion: HUB_DATA_PLANE_API_VERSION,
         hostName: connectionInfo.connectionInfo.hostName,
@@ -236,7 +237,7 @@ export const deleteDevices = async (parameters: DeleteDevicesParameters) => {
         }
     ));
 
-    const connectionInfo = await dataPlaneConnectionHelper('todo');
+    const connectionInfo = await dataPlaneConnectionHelper(parameters.connectionString);
     const dataPlaneRequest: DataPlaneRequest = {
         apiVersion: HUB_DATA_PLANE_API_VERSION,
         body: JSON.stringify(deviceDeletionInstructions),
@@ -252,19 +253,10 @@ export const deleteDevices = async (parameters: DeleteDevicesParameters) => {
 };
 
 export const monitorEvents = async (parameters: MonitorEventsParameters): Promise<void> => {
-    let requestParameters = {
+    const requestParameters = {
         ...parameters,
         startTime: parameters.startTime && parameters.startTime.toISOString()
     };
-
-    // if no custom event hub info is provided, use default hub connection string to connect to event hub
-    if (!parameters.customEventHubConnectionString) {
-        const connectionInfo = await dataPlaneConnectionHelper('todo');
-        requestParameters = {
-            ...requestParameters,
-            hubConnectionString: connectionInfo.connectionString
-        };
-    }
 
     await startEventHubMonitoring(requestParameters);
 };

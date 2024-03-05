@@ -3,24 +3,25 @@
  * Licensed under the MIT License
  **********************************************************/
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
-import { moduleIndentityListStateInitial, ModuleIndentityListStateType } from './state';
+import { moduleIndentityListStateInitial, ModuleIndentityListStateType as ModuleIdentityListStateType } from './state';
 import { getModuleIdentitiesAction } from './actions';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import { ModuleIdentity } from '../../../api/models/moduleIdentity';
+import { FetchModuleIdentitiesParameters } from '../../../api/parameters/moduleParameters';
 
-export const moduleIdentityListReducer = reducerWithInitialState<ModuleIndentityListStateType>(moduleIndentityListStateInitial())
-    .case(getModuleIdentitiesAction.started, (state: ModuleIndentityListStateType) => {
+export const moduleIdentityListReducer = reducerWithInitialState<ModuleIdentityListStateType>(moduleIndentityListStateInitial())
+    .case(getModuleIdentitiesAction.started, (state: ModuleIdentityListStateType) => {
         return state.merge({
             synchronizationStatus: SynchronizationStatus.working
         });
     })
-    .case(getModuleIdentitiesAction.done, (state: ModuleIndentityListStateType, payload: {params: string} & {result: ModuleIdentity[]}) => {
+    .case(getModuleIdentitiesAction.done, (state: ModuleIdentityListStateType, payload: {params: FetchModuleIdentitiesParameters} & {result: ModuleIdentity[]}) => {
         return state.merge({
             payload: payload.result,
             synchronizationStatus: SynchronizationStatus.fetched
         });
     })
-    .case(getModuleIdentitiesAction.failed, (state: ModuleIndentityListStateType) => {
+    .case(getModuleIdentitiesAction.failed, (state: ModuleIdentityListStateType) => {
         return state.merge({
             synchronizationStatus: SynchronizationStatus.failed
         });

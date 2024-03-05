@@ -34,7 +34,7 @@ export const DeviceList: React.FC = () => {
     const history = useHistory();
 
     const [ localState, dispatch ] = useAsyncSagaReducer(deviceListReducer, deviceListSaga, deviceListStateInitial(), 'deviceListState');
-    const [{connectionString}] = useConnectionStringContext();
+    const [ {connectionString} ] = useConnectionStringContext();
     const { devices, synchronizationStatus, deviceQuery } = localState;
     const isFetching = React.useMemo(() => synchronizationStatus === SynchronizationStatus.working, [synchronizationStatus]);
 
@@ -294,7 +294,7 @@ export const DeviceList: React.FC = () => {
     };
 
     const handleDelete = () => {
-        dispatch(deleteDevicesAction.started(selectedDeviceIds));
+        dispatch(deleteDevicesAction.started({connectionString, deviceIds: selectedDeviceIds}));
         setShowDeleteConfirmation(false);
         // clear selection
         selection.setItems([]);

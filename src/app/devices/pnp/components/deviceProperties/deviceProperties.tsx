@@ -16,7 +16,8 @@ import { SynchronizationStatus } from '../../../../api/models/synchronizationSta
 import { generateReportedTwinSchemaAndInterfaceTuple } from './dataHelper';
 import { dispatchGetTwinAction, getBackUrl } from '../../utils';
 import { AppInsightsClient } from '../../../../shared/appTelemetry/appInsightsClient';
-import { TELEMETRY_PAGE_NAMES } from '../../../../../app/constants/telemetry';
+import { TELEMETRY_PAGE_NAMES } from '../../../../constants/telemetry';
+import { useConnectionStringContext } from '../../../../connectionStrings/context/connectionStringContext';
 
 export const DeviceProperties: React.FC = () => {
     const { t } = useTranslation();
@@ -25,6 +26,7 @@ export const DeviceProperties: React.FC = () => {
     const componentName = getComponentNameFromQueryString(search);
 
     const { pnpState, dispatch, getModelDefinition } = usePnpStateContext();
+    const [ {connectionString} ] = useConnectionStringContext();
     const isLoading = pnpState.twin.synchronizationStatus === SynchronizationStatus.working ||
     pnpState.modelDefinitionWithSource.synchronizationStatus === SynchronizationStatus.working;
     const modelDefinitionWithSource = pnpState.modelDefinitionWithSource.payload;
@@ -47,7 +49,7 @@ export const DeviceProperties: React.FC = () => {
     };
 
     const handleRefresh = () => {
-        dispatchGetTwinAction(search, dispatch);
+        dispatchGetTwinAction(search, connectionString, dispatch);
         getModelDefinition();
     };
 

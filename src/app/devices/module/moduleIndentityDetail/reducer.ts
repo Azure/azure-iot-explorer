@@ -4,14 +4,10 @@
  **********************************************************/
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { moduleIdentityDetailStateInterfaceInitial, ModuleIdentityDetailStateType } from './state';
-import {
-    getModuleIdentityAction,
-    GetModuleIdentityActionParameters,
-    deleteModuleIdentityAction,
-    DeleteModuleIdentityActionParameters
-} from './actions';
+import { getModuleIdentityAction, deleteModuleIdentityAction,} from './actions';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import { ModuleIdentity } from '../../../api/models/moduleIdentity';
+import { DeleteModuleIdentityParameters, FetchModuleIdentityParameters } from '../../../api/parameters/moduleParameters';
 
 export const moduleIdentityDetailReducer = reducerWithInitialState<ModuleIdentityDetailStateType>(moduleIdentityDetailStateInterfaceInitial())
     .case(getModuleIdentityAction.started, (state: ModuleIdentityDetailStateType) => {
@@ -19,7 +15,7 @@ export const moduleIdentityDetailReducer = reducerWithInitialState<ModuleIdentit
             synchronizationStatus: SynchronizationStatus.working
         });
     })
-    .case(getModuleIdentityAction.done, (state: ModuleIdentityDetailStateType, payload: {params: GetModuleIdentityActionParameters} & {result: ModuleIdentity}) => {
+    .case(getModuleIdentityAction.done, (state: ModuleIdentityDetailStateType, payload: {params: FetchModuleIdentityParameters} & {result: ModuleIdentity}) => {
         return state.merge({
             payload: payload.result,
             synchronizationStatus: SynchronizationStatus.fetched
@@ -35,7 +31,7 @@ export const moduleIdentityDetailReducer = reducerWithInitialState<ModuleIdentit
             synchronizationStatus: SynchronizationStatus.updating
         });
     })
-    .case(deleteModuleIdentityAction.done, (state: ModuleIdentityDetailStateType, payload: {params: DeleteModuleIdentityActionParameters}) => {
+    .case(deleteModuleIdentityAction.done, (state: ModuleIdentityDetailStateType, payload: {params: DeleteModuleIdentityParameters}) => {
         return state.merge({
             synchronizationStatus: SynchronizationStatus.deleted
         });

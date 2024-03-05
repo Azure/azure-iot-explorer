@@ -5,14 +5,14 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { SagaIterator } from 'redux-saga';
 import { Action } from 'typescript-fsa';
-import { invokeDirectMethodAction, InvokeMethodActionParameters } from './actions';
+import { invokeDirectMethodAction } from './actions';
 import { invokeDirectMethod } from '../../api/services/devicesService';
 import { raiseNotificationToast } from '../../notifications/components/notificationToast';
 import { NotificationType } from '../../api/models/notification';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { InvokeMethodParameters } from '../../api/parameters/deviceParameters';
 
-export function* invokeDirectMethodSagaWorker(action: Action<InvokeMethodActionParameters>): SagaIterator {
+export function* invokeDirectMethodSagaWorker(action: Action<InvokeMethodParameters>): SagaIterator {
     const toastId: number = Math.random();
 
     try {

@@ -21,6 +21,7 @@ import { addModuleStateInitial } from '../state';
 import { addModuleIdentityAction } from '../actions';
 import { AppInsightsClient } from '../../../../shared/appTelemetry/appInsightsClient';
 import { TELEMETRY_USER_ACTIONS } from '../../../../constants/telemetry';
+import { useConnectionStringContext } from '../../../../connectionStrings/context/connectionStringContext';
 import '../../../../css/_deviceDetail.scss';
 
 const initialKeyValue = {
@@ -35,6 +36,7 @@ export const AddModuleIdentity: React.FC = () => {
     const { search, pathname } = useLocation();
     const history = useHistory();
     const deviceId = getDeviceIdFromQueryString(search);
+    const [ {connectionString} ] = useConnectionStringContext();
 
     const [ localState, dispatch ] = useAsyncSagaReducer(addModuleIdentityReducer, addModuleIdentitySaga, addModuleStateInitial(), 'addModuleState');
     const { synchronizationStatus } = localState;
@@ -202,19 +204,22 @@ export const AddModuleIdentity: React.FC = () => {
     const handleSave = () => {
         AppInsightsClient.trackUserAction(TELEMETRY_USER_ACTIONS.ADD_MODULE);
         dispatch(addModuleIdentityAction.started({
-            authentication: {
-                symmetricKey: authenticationType === DeviceAuthenticationType.SymmetricKey ? {
-                    primaryKey: autoGenerateKeys ? null : primaryKey.value,
-                    secondaryKey: autoGenerateKeys ? null : secondaryKey.value
-                } : null,
-                type: authenticationType.toString(),
-                x509Thumbprint: authenticationType === DeviceAuthenticationType.SelfSigned ? {
-                    primaryThumbprint: processThumbprint(primaryKey.thumbprint),
-                    secondaryThumbprint: processThumbprint(secondaryKey.thumbprint)
-                } : null,
-            },
-            deviceId,
-            moduleId: module.id
+            connectionString,
+            moduleIdentity: {
+                authentication: {
+                    symmetricKey: authenticationType === DeviceAuthenticationType.SymmetricKey ? {
+                        primaryKey: autoGenerateKeys ? null : primaryKey.value,
+                        secondaryKey: autoGenerateKeys ? null : secondaryKey.value
+                    } : null,
+                    type: authenticationType.toString(),
+                    x509Thumbprint: authenticationType === DeviceAuthenticationType.SelfSigned ? {
+                        primaryThumbprint: processThumbprint(primaryKey.thumbprint),
+                        secondaryThumbprint: processThumbprint(secondaryKey.thumbprint)
+                    } : null,
+                },
+                deviceId,
+                moduleId: module.id
+            }
         }));
     };
 

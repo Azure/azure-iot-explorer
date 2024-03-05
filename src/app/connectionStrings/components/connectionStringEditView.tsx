@@ -14,19 +14,18 @@ import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
 
 export const ConnectionStringEditView: React.FC = () => {
     const [ {connectionString}, {setConnectionString} ] = useConnectionStringContext();
-    const [ stringInEdit, setStringInEdit] = React.useState<string>(undefined);
     const [connectionStringValidationKey, setConnectionStringValidationKey] = React.useState<string>(undefined);
     const history = useHistory();
     const { t } = useTranslation();
 
     const onConnectionStringChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
-        setStringInEdit(newValue);
+        setConnectionString(newValue);
         validateConnectionString(newValue);
     };
 
     const onCommitClick = () => {
-        setConnectionString(stringInEdit || connectionString);
-        const hostName = getConnectionInfoFromConnectionString(stringInEdit || connectionString).hostName;
+        setConnectionString(connectionString);
+        const hostName = getConnectionInfoFromConnectionString(connectionString).hostName;
         history.push(`/${ROUTE_PARTS.IOT_HUB}/${ROUTE_PARTS.HOST_NAME}/${hostName}/`);
     };
 
@@ -53,7 +52,7 @@ export const ConnectionStringEditView: React.FC = () => {
                 label={t(ResourceKeys.connectionStrings.editConnection.editField.label)}
                 onChange={onConnectionStringChange}
                 errorMessage={connectionStringValidationKey && t(connectionStringValidationKey)}
-                value={stringInEdit || connectionString}
+                value={connectionString}
                 required={true}
                 placeholder={t(ResourceKeys.connectionStrings.editConnection.editField.placeholder)}
                 canRevealPassword={true}

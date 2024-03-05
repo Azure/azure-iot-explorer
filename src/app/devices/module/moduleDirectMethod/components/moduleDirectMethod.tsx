@@ -16,7 +16,8 @@ import { DirectMethodForm } from '../../../../devices/directMethod/components/di
 import { ROUTE_PARAMS, ROUTE_PARTS } from '../../../../constants/routes';
 import '../../../../css/_deviceDetail.scss';
 import { AppInsightsClient } from '../../../../shared/appTelemetry/appInsightsClient';
-import { TELEMETRY_PAGE_NAMES, TELEMETRY_USER_ACTIONS } from '../../../../../app/constants/telemetry';
+import { TELEMETRY_PAGE_NAMES, TELEMETRY_USER_ACTIONS } from '../../../../constants/telemetry';
+import { useConnectionStringContext } from '../../../../connectionStrings/context/connectionStringContext';
 
 const DEFAULT_TIMEOUT = 10;
 
@@ -26,6 +27,7 @@ export const ModuleDirectMethod: React.FC = () => {
     const history = useHistory();
     const deviceId = getDeviceIdFromQueryString(search);
     const moduleId = getModuleIdentityIdFromQueryString(search);
+    const [ {connectionString} ] = useConnectionStringContext();
 
     const [ , dispatch ] = useAsyncSagaReducer(() => undefined, invokeModuleDirectMethodSaga, undefined);
     const [connectionTimeOut, setConnectionTimeOut] = React.useState<number>(DEFAULT_TIMEOUT);
@@ -69,6 +71,7 @@ export const ModuleDirectMethod: React.FC = () => {
     const onInvokeMethodClickHandler = () => {
         AppInsightsClient.trackUserAction(TELEMETRY_USER_ACTIONS.MODULE_INVOKE_DIRECT_METHOD);
         dispatch(invokeModuleDirectMethodAction.started({
+            connectionString,
             connectTimeoutInSeconds: connectionTimeOut,
             deviceId,
             methodName,

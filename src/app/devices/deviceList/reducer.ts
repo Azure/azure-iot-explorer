@@ -4,23 +4,23 @@
  **********************************************************/
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { deviceListStateInitial, DeviceListStateType } from './state';
-import { listDevicesAction, deleteDevicesAction, ListDevicesActionParams } from './actions';
+import { listDevicesAction, deleteDevicesAction } from './actions';
 import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
-import { DeviceQuery } from '../../api/models/deviceQuery';
 import { BulkRegistryOperationResult } from '../../api/models/bulkRegistryOperationResult';
 import { DataPlaneResponse, Device } from '../../api/models/device';
 import { transformDevice } from '../../api/dataTransforms/deviceSummaryTransform';
 import { HEADERS } from '../../constants/apiConstants';
+import { DeleteDevicesParameters, FetchDevicesParameters } from '../../api/parameters/deviceParameters';
 
 export const deviceListReducer = reducerWithInitialState<DeviceListStateType>(deviceListStateInitial())
-    .case(listDevicesAction.started, (state: DeviceListStateType, payload: ListDevicesActionParams) => {
+    .case(listDevicesAction.started, (state: DeviceListStateType, payload: FetchDevicesParameters) => {
         return state.merge({
             deviceQuery: {...payload.query},
             synchronizationStatus: SynchronizationStatus.working
         });
     })
     // tslint:disable-next-line: cyclomatic-complexity
-    .case(listDevicesAction.done, (state: DeviceListStateType, payload: {params: ListDevicesActionParams} & {result: DataPlaneResponse<Device[]>}) => {
+    .case(listDevicesAction.done, (state: DeviceListStateType, payload: {params: FetchDevicesParameters} & {result: DataPlaneResponse<Device[]>}) => {
         const devices = payload.result.body || [];
         const devicesummeries = devices.map(item => transformDevice(item));
         const continuationTokens = (state.deviceQuery.continuationTokens && [...state.deviceQuery.continuationTokens]) || [];
@@ -59,8 +59,8 @@ export const deviceListReducer = reducerWithInitialState<DeviceListStateType>(de
             synchronizationStatus: SynchronizationStatus.updating
         });
     })
-    .case(deleteDevicesAction.done, (state: DeviceListStateType, payload: {params: string[]} & {result: BulkRegistryOperationResult}) => {
-        const updatedDeviceList = state.devices.filter(item => !payload.params.includes(item.deviceId));
+    .case(deleteDevicesAction.done, (state: DeviceListStateType, payload: {params: DeleteDevicesParameters} & {result: BulkRegistryOperationResult}) => {
+        const updatedDeviceList = state.devices.filter(item => !payload.params.deviceIds.includes(item.deviceId));
 
         return state.merge({
             deviceQuery: {

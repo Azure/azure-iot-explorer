@@ -5,26 +5,62 @@
 import { Type } from 'protobufjs';
 import { DeviceIdentity } from '../models/deviceIdentity';
 import { DeviceQuery } from '../models/deviceQuery';
-import { InvokeMethodActionParameters } from '../../devices/directMethod/actions';
-import { CloudToDeviceMessageActionParameters } from '../../devices/cloudToDeviceMessage/actions';
-import { DecodeType } from 'src/app/devices/deviceEvents/state';
+import { DecodeType } from '../../devices/deviceEvents/state';
+import { Twin } from '../models/device';
 
-export interface FetchDeviceTwinParameters {
-    deviceId: string;
-    // connectionString: string;
-}
-
-export type InvokeMethodParameters = InvokeMethodActionParameters;
-
-export type CloudToDeviceMessageParameters = CloudToDeviceMessageActionParameters;
-
+//#region device CRUD
 export interface FetchDeviceParameters {
+    connectionString: string;
     deviceId: string;
 }
 
 export interface FetchDevicesParameters  {
-    query?: DeviceQuery;
     connectionString: string;
+    query?: DeviceQuery;
+}
+
+export interface AddDeviceParameters {
+    connectionString: string;
+    deviceIdentity: DeviceIdentity;
+}
+
+export interface UpdateDeviceParameters {
+    connectionString: string;
+    deviceIdentity: DeviceIdentity;
+}
+
+export interface DeleteDevicesParameters  {
+    connectionString: string;
+    deviceIds: string[];
+}
+//#endregion
+
+//#region device twin
+export interface FetchDeviceTwinParameters {
+    deviceId: string;
+    connectionString: string;
+}
+
+export interface UpdateDeviceTwinParameters {
+    twin: Twin;
+    connectionString: string;
+}
+//#endregion
+
+export interface InvokeMethodParameters {
+    connectTimeoutInSeconds: number;
+    deviceId: string;
+    methodName: string;
+    payload?: any; // tslint:disable-line:no-any
+    responseTimeoutInSeconds: number;
+    connectionString: string;
+}
+
+export interface CloudToDeviceMessageParameters {
+    deviceId: string;
+    body: string;
+    connectionString: string;
+    properties?: Array<{key: string, value: string, isSystemProperty: boolean}>;
 }
 
 export interface MonitorEventsParameters {
@@ -35,18 +71,6 @@ export interface MonitorEventsParameters {
     hubConnectionString?: string;
     startTime?: Date;
     decoderPrototype?: Type;
-}
-
-export interface DeleteDevicesParameters  {
-    deviceIds: string[];
-}
-
-export interface AddDeviceParameters {
-    deviceIdentity: DeviceIdentity;
-}
-
-export interface UpdateDeviceParameters {
-    deviceIdentity: DeviceIdentity;
 }
 
 export interface SetDecoderInfoParameters {

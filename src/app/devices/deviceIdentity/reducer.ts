@@ -10,6 +10,7 @@ import {
 } from './actions';
 import { DeviceIdentity } from '../../api/models/deviceIdentity';
 import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
+import { FetchDeviceParameters, UpdateDeviceParameters } from '../../api/parameters/deviceParameters';
 
 export const deviceIdentityReducer = reducerWithInitialState<DeviceIdentityStateInterface>(deviceIdentityStateInitial())
     .case(getDeviceIdentityAction.started, (state: DeviceIdentityStateType) => {
@@ -17,7 +18,7 @@ export const deviceIdentityReducer = reducerWithInitialState<DeviceIdentityState
             synchronizationStatus: SynchronizationStatus.working
         });
     })
-    .case(getDeviceIdentityAction.done, (state: DeviceIdentityStateType, payload: {params: string, result: DeviceIdentity}) => {
+    .case(getDeviceIdentityAction.done, (state: DeviceIdentityStateType, payload: {params: FetchDeviceParameters, result: DeviceIdentity}) => {
         return state.merge({
             payload: payload.result,
             synchronizationStatus: SynchronizationStatus.fetched
@@ -34,7 +35,7 @@ export const deviceIdentityReducer = reducerWithInitialState<DeviceIdentityState
             synchronizationStatus: SynchronizationStatus.updating
         });
     })
-    .case(updateDeviceIdentityAction.done, (state: DeviceIdentityStateType, payload: {params: DeviceIdentity, result: DeviceIdentity}) => {
+    .case(updateDeviceIdentityAction.done, (state: DeviceIdentityStateType, payload: {params: UpdateDeviceParameters, result: DeviceIdentity}) => {
         return state.merge({
             payload: payload.result,
             synchronizationStatus: SynchronizationStatus.upserted

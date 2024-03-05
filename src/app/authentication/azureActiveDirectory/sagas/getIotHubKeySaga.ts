@@ -11,7 +11,6 @@ import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { NotificationType } from '../../../api/models/notification';
 import { appConfig } from '../../../../appConfig/appConfig';
 import { getProfileToken } from '../../../api/services/authenticationService';
-import { CONNECTION_STRING_THROUGH_AAD } from '../../../constants/browserStorage';
 import { SharedAccessSignatureAuthorizationRule, AccessRights } from '../../../api/models/sharedAccessSignatureAuthorizationRule';
 
 export function* getIotHubKeySaga(action: Action<GetIotHubKeyActionParmas>) {
@@ -29,7 +28,6 @@ export function* getIotHubKeySaga(action: Action<GetIotHubKeyActionParmas>) {
         }
 
         const result = formatConnectionString(action.payload.hubName, filtered[0]);
-        localStorage.setItem(CONNECTION_STRING_THROUGH_AAD, result);  // todo: AAD's hub connection string cannot be store in local storage either
         yield put(getIoTHubKeyAction.done({params: action.payload, result}));
     }
     catch (error) {

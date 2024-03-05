@@ -6,5 +6,6 @@ import actionCreatorFactory from 'typescript-fsa';
 import { MODULEIDENTITY } from '../../../constants/actionPrefixes';
 import { GET_MODULE_IDENTITIES } from '../../../constants/actionTypes';
 import { ModuleIdentity } from '../../../api/models/moduleIdentity';
+import { FetchModuleIdentitiesParameters } from '../../../api/parameters/moduleParameters';
 
-export const getModuleIdentitiesAction = actionCreatorFactory(MODULEIDENTITY).async<string, ModuleIdentity[]>(GET_MODULE_IDENTITIES);
+export const getModuleIdentitiesAction = actionCreatorFactory(MODULEIDENTITY).async<FetchModuleIdentitiesParameters, ModuleIdentity[]>(GET_MODULE_IDENTITIES);

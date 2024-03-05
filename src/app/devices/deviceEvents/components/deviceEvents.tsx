@@ -14,6 +14,7 @@ import { HeaderView } from '../../../shared/components/headerView';
 import { useDeviceEventsStateContext } from '../context/deviceEventsStateContext';
 import { usePnpStateContext } from '../../pnp/context/pnpStateContext';
 import { MultiLineShimmer } from '../../../shared/components/multiLineShimmer';
+import { useConnectionStringContext } from '../../../connectionStrings/context/connectionStringContext';
 import { DeviceSimulationPanel } from './deviceSimulationPanel';
 import { Commands } from './commands';
 import { CustomEventHub } from './customEventHub';
@@ -32,6 +33,7 @@ export const DeviceEvents: React.FC = () => {
     const moduleId = getModuleIdentityIdFromQueryString(search);
     const [ state, api ] = useDeviceEventsStateContext();
     const decoderPrototype = state.contentType.decoderPrototype;
+    const [{connectionString: hubConnectionString}] = useConnectionStringContext();
 
     // event hub settings
     const [consumerGroup, setConsumerGroup] = React.useState(DEFAULT_CONSUMER_GROUP);
@@ -170,6 +172,7 @@ export const DeviceEvents: React.FC = () => {
             consumerGroup,
             decoderPrototype,
             deviceId,
+            hubConnectionString,
             moduleId,
             startTime
         };

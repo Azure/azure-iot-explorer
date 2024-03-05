@@ -11,12 +11,13 @@ import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHel
 import { DIRECT_METHOD } from '../../../constants/iconNames';
 import { HeaderView } from '../../../shared/components/headerView';
 import { useAsyncSagaReducer } from '../../../shared/hooks/useAsyncSagaReducer';
+import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
+import { TELEMETRY_PAGE_NAMES, TELEMETRY_USER_ACTIONS } from '../../../constants/telemetry';
+import { useConnectionStringContext } from '../../../connectionStrings/context/connectionStringContext';
 import { invokeDirectMethodSaga } from '../saga';
 import { invokeDirectMethodAction } from '../actions';
 import { DirectMethodForm } from './directMethodForm';
 import '../../../css/_deviceDetail.scss';
-import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
-import { TELEMETRY_PAGE_NAMES, TELEMETRY_USER_ACTIONS } from '../../../../app/constants/telemetry';
 
 const DEFAULT_TIMEOUT = 10;
 
@@ -24,6 +25,7 @@ export const DirectMethod: React.FC = () => {
     const { t } = useTranslation();
     const { search } = useLocation();
     const deviceId = getDeviceIdFromQueryString(search);
+    const [ {connectionString} ] = useConnectionStringContext();
 
     const [ , dispatch ] = useAsyncSagaReducer(() => undefined, invokeDirectMethodSaga, undefined);
     const [connectionTimeOut, setConnectionTimeOut] = React.useState<number>(DEFAULT_TIMEOUT);
@@ -67,6 +69,7 @@ export const DirectMethod: React.FC = () => {
         AppInsightsClient.trackUserAction(TELEMETRY_USER_ACTIONS.DEVICE_INVOKE_DIRECT_METHOD);
         dispatch(invokeDirectMethodAction.started({
             connectTimeoutInSeconds: connectionTimeOut,
+            connectionString,
             deviceId,
             methodName,
             payload: getPayload(payload),
