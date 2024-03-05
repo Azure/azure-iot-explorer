@@ -39,18 +39,7 @@ export const request = async (endpoint: string, parameters: any) => { // tslint:
     );
 };
 
-export const getConnectionStringHelper = async () => {
-    const authSelection = await localStorage.getItem(AUTHENTICATION_METHOD_PREFERENCE);
-    if (authSelection === AuthenticationMethodPreference.ConnectionString) {
-        return getActiveConnectionString(await localStorage.getItem(CONNECTION_STRING_NAME_LIST));
-    }
-    else {
-        return localStorage.getItem(CONNECTION_STRING_THROUGH_AAD);
-    }
-};
-
-export const dataPlaneConnectionHelper = async () => {
-    const connectionString = await getConnectionStringHelper();
+export const dataPlaneConnectionHelper = async (connectionString: string) => {
     const connectionInfo = getConnectionInfoFromConnectionString(connectionString);
     if (!(connectionInfo && connectionInfo.hostName)) {
         return;

@@ -11,6 +11,7 @@ import { DecodeType } from 'src/app/devices/deviceEvents/state';
 
 export interface FetchDeviceTwinParameters {
     deviceId: string;
+    // connectionString: string;
 }
 
 export type InvokeMethodParameters = InvokeMethodActionParameters;
@@ -23,6 +24,7 @@ export interface FetchDeviceParameters {
 
 export interface FetchDevicesParameters  {
     query?: DeviceQuery;
+    connectionString: string;
 }
 
 export interface MonitorEventsParameters {

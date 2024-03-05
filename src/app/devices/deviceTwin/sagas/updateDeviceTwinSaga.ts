@@ -14,7 +14,7 @@ import { Twin } from '../../../api/models/device';
 
 export function* updateDeviceTwinSaga(action: Action<Twin>): SagaIterator {
     try {
-        const twin = yield call(updateDeviceTwin, action.payload);
+        const twin = yield call(updateDeviceTwin, action.payload, 'todo');
 
         yield call(raiseNotificationToast, {
             text: {

@@ -25,6 +25,7 @@ import { SynchronizationStatus } from '../../../api/models/synchronizationStatus
 import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
 import { TELEMETRY_PAGE_NAMES } from '../../../../app/constants/telemetry';
 import '../../../css/_deviceList.scss';
+import { useConnectionStringContext } from '../../../connectionStrings/context/connectionStringContext';
 
 const SHIMMER_COUNT = 10;
 export const DeviceList: React.FC = () => {
@@ -33,6 +34,7 @@ export const DeviceList: React.FC = () => {
     const history = useHistory();
 
     const [ localState, dispatch ] = useAsyncSagaReducer(deviceListReducer, deviceListSaga, deviceListStateInitial(), 'deviceListState');
+    const [{connectionString}] = useConnectionStringContext();
     const { devices, synchronizationStatus, deviceQuery } = localState;
     const isFetching = React.useMemo(() => synchronizationStatus === SynchronizationStatus.working, [synchronizationStatus]);
 
@@ -55,10 +57,12 @@ export const DeviceList: React.FC = () => {
 
     const setQueryAndExecute = (query: DeviceQuery) => {
         dispatch(listDevicesAction.started({
-            clauses: query.clauses,
-            continuationTokens: query.continuationTokens,
-            currentPageIndex: 0,
-            deviceId: query.deviceId
+            connectionString,
+            query: {clauses: query.clauses,
+                continuationTokens: query.continuationTokens,
+                currentPageIndex: 0,
+                deviceId: query.deviceId
+            }
         }));
     };
 
@@ -77,10 +81,11 @@ export const DeviceList: React.FC = () => {
 
     const refresh = () => {
         dispatch(listDevicesAction.started({
-            clauses: [],
-            continuationTokens: [],
-            currentPageIndex: 0,
-            deviceId: ''
+            connectionString,
+            query: {clauses: [],
+                continuationTokens: [],
+                currentPageIndex: 0,
+                deviceId: ''}
         }));
         setRefreshQuery(refreshQuery + 1);
     };
@@ -241,10 +246,12 @@ export const DeviceList: React.FC = () => {
 
     const fetchPage = (pageNumber: number) => {
         dispatch(listDevicesAction.started({
-            clauses: deviceQuery.clauses,
-            continuationTokens: deviceQuery.continuationTokens,
-            currentPageIndex: pageNumber,
-            deviceId: deviceQuery.deviceId
+            connectionString,
+            query: {
+                clauses: deviceQuery.clauses,
+                continuationTokens: deviceQuery.continuationTokens,
+                currentPageIndex: pageNumber,
+                deviceId: deviceQuery.deviceId}
         }));
     };
 

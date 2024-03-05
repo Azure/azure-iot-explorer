@@ -4,7 +4,7 @@
  **********************************************************/
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { deviceListStateInitial, DeviceListStateType } from './state';
-import { listDevicesAction, deleteDevicesAction } from './actions';
+import { listDevicesAction, deleteDevicesAction, ListDevicesActionParams } from './actions';
 import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
 import { DeviceQuery } from '../../api/models/deviceQuery';
 import { BulkRegistryOperationResult } from '../../api/models/bulkRegistryOperationResult';
@@ -13,18 +13,18 @@ import { transformDevice } from '../../api/dataTransforms/deviceSummaryTransform
 import { HEADERS } from '../../constants/apiConstants';
 
 export const deviceListReducer = reducerWithInitialState<DeviceListStateType>(deviceListStateInitial())
-    .case(listDevicesAction.started, (state: DeviceListStateType, payload: DeviceQuery) => {
+    .case(listDevicesAction.started, (state: DeviceListStateType, payload: ListDevicesActionParams) => {
         return state.merge({
-            deviceQuery: {...payload},
+            deviceQuery: {...payload.query},
             synchronizationStatus: SynchronizationStatus.working
         });
     })
     // tslint:disable-next-line: cyclomatic-complexity
-    .case(listDevicesAction.done, (state: DeviceListStateType, payload: {params: DeviceQuery} & {result: DataPlaneResponse<Device[]>}) => {
+    .case(listDevicesAction.done, (state: DeviceListStateType, payload: {params: ListDevicesActionParams} & {result: DataPlaneResponse<Device[]>}) => {
         const devices = payload.result.body || [];
         const devicesummeries = devices.map(item => transformDevice(item));
         const continuationTokens = (state.deviceQuery.continuationTokens && [...state.deviceQuery.continuationTokens]) || [];
-        const currentPageIndex = payload && payload.params && payload.params.currentPageIndex;
+        const currentPageIndex = payload && payload.params && payload.params.query.currentPageIndex;
 
         if (payload.result.headers) {
             // tslint:disable-next-line: no-any
@@ -43,7 +43,7 @@ export const deviceListReducer = reducerWithInitialState<DeviceListStateType>(de
             devices: devicesummeries,
             synchronizationStatus: SynchronizationStatus.fetched,
         }).set('deviceQuery', {
-            ...payload.params,
+            ...payload.params.query,
             continuationTokens,
             currentPageIndex
         });

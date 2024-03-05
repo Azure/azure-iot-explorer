@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { ConnectionStringContext } from '../../../connectionStrings/context/connectionStringContext';
+import { useConnectionString } from '../../../connectionStrings/hooks/useConnectionString';
 import { ModelRepositoryContextProvider } from '../../modelRepository/context/modelRepositoryStateContext';
 import { useModelRepositoryState } from '../../modelRepository/hooks/useModelRepositoryState';
 import { NotificationsContextProvider } from '../../../notifications/context/notificationsStateContext';
@@ -8,12 +10,14 @@ import { useBreadcrumbs } from '../../../navigation/hooks/useBreadcrumbs';
 
 export const GlobalContextProvider: React.FC = props => {
     return (
-        <ModelRepositoryContextProvider value={useModelRepositoryState()}>
-            <NotificationsContextProvider value={useNotificationState()}>
-                <BreadcrumbContext.Provider value={useBreadcrumbs()}>
-                    {props.children}
-                </BreadcrumbContext.Provider>
-            </NotificationsContextProvider>
-        </ModelRepositoryContextProvider>
+        <ConnectionStringContext.Provider value={useConnectionString()}>
+            <ModelRepositoryContextProvider value={useModelRepositoryState()}>
+                <NotificationsContextProvider value={useNotificationState()}>
+                    <BreadcrumbContext.Provider value={useBreadcrumbs()}>
+                        {props.children}
+                    </BreadcrumbContext.Provider>
+                </NotificationsContextProvider>
+            </ModelRepositoryContextProvider>
+        </ConnectionStringContext.Provider>
     );
 };

@@ -182,8 +182,8 @@
         },
         "editConnection": {
             "save": {
-                "label": "Save",
-                "ariaLabel": "Save connection string"
+                "label": "Go",
+                "ariaLabel": "Go to the IoT hub"
             },
             "cancel": {
                 "label": "Cancel",
@@ -199,7 +199,7 @@
             "editField": {
                 "label": "Connection string",
                 "ariaLabel": "Connection string",
-                "placeholder": "enter a connection string"
+                "placeholder": "Enter a connection string"
             },
             "validations": {
                 "duplicate": "The specified connection string is already listed."

@@ -9,8 +9,13 @@ import { BulkRegistryOperationResult } from '../../api/models/bulkRegistryOperat
 import { DeviceQuery } from '../../api/models/deviceQuery';
 import { DataPlaneResponse, Device } from '../../api/models/device';
 
+export interface ListDevicesActionParams {
+    query: DeviceQuery;
+    connectionString: string;
+}
+
 const deviceListCreator = actionCreatorFactory(actionPrefixes.DEVICELISTS);
-const listDevicesAction = deviceListCreator.async<DeviceQuery, DataPlaneResponse<Device[]>>(actionTypes.LIST_DEVICES);
+const listDevicesAction = deviceListCreator.async<ListDevicesActionParams, DataPlaneResponse<Device[]>>(actionTypes.LIST_DEVICES);
 const deleteDevicesAction = deviceListCreator.async<string[], BulkRegistryOperationResult>(actionTypes.DELETE_DEVICES);
 
 export {

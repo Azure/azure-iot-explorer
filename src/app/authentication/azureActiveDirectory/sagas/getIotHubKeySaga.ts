@@ -29,7 +29,7 @@ export function* getIotHubKeySaga(action: Action<GetIotHubKeyActionParmas>) {
         }
 
         const result = formatConnectionString(action.payload.hubName, filtered[0]);
-        localStorage.setItem(CONNECTION_STRING_THROUGH_AAD, result);
+        localStorage.setItem(CONNECTION_STRING_THROUGH_AAD, result);  // todo: AAD's hub connection string cannot be store in local storage either
         yield put(getIoTHubKeyAction.done({params: action.payload, result}));
     }
     catch (error) {

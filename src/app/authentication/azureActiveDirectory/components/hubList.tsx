@@ -22,7 +22,7 @@ export const HubList: React.FC = () => {
 
     React.useEffect(() => {
         if (formState === 'keyPicked') { // only when connection string got picked successfully would navigate to device list view
-            const hostName = getConnectionInfoFromConnectionString(iotHubKey).hostName;
+            const hostName = getConnectionInfoFromConnectionString(iotHubKey).hostName; // todo: use the new global state and set the key there
             history.push(`/${ROUTE_PARTS.IOT_HUB}/${ROUTE_PARTS.HOST_NAME}/${hostName}/`);
         }
     },              [formState]);

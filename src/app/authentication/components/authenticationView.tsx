@@ -7,7 +7,6 @@ import { MultiLineShimmer } from '../../shared/components/multiLineShimmer';
 import { HubSelection } from '../azureActiveDirectory/components/hubSelection';
 import { AzureActiveDirectoryStateContextProvider } from '../azureActiveDirectory/context/azureActiveDirectoryStateProvider';
 import { ConnectionStringsView } from '../../connectionStrings/components/connectionStringsView';
-import { ConnectionStringStateContextProvider } from '../../connectionStrings/context/connectionStringStateProvider';
 import { useAuthenticationStateContext } from '../context/authenticationStateContext';
 import { AuthenticationMethodPreference } from '../state';
 import { AuthenticationSelection } from './authenticationSelection';
@@ -29,9 +28,7 @@ export const AuthenticationView: React.FC = () => {
                         </AzureActiveDirectoryStateContextProvider>
                     }
                     {preference === AuthenticationMethodPreference.ConnectionString &&
-                        <ConnectionStringStateContextProvider>
-                            <ConnectionStringsView/>
-                        </ConnectionStringStateContextProvider>
+                        <ConnectionStringsView/>
                     }
                 </>
             }

@@ -27,7 +27,7 @@ export interface DirectMethodResult {
 }
 
 export const fetchModuleIdentities = async (parameters: FetchModuleIdentitiesParameters): Promise<DataPlaneResponse<ModuleIdentity[]>> => {
-    const connectionInformation = await dataPlaneConnectionHelper();
+    const connectionInformation = await dataPlaneConnectionHelper('todo');
 
     const dataPlaneRequest: DataPlaneRequest = {
         apiVersion:  HUB_DATA_PLANE_API_VERSION,
@@ -46,7 +46,7 @@ export const fetchModuleIdentities = async (parameters: FetchModuleIdentitiesPar
 };
 
 export const addModuleIdentity = async (parameters: AddModuleIdentityParameters): Promise<DataPlaneResponse<ModuleIdentity>> => {
-    const connectionInformation = await dataPlaneConnectionHelper();
+    const connectionInformation = await dataPlaneConnectionHelper('todo');
 
     const dataPlaneRequest: DataPlaneRequest = {
         apiVersion:  HUB_DATA_PLANE_API_VERSION,
@@ -63,7 +63,7 @@ export const addModuleIdentity = async (parameters: AddModuleIdentityParameters)
 };
 
 export const fetchModuleIdentity = async (parameters: FetchModuleIdentityParameters): Promise<DataPlaneResponse<ModuleIdentity[]>> => {
-    const connectionInformation = await dataPlaneConnectionHelper();
+    const connectionInformation = await dataPlaneConnectionHelper('todo');
 
     const dataPlaneRequest: DataPlaneRequest = {
         apiVersion:  HUB_DATA_PLANE_API_VERSION,
@@ -79,7 +79,7 @@ export const fetchModuleIdentity = async (parameters: FetchModuleIdentityParamet
 };
 
 export const deleteModuleIdentity = async (parameters: FetchModuleIdentityParameters): Promise<DataPlaneResponse<ModuleIdentity[]>> => {
-    const connectionInformation = await dataPlaneConnectionHelper();
+    const connectionInformation = await dataPlaneConnectionHelper('todo');
 
     const dataPlaneRequest: DataPlaneRequest = {
         apiVersion:  HUB_DATA_PLANE_API_VERSION,
@@ -101,7 +101,7 @@ export const invokeModuleDirectMethod = async (parameters: InvokeModuleMethodPar
         return;
     }
 
-    const connectionInfo = await dataPlaneConnectionHelper();
+    const connectionInfo = await dataPlaneConnectionHelper('todo');
     const dataPlaneRequest: DataPlaneRequest = {
         apiVersion: HUB_DATA_PLANE_API_VERSION,
         body: JSON.stringify({
@@ -122,7 +122,7 @@ export const invokeModuleDirectMethod = async (parameters: InvokeModuleMethodPar
 };
 
 export const fetchModuleIdentityTwin = async (parameters: ModuleIdentityTwinParameters): Promise<DataPlaneResponse<ModuleTwin>> => {
-    const connectionInformation = await dataPlaneConnectionHelper();
+    const connectionInformation = await dataPlaneConnectionHelper('todo');
 
     const dataPlaneRequest: DataPlaneRequest = {
         apiVersion:  HUB_DATA_PLANE_API_VERSION,
@@ -138,7 +138,7 @@ export const fetchModuleIdentityTwin = async (parameters: ModuleIdentityTwinPara
 };
 
 export const updateModuleIdentityTwin = async (parameters: ModuleTwin): Promise<DataPlaneResponse<ModuleTwin>> => {
-    const connectionInformation = await dataPlaneConnectionHelper();
+    const connectionInformation = await dataPlaneConnectionHelper('todo');
 
     const dataPlaneRequest: DataPlaneRequest = {
         apiVersion:  HUB_DATA_PLANE_API_VERSION,
