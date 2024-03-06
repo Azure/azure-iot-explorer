@@ -18,13 +18,16 @@ describe('getModuleIdentitiesSaga', () => {
     let getModuleIdentitiesSagaGenerator: SagaIteratorClone;
     const deviceId = 'testDevice';
     const moduleId = 'testModule';
+    const connectionString = 'connection_string';
+    const params = {connectionString, deviceId}
     const moduleIdentity: ModuleIdentity = {
         authentication: null,
         deviceId,
         moduleId
     };
     const mockModuleIdentities: ModuleIdentity[] = [moduleIdentity];
-    const action = getModuleIdentitiesAction.started(deviceId);
+    const action = getModuleIdentitiesAction.started(params);
+
     beforeAll(() => {
         getModuleIdentitiesSagaGenerator = cloneableGenerator(getModuleIdentitiesSagaWorker)(action);
     });
@@ -36,7 +39,7 @@ describe('getModuleIdentitiesSaga', () => {
     it('fetches the module identities', () => {
         expect(getModuleIdentitiesSagaGenerator.next()).toEqual({
             done: false,
-            value: call(mockFetchModuleIdentities, { deviceId })
+            value: call(mockFetchModuleIdentities, params)
         });
     });
 
@@ -44,7 +47,7 @@ describe('getModuleIdentitiesSaga', () => {
         const success = getModuleIdentitiesSagaGenerator.clone();
         expect(success.next(mockModuleIdentities)).toEqual({
             done: false,
-            value: put(getModuleIdentitiesAction.done({params: deviceId, result: mockModuleIdentities}))
+            value: put(getModuleIdentitiesAction.done({params, result: mockModuleIdentities}))
         });
         expect(success.next().done).toEqual(true);
     });
@@ -68,7 +71,7 @@ describe('getModuleIdentitiesSaga', () => {
 
         expect(failure.next(error)).toEqual({
             done: false,
-            value: put(getModuleIdentitiesAction.failed({params: deviceId, error}))
+            value: put(getModuleIdentitiesAction.failed({params, error}))
         });
         expect(failure.next().done).toEqual(true);
     });

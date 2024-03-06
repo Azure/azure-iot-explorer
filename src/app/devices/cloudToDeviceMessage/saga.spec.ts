@@ -28,8 +28,10 @@ describe('cloudToDeviceMessageSaga', () => {
 
     const deviceId = 'device_id';
     const message = 'message';
+    const connectionString = 'connection_string';
 
     const cloudToDeviceMessageParameters: CloudToDeviceMessageParameters = {
+        connectionString,
         body: message,
         deviceId
     };

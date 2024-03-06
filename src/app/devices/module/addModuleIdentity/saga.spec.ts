@@ -24,9 +24,10 @@ describe('addModuleIdentitySagaWorker', () => {
         deviceId,
         moduleId
     };
+    const params = {connectionString, moduleIdentity}
 
     beforeAll(() => {
-        addModuleIdentitySagaGenerator = cloneableGenerator(addModuleIdentitySagaWorker)(addModuleIdentityAction.started(moduleIdentity));
+        addModuleIdentitySagaGenerator = cloneableGenerator(addModuleIdentitySagaWorker)(addModuleIdentityAction.started(params));
     });
 
     const mockAddModuleIdentity = jest.spyOn(ModuleService, 'addModuleIdentity').mockImplementationOnce(parameters => {
@@ -36,7 +37,7 @@ describe('addModuleIdentitySagaWorker', () => {
     it('adds the module identity', () => {
         expect(addModuleIdentitySagaGenerator.next()).toEqual({
             done: false,
-            value: call(mockAddModuleIdentity, { moduleIdentity })
+            value: call(mockAddModuleIdentity, params)
         });
     });
 
@@ -56,7 +57,7 @@ describe('addModuleIdentitySagaWorker', () => {
         });
         expect(success.next()).toEqual({
             done: false,
-            value: put(addModuleIdentityAction.done({params: moduleIdentity, result: moduleIdentity}))
+            value: put(addModuleIdentityAction.done({params, result: moduleIdentity}))
         });
         expect(success.next().done).toEqual(true);
     });
@@ -80,7 +81,7 @@ describe('addModuleIdentitySagaWorker', () => {
 
         expect(failure.next(error)).toEqual({
             done: false,
-            value: put(addModuleIdentityAction.failed({params: moduleIdentity, error}))
+            value: put(addModuleIdentityAction.failed({params, error}))
         });
         expect(failure.next().done).toEqual(true);
     });

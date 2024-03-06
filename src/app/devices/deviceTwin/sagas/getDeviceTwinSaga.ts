@@ -22,7 +22,7 @@ export function* getDeviceTwinSaga(action: Action<FetchDeviceTwinParameters>): S
             text: {
                 translationKey: ResourceKeys.notifications.getDeviceTwinOnError,
                 translationOptions: {
-                    deviceId: action.payload,
+                    deviceId: action.payload.deviceId,
                     error,
                 },
             },

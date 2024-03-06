@@ -69,12 +69,12 @@ describe('devices/components/deviceTwin', () => {
             const wrapper = mount(<DeviceTwin/>);
             let commandBar = wrapper.find(CommandBar).first();
             act(() => commandBar.props().items[0].onClick(null));
-            expect(mockGetDeviceTwin.mock.calls[0][0]).toEqual('test');
+        expect(mockGetDeviceTwin.mock.calls[0][0]).toEqual({connectionString: '', deviceId: 'test'});
 
             commandBar = wrapper.find(CommandBar).first();
             act(() => commandBar.props().items[1].onClick(null));
             wrapper.update();
-            expect(mockUpdateDeviceTwin.mock.calls[0][0]).toEqual(twin);
+            expect(mockUpdateDeviceTwin.mock.calls[0][0]).toEqual({connectionString: '', twin});
         });
     });
 });

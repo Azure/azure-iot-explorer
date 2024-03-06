@@ -21,7 +21,7 @@ export function* getDeviceIdentitySagaWorker(action: Action<FetchDeviceParameter
             text: {
                 translationKey: ResourceKeys.notifications.getDeviceIdentityOnError,
                 translationOptions: {
-                    deviceId: action.payload,
+                    deviceId: action.payload.deviceId,
                     error,
                 },
             },

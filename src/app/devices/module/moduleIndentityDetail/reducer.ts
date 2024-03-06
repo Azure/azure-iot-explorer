@@ -4,7 +4,7 @@
  **********************************************************/
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { moduleIdentityDetailStateInterfaceInitial, ModuleIdentityDetailStateType } from './state';
-import { getModuleIdentityAction, deleteModuleIdentityAction,} from './actions';
+import { getModuleIdentityAction, deleteModuleIdentityAction } from './actions';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import { ModuleIdentity } from '../../../api/models/moduleIdentity';
 import { DeleteModuleIdentityParameters, FetchModuleIdentityParameters } from '../../../api/parameters/moduleParameters';

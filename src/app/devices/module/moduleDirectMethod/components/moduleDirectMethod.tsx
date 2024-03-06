@@ -71,8 +71,8 @@ export const ModuleDirectMethod: React.FC = () => {
     const onInvokeMethodClickHandler = () => {
         AppInsightsClient.trackUserAction(TELEMETRY_USER_ACTIONS.MODULE_INVOKE_DIRECT_METHOD);
         dispatch(invokeModuleDirectMethodAction.started({
-            connectionString,
             connectTimeoutInSeconds: connectionTimeOut,
+            connectionString,
             deviceId,
             methodName,
             moduleId,

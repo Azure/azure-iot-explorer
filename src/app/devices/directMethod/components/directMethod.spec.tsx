@@ -34,6 +34,7 @@ describe('directMethod', () => {
         act(() => commandBar.props().items[0].onClick(null));
         expect(mockGetDeviceTwin.mock.calls[0][0]).toEqual({
             connectTimeoutInSeconds: 60,
+            connectionString: '',
             deviceId: 'test',
             methodName: 'method',
             payload: {foo: 'bar'},

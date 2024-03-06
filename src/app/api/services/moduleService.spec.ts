@@ -58,8 +58,8 @@ describe('moduleService', () => {
 
     context('fetchModuleIdentities', () => {
         const parameters = {
-                connectionString,
-                deviceId
+            connectionString,
+            deviceId
         };
 
         beforeEach(() => {
@@ -402,7 +402,7 @@ describe('moduleService', () => {
             // tslint:enable
             jest.spyOn(window, 'fetch').mockResolvedValue(response);
 
-            const result = await ModuleService.updateModuleIdentityTwin(moduleTwin);
+            const result = await ModuleService.updateModuleIdentityTwin({connectionString, moduleTwin});
 
             const connectionInformation = mockDataPlaneConnectionHelper();
             const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
@@ -429,7 +429,7 @@ describe('moduleService', () => {
 
         it('throws Error when promise rejects', async () => {
             window.fetch = jest.fn().mockRejectedValueOnce(new Error());
-            await expect(ModuleService.updateModuleIdentityTwin(moduleTwin)).rejects.toThrow(new Error());
+            await expect(ModuleService.updateModuleIdentityTwin({connectionString, moduleTwin})).rejects.toThrow(new Error());
         });
     });
 });

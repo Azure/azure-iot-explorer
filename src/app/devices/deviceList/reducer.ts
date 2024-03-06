@@ -24,7 +24,7 @@ export const deviceListReducer = reducerWithInitialState<DeviceListStateType>(de
         const devices = payload.result.body || [];
         const devicesummeries = devices.map(item => transformDevice(item));
         const continuationTokens = (state.deviceQuery.continuationTokens && [...state.deviceQuery.continuationTokens]) || [];
-        const currentPageIndex = payload && payload.params && payload.params.query.currentPageIndex;
+        const currentPageIndex = payload?.params?.query?.currentPageIndex;
 
         if (payload.result.headers) {
             // tslint:disable-next-line: no-any

@@ -22,7 +22,7 @@ export function* getModuleIdentitiesSagaWorker(action: Action<FetchModuleIdentit
             text: {
                 translationKey: ResourceKeys.notifications.getModuleIdentitiesOnError,
                 translationOptions: {
-                    deviceId: action.payload,
+                    deviceId: action.payload.deviceId,
                     error,
                 },
             },

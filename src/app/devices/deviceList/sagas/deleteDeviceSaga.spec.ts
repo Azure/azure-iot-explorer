@@ -23,6 +23,7 @@ describe('deleteDeviceSaga', () => {
         'device_id2',
         'device_id3'
     ];
+    const params = {connectionString, deviceIds};
 
     const mockResult: BulkRegistryOperationResult = {
         errors: [],
@@ -35,15 +36,13 @@ describe('deleteDeviceSaga', () => {
     });
 
     beforeAll(() => {
-        deleteDevicesSagaGenerator = cloneableGenerator(deleteDevicesSaga)(deleteDevicesAction.started(deviceIds));
+        deleteDevicesSagaGenerator = cloneableGenerator(deleteDevicesSaga)(deleteDevicesAction.started(params));
     });
 
     it('deletes the devices', () => {
         expect(deleteDevicesSagaGenerator.next()).toEqual({
             done: false,
-            value: call(mockDeleteDevice, {
-                deviceIds
-            })
+            value: call(mockDeleteDevice, params)
         });
     });
 
@@ -64,7 +63,7 @@ describe('deleteDeviceSaga', () => {
 
         expect(success.next()).toEqual({
             done: false,
-            value: put(deleteDevicesAction.done({params: deviceIds, result: mockResult}))
+            value: put(deleteDevicesAction.done({params, result: mockResult}))
         });
 
         expect(success.next().done).toEqual(true);
@@ -89,7 +88,7 @@ describe('deleteDeviceSaga', () => {
 
         expect(failure.next(error)).toEqual({
             done: false,
-            value: put(deleteDevicesAction.failed({params: deviceIds, error}))
+            value: put(deleteDevicesAction.failed({params, error}))
         });
         expect(failure.next().done).toEqual(true);
     });

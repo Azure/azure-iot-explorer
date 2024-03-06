@@ -1,157 +1,39 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ConnectionStringEdit matches snapshot in Add Scenario 1`] = `
-<StyledPanelBase
-  closeButtonAriaLabel="connectionStrings.editConnection.cancel.ariaLabel.add"
-  isBlocking={true}
-  isFooterAtBottom={true}
-  isOpen={true}
-  onDismiss={[MockFunction]}
-  onRenderFooter={[Function]}
-  onRenderHeader={[Function]}
-  type={3}
+exports[`ConnectionStringEdit matches snapshot 1`] = `
+<div
+  style={
+    Object {
+      "padding": 20,
+    }
+  }
 >
-  <div
-    className="connection-string-edit-body"
+  <StyledTextFieldBase
+    ariaLabel="connectionStrings.editConnection.editField.ariaLabel"
+    canRevealPassword={true}
+    label="connectionStrings.editConnection.editField.label"
+    onChange={[Function]}
+    placeholder="connectionStrings.editConnection.editField.placeholder"
+    required={true}
+    type="password"
+    value=""
+  />
+  <StyledLinkBase
+    href="connectivityPane.connectionStringComboBox.link"
+    target="_blank"
   >
-    <StyledTextFieldBase
-      ariaLabel="connectionStrings.editConnection.editField.ariaLabel"
-      label="connectionStrings.editConnection.editField.label"
-      multiline={true}
-      onChange={[Function]}
-      placeholder="connectionStrings.editConnection.editField.placeholder"
-      required={true}
-      rows={8}
-      value=""
-    />
-    <StyledLinkBase
-      href="connectivityPane.connectionStringComboBox.link"
-      target="_blank"
-    >
-      connectivityPane.connectionStringComboBox.linkText
-    </StyledLinkBase>
-    <div>
-      <span>
-        connectivityPane.connectionStringComboBox.warning
-      </span>
-    </div>
+    connectivityPane.connectionStringComboBox.linkText
+  </StyledLinkBase>
+  <div>
+    <span>
+      connectivityPane.connectionStringComboBox.warning
+    </span>
   </div>
-</StyledPanelBase>
-`;
-
-exports[`ConnectionStringEdit matches snapshot in Edit / invalid scenario 1`] = `
-<StyledPanelBase
-  closeButtonAriaLabel="connectionStrings.editConnection.cancel.ariaLabel.edit"
-  isBlocking={true}
-  isFooterAtBottom={true}
-  isOpen={true}
-  onDismiss={[MockFunction]}
-  onRenderFooter={[Function]}
-  onRenderHeader={[Function]}
-  type={3}
->
-  <div
-    className="connection-string-edit-body"
-  >
-    <StyledTextFieldBase
-      ariaLabel="connectionStrings.editConnection.editField.ariaLabel"
-      label="connectionStrings.editConnection.editField.label"
-      multiline={true}
-      onChange={[Function]}
-      placeholder="connectionStrings.editConnection.editField.placeholder"
-      required={true}
-      rows={8}
-      value="connectionString"
-    />
-    <StyledLinkBase
-      href="connectivityPane.connectionStringComboBox.link"
-      target="_blank"
-    >
-      connectivityPane.connectionStringComboBox.linkText
-    </StyledLinkBase>
-    <div>
-      <span>
-        connectivityPane.connectionStringComboBox.warning
-      </span>
-    </div>
-  </div>
-</StyledPanelBase>
-`;
-
-exports[`ConnectionStringEdit matches snapshot in Edit / valid scenario 1`] = `
-<StyledPanelBase
-  closeButtonAriaLabel="connectionStrings.editConnection.cancel.ariaLabel.edit"
-  isBlocking={true}
-  isFooterAtBottom={true}
-  isOpen={true}
-  onDismiss={[MockFunction]}
-  onRenderFooter={[Function]}
-  onRenderHeader={[Function]}
-  type={3}
->
-  <div
-    className="connection-string-edit-body"
-  >
-    <StyledTextFieldBase
-      ariaLabel="connectionStrings.editConnection.editField.ariaLabel"
-      label="connectionStrings.editConnection.editField.label"
-      multiline={true}
-      onChange={[Function]}
-      placeholder="connectionStrings.editConnection.editField.placeholder"
-      required={true}
-      rows={8}
-      value="HostName=test.azure-devices-int.net;SharedAccessKeyName=iothubowner;SharedAccessKey=key"
-    />
-    <StyledLinkBase
-      href="connectivityPane.connectionStringComboBox.link"
-      target="_blank"
-    >
-      connectivityPane.connectionStringComboBox.linkText
-    </StyledLinkBase>
-    <div>
-      <span>
-        connectivityPane.connectionStringComboBox.warning
-      </span>
-    </div>
-  </div>
-</StyledPanelBase>
-`;
-
-exports[`ConnectionStringEdit matches snapshot in Edit Scenario 1`] = `
-<StyledPanelBase
-  closeButtonAriaLabel="connectionStrings.editConnection.cancel.ariaLabel.edit"
-  isBlocking={true}
-  isFooterAtBottom={true}
-  isOpen={true}
-  onDismiss={[MockFunction]}
-  onRenderFooter={[Function]}
-  onRenderHeader={[Function]}
-  type={3}
->
-  <div
-    className="connection-string-edit-body"
-  >
-    <StyledTextFieldBase
-      ariaLabel="connectionStrings.editConnection.editField.ariaLabel"
-      label="connectionStrings.editConnection.editField.label"
-      multiline={true}
-      onChange={[Function]}
-      placeholder="connectionStrings.editConnection.editField.placeholder"
-      required={true}
-      rows={8}
-      value="connectionString"
-    />
-    <StyledLinkBase
-      href="connectivityPane.connectionStringComboBox.link"
-      target="_blank"
-    >
-      connectivityPane.connectionStringComboBox.linkText
-    </StyledLinkBase>
-    <div>
-      <span>
-        connectivityPane.connectionStringComboBox.warning
-      </span>
-    </div>
-  </div>
-</StyledPanelBase>
+  <CustomizedPrimaryButton
+    ariaLabel="connectionStrings.editConnection.save.ariaLabel"
+    disabled={false}
+    onClick={[Function]}
+    text="connectionStrings.editConnection.save.label"
+  />
+</div>
 `;

@@ -25,6 +25,8 @@ describe('deviceIdentitySaga', () => {
         return null;
     });
     const deviceId = 'test_id';
+    const connectionString = 'connection_string';
+    const params = {connectionString, deviceId};
     const mockDevice: DeviceIdentity = {
         authentication: null,
         capabilities: null,
@@ -36,10 +38,11 @@ describe('deviceIdentitySaga', () => {
         statusReason: '',
         statusUpdatedTime: ''
     };
+    const identityParams = {connectionString, deviceIdentity: mockDevice};
 
     beforeEach(() => {
-        getdeviceIdentitySagaGenerator = cloneableGenerator(getDeviceIdentitySagaWorker)(getDeviceIdentityAction.started(deviceId));
-        updateDeviceIdentitySagaGenerator = cloneableGenerator(updateDeviceIdentitySagaWorker)(updateDeviceIdentityAction.started(mockDevice));
+        getdeviceIdentitySagaGenerator = cloneableGenerator(getDeviceIdentitySagaWorker)(getDeviceIdentityAction.started(params));
+        updateDeviceIdentitySagaGenerator = cloneableGenerator(updateDeviceIdentitySagaWorker)(updateDeviceIdentityAction.started(identityParams));
     });
 
     describe('getDeviceIdentitySaga', () => {
@@ -48,14 +51,14 @@ describe('deviceIdentitySaga', () => {
             // call for device id
             expect(getdeviceIdentitySagaGenerator.next()).toEqual({
                 done: false,
-                value: call(mockGetDeviceFn, {deviceId})
+                value: call(mockGetDeviceFn, params)
             });
 
             // add to store
             expect(getdeviceIdentitySagaGenerator.next(mockDevice)).toEqual({
                 done: false,
                 value: put(getDeviceIdentityAction.done({
-                    params: deviceId,
+                    params,
                     result: mockDevice
                 }))
             });
@@ -87,7 +90,7 @@ describe('deviceIdentitySaga', () => {
                 done: false,
                 value: put(getDeviceIdentityAction.failed({
                     error,
-                    params: deviceId,
+                    params,
                 }))
             });
 
@@ -104,7 +107,7 @@ describe('deviceIdentitySaga', () => {
             // call to update
             expect(updateDeviceIdentitySagaGenerator.next()).toEqual({
                 done: false,
-                value: call(mockUpdateDeviceFn, {deviceIdentity: mockDevice})
+                value: call(mockUpdateDeviceFn, identityParams)
             });
 
             // notification
@@ -125,7 +128,7 @@ describe('deviceIdentitySaga', () => {
             expect(updateDeviceIdentitySagaGenerator.next()).toEqual({
                 done: false,
                 value: put(updateDeviceIdentityAction.done({
-                    params: mockDevice,
+                    params: identityParams,
                     result: mockDevice
                 }))
             });
@@ -157,7 +160,7 @@ describe('deviceIdentitySaga', () => {
                 done: false,
                 value: put(updateDeviceIdentityAction.failed({
                     error,
-                    params: mockDevice,
+                    params: identityParams,
                 }))
             });
 

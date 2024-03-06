@@ -6,14 +6,14 @@ import { call, put } from 'redux-saga/effects';
 import { Action } from 'typescript-fsa';
 import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 import { getIotHubKeys } from '../../../api/services/iotHubService';
-import { getIoTHubKeyAction, GetIotHubKeyActionParmas } from '../actions';
+import { getIoTHubKeyAction, GetIotHubKeyActionParams } from '../actions';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { NotificationType } from '../../../api/models/notification';
 import { appConfig } from '../../../../appConfig/appConfig';
 import { getProfileToken } from '../../../api/services/authenticationService';
 import { SharedAccessSignatureAuthorizationRule, AccessRights } from '../../../api/models/sharedAccessSignatureAuthorizationRule';
 
-export function* getIotHubKeySaga(action: Action<GetIotHubKeyActionParmas>) {
+export function* getIotHubKeySaga(action: Action<GetIotHubKeyActionParams>) {
     try {
         const authorizationToken: string = yield call(getProfileToken); // always get a fresh token to prevent expiration
         const results: SharedAccessSignatureAuthorizationRule[] = yield call(getIotHubKeys, {

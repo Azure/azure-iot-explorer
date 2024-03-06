@@ -18,6 +18,8 @@ describe('getDeviceTwinSaga', () => {
     let getDeviceTwinSagaGenerator: SagaIteratorClone;
 
     const deviceId = 'device_id';
+    const connectionString = 'connection_string';
+    const params = {connectionString, deviceId};
     const mockTwin: Twin = {
         authenticationType: 'SymmetricKey',
         capabilities: {
@@ -37,7 +39,7 @@ describe('getDeviceTwinSaga', () => {
     };
 
     beforeAll(() => {
-        getDeviceTwinSagaGenerator = cloneableGenerator(getDeviceTwinSaga)(getDeviceTwinAction.started(deviceId));
+        getDeviceTwinSagaGenerator = cloneableGenerator(getDeviceTwinSaga)(getDeviceTwinAction.started(params));
     });
 
     const mockFetchDeviceTwin = jest.spyOn(DevicesService, 'fetchDeviceTwin').mockImplementationOnce(parameters => {
@@ -47,7 +49,7 @@ describe('getDeviceTwinSaga', () => {
     it('fetches the device twin', () => {
         expect(getDeviceTwinSagaGenerator.next()).toEqual({
             done: false,
-            value: call(mockFetchDeviceTwin, { deviceId })
+            value: call(mockFetchDeviceTwin, params)
         });
     });
 
@@ -55,7 +57,7 @@ describe('getDeviceTwinSaga', () => {
         const success = getDeviceTwinSagaGenerator.clone();
         expect(success.next(mockTwin)).toEqual({
             done: false,
-            value: put(getDeviceTwinAction.done({params: deviceId, result: mockTwin}))
+            value: put(getDeviceTwinAction.done({params, result: mockTwin}))
         });
         expect(success.next().done).toEqual(true);
     });
@@ -79,7 +81,7 @@ describe('getDeviceTwinSaga', () => {
 
         expect(failure.next(error)).toEqual({
             done: false,
-            value: put(getDeviceTwinAction.failed({params: deviceId, error}))
+            value: put(getDeviceTwinAction.failed({params, error}))
         });
         expect(failure.next().done).toEqual(true);
     });

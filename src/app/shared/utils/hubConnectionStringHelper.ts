@@ -32,16 +32,3 @@ export const isValidEventHubConnectionString = (connectionString: string): boole
     return pattern.test(connectionString);
 };
 
-export const getActiveConnectionString = (connectionStrings: string): string => {
-    if (!connectionStrings) {
-        return;
-    }
-
-    try {
-        const parsedStrings = JSON.parse(connectionStrings);
-        return parsedStrings && parsedStrings[0] && parsedStrings[0].connectionString;
-    }
-    catch {
-        return;
-    }
-};

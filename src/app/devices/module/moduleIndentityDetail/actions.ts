@@ -11,4 +11,3 @@ import { DeleteModuleIdentityParameters, FetchModuleIdentityParameters } from '.
 const moduleIdentityCreator = actionCreatorFactory(MODULEIDENTITY);
 export const getModuleIdentityAction = moduleIdentityCreator.async<FetchModuleIdentityParameters, ModuleIdentity>(GET_MODULE_IDENTITY);
 export const deleteModuleIdentityAction = moduleIdentityCreator.async<DeleteModuleIdentityParameters, void>(DELETE_MODULE_IDENTITY);
-

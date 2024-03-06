@@ -16,9 +16,7 @@ exports[`AuthenticationView matches snapshot when preference is aad 1`] = `
 
 exports[`AuthenticationView matches snapshot when preference is connection string 1`] = `
 <Fragment>
-  <ConnectionStringStateContextProvider>
-    <ConnectionStringsView />
-  </ConnectionStringStateContextProvider>
+  <ConnectionStringsView />
 </Fragment>
 `;
 
