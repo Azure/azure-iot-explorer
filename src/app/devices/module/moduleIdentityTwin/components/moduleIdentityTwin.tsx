@@ -19,12 +19,13 @@ import { moduleIdentityTwinSagas } from '../saga';
 import { moduleTwinStateInitial } from '../state';
 import '../../../../css/_deviceDetail.scss';
 import { AppInsightsClient } from '../../../../shared/appTelemetry/appInsightsClient';
-import { TELEMETRY_PAGE_NAMES, TELEMETRY_USER_ACTIONS } from '../../../../../app/constants/telemetry';
+import { TELEMETRY_PAGE_NAMES, TELEMETRY_USER_ACTIONS } from '../../../../constants/telemetry';
+import { useConnectionStringContext } from '../../../../connectionStrings/context/connectionStringContext';
 
 export const ModuleIdentityTwin: React.FC = () => {
     const { t } = useTranslation();
-    const { search, pathname } = useLocation();
-    const history = useHistory();
+    const { search } = useLocation();
+    const [ {connectionString} ] = useConnectionStringContext();
     const moduleId = getModuleIdentityIdFromQueryString(search);
     const deviceId = getDeviceIdFromQueryString(search);
 
@@ -45,7 +46,7 @@ export const ModuleIdentityTwin: React.FC = () => {
         AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.MODULE_TWIN});
     }, []); // tslint:disable-line: align
 
-    const retrieveData = () => dispatch(getModuleIdentityTwinAction.started({ deviceId, moduleId }));
+    const retrieveData = () => dispatch(getModuleIdentityTwinAction.started({connectionString, deviceId, moduleId}));
 
     const handleSave = () => {
         setState({
@@ -54,7 +55,7 @@ export const ModuleIdentityTwin: React.FC = () => {
             isTwinValid: true
         });
         AppInsightsClient.trackUserAction(TELEMETRY_USER_ACTIONS.UPDATE_MODULE_TWIN);
-        dispatch(updateModuleIdentityTwinAction.started(JSON.parse(state.twin)));
+        dispatch(updateModuleIdentityTwinAction.started({connectionString, moduleTwin: JSON.parse(state.twin)}));
     };
 
     const showCommandBar = () => {

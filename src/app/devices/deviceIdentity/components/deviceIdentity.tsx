@@ -47,7 +47,7 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
     }, []); // tslint:disable-line: align
 
     React.useEffect(() => {
-        if (synchronizationStatus === SynchronizationStatus.fetched) {
+        if (synchronizationStatus === SynchronizationStatus.fetched || synchronizationStatus === SynchronizationStatus.upserted) {
             const identity: DeviceIdentity = JSON.parse(JSON.stringify(deviceIdentity));
             setState({
                 identity,

@@ -10,19 +10,16 @@ import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { deleteDevicesAction } from '../actions';
 import { deleteDevices } from '../../../api/services/devicesService';
+import { DeleteDevicesParameters } from '../../../api/parameters/deviceParameters';
 
-export function* deleteDevicesSaga(action: Action<string[]>): SagaIterator {
+export function* deleteDevicesSaga(action: Action<DeleteDevicesParameters>): SagaIterator {
     try {
-        const parameters = {
-            deviceIds: action.payload,
-        };
-
-        const bulkDeleteResult = yield call(deleteDevices, parameters);
+        const bulkDeleteResult = yield call(deleteDevices, action.payload);
         yield call(raiseNotificationToast, {
             text: {
                 translationKey: ResourceKeys.notifications.deleteDeviceOnSucceed,
                 translationOptions: {
-                    count: action.payload.length
+                    count: action.payload.deviceIds.length
                 },
             },
             type: NotificationType.success
@@ -34,7 +31,7 @@ export function* deleteDevicesSaga(action: Action<string[]>): SagaIterator {
             text: {
                 translationKey: ResourceKeys.notifications.deleteDeviceOnError,
                 translationOptions: {
-                    count: action.payload.length,
+                    count: action.payload.deviceIds.length,
                     error,
                 },
             },

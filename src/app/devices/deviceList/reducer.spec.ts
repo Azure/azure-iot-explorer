@@ -3,14 +3,13 @@
  * Licensed under the MIT License
  **********************************************************/
 import 'jest';
-import { Record, Map as ImmutableMap, fromJS } from 'immutable';
+import { Map as ImmutableMap } from 'immutable';
 import { listDevicesAction, deleteDevicesAction } from './actions';
 import { deviceListReducer } from './reducer';
-import { DeviceListStateInterface, deviceListStateInitial } from './state';
+import { deviceListStateInitial } from './state';
 import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
 import { DeviceSummary } from '../../api/models/deviceSummary';
 import { Device, DataPlaneResponse } from '../../api/models/device';
-import { SynchronizationWrapper } from '../../api/models/SynchronizationWrapper';
 
 describe('deviceListStateReducer', () => {
     const deviceId = 'testDeviceId';
@@ -36,7 +35,7 @@ describe('deviceListStateReducer', () => {
     };
 
     it(`handles LIST_DEVICES/ACTION_START action`, () => {
-        const action = listDevicesAction.started(undefined);
+        const action = listDevicesAction.started({query: undefined, connectionString: ''});
         expect(deviceListReducer(deviceListStateInitial(), action).devices).toEqual([]);
         expect(deviceListReducer(deviceListStateInitial(), action).synchronizationStatus).toEqual(SynchronizationStatus.working);
     });
@@ -48,7 +47,7 @@ describe('deviceListStateReducer', () => {
                 headers: { 'x-ms-continuation': 'abc123' }
             };
 
-            const action = listDevicesAction.done({ params: undefined, result });
+            const action = listDevicesAction.done({ params: {query: undefined, connectionString: ''}, result });
             const reduced = deviceListReducer(deviceListStateInitial(), action);
             expect(reduced.devices).toEqual([deviceSummary]);
             expect(reduced.synchronizationStatus).toEqual(SynchronizationStatus.fetched);
@@ -62,7 +61,7 @@ describe('deviceListStateReducer', () => {
                 headers: null
             };
 
-            const action = listDevicesAction.done({ params: undefined, result });
+            const action = listDevicesAction.done({ params: {query: undefined, connectionString: ''}, result });
             const reduced = deviceListReducer(deviceListStateInitial(), action);
             expect(reduced.devices).toEqual([deviceSummary]);
             expect(reduced.synchronizationStatus).toEqual(SynchronizationStatus.fetched);
@@ -76,7 +75,7 @@ describe('deviceListStateReducer', () => {
                 headers: { 'x-ms-continuation': '' }
             };
 
-            const action = listDevicesAction.done({ params: undefined, result });
+            const action = listDevicesAction.done({ params: {query: undefined, connectionString: ''}, result });
             const reduced = deviceListReducer(deviceListStateInitial(), action);
             expect(reduced.devices).toEqual([deviceSummary]);
             expect(reduced.synchronizationStatus).toEqual(SynchronizationStatus.fetched);
@@ -96,7 +95,7 @@ describe('deviceListStateReducer', () => {
     });
 
     it(`handles DELETE_DEVICES/ACTION_DONE action`, () => {
-        const action = deleteDevicesAction.done({ params: [deviceId], result: undefined });
+        const action = deleteDevicesAction.done({ params: {deviceIds: [deviceId], connectionString: ''}, result: undefined });
         const deviceSummaryMap = ImmutableMap<string, DeviceSummary>();
         expect(deviceListReducer(deviceListStateInitial(), action).devices).toEqual([]);
         expect(deviceListReducer(deviceListStateInitial(), action).synchronizationStatus).toEqual(SynchronizationStatus.deleted);

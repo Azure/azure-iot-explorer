@@ -102,6 +102,7 @@ exports[`DeviceList matches snapshot 1`] = `
               "deviceId": "testDeviceId",
               "iotEdge": false,
               "lastActivityTime": "0001-01-01T00:00:00Z",
+              "modelId": "",
               "status": "Enabled",
               "statusUpdatedTime": "0001-01-01T00:00:00Z",
             },

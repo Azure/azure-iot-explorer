@@ -33,9 +33,11 @@ describe('updateModuleIdentityTwinSaga', () => {
         authenticationType:'sas',
         properties: {}
     }
+    const connectionString = 'connection_string';
+    const params = {connectionString, moduleTwin: moduleIdentityTwin};
     // tslint:enable
     beforeAll(() => {
-        updateModuleIdentityTwinSagaGenerator = cloneableGenerator(updateModuleIdentityTwinSaga)(updateModuleIdentityTwinAction.started(moduleIdentityTwin));
+        updateModuleIdentityTwinSagaGenerator = cloneableGenerator(updateModuleIdentityTwinSaga)(updateModuleIdentityTwinAction.started(params));
     });
 
     const mockUpdateModuleIdentityTwin = jest.spyOn(ModuleService, 'updateModuleIdentityTwin').mockImplementationOnce(parameters => {
@@ -45,7 +47,7 @@ describe('updateModuleIdentityTwinSaga', () => {
     it('updates the module identity twin', () => {
         expect(updateModuleIdentityTwinSagaGenerator.next()).toEqual({
             done: false,
-            value: call(mockUpdateModuleIdentityTwin, moduleIdentityTwin)
+            value: call(mockUpdateModuleIdentityTwin, params)
         });
     });
 
@@ -66,7 +68,7 @@ describe('updateModuleIdentityTwinSaga', () => {
 
         expect(success.next()).toEqual({
             done: false,
-            value: put(updateModuleIdentityTwinAction.done({params: moduleIdentityTwin, result: moduleIdentityTwin}))
+            value: put(updateModuleIdentityTwinAction.done({params, result: moduleIdentityTwin}))
         });
         expect(success.next().done).toEqual(true);
     });
@@ -90,7 +92,7 @@ describe('updateModuleIdentityTwinSaga', () => {
 
         expect(failure.next(error)).toEqual({
             done: false,
-            value: put(updateModuleIdentityTwinAction.failed({params: moduleIdentityTwin, error}))
+            value: put(updateModuleIdentityTwinAction.failed({params, error}))
         });
         expect(failure.next().done).toEqual(true);
     });

@@ -7,17 +7,13 @@ import { Action } from 'typescript-fsa';
 import {  deleteModuleIdentity } from '../../../../api/services/moduleService';
 import { raiseNotificationToast } from '../../../../notifications/components/notificationToast';
 import { NotificationType } from '../../../../api/models/notification';
+import { DeleteModuleIdentityParameters } from '../../../../api/parameters/moduleParameters';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
-import { DeleteModuleIdentityActionParameters, deleteModuleIdentityAction } from '../actions';
+import { deleteModuleIdentityAction } from '../actions';
 
-export function* deleteModuleIdentitySaga(action: Action<DeleteModuleIdentityActionParameters>) {
+export function* deleteModuleIdentitySaga(action: Action<DeleteModuleIdentityParameters>) {
     try {
-        const parameters = {
-            deviceId: action.payload.deviceId,
-            moduleId: action.payload.moduleId
-        };
-
-        yield call(deleteModuleIdentity, parameters);
+        yield call(deleteModuleIdentity, action.payload);
 
         yield call(raiseNotificationToast, {
             text: {

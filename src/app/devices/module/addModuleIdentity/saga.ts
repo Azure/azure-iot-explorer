@@ -6,25 +6,25 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 import { SagaIterator } from 'redux-saga';
 import { Action } from 'typescript-fsa';
 import { addModuleIdentity } from '../../../api/services/moduleService';
+import { AddModuleIdentityParameters } from '../../../api/parameters/moduleParameters';
 import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { addModuleIdentityAction } from './actions';
-import { ModuleIdentity } from './../../../api/models/moduleIdentity';
 
-export function* addModuleIdentitySagaWorker(action: Action<ModuleIdentity>): SagaIterator {
+export function* addModuleIdentitySagaWorker(action: Action<AddModuleIdentityParameters>): SagaIterator {
     try {
         const parameters = {
             moduleIdentity: action.payload,
         };
 
-        const moduleIdentity = yield call(addModuleIdentity, parameters);
+        const moduleIdentity = yield call(addModuleIdentity, action.payload);
 
         yield call(raiseNotificationToast, {
             text: {
                 translationKey: ResourceKeys.notifications.addModuleIdentityOnSucceed,
                 translationOptions: {
-                    moduleId: action.payload.moduleId
+                    moduleId: action.payload.moduleIdentity.moduleId
                 },
             },
             type: NotificationType.success
@@ -37,7 +37,7 @@ export function* addModuleIdentitySagaWorker(action: Action<ModuleIdentity>): Sa
                 translationKey: ResourceKeys.notifications.addModuleIdentityOnError,
                 translationOptions: {
                     error,
-                    moduleId: action.payload.moduleId
+                    moduleId: action.payload.moduleIdentity.moduleId
                 },
             },
             type: NotificationType.error

@@ -4,13 +4,10 @@
  **********************************************************/
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import { moduleTwinStateInitial, ModuleTwinStateType } from './state';
-import {
-    getModuleIdentityTwinAction,
-    updateModuleIdentityTwinAction,
-    GetModuleIdentityTwinActionParameters,
-} from './actions';
+import { getModuleIdentityTwinAction, updateModuleIdentityTwinAction,} from './actions';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import { ModuleTwin } from '../../../api/models/moduleTwin';
+import { ModuleIdentityTwinParameters, UpdateModuleIdentityTwinParameters } from '../../../api/parameters/moduleParameters';
 
 export const moduleTwinReducer = reducerWithInitialState<ModuleTwinStateType>(moduleTwinStateInitial())
     .case(getModuleIdentityTwinAction.started, (state: ModuleTwinStateType) => {
@@ -18,7 +15,7 @@ export const moduleTwinReducer = reducerWithInitialState<ModuleTwinStateType>(mo
             synchronizationStatus: SynchronizationStatus.working
         });
     })
-    .case(getModuleIdentityTwinAction.done, (state: ModuleTwinStateType, payload: {params: GetModuleIdentityTwinActionParameters} & {result: ModuleTwin}) => {
+    .case(getModuleIdentityTwinAction.done, (state: ModuleTwinStateType, payload: {params: ModuleIdentityTwinParameters} & {result: ModuleTwin}) => {
         return state.merge({
             payload: payload.result,
             synchronizationStatus: SynchronizationStatus.fetched
@@ -34,7 +31,7 @@ export const moduleTwinReducer = reducerWithInitialState<ModuleTwinStateType>(mo
             synchronizationStatus: SynchronizationStatus.updating
         });
     })
-    .case(updateModuleIdentityTwinAction.done, (state: ModuleTwinStateType, payload: {params: ModuleTwin} & {result: ModuleTwin}) => {
+    .case(updateModuleIdentityTwinAction.done, (state: ModuleTwinStateType, payload: {params: UpdateModuleIdentityTwinParameters} & {result: ModuleTwin}) => {
         return state.merge({
             payload: payload.result,
             synchronizationStatus: SynchronizationStatus.upserted

@@ -22,7 +22,8 @@ import { moduleIdentityDetailStateInterfaceInitial } from '../state';
 import { deleteModuleIdentityAction, getModuleIdentityAction } from '../actions';
 import { useIotHubContext } from '../../../../iotHub/hooks/useIotHubContext';
 import { AppInsightsClient } from '../../../../shared/appTelemetry/appInsightsClient';
-import { TELEMETRY_PAGE_NAMES } from '../../../../../app/constants/telemetry';
+import { TELEMETRY_PAGE_NAMES } from '../../../../constants/telemetry';
+import { useConnectionStringContext } from '../../../../connectionStrings/context/connectionStringContext';
 import '../../../../css/_deviceDetail.scss';
 
 export const ModuleIdentityDetail: React.FC = () => {
@@ -32,6 +33,7 @@ export const ModuleIdentityDetail: React.FC = () => {
     const history = useHistory();
     const moduleId = getModuleIdentityIdFromQueryString(search);
     const deviceId = getDeviceIdFromQueryString(search);
+    const [ {connectionString} ] = useConnectionStringContext();
 
     const [ localState, dispatch ] = useAsyncSagaReducer(moduleIdentityDetailReducer, moduleIdentityDetailSaga, moduleIdentityDetailStateInterfaceInitial(), 'moduleIdentityDetailState');
     const synchronizationStatus = localState.synchronizationStatus;
@@ -55,10 +57,11 @@ export const ModuleIdentityDetail: React.FC = () => {
         AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.MODULE_IDENTITY});
     }, []); // tslint:disable-line: align
 
-    const retrieveData = () => dispatch(getModuleIdentityAction.started({ deviceId, moduleId }));
+    const retrieveData = () => dispatch(getModuleIdentityAction.started({connectionString, deviceId, moduleId}));
 
     const onDelete = () =>  {
         dispatch(deleteModuleIdentityAction.started({
+            connectionString,
             deviceId,
             moduleId
         }));

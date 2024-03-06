@@ -19,14 +19,14 @@ export const getBackUrl = (path: string, search: string) => {
     return url;
 };
 
-export const dispatchGetTwinAction = (search: string, dispatch: (action: any) => void) => {  // tslint:disable-line:no-any
+export const dispatchGetTwinAction = (search: string, connectionString: string, dispatch: (action: any) => void) => {  // tslint:disable-line:no-any
     const deviceId = getDeviceIdFromQueryString(search);
     const moduleId = getModuleIdentityIdFromQueryString(search);
     if (moduleId) {
-        dispatch(getModuleTwinAction.started({deviceId, moduleId}));
+        dispatch(getModuleTwinAction.started({connectionString, deviceId, moduleId}));
     }
     else {
-        dispatch(getDeviceTwinAction.started(deviceId));
+        dispatch(getDeviceTwinAction.started({connectionString, deviceId}));
     }
 };
 

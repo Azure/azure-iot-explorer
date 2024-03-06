@@ -90,24 +90,27 @@ describe('addDevice', () => {
         form.simulate('submit');
         wrapper.update();
         expect(addDeviceActionSpy).toBeCalledWith({
-            authentication: {
-                symmetricKey: {
-                    primaryKey: null,
-                    secondaryKey: null
+            connectionString: '',
+            deviceIdentity: {
+                authentication: {
+                    symmetricKey: {
+                        primaryKey: null,
+                        secondaryKey: null
+                    },
+                    type: 'sas',
+                    x509Thumbprint:  null,
                 },
-                type: 'sas',
-                x509Thumbprint:  null,
-            },
-            capabilities: {
-                iotEdge: false
-            },
-            cloudToDeviceMessageCount: null,
-            deviceId: 'test-device',
-            etag: null,
-            lastActivityTime: null,
-            status: '',
-            statusReason: null,
-            statusUpdatedTime: null
+                capabilities: {
+                    iotEdge: false
+                },
+                cloudToDeviceMessageCount: null,
+                deviceId: 'test-device',
+                etag: null,
+                lastActivityTime: null,
+                status: '',
+                statusReason: null,
+                statusUpdatedTime: null
+            }
         });
     });
 });

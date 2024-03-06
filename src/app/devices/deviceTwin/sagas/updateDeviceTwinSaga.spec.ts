@@ -18,7 +18,7 @@ describe('updateDeviceTwinSaga', () => {
     let updateDeviceTwinSagaGenerator: SagaIteratorClone;
 
     const deviceId = 'device_id';
-
+    const connectionString = 'connection_string';
     const mockTwin: Twin = {
         authenticationType: 'SymmetricKey',
         capabilities: {
@@ -30,15 +30,16 @@ describe('updateDeviceTwinSaga', () => {
         deviceId,
         etag: 'etag',
         lastActivityTime: new Date().toUTCString(),
-        properties: null,
+        properties: {},
         status: 'enabled',
         statusUpdateTime: new Date().toUTCString(),
         version: 1,
-        x509Thumbprint: null
+        x509Thumbprint: {}
     };
+    const params = {connectionString, twin: mockTwin};
 
     beforeAll(() => {
-        updateDeviceTwinSagaGenerator = cloneableGenerator(updateDeviceTwinSaga)(updateDeviceTwinAction.started(mockTwin));
+        updateDeviceTwinSagaGenerator = cloneableGenerator(updateDeviceTwinSaga)(updateDeviceTwinAction.started(params));
     });
 
     const mockUpdateDeviceTwin = jest.spyOn(DevicesService, 'updateDeviceTwin').mockImplementationOnce(parameters => {
@@ -48,7 +49,7 @@ describe('updateDeviceTwinSaga', () => {
     it('updates the device twin', () => {
         expect(updateDeviceTwinSagaGenerator.next()).toEqual({
             done: false,
-            value: call(mockUpdateDeviceTwin, mockTwin)
+            value: call(mockUpdateDeviceTwin, params)
         });
     });
 
@@ -68,7 +69,7 @@ describe('updateDeviceTwinSaga', () => {
         });
         expect(success.next()).toEqual({
             done: false,
-            value: put(updateDeviceTwinAction.done({params: mockTwin, result: mockTwin}))
+            value: put(updateDeviceTwinAction.done({params, result: mockTwin}))
         });
         expect(success.next().done).toEqual(true);
     });
@@ -92,7 +93,7 @@ describe('updateDeviceTwinSaga', () => {
 
         expect(failure.next(error)).toEqual({
             done: false,
-            value: put(updateDeviceTwinAction.failed({params: mockTwin, error}))
+            value: put(updateDeviceTwinAction.failed({params, error}))
         });
         expect(failure.next().done).toEqual(true);
     });

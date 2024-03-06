@@ -4,7 +4,7 @@
  **********************************************************/
 import 'react-toastify/dist/ReactToastify.css';
 import * as React from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { NoMatchError } from '../../navigation/components/noMatchError';
@@ -14,6 +14,7 @@ import { Breadcrumbs } from '../../navigation/components/breadcrumbs';
 import { useBreadcrumbEntry } from '../../navigation/hooks/useBreadcrumbEntry';
 import { IotHub } from '../../iotHub/components/iotHub';
 import { ResourceKeys } from '../../../localization/resourceKeys';
+import { useConnectionStringContext } from '../../connectionStrings/context/connectionStringContext';
 import { Header } from './header';
 import '../../css/_application.scss';
 import '../../css/_mainArea.scss';
@@ -22,7 +23,15 @@ const NOTIFICATION_AUTO_CLOSE = 5000;
 
 export const Application: React.FC = () => {
     const { t } = useTranslation();
+    const history = useHistory();
     useBreadcrumbEntry({ name: t(ResourceKeys.common.home), suffix: 'home' });
+    const [ {connectionString} ] = useConnectionStringContext();
+
+    React.useEffect(() => {
+        if (!connectionString) {
+            history.push(`/${ROUTE_PARTS.HOME}`);
+        }
+    }, [connectionString]); // tslint:disable-line: align
 
     return (
         <div className="container">

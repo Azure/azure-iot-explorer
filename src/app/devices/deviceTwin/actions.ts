@@ -6,7 +6,8 @@ import actionCreatorFactory from 'typescript-fsa';
 import * as actionPrefixes from '../../constants/actionPrefixes';
 import * as actionTypes from '../../constants/actionTypes';
 import { Twin } from '../../api/models/device';
+import { FetchDeviceTwinParameters, UpdateDeviceTwinParameters } from '../../api/parameters/deviceParameters';
 
 const deviceContentCreator = actionCreatorFactory(actionPrefixes.DEVICECONTENT);
-export const getDeviceTwinAction = deviceContentCreator.async<string, Twin>(actionTypes.GET_TWIN);
-export const updateDeviceTwinAction = deviceContentCreator.async<Twin, Twin>(actionTypes.UPDATE_TWIN);
+export const getDeviceTwinAction = deviceContentCreator.async<FetchDeviceTwinParameters, Twin>(actionTypes.GET_TWIN);
+export const updateDeviceTwinAction = deviceContentCreator.async<UpdateDeviceTwinParameters, Twin>(actionTypes.UPDATE_TWIN);

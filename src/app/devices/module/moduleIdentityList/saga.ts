@@ -10,14 +10,11 @@ import { raiseNotificationToast } from '../../../notifications/components/notifi
 import { NotificationType } from '../../../api/models/notification';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getModuleIdentitiesAction } from './actions';
+import { FetchModuleIdentitiesParameters } from '../../../api/parameters/moduleParameters';
 
-export function* getModuleIdentitiesSagaWorker(action: Action<string>): SagaIterator {
+export function* getModuleIdentitiesSagaWorker(action: Action<FetchModuleIdentitiesParameters>): SagaIterator {
     try {
-        const parameters = {
-            deviceId: action.payload
-        };
-
-        const moduleIdentities = yield call(fetchModuleIdentities, parameters);
+        const moduleIdentities = yield call(fetchModuleIdentities, action.payload);
 
         yield put(getModuleIdentitiesAction.done({params: action.payload, result: moduleIdentities}));
     } catch (error) {
@@ -25,7 +22,7 @@ export function* getModuleIdentitiesSagaWorker(action: Action<string>): SagaIter
             text: {
                 translationKey: ResourceKeys.notifications.getModuleIdentitiesOnError,
                 translationOptions: {
-                    deviceId: action.payload,
+                    deviceId: action.payload.deviceId,
                     error,
                 },
             },

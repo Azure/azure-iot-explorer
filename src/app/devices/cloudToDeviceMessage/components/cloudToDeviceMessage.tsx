@@ -18,7 +18,8 @@ import { HeaderView } from '../../../shared/components/headerView';
 import { useAsyncSagaReducer } from '../../../shared/hooks/useAsyncSagaReducer';
 import { cloudToDeviceMessageSaga } from '../saga';
 import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
-import { TELEMETRY_PAGE_NAMES, TELEMETRY_USER_ACTIONS } from '../../../../app/constants/telemetry';
+import { TELEMETRY_PAGE_NAMES, TELEMETRY_USER_ACTIONS } from '../../../constants/telemetry';
+import { useConnectionStringContext } from '../../../connectionStrings/context/connectionStringContext';
 import '../../../css/_deviceDetail.scss';
 
 interface PropertyItem {
@@ -48,6 +49,7 @@ export const systemPropertyKeyNameMappings: Array<{keyName: string, displayName:
 export const CloudToDeviceMessage: React.FC = () => {
     const { t } = useTranslation();
     const { search } = useLocation();
+    const [ {connectionString} ] = useConnectionStringContext();
 
     const [ , dispatch ] = useAsyncSagaReducer(() => undefined, cloudToDeviceMessageSaga, undefined);
     const [ properties, setProperties ] = React.useState([{index: 0, keyName: '', isSystemProperty: false, value: ''}]);
@@ -391,6 +393,7 @@ export const CloudToDeviceMessage: React.FC = () => {
         const timeStamp = new Date().toLocaleString();
         dispatch(cloudToDeviceMessageAction.started({
             body: addTimestamp && body ? `${timeStamp} - ${body}` : (addTimestamp ? timeStamp : body),
+            connectionString,
             deviceId: getDeviceIdFromQueryString(search),
             properties: newProperties
         }));

@@ -29,6 +29,7 @@ import { DeviceModules } from './deviceModules';
 import { CollapsibleButton } from '../../../shared/components/collapsibleButton';
 import { DeviceEventsStateContextProvider } from '../../deviceEvents/context/deviceEventsStateProvider';
 import '../../../css/_deviceContent.scss';
+import { useConnectionStringContext } from '../../../connectionStrings/context/connectionStringContext';
 
 export const DeviceContent: React.FC = () => {
     const { t } = useTranslation();
@@ -36,6 +37,7 @@ export const DeviceContent: React.FC = () => {
     const { url } = useRouteMatch();
     const deviceId = getDeviceIdFromQueryString(search);
     useBreadcrumbEntry({ name: deviceId, disableLink: true });
+    const [ {connectionString} ] = useConnectionStringContext();
 
     const [localState, dispatch] = useAsyncSagaReducer(deviceIdentityReducer, DeviceIdentitySaga, deviceIdentityStateInitial(), 'deviceIdentityState');
     const synchronizationStatus = localState.synchronizationStatus;
@@ -45,7 +47,7 @@ export const DeviceContent: React.FC = () => {
 
     React.useEffect(
         () => {
-            dispatch(getDeviceIdentityAction.started(deviceId));
+            dispatch(getDeviceIdentityAction.started({connectionString, deviceId}));
         },
         [deviceId]);
 
@@ -64,7 +66,7 @@ export const DeviceContent: React.FC = () => {
     };
 
     const updateDeviceIdentity = (deviceIdentityToUpdate: DeviceIdentity) => {
-        dispatch(updateDeviceIdentityAction.started(deviceIdentityToUpdate));
+        dispatch(updateDeviceIdentityAction.started({connectionString, deviceIdentity: deviceIdentityToUpdate}));
     };
 
     const createDeviceIdentityComponent = () => {

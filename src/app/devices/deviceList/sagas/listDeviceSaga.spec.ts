@@ -40,21 +40,20 @@ describe('listDeviceSaga', () => {
         currentPageIndex: 0,
         deviceId
     };
+    const params = {connectionString, query}
 
     const mockFetchDevices = jest.spyOn(DevicesService, 'fetchDevices').mockImplementationOnce(parameters => {
         return null;
     });
 
     beforeAll(() => {
-        listDevicesSagaGenerator = cloneableGenerator(listDevicesSaga)(listDevicesAction.started(query));
+        listDevicesSagaGenerator = cloneableGenerator(listDevicesSaga)(listDevicesAction.started(params));
     });
 
     it('fetches the devices', () => {
         expect(listDevicesSagaGenerator.next()).toEqual({
             done: false,
-            value: call(mockFetchDevices, {
-                query
-            })
+            value: call(mockFetchDevices, params)
         });
     });
 
@@ -63,7 +62,7 @@ describe('listDeviceSaga', () => {
 
         expect(success.next(mockDevices)).toEqual({
             done: false,
-            value: put(listDevicesAction.done({params: query, result: mockDevices as any})) // tslint:disable-line:no-any
+            value: put(listDevicesAction.done({params, result: mockDevices as any})) // tslint:disable-line:no-any
         });
 
         expect(success.next().done).toEqual(true);
@@ -87,7 +86,7 @@ describe('listDeviceSaga', () => {
 
         expect(failure.next(error)).toEqual({
             done: false,
-            value: put(listDevicesAction.failed({params: query, error}))
+            value: put(listDevicesAction.failed({params, error}))
         });
         expect(failure.next().done).toEqual(true);
     });
@@ -110,7 +109,7 @@ describe('listDeviceSaga', () => {
 
         expect(failure.next(error)).toEqual({
             done: false,
-            value: put(listDevicesAction.failed({params: query, error}))
+            value: put(listDevicesAction.failed({params, error}))
         });
         expect(failure.next().done).toEqual(true);
     });

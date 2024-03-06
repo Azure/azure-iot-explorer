@@ -4,11 +4,12 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Label, IconButton, PrimaryButton, Dialog } from '@fluentui/react';
+import { Label, IconButton, PrimaryButton } from '@fluentui/react';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { InterfaceDetailCard, SUBMIT } from '../../../../constants/iconNames';
 import { ParsedCommandSchema } from '../../../../api/models/interfaceJsonParserOutput';
 import { CommandContent } from '../../../../api/models/modelDefinition';
+import { useConnectionStringContext } from '../../../../connectionStrings/context/connectionStringContext';
 import { DataForm } from '../../../shared/components/dataForm';
 import { InvokeCommandActionParameters } from '../../actions';
 import { ErrorBoundary } from '../../../shared/components/errorBoundary';
@@ -36,6 +37,7 @@ export interface CommandSchema {
 
 export const DeviceCommandsPerInterfacePerCommand: React.FC<DeviceCommandDataProps & DeviceCommandDispatchProps> = (props: DeviceCommandDataProps & DeviceCommandDispatchProps) => {
     const { t } = useTranslation();
+    const [ {connectionString} ] = useConnectionStringContext();
     const { collapsed, deviceId, moduleId, componentName, commandModelDefinition, parsedSchema, handleCollapseToggle, invokeCommand  } = props;
     const [ showConfirmationDialog, setShowConfirmationDialog ] = React.useState<boolean>(false);
     const [ confirmationCmdData, setConfirmationCmdData ] = React.useState({});
@@ -145,6 +147,7 @@ export const DeviceCommandsPerInterfacePerCommand: React.FC<DeviceCommandDataPro
         } else {
             invokeCommand({
                 connectTimeoutInSeconds: CONNECTION_TIMEOUT_IN_SECONDS,
+                connectionString,
                 deviceId,
                 methodName: componentName === DEFAULT_COMPONENT_FOR_DIGITAL_TWIN ? commandModelDefinition.name : `${componentName}*${commandModelDefinition.name}`,
                 moduleId,
@@ -167,6 +170,7 @@ export const DeviceCommandsPerInterfacePerCommand: React.FC<DeviceCommandDataPro
         setShowConfirmationDialog(false);
         invokeCommand({
             connectTimeoutInSeconds: CONNECTION_TIMEOUT_IN_SECONDS,
+            connectionString,
             deviceId,
             methodName: componentName === DEFAULT_COMPONENT_FOR_DIGITAL_TWIN ? commandModelDefinition.name : `${componentName}*${commandModelDefinition.name}`,
             moduleId,

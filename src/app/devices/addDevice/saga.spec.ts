@@ -31,6 +31,7 @@ describe('addDeviceSaga', () => {
         statusReason: '',
         statusUpdatedTime: ''
     };
+    const params = {connectionString, deviceIdentity: mockDevice};
 
     const mockResult: DeviceSummary = {
         authenticationType: 'SAS',
@@ -49,15 +50,13 @@ describe('addDeviceSaga', () => {
     });
 
     beforeAll(() => {
-        addDeviceSagaGenerator = cloneableGenerator(addDeviceSagaWorker)(addDeviceAction.started(mockDevice));
+        addDeviceSagaGenerator = cloneableGenerator(addDeviceSagaWorker)(addDeviceAction.started(params));
     });
 
     it('adds the device', () => {
         expect(addDeviceSagaGenerator.next(connectionString)).toEqual({
             done: false,
-            value: call(mockAddDevice, {
-                deviceIdentity: mockDevice
-            })
+            value: call(mockAddDevice, params)
         });
     });
 
@@ -78,7 +77,7 @@ describe('addDeviceSaga', () => {
 
         expect(success.next()).toEqual({
             done: false,
-            value: put(addDeviceAction.done({params: mockDevice, result: mockResult as any}))
+            value: put(addDeviceAction.done({params, result: mockResult as any}))
         });
 
         expect(success.next().done).toEqual(true);
@@ -103,7 +102,7 @@ describe('addDeviceSaga', () => {
 
         expect(failure.next(error)).toEqual({
             done: false,
-            value: put(addDeviceAction.failed({params: mockDevice, error}))
+            value: put(addDeviceAction.failed({params, error}))
         });
         expect(failure.next().done).toEqual(true);
     });

@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
-import { getUserProfileTokenAction, loginAction, logoutAction, getSubscriptionListAction, getIotHubsBySubscriptionAction, getIoTHubKeyAction, GetIotHubKeyActionParmas } from './actions';
+import { getUserProfileTokenAction, loginAction, logoutAction, getSubscriptionListAction, getIotHubsBySubscriptionAction, getIoTHubKeyAction, GetIotHubKeyActionParams } from './actions';
 import { getInitialAzureActiveDirectoryState, AzureActiveDirectoryStateInterface } from './state';
 import { AzureSubscription } from '../../api/models/azureSubscription';
 import { IotHubDescription } from '../../api/models/iotHubDescription';
@@ -108,7 +108,7 @@ export const azureActiveDirectoryReducer = reducerWithInitialState<AzureActiveDi
             formState: 'working'
         };
     })
-    .case(getIoTHubKeyAction.done, (state: AzureActiveDirectoryStateInterface, payload: {params: GetIotHubKeyActionParmas, result: string}) => {
+    .case(getIoTHubKeyAction.done, (state: AzureActiveDirectoryStateInterface, payload: {params: GetIotHubKeyActionParams, result: string}) => {
         return {
             ...state,
             formState: 'keyPicked',

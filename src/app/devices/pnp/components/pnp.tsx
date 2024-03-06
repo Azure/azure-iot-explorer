@@ -5,6 +5,7 @@
 import * as React from 'react';
 import { useLocation, useRouteMatch, Route } from 'react-router-dom';
 import { ROUTE_PARTS } from '../../../constants/routes';
+import { useConnectionStringContext } from '../../../connectionStrings/context/connectionStringContext';
 import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString, getComponentNameFromQueryString, getModuleIdentityIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { PnpStateContextProvider } from '../context/pnpStateContext';
 import { DigitalTwinDetail } from './modelConfiguration/digitalTwinDetail';
@@ -23,12 +24,13 @@ export const Pnp: React.FC = () => {
     const componentName = getComponentNameFromQueryString(search);
 
     const { pnpState, dispatch, getModelDefinition } = usePnpContext();
+    const [ {connectionString} ] = useConnectionStringContext();
     const twin = pnpState.twin.payload;
     const modelId = twin?.modelId;
     const interfaceIdModified = React.useMemo(() => interfaceId || modelId, [modelId, interfaceId]);
 
     React.useEffect(() => {
-        dispatchGetTwinAction(search, dispatch);
+        dispatchGetTwinAction(search, connectionString, dispatch);
     },              [deviceId, moduleId]);
 
     React.useEffect(() => {

@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { CommandBar, ICommandBarItemProps } from '@fluentui/react';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
+import { useConnectionStringContext } from '../../../../connectionStrings/context/connectionStringContext';
 import { usePnpStateContext } from '../../context/pnpStateContext';
 import { REFRESH } from '../../../../constants/iconNames';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
@@ -17,11 +18,12 @@ export const Command: React.FC = () => {
     const { t } = useTranslation();
     const { search } = useLocation();
     const { pnpState, dispatch, } = usePnpStateContext();
+    const [ {connectionString} ] = useConnectionStringContext();
     const twinSynchronizationStatus = pnpState.twin.synchronizationStatus;
     const isTwinLoading = twinSynchronizationStatus === SynchronizationStatus.working;
 
     const onRefresh = (ev?: React.MouseEvent<HTMLElement, MouseEvent> | React.KeyboardEvent<HTMLElement>) => {
-        dispatchGetTwinAction(search, dispatch);
+        dispatchGetTwinAction(search, connectionString, dispatch);
     };
 
     const createCommandBarItems = (): ICommandBarItemProps[] => {

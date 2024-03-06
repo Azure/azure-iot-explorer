@@ -8,11 +8,11 @@ import { Action } from 'typescript-fsa';
 import { updateModuleIdentityTwin } from '../../../../api/services/moduleService';
 import { raiseNotificationToast } from '../../../../notifications/components/notificationToast';
 import { NotificationType } from '../../../../api/models/notification';
+import { UpdateModuleIdentityTwinParameters } from '../../../../api/parameters/moduleParameters';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { updateModuleIdentityTwinAction } from '../actions';
-import { ModuleTwin } from '../../../../api/models/moduleTwin';
 
-export function* updateModuleIdentityTwinSaga(action: Action<ModuleTwin>): SagaIterator {
+export function* updateModuleIdentityTwinSaga(action: Action<UpdateModuleIdentityTwinParameters>): SagaIterator {
     try {
         const moduleIdentityTwin = yield call(updateModuleIdentityTwin, action.payload);
 
@@ -20,7 +20,7 @@ export function* updateModuleIdentityTwinSaga(action: Action<ModuleTwin>): SagaI
             text: {
                 translationKey: ResourceKeys.notifications.updateModuleIdentityTwinOnSuccess,
                 translationOptions: {
-                    moduleId: action.payload.moduleId
+                    moduleId: action.payload.moduleTwin.moduleId
                 },
             },
             type: NotificationType.success
@@ -33,7 +33,7 @@ export function* updateModuleIdentityTwinSaga(action: Action<ModuleTwin>): SagaI
                 translationKey: ResourceKeys.notifications.updateModuleIdentityTwinOnError,
                 translationOptions: {
                     error,
-                    moduleId: action.payload.moduleId,
+                    moduleId: action.payload.moduleTwin.moduleId,
                 },
             },
             type: NotificationType.error

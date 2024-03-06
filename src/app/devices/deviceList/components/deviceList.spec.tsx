@@ -28,6 +28,7 @@ const devices: DeviceSummary[] = [
         deviceId: 'testDeviceId',
         iotEdge: false,
         lastActivityTime: '0001-01-01T00:00:00Z',
+        modelId: '',
         status: 'Enabled',
         statusUpdatedTime: '0001-01-01T00:00:00Z'
     }
@@ -57,10 +58,13 @@ describe('DeviceList', () => {
         act(() => commandBar.props().handleRefresh());
         wrapper.update();
         expect(listDevicesActionSpy).lastCalledWith({
-            clauses: [],
-            continuationTokens: [],
-            currentPageIndex: 0,
-            deviceId: ''
+            connectionString: '',
+            query: {
+                clauses: [],
+                continuationTokens: [],
+                currentPageIndex: 0,
+                deviceId: ''
+            }
         });
 
         // delete button is disabled by default

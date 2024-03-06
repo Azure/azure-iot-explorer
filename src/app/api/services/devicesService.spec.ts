@@ -65,7 +65,7 @@ describe('deviceTwinService', () => {
 
     context('fetchDeviceTwin', () => {
         it ('returns if deviceId is not specified', () => {
-            expect(DevicesService.fetchDeviceTwin({deviceId: undefined})).resolves.toBe(undefined);
+            expect(DevicesService.fetchDeviceTwin({connectionString, deviceId: ''})).resolves.toBe(undefined);
         });
 
         it('calls fetch with specified parameters and returns deviceTwin when response is 200', async () => {
@@ -92,7 +92,7 @@ describe('deviceTwinService', () => {
                 sharedAccessSignature: connectionInformation.sasToken
             };
 
-            const result = await DevicesService.fetchDeviceTwin({deviceId});
+            const result = await DevicesService.fetchDeviceTwin({connectionString, deviceId});
 
             const serviceRequestParams = {
                 body: JSON.stringify(dataPlaneRequest),
@@ -109,7 +109,7 @@ describe('deviceTwinService', () => {
 
         it('throws Error when promise rejects', async done => {
             window.fetch = jest.fn().mockRejectedValueOnce(new Error('Not found'));
-            await expect(DevicesService.fetchDeviceTwin({deviceId})).rejects.toThrowError('Not found');
+            await expect(DevicesService.fetchDeviceTwin({connectionString, deviceId})).rejects.toThrowError('Not found');
             done();
         });
     });
@@ -133,7 +133,7 @@ describe('deviceTwinService', () => {
             // tslint:enable
             jest.spyOn(window, 'fetch').mockResolvedValue(response);
 
-            const result = await DevicesService.updateDeviceTwin(twin);
+            const result = await DevicesService.updateDeviceTwin({connectionString, twin});
 
             const connectionInformation = mockDataPlaneConnectionHelper();
             const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
@@ -160,7 +160,7 @@ describe('deviceTwinService', () => {
 
         it('throws Error when promise rejects', async () => {
             window.fetch = jest.fn().mockRejectedValueOnce(new Error());
-            await expect(DevicesService.updateDeviceTwin(twin)).rejects.toThrow(new Error());
+            await expect(DevicesService.updateDeviceTwin({connectionString, twin})).rejects.toThrow(new Error());
         });
     });
 
@@ -168,7 +168,7 @@ describe('deviceTwinService', () => {
         const parameters = {
             connectTimeoutInSeconds: 10,
             connectionString,
-            deviceId: undefined,
+            deviceId: '',
             methodName: 'methodName',
             payload: {foo: 'bar'},
             responseTimeoutInSeconds : 10,
@@ -265,6 +265,7 @@ describe('deviceTwinService', () => {
 
             const result = await DevicesService.cloudToDeviceMessage({
                 ...parameters,
+                connectionString, 
                 deviceId
             });
 

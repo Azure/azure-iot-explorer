@@ -11,6 +11,7 @@ import { useAzureActiveDirectoryStateContext } from '../context/azureActiveDirec
 import { IotHubDescription } from '../../../api/models/iotHubDescription';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getConnectionInfoFromConnectionString } from '../../../api/shared/utils';
+import { useConnectionStringContext } from '../../../connectionStrings/context/connectionStringContext';
 import { ROUTE_PARTS } from '../../../constants/routes';
 import { FilterTextBox, FilterType } from './filterTextBox';
 
@@ -18,10 +19,12 @@ export const HubList: React.FC = () => {
     const { t } = useTranslation();
     const history = useHistory();
     const [{ formState, iotHubs, iotHubKey }, { getIotHubKey }] =  useAzureActiveDirectoryStateContext();
+    const [, {setConnectionString}] = useConnectionStringContext();
     const [ filteredHubs, setFilteredHubs ] = React.useState<IotHubDescription[]>([]);
 
     React.useEffect(() => {
         if (formState === 'keyPicked') { // only when connection string got picked successfully would navigate to device list view
+            setConnectionString(iotHubKey);
             const hostName = getConnectionInfoFromConnectionString(iotHubKey).hostName;
             history.push(`/${ROUTE_PARTS.IOT_HUB}/${ROUTE_PARTS.HOST_NAME}/${hostName}/`);
         }
