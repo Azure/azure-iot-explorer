@@ -10,7 +10,7 @@ import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
 import fetch from 'node-fetch';
-import { EventHubConsumerClient, Subscription, ReceivedEventData } from '@azure/event-hubs';
+import { EventHubConsumerClient, Subscription, ReceivedEventData, earliestEventPosition } from '@azure/event-hubs';
 import { generateDataPlaneRequestBody, generateDataPlaneResponse } from './dataPlaneHelper';
 import { convertIotHubToEventHubsConnectionString } from './eventHubHelper';
 import { fetchDirectories, fetchDrivesOnWindows, findMatchingFile, readFileFromLocal } from './utils';
@@ -230,8 +230,10 @@ const initializeEventHubClient = async (params: any) =>  {
             },
             processError: async (err) => {
                 console.log(err);
-            }
+            },
+
         },
+        {startPosition: earliestEventPosition}
     );
 
     timerId = setInterval(() => {
