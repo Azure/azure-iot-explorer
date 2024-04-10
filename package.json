@@ -91,7 +91,7 @@
     "jsonschema": "1.2.4",
     "msal": "1.2.0",
     "node-fetch": "2.6.7",
-    "protobufjs": "7.2.4",
+    "protobufjs": "7.2.5",
     "react": "16.14.0",
     "react-collapsible": "2.3.2",
     "react-dom": "16.13.1",
