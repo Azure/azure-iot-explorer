@@ -71,7 +71,7 @@
   "dependencies": {
     "@azure/core-amqp": "3.2.0",
     "@azure/event-hubs": "5.6.0",
-    "@azure/msal-node": "1.14.6",
+    "@azure/msal-node": "2.9.2",
     "@fluentui/react": "8.101.2",
     "@microsoft/applicationinsights-web": "2.8.4",
     "@rjsf/fluent-ui": "5.7.0",
