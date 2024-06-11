@@ -78,7 +78,7 @@
     "@rjsf/material-ui": "5.2.1",
     "@rjsf/validator-ajv8": "5.2.1",
     "azure-iot-common": "1.12.14",
-    "azure-iothub": "1.16.4",
+    "azure-iothub": "1.16.5",
     "body-parser": "1.20.1",
     "brace": "0.11.1",
     "cors": "2.8.5",
