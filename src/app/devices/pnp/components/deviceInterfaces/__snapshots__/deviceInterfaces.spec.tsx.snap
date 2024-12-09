@@ -67,8 +67,8 @@ exports[`deviceInterfaces shows interface information when status is fetched 1`]
       <div
         className="pnp-interface-info-editor"
       >
-        <JSONEditor
-          className="interface-definition-json-editor"
+        <MonacoEditorComponent
+          ariaLabel="deviceInterfaces.jsonViewerArialLabel"
           content="{
 	\\"@id\\": \\"urn:azureiot:ModelDiscovery:DigitalTwin:1\\",
 	\\"@type\\": \\"Interface\\",
@@ -105,6 +105,7 @@ exports[`deviceInterfaces shows interface information when status is fetched 1`]
 	],
 	\\"@context\\": \\"https://azureiot.com/v1/contexts/Interface.json\\"
 }"
+          height={500}
         />
       </div>
     </section>

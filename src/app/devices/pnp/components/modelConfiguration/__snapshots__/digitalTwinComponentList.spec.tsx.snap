@@ -31,8 +31,8 @@ exports[`DigitalTwinComponentList matches snapshot when empty model id is retrie
       className="modelContent"
       headerText="digitalTwin.pivot.content"
     >
-      <JSONEditor
-        className="interface-definition-json-editor"
+      <MonacoEditorComponent
+        ariaLabel="digitalTwin.pivot.content"
         content="{
 	\\"@context\\": \\"dtmi:dtdl:context;2\\",
 	\\"@id\\": \\"dtmi:plugnplay:hube2e:cm;1\\",
@@ -40,6 +40,7 @@ exports[`DigitalTwinComponentList matches snapshot when empty model id is retrie
 	\\"contents\\": [],
 	\\"displayName\\": \\"IoT Hub E2E Tests\\"
 }"
+        height={400}
       />
     </PivotItem>
   </StyledPivot>

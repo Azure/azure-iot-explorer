@@ -14,7 +14,7 @@ import { ErrorBoundary } from '../../../shared/components/errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 import { MultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
 import { MaskedCopyableTextField } from '../../../../shared/components/maskedCopyableTextField';
-import { JSONEditor } from '../../../../shared/components/jsonEditor';
+import { MonacoEditorComponent } from '../../../../shared/components/monacoEditor';
 import { ModelDefinitionSourceView } from '../../../shared/components/modelDefinitionSource';
 import { usePnpStateContext } from '../../context/pnpStateContext';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
@@ -94,12 +94,14 @@ export const DeviceInterfaces: React.FC = () => {
     };
 
     const renderInterfaceViewer = (isValidInterface: boolean) => {
+        const jsonViewerHeight = 500;
         return (
             <div className="pnp-interface-info-editor">
                 { modelDefinitionWithSource && modelDefinitionWithSource.modelDefinition &&
-                    <JSONEditor
-                        className={`${isValidInterface ? 'interface-definition-json-editor' : 'invalid-interface-definition-json-editor'}`}
+                    <MonacoEditorComponent
+                        height={jsonViewerHeight}
                         content={JSON.stringify(modelDefinitionWithSource.modelDefinition, null, '\t')}
+                        ariaLabel={ResourceKeys.deviceInterfaces.jsonViewerArialLabel}
                     />
                 }
             </div>

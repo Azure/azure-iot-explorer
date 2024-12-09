@@ -14,7 +14,7 @@ import { getDeviceIdFromQueryString, getModuleIdentityIdFromQueryString } from '
 import { ROUTE_PARAMS, ROUTE_PARTS } from '../../../../constants/routes';
 import { DEFAULT_COMPONENT_FOR_DIGITAL_TWIN } from '../../../../constants/devices';
 import { ErrorBoundary } from '../../../shared/components/errorBoundary';
-import { JSONEditor } from '../../../../shared/components/jsonEditor';
+import { MonacoEditorComponent } from '../../../../shared/components/monacoEditor';
 import './digitalTwinDetail.scss';
 
 interface ModelContent {
@@ -23,6 +23,7 @@ interface ModelContent {
     modelId: string;
 }
 
+const jsonViewerHeight = 400;
 export const DigitalTwinComponentList: React.FC = () => {
     const { t } = useTranslation();
     const { url } = useRouteMatch();
@@ -133,9 +134,10 @@ export const DigitalTwinComponentList: React.FC = () => {
                     </ErrorBoundary>
                 </PivotItem>
                 <PivotItem headerText={t(ResourceKeys.digitalTwin.pivot.content)} className="modelContent">
-                    <JSONEditor
-                        className="interface-definition-json-editor"
+                    <MonacoEditorComponent
+                        height={jsonViewerHeight}
                         content={JSON.stringify(modelDefinitionWithSource.modelDefinition, null, '\t')}
+                        ariaLabel={ResourceKeys.digitalTwin.pivot.content}
                     />
                 </PivotItem>
             </Pivot>

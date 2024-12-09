@@ -12,15 +12,10 @@ export enum Theme {
     highContrastBlack = 'highContrastBlack',
     highContrastWhite = 'highContrastWhite'
 }
-export enum EditorTheme {
-    light = 'xcode',
-    dark = 'twilight',
-    hc_black = 'twilight'
-}
 
 export interface ThemeProperties {
     theme: Theme;
-    editorTheme: EditorTheme;
+    editorTheme: 'dark' | 'light';
     fabricTheme: IPartialTheme;
 }
 
@@ -30,22 +25,22 @@ export interface ThemeContextInterface extends ThemeProperties {
 
 export const ThemeProperties: Record<Theme, ThemeProperties> = {
     [Theme.dark]: {
-        editorTheme: EditorTheme.dark,
+        editorTheme: 'dark',
         fabricTheme: THEME_DARK,
         theme: Theme.dark
     },
     [Theme.highContrastBlack]: {
-        editorTheme: EditorTheme.hc_black,
+        editorTheme: 'dark',
         fabricTheme: THEME_DARK_HC,
         theme: Theme.highContrastBlack
     },
     [Theme.highContrastWhite]: {
-        editorTheme: EditorTheme.hc_black,
+        editorTheme: 'dark',
         fabricTheme: THEME_LIGHT_HC,
         theme: Theme.highContrastWhite
     },
     [Theme.light]: {
-        editorTheme: EditorTheme.light,
+        editorTheme: 'light',
         fabricTheme: THEME_LIGHT,
         theme: Theme.light
     }

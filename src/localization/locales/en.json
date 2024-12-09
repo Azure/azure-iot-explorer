@@ -439,6 +439,7 @@
     "deviceTwin": {
         "notFound": "No device twin data found",
         "headerText": "Device twin",
+        "editorAriaLabel": "device twin content json editor",
         "command" : {
             "refresh": "Refresh",
             "save": "Save"
@@ -566,6 +567,7 @@
             "description": "Description"
         },
         "headerText": "Interface",
+        "jsonViewerArialLabel": "JSON viewer for interface definition",
         "noInterfaces": "No interfaces",
         "interfaceNotFound": "We are not able to retrieve any valid interface model definition. Please click 'Configure' button below to see how we resolve model definition.",
         "interfaceNotValid": "Model definition is not valid. Please update the model definition and then proceed.",
