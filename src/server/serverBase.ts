@@ -141,7 +141,7 @@ export const handleGetDirectoriesRequest = (req: express.Request, res: express.R
         }
     }
     catch (error) {
-        res.status(SERVER_ERROR).send(error);
+        res.status(SERVER_ERROR).send(error?.message);
     }
 };
 
