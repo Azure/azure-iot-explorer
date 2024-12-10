@@ -51,7 +51,7 @@ describe('DigitaltwinPnpConfigurationSteps', () => {
                 synchronizationStatus: SynchronizationStatus.fetched
             },
             modelDefinitionWithSource: {
-                payload: null,
+                payload: undefined,
                 synchronizationStatus: SynchronizationStatus.fetched
             }
         });
@@ -91,7 +91,7 @@ describe('DigitaltwinPnpConfigurationSteps', () => {
                 synchronizationStatus: SynchronizationStatus.fetched
             },
             modelDefinitionWithSource: {
-                payload: null,
+                payload: undefined,
                 synchronizationStatus: SynchronizationStatus.fetched
             }
         });

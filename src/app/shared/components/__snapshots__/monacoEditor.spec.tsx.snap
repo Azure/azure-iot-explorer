@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MonacoEditorComponent matches snapshot 1`] = `
+<MonacoEditor
+  aria-label="test label"
+  className="editorStyleDark-109"
+  editorDidMount={[Function]}
+  height={100}
+  language="json"
+  options={
+    Object {
+      "automaticLayout": true,
+      "minimap": Object {
+        "enabled": false,
+      },
+      "readOnly": undefined,
+      "wordWrap": "on",
+      "wrappingIndent": "indent",
+    }
+  }
+  theme="vs-dark"
+  value="test"
+  width="98%"
+/>
+`;

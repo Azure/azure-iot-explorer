@@ -11,7 +11,7 @@ import { SynchronizationStatus } from '../../../../api/models/synchronizationSta
 import { ModelDefinitionSourceView } from '../../../shared/components/modelDefinitionSource';
 import { InterfaceNotFoundMessageBar } from '../../../shared/components/interfaceNotFoundMessageBar';
 import { MultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
-import { JSONEditor } from '../../../../shared/components/jsonEditor';
+import { MonacoEditorComponent } from '../../../../shared/components/monacoEditor';
 import { DigitalTwinComponentList } from './digitalTwinComponentList';
 import './digitalTwinDetail.scss';
 
@@ -28,6 +28,7 @@ export const DigitalTwinModelDefinition: React.FC = () => {
         if (isModelDefinitionLoading) {
             return <MultiLineShimmer/>;
         }
+        const jsonViewerHeight = 400;
 
         return (
             <>
@@ -46,9 +47,10 @@ export const DigitalTwinModelDefinition: React.FC = () => {
                                     <MessageBar messageBarType={MessageBarType.error}>
                                         {t(ResourceKeys.deviceInterfaces.interfaceNotValid)}
                                     </MessageBar>
-                                    <JSONEditor
-                                        className="interface-definition-json-editor"
+                                    <MonacoEditorComponent
+                                        height={jsonViewerHeight}
                                         content={JSON.stringify(modelDefinitionWithSource.modelDefinition, null, '\t')}
+                                        ariaLabel={ResourceKeys.digitalTwin.pivot.content}
                                     />
                                 </>
                             }

@@ -36,8 +36,8 @@ exports[`devices/components/deviceTwin snapshot matches snapshot 1`] = `
   <article
     className="device-twin device-detail"
   >
-    <JSONEditor
-      className="json-editor"
+    <MonacoEditorComponent
+      ariaLabel="deviceTwin.editorAriaLabel"
       content="{
 	\\"deviceEtag\\": \\"\\",
 	\\"deviceId\\": \\"test\\",
@@ -58,6 +58,7 @@ exports[`devices/components/deviceTwin snapshot matches snapshot 1`] = `
 	},
 	\\"version\\": 1
 }"
+      height={700}
       onChange={[Function]}
     />
   </article>
