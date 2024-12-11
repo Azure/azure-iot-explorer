@@ -31,9 +31,14 @@ exports[`moduleIdentityTwin snapshot matches snapshot after module twin is fetch
   />
   <article
     className="device-twin device-detail"
+    style={
+      Object {
+        "paddingTop": 10,
+      }
+    }
   >
-    <JSONEditor
-      className="json-editor"
+    <MonacoEditorComponent
+      ariaLabel="moduleIdentity.detail.twin"
       content="{
 	\\"authenticationType\\": \\"sas\\",
 	\\"cloudToDeviceMessageCount\\": 0,
@@ -52,6 +57,7 @@ exports[`moduleIdentityTwin snapshot matches snapshot after module twin is fetch
 		\\"secondaryThumbprint\\": null
 	}
 }"
+      height={700}
       onChange={[Function]}
     />
   </article>

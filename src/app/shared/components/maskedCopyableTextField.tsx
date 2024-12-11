@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { IconButton, getId, TooltipHost, Announced } from '@fluentui/react';
+import { IconButton, getId, TooltipHost } from '@fluentui/react';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { LabelWithTooltip } from './labelWithTooltip';
 import { LabelWithRichCallout } from './labelWithRichCallout';

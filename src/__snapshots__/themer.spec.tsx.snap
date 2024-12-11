@@ -305,7 +305,7 @@ exports[`themer matches snapshot 1`] = `
     <ContextProvider
       value={
         Object {
-          "editorTheme": "xcode",
+          "editorTheme": "light",
           "fabricTheme": Object {
             "palette": Object {
               "black": "#1d1d1d",

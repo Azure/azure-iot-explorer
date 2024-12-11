@@ -551,6 +551,7 @@ export class ResourceKeys {
       interfaceListFailedToRender : "deviceInterfaces.interfaceListFailedToRender",
       interfaceNotFound : "deviceInterfaces.interfaceNotFound",
       interfaceNotValid : "deviceInterfaces.interfaceNotValid",
+      jsonViewerArialLabel : "deviceInterfaces.jsonViewerArialLabel",
       noInterfaces : "deviceInterfaces.noInterfaces",
    };
    public static deviceLists = {
@@ -714,6 +715,7 @@ export class ResourceKeys {
          refresh : "deviceTwin.command.refresh",
          save : "deviceTwin.command.save",
       },
+      editorAriaLabel : "deviceTwin.editorAriaLabel",
       headerText : "deviceTwin.headerText",
       notFound : "deviceTwin.notFound",
       tooltip : "deviceTwin.tooltip",

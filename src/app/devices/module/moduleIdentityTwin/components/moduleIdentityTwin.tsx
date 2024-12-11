@@ -13,13 +13,13 @@ import { SynchronizationStatus } from '../../../../api/models/synchronizationSta
 import { getModuleIdentityTwinAction, updateModuleIdentityTwinAction } from '../actions';
 import { MultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
 import { useAsyncSagaReducer } from '../../../../shared/hooks/useAsyncSagaReducer';
-import { JSONEditor } from '../../../../shared/components/jsonEditor';
+import { MonacoEditorComponent } from '../../../../shared/components/monacoEditor';
 import { moduleTwinReducer } from '../reducer';
 import { moduleIdentityTwinSagas } from '../saga';
 import { moduleTwinStateInitial } from '../state';
-import '../../../../css/_deviceDetail.scss';
 import { AppInsightsClient } from '../../../../shared/appTelemetry/appInsightsClient';
 import { TELEMETRY_PAGE_NAMES, TELEMETRY_USER_ACTIONS } from '../../../../../app/constants/telemetry';
+import '../../../../css/_deviceDetail.scss';
 
 export const ModuleIdentityTwin: React.FC = () => {
     const { t } = useTranslation();
@@ -87,14 +87,16 @@ export const ModuleIdentityTwin: React.FC = () => {
         if (moduleIdentityTwinSyncStatus === SynchronizationStatus.working || moduleIdentityTwinSyncStatus === SynchronizationStatus.updating) {
             return <MultiLineShimmer/>;
         }
+        const editorHeight = 700;
 
         return (
-            <article className="device-twin device-detail">
+            <article className="device-twin device-detail" style={{paddingTop: 10}}>
                 {moduleIdentityTwin &&
-                    <JSONEditor
+                    <MonacoEditorComponent
                         content={JSON.stringify(moduleIdentityTwin, null, '\t')}
-                        className="json-editor"
+                        height={editorHeight}
                         onChange={onChange}
+                        ariaLabel={ResourceKeys.moduleIdentity.detail.twin}
                     />
                 }
             </article>
