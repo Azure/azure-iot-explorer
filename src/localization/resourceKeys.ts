@@ -419,11 +419,6 @@ export class ResourceKeys {
             tooltiop : "deviceEvents.simulation.prerequisite.tooltiop",
          },
       },
-      startTime : {
-         error : "deviceEvents.startTime.error",
-         label : "deviceEvents.startTime.label",
-         tooltip : "deviceEvents.startTime.tooltip",
-      },
       toggleShowRawData : {
          label : "deviceEvents.toggleShowRawData.label",
          off : "deviceEvents.toggleShowRawData.off",

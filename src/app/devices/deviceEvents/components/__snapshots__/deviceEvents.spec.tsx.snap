@@ -31,13 +31,6 @@ exports[`deviceEvents matches snapshot after loaded 1`] = `
       setConsumerGroup={[Function]}
     />
   </div>
-  <StartTime
-    monitoringData={false}
-    setHasError={[Function]}
-    setSpecifyStartTime={[Function]}
-    setStartTime={[Function]}
-    specifyStartTime={false}
-  />
   <div
     className="horizontal-item"
   >

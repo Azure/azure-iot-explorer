@@ -31,7 +31,6 @@ export interface MonitorEventsParameters {
     consumerGroup: string;
     customEventHubConnectionString?: string;
     hubConnectionString?: string;
-    startTime?: Date;
     decoderPrototype?: Type;
 }
 
