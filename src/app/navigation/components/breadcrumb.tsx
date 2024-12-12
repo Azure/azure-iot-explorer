@@ -11,7 +11,7 @@ export const Breadcrumb: React.FC<BreadcrumbEntryProps> = ({ disableLink, url, s
         <li className="breadcrumb-item">
             {disableLink && <>{name}</>}
             {!disableLink &&
-                <NavLink to={`${url}${suffix || ''}`}>
+                <NavLink to={`${url}${suffix || ''}`} style={{ textDecoration: 'underline' }}>
                     {name}
                 </NavLink>
             }

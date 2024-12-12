@@ -13,6 +13,11 @@ exports[`Breadcrumb matches snapshot when link is enabled 1`] = `
   className="breadcrumb-item"
 >
   <NavLink
+    style={
+      Object {
+        "textDecoration": "underline",
+      }
+    }
     to="url"
   >
     name
@@ -25,6 +30,11 @@ exports[`Breadcrumb matches snapshot when suffix is truthy 1`] = `
   className="breadcrumb-item"
 >
   <NavLink
+    style={
+      Object {
+        "textDecoration": "underline",
+      }
+    }
     to="urlsuffix"
   >
     name

@@ -192,7 +192,13 @@ export const CloudToDeviceMessage: React.FC = () => {
                 >
                     {t(ResourceKeys.cloudToDeviceMessage.body)}
                 </LabelWithTooltip>
-                <TextField className="cloud-to-device-message-text-field" multiline={true} rows={textFieldRows} onChange={onTextFieldChange}/>
+                <TextField
+                    className="cloud-to-device-message-text-field"
+                    multiline={true}
+                    rows={textFieldRows}
+                    onChange={onTextFieldChange}
+                    ariaLabel={t(ResourceKeys.cloudToDeviceMessage.body)}
+                />
                 <Checkbox
                     label={t(ResourceKeys.cloudToDeviceMessage.addTimestamp)}
                     ariaLabel={t(ResourceKeys.cloudToDeviceMessage.addTimestamp)}
