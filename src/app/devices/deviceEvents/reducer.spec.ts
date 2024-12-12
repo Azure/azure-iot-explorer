@@ -12,7 +12,7 @@ import { Type } from 'protobufjs';
 
 describe('deviceEventsReducer', () => {
     const deviceId = 'testDeviceId';
-    const params = {consumerGroup: DEFAULT_CONSUMER_GROUP, deviceId, moduleId:'', startTime: new Date()};
+    const params = {consumerGroup: DEFAULT_CONSUMER_GROUP, deviceId, moduleId:''};
     const events = [{
         body: {
             humid: '123' // intentionally set a value which type is double

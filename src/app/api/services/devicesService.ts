@@ -252,16 +252,13 @@ export const deleteDevices = async (parameters: DeleteDevicesParameters) => {
 };
 
 export const monitorEvents = async (parameters: MonitorEventsParameters): Promise<void> => {
-    let requestParameters = {
-        ...parameters,
-        startTime: parameters.startTime && parameters.startTime.toISOString()
-    };
+    let requestParameters = parameters;
 
     // if no custom event hub info is provided, use default hub connection string to connect to event hub
     if (!parameters.customEventHubConnectionString) {
         const connectionInfo = await dataPlaneConnectionHelper();
         requestParameters = {
-            ...requestParameters,
+            ...parameters,
             hubConnectionString: connectionInfo.connectionString
         };
     }

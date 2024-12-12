@@ -6,7 +6,6 @@ export interface StartEventHubMonitoringParameters {
     deviceId: string;
     moduleId: string;
     consumerGroup: string;
-    startTime: string;
     customEventHubConnectionString?: string;
     hubConnectionString?: string;
 }
