@@ -5,9 +5,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from '@fluentui/react';
-import { NavLink } from 'react-router-dom';
 import { ResourceKeys } from '../../../localization/resourceKeys';
-import { ROUTE_PARTS } from '../../constants/routes';
 import './modelRepositoryInstruction.scss';
 
 export const ModelRepositoryInstruction: React.FC = () => {

@@ -1,49 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ModelRepositoryLocationList matches snapshot with all items 1`] = `
-<div
-  className="location-list"
+<Memo(DndContext)
+  collisionDetection={[Function]}
+  onDragEnd={[Function]}
+  sensors={
+    Array [
+      Object {
+        "options": Object {},
+        "sensor": [Function],
+      },
+      Object {
+        "options": Object {
+          "coordinateGetter": [Function],
+        },
+        "sensor": [Function],
+      },
+    ]
+  }
 >
-  <t
-    behaviour="move"
-    onDrop={[Function]}
-    orientation="vertical"
+  <SortableContext
+    items={
+      Array [
+        "PUBLIC",
+        "CONFIGURABLE",
+        "LOCAL",
+        "DMR",
+      ]
+    }
   >
-    <n
-      key="PUBLIC"
+    <div
+      className="location-list"
     >
-      <ModelRepositoryLocationListItem
-        formState={
-          Array [
-            Object {
-              "dirty": false,
-              "repositoryLocationSettings": Array [
-                Object {
-                  "repositoryLocationType": "PUBLIC",
-                  "value": "",
-                },
-                Object {
-                  "repositoryLocationType": "CONFIGURABLE",
-                  "value": "test.com",
-                },
-                Object {
-                  "repositoryLocationType": "LOCAL",
-                  "value": "d:/myModels",
-                },
-                Object {
-                  "repositoryLocationType": "DMR",
-                  "value": "c:/dtmi",
-                },
-              ],
-              "repositoryLocationSettingsErrors": Object {},
-            },
-            Object {
-              "setDirtyFlag": [Function],
-              "setRepositoryLocationSettings": [Function],
-              "setRepositoryLocationSettingsErrors": [Function],
-            },
-          ]
-        }
+      <SortableItem
         index={0}
         item={
           Object {
@@ -51,43 +40,9 @@ exports[`ModelRepositoryLocationList matches snapshot with all items 1`] = `
             "value": "",
           }
         }
+        key="PUBLIC"
       />
-    </n>
-    <n
-      key="CONFIGURABLE"
-    >
-      <ModelRepositoryLocationListItem
-        formState={
-          Array [
-            Object {
-              "dirty": false,
-              "repositoryLocationSettings": Array [
-                Object {
-                  "repositoryLocationType": "PUBLIC",
-                  "value": "",
-                },
-                Object {
-                  "repositoryLocationType": "CONFIGURABLE",
-                  "value": "test.com",
-                },
-                Object {
-                  "repositoryLocationType": "LOCAL",
-                  "value": "d:/myModels",
-                },
-                Object {
-                  "repositoryLocationType": "DMR",
-                  "value": "c:/dtmi",
-                },
-              ],
-              "repositoryLocationSettingsErrors": Object {},
-            },
-            Object {
-              "setDirtyFlag": [Function],
-              "setRepositoryLocationSettings": [Function],
-              "setRepositoryLocationSettingsErrors": [Function],
-            },
-          ]
-        }
+      <SortableItem
         index={1}
         item={
           Object {
@@ -95,43 +50,9 @@ exports[`ModelRepositoryLocationList matches snapshot with all items 1`] = `
             "value": "test.com",
           }
         }
+        key="CONFIGURABLE"
       />
-    </n>
-    <n
-      key="LOCAL"
-    >
-      <ModelRepositoryLocationListItem
-        formState={
-          Array [
-            Object {
-              "dirty": false,
-              "repositoryLocationSettings": Array [
-                Object {
-                  "repositoryLocationType": "PUBLIC",
-                  "value": "",
-                },
-                Object {
-                  "repositoryLocationType": "CONFIGURABLE",
-                  "value": "test.com",
-                },
-                Object {
-                  "repositoryLocationType": "LOCAL",
-                  "value": "d:/myModels",
-                },
-                Object {
-                  "repositoryLocationType": "DMR",
-                  "value": "c:/dtmi",
-                },
-              ],
-              "repositoryLocationSettingsErrors": Object {},
-            },
-            Object {
-              "setDirtyFlag": [Function],
-              "setRepositoryLocationSettings": [Function],
-              "setRepositoryLocationSettingsErrors": [Function],
-            },
-          ]
-        }
+      <SortableItem
         index={2}
         item={
           Object {
@@ -139,43 +60,9 @@ exports[`ModelRepositoryLocationList matches snapshot with all items 1`] = `
             "value": "d:/myModels",
           }
         }
+        key="LOCAL"
       />
-    </n>
-    <n
-      key="DMR"
-    >
-      <ModelRepositoryLocationListItem
-        formState={
-          Array [
-            Object {
-              "dirty": false,
-              "repositoryLocationSettings": Array [
-                Object {
-                  "repositoryLocationType": "PUBLIC",
-                  "value": "",
-                },
-                Object {
-                  "repositoryLocationType": "CONFIGURABLE",
-                  "value": "test.com",
-                },
-                Object {
-                  "repositoryLocationType": "LOCAL",
-                  "value": "d:/myModels",
-                },
-                Object {
-                  "repositoryLocationType": "DMR",
-                  "value": "c:/dtmi",
-                },
-              ],
-              "repositoryLocationSettingsErrors": Object {},
-            },
-            Object {
-              "setDirtyFlag": [Function],
-              "setRepositoryLocationSettings": [Function],
-              "setRepositoryLocationSettingsErrors": [Function],
-            },
-          ]
-        }
+      <SortableItem
         index={3}
         item={
           Object {
@@ -183,20 +70,38 @@ exports[`ModelRepositoryLocationList matches snapshot with all items 1`] = `
             "value": "c:/dtmi",
           }
         }
+        key="DMR"
       />
-    </n>
-  </t>
-</div>
+    </div>
+  </SortableContext>
+</Memo(DndContext)>
 `;
 
 exports[`ModelRepositoryLocationList matches snapshot with no items 1`] = `
-<div
-  className="location-list"
+<Memo(DndContext)
+  collisionDetection={[Function]}
+  onDragEnd={[Function]}
+  sensors={
+    Array [
+      Object {
+        "options": Object {},
+        "sensor": [Function],
+      },
+      Object {
+        "options": Object {
+          "coordinateGetter": [Function],
+        },
+        "sensor": [Function],
+      },
+    ]
+  }
 >
-  <t
-    behaviour="move"
-    onDrop={[Function]}
-    orientation="vertical"
-  />
-</div>
+  <SortableContext
+    items={Array []}
+  >
+    <div
+      className="location-list"
+    />
+  </SortableContext>
+</Memo(DndContext)>
 `;

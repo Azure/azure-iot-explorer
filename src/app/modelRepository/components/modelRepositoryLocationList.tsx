@@ -3,40 +3,105 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Container, Draggable } from 'react-smooth-dnd';
+import {
+    DndContext,
+    closestCenter,
+    useSensor,
+    useSensors,
+    PointerSensor,
+    KeyboardSensor,
+} from '@dnd-kit/core';
+import {
+    arrayMove,
+    SortableContext,
+    useSortable,
+    sortableKeyboardCoordinates,
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import { ModelRepositoryLocationListItem } from './modelRepositoryLocationListItem';
-import { ModelRepositoryConfiguration } from '../../shared/modelRepository/state';
 import { ModelRepositoryFormType } from '../hooks/useModelRepositoryForm';
+import { ModelRepositoryConfiguration } from '../../shared/modelRepository/state';
 import './modelRepositoryLocationList.scss';
 
-export const ModelRepositoryLocationList: React.FC<{formState: ModelRepositoryFormType}> = ({formState}) => {
-    const[{ repositoryLocationSettings }, {setRepositoryLocationSettings, setDirtyFlag}] = formState;
+export const ModelRepositoryLocationList: React.FC<{
+    formState: ModelRepositoryFormType;
+  }> = ({ formState }) => {
+    const [
+        { repositoryLocationSettings },
+        { setRepositoryLocationSettings, setDirtyFlag },
+    ] = formState;
 
-    const onDrop = (e: {addedIndex: number, removedIndex: number}) => {
-        const updatedRepositoryLocationSettings = [...repositoryLocationSettings];
-        updatedRepositoryLocationSettings.splice(e.addedIndex, 0, updatedRepositoryLocationSettings.splice(e.removedIndex, 1)[0]);
+    const sensors = useSensors(
+        useSensor(PointerSensor),
+        useSensor(KeyboardSensor, {
+            coordinateGetter: sortableKeyboardCoordinates,
+        })
+    );
 
-        setDirtyFlag(true);
-        setRepositoryLocationSettings(updatedRepositoryLocationSettings);
+    const handleDragEnd = (event: any) => { // tslint:disable-line: no-any
+        const { active, over } = event;
+
+        if (active.id !== over?.id) {
+            const oldIndex = repositoryLocationSettings.findIndex(
+                item => item.repositoryLocationType === active.id
+            );
+            const newIndex = repositoryLocationSettings.findIndex(
+                item => item.repositoryLocationType === over.id
+            );
+
+            const updatedRepositoryLocationSettings = arrayMove(
+                repositoryLocationSettings,
+                oldIndex,
+                newIndex
+            );
+
+            setDirtyFlag(true);
+            setRepositoryLocationSettings(updatedRepositoryLocationSettings);
+        }
     };
 
-    const renderModelRepositoryLocationListItem = (item: ModelRepositoryConfiguration, index: number) => {
+    const SortableItem: React.FC<{ item: ModelRepositoryConfiguration, index: number }> = ({ item, index }) => {
+        const {
+            attributes,
+            listeners,
+            setNodeRef,
+            transform,
+            transition,
+        } = useSortable({ id: item.repositoryLocationType });
+
+        const style = {
+            transform: CSS.Transform.toString(transform),
+            transition,
+        };
+
         return (
-            <Draggable key={item.repositoryLocationType} >
-                <ModelRepositoryLocationListItem
-                    index={index}
-                    item={item}
-                    formState={formState}
-                />
-            </Draggable>
+            <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
+            <ModelRepositoryLocationListItem
+                item={item}
+                index={index}
+                formState={formState}
+            />
+            </div>
         );
     };
 
     return (
-        <div className="location-list">
-            <Container onDrop={onDrop}>
-                {repositoryLocationSettings && repositoryLocationSettings.map((item, index) => renderModelRepositoryLocationListItem(item, index))}
-            </Container>
-        </div>
+        <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragEnd={handleDragEnd}
+        >
+            <SortableContext
+                items={repositoryLocationSettings.map(
+                    item => item.repositoryLocationType
+                )}
+            >
+            <div className="location-list">
+                {repositoryLocationSettings.map((item, index) => (
+                    <SortableItem key={item.repositoryLocationType} item={item} index={index} />
+                ))}
+            </div>
+            </SortableContext>
+        </DndContext>
     );
 };

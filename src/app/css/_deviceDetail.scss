@@ -37,6 +37,12 @@
     margin-bottom: 15px;
 }
 
+.ms-ContextualMenu-secondaryText {
+    @include themify($themes) {
+        color: themed('disabledText') !important;
+    }
+}
+
 .properties-section-command-bar {
     .ms-CommandBar {
         border-bottom: 0px !important;
