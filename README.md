@@ -1,9 +1,7 @@
 
 # Azure IoT Explorer (preview)
-
-CI Pipeline [![Build Status](https://dev.azure.com/azure/azure-iot-explorer/_apis/build/status/Azure%20IoT%20Explorer%20CI%20Pipeline?branchName=main)](https://dev.azure.com/azure/azure-iot-explorer/_build/latest?definitionId=31&branchName=main)
-
-Release Pipeline [![Build Status](https://dev.azure.com/azureiotdevxp/azure-iot-explorer/_apis/build/status/official/PROD%20-%20Release%20-%20Azure%20IoT%20Explorer?branchName=main)](https://dev.azure.com/azureiotdevxp/azure-iot-explorer/_build/latest?definitionId=95&branchName=main)
+Release Pipeline
+[![Build Status](https://dev.azure.com/azureiotdevxp/azure-iot-explorer/_apis/build/status%2FOneBranch%2Fazure-iot-explorer%2Fazure-iot-explorer-Official?repoName=azure-iot-explorer&branchName=main)](https://dev.azure.com/azureiotdevxp/azure-iot-explorer/_build/latest?definitionId=142&repoName=azure-iot-explorer&branchName=main)
 
 ## Table of Contents
 
