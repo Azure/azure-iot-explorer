@@ -6,7 +6,7 @@ import  * as express from 'express';
 import { generateDataPlaneRequestBody, processDataPlaneResponse } from './dataPlaneHelper';
 
 describe('server', () => {
-    const hostName = 'testHub.private.azure-devices-int.net';
+    const hostName = 'testHub.private.azure-devices.net';
     it('generates data plane request with API version and query string specified in body', () => {
         const queryString = 'connectTimeoutInSeconds=20&responseTimeoutInSeconds=20';
         const req = {
@@ -83,7 +83,7 @@ describe('server', () => {
     });
 
     it('generates data plane response with no httpResponse', async () => {
-        const response = await processDataPlaneResponse(null);
+        const response = await processDataPlaneResponse(null as any);
         expect(response.body).toEqual({body: {Message: 'Failed to get any response from iot hub service.'}});
     });
 

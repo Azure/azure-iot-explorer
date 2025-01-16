@@ -17,7 +17,7 @@ export const fetchDrivesOnWindows = (res: express.Response) => {
 
 export const fetchDirectories = (dir: string, res: express.Response) => {
     const result: string[] = [];
-    const resolvedPath = fs.realpathSync(dir, { encoding: "utf8" }); 
+    const resolvedPath = fs.realpathSync(dir, { encoding: "utf8" });
 
     for (const item of fs.readdirSync(resolvedPath)) {
         try {
