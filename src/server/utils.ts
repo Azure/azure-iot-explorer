@@ -21,9 +21,14 @@ export const fetchDirectories = (dir: string, res: express.Response) => {
 
     for (const item of fs.readdirSync(resolvedPath)) {
         try {
-            const stat = fs.statSync(path.join(resolvedPath, item));
-            if (stat.isDirectory()) {
-                result.push(item);
+            const root = path.resolve(dir);
+            const filePath = fs.realpathSync(path.resolve(dir, item));
+
+            if (filePath.startsWith(root)) {
+                const stat = fs.statSync(filePath);
+                if (stat.isDirectory()) {
+                    result.push(item);
+                }
             }
         }
         catch {

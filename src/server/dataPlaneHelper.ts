@@ -18,6 +18,21 @@ export const generateDataPlaneRequestBody = (req: express.Request) => {
     const apiVersion = req.body.apiVersion;
     const queryString = req.body.queryString ? `?${req.body.queryString}&api-version=${apiVersion}` : `?api-version=${apiVersion}`;
 
+    const regexHost = /^[a-zA-Z0-9\-\/_.]+\.azure-devices\.net$/; // To check for valid domain names
+    if (!regexHost.test(req.body.hostName)) {
+        throw new Error("Invalid  host");
+    }
+
+    const pathRegex = /^[a-zA-Z0-9\-\/_]+$/; // Ensure path contains only valid URL-safe characters
+    if (!pathRegex.test(req.body.path)) {
+        throw new Error("Invalid path");
+    }
+
+    const queryStringRegex = /^[a-zA-Z0-9=&_%-?]+$/; // Restrict to valid query string characters
+    if (!queryStringRegex.test(queryString)) {
+        throw new Error("Invalid query string");
+    }
+
     return {
         url: `https://${req.body.hostName}/${encodeURIComponent(req.body.path)}${queryString}`,
         request: {
