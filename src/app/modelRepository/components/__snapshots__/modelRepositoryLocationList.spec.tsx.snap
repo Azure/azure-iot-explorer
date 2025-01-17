@@ -1,107 +1,70 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ModelRepositoryLocationList matches snapshot with all items 1`] = `
-<Memo(DndContext)
-  collisionDetection={[Function]}
-  onDragEnd={[Function]}
-  sensors={
-    Array [
-      Object {
-        "options": Object {},
-        "sensor": [Function],
-      },
-      Object {
-        "options": Object {
-          "coordinateGetter": [Function],
-        },
-        "sensor": [Function],
-      },
-    ]
-  }
+<div
+  className="location-list"
 >
-  <SortableContext
-    items={
+  <List
+    lockVertically={false}
+    onChange={[Function]}
+    removableByMove={false}
+    renderItem={[Function]}
+    renderList={[Function]}
+    transitionDuration={300}
+    values={
       Array [
-        "PUBLIC",
-        "CONFIGURABLE",
-        "LOCAL",
-        "DMR",
+        Object {
+          "repositoryLocationType": "PUBLIC",
+          "value": "",
+        },
+        Object {
+          "repositoryLocationType": "CONFIGURABLE",
+          "value": "test.com",
+        },
+        Object {
+          "repositoryLocationType": "LOCAL",
+          "value": "d:/myModels",
+        },
+        Object {
+          "repositoryLocationType": "DMR",
+          "value": "c:/dtmi",
+        },
       ]
     }
-  >
-    <div
-      className="location-list"
-    >
-      <SortableItem
-        index={0}
-        item={
-          Object {
-            "repositoryLocationType": "PUBLIC",
-            "value": "",
-          }
-        }
-        key="PUBLIC"
-      />
-      <SortableItem
-        index={1}
-        item={
-          Object {
-            "repositoryLocationType": "CONFIGURABLE",
-            "value": "test.com",
-          }
-        }
-        key="CONFIGURABLE"
-      />
-      <SortableItem
-        index={2}
-        item={
-          Object {
-            "repositoryLocationType": "LOCAL",
-            "value": "d:/myModels",
-          }
-        }
-        key="LOCAL"
-      />
-      <SortableItem
-        index={3}
-        item={
-          Object {
-            "repositoryLocationType": "DMR",
-            "value": "c:/dtmi",
-          }
-        }
-        key="DMR"
-      />
-    </div>
-  </SortableContext>
-</Memo(DndContext)>
+    voiceover={
+      Object {
+        "canceled": [Function],
+        "dropped": [Function],
+        "item": [Function],
+        "lifted": [Function],
+        "moved": [Function],
+      }
+    }
+  />
+</div>
 `;
 
 exports[`ModelRepositoryLocationList matches snapshot with no items 1`] = `
-<Memo(DndContext)
-  collisionDetection={[Function]}
-  onDragEnd={[Function]}
-  sensors={
-    Array [
-      Object {
-        "options": Object {},
-        "sensor": [Function],
-      },
-      Object {
-        "options": Object {
-          "coordinateGetter": [Function],
-        },
-        "sensor": [Function],
-      },
-    ]
-  }
+<div
+  className="location-list"
 >
-  <SortableContext
-    items={Array []}
-  >
-    <div
-      className="location-list"
-    />
-  </SortableContext>
-</Memo(DndContext)>
+  <List
+    lockVertically={false}
+    onChange={[Function]}
+    removableByMove={false}
+    renderItem={[Function]}
+    renderList={[Function]}
+    transitionDuration={300}
+    values={Array []}
+    voiceover={
+      Object {
+        "canceled": [Function],
+        "dropped": [Function],
+        "item": [Function],
+        "lifted": [Function],
+        "moved": [Function],
+      }
+    }
+  />
+</div>
 `;

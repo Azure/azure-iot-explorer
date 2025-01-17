@@ -3,21 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import {
-    DndContext,
-    closestCenter,
-    useSensor,
-    useSensors,
-    PointerSensor,
-    KeyboardSensor,
-} from '@dnd-kit/core';
-import {
-    arrayMove,
-    SortableContext,
-    useSortable,
-    sortableKeyboardCoordinates,
-} from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
+import { List, arrayMove, IItemProps, RenderListParams } from 'react-movable';
 import { ModelRepositoryLocationListItem } from './modelRepositoryLocationListItem';
 import { ModelRepositoryFormType } from '../hooks/useModelRepositoryForm';
 import { ModelRepositoryConfiguration } from '../../shared/modelRepository/state';
@@ -25,83 +11,44 @@ import './modelRepositoryLocationList.scss';
 
 export const ModelRepositoryLocationList: React.FC<{
     formState: ModelRepositoryFormType;
-  }> = ({ formState }) => {
+}> = ({ formState }) => {
     const [
         { repositoryLocationSettings },
         { setRepositoryLocationSettings, setDirtyFlag },
     ] = formState;
 
-    const sensors = useSensors(
-        useSensor(PointerSensor),
-        useSensor(KeyboardSensor, {
-            coordinateGetter: sortableKeyboardCoordinates,
-        })
-    );
-
-    const handleDragEnd = (event: any) => { // tslint:disable-line: no-any
-        const { active, over } = event;
-
-        if (active.id !== over?.id) {
-            const oldIndex = repositoryLocationSettings.findIndex(
-                item => item.repositoryLocationType === active.id
-            );
-            const newIndex = repositoryLocationSettings.findIndex(
-                item => item.repositoryLocationType === over.id
-            );
-
+    const handleSortEnd = ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }) => {
+        if (oldIndex !== newIndex) {
             const updatedRepositoryLocationSettings = arrayMove(
                 repositoryLocationSettings,
                 oldIndex,
                 newIndex
             );
-
             setDirtyFlag(true);
             setRepositoryLocationSettings(updatedRepositoryLocationSettings);
         }
     };
 
-    const SortableItem: React.FC<{ item: ModelRepositoryConfiguration, index: number }> = ({ item, index }) => {
-        const {
-            attributes,
-            listeners,
-            setNodeRef,
-            transform,
-            transition,
-        } = useSortable({ id: item.repositoryLocationType });
-
-        const style = {
-            transform: CSS.Transform.toString(transform),
-            transition,
-        };
-
-        return (
-            <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
+    const renderItem = ({value, props}: {value: ModelRepositoryConfiguration, props: IItemProps} ) => (
+        <div {...props} key={value.repositoryLocationType}>
             <ModelRepositoryLocationListItem
-                item={item}
-                index={index}
+                item={value}
+                index={repositoryLocationSettings.indexOf(value)}
                 formState={formState}
             />
-            </div>
-        );
-    };
+        </div>
+    );
+
+    const renderList = ({ children, props }: RenderListParams) => <div {...props}>{children}</div>;
 
     return (
-        <DndContext
-            sensors={sensors}
-            collisionDetection={closestCenter}
-            onDragEnd={handleDragEnd}
-        >
-            <SortableContext
-                items={repositoryLocationSettings.map(
-                    item => item.repositoryLocationType
-                )}
-            >
-            <div className="location-list">
-                {repositoryLocationSettings.map((item, index) => (
-                    <SortableItem key={item.repositoryLocationType} item={item} index={index} />
-                ))}
-            </div>
-            </SortableContext>
-        </DndContext>
+        <div className="location-list">
+            <List
+                values={repositoryLocationSettings}
+                onChange={handleSortEnd}
+                renderList={renderList}
+                renderItem={renderItem}
+            />
+        </div>
     );
 };
