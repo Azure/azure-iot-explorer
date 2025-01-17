@@ -11,6 +11,10 @@ import { getInitialModelRepositoryFormState } from '../state';
 import { getInitialModelRepositoryFormOps } from '../interface';
 
 describe('ModelRepositoryLocationList', () => {
+    jest.mock('react-movable', () => ({
+        List: ({ children }) => <div>{children}</div>,
+        arrayMove: jest.fn(),
+    }));
 
     it('matches snapshot with no items', () => {
         const component = (
