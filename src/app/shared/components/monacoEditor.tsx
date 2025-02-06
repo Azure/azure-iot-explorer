@@ -101,9 +101,9 @@ export const MonacoEditorComponent: React.FC<MonacoEditorComponentProps> = ({
                         we will need to shift focus to another DOM element or window.
                         It is due to Electron's integration with Chromium and the way focus is managed between the webview and the main process.
                         We will create a dummy input, move the focus to it, and then clean it up. */
-                        const dummyInput = document.createElement("input");
-                        dummyInput.style.position = "absolute";
-                        dummyInput.style.opacity = "0";
+                        const dummyInput = document.createElement('input');
+                        dummyInput.style.position = 'absolute';
+                        dummyInput.style.opacity = '0';
                         document.body.appendChild(dummyInput);
                         dummyInput.focus();
                         setTimeout(() => document.body.removeChild(dummyInput), 0);

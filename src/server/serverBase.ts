@@ -13,7 +13,7 @@ import fetch from 'node-fetch';
 import { EventHubConsumerClient, Subscription, ReceivedEventData, earliestEventPosition } from '@azure/event-hubs';
 import { generateDataPlaneRequestBody, generateDataPlaneResponse } from './dataPlaneHelper';
 import { convertIotHubToEventHubsConnectionString } from './eventHubHelper';
-import { fetchDirectories, fetchDrivesOnWindows, findMatchingFile, readFileFromLocal } from './utils';
+import { fetchDirectories, fetchDrivesOnWindows, findMatchingFile, isSafeUrl, readFileFromLocal } from './utils';
 
 export const SERVER_ERROR = 500;
 export const SUCCESS = 200;
@@ -199,12 +199,18 @@ export const handleEventHubStopPostRequest = (req: express.Request, res: express
 
 const modelRepoUri = '/api/ModelRepo';
 export const handleModelRepoPostRequest = async (req: express.Request, res: express.Response) => {
-    if (!req.body) {
+    const controllerRequest = req.body;
+    const userUri = controllerRequest?.uri;
+    if (!controllerRequest || !userUri) {
         res.status(BAD_REQUEST).send();
     }
-    const controllerRequest = req.body;
+
+    if (!(await isSafeUrl(userUri))) {
+        return res.status(403).send({ error: "Forbidden: Unsafe URL." });
+    }
+    
     try {
-        const response = await fetch(controllerRequest.uri,
+        const response = await fetch(userUri,
             {
                 body: controllerRequest.body || null,
                 headers: controllerRequest.headers || null,
