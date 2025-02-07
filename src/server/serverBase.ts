@@ -10,6 +10,7 @@ import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
 import fetch from 'node-fetch';
+import * as he from 'he';
 import { EventHubConsumerClient, Subscription, ReceivedEventData, earliestEventPosition } from '@azure/event-hubs';
 import { generateDataPlaneRequestBody, generateDataPlaneResponse } from './dataPlaneHelper';
 import { convertIotHubToEventHubsConnectionString } from './eventHubHelper';
@@ -177,7 +178,7 @@ export const handleEventHubMonitorPostRequest = (req: express.Request, res: expr
             res.status(SUCCESS).send([]);
         });
     } catch (error) {
-        res.status(SERVER_ERROR).send(error);
+        res.status(SERVER_ERROR).send(he.encode(error.toString()));
     }
 };
 
@@ -193,7 +194,7 @@ export const handleEventHubStopPostRequest = (req: express.Request, res: express
             res.status(SUCCESS).send();
         });
     } catch (error) {
-        res.status(SERVER_ERROR).send(error);
+        res.status(SERVER_ERROR).send(he.encode(error.toString()));
     }
 };
 
@@ -220,7 +221,7 @@ export const handleModelRepoPostRequest = async (req: express.Request, res: expr
             });
         res.status((response && response.status) || SUCCESS).send(await response.json() || {}); //tslint:disable-line
     } catch (error) {
-        res.status(SERVER_ERROR).send(error);
+        res.status(SERVER_ERROR).send(he.encode(error.toString()));
     }
 };
 
