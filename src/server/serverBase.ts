@@ -202,18 +202,23 @@ const modelRepoUri = '/api/ModelRepo';
 export const handleModelRepoPostRequest = async (req: express.Request, res: express.Response) => {
     const controllerRequest = req.body;
     const userUri = controllerRequest?.uri;
-    if (!controllerRequest || !userUri) {
-        res.status(BAD_REQUEST).send();
-    }
+    const ALLOWED_DOMAINS = ["github.com", "bitbucket.org", "azure.com"];
 
-    if (!(await isSafeUrl(userUri))) {
+    const isAllowedDomain = (url: string) => {
+        try {
+            const parsedUrl = new URL(url);
+            return ALLOWED_DOMAINS.includes(parsedUrl.hostname);
+        } catch {
+            return false; // Invalid URL
+        }
+    };
+    
+    if (!isAllowedDomain(userUri)) {
         return res.status(403).send({ error: "Forbidden: Unsafe URL." });
     }
 
-    // Reconstruct a sanitized URL
-    const safeUrl = `${userUri.origin}${userUri.pathname}`;   
     try {
-        const response = await fetch(safeUrl,
+        const response = await fetch(userUri,
             {
                 body: controllerRequest.body || null,
                 headers: controllerRequest.headers || null,
