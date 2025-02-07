@@ -1,7 +1,6 @@
 import express = require('express');
 import * as fs from 'fs';
 import * as path from 'path';
-import * as dns from 'dns';
 var escape = require('escape-html');
 import { SERVER_ERROR, SUCCESS } from './serverBase';
 
@@ -103,38 +102,3 @@ const isFileExtensionJson = (fileName: string) => {
 export const readFileFromLocal = (filePath: string, fileName: string) => {
     return fs.readFileSync(`${filePath}/${fileName}`, 'utf-8');
 }
-
-export const isSafeUrl = async (userUrl: string): Promise<boolean> => {
-    try {
-        const parsedUrl = new URL(userUrl);
-
-        // Enforce HTTPS
-        if (parsedUrl.protocol !== 'https:' && parsedUrl.protocol !== 'http:') {
-            return false;
-        }
-
-        // Resolve DNS to check IP addresses
-        const addresses = await dns.promises.resolve(parsedUrl.hostname);
-
-        // Block local and private IPs
-        for (const address of addresses) {
-            if (
-                address.startsWith('127.') ||            // Loopback
-                address.startsWith('10.') ||             // Private
-                address.startsWith('192.168.') ||        // Private
-                address.startsWith('169.254.') ||        // Link-local
-                address === '0.0.0.0' ||                 // Unspecified
-                address === '::1' ||                     // IPv6 loopback
-                address.startsWith('fe80:') ||           // IPv6 link-local
-                address.startsWith('fc00:') ||           // IPv6 unique local
-                address.startsWith('fd00:')              // IPv6 unique local
-            ) {
-                return false;
-            }
-        }
-
-        return true;
-    } catch {
-        return false;
-    }
-};

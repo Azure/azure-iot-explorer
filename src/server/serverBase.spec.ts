@@ -37,20 +37,4 @@ describe('serverBase', () => {
             expect(res.status).toHaveBeenCalledWith(400); // tslint:disable-line:no-magic-numbers
         });
     });
-
-    context('handleModelRepoPostRequest', () => {
-        it('returns 400 if body is not provided', async () => {
-            const req = mockRequest();
-            const res = mockResponse();
-            await ServerBase.handleModelRepoPostRequest(req, res);
-            expect(res.status).toHaveBeenCalledWith(400); // tslint:disable-line:no-magic-numbers
-        });
-
-        it('returns 500 if response is error', async () => {
-            const req = mockRequest({url: 'test'});
-            const res = mockResponse();
-            await ServerBase.handleModelRepoPostRequest(req, res);
-            expect(res.status).toHaveBeenCalledWith(403); // tslint:disable-line:no-magic-numbers
-        });
-    });
 });

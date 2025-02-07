@@ -14,7 +14,7 @@ import * as he from 'he';
 import { EventHubConsumerClient, Subscription, ReceivedEventData, earliestEventPosition } from '@azure/event-hubs';
 import { generateDataPlaneRequestBody, generateDataPlaneResponse } from './dataPlaneHelper';
 import { convertIotHubToEventHubsConnectionString } from './eventHubHelper';
-import { fetchDirectories, findMatchingFile, isSafeUrl, readFileFromLocal, SAFE_ROOT } from './utils';
+import { fetchDirectories, findMatchingFile, readFileFromLocal, SAFE_ROOT } from './utils';
 
 export const SERVER_ERROR = 500;
 export const SUCCESS = 200;
@@ -52,7 +52,6 @@ export class ServerBase {
         app.post(dataPlaneUri, handleDataPlanePostRequest);
         app.post(eventHubMonitorUri, handleEventHubMonitorPostRequest);
         app.post(eventHubStopUri, handleEventHubStopPostRequest);
-        app.post(modelRepoUri, handleModelRepoPostRequest);
         app.get(readFileUri, handleReadFileRequest);
         app.get(readFileNaiveUri, handleReadFileNaiveRequest);
         app.get(getDirectoriesUri, handleGetDirectoriesRequest);
@@ -193,38 +192,6 @@ export const handleEventHubStopPostRequest = (req: express.Request, res: express
         stopClient().then(() => {
             res.status(SUCCESS).send();
         });
-    } catch (error) {
-        res.status(SERVER_ERROR).send(he.encode(error.toString()));
-    }
-};
-
-const modelRepoUri = '/api/ModelRepo';
-export const handleModelRepoPostRequest = async (req: express.Request, res: express.Response) => {
-    const controllerRequest = req.body;
-    const userUri = controllerRequest?.uri;
-    const ALLOWED_DOMAINS = ["github.com", "bitbucket.org", "azure.com"];
-
-    const isAllowedDomain = (url: string) => {
-        try {
-            const parsedUrl = new URL(url);
-            return ALLOWED_DOMAINS.includes(parsedUrl.hostname);
-        } catch {
-            return false; // Invalid URL
-        }
-    };
-    
-    if (!isAllowedDomain(userUri)) {
-        return res.status(403).send({ error: "Forbidden: Unsafe URL." });
-    }
-
-    try {
-        const response = await fetch(userUri,
-            {
-                body: controllerRequest.body || null,
-                headers: controllerRequest.headers || null,
-                method: controllerRequest.method || 'GET',
-            });
-        res.status((response && response.status) || SUCCESS).send(await response.json() || {}); //tslint:disable-line
     } catch (error) {
         res.status(SERVER_ERROR).send(he.encode(error.toString()));
     }

@@ -972,6 +972,7 @@
             "configurable" : {
                 "label": "Configurable Repository",
                 "infoText": "Configure your own repository endpoint.",
+                "warning": "For security reasons, configurable repository is no longer supported.",
                 "textBoxLabel": "Repository endpoint"
             },
             "local": {
