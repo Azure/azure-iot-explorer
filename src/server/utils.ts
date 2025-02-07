@@ -17,63 +17,37 @@ export const fetchDrivesOnWindows = (res: express.Response) => {
     });
 };
 
-const SAFE_ROOTS_WINDOWS = [
-    "C:\\Users",      // User home directories
-    "D:\\", "E:\\",   // Additional drives (non-system)
-    "C:\\ProgramData", // Application-wide data storage
-    "C:\\inetpub",    // IIS web server root
-    "C:\\Temp"        // Temporary storage (watch for security concerns)
-];
-
-const SAFE_ROOTS_LINUX = [
-    "/home",          // User home directories
-    "/Users",         // macOS user home directories
-    "/var/www",       // Web server content
-    "/var/data",      // Common data storage
-    "/srv",           // Server files
-    "/opt",           // Optional software installs
-    "/workspace",     // Dev environments
-    "/app",           // Application root
-    "/tmp", "/var/tmp" // Temporary storage (watch for security concerns)
-];
-
-const isPathSafe = (dir: string): string | null => {
-    const resolvedPath = path.resolve(fs.realpathSync(dir));
-
-    // Use platform-specific safe roots
-    const safeRoots = process.platform === "win32" ? SAFE_ROOTS_WINDOWS : SAFE_ROOTS_LINUX;
-
-    for (const root of safeRoots) {
-        const resolvedRoot = path.resolve(root);
-
-        if (resolvedPath.startsWith(resolvedRoot + path.sep)) {
-            // Normalize the path within the safe root
-            return path.resolve(resolvedRoot, path.relative(resolvedRoot, resolvedPath));
-        }
+// Dynamically determine a "Safe Root Directory"
+const getSafeRoot = (): string => {
+    if (process.platform === "win32") {
+        return "C:\\Users"; // Restrict access to user directories only
     }
-
-    return null; // Not in a safe root
+    return "/home"; // Restrict access to home directories on Linux/macOS
 };
+
+export const SAFE_ROOT = getSafeRoot();
 
 
 export const fetchDirectories = (dir: string, res: express.Response) => {
     try {
-        const safePath = isPathSafe(dir);
+        // Resolve the requested directory relative to the safe root
+        const resolvedPath = fs.realpathSync(path.resolve(SAFE_ROOT, path.relative(SAFE_ROOT, dir)));
 
-        if (!safePath) {
-            return res.status(403).send({ error: `Access denied: Unsafe directory ${dir}.` });
+        // Ensure resolvedPath is still inside SAFE_ROOT (prevents traversal attacks)
+        if (!resolvedPath.startsWith(SAFE_ROOT)) {
+            return res.status(403).send({ error: "Access denied. Unsafe directory." });
         }
 
         const result: string[] = [];
-        for (const item of fs.readdirSync(safePath)) {
+        for (const item of fs.readdirSync(resolvedPath)) {
             try {
-                const itemPath = fs.realpathSync(path.join(safePath, item));
+                const itemPath = fs.realpathSync(path.join(resolvedPath, item));
 
-                // Ensure itemPath is still within safePath
-                if (itemPath.startsWith(safePath + path.sep)) {
+                // Ensure itemPath is still inside resolvedPath (protects against symlink attacks)
+                if (itemPath.startsWith(resolvedPath + path.sep)) {
                     const stat = fs.statSync(itemPath);
                     if (stat.isDirectory()) {
-                        result.push(item);
+                        result.push(escape(item));
                     }
                 }
             } catch {
@@ -83,7 +57,7 @@ export const fetchDirectories = (dir: string, res: express.Response) => {
 
         res.status(200).send(result);
     } catch {
-        res.status(500).send({ error: 'Failed to fetch directories.' });
+        res.status(500).send({ error: "Failed to fetch directories." });
     }
 };
 

@@ -857,6 +857,7 @@ export class ResourceKeys {
             infoText : "modelRepository.types.local.infoText",
             label : "modelRepository.types.local.label",
             textBoxLabel : "modelRepository.types.local.textBoxLabel",
+            warning : "modelRepository.types.local.warning",
          },
          mandatory : "modelRepository.types.mandatory",
          notAvailable : "modelRepository.types.notAvailable",

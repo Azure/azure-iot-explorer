@@ -30,14 +30,5 @@ export const fetchLocalFileNaive = async (path: string, fileName: string): Promi
 
 export const fetchDirectories = async (path: string): Promise<string[]> => {
     const response = await fetch(`${CONTROLLER_API_ENDPOINT}${GET_DIRECTORIES}/${encodeURIComponent(path || DEFAULT_DIRECTORY)}`);
-    if (!path) {
-        // only possible when platform is windows, expecting drives to be returned
-        const responseText = await response.text();
-        const drives = responseText.split(/\r\n/).map(drive => drive.trim()).filter(drive => drive !== '');
-        drives.shift(); // remove header
-        return drives.map(drive => `${drive}/`); // add trailing slash for drives
-    }
-    else {
-        return response.json();
-    }
+    return response.json();
 };

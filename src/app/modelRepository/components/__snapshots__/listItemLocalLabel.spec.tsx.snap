@@ -15,6 +15,11 @@ exports[`ListItemLocalLabel matches snapshot when repo type equals Local 1`] = `
     >
       modelRepository.types.local.infoText
     </div>
+    <StyledMessageBar
+      messageBarType={5}
+    >
+      modelRepository.types.local.warning
+    </StyledMessageBar>
   </div>
 </Fragment>
 `;

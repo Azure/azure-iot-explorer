@@ -13,7 +13,7 @@ import fetch from 'node-fetch';
 import { EventHubConsumerClient, Subscription, ReceivedEventData, earliestEventPosition } from '@azure/event-hubs';
 import { generateDataPlaneRequestBody, generateDataPlaneResponse } from './dataPlaneHelper';
 import { convertIotHubToEventHubsConnectionString } from './eventHubHelper';
-import { fetchDirectories, fetchDrivesOnWindows, findMatchingFile, isSafeUrl, readFileFromLocal } from './utils';
+import { fetchDirectories, findMatchingFile, isSafeUrl, readFileFromLocal, SAFE_ROOT } from './utils';
 
 export const SERVER_ERROR = 500;
 export const SUCCESS = 200;
@@ -134,7 +134,7 @@ export const handleGetDirectoriesRequest = (req: express.Request, res: express.R
     try {
         const dir = req.params.path;
         if (dir === '$DEFAULT') {
-            fetchDrivesOnWindows(res);
+            res.status(SUCCESS).send([SAFE_ROOT]);
         }
         else {
             fetchDirectories(dir, res);
@@ -208,9 +208,11 @@ export const handleModelRepoPostRequest = async (req: express.Request, res: expr
     if (!(await isSafeUrl(userUri))) {
         return res.status(403).send({ error: "Forbidden: Unsafe URL." });
     }
-    
+
+    // Reconstruct a sanitized URL
+    const safeUrl = `${userUri.origin}${userUri.pathname}`;   
     try {
-        const response = await fetch(userUri,
+        const response = await fetch(safeUrl,
             {
                 body: controllerRequest.body || null,
                 headers: controllerRequest.headers || null,

@@ -977,6 +977,7 @@
             "local": {
                 "label": "Local Folder",
                 "infoText": "Use your local folder as a model repository. The model definition files you wish to use should have a json extension. The first JSON file with an '@id' property matching the digital twin model identifier (DTMI) will be retrieved.",
+                "warning": "For security reasons, please select a subdirectory inside C:\\Users\\ (Windows) or /home/ (Linux/macOS).",
                 "textBoxLabel": "Selected folder",
                 "folderPicker": {
                     "command": {
