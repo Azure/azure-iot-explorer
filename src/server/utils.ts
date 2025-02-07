@@ -1,6 +1,7 @@
 import express = require('express');
 import * as fs from 'fs';
 import * as path from 'path';
+var escape = require('escape-html');
 import { SERVER_ERROR, SUCCESS } from './serverBase';
 
 export const fetchDrivesOnWindows = (res: express.Response) => {
@@ -15,27 +16,48 @@ export const fetchDrivesOnWindows = (res: express.Response) => {
     });
 };
 
+// Dynamically determine a "Safe Root Directory"
+const getSafeRoot = (): string => {
+    if (process.platform === "win32") {
+        return "C:\\Users"; // Restrict access to user directories only
+    }
+    return "/home"; // Restrict access to home directories on Linux/macOS
+};
+
+export const SAFE_ROOT = getSafeRoot();
+
+
 export const fetchDirectories = (dir: string, res: express.Response) => {
-    const result: string[] = [];
-    const resolvedPath = fs.realpathSync(dir, { encoding: "utf8" });
+    try {
+        // Resolve the requested directory relative to the safe root
+        const resolvedPath = fs.realpathSync(path.resolve(SAFE_ROOT, path.relative(SAFE_ROOT, dir)));
 
-    for (const item of fs.readdirSync(resolvedPath)) {
-        try {
-            const root = path.resolve(dir);
-            const filePath = fs.realpathSync(path.resolve(dir, item));
+        // Ensure resolvedPath is still inside SAFE_ROOT (prevents traversal attacks)
+        if (!resolvedPath.startsWith(SAFE_ROOT)) {
+            return res.status(403).send({ error: "Access denied. Unsafe directory." });
+        }
 
-            if (filePath.startsWith(root)) {
-                const stat = fs.statSync(filePath);
-                if (stat.isDirectory()) {
-                    result.push(item);
+        const result: string[] = [];
+        for (const item of fs.readdirSync(resolvedPath)) {
+            try {
+                const itemPath = fs.realpathSync(path.join(resolvedPath, item));
+
+                // Ensure itemPath is still inside resolvedPath (protects against symlink attacks)
+                if (itemPath.startsWith(resolvedPath + path.sep)) {
+                    const stat = fs.statSync(itemPath);
+                    if (stat.isDirectory()) {
+                        result.push(escape(item));
+                    }
                 }
+            } catch {
+                // Ignore errors and continue
             }
         }
-        catch {
-            // some item cannot be checked by isDirectory(), swallow error and continue the loop
-        }
+
+        res.status(200).send(result);
+    } catch {
+        res.status(500).send({ error: "Failed to fetch directories." });
     }
-    res.status(SUCCESS).send(result);
 };
 
 // tslint:disable-next-line:cyclomatic-complexity

@@ -834,6 +834,7 @@ export class ResourceKeys {
             infoText : "modelRepository.types.configurable.infoText",
             label : "modelRepository.types.configurable.label",
             textBoxLabel : "modelRepository.types.configurable.textBoxLabel",
+            warning : "modelRepository.types.configurable.warning",
          },
          dmr : {
             infoText : "modelRepository.types.dmr.infoText",
@@ -857,6 +858,7 @@ export class ResourceKeys {
             infoText : "modelRepository.types.local.infoText",
             label : "modelRepository.types.local.label",
             textBoxLabel : "modelRepository.types.local.textBoxLabel",
+            warning : "modelRepository.types.local.warning",
          },
          mandatory : "modelRepository.types.mandatory",
          notAvailable : "modelRepository.types.notAvailable",

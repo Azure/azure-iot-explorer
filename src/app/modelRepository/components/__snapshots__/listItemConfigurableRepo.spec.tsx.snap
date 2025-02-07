@@ -15,16 +15,11 @@ exports[`ListItemConfigurableRepo matches snapshot 1`] = `
     >
       modelRepository.types.configurable.infoText
     </div>
+    <StyledMessageBar
+      messageBarType={5}
+    >
+      modelRepository.types.configurable.warning
+    </StyledMessageBar>
   </div>
-  <StyledTextFieldBase
-    ariaLabel="modelRepository.types.configurable.textBoxLabel"
-    className="local-folder-textbox"
-    errorMessage=""
-    label="modelRepository.types.configurable.textBoxLabel"
-    onChange={[Function]}
-    prefix="https://"
-    readOnly={false}
-    value="test.com"
-  />
 </Fragment>
 `;

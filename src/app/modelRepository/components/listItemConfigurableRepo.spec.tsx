@@ -26,23 +26,4 @@ describe('ListItemConfigurableRepo', () => {
         );
         expect(wrapper).toMatchSnapshot();
     });
-
-    it('calls actions with expected params', () => {
-        const setDirtyFlag = jest.fn();
-        const setRepositoryLocationSettings = jest.fn();
-        const wrapper = shallow(
-            <ListItemConfigurableRepo
-                index={0}
-                item={{
-                    repositoryLocationType: REPOSITORY_LOCATION_TYPE.Configurable,
-                    value: 'test.com'
-                }}
-                formState={[{...getInitialModelRepositoryFormState(), repositoryLocationSettings: [{repositoryLocationType: REPOSITORY_LOCATION_TYPE.Configurable, value: 'old.com'}]},
-                    {...getInitialModelRepositoryFormOps(), setDirtyFlag, setRepositoryLocationSettings}]}
-            />
-        );
-        act(() => wrapper.find(TextField).props().onChange?.(undefined as any, 'test.com'));
-        expect(setDirtyFlag).toBeCalledWith(true);
-        expect(setRepositoryLocationSettings).toBeCalledWith([{repositoryLocationType: REPOSITORY_LOCATION_TYPE.Configurable, value: 'test.com'}])
-    });
 });

@@ -11,11 +11,11 @@ describe('serverBase', () => {
     };
 
     const mockResponse = () => {
-        const res = {status: undefined, json: undefined, send: undefined};
+        const res = {status: undefined, json: undefined, send: undefined} as any; // tslint:disable-line:no-any
         res.status = jest.fn().mockReturnValue(res);
         res.send = jest.fn().mockReturnValue(res);
         res.json = jest.fn().mockReturnValue(res);
-        return res as any;  // tslint:disable-line:no-any
+        return res as any; // tslint:disable-line:no-any
     };
 
     context('handleDataPlanePostRequest', () => {
@@ -35,22 +35,6 @@ describe('serverBase', () => {
 
             await ServerBase.handleEventHubMonitorPostRequest(req, res);
             expect(res.status).toHaveBeenCalledWith(400); // tslint:disable-line:no-magic-numbers
-        });
-    });
-
-    context('handleModelRepoPostRequest', () => {
-        it('returns 400 if body is not provided', async () => {
-            const req = mockRequest();
-            const res = mockResponse();
-            await ServerBase.handleModelRepoPostRequest(req, res);
-            expect(res.status).toHaveBeenCalledWith(400); // tslint:disable-line:no-magic-numbers
-        });
-
-        it('returns 500 if response is error', async () => {
-            const req = mockRequest('test');
-            const res = mockResponse();
-            await ServerBase.handleModelRepoPostRequest(req, res);
-            expect(res.status).toHaveBeenCalledWith(500); // tslint:disable-line:no-magic-numbers
         });
     });
 });

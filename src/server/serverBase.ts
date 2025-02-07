@@ -10,10 +10,11 @@ import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
 import fetch from 'node-fetch';
+import * as he from 'he';
 import { EventHubConsumerClient, Subscription, ReceivedEventData, earliestEventPosition } from '@azure/event-hubs';
 import { generateDataPlaneRequestBody, generateDataPlaneResponse } from './dataPlaneHelper';
 import { convertIotHubToEventHubsConnectionString } from './eventHubHelper';
-import { fetchDirectories, fetchDrivesOnWindows, findMatchingFile, readFileFromLocal } from './utils';
+import { fetchDirectories, findMatchingFile, readFileFromLocal, SAFE_ROOT } from './utils';
 
 export const SERVER_ERROR = 500;
 export const SUCCESS = 200;
@@ -51,7 +52,6 @@ export class ServerBase {
         app.post(dataPlaneUri, handleDataPlanePostRequest);
         app.post(eventHubMonitorUri, handleEventHubMonitorPostRequest);
         app.post(eventHubStopUri, handleEventHubStopPostRequest);
-        app.post(modelRepoUri, handleModelRepoPostRequest);
         app.get(readFileUri, handleReadFileRequest);
         app.get(readFileNaiveUri, handleReadFileNaiveRequest);
         app.get(getDirectoriesUri, handleGetDirectoriesRequest);
@@ -134,7 +134,7 @@ export const handleGetDirectoriesRequest = (req: express.Request, res: express.R
     try {
         const dir = req.params.path;
         if (dir === '$DEFAULT') {
-            fetchDrivesOnWindows(res);
+            res.status(SUCCESS).send([SAFE_ROOT]);
         }
         else {
             fetchDirectories(dir, res);
@@ -177,7 +177,7 @@ export const handleEventHubMonitorPostRequest = (req: express.Request, res: expr
             res.status(SUCCESS).send([]);
         });
     } catch (error) {
-        res.status(SERVER_ERROR).send(error);
+        res.status(SERVER_ERROR).send(he.encode(error.toString()));
     }
 };
 
@@ -193,26 +193,7 @@ export const handleEventHubStopPostRequest = (req: express.Request, res: express
             res.status(SUCCESS).send();
         });
     } catch (error) {
-        res.status(SERVER_ERROR).send(error);
-    }
-};
-
-const modelRepoUri = '/api/ModelRepo';
-export const handleModelRepoPostRequest = async (req: express.Request, res: express.Response) => {
-    if (!req.body) {
-        res.status(BAD_REQUEST).send();
-    }
-    const controllerRequest = req.body;
-    try {
-        const response = await fetch(controllerRequest.uri,
-            {
-                body: controllerRequest.body || null,
-                headers: controllerRequest.headers || null,
-                method: controllerRequest.method || 'GET',
-            });
-        res.status((response && response.status) || SUCCESS).send(await response.json() || {}); //tslint:disable-line
-    } catch (error) {
-        res.status(SERVER_ERROR).send(error);
+        res.status(SERVER_ERROR).send(he.encode(error.toString()));
     }
 };
 

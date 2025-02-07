@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { Trans, useTranslation } from 'react-i18next';
-import { Link } from '@fluentui/react';
+import { Link, MessageBar, MessageBarType } from '@fluentui/react';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 
@@ -17,7 +17,10 @@ export const ListItemLocalLabel: React.FC<{repoType: REPOSITORY_LOCATION_TYPE}> 
                 <div className="labelSection">
                     <div className="label">{t(ResourceKeys.modelRepository.types.local.label)}</div>
                     <div className="description">{t(ResourceKeys.modelRepository.types.local.infoText)}</div>
-                    </div>}
+                    <MessageBar messageBarType={MessageBarType.warning}>
+                        {t(ResourceKeys.modelRepository.types.local.warning)}
+                    </MessageBar>
+                </div>}
             {repoType === REPOSITORY_LOCATION_TYPE.LocalDMR &&
                 <div className="labelSection">
                     <div className="label">{t(ResourceKeys.modelRepository.types.dmr.label)}</div>
