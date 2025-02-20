@@ -100,5 +100,13 @@ const isFileExtensionJson = (fileName: string) => {
 };
 
 export const readFileFromLocal = (filePath: string, fileName: string) => {
+    // Resolve the requested directory relative to the safe root
+    const resolvedPath = fs.realpathSync(path.resolve(SAFE_ROOT, path.relative(SAFE_ROOT, `${filePath}/${fileName}`)));
+
+    // Ensure resolvedPath is still inside SAFE_ROOT (prevents traversal attacks)
+    if (!resolvedPath.startsWith(SAFE_ROOT)) {
+        throw new Error("Access denied. Unsafe directory.");
+    }
+    
     return fs.readFileSync(`${filePath}/${fileName}`, 'utf-8');
 }

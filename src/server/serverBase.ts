@@ -106,7 +106,7 @@ export const handleReadFileRequest = (req: express.Request, res: express.Respons
         }
     }
     catch (error) {
-        res.status(SERVER_ERROR).send(error);
+        res.status(SERVER_ERROR).send(error?.message);
     }
 };
 
@@ -125,7 +125,7 @@ export const handleReadFileNaiveRequest = (req: express.Request, res: express.Re
         }
     }
     catch (error) {
-        res.status(SERVER_ERROR).send(error);
+        res.status(SERVER_ERROR).send(error?.message);
     }
 };
 
@@ -158,7 +158,7 @@ export const handleDataPlanePostRequest = async (req: express.Request, res: expr
         }
     }
     catch (error) {
-        res.status(SERVER_ERROR).send(error);
+        res.status(SERVER_ERROR).send(error?.message);
     }
 };
 
