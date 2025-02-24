@@ -14,7 +14,7 @@ import * as he from 'he';
 import { EventHubConsumerClient, Subscription, ReceivedEventData, earliestEventPosition } from '@azure/event-hubs';
 import { generateDataPlaneRequestBody, generateDataPlaneResponse } from './dataPlaneHelper';
 import { convertIotHubToEventHubsConnectionString } from './eventHubHelper';
-import { fetchDirectories, findMatchingFile, readFileFromLocal, SAFE_ROOT } from './utils';
+import { checkPath, fetchDirectories, findMatchingFile, readFileFromLocal, SAFE_ROOT } from './utils';
 
 export const SERVER_ERROR = 500;
 export const SUCCESS = 200;
@@ -89,9 +89,10 @@ export const handleReadFileRequest = (req: express.Request, res: express.Respons
             res.status(BAD_REQUEST).send();
         }
         else {
-            const fileNames = fs.readdirSync(filePath);
+            const resolvedPath = checkPath(filePath);
+            const fileNames = fs.readdirSync(resolvedPath);
             try {
-                const foundContent = findMatchingFile(filePath, fileNames, expectedFileName);
+                const foundContent = findMatchingFile(resolvedPath, fileNames, expectedFileName);
                 if (foundContent) {
                     res.status(SUCCESS).send(foundContent);
                 }
