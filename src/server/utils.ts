@@ -29,13 +29,7 @@ export const SAFE_ROOT = getSafeRoot();
 
 export const fetchDirectories = (dir: string, res: express.Response) => {
     try {
-        // Resolve the requested directory relative to the safe root
-        const resolvedPath = fs.realpathSync(path.resolve(SAFE_ROOT, path.relative(SAFE_ROOT, dir)));
-
-        // Ensure resolvedPath is still inside SAFE_ROOT (prevents traversal attacks)
-        if (!resolvedPath.startsWith(SAFE_ROOT)) {
-            return res.status(403).send({ error: "Access denied. Unsafe directory." });
-        }
+        const resolvedPath = checkPath(dir);
 
         const result: string[] = [];
         for (const item of fs.readdirSync(resolvedPath)) {
@@ -101,12 +95,19 @@ const isFileExtensionJson = (fileName: string) => {
 
 export const readFileFromLocal = (filePath: string, fileName: string) => {
     // Resolve the requested directory relative to the safe root
-    const resolvedPath = fs.realpathSync(path.resolve(SAFE_ROOT, path.relative(SAFE_ROOT, `${filePath}/${fileName}`)));
+    const resolvedPath = checkPath(`${filePath}/${fileName}`);
+    
+    return fs.readFileSync(resolvedPath, 'utf-8');
+}
+
+export const checkPath = (filePath: string) => {
+    // Resolve the requested directory relative to the safe root
+    const resolvedPath = fs.realpathSync(path.resolve(SAFE_ROOT, path.relative(SAFE_ROOT, filePath)));
 
     // Ensure resolvedPath is still inside SAFE_ROOT (prevents traversal attacks)
     if (!resolvedPath.startsWith(SAFE_ROOT)) {
         throw new Error("Access denied. Unsafe directory.");
     }
-    
-    return fs.readFileSync(`${filePath}/${fileName}`, 'utf-8');
+
+    return resolvedPath;
 }
