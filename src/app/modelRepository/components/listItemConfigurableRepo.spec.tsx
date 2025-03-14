@@ -9,8 +9,6 @@ import { ListItemConfigurableRepo } from './listItemConfigurableRepo';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
 import { getInitialModelRepositoryFormState } from '../state';
 import { getInitialModelRepositoryFormOps } from '../interface';
-import { act } from 'react-dom/test-utils';
-import { TextField } from '@fluentui/react';
 
 describe('ListItemConfigurableRepo', () => {
     it('matches snapshot', () => {

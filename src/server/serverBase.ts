@@ -101,7 +101,7 @@ export const handleReadFileRequest = (req: express.Request, res: express.Respons
                 }
             }
             catch (error) {
-                res.status(NOT_FOUND).send(error.message); // couldn't find matching file, and the folder contains json files that cannot be parsed
+                res.status(NOT_FOUND).send('Not able to find any matching file.'); // couldn't find matching file, and the folder contains json files that cannot be parsed
             }
 
         }
