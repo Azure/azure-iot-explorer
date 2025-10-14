@@ -1,4 +1,5 @@
 
+
 # Azure IoT Explorer (preview)
 Release Pipeline
 [![Build Status](https://dev.azure.com/azureiotdevxp/azure-iot-explorer/_apis/build/status%2FOneBranch%2Fazure-iot-explorer%2Fazure-iot-explorer-Official?repoName=azure-iot-explorer&branchName=main)](https://dev.azure.com/azureiotdevxp/azure-iot-explorer/_build/latest?definitionId=142&repoName=azure-iot-explorer&branchName=main)
@@ -83,3 +84,4 @@ provided by the bot. You will only need to do this once across all repos using o
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
 For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
 contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+
