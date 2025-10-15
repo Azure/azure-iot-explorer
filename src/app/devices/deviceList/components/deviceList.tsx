@@ -253,7 +253,7 @@ export const DeviceList: React.FC = () => {
 
     const deleteConfirmationDialog = () => {
         return (
-            <div role="dialog">
+            <div role="dialog" aria-label={t(ResourceKeys.deviceLists.commands.delete.confirmationDialog.title)}>
                 <Dialog
                     hidden={!showDeleteConfirmation}
                     onDismiss={closeDeleteDialog}
