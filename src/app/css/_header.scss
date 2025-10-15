@@ -8,7 +8,6 @@
 @media screen and (min-width: $screenSize) {
     header {
         padding-bottom: 5px;
-        display: grid;
         grid-template-areas: 'title . settings';
         grid-template-columns: 1fr 3.5fr 0.3fr;
         .title {
@@ -35,8 +34,6 @@
 
 .header {
     .title {
-        grid-area: title;
-
         margin-left: 10px;
         font-size: 18px;
         font-weight: 600;
@@ -45,6 +42,12 @@
         background: transparent;
         height: 100%;
     }
+    .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+    }    
     @include themify($themes) {
         color: themed('headerTitleColor');
         background-color: themed('headerBackgroundColor');

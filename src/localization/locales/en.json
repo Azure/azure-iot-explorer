@@ -53,7 +53,7 @@
         }
     },
     "header": {
-        "applicationName": "Azure IoT Explorer (preview)",
+        "applicationName": "Azure IoT Explorer",
         "search": {
             "watermark": "Find on page"
         },
