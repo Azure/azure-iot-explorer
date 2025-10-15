@@ -597,6 +597,9 @@ export class ResourceKeys {
       paging : {
          pages : "deviceLists.paging.pages",
       },
+      selectAllCheckboxAriaLabel : "deviceLists.selectAllCheckboxAriaLabel",
+      toggleSelectionColumnAriaLabel : "deviceLists.toggleSelectionColumnAriaLabel",
+      rowCheckBoxAriaLabel : "deviceLists.rowCheckBoxAriaLabel",
       query : {
          deviceId : {
             ariaLabel : "deviceLists.query.deviceId.ariaLabel",

@@ -434,7 +434,10 @@
         "messageBar": {
             "message": "{{version}} has been released.",
             "link": "Please click here to download."
-        }
+        },
+        "selectAllCheckboxAriaLabel": "Select or deselect all devices",
+        "toggleSelectionColumnAriaLabel": "Toggle selection column",
+        "rowCheckBoxAriaLabel": "Select device row"
     },
     "deviceTwin": {
         "notFound": "No device twin data found",
