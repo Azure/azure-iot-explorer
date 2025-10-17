@@ -4,255 +4,104 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
 <div
   className="pnp-detail-list pnp-properties scrollable-lg"
 >
-  <div
-    className="list-header flex-grid-row"
-  >
-    <span
-      className="col-sm3"
-    >
-      deviceSettings.columns.name
-    </span>
-    <span
-      className="col-sm2"
-    >
-      deviceSettings.columns.schema
-    </span>
-    <span
-      className="col-sm2"
-    >
-      deviceSettings.columns.unit
-    </span>
-    <span
-      className="col-sm4 reported-value"
-    >
-      <LabelWithTooltip
-        tooltipText="deviceSettings.columns.reportedValueTooltip"
-      >
-        deviceSettings.columns.reportedValue
-      </LabelWithTooltip>
-    </span>
-    <div
-      className="col-sm1 collapse-button"
-    >
-      <CustomizedIconButton
-        ariaLabel="deviceSettings.command.collapseAll"
-        iconProps={
-          Object {
-            "iconName": "ChevronUp",
-          }
-        }
-        onClick={[Function]}
-        title="deviceSettings.command.collapseAll"
-      />
-    </div>
-  </div>
-  <section
-    className="list-content"
-    role="list"
-  >
-    <DeviceSettingsPerInterfacePerSetting
-      collapsed={false}
-      componentName="environmentalSensor"
-      desiredValue={456}
-      deviceId="testDevice"
-      handleCollapseToggle={[Function]}
-      handleOverlayToggle={[Function]}
-      interfaceId="urn:contoso:com:EnvironmentalSensor;1"
-      key="0"
-      moduleId=""
-      patchTwin={[MockFunction]}
-      reportedSection={
+  <ResizableDetailsList
+    ariaLabelForSelectAllCheckbox="deviceSettings.columns.selectAll"
+    ariaLabelForSelectionColumn="deviceSettings.columns.toggleSelection"
+    checkButtonAriaLabel="deviceSettings.columns.rowCheckBoxAriaLabel"
+    columns={
+      Array [
         Object {
-          "ac": 200,
-          "ad": "success",
-          "av": 2,
-          "value": 123,
-        }
-      }
-      settingModelDefinition={
+          "isMultiline": true,
+          "key": "name",
+          "minWidth": 200,
+          "name": "deviceSettings.columns.name",
+        },
         Object {
-          "@type": "Property",
-          "description": "The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)",
-          "displayName": "Brightness Level",
-          "name": "brightness",
-          "schema": "long",
-          "writable": true,
-        }
-      }
-      settingSchema={
+          "isMultiline": true,
+          "key": "schema",
+          "minWidth": 100,
+          "name": "deviceSettings.columns.schema",
+        },
         Object {
-          "definitions": Object {},
-          "required": Array [],
-          "title": "brightness",
-          "type": Array [
-            "number",
-            "null",
-          ],
-        }
-      }
-      twinWithSchema={
-        Array [
-          Object {
-            "desiredValue": 456,
-            "reportedSection": Object {
-              "ac": 200,
-              "ad": "success",
-              "av": 2,
-              "value": 123,
-            },
-            "settingModelDefinition": Object {
-              "@type": "Property",
-              "description": "The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)",
-              "displayName": "Brightness Level",
-              "name": "brightness",
-              "schema": "long",
-              "writable": true,
-            },
-            "settingSchema": Object {
-              "definitions": Object {},
-              "required": Array [],
-              "title": "brightness",
-              "type": Array [
-                "number",
-                "null",
-              ],
-            },
+          "isMultiline": true,
+          "key": "unit",
+          "minWidth": 100,
+          "name": "deviceSettings.columns.unit",
+        },
+        Object {
+          "isMultiline": true,
+          "key": "desiredValue",
+          "minWidth": 500,
+          "name": "deviceSettings.columns.desiredValue",
+        },
+        Object {
+          "isMultiline": true,
+          "key": "reportedValue",
+          "minWidth": 500,
+          "name": "deviceSettings.columns.reportedValue",
+        },
+      ]
+    }
+    items={
+      Array [
+        Object {
+          "desiredValue": 456,
+          "reportedSection": Object {
+            "ac": 200,
+            "ad": "success",
+            "av": 2,
+            "value": 123,
           },
-          Object {
-            "desiredValue": 456,
-            "reportedSection": Object {
-              "ac": 200,
-              "ad": "success",
-              "av": 2,
-              "value": 123,
-            },
-            "settingModelDefinition": Object {
-              "@type": Array [
-                "Property",
-                "SemanticType/Brightness Level",
-              ],
-              "description": "The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)",
-              "displayName": "Brightness Level",
-              "name": "brightness",
-              "schema": "long",
-              "writable": true,
-            },
-            "settingSchema": Object {
-              "definitions": Object {},
-              "required": Array [],
-              "title": "brightness",
-              "type": Array [
-                "number",
-                "null",
-              ],
-            },
+          "settingModelDefinition": Object {
+            "@type": "Property",
+            "description": "The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)",
+            "displayName": "Brightness Level",
+            "name": "brightness",
+            "schema": "long",
+            "writable": true,
           },
-        ]
-      }
-    />
-    <DeviceSettingsPerInterfacePerSetting
-      collapsed={false}
-      componentName="environmentalSensor"
-      desiredValue={456}
-      deviceId="testDevice"
-      handleCollapseToggle={[Function]}
-      handleOverlayToggle={[Function]}
-      interfaceId="urn:contoso:com:EnvironmentalSensor;1"
-      key="1"
-      moduleId=""
-      patchTwin={[MockFunction]}
-      reportedSection={
-        Object {
-          "ac": 200,
-          "ad": "success",
-          "av": 2,
-          "value": 123,
-        }
-      }
-      settingModelDefinition={
-        Object {
-          "@type": Array [
-            "Property",
-            "SemanticType/Brightness Level",
-          ],
-          "description": "The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)",
-          "displayName": "Brightness Level",
-          "name": "brightness",
-          "schema": "long",
-          "writable": true,
-        }
-      }
-      settingSchema={
-        Object {
-          "definitions": Object {},
-          "required": Array [],
-          "title": "brightness",
-          "type": Array [
-            "number",
-            "null",
-          ],
-        }
-      }
-      twinWithSchema={
-        Array [
-          Object {
-            "desiredValue": 456,
-            "reportedSection": Object {
-              "ac": 200,
-              "ad": "success",
-              "av": 2,
-              "value": 123,
-            },
-            "settingModelDefinition": Object {
-              "@type": "Property",
-              "description": "The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)",
-              "displayName": "Brightness Level",
-              "name": "brightness",
-              "schema": "long",
-              "writable": true,
-            },
-            "settingSchema": Object {
-              "definitions": Object {},
-              "required": Array [],
-              "title": "brightness",
-              "type": Array [
-                "number",
-                "null",
-              ],
-            },
+          "settingSchema": Object {
+            "definitions": Object {},
+            "required": Array [],
+            "title": "brightness",
+            "type": Array [
+              "number",
+              "null",
+            ],
           },
-          Object {
-            "desiredValue": 456,
-            "reportedSection": Object {
-              "ac": 200,
-              "ad": "success",
-              "av": 2,
-              "value": 123,
-            },
-            "settingModelDefinition": Object {
-              "@type": Array [
-                "Property",
-                "SemanticType/Brightness Level",
-              ],
-              "description": "The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)",
-              "displayName": "Brightness Level",
-              "name": "brightness",
-              "schema": "long",
-              "writable": true,
-            },
-            "settingSchema": Object {
-              "definitions": Object {},
-              "required": Array [],
-              "title": "brightness",
-              "type": Array [
-                "number",
-                "null",
-              ],
-            },
+        },
+        Object {
+          "desiredValue": 456,
+          "reportedSection": Object {
+            "ac": 200,
+            "ad": "success",
+            "av": 2,
+            "value": 123,
           },
-        ]
-      }
-    />
-  </section>
+          "settingModelDefinition": Object {
+            "@type": Array [
+              "Property",
+              "SemanticType/Brightness Level",
+            ],
+            "description": "The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)",
+            "displayName": "Brightness Level",
+            "name": "brightness",
+            "schema": "long",
+            "writable": true,
+          },
+          "settingSchema": Object {
+            "definitions": Object {},
+            "required": Array [],
+            "title": "brightness",
+            "type": Array [
+              "number",
+              "null",
+            ],
+          },
+        },
+      ]
+    }
+    onRenderItemColumn={[Function]}
+  />
 </div>
 `;

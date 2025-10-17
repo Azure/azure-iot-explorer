@@ -43,6 +43,9 @@ exports[`DeviceList matches snapshot 1`] = `
       }
     >
       <ResizableDetailsList
+        ariaLabelForSelectAllCheckbox="deviceLists.selectAllCheckboxAriaLabel"
+        ariaLabelForSelectionColumn="deviceLists.toggleSelectionColumnAriaLabel"
+        checkButtonAriaLabel="deviceLists.rowCheckBoxAriaLabel"
         columns={
           Array [
             Object {

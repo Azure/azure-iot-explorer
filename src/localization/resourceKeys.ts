@@ -597,9 +597,6 @@ export class ResourceKeys {
       paging : {
          pages : "deviceLists.paging.pages",
       },
-      selectAllCheckboxAriaLabel : "deviceLists.selectAllCheckboxAriaLabel",
-      toggleSelectionColumnAriaLabel : "deviceLists.toggleSelectionColumnAriaLabel",
-      rowCheckBoxAriaLabel : "deviceLists.rowCheckBoxAriaLabel",
       query : {
          deviceId : {
             ariaLabel : "deviceLists.query.deviceId.ariaLabel",
@@ -657,6 +654,9 @@ export class ResourceKeys {
             },
          },
       },
+      rowCheckBoxAriaLabel : "deviceLists.rowCheckBoxAriaLabel",
+      selectAllCheckboxAriaLabel : "deviceLists.selectAllCheckboxAriaLabel",
+      toggleSelectionColumnAriaLabel : "deviceLists.toggleSelectionColumnAriaLabel",
    };
    public static deviceProperties = {
       columns : {
@@ -684,11 +684,15 @@ export class ResourceKeys {
          version : "deviceSettings.ackStatus.version",
       },
       columns : {
+         desiredValue : "deviceSettings.columns.desiredValue",
          error : "deviceSettings.columns.error",
          name : "deviceSettings.columns.name",
          reportedValue : "deviceSettings.columns.reportedValue",
          reportedValueTooltip : "deviceSettings.columns.reportedValueTooltip",
+         rowCheckBoxAriaLabel : "deviceSettings.columns.rowCheckBoxAriaLabel",
          schema : "deviceSettings.columns.schema",
+         selectAll : "deviceSettings.columns.selectAll",
+         toggleSelection : "deviceSettings.columns.toggleSelection",
          unit : "deviceSettings.columns.unit",
       },
       command : {
