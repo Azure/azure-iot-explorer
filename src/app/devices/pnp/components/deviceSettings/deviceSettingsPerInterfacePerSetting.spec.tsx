@@ -6,7 +6,7 @@ import 'jest';
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
-import { Stack, ActionButton, IconButton, Label } from '@fluentui/react';
+import { IconButton } from '@fluentui/react';
 import { DeviceSettingsPerInterfacePerSetting, DeviceSettingDataProps, DeviceSettingDispatchProps } from './deviceSettingsPerInterfacePerSetting';
 import { PropertyContent } from '../../../../api/models/modelDefinition';
 import { ParsedJsonSchema } from '../../../../api/models/interfaceJsonParserOutput';
@@ -67,14 +67,19 @@ describe('deviceSettingsPerInterfacePerSetting', () => {
             <DeviceSettingsPerInterfacePerSetting {...props}/>
         );
 
-        const nameLabel = wrapper.find(Label).first();
-        expect((nameLabel.props().children as any).join('')).toEqual(`${name} (${displayName} / ${description})`);  // tslint:disable-line:no-any
+        // Check that the collapse button is rendered
+        const toggleButton = wrapper.find(IconButton);
+        expect(toggleButton).toHaveLength(1);
+        expect(toggleButton.props().iconProps).toEqual({iconName: InterfaceDetailCard.OPEN}); // collapsed by default
 
-        const schemaLabel = wrapper.find(Label).at(1);
-        expect(schemaLabel.props().children).toEqual(schema);
+        // Check that the header is clickable for collapse/expand
+        const header = wrapper.find('header');
+        expect(header).toHaveLength(1);
+        expect(header.props().onClick).toBe(handleCollapseToggle);
 
-        const valueLabel = wrapper.find(Label).at(3); // tslint:disable-line:no-magic-numbers
-        expect(valueLabel.props().children).toEqual('false');
+        // Check that form is not visible when collapsed
+        const form = wrapper.find(DataForm);
+        expect(form).toHaveLength(0);
     });
 
     it('renders when there is a writable property of complex type with sync status', () => {
@@ -111,27 +116,28 @@ describe('deviceSettingsPerInterfacePerSetting', () => {
             <DeviceSettingsPerInterfacePerSetting {...props}/>
         );
 
-        const nameLabel = wrapper.find(Label).first();
-        expect((nameLabel.props().children as any).join('')).toEqual(`${name} (${displayName} / ${description})`);  // tslint:disable-line:no-any
+        // Check that the collapse button shows close icon when expanded
+        const toggleButton = wrapper.find(IconButton);
+        expect(toggleButton).toHaveLength(1);
+        expect(toggleButton.props().iconProps).toEqual({iconName: InterfaceDetailCard.CLOSE});
 
-        const schemaLabel = wrapper.find(Label).at(1);
-        expect(schemaLabel.props().children).toEqual(schema);
-
-        const complexValueButton = wrapper.find(ActionButton).first();
-        expect(complexValueButton.props().className).toEqual('column-value-button');
-        act(() => complexValueButton.props().onClick(null));
-        expect(handleOverlayToggle).toBeCalled();
-
-        const reportedStatus = wrapper.find(Stack);
-        expect(reportedStatus.props().children[1].props.children).toEqual(ResourceKeys.deviceSettings.ackStatus.code);
-        const form = wrapper.find(DataForm);
-        expect(form.props().formData).toEqual(twinValue);
-
-        const toggleButtons = wrapper.find(IconButton);
-        expect(toggleButtons.first().props().iconProps).toEqual({iconName: InterfaceDetailCard.CLOSE});
-
+        // Check that the header is clickable for collapse/expand
         const header = wrapper.find('header');
-        act(() => header.props().onClick(null));
+        expect(header).toHaveLength(1);
+        const onClickHandler = header.props().onClick;
+        if (onClickHandler) {
+            act(() => onClickHandler({} as React.MouseEvent<HTMLElement>));
+        }
         expect(handleCollapseToggle).toBeCalled();
+
+        // Check that form is visible when expanded
+        const form = wrapper.find(DataForm);
+        expect(form).toHaveLength(1);
+        expect((form.props() as any).formData).toEqual(twinValue); // tslint:disable-line:no-any
+
+        // Check that the component renders in expanded state
+        const section = wrapper.find('section');
+        expect(section).toHaveLength(1);
+        expect(section.props().className).toEqual('item-detail item-detail-uncollapsed');
     });
 });

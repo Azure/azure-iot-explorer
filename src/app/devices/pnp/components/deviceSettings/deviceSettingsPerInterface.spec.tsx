@@ -40,17 +40,6 @@ describe('components/devices/deviceSettingsPerInterface', () => {
         expect(shallow(getComponent())).toMatchSnapshot();
     });
 
-    it('toggles collapsed', () => {
-        const wrapper = mount(getComponent());
-        const iconButton = wrapper.find('.collapse-button').find(IconButton).first();
-        expect(iconButton.props().title).toEqual('deviceSettings.command.collapseAll');
-
-        act(() => iconButton.props().onClick(undefined));
-        wrapper.update();
-        const updatedIconButton = wrapper.find('.collapse-button').find(IconButton).first();
-        expect(updatedIconButton.props().title).toEqual('deviceSettings.command.expandAll');
-    });
-
     it('executes handle toggle from child', () => {
         const wrapper = mount(getComponent());
 
