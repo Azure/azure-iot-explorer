@@ -91,8 +91,7 @@ export const DevicePropertiesPerInterface: React.FC<DevicePropertiesDataProps> =
                         RenderSimplyTypeValue(
                             item.reportedTwin,
                             item.propertySchema,
-                            displayValue,
-                            t(ResourceKeys.deviceProperties.columns.error)) :
+                            displayValue) :
                         item.reportedTwin ?
                             <ActionButton
                                 className="column-value-button"

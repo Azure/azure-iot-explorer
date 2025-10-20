@@ -1,25 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`MonacoEditorComponent matches snapshot 1`] = `
-<MonacoEditor
-  aria-label="test label"
-  className="editorStyleDark-109"
-  editorDidMount={[Function]}
-  height={100}
-  language="json"
-  options={
-    Object {
-      "automaticLayout": true,
-      "minimap": Object {
-        "enabled": false,
-      },
-      "readOnly": undefined,
-      "wordWrap": "on",
-      "wrappingIndent": "indent",
+<div
+  aria-label="Code editor: test label. Press Escape or Alt+M to exit editor."
+  role="region"
+  tabIndex={-1}
+>
+  <MonacoEditor
+    aria-label="test label"
+    className="editorStyleDark-109"
+    editorDidMount={[Function]}
+    height={100}
+    language="json"
+    options={
+      Object {
+        "accessibilitySupport": "on",
+        "ariaLabel": "test label",
+        "automaticLayout": true,
+        "minimap": Object {
+          "enabled": false,
+        },
+        "readOnly": undefined,
+        "screenReaderAnnounceInlineSuggestion": true,
+        "tabFocusMode": false,
+        "wordWrap": "on",
+        "wrappingIndent": "indent",
+      }
     }
-  }
-  theme="vs-dark"
-  value="test"
-  width="98%"
-/>
+    theme="vs-dark"
+    value="test"
+    width="98%"
+  />
+</div>
 `;

@@ -53,7 +53,7 @@
         }
     },
     "header": {
-        "applicationName": "Azure IoT Explorer (preview)",
+        "applicationName": "Azure IoT Explorer",
         "search": {
             "watermark": "Find on page"
         },
@@ -434,7 +434,10 @@
         "messageBar": {
             "message": "{{version}} has been released.",
             "link": "Please click here to download."
-        }
+        },
+        "selectAllCheckboxAriaLabel": "Select or deselect all devices",
+        "toggleSelectionColumnAriaLabel": "Toggle selection column",
+        "rowCheckBoxAriaLabel": "Select device row"
     },
     "deviceTwin": {
         "notFound": "No device twin data found",
@@ -509,12 +512,16 @@
             "version": "Ack version: {{version}}"
         },
         "columns": {
+            "desiredValue": "Desired Value",
+            "error": "value does not match schema",
             "name": "Name (Display Name / Description)",
-            "schema": "Schema",
-            "unit": "Unit",
             "reportedValue": "Reported Value (Ack metadata)",
             "reportedValueTooltip": "Reported value is updated asynchronously. Please click 'Refresh' button on the top to get latest value manually",
-            "error": "value does not match schema"
+            "rowCheckBoxAriaLabel": "Toggle selection for device setting",
+            "schema": "Schema",
+            "selectAll": "Select all device settings",
+            "toggleSelection": "Toggle selection column",
+            "unit": "Unit"
         },
         "panel": {
             "title": "Reported value"

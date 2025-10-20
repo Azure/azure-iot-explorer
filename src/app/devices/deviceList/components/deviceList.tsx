@@ -100,6 +100,9 @@ export const DeviceList: React.FC = () => {
                                     layoutMode={DetailsListLayoutMode.justified}
                                     selection={selection}
                                     onRenderItemColumn={onRenderItemColumn}
+                                    ariaLabelForSelectAllCheckbox={t(ResourceKeys.deviceLists.selectAllCheckboxAriaLabel)}
+                                    ariaLabelForSelectionColumn={t(ResourceKeys.deviceLists.toggleSelectionColumnAriaLabel)}
+                                    checkButtonAriaLabel={t(ResourceKeys.deviceLists.rowCheckBoxAriaLabel)}
                                 />
                             </MarqueeSelection> :
                             <>
@@ -250,7 +253,7 @@ export const DeviceList: React.FC = () => {
 
     const deleteConfirmationDialog = () => {
         return (
-            <div role="dialog">
+            <div role="dialog" aria-label={t(ResourceKeys.deviceLists.commands.delete.confirmationDialog.title)}>
                 <Dialog
                     hidden={!showDeleteConfirmation}
                     onDismiss={closeDeleteDialog}

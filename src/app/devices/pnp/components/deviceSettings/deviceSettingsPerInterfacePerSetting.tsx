@@ -4,21 +4,17 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Label, Stack, ActionButton, IconButton } from '@fluentui/react';
+import { IconButton } from '@fluentui/react';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { InterfaceDetailCard } from '../../../../constants/iconNames';
 import { ComplexReportedFormPanel } from '../../../shared/components/complexReportedFormPanel';
-import { RenderSimplyTypeValue } from '../../../shared/components/simpleReportedSection';
 import { ErrorBoundary } from '../../../shared/components/errorBoundary';
-import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
-import { SemanticUnit } from '../../../../shared/units/components/semanticUnit';
 import { DataForm } from '../../../shared/components/dataForm';
 import { TwinWithSchema } from './dataHelper';
 import { DEFAULT_COMPONENT_FOR_DIGITAL_TWIN } from '../../../../constants/devices';
-import { getSchemaType, isSchemaSimpleType } from '../../../../shared/utils/jsonSchemaAdaptor';
+import { getSchemaType } from '../../../../shared/utils/jsonSchemaAdaptor';
 import { Twin } from '../../../../api/models/device';
 import { ModuleTwin } from '../../../../api/models/moduleTwin';
-import { EnumSchema } from '../../../../api/models/modelDefinition';
 
 export interface DeviceSettingDataProps extends TwinWithSchema {
     collapsed: boolean;
@@ -43,87 +39,8 @@ export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataPro
     const createCollapsedSummary = () => {
         return (
             <header className={`flex-grid-row item-summary ${collapsed ? '' : 'item-summary-uncollapsed'}`} onClick={props.handleCollapseToggle}>
-                {renderPropertyName()}
-                {renderPropertySchema()}
-                {renderPropertyUnit()}
-                {renderReportedValueAndMetadata()}
                 {renderCollapseButton()}
             </header>
-        );
-    };
-
-    const renderPropertyName = () => {
-        const ariaLabel = t(ResourceKeys.deviceSettings.columns.name);
-        let displayName = getLocalizedData(settingModelDefinition.displayName);
-        displayName = displayName ? displayName : '--';
-        let description = getLocalizedData(settingModelDefinition.description);
-        description = description ? description : '--';
-        return <div className="col-sm3"><Label aria-label={ariaLabel}>{settingModelDefinition.name} ({displayName} / {description})</Label></div>;
-    };
-
-    const renderPropertySchema = () => {
-        const ariaLabel = t(ResourceKeys.deviceProperties.columns.schema);
-        const schemaType = getSchemaType(settingModelDefinition.schema);
-        return <div className="col-sm2"><Label aria-label={ariaLabel}>{schemaType}</Label></div>;
-    };
-
-    const renderPropertyUnit = () => {
-        return (
-            <div className="col-sm2">
-                <Label aria-label={t(ResourceKeys.deviceProperties.columns.unit)}>
-                    <SemanticUnit unitHost={settingModelDefinition} />
-                </Label>
-            </div>);
-    };
-
-    // tslint:disable-next-line: cyclomatic-complexity
-    const renderReportedValueAndMetadata = () => {
-        const ariaLabel = t(ResourceKeys.deviceSettings.columns.reportedValue);
-        return (
-            <div className="column-value-text col-sm4" aria-label={ariaLabel}>
-                <Stack>
-                    <Stack.Item align="start" style={{maxWidth: '40%', minWidth: 20}}>
-                        {renderReportedValue()}
-                    </Stack.Item>
-                    <Stack.Item align="start">
-                        {t(ResourceKeys.deviceSettings.ackStatus.code, {code: reportedSection?.ac || '--'})}
-                    </Stack.Item>
-                    <Stack.Item align="start">
-                        {t(ResourceKeys.deviceSettings.ackStatus.description, {description: reportedSection?.ad || '--'})}
-                    </Stack.Item>
-                    <Stack.Item align="start">
-                        {t(ResourceKeys.deviceSettings.ackStatus.version, {version: reportedSection?.av || '--'})}
-                    </Stack.Item>
-                </Stack>
-            </div>
-        );
-    };
-
-    // tslint:disable-next-line:cyclomatic-complexity
-    const renderReportedValue = () => {
-        const reportedValue = reportedSection?.value !== undefined ? reportedSection.value : reportedSection;
-        let displayValue = (settingModelDefinition?.schema as EnumSchema)?.enumValues?.find(item => item.enumValue === reportedValue)?.displayName || reportedValue;
-        // tslint:disable-next-line:no-any
-        displayValue = (displayValue as any)?.en || displayValue;
-        return (
-            <ErrorBoundary error={t(ResourceKeys.errorBoundary.text)}>
-                {
-                    settingSchema && isSchemaSimpleType(settingModelDefinition.schema, settingSchema.$ref) ?
-                        RenderSimplyTypeValue(
-                            reportedValue,
-                            settingSchema,
-                            displayValue,
-                            t(ResourceKeys.deviceSettings.columns.error)) :
-                        reportedValue ?
-                            <ActionButton
-                                className="column-value-button"
-                                ariaDescription={t(ResourceKeys.deviceSettings.command.openReportedValuePanel)}
-                                onClick={onViewReportedValue}
-                            >
-                                {t(ResourceKeys.deviceSettings.command.openReportedValuePanel)}
-                            </ActionButton> : <Label>--</Label>
-                }
-            </ErrorBoundary>
         );
     };
 
@@ -147,7 +64,7 @@ export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataPro
 
     const createReportedValuePanel = () => {
         return (
-            <div role="dialog">
+            <div role="dialog" aria-label={t(ResourceKeys.deviceSettings.command.openReportedValuePanel)}>
                 {showReportedValuePanel &&
                     <ComplexReportedFormPanel
                         schema={settingSchema}
@@ -212,12 +129,12 @@ export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataPro
     };
 
     return (
-        <article className="list-item" role="listitem">
+        <li className="list-item">
             <ErrorBoundary error={t(ResourceKeys.errorBoundary.text)}>
                 {createCollapsedSummary()}
                 {createUncollapsedCard()}
                 {createReportedValuePanel()}
             </ErrorBoundary>
-        </article>
+        </li>
     );
 };

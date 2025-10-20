@@ -12,7 +12,7 @@ export const Header: React.FC = () => {
     const { t } = useTranslation();
 
     return (
-        <header>
+        <header className="header-container">
             <div className="title">{t(ResourceKeys.header.applicationName)}</div>
             <div className="settings"><SettingsPane/></div>
         </header>
