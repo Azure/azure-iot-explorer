@@ -1,30 +1,24 @@
 import express = require('express');
 import * as fs from 'fs';
+import * as os from 'os';
 import * as path from 'path';
 var escape = require('escape-html');
 import { SERVER_ERROR, SUCCESS } from './serverBase';
 
+// Restrict to current user's home directory only (not all users)
+export const SAFE_ROOT = os.homedir();
+
+// Allowed file extensions for read operations
+const ALLOWED_EXTENSIONS = ['.json'];
+
+// Maximum directory depth to prevent deep traversal
+const MAX_DIRECTORY_DEPTH = 10;
+
 export const fetchDrivesOnWindows = (res: express.Response) => {
-    const exec = require('child_process').exec;
-    exec('wmic logicaldisk get name', (error: any, stdout: any, stderr: any) => { // tslint:disable-line:no-any
-        if (!error && !stderr) {
-            res.status(SUCCESS).send(stdout);
-        }
-        else {
-            res.status(SERVER_ERROR).send();
-        }
-    });
+    // Instead of exposing all drives, only return the safe root
+    // This prevents information disclosure about system drive layout
+    res.status(SUCCESS).send(SAFE_ROOT);
 };
-
-// Dynamically determine a "Safe Root Directory"
-const getSafeRoot = (): string => {
-    if (process.platform === "win32") {
-        return "C:\\Users"; // Restrict access to user directories only
-    }
-    return "/home"; // Restrict access to home directories on Linux/macOS
-};
-
-export const SAFE_ROOT = getSafeRoot();
 
 
 export const fetchDirectories = (dir: string, res: express.Response) => {
@@ -94,20 +88,61 @@ const isFileExtensionJson = (fileName: string) => {
 };
 
 export const readFileFromLocal = (filePath: string, fileName: string) => {
+    // Validate file extension before reading
+    if (!checkFileExtension(fileName)) {
+        throw new Error("Access denied. File type not allowed.");
+    }
+    
     // Resolve the requested directory relative to the safe root
     const resolvedPath = checkPath(`${filePath}/${fileName}`);
     
-    return fs.readFileSync(resolvedPath, 'utf-8');
+    // Additional symlink check for the final file
+    const realFilePath = fs.realpathSync(resolvedPath);
+    const normalizedSafeRoot = path.normalize(SAFE_ROOT);
+    if (!realFilePath.startsWith(normalizedSafeRoot + path.sep)) {
+        throw new Error("Access denied. Symlink points outside allowed directory.");
+    }
+    
+    return fs.readFileSync(realFilePath, 'utf-8');
 }
 
 export const checkPath = (filePath: string) => {
-    // Resolve the requested directory relative to the safe root
-    const resolvedPath = fs.realpathSync(path.resolve(SAFE_ROOT, path.relative(SAFE_ROOT, filePath)));
-
-    // Ensure resolvedPath is still inside SAFE_ROOT (prevents traversal attacks)
-    if (!resolvedPath.startsWith(SAFE_ROOT)) {
-        throw new Error("Access denied. Unsafe directory.");
+    // Normalize the path first to handle different separators
+    const normalizedInput = path.normalize(filePath);
+    
+    // Resolve to absolute path
+    const resolvedPath = path.resolve(SAFE_ROOT, normalizedInput);
+    
+    // Get the real path (resolves symlinks) - wrap in try-catch for non-existent paths
+    let realPath: string;
+    try {
+        realPath = fs.realpathSync(resolvedPath);
+    } catch {
+        // If path doesn't exist yet, use resolved path but still validate
+        realPath = resolvedPath;
     }
 
-    return resolvedPath;
+    // Normalize SAFE_ROOT for comparison
+    const normalizedSafeRoot = path.normalize(SAFE_ROOT);
+    
+    // Ensure realPath starts with SAFE_ROOT (prevents traversal attacks)
+    // Use path.sep to ensure we match directory boundaries
+    if (!realPath.startsWith(normalizedSafeRoot + path.sep) && realPath !== normalizedSafeRoot) {
+        throw new Error("Access denied. Path is outside allowed directory.");
+    }
+
+    // Check directory depth to prevent deep traversal
+    const relativePath = path.relative(normalizedSafeRoot, realPath);
+    const depth = relativePath.split(path.sep).filter((p: string) => p && p !== '.').length;
+    if (depth > MAX_DIRECTORY_DEPTH) {
+        throw new Error("Access denied. Path exceeds maximum allowed depth.");
+    }
+
+    return realPath;
+}
+
+// Validate that a file has an allowed extension
+export const checkFileExtension = (fileName: string): boolean => {
+    const ext = path.extname(fileName).toLowerCase();
+    return ALLOWED_EXTENSIONS.indexOf(ext) >= 0;
 }

@@ -62,39 +62,34 @@ export const DeviceSettingsPerInterface: React.FC<DeviceSettingDataProps & Devic
 
     const getColumns = (): IColumn[] => {
         return [
-            { key: 'name', name: t(ResourceKeys.deviceSettings.columns.name), minWidth: 200, isMultiline: true },
-            { key: 'schema', name: t(ResourceKeys.deviceSettings.columns.schema), minWidth: 100, isMultiline: true },
-            { key: 'unit', name: t(ResourceKeys.deviceSettings.columns.unit), minWidth: 100, isMultiline: true },
+            { isMultiline: true, key: 'name', minWidth: 200, name: t(ResourceKeys.deviceSettings.columns.name) },
+            { isMultiline: true, key: 'schema', minWidth: 100, name: t(ResourceKeys.deviceSettings.columns.schema) },
+            { isMultiline: true, key: 'unit', minWidth: 100, name: t(ResourceKeys.deviceSettings.columns.unit) },
             {
+                isMultiline: true,
                 key: 'desiredValue',
-                name: t(ResourceKeys.deviceSettings.columns.desiredValue),
                 minWidth: 500,
-                isMultiline: true
+                name: t(ResourceKeys.deviceSettings.columns.desiredValue)
             },
             {
+                isMultiline: true,
                 key: 'reportedValue',
-                name: t(ResourceKeys.deviceSettings.columns.reportedValue),
                 minWidth: 500,
-                isMultiline: true
+                name: t(ResourceKeys.deviceSettings.columns.reportedValue)
             }
         ];
     };
 
     const renderItemColumn = (item: TwinWithSchema, index: number, column: IColumn) => {
-        switch (column.key) {
-            case 'name':
-                return renderPropertyName(item);
-            case 'schema':
-                return renderPropertySchema(item);
-            case 'unit':
-                return renderPropertyUnit(item);
-            case 'reportedValue':
-                return renderPropertyReportedValue(item);
-            case 'desiredValue':
-                return renderPropertyDesiredValue(item);
-            default:
-                return <></>;
-        }
+        const columnRenderers: Record<string, () => JSX.Element> = {
+            desiredValue: () => renderPropertyDesiredValue(item),
+            name: () => renderPropertyName(item),
+            reportedValue: () => renderPropertyReportedValue(item),
+            schema: () => renderPropertySchema(item),
+            unit: () => renderPropertyUnit(item)
+        };
+        const renderer = columnRenderers[column.key];
+        return renderer ? renderer() : <></>;
     };
 
     const renderPropertyName = (item: TwinWithSchema) => {
@@ -121,19 +116,49 @@ export const DeviceSettingsPerInterface: React.FC<DeviceSettingDataProps & Devic
             </Label>);
     };
 
-    const settings = React.useMemo(() => {
-        return twinWithSchema?.map((tuple, index) => (
-            <DeviceSettingsPerInterfacePerSetting
-                key={index}
-                {...tuple}
-                {...props}
-                collapsed={collapseMap.get(index)}
-                handleCollapseToggle={handleCollapseToggle(index)}
-                handleOverlayToggle={handleOverlayToggle}
-            />
-        ));
-    }, [collapseMap, props, twinWithSchema]);
+    const settings = React.useMemo(
+        () => {
+            return twinWithSchema?.map((tuple, index) =>
+                (
+                    <DeviceSettingsPerInterfacePerSetting
+                        key={index}
+                        {...tuple}
+                        {...props}
+                        collapsed={collapseMap.get(index)}
+                        handleCollapseToggle={handleCollapseToggle(index)}
+                        handleOverlayToggle={handleOverlayToggle}
+                    />
+                ));
+        },
+        [collapseMap, props, twinWithSchema]
+    );
 
+    const onViewReportedValue = React.useCallback(
+        (item: TwinWithSchema) => {
+            setSelectedItem(item);
+            setShowOverlay(true);
+            setShowReportedValuePanel(true);
+        },
+        []
+    );
+
+    const createOnViewReportedValueHandler = React.useCallback(
+        (item: TwinWithSchema) => () => {
+            onViewReportedValue(item);
+        },
+        [onViewReportedValue]
+    );
+
+    // tslint:disable-next-line:no-any
+    const getDisplayValue = (schema: any, value: any) => {
+        // tslint:disable-next-line:no-any
+        const enumMatch = schema?.enumValues?.find((v: { enumValue: any; }) => v.enumValue === value)?.displayName;
+        const result = enumMatch || value;
+        // tslint:disable-next-line:no-any
+        return (result as any)?.en || result;
+    };
+
+    // tslint:disable-next-line:cyclomatic-complexity
     const renderPropertyReportedValue = (item: TwinWithSchema) => {
         if (!item) {
             return <></>;
@@ -141,71 +166,77 @@ export const DeviceSettingsPerInterface: React.FC<DeviceSettingDataProps & Devic
         const ariaLabel = t(ResourceKeys.deviceSettings.columns.reportedValue);
         // tslint:disable-next-line:no-any
         const reportedValue = (item.reportedSection as any)?.value || item.reportedSection;
-        // tslint:disable-next-line:no-any
-        let displayValue = (item.settingModelDefinition.schema as any)?.enumValues?.find((value: { enumValue: any; }) => value.enumValue === reportedValue)?.displayName || reportedValue;
-        // tslint:disable-next-line:no-any
-        displayValue = (displayValue as any)?.en || displayValue;
+        const displayValue = getDisplayValue(item.settingModelDefinition.schema, reportedValue);
+
+        const isSimpleType = item.settingSchema && isSchemaSimpleType(item.settingModelDefinition.schema, item.settingSchema.$ref);
+
+        const renderContent = () => {
+            if (isSimpleType) {
+                return RenderSimplyTypeValue(item.reportedSection, item.settingSchema, displayValue);
+            }
+            if (item.reportedSection) {
+                return (
+                    <ActionButton
+                        className="column-value-button"
+                        ariaDescription={t(ResourceKeys.deviceSettings.command.openReportedValuePanel)}
+                        onClick={createOnViewReportedValueHandler(item)}
+                    >
+                        {t(ResourceKeys.deviceSettings.command.openReportedValuePanel)}
+                    </ActionButton>
+                );
+            }
+            return <Label>--</Label>;
+        };
+
         return (
             <div aria-label={ariaLabel}>
-                {
-                    item.settingSchema
-                     && isSchemaSimpleType(item.settingModelDefinition.schema, item.settingSchema.$ref) 
-                     ? RenderSimplyTypeValue(
-                            item.reportedSection,
-                            item.settingSchema,
-                            displayValue) 
-                     : item.reportedSection 
-                        ?   <ActionButton
-                                className="column-value-button"
-                                ariaDescription={t(ResourceKeys.deviceSettings.command.openReportedValuePanel)}
-                                onClick={() => {onViewReportedValue(item)}}
-                            >
-                                {t(ResourceKeys.deviceSettings.command.openReportedValuePanel)}
-                            </ActionButton> 
-                        : <Label>--</Label>
-                }
+                {renderContent()}
             </div>
         );
     };
+
+    // tslint:disable-next-line:no-empty
+    const onOpenDesiredValuePanel = React.useCallback(() => { /* TODO: Implement desired value panel */ }, []);
 
     const renderPropertyDesiredValue = (item: TwinWithSchema) => {
         if (!item) {
             return <></>;
         }
         const ariaLabel = t(ResourceKeys.deviceSettings.columns.desiredValue);
-    
+
         // Handle enum values display
         // tslint:disable-next-line:no-any
         let displayValue = (item.settingModelDefinition.schema as any)?.enumValues?.find((value: { enumValue: any; }) => value.enumValue === item.desiredValue)?.displayName || item.desiredValue;
         // tslint:disable-next-line:no-any
         displayValue = (displayValue as any)?.en || displayValue;
 
-        const itemtoRender = item.settingSchema && 
-            isSchemaSimpleType(item.settingModelDefinition.schema, item.settingSchema.$ref) 
-            ?   RenderSimplyTypeValue(item.desiredValue, item.settingSchema, displayValue, true) 
-            :   typeof item.desiredValue === 'object'  
-                ?   (<ActionButton
-                    className="column-value-button"
-                    ariaDescription={t(ResourceKeys.deviceSettings.command.openDesiredValuePanel)}
-                    onClick={() => {/* TODO: Implement desired value panel */}}
+        const isSimpleType = item.settingSchema && isSchemaSimpleType(item.settingModelDefinition.schema, item.settingSchema.$ref);
+
+        const renderItemContent = () => {
+            if (isSimpleType) {
+                return RenderSimplyTypeValue(item.desiredValue, item.settingSchema, displayValue, true);
+            }
+            if (typeof item.desiredValue === 'object') {
+                return (
+                    <ActionButton
+                        className="column-value-button"
+                        ariaDescription={t(ResourceKeys.deviceSettings.command.openDesiredValuePanel)}
+                        onClick={onOpenDesiredValuePanel}
                     >
                         {t(ResourceKeys.deviceSettings.command.openDesiredValuePanel)}
-                    </ActionButton>) 
-                : <Label>{String(displayValue)}</Label>;
+                    </ActionButton>
+                );
+            }
+            return <Label>{String(displayValue)}</Label>;
+        };
 
         return (
             <div aria-label={ariaLabel}>
-                {itemtoRender}
+                {renderItemContent()}
                 {settings}
             </div>
         );
     };
-
-    const onViewReportedValue = React.useCallback((item: TwinWithSchema) => {
-        setSelectedItem(item);
-        setShowOverlay(true);
-        setShowReportedValuePanel(true);
-    }, []);
 
     const createReportedValuePanel = () => {
         if (!selectedItem) {

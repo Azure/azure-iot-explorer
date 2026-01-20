@@ -1,6 +1,11 @@
 
+> [!NOTE]
+> **This repository is not actively maintained.**
+> 
+> While the project remains available for use, all active development has stopped. Community contributions and critical fixes might still be considered.
+
 # Azure IoT Explorer (preview)
-Release Pipeline
+
 [![Build Status](https://dev.azure.com/azureiotdevxp/azure-iot-explorer/_apis/build/status%2FOneBranch%2Fazure-iot-explorer%2Fazure-iot-explorer-Official?repoName=azure-iot-explorer&branchName=main)](https://dev.azure.com/azureiotdevxp/azure-iot-explorer/_build/latest?definitionId=142&repoName=azure-iot-explorer&branchName=main)
 
 ## Table of Contents
