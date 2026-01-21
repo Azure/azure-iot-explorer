@@ -59,8 +59,8 @@ export class ServerBase {
         //initialize a simple http server
         const server = http.createServer(app);
 
-        //start the server
-        server.listen(this.port).on('error', () => { throw new Error(
+        //start the server, binding to localhost only for security
+        server.listen(this.port, '127.0.0.1').on('error', () => { throw new Error(
            `Failed to start the app on port ${this.port} as it is in use.
             You can still view static pages, but requests cannot be made to the services if the port is still occupied.
             To get around with the issue, configure a custom port by setting the system environment variable 'AZURE_IOT_EXPLORER_PORT' to an available port number.
