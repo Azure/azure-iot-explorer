@@ -31,6 +31,7 @@ class Main {
         Main.registerHandler(MESSAGE_CHANNELS.AUTHENTICATION_LOGIN, Main.onLogin);
         Main.registerHandler(MESSAGE_CHANNELS.AUTHENTICATION_LOGOUT, Main.onLogout);
         Main.registerHandler(MESSAGE_CHANNELS.AUTHENTICATION_GET_PROFILE_TOKEN, Main.onGetProfileToken);
+        Main.registerHandler(MESSAGE_CHANNELS.GET_CUSTOM_PORT, Main.onGetCustomPort);
     }
 
     private static async loadTarget(redirect?: string): Promise<void> {
@@ -50,6 +51,14 @@ class Main {
     private static async onGetProfileToken(): Promise<string> {
         const token = await Main.authProvider.getProfileTokenIfPresent();
         return token;
+    }
+
+    private static onGetCustomPort(): number | null {
+        const customPort = parseInt(process.env.AZURE_IOT_EXPLORER_PORT, 10); // tslint:disable-line:radix
+        if (Number.isInteger(customPort) && customPort > 0 && customPort < 65536) {
+            return customPort;
+        }
+        return null;
     }
 
     private static setApplicationLock(): void {
@@ -115,6 +124,7 @@ class Main {
             webPreferences: { // tslint:disable-line:object-literal-sort-keys
                 contextIsolation: true, // protect against prototype pollution
                 nodeIntegration: false,
+                sandbox: true, // enable sandbox for additional security
                 preload: __dirname + '/contextBridge.js' // use a preload script
             },
         });
@@ -122,16 +132,7 @@ class Main {
         mainWindowState.manage(Main.mainWindow);
 
         Main.mainWindow.loadFile(Main.target);
-        try {
-            const customPort = parseInt(process.env.AZURE_IOT_EXPLORER_PORT); // tslint:disable-line:radix
-            if (customPort && !isNaN(customPort)) {
-                Main.mainWindow.webContents.executeJavaScript(`localStorage.setItem("CUSTOM_CONTROLLER_PORT", ${customPort});`);
-            } else {
-                Main.mainWindow.webContents.executeJavaScript(`localStorage.removeItem("CUSTOM_CONTROLLER_PORT");`);
-            }
-        } catch {
-            // nothing
-        }
+        // Custom port is now handled via IPC (GET_CUSTOM_PORT channel) instead of executeJavaScript
         Main.mainWindow.on('closed', Main.onWindowClosed);
 
         Main.setErrorBoundary();

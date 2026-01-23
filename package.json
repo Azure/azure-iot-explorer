@@ -87,6 +87,7 @@
     "escape-html": "^1.0.3",
     "express": "4.21.2",
     "he": "^1.2.0",
+    "helmet": "^8.1.0",
     "i18next": "20.6.1",
     "immutable": "4.0.0-rc.12",
     "jsonschema": "1.2.4",

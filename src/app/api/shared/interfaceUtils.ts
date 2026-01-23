@@ -19,6 +19,9 @@ export const getSettingsInterface = (): SettingsInterface => {
 
 export const getSettingsInterfaceForBrowser = (): SettingsInterface => {
     return ({
+        getCustomPort: async (): Promise<number | null> => {
+            return Promise.resolve(null);
+        },
         useHighContrast: async (): Promise<boolean> => {
             const result = localStorage.getItem(HIGH_CONTRAST) === 'true';
             return Promise.resolve(result);

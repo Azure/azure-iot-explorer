@@ -2,7 +2,4 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-export interface SettingsInterface {
-    getCustomPort(): Promise<number | null>;
-    useHighContrast(): Promise<boolean>;
-}
+declare module 'helmet';

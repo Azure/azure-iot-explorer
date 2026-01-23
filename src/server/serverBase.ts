@@ -9,6 +9,7 @@ import * as WebSocket from 'ws';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
+import helmet from 'helmet';
 import fetch from 'node-fetch';
 import * as he from 'he';
 import { EventHubConsumerClient, Subscription, ReceivedEventData, earliestEventPosition } from '@azure/event-hubs';
@@ -43,6 +44,14 @@ export class ServerBase {
 
     public init() {
         const app = express();
+
+        // Security headers via helmet
+        app.use(helmet({
+            contentSecurityPolicy: false, // CSP will be configured separately
+            crossOriginEmbedderPolicy: false, // Allow cross-origin resources
+            crossOriginResourcePolicy: { policy: 'same-origin' }
+        }));
+
         app.use(bodyParser.json());
         app.use(cors({
             credentials: true,
