@@ -2,7 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { app, Menu, BrowserWindow, dialog, ipcMain } from 'electron';
+import { app, Menu, BrowserWindow, dialog, ipcMain, session } from 'electron';
 import * as windowState from 'electron-window-state';
 import * as path from 'path';
 import { generateMenu } from './factories/menuFactory';
@@ -22,6 +22,19 @@ import { SecureServerBase } from '../dist/server/serverSecure';
 
 // Module-level secure server instance
 let secureServer: SecureServerBase | null = null;
+
+// Content Security Policy for the application
+const CSP_HEADER = [
+    "default-src 'self'",
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval'", // unsafe-eval needed for webpack dev
+    "style-src 'self' 'unsafe-inline'", // Fluent UI uses inline styles
+    "img-src 'self' data: https:",
+    "font-src 'self' data:",
+    "connect-src 'self' https://*.azure.com https://*.microsoft.com https://*.azure-devices.net https://*.servicebus.windows.net https://login.microsoftonline.com wss://127.0.0.1:* https://127.0.0.1:*",
+    "frame-ancestors 'none'",
+    "form-action 'self'",
+    "base-uri 'self'"
+].join('; ');
 
 class Main {
     private static application: Electron.App;
@@ -144,6 +157,17 @@ class Main {
     private static onReady(): void {
         // Initialize credential storage with app's user data path
         initializeCredentialsStorage(app.getPath('userData'));
+
+        // Set Content Security Policy headers for all requests
+        session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
+            callback({
+                responseHeaders: {
+                    ...details.responseHeaders,
+                    'Content-Security-Policy': [CSP_HEADER]
+                }
+            });
+        });
+
         Main.createMainWindow();
         Main.createMenu();
     }
