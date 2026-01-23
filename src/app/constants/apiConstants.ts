@@ -56,8 +56,14 @@ export enum DataPlaneStatusCode {
 
 export const DEFAULT_CONSUMER_GROUP = '$Default';
 
+// Secure endpoints (HTTPS/WSS) for Electron mode
+const secureWsIp = 'wss://127.0.0.1';
+const secureLocalIp = 'https://127.0.0.1';
+
+// Insecure endpoints (HTTP/WS) for browser dev mode
 const wsIp = 'ws://127.0.0.1';
 const localIp = 'http://127.0.0.1';
+
 const apiPath = '/api';
 
 const getPort = () => {
@@ -68,12 +74,17 @@ const getPort = () => {
     return appConfig.controllerPort;
 };
 
+// Use HTTPS for Electron mode, HTTP for browser dev mode
 export const CONTROLLER_API_ENDPOINT =
     appConfig.hostMode === HostMode.Browser ?
         `${localIp}:${appConfig.controllerPort}${apiPath}` :
-        `${localIp}:${getPort()}${apiPath}`;
+        `${secureLocalIp}:${getPort()}${apiPath}`;
 
-export const WEBSOCKET_ENDPOINT = `${wsIp}:${getPort()}`;
+// Use WSS for Electron mode, WS for browser dev mode
+export const WEBSOCKET_ENDPOINT =
+    appConfig.hostMode === HostMode.Browser ?
+        `${wsIp}:${appConfig.controllerPort}` :
+        `${secureWsIp}:${getPort()}`;
 
 export enum HTTP_OPERATION_TYPES {
     Delete = 'DELETE',

@@ -8,6 +8,7 @@ import { PortIsInUseError } from '../models/portIsInUseError';
 import { AUTHENTICATION_METHOD_PREFERENCE, CONNECTION_STRING_NAME_LIST, CONNECTION_STRING_THROUGH_AAD } from '../../constants/browserStorage';
 import { getActiveConnectionString } from '../../shared/utils/hubConnectionStringHelper';
 import { AuthenticationMethodPreference } from '../../authentication/state';
+import { secureFetch } from '../shared/secureFetch';
 
 export const DATAPLANE_CONTROLLER_ENDPOINT = `${CONTROLLER_API_ENDPOINT}${DATAPLANE}`;
 
@@ -23,7 +24,7 @@ export interface DataPlaneRequest {
 }
 
 export const request = async (endpoint: string, parameters: any) => { // tslint:disable-line
-    return fetch(
+    return secureFetch(
         endpoint,
         {
             body: JSON.stringify(parameters),

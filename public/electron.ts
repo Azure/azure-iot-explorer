@@ -10,7 +10,10 @@ import { PLATFORMS, MESSAGE_CHANNELS } from './constants';
 import { onSettingsHighContrast } from './handlers/settingsHandler';
 import { formatError } from './utils/errorHelper';
 import { AuthProvider } from './utils/authProvider';
-import '../dist/server/serverElectron';
+import { SecureServerBase } from '../dist/server/serverSecure';
+
+// Module-level secure server instance
+let secureServer: SecureServerBase | null = null;
 
 class Main {
     private static application: Electron.App;
@@ -32,6 +35,10 @@ class Main {
         Main.registerHandler(MESSAGE_CHANNELS.AUTHENTICATION_LOGOUT, Main.onLogout);
         Main.registerHandler(MESSAGE_CHANNELS.AUTHENTICATION_GET_PROFILE_TOKEN, Main.onGetProfileToken);
         Main.registerHandler(MESSAGE_CHANNELS.GET_CUSTOM_PORT, Main.onGetCustomPort);
+        // Security-related IPC handlers
+        Main.registerHandler(MESSAGE_CHANNELS.GET_API_AUTH_TOKEN, Main.onGetApiAuthToken);
+        Main.registerHandler(MESSAGE_CHANNELS.GET_API_CERTIFICATE, Main.onGetApiCertificate);
+        Main.registerHandler(MESSAGE_CHANNELS.GET_API_CERT_FINGERPRINT, Main.onGetApiCertFingerprint);
     }
 
     private static async loadTarget(redirect?: string): Promise<void> {
@@ -59,6 +66,18 @@ class Main {
             return customPort;
         }
         return null;
+    }
+
+    private static onGetApiAuthToken(): string | null {
+        return secureServer?.getAuthToken() || null;
+    }
+
+    private static onGetApiCertificate(): string | null {
+        return secureServer?.getCertificate() || null;
+    }
+
+    private static onGetApiCertFingerprint(): string | null {
+        return secureServer?.getCertificateFingerprint() || null;
     }
 
     private static setApplicationLock(): void {

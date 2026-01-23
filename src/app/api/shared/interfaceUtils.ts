@@ -19,6 +19,15 @@ export const getSettingsInterface = (): SettingsInterface => {
 
 export const getSettingsInterfaceForBrowser = (): SettingsInterface => {
     return ({
+        getApiAuthToken: async (): Promise<string | null> => {
+            return Promise.resolve(null);
+        },
+        getApiCertFingerprint: async (): Promise<string | null> => {
+            return Promise.resolve(null);
+        },
+        getApiCertificate: async (): Promise<string | null> => {
+            return Promise.resolve(null);
+        },
         getCustomPort: async (): Promise<number | null> => {
             return Promise.resolve(null);
         },
