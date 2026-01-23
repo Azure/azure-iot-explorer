@@ -5,7 +5,9 @@
 import { contextBridge } from 'electron';
 import { generateSettingsInterface } from './factories/settingsInterfaceFactory';
 import { generateAuthenticationInterface } from './factories/authenticationInterfaceFactory';
+import { generateCredentialsInterface } from './factories/credentialsInterfaceFactory';
 import { API_INTERFACES } from './constants';
 
 contextBridge.exposeInMainWorld(API_INTERFACES.SETTINGS, generateSettingsInterface());
 contextBridge.exposeInMainWorld(API_INTERFACES.AUTHENTICATION, generateAuthenticationInterface());
+contextBridge.exposeInMainWorld(API_INTERFACES.CREDENTIALS, generateCredentialsInterface());

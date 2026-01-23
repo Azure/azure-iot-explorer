@@ -8,6 +8,14 @@ import * as path from 'path';
 import { generateMenu } from './factories/menuFactory';
 import { PLATFORMS, MESSAGE_CHANNELS } from './constants';
 import { onSettingsHighContrast } from './handlers/settingsHandler';
+import {
+    deleteCredential,
+    getCredential,
+    initializeCredentialsStorage,
+    isEncryptionAvailable,
+    listCredentials,
+    storeCredential
+} from './handlers/credentialsHandler';
 import { formatError } from './utils/errorHelper';
 import { AuthProvider } from './utils/authProvider';
 import { SecureServerBase } from '../dist/server/serverSecure';
@@ -39,6 +47,12 @@ class Main {
         Main.registerHandler(MESSAGE_CHANNELS.GET_API_AUTH_TOKEN, Main.onGetApiAuthToken);
         Main.registerHandler(MESSAGE_CHANNELS.GET_API_CERTIFICATE, Main.onGetApiCertificate);
         Main.registerHandler(MESSAGE_CHANNELS.GET_API_CERT_FINGERPRINT, Main.onGetApiCertFingerprint);
+        // Credential storage IPC handlers
+        Main.registerHandler(MESSAGE_CHANNELS.CREDENTIAL_STORE, Main.onCredentialStore);
+        Main.registerHandler(MESSAGE_CHANNELS.CREDENTIAL_GET, Main.onCredentialGet);
+        Main.registerHandler(MESSAGE_CHANNELS.CREDENTIAL_DELETE, Main.onCredentialDelete);
+        Main.registerHandler(MESSAGE_CHANNELS.CREDENTIAL_LIST, Main.onCredentialList);
+        Main.registerHandler(MESSAGE_CHANNELS.CREDENTIAL_IS_ENCRYPTION_AVAILABLE, Main.onCredentialIsEncryptionAvailable);
     }
 
     private static async loadTarget(redirect?: string): Promise<void> {
@@ -80,6 +94,27 @@ class Main {
         return secureServer?.getCertificateFingerprint() || null;
     }
 
+    // Credential storage handlers
+    private static onCredentialStore(_: Electron.IpcMainInvokeEvent, key: string, value: string): boolean {
+        return storeCredential(key, value);
+    }
+
+    private static onCredentialGet(_: Electron.IpcMainInvokeEvent, key: string): string | null {
+        return getCredential(key);
+    }
+
+    private static onCredentialDelete(_: Electron.IpcMainInvokeEvent, key: string): boolean {
+        return deleteCredential(key);
+    }
+
+    private static onCredentialList(): string[] {
+        return listCredentials();
+    }
+
+    private static onCredentialIsEncryptionAvailable(): boolean {
+        return isEncryptionAvailable();
+    }
+
     private static setApplicationLock(): void {
         const lock = Main.application.requestSingleInstanceLock();
         if (!lock) {
@@ -107,6 +142,8 @@ class Main {
     }
 
     private static onReady(): void {
+        // Initialize credential storage with app's user data path
+        initializeCredentialsStorage(app.getPath('userData'));
         Main.createMainWindow();
         Main.createMenu();
     }
