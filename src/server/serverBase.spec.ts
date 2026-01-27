@@ -3,9 +3,16 @@
  * Licensed under the MIT License
  **********************************************************/
 import 'jest';
-import * as ServerBase from './serverBase';
+import { ServerBase } from './serverBase';
 
 describe('serverBase', () => {
+    let serverInstance: ServerBase;
+
+    beforeEach(() => {
+        // Create a server instance for testing
+        serverInstance = new ServerBase(8081);
+    });
+
     const mockRequest = (bodyData?: any) => { // tslint:disable-line:no-any
         return { body: bodyData } as any; // tslint:disable-line:no-any
     };
@@ -23,7 +30,8 @@ describe('serverBase', () => {
             const req = mockRequest();
             const res = mockResponse();
 
-            await ServerBase.handleDataPlanePostRequest(req, res);
+            // Access the private method through any cast for testing
+            await (serverInstance as any).handleDataPlanePostRequest(req, res);
             expect(res.status).toHaveBeenCalledWith(400); // tslint:disable-line:no-magic-numbers
         });
     });
@@ -33,7 +41,8 @@ describe('serverBase', () => {
             const req = mockRequest();
             const res = mockResponse();
 
-            await ServerBase.handleEventHubMonitorPostRequest(req, res);
+            // Access the private method through any cast for testing
+            await (serverInstance as any).handleEventHubMonitorPostRequest(req, res);
             expect(res.status).toHaveBeenCalledWith(400); // tslint:disable-line:no-magic-numbers
         });
     });

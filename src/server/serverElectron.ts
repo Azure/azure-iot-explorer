@@ -5,14 +5,19 @@
 import { ServerBase } from './serverBase';
 
 const SERVER_PORT = 8081;
-// try to read from environment variable to check if the users have set up a specific port to use
+
+// Export the server instance so electron.ts can access it
+export let serverInstance: ServerBase | null = null;
+
 try {
     let customPort = parseInt(process.env.AZURE_IOT_EXPLORER_PORT); // tslint:disable-line:radix
     if (isNaN(customPort)) {
         customPort = SERVER_PORT;
     }
-    (new ServerBase(customPort || SERVER_PORT)).init();
+    serverInstance = new ServerBase(customPort || SERVER_PORT);
+    serverInstance.init();
 }
 catch {
-    (new ServerBase(SERVER_PORT)).init();
+    serverInstance = new ServerBase(SERVER_PORT);
+    serverInstance.init();
 }

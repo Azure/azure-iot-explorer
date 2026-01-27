@@ -9,6 +9,7 @@ import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString, getModuleIdentityIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import { MonitorEventsParameters } from '../../../api/parameters/deviceParameters';
+import { getSecureWebSocketUrl, initializeSecureFetch } from '../../../api/shared/secureFetch';
 import { DEFAULT_CONSUMER_GROUP, WEBSOCKET_ENDPOINT } from '../../../constants/apiConstants';
 import { HeaderView } from '../../../shared/components/headerView';
 import { useDeviceEventsStateContext } from '../context/deviceEventsStateContext';
@@ -65,7 +66,11 @@ export const DeviceEvents: React.FC = () => {
 
     React.useEffect(
         () => {
-            client = new WebSocket(WEBSOCKET_ENDPOINT);
+            const initWebSocket = async () => {
+                await initializeSecureFetch();
+                client = new WebSocket(getSecureWebSocketUrl(WEBSOCKET_ENDPOINT));
+            };
+            initWebSocket();
         },
         []);
 

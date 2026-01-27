@@ -35,7 +35,7 @@
     "publish": null
   },
   "scripts": {
-    "build": "npm run localization && npm run webpack:compile && npm run server:compile && npm run electron:compile && webpack --mode production --config webpack.electron.js",
+    "build": "npm run localization && npm run webpack:compile && npm run server:compile && npm run preload:compile && npm run electron:compile && webpack --mode production --config webpack.electron.js",
     "pack:win": "electron-builder --dir",
     "dist:win": "electron-builder -w --prepackaged ./dist/win-unpacked",
     "clean": "IF EXIST .\\dist RMDIR /Q /S .\\dist",
@@ -45,11 +45,12 @@
     "docker": "docker pull electronuserland/electron-builder && docker run --rm -ti --mount source=$(pwd),target=/project,type=bind electronuserland/electron-builder:latest",
     "electron": "electron .",
     "electron:compile": "tsc --project ./public/tsconfig.json",
+    "preload:compile": "webpack --mode production --config webpack.preload.js",
     "package:win": "npm run clean && npm ci & npm rebuild sass && npm run build && electron-builder -w",
     "package:linux": "npm run clean:linux && npm ci && npm rebuild sass && npm run build && electron-builder -l",
     "package:mac": "npm ci && npm rebuild sass && npm run build && electron-builder -m",
     "webpack:compile": "tsc --target es6 --module CommonJS --moduleResolution node ./webpack.common.ts webpack.electron.ts webpack.dev.ts",
-    "server:compile": "tsc ./src/server/serverElectron.ts ./src/server/serverLocal.ts ./src/server/serverSecure.ts ./src/server/tlsHelper.ts --skipLibCheck --lib es2015 --inlineSourceMap --outDir ./dist/server/",
+    "server:compile": "tsc ./src/server/serverElectron.ts ./src/server/serverLocal.ts ./src/server/tlsHelper.ts --skipLibCheck --lib es2015 --inlineSourceMap --outDir ./dist/server/",
     "start": "concurrently \"npm run start:web\" \"npm run start:server\"",
     "start:server": "npm run server:compile && nodemon --inspect ./dist/server/serverLocal.js",
     "start:web": "npm run localization && npm run webpack:compile && webpack-dev-server --config webpack.dev.js --mode development --hot --open --port 3000 --host 127.0.0.1",

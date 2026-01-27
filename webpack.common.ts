@@ -49,11 +49,7 @@ const config: webpack.Configuration = {
             ]
         }),
         new webpack.DefinePlugin({
-            process: {
-              env: {
-                userdnsdomain: JSON.stringify(process.env.userdnsdomain),
-              },
-            },
+            'process.env.userdnsdomain': JSON.stringify(process.env.userdnsdomain),
           })
     ],
     resolve: {

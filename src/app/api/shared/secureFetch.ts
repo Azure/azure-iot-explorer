@@ -4,6 +4,8 @@
  **********************************************************/
 import { appConfig, HostMode } from '../../../appConfig/appConfig';
 
+const HTTP_UNAUTHORIZED = 401;
+
 let authToken: string | null = null;
 let isInitialized = false;
 
@@ -43,10 +45,21 @@ export const secureFetch = async (
         await initializeSecureFetch();
     }
 
-    // Build headers with auth token
-    const headers: Record<string, string> = {
-        ...(options.headers as Record<string, string> || {})
-    };
+    // Build headers properly handling Headers object
+    const headers: Record<string, string> = {};
+    
+    // Convert options.headers to plain object
+    if (options.headers) {
+        if (options.headers instanceof Headers) {
+            // Iterate over Headers object properly
+            options.headers.forEach((value, key) => {
+                headers[key] = value;
+            });
+        } else {
+            // Already a plain object
+            Object.assign(headers, options.headers);
+        }
+    }
 
     if (authToken) {
         headers['x-auth-token'] = authToken;
@@ -59,7 +72,7 @@ export const secureFetch = async (
     });
 
     // Handle auth errors
-    if (response.status === 401) {
+    if (response.status === HTTP_UNAUTHORIZED) {
         // tslint:disable-next-line: no-console
         console.error('API authentication failed - token may be invalid');
         // Reset initialization to allow retry

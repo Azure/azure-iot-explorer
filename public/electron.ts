@@ -18,10 +18,9 @@ import {
 } from './handlers/credentialsHandler';
 import { formatError } from './utils/errorHelper';
 import { AuthProvider } from './utils/authProvider';
-import { SecureServerBase } from '../dist/server/serverSecure';
 
-// Module-level secure server instance
-let secureServer: SecureServerBase | null = null;
+// Module-level variable to hold the server instance
+let serverModule: any = null;
 
 // Content Security Policy for the application
 const CSP_HEADER = [
@@ -29,8 +28,8 @@ const CSP_HEADER = [
     "script-src 'self' 'unsafe-inline' 'unsafe-eval'", // unsafe-eval needed for webpack dev
     "style-src 'self' 'unsafe-inline'", // Fluent UI uses inline styles
     "img-src 'self' data: https:",
-    "font-src 'self' data:",
-    "connect-src 'self' https://*.azure.com https://*.microsoft.com https://*.azure-devices.net https://*.servicebus.windows.net https://login.microsoftonline.com wss://127.0.0.1:* https://127.0.0.1:*",
+    "font-src 'self' https://*.cdn.office.net data:",
+    "connect-src 'self' https://api.github.com/repos/Azure/azure-iot-explorer/releases/latest https://*.azure.com https://*.microsoft.com  https://*.azure-devices.net https://*.servicebus.windows.net https://login.microsoftonline.com wss://127.0.0.1:* https://127.0.0.1:*",
     "frame-ancestors 'none'",
     "form-action 'self'",
     "base-uri 'self'"
@@ -96,15 +95,16 @@ class Main {
     }
 
     private static onGetApiAuthToken(): string | null {
-        return secureServer?.getAuthToken() || null;
+        const token = serverModule?.serverInstance?.getAuthToken() || null;
+        return token;
     }
 
     private static onGetApiCertificate(): string | null {
-        return secureServer?.getCertificate() || null;
+        return serverModule?.serverInstance?.getCertificate() || null;
     }
 
     private static onGetApiCertFingerprint(): string | null {
-        return secureServer?.getCertificateFingerprint() || null;
+        return serverModule?.serverInstance?.getCertificateFingerprint() || null;
     }
 
     // Credential storage handlers
@@ -158,6 +158,65 @@ class Main {
         // Initialize credential storage with app's user data path
         initializeCredentialsStorage(app.getPath('userData'));
 
+        // Dynamically load the server module to get instance
+        try {
+            const serverPath = path.join(__dirname, '../dist/server/serverElectron.js');
+            serverModule = require(serverPath);
+        } catch (error) {
+            // tslint:disable-next-line: no-console
+            console.error('Failed to load server module:', error);
+        }
+
+        // Trust the self-signed certificate from our local server
+        // This handler is called when a certificate error occurs
+        app.on('certificate-error', (event, webContents, url, error, certificate, callback) => {
+            // tslint:disable-next-line: no-console
+            console.log('Certificate error for URL:', url);
+            // tslint:disable-next-line: no-console
+            console.log('Certificate fingerprint:', certificate.fingerprint);
+            
+            // Only trust certificates from localhost/127.0.0.1 (both HTTPS and WSS)
+            const isLocalhost = url.startsWith('https://127.0.0.1:') || 
+                              url.startsWith('https://localhost:') ||
+                              url.startsWith('wss://127.0.0.1:') ||
+                              url.startsWith('wss://localhost:');
+            
+            if (isLocalhost && serverModule?.serverInstance) {
+                // Get the expected certificate fingerprint from our server
+                const expectedFingerprint = serverModule.serverInstance.getCertificateFingerprint();
+                
+                // Electron provides the fingerprint in base64 format with 'sha256/' prefix
+                // Example: "sha256/sxBcIGTvSEonoBQQ9Vx72U29LTVfNoz8eRWcPkkXm5Q="
+                // We need to convert it to hex with colons to match our format
+                let actualFingerprint = certificate.fingerprint;
+                if (actualFingerprint.startsWith('sha256/')) {
+                    // Remove the 'sha256/' prefix and convert base64 to hex
+                    const base64 = actualFingerprint.replace('sha256/', '');
+                    const buffer = Buffer.from(base64, 'base64');
+                    actualFingerprint = buffer.toString('hex').toUpperCase().match(/.{1,2}/g)?.join(':') || '';
+                }
+                
+                // tslint:disable-next-line: no-console
+                console.log('Expected fingerprint:', expectedFingerprint);
+                // tslint:disable-next-line: no-console
+                console.log('Actual fingerprint:', actualFingerprint);
+                
+                // Only trust if fingerprints match
+                if (actualFingerprint === expectedFingerprint) {
+                    // tslint:disable-next-line: no-console
+                    console.log('Certificate fingerprint matches - trusting self-signed certificate');
+                    event.preventDefault();
+                    callback(true);
+                    return;
+                }
+            }
+            
+            // Reject all other certificate errors
+            // tslint:disable-next-line: no-console
+            console.log('Certificate verification failed');
+            callback(false);
+        });
+
         // Set Content Security Policy headers for all requests
         session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
             callback({
@@ -198,14 +257,20 @@ class Main {
             defaultHeight: 1200,
             defaultWidth: 900
         });
+        
+        // Construct absolute path to preload script
+        const preloadPath = path.resolve(__dirname, 'contextBridge.js');
+        // tslint:disable-next-line: no-console
+        console.log('Preload script path:', preloadPath);
+        
         Main.mainWindow = new BrowserWindow({
             height: mainWindowState.height,
             width: mainWindowState.width,
             webPreferences: { // tslint:disable-line:object-literal-sort-keys
-                contextIsolation: true, // protect against prototype pollution
-                nodeIntegration: false,
-                sandbox: true, // enable sandbox for additional security
-                preload: __dirname + '/contextBridge.js' // use a preload script
+                contextIsolation: true, // required for contextBridge to work
+                nodeIntegration: false, // prevent direct Node.js access
+                sandbox: false, // allow preload script to load with require()
+                preload: preloadPath
             },
         });
 
