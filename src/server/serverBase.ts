@@ -306,7 +306,7 @@ export class ServerBase {
                 res.status(BAD_REQUEST).send('Request body is empty or not parsed');
             }
             else {
-                const dataPlaneRequest = generateDataPlaneRequestBody(req);
+                const dataPlaneRequest = await generateDataPlaneRequestBody(req);
                 const response = fetch(dataPlaneRequest.url, dataPlaneRequest.request);
                 await generateDataPlaneResponse(await response, res);
             }

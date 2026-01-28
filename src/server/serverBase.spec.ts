@@ -3,6 +3,12 @@
  * Licensed under the MIT License
  **********************************************************/
 import 'jest';
+
+// Mock request-filtering-agent before importing ServerBase
+jest.mock('request-filtering-agent', () => ({
+    useAgent: jest.fn((url: string) => ({ mock: true, url }))
+}));
+
 import { ServerBase } from './serverBase';
 
 describe('serverBase', () => {
