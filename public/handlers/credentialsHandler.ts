@@ -3,17 +3,6 @@
  * Licensed under the MIT License
  **********************************************************/
 import { safeStorage } from 'electron';
-import * as fs from 'fs';
-import * as path from 'path';
-
-let credentialsFilePath: string | null = null;
-
-/**
- * Initialize the credentials storage with the app's user data path
- */
-export const initializeCredentialsStorage = (userDataPath: string): void => {
-    credentialsFilePath = path.join(userDataPath, 'credentials.enc');
-};
 
 /**
  * Check if encryption is available on this system
@@ -24,59 +13,52 @@ export const isEncryptionAvailable = (): boolean => {
 
 /**
  * Store an encrypted credential
+ * @param key - The credential key
+ * @param value - The credential value to store
+ * @param currentEncryptedData - The current encrypted data from localStorage (base64), or null
+ * @returns The new encrypted data (base64) to store in localStorage, or null on failure
  */
-export const storeCredential = (key: string, value: string): boolean => {
-    if (!credentialsFilePath) {
-        throw new Error('Credentials storage not initialized');
-    }
-
+export const storeCredential = (key: string, value: string, currentEncryptedData: string | null): string | null => {
     if (!safeStorage.isEncryptionAvailable()) {
-        return false;
+        return null;
     }
 
     try {
-        // Read existing credentials or create new object
+        // Decrypt existing credentials or create new object
         let credentials: Record<string, string> = {};
-        if (fs.existsSync(credentialsFilePath)) {
-            const encrypted = fs.readFileSync(credentialsFilePath);
-            const decrypted = safeStorage.decryptString(encrypted);
+        if (currentEncryptedData) {
+            const encryptedBuffer = Buffer.from(currentEncryptedData, 'base64');
+            const decrypted = safeStorage.decryptString(encryptedBuffer);
             credentials = JSON.parse(decrypted);
         }
 
         // Add/update credential
         credentials[key] = value;
 
-        // Encrypt and save
+        // Encrypt and return as base64
         const encrypted = safeStorage.encryptString(JSON.stringify(credentials));
-        fs.writeFileSync(credentialsFilePath, encrypted);
-
-        return true;
+        return encrypted.toString('base64');
     } catch (error) {
         // tslint:disable-next-line: no-console
         console.error('Failed to store credential:', error);
-        return false;
+        return null;
     }
 };
 
 /**
  * Retrieve an encrypted credential
+ * @param key - The credential key to retrieve
+ * @param encryptedData - The encrypted data from localStorage (base64)
+ * @returns The decrypted credential value, or null if not found
  */
-export const getCredential = (key: string): string | null => {
-    if (!credentialsFilePath) {
-        throw new Error('Credentials storage not initialized');
-    }
-
-    if (!safeStorage.isEncryptionAvailable()) {
+export const getCredential = (key: string, encryptedData: string | null): string | null => {
+    if (!encryptedData || !safeStorage.isEncryptionAvailable()) {
         return null;
     }
 
     try {
-        if (!fs.existsSync(credentialsFilePath)) {
-            return null;
-        }
-
-        const encrypted = fs.readFileSync(credentialsFilePath);
-        const decrypted = safeStorage.decryptString(encrypted);
+        const encryptedBuffer = Buffer.from(encryptedData, 'base64');
+        const decrypted = safeStorage.decryptString(encryptedBuffer);
         const credentials = JSON.parse(decrypted);
 
         return credentials[key] || null;
@@ -89,57 +71,53 @@ export const getCredential = (key: string): string | null => {
 
 /**
  * Delete a credential
+ * @param key - The credential key to delete
+ * @param currentEncryptedData - The current encrypted data from localStorage (base64), or null
+ * @returns The new encrypted data (base64) to store in localStorage, or null on failure
  */
-export const deleteCredential = (key: string): boolean => {
-    if (!credentialsFilePath) {
-        throw new Error('Credentials storage not initialized');
+export const deleteCredential = (key: string, currentEncryptedData: string | null): string | null => {
+    if (!currentEncryptedData) {
+        return null; // Nothing to delete
+    }
+
+    if (!safeStorage.isEncryptionAvailable()) {
+        return null;
     }
 
     try {
-        if (!fs.existsSync(credentialsFilePath)) {
-            return true;
-        }
-
-        if (!safeStorage.isEncryptionAvailable()) {
-            return false;
-        }
-
-        const encrypted = fs.readFileSync(credentialsFilePath);
-        const decrypted = safeStorage.decryptString(encrypted);
+        const encryptedBuffer = Buffer.from(currentEncryptedData, 'base64');
+        const decrypted = safeStorage.decryptString(encryptedBuffer);
         const credentials = JSON.parse(decrypted);
 
         delete credentials[key];
 
-        const newEncrypted = safeStorage.encryptString(JSON.stringify(credentials));
-        fs.writeFileSync(credentialsFilePath, newEncrypted);
+        // Return encrypted data or null if empty
+        if (Object.keys(credentials).length === 0) {
+            return null; // Signal to remove from localStorage
+        }
 
-        return true;
+        const newEncrypted = safeStorage.encryptString(JSON.stringify(credentials));
+        return newEncrypted.toString('base64');
     } catch (error) {
         // tslint:disable-next-line: no-console
         console.error('Failed to delete credential:', error);
-        return false;
+        return null;
     }
 };
 
 /**
  * List all credential keys (not values)
+ * @param encryptedData - The encrypted data from localStorage (base64)
+ * @returns Array of credential keys
  */
-export const listCredentials = (): string[] => {
-    if (!credentialsFilePath) {
-        throw new Error('Credentials storage not initialized');
+export const listCredentials = (encryptedData: string | null): string[] => {
+    if (!encryptedData || !safeStorage.isEncryptionAvailable()) {
+        return [];
     }
 
     try {
-        if (!fs.existsSync(credentialsFilePath)) {
-            return [];
-        }
-
-        if (!safeStorage.isEncryptionAvailable()) {
-            return [];
-        }
-
-        const encrypted = fs.readFileSync(credentialsFilePath);
-        const decrypted = safeStorage.decryptString(encrypted);
+        const encryptedBuffer = Buffer.from(encryptedData, 'base64');
+        const decrypted = safeStorage.decryptString(encryptedBuffer);
         const credentials = JSON.parse(decrypted);
 
         return Object.keys(credentials);

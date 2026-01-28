@@ -11,7 +11,6 @@ import { onSettingsHighContrast } from './handlers/settingsHandler';
 import {
     deleteCredential,
     getCredential,
-    initializeCredentialsStorage,
     isEncryptionAvailable,
     listCredentials,
     storeCredential
@@ -108,20 +107,20 @@ class Main {
     }
 
     // Credential storage handlers
-    private static onCredentialStore(_: Electron.IpcMainInvokeEvent, key: string, value: string): boolean {
-        return storeCredential(key, value);
+    private static onCredentialStore(_: Electron.IpcMainInvokeEvent, key: string, value: string, encryptedData: string | null): string | null {
+        return storeCredential(key, value, encryptedData);
     }
 
-    private static onCredentialGet(_: Electron.IpcMainInvokeEvent, key: string): string | null {
-        return getCredential(key);
+    private static onCredentialGet(_: Electron.IpcMainInvokeEvent, key: string, encryptedData: string | null): string | null {
+        return getCredential(key, encryptedData);
     }
 
-    private static onCredentialDelete(_: Electron.IpcMainInvokeEvent, key: string): boolean {
-        return deleteCredential(key);
+    private static onCredentialDelete(_: Electron.IpcMainInvokeEvent, key: string, encryptedData: string | null): string | null {
+        return deleteCredential(key, encryptedData);
     }
 
-    private static onCredentialList(): string[] {
-        return listCredentials();
+    private static onCredentialList(_: Electron.IpcMainInvokeEvent, encryptedData: string | null): string[] {
+        return listCredentials(encryptedData);
     }
 
     private static onCredentialIsEncryptionAvailable(): boolean {
@@ -155,9 +154,6 @@ class Main {
     }
 
     private static onReady(): void {
-        // Initialize credential storage with app's user data path
-        initializeCredentialsStorage(app.getPath('userData'));
-
         // Dynamically load the server module to get instance
         try {
             const serverPath = path.join(__dirname, '../dist/server/serverElectron.js');

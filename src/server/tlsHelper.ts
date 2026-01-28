@@ -24,10 +24,10 @@ export function generateSelfSignedCert(): TlsCertificates {
     cert.publicKey = keys.publicKey;
     cert.serialNumber = crypto.randomBytes(16).toString('hex');
 
-    // Valid from now to 1 year from now
+    // Valid from now to 90 days from now
     cert.validity.notBefore = new Date();
     cert.validity.notAfter = new Date();
-    cert.validity.notAfter.setFullYear(cert.validity.notBefore.getFullYear() + 1);
+    cert.validity.notAfter.setDate(cert.validity.notBefore.getDate() + 90);
 
     // Certificate subject and issuer (self-signed)
     const attrs = [

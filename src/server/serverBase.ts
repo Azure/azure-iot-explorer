@@ -24,11 +24,6 @@ const BAD_REQUEST = 400;
 const NOT_FOUND = 404;
 const NO_CONTENT_SUCCESS = 204;
 const UNAUTHORIZED = 401;
-const TOO_MANY_REQUESTS = 429;
-
-// Rate limiting configuration
-const RATE_LIMIT_WINDOW_MS = 60000; // 1 minute
-const RATE_LIMIT_MAX_REQUESTS = 100;
 
 interface Message {
     body: any; // tslint:disable-line:no-any
@@ -42,7 +37,6 @@ export class ServerBase {
     private readonly port: number;
     private authToken: string;
     private certificates: TlsCertificates;
-    private rateLimitMap: Map<string, number[]> = new Map();
     private wss: WebSocket.Server | null = null;
     private ws: WebSocket | null = null;
     private messages: Message[] = [];
@@ -99,62 +93,6 @@ export class ServerBase {
         next();
     }
 
-    /**
-     * Rate limiting middleware - prevents abuse
-     */
-    private rateLimitMiddleware = (
-        req: express.Request,
-        res: express.Response,
-        next: express.NextFunction
-    ) => {
-        const now = Date.now();
-        const clientKey = req.ip || 'unknown';
-
-        // Get existing timestamps for this client
-        const timestamps = this.rateLimitMap.get(clientKey) || [];
-
-        // Filter to only recent requests within the window
-        const recentTimestamps = timestamps.filter(
-            t => now - t < RATE_LIMIT_WINDOW_MS
-        );
-
-        if (recentTimestamps.length >= RATE_LIMIT_MAX_REQUESTS) {
-            return res.status(TOO_MANY_REQUESTS).json({
-                error: 'Too Many Requests',
-                message: 'Rate limit exceeded. Please try again later.',
-                retryAfter: Math.ceil(RATE_LIMIT_WINDOW_MS / 1000)
-            });
-        }
-
-        // Add current timestamp and update map
-        recentTimestamps.push(now);
-        this.rateLimitMap.set(clientKey, recentTimestamps);
-
-        // Clean up old entries periodically (1% chance per request)
-        if (Math.random() < 0.01) {
-            this.cleanupRateLimitMap();
-        }
-
-        next();
-    }
-
-    /**
-     * Clean up old rate limit entries to prevent memory leaks
-     */
-    private cleanupRateLimitMap(): void {
-        const now = Date.now();
-        const keys = Array.from(this.rateLimitMap.keys());
-        for (const key of keys) {
-            const timestamps = this.rateLimitMap.get(key) || [];
-            const recent = timestamps.filter(t => now - t < RATE_LIMIT_WINDOW_MS);
-            if (recent.length === 0) {
-                this.rateLimitMap.delete(key);
-            } else {
-                this.rateLimitMap.set(key, recent);
-            }
-        }
-    }
-
     public init() {
         const app = express();
 
@@ -191,9 +129,6 @@ export class ServerBase {
 
             next();
         });
-
-        // Apply rate limiting to all routes
-        app.use(this.rateLimitMiddleware);
 
         // Apply authentication to all API routes
         app.use('/api', this.authMiddleware);
