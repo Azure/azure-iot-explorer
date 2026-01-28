@@ -5,4 +5,6 @@
 import { ServerBase } from './serverBase';
 
 const SERVER_PORT = 8082;
-(new ServerBase(SERVER_PORT)).init();
+
+// Local development server - security disabled for easier debugging
+(new ServerBase(SERVER_PORT, false)).init();

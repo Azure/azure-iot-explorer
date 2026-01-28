@@ -181,6 +181,14 @@ class Main {
                 // Get the expected certificate fingerprint from our server
                 const expectedFingerprint = serverModule.serverInstance.getCertificateFingerprint();
                 
+                // Handle case where fingerprint is not available (server failed to initialize properly)
+                if (!expectedFingerprint) {
+                    // tslint:disable-next-line: no-console
+                    console.error('Certificate fingerprint not available - server may have failed to initialize');
+                    callback(false);
+                    return;
+                }
+                
                 // Electron provides the fingerprint in base64 format with 'sha256/' prefix
                 // Example: "sha256/sxBcIGTvSEonoBQQ9Vx72U29LTVfNoz8eRWcPkkXm5Q="
                 // We need to convert it to hex with colons to match our format

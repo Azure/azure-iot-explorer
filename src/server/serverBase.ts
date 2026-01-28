@@ -4,6 +4,7 @@
  **********************************************************/
 // this file is the legacy controller for local development, until we move server side code to use electron's IPC pattern and enable electron hot reloading
 import * as fs from 'fs';
+import * as http from 'http';
 import * as https from 'https';
 import * as crypto from 'crypto';
 import * as WebSocket from 'ws';
@@ -35,8 +36,9 @@ interface Message {
 
 export class ServerBase {
     private readonly port: number;
-    private authToken: string;
-    private certificates: TlsCertificates;
+    private readonly securityEnabled: boolean;
+    private authToken: string | null = null;
+    private certificates: TlsCertificates | null = null;
     private wss: WebSocket.Server | null = null;
     private ws: WebSocket | null = null;
     private messages: Message[] = [];
@@ -44,33 +46,37 @@ export class ServerBase {
     private client: EventHubConsumerClient | null = null;
     private subscription: Subscription | null = null;
 
-    constructor(port: number) {
+    constructor(port: number, securityEnabled: boolean = true) {
         this.port = port;
-        // Generate cryptographically secure random token
-        this.authToken = crypto.randomBytes(32).toString('hex');
-        // Generate TLS certificates
-        this.certificates = generateSelfSignedCert();
+        this.securityEnabled = securityEnabled;
+
+        if (securityEnabled) {
+            // Generate cryptographically secure random token
+            this.authToken = crypto.randomBytes(32).toString('hex');
+            // Generate TLS certificates
+            this.certificates = generateSelfSignedCert();
+        }
     }
 
     /**
      * Returns the authentication token to be shared with the renderer process via IPC
      */
-    public getAuthToken(): string {
+    public getAuthToken(): string | null {
         return this.authToken;
     }
 
     /**
      * Returns the server certificate for the renderer to trust
      */
-    public getCertificate(): string {
-        return this.certificates.cert;
+    public getCertificate(): string | null {
+        return this.certificates?.cert || null;
     }
 
     /**
      * Returns the certificate fingerprint for verification
      */
-    public getCertificateFingerprint(): string {
-        return this.certificates.fingerprint;
+    public getCertificateFingerprint(): string | null {
+        return this.certificates?.fingerprint || null;
     }
 
     /**
@@ -80,14 +86,15 @@ export class ServerBase {
         req: express.Request,
         res: express.Response,
         next: express.NextFunction
-    ) => {
+    ): void => {
         const token = req.headers['x-auth-token'];
 
         if (!token || token !== this.authToken) {
-            return res.status(UNAUTHORIZED).json({
+            res.status(UNAUTHORIZED).json({
                 error: 'Unauthorized',
                 message: 'Invalid or missing authentication token'
             });
+            return;
         }
 
         next();
@@ -105,56 +112,69 @@ export class ServerBase {
         // Body parsing
         app.use(bodyParser.json({ limit: '10mb' }));
 
-        // CORS configuration for HTTPS
-        app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
-            const allowedOrigins = [
-                'https://127.0.0.1:3000',
-                'https://localhost:3000',
-                'http://127.0.0.1:3000',  // Allow HTTP during transition
-                'http://localhost:3000'
-            ];
-            const origin = req.headers.origin;
+        // CORS configuration - only needed for local dev (webpack-dev-server on different port)
+        if (!this.securityEnabled) {
+            app.use((req: express.Request, res: express.Response, next: express.NextFunction): void => {
+                const allowedOrigins = [
+                    'http://127.0.0.1:3000',
+                    'http://localhost:3000'
+                ];
+                const origin = req.headers.origin;
 
-            if (origin && allowedOrigins.includes(origin)) {
-                res.header('Access-Control-Allow-Origin', origin);
-            }
+                if (origin && allowedOrigins.includes(origin)) {
+                    res.header('Access-Control-Allow-Origin', origin);
+                }
 
-            res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-            res.header('Access-Control-Allow-Headers', 'Content-Type, x-auth-token');
-            res.header('Access-Control-Allow-Credentials', 'true');
+                res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+                res.header('Access-Control-Allow-Headers', 'Content-Type');
+                res.header('Access-Control-Allow-Credentials', 'true');
 
-            if (req.method === 'OPTIONS') {
-                return res.status(200).end();
-            }
+                if (req.method === 'OPTIONS') {
+                    res.status(200).end();
+                    return;
+                }
 
-            next();
-        });
+                next();
+            });
+        }
 
-        // Apply authentication to all API routes
-        app.use('/api', this.authMiddleware);
+        // Apply authentication to all API routes (only when security is enabled)
+        if (this.securityEnabled) {
+            app.use('/api', this.authMiddleware);
+        }
 
         // Health check endpoint (no auth required for basic health check)
         app.get('/health', (_: express.Request, res: express.Response) => {
-            res.json({ status: 'ok', secure: true });
+            res.json({ status: 'ok', secure: this.securityEnabled });
         });
 
         // Register default routes
         this.registerDefaultRoutes(app);
 
-        // Create HTTPS server
-        const server = https.createServer(
-            {
-                cert: this.certificates.cert,
-                key: this.certificates.key,
-                minVersion: 'TLSv1.2'
-            },
-            app
-        );
+        // Create server based on security mode
+        let server: http.Server | https.Server;
+
+        if (this.securityEnabled) {
+            // Create HTTPS server with TLS
+            server = https.createServer(
+                {
+                    cert: this.certificates!.cert,
+                    key: this.certificates!.key,
+                    minVersion: 'TLSv1.2'
+                },
+                app
+            );
+        } else {
+            // Create HTTP server for local development
+            server = http.createServer(app);
+        }
+
+        const protocol = this.securityEnabled ? 'https' : 'http';
 
         // Start server
         server.listen(this.port, '127.0.0.1', () => {
             // tslint:disable-next-line: no-console
-            console.log(`Secure server running on https://127.0.0.1:${this.port}`);
+            console.log(`Server running on ${protocol}://127.0.0.1:${this.port} (security: ${this.securityEnabled ? 'enabled' : 'disabled'})`);
         }).on('error', (err: NodeJS.ErrnoException) => {
             if (err.code === 'EADDRINUSE') {
                 throw new Error(
@@ -167,18 +187,21 @@ export class ServerBase {
             throw err;
         });
 
-        // Initialize secure WebSocket with token authentication
+        // Initialize WebSocket
         this.wss = new WebSocket.Server({ server });
         this.wss.on('connection', (wsConnection: WebSocket, req) => {
-            console.log("got a web socket rquest");
-            // Validate auth token from query string for WebSocket
-            const url = new URL(req.url || '', `https://localhost:${this.port}`);
-            const token = url.searchParams.get('token');
+            console.log('got a web socket request');
 
-            if (token !== this.authToken) {
-                console.log("token not valid");
-                wsConnection.close(1008, 'Unauthorized');
-                return;
+            // Validate auth token from query string for WebSocket (only when security is enabled)
+            if (this.securityEnabled) {
+                const url = new URL(req.url || '', `https://localhost:${this.port}`);
+                const token = url.searchParams.get('token');
+
+                if (token !== this.authToken) {
+                    console.log('token not valid');
+                    wsConnection.close(1008, 'Unauthorized');
+                    return;
+                }
             }
 
             this.ws = wsConnection;

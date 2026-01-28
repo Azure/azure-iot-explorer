@@ -74,17 +74,17 @@ const getPort = () => {
     return appConfig.controllerPort;
 };
 
-// Use HTTPS for Electron mode, HTTP for browser dev mode
+// Use HTTPS for Electron mode, HTTP for browser/debug dev mode
 export const CONTROLLER_API_ENDPOINT =
-    appConfig.hostMode === HostMode.Browser ?
-        `${localIp}:${appConfig.controllerPort}${apiPath}` :
-        `${secureLocalIp}:${getPort()}${apiPath}`;
+    appConfig.hostMode === HostMode.Electron ?
+        `${secureLocalIp}:${getPort()}${apiPath}` :
+        `${localIp}:${appConfig.controllerPort}${apiPath}`;
 
-// Use WSS for Electron mode, WS for browser dev mode
+// Use WSS for Electron mode, WS for browser/debug dev mode
 export const WEBSOCKET_ENDPOINT =
-    appConfig.hostMode === HostMode.Browser ?
-        `${wsIp}:${appConfig.controllerPort}` :
-        `${secureWsIp}:${getPort()}`;
+    appConfig.hostMode === HostMode.Electron ?
+        `${secureWsIp}:${getPort()}` :
+        `${wsIp}:${appConfig.controllerPort}`;
 
 export enum HTTP_OPERATION_TYPES {
     Delete = 'DELETE',
