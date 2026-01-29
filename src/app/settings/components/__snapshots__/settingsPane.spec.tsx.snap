@@ -5,7 +5,7 @@ exports[`settingsPane matches snapshot 1`] = `
   <CustomizedActionButton
     ariaLabel="header.settings.launch"
     iconProps={
-      Object {
+      {
         "iconName": "Settings",
       }
     }

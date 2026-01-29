@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import { Record } from 'immutable';
-export type IM<T> = Record<T> & Readonly<T>;
+export type IM<T extends object> = Record<T> & Readonly<T>;
 // tslint:disable:no-any
 export type func = (...args: any[]) => any;
 // tslint:enable:no-any

@@ -8,6 +8,11 @@ import * as http from 'http';
 import * as https from 'https';
 import * as crypto from 'crypto';
 import * as WebSocket from 'ws';
+
+// Polyfill globalThis.crypto for Azure SDK compatibility in Electron
+if (typeof globalThis.crypto === 'undefined') {
+    (globalThis as any).crypto = crypto;
+}
 import express = require('express');
 import * as bodyParser from 'body-parser';
 import helmet from 'helmet';
@@ -42,7 +47,7 @@ export class ServerBase {
     private wss: WebSocket.Server | null = null;
     private ws: WebSocket | null = null;
     private messages: Message[] = [];
-    private timerId: NodeJS.Timer | null = null;
+    private timerId: NodeJS.Timeout | null = null;
     private client: EventHubConsumerClient | null = null;
     private subscription: Subscription | null = null;
 
@@ -247,7 +252,8 @@ export class ServerBase {
             }
             else {
                 const resolvedPath = checkPath(filePath);
-                const fileNames = fs.readdirSync(resolvedPath);
+                 // CodeQL [SM01514] justification User-supplied paths are validated through checkPath()
+                const fileNames = fs.readdirSync(resolvedPath); // lgtm[js/path-injection]
                 try {
                     const foundContent = findMatchingFile(resolvedPath, fileNames, expectedFileName);
                     if (foundContent) {

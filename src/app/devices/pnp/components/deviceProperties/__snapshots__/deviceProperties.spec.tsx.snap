@@ -5,10 +5,10 @@ exports[`components/devices/deviceProperties matches snapshot while interface ca
   <StyledCommandBarBase
     className="command"
     farItems={
-      Array [
-        Object {
+      [
+        {
           "ariaLabel": "deviceProperties.command.close",
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "NavigateBack",
           },
           "key": "NavigateBack",
@@ -18,10 +18,10 @@ exports[`components/devices/deviceProperties matches snapshot while interface ca
       ]
     }
     items={
-      Array [
-        Object {
+      [
+        {
           "ariaLabel": "deviceProperties.command.refresh",
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "Refresh",
           },
           "key": "Refresh",
@@ -44,10 +44,10 @@ exports[`components/devices/deviceProperties matches snapshot with one twinWithS
   <StyledCommandBarBase
     className="command"
     farItems={
-      Array [
-        Object {
+      [
+        {
           "ariaLabel": "deviceProperties.command.close",
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "NavigateBack",
           },
           "key": "NavigateBack",
@@ -57,10 +57,10 @@ exports[`components/devices/deviceProperties matches snapshot with one twinWithS
       ]
     }
     items={
-      Array [
-        Object {
+      [
+        {
           "ariaLabel": "deviceProperties.command.refresh",
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "Refresh",
           },
           "key": "Refresh",
@@ -72,29 +72,29 @@ exports[`components/devices/deviceProperties matches snapshot with one twinWithS
   />
   <DevicePropertiesPerInterface
     twinAndSchema={
-      Array [
-        Object {
-          "propertyModelDefinition": Object {
+      [
+        {
+          "propertyModelDefinition": {
             "@type": "Property",
             "description": "Providing model and optional interfaces information on a digital twin.",
             "displayName": "Model Information",
             "name": "modelInformation",
-            "schema": Object {
+            "schema": {
               "@type": "Object",
-              "fields": Array [
-                Object {
+              "fields": [
+                {
                   "name": "modelId",
                   "schema": "string",
                 },
-                Object {
+                {
                   "name": "interfaces",
-                  "schema": Object {
+                  "schema": {
                     "@type": "Map",
-                    "mapKey": Object {
+                    "mapKey": {
                       "name": "name",
                       "schema": "string",
                     },
-                    "mapValue": Object {
+                    "mapValue": {
                       "name": "schema",
                       "schema": "string",
                     },
@@ -103,33 +103,33 @@ exports[`components/devices/deviceProperties matches snapshot with one twinWithS
               ],
             },
           },
-          "propertySchema": Object {
-            "definitions": Object {},
-            "properties": Object {
-              "interfaces": Object {
-                "additionalProperties": Object {
-                  "required": Array [],
+          "propertySchema": {
+            "definitions": {},
+            "properties": {
+              "interfaces": {
+                "additionalProperties": {
+                  "required": [],
                   "type": "string",
                 },
                 "description": "key's name: name, value's name: schema",
                 "title": "interfaces",
                 "type": "object",
               },
-              "modelId": Object {
-                "required": Array [],
+              "modelId": {
+                "required": [],
                 "title": "modelId",
                 "type": "string",
               },
             },
-            "required": Array [],
+            "required": [],
             "title": "modelInformation",
             "type": "object",
           },
           "reportedTwin": undefined,
         },
-        Object {
-          "propertyModelDefinition": Object {
-            "@type": Array [
+        {
+          "propertyModelDefinition": {
+            "@type": [
               "Property",
               "SemanticType/Brightness Level",
             ],
@@ -138,11 +138,11 @@ exports[`components/devices/deviceProperties matches snapshot with one twinWithS
             "name": "brightness",
             "schema": "long",
           },
-          "propertySchema": Object {
-            "definitions": Object {},
-            "required": Array [],
+          "propertySchema": {
+            "definitions": {},
+            "required": [],
             "title": "brightness",
-            "type": Array [
+            "type": [
               "number",
               "null",
             ],

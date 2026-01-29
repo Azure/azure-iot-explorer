@@ -9,7 +9,7 @@ exports[`DeviceModules matches snapshot 1`] = `
   />
   <BreadcrumbRoute
     breadcrumb={
-      Object {
+      {
         "name": "breadcrumb.addModuleIdentity",
       }
     }
@@ -20,7 +20,7 @@ exports[`DeviceModules matches snapshot 1`] = `
   </BreadcrumbRoute>
   <BreadcrumbRoute
     breadcrumb={
-      Object {
+      {
         "name": "mod1",
         "suffix": "?moduleId=mod1",
       }
@@ -32,7 +32,7 @@ exports[`DeviceModules matches snapshot 1`] = `
   </BreadcrumbRoute>
   <BreadcrumbRoute
     breadcrumb={
-      Object {
+      {
         "name": "mod1",
         "suffix": "?moduleId=mod1",
       }
@@ -44,7 +44,7 @@ exports[`DeviceModules matches snapshot 1`] = `
   </BreadcrumbRoute>
   <BreadcrumbRoute
     breadcrumb={
-      Object {
+      {
         "name": "mod1",
         "suffix": "?moduleId=mod1",
       }
@@ -57,7 +57,7 @@ exports[`DeviceModules matches snapshot 1`] = `
   <DeviceEventsStateContextProvider>
     <BreadcrumbRoute
       breadcrumb={
-        Object {
+        {
           "name": "mod1",
           "suffix": "?moduleId=mod1",
         }
@@ -69,7 +69,7 @@ exports[`DeviceModules matches snapshot 1`] = `
   </DeviceEventsStateContextProvider>
   <BreadcrumbRoute
     breadcrumb={
-      Object {
+      {
         "disableLink": true,
         "name": "mod1",
         "suffix": "?moduleId=mod1",

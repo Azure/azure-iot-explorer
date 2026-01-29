@@ -5,21 +5,21 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after certificateAuthori
   <StyledCommandBarBase
     className="command"
     items={
-      Array [
-        Object {
+      [
+        {
           "ariaLabel": "moduleIdentity.detail.command.refresh",
           "disabled": false,
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "Refresh",
           },
           "key": "Refresh",
           "name": "moduleIdentity.detail.command.refresh",
           "onClick": [Function],
         },
-        Object {
+        {
           "ariaLabel": "moduleIdentity.detail.command.delete",
           "disabled": false,
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "Delete",
           },
           "key": "Delete",
@@ -51,21 +51,21 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after module identity is
   <StyledCommandBarBase
     className="command"
     items={
-      Array [
-        Object {
+      [
+        {
           "ariaLabel": "moduleIdentity.detail.command.refresh",
           "disabled": false,
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "Refresh",
           },
           "key": "Refresh",
           "name": "moduleIdentity.detail.command.refresh",
           "onClick": [Function],
         },
-        Object {
+        {
           "ariaLabel": "moduleIdentity.detail.command.delete",
           "disabled": false,
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "Delete",
           },
           "key": "Delete",
@@ -94,21 +94,21 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after sas module identit
   <StyledCommandBarBase
     className="command"
     items={
-      Array [
-        Object {
+      [
+        {
           "ariaLabel": "moduleIdentity.detail.command.refresh",
           "disabled": false,
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "Refresh",
           },
           "key": "Refresh",
           "name": "moduleIdentity.detail.command.refresh",
           "onClick": [Function],
         },
-        Object {
+        {
           "ariaLabel": "moduleIdentity.detail.command.delete",
           "disabled": false,
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "Delete",
           },
           "key": "Delete",
@@ -157,9 +157,9 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after sas module identit
     <SasTokenGenerationView
       activeAzureResourceHostName="hostName"
       moduleIdentity={
-        Object {
-          "authentication": Object {
-            "symmetricKey": Object {
+        {
+          "authentication": {
+            "symmetricKey": {
               "primaryKey": "mock_key_1",
               "secondaryKey": "mock_key_2",
             },
@@ -180,21 +180,21 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after self signed module
   <StyledCommandBarBase
     className="command"
     items={
-      Array [
-        Object {
+      [
+        {
           "ariaLabel": "moduleIdentity.detail.command.refresh",
           "disabled": false,
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "Refresh",
           },
           "key": "Refresh",
           "name": "moduleIdentity.detail.command.refresh",
           "onClick": [Function],
         },
-        Object {
+        {
           "ariaLabel": "moduleIdentity.detail.command.delete",
           "disabled": false,
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "Delete",
           },
           "key": "Delete",
@@ -240,21 +240,21 @@ exports[`ModuleIdentityDetail snapshot matches snapshot showing delete confirmat
   <StyledCommandBarBase
     className="command"
     items={
-      Array [
-        Object {
+      [
+        {
           "ariaLabel": "moduleIdentity.detail.command.refresh",
           "disabled": false,
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "Refresh",
           },
           "key": "Refresh",
           "name": "moduleIdentity.detail.command.refresh",
           "onClick": [Function],
         },
-        Object {
+        {
           "ariaLabel": "moduleIdentity.detail.command.delete",
           "disabled": false,
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "Delete",
           },
           "key": "Delete",
@@ -282,20 +282,20 @@ exports[`ModuleIdentityDetail snapshot matches snapshot showing delete confirmat
     >
       <Dialog
         dialogContentProps={
-          Object {
+          {
             "title": "moduleIdentity.detail.deleteConfirmation",
             "type": 2,
           }
         }
         hidden={false}
         modalProps={
-          Object {
+          {
             "isBlocking": true,
           }
         }
         onDismiss={[Function]}
       >
-        <StyledDialogFooterBase>
+        <DialogFooter>
           <CustomizedPrimaryButton
             onClick={[Function]}
             text="deviceLists.commands.delete.confirmationDialog.confirm"
@@ -304,7 +304,7 @@ exports[`ModuleIdentityDetail snapshot matches snapshot showing delete confirmat
             onClick={[Function]}
             text="deviceLists.commands.delete.confirmationDialog.cancel"
           />
-        </StyledDialogFooterBase>
+        </DialogFooter>
       </Dialog>
     </div>
   </div>
@@ -316,21 +316,21 @@ exports[`ModuleIdentityDetail snapshot matches snapshot while loading 1`] = `
   <StyledCommandBarBase
     className="command"
     items={
-      Array [
-        Object {
+      [
+        {
           "ariaLabel": "moduleIdentity.detail.command.refresh",
           "disabled": true,
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "Refresh",
           },
           "key": "Refresh",
           "name": "moduleIdentity.detail.command.refresh",
           "onClick": [Function],
         },
-        Object {
+        {
           "ariaLabel": "moduleIdentity.detail.command.delete",
           "disabled": true,
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "Delete",
           },
           "key": "Delete",

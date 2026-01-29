@@ -13,7 +13,7 @@ exports[`DeviceListQuery matches snapshot 1`] = `
       borderless={true}
       className="search-box"
       iconProps={
-        Object {
+        {
           "iconName": "Search",
         }
       }
@@ -28,7 +28,7 @@ exports[`DeviceListQuery matches snapshot 1`] = `
       className="search-button"
       disabled={false}
       iconProps={
-        Object {
+        {
           "iconName": "Forward",
         }
       }
@@ -44,7 +44,7 @@ exports[`DeviceListQuery matches snapshot 1`] = `
       ariaLabel="deviceLists.query.searchPills.add.ariaLabel"
       className="search-pill"
       iconProps={
-        Object {
+        {
           "iconName": "Filter",
         }
       }

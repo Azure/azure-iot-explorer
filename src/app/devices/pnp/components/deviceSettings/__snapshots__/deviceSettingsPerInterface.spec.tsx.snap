@@ -9,32 +9,32 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
     ariaLabelForSelectionColumn="deviceSettings.columns.toggleSelection"
     checkButtonAriaLabel="deviceSettings.columns.rowCheckBoxAriaLabel"
     columns={
-      Array [
-        Object {
+      [
+        {
           "isMultiline": true,
           "key": "name",
           "minWidth": 200,
           "name": "deviceSettings.columns.name",
         },
-        Object {
+        {
           "isMultiline": true,
           "key": "schema",
           "minWidth": 100,
           "name": "deviceSettings.columns.schema",
         },
-        Object {
+        {
           "isMultiline": true,
           "key": "unit",
           "minWidth": 100,
           "name": "deviceSettings.columns.unit",
         },
-        Object {
+        {
           "isMultiline": true,
           "key": "desiredValue",
           "minWidth": 500,
           "name": "deviceSettings.columns.desiredValue",
         },
-        Object {
+        {
           "isMultiline": true,
           "key": "reportedValue",
           "minWidth": 500,
@@ -43,16 +43,16 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
       ]
     }
     items={
-      Array [
-        Object {
+      [
+        {
           "desiredValue": 456,
-          "reportedSection": Object {
+          "reportedSection": {
             "ac": 200,
             "ad": "success",
             "av": 2,
             "value": 123,
           },
-          "settingModelDefinition": Object {
+          "settingModelDefinition": {
             "@type": "Property",
             "description": "The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)",
             "displayName": "Brightness Level",
@@ -60,26 +60,26 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
             "schema": "long",
             "writable": true,
           },
-          "settingSchema": Object {
-            "definitions": Object {},
-            "required": Array [],
+          "settingSchema": {
+            "definitions": {},
+            "required": [],
             "title": "brightness",
-            "type": Array [
+            "type": [
               "number",
               "null",
             ],
           },
         },
-        Object {
+        {
           "desiredValue": 456,
-          "reportedSection": Object {
+          "reportedSection": {
             "ac": 200,
             "ad": "success",
             "av": 2,
             "value": 123,
           },
-          "settingModelDefinition": Object {
-            "@type": Array [
+          "settingModelDefinition": {
+            "@type": [
               "Property",
               "SemanticType/Brightness Level",
             ],
@@ -89,11 +89,11 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
             "schema": "long",
             "writable": true,
           },
-          "settingSchema": Object {
-            "definitions": Object {},
-            "required": Array [],
+          "settingSchema": {
+            "definitions": {},
+            "required": [],
             "title": "brightness",
-            "type": Array [
+            "type": [
               "number",
               "null",
             ],

@@ -7,6 +7,11 @@ import * as Enzyme from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';
 import { appConfig } from './src/appConfig/appConfig'
 
+// Define globals that were previously in Jest config
+(global as any).__DEV__ = true;
+(global as any)._CONTROLLER_ENDPOINT = '_CONTROLLER_ENDPOINT';
+(global as any).frameSignature = 'portalEnvironmentFrameSignature';
+
 // tslint:disable-next-line: no-string-literal
 global.Headers = jest.fn();
 window.fetch = jest.fn();

@@ -5,21 +5,21 @@ exports[`moduleIdentityTwin snapshot matches snapshot after module twin is fetch
   <StyledCommandBarBase
     className="command device-detail-command"
     items={
-      Array [
-        Object {
+      [
+        {
           "ariaLabel": "moduleIdentity.detail.command.refresh",
           "disabled": false,
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "Refresh",
           },
           "key": "Refresh",
           "name": "moduleIdentity.detail.command.refresh",
           "onClick": [Function],
         },
-        Object {
+        {
           "ariaLabel": "moduleIdentity.detail.command.save",
           "disabled": true,
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "Save",
           },
           "key": "Save",
@@ -32,7 +32,7 @@ exports[`moduleIdentityTwin snapshot matches snapshot after module twin is fetch
   <article
     className="device-twin device-detail"
     style={
-      Object {
+      {
         "paddingTop": 10,
       }
     }
@@ -40,21 +40,21 @@ exports[`moduleIdentityTwin snapshot matches snapshot after module twin is fetch
     <MonacoEditorComponent
       ariaLabel="moduleIdentity.detail.twin"
       content="{
-	\\"authenticationType\\": \\"sas\\",
-	\\"cloudToDeviceMessageCount\\": 0,
-	\\"connectionState\\": \\"Disconnected\\",
-	\\"deviceEtag\\": \\"AAAAAAAAAAE=\\",
-	\\"deviceId\\": \\"deviceId\\",
-	\\"etag\\": \\"AAAAAAAAAAE=\\",
-	\\"lastActivityTime\\": \\"0001-01-01T00:00:00Z\\",
-	\\"moduleId\\": \\"moduleId\\",
-	\\"properties\\": {},
-	\\"status\\": \\"enabled\\",
-	\\"statusUpdateTime\\": \\"0001-01-01T00:00:00Z\\",
-	\\"version\\": 1,
-	\\"x509Thumbprint\\": {
-		\\"primaryThumbprint\\": null,
-		\\"secondaryThumbprint\\": null
+	"authenticationType": "sas",
+	"cloudToDeviceMessageCount": 0,
+	"connectionState": "Disconnected",
+	"deviceEtag": "AAAAAAAAAAE=",
+	"deviceId": "deviceId",
+	"etag": "AAAAAAAAAAE=",
+	"lastActivityTime": "0001-01-01T00:00:00Z",
+	"moduleId": "moduleId",
+	"properties": {},
+	"status": "enabled",
+	"statusUpdateTime": "0001-01-01T00:00:00Z",
+	"version": 1,
+	"x509Thumbprint": {
+		"primaryThumbprint": null,
+		"secondaryThumbprint": null
 	}
 }"
       height={700}
@@ -69,21 +69,21 @@ exports[`moduleIdentityTwin snapshot matches snapshot while loading 1`] = `
   <StyledCommandBarBase
     className="command device-detail-command"
     items={
-      Array [
-        Object {
+      [
+        {
           "ariaLabel": "moduleIdentity.detail.command.refresh",
           "disabled": true,
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "Refresh",
           },
           "key": "Refresh",
           "name": "moduleIdentity.detail.command.refresh",
           "onClick": [Function],
         },
-        Object {
+        {
           "ariaLabel": "moduleIdentity.detail.command.save",
           "disabled": true,
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "Save",
           },
           "key": "Save",

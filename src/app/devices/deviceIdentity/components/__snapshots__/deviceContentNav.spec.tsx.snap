@@ -7,51 +7,51 @@ exports[`deviceContentNav matches snapshot when the device is edge 1`] = `
 >
   <StyledNavBase
     groups={
-      Array [
-        Object {
-          "links": Array [
-            Object {
-              "iconProps": Object {
+      [
+        {
+          "links": [
+            {
+              "iconProps": {
                 "iconName": "Server",
               },
               "key": "identity",
               "name": "breadcrumb.identity",
               "url": "#/identity/?deviceId=test",
             },
-            Object {
-              "iconProps": Object {
+            {
+              "iconProps": {
                 "iconName": "ReopenPages",
               },
               "key": "twin",
               "name": "breadcrumb.twin",
               "url": "#/twin/?deviceId=test",
             },
-            Object {
-              "iconProps": Object {
+            {
+              "iconProps": {
                 "iconName": "Message",
               },
               "key": "events",
               "name": "breadcrumb.events",
               "url": "#/events/?deviceId=test",
             },
-            Object {
-              "iconProps": Object {
+            {
+              "iconProps": {
                 "iconName": "Remote",
               },
               "key": "methods",
               "name": "breadcrumb.methods",
               "url": "#/methods/?deviceId=test",
             },
-            Object {
-              "iconProps": Object {
+            {
+              "iconProps": {
                 "iconName": "Mail",
               },
               "key": "cloudToDeviceMessage",
               "name": "breadcrumb.cloudToDeviceMessage",
               "url": "#/cloudToDeviceMessage/?deviceId=test",
             },
-            Object {
-              "iconProps": Object {
+            {
+              "iconProps": {
                 "iconName": "TFVCLogo",
               },
               "key": "moduleIdentity",
@@ -73,59 +73,59 @@ exports[`deviceContentNav matches snapshot when the device is not edge 1`] = `
 >
   <StyledNavBase
     groups={
-      Array [
-        Object {
-          "links": Array [
-            Object {
-              "iconProps": Object {
+      [
+        {
+          "links": [
+            {
+              "iconProps": {
                 "iconName": "Server",
               },
               "key": "identity",
               "name": "breadcrumb.identity",
               "url": "#/identity/?deviceId=test",
             },
-            Object {
-              "iconProps": Object {
+            {
+              "iconProps": {
                 "iconName": "ReopenPages",
               },
               "key": "twin",
               "name": "breadcrumb.twin",
               "url": "#/twin/?deviceId=test",
             },
-            Object {
-              "iconProps": Object {
+            {
+              "iconProps": {
                 "iconName": "Message",
               },
               "key": "events",
               "name": "breadcrumb.events",
               "url": "#/events/?deviceId=test",
             },
-            Object {
-              "iconProps": Object {
+            {
+              "iconProps": {
                 "iconName": "Remote",
               },
               "key": "methods",
               "name": "breadcrumb.methods",
               "url": "#/methods/?deviceId=test",
             },
-            Object {
-              "iconProps": Object {
+            {
+              "iconProps": {
                 "iconName": "Mail",
               },
               "key": "cloudToDeviceMessage",
               "name": "breadcrumb.cloudToDeviceMessage",
               "url": "#/cloudToDeviceMessage/?deviceId=test",
             },
-            Object {
-              "iconProps": Object {
+            {
+              "iconProps": {
                 "iconName": "TFVCLogo",
               },
               "key": "moduleIdentity",
               "name": "breadcrumb.moduleIdentity",
               "url": "#/moduleIdentity/?deviceId=test",
             },
-            Object {
-              "iconProps": Object {
+            {
+              "iconProps": {
                 "iconName": "PlugDisconnected",
               },
               "key": "ioTPlugAndPlay",
