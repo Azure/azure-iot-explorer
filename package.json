@@ -35,7 +35,7 @@
     "publish": null
   },
   "scripts": {
-    "build": "npm run localization && npm run webpack:compile && npm run server:compile && npm run preload:compile && npm run electron:compile && webpack --mode production --config webpack.electron.js",
+    "build": "npm run localization && npm run webpack:compile && npm run server:compile && npm run electron:compile && webpack --mode production --config webpack.electron.js",
     "pack:win": "electron-builder --dir",
     "dist:win": "electron-builder -w --prepackaged ./dist/win-unpacked",
     "clean": "IF EXIST .\\dist RMDIR /Q /S .\\dist",
@@ -45,7 +45,6 @@
     "docker": "docker pull electronuserland/electron-builder && docker run --rm -ti --mount source=$(pwd),target=/project,type=bind electronuserland/electron-builder:latest",
     "electron": "electron .",
     "electron:compile": "tsc --project ./public/tsconfig.json",
-    "preload:compile": "webpack --mode production --config webpack.preload.js",
     "package:win": "npm run clean && npm ci & npm rebuild sass && npm run build && electron-builder -w",
     "package:linux": "npm run clean:linux && npm ci && npm rebuild sass && npm run build && electron-builder -l",
     "package:mac": "npm ci && npm rebuild sass && npm run build && electron-builder -m",
