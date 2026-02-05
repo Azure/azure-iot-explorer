@@ -7,6 +7,11 @@ import * as Enzyme from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';
 import { appConfig } from './src/appConfig/appConfig'
 
+// Define globals that were previously in Jest config
+(global as any).__DEV__ = true;
+(global as any)._CONTROLLER_ENDPOINT = '_CONTROLLER_ENDPOINT';
+(global as any).frameSignature = 'portalEnvironmentFrameSignature';
+
 // tslint:disable-next-line: no-string-literal
 global.Headers = jest.fn();
 window.fetch = jest.fn();
@@ -31,5 +36,15 @@ jest.mock('react-i18next', () => ({
 jest.mock('./src/appConfig/appConfig', () => ({
   ...jest.requireActual('./src/appConfig/appConfig'), 
   appConfig: {
+    hostMode: 'browser',  // Use browser mode in tests to simplify endpoint URLs
+    controllerPort: 8081,
     telemetryConnString: 'InstrumentationKey=4e4b375e-0c49-42e3-8a51-20b22ce36181;IngestionEndpoint=https://westus2-2.in.applicationinsights.azure.com/;LiveEndpoint=https://westus2.livediagnostics.monitor.azure.com/'
 }}));
+
+// Mock secureFetch to pass through to regular fetch for tests
+jest.mock('./src/app/api/shared/secureFetch', () => ({
+  secureFetch: jest.fn((url, options) => window.fetch(url, options)),
+  initializeSecureFetch: jest.fn(() => Promise.resolve()),
+  getSecureWebSocketUrl: jest.fn((url) => url),
+  resetSecureFetch: jest.fn()
+}));

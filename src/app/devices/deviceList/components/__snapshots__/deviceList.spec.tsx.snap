@@ -27,16 +27,16 @@ exports[`DeviceList matches snapshot 1`] = `
           "_canSelectItem": [Function],
           "_changeEventSuppressionCount": 0,
           "_exemptedCount": 0,
-          "_exemptedIndices": Object {},
+          "_exemptedIndices": {},
           "_getKey": [Function],
           "_isModal": false,
-          "_items": Array [],
-          "_keyToIndexMap": Object {},
+          "_items": [],
+          "_keyToIndexMap": {},
           "_onItemsChanged": undefined,
           "_onSelectionChanged": [Function],
           "_selectedItems": null,
           "_unselectableCount": 0,
-          "_unselectableIndices": Object {},
+          "_unselectableIndices": {},
           "count": 0,
           "mode": 2,
         }
@@ -47,48 +47,48 @@ exports[`DeviceList matches snapshot 1`] = `
         ariaLabelForSelectionColumn="deviceLists.toggleSelectionColumnAriaLabel"
         checkButtonAriaLabel="deviceLists.rowCheckBoxAriaLabel"
         columns={
-          Array [
-            Object {
+          [
+            {
               "fieldName": "id",
               "isMultiline": true,
               "key": "id",
               "minWidth": 200,
               "name": "deviceLists.columns.deviceId.label",
             },
-            Object {
+            {
               "fieldName": "status",
               "key": "status",
               "minWidth": 100,
               "name": "deviceLists.columns.status.label",
             },
-            Object {
+            {
               "fieldName": "connection",
               "key": "connection",
               "minWidth": 100,
               "name": "deviceLists.columns.connection",
             },
-            Object {
+            {
               "fieldName": "authenticationType",
               "isMultiline": true,
               "key": "authenticationType",
               "minWidth": 100,
               "name": "deviceLists.columns.authenticationType",
             },
-            Object {
+            {
               "fieldName": "statusUpdatedTime",
               "isMultiline": true,
               "key": "statusUpdatedTime",
               "minWidth": 100,
               "name": "deviceLists.columns.statusUpdatedTime",
             },
-            Object {
+            {
               "fieldName": "modelId",
               "isMultiline": true,
               "key": "modelId",
               "minWidth": 120,
               "name": "deviceLists.columns.isPnpDevice",
             },
-            Object {
+            {
               "fieldName": "edge",
               "key": "edge",
               "minWidth": 100,
@@ -97,8 +97,8 @@ exports[`DeviceList matches snapshot 1`] = `
           ]
         }
         items={
-          Array [
-            Object {
+          [
+            {
               "authenticationType": "sas",
               "cloudToDeviceMessageCount": "0",
               "connectionState": "connected",
@@ -118,16 +118,16 @@ exports[`DeviceList matches snapshot 1`] = `
             "_canSelectItem": [Function],
             "_changeEventSuppressionCount": 0,
             "_exemptedCount": 0,
-            "_exemptedIndices": Object {},
+            "_exemptedIndices": {},
             "_getKey": [Function],
             "_isModal": false,
-            "_items": Array [],
-            "_keyToIndexMap": Object {},
+            "_items": [],
+            "_keyToIndexMap": {},
             "_onItemsChanged": undefined,
             "_onSelectionChanged": [Function],
             "_selectedItems": null,
             "_unselectableCount": 0,
-            "_unselectableIndices": Object {},
+            "_unselectableIndices": {},
             "count": 0,
             "mode": 2,
           }

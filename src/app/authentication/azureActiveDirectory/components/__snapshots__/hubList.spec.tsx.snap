@@ -8,20 +8,20 @@ exports[`HubList matches snapshot when there are list items 1`] = `
   />
   <ResizableDetailsList
     columns={
-      Array [
-        Object {
+      [
+        {
           "key": "name",
           "minWidth": 150,
           "name": "authentication.azureActiveDirectory.hubList.columns.name",
         },
-        Object {
+        {
           "key": "id",
           "minWidth": 150,
           "name": "authentication.azureActiveDirectory.hubList.columns.location",
         },
       ]
     }
-    items={Array []}
+    items={[]}
     onRenderItemColumn={[Function]}
     selectionMode={0}
   />
@@ -36,20 +36,20 @@ exports[`HubList matches snapshot when there are no list items 1`] = `
   />
   <ResizableDetailsList
     columns={
-      Array [
-        Object {
+      [
+        {
           "key": "name",
           "minWidth": 150,
           "name": "authentication.azureActiveDirectory.hubList.columns.name",
         },
-        Object {
+        {
           "key": "id",
           "minWidth": 150,
           "name": "authentication.azureActiveDirectory.hubList.columns.location",
         },
       ]
     }
-    items={Array []}
+    items={[]}
     onRenderItemColumn={[Function]}
     selectionMode={0}
   />

@@ -8,9 +8,6 @@ import { generateKey, validateKey, validateThumbprint, validateDeviceId, getRoot
 describe('utils', () => {
     // tslint:disable-next-line:no-any
     const localWindow = window as any;
-    localWindow.crypto = {
-      getRandomValues: jest.fn()
-    };
 
     const testRandomValueGenerator = (byteArray: Uint8Array) => {
         const defaultValue: number = 1;
@@ -26,6 +23,21 @@ describe('utils', () => {
         });
 
         it('generates a key with mocked crypto function', () => {
+            const mockGetRandomValues = jest.fn().mockImplementation((byteArray: Uint8Array) => {
+                for (let i = 0; i < byteArray.length; i++) {
+                    byteArray[i] = 0;
+                }
+                return byteArray;
+            });
+            const mockCrypto = { getRandomValues: mockGetRandomValues };
+            
+            // Override window.crypto using Object.defineProperty
+            Object.defineProperty(window, 'crypto', {
+                value: mockCrypto,
+                writable: true,
+                configurable: true
+            });
+            
             const value = generateKey();
             expect(value).toEqual('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=');
         });

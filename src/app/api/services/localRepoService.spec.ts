@@ -7,6 +7,10 @@ import { fetchLocalFile, fetchDirectories, fetchLocalFileNaive } from './localRe
 import { ModelDefinitionNotFound } from '../models/modelDefinitionNotFoundError';
 
 describe('localRepoService', () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
+
     describe('fetchLocalFile', () => {
         it('calls fetch with expected params', async () => {
             // tslint:disable
@@ -17,10 +21,10 @@ describe('localRepoService', () => {
                 status: 200
             } as any;
             // tslint:enable
-            jest.spyOn(window, 'fetch').mockResolvedValue(response);
+            (window.fetch as jest.Mock).mockResolvedValue(response);
 
             await fetchLocalFile('f:', 'test.json');
-            expect(fetch).toBeCalledWith(`${CONTROLLER_API_ENDPOINT}${READ_FILE}/${encodeURIComponent('f:')}/${encodeURIComponent('test.json')}`);
+            expect(fetch).toHaveBeenLastCalledWith(`${CONTROLLER_API_ENDPOINT}${READ_FILE}/${encodeURIComponent('f:')}/${encodeURIComponent('test.json')}`, undefined);
         });
 
         it('throws ModelDefinitionNotFound when response status is 500', async () => {
@@ -33,7 +37,7 @@ describe('localRepoService', () => {
                 status: 500
             } as any;
             // tslint:enable
-            jest.spyOn(window, 'fetch').mockResolvedValue(response);
+            (window.fetch as jest.Mock).mockResolvedValue(response);
             await expect(fetchLocalFile('f:', 'test.json')).rejects.toThrow(new ModelDefinitionNotFound()).catch();
         });
     });
@@ -48,10 +52,10 @@ describe('localRepoService', () => {
                 status: 200
             } as any;
             // tslint:enable
-            jest.spyOn(window, 'fetch').mockResolvedValue(response);
+            (window.fetch as jest.Mock).mockResolvedValue(response);
 
             await fetchLocalFileNaive('f:', 'test.json');
-            expect(fetch).toBeCalledWith(`${CONTROLLER_API_ENDPOINT}${READ_FILE_NAIVE}/${encodeURIComponent('f:')}/${encodeURIComponent('test.json')}`);
+            expect(fetch).toHaveBeenLastCalledWith(`${CONTROLLER_API_ENDPOINT}${READ_FILE_NAIVE}/${encodeURIComponent('f:')}/${encodeURIComponent('test.json')}`, undefined);
         });
 
         it('throws ModelDefinitionNotFound when response status is 500', async () => {
@@ -64,7 +68,7 @@ describe('localRepoService', () => {
                 status: 500
             } as any;
             // tslint:enable
-            jest.spyOn(window, 'fetch').mockResolvedValue(response);
+            (window.fetch as jest.Mock).mockResolvedValue(response);
             await expect(fetchLocalFileNaive('f:', 'test.json')).rejects.toThrow(new ModelDefinitionNotFound()).catch();
         });
     });
@@ -79,10 +83,10 @@ describe('localRepoService', () => {
                 status: 200
             } as any;
             // tslint:enable
-            jest.spyOn(window, 'fetch').mockResolvedValue(response);
+            (window.fetch as jest.Mock).mockResolvedValue(response);
 
             await fetchDirectories('f:');
-            expect(fetch).toBeCalledWith(`${CONTROLLER_API_ENDPOINT}${GET_DIRECTORIES}/${encodeURIComponent('f:')}`);
+            expect(fetch).toHaveBeenLastCalledWith(`${CONTROLLER_API_ENDPOINT}${GET_DIRECTORIES}/${encodeURIComponent('f:')}`, undefined);
         });
     });
 });

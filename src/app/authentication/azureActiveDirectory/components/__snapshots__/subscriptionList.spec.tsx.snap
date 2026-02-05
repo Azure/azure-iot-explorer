@@ -8,25 +8,25 @@ exports[`SubscriptionList matches snapshot when there are list items 1`] = `
   />
   <ResizableDetailsList
     columns={
-      Array [
-        Object {
+      [
+        {
           "key": "name",
           "minWidth": 150,
           "name": "authentication.azureActiveDirectory.subscriptionList.columns.name",
         },
-        Object {
+        {
           "key": "id",
           "minWidth": 150,
           "name": "authentication.azureActiveDirectory.subscriptionList.columns.id",
         },
-        Object {
+        {
           "key": "state",
           "minWidth": 150,
           "name": "authentication.azureActiveDirectory.subscriptionList.columns.state",
         },
       ]
     }
-    items={Array []}
+    items={[]}
     onRenderItemColumn={[Function]}
     selectionMode={0}
   />
@@ -41,25 +41,25 @@ exports[`SubscriptionList matches snapshot when there are no list items 1`] = `
   />
   <ResizableDetailsList
     columns={
-      Array [
-        Object {
+      [
+        {
           "key": "name",
           "minWidth": 150,
           "name": "authentication.azureActiveDirectory.subscriptionList.columns.name",
         },
-        Object {
+        {
           "key": "id",
           "minWidth": 150,
           "name": "authentication.azureActiveDirectory.subscriptionList.columns.id",
         },
-        Object {
+        {
           "key": "state",
           "minWidth": 150,
           "name": "authentication.azureActiveDirectory.subscriptionList.columns.state",
         },
       ]
     }
-    items={Array []}
+    items={[]}
     onRenderItemColumn={[Function]}
     selectionMode={0}
   />

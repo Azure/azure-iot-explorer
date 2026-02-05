@@ -1,6 +1,6 @@
 {
     "developmentMode": true,
-    "hostMode": "debug",
+    "hostMode": "browser",
     "authMode": "connectionString",
     "authServiceSettings": {
         "authority": "https://login.microsoftonline.com/common",

@@ -14,7 +14,7 @@ exports[`DeviceDecoderPanel matches snapshot with customize content type option 
   >
     <Stack
       tokens={
-        Object {
+        {
           "childrenGap": 10,
         }
       }
@@ -25,12 +25,12 @@ exports[`DeviceDecoderPanel matches snapshot with customize content type option 
         label="deviceEvents.customizeContentType.contentTypeOption.label"
         onChange={[Function]}
         options={
-          Array [
-            Object {
+          [
+            {
               "key": "JSON",
               "text": "JSON",
             },
-            Object {
+            {
               "key": "Protobuf",
               "text": "Protobuf",
             },
@@ -82,7 +82,7 @@ exports[`DeviceDecoderPanel matches snapshot with default json option 1`] = `
   >
     <Stack
       tokens={
-        Object {
+        {
           "childrenGap": 10,
         }
       }
@@ -93,12 +93,12 @@ exports[`DeviceDecoderPanel matches snapshot with default json option 1`] = `
         label="deviceEvents.customizeContentType.contentTypeOption.label"
         onChange={[Function]}
         options={
-          Array [
-            Object {
+          [
+            {
               "key": "JSON",
               "text": "JSON",
             },
-            Object {
+            {
               "key": "Protobuf",
               "text": "Protobuf",
             },

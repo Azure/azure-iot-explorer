@@ -3,37 +3,44 @@
  * Licensed under the MIT License
  **********************************************************/
 import  * as express from 'express';
-import { generateDataPlaneRequestBody, processDataPlaneResponse } from './dataPlaneHelper';
+import { processDataPlaneResponse } from './dataPlaneHelper';
+import {
+    validateAzureIoTHostname,
+    sanitizeHeaders,
+    validatePath,
+    validateQueryString
+} from './urlValidator';
 
 describe('server', () => {
-    const hostName = 'testHub.private.azure-devices.net';
-    it('generates data plane request with API version and query string specified in body', () => {
-        const queryString = 'connectTimeoutInSeconds=20&responseTimeoutInSeconds=20';
-        const req = {
-            body: {
-                apiVersion: '2019-07-01-preview',
-                hostName,
-                httpMethod: 'POST',
-                path: '/digitalTwins/testDevice/interfaces/sensor/commands/turnon',
-                queryString,
-                sharedAccessSignature: `SharedAccessSignature sr=${hostName}%2Fdevices%2Fquery&sig=123&se=456&skn=iothubowner`
-            }
-        };
-        const requestBody = generateDataPlaneRequestBody(req as express.Request);
-        expect(requestBody).toEqual(
-            {
-                url: `https://${hostName}/%2FdigitalTwins%2FtestDevice%2Finterfaces%2Fsensor%2Fcommands%2Fturnon?${queryString}&api-version=2019-07-01-preview`,
-                request: {
-                    body: undefined,
-                    headers: {
-                        'Accept': 'application/json',
-                        'Authorization': req.body.sharedAccessSignature,
-                        'Content-Type': 'application/json'
-                    },
-                    method: 'POST',
-                }
-            }
-        );
+    const hostName = 'testhub.azure-devices.net';
+
+    describe('input validation', () => {
+        it('validates Azure IoT Hub hostname', () => {
+            expect(validateAzureIoTHostname(hostName)).toBe(true);
+            expect(validateAzureIoTHostname('attacker.net/azure-devices.net')).toBe(false);
+            expect(validateAzureIoTHostname('sub.testhub.azure-devices.net')).toBe(false);
+        });
+
+        it('validates path', () => {
+            expect(validatePath('digitalTwins/testDevice/interfaces/sensor/commands/turnon')).toBe(true);
+            expect(validatePath('../etc/passwd')).toBe(false);
+        });
+
+        it('validates query string', () => {
+            expect(validateQueryString('?api-version=2020-09-30')).toBe(true);
+            expect(validateQueryString('?<script>alert(1)</script>')).toBe(false);
+        });
+
+        it('sanitizes headers', () => {
+            const result = sanitizeHeaders({
+                'Accept': 'application/json',
+                'Host': 'evil.com',  // Should be blocked
+                'Authorization': 'Bearer token'  // Should be blocked (we set it ourselves)
+            });
+            expect(result['Accept']).toBe('application/json');
+            expect(result['Host']).toBeUndefined();
+            expect(result['Authorization']).toBeUndefined();
+        });
     });
 
     it('generates data plane response with success', async () => {

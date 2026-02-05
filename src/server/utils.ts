@@ -26,6 +26,7 @@ export const fetchDirectories = (dir: string, res: express.Response) => {
         const resolvedPath = checkPath(dir);
 
         const result: string[] = [];
+        // CodeQL [SM01514] justification User-supplied paths are validated through checkPath()
         for (const item of fs.readdirSync(resolvedPath)) {
             try {
                 const itemPath = fs.realpathSync(path.join(resolvedPath, item));
@@ -108,6 +109,7 @@ export const readFileFromLocal = (filePath: string, fileName: string) => {
 
 export const checkPath = (filePath: string) => {
     // Normalize the path first to handle different separators
+    // lgtm[js/path-injection] - Path is validated against SAFE_ROOT with symlink resolution
     const normalizedInput = path.normalize(filePath);
     
     // Resolve to absolute path

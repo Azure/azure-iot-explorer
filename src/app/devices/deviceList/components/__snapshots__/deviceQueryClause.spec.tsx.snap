@@ -9,18 +9,18 @@ exports[`DeviceQueryClause matches snapshot 1`] = `
     ariaLabel="deviceLists.query.searchPills.clause.parameterType.ariaLabel"
     className="parameter-type"
     componentRef={
-      Object {
+      {
         "current": null,
       }
     }
     onChange={[Function]}
     options={
-      Array [
-        Object {
+      [
+        {
           "key": "capabilities.iotEdge",
           "text": "deviceLists.query.searchPills.clause.parameterType.items.edge",
         },
-        Object {
+        {
           "key": "status",
           "text": "deviceLists.query.searchPills.clause.parameterType.items.status",
         },
@@ -33,12 +33,12 @@ exports[`DeviceQueryClause matches snapshot 1`] = `
     className="clause-value"
     onChange={[Function]}
     options={
-      Array [
-        Object {
+      [
+        {
           "key": "enabled",
           "text": "deviceLists.query.searchPills.clause.value.deviceStatus.enabled",
         },
-        Object {
+        {
           "key": "disabled",
           "text": "deviceLists.query.searchPills.clause.value.deviceStatus.disabled",
         },
@@ -52,7 +52,7 @@ exports[`DeviceQueryClause matches snapshot 1`] = `
     className="remove-pill"
     data={0}
     iconProps={
-      Object {
+      {
         "iconName": "Clear",
       }
     }
@@ -71,18 +71,18 @@ exports[`DeviceQueryClause matches snapshot without operation 1`] = `
     ariaLabel="deviceLists.query.searchPills.clause.parameterType.ariaLabel"
     className="parameter-type"
     componentRef={
-      Object {
+      {
         "current": null,
       }
     }
     onChange={[Function]}
     options={
-      Array [
-        Object {
+      [
+        {
           "key": "capabilities.iotEdge",
           "text": "deviceLists.query.searchPills.clause.parameterType.items.edge",
         },
-        Object {
+        {
           "key": "status",
           "text": "deviceLists.query.searchPills.clause.parameterType.items.status",
         },
@@ -95,13 +95,13 @@ exports[`DeviceQueryClause matches snapshot without operation 1`] = `
     className="clause-value"
     onChange={[Function]}
     options={
-      Array [
-        Object {
+      [
+        {
           "ariaLabel": "deviceLists.query.searchPills.clause.value.deviceCapability.edge",
           "key": "true",
           "text": "deviceLists.query.searchPills.clause.value.deviceCapability.edge",
         },
-        Object {
+        {
           "ariaLabel": "deviceLists.query.searchPills.clause.value.deviceCapability.nonEdge",
           "key": "false",
           "text": "deviceLists.query.searchPills.clause.value.deviceCapability.nonEdge",
@@ -116,7 +116,7 @@ exports[`DeviceQueryClause matches snapshot without operation 1`] = `
     className="remove-pill"
     data={0}
     iconProps={
-      Object {
+      {
         "iconName": "Clear",
       }
     }

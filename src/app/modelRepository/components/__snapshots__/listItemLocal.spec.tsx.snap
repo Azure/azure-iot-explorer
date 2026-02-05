@@ -25,13 +25,13 @@ exports[`ListItemLocal matches snapshot for local folder 1`] = `
   >
     <Dialog
       dialogContentProps={
-        Object {
+        {
           "subText": "modelRepository.types.local.folderPicker.dialog.subText",
         }
       }
       hidden={true}
       modalProps={
-        Object {
+        {
           "className": "folder-picker-dialog",
           "isBlocking": false,
         }
@@ -47,7 +47,7 @@ exports[`ListItemLocal matches snapshot for local folder 1`] = `
           className="folder-button"
           disabled={false}
           iconProps={
-            Object {
+            {
               "iconName": "NavigateBack",
             }
           }
@@ -60,7 +60,7 @@ exports[`ListItemLocal matches snapshot for local folder 1`] = `
           modelRepository.types.local.folderPicker.dialog.noFolderFoundText
         </div>
       </div>
-      <StyledDialogFooterBase>
+      <DialogFooter>
         <CustomizedPrimaryButton
           disabled={false}
           onClick={[Function]}
@@ -70,7 +70,7 @@ exports[`ListItemLocal matches snapshot for local folder 1`] = `
           onClick={[Function]}
           text="modelRepository.types.local.folderPicker.command.cancel"
         />
-      </StyledDialogFooterBase>
+      </DialogFooter>
     </Dialog>
   </div>
 </Fragment>

@@ -5,9 +5,10 @@
 import { CONTROLLER_API_ENDPOINT, DATAPLANE, DataPlaneStatusCode, HTTP_OPERATION_TYPES } from '../../constants/apiConstants';
 import { getConnectionInfoFromConnectionString, generateSasToken } from '../shared/utils';
 import { PortIsInUseError } from '../models/portIsInUseError';
-import { AUTHENTICATION_METHOD_PREFERENCE, CONNECTION_STRING_NAME_LIST, CONNECTION_STRING_THROUGH_AAD } from '../../constants/browserStorage';
-import { getActiveConnectionString } from '../../shared/utils/hubConnectionStringHelper';
+import { AUTHENTICATION_METHOD_PREFERENCE, CONNECTION_STRING_THROUGH_AAD } from '../../constants/browserStorage';
 import { AuthenticationMethodPreference } from '../../authentication/state';
+import { secureFetch } from '../shared/secureFetch';
+import { getConnectionStrings } from '../../shared/utils/credentialStorage';
 
 export const DATAPLANE_CONTROLLER_ENDPOINT = `${CONTROLLER_API_ENDPOINT}${DATAPLANE}`;
 
@@ -23,7 +24,7 @@ export interface DataPlaneRequest {
 }
 
 export const request = async (endpoint: string, parameters: any) => { // tslint:disable-line
-    return fetch(
+    return secureFetch(
         endpoint,
         {
             body: JSON.stringify(parameters),
@@ -42,10 +43,16 @@ export const request = async (endpoint: string, parameters: any) => { // tslint:
 export const getConnectionStringHelper = async () => {
     const authSelection = await localStorage.getItem(AUTHENTICATION_METHOD_PREFERENCE);
     if (authSelection === AuthenticationMethodPreference.ConnectionString) {
-        return getActiveConnectionString(await localStorage.getItem(CONNECTION_STRING_NAME_LIST));
+        const connectionStrings = await getConnectionStrings();
+        if (connectionStrings && connectionStrings.length > 0 && connectionStrings[0]) {
+            const connString = connectionStrings[0].connectionString;
+            return connString;
+        }
+        return undefined;
     }
     else {
-        return localStorage.getItem(CONNECTION_STRING_THROUGH_AAD);
+        const aadConnString = await localStorage.getItem(CONNECTION_STRING_THROUGH_AAD);
+        return aadConnString;
     }
 };
 

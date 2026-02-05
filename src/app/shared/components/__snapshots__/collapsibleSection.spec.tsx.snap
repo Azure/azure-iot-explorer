@@ -8,7 +8,7 @@ exports[`collapsibleSection matches snapshot 1`] = `
     ariaLabel="collapsibleSection.open Label"
     className="collapsible-section-icon"
     iconProps={
-      Object {
+      {
         "iconName": "ChevronDown",
       }
     }

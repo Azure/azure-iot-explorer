@@ -8,22 +8,22 @@ exports[`view matches snapshot when locations greater than 0 1`] = `
   />
   <Commands
     formState={
-      Array [
-        Object {
+      [
+        {
           "dirty": false,
-          "repositoryLocationSettings": Array [
-            Object {
+          "repositoryLocationSettings": [
+            {
               "repositoryLocationType": "PUBLIC",
               "value": "",
             },
-            Object {
+            {
               "repositoryLocationType": "CONFIGURABLE",
               "value": "d:/",
             },
           ],
-          "repositoryLocationSettingsErrors": Object {},
+          "repositoryLocationSettingsErrors": {},
         },
-        Object {
+        {
           "setDirtyFlag": [Function],
           "setRepositoryLocationSettings": [Function],
           "setRepositoryLocationSettingsErrors": [Function],
@@ -35,22 +35,22 @@ exports[`view matches snapshot when locations greater than 0 1`] = `
     <ModelRepositoryInstruction />
     <ModelRepositoryLocationList
       formState={
-        Array [
-          Object {
+        [
+          {
             "dirty": false,
-            "repositoryLocationSettings": Array [
-              Object {
+            "repositoryLocationSettings": [
+              {
                 "repositoryLocationType": "PUBLIC",
                 "value": "",
               },
-              Object {
+              {
                 "repositoryLocationType": "CONFIGURABLE",
                 "value": "d:/",
               },
             ],
-            "repositoryLocationSettingsErrors": Object {},
+            "repositoryLocationSettingsErrors": {},
           },
-          Object {
+          {
             "setDirtyFlag": [Function],
             "setRepositoryLocationSettings": [Function],
             "setRepositoryLocationSettingsErrors": [Function],
@@ -70,18 +70,18 @@ exports[`view matches snapshot when no locations 1`] = `
   />
   <Commands
     formState={
-      Array [
-        Object {
+      [
+        {
           "dirty": false,
-          "repositoryLocationSettings": Array [
-            Object {
+          "repositoryLocationSettings": [
+            {
               "repositoryLocationType": "PUBLIC",
               "value": "",
             },
           ],
-          "repositoryLocationSettingsErrors": Object {},
+          "repositoryLocationSettingsErrors": {},
         },
-        Object {
+        {
           "setDirtyFlag": [Function],
           "setRepositoryLocationSettings": [Function],
           "setRepositoryLocationSettingsErrors": [Function],
@@ -93,18 +93,18 @@ exports[`view matches snapshot when no locations 1`] = `
     <ModelRepositoryInstruction />
     <ModelRepositoryLocationList
       formState={
-        Array [
-          Object {
+        [
+          {
             "dirty": false,
-            "repositoryLocationSettings": Array [
-              Object {
+            "repositoryLocationSettings": [
+              {
                 "repositoryLocationType": "PUBLIC",
                 "value": "",
               },
             ],
-            "repositoryLocationSettingsErrors": Object {},
+            "repositoryLocationSettingsErrors": {},
           },
-          Object {
+          {
             "setDirtyFlag": [Function],
             "setRepositoryLocationSettings": [Function],
             "setRepositoryLocationSettingsErrors": [Function],

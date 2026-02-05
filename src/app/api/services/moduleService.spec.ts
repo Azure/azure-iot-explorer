@@ -105,10 +105,9 @@ describe('moduleService', () => {
             expect(result).toEqual(moduleIdentity);
         });
 
-        it('throws Error when promise rejects', async done => {
+        it('throws Error when promise rejects', async () => {
             window.fetch = jest.fn().mockRejectedValueOnce(new Error('Not found'));
             await expect(ModuleService.fetchModuleIdentities(parameters)).rejects.toThrowError('Not found');
-            done();
         });
     });
 
@@ -154,10 +153,9 @@ describe('moduleService', () => {
             expect(result).toEqual(moduleIdentity);
         });
 
-        it('throws Error when promise rejects', async done => {
+        it('throws Error when promise rejects', async () => {
             window.fetch = jest.fn().mockRejectedValueOnce(new Error('Not found'));
             await expect(ModuleService.addModuleIdentity(parameters)).rejects.toThrowError('Not found');
-            done();
         });
     });
 
@@ -203,10 +201,9 @@ describe('moduleService', () => {
             expect(result).toEqual(moduleTwin);
         });
 
-        it('throws Error when promise rejects', async done => {
+        it('throws Error when promise rejects', async () => {
             window.fetch = jest.fn().mockRejectedValueOnce(new Error('Not found'));
             await expect(ModuleService.fetchModuleIdentityTwin(parameters)).rejects.toThrowError('Not found');
-            done();
         });
     });
 
@@ -252,10 +249,9 @@ describe('moduleService', () => {
             expect(result).toEqual(moduleIdentity);
         });
 
-        it('throws Error when promise rejects', async done => {
+        it('throws Error when promise rejects', async () => {
             window.fetch = jest.fn().mockRejectedValueOnce(new Error('Not found'));
             await expect(ModuleService.fetchModuleIdentity(parameters)).rejects.toThrowError('Not found');
-            done();
         });
     });
 
@@ -302,10 +298,9 @@ describe('moduleService', () => {
             expect(result).toEqual(undefined);
         });
 
-        it('throws Error when promise rejects', async done => {
+        it('throws Error when promise rejects', async () => {
             window.fetch = jest.fn().mockRejectedValueOnce(new Error('Not found'));
             await expect(ModuleService.deleteModuleIdentity(parameters)).rejects.toThrowError('Not found');
-            done();
         });
     });
 

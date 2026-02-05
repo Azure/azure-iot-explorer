@@ -44,7 +44,7 @@ exports[`deviceSimulationPanel matches snapshot  1`] = `
       allowMask={false}
       ariaLabel="deviceEvents.simulation.basic.copyLabel"
       label="deviceEvents.simulation.basic.copyLabel"
-      value="az iot device simulate --device-id device1 --login \\"\\""
+      value="az iot device simulate --device-id device1 --login """
     />
   </CollapsibleSection>
   <CollapsibleSection
@@ -68,20 +68,20 @@ exports[`deviceSimulationPanel matches snapshot  1`] = `
     <StyledCommandBarBase
       className="properties-section-command-bar"
       items={
-        Array [
-          Object {
+        [
+          {
             "ariaLabel": "deviceEvents.simulation.advanced.properties.addProperty",
-            "iconProps": Object {
+            "iconProps": {
               "iconName": "CircleAddition",
             },
             "key": "deviceEvents.simulation.advanced.properties.addProperty",
             "name": "deviceEvents.simulation.advanced.properties.addProperty",
             "onClick": [Function],
           },
-          Object {
+          {
             "ariaLabel": "deviceEvents.simulation.advanced.properties.delete",
             "disabled": true,
-            "iconProps": Object {
+            "iconProps": {
               "iconName": "Delete",
             },
             "key": "deviceEvents.simulation.advanced.properties.delete",
@@ -98,16 +98,16 @@ exports[`deviceSimulationPanel matches snapshot  1`] = `
           "_canSelectItem": [Function],
           "_changeEventSuppressionCount": 0,
           "_exemptedCount": 0,
-          "_exemptedIndices": Object {},
+          "_exemptedIndices": {},
           "_getKey": [Function],
           "_isModal": false,
-          "_items": Array [],
-          "_keyToIndexMap": Object {},
+          "_items": [],
+          "_keyToIndexMap": {},
           "_onItemsChanged": undefined,
           "_onSelectionChanged": [Function],
           "_selectedItems": null,
           "_unselectableCount": 0,
-          "_unselectableIndices": Object {},
+          "_unselectableIndices": {},
           "count": 0,
           "mode": 2,
         }
@@ -118,13 +118,13 @@ exports[`deviceSimulationPanel matches snapshot  1`] = `
         ariaLabelForSelectionColumn="deviceEvents.simulation.advanced.properties.toggleSelectionColumnAriaLabel"
         checkButtonAriaLabel="deviceEvents.simulation.advanced.properties.rowCheckBoxAriaLabel"
         columns={
-          Array [
-            Object {
+          [
+            {
               "key": "key",
               "minWidth": 150,
               "name": "deviceEvents.simulation.advanced.properties.key",
             },
-            Object {
+            {
               "key": "value",
               "minWidth": 150,
               "name": "deviceEvents.simulation.advanced.properties.value",
@@ -132,8 +132,8 @@ exports[`deviceSimulationPanel matches snapshot  1`] = `
           ]
         }
         items={
-          Array [
-            Object {
+          [
+            {
               "index": 0,
               "keyName": "",
               "value": "",
@@ -147,16 +147,16 @@ exports[`deviceSimulationPanel matches snapshot  1`] = `
             "_canSelectItem": [Function],
             "_changeEventSuppressionCount": 0,
             "_exemptedCount": 0,
-            "_exemptedIndices": Object {},
+            "_exemptedIndices": {},
             "_getKey": [Function],
             "_isModal": false,
-            "_items": Array [],
-            "_keyToIndexMap": Object {},
+            "_items": [],
+            "_keyToIndexMap": {},
             "_onItemsChanged": undefined,
             "_onSelectionChanged": [Function],
             "_selectedItems": null,
             "_unselectableCount": 0,
-            "_unselectableIndices": Object {},
+            "_unselectableIndices": {},
             "count": 0,
             "mode": 2,
           }
@@ -167,7 +167,7 @@ exports[`deviceSimulationPanel matches snapshot  1`] = `
       allowMask={false}
       ariaLabel="deviceEvents.simulation.advanced.copyLabel"
       label="deviceEvents.simulation.advanced.copyLabel"
-      value="az iot device simulate --device-id device1 --login \\"\\""
+      value="az iot device simulate --device-id device1 --login """
     />
   </CollapsibleSection>
 </StyledPanelBase>

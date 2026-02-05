@@ -6,11 +6,11 @@ import { call, put } from 'redux-saga/effects';
 import { SagaIterator } from 'redux-saga';
 import { NotificationType } from '../../api/models/notification';
 import { raiseNotificationToast } from '../../notifications/components/notificationToast';
-import { CONNECTION_STRING_NAME_LIST } from '../../constants/browserStorage';
 import { getConnectionStringsAction } from '../actions';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { ConnectionStringWithExpiry } from '../state';
 import { setConnectionStrings } from './setConnectionStringsSaga';
+import { getConnectionStrings as getStoredConnectionStrings, deleteConnectionStrings } from '../../shared/utils/credentialStorage';
 
 export function* getConnectionStringsSaga(): SagaIterator {
     const connectionStrings = yield call(getConnectionStrings);
@@ -19,11 +19,10 @@ export function* getConnectionStringsSaga(): SagaIterator {
 
 // tslint:disable-next-line: cyclomatic-complexity
 export function* getConnectionStrings(): SagaIterator {
-    const connectionStrings = localStorage.getItem(CONNECTION_STRING_NAME_LIST);
-    if (connectionStrings) {
+    const result: ConnectionStringWithExpiry[] = yield call(getStoredConnectionStrings);
+    if (result && result.length > 0) {
         try {
             // check expiration, delete and notify
-            const result: ConnectionStringWithExpiry[] = connectionStrings && JSON.parse(connectionStrings) || [];
             const filteredResult = result.filter(s => new Date() < new Date(s.expiration)) || [];
             if (filteredResult.length < result.length) {
                 yield call(raiseNotificationToast, {
@@ -46,8 +45,9 @@ export function* getConnectionStrings(): SagaIterator {
                 },
                 type: NotificationType.warning
             });
-            localStorage.setItem(CONNECTION_STRING_NAME_LIST, '');
+            yield call(deleteConnectionStrings);
             return [];
         }
     }
+    return [];
 }

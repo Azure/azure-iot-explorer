@@ -5,11 +5,11 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
   <StyledCommandBarBase
     className="command"
     items={
-      Array [
-        Object {
+      [
+        {
           "ariaLabel": "cloudToDeviceMessage.sendMessageButtonText",
           "disabled": false,
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "Mail",
           },
           "key": "Mail",
@@ -43,8 +43,8 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
       label="cloudToDeviceMessage.addTimestamp"
       onChange={[Function]}
       styles={
-        Object {
-          "root": Object {
+        {
+          "root": {
             "marginBottom": 20,
           },
         }
@@ -58,28 +58,28 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
       <StyledCommandBarBase
         className="properties-section-command-bar"
         items={
-          Array [
-            Object {
+          [
+            {
               "ariaLabel": "cloudToDeviceMessage.properties.addCustomProperty",
-              "iconProps": Object {
+              "iconProps": {
                 "iconName": "CircleAddition",
               },
               "key": "cloudToDeviceMessage.properties.addCustomProperty",
               "name": "cloudToDeviceMessage.properties.addCustomProperty",
               "onClick": [Function],
             },
-            Object {
+            {
               "ariaLabel": "cloudToDeviceMessage.properties.addSystemProperty",
-              "iconProps": Object {
+              "iconProps": {
                 "iconName": "CircleAdditionSolid",
               },
               "key": "cloudToDeviceMessage.properties.addSystemProperty",
               "name": "cloudToDeviceMessage.properties.addSystemProperty",
-              "subMenuProps": Object {
-                "items": Array [
-                  Object {
+              "subMenuProps": {
+                "items": [
+                  {
                     "disabled": false,
-                    "iconProps": Object {
+                    "iconProps": {
                       "iconName": "LocationDot",
                     },
                     "key": "ack",
@@ -87,9 +87,9 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
                     "onClick": [Function],
                     "secondaryText": "cloudToDeviceMessage.properties.systemProperties.ack.description",
                   },
-                  Object {
+                  {
                     "disabled": false,
-                    "iconProps": Object {
+                    "iconProps": {
                       "iconName": "LocationDot",
                     },
                     "key": "contentType",
@@ -97,9 +97,9 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
                     "onClick": [Function],
                     "secondaryText": "cloudToDeviceMessage.properties.systemProperties.contentType.description",
                   },
-                  Object {
+                  {
                     "disabled": false,
-                    "iconProps": Object {
+                    "iconProps": {
                       "iconName": "LocationDot",
                     },
                     "key": "contentEncoding",
@@ -107,9 +107,9 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
                     "onClick": [Function],
                     "secondaryText": "cloudToDeviceMessage.properties.systemProperties.contentEncoding.description",
                   },
-                  Object {
+                  {
                     "disabled": false,
-                    "iconProps": Object {
+                    "iconProps": {
                       "iconName": "LocationDot",
                     },
                     "key": "correlationId",
@@ -117,9 +117,9 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
                     "onClick": [Function],
                     "secondaryText": "cloudToDeviceMessage.properties.systemProperties.correlationId.description",
                   },
-                  Object {
+                  {
                     "disabled": false,
-                    "iconProps": Object {
+                    "iconProps": {
                       "iconName": "LocationDot",
                     },
                     "key": "expiryTimeUtc",
@@ -127,9 +127,9 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
                     "onClick": [Function],
                     "secondaryText": "cloudToDeviceMessage.properties.systemProperties.expiryTimeUtc.description",
                   },
-                  Object {
+                  {
                     "disabled": false,
-                    "iconProps": Object {
+                    "iconProps": {
                       "iconName": "LocationDot",
                     },
                     "key": "lockToken",
@@ -137,9 +137,9 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
                     "onClick": [Function],
                     "secondaryText": "cloudToDeviceMessage.properties.systemProperties.lockToken.description",
                   },
-                  Object {
+                  {
                     "disabled": false,
-                    "iconProps": Object {
+                    "iconProps": {
                       "iconName": "LocationDot",
                     },
                     "key": "messageId",
@@ -150,10 +150,10 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
                 ],
               },
             },
-            Object {
+            {
               "ariaLabel": "cloudToDeviceMessage.properties.delete",
               "disabled": true,
-              "iconProps": Object {
+              "iconProps": {
                 "iconName": "Delete",
               },
               "key": "cloudToDeviceMessage.properties.delete",
@@ -170,16 +170,16 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
             "_canSelectItem": [Function],
             "_changeEventSuppressionCount": 0,
             "_exemptedCount": 0,
-            "_exemptedIndices": Object {},
+            "_exemptedIndices": {},
             "_getKey": [Function],
             "_isModal": false,
-            "_items": Array [],
-            "_keyToIndexMap": Object {},
+            "_items": [],
+            "_keyToIndexMap": {},
             "_onItemsChanged": undefined,
             "_onSelectionChanged": [Function],
             "_selectedItems": null,
             "_unselectableCount": 0,
-            "_unselectableIndices": Object {},
+            "_unselectableIndices": {},
             "count": 0,
             "mode": 2,
           }
@@ -190,13 +190,13 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
           ariaLabelForSelectionColumn="cloudToDeviceMessage.properties.toggleSelectionColumnAriaLabel"
           checkButtonAriaLabel="cloudToDeviceMessage.properties.rowCheckBoxAriaLabel"
           columns={
-            Array [
-              Object {
+            [
+              {
                 "key": "key",
                 "minWidth": 150,
                 "name": "cloudToDeviceMessage.properties.key",
               },
-              Object {
+              {
                 "key": "value",
                 "minWidth": 150,
                 "name": "cloudToDeviceMessage.properties.value",
@@ -204,8 +204,8 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
             ]
           }
           items={
-            Array [
-              Object {
+            [
+              {
                 "index": 0,
                 "isSystemProperty": false,
                 "keyName": "",
@@ -220,16 +220,16 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
               "_canSelectItem": [Function],
               "_changeEventSuppressionCount": 0,
               "_exemptedCount": 0,
-              "_exemptedIndices": Object {},
+              "_exemptedIndices": {},
               "_getKey": [Function],
               "_isModal": false,
-              "_items": Array [],
-              "_keyToIndexMap": Object {},
+              "_items": [],
+              "_keyToIndexMap": {},
               "_onItemsChanged": undefined,
               "_onSelectionChanged": [Function],
               "_selectedItems": null,
               "_unselectableCount": 0,
-              "_unselectableIndices": Object {},
+              "_unselectableIndices": {},
               "count": 0,
               "mode": 2,
             }

@@ -3,15 +3,15 @@
 exports[`DeviceEventsStateContextProvider matches snapshot 1`] = `
 <ContextProvider
   value={
-    Array [
-      Object {
-        "contentType": Object {
+    [
+      {
+        "contentType": {
           "decodeType": "JSON",
         },
         "formMode": "initialized",
-        "message": Array [],
+        "message": [],
       },
-      Object {
+      {
         "clearEventsMonitoring": [Function],
         "setDecoderInfo": [Function],
         "setDefaultDecodeInfo": [Function],

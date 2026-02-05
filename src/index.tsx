@@ -11,6 +11,7 @@ import { Themer } from './themer';
 import i18n from './i18n';
 import { Application } from './app/shared/components/application';
 import { GlobalContextProvider } from './app/shared/global/context/globalContext';
+import { initializeAppSettings } from './app/shared/utils/appInitialization';
 import './app/css/_index.scss';
 import './app/css/_layouts.scss';
 
@@ -30,7 +31,10 @@ const ViewHolder: React.FC = () => {
     );
 };
 
-ReactDOM.render(
-    <ViewHolder />,
-    document.getElementById('device-explorer'),
-);
+// Initialize app settings (e.g., custom port from main process) before rendering
+initializeAppSettings().finally(() => {
+    ReactDOM.render(
+        <ViewHolder />,
+        document.getElementById('device-explorer'),
+    );
+});

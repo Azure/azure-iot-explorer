@@ -39,7 +39,7 @@ exports[`ListItemLocalLabel matches snapshot when repo type equals LocalDMR 1`] 
     >
       <Component
         components={
-          Array [
+          [
             <StyledLinkBase
               href="https://github.com/Azure/iot-plugandplay-models-tools/wiki/Resolution-Convention"
               target="_blank"

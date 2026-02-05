@@ -9,7 +9,7 @@ exports[`IotHubDevices matches snapshot 1`] = `
   />
   <BreadcrumbRoute
     breadcrumb={
-      Object {
+      {
         "name": "breadcrumb.add",
       }
     }
