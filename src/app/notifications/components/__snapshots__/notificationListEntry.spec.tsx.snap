@@ -13,7 +13,7 @@ exports[`notificationListEntry matches snapshot 1`] = `
     <Icon
       iconName="Completed"
       style={
-        Object {
+        {
           "fontSize": 18,
         }
       }
@@ -35,7 +35,7 @@ exports[`notificationListEntry matches snapshot 1`] = `
       <StyledLinkBase
         onClick={[Function]}
         style={
-          Object {
+          {
             "flex": "5",
           }
         }

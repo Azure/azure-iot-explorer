@@ -8,8 +8,8 @@ exports[`SystemPropertyCheckBox matches snapshot 1`] = `
   label="deviceEvents.command.showSystemProperties.label"
   onChange={[MockFunction]}
   styles={
-    Object {
-      "root": Object {
+    {
+      "root": {
         "paddingTop": 10,
       },
     }

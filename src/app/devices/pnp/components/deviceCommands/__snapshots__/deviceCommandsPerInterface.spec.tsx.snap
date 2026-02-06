@@ -33,7 +33,7 @@ exports[`components/devices/deviceCommandsPerInterface matches snapshot 1`] = `
       <CustomizedIconButton
         ariaLabel="deviceCommands.command.collapseAll"
         iconProps={
-          Object {
+          {
             "iconName": "ChevronUp",
           }
         }
@@ -49,19 +49,19 @@ exports[`components/devices/deviceCommandsPerInterface matches snapshot 1`] = `
     <DeviceCommandsPerInterfacePerCommand
       collapsed={false}
       commandModelDefinition={
-        Object {
+        {
           "@type": "Command",
           "name": "command1",
         }
       }
       commandSchemas={
-        Array [
-          Object {
-            "commandModelDefinition": Object {
+        [
+          {
+            "commandModelDefinition": {
               "@type": "Command",
               "name": "command1",
             },
-            "parsedSchema": Object {
+            "parsedSchema": {
               "description": "command1 description",
               "name": "command1",
             },
@@ -75,7 +75,7 @@ exports[`components/devices/deviceCommandsPerInterface matches snapshot 1`] = `
       key="0"
       moduleId=""
       parsedSchema={
-        Object {
+        {
           "description": "command1 description",
           "name": "command1",
         }

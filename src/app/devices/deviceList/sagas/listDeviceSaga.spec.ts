@@ -13,7 +13,6 @@ import { listDevicesAction } from '../actions';
 import { DeviceIdentity } from '../../../api/models/deviceIdentity';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { NotificationType } from '../../../api/models/notification';
-import { ERROR_TYPES } from '../../../constants/apiConstants';
 import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 
 describe('listDeviceSaga', () => {
@@ -79,29 +78,6 @@ describe('listDeviceSaga', () => {
                     translationKey: ResourceKeys.notifications.getDeviceListOnError,
                     translationOptions: {
                       error: error.message,
-                  },
-                },
-                type: NotificationType.error,
-            })
-        });
-
-        expect(failure.next(error)).toEqual({
-            done: false,
-            value: put(listDevicesAction.failed({params: query, error}))
-        });
-        expect(failure.next().done).toEqual(true);
-    });
-
-    it('fails on port in use error', () => {
-        const failure = listDevicesSagaGenerator.clone();
-        const error = { name: ERROR_TYPES.PORT_IS_IN_USE };
-        expect(failure.throw(error)).toEqual({
-            done: false,
-            value: call(raiseNotificationToast, {
-                text: {
-                    translationKey: ResourceKeys.notifications.portIsInUseError,
-                    translationOptions: {
-                        portNumber: undefined,
                   },
                 },
                 type: NotificationType.error,

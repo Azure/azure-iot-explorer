@@ -5,11 +5,11 @@ exports[`moduleDirectMethod matches snapshot 1`] = `
   <StyledCommandBarBase
     className="command"
     items={
-      Array [
-        Object {
+      [
+        {
           "ariaLabel": "directMethod.invokeMethodButtonText",
           "disabled": true,
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "Remote",
           },
           "key": "Remote",

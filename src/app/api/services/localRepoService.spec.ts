@@ -2,87 +2,54 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { CONTROLLER_API_ENDPOINT, GET_DIRECTORIES, READ_FILE, READ_FILE_NAIVE } from './../../constants/apiConstants';
 import { fetchLocalFile, fetchDirectories, fetchLocalFileNaive } from './localRepoService';
 import { ModelDefinitionNotFound } from '../models/modelDefinitionNotFoundError';
 
 describe('localRepoService', () => {
-    describe('fetchLocalFile', () => {
-        it('calls fetch with expected params', async () => {
-            // tslint:disable
-            const response = {
-                json: () => {
-                    return { headers:{}, body:{}}
-                    },
-                status: 200
-            } as any;
-            // tslint:enable
-            jest.spyOn(window, 'fetch').mockResolvedValue(response);
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
 
-            await fetchLocalFile('f:', 'test.json');
-            expect(fetch).toBeCalledWith(`${CONTROLLER_API_ENDPOINT}${READ_FILE}/${encodeURIComponent('f:')}/${encodeURIComponent('test.json')}`);
+    describe('fetchLocalFile', () => {
+        it('calls IPC readLocalFile with expected params', async () => {
+            const mockFileContent = { test: 'content' };
+            (window as any).api_device.readLocalFile.mockResolvedValue(JSON.stringify(mockFileContent));
+
+            const result = await fetchLocalFile('f:', 'test.json');
+            expect((window as any).api_device.readLocalFile).toHaveBeenCalledWith({ path: 'f:', file: 'test.json' });
+            expect(result).toEqual(mockFileContent);
         });
 
-        it('throws ModelDefinitionNotFound when response status is 500', async () => {
-            // tslint:disable
-            const response = {
-                json: () => {return {
-                    body: {},
-                    headers:{}
-                    }},
-                status: 500
-            } as any;
-            // tslint:enable
-            jest.spyOn(window, 'fetch').mockResolvedValue(response);
-            await expect(fetchLocalFile('f:', 'test.json')).rejects.toThrow(new ModelDefinitionNotFound()).catch();
+        it('throws ModelDefinitionNotFound when file is not found (null)', async () => {
+            (window as any).api_device.readLocalFile.mockResolvedValue(null);
+            await expect(fetchLocalFile('f:', 'test.json')).rejects.toThrow(new ModelDefinitionNotFound());
         });
     });
 
     describe('fetchLocalFileNaive', () => {
-        it('calls fetch with expected params', async () => {
-            // tslint:disable
-            const response = {
-                json: () => {
-                    return { headers:{}, body:{}}
-                    },
-                status: 200
-            } as any;
-            // tslint:enable
-            jest.spyOn(window, 'fetch').mockResolvedValue(response);
+        it('calls IPC readLocalFileNaive with expected params', async () => {
+            const mockFileContent = { test: 'naive' };
+            (window as any).api_device.readLocalFileNaive.mockResolvedValue(JSON.stringify(mockFileContent));
 
-            await fetchLocalFileNaive('f:', 'test.json');
-            expect(fetch).toBeCalledWith(`${CONTROLLER_API_ENDPOINT}${READ_FILE_NAIVE}/${encodeURIComponent('f:')}/${encodeURIComponent('test.json')}`);
+            const result = await fetchLocalFileNaive('f:', 'test.json');
+            expect((window as any).api_device.readLocalFileNaive).toHaveBeenCalledWith({ path: 'f:', file: 'test.json' });
+            expect(result).toEqual(mockFileContent);
         });
 
-        it('throws ModelDefinitionNotFound when response status is 500', async () => {
-            // tslint:disable
-            const response = {
-                json: () => {return {
-                    body: {},
-                    headers:{}
-                    }},
-                status: 500
-            } as any;
-            // tslint:enable
-            jest.spyOn(window, 'fetch').mockResolvedValue(response);
-            await expect(fetchLocalFileNaive('f:', 'test.json')).rejects.toThrow(new ModelDefinitionNotFound()).catch();
+        it('throws ModelDefinitionNotFound when file content is empty/null', async () => {
+            (window as any).api_device.readLocalFileNaive.mockResolvedValue(null);
+            await expect(fetchLocalFileNaive('f:', 'test.json')).rejects.toThrow(new ModelDefinitionNotFound());
         });
     });
 
     describe('fetchDirectories', () => {
-        it('calls fetch with expected params', async () => {
-            // tslint:disable
-            const response = {
-                json: () => {
-                    return { headers:{}, body:{}}
-                    },
-                status: 200
-            } as any;
-            // tslint:enable
-            jest.spyOn(window, 'fetch').mockResolvedValue(response);
+        it('calls IPC getDirectories with expected params', async () => {
+            const mockDirectories = ['dir1', 'dir2'];
+            (window as any).api_device.getDirectories.mockResolvedValue(mockDirectories);
 
-            await fetchDirectories('f:');
-            expect(fetch).toBeCalledWith(`${CONTROLLER_API_ENDPOINT}${GET_DIRECTORIES}/${encodeURIComponent('f:')}`);
+            const result = await fetchDirectories('f:');
+            expect((window as any).api_device.getDirectories).toHaveBeenCalledWith({ path: 'f:' });
+            expect(result).toEqual(mockDirectories);
         });
     });
 });

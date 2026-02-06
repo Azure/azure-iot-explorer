@@ -1,12 +1,7 @@
 {
     "developmentMode": true,
-    "hostMode": "debug",
+    "hostMode": "electron",
     "authMode": "connectionString",
-    "authServiceSettings": {
-        "authority": "https://login.microsoftonline.com/common",
-        "client": "c9d0ec1d-3630-477b-ae58-83585222d684"
-    },
     "azureResourceManagementEndpoint": "management.azure.com",
-    "controllerPort": 8082,
     "telemetryConnString": "InstrumentationKey=4e4b375e-0c49-42e3-8a51-20b22ce36181;IngestionEndpoint=https://westus2-2.in.applicationinsights.azure.com/;LiveEndpoint=https://westus2.livediagnostics.monitor.azure.com/"
 }

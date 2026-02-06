@@ -2,26 +2,27 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { appConfig, HostMode } from '../../../appConfig/appConfig';
 import { HIGH_CONTRAST } from '../../constants/browserStorage';
 import { API_INTERFACES } from '../../../../public/constants';
 import * as interfaceUtils from './interfaceUtils';
 
 describe('getSettingsInterface', () => {
-    it('returns expected data structure when browser mode', () => {
-        appConfig.hostMode = HostMode.Browser;
-        const factory = jest.spyOn(interfaceUtils, 'getSettingsInterfaceForBrowser');
-
-        interfaceUtils.getSettingsInterface();
-        expect(factory).toHaveBeenCalled();
-    });
-
     it('calls expected factory when mode is electron', () => {
-        appConfig.hostMode = HostMode.Electron;
         const factory = jest.spyOn(interfaceUtils, 'getElectronInterface');
 
         interfaceUtils.getSettingsInterface();
         expect(factory).toHaveBeenCalledWith(API_INTERFACES.SETTINGS);
+    });
+
+    it('falls back to browser interface when electron interface is not available', () => {
+        const originalApi = (window as any).api_settings;
+        (window as any).api_settings = undefined;
+
+        const result = interfaceUtils.getSettingsInterface();
+        expect(result).toBeDefined();
+        expect(typeof result.useHighContrast).toBe('function');
+
+        (window as any).api_settings = originalApi;
     });
 });
 

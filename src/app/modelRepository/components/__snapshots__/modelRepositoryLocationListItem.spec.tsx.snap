@@ -19,18 +19,18 @@ exports[`ModelRepositoryLocationListItem matches snapshot for configurable repo 
     >
       <ListItemConfigurableRepo
         formState={
-          Array [
-            Object {
+          [
+            {
               "dirty": false,
-              "repositoryLocationSettings": Array [
-                Object {
+              "repositoryLocationSettings": [
+                {
                   "repositoryLocationType": "PUBLIC",
                   "value": "",
                 },
               ],
-              "repositoryLocationSettingsErrors": Object {},
+              "repositoryLocationSettingsErrors": {},
             },
-            Object {
+            {
               "setDirtyFlag": [Function],
               "setRepositoryLocationSettings": [Function],
               "setRepositoryLocationSettingsErrors": [Function],
@@ -39,7 +39,7 @@ exports[`ModelRepositoryLocationListItem matches snapshot for configurable repo 
         }
         index={1}
         item={
-          Object {
+          {
             "repositoryLocationType": "CONFIGURABLE",
             "value": "test.com",
           }
@@ -50,7 +50,7 @@ exports[`ModelRepositoryLocationListItem matches snapshot for configurable repo 
       ariaLabel="modelRepository.commands.remove.ariaLabel"
       className="remove-button"
       iconProps={
-        Object {
+        {
           "iconName": "Cancel",
         }
       }
@@ -80,18 +80,18 @@ exports[`ModelRepositoryLocationListItem matches snapshot for local folder 1`] =
     >
       <ListItemLocal
         formState={
-          Array [
-            Object {
+          [
+            {
               "dirty": false,
-              "repositoryLocationSettings": Array [
-                Object {
+              "repositoryLocationSettings": [
+                {
                   "repositoryLocationType": "PUBLIC",
                   "value": "",
                 },
               ],
-              "repositoryLocationSettingsErrors": Object {},
+              "repositoryLocationSettingsErrors": {},
             },
-            Object {
+            {
               "setDirtyFlag": [Function],
               "setRepositoryLocationSettings": [Function],
               "setRepositoryLocationSettingsErrors": [Function],
@@ -100,7 +100,7 @@ exports[`ModelRepositoryLocationListItem matches snapshot for local folder 1`] =
         }
         index={2}
         item={
-          Object {
+          {
             "repositoryLocationType": "LOCAL",
             "value": "c:/models",
           }
@@ -112,7 +112,7 @@ exports[`ModelRepositoryLocationListItem matches snapshot for local folder 1`] =
       ariaLabel="modelRepository.commands.remove.ariaLabel"
       className="remove-button"
       iconProps={
-        Object {
+        {
           "iconName": "Cancel",
         }
       }
@@ -142,18 +142,18 @@ exports[`ModelRepositoryLocationListItem matches snapshot for local repo 1`] = `
     >
       <ListItemLocal
         formState={
-          Array [
-            Object {
+          [
+            {
               "dirty": false,
-              "repositoryLocationSettings": Array [
-                Object {
+              "repositoryLocationSettings": [
+                {
                   "repositoryLocationType": "PUBLIC",
                   "value": "",
                 },
               ],
-              "repositoryLocationSettingsErrors": Object {},
+              "repositoryLocationSettingsErrors": {},
             },
-            Object {
+            {
               "setDirtyFlag": [Function],
               "setRepositoryLocationSettings": [Function],
               "setRepositoryLocationSettingsErrors": [Function],
@@ -162,7 +162,7 @@ exports[`ModelRepositoryLocationListItem matches snapshot for local repo 1`] = `
         }
         index={3}
         item={
-          Object {
+          {
             "repositoryLocationType": "DMR",
             "value": "c:/dtmi",
           }
@@ -174,7 +174,7 @@ exports[`ModelRepositoryLocationListItem matches snapshot for local repo 1`] = `
       ariaLabel="modelRepository.commands.remove.ariaLabel"
       className="remove-button"
       iconProps={
-        Object {
+        {
           "iconName": "Cancel",
         }
       }
@@ -208,7 +208,7 @@ exports[`ModelRepositoryLocationListItem matches snapshot for public repo 1`] = 
       ariaLabel="modelRepository.commands.remove.ariaLabel"
       className="remove-button"
       iconProps={
-        Object {
+        {
           "iconName": "Cancel",
         }
       }

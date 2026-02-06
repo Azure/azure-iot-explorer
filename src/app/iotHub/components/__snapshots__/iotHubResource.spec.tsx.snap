@@ -4,7 +4,7 @@ exports[`IotHubResource matches snapshot 1`] = `
 <Component>
   <BreadcrumbRoute
     breadcrumb={
-      Object {
+      {
         "name": "breadcrumb.devices",
       }
     }

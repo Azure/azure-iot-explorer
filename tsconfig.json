@@ -11,7 +11,8 @@
         "allowJs": true,
         "moduleResolution": "node",
         "rootDir": ".",
-        "baseUrl": "."
+        "baseUrl": ".",
+        "typeRoots": ["./node_modules/@types", "./src/types"]
     },
     "include": [
         "./src/**/*"

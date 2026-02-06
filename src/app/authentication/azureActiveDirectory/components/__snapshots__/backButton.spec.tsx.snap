@@ -3,7 +3,7 @@
 exports[`BackButton matches snapshot  1`] = `
 <CustomizedActionButton
   iconProps={
-    Object {
+    {
       "iconName": "back",
     }
   }

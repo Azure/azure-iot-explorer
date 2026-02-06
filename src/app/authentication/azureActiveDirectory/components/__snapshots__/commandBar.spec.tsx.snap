@@ -3,19 +3,19 @@
 exports[`AzureActiveDirectoryCommandBar matches snapshot when token is not present 1`] = `
 <StyledCommandBarBase
   items={
-    Array [
-      Object {
+    [
+      {
         "ariaLabel": "authentication.azureActiveDirectory.command.login",
-        "iconProps": Object {
+        "iconProps": {
           "iconName": "Signin",
         },
         "key": "signin",
         "onClick": [Function],
         "text": "authentication.azureActiveDirectory.command.login",
       },
-      Object {
+      {
         "ariaLabel": "authentication.authSelection.switchAuthType",
-        "iconProps": Object {
+        "iconProps": {
           "iconName": "NavigateBack",
         },
         "key": "switch",
@@ -30,19 +30,19 @@ exports[`AzureActiveDirectoryCommandBar matches snapshot when token is not prese
 exports[`AzureActiveDirectoryCommandBar matches snapshot when token is present 1`] = `
 <StyledCommandBarBase
   items={
-    Array [
-      Object {
+    [
+      {
         "ariaLabel": "authentication.azureActiveDirectory.command.logout",
-        "iconProps": Object {
+        "iconProps": {
           "iconName": "Signout",
         },
         "key": "signout",
         "onClick": [Function],
         "text": "authentication.azureActiveDirectory.command.logout",
       },
-      Object {
+      {
         "ariaLabel": "authentication.authSelection.switchAuthType",
-        "iconProps": Object {
+        "iconProps": {
           "iconName": "NavigateBack",
         },
         "key": "switch",

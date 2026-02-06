@@ -9,12 +9,23 @@ import { act } from 'react-dom/test-utils';
 import { CommandBar } from '@fluentui/react';
 import { DirectMethod } from './directMethod';
 import { invokeDirectMethodAction } from '../actions';
+import * as AsyncSagaReducer from '../../../shared/hooks/useAsyncSagaReducer';
 
 jest.mock('react-router-dom', () => ({
     useLocation: () => ({ search: '?deviceId=test' })
 }));
 
 describe('directMethod', () => {
+    const mockDispatch = jest.fn();
+
+    beforeEach(() => {
+        jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([undefined, mockDispatch]);
+    });
+
+    afterEach(() => {
+        jest.clearAllMocks();
+    });
+
     it('matches snapshot', () => {
         expect(shallow(<DirectMethod/>)).toMatchSnapshot();
     });

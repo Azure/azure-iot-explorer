@@ -8,7 +8,7 @@ exports[`Loader matches snapshot when loading 1`] = `
     <Stack
       horizontal={true}
       tokens={
-        Object {
+        {
           "childrenGap": 10,
         }
       }

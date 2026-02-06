@@ -7,10 +7,10 @@ exports[`deviceInterfaces shows interface information when status is fetched 1`]
   <StyledCommandBarBase
     className="command deviceInterface-command"
     farItems={
-      Array [
-        Object {
+      [
+        {
           "ariaLabel": "deviceInterfaces.command.close",
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "NavigateBack",
           },
           "key": "NavigateBack",
@@ -20,10 +20,10 @@ exports[`deviceInterfaces shows interface information when status is fetched 1`]
       ]
     }
     items={
-      Array [
-        Object {
+      [
+        {
           "ariaLabel": "deviceInterfaces.command.refresh",
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "Refresh",
           },
           "key": "Refresh",
@@ -70,32 +70,32 @@ exports[`deviceInterfaces shows interface information when status is fetched 1`]
         <MonacoEditorComponent
           ariaLabel="deviceInterfaces.jsonViewerArialLabel"
           content="{
-	\\"@id\\": \\"urn:azureiot:ModelDiscovery:DigitalTwin:1\\",
-	\\"@type\\": \\"Interface\\",
-	\\"contents\\": [
+	"@id": "urn:azureiot:ModelDiscovery:DigitalTwin:1",
+	"@type": "Interface",
+	"contents": [
 		{
-			\\"@type\\": \\"Property\\",
-			\\"name\\": \\"modelInformation\\",
-			\\"displayName\\": \\"Model Information\\",
-			\\"description\\": \\"Providing model and optional interfaces information on a digital twin.\\",
-			\\"schema\\": {
-				\\"@type\\": \\"Object\\",
-				\\"fields\\": [
+			"@type": "Property",
+			"name": "modelInformation",
+			"displayName": "Model Information",
+			"description": "Providing model and optional interfaces information on a digital twin.",
+			"schema": {
+				"@type": "Object",
+				"fields": [
 					{
-						\\"name\\": \\"modelId\\",
-						\\"schema\\": \\"string\\"
+						"name": "modelId",
+						"schema": "string"
 					},
 					{
-						\\"name\\": \\"interfaces\\",
-						\\"schema\\": {
-							\\"@type\\": \\"Map\\",
-							\\"mapKey\\": {
-								\\"name\\": \\"name\\",
-								\\"schema\\": \\"string\\"
+						"name": "interfaces",
+						"schema": {
+							"@type": "Map",
+							"mapKey": {
+								"name": "name",
+								"schema": "string"
 							},
-							\\"mapValue\\": {
-								\\"name\\": \\"schema\\",
-								\\"schema\\": \\"string\\"
+							"mapValue": {
+								"name": "schema",
+								"schema": "string"
 							}
 						}
 					}
@@ -103,7 +103,7 @@ exports[`deviceInterfaces shows interface information when status is fetched 1`]
 			}
 		}
 	],
-	\\"@context\\": \\"https://azureiot.com/v1/contexts/Interface.json\\"
+	"@context": "https://azureiot.com/v1/contexts/Interface.json"
 }"
           height={500}
         />

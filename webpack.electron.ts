@@ -23,7 +23,11 @@ const config: webpack.Configuration = merge(common, {
     },
 
     optimization: {
-        minimizer: [new CssMinimizerPlugin({})]
+        minimizer: [new CssMinimizerPlugin({
+            minimizerOptions: {
+                preset: ['default', { discardComments: { removeAll: true } }]
+            }
+        })]
     },
 
     plugins: [

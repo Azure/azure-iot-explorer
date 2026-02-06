@@ -3,20 +3,20 @@
 exports[`ConnectionStringCommandBar matches snapshot 1`] = `
 <StyledCommandBarBase
   items={
-    Array [
-      Object {
+    [
+      {
         "ariaLabel": "connectionStrings.addConnectionCommand.ariaLabel",
         "disabled": false,
-        "iconProps": Object {
+        "iconProps": {
           "iconName": "Add",
         },
         "key": "add",
         "onClick": [MockFunction],
         "text": "connectionStrings.addConnectionCommand.label",
       },
-      Object {
+      {
         "ariaLabel": "authentication.authSelection.switchAuthType",
-        "iconProps": Object {
+        "iconProps": {
           "iconName": "NavigateBack",
         },
         "key": "switch",

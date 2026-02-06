@@ -5,20 +5,15 @@
 import 'jest';
 import * as DevicesService from './devicesService';
 import * as DataplaneService from './dataplaneServiceHelper';
-import { HTTP_OPERATION_TYPES, HUB_DATA_PLANE_API_VERSION } from '../../constants/apiConstants';
 import { Twin } from '../models/device';
 import { DeviceIdentity } from './../models/deviceIdentity';
-import { buildQueryString, getConnectionInfoFromConnectionString } from '../shared/utils';
+import { getConnectionInfoFromConnectionString } from '../shared/utils';
 import { MonitorEventsParameters } from '../parameters/deviceParameters';
-import { EVENTHUB_MONITOR_ENDPOINT, EVENTHUB_STOP_ENDPOINT } from '../handlers/eventHubServiceHandler';
 
 const deviceId = 'deviceId';
 const connectionString = 'HostName=test-string.azure-devices.net;SharedAccessKeyName=owner;SharedAccessKey=fakeKey=';
 const connectionInfo = getConnectionInfoFromConnectionString(connectionString);
-const headers = new Headers({
-    'Accept': 'application/json',
-    'Content-Type': 'application/json'
-});
+
 // tslint:disable
 const twin: Twin = {
     deviceId,
@@ -48,19 +43,12 @@ const deviceIdentity: DeviceIdentity = {
     };
 // tslint:enable
 const sasToken = 'testSasToken';
-const mockDataPlaneConnectionHelper = () => {
-    if (!(connectionInfo && connectionInfo.hostName)) {
-        return;
-    }
-    return {
-        connectionInfo,
-        sasToken,
-    };
-};
 
 describe('deviceTwinService', () => {
-    afterEach(() => {
+    beforeEach(() => {
         jest.clearAllMocks();
+        jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockResolvedValue({
+            connectionInfo, connectionString, sasToken});
     });
 
     context('fetchDeviceTwin', () => {
@@ -68,98 +56,39 @@ describe('deviceTwinService', () => {
             expect(DevicesService.fetchDeviceTwin({deviceId: undefined})).resolves.toBe(undefined);
         });
 
-        it('calls fetch with specified parameters and returns deviceTwin when response is 200', async () => {
-            jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockResolvedValue({
-                connectionInfo, connectionString, sasToken});
-
-            // tslint:disable
-            const response = {
-                json: () => {return {
-                    body: twin,
-                    headers:{}
-                    }},
-                status: 200
-            } as any;
-            // tslint:enable
-            jest.spyOn(window, 'fetch').mockResolvedValue(response);
-
-            const connectionInformation = mockDataPlaneConnectionHelper();
-            const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
-                apiVersion:  HUB_DATA_PLANE_API_VERSION,
-                hostName: connectionInformation.connectionInfo.hostName,
-                httpMethod: HTTP_OPERATION_TYPES.Get,
-                path: `twins/${deviceId}`,
-                sharedAccessSignature: connectionInformation.sasToken
-            };
+        it('calls IPC dataPlaneRequest and returns deviceTwin when response is 200', async () => {
+            (window as any).api_device.dataPlaneRequest.mockResolvedValue({
+                body: { body: twin },
+                statusCode: 200
+            });
 
             const result = await DevicesService.fetchDeviceTwin({deviceId});
 
-            const serviceRequestParams = {
-                body: JSON.stringify(dataPlaneRequest),
-                cache: 'no-cache',
-                credentials: 'include',
-                headers,
-                method: HTTP_OPERATION_TYPES.Post,
-                mode: 'cors',
-            };
-
-            expect(fetch).toBeCalledWith(DataplaneService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
+            expect((window as any).api_device.dataPlaneRequest).toHaveBeenCalled();
             expect(result).toEqual(twin);
         });
 
-        it('throws Error when promise rejects', async done => {
-            window.fetch = jest.fn().mockRejectedValueOnce(new Error('Not found'));
+        it('throws Error when IPC rejects', async () => {
+            (window as any).api_device.dataPlaneRequest.mockRejectedValue(new Error('Not found'));
             await expect(DevicesService.fetchDeviceTwin({deviceId})).rejects.toThrowError('Not found');
-            done();
         });
     });
 
     context('updateDeviceTwin', () => {
-        it('calls fetch with specified parameters and invokes updateDeviceTwin when response is 200', async () => {
-            jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockResolvedValue({
-                connectionInfo, connectionString, sasToken});
-
-            // tslint:disable
-            const responseBody = twin;
-            const response = {
-                json: () => {
-                    return {
-                        body: responseBody,
-                        headers:{}
-                        }
-                    },
-                status: 200
-            } as any;
-            // tslint:enable
-            jest.spyOn(window, 'fetch').mockResolvedValue(response);
+        it('calls IPC dataPlaneRequest and invokes updateDeviceTwin when response is 200', async () => {
+            (window as any).api_device.dataPlaneRequest.mockResolvedValue({
+                body: { body: twin },
+                statusCode: 200
+            });
 
             const result = await DevicesService.updateDeviceTwin(twin);
 
-            const connectionInformation = mockDataPlaneConnectionHelper();
-            const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
-                apiVersion: HUB_DATA_PLANE_API_VERSION,
-                body: JSON.stringify(twin),
-                hostName: connectionInformation.connectionInfo.hostName,
-                httpMethod: HTTP_OPERATION_TYPES.Patch,
-                path: `twins/${deviceId}`,
-                sharedAccessSignature: connectionInformation.sasToken
-            };
-
-            const serviceRequestParams = {
-                body: JSON.stringify(dataPlaneRequest),
-                cache: 'no-cache',
-                credentials: 'include',
-                headers,
-                method: HTTP_OPERATION_TYPES.Post,
-                mode: 'cors',
-            };
-
-            expect(fetch).toBeCalledWith(DataplaneService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
-            expect(result).toEqual(responseBody);
+            expect((window as any).api_device.dataPlaneRequest).toHaveBeenCalled();
+            expect(result).toEqual(twin);
         });
 
-        it('throws Error when promise rejects', async () => {
-            window.fetch = jest.fn().mockRejectedValueOnce(new Error());
+        it('throws Error when IPC rejects', async () => {
+            (window as any).api_device.dataPlaneRequest.mockRejectedValue(new Error());
             await expect(DevicesService.updateDeviceTwin(twin)).rejects.toThrow(new Error());
         });
     });
@@ -168,68 +97,34 @@ describe('deviceTwinService', () => {
         const parameters = {
             connectTimeoutInSeconds: 10,
             connectionString,
-            deviceId: undefined,
+            deviceId: undefined as string,
             methodName: 'methodName',
             payload: {foo: 'bar'},
             responseTimeoutInSeconds : 10,
         };
+
         it ('returns if deviceId is not specified', () => {
             expect(DevicesService.invokeDirectMethod(parameters)).resolves.toBe(undefined);
         });
 
-        it('calls fetch with specified parameters and invokes invokeDirectMethod when response is 200', async () => {
-            jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockResolvedValue({
-                connectionInfo: getConnectionInfoFromConnectionString(parameters.connectionString), connectionString, sasToken});
-
-            // tslint:disable
+        it('calls IPC dataPlaneRequest and invokes invokeDirectMethod when response is 200', async () => {
             const responseBody = {description: 'invoked'};
-            const response = {
-                json: () => {
-                    return {
-                        body: responseBody,
-                        headers:{}
-                        }
-                    },
-                status: 200
-            } as any;
-            // tslint:enable
-            jest.spyOn(window, 'fetch').mockResolvedValue(response);
+            (window as any).api_device.dataPlaneRequest.mockResolvedValue({
+                body: { body: responseBody },
+                statusCode: 200
+            });
 
             const result = await DevicesService.invokeDirectMethod({
                 ...parameters,
                 deviceId
             });
 
-            const connectionInformation = mockDataPlaneConnectionHelper();
-            const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
-                apiVersion:  HUB_DATA_PLANE_API_VERSION,
-                body: JSON.stringify({
-                    connectTimeoutInSeconds: parameters.connectTimeoutInSeconds,
-                    methodName: parameters.methodName,
-                    payload: parameters.payload,
-                    responseTimeoutInSeconds: parameters.responseTimeoutInSeconds,
-                }),
-                hostName: connectionInformation.connectionInfo.hostName,
-                httpMethod: HTTP_OPERATION_TYPES.Post,
-                path: `twins/${deviceId}/methods`,
-                sharedAccessSignature: connectionInformation.sasToken
-            };
-
-            const serviceRequestParams = {
-                body: JSON.stringify(dataPlaneRequest),
-                cache: 'no-cache',
-                credentials: 'include',
-                headers,
-                method: HTTP_OPERATION_TYPES.Post,
-                mode: 'cors',
-            };
-
-            expect(fetch).toBeCalledWith(DataplaneService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
+            expect((window as any).api_device.dataPlaneRequest).toHaveBeenCalled();
             expect(result).toEqual(responseBody);
         });
 
-        it('throws Error when promise rejects', async () => {
-            window.fetch = jest.fn().mockRejectedValueOnce(new Error());
+        it('throws Error when IPC rejects', async () => {
+            (window as any).api_device.dataPlaneRequest.mockRejectedValue(new Error());
             await expect(DevicesService.invokeDirectMethod({
                 ...parameters,
                 deviceId
@@ -244,54 +139,19 @@ describe('deviceTwinService', () => {
             properties: []
         };
 
-        it('calls sendMessageToDevice with expected parameters', async () => {
-
-            jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockResolvedValue({
-                connectionInfo: getConnectionInfoFromConnectionString(connectionString), connectionString, sasToken});
-
-            // tslint:disable
+        it('calls IPC dataPlaneRequest with expected parameters', async () => {
             const responseBody = {description: 'sent'};
-            const response = {
-                json: () => {
-                    return {
-                        body: responseBody,
-                        headers:{}
-                        }
-                    },
-                status: 200
-            } as any;
-            // tslint:enable
-            jest.spyOn(window, 'fetch').mockResolvedValue(response);
+            (window as any).api_device.dataPlaneRequest.mockResolvedValue({
+                body: { body: responseBody },
+                statusCode: 200
+            });
 
             const result = await DevicesService.cloudToDeviceMessage({
                 ...parameters,
                 deviceId
             });
 
-            const connectionInformation = mockDataPlaneConnectionHelper();
-            const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
-                apiVersion: HUB_DATA_PLANE_API_VERSION,
-                body: 'body',
-                headers: {
-                    'authorization': `testSasToken`,
-                    ['Content-Encoding']: 'utf-8'
-                },
-                hostName: connectionInformation.connectionInfo.hostName,
-                httpMethod: HTTP_OPERATION_TYPES.Post,
-                path: `devices/${encodeURIComponent(deviceId)}/messages/deviceBound`,
-                sharedAccessSignature: sasToken,
-            };
-
-            const serviceRequestParams = {
-                body: JSON.stringify(dataPlaneRequest),
-                cache: 'no-cache',
-                credentials: 'include',
-                headers,
-                method: HTTP_OPERATION_TYPES.Post,
-                mode: 'cors',
-            };
-
-            expect(fetch).toBeCalledWith(DataplaneService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
+            expect((window as any).api_device.dataPlaneRequest).toHaveBeenCalled();
             expect(result).toEqual(responseBody);
         });
     });
@@ -299,59 +159,30 @@ describe('deviceTwinService', () => {
     context('addDevice', () => {
         const parameters = {
             connectionString,
-            deviceIdentity: undefined
+            deviceIdentity: undefined as DeviceIdentity
         };
+
         it ('returns if deviceIdentity is not specified', () => {
             expect(DevicesService.addDevice(parameters)).resolves.toBe(undefined);
         });
 
-        it('calls fetch with specified parameters and invokes addDevice when response is 200', async () => {
-            jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockResolvedValue({
-                connectionInfo: getConnectionInfoFromConnectionString(parameters.connectionString), connectionString, sasToken});
-            // tslint:disable
-            const responseBody = deviceIdentity;
-            const response = {
-                json: () => {
-                    return {
-                        body: responseBody,
-                        headers:{}
-                        }
-                    },
-                status: 200
-            } as any;
-            // tslint:enable
-            jest.spyOn(window, 'fetch').mockResolvedValue(response);
+        it('calls IPC dataPlaneRequest and invokes addDevice when response is 200', async () => {
+            (window as any).api_device.dataPlaneRequest.mockResolvedValue({
+                body: { body: deviceIdentity },
+                statusCode: 200
+            });
 
             const result = await DevicesService.addDevice({
                 ...parameters,
                 deviceIdentity
             });
 
-            const connectionInformation = mockDataPlaneConnectionHelper();
-            const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
-                apiVersion: HUB_DATA_PLANE_API_VERSION,
-                body: JSON.stringify(deviceIdentity),
-                hostName: connectionInformation.connectionInfo.hostName,
-                httpMethod: HTTP_OPERATION_TYPES.Put,
-                path: `devices/${deviceId}`,
-                sharedAccessSignature: connectionInformation.sasToken
-            };
-
-            const serviceRequestParams = {
-                body: JSON.stringify(dataPlaneRequest),
-                cache: 'no-cache',
-                credentials: 'include',
-                headers,
-                method: HTTP_OPERATION_TYPES.Post,
-                mode: 'cors',
-            };
-
-            expect(fetch).toBeCalledWith(DataplaneService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
-            expect(result).toEqual(responseBody);
+            expect((window as any).api_device.dataPlaneRequest).toHaveBeenCalled();
+            expect(result).toEqual(deviceIdentity);
         });
 
-        it('throws Error when promise rejects', async () => {
-            window.fetch = jest.fn().mockRejectedValueOnce(new Error());
+        it('throws Error when IPC rejects', async () => {
+            (window as any).api_device.dataPlaneRequest.mockRejectedValue(new Error());
             await expect(DevicesService.addDevice({
                 ...parameters,
                 deviceIdentity
@@ -362,60 +193,30 @@ describe('deviceTwinService', () => {
     context('updateDevice', () => {
         const parameters = {
             connectionString,
-            deviceIdentity: undefined
+            deviceIdentity: undefined as DeviceIdentity
         };
+
         it ('returns if deviceIdentity is not specified', () => {
             expect(DevicesService.updateDevice(parameters)).resolves.toBe(undefined);
         });
 
-        it('calls fetch with specified parameters and invokes updateDevice when response is 200', async () => {
-            jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockResolvedValue({
-                connectionInfo: getConnectionInfoFromConnectionString(parameters.connectionString), connectionString, sasToken});
-            // tslint:disable
-            const responseBody = deviceIdentity;
-            const response = {
-                json: () => {
-                    return {
-                        body: responseBody,
-                        headers:{}
-                        }
-                    },
-                status: 200
-            } as any;
-            // tslint:enable
-            jest.spyOn(window, 'fetch').mockResolvedValue(response);
+        it('calls IPC dataPlaneRequest and invokes updateDevice when response is 200', async () => {
+            (window as any).api_device.dataPlaneRequest.mockResolvedValue({
+                body: { body: deviceIdentity },
+                statusCode: 200
+            });
 
             const result = await DevicesService.updateDevice({
                 ...parameters,
                 deviceIdentity
             });
 
-            const connectionInformation = mockDataPlaneConnectionHelper();
-            const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
-                apiVersion:  HUB_DATA_PLANE_API_VERSION,
-                body: JSON.stringify(deviceIdentity),
-                headers: {'If-Match': `"null"`},
-                hostName: connectionInformation.connectionInfo.hostName,
-                httpMethod: HTTP_OPERATION_TYPES.Put,
-                path: `devices/${deviceId}`,
-                sharedAccessSignature: connectionInformation.sasToken
-            };
-
-            const serviceRequestParams = {
-                body: JSON.stringify(dataPlaneRequest),
-                cache: 'no-cache',
-                credentials: 'include',
-                headers,
-                method: HTTP_OPERATION_TYPES.Post,
-                mode: 'cors',
-            };
-
-            expect(fetch).toBeCalledWith(DataplaneService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
-            expect(result).toEqual(responseBody);
+            expect((window as any).api_device.dataPlaneRequest).toHaveBeenCalled();
+            expect(result).toEqual(deviceIdentity);
         });
 
-        it('throws Error when promise rejects', async () => {
-            window.fetch = jest.fn().mockRejectedValueOnce(new Error());
+        it('throws Error when IPC rejects', async () => {
+            (window as any).api_device.dataPlaneRequest.mockRejectedValue(new Error());
             await expect(DevicesService.updateDevice({
                 ...parameters,
                 deviceIdentity
@@ -426,58 +227,30 @@ describe('deviceTwinService', () => {
     context('fetchDevice', () => {
         const parameters = {
             connectionString,
-            deviceId: undefined
+            deviceId: undefined as string
         };
+
         it ('returns if deviceId is not specified', () => {
             expect(DevicesService.fetchDevice(parameters)).resolves.toBe(undefined);
         });
 
-        it('calls fetch with specified parameters and invokes fetchDevice when response is 200', async () => {
-            jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockResolvedValue({
-                connectionInfo: getConnectionInfoFromConnectionString(parameters.connectionString), connectionString, sasToken});
-            // tslint:disable
-            const responseBody = deviceIdentity;
-            const response = {
-                json: () => {
-                    return {
-                        body: responseBody,
-                        headers:{}
-                        }
-                    },
-                status: 200
-            } as any;
-            // tslint:enable
-            jest.spyOn(window, 'fetch').mockResolvedValue(response);
+        it('calls IPC dataPlaneRequest and invokes fetchDevice when response is 200', async () => {
+            (window as any).api_device.dataPlaneRequest.mockResolvedValue({
+                body: { body: deviceIdentity },
+                statusCode: 200
+            });
 
             const result = await DevicesService.fetchDevice({
                 ...parameters,
                 deviceId
             });
 
-            const connectionInformation = mockDataPlaneConnectionHelper();
-            const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
-                apiVersion:  HUB_DATA_PLANE_API_VERSION,
-                hostName: connectionInformation.connectionInfo.hostName,
-                httpMethod: HTTP_OPERATION_TYPES.Get,
-                path: `devices/${deviceId}`,
-                sharedAccessSignature: connectionInformation.sasToken
-            };
-
-            const serviceRequestParams = {
-                body: JSON.stringify(dataPlaneRequest),
-                cache: 'no-cache',
-                credentials: 'include',
-                headers,
-                method: HTTP_OPERATION_TYPES.Post,
-                mode: 'cors',
-            };
-
-            expect(fetch).toBeCalledWith(DataplaneService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
-            expect(result).toEqual(responseBody);
+            expect((window as any).api_device.dataPlaneRequest).toHaveBeenCalled();
+            expect(result).toEqual(deviceIdentity);
         });
 
-        it('throws Error when promise rejects', async () => {
-            window.fetch = jest.fn().mockRejectedValueOnce(new Error());
+        it('throws Error when IPC rejects', async () => {
+            (window as any).api_device.dataPlaneRequest.mockRejectedValue(new Error());
             await expect(DevicesService.fetchDevice({
                 ...parameters,
                 deviceId
@@ -496,85 +269,40 @@ describe('deviceTwinService', () => {
             }
         };
 
-        it('calls fetch with specified parameters and invokes fetchDevices when response is 200', async () => {
-            jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockResolvedValue({
-                connectionInfo: getConnectionInfoFromConnectionString(parameters.connectionString), connectionString, sasToken});
-            // tslint:disable
-            const responseBody = deviceIdentity;
-            const response = {
-                json: () => {
-                    return {
-                        body: [responseBody],
-                        headers:{foo: 'bar'}
-                        }
-                    },
-                status: 200
-            } as any;
-            // tslint:enable
-            jest.spyOn(window, 'fetch').mockResolvedValue(response);
+        it('calls IPC dataPlaneRequest and invokes fetchDevices when response is 200', async () => {
+            (window as any).api_device.dataPlaneRequest.mockResolvedValue({
+                body: { body: [deviceIdentity], headers: {foo: 'bar'} },
+                statusCode: 200
+            });
 
             const result = await DevicesService.fetchDevices(parameters);
 
-            const connectionInformation = mockDataPlaneConnectionHelper();
-            const queryString = buildQueryString(parameters.query);
-
-            const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
-                apiVersion:  HUB_DATA_PLANE_API_VERSION,
-                body: JSON.stringify({
-                    query: queryString,
-                }),
-                headers: {'x-ms-max-item-count': 100, 'x-ms-continuation': '123'},
-                hostName: connectionInformation.connectionInfo.hostName,
-                httpMethod: HTTP_OPERATION_TYPES.Post,
-                path: 'devices/query',
-                sharedAccessSignature: connectionInformation.sasToken,
-            };
-
-            const serviceRequestParams = {
-                body: JSON.stringify(dataPlaneRequest),
-                cache: 'no-cache',
-                credentials: 'include',
-                headers,
-                method: HTTP_OPERATION_TYPES.Post,
-                mode: 'cors',
-            };
-
-            expect(fetch).toBeCalledWith(DataplaneService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
-            expect(result).toEqual({body: [responseBody], headers: {foo: 'bar'}});
+            expect((window as any).api_device.dataPlaneRequest).toHaveBeenCalled();
+            expect(result).toEqual({body: [deviceIdentity], headers: {foo: 'bar'}});
         });
 
-        it('throws Error when promise rejects', async () => {
-            window.fetch = jest.fn().mockRejectedValueOnce(new Error());
-            await expect(DevicesService.fetchDevices(parameters)).rejects.toThrow(new Error()).catch();
+        it('throws Error when IPC rejects', async () => {
+            (window as any).api_device.dataPlaneRequest.mockRejectedValue(new Error());
+            await expect(DevicesService.fetchDevices(parameters)).rejects.toThrow(new Error());
         });
     });
 
     context('deleteDevices', () => {
         let parameters = {
             connectionString,
-            deviceIds: undefined
+            deviceIds: undefined as string[]
         };
+
         it ('returns if deviceId is not specified', () => {
             expect(DevicesService.deleteDevices(parameters)).resolves.toBe(undefined);
         });
 
-        it('calls fetch with specified parameters and invokes deleteDevices when response is 200', async () => {
-            jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockResolvedValue({
-                connectionInfo: getConnectionInfoFromConnectionString(parameters.connectionString), connectionString, sasToken});
-
-             // tslint:disable
-             const responseBody = {isSuccessful:true, errors:[], warnings:[]};
-             const response = {
-                 json: () => {
-                     return {
-                         body: responseBody,
-                         headers:{}
-                         }
-                     },
-                 status: 200
-             } as any;
-             // tslint:enable
-            jest.spyOn(window, 'fetch').mockResolvedValue(response);
+        it('calls IPC dataPlaneRequest and invokes deleteDevices when response is 200', async () => {
+            const responseBody = {isSuccessful:true, errors:[], warnings:[]};
+            (window as any).api_device.dataPlaneRequest.mockResolvedValue({
+                body: { body: responseBody },
+                statusCode: 200
+            });
 
             parameters = {
                 ...parameters,
@@ -583,52 +311,20 @@ describe('deviceTwinService', () => {
 
             const result = await DevicesService.deleteDevices(parameters);
 
-            const connectionInformation = mockDataPlaneConnectionHelper();
-            const deviceDeletionInstructions = parameters.deviceIds.map(id => {
-                return {
-                    etag: '*',
-                    id,
-                    importMode: 'deleteIfMatchEtag'
-                };
-            });
-            const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
-                apiVersion:  HUB_DATA_PLANE_API_VERSION,
-                body: JSON.stringify(deviceDeletionInstructions),
-                hostName: connectionInformation.connectionInfo.hostName,
-                httpMethod: HTTP_OPERATION_TYPES.Post,
-                path: `devices`,
-                sharedAccessSignature: connectionInformation.sasToken
-            };
-
-            const serviceRequestParams = {
-                body: JSON.stringify(dataPlaneRequest),
-                cache: 'no-cache',
-                credentials: 'include',
-                headers,
-                method: HTTP_OPERATION_TYPES.Post,
-                mode: 'cors',
-            };
-
-            expect(fetch).toBeCalledWith(DataplaneService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
+            expect((window as any).api_device.dataPlaneRequest).toHaveBeenCalled();
             expect(result).toEqual(responseBody);
         });
 
         it('throws Error when response status is 500', async () => {
-            // tslint:disable
-            const response = {
-                json: () => {return {
-                    body: {},
-                    headers:{}
-                    }},
-                status: 500
-            } as any;
-            // tslint:enable
-            jest.spyOn(window, 'fetch').mockResolvedValue(response);
+            (window as any).api_device.dataPlaneRequest.mockResolvedValue({
+                body: {},
+                statusCode: 500
+            });
 
             await expect(DevicesService.deleteDevices({
                 ...parameters,
                 deviceIds: [deviceId]
-            })).rejects.toThrow(new Error('500')).catch();
+            })).rejects.toThrow(new Error('500'));
         });
     });
 
@@ -640,70 +336,34 @@ describe('deviceTwinService', () => {
             moduleId: ''
         };
 
-        it('calls fetch with specified parameters', async () => {
-            // tslint:disable
-            const response = {
-                json: () => {
-                    return {
-                        headers:{}
-                        }
-                    },
-                status: 200
-            } as any;
-            // tslint:enable
-            jest.spyOn(window, 'fetch').mockResolvedValue(response);
+        it('calls IPC startEventHubMonitoring with expected parameters', async () => {
+            (window as any).api_device.startEventHubMonitoring.mockResolvedValue(undefined);
 
             await DevicesService.monitorEvents(parameters);
-            expect(fetch).toBeCalledWith(EVENTHUB_MONITOR_ENDPOINT, {
-                body: JSON.stringify(parameters),
-                cache: 'no-cache',
-                credentials: 'include',
-                headers: new Headers({
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                }),
-                method: HTTP_OPERATION_TYPES.Post,
-                mode: 'cors',
-            });
+            expect((window as any).api_device.startEventHubMonitoring).toHaveBeenCalledWith(expect.objectContaining({
+                consumerGroup: parameters.consumerGroup,
+                customEventHubConnectionString: parameters.customEventHubConnectionString,
+                deviceId: parameters.deviceId
+            }));
         });
 
-        it('throws Error when promise rejects', async () => {
-            window.fetch = jest.fn().mockRejectedValueOnce(new Error());
+        it('throws Error when IPC rejects', async () => {
+            (window as any).api_device.startEventHubMonitoring.mockRejectedValue(new Error());
             await expect(DevicesService.monitorEvents(parameters)).rejects.toThrow(new Error());
         });
     });
 
 
     context('stopMonitoringEvents', () => {
-        it('calls fetch with specified parameters', async () => {
-            // tslint:disable
-            const response = {
-                json: () => {
-                    return {
-                        headers:{}
-                        }
-                    },
-                status: 200
-            } as any;
-            // tslint:enable
-            jest.spyOn(window, 'fetch').mockResolvedValue(response);
+        it('calls IPC stopEventHubMonitoring', async () => {
+            (window as any).api_device.stopEventHubMonitoring.mockResolvedValue(undefined);
 
             await DevicesService.stopMonitoringEvents();
-            expect(fetch).toBeCalledWith(EVENTHUB_STOP_ENDPOINT, {
-                body: JSON.stringify({}),
-                cache: 'no-cache',
-                credentials: 'include',
-                headers: new Headers({
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                }),
-                method: HTTP_OPERATION_TYPES.Post,
-                mode: 'cors',
-            });
+            expect((window as any).api_device.stopEventHubMonitoring).toHaveBeenCalled();
         });
 
-        it('throws Error when promise rejects', async () => {
-            window.fetch = jest.fn().mockRejectedValueOnce(new Error());
+        it('throws Error when IPC rejects', async () => {
+            (window as any).api_device.stopEventHubMonitoring.mockRejectedValue(new Error());
             await expect(DevicesService.stopMonitoringEvents()).rejects.toThrow(new Error());
         });
     });

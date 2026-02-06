@@ -14,12 +14,12 @@ exports[`devices/components/moduleIdentityTwin snapshot matches snapshot when no
       label="deviceIdentity.authenticationType.sasToken.symmetricKey"
       onChange={[Function]}
       options={
-        Array [
-          Object {
+        [
+          {
             "key": null,
             "text": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
           },
-          Object {
+          {
             "key": null,
             "text": "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
           },
@@ -69,12 +69,12 @@ exports[`devices/components/moduleIdentityTwin snapshot matches snapshot when no
       label="deviceIdentity.authenticationType.sasToken.symmetricKey"
       onChange={[Function]}
       options={
-        Array [
-          Object {
+        [
+          {
             "key": "mock_key_1",
             "text": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
           },
-          Object {
+          {
             "key": "mock_key_2",
             "text": "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
           },

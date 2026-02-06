@@ -15,7 +15,7 @@ exports[`ListItemPublicRepo matches snapshot 1`] = `
     >
       <Component
         components={
-          Array [
+          [
             <StyledLinkBase
               href="https://github.com/Azure/iot-plugandplay-models"
               target="_blank"
