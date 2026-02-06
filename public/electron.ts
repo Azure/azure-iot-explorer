@@ -10,7 +10,7 @@ if (typeof globalThis.crypto === 'undefined') {
     (globalThis as any).crypto = crypto.webcrypto; // tslint:disable-line:no-any
 }
 
-import { app, Menu, BrowserWindow, dialog, ipcMain, session } from 'electron';
+import { app, Menu, BrowserWindow, dialog, ipcMain, session, shell } from 'electron';
 import * as windowState from 'electron-window-state';
 import * as path from 'path';
 import { generateMenu } from './factories/menuFactory';
@@ -34,16 +34,36 @@ const isDevelopment = process.env.NODE_ENV === 'development';
 
 // Content Security Policy for the application
 const CSP_HEADER = [
-    "default-src 'self'",
-    "script-src 'self' 'unsafe-inline' 'unsafe-eval'", // unsafe-eval needed for webpack dev
-    "style-src 'self' 'unsafe-inline'", // Fluent UI uses inline styles
-    "img-src 'self' data: https:",
+    "default-src 'self' https://login.live.com https://login.microsoftonline.com",
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://aadcdn.msauth.net https://login.live.com", // unsafe-eval needed for webpack dev
+    "style-src 'self' 'unsafe-inline' https://aadcdn.msauth.net", // Fluent UI uses inline styles
+    "img-src 'self' data: https://aadcdn.msauth.net https://aadcdn.msauthimages.net https://login.microsoftonline.com https://login.live.com https://*.microsoft.com https://*.azure.com",
     "font-src 'self' https://*.cdn.office.net data:",
-    "connect-src 'self' https://api.github.com/repos/Azure/azure-iot-explorer/releases/latest https://*.azure.com https://*.microsoft.com https://*.azure-devices.net https://*.servicebus.windows.net https://login.microsoftonline.com" + (isDevelopment ? " ws://localhost:* http://localhost:*" : ""),
-    "frame-ancestors 'none'",
-    "form-action 'self'",
+    "connect-src 'self' https://api.github.com/repos/Azure/azure-iot-explorer/releases/latest https://*.azure.com https://*.microsoft.com https://*.azure-devices.net https://*.servicebus.windows.net https://login.microsoftonline.com https://login.live.com https://aadcdn.msauth.net https://aadcdn.msauthimages.net" + (isDevelopment ? " ws://localhost:* http://localhost:*" : ""),
+    "frame-src 'self' https://login.microsoftonline.com https://login.live.com https://*.microsoft.com",
+    "frame-ancestors 'self' https://login.microsoftonline.com https://login.live.com https://*.microsoft.com",
+    "form-action 'self' https://*.login.microsoftonline.com https://login.microsoftonline.com https://login.live.com",
     "base-uri 'self'"
 ].join('; ');
+
+// Allowed origins for navigation and IPC sender validation
+const ALLOWED_ORIGINS = isDevelopment
+    ? ['http://localhost:3000']
+    : [`file://${path.resolve(__dirname, '/../dist').replace(/\\/g, '/')}`];
+
+// Allowed navigation URLs for authentication flows
+const ALLOWED_AUTH_ORIGINS = [
+    'https://login.microsoftonline.com',
+    'https://login.live.com'
+];
+
+// Allowed external URLs that can be opened with shell.openExternal
+const ALLOWED_EXTERNAL_URLS = [
+    'https://github.com/Azure/azure-iot-explorer',
+    'https://docs.microsoft.com',
+    'https://azure.microsoft.com',
+    'https://portal.azure.com'
+];
 
 class Main {
     private static application: Electron.App;
@@ -167,6 +187,56 @@ class Main {
             });
         });
 
+        // Security: Handle permission requests from web content (Recommendation #5)
+        // Deny all permissions by default - this app doesn't need camera, microphone, etc.
+        session.defaultSession.setPermissionRequestHandler((webContents, permission, callback) => {
+            // Log permission requests for debugging
+            console.log(`Permission requested: ${permission} from ${webContents.getURL()}`); // tslint:disable-line:no-console
+            // Deny all permissions - this app doesn't need browser permissions
+            callback(false);
+        });
+
+        // Security: Restrict navigation to prevent malicious redirects (Recommendation #13)
+        app.on('web-contents-created', (_, contents) => {
+            contents.on('will-navigate', (event, navigationUrl) => {
+                const parsedUrl = new URL(navigationUrl);
+                const isAllowedOrigin = ALLOWED_ORIGINS.some(origin => {
+                    const allowedUrl = new URL(origin);
+                    return parsedUrl.origin === allowedUrl.origin;
+                }) || parsedUrl.protocol === 'file:';
+
+                // Allow navigation to auth providers (including subdomains like *.login.microsoftonline.com)
+                const isAllowedAuth = ALLOWED_AUTH_ORIGINS.some(origin =>
+                    parsedUrl.origin === origin
+                ) || parsedUrl.hostname.endsWith('.login.microsoftonline.com');
+
+                if (!isAllowedOrigin && !isAllowedAuth) {
+                    console.log(`Blocked navigation to: ${navigationUrl}`); // tslint:disable-line:no-console
+                    event.preventDefault();
+                }
+            });
+
+            // Security: Restrict new window creation (Recommendation #14)
+            contents.setWindowOpenHandler(({ url }) => {
+                // Check if URL is in the allowed external URLs list
+                const isAllowedExternal = ALLOWED_EXTERNAL_URLS.some(allowed =>
+                    url.startsWith(allowed)
+                );
+
+                if (isAllowedExternal) {
+                    // Open allowed URLs in the default browser
+                    setImmediate(() => {
+                        shell.openExternal(url);
+                    });
+                } else {
+                    console.log(`Blocked window.open for: ${url}`); // tslint:disable-line:no-console
+                }
+
+                // Always deny creating new Electron windows
+                return { action: 'deny' };
+            });
+        });
+
         Main.createMainWindow();
         Main.createMenu();
     }
@@ -209,7 +279,7 @@ class Main {
             webPreferences: { // tslint:disable-line:object-literal-sort-keys
                 contextIsolation: true, // required for contextBridge to work
                 nodeIntegration: false, // prevent direct Node.js access
-                sandbox: false, // allow preload script to load with require()
+                sandbox: true, // enable process sandboxing for stronger isolation
                 preload: preloadPath
             },
         });
@@ -236,11 +306,35 @@ class Main {
         Main.setMessageHandlers();
     }
 
+    // Security: Validate IPC sender origin (Recommendation #17)
+    private static validateSender(event: Electron.IpcMainInvokeEvent): boolean {
+        const senderUrl = event.senderFrame?.url;
+        if (!senderUrl) {
+            return false;
+        }
+
+        try {
+            const parsedUrl = new URL(senderUrl);
+            return ALLOWED_ORIGINS.some(origin => {
+                const allowedUrl = new URL(origin);
+                return parsedUrl.origin === allowedUrl.origin;
+            }) || parsedUrl.protocol === 'file:';
+        } catch {
+            return false;
+        }
+    }
+
     // tslint:disable-next-line: no-any
     private static registerHandler(channel: string, handler: (...args: any[]) => any) {
-        ipcMain.handle(channel, async (...args) => {
+        ipcMain.handle(channel, async (event, ...args) => {
+            // Security: Validate IPC message sender (Recommendation #17)
+            if (!Main.validateSender(event)) {
+                console.log(`Blocked IPC from untrusted sender: ${event.senderFrame?.url}`); // tslint:disable-line:no-console
+                return { error: { message: 'Unauthorized IPC sender' } };
+            }
+
             try {
-                return { result: await Promise.resolve(handler(...args)) };
+                return { result: await Promise.resolve(handler(event, ...args)) };
             } catch (e) {
                 const error = formatError(e);
                 return { error };
