@@ -214,9 +214,9 @@ export const fetchDevices = async (parameters: FetchDevicesParameters): Promise<
 
     try {
         const response = await request(DATAPLANE_CONTROLLER_ENDPOINT, dataPlaneRequest);
-        AppInsightsClient.getInstance()?.trackEvent({name: TELEMETRY_EVENTS.FETCH_DEVICES}, {status: response.status.toString(), statusText: response.statusText});
+        AppInsightsClient.getInstance()?.trackEvent({name: TELEMETRY_EVENTS.FETCH_DEVICES}, {status: response.statusCode.toString(), statusText: ''});
         const result = await dataPlaneResponseHelper(response);
-        return result;
+        return result as DataPlaneResponse<Device[]>;
     } catch (e) {
         AppInsightsClient.getInstance()?.trackEvent({name: TELEMETRY_EVENTS.FETCH_DEVICES}, {status: 'N/A', statusText: e.toString()});
         throw (e);

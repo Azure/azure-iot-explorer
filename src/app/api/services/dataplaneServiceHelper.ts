@@ -2,15 +2,12 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { CONTROLLER_API_ENDPOINT, DATAPLANE, DataPlaneStatusCode, HTTP_OPERATION_TYPES } from '../../constants/apiConstants';
+import { DataPlaneStatusCode } from '../../constants/apiConstants';
 import { getConnectionInfoFromConnectionString, generateSasToken } from '../shared/utils';
-import { PortIsInUseError } from '../models/portIsInUseError';
 import { AUTHENTICATION_METHOD_PREFERENCE, CONNECTION_STRING_THROUGH_AAD } from '../../constants/browserStorage';
 import { AuthenticationMethodPreference } from '../../authentication/state';
-import { secureFetch } from '../shared/secureFetch';
 import { getConnectionStrings } from '../../shared/utils/credentialStorage';
-
-export const DATAPLANE_CONTROLLER_ENDPOINT = `${CONTROLLER_API_ENDPOINT}${DATAPLANE}`;
+import { DataPlaneRequest as IpcDataPlaneRequest, DataPlaneResponse } from '../../../../public/interfaces/deviceInterface';
 
 export interface DataPlaneRequest {
     apiVersion: string;
@@ -23,21 +20,26 @@ export interface DataPlaneRequest {
     queryString?: string;
 }
 
-export const request = async (endpoint: string, parameters: any) => { // tslint:disable-line
-    return secureFetch(
-        endpoint,
-        {
-            body: JSON.stringify(parameters),
-            cache: 'no-cache',
-            credentials: 'include',
-            headers: new Headers({
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            }),
-            method: HTTP_OPERATION_TYPES.Post,
-            mode: 'cors',
-        }
-    );
+/**
+ * Make a data plane request via IPC to the main process
+ */
+export const request = async (_endpoint: string, parameters: DataPlaneRequest): Promise<DataPlaneResponse> => {
+    if (!window.api_device) {
+        throw new Error('Device API not available - not running in Electron');
+    }
+
+    const ipcRequest: IpcDataPlaneRequest = {
+        apiVersion: parameters.apiVersion,
+        body: parameters.body,
+        headers: parameters.headers as Record<string, unknown>,
+        hostName: parameters.hostName,
+        httpMethod: parameters.httpMethod,
+        path: parameters.path,
+        sharedAccessSignature: parameters.sharedAccessSignature,
+        queryString: parameters.queryString
+    };
+
+    return window.api_device.dataPlaneRequest(ipcRequest);
 };
 
 export const getConnectionStringHelper = async () => {
@@ -76,45 +78,35 @@ export const dataPlaneConnectionHelper = async () => {
     };
 };
 
+/**
+ * Process the IPC response from data plane request
+ */
 // tslint:disable-next-line:cyclomatic-complexity
-export const dataPlaneResponseHelper = async (response: Response) => {
-    const dataPlaneResponse = await response;
-
+export const dataPlaneResponseHelper = async (response: DataPlaneResponse) => {
     // success with no content case
-    if (DataPlaneStatusCode.NoContentSuccess === dataPlaneResponse.status) {
+    if (DataPlaneStatusCode.NoContentSuccess === response.statusCode) {
         return;
     }
 
-    let result;
-    try {
-        result = await response.json();
-    }
-    catch {
-        if (DataPlaneStatusCode.NotFound === dataPlaneResponse.status) {
-            // no response with 404 highly indicates that server is not running
-            throw new PortIsInUseError();
-        }
-        else {
-            throw new Error();
-        }
-    }
-
     // success case
-    if (DataPlaneStatusCode.SuccessLowerBound <= dataPlaneResponse.status && dataPlaneResponse.status <= DataPlaneStatusCode.SuccessUpperBound) {
-        return result;
+    if (DataPlaneStatusCode.SuccessLowerBound <= response.statusCode && response.statusCode <= DataPlaneStatusCode.SuccessUpperBound) {
+        return response.body;
     }
 
     // error case with message in body
-    if (result && result.body) {
-        if (result.body.Message || result.body.ExceptionMessage) {
-            throw new Error(result.body.Message || result.body.ExceptionMessage);
+    if (response.body && response.body.body) {
+        if (response.body.body.Message || response.body.body.ExceptionMessage) {
+            throw new Error(response.body.body.Message || response.body.body.ExceptionMessage);
         }
     }
 
     // error case with message as body
-    if (result && result.message) {
-        throw new Error(result.message);
+    if (response.body && response.body.Message) {
+        throw new Error(response.body.Message);
     }
 
-    throw new Error(dataPlaneResponse.status && dataPlaneResponse.status.toString());
+    throw new Error(response.statusCode && response.statusCode.toString());
 };
+
+// Keep for backward compatibility - endpoint is no longer used
+export const DATAPLANE_CONTROLLER_ENDPOINT = '';

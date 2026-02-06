@@ -44,7 +44,7 @@ const config: Config = merge(common, {
         }),
         new NormalModuleReplacementPlugin(
             /(.*)appConfig.ENV(\.*)/,
-            resource => resource.request = resource.request.replace(/ENV/, 'dev')
+            resource => resource.request = resource.request.replace(/ENV/, 'electrondev')
         )
     ],
 

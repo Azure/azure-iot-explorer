@@ -8,15 +8,11 @@ import * as DataplaneService from './dataplaneServiceHelper';
 import { getConnectionInfoFromConnectionString } from '../shared/utils';
 import { ModuleIdentity } from '../models/moduleIdentity';
 import { ModuleTwin } from '../models/moduleTwin';
-import { HTTP_OPERATION_TYPES, HUB_DATA_PLANE_API_VERSION } from '../../constants/apiConstants';
 
 const deviceId = 'deviceId';
 const moduleId = 'moduleId';
 const connectionString = 'HostName=test-string.azure-devices.net;SharedAccessKeyName=owner;SharedAccessKey=fakeKey=';
-const headers = new Headers({
-    'Accept': 'application/json',
-    'Content-Type': 'application/json'
-});
+
 // tslint:disable
 const moduleIdentity: ModuleIdentity = {
     authentication: {symmetricKey: {primaryKey: null, secondaryKey: null}, type: 'sas', x509Thumbprint: null},
@@ -44,117 +40,62 @@ const moduleTwin: ModuleTwin = {
 // tslint:enable
 const sasToken = 'testSasToken';
 const connectionInfo = getConnectionInfoFromConnectionString(connectionString);
-const mockDataPlaneConnectionHelper = () => {
-    if (!(connectionInfo && connectionInfo.hostName)) {
-        return;
-    }
-    return {
-        connectionInfo,
-        sasToken,
-    };
-};
 
 describe('moduleService', () => {
 
+    beforeEach(() => {
+        jest.clearAllMocks();
+        jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockResolvedValue({
+            connectionInfo,
+            connectionString,
+            sasToken
+        });
+    });
+
     context('fetchModuleIdentities', () => {
         const parameters = {
-                connectionString,
-                deviceId
+            connectionString,
+            deviceId
         };
 
-        beforeEach(() => {
-            jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockResolvedValue({
-                connectionInfo: getConnectionInfoFromConnectionString(parameters.connectionString), connectionString, sasToken});
-        });
-
-        it('calls fetch with specified parameters and returns moduleIdentities when response is 200', async () => {
-            // tslint:disable
-            const response = {
-                json: () => {return {
-                    body: moduleIdentity
-                    }},
-                status: 200
-            } as any;
-            // tslint:enable
-            jest.spyOn(window, 'fetch').mockResolvedValue(response);
-
-            const connectionInformation = mockDataPlaneConnectionHelper();
-            const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
-                apiVersion:  HUB_DATA_PLANE_API_VERSION,
-                body: JSON.stringify({
-                    query: `SELECT * FROM devices.modules WHERE deviceId in ['${parameters.deviceId}']`,
-                }),
-                hostName: connectionInformation.connectionInfo.hostName,
-                httpMethod: HTTP_OPERATION_TYPES.Post,
-                path: 'devices/query',
-                sharedAccessSignature: connectionInformation.sasToken,
-            };
+        it('calls IPC dataPlaneRequest and returns moduleIdentities when response is 200', async () => {
+            (window as any).api_device.dataPlaneRequest.mockResolvedValue({
+                body: { body: moduleIdentity },
+                statusCode: 200
+            });
 
             const result = await ModuleService.fetchModuleIdentities(parameters);
 
-            const serviceRequestParams = {
-                body: JSON.stringify(dataPlaneRequest),
-                cache: 'no-cache',
-                credentials: 'include',
-                headers,
-                method: HTTP_OPERATION_TYPES.Post,
-                mode: 'cors',
-            };
-
-            expect(fetch).toBeCalledWith(DataplaneService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
+            expect((window as any).api_device.dataPlaneRequest).toHaveBeenCalled();
             expect(result).toEqual(moduleIdentity);
         });
 
-        it('throws Error when promise rejects', async () => {
-            window.fetch = jest.fn().mockRejectedValueOnce(new Error('Not found'));
+        it('throws Error when IPC rejects', async () => {
+            (window as any).api_device.dataPlaneRequest.mockRejectedValue(new Error('Not found'));
             await expect(ModuleService.fetchModuleIdentities(parameters)).rejects.toThrowError('Not found');
         });
     });
 
     context('addModuleIdentity', () => {
         const parameters = {
-                connectionString,
-                moduleIdentity
+            connectionString,
+            moduleIdentity
         };
 
-        it('calls fetch with specified parameters and returns moduleIdentity when response is 200', async () => {
-            // tslint:disable
-            const response = {
-                json: () => {return {
-                    body: moduleIdentity
-                    }},
-                status: 200
-            } as any;
-            // tslint:enable
-            jest.spyOn(window, 'fetch').mockResolvedValue(response);
-
-            const connectionInformation = mockDataPlaneConnectionHelper();
-            const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
-                apiVersion:  HUB_DATA_PLANE_API_VERSION,
-                body: JSON.stringify(parameters.moduleIdentity),
-                hostName: connectionInformation.connectionInfo.hostName,
-                httpMethod: HTTP_OPERATION_TYPES.Put,
-                path: `devices/${deviceId}/modules/${moduleIdentity.moduleId}`,
-                sharedAccessSignature: connectionInformation.sasToken
-            };
+        it('calls IPC dataPlaneRequest and returns moduleIdentity when response is 200', async () => {
+            (window as any).api_device.dataPlaneRequest.mockResolvedValue({
+                body: { body: moduleIdentity },
+                statusCode: 200
+            });
 
             const result = await ModuleService.addModuleIdentity(parameters);
 
-            const serviceRequestParams = {
-                body: JSON.stringify(dataPlaneRequest),
-                cache: 'no-cache',
-                credentials: 'include',
-                headers,
-                method: HTTP_OPERATION_TYPES.Post,
-                mode: 'cors',
-            };
-
-            expect(fetch).toBeCalledWith(DataplaneService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
+            expect((window as any).api_device.dataPlaneRequest).toHaveBeenCalled();
             expect(result).toEqual(moduleIdentity);
         });
 
-        it('throws Error when promise rejects', async () => {
-            window.fetch = jest.fn().mockRejectedValueOnce(new Error('Not found'));
+        it('throws Error when IPC rejects', async () => {
+            (window as any).api_device.dataPlaneRequest.mockRejectedValue(new Error('Not found'));
             await expect(ModuleService.addModuleIdentity(parameters)).rejects.toThrowError('Not found');
         });
     });
@@ -166,43 +107,20 @@ describe('moduleService', () => {
             moduleId
         };
 
-        it('calls fetch with specified parameters and returns moduleTwin when response is 200', async () => {
-            // tslint:disable
-            const response = {
-                json: () => {return {
-                    body: moduleTwin
-                    }},
-                status: 200
-            } as any;
-            // tslint:enable
-            jest.spyOn(window, 'fetch').mockResolvedValue(response);
-
-            const connectionInformation = mockDataPlaneConnectionHelper();
-            const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
-                apiVersion:  HUB_DATA_PLANE_API_VERSION,
-                hostName: connectionInformation.connectionInfo.hostName,
-                httpMethod: HTTP_OPERATION_TYPES.Get,
-                path: `twins/${deviceId}/modules/${moduleId}`,
-                sharedAccessSignature: connectionInformation.sasToken
-            };
+        it('calls IPC dataPlaneRequest and returns moduleTwin when response is 200', async () => {
+            (window as any).api_device.dataPlaneRequest.mockResolvedValue({
+                body: { body: moduleTwin },
+                statusCode: 200
+            });
 
             const result = await ModuleService.fetchModuleIdentityTwin(parameters);
 
-            const serviceRequestParams = {
-                body: JSON.stringify(dataPlaneRequest),
-                cache: 'no-cache',
-                credentials: 'include',
-                headers,
-                method: HTTP_OPERATION_TYPES.Post,
-                mode: 'cors',
-            };
-
-            expect(fetch).toBeCalledWith(DataplaneService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
+            expect((window as any).api_device.dataPlaneRequest).toHaveBeenCalled();
             expect(result).toEqual(moduleTwin);
         });
 
-        it('throws Error when promise rejects', async () => {
-            window.fetch = jest.fn().mockRejectedValueOnce(new Error('Not found'));
+        it('throws Error when IPC rejects', async () => {
+            (window as any).api_device.dataPlaneRequest.mockRejectedValue(new Error('Not found'));
             await expect(ModuleService.fetchModuleIdentityTwin(parameters)).rejects.toThrowError('Not found');
         });
     });
@@ -214,43 +132,20 @@ describe('moduleService', () => {
             moduleId
         };
 
-        it('calls fetch with specified parameters and returns module identity when response is 200', async () => {
-            // tslint:disable
-            const response = {
-                json: () => {return {
-                    body: moduleIdentity
-                    }},
-                status: 200
-            } as any;
-            // tslint:enable
-            jest.spyOn(window, 'fetch').mockResolvedValue(response);
-
-            const connectionInformation = mockDataPlaneConnectionHelper();
-            const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
-                apiVersion:  HUB_DATA_PLANE_API_VERSION,
-                hostName: connectionInformation.connectionInfo.hostName,
-                httpMethod: HTTP_OPERATION_TYPES.Get,
-                path: `devices/${deviceId}/modules/${moduleId}`,
-                sharedAccessSignature: connectionInformation.sasToken
-            };
+        it('calls IPC dataPlaneRequest and returns module identity when response is 200', async () => {
+            (window as any).api_device.dataPlaneRequest.mockResolvedValue({
+                body: { body: moduleIdentity },
+                statusCode: 200
+            });
 
             const result = await ModuleService.fetchModuleIdentity(parameters);
 
-            const serviceRequestParams = {
-                body: JSON.stringify(dataPlaneRequest),
-                cache: 'no-cache',
-                credentials: 'include',
-                headers,
-                method: HTTP_OPERATION_TYPES.Post,
-                mode: 'cors',
-            };
-
-            expect(fetch).toBeCalledWith(DataplaneService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
+            expect((window as any).api_device.dataPlaneRequest).toHaveBeenCalled();
             expect(result).toEqual(moduleIdentity);
         });
 
-        it('throws Error when promise rejects', async () => {
-            window.fetch = jest.fn().mockRejectedValueOnce(new Error('Not found'));
+        it('throws Error when IPC rejects', async () => {
+            (window as any).api_device.dataPlaneRequest.mockRejectedValue(new Error('Not found'));
             await expect(ModuleService.fetchModuleIdentity(parameters)).rejects.toThrowError('Not found');
         });
     });
@@ -262,44 +157,20 @@ describe('moduleService', () => {
             moduleId
         };
 
-        it('calls fetch with specified parameters and returns with no content when response is 204', async () => {
-            // tslint:disable
-            const response = {
-                json: () => {return {
-                    body: moduleIdentity
-                    }},
-                status: 204
-            } as any;
-            // tslint:enable
-            jest.spyOn(window, 'fetch').mockResolvedValue(response);
-
-            const connectionInformation = mockDataPlaneConnectionHelper();
-            const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
-                apiVersion:  HUB_DATA_PLANE_API_VERSION,
-                headers: {'If-Match': '*'},
-                hostName: connectionInformation.connectionInfo.hostName,
-                httpMethod: HTTP_OPERATION_TYPES.Delete,
-                path: `devices/${deviceId}/modules/${moduleId}`,
-                sharedAccessSignature: connectionInformation.sasToken
-            };
+        it('calls IPC dataPlaneRequest and returns with no content when response is 204', async () => {
+            (window as any).api_device.dataPlaneRequest.mockResolvedValue({
+                body: {},
+                statusCode: 204
+            });
 
             const result = await ModuleService.deleteModuleIdentity(parameters);
 
-            const serviceRequestParams = {
-                body: JSON.stringify(dataPlaneRequest),
-                cache: 'no-cache',
-                credentials: 'include',
-                headers,
-                method: HTTP_OPERATION_TYPES.Post,
-                mode: 'cors',
-            };
-
-            expect(fetch).toBeCalledWith(DataplaneService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
+            expect((window as any).api_device.dataPlaneRequest).toHaveBeenCalled();
             expect(result).toEqual(undefined);
         });
 
-        it('throws Error when promise rejects', async () => {
-            window.fetch = jest.fn().mockRejectedValueOnce(new Error('Not found'));
+        it('throws Error when IPC rejects', async () => {
+            (window as any).api_device.dataPlaneRequest.mockRejectedValue(new Error('Not found'));
             await expect(ModuleService.deleteModuleIdentity(parameters)).rejects.toThrowError('Not found');
         });
     });
@@ -308,69 +179,35 @@ describe('moduleService', () => {
         const parameters = {
             connectTimeoutInSeconds: 10,
             connectionString,
-            deviceId: undefined,
+            deviceId: undefined as string,
             methodName: 'methodName',
             moduleId:'moduleId',
             payload: {foo: 'bar'},
             responseTimeoutInSeconds : 10,
         };
+
         it ('returns if deviceId is not specified', () => {
             expect(ModuleService.invokeModuleDirectMethod(parameters)).resolves.toBe(undefined);
         });
 
-        it('calls fetch with specified parameters and invokes invokeDirectMethod when response is 200', async () => {
-            jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockResolvedValue({
-                connectionInfo: getConnectionInfoFromConnectionString(parameters.connectionString), connectionString, sasToken});
-
-            // tslint:disable
+        it('calls IPC dataPlaneRequest and invokes invokeDirectMethod when response is 200', async () => {
             const responseBody = {description: 'invoked'};
-            const response = {
-                json: () => {
-                    return {
-                        body: responseBody,
-                        headers:{}
-                        }
-                    },
-                status: 200
-            } as any;
-            // tslint:enable
-            jest.spyOn(window, 'fetch').mockResolvedValue(response);
+            (window as any).api_device.dataPlaneRequest.mockResolvedValue({
+                body: { body: responseBody },
+                statusCode: 200
+            });
 
             const result = await ModuleService.invokeModuleDirectMethod({
                 ...parameters,
                 deviceId
             });
 
-            const connectionInformation = mockDataPlaneConnectionHelper();
-            const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
-                apiVersion:  HUB_DATA_PLANE_API_VERSION,
-                body: JSON.stringify({
-                    connectTimeoutInSeconds: parameters.connectTimeoutInSeconds,
-                    methodName: parameters.methodName,
-                    payload: parameters.payload,
-                    responseTimeoutInSeconds: parameters.responseTimeoutInSeconds,
-                }),
-                hostName: connectionInformation.connectionInfo.hostName,
-                httpMethod: HTTP_OPERATION_TYPES.Post,
-                path: `twins/${deviceId}/modules/moduleId/methods`,
-                sharedAccessSignature: connectionInformation.sasToken
-            };
-
-            const serviceRequestParams = {
-                body: JSON.stringify(dataPlaneRequest),
-                cache: 'no-cache',
-                credentials: 'include',
-                headers,
-                method: HTTP_OPERATION_TYPES.Post,
-                mode: 'cors',
-            };
-
-            expect(fetch).toBeCalledWith(DataplaneService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
+            expect((window as any).api_device.dataPlaneRequest).toHaveBeenCalled();
             expect(result).toEqual(responseBody);
         });
 
-        it('throws Error when promise rejects', async () => {
-            window.fetch = jest.fn().mockRejectedValueOnce(new Error());
+        it('throws Error when IPC rejects', async () => {
+            (window as any).api_device.dataPlaneRequest.mockRejectedValue(new Error());
             await expect(ModuleService.invokeModuleDirectMethod({
                 ...parameters,
                 deviceId
@@ -379,51 +216,21 @@ describe('moduleService', () => {
     });
 
     context('updateModuleTwin', () => {
-        it('calls fetch with specified parameters and invokes updateDeviceTwin when response is 200', async () => {
-            jest.spyOn(DataplaneService, 'dataPlaneConnectionHelper').mockResolvedValue({
-                connectionInfo, connectionString, sasToken});
-
-            // tslint:disable
+        it('calls IPC dataPlaneRequest and invokes updateDeviceTwin when response is 200', async () => {
             const responseBody = moduleTwin;
-            const response = {
-                json: () => {
-                    return {
-                        body: responseBody,
-                        headers:{}
-                        }
-                    },
-                status: 200
-            } as any;
-            // tslint:enable
-            jest.spyOn(window, 'fetch').mockResolvedValue(response);
+            (window as any).api_device.dataPlaneRequest.mockResolvedValue({
+                body: { body: responseBody },
+                statusCode: 200
+            });
 
             const result = await ModuleService.updateModuleIdentityTwin(moduleTwin);
 
-            const connectionInformation = mockDataPlaneConnectionHelper();
-            const dataPlaneRequest: DataplaneService.DataPlaneRequest = {
-                apiVersion: HUB_DATA_PLANE_API_VERSION,
-                body: JSON.stringify(moduleTwin),
-                hostName: connectionInformation.connectionInfo.hostName,
-                httpMethod: HTTP_OPERATION_TYPES.Patch,
-                path: `twins/${deviceId}/modules/${moduleId}`,
-                sharedAccessSignature: connectionInformation.sasToken
-            };
-
-            const serviceRequestParams = {
-                body: JSON.stringify(dataPlaneRequest),
-                cache: 'no-cache',
-                credentials: 'include',
-                headers,
-                method: HTTP_OPERATION_TYPES.Post,
-                mode: 'cors',
-            };
-
-            expect(fetch).toBeCalledWith(DataplaneService.DATAPLANE_CONTROLLER_ENDPOINT, serviceRequestParams);
+            expect((window as any).api_device.dataPlaneRequest).toHaveBeenCalled();
             expect(result).toEqual(responseBody);
         });
 
-        it('throws Error when promise rejects', async () => {
-            window.fetch = jest.fn().mockRejectedValueOnce(new Error());
+        it('throws Error when IPC rejects', async () => {
+            (window as any).api_device.dataPlaneRequest.mockRejectedValue(new Error());
             await expect(ModuleService.updateModuleIdentityTwin(moduleTwin)).rejects.toThrow(new Error());
         });
     });
