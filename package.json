@@ -49,7 +49,7 @@
     "package:win": "npm run clean && npm ci & npm rebuild sass && npm run build && electron-builder -w",
     "package:linux": "npm run clean:linux && npm ci && npm rebuild sass && npm run build && electron-builder -l",
     "package:mac": "npm ci && npm rebuild sass && npm run build && electron-builder -m",
-    "webpack:compile": "tsc --target es6 --module CommonJS --moduleResolution node ./webpack.common.ts webpack.electron.ts webpack.dev.ts",
+    "webpack:compile": "tsc --target es6 --module CommonJS --moduleResolution node ./webpack.common.ts webpack.electron.ts webpack.dev.ts webpack.preload.ts",
     "start": "npm run start:dev",
     "start:dev": "concurrently \"npm run start:web:dev\" \"npm run start:electron:dev\"",
     "start:web:dev": "npm run localization && npm run webpack:compile && webpack-dev-server --config webpack.dev.js --mode development --hot --port 3000 --host 127.0.0.1",
