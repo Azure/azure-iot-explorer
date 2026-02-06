@@ -101,7 +101,7 @@ describe('listDeviceSaga', () => {
                 text: {
                     translationKey: ResourceKeys.notifications.portIsInUseError,
                     translationOptions: {
-                        portNumber: undefined,
+                        portNumber: 8081,  // Updated to match mock appConfig.controllerPort
                   },
                 },
                 type: NotificationType.error,

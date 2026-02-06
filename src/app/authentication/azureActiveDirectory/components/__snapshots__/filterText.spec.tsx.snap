@@ -7,7 +7,7 @@ exports[`FilterTextBox matches snapshot 1`] = `
   <StyledTextFieldBase
     ariaLabel="authentication.azureActiveDirectory.filter.placeHolder"
     iconProps={
-      Object {
+      {
         "iconName": "Filter",
       }
     }

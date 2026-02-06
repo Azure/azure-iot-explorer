@@ -12,6 +12,10 @@
         "**/*"
     ],
     "exclude": [
-        "node_modules"
+        "node_modules",
+        "contextBridge.ts",
+        "factories/**",
+        "utils/invokeHelper.ts",
+        "interfaces/**"
     ]
 }

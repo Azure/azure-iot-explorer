@@ -11,16 +11,16 @@ exports[`dataForm matches snapshot with simple type 1`] = `
       liveValidate={false}
       onChange={[Function]}
       schema={
-        Object {
+        {
           "description": "Brightness Level / The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)",
-          "required": Array [],
+          "required": [],
           "title": "brightness",
           "type": "number",
         }
       }
       showErrorList={false}
       uiSchema={
-        Object {
+        {
           "ui:description": "Brightness Level / The brightness level for the light on the device. Can be specified as 1 (high), 2 (medium), 3 (low)",
           "ui:disabled": false,
         }
@@ -28,743 +28,743 @@ exports[`dataForm matches snapshot with simple type 1`] = `
       validator={
         AJV8Validator {
           "ajv": Ajv {
-            "RULES": Object {
-              "all": Object {
-                "$comment": Object {
-                  "definition": Object {
+            "RULES": {
+              "all": {
+                "$comment": {
+                  "definition": {
                     "keyword": "$comment",
-                    "schemaType": Array [],
-                    "type": Array [],
+                    "schemaType": [],
+                    "type": [],
                   },
                   "keyword": "$comment",
                 },
-                "$ref": Object {
-                  "definition": Object {
+                "$ref": {
+                  "definition": {
                     "code": [Function],
                     "keyword": "$ref",
-                    "schemaType": Array [
+                    "schemaType": [
                       "string",
                     ],
-                    "type": Array [],
+                    "type": [],
                   },
                   "keyword": "$ref",
                 },
-                "additionalItems": Object {
-                  "definition": Object {
+                "additionalItems": {
+                  "definition": {
                     "before": "uniqueItems",
                     "code": [Function],
-                    "error": Object {
+                    "error": {
                       "message": [Function],
                       "params": [Function],
                     },
                     "keyword": "additionalItems",
-                    "schemaType": Array [
+                    "schemaType": [
                       "boolean",
                       "object",
                     ],
-                    "type": Array [
+                    "type": [
                       "array",
                     ],
                   },
                   "keyword": "additionalItems",
                 },
-                "additionalProperties": Object {
-                  "definition": Object {
+                "additionalProperties": {
+                  "definition": {
                     "allowUndefined": true,
                     "code": [Function],
-                    "error": Object {
+                    "error": {
                       "message": "must NOT have additional properties",
                       "params": [Function],
                     },
                     "keyword": "additionalProperties",
-                    "schemaType": Array [
+                    "schemaType": [
                       "boolean",
                       "object",
                     ],
                     "trackErrors": true,
-                    "type": Array [
+                    "type": [
                       "object",
                     ],
                   },
                   "keyword": "additionalProperties",
                 },
-                "allOf": Object {
-                  "definition": Object {
+                "allOf": {
+                  "definition": {
                     "code": [Function],
                     "keyword": "allOf",
-                    "schemaType": Array [
+                    "schemaType": [
                       "array",
                     ],
-                    "type": Array [],
+                    "type": [],
                   },
                   "keyword": "allOf",
                 },
-                "anyOf": Object {
-                  "definition": Object {
+                "anyOf": {
+                  "definition": {
                     "code": [Function],
-                    "error": Object {
+                    "error": {
                       "message": "must match a schema in anyOf",
                     },
                     "keyword": "anyOf",
-                    "schemaType": Array [
+                    "schemaType": [
                       "array",
                     ],
                     "trackErrors": true,
-                    "type": Array [],
+                    "type": [],
                   },
                   "keyword": "anyOf",
                 },
-                "const": Object {
-                  "definition": Object {
+                "const": {
+                  "definition": {
                     "$data": true,
                     "code": [Function],
-                    "error": Object {
+                    "error": {
                       "message": "must be equal to constant",
                       "params": [Function],
                     },
                     "keyword": "const",
-                    "schemaType": Array [],
-                    "type": Array [],
+                    "schemaType": [],
+                    "type": [],
                   },
                   "keyword": "const",
                 },
-                "contains": Object {
-                  "definition": Object {
+                "contains": {
+                  "definition": {
                     "before": "uniqueItems",
                     "code": [Function],
-                    "error": Object {
+                    "error": {
                       "message": [Function],
                       "params": [Function],
                     },
                     "keyword": "contains",
-                    "schemaType": Array [
+                    "schemaType": [
                       "object",
                       "boolean",
                     ],
                     "trackErrors": true,
-                    "type": Array [
+                    "type": [
                       "array",
                     ],
                   },
                   "keyword": "contains",
                 },
-                "dependencies": Object {
-                  "definition": Object {
+                "dependencies": {
+                  "definition": {
                     "code": [Function],
-                    "error": Object {
+                    "error": {
                       "message": [Function],
                       "params": [Function],
                     },
                     "keyword": "dependencies",
-                    "schemaType": Array [
+                    "schemaType": [
                       "object",
                     ],
-                    "type": Array [
+                    "type": [
                       "object",
                     ],
                   },
                   "keyword": "dependencies",
                 },
-                "else": Object {
-                  "definition": Object {
+                "else": {
+                  "definition": {
                     "code": [Function],
-                    "keyword": Array [
+                    "keyword": [
                       "then",
                       "else",
                     ],
-                    "schemaType": Array [
+                    "schemaType": [
                       "object",
                       "boolean",
                     ],
-                    "type": Array [],
+                    "type": [],
                   },
                   "keyword": "else",
                 },
-                "enum": Object {
-                  "definition": Object {
+                "enum": {
+                  "definition": {
                     "$data": true,
                     "code": [Function],
-                    "error": Object {
+                    "error": {
                       "message": "must be equal to one of the allowed values",
                       "params": [Function],
                     },
                     "keyword": "enum",
-                    "schemaType": Array [
+                    "schemaType": [
                       "array",
                     ],
-                    "type": Array [],
+                    "type": [],
                   },
                   "keyword": "enum",
                 },
-                "exclusiveMaximum": Object {
-                  "definition": Object {
+                "exclusiveMaximum": {
+                  "definition": {
                     "$data": true,
                     "code": [Function],
-                    "error": Object {
+                    "error": {
                       "message": [Function],
                       "params": [Function],
                     },
-                    "keyword": Array [
+                    "keyword": [
                       "maximum",
                       "minimum",
                       "exclusiveMaximum",
                       "exclusiveMinimum",
                     ],
-                    "schemaType": Array [
+                    "schemaType": [
                       "number",
                     ],
-                    "type": Array [
+                    "type": [
                       "number",
                     ],
                   },
                   "keyword": "exclusiveMaximum",
                 },
-                "exclusiveMinimum": Object {
-                  "definition": Object {
+                "exclusiveMinimum": {
+                  "definition": {
                     "$data": true,
                     "code": [Function],
-                    "error": Object {
+                    "error": {
                       "message": [Function],
                       "params": [Function],
                     },
-                    "keyword": Array [
+                    "keyword": [
                       "maximum",
                       "minimum",
                       "exclusiveMaximum",
                       "exclusiveMinimum",
                     ],
-                    "schemaType": Array [
+                    "schemaType": [
                       "number",
                     ],
-                    "type": Array [
+                    "type": [
                       "number",
                     ],
                   },
                   "keyword": "exclusiveMinimum",
                 },
-                "format": Object {
-                  "definition": Object {
+                "format": {
+                  "definition": {
                     "$data": true,
                     "code": [Function],
-                    "error": Object {
+                    "error": {
                       "message": [Function],
                       "params": [Function],
                     },
                     "keyword": "format",
-                    "schemaType": Array [
+                    "schemaType": [
                       "string",
                     ],
-                    "type": Array [
+                    "type": [
                       "number",
                       "string",
                     ],
                   },
                   "keyword": "format",
                 },
-                "formatExclusiveMaximum": Object {
-                  "definition": Object {
+                "formatExclusiveMaximum": {
+                  "definition": {
                     "$data": true,
                     "code": [Function],
-                    "dependencies": Array [
+                    "dependencies": [
                       "format",
                     ],
-                    "error": Object {
+                    "error": {
                       "message": [Function],
                       "params": [Function],
                     },
-                    "keyword": Array [
+                    "keyword": [
                       "formatMaximum",
                       "formatMinimum",
                       "formatExclusiveMaximum",
                       "formatExclusiveMinimum",
                     ],
-                    "schemaType": Array [
+                    "schemaType": [
                       "string",
                     ],
-                    "type": Array [
+                    "type": [
                       "string",
                     ],
                   },
                   "keyword": "formatExclusiveMaximum",
                 },
-                "formatExclusiveMinimum": Object {
-                  "definition": Object {
+                "formatExclusiveMinimum": {
+                  "definition": {
                     "$data": true,
                     "code": [Function],
-                    "dependencies": Array [
+                    "dependencies": [
                       "format",
                     ],
-                    "error": Object {
+                    "error": {
                       "message": [Function],
                       "params": [Function],
                     },
-                    "keyword": Array [
+                    "keyword": [
                       "formatMaximum",
                       "formatMinimum",
                       "formatExclusiveMaximum",
                       "formatExclusiveMinimum",
                     ],
-                    "schemaType": Array [
+                    "schemaType": [
                       "string",
                     ],
-                    "type": Array [
+                    "type": [
                       "string",
                     ],
                   },
                   "keyword": "formatExclusiveMinimum",
                 },
-                "formatMaximum": Object {
-                  "definition": Object {
+                "formatMaximum": {
+                  "definition": {
                     "$data": true,
                     "code": [Function],
-                    "dependencies": Array [
+                    "dependencies": [
                       "format",
                     ],
-                    "error": Object {
+                    "error": {
                       "message": [Function],
                       "params": [Function],
                     },
-                    "keyword": Array [
+                    "keyword": [
                       "formatMaximum",
                       "formatMinimum",
                       "formatExclusiveMaximum",
                       "formatExclusiveMinimum",
                     ],
-                    "schemaType": Array [
+                    "schemaType": [
                       "string",
                     ],
-                    "type": Array [
+                    "type": [
                       "string",
                     ],
                   },
                   "keyword": "formatMaximum",
                 },
-                "formatMinimum": Object {
-                  "definition": Object {
+                "formatMinimum": {
+                  "definition": {
                     "$data": true,
                     "code": [Function],
-                    "dependencies": Array [
+                    "dependencies": [
                       "format",
                     ],
-                    "error": Object {
+                    "error": {
                       "message": [Function],
                       "params": [Function],
                     },
-                    "keyword": Array [
+                    "keyword": [
                       "formatMaximum",
                       "formatMinimum",
                       "formatExclusiveMaximum",
                       "formatExclusiveMinimum",
                     ],
-                    "schemaType": Array [
+                    "schemaType": [
                       "string",
                     ],
-                    "type": Array [
+                    "type": [
                       "string",
                     ],
                   },
                   "keyword": "formatMinimum",
                 },
-                "id": Object {
-                  "definition": Object {
+                "id": {
+                  "definition": {
                     "code": [Function],
                     "keyword": "id",
-                    "schemaType": Array [],
-                    "type": Array [],
+                    "schemaType": [],
+                    "type": [],
                   },
                   "keyword": "id",
                 },
-                "if": Object {
-                  "definition": Object {
+                "if": {
+                  "definition": {
                     "code": [Function],
-                    "error": Object {
+                    "error": {
                       "message": [Function],
                       "params": [Function],
                     },
                     "keyword": "if",
-                    "schemaType": Array [
+                    "schemaType": [
                       "object",
                       "boolean",
                     ],
                     "trackErrors": true,
-                    "type": Array [],
+                    "type": [],
                   },
                   "keyword": "if",
                 },
-                "items": Object {
-                  "definition": Object {
+                "items": {
+                  "definition": {
                     "before": "uniqueItems",
                     "code": [Function],
                     "keyword": "items",
-                    "schemaType": Array [
+                    "schemaType": [
                       "object",
                       "array",
                       "boolean",
                     ],
-                    "type": Array [
+                    "type": [
                       "array",
                     ],
                   },
                   "keyword": "items",
                 },
-                "maxItems": Object {
-                  "definition": Object {
+                "maxItems": {
+                  "definition": {
                     "$data": true,
                     "code": [Function],
-                    "error": Object {
+                    "error": {
                       "message": [Function],
                       "params": [Function],
                     },
-                    "keyword": Array [
+                    "keyword": [
                       "maxItems",
                       "minItems",
                     ],
-                    "schemaType": Array [
+                    "schemaType": [
                       "number",
                     ],
-                    "type": Array [
+                    "type": [
                       "array",
                     ],
                   },
                   "keyword": "maxItems",
                 },
-                "maxLength": Object {
-                  "definition": Object {
+                "maxLength": {
+                  "definition": {
                     "$data": true,
                     "code": [Function],
-                    "error": Object {
+                    "error": {
                       "message": [Function],
                       "params": [Function],
                     },
-                    "keyword": Array [
+                    "keyword": [
                       "maxLength",
                       "minLength",
                     ],
-                    "schemaType": Array [
+                    "schemaType": [
                       "number",
                     ],
-                    "type": Array [
+                    "type": [
                       "string",
                     ],
                   },
                   "keyword": "maxLength",
                 },
-                "maxProperties": Object {
-                  "definition": Object {
+                "maxProperties": {
+                  "definition": {
                     "$data": true,
                     "code": [Function],
-                    "error": Object {
+                    "error": {
                       "message": [Function],
                       "params": [Function],
                     },
-                    "keyword": Array [
+                    "keyword": [
                       "maxProperties",
                       "minProperties",
                     ],
-                    "schemaType": Array [
+                    "schemaType": [
                       "number",
                     ],
-                    "type": Array [
+                    "type": [
                       "object",
                     ],
                   },
                   "keyword": "maxProperties",
                 },
-                "maximum": Object {
-                  "definition": Object {
+                "maximum": {
+                  "definition": {
                     "$data": true,
                     "code": [Function],
-                    "error": Object {
+                    "error": {
                       "message": [Function],
                       "params": [Function],
                     },
-                    "keyword": Array [
+                    "keyword": [
                       "maximum",
                       "minimum",
                       "exclusiveMaximum",
                       "exclusiveMinimum",
                     ],
-                    "schemaType": Array [
+                    "schemaType": [
                       "number",
                     ],
-                    "type": Array [
+                    "type": [
                       "number",
                     ],
                   },
                   "keyword": "maximum",
                 },
-                "minItems": Object {
-                  "definition": Object {
+                "minItems": {
+                  "definition": {
                     "$data": true,
                     "code": [Function],
-                    "error": Object {
+                    "error": {
                       "message": [Function],
                       "params": [Function],
                     },
-                    "keyword": Array [
+                    "keyword": [
                       "maxItems",
                       "minItems",
                     ],
-                    "schemaType": Array [
+                    "schemaType": [
                       "number",
                     ],
-                    "type": Array [
+                    "type": [
                       "array",
                     ],
                   },
                   "keyword": "minItems",
                 },
-                "minLength": Object {
-                  "definition": Object {
+                "minLength": {
+                  "definition": {
                     "$data": true,
                     "code": [Function],
-                    "error": Object {
+                    "error": {
                       "message": [Function],
                       "params": [Function],
                     },
-                    "keyword": Array [
+                    "keyword": [
                       "maxLength",
                       "minLength",
                     ],
-                    "schemaType": Array [
+                    "schemaType": [
                       "number",
                     ],
-                    "type": Array [
+                    "type": [
                       "string",
                     ],
                   },
                   "keyword": "minLength",
                 },
-                "minProperties": Object {
-                  "definition": Object {
+                "minProperties": {
+                  "definition": {
                     "$data": true,
                     "code": [Function],
-                    "error": Object {
+                    "error": {
                       "message": [Function],
                       "params": [Function],
                     },
-                    "keyword": Array [
+                    "keyword": [
                       "maxProperties",
                       "minProperties",
                     ],
-                    "schemaType": Array [
+                    "schemaType": [
                       "number",
                     ],
-                    "type": Array [
+                    "type": [
                       "object",
                     ],
                   },
                   "keyword": "minProperties",
                 },
-                "minimum": Object {
-                  "definition": Object {
+                "minimum": {
+                  "definition": {
                     "$data": true,
                     "code": [Function],
-                    "error": Object {
+                    "error": {
                       "message": [Function],
                       "params": [Function],
                     },
-                    "keyword": Array [
+                    "keyword": [
                       "maximum",
                       "minimum",
                       "exclusiveMaximum",
                       "exclusiveMinimum",
                     ],
-                    "schemaType": Array [
+                    "schemaType": [
                       "number",
                     ],
-                    "type": Array [
+                    "type": [
                       "number",
                     ],
                   },
                   "keyword": "minimum",
                 },
-                "multipleOf": Object {
-                  "definition": Object {
+                "multipleOf": {
+                  "definition": {
                     "$data": true,
                     "code": [Function],
-                    "error": Object {
+                    "error": {
                       "message": [Function],
                       "params": [Function],
                     },
                     "keyword": "multipleOf",
-                    "schemaType": Array [
+                    "schemaType": [
                       "number",
                     ],
-                    "type": Array [
+                    "type": [
                       "number",
                     ],
                   },
                   "keyword": "multipleOf",
                 },
-                "not": Object {
-                  "definition": Object {
+                "not": {
+                  "definition": {
                     "code": [Function],
-                    "error": Object {
+                    "error": {
                       "message": "must NOT be valid",
                     },
                     "keyword": "not",
-                    "schemaType": Array [
+                    "schemaType": [
                       "object",
                       "boolean",
                     ],
                     "trackErrors": true,
-                    "type": Array [],
+                    "type": [],
                   },
                   "keyword": "not",
                 },
-                "nullable": Object {
-                  "definition": Object {
+                "nullable": {
+                  "definition": {
                     "keyword": "nullable",
-                    "schemaType": Array [
+                    "schemaType": [
                       "boolean",
                     ],
-                    "type": Array [],
+                    "type": [],
                   },
                   "keyword": "nullable",
                 },
-                "oneOf": Object {
-                  "definition": Object {
+                "oneOf": {
+                  "definition": {
                     "code": [Function],
-                    "error": Object {
+                    "error": {
                       "message": "must match exactly one schema in oneOf",
                       "params": [Function],
                     },
                     "keyword": "oneOf",
-                    "schemaType": Array [
+                    "schemaType": [
                       "array",
                     ],
                     "trackErrors": true,
-                    "type": Array [],
+                    "type": [],
                   },
                   "keyword": "oneOf",
                 },
-                "pattern": Object {
-                  "definition": Object {
+                "pattern": {
+                  "definition": {
                     "$data": true,
                     "code": [Function],
-                    "error": Object {
+                    "error": {
                       "message": [Function],
                       "params": [Function],
                     },
                     "keyword": "pattern",
-                    "schemaType": Array [
+                    "schemaType": [
                       "string",
                     ],
-                    "type": Array [
+                    "type": [
                       "string",
                     ],
                   },
                   "keyword": "pattern",
                 },
-                "patternProperties": Object {
-                  "definition": Object {
+                "patternProperties": {
+                  "definition": {
                     "code": [Function],
                     "keyword": "patternProperties",
-                    "schemaType": Array [
+                    "schemaType": [
                       "object",
                     ],
-                    "type": Array [
+                    "type": [
                       "object",
                     ],
                   },
                   "keyword": "patternProperties",
                 },
-                "properties": Object {
-                  "definition": Object {
+                "properties": {
+                  "definition": {
                     "code": [Function],
                     "keyword": "properties",
-                    "schemaType": Array [
+                    "schemaType": [
                       "object",
                     ],
-                    "type": Array [
+                    "type": [
                       "object",
                     ],
                   },
                   "keyword": "properties",
                 },
-                "propertyNames": Object {
-                  "definition": Object {
+                "propertyNames": {
+                  "definition": {
                     "code": [Function],
-                    "error": Object {
+                    "error": {
                       "message": "property name must be valid",
                       "params": [Function],
                     },
                     "keyword": "propertyNames",
-                    "schemaType": Array [
+                    "schemaType": [
                       "object",
                       "boolean",
                     ],
-                    "type": Array [
+                    "type": [
                       "object",
                     ],
                   },
                   "keyword": "propertyNames",
                 },
-                "required": Object {
-                  "definition": Object {
+                "required": {
+                  "definition": {
                     "$data": true,
                     "code": [Function],
-                    "error": Object {
+                    "error": {
                       "message": [Function],
                       "params": [Function],
                     },
                     "keyword": "required",
-                    "schemaType": Array [
+                    "schemaType": [
                       "array",
                     ],
-                    "type": Array [
+                    "type": [
                       "object",
                     ],
                   },
                   "keyword": "required",
                 },
-                "then": Object {
-                  "definition": Object {
+                "then": {
+                  "definition": {
                     "code": [Function],
-                    "keyword": Array [
+                    "keyword": [
                       "then",
                       "else",
                     ],
-                    "schemaType": Array [
+                    "schemaType": [
                       "object",
                       "boolean",
                     ],
-                    "type": Array [],
+                    "type": [],
                   },
                   "keyword": "then",
                 },
-                "type": Object {
-                  "definition": Object {
+                "type": {
+                  "definition": {
                     "keyword": "type",
-                    "schemaType": Array [
+                    "schemaType": [
                       "string",
                       "array",
                     ],
-                    "type": Array [],
+                    "type": [],
                   },
                   "keyword": "type",
                 },
-                "uniqueItems": Object {
-                  "definition": Object {
+                "uniqueItems": {
+                  "definition": {
                     "$data": true,
                     "code": [Function],
-                    "error": Object {
+                    "error": {
                       "message": [Function],
                       "params": [Function],
                     },
                     "keyword": "uniqueItems",
-                    "schemaType": Array [
+                    "schemaType": [
                       "boolean",
                     ],
-                    "type": Array [
+                    "type": [
                       "array",
                     ],
                   },
                   "keyword": "uniqueItems",
                 },
               },
-              "keywords": Object {
+              "keywords": {
                 "$async": true,
                 "$comment": true,
                 "$defs": true,
@@ -825,323 +825,323 @@ exports[`dataForm matches snapshot with simple type 1`] = `
                 "uniqueItems": true,
                 "writeOnly": true,
               },
-              "post": Object {
-                "rules": Array [],
+              "post": {
+                "rules": [],
               },
-              "rules": Array [
-                Object {
-                  "rules": Array [
-                    Object {
-                      "definition": Object {
+              "rules": [
+                {
+                  "rules": [
+                    {
+                      "definition": {
                         "keyword": "$comment",
-                        "schemaType": Array [],
-                        "type": Array [],
+                        "schemaType": [],
+                        "type": [],
                       },
                       "keyword": "$comment",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "code": [Function],
                         "keyword": "id",
-                        "schemaType": Array [],
-                        "type": Array [],
+                        "schemaType": [],
+                        "type": [],
                       },
                       "keyword": "id",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "code": [Function],
                         "keyword": "$ref",
-                        "schemaType": Array [
+                        "schemaType": [
                           "string",
                         ],
-                        "type": Array [],
+                        "type": [],
                       },
                       "keyword": "$ref",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "keyword": "type",
-                        "schemaType": Array [
+                        "schemaType": [
                           "string",
                           "array",
                         ],
-                        "type": Array [],
+                        "type": [],
                       },
                       "keyword": "type",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "keyword": "nullable",
-                        "schemaType": Array [
+                        "schemaType": [
                           "boolean",
                         ],
-                        "type": Array [],
+                        "type": [],
                       },
                       "keyword": "nullable",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": "must be equal to constant",
                           "params": [Function],
                         },
                         "keyword": "const",
-                        "schemaType": Array [],
-                        "type": Array [],
+                        "schemaType": [],
+                        "type": [],
                       },
                       "keyword": "const",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": "must be equal to one of the allowed values",
                           "params": [Function],
                         },
                         "keyword": "enum",
-                        "schemaType": Array [
+                        "schemaType": [
                           "array",
                         ],
-                        "type": Array [],
+                        "type": [],
                       },
                       "keyword": "enum",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": "must NOT be valid",
                         },
                         "keyword": "not",
-                        "schemaType": Array [
+                        "schemaType": [
                           "object",
                           "boolean",
                         ],
                         "trackErrors": true,
-                        "type": Array [],
+                        "type": [],
                       },
                       "keyword": "not",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": "must match a schema in anyOf",
                         },
                         "keyword": "anyOf",
-                        "schemaType": Array [
+                        "schemaType": [
                           "array",
                         ],
                         "trackErrors": true,
-                        "type": Array [],
+                        "type": [],
                       },
                       "keyword": "anyOf",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": "must match exactly one schema in oneOf",
                           "params": [Function],
                         },
                         "keyword": "oneOf",
-                        "schemaType": Array [
+                        "schemaType": [
                           "array",
                         ],
                         "trackErrors": true,
-                        "type": Array [],
+                        "type": [],
                       },
                       "keyword": "oneOf",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "code": [Function],
                         "keyword": "allOf",
-                        "schemaType": Array [
+                        "schemaType": [
                           "array",
                         ],
-                        "type": Array [],
+                        "type": [],
                       },
                       "keyword": "allOf",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
                         "keyword": "if",
-                        "schemaType": Array [
+                        "schemaType": [
                           "object",
                           "boolean",
                         ],
                         "trackErrors": true,
-                        "type": Array [],
+                        "type": [],
                       },
                       "keyword": "if",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "code": [Function],
-                        "keyword": Array [
+                        "keyword": [
                           "then",
                           "else",
                         ],
-                        "schemaType": Array [
+                        "schemaType": [
                           "object",
                           "boolean",
                         ],
-                        "type": Array [],
+                        "type": [],
                       },
                       "keyword": "then",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "code": [Function],
-                        "keyword": Array [
+                        "keyword": [
                           "then",
                           "else",
                         ],
-                        "schemaType": Array [
+                        "schemaType": [
                           "object",
                           "boolean",
                         ],
-                        "type": Array [],
+                        "type": [],
                       },
                       "keyword": "else",
                     },
                   ],
                 },
-                Object {
-                  "rules": Array [
-                    Object {
-                      "definition": Object {
+                {
+                  "rules": [
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
-                        "keyword": Array [
+                        "keyword": [
                           "maximum",
                           "minimum",
                           "exclusiveMaximum",
                           "exclusiveMinimum",
                         ],
-                        "schemaType": Array [
+                        "schemaType": [
                           "number",
                         ],
-                        "type": Array [
+                        "type": [
                           "number",
                         ],
                       },
                       "keyword": "maximum",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
-                        "keyword": Array [
+                        "keyword": [
                           "maximum",
                           "minimum",
                           "exclusiveMaximum",
                           "exclusiveMinimum",
                         ],
-                        "schemaType": Array [
+                        "schemaType": [
                           "number",
                         ],
-                        "type": Array [
+                        "type": [
                           "number",
                         ],
                       },
                       "keyword": "minimum",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
-                        "keyword": Array [
+                        "keyword": [
                           "maximum",
                           "minimum",
                           "exclusiveMaximum",
                           "exclusiveMinimum",
                         ],
-                        "schemaType": Array [
+                        "schemaType": [
                           "number",
                         ],
-                        "type": Array [
+                        "type": [
                           "number",
                         ],
                       },
                       "keyword": "exclusiveMaximum",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
-                        "keyword": Array [
+                        "keyword": [
                           "maximum",
                           "minimum",
                           "exclusiveMaximum",
                           "exclusiveMinimum",
                         ],
-                        "schemaType": Array [
+                        "schemaType": [
                           "number",
                         ],
-                        "type": Array [
+                        "type": [
                           "number",
                         ],
                       },
                       "keyword": "exclusiveMinimum",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
                         "keyword": "multipleOf",
-                        "schemaType": Array [
+                        "schemaType": [
                           "number",
                         ],
-                        "type": Array [
+                        "type": [
                           "number",
                         ],
                       },
                       "keyword": "multipleOf",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
                         "keyword": "format",
-                        "schemaType": Array [
+                        "schemaType": [
                           "string",
                         ],
-                        "type": Array [
+                        "type": [
                           "number",
                           "string",
                         ],
@@ -1151,186 +1151,186 @@ exports[`dataForm matches snapshot with simple type 1`] = `
                   ],
                   "type": "number",
                 },
-                Object {
-                  "rules": Array [
-                    Object {
-                      "definition": Object {
+                {
+                  "rules": [
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
-                        "keyword": Array [
+                        "keyword": [
                           "maxLength",
                           "minLength",
                         ],
-                        "schemaType": Array [
+                        "schemaType": [
                           "number",
                         ],
-                        "type": Array [
+                        "type": [
                           "string",
                         ],
                       },
                       "keyword": "maxLength",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
-                        "keyword": Array [
+                        "keyword": [
                           "maxLength",
                           "minLength",
                         ],
-                        "schemaType": Array [
+                        "schemaType": [
                           "number",
                         ],
-                        "type": Array [
+                        "type": [
                           "string",
                         ],
                       },
                       "keyword": "minLength",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
                         "keyword": "pattern",
-                        "schemaType": Array [
+                        "schemaType": [
                           "string",
                         ],
-                        "type": Array [
+                        "type": [
                           "string",
                         ],
                       },
                       "keyword": "pattern",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
                         "keyword": "format",
-                        "schemaType": Array [
+                        "schemaType": [
                           "string",
                         ],
-                        "type": Array [
+                        "type": [
                           "number",
                           "string",
                         ],
                       },
                       "keyword": "format",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "dependencies": Array [
+                        "dependencies": [
                           "format",
                         ],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
-                        "keyword": Array [
+                        "keyword": [
                           "formatMaximum",
                           "formatMinimum",
                           "formatExclusiveMaximum",
                           "formatExclusiveMinimum",
                         ],
-                        "schemaType": Array [
+                        "schemaType": [
                           "string",
                         ],
-                        "type": Array [
+                        "type": [
                           "string",
                         ],
                       },
                       "keyword": "formatMaximum",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "dependencies": Array [
+                        "dependencies": [
                           "format",
                         ],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
-                        "keyword": Array [
+                        "keyword": [
                           "formatMaximum",
                           "formatMinimum",
                           "formatExclusiveMaximum",
                           "formatExclusiveMinimum",
                         ],
-                        "schemaType": Array [
+                        "schemaType": [
                           "string",
                         ],
-                        "type": Array [
+                        "type": [
                           "string",
                         ],
                       },
                       "keyword": "formatMinimum",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "dependencies": Array [
+                        "dependencies": [
                           "format",
                         ],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
-                        "keyword": Array [
+                        "keyword": [
                           "formatMaximum",
                           "formatMinimum",
                           "formatExclusiveMaximum",
                           "formatExclusiveMinimum",
                         ],
-                        "schemaType": Array [
+                        "schemaType": [
                           "string",
                         ],
-                        "type": Array [
+                        "type": [
                           "string",
                         ],
                       },
                       "keyword": "formatExclusiveMaximum",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "dependencies": Array [
+                        "dependencies": [
                           "format",
                         ],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
-                        "keyword": Array [
+                        "keyword": [
                           "formatMaximum",
                           "formatMinimum",
                           "formatExclusiveMaximum",
                           "formatExclusiveMinimum",
                         ],
-                        "schemaType": Array [
+                        "schemaType": [
                           "string",
                         ],
-                        "type": Array [
+                        "type": [
                           "string",
                         ],
                       },
@@ -1339,118 +1339,118 @@ exports[`dataForm matches snapshot with simple type 1`] = `
                   ],
                   "type": "string",
                 },
-                Object {
-                  "rules": Array [
-                    Object {
-                      "definition": Object {
+                {
+                  "rules": [
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
-                        "keyword": Array [
+                        "keyword": [
                           "maxItems",
                           "minItems",
                         ],
-                        "schemaType": Array [
+                        "schemaType": [
                           "number",
                         ],
-                        "type": Array [
+                        "type": [
                           "array",
                         ],
                       },
                       "keyword": "maxItems",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
-                        "keyword": Array [
+                        "keyword": [
                           "maxItems",
                           "minItems",
                         ],
-                        "schemaType": Array [
+                        "schemaType": [
                           "number",
                         ],
-                        "type": Array [
+                        "type": [
                           "array",
                         ],
                       },
                       "keyword": "minItems",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "before": "uniqueItems",
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
                         "keyword": "additionalItems",
-                        "schemaType": Array [
+                        "schemaType": [
                           "boolean",
                           "object",
                         ],
-                        "type": Array [
+                        "type": [
                           "array",
                         ],
                       },
                       "keyword": "additionalItems",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "before": "uniqueItems",
                         "code": [Function],
                         "keyword": "items",
-                        "schemaType": Array [
+                        "schemaType": [
                           "object",
                           "array",
                           "boolean",
                         ],
-                        "type": Array [
+                        "type": [
                           "array",
                         ],
                       },
                       "keyword": "items",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "before": "uniqueItems",
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
                         "keyword": "contains",
-                        "schemaType": Array [
+                        "schemaType": [
                           "object",
                           "boolean",
                         ],
                         "trackErrors": true,
-                        "type": Array [
+                        "type": [
                           "array",
                         ],
                       },
                       "keyword": "contains",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
                         "keyword": "uniqueItems",
-                        "schemaType": Array [
+                        "schemaType": [
                           "boolean",
                         ],
-                        "type": Array [
+                        "type": [
                           "array",
                         ],
                       },
@@ -1459,144 +1459,144 @@ exports[`dataForm matches snapshot with simple type 1`] = `
                   ],
                   "type": "array",
                 },
-                Object {
-                  "rules": Array [
-                    Object {
-                      "definition": Object {
+                {
+                  "rules": [
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
-                        "keyword": Array [
+                        "keyword": [
                           "maxProperties",
                           "minProperties",
                         ],
-                        "schemaType": Array [
+                        "schemaType": [
                           "number",
                         ],
-                        "type": Array [
+                        "type": [
                           "object",
                         ],
                       },
                       "keyword": "maxProperties",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
-                        "keyword": Array [
+                        "keyword": [
                           "maxProperties",
                           "minProperties",
                         ],
-                        "schemaType": Array [
+                        "schemaType": [
                           "number",
                         ],
-                        "type": Array [
+                        "type": [
                           "object",
                         ],
                       },
                       "keyword": "minProperties",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
                         "keyword": "required",
-                        "schemaType": Array [
+                        "schemaType": [
                           "array",
                         ],
-                        "type": Array [
+                        "type": [
                           "object",
                         ],
                       },
                       "keyword": "required",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": "property name must be valid",
                           "params": [Function],
                         },
                         "keyword": "propertyNames",
-                        "schemaType": Array [
+                        "schemaType": [
                           "object",
                           "boolean",
                         ],
-                        "type": Array [
+                        "type": [
                           "object",
                         ],
                       },
                       "keyword": "propertyNames",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "allowUndefined": true,
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": "must NOT have additional properties",
                           "params": [Function],
                         },
                         "keyword": "additionalProperties",
-                        "schemaType": Array [
+                        "schemaType": [
                           "boolean",
                           "object",
                         ],
                         "trackErrors": true,
-                        "type": Array [
+                        "type": [
                           "object",
                         ],
                       },
                       "keyword": "additionalProperties",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
                         "keyword": "dependencies",
-                        "schemaType": Array [
+                        "schemaType": [
                           "object",
                         ],
-                        "type": Array [
+                        "type": [
                           "object",
                         ],
                       },
                       "keyword": "dependencies",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "code": [Function],
                         "keyword": "properties",
-                        "schemaType": Array [
+                        "schemaType": [
                           "object",
                         ],
-                        "type": Array [
+                        "type": [
                           "object",
                         ],
                       },
                       "keyword": "properties",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "code": [Function],
                         "keyword": "patternProperties",
-                        "schemaType": Array [
+                        "schemaType": [
                           "object",
                         ],
-                        "type": Array [
+                        "type": [
                           "object",
                         ],
                       },
@@ -1606,119 +1606,119 @@ exports[`dataForm matches snapshot with simple type 1`] = `
                   "type": "object",
                 },
               ],
-              "types": Object {
-                "array": Object {
-                  "rules": Array [
-                    Object {
-                      "definition": Object {
+              "types": {
+                "array": {
+                  "rules": [
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
-                        "keyword": Array [
+                        "keyword": [
                           "maxItems",
                           "minItems",
                         ],
-                        "schemaType": Array [
+                        "schemaType": [
                           "number",
                         ],
-                        "type": Array [
+                        "type": [
                           "array",
                         ],
                       },
                       "keyword": "maxItems",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
-                        "keyword": Array [
+                        "keyword": [
                           "maxItems",
                           "minItems",
                         ],
-                        "schemaType": Array [
+                        "schemaType": [
                           "number",
                         ],
-                        "type": Array [
+                        "type": [
                           "array",
                         ],
                       },
                       "keyword": "minItems",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "before": "uniqueItems",
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
                         "keyword": "additionalItems",
-                        "schemaType": Array [
+                        "schemaType": [
                           "boolean",
                           "object",
                         ],
-                        "type": Array [
+                        "type": [
                           "array",
                         ],
                       },
                       "keyword": "additionalItems",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "before": "uniqueItems",
                         "code": [Function],
                         "keyword": "items",
-                        "schemaType": Array [
+                        "schemaType": [
                           "object",
                           "array",
                           "boolean",
                         ],
-                        "type": Array [
+                        "type": [
                           "array",
                         ],
                       },
                       "keyword": "items",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "before": "uniqueItems",
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
                         "keyword": "contains",
-                        "schemaType": Array [
+                        "schemaType": [
                           "object",
                           "boolean",
                         ],
                         "trackErrors": true,
-                        "type": Array [
+                        "type": [
                           "array",
                         ],
                       },
                       "keyword": "contains",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
                         "keyword": "uniqueItems",
-                        "schemaType": Array [
+                        "schemaType": [
                           "boolean",
                         ],
-                        "type": Array [
+                        "type": [
                           "array",
                         ],
                       },
@@ -1730,131 +1730,131 @@ exports[`dataForm matches snapshot with simple type 1`] = `
                 "boolean": true,
                 "integer": true,
                 "null": true,
-                "number": Object {
-                  "rules": Array [
-                    Object {
-                      "definition": Object {
+                "number": {
+                  "rules": [
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
-                        "keyword": Array [
+                        "keyword": [
                           "maximum",
                           "minimum",
                           "exclusiveMaximum",
                           "exclusiveMinimum",
                         ],
-                        "schemaType": Array [
+                        "schemaType": [
                           "number",
                         ],
-                        "type": Array [
+                        "type": [
                           "number",
                         ],
                       },
                       "keyword": "maximum",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
-                        "keyword": Array [
+                        "keyword": [
                           "maximum",
                           "minimum",
                           "exclusiveMaximum",
                           "exclusiveMinimum",
                         ],
-                        "schemaType": Array [
+                        "schemaType": [
                           "number",
                         ],
-                        "type": Array [
+                        "type": [
                           "number",
                         ],
                       },
                       "keyword": "minimum",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
-                        "keyword": Array [
+                        "keyword": [
                           "maximum",
                           "minimum",
                           "exclusiveMaximum",
                           "exclusiveMinimum",
                         ],
-                        "schemaType": Array [
+                        "schemaType": [
                           "number",
                         ],
-                        "type": Array [
+                        "type": [
                           "number",
                         ],
                       },
                       "keyword": "exclusiveMaximum",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
-                        "keyword": Array [
+                        "keyword": [
                           "maximum",
                           "minimum",
                           "exclusiveMaximum",
                           "exclusiveMinimum",
                         ],
-                        "schemaType": Array [
+                        "schemaType": [
                           "number",
                         ],
-                        "type": Array [
+                        "type": [
                           "number",
                         ],
                       },
                       "keyword": "exclusiveMinimum",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
                         "keyword": "multipleOf",
-                        "schemaType": Array [
+                        "schemaType": [
                           "number",
                         ],
-                        "type": Array [
+                        "type": [
                           "number",
                         ],
                       },
                       "keyword": "multipleOf",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
                         "keyword": "format",
-                        "schemaType": Array [
+                        "schemaType": [
                           "string",
                         ],
-                        "type": Array [
+                        "type": [
                           "number",
                           "string",
                         ],
@@ -1864,144 +1864,144 @@ exports[`dataForm matches snapshot with simple type 1`] = `
                   ],
                   "type": "number",
                 },
-                "object": Object {
-                  "rules": Array [
-                    Object {
-                      "definition": Object {
+                "object": {
+                  "rules": [
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
-                        "keyword": Array [
+                        "keyword": [
                           "maxProperties",
                           "minProperties",
                         ],
-                        "schemaType": Array [
+                        "schemaType": [
                           "number",
                         ],
-                        "type": Array [
+                        "type": [
                           "object",
                         ],
                       },
                       "keyword": "maxProperties",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
-                        "keyword": Array [
+                        "keyword": [
                           "maxProperties",
                           "minProperties",
                         ],
-                        "schemaType": Array [
+                        "schemaType": [
                           "number",
                         ],
-                        "type": Array [
+                        "type": [
                           "object",
                         ],
                       },
                       "keyword": "minProperties",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
                         "keyword": "required",
-                        "schemaType": Array [
+                        "schemaType": [
                           "array",
                         ],
-                        "type": Array [
+                        "type": [
                           "object",
                         ],
                       },
                       "keyword": "required",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": "property name must be valid",
                           "params": [Function],
                         },
                         "keyword": "propertyNames",
-                        "schemaType": Array [
+                        "schemaType": [
                           "object",
                           "boolean",
                         ],
-                        "type": Array [
+                        "type": [
                           "object",
                         ],
                       },
                       "keyword": "propertyNames",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "allowUndefined": true,
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": "must NOT have additional properties",
                           "params": [Function],
                         },
                         "keyword": "additionalProperties",
-                        "schemaType": Array [
+                        "schemaType": [
                           "boolean",
                           "object",
                         ],
                         "trackErrors": true,
-                        "type": Array [
+                        "type": [
                           "object",
                         ],
                       },
                       "keyword": "additionalProperties",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
                         "keyword": "dependencies",
-                        "schemaType": Array [
+                        "schemaType": [
                           "object",
                         ],
-                        "type": Array [
+                        "type": [
                           "object",
                         ],
                       },
                       "keyword": "dependencies",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "code": [Function],
                         "keyword": "properties",
-                        "schemaType": Array [
+                        "schemaType": [
                           "object",
                         ],
-                        "type": Array [
+                        "type": [
                           "object",
                         ],
                       },
                       "keyword": "properties",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "code": [Function],
                         "keyword": "patternProperties",
-                        "schemaType": Array [
+                        "schemaType": [
                           "object",
                         ],
-                        "type": Array [
+                        "type": [
                           "object",
                         ],
                       },
@@ -2010,186 +2010,186 @@ exports[`dataForm matches snapshot with simple type 1`] = `
                   ],
                   "type": "object",
                 },
-                "string": Object {
-                  "rules": Array [
-                    Object {
-                      "definition": Object {
+                "string": {
+                  "rules": [
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
-                        "keyword": Array [
+                        "keyword": [
                           "maxLength",
                           "minLength",
                         ],
-                        "schemaType": Array [
+                        "schemaType": [
                           "number",
                         ],
-                        "type": Array [
+                        "type": [
                           "string",
                         ],
                       },
                       "keyword": "maxLength",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
-                        "keyword": Array [
+                        "keyword": [
                           "maxLength",
                           "minLength",
                         ],
-                        "schemaType": Array [
+                        "schemaType": [
                           "number",
                         ],
-                        "type": Array [
+                        "type": [
                           "string",
                         ],
                       },
                       "keyword": "minLength",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
                         "keyword": "pattern",
-                        "schemaType": Array [
+                        "schemaType": [
                           "string",
                         ],
-                        "type": Array [
+                        "type": [
                           "string",
                         ],
                       },
                       "keyword": "pattern",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
                         "keyword": "format",
-                        "schemaType": Array [
+                        "schemaType": [
                           "string",
                         ],
-                        "type": Array [
+                        "type": [
                           "number",
                           "string",
                         ],
                       },
                       "keyword": "format",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "dependencies": Array [
+                        "dependencies": [
                           "format",
                         ],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
-                        "keyword": Array [
+                        "keyword": [
                           "formatMaximum",
                           "formatMinimum",
                           "formatExclusiveMaximum",
                           "formatExclusiveMinimum",
                         ],
-                        "schemaType": Array [
+                        "schemaType": [
                           "string",
                         ],
-                        "type": Array [
+                        "type": [
                           "string",
                         ],
                       },
                       "keyword": "formatMaximum",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "dependencies": Array [
+                        "dependencies": [
                           "format",
                         ],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
-                        "keyword": Array [
+                        "keyword": [
                           "formatMaximum",
                           "formatMinimum",
                           "formatExclusiveMaximum",
                           "formatExclusiveMinimum",
                         ],
-                        "schemaType": Array [
+                        "schemaType": [
                           "string",
                         ],
-                        "type": Array [
+                        "type": [
                           "string",
                         ],
                       },
                       "keyword": "formatMinimum",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "dependencies": Array [
+                        "dependencies": [
                           "format",
                         ],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
-                        "keyword": Array [
+                        "keyword": [
                           "formatMaximum",
                           "formatMinimum",
                           "formatExclusiveMaximum",
                           "formatExclusiveMinimum",
                         ],
-                        "schemaType": Array [
+                        "schemaType": [
                           "string",
                         ],
-                        "type": Array [
+                        "type": [
                           "string",
                         ],
                       },
                       "keyword": "formatExclusiveMaximum",
                     },
-                    Object {
-                      "definition": Object {
+                    {
+                      "definition": {
                         "$data": true,
                         "code": [Function],
-                        "dependencies": Array [
+                        "dependencies": [
                           "format",
                         ],
-                        "error": Object {
+                        "error": {
                           "message": [Function],
                           "params": [Function],
                         },
-                        "keyword": Array [
+                        "keyword": [
                           "formatMaximum",
                           "formatMinimum",
                           "formatExclusiveMaximum",
                           "formatExclusiveMinimum",
                         ],
-                        "schemaType": Array [
+                        "schemaType": [
                           "string",
                         ],
-                        "type": Array [
+                        "type": [
                           "string",
                         ],
                       },
@@ -2201,34 +2201,34 @@ exports[`dataForm matches snapshot with simple type 1`] = `
               },
             },
             "_cache": Map {
-              Object {
+              {
                 "$id": "http://json-schema.org/draft-07/schema#",
                 "$schema": "http://json-schema.org/draft-07/schema#",
                 "default": true,
-                "definitions": Object {
-                  "nonNegativeInteger": Object {
+                "definitions": {
+                  "nonNegativeInteger": {
                     "minimum": 0,
                     "type": "integer",
                   },
-                  "nonNegativeIntegerDefault0": Object {
-                    "allOf": Array [
-                      Object {
+                  "nonNegativeIntegerDefault0": {
+                    "allOf": [
+                      {
                         "$ref": "#/definitions/nonNegativeInteger",
                       },
-                      Object {
+                      {
                         "default": 0,
                       },
                     ],
                   },
-                  "schemaArray": Object {
-                    "items": Object {
+                  "schemaArray": {
+                    "items": {
                       "$ref": "#",
                     },
                     "minItems": 1,
                     "type": "array",
                   },
-                  "simpleTypes": Object {
-                    "enum": Array [
+                  "simpleTypes": {
+                    "enum": [
                       "array",
                       "boolean",
                       "integer",
@@ -2238,191 +2238,191 @@ exports[`dataForm matches snapshot with simple type 1`] = `
                       "string",
                     ],
                   },
-                  "stringArray": Object {
-                    "default": Array [],
-                    "items": Object {
+                  "stringArray": {
+                    "default": [],
+                    "items": {
                       "type": "string",
                     },
                     "type": "array",
                     "uniqueItems": true,
                   },
                 },
-                "properties": Object {
-                  "$comment": Object {
+                "properties": {
+                  "$comment": {
                     "type": "string",
                   },
-                  "$id": Object {
+                  "$id": {
                     "format": "uri-reference",
                     "type": "string",
                   },
-                  "$ref": Object {
+                  "$ref": {
                     "format": "uri-reference",
                     "type": "string",
                   },
-                  "$schema": Object {
+                  "$schema": {
                     "format": "uri",
                     "type": "string",
                   },
-                  "additionalItems": Object {
+                  "additionalItems": {
                     "$ref": "#",
                   },
-                  "additionalProperties": Object {
+                  "additionalProperties": {
                     "$ref": "#",
                   },
-                  "allOf": Object {
+                  "allOf": {
                     "$ref": "#/definitions/schemaArray",
                   },
-                  "anyOf": Object {
+                  "anyOf": {
                     "$ref": "#/definitions/schemaArray",
                   },
                   "const": true,
-                  "contains": Object {
+                  "contains": {
                     "$ref": "#",
                   },
-                  "contentEncoding": Object {
+                  "contentEncoding": {
                     "type": "string",
                   },
-                  "contentMediaType": Object {
+                  "contentMediaType": {
                     "type": "string",
                   },
                   "default": true,
-                  "definitions": Object {
-                    "additionalProperties": Object {
+                  "definitions": {
+                    "additionalProperties": {
                       "$ref": "#",
                     },
-                    "default": Object {},
+                    "default": {},
                     "type": "object",
                   },
-                  "dependencies": Object {
-                    "additionalProperties": Object {
-                      "anyOf": Array [
-                        Object {
+                  "dependencies": {
+                    "additionalProperties": {
+                      "anyOf": [
+                        {
                           "$ref": "#",
                         },
-                        Object {
+                        {
                           "$ref": "#/definitions/stringArray",
                         },
                       ],
                     },
                     "type": "object",
                   },
-                  "description": Object {
+                  "description": {
                     "type": "string",
                   },
-                  "else": Object {
+                  "else": {
                     "$ref": "#",
                   },
-                  "enum": Object {
+                  "enum": {
                     "items": true,
                     "minItems": 1,
                     "type": "array",
                     "uniqueItems": true,
                   },
-                  "examples": Object {
+                  "examples": {
                     "items": true,
                     "type": "array",
                   },
-                  "exclusiveMaximum": Object {
+                  "exclusiveMaximum": {
                     "type": "number",
                   },
-                  "exclusiveMinimum": Object {
+                  "exclusiveMinimum": {
                     "type": "number",
                   },
-                  "format": Object {
+                  "format": {
                     "type": "string",
                   },
-                  "if": Object {
+                  "if": {
                     "$ref": "#",
                   },
-                  "items": Object {
-                    "anyOf": Array [
-                      Object {
+                  "items": {
+                    "anyOf": [
+                      {
                         "$ref": "#",
                       },
-                      Object {
+                      {
                         "$ref": "#/definitions/schemaArray",
                       },
                     ],
                     "default": true,
                   },
-                  "maxItems": Object {
+                  "maxItems": {
                     "$ref": "#/definitions/nonNegativeInteger",
                   },
-                  "maxLength": Object {
+                  "maxLength": {
                     "$ref": "#/definitions/nonNegativeInteger",
                   },
-                  "maxProperties": Object {
+                  "maxProperties": {
                     "$ref": "#/definitions/nonNegativeInteger",
                   },
-                  "maximum": Object {
+                  "maximum": {
                     "type": "number",
                   },
-                  "minItems": Object {
+                  "minItems": {
                     "$ref": "#/definitions/nonNegativeIntegerDefault0",
                   },
-                  "minLength": Object {
+                  "minLength": {
                     "$ref": "#/definitions/nonNegativeIntegerDefault0",
                   },
-                  "minProperties": Object {
+                  "minProperties": {
                     "$ref": "#/definitions/nonNegativeIntegerDefault0",
                   },
-                  "minimum": Object {
+                  "minimum": {
                     "type": "number",
                   },
-                  "multipleOf": Object {
+                  "multipleOf": {
                     "exclusiveMinimum": 0,
                     "type": "number",
                   },
-                  "not": Object {
+                  "not": {
                     "$ref": "#",
                   },
-                  "oneOf": Object {
+                  "oneOf": {
                     "$ref": "#/definitions/schemaArray",
                   },
-                  "pattern": Object {
+                  "pattern": {
                     "format": "regex",
                     "type": "string",
                   },
-                  "patternProperties": Object {
-                    "additionalProperties": Object {
+                  "patternProperties": {
+                    "additionalProperties": {
                       "$ref": "#",
                     },
-                    "default": Object {},
-                    "propertyNames": Object {
+                    "default": {},
+                    "propertyNames": {
                       "format": "regex",
                     },
                     "type": "object",
                   },
-                  "properties": Object {
-                    "additionalProperties": Object {
+                  "properties": {
+                    "additionalProperties": {
                       "$ref": "#",
                     },
-                    "default": Object {},
+                    "default": {},
                     "type": "object",
                   },
-                  "propertyNames": Object {
+                  "propertyNames": {
                     "$ref": "#",
                   },
-                  "readOnly": Object {
+                  "readOnly": {
                     "default": false,
                     "type": "boolean",
                   },
-                  "required": Object {
+                  "required": {
                     "$ref": "#/definitions/stringArray",
                   },
-                  "then": Object {
+                  "then": {
                     "$ref": "#",
                   },
-                  "title": Object {
+                  "title": {
                     "type": "string",
                   },
-                  "type": Object {
-                    "anyOf": Array [
-                      Object {
+                  "type": {
+                    "anyOf": [
+                      {
                         "$ref": "#/definitions/simpleTypes",
                       },
-                      Object {
-                        "items": Object {
+                      {
+                        "items": {
                           "$ref": "#/definitions/simpleTypes",
                         },
                         "minItems": 1,
@@ -2431,52 +2431,52 @@ exports[`dataForm matches snapshot with simple type 1`] = `
                       },
                     ],
                   },
-                  "uniqueItems": Object {
+                  "uniqueItems": {
                     "default": false,
                     "type": "boolean",
                   },
                 },
                 "title": "Core schema meta-schema",
-                "type": Array [
+                "type": [
                   "object",
                   "boolean",
                 ],
               } => SchemaEnv {
                 "$async": undefined,
                 "baseId": "http://json-schema.org/draft-07/schema",
-                "dynamicAnchors": Object {},
-                "localRefs": Object {},
+                "dynamicAnchors": {},
+                "localRefs": {},
                 "meta": true,
-                "refs": Object {},
+                "refs": {},
                 "root": [Circular],
-                "schema": Object {
+                "schema": {
                   "$id": "http://json-schema.org/draft-07/schema#",
                   "$schema": "http://json-schema.org/draft-07/schema#",
                   "default": true,
-                  "definitions": Object {
-                    "nonNegativeInteger": Object {
+                  "definitions": {
+                    "nonNegativeInteger": {
                       "minimum": 0,
                       "type": "integer",
                     },
-                    "nonNegativeIntegerDefault0": Object {
-                      "allOf": Array [
-                        Object {
+                    "nonNegativeIntegerDefault0": {
+                      "allOf": [
+                        {
                           "$ref": "#/definitions/nonNegativeInteger",
                         },
-                        Object {
+                        {
                           "default": 0,
                         },
                       ],
                     },
-                    "schemaArray": Object {
-                      "items": Object {
+                    "schemaArray": {
+                      "items": {
                         "$ref": "#",
                       },
                       "minItems": 1,
                       "type": "array",
                     },
-                    "simpleTypes": Object {
-                      "enum": Array [
+                    "simpleTypes": {
+                      "enum": [
                         "array",
                         "boolean",
                         "integer",
@@ -2486,191 +2486,191 @@ exports[`dataForm matches snapshot with simple type 1`] = `
                         "string",
                       ],
                     },
-                    "stringArray": Object {
-                      "default": Array [],
-                      "items": Object {
+                    "stringArray": {
+                      "default": [],
+                      "items": {
                         "type": "string",
                       },
                       "type": "array",
                       "uniqueItems": true,
                     },
                   },
-                  "properties": Object {
-                    "$comment": Object {
+                  "properties": {
+                    "$comment": {
                       "type": "string",
                     },
-                    "$id": Object {
+                    "$id": {
                       "format": "uri-reference",
                       "type": "string",
                     },
-                    "$ref": Object {
+                    "$ref": {
                       "format": "uri-reference",
                       "type": "string",
                     },
-                    "$schema": Object {
+                    "$schema": {
                       "format": "uri",
                       "type": "string",
                     },
-                    "additionalItems": Object {
+                    "additionalItems": {
                       "$ref": "#",
                     },
-                    "additionalProperties": Object {
+                    "additionalProperties": {
                       "$ref": "#",
                     },
-                    "allOf": Object {
+                    "allOf": {
                       "$ref": "#/definitions/schemaArray",
                     },
-                    "anyOf": Object {
+                    "anyOf": {
                       "$ref": "#/definitions/schemaArray",
                     },
                     "const": true,
-                    "contains": Object {
+                    "contains": {
                       "$ref": "#",
                     },
-                    "contentEncoding": Object {
+                    "contentEncoding": {
                       "type": "string",
                     },
-                    "contentMediaType": Object {
+                    "contentMediaType": {
                       "type": "string",
                     },
                     "default": true,
-                    "definitions": Object {
-                      "additionalProperties": Object {
+                    "definitions": {
+                      "additionalProperties": {
                         "$ref": "#",
                       },
-                      "default": Object {},
+                      "default": {},
                       "type": "object",
                     },
-                    "dependencies": Object {
-                      "additionalProperties": Object {
-                        "anyOf": Array [
-                          Object {
+                    "dependencies": {
+                      "additionalProperties": {
+                        "anyOf": [
+                          {
                             "$ref": "#",
                           },
-                          Object {
+                          {
                             "$ref": "#/definitions/stringArray",
                           },
                         ],
                       },
                       "type": "object",
                     },
-                    "description": Object {
+                    "description": {
                       "type": "string",
                     },
-                    "else": Object {
+                    "else": {
                       "$ref": "#",
                     },
-                    "enum": Object {
+                    "enum": {
                       "items": true,
                       "minItems": 1,
                       "type": "array",
                       "uniqueItems": true,
                     },
-                    "examples": Object {
+                    "examples": {
                       "items": true,
                       "type": "array",
                     },
-                    "exclusiveMaximum": Object {
+                    "exclusiveMaximum": {
                       "type": "number",
                     },
-                    "exclusiveMinimum": Object {
+                    "exclusiveMinimum": {
                       "type": "number",
                     },
-                    "format": Object {
+                    "format": {
                       "type": "string",
                     },
-                    "if": Object {
+                    "if": {
                       "$ref": "#",
                     },
-                    "items": Object {
-                      "anyOf": Array [
-                        Object {
+                    "items": {
+                      "anyOf": [
+                        {
                           "$ref": "#",
                         },
-                        Object {
+                        {
                           "$ref": "#/definitions/schemaArray",
                         },
                       ],
                       "default": true,
                     },
-                    "maxItems": Object {
+                    "maxItems": {
                       "$ref": "#/definitions/nonNegativeInteger",
                     },
-                    "maxLength": Object {
+                    "maxLength": {
                       "$ref": "#/definitions/nonNegativeInteger",
                     },
-                    "maxProperties": Object {
+                    "maxProperties": {
                       "$ref": "#/definitions/nonNegativeInteger",
                     },
-                    "maximum": Object {
+                    "maximum": {
                       "type": "number",
                     },
-                    "minItems": Object {
+                    "minItems": {
                       "$ref": "#/definitions/nonNegativeIntegerDefault0",
                     },
-                    "minLength": Object {
+                    "minLength": {
                       "$ref": "#/definitions/nonNegativeIntegerDefault0",
                     },
-                    "minProperties": Object {
+                    "minProperties": {
                       "$ref": "#/definitions/nonNegativeIntegerDefault0",
                     },
-                    "minimum": Object {
+                    "minimum": {
                       "type": "number",
                     },
-                    "multipleOf": Object {
+                    "multipleOf": {
                       "exclusiveMinimum": 0,
                       "type": "number",
                     },
-                    "not": Object {
+                    "not": {
                       "$ref": "#",
                     },
-                    "oneOf": Object {
+                    "oneOf": {
                       "$ref": "#/definitions/schemaArray",
                     },
-                    "pattern": Object {
+                    "pattern": {
                       "format": "regex",
                       "type": "string",
                     },
-                    "patternProperties": Object {
-                      "additionalProperties": Object {
+                    "patternProperties": {
+                      "additionalProperties": {
                         "$ref": "#",
                       },
-                      "default": Object {},
-                      "propertyNames": Object {
+                      "default": {},
+                      "propertyNames": {
                         "format": "regex",
                       },
                       "type": "object",
                     },
-                    "properties": Object {
-                      "additionalProperties": Object {
+                    "properties": {
+                      "additionalProperties": {
                         "$ref": "#",
                       },
-                      "default": Object {},
+                      "default": {},
                       "type": "object",
                     },
-                    "propertyNames": Object {
+                    "propertyNames": {
                       "$ref": "#",
                     },
-                    "readOnly": Object {
+                    "readOnly": {
                       "default": false,
                       "type": "boolean",
                     },
-                    "required": Object {
+                    "required": {
                       "$ref": "#/definitions/stringArray",
                     },
-                    "then": Object {
+                    "then": {
                       "$ref": "#",
                     },
-                    "title": Object {
+                    "title": {
                       "type": "string",
                     },
-                    "type": Object {
-                      "anyOf": Array [
-                        Object {
+                    "type": {
+                      "anyOf": [
+                        {
                           "$ref": "#/definitions/simpleTypes",
                         },
-                        Object {
-                          "items": Object {
+                        {
+                          "items": {
                             "$ref": "#/definitions/simpleTypes",
                           },
                           "minItems": 1,
@@ -2679,13 +2679,13 @@ exports[`dataForm matches snapshot with simple type 1`] = `
                         },
                       ],
                     },
-                    "uniqueItems": Object {
+                    "uniqueItems": {
                       "default": false,
                       "type": "boolean",
                     },
                   },
                   "title": "Core schema meta-schema",
-                  "type": Array [
+                  "type": [
                     "object",
                     "boolean",
                   ],
@@ -2695,14 +2695,14 @@ exports[`dataForm matches snapshot with simple type 1`] = `
               },
             },
             "_compilations": Set {},
-            "_loading": Object {},
-            "_metaOpts": Object {
+            "_loading": {},
+            "_metaOpts": {
               "addUsedSchema": true,
               "allErrors": true,
-              "code": Object {
+              "code": {
                 "formats": _Code {
-                  "_items": Array [
-                    "require(\\"ajv-formats/dist/formats\\").",
+                  "_items": [
+                    "require("ajv-formats/dist/formats").",
                     Name {
                       "str": "fullFormats",
                     },
@@ -2712,6 +2712,7 @@ exports[`dataForm matches snapshot with simple type 1`] = `
                 "optimize": 1,
                 "regExp": [Function],
               },
+              "discriminator": false,
               "inlineRefs": true,
               "int32range": true,
               "loopEnum": 200,
@@ -2727,94 +2728,88 @@ exports[`dataForm matches snapshot with simple type 1`] = `
               "strictTuples": false,
               "strictTypes": false,
               "unicodeRegExp": true,
-              "uriResolver": Object {
-                "SCHEMES": Object {
-                  "http": Object {
+              "uriResolver": {
+                "SCHEMES": {
+                  "http": {
                     "domainHost": true,
                     "parse": [Function],
                     "scheme": "http",
                     "serialize": [Function],
                   },
-                  "https": Object {
+                  "https": {
                     "domainHost": true,
                     "parse": [Function],
                     "scheme": "https",
                     "serialize": [Function],
                   },
-                  "mailto": Object {
-                    "parse": [Function],
-                    "scheme": "mailto",
-                    "serialize": [Function],
-                  },
-                  "urn": Object {
+                  "urn": {
                     "parse": [Function],
                     "scheme": "urn",
                     "serialize": [Function],
+                    "skipNormalize": true,
                   },
-                  "urn:uuid": Object {
+                  "urn:uuid": {
                     "parse": [Function],
                     "scheme": "urn:uuid",
                     "serialize": [Function],
+                    "skipNormalize": true,
                   },
-                  "ws": Object {
+                  "ws": {
                     "domainHost": true,
                     "parse": [Function],
                     "scheme": "ws",
                     "serialize": [Function],
                   },
-                  "wss": Object {
+                  "wss": {
                     "domainHost": true,
                     "parse": [Function],
                     "scheme": "wss",
                     "serialize": [Function],
                   },
                 },
-                "code": "require(\\"ajv/dist/runtime/uri\\").default",
+                "code": "require("ajv/dist/runtime/uri").default",
+                "default": [Circular],
                 "equal": [Function],
-                "escapeComponent": [Function],
+                "fastUri": [Circular],
                 "normalize": [Function],
                 "parse": [Function],
-                "pctDecChars": [Function],
-                "pctEncChar": [Function],
-                "removeDotSegments": [Function],
                 "resolve": [Function],
-                "resolveComponents": [Function],
+                "resolveComponent": [Function],
                 "serialize": [Function],
-                "unescapeComponent": [Function],
               },
               "validateFormats": false,
               "validateSchema": true,
               "verbose": true,
             },
-            "formats": Object {
+            "formats": {
               "binary": true,
               "byte": [Function],
               "color": /\\^\\(#\\?\\(\\[0-9A-Fa-f\\]\\{3\\}\\)\\{1,2\\}\\\\b\\|aqua\\|black\\|blue\\|fuchsia\\|gray\\|green\\|lime\\|maroon\\|navy\\|olive\\|orange\\|purple\\|red\\|silver\\|teal\\|white\\|yellow\\|\\(rgb\\\\\\(\\\\s\\*\\\\b\\(\\[0-9\\]\\|\\[1-9\\]\\[0-9\\]\\|1\\[0-9\\]\\[0-9\\]\\|2\\[0-4\\]\\[0-9\\]\\|25\\[0-5\\]\\)\\\\b\\\\s\\*,\\\\s\\*\\\\b\\(\\[0-9\\]\\|\\[1-9\\]\\[0-9\\]\\|1\\[0-9\\]\\[0-9\\]\\|2\\[0-4\\]\\[0-9\\]\\|25\\[0-5\\]\\)\\\\b\\\\s\\*,\\\\s\\*\\\\b\\(\\[0-9\\]\\|\\[1-9\\]\\[0-9\\]\\|1\\[0-9\\]\\[0-9\\]\\|2\\[0-4\\]\\[0-9\\]\\|25\\[0-5\\]\\)\\\\b\\\\s\\*\\\\\\)\\)\\|\\(rgb\\\\\\(\\\\s\\*\\(\\\\d\\?\\\\d%\\|100%\\)\\+\\\\s\\*,\\\\s\\*\\(\\\\d\\?\\\\d%\\|100%\\)\\+\\\\s\\*,\\\\s\\*\\(\\\\d\\?\\\\d%\\|100%\\)\\+\\\\s\\*\\\\\\)\\)\\)\\$/,
               "data-url": /\\^data:\\(\\[a-z\\]\\+\\\\/\\[a-z0-9-\\+\\.\\]\\+\\)\\?;\\(\\?:name=\\(\\.\\*\\);\\)\\?base64,\\(\\.\\*\\)\\$/,
-              "date": Object {
+              "date": {
                 "compare": [Function],
                 "validate": [Function],
               },
-              "date-time": Object {
+              "date-time": {
                 "compare": [Function],
                 "validate": [Function],
               },
-              "double": Object {
+              "double": {
                 "type": "number",
                 "validate": [Function],
               },
               "duration": /\\^P\\(\\?!\\$\\)\\(\\(\\\\d\\+Y\\)\\?\\(\\\\d\\+M\\)\\?\\(\\\\d\\+D\\)\\?\\(T\\(\\?=\\\\d\\)\\(\\\\d\\+H\\)\\?\\(\\\\d\\+M\\)\\?\\(\\\\d\\+S\\)\\?\\)\\?\\|\\(\\\\d\\+W\\)\\?\\)\\$/,
               "email": /\\^\\[a-z0-9!#\\$%&'\\*\\+/=\\?\\^_\`\\{\\|\\}~-\\]\\+\\(\\?:\\\\\\.\\[a-z0-9!#\\$%&'\\*\\+/=\\?\\^_\`\\{\\|\\}~-\\]\\+\\)\\*@\\(\\?:\\[a-z0-9\\]\\(\\?:\\[a-z0-9-\\]\\*\\[a-z0-9\\]\\)\\?\\\\\\.\\)\\+\\[a-z0-9\\]\\(\\?:\\[a-z0-9-\\]\\*\\[a-z0-9\\]\\)\\?\\$/i,
-              "float": Object {
+              "float": {
                 "type": "number",
                 "validate": [Function],
               },
               "hostname": /\\^\\(\\?=\\.\\{1,253\\}\\\\\\.\\?\\$\\)\\[a-z0-9\\]\\(\\?:\\[a-z0-9-\\]\\{0,61\\}\\[a-z0-9\\]\\)\\?\\(\\?:\\\\\\.\\[a-z0-9\\]\\(\\?:\\[-0-9a-z\\]\\{0,61\\}\\[0-9a-z\\]\\)\\?\\)\\*\\\\\\.\\?\\$/i,
-              "int32": Object {
+              "int32": {
                 "type": "number",
                 "validate": [Function],
               },
-              "int64": Object {
+              "int64": {
                 "type": "number",
                 "validate": [Function],
               },
@@ -2825,7 +2820,7 @@ exports[`dataForm matches snapshot with simple type 1`] = `
               "password": true,
               "regex": [Function],
               "relative-json-pointer": /\\^\\(\\?:0\\|\\[1-9\\]\\[0-9\\]\\*\\)\\(\\?:#\\|\\(\\?:\\\\/\\(\\?:\\[\\^~/\\]\\|~0\\|~1\\)\\*\\)\\*\\)\\$/,
-              "time": Object {
+              "time": {
                 "compare": [Function],
                 "validate": [Function],
               },
@@ -2837,10 +2832,10 @@ exports[`dataForm matches snapshot with simple type 1`] = `
             },
             "logger": BufferedConsole {
               "Console": [Function],
-              "_buffer": Array [],
-              "_counters": Object {},
+              "_buffer": [],
+              "_counters": {},
               "_groupDepth": 0,
-              "_timers": Object {},
+              "_timers": {},
               "assert": [Function],
               "clear": [Function],
               "count": [Function],
@@ -2861,13 +2856,13 @@ exports[`dataForm matches snapshot with simple type 1`] = `
               "trace": [Function],
               "warn": [Function],
             },
-            "opts": Object {
+            "opts": {
               "addUsedSchema": true,
               "allErrors": true,
-              "code": Object {
+              "code": {
                 "formats": _Code {
-                  "_items": Array [
-                    "require(\\"ajv-formats/dist/formats\\").",
+                  "_items": [
+                    "require("ajv-formats/dist/formats").",
                     Name {
                       "str": "fullFormats",
                     },
@@ -2877,6 +2872,7 @@ exports[`dataForm matches snapshot with simple type 1`] = `
                 "optimize": 1,
                 "regExp": [Function],
               },
+              "discriminator": false,
               "inlineRefs": true,
               "int32range": true,
               "loopEnum": 200,
@@ -2892,102 +2888,96 @@ exports[`dataForm matches snapshot with simple type 1`] = `
               "strictTuples": false,
               "strictTypes": false,
               "unicodeRegExp": true,
-              "uriResolver": Object {
-                "SCHEMES": Object {
-                  "http": Object {
+              "uriResolver": {
+                "SCHEMES": {
+                  "http": {
                     "domainHost": true,
                     "parse": [Function],
                     "scheme": "http",
                     "serialize": [Function],
                   },
-                  "https": Object {
+                  "https": {
                     "domainHost": true,
                     "parse": [Function],
                     "scheme": "https",
                     "serialize": [Function],
                   },
-                  "mailto": Object {
-                    "parse": [Function],
-                    "scheme": "mailto",
-                    "serialize": [Function],
-                  },
-                  "urn": Object {
+                  "urn": {
                     "parse": [Function],
                     "scheme": "urn",
                     "serialize": [Function],
+                    "skipNormalize": true,
                   },
-                  "urn:uuid": Object {
+                  "urn:uuid": {
                     "parse": [Function],
                     "scheme": "urn:uuid",
                     "serialize": [Function],
+                    "skipNormalize": true,
                   },
-                  "ws": Object {
+                  "ws": {
                     "domainHost": true,
                     "parse": [Function],
                     "scheme": "ws",
                     "serialize": [Function],
                   },
-                  "wss": Object {
+                  "wss": {
                     "domainHost": true,
                     "parse": [Function],
                     "scheme": "wss",
                     "serialize": [Function],
                   },
                 },
-                "code": "require(\\"ajv/dist/runtime/uri\\").default",
+                "code": "require("ajv/dist/runtime/uri").default",
+                "default": [Circular],
                 "equal": [Function],
-                "escapeComponent": [Function],
+                "fastUri": [Circular],
                 "normalize": [Function],
                 "parse": [Function],
-                "pctDecChars": [Function],
-                "pctEncChar": [Function],
-                "removeDotSegments": [Function],
                 "resolve": [Function],
-                "resolveComponents": [Function],
+                "resolveComponent": [Function],
                 "serialize": [Function],
-                "unescapeComponent": [Function],
               },
               "validateFormats": true,
               "validateSchema": true,
               "verbose": true,
             },
-            "refs": Object {
+            "refs": {
               "http://json-schema.org/draft-07/schema": SchemaEnv {
                 "$async": undefined,
                 "baseId": "http://json-schema.org/draft-07/schema",
-                "dynamicAnchors": Object {},
-                "localRefs": Object {},
+                "dynamicAnchors": {},
+                "localRefs": {},
                 "meta": true,
-                "refs": Object {},
+                "refs": {},
                 "root": [Circular],
-                "schema": Object {
+                "schema": {
                   "$id": "http://json-schema.org/draft-07/schema#",
                   "$schema": "http://json-schema.org/draft-07/schema#",
                   "default": true,
-                  "definitions": Object {
-                    "nonNegativeInteger": Object {
+                  "definitions": {
+                    "nonNegativeInteger": {
                       "minimum": 0,
                       "type": "integer",
                     },
-                    "nonNegativeIntegerDefault0": Object {
-                      "allOf": Array [
-                        Object {
+                    "nonNegativeIntegerDefault0": {
+                      "allOf": [
+                        {
                           "$ref": "#/definitions/nonNegativeInteger",
                         },
-                        Object {
+                        {
                           "default": 0,
                         },
                       ],
                     },
-                    "schemaArray": Object {
-                      "items": Object {
+                    "schemaArray": {
+                      "items": {
                         "$ref": "#",
                       },
                       "minItems": 1,
                       "type": "array",
                     },
-                    "simpleTypes": Object {
-                      "enum": Array [
+                    "simpleTypes": {
+                      "enum": [
                         "array",
                         "boolean",
                         "integer",
@@ -2997,191 +2987,191 @@ exports[`dataForm matches snapshot with simple type 1`] = `
                         "string",
                       ],
                     },
-                    "stringArray": Object {
-                      "default": Array [],
-                      "items": Object {
+                    "stringArray": {
+                      "default": [],
+                      "items": {
                         "type": "string",
                       },
                       "type": "array",
                       "uniqueItems": true,
                     },
                   },
-                  "properties": Object {
-                    "$comment": Object {
+                  "properties": {
+                    "$comment": {
                       "type": "string",
                     },
-                    "$id": Object {
+                    "$id": {
                       "format": "uri-reference",
                       "type": "string",
                     },
-                    "$ref": Object {
+                    "$ref": {
                       "format": "uri-reference",
                       "type": "string",
                     },
-                    "$schema": Object {
+                    "$schema": {
                       "format": "uri",
                       "type": "string",
                     },
-                    "additionalItems": Object {
+                    "additionalItems": {
                       "$ref": "#",
                     },
-                    "additionalProperties": Object {
+                    "additionalProperties": {
                       "$ref": "#",
                     },
-                    "allOf": Object {
+                    "allOf": {
                       "$ref": "#/definitions/schemaArray",
                     },
-                    "anyOf": Object {
+                    "anyOf": {
                       "$ref": "#/definitions/schemaArray",
                     },
                     "const": true,
-                    "contains": Object {
+                    "contains": {
                       "$ref": "#",
                     },
-                    "contentEncoding": Object {
+                    "contentEncoding": {
                       "type": "string",
                     },
-                    "contentMediaType": Object {
+                    "contentMediaType": {
                       "type": "string",
                     },
                     "default": true,
-                    "definitions": Object {
-                      "additionalProperties": Object {
+                    "definitions": {
+                      "additionalProperties": {
                         "$ref": "#",
                       },
-                      "default": Object {},
+                      "default": {},
                       "type": "object",
                     },
-                    "dependencies": Object {
-                      "additionalProperties": Object {
-                        "anyOf": Array [
-                          Object {
+                    "dependencies": {
+                      "additionalProperties": {
+                        "anyOf": [
+                          {
                             "$ref": "#",
                           },
-                          Object {
+                          {
                             "$ref": "#/definitions/stringArray",
                           },
                         ],
                       },
                       "type": "object",
                     },
-                    "description": Object {
+                    "description": {
                       "type": "string",
                     },
-                    "else": Object {
+                    "else": {
                       "$ref": "#",
                     },
-                    "enum": Object {
+                    "enum": {
                       "items": true,
                       "minItems": 1,
                       "type": "array",
                       "uniqueItems": true,
                     },
-                    "examples": Object {
+                    "examples": {
                       "items": true,
                       "type": "array",
                     },
-                    "exclusiveMaximum": Object {
+                    "exclusiveMaximum": {
                       "type": "number",
                     },
-                    "exclusiveMinimum": Object {
+                    "exclusiveMinimum": {
                       "type": "number",
                     },
-                    "format": Object {
+                    "format": {
                       "type": "string",
                     },
-                    "if": Object {
+                    "if": {
                       "$ref": "#",
                     },
-                    "items": Object {
-                      "anyOf": Array [
-                        Object {
+                    "items": {
+                      "anyOf": [
+                        {
                           "$ref": "#",
                         },
-                        Object {
+                        {
                           "$ref": "#/definitions/schemaArray",
                         },
                       ],
                       "default": true,
                     },
-                    "maxItems": Object {
+                    "maxItems": {
                       "$ref": "#/definitions/nonNegativeInteger",
                     },
-                    "maxLength": Object {
+                    "maxLength": {
                       "$ref": "#/definitions/nonNegativeInteger",
                     },
-                    "maxProperties": Object {
+                    "maxProperties": {
                       "$ref": "#/definitions/nonNegativeInteger",
                     },
-                    "maximum": Object {
+                    "maximum": {
                       "type": "number",
                     },
-                    "minItems": Object {
+                    "minItems": {
                       "$ref": "#/definitions/nonNegativeIntegerDefault0",
                     },
-                    "minLength": Object {
+                    "minLength": {
                       "$ref": "#/definitions/nonNegativeIntegerDefault0",
                     },
-                    "minProperties": Object {
+                    "minProperties": {
                       "$ref": "#/definitions/nonNegativeIntegerDefault0",
                     },
-                    "minimum": Object {
+                    "minimum": {
                       "type": "number",
                     },
-                    "multipleOf": Object {
+                    "multipleOf": {
                       "exclusiveMinimum": 0,
                       "type": "number",
                     },
-                    "not": Object {
+                    "not": {
                       "$ref": "#",
                     },
-                    "oneOf": Object {
+                    "oneOf": {
                       "$ref": "#/definitions/schemaArray",
                     },
-                    "pattern": Object {
+                    "pattern": {
                       "format": "regex",
                       "type": "string",
                     },
-                    "patternProperties": Object {
-                      "additionalProperties": Object {
+                    "patternProperties": {
+                      "additionalProperties": {
                         "$ref": "#",
                       },
-                      "default": Object {},
-                      "propertyNames": Object {
+                      "default": {},
+                      "propertyNames": {
                         "format": "regex",
                       },
                       "type": "object",
                     },
-                    "properties": Object {
-                      "additionalProperties": Object {
+                    "properties": {
+                      "additionalProperties": {
                         "$ref": "#",
                       },
-                      "default": Object {},
+                      "default": {},
                       "type": "object",
                     },
-                    "propertyNames": Object {
+                    "propertyNames": {
                       "$ref": "#",
                     },
-                    "readOnly": Object {
+                    "readOnly": {
                       "default": false,
                       "type": "boolean",
                     },
-                    "required": Object {
+                    "required": {
                       "$ref": "#/definitions/stringArray",
                     },
-                    "then": Object {
+                    "then": {
                       "$ref": "#",
                     },
-                    "title": Object {
+                    "title": {
                       "type": "string",
                     },
-                    "type": Object {
-                      "anyOf": Array [
-                        Object {
+                    "type": {
+                      "anyOf": [
+                        {
                           "$ref": "#/definitions/simpleTypes",
                         },
-                        Object {
-                          "items": Object {
+                        {
+                          "items": {
                             "$ref": "#/definitions/simpleTypes",
                           },
                           "minItems": 1,
@@ -3190,13 +3180,13 @@ exports[`dataForm matches snapshot with simple type 1`] = `
                         },
                       ],
                     },
-                    "uniqueItems": Object {
+                    "uniqueItems": {
                       "default": false,
                       "type": "boolean",
                     },
                   },
                   "title": "Core schema meta-schema",
-                  "type": Array [
+                  "type": [
                     "object",
                     "boolean",
                   ],
@@ -3206,43 +3196,43 @@ exports[`dataForm matches snapshot with simple type 1`] = `
               },
               "http://json-schema.org/schema": "http://json-schema.org/draft-07/schema",
             },
-            "schemas": Object {
+            "schemas": {
               "http://json-schema.org/draft-07/schema": SchemaEnv {
                 "$async": undefined,
                 "baseId": "http://json-schema.org/draft-07/schema",
-                "dynamicAnchors": Object {},
-                "localRefs": Object {},
+                "dynamicAnchors": {},
+                "localRefs": {},
                 "meta": true,
-                "refs": Object {},
+                "refs": {},
                 "root": [Circular],
-                "schema": Object {
+                "schema": {
                   "$id": "http://json-schema.org/draft-07/schema#",
                   "$schema": "http://json-schema.org/draft-07/schema#",
                   "default": true,
-                  "definitions": Object {
-                    "nonNegativeInteger": Object {
+                  "definitions": {
+                    "nonNegativeInteger": {
                       "minimum": 0,
                       "type": "integer",
                     },
-                    "nonNegativeIntegerDefault0": Object {
-                      "allOf": Array [
-                        Object {
+                    "nonNegativeIntegerDefault0": {
+                      "allOf": [
+                        {
                           "$ref": "#/definitions/nonNegativeInteger",
                         },
-                        Object {
+                        {
                           "default": 0,
                         },
                       ],
                     },
-                    "schemaArray": Object {
-                      "items": Object {
+                    "schemaArray": {
+                      "items": {
                         "$ref": "#",
                       },
                       "minItems": 1,
                       "type": "array",
                     },
-                    "simpleTypes": Object {
-                      "enum": Array [
+                    "simpleTypes": {
+                      "enum": [
                         "array",
                         "boolean",
                         "integer",
@@ -3252,191 +3242,191 @@ exports[`dataForm matches snapshot with simple type 1`] = `
                         "string",
                       ],
                     },
-                    "stringArray": Object {
-                      "default": Array [],
-                      "items": Object {
+                    "stringArray": {
+                      "default": [],
+                      "items": {
                         "type": "string",
                       },
                       "type": "array",
                       "uniqueItems": true,
                     },
                   },
-                  "properties": Object {
-                    "$comment": Object {
+                  "properties": {
+                    "$comment": {
                       "type": "string",
                     },
-                    "$id": Object {
+                    "$id": {
                       "format": "uri-reference",
                       "type": "string",
                     },
-                    "$ref": Object {
+                    "$ref": {
                       "format": "uri-reference",
                       "type": "string",
                     },
-                    "$schema": Object {
+                    "$schema": {
                       "format": "uri",
                       "type": "string",
                     },
-                    "additionalItems": Object {
+                    "additionalItems": {
                       "$ref": "#",
                     },
-                    "additionalProperties": Object {
+                    "additionalProperties": {
                       "$ref": "#",
                     },
-                    "allOf": Object {
+                    "allOf": {
                       "$ref": "#/definitions/schemaArray",
                     },
-                    "anyOf": Object {
+                    "anyOf": {
                       "$ref": "#/definitions/schemaArray",
                     },
                     "const": true,
-                    "contains": Object {
+                    "contains": {
                       "$ref": "#",
                     },
-                    "contentEncoding": Object {
+                    "contentEncoding": {
                       "type": "string",
                     },
-                    "contentMediaType": Object {
+                    "contentMediaType": {
                       "type": "string",
                     },
                     "default": true,
-                    "definitions": Object {
-                      "additionalProperties": Object {
+                    "definitions": {
+                      "additionalProperties": {
                         "$ref": "#",
                       },
-                      "default": Object {},
+                      "default": {},
                       "type": "object",
                     },
-                    "dependencies": Object {
-                      "additionalProperties": Object {
-                        "anyOf": Array [
-                          Object {
+                    "dependencies": {
+                      "additionalProperties": {
+                        "anyOf": [
+                          {
                             "$ref": "#",
                           },
-                          Object {
+                          {
                             "$ref": "#/definitions/stringArray",
                           },
                         ],
                       },
                       "type": "object",
                     },
-                    "description": Object {
+                    "description": {
                       "type": "string",
                     },
-                    "else": Object {
+                    "else": {
                       "$ref": "#",
                     },
-                    "enum": Object {
+                    "enum": {
                       "items": true,
                       "minItems": 1,
                       "type": "array",
                       "uniqueItems": true,
                     },
-                    "examples": Object {
+                    "examples": {
                       "items": true,
                       "type": "array",
                     },
-                    "exclusiveMaximum": Object {
+                    "exclusiveMaximum": {
                       "type": "number",
                     },
-                    "exclusiveMinimum": Object {
+                    "exclusiveMinimum": {
                       "type": "number",
                     },
-                    "format": Object {
+                    "format": {
                       "type": "string",
                     },
-                    "if": Object {
+                    "if": {
                       "$ref": "#",
                     },
-                    "items": Object {
-                      "anyOf": Array [
-                        Object {
+                    "items": {
+                      "anyOf": [
+                        {
                           "$ref": "#",
                         },
-                        Object {
+                        {
                           "$ref": "#/definitions/schemaArray",
                         },
                       ],
                       "default": true,
                     },
-                    "maxItems": Object {
+                    "maxItems": {
                       "$ref": "#/definitions/nonNegativeInteger",
                     },
-                    "maxLength": Object {
+                    "maxLength": {
                       "$ref": "#/definitions/nonNegativeInteger",
                     },
-                    "maxProperties": Object {
+                    "maxProperties": {
                       "$ref": "#/definitions/nonNegativeInteger",
                     },
-                    "maximum": Object {
+                    "maximum": {
                       "type": "number",
                     },
-                    "minItems": Object {
+                    "minItems": {
                       "$ref": "#/definitions/nonNegativeIntegerDefault0",
                     },
-                    "minLength": Object {
+                    "minLength": {
                       "$ref": "#/definitions/nonNegativeIntegerDefault0",
                     },
-                    "minProperties": Object {
+                    "minProperties": {
                       "$ref": "#/definitions/nonNegativeIntegerDefault0",
                     },
-                    "minimum": Object {
+                    "minimum": {
                       "type": "number",
                     },
-                    "multipleOf": Object {
+                    "multipleOf": {
                       "exclusiveMinimum": 0,
                       "type": "number",
                     },
-                    "not": Object {
+                    "not": {
                       "$ref": "#",
                     },
-                    "oneOf": Object {
+                    "oneOf": {
                       "$ref": "#/definitions/schemaArray",
                     },
-                    "pattern": Object {
+                    "pattern": {
                       "format": "regex",
                       "type": "string",
                     },
-                    "patternProperties": Object {
-                      "additionalProperties": Object {
+                    "patternProperties": {
+                      "additionalProperties": {
                         "$ref": "#",
                       },
-                      "default": Object {},
-                      "propertyNames": Object {
+                      "default": {},
+                      "propertyNames": {
                         "format": "regex",
                       },
                       "type": "object",
                     },
-                    "properties": Object {
-                      "additionalProperties": Object {
+                    "properties": {
+                      "additionalProperties": {
                         "$ref": "#",
                       },
-                      "default": Object {},
+                      "default": {},
                       "type": "object",
                     },
-                    "propertyNames": Object {
+                    "propertyNames": {
                       "$ref": "#",
                     },
-                    "readOnly": Object {
+                    "readOnly": {
                       "default": false,
                       "type": "boolean",
                     },
-                    "required": Object {
+                    "required": {
                       "$ref": "#/definitions/stringArray",
                     },
-                    "then": Object {
+                    "then": {
                       "$ref": "#",
                     },
-                    "title": Object {
+                    "title": {
                       "type": "string",
                     },
-                    "type": Object {
-                      "anyOf": Array [
-                        Object {
+                    "type": {
+                      "anyOf": [
+                        {
                           "$ref": "#/definitions/simpleTypes",
                         },
-                        Object {
-                          "items": Object {
+                        {
+                          "items": {
                             "$ref": "#/definitions/simpleTypes",
                           },
                           "minItems": 1,
@@ -3445,13 +3435,13 @@ exports[`dataForm matches snapshot with simple type 1`] = `
                         },
                       ],
                     },
-                    "uniqueItems": Object {
+                    "uniqueItems": {
                       "default": false,
                       "type": "boolean",
                     },
                   },
                   "title": "Core schema meta-schema",
-                  "type": Array [
+                  "type": [
                     "object",
                     "boolean",
                   ],
@@ -3461,7 +3451,7 @@ exports[`dataForm matches snapshot with simple type 1`] = `
               },
             },
             "scope": ValueScope {
-              "_names": Object {},
+              "_names": {},
               "_parent": undefined,
               "_prefixes": Set {
                 "validate",
@@ -3478,11 +3468,11 @@ exports[`dataForm matches snapshot with simple type 1`] = `
                 "obj",
                 "Error",
               },
-              "_scope": Object {},
-              "_values": Object {},
-              "opts": Object {
+              "_scope": {},
+              "_values": {},
+              "opts": {
                 "_n": _Code {
-                  "_items": Array [
+                  "_items": [
                     "",
                   ],
                 },
@@ -3503,7 +3493,7 @@ exports[`dataForm matches snapshot with simple type 1`] = `
                   "obj",
                   "Error",
                 },
-                "scope": Object {},
+                "scope": {},
               },
             },
           },
@@ -3522,7 +3512,7 @@ exports[`dataForm matches snapshot with simple type 1`] = `
         className="submit-button"
         disabled={false}
         iconProps={
-          Object {
+          {
             "iconName": "CloudUpload",
           }
         }

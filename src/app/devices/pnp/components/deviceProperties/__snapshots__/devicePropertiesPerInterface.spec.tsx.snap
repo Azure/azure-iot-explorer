@@ -10,29 +10,29 @@ exports[`devicePropertiesPerInterface matches snapshot 1`] = `
     <ResizableDetailsList
       checkboxVisibility={2}
       columns={
-        Array [
-          Object {
+        [
+          {
             "fieldName": "name",
             "isMultiline": true,
             "key": "name",
             "minWidth": 100,
             "name": "deviceProperties.columns.name",
           },
-          Object {
+          {
             "fieldName": "schema",
             "isMultiline": true,
             "key": "schema",
             "minWidth": 100,
             "name": "deviceProperties.columns.schema",
           },
-          Object {
+          {
             "fieldName": "unit",
             "isMultiline": true,
             "key": "unit",
             "minWidth": 100,
             "name": "deviceProperties.columns.unit",
           },
-          Object {
+          {
             "fieldName": "value",
             "isMultiline": true,
             "key": "value",
@@ -42,9 +42,9 @@ exports[`devicePropertiesPerInterface matches snapshot 1`] = `
         ]
       }
       items={
-        Array [
-          Object {
-            "propertyModelDefinition": Object {
+        [
+          {
+            "propertyModelDefinition": {
               "@type": "Property",
               "description": "Current temperature reported from the device.",
               "displayName": "Current Temperature",
@@ -52,7 +52,7 @@ exports[`devicePropertiesPerInterface matches snapshot 1`] = `
               "schema": "double",
               "writable": false,
             },
-            "propertySchema": Object {
+            "propertySchema": {
               "required": null,
               "title": "Current temperature reported from the device.",
               "type": "number",

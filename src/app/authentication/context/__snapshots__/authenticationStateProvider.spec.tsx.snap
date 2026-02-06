@@ -3,12 +3,12 @@
 exports[`AuthenticationStateContextProvider matches snapshot 1`] = `
 <ContextProvider
   value={
-    Array [
-      Object {
+    [
+      {
         "formState": "initialized",
         "preference": undefined,
       },
-      Object {
+      {
         "getLoginPreference": [Function],
         "setLoginPreference": [Function],
       },

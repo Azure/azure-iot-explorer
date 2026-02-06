@@ -5,16 +5,19 @@
 import { SettingsInterface } from '../../../../public/interfaces/settingsInterface';
 import { AuthenticationInterface } from './../../../../public/interfaces/authenticationInterface';
 import { API_INTERFACES } from '../../../../public/constants';
-import { appConfig, HostMode } from '../../../appConfig/appConfig';
 import { HIGH_CONTRAST } from '../../constants/browserStorage';
 import { PublicDigitalTwinsModelRepoHelper, PublicDigitalTwinsModelInterface } from '../services/publicDigitalTwinsModelRepoHelper';
 
 export const NOT_AVAILABLE = 'Feature is not available in this configuration';
 
 export const getSettingsInterface = (): SettingsInterface => {
-    return appConfig.hostMode === HostMode.Electron ?
-        getElectronInterface(API_INTERFACES.SETTINGS) :
-        getSettingsInterfaceForBrowser();
+    // Always use the Electron interface since we only support Electron now
+    const electronInterface = getElectronInterface<SettingsInterface>(API_INTERFACES.SETTINGS);
+    if (electronInterface) {
+        return electronInterface;
+    }
+    // Fallback for testing or non-Electron environments
+    return getSettingsInterfaceForBrowser();
 };
 
 export const getSettingsInterfaceForBrowser = (): SettingsInterface => {
@@ -31,11 +34,11 @@ export const getPublicDigitalTwinsModelInterface = (): PublicDigitalTwinsModelIn
 };
 
 export const getAuthenticationInterface = (): AuthenticationInterface => {
-    if (appConfig.hostMode !== HostMode.Electron) {
+    const electronInterface = getElectronInterface<AuthenticationInterface>(API_INTERFACES.AUTHENTICATION);
+    if (!electronInterface) {
         throw new Error(NOT_AVAILABLE);
     }
-
-    return getElectronInterface(API_INTERFACES.AUTHENTICATION);
+    return electronInterface;
 };
 
 export const getElectronInterface = <T>(name: string): T => {

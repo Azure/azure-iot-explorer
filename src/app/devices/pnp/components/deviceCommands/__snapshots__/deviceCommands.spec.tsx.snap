@@ -5,10 +5,10 @@ exports[`components/devices/deviceCommands matches snapshot while interface cann
   <StyledCommandBarBase
     className="command"
     farItems={
-      Array [
-        Object {
+      [
+        {
           "ariaLabel": "deviceCommands.command.close",
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "NavigateBack",
           },
           "key": "NavigateBack",
@@ -18,10 +18,10 @@ exports[`components/devices/deviceCommands matches snapshot while interface cann
       ]
     }
     items={
-      Array [
-        Object {
+      [
+        {
           "ariaLabel": "deviceCommands.command.refresh",
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "Refresh",
           },
           "key": "Refresh",
@@ -44,10 +44,10 @@ exports[`components/devices/deviceCommands matches snapshot with a commandSchema
   <StyledCommandBarBase
     className="command"
     farItems={
-      Array [
-        Object {
+      [
+        {
           "ariaLabel": "deviceCommands.command.close",
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "NavigateBack",
           },
           "key": "NavigateBack",
@@ -57,10 +57,10 @@ exports[`components/devices/deviceCommands matches snapshot with a commandSchema
       ]
     }
     items={
-      Array [
-        Object {
+      [
+        {
           "ariaLabel": "deviceCommands.command.refresh",
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "Refresh",
           },
           "key": "Refresh",
@@ -72,36 +72,36 @@ exports[`components/devices/deviceCommands matches snapshot with a commandSchema
   />
   <DeviceCommandsPerInterface
     commandSchemas={
-      Array [
-        Object {
-          "commandModelDefinition": Object {
+      [
+        {
+          "commandModelDefinition": {
             "@type": "Command",
             "commandType": "synchronous",
             "description": "This command will begin blinking the LED for given time interval.",
             "name": "blink",
-            "request": Object {
+            "request": {
               "name": "blinkRequest",
               "schema": "long",
             },
-            "response": Object {
+            "response": {
               "name": "blinkResponse",
               "schema": "string",
             },
           },
-          "parsedSchema": Object {
+          "parsedSchema": {
             "name": "blink",
-            "requestSchema": Object {
-              "definitions": Object {},
-              "required": Array [],
+            "requestSchema": {
+              "definitions": {},
+              "required": [],
               "title": "blinkRequest",
-              "type": Array [
+              "type": [
                 "number",
                 "null",
               ],
             },
-            "responseSchema": Object {
-              "definitions": Object {},
-              "required": Array [],
+            "responseSchema": {
+              "definitions": {},
+              "required": [],
               "title": "blinkResponse",
               "type": "string",
             },

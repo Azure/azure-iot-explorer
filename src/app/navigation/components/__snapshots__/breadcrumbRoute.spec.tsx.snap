@@ -3,7 +3,7 @@
 exports[`BreadcrumbRoute matches snapshot 1`] = `
 <Route
   breadcrumb={
-    Object {
+    {
       "name": "name",
     }
   }

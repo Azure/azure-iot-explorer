@@ -34,11 +34,11 @@ exports[`DigitalTwinComponentList matches snapshot when empty model id is retrie
       <MonacoEditorComponent
         ariaLabel="digitalTwin.pivot.content"
         content="{
-	\\"@context\\": \\"dtmi:dtdl:context;2\\",
-	\\"@id\\": \\"dtmi:plugnplay:hube2e:cm;1\\",
-	\\"@type\\": \\"Interface\\",
-	\\"contents\\": [],
-	\\"displayName\\": \\"IoT Hub E2E Tests\\"
+	"@context": "dtmi:dtdl:context;2",
+	"@id": "dtmi:plugnplay:hube2e:cm;1",
+	"@type": "Interface",
+	"contents": [],
+	"displayName": "IoT Hub E2E Tests"
 }"
         height={400}
       />

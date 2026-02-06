@@ -4,10 +4,10 @@ exports[`commands matches snapshot 1`] = `
 <Fragment>
   <StyledCommandBarBase
     farItems={
-      Array [
-        Object {
+      [
+        {
           "ariaLabel": "deviceEvents.command.close",
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "NavigateBack",
           },
           "key": "NavigateBack",
@@ -17,39 +17,39 @@ exports[`commands matches snapshot 1`] = `
       ]
     }
     items={
-      Array [
-        Object {
+      [
+        {
           "ariaLabel": "deviceEvents.command.start",
           "disabled": false,
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "Play",
           },
           "key": "Play",
           "name": "deviceEvents.command.start",
           "onClick": [Function],
         },
-        Object {
+        {
           "ariaLabel": "Show modeled events",
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "Checkbox",
           },
           "key": "Checkbox",
           "name": "Show modeled events",
           "onClick": [Function],
         },
-        Object {
+        {
           "ariaLabel": "deviceEvents.command.refresh",
           "disabled": false,
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "Refresh",
           },
           "key": "Refresh",
           "name": "deviceEvents.command.refresh",
           "onClick": undefined,
         },
-        Object {
+        {
           "ariaLabel": "deviceEvents.command.clearEvents",
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "Delete",
           },
           "key": "Clear",

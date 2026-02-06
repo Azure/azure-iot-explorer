@@ -21,7 +21,7 @@ exports[`components/shared/labelWithTooltip matches snapshot when tooltip specif
   </StyledLabelBase>
   <StyledTooltipHostBase
     calloutProps={
-      Object {
+      {
         "gapSpace": 0,
         "target": "#iconbutton0",
       }
@@ -33,7 +33,7 @@ exports[`components/shared/labelWithTooltip matches snapshot when tooltip specif
     <CustomizedIconButton
       aria-labelledby="tooltip1"
       iconProps={
-        Object {
+        {
           "iconName": "Info",
         }
       }

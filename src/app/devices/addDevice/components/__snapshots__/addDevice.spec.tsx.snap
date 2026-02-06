@@ -7,21 +7,21 @@ exports[`addDevice matches snapshot 1`] = `
 >
   <StyledCommandBarBase
     items={
-      Array [
-        Object {
+      [
+        {
           "ariaLabel": "deviceLists.commands.save",
           "disabled": true,
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "Save",
           },
           "key": "Save",
           "name": "deviceLists.commands.save",
           "type": "submit",
         },
-        Object {
+        {
           "ariaLabel": "deviceLists.commands.close",
           "disabled": false,
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "Cancel",
           },
           "key": "Cancel",
@@ -51,16 +51,16 @@ exports[`addDevice matches snapshot 1`] = `
           label="deviceIdentity.authenticationType.text"
           onChange={[Function]}
           options={
-            Array [
-              Object {
+            [
+              {
                 "key": "sas",
                 "text": "deviceIdentity.authenticationType.symmetricKey.type",
               },
-              Object {
+              {
                 "key": "selfSigned",
                 "text": "deviceIdentity.authenticationType.selfSigned.type",
               },
-              Object {
+              {
                 "key": "certificateAuthority",
                 "text": "deviceIdentity.authenticationType.ca.type",
               },

@@ -3,31 +3,31 @@
 exports[`deviceListCommandBar matches snapshot 1`] = `
 <StyledCommandBarBase
   items={
-    Array [
-      Object {
+    [
+      {
         "ariaLabel": "deviceLists.commands.add",
         "disabled": undefined,
-        "iconProps": Object {
+        "iconProps": {
           "iconName": "BoxAdditionSolid",
         },
         "key": "BoxAdditionSolid",
         "name": "deviceLists.commands.add",
         "onClick": [Function],
       },
-      Object {
+      {
         "ariaLabel": "deviceLists.commands.refresh",
         "disabled": undefined,
-        "iconProps": Object {
+        "iconProps": {
           "iconName": "Refresh",
         },
         "key": "Refresh",
         "name": "deviceLists.commands.refresh",
         "onClick": [Function],
       },
-      Object {
+      {
         "ariaLabel": "deviceLists.commands.delete.buttonText",
         "disabled": undefined,
-        "iconProps": Object {
+        "iconProps": {
           "iconName": "Delete",
         },
         "key": "Delete",

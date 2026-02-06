@@ -2,17 +2,8 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { appConfig, HostMode } from '../../appConfig/appConfig';
-import { CUSTOM_CONTROLLER_PORT } from './browserStorage';
 
-// express server
-export const DATAPLANE = '/DataPlane';
-export const EVENTHUB = '/EventHub';
-export const MODELREPO = '/ModelRepo';
-
-export const READ_FILE = '/ReadFile';
-export const READ_FILE_NAIVE = '/ReadFileNaive';
-export const GET_DIRECTORIES = '/Directories';
+// File operation constants
 export const DEFAULT_DIRECTORY = '$DEFAULT';
 
 // model repo .net controller
@@ -24,10 +15,6 @@ export const MODEL_ID = 'modelId=';
 export const API_VERSION = 'api-version=';
 export const AND = '&';
 export const PUBLIC_REPO_HOSTNAME = 'devicemodels.azure.com';
-
-// event hub controller
-export const MONITOR = '/monitor';
-export const STOP = '/stop';
 
 export const DIGITAL_TWIN_API_VERSION_PREVIEW = '2020-09-30';
 export const MODEL_REPO_API_VERSION = '2020-05-01-preview';
@@ -55,25 +42,6 @@ export enum DataPlaneStatusCode {
 }
 
 export const DEFAULT_CONSUMER_GROUP = '$Default';
-
-const wsIp = 'ws://127.0.0.1';
-const localIp = 'http://127.0.0.1';
-const apiPath = '/api';
-
-const getPort = () => {
-    const customPort = parseInt(localStorage.getItem(CUSTOM_CONTROLLER_PORT), 10);
-    if (customPort && !isNaN(customPort)) {
-        return customPort;
-    }
-    return appConfig.controllerPort;
-};
-
-export const CONTROLLER_API_ENDPOINT =
-    appConfig.hostMode === HostMode.Browser ?
-        `${localIp}:${appConfig.controllerPort}${apiPath}` :
-        `${localIp}:${getPort()}${apiPath}`;
-
-export const WEBSOCKET_ENDPOINT = `${wsIp}:${getPort()}`;
 
 export enum HTTP_OPERATION_TYPES {
     Delete = 'DELETE',

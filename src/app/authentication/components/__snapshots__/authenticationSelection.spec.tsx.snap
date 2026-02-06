@@ -6,7 +6,7 @@ exports[`AuthenticationSelection matches snapshot 1`] = `
 >
   <Stack
     tokens={
-      Object {
+      {
         "childrenGap": 10,
       }
     }
@@ -20,7 +20,7 @@ exports[`AuthenticationSelection matches snapshot 1`] = `
     <div>
       <Component
         components={
-          Array [
+          [
             <StyledLinkBase
               href="https://aka.ms/iothubPermissions"
               target="_blank"
@@ -34,7 +34,7 @@ exports[`AuthenticationSelection matches snapshot 1`] = `
     <Stack
       horizontal={true}
       tokens={
-        Object {
+        {
           "childrenGap": 80,
         }
       }
@@ -42,7 +42,7 @@ exports[`AuthenticationSelection matches snapshot 1`] = `
       <CustomizedCompoundButton
         className="auth-selection-tile"
         iconProps={
-          Object {
+          {
             "iconName": "Permissions",
           }
         }
@@ -54,7 +54,7 @@ exports[`AuthenticationSelection matches snapshot 1`] = `
       <CustomizedCompoundButton
         className="auth-selection-tile"
         iconProps={
-          Object {
+          {
             "iconName": "AADLogo",
           }
         }

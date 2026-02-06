@@ -15,8 +15,9 @@ const stringsWithExpiry = [{
 }];
 
 describe('setConnectionString', () => {
-    it('sets expected value', () => {
-        setConnectionStrings(stringsWithExpiry);
+    it('sets expected value in localStorage (browser fallback)', async () => {
+        // In browser mode, should fall back to localStorage
+        await setConnectionStrings(stringsWithExpiry);
 
         expect(localStorage.getItem(CONNECTION_STRING_NAME_LIST)).toEqual(JSON.stringify(stringsWithExpiry));
     });

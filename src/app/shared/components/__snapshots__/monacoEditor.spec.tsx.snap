@@ -13,11 +13,11 @@ exports[`MonacoEditorComponent matches snapshot 1`] = `
     height={100}
     language="json"
     options={
-      Object {
+      {
         "accessibilitySupport": "on",
         "ariaLabel": "test label",
         "automaticLayout": true,
-        "minimap": Object {
+        "minimap": {
           "enabled": false,
         },
         "readOnly": undefined,

@@ -5,20 +5,20 @@ exports[`devices/components/deviceTwin snapshot matches snapshot 1`] = `
   <StyledCommandBarBase
     className="command device-detail-command"
     items={
-      Array [
-        Object {
+      [
+        {
           "ariaLabel": "deviceTwin.command.refresh",
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "Refresh",
           },
           "key": "Refresh",
           "name": "deviceTwin.command.refresh",
           "onClick": [Function],
         },
-        Object {
+        {
           "ariaLabel": "deviceTwin.command.save",
           "disabled": true,
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "Save",
           },
           "key": "Save",
@@ -39,24 +39,24 @@ exports[`devices/components/deviceTwin snapshot matches snapshot 1`] = `
     <MonacoEditorComponent
       ariaLabel="deviceTwin.editorAriaLabel"
       content="{
-	\\"deviceEtag\\": \\"\\",
-	\\"deviceId\\": \\"test\\",
-	\\"etag\\": \\"AAAAAAAAAAE=\\",
-	\\"status\\": \\"enabled\\",
-	\\"statusUpdateTime\\": \\"0001-01-01T00:00:00Z\\",
-	\\"connectionState\\": \\"Disconnected\\",
-	\\"lastActivityTime\\": \\"0001-01-01T00:00:00Z\\",
-	\\"cloudToDeviceMessageCount\\": 0,
-	\\"authenticationType\\": \\"sas\\",
-	\\"x509Thumbprint\\": {
-		\\"primaryThumbprint\\": null,
-		\\"secondaryThumbprint\\": null
+	"deviceEtag": "",
+	"deviceId": "test",
+	"etag": "AAAAAAAAAAE=",
+	"status": "enabled",
+	"statusUpdateTime": "0001-01-01T00:00:00Z",
+	"connectionState": "Disconnected",
+	"lastActivityTime": "0001-01-01T00:00:00Z",
+	"cloudToDeviceMessageCount": 0,
+	"authenticationType": "sas",
+	"x509Thumbprint": {
+		"primaryThumbprint": null,
+		"secondaryThumbprint": null
 	},
-	\\"properties\\": {},
-	\\"capabilities\\": {
-		\\"iotEdge\\": false
+	"properties": {},
+	"capabilities": {
+		"iotEdge": false
 	},
-	\\"version\\": 1
+	"version": 1
 }"
       height={700}
       onChange={[Function]}

@@ -10,7 +10,7 @@ exports[`ConnectionStringsView matches snapshot when connection strings present 
   >
     <ConnectionString
       connectionStringWithExpiry={
-        Object {
+        {
           "connectionString": "connectionString1",
           "expiration": "Thu, 01 Jan 1970 00:00:00 GMT",
         }

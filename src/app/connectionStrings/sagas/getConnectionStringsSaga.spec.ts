@@ -5,13 +5,13 @@
 import { call, put } from 'redux-saga/effects';
 // tslint:disable-next-line: no-implicit-dependencies
 import { cloneableGenerator } from '@redux-saga/testing-utils';
-import { CONNECTION_STRING_NAME_LIST } from '../../constants/browserStorage';
 import { getConnectionStringsAction } from '../actions';
 import { getConnectionStrings, getConnectionStringsSaga } from './getConnectionStringsSaga';
 import { raiseNotificationToast } from '../../notifications/components/notificationToast';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { NotificationType } from '../../api/models/notification';
 import { setConnectionStrings } from './setConnectionStringsSaga';
+import { getConnectionStrings as getStoredConnectionStrings, deleteConnectionStrings } from '../../shared/utils/credentialStorage';
 
 describe('getConnectionStringsSaga', () => {
     const getConnectionStringsSagaGenerator = cloneableGenerator(getConnectionStringsSaga)();
@@ -39,19 +39,21 @@ describe('getConnectionStringsSaga', () => {
 describe('getConnectionString', () => {
     it('notifies users and removed strings with no expiry', () => {
         const getConnectionStringsGenerator = cloneableGenerator(getConnectionStrings)();
-        localStorage.setItem(CONNECTION_STRING_NAME_LIST, 'hellowWorld');
-        expect(getConnectionStringsGenerator.next('hellowWorld')).toEqual({
+        // First call is to getStoredConnectionStrings
+        expect(getConnectionStringsGenerator.next()).toEqual({
+            done: false,
+            value: call(getStoredConnectionStrings)
+        });
+        // Simulate invalid data returned (parse will fail)
+        expect(getConnectionStringsGenerator.next([{invalidProp: 'hellowWorld'}])).toEqual({
             done: false,
             value: call(raiseNotificationToast, {
                 text: {
-                    translationKey: ResourceKeys.notifications.connectionStringsWithoutExpiryRemovalWarning
+                    translationKey: ResourceKeys.notifications.connectionStringsWithExpiryRemovalWarning
                 },
                 type: NotificationType.warning
             })
         });
-
-        getConnectionStringsGenerator.next();
-        expect(localStorage.getItem(CONNECTION_STRING_NAME_LIST)).toEqual('');
     });
 
     it('notifies users and removed strings expired', () => {
@@ -60,8 +62,13 @@ describe('getConnectionString', () => {
             connectionString: 'connectionString1',
             expiration: (new Date(0)).toUTCString()
         }];
-        localStorage.setItem(CONNECTION_STRING_NAME_LIST, JSON.stringify(stringsWithExpiry));
-        expect(getConnectionStringsGenerator.next(JSON.stringify(stringsWithExpiry))).toEqual({
+        // First call is to getStoredConnectionStrings
+        expect(getConnectionStringsGenerator.next()).toEqual({
+            done: false,
+            value: call(getStoredConnectionStrings)
+        });
+        // Return expired strings
+        expect(getConnectionStringsGenerator.next(stringsWithExpiry)).toEqual({
             done: false,
             value: call(raiseNotificationToast, {
                 text: {
@@ -71,9 +78,23 @@ describe('getConnectionString', () => {
             })
         });
 
-        expect(getConnectionStringsGenerator.next(JSON.stringify(stringsWithExpiry))).toEqual({
+        expect(getConnectionStringsGenerator.next()).toEqual({
             done: false,
             value: call(setConnectionStrings, [])
+        });
+    });
+
+    it('returns empty array when no credentials stored', () => {
+        const getConnectionStringsGenerator = cloneableGenerator(getConnectionStrings)();
+        // First call is to getStoredConnectionStrings
+        expect(getConnectionStringsGenerator.next()).toEqual({
+            done: false,
+            value: call(getStoredConnectionStrings)
+        });
+        // Return empty array
+        expect(getConnectionStringsGenerator.next([])).toEqual({
+            done: true,
+            value: []
         });
     });
 });

@@ -106,7 +106,7 @@ describe('digitalTwinsModelService', () => {
             });
         });
 
-        it('throws Error when response is not OK', async done => {
+        it('throws Error when response is not OK', async () => {
             // tslint:disable
             const response = {
                 ok: false,
@@ -116,7 +116,6 @@ describe('digitalTwinsModelService', () => {
             jest.spyOn(window, 'fetch').mockResolvedValue(response);
 
             await expect(DigitalTwinsModelService.fetchModel(parameters)).rejects.toThrow(new Error('Not found'));
-            done();
         });
     });
 });
