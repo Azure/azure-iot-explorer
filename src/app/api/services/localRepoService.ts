@@ -2,33 +2,39 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { CONTROLLER_API_ENDPOINT, DataPlaneStatusCode, DEFAULT_DIRECTORY, GET_DIRECTORIES, READ_FILE, READ_FILE_NAIVE } from './../../constants/apiConstants';
+import { DEFAULT_DIRECTORY } from './../../constants/apiConstants';
 import { ModelDefinitionNotFound } from '../models/modelDefinitionNotFoundError';
-import { ModelDefinitionNotValidJsonError } from '../models/modelDefinitionNotValidJsonError';
+import { getDeviceInterface } from '../shared/interfaceUtils';
 
 export const fetchLocalFile = async (path: string, fileName: string): Promise<object> => {
-    const response = await fetch(`${CONTROLLER_API_ENDPOINT}${READ_FILE}/${encodeURIComponent(path)}/${encodeURIComponent(fileName)}`);
-    if (await response.status === DataPlaneStatusCode.NoContentSuccess || response.status === DataPlaneStatusCode.InternalServerError) {
+    const deviceApi = getDeviceInterface();
+    const result = await deviceApi.readLocalFile({ path, file: fileName });
+    if (result === null) {
         throw new ModelDefinitionNotFound();
     }
-    if (await response.status === DataPlaneStatusCode.NotFound) {
-        throw new ModelDefinitionNotValidJsonError(await response.text());
+
+    // Parse the result if it's a string
+    if (typeof result === 'string') {
+        return JSON.parse(result);
     }
-    return response.json();
+    return result as object;
 };
 
 export const fetchLocalFileNaive = async (path: string, fileName: string): Promise<object> => {
-    const response = await fetch(`${CONTROLLER_API_ENDPOINT}${READ_FILE_NAIVE}/${encodeURIComponent(path)}/${encodeURIComponent(fileName)}`);
-    if (await response.status === DataPlaneStatusCode.NoContentSuccess ||
-        response.status === DataPlaneStatusCode.InternalServerError ||
-        response.status === DataPlaneStatusCode.NotFound)
-    {
+    const deviceApi = getDeviceInterface();
+    const result = await deviceApi.readLocalFileNaive({ path, file: fileName });
+    if (!result) {
         throw new ModelDefinitionNotFound();
     }
-    return response.json();
+
+    // Parse the result if it's a string
+    if (typeof result === 'string') {
+        return JSON.parse(result);
+    }
+    return result as object;
 };
 
 export const fetchDirectories = async (path: string): Promise<string[]> => {
-    const response = await fetch(`${CONTROLLER_API_ENDPOINT}${GET_DIRECTORIES}/${encodeURIComponent(path || DEFAULT_DIRECTORY)}`);
-    return response.json();
+    const deviceApi = getDeviceInterface();
+    return deviceApi.getDirectories({ path: path || DEFAULT_DIRECTORY });
 };

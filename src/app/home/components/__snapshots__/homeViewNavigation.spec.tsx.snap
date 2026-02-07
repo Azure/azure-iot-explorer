@@ -8,27 +8,27 @@ exports[`homeViewNavigation matches snapshot 1`] = `
   <CollapsibleButton />
   <StyledNavBase
     groups={
-      Array [
-        Object {
-          "links": Array [
-            Object {
-              "iconProps": Object {
+      [
+        {
+          "links": [
+            {
+              "iconProps": {
                 "iconName": "Org",
               },
               "key": "resources",
               "name": "breadcrumb.resources",
               "url": "#/home/resources",
             },
-            Object {
-              "iconProps": Object {
+            {
+              "iconProps": {
                 "iconName": "PlugDisconnected",
               },
               "key": "repos",
               "name": "breadcrumb.repos",
               "url": "#/home/repos",
             },
-            Object {
-              "iconProps": Object {
+            {
+              "iconProps": {
                 "iconName": "Ringer",
               },
               "key": "notifications",

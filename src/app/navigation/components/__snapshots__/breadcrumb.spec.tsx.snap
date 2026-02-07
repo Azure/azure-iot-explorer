@@ -14,7 +14,7 @@ exports[`Breadcrumb matches snapshot when link is enabled 1`] = `
 >
   <NavLink
     style={
-      Object {
+      {
         "textDecoration": "underline",
       }
     }
@@ -31,7 +31,7 @@ exports[`Breadcrumb matches snapshot when suffix is truthy 1`] = `
 >
   <NavLink
     style={
-      Object {
+      {
         "textDecoration": "underline",
       }
     }

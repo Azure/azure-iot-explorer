@@ -9,7 +9,8 @@ import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString, getModuleIdentityIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import { MonitorEventsParameters } from '../../../api/parameters/deviceParameters';
-import { DEFAULT_CONSUMER_GROUP, WEBSOCKET_ENDPOINT } from '../../../constants/apiConstants';
+import { subscribeToEventHubMessages } from '../../../api/handlers/eventHubServiceHandler';
+import { DEFAULT_CONSUMER_GROUP } from '../../../constants/apiConstants';
 import { HeaderView } from '../../../shared/components/headerView';
 import { useDeviceEventsStateContext } from '../context/deviceEventsStateContext';
 import { usePnpStateContext } from '../../pnp/context/pnpStateContext';
@@ -24,7 +25,6 @@ import { EventsContent } from './eventsContent';
 import { SystemPropertyCheckBox } from './systemPropertyCheckBox';
 import './deviceEvents.scss';
 
-let client: WebSocket;
 export const DeviceEvents: React.FC = () => {
     const { search } = useLocation();
     const deviceId = getDeviceIdFromQueryString(search);
@@ -54,27 +54,35 @@ export const DeviceEvents: React.FC = () => {
     // message content type specific
     const [showContentTypePanel, setShowContentTypePanel] = React.useState(false);
 
+    // IPC message subscription
+    const unsubscribeRef = React.useRef<(() => void) | null>(null);
+
     React.useEffect(
         () => {
             return () => {
                 stopMonitoring();
-                client?.close();
+                // Unsubscribe from IPC messages on cleanup
+                if (unsubscribeRef.current) {
+                    unsubscribeRef.current();
+                    unsubscribeRef.current = null;
+                }
             };
         },
         []);
 
     React.useEffect(
         () => {
-            client = new WebSocket(WEBSOCKET_ENDPOINT);
-        },
-        []);
-
-    React.useEffect(
-        () => {
             if (monitoringData) {
-                client.onmessage = message => {
-                    api.setEvents(JSON.parse(message.data));
-                };
+                // Subscribe to EventHub messages via IPC
+                unsubscribeRef.current = subscribeToEventHubMessages((messages) => {
+                    api.setEvents(messages);
+                });
+            } else {
+                // Unsubscribe when not monitoring
+                if (unsubscribeRef.current) {
+                    unsubscribeRef.current();
+                    unsubscribeRef.current = null;
+                }
             }
         },
         [monitoringData]);
@@ -146,8 +154,6 @@ export const DeviceEvents: React.FC = () => {
     };
 
     const fetchData = () => {
-        client.onopen = () => { // intentionally blank
-        };
         let parameters: MonitorEventsParameters = {
             consumerGroup,
             decoderPrototype,

@@ -3,15 +3,15 @@
 exports[`pnp matches snapshot 1`] = `
 <ContextProvider
   value={
-    Object {
+    {
       "dispatch": [Function],
       "getModelDefinition": [Function],
       "pnpState": Immutable.Record {
-        "modelDefinitionWithSource": Object {
+        "modelDefinitionWithSource": {
           "payload": null,
           "synchronizationStatus": 2,
         },
-        "twin": Object {
+        "twin": {
           "payload": null,
           "synchronizationStatus": 2,
         },
@@ -26,7 +26,7 @@ exports[`pnp matches snapshot 1`] = `
   />
   <BreadcrumbRoute
     breadcrumb={
-      Object {
+      {
         "name": "foo",
       }
     }

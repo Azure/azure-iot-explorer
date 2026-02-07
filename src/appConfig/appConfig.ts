@@ -15,12 +15,7 @@ export interface AppConfigInterface {
     developmentMode: boolean;
     hostMode: HostMode;
     authMode: AuthMode;
-    authServiceSettings?: {
-        authority: string;
-        client: string;
-    };
     azureResourceManagementEndpoint?: string;
-    controllerPort: number;
     telemetryConnString: string;
 }
 

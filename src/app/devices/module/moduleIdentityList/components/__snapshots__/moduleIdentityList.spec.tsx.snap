@@ -5,20 +5,20 @@ exports[`ModuleIdentityList snapshot matches snapshot when fetch failed 1`] = `
   <StyledCommandBarBase
     className="command"
     items={
-      Array [
-        Object {
+      [
+        {
           "ariaLabel": "moduleIdentity.command.add",
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "BoxAdditionSolid",
           },
           "key": "BoxAdditionSolid",
           "name": "moduleIdentity.command.add",
           "onClick": [Function],
         },
-        Object {
+        {
           "ariaLabel": "moduleIdentity.command.refresh",
           "disabled": false,
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "Refresh",
           },
           "key": "Refresh",
@@ -41,8 +41,8 @@ exports[`ModuleIdentityList snapshot matches snapshot when fetch failed 1`] = `
     >
       <ResizableDetailsList
         columns={
-          Array [
-            Object {
+          [
+            {
               "ariaLabel": "moduleIdentity.columns.moduleId",
               "fieldName": "moduleId",
               "key": "moduleId",
@@ -50,7 +50,7 @@ exports[`ModuleIdentityList snapshot matches snapshot when fetch failed 1`] = `
               "minWidth": 50,
               "name": "moduleIdentity.columns.moduleId",
             },
-            Object {
+            {
               "ariaLabel": "moduleIdentity.columns.connectionState",
               "fieldName": "connectionState",
               "key": "connectionState",
@@ -58,7 +58,7 @@ exports[`ModuleIdentityList snapshot matches snapshot when fetch failed 1`] = `
               "minWidth": 50,
               "name": "moduleIdentity.columns.connectionState",
             },
-            Object {
+            {
               "ariaLabel": "moduleIdentity.columns.connectionStateLastUpdated",
               "fieldName": "connectionStateLastUpdated",
               "key": "connectionStateLastUpdated",
@@ -66,7 +66,7 @@ exports[`ModuleIdentityList snapshot matches snapshot when fetch failed 1`] = `
               "minWidth": 150,
               "name": "moduleIdentity.columns.connectionStateLastUpdated",
             },
-            Object {
+            {
               "ariaLabel": "moduleIdentity.columns.lastActivityTime",
               "fieldName": "lastActivityTime",
               "key": "lastActivityTime",
@@ -74,7 +74,7 @@ exports[`ModuleIdentityList snapshot matches snapshot when fetch failed 1`] = `
               "minWidth": 150,
               "name": "moduleIdentity.columns.lastActivityTime",
             },
-            Object {
+            {
               "ariaLabel": "moduleIdentity.columns.modelId",
               "fieldName": "modelId",
               "key": "modelId",
@@ -84,7 +84,7 @@ exports[`ModuleIdentityList snapshot matches snapshot when fetch failed 1`] = `
             },
           ]
         }
-        items={Array []}
+        items={[]}
         onRenderItemColumn={[Function]}
         selectionMode={0}
       />
@@ -99,20 +99,20 @@ exports[`ModuleIdentityList snapshot matches snapshot while loading 1`] = `
   <StyledCommandBarBase
     className="command"
     items={
-      Array [
-        Object {
+      [
+        {
           "ariaLabel": "moduleIdentity.command.add",
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "BoxAdditionSolid",
           },
           "key": "BoxAdditionSolid",
           "name": "moduleIdentity.command.add",
           "onClick": [Function],
         },
-        Object {
+        {
           "ariaLabel": "moduleIdentity.command.refresh",
           "disabled": true,
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "Refresh",
           },
           "key": "Refresh",
@@ -135,8 +135,8 @@ exports[`ModuleIdentityList snapshot matches snapshot while loading 1`] = `
     >
       <ResizableDetailsList
         columns={
-          Array [
-            Object {
+          [
+            {
               "ariaLabel": "moduleIdentity.columns.moduleId",
               "fieldName": "moduleId",
               "key": "moduleId",
@@ -144,7 +144,7 @@ exports[`ModuleIdentityList snapshot matches snapshot while loading 1`] = `
               "minWidth": 50,
               "name": "moduleIdentity.columns.moduleId",
             },
-            Object {
+            {
               "ariaLabel": "moduleIdentity.columns.connectionState",
               "fieldName": "connectionState",
               "key": "connectionState",
@@ -152,7 +152,7 @@ exports[`ModuleIdentityList snapshot matches snapshot while loading 1`] = `
               "minWidth": 50,
               "name": "moduleIdentity.columns.connectionState",
             },
-            Object {
+            {
               "ariaLabel": "moduleIdentity.columns.connectionStateLastUpdated",
               "fieldName": "connectionStateLastUpdated",
               "key": "connectionStateLastUpdated",
@@ -160,7 +160,7 @@ exports[`ModuleIdentityList snapshot matches snapshot while loading 1`] = `
               "minWidth": 150,
               "name": "moduleIdentity.columns.connectionStateLastUpdated",
             },
-            Object {
+            {
               "ariaLabel": "moduleIdentity.columns.lastActivityTime",
               "fieldName": "lastActivityTime",
               "key": "lastActivityTime",
@@ -168,7 +168,7 @@ exports[`ModuleIdentityList snapshot matches snapshot while loading 1`] = `
               "minWidth": 150,
               "name": "moduleIdentity.columns.lastActivityTime",
             },
-            Object {
+            {
               "ariaLabel": "moduleIdentity.columns.modelId",
               "fieldName": "modelId",
               "key": "modelId",
@@ -178,7 +178,7 @@ exports[`ModuleIdentityList snapshot matches snapshot while loading 1`] = `
             },
           ]
         }
-        items={Array []}
+        items={[]}
         onRenderItemColumn={[Function]}
         selectionMode={0}
       />
@@ -193,20 +193,20 @@ exports[`ModuleIdentityList snapshot matches snapshot with moduleIdentityList 1`
   <StyledCommandBarBase
     className="command"
     items={
-      Array [
-        Object {
+      [
+        {
           "ariaLabel": "moduleIdentity.command.add",
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "BoxAdditionSolid",
           },
           "key": "BoxAdditionSolid",
           "name": "moduleIdentity.command.add",
           "onClick": [Function],
         },
-        Object {
+        {
           "ariaLabel": "moduleIdentity.command.refresh",
           "disabled": true,
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "Refresh",
           },
           "key": "Refresh",
@@ -229,8 +229,8 @@ exports[`ModuleIdentityList snapshot matches snapshot with moduleIdentityList 1`
     >
       <ResizableDetailsList
         columns={
-          Array [
-            Object {
+          [
+            {
               "ariaLabel": "moduleIdentity.columns.moduleId",
               "fieldName": "moduleId",
               "key": "moduleId",
@@ -238,7 +238,7 @@ exports[`ModuleIdentityList snapshot matches snapshot with moduleIdentityList 1`
               "minWidth": 50,
               "name": "moduleIdentity.columns.moduleId",
             },
-            Object {
+            {
               "ariaLabel": "moduleIdentity.columns.connectionState",
               "fieldName": "connectionState",
               "key": "connectionState",
@@ -246,7 +246,7 @@ exports[`ModuleIdentityList snapshot matches snapshot with moduleIdentityList 1`
               "minWidth": 50,
               "name": "moduleIdentity.columns.connectionState",
             },
-            Object {
+            {
               "ariaLabel": "moduleIdentity.columns.connectionStateLastUpdated",
               "fieldName": "connectionStateLastUpdated",
               "key": "connectionStateLastUpdated",
@@ -254,7 +254,7 @@ exports[`ModuleIdentityList snapshot matches snapshot with moduleIdentityList 1`
               "minWidth": 150,
               "name": "moduleIdentity.columns.connectionStateLastUpdated",
             },
-            Object {
+            {
               "ariaLabel": "moduleIdentity.columns.lastActivityTime",
               "fieldName": "lastActivityTime",
               "key": "lastActivityTime",
@@ -262,7 +262,7 @@ exports[`ModuleIdentityList snapshot matches snapshot with moduleIdentityList 1`
               "minWidth": 150,
               "name": "moduleIdentity.columns.lastActivityTime",
             },
-            Object {
+            {
               "ariaLabel": "moduleIdentity.columns.modelId",
               "fieldName": "modelId",
               "key": "modelId",
@@ -273,8 +273,8 @@ exports[`ModuleIdentityList snapshot matches snapshot with moduleIdentityList 1`
           ]
         }
         items={
-          Array [
-            Object {
+          [
+            {
               "authentication": null,
               "deviceId": "testDevice",
               "moduleId": "testModule",

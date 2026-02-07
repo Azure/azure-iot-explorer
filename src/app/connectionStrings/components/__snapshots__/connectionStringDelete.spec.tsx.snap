@@ -3,13 +3,13 @@
 exports[`ConnectionStringDelete matches snapshot hidden 1`] = `
 <Dialog
   dialogContentProps={
-    Object {
+    {
       "title": "connectionStrings.deleteConnection.title",
     }
   }
   hidden={true}
   modalProps={
-    Object {
+    {
       "isBlocking": true,
     }
   }
@@ -29,7 +29,7 @@ exports[`ConnectionStringDelete matches snapshot hidden 1`] = `
       value="connectionString"
     />
   </div>
-  <StyledDialogFooterBase>
+  <DialogFooter>
     <CustomizedPrimaryButton
       ariaLabel="connectionStrings.deleteConnection.yes.ariaLabel"
       onClick={[MockFunction]}
@@ -40,20 +40,20 @@ exports[`ConnectionStringDelete matches snapshot hidden 1`] = `
       onClick={[MockFunction]}
       text="connectionStrings.deleteConnection.no.label"
     />
-  </StyledDialogFooterBase>
+  </DialogFooter>
 </Dialog>
 `;
 
 exports[`ConnectionStringDelete matches snapshot visible 1`] = `
 <Dialog
   dialogContentProps={
-    Object {
+    {
       "title": "connectionStrings.deleteConnection.title",
     }
   }
   hidden={false}
   modalProps={
-    Object {
+    {
       "isBlocking": true,
     }
   }
@@ -73,7 +73,7 @@ exports[`ConnectionStringDelete matches snapshot visible 1`] = `
       value="connectionString"
     />
   </div>
-  <StyledDialogFooterBase>
+  <DialogFooter>
     <CustomizedPrimaryButton
       ariaLabel="connectionStrings.deleteConnection.yes.ariaLabel"
       onClick={[MockFunction]}
@@ -84,6 +84,6 @@ exports[`ConnectionStringDelete matches snapshot visible 1`] = `
       onClick={[MockFunction]}
       text="connectionStrings.deleteConnection.no.label"
     />
-  </StyledDialogFooterBase>
+  </DialogFooter>
 </Dialog>
 `;

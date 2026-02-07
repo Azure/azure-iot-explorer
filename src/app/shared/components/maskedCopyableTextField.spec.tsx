@@ -54,7 +54,7 @@ describe('MaskedCopyableTextField', () => {
     });
 
     describe('copyToClipboard', () => {
-        it('executes copyToClipboard', async done => {
+        it('executes copyToClipboard', async () => {
             const wrapper = mount(
                 <MaskedCopyableTextField
                     allowMask={false}
@@ -67,7 +67,6 @@ describe('MaskedCopyableTextField', () => {
             act(() => clipboardButton.props().onClick(undefined));
 
             expect(document.execCommand).toHaveBeenLastCalledWith('copy');
-            done();
         });
     });
 });

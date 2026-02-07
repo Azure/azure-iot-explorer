@@ -24,7 +24,7 @@ exports[`connectionString matches snapshot 1`] = `
       <CustomizedIconButton
         ariaLabel="connectionStrings.editConnectionCommand.ariaLabel"
         iconProps={
-          Object {
+          {
             "iconName": "EditSolid12",
           }
         }
@@ -34,7 +34,7 @@ exports[`connectionString matches snapshot 1`] = `
       <CustomizedIconButton
         ariaLabel="connectionStrings.deleteConnectionCommand.ariaLabel"
         iconProps={
-          Object {
+          {
             "iconName": "Delete",
           }
         }
@@ -65,7 +65,7 @@ exports[`connectionString matches snapshot 1`] = `
     </div>
     <CustomizedActionButton
       iconProps={
-        Object {
+        {
           "iconName": "Forward",
         }
       }

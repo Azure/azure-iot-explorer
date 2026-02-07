@@ -12,27 +12,27 @@ exports[`ModelRepositoryLocationList matches snapshot with all items 1`] = `
     renderList={[Function]}
     transitionDuration={300}
     values={
-      Array [
-        Object {
+      [
+        {
           "repositoryLocationType": "PUBLIC",
           "value": "",
         },
-        Object {
+        {
           "repositoryLocationType": "CONFIGURABLE",
           "value": "test.com",
         },
-        Object {
+        {
           "repositoryLocationType": "LOCAL",
           "value": "d:/myModels",
         },
-        Object {
+        {
           "repositoryLocationType": "DMR",
           "value": "c:/dtmi",
         },
       ]
     }
     voiceover={
-      Object {
+      {
         "canceled": [Function],
         "dropped": [Function],
         "item": [Function],
@@ -55,9 +55,9 @@ exports[`ModelRepositoryLocationList matches snapshot with no items 1`] = `
     renderItem={[Function]}
     renderList={[Function]}
     transitionDuration={300}
-    values={Array []}
+    values={[]}
     voiceover={
-      Object {
+      {
         "canceled": [Function],
         "dropped": [Function],
         "item": [Function],

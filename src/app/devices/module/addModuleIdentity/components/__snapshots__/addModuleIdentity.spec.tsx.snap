@@ -5,20 +5,20 @@ exports[`devices/components/addModuleIdentity snapshot matches snapshot while lo
   <StyledCommandBarBase
     className="command"
     items={
-      Array [
-        Object {
+      [
+        {
           "ariaLabel": "moduleIdentity.command.save",
           "disabled": true,
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "Save",
           },
           "key": "Save",
           "name": "moduleIdentity.command.save",
           "onClick": [Function],
         },
-        Object {
+        {
           "ariaLabel": "moduleIdentity.command.cancel",
-          "iconProps": Object {
+          "iconProps": {
             "iconName": "Cancel",
           },
           "key": "Cancel",
@@ -50,16 +50,16 @@ exports[`devices/components/addModuleIdentity snapshot matches snapshot while lo
         label="moduleIdentity.authenticationType.text"
         onChange={[Function]}
         options={
-          Array [
-            Object {
+          [
+            {
               "key": "sas",
               "text": "moduleIdentity.authenticationType.symmetricKey.type",
             },
-            Object {
+            {
               "key": "selfSigned",
               "text": "moduleIdentity.authenticationType.selfSigned.type",
             },
-            Object {
+            {
               "key": "certificateAuthority",
               "text": "moduleIdentity.authenticationType.ca.type",
             },

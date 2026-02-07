@@ -3,13 +3,13 @@
 exports[`SendCommandConfirmation matches snapshot hidden 1`] = `
 <Dialog
   dialogContentProps={
-    Object {
+    {
       "title": "deviceCommands.confirmSend.title",
     }
   }
   hidden={true}
   modalProps={
-    Object {
+    {
       "isBlocking": true,
     }
   }
@@ -18,7 +18,7 @@ exports[`SendCommandConfirmation matches snapshot hidden 1`] = `
   <div>
     deviceCommands.confirmSend.body
   </div>
-  <StyledDialogFooterBase>
+  <DialogFooter>
     <CustomizedPrimaryButton
       ariaLabel="deviceCommands.confirmSend.yes.ariaLabel"
       onClick={[MockFunction]}
@@ -29,20 +29,20 @@ exports[`SendCommandConfirmation matches snapshot hidden 1`] = `
       onClick={[MockFunction]}
       text="deviceCommands.confirmSend.no.label"
     />
-  </StyledDialogFooterBase>
+  </DialogFooter>
 </Dialog>
 `;
 
 exports[`SendCommandConfirmation matches snapshot visible 1`] = `
 <Dialog
   dialogContentProps={
-    Object {
+    {
       "title": "deviceCommands.confirmSend.title",
     }
   }
   hidden={false}
   modalProps={
-    Object {
+    {
       "isBlocking": true,
     }
   }
@@ -51,7 +51,7 @@ exports[`SendCommandConfirmation matches snapshot visible 1`] = `
   <div>
     deviceCommands.confirmSend.body
   </div>
-  <StyledDialogFooterBase>
+  <DialogFooter>
     <CustomizedPrimaryButton
       ariaLabel="deviceCommands.confirmSend.yes.ariaLabel"
       onClick={[MockFunction]}
@@ -62,6 +62,6 @@ exports[`SendCommandConfirmation matches snapshot visible 1`] = `
       onClick={[MockFunction]}
       text="deviceCommands.confirmSend.no.label"
     />
-  </StyledDialogFooterBase>
+  </DialogFooter>
 </Dialog>
 `;
