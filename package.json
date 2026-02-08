@@ -14,6 +14,10 @@
     "directories": {
       "buildResources": "icon"
     },
+    "asarUnpack": [
+      "node_modules/request-filtering-agent/**",
+      "node_modules/ipaddr.js/**"
+    ],
     "afterPack": "./scripts/flipFuses.js",
     "linux": {
       "category": "Utility",

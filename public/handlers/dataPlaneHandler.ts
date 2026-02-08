@@ -32,7 +32,14 @@ const getRequestFilteringAgent = async () => {
                 // Fallback: resolve via file URL for asar compatibility where bare specifier may not work
                 const path = require('path');
                 const url = require('url');
-                const modulePath = path.join(__dirname, '..', '..', 'node_modules', 'request-filtering-agent', 'lib', 'request-filtering-agent.js');
+                let modulePath = path.join(__dirname, '..', '..', 'node_modules', 'request-filtering-agent', 'lib', 'request-filtering-agent.js');
+                // On Linux, ESM dynamic import doesn't go through Electron's asar patches
+                if (process.platform === 'linux') {
+                    const asarSep = '.asar' + path.sep;
+                    if (modulePath.includes(asarSep)) {
+                        modulePath = modulePath.replace(asarSep, '.asar.unpacked' + path.sep);
+                    }
+                }
                 requestFilteringAgent = await dynamicImport(url.pathToFileURL(modulePath).href);
             } catch (error) {
                 // tslint:disable-next-line:no-console
