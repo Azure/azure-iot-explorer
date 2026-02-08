@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import fetch, { Response } from 'node-fetch';
+import * as ssrfFilter from 'ssrf-req-filter';
 import {
     validateAzureIoTHostname,
     sanitizeHeaders,
@@ -13,43 +14,6 @@ import { DataPlaneRequest, DataPlaneResponse } from '../interfaces/deviceInterfa
 
 const DEVICE_STATUS_HEADER = 'x-ms-command-statuscode';
 const SERVER_ERROR = 500;
-
-// Cache the dynamically imported module
-let requestFilteringAgent: any = null; // tslint:disable-line:no-any
-
-/**
- * Dynamically import request-filtering-agent (ESM module)
- * Uses Function constructor to prevent TypeScript from converting to require()
- * Tries bare specifier first (works in dev), then falls back to file:// URL for asar compatibility
- */
-const getRequestFilteringAgent = async () => {
-    if (!requestFilteringAgent) {
-        const dynamicImport = new Function('specifier', 'return import(specifier)');
-        try {
-            requestFilteringAgent = await dynamicImport('request-filtering-agent');
-        } catch {
-            try {
-                // Fallback: resolve via file URL for asar compatibility where bare specifier may not work
-                const path = require('path');
-                const url = require('url');
-                let modulePath = path.join(__dirname, '..', '..', 'node_modules', 'request-filtering-agent', 'lib', 'request-filtering-agent.js');
-                // On Linux, ESM dynamic import doesn't go through Electron's asar patches
-                if (process.platform === 'linux') {
-                    const asarSep = '.asar' + path.sep;
-                    if (modulePath.includes(asarSep)) {
-                        modulePath = modulePath.replace(asarSep, '.asar.unpacked' + path.sep);
-                    }
-                }
-                requestFilteringAgent = await dynamicImport(url.pathToFileURL(modulePath).href);
-            } catch (error) {
-                // tslint:disable-next-line:no-console
-                console.warn('Failed to load request-filtering-agent, SSRF protection disabled:', error);
-                return null;
-            }
-        }
-    }
-    return requestFilteringAgent;
-};
 
 /**
  * Handle data plane request via IPC
@@ -119,9 +83,6 @@ export const generateDataPlaneRequestBody = async (request: DataPlaneRequest) =>
 
     const url = `https://${hostname}/${encodeURIComponent(path)}${queryString}`;
 
-    // Dynamically import ESM module for SSRF protection
-    const rfaModule = await getRequestFilteringAgent();
-
     return {
         url,
         request: {
@@ -130,9 +91,9 @@ export const generateDataPlaneRequestBody = async (request: DataPlaneRequest) =>
             method: request.httpMethod.toUpperCase(),
             redirect: 'error' as const,  // Block all HTTP redirects (SSRF protection)
             timeout: 30000,  // 30 second timeout
-            // Use request-filtering-agent for SSRF protection if available
-            // Blocks requests to private IPs, loopback, link-local, IMDS, etc.
-            agent: rfaModule ? rfaModule.useAgent(url) : undefined,
+            // Use ssrf-req-filter for SSRF protection
+            // Blocks requests to private IPs, loopback, link-local, etc.
+            agent: ssrfFilter(url),
         }
     };
 };
