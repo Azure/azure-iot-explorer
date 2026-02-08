@@ -20,12 +20,26 @@ let requestFilteringAgent: any = null; // tslint:disable-line:no-any
 /**
  * Dynamically import request-filtering-agent (ESM module)
  * Uses Function constructor to prevent TypeScript from converting to require()
+ * Tries bare specifier first (works in dev), then falls back to file:// URL for asar compatibility
  */
 const getRequestFilteringAgent = async () => {
     if (!requestFilteringAgent) {
-        // Use Function constructor to create a true dynamic import that won't be transformed by TypeScript
         const dynamicImport = new Function('specifier', 'return import(specifier)');
-        requestFilteringAgent = await dynamicImport('request-filtering-agent');
+        try {
+            requestFilteringAgent = await dynamicImport('request-filtering-agent');
+        } catch {
+            try {
+                // Fallback: resolve via file URL for asar compatibility where bare specifier may not work
+                const path = require('path');
+                const url = require('url');
+                const modulePath = path.join(__dirname, '..', '..', 'node_modules', 'request-filtering-agent', 'lib', 'request-filtering-agent.js');
+                requestFilteringAgent = await dynamicImport(url.pathToFileURL(modulePath).href);
+            } catch (error) {
+                // tslint:disable-next-line:no-console
+                console.warn('Failed to load request-filtering-agent, SSRF protection disabled:', error);
+                return null;
+            }
+        }
     }
     return requestFilteringAgent;
 };
@@ -99,7 +113,7 @@ export const generateDataPlaneRequestBody = async (request: DataPlaneRequest) =>
     const url = `https://${hostname}/${encodeURIComponent(path)}${queryString}`;
 
     // Dynamically import ESM module for SSRF protection
-    const { useAgent } = await getRequestFilteringAgent();
+    const rfaModule = await getRequestFilteringAgent();
 
     return {
         url,
@@ -109,9 +123,9 @@ export const generateDataPlaneRequestBody = async (request: DataPlaneRequest) =>
             method: request.httpMethod.toUpperCase(),
             redirect: 'error' as const,  // Block all HTTP redirects (SSRF protection)
             timeout: 30000,  // 30 second timeout
-            // Use request-filtering-agent for SSRF protection
+            // Use request-filtering-agent for SSRF protection if available
             // Blocks requests to private IPs, loopback, link-local, IMDS, etc.
-            agent: useAgent(url),
+            agent: rfaModule ? rfaModule.useAgent(url) : undefined,
         }
     };
 };
