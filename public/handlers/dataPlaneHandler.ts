@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import fetch, { Response } from 'node-fetch';
+import * as ssrfFilter from 'ssrf-req-filter';
 import {
     validateAzureIoTHostname,
     sanitizeHeaders,
@@ -13,22 +14,6 @@ import { DataPlaneRequest, DataPlaneResponse } from '../interfaces/deviceInterfa
 
 const DEVICE_STATUS_HEADER = 'x-ms-command-statuscode';
 const SERVER_ERROR = 500;
-
-// Cache the dynamically imported module
-let requestFilteringAgent: any = null; // tslint:disable-line:no-any
-
-/**
- * Dynamically import request-filtering-agent (ESM module)
- * Uses Function constructor to prevent TypeScript from converting to require()
- */
-const getRequestFilteringAgent = async () => {
-    if (!requestFilteringAgent) {
-        // Use Function constructor to create a true dynamic import that won't be transformed by TypeScript
-        const dynamicImport = new Function('specifier', 'return import(specifier)');
-        requestFilteringAgent = await dynamicImport('request-filtering-agent');
-    }
-    return requestFilteringAgent;
-};
 
 /**
  * Handle data plane request via IPC
@@ -98,9 +83,6 @@ export const generateDataPlaneRequestBody = async (request: DataPlaneRequest) =>
 
     const url = `https://${hostname}/${encodeURIComponent(path)}${queryString}`;
 
-    // Dynamically import ESM module for SSRF protection
-    const { useAgent } = await getRequestFilteringAgent();
-
     return {
         url,
         request: {
@@ -109,9 +91,9 @@ export const generateDataPlaneRequestBody = async (request: DataPlaneRequest) =>
             method: request.httpMethod.toUpperCase(),
             redirect: 'error' as const,  // Block all HTTP redirects (SSRF protection)
             timeout: 30000,  // 30 second timeout
-            // Use request-filtering-agent for SSRF protection
-            // Blocks requests to private IPs, loopback, link-local, IMDS, etc.
-            agent: useAgent(url),
+            // Use ssrf-req-filter for SSRF protection
+            // Blocks requests to private IPs, loopback, link-local, etc.
+            agent: ssrfFilter(url),
         }
     };
 };
