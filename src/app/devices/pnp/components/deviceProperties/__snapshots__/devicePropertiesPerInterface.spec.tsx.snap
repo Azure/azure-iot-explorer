@@ -8,6 +8,7 @@ exports[`devicePropertiesPerInterface matches snapshot 1`] = `
     className="list-detail pnp-properties"
   >
     <ResizableDetailsList
+      ariaLabelForGrid="Data table"
       checkboxVisibility={2}
       columns={
         [
