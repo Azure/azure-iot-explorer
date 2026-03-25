@@ -143,6 +143,7 @@ export const DevicePropertiesPerInterface: React.FC<DevicePropertiesDataProps> =
                     items={props.twinAndSchema}
                     columns={getColumns()}
                     layoutMode={DetailsListLayoutMode.justified}
+                    ariaLabel={t(ResourceKeys.deviceProperties.propertiesTableAriaLabel)}
                 />
                 {showOverlay && <Overlay />}
                 {createReportedValuePanel()}

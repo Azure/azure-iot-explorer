@@ -50,7 +50,8 @@
         "buttons": {
             "resize": "Resize",
             "cancel": "Cancel"
-        }
+        },
+        "defaultAriaLabel": "Data table"
     },
     "header": {
         "applicationName": "Azure IoT Explorer",
@@ -481,6 +482,7 @@
         },
         "headerText": "Read-only properties",
         "noProperties": "ComponentName {{componentName}} contains no read-only property definitions",
+        "propertiesTableAriaLabel": "Device properties table with name, value, schema, and unit columns",
         "columns": {
             "name": "Name (Display Name / Description)",
             "value": "Value",
@@ -525,7 +527,8 @@
         },
         "panel": {
             "title": "Reported value"
-        }
+        },
+        "writablePropertiesTableAriaLabel": "Writable properties table with name, schema, unit, desired value, and reported value columns"
     },
     "deviceCommands": {
         "command" : {

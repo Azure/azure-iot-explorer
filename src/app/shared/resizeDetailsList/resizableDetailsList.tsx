@@ -8,10 +8,14 @@ import { ColumnActionsMode, ContextualMenu, DetailsList, IColumn, IContextualMen
 import { ResizeDetailsListDialog } from './dialog';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 
-export const ResizableDetailsList: React.FC<IDetailsListProps> = props => {
+export interface ResizableDetailsListProps extends IDetailsListProps {
+    ariaLabel?: string;
+}
+
+export const ResizableDetailsList: React.FC<ResizableDetailsListProps> = props => {
     const { t } = useTranslation();
     const { ariaLabelForSelectionColumn, ariaLabelForSelectAllCheckbox, checkButtonAriaLabel,
-            items, columns, selection, selectionMode, layoutMode, checkboxVisibility, className, onRenderItemColumn } = props;
+            items, columns, selection, selectionMode, layoutMode, checkboxVisibility, className, onRenderItemColumn, ariaLabel, ...restProps } = props;
 
     const [ isDialogHidden, setIsDialogHidden] = React.useState(true);
     const [ contextualMenuProps, setContextualMenuProps] = React.useState<IContextualMenuProps | undefined>(undefined);
@@ -60,6 +64,8 @@ export const ResizableDetailsList: React.FC<IDetailsListProps> = props => {
                 selection={selection}
                 selectionMode={selectionMode}
                 onRenderItemColumn={onRenderItemColumn}
+                ariaLabelForGrid={ariaLabel || t(ResourceKeys.resizableDetailsList.defaultAriaLabel)}
+                {...restProps}
             />
             {contextualMenuProps && <ContextualMenu {...contextualMenuProps} />}
             <ResizeDetailsListDialog

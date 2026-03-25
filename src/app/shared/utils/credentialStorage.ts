@@ -14,9 +14,9 @@ const CONN_STRINGS_KEY = 'connection-strings';
  */
 export const storeConnectionStrings = async (value: ConnectionStringWithExpiry[]): Promise<void> => {
     const serialized = JSON.stringify(value);
-    const credentialsApi = getCredentialsInterface();
 
     try {
+        const credentialsApi = getCredentialsInterface();
         const isAvailable = await credentialsApi.isEncryptionAvailable();
         if (isAvailable) {
             await credentialsApi.store(CONN_STRINGS_KEY, serialized);
@@ -38,9 +38,8 @@ export const storeConnectionStrings = async (value: ConnectionStringWithExpiry[]
  * with automatic migration from localStorage if needed.
  */
 export const getConnectionStrings = async (): Promise<ConnectionStringWithExpiry[]> => {
-    const credentialsApi = getCredentialsInterface();
-
     try {
+        const credentialsApi = getCredentialsInterface();
         const isAvailable = await credentialsApi.isEncryptionAvailable();
         if (isAvailable) {
             const encrypted = await credentialsApi.get(CONN_STRINGS_KEY);
@@ -74,9 +73,8 @@ export const getConnectionStrings = async (): Promise<ConnectionStringWithExpiry
  * Delete all connection strings from storage
  */
 export const deleteConnectionStrings = async (): Promise<void> => {
-    const credentialsApi = getCredentialsInterface();
-
     try {
+        const credentialsApi = getCredentialsInterface();
         await credentialsApi.delete(CONN_STRINGS_KEY);
     } catch (error) {
         // tslint:disable-next-line: no-console
