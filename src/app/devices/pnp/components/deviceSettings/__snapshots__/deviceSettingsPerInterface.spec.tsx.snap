@@ -5,7 +5,7 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
   className="pnp-detail-list pnp-properties scrollable-lg"
 >
   <ResizableDetailsList
-    ariaLabelForGrid="Data table"
+    ariaLabel="deviceSettings.writablePropertiesTableAriaLabel"
     ariaLabelForSelectAllCheckbox="deviceSettings.columns.selectAll"
     ariaLabelForSelectionColumn="deviceSettings.columns.toggleSelection"
     checkButtonAriaLabel="deviceSettings.columns.rowCheckBoxAriaLabel"
